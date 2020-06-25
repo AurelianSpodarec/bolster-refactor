@@ -2,7 +2,6 @@ import React from 'react';
 
 import CompanyMenuItemContainer from '../containers/CompanyMenuItemContainer';
 import DropdownMenuItemContainer from '../containers/DropdownMenuItemContainer';
-import CompanyDropdownMenuItems from './CompanyDropdownMenuItems';
 import MenuHeader from './MenuHeader';
 
 const CompanyMenu = ({
@@ -16,7 +15,7 @@ const CompanyMenu = ({
     openHelpScout,
     isClientAccess,
     handleGenerateQRCodesModal,
-    shouldRestrictPayments
+    shouldRestrictPayments,
 }) => (
     <>
         <div className="menu">
@@ -47,15 +46,9 @@ const CompanyMenu = ({
                     </CompanyMenuItemContainer>
 
                     <CompanyMenuItemContainer link="/company/tools/transfer-requests">
-                        {!!totalRequests && (
-                            <span className="number">{totalRequests}</span>
-                        )}
+                        {!!totalRequests && <span className="number">{totalRequests}</span>}
                         <i className="far fa-exchange-alt fa-fw icon" />
-                        <span
-                            className={`menu-text ${
-                                totalCredits ? 'large' : ''
-                            }`}
-                        >
+                        <span className={`menu-text ${totalCredits ? 'large' : ''}`}>
                             Requests &amp; Invites
                         </span>
                     </CompanyMenuItemContainer>
@@ -75,8 +68,6 @@ const CompanyMenu = ({
                     <CompanyMenuItemContainer link="/company/users-management/clients">
                         Client Access
                     </CompanyMenuItemContainer>
-
-                    <CompanyDropdownMenuItems />
                 </>
             )}
             {!shouldRestrictPayments && (
@@ -88,9 +79,7 @@ const CompanyMenu = ({
                     </CompanyMenuItemContainer>
                     <CompanyMenuItemContainer link="/company/subscription">
                         <i className="far fa-money-check fa-fw icon" />
-                        <span className="menu-text large">
-                            Subscription &amp; Credits
-                        </span>
+                        <span className="menu-text large">Subscription &amp; Credits</span>
                     </CompanyMenuItemContainer>
                 </>
             )}
@@ -99,20 +88,11 @@ const CompanyMenu = ({
                 <>
                     <MenuHeader title="Reports" />
 
-                    <CompanyMenuItemContainer
-                        onClick={dismissMessages}
-                        link="/company/reports"
-                    >
+                    <CompanyMenuItemContainer onClick={dismissMessages} link="/company/reports">
                         {/* <CompanyMenuItemContainer link="/company/reports"> */}
-                        {!!unreadCount && (
-                            <span className="number">{unreadCount}</span>
-                        )}
+                        {!!unreadCount && <span className="number">{unreadCount}</span>}
                         <i className="far fa-file-chart-pie fa-fw icon" />
-                        <span
-                            className={`menu-text ${
-                                unreadCount ? 'large' : ''
-                            }`}
-                        >
+                        <span className={`menu-text ${unreadCount ? 'large' : ''}`}>
                             My Company Reports
                         </span>
                     </CompanyMenuItemContainer>
@@ -149,11 +129,7 @@ const CompanyMenu = ({
                             <span className="number">{unreadMessageCount}</span>
                         )}
                         <i className="far fa-envelope fa-fw icon" />
-                        <span
-                            className={`menu-text ${
-                                unreadMessageCount ? 'large' : ''
-                            }`}
-                        >
+                        <span className={`menu-text ${unreadMessageCount ? 'large' : ''}`}>
                             Message Centre
                         </span>
                     </CompanyMenuItemContainer>
@@ -179,14 +155,9 @@ const CompanyMenu = ({
                     </CompanyMenuItemContainer>
                     <CompanyMenuItemContainer link="/company/approved-companies">
                         <i className="far fa-check-circle fa-fw icon" />
-                        <span className="menu-text">
-                            Bolster Approved Companies
-                        </span>
+                        <span className="menu-text">Bolster Approved Companies</span>
                     </CompanyMenuItemContainer>
-                    <CompanyMenuItemContainer
-                        link="https://vimeo.com/bolstersystems"
-                        external
-                    >
+                    <CompanyMenuItemContainer link="https://vimeo.com/bolstersystems" external>
                         <i className="far fa-video fa-fw icon" />
                         <span className="menu-text">User Guides</span>
                     </CompanyMenuItemContainer>

@@ -14,7 +14,7 @@ import {
     COMPANY_USER_ROLE_TYPES as USER_ROLE,
     FLOORPLAN_STATE_MESSAGES,
     RECTANGLE_MODES,
-    FURTHER_FILTRATION_OPTIONS
+    FURTHER_FILTRATION_OPTIONS,
 } from 'constants/companyAdmin/enums';
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 import updateFloorPlanConfirmed from 'actions/companyAdmin/drawings/sync/updateFloorPlanConfirmed';
@@ -47,7 +47,7 @@ class DrawingMapGeneralContainer extends Component {
         firstCorner: null,
         mode: ADD,
         currentTooltip: null,
-        shouldRestrictPayments: false
+        shouldRestrictPayments: false,
     };
 
     render() {
@@ -60,24 +60,17 @@ class DrawingMapGeneralContainer extends Component {
             centerLng,
             firstCorner,
             mode,
-            shouldRestrictPayments
+            shouldRestrictPayments,
         } = this.state;
-        const {
-            error,
-            drawing,
-            furtherFiltrationOption,
-            rectangles
-        } = this.props;
+        const { error, drawing, furtherFiltrationOption, rectangles } = this.props;
         const position = [centerLat, centerLng];
         const addPinPosition = [addPinLat, addPinLng];
         const cornerClicked = firstCorner;
         const isExcluding = +mode === EXCLUDE;
 
-        const updateMessage =
-            FLOORPLAN_STATE_MESSAGES[drawing.latestFloorplanState];
+        const updateMessage = FLOORPLAN_STATE_MESSAGES[drawing.latestFloorplanState];
 
-        const shouldShowPinSelectorOptions =
-            +furtherFiltrationOption === +PIN_SELECTOR;
+        const shouldShowPinSelectorOptions = +furtherFiltrationOption === +PIN_SELECTOR;
 
         const isExpired = moment(drawing.expiresOn).isBefore(moment.now());
 
@@ -112,9 +105,7 @@ class DrawingMapGeneralContainer extends Component {
                         history={this.props.history}
                         updating={drawing.isFloorplanUpdating}
                         updateMessage={updateMessage}
-                        shouldShowPinSelectorOptions={
-                            shouldShowPinSelectorOptions
-                        }
+                        shouldShowPinSelectorOptions={shouldShowPinSelectorOptions}
                         setMode={this.setMode}
                         rectangles={rectangles}
                         handleDelete={this.handleDelete}
@@ -142,12 +133,11 @@ class DrawingMapGeneralContainer extends Component {
             pinsFromAPI = [],
             handleChange,
             objectUsers,
-            companyUserID
+            companyUserID,
         } = this.props;
         if (objectUsers && objectUsers[companyUserID]) {
             this.setState({
-                shouldRestrictPayments:
-                    objectUsers[companyUserID].shouldRestrictPayments
+                shouldRestrictPayments: objectUsers[companyUserID].shouldRestrictPayments,
             });
         }
         const pinIDs = pinsFromAPI.map(({ id }) => id);
@@ -178,7 +168,7 @@ class DrawingMapGeneralContainer extends Component {
         fieldErrors,
         rectangles: prevRectangles,
         furtherFiltrationOption: prevOption,
-        objectUsers: prevUsers
+        objectUsers: prevUsers,
     }) => {
         const {
             drawing = {},
@@ -191,23 +181,16 @@ class DrawingMapGeneralContainer extends Component {
             postFilters,
             furtherFiltrationOption,
             removeAllRectangles,
-            users,
             objectUsers,
-            companyUserID
+            companyUserID,
         } = this.props;
         // re-fetch drawing every 5 seconds until the updated floorplan is retrieved
         if (postSuccess && !prevSuccess) fetchSingleDrawing(drawing.id);
         if (drawing.isFloorplanUpdating && !prevDrawing.isFloorplanUpdating) {
             // console.error('updating!!!!!');
-            this._floorplanInterval = setInterval(
-                () => fetchSingleDrawing(drawing.id),
-                5000
-            );
+            this._floorplanInterval = setInterval(() => fetchSingleDrawing(drawing.id), 5000);
         }
-        if (
-            fieldErrors.fromDateInclusive &&
-            moment(fromDateInclusive) <= moment(toDateInclusive)
-        ) {
+        if (fieldErrors.fromDateInclusive && moment(fromDateInclusive) <= moment(toDateInclusive)) {
             removeFieldError('fromDateInclusive');
             removeFieldError('toDateInclusive');
         }
@@ -234,14 +217,9 @@ class DrawingMapGeneralContainer extends Component {
             handleChange('floorID', String(drawing.floorID));
         }
 
-        if (
-            objectUsers &&
-            objectUsers[companyUserID] &&
-            !prevUsers[companyUserID]
-        ) {
+        if (objectUsers && objectUsers[companyUserID] && !prevUsers[companyUserID]) {
             this.setState({
-                shouldRestrictPayments:
-                    objectUsers[companyUserID].shouldRestrictPayments
+                shouldRestrictPayments: objectUsers[companyUserID].shouldRestrictPayments,
             });
         }
     };
@@ -299,7 +277,7 @@ class DrawingMapGeneralContainer extends Component {
 
         this.setState({
             addPinLat: -128,
-            addPinLng: 128
+            addPinLng: 128,
         });
     };
 
@@ -335,7 +313,7 @@ class DrawingMapGeneralContainer extends Component {
             .filter(user => user.type >= USER_ROLE.OPERATIVE)
             .map(({ id, userFirstName, userLastName, userEmail }) => ({
                 value: id,
-                text: `${userFirstName} ${userLastName} <${userEmail}>`
+                text: `${userFirstName} ${userLastName} <${userEmail}>`,
             }));
         return convertArrToObj(options, 'value');
     };
@@ -351,10 +329,7 @@ class DrawingMapGeneralContainer extends Component {
     };
 
     handleCancelPinSelector = () => {
-        const {
-            removeAllRectangles,
-            updateFurtherFiltrationOption
-        } = this.props;
+        const { removeAllRectangles, updateFurtherFiltrationOption } = this.props;
         updateFurtherFiltrationOption(FURTHER_FILTRATION_OPTIONS.NONE);
         removeAllRectangles();
     };
@@ -373,16 +348,16 @@ const mapStateToProps = (
                 filters: { pinIDs, templateID, companyUserIDs },
                 furtherFiltrationOption,
                 rectangles,
-                isFetching: isFetchingReports
-            }
+                isFetching: isFetchingReports,
+            },
         },
         shared: {
             decodeJWTReducer: {
-                jwtData: { companyUserID }
-            }
-        }
+                jwtData: { companyUserID },
+            },
+        },
     },
-    { match }
+    { match },
 ) => ({
     drawing: drawings[match.params.id] || {},
     coordinates,
@@ -400,7 +375,7 @@ const mapStateToProps = (
     furtherFiltrationOption,
     rectangles: Object.values(rectangles),
     companyUserIDs,
-    companyUserID
+    companyUserID,
 });
 
 const mapDispatchToProps = {
@@ -413,11 +388,9 @@ const mapDispatchToProps = {
     addRectangle,
     removeRectangle,
     removeAllRectangles,
-    updateFurtherFiltrationOption
+    updateFurtherFiltrationOption,
 };
 
 export default withRouter(
-    withUpdateOnChange(
-        connect(mapStateToProps, mapDispatchToProps)(DrawingMapGeneralContainer)
-    )
+    withUpdateOnChange(connect(mapStateToProps, mapDispatchToProps)(DrawingMapGeneralContainer)),
 );

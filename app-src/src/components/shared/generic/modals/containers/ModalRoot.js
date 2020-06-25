@@ -75,7 +75,26 @@ import {
     ADMIN_DELETE_INVOICE,
     DELETE_INVOICE,
     ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION,
-    GENERATE_QR_CODES
+    GENERATE_QR_CODES,
+    ADMIN_ADD_MANUFACTURER,
+    ADMIN_EDIT_MANUFACTURER,
+    ADMIN_ADD_OPTION_VALUE,
+    ADMIN_EDIT_OPTION_VALUE,
+    ADMIN_ADD_DOCUMENT_TO_OPTION_VALUE,
+    ADMIN_EDIT_OPTION_VALUE_DOCUMENT,
+    ADMIN_ADD_OPTION_VALUE_DOCUMENT_VERSION,
+    DOCUMENT_VIEW,
+    ADMIN_DELETE_OPTION_VALUE_DOCUMENT_VERSION,
+    COMPANY_ADD_MANUFACTURER,
+    COMPANY_EDIT_MANUFACTURER,
+    COMPANY_TOGGLE_MANUFACTURER,
+    COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE,
+    COMPANY_ADD_OPTION_VALUE,
+    COMPANY_EDIT_OPTION_VALUE,
+    COMPANY_ADD_DOCUMENT_TO_OPTION_VALUE,
+    COMPANY_EDIT_OPTION_VALUE_DOCUMENT,
+    COMPANY_ADD_OPTION_VALUE_DOCUMENT_VERSION,
+    COMPANY_DELETE_OPTION_VALUE_DOCUMENT_VERSION,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -154,6 +173,25 @@ import ConfirmDeleteInvoiceModalContainer from 'components/companyAdmin/invoices
 import AddCompanyAdminModalContainer from 'components/superAdmin/companies/singleCompany/containers/AddCompanyAdminModalContainer';
 import GenerateQRCodesModalContainer from './GenerateQRCodesModalContainer';
 import RistrictPaymentsModalContainer from './RistrictPaymentsModalContainer';
+import AdminAddManufacturerModal from 'components/superAdmin/pinOptions/addManufacturer/presentational/AddManufacturerModal';
+import AdminEditManufacturerModal from 'components/superAdmin/pinOptions/editManufacturer/presentational/EditManufacturerModal';
+import AdminAddOptionValueModal from 'components/superAdmin/pinOptions/addOptionValue/presentational/AddOptionValueModal';
+import AdminEditOptionValueModal from 'components/superAdmin/pinOptions/editOptionValue/presentational/EditOptionValueModal';
+import AdminAddDocumentToOptionValueModal from 'components/superAdmin/pinOptions/addDocumentToOptionValue/presentational/AddDocumentToOptionValueModal';
+import AdminEditOptionValueDocumentModal from 'components/superAdmin/pinOptions/editOptionValueDocument/presentational/EditOptionValueDocumentModal';
+import AdminAddNewDocumentVersionModal from 'components/superAdmin/pinOptions/addNewDocumentVersion/presentational/AddNewDocumentVersionModal';
+import DocumentViewModal from '../presentational/DocumentViewModal';
+import AdminConfirmDeleteDocumentVersionModalContainer from 'components/superAdmin/pinOptions/confirmDeleteDocumentVersion/containers/ConfirmDeleteDocumentVersionModalContainer';
+import AddManufacturerModal from 'components/companyAdmin/dropdownOptions/addManufacturer/presentational/AddManufacturerModal';
+import EditManufacturerModal from 'components/companyAdmin/dropdownOptions/editManufacturer/presentational/EditManufacturerModal';
+import ToggleManufacturerModalContainer from 'components/companyAdmin/dropdownOptions/toggleManufacturerModal/containers/ToggleManufacturerModalContainer';
+import ToggleManufacturerOptionValueModalContainer from 'components/companyAdmin/dropdownOptions/toggleManufacturerOptionValueModal/containers/ToggleManufacturerOptionValueModalContainer';
+import AddOptionValueModal from 'components/companyAdmin/dropdownOptions/addOptionValue/presentational/AddOptionValueModal';
+import EditOptionValueModal from 'components/companyAdmin/dropdownOptions/editOptionValue/presentational/EditOptionValueModal';
+import AddDocumentToOptionValueModal from 'components/companyAdmin/dropdownOptions/addDocumentToOptionValue/presentational/AddDocumentToOptionValueModal';
+import EditOptionValueDocumentModal from 'components/companyAdmin/dropdownOptions/editOptionValueDocument/presentational/EditOptionValueDocumentModal';
+import AddNewDocumentVersionModal from 'components/companyAdmin/dropdownOptions/addNewDocumentVersion/presentational/AddNewDocumentVersionModal';
+import ConfirmDeleteDocumentVersionModalContainer from 'components/companyAdmin/dropdownOptions/confirmDeleteDocumentVersion/containers/ConfirmDeleteDocumentVersionModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -229,7 +267,26 @@ const MODAL_COMPONENTS = {
     [ADMIN_DELETE_INVOICE]: SuperAdminConfirmDeleteInvoiceModalContainer,
     [DELETE_INVOICE]: ConfirmDeleteInvoiceModalContainer,
     [ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION]: AddMulitpleServicesToSubscriptionModalContainer,
-    [GENERATE_QR_CODES]: GenerateQRCodesModalContainer
+    [GENERATE_QR_CODES]: GenerateQRCodesModalContainer,
+    [ADMIN_ADD_MANUFACTURER]: AdminAddManufacturerModal,
+    [ADMIN_EDIT_MANUFACTURER]: AdminEditManufacturerModal,
+    [ADMIN_ADD_OPTION_VALUE]: AdminAddOptionValueModal,
+    [ADMIN_EDIT_OPTION_VALUE]: AdminEditOptionValueModal,
+    [ADMIN_ADD_DOCUMENT_TO_OPTION_VALUE]: AdminAddDocumentToOptionValueModal,
+    [ADMIN_EDIT_OPTION_VALUE_DOCUMENT]: AdminEditOptionValueDocumentModal,
+    [ADMIN_ADD_OPTION_VALUE_DOCUMENT_VERSION]: AdminAddNewDocumentVersionModal,
+    [DOCUMENT_VIEW]: DocumentViewModal,
+    [ADMIN_DELETE_OPTION_VALUE_DOCUMENT_VERSION]: AdminConfirmDeleteDocumentVersionModalContainer,
+    [COMPANY_ADD_MANUFACTURER]: AddManufacturerModal,
+    [COMPANY_EDIT_MANUFACTURER]: EditManufacturerModal,
+    [COMPANY_TOGGLE_MANUFACTURER]: ToggleManufacturerModalContainer,
+    [COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE]: ToggleManufacturerOptionValueModalContainer,
+    [COMPANY_ADD_OPTION_VALUE]: AddOptionValueModal,
+    [COMPANY_EDIT_OPTION_VALUE]: EditOptionValueModal,
+    [COMPANY_ADD_DOCUMENT_TO_OPTION_VALUE]: AddDocumentToOptionValueModal,
+    [COMPANY_EDIT_OPTION_VALUE_DOCUMENT]: EditOptionValueDocumentModal,
+    [COMPANY_ADD_OPTION_VALUE_DOCUMENT_VERSION]: AddNewDocumentVersionModal,
+    [COMPANY_DELETE_OPTION_VALUE_DOCUMENT_VERSION]: ConfirmDeleteDocumentVersionModalContainer,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
