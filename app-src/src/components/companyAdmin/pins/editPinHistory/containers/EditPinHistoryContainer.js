@@ -43,6 +43,7 @@ class EditPinHistoryContainer extends Component {
             fetchAllOptionValues,
             fetchSingleDrawing,
         } = this.props;
+
         fetchSinglePin(pinID, true).then(
             ({
                 payload: {
@@ -127,6 +128,8 @@ class EditPinHistoryContainer extends Component {
 
             // alters the add pin dropdown options reducer with the list of manufacturer option values that need to be included instead
             updateDrawingDropdownOptions(newOptions);
+            this.setState({ isReady: true });
+        } else {
             this.setState({ isReady: true });
         }
     };
