@@ -58,7 +58,7 @@ const CompanyReportsTableContainer = ({
     }
 
     function retryCompanyReport(id) {
-        retryReport(id).then(fetchCompanyReportsFull);
+        retryReport(id).then(fetchCompanyReports);
     }
 
     function handleDeleteAfterDownload(queueItem) {
