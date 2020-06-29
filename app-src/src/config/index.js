@@ -19,7 +19,7 @@ export const REPORT_VIEWER_URL =
 export const STRIPE_PUBLIC_KEY = 'pk_test_QUrrYsRQKFyb1Os4ler16ke1';
 // LEAVING THIS AS IT IS FOR THE MOMENT BUT IT MAY NOT WORK - IF AREA NEEDED TO WORK ON A TICKET SPEAK TO JAKE
 export const INVOICE_GEN_URL =
-    'https://6eixv6n0wf.execute-api.eu-west-1.amazonaws.com/staging/bolster-invoice-gen-staging';
+    "https://6eixv6n0wf.execute-api.eu-west-1.amazonaws.com/staging/bolster-invoice-gen-staging";
 
 // - Staging
 // export const API_URL = 'https://api.company.bolster-staging.com';
