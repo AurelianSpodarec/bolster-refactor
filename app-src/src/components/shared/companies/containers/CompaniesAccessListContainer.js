@@ -73,12 +73,11 @@ class CompaniesAccessListContainer extends Component {
                 permissionID,
             };
             // prevent duplicates
-            console.log({ companyServices });
             const shouldAddService =
                 !!serviceID &&
                 !companyServices.some(
                     serv =>
-                        serv.serviceID === serviceID && serv.accessType === thisService.accessType
+                        serv.serviceID === serviceID && serv.accessType === thisService.accessType,
                 );
 
             const newServices = [...companyServices];
