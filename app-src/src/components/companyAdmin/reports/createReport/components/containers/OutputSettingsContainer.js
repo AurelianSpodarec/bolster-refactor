@@ -30,6 +30,7 @@ class OutputSettingsContainer extends Component {
                 isCSVGeneration,
                 isFloorplanGeneration,
                 includeFloorplan,
+                isOAndMManualGeneration,
             },
             options: { showHidden, sortBy },
         } = this.props;
@@ -43,6 +44,7 @@ class OutputSettingsContainer extends Component {
                 isFloorplanGeneration={isFloorplanGeneration}
                 isPDFGeneration={isPDFGeneration}
                 includeFloorplan={includeFloorplan}
+                isOAndMManualGeneration={isOAndMManualGeneration}
                 sortByOptions={Object.values(sortByOptions)}
                 selectSortBy={sortByOptions[sortBy]}
                 showHidden={showHidden}
@@ -55,32 +57,53 @@ class OutputSettingsContainer extends Component {
 
     componentDidMount = () => {
         const {
-            filters: { isPDFGeneration, isCSVGeneration, isFloorplanGeneration },
+            filters: {
+                isPDFGeneration,
+                isCSVGeneration,
+                isFloorplanGeneration,
+                isOAndMManualGeneration,
+            },
             addFieldError,
         } = this.props;
-        if (!isPDFGeneration && !isCSVGeneration && !isFloorplanGeneration) {
-            addFieldError('isFloorplanGeneration', 'Must select at least one option');
+        if (
+            !isPDFGeneration &&
+            !isCSVGeneration &&
+            !isFloorplanGeneration &&
+            !isOAndMManualGeneration
+        ) {
+            addFieldError('isOAndMManualGeneration', 'Must select at least one option');
         }
     };
 
     componentDidUpdate = prevProps => {
         const {
-            filters: { isPDFGeneration, isCSVGeneration, isFloorplanGeneration },
+            filters: {
+                isPDFGeneration,
+                isCSVGeneration,
+                isFloorplanGeneration,
+                isOAndMManualGeneration,
+            },
             addFieldError,
             removeFieldError,
         } = this.props;
 
         // error handling for report type
-        const modeSelected = !!(isPDFGeneration || isCSVGeneration || isFloorplanGeneration);
+        const modeSelected = !!(
+            isPDFGeneration ||
+            isCSVGeneration ||
+            isFloorplanGeneration ||
+            isOAndMManualGeneration
+        );
         const prevModeSelected = !!(
             prevProps.filters.isPDFGeneration ||
             prevProps.filters.isCSVGeneration ||
-            prevProps.filters.isFloorplanGeneration
+            prevProps.filters.isFloorplanGeneration ||
+            prevProps.filters.isOAndMManualGeneration
         );
         if (!modeSelected && prevModeSelected) {
-            addFieldError('isFloorplanGeneration', 'Must select at least one option');
+            addFieldError('isOAndMManualGeneration', 'Must select at least one option');
         } else if (modeSelected && !prevModeSelected) {
-            removeFieldError('isFloorplanGeneration');
+            removeFieldError('isOAndMManualGeneration');
         }
     };
 
@@ -162,7 +185,7 @@ class OutputSettingsContainer extends Component {
         }
         if (buildingID) {
             availableDrawings = availableDrawings.filter(
-                drawing => +drawing.buildingID === +buildingID
+                drawing => +drawing.buildingID === +buildingID,
             );
         }
         if (floorID) {

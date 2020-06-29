@@ -50,6 +50,7 @@ class AddPinQuestionRoute extends Component {
             edit,
             resetPinAnswer,
             isHistory,
+            drawing,
         } = this.props;
 
         const showPreReq = this.checkIfShouldShowByPreReq();
@@ -58,6 +59,7 @@ class AddPinQuestionRoute extends Component {
 
         const fieldSize = `size-lg-${isImage ? '12' : '6'}`;
         const questionName = isImage ? '' : question.name;
+        const isManufacturingEnabledForDrawing = drawing.isManufacturingEnabled;
 
         if (showPreReq) {
             const SpecificField = fieldTypes[question.type + ''] || fieldTypes[SINGLE_LINE];
@@ -92,6 +94,7 @@ class AddPinQuestionRoute extends Component {
                         isHistory={isHistory}
                         originalDropdownAns={this.state.originalDropdownAns}
                         originalDropdownMultiAns={this.state.originalDropdownMultiAns}
+                        isManufacturingEnabledForDrawing={isManufacturingEnabledForDrawing}
                     />
                 </Field>
             );
@@ -209,6 +212,8 @@ class AddPinQuestionRoute extends Component {
             edit,
             historyID,
             template,
+            areManufacturerOptionsIncluded,
+            optionValues,
         } = this.props;
 
         const isShowingFromPrereq = this.checkIfShouldShowByPreReq();
@@ -252,8 +257,13 @@ class AddPinQuestionRoute extends Component {
         }
 
         const isDoneFetchingPins = prevProps.isFetchingPins && !isFetchingPins && !isEmpty(pins);
+        const isDoneIncludingManufacturerOptions =
+            prevProps.areManufacturerOptionsIncluded &&
+            !areManufacturerOptionsIncluded &&
+            !isEmpty(optionValues);
 
         // ? only applies to edit
+
         if (isDoneFetchingPins && edit && history.id && oldAnswers) {
             const oldAnswersArray = Object.values(oldAnswers);
 
@@ -284,7 +294,11 @@ class AddPinQuestionRoute extends Component {
             const hasTemplateAppeared = !prevProps.template && !!template;
             const hasTemplateChanged =
                 !!prevProps.template && prevProps.template.id !== template.id;
-            const shouldReset = hasTemplateAppeared || hasTemplateChanged || isDoneFetchingPins;
+            const shouldReset =
+                hasTemplateAppeared ||
+                hasTemplateChanged ||
+                isDoneFetchingPins ||
+                isDoneIncludingManufacturerOptions;
 
             if (shouldReset) {
                 this.handlePrefillOrReset();
@@ -445,19 +459,27 @@ class AddPinQuestionRoute extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            addPinDropdownOptions: { dropdownOptions },
+            manufacturersOptionValuesReducer: {
+                manufacturersOptionValues,
+                isFetching: isFetchingOptionValues,
+            },
+            addPinDropdownOptions: { dropdownOptions, areManufacturerOptionsIncluded },
             addPinFormReducer: { answers, status },
             templateQuestionsReducer: { questions },
             pinAnswersReducer: { answers: oldAnswers },
             pinHistoriesReducer: { histories },
             pinsReducer: { pins, isFetching: isFetchingPins },
+            drawingsReducer: { drawings },
         },
         shared: {
             fieldErrorsReducer: { fieldErrors },
         },
     },
-    { match: { params } },
+    { match: { params, url } },
 ) => ({
+    optionValues: manufacturersOptionValues,
+    areManufacturerOptionsIncluded,
+    isFetchingOptionValues,
     dropdownOptions,
     answers,
     questions,
@@ -466,6 +488,10 @@ const mapStateToProps = (
     pins,
     isFetchingPins,
     fieldErrors,
+    drawing:
+        (url.endsWith('add-history') || url.includes('edit-history')) && pins[params.id]
+            ? drawings[pins[params.id].drawingID]
+            : drawings[params.id],
     // only applies to edit history
     history: histories[params.historyID] || {},
     historyID: params.historyID,

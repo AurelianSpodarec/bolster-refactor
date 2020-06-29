@@ -8,7 +8,8 @@ const CheckboxList = ({
     handleChange,
     name,
     error,
-    classes
+    classes,
+    allOptionsDisabled,
 }) => (
     <div className={'checkbox-list size-lg-12'}>
         {options &&
@@ -18,18 +19,14 @@ const CheckboxList = ({
                     value={value}
                     name={name}
                     text={text}
-                    disabled={disabled}
-                    checked={
-                        selectedOptions.includes(String(value)) && !disabled
-                    }
+                    disabled={disabled || allOptionsDisabled}
+                    checked={selectedOptions.includes(String(value)) && !disabled}
                     handleChange={handleChange}
                     classes={classes}
                     fromList
                 />
             ))}
-        {error && error.length && (
-            <p className="error red-text text-accent-4">{error}</p>
-        )}
+        {error && error.length && <p className="error red-text text-accent-4">{error}</p>}
     </div>
 );
 

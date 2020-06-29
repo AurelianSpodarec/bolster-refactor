@@ -2,14 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import MenuItemContainer from '../containers/MenuItemContainer';
+import AdminPinOptionsMenuItems from './AdminPinOptionsMenuItems';
+
 // import DropdownMenuItemContainer from '../containers/DropdownMenuItemContainer';
 
 const SuperAdminMenu = ({ logout }) => (
     <>
         <div className="menu">
             <MenuItemContainer link="/admin" base>
-                <i className="fa fa-home icon" />{' '}
-                <span className="menu-text">Dashboard</span>
+                <i className="fa fa-home icon" /> <span className="menu-text">Dashboard</span>
             </MenuItemContainer>
 
             <MenuItemContainer link="/admin/company-reports">
@@ -18,17 +19,14 @@ const SuperAdminMenu = ({ logout }) => (
             </MenuItemContainer>
 
             <MenuItemContainer link="/admin/invoices">
-                <i className="fa fa-file icon" />{' '}
-                <span className="menu-text">Invoices</span>
+                <i className="fa fa-file icon" /> <span className="menu-text">Invoices</span>
             </MenuItemContainer>
 
             <MenuItemContainer link="/admin/companies">
-                <i className="fa fa-users icon" />{' '}
-                <span className="menu-text">Companies</span>
+                <i className="fa fa-users icon" /> <span className="menu-text">Companies</span>
             </MenuItemContainer>
             <MenuItemContainer link="/admin/users">
-                <i className="fa fa-user icon" />{' '}
-                <span className="menu-text">Users</span>
+                <i className="fa fa-user icon" /> <span className="menu-text">Users</span>
             </MenuItemContainer>
             <MenuItemContainer link="/admin/move-tool">
                 <i className="fa fa-layer-group icon" />{' '}
@@ -39,9 +37,10 @@ const SuperAdminMenu = ({ logout }) => (
                 <span className="menu-text">Merge Tool</span>
             </MenuItemContainer>
             <MenuItemContainer link="/admin/services">
-                <i className="fa fa-folder-open icon" />{' '}
-                <span className="menu-text">Services</span>
+                <i className="fa fa-folder-open icon" /> <span className="menu-text">Services</span>
             </MenuItemContainer>
+
+            <AdminPinOptionsMenuItems />
             <MenuItemContainer link="/admin/enquiries">
                 <i className="far fa-phone icon" />{' '}
                 <span className="menu-text">User Enquiries</span>

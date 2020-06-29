@@ -9,6 +9,7 @@ import SinglePin from '../presentational/SinglePin';
 import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
 import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
 import fetchAllPinsForDrawing from 'actions/companyAdmin/pins/async/fetchAllPinsForDrawing.js';
+import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 
 class SinglePinContainer extends Component {
     state = { isLoading: true };
@@ -19,7 +20,8 @@ class SinglePinContainer extends Component {
             pinId,
             fetchSinglePinData,
             fetchSinglePin,
-            fetchPinsForInspectionLog
+            fetchPinsForInspectionLog,
+            fetchAllOptionValues,
         } = this.props;
 
         let drawingID = null;
@@ -31,16 +33,21 @@ class SinglePinContainer extends Component {
             .then(() => {
                 this.setState({ isLoading: false });
                 fetchPinsForInspectionLog(drawingID, pinId);
+                fetchAllOptionValues();
             });
     };
 }
 
 const mapStateToProps = (
-    { companyAdmin: { pinsReducer: { pins } } },
-    { match: { params } }
+    {
+        companyAdmin: {
+            pinsReducer: { pins },
+        },
+    },
+    { match: { params } },
 ) => ({
     pinId: params.id,
-    pin: pins[params.id]
+    pin: pins[params.id],
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -49,17 +56,13 @@ const mapDispatchToProps = dispatch => ({
             dispatch(fetchPinTemplates(id)),
             dispatch(fetchCompanyUsers()),
             dispatch(fetchDrawingTemplates(drawingID)),
-            dispatch(fetchDrawingDropdownOptions(drawingID))
+            dispatch(fetchDrawingDropdownOptions(drawingID)),
         ]);
     },
     fetchSinglePin: id => dispatch(fetchSinglePin(id)),
     fetchPinsForInspectionLog: (id, pinIDToKeep) =>
-        dispatch(fetchAllPinsForDrawing(id, pinIDToKeep))
+        dispatch(fetchAllPinsForDrawing(id, pinIDToKeep)),
+    fetchAllOptionValues: () => dispatch(fetchAllOptionValues()),
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(SinglePinContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SinglePinContainer));
