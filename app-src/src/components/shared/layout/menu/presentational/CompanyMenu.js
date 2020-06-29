@@ -2,7 +2,6 @@ import React from 'react';
 
 import CompanyMenuItemContainer from '../containers/CompanyMenuItemContainer';
 import DropdownMenuItemContainer from '../containers/DropdownMenuItemContainer';
-import CompanyDropdownMenuItems from './CompanyDropdownMenuItems';
 import MenuHeader from './MenuHeader';
 
 const CompanyMenu = ({
@@ -69,8 +68,6 @@ const CompanyMenu = ({
                     <CompanyMenuItemContainer link="/company/users-management/clients">
                         Client Access
                     </CompanyMenuItemContainer>
-
-                    <CompanyDropdownMenuItems />
                 </>
             )}
             {!shouldRestrictPayments && (

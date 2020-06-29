@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+
+import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
+import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
+import {
+    createManufacturerOptionList,
+    createOptionValuesList,
+    createPreselectedManufacturersList,
+    createPreselectedOptionValuesList,
+    createHierarchyPreselectedManufacturersList,
+    removeUnusedManufacturerDefaults,
+} from 'helpers/manufacturers';
 
 import CreateBuildingsForm from '../presentational/CreateBuildingsForm';
 import createBuildings from 'actions/companyAdmin/buildings/async/createBuildings';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
-import { useMultipleHierarchies } from 'helpers/hooks';
+import { useMultipleHierarchies, usePrevious } from 'helpers/hooks';
 import createBuilding from 'actions/companyAdmin/buildings/async/createBuilding';
+import {
+    DROPDOWN_OPTIONS,
+    DROPDOWN_OPTION_MANUFACTURER_ENABLED,
+} from 'constants/companyAdmin/enums';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import { isObjEmpty } from 'helpers/generic';
 
 const CreateBuildingsFormContainer = ({
     siteID,
@@ -15,7 +32,16 @@ const CreateBuildingsFormContainer = ({
     createBuilding,
     createBuildings,
     updateHierarchyAddState,
-    isUsingBolsterLabels
+    isUsingBolsterLabels,
+    fetchManufacturersByPinOptionType,
+    fetchAllOptionValues,
+    isFetching,
+    manufacturers,
+    optionValues,
+    subscriptionServiceIDs,
+    site,
+    useManufacturingByDefault,
+    error,
 }) => {
     const [
         buildings,
@@ -23,28 +49,136 @@ const CreateBuildingsFormContainer = ({
         addBuilding,
         removeBuilding,
         getKeys,
-        getPostBody
+        getPostBody,
+        // eslint-disable-next-line no-unused-vars
+        _,
+        setInitialManufacturerBuildingOptions,
     ] = useMultipleHierarchies({
         name: '',
         location: '',
         isAlertShowing: false,
         message: '',
-        dateToSend: ''
+        dateToSend: '',
+        isManufacturingInherited: false,
+        setManufacturersForHierarchy: false,
+        manufacturerOptions: [],
+        selectedManufacturerOptions: [],
+        selectedOptionValues: [],
+        optionValuesOptions: {},
     });
+
+    const [initialOptions, setInitialOptions] = useState({
+        isManufacturingInherited: false,
+        setManufacturersForHierarchy: false,
+        manufacturerOptions: [],
+        selectedManufacturerOptions: [],
+        selectedOptionValues: [],
+        optionValuesOptions: {},
+    });
+
+    const [showManufacturingOptions, setShowManufacturingOptions] = useState(true);
+
+    const [areOptionsLoaded, setAreOptionsLoaded] = useState(false);
+
+    const prevProps = usePrevious({ isFetching });
+
+    useEffect(() => {
+        // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before adding a site.
+        async function getPinOptions() {
+            const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
+                return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option];
+            });
+
+            const fn = function fetchManufacturers(pinOptionType) {
+                return fetchManufacturersByPinOptionType(pinOptionType);
+            };
+
+            const actions = pinOptionTypes.map(fn);
+
+            await Promise.all(actions).then(() => {
+                fetchAllOptionValues();
+            });
+        }
+        getPinOptions();
+    }, [fetchManufacturersByPinOptionType, fetchAllOptionValues]);
+
+    useEffect(() => {
+        if (prevProps.isFetching && !isFetching) {
+            const isManufacturingInherited = site.isManufacturingEnabled;
+
+            const initialOptions = {
+                isManufacturingInherited,
+                setManufacturersForHierarchy: null,
+                optionValuesOptions: null,
+                selectedOptionValues: null,
+                manufacturerOptions: null,
+                selectedManufacturerOptions: null,
+            };
+
+            if (isManufacturingInherited) {
+                // prefill options from hierarchy above
+
+                initialOptions.setManufacturersForHierarchy = true;
+                initialOptions.optionValuesOptions = createOptionValuesList(
+                    optionValues,
+                    subscriptionServiceIDs,
+                );
+                initialOptions.selectedOptionValues = site.optionValueIDs.map(id => String(id));
+
+                initialOptions.manufacturerOptions = createManufacturerOptionList(manufacturers);
+                initialOptions.selectedManufacturerOptions = createHierarchyPreselectedManufacturersList(
+                    initialOptions.manufacturerOptions,
+                    optionValues,
+                    initialOptions.selectedOptionValues,
+                );
+                setShowManufacturingOptions(false);
+            } else {
+                // set default prefills as per the company admin options
+                initialOptions.setManufacturersForHierarchy = useManufacturingByDefault;
+                initialOptions.optionValuesOptions = createOptionValuesList(
+                    optionValues,
+                    subscriptionServiceIDs,
+                );
+                initialOptions.selectedOptionValues = createPreselectedOptionValuesList(
+                    initialOptions.optionValuesOptions,
+                );
+                initialOptions.manufacturerOptions = createManufacturerOptionList(manufacturers);
+                initialOptions.selectedManufacturerOptions = createPreselectedManufacturersList(
+                    initialOptions.manufacturerOptions,
+                );
+            }
+
+            setInitialOptions(initialOptions);
+            setInitialManufacturerBuildingOptions(initialOptions);
+            setAreOptionsLoaded(true);
+        }
+    }, [isFetching]);
+
     return (
-        <CreateBuildingsForm
-            buildings={Object.values(buildings)}
-            updateBuilding={updateBuilding}
-            addBuilding={addBuilding}
-            removeBuilding={removeBuilding}
-            buildingIDs={getKeys()}
-            getKeys
-            siteID={siteID}
-            hideModal={hideModal}
-            handleClose={handleClose}
-            handleSubmit={handleSubmit}
-            isUsingBolsterLabels={isUsingBolsterLabels}
-        />
+        <BlockContainer
+            isEmpty={isObjEmpty(manufacturers) || isObjEmpty(optionValues) || !areOptionsLoaded}
+            isFetching={isFetching || !areOptionsLoaded}
+            error={error}
+            contentClass="no-padding"
+        >
+            <CreateBuildingsForm
+                buildings={Object.values(buildings)}
+                updateBuilding={updateBuilding}
+                addBuilding={addBuilding}
+                removeBuilding={removeBuilding}
+                buildingIDs={getKeys()}
+                getKeys
+                siteID={siteID}
+                siteName={site.name}
+                hideModal={hideModal}
+                handleClose={handleClose}
+                handleSubmit={handleSubmit}
+                isUsingBolsterLabels={isUsingBolsterLabels}
+                initialOptions={initialOptions}
+                showManufacturingOptions={showManufacturingOptions}
+                setShowManufacturingOptions={setShowManufacturingOptions}
+            />
+        </BlockContainer>
     );
 
     function handleSubmit() {
@@ -57,8 +191,15 @@ const CreateBuildingsFormContainer = ({
                 location,
                 isAlertShowing,
                 dateToSend,
-                message
+                message,
+                setManufacturersForHierarchy,
             } = building;
+
+            const optionValueIDs = removeUnusedManufacturerDefaults(building);
+
+            const manufacturingEnabledOptions = initialOptions.isManufacturingInherited
+                ? {}
+                : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
 
             if (isAlertShowing) {
                 createBuilding({
@@ -66,18 +207,54 @@ const CreateBuildingsFormContainer = ({
                     location,
                     siteID,
                     dateToSend,
-                    message
+                    message,
+                    ...manufacturingEnabledOptions,
                 });
             } else {
                 createBuilding({
                     name,
                     location,
-                    siteID
+                    siteID,
+                    ...manufacturingEnabledOptions,
                 });
             }
         }
+
         if (buildings.length > 1) {
-            createBuildings({ buildings, siteID });
+            const formattedBuildings = buildings.map(building => {
+                const {
+                    name,
+                    location,
+                    isAlertShowing,
+                    dateToSend,
+                    message,
+                    setManufacturersForHierarchy,
+                } = building;
+
+                const optionValueIDs = removeUnusedManufacturerDefaults(building);
+
+                const manufacturingEnabledOptions = initialOptions.isManufacturingInherited
+                    ? {}
+                    : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
+
+                return isAlertShowing
+                    ? {
+                          name,
+                          location,
+                          siteID,
+                          dateToSend,
+                          message,
+                          ...manufacturingEnabledOptions,
+                      }
+                    : {
+                          name,
+                          location,
+                          siteID,
+                          ...manufacturingEnabledOptions,
+                      };
+            });
+
+            createBuildings({ buildings: formattedBuildings, siteID });
         }
         hideModal();
     }
@@ -87,16 +264,51 @@ const CreateBuildingsFormContainer = ({
         updateHierarchyAddState(false);
     }
 };
+
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            sitesReducer: { siteError, updatedSiteID, sites },
+            companySettingsReducer: {
+                companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
+            },
+            manufacturersReducer: {
+                manufacturers,
+                isFetching: isFetchingManufacturers,
+                error: manufacturersError,
+            },
+            manufacturersOptionValuesReducer: {
+                manufacturersOptionValues,
+                isFetching: isFetchingOptionValues,
+                error: optionValuesError,
+            },
+            subscriptionsReducer: {
+                subscriptions: { serviceIDs: subscriptionServiceIDs },
+            },
+        },
+    },
+    { siteID },
+) => ({
+    isUsingBolsterLabels,
+    error: siteError || manufacturersError || optionValuesError,
+    site: sites[siteID],
+    updatedSiteID,
+    manufacturers,
+    optionValues: manufacturersOptionValues,
+    isFetching: isFetchingManufacturers || isFetchingOptionValues,
+    useManufacturingByDefault,
+    subscriptionServiceIDs,
+});
+
 const mapDispatchToProps = {
     createBuilding,
     createBuildings,
     hideModal,
-    updateHierarchyAddState
+    updateHierarchyAddState,
+    fetchManufacturersByPinOptionType,
+    fetchAllOptionValues,
 };
 
 export default withRouter(
-    connect(
-        null,
-        mapDispatchToProps
-    )(CreateBuildingsFormContainer)
+    connect(mapStateToProps, mapDispatchToProps)(CreateBuildingsFormContainer),
 );

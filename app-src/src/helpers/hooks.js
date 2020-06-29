@@ -26,16 +26,23 @@ export const useMultipleHierarchies = hierarchyShape => {
         });
     }
 
-    function addHierarchy() {
+    function addHierarchy(initialOptions) {
         const newID = uuid();
-        setState({ ...state, [newID]: { ...hierarchyShape, id: newID } });
+
+        if (initialOptions) {
+            setState({ ...state, [newID]: { ...hierarchyShape, ...initialOptions, id: newID } });
+        } else {
+            setState({ ...state, [newID]: { ...hierarchyShape, id: newID } });
+        }
     }
 
     function deleteHierarchy(id) {
         // eslint-disable-next-line no-unused-vars
         const { [id]: removed, ...newState } = state;
+
         setState(newState);
     }
+
     function updateState(name, value) {
         // * This is to split the field validations up
         const [id, fieldName] = name.split('.*.');
@@ -49,7 +56,30 @@ export const useMultipleHierarchies = hierarchyShape => {
         return state;
     }
 
-    return [state, updateState, addHierarchy, deleteHierarchy, getKeys, getPostBody, getState];
+    function setInitialHierarchyManufacturerOptions(initialOptions, id) {
+        const isInitialSet = !id;
+
+        if (isInitialSet) {
+            // for the first building of the form
+            const formState = Object.entries(state);
+            let [buildingID, buildingState] = formState[0];
+
+            const newState = { [buildingID]: { ...buildingState, ...initialOptions } };
+
+            setState(newState);
+        }
+    }
+
+    return [
+        state,
+        updateState,
+        addHierarchy,
+        deleteHierarchy,
+        getKeys,
+        getPostBody,
+        getState,
+        setInitialHierarchyManufacturerOptions,
+    ];
 };
 
 export function usePrevious(value) {

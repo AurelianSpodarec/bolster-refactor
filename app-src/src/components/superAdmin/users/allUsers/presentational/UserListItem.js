@@ -1,20 +1,43 @@
-import React from 'react';
+import React from "react";
 
-import Roles from './Roles';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import Roles from "./Roles";
+import DateTimeContainer from "components/shared/dateTime/containers/DateTimeContainer";
+import { DATE_TIME_IDS } from "constants/companyAdmin/enums";
+import BlockButtonWrapper from "components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper";
+import { Link } from "react-router-dom";
 
 const UserListItem = ({
     user,
     handleShowEditUserModal,
-    handleShowEditUserPasswordModal
+    handleShowEditUserPasswordModal,
 }) => (
     <tr>
         <td>{`${user.firstName} ${user.lastName}`}</td>
         <td>{user.email}</td>
         <td>{user.phoneNumber}</td>
+
         <Roles roles={user.roles} />
+        <td>
+            {user.clientAccessCreatedByCompanies.length ? (
+                user.clientAccessCreatedByCompanies.map((company, i, arr) => {
+                    const isTheLastCompany = arr.length - 1 === i;
+                    return (
+                        <>
+                            <Link
+                                key={company.companyID}
+                                className="link"
+                                to={`/admin/companies/${company.companyID}`}
+                            >
+                                {company.name}
+                            </Link>
+                            {!isTheLastCompany && <span>, </span>}
+                        </>
+                    );
+                })
+            ) : (
+                <span>N/A</span>
+            )}
+        </td>
         <td>
             <DateTimeContainer
                 date={user.createdOn}
