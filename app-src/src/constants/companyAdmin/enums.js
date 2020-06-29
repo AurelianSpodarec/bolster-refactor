@@ -190,9 +190,9 @@ export const VAT_TYPES = {
 };
 
 export const VAT_TYPE_NAME = {
-    "1": "GB",
-    "2": "EU",
-    "3": "Outside EU",
+    '1': 'GB',
+    '2': 'Europe',
+    '3': 'Outside Europe',
 };
 
 //Report generator

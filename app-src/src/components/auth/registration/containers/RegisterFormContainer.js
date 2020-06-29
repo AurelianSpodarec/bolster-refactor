@@ -34,7 +34,7 @@ class RegisterFormContainer extends Component {
         'Company.timezone': null,
         'Company.dateFormatID': null,
         'Company.vatType': null,
-        terms: false
+        terms: false,
     };
 
     render() {
@@ -43,8 +43,8 @@ class RegisterFormContainer extends Component {
         const dateFormats = this._formatDateFormats();
         const vatOptions = [
             { label: 'GB', value: VAT_TYPES.GB },
-            { label: 'EU', value: VAT_TYPES.EU },
-            { label: 'Outside EU', value: VAT_TYPES.OUTSIDEEU }
+            { label: 'Europe', value: VAT_TYPES.EU },
+            { label: 'Outside Europe', value: VAT_TYPES.OUTSIDEEU },
         ];
 
         return (
@@ -80,8 +80,7 @@ class RegisterFormContainer extends Component {
 
     _handleVatTypeChange = vatType => this.setState({ vatType });
 
-    handleColourSelect = ({ hex }) =>
-        this.setState({ 'Company.colourCode': hex });
+    handleColourSelect = ({ hex }) => this.setState({ 'Company.colourCode': hex });
 
     handleSubmit = e => {
         e.preventDefault();
@@ -113,7 +112,7 @@ class RegisterFormContainer extends Component {
                 lastName: lastName,
                 email: email,
                 phoneNumber: phoneNumber,
-                password: password
+                password: password,
             },
             company: {
                 name,
@@ -128,7 +127,7 @@ class RegisterFormContainer extends Component {
                 vatCode,
                 dateFormatID,
                 timezone,
-            }
+            },
         };
 
         this.props.postRegister(postBody);
@@ -138,14 +137,14 @@ class RegisterFormContainer extends Component {
         const { timezones } = this.props;
         return sortTimezones(timezones).map(({ id, name, offset }) => ({
             value: id,
-            label: `${name} (${offset})`
+            label: `${name} (${offset})`,
         }));
     };
 
     _formatDateFormats = () =>
         this.props.dateFormats.map(({ id, example, momentDateTimeFormat }) => ({
             value: id,
-            label: `${momentDateTimeFormat} (eg. ${example})`
+            label: `${momentDateTimeFormat} (eg. ${example})`,
         }));
 
     componentDidMount = () => {
@@ -192,14 +191,14 @@ const mapStateToProps = ({
     shared: {
         timeReducer: { timeZones, dateFormats },
         registerReducer: { error, postSuccess },
-        loginReducer: { postSuccess: loginSuccess }
-    }
+        loginReducer: { postSuccess: loginSuccess },
+    },
 }) => ({
     timezones: Object.values(timeZones) || [],
     dateFormats: Object.values(dateFormats) || [],
     error,
     postSuccess,
-    loginSuccess
+    loginSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -208,12 +207,7 @@ const mapDispatchToProps = dispatch => ({
     postRegister: postBody => dispatch(postRegister(postBody)),
     postLogin: (email, password) => dispatch(postLogin(email, password)),
     addFieldError: (field, err) => dispatch(addFieldError(field, err)),
-    removeFieldError: field => dispatch(removeFieldError(field))
+    removeFieldError: field => dispatch(removeFieldError(field)),
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(RegisterFormContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RegisterFormContainer));
