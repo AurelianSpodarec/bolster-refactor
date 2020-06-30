@@ -22,12 +22,13 @@ class AttachDocumentFormContainer extends Component {
         agreeanceEveryXDays: 0,
         // date selector
         startOn: undefined,
-        endOn: undefined
+        endOn: undefined,
     };
 
     render = () => {
         const { filesUploading, backUrl } = this.props;
         const serviceOptions = this._getServicesOptions();
+        const showMoreServicesMesssage = serviceOptions.some(option => option.disabled === true);
 
         return (
             <AttachDocumentForm
@@ -42,6 +43,7 @@ class AttachDocumentFormContainer extends Component {
                 validateDatePicker={this.validateDatePicker}
                 backUrl={backUrl}
                 filesUploading={filesUploading}
+                showMoreServicesMesssage={showMoreServicesMesssage}
             />
         );
     };
@@ -59,13 +61,13 @@ class AttachDocumentFormContainer extends Component {
         return services.map(({ id, name }) => ({
             value: id,
             text: name,
-            disabled: !subscriptions.includes(id)
+            disabled: !subscriptions.includes(id),
         }));
     };
 
     handleCheckboxChange = name => {
         this.setState(prevState => ({
-            [name]: !prevState[name]
+            [name]: !prevState[name],
         }));
     };
 
@@ -85,7 +87,7 @@ class AttachDocumentFormContainer extends Component {
             } = this.state;
             const postBody = {
                 ...body,
-                serviceIDs: serviceIDs
+                serviceIDs: serviceIDs,
             };
             createDocument(hierarchyType, hierarchyID, postBody);
         }
@@ -96,28 +98,25 @@ const mapStateToProps = (
     {
         companyAdmin: { servicesReducer, subscriptionsReducer, documentsReducer },
         shared: {
-            filesUploadingReducer: { filesUploading }
-        }
+            filesUploadingReducer: { filesUploading },
+        },
     },
-    { match }
+    { match },
 ) => ({
     filesUploading,
     isFetching: servicesReducer.isFetching || subscriptionsReducer.isFetching,
     services: Object.values(servicesReducer.services),
     subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
     hierarchyID: match.params.id,
-    postSuccess: documentsReducer.postSuccess
+    postSuccess: documentsReducer.postSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
     createDocument: (type, id, postBody) => {
         dispatch(createDocument(type, id, postBody));
-    }
+    },
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(AttachDocumentFormContainer)
+    connect(mapStateToProps, mapDispatchToProps)(AttachDocumentFormContainer),
 );

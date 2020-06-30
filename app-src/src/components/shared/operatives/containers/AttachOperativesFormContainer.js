@@ -14,18 +14,19 @@ class AttachOperativesFormContainer extends Component {
     state = {
         // companyUserID: '',
         companyUserIDs: [],
-        serviceIDs: []
+        serviceIDs: [],
     };
 
     render() {
         const {
             //  companyUserID,
             companyUserIDs,
-            serviceIDs
+            serviceIDs,
         } = this.state;
         const userOptions = this._getUserOptions();
         const serviceOptions = this._getServicesOptions();
         const { isFetching, error } = this.props;
+        const showMoreServicesMesssage = serviceOptions.some(option => option.disabled === true);
 
         return (
             <BlockContainer
@@ -43,6 +44,7 @@ class AttachOperativesFormContainer extends Component {
                     handleMultiselectChange={this.handleMultiselectChange}
                     handleSubmit={this.handleSubmit}
                     companyUserIDs={companyUserIDs}
+                    showMoreServicesMesssage={showMoreServicesMesssage}
                 />
             </BlockContainer>
         );
@@ -52,20 +54,17 @@ class AttachOperativesFormContainer extends Component {
 
     componentDidUpdate = prevProps => {
         const { postSuccess, history, redirectUrl } = this.props;
-        if (!prevProps.postSuccess && postSuccess)
-            return history.replace(redirectUrl);
+        if (!prevProps.postSuccess && postSuccess) return history.replace(redirectUrl);
     };
 
     _getUserOptions = () => {
         const { operativeUsers } = this.props;
 
-        const options = operativeUsers.map(
-            ({ id, userFirstName, userLastName, userEmail }) => ({
-                value: id,
-                text: `${userFirstName} ${userLastName} <${userEmail}>`,
-                label: `${userFirstName} ${userLastName} <${userEmail}>`
-            })
-        );
+        const options = operativeUsers.map(({ id, userFirstName, userLastName, userEmail }) => ({
+            value: id,
+            text: `${userFirstName} ${userLastName} <${userEmail}>`,
+            label: `${userFirstName} ${userLastName} <${userEmail}>`,
+        }));
 
         return convertArrToObj(options, 'value');
     };
@@ -75,7 +74,7 @@ class AttachOperativesFormContainer extends Component {
         return services.map(({ id, name }) => ({
             value: id,
             text: name,
-            disabled: !subscriptions.includes(id)
+            disabled: !subscriptions.includes(id),
         }));
     };
 
@@ -108,11 +107,11 @@ const mapStateToProps = (
                 operatives,
                 isFetching: fetchingOps,
                 error: opsError,
-                postSuccess
-            }
-        }
+                postSuccess,
+            },
+        },
     },
-    { match: { params, url }, operativeUsers }
+    { match: { params, url }, operativeUsers },
 ) => ({
     redirectUrl: url.replace('/add-operative', ''),
     hierarchyID: params.id,
@@ -122,20 +121,15 @@ const mapStateToProps = (
     isFetching: isFetching || fetchingOps,
     error: error || opsError,
     postSuccess,
-    drawingUserIDs: Object.values(operatives).map(
-        ({ companyUserID }) => companyUserID
-    )
+    drawingUserIDs: Object.values(operatives).map(({ companyUserID }) => companyUserID),
 });
 
 const mapDispatchToProps = {
     addOperative,
     fetchCompanyUsers,
-    addOperatives
+    addOperatives,
 };
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(AttachOperativesFormContainer)
+    connect(mapStateToProps, mapDispatchToProps)(AttachOperativesFormContainer),
 );

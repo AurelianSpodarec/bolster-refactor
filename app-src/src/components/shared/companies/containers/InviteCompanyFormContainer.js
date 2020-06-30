@@ -7,7 +7,7 @@ import addCompanyPermissions from 'actions/companyAdmin/companiesPermissions/asy
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import {
     TEMPLATE_USAGE_RULES_VALUES as USAGE_RULES,
-    TEMPLATE_USAGE_RULES
+    TEMPLATE_USAGE_RULES,
 } from 'constants/companyAdmin/enums';
 import { enumFormat } from 'helpers/generic';
 
@@ -15,7 +15,7 @@ class InviteCompanyFormContainer extends Component {
     state = {
         companyCode: '',
         serviceIDs: [],
-        templateUsageRule: USAGE_RULES.USE_ANY
+        templateUsageRule: USAGE_RULES.USE_ANY,
     };
 
     render() {
@@ -23,6 +23,7 @@ class InviteCompanyFormContainer extends Component {
         const { serviceIDs, templateUsageRule } = this.state;
         const serviceOptions = this._getServicesOptions();
         const { error, hierarchyType } = this.props;
+        const showMoreServicesMesssage = serviceOptions.some(option => option.disabled === true);
 
         return (
             <BlockContainer error={error}>
@@ -35,6 +36,7 @@ class InviteCompanyFormContainer extends Component {
                     hierarchyType={hierarchyType}
                     templateRules={templateRules}
                     templateUsageRule={templateUsageRule}
+                    showMoreServicesMesssage={showMoreServicesMesssage}
                 />
             </BlockContainer>
         );
@@ -50,7 +52,7 @@ class InviteCompanyFormContainer extends Component {
         return services.map(({ id, name }) => ({
             value: id,
             text: name,
-            disabled: !subscriptions.includes(id)
+            disabled: !subscriptions.includes(id),
         }));
     };
 
@@ -58,16 +60,12 @@ class InviteCompanyFormContainer extends Component {
 
     handleSubmit = () => {
         const { companyCode, serviceIDs, templateUsageRule } = this.state;
-        const {
-            hierarchyType,
-            hierarchyID,
-            addCompanyPermissions
-        } = this.props;
+        const { hierarchyType, hierarchyID, addCompanyPermissions } = this.props;
 
         const postBody = {
             companyCode,
             serviceIDs,
-            templateUsageRule
+            templateUsageRule,
         };
 
         addCompanyPermissions(hierarchyType, hierarchyID, postBody);
@@ -79,24 +77,19 @@ const mapStateToProps = (
         companyAdmin: {
             servicesReducer: { services },
             subscriptionsReducer: { subscriptions },
-            companiesPermissionsReducer: { postSuccess, error }
-        }
+            companiesPermissionsReducer: { postSuccess, error },
+        },
     },
-    { match: { url, params } }
+    { match: { url, params } },
 ) => ({
     hierarchyID: params.id,
     redirectUrl: url.replace('/invite-company', ''),
     services: Object.values(services),
     subscriptions: subscriptions.serviceIDs || [],
     success: postSuccess,
-    error
+    error,
 });
 
 const mapDispatchToProps = { addCompanyPermissions };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(InviteCompanyFormContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InviteCompanyFormContainer));
