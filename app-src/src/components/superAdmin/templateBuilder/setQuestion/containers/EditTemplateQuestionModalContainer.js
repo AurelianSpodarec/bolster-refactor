@@ -28,6 +28,14 @@ class TemplateQuestionModalContainer extends Component {
             handlePrefillStatusChange,
             handlePrefillStatusValueChange,
         } = this.props;
+        const showtatusPrefillOptions =
+            +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.CHECKBOX ||
+            +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.NUMBER ||
+            +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.MULTI_LINE ||
+            +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.SINGLE_LINE ||
+            +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.RADIO
+                ? true
+                : false;
         return (
             <TemplateQuestionFormModal
                 {...fields}
@@ -42,6 +50,7 @@ class TemplateQuestionModalContainer extends Component {
                 action="Edit"
                 handlePrefillStatusChange={handlePrefillStatusChange}
                 handlePrefillStatusValueChange={handlePrefillStatusValueChange}
+                showtatusPrefillOptions={showtatusPrefillOptions}
             />
         );
     }
