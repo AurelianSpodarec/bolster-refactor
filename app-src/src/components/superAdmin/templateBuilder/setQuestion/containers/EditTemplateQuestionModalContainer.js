@@ -28,7 +28,7 @@ class TemplateQuestionModalContainer extends Component {
             handlePrefillStatusChange,
             handlePrefillStatusValueChange,
         } = this.props;
-        const showtatusPrefillOptions =
+        const showStatusPrefillOptions =
             +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.CHECKBOX ||
             +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.NUMBER ||
             +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.MULTI_LINE ||
@@ -50,7 +50,7 @@ class TemplateQuestionModalContainer extends Component {
                 action="Edit"
                 handlePrefillStatusChange={handlePrefillStatusChange}
                 handlePrefillStatusValueChange={handlePrefillStatusValueChange}
-                showtatusPrefillOptions={showtatusPrefillOptions}
+                showStatusPrefillOptions={showStatusPrefillOptions}
             />
         );
     }
@@ -62,7 +62,23 @@ class TemplateQuestionModalContainer extends Component {
         if (questionStatusPrefills && Object.keys(questionStatusPrefills).length) {
             sortedPrefilStatuses = Object.keys(questionStatusPrefills);
 
-            updateQuestionFields({ ...question, prefillStatuses: sortedPrefilStatuses });
+            if (question.questionType === QUESTION_TYPE_NUMBERS.CHECKBOX) {
+                const convertedPrefillVals = {};
+
+                for (const key in questionStatusPrefills) {
+                    const value = questionStatusPrefills[key];
+
+                    convertedPrefillVals[key] = value === 'true';
+                }
+
+                updateQuestionFields({
+                    ...question,
+                    prefillStatuses: sortedPrefilStatuses,
+                    statusPrefills: convertedPrefillVals,
+                });
+            } else {
+                updateQuestionFields({ ...question, prefillStatuses: sortedPrefilStatuses });
+            }
         } else {
             updateQuestionFields(question);
         }

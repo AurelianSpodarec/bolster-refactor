@@ -38,7 +38,7 @@ export default function (WrappedComponent) {
                 fields: { statusPrefills },
                 updateQuestionField,
             } = this.props;
-
+            console.log({ value, prefillStatus });
             updateQuestionField('statusPrefills', updateObj(statusPrefills, prefillStatus, value));
         };
 

@@ -36,7 +36,7 @@ const TemplateQuestionFormModal = ({
     statusPrefills,
     handlePrefillStatusChange,
     handlePrefillStatusValueChange,
-    showtatusPrefillOptions,
+    showStatusPrefillOptions,
     ...otherFields
 }) => {
     return (
@@ -130,7 +130,7 @@ const TemplateQuestionFormModal = ({
                         handleChange={handleInputChange}
                     />
                 </Field>
-                {showtatusPrefillOptions && (
+                {showStatusPrefillOptions && (
                     <div className="dropdown-create  size-lg-12">
                         <Field name="Prefill Based on status?">
                             <MultiSelect

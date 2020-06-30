@@ -26,7 +26,7 @@ const AddTemplateQuestionModalContainer = ({
             +value !== QUESTION_TYPE_NUMBERS.STATIC_IMAGE,
     );
 
-    const showtatusPrefillOptions =
+    const showStatusPrefillOptions =
         +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.CHECKBOX ||
         +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.NUMBER ||
         +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.MULTI_LINE ||
@@ -49,7 +49,7 @@ const AddTemplateQuestionModalContainer = ({
             handlePrefillStatusChange={handlePrefillStatusChange}
             handlePrefillStatusValueChange={handlePrefillStatusValueChange}
             action="Add"
-            showtatusPrefillOptions={showtatusPrefillOptions}
+            showStatusPrefillOptions={showStatusPrefillOptions}
         />
     );
 
@@ -63,7 +63,6 @@ const AddTemplateQuestionModalContainer = ({
             sort: _getSort(),
             ...getQuestionData(),
         };
-        console.log(newQuestion);
         setQuestion(newQuestion);
     }
 
