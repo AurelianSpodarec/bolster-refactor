@@ -25,6 +25,16 @@ const AddTemplateQuestionModalContainer = ({
             +value !== QUESTION_TYPE_NUMBERS.STATUS &&
             +value !== QUESTION_TYPE_NUMBERS.STATIC_IMAGE,
     );
+
+    const showtatusPrefillOptions =
+        +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.CHECKBOX ||
+        +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.NUMBER ||
+        +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.MULTI_LINE ||
+        +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.SINGLE_LINE ||
+        +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.RADIO
+            ? true
+            : false;
+
     return (
         <TemplateQuestionFormModal
             {...fields}
@@ -39,6 +49,7 @@ const AddTemplateQuestionModalContainer = ({
             handlePrefillStatusChange={handlePrefillStatusChange}
             handlePrefillStatusValueChange={handlePrefillStatusValueChange}
             action="Add"
+            showtatusPrefillOptions={showtatusPrefillOptions}
         />
     );
 

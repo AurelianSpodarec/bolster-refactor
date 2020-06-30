@@ -9,7 +9,7 @@ import { convertArrToObj } from 'helpers/generic';
 import resetQuestionFields from 'actions/superAdmin/templateBuilder/sync/resetQuestionFields';
 import updateQuestionFields from 'actions/superAdmin/templateBuilder/sync/updateQuestionFields';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
-import { isEmpty, updateObj, removeObjItem } from 'helpers/generic';
+import { updateObj, removeObjItem } from 'helpers/generic';
 
 export default function (WrappedComponent) {
     class WithSetQuestion extends React.Component {

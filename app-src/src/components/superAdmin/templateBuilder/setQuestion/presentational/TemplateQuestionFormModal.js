@@ -14,6 +14,7 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 import Select from 'components/shared/generic/form/presentational/Select';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
 
 const TemplateQuestionFormModal = ({
     questionTypeOptions,
@@ -35,6 +36,7 @@ const TemplateQuestionFormModal = ({
     statusPrefills,
     handlePrefillStatusChange,
     handlePrefillStatusValueChange,
+    showtatusPrefillOptions,
     ...otherFields
 }) => {
     return (
@@ -128,30 +130,54 @@ const TemplateQuestionFormModal = ({
                         handleChange={handleInputChange}
                     />
                 </Field>
-                <div className="dropdown-create  size-lg-12">
-                    <Field name="Prefill Based on status?">
-                        <MultiSelect
-                            search
-                            options={statusOptions}
-                            value={prefillStatuses}
-                            name={'prefillStatuses'}
-                            onChange={handlePrefillStatusChange}
-                        />
-                    </Field>
-                    {prefillStatuses.length
-                        ? prefillStatuses.map((prefillStatus, index) => (
-                              <Field name={`${PIN_STATUS_TYPES[prefillStatus]} Value`} key={index}>
-                                  <TextInputContainer
-                                      name="statusPrefills"
-                                      handleChange={(name, value) => {
-                                          handlePrefillStatusValueChange(prefillStatus, value);
-                                      }}
-                                      value={statusPrefills[prefillStatus]}
-                                  />
-                              </Field>
-                          ))
-                        : ''}
-                </div>
+                {showtatusPrefillOptions && (
+                    <div className="dropdown-create  size-lg-12">
+                        <Field name="Prefill Based on status?">
+                            <MultiSelect
+                                search
+                                options={statusOptions}
+                                value={prefillStatuses}
+                                name={'prefillStatuses'}
+                                onChange={handlePrefillStatusChange}
+                            />
+                        </Field>
+                        {+questionType.value === QUESTION_TYPE_NUMBERS.CHECKBOX &&
+                        prefillStatuses.length
+                            ? prefillStatuses.map((prefillStatus, index) => (
+                                  <Field
+                                      name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}
+                                      key={index}
+                                  >
+                                      <CheckboxContainer
+                                          name="statusPrefills"
+                                          checked={statusPrefills[prefillStatus]}
+                                          handleChange={(name, value) => {
+                                              handlePrefillStatusValueChange(prefillStatus, value);
+                                          }}
+                                      />
+                                  </Field>
+                              ))
+                            : ''}
+
+                        {prefillStatuses.length &&
+                        +questionType.value !== QUESTION_TYPE_NUMBERS.CHECKBOX
+                            ? prefillStatuses.map((prefillStatus, index) => (
+                                  <Field
+                                      name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}
+                                      key={index}
+                                  >
+                                      <TextInputContainer
+                                          name="statusPrefills"
+                                          handleChange={(name, value) => {
+                                              handlePrefillStatusValueChange(prefillStatus, value);
+                                          }}
+                                          value={statusPrefills[prefillStatus]}
+                                      />
+                                  </Field>
+                              ))
+                            : ''}
+                    </div>
+                )}
 
                 <BlockButtonWrapper>
                     <button className="button green">
