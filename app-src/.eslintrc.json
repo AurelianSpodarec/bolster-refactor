@@ -15,7 +15,7 @@
     "plugins": ["react"],
     "rules": {
         "linebreak-style": ["error", "unix"],
-        "quotes": ["error", "single"],
+        "quotes": ["error", "single", { "avoidEscape": true}],
         "semi": ["error", "always"],
         "react/prop-types": 0,
         "no-unused-vars": [2, { "vars": "all", "args": "after-used" }],
