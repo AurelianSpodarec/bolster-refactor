@@ -68,8 +68,8 @@ class EditSettingsFormContainer extends Component {
 
         const vatOptions = [
             { label: 'GB', value: VAT_TYPES.GB },
-            { label: 'EU', value: VAT_TYPES.EU },
-            { label: 'Outside EU', value: VAT_TYPES.OUTSIDEEU },
+            { label: 'Europe', value: VAT_TYPES.EU },
+            { label: 'Outside Europe', value: VAT_TYPES.OUTSIDEEU },
         ];
 
         const siteSortOptions = enumFormat(DEFAULT_SITES_SORT_NAMES);
