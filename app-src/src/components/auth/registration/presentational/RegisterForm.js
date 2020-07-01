@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { HuePicker } from 'react-color';
 
 import { VAT_TYPES } from 'constants/companyAdmin/enums';
 
@@ -16,7 +15,6 @@ import Select from 'components/shared/generic/form/presentational/Select';
 const RegisterForm = ({
     handleSubmit,
     handleChange,
-    handleColourSelect,
     timezoneOptions,
     'User.email': email,
     'User.password': password,

@@ -9,6 +9,8 @@ import BolsterLabelExample from 'components/shared/generic/form/presentational/B
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
+import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
+import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
 const AddSiteForm = ({
     handleSubmit,
@@ -22,8 +24,13 @@ const AddSiteForm = ({
     postcode,
     isUsingBolsterLabels,
     isAlertShowing,
+    setManufacturersForSite,
     message,
-    dateToSend
+    dateToSend,
+    selectedManufacturerOptions,
+    manufacturerOptions,
+    optionValuesOptions,
+    selectedOptionValues,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -84,9 +91,7 @@ const AddSiteForm = ({
                 </Field>
             </div>
         </div>
-        {isUsingBolsterLabels && (
-            <BolsterLabelExample name={name} hierarchy="Site" />
-        )}
+        {isUsingBolsterLabels && <BolsterLabelExample name={name} hierarchy="Site" />}
 
         <div className="size-lg-12">
             <div className="size-lg-6 size-md-12">
@@ -126,6 +131,67 @@ const AddSiteForm = ({
                 </div>
             </div>
         )}
+        <div className="size-lg-12">
+            <div className="size-lg-6 size-md-12">
+                <Field labelClasses="no-capitalise" name="Set manufacturer(s) for site?">
+                    <CheckboxContainer
+                        checked={setManufacturersForSite}
+                        name="setManufacturersForSite"
+                        text=""
+                        handleChange={handleInputChange}
+                    />
+                </Field>
+            </div>
+        </div>
+        {setManufacturersForSite && (
+            <div className="size-lg-12">
+                <Field
+                    labelClasses="no-capitalise"
+                    name="Manufacturer(s)"
+                    required={setManufacturersForSite}
+                >
+                    <CheckboxListContainer
+                        name="selectedManufacturerOptions"
+                        text=""
+                        handleChange={handleInputChange}
+                        selectedOptions={selectedManufacturerOptions}
+                        options={manufacturerOptions}
+                        required={setManufacturersForSite}
+                    />
+                </Field>
+            </div>
+        )}
+
+        {setManufacturersForSite &&
+            Object.entries(optionValuesOptions).map(([manufacturerID, optionValues]) => {
+                if (selectedManufacturerOptions.includes(manufacturerID)) {
+                    const manufacturerInfo = manufacturerOptions.find(
+                        element => String(element.id) === String(manufacturerID),
+                    );
+
+                    return (
+                        <div className="size-lg-12">
+                            <Field
+                                labelClasses="no-capitalise"
+                                name={`${manufacturerInfo.name} ${
+                                    DROPDOWN_OPTIONS[manufacturerInfo.pinOptionType].name
+                                }
+                              `}
+                                required
+                            >
+                                <CheckboxListContainer
+                                    name="selectedOptionValues"
+                                    text=""
+                                    handleChange={handleInputChange}
+                                    selectedOptions={selectedOptionValues}
+                                    options={Object.values(optionValues)}
+                                    required
+                                />
+                            </Field>
+                        </div>
+                    );
+                } else return null;
+            })}
 
         <BlockButtonWrapper>
             <button className="button green">Submit</button>

@@ -1,16 +1,12 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import {
-    DATE_TIME_IDS,
-    COMPANY_TYPES,
-    getEnumKey
-} from 'constants/companyAdmin/enums';
+import { DATE_TIME_IDS, COMPANY_TYPES, getEnumKey } from 'constants/companyAdmin/enums';
 import { capitaliseWords } from 'helpers/generic';
 
 const CompaniesListItem = ({
     company: { name, telephone, address, id, termsAcceptedOn, companyType },
-    match: { url }
+    match: { url },
 }) => (
     <tr>
         <td>{name}</td>
@@ -18,10 +14,7 @@ const CompaniesListItem = ({
         <td>{address || '-'}</td>
         <td>
             {termsAcceptedOn ? (
-                <DateTimeContainer
-                    date={termsAcceptedOn}
-                    datetime={DATE_TIME_IDS.DATE}
-                />
+                <DateTimeContainer date={termsAcceptedOn} datetime={DATE_TIME_IDS.DATE} />
             ) : (
                 '-'
             )}

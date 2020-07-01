@@ -17,7 +17,8 @@ const OutputSettings = ({
     isCSVGeneration,
     isFloorplanGeneration,
     includeFloorplan,
-    showHidden
+    isOAndMManualGeneration,
+    showHidden,
 }) => (
     <div className="size-lg-12">
         <BlockContainer>
@@ -48,6 +49,12 @@ const OutputSettings = ({
                                     name="isFloorplanGeneration"
                                     text="Floor plan"
                                 />
+                                <CheckboxContainer
+                                    checked={isOAndMManualGeneration}
+                                    handleChange={handleFilterChange}
+                                    name="isOAndMManualGeneration"
+                                    text="Include O&M Manuals?"
+                                />
                             </div>
                         </Field>
                         {isPDFGeneration && (
@@ -66,9 +73,7 @@ const OutputSettings = ({
                                                         ? includePinLocation
                                                         : isPDFGeneration
                                                 }
-                                                handleChange={
-                                                    handleFilterChange
-                                                }
+                                                handleChange={handleFilterChange}
                                                 name="includePinLocation"
                                             />
                                             <p className="sub-text" />
@@ -84,9 +89,7 @@ const OutputSettings = ({
                                                         ? includeFloorplan
                                                         : isPDFGeneration
                                                 }
-                                                handleChange={
-                                                    handleFilterChange
-                                                }
+                                                handleChange={handleFilterChange}
                                                 name="includeFloorplan"
                                             />
                                             <p className="sub-text" />
@@ -117,8 +120,7 @@ const OutputSettings = ({
                                 name="showHidden"
                             />
                             <p className="sub-text">
-                                - Check to include questions that are hidden on
-                                the templates?
+                                - Check to include questions that are hidden on the templates?
                             </p>
                         </Field>
                     </div>
