@@ -1,7 +1,6 @@
 import React from 'react';
 import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
 import { FILE_STORAGE_URL } from 'config';
-// import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
 import { connect } from 'react-redux';
@@ -14,7 +13,6 @@ const PinAnswer = ({
     questions,
     questionsObj,
     answers,
-    // status,
     dispatch,
     question,
     pinHistory,
@@ -88,7 +86,20 @@ const PinAnswer = ({
             );
             if (!relevantQuestion) return notFoundResponse;
 
-            var relevantOption = relevantQuestion.options.find(({ id }) => id === curAnswer.answer);
+            var relevantOption = relevantQuestion.options.find(({ id }) => {
+                if (id === curAnswer.answer) return true;
+                // radio button answers are used as their ID,
+                // but when going into db the answer has special quote chars replaced
+                if (typeof id === 'string') {
+                    const apostropheRegex = /[‘’]/gi;
+                    return (relevantOption = relevantQuestion.options.find(
+                        ({ id }) =>
+                            curAnswer.answer ===
+                            id.replace(apostropheRegex, "'").replace(apostropheRegex, "'"),
+                    ));
+                }
+                return false;
+            });
             if (!relevantOption) return notFoundResponse;
 
             inner = <p>{relevantOption.text}</p>;

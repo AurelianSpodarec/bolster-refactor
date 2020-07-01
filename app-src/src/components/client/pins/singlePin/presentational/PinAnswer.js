@@ -1,21 +1,12 @@
 import React from 'react';
 import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
 import { FILE_STORAGE_URL } from 'config';
-// import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
 import { connect } from 'react-redux';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
-const PinAnswer = ({
-    trimmedAnswer,
-    type,
-    questions,
-    answers,
-    // status,
-    dispatch,
-    question,
-}) => {
+const PinAnswer = ({ trimmedAnswer, type, questions, answers, dispatch, question }) => {
     const curAnswer = answers.find(item => +item.id === +trimmedAnswer.id);
     const notFoundResponse = null;
     let inner;
@@ -41,7 +32,18 @@ const PinAnswer = ({
             );
             if (!relevantQuestion) return notFoundResponse;
 
-            var relevantOption = relevantQuestion.options.find(({ id }) => id === curAnswer.answer);
+            var relevantOption = relevantQuestion.options.find(({ id }) => {
+                if (id === curAnswer.answer) return true;
+                if (typeof id === 'string') {
+                    const apostropheRegex = /[‘’]/gi;
+                    return (relevantOption = relevantQuestion.options.find(
+                        ({ id }) =>
+                            curAnswer.answer ===
+                            id.replace(apostropheRegex, "'").replace(apostropheRegex, "'"),
+                    ));
+                }
+                return false;
+            });
             if (!relevantOption) return notFoundResponse;
 
             inner = <p>{relevantOption.text}</p>;
