@@ -9,17 +9,17 @@ class AddPinSectionsContainer extends Component {
         const relevantSections = this._getSections();
         const sectionIDs = Object.values(relevantSections).map(sect => sect.id);
 
-        const { 
+        const {
             selectedVersion,
-            isHistory, 
-            isSameTemplate, 
-            pinAnswersByGroupKey, 
-            dropdownOptionsByType, 
-            oldAnswersByNameObj, 
+            isHistory,
+            isSameTemplate,
+            pinAnswersByGroupKey,
+            dropdownOptionsByType,
+            oldAnswersByNameObj,
             template,
             latestPinHistory,
         } = this.props;
-        
+
         return (
             <AddPinSections
                 isHistory={isHistory}
@@ -45,7 +45,7 @@ class AddPinSectionsContainer extends Component {
                 id,
                 value: id,
                 text: name,
-                sort: sort
+                sort: sort,
             }));
 
         return convertArrToObj(relevantSections, 'value');
@@ -54,10 +54,10 @@ class AddPinSectionsContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        templateSectionsReducer: { sections }
-    }
+        templateSectionsReducer: { sections },
+    },
 }) => ({
-    sections: Object.values(sections)
+    sections: Object.values(sections),
 });
 
 export default connect(mapStateToProps)(AddPinSectionsContainer);
