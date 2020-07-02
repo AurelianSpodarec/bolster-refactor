@@ -9,9 +9,14 @@ const Checkbox = ({
     error,
     classes = '',
     disabled = false,
-    fromList
+    fromList,
+    hideDisabled = false,
 }) => (
-    <div className={`checkbox ${disabled ? 'left grey-out' : ''} ${classes}`}>
+    <div
+        className={`checkbox ${disabled ? 'left grey-out' : ''} ${
+            hideDisabled && disabled ? 'hide' : ''
+        } ${classes}`}
+    >
         <input
             id={name}
             onChange={handleChange}

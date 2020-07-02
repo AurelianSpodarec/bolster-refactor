@@ -8,13 +8,14 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 class AddCompanyPermissionsFormContainer extends Component {
     state = {
-        serviceIDs: []
+        serviceIDs: [],
     };
 
     render() {
         const { serviceIDs } = this.state;
         const serviceOptions = this._getServicesOptions();
         const { error, companyID } = this.props;
+        const showMoreServicesMesssage = serviceOptions.some(option => option.disabled === true);
 
         return (
             <BlockContainer error={error}>
@@ -25,6 +26,7 @@ class AddCompanyPermissionsFormContainer extends Component {
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
                     companyID={companyID}
+                    showMoreServicesMesssage={showMoreServicesMesssage}
                 />
             </BlockContainer>
         );
@@ -40,7 +42,7 @@ class AddCompanyPermissionsFormContainer extends Component {
         return services.map(({ id, name }) => ({
             value: id,
             text: name,
-            disabled: !subscriptions.includes(id)
+            disabled: !subscriptions.includes(id),
         }));
     };
 
@@ -48,15 +50,10 @@ class AddCompanyPermissionsFormContainer extends Component {
 
     handleSubmit = () => {
         const { serviceIDs } = this.state;
-        const {
-            hierarchyType,
-            hierarchyID,
-            addCompany,
-            companyID
-        } = this.props;
+        const { hierarchyType, hierarchyID, addCompany, companyID } = this.props;
         const postBody = {
             companyID,
-            serviceIDs
+            serviceIDs,
         };
 
         addCompany(hierarchyType, hierarchyID, postBody);
@@ -68,10 +65,10 @@ const mapStateToProps = (
         companyAdmin: {
             servicesReducer: { services },
             subscriptionsReducer: { subscriptions },
-            companiesPermissionsReducer: { postSuccess, error }
-        }
+            companiesPermissionsReducer: { postSuccess, error },
+        },
     },
-    { match: { params, url } }
+    { match: { params, url } },
 ) => ({
     hierarchyID: params.id,
     services: Object.values(services),
@@ -79,14 +76,11 @@ const mapStateToProps = (
     success: postSuccess,
     error,
     companyID: params.companyID,
-    redirectUrl: url.replace(`/add-permissions/${params.companyID}`, '')
+    redirectUrl: url.replace(`/add-permissions/${params.companyID}`, ''),
 });
 
 const mapDispatchToProps = { addCompany };
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(AddCompanyPermissionsFormContainer)
+    connect(mapStateToProps, mapDispatchToProps)(AddCompanyPermissionsFormContainer),
 );

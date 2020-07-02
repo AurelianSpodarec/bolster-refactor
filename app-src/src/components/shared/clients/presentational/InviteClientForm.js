@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 import Form from 'components/shared/generic/form/containers/Form';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
@@ -19,22 +19,19 @@ const InviteClientForm = ({
     lastName,
     email,
     phoneNumber,
-    companyName
+    companyName,
+    showMoreServicesMesssage,
 }) => (
     <>
         <BlockHeading title="Client Details" />
         <p className="generic-text size-lg-12">
-            Please enter the email address of the user you wish to invite. If
-            the user does not have a Bolster systems account, they will be
-            prompted to create one to accepted your invitation.
+            Please enter the email address of the user you wish to invite. If the user does not have
+            a Bolster systems account, they will be prompted to create one to accepted your
+            invitation.
         </p>
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
             <div className="size-lg-12">
-                <Field
-                    name="Email address"
-                    sizeClasses="size-lg-6 size-md-12"
-                    required
-                >
+                <Field name="Email address" sizeClasses="size-lg-6 size-md-12" required>
                     <TextInputContainer
                         name="email"
                         value={email}
@@ -45,11 +42,7 @@ const InviteClientForm = ({
                 </Field>
             </div>
 
-            <Field
-                name="First name"
-                sizeClasses="size-lg-4 size-md-12"
-                required
-            >
+            <Field name="First name" sizeClasses="size-lg-4 size-md-12" required>
                 <TextInputContainer
                     name="firstName"
                     value={firstName}
@@ -67,11 +60,7 @@ const InviteClientForm = ({
                 />
             </Field>
 
-            <Field
-                name="Phone number"
-                sizeClasses="size-lg-4 size-md-12"
-                required
-            >
+            <Field name="Phone number" sizeClasses="size-lg-4 size-md-12" required>
                 <TextInputContainer
                     name="phoneNumber"
                     value={phoneNumber}
@@ -80,11 +69,7 @@ const InviteClientForm = ({
                 />
             </Field>
 
-            <Field
-                name="Company name"
-                sizeClasses="size-lg-4 size-md-12"
-                required
-            >
+            <Field name="Company name" sizeClasses="size-lg-4 size-md-12" required>
                 <TextInputContainer
                     name="companyName"
                     value={companyName}
@@ -103,18 +88,24 @@ const InviteClientForm = ({
                     handleChange={handleChange}
                     options={serviceOptions}
                     selectedOptions={checkedServices}
+                    hideDisabled
                 />
             </Field>
 
             <BlockButtonWrapper>
+                {showMoreServicesMesssage && (
+                    <p className="generic-text size-lg-12">
+                        Looking for more service types? Check your{' '}
+                        <Link to="/company/subscription">subscriptions</Link> to add more!
+                    </p>
+                )}
+
                 <button className="button green">
                     <i className="fa fa-plus" />
                     Invite Client
                 </button>
 
-                <ButtonContainer
-                    to={location.pathname.replace('/invite-client', '')}
-                >
+                <ButtonContainer to={location.pathname.replace('/invite-client', '')}>
                     Cancel
                 </ButtonContainer>
             </BlockButtonWrapper>
