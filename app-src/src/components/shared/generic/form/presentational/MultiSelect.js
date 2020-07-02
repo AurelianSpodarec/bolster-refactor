@@ -19,7 +19,7 @@ const MultiSelect = ({
     onChange,
     showError,
     iconClass = '',
-    placeholder = '-- select options --'
+    placeholder = '-- select options --',
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [hasOpened, setHasOpened] = useState(false);
@@ -41,19 +41,9 @@ const MultiSelect = ({
     }, [isOpen]);
 
     return (
-        <div
-            className={`multi-multi-dropdown size-lg-12 ${
-                disabled ? 'disabled' : ''
-            }`}
-            ref={node}
-        >
-            <div
-                className="selected-box"
-                onClick={() => !disabled && setIsOpen(!isOpen)}
-            >
-                {!getSelected().length && (
-                    <p className="placeholder">{placeholder}</p>
-                )}
+        <div className={`multi-multi-dropdown size-lg-12 ${disabled ? 'disabled' : ''}`} ref={node}>
+            <div className="selected-box" onClick={() => !disabled && setIsOpen(!isOpen)}>
+                {!getSelected().length && <p className="placeholder">{placeholder}</p>}
                 {getSelected().map(opt => (
                     <div
                         key={opt.value}
@@ -68,11 +58,7 @@ const MultiSelect = ({
                     </div>
                 ))}
 
-                <i
-                    className={`arrow ${
-                        iconClass.length ? iconClass : 'fal fa-angle-down'
-                    }`}
-                />
+                <i className={`arrow ${iconClass.length ? iconClass : 'fal fa-angle-down'}`} />
             </div>
 
             {isOpen && (
@@ -87,23 +73,15 @@ const MultiSelect = ({
                             />
                         </div>
                     )}
-                    <div
-                        className={`option-container ${search &&
-                            options.length > 4 &&
-                            'large'}`}
-                    >
-                        {!filteredOptions.length && (
-                            <p>There are no options to display</p>
-                        )}
+                    <div className={`option-container ${search && options.length > 4 && 'large'}`}>
+                        {!filteredOptions.length && <p>There are no options to display</p>}
                         {filteredOptions.map(opt => (
                             <p
                                 key={opt.value}
-                                className={`option ${
-                                    value.includes(opt.value) ? 'active' : ''
-                                } ${opt.disabled ? 'disabled' : ''}`}
-                                onClick={e =>
-                                    handleSelect(e, opt.value, opt.disabled)
-                                }
+                                className={`option ${value.includes(opt.value) ? 'active' : ''} ${
+                                    opt.disabled ? 'disabled' : ''
+                                }`}
+                                onClick={e => handleSelect(e, opt.value, opt.disabled)}
                             >
                                 {opt.label}
                             </p>
@@ -133,7 +111,7 @@ const MultiSelect = ({
             opt.label
                 .replace(/[^A-Z0-9]/gi, '')
                 .toLowerCase()
-                .includes(searchTerm.replace(/[^A-Z0-9]/gi, '').toLowerCase())
+                .includes(searchTerm.replace(/[^A-Z0-9]/gi, '').toLowerCase()),
         );
     }
 
@@ -147,7 +125,10 @@ const MultiSelect = ({
         e.preventDefault();
         e.stopPropagation();
 
-        onChange(name, value.filter(item => item !== clicked));
+        onChange(
+            name,
+            value.filter(item => item !== clicked),
+        );
     }
 
     function handleSelect(e, clicked, disabled) {
@@ -155,7 +136,10 @@ const MultiSelect = ({
         if (disabled) return;
 
         if (value.includes(clicked)) {
-            onChange(name, value.filter(item => item !== clicked));
+            onChange(
+                name,
+                value.filter(item => item !== clicked),
+            );
             return;
         }
 

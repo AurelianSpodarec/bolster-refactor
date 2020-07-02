@@ -15,7 +15,7 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
 import { fieldTypes, getDefaultValue } from '../fieldTypes/allFieldTypes';
-import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
+import { QUESTION_TYPE_VALUES, QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
 const {
     SINGLE_LINE,
     SINGLE_PHOTO,
@@ -226,12 +226,34 @@ class AddPinQuestionRoute extends Component {
 
         const hasStatusChanged = prevProps.status !== status;
         if (`${question.type}` !== STATUS && hasStatusChanged) {
+            // * handle isrequiredbasedonstatus
             const isRequiredButEmpty = this._getIsRequired() && isEmpty(answer);
 
             if (isRequiredButEmpty && isShowingFromPrereq) {
                 addFieldError(answerName, 'This is a required field.');
             } else {
                 removeFieldError(answerName);
+            }
+            // * handle prefillfromstatus
+
+            if (question.statusPrefills[status]) {
+                if (question.type === QUESTION_TYPE_NUMBERS.CHECKBOX) {
+                    const convertedPrefillVals = {};
+
+                    for (const key in question.statusPrefills) {
+                        const value = question.statusPrefills[key];
+
+                        convertedPrefillVals[key] = value === 'true';
+                    }
+                    updateAddPinAnswer(question.id, convertedPrefillVals[status]);
+                } else {
+                    updateAddPinAnswer(question.id, question.statusPrefills[status]);
+                }
+            } else {
+                // handle reset if was, but should no longer be prefilled
+                if (prevProps.question.statusPrefills[prevProps.status]) {
+                    resetPinAnswer(question.id, getDefaultValue(question));
+                }
             }
         }
 
@@ -293,7 +315,6 @@ class AddPinQuestionRoute extends Component {
 
     handlePrefillOrReset = () => {
         const { isSameTemplate, pinAnswersByGroupKey } = this.props;
-
         const isAddPinHistory = !!pinAnswersByGroupKey;
 
         if (isSameTemplate && isAddPinHistory) {
@@ -307,6 +328,7 @@ class AddPinQuestionRoute extends Component {
 
     handlePrefillSameTemplateQuestion = () => {
         const { pinAnswersByGroupKey, question, updateAddPinAnswer } = this.props;
+
         const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
         const oldAnswersKeys = Object.keys(pinAnswersByGroupKey);
 

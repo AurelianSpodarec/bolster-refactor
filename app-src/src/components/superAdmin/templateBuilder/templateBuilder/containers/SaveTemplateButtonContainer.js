@@ -31,31 +31,22 @@ class SaveTemplateButtonContainer extends Component {
     };
 
     handleSave = () => {
-        const {
-            template,
-            allSections,
-            allQuestions,
-            allLabelFields,
-            postTemplate
-        } = this.props;
-        const sections = allSections.filter(
-            ({ templateUUID }) => templateUUID === template.uuid
-        );
-        const questions = allQuestions.filter(
-            ({ templateUUID }) => templateUUID === template.uuid
-        );
+        const { template, allSections, allQuestions, allLabelFields, postTemplate } = this.props;
+        const sections = allSections.filter(({ templateUUID }) => templateUUID === template.uuid);
+        const questions = allQuestions.filter(({ templateUUID }) => templateUUID === template.uuid);
+
         const labelFields = allLabelFields
             .filter(({ templateUUID }) => templateUUID === template.uuid)
             .map(({ config, ...rest }) => ({
                 ...rest,
-                config: { ...config, source: config.source || null }
+                config: { ...config, source: config.source || null },
             }));
 
         const newTemplateData = {
             template,
             sections,
             questions: setDynamicFields(questions),
-            labelFields
+            labelFields,
         };
 
         postTemplate(newTemplateData);
@@ -68,25 +59,22 @@ const mapStateToProps = (
             templatesReducer: { templates },
             templateSectionsReducer: { sections },
             templateQuestionsReducer: { questions },
-            templateLabelFieldsReducer: { labelFields }
-        }
+            templateLabelFieldsReducer: { labelFields },
+        },
     },
     {
         match: {
-            params: { uuid }
-        }
-    }
+            params: { uuid },
+        },
+    },
 ) => ({
     template: templates[uuid],
     allSections: Object.values(sections),
     allQuestions: Object.values(questions),
-    allLabelFields: Object.values(labelFields)
+    allLabelFields: Object.values(labelFields),
 });
 
-const mapDispatchToProps = {postTemplate};
+const mapDispatchToProps = { postTemplate };
 
-const WithConnect = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SaveTemplateButtonContainer);
+const WithConnect = connect(mapStateToProps, mapDispatchToProps)(SaveTemplateButtonContainer);
 export default withRouter(WithConnect);
