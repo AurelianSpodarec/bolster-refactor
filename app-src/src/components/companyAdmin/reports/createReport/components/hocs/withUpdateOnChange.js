@@ -97,19 +97,21 @@ export default function (ProtectedComponent) {
 
                     if (
                         fromDateInclusive &&
-                        moment(pin.latestCreatedOn) <
+                        moment(pin.latestCreatedOn, momentComparisonFormat) <
                             moment(fromDateInclusive, momentComparisonFormat)
                     ) {
                         return NO;
                     }
+
                     // end date
                     if (
                         toDateInclusive &&
-                        moment(pin.latestCreatedOn) >
+                        moment(pin.latestCreatedOn, momentComparisonFormat) >
                             moment(toDateInclusive, momentComparisonFormat)
                     ) {
                         return NO;
                     }
+
                     // status
                     if (status && +pin.latestStatus !== +status) {
                         return NO;
@@ -138,6 +140,7 @@ export default function (ProtectedComponent) {
                     //         return NO;
                     //     }
                     // }
+
                     return YES;
                 })
                 .map(pin => ({
@@ -288,7 +291,9 @@ export default function (ProtectedComponent) {
 
         getFilterStartDate = date => {
             const { timeZone } = this.props;
-            return date ? moment.tz(date, timeZone.name).startOf('day').utc().toISOString() : null;
+            return date
+                ? moment.tz(date, timeZone.name).add('days', 1).startOf('day').utc().toISOString()
+                : null;
         };
 
         getFilterEndDate = date => {
