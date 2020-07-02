@@ -2702,6 +2702,33 @@ input {
 }
 
 //footer
+.client-access-banner {
+    position: fixed;
+    bottom: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: auto;
+    background-color: #939393;
+    padding: 7.5px 20px;
+    z-index: 401;
+
+    .banner-text {
+        color: #fff;
+        line-height: 18px;
+        font-size: 14px;
+        font-family: "Ubuntu", sans-serif;
+        font-weight: 400;
+        .demo-link {
+            margin-left: 5px;
+            a {
+                color: #fff;
+            }
+        }
+    }
+}
+
 #page-footer {
     width: 100%;
     bottom: 0;
