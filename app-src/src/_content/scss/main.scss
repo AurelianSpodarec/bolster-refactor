@@ -1692,6 +1692,11 @@ input {
     &.grey-out {
         opacity: 0.3;
     }
+
+    &.hide{
+        display:none;
+    }
+
     &.small-text {
         width: 45px;
 

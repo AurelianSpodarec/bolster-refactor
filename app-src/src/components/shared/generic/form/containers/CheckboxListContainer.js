@@ -20,6 +20,7 @@ class CheckboxListContainer extends Component {
             name,
             classes,
             allOptionsDisabled = false,
+            hideDisabled = false,
         } = this.props;
 
         const errorMessage = showFieldError || errorsVisible ? error : null;
@@ -32,6 +33,7 @@ class CheckboxListContainer extends Component {
                 name={name}
                 classes={classes}
                 allOptionsDisabled={allOptionsDisabled}
+                hideDisabled={hideDisabled}
             />
         );
     }
