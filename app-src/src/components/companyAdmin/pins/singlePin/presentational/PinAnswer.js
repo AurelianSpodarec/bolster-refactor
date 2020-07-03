@@ -84,6 +84,7 @@ const PinAnswer = ({
             var relevantQuestion = questions.find(
                 ({ id }) => +id === +curAnswer.templateQuestionID,
             );
+
             if (!relevantQuestion) return notFoundResponse;
 
             var relevantOption = relevantQuestion.options.find(({ id }) => {
@@ -92,16 +93,15 @@ const PinAnswer = ({
                 // but when going into db the answer has special quote chars replaced
                 if (typeof id === 'string') {
                     const apostropheRegex = /[‘’]/gi;
-                    return (relevantOption = relevantQuestion.options.find(
-                        ({ id }) =>
-                            curAnswer.answer ===
-                            id.replace(apostropheRegex, "'").replace(apostropheRegex, "'"),
-                    ));
+                    return (
+                        curAnswer.answer ===
+                        id.replace(apostropheRegex, "'").replace(apostropheRegex, "'")
+                    );
                 }
                 return false;
             });
-            if (!relevantOption) return notFoundResponse;
 
+            if (!relevantOption) return notFoundResponse;
             inner = <p>{relevantOption.text}</p>;
             break;
         case TYPES.MULTI_DROPDOWN:
