@@ -212,7 +212,15 @@ const RegisterForm = ({
                 />
             </Field>
             {vatType && vatType !== VAT_TYPES.OUTSIDEEU && (
-                <Field name="VAT Code" required={vatType !== VAT_TYPES.OUTSIDEEU}>
+                <Field
+                    name="VAT Code"
+                    smallDesc={
+                        vatType === VAT_TYPES.GB
+                            ? '(Please enter GB before your VAT code e.g GB123456789)'
+                            : null
+                    }
+                    required={vatType !== VAT_TYPES.OUTSIDEEU}
+                >
                     <TextInputContainer
                         name="Company.vatCode"
                         value={vatCode}

@@ -2,45 +2,42 @@ import React from 'react';
 
 import WhiteLogo from '_content/images/footer/logo-footer-white.png';
 import BlackLogo from '_content/images/footer/logo-footer-black.png';
+import ClientAccessBanner from 'components/client/shared/clientAccessBanner/presentational/ClientAccessBanner';
 
 const logos = {
     white: WhiteLogo,
-    black: BlackLogo
+    black: BlackLogo,
 };
 
-const Footer = ({ company, companyColour, isCompanySelected }) => (
-    <footer
-        id="page-footer"
-        style={{
-            backgroundColor: companyColour
-        }}
-    >
-        <div className="container">
-            <p
-                style={{
-                    color:
-                        isCompanySelected && company.isBolsterLogoDark
-                            ? '#000'
-                            : '#fff'
-                }}
-            >
-                {/* Bolster Systems Ltd<sup>®</sup> is a company registered in
+const Footer = ({ company, companyColour, isCompanySelected, isCompanyAdmin }) => (
+    <>
+        {!isCompanyAdmin && <ClientAccessBanner />}
+        <footer
+            id="page-footer"
+            style={{
+                backgroundColor: companyColour,
+            }}
+        >
+            <div className="container">
+                <p
+                    style={{
+                        color: isCompanySelected && company.isBolsterLogoDark ? '#000' : '#fff',
+                    }}
+                >
+                    {/* Bolster Systems Ltd<sup>®</sup> is a company registered in
                 England and Wales. */}
-            </p>
+                </p>
 
-            <img
-                src={
-                    isCompanySelected && company.isBolsterLogoDark
-                        ? logos.black
-                        : logos.white
-                }
-                className="footer-logo"
-                alt="powered by bolster systems logo"
-            />
+                <img
+                    src={isCompanySelected && company.isBolsterLogoDark ? logos.black : logos.white}
+                    className="footer-logo"
+                    alt="powered by bolster systems logo"
+                />
 
-            <div className="clear" />
-        </div>
-    </footer>
+                <div className="clear" />
+            </div>
+        </footer>
+    </>
 );
 
 export default Footer;

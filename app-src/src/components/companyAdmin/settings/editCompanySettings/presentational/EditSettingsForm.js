@@ -135,6 +135,11 @@ const EditSettingsForm = ({
             {vatType && vatType !== VAT_TYPES.OUTSIDEEU && (
                 <Field
                     name="VAT Code"
+                    smallDesc={
+                        vatType === VAT_TYPES.GB
+                            ? '(Please enter GB before your VAT code e.g GB123456789)'
+                            : null
+                    }
                     required={vatType !== VAT_TYPES.OUTSIDEEU}
                     sizeClasses="size-lg-6 size-md-12"
                 >
