@@ -18,7 +18,7 @@ const UserGuides = () => (
             </p>
             <BlockHeading title="Bolster User Guide Document"></BlockHeading>
             <p className="generic-text intro-text">
-                Alternatively, download and read our 'Complete User Guide' document{' '}
+                Alternatively, download and read our "Complete User Guide" document{' '}
                 <a target="_blank" href={pdf}>
                     here
                 </a>
