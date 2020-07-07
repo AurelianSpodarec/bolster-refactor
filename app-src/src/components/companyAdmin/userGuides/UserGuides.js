@@ -4,7 +4,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import pdf from '_content/pdf/CompleteUserGuide-May2020.pdf';
+import pdf from '_content/pdf/CompleteUserGuide-June2020.pdf';
 const UserGuides = () => (
     <>
         <PageHeading leftChildren={true} title="User Guides">
@@ -22,7 +22,10 @@ const UserGuides = () => (
                 <a target="_blank" href={pdf}>
                     here
                 </a>
-                .
+                . This outlines the system functionality in easy to follow step-by-step processes.
+            </p>
+            <p className="generic-text intro-text">
+                The password for this guide is <strong>BSUserGuidev1</strong>.
             </p>
         </BlockContainer>
     </>
