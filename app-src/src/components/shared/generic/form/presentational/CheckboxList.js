@@ -10,6 +10,7 @@ const CheckboxList = ({
     error,
     classes,
     allOptionsDisabled,
+    hideDisabled,
 }) => (
     <div className={'checkbox-list size-lg-12'}>
         {options &&
@@ -24,6 +25,7 @@ const CheckboxList = ({
                     handleChange={handleChange}
                     classes={classes}
                     fromList
+                    hideDisabled={hideDisabled}
                 />
             ))}
         {error && error.length && <p className="error red-text text-accent-4">{error}</p>}

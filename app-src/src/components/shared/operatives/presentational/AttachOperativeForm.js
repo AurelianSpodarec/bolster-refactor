@@ -17,26 +17,24 @@ const AttachOperativeForm = ({
     serviceOptions,
     checkedServices,
     companyUserIDs,
-    handleChange
+    handleChange,
+    showMoreServicesMesssage,
 }) => (
     <>
         <BlockHeading title="Operative details" />
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
-            <Field
-                name="Select an operative"
-                sizeClasses="size-lg-6 size-md-12"
-                required
-            >
-                <MultiSelect
-                    name="companyUserIDs"
-                    options={users}
-                    value={companyUserIDs}
-                    onChange={handleChange}
-                    placeholder="-- select operatives --"
-                    required
-                    search
-                />
-                {/* <DropdownContainer
+            <div className="size-lg-12">
+                <Field name="Select an operative" sizeClasses="size-lg-6 size-md-12" required>
+                    <MultiSelect
+                        name="companyUserIDs"
+                        options={users}
+                        value={companyUserIDs}
+                        onChange={handleChange}
+                        placeholder="-- select operatives --"
+                        required
+                        search
+                    />
+                    {/* <DropdownContainer
                     placeholder="-- select operative --"
                     name="companyUserID"
                     options={users}
@@ -44,27 +42,33 @@ const AttachOperativeForm = ({
                     handleChange={handleChange}
                     required
                 /> */}
-            </Field>
+                </Field>
 
-            <Field name="Service types" sizeClasses="size-lg-12" required>
-                <CheckboxListContainer
-                    required
-                    name="serviceIDs"
-                    handleChange={handleChange}
-                    options={serviceOptions}
-                    selectedOptions={checkedServices}
-                />
-            </Field>
+                <Field name="Service types" sizeClasses="size-lg-12" required>
+                    <CheckboxListContainer
+                        required
+                        name="serviceIDs"
+                        handleChange={handleChange}
+                        options={serviceOptions}
+                        hideDisabled
+                        selectedOptions={checkedServices}
+                    />
+                </Field>
+            </div>
 
             <BlockButtonWrapper>
+                {showMoreServicesMesssage && (
+                    <p className="generic-text size-lg-12">
+                        Looking for more service types? Check your{' '}
+                        <Link to="/company/subscription">subscriptions</Link> to add more!
+                    </p>
+                )}
+
                 <button className="button green">
                     <i className="fa fa-plus" />
                     Attach Operative
                 </button>
-                <Link
-                    to={location.pathname.replace('/add-operative', '')}
-                    className="button"
-                >
+                <Link to={location.pathname.replace('/add-operative', '')} className="button">
                     Cancel
                 </Link>
             </BlockButtonWrapper>

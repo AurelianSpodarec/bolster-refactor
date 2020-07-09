@@ -13,11 +13,14 @@ class InviteClientFormContainer extends Component {
         email: '',
         phoneNumber: '',
         companyName: '',
-        serviceIDs: []
+        serviceIDs: [],
     };
 
     render() {
         const { serviceIDs } = this.state;
+        const showMoreServicesMesssage = this._getServicesOptions().some(
+            option => option.disabled === true,
+        );
 
         return (
             <BlockContainer>
@@ -27,6 +30,7 @@ class InviteClientFormContainer extends Component {
                     checkedServices={serviceIDs}
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
+                    showMoreServicesMesssage={showMoreServicesMesssage}
                 />
             </BlockContainer>
         );
@@ -45,21 +49,14 @@ class InviteClientFormContainer extends Component {
         return services.map(({ id, name }) => ({
             value: id,
             text: name,
-            disabled: !subscriptions.includes(id)
+            disabled: !subscriptions.includes(id),
         }));
     };
 
     handleChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = () => {
-        const {
-            firstName,
-            lastName,
-            email,
-            phoneNumber,
-            companyName,
-            serviceIDs
-        } = this.state;
+        const { firstName, lastName, email, phoneNumber, companyName, serviceIDs } = this.state;
         const { hierarchyType, hierarchyID, addClient } = this.props;
 
         const postBody = {
@@ -68,7 +65,7 @@ class InviteClientFormContainer extends Component {
             Email: email,
             PhoneNumber: phoneNumber,
             CompanyName: companyName,
-            ServiceIDs: serviceIDs
+            ServiceIDs: serviceIDs,
         };
 
         addClient(hierarchyType, hierarchyID, postBody);
@@ -77,22 +74,17 @@ class InviteClientFormContainer extends Component {
 
 const mapStateToProps = (
     { companyAdmin: { servicesReducer, subscriptionsReducer, clientsReducer } },
-    { match }
+    { match },
 ) => ({
     services: Object.values(servicesReducer.services),
     subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
     hierarchyID: match.params.id,
-    success: clientsReducer.postSuccess
+    success: clientsReducer.postSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
     addClient: (hierarchyType, hierarchyID, postBody) =>
-        dispatch(addClient(hierarchyType, hierarchyID, postBody))
+        dispatch(addClient(hierarchyType, hierarchyID, postBody)),
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(InviteClientFormContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InviteClientFormContainer));

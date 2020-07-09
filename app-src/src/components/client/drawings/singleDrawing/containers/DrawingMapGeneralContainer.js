@@ -11,7 +11,7 @@ import { convertEnumToDropdownOptions, momentComparisonFormat, isEmpty } from 'h
 import {
     PIN_STATUS_TYPES,
     RECTANGLE_MODES,
-    FURTHER_FILTRATION_OPTIONS
+    FURTHER_FILTRATION_OPTIONS,
 } from 'constants/companyAdmin/enums';
 import withUpdateOnChange from 'components/client/reports/createReport/components/hocs/withUpdateOnChange';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
@@ -39,7 +39,7 @@ class DrawingMapGeneralContainer extends Component {
         statusOptions: convertEnumToDropdownOptions(PIN_STATUS_TYPES),
         firstCorner: null,
         mode: ADD,
-        currentTooltip: null
+        currentTooltip: null,
     };
 
     render() {
@@ -106,7 +106,7 @@ class DrawingMapGeneralContainer extends Component {
             match,
             fetchSingleDrawing,
             pinsFromAPI = [],
-            handleChange
+            handleChange,
         } = this.props;
 
         const pinIDs = pinsFromAPI.map(({ id }) => id);
@@ -129,7 +129,7 @@ class DrawingMapGeneralContainer extends Component {
     componentDidUpdate = ({
         drawing: prevDrawing = {},
         isFetching: prevIsFetching,
-        pinsFromAPI: prevPinsFromAPI = []
+        pinsFromAPI: prevPinsFromAPI = [],
     }) => {
         const {
             drawing = {},
@@ -139,7 +139,7 @@ class DrawingMapGeneralContainer extends Component {
             fieldErrors,
             removeFieldError,
             fromDateInclusive,
-            toDateInclusive
+            toDateInclusive,
         } = this.props;
 
         // ! need this here as well as on mount because unlike companyAdmin, the drawing is sometimes empty when it gets here.
@@ -243,7 +243,7 @@ class DrawingMapGeneralContainer extends Component {
             status,
             serviceID,
             templateID,
-            companyUserIDs
+            companyUserIDs,
         } = filters;
         const NO = false;
         // simple
@@ -326,14 +326,14 @@ const mapStateToProps = (
                 customFilters: { pins: pinsFromAPI },
                 furtherFiltrationOption,
                 rectangles,
-                isFetching: isFetchingReports
-            }
+                isFetching: isFetchingReports,
+            },
         },
         shared: {
-            fieldErrorsReducer: { fieldErrors }
-        }
+            fieldErrorsReducer: { fieldErrors },
+        },
     },
-    { match }
+    { match },
 ) => ({
     drawing: drawings[match.params.id],
     pins: Object.values(pins),
@@ -346,7 +346,7 @@ const mapStateToProps = (
     pinsFromAPI,
     furtherFiltrationOption,
     companyUserIDs,
-    rectangles: Object.values(rectangles)
+    rectangles: Object.values(rectangles),
 });
 
 const mapDispatchToProps = {
@@ -355,14 +355,9 @@ const mapDispatchToProps = {
     addRectangle,
     removeRectangle,
     removeAllRectangles,
-    updateFurtherFiltrationOption
+    updateFurtherFiltrationOption,
 };
 
 export default withRouter(
-    withUpdateOnChange(
-        connect(
-            mapStateToProps,
-            mapDispatchToProps
-        )(DrawingMapGeneralContainer)
-    )
+    withUpdateOnChange(connect(mapStateToProps, mapDispatchToProps)(DrawingMapGeneralContainer)),
 );

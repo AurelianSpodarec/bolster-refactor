@@ -13,7 +13,7 @@ class CreateOperativeAlertContainer extends Component {
         message: '',
         operativeIDs: [],
         siteID: 0,
-        filterOptionsVal: 0
+        filterOptionsVal: 0,
     };
 
     render() {
@@ -21,7 +21,7 @@ class CreateOperativeAlertContainer extends Component {
 
         const allSites = sites.map(site => ({
             value: site.id,
-            label: site.name
+            label: site.name,
         }));
 
         const usersOptions = this._getUserOptions();
@@ -29,7 +29,7 @@ class CreateOperativeAlertContainer extends Component {
         const filterOptions = [
             { value: 0, label: 'All operatives' },
             { value: 1, label: 'Operatives within a site' },
-            { value: 2, label: 'Selected operatives' }
+            { value: 2, label: 'Selected operatives' },
         ];
 
         return (
@@ -71,20 +71,20 @@ class CreateOperativeAlertContainer extends Component {
         if (filterOptionsVal === 0) {
             //'All operatives'
             postBody = {
-                message: message
+                message: message,
             };
         } else if (filterOptionsVal === 1) {
             //'Operatives within a site'
 
             postBody = {
                 message: message,
-                siteID: siteID
+                siteID: siteID,
             };
         } else {
             //'Selected operatives'
             postBody = {
                 message: message,
-                operativeIDs: operativeIDs
+                operativeIDs: operativeIDs,
             };
         }
 
@@ -93,13 +93,11 @@ class CreateOperativeAlertContainer extends Component {
 
     _getUserOptions = () => {
         const { users } = this.props;
-        const options = users.map(
-            ({ id, userFirstName, userLastName, userEmail }) => ({
-                value: id,
-                text: `${userFirstName} ${userLastName} <${userEmail}>`,
-                label: `${userFirstName} ${userLastName} <${userEmail}>`
-            })
-        );
+        const options = users.map(({ id, userFirstName, userLastName, userEmail }) => ({
+            value: id,
+            text: `${userFirstName} ${userLastName} <${userEmail}>`,
+            label: `${userFirstName} ${userLastName} <${userEmail}>`,
+        }));
         return convertArrToObj(options, 'value');
     };
 }
@@ -108,12 +106,12 @@ const mapStateToProps = ({
     companyAdmin: {
         operativeAlertsReducer: { postSuccess },
         sitesReducer: { sites },
-        companyUsersReducer: { users }
-    }
+        companyUsersReducer: { users },
+    },
 }) => ({
     postSuccess,
     sites: Object.values(sites) || {},
-    users: Object.values(users)
+    users: Object.values(users),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -123,12 +121,9 @@ const mapDispatchToProps = dispatch => ({
     fetchAll: () => {
         dispatch(fetchAllSites());
         dispatch(fetchCompanyUsers());
-    }
+    },
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(CreateOperativeAlertContainer)
+    connect(mapStateToProps, mapDispatchToProps)(CreateOperativeAlertContainer),
 );

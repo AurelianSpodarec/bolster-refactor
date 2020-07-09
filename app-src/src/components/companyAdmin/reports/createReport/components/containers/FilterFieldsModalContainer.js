@@ -100,7 +100,7 @@ class FilterFieldsModalContainer extends Component {
             freeFormValues: [...freeFormValues, ''],
         });
     };
-
+    //here tom
     removeFreeFormVal = index => {
         const { freeFormValues } = this.state;
         const vals = [...freeFormValues.slice(0, index), ...freeFormValues.slice(index + 1)];

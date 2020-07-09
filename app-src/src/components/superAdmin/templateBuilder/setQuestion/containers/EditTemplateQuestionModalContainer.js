@@ -5,30 +5,37 @@ import { convertArrToObj } from 'helpers/generic';
 import {
     PREREQ_TYPES,
     QUESTION_TYPE_NUMBERS,
-    QUESTION_TYPE_VALUES
+    QUESTION_TYPE_VALUES,
 } from 'constants/shared/templateBuilder';
 import TemplateQuestionFormModal from '../presentational/TemplateQuestionFormModal';
 
 class TemplateQuestionModalContainer extends Component {
     render() {
         const {
-            fields: {
-                questionType,
-                questionTypeOptions,
-                prereqUUID,
-                ...fields
-            },
+            fields: { questionType, questionTypeOptions, prereqUUID, ...fields },
             hideModal,
-            handleInputChange
+            handleInputChange,
         } = this.props;
 
         const prereqOptions = this._getPrereqOptions();
         const questionOptions = Object.values(questionTypeOptions).filter(
             ({ value }) =>
                 +value !== QUESTION_TYPE_NUMBERS.STATUS &&
-                +value !== QUESTION_TYPE_NUMBERS.STATIC_IMAGE
+                +value !== QUESTION_TYPE_NUMBERS.STATIC_IMAGE,
         );
-        const { statusOptions } = this.props;
+        const {
+            statusOptions,
+            handlePrefillStatusChange,
+            handlePrefillStatusValueChange,
+        } = this.props;
+        const showStatusPrefillOptions =
+            +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.CHECKBOX ||
+            +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.NUMBER ||
+            +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.MULTI_LINE ||
+            +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.SINGLE_LINE ||
+            +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.RADIO
+                ? true
+                : false;
         return (
             <TemplateQuestionFormModal
                 {...fields}
@@ -41,12 +48,40 @@ class TemplateQuestionModalContainer extends Component {
                 handleInputChange={handleInputChange}
                 handleSubmit={this.handleSubmit}
                 action="Edit"
+                handlePrefillStatusChange={handlePrefillStatusChange}
+                handlePrefillStatusValueChange={handlePrefillStatusValueChange}
+                showStatusPrefillOptions={showStatusPrefillOptions}
             />
         );
     }
     componentDidMount = () => {
         const { question, updateQuestionFields } = this.props;
-        updateQuestionFields(question);
+        const questionStatusPrefills = question.statusPrefills;
+        let sortedPrefilStatuses;
+
+        if (questionStatusPrefills && Object.keys(questionStatusPrefills).length) {
+            sortedPrefilStatuses = Object.keys(questionStatusPrefills);
+
+            if (question.questionType === QUESTION_TYPE_NUMBERS.CHECKBOX) {
+                const convertedPrefillVals = {};
+
+                for (const key in questionStatusPrefills) {
+                    const value = questionStatusPrefills[key];
+
+                    convertedPrefillVals[key] = value === 'true';
+                }
+
+                updateQuestionFields({
+                    ...question,
+                    prefillStatuses: sortedPrefilStatuses,
+                    statusPrefills: convertedPrefillVals,
+                });
+            } else {
+                updateQuestionFields({ ...question, prefillStatuses: sortedPrefilStatuses });
+            }
+        } else {
+            updateQuestionFields(question);
+        }
     };
 
     handleSubmit = e => {
@@ -55,7 +90,7 @@ class TemplateQuestionModalContainer extends Component {
 
         const newQuestion = {
             ...question,
-            ...getQuestionData()
+            ...getQuestionData(),
         };
 
         setQuestion(newQuestion);
@@ -64,7 +99,7 @@ class TemplateQuestionModalContainer extends Component {
     _getPrereqOptions = () => {
         const {
             questions,
-            question: { templateUUID, uuid }
+            question: { templateUUID, uuid },
         } = this.props;
 
         const options = questions
@@ -73,12 +108,12 @@ class TemplateQuestionModalContainer extends Component {
                     q.templateUUID === templateUUID &&
                     PREREQ_TYPES.includes(q.questionType + '') &&
                     q.uuid !== uuid &&
-                    q.prereqUUID !== uuid
+                    q.prereqUUID !== uuid,
             )
             .map(({ uuid, name, questionType }) => ({
                 value: uuid,
                 text: name,
-                isStatus: questionType + '' === QUESTION_TYPE_VALUES.STATUS
+                isStatus: questionType + '' === QUESTION_TYPE_VALUES.STATUS,
             }));
 
         return convertArrToObj(options, 'value');

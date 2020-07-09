@@ -1,11 +1,12 @@
 import React from 'react';
 import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
-import { FILE_STORAGE_URL } from 'config';
+import { FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
 import { connect } from 'react-redux';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import { isEmpty, isObjEmpty } from 'helpers/generic';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const PinAnswer = ({
     trimmedAnswer,
@@ -84,6 +85,7 @@ const PinAnswer = ({
             var relevantQuestion = questions.find(
                 ({ id }) => +id === +curAnswer.templateQuestionID,
             );
+
             if (!relevantQuestion) return notFoundResponse;
 
             var relevantOption = relevantQuestion.options.find(({ id }) => {
@@ -92,16 +94,15 @@ const PinAnswer = ({
                 // but when going into db the answer has special quote chars replaced
                 if (typeof id === 'string') {
                     const apostropheRegex = /[‘’]/gi;
-                    return (relevantOption = relevantQuestion.options.find(
-                        ({ id }) =>
-                            curAnswer.answer ===
-                            id.replace(apostropheRegex, "'").replace(apostropheRegex, "'"),
-                    ));
+                    return (
+                        curAnswer.answer ===
+                        id.replace(apostropheRegex, "'").replace(apostropheRegex, "'")
+                    );
                 }
                 return false;
             });
-            if (!relevantOption) return notFoundResponse;
 
+            if (!relevantOption) return notFoundResponse;
             inner = <p>{relevantOption.text}</p>;
             break;
         case TYPES.MULTI_DROPDOWN:
@@ -148,6 +149,20 @@ const PinAnswer = ({
                     />
                 );
             });
+            break;
+        case TYPES.DOCUMENT_UPLOAD:
+            var docURL = `${RAW_S3_STORAGE_URL}/${curAnswer.answer}`;
+            inner = (
+                <ButtonContainer
+                    to={docURL}
+                    isAnchor
+                    className="btn blue"
+                    openNewTab
+                >
+                    <i className="table-icon far fa-eye" />
+                    View pdf
+                </ButtonContainer>
+            );
             break;
         default:
             return notFoundResponse;

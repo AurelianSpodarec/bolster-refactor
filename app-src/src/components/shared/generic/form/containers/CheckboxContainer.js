@@ -7,7 +7,7 @@ import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError
 class CheckboxContainer extends Component {
     state = {
         showFieldError: false,
-        firstValidated: false
+        firstValidated: false,
     };
     render() {
         const { showFieldError } = this.state;
@@ -22,7 +22,8 @@ class CheckboxContainer extends Component {
             value,
             classes,
             // fromList prop prevents errors from displaying on the individual checkbox when the list itself will be displaying the error
-            fromList
+            fromList,
+            hideDisabled,
         } = this.props;
         const errorMessage = showFieldError || errorsVisible ? error : null;
 
@@ -38,6 +39,7 @@ class CheckboxContainer extends Component {
                 value={value}
                 classes={classes}
                 fromList={fromList}
+                hideDisabled={hideDisabled}
             />
         );
     }
@@ -58,14 +60,7 @@ class CheckboxContainer extends Component {
         this.props.handleChange(name, checked, value);
 
     _validate() {
-        const {
-            required,
-            checked,
-            addFieldError,
-            removeFieldError,
-            name,
-            error
-        } = this.props;
+        const { required, checked, addFieldError, removeFieldError, name, error } = this.props;
         if (required && !checked) {
             addFieldError(name, 'This is a required field.');
         } else if (error) {
@@ -76,15 +71,12 @@ class CheckboxContainer extends Component {
 
 const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
     error: fieldErrorsReducer.fieldErrors[ownProps.name],
-    errorsVisible: fieldErrorsReducer.errorsVisible
+    errorsVisible: fieldErrorsReducer.errorsVisible,
 });
 
 const mapDispatchToProps = dispatch => ({
     addFieldError: (name, error) => dispatch(addFieldError(name, error)),
-    removeFieldError: name => dispatch(removeFieldError(name))
+    removeFieldError: name => dispatch(removeFieldError(name)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CheckboxContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CheckboxContainer);
