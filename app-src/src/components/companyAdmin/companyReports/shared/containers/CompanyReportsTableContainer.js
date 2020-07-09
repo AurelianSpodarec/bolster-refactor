@@ -1,10 +1,13 @@
 import React from 'react';
+
 import { connect } from 'react-redux';
 import CompanyReportsTable from '../presentational/CompanyReportsTable';
 import { sortArrayByKeyAndOrder } from 'helpers/generic';
 import retryReport from 'actions/companyAdmin/reports/async/retryReport';
+import fetchCompanyReportSingle from 'actions/companyAdmin/companyReports/async/fetchCompanyReportSingle';
 import fetchCompanyReports from 'actions/companyAdmin/companyReports/async/fetchCompanyReports';
 import fetchCompanyReportsFull from 'actions/companyAdmin/companyReports/async/fetchCompanyReportsFull';
+import changeCompanyReportsFetchFull from 'actions/companyAdmin/companyReports/sync/changeCompanyReportsFetchFull';
 import deleteReport from 'actions/companyAdmin/reports/async/deleteReport';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
@@ -18,7 +21,8 @@ const CompanyReportsTableContainer = ({
     sortString = '',
     onMobile,
     retryReport,
-    fetchCompanyReports,
+    changeCompanyReportsFetchFull,
+
     fetchCompanyReportsFull,
     fetchStatus,
     shouldDeleteReportsAfterDownload,
@@ -33,8 +37,8 @@ const CompanyReportsTableContainer = ({
             error={error}
             companyReports={_getSortedQueue()}
             onMobile={onMobile}
-            retryCompanyReport={id => retryCompanyReport(id)}
-            fetchCompanyReportsFull={fetchCompanyReportsFull}
+            retryCompanyReport={retryCompanyReport}
+            handleFetchCompanyReportsFull={handleFetchCompanyReportsFull}
             fetchStatus={fetchStatus}
             shouldDeleteReportsAfterDownload={shouldDeleteReportsAfterDownload}
             handleDeleteAfterDownload={handleDeleteAfterDownload}
@@ -58,7 +62,13 @@ const CompanyReportsTableContainer = ({
     }
 
     function retryCompanyReport(id) {
-        retryReport(id).then(fetchCompanyReports);
+        retryReport(id);
+    }
+
+    function handleFetchCompanyReportsFull() {
+        fetchCompanyReportsFull().then(() => {
+            return changeCompanyReportsFetchFull();
+        });
     }
 
     function handleDeleteAfterDownload(queueItem) {
@@ -112,6 +122,8 @@ const mapDispatchToProps = {
     retryReport,
     fetchCompanyReports,
     fetchCompanyReportsFull,
+    fetchCompanyReportSingle,
+    changeCompanyReportsFetchFull,
     deleteReport,
     showModal,
     hideModal,
