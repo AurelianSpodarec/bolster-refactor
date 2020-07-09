@@ -7,6 +7,9 @@ import MultiMulti from '../fieldTypes/MultiMulti';
 import CheckBox from '../fieldTypes/CheckBox';
 import Radio from '../fieldTypes/Radio';
 import SinglePhoto from '../fieldTypes/SinglePhoto';
+import DocumentUpload from '../fieldTypes/DocumentUpload';
+
+
 import MultiPhoto from '../fieldTypes/MultiPhoto';
 import Signature from '../fieldTypes/Signature';
 import Status from '../fieldTypes/Status';
@@ -33,7 +36,8 @@ const {
     MULTI_DROPDOWN_OPTIONS,
     MULTI_MULTI_DROPDOWN,
     MULTI_MULTI_DROPDOWN_OPTIONS,
-    STATIC_IMAGE
+    STATIC_IMAGE,
+    DOCUMENT_UPLOAD
 } = QUESTION_TYPE_VALUES;
 
 export const fieldTypes = {
@@ -45,6 +49,7 @@ export const fieldTypes = {
     [CHECKBOX]: CheckBox,
     [RADIO]: Radio,
     [SINGLE_PHOTO]: SinglePhoto,
+    [DOCUMENT_UPLOAD]: DocumentUpload,
     [MULTI_PHOTO]: MultiPhoto,
     [SIGNATURE]: Signature,
     [STATUS]: Status,
