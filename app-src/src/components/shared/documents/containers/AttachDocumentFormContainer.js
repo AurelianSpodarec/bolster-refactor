@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import AttachDocumentForm from '../presentational/AttachDocumentForm';
 import createDocument from 'actions/documents/async/createDocument';
 import fetchCompaniesPermissions from 'actions/companyAdmin/companiesPermissions/async/fetchCompanyPermissions';
+import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 
 class AttachDocumentFormContainer extends Component {
     state = {
@@ -71,8 +72,12 @@ class AttachDocumentFormContainer extends Component {
         const filteredThisCompany = companiesWithPermissions.filter(
             company => company.companyID === companyID,
         );
+        console.log(filteredThisCompany);
 
-        if (filteredThisCompany.length > 0) {
+        if (
+            filteredThisCompany.length > 0 &&
+            filteredThisCompany[0].accessType === ACCESS_TYPES_VALUES.OWNER
+        ) {
             return true;
         } else {
             return false;
