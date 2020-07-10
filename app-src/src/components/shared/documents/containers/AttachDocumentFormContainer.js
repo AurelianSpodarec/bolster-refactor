@@ -60,8 +60,23 @@ class AttachDocumentFormContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history, hierarchyType, hierarchyID } = this.props;
-
+        const {
+            postSuccess,
+            history,
+            hierarchyType,
+            hierarchyID,
+            companiesWithPermissions,
+        } = this.props;
+        if (
+            companiesWithPermissions.length > 0 &&
+            prevProps.companiesWithPermissions.length === 0
+        ) {
+            if (this.checkIsOwner()) {
+                this.setState({
+                    documentVisibility: 1,
+                });
+            }
+        }
         if (!prevProps.postSuccess && postSuccess) {
             history.replace(`/company/${hierarchyType}s/${hierarchyID}`);
         }

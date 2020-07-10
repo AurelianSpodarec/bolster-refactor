@@ -111,7 +111,7 @@ const AttachDocumentForm = ({
             </div>
             {isOwner && (
                 <div className="size-lg-12">
-                    <Field name="Document Visible to">
+                    <Field name="Document Visible to" required>
                         <RadioButton
                             name="documentVisibility"
                             checked={
