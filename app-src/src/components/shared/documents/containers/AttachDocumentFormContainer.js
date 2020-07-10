@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import AttachDocumentForm from '../presentational/AttachDocumentForm';
 import createDocument from 'actions/documents/async/createDocument';
+import { DOCUMENT_VISIBILITY } from 'constants/companyAdmin/enums';
 
 class AttachDocumentFormContainer extends Component {
     state = {
@@ -23,6 +24,7 @@ class AttachDocumentFormContainer extends Component {
         // date selector
         startOn: undefined,
         endOn: undefined,
+        documentVisibility: DOCUMENT_VISIBILITY.VISIBLE_TO_ALL,
     };
 
     render = () => {
