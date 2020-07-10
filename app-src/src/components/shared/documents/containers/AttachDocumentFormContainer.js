@@ -87,7 +87,6 @@ class AttachDocumentFormContainer extends Component {
         const filteredThisCompany = companiesWithPermissions.filter(
             company => company.companyID === companyID,
         );
-        console.log(filteredThisCompany);
 
         if (
             filteredThisCompany.length > 0 &&
