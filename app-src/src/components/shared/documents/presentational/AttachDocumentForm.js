@@ -38,6 +38,7 @@ const AttachDocumentForm = ({
     file,
     showMoreServicesMesssage,
     documentVisibility,
+    isOwner,
 }) => (
     <BlockContainer>
         <BlockHeading title="Document details" />
@@ -108,31 +109,36 @@ const AttachDocumentForm = ({
                     startRequired
                 />
             </div>
-            <div className="size-lg-12">
-                <Field name="Document Visible to">
-                    <RadioButton
-                        name="documentVisibility"
-                        checked={
-                            documentVisibility === DOCUMENT_VISIBILITY.VISIBLE_TO_ALL ? true : false
-                        }
-                        text="All companies"
-                        value={DOCUMENT_VISIBILITY.VISIBLE_TO_ALL}
-                        handleInputChange={handleInputChange}
-                    />
+            {isOwner && (
+                <div className="size-lg-12">
+                    <Field name="Document Visible to">
+                        <RadioButton
+                            name="documentVisibility"
+                            checked={
+                                documentVisibility === DOCUMENT_VISIBILITY.VISIBLE_TO_ALL
+                                    ? true
+                                    : false
+                            }
+                            text="All companies"
+                            value={DOCUMENT_VISIBILITY.VISIBLE_TO_ALL}
+                            handleInputChange={handleInputChange}
+                        />
 
-                    <RadioButton
-                        name="documentVisibility"
-                        checked={
-                            documentVisibility === DOCUMENT_VISIBILITY.VISIBLE_TO_OWN_COMPANY
-                                ? true
-                                : false
-                        }
-                        text={'Only own company'}
-                        value={DOCUMENT_VISIBILITY.VISIBLE_TO_OWN_COMPANY}
-                        handleInputChange={handleInputChange}
-                    />
-                </Field>
-            </div>
+                        <RadioButton
+                            name="documentVisibility"
+                            checked={
+                                documentVisibility === DOCUMENT_VISIBILITY.VISIBLE_TO_OWN_COMPANY
+                                    ? true
+                                    : false
+                            }
+                            text={'Only own company'}
+                            value={DOCUMENT_VISIBILITY.VISIBLE_TO_OWN_COMPANY}
+                            handleInputChange={handleInputChange}
+                        />
+                    </Field>
+                </div>
+            )}
+
             <div className="size-lg-12">
                 <Field name="Service types" required>
                     <CheckboxListContainer
