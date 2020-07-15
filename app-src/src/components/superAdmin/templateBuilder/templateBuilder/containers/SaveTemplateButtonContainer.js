@@ -48,7 +48,7 @@ class SaveTemplateButtonContainer extends Component {
             questions: setDynamicFields(questions),
             labelFields,
         };
-
+        console.log(newTemplateData);
         postTemplate(newTemplateData);
     };
 }

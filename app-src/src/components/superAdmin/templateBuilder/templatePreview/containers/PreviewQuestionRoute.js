@@ -26,7 +26,8 @@ const {
     MULTI_DROPDOWN_OPTIONS,
     MULTI_MULTI_DROPDOWN,
     MULTI_MULTI_DROPDOWN_OPTIONS,
-    STATIC_IMAGE
+    STATIC_IMAGE,
+    DOCUMENT_UPLOAD
 } = QUESTION_TYPE_VALUES;
 
 const PreviewQuestionRoute = ({ question }) => {
@@ -46,7 +47,9 @@ const PreviewQuestionRoute = ({ question }) => {
         [MULTI_DROPDOWN_OPTIONS]: MultiDropdown,
         [MULTI_MULTI_DROPDOWN]: MultiMultiDropdown,
         [MULTI_MULTI_DROPDOWN_OPTIONS]: MultiMultiDropdown,
-        [STATIC_IMAGE]: StaticImage
+        [STATIC_IMAGE]: StaticImage,
+        [DOCUMENT_UPLOAD]: DocumentUpload,
+
     };
 
     const Nothing = () => null;
@@ -139,6 +142,9 @@ function Photo() {
     return <button className="button">Take Photo</button>;
 }
 
+function DocumentUpload() {
+    return <button className="button">Upload Document</button>;
+}
 function StaticImage({ question }) {
     return (
         <img
