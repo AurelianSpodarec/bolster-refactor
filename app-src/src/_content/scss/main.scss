@@ -5591,10 +5591,15 @@ input {
         }
         p{
             font-size:160%;
+            a{
+                color:$red;
+            }
+            strong{
+                color:$red;
+            }
         }
     }
-    iframe{
-    }
+    
     .heading{
         &.heading-3{
             font-size: 100%;
