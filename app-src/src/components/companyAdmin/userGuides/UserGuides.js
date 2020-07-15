@@ -18,7 +18,7 @@ const UserGuides = () => (
                     classes="heading heading-2 underline-full half-margin"
                     title="Bolster Video User Guides"
                 />
-                <p className="generic-text intro-text">
+                <p className="generic-text">
                     Click <a href="https://vimeo.com/bolstersystems">here</a>, to visit our Vimeo
                     channel where you will find all our video user guides.
                 </p>
@@ -66,7 +66,7 @@ const UserGuides = () => (
                     classes="heading heading-2 underline-full half-margin"
                     title="Bolster User Guide Document"
                 ></BlockHeading>
-                <p className="generic-text intro-text">
+                <p className="generic-text">
                     Alternatively, download and read our "Complete User Guide" document{' '}
                     <a target="_blank" href={pdf}>
                         here
@@ -75,6 +75,8 @@ const UserGuides = () => (
                     <br />
                     <br /> This outlines the system's functionality in easy to follow step-by-step
                     processes.
+                    <br />
+                    <br />
                 </p>
                 <p className="generic-text intro-text">
                     The password for this guide is <strong>BSUserGuidev1</strong>.
