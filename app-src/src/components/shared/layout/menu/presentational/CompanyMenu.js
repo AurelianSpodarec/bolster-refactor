@@ -157,7 +157,8 @@ const CompanyMenu = ({
                         <i className="far fa-check-circle fa-fw icon" />
                         <span className="menu-text">Bolster Approved Companies</span>
                     </CompanyMenuItemContainer>
-                    <CompanyMenuItemContainer link="https://vimeo.com/bolstersystems" external>
+
+                    <CompanyMenuItemContainer link="/company/user-guides">
                         <i className="far fa-video fa-fw icon" />
                         <span className="menu-text">User Guides</span>
                     </CompanyMenuItemContainer>
