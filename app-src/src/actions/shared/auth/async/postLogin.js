@@ -5,28 +5,29 @@ import { getHeaders, handleErrors } from 'helpers/api';
 import {
     POST_LOGIN_REQUEST,
     POST_LOGIN_SUCCESS,
-    POST_LOGIN_FAILURE
+    POST_LOGIN_FAILURE,
 } from 'constants/actionTypes/auth';
 
 export const postLoginRequest = () => ({
-    type: POST_LOGIN_REQUEST
+    type: POST_LOGIN_REQUEST,
 });
 
 export const postLoginSuccess = payload => ({
     type: POST_LOGIN_SUCCESS,
-    payload
+    payload,
 });
 
 export const postLoginFailure = error => ({
     type: POST_LOGIN_FAILURE,
-    error
+    error,
 });
 
 export default (email, password) => dispatch => {
     dispatch(postLoginRequest());
-
+    // * Password is trimmed to remove whitespace from end at client request
+    const trimmedPassword = password.trim();
     return axios
-        .post(`${AUTH_API_URL}/auth/login`, { email, password }, getHeaders())
+        .post(`${AUTH_API_URL}/auth/login`, { email, password: trimmedPassword }, getHeaders())
         .then(res => {
             localStorage.setItem('token', res.data.token);
             return res;
