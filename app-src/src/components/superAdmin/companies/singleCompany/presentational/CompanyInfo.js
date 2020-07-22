@@ -19,6 +19,12 @@ const CompanyInfo = ({ company }) => (
                 fieldClass="no-h-padding"
             />
         )}
+
+        <FieldOutput
+            title="Credits"
+            description={company.creditValue || 0}
+            fieldClass="no-h-padding"
+        />
     </div>
 );
 
