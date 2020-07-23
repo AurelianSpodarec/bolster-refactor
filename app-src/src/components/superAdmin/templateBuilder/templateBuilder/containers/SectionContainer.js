@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { DropTarget } from 'react-dnd';
-import uuid from 'uuid/v1';
+import { DropTarget, useDrag, useDrop } from 'react-dnd';
 
 import {
     ADD_TEMPLATE_QUESTION,
     RENAME_TEMPLATE_SECTION,
-    SET_TEMPLATE_IMAGE
+    SET_TEMPLATE_IMAGE,
 } from 'constants/shared/modalTypes';
 import { DRAG_TYPES } from 'constants/superAdmin/dragTypes';
 import swapQuestionSorts from 'actions/superAdmin/templateBuilder/sync/swapQuestionSorts';
@@ -20,130 +19,165 @@ import deleteSection from 'actions/superAdmin/templateBuilder/sync/deleteSection
 import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 import deleteQuestion from 'actions/superAdmin/templateBuilder/sync/deleteQuestion';
 import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
+import swapSectionSorts from 'actions/superAdmin/templateBuilder/sync/swapSectionSorts';
 
-class SectionContainer extends Component {
-    render() {
-        const {
-            section,
-            questions,
-            canDrop,
-            isOver,
-            connectDropTarget,
-            deleteSection,
-            showAddQuestModal,
-            showRenameSectModal
-        } = this.props;
+const SectionContainer = ({
+    section,
+    sections,
+    questions,
+    canDrop,
+    isOver,
+    connectDropTarget,
+    deleteSection,
+    showAddQuestModal,
+    showRenameSectModal,
+    templateQuestions,
+    swapQuestionSorts,
+    changeQuestionSection,
+    setQuestion,
+    setSection,
+    showModal,
+    i,
+    findSection,
+    moveSection,
+    hovered,
+}) => {
+    const { uuid, sort } = section;
+    const [{ isDragging }, drag] = useDrag({
+        item: { type: 'SECTION', uuid, originalIndex: i },
+        collect: handleCollect,
+        end: handleDragEnd,
+    });
 
-        return connectDropTarget(
-            <div className="size-lg-12">
+    const [, drop] = useDrop({
+        accept: 'SECTION',
+        canDrop: () => false,
+        hover: handleHover,
+    });
+    return connectDropTarget(
+        <div ref={node => drag(drop(node))}>
+            <div className="size-lg-12" style={isDragging ? { opacity: 0 } : {}}>
                 <Section
-                    tooltipMessage={this._getTooltip()}
+                    tooltipMessage={_getTooltip()}
                     isActive={canDrop && isOver}
                     section={section}
                     questions={questions}
-                    moveQuestion={this.moveQuestion}
+                    moveQuestion={moveQuestion}
                     deleteSection={() => deleteSection(section.uuid)}
-                    showAddQuestModal={() =>
-                        showAddQuestModal(section.uuid, section.templateUUID)
-                    }
+                    showAddQuestModal={() => showAddQuestModal(section.uuid, section.templateUUID)}
                     showRenameSectModal={() => showRenameSectModal(section)}
-                    duplicateSection={this.duplicateSection}
-                    showAddImageModal={this.showAddImageModal}
+                    duplicateSection={duplicateSection}
+                    showAddImageModal={showAddImageModal}
+                    hovered={hovered}
                 />
             </div>
-        );
-    }
+        </div>,
+    );
 
-    _getTooltip = () => {
-        const { sections, questions } = this.props;
+    function _getTooltip() {
         const includesStatus = !!questions.filter(
-            s => s.questionType + '' === QUESTION_TYPE_VALUES.STATUS + ''
+            s => s.questionType + '' === QUESTION_TYPE_VALUES.STATUS + '',
         ).length;
 
         let tooltipMessage;
-        if (sections.length <= 1)
-            tooltipMessage = 'You must have at least one section.';
-        else if (!this._isDeletable())
-            tooltipMessage =
-                'This section has prerequisites with dependants in other sections.';
-        else if (includesStatus)
-            tooltipMessage = 'This section contains the \'Status\' question ';
+        if (sections.length <= 1) tooltipMessage = 'You must have at least one section.';
+        else if (!_isDeletable())
+            tooltipMessage = 'This section has prerequisites with dependants in other sections.';
+        else if (includesStatus) tooltipMessage = "This section contains the 'Status' question ";
 
         return tooltipMessage;
-    };
+    }
 
-    _isDeletable = () => {
-        const {
-            templateQuestions,
-            questions: sectionQuestions,
-            section,
-            sections
-        } = this.props;
-        const sectionQuestionUuids = sectionQuestions.map(({ uuid }) => uuid);
+    function _isDeletable() {
+        const sectionQuestionUuids = questions.map(({ uuid }) => uuid);
         const otherQuestionPrereqUuids = templateQuestions
             .filter(q => q.sectionUUID !== section.uuid)
             .map(q => q.prereqUUID);
 
         return (
             otherQuestionPrereqUuids.every(
-                prereqUUID => !sectionQuestionUuids.includes(prereqUUID)
+                prereqUUID => !sectionQuestionUuids.includes(prereqUUID),
             ) && sections.length > 1
         );
-    };
+    }
 
-    moveQuestion = (dragIndex, hoverIndex) => {
-        const { questions, swapQuestionSorts } = this.props;
+    function moveQuestion(dragIndex, hoverIndex) {
         const question1 = questions[dragIndex];
         const question2 = questions[hoverIndex];
         swapQuestionSorts(question1.uuid, question2.uuid);
-    };
+    }
 
-    changeSection = question => {
-        const { changeQuestionSection, section, questions } = this.props;
+    function changeSection(question) {
         const newSort = Math.max(0, ...questions.map(q => q.sort)) + 1;
 
         changeQuestionSection(question.uuid, section.uuid, newSort);
-    };
+    }
 
-    duplicateSection = e => {
-        const { questions, setSection, setQuestion, section } = this.props;
-
+    function duplicateSection(e) {
         e.preventDefault();
         const newUuid = uuid();
 
         const newSection = {
             ...section,
             name: `${section.name} - (copy)`,
-            uuid: newUuid
+            uuid: newUuid,
         };
 
         questions.forEach(question => {
-            if (
-                question.questionType + '' !==
-                QUESTION_TYPE_VALUES.STATUS + ''
-            ) {
+            if (question.questionType + '' !== QUESTION_TYPE_VALUES.STATUS + '') {
                 setQuestion({
                     ...question,
                     questionType: question.questionType,
                     sectionUUID: newUuid,
-                    uuid: uuid()
+                    uuid: uuid(),
                 });
             }
         });
         setSection(newSection);
-    };
+    }
 
-    showAddImageModal = () => {
-        const { showModal, section, questions } = this.props;
+    function showAddImageModal() {
         const maxSort = questions.reduce((max, q) => Math.max(max, q.sort), 0);
 
         showModal(SET_TEMPLATE_IMAGE, {
             sectionUUID: section.uuid,
             templateUUID: section.templateUUID,
-            sort: maxSort + 1
+            sort: maxSort + 1,
         });
-    };
-}
+    }
+
+    function handleHover({ uuid: draggedId }, monitor) {
+        if (draggedId !== uuid) {
+            console.log('hello');
+            const { index: overIndex } = findSection(draggedId);
+            moveSection(uuid, overIndex);
+        }
+    }
+
+    function handleDragEnd({ uuid: draggedId }, monitor) {
+        // console.log('drop');
+        // const { uuid: droppedId, originalIndex } = monitor.getItem();
+        // const didDrop = monitor.didDrop();
+        // console.log({ didDrop });
+        // if (!didDrop) {
+        //     console.log('didnt drop', { originalIndex });
+        //     console.log({ droppedId });
+        //     moveSection(droppedId, originalIndex);
+        // } else {
+        //     console.log({ draggedId, uuid });
+        //     if (draggedId !== uuid) {
+        //         console.log('moving section');
+        //         const { index: overIndex } = findSection(uuid);
+        //         moveSection(uuid, overIndex);
+        //     }
+        // }
+    }
+    function handleCollect(monitor) {
+        return {
+            isDragging: monitor.isDragging(),
+        };
+    }
+};
 
 const questionTarget = {
     drop(props, monitor, component) {
@@ -153,34 +187,30 @@ const questionTarget = {
             component.changeSection(sourceObj.question);
         }
         return {
-            sectionUUID: section.uuid
+            sectionUUID: section.uuid,
         };
-    }
+    },
 };
 
-const WithDragAndDrop = DropTarget(
-    DRAG_TYPES.QUESTION,
-    questionTarget,
-    (connect, monitor) => ({
-        connectDropTarget: connect.dropTarget(),
-        isOver: monitor.isOver(),
-        canDrop: monitor.canDrop()
-    })
-)(SectionContainer);
+const WithDragAndDrop = DropTarget(DRAG_TYPES.QUESTION, questionTarget, (connect, monitor) => ({
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver(),
+    canDrop: monitor.canDrop(),
+}))(SectionContainer);
 
 const mapStateToProps = (
     { superAdmin: { templateQuestionsReducer, templateSectionsReducer } },
-    { section }
+    { section },
 ) => ({
     templateQuestions: Object.values(templateQuestionsReducer.questions).filter(
-        q => q.templateUUID === section.templateUUID
+        q => q.templateUUID === section.templateUUID,
     ),
     questions: Object.values(templateQuestionsReducer.questions)
         .filter(q => q.sectionUUID === section.uuid)
         .sort((a, b) => a.sort - b.sort),
     sections: Object.values(templateSectionsReducer.sections).filter(
-        s => s.templateUUID === section.templateUUID
-    )
+        s => s.templateUUID === section.templateUUID,
+    ),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -200,9 +230,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(setSection(newSection));
     },
     showAddQuestModal: (sectionUUID, templateUUID) => {
-        dispatch(
-            showModal(ADD_TEMPLATE_QUESTION, { sectionUUID, templateUUID })
-        );
+        dispatch(showModal(ADD_TEMPLATE_QUESTION, { sectionUUID, templateUUID }));
     },
     showRenameSectModal: section => {
         dispatch(showModal(RENAME_TEMPLATE_SECTION, { section }));
@@ -212,10 +240,10 @@ const mapDispatchToProps = dispatch => ({
     },
     showModal: (type, props) => {
         dispatch(showModal(type, props));
-    }
+    },
+    swapSectionSorts: (section1Uuid, section2Uuid) => {
+        dispatch(swapSectionSorts(section1Uuid, section2Uuid));
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(WithDragAndDrop);
+export default connect(mapStateToProps, mapDispatchToProps)(WithDragAndDrop);
