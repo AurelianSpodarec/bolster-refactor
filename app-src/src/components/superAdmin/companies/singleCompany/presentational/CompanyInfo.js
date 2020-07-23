@@ -19,6 +19,20 @@ const CompanyInfo = ({ company }) => (
                 fieldClass="no-h-padding"
             />
         )}
+
+        <FieldOutput
+            title="Shows on client list?"
+            description={!company.hideOnClientList ? 'Yes' : 'No'}
+            fieldClass="no-h-padding"
+        />
+
+        <div className="button-container left size-lg-12">
+            {company.hideOnClientList ? (
+                <button className="button yellow">Show on client list</button>
+            ) : (
+                <button className="button yellow">Hide on client list</button>
+            )}
+        </div>
     </div>
 );
 

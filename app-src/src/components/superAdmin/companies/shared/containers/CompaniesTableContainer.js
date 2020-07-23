@@ -5,12 +5,7 @@ import CompaniesTable from '../presentational/CompaniesTable';
 import { COMPANY_TYPES } from 'constants/companyAdmin/enums';
 const { ALL } = COMPANY_TYPES;
 
-const CompaniesTableContainer = ({
-    isFetching,
-    fetchingError,
-    companies,
-    filters
-}) => {
+const CompaniesTableContainer = ({ isFetching, fetchingError, companies, filters }) => {
     return (
         <CompaniesTable
             headers={[
@@ -19,7 +14,8 @@ const CompaniesTableContainer = ({
                 'Address',
                 'Terms Accepted On',
                 'Type',
-                ''
+                'Shows on client list?',
+                '',
             ]}
             isFetching={isFetching}
             error={fetchingError}
@@ -33,10 +29,9 @@ const CompaniesTableContainer = ({
         return companies.filter(
             company =>
                 // filter by name
-                (company.name.toLowerCase().includes(name) ||
-                    company.code.includes(+name)) &&
+                (company.name.toLowerCase().includes(name) || company.code.includes(+name)) &&
                 // filter by type
-                (companyType === ALL || companyType === company.companyType)
+                (companyType === ALL || companyType === company.companyType),
         );
     }
 };
@@ -45,5 +40,5 @@ export default connect(({ superAdmin: { companiesReducer } }) => ({
     isFetching: companiesReducer.isFetching,
     fetchingError: companiesReducer.fetchingError,
     companies: Object.values(companiesReducer.companies),
-    filters: companiesReducer.filters
+    filters: companiesReducer.filters,
 }))(CompaniesTableContainer);
