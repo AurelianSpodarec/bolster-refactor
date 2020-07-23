@@ -36,7 +36,6 @@ const EditSettingsForm = ({
     fax,
     labelTelNumber,
     labelCompanyName,
-    hideOnClientList,
     isEditButtonEnabled,
     selectedRule,
     timeZoneOptions,
@@ -257,16 +256,6 @@ const EditSettingsForm = ({
                         checked={useManufacturingByDefault}
                         handleChange={handleInputChange}
                         name="useManufacturingByDefault"
-                    />
-                </Field>
-            </div>
-            <div className="size-lg-12">
-                {/* <p>##Bolster Client List##</p> */}
-                <Field name="Hide On Client List" sizeClasses="size-lg-6 size-md-12">
-                    <CheckboxContainer
-                        checked={hideOnClientList}
-                        handleChange={handleInputChange}
-                        name="hideOnClientList"
                     />
                 </Field>
             </div>
