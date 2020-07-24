@@ -1,6 +1,7 @@
 import moment from 'moment';
 import { DATE_TIME_DEFAULTS } from 'constants/companyAdmin/enums';
 import { useEffect } from 'react';
+import orderBy from 'lodash/orderBy';
 
 export function convertArrToObj(arr, field = 'id') {
     return arr.reduce((acc, item) => {
@@ -291,3 +292,6 @@ export const toTitleCase = string => {
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
 };
+
+export const sortArrayByField = (arr, field = 'id', ascending = false) =>
+    orderBy(arr, [field], [ascending ? 'asc' : 'desc']);
