@@ -8,9 +8,7 @@ import removeFilterQuestions from 'actions/client/reports/create/sync/clientRemo
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { SUCCESS_MODAL, ERROR_MODAL, SELECT_PIN_SCALE } from 'constants/shared/modalTypes';
 
-import {
-    FURTHER_FILTRATION_OPTIONS
-} from 'constants/companyAdmin/enums';
+import { FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
 
 import clientResetFilterOptions from 'actions/client/reports/create/sync/clientResetFilterOptions.js';
 
@@ -37,7 +35,7 @@ class OutputSettingsContainer extends Component {
                 isFloorplanGeneration,
                 includeFloorplan,
             },
-            options: { showHidden, sortBy },
+            options: { sortBy },
         } = this.props;
 
         const sortByOptions = convertEnumToDropdownOptions(SORT_BY_OPTIONS_TEXT);
@@ -51,7 +49,6 @@ class OutputSettingsContainer extends Component {
                 includeFloorplan={includeFloorplan}
                 sortByOptions={Object.values(sortByOptions)}
                 selectSortBy={sortByOptions[sortBy]}
-                showHidden={showHidden}
                 handleFilterChange={this.handleFilterChange}
                 handleOptionChange={this.handleOptionChange}
                 handleSubmit={this.handleSubmit}
@@ -124,28 +121,24 @@ class OutputSettingsContainer extends Component {
             postReport,
             fieldErrors,
             showFieldErrors,
-            filters: {
-                isFloorplanGeneration,
-                includeFloorplan,
-                isPDFGeneration
-            },
+            filters: { isFloorplanGeneration, includeFloorplan, isPDFGeneration },
             showModal,
-            furtherFiltrationOption
+            furtherFiltrationOption,
         } = this.props;
 
         const selectedCompanyID = getSelectedCompanyForClient();
 
-        if (furtherFiltrationOption && furtherFiltrationOption !== FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS.toString()) {
+        if (
+            furtherFiltrationOption &&
+            furtherFiltrationOption !== FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS.toString()
+        ) {
             showModal(ERROR_MODAL, {
                 title: 'Not available',
-                message: 'The filter method you have chosen is only available through accounts with a full subscription. Please choose another filter method'
+                message:
+                    'The filter method you have chosen is only available through accounts with a full subscription. Please choose another filter method',
             });
-        }
-        else if (!isEmpty(fieldErrors)) showFieldErrors();
-        else if (
-            isFloorplanGeneration ||
-            (isPDFGeneration && includeFloorplan)
-        ) {
+        } else if (!isEmpty(fieldErrors)) showFieldErrors();
+        else if (isFloorplanGeneration || (isPDFGeneration && includeFloorplan)) {
             const drawingForPinScale = this._getDrawingForPinScale();
             showModal(SELECT_PIN_SCALE, {
                 drawing: drawingForPinScale,
@@ -189,7 +182,15 @@ const mapStateToProps = ({
         buildingsReducer: { buildings },
         floorsReducer: { floors },
         drawingsReducer: { drawings },
-        reportsReducer: { filters, fields, options, postSuccess, error, pinIDs, furtherFiltrationOption }
+        reportsReducer: {
+            filters,
+            fields,
+            options,
+            postSuccess,
+            error,
+            pinIDs,
+            furtherFiltrationOption,
+        },
     },
     shared: {
         fieldErrorsReducer: { fieldErrors },
@@ -206,7 +207,7 @@ const mapStateToProps = ({
     floors,
     drawings,
     error,
-    furtherFiltrationOption
+    furtherFiltrationOption,
 });
 
 const mapDispatchToProps = {

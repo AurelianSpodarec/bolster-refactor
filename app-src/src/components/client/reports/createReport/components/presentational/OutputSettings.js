@@ -17,7 +17,6 @@ const OutputSettings = ({
     isCSVGeneration,
     isFloorplanGeneration,
     includeFloorplan,
-    showHidden
 }) => (
     <div className="size-lg-12">
         <BlockContainer>
@@ -63,17 +62,12 @@ const OutputSettings = ({
                                                         ? includePinLocation
                                                         : isPDFGeneration
                                                 }
-                                                handleChange={
-                                                    handleFilterChange
-                                                }
+                                                handleChange={handleFilterChange}
                                                 name="includePinLocation"
                                             />
                                             <p className="sub-text" />
                                         </Field>
-                                        <Field
-                                            sizeClasses="size-lg-6"
-                                            name="Include Floorplan?"
-                                        >
+                                        <Field sizeClasses="size-lg-6" name="Include Floorplan?">
                                             <CheckboxContainer
                                                 classes="with-subtext"
                                                 checked={
@@ -81,9 +75,7 @@ const OutputSettings = ({
                                                         ? includeFloorplan
                                                         : isPDFGeneration
                                                 }
-                                                handleChange={
-                                                    handleFilterChange
-                                                }
+                                                handleChange={handleFilterChange}
                                                 name="includeFloorplan"
                                             />
                                             <p className="sub-text" />
@@ -104,19 +96,6 @@ const OutputSettings = ({
                                 selectedOption={selectSortBy}
                                 withoutPlaceholder
                             />
-                        </Field>
-
-                        <Field name="Show hidden?">
-                            <CheckboxContainer
-                                classes="with-subtext"
-                                checked={showHidden}
-                                handleChange={handleOptionChange}
-                                name="showHidden"
-                            />
-                            <p className="sub-text">
-                                - Check to include questions that are hidden on
-                                the templates?
-                            </p>
                         </Field>
                     </div>
                     <BlockButtonWrapper>
