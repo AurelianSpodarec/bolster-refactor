@@ -7,9 +7,11 @@ import Form from 'components/shared/generic/form/containers/Form';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const EditProfilePassword = ({
+    isClient,
     handleSubmit,
     handleInputChange,
     password,
+    oldPassword,
     confirmPassword,
     validatePassword,
     validateConfirmPassword,
@@ -18,6 +20,18 @@ const EditProfilePassword = ({
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
             <div className="size-lg-6 size-md-12">
+                {!isClient && (
+                    <Field name="Old Password" required>
+                        <TextInputContainer
+                            value={oldPassword}
+                            name="oldPassword"
+                            handleChange={handleInputChange}
+                            type="password"
+                            required
+                        />
+                    </Field>
+                )}
+
                 <Field name="Enter New Password" required>
                     <TextInputContainer
                         value={password}

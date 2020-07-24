@@ -9,19 +9,24 @@ import changeProfilePassword from 'actions/shared/profile/async/changeProfilePas
 
 class EditProfilePasswordFormContainer extends Component {
     state = {
+        oldPassword: '',
         password: '',
         confirmPassword: '',
     };
 
-    render = () => (
-        <EditProfilePasswordForm
-            {...this.state}
-            handleInputChange={this.handleInputChange}
-            validatePassword={this.validatePassword}
-            validateConfirmPassword={this.validateConfirmPassword}
-            handleSubmit={this.handleSubmit}
-        />
-    );
+    render = () => {
+        let isClient = this.props.location.pathname.includes('client');
+        return (
+            <EditProfilePasswordForm
+                {...this.state}
+                isClient={isClient}
+                handleInputChange={this.handleInputChange}
+                validatePassword={this.validatePassword}
+                validateConfirmPassword={this.validateConfirmPassword}
+                handleSubmit={this.handleSubmit}
+            />
+        );
+    };
 
     componentDidUpdate(prevProps) {
         const { postSuccess, history, location } = this.props;
@@ -35,11 +40,16 @@ class EditProfilePasswordFormContainer extends Component {
     };
 
     handleSubmit = e => {
+        let isClient = this.props.location.pathname.includes('client');
         e.preventDefault();
-        const { password } = this.state;
-        const postBody = {
-            password,
-        };
+        const { password, oldPassword } = this.state;
+        let postBody;
+
+        if (isClient) {
+            postBody = { password };
+        } else {
+            postBody = { password, oldPassword };
+        }
 
         this.props.changeProfilePassword(postBody);
     };
