@@ -9,7 +9,7 @@ const DemoRequestsTableContainer = ({ isFetching, fetchingError, demoRequests })
             headers={['Name', 'Company Name', 'Email', 'Phone Number', '']}
             isFetching={isFetching}
             error={fetchingError}
-            demoRequests={sortArrayByField(demoRequests, 'createdOn')}
+            demoRequests={demoRequests}
         />
     );
 };
@@ -17,6 +17,6 @@ const DemoRequestsTableContainer = ({ isFetching, fetchingError, demoRequests })
 export default connect(({ superAdmin: { demoRequestsReducer } }) => ({
     isFetching: demoRequestsReducer.isFetching,
     fetchingError: demoRequestsReducer.fetchingError,
-    demoRequests: Object.values(demoRequestsReducer.demoRequests),
+    demoRequests: sortArrayByField(Object.values(demoRequestsReducer.demoRequests), 'createdOn'),
     filters: demoRequestsReducer.filters,
 }))(DemoRequestsTableContainer);
