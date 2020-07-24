@@ -2,6 +2,7 @@ import React, { useMemo, useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 
 import CreditLogsTable from '../presentational/CreditLogsTable';
+import { sortArrayByField } from 'helpers/generic';
 
 const CreditLogsTableContainer = ({
     credits,
@@ -10,7 +11,7 @@ const CreditLogsTableContainer = ({
     error,
     headers,
     users,
-    companyUserID
+    companyUserID,
 }) => {
     const filteredCredits = useMemo(
         () =>
@@ -19,7 +20,7 @@ const CreditLogsTableContainer = ({
                 const invoice = invoices[credit.invoiceID];
                 return !invoice || !!invoice.total;
             }),
-        [isFetching]
+        [isFetching],
     );
     const [shouldRestrictPayments, setShouldRestrictPayments] = useState(false);
 
@@ -34,15 +35,14 @@ const CreditLogsTableContainer = ({
 
     useEffect(() => {
         if (users && users[companyUserID] && !prevUsers[companyUserID]) {
-            setShouldRestrictPayments(
-                users[companyUserID].shouldRestrictPayments
-            );
+            setShouldRestrictPayments(users[companyUserID].shouldRestrictPayments);
         }
     }, [users]);
+
     return (
         <CreditLogsTable
             headers={headers}
-            creditLogs={filteredCredits}
+            creditLogs={sortArrayByField(filteredCredits, 'createdOn')}
             isFetching={isFetching}
             error={error}
             shouldRestrictPayments={shouldRestrictPayments}
@@ -54,13 +54,13 @@ const mapStateToProps = ({
     companyAdmin: {
         creditsReducer: { credits, isFetching: fetchingCredits, error },
         invoicesReducer: { invoices, isFetching: fetchingInvoices },
-        companyUsersReducer: { users }
+        companyUsersReducer: { users },
     },
     shared: {
         decodeJWTReducer: {
-            jwtData: { companyUserID }
-        }
-    }
+            jwtData: { companyUserID },
+        },
+    },
 }) => ({
     credits: Object.values(credits),
     invoices,
@@ -68,7 +68,7 @@ const mapStateToProps = ({
     error,
     headers: ['Date', 'Type', 'Quantity', 'Drawing Heirarchy', 'User', ''],
     users,
-    companyUserID
+    companyUserID,
 });
 
 export default connect(mapStateToProps)(CreditLogsTableContainer);
