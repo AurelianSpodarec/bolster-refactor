@@ -8,11 +8,20 @@ import CheckboxList from '../presentational/CheckboxList';
 
 class CheckboxListContainer extends Component {
     state = {
-        showFieldError: false
+        showFieldError: false,
     };
     render() {
         const { showFieldError } = this.state;
-        const { options, error, errorsVisible, selectedOptions, name, classes } = this.props;
+        const {
+            options,
+            error,
+            errorsVisible,
+            selectedOptions,
+            name,
+            classes,
+            allOptionsDisabled = false,
+            hideDisabled = false,
+        } = this.props;
 
         const errorMessage = showFieldError || errorsVisible ? error : null;
         return (
@@ -23,6 +32,8 @@ class CheckboxListContainer extends Component {
                 error={errorMessage}
                 name={name}
                 classes={classes}
+                allOptionsDisabled={allOptionsDisabled}
+                hideDisabled={hideDisabled}
             />
         );
     }
@@ -55,7 +66,7 @@ class CheckboxListContainer extends Component {
             addFieldError,
             removeFieldError,
             selectedOptions,
-            requiredMessage
+            requiredMessage,
         } = this.props;
 
         if (required && !selectedOptions.length) {
@@ -67,21 +78,18 @@ class CheckboxListContainer extends Component {
 const mapStateToProps = (
     {
         shared: {
-            fieldErrorsReducer: { fieldErrors, errorsVisible }
-        }
+            fieldErrorsReducer: { fieldErrors, errorsVisible },
+        },
     },
-    ownProps
+    ownProps,
 ) => ({
     error: fieldErrors[ownProps.name],
-    errorsVisible
+    errorsVisible,
 });
 
 const mapDispatchToProps = dispatch => ({
     addFieldError: (name, error) => dispatch(addFieldError(name, error)),
-    removeFieldError: name => dispatch(removeFieldError(name))
+    removeFieldError: name => dispatch(removeFieldError(name)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CheckboxListContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CheckboxListContainer);

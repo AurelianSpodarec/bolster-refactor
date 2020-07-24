@@ -69,7 +69,6 @@ export default function (ProtectedComponent) {
             const { PIN_SELECTOR, INDIVIDUAL_PINS } = FURTHER_FILTRATION_OPTIONS;
 
             // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
-            console.log({ pins });
             if (+furtherFiltrationOption > PIN_SELECTOR) {
                 // advanced
                 return pins.filter(({ id }) => filters.pinIDs.includes(id));
@@ -98,19 +97,21 @@ export default function (ProtectedComponent) {
 
                     if (
                         fromDateInclusive &&
-                        moment(pin.latestCreatedOn) <
-                        moment(fromDateInclusive, momentComparisonFormat)
+                        moment(pin.latestCreatedOn, momentComparisonFormat) <
+                            moment(fromDateInclusive, momentComparisonFormat)
                     ) {
                         return NO;
                     }
+
                     // end date
                     if (
                         toDateInclusive &&
-                        moment(pin.latestCreatedOn) >
-                        moment(toDateInclusive, momentComparisonFormat)
+                        moment(pin.latestCreatedOn, momentComparisonFormat) >
+                            moment(toDateInclusive, momentComparisonFormat)
                     ) {
                         return NO;
                     }
+
                     // status
                     if (status && +pin.latestStatus !== +status) {
                         return NO;
@@ -139,6 +140,7 @@ export default function (ProtectedComponent) {
                     //         return NO;
                     //     }
                     // }
+
                     return YES;
                 })
                 .map(pin => ({
@@ -167,6 +169,7 @@ export default function (ProtectedComponent) {
                     isCSVGeneration,
                     isFloorplanGeneration,
                     includeFloorplan,
+                    isOAndMManualGeneration,
                     fromDateInclusive,
                     toDateInclusive,
                     companyUserIDs,
@@ -213,7 +216,7 @@ export default function (ProtectedComponent) {
             switch (+furtherFiltrationOption) {
                 case INDIVIDUAL_PINS: {
                     selectedPinIDs = pinIDs.filter(
-                        id => !Object.values(excludedPinIDs).includes(id)
+                        id => !Object.values(excludedPinIDs).includes(id),
                     );
                     break;
                 }
@@ -226,7 +229,7 @@ export default function (ProtectedComponent) {
                                 questionGroupKeys: selectedQuestions,
                                 values,
                             };
-                        }
+                        },
                     );
                     break;
                 }
@@ -240,25 +243,21 @@ export default function (ProtectedComponent) {
             };
 
             const pinBoundingBoxes = Object.values(
-                rectangles
+                rectangles,
             ).map(({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]);
             // get the utc converted time for both from date and to date.
             const startDate = fromDateInclusive
-                ? moment
-                    .tz(fromDateInclusive, timeZone.name)
-                    .startOf('day')
-                    .utc()
-                    .toISOString()
+                ? moment.tz(fromDateInclusive, timeZone.name).startOf('day').utc().toISOString()
                 : null;
 
             // to date needs to be start of next day so that we get all pins from the previous day.
             const endDate = toDateInclusive
                 ? moment
-                    .tz(toDateInclusive, timeZone.name)
-                    .add('days', 1)
-                    .startOf('day')
-                    .utc()
-                    .toISOString()
+                      .tz(toDateInclusive, timeZone.name)
+                      .add('days', 1)
+                      .startOf('day')
+                      .utc()
+                      .toISOString()
                 : null;
 
             const body = {
@@ -270,6 +269,7 @@ export default function (ProtectedComponent) {
                 isCSVGeneration,
                 isFloorplanGeneration,
                 includeFloorplan,
+                isOAndMManualGeneration,
                 fromDateInclusive: startDate,
                 toDateInclusive: endDate,
                 companyUserIDs,
@@ -292,33 +292,21 @@ export default function (ProtectedComponent) {
         getFilterStartDate = date => {
             const { timeZone } = this.props;
             return date
-                ? moment
-                    .tz(date, timeZone.name)
-                    .startOf('day')
-                    .utc()
-                    .toISOString()
+                ? moment.tz(date, timeZone.name).add('days', 1).startOf('day').utc().toISOString()
                 : null;
         };
 
         getFilterEndDate = date => {
             const { timeZone } = this.props;
             const endDate = date
-                ? moment
-                    .tz(date, timeZone.name)
-                    .add('days', 1)
-                    .startOf('day')
-                    .utc()
-                    .toISOString()
+                ? moment.tz(date, timeZone.name).add('days', 1).startOf('day').utc().toISOString()
                 : null;
             return endDate;
         };
 
         getDateOfPin = date => {
             const { timeZone } = this.props;
-            return moment
-                .tz(date, timeZone.name)
-                .utc()
-                .toISOString();
+            return moment.tz(date, timeZone.name).utc().toISOString();
         };
 
         getTemplateOptions = () => {
@@ -374,7 +362,7 @@ export default function (ProtectedComponent) {
                 },
             },
         },
-        { blockName }
+        { blockName },
     ) => {
         const selectedSite = sites[filters.siteID] || {};
         const buildingIDs = selectedSite.buildingIDs || [];

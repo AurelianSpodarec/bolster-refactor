@@ -3,7 +3,7 @@ import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
@@ -34,14 +34,15 @@ const AttachDocumentForm = ({
     startOn,
     endOn,
     location,
-    file
+    file,
+    showMoreServicesMesssage,
 }) => (
     <BlockContainer>
         <BlockHeading title="Document details" />
 
         <p className="generic-text size-lg-12">
             {
-                'Documents will be available for operatives to view on the mobile app. An attached document will appear to operatives with access to this location, once they have downsynced. If an operative is required to respond to the document before proceeding, select \'Requires agreement\'. Additionally, if an operative is required to respond periodically, select the multiple option and you will be able to specify a frequency.'
+                "Documents will be available for operatives to view on the mobile app. An attached document will appear to operatives with access to this location, once they have downsynced. If an operative is required to respond to the document before proceeding, select 'Requires agreement'. Additionally, if an operative is required to respond periodically, select the multiple option and you will be able to specify a frequency."
             }
         </p>
 
@@ -114,6 +115,7 @@ const AttachDocumentForm = ({
                         options={services}
                         selectedOptions={serviceIDs}
                         requiredMessage="Please select at least one service."
+                        hideDisabled
                     />
                 </Field>
             </div>
@@ -164,6 +166,13 @@ const AttachDocumentForm = ({
                 </>
             )}
             <BlockButtonWrapper>
+                {showMoreServicesMesssage && (
+                    <p className="generic-text size-lg-12">
+                        Looking for more service types? Check your{' '}
+                        <Link to="/company/subscription">subscriptions</Link> to add more!
+                    </p>
+                )}
+
                 <SubmitContainer text="Attach Document" withPlus />
                 <ButtonContainer to={location.pathname.replace('/attach-document', '')}>
                     Cancel

@@ -8,12 +8,14 @@ import editClientForDrawing from 'actions/companyAdmin/clients/async/editClientF
 
 class EditClientFormContainer extends Component {
     state = {
-        serviceIDs: []
+        serviceIDs: [],
     };
 
     render() {
         const { serviceIDs } = this.state;
         const serviceOptions = this._getServicesOptions();
+        const showMoreServicesMesssage = serviceOptions.some(option => option.disabled === true);
+
         return (
             <EditClientForm
                 {...this.state}
@@ -22,6 +24,7 @@ class EditClientFormContainer extends Component {
                 goBack={this.goBack}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
+                showMoreServicesMesssage={showMoreServicesMesssage}
             />
         );
     }
@@ -29,7 +32,7 @@ class EditClientFormContainer extends Component {
         // * ID comes out of DB as number, but checkbox stores value as string
         const serviceIDs = this.props.client.serviceIDs.map(id => String(id));
         this.setState({
-            serviceIDs
+            serviceIDs,
         });
     };
 
@@ -40,10 +43,7 @@ class EditClientFormContainer extends Component {
         }
 
         if (!prevProps.success && success) {
-            if (
-                location.state !== undefined &&
-                location.state.isFromClientUserManagement
-            ) {
+            if (location.state !== undefined && location.state.isFromClientUserManagement) {
                 history.goBack();
             } else {
                 history.replace(`/company/drawings/${hierarchyID}`);
@@ -64,17 +64,14 @@ class EditClientFormContainer extends Component {
         return services.map(({ id, name }) => ({
             value: id,
             text: name,
-            disabled: !subscriptions.includes(id)
+            disabled: !subscriptions.includes(id),
         }));
     };
 
     goBack = () => {
         const { location, history, hierarchyID } = this.props;
 
-        if (
-            location.state !== undefined &&
-            location.state.isFromClientUserManagement
-        ) {
+        if (location.state !== undefined && location.state.isFromClientUserManagement) {
             history.goBack();
         } else {
             history.replace(`/company/drawings/${hierarchyID}`);
@@ -88,7 +85,7 @@ class EditClientFormContainer extends Component {
         const { editClient, clientID } = this.props;
 
         const postBody = {
-            ServiceIDs: serviceIDs
+            ServiceIDs: serviceIDs,
         };
 
         editClient(clientID, postBody);
@@ -97,25 +94,20 @@ class EditClientFormContainer extends Component {
 
 const mapStateToProps = (
     { companyAdmin: { servicesReducer, subscriptionsReducer, clientsReducer } },
-    { match }
+    { match },
 ) => ({
     services: Object.values(servicesReducer.services),
     subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
     hierarchyID: match.params.id,
     client: clientsReducer.clients[match.params.clientID] || {},
     clientID: match.params.clientID,
-    success: clientsReducer.postSuccess
+    success: clientsReducer.postSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
     editClient: (drawingID, postBody) => {
         dispatch(editClientForDrawing(drawingID, postBody));
-    }
+    },
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(EditClientFormContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditClientFormContainer));

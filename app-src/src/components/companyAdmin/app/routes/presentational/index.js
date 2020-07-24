@@ -24,6 +24,7 @@ import TermsRoutes from './TermsRoutes';
 import DropdownOptionsRoutes from './DropdownOptionsRoutes';
 import HeadquartersRoutes from './HeadquartersRoutes';
 import ApprovedCompaniesRoutes from './ApprovedCompaniesRoutes';
+import UserGuidesRoutes from './UserGuidesRoutes';
 
 const CompanyRoutes = ({ base = '/company' }) => (
     <SwitchWith404>
@@ -43,6 +44,8 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route path={`${base}/subscription`} component={SubscriptionRoutes} />
         <Route path={`${base}/tools`} component={withSubscriptionAuth(ToolsRoutes)} />
         <Route path={`${base}/terms`} component={withSubscriptionAuth(TermsRoutes)} />
+        <Route path={`${base}/user-guides`} component={withSubscriptionAuth(UserGuidesRoutes)} />
+
         <Route
             path={`${base}/approved-companies`}
             component={withSubscriptionAuth(ApprovedCompaniesRoutes)}

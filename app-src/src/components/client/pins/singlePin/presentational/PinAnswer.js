@@ -1,24 +1,16 @@
 import React from 'react';
 import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
-import { FILE_STORAGE_URL } from 'config';
-// import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import { FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
 import { connect } from 'react-redux';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
-const PinAnswer = ({
-    trimmedAnswer,
-    type,
-    questions,
-    answers,
-    // status,
-    dispatch,
-    question,
-}) => {
+const PinAnswer = ({ trimmedAnswer, type, questions, answers, dispatch, question }) => {
     const curAnswer = answers.find(item => +item.id === +trimmedAnswer.id);
     const notFoundResponse = null;
     let inner;
+
     if (!curAnswer && type !== TYPES.STATUS) return notFoundResponse;
     switch (type) {
         case TYPES.SINGLE_LINE:
@@ -41,7 +33,18 @@ const PinAnswer = ({
             );
             if (!relevantQuestion) return notFoundResponse;
 
-            var relevantOption = relevantQuestion.options.find(({ id }) => id === curAnswer.answer);
+            var relevantOption = relevantQuestion.options.find(({ id }) => {
+                if (id === curAnswer.answer) return true;
+                if (typeof id === 'string') {
+                    const apostropheRegex = /[‘’]/gi;
+                    return (relevantOption = relevantQuestion.options.find(
+                        ({ id }) =>
+                            curAnswer.answer ===
+                            id.replace(apostropheRegex, "'").replace(apostropheRegex, "'"),
+                    ));
+                }
+                return false;
+            });
             if (!relevantOption) return notFoundResponse;
 
             inner = <p>{relevantOption.text}</p>;
@@ -65,7 +68,7 @@ const PinAnswer = ({
 
             break;
         case TYPES.SINGLE_PHOTO:
-            var URL = `${FILE_STORAGE_URL}/${curAnswer.answer}`;
+            var URL = `${RAW_S3_STORAGE_URL}/${curAnswer.answer}`;
             inner = (
                 <img
                     style={{ cursor: 'zoom-in' }}
@@ -73,6 +76,22 @@ const PinAnswer = ({
                     src={URL + '?width=100'}
                     onClick={() => dispatch(showModal(PIN_IMAGE, { image: URL + '?width=1500' }))}
                 />
+            );
+            break;
+        case TYPES.DOCUMENT_UPLOAD:
+            var docURL = `${FILE_STORAGE_URL}/${curAnswer.answer}`;
+            inner = (
+                <p>
+                    <a
+                        href={docURL}
+                        rel="noopener norefferrer"
+                        // eslint-disable-next-line react/jsx-no-target-blank
+                        target="_blank"
+                        className="text-link"
+                    >
+                        <i className="table-icon far fa-file-alt" /> {curAnswer.answer}
+                    </a>
+                </p>
             );
             break;
         case TYPES.MULTI_PHOTO:
@@ -94,6 +113,7 @@ const PinAnswer = ({
         default:
             return notFoundResponse;
     }
+
     return (
         <FieldOutput title={question.name} key={question.id} sizeClass="size-lg-4 flex-row-item">
             {inner}

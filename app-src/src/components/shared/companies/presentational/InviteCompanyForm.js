@@ -18,21 +18,18 @@ const InviteCompanyForm = ({
     hierarchyType,
     handleChange,
     templateUsageRule,
-    templateRules
+    templateRules,
+    showMoreServicesMesssage,
 }) => (
     <>
         <BlockHeading title="Company details" />
         <p className="generic-text intro-text size-lg-12">
-            Please be aware that adding a company that already has permissions
-            within this {hierarchyType} may end their current access
+            Please be aware that adding a company that already has permissions within this{' '}
+            {hierarchyType} may end their current access
             <br /> until they accept this new invitation.
         </p>
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
-            <Field
-                name="Enter the company code"
-                sizeClasses="size-lg-6 size-md-12"
-                required
-            >
+            <Field name="Enter the company code" sizeClasses="size-lg-6 size-md-12" required>
                 <TextInputContainer
                     name="companyCode"
                     value={companyCode}
@@ -48,6 +45,7 @@ const InviteCompanyForm = ({
                     handleChange={handleChange}
                     options={serviceOptions}
                     selectedOptions={checkedServices}
+                    hideDisabled
                 />
             </Field>
             <Field name="Set Template Usage Rule" required>
@@ -63,14 +61,18 @@ const InviteCompanyForm = ({
             </Field>
 
             <BlockButtonWrapper>
+                {showMoreServicesMesssage && (
+                    <p className="generic-text size-lg-12">
+                        Looking for more service types? Check your{' '}
+                        <Link to="/company/subscription">subscriptions</Link> to add more!
+                    </p>
+                )}
+
                 <button className="button green">
                     <i className="fa fa-plus" />
                     Invite Company
                 </button>
-                <Link
-                    to={location.pathname.replace('/invite-company', '')}
-                    className="button"
-                >
+                <Link to={location.pathname.replace('/invite-company', '')} className="button">
                     Cancel
                 </Link>
             </BlockButtonWrapper>

@@ -11,7 +11,6 @@ const SinglePin = ({ isLoading, pin }) => (
         <SinglePinHeaderContainer />
         <div className="size-lg-12">
             <SinglePinMapContainer />
-            {/* <PinHistoriesContainer /> */}
 
             {!isEmpty(pin) && <PinQRCode pin={pin} />}
 

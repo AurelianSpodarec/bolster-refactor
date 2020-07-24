@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 import Form from 'components/shared/generic/form/containers/Form';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
@@ -11,7 +11,8 @@ const EditClientForm = ({
     serviceOptions,
     checkedServices,
     goBack,
-    handleChange
+    handleChange,
+    showMoreServicesMesssage,
 }) => (
     <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
         <Field name="Service types" sizeClasses="size-lg-12" required>
@@ -21,10 +22,18 @@ const EditClientForm = ({
                 handleChange={handleChange}
                 options={serviceOptions}
                 selectedOptions={checkedServices}
+                hideDisabled
             />
         </Field>
 
         <BlockButtonWrapper>
+            {showMoreServicesMesssage && (
+                <p className="generic-text size-lg-12">
+                    Looking for more service types? Check your{' '}
+                    <Link to="/company/subscription">subscriptions</Link> to add more!
+                </p>
+            )}
+
             <button type="submit" className="button green">
                 Confirm
             </button>

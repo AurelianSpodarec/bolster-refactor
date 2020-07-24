@@ -1,12 +1,12 @@
 import React from 'react';
 import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
-import { FILE_STORAGE_URL } from 'config';
-// import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import { FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
 import { connect } from 'react-redux';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
-import { isEmpty } from 'helpers/generic';
+import { isEmpty, isObjEmpty } from 'helpers/generic';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const PinAnswer = ({
     trimmedAnswer,
@@ -14,14 +14,26 @@ const PinAnswer = ({
     questions,
     questionsObj,
     answers,
-    // status,
     dispatch,
     question,
     pinHistory,
+    optionValuesLookup,
 }) => {
-    const curAnswer = answers.find(item => +item.id === +trimmedAnswer.id);
+    const curAnswer = { ...answers.find(item => +item.id === +trimmedAnswer.id) };
+    const isCurAnswerForManufacturing = curAnswer.isManufacturing;
     const notFoundResponse = null;
     let inner;
+
+    if (isCurAnswerForManufacturing && !isObjEmpty(optionValuesLookup) && !!curAnswer.answer) {
+        if (type === TYPES.DROPDOWN_OPTIONS) {
+            curAnswer.answer = optionValuesLookup[curAnswer.answer].name;
+        } else if (
+            type === TYPES.MULTI_DROPDOWN_OPTIONS ||
+            type === TYPES.MULTI_MULTI_DROPDOWN_OPTIONS
+        ) {
+            curAnswer.answer = curAnswer.answer.map(id => optionValuesLookup[id].name);
+        }
+    }
 
     if (curAnswer) {
         const curQuestion = questionsObj[curAnswer.templateQuestionID];
@@ -56,6 +68,8 @@ const PinAnswer = ({
         case TYPES.SINGLE_LINE:
         case TYPES.MULTI_LINE:
         case TYPES.NUMBER:
+            inner = <p>{curAnswer.answer}</p>;
+            break;
         case TYPES.DROPDOWN_OPTIONS:
             inner = <p>{curAnswer.answer}</p>;
             break;
@@ -71,11 +85,24 @@ const PinAnswer = ({
             var relevantQuestion = questions.find(
                 ({ id }) => +id === +curAnswer.templateQuestionID,
             );
+
             if (!relevantQuestion) return notFoundResponse;
 
-            var relevantOption = relevantQuestion.options.find(({ id }) => id === curAnswer.answer);
-            if (!relevantOption) return notFoundResponse;
+            var relevantOption = relevantQuestion.options.find(({ id }) => {
+                if (id === curAnswer.answer) return true;
+                // radio button answers are used as their ID,
+                // but when going into db the answer has special quote chars replaced
+                if (typeof id === 'string') {
+                    const apostropheRegex = /[‘’]/gi;
+                    return (
+                        curAnswer.answer ===
+                        id.replace(apostropheRegex, "'").replace(apostropheRegex, "'")
+                    );
+                }
+                return false;
+            });
 
+            if (!relevantOption) return notFoundResponse;
             inner = <p>{relevantOption.text}</p>;
             break;
         case TYPES.MULTI_DROPDOWN:
@@ -122,6 +149,20 @@ const PinAnswer = ({
                     />
                 );
             });
+            break;
+        case TYPES.DOCUMENT_UPLOAD:
+            var docURL = `${RAW_S3_STORAGE_URL}/${curAnswer.answer}`;
+            inner = (
+                <ButtonContainer
+                    to={docURL}
+                    isAnchor
+                    className="btn blue"
+                    openNewTab
+                >
+                    <i className="table-icon far fa-eye" />
+                    View pdf
+                </ButtonContainer>
+            );
             break;
         default:
             return notFoundResponse;
