@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import moment from 'moment';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const DrawingDataByOperativeListItem = ({ operative, history, onMobile, headers }) => {
     return (
@@ -14,15 +14,19 @@ const DrawingDataByOperativeListItem = ({ operative, history, onMobile, headers 
             <td>
                 {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-                {operative.lastLogin
-                    ? moment(operative.lastLogin).format('DD-MM-YYYY HH:mm')
-                    : 'Not logged in'}
+                {operative.lastLogin ? (
+                    <DateTimeContainer format="DD-MM-YYYY HH:mm" date={operative.lastLogin} />
+                ) : (
+                    'Not logged in'
+                )}
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
-                {operative.lastSync
-                    ? moment(operative.lastSync).format('DD-MM-YYYY HH:mm')
-                    : 'Not synced'}
+                {operative.lastSync ? (
+                    <DateTimeContainer format="DD-MM-YYYY HH:mm" date={operative.lastSync} />
+                ) : (
+                    'Not synced'
+                )}
             </td>
             <td>
                 {' '}
@@ -47,8 +51,8 @@ const DrawingDataByOperativeListItem = ({ operative, history, onMobile, headers 
                 selectedService: localStorage.getItem('selectedService'),
                 selectedStatus: localStorage.getItem('selectedStatus'),
                 selectedStartDate: localStorage.getItem('selectedStartDate'),
-                selectedEndDate: localStorage.getItem('selectedEndDate')
-            }
+                selectedEndDate: localStorage.getItem('selectedEndDate'),
+            },
         });
     }
 };
