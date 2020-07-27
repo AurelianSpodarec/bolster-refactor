@@ -25,7 +25,7 @@ export const fetchUserGuideFailure = error => ({
 export default () => dispatch => {
     dispatch(fetchUserGuideRequest());
     return axios
-        .fetch(`${API_URL}/userguide`, getHeaders())
+        .fetch(`${API_URL}/userguide/fetch`, getHeaders())
         .then(({ data }) => dispatch(fetchUserGuideSuccess(data)))
         .catch(err => {
             dispatch(fetchUserGuideFailure(err.message));

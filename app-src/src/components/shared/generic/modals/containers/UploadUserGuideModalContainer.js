@@ -38,8 +38,8 @@ const mapDispatchToProps = dispatch => ({
     hideModal: () => {
         dispatch(hideModal());
     },
-    uploadUserGuide: (fileName, fileS3Key) => {
-        dispatch(uploadUserGuide(fileName, fileS3Key));
+    uploadUserGuide: fileS3Key => {
+        dispatch(uploadUserGuide(fileS3Key));
         dispatch(hideModal());
     },
 });
