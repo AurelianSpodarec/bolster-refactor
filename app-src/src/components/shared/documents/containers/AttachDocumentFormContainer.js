@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom';
 
 import AttachDocumentForm from '../presentational/AttachDocumentForm';
 import createDocument from 'actions/documents/async/createDocument';
+import fetchCompaniesPermissions from 'actions/companyAdmin/companiesPermissions/async/fetchCompanyPermissions';
+import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 
 class AttachDocumentFormContainer extends Component {
     state = {
@@ -23,16 +25,20 @@ class AttachDocumentFormContainer extends Component {
         // date selector
         startOn: undefined,
         endOn: undefined,
+        documentVisibility: null,
     };
-
     render = () => {
-        const { filesUploading, backUrl } = this.props;
+        const { filesUploading, backUrl, companyID, companiesWithPermissions } = this.props;
         const serviceOptions = this._getServicesOptions();
         const showMoreServicesMesssage = serviceOptions.some(option => option.disabled === true);
+        console.warn({ companyID, companiesWithPermissions });
+        console.warn({ companyID, companiesWithPermissions });
+        console.warn({ companyID, companiesWithPermissions });
 
         return (
             <AttachDocumentForm
                 {...this.state}
+                isOwner={this.checkIsOwner()}
                 services={serviceOptions}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
@@ -47,12 +53,48 @@ class AttachDocumentFormContainer extends Component {
             />
         );
     };
+    componentDidMount = () => {
+        const { fetchCompaniesPermissions, hierarchyType, hierarchyID } = this.props;
+
+        fetchCompaniesPermissions(hierarchyType, hierarchyID);
+    };
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history, hierarchyType, hierarchyID } = this.props;
-
+        const {
+            postSuccess,
+            history,
+            hierarchyType,
+            hierarchyID,
+            companiesWithPermissions,
+        } = this.props;
+        if (
+            companiesWithPermissions.length > 0 &&
+            prevProps.companiesWithPermissions.length === 0
+        ) {
+            if (this.checkIsOwner()) {
+                this.setState({
+                    documentVisibility: 1,
+                });
+            }
+        }
         if (!prevProps.postSuccess && postSuccess) {
             history.replace(`/company/${hierarchyType}s/${hierarchyID}`);
+        }
+    };
+    checkIsOwner = () => {
+        const { companiesWithPermissions, companyID } = this.props;
+
+        const filteredThisCompany = companiesWithPermissions.filter(
+            company => company.companyID === companyID,
+        );
+
+        if (
+            filteredThisCompany.length > 0 &&
+            filteredThisCompany[0].accessType === ACCESS_TYPES_VALUES.OWNER
+        ) {
+            return true;
+        } else {
+            return false;
         }
     };
 
@@ -96,9 +138,15 @@ class AttachDocumentFormContainer extends Component {
 
 const mapStateToProps = (
     {
-        companyAdmin: { servicesReducer, subscriptionsReducer, documentsReducer },
+        companyAdmin: {
+            servicesReducer,
+            subscriptionsReducer,
+            documentsReducer,
+            companiesPermissionsReducer,
+        },
         shared: {
             filesUploadingReducer: { filesUploading },
+            decodeJWTReducer: { jwtData: companyID },
         },
     },
     { match },
@@ -109,11 +157,16 @@ const mapStateToProps = (
     subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
     hierarchyID: match.params.id,
     postSuccess: documentsReducer.postSuccess,
+    companyID: companyID.companyID,
+    companiesWithPermissions: Object.values(companiesPermissionsReducer.companiesPermissions),
 });
 
 const mapDispatchToProps = dispatch => ({
     createDocument: (type, id, postBody) => {
         dispatch(createDocument(type, id, postBody));
+    },
+    fetchCompaniesPermissions: (type, id) => {
+        dispatch(fetchCompaniesPermissions(type, id));
     },
 });
 
