@@ -10,22 +10,10 @@ import FileUploadContainer from '../../form/containers/FileUploadContainer';
 const UploadUserGuideModal = ({ fileName, fileS3Key, handleSubmit, handleChange, hideModal }) => {
     return (
         <ModalOuterContainer>
-            <BlockHeading title="Edit User Details" />
+            <BlockHeading title="Upload User Guide" />
             <Form className="generic-form" onSubmit={handleSubmit}>
-                <div className="size-lg-6">
-                    <Field name="File name" required>
-                        <TextInputContainer
-                            handleChange={handleChange}
-                            name={'fileName'}
-                            value={fileName}
-                            type="text"
-                            required
-                        />
-                    </Field>
-                </div>
-
                 <div className="size-lg-12">
-                    <Field name="Upload PDF or image" required>
+                    <Field name="Upload document" required>
                         <FileUploadContainer
                             name="fileS3Key"
                             acceptedTypes={['application/pdf']}

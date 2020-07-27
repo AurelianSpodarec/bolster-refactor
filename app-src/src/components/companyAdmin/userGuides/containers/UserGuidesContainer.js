@@ -1,16 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import UserGuidesPresentational from '../presentational/UserGuidePresentation';
-import { UPLOAD_USER_GUIDE } from 'constants/shared/modalTypes';
+import fetchUserGuide from 'actions/shared/userGuide/async/fetchUserGuide';
 
-const UserGuideContainer = ({ showUploadUserGuideModal }) => {
-    return <UserGuidesPresentational showUploadUserGuideModal={showUploadUserGuideModal} />;
+const UserGuideContainer = ({ userGuide }) => {
+    return <UserGuidesPresentational userGuide={userGuide} />;
 };
 
 const mapDispatchToProps = dispatch => ({
-    showUploadUserGuideModal: () => dispatch(showModal(UPLOAD_USER_GUIDE)),
+    fetchUserGuide: () => dispatch(fetchUserGuide()),
 });
 
 const mapStateToProps = ({

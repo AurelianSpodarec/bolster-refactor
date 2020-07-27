@@ -7,7 +7,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import pdf from '_content/pdf/CompleteUserGuide-June2020.pdf';
 import pdfImage from '_content/images/user-guide.jpg';
 
-const UserGuides = () => (
+const UserGuidesPresentational = ({ userGuide }) => (
     <>
         <PageHeading leftChildren={true} title="User Guides">
             <BackButtonContainer />
@@ -86,4 +86,4 @@ const UserGuides = () => (
     </>
 );
 
-export default UserGuides;
+export default UserGuidesPresentational;

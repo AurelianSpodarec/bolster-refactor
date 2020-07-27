@@ -1,21 +1,22 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
-import confirmLeaveReducer from "./confirmLeave";
-import fieldErrorsReducer from "./fieldErrors";
-import loginReducer from "./login";
-import registerReducer from "./register";
-import profileReducer from "./profile";
-import tabsReducer from "./tabs";
-import tablesReducer from "./tables";
-import decodeJWTReducer from "./decodeJWT";
-import modalReducer from "./modal";
-import filesUploadingReducer from "./fileUpload";
-import timeReducer from "./time";
-import sitesFilterReducer from "./sitesFilter";
-import selectedHistoryReducer from "./selectedHistory";
-import mobileReducer from "./mobile";
-import forgotPasswordReducer from "./forgotPassword";
-import isIE10Reducer from "./isIE10";
+import confirmLeaveReducer from './confirmLeave';
+import fieldErrorsReducer from './fieldErrors';
+import loginReducer from './login';
+import registerReducer from './register';
+import profileReducer from './profile';
+import tabsReducer from './tabs';
+import tablesReducer from './tables';
+import decodeJWTReducer from './decodeJWT';
+import modalReducer from './modal';
+import filesUploadingReducer from './fileUpload';
+import timeReducer from './time';
+import sitesFilterReducer from './sitesFilter';
+import selectedHistoryReducer from './selectedHistory';
+import mobileReducer from './mobile';
+import forgotPasswordReducer from './forgotPassword';
+import isIE10Reducer from './isIE10';
+import userGuideReducer from './userGuide';
 
 export default combineReducers({
     confirmLeaveReducer,
@@ -33,5 +34,6 @@ export default combineReducers({
     sitesFilterReducer,
     selectedHistoryReducer,
     forgotPasswordReducer,
-    isIE10Reducer
+    isIE10Reducer,
+    userGuideReducer,
 });

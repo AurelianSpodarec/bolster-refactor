@@ -9,10 +9,11 @@ const UserGuidesPresentational = ({ showUploadUserGuideModal }) => (
         <Block>
             <BlockHeading title="Current Guide"></BlockHeading>
             <p className="generic-text intro-text">
-                Set the user guide for company admins, current user guide:{' '}
+                Set the user guide for company admins, download the current user guide{' '}
                 <a className="red" href="#">
-                    ##Bolster User guide document name##
+                    here
                 </a>
+                .
             </p>
             <button className="button green" onClick={() => showUploadUserGuideModal()}>
                 <i className="fa fa-plus"></i> Upload new user guide

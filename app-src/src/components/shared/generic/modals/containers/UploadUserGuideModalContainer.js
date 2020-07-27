@@ -7,7 +7,6 @@ import UploadUserGuideModal from '../presentational/UploadUserGuideModal';
 
 class UploadUserGuideModalContainer extends Component {
     state = {
-        fileName: '',
         fileS3Key: '',
     };
     render() {
@@ -28,10 +27,10 @@ class UploadUserGuideModalContainer extends Component {
     };
     handleSubmit = e => {
         e.preventDefault();
-        const { fileName, fileS3Key } = this.state;
+        const { fileS3Key } = this.state;
         const { uploadUserGuide } = this.props;
 
-        uploadUserGuide(fileName, fileS3Key);
+        uploadUserGuide(fileS3Key);
     };
 }
 
