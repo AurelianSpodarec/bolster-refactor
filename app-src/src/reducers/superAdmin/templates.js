@@ -30,12 +30,14 @@ import {
     FETCH_TEMPLATE_FOR_COMPANY_FAILURE,
     FETCH_TEMPLATE_FOR_COMPANY_SUCCESS,
     FETCH_TEMPLATE_FOR_COMPANY_NOT_FOUND,
-    DELETE_TEMPLATE_UNAVAILABLE
+    DELETE_TEMPLATE_UNAVAILABLE,
+    SWAP_SECTION_SORTS,
+    SET_SECTIONS,
 } from 'constants/actionTypes/templateBuilder';
 import {
     FETCH_COMPANY_TEMPLATES_REQUEST,
     FETCH_COMPANY_TEMPLATES_SUCCESS,
-    FETCH_COMPANY_TEMPLATES_FAILURE
+    FETCH_COMPANY_TEMPLATES_FAILURE,
 } from 'constants/actionTypes/companies';
 
 export default combineReducers({
@@ -47,7 +49,7 @@ export default combineReducers({
     updatedTemplateUUID: updatedTemplateUUIDReducer,
     isFetching: isFetchingReducer,
     deleteSuccess: deleteSuccessReducer,
-    deleteUnavailable: deleteUnavailableReducer
+    deleteUnavailable: deleteUnavailableReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -158,12 +160,12 @@ function templatesReducer(state = {}, action) {
         case FETCH_TEMPLATES_SUCCESS:
             return {
                 ...state,
-                ...convertArrToObj(action.payload, 'uuid')
+                ...convertArrToObj(action.payload, 'uuid'),
             };
         case FETCH_COMPANY_TEMPLATES_SUCCESS:
             return {
                 ...state,
-                ...convertArrToObj(action.payload, 'uuid')
+                ...convertArrToObj(action.payload, 'uuid'),
             };
         case FETCH_TEMPLATES_SIMPLE_SUCCESS:
             return convertArrToObj(action.payload, 'uuid');
@@ -175,7 +177,7 @@ function templatesReducer(state = {}, action) {
         case POST_TEMPLATE_SUCCESS:
             return {
                 ...removeObjItem(state, action.oldUUID),
-                [action.template.uuid]: action.template
+                [action.template.uuid]: action.template,
             };
         default:
             return state;
@@ -186,11 +188,13 @@ function saveRequiredReducer(state = false, action) {
     switch (action.type) {
         case SET_TEMPLATE:
         case SET_SECTION:
+        case SET_SECTIONS:
         case DELETE_SECTION:
         case SET_QUESTION:
         case DELETE_QUESTION:
         case CHANGE_QUESTION_SECTION:
         case SWAP_QUESTION_SORTS:
+        case SWAP_SECTION_SORTS:
         case SET_LABEL_FIELDS:
             return true;
         case RESET_SAVE_REQUIRED:

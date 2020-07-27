@@ -5,7 +5,7 @@ import { DATE_TIME_IDS, COMPANY_TYPES, getEnumKey } from 'constants/companyAdmin
 import { capitaliseWords } from 'helpers/generic';
 
 const CompaniesListItem = ({
-    company: { name, telephone, address, id, termsAcceptedOn, companyType },
+    company: { name, telephone, address, id, termsAcceptedOn, companyType, creditValue },
     match: { url },
 }) => (
     <tr>
@@ -20,6 +20,7 @@ const CompaniesListItem = ({
             )}
         </td>
         <td>{capitaliseWords(getEnumKey(COMPANY_TYPES, companyType))}</td>
+        <td>{creditValue || 0}</td>
         <td>
             <Link to={`${url}/${id}`} className="button">
                 More info

@@ -1,12 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DemoRequestsTable from '../presentational/DemoRequestsTable';
+import { sortArrayByField } from 'helpers/generic';
 
-const DemoRequestsTableContainer = ({
-    isFetching,
-    fetchingError,
-    demoRequests
-}) => {
+const DemoRequestsTableContainer = ({ isFetching, fetchingError, demoRequests }) => {
     return (
         <DemoRequestsTable
             headers={['Name', 'Company Name', 'Email', 'Phone Number', '']}
@@ -20,6 +17,6 @@ const DemoRequestsTableContainer = ({
 export default connect(({ superAdmin: { demoRequestsReducer } }) => ({
     isFetching: demoRequestsReducer.isFetching,
     fetchingError: demoRequestsReducer.fetchingError,
-    demoRequests: Object.values(demoRequestsReducer.demoRequests),
-    filters: demoRequestsReducer.filters
+    demoRequests: sortArrayByField(Object.values(demoRequestsReducer.demoRequests), 'createdOn'),
+    filters: demoRequestsReducer.filters,
 }))(DemoRequestsTableContainer);

@@ -15,7 +15,8 @@ const Section = ({
     showRenameSectModal,
     duplicateSection,
     tooltipMessage,
-    showAddImageModal
+    showAddImageModal,
+    hovered,
 }) => (
     <div className="template-block size-lg-12">
         <BlockContainer contentClass={isActive && 'active'}>
@@ -35,6 +36,7 @@ const Section = ({
                 sectionUUID={section.uuid}
                 questions={questions}
                 moveQuestion={moveQuestion}
+                hovered={hovered}
             />
             <div className="button-container position-bottom">
                 <button className="button green" onClick={showAddQuestModal}>

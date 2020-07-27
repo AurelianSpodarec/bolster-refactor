@@ -3,6 +3,7 @@ import moment from 'moment';
 
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { PIN_STATUS_IDS as STATUS } from 'constants/companyAdmin/enums';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const DashboardPinFeedItem = ({ pin }) => {
     let pinColour = require('_content/images/map-markers/red-pin2x.png');
@@ -39,20 +40,20 @@ const DashboardPinFeedItem = ({ pin }) => {
                         marginBottom: '5px',
                         marginTop: '-12px',
                         top: '6px',
-                        height:'30px'
+                        height: '30px',
                     }}
                 />
-                <span style={{ float: 'left', width: '100%' }}>
-                    {pin.pinCode}
-                </span>
+                <span style={{ float: 'left', width: '100%' }}>{pin.pinCode}</span>
             </td>
             <td>{pin.location}</td>
-            <td>{moment(pin.createdOn).format('DD-MM-YYYY HH:mm')}</td>
-            <td>{moment(pin.syncedOn).format('DD-MM-YYYY HH:mm')}</td>
             <td>
-                <ButtonContainer to={`/company/pins/${pin.pinID}`}>
-                    View
-                </ButtonContainer>
+                <DateTimeContainer date={pin.createdOn} format="DD-MM-YYYY HH:mm" />
+            </td>
+            <td>
+                <DateTimeContainer date={pin.syncedOn} format="DD-MM-YYYY HH:mm" />
+            </td>
+            <td>
+                <ButtonContainer to={`/company/pins/${pin.pinID}`}>View</ButtonContainer>
             </td>
         </tr>
     );
