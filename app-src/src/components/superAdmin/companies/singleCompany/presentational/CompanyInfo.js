@@ -3,7 +3,7 @@ import React from 'react';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import { VAT_TYPES, VAT_TYPE_NAME } from 'constants/companyAdmin/enums';
 
-const CompanyInfo = ({ company }) => (
+const CompanyInfo = ({ company, isPosting, handleToggleClientList }) => (
     <div className="size-lg-12">
         <FieldOutput title="Company Code" description={company.code} fieldClass="no-h-padding" />
         <FieldOutput
@@ -27,11 +27,14 @@ const CompanyInfo = ({ company }) => (
         />
 
         <div className="button-container left size-lg-12">
-            {company.hideOnClientList ? (
-                <button className="button yellow">Show on client list</button>
-            ) : (
-                <button className="button yellow">Hide on client list</button>
-            )}
+            <button
+                className={`button yellow ${isPosting ? 'disabled' : ''}`}
+                onClick={handleToggleClientList}
+                disabled={isPosting}
+            >
+                {isPosting && <i className="fa fa-spinner fa-spin" />}
+                {`${company.hideOnClientList ? 'Show' : 'Hide'} on client list`}
+            </button>
         </div>
     </div>
 );
