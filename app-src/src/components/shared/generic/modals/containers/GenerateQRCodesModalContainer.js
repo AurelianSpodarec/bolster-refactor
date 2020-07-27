@@ -11,6 +11,7 @@ import { usePrevious } from 'helpers/hooks';
 import GenerateQRCodesModal from '../presentational/GenerateQRCodesModal';
 import { isEmpty } from 'helpers/generic';
 import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
+import { max } from 'lodash';
 
 const GenerateQRCodesModalContainer = ({
     showModal,
@@ -31,7 +32,13 @@ const GenerateQRCodesModalContainer = ({
         numberOfCodes: 250,
     });
 
-    const numberOfCodeOptions = [250, 500, 750, 1000, 1250, 1500, 1750, 2000];
+    const minQRCodes = 250;
+    const maxQRCodes = 10000;
+    const qrCodeStep = 250;
+    const numberOfCodeOptions = [];
+    for (let i = minQRCodes; i <= maxQRCodes; i += qrCodeStep) {
+        numberOfCodeOptions.push(i);
+    }
     const formattedNumberOfCodeOptions = numberOfCodeOptions.map(num => ({
         value: num,
         label: num,
