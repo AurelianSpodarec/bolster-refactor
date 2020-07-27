@@ -101,8 +101,10 @@ class MoveToolBlocksContainer extends Component {
     _getCompaniesList = () => {
         const { companies } = this.props;
 
+        console.log(companies);
+
         return Object.values(companies)
-            .filter(({ type }) => type === 0 || type === 1)
+            .filter(({ companyType }) => companyType === 0 || companyType === 1)
             .map(({ id, name }) => ({
                 id,
                 value: id,
