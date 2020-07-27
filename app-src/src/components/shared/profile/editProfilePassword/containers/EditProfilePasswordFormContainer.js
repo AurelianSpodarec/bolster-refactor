@@ -11,18 +11,22 @@ class EditProfilePasswordFormContainer extends Component {
     state = {
         oldPassword: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
     };
 
-    render = () => (
-        <EditProfilePasswordForm
-            {...this.state}
-            handleInputChange={this.handleInputChange}
-            validatePassword={this.validatePassword}
-            validateConfirmPassword={this.validateConfirmPassword}
-            handleSubmit={this.handleSubmit}
-        />
-    );
+    render = () => {
+        let isClient = this.props.location.pathname.includes('client');
+        return (
+            <EditProfilePasswordForm
+                {...this.state}
+                isClient={isClient}
+                handleInputChange={this.handleInputChange}
+                validatePassword={this.validatePassword}
+                validateConfirmPassword={this.validateConfirmPassword}
+                handleSubmit={this.handleSubmit}
+            />
+        );
+    };
 
     componentDidUpdate(prevProps) {
         const { postSuccess, history, location } = this.props;
@@ -36,12 +40,16 @@ class EditProfilePasswordFormContainer extends Component {
     };
 
     handleSubmit = e => {
+        let isClient = this.props.location.pathname.includes('client');
         e.preventDefault();
         const { password, oldPassword } = this.state;
-        const postBody = {
-            oldPassword,
-            password
-        };
+        let postBody;
+
+        if (isClient) {
+            postBody = { password };
+        } else {
+            postBody = { password, oldPassword };
+        }
 
         this.props.changeProfilePassword(postBody);
     };
@@ -66,7 +74,7 @@ class EditProfilePasswordFormContainer extends Component {
 }
 
 const mapStateToProps = ({ shared: { profileReducer } }) => ({
-    postSuccess: profileReducer.postSuccess
+    postSuccess: profileReducer.postSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -74,12 +82,9 @@ const mapDispatchToProps = dispatch => ({
     removeFieldError: field => dispatch(removeFieldError(field)),
     changeProfilePassword: (id, password) => {
         dispatch(changeProfilePassword(id, password));
-    }
+    },
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(EditProfilePasswordFormContainer)
+    connect(mapStateToProps, mapDispatchToProps)(EditProfilePasswordFormContainer),
 );
