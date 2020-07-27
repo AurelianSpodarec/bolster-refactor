@@ -12,7 +12,7 @@ import fetchCompanyTemplates from 'actions/superAdmin/companies/async/fetchCompa
 class CopyTemplateModalContainer extends Component {
     state = {
         templateUUID: null,
-        companyID: null
+        companyID: null,
     };
 
     render() {
@@ -42,11 +42,13 @@ class CopyTemplateModalContainer extends Component {
     _getCompanyOptions = () => {
         const { companies } = this.props;
 
-        return Object.values(companies).map(({ name, id }) => ({
-            name,
-            label: name,
-            value: id
-        }));
+        return Object.values(companies)
+            .filter(({ companyType }) => companyType === 0 || companyType === 1)
+            .map(({ name, id }) => ({
+                name,
+                label: name,
+                value: id,
+            }));
     };
 
     _getTemplateOptions = () => {
@@ -63,7 +65,7 @@ class CopyTemplateModalContainer extends Component {
                 return {
                     label: `${company.name} - ${name}`,
                     name: `${company.name} - ${name}`,
-                    value: uuid
+                    value: uuid,
                 };
             })
             .sort((a, b) => a.label.localeCompare(b.label));
@@ -83,22 +85,20 @@ class CopyTemplateModalContainer extends Component {
             hideModal,
             showModal,
             history,
-            companyID
+            companyID,
         } = this.props;
 
         fetchTemplate(templateUUID).then(action => {
             const { template, sections, questions, labelFields } = action;
 
-            const companyTemplates = templates.filter(
-                t => t.companyID === template.companyID
-            );
+            const companyTemplates = templates.filter(t => t.companyID === template.companyID);
 
             const newTemplateUUID = newUUID();
             const newTemplate = {
                 ...template,
                 uuid: newTemplateUUID,
                 name: this.getNewTemplateName(companyTemplates, template.name),
-                companyID
+                companyID,
             };
 
             const newSectionUUIDs = sections.reduce((acc, section) => {
@@ -125,7 +125,7 @@ class CopyTemplateModalContainer extends Component {
             const newSections = sections.map(section => ({
                 ...section,
                 uuid: newSectionUUIDs[section.uuid],
-                templateUUID: newTemplateUUID
+                templateUUID: newTemplateUUID,
             }));
 
             const newQuestions = questions.map(q => ({
@@ -133,7 +133,7 @@ class CopyTemplateModalContainer extends Component {
                 uuid: newQuestionUUIDs[q.uuid],
                 templateUUID: newTemplateUUID,
                 sectionUUID: newSectionUUIDs[q.sectionUUID],
-                prereqUUID: newQuestionUUIDs[q.prereqUUID]
+                prereqUUID: newQuestionUUIDs[q.prereqUUID],
             }));
 
             const newLabelFields = labelFields.map(lf => ({
@@ -142,22 +142,20 @@ class CopyTemplateModalContainer extends Component {
                 templateUUID: newTemplateUUID,
                 config: {
                     ...lf.config,
-                    questionUUID: newQuestionUUIDs[lf.config.questionUUID]
-                }
+                    questionUUID: newQuestionUUIDs[lf.config.questionUUID],
+                },
             }));
 
             const templateData = {
                 template: newTemplate,
                 labelFields: newLabelFields,
                 sections: newSections,
-                questions: newQuestions
+                questions: newQuestions,
             };
 
             postTemplate(templateData)
                 .then(({ template: newTemp }) => {
-                    const newPath = `/admin/companies/${companyID}/template/${
-                        newTemp.uuid
-                    }`;
+                    const newPath = `/admin/companies/${companyID}/template/${newTemp.uuid}`;
 
                     history.push(newPath);
                     hideModal();
@@ -181,19 +179,16 @@ class CopyTemplateModalContainer extends Component {
 const mapStateToProps = ({
     superAdmin: {
         companiesReducer: { companies },
-        templatesReducer: { templates }
-    }
+        templatesReducer: { templates },
+    },
 }) => ({ companies, templates: Object.values(templates) });
 
 const mapDispatchToProps = {
     fetchTemplate,
     postTemplate,
-    fetchCompanyTemplates
+    fetchCompanyTemplates,
 };
 
-const WithConnect = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CopyTemplateModalContainer);
+const WithConnect = connect(mapStateToProps, mapDispatchToProps)(CopyTemplateModalContainer);
 
 export default withRouter(WithConnect);
