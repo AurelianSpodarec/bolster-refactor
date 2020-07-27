@@ -1,12 +1,12 @@
-import React from 'react';
-import ModalOuterContainer from '../containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import Loading from '../../misc/presentational/Loading';
-import Form from '../../form/containers/Form';
-import Field from '../../form/presentational/Field';
-import NumberInputContainer from '../../form/containers/NumberInputContainer';
-import Select from '../../form/presentational/Select';
+import React from "react";
+import ModalOuterContainer from "../containers/ModalOuterContainer";
+import BlockHeading from "components/shared/generic/blockHeading/presentational/BlockHeading";
+import BlockButtonWrapper from "components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper";
+import Loading from "../../misc/presentational/Loading";
+import Form from "../../form/containers/Form";
+import Field from "../../form/presentational/Field";
+import NumberInputContainer from "../../form/containers/NumberInputContainer";
+import Select from "../../form/presentational/Select";
 
 const GenerateQRCodesModal = ({
     form: { numberOfCodes, type },
@@ -16,7 +16,7 @@ const GenerateQRCodesModal = ({
     qrCodeCount,
     handleFormChange,
     handleSubmit,
-    typeOptions
+    typeOptions,
 }) => {
     if (isLoading)
         return (
@@ -40,7 +40,7 @@ const GenerateQRCodesModal = ({
             </p>
 
             <Form className="generic-form" onSubmit={handleSubmit}>
-                <Field name="Number of new codes to generate" required>
+                <Field name="Type" required>
                     <Select
                         required
                         omitPlaceholder
