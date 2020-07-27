@@ -39,6 +39,11 @@ const TemplateQuestionFormModal = ({
     showStatusPrefillOptions,
     ...otherFields
 }) => {
+    console.log(otherFields);
+    console.log(otherFields);
+    console.log(otherFields);
+    console.log(otherFields);
+    console.log(otherFields);
     return (
         <ModalOuterContainer extraClasses="w-form">
             <BlockHeading title={`${action} question`} />
@@ -62,6 +67,7 @@ const TemplateQuestionFormModal = ({
                         />
                     </Field>
                 )}
+
                 {!!selectedPrereq && (
                     <Field name="Prerequisite value" required>
                         {selectedPrereq.isStatus ? (
@@ -82,6 +88,22 @@ const TemplateQuestionFormModal = ({
                         )}
                     </Field>
                 )}
+
+                {/* {selectedPrereq.questionType === QUESTION_TYPE_NUMBERS.DROPDOWN_OPTIONS ||
+                    selectedPrereq.questionType === QUESTION_TYPE_NUMBERS.MULTI_DROPDOWN_OPTIONS ||
+                    selectedPrereq.questionType ===
+                        QUESTION_TYPE_NUMBERS.MULTI_MULTI_DROPDOWN_OPTIONS ||
+                    (selectedPrereq.questionType === QUESTION_TYPE_NUMBERS.MULTI_MULTI_DROPDOWN && (
+                        <Field name={`${PIN_STATUS_TYPES[prefillStatus]} Value`} key={index}>
+                            <TextInputContainer
+                                name="statusPrefills"
+                                handleChange={(name, value) => {
+                                    handlePrefillStatusValueChange(prefillStatus, value);
+                                }}
+                                value={statusPrefills[prefillStatus]}
+                            />
+                        </Field>
+                    ))} */}
                 <Field name="Field name" required>
                     <TextInputContainer
                         name="name"

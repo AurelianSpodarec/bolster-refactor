@@ -15,7 +15,7 @@ export const QUESTION_TYPES = {
     '14': 'Multi multi dropdown',
     '15': 'Multi multi dropdown options',
     '16': 'Static image',
-    '17': 'Document Upload'
+    '17': 'Document Upload',
 };
 
 export const QUESTION_TYPE_VALUES = {
@@ -66,7 +66,7 @@ export const STANDARD_LABEL_FIELDS = {
     5: 5,
     6: 6,
     7: 7,
-    8: 8
+    8: 8,
 };
 
 export const TRIM_LABEL_FIELDS = {
@@ -79,7 +79,7 @@ export const TRIM_LABEL_FIELDS = {
     7: 7,
     8: 8,
     9: 9,
-    10: 10
+    10: 10,
 };
 
 export const LABEL_STATIC_FIELDS = {
@@ -99,7 +99,7 @@ export const LABEL_STATIC_FIELDS = {
     303: 'History Created On',
     4: 'Location Building',
     5: 'Location Floor',
-    6: 'Location Drawing'
+    6: 'Location Drawing',
 };
 
 export const LABEL_STATIC_FIELDS_NUMS = {
@@ -119,27 +119,27 @@ export const LABEL_STATIC_FIELDS_NUMS = {
     OPERATIVE_LAST_NAME: 103,
     PIN_CODE: 201,
     PIN_CREATED_ON: 203,
-    PIN_NUMBER: 202
+    PIN_NUMBER: 202,
 };
 
 export const LABEL_TYPES = {
     1: 'Standard',
-    2: 'Trim'
+    2: 'Trim',
 };
 
 export const LABEL_TYPES_NUMS = {
     STANDARD: 1,
-    TRIM: 2
+    TRIM: 2,
 };
 
 export const LABEL_QUES_TYPES = {
     1: 'Static',
-    2: 'Dynamic'
+    2: 'Dynamic',
 };
 
 export const LABEL_QUES_TYPES_NUMS = {
     STATIC: 1,
-    DYNAMIC: 2
+    DYNAMIC: 2,
 };
 
 const {
@@ -147,7 +147,21 @@ const {
     DROPDOWN,
     MULTI_DROPDOWN,
     RADIO,
-    CHECKBOX
+    CHECKBOX,
+    DROPDOWN_OPTIONS,
+    MULTI_DROPDOWN_OPTIONS,
+    MULTI_MULTI_DROPDOWN,
+    MULTI_MULTI_DROPDOWN_OPTIONS,
 } = QUESTION_TYPE_VALUES;
 
-export const PREREQ_TYPES = [STATUS, DROPDOWN, MULTI_DROPDOWN, RADIO, CHECKBOX];
+export const PREREQ_TYPES = [
+    STATUS,
+    DROPDOWN,
+    MULTI_DROPDOWN,
+    RADIO,
+    CHECKBOX,
+    DROPDOWN_OPTIONS,
+    MULTI_DROPDOWN_OPTIONS,
+    MULTI_MULTI_DROPDOWN,
+    MULTI_MULTI_DROPDOWN_OPTIONS,
+];

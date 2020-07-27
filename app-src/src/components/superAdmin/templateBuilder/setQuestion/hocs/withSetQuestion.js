@@ -38,7 +38,6 @@ export default function (WrappedComponent) {
                 fields: { statusPrefills },
                 updateQuestionField,
             } = this.props;
-            console.log({ value, prefillStatus });
             updateQuestionField('statusPrefills', updateObj(statusPrefills, prefillStatus, value));
         };
 
@@ -64,6 +63,12 @@ export default function (WrappedComponent) {
         _getPrereqOptions = () => {
             const { questions, templateUUID: temUuid } = this.props;
             const { STATUS } = QUESTION_TYPE_VALUES;
+            console.warn(questions);
+            console.warn(questions);
+            console.warn(questions);
+            console.warn(questions);
+            console.warn(questions);
+            console.warn(questions);
             const options = questions
                 .filter(q => q.templateUUID === temUuid)
                 .filter(q => PREREQ_TYPES.includes(q.questionType + ''))
@@ -71,6 +76,8 @@ export default function (WrappedComponent) {
                     value: uuid,
                     text: name,
                     isStatus: questionType + '' === STATUS,
+                    questionType,
+                    //if they have a values, like for multi dropdown, we need to map out each answer to attach a value
                 }));
 
             return convertArrToObj(options, 'value');
