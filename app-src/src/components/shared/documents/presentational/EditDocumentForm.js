@@ -34,7 +34,7 @@ const EditDocumentForm = ({
     endOn,
     location,
     documentID,
-    file
+    file,
 }) => (
     <>
         <PageHeading leftChildren={true} title="Edit Document" withBackButton />
@@ -42,11 +42,12 @@ const EditDocumentForm = ({
         <BlockContainer>
             <BlockHeading title="Document Details" />
             <p className="generic-text intro-text size-lg-12">
-                Instructions: ##Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita
-                sit quas, aliquam explicabo laboriosam illo. Beatae architecto, laudantium iusto
-                iure atque quas ea at possimus alias iste eaque, fuga tenetur non vero repellat
-                nostrum adipisci? Veniam, aspernatur quidem sed voluptas hic quis doloremque tempora
-                dignissimos, incidunt natus perferendis, placeat possimus.##
+                Documents will be available for operatives to view on the mobile app. An attached
+                document will appear to operatives with access to this location, once they have
+                downsynced. If an operative is required to respond to the document before
+                proceeding, select 'Requires agreement'. Additionally, if an operative is required
+                to respond periodically, select the multiple option and you will be able to specify
+                a frequency.
             </p>
             <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
                 <Field>

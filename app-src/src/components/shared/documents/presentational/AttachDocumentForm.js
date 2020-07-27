@@ -9,6 +9,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
 import DatePickerContainer from 'components/shared/documents/containers/AttachDocumentDatePickerContainer';
 import { DOCUMENT_TYPE } from 'constants/companyAdmin/enums';
+import { DOCUMENT_VISIBILITY } from 'constants/companyAdmin/enums';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -36,6 +37,8 @@ const AttachDocumentForm = ({
     location,
     file,
     showMoreServicesMesssage,
+    documentVisibility,
+    isOwner,
 }) => (
     <BlockContainer>
         <BlockHeading title="Document details" />
@@ -106,6 +109,36 @@ const AttachDocumentForm = ({
                     startRequired
                 />
             </div>
+            {isOwner && (
+                <div className="size-lg-12">
+                    <Field name="Document Visible to" required>
+                        <RadioButton
+                            name="documentVisibility"
+                            checked={
+                                documentVisibility === DOCUMENT_VISIBILITY.VISIBLE_TO_ALL
+                                    ? true
+                                    : false
+                            }
+                            text="All companies"
+                            value={DOCUMENT_VISIBILITY.VISIBLE_TO_ALL}
+                            handleInputChange={handleInputChange}
+                        />
+
+                        <RadioButton
+                            name="documentVisibility"
+                            checked={
+                                documentVisibility === DOCUMENT_VISIBILITY.VISIBLE_TO_OWN_COMPANY
+                                    ? true
+                                    : false
+                            }
+                            text={'Only own company'}
+                            value={DOCUMENT_VISIBILITY.VISIBLE_TO_OWN_COMPANY}
+                            handleInputChange={handleInputChange}
+                        />
+                    </Field>
+                </div>
+            )}
+
             <div className="size-lg-12">
                 <Field name="Service types" required>
                     <CheckboxListContainer

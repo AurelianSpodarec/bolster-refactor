@@ -12,17 +12,13 @@ const DocumentsList = ({
     accessType,
     onMobile,
     headers,
-    drawingExpired
+    drawingExpired,
 }) =>
     documents.map(document => (
         <tr key={document.id}>
             <td>
                 {' '}
-                {onMobile && (
-                    <span className="mobile-table-heading">
-                        {headers[0]} / Link
-                    </span>
-                )}
+                {onMobile && <span className="mobile-table-heading">{headers[0]} / Link</span>}
                 <a
                     href={`${RAW_S3_STORAGE_URL}/${document.fileS3Key}`}
                     rel="noopener norefferrer"
@@ -36,39 +32,28 @@ const DocumentsList = ({
             <td>
                 {!clientControls && (
                     <>
-                        {onMobile && (
-                            <span className="mobile-table-heading">
-                                {headers[1]}
-                            </span>
-                        )}
+                        {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
                         <Link
-                            to={`${location.pathname}/document-responses/${
-                                document.id
-                            }`}
+                            to={`${location.pathname}/document-responses/${document.id}`}
                             className="button blue icon-only"
                         >
                             <i className="far fa-eye fa-fw" /> View responses
                         </Link>
 
                         {accessType >= ACCESS_TYPES_VALUES.WRITE &&
+                            document.isEditable &&
                             !drawingExpired && (
                                 <>
                                     {onMobile && (
-                                        <span className="mobile-table-heading">
-                                            {headers[1]}
-                                        </span>
+                                        <span className="mobile-table-heading">{headers[1]}</span>
                                     )}
                                     <Link
-                                        to={`${
-                                            location.pathname
-                                        }/edit-document/${document.id}`}
+                                        to={`${location.pathname}/edit-document/${document.id}`}
                                         className="button yellow icon-only"
                                     >
                                         <i className="far fa-pencil fa-fw" />
                                     </Link>
-                                    <DeleteDocumentContainer
-                                        document={document}
-                                    />
+                                    <DeleteDocumentContainer document={document} />
                                 </>
                             )}
                     </>
