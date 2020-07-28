@@ -44,7 +44,9 @@ const EditSettingsForm = ({
     dateFormatOptions,
     dateFormat,
     defaultSitesSort,
+    defaultPinOptionsSort,
     siteSortOptions,
+    pinOptionsSortOptions,
     shouldDeleteReportsAfterDownload,
     enableQRCodes,
     useManufacturingByDefault,
@@ -247,6 +249,15 @@ const EditSettingsForm = ({
                         onChange={handleInputChange}
                         name="defaultSitesSort"
                         value={defaultSitesSort}
+                        omitPlaceholder
+                    />
+                </Field>
+                <Field name="Default pin options sort" sizeClasses="size-lg-6 size-md-12">
+                    <Select
+                        options={pinOptionsSortOptions}
+                        onChange={handleInputChange}
+                        name="defaultPinOptionsSort"
+                        value={defaultPinOptionsSort}
                         omitPlaceholder
                     />
                 </Field>

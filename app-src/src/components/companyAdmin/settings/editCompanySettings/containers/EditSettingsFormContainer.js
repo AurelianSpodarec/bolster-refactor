@@ -11,6 +11,8 @@ import {
     VAT_TYPES,
     DEFAULT_SITES_SORT,
     DEFAULT_SITES_SORT_NAMES,
+    DEFAULT_PIN_OPTIONS_SORT,
+    DEFAULT_PIN_OPTIONS_SORT_NAMES,
 } from 'constants/companyAdmin/enums';
 
 class EditSettingsFormContainer extends Component {
@@ -45,6 +47,7 @@ class EditSettingsFormContainer extends Component {
         dateFormatOptions: [],
         isEditButtonDisabled: false,
         deafultSitesSort: DEFAULT_SITES_SORT.CUSTOM,
+        defaultPinOptionsSort: DEFAULT_PIN_OPTIONS_SORT.CUSTOM,
         shouldDeleteReportsAfterDownload: false,
         enableQRCodes: false,
         useManufacturingByDefault: false,
@@ -73,6 +76,7 @@ class EditSettingsFormContainer extends Component {
         ];
 
         const siteSortOptions = enumFormat(DEFAULT_SITES_SORT_NAMES);
+        const pinOptionsSortOptions = enumFormat(DEFAULT_PIN_OPTIONS_SORT_NAMES);
 
         return (
             <EditSettingsForm
@@ -91,6 +95,7 @@ class EditSettingsFormContainer extends Component {
                 handleDateFormatChange={this.handleDateFormatChange}
                 vatOptions={vatOptions}
                 siteSortOptions={siteSortOptions}
+                pinOptionsSortOptions={pinOptionsSortOptions}
             />
         );
     }
