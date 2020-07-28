@@ -15,12 +15,12 @@ class DropdownListTableContainer extends Component {
 
     render() {
         const { selectedSortValue } = this.state;
-        const { isFetching, error, dropdownOptions, title, type } = this.props;
+        const { isFetching, error, title, type } = this.props;
 
         return (
             <DropdownOptionsTable
                 headers={['Name', '']}
-                dropdownOptions={dropdownOptions}
+                dropdownOptions={this.getSortedDropdownOptions()}
                 isFetching={isFetching}
                 error={error}
                 title={title}
@@ -60,6 +60,12 @@ class DropdownListTableContainer extends Component {
         this.setState({
             selectedSortValue: value,
         });
+    };
+
+    getSortedDropdownOptions = () => {
+        const { dropdownOptions } = this.props;
+
+        return [...dropdownOptions].sort((a, b) => a.sort - b.sort);
     };
 }
 
