@@ -33,7 +33,6 @@ class EditSettingsFormContainer extends Component {
         fax: null,
         labelTelNumber: null,
         labelCompanyName: null,
-        hideOnClientList: false,
         defaultTemplateUsageRule: undefined,
         initialFile: '',
         timeZone: '',
