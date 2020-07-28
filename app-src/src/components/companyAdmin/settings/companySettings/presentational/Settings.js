@@ -11,6 +11,7 @@ import {
     VAT_TYPE_NAME,
     VAT_TYPES,
     DEFAULT_SITES_SORT_NAMES,
+    DEFAULT_PIN_OPTIONS_SORT_NAMES,
 } from 'constants/companyAdmin/enums';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -272,6 +273,14 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                         <FieldOutput
                             title="Default Sites list sort"
                             description={DEFAULT_SITES_SORT_NAMES[company.defaultSitesSort]}
+                            fieldClass="no-h-padding"
+                            sizeClass="size-lg-12"
+                        />
+                        <FieldOutput
+                            title="Default Pin Options List Sort"
+                            description={
+                                DEFAULT_PIN_OPTIONS_SORT_NAMES[company.defaultPinOptionsSort]
+                            }
                             fieldClass="no-h-padding"
                             sizeClass="size-lg-12"
                         />
