@@ -63,7 +63,17 @@ class DropdownListTableContainer extends Component {
     };
 
     getSortedDropdownOptions = () => {
+        const { selectedSortValue } = this.state;
         const { dropdownOptions } = this.props;
+        const { NAME_ASC, NAME_DESC } = DEFAULT_PIN_OPTIONS_SORT;
+
+        if (+selectedSortValue === NAME_ASC) {
+            return [...dropdownOptions].sort((a, b) => a.name - b.name);
+        }
+
+        if (+selectedSortValue === NAME_DESC) {
+            return [...dropdownOptions].sort((a, b) => b.name - a.name);
+        }
 
         return [...dropdownOptions].sort((a, b) => a.sort - b.sort);
     };
