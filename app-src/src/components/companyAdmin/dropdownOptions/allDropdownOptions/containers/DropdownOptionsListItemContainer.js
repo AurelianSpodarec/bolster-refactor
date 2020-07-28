@@ -5,6 +5,7 @@ import { EDIT_DROPDOWN_OPTION, TOGGLE_DROPDOWN_OPTION } from 'constants/shared/m
 import DropdownOptionsListItem from '../presentational/DropdownOptionsListItem';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import reorderDropdownOptions from 'actions/companyAdmin/dropdownOptions/sync/reorderDropdownOptions';
+import postDropdownOptionsSort from 'actions/companyAdmin/dropdownOptions/async/postDropdownOptionsSort';
 
 class DropdownOptionsListItemContainer extends Component {
     render() {
@@ -15,7 +16,7 @@ class DropdownOptionsListItemContainer extends Component {
                 id={option.id}
                 option={option}
                 onMove={reorderDropdownOptions}
-                onDrop={() => console.log('dropped')}
+                onDrop={() => this.handlePostDropdownOptionsSort()}
                 colCount={colCount}
                 handleEditOptionModal={this.handleEditOptionModal}
                 handleToggleEnable={this.handleToggleEnable}
@@ -33,20 +34,31 @@ class DropdownOptionsListItemContainer extends Component {
         const { showModal, option } = this.props;
         showModal(TOGGLE_DROPDOWN_OPTION, { option });
     };
+
+    handlePostDropdownOptionsSort = () => {
+        const { type, dropdownOptions, postDropdownOptionsSort } = this.props;
+
+        postDropdownOptionsSort(type, dropdownOptions);
+    };
 }
 
 const mapDispatchToProps = {
     showModal,
     reorderDropdownOptions,
+    postDropdownOptionsSort,
 };
 
 export default connect(
     ({
+        companyAdmin: {
+            dropdownOptionsReducer: { dropdownOptions },
+        },
         shared: {
             mobileReducer: { onMobile },
         },
     }) => ({
         onMobile,
+        dropdownOptions: Object.values(dropdownOptions),
     }),
     mapDispatchToProps,
 )(DropdownOptionsListItemContainer);

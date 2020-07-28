@@ -46,6 +46,7 @@ const DropdownOptionsTable = ({
                             colCount={headers.length}
                             dropdownOptions={dropdownOptions}
                             headers={headers}
+                            type={type}
                         />
                     </Table>
                 </div>
