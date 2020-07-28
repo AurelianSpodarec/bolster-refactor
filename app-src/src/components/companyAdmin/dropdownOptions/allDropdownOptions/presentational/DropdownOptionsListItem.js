@@ -1,14 +1,17 @@
 import React from 'react';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 
 const DropdownOptionsListItem = ({
     option,
     handleEditOptionModal,
     handleToggleEnable,
     onMobile,
-    headers
+    headers,
+    forwardRef,
+    isDragging,
 }) => (
-    <tr>
+    <tr ref={forwardRef} className="draggable" style={{ opacity: isDragging ? 0 : 1 }}>
         <td>
             {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
             {option.name}
@@ -42,4 +45,4 @@ const DropdownOptionsListItem = ({
     </tr>
 );
 
-export default DropdownOptionsListItem;
+export default withDrag(DropdownOptionsListItem);

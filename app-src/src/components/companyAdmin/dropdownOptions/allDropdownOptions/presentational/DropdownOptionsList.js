@@ -5,11 +5,12 @@ import DropdownOptionsListItemContainer from '../containers/DropdownOptionsListI
 
 const DropdownOptionsList = ({ dropdownOptions, colCount, headers, forwardRef, isOver }) => (
     <tbody ref={forwardRef} className={isOver ? 'dragging' : ''}>
-        {dropdownOptions.map(option => (
+        {dropdownOptions.map((option, i) => (
             <DropdownOptionsListItemContainer
                 key={option.id}
                 option={option}
                 colCount={colCount}
+                index={i}
                 headers={headers}
             />
         ))}
