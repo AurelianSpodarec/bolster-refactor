@@ -40,6 +40,7 @@ const DropdownOptionsTable = ({
                         noData={!dropdownOptions.length}
                         noDataMessage={`There are no ${DROPDOWN_OPTIONS[type].name} to display.`}
                         extraClasses="large"
+                        withoutTBody
                     >
                         <DropdownOptionsList
                             colCount={headers.length}

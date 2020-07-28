@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, updateObj, moveItem } from 'helpers/generic';
 import {
     FETCH_ALL_DROPDOWN_OPTIONS_REQUEST,
     FETCH_ALL_DROPDOWN_OPTIONS_SUCCESS,
@@ -13,7 +13,8 @@ import {
     EDIT_DROPDOWN_OPTION_FAILURE,
     TOGGLE_DROPDOWN_OPTION_REQUEST,
     TOGGLE_DROPDOWN_OPTION_SUCCESS,
-    TOGGLE_DROPDOWN_OPTION_FAILURE
+    TOGGLE_DROPDOWN_OPTION_FAILURE,
+    REORDER_DROPDOWN_OPTIONS,
 } from 'constants/actionTypes/dropdownOptions';
 
 export default combineReducers({
@@ -21,7 +22,7 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
     postSuccess: postSuccessReducer,
-    postError: postErrorReducer
+    postError: postErrorReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -86,6 +87,10 @@ function dropdownOptionsReducer(state = {}, action) {
             return updateObj(state, action.payload.id, action.payload);
         case TOGGLE_DROPDOWN_OPTION_SUCCESS:
             return updateObj(state, action.id, action.payload);
+        case REORDER_DROPDOWN_OPTIONS: {
+            const sorted = moveItem(Object.values(state), action.id, action.hoverIndex);
+            return convertArrToObj(sorted);
+        }
         default:
             return state;
     }
