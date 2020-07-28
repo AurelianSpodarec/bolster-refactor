@@ -404,3 +404,19 @@ export const DOCUMENT_VISIBILITY = {
     VISIBLE_TO_ALL: 1,
     VISIBLE_TO_OWN_COMPANY: 2,
 };
+
+export const DEFAULT_PIN_OPTIONS_SORT = {
+    CUSTOM: 1,
+    DATE_ASC: 2,
+    DATE_DESC: 3,
+    NAME_ASC: 4,
+    NAME_DESC: 5,
+};
+
+export const DEFAULT_PIN_OPTIONS_SORT_NAMES = {
+    1: 'Custom',
+    2: 'Date Ascending',
+    3: 'Date Descending',
+    4: 'Name Ascending',
+    5: 'Name Descending',
+};
