@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
-import DropdownListSortOrder from '../presentational/DropdownListSortOrder';
-import { convertEnumToDropdownOptions } from 'helpers/generic';
 import {
     DEFAULT_PIN_OPTIONS_SORT_NAMES,
     DEFAULT_PIN_OPTIONS_SORT,
 } from 'constants/companyAdmin/enums';
+import { convertEnumToDropdownOptions } from 'helpers/generic';
+
+import DropdownListSortOrder from '../presentational/DropdownListSortOrder';
 
 const DropdownListSortOrderContainer = () => {
     const [selectedValue, handleChange] = useState(DEFAULT_PIN_OPTIONS_SORT.CUSTOM);
