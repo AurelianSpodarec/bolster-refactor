@@ -1,20 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import {
-    DEFAULT_PIN_OPTIONS_SORT_NAMES,
-    DEFAULT_PIN_OPTIONS_SORT,
-} from 'constants/companyAdmin/enums';
+import { DEFAULT_PIN_OPTIONS_SORT_NAMES } from 'constants/companyAdmin/enums';
 import { convertEnumToDropdownOptions } from 'helpers/generic';
 
 import DropdownListSortOrder from '../presentational/DropdownListSortOrder';
 
-const DropdownListSortOrderContainer = () => {
-    const [selectedValue, handleChange] = useState(DEFAULT_PIN_OPTIONS_SORT.CUSTOM);
-
+const DropdownListSortOrderContainer = ({ selectedSortValue, handleSortChange }) => {
     return (
         <DropdownListSortOrder
             options={getDropdownOptions()}
-            selectedValue={selectedValue}
+            selectedValue={selectedSortValue}
             handleChangeSortOrder={handleChangeSortOrder}
         />
     );
@@ -26,7 +21,7 @@ const DropdownListSortOrderContainer = () => {
     }
 
     function handleChangeSortOrder(name, value) {
-        handleChange(value);
+        handleSortChange(value);
     }
 };
 

@@ -16,6 +16,8 @@ const DropdownOptionsTable = ({
     error,
     title,
     type,
+    selectedSortValue,
+    handleSortChange,
 }) => {
     return (
         <BlockContainer>
@@ -24,7 +26,10 @@ const DropdownOptionsTable = ({
                     <button className="pull-right button green" onClick={handleAddOptionModal}>
                         <i className="fa fa-plus" /> {`Add ${DROPDOWN_OPTIONS[type].singular}`}
                     </button>
-                    <DropdownListSortOrderContainer />
+                    <DropdownListSortOrderContainer
+                        selectedSortValue={selectedSortValue}
+                        handleSortChange={handleSortChange}
+                    />
                 </BlockHeading>
                 <div className="size-lg-12">
                     <Table
