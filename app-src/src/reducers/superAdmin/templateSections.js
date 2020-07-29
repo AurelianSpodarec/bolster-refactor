@@ -1,13 +1,12 @@
 import { combineReducers } from 'redux';
 
-import { updateObj, removeObjItem, convertArrToObj, swapItemSorts } from 'helpers/generic';
+import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import {
     SET_SECTION,
     DELETE_SECTION,
     POST_TEMPLATE_SUCCESS,
     FETCH_TEMPLATE_SUCCESS,
     FETCH_TEMPLATE_FOR_COMPANY_SUCCESS,
-    SWAP_SECTION_SORTS,
     SET_SECTIONS,
 } from 'constants/actionTypes/templateBuilder';
 
@@ -24,8 +23,6 @@ function sectionsReducer(state = {}, action) {
             return updateObj(state, action.section.uuid, action.section);
         case DELETE_SECTION:
             return removeObjItem(state, action.uuid);
-        case SWAP_SECTION_SORTS:
-            return swapItemSorts(state, action.section1Uuid, action.section2Uuid);
         case SET_SECTIONS:
             return action.sections;
         case POST_TEMPLATE_SUCCESS: {

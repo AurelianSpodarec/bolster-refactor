@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { DropTarget, useDrag, useDrop } from 'react-dnd';
 
@@ -19,7 +19,6 @@ import deleteSection from 'actions/superAdmin/templateBuilder/sync/deleteSection
 import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 import deleteQuestion from 'actions/superAdmin/templateBuilder/sync/deleteQuestion';
 import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
-import swapSectionSorts from 'actions/superAdmin/templateBuilder/sync/swapSectionSorts';
 
 const SectionContainer = ({
     section,
@@ -214,9 +213,6 @@ const mapDispatchToProps = dispatch => ({
     },
     showModal: (type, props) => {
         dispatch(showModal(type, props));
-    },
-    swapSectionSorts: (section1Uuid, section2Uuid) => {
-        dispatch(swapSectionSorts(section1Uuid, section2Uuid));
     },
 });
 
