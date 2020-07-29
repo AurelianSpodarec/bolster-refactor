@@ -12,6 +12,9 @@ import {
     MARK_DEMO_REQUEST_REQUEST,
     MARK_DEMO_REQUEST_SUCCESS,
     MARK_DEMO_REQUEST_FAILURE,
+    ADD_DEMO_REQUEST_COMMENT_REQUEST,
+    ADD_DEMO_REQUEST_COMMENT_SUCCESS,
+    ADD_DEMO_REQUEST_COMMENT_FAILURE,
 } from 'constants/actionTypes/demoRequests';
 
 export default combineReducers({
@@ -19,11 +22,14 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     isDeleting: isDeletingReducer,
     isMarking: isMarkingReducer,
+    isCommenting: isCommentingReducer,
     deletionError: deletionErrorReducer,
     markingError: markingErrorReducer,
     fetchingError: fetchingErrorReducer,
+    commentingError: commentingErrorReducer,
     deleteSuccess: deleteSuccessReducer,
     markingSuccess: markingSuccessReducer,
+    commentingSuccess: commentingSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -62,11 +68,34 @@ function isMarkingReducer(state = false, action) {
     }
 }
 
+function isCommentingReducer(state = false, action) {
+    switch (action.type) {
+        case ADD_DEMO_REQUEST_COMMENT_REQUEST:
+            return true;
+        case ADD_DEMO_REQUEST_COMMENT_SUCCESS:
+        case ADD_DEMO_REQUEST_COMMENT_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
 function deleteSuccessReducer(state = false, action) {
     switch (action.type) {
         case DELETE_DEMO_REQUEST_REQUEST:
             return false;
         case DELETE_DEMO_REQUEST_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function commentingSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case ADD_DEMO_REQUEST_COMMENT_REQUEST:
+            return false;
+        case ADD_DEMO_REQUEST_COMMENT_SUCCESS:
             return true;
         default:
             return state;
@@ -117,6 +146,17 @@ function markingErrorReducer(state = null, action) {
     }
 }
 
+function commentingErrorReducer(state = null, action) {
+    switch (action.type) {
+        case ADD_DEMO_REQUEST_COMMENT_REQUEST:
+            return null;
+        case ADD_DEMO_REQUEST_COMMENT_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
 function demoRequestsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_ALL_DEMO_REQUESTS_SUCCESS:
@@ -126,6 +166,9 @@ function demoRequestsReducer(state = {}, action) {
             return removeObjItem(state, action.id);
 
         case MARK_DEMO_REQUEST_SUCCESS:
+            return updateObj(state, action.data.id, action.data);
+
+        case ADD_DEMO_REQUEST_COMMENT_SUCCESS:
             return updateObj(state, action.data.id, action.data);
         default:
             return state;

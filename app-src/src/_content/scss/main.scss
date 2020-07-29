@@ -793,6 +793,11 @@ input {
         pointer-events: none;
         cursor: not-allowed;
     }
+
+    &.centered {
+        display: flex;
+        align-items: center;
+    }
 }
 
 .button-container {
@@ -1908,6 +1913,10 @@ input {
             left: 0;
             right: 0;
         }
+    }
+
+    &.comments {
+        padding-top: 10px;
     }
 
     &.address {

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const DemoRequestsListItem = ({
@@ -19,6 +20,9 @@ const DemoRequestsListItem = ({
                 <button onClick={() => handleMarkContacted(id)} className="button">
                     Mark as {contacted ? 'Uncontacted' : 'Contacted'}
                 </button>
+                <Link className="button centered green icon-only" to={`/admin/demo-requests/${id}`}>
+                    <i className="fa fa-eye" />
+                </Link>
                 <button onClick={() => handleShowModal(id)} className="button red icon-only">
                     <i className="far fa-trash-alt" />
                 </button>
