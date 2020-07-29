@@ -10,8 +10,13 @@ const DropdownOptionsListItem = ({
     headers,
     forwardRef,
     isDragging,
+    isCustomSort,
 }) => (
-    <tr ref={forwardRef} className="draggable" style={{ opacity: isDragging ? 0 : 1 }}>
+    <tr
+        ref={isCustomSort ? forwardRef : null}
+        className={isCustomSort ? 'draggable' : ''}
+        style={{ opacity: isDragging ? 0 : 1 }}
+    >
         <td>
             {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
             {option.name}
