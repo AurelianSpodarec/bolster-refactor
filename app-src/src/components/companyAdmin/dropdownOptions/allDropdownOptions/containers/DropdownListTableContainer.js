@@ -10,7 +10,7 @@ import { DEFAULT_PIN_OPTIONS_SORT } from 'constants/companyAdmin/enums';
 
 class DropdownListTableContainer extends Component {
     state = {
-        selectedSortValue: DEFAULT_PIN_OPTIONS_SORT.CUSTOM,
+        selectedSortValue: this.props.defaultDropdownSorting,
     };
 
     render() {
@@ -65,7 +65,7 @@ class DropdownListTableContainer extends Component {
     getSortedDropdownOptions = () => {
         const { selectedSortValue } = this.state;
         const { dropdownOptions } = this.props;
-        const { NAME_ASC, NAME_DESC } = DEFAULT_PIN_OPTIONS_SORT;
+        const { NAME_ASC, NAME_DESC, DATE_ASC, DATE_DESC } = DEFAULT_PIN_OPTIONS_SORT;
 
         if (+selectedSortValue === NAME_ASC) {
             return [...dropdownOptions].sort((a, b) => a.name - b.name);
@@ -77,12 +77,27 @@ class DropdownListTableContainer extends Component {
             );
         }
 
+        if (+selectedSortValue === DATE_ASC) {
+            return [...dropdownOptions].sort(
+                (a, b) => new Date(a.createdOn) - new Date(b.createdOn),
+            );
+        }
+
+        if (+selectedSortValue === DATE_DESC) {
+            return [...dropdownOptions].sort(
+                (a, b) => new Date(b.createdOn) - new Date(a.createdOn),
+            );
+        }
+
         return [...dropdownOptions].sort((a, b) => a.sort - b.sort);
     };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
+        companySettingsReducer: {
+            companySettings: { defaultDropdownSorting },
+        },
         dropdownOptionsReducer: { dropdownOptions, isFetching, error, postSuccess, postError },
     },
     shared: {
@@ -95,6 +110,7 @@ const mapStateToProps = ({
     error,
     dropdownOptions: Object.values(dropdownOptions) || [],
     fieldErrors,
+    defaultDropdownSorting,
 });
 
 const mapDispatchToProps = dispatch => ({
