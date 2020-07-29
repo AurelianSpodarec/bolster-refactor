@@ -1,6 +1,7 @@
 import React from 'react';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
+import { getSortedDropdownOptions } from 'helpers/addPin';
 
 const MultiDropdownOptions = ({
     isRequired,
@@ -11,6 +12,7 @@ const MultiDropdownOptions = ({
     edit,
     originalDropdownMultiAns,
     isManufacturingEnabledForDrawing,
+    defaultDropdownSorting,
 }) => {
     let isManufacturingEnabledForType = false;
     let formattedOpts = [];
@@ -49,19 +51,23 @@ const MultiDropdownOptions = ({
             value: isManufacturingEnabledForType ? option.id : option.name,
             label: option.name,
             id: option.id || null,
+            sort: option.sort,
+            createdOn: option.createdOn,
         }));
     } else {
         formattedOpts = filteredOptions.map(option => ({
             value: isManufacturingEnabledForType ? option.id : option.name,
             label: option.name,
             id: option.id || null,
+            sort: option.sort,
+            createdOn: option.createdOn,
         }));
     }
 
     return (
         <MultiSelect
             required={isRequired}
-            options={formattedOpts}
+            options={getSortedDropdownOptions(formattedOpts, defaultDropdownSorting)}
             value={answers[id]}
             name={`answer-${id}`}
             onChange={handleChange}

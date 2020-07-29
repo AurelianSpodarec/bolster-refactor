@@ -51,6 +51,7 @@ class AddPinQuestionRoute extends Component {
             resetPinAnswer,
             isHistory,
             drawing,
+            companySettings,
         } = this.props;
 
         const showPreReq = this.checkIfShouldShowByPreReq();
@@ -95,6 +96,7 @@ class AddPinQuestionRoute extends Component {
                         originalDropdownAns={this.state.originalDropdownAns}
                         originalDropdownMultiAns={this.state.originalDropdownMultiAns}
                         isManufacturingEnabledForDrawing={isManufacturingEnabledForDrawing}
+                        defaultDropdownSorting={companySettings.defaultDropdownSorting}
                     />
                 </Field>
             );
@@ -477,6 +479,7 @@ const mapStateToProps = (
             pinHistoriesReducer: { histories },
             pinsReducer: { pins, isFetching: isFetchingPins },
             drawingsReducer: { drawings },
+            companySettingsReducer: { companySettings },
         },
         shared: {
             fieldErrorsReducer: { fieldErrors },
@@ -502,6 +505,7 @@ const mapStateToProps = (
     // only applies to edit history
     history: histories[params.historyID] || {},
     historyID: params.historyID,
+    companySettings,
 });
 
 const mapDispatchToProps = {

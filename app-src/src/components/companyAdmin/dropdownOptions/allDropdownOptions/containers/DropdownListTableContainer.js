@@ -10,7 +10,7 @@ import { DEFAULT_PIN_OPTIONS_SORT } from 'constants/companyAdmin/enums';
 
 class DropdownListTableContainer extends Component {
     state = {
-        selectedSortValue: this.props.defaultDropdownSorting,
+        selectedSortValue: this.props.defaultDropdownSorting || DEFAULT_PIN_OPTIONS_SORT.DATE_ASC,
     };
 
     render() {
@@ -68,7 +68,9 @@ class DropdownListTableContainer extends Component {
         const { NAME_ASC, NAME_DESC, DATE_ASC, DATE_DESC } = DEFAULT_PIN_OPTIONS_SORT;
 
         if (+selectedSortValue === NAME_ASC) {
-            return [...dropdownOptions].sort((a, b) => a.name - b.name);
+            return [...dropdownOptions].sort((a, b) =>
+                a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }),
+            );
         }
 
         if (+selectedSortValue === NAME_DESC) {
