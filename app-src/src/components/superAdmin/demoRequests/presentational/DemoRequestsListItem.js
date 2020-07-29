@@ -2,25 +2,29 @@ import React from 'react';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
-const CompaniesListItem = ({
-    demoRequest: { id, name, companyName, contactNumber, email, createdOn },
-    handleShowModal
+const DemoRequestsListItem = ({
+    demoRequest: { id, name, companyName, contactNumber, email, contacted, createdOn },
+    handleShowModal,
+    handleMarkContacted,
 }) => (
     <tr>
         <td>{name}</td>
         <td>{companyName || '-'}</td>
         <td>{email || '-'}</td>
         <td>{contactNumber}</td>
+        <td>{contacted ? 'Yes' : 'No'}</td>
         <td>{createdOn ? <DateTimeContainer date={createdOn} /> : '-'}</td>
         <td>
-            <button
-                onClick={() => handleShowModal(id)}
-                className="button red icon-only"
-            >
-                <i className="far fa-trash-alt" />
-            </button>
+            <div className="flex-container icon-only">
+                <button onClick={() => handleMarkContacted(id)} className="button">
+                    Mark as {contacted ? 'Uncontacted' : 'Contacted'}
+                </button>
+                <button onClick={() => handleShowModal(id)} className="button red icon-only">
+                    <i className="far fa-trash-alt" />
+                </button>
+            </div>
         </td>
     </tr>
 );
 
-export default CompaniesListItem;
+export default DemoRequestsListItem;
