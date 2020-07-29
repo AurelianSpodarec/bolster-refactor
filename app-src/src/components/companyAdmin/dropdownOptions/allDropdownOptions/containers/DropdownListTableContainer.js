@@ -72,7 +72,9 @@ class DropdownListTableContainer extends Component {
         }
 
         if (+selectedSortValue === NAME_DESC) {
-            return [...dropdownOptions].sort((a, b) => b.name - a.name);
+            return [...dropdownOptions].sort((a, b) =>
+                b.name.localeCompare(a.name, undefined, { numeric: true, sensitivity: 'base' }),
+            );
         }
 
         return [...dropdownOptions].sort((a, b) => a.sort - b.sort);
