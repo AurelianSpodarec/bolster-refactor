@@ -1,8 +1,7 @@
 import { REORDER_DRAWING } from 'constants/actionTypes/drawings';
 
-export default (id, hoverIndex) => dispatch =>
+export default payload => dispatch =>
     dispatch({
         type: REORDER_DRAWING,
-        id,
-        hoverIndex
+        payload,
     });
