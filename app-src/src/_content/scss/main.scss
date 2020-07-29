@@ -2357,6 +2357,7 @@ input {
     width: calc(100% + 30px);
     margin-left: -15px;
     text-align: left;
+    table-layout: fixed;
 
     &.with-actions {
         td {
@@ -2382,8 +2383,16 @@ input {
     tbody {
         &.dragging {
             tr {
+                overflow: hidden;
+                width: 100%;
+                white-space: nowrap;
+
                 &:hover {
                     background-color: transparent !important;
+                }
+
+                td {
+                    overflow: hidden;
                 }
             }
         }
