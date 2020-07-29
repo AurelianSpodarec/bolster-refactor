@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -33,13 +33,10 @@ const SectionListContainer = ({ sections, setSections }) => {
 
     function moveSection(sectionUuid, atIndex) {
         const { section, index } = findSection(sectionUuid);
-        console.log({ sectionUuid, section }, 'result of findsection');
         const secs = [...sections];
         secs.splice(index, 1);
         secs.splice(atIndex, 0, section);
-        console.log({ sections });
         const sorted = secs.map((sec, i) => ({ ...sec, sort: i + 1 }));
-        console.log({ sorted });
         setSections(sorted);
     }
 };
