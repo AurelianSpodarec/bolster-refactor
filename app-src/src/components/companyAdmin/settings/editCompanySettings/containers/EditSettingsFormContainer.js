@@ -47,7 +47,7 @@ class EditSettingsFormContainer extends Component {
         dateFormatOptions: [],
         isEditButtonDisabled: false,
         deafultSitesSort: DEFAULT_SITES_SORT.CUSTOM,
-        defaultPinOptionsSort: DEFAULT_PIN_OPTIONS_SORT.CUSTOM,
+        defaultDropdownSorting: DEFAULT_PIN_OPTIONS_SORT.CUSTOM,
         shouldDeleteReportsAfterDownload: false,
         enableQRCodes: false,
         useManufacturingByDefault: false,

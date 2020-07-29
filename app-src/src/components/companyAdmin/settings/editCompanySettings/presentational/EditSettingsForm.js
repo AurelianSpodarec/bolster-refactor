@@ -44,7 +44,7 @@ const EditSettingsForm = ({
     dateFormatOptions,
     dateFormat,
     defaultSitesSort,
-    defaultPinOptionsSort,
+    defaultDropdownSorting,
     siteSortOptions,
     pinOptionsSortOptions,
     shouldDeleteReportsAfterDownload,
@@ -256,8 +256,8 @@ const EditSettingsForm = ({
                     <Select
                         options={pinOptionsSortOptions}
                         onChange={handleInputChange}
-                        name="defaultPinOptionsSort"
-                        value={defaultPinOptionsSort}
+                        name="defaultDropdownSorting"
+                        value={defaultDropdownSorting}
                         omitPlaceholder
                     />
                 </Field>

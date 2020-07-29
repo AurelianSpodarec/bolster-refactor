@@ -279,7 +279,7 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                         <FieldOutput
                             title="Default Pin Options List Sort"
                             description={
-                                DEFAULT_PIN_OPTIONS_SORT_NAMES[company.defaultPinOptionsSort]
+                                DEFAULT_PIN_OPTIONS_SORT_NAMES[company.defaultDropdownSorting]
                             }
                             fieldClass="no-h-padding"
                             sizeClass="size-lg-12"
