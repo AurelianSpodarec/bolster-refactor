@@ -6,7 +6,7 @@ import uuid from 'uuid/v1';
 import {
     ADD_TEMPLATE_QUESTION,
     RENAME_TEMPLATE_SECTION,
-    SET_TEMPLATE_IMAGE
+    SET_TEMPLATE_IMAGE,
 } from 'constants/shared/modalTypes';
 import { DRAG_TYPES } from 'constants/superAdmin/dragTypes';
 import swapQuestionSorts from 'actions/superAdmin/templateBuilder/sync/swapQuestionSorts';
@@ -31,7 +31,7 @@ class SectionContainer extends Component {
             connectDropTarget,
             deleteSection,
             showAddQuestModal,
-            showRenameSectModal
+            showRenameSectModal,
         } = this.props;
 
         return connectDropTarget(
@@ -43,42 +43,32 @@ class SectionContainer extends Component {
                     questions={questions}
                     moveQuestion={this.moveQuestion}
                     deleteSection={() => deleteSection(section.uuid)}
-                    showAddQuestModal={() =>
-                        showAddQuestModal(section.uuid, section.templateUUID)
-                    }
+                    showAddQuestModal={() => showAddQuestModal(section.uuid, section.templateUUID)}
                     showRenameSectModal={() => showRenameSectModal(section)}
                     duplicateSection={this.duplicateSection}
                     showAddImageModal={this.showAddImageModal}
                 />
-            </div>
+            </div>,
         );
     }
 
     _getTooltip = () => {
         const { sections, questions } = this.props;
         const includesStatus = !!questions.filter(
-            s => s.questionType + '' === QUESTION_TYPE_VALUES.STATUS + ''
+            s => s.questionType + '' === QUESTION_TYPE_VALUES.STATUS + '',
         ).length;
 
         let tooltipMessage;
-        if (sections.length <= 1)
-            tooltipMessage = 'You must have at least one section.';
+        if (sections.length <= 1) tooltipMessage = 'You must have at least one section.';
         else if (!this._isDeletable())
-            tooltipMessage =
-                'This section has prerequisites with dependants in other sections.';
-        else if (includesStatus)
-            tooltipMessage = 'This section contains the \'Status\' question ';
+            tooltipMessage = 'This section has prerequisites with dependants in other sections.';
+        else if (includesStatus) tooltipMessage = "This section contains the 'Status' question ";
 
         return tooltipMessage;
     };
 
     _isDeletable = () => {
-        const {
-            templateQuestions,
-            questions: sectionQuestions,
-            section,
-            sections
-        } = this.props;
+        const { templateQuestions, questions: sectionQuestions, section, sections } = this.props;
         const sectionQuestionUuids = sectionQuestions.map(({ uuid }) => uuid);
         const otherQuestionPrereqUuids = templateQuestions
             .filter(q => q.sectionUUID !== section.uuid)
@@ -86,16 +76,20 @@ class SectionContainer extends Component {
 
         return (
             otherQuestionPrereqUuids.every(
-                prereqUUID => !sectionQuestionUuids.includes(prereqUUID)
+                prereqUUID => !sectionQuestionUuids.includes(prereqUUID),
             ) && sections.length > 1
         );
     };
 
     moveQuestion = (dragIndex, hoverIndex) => {
         const { questions, swapQuestionSorts } = this.props;
-        const question1 = questions[dragIndex];
-        const question2 = questions[hoverIndex];
-        swapQuestionSorts(question1.uuid, question2.uuid);
+
+        const items = [...questions].sort((a, b) => a.sort - b.sort);
+        const [item] = items.splice(dragIndex, 1);
+        items.splice(hoverIndex, 0, item);
+        const sorted = items.map((x, i) => ({ ...x, sort: i + 1 }));
+
+        swapQuestionSorts(sorted);
     };
 
     changeSection = question => {
@@ -114,19 +108,16 @@ class SectionContainer extends Component {
         const newSection = {
             ...section,
             name: `${section.name} - (copy)`,
-            uuid: newUuid
+            uuid: newUuid,
         };
 
         questions.forEach(question => {
-            if (
-                question.questionType + '' !==
-                QUESTION_TYPE_VALUES.STATUS + ''
-            ) {
+            if (question.questionType + '' !== QUESTION_TYPE_VALUES.STATUS + '') {
                 setQuestion({
                     ...question,
                     questionType: question.questionType,
                     sectionUUID: newUuid,
-                    uuid: uuid()
+                    uuid: uuid(),
                 });
             }
         });
@@ -140,7 +131,7 @@ class SectionContainer extends Component {
         showModal(SET_TEMPLATE_IMAGE, {
             sectionUUID: section.uuid,
             templateUUID: section.templateUUID,
-            sort: maxSort + 1
+            sort: maxSort + 1,
         });
     };
 }
@@ -153,34 +144,30 @@ const questionTarget = {
             component.changeSection(sourceObj.question);
         }
         return {
-            sectionUUID: section.uuid
+            sectionUUID: section.uuid,
         };
-    }
+    },
 };
 
-const WithDragAndDrop = DropTarget(
-    DRAG_TYPES.QUESTION,
-    questionTarget,
-    (connect, monitor) => ({
-        connectDropTarget: connect.dropTarget(),
-        isOver: monitor.isOver(),
-        canDrop: monitor.canDrop()
-    })
-)(SectionContainer);
+const WithDragAndDrop = DropTarget(DRAG_TYPES.QUESTION, questionTarget, (connect, monitor) => ({
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver(),
+    canDrop: monitor.canDrop(),
+}))(SectionContainer);
 
 const mapStateToProps = (
     { superAdmin: { templateQuestionsReducer, templateSectionsReducer } },
-    { section }
+    { section },
 ) => ({
     templateQuestions: Object.values(templateQuestionsReducer.questions).filter(
-        q => q.templateUUID === section.templateUUID
+        q => q.templateUUID === section.templateUUID,
     ),
     questions: Object.values(templateQuestionsReducer.questions)
         .filter(q => q.sectionUUID === section.uuid)
         .sort((a, b) => a.sort - b.sort),
     sections: Object.values(templateSectionsReducer.sections).filter(
-        s => s.templateUUID === section.templateUUID
-    )
+        s => s.templateUUID === section.templateUUID,
+    ),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -200,9 +187,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(setSection(newSection));
     },
     showAddQuestModal: (sectionUUID, templateUUID) => {
-        dispatch(
-            showModal(ADD_TEMPLATE_QUESTION, { sectionUUID, templateUUID })
-        );
+        dispatch(showModal(ADD_TEMPLATE_QUESTION, { sectionUUID, templateUUID }));
     },
     showRenameSectModal: section => {
         dispatch(showModal(RENAME_TEMPLATE_SECTION, { section }));
@@ -212,10 +197,7 @@ const mapDispatchToProps = dispatch => ({
     },
     showModal: (type, props) => {
         dispatch(showModal(type, props));
-    }
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(WithDragAndDrop);
+export default connect(mapStateToProps, mapDispatchToProps)(WithDragAndDrop);
