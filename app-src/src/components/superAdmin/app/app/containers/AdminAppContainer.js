@@ -7,6 +7,7 @@ import AdminApp from '../presentational/AdminApp';
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
 import fetchProfile from 'actions/shared/profile/async/fetchProfile';
 import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
+import fetchAllDemoRequests from 'actions/superAdmin/demoRequests/async/fetchAllDemoRequests';
 
 class AdminAppContainer extends Component {
     render() {
@@ -31,10 +32,8 @@ const mapDispatchToProps = dispatch => ({
     fetchHomeData: () => {
         dispatch(fetchProfile());
         dispatch(fetchAllSubscriptions());
-    }
+        dispatch(fetchAllDemoRequests());
+    },
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(AdminAppContainer);
+export default connect(null, mapDispatchToProps)(AdminAppContainer);
