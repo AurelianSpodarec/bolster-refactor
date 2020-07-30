@@ -18,7 +18,12 @@ const EnquiriesListItem = ({ enquiry, handleShowModal, handleMarkContacted }) =>
                     onClick={() => handleMarkContacted(enquiry.id)}
                     className="button icon-only"
                 >
-                    Mark as {enquiry.contacted ? 'Uncontacted' : 'Contacted'}
+                    Mark as{' '}
+                    {enquiry.contacted ? (
+                        <i className="fa fa-bell-slash" />
+                    ) : (
+                        <i className="fa fa-bell" />
+                    )}
                 </button>
                 <Link className="button green icon-only" to={`/admin/enquiries/${enquiry.id}`}>
                     <i className="fa fa-eye" />
