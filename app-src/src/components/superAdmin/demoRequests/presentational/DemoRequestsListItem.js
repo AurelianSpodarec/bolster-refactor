@@ -16,17 +16,15 @@ const DemoRequestsListItem = ({
         <td>{contacted ? 'Yes' : 'No'}</td>
         <td>{createdOn ? <DateTimeContainer date={createdOn} /> : '-'}</td>
         <td>
-            <div className="flex-container">
-                <button onClick={() => handleMarkContacted(id)} className="button icon-only">
-                    {contacted ? <i className="fa fa-bell-slash" /> : <i className="fa fa-bell" />}
-                </button>
-                <Link className="button centered green icon-only" to={`/admin/demo-requests/${id}`}>
-                    <i className="fa fa-eye" />
-                </Link>
-                <button onClick={() => handleShowModal(id)} className="button red icon-only">
-                    <i className="far fa-trash-alt" />
-                </button>
-            </div>
+            <button onClick={() => handleMarkContacted(id)} className="button icon-only">
+                {contacted ? <i className="fa fa-bell-slash" /> : <i className="fa fa-bell" />}
+            </button>
+            <Link className="button green icon-only" to={`/admin/demo-requests/${id}`}>
+                <i className="fa fa-eye" />
+            </Link>
+            <button onClick={() => handleShowModal(id)} className="button red icon-only">
+                <i className="far fa-trash-alt" />
+            </button>
         </td>
     </tr>
 );
