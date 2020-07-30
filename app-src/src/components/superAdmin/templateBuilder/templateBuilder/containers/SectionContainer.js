@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { connect } from 'react-redux';
 import { DropTarget, useDrag, useDrop } from 'react-dnd';
 import newUuid from 'uuid/v1';
@@ -42,9 +42,10 @@ const SectionContainer = ({
     hovered,
     isSortingSections,
 }) => {
+    const ref = useRef(null);
     const { uuid } = section;
     const [{ isDragging }, drag] = useDrag({
-        item: { type: 'SECTION', uuid, originalIndex: i },
+        item: { type: 'SECTION', uuid, originalIndex: i, index: i },
         collect: handleCollect,
     });
 
@@ -53,10 +54,14 @@ const SectionContainer = ({
         canDrop: () => false,
         hover: handleHover,
     });
+
     return connectDropTarget(
         <div className="size-lg-12" style={isDragging ? { opacity: 0 } : {}}>
             <Section
-                dragRef={node => drag(drop(node))}
+                dragRef={node => {
+                    drag(drop(node));
+                    ref.current = node;
+                }}
                 tooltipMessage={_getTooltip()}
                 isActive={canDrop && isOver}
                 section={section}
@@ -141,11 +146,43 @@ const SectionContainer = ({
         });
     }
 
-    function handleHover({ uuid: draggedId }) {
-        if (draggedId !== uuid) {
-            const { index: overIndex } = findSection(draggedId);
-            moveSection(uuid, overIndex);
+    function handleHover(item, monitor) {
+        if (!ref.current) {
+            return;
         }
+        const dragID = item.uuid;
+        const dragIndex = item.index;
+        const hoverIndex = i;
+        // Don't replace items with themselves
+        if (dragIndex === hoverIndex) {
+            return;
+        }
+        // Determine rectangle on screen
+        const hoverBoundingRect = ref.current.getBoundingClientRect();
+        // Get vertical middle
+        const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+        // Determine mouse position
+        const clientOffset = monitor.getClientOffset();
+        // Get pixels to the top
+        const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+        // Only perform the move when the mouse has crossed half of the items height
+        // When dragging downwards, only move when the cursor is below 50%
+        // When dragging upwards, only move when the cursor is above 50%
+        // Dragging downwards
+        if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+            return;
+        }
+        // Dragging upwards
+        if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+            return;
+        }
+        // Time to actually perform the action
+        moveSection(dragID, hoverIndex);
+        // Note: we're mutating the monitor item here!
+        // Generally it's better to avoid mutations,
+        // but it's good here for the sake of performance
+        // to avoid expensive index searches.
+        item.index = hoverIndex;
     }
 
     function handleCollect(monitor) {
