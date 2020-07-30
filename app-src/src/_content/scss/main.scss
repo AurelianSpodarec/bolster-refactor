@@ -1995,6 +1995,18 @@ input {
     }
 }
 
+.dropdown-sort-container {
+    margin: -10px 0 20px;
+
+    .sort-text {
+        padding: 7px 5px 0 0;
+    }
+
+    .sort-input-container {
+        width: 200px;
+    }
+}
+
 .generic-input,
 .StripeElement {
     float: left;

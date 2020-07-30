@@ -26,11 +26,13 @@ const DropdownOptionsTable = ({
                     <button className="pull-right button green" onClick={handleAddOptionModal}>
                         <i className="fa fa-plus" /> {`Add ${DROPDOWN_OPTIONS[type].singular}`}
                     </button>
-                    <DropdownListSortOrderContainer
-                        selectedSortValue={selectedSortValue}
-                        handleSortChange={handleSortChange}
-                    />
                 </BlockHeading>
+
+                <DropdownListSortOrderContainer
+                    selectedSortValue={selectedSortValue}
+                    handleSortChange={handleSortChange}
+                />
+
                 <div className="size-lg-12">
                     <Table
                         withActions

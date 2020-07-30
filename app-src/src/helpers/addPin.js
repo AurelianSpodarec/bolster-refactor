@@ -4,7 +4,9 @@ export function getSortedDropdownOptions(options, defaultDropdownSorting) {
     const { NAME_ASC, NAME_DESC, DATE_ASC, DATE_DESC } = DEFAULT_PIN_OPTIONS_SORT;
 
     if (+defaultDropdownSorting === NAME_ASC) {
-        return [...options].sort((a, b) => a.label - b.label);
+        return [...options].sort((a, b) =>
+            a.label.localeCompare(b.label, undefined, { numeric: true, sensitivity: 'base' }),
+        );
     }
 
     if (+defaultDropdownSorting === NAME_DESC) {
