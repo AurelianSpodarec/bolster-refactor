@@ -16,9 +16,9 @@ const DemoRequestsListItem = ({
         <td>{contacted ? 'Yes' : 'No'}</td>
         <td>{createdOn ? <DateTimeContainer date={createdOn} /> : '-'}</td>
         <td>
-            <div className="flex-container icon-only">
+            <div className="flex-container">
                 <button onClick={() => handleMarkContacted(id)} className="button icon-only">
-                    Mark as {contacted ? 'Uncontacted' : 'Contacted'}
+                    {contacted ? <i className="fa fa-bell-slash" /> : <i className="fa fa-bell" />}
                 </button>
                 <Link className="button centered green icon-only" to={`/admin/demo-requests/${id}`}>
                     <i className="fa fa-eye" />
