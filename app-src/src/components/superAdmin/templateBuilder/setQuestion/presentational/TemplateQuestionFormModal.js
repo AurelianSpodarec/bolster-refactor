@@ -15,6 +15,7 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
+import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 
 const TemplateQuestionFormModal = ({
     questionTypeOptions,
@@ -37,13 +38,16 @@ const TemplateQuestionFormModal = ({
     handlePrefillStatusChange,
     handlePrefillStatusValueChange,
     showStatusPrefillOptions,
+    prereqDropdownValues,
+    isPrerequisiteMulti,
     ...otherFields
 }) => {
-    console.log(otherFields);
-    console.log(otherFields);
-    console.log(otherFields);
-    console.log(otherFields);
-    console.log(otherFields);
+    console.log('selectedPrereq');
+    console.log('selectedPrereq');
+
+    console.log(selectedPrereq);
+    console.log(selectedPrereq);
+
     return (
         <ModalOuterContainer extraClasses="w-form">
             <BlockHeading title={`${action} question`} />
@@ -68,7 +72,7 @@ const TemplateQuestionFormModal = ({
                     </Field>
                 )}
 
-                {!!selectedPrereq && (
+                {!!selectedPrereq && !selectedPrereq.options.length && (
                     <Field name="Prerequisite value" required>
                         {selectedPrereq.isStatus ? (
                             <Select
@@ -88,22 +92,23 @@ const TemplateQuestionFormModal = ({
                         )}
                     </Field>
                 )}
+                {}
 
-                {/* {selectedPrereq.questionType === QUESTION_TYPE_NUMBERS.DROPDOWN_OPTIONS ||
-                    selectedPrereq.questionType === QUESTION_TYPE_NUMBERS.MULTI_DROPDOWN_OPTIONS ||
-                    selectedPrereq.questionType ===
-                        QUESTION_TYPE_NUMBERS.MULTI_MULTI_DROPDOWN_OPTIONS ||
-                    (selectedPrereq.questionType === QUESTION_TYPE_NUMBERS.MULTI_MULTI_DROPDOWN && (
-                        <Field name={`${PIN_STATUS_TYPES[prefillStatus]} Value`} key={index}>
-                            <TextInputContainer
-                                name="statusPrefills"
-                                handleChange={(name, value) => {
-                                    handlePrefillStatusValueChange(prefillStatus, value);
-                                }}
-                                value={statusPrefills[prefillStatus]}
-                            />
-                        </Field>
-                    ))} */}
+                {!!selectedPrereq && selectedPrereq.options.length && (
+                    <Field name="Prerequisite values">
+                        <CheckboxListContainer
+                            name="prereqDropdownValues"
+                            handleChange={handleInputChange}
+                            selectedOptions={prereqDropdownValues}
+                            options={selectedPrereq.options.map(({ text }) => ({
+                                value: text,
+                                text,
+                                disabled: false,
+                            }))}
+                        />
+                    </Field>
+                )}
+
                 <Field name="Field name" required>
                     <TextInputContainer
                         name="name"

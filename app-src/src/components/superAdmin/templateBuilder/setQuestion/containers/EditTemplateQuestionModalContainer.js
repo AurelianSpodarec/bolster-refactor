@@ -12,7 +12,14 @@ import TemplateQuestionFormModal from '../presentational/TemplateQuestionFormMod
 class TemplateQuestionModalContainer extends Component {
     render() {
         const {
-            fields: { questionType, questionTypeOptions, prereqUUID, ...fields },
+            fields: {
+                questionType,
+                questionTypeOptions,
+                prereqUUID,
+                prereqVal,
+                isPrerequisiteMulti,
+                ...fields
+            },
             hideModal,
             handleInputChange,
         } = this.props;
@@ -36,9 +43,12 @@ class TemplateQuestionModalContainer extends Component {
             +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.RADIO
                 ? true
                 : false;
+
         return (
             <TemplateQuestionFormModal
                 {...fields}
+                prereqVal={prereqVal}
+                isPrerequisiteMulti={isPrerequisiteMulti}
                 statusOptions={statusOptions}
                 prereqOptions={Object.values(prereqOptions)}
                 selectedPrereq={prereqOptions[prereqUUID]}
@@ -82,6 +92,13 @@ class TemplateQuestionModalContainer extends Component {
         } else {
             updateQuestionFields(question);
         }
+
+        if (question.isPrerequisiteMulti && question.prereqVal) {
+            updateQuestionFields({
+                ...question,
+                prereqDropdownValues: question.prereqVal.split(','),
+            });
+        }
     };
 
     handleSubmit = e => {
@@ -110,10 +127,12 @@ class TemplateQuestionModalContainer extends Component {
                     q.uuid !== uuid &&
                     q.prereqUUID !== uuid,
             )
-            .map(({ uuid, name, questionType }) => ({
+            .map(({ uuid, name, questionType, options }) => ({
                 value: uuid,
                 text: name,
+                questionType,
                 isStatus: questionType + '' === QUESTION_TYPE_VALUES.STATUS,
+                options: options ? options : [],
             }));
 
         return convertArrToObj(options, 'value');

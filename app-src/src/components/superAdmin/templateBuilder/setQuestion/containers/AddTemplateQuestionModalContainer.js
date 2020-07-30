@@ -19,6 +19,7 @@ const AddTemplateQuestionModalContainer = ({
     statusOptions,
     handlePrefillStatusChange,
     handlePrefillStatusValueChange,
+    handlePrereqOptionsChange,
 }) => {
     const questionOptions = Object.values(questionTypeOptions).filter(
         ({ value }) =>
@@ -50,6 +51,7 @@ const AddTemplateQuestionModalContainer = ({
             handlePrefillStatusValueChange={handlePrefillStatusValueChange}
             action="Add"
             showStatusPrefillOptions={showStatusPrefillOptions}
+            handlePrereqOptionsChange={handlePrereqOptionsChange}
         />
     );
 

@@ -20,6 +20,7 @@ const initialQuestionFields = {
     prereqOptions: {},
     prereqUUID: '',
     prereqVal: '',
+    prereqDropdownValues: [],
     name: '',
     isRequired: false,
     isHidden: false,

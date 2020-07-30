@@ -63,23 +63,22 @@ export default function (WrappedComponent) {
         _getPrereqOptions = () => {
             const { questions, templateUUID: temUuid } = this.props;
             const { STATUS } = QUESTION_TYPE_VALUES;
-            console.warn(questions);
-            console.warn(questions);
-            console.warn(questions);
-            console.warn(questions);
-            console.warn(questions);
-            console.warn(questions);
+
             const options = questions
                 .filter(q => q.templateUUID === temUuid)
                 .filter(q => PREREQ_TYPES.includes(q.questionType + ''))
-                .map(({ uuid, name, questionType }) => ({
+                .map(({ uuid, name, questionType, options }) => ({
                     value: uuid,
                     text: name,
                     isStatus: questionType + '' === STATUS,
                     questionType,
-                    //if they have a values, like for multi dropdown, we need to map out each answer to attach a value
+                    options: options ? options : [],
                 }));
-
+            console.log(convertArrToObj(options, 'value'));
+            console.log(convertArrToObj(options, 'value'));
+            console.log(convertArrToObj(options, 'value'));
+            console.log(convertArrToObj(options, 'value'));
+            console.log(convertArrToObj(options, 'value'));
             return convertArrToObj(options, 'value');
         };
 
@@ -111,19 +110,20 @@ export default function (WrappedComponent) {
                 isPrefill,
                 isRequiredVal,
                 statusPrefills,
+                prereqDropdownValues,
             } = this.props.fields;
 
             return {
                 questionType,
                 name,
                 prereqUUID,
-                prereqVal,
                 isRequired,
                 isHidden,
                 isPrefill,
                 isRequiredVal,
                 prefillStatuses: Object.keys(statusPrefills),
                 statusPrefills,
+                prereqVal: prereqDropdownValues.length ? prereqDropdownValues.join() : prereqVal,
             };
         };
 
