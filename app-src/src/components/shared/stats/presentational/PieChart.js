@@ -61,6 +61,7 @@ const PieChart = ({
                         name="serviceID"
                         value={serviceOptions.find(opt => opt.value === +serviceID)}
                         options={serviceOptions}
+                        placeholder="All Services"
                     />
                 </Field>
             )}
