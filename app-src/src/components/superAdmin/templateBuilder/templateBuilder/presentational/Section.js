@@ -17,10 +17,11 @@ const Section = ({
     tooltipMessage,
     showAddImageModal,
     isSortingSections,
+    dragRef,
 }) => {
     if (isSortingSections)
         return (
-            <div className="template-block size-lg-12">
+            <div className="template-block size-lg-12" ref={dragRef}>
                 <div className="content-container">
                     <div className="content-area sorting-sites">
                         <BlockHeading

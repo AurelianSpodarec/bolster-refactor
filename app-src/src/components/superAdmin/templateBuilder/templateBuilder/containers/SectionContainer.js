@@ -54,23 +54,22 @@ const SectionContainer = ({
         hover: handleHover,
     });
     return connectDropTarget(
-        <div ref={node => drag(drop(node))}>
-            <div className="size-lg-12" style={isDragging ? { opacity: 0 } : {}}>
-                <Section
-                    tooltipMessage={_getTooltip()}
-                    isActive={canDrop && isOver}
-                    section={section}
-                    questions={questions}
-                    moveQuestion={moveQuestion}
-                    deleteSection={() => deleteSection(section.uuid)}
-                    showAddQuestModal={() => showAddQuestModal(section.uuid, section.templateUUID)}
-                    showRenameSectModal={() => showRenameSectModal(section)}
-                    duplicateSection={duplicateSection}
-                    showAddImageModal={showAddImageModal}
-                    hovered={hovered}
-                    isSortingSections={isSortingSections}
-                />
-            </div>
+        <div className="size-lg-12" style={isDragging ? { opacity: 0 } : {}}>
+            <Section
+                dragRef={node => drag(drop(node))}
+                tooltipMessage={_getTooltip()}
+                isActive={canDrop && isOver}
+                section={section}
+                questions={questions}
+                moveQuestion={moveQuestion}
+                deleteSection={() => deleteSection(section.uuid)}
+                showAddQuestModal={() => showAddQuestModal(section.uuid, section.templateUUID)}
+                showRenameSectModal={() => showRenameSectModal(section)}
+                duplicateSection={duplicateSection}
+                showAddImageModal={showAddImageModal}
+                hovered={hovered}
+                isSortingSections={isSortingSections}
+            />
         </div>,
     );
 
