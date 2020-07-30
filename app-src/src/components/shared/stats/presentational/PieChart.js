@@ -26,15 +26,15 @@ const PieChart = ({
     handleChange,
     // style
 }) => {
-    const statsToUse = serviceID ? stats.statusesByService[serviceID] : stats.statuses;
-    const isStatsEmpty = !statsToUse || Object.values(stats.statuses).every(stat => stat === 0);
+    const statsToUse = serviceID ? stats.statusesByService[serviceID] || {} : stats.statuses;
+    const isStatsEmpty = !statsToUse || Object.values(statsToUse).every(stat => stat === 0);
 
-    const total = Object.values(stats.statuses).reduce((acc, val) => {
+    const total = Object.values(statsToUse).reduce((acc, val) => {
         return acc + val;
     }, 0);
 
     const pieStats = !isStatsEmpty
-        ? Object.entries(stats.statuses).map(([title, value]) => {
+        ? Object.entries(statsToUse).map(([title, value]) => {
               return {
                   title,
                   value,
@@ -91,32 +91,31 @@ const PieChart = ({
                         <div className="pin">
                             <img src={redPin} alt="pin" />
                             <p>
-                                Action Required:{' '}
-                                <span>{`${stats.statuses['ActionRequired']}`}</span>
+                                Action Required: <span>{`${statsToUse['ActionRequired']}`}</span>
                             </p>
                         </div>
                         <div className="pin">
                             <img src={greenPin} alt="pin" />
                             <p>
-                                Installed: <span>{`${stats.statuses['Installed']}`}</span>
+                                Installed: <span>{`${statsToUse['Installed']}`}</span>
                             </p>
                         </div>
                         <div className="pin">
                             <img src={bluePin} alt="pin" />
                             <p>
-                                Inspected: <span>{`${stats.statuses['Inspected']}`}</span>
+                                Inspected: <span>{`${statsToUse['Inspected']}`}</span>
                             </p>
                         </div>
                         <div className="pin">
                             <img src={yellowPin} alt="pin" />
                             <p>
-                                No Action: <span>{`${stats.statuses['NoAction']}`}</span>
+                                No Action: <span>{`${statsToUse['NoAction']}`}</span>
                             </p>
                         </div>
                         <div className="pin">
                             <img src={purplePin} alt="pin" />
                             <p>
-                                Other: <span>{`${stats.statuses['Other']}`}</span>
+                                Other: <span>{`${statsToUse['Other']}`}</span>
                             </p>
                         </div>
                         <div className="pin">
