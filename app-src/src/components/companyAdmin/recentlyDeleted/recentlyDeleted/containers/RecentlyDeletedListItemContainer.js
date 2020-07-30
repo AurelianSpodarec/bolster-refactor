@@ -8,6 +8,7 @@ import restoreBuilding from 'actions/companyAdmin/buildings/async/restoreBuildin
 import restoreSite from 'actions/companyAdmin/sites/async/restoreSite';
 import restorePinHistory from 'actions/companyAdmin/pins/async/restorePinHistory';
 import restoreUser from 'actions/companyAdmin/userManagement/async/restoreUser';
+import restoreOperative from 'actions/companyAdmin/operatives/async/restoreOperative';
 
 import RecentlyDeletedListItem from '../presentational/RecentlyDeletedListItem';
 
@@ -40,7 +41,7 @@ class RecentlyDeletedListItemContainer extends Component {
         if (prevProps.isPosting && !isPosting && postFailure) {
             showModal(ERROR_MODAL, {
                 title: 'Error',
-                message: postError
+                message: postError,
             });
         }
     };
@@ -54,7 +55,8 @@ class RecentlyDeletedListItemContainer extends Component {
             restoreBuilding,
             restoreSite,
             restoreUser,
-            restorePinHistory
+            restorePinHistory,
+            restoreOperative,
         } = this.props;
 
         const message = 'Are you sure you would like to restore this data?';
@@ -70,6 +72,8 @@ class RecentlyDeletedListItemContainer extends Component {
                 restoreSite(id);
             } else if (type === 'users') {
                 restoreUser(id);
+            } else if (type === 'operativepermissions') {
+                restoreOperative(id);
             } else {
                 restorePinHistory(id);
             }
@@ -81,13 +85,13 @@ class RecentlyDeletedListItemContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        deletedDataReducer: { isPosting, postSuccess, postFailure, postError }
-    }
+        deletedDataReducer: { isPosting, postSuccess, postFailure, postError },
+    },
 }) => ({
     isPosting,
     postSuccess,
     postFailure,
-    postError
+    postError,
 });
 
 const mapDispatchToProps = {
@@ -98,12 +102,10 @@ const mapDispatchToProps = {
     restoreBuilding,
     restoreSite,
     restoreUser,
-    restorePinHistory
+    restorePinHistory,
+    restoreOperative,
 };
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(RecentlyDeletedListItemContainer)
+    connect(mapStateToProps, mapDispatchToProps)(RecentlyDeletedListItemContainer),
 );
