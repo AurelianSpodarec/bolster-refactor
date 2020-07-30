@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { DropTarget, useDrag, useDrop } from 'react-dnd';
+import newUuid from 'uuid/v1';
 
 import {
     ADD_TEMPLATE_QUESTION,
@@ -109,12 +110,11 @@ const SectionContainer = ({
 
     function duplicateSection(e) {
         e.preventDefault();
-        const newUuid = uuid();
-
+        const newSectionUuid = newUuid();
         const newSection = {
             ...section,
             name: `${section.name} - (copy)`,
-            uuid: newUuid,
+            uuid: newSectionUuid,
         };
 
         questions.forEach(question => {
@@ -122,8 +122,8 @@ const SectionContainer = ({
                 setQuestion({
                     ...question,
                     questionType: question.questionType,
-                    sectionUUID: newUuid,
-                    uuid: uuid(),
+                    sectionUUID: newSectionUuid,
+                    uuid: newUuid(),
                 });
             }
         });
