@@ -52,7 +52,10 @@ function isPostingReducer(state = false, action) {
     }
 }
 
-function filtersReducer(state = { name: '', companyType: COMPANY_TYPES.ALL }, action) {
+function filtersReducer(
+    state = { name: '', companyType: COMPANY_TYPES.ALL, serviceIDs: [] },
+    action,
+) {
     switch (action.type) {
         case UPDATE_COMPANIES_FILTERS:
             return updateObj(state, action.fieldName, action.searchTerm);
