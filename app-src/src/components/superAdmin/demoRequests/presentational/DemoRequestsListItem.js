@@ -17,7 +17,7 @@ const DemoRequestsListItem = ({
         <td>{createdOn ? <DateTimeContainer date={createdOn} /> : '-'}</td>
         <td>
             <div className="flex-container icon-only">
-                <button onClick={() => handleMarkContacted(id)} className="button">
+                <button onClick={() => handleMarkContacted(id)} className="button icon-only">
                     Mark as {contacted ? 'Uncontacted' : 'Contacted'}
                 </button>
                 <Link className="button centered green icon-only" to={`/admin/demo-requests/${id}`}>

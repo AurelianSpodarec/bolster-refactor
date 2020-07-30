@@ -14,7 +14,10 @@ const EnquiriesListItem = ({ enquiry, handleShowModal, handleMarkContacted }) =>
             </td>
             <td>{enquiry.contacted ? 'Yes' : 'No'}</td>
             <td>
-                <button onClick={() => handleMarkContacted(enquiry.id)} className="button">
+                <button
+                    onClick={() => handleMarkContacted(enquiry.id)}
+                    className="button icon-only"
+                >
                     Mark as {enquiry.contacted ? 'Uncontacted' : 'Contacted'}
                 </button>
                 <Link className="button green icon-only" to={`/admin/enquiries/${enquiry.id}`}>
