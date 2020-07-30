@@ -10,7 +10,10 @@ const FloorStats = ({
     handleDelete,
     handleArchive,
     handleEditFloorModal,
-    onMobile
+    onMobile,
+    handleChange,
+    serviceID,
+    serviceOptions,
 }) => (
     <div className="stats size-lg-12">
         <FloorDetails stats={stats} floor={floor} />
@@ -19,6 +22,9 @@ const FloorStats = ({
             hierarchyType="floor"
             sizeClasses="size-lg-6 size-md-12"
             onMobile={onMobile}
+            handleChange={handleChange}
+            serviceOptions={serviceOptions}
+            serviceID={serviceID}
         />
 
         <div className="button-container">

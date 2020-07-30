@@ -5,15 +5,36 @@ import PieChart from 'components/shared/stats/presentational/PieChart';
 import SiteDetails from './SiteDetails';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 
-const SiteStats = ({ site, stats, handleDelete, handleArchive, onMobile, handleEditSiteModal }) => (
+const SiteStats = ({
+    site,
+    stats,
+    handleDelete,
+    handleArchive,
+    onMobile,
+    handleEditSiteModal,
+    handleChange,
+    serviceID,
+    serviceOptions,
+}) => (
     <div className="stats size-lg-12">
         <div className="flex-item size-lg-12">
-            <SiteDetails site={site} stats={stats} />
+            <SiteDetails
+                site={site}
+                stats={stats}
+                handleChange={handleChange}
+                serviceOptions={serviceOptions}
+                serviceID={serviceID}
+            />
+
             <PieChart
                 stats={stats}
+                serviceID={serviceID}
                 hierarchyType="site"
                 sizeClasses="size-lg-6 size-md-12"
                 onMobile={onMobile}
+                isFiltered={!!serviceID}
+                handleChange={handleChange}
+                serviceOptions={serviceOptions}
             />
         </div>
 
