@@ -11,7 +11,7 @@ const SectionListContainer = ({ sections, setSections }) => {
         accept: 'SECTION',
         collect: monitor => ({ hovered: monitor.canDrop() }),
     });
-    console.log({ hovered });
+
     return (
         <div ref={drop}>
             <SectionList

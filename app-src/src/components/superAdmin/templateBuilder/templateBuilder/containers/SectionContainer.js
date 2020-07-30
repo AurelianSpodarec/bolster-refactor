@@ -40,6 +40,7 @@ const SectionContainer = ({
     findSection,
     moveSection,
     hovered,
+    isSortingSections,
 }) => {
     const { uuid } = section;
     const [{ isDragging }, drag] = useDrag({
@@ -67,6 +68,7 @@ const SectionContainer = ({
                     duplicateSection={duplicateSection}
                     showAddImageModal={showAddImageModal}
                     hovered={hovered}
+                    isSortingSections={isSortingSections}
                 />
             </div>
         </div>,
@@ -187,6 +189,7 @@ const mapStateToProps = (
     sections: Object.values(templateSectionsReducer.sections).filter(
         s => s.templateUUID === section.templateUUID,
     ),
+    isSortingSections: templateSectionsReducer.isSorting,
 });
 
 const mapDispatchToProps = dispatch => ({

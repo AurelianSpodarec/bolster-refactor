@@ -16,56 +16,72 @@ const Section = ({
     duplicateSection,
     tooltipMessage,
     showAddImageModal,
-    hovered,
-}) => (
-    <div className="template-block size-lg-12">
-        <BlockContainer contentClass={isActive && 'active'}>
-            <BlockHeading
-                classes="w-table"
-                title={`${section.name}`}
-                subTitle={section.isAfterLabel ? '' : '- not after label'}
-            >
-                {/* <button className="button icon-only">
+    isSortingSections,
+}) => {
+    if (isSortingSections)
+        return (
+            <div className="template-block size-lg-12">
+                <div className="content-container">
+                    <div className="content-area sorting-sites">
+                        <BlockHeading
+                            classes="w-table"
+                            title={`${section.name}`}
+                            subTitle={section.isAfterLabel ? '' : '- not after label'}
+                        />
+                    </div>
+                </div>
+            </div>
+        );
+
+    return (
+        <div className="template-block size-lg-12">
+            <BlockContainer contentClass={isActive && 'active'}>
+                <BlockHeading
+                    classes="w-table"
+                    title={`${section.name}`}
+                    subTitle={section.isAfterLabel ? '' : '- not after label'}
+                >
+                    {/* <button className="button icon-only">
                     <i className="fa fa-eye" />
                 </button> */}
-                <button className="button blue" onClick={showRenameSectModal}>
-                    Update
-                </button>
-            </BlockHeading>
-            <QuestionList
-                sectionUUID={section.uuid}
-                questions={questions}
-                moveQuestion={moveQuestion}
-                hovered={hovered}
-            />
-            <div className="button-container position-bottom">
-                <button className="button green" onClick={showAddQuestModal}>
-                    <i className="fa fa-plus" />
-                    Add question
-                </button>
-                <button className="button green" onClick={showAddImageModal}>
-                    <i className="fa fa-plus" />
-                    Add image
-                </button>
-                {tooltipMessage ? (
-                    <TooltipContainer text={tooltipMessage} side="top">
-                        <button className="button red disabled">
+                    <button className="button blue" onClick={showRenameSectModal}>
+                        Update
+                    </button>
+                </BlockHeading>
+                <QuestionList
+                    sectionUUID={section.uuid}
+                    questions={questions}
+                    moveQuestion={moveQuestion}
+                />
+                <div className="button-container position-bottom">
+                    <button className="button green" onClick={showAddQuestModal}>
+                        <i className="fa fa-plus" />
+                        Add question
+                    </button>
+                    <button className="button green" onClick={showAddImageModal}>
+                        <i className="fa fa-plus" />
+                        Add image
+                    </button>
+                    {tooltipMessage ? (
+                        <TooltipContainer text={tooltipMessage} side="top">
+                            <button className="button red disabled">
+                                <i className="far fa-trash-alt" />
+                                Delete
+                            </button>
+                        </TooltipContainer>
+                    ) : (
+                        <button className="button red" onClick={deleteSection}>
                             <i className="far fa-trash-alt" />
                             Delete
                         </button>
-                    </TooltipContainer>
-                ) : (
-                    <button className="button red" onClick={deleteSection}>
-                        <i className="far fa-trash-alt" />
-                        Delete
+                    )}
+                    <button onClick={duplicateSection} className="button">
+                        <i className="fa fa-clone" /> Duplicate
                     </button>
-                )}
-                <button onClick={duplicateSection} className="button">
-                    <i className="fa fa-clone" /> Duplicate
-                </button>
-            </div>
-        </BlockContainer>
-    </div>
-);
+                </div>
+            </BlockContainer>
+        </div>
+    );
+};
 
 export default Section;

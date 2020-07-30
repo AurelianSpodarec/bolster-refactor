@@ -3604,6 +3604,11 @@ input {
         padding-bottom: 40px;
         transition: background-color 0.25s ease-in-out;
 
+        &.sorting-sites {
+            min-height: 0px;
+            padding-bottom: 15px;
+            cursor: move;
+        }
         &.active {
             background-color: lightcoral;
         }
