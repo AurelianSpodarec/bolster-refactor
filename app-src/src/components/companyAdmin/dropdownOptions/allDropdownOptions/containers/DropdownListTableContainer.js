@@ -10,7 +10,7 @@ import { DEFAULT_PIN_OPTIONS_SORT } from 'constants/companyAdmin/enums';
 
 class DropdownListTableContainer extends Component {
     state = {
-        selectedSortValue: this.props.defaultDropdownSorting || DEFAULT_PIN_OPTIONS_SORT.DATE_ASC,
+        selectedSortValue: this.props.defaultDropdownSorting || DEFAULT_PIN_OPTIONS_SORT.CUSTOM,
     };
 
     render() {
