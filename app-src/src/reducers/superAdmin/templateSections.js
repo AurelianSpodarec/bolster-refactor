@@ -8,10 +8,12 @@ import {
     FETCH_TEMPLATE_SUCCESS,
     FETCH_TEMPLATE_FOR_COMPANY_SUCCESS,
     SET_SECTIONS,
+    SET_IS_SORTING_SECTIONS,
 } from 'constants/actionTypes/templateBuilder';
 
 export default combineReducers({
     sections: sectionsReducer,
+    isSorting: isSortingSectionsReducer,
 });
 
 function sectionsReducer(state = {}, action) {
@@ -34,6 +36,15 @@ function sectionsReducer(state = {}, action) {
                 ...convertArrToObj(action.sections, 'uuid'),
             };
         }
+        default:
+            return state;
+    }
+}
+
+function isSortingSectionsReducer(state = false, action) {
+    switch (action.type) {
+        case SET_IS_SORTING_SECTIONS:
+            return action.payload;
         default:
             return state;
     }

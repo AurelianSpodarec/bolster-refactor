@@ -7,6 +7,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import TemplateBuilderHeader from '../presentational/TemplateBuilderHeader';
 import postTemplate from 'actions/superAdmin/templateBuilder/async/postTemplate';
 import deleteTemplate from 'actions/superAdmin/templateBuilder/async/deleteTemplate';
+import setIsSortingSections from 'actions/superAdmin/templateBuilder/sync/setIsSortingSections';
 
 const TemplateBuilderHeaderContainer = ({
     showAddTemplateForm,
@@ -19,7 +20,10 @@ const TemplateBuilderHeaderContainer = ({
     serviceName,
     templateUUID,
     showDeleteTemplateForm,
-    error
+    error,
+    canSortSections,
+    isSortingSections,
+    setIsSortingSections,
 }) => {
     return (
         <TemplateBuilderHeader
@@ -32,6 +36,9 @@ const TemplateBuilderHeaderContainer = ({
             templateUUID={templateUUID}
             companyID={companyID}
             showDeleteTemplateForm={showDeleteTemplateForm}
+            canSortSections={canSortSections}
+            isSortingSections={isSortingSections}
+            toggleIsSortingSections={toggleIsSortingSections}
         />
     );
 
@@ -40,29 +47,37 @@ const TemplateBuilderHeaderContainer = ({
             ? showAddTemplateForm(uuid, companyID)
             : showEditTemplateForm(template, companyID);
     }
+
+    function toggleIsSortingSections() {
+        setIsSortingSections(!isSortingSections);
+    }
 };
 
 const mapStateToProps = (
     {
         superAdmin: {
             templatesReducer: { templates, error },
-            adminServicesReducer: { adminServices: services }
-        }
+            templateSectionsReducer: { sections, isSorting: isSortingSections },
+            adminServicesReducer: { adminServices: services },
+        },
     },
     {
         match: {
-            params: { uuid, companyID }
-        }
-    }
+            params: { uuid, companyID },
+        },
+    },
 ) => {
     const template = templates[uuid] || { serviceID: '' };
     const service = services[template.serviceID] || {};
+
     return {
         template: templates[uuid] || { serviceID: '' },
         uuid,
         companyID,
         serviceName: services && template ? service.name : '',
-        error
+        error,
+        canSortSections: Object.keys(sections).length > 1,
+        isSortingSections,
     };
 };
 
@@ -79,12 +94,13 @@ const mapDispatchToProps = dispatch => ({
         const hideModal = () => dispatch(hideModal());
         dispatch(showModal(CONFIRM_DELETE, { handleDelete, message, hideModal }));
     },
-    postTemplate: postBody => dispatch(postTemplate(postBody))
+    postTemplate: postBody => dispatch(postTemplate(postBody)),
+    setIsSortingSections: payload => dispatch(setIsSortingSections(payload)),
 });
 
 const HeaderWithConnect = connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(TemplateBuilderHeaderContainer);
 
 export default withRouter(HeaderWithConnect);
