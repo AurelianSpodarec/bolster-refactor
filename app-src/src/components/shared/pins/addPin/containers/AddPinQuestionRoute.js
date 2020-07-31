@@ -164,11 +164,6 @@ class AddPinQuestionRoute extends Component {
                 const selectedOption = dropdownOptions.filter(option =>
                     preReqAnswer.includes(option.name),
                 );
-                console.log({ dropdownOptions, preReqAnswer });
-                console.log({ selectedOption });
-
-                console.log({ selectedOption });
-                console.log({ selectedOption });
 
                 // specifying not undefined in case pre-req answers are falsy ie. 0, ''
                 if (selectedOption !== undefined) {
@@ -178,12 +173,6 @@ class AddPinQuestionRoute extends Component {
                 }
             }
         }
-        console.log({
-            prereqOptions: preReqQuestion.options,
-            preReqQuestion,
-            question,
-            preReqAnswer,
-        });
 
         if (`${preReqQuestion.type}` === QUESTION_TYPE_VALUES.MULTI_DROPDOWN) {
             if (!preReqAnswer) {
