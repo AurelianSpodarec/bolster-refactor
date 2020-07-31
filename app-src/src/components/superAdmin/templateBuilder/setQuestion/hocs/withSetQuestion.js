@@ -66,12 +66,7 @@ export default function (WrappedComponent) {
                 templateUUID: temUuid,
                 companyDropdownOptions: { dropdownOptions },
             } = this.props;
-            const {
-                STATUS,
-                DROPDOWN_OPTIONS,
-                MULTI_DROPDOWN_OPTIONS,
-                MULTI_MULTI_DROPDOWN_OPTIONS,
-            } = QUESTION_TYPE_VALUES;
+            const { STATUS } = QUESTION_TYPE_VALUES;
 
             const options = questions
                 .filter(q => q.templateUUID === temUuid)
@@ -100,11 +95,7 @@ export default function (WrappedComponent) {
                         };
                     }
                 });
-            console.log(convertArrToObj(options, 'value'));
-            console.log(convertArrToObj(options, 'value'));
-            console.log(convertArrToObj(options, 'value'));
-            console.log(convertArrToObj(options, 'value'));
-            console.log(convertArrToObj(options, 'value'));
+
             return convertArrToObj(options, 'value');
         };
 
