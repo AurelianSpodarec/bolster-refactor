@@ -117,8 +117,9 @@ class AddPinQuestionRoute extends Component {
         return false;
     };
 
+    //not just an if check, amends the pre req answer also?
     checkIfShouldShowByPreReq = () => {
-        const { question, status, questions, answers } = this.props;
+        const { question, status, questions, answers, dropdownOptions } = this.props;
         const { id: currentQuestionID, prerequisiteQuestionID } = question;
 
         const preReqQuestion = questions[prerequisiteQuestionID];
@@ -153,6 +154,36 @@ class AddPinQuestionRoute extends Component {
                 return false;
             }
         }
+        if (Array.isArray(preReqAnswer)) {
+            if (
+                `${preReqQuestion.type}` === QUESTION_TYPE_VALUES.MULTI_DROPDOWN_OPTIONS ||
+                `${preReqQuestion.type}` === QUESTION_TYPE_VALUES.MULTI_MULTI_DROPDOWN_OPTIONS ||
+                `${preReqQuestion.type}` === QUESTION_TYPE_VALUES.DROPDOWN_OPTIONS
+            ) {
+                //For a drop down we have to convert the GUID to the question option.
+                const selectedOption = dropdownOptions.filter(option =>
+                    preReqAnswer.includes(option.name),
+                );
+                console.log({ dropdownOptions, preReqAnswer });
+                console.log({ selectedOption });
+
+                console.log({ selectedOption });
+                console.log({ selectedOption });
+
+                // specifying not undefined in case pre-req answers are falsy ie. 0, ''
+                if (selectedOption !== undefined) {
+                    preReqAnswer = selectedOption;
+                } else {
+                    return false;
+                }
+            }
+        }
+        console.log({
+            prereqOptions: preReqQuestion.options,
+            preReqQuestion,
+            question,
+            preReqAnswer,
+        });
 
         if (`${preReqQuestion.type}` === QUESTION_TYPE_VALUES.MULTI_DROPDOWN) {
             if (!preReqAnswer) {
@@ -176,6 +207,35 @@ class AddPinQuestionRoute extends Component {
 
         if (Array.isArray(preReqAnswer)) {
             const lowerCaseAnswers = preReqAnswer.map(answer => `${answer}`.toLowerCase());
+            const lowerCaseDropdownOptions = dropdownOptions.map(option =>
+                `${option.name}`.toLocaleLowerCase(),
+            );
+
+            if (curQuestion.isPrerequisiteMulti) {
+                const prerequisiteQuestionValueArr = curQuestion.prerequisiteQuestionValue.split(
+                    ',',
+                );
+                const preReqAnswerIncluded = () => {
+                    const preReqValues = preReqAnswer.map(answer => answer.name);
+
+                    for (let i = 0; i < lowerCaseDropdownOptions.length; i++) {
+                        if (
+                            prerequisiteQuestionValueArr.includes(lowerCaseDropdownOptions[i]) &&
+                            preReqValues.includes(lowerCaseDropdownOptions[i])
+                        ) {
+                            return true;
+                        }
+                    }
+                    return false;
+                };
+
+                if (preReqAnswerIncluded()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
             if (
                 lowerCaseAnswers.includes(`${curQuestion.prerequisiteQuestionValue}`.toLowerCase())
             ) {
@@ -187,6 +247,7 @@ class AddPinQuestionRoute extends Component {
                 return true;
             }
         }
+
         return false;
     };
 
