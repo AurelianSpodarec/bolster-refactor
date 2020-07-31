@@ -11,6 +11,7 @@ const DropdownOptionsList = ({
     isCustomSort,
     forwardRef,
     isOver,
+    moveItem,
 }) => (
     <tbody ref={isCustomSort ? forwardRef : null} className={isOver ? 'dragging' : ''}>
         {dropdownOptions.map((option, i) => (
@@ -22,8 +23,9 @@ const DropdownOptionsList = ({
                 headers={headers}
                 type={type}
                 isCustomSort={isCustomSort}
+                moveItem={moveItem}
             />
         ))}
     </tbody>
 );
-export default withDropZone(DropdownOptionsList);
+export default withDropZone(DropdownOptionsList, 'DROPDOWN_OPTIONS');

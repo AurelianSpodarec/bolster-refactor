@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import reorderDropdownOptions from 'actions/companyAdmin/dropdownOptions/sync/reorderDropdownOptions';
 import { ADD_DROPDOWN_OPTION, SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import DropdownOptionsTable from '../presentational/DropdownOptionsTable';
@@ -28,6 +29,7 @@ class DropdownListTableContainer extends Component {
                 type={type}
                 selectedSortValue={selectedSortValue}
                 handleSortChange={this.handleSortChange}
+                moveItem={this.moveItem}
             />
         );
     }
@@ -60,6 +62,16 @@ class DropdownListTableContainer extends Component {
         this.setState({
             selectedSortValue: value,
         });
+    };
+
+    moveItem = (overindex, fromIndex) => {
+        const { dropdownOptions, reorderDropdownOptions } = this.props;
+
+        const items = [...dropdownOptions].sort((a, b) => a.sort - b.sort);
+        const [item] = items.splice(fromIndex, 1);
+        items.splice(overindex, 0, item);
+        const sorted = items.map((x, i) => ({ ...x, sort: i + 1 }));
+        reorderDropdownOptions(sorted);
     };
 
     getSortedDropdownOptions = () => {
@@ -115,10 +127,9 @@ const mapStateToProps = ({
     defaultDropdownSorting,
 });
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => {
-        dispatch(showModal(type, props));
-    },
-});
+const mapDispatchToProps = {
+    showModal,
+    reorderDropdownOptions,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropdownListTableContainer);

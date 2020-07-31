@@ -50,4 +50,4 @@ const DropdownOptionsListItem = ({
     </tr>
 );
 
-export default withDrag(DropdownOptionsListItem);
+export default withDrag(DropdownOptionsListItem, 'DROPDOWN_OPTIONS');

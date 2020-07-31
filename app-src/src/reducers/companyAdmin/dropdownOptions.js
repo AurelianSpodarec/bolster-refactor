@@ -87,10 +87,8 @@ function dropdownOptionsReducer(state = {}, action) {
             return updateObj(state, action.payload.id, action.payload);
         case TOGGLE_DROPDOWN_OPTION_SUCCESS:
             return updateObj(state, action.id, action.payload);
-        case REORDER_DROPDOWN_OPTIONS: {
-            const sorted = moveItem(Object.values(state), action.id, action.hoverIndex);
-            return convertArrToObj(sorted);
-        }
+        case REORDER_DROPDOWN_OPTIONS:
+            return { ...state, ...convertArrToObj(action.payload) };
         default:
             return state;
     }

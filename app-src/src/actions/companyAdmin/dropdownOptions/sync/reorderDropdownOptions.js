@@ -1,8 +1,7 @@
 import { REORDER_DROPDOWN_OPTIONS } from 'constants/actionTypes/dropdownOptions';
 
-export default (id, hoverIndex) => dispatch =>
+export default payload => dispatch =>
     dispatch({
         type: REORDER_DROPDOWN_OPTIONS,
-        id,
-        hoverIndex,
+        payload,
     });

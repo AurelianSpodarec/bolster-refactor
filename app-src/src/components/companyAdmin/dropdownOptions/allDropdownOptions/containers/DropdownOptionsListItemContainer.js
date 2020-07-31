@@ -4,26 +4,17 @@ import { connect } from 'react-redux';
 import { EDIT_DROPDOWN_OPTION, TOGGLE_DROPDOWN_OPTION } from 'constants/shared/modalTypes';
 import DropdownOptionsListItem from '../presentational/DropdownOptionsListItem';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import reorderDropdownOptions from 'actions/companyAdmin/dropdownOptions/sync/reorderDropdownOptions';
 import postDropdownOptionsSort from 'actions/companyAdmin/dropdownOptions/async/postDropdownOptionsSort';
 
 class DropdownOptionsListItemContainer extends Component {
     render() {
-        const {
-            option,
-            colCount,
-            headers,
-            index,
-            reorderDropdownOptions,
-            isCustomSort,
-            onMobile,
-        } = this.props;
+        const { option, colCount, headers, index, isCustomSort, onMobile, moveItem } = this.props;
         return (
             <DropdownOptionsListItem
                 index={index}
                 id={option.id}
                 option={option}
-                onMove={reorderDropdownOptions}
+                onMove={moveItem}
                 onDrop={() => this.handlePostDropdownOptionsSort()}
                 colCount={colCount}
                 handleEditOptionModal={this.handleEditOptionModal}
@@ -53,7 +44,6 @@ class DropdownOptionsListItemContainer extends Component {
 
 const mapDispatchToProps = {
     showModal,
-    reorderDropdownOptions,
     postDropdownOptionsSort,
 };
 

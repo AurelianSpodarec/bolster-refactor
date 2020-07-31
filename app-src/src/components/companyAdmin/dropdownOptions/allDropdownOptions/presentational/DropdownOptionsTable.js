@@ -18,6 +18,7 @@ const DropdownOptionsTable = ({
     type,
     selectedSortValue,
     handleSortChange,
+    moveItem,
 }) => {
     return (
         <BlockContainer>
@@ -50,6 +51,7 @@ const DropdownOptionsTable = ({
                             headers={headers}
                             type={type}
                             isCustomSort={+selectedSortValue === DEFAULT_PIN_OPTIONS_SORT.CUSTOM}
+                            moveItem={moveItem}
                         />
                     </Table>
                 </div>
