@@ -15,6 +15,7 @@ const CompaniesTableContainer = ({ isFetching, fetchingError, companies, filters
                 'Terms Accepted On',
                 'Type',
                 'Credits',
+                'Shows on client list?',
                 '',
             ]}
             isFetching={isFetching}
