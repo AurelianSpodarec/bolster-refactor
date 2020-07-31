@@ -47,6 +47,11 @@ const TemplateQuestionFormModal = ({
 
     console.log(selectedPrereq);
     console.log(selectedPrereq);
+    console.log('prereqval');
+    console.log(prereqVal);
+
+    console.log('prereqDropdownValues');
+    console.log(prereqDropdownValues);
 
     return (
         <ModalOuterContainer extraClasses="w-form">
@@ -72,7 +77,7 @@ const TemplateQuestionFormModal = ({
                     </Field>
                 )}
 
-                {!!selectedPrereq && !selectedPrereq.options.length && (
+                {!!selectedPrereq && !selectedPrereq.options.length && !isPrerequisiteMulti && (
                     <Field name="Prerequisite value" required>
                         {selectedPrereq.isStatus ? (
                             <Select
@@ -92,9 +97,8 @@ const TemplateQuestionFormModal = ({
                         )}
                     </Field>
                 )}
-                {}
 
-                {!!selectedPrereq && selectedPrereq.options.length && (
+                {!!selectedPrereq && selectedPrereq.options.length > 0 && isPrerequisiteMulti && (
                     <Field name="Prerequisite values">
                         <CheckboxListContainer
                             name="prereqDropdownValues"

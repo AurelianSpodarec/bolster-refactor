@@ -96,6 +96,7 @@ class TemplateQuestionModalContainer extends Component {
         if (question.isPrerequisiteMulti && question.prereqVal) {
             updateQuestionFields({
                 ...question,
+                prereqVal: question.prereqVal.split(','),
                 prereqDropdownValues: question.prereqVal.split(','),
             });
         }
@@ -117,6 +118,7 @@ class TemplateQuestionModalContainer extends Component {
         const {
             questions,
             question: { templateUUID, uuid },
+            companyDropdownOptions: { dropdownOptions },
         } = this.props;
 
         const options = questions
@@ -127,13 +129,30 @@ class TemplateQuestionModalContainer extends Component {
                     q.uuid !== uuid &&
                     q.prereqUUID !== uuid,
             )
-            .map(({ uuid, name, questionType, options }) => ({
-                value: uuid,
-                text: name,
-                questionType,
-                isStatus: questionType + '' === QUESTION_TYPE_VALUES.STATUS,
-                options: options ? options : [],
-            }));
+            .map(function ({ uuid, name, questionType, options, optionType }) {
+                if (optionType) {
+                    return {
+                        value: uuid,
+                        text: name,
+                        isStatus: questionType + '' === QUESTION_TYPE_VALUES.STATUS,
+                        questionType,
+                        options: dropdownOptions
+                            .filter(dropdownOption => dropdownOption.type === optionType)
+                            .map(({ name }) => ({
+                                text: name,
+                                value: name,
+                            })),
+                    };
+                } else {
+                    return {
+                        value: uuid,
+                        text: name,
+                        isStatus: questionType + '' === QUESTION_TYPE_VALUES.STATUS,
+                        questionType,
+                        options: options ? options : [],
+                    };
+                }
+            });
 
         return convertArrToObj(options, 'value');
     };

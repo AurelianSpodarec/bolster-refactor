@@ -13,6 +13,7 @@ import TemplateBuilder from '../presentational/TemplateBuilder';
 import { isEmpty } from 'helpers/generic';
 import fetchTemplateForCompany from 'actions/superAdmin/companies/async/fetchTemplateForCompany';
 import deleteTemplate from 'actions/superAdmin/templateBuilder/async/deleteTemplate';
+import fetchCompanyDropdownOptions from 'actions/superAdmin/templateBuilder/async/fetchCompanyDropdownOptions';
 
 class TemplateBuilderContainer extends Component {
     render() {
@@ -22,7 +23,7 @@ class TemplateBuilderContainer extends Component {
             saveRequired,
             isExisting,
             templateUUID,
-            companyID
+            companyID,
         } = this.props;
         return (
             <TemplateBuilder
@@ -40,7 +41,7 @@ class TemplateBuilderContainer extends Component {
             // resetSaveRequired,
             fetchPageData,
             templateUUID,
-            labelFields
+            labelFields,
         } = this.props;
         if (!/-/.test(templateUUID)) {
             // resetSaveRequired();
@@ -53,7 +54,7 @@ class TemplateBuilderContainer extends Component {
         template: prevTemplate,
         isPosting: prevIsPosting,
         deleteUnavailable: prevDeleteUnavailable,
-        error: prevError
+        error: prevError,
     }) {
         const {
             postSuccess,
@@ -68,7 +69,7 @@ class TemplateBuilderContainer extends Component {
             hideModal,
             template,
             companyID,
-            deleteUnavailable
+            deleteUnavailable,
         } = this.props;
         if (!prevPostSuccess && postSuccess) {
             const message = 'Template saved successfully.';
@@ -80,11 +81,12 @@ class TemplateBuilderContainer extends Component {
             }
         }
         if (prevIsPosting && !isPosting && error) {
-            const message = `An error occurred while saving your template. ${error ||
-                'Please try again.'}`;
+            const message = `An error occurred while saving your template. ${
+                error || 'Please try again.'
+            }`;
             showModal(ERROR_MODAL, { message });
         }
-        if (!!template && template.isDeleted && (!!prevTemplate && !prevTemplate.isDeleted)) {
+        if (!!template && template.isDeleted && !!prevTemplate && !prevTemplate.isDeleted) {
             const message = 'Template deleted successfully';
             showModal(SUCCESS_MODAL, { message });
             history.replace(`/admin/companies/${companyID}`);
@@ -103,7 +105,7 @@ class TemplateBuilderContainer extends Component {
 
 const mapStateToProps = (
     { superAdmin: { templatesReducer, templateLabelFieldsReducer } },
-    { match: { params, url } }
+    { match: { params, url } },
 ) => ({
     curUrl: url,
     companyID: params.companyID,
@@ -117,18 +119,18 @@ const mapStateToProps = (
     isExisting: !!templatesReducer.templates[params.uuid],
     template: templatesReducer.templates[params.uuid],
     labelFields: Object.values(templateLabelFieldsReducer.labelFields).filter(({ templateUUID }) =>
-        String(templateUUID === params.uuid)
+        String(templateUUID === params.uuid),
     ),
-    deleteUnavailable: templatesReducer.deleteUnavailable
+    deleteUnavailable: templatesReducer.deleteUnavailable,
 });
 
 const mapDispatchToProps = (
     dispatch,
     {
         match: {
-            params: { companyID }
-        }
-    }
+            params: { companyID },
+        },
+    },
 ) => ({
     showAddSectionModal: templateUUID =>
         dispatch(showModal(ADD_TEMPLATE_SECTION, { templateUUID, companyID })),
@@ -143,14 +145,12 @@ const mapDispatchToProps = (
         dispatch(fetchTemplateForCompany(companyID, templateUUID));
         dispatch(fetchAllServices());
         dispatch(fetchSingleCompany(companyID));
+        dispatch(fetchCompanyDropdownOptions(companyID));
     },
 
-    deleteTemplate: templateUUID => dispatch(deleteTemplate(templateUUID))
+    deleteTemplate: templateUUID => dispatch(deleteTemplate(templateUUID)),
 });
 
-const WithConnect = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TemplateBuilderContainer);
+const WithConnect = connect(mapStateToProps, mapDispatchToProps)(TemplateBuilderContainer);
 
 export default withRouter(WithConnect);

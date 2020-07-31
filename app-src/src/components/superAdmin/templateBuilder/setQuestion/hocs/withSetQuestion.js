@@ -61,19 +61,45 @@ export default function (WrappedComponent) {
         };
 
         _getPrereqOptions = () => {
-            const { questions, templateUUID: temUuid } = this.props;
-            const { STATUS } = QUESTION_TYPE_VALUES;
+            const {
+                questions,
+                templateUUID: temUuid,
+                companyDropdownOptions: { dropdownOptions },
+            } = this.props;
+            const {
+                STATUS,
+                DROPDOWN_OPTIONS,
+                MULTI_DROPDOWN_OPTIONS,
+                MULTI_MULTI_DROPDOWN_OPTIONS,
+            } = QUESTION_TYPE_VALUES;
 
             const options = questions
                 .filter(q => q.templateUUID === temUuid)
                 .filter(q => PREREQ_TYPES.includes(q.questionType + ''))
-                .map(({ uuid, name, questionType, options }) => ({
-                    value: uuid,
-                    text: name,
-                    isStatus: questionType + '' === STATUS,
-                    questionType,
-                    options: options ? options : [],
-                }));
+                .map(function ({ uuid, name, questionType, options, optionType }) {
+                    if (optionType) {
+                        return {
+                            value: uuid,
+                            text: name,
+                            isStatus: questionType + '' === STATUS,
+                            questionType,
+                            options: dropdownOptions
+                                .filter(dropdownOption => dropdownOption.type === optionType)
+                                .map(({ name }) => ({
+                                    text: name,
+                                    value: name,
+                                })),
+                        };
+                    } else {
+                        return {
+                            value: uuid,
+                            text: name,
+                            isStatus: questionType + '' === STATUS,
+                            questionType,
+                            options: options ? options : [],
+                        };
+                    }
+                });
             console.log(convertArrToObj(options, 'value'));
             console.log(convertArrToObj(options, 'value'));
             console.log(convertArrToObj(options, 'value'));
@@ -169,6 +195,7 @@ export default function (WrappedComponent) {
                 templateQuestionFormReducer: { fields },
                 templateQuestionsReducer: { questions },
                 templatesReducer: { templates },
+                companiesReducer: { companyDropdownOptions },
             },
         },
         { templateUUID },
@@ -177,6 +204,7 @@ export default function (WrappedComponent) {
             fields,
             questions: Object.values(questions),
             template: templates[templateUUID] || {},
+            companyDropdownOptions,
         };
     };
 
@@ -194,6 +222,7 @@ export default function (WrappedComponent) {
         hideModal: () => {
             dispatch(hideModal());
         },
+
         resetQuestionFields: () => {
             dispatch(resetQuestionFields());
         },
