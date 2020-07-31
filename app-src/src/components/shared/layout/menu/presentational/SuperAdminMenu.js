@@ -58,7 +58,7 @@ const SuperAdminMenu = ({ logout }) => (
                 <span className="menu-text">Operative Alerts</span>
             </MenuItemContainer>
             <MenuItemContainer link="/admin/user-guides">
-                <i className="far fa-video fa-fw icon" />
+                <i className="far fa-book fa-fw icon" />
                 <span className="menu-text">User guides</span>
             </MenuItemContainer>
             <Link className="item" to="#" link="/admin/users" onClick={logout}>
