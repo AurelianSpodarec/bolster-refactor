@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import uploadUserGuide from 'actions/superAdmin/userGuides/async/uploadUserGuide';
 import UploadUserGuideModal from '../presentational/UploadUserGuideModal';
+import fetchUserGuide from 'actions/shared/userGuide/async/fetchUserGuide';
 
 class UploadUserGuideModalContainer extends Component {
     state = {
@@ -29,7 +30,6 @@ class UploadUserGuideModalContainer extends Component {
         e.preventDefault();
         const { fileS3Key } = this.state;
         const { uploadUserGuide } = this.props;
-
         uploadUserGuide(fileS3Key);
     };
 }
@@ -41,6 +41,9 @@ const mapDispatchToProps = dispatch => ({
     uploadUserGuide: fileS3Key => {
         dispatch(uploadUserGuide(fileS3Key));
         dispatch(hideModal());
+    },
+    fetchUserGuide: () => {
+        dispatch(fetchUserGuide());
     },
 });
 

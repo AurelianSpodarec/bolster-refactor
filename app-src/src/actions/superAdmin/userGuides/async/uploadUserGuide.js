@@ -25,7 +25,7 @@ export const uploadUserGuideFailure = error => ({
 export default fileS3Key => dispatch => {
     dispatch(uploadUserGuideRequest());
     return axios
-        .post(`${ADMIN_API_URL}/userguide/upload`, fileS3Key, getHeaders())
+        .post(`${ADMIN_API_URL}/userguide/upload`, { S3Key: fileS3Key }, getHeaders())
         .then(({ data }) => dispatch(uploadUserGuideSuccess(data)))
         .catch(err => {
             dispatch(uploadUserGuideFailure(err.message));
