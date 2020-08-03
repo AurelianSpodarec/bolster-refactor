@@ -6,7 +6,7 @@ import { sortArrayByField } from 'helpers/generic';
 const DemoRequestsTableContainer = ({ isFetching, fetchingError, demoRequests }) => {
     return (
         <DemoRequestsTable
-            headers={['Name', 'Company Name', 'Email', 'Phone Number', '']}
+            headers={['Name', 'Company Name', 'Email', 'Phone Number', 'Contacted', '']}
             isFetching={isFetching}
             error={fetchingError}
             demoRequests={demoRequests}
