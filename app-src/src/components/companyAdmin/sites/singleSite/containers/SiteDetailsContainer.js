@@ -10,16 +10,24 @@ import {
     SUCCESS_MODAL,
     ERROR_MODAL,
     CONFIRM_ARCHIVE,
-    EDIT_SITE
+    EDIT_SITE,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import deleteSite from 'actions/companyAdmin/sites/async/deleteSite';
 import archiveSite from 'actions/companyAdmin/sites/async/archiveSite';
 
 class SiteDetailsContainer extends Component {
+    state = {
+        serviceID: null,
+    };
     render() {
-        const { site, error, isFetching, stats, onMobile } = this.props;
-
+        const { site, error, isFetching, stats, onMobile, serviceIDs, services } = this.props;
+        const { serviceID } = this.state;
+        const filteredServices = services.filter(service => serviceIDs.includes(service.id));
+        const servicesForDropdown = filteredServices.map(service => ({
+            value: service.id,
+            text: service.name,
+        }));
         return (
             <BlockContainer
                 error={error}
@@ -33,6 +41,9 @@ class SiteDetailsContainer extends Component {
                     handleArchive={this.handleArchiveModal}
                     handleEditSiteModal={this.handleEditSiteModal}
                     onMobile={onMobile}
+                    handleChange={this.handleChange}
+                    serviceOptions={servicesForDropdown}
+                    serviceID={serviceID}
                 />
             </BlockContainer>
         );
@@ -46,7 +57,7 @@ class SiteDetailsContainer extends Component {
             postFailure,
             history,
             showModal,
-            hideModal
+            hideModal,
         } = this.props;
         if (deleteSuccess && !prevProps.deleteSuccess) {
             hideModal();
@@ -56,7 +67,7 @@ class SiteDetailsContainer extends Component {
         if (postSuccess && !prevProps.postSuccess && !deleteSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
-                message: 'Site updated successfully.'
+                message: 'Site updated successfully.',
             });
         }
 
@@ -66,7 +77,7 @@ class SiteDetailsContainer extends Component {
                 title: 'Error',
                 message:
                     error.message ||
-                    '##There was an error processing your request, please try again later.##'
+                    '##There was an error processing your request, please try again later.##',
             });
         }
     };
@@ -89,36 +100,35 @@ class SiteDetailsContainer extends Component {
             archiveSite(id, site.isArchived);
             hideModal();
         };
-        const message = `Are you sure you want to ${
-            site.isArchived ? 'un-' : ''
-        }archive ${site.name}?`;
+        const message = `Are you sure you want to ${site.isArchived ? 'un-' : ''}archive ${
+            site.name
+        }?`;
         showModal(CONFIRM_ARCHIVE, {
             hideModal,
             handleArchive,
             message,
-            archive: !site.isArchived
+            archive: !site.isArchived,
         });
     };
+
+    handleChange = (name, value) => this.setState({ [name]: value });
 }
 
 const mapStateToProps = (
     {
         companyAdmin: {
-            sitesReducer: {
-                sites,
-                postSuccess,
-                isFetching,
-                error,
-                deleteSuccess,
-                postFailure
+            sitesReducer: { sites, postSuccess, isFetching, error, deleteSuccess, postFailure },
+            statsReducer: { stats, isFetching: fetchingStats },
+            subscriptionsReducer: {
+                subscriptions: { serviceIDs },
             },
-            statsReducer: { stats, isFetching: fetchingStats }
+            servicesReducer: { services },
         },
         shared: {
-            mobileReducer: { onMobile }
-        }
+            mobileReducer: { onMobile },
+        },
     },
-    { match }
+    { match },
 ) => ({
     postSuccess,
     site: sites[match.params.id] || {},
@@ -128,19 +138,16 @@ const mapStateToProps = (
     id: match.params.id,
     deleteSuccess,
     onMobile,
-    postFailure
+    postFailure,
+    serviceIDs,
+    services: Object.values(services),
 });
 
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => dispatch(showModal(type, props)),
     hideModal: () => dispatch(hideModal()),
     deleteSite: id => dispatch(deleteSite(id)),
-    archiveSite: (id, undo) => dispatch(archiveSite(id, undo))
+    archiveSite: (id, undo) => dispatch(archiveSite(id, undo)),
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(SiteDetailsContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SiteDetailsContainer));

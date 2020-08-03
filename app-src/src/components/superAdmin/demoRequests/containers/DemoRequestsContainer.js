@@ -15,10 +15,7 @@ class DemoRequestsContainer extends Component {
 const mapDispatchToProps = () => dispatch => ({
     fetchAllDemoRequests: () => {
         dispatch(fetchAllDemoRequests());
-    }
+    },
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(DemoRequestsContainer);
+export default connect(null, mapDispatchToProps)(DemoRequestsContainer);

@@ -5,7 +5,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Loading from '../../misc/presentational/Loading';
 import Form from '../../form/containers/Form';
 import Field from '../../form/presentational/Field';
-import NumberInputContainer from '../../form/containers/NumberInputContainer';
+import Select from '../../form/presentational/Select';
 
 const GenerateQRCodesModal = ({
     hideModal,
@@ -15,26 +15,39 @@ const GenerateQRCodesModal = ({
     form,
     handleFormChange,
     handleSubmit,
+    options,
 }) => {
-    if (isLoading) return <ModalOuterContainer><Loading /></ModalOuterContainer>;
+    if (isLoading)
+        return (
+            <ModalOuterContainer>
+                <Loading />
+            </ModalOuterContainer>
+        );
 
-    if (isGenerating) return <ModalOuterContainer hideCloseButton><Loading message='Generating... please wait' /></ModalOuterContainer>;
+    if (isGenerating)
+        return (
+            <ModalOuterContainer hideCloseButton>
+                <Loading message="Generating... please wait" />
+            </ModalOuterContainer>
+        );
 
     return (
         <ModalOuterContainer>
-            <BlockHeading title='Generate QR Codes' />
+            <BlockHeading title="Generate QR Codes" />
             <p className="generic-text">You currently have {qrCodeCount} QR Codes.</p>
 
             <Form className="generic-form" onSubmit={handleSubmit}>
                 <Field name="Number of new codes to generate" required>
-                    <NumberInputContainer
+                    <Select
                         required
-                        name='numberOfCodes'
+                        name="numberOfCodes"
                         value={form.numberOfCodes}
-                        handleChange={handleFormChange}
+                        onChange={handleFormChange}
+                        options={options}
                     />
+                    {/* just some space for the dropdown */}
+                    <div style={{ height: '10em', zIndex: -10 }} />
                 </Field>
-
                 <BlockButtonWrapper>
                     <button className="button green" type="submit">
                         <i className="fa fa-check" /> Generate

@@ -13,7 +13,10 @@ const TemplateBuilderHeader = ({
     templateUUID,
     companyID,
     showDeleteTemplateForm,
-    error
+    error,
+    canSortSections,
+    isSortingSections,
+    toggleIsSortingSections,
 }) => (
     <PageHeading title={`Template builder : ${name} ${serviceName ? `(${serviceName})` : ''}`}>
         <div className="button-holder">
@@ -40,6 +43,17 @@ const TemplateBuilderHeader = ({
                         <i className="far fa-sticky-note" /> Label Example
                     </ButtonContainer>
                 </>
+            )}
+            {isSortingSections ? (
+                <button className="button green" onClick={toggleIsSortingSections}>
+                    <i className="far fa-check" /> Finish Sorting
+                </button>
+            ) : (
+                canSortSections && (
+                    <button className="button" onClick={toggleIsSortingSections}>
+                        <i className="far fa-sort" /> Sort Sections
+                    </button>
+                )
             )}
         </div>
     </PageHeading>

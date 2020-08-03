@@ -70,6 +70,7 @@ import {
     FORGOT_PASSWORD,
     GENERATE_SOS_CODE,
     DELETE_DEMO_REQUEST,
+    ADD_DEMO_REQUEST_COMMENT,
     CONFIRM_MOVE_HIERARCHY_TO_COMPANY,
     ADMIN_CONFIRM_SET_IS_INVOICE_PAID,
     ADMIN_DELETE_INVOICE,
@@ -165,6 +166,7 @@ import RemoveUserDrawingsAccessModalContainer from 'components/companyAdmin/user
 import ForgotPasswordModalContainer from 'components/auth/forgotPasswordModal/containers/ForgotPasswordModalContainer';
 import AddCreditsToDrawingModal from 'components/companyAdmin/drawings/addCreditsToDrawing/presentational/AddCreditsToDrawingModal';
 import DeleteDemoRequestModalContainer from 'components/superAdmin/demoRequests/containers/DeleteDemoRequestModalContainer';
+import AddCommentToDemoRequestModalContainer from 'components/superAdmin/demoRequests/containers/AddCommentToDemoRequestModalContainer';
 import SOSGenerationModal from 'components/superAdmin/sosManagement/sosGenerationModal/presentational/SOSGenerationModal';
 import SiteManagementConfirmMoveModalContainer from 'components/superAdmin/siteManagement/moveTool/containers/MoveToolConfirmMoveModalContainer';
 import ConfirmSetIsInvoicePaidModalContainer from 'components/superAdmin/invoices/confirmSetIsInvoicePaidModal/containers/ConfirmSetIsInvoicePaidModalContainer';
@@ -199,6 +201,7 @@ const MODAL_COMPONENTS = {
     [ADD_TEMPLATE]: AddTemplateModalContainer,
     [ADD_TEMPLATE_QUESTION]: AddTemplateQuestionModalContainer,
     [ADD_TEMPLATE_SECTION]: AddTemplateSectionModalContainer,
+    [ADD_DEMO_REQUEST_COMMENT]: AddCommentToDemoRequestModalContainer,
     [ADMIN_CREATE_COMPANY_ADMIN]: AddCompanyAdminModalContainer,
     [SET_LABEL_FIELDS]: SetLabelFieldsModalContainer,
     [ADMIN_EDIT_SERVICE]: EditServiceModalContainer,

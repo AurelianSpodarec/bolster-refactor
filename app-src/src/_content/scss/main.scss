@@ -793,6 +793,11 @@ input {
         pointer-events: none;
         cursor: not-allowed;
     }
+
+    &.centered {
+        display: flex;
+        align-items: center;
+    }
 }
 
 .button-container {
@@ -824,6 +829,17 @@ input {
     &.outside-block {
         width: 100%;
         margin-left: 0;
+    }
+
+    &.left {
+        .button {
+            float: left;
+            margin: 0 5px;
+
+            &:first-child {
+                margin-right: 5px;
+            }
+        }
     }
 }
 
@@ -1899,6 +1915,10 @@ input {
         }
     }
 
+    &.comments {
+        padding-top: 10px;
+    }
+
     &.address {
         p {
             &:last-child {
@@ -2357,6 +2377,7 @@ input {
     width: calc(100% + 30px);
     margin-left: -15px;
     text-align: left;
+    table-layout: fixed;
 
     &.with-actions {
         td {
@@ -2382,8 +2403,16 @@ input {
     tbody {
         &.dragging {
             tr {
+                overflow: hidden;
+                width: 100%;
+                white-space: nowrap;
+
                 &:hover {
                     background-color: transparent !important;
+                }
+
+                td {
+                    overflow: hidden;
                 }
             }
         }
@@ -3587,6 +3616,7 @@ input {
     padding: 2px 10px !important;
 }
 
+
 //ADMIN
 //TEMPLATE BUILDER
 .template-block {
@@ -3595,6 +3625,11 @@ input {
         padding-bottom: 40px;
         transition: background-color 0.25s ease-in-out;
 
+        &.sorting-sites {
+            min-height: 0px;
+            padding-bottom: 15px;
+            cursor: move;
+        }
         &.active {
             background-color: lightcoral;
         }

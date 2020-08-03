@@ -9,7 +9,6 @@ const SitesTable = ({ headers, sites, isFetching, error }) => {
     return (
         <BlockContainer>
             <BlockHeading title="Sites" classes="w-table" />
-
             <Table
                 withActions
                 headers={headers}
@@ -18,11 +17,7 @@ const SitesTable = ({ headers, sites, isFetching, error }) => {
                 noData={!sites.length}
                 noDataMessage="No sites to display"
             >
-                <SitesList
-                    colCount={headers.length}
-                    sites={sites}
-                    headers={headers}
-                />
+                <SitesList colCount={headers.length} sites={sites} headers={headers} />
             </Table>
         </BlockContainer>
     );

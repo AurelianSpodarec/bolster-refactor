@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-const EnquiriesListItem = ({ enquiry, handleShowModal }) => {
+const EnquiriesListItem = ({ enquiry, handleShowModal, handleMarkContacted }) => {
     return (
         <tr>
             <td>{enquiry.name}</td>
@@ -12,17 +12,22 @@ const EnquiriesListItem = ({ enquiry, handleShowModal }) => {
             <td>
                 <DateTimeContainer date={enquiry.createdOn} />
             </td>
+            <td>{enquiry.contacted ? 'Yes' : 'No'}</td>
             <td>
-                <Link
-                    className="button green icon-only"
-                    to={`/admin/enquiries/${enquiry.id}`}
+                <button
+                    onClick={() => handleMarkContacted(enquiry.id)}
+                    className="button icon-only"
                 >
+                    {enquiry.contacted ? (
+                        <i className="fa fa-bell-slash" />
+                    ) : (
+                        <i className="fa fa-bell" />
+                    )}
+                </button>
+                <Link className="button green icon-only" to={`/admin/enquiries/${enquiry.id}`}>
                     <i className="fa fa-eye" />
                 </Link>
-                <button
-                    className="button red icon-only"
-                    onClick={() => handleShowModal(enquiry)}
-                >
+                <button className="button red icon-only" onClick={() => handleShowModal(enquiry)}>
                     <i className="far fa-trash-alt" />
                 </button>
             </td>

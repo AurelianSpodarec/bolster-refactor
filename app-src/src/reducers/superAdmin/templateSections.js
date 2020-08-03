@@ -6,11 +6,14 @@ import {
     DELETE_SECTION,
     POST_TEMPLATE_SUCCESS,
     FETCH_TEMPLATE_SUCCESS,
-    FETCH_TEMPLATE_FOR_COMPANY_SUCCESS
+    FETCH_TEMPLATE_FOR_COMPANY_SUCCESS,
+    SET_SECTIONS,
+    SET_IS_SORTING_SECTIONS,
 } from 'constants/actionTypes/templateBuilder';
 
 export default combineReducers({
-    sections: sectionsReducer
+    sections: sectionsReducer,
+    isSorting: isSortingSectionsReducer,
 });
 
 function sectionsReducer(state = {}, action) {
@@ -22,15 +25,26 @@ function sectionsReducer(state = {}, action) {
             return updateObj(state, action.section.uuid, action.section);
         case DELETE_SECTION:
             return removeObjItem(state, action.uuid);
+        case SET_SECTIONS:
+            return action.sections;
         case POST_TEMPLATE_SUCCESS: {
             const filteredSections = Object.values(state).filter(
-                sec => sec.templateUUID !== action.oldUUID
+                sec => sec.templateUUID !== action.oldUUID,
             );
             return {
                 ...convertArrToObj(filteredSections, 'uuid'),
-                ...convertArrToObj(action.sections, 'uuid')
+                ...convertArrToObj(action.sections, 'uuid'),
             };
         }
+        default:
+            return state;
+    }
+}
+
+function isSortingSectionsReducer(state = false, action) {
+    switch (action.type) {
+        case SET_IS_SORTING_SECTIONS:
+            return action.payload;
         default:
             return state;
     }

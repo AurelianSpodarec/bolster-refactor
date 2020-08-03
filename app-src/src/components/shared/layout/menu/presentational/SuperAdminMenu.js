@@ -6,7 +6,7 @@ import AdminPinOptionsMenuItems from './AdminPinOptionsMenuItems';
 
 // import DropdownMenuItemContainer from '../containers/DropdownMenuItemContainer';
 
-const SuperAdminMenu = ({ logout }) => (
+const SuperAdminMenu = ({ logout, unreadRequests }) => (
     <>
         <div className="menu">
             <MenuItemContainer link="/admin" base>
@@ -46,8 +46,11 @@ const SuperAdminMenu = ({ logout }) => (
                 <span className="menu-text">User Enquiries</span>
             </MenuItemContainer>
             <MenuItemContainer link="/admin/demo-requests">
+                {!!unreadRequests && <span className="number">{unreadRequests}</span>}
                 <i className="far fa-video icon" />{' '}
-                <span className="menu-text">User Demo Requests</span>
+                <span className={`menu-text ${unreadRequests ? 'large' : ''}`}>
+                    User Demo Requests
+                </span>
             </MenuItemContainer>
             <MenuItemContainer link="/admin/sos-management">
                 <i className="fas fa-hands-helping icon" />

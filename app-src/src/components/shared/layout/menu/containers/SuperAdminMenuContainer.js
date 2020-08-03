@@ -4,8 +4,8 @@ import { withRouter } from 'react-router-dom';
 import SuperAdminMenu from '../presentational/SuperAdminMenu';
 import { logout } from 'actions/shared/auth/sync/logout';
 
-let SuperAdminMenuContainer = ({ history, logout }) => {
-    return <SuperAdminMenu logout={handleLogout} />;
+const SuperAdminMenuContainer = ({ history, unreadRequests, logout }) => {
+    return <SuperAdminMenu unreadRequests={unreadRequests} logout={handleLogout} />;
     function handleLogout(e) {
         e.preventDefault();
         logout();
@@ -13,9 +13,11 @@ let SuperAdminMenuContainer = ({ history, logout }) => {
     }
 };
 
-export default withRouter(
-    connect(
-        null,
-        { logout }
-    )(SuperAdminMenuContainer)
-);
+const mapStateToProps = ({ superAdmin: { demoRequestsReducer } }) => ({
+    unreadRequests: Object.values(demoRequestsReducer.demoRequests).reduce(
+        (result, { contacted }) => result + (!contacted ? 1 : 0),
+        0,
+    ),
+});
+
+export default withRouter(connect(mapStateToProps, { logout })(SuperAdminMenuContainer));
