@@ -30,7 +30,7 @@ const BuildingStats = ({
             />
         </div>
 
-        <div className="button-container">
+        <div className="button-container relative-position">
             {building.accessType === ACCESS_TYPES_VALUES.OWNER && (
                 <>
                     <button className="button red" type="button" onClick={handleDelete}>
