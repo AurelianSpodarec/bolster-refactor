@@ -3,13 +3,15 @@ import { connect } from 'react-redux';
 import MapPin from '../presentational/MapPin';
 
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
+import clientFetchSinglePin from 'actions/client/pins/async/clientFetchSinglePin';
 import updateIsPinExcluded from 'actions/companyAdmin/reports/sync/updateIsPinExcluded';
 import clientUpdateIsPinExcluded from 'actions/client/reports/create/sync/clientUpdateIsPinExcluded';
 import { PHOTO_EXT_REGEX } from 'helpers/regex';
+import { getSelectedCompanyForClient } from 'helpers/generic';
 
 class MapPinContainer extends Component {
     state = {
-        showPinInfo: false
+        showPinInfo: false,
     };
 
     render() {
@@ -26,7 +28,7 @@ class MapPinContainer extends Component {
             clientUpdateIsPinExcluded,
             excludedPinIDs,
             isClient,
-            tooltipVisible
+            tooltipVisible,
         } = this.props;
         const { createdByCompanyUserID, latestServiceID } = pin;
         const user = users[createdByCompanyUserID];
@@ -46,9 +48,7 @@ class MapPinContainer extends Component {
                 handleCancelPin={this.handleCancelPin}
                 pinImages={pinImages}
                 isExcluding={isExcluding}
-                updateIsPinExcluded={
-                    isClient ? clientUpdateIsPinExcluded : updateIsPinExcluded
-                }
+                updateIsPinExcluded={isClient ? clientUpdateIsPinExcluded : updateIsPinExcluded}
                 excludedPinIDs={excludedPinIDs}
                 showPinInfo={showPinInfo}
             />
@@ -63,17 +63,22 @@ class MapPinContainer extends Component {
     componentWillUnmount = () => {
         clearTimeout(this._waitForHover);
         this.setState({
-            showPinInfo: false
+            showPinInfo: false,
         });
     };
 
     handleOpenPin = id => {
         if (this.props.tooltipVisible) return;
 
-        const { fetchSinglePin, historyIDs, pin } = this.props;
+        const { fetchSinglePin, clientFetchSinglePin, historyIDs, pin, isClient } = this.props;
         this._waitForHover = setTimeout(() => {
             if (!historyIDs.includes(pin.latestHistoryID + '')) {
-                fetchSinglePin(id, true);
+                if (!isClient) {
+                    fetchSinglePin(id, true);
+                } else {
+                    const selectedCompanyID = getSelectedCompanyForClient();
+                    clientFetchSinglePin(selectedCompanyID, id);
+                }
             }
             this.props.updateCurTooltip(id);
         }, 150);
@@ -87,14 +92,11 @@ class MapPinContainer extends Component {
     _getPinImages = () => {
         const {
             pin: { latestHistoryID },
-            answers
+            answers,
         } = this.props;
 
         return answers.reduce((acc, answer) => {
-            if (
-                answer.pinHistoryID === latestHistoryID &&
-                PHOTO_EXT_REGEX.test(answer.answer)
-            ) {
+            if (answer.pinHistoryID === latestHistoryID && PHOTO_EXT_REGEX.test(answer.answer)) {
                 return acc.concat(answer.answer);
             }
             return acc;
@@ -109,31 +111,29 @@ const mapStateToProps = (
             pinsReducer: { isFetching },
             servicesReducer: { services },
             pinHistoriesReducer: { histories },
-            pinAnswersReducer: { answers }
+            pinAnswersReducer: { answers },
         },
         companyAdmin,
-        client
+        client,
     },
-    { isClient }
+    { isClient },
 ) => {
     const reducer = isClient ? client : companyAdmin;
     return {
         isFetching,
         users,
         services,
-        historyIDs: Object.keys(histories),
-        answers: Object.values(answers),
-        excludedPinIDs: Object.values(reducer.reportsReducer.excludedPinIDs)
+        historyIDs: Object.keys(reducer.pinHistoriesReducer.histories),
+        answers: Object.values(reducer.pinAnswersReducer.answers),
+        excludedPinIDs: Object.values(reducer.reportsReducer.excludedPinIDs),
     };
 };
 
 const mapDispatchToProps = {
     fetchSinglePin,
+    clientFetchSinglePin,
     updateIsPinExcluded,
-    clientUpdateIsPinExcluded
+    clientUpdateIsPinExcluded,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(MapPinContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MapPinContainer);

@@ -1,0 +1,38 @@
+import React from 'react';
+import ModalOuterContainer from '../containers/ModalOuterContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+
+const ConfirmAddCommentModal = ({
+    handleAdd,
+    hideModal,
+    message = 'Are you sure you want to add this comment?',
+    isIncoming = false,
+    addButtonText = 'Save',
+    icon = 'save',
+}) => (
+    <ModalOuterContainer>
+        <BlockHeading title={'Confirmation'} />
+        <p className="generic-text intro-text size-lg-12">{message}</p>
+        <BlockButtonWrapper>
+            <button className="button green" onClick={handleAdd}>
+                {isIncoming ? (
+                    <>
+                        <i className="far fa-ban fa-fw" />
+                        Decline
+                    </>
+                ) : (
+                    <>
+                        <i className={`far fa-${icon} fa-fw`} />
+                        {addButtonText}
+                    </>
+                )}
+            </button>
+            <button className="button" onClick={hideModal}>
+                Cancel
+            </button>
+        </BlockButtonWrapper>
+    </ModalOuterContainer>
+);
+
+export default ConfirmAddCommentModal;

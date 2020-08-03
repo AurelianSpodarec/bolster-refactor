@@ -26,14 +26,23 @@ const CompaniesTableContainer = ({ isFetching, fetchingError, companies, filters
 
     function _getFilteredCompanies() {
         const name = filters.name.toLowerCase();
-        const { companyType } = filters;
-        return companies.filter(
-            company =>
-                // filter by name
-                (company.name.toLowerCase().includes(name) || company.code.includes(+name)) &&
-                // filter by type
-                (companyType === ALL || companyType === company.companyType),
-        );
+        const { companyType, serviceIDs } = filters;
+        const shouldFilterServiceIDs = !!serviceIDs.length;
+        return companies.filter(company => {
+            // filter by name
+            const nameMatches =
+                company.name.toLowerCase().includes(name) || company.code.includes(+name);
+            if (!nameMatches) return false;
+            // filter by type
+            const typeMatches = companyType === ALL || companyType === company.companyType;
+            if (!typeMatches) return false;
+            // filter by service
+            const serviceMatches =
+                !shouldFilterServiceIDs ||
+                (company.serviceIDs || []).some(id => serviceIDs.includes(id));
+            if (!serviceMatches) return false;
+            return true;
+        });
     }
 };
 

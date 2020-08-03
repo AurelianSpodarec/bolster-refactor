@@ -13,45 +13,48 @@ const CopyTemplateModal = ({
     companyID,
     templateOptions,
     templateUUID,
-    handleChange
-}) => (
-    <ModalOuterContainer extraClasses="w-form">
-        <BlockHeading title="Create template from existing" />
-        <Form onSubmit={handleSubmit} className="generic-form">
-            <Field name="Select a company" styles={{ minHeight: '133px' }}>
-                <Select
-                    search
-                    name="companyID"
-                    placeholder="-- select a company --"
-                    options={companyOptions}
-                    value={companyID}
-                    onChange={handleChange}
-                    required
-                />
-            </Field>
-            <Field styles={{ minHeight: '133px' }}>
-                {!!templateOptions && (
+    handleChange,
+}) => {
+    console.log(companyOptions);
+    return (
+        <ModalOuterContainer extraClasses="w-form">
+            <BlockHeading title="Create template from existing" />
+            <Form onSubmit={handleSubmit} className="generic-form">
+                <Field name="Select a company" styles={{ minHeight: '133px' }}>
                     <Select
                         search
-                        name="templateUUID"
-                        placeholder="-- select a template --"
-                        options={templateOptions}
-                        value={templateUUID}
+                        name="companyID"
+                        placeholder="-- select a company --"
+                        options={companyOptions}
+                        value={companyID}
                         onChange={handleChange}
                         required
                     />
-                )}
-            </Field>
-            <BlockButtonWrapper>
-                <button className="button green">
-                    <i className="fa fa-plus" /> Clone template
-                </button>
-                <button className="button" type="button" onClick={hideModal}>
-                    Cancel
-                </button>
-            </BlockButtonWrapper>
-        </Form>
-    </ModalOuterContainer>
-);
+                </Field>
+                <Field styles={{ minHeight: '133px' }}>
+                    {!!templateOptions && (
+                        <Select
+                            search
+                            name="templateUUID"
+                            placeholder="-- select a template --"
+                            options={templateOptions}
+                            value={templateUUID}
+                            onChange={handleChange}
+                            required
+                        />
+                    )}
+                </Field>
+                <BlockButtonWrapper>
+                    <button className="button green">
+                        <i className="fa fa-plus" /> Clone template
+                    </button>
+                    <button className="button" type="button" onClick={hideModal}>
+                        Cancel
+                    </button>
+                </BlockButtonWrapper>
+            </Form>
+        </ModalOuterContainer>
+    );
+};
 
 export default CopyTemplateModal;

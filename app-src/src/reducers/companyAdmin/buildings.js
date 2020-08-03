@@ -25,7 +25,7 @@ import {
     REORDER_BUILDING,
     CREATE_BUILDINGS_REQUEST,
     CREATE_BUILDINGS_SUCCESS,
-    CREATE_BUILDINGS_FAILURE
+    CREATE_BUILDINGS_FAILURE,
 } from 'constants/actionTypes/buildings';
 import { CREATE_FLOOR_SUCCESS } from 'constants/actionTypes/floors';
 
@@ -38,7 +38,7 @@ export default combineReducers({
     deleteSuccess: deleteSuccessReducer,
     error: errorReducer,
     nameFilter: nameFilterReducer,
-    statusFilter: statusFilterReducer
+    statusFilter: statusFilterReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -156,19 +156,13 @@ function buildingsReducer(state = {}, action) {
         case CREATE_FLOOR_SUCCESS:
             return updateObj(state, [action.payload.buildingID], {
                 ...state[action.payload.buildingID],
-                floorIDs: [
-                    ...state[action.payload.buildingID].floorIDs,
-                    action.payload.id
-                ]
+                floorIDs: [...state[action.payload.buildingID].floorIDs, action.payload.id],
             });
-        case REORDER_BUILDING: {
-            const sorted = moveItem(
-                Object.values(state),
-                action.id,
-                action.hoverIndex
-            );
-            return convertArrToObj(sorted);
-        }
+        case REORDER_BUILDING:
+            return {
+                ...state,
+                ...convertArrToObj(action.payload),
+            };
         default:
             return state;
     }

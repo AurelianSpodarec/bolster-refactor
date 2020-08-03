@@ -3,7 +3,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 
 const SiteDetails = ({
     site: { addressLine1, addressLine2, city, postcode, client },
-    stats: { lastUpdatedOn }
+    stats: { lastUpdatedOn },
 }) => (
     <div className="size-lg-6 size-md-12">
         <h3 className="heading heading-3 size-lg-12">Client</h3>

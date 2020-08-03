@@ -31,7 +31,6 @@ import {
     FETCH_TEMPLATE_FOR_COMPANY_SUCCESS,
     FETCH_TEMPLATE_FOR_COMPANY_NOT_FOUND,
     DELETE_TEMPLATE_UNAVAILABLE,
-    SWAP_SECTION_SORTS,
     SET_SECTIONS,
 } from 'constants/actionTypes/templateBuilder';
 import {
@@ -194,7 +193,6 @@ function saveRequiredReducer(state = false, action) {
         case DELETE_QUESTION:
         case CHANGE_QUESTION_SECTION:
         case SWAP_QUESTION_SORTS:
-        case SWAP_SECTION_SORTS:
         case SET_LABEL_FIELDS:
             return true;
         case RESET_SAVE_REQUIRED:

@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import toggleSiteExpanded from 'actions/shared/generic/tables/sync/toggleSiteExpanded';
 import {
     ACCESS_TYPES,
-    ACCESS_TYPES_VALUES
+    ACCESS_TYPES_VALUES,
+    DEFAULT_SITES_SORT,
 } from 'constants/companyAdmin/enums';
 
 import SitesListItem from '../presentational/SitesListItem';
@@ -22,13 +23,14 @@ const SitesListItemContainer = ({
     postSitesSort,
     sites,
     headers,
-    onMobile
+    onMobile,
+    sortBy,
 }) => {
     return (
         <SitesListItem
             index={index}
             id={site.id}
-            onMove={reorderSite}
+            onMove={moveItem}
             onDrop={() => postSitesSort(sites)}
             site={site}
             isExpanded={expandedSiteIds.includes(site.id)}
@@ -39,32 +41,42 @@ const SitesListItemContainer = ({
             onMobile={onMobile}
         />
     );
+
+    function moveItem(overindex, fromIndex) {
+        if (sortBy && sortBy != DEFAULT_SITES_SORT.CUSTOM) return;
+
+        const items = [...sites].sort((a, b) => a.sort - b.sort);
+        const [item] = items.splice(fromIndex, 1);
+        items.splice(overindex, 0, item);
+        const sorted = items.map((x, i) => ({ ...x, sort: i + 1 }));
+        reorderSite(sorted);
+    }
 };
 
 const mapStateToProps = ({
     shared: {
         tablesReducer: { expandedSiteIds },
-        mobileReducer: { onMobile }
+        mobileReducer: { onMobile },
+        sitesFilterReducer: {
+            filters: { sortBy },
+        },
     },
     companyAdmin: {
-        sitesReducer: { sites }
-    }
+        sitesReducer: { sites },
+    },
 }) => ({
     expandedSiteIds,
     sites: Object.values(sites),
-    onMobile
+    onMobile,
+    sortBy,
 });
 
 const mapDispatchToProps = { reorderSite, toggleSiteExpanded, postSitesSort };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SitesListItemContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SitesListItemContainer);
 
 export function formatPermissions(permissions, accessType) {
-    if (!permissions && ACCESS_TYPES[accessType])
-        return ACCESS_TYPES[accessType];
+    if (!permissions && ACCESS_TYPES[accessType]) return ACCESS_TYPES[accessType];
 
     if (!permissions) return '';
     return permissions

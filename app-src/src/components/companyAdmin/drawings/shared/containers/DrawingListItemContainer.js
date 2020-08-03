@@ -15,29 +15,39 @@ const DrawingListItemContainer = ({
     headers,
     onMobile,
     ...rest
-}) => (
-    <DrawingListItem
-        {...rest}
-        index={index}
-        id={id}
-        drawing={drawing}
-        permissions={formatPermissions(permissions, accessType)}
-        onMove={reorderDrawing}
-        onDrop={() => postDrawingsSort(drawings)}
-        headers={headers}
-        onMobile={onMobile}
-    />
-);
+}) => {
+    return (
+        <DrawingListItem
+            {...rest}
+            index={index}
+            id={id}
+            drawing={drawing}
+            permissions={formatPermissions(permissions, accessType)}
+            onMove={moveItem}
+            onDrop={() => postDrawingsSort(drawings)}
+            headers={headers}
+            onMobile={onMobile}
+        />
+    );
+
+    function moveItem(overindex, fromIndex) {
+        const items = [...drawings];
+        const [item] = items.splice(fromIndex, 1);
+        items.splice(overindex, 0, item);
+        const sorted = items.map((x, i) => ({ ...x, sort: i + 1 }));
+        reorderDrawing(sorted);
+    }
+};
 
 const mapDispatchToProps = { reorderDrawing, postDrawingsSort };
 
 export default connect(
     ({
         shared: {
-            mobileReducer: { onMobile }
-        }
+            mobileReducer: { onMobile },
+        },
     }) => ({
-        onMobile
+        onMobile,
     }),
-    mapDispatchToProps
+    mapDispatchToProps,
 )(DrawingListItemContainer);

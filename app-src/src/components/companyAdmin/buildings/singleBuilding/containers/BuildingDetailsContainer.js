@@ -11,16 +11,24 @@ import {
     SUCCESS_MODAL,
     ERROR_MODAL,
     CONFIRM_ARCHIVE,
-    EDIT_BUILDING
+    EDIT_BUILDING,
 } from 'constants/shared/modalTypes';
 import deleteBuilding from 'actions/companyAdmin/buildings/async/deleteBuilding';
 import archiveBuilding from 'actions/companyAdmin/buildings/async/archiveBuilding';
 import { isObjEmpty } from 'helpers/generic';
 
 class BuildingDetailsContainer extends Component {
+    state = {
+        serviceID: null,
+    };
     render() {
-        const { building, stats, isFetching, error, onMobile } = this.props;
-
+        const { building, stats, isFetching, error, onMobile, serviceIDs, services } = this.props;
+        const { serviceID } = this.state;
+        const filteredServices = services.filter(service => serviceIDs.includes(service.id));
+        const servicesForDropdown = filteredServices.map(service => ({
+            value: service.id,
+            text: service.name,
+        }));
         return (
             <BlockContainer
                 error={error}
@@ -34,6 +42,9 @@ class BuildingDetailsContainer extends Component {
                     handleArchive={this.handleArchiveModal}
                     handleEditBuildingModal={this.handleEditBuildingModal}
                     onMobile={onMobile}
+                    handleChange={this.handleChange}
+                    serviceOptions={servicesForDropdown}
+                    serviceID={serviceID}
                 />
             </BlockContainer>
         );
@@ -49,24 +60,19 @@ class BuildingDetailsContainer extends Component {
             history,
             showModal,
             hideModal,
-            building
+            building,
         } = this.props;
         if (deleteSuccess && !prevProps.deleteSuccess) {
             hideModal();
             history.push(`/company/sites/${building.siteID}`);
         }
 
-        if (
-            postSuccess &&
-            !prevProps.postSuccess &&
-            !deleteSuccess &&
-            updatedBuildingID !== 0
-        ) {
+        if (postSuccess && !prevProps.postSuccess && !deleteSuccess && updatedBuildingID !== 0) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
                 message: 'Building edited successfully.',
                 link: `/company/buildings/${updatedBuildingID}`,
-                linkMessage: 'Go to building'
+                linkMessage: 'Go to building',
             });
         }
 
@@ -76,9 +82,7 @@ class BuildingDetailsContainer extends Component {
         ) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
-                message: `Building successfully ${
-                    !building.isArchived ? 'un' : ''
-                }archived.`
+                message: `Building successfully ${!building.isArchived ? 'un' : ''}archived.`,
             });
         }
 
@@ -88,7 +92,7 @@ class BuildingDetailsContainer extends Component {
                 title: 'Error',
                 message:
                     error.message ||
-                    'There was an error processing your request, please try again later.'
+                    'There was an error processing your request, please try again later.',
             });
         }
     };
@@ -99,40 +103,30 @@ class BuildingDetailsContainer extends Component {
     };
 
     handleDeleteModal = () => {
-        const {
-            id,
-            showModal,
-            hideModal,
-            deleteBuilding,
-            building
-        } = this.props;
+        const { id, showModal, hideModal, deleteBuilding, building } = this.props;
         const handleDelete = () => deleteBuilding(id);
         const message = `Are you sure you want to delete ${building.name}`;
         showModal(CONFIRM_DELETE, { hideModal, handleDelete, message });
     };
 
     handleArchiveModal = () => {
-        const {
-            id,
-            showModal,
-            hideModal,
-            building,
-            archiveBuilding
-        } = this.props;
+        const { id, showModal, hideModal, building, archiveBuilding } = this.props;
         const handleArchive = () => {
             archiveBuilding(id, building.isArchived);
             hideModal();
         };
-        const message = `Are you sure you want to ${
-            building.isArchived ? 'un-' : ''
-        }archive ${building.name}?`;
+        const message = `Are you sure you want to ${building.isArchived ? 'un-' : ''}archive ${
+            building.name
+        }?`;
         showModal(CONFIRM_ARCHIVE, {
             hideModal,
             handleArchive,
             message,
-            archive: !building.isArchived
+            archive: !building.isArchived,
         });
     };
+
+    handleChange = (name, value) => this.setState({ [name]: value });
 }
 
 const mapStateToProps = (
@@ -145,15 +139,19 @@ const mapStateToProps = (
                 buildings,
                 error,
                 isFetching: fetchingBuildings,
-                postFailure
+                postFailure,
             },
-            statsReducer: { stats, isFetching: fetchingStats }
+            statsReducer: { stats, isFetching: fetchingStats },
+            subscriptionsReducer: {
+                subscriptions: { serviceIDs },
+            },
+            servicesReducer: { services },
         },
         shared: {
-            mobileReducer: { onMobile }
-        }
+            mobileReducer: { onMobile },
+        },
     },
-    { match }
+    { match },
 ) => ({
     updatedBuildingID,
     building: buildings[match.params.id] || {},
@@ -164,19 +162,16 @@ const mapStateToProps = (
     id: match.params.id,
     deleteSuccess,
     onMobile,
-    postFailure
+    postFailure,
+    serviceIDs,
+    services: Object.values(services),
 });
 
 const mapDispatchToProps = {
     showModal,
     hideModal,
     deleteBuilding,
-    archiveBuilding
+    archiveBuilding,
 };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(BuildingDetailsContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BuildingDetailsContainer));
