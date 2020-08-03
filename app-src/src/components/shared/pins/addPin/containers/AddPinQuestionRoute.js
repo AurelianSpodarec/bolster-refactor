@@ -126,6 +126,8 @@ class AddPinQuestionRoute extends Component {
         let preReqAnswer = answers[prerequisiteQuestionID];
         const curQuestion = questions[currentQuestionID];
 
+        console.log({ curQuestion, preReqAnswer, preReqQuestion });
+
         if (!preReqQuestion) {
             return true;
         }
@@ -202,7 +204,20 @@ class AddPinQuestionRoute extends Component {
                     ',',
                 );
                 const preReqAnswerIncluded = () => {
-                    const preReqValues = preReqAnswer.map(answer => answer.name);
+                    let preReqValues;
+
+                    if (
+                        `${preReqQuestion.type}` === QUESTION_TYPE_VALUES.MULTI_DROPDOWN_OPTIONS ||
+                        `${preReqQuestion.type}` ===
+                            QUESTION_TYPE_VALUES.MULTI_MULTI_DROPDOWN_OPTIONS ||
+                        `${preReqQuestion.type}` === QUESTION_TYPE_VALUES.DROPDOWN_OPTIONS
+                    ) {
+                        preReqValues = preReqAnswer.map(answer => answer.name);
+                    } else if (`${preReqQuestion.type}` === QUESTION_TYPE_VALUES.DROPDOWN) {
+                        preReqValues = [preReqAnswer];
+                    } else {
+                        preReqValues = preReqAnswer;
+                    }
 
                     for (let i = 0; i < preReqValues.length; i++) {
                         if (prerequisiteQuestionValueArr.includes(preReqValues[i])) {
@@ -211,6 +226,11 @@ class AddPinQuestionRoute extends Component {
                     }
                     return false;
                 };
+                console.log({
+                    prerequisiteQuestionValueArr,
+                    preReqAnswer,
+                    preReqAnswerIncluded: preReqAnswerIncluded(),
+                });
 
                 if (preReqAnswerIncluded()) {
                     return true;
@@ -228,6 +248,14 @@ class AddPinQuestionRoute extends Component {
             if (curQuestion.prerequisiteQuestionValue === preReqAnswer) {
                 //Exactly matches value
                 return true;
+            }
+            if (curQuestion.isPrerequisiteMulti) {
+                //Exactly matches value
+                const prerequQuestionValueArr = curQuestion.prerequisiteQuestionValue.split(',');
+
+                if (prerequQuestionValueArr.includes(preReqAnswer)) {
+                    return true;
+                }
             }
         }
 
