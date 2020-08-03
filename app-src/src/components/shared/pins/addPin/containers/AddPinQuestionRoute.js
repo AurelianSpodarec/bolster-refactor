@@ -196,9 +196,6 @@ class AddPinQuestionRoute extends Component {
 
         if (Array.isArray(preReqAnswer)) {
             const lowerCaseAnswers = preReqAnswer.map(answer => `${answer}`.toLowerCase());
-            const lowerCaseDropdownOptions = dropdownOptions.map(option =>
-                `${option.name}`.toLocaleLowerCase(),
-            );
 
             if (curQuestion.isPrerequisiteMulti) {
                 const prerequisiteQuestionValueArr = curQuestion.prerequisiteQuestionValue.split(
@@ -207,11 +204,8 @@ class AddPinQuestionRoute extends Component {
                 const preReqAnswerIncluded = () => {
                     const preReqValues = preReqAnswer.map(answer => answer.name);
 
-                    for (let i = 0; i < lowerCaseDropdownOptions.length; i++) {
-                        if (
-                            prerequisiteQuestionValueArr.includes(lowerCaseDropdownOptions[i]) &&
-                            preReqValues.includes(lowerCaseDropdownOptions[i])
-                        ) {
+                    for (let i = 0; i < preReqValues.length; i++) {
+                        if (prerequisiteQuestionValueArr.includes(preReqValues[i])) {
                             return true;
                         }
                     }
