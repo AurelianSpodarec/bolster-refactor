@@ -118,6 +118,14 @@ em {
             bottom: 0;
             right: 0;
             width: auto;
+
+            &.relative-position {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                width: 100%;
+                margin-top: 5px;
+            }
         }
     }
 }
