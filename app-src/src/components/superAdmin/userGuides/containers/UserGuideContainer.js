@@ -15,10 +15,6 @@ const UserGuideContainer = ({
     userGuide,
     postSuccess,
 }) => {
-    console.log('hgdsifgbdhgds');
-    console.log('hgdsifgbdhgds');
-    console.log('hgdsifgbdhgds');
-    console.log('hgdsifgbdhgds');
     componentDidMount(fetchUserGuide);
 
     const userguideLink = `${RAW_S3_STORAGE_URL}/${userGuide.s3Key}`;
