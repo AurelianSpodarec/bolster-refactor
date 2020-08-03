@@ -8,7 +8,6 @@ import {
     FETCH_COMPANY_DROPDOWN_OPTIONS_REQUEST,
     FETCH_COMPANY_DROPDOWN_OPTIONS_SUCCESS,
     FETCH_COMPANY_DROPDOWN_OPTIONS_FAILURE,
-    UPDATE_COMPANIES_FILTERS,
     SA_TOGGLE_COMPANY_ON_CLIENT_LIST_REQUEST,
     SA_TOGGLE_COMPANY_ON_CLIENT_LIST_SUCCESS,
     SA_TOGGLE_COMPANY_ON_CLIENT_LIST_FAILURE,
@@ -28,7 +27,6 @@ export default combineReducers({
     error: errorReducer,
     filters: filtersReducer,
     companyDropdownOptions: companyDropdownOptoinsReducer,
-    filters: filtersReducer,
 });
 
 function isFetchingReducer(state = false, action) {

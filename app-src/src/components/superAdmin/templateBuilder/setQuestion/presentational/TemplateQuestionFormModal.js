@@ -77,7 +77,7 @@ const TemplateQuestionFormModal = ({
                     </Field>
                 )}
 
-                {!!selectedPrereq && !selectedPrereq.options.length && !isPrerequisiteMulti && (
+                {!!selectedPrereq && !selectedPrereq.options.length && (
                     <Field name="Prerequisite value" required>
                         {selectedPrereq.isStatus ? (
                             <Select
@@ -98,7 +98,7 @@ const TemplateQuestionFormModal = ({
                     </Field>
                 )}
 
-                {!!selectedPrereq && selectedPrereq.options.length > 0 && isPrerequisiteMulti && (
+                {!!selectedPrereq && selectedPrereq.options.length > 0 && (
                     <Field name="Prerequisite values">
                         <CheckboxListContainer
                             name="prereqDropdownValues"
