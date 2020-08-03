@@ -1,22 +1,22 @@
-import React from "react";
+import React from 'react';
 
-import Roles from "./Roles";
-import DateTimeContainer from "components/shared/dateTime/containers/DateTimeContainer";
-import { DATE_TIME_IDS } from "constants/companyAdmin/enums";
-import BlockButtonWrapper from "components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper";
-import { Link } from "react-router-dom";
+import Roles from './Roles';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import { Link } from 'react-router-dom';
 
-const UserListItem = ({
-    user,
-    handleShowEditUserModal,
-    handleShowEditUserPasswordModal,
-}) => (
+const UserListItem = ({ user, handleShowEditUserModal, handleShowEditUserPasswordModal }) => (
     <tr>
         <td>{`${user.firstName} ${user.lastName}`}</td>
         <td>{user.email}</td>
         <td>{user.phoneNumber}</td>
+        {user.isDeleted ? (
+            <td>Deleted{!!user.deletedByUserEmail && ` by '${user.deletedByUserEmail}'`}</td>
+        ) : (
+            <Roles user={user} roles={user.roles} />
+        )}
 
-        <Roles roles={user.roles} />
         <td>
             {user.clientAccessCreatedByCompanies.length ? (
                 user.clientAccessCreatedByCompanies.map((company, i, arr) => {
@@ -39,23 +39,14 @@ const UserListItem = ({
             )}
         </td>
         <td>
-            <DateTimeContainer
-                date={user.createdOn}
-                datetime={DATE_TIME_IDS.DATE}
-            />
+            <DateTimeContainer date={user.createdOn} datetime={DATE_TIME_IDS.DATE} />
         </td>
         <td>
             <BlockButtonWrapper>
-                <button
-                    className="button yellow"
-                    onClick={() => handleShowEditUserModal(user)}
-                >
+                <button className="button yellow" onClick={() => handleShowEditUserModal(user)}>
                     <i className="far fa-pencil" /> Edit
                 </button>
-                <button
-                    onClick={() => handleShowEditUserPasswordModal(user)}
-                    className="button"
-                >
+                <button onClick={() => handleShowEditUserPasswordModal(user)} className="button">
                     Change password
                 </button>
             </BlockButtonWrapper>

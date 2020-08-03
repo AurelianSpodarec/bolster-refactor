@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { COMPANY_USER_ROLE_IDS } from "constants/companyAdmin/enums";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { COMPANY_USER_ROLE_IDS } from 'constants/companyAdmin/enums';
 
 const Roles = ({ roles }) => {
     const rolesToRender = roles.length ? (
@@ -12,10 +12,7 @@ const Roles = ({ roles }) => {
                         {COMPANY_USER_ROLE_IDS[role.type]}&nbsp;
                         <span>
                             (
-                            <Link
-                                className="link"
-                                to={`/admin/companies/${role.companyID}`}
-                            >
+                            <Link className="link" to={`/admin/companies/${role.companyID}`}>
                                 {role.companyName}
                             </Link>
                             )
