@@ -2,7 +2,27 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { COMPANY_USER_ROLE_IDS } from 'constants/companyAdmin/enums';
 
-const Roles = ({ roles }) => {
+const Roles = ({
+    user: { isDeleted, deletedByUserEmail, deletedByCompanyName, deletedByCompanyID },
+    roles,
+}) => {
+    if (isDeleted)
+        return (
+            <td>
+                Deleted&nbsp;
+                {!!deletedByUserEmail && `by ${deletedByUserEmail} `}
+                {!!deletedByCompanyName && (
+                    <span>
+                        (
+                        <Link className="link" to={`/admin/companies/${deletedByCompanyID}`}>
+                            {deletedByCompanyName}
+                        </Link>
+                        )
+                    </span>
+                )}
+            </td>
+        );
+
     const rolesToRender = roles.length ? (
         roles.map((role, i, arr) => {
             const isTheLastCompany = arr.length - 1 === i;

@@ -11,11 +11,7 @@ const UserListItem = ({ user, handleShowEditUserModal, handleShowEditUserPasswor
         <td>{`${user.firstName} ${user.lastName}`}</td>
         <td>{user.email}</td>
         <td>{user.phoneNumber}</td>
-        {user.isDeleted ? (
-            <td>Deleted{!!user.deletedByUserEmail && ` by '${user.deletedByUserEmail}'`}</td>
-        ) : (
-            <Roles user={user} roles={user.roles} />
-        )}
+        <Roles user={user} roles={user.roles} />
 
         <td>
             {user.clientAccessCreatedByCompanies.length ? (
