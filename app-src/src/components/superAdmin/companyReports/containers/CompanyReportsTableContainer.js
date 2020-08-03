@@ -5,6 +5,10 @@ import { sortArrayByKeyAndOrder } from 'helpers/generic';
 import retryReport from 'actions/superAdmin/companyReports/async/retryReport';
 import fetchCompanyReportsQueue from 'actions/superAdmin/companyReports/async/fetchCompanyReportsQueue';
 import fetchCompanyReportsQueueFull from 'actions/superAdmin/companyReports/async/fetchCompanyReportsQueueFull';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { CONFIRM_DELETE, ERROR_MODAL } from 'constants/shared/modalTypes';
+import deleteReport from 'actions/superAdmin/companyReports/async/deleteReport';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 const CompanyReportsTableContainer = ({
     companyReports,
@@ -15,7 +19,10 @@ const CompanyReportsTableContainer = ({
     retryReport,
     fetchCompanyReportsQueue,
     fetchCompanyReportsQueueFull,
-    fetchStatus
+    fetchStatus,
+    showModal,
+    deleteReport,
+    hideModal,
 }) => {
     return (
         <CompanyReportsTable
@@ -30,12 +37,13 @@ const CompanyReportsTableContainer = ({
                 'Status',
                 'Created On',
                 'Completed on',
-                ''
+                '',
             ]}
             onMobile={onMobile}
             retryCompanyReport={id => retryCompanyReport(id)}
             fetchStatus={fetchStatus}
             fetchCompanyReportsQueueFull={fetchCompanyReportsQueueFull}
+            showDeleteModal={showDeleteModal}
         />
     );
     function _getSortedQueue() {
@@ -52,6 +60,19 @@ const CompanyReportsTableContainer = ({
     function retryCompanyReport(id) {
         retryReport(id).then(fetchCompanyReportsQueue);
     }
+
+    function showDeleteModal(id) {
+        showModal(CONFIRM_DELETE, { handleDelete: () => handleDelete(id) });
+    }
+
+    async function handleDelete(id) {
+        const { success } = await deleteReport(id);
+        if (success) {
+            hideModal();
+        } else {
+            showModal(ERROR_MODAL);
+        }
+    }
 };
 const mapStateToProps = ({
     superAdmin: {
@@ -60,24 +81,27 @@ const mapStateToProps = ({
             error,
             isFetching,
             sort: { sortString },
-            fetchStatus
-        }
+            fetchStatus,
+        },
     },
     shared: {
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => ({
     companyReports: Object.values(companyReports),
     error,
     isFetching,
     sortString,
     onMobile,
-    fetchStatus
+    fetchStatus,
 });
+const mapDispatchToProps = {
+    fetchCompanyReportsQueue,
+    fetchCompanyReportsQueueFull,
+    retryReport,
+    showModal,
+    deleteReport,
+    hideModal,
+};
 
-const mapDispatchToProps = { fetchCompanyReportsQueue, fetchCompanyReportsQueueFull, retryReport };
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CompanyReportsTableContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CompanyReportsTableContainer);
