@@ -27,12 +27,12 @@ import {
     CREATE_DRAWINGS_FAILURE,
     FETCH_DRAWING_SHARE_LINKS_REQUEST,
     FETCH_DRAWING_SHARE_LINKS_SUCCESS,
-    FETCH_DRAWING_SHARE_LINKS_FAILURE
+    FETCH_DRAWING_SHARE_LINKS_FAILURE,
 } from 'constants/actionTypes/drawings';
 
 import {
     ADD_CREDITS_TO_DRAWING_REQUEST,
-    ADD_CREDITS_TO_DRAWING_SUCCESS
+    ADD_CREDITS_TO_DRAWING_SUCCESS,
 } from 'constants/actionTypes/credits';
 
 export default combineReducers({
@@ -44,7 +44,7 @@ export default combineReducers({
     postFailure: postFailureReducer,
     deleteSuccess: deleteSuccessReducer,
     updatingFloorPlan: updatingFloorPlanReducer,
-    shareLinks: shareLinksReducer
+    shareLinks: shareLinksReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -155,14 +155,11 @@ function drawingsReducer(state = {}, action) {
         case CREATE_DRAWING_SUCCESS:
         case ARCHIVE_DRAWING_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
-        case REORDER_DRAWING: {
-            const sorted = moveItem(
-                Object.values(state),
-                action.id,
-                action.hoverIndex
-            );
-            return convertArrToObj(sorted);
-        }
+        case REORDER_DRAWING:
+            return {
+                ...state,
+                ...convertArrToObj(action.payload),
+            };
         default:
             return state;
     }

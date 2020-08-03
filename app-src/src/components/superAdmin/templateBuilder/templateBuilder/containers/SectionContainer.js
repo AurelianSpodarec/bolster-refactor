@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { useRef } from 'react';
 import { connect } from 'react-redux';
 import { DropTarget, useDrag, useDrop } from 'react-dnd';
+import newUuid from 'uuid/v1';
 
 import {
     ADD_TEMPLATE_QUESTION,
@@ -19,7 +20,6 @@ import deleteSection from 'actions/superAdmin/templateBuilder/sync/deleteSection
 import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 import deleteQuestion from 'actions/superAdmin/templateBuilder/sync/deleteQuestion';
 import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
-import swapSectionSorts from 'actions/superAdmin/templateBuilder/sync/swapSectionSorts';
 
 const SectionContainer = ({
     section,
@@ -33,7 +33,6 @@ const SectionContainer = ({
     showRenameSectModal,
     templateQuestions,
     swapQuestionSorts,
-    changeQuestionSection,
     setQuestion,
     setSection,
     showModal,
@@ -41,12 +40,13 @@ const SectionContainer = ({
     findSection,
     moveSection,
     hovered,
+    isSortingSections,
 }) => {
-    const { uuid, sort } = section;
+    const ref = useRef(null);
+    const { uuid } = section;
     const [{ isDragging }, drag] = useDrag({
-        item: { type: 'SECTION', uuid, originalIndex: i },
+        item: { type: 'SECTION', uuid, originalIndex: i, index: i },
         collect: handleCollect,
-        end: handleDragEnd,
     });
 
     const [, drop] = useDrop({
@@ -54,23 +54,27 @@ const SectionContainer = ({
         canDrop: () => false,
         hover: handleHover,
     });
+
     return connectDropTarget(
-        <div ref={node => drag(drop(node))}>
-            <div className="size-lg-12" style={isDragging ? { opacity: 0 } : {}}>
-                <Section
-                    tooltipMessage={_getTooltip()}
-                    isActive={canDrop && isOver}
-                    section={section}
-                    questions={questions}
-                    moveQuestion={moveQuestion}
-                    deleteSection={() => deleteSection(section.uuid)}
-                    showAddQuestModal={() => showAddQuestModal(section.uuid, section.templateUUID)}
-                    showRenameSectModal={() => showRenameSectModal(section)}
-                    duplicateSection={duplicateSection}
-                    showAddImageModal={showAddImageModal}
-                    hovered={hovered}
-                />
-            </div>
+        <div className="size-lg-12" style={isDragging ? { opacity: 0 } : {}}>
+            <Section
+                dragRef={node => {
+                    drag(drop(node));
+                    ref.current = node;
+                }}
+                tooltipMessage={_getTooltip()}
+                isActive={canDrop && isOver}
+                section={section}
+                questions={questions}
+                moveQuestion={moveQuestion}
+                deleteSection={() => deleteSection(section.uuid)}
+                showAddQuestModal={() => showAddQuestModal(section.uuid, section.templateUUID)}
+                showRenameSectModal={() => showRenameSectModal(section)}
+                duplicateSection={duplicateSection}
+                showAddImageModal={showAddImageModal}
+                hovered={hovered}
+                isSortingSections={isSortingSections}
+            />
         </div>,
     );
 
@@ -102,25 +106,21 @@ const SectionContainer = ({
     }
 
     function moveQuestion(dragIndex, hoverIndex) {
-        const question1 = questions[dragIndex];
-        const question2 = questions[hoverIndex];
-        swapQuestionSorts(question1.uuid, question2.uuid);
-    }
+        const items = [...questions].sort((a, b) => a.sort - b.sort);
+        const [item] = items.splice(dragIndex, 1);
+        items.splice(hoverIndex, 0, item);
+        const sorted = items.map((x, i) => ({ ...x, sort: i + 1 }));
 
-    function changeSection(question) {
-        const newSort = Math.max(0, ...questions.map(q => q.sort)) + 1;
-
-        changeQuestionSection(question.uuid, section.uuid, newSort);
+        swapQuestionSorts(sorted);
     }
 
     function duplicateSection(e) {
         e.preventDefault();
-        const newUuid = uuid();
-
+        const newSectionUuid = newUuid();
         const newSection = {
             ...section,
             name: `${section.name} - (copy)`,
-            uuid: newUuid,
+            uuid: newSectionUuid,
         };
 
         questions.forEach(question => {
@@ -128,8 +128,8 @@ const SectionContainer = ({
                 setQuestion({
                     ...question,
                     questionType: question.questionType,
-                    sectionUUID: newUuid,
-                    uuid: uuid(),
+                    sectionUUID: newSectionUuid,
+                    uuid: newUuid(),
                 });
             }
         });
@@ -146,32 +146,45 @@ const SectionContainer = ({
         });
     }
 
-    function handleHover({ uuid: draggedId }, monitor) {
-        if (draggedId !== uuid) {
-            console.log('hello');
-            const { index: overIndex } = findSection(draggedId);
-            moveSection(uuid, overIndex);
+    function handleHover(item, monitor) {
+        if (!ref.current) {
+            return;
         }
+        const dragID = item.uuid;
+        const dragIndex = item.index;
+        const hoverIndex = i;
+        // Don't replace items with themselves
+        if (dragIndex === hoverIndex) {
+            return;
+        }
+        // Determine rectangle on screen
+        const hoverBoundingRect = ref.current.getBoundingClientRect();
+        // Get vertical middle
+        const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+        // Determine mouse position
+        const clientOffset = monitor.getClientOffset();
+        // Get pixels to the top
+        const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+        // Only perform the move when the mouse has crossed half of the items height
+        // When dragging downwards, only move when the cursor is below 50%
+        // When dragging upwards, only move when the cursor is above 50%
+        // Dragging downwards
+        if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+            return;
+        }
+        // Dragging upwards
+        if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+            return;
+        }
+        // Time to actually perform the action
+        moveSection(dragID, hoverIndex);
+        // Note: we're mutating the monitor item here!
+        // Generally it's better to avoid mutations,
+        // but it's good here for the sake of performance
+        // to avoid expensive index searches.
+        item.index = hoverIndex;
     }
 
-    function handleDragEnd({ uuid: draggedId }, monitor) {
-        // console.log('drop');
-        // const { uuid: droppedId, originalIndex } = monitor.getItem();
-        // const didDrop = monitor.didDrop();
-        // console.log({ didDrop });
-        // if (!didDrop) {
-        //     console.log('didnt drop', { originalIndex });
-        //     console.log({ droppedId });
-        //     moveSection(droppedId, originalIndex);
-        // } else {
-        //     console.log({ draggedId, uuid });
-        //     if (draggedId !== uuid) {
-        //         console.log('moving section');
-        //         const { index: overIndex } = findSection(uuid);
-        //         moveSection(uuid, overIndex);
-        //     }
-        // }
-    }
     function handleCollect(monitor) {
         return {
             isDragging: monitor.isDragging(),
@@ -180,11 +193,12 @@ const SectionContainer = ({
 };
 
 const questionTarget = {
-    drop(props, monitor, component) {
-        const { section } = props;
+    drop(props, monitor) {
+        const { section, questions, changeQuestionSection } = props;
         const sourceObj = monitor.getItem();
         if (section.uuid !== sourceObj.sectionUUID) {
-            component.changeSection(sourceObj.question);
+            const newSort = Math.max(0, ...questions.map(q => q.sort)) + 1;
+            changeQuestionSection(sourceObj.question.uuid, section.uuid, newSort);
         }
         return {
             sectionUUID: section.uuid,
@@ -211,6 +225,7 @@ const mapStateToProps = (
     sections: Object.values(templateSectionsReducer.sections).filter(
         s => s.templateUUID === section.templateUUID,
     ),
+    isSortingSections: templateSectionsReducer.isSorting,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -240,9 +255,6 @@ const mapDispatchToProps = dispatch => ({
     },
     showModal: (type, props) => {
         dispatch(showModal(type, props));
-    },
-    swapSectionSorts: (section1Uuid, section2Uuid) => {
-        dispatch(swapSectionSorts(section1Uuid, section2Uuid));
     },
 });
 

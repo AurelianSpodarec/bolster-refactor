@@ -1,8 +1,7 @@
 import { REORDER_BUILDING } from 'constants/actionTypes/buildings';
 
-export default (id, hoverIndex) => dispatch =>
+export default payload => dispatch =>
     dispatch({
         type: REORDER_BUILDING,
-        id,
-        hoverIndex
+        payload,
     });
