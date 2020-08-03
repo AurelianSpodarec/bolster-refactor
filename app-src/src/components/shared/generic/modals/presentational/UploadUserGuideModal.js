@@ -3,11 +3,10 @@ import ModalOuterContainer from '../containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import FileUploadContainer from '../../form/containers/FileUploadContainer';
 
-const UploadUserGuideModal = ({ fileName, fileS3Key, handleSubmit, handleChange, hideModal }) => {
+const UploadUserGuideModal = ({ fileS3Key, handleSubmit, handleChange, hideModal }) => {
     return (
         <ModalOuterContainer>
             <BlockHeading title="Upload User Guide" />

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import uploadUserGuide from 'actions/superAdmin/userGuides/async/uploadUserGuide';
 import UploadUserGuideModal from '../presentational/UploadUserGuideModal';
-import fetchUserGuide from 'actions/shared/userGuide/async/fetchUserGuide';
+import fetchUserGuide from 'actions/companyAdmin/userGuide/async/fetchUserGuide';
 
 class UploadUserGuideModalContainer extends Component {
     state = {
