@@ -5,10 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
-import {
-    ACCESS_TYPES_VALUES,
-    DEFAULT_SITES_SORT
-} from 'constants/companyAdmin/enums';
+import { ACCESS_TYPES_VALUES, DEFAULT_SITES_SORT } from 'constants/companyAdmin/enums';
 
 import { ADD_SITE, ERROR_MODAL } from 'constants/shared/modalTypes';
 
@@ -21,15 +18,8 @@ class SitesTableContainer extends Component {
         const { isFetching, error } = this.props;
         return (
             <SitesTable
-                headers={[
-                    'Site name',
-                    'Client',
-                    'Created on',
-                    'Owned by',
-                    'Permissions',
-                    'Action'
-                ]}
-                sites={this._getFilteredSites()}
+                headers={['Site name', 'Client', 'Created on', 'Owned by', 'Permissions', 'Action']}
+                items={this._getFilteredSites()}
                 isFetching={isFetching}
                 error={error}
                 handleAddSite={this.handleAddSite}
@@ -45,7 +35,7 @@ class SitesTableContainer extends Component {
             error,
             updatedSiteID,
             history,
-            updateHierarchyAddState
+            updateHierarchyAddState,
         } = this.props;
         if (postSuccess && !prevProps.postSuccess) {
             history.push(`/company/sites/${updatedSiteID}`);
@@ -58,7 +48,7 @@ class SitesTableContainer extends Component {
                 title: 'Error',
                 message:
                     error.message ||
-                    'There was an error processing your request, please try again later.'
+                    'There was an error processing your request, please try again later.',
             });
         }
     };
@@ -68,9 +58,7 @@ class SitesTableContainer extends Component {
         const { status } = filters;
         const name = filters.name.toLowerCase();
 
-        const sitesSearched = sites.filter(site =>
-            site.name.toLowerCase().includes(name)
-        );
+        const sitesSearched = sites.filter(site => site.name.toLowerCase().includes(name));
 
         const sitesSorted = this._getSortedSites(sitesSearched);
 
@@ -79,9 +67,7 @@ class SitesTableContainer extends Component {
         }
 
         if (status === 'read only') {
-            return sitesSorted.filter(
-                site => site.accessType === ACCESS_TYPES_VALUES.READONLY
-            );
+            return sitesSorted.filter(site => site.accessType === ACCESS_TYPES_VALUES.READONLY);
         }
 
         if (status === 'archived') {
@@ -93,15 +79,9 @@ class SitesTableContainer extends Component {
 
     _getSortedSites = sites => {
         const {
-            filters: { sortBy }
+            filters: { sortBy },
         } = this.props;
-        const {
-            CUSTOM,
-            DATE_ASC,
-            DATE_DESC,
-            NAME_ASC,
-            NAME_DESC
-        } = DEFAULT_SITES_SORT;
+        const { CUSTOM, DATE_ASC, DATE_DESC, NAME_ASC, NAME_DESC } = DEFAULT_SITES_SORT;
         const dateKeys = [DATE_DESC, DATE_ASC];
         const nameKeys = [NAME_ASC, NAME_DESC];
         // eslint-disable-next-line
@@ -110,8 +90,8 @@ class SitesTableContainer extends Component {
         const key = nameKeys.includes(+sortBy)
             ? 'name'
             : dateKeys.includes(+sortBy)
-                ? 'createdOn'
-                : 'sort';
+            ? 'createdOn'
+            : 'sort';
         const order = descKeys.includes(+sortBy) ? 'desc' : 'asc';
 
         // default sort order as per api
@@ -119,25 +99,17 @@ class SitesTableContainer extends Component {
 
         if (order === 'desc') {
             if (key === 'createdOn') {
-                return sites.sort(
-                    (a, b) => new Date(b.createdOn) - new Date(a.createdOn)
-                );
+                return sites.sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn));
             } else {
-                return sites.sort((a, b) =>
-                    b[key] > a[key] ? 1 : b[key] < a[key] ? -1 : 0
-                );
+                return sites.sort((a, b) => (b[key] > a[key] ? 1 : b[key] < a[key] ? -1 : 0));
             }
         }
 
         if (order === 'asc') {
             if (key === 'createdOn') {
-                return sites.sort(
-                    (a, b) => new Date(a.createdOn) - new Date(b.createdOn)
-                );
+                return sites.sort((a, b) => new Date(a.createdOn) - new Date(b.createdOn));
             } else {
-                return sites.sort((a, b) =>
-                    a[key] > b[key] ? 1 : a[key] < b[key] ? -1 : 0
-                );
+                return sites.sort((a, b) => (a[key] > b[key] ? 1 : a[key] < b[key] ? -1 : 0));
             }
         }
     };
@@ -149,22 +121,20 @@ class SitesTableContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        sitesReducer: { sites, isFetching, error, postSuccess, updatedSiteID }
+        sitesReducer: { sites, isFetching, error, postSuccess, updatedSiteID },
     },
     shared: {
-        sitesFilterReducer: { filters }
-    }
+        sitesFilterReducer: { filters },
+    },
 }) => ({
     sites: Object.values(sites),
     isFetching,
     error,
     filters,
     postSuccess,
-    updatedSiteID
+    updatedSiteID,
 });
 
 const mapDispatchToProps = { showModal, hideModal, updateHierarchyAddState };
 
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(SitesTableContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SitesTableContainer));
