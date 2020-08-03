@@ -33,19 +33,16 @@ let SingleSiteGeneralOverview = ({ site }) => (
                     <SiteOperativeAddContainer />
                 </div>
                 <div className="flex-item size-lg-4 size-md-12">
-                    <SiteCompaniesAccessTableContainer
-                        accessType={site.accessType}
-                    />
+                    <SiteCompaniesAccessTableContainer accessType={site.accessType} />
                 </div>
             </div>
         )}
     </>
 );
 
-const mapStateToProps = (
-    { companyAdmin: { sitesReducer } },
-    { match: { params } }
-) => ({ site: sitesReducer.sites[params['id']] || {} });
+const mapStateToProps = ({ companyAdmin: { sitesReducer } }, { match: { params } }) => ({
+    site: sitesReducer.sites[params['id']] || {},
+});
 
 SingleSiteGeneralOverview = connect(mapStateToProps)(SingleSiteGeneralOverview);
 SingleSiteGeneralOverview = withRouter(SingleSiteGeneralOverview);
