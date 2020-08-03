@@ -6,13 +6,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 import redPin from '_content/images/map-markers/red-pin2x.png';
 
-const Marker = ({
-    children,
-    companyID,
-    onMouseEnter,
-    onMouseLeave,
-    isHoveredOver
-}) => (
+const Marker = ({ children, companyID, onMouseEnter, onMouseLeave, isHoveredOver }) => (
     <div
         className="google-maps-marker"
         onMouseEnter={() => onMouseEnter(companyID)}
@@ -29,7 +23,7 @@ class ApprovedCompaniesMapContainer extends Component {
     state = {
         center: { lat: 53.4808, lng: -2.244644 },
         zoom: 1,
-        hoveredPin: null
+        hoveredPin: null,
     };
 
     render() {
@@ -43,7 +37,7 @@ class ApprovedCompaniesMapContainer extends Component {
                         defaultZoom={zoom}
                         google={google}
                         bootstrapURLKeys={{
-                            key: 'AIzaSyAPCib6iO1b_MTcuzMmb2wx_CyvgGfqmgo'
+                            key: 'AIzaSyAPCib6iO1b_MTcuzMmb2wx_CyvgGfqmgo',
                         }}
                     >
                         {companies.map(company => (
@@ -52,9 +46,7 @@ class ApprovedCompaniesMapContainer extends Component {
                                 lat={company.location.latY}
                                 lng={company.location.lngX}
                                 companyID={company.id}
-                                isHoveredOver={
-                                    this.state.hoveredPin === company.id
-                                }
+                                isHoveredOver={this.state.hoveredPin === company.id}
                                 onMouseEnter={this.showCompanyDetails}
                                 onMouseLeave={this.hideCompanyDetails}
                             >
@@ -72,23 +64,25 @@ class ApprovedCompaniesMapContainer extends Component {
 
     showCompanyDetails = companyID => {
         this.setState({
-            hoveredPin: companyID
+            hoveredPin: companyID,
         });
     };
 
     hideCompanyDetails = () => {
         this.setState({
-            hoveredPin: null
+            hoveredPin: null,
         });
     };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        approvedCompaniesReducer: { approvedCompanies }
-    }
+        approvedCompaniesReducer: { approvedCompanies },
+    },
 }) => ({
-    companies: approvedCompanies || []
+    companies: (approvedCompanies || []).filter(
+        comp => !!comp.location.latY && !!comp.location.lngX,
+    ),
 });
 
 export default connect(mapStateToProps)(ApprovedCompaniesMapContainer);
