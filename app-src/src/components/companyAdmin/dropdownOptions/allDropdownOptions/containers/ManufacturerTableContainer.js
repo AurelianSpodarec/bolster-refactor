@@ -23,6 +23,7 @@ class ManufacturerTableContainer extends Component {
                 handleAddManufacturerModal={this.handleAddManufacturerModal}
                 type={type}
                 selectedSortValue={selectedSortValue}
+                moveItem={this.moveItem}
             />
         );
     }
@@ -75,19 +76,17 @@ class ManufacturerTableContainer extends Component {
         }
 
         return [...manufacturers].sort((a, b) => {
-            // todo handle null sort?
             return a.sort - b.sort;
         });
     };
 
     moveItem = (overindex, fromIndex) => {
-        const { manufacturers, reorderManufacturers } = this.props;
-
+        const { manufacturers, reorderManufacturers, type } = this.props;
         const items = [...manufacturers].sort((a, b) => a.sort - b.sort);
         const [item] = items.splice(fromIndex, 1);
         items.splice(overindex, 0, item);
         const sorted = items.map((x, i) => ({ ...x, sort: i + 1, manufacturerID: x.ID }));
-        reorderManufacturers(sorted);
+        reorderManufacturers(sorted, type);
     };
 }
 

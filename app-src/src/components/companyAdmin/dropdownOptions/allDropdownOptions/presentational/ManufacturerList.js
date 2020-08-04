@@ -11,10 +11,11 @@ const ManufacturerList = ({
     forwardRef,
     isOver,
     moveItem,
+    type,
 }) => {
     return (
         <tbody ref={isCustomSort ? forwardRef : null} className={isOver ? 'dragging' : ''}>
-            {manufacturers.map(manufacturer => (
+            {manufacturers.map((manufacturer, i) => (
                 <ManufacturerListItemContainer
                     key={manufacturer.id}
                     manufacturer={manufacturer}
@@ -22,6 +23,9 @@ const ManufacturerList = ({
                     headers={headers}
                     isCustomSort={isCustomSort}
                     moveItem={moveItem}
+                    type={type}
+                    index={i}
+                    manufacturers={manufacturers}
                 />
             ))}
         </tbody>

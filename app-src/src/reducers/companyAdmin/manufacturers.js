@@ -107,7 +107,11 @@ function manufacturersReducer(state = {}, action) {
                 ),
             };
         case REORDER_MANUFACTURERS:
-            return { ...state, ...convertArrToObj(action.payload) };
+            return updateObj(
+                state,
+                DROPDOWN_OPTIONS[action.pinOptionType].reduxKey,
+                convertArrToObj(action.payload),
+            );
         default:
             return state;
     }

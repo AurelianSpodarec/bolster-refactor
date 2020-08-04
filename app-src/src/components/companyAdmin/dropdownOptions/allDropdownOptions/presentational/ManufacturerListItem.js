@@ -1,6 +1,7 @@
 import React from 'react';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 
 const ManufacturerListItem = ({
     manufacturer,
@@ -8,9 +9,16 @@ const ManufacturerListItem = ({
     handleToggleEnable,
     onMobile,
     headers,
-    match: { url },
+    url,
+    forwardRef,
+    isDragging,
+    isCustomSort,
 }) => (
-    <tr>
+    <tr
+        ref={isCustomSort ? forwardRef : null}
+        className={isCustomSort ? 'draggable' : ''}
+        style={{ opacity: isDragging ? 0 : 1 }}
+    >
         <td>
             {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
             {manufacturer.name}
@@ -54,4 +62,4 @@ const ManufacturerListItem = ({
     </tr>
 );
 
-export default withRouter(ManufacturerListItem);
+export default withDrag(ManufacturerListItem, 'MANUFACTURERS');

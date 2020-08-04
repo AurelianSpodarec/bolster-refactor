@@ -14,6 +14,7 @@ const ManufacturerTable = ({
     error,
     selectedSortValue,
     moveItem,
+    type,
 }) => {
     return (
         <BlockContainer>
@@ -43,6 +44,7 @@ const ManufacturerTable = ({
                             headers={headers}
                             isCustomSort={+selectedSortValue === DEFAULT_PIN_OPTIONS_SORT.CUSTOM}
                             moveItem={moveItem}
+                            type={type}
                         />
                     </Table>
                 </div>
