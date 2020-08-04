@@ -25,6 +25,7 @@ const EditSettingsForm = ({
     town,
     county,
     postcode,
+    country,
     vatCode,
     vatType,
     vatOptions,
@@ -99,6 +100,15 @@ const EditSettingsForm = ({
                 <TextInputContainer
                     value={postcode}
                     name="postcode"
+                    type="text"
+                    handleChange={handleInputChange}
+                    required
+                />
+            </Field>
+            <Field name="Country" sizeClasses="size-lg-6 size-md-12" required>
+                <TextInputContainer
+                    value={country}
+                    name="country"
                     type="text"
                     handleChange={handleInputChange}
                     required
