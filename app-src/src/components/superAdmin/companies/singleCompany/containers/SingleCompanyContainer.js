@@ -17,13 +17,6 @@ class SingleCompanyContainer extends Component {
         const { companyID, fetchPageData } = this.props;
         fetchPageData(companyID);
     };
-
-    componentDidUpdate = prevProps => {
-        const { postSuccess, companyID, fetchPageData } = this.props;
-        if (!prevProps.postSuccess && postSuccess) {
-            fetchPageData(companyID);
-        }
-    };
 }
 
 const mapStateToProps = (

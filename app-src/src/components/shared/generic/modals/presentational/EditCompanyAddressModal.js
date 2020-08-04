@@ -14,11 +14,6 @@ const EditCompanyAddressModal = ({
     handleChange,
     handleSubmit,
 }) => {
-    console.log({ country });
-    console.log({ country });
-    console.log({ country });
-    console.log({ country });
-    console.log({ country });
     return (
         <ModalOuterContainer>
             <BlockHeading title={`Edit ${name}'s address`} />

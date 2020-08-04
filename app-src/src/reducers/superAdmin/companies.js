@@ -104,6 +104,7 @@ function companiesReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case FETCH_SINGLE_COMPANY_SUCCESS:
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_SUCCESS:
+        case ADMIN_EDIT_COMPANY_ADDRESS_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:
             return state;

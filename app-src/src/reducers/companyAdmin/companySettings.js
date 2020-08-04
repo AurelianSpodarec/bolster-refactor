@@ -6,15 +6,14 @@ import {
     FETCH_COMPANY_SETTINGS_FAILURE,
     EDIT_COMPANY_SETTINGS_REQUEST,
     EDIT_COMPANY_SETTINGS_SUCCESS,
-    EDIT_COMPANY_SETTINGS_FAILURE
+    EDIT_COMPANY_SETTINGS_FAILURE,
 } from 'constants/actionTypes/companySettings';
-import { updateObj } from 'helpers/generic';
 
 export default combineReducers({
     companySettings: companySettingsReducer,
     isFetching: isFetchingReducer,
     error: errorReducer,
-    postSuccess: postSuccessReducer
+    postSuccess: postSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -56,9 +55,8 @@ function postSuccessReducer(state = false, action) {
 function companySettingsReducer(state = { colorCode: 'white' }, action) {
     switch (action.type) {
         case FETCH_COMPANY_SETTINGS_SUCCESS:
-            return action.payload;
         case EDIT_COMPANY_SETTINGS_SUCCESS:
-            return updateObj(state, 'companySettings', action.payload);
+            return action.payload;
         default:
             return state;
     }
