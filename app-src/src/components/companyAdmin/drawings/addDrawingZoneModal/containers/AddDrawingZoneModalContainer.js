@@ -10,10 +10,11 @@ const AddDrawingsZoneModalContainer = ({
     coordinates,
     drawingID,
     createDrawingZone,
-    handleCreateZoneFinish
+    handleCreateZoneFinish,
 }) => {
     const [name, updateName] = useState('');
     const [colorHex, updateColorHex] = useState('#ff0000');
+
     return (
         <AddDrawingZoneModal
             name={name}
@@ -37,7 +38,7 @@ const AddDrawingsZoneModalContainer = ({
         const postBody = {
             name,
             colorHex,
-            coordinates: JSON.stringify(coordinates)
+            coordinates: JSON.stringify(coordinates),
         };
         createDrawingZone(drawingID, postBody).then(_handleSubmitEnd);
     }
@@ -48,8 +49,8 @@ const AddDrawingsZoneModalContainer = ({
     }
 };
 
-const mapStateToProps = state => ({
-    coordinates: state.companyAdmin.zonesReducer.zoneFormCoordinates
+const mapStateToProps = (state) => ({
+    coordinates: state.companyAdmin.zonesReducer.zoneFormCoordinates,
 });
 const mapDispatchToProps = { createDrawingZone };
 

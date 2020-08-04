@@ -5,7 +5,7 @@ import ModalOuterContainer from 'components/shared/generic/modals/containers/Mod
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import { HuePicker } from 'react-color';
+import { ChromePicker } from 'react-color';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const AddDrawingsZoneModal = ({
@@ -14,7 +14,7 @@ const AddDrawingsZoneModal = ({
     colorHex,
     handleColorChange,
     handleSubmit,
-    hideModal
+    hideModal,
 }) => {
     return (
         <ModalOuterContainer>
@@ -30,9 +30,10 @@ const AddDrawingsZoneModal = ({
                 </Field>
                 <Field name="Change Colour Scheme" required>
                     <div className="size-lg-12">
-                        <HuePicker
+                        <ChromePicker
                             color={colorHex}
                             onChangeComplete={handleColorChange}
+                            disableAlpha
                         />
                     </div>
                 </Field>
