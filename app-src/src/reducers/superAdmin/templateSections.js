@@ -1,18 +1,19 @@
 import { combineReducers } from 'redux';
 
-import { updateObj, removeObjItem, convertArrToObj, swapItemSorts } from 'helpers/generic';
+import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import {
     SET_SECTION,
     DELETE_SECTION,
     POST_TEMPLATE_SUCCESS,
     FETCH_TEMPLATE_SUCCESS,
     FETCH_TEMPLATE_FOR_COMPANY_SUCCESS,
-    SWAP_SECTION_SORTS,
     SET_SECTIONS,
+    SET_IS_SORTING_SECTIONS,
 } from 'constants/actionTypes/templateBuilder';
 
 export default combineReducers({
     sections: sectionsReducer,
+    isSorting: isSortingSectionsReducer,
 });
 
 function sectionsReducer(state = {}, action) {
@@ -24,8 +25,6 @@ function sectionsReducer(state = {}, action) {
             return updateObj(state, action.section.uuid, action.section);
         case DELETE_SECTION:
             return removeObjItem(state, action.uuid);
-        case SWAP_SECTION_SORTS:
-            return swapItemSorts(state, action.section1Uuid, action.section2Uuid);
         case SET_SECTIONS:
             return action.sections;
         case POST_TEMPLATE_SUCCESS: {
@@ -37,6 +36,15 @@ function sectionsReducer(state = {}, action) {
                 ...convertArrToObj(action.sections, 'uuid'),
             };
         }
+        default:
+            return state;
+    }
+}
+
+function isSortingSectionsReducer(state = false, action) {
+    switch (action.type) {
+        case SET_IS_SORTING_SECTIONS:
+            return action.payload;
         default:
             return state;
     }

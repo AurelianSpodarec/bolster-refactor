@@ -25,8 +25,7 @@ export default function (WrappedComponent, type = 'CARD') {
             const { index: dragIndex } = monitor.getItem();
             const { index: overIndex } = props;
             if (dragIndex === overIndex) return;
-
-            props.onMove(dragIndex, overIndex);
+            props.onMove(overIndex, dragIndex);
             monitor.getItem().index = overIndex;
         },
     };

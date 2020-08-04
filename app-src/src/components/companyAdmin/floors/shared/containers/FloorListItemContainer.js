@@ -19,7 +19,7 @@ const FloorListItemContainer = ({
     postFloorsSort,
     reorderFloor,
     headers,
-    onMobile
+    onMobile,
 }) => {
     const isExpanded = expandedFloorIds.includes(floor.id);
     return (
@@ -32,30 +32,35 @@ const FloorListItemContainer = ({
             toggleExpanded={() => toggleFloorExpanded(floor.id)}
             permissions={formatPermissions(permissions, accessType)}
             onDrop={() => postFloorsSort(floors)}
-            onMove={reorderFloor}
+            onMove={moveItem}
             headers={headers}
             onMobile={onMobile}
         />
     );
+
+    function moveItem(overindex, fromIndex) {
+        const items = [...floors];
+        const [item] = items.splice(fromIndex, 1);
+        items.splice(overindex, 0, item);
+        const sorted = items.map((x, i) => ({ ...x, sort: i + 1 }));
+        reorderFloor(sorted);
+    }
 };
 
 const mapStateToProps = ({
     shared: {
         tablesReducer: { expandedFloorIds },
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => ({
     expandedFloorIds,
-    onMobile
+    onMobile,
 });
 
 const mapDispatchToProps = {
     postFloorsSort,
     reorderFloor,
-    toggleFloorExpanded
+    toggleFloorExpanded,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(FloorListItemContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(FloorListItemContainer);

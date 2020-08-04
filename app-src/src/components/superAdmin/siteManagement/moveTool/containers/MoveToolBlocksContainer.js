@@ -18,22 +18,22 @@ import selectOption from 'actions/superAdmin/moveTool/sync/selectOption';
 class MoveToolBlocksContainer extends Component {
     state = {
         moveFromCompany: null,
-        moveToCompany: null
+        moveToCompany: null,
     };
 
     hierarchyOptions = {
         2: {
             id: 2,
-            name: 'Buildings'
+            name: 'Buildings',
         },
         3: {
             id: 3,
-            name: 'Floors'
+            name: 'Floors',
         },
         4: {
             id: 4,
-            name: 'Drawings'
-        }
+            name: 'Drawings',
+        },
     };
 
     render() {
@@ -71,19 +71,18 @@ class MoveToolBlocksContainer extends Component {
             postSuccess,
             postError,
             showModal,
-            hideModal
+            hideModal,
         } = this.props;
 
         if (prevState.moveFromCompany !== moveFromCompany)
             fetchHierarchiesForCompany(moveFromCompany);
 
-        if (prevState.moveToCompany !== moveToCompany)
-            fetchHierarchiesForCompany(moveToCompany);
+        if (prevState.moveToCompany !== moveToCompany) fetchHierarchiesForCompany(moveToCompany);
 
         if (prevProps.isPosting && !isPosting && postSuccess) {
             hideModal();
             showModal(SUCCESS_MODAL, {
-                message: 'The move was successful!'
+                message: 'The move was successful!',
             });
             fetchHierarchiesForCompany(moveFromCompany);
             fetchHierarchiesForCompany(moveToCompany);
@@ -94,7 +93,7 @@ class MoveToolBlocksContainer extends Component {
             hideModal();
             showModal(ERROR_MODAL, {
                 title: 'Error',
-                message: postError
+                message: postError,
             });
         }
     };
@@ -102,31 +101,33 @@ class MoveToolBlocksContainer extends Component {
     _getCompaniesList = () => {
         const { companies } = this.props;
 
-        return Object.values(companies).map(({ id, name }) => ({
-            id,
-            value: id,
-            label: name,
-            text: name
-        }));
+        return Object.values(companies)
+            .filter(({ companyType }) => companyType === 0 || companyType === 1)
+            .map(({ id, name }) => ({
+                id,
+                value: id,
+                label: name,
+                text: name,
+            }));
     };
 
     _getHierarchyOptions = () => {
         return Object.values(this.hierarchyOptions).map(({ id, name }) => ({
             value: id,
             label: name,
-            text: name
+            text: name,
         }));
     };
 
     handleChange = (name, value) => {
         this.setState({
-            [name]: value
+            [name]: value,
         });
     };
 
     handleCompanyOneChange = (name, value) => {
         this.setState({
-            [name]: value
+            [name]: value,
         });
 
         this.props.selectOption(null);
@@ -141,13 +142,8 @@ class MoveToolBlocksContainer extends Component {
 const mapStateToProps = ({
     superAdmin: {
         companiesReducer: { companies, isFetching, error },
-        moveToolReducer: {
-            selectedHierarchy,
-            isPosting,
-            postSuccess,
-            error: postError
-        }
-    }
+        moveToolReducer: { selectedHierarchy, isPosting, postSuccess, error: postError },
+    },
 }) => ({
     companies,
     isFetching,
@@ -155,7 +151,7 @@ const mapStateToProps = ({
     selectedHierarchy,
     isPosting,
     postSuccess,
-    postError
+    postError,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -177,10 +173,7 @@ const mapDispatchToProps = dispatch => ({
     },
     selectOption: value => {
         dispatch(selectOption(value));
-    }
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(MoveToolBlocksContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MoveToolBlocksContainer);

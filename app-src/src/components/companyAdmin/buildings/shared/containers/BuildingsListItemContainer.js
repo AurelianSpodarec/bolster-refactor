@@ -20,40 +20,47 @@ const BuildingsListItemContainer = ({
     buildings,
     index,
     headers,
-    onMobile
-}) => (
-    <BuildingsListItem
-        index={index}
-        id={building.id}
-        building={building}
-        isExpanded={expandedBuildingIds.includes(building.id)}
-        colCount={colCount}
-        toggleExpanded={() => toggleBuildingExpanded(building.id)}
-        permissions={formatPermissions(permissions, accessType)}
-        onMove={reorderBuilding}
-        onDrop={() => postBuildingsSort(buildings)}
-        onMobile={onMobile}
-        headers={headers}
-    />
-);
+    onMobile,
+}) => {
+    return (
+        <BuildingsListItem
+            index={index}
+            id={building.id}
+            building={building}
+            isExpanded={expandedBuildingIds.includes(building.id)}
+            colCount={colCount}
+            toggleExpanded={() => toggleBuildingExpanded(building.id)}
+            permissions={formatPermissions(permissions, accessType)}
+            onMove={moveItem}
+            onDrop={() => postBuildingsSort(buildings)}
+            onMobile={onMobile}
+            headers={headers}
+        />
+    );
+
+    function moveItem(overindex, fromIndex) {
+        const items = [...buildings];
+        const [item] = items.splice(fromIndex, 1);
+        items.splice(overindex, 0, item);
+        const sorted = items.map((x, i) => ({ ...x, sort: i + 1 }));
+        reorderBuilding(sorted);
+    }
+};
 
 const mapStateToProps = ({
     shared: {
         tablesReducer: { expandedBuildingIds },
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => ({
     onMobile,
-    expandedBuildingIds
+    expandedBuildingIds,
 });
 
 const mapDispatchToProps = {
     reorderBuilding,
     postBuildingsSort,
-    toggleBuildingExpanded
+    toggleBuildingExpanded,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(BuildingsListItemContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(BuildingsListItemContainer);

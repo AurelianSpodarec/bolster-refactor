@@ -11,6 +11,7 @@ import { usePrevious } from 'helpers/hooks';
 import GenerateQRCodesModal from '../presentational/GenerateQRCodesModal';
 import { isEmpty } from 'helpers/generic';
 import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
+import { max } from 'lodash';
 
 const GenerateQRCodesModalContainer = ({
     showModal,
@@ -22,14 +23,26 @@ const GenerateQRCodesModalContainer = ({
     generateQRCodes,
     isGeneratingQRCodes,
     generateSuccess,
-    generateError
+    generateError,
 }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [isGenerating, setIsGenerating] = useState(false);
 
     const [form, handleChange] = useState({
-        numberOfCodes: '',
+        numberOfCodes: 250,
     });
+
+    const minQRCodes = 250;
+    const maxQRCodes = 10000;
+    const qrCodeStep = 250;
+    const numberOfCodeOptions = [];
+    for (let i = minQRCodes; i <= maxQRCodes; i += qrCodeStep) {
+        numberOfCodeOptions.push(i);
+    }
+    const formattedNumberOfCodeOptions = numberOfCodeOptions.map(num => ({
+        value: num,
+        label: num,
+    }));
 
     const prevProps = usePrevious({ isFetching, isGeneratingQRCodes });
 
@@ -45,7 +58,8 @@ const GenerateQRCodesModalContainer = ({
         if (prevProps.isGeneratingQRCodes && !isGeneratingQRCodes && generateSuccess) {
             showModal(SUCCESS_MODAL, {
                 title: 'Successfully generated',
-                message: 'Successfully generated the QR code(s). The CSV containing the code(s) will now download.'
+                message:
+                    'Successfully generated the QR code(s). The CSV containing the code(s) will now download.',
             });
         }
 
@@ -53,20 +67,23 @@ const GenerateQRCodesModalContainer = ({
             setIsGenerating(false);
             showModal(ERROR_MODAL, {
                 title: 'Error generating',
-                message: 'There was an error generating your QR code(s). Please try again.'
+                message: 'There was an error generating your QR code(s). Please try again.',
             });
         }
     }, [isFetching, isGeneratingQRCodes]);
 
-    return <GenerateQRCodesModal
-        hideModal={hideModal}
-        isLoading={isLoading}
-        isGenerating={isGenerating}
-        qrCodeCount={qrCodeCount + ''}
-        form={form}
-        handleFormChange={handleFormChange}
-        handleSubmit={handleSubmit}
-    />;
+    return (
+        <GenerateQRCodesModal
+            hideModal={hideModal}
+            isLoading={isLoading}
+            isGenerating={isGenerating}
+            qrCodeCount={qrCodeCount}
+            options={formattedNumberOfCodeOptions}
+            form={form}
+            handleFormChange={handleFormChange}
+            handleSubmit={handleSubmit}
+        />
+    );
 
     function handleFormChange(name, value) {
         handleChange({
@@ -86,7 +103,8 @@ const GenerateQRCodesModalContainer = ({
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: { companySettings, isFetching },
-        qrCodesReducer: { isGenerating, generateSuccess, generateError } }
+        qrCodesReducer: { isGenerating, generateSuccess, generateError },
+    },
 }) => ({
     qrCodeCount: companySettings.qrCodeCount,
     company: companySettings,
@@ -104,10 +122,7 @@ const mapDispatchToProps = dispatch => ({
     },
     generateQRCodes: numberOfCodes => {
         dispatch(generateQRCodes(numberOfCodes));
-    }
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(GenerateQRCodesModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(GenerateQRCodesModalContainer);

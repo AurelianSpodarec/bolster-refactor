@@ -12,14 +12,23 @@ import {
     ERROR_MODAL,
     SUCCESS_MODAL,
     CONFIRM_ARCHIVE,
-    EDIT_FLOOR
+    EDIT_FLOOR,
 } from 'constants/shared/modalTypes';
 import archiveFloor from 'actions/companyAdmin/floors/async/archiveFloor';
 
 class FloorDetailsContainer extends Component {
+    state = {
+        serviceID: null,
+    };
     render() {
-        const { floor, stats, error, isFetching, onMobile } = this.props;
+        const { floor, stats, error, isFetching, onMobile, services, serviceIDs } = this.props;
 
+        const { serviceID } = this.state;
+        const filteredServices = services.filter(service => serviceIDs.includes(service.id));
+        const servicesForDropdown = filteredServices.map(service => ({
+            value: service.id,
+            text: service.name,
+        }));
         return (
             <BlockContainer
                 error={error}
@@ -33,6 +42,9 @@ class FloorDetailsContainer extends Component {
                     handleArchive={this.handleArchiveModal}
                     handleEditFloorModal={this.handleEditFloorModal}
                     onMobile={onMobile}
+                    handleChange={this.handleChange}
+                    serviceOptions={servicesForDropdown}
+                    serviceID={serviceID}
                 />
             </BlockContainer>
         );
@@ -47,7 +59,7 @@ class FloorDetailsContainer extends Component {
             history,
             showModal,
             hideModal,
-            floor
+            floor,
         } = this.props;
         if (deleteSuccess && !prevProps.deleteSuccess) {
             hideModal();
@@ -57,7 +69,7 @@ class FloorDetailsContainer extends Component {
         if (postSuccess && !prevProps.postSuccess && !deleteSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
-                message: 'Floor edited successfully.'
+                message: 'Floor edited successfully.',
             });
         }
 
@@ -67,7 +79,7 @@ class FloorDetailsContainer extends Component {
                 title: 'Error',
                 message:
                     error.message ||
-                    '##There was an error processing your request, please try again later.##'
+                    '##There was an error processing your request, please try again later.##',
             });
         }
     };
@@ -90,16 +102,17 @@ class FloorDetailsContainer extends Component {
             archiveFloor(id, floor.isArchived);
             hideModal();
         };
-        const message = `Are you sure you want to ${
-            floor.isArchived ? 'un-' : ''
-        }archive ${floor.name}?`;
+        const message = `Are you sure you want to ${floor.isArchived ? 'un-' : ''}archive ${
+            floor.name
+        }?`;
         showModal(CONFIRM_ARCHIVE, {
             hideModal,
             handleArchive,
             message,
-            archive: !floor.isArchived
+            archive: !floor.isArchived,
         });
     };
+    handleChange = (name, value) => this.setState({ [name]: value });
 }
 
 const mapStateToProps = (
@@ -111,15 +124,19 @@ const mapStateToProps = (
                 error,
                 postError,
                 deleteSuccess,
-                postSuccess
+                postSuccess,
             },
-            statsReducer: { stats, isFetching: fetchingStats }
+            statsReducer: { stats, isFetching: fetchingStats },
+            subscriptionsReducer: {
+                subscriptions: { serviceIDs },
+            },
+            servicesReducer: { services },
         },
         shared: {
-            mobileReducer: { onMobile }
-        }
+            mobileReducer: { onMobile },
+        },
     },
-    { match }
+    { match },
 ) => ({
     floor: floors[match.params.id] || {},
     isFetching: fetchingFloors || fetchingStats,
@@ -129,19 +146,16 @@ const mapStateToProps = (
     deleteSuccess,
     postSuccess,
     onMobile,
-    id: match.params.id
+    id: match.params.id,
+    serviceIDs,
+    services: Object.values(services),
 });
 
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => dispatch(showModal(type, props)),
     hideModal: () => dispatch(hideModal()),
     deleteFloor: id => dispatch(deleteFloor(id)),
-    archiveFloor: (id, undo) => dispatch(archiveFloor(id, undo))
+    archiveFloor: (id, undo) => dispatch(archiveFloor(id, undo)),
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(FloorDetailsContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FloorDetailsContainer));

@@ -10,7 +10,10 @@ const BuildingStats = ({
     handleDelete,
     handleArchive,
     handleEditBuildingModal,
-    onMobile
+    onMobile,
+    handleChange,
+    serviceID,
+    serviceOptions,
 }) => (
     <div className="stats size-lg-12">
         <div className="flex-item size-lg-12">
@@ -20,10 +23,14 @@ const BuildingStats = ({
                 hierarchyType="building"
                 onMobile={onMobile}
                 sizeClasses="size-lg-6 size-md-12"
+                isFiltered={!!serviceID}
+                handleChange={handleChange}
+                serviceOptions={serviceOptions}
+                serviceID={serviceID}
             />
         </div>
 
-        <div className="button-container">
+        <div className="button-container relative-position">
             {building.accessType === ACCESS_TYPES_VALUES.OWNER && (
                 <>
                     <button className="button red" type="button" onClick={handleDelete}>

@@ -23,7 +23,7 @@ import {
     CREATE_TRANSFER_SITE_REQUEST,
     CREATE_TRANSFER_SITE_SUCCESS,
     CREATE_TRANSFER_SITE_FAILURE,
-    REORDER_SITE
+    REORDER_SITE,
 } from 'constants/actionTypes/sites';
 import { CREATE_BUILDING_SUCCESS } from 'constants/actionTypes/buildings';
 
@@ -34,7 +34,7 @@ export default combineReducers({
     postSuccess: postSuccessReducer,
     postFailure: postFailureReducer,
     deleteSuccess: deleteSuccessReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -148,19 +148,13 @@ function sitesReducer(state = {}, action) {
         case CREATE_BUILDING_SUCCESS:
             return updateObj(state, [action.payload.siteID], {
                 ...state[action.payload.siteID],
-                buildingIDs: [
-                    ...state[action.payload.siteID].buildingIDs,
-                    action.payload.id
-                ]
+                buildingIDs: [...state[action.payload.siteID].buildingIDs, action.payload.id],
             });
-        case REORDER_SITE: {
-            const sorted = moveItem(
-                Object.values(state),
-                action.id,
-                action.hoverIndex
-            );
-            return convertArrToObj(sorted);
-        }
+        case REORDER_SITE:
+            return {
+                ...state,
+                ...convertArrToObj(action.payload),
+            };
 
         default:
             return state;

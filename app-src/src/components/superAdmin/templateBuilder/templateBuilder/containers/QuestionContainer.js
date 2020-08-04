@@ -22,12 +22,10 @@ class QuestionContainer extends Component {
             connectDragSource,
             connectDropTarget,
             showEditQuesModel,
-            deleteQuestion
+            deleteQuestion,
         } = this.props;
         const { uuid } = question;
-        const isPrereq = questions.some(
-            item => item.prereqUUID === question.uuid
-        );
+        const isPrereq = questions.some(item => item.prereqUUID === question.uuid);
 
         return connectDragSource(
             connectDropTarget(
@@ -42,24 +40,38 @@ class QuestionContainer extends Component {
                         handleDuplicateQuestion={() => this.handleDuplicateQuestion(question)}
                         deleteQuestion={() => deleteQuestion(uuid)}
                     />
-                </div>
-            )
+                </div>,
+            ),
         );
     }
 
     handleDuplicateQuestion = questionToCopy => {
-        const { setQuestion } = this.props;
+        const { questions, setQuestion } = this.props;
 
         const newUuid = uuid();
+
+        const questionsToUpdate = questions.filter(
+            question =>
+                question.sectionUUID === questionToCopy.sectionUUID &&
+                question.sort > questionToCopy.sort,
+        );
 
         const newQuestion = {
             ...questionToCopy,
             name: questionToCopy.name + ' - (Copy)',
-            uuid: newUuid
+            uuid: newUuid,
+            sort: questionToCopy.sort + 1,
         };
 
+        questionsToUpdate.map(question => {
+            setQuestion({
+                ...question,
+                sort: question.sort + 1,
+            });
+        });
+
         setQuestion(newQuestion);
-    }
+    };
 }
 
 const questionSource = {
@@ -67,9 +79,9 @@ const questionSource = {
         return {
             index: props.index,
             sectionUUID: props.sectionUUID,
-            question: props.question
+            question: props.question,
         };
-    }
+    },
 };
 
 const questionTarget = {
@@ -87,8 +99,7 @@ const questionTarget = {
         const hoverBoundingRect = component.question.getBoundingClientRect();
 
         // Get vertical middle
-        const hoverMiddleY =
-            (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+        const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
         // Determine mouse position
         const clientOffset = monitor.getClientOffset();
@@ -120,33 +131,33 @@ const questionTarget = {
             // to avoid expensive index searches.
             monitor.getItem().index = hoverIndex;
         }
-    }
+    },
 };
 
 const WithDragAndDrop = flow(
     DropTarget(DRAG_TYPES.QUESTION, questionTarget, connect => ({
-        connectDropTarget: connect.dropTarget()
+        connectDropTarget: connect.dropTarget(),
     })),
     DragSource(DRAG_TYPES.QUESTION, questionSource, (connect, monitor) => ({
         connectDragSource: connect.dragSource(),
-        isDragging: monitor.isDragging()
-    }))
+        isDragging: monitor.isDragging(),
+    })),
 )(QuestionContainer);
 
 const mapStateToProps = ({ superAdmin: { templateQuestionsReducer } }) => ({
-    questions: Object.values(templateQuestionsReducer.questions)
+    questions: Object.values(templateQuestionsReducer.questions),
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     showEditQuesModel: question => {
         const {
-            match: { params }
+            match: { params },
         } = ownProps;
         dispatch(
             showModal(EDIT_TEMPLATE_QUESTION, {
                 question,
-                templateUUID: params.uuid
-            })
+                templateUUID: params.uuid,
+            }),
         );
     },
     deleteQuestion: uuid => {
@@ -154,12 +165,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     },
     setQuestion: question => {
         dispatch(setQuestion(question));
-    }
+    },
 });
 
-const WithConnect = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(WithDragAndDrop);
+const WithConnect = connect(mapStateToProps, mapDispatchToProps)(WithDragAndDrop);
 
 export default withRouter(WithConnect);

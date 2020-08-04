@@ -253,16 +253,6 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                     </Block>
 
                     <Block>
-                        <BlockHeading title="Bolster Client List" />
-                        <FieldOutput
-                            title="Hidden on client list?"
-                            description={company.hideOnClientList ? 'Yes' : 'No'}
-                            fieldClass="no-h-padding"
-                            sizeClass="size-lg-12"
-                        />
-                    </Block>
-
-                    <Block>
                         <BlockHeading title="Template Settings" />
                         <FieldOutput
                             title="Default Template Usage Rule"

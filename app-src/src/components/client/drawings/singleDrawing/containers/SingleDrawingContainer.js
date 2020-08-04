@@ -6,7 +6,6 @@ import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
 
 import fetchSingleClientDrawing from 'actions/client/drawings/async/clientFetchSingleDrawing';
 import fetchClientPins from 'actions/client/pins/async/clientFetchPins';
-import clientFetchDocuments from 'actions/client/documents/async/clientFetchDocuments';
 
 import SingleDrawing from '../presentational/SingleDrawing';
 import { getSelectedCompanyForClient } from 'helpers/generic';
@@ -31,7 +30,6 @@ const mapDispatchToProps = dispatch => ({
     fetchDrawingData: (companyID, drawingID) => {
         dispatch(fetchSingleClientDrawing(companyID, drawingID));
         dispatch(fetchClientPins(companyID, drawingID));
-        dispatch(clientFetchDocuments(companyID, 'drawing', drawingID));
         dispatch(fetchClientPinStatsForLevel(companyID, 4, drawingID));
         dispatch(fetchCompanyUsers());
         dispatch(clientFetchServicesForDrawing(drawingID));
