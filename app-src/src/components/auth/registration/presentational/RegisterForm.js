@@ -29,6 +29,7 @@ const RegisterForm = ({
     'Company.town': town,
     'Company.county': county,
     'Company.postcode': postcode,
+    'Company.country': country,
     'Company.phoneNumber': companyPhoneNumber,
     'Company.fax': fax,
     'Company.vatCode': vatCode,
@@ -156,6 +157,15 @@ const RegisterForm = ({
                     value={postcode}
                     name="Company.postcode"
                     placeholder="Postcode"
+                    handleChange={handleChange}
+                    required
+                />
+            </Field>
+            <Field name="Country" sizeClasses="size-lg-4 size-md-12" required>
+                <TextInputContainer
+                    value={country}
+                    name="Company.country"
+                    placeholder="Country"
                     handleChange={handleChange}
                     required
                 />
