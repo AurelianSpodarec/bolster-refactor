@@ -8,6 +8,9 @@ import {
     SA_TOGGLE_COMPANY_ON_CLIENT_LIST_REQUEST,
     SA_TOGGLE_COMPANY_ON_CLIENT_LIST_SUCCESS,
     SA_TOGGLE_COMPANY_ON_CLIENT_LIST_FAILURE,
+    ADMIN_EDIT_COMPANY_ADDRESS_REQUEST,
+    ADMIN_EDIT_COMPANY_ADDRESS_SUCCESS,
+    ADMIN_EDIT_COMPANY_ADDRESS_FAILURE,
 } from 'constants/actionTypes/companies';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
@@ -21,6 +24,7 @@ export default combineReducers({
     companies: companiesReducer,
     isFetching: isFetchingReducer,
     isPosting: isPostingReducer,
+    postSuccess: postSuccessReducer,
     error: errorReducer,
     filters: filtersReducer,
 });
@@ -39,13 +43,26 @@ function isFetchingReducer(state = false, action) {
             return state;
     }
 }
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case ADMIN_EDIT_COMPANY_ADDRESS_REQUEST:
+            return false;
+        case ADMIN_EDIT_COMPANY_ADDRESS_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
 
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_REQUEST:
+        case ADMIN_EDIT_COMPANY_ADDRESS_REQUEST:
             return true;
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_SUCCESS:
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_FAILURE:
+        case ADMIN_EDIT_COMPANY_ADDRESS_SUCCESS:
+        case ADMIN_EDIT_COMPANY_ADDRESS_FAILURE:
             return false;
         default:
             return state;
@@ -69,10 +86,12 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_COMPANIES_REQUEST:
         case FETCH_SINGLE_COMPANY_REQUEST:
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_REQUEST:
+        case ADMIN_EDIT_COMPANY_ADDRESS_REQUEST:
             return null;
         case FETCH_ALL_COMPANIES_FAILURE:
         case FETCH_SINGLE_COMPANY_FAILURE:
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_FAILURE:
+        case ADMIN_EDIT_COMPANY_ADDRESS_FAILURE:
             return action.error;
         default:
             return state;
