@@ -23,12 +23,16 @@ class DrawingMapViewZones extends Component {
 
         this.leafletGeoJSON.eachLayer(layer => {
             const layerColor = layer.feature.color;
+            const layerName = layer.feature.name;
 
             layer.setStyle({
                 fillColor: layerColor,
                 color: layerColor,
                 fillOpacity: zonesOpacity
             });
+
+            layer.bindTooltip(layerName).openTooltip();
+
             leafletFG.addLayer(layer);
         });
     }
@@ -59,7 +63,8 @@ class DrawingMapViewZones extends Component {
                         type: 'Polygon',
                         coordinates: [zone.coordinates]
                     },
-                    color: zone.colorHex
+                    color: zone.colorHex,
+                    name: zone.name,
                 };
             })
         };
