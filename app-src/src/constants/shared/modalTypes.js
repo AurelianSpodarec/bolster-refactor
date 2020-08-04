@@ -2,6 +2,7 @@
 export const EDIT_DRAWING = 'EDIT_DRAWING';
 export const VIEW_ZONES = 'VIEW_ZONES';
 export const ADD_DRAWING_ZONE = 'ADD_DRAWING_ZONE';
+export const ZONE_DETAILS = 'ZONE_DETAILS';
 
 //generic
 export const SUCCESS_MODAL = 'SUCCESS_MODAL';

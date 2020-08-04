@@ -76,7 +76,8 @@ import {
     ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION,
     GENERATE_QR_CODES,
     VIEW_ZONES,
-    ADD_DRAWING_ZONE
+    ADD_DRAWING_ZONE,
+    ZONE_DETAILS,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -156,6 +157,7 @@ import AddCompanyAdminModalContainer from 'components/superAdmin/companies/singl
 import GenerateQRCodesModalContainer from './GenerateQRCodesModalContainer';
 import ViewZonesModalContainer from 'components/companyAdmin/drawings/singleDrawing/containers/ViewZonesModalContainer';
 import AddDrawingZoneModalContainer from 'components/companyAdmin/drawings/addDrawingZoneModal/containers/AddDrawingZoneModalContainer';
+import ZoneDetailsModalContainer from 'components/companyAdmin/drawings/singleDrawing/containers/ZoneDetailsModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -232,7 +234,8 @@ const MODAL_COMPONENTS = {
     [ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION]: AddMulitpleServicesToSubscriptionModalContainer,
     [GENERATE_QR_CODES]: GenerateQRCodesModalContainer,
     [VIEW_ZONES]: ViewZonesModalContainer,
-    [ADD_DRAWING_ZONE]: AddDrawingZoneModalContainer
+    [ADD_DRAWING_ZONE]: AddDrawingZoneModalContainer,
+    [ZONE_DETAILS]: ZoneDetailsModalContainer,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

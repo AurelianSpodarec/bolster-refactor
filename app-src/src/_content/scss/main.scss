@@ -2873,6 +2873,14 @@ input {
         width: 80px;
         height: 20px;
     }
+
+    .button {
+        margin-right: 5px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
 }
 
 .pin-tooltip {
@@ -3166,9 +3174,12 @@ input {
         top: 50%;
         left: 50%;
         width: 750px;
+        max-width: 95%;
         overflow: auto;
 
         &.zone-modal {
+            width: 1200px;
+
             .content-area {
                 min-height: 350px;
             }

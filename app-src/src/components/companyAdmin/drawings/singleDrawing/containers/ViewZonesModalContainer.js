@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import setZoneAddMode from 'actions/companyAdmin/zones/sync/setZoneAddMode';
 
 import ViewZonesModal from '../presentational/ViewZonesModal';
+import { ZONE_DETAILS } from 'constants/shared/modalTypes';
 
-const ViewZonesModalContainer = ({ hideModal, setZoneAddMode, zones }) => {
+const ViewZonesModalContainer = ({ hideModal, showModal, setZoneAddMode, zones }) => {
     const [selectedQR, selectQR] = useState(null);
 
     return (
@@ -16,8 +18,13 @@ const ViewZonesModalContainer = ({ hideModal, setZoneAddMode, zones }) => {
             zonesArr={Object.values(zones)}
             selectedQR={selectedQR}
             selectQR={selectQR}
+            handleShowZoneDetails={handleShowZoneDetails}
         />
     );
+
+    function handleShowZoneDetails(zone) {
+        showModal(ZONE_DETAILS, { zone });
+    }
 
     function addZone() {
         setZoneAddMode(true);
@@ -35,6 +42,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = {
     hideModal,
+    showModal,
     setZoneAddMode
 };
 
