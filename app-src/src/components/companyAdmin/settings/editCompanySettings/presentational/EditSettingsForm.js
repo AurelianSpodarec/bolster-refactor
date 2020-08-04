@@ -12,6 +12,7 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
 import { VAT_TYPES } from 'constants/companyAdmin/enums';
+import CountriesSelectList from 'components/shared/generic/form/presentational/CountriesSelectList';
 
 const EditSettingsForm = ({
     handleInputChange,
@@ -106,11 +107,10 @@ const EditSettingsForm = ({
                 />
             </Field>
             <Field name="Country" sizeClasses="size-lg-6 size-md-12" required>
-                <TextInputContainer
+                <CountriesSelectList
                     value={country}
                     name="country"
-                    type="text"
-                    handleChange={handleInputChange}
+                    onChange={handleInputChange}
                     required
                 />
             </Field>

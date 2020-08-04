@@ -11,6 +11,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 // import Select from 'react-select';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
+import CountriesSelectList from 'components/shared/generic/form/presentational/CountriesSelectList';
 
 const RegisterForm = ({
     handleSubmit,
@@ -162,11 +163,10 @@ const RegisterForm = ({
                 />
             </Field>
             <Field name="Country" sizeClasses="size-lg-4 size-md-12" required>
-                <TextInputContainer
+                <CountriesSelectList
                     value={country}
                     name="Company.country"
-                    placeholder="Country"
-                    handleChange={handleChange}
+                    onChange={handleChange}
                     required
                 />
             </Field>
@@ -187,7 +187,6 @@ const RegisterForm = ({
                     handleChange={handleChange}
                 />
             </Field>
-
             <Field name="Timezone" required>
                 <Select
                     name="Company.timezone"
