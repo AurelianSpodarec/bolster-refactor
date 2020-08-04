@@ -40,12 +40,11 @@ const CompanyInfo = ({
         <FieldOutput title="Address" fieldClass="no-h-padding">
             <p>
                 {company.addressLine1} <br />
-                {company.addressLine2}
-                <br />
-                {company.town}
-                <br />
+                {company.addressLine2} <br />
+                {company.town} <br />
                 {company.county} <br />
-                {company.postcode}
+                {company.postcode} <br />
+                {company.country}
             </p>
         </FieldOutput>
 

@@ -10,7 +10,7 @@ import EditCompanyAddressModal from '../presentational/EditCompanyAddressModal';
 
 const EditCompanyAddressModalContainer = ({
     company,
-    company: { addressLine1, addressLine2, county, postcode, town },
+    company: { addressLine1, addressLine2, county, postcode, town, country },
     isPosting,
     error,
     hideModal,
@@ -22,6 +22,7 @@ const EditCompanyAddressModalContainer = ({
         county: county,
         postcode: postcode,
         town: town,
+        country,
     });
 
     return (

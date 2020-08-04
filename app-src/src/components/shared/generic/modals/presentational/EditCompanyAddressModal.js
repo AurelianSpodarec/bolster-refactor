@@ -5,14 +5,20 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import CountriesSelectList from '../../form/presentational/CountriesSelectList';
 
 const EditCompanyAddressModal = ({
     company: { name },
-    companyAddress: { addressLine1, addressLine2, county, postcode, town },
+    companyAddress: { addressLine1, addressLine2, county, postcode, town, country },
     hideModal,
     handleChange,
     handleSubmit,
 }) => {
+    console.log({ country });
+    console.log({ country });
+    console.log({ country });
+    console.log({ country });
+    console.log({ country });
     return (
         <ModalOuterContainer>
             <BlockHeading title={`Edit ${name}'s address`} />
@@ -68,6 +74,16 @@ const EditCompanyAddressModal = ({
                             name={'postcode'}
                             value={postcode}
                             type="text"
+                            required
+                        />
+                    </Field>
+                </div>
+                <div className="size-lg-6 size-md-12">
+                    <Field name="Country" required>
+                        <CountriesSelectList
+                            onChange={handleChange}
+                            name="country"
+                            value={country}
                             required
                         />
                     </Field>
