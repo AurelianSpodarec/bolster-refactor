@@ -4,6 +4,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ManufacturerList from './ManufacturerList';
+import { DEFAULT_PIN_OPTIONS_SORT } from 'constants/companyAdmin/enums';
 
 const ManufacturerTable = ({
     handleAddManufacturerModal,
@@ -11,6 +12,8 @@ const ManufacturerTable = ({
     manufacturers,
     isFetching,
     error,
+    selectedSortValue,
+    moveItem,
 }) => {
     return (
         <BlockContainer>
@@ -32,11 +35,14 @@ const ManufacturerTable = ({
                         noData={!manufacturers.length}
                         noDataMessage={'There are no manufacturers to display.'}
                         extraClasses="large"
+                        withoutTBody
                     >
                         <ManufacturerList
                             colCount={headers.length}
                             manufacturers={manufacturers}
                             headers={headers}
+                            isCustomSort={+selectedSortValue === DEFAULT_PIN_OPTIONS_SORT.CUSTOM}
+                            moveItem={moveItem}
                         />
                     </Table>
                 </div>

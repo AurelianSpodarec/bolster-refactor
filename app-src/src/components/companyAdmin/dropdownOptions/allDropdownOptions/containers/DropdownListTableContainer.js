@@ -10,13 +10,8 @@ import { isObjEmpty } from 'helpers/generic';
 import { DEFAULT_PIN_OPTIONS_SORT } from 'constants/companyAdmin/enums';
 
 class DropdownListTableContainer extends Component {
-    state = {
-        selectedSortValue: this.props.defaultDropdownSorting || DEFAULT_PIN_OPTIONS_SORT.CUSTOM,
-    };
-
     render() {
-        const { selectedSortValue } = this.state;
-        const { isFetching, error, title, type } = this.props;
+        const { isFetching, error, title, type, selectedSortValue, handleSortChange } = this.props;
 
         return (
             <DropdownOptionsTable
@@ -28,7 +23,7 @@ class DropdownListTableContainer extends Component {
                 handleAddOptionModal={this.handleAddOptionModal}
                 type={type}
                 selectedSortValue={selectedSortValue}
-                handleSortChange={this.handleSortChange}
+                handleSortChange={handleSortChange}
                 moveItem={this.moveItem}
             />
         );
@@ -58,12 +53,6 @@ class DropdownListTableContainer extends Component {
         showModal(ADD_DROPDOWN_OPTION, { type });
     };
 
-    handleSortChange = value => {
-        this.setState({
-            selectedSortValue: value,
-        });
-    };
-
     moveItem = (overindex, fromIndex) => {
         const { dropdownOptions, reorderDropdownOptions } = this.props;
 
@@ -75,8 +64,7 @@ class DropdownListTableContainer extends Component {
     };
 
     getSortedDropdownOptions = () => {
-        const { selectedSortValue } = this.state;
-        const { dropdownOptions } = this.props;
+        const { dropdownOptions, selectedSortValue } = this.props;
         const { NAME_ASC, NAME_DESC, DATE_ASC, DATE_DESC } = DEFAULT_PIN_OPTIONS_SORT;
 
         if (+selectedSortValue === NAME_ASC) {
