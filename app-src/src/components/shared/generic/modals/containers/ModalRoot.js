@@ -97,6 +97,7 @@ import {
     COMPANY_EDIT_OPTION_VALUE_DOCUMENT,
     COMPANY_ADD_OPTION_VALUE_DOCUMENT_VERSION,
     COMPANY_DELETE_OPTION_VALUE_DOCUMENT_VERSION,
+    ADMIN_EDIT_COMPANY_ADDRESS,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -195,6 +196,7 @@ import AddDocumentToOptionValueModal from 'components/companyAdmin/dropdownOptio
 import EditOptionValueDocumentModal from 'components/companyAdmin/dropdownOptions/editOptionValueDocument/presentational/EditOptionValueDocumentModal';
 import AddNewDocumentVersionModal from 'components/companyAdmin/dropdownOptions/addNewDocumentVersion/presentational/AddNewDocumentVersionModal';
 import ConfirmDeleteDocumentVersionModalContainer from 'components/companyAdmin/dropdownOptions/confirmDeleteDocumentVersion/containers/ConfirmDeleteDocumentVersionModalContainer';
+import EditCompanyAddressModalContainer from './EditCompanyAddressModalContainer';
 import UploadUserGuideModalContainer from './UploadUserGuideModalContainer';
 
 const MODAL_COMPONENTS = {
@@ -292,12 +294,12 @@ const MODAL_COMPONENTS = {
     [COMPANY_EDIT_OPTION_VALUE_DOCUMENT]: EditOptionValueDocumentModal,
     [COMPANY_ADD_OPTION_VALUE_DOCUMENT_VERSION]: AddNewDocumentVersionModal,
     [COMPANY_DELETE_OPTION_VALUE_DOCUMENT_VERSION]: ConfirmDeleteDocumentVersionModalContainer,
+    [ADMIN_EDIT_COMPANY_ADDRESS]: EditCompanyAddressModalContainer,
     [UPLOAD_USER_GUIDE]: UploadUserGuideModalContainer,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
     if (!modalType) return null;
-
     const SpecificModel = MODAL_COMPONENTS[modalType];
     return <SpecificModel {...modalProps} {...otherProps} />;
 };

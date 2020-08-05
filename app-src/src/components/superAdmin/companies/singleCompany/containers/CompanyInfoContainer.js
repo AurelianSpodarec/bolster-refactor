@@ -7,6 +7,8 @@ import toggleCompanyOnClientList from 'actions/superAdmin/companies/async/toggle
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import CompanyInfo from '../presentational/CompanyInfo';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { ADMIN_EDIT_COMPANY_ADDRESS } from 'constants/shared/modalTypes';
 
 const CompanyInfoContainer = ({
     company,
@@ -14,16 +16,18 @@ const CompanyInfoContainer = ({
     isPosting,
     error,
     toggleCompanyOnClientList,
+    showModal,
 }) => {
     return (
         <BlockContainer isFetching={isFetching} error={error} isEmpty={!company}>
             <div className="size-lg-6 size-md-12">
-                <BlockHeading title="Company Info" />
+                <BlockHeading title="Company Info"></BlockHeading>
             </div>
             <CompanyInfo
                 company={company}
                 isPosting={isPosting}
                 handleToggleClientList={handleToggleClientList}
+                handleShowEditAddressModal={handleShowEditAddressModal}
             />
         </BlockContainer>
     );
@@ -35,6 +39,9 @@ const CompanyInfoContainer = ({
         };
 
         toggleCompanyOnClientList(postBody);
+    }
+    function handleShowEditAddressModal() {
+        showModal(ADMIN_EDIT_COMPANY_ADDRESS, { company });
     }
 };
 
@@ -55,6 +62,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = {
     toggleCompanyOnClientList,
+    showModal,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CompanyInfoContainer));

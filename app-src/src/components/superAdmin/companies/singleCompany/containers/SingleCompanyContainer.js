@@ -19,8 +19,18 @@ class SingleCompanyContainer extends Component {
     };
 }
 
-const mapStateToProps = (_, { match }) => ({
-    companyID: match.params.id
+const mapStateToProps = (
+    {
+        superAdmin: {
+            companiesReducer: { isFetching, isPosting, postSuccess },
+        },
+    },
+    { match },
+) => ({
+    companyID: match.params.id,
+    isFetching,
+    isPosting,
+    postSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -32,10 +42,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchCompanySubscription(id));
         dispatch(fetchCompanyUsers(id));
         dispatch(fetchAllServices());
-    }
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SingleCompanyContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleCompanyContainer);
