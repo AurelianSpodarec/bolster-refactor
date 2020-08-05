@@ -18,7 +18,15 @@ class RecentlyDeletedTableContainer extends Component {
     }
 
     _getDeletedItems = () => {
-        const { drawings, floors, buildings, sites, users, pinHistories } = this.props;
+        const {
+            drawings,
+            floors,
+            buildings,
+            sites,
+            users,
+            pinHistories,
+            operativePermissions,
+        } = this.props;
 
         const itemsArray = [
             ...drawings,
@@ -26,7 +34,8 @@ class RecentlyDeletedTableContainer extends Component {
             ...buildings,
             ...sites,
             ...users,
-            ...pinHistories
+            ...pinHistories,
+            ...operativePermissions,
         ];
 
         return itemsArray;
@@ -42,19 +51,21 @@ const mapStateToProps = ({
             sites,
             users,
             pinHistories,
+            operativePermissions,
             isFetchingData,
-            error
-        }
-    }
+            error,
+        },
+    },
 }) => ({
-    drawings: Object.values(drawings) || [],
-    floors: Object.values(floors) || [],
-    buildings: Object.values(buildings) || [],
-    sites: Object.values(sites) || [],
-    users: Object.values(users) || [],
-    pinHistories: Object.values(pinHistories) || [],
+    drawings: Object.values(drawings || []),
+    floors: Object.values(floors || []),
+    buildings: Object.values(buildings || []),
+    sites: Object.values(sites || []),
+    users: Object.values(users || []),
+    pinHistories: Object.values(pinHistories || []),
+    operativePermissions: Object.values(operativePermissions || []),
     isFetchingData,
-    error
+    error,
 });
 
 export default connect(mapStateToProps)(RecentlyDeletedTableContainer);

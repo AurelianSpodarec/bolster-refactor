@@ -359,6 +359,7 @@ export const DELETED_DATA_TYPE = {
     site: 'Site',
     users: 'User',
     pinHistory: 'Pin History',
+    operativepermissions: 'Operative Drawing Permission',
 };
 
 export const getEnumKey = (enumerable, num) =>

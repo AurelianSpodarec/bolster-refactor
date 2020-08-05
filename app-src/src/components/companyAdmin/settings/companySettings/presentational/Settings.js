@@ -110,6 +110,7 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                                         <p>{company.town}</p>
                                         <p>{company.county}</p>
                                         <p>{company.postcode}</p>
+                                        <p>{company.country}</p>
                                     </FieldOutput>
                                 </div>
 

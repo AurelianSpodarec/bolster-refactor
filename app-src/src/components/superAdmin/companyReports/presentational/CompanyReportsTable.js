@@ -14,7 +14,8 @@ const CompanyReportsTable = ({
     onMobile,
     retryCompanyReport,
     fetchStatus,
-    fetchCompanyReportsQueueFull
+    fetchCompanyReportsQueueFull,
+    showDeleteModal,
 }) => {
     return (
         <>
@@ -44,6 +45,7 @@ const CompanyReportsTable = ({
                             headers={headers}
                             onMobile={onMobile}
                             retryCompanyReport={retryCompanyReport}
+                            showDeleteModal={showDeleteModal}
                         />
                     ))}
                 </Table>

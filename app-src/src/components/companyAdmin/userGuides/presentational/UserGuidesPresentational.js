@@ -7,7 +7,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import pdf from '_content/pdf/CompleteUserGuide-June2020.pdf';
 import pdfImage from '_content/images/user-guide.jpg';
 
-const UserGuides = () => (
+const UserGuidesPresentational = ({ userGuideLink }) => (
     <>
         <PageHeading leftChildren={true} title="User Guides">
             <BackButtonContainer />
@@ -68,7 +68,7 @@ const UserGuides = () => (
                 ></BlockHeading>
                 <p className="generic-text">
                     Alternatively, download and read our "Complete User Guide" document{' '}
-                    <a target="_blank" href={pdf}>
+                    <a target="_blank" href={userGuideLink}>
                         here
                     </a>
                     .
@@ -86,4 +86,4 @@ const UserGuides = () => (
     </>
 );
 
-export default UserGuides;
+export default UserGuidesPresentational;

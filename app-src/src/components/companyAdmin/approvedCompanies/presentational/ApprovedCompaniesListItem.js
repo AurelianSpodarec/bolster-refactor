@@ -9,12 +9,13 @@ const ApprovedCompaniesListItem = ({
         addressLine2,
         town,
         postcode,
+        country,
         code,
         telephone,
         // colourCode,
-        logoFile
+        logoFile,
     },
-    serviceNames
+    serviceNames,
 }) => {
     return (
         <div>
@@ -22,9 +23,7 @@ const ApprovedCompaniesListItem = ({
                 {name}
             </BlockHeading>
             <div className="size-lg-6">
-                <BlockHeading classes="heading heading-3 half-margin">
-                    Address
-                </BlockHeading>
+                <BlockHeading classes="heading heading-3 half-margin">Address</BlockHeading>
                 <p className="size-lg-12">
                     {addressLine1} <br />
                     {!!addressLine2 && (
@@ -34,27 +33,20 @@ const ApprovedCompaniesListItem = ({
                     )}
                     {town} <br />
                     {postcode} <br />
+                    {country}
+                    <br />
                 </p>
-                <BlockHeading classes="heading heading-3 half-margin">
-                    Telephone
-                </BlockHeading>
+                <BlockHeading classes="heading heading-3 half-margin">Telephone</BlockHeading>
                 <p>{!telephone ? 'Not provided' : `${telephone}`}</p>
-                <BlockHeading classes="heading heading-3 half-margin">
-                    Code
-                </BlockHeading>
+                <BlockHeading classes="heading heading-3 half-margin">Code</BlockHeading>
                 <p>{code}</p>
-                <BlockHeading classes="heading heading-3 half-margin">
-                    Services
-                </BlockHeading>
+                <BlockHeading classes="heading heading-3 half-margin">Services</BlockHeading>
                 <p>{serviceNames || '-'}</p>
             </div>
 
             <div className={`size-lg-6 ${logoFile ? 'company-logo' : ''}`}>
                 {logoFile && (
-                    <img
-                        alt={`logo of ${name}`}
-                        src={`${FILE_STORAGE_URL}/${logoFile}`}
-                    />
+                    <img alt={`logo of ${name}`} src={`${FILE_STORAGE_URL}/${logoFile}`} />
                 )}
             </div>
         </div>

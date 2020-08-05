@@ -1,7 +1,6 @@
 import React from 'react';
 
 import DrawingListItemContainer from '../containers/DrawingListItemContainer';
-import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 
 const DrawingList = ({ drawings, forwardRef, isOver, headers }) => (
     <tbody ref={forwardRef} className={isOver ? 'dragging' : ''}>
@@ -18,4 +17,4 @@ const DrawingList = ({ drawings, forwardRef, isOver, headers }) => (
             ))}
     </tbody>
 );
-export default withDropZone(DrawingList, 'DRAWING');
+export default DrawingList;

@@ -35,14 +35,9 @@ class CreateBuildingFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { siteID, createBuilding, hideModal, sites } = this.props;
+        const { siteID, createBuilding, hideModal } = this.props;
         const postBody = { ...this.state, siteID };
-        // createBuilding(postBody);
-        console.warn(sites[siteID]);
-        console.warn(sites[siteID]);
-        console.warn(sites[siteID]);
-        console.warn(sites);
-        console.warn(sites);
+        createBuilding(postBody);
         hideModal();
     };
 

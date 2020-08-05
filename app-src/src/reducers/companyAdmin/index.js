@@ -50,6 +50,7 @@ import qrCodesReducer from './qrCodes';
 import manufacturersReducer from './manufacturers';
 import manufacturersOptionValuesReducer from './manufacturersOptionValues';
 import optionValueDocumentsReducer from './optionValueDocuments';
+import userGuideReducer from './userGuide';
 
 export default combineReducers({
     addPinDropdownOptions,
@@ -102,4 +103,5 @@ export default combineReducers({
     templateVersionsReducer,
     transferRequestsReducer,
     userDrawingsReducer,
+    userGuideReducer,
 });

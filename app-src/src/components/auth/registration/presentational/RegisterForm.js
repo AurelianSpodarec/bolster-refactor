@@ -11,6 +11,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 // import Select from 'react-select';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
+import CountriesSelectList from 'components/shared/generic/form/presentational/CountriesSelectList';
 
 const RegisterForm = ({
     handleSubmit,
@@ -29,6 +30,7 @@ const RegisterForm = ({
     'Company.town': town,
     'Company.county': county,
     'Company.postcode': postcode,
+    'Company.country': country,
     'Company.phoneNumber': companyPhoneNumber,
     'Company.fax': fax,
     'Company.vatCode': vatCode,
@@ -160,6 +162,14 @@ const RegisterForm = ({
                     required
                 />
             </Field>
+            <Field name="Country" sizeClasses="size-lg-4 size-md-12" required>
+                <CountriesSelectList
+                    value={country}
+                    name="Company.country"
+                    onChange={handleChange}
+                    required
+                />
+            </Field>
             <Field name="Business Telephone No." sizeClasses="size-lg-4 size-md-12" required>
                 <TextInputContainer
                     value={companyPhoneNumber}
@@ -177,7 +187,6 @@ const RegisterForm = ({
                     handleChange={handleChange}
                 />
             </Field>
-
             <Field name="Timezone" required>
                 <Select
                     name="Company.timezone"

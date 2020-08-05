@@ -20,9 +20,12 @@ import {
     RESTORE_PIN_HISTORY_REQUEST,
     RESTORE_PIN_HISTORY_SUCCESS,
     RESTORE_PIN_HISTORY_FAILURE,
+    RESTORE_OPERATIVE_PERMISSION_REQUEST,
+    RESTORE_OPERATIVE_PERMISSION_SUCCESS,
+    RESTORE_OPERATIVE_PERMISSION_FAILURE,
     FETCH_RECENTLY_DELETED_REQUEST,
     FETCH_RECENTLY_DELETED_SUCCESS,
-    FETCH_RECENTLY_DELETED_FAILURE
+    FETCH_RECENTLY_DELETED_FAILURE,
 } from 'constants/actionTypes/deletedData';
 
 export default combineReducers({
@@ -32,12 +35,13 @@ export default combineReducers({
     sites: sitesReducer,
     users: usersReducer,
     pinHistories: pinHistoriesReducer,
+    operativePermissions: operativePermissionsReducer,
     isFetchingData: isFetchingDataReducer,
     error: errorReducer,
     isPosting: isPostingReducer,
     postSuccess: postSuccessReducer,
     postFailure: postFailureReducer,
-    postError: postErrorReducer
+    postError: postErrorReducer,
 });
 
 function isFetchingDataReducer(state = false, action) {
@@ -60,6 +64,7 @@ function isPostingReducer(state = false, action) {
         case RESTORE_SITE_REQUEST:
         case RESTORE_USER_REQUEST:
         case RESTORE_PIN_HISTORY_REQUEST:
+        case RESTORE_OPERATIVE_PERMISSION_REQUEST:
             return true;
         case RESTORE_DRAWING_SUCCESS:
         case RESTORE_DRAWING_FAILURE:
@@ -73,6 +78,8 @@ function isPostingReducer(state = false, action) {
         case RESTORE_USER_FAILURE:
         case RESTORE_PIN_HISTORY_SUCCESS:
         case RESTORE_PIN_HISTORY_FAILURE:
+        case RESTORE_OPERATIVE_PERMISSION_SUCCESS:
+        case RESTORE_OPERATIVE_PERMISSION_FAILURE:
             return false;
         default:
             return state;
@@ -87,6 +94,7 @@ function postSuccessReducer(state = false, action) {
         case RESTORE_SITE_REQUEST:
         case RESTORE_USER_REQUEST:
         case RESTORE_PIN_HISTORY_REQUEST:
+        case RESTORE_OPERATIVE_PERMISSION_REQUEST:
             return false;
         case RESTORE_DRAWING_SUCCESS:
         case RESTORE_FLOOR_SUCCESS:
@@ -94,6 +102,7 @@ function postSuccessReducer(state = false, action) {
         case RESTORE_SITE_SUCCESS:
         case RESTORE_USER_SUCCESS:
         case RESTORE_PIN_HISTORY_SUCCESS:
+        case RESTORE_OPERATIVE_PERMISSION_SUCCESS:
             return true;
         default:
             return state;
@@ -108,6 +117,7 @@ function postFailureReducer(state = false, action) {
         case RESTORE_SITE_REQUEST:
         case RESTORE_USER_REQUEST:
         case RESTORE_PIN_HISTORY_REQUEST:
+        case RESTORE_OPERATIVE_PERMISSION_REQUEST:
             return false;
         case RESTORE_DRAWING_FAILURE:
         case RESTORE_FLOOR_FAILURE:
@@ -115,6 +125,7 @@ function postFailureReducer(state = false, action) {
         case RESTORE_SITE_FAILURE:
         case RESTORE_USER_FAILURE:
         case RESTORE_PIN_HISTORY_FAILURE:
+        case RESTORE_OPERATIVE_PERMISSION_FAILURE:
             return true;
         default:
             return state;
@@ -140,6 +151,7 @@ function postErrorReducer(state = null, action) {
         case RESTORE_SITE_REQUEST:
         case RESTORE_USER_REQUEST:
         case RESTORE_PIN_HISTORY_REQUEST:
+        case RESTORE_OPERATIVE_PERMISSION_REQUEST:
             return null;
         case RESTORE_DRAWING_FAILURE:
         case RESTORE_FLOOR_FAILURE:
@@ -147,6 +159,7 @@ function postErrorReducer(state = null, action) {
         case RESTORE_SITE_FAILURE:
         case RESTORE_USER_FAILURE:
         case RESTORE_PIN_HISTORY_FAILURE:
+        case RESTORE_OPERATIVE_PERMISSION_FAILURE:
             return action.error;
         default:
             return state;
@@ -225,6 +238,19 @@ function pinHistoriesReducer(state = {}, action) {
         case FETCH_RECENTLY_DELETED_SUCCESS:
             return convertArrToObj(action.payload.pinHistories);
         case RESTORE_PIN_HISTORY_SUCCESS:
+            return removeObjItem(state, action.id);
+        default:
+            return state;
+    }
+}
+
+function operativePermissionsReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_RECENTLY_DELETED_REQUEST:
+            return {};
+        case FETCH_RECENTLY_DELETED_SUCCESS:
+            return convertArrToObj(action.payload.operativePermissions);
+        case RESTORE_OPERATIVE_PERMISSION_SUCCESS:
             return removeObjItem(state, action.id);
         default:
             return state;
