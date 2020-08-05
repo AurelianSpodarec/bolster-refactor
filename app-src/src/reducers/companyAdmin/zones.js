@@ -76,7 +76,6 @@ function errorReducer(state = null, action) {
         case CREATE_DRAWING_ZONE_FAILURE:
         case FETCH_ALL_APPROVED_COMPANIES_FAILURE:
         case DELETE_BUILDING_FAILURE:
-        case EDIT_DRAWING_ZONE_SUCCESS:
             return action.error;
         default:
             return state;

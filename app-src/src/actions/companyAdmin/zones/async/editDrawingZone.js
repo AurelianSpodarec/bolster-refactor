@@ -13,23 +13,27 @@ export const editDrawingZoneRequest = () => ({
     type: EDIT_DRAWING_ZONE_REQUEST,
 });
 
-export const editDrawingZoneSuccess = payload => ({
+export const editDrawingZoneSuccess = (payload) => ({
     type: EDIT_DRAWING_ZONE_SUCCESS,
     payload,
-    successs: true,
+    success: true,
 });
 
-export const editDrawingZoneFailure = error => ({
+export const editDrawingZoneFailure = (error) => ({
     type: EDIT_DRAWING_ZONE_FAILURE,
     error,
     success: false,
 });
 
-export default (drawingID, zoneID, postBody) => dispatch => {
+export default (drawingID, zoneID, postBody) => (dispatch) => {
     dispatch(editDrawingZoneRequest());
 
     return axios
-        .post(`${API_URL}/drawings/${drawingID}/zones/${zoneID}`, postBody, getHeaders())
+        .put(
+            `${API_URL}/drawings/${drawingID}/zones/${zoneID}`,
+            postBody,
+            getHeaders()
+        )
         .then(({ data }) => dispatch(editDrawingZoneSuccess(data)))
-        .catch(err => dispatch(handleErrors(editDrawingZoneFailure)(err)));
+        .catch((err) => dispatch(handleErrors(editDrawingZoneFailure)(err)));
 };

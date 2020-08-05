@@ -19,7 +19,7 @@ const DrawingZoneFormModal = ({
 }) => {
     return (
         <ModalOuterContainer>
-            <BlockHeading title="Create Drawing Zone" />
+            <BlockHeading title={`${action} Drawing Zone`} />
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
                 <Field name="Name" required>
                     <TextInputContainer
