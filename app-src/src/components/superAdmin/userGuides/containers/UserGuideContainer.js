@@ -14,6 +14,7 @@ const UserGuideContainer = ({
     showUploadUserGuideModal,
     userGuide,
     postSuccess,
+    isFetching, error
 }) => {
     componentDidMount(fetchUserGuide);
 
@@ -29,6 +30,8 @@ const UserGuideContainer = ({
         <UserGuidesPresentational
             showUploadUserGuideModal={showUploadUserGuideModal}
             userGuideLink={userguideLink}
+            isFetching={isFetching}
+            error={error}
         />
     );
 };

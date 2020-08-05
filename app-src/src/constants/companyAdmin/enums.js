@@ -44,6 +44,7 @@ export const COMPANY_USER_ROLE_TYPES = {
     ADMIN: 75,
     OPERATIVE: 50,
     CLIENT: 25,
+    DELETED: 1000,
 };
 
 export const COMPANY_USER_ROLE_IDS = {
@@ -51,6 +52,7 @@ export const COMPANY_USER_ROLE_IDS = {
     50: 'Operative',
     75: 'Admin',
     100: 'Owner',
+    1000: 'Deleted',
 };
 
 export const CREDIT_LOG_TYPES = {
