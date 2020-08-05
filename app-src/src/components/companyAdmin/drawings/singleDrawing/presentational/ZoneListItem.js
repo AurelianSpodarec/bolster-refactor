@@ -7,34 +7,34 @@ const ZoneListItem = ({
     confirmDelete,
     showEditZoneModal,
 }) => (
-    <div className="zone size-lg-12">
-        <div className="item size-lg-4">
-            <p>{zone.name}</p>
-        </div>
-        <div className="item size-lg-2">
-            <div className="colour-box" style={{ backgroundColor: zone.colorHex }}></div>
-        </div>
-        <div className="item size-lg-3">
-            {zone.qrCode ? (
-                <button className="button blue" onClick={() => selectQR(zone.qrCode)}>
-                    View QR
-                </button>
-            ) : (
-                <p>No QR Code attached</p>
-            )}
-        </div>
-        <div className="item size-lg-3">
-            <button className="button blue" onClick={() => handleShowZoneDetails(zone)}>
-                View pins
+        <div className="zone size-lg-12">
+            <div className="item size-lg-4">
+                <p>{zone.name}</p>
+            </div>
+            <div className="item size-lg-2">
+                <div className="colour-box" style={{ backgroundColor: zone.colorHex }}></div>
+            </div>
+            <div className="item size-lg-3">
+                {zone.qrCode ? (
+                    <button className="button blue" onClick={() => selectQR(zone.qrCode)}>
+                        View QR
+                    </button>
+                ) : (
+                        <p>No QR Code attached</p>
+                    )}
+            </div>
+            <div className="item size-lg-3">
+                <button className="button blue" onClick={() => handleShowZoneDetails(zone)}>
+                    View details
             </button>
-            <button className="button yellow" onClick={() => showEditZoneModal(zone.id)}>
-                Edit
+                <button className="button yellow" onClick={() => showEditZoneModal(zone.id)}>
+                    Edit
             </button>
-            <button className="button red" onClick={() => confirmDelete(zone.id)}>
-                Delete
+                <button className="button red" onClick={() => confirmDelete(zone.id)}>
+                    Delete
             </button>
+            </div>
         </div>
-    </div>
-);
+    );
 
 export default ZoneListItem;
