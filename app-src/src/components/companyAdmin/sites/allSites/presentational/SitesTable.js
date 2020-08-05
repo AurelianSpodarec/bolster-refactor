@@ -4,8 +4,9 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import SitesList from './SitesList';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 
-const SitesTable = ({ headers, sites, isFetching, error, handleAddSite }) => {
+const SitesTable = ({ headers, items, isFetching, error, handleAddSite, forwardRef, isOver }) => {
     return (
         <BlockContainer>
             <BlockHeading title="Sites" classes="w-table">
@@ -19,13 +20,16 @@ const SitesTable = ({ headers, sites, isFetching, error, handleAddSite }) => {
                 headers={headers}
                 isFetching={isFetching}
                 error={error}
-                noData={!sites.length}
+                noData={!items.length}
                 noDataMessage="No sites to display"
                 withoutTBody
+                extraClasses={isOver ? 'dragging' : ''}
             >
                 <SitesList
+                    forwardRef={forwardRef}
+                    isOver={isOver}
                     colCount={headers.length}
-                    items={sites}
+                    sites={items}
                     headers={headers}
                 />
             </Table>
@@ -33,4 +37,4 @@ const SitesTable = ({ headers, sites, isFetching, error, handleAddSite }) => {
     );
 };
 
-export default SitesTable;
+export default withDropZone(SitesTable, 'SITE');

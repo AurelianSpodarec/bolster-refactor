@@ -10,7 +10,7 @@ const BuildingsTableContainer = ({ isFetching, error, buildings }) => {
             headers={['Building name', 'Created on', 'Permissions', 'Action']}
             isFetching={isFetching}
             error={error}
-            buildings={buildings}
+            items={buildings}
         />
     );
 };
@@ -21,5 +21,5 @@ export default connect(({ companyAdmin: { buildingsReducer } }, ownProps) => ({
     buildings: ownProps.ids
         .map(id => buildingsReducer.buildings[id])
         .filter(item => item)
-        .sort(hierarchySort)
+        .sort(hierarchySort),
 }))(BuildingsTableContainer);
