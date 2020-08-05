@@ -25,6 +25,7 @@ import mergeToolReducer from './mergeTool';
 import manufacturersReducer from './manufacturers';
 import manufacturersOptionValuesReducer from './manufacturersOptionValues';
 import optionValueDocumentsReducer from './optionValueDocuments';
+import userGuideReducer from './userGuide';
 
 export default combineReducers({
     adminServicesReducer,
@@ -52,4 +53,5 @@ export default combineReducers({
     templateQuestionsReducer,
     templateQuestionFormReducer,
     usersReducer,
+    userGuideReducer,
 });

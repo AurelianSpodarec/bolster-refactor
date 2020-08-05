@@ -16,6 +16,7 @@ import DashboardContainer from 'components/superAdmin/dashboard/containers/Dashb
 import OperativeAlertsRoutes from './OperativeAlertsRoutes';
 import MergeToolRoutes from './MergeToolRoutes';
 import PinOptionsManufacturersRoutes from './PinOptionsManufacturersRoutes';
+import UserGuidesRoutes from './UserGuidesRoutes';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
@@ -35,6 +36,7 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/merge-tool`} component={MergeToolRoutes} />
         <Route path={`${base}/sos-management`} component={SOSManagementRoutes} />
         <Route path={`${base}/operative-alerts`} component={OperativeAlertsRoutes} />
+        <Route path={`${base}/user-guides`} component={UserGuidesRoutes} />
         <Route path={`${base}/pin-options`} component={PinOptionsManufacturersRoutes} />
     </SwitchWith404>
 );
