@@ -34,6 +34,7 @@ class RegisterFormContainer extends Component {
         'Company.timezone': null,
         'Company.dateFormatID': null,
         'Company.vatType': null,
+        'Company.country': '',
         terms: false,
     };
 
@@ -98,6 +99,7 @@ class RegisterFormContainer extends Component {
             'Company.town': town,
             'Company.county': county,
             'Company.postcode': postcode,
+            'Company.country': country,
             'Company.phoneNumber': companyPhoneNumber,
             'Company.fax': fax,
             'Company.vatCode': vatCode,
@@ -121,6 +123,7 @@ class RegisterFormContainer extends Component {
                 town,
                 county,
                 postcode,
+                country,
                 phoneNumber: companyPhoneNumber,
                 fax,
                 vatType,
