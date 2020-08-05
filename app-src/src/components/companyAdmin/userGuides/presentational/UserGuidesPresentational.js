@@ -7,7 +7,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import pdf from '_content/pdf/CompleteUserGuide-June2020.pdf';
 import pdfImage from '_content/images/user-guide.jpg';
 
-const UserGuidesPresentational = ({ userGuideLink }) => (
+const UserGuidesPresentational = ({ userGuideLink, isFetching, error }) => (
     <>
         <PageHeading leftChildren={true} title="User Guides">
             <BackButtonContainer />
@@ -57,7 +57,7 @@ const UserGuidesPresentational = ({ userGuideLink }) => (
                 ></iframe>
             </div>
         </BlockContainer>
-        <BlockContainer containerClass="user-guides">
+        {!isFetching && !error && <BlockContainer containerClass="user-guides">
             <div className="size-lg-6 size-md-12">
                 <img className="size-lg-12" src={pdfImage} />
             </div>
@@ -82,7 +82,7 @@ const UserGuidesPresentational = ({ userGuideLink }) => (
                     The password for this guide is <strong>BSUserGuidev1</strong>.
                 </p>
             </div>
-        </BlockContainer>
+        </BlockContainer>}
     </>
 );
 
