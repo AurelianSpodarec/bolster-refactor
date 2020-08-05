@@ -14,6 +14,8 @@ class InviteClientFormContainer extends Component {
         phoneNumber: '',
         companyName: '',
         serviceIDs: [],
+        clientIDs: [],
+        inviteNewClient: false,
     };
 
     render() {

@@ -1164,6 +1164,11 @@ input {
     &.error {
         color: $red;
     }
+
+    &.in-form {
+        padding-left: 7.5px;
+        padding-right: 7.5px;
+    }
 }
 
 .wysiwyg {
