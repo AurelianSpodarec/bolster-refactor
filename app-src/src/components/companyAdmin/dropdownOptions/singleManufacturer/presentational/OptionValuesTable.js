@@ -5,6 +5,8 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 import OptionValuesList from './OptionValuesList';
+import DropdownListSortOrderContainer from '../../allDropdownOptions/containers/DropdownListSortOrderContainer';
+import { DEFAULT_PIN_OPTIONS_SORT } from 'constants/companyAdmin/enums';
 
 const OptionValuesTable = ({
     handleAddOptionValueModal,
@@ -13,6 +15,9 @@ const OptionValuesTable = ({
     isFetching,
     error,
     services,
+    selectedSortValue,
+    handleSortChange,
+    moveItem,
 }) => {
     return (
         <BlockContainer>
@@ -21,6 +26,10 @@ const OptionValuesTable = ({
                     <i className="fa fa-plus" /> {'Add Option Value'}
                 </button>
             </BlockHeading>
+            <DropdownListSortOrderContainer
+                selectedSortValue={selectedSortValue}
+                handleSortChange={handleSortChange}
+            />
             <Table
                 withActions
                 headers={headers}
@@ -29,12 +38,15 @@ const OptionValuesTable = ({
                 noData={!optionValues.length}
                 noDataMessage={'There are no option values to display.'}
                 extraClasses="large"
+                withoutTBody
             >
                 <OptionValuesList
                     colCount={headers.length}
                     optionValues={optionValues}
                     headers={headers}
                     services={services}
+                    isCustomSort={+selectedSortValue === DEFAULT_PIN_OPTIONS_SORT.CUSTOM}
+                    moveItem={moveItem}
                 />
             </Table>
         </BlockContainer>

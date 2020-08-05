@@ -19,6 +19,7 @@ import {
     FETCH_ALL_OPTION_VALUES_FAILURE,
 } from 'constants/actionTypes/companyAdminManufacturers';
 import { formatAllOptionValuesByManufacturer } from 'helpers/redux';
+import { REORDER_MANUFACTURER_OPTION_VALUES } from 'constants/actionTypes/dropdownOptions';
 
 export default combineReducers({
     manufacturersOptionValues: manufacturersOptionValuesReducer,
@@ -91,6 +92,7 @@ function manufacturersOptionValuesReducer(state = {}, action) {
         case FETCH_ALL_OPTION_VALUES_REQUEST:
             return {};
         case FETCH_OPTION_VALUES_BY_MANUFACTURER_SUCCESS:
+        case REORDER_MANUFACTURER_OPTION_VALUES:
             return updateObj(state, action.manufacturerID, convertArrToObj(action.payload));
         case CREATE_OPTION_VALUE_SUCCESS:
         case EDIT_OPTION_VALUE_SUCCESS:

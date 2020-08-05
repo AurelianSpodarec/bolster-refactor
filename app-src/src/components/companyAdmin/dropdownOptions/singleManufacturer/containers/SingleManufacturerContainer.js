@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { DROPDOWN_OPTION_LOOKUP, DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import {
+    DROPDOWN_OPTION_LOOKUP,
+    DROPDOWN_OPTIONS,
+    DEFAULT_PIN_OPTIONS_SORT,
+} from 'constants/companyAdmin/enums';
 
 import fetchOptionValuesByManufacturer from 'actions/companyAdmin/manufacturers/async/fetchOptionValuesByManufacturer';
 import fetchSingleManufacturer from 'actions/companyAdmin/manufacturers/async/fetchSingleManufacturer';
@@ -11,15 +15,23 @@ import SingleManufacturer from '../presentational/SingleManufacturer';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 class SingleManufacturerContainer extends Component {
+    state = {
+        selectedSortValue: this.props.defaultDropdownSorting || DEFAULT_PIN_OPTIONS_SORT.CUSTOM,
+    };
     render() {
         const { manufacturerID, manufacturers, isFetching } = this.props;
-
+        const { selectedSortValue } = this.state;
         const isManufacturerFetched = manufacturers.hasOwnProperty(manufacturerID) && !isFetching;
 
         return !isManufacturerFetched ? (
             <Loading />
         ) : (
-            <SingleManufacturer manufacturers={manufacturers} manufacturerID={manufacturerID} />
+            <SingleManufacturer
+                manufacturers={manufacturers}
+                manufacturerID={manufacturerID}
+                handleSortChange={this.handleSortChange}
+                selectedSortValue={selectedSortValue}
+            />
         );
     }
 
@@ -32,6 +44,12 @@ class SingleManufacturerContainer extends Component {
         } = this.props;
         fetchSingleManufacturer(manufacturerID, DROPDOWN_OPTION_LOOKUP[type]);
         fetchOptionValuesByManufacturer(manufacturerID);
+    };
+
+    handleSortChange = value => {
+        this.setState({
+            selectedSortValue: value,
+        });
     };
 }
 
