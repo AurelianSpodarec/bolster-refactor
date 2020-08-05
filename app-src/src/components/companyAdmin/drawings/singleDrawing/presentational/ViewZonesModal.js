@@ -15,6 +15,7 @@ const ViewZonesModal = ({
     selectQR,
     handleShowZoneDetails,
     confirmDelete,
+    showEditZoneModal,
 }) => (
     <ModalOuterContainer extraClasses="zone-modal">
         <BlockHeading title="View zones"></BlockHeading>
@@ -41,6 +42,7 @@ const ViewZonesModal = ({
                         selectQR={selectQR}
                         handleShowZoneDetails={handleShowZoneDetails}
                         confirmDelete={confirmDelete}
+                        showEditZoneModal={showEditZoneModal}
                     />
                 ))}
             </div>
@@ -67,7 +69,7 @@ const ViewZonesModal = ({
                 <i className="fa fa-plus" /> Add Zone
             </button>
             <button className="button grey" onClick={hideModal}>
-                Cancel
+                Close
             </button>
         </BlockButtonWrapper>
     </ModalOuterContainer>

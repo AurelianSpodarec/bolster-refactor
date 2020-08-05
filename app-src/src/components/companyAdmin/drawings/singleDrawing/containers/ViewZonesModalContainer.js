@@ -11,16 +11,11 @@ import {
     CONFIRM_DELETE,
     VIEW_ZONES,
     ERROR_MODAL,
+    EDIT_ZONE_MODAL,
 } from 'constants/shared/modalTypes';
 import deleteZone from 'actions/companyAdmin/zones/async/deleteZone';
 
-const ViewZonesModalContainer = ({
-    hideModal,
-    showModal,
-    setZoneAddMode,
-    zones,
-    deleteZone,
-}) => {
+const ViewZonesModalContainer = ({ hideModal, showModal, setZoneAddMode, zones, deleteZone }) => {
     const [selectedQR, selectQR] = useState(null);
 
     return (
@@ -32,6 +27,7 @@ const ViewZonesModalContainer = ({
             selectQR={selectQR}
             handleShowZoneDetails={handleShowZoneDetails}
             confirmDelete={confirmDelete}
+            showEditZoneModal={showEditZoneModal}
         />
     );
 
@@ -57,6 +53,10 @@ const ViewZonesModalContainer = ({
         setZoneAddMode(true);
         hideModal();
     }
+
+    function showEditZoneModal(id) {
+        showModal(EDIT_ZONE_MODAL, { zone: zones[id] });
+    }
 };
 
 const mapStateToProps = ({
@@ -74,7 +74,4 @@ const mapDispatchToProps = {
     deleteZone,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ViewZonesModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ViewZonesModalContainer);

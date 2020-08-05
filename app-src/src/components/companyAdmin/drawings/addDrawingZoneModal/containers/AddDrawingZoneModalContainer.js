@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import createDrawingZone from 'actions/companyAdmin/zones/async/createDrawingZone';
 
-import AddDrawingZoneModal from '../presentational/AddDrawingZoneModal';
+import DrawingZoneFormModal from '../presentational/DrawingZoneFormModal';
 
 const AddDrawingsZoneModalContainer = ({
     hideModal,
@@ -16,13 +16,14 @@ const AddDrawingsZoneModalContainer = ({
     const [colorHex, updateColorHex] = useState('#ff0000');
 
     return (
-        <AddDrawingZoneModal
+        <DrawingZoneFormModal
+            action="Add"
             name={name}
             handleNameChange={handleNameChange}
             colorHex={colorHex}
             handleColorChange={handleColorChange}
             handleSubmit={handleSubmit}
-            hideModal={hideModal}
+            handleCancel={hideModal}
         />
     );
 
@@ -49,12 +50,9 @@ const AddDrawingsZoneModalContainer = ({
     }
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     coordinates: state.companyAdmin.zonesReducer.zoneFormCoordinates,
 });
 const mapDispatchToProps = { createDrawingZone };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AddDrawingsZoneModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AddDrawingsZoneModalContainer);
