@@ -15,6 +15,7 @@ const ViewZonesModal = ({
     selectQR,
     handleShowZoneDetails,
     confirmDelete,
+    showEditZoneModal,
 }) => (
     <ModalOuterContainer extraClasses="zone-modal">
         <BlockHeading title="View zones"></BlockHeading>
@@ -34,29 +35,25 @@ const ViewZonesModal = ({
                     <p className="item size-lg-3" />
                 </div>
 
-                {zonesArr.map((zone) => (
+                {zonesArr.map(zone => (
                     <ZoneListItem
                         key={zone.id}
                         zone={zone}
                         selectQR={selectQR}
                         handleShowZoneDetails={handleShowZoneDetails}
                         confirmDelete={confirmDelete}
+                        showEditZoneModal={showEditZoneModal}
                     />
                 ))}
             </div>
         ) : (
-            <p className="generic-text no-data size-lg-12">
-                No zones were found
-            </p>
+            <p className="generic-text no-data size-lg-12">No zones were found</p>
         )}
 
         {selectedQR && (
             <ModalOuter hideCloseButton extraClasses="qr-view">
                 <QRCode value={selectedQR} size={200} />
-                <button
-                    className="button grey pull-right"
-                    onClick={() => selectQR(null)}
-                >
+                <button className="button grey pull-right" onClick={() => selectQR(null)}>
                     Close
                 </button>
             </ModalOuter>

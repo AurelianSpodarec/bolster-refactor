@@ -11,6 +11,8 @@ import {
     SET_ZONES_OPACITY,
     DELETE_DRAWING_ZONE_REQUEST,
     DELETE_DRAWING_ZONE_SUCCESS,
+    EDIT_DRAWING_ZONE_REQUEST,
+    EDIT_DRAWING_ZONE_SUCCESS,
 } from 'constants/actionTypes/zones';
 import { convertArrToObj, removeObjItem } from 'helpers/generic';
 import { FETCH_ALL_APPROVED_COMPANIES_FAILURE } from 'constants/actionTypes/approvedCompanies';
@@ -69,10 +71,12 @@ function errorReducer(state = null, action) {
         case CREATE_DRAWING_ZONE_REQUEST:
         case FETCH_DRAWING_ZONES_REQUEST:
         case DELETE_DRAWING_ZONE_REQUEST:
+        case EDIT_DRAWING_ZONE_REQUEST:
             return null;
         case CREATE_DRAWING_ZONE_FAILURE:
         case FETCH_ALL_APPROVED_COMPANIES_FAILURE:
         case DELETE_BUILDING_FAILURE:
+        case EDIT_DRAWING_ZONE_SUCCESS:
             return action.error;
         default:
             return state;
@@ -85,6 +89,7 @@ function zonesReducer(state = {}, action) {
             return convertArrToObj(action.payload.map(formatZone));
         }
         case CREATE_DRAWING_ZONE_SUCCESS:
+        case EDIT_DRAWING_ZONE_SUCCESS:
             return {
                 ...state,
                 [action.payload.id]: formatZone(action.payload),

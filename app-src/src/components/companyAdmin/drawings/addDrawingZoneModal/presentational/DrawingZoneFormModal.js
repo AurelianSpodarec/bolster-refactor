@@ -8,13 +8,14 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import { ChromePicker } from 'react-color';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const AddDrawingsZoneModal = ({
+const DrawingZoneFormModal = ({
+    action = 'Add',
     name,
     handleNameChange,
     colorHex,
     handleColorChange,
     handleSubmit,
-    hideModal,
+    handleCancel,
 }) => {
     return (
         <ModalOuterContainer>
@@ -39,9 +40,9 @@ const AddDrawingsZoneModal = ({
                 </Field>
                 <BlockButtonWrapper>
                     <button className="button green" type="submit">
-                        <i className="fa fa-plus" /> Add Zone
+                        <i className="fa fa-plus" /> {action} Zone
                     </button>
-                    <button className="button grey" onClick={hideModal}>
+                    <button className="button grey" onClick={handleCancel}>
                         Cancel
                     </button>
                 </BlockButtonWrapper>
@@ -50,4 +51,4 @@ const AddDrawingsZoneModal = ({
     );
 };
 
-export default AddDrawingsZoneModal;
+export default DrawingZoneFormModal;
