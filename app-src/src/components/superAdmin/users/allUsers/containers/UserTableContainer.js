@@ -5,6 +5,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import PageSelector from 'components/shared/pagination/presentational/pageSelector';
 import fetchUsersBySearch from 'actions/superAdmin/users/async/fetchUsersBySearch';
 import updateUsersFilters from 'actions/superAdmin/users/sync/updateUsersFilter';
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 
 const UserTableContainer = ({
     isFetching,
@@ -23,7 +24,15 @@ const UserTableContainer = ({
                 <PageSelector setPage={setPage} page={page} maxPage={maxPage} />
             </BlockHeading>
             <UserTable
-                headers={['Name', 'Email Address', 'Phone Number', 'Role','Access granted by', 'Created On', '']}
+                headers={[
+                    'Name',
+                    'Email Address',
+                    'Phone Number',
+                    'Role',
+                    'Access granted by',
+                    'Created On',
+                    '',
+                ]}
                 isFetching={isFetching}
                 error={error}
                 users={_getFilteredUsers()}
@@ -32,12 +41,14 @@ const UserTableContainer = ({
     );
 
     function _getFilteredUsers() {
-        return users.filter(
-            user =>
-                (!role || (user.roles && user.roles.find(({ type }) => String(type) === role))) &&
-                user.email &&
-                user.email.toLowerCase().includes(email.toLowerCase())
-        );
+        const deletedRole = String(COMPANY_USER_ROLE_TYPES.DELETED);
+        return users
+            .filter(u => {
+                if (!role) return true;
+                if (role === deletedRole) return u.isDeleted;
+                return u.roles && u.roles.find(({ type }) => String(type) === role);
+            })
+            .filter(u => u.email && u.email.toLowerCase().includes(email.toLowerCase()));
     }
 
     function setPage(nextPage) {
