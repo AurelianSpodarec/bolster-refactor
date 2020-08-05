@@ -1,15 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import greenPin from '_content/images/map-markers/green-pin2x.png';
+import redPin from '_content/images/map-markers/red-pin2x.png';
+import bluePin from '_content/images/map-markers/blue-pin2x.png';
+import yellowPin from '_content/images/map-markers/yellow-pin2x.png';
+import purplePin from '_content/images/map-markers/purple-pin2x.png';
+
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { VIEW_ZONES } from 'constants/shared/modalTypes';
 
 import ZoneDetailsModal from '../presentational/ZoneDetailsModal';
+import { PIN_STATUS_IDS } from 'constants/companyAdmin/enums';
 
 const ZoneDetailsModalContainer = ({ zone, pins, servicesObj, showModal }) => {
-    console.log(_getServiceAreas());
-
-    return <ZoneDetailsModal zone={zone} handleHideDetails={handleHideDetails} />;
+    return <ZoneDetailsModal zone={zone} handleHideDetails={handleHideDetails} services={_getServiceAreas()} getStatusIcon={_getStatusIcon} />;
 
     function handleHideDetails() {
         showModal(VIEW_ZONES);
@@ -79,6 +84,34 @@ const ZoneDetailsModalContainer = ({ zone, pins, servicesObj, showModal }) => {
         });
 
         return services.sort((a, b) => a.id - b.id);
+    }
+
+    function _getStatusIcon(status) {
+        const { ACTION_REQUIRED, INSTALLED, INSPECTED, NO_ACTION, OTHER } = PIN_STATUS_IDS;
+
+        let icon = redPin;
+
+        switch (status) {
+            case ACTION_REQUIRED:
+                icon = redPin;
+                break;
+            case INSTALLED:
+                icon = greenPin;
+                break;
+            case INSPECTED:
+                icon = bluePin;
+                break;
+            case NO_ACTION:
+                icon = yellowPin;
+                break;
+            case OTHER:
+                icon = purplePin;
+                break;
+            default:
+                icon = redPin;
+        }
+
+        return icon;
     }
 };
 

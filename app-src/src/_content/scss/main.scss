@@ -5615,3 +5615,16 @@ input {
         padding-left: 15px;
     }
 }
+
+
+//service area when viewing zone pins
+.service-area {
+    .status-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .status {
+        width: 20%;
+    }
+}
