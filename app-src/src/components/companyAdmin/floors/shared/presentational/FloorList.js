@@ -3,7 +3,7 @@ import React from 'react';
 import FloorListItemContainer from '../containers/FloorListItemContainer';
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 
-const FloorList = ({ floors, colCount, forwardRef, isOver, headers }) => (
+const FloorList = ({ floors, colCount, forwardRef, isOver, headers, colSpanFirst }) => (
     <tbody ref={forwardRef} className={isOver ? 'dragging' : ''}>
         {[...floors]
             .sort((a, b) => a.sort - b.sort)
@@ -15,6 +15,7 @@ const FloorList = ({ floors, colCount, forwardRef, isOver, headers }) => (
                     floors={floors}
                     index={i}
                     headers={headers}
+                    colSpanFirst={colSpanFirst}
                 />
             ))}
     </tbody>

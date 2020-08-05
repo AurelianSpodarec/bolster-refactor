@@ -3,7 +3,7 @@ import React from 'react';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import BuildingsList from 'components/companyAdmin/buildings/shared/presentational/BuildingsList';
 
-const BuildingsTable = ({ buildings, headers, isFetching, error }) => {
+const BuildingsTable = ({ buildings, headers, isFetching, error, colSpanFirst = false }) => {
     return (
         <>
             <Table
@@ -19,6 +19,7 @@ const BuildingsTable = ({ buildings, headers, isFetching, error }) => {
                     colCount={headers.length}
                     buildings={buildings}
                     headers={headers}
+                    colSpanFirst={colSpanFirst}
                 />
             </Table>
         </>

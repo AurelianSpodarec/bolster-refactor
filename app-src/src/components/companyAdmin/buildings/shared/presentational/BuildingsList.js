@@ -8,7 +8,8 @@ const BuildingsList = ({
     buildings,
     forwardRef,
     isOver,
-    headers
+    headers,
+    colSpanFirst = false,
 }) => (
     <tbody ref={forwardRef} className={isOver ? 'dragging' : ''}>
         {buildings.map((building, index) => (
@@ -19,6 +20,7 @@ const BuildingsList = ({
                 index={index}
                 buildings={buildings}
                 headers={headers}
+                colSpanFirst={colSpanFirst}
             />
         ))}
     </tbody>

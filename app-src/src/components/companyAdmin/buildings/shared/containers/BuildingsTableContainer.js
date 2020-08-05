@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import BuildingsTable from '../presentational/BuildingsTable';
 import { hierarchySort } from 'helpers/generic';
 
-const BuildingsTableContainer = ({ isFetching, error, buildings }) => {
+const BuildingsTableContainer = ({ isFetching, error, buildings, colSpanFirst = false }) => {
     return (
         <BuildingsTable
             headers={['Building name', 'Created on', 'Permissions', 'Action']}
             isFetching={isFetching}
             error={error}
             buildings={buildings}
+            colSpanFirst={colSpanFirst}
         />
     );
 };
@@ -21,5 +22,5 @@ export default connect(({ companyAdmin: { buildingsReducer } }, ownProps) => ({
     buildings: ownProps.ids
         .map(id => buildingsReducer.buildings[id])
         .filter(item => item)
-        .sort(hierarchySort)
+        .sort(hierarchySort),
 }))(BuildingsTableContainer);

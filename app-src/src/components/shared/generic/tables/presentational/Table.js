@@ -11,18 +11,19 @@ const Table = ({
     withActions = false,
     children,
     extraClasses = '',
-    withoutTBody
+    withoutTBody,
+    //colspan first th, sometimes have spacing issues
+    //needs colspan on table item also, if true
+    colSpanFirst = false,
 }) => {
     return (
-        <table
-            className={`generic-table ${
-                withActions ? 'with-actions' : ''
-            } ${extraClasses}`}
-        >
+        <table className={`generic-table ${withActions ? 'with-actions' : ''} ${extraClasses}`}>
             <thead>
                 <tr>
                     {headers.map((header, i) => (
-                        <th key={header + i}>{header}</th>
+                        <th colSpan={colSpanFirst && i === 0 ? '2' : ''} key={header + i}>
+                            {header}
+                        </th>
                     ))}
                 </tr>
             </thead>
