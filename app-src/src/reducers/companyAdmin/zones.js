@@ -8,10 +8,13 @@ import {
     FETCH_DRAWING_ZONES_FAILURE,
     SET_ZONE_ADD_MODE,
     SET_ZONE_FORM_COORDINATES,
-    SET_ZONES_OPACITY
+    SET_ZONES_OPACITY,
+    DELETE_DRAWING_ZONE_REQUEST,
+    DELETE_DRAWING_ZONE_SUCCESS,
 } from 'constants/actionTypes/zones';
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, removeObjItem } from 'helpers/generic';
 import { FETCH_ALL_APPROVED_COMPANIES_FAILURE } from 'constants/actionTypes/approvedCompanies';
+import { DELETE_BUILDING_FAILURE } from 'constants/actionTypes/buildings';
 
 export default combineReducers({
     error: errorReducer,
@@ -19,7 +22,7 @@ export default combineReducers({
     isAddMode: isAddModeReducer,
     zonesOpacity: zonesOpacityReducer,
     zones: zonesReducer,
-    zoneFormCoordinates: zonesFormCoordinatesReducer
+    zoneFormCoordinates: zonesFormCoordinatesReducer,
 });
 
 function zonesFormCoordinatesReducer(state = null, action) {
@@ -65,9 +68,11 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case CREATE_DRAWING_ZONE_REQUEST:
         case FETCH_DRAWING_ZONES_REQUEST:
+        case DELETE_DRAWING_ZONE_REQUEST:
             return null;
         case CREATE_DRAWING_ZONE_FAILURE:
         case FETCH_ALL_APPROVED_COMPANIES_FAILURE:
+        case DELETE_BUILDING_FAILURE:
             return action.error;
         default:
             return state;
@@ -82,8 +87,10 @@ function zonesReducer(state = {}, action) {
         case CREATE_DRAWING_ZONE_SUCCESS:
             return {
                 ...state,
-                [action.payload.id]: formatZone(action.payload)
+                [action.payload.id]: formatZone(action.payload),
             };
+        case DELETE_DRAWING_ZONE_SUCCESS:
+            return removeObjItem(state, action.zoneID);
         default:
             return state;
     }

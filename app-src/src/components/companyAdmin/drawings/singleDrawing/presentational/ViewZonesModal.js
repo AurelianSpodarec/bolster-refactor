@@ -14,61 +14,63 @@ const ViewZonesModal = ({
     selectedQR,
     selectQR,
     handleShowZoneDetails,
+    confirmDelete,
 }) => (
-        <ModalOuterContainer extraClasses="zone-modal">
-            <BlockHeading title="View zones"></BlockHeading>
+    <ModalOuterContainer extraClasses="zone-modal">
+        <BlockHeading title="View zones"></BlockHeading>
 
-            {zonesArr.length ? (
-                <div className="zones-list size-lg-12">
-                    <div className="headings size-lg-12">
-                        <p className="item size-lg-4">
-                            <strong>Name</strong>
-                        </p>
-                        <p className="item size-lg-2">
-                            <strong>Colour</strong>
-                        </p>
-                        <p className="item size-lg-3">
-                            <strong>QR Code</strong>
-                        </p>
-                        <p className="item size-lg-3" />
-                    </div>
-
-                    {zonesArr.map((zone) => (
-                        <ZoneListItem
-                            key={zone.id}
-                            zone={zone}
-                            selectQR={selectQR}
-                            handleShowZoneDetails={handleShowZoneDetails}
-                        />
-                    ))}
-                </div>
-            ) : (
-                    <p className="generic-text no-data size-lg-12">
-                        No zones were found
+        {zonesArr.length ? (
+            <div className="zones-list size-lg-12">
+                <div className="headings size-lg-12">
+                    <p className="item size-lg-4">
+                        <strong>Name</strong>
                     </p>
-                )}
+                    <p className="item size-lg-2">
+                        <strong>Colour</strong>
+                    </p>
+                    <p className="item size-lg-3">
+                        <strong>QR Code</strong>
+                    </p>
+                    <p className="item size-lg-3" />
+                </div>
 
-            {selectedQR && (
-                <ModalOuter hideCloseButton extraClasses="qr-view">
-                    <QRCode value={selectedQR} size={200} />
-                    <button
-                        className="button grey pull-right"
-                        onClick={() => selectQR(null)}
-                    >
-                        Close
+                {zonesArr.map((zone) => (
+                    <ZoneListItem
+                        key={zone.id}
+                        zone={zone}
+                        selectQR={selectQR}
+                        handleShowZoneDetails={handleShowZoneDetails}
+                        confirmDelete={confirmDelete}
+                    />
+                ))}
+            </div>
+        ) : (
+            <p className="generic-text no-data size-lg-12">
+                No zones were found
+            </p>
+        )}
+
+        {selectedQR && (
+            <ModalOuter hideCloseButton extraClasses="qr-view">
+                <QRCode value={selectedQR} size={200} />
+                <button
+                    className="button grey pull-right"
+                    onClick={() => selectQR(null)}
+                >
+                    Close
                 </button>
-                </ModalOuter>
-            )}
+            </ModalOuter>
+        )}
 
-            <BlockButtonWrapper>
-                <button className="button green" onClick={addZone}>
-                    <i className="fa fa-plus" /> Add Zone
+        <BlockButtonWrapper>
+            <button className="button green" onClick={addZone}>
+                <i className="fa fa-plus" /> Add Zone
             </button>
-                <button className="button grey" onClick={hideModal}>
-                    Cancel
+            <button className="button grey" onClick={hideModal}>
+                Cancel
             </button>
-            </BlockButtonWrapper>
-        </ModalOuterContainer>
-    );
+        </BlockButtonWrapper>
+    </ModalOuterContainer>
+);
 
 export default ViewZonesModal;

@@ -6,10 +6,11 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 const ConfirmDeleteModal = ({
     handleDelete,
     hideModal,
+    handleCancel = hideModal,
     message = 'Are you sure you want to delete this?',
     isIncoming = false,
     deleteButtonText = 'Delete',
-    icon = 'trash-alt'
+    icon = 'trash-alt',
 }) => (
     <ModalOuterContainer>
         <BlockHeading title={'Confirmation'} />
@@ -28,7 +29,7 @@ const ConfirmDeleteModal = ({
                     </>
                 )}
             </button>
-            <button className="button" onClick={hideModal}>
+            <button className="button" onClick={handleCancel}>
                 Cancel
             </button>
         </BlockButtonWrapper>
