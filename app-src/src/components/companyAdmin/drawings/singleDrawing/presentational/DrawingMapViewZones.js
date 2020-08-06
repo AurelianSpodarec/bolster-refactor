@@ -18,36 +18,7 @@ class DrawingMapViewZones extends Component {
     }
 
     componentDidMount() {
-        const { curZoom, zonesOpacity } = this.props;
-        const leafletFG = this.fgRef.current.leafletElement;
-
-        this.leafletGeoJSON.eachLayer(layer => {
-            const layerColor = layer.feature.color;
-            const layerName = layer.feature.name;
-
-            layer.setStyle({
-                fillColor: layerColor,
-                color: layerColor,
-                fillOpacity: zonesOpacity,
-            });
-
-            layer
-                .bindTooltip(layerName, {
-                    permanent: true,
-                    className: `zone-tooltip ${
-                        curZoom < 1
-                            ? 'small-zoom'
-                            : curZoom > 2
-                            ? 'large-zoom'
-                            : ''
-                    }`,
-                    offset: [0, 0],
-                    direction: 'center',
-                })
-                .openTooltip();
-
-            leafletFG.addLayer(layer);
-        });
+        this.setZones();
     }
 
     componentDidUpdate(prevProps) {
@@ -103,6 +74,39 @@ class DrawingMapViewZones extends Component {
         };
 
         return zoneFeatures;
+    }
+
+    setZones() {
+        const { curZoom, zonesOpacity } = this.props;
+        const leafletFG = this.fgRef.current.leafletElement;
+
+        this.leafletGeoJSON.eachLayer(layer => {
+            const layerColor = layer.feature.color;
+            const layerName = layer.feature.name;
+
+            layer.setStyle({
+                fillColor: layerColor,
+                color: layerColor,
+                fillOpacity: zonesOpacity,
+            });
+
+            layer
+                .bindTooltip(layerName, {
+                    permanent: true,
+                    className: `zone-tooltip ${
+                        curZoom < 1
+                            ? 'small-zoom'
+                            : curZoom > 2
+                            ? 'large-zoom'
+                            : ''
+                    }`,
+                    offset: [0, 0],
+                    direction: 'center',
+                })
+                .openTooltip();
+
+            leafletFG.addLayer(layer);
+        });
     }
 }
 

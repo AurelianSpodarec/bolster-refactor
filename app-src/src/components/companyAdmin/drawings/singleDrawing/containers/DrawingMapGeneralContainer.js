@@ -189,7 +189,10 @@ class DrawingMapGeneralContainer extends Component {
         fieldErrors,
         rectangles: prevRectangles,
         furtherFiltrationOption: prevOption,
+        isModified: prevIsModified,
     }) => {
+        const { showZones } = this.state;
+
         const {
             drawing = {},
             handleChange,
@@ -201,6 +204,7 @@ class DrawingMapGeneralContainer extends Component {
             postFilters,
             furtherFiltrationOption,
             removeAllRectangles,
+            isModified,
         } = this.props;
         // re-fetch drawing every 5 seconds until the updated floorplan is retrieved
         if (postSuccess && !prevSuccess) fetchSingleDrawing(drawing.id);
@@ -239,6 +243,21 @@ class DrawingMapGeneralContainer extends Component {
             handleChange('siteID', String(drawing.siteID));
             handleChange('buildingID', String(drawing.buildingID));
             handleChange('floorID', String(drawing.floorID));
+        }
+
+        if (!prevIsModified && isModified && showZones) {
+            const that = this;
+
+            that.setState(
+                {
+                    showZones: false,
+                },
+                () => {
+                    that.setState({
+                        showZones: true,
+                    });
+                }
+            );
         }
     };
 
@@ -400,7 +419,6 @@ class DrawingMapGeneralContainer extends Component {
     };
 
     handleZoomChange = zoomLevel => {
-        console.log(zoomLevel);
         this.setState({
             curZoom: zoomLevel,
         });
@@ -422,7 +440,12 @@ const mapStateToProps = (
                 rectangles,
                 isFetching: isFetchingReports,
             },
-            zonesReducer: { isAddMode, zonesOpacity, zoneFormCoordinates },
+            zonesReducer: {
+                isAddMode,
+                isModified,
+                zonesOpacity,
+                zoneFormCoordinates,
+            },
         },
     },
     { match }
@@ -446,6 +469,7 @@ const mapStateToProps = (
     isAddingZone: isAddMode,
     zonesOpacity,
     zoneFormCoordinates,
+    isModified,
 });
 
 const mapDispatchToProps = {

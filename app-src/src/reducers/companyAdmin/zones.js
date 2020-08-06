@@ -25,6 +25,7 @@ export default combineReducers({
     zonesOpacity: zonesOpacityReducer,
     zones: zonesReducer,
     zoneFormCoordinates: zonesFormCoordinatesReducer,
+    isModified: isModifiedReducer,
 });
 
 function zonesFormCoordinatesReducer(state = null, action) {
@@ -77,6 +78,19 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_APPROVED_COMPANIES_FAILURE:
         case DELETE_BUILDING_FAILURE:
             return action.error;
+        default:
+            return state;
+    }
+}
+
+function isModifiedReducer(state = false, action) {
+    switch (action.type) {
+        case EDIT_DRAWING_ZONE_REQUEST:
+        case DELETE_DRAWING_ZONE_REQUEST:
+            return false;
+        case EDIT_DRAWING_ZONE_SUCCESS:
+        case DELETE_DRAWING_ZONE_SUCCESS:
+            return true;
         default:
             return state;
     }
