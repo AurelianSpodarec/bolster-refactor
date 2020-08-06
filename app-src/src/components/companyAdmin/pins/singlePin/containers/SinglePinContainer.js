@@ -9,17 +9,20 @@ import SinglePin from '../presentational/SinglePin';
 import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
 import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
 import fetchAllPinsForDrawing from 'actions/companyAdmin/pins/async/fetchAllPinsForDrawing.js';
+import fetchZonesByDrawingID from 'actions/companyAdmin/zones/async/fetchZonesByDrawingID';
 
 class SinglePinContainer extends Component {
     state = { isLoading: true };
-    render = () => <SinglePin isLoading={this.state.isLoading} pin={this.props.pin} />;
+    render = () => (
+        <SinglePin isLoading={this.state.isLoading} pin={this.props.pin} />
+    );
 
     componentDidMount = () => {
         const {
             pinId,
             fetchSinglePinData,
             fetchSinglePin,
-            fetchPinsForInspectionLog
+            fetchPinsForInspectionLog,
         } = this.props;
 
         let drawingID = null;
@@ -36,11 +39,15 @@ class SinglePinContainer extends Component {
 }
 
 const mapStateToProps = (
-    { companyAdmin: { pinsReducer: { pins } } },
+    {
+        companyAdmin: {
+            pinsReducer: { pins },
+        },
+    },
     { match: { params } }
 ) => ({
     pinId: params.id,
-    pin: pins[params.id]
+    pin: pins[params.id],
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -49,17 +56,15 @@ const mapDispatchToProps = dispatch => ({
             dispatch(fetchPinTemplates(id)),
             dispatch(fetchCompanyUsers()),
             dispatch(fetchDrawingTemplates(drawingID)),
-            dispatch(fetchDrawingDropdownOptions(drawingID))
+            dispatch(fetchDrawingDropdownOptions(drawingID)),
+            dispatch(fetchZonesByDrawingID(drawingID)),
         ]);
     },
     fetchSinglePin: id => dispatch(fetchSinglePin(id)),
     fetchPinsForInspectionLog: (id, pinIDToKeep) =>
-        dispatch(fetchAllPinsForDrawing(id, pinIDToKeep))
+        dispatch(fetchAllPinsForDrawing(id, pinIDToKeep)),
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(SinglePinContainer)
+    connect(mapStateToProps, mapDispatchToProps)(SinglePinContainer)
 );
