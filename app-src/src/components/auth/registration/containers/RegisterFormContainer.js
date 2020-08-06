@@ -46,6 +46,8 @@ class RegisterFormContainer extends Component {
             { label: 'GB', value: VAT_TYPES.GB },
             { label: 'Europe', value: VAT_TYPES.EU },
             { label: 'Outside Europe', value: VAT_TYPES.OUTSIDEEU },
+            { label: 'Not VAT registered GB', value: VAT_TYPES.NOT_REGISTERED_GB },
+            { label: 'Not VAT registered Outside GB', value: VAT_TYPES.NOT_REGISTERED_OUTSIDEGB },
         ];
 
         return (
