@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 class ButtonContainer extends Component {
     state = {
-        hover: false
+        hover: false,
     };
 
     render() {
@@ -18,22 +18,20 @@ class ButtonContainer extends Component {
             to = '',
             type = 'button',
             handleClick = () => {},
-            className,
+            className = '',
             isAnchor = false,
-            openNewTab = false
+            openNewTab = false,
         } = this.props;
 
         let style = {};
 
         if (setColour && setColour.length) {
             style = {
-                backgroundColor: this.state.hover
-                    ? setColourHoverCode
-                    : setColour
+                backgroundColor: this.state.hover ? setColourHoverCode : setColour,
             };
         } else {
             style = {
-                backgroundColor: this.state.hover ? colourCode : '#939393'
+                backgroundColor: this.state.hover ? colourCode : '#939393',
             };
         }
 
@@ -41,12 +39,9 @@ class ButtonContainer extends Component {
             onMouseLeave: this.handleMouseLeave,
             onMouseOver: this.handleMouseOver,
 
-            className:
-                to && to.length
-                    ? `link-holder ${className}`
-                    : `button ${className}`,
+            className: to && to.length ? `link-holder ${className}` : `button ${className}`,
             onClick: handleClick,
-            style
+            style,
         };
 
         return to && !!to.length && !isAnchor ? (
@@ -84,11 +79,11 @@ class ButtonContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: {
-            companySettings: { colourCode }
-        }
-    }
+            companySettings: { colourCode },
+        },
+    },
 }) => ({
-    colourCode: colourCode || '#e10512'
+    colourCode: colourCode || '#e10512',
 });
 
 export default withRouter(connect(mapStateToProps)(ButtonContainer));

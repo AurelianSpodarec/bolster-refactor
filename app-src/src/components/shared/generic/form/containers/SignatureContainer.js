@@ -5,7 +5,7 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 import Signature from '../presentational/Signature';
 
 class SignatureContainer extends Component {
-    state = { showFieldError: false };
+    state = { showFieldError: false, showUploadComponent: false };
 
     render() {
         const { showFieldError } = this.state;
@@ -55,7 +55,7 @@ class SignatureContainer extends Component {
             required,
             validate = () => {},
             addFieldError,
-            removeFieldError
+            removeFieldError,
         } = this.props;
 
         const validateError = validate(value);
@@ -68,23 +68,25 @@ class SignatureContainer extends Component {
             removeFieldError(name);
         }
     };
+
+    _handleUploadSig = () => {
+        const { showUploadComponent } = this.state;
+        this.setState({ showUploadComponent: !showUploadComponent });
+    };
 }
 
 const mapStateToProps = (
     {
         shared: {
-            fieldErrorsReducer: { fieldErrors, errorsVisible }
-        }
+            fieldErrorsReducer: { fieldErrors, errorsVisible },
+        },
     },
-    { name }
+    { name },
 ) => ({
     error: fieldErrors[name],
-    errorsVisible
+    errorsVisible,
 });
 
 const mapDispatchToProps = { addFieldError, removeFieldError };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SignatureContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SignatureContainer);
