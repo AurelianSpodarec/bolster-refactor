@@ -246,14 +246,12 @@ class DrawingMapGeneralContainer extends Component {
         }
 
         if (!prevIsModified && isModified && showZones) {
-            const that = this;
-
             this.setState(
                 {
                     showZones: false,
                 },
                 () => {
-                    that.setState({
+                    this.setState({
                         showZones: true,
                     });
                 }
