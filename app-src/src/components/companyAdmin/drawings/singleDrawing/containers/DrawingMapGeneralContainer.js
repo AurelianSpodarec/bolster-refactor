@@ -14,7 +14,7 @@ import {
     COMPANY_USER_ROLE_TYPES as USER_ROLE,
     FLOORPLAN_STATE_MESSAGES,
     RECTANGLE_MODES,
-    FURTHER_FILTRATION_OPTIONS
+    FURTHER_FILTRATION_OPTIONS,
 } from 'constants/companyAdmin/enums';
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 import updateFloorPlanConfirmed from 'actions/companyAdmin/drawings/sync/updateFloorPlanConfirmed';
@@ -51,7 +51,8 @@ class DrawingMapGeneralContainer extends Component {
         firstCorner: null,
         mode: ADD,
         currentTooltip: null,
-        showZones: false
+        showZones: false,
+        curZoom: 3,
     };
 
     render() {
@@ -64,7 +65,8 @@ class DrawingMapGeneralContainer extends Component {
             centerLng,
             firstCorner,
             mode,
-            showZones
+            showZones,
+            curZoom,
         } = this.state;
         const {
             error,
@@ -72,7 +74,7 @@ class DrawingMapGeneralContainer extends Component {
             furtherFiltrationOption,
             rectangles,
             isAddingZone,
-            zonesOpacity
+            zonesOpacity,
         } = this.props;
         const position = [centerLat, centerLng];
         const addPinPosition = [addPinLat, addPinLng];
@@ -136,6 +138,8 @@ class DrawingMapGeneralContainer extends Component {
                         handleOpacityChange={this.handleOpacityChange}
                         showAddZoneModal={this.showAddZoneModal}
                         hasZoneCoords={!!this.props.zoneFormCoordinates}
+                        handleZoomChange={this.handleZoomChange}
+                        curZoom={curZoom}
                     />
                 </BlockContainer>
                 <FurtherFiltrationContainer />
@@ -154,7 +158,7 @@ class DrawingMapGeneralContainer extends Component {
             match,
             fetchSingleDrawing,
             pinsFromAPI = [],
-            handleChange
+            handleChange,
         } = this.props;
 
         const pinIDs = pinsFromAPI.map(({ id }) => id);
@@ -184,7 +188,7 @@ class DrawingMapGeneralContainer extends Component {
         toDateInclusive,
         fieldErrors,
         rectangles: prevRectangles,
-        furtherFiltrationOption: prevOption
+        furtherFiltrationOption: prevOption,
     }) => {
         const {
             drawing = {},
@@ -196,7 +200,7 @@ class DrawingMapGeneralContainer extends Component {
             rectangles,
             postFilters,
             furtherFiltrationOption,
-            removeAllRectangles
+            removeAllRectangles,
         } = this.props;
         // re-fetch drawing every 5 seconds until the updated floorplan is retrieved
         if (postSuccess && !prevSuccess) fetchSingleDrawing(drawing.id);
@@ -297,7 +301,7 @@ class DrawingMapGeneralContainer extends Component {
 
         this.setState({
             addPinLat: -128,
-            addPinLng: 128
+            addPinLng: 128,
         });
     };
 
@@ -333,7 +337,7 @@ class DrawingMapGeneralContainer extends Component {
             .filter(user => user.type >= USER_ROLE.OPERATIVE)
             .map(({ id, userFirstName, userLastName, userEmail }) => ({
                 value: id,
-                text: `${userFirstName} ${userLastName} <${userEmail}>`
+                text: `${userFirstName} ${userLastName} <${userEmail}>`,
             }));
         return convertArrToObj(options, 'value');
     };
@@ -351,7 +355,7 @@ class DrawingMapGeneralContainer extends Component {
     handleCancelPinSelector = () => {
         const {
             removeAllRectangles,
-            updateFurtherFiltrationOption
+            updateFurtherFiltrationOption,
         } = this.props;
         updateFurtherFiltrationOption(FURTHER_FILTRATION_OPTIONS.NONE);
         removeAllRectangles();
@@ -373,7 +377,7 @@ class DrawingMapGeneralContainer extends Component {
         const { showZones } = this.state;
 
         this.setState({
-            showZones: !showZones
+            showZones: !showZones,
         });
     };
 
@@ -382,7 +386,7 @@ class DrawingMapGeneralContainer extends Component {
         setZoneAddMode(false);
 
         this.setState({
-            showZones: true
+            showZones: true,
         });
     };
 
@@ -391,7 +395,14 @@ class DrawingMapGeneralContainer extends Component {
 
         showModal(ADD_DRAWING_ZONE, {
             handleCreateZoneFinish: this.handleCreateZoneFinish,
-            drawingID
+            drawingID,
+        });
+    };
+
+    handleZoomChange = zoomLevel => {
+        console.log(zoomLevel);
+        this.setState({
+            curZoom: zoomLevel,
         });
     };
 }
@@ -409,10 +420,10 @@ const mapStateToProps = (
                 filters: { pinIDs, templateID, companyUserIDs },
                 furtherFiltrationOption,
                 rectangles,
-                isFetching: isFetchingReports
+                isFetching: isFetchingReports,
             },
-            zonesReducer: { isAddMode, zonesOpacity, zoneFormCoordinates }
-        }
+            zonesReducer: { isAddMode, zonesOpacity, zoneFormCoordinates },
+        },
     },
     { match }
 ) => ({
@@ -434,7 +445,7 @@ const mapStateToProps = (
     companyUserIDs,
     isAddingZone: isAddMode,
     zonesOpacity,
-    zoneFormCoordinates
+    zoneFormCoordinates,
 });
 
 const mapDispatchToProps = {
@@ -449,7 +460,7 @@ const mapDispatchToProps = {
     removeAllRectangles,
     updateFurtherFiltrationOption,
     setZoneAddMode,
-    setZonesOpacity
+    setZonesOpacity,
 };
 
 export default withRouter(

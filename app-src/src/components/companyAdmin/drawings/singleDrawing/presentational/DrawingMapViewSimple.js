@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Map, TileLayer, Marker } from 'react-leaflet';
 
 import ReactDOMServer from 'react-dom/server';
@@ -11,7 +11,7 @@ import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import {
     ACCESS_TYPES_VALUES,
-    FLOORPLAN_STATES
+    FLOORPLAN_STATES,
 } from 'constants/companyAdmin/enums';
 import { EDIT_DRAWING } from 'constants/shared/modalTypes';
 import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
@@ -56,8 +56,12 @@ const DrawingMapViewSimple = ({
     zonesOpacity,
     handleOpacityChange,
     showAddZoneModal,
-    hasZoneCoords
+    hasZoneCoords,
+    handleZoomChange,
+    curZoom,
 }) => {
+    const mapRef = useRef();
+
     const newPinIcon = L.divIcon({
         className: '',
         html: ReactDOMServer.renderToString(
@@ -65,7 +69,7 @@ const DrawingMapViewSimple = ({
         ),
         iconSize: [30, 50],
         iconAnchor: [15, 50],
-        popupAnchor: [0, -50]
+        popupAnchor: [0, -50],
     });
 
     const cornerClickedIcon = L.divIcon({
@@ -73,7 +77,7 @@ const DrawingMapViewSimple = ({
         html: ReactDOMServer.renderToString(<RedX />),
         iconSize: [30, 50],
         iconAnchor: [15, 50],
-        popupAnchor: [0, -50]
+        popupAnchor: [0, -50],
     });
     const shouldShowFloorplan = !!drawing.tilesetS3Key && !updating;
 
@@ -141,7 +145,7 @@ const DrawingMapViewSimple = ({
                                                 className="button yellow"
                                                 onClick={() =>
                                                     showModal(EDIT_DRAWING, {
-                                                        drawing
+                                                        drawing,
                                                     })
                                                 }
                                             >
@@ -159,12 +163,19 @@ const DrawingMapViewSimple = ({
                         )}
                     </BlockHeading>
                     <Map
+                        ref={mapRef}
                         center={position}
                         zoom={zoom}
                         minZoom={0}
                         maxZoom={8}
                         onClick={e => handleClick(e)}
                         crs={CRS.Simple}
+                        onzoomend={() =>
+                            handleZoomChange(
+                                mapRef.current.leafletElement.getZoom()
+                            )
+                        }
+                        className={!showZones ? 'hide-tooltips' : ''}
                     >
                         <TileLayer
                             attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
@@ -177,7 +188,9 @@ const DrawingMapViewSimple = ({
                             <DrawingMapAddZone />
                         ) : (
                             <>
-                                {showZones && <DrawingMapViewZones />}
+                                {showZones && (
+                                    <DrawingMapViewZones curZoom={curZoom} />
+                                )}
                                 {pins.map(pin => (
                                     <MapPinContainer
                                         updateCurTooltip={updateCurTooltip}

@@ -1,6 +1,6 @@
-@import "./reset.scss";
-@import "./variables.scss";
-@import "./sizing.scss";
+@import './reset.scss';
+@import './variables.scss';
+@import './sizing.scss';
 
 @mixin dropdown-popup() {
     z-index: -1;
@@ -1430,7 +1430,7 @@ input {
         .dropdown-content {
             z-index: 1;
         }
-        input[type="checkbox"] {
+        input[type='checkbox'] {
             display: none;
         }
     }
@@ -1453,7 +1453,7 @@ input {
         line-height: 26px !important;
         span {
             color: $body-text !important;
-            font-family: "Ubuntu", sans-serif !important;
+            font-family: 'Ubuntu', sans-serif !important;
             font-size: 14px;
             font-weight: 400 !important;
         }
@@ -1466,7 +1466,7 @@ input {
     .dropdown-content {
         z-index: 1;
     }
-    input[type="checkbox"] {
+    input[type='checkbox'] {
         display: none;
     }
 }
@@ -2821,10 +2821,46 @@ input {
     width: 100%;
     height: 465px;
     z-index: 10;
-}
-.leaflet-pane {
-    .leaflet-tooltip-pane {
-        opacity: 0;
+
+    .zone-tooltip {
+        font-size: 12px;
+        border: none;
+        background-color: transparent;
+        box-shadow: none;
+
+        &.small-zoom {
+            font-size: 8px;
+        }
+
+        &.large-zoom {
+            font-size: 16px;
+        }
+    }
+
+    // &.small-zoom {
+    //     .zone-tooltip {
+    //         font-size: 8px;
+    //     }
+    // }
+
+    // &.large-zoom {
+    //     .zone-tooltip {
+    //         font-size: 16px;
+    //     }
+    // }
+
+    .leaflet-pane {
+        .leaflet-tooltip-pane {
+            z-index: 400;
+        }
+    }
+
+    &.hide-tooltips {
+        .leaflet-pane {
+            .leaflet-tooltip-pane {
+                opacity: 0;
+            }
+        }
     }
 }
 
@@ -3688,7 +3724,7 @@ input {
             font-size: 120%;
         }
 
-        input[type="checkbox"] {
+        input[type='checkbox'] {
             display: block;
             margin: 0 auto;
             cursor: move;
@@ -4333,7 +4369,7 @@ input {
             }
         }
 
-        input[type="text"] {
+        input[type='text'] {
             float: left;
             width: 100%;
             padding: 5px 8px;
@@ -4390,7 +4426,7 @@ input {
     float: left;
     padding: 10px 20px;
     color: #fff;
-    font-family: "Neo Sans W01 Medium", Arial, sans-serif;
+    font-family: 'Neo Sans W01 Medium', Arial, sans-serif;
     font-size: 180%;
     background-color: gray;
     border: none;
@@ -4527,7 +4563,7 @@ input {
         width: 100%;
         padding: 5px 10px 0;
         text-align: right;
-        font-family: "Neo Sans W01 Medium", sans-serif !important;
+        font-family: 'Neo Sans W01 Medium', sans-serif !important;
     }
 }
 
@@ -5615,7 +5651,6 @@ input {
         padding-left: 15px;
     }
 }
-
 
 //service area when viewing zone pins
 .service-area {
