@@ -19,7 +19,7 @@ import {
     ADD_OPERATIVES_SUCCESS,
     FETCH_COMPANY_OPERATIVES_REQUEST,
     FETCH_COMPANY_OPERATIVES_SUCCESS,
-    FETCH_COMPANY_OPERATIVES_FAILURE
+    FETCH_COMPANY_OPERATIVES_FAILURE,
 } from 'constants/actionTypes/operatives';
 
 export default combineReducers({
@@ -30,7 +30,7 @@ export default combineReducers({
     postSuccess: postSuccessReducer,
     isDeleting: isDeletingReducer,
     deletionError: deletionErrorReducer,
-    deleteSuccess: deleteSuccessReducer
+    deleteSuccess: deleteSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {
