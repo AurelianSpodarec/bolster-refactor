@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { convertArrToObj } from 'helpers/generic';
 import addOperative from 'actions/companyAdmin/operatives/async/addOperative';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import fetchCompanyPermissions from 'actions/companyAdmin/companiesPermissions/async/fetchCompanyPermissions';
 
 import AttachOperativesForm from '../presentational/AttachOperativeForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -50,7 +51,16 @@ class AttachOperativesFormContainer extends Component {
         );
     }
 
-    componentDidMount = () => this.props.fetchCompanyUsers();
+    componentDidMount = () => {
+        const {
+            fetchCompanyUsers,
+            fetchCompanyPermissions,
+            hierarchyID,
+            hierarchyType,
+        } = this.props;
+        fetchCompanyUsers();
+        fetchCompanyPermissions(hierarchyType, hierarchyID);
+    };
 
     componentDidUpdate = prevProps => {
         const { postSuccess, history, redirectUrl } = this.props;
@@ -70,26 +80,25 @@ class AttachOperativesFormContainer extends Component {
     };
 
     _getServicesOptions = () => {
-        const { services, subscriptions } = this.props;
-        return services.map(({ id, name }) => ({
-            value: id,
-            text: name,
-            disabled: !subscriptions.includes(id),
-        }));
+        const { services, subscriptions, companyPermissions, companyID } = this.props;
+        const relevantPermissions = companyPermissions.filter(perm => perm.companyID === companyID);
+        return services.map(({ id, name }) => {
+            const hasSub = subscriptions.includes(id);
+            // relevant service match or null, which implies all access
+            const hasAccess = !!relevantPermissions.find(
+                perm => perm.serviceID === id || perm.serviceID === null,
+            );
+            return {
+                value: id,
+                text: name,
+                disabled: !(hasSub && hasAccess),
+            };
+        });
     };
 
     handleChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = () => {
-        // const { companyUserID, serviceIDs } = this.state;
-        // const { hierarchyType, hierarchyID, addOperative } = this.props;
-
-        // const postBody = {
-        //     companyUserID,
-        //     serviceIDs
-        // };
-        // addOperative(hierarchyType, hierarchyID, postBody);
-        // todo actions, reducers, api for this vvvvv
         const { companyUserIDs, serviceIDs } = this.state;
         const { hierarchyType, hierarchyID, addOperatives } = this.props;
         const postBody = { companyUserIDs, serviceIDs };
@@ -101,6 +110,7 @@ const mapStateToProps = (
     {
         companyAdmin: {
             companyUsersReducer: { users, isFetching, error },
+            companiesPermissionsReducer: { companiesPermissions: companyPermissions },
             servicesReducer: { services },
             subscriptionsReducer: { subscriptions },
             operativesReducer: {
@@ -108,6 +118,11 @@ const mapStateToProps = (
                 isFetching: fetchingOps,
                 error: opsError,
                 postSuccess,
+            },
+        },
+        shared: {
+            decodeJWTReducer: {
+                jwtData: { companyID },
             },
         },
     },
@@ -122,12 +137,15 @@ const mapStateToProps = (
     error: error || opsError,
     postSuccess,
     drawingUserIDs: Object.values(operatives).map(({ companyUserID }) => companyUserID),
+    companyPermissions: Object.values(companyPermissions),
+    companyID,
 });
 
 const mapDispatchToProps = {
     addOperative,
     fetchCompanyUsers,
     addOperatives,
+    fetchCompanyPermissions,
 };
 
 export default withRouter(
