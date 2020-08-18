@@ -19,6 +19,7 @@ const OutputSettings = ({
     includeFloorplan,
     isOAndMManualGeneration,
     showHidden,
+    handleShowOandMModal,
 }) => (
     <div className="size-lg-12">
         <BlockContainer>
@@ -51,7 +52,12 @@ const OutputSettings = ({
                                 />
                                 <CheckboxContainer
                                     checked={isOAndMManualGeneration}
-                                    handleChange={handleFilterChange}
+                                    handleChange={(name, value) => {
+                                        handleFilterChange(name, value);
+                                        if (value) {
+                                            handleShowOandMModal();
+                                        }
+                                    }}
                                     name="isOAndMManualGeneration"
                                     text="Include O&M Manuals?"
                                 />
