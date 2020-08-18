@@ -11,7 +11,6 @@ import { usePrevious } from 'helpers/hooks';
 import GenerateQRCodesModal from '../presentational/GenerateQRCodesModal';
 import { isEmpty } from 'helpers/generic';
 import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
-import { max } from 'lodash';
 
 const GenerateQRCodesModalContainer = ({
     showModal,

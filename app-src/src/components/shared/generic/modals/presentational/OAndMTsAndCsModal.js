@@ -17,7 +17,7 @@ const OAndMTsAndCsModal = ({ handleAccept }) => (
                     correct before issuing to any third party.
                 </p>
                 <BlockButtonWrapper>
-                    <ButtonContainer handleClick={handleAccept}>Ok</ButtonContainer>
+                    <ButtonContainer handleClick={handleAccept}>I agree</ButtonContainer>
                 </BlockButtonWrapper>
             </BlockContainer>
         </div>

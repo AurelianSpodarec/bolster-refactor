@@ -6,6 +6,7 @@ import createOptionValue from 'actions/companyAdmin/manufacturers/async/createOp
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import AddOptionValueForm from '../presentational/AddOptionValueForm';
+import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOAndMTsAndCsModal';
 
 class AddOptionValueFormContainer extends Component {
     state = {
@@ -37,7 +38,7 @@ class AddOptionValueFormContainer extends Component {
 
     componentDidMount = () => {
         const serviceOptions = this.formatServicesWithSubscriptions();
-
+        this.props.showOAndMTsAndCsModal('add option value');
         this.setState({ serviceOptions });
     };
     handleShowAddDocForm = () => {
@@ -139,6 +140,7 @@ const mapStateToProps = (
 const mapDispatchToProps = {
     createOptionValue,
     hideModal,
+    showOAndMTsAndCsModal,
 };
 
 export default withRouter(
