@@ -60,8 +60,14 @@ class AddSiteFormContainer extends Component {
     }
 
     async componentDidMount() {
-        const { fetchManufacturersByPinOptionType, fetchAllOptionValues } = this.props;
-
+        const {
+            fetchManufacturersByPinOptionType,
+            fetchAllOptionValues,
+            useManufacturingByDefault,
+        } = this.props;
+        if (useManufacturingByDefault) {
+            showOAndMTsAndCsModal('add site');
+        }
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before adding a site.
         const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
             return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option];
