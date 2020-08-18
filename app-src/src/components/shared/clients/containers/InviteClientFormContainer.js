@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import InviteClientForm from '../presentational/InviteClientForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import fetchCompaniesPermissions from 'actions/companyAdmin/companiesPermissions/async/fetchCompanyPermissions';
 import addClient from 'actions/companyAdmin/clients/async/addClient';
 
 class InviteClientFormContainer extends Component {
@@ -18,9 +19,9 @@ class InviteClientFormContainer extends Component {
 
     render() {
         const { serviceIDs } = this.state;
-        const showMoreServicesMesssage = this._getServicesOptions().some(
-            option => option.disabled === true,
-        );
+        const serviceOptions = this._getServicesOptions();
+        const showMoreServicesMesssage = serviceOptions.some(option => option.disabled === true);
+        const showClientServicesMessage = serviceOptions.some(option => option.hideClientAccess);
 
         return (
             <BlockContainer>
@@ -31,10 +32,16 @@ class InviteClientFormContainer extends Component {
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
                     showMoreServicesMesssage={showMoreServicesMesssage}
+                    showClientServicesMessage={showClientServicesMessage}
                 />
             </BlockContainer>
         );
     }
+
+    componentDidMount = () => {
+        const { fetchCompaniesPermissions, hierarchyType, hierarchyID } = this.props;
+        fetchCompaniesPermissions(hierarchyType, hierarchyID);
+    };
 
     componentDidUpdate = prevProps => {
         const { success, history, hierarchyType, hierarchyID } = this.props;
@@ -45,12 +52,24 @@ class InviteClientFormContainer extends Component {
     };
 
     _getServicesOptions = () => {
-        const { services, subscriptions } = this.props;
-        return services.map(({ id, name }) => ({
-            value: id,
-            text: name,
-            disabled: !subscriptions.includes(id),
-        }));
+        const { services, subscriptions, companiesPermissions, companyID } = this.props;
+        const relevantPermissions = companiesPermissions.filter(
+            perm => perm.companyID === companyID,
+        );
+
+        return services.map(({ id, name }) => {
+            const hasSub = subscriptions.includes(id);
+            // relevant service match or null, which implies all access
+            const hasAccess = !!relevantPermissions.find(
+                perm => perm.serviceID === id || perm.serviceID === null,
+            );
+            return {
+                value: id,
+                text: name,
+                disabled: !(hasSub && hasAccess),
+                hideClientAccess: !hasAccess,
+            };
+        });
     };
 
     handleChange = (name, value) => this.setState({ [name]: value });
@@ -73,18 +92,29 @@ class InviteClientFormContainer extends Component {
 }
 
 const mapStateToProps = (
-    { companyAdmin: { servicesReducer, subscriptionsReducer, clientsReducer } },
+    {
+        companyAdmin: {
+            servicesReducer,
+            subscriptionsReducer,
+            clientsReducer,
+            companiesPermissionsReducer: { companiesPermissions },
+        },
+        shared: {
+            decodeJWTReducer: {
+                jwtData: { companyID },
+            },
+        },
+    },
     { match },
 ) => ({
     services: Object.values(servicesReducer.services),
     subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
     hierarchyID: match.params.id,
     success: clientsReducer.postSuccess,
+    companiesPermissions: Object.values(companiesPermissions),
+    companyID,
 });
 
-const mapDispatchToProps = dispatch => ({
-    addClient: (hierarchyType, hierarchyID, postBody) =>
-        dispatch(addClient(hierarchyType, hierarchyID, postBody)),
-});
+const mapDispatchToProps = { addClient, fetchCompaniesPermissions };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InviteClientFormContainer));
