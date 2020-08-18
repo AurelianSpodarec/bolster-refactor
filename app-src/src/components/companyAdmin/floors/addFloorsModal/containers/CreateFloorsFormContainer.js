@@ -155,7 +155,7 @@ const CreateFloorsFormContainer = ({
             setInitialManufacturerFloorOptions(initialOptions);
             setAreOptionsLoaded(true);
             if (useManufacturingByDefault && !isManufacturingInherited) {
-                showOAndMTsAndCsModal('adding floor');
+                handleShowOandMModal();
             }
         }
     }, [isFetching]);
@@ -256,7 +256,7 @@ const CreateFloorsFormContainer = ({
     }
 
     function handleShowOandMModal() {
-        showOAndMTsAndCsModal('add building');
+        showOAndMTsAndCsModal('add floor');
     }
 };
 

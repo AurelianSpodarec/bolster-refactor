@@ -152,7 +152,7 @@ const CreateBuildingsFormContainer = ({
             setInitialManufacturerBuildingOptions(initialOptions);
             setAreOptionsLoaded(true);
             if (useManufacturingByDefault && !isManufacturingInherited) {
-                showOAndMTsAndCsModal('add site');
+                handleShowOandMModal();
             }
         }
     }, [isFetching]);

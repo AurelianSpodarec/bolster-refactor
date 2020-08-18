@@ -28,6 +28,7 @@ const AddDrawingsForm = ({
     initialOptions,
     setShowManufacturingOptions,
     showManufacturingOptions,
+    handleShowOandMModal,
 }) => {
     const hasEnoughCredits = credits >= drawings.length;
     return (
@@ -129,9 +130,12 @@ const AddDrawingsForm = ({
                                                 checked={drawing.setManufacturersForHierarchy}
                                                 name={`${drawing.id}.*.setManufacturersForHierarchy`}
                                                 text=""
-                                                handleChange={(name, value) =>
-                                                    updateDrawing(name, value, drawing.id)
-                                                }
+                                                handleChange={(name, value) => {
+                                                    updateDrawing(name, value, drawing.id);
+                                                    if (value) {
+                                                        handleShowOandMModal();
+                                                    }
+                                                }}
                                                 disabled={drawing.isManufacturingInherited}
                                             />
                                         </Field>

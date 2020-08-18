@@ -26,6 +26,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import { isObjEmpty } from 'helpers/generic';
 
 import AddDrawingsForm from '../presentational/AddDrawingsForm';
+import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOAndMTsAndCsModal';
 
 const AddDrawingsFormContainer = ({
     floorID,
@@ -45,6 +46,7 @@ const AddDrawingsFormContainer = ({
     floor,
     useManufacturingByDefault,
     error,
+    showOAndMTsAndCsModal,
 }) => {
     const [
         drawings,
@@ -156,6 +158,9 @@ const AddDrawingsFormContainer = ({
             setInitialOptions(initialOptions);
             setInitialManufacturerFloorOptions(initialOptions);
             setAreOptionsLoaded(true);
+            if (useManufacturingByDefault && !isManufacturingInherited) {
+                handleShowOandMModal();
+            }
         }
     }, [isFetching]);
 
@@ -182,6 +187,7 @@ const AddDrawingsFormContainer = ({
                 initialOptions={initialOptions}
                 setShowManufacturingOptions={setShowManufacturingOptions}
                 showManufacturingOptions={showManufacturingOptions}
+                handleShowOandMModal={handleShowOandMModal}
             />
         </BlockContainer>
     );
@@ -259,6 +265,9 @@ const AddDrawingsFormContainer = ({
         hideModal();
         updateHierarchyAddState(false);
     }
+    function handleShowOandMModal() {
+        showOAndMTsAndCsModal('add drawing');
+    }
 };
 
 const mapStateToProps = (
@@ -309,5 +318,7 @@ const mapDispatchToProps = {
     updateHierarchyAddState,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
+    showOAndMTsAndCsModal,
 };
+
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddDrawingsFormContainer));
