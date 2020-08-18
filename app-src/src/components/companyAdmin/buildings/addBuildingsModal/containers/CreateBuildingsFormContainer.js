@@ -268,7 +268,7 @@ const CreateBuildingsFormContainer = ({
         updateHierarchyAddState(false);
     }
     function handleShowOandMModal() {
-        showOAndMTsAndCsModal('add site');
+        showOAndMTsAndCsModal('add building');
     }
 };
 
