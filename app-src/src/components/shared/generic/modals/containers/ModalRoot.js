@@ -2,12 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import {
-    ADD_BUILDING,
     ADD_BUILDINGS,
     ADD_CARD,
-    ADD_DRAWING,
     ADD_DROPDOWN_OPTION,
-    ADD_FLOOR,
     ADD_FLOORS,
     ADD_SERVICE_TO_SUBSCRIPTION,
     ADD_SITE,
@@ -137,9 +134,6 @@ import PaymentSuccessModalContainer from './PaymentSuccessModalContainer';
 import EditDrawingModalContainer from 'components/companyAdmin/drawings/singleDrawing/containers/EditDrawingModalContainer';
 import ConfirmEditPinModalContainer from 'components/companyAdmin/pins/confirmEditPinModal/containers/ConfirmEditPinModalContainer';
 import AddSiteModal from 'components/companyAdmin/sites/addSiteModal/presentational/AddSiteModal';
-import CreateBuildingModal from 'components/companyAdmin/buildings/addBuildingModal/presentational/CreateBuildingModal';
-import AddFloorModal from 'components/companyAdmin/floors/addFloorModal/presentational/AddFloorModal';
-import AddDrawingModal from 'components/companyAdmin/drawings/addDrawingModal/presentational/AddDrawingModal';
 import EditSiteModal from 'components/companyAdmin/sites/editSiteModal/presentational/EditSiteModal';
 import EditBuildingModal from 'components/companyAdmin/buildings/editBuildingModal/presentational/EditBuildingModal';
 import EditFloorModal from 'components/companyAdmin/floors/editFloorModal/presentational/EditFloorModal';
@@ -237,11 +231,8 @@ const MODAL_COMPONENTS = {
     [EDIT_DRAWING]: EditDrawingModalContainer,
     [CONFIRM_EDIT_PIN]: ConfirmEditPinModalContainer,
     [ADD_SITE]: AddSiteModal,
-    [ADD_BUILDING]: CreateBuildingModal,
     [ADD_BUILDINGS]: CreateBuildingsModal,
-    [ADD_FLOOR]: AddFloorModal,
     [ADD_FLOORS]: CreateFloorsModal,
-    [ADD_DRAWING]: AddDrawingModal,
     [ADD_DRAWINGS]: AddDrawingsModal,
     [EDIT_SITE]: EditSiteModal,
     [EDIT_BUILDING]: EditBuildingModal,
