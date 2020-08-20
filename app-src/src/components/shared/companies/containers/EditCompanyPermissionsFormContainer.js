@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import EditCompanyPermissionsForm from '../presentational/EditCompanyPermissionsForm';
-import addCompanyPermissions from 'actions/companyAdmin/companiesPermissions/async/addCompanyPermissions';
+import editCompanyPermissions from 'actions/companyAdmin/companiesPermissions/async/editCompanyPermissions';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import {
     TEMPLATE_USAGE_RULES_VALUES as USAGE_RULES,
@@ -85,14 +85,15 @@ class EditCompanyPermissionsFormContainer extends Component {
 
     handleSubmit = () => {
         const { serviceIDs, templateUsageRule } = this.state;
-        const { hierarchyType, hierarchyID, addCompanyPermissions } = this.props;
+        const { hierarchyType, hierarchyID, editCompanyPermissions, companyID } = this.props;
 
         const postBody = {
+            companyID,
             serviceIDs,
             templateUsageRule,
         };
 
-        addCompanyPermissions(hierarchyType, hierarchyID, postBody);
+        editCompanyPermissions(hierarchyType, hierarchyID, postBody);
     };
 }
 
@@ -110,10 +111,16 @@ const mapStateToProps = (
             },
         },
     },
-    { match: { url, params } },
+    {
+        match: {
+            url,
+            params: { id, companyID },
+        },
+    },
 ) => ({
-    hierarchyID: params.id,
-    redirectUrl: url.replace('/invite-company', ''),
+    hierarchyID: id,
+    companyID,
+    redirectUrl: url.replace(`/edit-company/${companyID}`, ''),
     services: Object.values(services),
     subscriptions: subscriptions.serviceIDs || [],
     success: postSuccess,
@@ -123,7 +130,7 @@ const mapStateToProps = (
     companiesPermissions: Object.values(companiesPermissions),
 });
 
-const mapDispatchToProps = { addCompanyPermissions };
+const mapDispatchToProps = { editCompanyPermissions };
 
 export default withRouter(
     connect(mapStateToProps, mapDispatchToProps)(EditCompanyPermissionsFormContainer),
