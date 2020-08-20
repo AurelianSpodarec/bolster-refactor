@@ -107,6 +107,8 @@ function fetchSuccessReducer(state = false, action) {
 
 function companiesPermissionsReducer(state = {}, action) {
     switch (action.type) {
+        case FETCH_PERMISSIONS_FOR_COMPANY_PERMISSION_REQUEST:
+            return {};
         case FETCH_COMPANY_PERMISSIONS_SUCCESS:
         case FETCH_PERMISSIONS_FOR_COMPANY_PERMISSION_SUCCESS:
             return convertArrToObj(action.payload);

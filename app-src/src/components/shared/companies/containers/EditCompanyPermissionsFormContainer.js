@@ -9,7 +9,7 @@ import {
     TEMPLATE_USAGE_RULES_VALUES as USAGE_RULES,
     TEMPLATE_USAGE_RULES,
 } from 'constants/companyAdmin/enums';
-import { enumFormat } from 'helpers/generic';
+import { enumFormat, isEmpty } from 'helpers/generic';
 
 class EditCompanyPermissionsFormContainer extends Component {
     state = {
@@ -21,11 +21,15 @@ class EditCompanyPermissionsFormContainer extends Component {
         const templateRules = enumFormat(TEMPLATE_USAGE_RULES);
         const { serviceIDs, templateUsageRule } = this.state;
         const serviceOptions = this._getServicesOptions();
-        const { error, hierarchyType } = this.props;
+        const { error, hierarchyType, isFetching, companiesPermissions } = this.props;
         const showMoreServicesMesssage = serviceOptions.some(option => option.disabled === true);
 
         return (
-            <BlockContainer error={error}>
+            <BlockContainer
+                isFetching={isFetching}
+                isEmpty={isEmpty(companiesPermissions)}
+                error={error}
+            >
                 <EditCompanyPermissionsForm
                     {...this.state}
                     serviceOptions={serviceOptions}
@@ -55,12 +59,15 @@ class EditCompanyPermissionsFormContainer extends Component {
         if (prevProps.isFetching && !isFetching && fetchSuccess) {
             let serviceIDs = [];
 
+            if (isEmpty(companiesPermissions)) return;
+
             companiesPermissions.map(permission => {
                 serviceIDs.push(permission.serviceID + '');
             });
 
             this.setState({
                 serviceIDs,
+                templateUsageRule: companiesPermissions[0].templateUsageRule,
             });
         }
     };
