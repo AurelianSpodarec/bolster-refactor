@@ -24,6 +24,7 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     isPosting: isPostingReducer,
     error: errorReducer,
+    fetchSuccess: fetchSuccessReducer,
     postSuccess: postSuccessReducer,
 });
 
@@ -87,6 +88,17 @@ function postSuccessReducer(state = false, action) {
         case ADD_COMPANY_PERMISSIONS_SUCCESS:
         case DELETE_COMPANY_PERMISSIONS_SUCCESS:
         case EDIT_COMPANY_PERMISSIONS_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function fetchSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case FETCH_PERMISSIONS_FOR_COMPANY_PERMISSION_REQUEST:
+            return false;
+        case FETCH_PERMISSIONS_FOR_COMPANY_PERMISSION_SUCCESS:
             return true;
         default:
             return state;

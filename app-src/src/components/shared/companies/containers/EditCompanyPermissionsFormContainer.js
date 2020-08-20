@@ -42,8 +42,27 @@ class EditCompanyPermissionsFormContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { success, history, redirectUrl } = this.props;
+        const {
+            success,
+            history,
+            redirectUrl,
+            isFetching,
+            fetchSuccess,
+            companiesPermissions,
+        } = this.props;
         if (!prevProps.success && success) return history.replace(redirectUrl);
+
+        if (prevProps.isFetching && !isFetching && fetchSuccess) {
+            let serviceIDs = [];
+
+            companiesPermissions.map(permission => {
+                serviceIDs.push(permission.serviceID + '');
+            });
+
+            this.setState({
+                serviceIDs,
+            });
+        }
     };
 
     _getServicesOptions = () => {
@@ -75,7 +94,13 @@ const mapStateToProps = (
         companyAdmin: {
             servicesReducer: { services },
             subscriptionsReducer: { subscriptions },
-            companiesPermissionsReducer: { postSuccess, error },
+            companiesPermissionsReducer: {
+                postSuccess,
+                error,
+                isFetching,
+                fetchSuccess,
+                companiesPermissions,
+            },
         },
     },
     { match: { url, params } },
@@ -86,6 +111,9 @@ const mapStateToProps = (
     subscriptions: subscriptions.serviceIDs || [],
     success: postSuccess,
     error,
+    isFetching,
+    fetchSuccess,
+    companiesPermissions: Object.values(companiesPermissions),
 });
 
 const mapDispatchToProps = { addCompanyPermissions };
