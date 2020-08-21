@@ -23,49 +23,39 @@ const InviteClientForm = ({
     phoneNumber,
     companyName,
     showMoreServicesMesssage,
-    clientIDs,
+    clients,
     inviteNewClient,
+    userOptions
 }) => (
     <>
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
             <BlockHeading title="Previous Clients" />
             <p className="generic-text in-form size-lg-12">Choose previous clients to invite.</p>
-            <Field
-                name="Select client(s)"
-                sizeClasses="size-lg-6 size-md-12"
-                required={inviteNewClient ? false : true}
-            >
-                {inviteNewClient ? (
+            <Field labelClasses="no-capitalise" name="Invite new client?">
+            <CheckboxContainer
+                checked={inviteNewClient}
+                name="inviteNewClient"
+                text=""
+                handleChange={handleChange}
+            />
+            </Field>
+                          
+                {!inviteNewClient && (
+                <Field
+                       name="Select client(s)"
+                       sizeClasses="size-lg-6 size-md-12"
+                       required
+                   >   
                     <MultiSelect
-                        name="clientIDs"
-                        options={[
-                            {
-                                label: 'Joseph Bramwell <josephbramwell@bolstersystems.com>',
-                                text: 'Joseph Bramwell <josephbramwell@bolstersystems.com>',
-                                value: 1,
-                            },
-                        ]}
-                        value={clientIDs}
-                        onChange={handleChange}
-                        placeholder="-- select operatives --"
-                        search
-                    />
-                ) : (
-                    <MultiSelect
-                        name="clientIDs"
-                        options={[
-                            {
-                                label: 'Joseph Bramwell <josephbramwell@bolstersystems.com>',
-                                text: 'Joseph Bramwell <josephbramwell@bolstersystems.com>',
-                                value: 1,
-                            },
-                        ]}
-                        value={clientIDs}
+                        name="clients"
+                        options={userOptions}
+                        value={clients}
                         onChange={handleChange}
                         placeholder="-- select operatives --"
                         search
                         required
                     />
+                    </Field>
                 )}
 
                 {/* <DropdownContainer
@@ -76,21 +66,13 @@ const InviteClientForm = ({
                     handleChange={handleChange}
                     required
                 /> */}
-            </Field>
-
-            <Field labelClasses="no-capitalise" name="Invite new client?">
-                <CheckboxContainer
-                    checked={inviteNewClient}
-                    name="inviteNewClient"
-                    text=""
-                    handleChange={handleChange}
-                />
-            </Field>
+         
+        
             {inviteNewClient && (
                 <>
                     <BlockHeading title="Client Details" />
                     <p className="generic-text in-form size-lg-12">
-                        You can also invite a new cleint, please enter the email address of the user
+                        You can also invite a new client, please enter the email address of the user
                         you wish to invite.
                         <br /> If the user does not have a Bolster systems account, they will be
                         prompted to create one to accepted your invitation.
