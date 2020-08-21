@@ -29,8 +29,6 @@ const InviteClientForm = ({
 }) => (
     <>
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
-            <BlockHeading title="Previous Clients" />
-            <p className="generic-text in-form size-lg-12">Choose previous clients to invite.</p>
             <Field labelClasses="no-capitalise" name="Invite new client?">
             <CheckboxContainer
                 checked={inviteNewClient}
