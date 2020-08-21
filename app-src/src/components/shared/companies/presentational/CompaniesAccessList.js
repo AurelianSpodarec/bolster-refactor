@@ -29,12 +29,6 @@ const CompaniesAccessList = ({
                         : accessType === ACCESS_TYPES_VALUES.OWNER && (
                               <>
                                   <Link
-                                      to={`${parentId}/add-permissions/${company.companyID}`}
-                                      className="button icon-only green"
-                                  >
-                                      <i className="far fa-plus fa-fw" />
-                                  </Link>
-                                  <Link
                                       to={`${parentId}/edit-company/${company.companyID}`}
                                       className="button icon-only yellow"
                                   >
