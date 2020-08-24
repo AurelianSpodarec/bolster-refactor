@@ -6,6 +6,8 @@ import {
     FETCH_ACTIVITY_LOG_FAILURE,
 } from 'constants/actionTypes/activityLog';
 
+import { convertArrToObj } from 'helpers/generic';
+
 export default combineReducers({
     activityLog: activityLogReducer,
     isFetching: isFetchingReducer,
@@ -50,7 +52,7 @@ function successReducer(state = false, action) {
 function activityLogReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_ACTIVITY_LOG_SUCCESS:
-            return action.payload;
+            return convertArrToObj(action.payload);
         default:
             return state;
     }
