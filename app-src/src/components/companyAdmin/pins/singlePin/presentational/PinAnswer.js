@@ -116,8 +116,16 @@ const PinAnswer = ({
         case TYPES.SIGNATURE:
             var answerString = curAnswer.answer;
 
-            if (!answerString.startsWith('data:')) {
+            if (
+                !answerString.startsWith('data:') &&
+                !answerString.endsWith('.png') &&
+                !answerString.endsWith('.jpg')
+            ) {
                 answerString = `data: image/jpeg;base64,${answerString}`;
+            }
+
+            if (answerString.endsWith('.png') || answerString.endsWith('.jpg')) {
+                answerString = `${FILE_STORAGE_URL}/${answerString}`;
             }
 
             inner = <img className="signature" alt="signature" src={answerString} />;
@@ -153,12 +161,7 @@ const PinAnswer = ({
         case TYPES.DOCUMENT_UPLOAD:
             var docURL = `${RAW_S3_STORAGE_URL}/${curAnswer.answer}`;
             inner = (
-                <ButtonContainer
-                    to={docURL}
-                    isAnchor
-                    className="btn blue"
-                    openNewTab
-                >
+                <ButtonContainer to={docURL} isAnchor className="btn blue" openNewTab>
                     <i className="table-icon far fa-eye" />
                     View pdf
                 </ButtonContainer>

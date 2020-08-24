@@ -427,6 +427,7 @@ class AddPinQuestionRoute extends Component {
 
     handleSignatureChange = d => {
         const { updateAddPinAnswer, question } = this.props;
+        console.log({ d });
         updateAddPinAnswer(question.id, d);
     };
 

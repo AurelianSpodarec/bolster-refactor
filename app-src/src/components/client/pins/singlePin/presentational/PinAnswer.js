@@ -60,9 +60,10 @@ const PinAnswer = ({ trimmedAnswer, type, questions, answers, dispatch, question
         case TYPES.SIGNATURE:
             var answerString = curAnswer.answer;
 
-            if (!answerString.startsWith('data:')) {
-                answerString = `data: image/jpeg;base64${answerString}`;
-            }
+            if (answerString.endWith('.png') || answerString.endWith('.jpg'))
+                if (!answerString.startsWith('data:')) {
+                    answerString = `data: image/jpeg;base64${answerString}`;
+                }
 
             inner = <img className="signature" alt="signature" src={answerString} />;
 
