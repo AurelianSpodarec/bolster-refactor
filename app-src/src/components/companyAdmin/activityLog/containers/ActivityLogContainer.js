@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+
+import fetchActivityLog from 'actions/companyAdmin/activityLog/async/fetchActivityLog';
 
 import ActivityLog from '../presentational/ActivityLog';
 
-const ActivityLogContainer = () => {
+const ActivityLogContainer = ({ fetchActivityLog }) => {
+    useEffect(() => {
+        fetchActivityLog();
+    }, []);
+
     return <ActivityLog />;
 };
 
-export default ActivityLogContainer;
+const mapDispatchToProps = {
+    fetchActivityLog,
+};
+
+export default connect(null, mapDispatchToProps)(ActivityLogContainer);

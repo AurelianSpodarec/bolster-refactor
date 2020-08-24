@@ -407,3 +407,16 @@ export const DOCUMENT_VISIBILITY = {
     VISIBLE_TO_ALL: 1,
     VISIBLE_TO_OWN_COMPANY: 2,
 };
+
+export const ACTIVITY_LOG_ACTION_TYPES = {
+    CREATE: 1,
+    UPDATE: 2,
+    DELETE: 3,
+};
+
+export const ACTIVITY_LOG_REFERENCE_TYPES = {
+    SITE: 1,
+    BUILDING: 2,
+    FLOOR: 3,
+    DRAWING: 4,
+};
