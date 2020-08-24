@@ -9,13 +9,15 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ActivityLogItem from './ActivityLogItem';
 
-const ActivityLog = ({ logs, users, isFetching, error, headers }) => (
+const ActivityLog = ({ logs, users, isOwner, isFetching, error, headers }) => (
     <>
         <PageHeading title="Activity Log" withBackButton>
-            <Link className="button yellow" to="/company/activity-log/edit-settings">
-                <i className="far fa-pencil" />
-                Edit Settings
-            </Link>
+            {isOwner && (
+                <Link className="button yellow" to="/company/activity-log/edit-settings">
+                    <i className="far fa-pencil" />
+                    Edit Settings
+                </Link>
+            )}
         </PageHeading>
 
         <BlockContainer isFetching={isFetching} error={error} isEmpty={isEmpty(logs)}>

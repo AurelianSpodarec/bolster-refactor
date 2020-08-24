@@ -19,7 +19,7 @@ const EditActivityLogForm = ({
 }) => (
     <Form onSubmit={handleSubmit}>
         {sections.map(section => (
-            <>
+            <div key={section.id}>
                 <BlockHeading title={section.name} />
 
                 {settings
@@ -41,7 +41,7 @@ const EditActivityLogForm = ({
                             </Field>
                         );
                     })}
-            </>
+            </div>
         ))}
 
         <BlockButtonWrapper>
