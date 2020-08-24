@@ -9,7 +9,14 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import Form from 'components/shared/generic/form/containers/Form';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const EditActivityLogForm = ({ settings, form, handleFormChange, handleSubmit, sections }) => (
+const EditActivityLogForm = ({
+    settings,
+    form,
+    handleFormChange,
+    handleSubmit,
+    sections,
+    isPosting,
+}) => (
     <Form onSubmit={handleSubmit}>
         {sections.map(section => (
             <>
@@ -38,8 +45,17 @@ const EditActivityLogForm = ({ settings, form, handleFormChange, handleSubmit, s
         ))}
 
         <BlockButtonWrapper>
-            <button className="button green" type="submit">
-                <i className="fa fa-check" /> Submit
+            <button
+                className={`button green ${isPosting ? 'disabled' : ''}`}
+                type="submit"
+                disabled={isPosting}
+            >
+                {isPosting ? (
+                    <i className="fa fa-spinner fa-spin" />
+                ) : (
+                    <i className="fa fa-check" />
+                )}{' '}
+                Submit
             </button>
             <Link to="/company/activity-log" className="button">
                 Cancel

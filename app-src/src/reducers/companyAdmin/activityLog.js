@@ -20,6 +20,7 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     isPosting: isPostingReducer,
     error: errorReducer,
+    postError: postErrorReducer,
     success: successReducer,
 });
 
@@ -54,10 +55,19 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_ACTIVITY_LOG_REQUEST:
         case FETCH_ACTIVITY_LOG_SETTINGS_REQUEST:
-        case POST_ACTIVITY_LOG_SETTINGS_REQUEST:
             return null;
         case FETCH_ACTIVITY_LOG_FAILURE:
         case FETCH_ACTIVITY_LOG_SETTINGS_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
+function postErrorReducer(state = null, action) {
+    switch (action.type) {
+        case POST_ACTIVITY_LOG_SETTINGS_REQUEST:
+            return null;
         case POST_ACTIVITY_LOG_SETTINGS_FAILURE:
             return action.error;
         default:
@@ -91,6 +101,8 @@ function activityLogReducer(state = {}, action) {
 
 function settingsReducer(state = [], action) {
     switch (action.type) {
+        case FETCH_ACTIVITY_LOG_SETTINGS_REQUEST:
+            return [];
         case FETCH_ACTIVITY_LOG_SETTINGS_SUCCESS:
             return action.payload;
         default:

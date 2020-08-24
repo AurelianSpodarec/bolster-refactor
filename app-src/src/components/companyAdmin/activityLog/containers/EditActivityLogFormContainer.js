@@ -1,12 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
+import postActivityLogSettings from 'actions/companyAdmin/activityLog/async/postActivityLogSettings';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { ACTIVITY_LOG_REFERENCE_VALUES } from 'constants/companyAdmin/enums';
+import { usePrevious } from 'helpers/hooks';
 
 import EditActivityLogForm from '../presentational/EditActivityLogForm';
+import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
-const EditActivityLogFormContainer = ({ settings }) => {
+const EditActivityLogFormContainer = ({
+    settings,
+    postActivityLogSettings,
+    showModal,
+    isPosting,
+    success,
+    error,
+    history,
+}) => {
     const [form, handleChange] = useState({});
+
+    const prevProps = usePrevious({ isPosting });
 
     useEffect(() => {
         let initialState = {};
@@ -22,6 +37,16 @@ const EditActivityLogFormContainer = ({ settings }) => {
         });
     }, []);
 
+    useEffect(() => {
+        if (prevProps.isPosting && !isPosting && success) {
+            history.push('/company/activity-log');
+        }
+
+        if (prevProps.isPosting && !isPosting && error) {
+            showModal(ERROR_MODAL, { message: error });
+        }
+    }, [isPosting, prevProps.isPosting, success, error]);
+
     return (
         <EditActivityLogForm
             settings={settings}
@@ -29,6 +54,7 @@ const EditActivityLogFormContainer = ({ settings }) => {
             handleFormChange={handleFormChange}
             handleSubmit={handleSubmit}
             sections={getSections()}
+            isPosting={isPosting}
         />
     );
 
@@ -67,7 +93,26 @@ const EditActivityLogFormContainer = ({ settings }) => {
                 isEnabled,
             });
         });
+
+        postActivityLogSettings(postBody);
     }
 };
 
-export default connect()(EditActivityLogFormContainer);
+const mapStateToProps = ({
+    companyAdmin: {
+        activityLogReducer: { isPosting, success, postError },
+    },
+}) => ({
+    isPosting,
+    success,
+    error: postError,
+});
+
+const mapDispatchToProps = {
+    postActivityLogSettings,
+    showModal,
+};
+
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(EditActivityLogFormContainer),
+);
