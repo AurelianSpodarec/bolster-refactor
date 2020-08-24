@@ -27,6 +27,7 @@ const EditActivityLogFormContainer = ({ settings }) => {
             settings={settings}
             form={form}
             handleFormChange={handleFormChange}
+            handleSubmit={handleSubmit}
             sections={getSections()}
         />
     );
@@ -48,6 +49,23 @@ const EditActivityLogFormContainer = ({ settings }) => {
         handleChange({
             ...form,
             [name]: value,
+        });
+    }
+
+    function handleSubmit() {
+        const keys = Object.keys(form);
+        const postBody = { items: [] };
+
+        keys.forEach(key => {
+            const referenceType = key.split('-')[1];
+            const actionType = key.split('-')[3];
+            const isEnabled = form[key];
+
+            postBody.items.push({
+                referenceType: +referenceType,
+                actionType: +actionType,
+                isEnabled,
+            });
         });
     }
 };

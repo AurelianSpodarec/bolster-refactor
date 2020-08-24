@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { ACTIVITY_LOG_ACTION_VALUES } from 'constants/companyAdmin/enums';
 
@@ -9,7 +10,7 @@ import Form from 'components/shared/generic/form/containers/Form';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const EditActivityLogForm = ({ settings, form, handleFormChange, handleSubmit, sections }) => (
-    <Form handleSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
         {sections.map(section => (
             <>
                 <BlockHeading title={section.name} />
@@ -40,9 +41,9 @@ const EditActivityLogForm = ({ settings, form, handleFormChange, handleSubmit, s
             <button className="button green" type="submit">
                 <i className="fa fa-check" /> Submit
             </button>
-            {/* <button className="button" onClick={hideModal}>
-                        <i className="fa fa-times" /> Close
-                    </button> */}
+            <Link to="/company/activity-log" className="button">
+                Cancel
+            </Link>
         </BlockButtonWrapper>
     </Form>
 );
