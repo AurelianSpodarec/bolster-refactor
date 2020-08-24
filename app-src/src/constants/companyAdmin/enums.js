@@ -414,9 +414,22 @@ export const ACTIVITY_LOG_ACTION_TYPES = {
     DELETE: 3,
 };
 
+export const ACTIVITY_LOG_ACTION_VALUES = {
+    1: 'Create',
+    2: 'Update',
+    3: 'Delete',
+};
+
 export const ACTIVITY_LOG_REFERENCE_TYPES = {
     SITE: 1,
     BUILDING: 2,
     FLOOR: 3,
     DRAWING: 4,
+};
+
+export const ACTIVITY_LOG_REFERENCE_VALUES = {
+    1: 'Site',
+    2: 'Building',
+    3: 'Floor',
+    4: 'Drawing',
 };

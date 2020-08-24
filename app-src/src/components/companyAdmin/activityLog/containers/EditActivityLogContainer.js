@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 
 import fetchActivityLog from 'actions/companyAdmin/activityLog/async/fetchActivityLog';
 
-import ActivityLog from '../presentational/ActivityLog';
+import EditActivityLog from '../presentational/EditActivityLog';
 
-const ActivityLogContainer = ({ fetchActivityLog, logs, isFetching, error }) => {
+const EditActivityLogContainer = ({ fetchActivityLog, logs, isFetching, error }) => {
     useEffect(() => {
         fetchActivityLog();
     }, []);
 
-    return <ActivityLog logs={logs} isFetching={isFetching} error={error} />;
+    return <EditActivityLog logs={logs} isFetching={isFetching} error={error} />;
 };
 
 const mapStateToProps = ({
@@ -27,4 +27,4 @@ const mapDispatchToProps = {
     fetchActivityLog,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ActivityLogContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(EditActivityLogContainer);
