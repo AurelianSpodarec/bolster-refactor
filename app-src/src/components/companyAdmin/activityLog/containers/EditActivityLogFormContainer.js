@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { ACTIVITY_LOG_REFERENCE_VALUES } from 'constants/companyAdmin/enums';
@@ -6,9 +6,21 @@ import { ACTIVITY_LOG_REFERENCE_VALUES } from 'constants/companyAdmin/enums';
 import EditActivityLogForm from '../presentational/EditActivityLogForm';
 
 const EditActivityLogFormContainer = ({ settings }) => {
-    const [form, handleChange] = useState({
-        test: false,
-    });
+    const [form, handleChange] = useState({});
+
+    useEffect(() => {
+        let initialState = {};
+
+        settings.forEach(setting => {
+            const key = `reference-${setting.referenceType}-action-${setting.actionType}`;
+
+            initialState[key] = setting.isEnabled;
+        });
+
+        handleChange({
+            ...initialState,
+        });
+    }, []);
 
     return (
         <EditActivityLogForm

@@ -16,19 +16,23 @@ const EditActivityLogForm = ({ settings, form, handleFormChange, handleSubmit, s
 
                 {settings
                     .filter(setting => setting.referenceType === section.id)
-                    .map((setting, index) => (
-                        <Field
-                            key={index}
-                            name={ACTIVITY_LOG_ACTION_VALUES[setting.actionType]}
-                            sizeClasses="size-lg-4"
-                        >
-                            <CheckboxContainer
-                                checked={form.test}
-                                handleChange={handleFormChange}
-                                name="test"
-                            />
-                        </Field>
-                    ))}
+                    .map((setting, index) => {
+                        const name = `reference-${setting.referenceType}-action-${setting.actionType}`;
+
+                        return (
+                            <Field
+                                key={index}
+                                name={ACTIVITY_LOG_ACTION_VALUES[setting.actionType]}
+                                sizeClasses="size-lg-4"
+                            >
+                                <CheckboxContainer
+                                    checked={form[name]}
+                                    handleChange={handleFormChange}
+                                    name={name}
+                                />
+                            </Field>
+                        );
+                    })}
             </>
         ))}
 
