@@ -28,7 +28,7 @@ const ActivityLogContainer = ({
             isOwner={companyUserType === COMPANY_USER_ROLE_TYPES.OWNER}
             isFetching={isFetching}
             error={error}
-            headers={['Reference Type', 'Action Type', 'Action By', 'Date']}
+            headers={['Name', 'Reference Type', 'Action Type', 'Action By', 'Date']}
         />
     );
 };

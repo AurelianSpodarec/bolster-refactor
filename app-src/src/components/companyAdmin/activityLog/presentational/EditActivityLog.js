@@ -7,7 +7,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 const EditActivityLog = ({ settings, isFetching, error }) => (
     <>
         <PageHeading title="Edit Activity Log Settings" withBackButton />
-        <BlockContainer isFetching={isFetching} error={error} isEmpty={!isFetching}>
+        <BlockContainer isFetching={isFetching} error={error} isEmpty={isFetching}>
             <EditActivityLogFormContainer settings={settings} />
         </BlockContainer>
     </>

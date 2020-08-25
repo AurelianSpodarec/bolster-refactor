@@ -8,6 +8,7 @@ import {
 
 const ActivityLogItem = ({
     log: {
+        actionReferenceName,
         actionReferenceType,
         actionType,
         actionTakenByCompanyUserID,
@@ -20,6 +21,7 @@ const ActivityLogItem = ({
 
     return (
         <tr>
+            <td>{actionReferenceName ? actionReferenceName : 'Unknown'}</td>
             <td>{ACTIVITY_LOG_REFERENCE_VALUES[actionReferenceType]}</td>
             <td>{ACTIVITY_LOG_ACTION_VALUES[actionType]}</td>
             <td>
@@ -27,7 +29,7 @@ const ActivityLogItem = ({
                     ? `${user.userFirstName} ${user.userLastName}`
                     : actionTakenByString}
             </td>
-            <td className="left-align">{moment(actionTakenDate).format('DD/MM/YYYY hh:mm')}</td>
+            <td className="left-align">{moment(actionTakenDate).format('DD/MM/YYYY HH:mm')}</td>
         </tr>
     );
 };
