@@ -5349,10 +5349,14 @@ input {
         width: 150%;
         left: -25%;
         text-emphasis: center;
-        @include ubuntu-medium;
+        @include ubuntu;
         @include rounded-all;
         background-color: white;
         padding: 2.5px 2.5px 3.5px 2.5px;
+
+        strong{
+            @include ubuntu-medium;
+        }
     }
 }
 
