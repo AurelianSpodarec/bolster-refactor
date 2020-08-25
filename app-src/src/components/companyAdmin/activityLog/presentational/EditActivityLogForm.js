@@ -8,31 +8,26 @@ import Form from 'components/shared/generic/form/containers/Form';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const EditActivityLogForm = ({
-    form,
-    handleFormChange,
+    options,
+    handleChange,
+    checkIsSelected,
     handleSubmit,
-    references,
-    actions,
     isPosting,
 }) => (
     <Form onSubmit={handleSubmit}>
-        {references.map(reference => (
-            <div key={reference.id}>
-                <BlockHeading title={reference.name} />
-
-                {actions.map(action => {
-                    const name = `reference-${reference.id}-action-${action.id}`;
-
+        {options.map(({ label, value, actionOptions }) => (
+            <div key={value}>
+                <BlockHeading title={label} />
+                {actionOptions.map(action => {
                     return (
                         <Field
-                            key={`${reference.id}-${action.id}`}
-                            name={action.name}
+                            key={`${value}-${action.value}`}
+                            name={action.label}
                             sizeClasses="size-lg-4"
                         >
                             <CheckboxContainer
-                                checked={form[name]}
-                                handleChange={handleFormChange}
-                                name={name}
+                                checked={checkIsSelected(value, action.value)}
+                                handleChange={() => handleChange(value, action.value)}
                             />
                         </Field>
                     );
