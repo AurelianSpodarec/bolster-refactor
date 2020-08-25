@@ -22,23 +22,9 @@ const EditActivityLogFormContainer = ({
     error,
     history,
 }) => {
-    const [form, handleChange] = useState({});
+    const [form, handleChange] = useForm(getInitialState());
 
     const prevProps = usePrevious({ isPosting });
-
-    useEffect(() => {
-        let initialState = {};
-
-        settings.forEach(setting => {
-            const key = `reference-${setting.referenceType}-action-${setting.actionType}`;
-
-            initialState[key] = true;
-        });
-
-        handleChange({
-            ...initialState,
-        });
-    }, []);
 
     useEffect(() => {
         if (prevProps.isPosting && !isPosting && success) {
@@ -52,17 +38,28 @@ const EditActivityLogFormContainer = ({
 
     return (
         <EditActivityLogForm
-            settings={settings}
             form={form}
-            handleFormChange={handleFormChange}
+            handleFormChange={handleChange}
             handleSubmit={handleSubmit}
-            sections={getSections()}
+            references={getReferences()}
             actions={getActions()}
             isPosting={isPosting}
         />
     );
 
-    function getSections() {
+    function getInitialState() {
+        let initialState = {};
+
+        settings.forEach(setting => {
+            const key = `reference-${setting.referenceType}-action-${setting.actionType}`;
+
+            initialState[key] = true;
+        });
+
+        return { ...initialState };
+    }
+
+    function getReferences() {
         const sections = Object.keys(ACTIVITY_LOG_REFERENCE_VALUES).map(val => {
             const name = ACTIVITY_LOG_REFERENCE_VALUES[val];
 
@@ -86,13 +83,6 @@ const EditActivityLogFormContainer = ({
         });
 
         return actions;
-    }
-
-    function handleFormChange(name, value) {
-        handleChange({
-            ...form,
-            [name]: value,
-        });
     }
 
     function handleSubmit() {
