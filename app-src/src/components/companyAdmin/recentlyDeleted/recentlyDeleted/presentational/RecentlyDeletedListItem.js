@@ -1,7 +1,6 @@
 import React from 'react';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import { DELETED_DATA_TYPE } from 'constants/companyAdmin/enums';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const RecentlyDeletedListItem = ({ item, onMobile, headers, handleRestore }) => (
@@ -9,7 +8,7 @@ const RecentlyDeletedListItem = ({ item, onMobile, headers, handleRestore }) => 
         <td>
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
-            {item.fullName}
+            {item.name}
         </td>
 
         <td>
@@ -25,22 +24,18 @@ const RecentlyDeletedListItem = ({ item, onMobile, headers, handleRestore }) => 
         <td>
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
-            {item.deletedByCompanyUserName ? item.deletedByCompanyUserName : 'Not available'}
-            {!!item.deletedByCompanyName && ` (${item.deletedByCompanyName})`}
+            {item.deletedBy ? item.deletedBy : 'Not available'}
         </td>
         <td>
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
-            {DELETED_DATA_TYPE[item.hierarchyName]}
+            {item.type}
         </td>
         <td>
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
             <BlockButtonWrapper>
-                <button
-                    className="button green"
-                    onClick={() => handleRestore(item.id, item.hierarchyName)}
-                >
+                <button className="button green" onClick={() => handleRestore(item.restoreURI)}>
                     <i className="fal fa-sync" /> Restore
                 </button>
             </BlockButtonWrapper>

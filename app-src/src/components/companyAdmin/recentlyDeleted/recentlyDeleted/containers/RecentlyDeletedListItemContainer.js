@@ -2,19 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import restoreDrawing from 'actions/companyAdmin/drawings/async/restoreDrawing';
-import restoreFloor from 'actions/companyAdmin/floors/async/restoreFloor';
-import restoreBuilding from 'actions/companyAdmin/buildings/async/restoreBuilding';
-import restoreSite from 'actions/companyAdmin/sites/async/restoreSite';
-import restorePinHistory from 'actions/companyAdmin/pins/async/restorePinHistory';
-import restoreUser from 'actions/companyAdmin/userManagement/async/restoreUser';
-import restoreOperative from 'actions/companyAdmin/operatives/async/restoreOperative';
-
 import RecentlyDeletedListItem from '../presentational/RecentlyDeletedListItem';
+import restoreRecentlyDeleted from 'actions/companyAdmin/recentlyDeleted/async/restoreRecentlyDeleted';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import { CONFIRM_SUBMIT, ERROR_MODAL } from 'constants/shared/modalTypes';
+import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 
 class RecentlyDeletedListItemContainer extends Component {
     render() {
@@ -31,81 +24,21 @@ class RecentlyDeletedListItemContainer extends Component {
         );
     }
 
-    componentDidUpdate = prevProps => {
-        const { isPosting, postSuccess, postFailure, postError, hideModal } = this.props;
-
-        if (prevProps.isPosting && !isPosting && postSuccess) {
-            hideModal();
-        }
-
-        if (prevProps.isPosting && !isPosting && postFailure) {
-            showModal(ERROR_MODAL, {
-                title: 'Error',
-                message: postError,
-            });
-        }
-    };
-
-    handleRestore = (id, type) => {
-        const {
-            showModal,
-            hideModal,
-            restoreDrawing,
-            restoreFloor,
-            restoreBuilding,
-            restoreSite,
-            restoreUser,
-            restorePinHistory,
-            restoreOperative,
-        } = this.props;
+    handleRestore = restoreURI => {
+        const { showModal, hideModal, restoreRecentlyDeleted } = this.props;
 
         const message = 'Are you sure you would like to restore this data?';
 
-        const handleSubmit = () => {
-            if (type === 'drawing') {
-                restoreDrawing(id);
-            } else if (type === 'floor') {
-                restoreFloor(id);
-            } else if (type === 'building') {
-                restoreBuilding(id);
-            } else if (type === 'site') {
-                restoreSite(id);
-            } else if (type === 'users') {
-                restoreUser(id);
-            } else if (type === 'operativepermissions') {
-                restoreOperative(id);
-            } else {
-                restorePinHistory(id);
-            }
-        };
+        const handleSubmit = () => restoreRecentlyDeleted(restoreURI);
 
         showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        deletedDataReducer: { isPosting, postSuccess, postFailure, postError },
-    },
-}) => ({
-    isPosting,
-    postSuccess,
-    postFailure,
-    postError,
-});
-
 const mapDispatchToProps = {
     hideModal,
     showModal,
-    restoreDrawing,
-    restoreFloor,
-    restoreBuilding,
-    restoreSite,
-    restoreUser,
-    restorePinHistory,
-    restoreOperative,
+    restoreRecentlyDeleted,
 };
 
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(RecentlyDeletedListItemContainer),
-);
+export default withRouter(connect(null, mapDispatchToProps)(RecentlyDeletedListItemContainer));
