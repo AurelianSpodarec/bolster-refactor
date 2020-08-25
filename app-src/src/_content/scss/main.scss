@@ -5357,6 +5357,12 @@ input {
         strong{
             @include ubuntu-medium;
         }
+        .company-logo{
+            width:auto;
+            max-width:65px;
+            margin:0 auto;
+            display: block;
+        }
     }
 }
 

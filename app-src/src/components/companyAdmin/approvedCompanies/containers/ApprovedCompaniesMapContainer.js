@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { FILE_STORAGE_URL } from 'config';
 
 import GoogleMapReact from 'google-map-react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 import redPin from '_content/images/map-markers/red-pin2x.png';
 
-const Marker = ({ children, companyID, onMouseEnter, onMouseLeave, isHoveredOver, services }) => (
+const Marker = ({
+    children,
+    companyID,
+    onMouseEnter,
+    onMouseLeave,
+    isHoveredOver,
+    services,
+    logo,
+    telephone,
+}) => (
     <div
         className="google-maps-marker"
         onMouseEnter={() => onMouseEnter(companyID)}
@@ -17,14 +27,31 @@ const Marker = ({ children, companyID, onMouseEnter, onMouseLeave, isHoveredOver
             {isHoveredOver && (
                 <span style={{ zIndex: '10' }}>
                     {children}
-                    <br />
-                    Services: <br />
-                    {services.map(service => (
+
+                    {logo && logo.length && (
                         <>
-                            <strong>{service.name}</strong>
                             <br />
+                            <img className="company-logo" src={`${FILE_STORAGE_URL}/${logo}`} />
                         </>
-                    ))}
+                    )}
+
+                    {telephone && telephone.length && (
+                        <>
+                            <br /> Telephone: <strong>{telephone}</strong>
+                        </>
+                    )}
+                    <br />
+                    {services && services.length && (
+                        <>
+                            Services: <br />
+                            {services.map(service => (
+                                <>
+                                    <strong key={service.id}>{service.name}</strong>
+                                    <br />
+                                </>
+                            ))}
+                        </>
+                    )}
                 </span>
             )}
         </div>
@@ -62,10 +89,12 @@ class ApprovedCompaniesMapContainer extends Component {
                                 lat={company.location.latY}
                                 lng={company.location.lngX}
                                 companyID={company.id}
+                                logo={company.logoFile}
                                 isHoveredOver={this.state.hoveredPin === company.id}
                                 onMouseEnter={this.showCompanyDetails}
                                 onMouseLeave={this.hideCompanyDetails}
                                 services={this._getPinCompanyServices(company.serviceIDs)}
+                                telephone={company.telephone}
                             >
                                 <strong>{company.name}</strong>
                             </Marker>
