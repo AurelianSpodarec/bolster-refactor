@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import postActivityLogSettings from 'actions/companyAdmin/activityLog/async/postActivityLogSettings';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { ACTIVITY_LOG_REFERENCE_VALUES } from 'constants/companyAdmin/enums';
-import { usePrevious } from 'helpers/hooks';
+import { useForm, usePrevious } from 'helpers/hooks';
 
 import EditActivityLogForm from '../presentational/EditActivityLogForm';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
@@ -19,7 +19,7 @@ const EditActivityLogFormContainer = ({
     error,
     history,
 }) => {
-    const [form, handleChange] = useState({});
+    const [form, handleChange] = useForm({});
 
     const prevProps = usePrevious({ isPosting });
 
@@ -51,7 +51,7 @@ const EditActivityLogFormContainer = ({
         <EditActivityLogForm
             settings={settings}
             form={form}
-            handleFormChange={handleFormChange}
+            handleFormChange={handleChange}
             handleSubmit={handleSubmit}
             sections={getSections()}
             isPosting={isPosting}
@@ -69,13 +69,6 @@ const EditActivityLogFormContainer = ({
         });
 
         return sections;
-    }
-
-    function handleFormChange(name, value) {
-        handleChange({
-            ...form,
-            [name]: value,
-        });
     }
 
     function handleSubmit() {
