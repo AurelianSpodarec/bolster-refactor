@@ -15,6 +15,7 @@ const EditActivityLogForm = ({
     handleFormChange,
     handleSubmit,
     sections,
+    actions,
     isPosting,
 }) => (
     <Form onSubmit={handleSubmit}>
@@ -22,7 +23,25 @@ const EditActivityLogForm = ({
             <div key={section.id}>
                 <BlockHeading title={section.name} />
 
-                {settings
+                {actions.map(action => {
+                    const name = `reference-${section.id}-action-${action.id}`;
+
+                    return (
+                        <Field
+                            key={`${section.id}-${action.id}`}
+                            name={action.name}
+                            sizeClasses="size-lg-4"
+                        >
+                            <CheckboxContainer
+                                checked={form[name]}
+                                handleChange={handleFormChange}
+                                name={name}
+                            />
+                        </Field>
+                    );
+                })}
+
+                {/* {settings
                     .filter(setting => setting.referenceType === section.id)
                     .map((setting, index) => {
                         const name = `reference-${setting.referenceType}-action-${setting.actionType}`;
@@ -40,7 +59,7 @@ const EditActivityLogForm = ({
                                 />
                             </Field>
                         );
-                    })}
+                    })} */}
             </div>
         ))}
 

@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import postActivityLogSettings from 'actions/companyAdmin/activityLog/async/postActivityLogSettings';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-import { ACTIVITY_LOG_REFERENCE_VALUES } from 'constants/companyAdmin/enums';
+import {
+    ACTIVITY_LOG_REFERENCE_VALUES,
+    ACTIVITY_LOG_ACTION_VALUES,
+} from 'constants/companyAdmin/enums';
 import { useForm, usePrevious } from 'helpers/hooks';
 
 import EditActivityLogForm from '../presentational/EditActivityLogForm';
@@ -19,7 +22,7 @@ const EditActivityLogFormContainer = ({
     error,
     history,
 }) => {
-    const [form, handleChange] = useForm({});
+    const [form, handleChange] = useState({});
 
     const prevProps = usePrevious({ isPosting });
 
@@ -29,7 +32,7 @@ const EditActivityLogFormContainer = ({
         settings.forEach(setting => {
             const key = `reference-${setting.referenceType}-action-${setting.actionType}`;
 
-            initialState[key] = setting.isEnabled;
+            initialState[key] = true;
         });
 
         handleChange({
@@ -51,9 +54,10 @@ const EditActivityLogFormContainer = ({
         <EditActivityLogForm
             settings={settings}
             form={form}
-            handleFormChange={handleChange}
+            handleFormChange={handleFormChange}
             handleSubmit={handleSubmit}
             sections={getSections()}
+            actions={getActions()}
             isPosting={isPosting}
         />
     );
@@ -71,6 +75,26 @@ const EditActivityLogFormContainer = ({
         return sections;
     }
 
+    function getActions() {
+        const actions = Object.keys(ACTIVITY_LOG_ACTION_VALUES).map(val => {
+            const name = ACTIVITY_LOG_ACTION_VALUES[val];
+
+            return {
+                id: +val,
+                name,
+            };
+        });
+
+        return actions;
+    }
+
+    function handleFormChange(name, value) {
+        handleChange({
+            ...form,
+            [name]: value,
+        });
+    }
+
     function handleSubmit() {
         const keys = Object.keys(form);
         const postBody = { items: [] };
@@ -80,11 +104,12 @@ const EditActivityLogFormContainer = ({
             const actionType = key.split('-')[3];
             const isEnabled = form[key];
 
-            postBody.items.push({
-                referenceType: +referenceType,
-                actionType: +actionType,
-                isEnabled,
-            });
+            if (isEnabled) {
+                postBody.items.push({
+                    referenceType: +referenceType,
+                    actionType: +actionType,
+                });
+            }
         });
 
         postActivityLogSettings(postBody);

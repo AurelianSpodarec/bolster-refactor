@@ -104,6 +104,8 @@ export function useThrottle(action, timeout = 1000, deps = []) {
 export function useForm(initialState = {}) {
     const [formData, setFormData] = useState(initialState);
 
+    console.log('init state', initialState);
+
     function handleChange(name, value) {
         setFormData(prev => ({ ...prev, [name]: value }));
     }
