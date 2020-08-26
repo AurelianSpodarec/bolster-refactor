@@ -1,10 +1,11 @@
 import React from 'react';
-import moment from 'moment';
 
 import {
     ACTIVITY_LOG_REFERENCE_VALUES,
     ACTIVITY_LOG_ACTION_VALUES,
 } from 'constants/companyAdmin/enums';
+
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const ActivityLogItem = ({
     log: {
@@ -29,7 +30,9 @@ const ActivityLogItem = ({
                     ? `${user.userFirstName} ${user.userLastName}`
                     : actionTakenByString}
             </td>
-            <td className="left-align">{moment(actionTakenDate).format('DD/MM/YYYY HH:mm')}</td>
+            <td className="left-align">
+                <DateTimeContainer date={actionTakenDate} />
+            </td>
         </tr>
     );
 };
