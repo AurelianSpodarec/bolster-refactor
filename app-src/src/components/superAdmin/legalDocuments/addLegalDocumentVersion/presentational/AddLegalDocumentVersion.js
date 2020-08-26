@@ -5,6 +5,29 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
+const modules = {
+    toolbar: [
+        [{ header: [1, 2, 3, 4, 5, false] }],
+        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+        [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+        ['link'],
+        ['clean'],
+    ],
+};
+
+const formats = [
+    'header',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'bullet',
+    'indent',
+    'link',
+];
+
 const AddLegalDocumentVersion = ({
     handleSaveDraft,
     handlePublishDraft,
@@ -15,7 +38,13 @@ const AddLegalDocumentVersion = ({
         <>
             <PageHeading title={'document name, version, (draft)'} />
             <BlockContainer>
-                <ReactQuill theme="snow" value={documentText} onChange={setDocText} />
+                <ReactQuill
+                    theme="snow"
+                    value={documentText}
+                    onChange={setDocText}
+                    modules={modules}
+                    formats={formats}
+                />
 
                 <BlockButtonWrapper>
                     <ButtonContainer handleClick={handleSaveDraft}>Save draft</ButtonContainer>
