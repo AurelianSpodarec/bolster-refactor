@@ -21,7 +21,7 @@ class EditCompanyPermissionsFormContainer extends Component {
         const templateRules = enumFormat(TEMPLATE_USAGE_RULES);
         const { serviceIDs, templateUsageRule } = this.state;
         const serviceOptions = this._getServicesOptions();
-        const { error, hierarchyType, isFetching, companiesPermissions } = this.props;
+        const { error, hierarchyType, isFetching, companiesPermissions, redirectUrl } = this.props;
         const showMoreServicesMesssage = serviceOptions.some(option => option.disabled === true);
 
         return (
@@ -40,6 +40,7 @@ class EditCompanyPermissionsFormContainer extends Component {
                     templateRules={templateRules}
                     templateUsageRule={templateUsageRule}
                     showMoreServicesMesssage={showMoreServicesMesssage}
+                    cancelURL={redirectUrl}
                 />
             </BlockContainer>
         );
@@ -86,6 +87,7 @@ class EditCompanyPermissionsFormContainer extends Component {
     handleSubmit = () => {
         const { serviceIDs, templateUsageRule } = this.state;
         const { hierarchyType, hierarchyID, editCompanyPermissions, companyID } = this.props;
+        console.log({ templateUsageRule });
 
         const postBody = {
             companyID,
@@ -93,7 +95,7 @@ class EditCompanyPermissionsFormContainer extends Component {
             templateUsageRule,
         };
 
-        editCompanyPermissions(hierarchyType, hierarchyID, postBody);
+        editCompanyPermissions(hierarchyType, hierarchyID, companyID, postBody);
     };
 }
 

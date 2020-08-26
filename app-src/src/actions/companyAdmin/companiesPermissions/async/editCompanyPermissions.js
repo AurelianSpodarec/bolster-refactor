@@ -23,10 +23,10 @@ export const editCompanyFailure = error => ({
     error,
 });
 
-export default (hierarchyType, hierarchyID, postBody) => dispatch => {
+export default (hierarchyType, hierarchyID, companyID, postBody) => dispatch => {
     dispatch(editCompanyRequest());
     return Axios.post(
-        `${API_URL}/companypermissions/${hierarchyType}/${hierarchyID}`,
+        `${API_URL}/companypermissions/${hierarchyType}/${hierarchyID}/${companyID}`,
         postBody,
         getHeaders(),
     )

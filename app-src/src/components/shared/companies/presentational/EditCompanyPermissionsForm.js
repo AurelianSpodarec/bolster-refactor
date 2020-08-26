@@ -5,7 +5,6 @@ import Form from 'components/shared/generic/form/containers/Form';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Field from 'components/shared/generic/form/presentational/Field';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Select from 'components/shared/generic/form/presentational/Select';
 
@@ -18,6 +17,7 @@ const InviteCompanyForm = ({
     templateUsageRule,
     templateRules,
     showMoreServicesMesssage,
+    cancelURL = location.pathname.replace('/invite-company', ''),
 }) => (
     <>
         <BlockHeading title="Company details" />
@@ -57,7 +57,7 @@ const InviteCompanyForm = ({
                     <i className="fa fa-plus" />
                     Edit Permissions
                 </button>
-                <Link to={location.pathname.replace('/invite-company', '')} className="button">
+                <Link to={cancelURL} className="button">
                     Cancel
                 </Link>
             </BlockButtonWrapper>
