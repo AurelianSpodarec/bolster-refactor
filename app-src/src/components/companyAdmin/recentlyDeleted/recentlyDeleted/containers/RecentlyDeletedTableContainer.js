@@ -5,41 +5,17 @@ import RecentlyDeletedTable from '../presentational/RecentlyDeletedTable';
 
 class RecentlyDeletedTableContainer extends Component {
     render() {
-        const { isFetchingData, error } = this.props;
+        const { isFetchingData, error, deleted } = this.props;
 
         return (
             <RecentlyDeletedTable
                 headers={['Deleted item', 'Date Created', 'Date Deleted', 'Deleted By', 'Type', '']}
-                recentlyDeleted={this._getDeletedItems()}
+                recentlyDeleted={deleted}
                 isFetching={isFetchingData}
                 error={error}
             />
         );
     }
-
-    _getDeletedItems = () => {
-        const {
-            drawings,
-            floors,
-            buildings,
-            sites,
-            users,
-            pinHistories,
-            operativePermissions,
-        } = this.props;
-
-        const itemsArray = [
-            ...drawings,
-            ...floors,
-            ...buildings,
-            ...sites,
-            ...users,
-            ...pinHistories,
-            ...operativePermissions,
-        ];
-
-        return itemsArray;
-    };
 }
 
 const mapStateToProps = ({
@@ -52,6 +28,7 @@ const mapStateToProps = ({
             users,
             pinHistories,
             operativePermissions,
+            deleted,
             isFetchingData,
             error,
         },
@@ -64,6 +41,7 @@ const mapStateToProps = ({
     users: Object.values(users || []),
     pinHistories: Object.values(pinHistories || []),
     operativePermissions: Object.values(operativePermissions || []),
+    deleted,
     isFetchingData,
     error,
 });
