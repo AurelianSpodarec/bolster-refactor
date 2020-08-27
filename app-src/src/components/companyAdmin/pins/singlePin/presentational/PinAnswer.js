@@ -115,7 +115,7 @@ const PinAnswer = ({
             break;
         case TYPES.SIGNATURE:
             var answerString = curAnswer.answer;
-
+            console.log(answerString);
             if (
                 !answerString.startsWith('data:') &&
                 !answerString.endsWith('.png') &&
@@ -127,8 +127,21 @@ const PinAnswer = ({
             if (answerString.endsWith('.png') || answerString.endsWith('.jpg')) {
                 answerString = `${FILE_STORAGE_URL}/${answerString}`;
             }
-
-            inner = <img className="signature" alt="signature" src={answerString} />;
+            if (
+                answerString.endsWith('.doc') ||
+                answerString.endsWith('.pdf') ||
+                answerString.endsWith('.docx')
+            ) {
+                var docURL = `${RAW_S3_STORAGE_URL}/${curAnswer.answer}`;
+                inner = (
+                    <ButtonContainer to={docURL} isAnchor className="btn blue" openNewTab>
+                        <i className="table-icon far fa-eye" />
+                        View pdf
+                    </ButtonContainer>
+                );
+            } else {
+                inner = <img className="signature" alt="signature" src={answerString} />;
+            }
 
             break;
         case TYPES.SINGLE_PHOTO:
