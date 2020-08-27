@@ -115,7 +115,6 @@ const PinAnswer = ({
             break;
         case TYPES.SIGNATURE:
             var answerString = curAnswer.answer;
-            console.log(answerString);
             if (
                 !answerString.startsWith('data:') &&
                 !answerString.endsWith('.png') &&

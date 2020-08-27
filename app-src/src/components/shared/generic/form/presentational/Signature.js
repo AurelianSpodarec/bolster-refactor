@@ -33,7 +33,7 @@ const Signature = ({
             <FileUploadContainer
                 value={file}
                 name="file"
-                acceptedTypes={['image/*']}
+                acceptedTypes={['application/pdf', 'image/*']}
                 handleChange={handleUploadChange}
             />
         </div>
@@ -55,7 +55,7 @@ const Signature = ({
                     setColorHoverCode="#1083b3"
                     handleClick={() => swtichUploadSig()}
                 >
-                    Upload Image Signature
+                    Upload Signature
                 </ButtonContainer>
             )}
 
