@@ -97,9 +97,6 @@ class DropdownListTableContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        companySettingsReducer: {
-            companySettings: { defaultDropdownSorting },
-        },
         dropdownOptionsReducer: { dropdownOptions, isFetching, error, postSuccess, postError },
     },
     shared: {
@@ -112,7 +109,6 @@ const mapStateToProps = ({
     error,
     dropdownOptions: Object.values(dropdownOptions) || [],
     fieldErrors,
-    defaultDropdownSorting,
 });
 
 const mapDispatchToProps = {

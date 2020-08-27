@@ -14,7 +14,7 @@ import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturer
 
 class DropdownListContainer extends Component {
     state = {
-        selectedSortValue: this.props.defaultDropdownSorting || DEFAULT_PIN_OPTIONS_SORT.CUSTOM,
+        selectedSortValue: DEFAULT_PIN_OPTIONS_SORT.CUSTOM,
     };
 
     render() {

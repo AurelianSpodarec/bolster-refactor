@@ -43,9 +43,9 @@ const EditSettingsForm = ({
     dateFormatOptions,
     dateFormat,
     defaultSitesSort,
-    defaultDropdownSorting,
+    // defaultDropdownSorting,
     siteSortOptions,
-    pinOptionsSortOptions,
+    // pinOptionsSortOptions,
     shouldDeleteReportsAfterDownload,
     enableQRCodes,
     useManufacturingByDefault,
@@ -251,7 +251,7 @@ const EditSettingsForm = ({
                         omitPlaceholder
                     />
                 </Field>
-                <Field name="Default pin options sort" sizeClasses="size-lg-6 size-md-12">
+                {/* <Field name="Default pin options sort" sizeClasses="size-lg-6 size-md-12">
                     <Select
                         options={pinOptionsSortOptions}
                         onChange={handleInputChange}
@@ -259,7 +259,7 @@ const EditSettingsForm = ({
                         value={defaultDropdownSorting}
                         omitPlaceholder
                     />
-                </Field>
+                </Field> */}
             </div>
             <div className="size-lg-12">
                 <Field name="Use O&M Manufacturing By Default" sizeClasses="size-lg-6 size-md-12">

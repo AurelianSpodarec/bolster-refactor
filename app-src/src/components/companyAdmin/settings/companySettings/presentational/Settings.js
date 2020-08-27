@@ -11,7 +11,6 @@ import {
     VAT_TYPE_NAME,
     VAT_TYPES,
     DEFAULT_SITES_SORT_NAMES,
-    DEFAULT_PIN_OPTIONS_SORT_NAMES,
 } from 'constants/companyAdmin/enums';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -266,14 +265,14 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                             fieldClass="no-h-padding"
                             sizeClass="size-lg-12"
                         />
-                        <FieldOutput
+                        {/* <FieldOutput
                             title="Default Pin Options List Sort"
                             description={
                                 DEFAULT_PIN_OPTIONS_SORT_NAMES[company.defaultDropdownSorting]
                             }
                             fieldClass="no-h-padding"
                             sizeClass="size-lg-12"
-                        />
+                        /> */}
                         <FieldOutput
                             title="Use O&M Manufacturing By Default?"
                             description={company.useManufacturingByDefault ? 'Yes' : 'No'}

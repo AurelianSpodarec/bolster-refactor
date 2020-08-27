@@ -16,7 +16,7 @@ import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 class SingleManufacturerContainer extends Component {
     state = {
-        selectedSortValue: this.props.defaultDropdownSorting || DEFAULT_PIN_OPTIONS_SORT.CUSTOM,
+        selectedSortValue: DEFAULT_PIN_OPTIONS_SORT.CUSTOM,
     };
     render() {
         const { manufacturerID, manufacturers, isFetching } = this.props;

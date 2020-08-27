@@ -1,9 +1,6 @@
 import React from 'react';
 import Select from 'components/shared/generic/form/presentational/Select';
-import {
-    DROPDOWN_OPTION_MANUFACTURER_ENABLED,
-    DEFAULT_PIN_OPTIONS_SORT,
-} from 'constants/companyAdmin/enums';
+import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
 import { getSortedDropdownOptions } from 'helpers/addPin';
 
 const DropdownOptions = ({
