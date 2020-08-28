@@ -16,7 +16,7 @@ const EditDrawingOperative = ({
     handleMultiSelect,
     handleSubmit,
     serviceIDs,
-    backUrl
+    backUrl,
 }) => {
     if (!isFetching) {
         const { userFirstName, userLastName } = operative;
@@ -36,6 +36,7 @@ const EditDrawingOperative = ({
                                 handleChange={handleMultiSelect}
                                 name="serviceIDs"
                                 required
+                                hideDisabled
                             />
                         </Field>
                     </Form>

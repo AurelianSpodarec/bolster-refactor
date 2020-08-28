@@ -6,11 +6,13 @@ import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fet
 import EditDrawingOperativeForm from '../presentational/EditDrawingOperativeForm';
 import fetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
 import editDrawingOperative from 'actions/companyAdmin/operatives/async/editDrawingOperative';
+import fetchCompanyPermissions from 'actions/companyAdmin/companiesPermissions/async/fetchCompanyPermissions';
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 class EditDrawingOperativeFormContainer extends Component {
     state = {
         serviceIDs: [],
-        services: []
+        services: [],
     };
 
     render() {
@@ -36,48 +38,53 @@ class EditDrawingOperativeFormContainer extends Component {
             match,
             services,
             isFetching,
-            operative
+            operative,
+            fetchCompanyPermissions,
         } = this.props;
         const { id } = match.params;
         fetchOperativesForDrawing(id);
+
+        fetchCompanyPermissions(HIERARCHY_IDS.DRAWING, id);
         if (services && operative && !isFetching) {
             const serviceIDs = operative.serviceIDs.map(id => String(id));
             this.setState({
                 services: this.getServicesForState(services),
-                serviceIDs
+                serviceIDs,
             });
         }
     }
 
     componentDidUpdate(prevProps) {
-        const {
-            isFetching,
-            services,
-            postSuccess,
-            history,
-            match,
-            operative
-        } = this.props;
+        const { isFetching, services, postSuccess, history, match, operative } = this.props;
         if (!isFetching && prevProps.isFetching && operative) {
             const serviceIDs = operative.serviceIDs.map(id => String(id));
             this.setState({
                 services: this.getServicesForState(services),
-                serviceIDs
+                serviceIDs,
             });
         }
         if (postSuccess && !prevProps.postSuccess)
             history.push(`/company/drawings/${match.params.id}`);
     }
 
-    getServicesForState = services =>
-        Object.values(services).reduce((acc, { id, name }) => {
+    getServicesForState = services => {
+        const { companyPermissions, companyID } = this.props;
+        const relevantPermissions = companyPermissions.filter(perm => perm.companyID === companyID);
+
+        return Object.values(services).reduce((acc, { id, name }) => {
+            const hasSub = this.props.subscriptions.includes(id);
+            const hasPerm = relevantPermissions.find(
+                perm => perm.serviceID === id || perm.serviceID === null,
+            );
+            console.log({ relevantPermissions, companyID, hasSub, hasPerm });
             acc.push({
                 value: id,
                 text: name,
-                disabled: !this.props.subscriptions.includes(id)
+                disabled: !(hasSub && hasPerm),
             });
             return acc;
         }, []);
+    };
 
     handleSubmit = e => {
         e.preventDefault();
@@ -97,34 +104,33 @@ const mapStateToProps = (
         companyAdmin: {
             operativesReducer,
             servicesReducer,
-            subscriptionsReducer
-        }
+            subscriptionsReducer,
+            companiesPermissionsReducer: { companiesPermissions: companyPermissions },
+        },
+        shared: {
+            decodeJWTReducer: {
+                jwtData: { companyID },
+            },
+        },
     },
-    ownProps
+    ownProps,
 ) => ({
-    operative:
-        operativesReducer.operatives[ownProps.match.params.operativeID] || null,
+    operative: operativesReducer.operatives[ownProps.match.params.operativeID] || null,
     isFetching: operativesReducer.isFetching || servicesReducer.isFetching,
     postSuccess: operativesReducer.postSuccess,
     services: servicesReducer.services || [],
-    subscriptions: subscriptionsReducer.subscriptions.serviceIDs || []
+    subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
+    companyPermissions: Object.values(companyPermissions),
+    companyID,
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchOperativesForDrawing: id => {
-        dispatch(fetchOperativesForDrawing(id));
-    },
-    fetchAllServices: () => {
-        dispatch(fetchAllServices);
-    },
-    editDrawingOperative: (id, body) => {
-        dispatch(editDrawingOperative(id, body));
-    }
-});
+const mapDispatchToProps = {
+    fetchOperativesForDrawing,
+    fetchAllServices,
+    editDrawingOperative,
+    fetchCompanyPermissions,
+};
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(EditDrawingOperativeFormContainer)
+    connect(mapStateToProps, mapDispatchToProps)(EditDrawingOperativeFormContainer),
 );

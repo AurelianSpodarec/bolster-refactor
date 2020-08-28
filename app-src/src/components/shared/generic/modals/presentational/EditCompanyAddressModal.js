@@ -30,13 +30,12 @@ const EditCompanyAddressModal = ({
                     </Field>
                 </div>
                 <div className="size-lg-12">
-                    <Field name="Address Line 2" required>
+                    <Field name="Address Line 2">
                         <TextInputContainer
                             handleChange={handleChange}
                             name={'addressLine2'}
                             value={addressLine2}
                             type="text"
-                            required
                         />
                     </Field>
                 </div>
