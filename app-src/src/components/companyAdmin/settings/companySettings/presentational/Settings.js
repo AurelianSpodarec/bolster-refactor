@@ -16,6 +16,8 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
+const hasVatCodeTypes = [VAT_TYPES.GB, VAT_TYPES.EU];
+
 const Settings = ({ isFetching, error, companySettings: company, onMobile }) => {
     const { timeZone = {}, dateFormat = {} } = company;
     const notProvided = 'Not Provided';
@@ -84,7 +86,7 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                                     fieldClass="no-h-padding"
                                     sizeClass="size-lg-12"
                                 />
-                                {company.vatType && company.vatType !== VAT_TYPES.OUTSIDEEU && (
+                                {company.vatType && hasVatCodeTypes.includes(company.vatType) && (
                                     <FieldOutput
                                         title="VAT Code"
                                         description={company.vatCode}

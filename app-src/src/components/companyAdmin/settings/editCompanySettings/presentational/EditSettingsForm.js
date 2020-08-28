@@ -14,6 +14,8 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import { VAT_TYPES } from 'constants/companyAdmin/enums';
 import CountriesSelectList from 'components/shared/generic/form/presentational/CountriesSelectList';
 
+const hasVatCodeTypes = [VAT_TYPES.GB, VAT_TYPES.EU];
+
 const EditSettingsForm = ({
     handleInputChange,
     handleSubmit,
@@ -141,7 +143,7 @@ const EditSettingsForm = ({
                     required
                 />
             </Field>
-            {vatType && vatType !== VAT_TYPES.OUTSIDEEU && (
+            {vatType && hasVatCodeTypes.includes(vatType) && (
                 <Field
                     name="VAT Code"
                     smallDesc={

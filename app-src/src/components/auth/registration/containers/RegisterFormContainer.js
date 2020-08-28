@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 import { VAT_TYPES } from 'constants/companyAdmin/enums';
 
@@ -21,7 +20,6 @@ class RegisterFormContainer extends Component {
         'User.password': '',
         'User.phoneNumber': '',
         confirmPassword: '',
-        //company name
         'Company.name': '',
         'Company.addressLine1': '',
         'Company.addressLine2': '',
@@ -94,7 +92,6 @@ class RegisterFormContainer extends Component {
             'User.firstName': firstName,
             'User.lastName': lastName,
             'User.phoneNumber': phoneNumber,
-            //company name
             'Company.name': name,
             'Company.addressLine1': addressLine1,
             'Company.addressLine2': addressLine2,
@@ -112,11 +109,11 @@ class RegisterFormContainer extends Component {
 
         const postBody = {
             user: {
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                phoneNumber: phoneNumber,
-                password: password,
+                firstName,
+                lastName,
+                email,
+                phoneNumber,
+                password,
             },
             company: {
                 name,
@@ -206,13 +203,12 @@ const mapStateToProps = ({
     loginSuccess,
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchTimeZones: () => dispatch(fetchTimeZones()),
-    fetchDateFormats: () => dispatch(fetchDateFormats()),
-    postRegister: postBody => dispatch(postRegister(postBody)),
-    postLogin: (email, password) => dispatch(postLogin(email, password)),
-    addFieldError: (field, err) => dispatch(addFieldError(field, err)),
-    removeFieldError: field => dispatch(removeFieldError(field)),
-});
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RegisterFormContainer));
+const mapDispatchToProps = {
+    fetchTimeZones,
+    fetchDateFormats,
+    postRegister,
+    postLogin,
+    addFieldError,
+    removeFieldError,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterFormContainer);
