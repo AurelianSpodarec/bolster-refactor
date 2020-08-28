@@ -32,7 +32,6 @@ const AddDrawingsForm = ({
     operativeOptions,
 }) => {
     const hasEnoughCredits = credits >= drawings.length;
-    console.log(drawings.map(drawing => drawing.clientPermissionIDs));
     return (
         <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
             <div className="size-lg-12">
@@ -120,30 +119,34 @@ const AddDrawingsForm = ({
                                 </div>
                             )}
                         </div>
-                        <div className="size-lg-12">
-                            <Field name="Invite Clients to Drawing">
-                                <CheckboxListContainer
-                                    options={clientOptions}
-                                    name={`${drawing.id}.*.clientPermissionIDs`}
-                                    selectedOptions={drawing.clientPermissionIDs}
-                                    handleChange={(name, value) =>
-                                        updateDrawing(name, value, drawing.id)
-                                    }
-                                />
-                            </Field>
-                        </div>
-                        <div className="size-lg-12">
-                            <Field name="Invite Operatives to Drawing">
-                                <CheckboxListContainer
-                                    options={operativeOptions}
-                                    name={`${drawing.id}.*.operativePermissionIDs`}
-                                    selectedOptions={drawing.operativePermissionIDs}
-                                    handleChange={(name, value) =>
-                                        updateDrawing(name, value, drawing.id)
-                                    }
-                                />
-                            </Field>
-                        </div>
+                        {!!clientOptions.length && (
+                            <div className="size-lg-12">
+                                <Field name="These clients have access to drawings on this level - invite them to this drawing?">
+                                    <CheckboxListContainer
+                                        options={clientOptions}
+                                        name={`${drawing.id}.*.clientPermissionIDs`}
+                                        selectedOptions={drawing.clientPermissionIDs}
+                                        handleChange={(name, value) =>
+                                            updateDrawing(name, value, drawing.id)
+                                        }
+                                    />
+                                </Field>
+                            </div>
+                        )}
+                        {!!operativeOptions.length && (
+                            <div className="size-lg-12">
+                                <Field name="These operatives have access to drawings on this level - invite them to this drawing?">
+                                    <CheckboxListContainer
+                                        options={operativeOptions}
+                                        name={`${drawing.id}.*.operativePermissionIDs`}
+                                        selectedOptions={drawing.operativePermissionIDs}
+                                        handleChange={(name, value) =>
+                                            updateDrawing(name, value, drawing.id)
+                                        }
+                                    />
+                                </Field>
+                            </div>
+                        )}
                         {showManufacturingOptions ? (
                             <>
                                 <div className="size-lg-12">
