@@ -158,24 +158,26 @@ class AddPinHistoryFormContainer extends Component {
         const latestVersion =
             versions.find(vers => vers.id === latestPinHistory.templateVersionID) || {};
 
-        const pinAnswersByGroupKey = pinAnswers.reduce((acc, ans) => {
-            const question = questions[ans.templateQuestionID];
-            if (!question) return acc;
-            const section = sections[question.templateSectionID];
-            if (!section) return acc;
-            // filter by only relevant questions/answers
-            if (
-                invalidTypes.includes(question.type) ||
-                section.templateVersionID !== latestVersion.id
-            ) {
-                return acc;
-            } else {
-                return {
-                    ...acc,
-                    [question.groupKey]: { ...ans, name: question.name, type: question.type },
-                };
-            }
-        }, {});
+        const pinAnswersByGroupKey = pinAnswers
+            .filter(answer => answer.pinHistoryID === latestPinHistory.id)
+            .reduce((acc, ans) => {
+                const question = questions[ans.templateQuestionID];
+                if (!question) return acc;
+                const section = sections[question.templateSectionID];
+                if (!section) return acc;
+                // filter by only relevant questions/answers
+                if (
+                    invalidTypes.includes(question.type) ||
+                    section.templateVersionID !== latestVersion.id
+                ) {
+                    return acc;
+                } else {
+                    return {
+                        ...acc,
+                        [question.groupKey]: { ...ans, name: question.name, type: question.type },
+                    };
+                }
+            }, {});
         return pinAnswersByGroupKey;
     };
 
