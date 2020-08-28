@@ -5456,14 +5456,17 @@ input {
 
             h1 {
                 font-size: 300%;
+                font-weight: 600;
             }
         
             h2 {
                 font-size: 225%;
+                font-weight: 600;
             }
         
             h3 {
                 font-size: 175%;
+                font-weight: 600;
             }
         
             p {
@@ -5478,5 +5481,30 @@ input {
                 color: $red;
             }
         }
+    }
+
+    h1 {
+        font-size: 300%;
+    }
+
+    h2 {
+        font-size: 225%;
+    }
+
+    h3 {
+        font-size: 175%;
+        font-weight: 600;
+    }
+
+    p {
+        font-size: 140%;
+    }   
+
+    strong {
+        font-size: 143%;
+    }
+
+    a {
+        color: $red;
     }
 }
