@@ -19,14 +19,41 @@ const DocumentResponseAgreeanceModal = ({ response, hideModal }) => (
                 description={<DateTimeContainer date={response.syncedOn} />}
             />
             {response.signatureS3Key && (
-                <FieldOutput title="Signature">
-                    <img
-                        className="signature"
-                        alt="signature"
-                        src={`data:image/png;base64,${response.signatureS3Key}`}
-                    />
-                </FieldOutput>
+                <>
+                    {response.signatureS3Key.endsWith('.png') ||
+                    response.signatureS3Key.endsWith('.jpg') ? (
+                        <FieldOutput title="Signature">
+                            <img
+                                className="signature"
+                                alt="signature"
+                                src={`${FILE_STORAGE_URL}/${response.signatureS3Key}`}
+                            />
+                        </FieldOutput>
+                    ) : response.signatureS3Key.endsWith('.doc') ||
+                      response.signatureS3Key.endsWith('.pdf') ? (
+                        <FieldOutput title="Signature">
+                            <ButtonContainer
+                                to={`${FILE_STORAGE_URL}/${response.signatureS3Key}`}
+                                isAnchor
+                                className="btn blue"
+                                openNewTab
+                            >
+                                <i className="table-icon far fa-eye" />
+                                View pdf
+                            </ButtonContainer>
+                        </FieldOutput>
+                    ) : (
+                        <FieldOutput title="Signature">
+                            <img
+                                className="signature"
+                                alt="signature"
+                                src={`data:image/png;base64,${response.signatureS3Key}`}
+                            />
+                        </FieldOutput>
+                    )}
+                </>
             )}
+
             {response.imageS3Key && (
                 <FieldOutput title="Image">
                     <img
