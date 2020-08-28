@@ -41,10 +41,9 @@ const UserGuidesPresentational = ({
                         .
                     </p>
 
-                    <Table headers={['Version Number', 'Date Uploaded', 'Link']} withActions>
+                    <Table headers={['Date Uploaded', 'Link']} withActions>
                         {versions.map(version => (
                             <tr key={version.id}>
-                                <td>{version.id}</td>
                                 <td>
                                     <DateTimeContainer date={version.createdOn} />
                                 </td>
