@@ -57,8 +57,15 @@ function companySettingsReducer(state = { colorCode: 'white' }, action) {
     switch (action.type) {
         case FETCH_COMPANY_SETTINGS_SUCCESS:
         case EDIT_COMPANY_SETTINGS_SUCCESS:
-        case COMPANY_AGREE_TO_TERMS_SUCCESS:
+        case COMPANY_AGREE_TO_TERMS_SUCCESS: {
+            const comp = action.payload;
+            const isOutdated = new Date(state.termsAcceptedOn) > new Date(comp.termsAcceptedOn);
+            const isSameCompany = state.id === comp.id;
+
+            if (isOutdated && isSameCompany) return state;
             return action.payload;
+        }
+
         default:
             return state;
     }

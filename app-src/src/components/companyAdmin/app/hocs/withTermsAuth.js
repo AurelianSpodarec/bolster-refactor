@@ -6,7 +6,6 @@ import fetchTerms from 'actions/shared/legalDocuments/fetchTerms';
 import Error from 'components/shared/generic/misc/presentational/Error';
 import { isEmpty } from 'lodash';
 import Block from 'components/shared/generic/block/presentational/Block';
-import AgreeToTerms from 'components/companyAdmin/agreeToTerms/AgreeToTerms';
 import AgreeToTermsModal from 'components/companyAdmin/agreeToTerms/AgreeToTermsModal';
 
 function withTermsAuth(ProtectedComponent) {
@@ -45,8 +44,8 @@ function withTermsAuth(ProtectedComponent) {
         privacy: legalDocumentsReducer.docs.privacy || {},
         fetchSuccess: legalDocumentsReducer.fetchSuccess,
         fetchError: legalDocumentsReducer.fetchError,
-        hasFetchedCompany: !isEmpty(companySettingsReducer.companySettings),
-        termsExists: !isEmpty(legalDocumentsReducer.docs.terms),
+        hasFetchedCompany: !!companySettingsReducer.companySettings.id,
+        termsExists: !!legalDocumentsReducer.docs.terms,
         termsAcceptedOn: companySettingsReducer.companySettings.termsAcceptedOn,
     });
 
