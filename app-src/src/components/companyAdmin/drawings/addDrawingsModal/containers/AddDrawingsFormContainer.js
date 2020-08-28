@@ -45,7 +45,12 @@ const AddDrawingsFormContainer = ({
     floor,
     useManufacturingByDefault,
     error,
+    clients,
+    operatives,
 }) => {
+    const initialClientPermissionIDs = clients.map(({ id }) => id + '');
+    const initialOperativePermissionIDs = operatives.map(({ id }) => id + '');
+
     const [
         drawings,
         updateDrawing,
@@ -68,6 +73,8 @@ const AddDrawingsFormContainer = ({
         selectedManufacturerOptions: [],
         selectedOptionValues: [],
         optionValuesOptions: {},
+        clientPermissionIDs: initialClientPermissionIDs,
+        operativePermissionIDs: initialOperativePermissionIDs,
     });
 
     const [initialOptions, setInitialOptions] = useState({
@@ -159,6 +166,15 @@ const AddDrawingsFormContainer = ({
         }
     }, [isFetching]);
 
+    const clientOptions = clients.map(({ id, userFirstName, userLastName, companyName }) => ({
+        value: id,
+        text: `${userFirstName} ${userLastName} (${companyName})`,
+    }));
+    const operativeOptions = operatives.map(({ id, userFirstName, userLastName, companyName }) => ({
+        value: id,
+        text: `${userFirstName} ${userLastName} (${companyName})`,
+    }));
+
     return (
         <BlockContainer
             isEmpty={isObjEmpty(manufacturers) || isObjEmpty(optionValues) || !areOptionsLoaded}
@@ -182,6 +198,8 @@ const AddDrawingsFormContainer = ({
                 initialOptions={initialOptions}
                 setShowManufacturingOptions={setShowManufacturingOptions}
                 showManufacturingOptions={showManufacturingOptions}
+                clientOptions={clientOptions}
+                operativeOptions={operativeOptions}
             />
         </BlockContainer>
     );
@@ -197,25 +215,30 @@ const AddDrawingsFormContainer = ({
                     isAlertShowing,
                     message,
                     dateToSend,
+                    clientPermissionIDs,
+                    operativePermissionIDs,
                     setManufacturersForHierarchy,
                 } = drawing;
-
                 const optionValueIDs = removeUnusedManufacturerDefaults(drawing);
 
                 const manufacturingEnabledOptions = initialOptions.isManufacturingInherited
                     ? {}
                     : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
 
-                isAlertShowing
-                    ? createDrawing({
-                          name,
-                          file,
-                          message,
-                          dateToSend,
-                          floorID,
-                          ...manufacturingEnabledOptions,
-                      })
-                    : createDrawing({ name, file, floorID, ...manufacturingEnabledOptions });
+                const postBody = {
+                    name,
+                    file,
+                    floorID,
+                    clientPermissionIDs,
+                    operativePermissionIDs,
+                    ...manufacturingEnabledOptions,
+                };
+                if (isAlertShowing) {
+                    postBody.message = message;
+                    postBody.dateToSend = dateToSend;
+                }
+
+                createDrawing(postBody);
             } else if (drawings.length > 1) {
                 const formattedDrawings = drawings.map(drawing => {
                     const {
@@ -225,6 +248,8 @@ const AddDrawingsFormContainer = ({
                         dateToSend,
                         message,
                         setManufacturersForHierarchy,
+                        clientPermissionIDs,
+                        operativePermissionIDs,
                     } = drawing;
 
                     const optionValueIDs = removeUnusedManufacturerDefaults(drawing);
@@ -232,22 +257,19 @@ const AddDrawingsFormContainer = ({
                     const manufacturingEnabledOptions = initialOptions.isManufacturingInherited
                         ? {}
                         : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
-
-                    return isAlertShowing
-                        ? {
-                              name,
-                              file,
-                              floorID,
-                              dateToSend,
-                              message,
-                              ...manufacturingEnabledOptions,
-                          }
-                        : {
-                              name,
-                              file,
-                              floorID,
-                              ...manufacturingEnabledOptions,
-                          };
+                    const postBody = {
+                        name,
+                        file,
+                        floorID,
+                        clientPermissionIDs,
+                        operativePermissionIDs,
+                        ...manufacturingEnabledOptions,
+                    };
+                    if (isAlertShowing) {
+                        postBody.message = message;
+                        postBody.dateToSend = dateToSend;
+                    }
+                    return postBody;
                 });
                 createDrawings({ drawings: formattedDrawings, floorID });
             }
@@ -268,6 +290,9 @@ const mapStateToProps = (
             companySettingsReducer: {
                 companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
             },
+            clientsReducer: { clients, isFetching: fetchingClients },
+            operativesReducer: { operatives, isFetching: fetchingOperatives },
+
             manufacturersReducer: {
                 manufacturers,
                 isFetching: isFetchingManufacturers,
@@ -300,6 +325,8 @@ const mapStateToProps = (
     isFetching: isFetchingManufacturers || isFetchingOptionValues,
     useManufacturingByDefault,
     subscriptionServiceIDs,
+    clients: Object.values(clients),
+    operatives: Object.values(operatives),
 });
 
 const mapDispatchToProps = {

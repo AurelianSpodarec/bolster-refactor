@@ -20,7 +20,13 @@ import {
     FETCH_COMPANY_OPERATIVES_REQUEST,
     FETCH_COMPANY_OPERATIVES_SUCCESS,
     FETCH_COMPANY_OPERATIVES_FAILURE,
+    FETCH_OPERATIVES_FOR_FLOOR_SUCCESS,
 } from 'constants/actionTypes/operatives';
+import {
+    FETCH_CLIENTS_FOR_FLOOR_REQUEST,
+    FETCH_CLIENTS_FOR_FLOOR_SUCCESS,
+    FETCH_CLIENTS_FOR_FLOOR_FAILURE,
+} from 'constants/actionTypes/clients';
 
 export default combineReducers({
     operatives: operativesReducer,
@@ -37,9 +43,12 @@ function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_COMPANY_OPERATIVES_REQUEST:
         case FETCH_OPERATIVES_REQUEST:
+        case FETCH_CLIENTS_FOR_FLOOR_REQUEST:
             return true;
         case FETCH_COMPANY_OPERATIVES_SUCCESS:
         case FETCH_COMPANY_OPERATIVES_FAILURE:
+        case FETCH_CLIENTS_FOR_FLOOR_SUCCESS:
+        case FETCH_CLIENTS_FOR_FLOOR_FAILURE:
         case FETCH_OPERATIVES_SUCCESS:
         case FETCH_OPERATIVES_FAILURE:
             return false;
@@ -69,11 +78,13 @@ function errorReducer(state = null, action) {
         case ADD_OPERATIVE_REQUEST:
         case ADD_OPERATIVES_REQUEST:
         case EDIT_DRAWING_OPERATIVE_REQUEST:
+        case FETCH_CLIENTS_FOR_FLOOR_REQUEST:
             return null;
         case FETCH_COMPANY_OPERATIVES_FAILURE:
         case FETCH_OPERATIVES_FAILURE:
         case ADD_OPERATIVE_FAILURE:
         case EDIT_DRAWING_OPERATIVE_FAILURE:
+        case FETCH_CLIENTS_FOR_FLOOR_FAILURE:
             return action.error;
         default:
             return state;
@@ -135,6 +146,7 @@ function deleteSuccessReducer(state = false, action) {
 function operativesReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_COMPANY_OPERATIVES_SUCCESS:
+        case FETCH_OPERATIVES_FOR_FLOOR_SUCCESS:
         case FETCH_OPERATIVES_SUCCESS:
             return convertArrToObj(action.payload);
         case ADD_OPERATIVE_SUCCESS:

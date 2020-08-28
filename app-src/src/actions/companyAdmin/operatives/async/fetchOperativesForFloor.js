@@ -9,25 +9,25 @@ import {
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
-export const fetchOperativesForHierarchyRequest = () => ({
+export const fetchOperativesFloorRequest = () => ({
     type: FETCH_OPERATIVES_FOR_FLOOR_REQUEST,
 });
 
-export const fetchOperativesForHierarchySuccess = payload => ({
+export const fetchOperativesFloorSuccess = payload => ({
     type: FETCH_OPERATIVES_FOR_FLOOR_SUCCESS,
     payload,
 });
 
-export const fetchOperativesForHierarchyFailure = error => ({
+export const fetchOperativesFloorFailure = error => ({
     type: FETCH_OPERATIVES_FOR_FLOOR_FAILURE,
     error,
 });
 
-export default hierarchyID => dispatch => {
-    dispatch(fetchOperativesForHierarchyRequest());
+export default floorID => dispatch => {
+    dispatch(fetchOperativesFloorRequest());
 
     return axios
-        .get(`${API_URL}/ClientPermissions/${hierarchyID}`, getHeaders())
-        .then(res => dispatch(fetchOperativesForHierarchySuccess(res.data)))
-        .catch(err => dispatch(fetchOperativesForHierarchyFailure(err.message)));
+        .get(`${API_URL}/operativepermissions/floor/${floorID}`, getHeaders())
+        .then(res => dispatch(fetchOperativesFloorSuccess(res.data)))
+        .catch(err => dispatch(fetchOperativesFloorFailure(err.message)));
 };

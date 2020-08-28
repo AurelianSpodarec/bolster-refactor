@@ -26,7 +26,7 @@ export default floorID => dispatch => {
     dispatch(fetchClientsForFloorRequest());
 
     return axios
-        .get(`${API_URL}/ClientPermissions/${floorID}`, getHeaders())
+        .get(`${API_URL}/ClientPermissions/floor/${floorID}`, getHeaders())
         .then(res => dispatch(fetchClientsForFloorSuccess(res.data)))
         .catch(err => dispatch(fetchClientsForFloorFailure(err.message)));
 };
