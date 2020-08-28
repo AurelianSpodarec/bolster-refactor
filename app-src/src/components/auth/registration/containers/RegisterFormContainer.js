@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { VAT_TYPES } from 'constants/companyAdmin/enums';
-
 import fetchTimeZones from 'actions/shared/time/async/fetchTimezones';
 import fetchDateFormats from 'actions/shared/time/async/fetchDateFormats';
 import postRegister from 'actions/shared/register/async/postRegister';
@@ -11,6 +9,7 @@ import RegisterForm from '../presentational/RegisterForm';
 import { sortTimezones } from 'helpers/generic';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
+import { vatOptions } from 'constants/shared/vatTypes';
 
 class RegisterFormContainer extends Component {
     state = {
@@ -40,13 +39,6 @@ class RegisterFormContainer extends Component {
         const timezoneOptions = this._getTimezoneOptions();
 
         const dateFormats = this._formatDateFormats();
-        const vatOptions = [
-            { label: 'GB', value: VAT_TYPES.GB },
-            { label: 'Europe', value: VAT_TYPES.EU },
-            { label: 'Outside Europe', value: VAT_TYPES.OUTSIDEEU },
-            { label: 'Not VAT registered GB', value: VAT_TYPES.NOT_REGISTERED_GB },
-            { label: 'Not VAT registered Outside GB', value: VAT_TYPES.NOT_REGISTERED_OUTSIDEGB },
-        ];
 
         return (
             <RegisterForm

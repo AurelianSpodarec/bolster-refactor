@@ -7,11 +7,8 @@ import editCompanySettings from 'actions/companyAdmin/companySettings/async/edit
 
 import EditSettingsForm from '../presentational/EditSettingsForm';
 import { sortTimezones, isObjEmpty, enumFormat } from 'helpers/generic';
-import {
-    VAT_TYPES,
-    DEFAULT_SITES_SORT,
-    DEFAULT_SITES_SORT_NAMES,
-} from 'constants/companyAdmin/enums';
+import { DEFAULT_SITES_SORT, DEFAULT_SITES_SORT_NAMES } from 'constants/companyAdmin/enums';
+import { vatOptions } from 'constants/shared/vatTypes';
 
 class EditSettingsFormContainer extends Component {
     state = {
@@ -60,14 +57,6 @@ class EditSettingsFormContainer extends Component {
             2: { text: 'Use Only Own', value: 2 },
             3: { text: 'Use Any', value: 3 },
         };
-
-        const vatOptions = [
-            { label: 'GB', value: VAT_TYPES.GB },
-            { label: 'Europe', value: VAT_TYPES.EU },
-            { label: 'Outside Europe', value: VAT_TYPES.OUTSIDEEU },
-            { label: 'Not VAT Registered (GB)', value: VAT_TYPES.NOT_REGISTERED_GB },
-            { label: 'Not VAT Registered (Outside GB)', value: VAT_TYPES.NOT_REGISTERED_OUTSIDEGB },
-        ];
 
         const siteSortOptions = enumFormat(DEFAULT_SITES_SORT_NAMES);
 

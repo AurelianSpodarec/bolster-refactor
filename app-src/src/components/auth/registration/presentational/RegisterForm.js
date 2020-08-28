@@ -11,7 +11,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
 import CountriesSelectList from 'components/shared/generic/form/presentational/CountriesSelectList';
-const hasVatCodeTypes = [VAT_TYPES.GB, VAT_TYPES.EU];
+import { needsVatCode } from 'constants/shared/vatTypes';
 
 const RegisterForm = ({
     handleSubmit,
@@ -43,7 +43,7 @@ const RegisterForm = ({
     validatePassword,
     validateConfirmPassword,
 }) => {
-    const needsVatCode = hasVatCodeTypes.includes(vatType);
+    const isVatCodeRequired = needsVatCode(vatType);
     return (
         <BlockContainer error={error}>
             <BlockHeading title="Register for bolster systems" />
@@ -221,7 +221,7 @@ const RegisterForm = ({
                         required
                     />
                 </Field>
-                {vatType && needsVatCode && (
+                {vatType && isVatCodeRequired && (
                     <Field
                         name="VAT Code"
                         smallDesc={
@@ -229,13 +229,13 @@ const RegisterForm = ({
                                 ? '(Please enter GB before your VAT code e.g GB123456789)'
                                 : null
                         }
-                        required={needsVatCode}
+                        required={isVatCodeRequired}
                     >
                         <TextInputContainer
                             name="Company.vatCode"
                             value={vatCode}
                             handleChange={handleChange}
-                            required={needsVatCode}
+                            required={isVatCodeRequired}
                         />
                     </Field>
                 )}
