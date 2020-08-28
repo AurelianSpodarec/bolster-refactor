@@ -4,26 +4,18 @@ import { connect } from 'react-redux';
 import Form from 'components/shared/generic/form/containers/Form';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import Block from 'components/shared/generic/block/presentational/Block';
-import WysiwygBlock from 'components/shared/generic/wysiwyg/presentational/WysiwygBlock';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import agreeToTerms from 'actions/companyAdmin/legalDocuments/agreeToTerms';
 import Field from 'components/shared/generic/form/presentational/Field';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import TermsAndConditions from 'components/shared/terms/TermsAndConditions';
 
-const AgreeToTerms = ({ copy, agreeToTerms }) => {
+const AgreeToTerms = ({ terms, eula, privacy, agreeToTerms }) => {
     const [hasAgreed, setHasAgreed] = useState(false);
 
     return (
         <>
             <PageHeading title="Terms & Conditions"></PageHeading>
-            <div className="flex-row size-lg-12">
-                <Block>
-                    <BlockHeading title="We've Updated Our Terms & Conditions" />
-                    <WysiwygBlock>
-                        <div dangerouslySetInnerHTML={{ __html: copy }}></div>
-                    </WysiwygBlock>
-                </Block>
-            </div>
+            <TermsAndConditions terms={terms} eula={eula} privacy={privacy} />
             <div className="flex-row size-lg-12">
                 <Block>
                     <Form onSubmit={agreeToTerms}>

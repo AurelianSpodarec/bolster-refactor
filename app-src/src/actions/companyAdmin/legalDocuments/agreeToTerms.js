@@ -22,11 +22,13 @@ const agreeToTermsFailure = error => ({
     error,
 });
 
-export default () => dispatch => {
+export default () => async dispatch => {
     dispatch(agreeToTermsRequest());
 
-    return axios
-        .patch(`${API_URL}/legal-documents/terms`, {}, getHeaders())
-        .then(res => dispatch(agreeToTermsSuccess(res.data)))
-        .catch(err => dispatch(agreeToTermsFailure(err.message)));
+    try {
+        const { data } = await axios.patch(`${API_URL}/legal-documents/terms`, {}, getHeaders());
+        dispatch(agreeToTermsSuccess(data));
+    } catch (err) {
+        dispatch(agreeToTermsFailure(err.message));
+    }
 };
