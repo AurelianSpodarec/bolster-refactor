@@ -11,6 +11,9 @@ import {
     SA_TOGGLE_COMPANY_ON_CLIENT_LIST_REQUEST,
     SA_TOGGLE_COMPANY_ON_CLIENT_LIST_SUCCESS,
     SA_TOGGLE_COMPANY_ON_CLIENT_LIST_FAILURE,
+    FETCH_COMPANY_MANUFACTURING_OPTIONS_REQUEST,
+    FETCH_COMPANY_MANUFACTURING_OPTIONS_SUCCESS,
+    FETCH_COMPANY_MANUFACTURING_OPTIONS_FAILURE,
 } from 'constants/actionTypes/companies';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
@@ -27,6 +30,7 @@ export default combineReducers({
     error: errorReducer,
     filters: filtersReducer,
     companyDropdownOptions: companyDropdownOptoinsReducer,
+    companyManufacturerOptions: companyManufacturerOptoinsReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -34,6 +38,7 @@ function isFetchingReducer(state = false, action) {
         case FETCH_ALL_COMPANIES_REQUEST:
         case FETCH_SINGLE_COMPANY_REQUEST:
         case FETCH_COMPANY_DROPDOWN_OPTIONS_REQUEST:
+        case FETCH_COMPANY_MANUFACTURING_OPTIONS_REQUEST:
             return true;
         case FETCH_ALL_COMPANIES_SUCCESS:
         case FETCH_ALL_COMPANIES_FAILURE:
@@ -41,6 +46,8 @@ function isFetchingReducer(state = false, action) {
         case FETCH_SINGLE_COMPANY_SUCCESS:
         case FETCH_COMPANY_DROPDOWN_OPTIONS_SUCCESS:
         case FETCH_COMPANY_DROPDOWN_OPTIONS_FAILURE:
+        case FETCH_COMPANY_MANUFACTURING_OPTIONS_FAILURE:
+        case FETCH_COMPANY_MANUFACTURING_OPTIONS_SUCCESS:
             return false;
         default:
             return state;
@@ -76,10 +83,12 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_COMPANIES_REQUEST:
         case FETCH_SINGLE_COMPANY_REQUEST:
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_REQUEST:
+        case FETCH_COMPANY_MANUFACTURING_OPTIONS_REQUEST:
             return null;
         case FETCH_ALL_COMPANIES_FAILURE:
         case FETCH_SINGLE_COMPANY_FAILURE:
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_FAILURE:
+        case FETCH_COMPANY_DROPDOWN_OPTIONS_FAILURE:
             return action.error;
         default:
             return state;
@@ -101,6 +110,15 @@ function companiesReducer(state = {}, action) {
 function companyDropdownOptoinsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_COMPANY_DROPDOWN_OPTIONS_SUCCESS:
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+function companyManufacturerOptoinsReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_COMPANY_MANUFACTURING_OPTIONS_SUCCESS:
             return action.payload;
         default:
             return state;

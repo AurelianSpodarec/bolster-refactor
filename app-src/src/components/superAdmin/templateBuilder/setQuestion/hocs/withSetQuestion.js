@@ -16,7 +16,8 @@ export default function (WrappedComponent) {
         render = () => (
             <WrappedComponent
                 {...this.props}
-                prereqOptions={this._getPrereqOptions()}
+                standardPrereqOptions={this._getStandardPrereqOptions()}
+                allPrereqOptions={this._getAllPrereqOptions()}
                 handleInputChange={this.handleInputChange}
                 getQuestionData={this.getQuestionData}
                 statusOptions={this._getStatusOptions()}
@@ -59,8 +60,7 @@ export default function (WrappedComponent) {
             }
             updateQuestionField('prefillStatuses', value);
         };
-
-        _getPrereqOptions = () => {
+        _getStandardPrereqOptions = () => {
             const {
                 questions,
                 templateUUID: temUuid,
@@ -83,7 +83,65 @@ export default function (WrappedComponent) {
                                 .map(({ name }) => ({
                                     text: name,
                                     value: name,
+                                    manufacturerOption: false,
                                 })),
+                        };
+                    } else {
+                        return {
+                            value: uuid,
+                            text: name,
+                            isStatus: questionType + '' === STATUS,
+                            questionType,
+                            options: options ? options : [],
+                        };
+                    }
+                });
+
+            return convertArrToObj(options, 'value');
+        };
+        _getAllPrereqOptions = () => {
+            console.log('hit hit hit');
+            const {
+                questions,
+                templateUUID: temUuid,
+                companyDropdownOptions: { dropdownOptions },
+                companyManufacturerOptions,
+            } = this.props;
+            const { STATUS } = QUESTION_TYPE_VALUES;
+
+            const options = questions
+                .filter(q => q.templateUUID === temUuid)
+                .filter(q => PREREQ_TYPES.includes(q.questionType + ''))
+                .map(function ({ uuid, name, questionType, options, optionType }) {
+                    const manufacturerOptions = companyManufacturerOptions
+                        .filter(({ type }) => type === optionType)
+                        .map(({ name, id }) => ({
+                            text: name,
+                            value: id,
+                            manufacturerOption: true,
+                        }));
+
+                    const defaultDropdownOptions = dropdownOptions
+                        .filter(dropdownOption => dropdownOption.type === optionType)
+                        .map(({ name }) => ({
+                            text: name,
+                            value: name,
+                            manufacturerOption: false,
+                        }));
+
+                    const allDropdownOptions = [...manufacturerOptions, ...defaultDropdownOptions];
+
+                    console.log({ allDropdownOptions });
+                    console.log({ allDropdownOptions });
+                    console.log({ allDropdownOptions });
+
+                    if (optionType) {
+                        return {
+                            value: uuid,
+                            text: name,
+                            isStatus: questionType + '' === STATUS,
+                            questionType,
+                            options: allDropdownOptions,
                         };
                     } else {
                         return {
@@ -186,7 +244,7 @@ export default function (WrappedComponent) {
                 templateQuestionFormReducer: { fields },
                 templateQuestionsReducer: { questions },
                 templatesReducer: { templates },
-                companiesReducer: { companyDropdownOptions },
+                companiesReducer: { companyDropdownOptions, companyManufacturerOptions },
             },
         },
         { templateUUID },
@@ -196,6 +254,7 @@ export default function (WrappedComponent) {
             questions: Object.values(questions),
             template: templates[templateUUID] || {},
             companyDropdownOptions,
+            companyManufacturerOptions,
         };
     };
 

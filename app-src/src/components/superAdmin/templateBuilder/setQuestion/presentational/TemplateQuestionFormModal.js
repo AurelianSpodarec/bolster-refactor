@@ -39,20 +39,10 @@ const TemplateQuestionFormModal = ({
     handlePrefillStatusValueChange,
     showStatusPrefillOptions,
     prereqDropdownValues,
-    isPrerequisiteMulti,
+    handleShowManufacturerOptionsCheck,
+    showManufacturingOptions,
     ...otherFields
 }) => {
-    console.log('selectedPrereq');
-    console.log('selectedPrereq');
-
-    console.log(selectedPrereq);
-    console.log(selectedPrereq);
-    console.log('prereqval');
-    console.log(prereqVal);
-
-    console.log('prereqDropdownValues');
-    console.log(prereqDropdownValues);
-
     return (
         <ModalOuterContainer extraClasses="w-form">
             <BlockHeading title={`${action} question`} />
@@ -76,41 +66,49 @@ const TemplateQuestionFormModal = ({
                         />
                     </Field>
                 )}
-
-                {!!selectedPrereq && !selectedPrereq.options.length && (
-                    <Field name="Prerequisite value" required>
-                        {selectedPrereq.isStatus ? (
-                            <Select
-                                name="prereqVal"
-                                value={prereqVal}
-                                options={statusOptions}
-                                onChange={handleInputChange}
-                                required
-                            />
-                        ) : (
-                            <TextInputContainer
-                                name="prereqVal"
-                                value={prereqVal}
-                                handleChange={handleInputChange}
-                                required
-                            />
-                        )}
+                {!!selectedPrereq && selectedPrereq.options.length && (
+                    <Field name="Enable Manufacturing options?">
+                        <CheckboxContainer
+                            name="isRequired"
+                            checked={showManufacturingOptions}
+                            handleChange={() => handleShowManufacturerOptionsCheck()}
+                        />
                     </Field>
+                )}
+                {!!selectedPrereq && !selectedPrereq.options.length && (
+                    <>
+                        <Field name="Prerequisite value" required>
+                            {selectedPrereq.isStatus ? (
+                                <Select
+                                    name="prereqVal"
+                                    value={prereqVal}
+                                    options={statusOptions}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            ) : (
+                                <TextInputContainer
+                                    name="prereqVal"
+                                    value={prereqVal}
+                                    handleChange={handleInputChange}
+                                    required
+                                />
+                            )}
+                        </Field>
+                    </>
                 )}
 
                 {!!selectedPrereq && selectedPrereq.options.length > 0 && (
-                    <Field name="Prerequisite values">
-                        <CheckboxListContainer
-                            name="prereqDropdownValues"
-                            handleChange={handleInputChange}
-                            selectedOptions={prereqDropdownValues}
-                            options={selectedPrereq.options.map(({ text }) => ({
-                                value: text,
-                                text,
-                                disabled: false,
-                            }))}
-                        />
-                    </Field>
+                    <>
+                        <Field name="Prerequisite values">
+                            <CheckboxListContainer
+                                name="prereqDropdownValues"
+                                handleChange={handleInputChange}
+                                selectedOptions={prereqDropdownValues}
+                                options={selectedPrereq.options}
+                            />
+                        </Field>
+                    </>
                 )}
 
                 <Field name="Field name" required>

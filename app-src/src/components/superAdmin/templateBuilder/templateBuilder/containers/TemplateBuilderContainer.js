@@ -14,6 +14,7 @@ import { isEmpty } from 'helpers/generic';
 import fetchTemplateForCompany from 'actions/superAdmin/companies/async/fetchTemplateForCompany';
 import deleteTemplate from 'actions/superAdmin/templateBuilder/async/deleteTemplate';
 import fetchCompanyDropdownOptions from 'actions/superAdmin/templateBuilder/async/fetchCompanyDropdownOptions';
+import fetchCompanyManufacturingOptions from 'actions/superAdmin/templateBuilder/async/fetchCompanyManufacturingOptions';
 
 class TemplateBuilderContainer extends Component {
     render() {
@@ -146,6 +147,7 @@ const mapDispatchToProps = (
         dispatch(fetchAllServices());
         dispatch(fetchSingleCompany(companyID));
         dispatch(fetchCompanyDropdownOptions(companyID));
+        dispatch(fetchCompanyManufacturingOptions(companyID));
     },
 
     deleteTemplate: templateUUID => dispatch(deleteTemplate(templateUUID)),

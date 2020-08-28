@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import uuid from 'uuid/v1';
 
 import TemplateQuestionFormModal from '../presentational/TemplateQuestionFormModal';
@@ -10,7 +10,8 @@ const AddTemplateQuestionModalContainer = ({
     fields: { questionType, questionTypeOptions, prereqUUID, ...fields },
     hideModal,
     handleInputChange,
-    prereqOptions,
+    standardPrereqOptions,
+    allPrereqOptions,
     setQuestion,
     sectionUUID,
     templateUUID,
@@ -21,6 +22,8 @@ const AddTemplateQuestionModalContainer = ({
     handlePrefillStatusValueChange,
     handlePrereqOptionsChange,
 }) => {
+    const [showManufacturingOptions, setShowManufacturingOptions] = useState(false);
+
     const questionOptions = Object.values(questionTypeOptions).filter(
         ({ value }) =>
             +value !== QUESTION_TYPE_NUMBERS.STATUS &&
@@ -36,12 +39,24 @@ const AddTemplateQuestionModalContainer = ({
             ? true
             : false;
 
+    console.log({ allPrereqOptions, standardPrereqOptions });
+    console.log({ allPrereqOptions, standardPrereqOptions });
+    console.log({ allPrereqOptions, standardPrereqOptions });
+
     return (
         <TemplateQuestionFormModal
             {...fields}
             statusOptions={formatArrForDropdown(statusOptions)}
-            prereqOptions={Object.values(prereqOptions)}
-            selectedPrereq={prereqOptions[prereqUUID]}
+            prereqOptions={
+                showManufacturingOptions
+                    ? Object.values(allPrereqOptions)
+                    : Object.values(standardPrereqOptions)
+            }
+            selectedPrereq={
+                showManufacturingOptions
+                    ? allPrereqOptions[prereqUUID]
+                    : standardPrereqOptions[prereqUUID]
+            }
             questionType={questionTypeOptions[questionType]}
             questionTypeOptions={questionOptions}
             hideModal={hideModal}
@@ -52,6 +67,8 @@ const AddTemplateQuestionModalContainer = ({
             action="Add"
             showStatusPrefillOptions={showStatusPrefillOptions}
             handlePrereqOptionsChange={handlePrereqOptionsChange}
+            showManufacturingOptions={showManufacturingOptions}
+            handleShowManufacturerOptionsCheck={handleShowManufacturerOptionsCheck}
         />
     );
 
@@ -83,6 +100,10 @@ const AddTemplateQuestionModalContainer = ({
         }));
 
         return asObj ? convertArrToObj(options, 'value') : options;
+    }
+
+    function handleShowManufacturerOptionsCheck() {
+        setShowManufacturingOptions(!showManufacturingOptions);
     }
 };
 

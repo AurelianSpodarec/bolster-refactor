@@ -156,6 +156,9 @@ class AddPinQuestionRoute extends Component {
                 return false;
             }
         }
+
+        console.log({ curQuestion, preReqAnswer, preReqQuestion });
+
         if (Array.isArray(preReqAnswer)) {
             if (
                 `${preReqQuestion.type}` === QUESTION_TYPE_VALUES.MULTI_DROPDOWN_OPTIONS ||
@@ -226,11 +229,6 @@ class AddPinQuestionRoute extends Component {
                     }
                     return false;
                 };
-                console.log({
-                    prerequisiteQuestionValueArr,
-                    preReqAnswer,
-                    preReqAnswerIncluded: preReqAnswerIncluded(),
-                });
 
                 if (preReqAnswerIncluded()) {
                     return true;
@@ -253,7 +251,7 @@ class AddPinQuestionRoute extends Component {
                 //Exactly matches value
                 const prerequQuestionValueArr = curQuestion.prerequisiteQuestionValue.split(',');
 
-                if (prerequQuestionValueArr.includes(preReqAnswer)) {
+                if (prerequQuestionValueArr.includes(preReqAnswer + '')) {
                     return true;
                 }
             }
