@@ -21,6 +21,7 @@ const AddTemplateQuestionModalContainer = ({
     handlePrefillStatusChange,
     handlePrefillStatusValueChange,
     handlePrereqOptionsChange,
+    updateQuestionField,
 }) => {
     const [showManufacturingOptions, setShowManufacturingOptions] = useState(false);
 
@@ -38,10 +39,6 @@ const AddTemplateQuestionModalContainer = ({
         +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.RADIO
             ? true
             : false;
-
-    console.log({ allPrereqOptions, standardPrereqOptions });
-    console.log({ allPrereqOptions, standardPrereqOptions });
-    console.log({ allPrereqOptions, standardPrereqOptions });
 
     return (
         <TemplateQuestionFormModal
@@ -103,7 +100,30 @@ const AddTemplateQuestionModalContainer = ({
     }
 
     function handleShowManufacturerOptionsCheck() {
-        setShowManufacturingOptions(!showManufacturingOptions);
+        if (showManufacturingOptions) {
+            if (getQuestionData().prereqVal.length) {
+                let preReqArr = getQuestionData().prereqVal.split(',');
+
+                const standardPrereqOptionsArr = Object.values(standardPrereqOptions);
+
+                const prereqAnswers = standardPrereqOptionsArr.reduce((acc, currOption) => {
+                    const { options } = currOption;
+                    const optionTexts = options.map(({ text }) => text);
+
+                    return acc.concat(optionTexts);
+                }, []);
+
+                const removedManufacturerOptions = preReqArr.filter(answer =>
+                    prereqAnswers.includes(answer),
+                );
+
+                updateQuestionField('prereqDropdownValues', removedManufacturerOptions);
+            }
+
+            setShowManufacturingOptions(false);
+        } else {
+            setShowManufacturingOptions(true);
+        }
     }
 };
 

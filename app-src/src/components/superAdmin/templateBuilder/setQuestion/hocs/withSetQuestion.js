@@ -100,7 +100,6 @@ export default function (WrappedComponent) {
             return convertArrToObj(options, 'value');
         };
         _getAllPrereqOptions = () => {
-            console.log('hit hit hit');
             const {
                 questions,
                 templateUUID: temUuid,
@@ -130,10 +129,6 @@ export default function (WrappedComponent) {
                         }));
 
                     const allDropdownOptions = [...manufacturerOptions, ...defaultDropdownOptions];
-
-                    console.log({ allDropdownOptions });
-                    console.log({ allDropdownOptions });
-                    console.log({ allDropdownOptions });
 
                     if (optionType) {
                         return {

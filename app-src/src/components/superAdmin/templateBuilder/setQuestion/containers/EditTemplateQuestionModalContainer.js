@@ -132,7 +132,7 @@ class TemplateQuestionModalContainer extends Component {
                 })
             ) {
                 this.setState({
-                    showManufacturingOptions: true,
+                    showManufacturingOptions: false,
                 });
             }
         }
