@@ -22,7 +22,7 @@ import AddCreditsToDrawingButtonContainer from '../../addCreditsToDrawing/contai
 import DrawingMapAddZone from './DrawingMapAddZone';
 import DrawingMapViewZones from './DrawingMapViewZones';
 
-const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
+const getDataUrl = (src) => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 
 const DrawingMapViewSimple = ({
     position,
@@ -51,6 +51,7 @@ const DrawingMapViewSimple = ({
     isAddingZone,
     handleZoneAdd,
     cancelZoneAdd,
+    zones,
     toggleZones,
     showZones,
     zonesOpacity,
@@ -168,7 +169,7 @@ const DrawingMapViewSimple = ({
                         zoom={zoom}
                         minZoom={0}
                         maxZoom={8}
-                        onClick={e => handleClick(e)}
+                        onClick={(e) => handleClick(e)}
                         crs={CRS.Simple}
                         onzoomend={() =>
                             handleZoomChange(
@@ -189,9 +190,13 @@ const DrawingMapViewSimple = ({
                         ) : (
                             <>
                                 {showZones && (
-                                    <DrawingMapViewZones curZoom={curZoom} />
+                                    <DrawingMapViewZones
+                                        curZoom={curZoom}
+                                        zones={zones}
+                                        opactity={zonesOpacity}
+                                    />
                                 )}
-                                {pins.map(pin => (
+                                {pins.map((pin) => (
                                     <MapPinContainer
                                         updateCurTooltip={updateCurTooltip}
                                         tooltipVisible={
@@ -221,7 +226,7 @@ const DrawingMapViewSimple = ({
                                     />
                                 )}
 
-                                {rectangles.map(rectangle => (
+                                {rectangles.map((rectangle) => (
                                     <Rectangle
                                         key={rectangle.id}
                                         rectangle={rectangle}
@@ -280,7 +285,7 @@ const DrawingMapViewSimple = ({
                                                     max="1"
                                                     value={zonesOpacity}
                                                     step="0.1"
-                                                    onChange={e =>
+                                                    onChange={(e) =>
                                                         handleOpacityChange(
                                                             e.target.value
                                                         )

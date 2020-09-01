@@ -18,7 +18,7 @@ class SinglePinMapContainer extends Component {
     state = {
         moveMode: false,
         editPinLocationLat: 0,
-        editPinLocationLng: 0
+        editPinLocationLng: 0,
     };
 
     render() {
@@ -29,12 +29,12 @@ class SinglePinMapContainer extends Component {
             drawing,
             selectedHistory,
             onMobile,
-            histories
+            histories,
         } = this.props;
 
         const editPinLocationPosition = [
             this.state.editPinLocationLat,
-            this.state.editPinLocationLng
+            this.state.editPinLocationLng,
         ];
 
         const latestUserName = [...histories].sort(
@@ -63,6 +63,7 @@ class SinglePinMapContainer extends Component {
                         history={this.props.history}
                         handleEditHistoryModal={this.handleEditHistoryModal}
                         onMobile={onMobile}
+                        zones={this._getIncludedZones()}
                     />
                 </BlockContainer>
 
@@ -71,7 +72,7 @@ class SinglePinMapContainer extends Component {
         );
     }
 
-    componentDidUpdate = prevProps => {
+    componentDidUpdate = (prevProps) => {
         const { pin, fetchDrawing, updatePinCoordinates } = this.props;
         if (!prevProps.pin.id && pin.id) {
             const lat = pin.location.latY;
@@ -84,7 +85,7 @@ class SinglePinMapContainer extends Component {
 
             this.setState({
                 editPinLocationLat: pin.location.latY,
-                editPinLocationLng: pin.location.lngX
+                editPinLocationLng: pin.location.lngX,
             });
             fetchDrawing(pin.drawingID);
         }
@@ -92,7 +93,7 @@ class SinglePinMapContainer extends Component {
 
     toggleMoveMode = () => {
         this.setState({
-            moveMode: !this.state.moveMode
+            moveMode: !this.state.moveMode,
         });
     };
 
@@ -106,19 +107,42 @@ class SinglePinMapContainer extends Component {
         if (this.state.moveMode) {
             this.setState({
                 editPinLocationLat: lat,
-                editPinLocationLng: lng
+                editPinLocationLng: lng,
             });
         }
     };
 
-    // _updateCoordinates = (lat, lng) => {
-    //     const { pin } = this.props;
-    // };
+    _getIncludedZones = () => {
+        const { zones, pin } = this.props;
+        const { lngX, latY } = pin.location;
+        const point = [lngX, latY];
+
+        return Object.values(zones).filter(({ coordinates }) => {
+            let x = point[0],
+                y = point[1];
+
+            for (
+                let i = 0, j = coordinates.length - 1;
+                i < coordinates.length;
+                j = i++
+            ) {
+                let xi = coordinates[i][0],
+                    yi = coordinates[i][1];
+                let xj = coordinates[j][0],
+                    yj = coordinates[j][1];
+
+                let intersect =
+                    yi > y != yj > y &&
+                    x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+                return intersect;
+            }
+        });
+    };
 
     _setMapCentre = (lat, lng) => {
         this.setState({
             ...this.state,
-            mapCentre: [lat, lng]
+            mapCentre: [lat, lng],
         });
     };
 
@@ -126,12 +150,12 @@ class SinglePinMapContainer extends Component {
         const { editPinLocationLat, editPinLocationLng } = this.state;
         const {
             editPinLocation,
-            pin: { id }
+            pin: { id },
         } = this.props;
 
         editPinLocation(id, editPinLocationLat, editPinLocationLng);
         this.setState({
-            moveMode: false
+            moveMode: false,
         });
     };
 }
@@ -141,12 +165,13 @@ const mapStateToProps = (
         companyAdmin: {
             pinsReducer: { singlePin, error, isFetching, postSuccess },
             pinHistoriesReducer: { histories },
-            drawingsReducer: { drawings }
+            drawingsReducer: { drawings },
+            zonesReducer: { zones },
         },
         shared: {
             selectedHistoryReducer: { selectedHistoryId },
-            mobileReducer: { onMobile }
-        }
+            mobileReducer: { onMobile },
+        },
     },
     { match: { params } }
 ) => {
@@ -160,23 +185,21 @@ const mapStateToProps = (
         isFetching,
         postSuccess,
         drawing: drawings[pin.drawingID] || {},
-        onMobile
+        onMobile,
+        zones,
     };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     editPinLocation: (id, lat, lng) =>
         dispatch(editPinLocation(id, { location: { lngX: lng, latY: lat } })),
     updatePinCoordinates: (name, value) => {
         dispatch(updatePinCoordinates(name, value));
     },
-    fetchDrawing: drawingID => dispatch(fetchSingleDrawing(drawingID)),
-    showModal: (type, props) => dispatch(showModal(type, props))
+    fetchDrawing: (drawingID) => dispatch(fetchSingleDrawing(drawingID)),
+    showModal: (type, props) => dispatch(showModal(type, props)),
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(SinglePinMapContainer)
+    connect(mapStateToProps, mapDispatchToProps)(SinglePinMapContainer)
 );

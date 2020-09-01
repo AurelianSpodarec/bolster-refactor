@@ -9,23 +9,22 @@ const ZonesIncludedContainer = ({ pin, zones }) => {
     function _filterZonesWithPin() {
         const pinLocation = pin.location;
         const point = [pinLocation.lngX, pinLocation.latY];
-        const zonesList = [];
 
-        zones.map(({ name, coordinates }) => {
-            var x = point[0],
+        const zonesList = zones.filter(({ name, coordinates }) => {
+            let x = point[0],
                 y = point[1];
 
             for (
-                var i = 0, j = coordinates.length - 1;
+                let i = 0, j = coordinates.length - 1;
                 i < coordinates.length;
                 j = i++
             ) {
-                var xi = coordinates[i][0],
+                let xi = coordinates[i][0],
                     yi = coordinates[i][1];
-                var xj = coordinates[j][0],
+                let xj = coordinates[j][0],
                     yj = coordinates[j][1];
 
-                var intersect =
+                let intersect =
                     yi > y != yj > y &&
                     x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
                 if (intersect) {

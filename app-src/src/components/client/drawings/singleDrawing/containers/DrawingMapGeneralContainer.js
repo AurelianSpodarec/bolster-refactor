@@ -7,11 +7,15 @@ import { withRouter } from 'react-router-dom';
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { convertEnumToDropdownOptions, momentComparisonFormat, isEmpty } from 'helpers/generic';
+import {
+    convertEnumToDropdownOptions,
+    momentComparisonFormat,
+    isEmpty,
+} from 'helpers/generic';
 import {
     PIN_STATUS_TYPES,
     RECTANGLE_MODES,
-    FURTHER_FILTRATION_OPTIONS
+    FURTHER_FILTRATION_OPTIONS,
 } from 'constants/companyAdmin/enums';
 import withUpdateOnChange from 'components/client/reports/createReport/components/hocs/withUpdateOnChange';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
@@ -39,18 +43,24 @@ class DrawingMapGeneralContainer extends Component {
         statusOptions: convertEnumToDropdownOptions(PIN_STATUS_TYPES),
         firstCorner: null,
         mode: ADD,
-        currentTooltip: null
+        currentTooltip: null,
     };
 
     render() {
         const { mapZoom, position, updating, firstCorner, mode } = this.state;
 
-        const { error, drawing = {}, furtherFiltrationOption, rectangles } = this.props;
+        const {
+            error,
+            drawing = {},
+            furtherFiltrationOption,
+            rectangles,
+        } = this.props;
 
         const cornerClicked = firstCorner;
         const isExcluding = +mode === EXCLUDE;
 
-        const shouldShowPinSelectorOptions = +furtherFiltrationOption === +PIN_SELECTOR;
+        const shouldShowPinSelectorOptions =
+            +furtherFiltrationOption === +PIN_SELECTOR;
 
         return (
             <>
@@ -75,7 +85,9 @@ class DrawingMapGeneralContainer extends Component {
                         currentTooltip={this.state.currentTooltip}
                         handleClick={this.handleClick}
                         cornerClicked={cornerClicked}
-                        shouldShowPinSelectorOptions={shouldShowPinSelectorOptions}
+                        shouldShowPinSelectorOptions={
+                            shouldShowPinSelectorOptions
+                        }
                         setMode={this.setMode}
                         rectangles={rectangles}
                         handleDelete={this.handleDelete}
@@ -106,7 +118,7 @@ class DrawingMapGeneralContainer extends Component {
             match,
             fetchSingleDrawing,
             pinsFromAPI = [],
-            handleChange
+            handleChange,
         } = this.props;
 
         const pinIDs = pinsFromAPI.map(({ id }) => id);
@@ -129,7 +141,7 @@ class DrawingMapGeneralContainer extends Component {
     componentDidUpdate = ({
         drawing: prevDrawing = {},
         isFetching: prevIsFetching,
-        pinsFromAPI: prevPinsFromAPI = []
+        pinsFromAPI: prevPinsFromAPI = [],
     }) => {
         const {
             drawing = {},
@@ -139,7 +151,7 @@ class DrawingMapGeneralContainer extends Component {
             fieldErrors,
             removeFieldError,
             fromDateInclusive,
-            toDateInclusive
+            toDateInclusive,
         } = this.props;
 
         // ! need this here as well as on mount because unlike companyAdmin, the drawing is sometimes empty when it gets here.
@@ -166,7 +178,10 @@ class DrawingMapGeneralContainer extends Component {
             handleChange('pinIDs', pinIDs);
         }
 
-        if (fieldErrors.fromDateInclusive && moment(fromDateInclusive) <= moment(toDateInclusive)) {
+        if (
+            fieldErrors.fromDateInclusive &&
+            moment(fromDateInclusive) <= moment(toDateInclusive)
+        ) {
             removeFieldError('fromDateInclusive');
             removeFieldError('toDateInclusive');
         }
@@ -184,7 +199,7 @@ class DrawingMapGeneralContainer extends Component {
         handleChange(name, date).then(postFilters);
     };
 
-    handleClick = e => {
+    handleClick = (e) => {
         const { lat, lng } = e.latlng;
         const { mode, firstCorner } = this.state;
         const { addRectangle, furtherFiltrationOption } = this.props;
@@ -211,7 +226,8 @@ class DrawingMapGeneralContainer extends Component {
         }, []);
 
         return services.reduce((acc, { id, name }) => {
-            if (servicesOnDrawing.includes(id)) acc[id] = { value: id, text: name };
+            if (servicesOnDrawing.includes(id))
+                acc[id] = { value: id, text: name };
 
             return acc;
         }, {});
@@ -243,23 +259,26 @@ class DrawingMapGeneralContainer extends Component {
             status,
             serviceID,
             templateID,
-            companyUserIDs
+            companyUserIDs,
         } = filters;
         const NO = false;
         // simple
-        return furtherFiltrationOption <= FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
-            ? pins.filter(pin => {
+        return furtherFiltrationOption <=
+            FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+            ? pins.filter((pin) => {
                   // start date
                   if (
                       fromDateInclusive &&
-                      moment(pin.createdOn) < moment(fromDateInclusive, momentComparisonFormat)
+                      moment(pin.createdOn) <
+                          moment(fromDateInclusive, momentComparisonFormat)
                   ) {
                       return NO;
                   }
                   // end date
                   if (
                       toDateInclusive &&
-                      moment(pin.createdOn) > moment(toDateInclusive, momentComparisonFormat)
+                      moment(pin.createdOn) >
+                          moment(toDateInclusive, momentComparisonFormat)
                   ) {
                       return NO;
                   }
@@ -283,7 +302,10 @@ class DrawingMapGeneralContainer extends Component {
                   ) {
                       return NO;
                   }
-                  if (+furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS) {
+                  if (
+                      +furtherFiltrationOption ===
+                      FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+                  ) {
                       if (!filters.pinIDs.includes(pin.id)) {
                           return NO;
                       }
@@ -294,22 +316,25 @@ class DrawingMapGeneralContainer extends Component {
               pins.filter(({ id }) => filters.pinIDs.includes(id));
     };
 
-    setMode = mode => {
+    setMode = (mode) => {
         this.setState({ mode, firstCorner: null });
     };
 
-    handleDelete = id => {
+    handleDelete = (id) => {
         const { mode } = this.state;
         const { removeRectangle } = this.props;
         if (mode === DELETE) removeRectangle(id);
     };
 
     handleCancelPinSelector = () => {
-        const { removeAllRectangles, updateFurtherFiltrationOption } = this.props;
+        const {
+            removeAllRectangles,
+            updateFurtherFiltrationOption,
+        } = this.props;
         updateFurtherFiltrationOption(FURTHER_FILTRATION_OPTIONS.NONE);
         removeAllRectangles();
     };
-    updateCurTooltip = id => {
+    updateCurTooltip = (id) => {
         this.setState({ currentTooltip: id });
     };
 }
@@ -326,12 +351,12 @@ const mapStateToProps = (
                 customFilters: { pins: pinsFromAPI },
                 furtherFiltrationOption,
                 rectangles,
-                isFetching: isFetchingReports
-            }
+                isFetching: isFetchingReports,
+            },
         },
         shared: {
-            fieldErrorsReducer: { fieldErrors }
-        }
+            fieldErrorsReducer: { fieldErrors },
+        },
     },
     { match }
 ) => ({
@@ -346,7 +371,7 @@ const mapStateToProps = (
     pinsFromAPI,
     furtherFiltrationOption,
     companyUserIDs,
-    rectangles: Object.values(rectangles)
+    rectangles: Object.values(rectangles),
 });
 
 const mapDispatchToProps = {
@@ -355,14 +380,11 @@ const mapDispatchToProps = {
     addRectangle,
     removeRectangle,
     removeAllRectangles,
-    updateFurtherFiltrationOption
+    updateFurtherFiltrationOption,
 };
 
 export default withRouter(
     withUpdateOnChange(
-        connect(
-            mapStateToProps,
-            mapDispatchToProps
-        )(DrawingMapGeneralContainer)
+        connect(mapStateToProps, mapDispatchToProps)(DrawingMapGeneralContainer)
     )
 );

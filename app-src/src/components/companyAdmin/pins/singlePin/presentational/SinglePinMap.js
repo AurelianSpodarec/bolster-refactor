@@ -14,6 +14,7 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
 import SinglePinGenerateReportContainer from '../containers/SinglePinGenerateReportContainer';
 import ZonesIncludedContainer from '../containers/ZonesIncludedContainer';
+import DrawingMapViewZones from 'components/companyAdmin/drawings/singleDrawing/presentational/DrawingMapViewZones';
 
 const SinglePinMap = ({
     pin,
@@ -28,6 +29,7 @@ const SinglePinMap = ({
     pinHistory,
     history,
     onMobile,
+    zones,
 }) => {
     const status = pinHistory.status;
     const pinColour = COLOURS[status] || 'red';
@@ -110,6 +112,11 @@ const SinglePinMap = ({
                     url={`${FILE_STORAGE_URL}/${drawing.tilesetS3Key}/{z}/{x}/{y}.jpg`}
                     noWrap={true}
                     maxNativeZoom={6}
+                />
+                <DrawingMapViewZones
+                    curZoom={zoom}
+                    zones={zones}
+                    opactity={0.5}
                 />
                 <MapPin key={pin.id} pin={pin} pinHistory={pinHistory} />
 

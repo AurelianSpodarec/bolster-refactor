@@ -1,7 +1,6 @@
 import '../../../../../../node_modules/leaflet-draw/dist/leaflet.draw.css';
 
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import L from 'leaflet';
 import { FeatureGroup } from 'react-leaflet';
 
@@ -22,17 +21,17 @@ class DrawingMapViewZones extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { curZoom, zonesOpacity } = this.props;
+        const { curZoom, opacity } = this.props;
         const layers = this.leafletGeoJSON;
 
-        if (prevProps.zonesOpacity !== zonesOpacity) {
-            layers.eachLayer(layer =>
-                layer.setStyle({ fillOpacity: zonesOpacity })
+        if (prevProps.opacity !== opacity) {
+            layers.eachLayer((layer) =>
+                layer.setStyle({ fillOpacity: opacity })
             );
         }
 
         if (prevProps.curZoom !== curZoom) {
-            layers.eachLayer(layer => {
+            layers.eachLayer((layer) => {
                 layer.unbindTooltip();
                 layer
                     .bindTooltip(layer.feature.name, {
@@ -59,7 +58,7 @@ class DrawingMapViewZones extends Component {
 
         const zoneFeatures = {
             type: 'FeatureCollection',
-            features: zonesArr.map(zone => {
+            features: zonesArr.map((zone) => {
                 return {
                     type: 'Feature',
                     properties: {},
@@ -77,17 +76,17 @@ class DrawingMapViewZones extends Component {
     }
 
     setZones() {
-        const { curZoom, zonesOpacity } = this.props;
+        const { curZoom, opacity } = this.props;
         const leafletFG = this.fgRef.current.leafletElement;
 
-        this.leafletGeoJSON.eachLayer(layer => {
+        this.leafletGeoJSON.eachLayer((layer) => {
             const layerColor = layer.feature.color;
             const layerName = layer.feature.name;
 
             layer.setStyle({
                 fillColor: layerColor,
                 color: layerColor,
-                fillOpacity: zonesOpacity,
+                fillOpacity: 0.5,
             });
 
             layer
@@ -109,14 +108,4 @@ class DrawingMapViewZones extends Component {
         });
     }
 }
-
-const mapStateToProps = ({
-    companyAdmin: {
-        zonesReducer: { zonesOpacity, zones },
-    },
-}) => ({
-    zonesOpacity,
-    zones,
-});
-
-export default connect(mapStateToProps)(DrawingMapViewZones);
+export default DrawingMapViewZones;

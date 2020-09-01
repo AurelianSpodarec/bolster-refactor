@@ -75,6 +75,7 @@ class DrawingMapGeneralContainer extends Component {
             rectangles,
             isAddingZone,
             zonesOpacity,
+            zones,
         } = this.props;
         const position = [centerLat, centerLng];
         const addPinPosition = [addPinLat, addPinLng];
@@ -132,6 +133,7 @@ class DrawingMapGeneralContainer extends Component {
                         isAddingZone={isAddingZone}
                         handleZoneAdd={this.handleZoneAdd}
                         cancelZoneAdd={this.cancelZoneAdd}
+                        zones={zones}
                         toggleZones={this.toggleZones}
                         showZones={showZones}
                         zonesOpacity={zonesOpacity}
@@ -259,7 +261,7 @@ class DrawingMapGeneralContainer extends Component {
         }
     };
 
-    updateCurTooltip = id => {
+    updateCurTooltip = (id) => {
         this.setState({ currentTooltip: id });
     };
 
@@ -270,7 +272,7 @@ class DrawingMapGeneralContainer extends Component {
 
     componentWillUnmount = () => clearInterval(this._floorplanInterval);
 
-    handleClick = e => {
+    handleClick = (e) => {
         const { lat, lng } = e.latlng;
         const { mode, firstCorner } = this.state;
         const { addRectangle, furtherFiltrationOption } = this.props;
@@ -294,7 +296,7 @@ class DrawingMapGeneralContainer extends Component {
         history.replace(`${location.pathname}/add-pin`);
     };
 
-    handleOpacityChange = value => {
+    handleOpacityChange = (value) => {
         const { setZonesOpacity } = this.props;
 
         setZonesOpacity(value);
@@ -351,7 +353,7 @@ class DrawingMapGeneralContainer extends Component {
         const { users } = this.props;
 
         const options = users
-            .filter(user => user.type >= USER_ROLE.OPERATIVE)
+            .filter((user) => user.type >= USER_ROLE.OPERATIVE)
             .map(({ id, userFirstName, userLastName, userEmail }) => ({
                 value: id,
                 text: `${userFirstName} ${userLastName} <${userEmail}>`,
@@ -359,11 +361,11 @@ class DrawingMapGeneralContainer extends Component {
         return convertArrToObj(options, 'value');
     };
 
-    setMode = mode => {
+    setMode = (mode) => {
         this.setState({ mode, firstCorner: null });
     };
 
-    handleDelete = id => {
+    handleDelete = (id) => {
         const { mode } = this.state;
         const { removeRectangle } = this.props;
         if (mode === DELETE) removeRectangle(id);
@@ -416,7 +418,7 @@ class DrawingMapGeneralContainer extends Component {
         });
     };
 
-    handleZoomChange = zoomLevel => {
+    handleZoomChange = (zoomLevel) => {
         this.setState({
             curZoom: zoomLevel,
         });
@@ -443,6 +445,7 @@ const mapStateToProps = (
                 isModified,
                 zonesOpacity,
                 zoneFormCoordinates,
+                zones,
             },
         },
     },
@@ -468,6 +471,7 @@ const mapStateToProps = (
     zonesOpacity,
     zoneFormCoordinates,
     isModified,
+    zones,
 });
 
 const mapDispatchToProps = {

@@ -23,17 +23,20 @@ class SinglePinContainer extends Component {
             fetchSinglePinData,
             fetchSinglePin,
             fetchPinsForInspectionLog,
+            fetchZonesByDrawingID,
         } = this.props;
 
         let drawingID = null;
+
         fetchSinglePin(pinId)
             .then(({ payload }) => {
                 drawingID = payload.pin.drawingID;
+                fetchZonesByDrawingID(drawingID);
+                fetchPinsForInspectionLog(drawingID, pinId);
                 return fetchSinglePinData(pinId, drawingID);
             })
             .then(() => {
                 this.setState({ isLoading: false });
-                fetchPinsForInspectionLog(drawingID, pinId);
             });
     };
 }
@@ -50,7 +53,7 @@ const mapStateToProps = (
     pin: pins[params.id],
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     fetchSinglePinData: (id, drawingID) => {
         return Promise.all([
             dispatch(fetchPinTemplates(id)),
@@ -60,9 +63,10 @@ const mapDispatchToProps = dispatch => ({
             dispatch(fetchZonesByDrawingID(drawingID)),
         ]);
     },
-    fetchSinglePin: id => dispatch(fetchSinglePin(id)),
+    fetchSinglePin: (id) => dispatch(fetchSinglePin(id)),
     fetchPinsForInspectionLog: (id, pinIDToKeep) =>
         dispatch(fetchAllPinsForDrawing(id, pinIDToKeep)),
+    fetchZonesByDrawingID: (drawingID) => fetchZonesByDrawingID(drawingID),
 });
 
 export default withRouter(
