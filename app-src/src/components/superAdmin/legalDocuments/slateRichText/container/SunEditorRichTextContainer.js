@@ -1,5 +1,5 @@
 import React from 'react';
-import SunEditor, { buttonList } from 'suneditor-react';
+import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css';
 
 const RichTextContainer = ({ value, onChange }) => {

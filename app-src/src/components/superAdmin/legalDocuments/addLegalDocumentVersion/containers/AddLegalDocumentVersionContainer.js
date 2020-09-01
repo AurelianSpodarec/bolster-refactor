@@ -56,8 +56,7 @@ const AddLegalDocumentVersionContainer = () => {
             Type: Number(getKeyByValue(LEGAL_DOCUMENT_TYPE, docType.value)),
         };
 
-        console.log(postBody);
-        // dispatch(updateLegalDocument(postBody));
+        dispatch(updateLegalDocument(postBody));
     };
 
     const handlePublishDraft = () => handleDraft(true);
