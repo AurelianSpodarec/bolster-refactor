@@ -5512,7 +5512,7 @@ input {
 
 .sun-editor {
     padding: 4px;
-    border: 4px solid $red;
+    border: 4px solid $red !important;
     border-radius: 8px;
 
     .se-btn-module-border {
