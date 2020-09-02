@@ -1,3 +1,5 @@
+/* eslint no-mixed-operators: 0 */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -7,7 +9,7 @@ import withUpdateOnChange from 'components/companyAdmin/reports/createReport/com
 class ZoneSelectorContainer extends Component {
     state = {
         zoneOptions: [],
-        included: []
+        included: [],
     };
 
     render() {
@@ -38,7 +40,7 @@ class ZoneSelectorContainer extends Component {
 
     componentDidUpdate = ({ customFilters: { pins: prevPins = [] } }) => {
         const {
-            customFilters: { pins = [] }
+            customFilters: { pins = [] },
         } = this.props;
 
         if (prevPins.length !== pins.length) {
@@ -58,7 +60,7 @@ class ZoneSelectorContainer extends Component {
             },
             {
                 included: [],
-                excluded: []
+                excluded: [],
             }
         );
     };
@@ -68,21 +70,21 @@ class ZoneSelectorContainer extends Component {
         const { included } = this.state;
 
         const pinIDsWithinZones = included
-            .map(id => zonesObj[id])
-            .filter(zone => zone)
+            .map((id) => zonesObj[id])
+            .filter((zone) => zone)
             .map(({ coordinates }) => coordinates)
             .reduce((acc, poly) => {
                 const pinIDsWithinCoords = this._filterPinsWithinPolygon(poly);
                 return acc.concat(pinIDsWithinCoords);
             }, [])
-            .map(pin => pin.id);
+            .map((pin) => pin.id);
 
         return pinIDsWithinZones;
     };
 
-    _filterPinsWithinPolygon = poly => {
+    _filterPinsWithinPolygon = (poly) => {
         const {
-            customFilters: { pins }
+            customFilters: { pins },
         } = this.props;
 
         return pins.filter(({ location: { lngX, latY } }) => {
@@ -104,7 +106,8 @@ class ZoneSelectorContainer extends Component {
                 yj = polygon[j][1];
 
             var intersect =
-                yi > y != yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+                yi > y !== yj > y &&
+                x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
             if (intersect) inside = !inside;
         }
 
@@ -117,7 +120,7 @@ class ZoneSelectorContainer extends Component {
             ({ id, name, colorHex }) => ({
                 value: id,
                 text: name,
-                colorHex
+                colorHex,
             })
         );
 
@@ -133,7 +136,7 @@ class ZoneSelectorContainer extends Component {
         this._validate(pinIDs);
     };
 
-    _validate = pinIDs => {
+    _validate = (pinIDs) => {
         const { blockName, addFieldError, removeFieldError } = this.props;
 
         if (!pinIDs.length) {
@@ -144,25 +147,25 @@ class ZoneSelectorContainer extends Component {
         }
     };
 
-    handleInclude = zoneIDs => {
+    handleInclude = (zoneIDs) => {
         const { included } = this.state;
         const updated = included.concat(zoneIDs);
         this.setState({ included: updated }, this._handleChange);
     };
 
-    handleExclude = zoneIDs => {
+    handleExclude = (zoneIDs) => {
         const { included } = this.state;
-        const updated = included.filter(val => !zoneIDs.includes(val));
+        const updated = included.filter((val) => !zoneIDs.includes(val));
         this.setState({ included: updated }, this._handleChange);
     };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        pinsReducer: { pins }
-    }
+        pinsReducer: { pins },
+    },
 }) => ({
-    pinsObj: Object.values(pins)
+    pinsObj: Object.values(pins),
 });
 export default withUpdateOnChange(
     connect(mapStateToProps, null)(ZoneSelectorContainer)

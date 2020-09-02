@@ -113,7 +113,9 @@ const SinglePinMap = ({
                     noWrap={true}
                     maxNativeZoom={6}
                 />
-                <DrawingMapViewZones curZoom={zoom} zones={zones} />
+                {!!zones.length && (
+                    <DrawingMapViewZones curZoom={zoom} zones={zones} />
+                )}
                 <MapPin key={pin.id} pin={pin} pinHistory={pinHistory} />
 
                 {moveMode && (

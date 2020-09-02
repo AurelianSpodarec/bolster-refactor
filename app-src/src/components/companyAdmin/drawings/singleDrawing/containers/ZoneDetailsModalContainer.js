@@ -1,3 +1,5 @@
+/* eslint no-mixed-operators: 0 */
+
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -14,18 +16,26 @@ import ZoneDetailsModal from '../presentational/ZoneDetailsModal';
 import { PIN_STATUS_IDS } from 'constants/companyAdmin/enums';
 
 const ZoneDetailsModalContainer = ({ zone, pins, servicesObj, showModal }) => {
-    return <ZoneDetailsModal zone={zone} handleHideDetails={handleHideDetails} services={_getServiceAreas()} getStatusIcon={_getStatusIcon} />;
+    return (
+        <ZoneDetailsModal
+            zone={zone}
+            handleHideDetails={handleHideDetails}
+            services={_getServiceAreas()}
+            getStatusIcon={_getStatusIcon}
+        />
+    );
 
     function handleHideDetails() {
         showModal(VIEW_ZONES);
     }
 
     function _getPinsIncludedPinIDs() {
-        const pinIDsWithinZones = zone.coordinates.reduce((acc) => {
-            const pinIDsWithinCoords = _filterPinsWithinPolygon();
-            return acc.concat(pinIDsWithinCoords);
-        }, [])
-            .map(pin => pin.id);
+        const pinIDsWithinZones = zone.coordinates
+            .reduce((acc) => {
+                const pinIDsWithinCoords = _filterPinsWithinPolygon();
+                return acc.concat(pinIDsWithinCoords);
+            }, [])
+            .map((pin) => pin.id);
 
         return [...new Set(pinIDsWithinZones)];
     }
@@ -51,7 +61,8 @@ const ZoneDetailsModalContainer = ({ zone, pins, servicesObj, showModal }) => {
                 yj = polygon[j][1];
 
             var intersect =
-                yi > y != yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+                yi > y !== yj > y &&
+                x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
             if (intersect) inside = !inside;
         }
 
@@ -67,14 +78,20 @@ const ZoneDetailsModalContainer = ({ zone, pins, servicesObj, showModal }) => {
 
     function _getServiceAreas() {
         const filteredPins = _getFilteredPins();
-        const filteredServices = [...new Set(filteredPins.map(({ latestServiceID }) => latestServiceID))];
+        const filteredServices = [
+            ...new Set(
+                filteredPins.map(({ latestServiceID }) => latestServiceID)
+            ),
+        ];
 
         const services = [];
 
-        filteredServices.forEach(service => {
+        filteredServices.forEach((service) => {
             const curService = servicesObj[service];
 
-            const pinsInService = filteredPins.filter(({ latestServiceID }) => latestServiceID === service);
+            const pinsInService = filteredPins.filter(
+                ({ latestServiceID }) => latestServiceID === service
+            );
 
             services.push({
                 id: curService.id,
@@ -87,7 +104,13 @@ const ZoneDetailsModalContainer = ({ zone, pins, servicesObj, showModal }) => {
     }
 
     function _getStatusIcon(status) {
-        const { ACTION_REQUIRED, INSTALLED, INSPECTED, NO_ACTION, OTHER } = PIN_STATUS_IDS;
+        const {
+            ACTION_REQUIRED,
+            INSTALLED,
+            INSPECTED,
+            NO_ACTION,
+            OTHER,
+        } = PIN_STATUS_IDS;
 
         let icon = redPin;
 
@@ -115,7 +138,12 @@ const ZoneDetailsModalContainer = ({ zone, pins, servicesObj, showModal }) => {
     }
 };
 
-const mapStateToProps = ({ companyAdmin: { pinsReducer: { pins }, servicesReducer: { services } } }) => ({
+const mapStateToProps = ({
+    companyAdmin: {
+        pinsReducer: { pins },
+        servicesReducer: { services },
+    },
+}) => ({
     pins: Object.values(pins),
     servicesObj: services,
 });
@@ -124,5 +152,7 @@ const mapDispatchToProps = {
     showModal,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ZoneDetailsModalContainer);
-
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ZoneDetailsModalContainer);

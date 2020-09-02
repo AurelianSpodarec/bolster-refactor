@@ -22,8 +22,12 @@ class DrawingMapViewZones extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { curZoom, opacity } = this.props;
+        const { curZoom, opacity, zones } = this.props;
         const layers = this.leafletGeoJSON;
+
+        if (zones.length !== prevProps.zones.length) {
+            this.setZones();
+        }
 
         if (prevProps.opacity !== opacity) {
             layers.eachLayer((layer) =>

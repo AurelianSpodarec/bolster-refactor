@@ -1,3 +1,6 @@
+/* eslint no-mixed-operators: 0 */
+/* eslint egegeg: 0 */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -135,7 +138,8 @@ class SinglePinMapContainer extends Component {
                 yj = vs[j][1];
 
             var intersect =
-                yi > y != yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+                yi > y !== yj > y &&
+                x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
             if (intersect) inside = !inside;
         }
 
