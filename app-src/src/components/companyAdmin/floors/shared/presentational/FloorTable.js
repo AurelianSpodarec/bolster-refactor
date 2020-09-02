@@ -4,7 +4,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import FloorList from './FloorList';
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 
-const FloorTable = ({ floors, headers, isFetching, error, isOver, forwardRef }) => {
+const FloorTable = ({ floors, headers, isFetching, error, isOver, forwardRef, colSpanFirst }) => {
     return (
         <Table
             withActions
@@ -22,6 +22,7 @@ const FloorTable = ({ floors, headers, isFetching, error, isOver, forwardRef }) 
                 headers={headers}
                 isOver={isOver}
                 forwardRef={forwardRef}
+                colSpanFirst={colSpanFirst}
             />
         </Table>
     );

@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import BuildingsTable from '../presentational/BuildingsTable';
 import { hierarchySort } from 'helpers/generic';
 
-const BuildingsTableContainer = ({ isFetching, error, buildings }) => {
+const BuildingsTableContainer = ({ isFetching, error, buildings, colSpanFirst = false }) => {
     return (
         <BuildingsTable
             headers={['Building name', 'Created on', 'Permissions', 'Action']}
             isFetching={isFetching}
             error={error}
             items={buildings}
+            colSpanFirst={colSpanFirst}
         />
     );
 };

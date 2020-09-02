@@ -16,7 +16,7 @@ let SitesListItem = ({
     forwardRef,
     isDragging,
     onMobile,
-    headers
+    headers,
 }) => {
     return (
         <>
@@ -27,54 +27,27 @@ let SitesListItem = ({
                 style={{ opacity: isDragging ? 0 : 1 }}
             >
                 <td>
-                    {onMobile && (
-                        <span className="mobile-table-heading">
-                            {headers[0]}
-                        </span>
-                    )}
-                    <i
-                        className={`fa fa-chevron-${
-                            isExpanded ? 'down' : 'right'
-                        }`}
-                    />
+                    {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
+                    <i className={`fa fa-chevron-${isExpanded ? 'down' : 'right'}`} />
                     {site.name}
                 </td>
 
                 <td>
-                    {onMobile && (
-                        <span className="mobile-table-heading">
-                            {headers[1]}
-                        </span>
-                    )}
+                    {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
                     {site.client}
                 </td>
                 <td>
-                    {onMobile && (
-                        <span className="mobile-table-heading">
-                            {headers[2]}
-                        </span>
-                    )}
-                    <DateTimeContainer
-                        date={site.createdOn}
-                        datetime={DATE_TIME_IDS.DATE}
-                    />
+                    {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
+                    <DateTimeContainer date={site.createdOn} datetime={DATE_TIME_IDS.DATE} />
                 </td>
                 <td>
                     {' '}
-                    {onMobile && (
-                        <span className="mobile-table-heading">
-                            {headers[3]}
-                        </span>
-                    )}
+                    {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
                     {site.ownerCompanyName}
                 </td>
                 <td>
                     {' '}
-                    {onMobile && (
-                        <span className="mobile-table-heading">
-                            {headers[4]}
-                        </span>
-                    )}
+                    {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
                     {permissions}
                 </td>
                 <td>
@@ -92,7 +65,7 @@ let SitesListItem = ({
                     style={{ display: isDragging ? 'none' : '' }}
                 >
                     <td colSpan={colCount}>
-                        <BuildingsTableContainer ids={site.buildingIDs} />
+                        <BuildingsTableContainer ids={site.buildingIDs} colSpanFirst />
                     </td>
                 </tr>
             )}
