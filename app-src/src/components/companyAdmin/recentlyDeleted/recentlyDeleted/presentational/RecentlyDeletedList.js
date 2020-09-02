@@ -10,7 +10,7 @@ const RecentlyDeletedList = ({ recentlyDeleted, colCount, headers }) => {
         })
         .map(item => (
             <RecentlyDeletedListItemContainer
-                key={`${item.id}_${item.name}`}
+                key={`${item.id}_${item.deletedOn}`}
                 item={item}
                 colCount={colCount}
                 headers={headers}

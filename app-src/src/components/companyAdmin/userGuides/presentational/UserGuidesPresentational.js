@@ -7,7 +7,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import pdf from '_content/pdf/CompleteUserGuide-June2020.pdf';
 import pdfImage from '_content/images/user-guide.jpg';
 
-const UserGuides = () => (
+const UserGuidesPresentational = ({ userGuideLink, isFetching, error }) => (
     <>
         <PageHeading leftChildren={true} title="User Guides">
             <BackButtonContainer />
@@ -57,7 +57,7 @@ const UserGuides = () => (
                 ></iframe>
             </div>
         </BlockContainer>
-        <BlockContainer containerClass="user-guides">
+        {!isFetching && !error && <BlockContainer containerClass="user-guides">
             <div className="size-lg-6 size-md-12">
                 <img className="size-lg-12" src={pdfImage} />
             </div>
@@ -68,7 +68,7 @@ const UserGuides = () => (
                 ></BlockHeading>
                 <p className="generic-text">
                     Alternatively, download and read our "Complete User Guide" document{' '}
-                    <a target="_blank" href={pdf}>
+                    <a target="_blank" href={userGuideLink}>
                         here
                     </a>
                     .
@@ -82,8 +82,8 @@ const UserGuides = () => (
                     The password for this guide is <strong>BSUserGuidev1</strong>.
                 </p>
             </div>
-        </BlockContainer>
+        </BlockContainer>}
     </>
 );
 
-export default UserGuides;
+export default UserGuidesPresentational;

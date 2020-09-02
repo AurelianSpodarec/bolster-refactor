@@ -6,13 +6,10 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
-const DocumentResponseAgreeanceModal = ({ user, response, hideModal }) => (
+const DocumentResponseAgreeanceModal = ({ response, hideModal }) => (
     <ModalOuterContainer>
         <div className="size-lg-12">
-            <FieldOutput
-                title="Response by"
-                description={`${user.userFirstName} ${user.userLastName}`}
-            />
+            <FieldOutput title="Response by" description={response.userName} />
             <FieldOutput
                 title="Response created"
                 description={<DateTimeContainer date={response.createdOn} />}

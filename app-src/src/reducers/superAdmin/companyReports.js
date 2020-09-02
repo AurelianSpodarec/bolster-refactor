@@ -8,7 +8,10 @@ import {
     ADMIN_UPDATE_COMPANY_REPORTS_SORT,
     ADMIN_FETCH_COMPANY_REPORTS_FULL_FAILURE,
     ADMIN_FETCH_COMPANY_REPORTS_FULL_SUCCESS,
-    ADMIN_FETCH_COMPANY_REPORTS_FULL_REQUEST
+    ADMIN_FETCH_COMPANY_REPORTS_FULL_REQUEST,
+    ADMIN_DELETE_REPORT_REQUEST,
+    ADMIN_DELETE_REPORT_SUCCESS,
+    ADMIN_DELETE_REPORT_FAILURE,
 } from 'constants/actionTypes/companyReports';
 import { FETCH_STATUS } from 'constants/companyAdmin/enums';
 
@@ -17,7 +20,8 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
     sort: sortReducer,
-    fetchStatus: fetchStatusReducer
+    fetchStatus: fetchStatusReducer,
+    deleteError: deleteErrorReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -48,12 +52,25 @@ function errorReducer(state = null, action) {
     }
 }
 
+function deleteErrorReducer(state = null, action) {
+    switch (action.type) {
+        case ADMIN_DELETE_REPORT_REQUEST:
+            return null;
+        case ADMIN_DELETE_REPORT_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
 function companyReportsReducer(state = {}, action) {
     switch (action.type) {
         case ADMIN_FETCH_COMPANY_REPORTS_SUCCESS:
             return { ...state, ...convertArrToObj(action.payload) };
         case ADMIN_FETCH_COMPANY_REPORTS_FULL_SUCCESS:
             return convertArrToObj(action.payload);
+        case ADMIN_DELETE_REPORT_SUCCESS:
+            return { ...state, [action.payload.id]: action.payload };
         default:
             return state;
     }

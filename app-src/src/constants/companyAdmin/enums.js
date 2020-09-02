@@ -44,6 +44,7 @@ export const COMPANY_USER_ROLE_TYPES = {
     ADMIN: 75,
     OPERATIVE: 50,
     CLIENT: 25,
+    DELETED: 1000,
 };
 
 export const COMPANY_USER_ROLE_IDS = {
@@ -51,6 +52,7 @@ export const COMPANY_USER_ROLE_IDS = {
     50: 'Operative',
     75: 'Admin',
     100: 'Owner',
+    1000: 'Deleted',
 };
 
 export const CREDIT_LOG_TYPES = {
@@ -359,6 +361,7 @@ export const DELETED_DATA_TYPE = {
     site: 'Site',
     users: 'User',
     pinHistory: 'Pin History',
+    operativepermissions: 'Operative Drawing Permission',
 };
 
 export const getEnumKey = (enumerable, num) =>
@@ -403,4 +406,30 @@ export const DOCUMENT_VIEW_TYPES = {
 export const DOCUMENT_VISIBILITY = {
     VISIBLE_TO_ALL: 1,
     VISIBLE_TO_OWN_COMPANY: 2,
+};
+
+export const ACTIVITY_LOG_ACTION_TYPES = {
+    CREATE: 1,
+    UPDATE: 2,
+    DELETE: 3,
+};
+
+export const ACTIVITY_LOG_ACTION_VALUES = {
+    1: 'Create',
+    2: 'Update',
+    3: 'Delete',
+};
+
+export const ACTIVITY_LOG_REFERENCE_TYPES = {
+    SITE: 1,
+    BUILDING: 2,
+    FLOOR: 3,
+    DRAWING: 4,
+};
+
+export const ACTIVITY_LOG_REFERENCE_VALUES = {
+    1: 'Site',
+    2: 'Building',
+    3: 'Floor',
+    4: 'Drawing',
 };

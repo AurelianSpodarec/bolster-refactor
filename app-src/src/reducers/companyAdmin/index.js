@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+import activityLogReducer from './activityLog';
 import addPinDropdownOptions from './addPinDropdownOptions';
 import addPinFormReducer from './addPinForm';
 import addPinCoordinatesReducer from './addPinCoordinates';
@@ -50,8 +51,10 @@ import qrCodesReducer from './qrCodes';
 import manufacturersReducer from './manufacturers';
 import manufacturersOptionValuesReducer from './manufacturersOptionValues';
 import optionValueDocumentsReducer from './optionValueDocuments';
+import userGuideReducer from './userGuide';
 
 export default combineReducers({
+    activityLogReducer,
     addPinDropdownOptions,
     addPinCoordinatesReducer,
     addPinFormReducer,
@@ -102,4 +105,5 @@ export default combineReducers({
     templateVersionsReducer,
     transferRequestsReducer,
     userDrawingsReducer,
+    userGuideReducer,
 });

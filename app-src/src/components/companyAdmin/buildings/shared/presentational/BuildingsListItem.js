@@ -14,7 +14,8 @@ const BuldingsListItem = ({
     forwardRef,
     isDragging,
     headers,
-    onMobile
+    onMobile,
+    colSpanFirst,
 }) => (
     <>
         <tr
@@ -24,9 +25,7 @@ const BuldingsListItem = ({
             style={{ opacity: isDragging ? 0 : 1 }}
         >
             <td>
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[0]}</span>
-                )}
+                {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                 {isExpanded ? (
                     <i className="fa fa-chevron-down" />
                 ) : (
@@ -36,25 +35,16 @@ const BuldingsListItem = ({
             </td>
             <td>
                 {' '}
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[1]}</span>
-                )}
-                <DateTimeContainer
-                    date={building.createdOn}
-                    datetime={DATE_TIME_IDS.DATE}
-                />
+                {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
+                <DateTimeContainer date={building.createdOn} datetime={DATE_TIME_IDS.DATE} />
             </td>
             <td>
                 {' '}
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[2]}</span>
-                )}
+                {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
                 {permissions}
             </td>
             <td>
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[3]}</span>
-                )}
+                {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
                 <ButtonContainer
                     to={`/company/buildings/${building.id}`}
                     handleClick={e => e.stopPropagation()}
@@ -73,6 +63,7 @@ const BuldingsListItem = ({
                     <FloorTableContainer
                         className="with-actions"
                         ids={building.floorIDs}
+                        colSpanFirst={colSpanFirst}
                     />
                 </td>
             </tr>

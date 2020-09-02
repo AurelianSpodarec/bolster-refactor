@@ -1,9 +1,8 @@
 import React from 'react';
 
 import DrawingListItemContainer from '../containers/DrawingListItemContainer';
-import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 
-const DrawingList = ({ drawings, forwardRef, isOver, headers }) => (
+const DrawingList = ({ drawings, forwardRef, isOver, headers, colSpanFirst = false }) => (
     <tbody ref={forwardRef} className={isOver ? 'dragging' : ''}>
         {[...drawings]
             .sort((a, b) => a.sort - b.sort)
@@ -14,8 +13,9 @@ const DrawingList = ({ drawings, forwardRef, isOver, headers }) => (
                     drawings={drawings}
                     index={i}
                     headers={headers}
+                    colSpanFirst={colSpanFirst}
                 />
             ))}
     </tbody>
 );
-export default withDropZone(DrawingList, 'DRAWING');
+export default DrawingList;

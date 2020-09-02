@@ -26,6 +26,7 @@ class EditSettingsFormContainer extends Component {
         town: '',
         county: '',
         postcode: '',
+        country: '',
         logoFile: null,
         colourCode: null,
         isBolsterLogoDark: false,

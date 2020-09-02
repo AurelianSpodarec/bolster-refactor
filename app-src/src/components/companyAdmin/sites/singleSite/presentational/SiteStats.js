@@ -38,7 +38,7 @@ const SiteStats = ({
             />
         </div>
 
-        <div className="button-container">
+        <div className="button-container relative-position">
             {site.accessType === ACCESS_TYPES_VALUES.OWNER && (
                 <>
                     <button className="button red" onClick={handleDelete} type="button">

@@ -7,28 +7,14 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { DOCUMENT_RESPONSE_AGREEANCE } from 'constants/shared/modalTypes';
 import DocumentResponsesTableItem from '../presentational/DocumentResponsesTableItem';
 
-const DocumentResponsesTableItemContainer = ({
-    response,
-    user,
-    showModal,
-    hideModal
-}) => {
-    return (
-        <DocumentResponsesTableItem
-            response={response}
-            user={user}
-            handleShowModal={handleShowModal}
-        />
-    );
+const DocumentResponsesTableItemContainer = ({ response, showModal, hideModal }) => {
+    return <DocumentResponsesTableItem response={response} handleShowModal={handleShowModal} />;
 
     function handleShowModal() {
-        showModal(DOCUMENT_RESPONSE_AGREEANCE, { hideModal, response, user });
+        showModal(DOCUMENT_RESPONSE_AGREEANCE, { hideModal, response });
     }
 };
 
 const mapDispatchToProps = { showModal, hideModal };
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(DocumentResponsesTableItemContainer);
+export default connect(null, mapDispatchToProps)(DocumentResponsesTableItemContainer);

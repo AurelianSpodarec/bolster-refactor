@@ -21,6 +21,7 @@ const BuildingsListItemContainer = ({
     index,
     headers,
     onMobile,
+    colSpanFirst = false,
 }) => {
     return (
         <BuildingsListItem
@@ -35,6 +36,7 @@ const BuildingsListItemContainer = ({
             onDrop={() => postBuildingsSort(buildings)}
             onMobile={onMobile}
             headers={headers}
+            colSpanFirst={colSpanFirst}
         />
     );
 
