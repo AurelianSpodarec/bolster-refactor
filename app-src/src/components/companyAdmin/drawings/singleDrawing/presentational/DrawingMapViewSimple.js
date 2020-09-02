@@ -193,7 +193,6 @@ const DrawingMapViewSimple = ({
                                     <DrawingMapViewZones
                                         curZoom={curZoom}
                                         zones={zones}
-                                        opactity={zonesOpacity}
                                     />
                                 )}
                                 {pins.map((pin) => (

@@ -113,30 +113,33 @@ class SinglePinMapContainer extends Component {
     };
 
     _getIncludedZones = () => {
-        const { zones, pin } = this.props;
-        const { lngX, latY } = pin.location;
+        const { zones } = this.props;
+        return Object.values(zones).filter(({ coordinates }) =>
+            this._checkIsInside(coordinates)
+        );
+    };
+
+    _checkIsInside = (vs) => {
+        const { pin } = this.props;
+        const { lngX, latY } = pin.location || {};
         const point = [lngX, latY];
 
-        return Object.values(zones).filter(({ coordinates }) => {
-            let x = point[0],
-                y = point[1];
+        var x = point[0],
+            y = point[1];
 
-            for (
-                let i = 0, j = coordinates.length - 1;
-                i < coordinates.length;
-                j = i++
-            ) {
-                let xi = coordinates[i][0],
-                    yi = coordinates[i][1];
-                let xj = coordinates[j][0],
-                    yj = coordinates[j][1];
+        var inside = false;
+        for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+            var xi = vs[i][0],
+                yi = vs[i][1];
+            var xj = vs[j][0],
+                yj = vs[j][1];
 
-                let intersect =
-                    yi > y != yj > y &&
-                    x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
-                return intersect;
-            }
-        });
+            var intersect =
+                yi > y != yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+            if (intersect) inside = !inside;
+        }
+
+        return inside;
     };
 
     _setMapCentre = (lat, lng) => {

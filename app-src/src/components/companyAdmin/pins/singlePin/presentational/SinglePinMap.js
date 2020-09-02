@@ -42,6 +42,8 @@ const SinglePinMap = ({
         iconAnchor: [15, 50],
         popupAnchor: [0, -50],
     });
+
+    console.log({ zones });
     return (
         <>
             <BlockHeading
@@ -113,11 +115,7 @@ const SinglePinMap = ({
                     noWrap={true}
                     maxNativeZoom={6}
                 />
-                <DrawingMapViewZones
-                    curZoom={zoom}
-                    zones={zones}
-                    opactity={0.5}
-                />
+                <DrawingMapViewZones curZoom={zoom} zones={zones} />
                 <MapPin key={pin.id} pin={pin} pinHistory={pinHistory} />
 
                 {moveMode && (

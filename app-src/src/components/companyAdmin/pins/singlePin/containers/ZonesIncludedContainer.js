@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ZonesIncluded from '../presentational/ZonesIncluded';
 
 const ZonesIncludedContainer = ({ pin, zones }) => {
-    return <ZonesIncluded zones={_filterZonesWithPin()} />;
+    return null;
 
     function _filterZonesWithPin() {
         const pinLocation = pin.location;

@@ -1,6 +1,7 @@
 import '../../../../../../node_modules/leaflet-draw/dist/leaflet.draw.css';
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import L from 'leaflet';
 import { FeatureGroup } from 'react-leaflet';
 
@@ -86,7 +87,7 @@ class DrawingMapViewZones extends Component {
             layer.setStyle({
                 fillColor: layerColor,
                 color: layerColor,
-                fillOpacity: 0.5,
+                fillOpacity: opacity,
             });
 
             layer
@@ -108,4 +109,9 @@ class DrawingMapViewZones extends Component {
         });
     }
 }
-export default DrawingMapViewZones;
+
+const mapState = ({ companyAdmin }) => ({
+    opacity: companyAdmin.zonesReducer.zonesOpacity,
+});
+
+export default connect(mapState)(DrawingMapViewZones);
