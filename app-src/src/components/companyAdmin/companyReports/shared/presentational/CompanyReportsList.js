@@ -7,17 +7,25 @@ const CompanyReportsList = ({
     onMobile,
     retryCompanyReport,
     shouldDeleteReportsAfterDownload,
-    handleDeleteAfterDownload
+    handleDeleteAfterDownload,
+    isFetching,
+    singleReportFetching,
+    fetchingReportsIDs,
+    handleGeneratingReport,
 }) =>
     companyReports.map(queueItem => (
         <CompanyReportsListItem
+            singleReportFetching={singleReportFetching}
             key={queueItem.id}
             queueItem={queueItem}
             headers={headers}
             onMobile={onMobile}
+            isFetching={isFetching}
             retryCompanyReport={retryCompanyReport}
             shouldDeleteReportsAfterDownload={shouldDeleteReportsAfterDownload}
             handleDeleteAfterDownload={handleDeleteAfterDownload}
+            fetchingReportsIDs={fetchingReportsIDs}
+            handleGeneratingReport={handleGeneratingReport}
         />
     ));
 

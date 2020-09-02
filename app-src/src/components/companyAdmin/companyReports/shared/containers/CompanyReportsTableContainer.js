@@ -1,10 +1,13 @@
 import React from 'react';
+
 import { connect } from 'react-redux';
 import CompanyReportsTable from '../presentational/CompanyReportsTable';
 import { sortArrayByKeyAndOrder } from 'helpers/generic';
 import retryReport from 'actions/companyAdmin/reports/async/retryReport';
+import fetchCompanyReportSingle from 'actions/companyAdmin/companyReports/async/fetchCompanyReportSingle';
 import fetchCompanyReports from 'actions/companyAdmin/companyReports/async/fetchCompanyReports';
 import fetchCompanyReportsFull from 'actions/companyAdmin/companyReports/async/fetchCompanyReportsFull';
+import changeCompanyReportsFetchFull from 'actions/companyAdmin/companyReports/sync/changeCompanyReportsFetchFull';
 import deleteReport from 'actions/companyAdmin/reports/async/deleteReport';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
@@ -18,13 +21,14 @@ const CompanyReportsTableContainer = ({
     sortString = '',
     onMobile,
     retryReport,
-    fetchCompanyReports,
+    changeCompanyReportsFetchFull,
+
     fetchCompanyReportsFull,
     fetchStatus,
     shouldDeleteReportsAfterDownload,
     deleteReport,
     showModal,
-    hideModal
+    hideModal,
 }) => {
     return (
         <CompanyReportsTable
@@ -33,8 +37,8 @@ const CompanyReportsTableContainer = ({
             error={error}
             companyReports={_getSortedQueue()}
             onMobile={onMobile}
-            retryCompanyReport={id => retryCompanyReport(id)}
-            fetchCompanyReportsFull={fetchCompanyReportsFull}
+            retryCompanyReport={retryCompanyReport}
+            handleFetchCompanyReportsFull={handleFetchCompanyReportsFull}
             fetchStatus={fetchStatus}
             shouldDeleteReportsAfterDownload={shouldDeleteReportsAfterDownload}
             handleDeleteAfterDownload={handleDeleteAfterDownload}
@@ -58,14 +62,19 @@ const CompanyReportsTableContainer = ({
     }
 
     function retryCompanyReport(id) {
-        retryReport(id).then(fetchCompanyReports);
+        retryReport(id);
+    }
+
+    function handleFetchCompanyReportsFull() {
+        fetchCompanyReportsFull().then(() => {
+            return changeCompanyReportsFetchFull();
+        });
     }
 
     function handleDeleteAfterDownload(queueItem) {
-
-        const message = 
+        const message =
             'As per your company settings, downloading this report will delete it from our server.';
-        const submitButtonText = 'Download and Delete'; 
+        const submitButtonText = 'Download and Delete';
         const s3URL = `${RAW_S3_STORAGE_URL}/${queueItem.s3Key}`;
         const handleSubmit = () => {
             // wait 1s before deleting to ensure download has begun
@@ -78,7 +87,7 @@ const CompanyReportsTableContainer = ({
         showModal(CONFIRM_SUBMIT, {
             message,
             submitButtonText,
-            handleSubmit
+            handleSubmit,
         });
     }
 };
@@ -90,18 +99,15 @@ const mapStateToProps = ({
             error,
             isFetching,
             sort: { sortString },
-            fetchStatus
+            fetchStatus,
         },
         companySettingsReducer: {
-            companySettings: {
-                shouldDeleteReportsAfterDownload
-            }
-        }
+            companySettings: { shouldDeleteReportsAfterDownload },
+        },
     },
     shared: {
         mobileReducer: { onMobile },
-
-    }
+    },
 }) => ({
     companyReports: Object.values(companyReports),
     error,
@@ -109,19 +115,18 @@ const mapStateToProps = ({
     sortString,
     onMobile,
     fetchStatus,
-    shouldDeleteReportsAfterDownload
+    shouldDeleteReportsAfterDownload,
 });
 
-const mapDispatchToProps = { 
+const mapDispatchToProps = {
     retryReport,
-    fetchCompanyReports, 
-    fetchCompanyReportsFull, 
+    fetchCompanyReports,
+    fetchCompanyReportsFull,
+    fetchCompanyReportSingle,
+    changeCompanyReportsFetchFull,
     deleteReport,
     showModal,
-    hideModal
+    hideModal,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CompanyReportsTableContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CompanyReportsTableContainer);
