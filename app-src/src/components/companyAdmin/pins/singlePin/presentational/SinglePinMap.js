@@ -13,7 +13,6 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
 import SinglePinGenerateReportContainer from '../containers/SinglePinGenerateReportContainer';
-import ZonesIncludedContainer from '../containers/ZonesIncludedContainer';
 import DrawingMapViewZones from 'components/companyAdmin/drawings/singleDrawing/presentational/DrawingMapViewZones';
 
 const SinglePinMap = ({
@@ -43,7 +42,6 @@ const SinglePinMap = ({
         popupAnchor: [0, -50],
     });
 
-    console.log({ zones });
     return (
         <>
             <BlockHeading
@@ -129,7 +127,6 @@ const SinglePinMap = ({
                 Last updated by: {`${user.createdByOperativeFullName} `}
                 <DateTimeContainer date={pin.latestCreatedOn} />
             </p>
-            <ZonesIncludedContainer pin={pin} />
         </>
     );
 };
