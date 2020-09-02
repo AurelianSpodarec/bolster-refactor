@@ -114,6 +114,11 @@ const CompanyMenu = ({
                 <span className="menu-text"> Company Settings</span>
             </CompanyMenuItemContainer>
 
+            <CompanyMenuItemContainer link="/company/activity-log">
+                <i className="far fa-history fa-fw icon" />
+                <span className="menu-text"> Activity Log</span>
+            </CompanyMenuItemContainer>
+
             <CompanyMenuItemContainer
                 link="/company/generate-qr-codes"
                 onClick={handleGenerateQRCodesModal}

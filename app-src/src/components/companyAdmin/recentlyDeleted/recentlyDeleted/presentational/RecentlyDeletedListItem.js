@@ -4,7 +4,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const RecentlyDeletedListItem = ({ item, onMobile, headers, handleRestore }) => (
-    <tr key={item.id}>
+    <tr key={item.createdOn}>
         <td>
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}

@@ -20,6 +20,7 @@ const FloorListItemContainer = ({
     reorderFloor,
     headers,
     onMobile,
+    colSpanFirst,
 }) => {
     const isExpanded = expandedFloorIds.includes(floor.id);
     return (
@@ -35,6 +36,7 @@ const FloorListItemContainer = ({
             onMove={moveItem}
             headers={headers}
             onMobile={onMobile}
+            colSpanFirst={colSpanFirst}
         />
     );
 

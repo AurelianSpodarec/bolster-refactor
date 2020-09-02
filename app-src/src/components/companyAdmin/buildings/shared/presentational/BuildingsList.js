@@ -2,7 +2,14 @@ import React from 'react';
 
 import BuildingsListItemContainer from '../containers/BuildingsListItemContainer';
 
-const BuildingsList = ({ colCount, buildings, forwardRef, isOver, headers }) => (
+const BuildingsList = ({
+    colCount,
+    buildings,
+    forwardRef,
+    isOver,
+    headers,
+    colSpanFirst = false,
+}) => (
     <tbody ref={forwardRef} className={isOver ? 'dragging' : ''}>
         {buildings.map((building, index) => (
             <BuildingsListItemContainer
@@ -12,6 +19,7 @@ const BuildingsList = ({ colCount, buildings, forwardRef, isOver, headers }) => 
                 index={index}
                 buildings={buildings}
                 headers={headers}
+                colSpanFirst={colSpanFirst}
             />
         ))}
     </tbody>

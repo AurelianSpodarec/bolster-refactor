@@ -92,11 +92,21 @@ export function usePrevious(value) {
     return ref.current;
 }
 
-export function useThrottle(action, timeout = 1000, deps = []) {
-    let throttleTimeout;
+export function useDebounce(action, deps = [], timeout = 1000) {
+    let debounceTimeout;
     useEffect(() => {
-        clearTimeout(throttleTimeout);
-        throttleTimeout = setTimeout(action, timeout);
-        return () => clearTimeout(throttleTimeout);
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(action, timeout);
+        return () => clearTimeout(debounceTimeout);
     }, deps);
+}
+
+export function useForm(initialState = {}) {
+    const [formData, setFormData] = useState(initialState);
+
+    function handleChange(name, value) {
+        setFormData(prev => ({ ...prev, [name]: value }));
+    }
+
+    return [formData, handleChange];
 }
