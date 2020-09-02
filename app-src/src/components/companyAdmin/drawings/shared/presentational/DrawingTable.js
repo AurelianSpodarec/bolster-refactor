@@ -4,7 +4,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import DrawingList from './DrawingList';
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 
-const DrawingTable = ({ drawings, headers, isFetching, error, isOver, forwardRef }) => {
+const DrawingTable = ({ drawings, headers, isFetching, error, isOver, forwardRef, colSpanFirst = false }) => {
     return (
         <Table
             withActions
@@ -15,6 +15,7 @@ const DrawingTable = ({ drawings, headers, isFetching, error, isOver, forwardRef
             noDataMessage="No drawings to display"
             withoutTBody
             extraClasses={isOver ? 'dragging' : ''}
+            colSpanFirst={colSpanFirst}
         >
             <DrawingList
                 isOver={isOver}
@@ -22,6 +23,7 @@ const DrawingTable = ({ drawings, headers, isFetching, error, isOver, forwardRef
                 colCount={headers.length}
                 drawings={drawings}
                 headers={headers}
+                colSpanFirst={colSpanFirst}
             />
         </Table>
     );

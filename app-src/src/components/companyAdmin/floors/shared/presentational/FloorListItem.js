@@ -15,7 +15,8 @@ const FloorListItem = ({
     forwardRef,
     isDragging,
     headers,
-    onMobile
+    onMobile,
+    colSpanFirst,
 }) => (
     <>
         <tr
@@ -25,9 +26,7 @@ const FloorListItem = ({
             className={`draggable expandable ${isExpanded ? 'open' : ''}`}
         >
             <td>
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[0]}</span>
-                )}
+                {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                 {isExpanded ? (
                     <i className="fa fa-chevron-down" />
                 ) : (
@@ -37,25 +36,16 @@ const FloorListItem = ({
             </td>
             <td>
                 {' '}
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[1]}</span>
-                )}
-                <DateTimeContainer
-                    date={floor.createdOn}
-                    datetime={DATE_TIME_IDS.DATE}
-                />
+                {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
+                <DateTimeContainer date={floor.createdOn} datetime={DATE_TIME_IDS.DATE} />
             </td>
             <td>
                 {' '}
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[2]}</span>
-                )}
+                {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
                 {permissions}
             </td>
             <td>
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[3]}</span>
-                )}
+                {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
                 <ButtonContainer
                     to={`/company/floors/${floor.id}`}
                     handleClick={e => e.stopPropagation()}
@@ -71,7 +61,7 @@ const FloorListItem = ({
                     className="table-container drawing"
                     style={{ display: isDragging ? 'none' : '' }}
                 >
-                    <DrawingTableContainer ids={floor.drawingIDs} />
+                    <DrawingTableContainer ids={floor.drawingIDs} colSpanFirst={colSpanFirst} />
                 </td>
             </tr>
         )}

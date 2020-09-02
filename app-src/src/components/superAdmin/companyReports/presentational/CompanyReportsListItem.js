@@ -11,11 +11,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 const isBeforeOneHour = date => moment(date).isBefore(moment().subtract(1, 'hours'));
 
 const { FAILED, COMPLETE, DELETED, RUNNING } = GENERATION_STATE_VAL;
-const CompanyReportsListItem = ({
-    queueItem,
-    showDeleteModal,
-    // retryCompanyReport
-}) => {
+const CompanyReportsListItem = ({ queueItem, showDeleteModal, retryCompanyReport }) => {
     const { state, startedOn, id } = queueItem;
     const canDelete =
         state === FAILED || (state === RUNNING && (!startedOn || isBeforeOneHour(startedOn)));
@@ -53,7 +49,12 @@ const CompanyReportsListItem = ({
                             </button>
                         </a>
                     ) : queueItem.state === DELETED ? (
-                        <button className="button red disabled">Report deleted</button>
+                        <button
+                            className="button red"
+                            onClick={() => retryCompanyReport(queueItem.id)}
+                        >
+                            <i className="fa fa-times" /> Deleted - Retry?
+                        </button>
                     ) : (
                         <button className="button disabled">Unavailable</button>
                     )}

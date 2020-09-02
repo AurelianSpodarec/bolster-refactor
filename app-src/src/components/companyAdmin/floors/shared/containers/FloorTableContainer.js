@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import FloorTable from '../presentational/FloorTable';
 import { hierarchySort } from 'helpers/generic';
 
-const FloorTableContainer = ({ isFetching, error, floors }) => {
+const FloorTableContainer = ({ isFetching, error, floors, colSpanFirst = false }) => {
     return (
         <FloorTable
             headers={['Floor name', 'Created on', 'Permissions', 'Action']}
             isFetching={isFetching}
             error={error}
             floors={floors}
+            colSpanFirst={colSpanFirst}
         />
     );
 };
@@ -21,5 +22,5 @@ export default connect(({ companyAdmin: { floorsReducer } }, ownProps) => ({
     floors: ownProps.ids
         .map(id => floorsReducer.floors[id])
         .filter(item => item)
-        .sort(hierarchySort)
+        .sort(hierarchySort),
 }))(FloorTableContainer);

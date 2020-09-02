@@ -19,6 +19,7 @@ import InvoicesRoutes from './InvoicesRoutes.js';
 import ProfilesRoutes from './ProfilesRoutes';
 import RecentlyDeletedRoutes from './RecentlyDeletedRoutes';
 import SettingsRoutes from './SettingsRoutes';
+import ActivityLogRoutes from './ActivityLogRoutes';
 // import TransferRequestsRoutes from './TransferRequestsRoutes';
 import TermsRoutes from './TermsRoutes';
 import DropdownOptionsRoutes from './DropdownOptionsRoutes';
@@ -40,6 +41,7 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route path={`${base}/reports`} component={withSubscriptionAuth(ReportsRoutes)} />
         <Route path={`${base}/recently-deleted`} component={RecentlyDeletedRoutes} />
         <Route path={`${base}/settings`} component={SettingsRoutes} />
+        <Route path={`${base}/activity-log`} component={ActivityLogRoutes} />
         <Route path={`${base}/sites`} component={withSubscriptionAuth(SitesRoutes)} />
         <Route path={`${base}/subscription`} component={SubscriptionRoutes} />
         <Route path={`${base}/tools`} component={withSubscriptionAuth(ToolsRoutes)} />
