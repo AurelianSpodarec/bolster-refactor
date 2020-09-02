@@ -219,6 +219,7 @@ const RegisterForm = ({
                         onChange={handleChange}
                         omitPlaceholder
                         required
+                        classes="large"
                     />
                 </Field>
                 {vatType && isVatCodeRequired && (

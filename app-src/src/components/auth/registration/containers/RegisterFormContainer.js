@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import fetchTimeZones from 'actions/shared/time/async/fetchTimezones';
 import fetchDateFormats from 'actions/shared/time/async/fetchDateFormats';
@@ -203,4 +204,4 @@ const mapDispatchToProps = {
     addFieldError,
     removeFieldError,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterFormContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RegisterFormContainer));

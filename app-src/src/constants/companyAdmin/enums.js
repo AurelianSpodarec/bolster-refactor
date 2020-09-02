@@ -196,7 +196,7 @@ export const VAT_TYPES = {
 export const VAT_TYPE_NAME = {
     1: 'GB',
     2: 'Europe',
-    3: 'Outside Europe',
+    3: 'Rest of the World',
     4: 'Not Registered (GB)',
     5: 'Not Registered (Outside GB)',
 };
