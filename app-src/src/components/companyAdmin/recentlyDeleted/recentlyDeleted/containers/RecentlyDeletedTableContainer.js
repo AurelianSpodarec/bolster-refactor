@@ -1,22 +1,56 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import RecentlyDeletedTable from '../presentational/RecentlyDeletedTable';
+import { useDebounce } from 'helpers/hooks';
+import fetchRecentlyDeleted from 'actions/companyAdmin/recentlyDeleted/async/fetchRecentlyDeleted';
 
-class RecentlyDeletedTableContainer extends Component {
-    render() {
-        const { isFetchingData, error, deleted } = this.props;
+const RecentlyDeletedTableContainer = ({
+    isFetchingData,
+    error,
+    deleted,
+    fetchRecentlyDeleted,
+}) => {
+    const pageSize = 50;
+    const [page, setPage] = useState(1);
+    const [type, setType] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
 
-        return (
-            <RecentlyDeletedTable
-                headers={['Deleted item', 'Date Created', 'Date Deleted', 'Deleted By', 'Type', '']}
-                recentlyDeleted={deleted}
-                isFetching={isFetchingData}
-                error={error}
-            />
-        );
-    }
-}
+    useDebounce(() => {
+        fetchRecentlyDeleted({ pageSize, pageNumber: page, searchTerm, type });
+    }, [searchTerm]);
+    // we don't want to stagger the page change or type
+    useEffect(() => {
+        fetchRecentlyDeleted({ pageSize, pageNumber: page, searchTerm, type });
+    }, [page, type]);
+
+    const typeOptions = [
+        { label: 'Site', value: 'Site' },
+        { label: 'Building', value: 'Building' },
+        { label: 'Floor', value: 'Floor' },
+        { label: 'Drawing', value: 'Drawing' },
+        { label: 'Pin History', value: 'Pin History' },
+        { label: 'User', value: 'User' },
+        { label: 'Operative Permission', value: 'Operative Permission' },
+    ];
+
+    return (
+        <RecentlyDeletedTable
+            headers={['Deleted item', 'Date Created', 'Date Deleted', 'Deleted By', 'Type', '']}
+            recentlyDeleted={deleted}
+            isFetching={isFetchingData}
+            error={error}
+            page={page}
+            setPage={setPage}
+            pageSize={pageSize}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            type={type}
+            setType={setType}
+            typeOptions={typeOptions}
+        />
+    );
+};
 
 const mapStateToProps = ({
     companyAdmin: {
@@ -45,5 +79,8 @@ const mapStateToProps = ({
     isFetchingData,
     error,
 });
+const mapDispatchToProps = {
+    fetchRecentlyDeleted,
+};
 
-export default connect(mapStateToProps)(RecentlyDeletedTableContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(RecentlyDeletedTableContainer);
