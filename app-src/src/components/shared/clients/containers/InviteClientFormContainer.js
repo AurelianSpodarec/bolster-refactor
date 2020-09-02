@@ -26,7 +26,7 @@ class InviteClientFormContainer extends Component {
         const showMoreServicesMesssage = this._getServicesOptions().some(
             option => option.disabled === true,
         );
-        const {isFetching, clients} = this.props;
+        const { isFetching, clients } = this.props;
         return (
             <BlockContainer isFetching={isFetching} isEmpty={isEmpty(clients)}>
                 <InviteClientForm
@@ -43,10 +43,10 @@ class InviteClientFormContainer extends Component {
     }
 
     componentDidMount = () => {
-       const { fetchClientUsers } = this.props;
+        const { fetchClientUsers } = this.props;
 
-       fetchClientUsers();
-    }
+        fetchClientUsers();
+    };
 
     componentDidUpdate = prevProps => {
         const { success, history, hierarchyType, hierarchyID } = this.props;
@@ -67,26 +67,36 @@ class InviteClientFormContainer extends Component {
 
     _getUserOptions = () => {
         const { clients } = this.props;
-        const options = Object.values(clients).map(({ id, userFirstName, userLastName, companyName }) => ({
-            value: id,
-            label: `${userFirstName} ${userLastName} <${companyName}>`,
-        }));
+        const options = Object.values(clients).map(
+            ({ id, userFirstName, userLastName, userEmail, companyName }) => ({
+                value: id,
+                label: `${userFirstName} ${userLastName} <${companyName}> <${userEmail}>`,
+            }),
+        );
 
-        const labels = options.map(({label}) => label);
-        
+        const labels = options.map(({ label }) => label);
+
         return options.filter((item, index) => {
             return index === labels.indexOf(item.label);
         });
     };
 
-
     handleChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = () => {
-        const { firstName, lastName, email, phoneNumber, companyName, serviceIDs, inviteNewClient, clients: selectedClientIDs } = this.state;
+        const {
+            firstName,
+            lastName,
+            email,
+            phoneNumber,
+            companyName,
+            serviceIDs,
+            inviteNewClient,
+            clients: selectedClientIDs,
+        } = this.state;
         const { hierarchyType, hierarchyID, addClient, clients, addManyClients } = this.props;
 
-        if(inviteNewClient) {
+        if (inviteNewClient) {
             const postBody = {
                 firstName,
                 lastName,
@@ -100,15 +110,15 @@ class InviteClientFormContainer extends Component {
         }
         const postBody = {
             serviceIDs,
-            clients: selectedClientIDs.map((id) => {
+            clients: selectedClientIDs.map(id => {
                 const client = clients[id];
                 return {
                     email: client.userEmail,
-                    companyName: client.companyName 
+                    companyName: client.companyName,
                 };
-            })
-        }; 
-        addManyClients(hierarchyType, hierarchyID, postBody);     
+            }),
+        };
+        addManyClients(hierarchyType, hierarchyID, postBody);
     };
 }
 
@@ -121,7 +131,7 @@ const mapStateToProps = (
     hierarchyID: match.params.id,
     success: clientsReducer.postSuccess,
     clients: clientsReducer.clients,
-    isFetching: clientsReducer.isFetching
+    isFetching: clientsReducer.isFetching,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -129,8 +139,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(addClient(hierarchyType, hierarchyID, postBody)),
     addManyClients: (hierarchyType, hierarchyID, postBody) =>
         dispatch(addManyClients(hierarchyType, hierarchyID, postBody)),
-    fetchClientUsers: () => 
-        dispatch(fetchClientUsers())
+    fetchClientUsers: () => dispatch(fetchClientUsers()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InviteClientFormContainer));
