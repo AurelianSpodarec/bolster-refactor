@@ -100,3 +100,13 @@ export function useThrottle(action, timeout = 1000, deps = []) {
         return () => clearTimeout(throttleTimeout);
     }, deps);
 }
+
+export function useForm(initialState = {}) {
+    const [formData, setFormData] = useState(initialState);
+
+    function handleChange(name, value) {
+        setFormData(prev => ({ ...prev, [name]: value }));
+    }
+
+    return [formData, handleChange];
+}
