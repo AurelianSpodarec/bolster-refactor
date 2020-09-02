@@ -11,7 +11,7 @@ import TemplateQuestionFormModal from '../presentational/TemplateQuestionFormMod
 
 class TemplateQuestionModalContainer extends Component {
     state = {
-        showManufacturingOptions: false,
+        showManufacturingOptions: true,
     };
 
     render() {
@@ -20,8 +20,7 @@ class TemplateQuestionModalContainer extends Component {
                 questionType,
                 questionTypeOptions,
                 prereqUUID,
-                prereqVal,
-                isPrerequisiteMulti,
+
                 ...fields
             },
             hideModal,
@@ -105,15 +104,14 @@ class TemplateQuestionModalContainer extends Component {
                 updateQuestionFields({ ...question, prefillStatuses: sortedPrefilStatuses });
             }
         } else {
-            updateQuestionFields(question);
+            updateQuestionFields({ ...question });
         }
 
         if (question.isPrerequisiteMulti && question.prereqVal) {
             let preReqArr = question.prereqVal.split(',');
 
             const standardPrereqOptionsArr = Object.values(standardPrereqOptions);
-
-            const prereqAnswers = standardPrereqOptionsArr.reduce((acc, currOption) => {
+            const standardPrereqAnswers = standardPrereqOptionsArr.reduce((acc, currOption) => {
                 const { options } = currOption;
                 const optionTexts = options.map(({ text }) => text);
 
@@ -128,11 +126,11 @@ class TemplateQuestionModalContainer extends Component {
 
             if (
                 preReqArr.some(answer => {
-                    return prereqAnswers.some(prereqOptions => prereqOptions !== answer);
+                    return standardPrereqAnswers.some(prereqOptions => prereqOptions !== answer);
                 })
             ) {
                 this.setState({
-                    showManufacturingOptions: false,
+                    showManufacturingOptions: true,
                 });
             }
         }
@@ -146,6 +144,7 @@ class TemplateQuestionModalContainer extends Component {
             ...question,
             ...getQuestionData(),
         };
+        console.log({ newQuestion });
         setQuestion(newQuestion);
     };
 
@@ -171,7 +170,7 @@ class TemplateQuestionModalContainer extends Component {
 
             updateQuestionFields({
                 ...question,
-                prereqVal: removedManufacturerOptions,
+                prereqVal: removedManufacturerOptions.join(','),
                 prereqDropdownValues: removedManufacturerOptions,
             });
 
