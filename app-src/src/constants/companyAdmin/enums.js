@@ -227,7 +227,7 @@ export const NUMBER_OF_HISTORIES_WITH_DATE = {
     1: 'Latest',
     2: 'Earliest',
     3: 'All',
-    4: 'AllWhereLatestInDateRange',
+    4: 'All Where Latest In Date Range',
 };
 
 export const NUMBER_OF_HISTORIES_OPTIONS = {
