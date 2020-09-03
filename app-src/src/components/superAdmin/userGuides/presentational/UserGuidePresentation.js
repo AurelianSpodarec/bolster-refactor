@@ -52,6 +52,7 @@ const UserGuidesPresentational = ({
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="blue"
+                                        isAnchor
                                         to={`${RAW_S3_STORAGE_URL}/${version.s3Key}`}
                                     >
                                         File
