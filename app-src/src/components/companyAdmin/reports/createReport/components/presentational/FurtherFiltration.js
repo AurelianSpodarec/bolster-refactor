@@ -15,6 +15,7 @@ const FurtherFiltration = ({
     <div className="generic-form">
         <Field name="Number of Histories" required={true}>
             <Select
+                classes="historiesSelect"
                 singleSelect
                 name="reportHistories"
                 options={historyNumsOptions}
