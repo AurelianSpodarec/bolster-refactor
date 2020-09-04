@@ -28,7 +28,12 @@ const DropdownList = ({ name, type, selectedSortValue, handleSortChange }) => (
                 </div>
             </div>
         ) : (
-            <DropdownListTableContainer title={name} type={type} />
+            <DropdownListTableContainer
+                title={name}
+                type={type}
+                selectedSortValue={selectedSortValue}
+                handleSortChange={handleSortChange}
+            />
         )}
     </>
 );
