@@ -135,7 +135,7 @@ const PinAnswer = ({
                 inner = (
                     <ButtonContainer to={docURL} isAnchor className="btn blue" openNewTab>
                         <i className="table-icon far fa-eye" />
-                        View pdf
+                        View file
                     </ButtonContainer>
                 );
             } else {
