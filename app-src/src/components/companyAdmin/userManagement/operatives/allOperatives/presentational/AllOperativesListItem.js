@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const AllOperativesListItem = ({
     user,
@@ -13,11 +14,19 @@ const AllOperativesListItem = ({
     headers,
     history,
     mobileDeviceName = '',
+    showNotUpsyncedRecentlyWarning,
+    tooltipDate,
 }) => {
     return (
         <tr key={user.id}>
             <td>
-                {' '}
+                {showNotUpsyncedRecentlyWarning && (
+                    <TooltipContainer
+                        text={`This operative has not upsynced in ${tooltipDate} days`}
+                    >
+                        <i className="far fa-exclamation-triangle red" />
+                    </TooltipContainer>
+                )}
                 {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                 {`${user.userFirstName} ${user.userLastName}`}
             </td>
