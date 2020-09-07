@@ -3327,6 +3327,10 @@ input {
 
 .tooltip-container {
     float: right;
+
+    &.left {
+        float: left;
+    }
 }
 
 .tooltip {

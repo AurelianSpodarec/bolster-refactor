@@ -23,6 +23,7 @@ const AllOperativesListItem = ({
                 {showNotUpsyncedRecentlyWarning && (
                     <TooltipContainer
                         text={`This operative has not upsynced in ${tooltipDate} days`}
+                        containerSide="left"
                     >
                         <i className="far fa-exclamation-triangle red-icon" />
                     </TooltipContainer>
