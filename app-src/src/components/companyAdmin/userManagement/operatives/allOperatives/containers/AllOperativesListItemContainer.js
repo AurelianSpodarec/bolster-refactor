@@ -16,7 +16,7 @@ const AllOperativesListItemContainer = ({
     headers,
     onMobile,
 }) => {
-    const [notUpsyncedRecently, setNotUpsyncedRecently] = useState(true);
+    const [notUpsyncedRecently, setNotUpsyncedRecently] = useState(false);
     const [lastDetectedUpsyncedData, setLastDetectedUpsyncedData] = useState(0);
 
     useEffect(() => {

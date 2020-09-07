@@ -18,13 +18,13 @@ const AllOperativesListItem = ({
     tooltipDate,
 }) => {
     return (
-        <tr key={user.id}>
+        <tr key={user.id} className={`${showNotUpsyncedRecentlyWarning ? 'red-row' : ''}`}>
             <td>
                 {showNotUpsyncedRecentlyWarning && (
                     <TooltipContainer
                         text={`This operative has not upsynced in ${tooltipDate} days`}
                     >
-                        <i className="far fa-exclamation-triangle red" />
+                        <i className="far fa-exclamation-triangle red-icon" />
                     </TooltipContainer>
                 )}
                 {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
