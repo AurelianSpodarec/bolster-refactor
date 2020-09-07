@@ -5684,6 +5684,12 @@ input {
         height: 100%;
     }
 
+    img {
+        animation: fadeInAnimation ease 400ms;
+        animation-iteration-count: 1; 
+        animation-fill-mode: forwards;
+    }
+
     &.multiple {
         position: relative;
 
@@ -5761,4 +5767,13 @@ input {
             }
         }
     }
+
+    @keyframes fadeInAnimation { 
+        0% { 
+            opacity: 0; 
+        } 
+        100% { 
+            opacity: 1; 
+         } 
+    } 
 }
