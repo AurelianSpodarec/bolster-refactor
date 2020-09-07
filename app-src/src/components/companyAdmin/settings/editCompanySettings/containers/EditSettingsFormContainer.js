@@ -16,9 +16,9 @@ import {
 class EditSettingsFormContainer extends Component {
     state = {
         templateUsageRuleOptions: {
-            '1': { label: 'Use Only Owner Company', value: 1 },
-            '2': { label: 'Use Only Own', value: 2 },
-            '3': { label: 'Use Any', value: 3 },
+            1: { label: 'Use Only Owner Company', value: 1 },
+            2: { label: 'Use Only Own', value: 2 },
+            3: { label: 'Use Any', value: 3 },
         },
         name: '',
         addressLine1: '',
@@ -48,6 +48,8 @@ class EditSettingsFormContainer extends Component {
         shouldDeleteReportsAfterDownload: false,
         enableQRCodes: false,
         useManufacturingByDefault: false,
+        notUpsyncedAdminNotification: '30',
+        notUpsyncedOperativeWarning: '7',
     };
 
     render() {
@@ -58,12 +60,14 @@ class EditSettingsFormContainer extends Component {
             dateFormat,
             timeZoneOptions,
             dateFormatOptions,
+            notUpsyncedAdminNotification,
+            notUpsyncedOperativeWarning,
         } = this.state;
 
         const templateUsageRuleOptions = {
-            '1': { text: 'Use Only Owner Company', value: 1 },
-            '2': { text: 'Use Only Own', value: 2 },
-            '3': { text: 'Use Any', value: 3 },
+            1: { text: 'Use Only Owner Company', value: 1 },
+            2: { text: 'Use Only Own', value: 2 },
+            3: { text: 'Use Any', value: 3 },
         };
 
         const vatOptions = [
@@ -91,6 +95,8 @@ class EditSettingsFormContainer extends Component {
                 handleDateFormatChange={this.handleDateFormatChange}
                 vatOptions={vatOptions}
                 siteSortOptions={siteSortOptions}
+                notUpsyncedAdminNotification={notUpsyncedAdminNotification}
+                notUpsyncedOperativeWarning={notUpsyncedOperativeWarning}
             />
         );
     }

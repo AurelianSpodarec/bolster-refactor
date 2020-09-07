@@ -49,6 +49,8 @@ const EditSettingsForm = ({
     shouldDeleteReportsAfterDownload,
     enableQRCodes,
     useManufacturingByDefault,
+    notUpsyncedAdminNotification,
+    notUpsyncedOperativeWarning,
 }) => (
     <>
         <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
@@ -313,6 +315,30 @@ const EditSettingsForm = ({
                         name="dateFormat"
                         isSearchable
                         onChange={handleInputChange}
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-12">
+                <Field
+                    name="Not Upsynced Admin Notification (Days)"
+                    sizeClasses="size-lg-6 size-md-12"
+                >
+                    <TextInputContainer
+                        value={notUpsyncedAdminNotification}
+                        name="notUpsyncedAdminNotification"
+                        type="number"
+                        handleChange={handleInputChange}
+                    />
+                </Field>
+                <Field
+                    name="Not Upsynced Operative Warning (Days)"
+                    sizeClasses="size-lg-6 size-md-12"
+                >
+                    <TextInputContainer
+                        value={notUpsyncedOperativeWarning}
+                        name="notUpsyncedOperativeWarning"
+                        type="number"
+                        handleChange={handleInputChange}
                     />
                 </Field>
             </div>
