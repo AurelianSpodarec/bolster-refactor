@@ -5668,8 +5668,97 @@ input {
 }
 
 .image-visual {
-    height: 100%;
+    min-height: 230px;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &.pdf {
+        min-height: 375px;
+    }
+
+    > div {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    &.multiple {
+        position: relative;
+
+        img {
+            max-width: 75px;
+        }
+
+        .arrow {
+            width: 100%;
+            max-width: 10px;
+            height: 15px;
+        }
+
+        .image-visual-top {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            top: -120px;
+
+            .arrow {
+                top: 10px;
+            }
+
+            img {
+                max-width: 50px;
+            }
+        }
+
+        .image-visual-right {
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            position: absolute;
+            right: -100px;
+
+            .arrow {
+                transform: rotate(90deg);
+            }
+
+            img {
+                max-width: 50px;
+            }
+        }
+
+        .image-visual-bottom {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            position: absolute;
+            top: 120px;
+
+            .arrow {
+                top: -10px;
+                transform: rotate(180deg);
+            }
+
+            img {
+                max-width: 50px;
+            }
+        }
+
+        .image-visual-left {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            left: -100px;
+
+            .arrow {
+                transform: rotate(270deg);
+            }
+
+            img {
+                max-width: 50px;
+            }
+        }
+    }
 }

@@ -1,17 +1,13 @@
 import React from 'react';
-import CSV from '_content/images/icons/output_icons/CSV.svg';
-import Floorplan from '_content/images/icons/output_icons/Floorplan.svg';
-import O_M from '_content/images/icons/output_icons/O_M.svg';
-import PDF from '_content/images/icons/output_icons/PDF.svg';
-import PDF_Floorplan from '_content/images/icons/output_icons/PDF_Floorplan.svg';
-import PDF_Pins from '_content/images/icons/output_icons/PDF_Pins.svg';
-import PDF_Floorplan_Pins from '_content/images/icons/output_icons/PDF_Floorplan_Pins.svg';
-import ZIP from '_content/images/icons/output_icons/ZIP_Only.svg';
+import { imageToOutput, isTherePDF } from 'helpers/outputVisuals';
+import ImageVisualMultiple from './ImageVisualMultiple';
 
-const ImageVisual = () => {
+const ImageVisual = ({ filterArr }) => {
+    if (filterArr.length > 1) return <ImageVisualMultiple filterArr={filterArr} />;
+
     return (
-        <div className="image-visual">
-            <img src={CSV} alt="Icon" />
+        <div className={`image-visual ${isTherePDF(filterArr)}`}>
+            <img src={imageToOutput(filterArr)} alt="Icon" />
         </div>
     );
 };

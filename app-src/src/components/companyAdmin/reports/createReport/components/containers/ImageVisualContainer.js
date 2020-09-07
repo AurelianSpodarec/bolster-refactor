@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { imageToOutput } from 'helpers/outputVisuals';
+import { filterOutput } from 'helpers/outputVisuals';
 
 import ImageVisual from '../presentational/ImageVisual';
 
@@ -14,27 +14,11 @@ const ImageVisualContainer = () => {
         }) => filters,
     );
 
-    const {
-        isPDFGeneration,
-        isCSVGeneration,
-        isFloorplanGeneration,
-        isOAndMManualGeneration,
-        includePinLocation,
-        includeFloorplan,
-    } = filters;
+    const filteredOutput = filterOutput(filters);
 
-    const visualsObj = {
-        isPDFGeneration,
-        isCSVGeneration,
-        isFloorplanGeneration,
-        isOAndMManualGeneration,
-        includeFloorplan,
-        includePinLocation,
-    };
+    if (filteredOutput.length === 0) return null;
 
-    imageToOutput(visualsObj);
-
-    return <ImageVisual />;
+    return <ImageVisual filterArr={filteredOutput} />;
 };
 
 export default ImageVisualContainer;

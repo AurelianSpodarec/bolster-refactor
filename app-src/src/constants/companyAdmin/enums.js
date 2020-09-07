@@ -1,16 +1,16 @@
 export const ROLE_TYPES = {
-    '0': 'Owner',
-    '1': 'Admin',
-    '2': 'Operative',
-    '3': 'Client',
+    0: 'Owner',
+    1: 'Admin',
+    2: 'Operative',
+    3: 'Client',
 };
 
 export const HIERARCHY_TYPES = {
-    '1': 'site',
-    '2': 'building',
-    '3': 'floor',
-    '4': 'drawing',
-    '100': 'all sites',
+    1: 'site',
+    2: 'building',
+    3: 'floor',
+    4: 'drawing',
+    100: 'all sites',
 };
 
 export const HIERARCHY_IDS = {
@@ -34,9 +34,9 @@ export const TEMPLATE_USAGE_RULES_VALUES = {
 };
 
 export const DOCUMENT_TYPE = {
-    '1': 'View only',
-    '2': 'Requires agreement (once)',
-    '3': 'Requires agreement (multiple)',
+    1: 'View only',
+    2: 'Requires agreement (once)',
+    3: 'Requires agreement (multiple)',
 };
 
 export const COMPANY_USER_ROLE_TYPES = {
@@ -192,9 +192,9 @@ export const VAT_TYPES = {
 };
 
 export const VAT_TYPE_NAME = {
-    '1': 'GB',
-    '2': 'Europe',
-    '3': 'Outside Europe',
+    1: 'GB',
+    2: 'Europe',
+    3: 'Outside Europe',
 };
 
 //Report generator
@@ -406,4 +406,11 @@ export const DOCUMENT_VIEW_TYPES = {
 export const DOCUMENT_VISIBILITY = {
     VISIBLE_TO_ALL: 1,
     VISIBLE_TO_OWN_COMPANY: 2,
+};
+
+export const IMAGE_VISUAL_POSITION = {
+    0: 'top',
+    1: 'right',
+    2: 'bottom',
+    3: 'left',
 };
