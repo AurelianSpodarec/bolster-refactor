@@ -205,6 +205,17 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                             description={dateFormat.momentDateTimeFormat}
                         />
                     </Block>
+                    <Block>
+                        <BlockHeading title="Notifications" />
+                        <FieldOutput
+                            title="Not Upsynced Admin Notification (Days)"
+                            description="##25##"
+                        />
+                        <FieldOutput
+                            title="Not Upsynced Operative Warning (Days)"
+                            description="##6##"
+                        />
+                    </Block>
                 </div>
 
                 <div className="size-lg-4 size-md-12">
