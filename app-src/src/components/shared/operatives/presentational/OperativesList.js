@@ -1,11 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const OperativesList = ({
-    operatives,
-    documentID,
-    handleDeleteOperativeModal
-}) =>
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+
+const OperativesList = ({ operatives, documentID, handleDeleteOperativeModal }) =>
     operatives.map(operative => {
         const {
             id,
@@ -14,17 +12,25 @@ const OperativesList = ({
             email,
             userOperativeCode: operativeCode,
             canEditUser,
-            companyName
+            companyName,
+            notUpsyncedRecently = true,
         } = operative;
 
         const stringOperativeCode = operativeCode + '';
-
         return (
-            <tr key={id}>
+            <tr key={id} className={`${notUpsyncedRecently ? 'red-row' : ''}`}>
                 <td>
+                    {notUpsyncedRecently && (
+                        <TooltipContainer
+                            text={`This operative has not upsynced in ${'##tooltipDate##'}  days`}
+                            containerSide="left"
+                        >
+                            <i className="far fa-exclamation-triangle red-icon" />
+                        </TooltipContainer>
+                    )}
                     {`${firstName} ${lastName} - ${stringOperativeCode.padStart(
                         2,
-                        '0'
+                        '0',
                     )} (${companyName})`}
                     <br />
                     {email}
@@ -39,9 +45,7 @@ const OperativesList = ({
                                 <i className="far fa-pencil fa-fw" />
                             </Link>
                             <button
-                                onClick={() =>
-                                    handleDeleteOperativeModal(operative)
-                                }
+                                onClick={() => handleDeleteOperativeModal(operative)}
                                 to="#"
                                 className="button red icon-only"
                             >
