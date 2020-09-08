@@ -5668,13 +5668,13 @@ input {
 }
 
 .image-visual {
-    min-height: 230px;
+    height: 240px;
     display: flex;
     align-items: center;
     justify-content: center;
 
     &.pdf {
-        min-height: 375px;
+        height: 375px;
     }
 
     > div {
