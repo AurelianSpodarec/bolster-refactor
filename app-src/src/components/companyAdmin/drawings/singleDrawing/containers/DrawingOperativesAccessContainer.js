@@ -21,8 +21,6 @@ class DrawingOperativesAccessContainer extends Component {
             };
         });
 
-        console.log(users, '<-- users');
-
         return (
             <BlockContainer containerClass="always-scrollbar">
                 <OperativesTable
