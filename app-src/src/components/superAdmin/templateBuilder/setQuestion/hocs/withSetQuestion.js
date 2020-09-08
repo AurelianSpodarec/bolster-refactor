@@ -25,7 +25,6 @@ export default function (WrappedComponent) {
                 handlePrefillStatusValueChange={this.handlePrefillStatusValueChange}
             />
         );
-
         componentWillUnmount = () => {
             this.props.resetQuestionFields();
         };

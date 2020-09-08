@@ -41,6 +41,7 @@ const TemplateQuestionFormModal = ({
     prereqDropdownValues,
     handleShowManufacturerOptionsCheck,
     showManufacturingOptions,
+    showManufacturingOptionsToggle,
     ...otherFields
 }) => {
     return (
@@ -66,15 +67,17 @@ const TemplateQuestionFormModal = ({
                         />
                     </Field>
                 )}
-                {!!selectedPrereq && selectedPrereq.options.length && (
-                    <Field name="Enable Manufacturing options?">
-                        <CheckboxContainer
-                            name="isRequired"
-                            checked={showManufacturingOptions}
-                            handleChange={() => handleShowManufacturerOptionsCheck()}
-                        />
-                    </Field>
-                )}
+                {!!selectedPrereq &&
+                    showManufacturingOptionsToggle &&
+                    selectedPrereq.options.length && (
+                        <Field name="Enable Manufacturing options?">
+                            <CheckboxContainer
+                                name="isRequired"
+                                checked={showManufacturingOptions}
+                                handleChange={() => handleShowManufacturerOptionsCheck()}
+                            />
+                        </Field>
+                    )}
                 {!!selectedPrereq && !selectedPrereq.options.length && (
                     <>
                         <Field name="Prerequisite value" required>

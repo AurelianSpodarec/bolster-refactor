@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import uuid from 'uuid/v1';
 
 import TemplateQuestionFormModal from '../presentational/TemplateQuestionFormModal';
 import withSetQuestion from '../hocs/withSetQuestion';
 import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
 import { convertArrToObj } from 'helpers/generic';
+import { usePrevious } from 'helpers/hooks';
 
 const AddTemplateQuestionModalContainer = ({
     fields: { questionType, questionTypeOptions, prereqUUID, ...fields },
@@ -24,6 +25,30 @@ const AddTemplateQuestionModalContainer = ({
     updateQuestionField,
 }) => {
     const [showManufacturingOptions, setShowManufacturingOptions] = useState(false);
+    const [showManufacturingOptionsToggle, setShowManufacturingOptionsToggle] = useState(false);
+
+    const prevProps = usePrevious({ fields });
+
+    useEffect(() => {
+        if (
+            getQuestionData().prereqUUID &&
+            prevProps.fields.prereqUUID !== getQuestionData().prereqUUID
+        ) {
+            updateQuestionField('prereqVal', '');
+            updateQuestionField('prereqDropdownValues', []);
+
+            if (
+                getQuestionData().prereqUUID &&
+                standardPrereqOptions[getQuestionData().prereqUUID] &&
+                standardPrereqOptions[getQuestionData().prereqUUID].options.length <
+                    allPrereqOptions[getQuestionData().prereqUUID].options.length
+            ) {
+                setShowManufacturingOptionsToggle(true);
+            } else {
+                setShowManufacturingOptionsToggle(false);
+            }
+        }
+    }, [prereqUUID, prevProps.prereqUUID]);
 
     const questionOptions = Object.values(questionTypeOptions).filter(
         ({ value }) =>
@@ -66,6 +91,7 @@ const AddTemplateQuestionModalContainer = ({
             handlePrereqOptionsChange={handlePrereqOptionsChange}
             showManufacturingOptions={showManufacturingOptions}
             handleShowManufacturerOptionsCheck={handleShowManufacturerOptionsCheck}
+            showManufacturingOptionsToggle={showManufacturingOptionsToggle}
         />
     );
 
