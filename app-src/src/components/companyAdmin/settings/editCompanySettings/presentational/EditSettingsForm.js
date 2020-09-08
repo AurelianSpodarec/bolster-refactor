@@ -49,8 +49,8 @@ const EditSettingsForm = ({
     shouldDeleteReportsAfterDownload,
     enableQRCodes,
     useManufacturingByDefault,
-    notUpsyncedAdminNotification,
-    notUpsyncedOperativeWarning,
+    unsyncedCompanyNotificationDays,
+    unsyncedOperativeWarningDays,
 }) => (
     <>
         <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
@@ -320,23 +320,20 @@ const EditSettingsForm = ({
             </div>
             <div className="size-lg-12">
                 <Field
-                    name="Not Upsynced Admin Notification (Days)"
+                    name="Unsynced Company Notification (Days)"
                     sizeClasses="size-lg-6 size-md-12"
                 >
                     <TextInputContainer
-                        value={notUpsyncedAdminNotification}
-                        name="notUpsyncedAdminNotification"
+                        value={unsyncedCompanyNotificationDays}
+                        name="unsyncedCompanyNotificationDays"
                         type="number"
                         handleChange={handleInputChange}
                     />
                 </Field>
-                <Field
-                    name="Not Upsynced Operative Warning (Days)"
-                    sizeClasses="size-lg-6 size-md-12"
-                >
+                <Field name="Unsynced Operative Warning (Days)" sizeClasses="size-lg-6 size-md-12">
                     <TextInputContainer
-                        value={notUpsyncedOperativeWarning}
-                        name="notUpsyncedOperativeWarning"
+                        value={unsyncedOperativeWarningDays}
+                        name="unsyncedOperativeWarningDays"
                         type="number"
                         handleChange={handleInputChange}
                     />

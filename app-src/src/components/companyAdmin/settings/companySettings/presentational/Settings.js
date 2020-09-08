@@ -209,11 +209,11 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                         <BlockHeading title="Notifications" />
                         <FieldOutput
                             title="Unsynced Company Notification (Days)"
-                            description="##25##"
+                            description={company.unsyncedCompanyNotificationDays}
                         />
                         <FieldOutput
                             title="Unsynced Operative Warning (Days)"
-                            description="##6##"
+                            description={company.unsyncedOperativeWarningDays}
                         />
                     </Block>
                 </div>
