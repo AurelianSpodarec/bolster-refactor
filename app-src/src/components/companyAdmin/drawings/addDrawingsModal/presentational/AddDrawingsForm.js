@@ -120,7 +120,7 @@ const AddDrawingsForm = ({
                             )}
                         </div>
                         {!!clientOptions.length && (
-                            <div className="size-lg-12">
+                            <div className="size-lg-12 check-col-6">
                                 <Field name="These clients have access to drawings on this level - invite them to this drawing?">
                                     <CheckboxListContainer
                                         options={clientOptions}
@@ -134,7 +134,7 @@ const AddDrawingsForm = ({
                             </div>
                         )}
                         {!!operativeOptions.length && (
-                            <div className="size-lg-12">
+                            <div className="size-lg-12 check-col-6">
                                 <Field name="These operatives have access to drawings on this level - invite them to this drawing?">
                                     <CheckboxListContainer
                                         options={operativeOptions}
