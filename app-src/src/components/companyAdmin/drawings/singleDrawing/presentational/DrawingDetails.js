@@ -3,13 +3,13 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 
 const DrawingDetails = ({ stats: { lastUpdatedOn, lastUpdatedByName } }) => (
     <p className="size-lg-12">
-        Last Updated:{' '}
+        Last Updated By:{' '}
         {lastUpdatedOn ? (
             <>
+                <span>{`${lastUpdatedByName}`}</span>{' '}
                 <span>
                     <DateTimeContainer date={lastUpdatedOn} />
-                </span>{' '}
-                <span>{`${lastUpdatedByName}`}</span>
+                </span>
             </>
         ) : (
             <span>Not Updated</span>
