@@ -5688,13 +5688,14 @@ input {
         animation: fadeInAnimation ease 400ms;
         animation-iteration-count: 1; 
         animation-fill-mode: forwards;
+        max-width: 95px;
     }
 
     &.multiple {
         position: relative;
 
         img {
-            max-width: 75px;
+            // max-width: 75px;
         }
 
         .arrow {
@@ -5715,7 +5716,7 @@ input {
             }
 
             img {
-                max-width: 50px;
+                max-width: 55px;
             }
         }
 
@@ -5731,7 +5732,7 @@ input {
             }
 
             img {
-                max-width: 50px;
+                max-width: 55px;
             }
         }
 
@@ -5748,7 +5749,7 @@ input {
             }
 
             img {
-                max-width: 50px;
+                max-width: 55px;
             }
         }
 
@@ -5763,7 +5764,7 @@ input {
             }
 
             img {
-                max-width: 50px;
+                max-width: 55px;
             }
         }
     }
