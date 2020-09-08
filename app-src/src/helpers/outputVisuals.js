@@ -28,8 +28,6 @@ export const filterOutput = currentState => {
         return value ? [...result, key] : result;
     }, []);
 
-    console.log(filteredState);
-
     return filteredState;
 };
 
