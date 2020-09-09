@@ -108,11 +108,9 @@ const AddDrawingsFormContainer = ({
             };
 
             const manufacturerActions = pinOptionTypes.map(fn);
-            const permissionsActions = [
-                () => fetchClientsForFloor(floorID),
-                () => fetchOperativesForFloor(floorID),
-            ];
-            await Promise.all(manufacturerActions.concat(permissionsActions)).then(() => {
+            await Promise.all(manufacturerActions).then(() => {
+                fetchClientsForFloor(floorID);
+                fetchOperativesForFloor(floorID);
                 fetchAllOptionValues();
             });
         }
