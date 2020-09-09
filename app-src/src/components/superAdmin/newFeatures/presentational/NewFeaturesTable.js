@@ -5,12 +5,12 @@ import NewFeaturesList from './NewFeaturesList';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-export default function NewFeaturesTable({ newFeatures, headers, error, isFetching }) {
+const NewFeaturesTable = ({ newFeatures, headers, error, isFetching, showNewFeaturesModal }) => {
     return (
         <>
             <BlockContainer>
                 <BlockHeading title="Recent Updates">
-                    <button className="button green">
+                    <button className="button green" onClick={showNewFeaturesModal}>
                         <i className="fa fa-plus" /> Add New Feature
                     </button>
                 </BlockHeading>
@@ -27,4 +27,6 @@ export default function NewFeaturesTable({ newFeatures, headers, error, isFetchi
             </BlockContainer>
         </>
     );
-}
+};
+
+export default NewFeaturesTable;

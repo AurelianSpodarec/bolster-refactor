@@ -9,7 +9,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class SOSGenerationFormContainer extends Component {
     state = {
-        description: ''
+        description: '',
     };
 
     render() {
@@ -28,14 +28,14 @@ class SOSGenerationFormContainer extends Component {
         const { postSuccess, showModal, createdSOSCode } = this.props;
         if (!prevProps.postSuccess && postSuccess) {
             showModal(SUCCESS_MODAL, {
-                message: `SOS Code Successfully Generated. Your SOS code is ${createdSOSCode}`
+                message: `SOS Code Successfully Generated. Your SOS code is ${createdSOSCode}`,
             });
         }
     }
 
     handleChange = (name, value) => {
         this.setState({
-            [name]: value
+            [name]: value,
         });
     };
 
@@ -48,19 +48,16 @@ class SOSGenerationFormContainer extends Component {
 
 const mapStateToProps = ({
     superAdmin: {
-        sosCodesReducer: { postSuccess, createdSOSCode }
-    }
+        sosCodesReducer: { postSuccess, createdSOSCode },
+    },
 }) => ({
     postSuccess,
-    createdSOSCode
+    createdSOSCode,
 });
 
 const mapDispatchToProps = {
     createSOSCode,
-    showModal
+    showModal,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SOSGenerationFormContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SOSGenerationFormContainer);
