@@ -9,48 +9,24 @@ import InviteCompanyToFloor from 'components/companyAdmin/floors/inviteCompanyTo
 import FloorInviteClientContainer from 'components/companyAdmin/floors/singleFloor/containers/FloorInviteClientContainer';
 import AttachFloorDocument from 'components/companyAdmin/floors/attachFloorDocument/presentational/AttachFloorDocument';
 import EditFloorDocument from 'components/companyAdmin/floors/editFloorDocument/presentational/EditFloorDocument';
-import EditCompanyPermissionsOnFloorFormContainer from 'components/companyAdmin/floors/editCompanyOnFloor/containers/EditCompanyPermissionsOnFloorFormContainer';
+import EditCompanyPermissionsOnFloorContainer from 'components/companyAdmin/floors/editCompanyOnFloor/containers/EditCompanyPermissionsOnFloorContainer';
 import AddCompanyPermissionsToFloor from 'components/companyAdmin/floors/addCompanyPermissionsToFloor/presentational/AddCompanyPermissionsToFloor';
 import DocumentResponsesContainer from 'components/shared/documents/containers/DocumentResponsesContainer';
 
 const FloorRoutes = ({ base = '/company/floors' }) => (
     <SwitchWith404>
         <Route exact path={`${base}/:id`} component={SingleFloorContainer} />
-        <Route
-            exact
-            path={`${base}/:id/add-operative`}
-            component={AttachFloorOperative}
-        />
-        <Route
-            exact
-            path={`${base}/:id/invite-client`}
-            component={InviteClientToFloor}
-        />
-        <Route
-            exact
-            path={`${base}/:id/attach-document`}
-            component={AttachFloorDocument}
-        />
-        <Route
-            exact
-            path={`${base}/:id/edit-document/:documentID`}
-            component={EditFloorDocument}
-        />
+        <Route exact path={`${base}/:id/add-operative`} component={AttachFloorOperative} />
+        <Route exact path={`${base}/:id/invite-client`} component={InviteClientToFloor} />
+        <Route exact path={`${base}/:id/attach-document`} component={AttachFloorDocument} />
+        <Route exact path={`${base}/:id/edit-document/:documentID`} component={EditFloorDocument} />
         <Route
             exact
             path={`${base}/:id/document-responses/:documentID`}
             component={DocumentResponsesContainer}
         />
-        <Route
-            exact
-            path={`${base}/:id/client-access`}
-            component={FloorInviteClientContainer}
-        />
-        <Route
-            exact
-            path={`${base}/:id/invite-company`}
-            component={InviteCompanyToFloor}
-        />
+        <Route exact path={`${base}/:id/client-access`} component={FloorInviteClientContainer} />
+        <Route exact path={`${base}/:id/invite-company`} component={InviteCompanyToFloor} />
         <Route
             exact
             path={`${base}/:id/add-permissions/:companyID`}
@@ -59,7 +35,7 @@ const FloorRoutes = ({ base = '/company/floors' }) => (
         <Route
             exact
             path={`${base}/:id/edit-company/:companyID`}
-            component={EditCompanyPermissionsOnFloorFormContainer}
+            component={EditCompanyPermissionsOnFloorContainer}
         />
     </SwitchWith404>
 );
