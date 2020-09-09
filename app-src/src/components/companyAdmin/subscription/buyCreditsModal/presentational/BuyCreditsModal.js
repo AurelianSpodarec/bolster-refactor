@@ -31,26 +31,15 @@ const BuyCreditsModal = ({
     showAddCard,
     hideAddCard,
     handleAddCardSuccess,
-    termsAgreed
+    termsAgreed,
 }) => {
     if (addCardVisible)
-        return (
-            <AddCardFormContainer
-                close={hideAddCard}
-                onSuccess={handleAddCardSuccess}
-            />
-        );
+        return <AddCardFormContainer close={hideAddCard} onSuccess={handleAddCardSuccess} />;
 
     return (
         <ModalOuterContainer>
-            <BlockHeading
-                title="Buy Credits"
-                subTitle={`You have ${credits} credits available.`}
-            />
-            <Form
-                className="generic-form no-min-heights"
-                onSubmit={handleSubmit}
-            >
+            <BlockHeading title="Buy Credits" subTitle={`You have ${credits} credits available.`} />
+            <Form className="generic-form no-min-heights" onSubmit={handleSubmit}>
                 <Field sizeClasses="size-lg-6">
                     <RadioButton
                         name={'paymentType'}
@@ -74,19 +63,11 @@ const BuyCreditsModal = ({
                 {+paymentType === PAYMENT_IDS.CARD && !noCards && (
                     <>
                         <Field sizeClasses="size-lg-12">
-                            <button
-                                className="button green"
-                                type="button"
-                                onClick={showAddCard}
-                            >
+                            <button className="button green" type="button" onClick={showAddCard}>
                                 <i className="fa fa-plus fa-fw" /> Add new card
                             </button>
                         </Field>
-                        <Field
-                            sizeClasses="size-lg-12"
-                            name="Select Card"
-                            required
-                        >
+                        <Field sizeClasses="size-lg-12" name="Select Card" required>
                             <Select
                                 required
                                 name="stripeCardID"
@@ -105,8 +86,7 @@ const BuyCreditsModal = ({
                 )}
                 <Field name="Credits to buy" sizeClasses="size-lg-12" required>
                     <p className="field-info">
-                        If you buy credits in blocks of 10 you will receive 1
-                        free credit.
+                        If you buy credits in blocks of 10 you will receive 1 free credit.
                     </p>
                     <TextInputContainer
                         name="creditsToBuy"
@@ -117,9 +97,7 @@ const BuyCreditsModal = ({
                         required
                         type="number"
                         validate={value =>
-                            value <= 0 || value % 1
-                                ? 'Please enter a positive integer.'
-                                : ''
+                            value <= 0 || value % 1 ? 'Please enter a positive integer.' : ''
                         }
                         classes="large"
                     />
@@ -137,8 +115,7 @@ const BuyCreditsModal = ({
                     <Field name="Agree to terms" required>
                         <p className="generic-text size-lg-12">
                             Please check that you agree with the{' '}
-                            <Link to="/auth/terms ">sales terms</Link> to
-                            proceed with payment.
+                            <Link to="/auth/terms">sales terms</Link> to proceed with payment.
                         </p>
                         <CheckboxContainer
                             checked={termsAgreed}
@@ -153,9 +130,7 @@ const BuyCreditsModal = ({
                     <button className="button green" type="submit">
                         Buy
                     </button>
-                    <ButtonContainer handleClick={hideModal}>
-                        Cancel
-                    </ButtonContainer>
+                    <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
                 </BlockButtonWrapper>
             </Form>
         </ModalOuterContainer>
