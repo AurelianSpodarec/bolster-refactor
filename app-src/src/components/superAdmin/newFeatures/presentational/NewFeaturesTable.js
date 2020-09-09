@@ -9,10 +9,11 @@ export default function NewFeaturesTable({ newFeatures, headers, error, isFetchi
     return (
         <>
             <BlockContainer>
-                <BlockHeading title="Recent Updates" />
-                <button className="button green">
-                    <i className="fa fa-plus" /> Add New Feature
-                </button>
+                <BlockHeading title="Recent Updates">
+                    <button className="button green">
+                        <i className="fa fa-plus" /> Add New Feature
+                    </button>
+                </BlockHeading>
                 <Table
                     withActions
                     headers={headers}
