@@ -7,8 +7,9 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import { formatQuestions } from 'helpers/templates';
 import TemplateSectionQuestionDetailsContainer from '../containers/TemplateSectionQuestionDetailsContainer';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import TemplateDetailsContainer from '../containers/TemplateDetailsContainer';
 
-const SingleTemplate = ({ sections, questions, headers }) => (
+const SingleTemplate = ({ sections, questions, headers, templateID }) => (
     <>
         <PageHeading leftChildren={true} title="Template ">
             <BackButtonContainer />
@@ -28,6 +29,7 @@ const SingleTemplate = ({ sections, questions, headers }) => (
             ))}
         </div>
         <div className="size-lg-4 size-md-12">
+            <TemplateDetailsContainer templateID={templateID} />
             <TemplateSectionQuestionDetailsContainer questions={questions} />
         </div>
     </>
