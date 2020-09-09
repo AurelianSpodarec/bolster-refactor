@@ -1,10 +1,11 @@
 import React from 'react';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
+import NewFeaturesList from './NewFeaturesList';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-export default function NewFeaturesTable() {
+export default function NewFeaturesTable({ newFeatures, headers, error, isFetching }) {
     return (
         <>
             <BlockContainer>
@@ -12,15 +13,16 @@ export default function NewFeaturesTable() {
                 <button className="button green">
                     <i className="fa fa-plus" /> Add New Feature
                 </button>
-                {/* <Table
-                withActions
-                headers={headers}
-                isFetching={isFetching}
-                error={error}
-                noData={!sosCodes.length}
-                noDataMessage="No New Features to display"
-            >
-            </Table> */}
+                <Table
+                    withActions
+                    headers={headers}
+                    isFetching={isFetching}
+                    error={error}
+                    noData={!newFeatures.length}
+                    noDataMessage="No New Features to display"
+                >
+                    <NewFeaturesList newFeatures={newFeatures} />
+                </Table>
             </BlockContainer>
         </>
     );
