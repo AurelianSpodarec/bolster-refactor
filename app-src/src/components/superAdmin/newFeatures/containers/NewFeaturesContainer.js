@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import NewFeatures from '../presentational/NewFeatures';
 import fetchAllNewFeatures from 'actions/superAdmin/newFeatures/async/fetchAllNewFeatures';
 
-function NewFeaturesContainer() {
+function NewFeaturesContainer({ fetchAllNewFeatures }) {
+    useEffect(() => {
+        fetchAllNewFeatures();
+    }, []);
+
     return <NewFeatures />;
 }
 
