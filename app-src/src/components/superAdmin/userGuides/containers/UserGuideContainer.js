@@ -8,27 +8,31 @@ import { UPLOAD_USER_GUIDE } from 'constants/shared/modalTypes';
 import { componentDidMount } from 'helpers/generic';
 import { RAW_S3_STORAGE_URL } from 'config';
 import { usePrevious } from 'helpers/hooks';
+import fetchAllUserGuideVersions from 'actions/superAdmin/userGuides/async/fetchAllUserGuideVersions';
 
 const UserGuideContainer = ({
-    fetchUserGuide,
+    fetchAllUserGuideVersions,
     showUploadUserGuideModal,
-    userGuide,
+    versions,
     postSuccess,
-    isFetching, error
+    isFetching,
+    error,
 }) => {
-    componentDidMount(fetchUserGuide);
-
-    const userguideLink = `${RAW_S3_STORAGE_URL}/${userGuide.s3Key}`;
+    componentDidMount(fetchAllUserGuideVersions);
+    const sortedVersions = [...versions].sort((a, b) => a.createdOn - b.createdOn);
+    const [latestVersion = {}] = sortedVersions;
+    const userguideLink = `${RAW_S3_STORAGE_URL}/${latestVersion.s3Key}`;
     const prevProps = usePrevious({ postSuccess });
 
     useEffect(() => {
         if (!prevProps.postSuccess && postSuccess) {
-            fetchUserGuide();
+            fetchAllUserGuideVersions();
         }
     }, [postSuccess]);
     return (
         <UserGuidesPresentational
             showUploadUserGuideModal={showUploadUserGuideModal}
+            versions={sortedVersions}
             userGuideLink={userguideLink}
             isFetching={isFetching}
             error={error}
@@ -38,15 +42,16 @@ const UserGuideContainer = ({
 
 const mapDispatchToProps = dispatch => ({
     fetchUserGuide: () => dispatch(fetchUserGuide()),
+    fetchAllUserGuideVersions: () => dispatch(fetchAllUserGuideVersions()),
     showUploadUserGuideModal: () => dispatch(showModal(UPLOAD_USER_GUIDE)),
 });
 
 const mapStateToProps = ({
     superAdmin: {
-        userGuideReducer: { postSuccess, userGuide, isFetching, error },
+        userGuideReducer: { postSuccess, versions, isFetching, error },
     },
 }) => ({
-    userGuide,
+    versions,
     isFetching,
     error,
     postSuccess,

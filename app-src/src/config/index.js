@@ -1,5 +1,5 @@
 // - Staging
-export const API_URL = 'https://api.company.bolster-staging.com';
+// export const API_URL = 'https://api.company.bolster-staging.com';
 export const CLIENT_API_URL = 'https://api.client.bolster-staging.com';
 export const FILE_API_URL = 'https://api.media.bolster-staging.com/files';
 export const ADMIN_API_URL = 'https://api.admin.bolster-staging.com';
@@ -29,7 +29,7 @@ export const INVOICE_GEN_URL =
 // export const INVOICE_GEN_URL =
 // 'https://6eixv6n0wf.execute-api.eu-west-1.amazonaws.com/staging/bolster-invoice-gen-staging';
 // - Local Dev
-// export const API_URL = 'https://localhost:5021';
+export const API_URL = 'https://localhost:5021';
 // export const CLIENT_API_URL = 'https://localhost:5051';
 // export const FILE_API_URL = 'https://localhost:5031/files';
 // export const ADMIN_API_URL = 'https://localhost:5011';

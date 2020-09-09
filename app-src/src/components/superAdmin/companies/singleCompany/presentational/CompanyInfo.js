@@ -1,7 +1,8 @@
 import React from 'react';
 
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
-import { VAT_TYPES, VAT_TYPE_NAME } from 'constants/companyAdmin/enums';
+import { VAT_TYPE_NAME } from 'constants/companyAdmin/enums';
+import { needsVatCode } from 'constants/shared/vatTypes';
 
 const CompanyInfo = ({
     company,
@@ -17,7 +18,7 @@ const CompanyInfo = ({
             fieldClass="no-h-padding"
         />
 
-        {company.vatType !== VAT_TYPES.OUTSIDEEU && (
+        {needsVatCode(company.vatType) && (
             <FieldOutput
                 title="VAT Code"
                 description={company.vatCode || 'Not provided'}

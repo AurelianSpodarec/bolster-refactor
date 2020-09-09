@@ -10,7 +10,7 @@ import InviteClientToSiteContainer from 'components/companyAdmin/sites/inviteCli
 import InviteCompanyToSiteContainer from 'components/companyAdmin/sites/inviteCompanyToSite/containers/InviteCompanyToSiteContainer';
 import AttachSiteDocument from 'components/companyAdmin/sites/attachSiteDocument/presentational/AttachSiteDocument';
 import EditSiteDocument from 'components/companyAdmin/sites/editSiteDocument/presentational/EditSiteDocument';
-import EditCompanyPermissionsOnSiteFormContainer from 'components/companyAdmin/sites/editCompanyOnSite/containers/EditCompanyPermissionsOnSiteFormContainer';
+import EditCompanyPermissionsOnSiteContainer from 'components/companyAdmin/sites/editCompanyOnSite/containers/EditCompanyPermissionsOnSiteContainer';
 import AddCompanyPermissionsToSite from 'components/companyAdmin/sites/addCompanyPermissionsToSite/presentational/AddCompanyPermissionsToSite';
 import DocumentResponsesContainer from 'components/shared/documents/containers/DocumentResponsesContainer';
 
@@ -18,33 +18,13 @@ const SitesRoutes = ({ base = '/company/sites' }) => (
     <SwitchWith404>
         <Route exact path={`${base}`} component={AllSitesContainer} />
         <Route exact path={`${base}/:id`} component={SingleSiteContainer} />
-        <Route
-            exact
-            path={`${base}/:id/change-ownership`}
-            component={ChangeSiteOwnership}
-        />
-        <Route
-            exact
-            path={`${base}/:id/add-operative`}
-            component={AttachSiteOperative}
-        />
-        <Route
-            exact
-            path={`${base}/:id/invite-client`}
-            component={InviteClientToSiteContainer}
-        />
+        <Route exact path={`${base}/:id/change-ownership`} component={ChangeSiteOwnership} />
+        <Route exact path={`${base}/:id/add-operative`} component={AttachSiteOperative} />
+        <Route exact path={`${base}/:id/invite-client`} component={InviteClientToSiteContainer} />
 
-        <Route
-            exact
-            path={`${base}/:id/attach-document`}
-            component={AttachSiteDocument}
-        />
+        <Route exact path={`${base}/:id/attach-document`} component={AttachSiteDocument} />
 
-        <Route
-            exact
-            path={`${base}/:id/edit-document/:documentID`}
-            component={EditSiteDocument}
-        />
+        <Route exact path={`${base}/:id/edit-document/:documentID`} component={EditSiteDocument} />
 
         <Route
             exact
@@ -52,11 +32,7 @@ const SitesRoutes = ({ base = '/company/sites' }) => (
             component={DocumentResponsesContainer}
         />
 
-        <Route
-            exact
-            path={`${base}/:id/invite-company`}
-            component={InviteCompanyToSiteContainer}
-        />
+        <Route exact path={`${base}/:id/invite-company`} component={InviteCompanyToSiteContainer} />
         <Route
             exact
             path={`${base}/:id/add-permissions/:companyID`}
@@ -65,7 +41,7 @@ const SitesRoutes = ({ base = '/company/sites' }) => (
         <Route
             exact
             path={`${base}/:id/edit-company/:companyID`}
-            component={EditCompanyPermissionsOnSiteFormContainer}
+            component={EditCompanyPermissionsOnSiteContainer}
         />
     </SwitchWith404>
 );
