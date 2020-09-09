@@ -13,6 +13,7 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 import Select from 'components/shared/generic/form/presentational/Select';
 import { VAT_TYPES } from 'constants/companyAdmin/enums';
 import CountriesSelectList from 'components/shared/generic/form/presentational/CountriesSelectList';
+import { needsVatCode } from 'constants/shared/vatTypes';
 
 const EditSettingsForm = ({
     handleInputChange,
@@ -141,7 +142,7 @@ const EditSettingsForm = ({
                     required
                 />
             </Field>
-            {vatType && vatType !== VAT_TYPES.OUTSIDEEU && (
+            {vatType && needsVatCode(vatType) && (
                 <Field
                     name="VAT Code"
                     smallDesc={
@@ -149,7 +150,7 @@ const EditSettingsForm = ({
                             ? '(Please enter GB before your VAT code e.g GB123456789)'
                             : null
                     }
-                    required={vatType !== VAT_TYPES.OUTSIDEEU}
+                    required={needsVatCode(vatType)}
                     sizeClasses="size-lg-6 size-md-12"
                 >
                     <TextInputContainer

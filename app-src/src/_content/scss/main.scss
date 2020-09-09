@@ -3952,6 +3952,15 @@ input {
             }
         }
     }
+
+    &.large{
+        .option-selection{
+            .option-container{
+                max-height: 147px;
+
+            }
+        }
+    }
 }
 
 .chartjs-render-monitor {
