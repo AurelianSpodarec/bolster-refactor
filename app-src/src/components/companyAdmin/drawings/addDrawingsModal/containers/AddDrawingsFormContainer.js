@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom';
 
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
+import fetchClientsForFloor from 'actions/companyAdmin/clients/async/fetchClientsForFloor';
+import fetchOperativesForFloor from 'actions/companyAdmin/operatives/async/fetchOperativesForFloor';
 import {
     createManufacturerOptionList,
     createOptionValuesList,
@@ -47,6 +49,8 @@ const AddDrawingsFormContainer = ({
     error,
     clients,
     operatives,
+    fetchClientsForFloor,
+    fetchOperativesForFloor,
 }) => {
     const initialClientPermissionIDs = clients.map(({ id }) => id + '');
     const initialOperativePermissionIDs = operatives.map(({ id }) => id + '');
@@ -58,9 +62,9 @@ const AddDrawingsFormContainer = ({
         removeDrawing,
         getKeys,
         getPostBody,
+        setInitialManufacturerFloorOptions,
         // eslint-disable-next-line no-unused-vars
         _,
-        setInitialManufacturerFloorOptions,
     ] = useMultipleHierarchies({
         name: '',
         file: '',
@@ -103,9 +107,12 @@ const AddDrawingsFormContainer = ({
                 return fetchManufacturersByPinOptionType(pinOptionType);
             };
 
-            const actions = pinOptionTypes.map(fn);
-
-            await Promise.all(actions).then(() => {
+            const manufacturerActions = pinOptionTypes.map(fn);
+            const permissionsActions = [
+                () => fetchClientsForFloor(floorID),
+                () => fetchOperativesForFloor(floorID),
+            ];
+            await Promise.all(manufacturerActions.concat(permissionsActions)).then(() => {
                 fetchAllOptionValues();
             });
         }
@@ -322,7 +329,8 @@ const mapStateToProps = (
     floor: floors[floorID],
     manufacturers,
     optionValues: manufacturersOptionValues,
-    isFetching: isFetchingManufacturers || isFetchingOptionValues,
+    isFetching:
+        isFetchingManufacturers || isFetchingOptionValues || fetchingOperatives || fetchingClients,
     useManufacturingByDefault,
     subscriptionServiceIDs,
     clients: Object.values(clients),
@@ -336,5 +344,8 @@ const mapDispatchToProps = {
     updateHierarchyAddState,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
+    fetchClientsForFloor,
+    fetchOperativesForFloor,
 };
+
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddDrawingsFormContainer));
