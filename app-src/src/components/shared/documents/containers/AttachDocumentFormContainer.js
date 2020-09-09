@@ -28,13 +28,10 @@ class AttachDocumentFormContainer extends Component {
         documentVisibility: null,
     };
     render = () => {
-        const { filesUploading, backUrl, companyID, companiesWithPermissions } = this.props;
+        const { filesUploading, backUrl } = this.props;
         const serviceOptions = this._getServicesOptions();
-        const showMoreServicesMesssage = serviceOptions.some(option => option.disabled === true);
-        console.warn({ companyID, companiesWithPermissions });
-        console.warn({ companyID, companiesWithPermissions });
-        console.warn({ companyID, companiesWithPermissions });
-
+        const showMoreServicesMesssage = serviceOptions.some(option => option.disabled);
+        const showClientServicesMessage = serviceOptions.some(option => option.hideClientAccess);
         return (
             <AttachDocumentForm
                 {...this.state}
@@ -50,6 +47,7 @@ class AttachDocumentFormContainer extends Component {
                 backUrl={backUrl}
                 filesUploading={filesUploading}
                 showMoreServicesMesssage={showMoreServicesMesssage}
+                showClientServicesMessage={showClientServicesMessage}
             />
         );
     };
@@ -99,12 +97,24 @@ class AttachDocumentFormContainer extends Component {
     };
 
     _getServicesOptions = () => {
-        const { services, subscriptions } = this.props;
-        return services.map(({ id, name }) => ({
-            value: id,
-            text: name,
-            disabled: !subscriptions.includes(id),
-        }));
+        const { services, subscriptions, companiesWithPermissions, companyID } = this.props;
+        const relevantPermissions = companiesWithPermissions.filter(
+            perm => perm.companyID === companyID,
+        );
+
+        return services.map(({ id, name }) => {
+            const hasSub = subscriptions.includes(id);
+            // relevant service match or null, which implies all access
+            const hasAccess = !!relevantPermissions.find(
+                perm => perm.serviceID === id || perm.serviceID === null,
+            );
+            return {
+                value: id,
+                text: name,
+                disabled: !(hasSub && hasAccess),
+                hideClientAccess: !hasAccess,
+            };
+        });
     };
 
     handleCheckboxChange = name => {
@@ -146,7 +156,9 @@ const mapStateToProps = (
         },
         shared: {
             filesUploadingReducer: { filesUploading },
-            decodeJWTReducer: { jwtData: companyID },
+            decodeJWTReducer: {
+                jwtData: { companyID },
+            },
         },
     },
     { match },
@@ -157,18 +169,11 @@ const mapStateToProps = (
     subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
     hierarchyID: match.params.id,
     postSuccess: documentsReducer.postSuccess,
-    companyID: companyID.companyID,
+    companyID,
     companiesWithPermissions: Object.values(companiesPermissionsReducer.companiesPermissions),
 });
 
-const mapDispatchToProps = dispatch => ({
-    createDocument: (type, id, postBody) => {
-        dispatch(createDocument(type, id, postBody));
-    },
-    fetchCompaniesPermissions: (type, id) => {
-        dispatch(fetchCompaniesPermissions(type, id));
-    },
-});
+const mapDispatchToProps = { createDocument, fetchCompaniesPermissions };
 
 export default withRouter(
     connect(mapStateToProps, mapDispatchToProps)(AttachDocumentFormContainer),

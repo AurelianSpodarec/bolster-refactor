@@ -23,6 +23,7 @@ const InviteClientForm = ({
     phoneNumber,
     companyName,
     showMoreServicesMesssage,
+    showClientServicesMessage,
     clients,
     inviteNewClient,
     userOptions
@@ -140,6 +141,12 @@ const InviteClientForm = ({
             </Field>
 
             <BlockButtonWrapper>
+                {showClientServicesMessage && (
+                    <p className="generic-text size-lg-12">
+                        Some of your service options have been omitted because you have not been
+                        granted permissions for them on this drawing.
+                    </p>
+                )}
                 {showMoreServicesMesssage && (
                     <p className="generic-text size-lg-12">
                         Looking for more service types? Check your{' '}
