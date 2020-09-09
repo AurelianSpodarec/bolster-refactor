@@ -8,6 +8,8 @@ import CheckboxListContainer from 'components/shared/generic/form/containers/Che
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
 const InviteClientForm = ({
     location,
@@ -21,62 +23,107 @@ const InviteClientForm = ({
     phoneNumber,
     companyName,
     showMoreServicesMesssage,
+    clients,
+    inviteNewClient,
+    userOptions
 }) => (
     <>
-        <BlockHeading title="Client Details" />
-        <p className="generic-text size-lg-12">
-            Please enter the email address of the user you wish to invite. If the user does not have
-            a Bolster systems account, they will be prompted to create one to accepted your
-            invitation.
-        </p>
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
-            <div className="size-lg-12">
-                <Field name="Email address" sizeClasses="size-lg-6 size-md-12" required>
-                    <TextInputContainer
-                        name="email"
-                        value={email}
-                        type="email"
-                        handleChange={handleChange}
+            <Field labelClasses="no-capitalise" name="Invite new client?">
+            <CheckboxContainer
+                checked={inviteNewClient}
+                name="inviteNewClient"
+                text=""
+                handleChange={handleChange}
+            />
+            </Field>
+                          
+                {!inviteNewClient && (
+                <Field
+                       name="Select client(s)"
+                       sizeClasses="size-lg-6 size-md-12"
+                       required
+                   >   
+                    <MultiSelect
+                        name="clients"
+                        options={userOptions}
+                        value={clients}
+                        onChange={handleChange}
+                        placeholder="-- select operatives --"
+                        search
                         required
                     />
-                </Field>
-            </div>
+                    </Field>
+                )}
 
-            <Field name="First name" sizeClasses="size-lg-4 size-md-12" required>
-                <TextInputContainer
-                    name="firstName"
-                    value={firstName}
+                {/* <DropdownContainer
+                    placeholder="-- select operative --"
+                    name="companyUserID"
+                    options={users}
+                    selectedOption={selectedUser}
                     handleChange={handleChange}
                     required
-                />
-            </Field>
+                /> */}
+         
+        
+            {inviteNewClient && (
+                <>
+                    <BlockHeading title="Client Details" />
+                    <p className="generic-text in-form size-lg-12">
+                        You can also invite a new client, please enter the email address of the user
+                        you wish to invite.
+                        <br /> If the user does not have a Bolster systems account, they will be
+                        prompted to create one to accepted your invitation.
+                    </p>
+                    <div className="size-lg-12">
+                        <Field name="Email address" sizeClasses="size-lg-6 size-md-12" required>
+                            <TextInputContainer
+                                name="email"
+                                value={email}
+                                type="email"
+                                handleChange={handleChange}
+                                required
+                            />
+                        </Field>
+                    </div>
 
-            <Field name="Last name" sizeClasses="size-lg-4 size-md-12" required>
-                <TextInputContainer
-                    name="lastName"
-                    value={lastName}
-                    handleChange={handleChange}
-                    required
-                />
-            </Field>
+                    <Field name="First name" sizeClasses="size-lg-4 size-md-12" required>
+                        <TextInputContainer
+                            name="firstName"
+                            value={firstName}
+                            handleChange={handleChange}
+                            required
+                        />
+                    </Field>
 
-            <Field name="Phone number" sizeClasses="size-lg-4 size-md-12" required>
-                <TextInputContainer
-                    name="phoneNumber"
-                    value={phoneNumber}
-                    handleChange={handleChange}
-                    required
-                />
-            </Field>
+                    <Field name="Last name" sizeClasses="size-lg-4 size-md-12" required>
+                        <TextInputContainer
+                            name="lastName"
+                            value={lastName}
+                            handleChange={handleChange}
+                            required
+                        />
+                    </Field>
 
-            <Field name="Company name" sizeClasses="size-lg-4 size-md-12" required>
-                <TextInputContainer
-                    name="companyName"
-                    value={companyName}
-                    handleChange={handleChange}
-                    required
-                />
-            </Field>
+                    <Field name="Phone number" sizeClasses="size-lg-4 size-md-12" required>
+                        <TextInputContainer
+                            name="phoneNumber"
+                            value={phoneNumber}
+                            handleChange={handleChange}
+                            required
+                        />
+                    </Field>
+
+                    <Field name="Company name" sizeClasses="size-lg-4 size-md-12" required>
+                        <TextInputContainer
+                            name="companyName"
+                            value={companyName}
+                            handleChange={handleChange}
+                            required
+                        />
+                    </Field>
+                </>
+            )}
 
             <Field name="Service types" sizeClasses="size-lg-12" required>
                 <p className="generic-text size-lg-12">
