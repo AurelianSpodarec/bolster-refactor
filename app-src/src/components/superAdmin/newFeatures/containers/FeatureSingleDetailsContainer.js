@@ -5,10 +5,10 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import { withRouter } from 'react-router-dom';
 import FeatureSingleDetails from '../presentational/FeatureSingleDetails';
 
-function FeatureSingleDetailsContainer({ feature }) {
+function FeatureSingleDetailsContainer({ feature, isFetching, error }) {
     return (
         <>
-            <BlockContainer>
+            <BlockContainer isFetching={isFetching} error={error} isEmpty={!feature.id}>
                 <FeatureSingleDetails feature={feature} />
             </BlockContainer>
         </>

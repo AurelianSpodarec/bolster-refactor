@@ -7,7 +7,7 @@ import FeatureSingleDetailsContainer from '../containers/FeatureSingleDetailsCon
 export default function featureSingle() {
     return (
         <>
-            <PageHeading title="New Feature" withBackButton>
+            <PageHeading title="Recent Updates" withBackButton>
                 <Breadcrumb
                     breadcrumbs={[
                         { link: '/admin/new-features', text: 'List of New Features' },
