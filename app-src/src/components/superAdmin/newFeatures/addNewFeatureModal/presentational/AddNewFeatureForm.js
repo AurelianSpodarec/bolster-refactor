@@ -42,6 +42,7 @@ export default function AddNewFeatureForm({ handleChange, handleSubmit, form }) 
                     selected={form.publishDate}
                     onChange={val => handleChange('publishDate', val)}
                     placeholderText="Publish Date"
+                    showTimeSelect
                     // onBlur={() => handleDateBlur(true)}
                 />
             </Field>

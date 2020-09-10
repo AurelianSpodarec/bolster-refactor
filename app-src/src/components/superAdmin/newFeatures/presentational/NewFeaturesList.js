@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
@@ -9,7 +10,9 @@ const NewFeaturesList = ({ newFeatures }) =>
             <td>{newFeature.shortDescription}</td>
             <td>
                 {' '}
-                <DateTimeContainer date={newFeature.publishDate} />
+                <DateTimeContainer
+                    date={moment(newFeature.publishDate).format('YYYY-MM-DDTHH:mm:ss')}
+                />
             </td>
         </tr>
     ));

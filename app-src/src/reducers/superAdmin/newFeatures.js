@@ -14,7 +14,7 @@ export default combineReducers({
     error: errorReducer,
     newFeatures: newFeaturesReducer,
     postSuccess: postSuccessReducer,
-    addedNewFeature: addedNewFeatureReducer,
+    isPosting: isPostingReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -46,6 +46,8 @@ function newFeaturesReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_ALL_NEW_FEATURES_SUCCESS:
             return convertArrToObj(action.payload);
+        case ADD_NEW_FEATURE_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }
@@ -62,12 +64,13 @@ function postSuccessReducer(state = false, action) {
     }
 }
 
-function addedNewFeatureReducer(state = 0, action) {
+function isPostingReducer(state = false, action) {
     switch (action.type) {
         case ADD_NEW_FEATURE_REQUEST:
-            return 0;
+            return true;
         case ADD_NEW_FEATURE_SUCCESS:
-            return updateObj(action.payload);
+        case ADD_NEW_FEATURE_FAILURE:
+            return false;
         default:
             return state;
     }

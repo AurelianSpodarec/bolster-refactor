@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { DATE_TIMES, DATE_TIME_IDS, DATE_TIME_DEFAULTS } from 'constants/companyAdmin/enums';
 
 const DateTimeContainer = ({ date, timeZone, dateFormat, className = '' }) => {
+    console.log(date);
     return (
         <Moment tz={timeZone} format={dateFormat} date={date + '+00:00'} className={className} />
     );
