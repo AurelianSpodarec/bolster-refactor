@@ -1134,13 +1134,12 @@ input {
 
         .list {
             position: absolute;
-            top: 100%;
             right: 0;
             width: 300px;
-            z-index: 100;
             max-height: 295px;
             overflow: auto;
             box-shadow: 0px 1px 3px -2px black;
+            @include dropdown-popup();
 
             .item {
                 display: block;

@@ -1,12 +1,12 @@
 import React from 'react';
 
-const RecentUpdates = () => (
-    <div className="recent-updates">
-        <button className="icon" type="button">
+const RecentUpdates = ({ node, listVisible, toggleListVisibility }) => (
+    <div className="recent-updates" ref={node}>
+        <button className="icon" type="button" onClick={toggleListVisibility}>
             <i className="fas fa-bullhorn"></i>
         </button>
 
-        <div className="list">
+        <div className={`list ${listVisible ? 'visible' : ''}`}>
             <a className="item">
                 <h2>Announcement</h2>
                 <p>Lorem ipsum dolor sit amet consectetur</p>
