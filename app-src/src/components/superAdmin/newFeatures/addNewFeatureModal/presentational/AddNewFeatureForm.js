@@ -4,10 +4,11 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-export default function AddNewFeatureForm({ handleChange, form }) {
+export default function AddNewFeatureForm({ handleChange, handleSubmit, form }) {
     return (
-        <Form className="generic-form">
+        <Form onSubmit={handleSubmit} className="generic-form">
             <Field name="Enter Title" required>
                 <TextInputContainer
                     placeholder="Enter title of the new feature"
@@ -35,7 +36,7 @@ export default function AddNewFeatureForm({ handleChange, form }) {
                     required
                 />
             </Field>
-            <Field name="Date range" sizeClasses="w-dates size-lg-12">
+            <Field name="Date range" sizeClasses="w-dates size-lg-12" required>
                 <DatePickerContainer
                     name="publishDate"
                     selected={form.publishDate}
@@ -44,6 +45,9 @@ export default function AddNewFeatureForm({ handleChange, form }) {
                     // onBlur={() => handleDateBlur(true)}
                 />
             </Field>
+            <BlockButtonWrapper>
+                <button className="button green">Add New Feature</button>
+            </BlockButtonWrapper>
         </Form>
     );
 }
