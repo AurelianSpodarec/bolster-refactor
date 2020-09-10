@@ -2,7 +2,6 @@ import React from 'react';
 import moment from 'moment';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { Link } from 'react-router-dom';
 
 const NewFeaturesList = ({ newFeatures }) =>
@@ -17,7 +16,7 @@ const NewFeaturesList = ({ newFeatures }) =>
                 />
             </td>
             <td>
-                <Link to={`/`} className="button">
+                <Link to={`/admin/new-features/${newFeature.id}`} className="button">
                     <i className="fa fa-eye fa-fw" />
                     View
                 </Link>
