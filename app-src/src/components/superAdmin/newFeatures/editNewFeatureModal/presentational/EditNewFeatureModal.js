@@ -2,14 +2,13 @@ import React from 'react';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import EditNewFeatureContainer from '../container/EditNewFeatureContainer';
+import EditFeatureFormContainer from '../container/EditFeatureFormContainer';
 
-const EditNewFeatureModal = ({ newFeature }) => {
-    console.log(newFeature);
+const EditNewFeatureModal = ({ feature, hideModal }) => {
     return (
         <ModalOuterContainer>
             <BlockHeading title="Edit Feature" />
-            <EditNewFeatureContainer />
+            <EditFeatureFormContainer feature={feature} hideModal={hideModal} />
         </ModalOuterContainer>
     );
 };
