@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import NewFeaturesTable from '../presentational/NewFeaturesTable';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { ADD_NEW_FEATURE } from 'constants/shared/modalTypes';
+import { CONFIRM_DELETE, ERROR_MODAL, EDIT_NEW_FEATURE } from 'constants/shared/modalTypes';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import deleteFeature from 'actions/superAdmin/newFeatures/async/deleteFeature';
 
 function NewFeaturesTableContainer({ isFetching, error, newFeatures, showModal }) {
     return (
@@ -13,11 +16,30 @@ function NewFeaturesTableContainer({ isFetching, error, newFeatures, showModal }
             error={error}
             newFeatures={newFeatures}
             showNewFeaturesModal={showNewFeaturesModal}
+            showDeleteModal={showDeleteModal}
+            showEditModal={showEditModal}
         />
     );
 
     function showNewFeaturesModal() {
         showModal(ADD_NEW_FEATURE);
+    }
+
+    function showDeleteModal(id) {
+        showModal(CONFIRM_DELETE, { handleDelete: () => handleDelete(id) });
+    }
+
+    function showEditModal(feature) {
+        showModal(EDIT_NEW_FEATURE, { feature });
+    }
+
+    async function handleDelete(id) {
+        const { success } = await deleteFeature(id);
+        if (success) {
+            hideModal();
+        } else {
+            showModal(ERROR_MODAL);
+        }
     }
 }
 
@@ -33,6 +55,8 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = {
     showModal,
+    deleteFeature,
+    hideModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewFeaturesTableContainer);
