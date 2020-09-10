@@ -4,8 +4,8 @@ import moment from 'moment';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { Link } from 'react-router-dom';
 
-const NewFeaturesList = ({ newFeatures }) =>
-    newFeatures.map(newFeature => (
+const NewFeaturesList = ({ newFeatures, showDeleteModal }) => {
+    return newFeatures.map(newFeature => (
         <tr key={newFeature.id}>
             <td>{newFeature.title}</td>
             <td>{newFeature.shortDescription}</td>
@@ -20,14 +20,12 @@ const NewFeaturesList = ({ newFeatures }) =>
                     <i className="fa fa-eye fa-fw" />
                     View
                 </Link>
-                <button
-                    className="button red"
-                    // onClick={() => removeCustomField(id)}
-                >
+                <button className="button red" onClick={() => showDeleteModal(newFeature.id)}>
                     <i className="fa fa-times fa-fw" />
-                    Remove
+                    Delete
                 </button>
             </td>
         </tr>
     ));
+};
 export default NewFeaturesList;

@@ -9,8 +9,9 @@ import {
     FETCH_SINGLE_FEATURE_REQUEST,
     FETCH_SINGLE_FEATURE_SUCCESS,
     FETCH_SINGLE_FEATURE_FAILURE,
+    DELETE_FEATURE_SUCCESS,
 } from 'constants/actionTypes/superAdminNewFeatures';
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
@@ -55,9 +56,10 @@ function newFeaturesReducer(state = {}, action) {
         case FETCH_ALL_NEW_FEATURES_SUCCESS:
             return convertArrToObj(action.payload);
         case FETCH_SINGLE_FEATURE_SUCCESS:
-            return updateObj(state, action.payload.id, action.payload);
         case ADD_NEW_FEATURE_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+        case DELETE_FEATURE_SUCCESS:
+            return removeObjItem(state, action.id);
         default:
             return state;
     }

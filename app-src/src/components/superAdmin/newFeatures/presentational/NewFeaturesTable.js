@@ -5,7 +5,22 @@ import NewFeaturesList from './NewFeaturesList';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const NewFeaturesTable = ({ newFeatures, headers, error, isFetching, showNewFeaturesModal }) => {
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import { CONFIRM_DELETE, ERROR_MODAL } from 'constants/shared/modalTypes';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { connect } from 'react-redux';
+import deleteFeature from 'actions/superAdmin/newFeatures/async/deleteFeature';
+
+const NewFeaturesTable = ({
+    newFeatures,
+    headers,
+    error,
+    isFetching,
+    showNewFeaturesModal,
+    showModal,
+    deleteFeature,
+    hideModal,
+}) => {
     return (
         <>
             <BlockContainer>
@@ -22,11 +37,29 @@ const NewFeaturesTable = ({ newFeatures, headers, error, isFetching, showNewFeat
                     noData={!newFeatures.length}
                     noDataMessage="No New Features to display"
                 >
-                    <NewFeaturesList newFeatures={newFeatures} />
+                    <NewFeaturesList newFeatures={newFeatures} showDeleteModal={showDeleteModal} />
                 </Table>
             </BlockContainer>
         </>
     );
+
+    function showDeleteModal(id) {
+        showModal(CONFIRM_DELETE, { handleDelete: () => handleDelete(id) });
+    }
+
+    async function handleDelete(id) {
+        const { success } = await deleteFeature(id);
+        if (success) {
+            hideModal();
+        } else {
+            showModal(ERROR_MODAL);
+        }
+    }
 };
 
-export default NewFeaturesTable;
+const mapDispatchToProps = {
+    showModal,
+    deleteFeature,
+    hideModal,
+};
+export default connect(null, mapDispatchToProps)(NewFeaturesTable);
