@@ -9,7 +9,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
-import AddNewFeatureForm from '../presentational/AddNewFeatureForm';
+import FeatureForm from '../../presentational/FeatureForm';
 import addNewFeature from 'actions/superAdmin/newFeatures/async/addNewFeature';
 
 function AddNewFeatureFormContainer({ addNewFeature, isPosting, postSuccess, error, hideModal }) {
@@ -36,13 +36,7 @@ function AddNewFeatureFormContainer({ addNewFeature, isPosting, postSuccess, err
         }
     }, [isPosting, postSuccess, prevProps.isPosting, error]);
 
-    return (
-        <AddNewFeatureForm
-            handleChange={handleChange}
-            form={formData}
-            handleSubmit={handleSubmit}
-        />
-    );
+    return <FeatureForm handleChange={handleChange} form={formData} handleSubmit={handleSubmit} />;
 }
 
 const mapStateToProps = ({
