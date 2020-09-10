@@ -1105,6 +1105,33 @@ input {
             }
         }
     }
+
+    .recent-updates {
+        display: flex;
+        float: left;
+        height: 100%;
+        margin-left: 15px;
+        justify-content: center;
+        align-items: center;
+
+        .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: $background-grey;
+            cursor: pointer;
+            outline: none;
+
+            &.unread {
+                background-color: $red;
+            }
+
+            i {
+                color: white;
+                font-size: 160%;
+            }
+        }
+    }
 }
 
 .heading {
