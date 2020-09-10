@@ -1131,6 +1131,41 @@ input {
                 font-size: 160%;
             }
         }
+
+        .list {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 300px;
+            z-index: 100;
+            max-height: 295px;
+            overflow: auto;
+            box-shadow: 0px 1px 3px -2px black;
+
+            .item {
+                display: block;
+                padding: 10px;
+                background-color: #fefefe;
+                cursor: pointer;
+
+                &:nth-child(even) {
+                    background-color: $background-grey;
+                }
+            }
+
+            h2, p {
+                line-height: 1.5;
+            }
+
+            h2 {
+                font-size: 140%;
+            }
+
+            p {
+                font-size: 120%;
+                color: $text-grey;
+            }
+        }
     }
 }
 
