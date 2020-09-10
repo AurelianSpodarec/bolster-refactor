@@ -18,7 +18,6 @@ function AddNewFeatureFormContainer({ addNewFeature, isPosting, postSuccess, err
         shortDescription: '',
         fullDescription: '',
         publishDate: '',
-        createdOn: '',
     });
 
     const prevProps = usePrevious({ isPosting });
@@ -27,6 +26,7 @@ function AddNewFeatureFormContainer({ addNewFeature, isPosting, postSuccess, err
         e.preventDefault();
         addNewFeature({ ...formData, publishDate: moment(formData.publishDate).format() });
     };
+
     useEffect(() => {
         if (prevProps.isPosting && !isPosting && postSuccess) {
             hideModal();
