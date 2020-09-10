@@ -8,7 +8,7 @@ import { ADD_NEW_FEATURE } from 'constants/shared/modalTypes';
 function NewFeaturesTableContainer({ isFetching, error, newFeatures, showModal }) {
     return (
         <NewFeaturesTable
-            headers={['Title', 'Short Description', 'Publish Date']}
+            headers={['Title', 'Short Description', 'Publish Date', ' ']}
             isFetching={isFetching}
             error={error}
             newFeatures={newFeatures}
