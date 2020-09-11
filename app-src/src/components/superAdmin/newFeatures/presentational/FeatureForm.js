@@ -47,7 +47,7 @@ export default function AddNewFeatureForm({ handleChange, handleSubmit, form }) 
                 />
             </Field>
             <BlockButtonWrapper>
-                <button className="button green">Add New Feature</button>
+                <button className="button green">Submit</button>
             </BlockButtonWrapper>
         </Form>
     );

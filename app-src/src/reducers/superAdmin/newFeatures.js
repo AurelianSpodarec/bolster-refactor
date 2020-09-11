@@ -10,6 +10,9 @@ import {
     FETCH_SINGLE_FEATURE_SUCCESS,
     FETCH_SINGLE_FEATURE_FAILURE,
     DELETE_FEATURE_SUCCESS,
+    EDIT_FEATURE_REQUEST,
+    EDIT_FEATURE_SUCCESS,
+    EDIT_FEATURE_FAILURE,
 } from 'constants/actionTypes/superAdminNewFeatures';
 import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
 
@@ -41,10 +44,12 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_NEW_FEATURES_REQUEST:
         case ADD_NEW_FEATURE_REQUEST:
         case FETCH_SINGLE_FEATURE_REQUEST:
+        case EDIT_FEATURE_REQUEST:
             return null;
         case FETCH_ALL_NEW_FEATURES_FAILURE:
         case ADD_NEW_FEATURE_FAILURE:
         case FETCH_SINGLE_FEATURE_FAILURE:
+        case EDIT_FEATURE_FAILURE:
             return action.error;
         default:
             return state;
@@ -57,6 +62,7 @@ function newFeaturesReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case FETCH_SINGLE_FEATURE_SUCCESS:
         case ADD_NEW_FEATURE_SUCCESS:
+        case EDIT_FEATURE_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case DELETE_FEATURE_SUCCESS:
             return removeObjItem(state, action.id);
@@ -68,8 +74,10 @@ function newFeaturesReducer(state = {}, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case ADD_NEW_FEATURE_REQUEST:
+        case EDIT_FEATURE_REQUEST:
             return false;
         case ADD_NEW_FEATURE_SUCCESS:
+        case EDIT_FEATURE_SUCCESS:
             return true;
         default:
             return state;
@@ -79,9 +87,11 @@ function postSuccessReducer(state = false, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case ADD_NEW_FEATURE_REQUEST:
+        case EDIT_FEATURE_REQUEST:
             return true;
         case ADD_NEW_FEATURE_SUCCESS:
         case ADD_NEW_FEATURE_FAILURE:
+        case EDIT_FEATURE_SUCCESS:
             return false;
         default:
             return state;
