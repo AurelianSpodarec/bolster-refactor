@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const AllOperativesListItem = ({
     user,
@@ -22,7 +23,11 @@ const AllOperativesListItem = ({
             <td>
                 {showNotUpsyncedRecentlyWarning && (
                     <TooltipContainer
-                        text={`This operative has not upsynced in ${tooltipDate} days`}
+                        text={
+                            tooltipDate
+                                ? `This operative has not upsynced in ${tooltipDate} days`
+                                : 'This operative has never upsynced'
+                        }
                         containerSide="left"
                     >
                         <i className="far fa-exclamation-triangle red-icon" />
@@ -57,12 +62,16 @@ const AllOperativesListItem = ({
             <td>
                 {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
-                {/* {user.lastUpsyncedDate} */}##7##
+                {user.lastUpSynced ? <DateTimeContainer date={user.lastUpSynced} /> : '-'}
             </td>
             <td>
                 {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[6]}</span>}
-                {/* {user.lastDetectedUnsyncedData} */}##7##
+                {user.lastDetectedUnsyncedData ? (
+                    <DateTimeContainer date={user.lastDetectedUnsyncedData} />
+                ) : (
+                    '-'
+                )}
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[7]}</span>}

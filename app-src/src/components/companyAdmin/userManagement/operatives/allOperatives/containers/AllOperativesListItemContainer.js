@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
 import AllOperativesListItem from '../presentational/AllOperativesListItem';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -17,27 +16,6 @@ const AllOperativesListItemContainer = ({
     headers,
     onMobile,
 }) => {
-    const [notUpsyncedRecently, setNotUpsyncedRecently] = useState(true);
-    const [lastDetectedUpsyncedData, setLastDetectedUpsyncedData] = useState(0);
-
-    useEffect(() => {
-        // if (user.notUpsyncedRecently && user.linkedDeviceID) {
-        //     setNotUpsyncedRecently(true);
-        //     setLastDetectedUpsyncedData(/* This will be both the value and the date from the unsynced data */);
-        // }
-    }, []);
-
-    // const getNumberOfDaysSinceLastUpsync = () => {
-    //     const { lastUpsynced } = this.props;
-
-    //     if (!lastUpsynced) return 0;
-
-    //     const curDate = moment();
-    //     const lastUpsyncedDate = moment(lastUpsynced);
-
-    //     return curDate.diff(lastUpsyncedDate, 'days');
-    // };
-
     return (
         <AllOperativesListItem
             user={user}
@@ -48,8 +26,8 @@ const AllOperativesListItemContainer = ({
             headers={headers}
             onMobile={onMobile}
             mobileDeviceName={'##IPhone 11 pro##'}
-            showNotUpsyncedRecentlyWarning={notUpsyncedRecently}
-            tooltipDate={lastDetectedUpsyncedData}
+            showNotUpsyncedRecentlyWarning={user.notUpsyncedRecently}
+            tooltipDate={user.notUpSyncedInXDays}
         />
     );
 

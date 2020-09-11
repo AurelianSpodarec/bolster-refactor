@@ -17,12 +17,17 @@ const OperativesList = ({ operatives, documentID, handleDeleteOperativeModal }) 
         } = operative;
 
         const stringOperativeCode = operativeCode + '';
+
         return (
             <tr key={id} className={`${notUpsyncedRecently ? 'red-row' : ''}`}>
                 <td>
                     {notUpsyncedRecently && (
                         <TooltipContainer
-                            text={`This operative has not upsynced in ${'##tooltipDate##'}  days`}
+                            text={
+                                operative.notUpSyncedInXDays
+                                    ? `This operative has not upsynced in ${operative.notUpSyncedInXDays}  days`
+                                    : 'This operative has never upsynced'
+                            }
                             containerSide="left"
                         >
                             <i className="far fa-exclamation-triangle red-icon" />
