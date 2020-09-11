@@ -6,9 +6,9 @@ import postRecentUpdates from 'actions/companyAdmin/recentUpdates/async/postRece
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { RECENT_UPDATE_MODAL } from 'constants/shared/modalTypes';
 import { isEmpty } from 'helpers/generic';
+import { usePrevious } from 'helpers/hooks';
 
 import RecentUpdates from '../presentational/RecentUpdates';
-import { usePrevious } from 'helpers/hooks';
 
 const RecentUpdatesContainer = ({
     fetchRecentUpdates,
@@ -21,9 +21,10 @@ const RecentUpdatesContainer = ({
     updates,
     updatesLastViewedOn,
 }) => {
-    const node = useRef();
     const [listVisible, setListVisible] = useState(false);
     const [isUnread, setIsUnread] = useState(false);
+
+    const node = useRef();
     const prevProps = usePrevious({ isFetching });
 
     useEffect(() => {
