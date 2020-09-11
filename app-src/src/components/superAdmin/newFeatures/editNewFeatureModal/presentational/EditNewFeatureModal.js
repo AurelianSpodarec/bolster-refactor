@@ -8,7 +8,7 @@ const EditNewFeatureModal = ({ feature, hideModal }) => {
     return (
         <ModalOuterContainer>
             <BlockHeading title="Edit Feature" />
-            <EditFeatureFormContainer feature={feature} hideModal={hideModal} />
+            <EditFeatureFormContainer feature={feature} hideModal={hideModal} id={feature.id} />
         </ModalOuterContainer>
     );
 };
