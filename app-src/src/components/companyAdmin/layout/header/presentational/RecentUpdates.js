@@ -5,13 +5,18 @@ const RecentUpdates = ({
     node,
     listVisible,
     toggleListVisibility,
+    isUnread,
     isFetching,
     error,
     updates,
     handleOpenUpdate,
 }) => (
     <div className="recent-updates" ref={node}>
-        <button className="icon" type="button" onClick={toggleListVisibility}>
+        <button
+            className={`icon ${isUnread ? 'unread' : ''}`}
+            type="button"
+            onClick={toggleListVisibility}
+        >
             <i className="fas fa-bullhorn"></i>
         </button>
 

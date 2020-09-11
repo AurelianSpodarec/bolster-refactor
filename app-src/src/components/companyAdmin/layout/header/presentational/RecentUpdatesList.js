@@ -9,14 +9,12 @@ const RecentUpdatesList = ({ isFetching, error, updates, handleOpenUpdate }) => 
 
     if (isEmpty(updates)) return <p className="info">There are no updates.</p>;
 
-    return [...updates]
-        .sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate))
-        .map(update => (
-            <a key={update.id} className="item" onClick={() => handleOpenUpdate(update)}>
-                <h2>{update.title}</h2>
-                <p>{update.shortDescription}</p>
-            </a>
-        ));
+    return updates.map(update => (
+        <a key={update.id} className="item" onClick={() => handleOpenUpdate(update)}>
+            <h2>{update.title}</h2>
+            <p>{update.shortDescription}</p>
+        </a>
+    ));
 };
 
 export default RecentUpdatesList;

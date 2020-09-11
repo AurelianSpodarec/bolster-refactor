@@ -25,7 +25,7 @@ export const fetchRecentUpdatesFailure = error => ({
 export default () => dispatch => {
     dispatch(fetchRecentUpdatesRequest());
 
-    axios
+    return axios
         .get(`${API_URL}/users/recentupdates`, getHeaders())
         .then(res => dispatch(fetchRecentUpdatesSuccess(res.data)))
         .catch(err => dispatch(fetchRecentUpdatesFailure(err.message)));
