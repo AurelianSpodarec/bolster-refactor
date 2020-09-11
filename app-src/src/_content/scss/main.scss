@@ -1139,6 +1139,7 @@ input {
             max-height: 295px;
             overflow: auto;
             box-shadow: 0px 1px 3px -2px black;
+            background-color: #fefefe;
             @include dropdown-popup();
 
             .item {
@@ -1163,6 +1164,12 @@ input {
             p {
                 font-size: 120%;
                 color: $text-grey;
+            }
+
+            .info {
+                padding: 20px 15px;
+                font-size: 140%;
+                text-align: center;
             }
         }
     }

@@ -1,16 +1,26 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { connect } from 'react-redux';
+
+import fetchRecentUpdates from 'actions/companyAdmin/recentUpdates/async/fetchRecentUpdates';
 
 import RecentUpdates from '../presentational/RecentUpdates';
 
-const RecentUpdatesContainer = () => {
+const RecentUpdatesContainer = ({ fetchRecentUpdates, isFetching, error, updates }) => {
     const node = useRef();
     const [listVisible, setListVisible] = useState(false);
+
+    useEffect(() => {
+        fetchRecentUpdates();
+    }, []);
 
     return (
         <RecentUpdates
             node={node}
             listVisible={listVisible}
             toggleListVisibility={toggleListVisibility}
+            isFetching={isFetching}
+            error={error}
+            updates={updates}
         />
     );
 
@@ -34,4 +44,18 @@ const RecentUpdatesContainer = () => {
     }
 };
 
-export default RecentUpdatesContainer;
+const mapStateToProps = ({
+    companyAdmin: {
+        recentUpdatesReducer: { isFetching, error, updates },
+    },
+}) => ({
+    isFetching,
+    error,
+    updates: Object.values(updates),
+});
+
+const mapDispatchToProps = {
+    fetchRecentUpdates,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecentUpdatesContainer);
