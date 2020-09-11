@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import AllOperativesListItem from '../presentational/AllOperativesListItem';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -20,13 +21,22 @@ const AllOperativesListItemContainer = ({
     const [lastDetectedUpsyncedData, setLastDetectedUpsyncedData] = useState(0);
 
     useEffect(() => {
-        if (user.notUpsyncedRecently && user.linkedDevice) {
-            setNotUpsyncedRecently(true);
-            setLastDetectedUpsyncedData(
-                user.notUpsyncedRecently - user.notUpsyncedRecentlyDetectedDate,
-            );
-        }
+        // if (user.notUpsyncedRecently && user.linkedDeviceID) {
+        //     setNotUpsyncedRecently(true);
+        //     setLastDetectedUpsyncedData(/* This will be both the value and the date from the unsynced data */);
+        // }
     }, []);
+
+    // const getNumberOfDaysSinceLastUpsync = () => {
+    //     const { lastUpsynced } = this.props;
+
+    //     if (!lastUpsynced) return 0;
+
+    //     const curDate = moment();
+    //     const lastUpsyncedDate = moment(lastUpsynced);
+
+    //     return curDate.diff(lastUpsyncedDate, 'days');
+    // };
 
     return (
         <AllOperativesListItem
