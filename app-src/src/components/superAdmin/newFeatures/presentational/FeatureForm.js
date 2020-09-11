@@ -5,43 +5,44 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 
 export default function AddNewFeatureForm({ handleChange, handleSubmit, form }) {
     return (
         <Form onSubmit={handleSubmit} className="generic-form">
-            <Field name="Enter Title" required>
+            <Field name="Title" required>
                 <TextInputContainer
-                    placeholder="Enter title of the new feature"
+                    placeholder="Enter title"
                     name="title"
                     value={form.title}
                     handleChange={handleChange}
                     required
                 />
             </Field>
-            <Field name="Enter Short Description" required>
+            <Field name="Short Description" required>
                 <TextInputContainer
-                    placeholder="Enter a short description of the new feature"
+                    placeholder="Enter a short description"
                     name="shortDescription"
                     value={form.shortDescription}
                     handleChange={handleChange}
                     required
                 />
             </Field>
-            <Field name="Enter Full Description" required>
-                <TextInputContainer
-                    placeholder="Enter a long description of the new feature"
+            <Field name="Full Description" required>
+                <TextAreaContainer
+                    placeholder="Enter a long description"
                     name="fullDescription"
                     value={form.fullDescription}
                     handleChange={handleChange}
                     required
                 />
             </Field>
-            <Field name="Date range" sizeClasses="w-dates size-lg-12" required>
+            <Field name="Publish on" sizeClasses="w-dates size-lg-12" required>
                 <DatePickerContainer
                     name="publishDate"
                     selected={form.publishDate}
                     onChange={val => handleChange('publishDate', val)}
-                    placeholderText="Publish Date"
+                    placeholderText="Enter a publish date"
                     showTimeSelect
                     // onBlur={() => handleDateBlur(true)}
                 />

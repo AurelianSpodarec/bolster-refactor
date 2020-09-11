@@ -8,23 +8,37 @@ import { RECENT_UPDATE_MODAL } from 'constants/shared/modalTypes';
 import { isEmpty } from 'helpers/generic';
 
 import RecentUpdates from '../presentational/RecentUpdates';
+import { usePrevious } from 'helpers/hooks';
 
 const RecentUpdatesContainer = ({
     fetchRecentUpdates,
+    postRecentUpdates,
     showModal,
     isFetching,
     isPosting,
     error,
+    success,
     updates,
     updatesLastViewedOn,
 }) => {
     const node = useRef();
     const [listVisible, setListVisible] = useState(false);
     const [isUnread, setIsUnread] = useState(false);
+    const prevProps = usePrevious({ isFetching });
 
     useEffect(() => {
-        getRecentUpdates();
+        fetchRecentUpdates();
+
+        const interval = setInterval(() => fetchRecentUpdates(), 1000 * 120);
+
+        return () => clearInterval(interval);
     }, []);
+
+    useEffect(() => {
+        if (prevProps.isFetching && !isFetching && success) {
+            checkIfAnyUnread();
+        }
+    }, [prevProps.isFetching, isFetching]);
 
     return (
         <RecentUpdates
@@ -39,21 +53,16 @@ const RecentUpdatesContainer = ({
         />
     );
 
-    function getRecentUpdates() {
-        fetchRecentUpdates().then(() => checkIfAnyUnread());
-    }
-
     function markAsRead() {
-        if (!isPosting) {
-            postRecentUpdates().then(() => setIsUnread(false));
-        }
+        postRecentUpdates({ updatesRead: true });
+        setIsUnread(false);
     }
 
     function toggleListVisibility() {
         if (!listVisible) {
             document.addEventListener('click', handleOutsideClick, false);
 
-            if (isUnread) {
+            if (isUnread && !isPosting) {
                 markAsRead();
             }
         } else {
@@ -103,7 +112,7 @@ const RecentUpdatesContainer = ({
 
 const mapStateToProps = ({
     companyAdmin: {
-        recentUpdatesReducer: { isFetching, isPosting, error, updates },
+        recentUpdatesReducer: { isFetching, isPosting, error, success, updates },
     },
     shared: {
         profileReducer: {
@@ -114,6 +123,7 @@ const mapStateToProps = ({
     isFetching,
     isPosting,
     error,
+    success,
     updates: Object.values(updates)
         .sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate))
         .filter(({ publishDate }) => new Date(publishDate) <= new Date()),
