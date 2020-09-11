@@ -2,10 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 
 import fetchRecentUpdates from 'actions/companyAdmin/recentUpdates/async/fetchRecentUpdates';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { RECENT_UPDATE_MODAL } from 'constants/shared/modalTypes';
 
 import RecentUpdates from '../presentational/RecentUpdates';
 
-const RecentUpdatesContainer = ({ fetchRecentUpdates, isFetching, error, updates }) => {
+const RecentUpdatesContainer = ({ fetchRecentUpdates, showModal, isFetching, error, updates }) => {
     const node = useRef();
     const [listVisible, setListVisible] = useState(false);
 
@@ -21,6 +23,7 @@ const RecentUpdatesContainer = ({ fetchRecentUpdates, isFetching, error, updates
             isFetching={isFetching}
             error={error}
             updates={updates}
+            handleOpenUpdate={handleOpenUpdate}
         />
     );
 
@@ -42,6 +45,12 @@ const RecentUpdatesContainer = ({ fetchRecentUpdates, isFetching, error, updates
 
         setListVisible(false);
     }
+
+    function handleOpenUpdate(update) {
+        showModal(RECENT_UPDATE_MODAL, { update });
+        setListVisible(false);
+        document.removeEventListener('click', handleOutsideClick, false);
+    }
 };
 
 const mapStateToProps = ({
@@ -56,6 +65,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = {
     fetchRecentUpdates,
+    showModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecentUpdatesContainer);

@@ -100,6 +100,7 @@ import {
     ADMIN_EDIT_COMPANY_ADDRESS,
     ADD_NEW_FEATURE,
     EDIT_NEW_FEATURE,
+    RECENT_UPDATE_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -202,6 +203,7 @@ import EditCompanyAddressModalContainer from './EditCompanyAddressModalContainer
 import UploadUserGuideModalContainer from './UploadUserGuideModalContainer';
 import AddNewFeatureModal from 'components/superAdmin/newFeatures/addNewFeatureModal/presentational/AddNewFeatureModal';
 import EditNewFeatureModal from 'components/superAdmin/newFeatures/editNewFeatureModal/presentational/EditNewFeatureModal';
+import RecentUpdateModal from 'components/companyAdmin/layout/header/presentational/RecentUpdateModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -302,6 +304,7 @@ const MODAL_COMPONENTS = {
     [UPLOAD_USER_GUIDE]: UploadUserGuideModalContainer,
     [ADD_NEW_FEATURE]: AddNewFeatureModal,
     [EDIT_NEW_FEATURE]: EditNewFeatureModal,
+    [RECENT_UPDATE_MODAL]: RecentUpdateModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

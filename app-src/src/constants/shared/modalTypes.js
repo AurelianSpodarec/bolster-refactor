@@ -159,3 +159,6 @@ export const UPLOAD_USER_GUIDE = 'UPLOAD_USER_GUIDE';
 //super admin new features
 export const ADD_NEW_FEATURE = 'ADD_NEW_FEATURE';
 export const EDIT_NEW_FEATURE = 'EDIT_NEW_FEATURE';
+
+// recent updates
+export const RECENT_UPDATE_MODAL = 'RECENT_UPDATE_MODAL';
