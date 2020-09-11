@@ -39,7 +39,7 @@ const RecentUpdatesContainer = ({ fetchRecentUpdates, showModal, isFetching, err
 
     function handleOutsideClick(e) {
         // ignore clicks on the component itself
-        if (node && node.current.contains(e.target)) {
+        if (node.current && node.current.contains(e.target)) {
             return;
         }
 
