@@ -24,16 +24,16 @@ const FrontEndHeader = ({
             <div className="frontend-header-navlinks-container">
                 <ul>
                     <li>
-                        <Link>About us</Link>
+                        <Link to="">About us</Link>
                     </li>
                     <li>
-                        <Link>Our System</Link>
+                        <Link to="">Our System</Link>
                     </li>
                     <li>
-                        <Link>How it works</Link>
+                        <Link to="">How it works</Link>
                     </li>
                     <li>
-                        <Link>Contact</Link>
+                        <Link to="">Contact</Link>
                     </li>
                 </ul>
             </div>
@@ -56,7 +56,9 @@ const FrontEndHeader = ({
                             Client Access
                         </FrontEndButton>
                     )}
-                    <FrontEndButton classes="red spacing-right">Logout</FrontEndButton>
+                    <FrontEndButton classes="red spacing-right" to="">
+                        Logout
+                    </FrontEndButton>
                 </div>
             ) : (
                 <div className="logged-out-button-container">
