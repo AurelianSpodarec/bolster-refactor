@@ -26,14 +26,26 @@
         }
 
         .frontend-header-right {
-            justify-content: space-between;
 
-            .mobile-app-button-container {
+            .logged-out-button-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
 
-                img {
-                    width: 150px;
-                    height: 45px;
+                .mobile-app-button-container {
+
+                    img {
+                        width: 150px;
+                        height: 45px;
+                    }
                 }
+            }
+
+            .logged-in-button-container {
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
             }
         }
 

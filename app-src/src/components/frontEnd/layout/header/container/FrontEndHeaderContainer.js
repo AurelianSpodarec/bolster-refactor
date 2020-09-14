@@ -16,9 +16,16 @@ class FrontEndHeaderContainer extends Component {
                 isClientAccess={isClientAccess}
                 logout={this.logout}
                 hideHeader={hideHeader}
+                onClick={this.handleClick}
             />
         );
     }
+
+    handleClick = path => {
+        const { history } = this.props;
+        console.log(path);
+        history.push(path);
+    };
 
     logout = () => {
         const { history, logout } = this.props;
@@ -30,26 +37,21 @@ class FrontEndHeaderContainer extends Component {
 const mapStateToProps = ({
     shared: {
         decodeJWTReducer: {
-            jwtData: { isSuperAdmin, isClientAccess, companyID }
-        }
+            jwtData: { isSuperAdmin, isClientAccess, companyID },
+        },
     },
     frontEnd: {
         layoutReducer: {
-            layout: { hideHeader }
-        }
-    }
+            layout: { hideHeader },
+        },
+    },
 }) => ({
     isSuperAdmin,
     isCompanyAdmin: !!companyID,
     isClientAccess,
-    hideHeader
+    hideHeader,
 });
 
 const mapDispatchToProps = { logout };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(FrontEndHeaderContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FrontEndHeaderContainer));
