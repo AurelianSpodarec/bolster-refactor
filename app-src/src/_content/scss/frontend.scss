@@ -244,4 +244,22 @@
             }
         }
     }
+
+    // how it works
+    #how-it-works {
+        .section {
+            max-width: 1500px;
+            padding: 75px 20px 0;
+            margin: 0 auto;
+        }
+
+        .headings-area {
+            display: flex;
+            justify-content: space-between;
+
+            .item {
+                flex: 0.23;
+            }
+        }
+    }
 }

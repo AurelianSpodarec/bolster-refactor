@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import HomeContainer from 'components/frontEnd/home/containers/HomeContainer';
-import HowPage from 'components/frontEnd/how/presentational/HowPage';
+import HowItWorks from 'components/frontEnd/how/presentational/HowItWorks';
 import AboutPageContainer from 'components/frontEnd/about/container/AboutPageContainer';
 import RequestPageContainer from 'components/frontEnd/request/containers/RequestPageContainer';
 import ContactPageContainer from 'components/frontEnd/contact/containers/ContactPageContainer';
@@ -14,7 +14,7 @@ import QRCodesPage from 'components/frontEnd/qrCodes/presentational/QRCodesPage'
 const FrontEndRoutes = ({ base = '/' }) => (
     <SwitchWith404>
         <Route exact path={`${base}`} component={HomeContainer} />
-        <Route exact path={`${base}How`} component={HowPage} />
+        <Route exact path={`${base}how-it-works`} component={HowItWorks} />
         <Route exact path={`${base}About`} component={AboutPageContainer} />
         <Route exact path={`${base}Request`} component={RequestPageContainer} />
         <Route exact path={`${base}Contact`} component={ContactPageContainer} />
