@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Home from '../presentational/Home';
 
 const HomeContainer = () => {
