@@ -129,4 +129,40 @@
             margin: 0 16px;
         }
     }
+
+    // About us section
+    #about {
+
+        .frontend-about-info {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            flex-direction: column;
+            max-width: 1330px;
+            margin: 0 auto;
+
+            h2 {
+                margin: 42px 0 18px 0;
+                font-size: 35px;
+                font-weight: bold;
+                color: #444444;
+            }
+            .divider{
+                width: 37px;
+                height: 6px;
+                background-color: #EB1C24;
+                margin-bottom: 18px;
+            }
+
+            h3{
+                font-size: 25px;
+                color: #444444;
+                margin-bottom: 37px;
+            }
+
+            p{
+                color: #888888;
+            }
+        }
+    }
 }
