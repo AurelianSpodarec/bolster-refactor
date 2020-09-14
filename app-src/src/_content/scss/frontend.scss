@@ -81,9 +81,76 @@
     }
 
     .frontend-footer {
+        flex-direction: column;
+        width: 100%;
+        background-color: $very-dark-grey-alt;
+        position: relative;
+        padding: 26px;
 
-        .frontend-footer{
+        .frontend-footer-register {
+            position: absolute;
+            top: 24px;
+            right: 26px;
+        }
+        
+        .frontend-footer-logo {
+            margin: 0 auto;
             
+            img {
+                width: 200px;
+                height: 75px;
+            }
+        }
+
+        .frontend-footer-navlinks {
+            margin: 8px auto 0;
+            font-size: 130%;
+            font-weight: 500;
+
+            ul {
+                display: flex;
+
+                li {
+                    margin-left: 24px;
+
+                    a {
+                        color: white;
+                        transition: color 200ms ease-in-out;
+                        text-decoration: none;
+
+                        &:hover {
+                            color: $red-alt;
+                        }
+
+                        &.active {
+                            color: $red-alt;
+                            padding-bottom: 6px;
+                            border-bottom: 2px $red;
+                            position: relative;
+
+                            &:after {
+                                content: "";
+                                background: $red;
+                                position: absolute;
+                                bottom: 0;
+                                left: 50%;
+                                transform: translateX(-50%);
+                                height: 2px;
+                                width: 60%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .frontend-footer-copyright {
+            position: absolute;
+            bottom: 14px;
+            left: 26px;
+            font-size: 120%;
+            color: white;
+            max-width: 380px;
         }
     }
 

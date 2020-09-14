@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Container from 'components/frontEnd/shared/container/presentational/Container';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 import FooterLogo from '_content/images/frontend-new/footer-logo.svg';
@@ -8,7 +9,31 @@ const FrontEndFooter = () => (
         <div className="frontend-footer-register">
             <FrontEndButton classes="gray ">Register</FrontEndButton>
         </div>
-        <img src={FooterLogo} alt="Footer Logo" />
+        <div className="frontend-footer-logo">
+            <img src={FooterLogo} alt="Footer Logo" />
+        </div>
+        <div className="frontend-footer-navlinks">
+            <ul>
+                <li>
+                    <Link>About Us</Link>
+                </li>
+                <li>
+                    <Link>Our System</Link>
+                </li>
+                <li>
+                    <Link>How it works</Link>
+                </li>
+                <li>
+                    <Link>Request a demo</Link>
+                </li>
+                <li>
+                    <Link>Register</Link>
+                </li>
+            </ul>
+        </div>
+        <div className="frontend-footer-copyright">
+            Bolster is a registered trademark lore ipsum dolor sit amet Adipiscing sit amet
+        </div>
     </Container>
 );
 
