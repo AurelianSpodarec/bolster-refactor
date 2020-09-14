@@ -15,16 +15,16 @@ const FrontEndHeader = ({ isSuperAdmin, isCompanyAdmin, isClientAccess, logout, 
             <div className="frontend-header-navlinks-container">
                 <ul>
                     <li>
-                        <Link>About us</Link>
+                        <Link to="">About us</Link>
                     </li>
                     <li>
-                        <Link>Our System</Link>
+                        <Link to="">Our System</Link>
                     </li>
                     <li>
-                        <Link>How it works</Link>
+                        <Link to="">How it works</Link>
                     </li>
                     <li>
-                        <Link>Contact</Link>
+                        <Link to="">Contact</Link>
                     </li>
                 </ul>
             </div>
@@ -35,8 +35,12 @@ const FrontEndHeader = ({ isSuperAdmin, isCompanyAdmin, isClientAccess, logout, 
                 <img src={AppleAppStore} alt="Apple App Store" />
             </div>
             <div className="logged-out-button-container">
-                <FrontEndButton classes="gray spacing-right">Register</FrontEndButton>
-                <FrontEndButton classes="red">Login</FrontEndButton>
+                <FrontEndButton classes="gray spacing-right" to="/register">
+                    Register
+                </FrontEndButton>
+                <FrontEndButton classes="red" to="/login">
+                    Login
+                </FrontEndButton>
             </div>
         </div>
     </Container>

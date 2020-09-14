@@ -7,7 +7,9 @@ import FooterLogo from '_content/images/frontend-new/footer-logo.svg';
 const FrontEndFooter = () => (
     <Container className="frontend-footer">
         <div className="frontend-footer-register">
-            <FrontEndButton classes="gray ">Register</FrontEndButton>
+            <FrontEndButton classes="gray" to="/register">
+                Register
+            </FrontEndButton>
         </div>
         <div className="frontend-footer-logo">
             <img src={FooterLogo} alt="Footer Logo" />
@@ -15,19 +17,19 @@ const FrontEndFooter = () => (
         <div className="frontend-footer-navlinks">
             <ul>
                 <li>
-                    <Link>About Us</Link>
+                    <Link to="">About Us</Link>
                 </li>
                 <li>
-                    <Link>Our System</Link>
+                    <Link to="">Our System</Link>
                 </li>
                 <li>
-                    <Link>How it works</Link>
+                    <Link to="">How it works</Link>
                 </li>
                 <li>
-                    <Link>Request a demo</Link>
+                    <Link to="">Request a demo</Link>
                 </li>
                 <li>
-                    <Link>Register</Link>
+                    <Link to="">Register</Link>
                 </li>
             </ul>
         </div>
