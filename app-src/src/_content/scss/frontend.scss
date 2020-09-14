@@ -219,6 +219,7 @@
             flex-direction: column;
             max-width: 1330px;
             margin: 0 auto;
+            padding-bottom: 117px;
 
             h2 {
                 margin: 42px 0 18px 0;
@@ -239,9 +240,11 @@
                 margin-bottom: 37px;
             }
 
-            p{
+            p {
                 color: #888888;
+                line-height: 25px;
             }
+
         }
     }
 
