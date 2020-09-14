@@ -1,96 +1,45 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-import appleStoreButton from '_content/images/frontend/buttons/apple-store.svg';
-import googleButton from '_content/images/frontend/buttons/google-play-badge.png';
+import Logo from '_content/images/frontend-new/logo.png';
+import GoogleAppStore from '_content/images/frontend-new/google-play-badge.png';
+import AppleAppStore from '_content/images/frontend-new/apple-store.svg';
+import Container from 'components/frontEnd/shared/container/presentational/Container';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
-import bolsterLogo from '_content/images/bolster_logo.png';
 
 const FrontEndHeader = ({ isSuperAdmin, isCompanyAdmin, isClientAccess, logout, hideHeader }) => (
-    <header className="frontend-header size-lg-12">
-        <div className="container">
-            <div className="top">
-                <div className="left">
-                    <div className="logo">
-                        <Link to="/">
-                            <img alt="logo of Bolster Systems" src={bolsterLogo} />
-                        </Link>
-                    </div>
-                    <div className="quote">
-                        <h3>The complete surveying and management system</h3>
-                    </div>
-                </div>
-                {!hideHeader && (
-                    <div className="right">
-                        <div className="links">
-                            {' '}
-                            {isSuperAdmin || isClientAccess || isCompanyAdmin ? (
-                                <FrontEndButton type="button" handleClick={logout}>
-                                    Logout
-                                </FrontEndButton>
-                            ) : (
-                                <>
-                                    <FrontEndButton classes="desktop-ver" to="/auth/Login">
-                                        Login
-                                    </FrontEndButton>
-                                    <FrontEndButton classes="black desktop-ver" to="/auth/register">
-                                        Register
-                                    </FrontEndButton>
-                                </>
-                            )}
-                            {isCompanyAdmin && (
-                                <FrontEndButton to="/Company" classes="black desktop-ver">
-                                    Company Dashboard
-                                </FrontEndButton>
-                            )}
-                            {isSuperAdmin && (
-                                <FrontEndButton to="/Admin" classes="black">
-                                    Super Admin
-                                </FrontEndButton>
-                            )}
-                            {isClientAccess && (
-                                <FrontEndButton to="/Client/companies" classes="black">
-                                    Client Dashboard
-                                </FrontEndButton>
-                            )}
-                            {isSuperAdmin || isClientAccess || isCompanyAdmin ? (
-                                ''
-                            ) : (
-                                <>
-                                    <a
-                                        className="app-btn"
-                                        href="https://apps.apple.com/gb/app/bolster-systems/id1459750473"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        <img
-                                            alt="available on the apple store"
-                                            src={appleStoreButton}
-                                        />
-                                    </a>
-                                    <a
-                                        className="google-btn"
-                                        href="https://play.google.com/store/apps/details?id=com.bolster.dynamicdroid&hl=en"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        <img
-                                            alt="available on the google play store"
-                                            src={googleButton}
-                                        />
-                                    </a>
-                                    <p className="phone-number">
-                                        Tel:
-                                        <a href="tel:01618737679"> 0161 873 7679</a>
-                                    </p>
-                                </>
-                            )}
-                        </div>
-                    </div>
-                )}
+    <Container className="frontend-header">
+        <div className="frontend-header-left">
+            <div className="frontend-logo">
+                <img src={Logo} alt="Logo" />
+            </div>
+            <div className="frontend-header-navlinks-container">
+                <ul>
+                    <li>
+                        <Link>About us</Link>
+                    </li>
+                    <li>
+                        <Link>Our System</Link>
+                    </li>
+                    <li>
+                        <Link>How it works</Link>
+                    </li>
+                    <li>
+                        <Link>Contact</Link>
+                    </li>
+                </ul>
             </div>
         </div>
-    </header>
+        <div className="frontend-header-right">
+            <div className="mobile-app-button-container">
+                <img src={GoogleAppStore} alt="Google App Store" />
+                <img src={AppleAppStore} alt="Apple App Store" />
+            </div>
+            <div className="logged-out-button-container">
+                <FrontEndButton classes="gray spacing-right">Register</FrontEndButton>
+                <FrontEndButton classes="red">Login</FrontEndButton>
+            </div>
+        </div>
+    </Container>
 );
 
 export default FrontEndHeader;

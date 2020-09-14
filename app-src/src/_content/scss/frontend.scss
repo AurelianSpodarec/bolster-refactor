@@ -1,0 +1,132 @@
+#frontend-site {
+
+    .frontend-container {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 8px 16px;
+    }
+
+    .frontend-header {
+        justify-content: space-between;
+        border-top: 3px $red-alt solid;
+        border-bottom: 3px $red-alt solid;
+
+        .frontend-logo {
+            
+            img {
+                width: 120px;
+            }
+        }
+
+        .frontend-header-left, .frontend-header-right {
+            display: flex;
+            align-items: center;
+            width: 50%;
+        }
+
+        .frontend-header-right {
+            justify-content: space-between;
+
+            .mobile-app-button-container {
+
+                img {
+                    width: 150px;
+                    height: 45px;
+                }
+            }
+        }
+
+        .frontend-header-navlinks-container {
+            margin-left: 56px;
+            font-size: 130%;
+            font-weight: 500;
+
+            ul {
+                display: flex;
+
+                li {
+                    margin-left: 24px;
+
+                    a {
+                        color: $new-grey-alt;
+                        transition: color 200ms ease-in-out;
+                        text-decoration: none;
+
+                        &:hover {
+                            color: $red-alt;
+                        }
+
+                        &.active {
+                            color: $red-alt;
+                            padding-bottom: 6px;
+                            border-bottom: 2px $red;
+                            position: relative;
+
+                            &:after {
+                                content: "";
+                                background: $red;
+                                position: absolute;
+                                bottom: 0;
+                                left: 50%;
+                                transform: translateX(-50%);
+                                height: 2px;
+                                width: 60%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .frontend-footer {
+
+        .frontend-footer{
+            
+        }
+    }
+
+    .frontend-button {
+        border-radius: 20px;
+        padding: 6px 0;
+        width: 150px;
+        text-align: center;
+        font-size: 120%;
+        transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+
+        &.red {
+            border: 1px $red-alt solid; 
+            background-color: white;
+            color: $red-alt;
+
+            &:hover {
+                background-color: $red-alt;
+                color: white
+            }
+        }
+
+        &.gray {
+            border: 1px $new-grey-alt solid; 
+            background-color: white;
+            color: $new-grey-alt;
+
+            &:hover {
+                background-color: $new-grey-alt;
+                color: white
+            }
+        }
+
+        &.spacing-left {
+            margin-left: 16px;
+        }
+
+        &.spacing-right {
+            margin-right: 16px;
+        }
+
+        &.spacing {
+            margin: 0 16px;
+        }
+    }
+}
