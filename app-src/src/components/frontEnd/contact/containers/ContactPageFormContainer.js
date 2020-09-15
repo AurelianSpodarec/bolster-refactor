@@ -1,31 +1,20 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import postContactForm from 'actions/frontEnd/contact/async/postContactForm';
 import ContactPageForm from '../presentational/ContactPageForm';
+import { useForm } from 'helpers/hooks';
 
-class ContactPageFormContainer extends Component {
-    state = {
+const ContactPageFormContainer = ({ error, postSuccess }) => {
+    const [form, handleChange] = useForm({
         name: '',
         email: '',
         contactNumber: '',
         companyName: '',
-        message: '',
-        sent: false
-    };
+        sent: false,
+    });
 
-    render = () => (
-        <ContactPageForm
-            {...this.state}
-            error={this.props.error}
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-        />
-    );
-
-    handleChange = (name, value) => this.setState({ [name]: value });
-
-    handleSubmit = e => {
+    const handleSubmit = e => {
         e.preventDefault();
 
         const { name, email, contactNumber, companyName, message } = this.state;
@@ -36,32 +25,37 @@ class ContactPageFormContainer extends Component {
             email,
             contactNumber,
             companyName,
-            message
+            message,
         };
 
         postContactForm(postBody);
     };
 
-    componentDidUpdate = prevProps => {
-        const { postSuccess } = this.props;
-        if (postSuccess && !prevProps.postSuccess) {
-            this.setState({ sent: true });
+    useEffect(() => {
+        if (postSuccess /*&& !prevProps.postSuccess*/) {
+            handleChange({ sent: true });
         }
-    };
-}
+    }, [postSuccess]);
+
+    return (
+        <ContactPageForm
+            {...form}
+            error={error}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+        />
+    );
+};
 
 const mapStateToProps = ({
     frontEnd: {
-        contactReducer: { error, postSuccess }
-    }
+        contactReducer: { error, postSuccess },
+    },
 }) => ({
     error,
-    postSuccess
+    postSuccess,
 });
 
 const mapDispatchToProps = { postContactForm };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ContactPageFormContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactPageFormContainer);

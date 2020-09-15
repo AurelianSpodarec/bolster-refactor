@@ -1,8 +1,7 @@
 import React from 'react';
-import HeadingSection from 'components/frontEnd/shared/headings/presentational/HeadingSection';
+
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 import Error from 'components/shared/generic/form/presentational/Error';
 
@@ -11,26 +10,20 @@ const ContactPageForm = ({
     email,
     contactNumber,
     companyName,
-    message,
     handleChange,
     handleSubmit,
     sent,
-    error
+    error,
 }) => (
-    <div id="contact-form-content">
+    <div id="contact-form-content" className="contact-form">
         <form className="form">
-            <HeadingSection title="Contact Form" />
             <>
                 {sent ? (
                     <p>Thanks! A member of our team will be in touch.</p>
                 ) : (
                     <>
-                        <p>
-                            Please fill in our form and a member of Bolster
-                            Systems will be in touch.
-                        </p>
                         <div className="row">
-                            <Field name="Your name" required>
+                            <Field name="Name" required>
                                 <TextInputContainer
                                     name="name"
                                     required
@@ -40,7 +33,7 @@ const ContactPageForm = ({
                             </Field>
                         </div>
                         <div className="row">
-                            <Field name="Your email address" required>
+                            <Field name="Email" required>
                                 <TextInputContainer
                                     name="email"
                                     required
@@ -51,17 +44,7 @@ const ContactPageForm = ({
                             </Field>
                         </div>
                         <div className="row">
-                            <Field name="Your contact number" required>
-                                <TextInputContainer
-                                    name="contactNumber"
-                                    required
-                                    value={contactNumber}
-                                    handleChange={handleChange}
-                                />
-                            </Field>
-                        </div>
-                        <div className="row">
-                            <Field name="Company name">
+                            <Field name="Company">
                                 <TextInputContainer
                                     name="companyName"
                                     required
@@ -71,26 +54,22 @@ const ContactPageForm = ({
                             </Field>
                         </div>
                         <div className="row">
-                            <Field name="Your enquiry / message" required>
-                                <TextAreaContainer
-                                    name="message"
+                            <Field name="Contact Number" required>
+                                <TextInputContainer
+                                    name="contactNumber"
                                     required
-                                    value={message}
+                                    value={contactNumber}
                                     handleChange={handleChange}
                                 />
                             </Field>
                         </div>
                         {error && (
                             <Error>
-                                Something went wrong submitting your request,
-                                please try again later.
+                                Something went wrong submitting your request, please try again
+                                later.
                             </Error>
                         )}
-                        <FrontEndButton
-                            type="submit"
-                            classes="red"
-                            handleClick={handleSubmit}
-                        >
+                        <FrontEndButton type="submit" classes="red" handleClick={handleSubmit}>
                             Submit
                         </FrontEndButton>
                     </>
