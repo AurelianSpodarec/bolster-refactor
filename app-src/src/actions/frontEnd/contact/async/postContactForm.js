@@ -4,25 +4,26 @@ import { getHeaders, handleErrors } from 'helpers/api';
 import {
     POST_CONTACT_REQUEST,
     POST_CONTACT_SUCCESS,
-    POST_CONTACT_FAILURE
+    POST_CONTACT_FAILURE,
 } from 'constants/actionTypes/contact';
 import { FRONTEND_API_URL } from 'config';
 
 export const postContactRequest = () => ({
-    type: POST_CONTACT_REQUEST
+    type: POST_CONTACT_REQUEST,
 });
 
 export const postContactSuccess = payload => ({
     type: POST_CONTACT_SUCCESS,
-    payload
+    payload,
 });
 
 export const postContactFailure = error => ({
     type: POST_CONTACT_FAILURE,
-    error
+    error,
 });
 
 export default postBody => dispatch => {
+    console.log(postBody);
     dispatch(postContactRequest());
 
     return axios
