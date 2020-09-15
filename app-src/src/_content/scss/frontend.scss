@@ -1,7 +1,7 @@
 #frontend-site {
     background-color: white;
     @include opensans-regular();
-
+    
     .back-to-top-container {
         display: flex;
         align-items: center;
@@ -429,7 +429,7 @@
             }
         }
             strong {
-            font-weight: bold;
+            @include opensans-semibold();
         }
 
         .social-link-container {

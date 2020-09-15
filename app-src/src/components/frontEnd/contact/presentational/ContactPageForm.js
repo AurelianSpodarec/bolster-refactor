@@ -14,7 +14,7 @@ const ContactPageForm = ({ form, handleChange, handleSubmit, error }) => {
         <Error>{error}</Error>
     ) : (
         <Form id="contact-form-content" className="contact-form" onSubmit={handleSubmit}>
-            <Field name="Name" required>
+            <Field name="Name">
                 <TextInputContainer
                     name="name"
                     value={form.name}
@@ -22,7 +22,7 @@ const ContactPageForm = ({ form, handleChange, handleSubmit, error }) => {
                     required
                 />
             </Field>
-            <Field name="Email" required>
+            <Field name="Email">
                 <TextInputContainer
                     name="email"
                     value={form.email}
@@ -30,7 +30,7 @@ const ContactPageForm = ({ form, handleChange, handleSubmit, error }) => {
                     required
                 />
             </Field>
-            <Field name="Company" required>
+            <Field name="Company">
                 <TextInputContainer
                     name="companyName"
                     value={form.companyName}
@@ -38,7 +38,7 @@ const ContactPageForm = ({ form, handleChange, handleSubmit, error }) => {
                     required
                 />
             </Field>
-            <Field name="Contact Number" required>
+            <Field name="Contact Number">
                 <TextInputContainer
                     name="contactNumber"
                     value={form.contactNumber}
