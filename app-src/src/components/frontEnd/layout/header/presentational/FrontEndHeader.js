@@ -56,7 +56,7 @@ const FrontEndHeader = ({
                             Client Access
                         </FrontEndButton>
                     )}
-                    <FrontEndButton classes="red spacing-right" to="">
+                    <FrontEndButton classes="red spacing-right" to="" handleClick={logout}>
                         Logout
                     </FrontEndButton>
                 </div>
