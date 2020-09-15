@@ -30,7 +30,7 @@ const FrontEndHeader = ({
                         <Link to="">Our System</Link>
                     </li>
                     <li>
-                        <Link to="">How it works</Link>
+                        <Link to="/how-it-works">How it works</Link>
                     </li>
                     <li>
                         <Link to="">Contact</Link>
