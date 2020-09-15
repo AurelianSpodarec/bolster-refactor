@@ -243,13 +243,24 @@
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
 
             .item {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                padding: 8px;
+                padding: 16px;
                 background-color: white;
+                max-width: 227px;
+                max-height: 227px;
+
+
+                img {
+                    width: 100%;
+                    object-fit: scale-down;
+                    max-height: 180px;
+                }
             }
         }
     }
