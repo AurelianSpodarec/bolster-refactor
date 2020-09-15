@@ -356,13 +356,14 @@
 
     // Contact page
     #contact {        
+        
         .contact-background {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            // background-image: url('../../_content/images/frontend-new/contact-background-image.png');
-            background-color: grey;
-            opacity: 1;
+           position: absolute;
+
+            .contact-background-video{
+                height: 1080px;
+                width: 1920px;
+            }
         }
 
         .contact-wrapper {
@@ -394,6 +395,11 @@
               color: #FFFFFF;
               flex: 1;
               max-width: 610px;
+            
+                & label {
+                    font-size: 18px;
+                    font-weight: normal;
+                }
 
               .recaptcha-wrapper {
                 display: flex;
