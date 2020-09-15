@@ -450,6 +450,11 @@
 
             .item-container {
                 display: flex;
+                margin-top: -50px;
+
+                &:first-child {
+                    margin-top: 0;
+                }
 
                 &:nth-child(even) {
                     justify-content: flex-end;
@@ -458,6 +463,7 @@
                 .item {
                     display: flex;
                     flex: 0.45;
+                    z-index: 1;
                 }
             }
 
