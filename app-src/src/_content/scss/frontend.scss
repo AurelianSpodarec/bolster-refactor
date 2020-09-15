@@ -1,5 +1,18 @@
 #frontend-site {
 
+    .back-to-top-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-top: 1px $darker-grey-alt solid;
+        padding: 8px 0;
+        font-size: 180%;
+        
+        i {
+            cursor: pointer;
+        }
+    }
+
     .frontend-container {
         display: flex;
         align-items: center;
