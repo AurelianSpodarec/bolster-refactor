@@ -6,37 +6,39 @@ import DocumentIcon from '_content/images/frontend-new/how-it-works/document.png
 import ManageIcon from '_content/images/frontend-new/how-it-works/manage.png';
 
 const HowItWorksHeadings = () => (
-    <div className="headings-area">
-        <div className="item">
-            <img alt="Inspect" src={InspectIcon} />
-            <div className="text">
-                <h3>Inspect</h3>
-                <div className="divider" />
-                <p>Neque porro qui</p>
+    <div className="section">
+        <div className="headings-area">
+            <div className="item">
+                <img alt="Inspect" src={InspectIcon} />
+                <div className="text">
+                    <h3>Inspect</h3>
+                    <div className="divider" />
+                    <p>Neque porro qui</p>
+                </div>
             </div>
-        </div>
-        <div className="item">
-            <img alt="Locate" src={LocateIcon} />
-            <div className="text">
-                <h3>Inspect</h3>
-                <div className="divider" />
-                <p>Neque porro qui</p>
+            <div className="item">
+                <img alt="Locate" src={LocateIcon} />
+                <div className="text">
+                    <h3>Inspect</h3>
+                    <div className="divider" />
+                    <p>Neque porro qui</p>
+                </div>
             </div>
-        </div>
-        <div className="item">
-            <img alt="Document" src={DocumentIcon} />
-            <div className="text">
-                <h3>Inspect</h3>
-                <div className="divider" />
-                <p>Neque porro qui</p>
+            <div className="item">
+                <img alt="Document" src={DocumentIcon} />
+                <div className="text">
+                    <h3>Inspect</h3>
+                    <div className="divider" />
+                    <p>Neque porro qui</p>
+                </div>
             </div>
-        </div>
-        <div className="item">
-            <img alt="Manage" src={ManageIcon} />
-            <div className="text">
-                <h3>Inspect</h3>
-                <div className="divider" />
-                <p>Neque porro qui</p>
+            <div className="item">
+                <img alt="Manage" src={ManageIcon} />
+                <div className="text">
+                    <h3>Inspect</h3>
+                    <div className="divider" />
+                    <p>Neque porro qui</p>
+                </div>
             </div>
         </div>
     </div>
