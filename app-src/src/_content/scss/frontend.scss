@@ -217,6 +217,10 @@
             margin-right: 16px;
         }
 
+        &.spacing-right-sm {
+            margin-right: 8px;
+        }
+
         &.spacing {
             margin: 0 16px;
         }
@@ -375,11 +379,16 @@
             }
   
             .contact-form {
-              margin: 0 143px 166px 88px;
+              margin: 0 143px 166px 0;
               color: #FFFFFF;
               flex: 1;
               max-width: 610px;
 
+              .recaptcha-wrapper {
+                display: flex;
+                justify-content: flex-end;
+                margin: 8px 0 4px 0;
+              }
           }
 
         }
