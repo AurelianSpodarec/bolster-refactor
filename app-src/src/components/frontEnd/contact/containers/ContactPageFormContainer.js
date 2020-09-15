@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 
 import postContactForm from 'actions/frontEnd/contact/async/postContactForm';
 import ContactPageForm from '../presentational/ContactPageForm';
-import { useForm } from 'helpers/hooks';
+import { useForm, usePrevious } from 'helpers/hooks';
 
-const ContactPageFormContainer = ({ error, postSuccess }) => {
-    const [form, handleChange] = useForm({
+const ContactPageFormContainer = ({ error, postSuccess, postContactForm }) => {
+    const [formData, handleChange] = useForm({
         name: '',
         email: '',
         contactNumber: '',
@@ -14,33 +14,27 @@ const ContactPageFormContainer = ({ error, postSuccess }) => {
         sent: false,
     });
 
+    const prevProps = usePrevious({ postSuccess });
+
     const handleSubmit = e => {
+        console.log('in handle submit');
         e.preventDefault();
 
-        const { name, email, contactNumber, companyName, message } = this.state;
-        const { postContactForm } = this.props;
-
-        const postBody = {
-            name,
-            email,
-            contactNumber,
-            companyName,
-            message,
-        };
+        const postBody = { ...formData };
 
         postContactForm(postBody);
     };
 
     useEffect(() => {
-        if (postSuccess /*&& !prevProps.postSuccess*/) {
+        if (postSuccess && !prevProps.postSuccess) {
             handleChange({ sent: true });
         }
     }, [postSuccess]);
 
     return (
         <ContactPageForm
-            {...form}
             error={error}
+            form={formData}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
         />
