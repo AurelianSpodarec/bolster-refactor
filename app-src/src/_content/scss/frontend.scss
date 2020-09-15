@@ -1,4 +1,6 @@
 #frontend-site {
+    background-color: white;
+    @include opensans-regular();
 
     .back-to-top-container {
         display: flex;
@@ -330,7 +332,16 @@
             justify-content: space-between;
 
             .item {
+                display: flex;
                 flex: 0.23;
+
+                img {
+                    width: 116.5px;
+                }
+
+                .text {
+                    flex: 1;
+                }
             }
         }
     }

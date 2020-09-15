@@ -63,6 +63,26 @@ $darker-grey-alt: #707070;
     }
 }
 
+@mixin opensans-light() {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
+@mixin opensans-regular() {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+}
+
+@mixin opensans-semibold() {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+}
+
+@mixin opensans-bold() {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+}
+
 @mixin swiss721-roman() {
     font: {
         family: "Swiss_721 W01 Roman", sans-serif;
