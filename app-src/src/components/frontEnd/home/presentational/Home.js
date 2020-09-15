@@ -1,11 +1,12 @@
 import React from 'react';
+import HomeSlidesContainer from '../containers/HomeSlidesContainer';
 import TrustedBy from 'components/frontEnd/trustedBy/presentational/TrustedBy';
 
 const Home = () => (
-    <div>
-        <div style={{ height: '100vh' }} />
+    <>
+        <HomeSlidesContainer />
         <TrustedBy />
-    </div>
+    </>
 );
 
 export default Home;
