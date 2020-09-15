@@ -209,6 +209,51 @@
         }
     }
 
+    .frontend-section-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 32px;
+        
+        .line {
+            font-size: 200%;
+            font-weight: 500;
+            position: relative;
+
+            &:after {
+                content: "";
+                background: $red-alt;
+                position: absolute;
+                bottom: -8px;
+                left: 50%;
+                transform: translateX(-50%);
+                height: 3px;
+                width: 10%;
+            }
+        }
+    }
+
+    //Trusted by
+    .trusted-by-container {
+        width: 100%;
+        background-color: $light-grey-bg;
+        padding: 48px;
+
+        .trusted-by-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+
+            .item {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 8px;
+                background-color: white;
+            }
+        }
+    }
+
     // About us section
     #about {
 
