@@ -69,7 +69,11 @@ const ContactPageForm = ({
                                 later.
                             </Error>
                         )}
-                        <FrontEndButton type="submit" classes="red" handleClick={handleSubmit}>
+                        <FrontEndButton
+                            type="submit"
+                            classes="gray spacing-right"
+                            handleClick={handleSubmit}
+                        >
                             Submit
                         </FrontEndButton>
                     </>
