@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { DELETE_ENQUIRY, ERROR_MODAL } from 'constants/shared/modalTypes';
+import {
+    DELETE_CONTACT_SUBMISSION,
+    DELETE_ENQUIRY,
+    ERROR_MODAL,
+} from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import markContactSubmission from 'actions/superAdmin/contactSubmissions/async/markContactSubmission';
 import ContactSubmissionsListItem from '../presentational/ContactSubmissionsListItem';
@@ -41,7 +45,7 @@ class ContactSubmissionsListItemContainer extends Component {
 
     handleShowModal = contactSubmission => {
         const { showModal } = this.props;
-        showModal(DELETE_ENQUIRY, { id: contactSubmission.id });
+        showModal(DELETE_CONTACT_SUBMISSION, { id: contactSubmission.id });
     };
 
     handleMarkContacted = id => {
