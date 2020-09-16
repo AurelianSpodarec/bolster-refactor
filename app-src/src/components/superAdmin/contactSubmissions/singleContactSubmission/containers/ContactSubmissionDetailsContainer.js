@@ -43,12 +43,12 @@ const ContactSubmissionDetailsContainer = ({
         >
             <ContactSubmissionDetails
                 contactSubmission={contactSubmission}
-                handleShowModal={id => handleShowModal(DELETE_CONTACT_SUBMISSION, { id })}
+                handleShowModal={id => handleShowModal({ id })}
             />
         </BlockContainer>
     );
 
-    function handleShowModal(id) {
+    function handleShowModal({ id }) {
         showModal(DELETE_CONTACT_SUBMISSION, { id });
     }
 };
