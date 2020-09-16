@@ -10,6 +10,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import client from 'reducers/client';
 
 const InviteClientForm = ({
     location,
@@ -32,7 +33,7 @@ const InviteClientForm = ({
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
             <Field labelClasses="no-capitalise" name="Invite new client?">
             <CheckboxContainer
-                checked={inviteNewClient}
+                checked={inviteNewClient || !clients.length} 
                 name="inviteNewClient"
                 text=""
                 handleChange={handleChange}
