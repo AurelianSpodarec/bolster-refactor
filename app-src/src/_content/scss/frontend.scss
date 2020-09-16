@@ -516,21 +516,25 @@ $header-height: 75px;
 
     // Contact page
     #contact {        
-        
         .contact-background {
            position: absolute;
-
-            .contact-background-video{
-                height: 1080px;
-                width: 1920px;
-            }
+           background-color: #838383;
+           height: 100%;
+           width: 100%;
+           opacity: 0.9;
+        }
+        
+        .contact-background-video {
+            position: absolute;
+            height: 100%;
+            width: 100%;
         }
 
-        .contact-wrapper {
+        .contact-form-wrapper {
             display: flex;
             flex-direction: column;
             justify-content: center;
-        
+                    
             .contact-heading {
                 justify-self: center;
                 align-self: center;
