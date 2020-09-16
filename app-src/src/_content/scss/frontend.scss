@@ -407,9 +407,13 @@ $header-height: 75px;
 
         .how-it-works-sections {
             height: calc(100vh - #{$header-height});
-            overflow: auto;
+            overflow: hidden;
             -ms-overflow-style: none;
             scrollbar-width: none;
+
+            &.scrollable {
+                overflow: auto;
+            }
         }
 
         .how-it-works-sections::-webkit-scrollbar {
