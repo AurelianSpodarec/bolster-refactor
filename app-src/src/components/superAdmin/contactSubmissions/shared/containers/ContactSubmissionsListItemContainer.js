@@ -3,15 +3,16 @@ import { connect } from 'react-redux';
 
 import { DELETE_ENQUIRY, ERROR_MODAL } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import markEnquiry from 'actions/superAdmin/enquiries/async/markEnquiry';
-import EnquiriesListItem from '../presentational/EnquiriesListItem';
+import markContactSubmission from 'actions/superAdmin/contactSubmissions/async/markContactSubmission';
+import ContactSubmissionsListItem from '../presentational/ContactSubmissionsListItem';
 
-class EnquiriesListItemContainer extends Component {
+class ContactSubmissionsListItemContainer extends Component {
     render() {
-        const { enquiry, colCount } = this.props;
+        const { contactSubmission, colCount } = this.props;
+
         return (
-            <EnquiriesListItem
-                enquiry={enquiry}
+            <ContactSubmissionsListItem
+                contactSubmission={contactSubmission}
                 colCount={colCount}
                 handleShowModal={this.handleShowModal}
                 handleMarkContacted={this.handleMarkContacted}
@@ -24,7 +25,8 @@ class EnquiriesListItemContainer extends Component {
         if (deletionError && !prevProps.deletionError) {
             showModal(ERROR_MODAL, {
                 title: 'Deletion Error:',
-                message: 'An error occurred while deleting this enquiry, please try again later',
+                message:
+                    'An error occurred while deleting this contact submission, please try again later',
             });
         }
 
@@ -32,14 +34,14 @@ class EnquiriesListItemContainer extends Component {
             showModal(ERROR_MODAL, {
                 title: 'Marking as Contacted Error:',
                 message:
-                    'An error occurred while marking this enquiry as contacted, please try again later',
+                    'An error occurred while marking this contact submission as contacted, please try again later',
             });
         }
     }
 
-    handleShowModal = enquiry => {
+    handleShowModal = contactSubmission => {
         const { showModal } = this.props;
-        showModal(DELETE_ENQUIRY, { id: enquiry.id });
+        showModal(DELETE_ENQUIRY, { id: contactSubmission.id });
     };
 
     handleMarkContacted = id => {
@@ -50,12 +52,12 @@ class EnquiriesListItemContainer extends Component {
 
 const mapDispatchToProps = dispatch => ({
     showModal: (modalType, modalProps) => dispatch(showModal(modalType, modalProps)),
-    handleMarking: id => dispatch(markEnquiry(id)),
+    handleMarking: id => dispatch(markContactSubmission(id)),
 });
 
-const mapStateToProps = ({ superAdmin: { enquiriesReducer } }) => ({
-    deletionError: enquiriesReducer.deletionError,
-    markingError: enquiriesReducer.markingError,
+const mapStateToProps = ({ superAdmin: { contactSubmissionsReducer } }) => ({
+    deletionError: contactSubmissionsReducer.deletionError,
+    markingError: contactSubmissionsReducer.markingError,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EnquiriesListItemContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactSubmissionsListItemContainer);

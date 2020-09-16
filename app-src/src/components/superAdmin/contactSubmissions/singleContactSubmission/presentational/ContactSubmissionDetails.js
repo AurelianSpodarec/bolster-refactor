@@ -6,18 +6,14 @@ import moment from 'moment';
 
 const EnquiryDetails = ({
     handleShowModal,
-    enquiry: { companyName, name, createdOn, contactNumber, email, message, id }
+    contactSubmission: { companyName, name, createdOn, contactNumber, email, message, id },
 }) => (
     <>
-        <BlockHeading title="Enquirey Details" />
+        <BlockHeading title="Contact Submission" />
         <div className="field-group size-lg-12">
             <div className="size-lg-4">
                 {!!name && (
-                    <FieldOutput
-                        title="Name"
-                        description={name}
-                        fieldClass="no-h-padding"
-                    />
+                    <FieldOutput title="Name" description={name} fieldClass="no-h-padding" />
                 )}
                 {!!contactNumber && (
                     <FieldOutput
@@ -27,11 +23,7 @@ const EnquiryDetails = ({
                     />
                 )}
                 {!!message && (
-                    <FieldOutput
-                        title="Message"
-                        description={message}
-                        fieldClass="no-h-padding"
-                    />
+                    <FieldOutput title="Message" description={message} fieldClass="no-h-padding" />
                 )}
             </div>
             <div className="size-lg-4">
@@ -46,20 +38,14 @@ const EnquiryDetails = ({
                 {!!createdOn && (
                     <FieldOutput
                         title="Sent on"
-                        description={moment(createdOn).format(
-                            'DD-MM-YYYY HH:mm'
-                        )}
+                        description={moment(createdOn).format('DD-MM-YYYY HH:mm')}
                         fieldClass="no-h-padding"
                     />
                 )}
             </div>
             <div className="size-lg-4">
                 {!!email && (
-                    <FieldOutput
-                        title="Email"
-                        description={email}
-                        fieldClass="no-h-padding"
-                    />
+                    <FieldOutput title="Email" description={email} fieldClass="no-h-padding" />
                 )}
             </div>
         </div>

@@ -1,18 +1,18 @@
 import React from 'react';
 
-import EnquiriesTableContainer from '../containers/EnquiriesTableContainer';
+import ContactSubmissionsTableContainer from '../containers/ContactSubmissionsTableContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const AllEnquiries = () => (
+const AllContactSubmissions = () => (
     <>
-        <PageHeading title="User Enquiries" withBackButton />
+        <PageHeading title="Contact Submissions" withBackButton />
         <BlockContainer>
-            <BlockHeading title="All User Enquiries" />
-            <EnquiriesTableContainer />
+            <BlockHeading title="All Contact Submissions" />
+            <ContactSubmissionsTableContainer />
         </BlockContainer>
     </>
 );
 
-export default AllEnquiries;
+export default AllContactSubmissions;

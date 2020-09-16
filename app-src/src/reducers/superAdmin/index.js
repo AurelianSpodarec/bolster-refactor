@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import companiesReducer from './companies';
-import enquiriesReducer from './enquiries';
+import contactSubmissionsReducer from './contactSubmissions';
 import companyReportsReducer from './companyReports';
 import invoicesReducer from './invoices';
 import invoicePaymentsReducer from './invoicePayments';
@@ -35,7 +35,7 @@ export default combineReducers({
     companySubscriptionReducer,
     demoRequestsReducer,
     drawingsReducer,
-    enquiriesReducer,
+    contactSubmissionsReducer,
     floorsReducer,
     invoicePaymentsReducer,
     invoicesReducer,

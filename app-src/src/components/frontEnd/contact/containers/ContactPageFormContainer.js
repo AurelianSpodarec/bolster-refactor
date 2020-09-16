@@ -11,7 +11,7 @@ const ContactPageFormContainer = ({ error, postSuccess, postContactForm }) => {
         email: '',
         contactNumber: '',
         companyName: '',
-        recaptchaToken: '',
+        reCaptchaToken: '',
     });
     const [sent, setSent] = useState(false);
 
