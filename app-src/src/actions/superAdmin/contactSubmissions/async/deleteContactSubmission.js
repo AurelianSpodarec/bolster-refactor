@@ -22,10 +22,10 @@ export const deleteContactSubmissionFailure = error => ({
     error,
 });
 
-export default enquiryID => dispatch => {
+export default id => dispatch => {
     dispatch(deleteContactSubmissionRequest());
     axios
-        .delete(`${ADMIN_API_URL}/contact/${enquiryID}`, getHeaders())
-        .then(() => dispatch(deleteContactSubmissionSuccess(enquiryID)))
+        .delete(`${ADMIN_API_URL}/contact/${id}`, getHeaders())
+        .then(() => dispatch(deleteContactSubmissionSuccess(id)))
         .catch(err => dispatch(deleteContactSubmissionFailure(err.message)));
 };

@@ -26,7 +26,7 @@ import {
     CREATE_COMPANY_ADMIN,
     CREATE_OPERATIVE,
     TOGGLE_DROPDOWN_OPTION,
-    DELETE_ENQUIRY,
+    DELETE_CONTACT_SUBMISSION,
     DELETE_COMPANY_USER,
     DELETE_DOCUMENT,
     DELETE_CLIENT_FROM_DRAWING,
@@ -111,7 +111,7 @@ import AddTemplateSectionModalContainer from 'components/superAdmin/templateBuil
 import AddTemplateQuestionModalContainer from 'components/superAdmin/templateBuilder/setQuestion/containers/AddTemplateQuestionModalContainer';
 import BuyCreditsModalContainer from 'components/companyAdmin/subscription/buyCreditsModal/containers/BuyCreditsModalContainer';
 import CompanyEditTemplateQuestionModalContainer from 'components/companyAdmin/templates/singleTemplate/editTemplateQuestionModal/containers/EditTemplateQuestionModalContainer.js';
-import DeleteEnquiryModalContainer from './DeleteEnquiryModalContainer';
+import DeleteContactSubmissionModalContainer from './DeleteContactSubmissionModalContainer';
 import DeleteDocumentModalContainer from './DeleteDocumentModalContainer';
 import DeleteOperativeModalContainer from './DeleteOperativeModalContainer';
 import DeleteClientModalContainer from './DeleteClientModalContainer';
@@ -218,7 +218,7 @@ const MODAL_COMPONENTS = {
     [DELETE_COMPANY_PERMISSIONS]: DeleteCompanyPermissionsModalContainer,
     [DELETE_COMPANY_USER]: DeleteCompanyUserModalContainer,
     [DELETE_DOCUMENT]: DeleteDocumentModalContainer,
-    [DELETE_ENQUIRY]: DeleteEnquiryModalContainer,
+    [DELETE_CONTACT_SUBMISSION]: DeleteContactSubmissionModalContainer,
     [DELETE_DEMO_REQUEST]: DeleteDemoRequestModalContainer,
     [DELETE_OPERATIVE]: DeleteOperativeModalContainer,
     [ERROR_MODAL]: ErrorModal,
