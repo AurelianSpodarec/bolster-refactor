@@ -57,8 +57,8 @@ const ContactPageForm = ({ form, handleChange, handleSubmit, error, sent }) => {
             </Field>
             <Field>
                 <ReCaptcha
-                    name="recaptchaToken"
-                    value={form.recaptchaToken}
+                    name="reCaptchaToken"
+                    value={form.reCaptchaToken}
                     onChange={handleChange}
                     required
                 />
