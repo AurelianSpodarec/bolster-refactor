@@ -111,7 +111,7 @@ class InviteClientFormContainer extends Component {
         } = this.state;
         const { hierarchyType, hierarchyID, addClient, clients, addManyClients } = this.props;
 
-        if (inviteNewClient || !this._getUserOptions().length) {
+        if (inviteNewClient && !this._getUserOptions().length) {
             const postBody = {
                 firstName,
                 lastName,

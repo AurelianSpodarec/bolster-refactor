@@ -33,7 +33,7 @@ const InviteClientForm = ({
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
             <Field labelClasses="no-capitalise" name="Invite new client?">
             <CheckboxContainer
-                checked={inviteNewClient || !clients.length} 
+                checked={inviteNewClient && !clients.length} 
                 name="inviteNewClient"
                 text=""
                 handleChange={handleChange}
