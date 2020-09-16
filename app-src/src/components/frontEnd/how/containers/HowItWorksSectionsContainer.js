@@ -8,14 +8,12 @@ const HowItWorksSectionsContainer = () => {
 
     useEffect(() => {
         setShouldBeScrollable();
-        checkScroll();
+        window.addEventListener('scroll', setShouldBeScrollable);
+
+        return () => window.removeEventListener('scroll', setShouldBeScrollable);
     }, []);
 
     return <HowItWorksSections innerScrollable={innerScrollable} />;
-
-    function checkScroll() {
-        window.addEventListener('scroll', setShouldBeScrollable);
-    }
 
     function setShouldBeScrollable() {
         const headerHeight = document.querySelector('.frontend-header').offsetHeight;
