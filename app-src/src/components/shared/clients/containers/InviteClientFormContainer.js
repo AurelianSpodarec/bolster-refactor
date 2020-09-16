@@ -23,22 +23,24 @@ class InviteClientFormContainer extends Component {
         inviteNewClient: false,
     };
     render() {
-        const { serviceIDs } = this.state;
+        const { serviceIDs, inviteNewClient } = this.state;
         const serviceOptions = this._getServicesOptions();
         const showMoreServicesMesssage = serviceOptions.some(option => option.disabled === true);
         const showClientServicesMessage = serviceOptions.some(option => option.hideClientAccess);
         const { isFetching, clients } = this.props;
+        const userOptions = this._getUserOptions();
         return (
-            <BlockContainer isFetching={isFetching} isEmpty={isEmpty(clients)}>
+            <BlockContainer isFetching={isFetching} isEmpty={isFetching}>
                 <InviteClientForm
                     {...this.state}
+                    inviteNewClient = {!userOptions.length || inviteNewClient}
                     serviceOptions={this._getServicesOptions()}
                     checkedServices={serviceIDs}
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
                     showMoreServicesMesssage={showMoreServicesMesssage}
                     showClientServicesMessage={showClientServicesMessage}
-                    userOptions={this._getUserOptions()}
+                    userOptions={userOptions}
                 />
             </BlockContainer>
         );
@@ -109,7 +111,7 @@ class InviteClientFormContainer extends Component {
         } = this.state;
         const { hierarchyType, hierarchyID, addClient, clients, addManyClients } = this.props;
 
-        if (inviteNewClient) {
+        if (inviteNewClient || !this._getUserOptions().length) {
             const postBody = {
                 firstName,
                 lastName,
@@ -119,6 +121,7 @@ class InviteClientFormContainer extends Component {
                 serviceIDs,
             };
             addClient(hierarchyType, hierarchyID, postBody);
+            
             return;
         }
         const postBody = {
