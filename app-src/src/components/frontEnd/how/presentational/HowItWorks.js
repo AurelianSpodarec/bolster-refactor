@@ -1,12 +1,12 @@
 import React from 'react';
 
 import HowItWorksHeadings from './HowItWorksHeadings';
+import HowItWorksTimelineContainer from '../containers/HowItWorksTimelineContainer';
 
 const HowItWorks = () => (
     <div id="how-it-works">
-        <div className="section">
-            <HowItWorksHeadings />
-        </div>
+        <HowItWorksHeadings />
+        <HowItWorksTimelineContainer />
     </div>
 );
 
