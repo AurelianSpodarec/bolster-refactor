@@ -1,11 +1,13 @@
 
+$header-height: 75px;
+
 #frontend-site {
     position: relative;
     color: $very-dark-grey-alt;
     background-color: white;
     @include opensans-regular();
     line-height: 1.5;
-    padding-top: 75px;
+    padding-top: $header-height;
 
     .back-to-top-container {
         display: flex;
@@ -37,7 +39,7 @@
         top: 0;
         left: 0;
         z-index: 99;
-        height: 75px;
+        height: $header-height;
 
         .frontend-logo {
             
@@ -398,6 +400,17 @@
 
     // how it works
     #how-it-works {
+        .how-it-works-sections {
+            height: calc(100vh - #{$header-height});
+            overflow: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .how-it-works-sections::-webkit-scrollbar {
+            display: none;
+          }
+
         .section {
             max-width: 1500px;
             padding: 75px 20px 0;
