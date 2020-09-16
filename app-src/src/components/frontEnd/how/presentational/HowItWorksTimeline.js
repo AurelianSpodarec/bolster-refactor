@@ -1,6 +1,6 @@
 import React from 'react';
 
-const HowItWorksTimeline = ({ items }) => (
+const HowItWorksTimeline = ({ items, activeIndex }) => (
     <div className="section">
         <div className="timeline">
             <div className="line-divider" />
@@ -10,7 +10,10 @@ const HowItWorksTimeline = ({ items }) => (
                     const number = '0' + (index + 1);
 
                     return (
-                        <div key={item.title} className="item-container">
+                        <div
+                            key={item.title}
+                            className={`item-container ${index === activeIndex ? 'active' : ''}`}
+                        >
                             <div className="line-points">
                                 <div className="circle" />
                                 <div className="line" />
