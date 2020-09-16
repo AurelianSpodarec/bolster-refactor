@@ -266,58 +266,71 @@
         }
     }
 
-    .home-slides-container {
-        scroll-snap-type: y mandatory;
-        overflow: scroll;
+    .home-container {
 
-
-        .home-slides {
+        .home-slides-container {
             width: 100%;
             height: 100vh;
-            position: relative;
-            background-repeat: no-repeat;
-            background-position: center center;
-            scroll-snap-align: start;
+            overflow-y: hidden;
 
-            .overlay {
-                position: absolute;
-                height: 100%;
-                width: 100%;
-                z-index: 2;
-                top: 0;
-                left: 0;
-                background-color: #000000;
-                opacity: 0.3;
+            &.visible {
+                scroll-snap-type: y mandatory;
+                scroll-behavior: smooth;
+                overflow-y: scroll;
+
+                .home-slides {
+                    scroll-snap-align: start;
+                    scroll-snap-stop: always;
+                }
             }
 
-            .slide-content {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-                position: absolute;
-                bottom: 10vh;
-                left: 50%;
-                transform: translateX(-50%);
-                text-align: center;
-                color: #fff;
-                z-index: 3;
-
-                .slide-title {
-                    font-size: 180%;
-                    font-weight: 500;
-                    margin-bottom: 8px;
+            .home-slides {
+                width: 100%;
+                height: 100vh;
+                position: relative;
+                background-repeat: no-repeat;
+                background-position: center center;
+    
+                .overlay {
+                    position: absolute;
+                    height: 100%;
+                    width: 100%;
+                    z-index: 2;
+                    top: 0;
+                    left: 0;
+                    background-color: #000000;
+                    opacity: 0.3;
                 }
-
-                .slide-description {
-                    font-size: 160%;
-                    margin-bottom: 12px;
-                }
-
-                .frontend-button  {
-                    margin: 0 auto;
-                    background-color: white;
-                    color: black;
+    
+                .slide-content {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    position: absolute;
+                    bottom: 10vh;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    text-align: center;
+                    color: #fff;
+                    z-index: 3;
+    
+                    .slide-title {
+                        font-size: 180%;
+                        font-weight: 500;
+                        margin-bottom: 8px;
+                    }
+    
+                    .slide-description {
+                        font-size: 160%;
+                        margin-bottom: 12px;
+                    }
+    
+                    .frontend-button  {
+                        margin: 0 auto;
+                        background-color: white;
+                        color: black;
+                    }
                 }
             }
         }
