@@ -33,7 +33,7 @@ class InviteClientFormContainer extends Component {
             <BlockContainer isFetching={isFetching} isEmpty={isFetching}>
                 <InviteClientForm
                     {...this.state}
-                    inviteNewClient = {!!userOptions.length && inviteNewClient}
+                    inviteNewClient = { inviteNewClient || !userOptions.length}
                     serviceOptions={this._getServicesOptions()}
                     checkedServices={serviceIDs}
                     handleChange={this.handleChange}
