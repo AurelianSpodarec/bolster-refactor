@@ -267,6 +267,9 @@
     }
 
     .home-slides-container {
+        scroll-snap-type: y mandatory;
+        overflow: scroll;
+
 
         .home-slides {
             width: 100%;
@@ -274,6 +277,7 @@
             position: relative;
             background-repeat: no-repeat;
             background-position: center center;
+            scroll-snap-align: start;
 
             .overlay {
                 position: absolute;

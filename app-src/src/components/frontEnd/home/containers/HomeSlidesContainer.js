@@ -11,7 +11,7 @@ const HomeSlidesContainer = () => {
                     <div className="slide-content">
                         <h1 className="slide-title">{item.title}</h1>
                         <p className="slide-description">{item.description}</p>
-                        <FrontEndButton>{item.buttonText}</FrontEndButton>
+                        <FrontEndButton type="button">{item.buttonText}</FrontEndButton>
                     </div>
                 </Slides>
             ))}
