@@ -23,7 +23,6 @@ export const postContactFailure = error => ({
 });
 
 export default postBody => dispatch => {
-    console.log(postBody);
     dispatch(postContactRequest());
 
     return axios
