@@ -5,6 +5,7 @@
     background-color: white;
     @include opensans-regular();
     line-height: 1.5;
+    padding-top: 75px;
 
     .back-to-top-container {
         display: flex;
@@ -36,6 +37,7 @@
         top: 0;
         left: 0;
         z-index: 99;
+        height: 75px;
 
         .frontend-logo {
             
