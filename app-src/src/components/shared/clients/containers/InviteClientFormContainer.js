@@ -33,7 +33,7 @@ class InviteClientFormContainer extends Component {
             <BlockContainer isFetching={isFetching} isEmpty={isFetching}>
                 <InviteClientForm
                     {...this.state}
-                    inviteNewClient = {!userOptions.length || inviteNewClient}
+                    inviteNewClient = {!!userOptions.length && inviteNewClient}
                     serviceOptions={this._getServicesOptions()}
                     checkedServices={serviceIDs}
                     handleChange={this.handleChange}
@@ -111,7 +111,7 @@ class InviteClientFormContainer extends Component {
         } = this.state;
         const { hierarchyType, hierarchyID, addClient, clients, addManyClients } = this.props;
 
-        if (inviteNewClient && !this._getUserOptions().length) {
+        if (inviteNewClient || !this._getUserOptions().length) {
             const postBody = {
                 firstName,
                 lastName,
