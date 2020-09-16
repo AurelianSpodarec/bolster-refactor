@@ -1,5 +1,6 @@
 import React from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+
+import ReCaptcha from 'components/shared/generic/form/presentational/ReCaptcha';
 
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
@@ -7,12 +8,20 @@ import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/Fr
 import Form from 'components/shared/generic/form/containers/Form';
 import Error from 'components/shared/generic/form/presentational/Error';
 
-const ContactPageForm = ({ form, handleChange, handleSubmit, error }) => {
-    const recaptchaRef = React.createRef();
+const ContactPageForm = ({ form, handleChange, handleSubmit, error, sent }) => {
+    if (error) {
+        return <Error>{error}</Error>;
+    }
 
-    return error ? (
-        <Error>{error}</Error>
-    ) : (
+    if (sent) {
+        return (
+            <div className="sent-message-wrapper">
+                <p>Thank you, we will be in touch shortly.</p>
+            </div>
+        );
+    }
+
+    return (
         <Form id="contact-form-content" className="contact-form" onSubmit={handleSubmit}>
             <Field name="Name">
                 <TextInputContainer
@@ -47,15 +56,14 @@ const ContactPageForm = ({ form, handleChange, handleSubmit, error }) => {
                 />
             </Field>
             <Field>
-                <div className="recaptcha-wrapper">
-                    <ReCAPTCHA ref={recaptchaRef} sitekey="Key" />
-                </div>
+                <ReCaptcha
+                    name="recaptchaToken"
+                    value={form.recaptchaToken}
+                    onChange={handleChange}
+                    required
+                />
             </Field>
-            <FrontEndButton
-                classes="gray right spacing-right-sm"
-                handleClick={handleSubmit}
-                type="submit"
-            >
+            <FrontEndButton classes="gray right spacing-right-sm" type="submit">
                 Submit
             </FrontEndButton>
         </Form>

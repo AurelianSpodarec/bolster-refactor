@@ -12,6 +12,7 @@ export const REPORT_VIEWER_URL =
 export const STRIPE_PUBLIC_KEY = 'pk_test_QUrrYsRQKFyb1Os4ler16ke1';
 export const INVOICE_GEN_URL =
     'https://6eixv6n0wf.execute-api.eu-west-1.amazonaws.com/staging/bolster-invoice-gen-staging';
+export const GOOGLE_SITE_KEY = '6LeV28wZAAAAAOyyOGzeQiiqtCr_F6WIQGKqXA0a';
 // - Staging
 // export const API_URL = 'https://api.company.bolster-staging.com';
 // export const CLIENT_API_URL = 'https://api.client.bolster-staging.com';

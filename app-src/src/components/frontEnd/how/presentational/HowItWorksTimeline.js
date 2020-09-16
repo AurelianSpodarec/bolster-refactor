@@ -3,7 +3,7 @@ import React from 'react';
 const HowItWorksTimeline = ({ items }) => (
     <div className="section">
         <div className="timeline">
-            <div className="line" />
+            <div className="line-divider" />
 
             <div className="content">
                 {items.map((item, index) => {
@@ -11,6 +11,12 @@ const HowItWorksTimeline = ({ items }) => (
 
                     return (
                         <div key={item.title} className="item-container">
+                            <div className="line-points">
+                                <div className="circle" />
+                                <div className="line" />
+                                <div className="circle" />
+                            </div>
+
                             <div className="item">
                                 <div className="number">{number.slice(-2)}.</div>
                                 <img className="icon" alt={item.title} src={item.icon} />

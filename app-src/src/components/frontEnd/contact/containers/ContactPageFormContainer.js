@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import postContactForm from 'actions/frontEnd/contact/async/postContactForm';
@@ -11,23 +11,21 @@ const ContactPageFormContainer = ({ error, postSuccess, postContactForm }) => {
         email: '',
         contactNumber: '',
         companyName: '',
-        sent: false,
+        recaptchaToken: '',
     });
+    const [sent, setSent] = useState(false);
 
     const prevProps = usePrevious({ postSuccess });
 
     const handleSubmit = e => {
-        console.log('in handle submit');
         e.preventDefault();
 
-        const postBody = { ...formData };
-
-        postContactForm(postBody);
+        postContactForm(formData);
     };
 
     useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
-            handleChange({ sent: true });
+            setSent(true);
         }
     }, [postSuccess]);
 
@@ -37,6 +35,7 @@ const ContactPageFormContainer = ({ error, postSuccess, postContactForm }) => {
             form={formData}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
+            sent={sent}
         />
     );
 };

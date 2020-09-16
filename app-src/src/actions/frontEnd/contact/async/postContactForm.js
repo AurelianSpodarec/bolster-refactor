@@ -23,11 +23,10 @@ export const postContactFailure = error => ({
 });
 
 export default postBody => dispatch => {
-    console.log(postBody);
     dispatch(postContactRequest());
 
     return axios
-        .post(`${FRONTEND_API_URL}/enquiries/contact`, postBody, getHeaders())
+        .post(`${FRONTEND_API_URL}/contact`, postBody, getHeaders())
         .then(res => dispatch(postContactSuccess(res.data)))
         .catch(err => dispatch(handleErrors(postContactFailure)(err)));
 };

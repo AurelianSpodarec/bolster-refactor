@@ -2,42 +2,42 @@ import BespokeTemplatesIcon from '_content/images/frontend-new/how-it-works/time
 
 export default [
     {
-        title: 'Lorem ipsum dolor sit amet consectetur',
+        title: 'Lorem ipsum dolor sit amet consectetur 1',
         description: `Mauris at arcu lectus. Aenean vitae placerat sapien. Curabitur non dolor at 
         neque viverra congue. Morbi vitae justo mauris. Mauris vestibulum vitae lacus et finibus. 
         Nunc bibendum dignissim condimentum.`,
         icon: BespokeTemplatesIcon,
     },
     {
-        title: 'Lorem ipsum dolor sit amet consectetur',
+        title: 'Lorem ipsum dolor sit amet consectetur 2',
         description: `Mauris at arcu lectus. Aenean vitae placerat sapien. Curabitur non dolor at 
         neque viverra congue. Morbi vitae justo mauris. Mauris vestibulum vitae lacus et finibus. 
         Nunc bibendum dignissim condimentum.`,
         icon: BespokeTemplatesIcon,
     },
     {
-        title: 'Lorem ipsum dolor sit amet consectetur',
+        title: 'Lorem ipsum dolor sit amet consectetur 3',
         description: `Mauris at arcu lectus. Aenean vitae placerat sapien. Curabitur non dolor at 
         neque viverra congue. Morbi vitae justo mauris. Mauris vestibulum vitae lacus et finibus. 
         Nunc bibendum dignissim condimentum.`,
         icon: BespokeTemplatesIcon,
     },
     {
-        title: 'Lorem ipsum dolor sit amet consectetur',
+        title: 'Lorem ipsum dolor sit amet consectetur 4',
         description: `Mauris at arcu lectus. Aenean vitae placerat sapien. Curabitur non dolor at 
         neque viverra congue. Morbi vitae justo mauris. Mauris vestibulum vitae lacus et finibus. 
         Nunc bibendum dignissim condimentum.`,
         icon: BespokeTemplatesIcon,
     },
     {
-        title: 'Lorem ipsum dolor sit amet consectetur',
+        title: 'Lorem ipsum dolor sit amet consectetur 5',
         description: `Mauris at arcu lectus. Aenean vitae placerat sapien. Curabitur non dolor at 
         neque viverra congue. Morbi vitae justo mauris. Mauris vestibulum vitae lacus et finibus. 
         Nunc bibendum dignissim condimentum.`,
         icon: BespokeTemplatesIcon,
     },
     {
-        title: 'Lorem ipsum dolor sit amet consectetur',
+        title: 'Lorem ipsum dolor sit amet consectetur 6',
         description: `Mauris at arcu lectus. Aenean vitae placerat sapien. Curabitur non dolor at 
         neque viverra congue. Morbi vitae justo mauris. Mauris vestibulum vitae lacus et finibus. 
         Nunc bibendum dignissim condimentum.`,

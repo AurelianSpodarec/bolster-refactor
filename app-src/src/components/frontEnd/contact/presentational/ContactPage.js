@@ -2,17 +2,16 @@ import React from 'react';
 
 import ContactInfoContainer from '../containers/ContactInfoContainer';
 import ContactPageFormContainer from '../containers/ContactPageFormContainer';
-import BackgroundVideo from '_content/images/frontend-new/contact/icons/video/Server_Room.mp4';
+import ServerRoomBackgroundVideo from '_content/images/frontend-new/contact/icons/video/Server_Room.mp4';
 
 const ContactPage = () => {
     return (
-        <div id="contact" className="size-lg-12">
-            <div className="contact-background">
-                <video className="contact-background-video">
-                    <source src={BackgroundVideo} type="video/mp4" />
-                </video>
-            </div>
-            <div className="contact-wrapper">
+        <div id="contact">
+            <div className="contact-background"></div>
+            <video className="contact-background-video" autoPlay="autoplay" loop muted>
+                <source src={ServerRoomBackgroundVideo} type="video/mp4" />
+            </video>
+            <div className="contact-form-wrapper">
                 <div className="contact-heading">
                     <heading>
                         <h1>Contact</h1>

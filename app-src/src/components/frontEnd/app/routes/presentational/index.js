@@ -5,7 +5,6 @@ import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith4
 import HomeContainer from 'components/frontEnd/home/containers/HomeContainer';
 import HowItWorks from 'components/frontEnd/how/presentational/HowItWorks';
 import AboutPageContainer from 'components/frontEnd/about/container/AboutPageContainer';
-import RequestPageContainer from 'components/frontEnd/request/containers/RequestPageContainer';
 import ContactPageContainer from 'components/frontEnd/contact/containers/ContactPageContainer';
 import ShareLinkDrawingContainer from 'components/frontEnd/drawingShareLinks/containers/ShareLinkDrawingContainer';
 import QRCodesPageRedirect from 'components/frontEnd/qrCodes/containers/QRCodesPageRedirect';
@@ -16,7 +15,6 @@ const FrontEndRoutes = ({ base = '/' }) => (
         <Route exact path={`${base}`} component={HomeContainer} />
         <Route exact path={`${base}how-it-works`} component={HowItWorks} />
         <Route exact path={`${base}About`} component={AboutPageContainer} />
-        <Route exact path={`${base}Request`} component={RequestPageContainer} />
         <Route exact path={`${base}Contact`} component={ContactPageContainer} />
         <Route
             exact

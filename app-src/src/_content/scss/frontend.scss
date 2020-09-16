@@ -1,10 +1,13 @@
 
+$header-height: 75px;
+
 #frontend-site {
     position: relative;
     color: $very-dark-grey-alt;
     background-color: white;
     @include opensans-regular();
     line-height: 1.5;
+    padding-top: $header-height;
 
     .back-to-top-container {
         display: flex;
@@ -36,6 +39,7 @@
         top: 0;
         left: 0;
         z-index: 99;
+        height: $header-height;
 
         .frontend-logo {
             
@@ -409,6 +413,26 @@
 
     // how it works
     #how-it-works {
+        .banner {
+            background-color: #444;
+            height: calc(100vh - #{$header-height});
+        }
+
+        .how-it-works-sections {
+            height: calc(100vh - #{$header-height});
+            overflow: hidden;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+
+            &.scrollable {
+                overflow: auto;
+            }
+        }
+
+        .how-it-works-sections::-webkit-scrollbar {
+            display: none;
+          }
+
         .section {
             max-width: 1500px;
             padding: 75px 20px 0;
@@ -452,17 +476,21 @@
 
         $timeline-grey: #D9D9D9;
 
+        @mixin timeline-line() {
+            position: absolute;
+            width: 5px;
+            left: 50%;
+            margin-left: -2.5px;
+            background-color: $timeline-grey;
+        }
+
         .timeline {
             min-height: 200px;
 
-            .line {
-                position: absolute;
+            .line-divider {
+                @include timeline-line();
                 top: 0;
-                left: 50%;
-                width: 5px;
                 height: 100%;
-                margin-left: -2.5px;
-                background-color: $timeline-grey;
             }
 
             .item-container {
@@ -471,6 +499,24 @@
 
                 &:first-child {
                     margin-top: 0;
+
+                    .line-points {
+                        .circle {
+                            &:first-child {
+                                top: 0;
+                            }
+                        }
+                    }
+                }
+
+                &:last-child {
+                    .line-points {
+                        .circle {
+                            &:last-child {
+                                bottom: 0;
+                            }
+                        }
+                    }
                 }
 
                 &:nth-child(even) {
@@ -481,6 +527,56 @@
                     display: flex;
                     flex: 0.45;
                     z-index: 1;
+                    opacity: 0.5;
+                }
+
+                .line-points {
+                    @include timeline-line();
+                    top: 0;
+                    height: 100%;
+
+                    .line {
+                        position: absolute;
+                        top: 10px;
+                        left: 0;
+                        width: 100%;
+                        height: calc(100% - 36px);
+                    }
+
+                    .circle {
+                        position: absolute;
+                        width: 15px;
+                        height: 15px;
+                        left: -5px;
+                        background-color: $timeline-grey;
+                        border-radius: 50%;
+
+                        &:first-child {
+                            top: 10px;
+                        }
+
+                        &:last-child {
+                            bottom: 24.5px;
+                        }
+                    }
+                }
+
+                &.active {
+                    .line-points {
+                        z-index: 1;
+
+                        .line {
+                            background-color: $red-alt;
+                        }
+
+                        .circle {
+                            background-color: $red-alt;
+                        }
+                    }
+
+                    .item {
+                        opacity: 1;
+                    }
                 }
             }
 
@@ -514,21 +610,27 @@
 
     // Contact page
     #contact {        
-        
         .contact-background {
            position: absolute;
-
-            .contact-background-video{
-                height: 1080px;
-                width: 1920px;
-            }
+           background-color: #3C3C3C;
+           height: 100%;
+           width: 100%;
+    
+        }
+        
+        .contact-background-video {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            opacity: 0.09;
+            object-fit: fill;
         }
 
-        .contact-wrapper {
+        .contact-form-wrapper {
             display: flex;
             flex-direction: column;
             justify-content: center;
-        
+                    
             .contact-heading {
                 justify-self: center;
                 align-self: center;
@@ -563,6 +665,10 @@
                 display: flex;
                 justify-content: flex-end;
                 margin: 8px 0 4px 0;
+
+               + .error {
+                    text-align: right;
+                }
               }
           }
 
@@ -615,6 +721,16 @@
             margin-right: 24px;
             }
           }
+        }
+
+        .sent-message-wrapper {
+            display: flex;
+            margin-right: 80px;
+
+            & > p {
+                color: #ffffff;
+                font-size: 18px;
+            }
         }
     }
 }
