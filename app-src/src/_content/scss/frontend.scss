@@ -505,16 +505,18 @@
     #contact {        
         .contact-background {
            position: absolute;
-           background-color: #838383;
+           background-color: #3C3C3C;
            height: 100%;
            width: 100%;
-           opacity: 0.9;
+    
         }
         
         .contact-background-video {
             position: absolute;
             height: 100%;
             width: 100%;
+            opacity: 0.09;
+            object-fit: fill;
         }
 
         .contact-form-wrapper {
@@ -556,6 +558,10 @@
                 display: flex;
                 justify-content: flex-end;
                 margin: 8px 0 4px 0;
+
+               + .error {
+                    text-align: right;
+                }
               }
           }
 
@@ -608,6 +614,16 @@
             margin-right: 24px;
             }
           }
+        }
+
+        .sent-message-wrapper {
+            display: flex;
+            margin-right: 80px;
+
+            & > p {
+                color: #ffffff;
+                font-size: 18px;
+            }
         }
     }
 }

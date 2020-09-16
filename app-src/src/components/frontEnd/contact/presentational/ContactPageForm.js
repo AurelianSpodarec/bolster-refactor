@@ -8,10 +8,20 @@ import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/Fr
 import Form from 'components/shared/generic/form/containers/Form';
 import Error from 'components/shared/generic/form/presentational/Error';
 
-const ContactPageForm = ({ form, handleChange, handleSubmit, error }) => {
-    return error ? (
-        <Error>{error}</Error>
-    ) : (
+const ContactPageForm = ({ form, handleChange, handleSubmit, error, sent }) => {
+    if (error) {
+        return <Error>{error}</Error>;
+    }
+
+    if (sent) {
+        return (
+            <div className="sent-message-wrapper">
+                <p>Thank you, we will be in touch shortly.</p>
+            </div>
+        );
+    }
+
+    return (
         <Form id="contact-form-content" className="contact-form" onSubmit={handleSubmit}>
             <Field name="Name">
                 <TextInputContainer

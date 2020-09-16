@@ -35,6 +35,7 @@ const ContactPageFormContainer = ({ error, postSuccess, postContactForm }) => {
             form={formData}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
+            sent={sent}
         />
     );
 };

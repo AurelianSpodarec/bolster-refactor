@@ -6,11 +6,11 @@ import ServerRoomBackgroundVideo from '_content/images/frontend-new/contact/icon
 
 const ContactPage = () => {
     return (
-        <div id="contact" className="size-lg-12">
+        <div id="contact">
+            <div className="contact-background"></div>
             <video className="contact-background-video" autoPlay="autoplay" loop muted>
                 <source src={ServerRoomBackgroundVideo} type="video/mp4" />
             </video>
-            <div className="contact-background"></div>
             <div className="contact-form-wrapper">
                 <div className="contact-heading">
                     <heading>
