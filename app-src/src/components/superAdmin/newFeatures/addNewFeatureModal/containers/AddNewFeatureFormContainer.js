@@ -24,7 +24,7 @@ function AddNewFeatureFormContainer({ addNewFeature, isPosting, postSuccess, err
 
     const handleSubmit = e => {
         e.preventDefault();
-        addNewFeature({ ...formData, publishDate: moment(formData.publishDate).format() });
+        addNewFeature({ ...formData, publishDate: moment.utc(formData.publishDate).format() });
     };
 
     useEffect(() => {

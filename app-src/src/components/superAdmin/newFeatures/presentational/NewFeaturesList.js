@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 
 import { Link } from 'react-router-dom';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const NewFeaturesList = ({ newFeatures, showDeleteModal, showEditModal }) => {
     return [...newFeatures]
@@ -10,7 +11,11 @@ const NewFeaturesList = ({ newFeatures, showDeleteModal, showEditModal }) => {
             <tr key={newFeature.id}>
                 <td>{newFeature.title}</td>
                 <td>{newFeature.shortDescription}</td>
-                <td> {moment(newFeature.publishDate).format('DD/MM/YYYY HH:mm')}</td>
+                <td>
+                    <DateTimeContainer
+                        date={moment.utc(newFeature.publishDate).format('YYYY-MM-DDTHH:mm:ss')}
+                    />
+                </td>
                 <td>
                     <Link to={`/admin/new-features/${newFeature.id}`} className="button blue">
                         <i className="fa fa-eye fa-fw" />
