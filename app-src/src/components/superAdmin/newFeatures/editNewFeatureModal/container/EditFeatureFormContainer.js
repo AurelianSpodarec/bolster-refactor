@@ -24,14 +24,14 @@ const EditFeatureFormContainer = ({
         title: feature.title,
         shortDescription: feature.shortDescription,
         fullDescription: feature.fullDescription,
-        publishDate: new Date(feature.publishDate),
+        publishDate: new Date(moment.utc(feature.publishDate)),
     });
 
     const prevProps = usePrevious({ isPosting });
 
     const handleSubmit = e => {
         e.preventDefault();
-        editFeature({ ...formData, publishDate: moment(formData.publishDate).format() }, id);
+        editFeature({ ...formData, publishDate: moment.utc(formData.publishDate).format() }, id);
     };
 
     useEffect(() => {
