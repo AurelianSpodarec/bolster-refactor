@@ -98,6 +98,7 @@ import {
     COMPANY_ADD_OPTION_VALUE_DOCUMENT_VERSION,
     COMPANY_DELETE_OPTION_VALUE_DOCUMENT_VERSION,
     ADMIN_EDIT_COMPANY_ADDRESS,
+    COMPANY_AUTO_DELETE_SETTINGS,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -198,6 +199,7 @@ import AddNewDocumentVersionModal from 'components/companyAdmin/dropdownOptions/
 import ConfirmDeleteDocumentVersionModalContainer from 'components/companyAdmin/dropdownOptions/confirmDeleteDocumentVersion/containers/ConfirmDeleteDocumentVersionModalContainer';
 import EditCompanyAddressModalContainer from './EditCompanyAddressModalContainer';
 import UploadUserGuideModalContainer from './UploadUserGuideModalContainer';
+import AutoDeleteSettingsModalContainer from 'components/companyAdmin/settings/companySettings/containers/AutoDeleteSettingsModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -296,6 +298,7 @@ const MODAL_COMPONENTS = {
     [COMPANY_DELETE_OPTION_VALUE_DOCUMENT_VERSION]: ConfirmDeleteDocumentVersionModalContainer,
     [ADMIN_EDIT_COMPANY_ADDRESS]: EditCompanyAddressModalContainer,
     [UPLOAD_USER_GUIDE]: UploadUserGuideModalContainer,
+    [COMPANY_AUTO_DELETE_SETTINGS]: AutoDeleteSettingsModalContainer,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

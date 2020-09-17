@@ -6,20 +6,30 @@ import { FILE_STORAGE_URL } from 'config';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import Block from 'components/shared/generic/block/presentational/Block';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import {
     TEMPLATE_USAGE_RULES,
     VAT_TYPE_NAME,
     VAT_TYPES,
     DEFAULT_SITES_SORT_NAMES,
+    COMPANY_USER_ROLE_TYPES,
 } from 'constants/companyAdmin/enums';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import { needsVatCode } from 'constants/shared/vatTypes';
 
-const Settings = ({ isFetching, error, companySettings: company, onMobile }) => {
+const Settings = ({
+    isFetching,
+    error,
+    companySettings: company,
+    onMobile,
+    companyUserType,
+    showAutoDeleteSettingsModal,
+}) => {
     const { timeZone = {}, dateFormat = {} } = company;
     const notProvided = 'Not Provided';
+
     return (
         <>
             <PageHeading title="Company Settings" withBackButton>
@@ -275,6 +285,18 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                         />
                     </Block>
                 </div>
+                {companyUserType === COMPANY_USER_ROLE_TYPES.OWNER && (
+                    <BlockButtonWrapper>
+                        <button
+                            type="button"
+                            className="button green"
+                            onClick={() => showAutoDeleteSettingsModal()}
+                        >
+                            <i className="fa fa-plus fa-fw" />
+                            Auto Delete Settings
+                        </button>
+                    </BlockButtonWrapper>
+                )}
             </BlockContainer>
         </>
     );
@@ -284,10 +306,16 @@ const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: { isFetching, error, companySettings },
     },
+    shared: {
+        decodeJWTReducer: {
+            jwtData: { companyUserType },
+        },
+    },
 }) => ({
     isFetching,
     error,
     companySettings,
+    companyUserType,
 });
 
 export default connect(mapStateToProps)(Settings);
