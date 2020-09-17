@@ -1,36 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 import Settings from '../presentational/Settings';
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { COMPANY_AUTO_DELETE_SETTINGS } from 'constants/shared/modalTypes';
 
-const SettingsContainer = ({ onMobile, fetchCompanySettings, showModal }) => {
-    useEffect(() => {
-        fetchCompanySettings();
-    }, []);
-
-    function showAutoDeleteSettingsModal() {
-        showModal(COMPANY_AUTO_DELETE_SETTINGS);
+class SettingsContainer extends Component {
+    render() {
+        return <Settings onMobile={this.props.onMobile} />;
     }
 
-    return (
-        <Settings onMobile={onMobile} showAutoDeleteSettingsModal={showAutoDeleteSettingsModal} />
-    );
-};
+    componentDidMount = () => {
+        this.props.fetchCompanySettings();
+    };
+}
 
 const mapStateToProps = ({
     shared: {
-        mobileReducer: { onMobile },
-    },
+        mobileReducer: { onMobile }
+    }
 }) => ({
-    onMobile,
+    onMobile
 });
 
-const mapDispatchToProps = {
-    showModal,
-    fetchCompanySettings,
-};
+const mapDispatchToProps = dispatch => ({
+    fetchCompanySettings: () => {
+        dispatch(fetchCompanySettings());
+    }
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsContainer);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SettingsContainer);
