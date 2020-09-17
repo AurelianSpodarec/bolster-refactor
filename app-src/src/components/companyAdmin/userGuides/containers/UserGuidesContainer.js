@@ -10,10 +10,14 @@ const UserGuideContainer = ({ fetchUserGuide, userGuide, isFetching, error }) =>
     componentDidMount(fetchUserGuide);
     const userguideLink = `${RAW_S3_STORAGE_URL}/${userGuide.s3Key}`;
 
-    return <UserGuidesPresentational userGuideLink={userguideLink} isFetching={isFetching} error={error} />;
+    return (
+        <UserGuidesPresentational
+            userGuideLink={userguideLink}
+            isFetching={isFetching}
+            error={error}
+        />
+    );
 };
-
-const mapDispatchToProps = { fetchUserGuide };
 
 const mapStateToProps = ({
     companyAdmin: {
@@ -24,5 +28,7 @@ const mapStateToProps = ({
     isFetching,
     error,
 });
+
+const mapDispatchToProps = { fetchUserGuide };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserGuideContainer);

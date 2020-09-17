@@ -22,7 +22,6 @@ const AttachDocumentForm = ({
     handleCheckboxChange,
     handleSubmit,
     handleDateChange,
-    filesUploading,
     type,
     name,
     isPhotoRequired,
@@ -39,6 +38,7 @@ const AttachDocumentForm = ({
     showMoreServicesMesssage,
     documentVisibility,
     isOwner,
+    showClientServicesMessage,
 }) => (
     <BlockContainer>
         <BlockHeading title="Document details" />
@@ -199,6 +199,12 @@ const AttachDocumentForm = ({
                 </>
             )}
             <BlockButtonWrapper>
+                {showClientServicesMessage && (
+                    <p className="generic-text size-lg-12">
+                        Some of your service options have been omitted because you have not been
+                        granted permissions for them on this drawing.
+                    </p>
+                )}
                 {showMoreServicesMesssage && (
                     <p className="generic-text size-lg-12">
                         Looking for more service types? Check your{' '}

@@ -20,6 +20,9 @@ import {
     FETCH_CLIENTS_FOR_FLOOR_SUCCESS,
     FETCH_CLIENTS_FOR_FLOOR_REQUEST,
     FETCH_CLIENTS_FOR_FLOOR_FAILURE,
+    ADD_MANY_CLIENTS_REQUEST,
+    ADD_MANY_CLIENTS_FAILURE,
+    ADD_MANY_CLIENTS_SUCCESS
 } from 'constants/actionTypes/clients';
 
 import {
@@ -58,10 +61,13 @@ function isFetchingReducer(state = false, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case ADD_CLIENT_REQUEST:
+        case ADD_MANY_CLIENTS_REQUEST:
         case EDIT_CLIENT_FOR_DRAWING_REQUEST:
             return true;
         case ADD_CLIENT_SUCCESS:
         case ADD_CLIENT_FAILURE:
+        case ADD_MANY_CLIENTS_SUCCESS:
+        case ADD_MANY_CLIENTS_FAILURE:
         case EDIT_CLIENT_FOR_DRAWING_SUCCESS:
         case EDIT_CLIENT_FOR_DRAWING_FAILURE:
             return false;
@@ -106,12 +112,15 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case ADD_CLIENT_FAILURE:
         case ADD_CLIENT_REQUEST:
+        case ADD_MANY_CLIENTS_REQUEST:
+        case ADD_MANY_CLIENTS_FAILURE:
         case EDIT_CLIENT_FOR_DRAWING_REQUEST:
         case EDIT_CLIENT_FOR_DRAWING_FAILURE:
         case DELETE_CLIENT_FROM_DRAWING_REQUEST:
         case DELETE_CLIENT_FROM_DRAWING_FAILURE:
             return false;
         case ADD_CLIENT_SUCCESS:
+        case ADD_MANY_CLIENTS_SUCCESS:
         case EDIT_CLIENT_FOR_DRAWING_SUCCESS:
         case DELETE_CLIENT_FROM_DRAWING_SUCCESS:
             return true;

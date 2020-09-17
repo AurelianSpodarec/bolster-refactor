@@ -2,10 +2,10 @@ import React from 'react';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import RecentlyDeletedTableContainer from '../containers/RecentlyDeletedTableContainer';
 
-const RecentlyDeleted = () => (
+const RecentlyDeleted = ({ page, setPage }) => (
     <>
         <PageHeading title="Recently Deleted" />
-        <RecentlyDeletedTableContainer />
+        <RecentlyDeletedTableContainer page={page} setPage={setPage} />
     </>
 );
 

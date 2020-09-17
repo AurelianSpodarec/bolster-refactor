@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import fetchRecentlyDeleted from 'actions/companyAdmin/recentlyDeleted/async/fetchRecentlyDeleted';
@@ -7,21 +7,22 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import RecentlyDeleted from '../presentational/RecentlyDeleted';
+import { componentDidMount } from 'helpers/generic';
+import { usePrevious } from 'helpers/hooks';
 
-class RecentlyDeletedContainer extends Component {
-    render() {
-        return <RecentlyDeleted />;
-    }
+const RecentlyDeletedContainer = ({
+    fetchRecentlyDeleted,
+    isPosting,
+    postSuccess,
+    postFailure,
+    postError,
+    hideModal,
+    showModal,
+}) => {
+    componentDidMount(fetchRecentlyDeleted);
 
-    componentDidMount = () => {
-        const { fetchRecentlyDeleted } = this.props;
-
-        fetchRecentlyDeleted();
-    };
-
-    componentDidUpdate = prevProps => {
-        const { isPosting, postSuccess, postFailure, postError, hideModal, showModal } = this.props;
-
+    const prevProps = usePrevious({ isPosting, postSuccess, postFailure });
+    useEffect(() => {
         if (prevProps.isPosting && !isPosting && postSuccess) {
             hideModal();
         }
@@ -32,8 +33,10 @@ class RecentlyDeletedContainer extends Component {
                 message: postError,
             });
         }
-    };
-}
+    }, [isPosting, postSuccess, postFailure]);
+
+    return <RecentlyDeleted />;
+};
 
 const mapStateToProps = ({
     companyAdmin: {

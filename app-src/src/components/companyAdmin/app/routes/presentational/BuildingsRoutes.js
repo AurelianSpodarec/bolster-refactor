@@ -9,34 +9,18 @@ import InviteCompanyToBuilding from 'components/companyAdmin/buildings/inviteCom
 import BuildingClientAccessContainer from 'components/companyAdmin/buildings/singleBuilding/containers/BuildingClientAccessContainer';
 import AttachBuildingDocument from 'components/companyAdmin/buildings/attachBuildingDocument/presentational/AttachBuildingDocument';
 import EditBuildingDocument from 'components/companyAdmin/buildings/editBuildingDocument/presentational/EditBuildingDocument';
-import EditCompanyPermissionsOnBuildingFormContainer from 'components/companyAdmin/buildings/editCompanyOnBuilding/containers/EditCompanyPermissionsOnBuildingFormContainer';
+import EditCompanyPermissionsOnBuildingContainer from 'components/companyAdmin/buildings/editCompanyOnBuilding/containers/EditCompanyPermissionsOnBuildingContainer';
 import AddCompanyPermissionsToBuilding from 'components/companyAdmin/buildings/addCompanyPermissionsToBuilding.js/presentational/AddCompanyPermissionsToBuilding';
 import DocumentResponsesContainer from 'components/shared/documents/containers/DocumentResponsesContainer';
 
 const BuildingRoutes = ({ base = '/company/buildings' }) => (
     <SwitchWith404>
         <Route exact path={`${base}/:id`} component={SingleBuildingContainer} />
-        <Route
-            exact
-            path={`${base}/:id/add-operative`}
-            component={AttachBuildingOperative}
-        />
-        <Route
-            exact
-            path={`${base}/:id/invite-client`}
-            component={InviteClientToBuilding}
-        />
+        <Route exact path={`${base}/:id/add-operative`} component={AttachBuildingOperative} />
+        <Route exact path={`${base}/:id/invite-client`} component={InviteClientToBuilding} />
 
-        <Route
-            exact
-            path={`${base}/:id/client-access`}
-            component={BuildingClientAccessContainer}
-        />
-        <Route
-            exact
-            path={`${base}/:id/attach-document`}
-            component={AttachBuildingDocument}
-        />
+        <Route exact path={`${base}/:id/client-access`} component={BuildingClientAccessContainer} />
+        <Route exact path={`${base}/:id/attach-document`} component={AttachBuildingDocument} />
         <Route
             exact
             path={`${base}/:id/edit-document/:documentID`}
@@ -47,11 +31,7 @@ const BuildingRoutes = ({ base = '/company/buildings' }) => (
             path={`${base}/:id/document-responses/:documentID`}
             component={DocumentResponsesContainer}
         />
-        <Route
-            exact
-            path={`${base}/:id/invite-company`}
-            component={InviteCompanyToBuilding}
-        />
+        <Route exact path={`${base}/:id/invite-company`} component={InviteCompanyToBuilding} />
         <Route
             exact
             path={`${base}/:id/add-permissions/:companyID`}
@@ -60,7 +40,7 @@ const BuildingRoutes = ({ base = '/company/buildings' }) => (
         <Route
             exact
             path={`${base}/:id/edit-company/:companyID`}
-            component={EditCompanyPermissionsOnBuildingFormContainer}
+            component={EditCompanyPermissionsOnBuildingContainer}
         />
     </SwitchWith404>
 );

@@ -1,16 +1,16 @@
 export const ROLE_TYPES = {
-    '0': 'Owner',
-    '1': 'Admin',
-    '2': 'Operative',
-    '3': 'Client',
+    0: 'Owner',
+    1: 'Admin',
+    2: 'Operative',
+    3: 'Client',
 };
 
 export const HIERARCHY_TYPES = {
-    '1': 'site',
-    '2': 'building',
-    '3': 'floor',
-    '4': 'drawing',
-    '100': 'all sites',
+    1: 'site',
+    2: 'building',
+    3: 'floor',
+    4: 'drawing',
+    100: 'all sites',
 };
 
 export const HIERARCHY_IDS = {
@@ -34,9 +34,9 @@ export const TEMPLATE_USAGE_RULES_VALUES = {
 };
 
 export const DOCUMENT_TYPE = {
-    '1': 'View only',
-    '2': 'Requires agreement (once)',
-    '3': 'Requires agreement (multiple)',
+    1: 'View only',
+    2: 'Requires agreement (once)',
+    3: 'Requires agreement (multiple)',
 };
 
 export const COMPANY_USER_ROLE_TYPES = {
@@ -189,12 +189,16 @@ export const VAT_TYPES = {
     GB: 1,
     EU: 2,
     OUTSIDEEU: 3,
+    NOT_REGISTERED_GB: 4,
+    NOT_REGISTERED_OUTSIDEGB: 5,
 };
 
 export const VAT_TYPE_NAME = {
-    '1': 'GB',
-    '2': 'Europe',
-    '3': 'Outside Europe',
+    1: 'GB',
+    2: 'Europe',
+    3: 'Rest of the World',
+    4: 'Not Registered (GB)',
+    5: 'Not Registered (Outside GB)',
 };
 
 //Report generator
@@ -406,4 +410,30 @@ export const DOCUMENT_VIEW_TYPES = {
 export const DOCUMENT_VISIBILITY = {
     VISIBLE_TO_ALL: 1,
     VISIBLE_TO_OWN_COMPANY: 2,
+};
+
+export const ACTIVITY_LOG_ACTION_TYPES = {
+    CREATE: 1,
+    UPDATE: 2,
+    DELETE: 3,
+};
+
+export const ACTIVITY_LOG_ACTION_VALUES = {
+    1: 'Create',
+    2: 'Update',
+    3: 'Delete',
+};
+
+export const ACTIVITY_LOG_REFERENCE_TYPES = {
+    SITE: 1,
+    BUILDING: 2,
+    FLOOR: 3,
+    DRAWING: 4,
+};
+
+export const ACTIVITY_LOG_REFERENCE_VALUES = {
+    1: 'Site',
+    2: 'Building',
+    3: 'Floor',
+    4: 'Drawing',
 };

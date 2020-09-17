@@ -8,7 +8,7 @@ import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldEr
 class Form extends Component {
     state = {
         isFieldErrorsCleared: false,
-        disabled: false
+        disabled: false,
     };
     render() {
         const { className, children, style = {} } = this.props;
@@ -41,12 +41,7 @@ class Form extends Component {
 
     handleSubmit = e => {
         const { disabled } = this.state;
-        const {
-            fieldErrors,
-            showFieldErrors,
-            errorsVisible,
-            onSubmit
-        } = this.props;
+        const { fieldErrors, showFieldErrors, errorsVisible, onSubmit } = this.props;
         e.persist();
         e.preventDefault();
 
@@ -59,25 +54,25 @@ class Form extends Component {
         if (disabled) return;
 
         this.setState({ disabled: true });
+
         onSubmit(e);
+
+        this.setState({ disabled: false });
     };
 }
 
 const mapStateToProps = ({
     shared: {
-        fieldErrorsReducer: { fieldErrors, errorsVisible }
-    }
+        fieldErrorsReducer: { fieldErrors, errorsVisible },
+    },
 }) => ({
     fieldErrors,
-    errorsVisible
+    errorsVisible,
 });
 
 const mapDispatchToProps = dispatch => ({
     clearFieldErrors: () => dispatch(clearFieldErrors()),
-    showFieldErrors: () => dispatch(showFieldErrors())
+    showFieldErrors: () => dispatch(showFieldErrors()),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

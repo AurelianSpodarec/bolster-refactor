@@ -8,11 +8,7 @@ import EditSettingsContainer from 'components/companyAdmin/settings/editCompanyS
 const SettingsRoutes = ({ base = '/company/settings' }) => (
     <SwitchWith404>
         <Route exact path={base} component={SettingsContainer} />
-        <Route
-            exact
-            path={`${base}/edit-settings`}
-            component={EditSettingsContainer}
-        />
+        <Route exact path={`${base}/edit-settings`} component={EditSettingsContainer} />
     </SwitchWith404>
 );
 

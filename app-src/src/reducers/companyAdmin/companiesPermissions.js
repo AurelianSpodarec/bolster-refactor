@@ -12,7 +12,10 @@ import {
     DELETE_COMPANY_PERMISSIONS_FAILURE,
     EDIT_COMPANY_PERMISSIONS_REQUEST,
     EDIT_COMPANY_PERMISSIONS_SUCCESS,
-    EDIT_COMPANY_PERMISSIONS_FAILURE
+    EDIT_COMPANY_PERMISSIONS_FAILURE,
+    FETCH_PERMISSIONS_FOR_COMPANY_PERMISSION_REQUEST,
+    FETCH_PERMISSIONS_FOR_COMPANY_PERMISSION_SUCCESS,
+    FETCH_PERMISSIONS_FOR_COMPANY_PERMISSION_FAILURE,
 } from 'constants/actionTypes/companiesWithPermissions';
 import { updateObj, convertArrToObj, removeObjItem } from 'helpers/generic';
 
@@ -21,15 +24,19 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     isPosting: isPostingReducer,
     error: errorReducer,
-    postSuccess: postSuccessReducer
+    fetchSuccess: fetchSuccessReducer,
+    postSuccess: postSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_COMPANY_PERMISSIONS_REQUEST:
+        case FETCH_PERMISSIONS_FOR_COMPANY_PERMISSION_REQUEST:
             return true;
         case FETCH_COMPANY_PERMISSIONS_SUCCESS:
         case FETCH_COMPANY_PERMISSIONS_FAILURE:
+        case FETCH_PERMISSIONS_FOR_COMPANY_PERMISSION_SUCCESS:
+        case FETCH_PERMISSIONS_FOR_COMPANY_PERMISSION_FAILURE:
             return false;
         default:
             return state;
@@ -58,9 +65,11 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_COMPANY_PERMISSIONS_REQUEST:
         case EDIT_COMPANY_PERMISSIONS_REQUEST:
+        case FETCH_PERMISSIONS_FOR_COMPANY_PERMISSION_REQUEST:
             return null;
         case FETCH_COMPANY_PERMISSIONS_FAILURE:
         case EDIT_COMPANY_PERMISSIONS_FAILURE:
+        case FETCH_PERMISSIONS_FOR_COMPANY_PERMISSION_FAILURE:
             return action.error;
         default:
             return state;
@@ -85,9 +94,23 @@ function postSuccessReducer(state = false, action) {
     }
 }
 
+function fetchSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case FETCH_PERMISSIONS_FOR_COMPANY_PERMISSION_REQUEST:
+            return false;
+        case FETCH_PERMISSIONS_FOR_COMPANY_PERMISSION_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
 function companiesPermissionsReducer(state = {}, action) {
     switch (action.type) {
+        case FETCH_PERMISSIONS_FOR_COMPANY_PERMISSION_REQUEST:
+            return {};
         case FETCH_COMPANY_PERMISSIONS_SUCCESS:
+        case FETCH_PERMISSIONS_FOR_COMPANY_PERMISSION_SUCCESS:
             return convertArrToObj(action.payload);
         case DELETE_COMPANY_PERMISSIONS_SUCCESS:
             return removeObjItem(state, action.id);
