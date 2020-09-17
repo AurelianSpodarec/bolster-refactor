@@ -125,9 +125,9 @@ const mapStateToProps = ({
     isPosting,
     error,
     success,
-    updates: Object.values(updates)
-        .sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate))
-        .filter(({ publishDate }) => new Date(publishDate) <= new Date()),
+    updates: Object.values(updates).sort(
+        (a, b) => new Date(b.publishDate) - new Date(a.publishDate),
+    ),
     updatesLastViewedOn,
 });
 
