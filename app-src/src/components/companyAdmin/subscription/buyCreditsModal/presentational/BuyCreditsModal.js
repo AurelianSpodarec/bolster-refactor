@@ -115,7 +115,10 @@ const BuyCreditsModal = ({
                     <Field name="Agree to terms" required>
                         <p className="generic-text size-lg-12">
                             Please check that you agree with the{' '}
-                            <Link to="/auth/terms">sales terms</Link> to proceed with payment.
+                            <Link to="/auth/terms" target="_blank">
+                                sales terms
+                            </Link>{' '}
+                            to proceed with payment.
                         </p>
                         <CheckboxContainer
                             checked={termsAgreed}
