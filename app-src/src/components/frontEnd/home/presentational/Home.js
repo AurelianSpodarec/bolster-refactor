@@ -6,7 +6,6 @@ const Home = () => (
     <div className="home-container">
         <HomeSlidesContainer />
         <TrustedBy />
-        <TrustedBy />
     </div>
 );
 
