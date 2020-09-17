@@ -28,6 +28,7 @@ class AttachOperativesFormContainer extends Component {
         const serviceOptions = this._getServicesOptions();
         const { isFetching, error } = this.props;
         const showMoreServicesMesssage = serviceOptions.some(option => option.disabled === true);
+        const showClientServicesMessage = serviceOptions.some(option => option.hideClientAccess);
 
         return (
             <BlockContainer
@@ -46,6 +47,7 @@ class AttachOperativesFormContainer extends Component {
                     handleSubmit={this.handleSubmit}
                     companyUserIDs={companyUserIDs}
                     showMoreServicesMesssage={showMoreServicesMesssage}
+                    showClientServicesMessage={showClientServicesMessage}
                 />
             </BlockContainer>
         );
@@ -92,6 +94,7 @@ class AttachOperativesFormContainer extends Component {
                 value: id,
                 text: name,
                 disabled: !(hasSub && hasAccess),
+                hideClientAccess: !hasAccess,
             };
         });
     };

@@ -21,6 +21,7 @@ const Select = ({
     iconClass = '',
     placeholder = '-- select option --',
     omitPlaceholder = false,
+    classes = '',
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [hasOpened, setHasOpened] = useState(false);
@@ -44,7 +45,7 @@ const Select = ({
 
     return (
         <div
-            className={`multi-multi-dropdown size-lg-12 ${disabled ? 'disabled' : ''}`}
+            className={`multi-multi-dropdown size-lg-12 ${disabled ? 'disabled' : ''} ${classes}`}
             ref={node}
             onClick={() => !disabled && setIsOpen(!isOpen)}
         >

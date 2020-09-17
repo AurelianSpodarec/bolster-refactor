@@ -11,7 +11,7 @@ import AttachDrawingDocument from 'components/companyAdmin/drawings/attachDrawin
 import InviteCompanyToDrawing from 'components/companyAdmin/drawings/inviteCompanyToDrawing/presentational/InviteCompanyToDrawing';
 import EditDrawingDocument from 'components/companyAdmin/drawings/editDrawingDocument/presentational/EditDrawingDocument';
 import EditDrawingOperativeFormContainer from 'components/companyAdmin/drawings/editDrawingOperative/containers/EditDrawingOperativeFormContainer';
-import EditCompanyPermissionsOnDrawingFormContainer from 'components/companyAdmin/drawings/editCompanyOnDrawing/containers/EditCompanyPermissionsOnDrawingFormContainer';
+import EditCompanyPermissionsOnDrawingContainer from 'components/companyAdmin/drawings/editCompanyOnDrawing/containers/EditCompanyPermissionsOnDrawingContainer';
 
 import AddPin from 'components/companyAdmin/pins/addPin/presentational/AddPin';
 import AddCompanyPermissionsToDrawing from 'components/companyAdmin/drawings/addCompanyPermissionsToDrawing/presentational/AddCompanyPermissionsToDrawing';
@@ -20,31 +20,15 @@ import DocumentResponsesContainer from 'components/shared/documents/containers/D
 const DrawingsRoutes = ({ base = '/company/drawings' }) => (
     <SwitchWith404>
         <Route exact path={`${base}/:id`} component={SingleDrawingContainer} />
-        <Route
-            exact
-            path={`${base}/:id/add-operative`}
-            component={AttachDrawingOperative}
-        />
+        <Route exact path={`${base}/:id/add-operative`} component={AttachDrawingOperative} />
         <Route
             exact
             path={`${base}/:id/edit-operative/:operativeID`}
             component={EditDrawingOperativeFormContainer}
         />
-        <Route
-            exact
-            path={`${base}/:id/edit-client/:clientID`}
-            component={ClientEditContainer}
-        />
-        <Route
-            exact
-            path={`${base}/:id/invite-client`}
-            component={InviteClientToDrawing}
-        />
-        <Route
-            exact
-            path={`${base}/:id/attach-document`}
-            component={AttachDrawingDocument}
-        />
+        <Route exact path={`${base}/:id/edit-client/:clientID`} component={ClientEditContainer} />
+        <Route exact path={`${base}/:id/invite-client`} component={InviteClientToDrawing} />
+        <Route exact path={`${base}/:id/attach-document`} component={AttachDrawingDocument} />
         <Route
             exact
             path={`${base}/:id/edit-document/:documentID`}
@@ -55,11 +39,7 @@ const DrawingsRoutes = ({ base = '/company/drawings' }) => (
             path={`${base}/:id/document-responses/:documentID`}
             component={DocumentResponsesContainer}
         />
-        <Route
-            exact
-            path={`${base}/:id/invite-company`}
-            component={InviteCompanyToDrawing}
-        />
+        <Route exact path={`${base}/:id/invite-company`} component={InviteCompanyToDrawing} />
         <Route
             exact
             path={`${base}/:id/add-permissions/:companyID`}
@@ -68,7 +48,7 @@ const DrawingsRoutes = ({ base = '/company/drawings' }) => (
         <Route
             exact
             path={`${base}/:id/edit-company/:companyID`}
-            component={EditCompanyPermissionsOnDrawingFormContainer}
+            component={EditCompanyPermissionsOnDrawingContainer}
         />
         <Route exact path={`${base}/:id/add-pin`} component={AddPin} />
     </SwitchWith404>

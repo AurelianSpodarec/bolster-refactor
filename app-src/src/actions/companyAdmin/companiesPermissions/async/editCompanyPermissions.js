@@ -1,43 +1,39 @@
-import axios from 'axios';
+import Axios from 'axios';
 
-import { API_URL } from 'config/index';
-import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
+import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
-
+import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 import {
     EDIT_COMPANY_PERMISSIONS_REQUEST,
     EDIT_COMPANY_PERMISSIONS_SUCCESS,
-    EDIT_COMPANY_PERMISSIONS_FAILURE
+    EDIT_COMPANY_PERMISSIONS_FAILURE,
 } from 'constants/actionTypes/companiesWithPermissions';
 
-export const editCompanyPermissionsRequest = () => ({
-    type: EDIT_COMPANY_PERMISSIONS_REQUEST
+export const editCompanyRequest = () => ({
+    type: EDIT_COMPANY_PERMISSIONS_REQUEST,
 });
 
-export const editCompanyPermissionsSuccess = payload => ({
+export const editCompanySuccess = payload => ({
     type: EDIT_COMPANY_PERMISSIONS_SUCCESS,
     payload,
-    id: payload.id
 });
 
-export const editCompanyPermissionsFailure = error => ({
+export const editCompanyFailure = error => ({
     type: EDIT_COMPANY_PERMISSIONS_FAILURE,
-    error
+    error,
 });
 
-export default (hierarchicalID, postBody) => dispatch => {
-    dispatch(editCompanyPermissionsRequest());
-
-    axios
-        .post(
-            `${API_URL}/companypermissions/${hierarchicalID}`,
-            postBody,
-            getHeaders()
-        )
-        .then(result => dispatch(editCompanyPermissionsSuccess(result.data)))
-        .catch(error => {
-            dispatch(editCompanyPermissionsFailure(error));
-            if (error.response.status === 400)
-                dispatch(setAPIFieldErrors(error.response.data.errors));
+export default (hierarchyType, hierarchyID, companyID, postBody) => dispatch => {
+    dispatch(editCompanyRequest());
+    return Axios.post(
+        `${API_URL}/companypermissions/${hierarchyType}/${hierarchyID}/${companyID}`,
+        postBody,
+        getHeaders(),
+    )
+        .then(({ data }) => dispatch(editCompanySuccess(data)))
+        .catch(({ response, message }) => {
+            response.status === 400
+                ? dispatch(setAPIFieldErrors(response.data.errors))
+                : dispatch(editCompanyFailure(message));
         });
 };

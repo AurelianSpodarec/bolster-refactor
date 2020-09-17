@@ -1164,6 +1164,11 @@ input {
     &.error {
         color: $red;
     }
+
+    &.in-form {
+        padding-left: 7.5px;
+        padding-right: 7.5px;
+    }
 }
 
 .wysiwyg {
@@ -3944,6 +3949,15 @@ input {
                 &.active {
                     background-color: #f2f2f2;
                 }
+            }
+        }
+    }
+
+    &.large{
+        .option-selection{
+            .option-container{
+                max-height: 147px;
+
             }
         }
     }

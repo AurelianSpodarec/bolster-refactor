@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import AddHeadquartersCompanyForm from '../presentational/AddHeadquartersCompanyForm';
-import { VAT_TYPES } from 'constants/companyAdmin/enums';
 import createHeadquartersCompany from 'actions/companyAdmin/headquarters/async/createHeadquartersCompany';
 import fetchTimezones from 'actions/shared/time/async/fetchTimezones';
 import fetchDateFormats from 'actions/shared/time/async/fetchDateFormats';
 import { sortTimezones } from 'helpers/generic';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
+import { vatOptions } from 'constants/shared/vatTypes';
 
 class AddHeadquartersCompanyFormContainer extends Component {
     state = {
@@ -26,18 +26,12 @@ class AddHeadquartersCompanyFormContainer extends Component {
         'Company.vatCode': '',
         'Company.timezone': 0,
         'Company.dateFormatID': 0,
-        'Company.vatType': 0
+        'Company.vatType': 0,
     };
     render() {
         const timezoneOptions = this.formatTimezones();
 
         const dateFormats = this.formatDateFormats();
-
-        const vatOptions = [
-            { label: 'GB', value: VAT_TYPES.GB },
-            { label: 'EU', value: VAT_TYPES.EU },
-            { label: 'Outside EU', value: VAT_TYPES.OUTSIDEEU }
-        ];
 
         return (
             <AddHeadquartersCompanyForm
@@ -119,7 +113,7 @@ class AddHeadquartersCompanyFormContainer extends Component {
             'Company.vatCode': vatCode,
             'Company.vatType': vatType,
             'Company.dateFormatID': dateFormatID,
-            'Company.timezone': timezone
+            'Company.timezone': timezone,
         } = this.state;
 
         const postBody = {
@@ -128,7 +122,7 @@ class AddHeadquartersCompanyFormContainer extends Component {
                 lastName: lastName,
                 email: email,
                 phoneNumber: phoneNumber,
-                password: password
+                password: password,
             },
             company: {
                 name: name,
@@ -138,8 +132,8 @@ class AddHeadquartersCompanyFormContainer extends Component {
                 vatType: vatType,
                 vatCode: vatCode,
                 dateFormatID: dateFormatID,
-                timezone: timezone
-            }
+                timezone: timezone,
+            },
         };
         createHeadquartersCompany(postBody);
     };
@@ -148,13 +142,13 @@ class AddHeadquartersCompanyFormContainer extends Component {
     formatTimezones = () =>
         sortTimezones(this.props.timeZones).map(({ id, name, offset }) => ({
             value: id,
-            label: `${name} (${offset})`
+            label: `${name} (${offset})`,
         }));
 
     formatDateFormats = () =>
         this.props.dateFormats.map(({ id, example, momentDateTimeFormat }) => ({
             value: id,
-            label: `${momentDateTimeFormat} (eg. ${example})}`
+            label: `${momentDateTimeFormat} (eg. ${example})}`,
         }));
 
     validatePassword = password => {
@@ -175,31 +169,27 @@ class AddHeadquartersCompanyFormContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        headquartersReducer: { postSuccess }
+        headquartersReducer: { postSuccess },
     },
     shared: {
-        timeReducer: { dateFormats, timeZones }
-    }
+        timeReducer: { dateFormats, timeZones },
+    },
 }) => ({
     dateFormats: Object.values(dateFormats),
     timeZones: Object.values(timeZones),
-    postSuccess
+    postSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
-    createHeadquartersCompany: postBody =>
-        dispatch(createHeadquartersCompany(postBody)),
+    createHeadquartersCompany: postBody => dispatch(createHeadquartersCompany(postBody)),
     fetchDateTimeData: () => {
         dispatch(fetchTimezones());
         dispatch(fetchDateFormats());
     },
     addFieldError: (field, err) => dispatch(addFieldError(field, err)),
-    removeFieldError: field => dispatch(removeFieldError(field))
+    removeFieldError: field => dispatch(removeFieldError(field)),
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(AddHeadquartersCompanyFormContainer)
+    connect(mapStateToProps, mapDispatchToProps)(AddHeadquartersCompanyFormContainer),
 );
