@@ -6,57 +6,78 @@ import moment from 'moment';
 
 const EnquiryDetails = ({
     handleShowModal,
-    contactSubmission: { companyName, name, createdOn, contactNumber, email, message, id },
-}) => (
-    <>
-        <BlockHeading title="Contact Submission" />
-        <div className="field-group size-lg-12">
-            <div className="size-lg-4">
-                {!!name && (
-                    <FieldOutput title="Name" description={name} fieldClass="no-h-padding" />
-                )}
-                {!!contactNumber && (
-                    <FieldOutput
-                        title="Contact Number"
-                        description={contactNumber}
-                        fieldClass="no-h-padding"
-                    />
-                )}
-                {!!message && (
-                    <FieldOutput title="Message" description={message} fieldClass="no-h-padding" />
-                )}
-            </div>
-            <div className="size-lg-4">
-                {!!companyName && (
-                    <FieldOutput
-                        title="Company Name"
-                        description={companyName}
-                        fieldClass="no-h-padding"
-                    />
-                )}
+    contactSubmission: {
+        companyName,
+        name,
+        createdOn,
+        contactNumber,
+        email,
+        message,
+        id,
+        contacted,
+    },
+}) => {
+    return (
+        <>
+            <BlockHeading title="Contact Submission" />
+            <div className="field-group size-lg-12">
+                <div className="size-lg-4">
+                    {!!name && (
+                        <FieldOutput title="Name" description={name} fieldClass="no-h-padding" />
+                    )}
+                    {!!contactNumber && (
+                        <FieldOutput
+                            title="Contact Number"
+                            description={contactNumber}
+                            fieldClass="no-h-padding"
+                        />
+                    )}
+                    {!!message && (
+                        <FieldOutput
+                            title="Message"
+                            description={message}
+                            fieldClass="no-h-padding"
+                        />
+                    )}
+                </div>
+                <div className="size-lg-4">
+                    {!!companyName && (
+                        <FieldOutput
+                            title="Company Name"
+                            description={companyName}
+                            fieldClass="no-h-padding"
+                        />
+                    )}
 
-                {!!createdOn && (
+                    {!!createdOn && (
+                        <FieldOutput
+                            title="Sent on"
+                            description={moment(createdOn).format('DD-MM-YYYY HH:mm')}
+                            fieldClass="no-h-padding"
+                        />
+                    )}
+                </div>
+                <div className="size-lg-4">
+                    {!!email && (
+                        <FieldOutput title="Email" description={email} fieldClass="no-h-padding" />
+                    )}
+
                     <FieldOutput
-                        title="Sent on"
-                        description={moment(createdOn).format('DD-MM-YYYY HH:mm')}
+                        title="Contacted"
+                        description={contacted ? 'Yes' : 'No'}
                         fieldClass="no-h-padding"
                     />
-                )}
+                </div>
             </div>
-            <div className="size-lg-4">
-                {!!email && (
-                    <FieldOutput title="Email" description={email} fieldClass="no-h-padding" />
-                )}
-            </div>
-        </div>
 
-        <BlockButtonWrapper>
-            <button onClick={() => handleShowModal(id)} className="button red">
-                <i className="far fa-trash-alt" />
-                Delete
-            </button>
-        </BlockButtonWrapper>
-    </>
-);
+            <BlockButtonWrapper>
+                <button onClick={() => handleShowModal(id)} className="button red">
+                    <i className="far fa-trash-alt" />
+                    Delete
+                </button>
+            </BlockButtonWrapper>
+        </>
+    );
+};
 
 export default EnquiryDetails;
