@@ -9,14 +9,17 @@ import {
 } from 'constants/actionTypes/templateBuilder';
 import { convertArrToObj } from 'helpers/generic';
 
-const questionTypeOptions = Object.keys(QUESTION_TYPES).map(type => ({
-    text: QUESTION_TYPES[type],
-    value: type,
-}));
+const { SINGLE_LINE, STATUS, STATIC_IMAGE } = QUESTION_TYPE_VALUES;
+const questionTypeOptions = Object.keys(QUESTION_TYPES)
+    .filter(({ value }) => value !== STATUS && +value !== STATIC_IMAGE)
+    .map(type => ({
+        text: QUESTION_TYPES[type],
+        value: type,
+    }));
 const fotmattedQuestionTypes = convertArrToObj(questionTypeOptions, 'value');
 const initialQuestionFields = {
     questionTypeOptions: fotmattedQuestionTypes,
-    questionType: QUESTION_TYPE_VALUES.SINGLE_LINE,
+    questionType: SINGLE_LINE,
     prereqOptions: {},
     prereqUUID: '',
     prereqVal: '',

@@ -15,13 +15,13 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
-import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 
 const TemplateQuestionFormModal = ({
     questionTypeOptions,
     questionType,
-    prereqOptions,
+    prereqOptions = [],
     selectedPrereq,
+    prereqValueOptions,
     prereqVal,
     name,
     isRequired,
@@ -54,20 +54,36 @@ const TemplateQuestionFormModal = ({
                         options={questionTypeOptions}
                         selectedOption={questionType}
                         handleChange={handleInputChange}
-                        withoutPlaceholder
+                        omitPlaceholder
                     />
                 </Field>
-                {!isObjEmpty(prereqOptions) && (
+
+                {prereqOptions.length > 0 && (
                     <Field name="Prerequisite field?">
-                        <DropdownContainer
+                        <Select
                             name="prereqUUID"
                             options={prereqOptions}
-                            selectedOption={selectedPrereq}
-                            handleChange={handleInputChange}
+                            value={selectedPrereq}
+                            onChange={(name, val) => {
+                                handleInputChange(name, val);
+                                handleInputChange('prereqDropdownValues', []);
+                            }}
                         />
                     </Field>
                 )}
-                {!!selectedPrereq &&
+
+                {prereqValueOptions.length > 0 && (
+                    <Field name="Prerequisite values">
+                        <MultiSelect
+                            name="prereqDropdownValues"
+                            onChange={handleInputChange}
+                            value={prereqDropdownValues}
+                            options={prereqValueOptions}
+                        />
+                    </Field>
+                )}
+
+                {/* {!!selectedPrereq &&
                     showManufacturingOptionsToggle &&
                     selectedPrereq.options.length && (
                         <Field name="Enable Manufacturing options?">
@@ -77,42 +93,7 @@ const TemplateQuestionFormModal = ({
                                 handleChange={() => handleShowManufacturerOptionsCheck()}
                             />
                         </Field>
-                    )}
-                {!!selectedPrereq && !selectedPrereq.options.length && (
-                    <>
-                        <Field name="Prerequisite value" required>
-                            {selectedPrereq.isStatus ? (
-                                <Select
-                                    name="prereqVal"
-                                    value={prereqVal}
-                                    options={statusOptions}
-                                    onChange={handleInputChange}
-                                    required
-                                />
-                            ) : (
-                                <TextInputContainer
-                                    name="prereqVal"
-                                    value={prereqVal}
-                                    handleChange={handleInputChange}
-                                    required
-                                />
-                            )}
-                        </Field>
-                    </>
-                )}
-
-                {!!selectedPrereq && selectedPrereq.options.length > 0 && (
-                    <>
-                        <Field name="Prerequisite values">
-                            <CheckboxListContainer
-                                name="prereqDropdownValues"
-                                handleChange={handleInputChange}
-                                selectedOptions={prereqDropdownValues}
-                                options={selectedPrereq.options}
-                            />
-                        </Field>
-                    </>
-                )}
+                    )} */}
 
                 <Field name="Field name" required>
                     <TextInputContainer

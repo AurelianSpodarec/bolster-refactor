@@ -23,38 +23,28 @@ const AddTemplateQuestionModalContainer = ({
     handlePrefillStatusValueChange,
     handlePrereqOptionsChange,
     updateQuestionField,
+    prereqOptions,
+    prereqValueOptions,
 }) => {
     const [showManufacturingOptions, setShowManufacturingOptions] = useState(false);
     const [showManufacturingOptionsToggle, setShowManufacturingOptionsToggle] = useState(false);
 
-    const prevProps = usePrevious({ fields });
+    const prevPrereqUUID = usePrevious(prereqUUID);
 
     useEffect(() => {
-        if (
-            getQuestionData().prereqUUID &&
-            prevProps.fields.prereqUUID !== getQuestionData().prereqUUID
-        ) {
-            updateQuestionField('prereqVal', '');
-            updateQuestionField('prereqDropdownValues', []);
-
-            if (
-                getQuestionData().prereqUUID &&
-                standardPrereqOptions[getQuestionData().prereqUUID] &&
-                standardPrereqOptions[getQuestionData().prereqUUID].options.length <
-                    allPrereqOptions[getQuestionData().prereqUUID].options.length
-            ) {
-                setShowManufacturingOptionsToggle(true);
-            } else {
-                setShowManufacturingOptionsToggle(false);
-            }
+        if (prevPrereqUUID !== prevPrereqUUID) {
+            // if (
+            //     getQuestionData().prereqUUID &&
+            //     standardPrereqOptions[getQuestionData().prereqUUID] &&
+            //     standardPrereqOptions[getQuestionData().prereqUUID].options.length <
+            //         allPrereqOptions[getQuestionData().prereqUUID].options.length
+            // ) {
+            //     setShowManufacturingOptionsToggle(true);
+            // } else {
+            //     setShowManufacturingOptionsToggle(false);
+            // }
         }
-    }, [prereqUUID, prevProps.prereqUUID]);
-
-    const questionOptions = Object.values(questionTypeOptions).filter(
-        ({ value }) =>
-            +value !== QUESTION_TYPE_NUMBERS.STATUS &&
-            +value !== QUESTION_TYPE_NUMBERS.STATIC_IMAGE,
-    );
+    }, [prereqUUID, prevPrereqUUID]);
 
     const showStatusPrefillOptions =
         +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.CHECKBOX ||
@@ -69,18 +59,11 @@ const AddTemplateQuestionModalContainer = ({
         <TemplateQuestionFormModal
             {...fields}
             statusOptions={formatArrForDropdown(statusOptions)}
-            prereqOptions={
-                showManufacturingOptions
-                    ? Object.values(allPrereqOptions)
-                    : Object.values(standardPrereqOptions)
-            }
-            selectedPrereq={
-                showManufacturingOptions
-                    ? allPrereqOptions[prereqUUID]
-                    : standardPrereqOptions[prereqUUID]
-            }
+            prereqOptions={prereqOptions}
+            selectedPrereq={prereqUUID}
+            prereqValueOptions={prereqValueOptions}
             questionType={questionTypeOptions[questionType]}
-            questionTypeOptions={questionOptions}
+            questionTypeOptions={Object.values(questionTypeOptions)}
             hideModal={hideModal}
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}

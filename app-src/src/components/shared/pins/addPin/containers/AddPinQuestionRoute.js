@@ -157,8 +157,6 @@ class AddPinQuestionRoute extends Component {
             }
         }
 
-        console.log({ curQuestion, preReqAnswer, preReqQuestion });
-
         if (Array.isArray(preReqAnswer)) {
             if (
                 `${preReqQuestion.type}` === QUESTION_TYPE_VALUES.MULTI_DROPDOWN_OPTIONS ||

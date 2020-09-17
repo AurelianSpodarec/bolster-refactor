@@ -1,30 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { PREREQ_TYPES, QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
 import updateQuestionField from 'actions/superAdmin/templateBuilder/sync/updateQuestionField';
 import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import { convertArrToObj } from 'helpers/generic';
 import resetQuestionFields from 'actions/superAdmin/templateBuilder/sync/resetQuestionFields';
 import updateQuestionFields from 'actions/superAdmin/templateBuilder/sync/updateQuestionFields';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { updateObj, removeObjItem } from 'helpers/generic';
+import { PREREQ_TYPES, QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
+const { STATUS } = QUESTION_TYPE_NUMBERS;
 
 export default function (WrappedComponent) {
     class WithSetQuestion extends React.Component {
-        render = () => (
-            <WrappedComponent
-                {...this.props}
-                standardPrereqOptions={this._getStandardPrereqOptions()}
-                allPrereqOptions={this._getAllPrereqOptions()}
-                handleInputChange={this.handleInputChange}
-                getQuestionData={this.getQuestionData}
-                statusOptions={this._getStatusOptions()}
-                handlePrefillStatusChange={this.handlePrefillStatusChange}
-                handlePrefillStatusValueChange={this.handlePrefillStatusValueChange}
-            />
-        );
+        render() {
+            return (
+                <WrappedComponent
+                    {...this.props}
+                    prereqOptions={this._getPrereqOptions()}
+                    prereqValueOptions={this._getPrereqValueOptions()}
+                    handleInputChange={this.handleInputChange}
+                    getQuestionData={this.getQuestionData}
+                    statusOptions={this._getStatusOptions()}
+                    handlePrefillStatusChange={this.handlePrefillStatusChange}
+                    handlePrefillStatusValueChange={this.handlePrefillStatusValueChange}
+                />
+            );
+        }
         componentWillUnmount = () => {
             this.props.resetQuestionFields();
         };
@@ -59,106 +61,68 @@ export default function (WrappedComponent) {
             }
             updateQuestionField('prefillStatuses', value);
         };
-        _getStandardPrereqOptions = () => {
-            const {
-                questions,
-                templateUUID: temUuid,
-                companyDropdownOptions: { dropdownOptions },
-            } = this.props;
-            const { STATUS } = QUESTION_TYPE_VALUES;
+
+        _getPrereqOptions = () => {
+            const { questions, templateUUID } = this.props;
 
             const options = questions
-                .filter(q => q.templateUUID === temUuid)
-                .filter(q => PREREQ_TYPES.includes(q.questionType + ''))
-                .map(function ({ uuid, name, questionType, options, optionType }) {
-                    if (optionType) {
-                        return {
-                            value: uuid,
-                            text: name,
-                            isStatus: questionType + '' === STATUS,
-                            questionType,
-                            options: dropdownOptions
-                                .filter(dropdownOption => dropdownOption.type === optionType)
-                                .map(({ name }) => ({
-                                    text: name,
-                                    value: name,
-                                    manufacturerOption: false,
-                                })),
-                        };
-                    } else {
-                        return {
-                            value: uuid,
-                            text: name,
-                            isStatus: questionType + '' === STATUS,
-                            questionType,
-                            options: options ? options : [],
-                        };
-                    }
-                });
+                .filter(q => q.templateUUID === templateUUID)
+                .filter(q => PREREQ_TYPES.includes(q.questionType))
+                .map(q => ({ value: q.uuid, label: q.name }));
 
-            return convertArrToObj(options, 'value');
+            return options;
         };
-        _getAllPrereqOptions = () => {
-            const {
-                questions,
-                templateUUID: temUuid,
-                companyDropdownOptions: { dropdownOptions },
-                companyManufacturerOptions,
-            } = this.props;
-            const { STATUS } = QUESTION_TYPE_VALUES;
 
-            const options = questions
-                .filter(q => q.templateUUID === temUuid)
-                .filter(q => PREREQ_TYPES.includes(q.questionType + ''))
-                .map(function ({ uuid, name, questionType, options, optionType }) {
-                    const manufacturerOptions = companyManufacturerOptions
-                        .filter(({ type }) => type === optionType)
-                        .map(({ name, id }) => ({
-                            text: name,
-                            value: id,
-                            manufacturerOption: true,
-                        }));
+        _getPrereqValueOptions = () => {
+            const { questionsObj, fields } = this.props;
+            if (!fields.prereqUUID) return [];
 
-                    const defaultDropdownOptions = dropdownOptions
-                        .filter(dropdownOption => dropdownOption.type === optionType)
-                        .map(({ name }) => ({
-                            text: name,
-                            value: name,
-                            manufacturerOption: false,
-                        }));
+            const prereq = questionsObj[fields.prereqUUID];
+            if (!prereq) return [];
 
-                    const allDropdownOptions = [...manufacturerOptions, ...defaultDropdownOptions];
+            const { questionType, optionType, options } = prereq;
+            if (questionType === STATUS) {
+                return this._getStatusOptions();
+            }
 
-                    if (optionType) {
-                        return {
-                            value: uuid,
-                            text: name,
-                            isStatus: questionType + '' === STATUS,
-                            questionType,
-                            options: allDropdownOptions,
-                        };
-                    } else {
-                        return {
-                            value: uuid,
-                            text: name,
-                            isStatus: questionType + '' === STATUS,
-                            questionType,
-                            options: options ? options : [],
-                        };
-                    }
-                });
+            if (optionType) {
+                return this._getDropownOptionsByType(optionType);
+            }
 
-            return convertArrToObj(options, 'value');
+            if (options) {
+                return options.map(opt => ({
+                    label: opt.text,
+                    value: opt.id,
+                }));
+            }
+
+            return [];
         };
 
         _getStatusOptions = () => {
             const {
                 template: { statusOptions = [] },
             } = this.props;
+
             return statusOptions.map(value => ({
-                label: PIN_STATUS_TYPES[value + ''],
-                value: value + '',
+                label: PIN_STATUS_TYPES[`${value}`],
+                value: value,
             }));
+        };
+
+        _getDropownOptionsByType = optionType => {
+            const {
+                companyDropdownOptions: { dropdownOptions },
+            } = this.props;
+
+            const options = dropdownOptions
+                .filter(opt => opt.type === optionType)
+                .map(opt => ({
+                    label: opt.name,
+                    value: opt.name,
+                }));
+
+            return options;
         };
 
         getQuestionData = () => {
@@ -197,7 +161,7 @@ export default function (WrappedComponent) {
         };
 
         _getSpecificData = () => {
-            const VALS = QUESTION_TYPE_VALUES;
+            const VALS = QUESTION_TYPE_NUMBERS;
             const {
                 charLimit,
                 maxNum,
@@ -209,7 +173,7 @@ export default function (WrappedComponent) {
                 optionType,
             } = this.props.fields;
 
-            switch (questionType + '') {
+            switch (questionType) {
                 case VALS.SINGLE_LINE:
                 case VALS.MULTI_LINE:
                     return { charLimit };
@@ -245,6 +209,7 @@ export default function (WrappedComponent) {
     ) => {
         return {
             fields,
+            questionsObj: questions,
             questions: Object.values(questions),
             template: templates[templateUUID] || {},
             companyDropdownOptions,

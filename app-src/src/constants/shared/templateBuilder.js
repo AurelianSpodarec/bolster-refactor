@@ -1,21 +1,21 @@
 export const QUESTION_TYPES = {
-    '1': 'Single line',
-    '2': 'Multi line',
-    '3': 'Number',
-    '4': 'Dropdown',
-    '5': 'Multi dropdown',
-    '6': 'Radio',
-    '7': 'Checkbox',
-    '8': 'Signature',
-    '9': 'Single photo',
-    '10': 'Multi photo',
-    '11': 'Status',
-    '12': 'Dropdown options',
-    '13': 'Multi dropdown options',
-    '14': 'Multi multi dropdown',
-    '15': 'Multi multi dropdown options',
-    '16': 'Static image',
-    '17': 'Document Upload',
+    1: 'Single line',
+    2: 'Multi line',
+    3: 'Number',
+    4: 'Dropdown',
+    5: 'Multi dropdown',
+    6: 'Radio',
+    7: 'Checkbox',
+    8: 'Signature',
+    9: 'Single photo',
+    10: 'Multi photo',
+    11: 'Status',
+    12: 'Dropdown options',
+    13: 'Multi dropdown options',
+    14: 'Multi multi dropdown',
+    15: 'Multi multi dropdown options',
+    16: 'Static image',
+    17: 'Document Upload',
 };
 
 export const QUESTION_TYPE_VALUES = {
@@ -152,7 +152,7 @@ const {
     MULTI_DROPDOWN_OPTIONS,
     MULTI_MULTI_DROPDOWN,
     MULTI_MULTI_DROPDOWN_OPTIONS,
-} = QUESTION_TYPE_VALUES;
+} = QUESTION_TYPE_NUMBERS;
 
 export const PREREQ_TYPES = [
     STATUS,
