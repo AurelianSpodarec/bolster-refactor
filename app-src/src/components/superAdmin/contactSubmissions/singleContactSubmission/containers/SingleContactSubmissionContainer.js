@@ -5,7 +5,6 @@ import SingleContactSubmission from '../presentational/SingleContactSubmission';
 
 const SingleContactSubmissionContainer = ({ fetchSingleContactSubmission, id }) => {
     useEffect(() => {
-        console.log('inside SingleContactSubmissionContainer');
         fetchSingleContactSubmission(id);
     }, []);
 
