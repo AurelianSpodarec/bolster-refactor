@@ -33,7 +33,7 @@ const FrontEndHeader = ({
                         <Link to="/how-it-works">How it works</Link>
                     </li>
                     <li>
-                        <Link to="">Contact</Link>
+                        <Link to="/contact">Contact</Link>
                     </li>
                 </ul>
             </div>
