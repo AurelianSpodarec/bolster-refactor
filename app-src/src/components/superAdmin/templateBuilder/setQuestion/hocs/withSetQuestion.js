@@ -153,7 +153,10 @@ export default function (WrappedComponent) {
                     .concat(names);
             }
 
-            const options = [...new Set(names)].map(name => ({ label: name, value: name }));
+            const options = [...new Set(names)]
+                .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
+                .map(name => ({ label: name, value: name }));
+
             return options;
         };
 

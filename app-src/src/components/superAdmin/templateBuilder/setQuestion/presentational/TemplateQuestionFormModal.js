@@ -14,6 +14,8 @@ import MultiSelect from 'components/shared/generic/form/presentational/MultiSele
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
 
+const { CHECKBOX } = QUESTION_TYPE_NUMBERS;
+
 const TemplateQuestionFormModal = ({
     questionTypeOptions,
     questionType,
@@ -155,39 +157,40 @@ const TemplateQuestionFormModal = ({
                                 onChange={handlePrefillStatusChange}
                             />
                         </Field>
-                        {questionType === QUESTION_TYPE_NUMBERS.CHECKBOX && prefillStatuses.length
-                            ? prefillStatuses.map((prefillStatus, index) => (
-                                  <Field
-                                      name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}
-                                      key={index}
-                                  >
-                                      <CheckboxContainer
-                                          name="statusPrefills"
-                                          checked={statusPrefills[prefillStatus]}
-                                          handleChange={(name, value) => {
-                                              handlePrefillStatusValueChange(prefillStatus, value);
-                                          }}
-                                      />
-                                  </Field>
-                              ))
-                            : ''}
 
-                        {prefillStatuses.length && questionType !== QUESTION_TYPE_NUMBERS.CHECKBOX
-                            ? prefillStatuses.map((prefillStatus, index) => (
-                                  <Field
-                                      name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}
-                                      key={index}
-                                  >
-                                      <TextInputContainer
-                                          name="statusPrefills"
-                                          handleChange={(name, value) => {
-                                              handlePrefillStatusValueChange(prefillStatus, value);
-                                          }}
-                                          value={statusPrefills[prefillStatus]}
-                                      />
-                                  </Field>
-                              ))
-                            : ''}
+                        {prefillStatuses.length > 0 &&
+                            questionType === CHECKBOX &&
+                            prefillStatuses.map((prefillStatus, index) => (
+                                <Field
+                                    name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}
+                                    key={index}
+                                >
+                                    <CheckboxContainer
+                                        name="statusPrefills"
+                                        checked={statusPrefills[prefillStatus]}
+                                        handleChange={(_, value) => {
+                                            handlePrefillStatusValueChange(prefillStatus, value);
+                                        }}
+                                    />
+                                </Field>
+                            ))}
+
+                        {prefillStatuses.length > 0 &&
+                            questionType !== CHECKBOX &&
+                            prefillStatuses.map((prefillStatus, index) => (
+                                <Field
+                                    name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}
+                                    key={index}
+                                >
+                                    <TextInputContainer
+                                        name="statusPrefills"
+                                        handleChange={(_, value) => {
+                                            handlePrefillStatusValueChange(prefillStatus, value);
+                                        }}
+                                        value={statusPrefills[prefillStatus]}
+                                    />
+                                </Field>
+                            ))}
                     </div>
                 )}
 
