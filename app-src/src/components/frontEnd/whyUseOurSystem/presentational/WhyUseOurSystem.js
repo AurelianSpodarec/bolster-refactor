@@ -9,8 +9,8 @@ const WhyUseOurSystem = () => {
                 <h2>Lorem Ipsum</h2>
                 <div className="divider"></div>
                 <p>Neque porro quisquam est qui do lorem amet?</p>
-                <OurSystemListContainer />
             </div>
+            <OurSystemListContainer />
         </div>
     );
 };

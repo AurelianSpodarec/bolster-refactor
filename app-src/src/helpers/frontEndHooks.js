@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { Events, animateScroll as scroll, scrollSpy } from 'react-scroll';
 
-export const useBannerScroll = () => {
+export const useBannerScroll = width => {
     const lastScrollTopRef = useRef(window.pageYOffset || document.documentElement.scrollTop);
 
     useEffect(() => {
@@ -26,22 +26,31 @@ export const useBannerScroll = () => {
     }, []);
 
     function scrollToArea() {
+        if (width && width < 1024) {
+            return;
+        }
+
         const windowHeight = window.innerHeight;
         const headerHeight = document.querySelector('.frontend-header').offsetHeight;
         const bannerElement = document.querySelector('.banner');
         const { bottom } = bannerElement.getBoundingClientRect();
-        const scrollSpeed = 350;
+        const duration = 350;
 
         const newScrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
+        const scrollOptions = {
+            duration,
+            ignoreCancelEvents: true,
+        };
+
         // if scrolling down and banner in view
         if (newScrollTop > lastScrollTopRef.current && bottom > headerHeight) {
-            scroll.scrollTo(windowHeight - headerHeight, { duration: scrollSpeed });
+            scroll.scrollTo(windowHeight - headerHeight, scrollOptions);
         }
 
         // if scrolling up and banner in view
         if (newScrollTop < lastScrollTopRef.current && bottom > headerHeight) {
-            scroll.scrollToTop({ duration: scrollSpeed });
+            scroll.scrollToTop(scrollOptions);
         }
 
         setLastScrollTop(newScrollTop <= 0 ? 0 : newScrollTop); // For Mobile or negative scrolling

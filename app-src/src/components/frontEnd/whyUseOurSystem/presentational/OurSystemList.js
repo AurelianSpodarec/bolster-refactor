@@ -1,11 +1,11 @@
 import React from 'react';
 
-import InfoCardContainer from '../shared/containers/InfoCardContainer';
+import InfoCard from '../shared/presentational/InfoCard';
 
-const OurSystemList = () => {
+const OurSystemList = ({ title, icon, handleClick }) => {
     return (
-        <div className="our-system-list-wrapper">
-            <InfoCardContainer />
+        <div className="info-card-wrapper">
+            <InfoCard title={title} icon={icon} handleClick={handleClick} />
         </div>
     );
 };
