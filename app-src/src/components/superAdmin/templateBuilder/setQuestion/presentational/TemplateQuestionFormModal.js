@@ -22,7 +22,7 @@ const TemplateQuestionFormModal = ({
     prereqOptions = [],
     selectedPrereq,
     prereqValueOptions,
-    prereqVal,
+    // prereqVal,
     name,
     isRequired,
     isHidden,
@@ -37,11 +37,8 @@ const TemplateQuestionFormModal = ({
     statusPrefills,
     handlePrefillStatusChange,
     handlePrefillStatusValueChange,
-    showStatusPrefillOptions,
+    showPrefillOptions,
     prereqDropdownValues,
-    useManufacturingPrereqOptions,
-    setUseManufacturingPrerqOptions,
-    shouldShowUseManufacturingPrereqOptsSwitch,
     ...otherFields
 }) => {
     return (
@@ -73,19 +70,6 @@ const TemplateQuestionFormModal = ({
                     </Field>
                 )}
 
-                {shouldShowUseManufacturingPrereqOptsSwitch && (
-                    <Field name="Enable Manufacturing options?">
-                        <CheckboxContainer
-                            name="enableManOptions"
-                            checked={useManufacturingPrereqOptions}
-                            handleChange={(_, val) => {
-                                setUseManufacturingPrerqOptions(val);
-                                handleInputChange('prereqDropdownValues', []);
-                            }}
-                        />
-                    </Field>
-                )}
-
                 {prereqValueOptions.length > 0 && (
                     <Field name="Prerequisite values">
                         <MultiSelect
@@ -106,11 +90,13 @@ const TemplateQuestionFormModal = ({
                         required
                     />
                 </Field>
+
                 <SpecificFieldsRoute
                     questionType={questionType.value}
                     handleInputChange={handleInputChange}
                     {...otherFields}
                 />
+
                 <Field name="Required based on status?">
                     <Select
                         name="isRequiredVal"
@@ -122,6 +108,7 @@ const TemplateQuestionFormModal = ({
                         }}
                     />
                 </Field>
+
                 <Field name="Always Required?">
                     <CheckboxContainer
                         name="isRequired"
@@ -132,6 +119,7 @@ const TemplateQuestionFormModal = ({
                         }}
                     />
                 </Field>
+
                 <Field name="Hidden?">
                     <CheckboxContainer
                         name="isHidden"
@@ -139,6 +127,7 @@ const TemplateQuestionFormModal = ({
                         handleChange={handleInputChange}
                     />
                 </Field>
+
                 <Field name="Prefill on create?">
                     <CheckboxContainer
                         name="isPrefill"
@@ -146,7 +135,8 @@ const TemplateQuestionFormModal = ({
                         handleChange={handleInputChange}
                     />
                 </Field>
-                {showStatusPrefillOptions && (
+
+                {showPrefillOptions && (
                     <div className="dropdown-create  size-lg-12">
                         <Field name="Prefill Based on status?">
                             <MultiSelect

@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import uuid from 'uuid/v1';
 
 import TemplateQuestionFormModal from '../presentational/TemplateQuestionFormModal';
 import withSetQuestion from '../hocs/withSetQuestion';
-import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
 import { convertArrToObj } from 'helpers/generic';
 
 const AddTemplateQuestionModalContainer = ({
@@ -21,19 +20,8 @@ const AddTemplateQuestionModalContainer = ({
     handlePrereqOptionsChange,
     prereqOptions,
     prereqValueOptions,
-    useManufacturingPrereqOptions,
-    setUseManufacturingPrerqOptions,
-    shouldShowUseManufacturingPrereqOptsSwitch,
+    showPrefillOptions,
 }) => {
-    const showStatusPrefillOptions =
-        +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.CHECKBOX ||
-        +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.NUMBER ||
-        +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.MULTI_LINE ||
-        +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.SINGLE_LINE ||
-        +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.RADIO
-            ? true
-            : false;
-
     return (
         <TemplateQuestionFormModal
             action="Add"
@@ -49,11 +37,8 @@ const AddTemplateQuestionModalContainer = ({
             handleSubmit={handleSubmit}
             handlePrefillStatusChange={handlePrefillStatusChange}
             handlePrefillStatusValueChange={handlePrefillStatusValueChange}
-            showStatusPrefillOptions={showStatusPrefillOptions}
+            showPrefillOptions={showPrefillOptions}
             handlePrereqOptionsChange={handlePrereqOptionsChange}
-            useManufacturingPrereqOptions={useManufacturingPrereqOptions}
-            setUseManufacturingPrerqOptions={setUseManufacturingPrerqOptions}
-            shouldShowUseManufacturingPrereqOptsSwitch={shouldShowUseManufacturingPrereqOptsSwitch}
         />
     );
 
