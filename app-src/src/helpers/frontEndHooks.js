@@ -1,9 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { Events, animateScroll as scroll, scrollSpy } from 'react-scroll';
 
-import HowItWorks from '../presentational/HowItWorks';
-
-const HowItWorksContainer = () => {
+export const useBannerScroll = () => {
     const lastScrollTopRef = useRef(window.pageYOffset || document.documentElement.scrollTop);
 
     useEffect(() => {
@@ -26,8 +24,6 @@ const HowItWorksContainer = () => {
             window.removeEventListener('scroll', scrollToArea);
         };
     }, []);
-
-    return <HowItWorks />;
 
     function scrollToArea() {
         const windowHeight = window.innerHeight;
@@ -55,5 +51,3 @@ const HowItWorksContainer = () => {
         lastScrollTopRef.current = value;
     }
 };
-
-export default HowItWorksContainer;
