@@ -6,16 +6,18 @@ import { InfoCardList } from 'constants/frontEnd/infoCard';
 const OurSystemListContainer = () => {
     return (
         <div className="our-system-list-wrapper">
-            {InfoCardList.map(({ title, icon }, index) => {
-                return (
-                    <OurSystemList
-                        title={title}
-                        icon={icon}
-                        handleClick={handleClick}
-                        key={index}
-                    />
-                );
-            })}
+            <div className="info-card-list-wrapper">
+                {InfoCardList.map(({ title, icon }, index) => {
+                    return (
+                        <OurSystemList
+                            title={title}
+                            icon={icon}
+                            handleClick={handleClick}
+                            key={index}
+                        />
+                    );
+                })}
+            </div>
         </div>
     );
 
