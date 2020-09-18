@@ -14,26 +14,23 @@ const ContactSubmissionDetailsContainer = ({
     contactSubmission,
     showModal,
     deletionError,
-    postSuccess,
     history,
+    deleteSuccess,
 }) => {
-    const prevProps = usePrevious({ deletionError });
+    const prevProps = usePrevious({ deletionError, deleteSuccess });
 
-    useEffect(
-        prevProps => {
-            if (deletionError && !prevProps.deletionError) {
-                showModal(ERROR_MODAL, {
-                    title: 'Deletion Error:',
-                    message:
-                        'An error occurred while deleting this contact submission, please try again later',
-                });
-            }
-            if (postSuccess && !prevProps.postSuccess) {
-                history.push('/admin/contact-submissions');
-            }
-        },
-        [deletionError, prevProps.deletionError],
-    );
+    useEffect(() => {
+        if (!prevProps.deletionError && deletionError) {
+            showModal(ERROR_MODAL, {
+                title: 'Deletion Error:',
+                message:
+                    'An error occurred while deleting this contact submission, please try again later',
+            });
+        }
+        if (!prevProps.deleteSuccess && deleteSuccess) {
+            history.push('/admin/contact-submissions');
+        }
+    }, [deleteSuccess, prevProps.deleteSuccess, deletionError, prevProps.deletionError]);
 
     return (
         <BlockContainer
@@ -65,6 +62,7 @@ const mapStateToProps = ({ superAdmin: { contactSubmissionsReducer } }, { match 
     fetchingError: contactSubmissionsReducer.fetchingError,
     deletionError: contactSubmissionsReducer.deletionError,
     postSuccess: contactSubmissionsReducer.postSuccess,
+    deleteSuccess: contactSubmissionsReducer.deleteSuccess,
 });
 
 export default withRouter(
