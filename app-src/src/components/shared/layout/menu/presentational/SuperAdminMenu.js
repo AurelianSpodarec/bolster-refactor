@@ -42,14 +42,10 @@ const SuperAdminMenu = ({ logout, unreadRequests }) => (
 
             <AdminPinOptionsMenuItems />
             <MenuItemContainer link="/admin/contact-submissions">
-                <i className="far fa-phone icon" />{' '}
-                <span className="menu-text">Contact Submissions</span>
-            </MenuItemContainer>
-            <MenuItemContainer link="/admin/demo-requests">
                 {!!unreadRequests && <span className="number">{unreadRequests}</span>}
-                <i className="far fa-video icon" />{' '}
+                <i className="far fa-phone icon" />{' '}
                 <span className={`menu-text ${unreadRequests ? 'large' : ''}`}>
-                    User Demo Requests
+                    Contact Submissions
                 </span>
             </MenuItemContainer>
             <MenuItemContainer link="/admin/sos-management">

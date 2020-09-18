@@ -70,8 +70,6 @@ import {
     REMOVE_DRAWINGS_ACCESS,
     FORGOT_PASSWORD,
     GENERATE_SOS_CODE,
-    DELETE_DEMO_REQUEST,
-    ADD_DEMO_REQUEST_COMMENT,
     ADD_CONTACT_SUBMISSION_COMMENT,
     CONFIRM_MOVE_HIERARCHY_TO_COMPANY,
     ADMIN_CONFIRM_SET_IS_INVOICE_PAID,
@@ -168,8 +166,6 @@ import DeletePaymentModalContainer from 'components/superAdmin/invoices/confirmD
 import RemoveUserDrawingsAccessModalContainer from 'components/companyAdmin/userManagement/userDrawings/containers/RemoveUserDrawingsAccessModalContainer';
 import ForgotPasswordModalContainer from 'components/auth/forgotPasswordModal/containers/ForgotPasswordModalContainer';
 import AddCreditsToDrawingModal from 'components/companyAdmin/drawings/addCreditsToDrawing/presentational/AddCreditsToDrawingModal';
-import DeleteDemoRequestModalContainer from 'components/superAdmin/demoRequests/containers/DeleteDemoRequestModalContainer';
-import AddCommentToDemoRequestModalContainer from 'components/superAdmin/demoRequests/containers/AddCommentToDemoRequestModalContainer';
 import SOSGenerationModal from 'components/superAdmin/sosManagement/sosGenerationModal/presentational/SOSGenerationModal';
 import SiteManagementConfirmMoveModalContainer from 'components/superAdmin/siteManagement/moveTool/containers/MoveToolConfirmMoveModalContainer';
 import ConfirmSetIsInvoicePaidModalContainer from 'components/superAdmin/invoices/confirmSetIsInvoicePaidModal/containers/ConfirmSetIsInvoicePaidModalContainer';
@@ -207,7 +203,6 @@ const MODAL_COMPONENTS = {
     [ADD_TEMPLATE]: AddTemplateModalContainer,
     [ADD_TEMPLATE_QUESTION]: AddTemplateQuestionModalContainer,
     [ADD_TEMPLATE_SECTION]: AddTemplateSectionModalContainer,
-    [ADD_DEMO_REQUEST_COMMENT]: AddCommentToDemoRequestModalContainer,
     [ADD_CONTACT_SUBMISSION_COMMENT]: AddCommentToContactSubmissionModalContainer,
     [ADMIN_CREATE_COMPANY_ADMIN]: AddCompanyAdminModalContainer,
     [SET_LABEL_FIELDS]: SetLabelFieldsModalContainer,
@@ -222,7 +217,6 @@ const MODAL_COMPONENTS = {
     [DELETE_COMPANY_USER]: DeleteCompanyUserModalContainer,
     [DELETE_DOCUMENT]: DeleteDocumentModalContainer,
     [DELETE_CONTACT_SUBMISSION]: DeleteContactSubmissionModalContainer,
-    [DELETE_DEMO_REQUEST]: DeleteDemoRequestModalContainer,
     [DELETE_OPERATIVE]: DeleteOperativeModalContainer,
     [ERROR_MODAL]: ErrorModal,
     [EDIT_TEMPLATE]: EditTemplateModalContainer,

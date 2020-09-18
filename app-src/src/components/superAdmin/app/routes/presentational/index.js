@@ -10,7 +10,6 @@ import CompanyReportsRoutes from './CompanyReportsRoutes';
 import ProfilesRoutes from './ProfilesRoutes';
 import InvoicesRoutes from './InvoicesRoutes';
 import MoveToolRoutes from './MoveToolRoutes';
-import DemoRequestsRoutes from './DemoRequestsRoutes';
 import SOSManagementRoutes from './SOSManagementRoutes';
 import DashboardContainer from 'components/superAdmin/dashboard/containers/DashboardContainer';
 import OperativeAlertsRoutes from './OperativeAlertsRoutes';
@@ -27,10 +26,7 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/profile`} component={ProfilesRoutes} />
         <Route path={`${base}/company-reports`} component={CompanyReportsRoutes} />
         <Route path={`${base}/invoices`} component={InvoicesRoutes} />
-
         <Route path={`${base}/contact-submissions`} component={ContactSubmissionsRoutes} />
-
-        <Route path={`${base}/demo-requests`} component={DemoRequestsRoutes} />
         <Route path={`${base}/move-tool`} component={MoveToolRoutes} />
         <Route path={`${base}/merge-tool`} component={MergeToolRoutes} />
         <Route path={`${base}/sos-management`} component={SOSManagementRoutes} />

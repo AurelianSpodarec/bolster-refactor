@@ -17,7 +17,6 @@ import sitesReducer from './sites';
 import buildingsReducer from './buildings';
 import floorsReducer from './floors';
 import drawingsReducer from './drawings';
-import demoRequestsReducer from './demoRequests';
 import moveToolReducer from './moveTool';
 import sosCodesReducer from './sosCodes';
 import operativeAlertsReducer from 'reducers/superAdmin/operativeAlerts';
@@ -33,7 +32,6 @@ export default combineReducers({
     companiesReducer,
     companyReportsReducer,
     companySubscriptionReducer,
-    demoRequestsReducer,
     drawingsReducer,
     contactSubmissionsReducer,
     floorsReducer,
