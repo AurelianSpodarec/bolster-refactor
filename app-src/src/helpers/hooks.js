@@ -115,14 +115,12 @@ export const useOnScreen = (ref, threshold) => {
     const [isIntersecting, setIntersecting] = useState(false);
 
     useEffect(() => {
-        const options = {
-            threshold,
-        };
-
         const observer = new IntersectionObserver(
             ([entry]) => {
                 console.log('in view');
-                setIntersecting(entry.isIntersecting);
+                console.log(entry);
+                // setIntersecting(entry.isIntersecting);
+                setIntersecting(entry.boundingClientRect.y < 76);
             },
             {
                 threshold,
@@ -130,7 +128,7 @@ export const useOnScreen = (ref, threshold) => {
         );
 
         if (ref.current) {
-            console.log('observing');
+            console.log('observing', ref.current);
             observer.observe(ref.current);
         }
         return () => {
