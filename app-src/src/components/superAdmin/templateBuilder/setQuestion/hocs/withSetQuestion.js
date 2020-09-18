@@ -197,7 +197,6 @@ export default function (WrappedComponent) {
                 isPrefill,
                 isRequiredVal,
                 statusPrefills,
-                prereqDropdownValues,
             } = this.props.fields;
 
             return {
@@ -210,7 +209,7 @@ export default function (WrappedComponent) {
                 isRequiredVal,
                 prefillStatuses: Object.keys(statusPrefills),
                 statusPrefills,
-                prereqVal: prereqDropdownValues.length ? prereqDropdownValues.join() : prereqVal,
+                prereqVal: prereqVal.join(','),
             };
         };
 

@@ -21,7 +21,7 @@ const TemplateQuestionFormModal = ({
     prereqOptions = [],
     selectedPrereq,
     prereqValueOptions,
-    // prereqVal,
+    prereqVal,
     name,
     isRequired,
     isHidden,
@@ -37,7 +37,6 @@ const TemplateQuestionFormModal = ({
     handlePrefillStatusChange,
     handlePrefillStatusValueChange,
     showPrefillOptions,
-    prereqDropdownValues,
     ...otherFields
 }) => {
     return (
@@ -64,7 +63,7 @@ const TemplateQuestionFormModal = ({
                             value={selectedPrereq}
                             onChange={(name, val) => {
                                 handleInputChange(name, val);
-                                handleInputChange('prereqDropdownValues', []);
+                                handleInputChange('prereqVal', []);
                             }}
                         />
                     </Field>
@@ -75,9 +74,9 @@ const TemplateQuestionFormModal = ({
                         <MultiSelect
                             required
                             search
-                            name="prereqDropdownValues"
+                            name="prereqVal"
                             onChange={handleInputChange}
-                            value={prereqDropdownValues}
+                            value={prereqVal}
                             options={prereqValueOptions}
                         />
                     </Field>
@@ -150,7 +149,7 @@ const TemplateQuestionFormModal = ({
                         </Field>
 
                         {prefillStatuses.length > 0 &&
-                            questionType === CHECKBOX &&
+                            questionType == CHECKBOX &&
                             prefillStatuses.map((prefillStatus, index) => (
                                 <Field
                                     name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}
@@ -167,7 +166,7 @@ const TemplateQuestionFormModal = ({
                             ))}
 
                         {prefillStatuses.length > 0 &&
-                            questionType !== CHECKBOX &&
+                            questionType != CHECKBOX &&
                             prefillStatuses.map((prefillStatus, index) => (
                                 <Field
                                     name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}
@@ -187,7 +186,7 @@ const TemplateQuestionFormModal = ({
 
                 <BlockButtonWrapper>
                     <button className="button green">
-                        <i className="fa fa-plus" /> Add Question
+                        <i className="fa fa-plus" /> {action} Question
                     </button>
                     <button className="button" onClick={hideModal}>
                         Cancel
