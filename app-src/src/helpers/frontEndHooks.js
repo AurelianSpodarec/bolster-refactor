@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { Events, animateScroll as scroll, scrollSpy } from 'react-scroll';
 
-export const useBannerScroll = () => {
+export const useBannerScroll = width => {
     const lastScrollTopRef = useRef(window.pageYOffset || document.documentElement.scrollTop);
 
     useEffect(() => {
@@ -26,6 +26,10 @@ export const useBannerScroll = () => {
     }, []);
 
     function scrollToArea() {
+        if (width && width < 1024) {
+            return;
+        }
+
         const windowHeight = window.innerHeight;
         const headerHeight = document.querySelector('.frontend-header').offsetHeight;
         const bannerElement = document.querySelector('.banner');
