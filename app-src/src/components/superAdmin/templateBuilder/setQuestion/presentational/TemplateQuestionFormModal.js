@@ -3,7 +3,6 @@ import React from 'react';
 import ModalOuterContainer from '../../../../shared/generic/modals/containers/ModalOuterContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from '../../../../shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -45,12 +44,13 @@ const TemplateQuestionFormModal = ({
         <ModalOuterContainer extraClasses="w-form">
             <BlockHeading title={`${action} question`} />
             <Form onSubmit={handleSubmit} className="generic-form">
-                <Field name="Question type">
-                    <DropdownContainer
+                <Field name="Question type" required>
+                    <Select
+                        required
                         name="questionType"
                         options={questionTypeOptions}
-                        selectedOption={questionType}
-                        handleChange={handleInputChange}
+                        value={questionType}
+                        onChange={handleInputChange}
                         omitPlaceholder
                     />
                 </Field>
@@ -71,8 +71,9 @@ const TemplateQuestionFormModal = ({
                 )}
 
                 {prereqValueOptions.length > 0 && (
-                    <Field name="Prerequisite values">
+                    <Field name="Prerequisite values" required>
                         <MultiSelect
+                            required
                             search
                             name="prereqDropdownValues"
                             onChange={handleInputChange}
@@ -84,10 +85,10 @@ const TemplateQuestionFormModal = ({
 
                 <Field name="Field name" required>
                     <TextInputContainer
+                        required
                         name="name"
                         value={name}
                         handleChange={handleInputChange}
-                        required
                     />
                 </Field>
 

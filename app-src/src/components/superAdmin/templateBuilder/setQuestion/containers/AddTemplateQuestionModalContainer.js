@@ -3,7 +3,6 @@ import uuid from 'uuid/v1';
 
 import TemplateQuestionFormModal from '../presentational/TemplateQuestionFormModal';
 import withSetQuestion from '../hocs/withSetQuestion';
-import { convertArrToObj } from 'helpers/generic';
 
 const AddTemplateQuestionModalContainer = ({
     fields: { questionType, questionTypeOptions, prereqUUID, ...fields },
@@ -26,12 +25,12 @@ const AddTemplateQuestionModalContainer = ({
         <TemplateQuestionFormModal
             action="Add"
             {...fields}
-            statusOptions={formatArrForDropdown(statusOptions)}
+            statusOptions={statusOptions}
             prereqOptions={prereqOptions}
             selectedPrereq={prereqUUID}
             prereqValueOptions={prereqValueOptions}
-            questionType={questionTypeOptions[questionType]}
-            questionTypeOptions={Object.values(questionTypeOptions)}
+            questionType={questionType}
+            questionTypeOptions={questionTypeOptions}
             hideModal={hideModal}
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}
@@ -60,16 +59,6 @@ const AddTemplateQuestionModalContainer = ({
             .filter(q => q.sectionUUID === sectionUUID)
             .map(q => q.sort);
         return Math.max(0, ...sectionSortList) + 1;
-    }
-
-    function formatArrForDropdown(arr, asObj) {
-        const options = arr.map(({ value, label }) => ({
-            value,
-            label,
-            text: label,
-        }));
-
-        return asObj ? convertArrToObj(options, 'value') : options;
     }
 };
 

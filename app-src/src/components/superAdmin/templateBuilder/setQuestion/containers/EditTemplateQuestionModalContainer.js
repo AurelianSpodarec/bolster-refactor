@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 
 import withSetQuestion from '../hocs/withSetQuestion';
 import { convertArrToObj } from 'helpers/generic';
@@ -9,12 +9,64 @@ import {
 } from 'constants/shared/templateBuilder';
 import TemplateQuestionFormModal from '../presentational/TemplateQuestionFormModal';
 
-class TemplateQuestionModalContainer extends Component {
-    state = {
-        showManufacturingOptionsToggle: false,
-        showManufacturingOptions: false,
-    };
+const EditTemplateQuestionModalContainerFN = ({
+    fields: { questionType, questionTypeOptions, prereqUUID, ...fields },
+    hideModal,
+    handleInputChange,
+    setQuestion,
+    getQuestionData,
+    statusOptions,
+    handlePrefillStatusChange,
+    handlePrefillStatusValueChange,
+    handlePrereqOptionsChange,
+    prereqOptions,
+    prereqValueOptions,
+    showPrefillOptions,
+    question,
+}) => {
+    useEffect(() => {
+        console.log({ question });
+    }, []);
 
+    return (
+        <TemplateQuestionFormModal
+            action="Edit"
+            {...fields}
+            statusOptions={statusOptions}
+            prereqOptions={_getPrereqOptions()}
+            selectedPrereq={prereqUUID}
+            prereqValueOptions={prereqValueOptions}
+            questionType={questionType}
+            questionTypeOptions={questionTypeOptions}
+            hideModal={hideModal}
+            handleInputChange={handleInputChange}
+            handleSubmit={handleSubmit}
+            handlePrefillStatusChange={handlePrefillStatusChange}
+            handlePrefillStatusValueChange={handlePrefillStatusValueChange}
+            showPrefillOptions={showPrefillOptions}
+            handlePrereqOptionsChange={handlePrereqOptionsChange}
+        />
+    );
+
+    function _getPrereqOptions() {
+        const options = prereqOptions.filter(opt => opt.value !== question.uuid);
+        return options;
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        const newQuestion = {
+            ...question,
+            ...getQuestionData(),
+        };
+        setQuestion(newQuestion);
+    }
+};
+
+export default withSetQuestion(EditTemplateQuestionModalContainerFN);
+
+class TemplateQuestionModalContainer extends Component {
     render() {
         const {
             fields: {
@@ -80,36 +132,6 @@ class TemplateQuestionModalContainer extends Component {
         );
     }
 
-    componentDidUpdate = prevProps => {
-        const {
-            fields: { prereqUUID },
-            getQuestionData,
-            updateQuestionField,
-        } = this.props;
-        const standardPrereqOptions = this._getStandardPrereqOptions();
-        const allPrereqOptions = this._getAllPrereqOptions();
-
-        if (
-            prevProps.fields.prereqUUID &&
-            prevProps.fields.prereqUUID.length &&
-            prevProps.fields.prereqUUID !== getQuestionData().prereqUUID
-        ) {
-            updateQuestionField('prereqVal', '');
-            updateQuestionField('prereqDropdownValues', []);
-
-            if (
-                getQuestionData().prereqUUID &&
-                standardPrereqOptions[getQuestionData().prereqUUID] &&
-                standardPrereqOptions[getQuestionData().prereqUUID].options.length <
-                    allPrereqOptions[getQuestionData().prereqUUID].options.length
-            ) {
-                this.setState({ showManufacturingOptionsToggle: true });
-            } else {
-                this.setState({ showManufacturingOptionsToggle: false });
-            }
-        }
-    };
-
     componentDidMount = () => {
         const {
             question,
@@ -145,194 +167,13 @@ class TemplateQuestionModalContainer extends Component {
         }
 
         if (question.isPrerequisiteMulti && question.prereqVal) {
-            const standardPrereqOptions = this._getStandardPrereqOptions();
-            const allPrereqOptions = this._getAllPrereqOptions();
-
-            let preReqArr = question.prereqVal.split(',');
-
-            const standardPrereqOptionsArr = Object.values(standardPrereqOptions);
-            const standardPrereqAnswers = standardPrereqOptionsArr.reduce((acc, currOption) => {
-                const { options } = currOption;
-                const optionTexts = options.map(({ text }) => text);
-
-                return acc.concat(optionTexts);
-            }, []);
+            const preReqArr = question.prereqVal.split(',');
 
             updateQuestionFields({
                 ...question,
                 prereqVal: preReqArr,
                 prereqDropdownValues: preReqArr,
             });
-
-            if (
-                preReqArr.some(answer => {
-                    return standardPrereqAnswers.some(prereqOptions => prereqOptions !== answer);
-                })
-            ) {
-                this.setState({
-                    showManufacturingOptions: true,
-                });
-            }
-
-            if (
-                question.prereqUUID &&
-                !standardPrereqAnswers[question.prereqUUID] &&
-                allPrereqOptions[question.prereqUUID]
-            ) {
-                this.setState({ showManufacturingOptionsToggle: true });
-                // console.log({
-                //     hey: true,
-                //     question,
-                //     allPrereqOptions,
-                //     prereqUUID: question.prereqUUID,
-                //     allOptionsSelected: allPrereqOptions[question.prereqUUID],
-                //     standardSelected: standardPrereqAnswers[question.prereqUUID],
-                // });
-            }
         }
-    };
-
-    handleSubmit = e => {
-        e.preventDefault();
-        const { setQuestion, question, getQuestionData } = this.props;
-
-        const newQuestion = {
-            ...question,
-            ...getQuestionData(),
-        };
-        setQuestion(newQuestion);
-    };
-
-    handleShowManufacturerOptionsCheck = () => {
-        const { showManufacturingOptions } = this.state;
-        const { updateQuestionField, question, standardPrereqOptions } = this.props;
-        if (question.prereqVal && question.prereqVal.length) {
-            let preReqArr = question.prereqVal.split(',');
-
-            const standardPrereqOptionsArr = Object.values(standardPrereqOptions);
-
-            const prereqAnswers = standardPrereqOptionsArr.reduce((acc, currOption) => {
-                const { options } = currOption;
-                const optionTexts = options.map(({ text }) => text);
-
-                return acc.concat(optionTexts);
-            }, []);
-
-            if (showManufacturingOptions) {
-                const removedManufacturerOptions = preReqArr.filter(answer =>
-                    prereqAnswers.includes(answer),
-                );
-                updateQuestionField('prereqVal', removedManufacturerOptions.join(','));
-                updateQuestionField('prereqDropdownValues', removedManufacturerOptions);
-
-                this.setState({
-                    showManufacturingOptions: false,
-                });
-            } else {
-                this.setState({
-                    showManufacturingOptions: true,
-                });
-            }
-        }
-    };
-
-    _getAllPrereqOptions = () => {
-        const {
-            questions,
-            templateUUID: temUuid,
-            companyDropdownOptions: { dropdownOptions },
-            companyManufacturerOptions,
-        } = this.props;
-
-        const options = questions
-            .filter(q => q.templateUUID === temUuid)
-            .filter(q => PREREQ_TYPES.includes(q.questionType + ''))
-            .map(function ({ uuid, name, questionType, options, optionType }) {
-                const manufacturerOptions = companyManufacturerOptions
-                    .filter(
-                        companyManufacturerOption => companyManufacturerOption.type === optionType,
-                    )
-                    .map(({ name, id }) => ({
-                        text: name,
-                        value: id,
-                        isManufacturing: true,
-                    }));
-                const defaultDropdownOptions = dropdownOptions
-                    .filter(dropdownOption => dropdownOption.type === optionType)
-                    .map(({ name }) => ({
-                        text: name,
-                        value: name,
-                        isManufacturing: false,
-                    }));
-
-                const allDropdownOptions = [...manufacturerOptions, ...defaultDropdownOptions];
-
-                if (optionType) {
-                    return {
-                        value: uuid,
-                        text: name,
-                        isStatus: questionType + '' === QUESTION_TYPE_VALUES.STATUS,
-                        questionType,
-                        options: allDropdownOptions,
-                    };
-                } else {
-                    return {
-                        value: uuid,
-                        text: name,
-                        isStatus: questionType + '' === QUESTION_TYPE_VALUES.STATUS,
-                        questionType,
-                        options: options ? options : [],
-                    };
-                }
-            });
-
-        return convertArrToObj(options, 'value');
-    };
-    _getStandardPrereqOptions = () => {
-        const {
-            questions,
-            question: { templateUUID, uuid },
-            companyDropdownOptions: { dropdownOptions },
-        } = this.props;
-
-        const options = questions
-            .filter(
-                q =>
-                    q.templateUUID === templateUUID &&
-                    PREREQ_TYPES.includes(q.questionType + '') &&
-                    q.uuid !== uuid &&
-                    q.prereqUUID !== uuid,
-            )
-            .map(function ({ uuid, name, questionType, options, optionType }) {
-                // console.log({ questions, dropdownOptions, questionType });
-                // console.log({ questions, dropdownOptions, questionType });
-                if (optionType) {
-                    return {
-                        value: uuid,
-                        text: name,
-                        isStatus: questionType + '' === QUESTION_TYPE_VALUES.STATUS,
-                        questionType,
-                        options: dropdownOptions
-                            .filter(dropdownOption => dropdownOption.type === optionType)
-                            .map(({ name }) => ({
-                                text: name,
-                                value: name,
-                                isManufacturing: false,
-                            })),
-                    };
-                } else {
-                    return {
-                        value: uuid,
-                        text: name,
-                        isStatus: questionType + '' === QUESTION_TYPE_VALUES.STATUS,
-                        questionType,
-                        options: options ? options : [],
-                    };
-                }
-            });
-
-        return convertArrToObj(options, 'value');
     };
 }
-
-export default withSetQuestion(TemplateQuestionModalContainer);

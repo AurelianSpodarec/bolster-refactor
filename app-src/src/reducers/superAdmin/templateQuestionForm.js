@@ -7,18 +7,17 @@ import {
     UPDATE_QUESTION_FIELDS,
     RESET_QUESTION_FIELDS,
 } from 'constants/actionTypes/templateBuilder';
-import { convertArrToObj } from 'helpers/generic';
 
 const { SINGLE_LINE, STATUS, STATIC_IMAGE } = QUESTION_TYPE_VALUES;
 const questionTypeOptions = Object.keys(QUESTION_TYPES)
-    .filter(({ value }) => value !== STATUS && +value !== STATIC_IMAGE)
+    .filter(({ value }) => value !== STATUS && value !== STATIC_IMAGE)
     .map(type => ({
-        text: QUESTION_TYPES[type],
+        label: QUESTION_TYPES[type],
         value: type,
     }));
-const fotmattedQuestionTypes = convertArrToObj(questionTypeOptions, 'value');
+
 const initialQuestionFields = {
-    questionTypeOptions: fotmattedQuestionTypes,
+    questionTypeOptions,
     questionType: SINGLE_LINE,
     prereqOptions: {},
     prereqUUID: '',
