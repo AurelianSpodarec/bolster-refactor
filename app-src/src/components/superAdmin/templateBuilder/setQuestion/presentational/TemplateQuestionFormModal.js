@@ -39,9 +39,6 @@ const TemplateQuestionFormModal = ({
     handlePrefillStatusValueChange,
     showStatusPrefillOptions,
     prereqDropdownValues,
-    handleShowManufacturerOptionsCheck,
-    showManufacturingOptions,
-    showManufacturingOptionsToggle,
     ...otherFields
 }) => {
     return (
@@ -154,8 +151,7 @@ const TemplateQuestionFormModal = ({
                                 onChange={handlePrefillStatusChange}
                             />
                         </Field>
-                        {+questionType.value === QUESTION_TYPE_NUMBERS.CHECKBOX &&
-                        prefillStatuses.length
+                        {questionType === QUESTION_TYPE_NUMBERS.CHECKBOX && prefillStatuses.length
                             ? prefillStatuses.map((prefillStatus, index) => (
                                   <Field
                                       name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}
@@ -172,8 +168,7 @@ const TemplateQuestionFormModal = ({
                               ))
                             : ''}
 
-                        {prefillStatuses.length &&
-                        +questionType.value !== QUESTION_TYPE_NUMBERS.CHECKBOX
+                        {prefillStatuses.length && questionType !== QUESTION_TYPE_NUMBERS.CHECKBOX
                             ? prefillStatuses.map((prefillStatus, index) => (
                                   <Field
                                       name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}
