@@ -5,14 +5,16 @@ import FrontEndFooter from 'components/frontEnd/layout/footer/presentational/Fro
 import FrontEndMobileMenuContainer from 'components/frontEnd/layout/navigation/containers/FrontEndMobileMenuContainer';
 import FrontEndHeaderContainer from 'components/frontEnd/layout/header/container/FrontEndHeaderContainer';
 
-const FrontEndApp = () => (
-    <div id="frontend-site">
-        <FrontEndHeaderContainer />
-        <FrontEndMobileMenuContainer />
-        <FrontEndRoutes />
+const FrontEndApp = ({ isHome }) => {
+    return (
+        <div id="frontend-site">
+            <FrontEndHeaderContainer />
+            <FrontEndMobileMenuContainer />
+            <FrontEndRoutes />
 
-        <FrontEndFooter />
-    </div>
-);
+            {!isHome && <FrontEndFooter />}
+        </div>
+    );
+};
 
 export default FrontEndApp;
