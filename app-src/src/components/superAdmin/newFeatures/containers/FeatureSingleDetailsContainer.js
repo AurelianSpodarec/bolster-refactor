@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { withRouter } from 'react-router-dom';
 import FeatureSingleDetails from '../presentational/FeatureSingleDetails';
 
-function FeatureSingleDetailsContainer({ feature, isFetching, error }) {
+const FeatureSingleDetailsContainer = ({ feature, isFetching, error }) => {
     return (
         <>
             <BlockContainer isFetching={isFetching} error={error} isEmpty={!feature.id}>
@@ -13,7 +13,7 @@ function FeatureSingleDetailsContainer({ feature, isFetching, error }) {
             </BlockContainer>
         </>
     );
-}
+};
 
 const mapStateToProps = ({ superAdmin: { newFeaturesReducer } }, { match }) => ({
     feature: newFeaturesReducer.newFeatures[match.params.id] || {},

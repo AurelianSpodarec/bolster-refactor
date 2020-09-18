@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import NewFeatures from '../presentational/NewFeatures';
 import fetchAllNewFeatures from 'actions/superAdmin/newFeatures/async/fetchAllNewFeatures';
 
-function NewFeaturesContainer({ fetchAllNewFeatures }) {
+const NewFeaturesContainer = ({ fetchAllNewFeatures }) => {
     useEffect(() => {
         fetchAllNewFeatures();
     }, []);
 
     return <NewFeatures />;
-}
+};
 
 const mapDispatchToProps = {
     fetchAllNewFeatures,

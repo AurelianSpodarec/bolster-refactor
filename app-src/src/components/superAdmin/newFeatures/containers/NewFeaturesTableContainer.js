@@ -8,14 +8,14 @@ import { CONFIRM_DELETE, ERROR_MODAL, EDIT_NEW_FEATURE } from 'constants/shared/
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import deleteFeature from 'actions/superAdmin/newFeatures/async/deleteFeature';
 
-function NewFeaturesTableContainer({
+const NewFeaturesTableContainer = ({
     isFetching,
     error,
     newFeatures,
     showModal,
     deleteFeature,
     hideModal,
-}) {
+}) => {
     return (
         <NewFeaturesTable
             headers={['Title', 'Short Description', 'Publish Date', ' ']}
@@ -48,7 +48,7 @@ function NewFeaturesTableContainer({
             showModal(ERROR_MODAL);
         }
     }
-}
+};
 
 const mapStateToProps = ({
     superAdmin: {

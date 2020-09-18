@@ -3,6 +3,7 @@ import moment from 'moment';
 
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const FeatureSingleDetails = ({
     feature: { title, shortDescription, fullDescription, publishDate },
@@ -17,11 +18,13 @@ const FeatureSingleDetails = ({
             </div>
             <div className="field-output size-lg-4">
                 {!!publishDate && (
-                    <FieldOutput
-                        title="Publish Date"
-                        description={moment(publishDate).format('DD-MM-YYYY HH:mm')}
-                        fieldClass="no-h-padding"
-                    />
+                    <FieldOutput title="Publish Date" fieldClass="no-h-padding">
+                        <p>
+                            <DateTimeContainer
+                                date={moment.utc(publishDate).format('YYYY-MM-DDTHH:mm:ss')}
+                            />
+                        </p>
+                    </FieldOutput>
                 )}
             </div>
             <div className="field-output">

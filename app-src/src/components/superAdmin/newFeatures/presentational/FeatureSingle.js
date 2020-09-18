@@ -4,19 +4,19 @@ import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Brea
 
 import FeatureSingleDetailsContainer from '../containers/FeatureSingleDetailsContainer';
 
-export default function featureSingle() {
-    return (
-        <>
-            <PageHeading title="Recent Updates" withBackButton>
-                <Breadcrumb
-                    breadcrumbs={[
-                        { link: '/admin/new-features', text: 'List of New Features' },
-                        { text: 'New Feature' },
-                    ]}
-                />
-            </PageHeading>
+const FeatureSingle = () => (
+    <>
+        <PageHeading title="Recent Updates" withBackButton>
+            <Breadcrumb
+                breadcrumbs={[
+                    { link: '/admin/new-features', text: 'List of New Features' },
+                    { text: 'New Feature' },
+                ]}
+            />
+        </PageHeading>
 
-            <FeatureSingleDetailsContainer />
-        </>
-    );
-}
+        <FeatureSingleDetailsContainer />
+    </>
+);
+
+export default FeatureSingle;

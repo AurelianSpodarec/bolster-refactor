@@ -4,13 +4,13 @@ import fetchSingleFeature from 'actions/superAdmin/newFeatures/fetchSingleFeatur
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-function FeatureSingleContainer({ fetchSingleFeature, id }) {
+const FeatureSingleContainer = ({ fetchSingleFeature, id }) => {
     useEffect(() => {
         fetchSingleFeature(id);
     }, []);
 
     return <FeatureSingle />;
-}
+};
 
 const mapDispatchToProps = {
     fetchSingleFeature,
