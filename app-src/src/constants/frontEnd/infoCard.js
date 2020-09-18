@@ -1,4 +1,4 @@
-import PassiveFire from '_content/images/frontend-new/why-use-our-system/passive-fire.png';
+import PassiveFire from '_content/images/frontend-new/why-use-our-system/passive-fire-protection.png';
 import Electrical from '_content/images/frontend-new/why-use-our-system/electrical.png';
 import ProjectManagement from '_content/images/frontend-new/why-use-our-system/project-management.png';
 import FireDoor from '_content/images/frontend-new/why-use-our-system/firedoor.png';
@@ -10,14 +10,16 @@ import ExternalWalls from '_content/images/frontend-new/why-use-our-system/exter
 import InternalWalls from '_content/images/frontend-new/why-use-our-system/internal-walls.png';
 import AssetManagement from '_content/images/frontend-new/why-use-our-system/asset-management.png';
 import AnyOtherDocs from '_content/images/frontend-new/why-use-our-system/any-other-docs.png';
+import Windows from '_content/images/frontend-new/why-use-our-system/windows.png';
 
-export const infoCardList = [
+export const InfoCardList = [
     { title: 'Passive fire protection', icon: PassiveFire },
     { title: 'Electrical', icon: Electrical },
     { title: 'Project Management', icon: ProjectManagement },
     { title: 'Fire Door', icon: FireDoor },
     { title: 'Water management', icon: WaterManagement },
     { title: 'Health and Safety', icon: HealthAndSafety },
+    { title: 'Windows', icon: Windows },
     { title: 'Joinery', icon: Joinery },
     { title: 'Dampers', icon: Dampers },
     { title: 'External Walls', icon: ExternalWalls },
