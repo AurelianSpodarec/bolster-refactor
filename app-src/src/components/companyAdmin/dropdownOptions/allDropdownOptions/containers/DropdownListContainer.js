@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { useLocalStorage } from 'helpers/hooks';
 
 import {
     DROPDOWN_OPTION_LOOKUP,
@@ -12,52 +14,27 @@ import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/
 import DropdownList from '../presentational/DropdownList';
 import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
 
-class DropdownListContainer extends Component {
-    state = {
-        selectedSortValue: DEFAULT_PIN_OPTIONS_SORT.CUSTOM,
-    };
+const DropdownListContainer = () => {
+    const [sortValue, setSortValue] = useLocalStorage('sortValue', DEFAULT_PIN_OPTIONS_SORT.CUSTOM);
+    const { type } = useParams();
+    const dispatch = useDispatch();
+    const { name } = DROPDOWN_OPTIONS[DROPDOWN_OPTION_LOOKUP[type]];
 
-    render() {
-        const { type } = this.props;
-        const { name } = DROPDOWN_OPTIONS[DROPDOWN_OPTION_LOOKUP[type]];
-        return (
-            <DropdownList
-                name={name}
-                type={DROPDOWN_OPTION_LOOKUP[type]}
-                selectedSortValue={this.state.selectedSortValue}
-                handleSortChange={this.handleSortChange}
-            />
-        );
-    }
+    useEffect(() => {
+        dispatch(fetchManufacturersByPinOptionType(DROPDOWN_OPTION_LOOKUP[type]));
+        dispatch(fetchAllDropdownOptions(DROPDOWN_OPTION_LOOKUP[type]));
+    }, []);
 
-    componentDidMount = () => {
-        const { fetchAllDropdownOptions, fetchManufacturersByPinOptionType, type } = this.props;
+    const handleSortChange = value => setSortValue(value);
 
-        fetchManufacturersByPinOptionType(DROPDOWN_OPTION_LOOKUP[type]);
-        fetchAllDropdownOptions(DROPDOWN_OPTION_LOOKUP[type]);
-    };
-
-    handleSortChange = value => {
-        this.setState({
-            selectedSortValue: value,
-        });
-    };
-}
-
-const mapStateToProps = (
-    _,
-    {
-        match: {
-            params: { type },
-        },
-    },
-) => ({
-    type,
-});
-
-const mapDispatchToProps = {
-    fetchAllDropdownOptions,
-    fetchManufacturersByPinOptionType,
+    return (
+        <DropdownList
+            name={name}
+            type={DROPDOWN_OPTION_LOOKUP[type]}
+            selectedSortValue={sortValue}
+            handleSortChange={handleSortChange}
+        />
+    );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DropdownListContainer);
+export default DropdownListContainer;

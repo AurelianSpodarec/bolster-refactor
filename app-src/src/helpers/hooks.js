@@ -100,3 +100,26 @@ export function useThrottle(action, timeout = 1000, deps = []) {
         return () => clearTimeout(throttleTimeout);
     }, deps);
 }
+
+export const useLocalStorage = (key, initialValue = 'placeholder') => {
+    const [storedValue, setStoredValue] = useState(() => {
+        try {
+            const item = window.localStorage.getItem(key);
+            return item ? JSON.parse(item) : initialValue;
+        } catch (error) {
+            return initialValue;
+        }
+    });
+
+    const setValue = value => {
+        try {
+            const valueToStore = value instanceof Function ? value(storedValue) : value;
+            setStoredValue(valueToStore);
+            window.localStorage.setItem(key, JSON.stringify(valueToStore));
+        } catch (error) {
+            return;
+        }
+    };
+
+    return [storedValue, setValue];
+};
