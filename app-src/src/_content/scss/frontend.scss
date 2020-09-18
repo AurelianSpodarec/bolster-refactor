@@ -505,6 +505,10 @@ $header-height: 75px;
                                 bottom: 0;
                             }
                         }
+
+                        .line {
+                            height: calc(100% - 24px);
+                        }
                     }
                 }
 
@@ -517,6 +521,7 @@ $header-height: 75px;
                     flex: 0.45;
                     z-index: 1;
                     opacity: 0.5;
+                    transition: opacity 0.3s;
                 }
 
                 .line-points {
