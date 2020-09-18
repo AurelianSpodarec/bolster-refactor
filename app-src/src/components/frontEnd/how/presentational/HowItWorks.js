@@ -1,12 +1,12 @@
 import React from 'react';
 
-import HowItWorksSectionsContainer from '../containers/HowItWorksSectionsContainer';
 import HowItWorksBanner from './HowItWorksBanner';
+import HowItWorksSections from './HowItWorksSections';
 
 const HowItWorks = () => (
     <div id="how-it-works">
         <HowItWorksBanner />
-        <HowItWorksSectionsContainer />
+        <HowItWorksSections />
     </div>
 );
 
