@@ -111,19 +111,26 @@ export function useForm(initialState = {}) {
     return [formData, handleChange];
 }
 
-export const useOnScreen = (ref, rootMargin = '0px') => {
+export const useOnScreen = (ref, threshold) => {
     const [isIntersecting, setIntersecting] = useState(false);
 
     useEffect(() => {
+        const options = {
+            threshold,
+        };
+
         const observer = new IntersectionObserver(
             ([entry]) => {
+                console.log('in view');
                 setIntersecting(entry.isIntersecting);
             },
             {
-                rootMargin,
+                threshold,
             },
         );
+
         if (ref.current) {
+            console.log('observing');
             observer.observe(ref.current);
         }
         return () => {
@@ -134,32 +141,7 @@ export const useOnScreen = (ref, rootMargin = '0px') => {
     return isIntersecting;
 };
 
-export const useScreenEnter = (ref, callback) => {
-    const [entered, setEntered] = useState(false);
-
-    function activate() {
-        if (ref.current && isInViewPort(ref.current.getBoundingClientRect()) && !entered) {
-            callback();
-            setEntered(true);
-        }
-    }
-
-    useEffect(() => {
-        document.addEventListener('scroll', activate);
-        return () => document.removeEventListener('scroll', activate);
-    });
-};
-
-function isInViewPort(rect) {
-    if (
-        window.screen.height >= rect.bottom &&
-        window.screen.width >= rect.right &&
-        rect.top >= 0 &&
-        rect.left >= 0
-    )
-        return true;
-    return false;
-}
+export const useFullPageCarousel = () => {};
 
 function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
