@@ -15,6 +15,9 @@ import {
     FETCH_SINGLE_CONTACT_SUBMISSION_REQUEST,
     FETCH_SINGLE_CONTACT_SUBMISSION_SUCCESS,
     FETCH_SINGLE_CONTACT_SUBMISSION_FAILURE,
+    ADD_CONTACT_SUBMISSION_COMMENT_REQUEST,
+    ADD_CONTACT_SUBMISSION_COMMENT_SUCCESS,
+    ADD_CONTACT_SUBMISSION_COMMENT_FAILURE,
 } from 'constants/actionTypes/contactSubmissions';
 
 export default combineReducers({
@@ -27,6 +30,9 @@ export default combineReducers({
     markingError: markingErrorReducer,
     deleteSuccess: deleteSuccessReducer,
     markingSuccess: markingSuccessReducer,
+    isCommenting: isCommentingReducer,
+    commentingSuccess: commentingSuccessReducer,
+    commentingError: commentingErrorReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -135,6 +141,40 @@ function contactSubmissionsReducer(state = {}, action) {
             return removeObjItem(state, action.id);
         case MARK_CONTACT_SUBMISSION_SUCCESS:
             return updateObj(state, action.data.id, action.data);
+        default:
+            return state;
+    }
+}
+
+function isCommentingReducer(state = false, action) {
+    switch (action.type) {
+        case ADD_CONTACT_SUBMISSION_COMMENT_REQUEST:
+            return true;
+        case ADD_CONTACT_SUBMISSION_COMMENT_SUCCESS:
+        case ADD_CONTACT_SUBMISSION_COMMENT_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function commentingSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case ADD_CONTACT_SUBMISSION_COMMENT_REQUEST:
+            return false;
+        case ADD_CONTACT_SUBMISSION_COMMENT_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function commentingErrorReducer(state = null, action) {
+    switch (action.type) {
+        case ADD_CONTACT_SUBMISSION_COMMENT_REQUEST:
+            return null;
+        case ADD_CONTACT_SUBMISSION_COMMENT_FAILURE:
+            return action.error;
         default:
             return state;
     }

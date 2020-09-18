@@ -72,6 +72,7 @@ import {
     GENERATE_SOS_CODE,
     DELETE_DEMO_REQUEST,
     ADD_DEMO_REQUEST_COMMENT,
+    ADD_CONTACT_SUBMISSION_COMMENT,
     CONFIRM_MOVE_HIERARCHY_TO_COMPANY,
     ADMIN_CONFIRM_SET_IS_INVOICE_PAID,
     ADMIN_DELETE_INVOICE,
@@ -198,6 +199,7 @@ import AddNewDocumentVersionModal from 'components/companyAdmin/dropdownOptions/
 import ConfirmDeleteDocumentVersionModalContainer from 'components/companyAdmin/dropdownOptions/confirmDeleteDocumentVersion/containers/ConfirmDeleteDocumentVersionModalContainer';
 import EditCompanyAddressModalContainer from './EditCompanyAddressModalContainer';
 import UploadUserGuideModalContainer from './UploadUserGuideModalContainer';
+import AddCommentToContactSubmissionModalContainer from 'components/superAdmin/contactSubmissions/singleContactSubmission/containers/AddCommentToContactSubmissionModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -206,6 +208,7 @@ const MODAL_COMPONENTS = {
     [ADD_TEMPLATE_QUESTION]: AddTemplateQuestionModalContainer,
     [ADD_TEMPLATE_SECTION]: AddTemplateSectionModalContainer,
     [ADD_DEMO_REQUEST_COMMENT]: AddCommentToDemoRequestModalContainer,
+    [ADD_CONTACT_SUBMISSION_COMMENT]: AddCommentToContactSubmissionModalContainer,
     [ADMIN_CREATE_COMPANY_ADMIN]: AddCompanyAdminModalContainer,
     [SET_LABEL_FIELDS]: SetLabelFieldsModalContainer,
     [ADMIN_EDIT_SERVICE]: EditServiceModalContainer,
