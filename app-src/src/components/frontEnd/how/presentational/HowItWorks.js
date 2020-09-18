@@ -1,13 +1,19 @@
 import React from 'react';
 
-import HowItWorksSectionsContainer from '../containers/HowItWorksSectionsContainer';
-import HowItWorksBanner from './HowItWorksBanner';
+import { useBannerScroll } from 'helpers/frontEndHooks';
 
-const HowItWorks = () => (
-    <div id="how-it-works">
-        <HowItWorksBanner />
-        <HowItWorksSectionsContainer />
-    </div>
-);
+import HowItWorksBanner from './HowItWorksBanner';
+import HowItWorksSections from './HowItWorksSections';
+
+const HowItWorks = () => {
+    useBannerScroll();
+
+    return (
+        <div id="how-it-works">
+            <HowItWorksBanner />
+            <HowItWorksSections />
+        </div>
+    );
+};
 
 export default HowItWorks;
