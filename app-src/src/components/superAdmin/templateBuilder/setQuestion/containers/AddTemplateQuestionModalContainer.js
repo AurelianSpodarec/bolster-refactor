@@ -21,6 +21,9 @@ const AddTemplateQuestionModalContainer = ({
     handlePrereqOptionsChange,
     prereqOptions,
     prereqValueOptions,
+    useManufacturingPrereqOptions,
+    setUseManufacturingPrerqOptions,
+    shouldShowUseManufacturingPrereqOptsSwitch,
 }) => {
     const showStatusPrefillOptions =
         +questionTypeOptions[questionType].value === QUESTION_TYPE_NUMBERS.CHECKBOX ||
@@ -48,6 +51,9 @@ const AddTemplateQuestionModalContainer = ({
             handlePrefillStatusValueChange={handlePrefillStatusValueChange}
             showStatusPrefillOptions={showStatusPrefillOptions}
             handlePrereqOptionsChange={handlePrereqOptionsChange}
+            useManufacturingPrereqOptions={useManufacturingPrereqOptions}
+            setUseManufacturingPrerqOptions={setUseManufacturingPrerqOptions}
+            shouldShowUseManufacturingPrereqOptsSwitch={shouldShowUseManufacturingPrereqOptsSwitch}
         />
     );
 

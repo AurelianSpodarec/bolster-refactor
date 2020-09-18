@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { isObjEmpty } from 'helpers/generic';
-
 import ModalOuterContainer from '../../../../shared/generic/modals/containers/ModalOuterContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
@@ -39,6 +37,9 @@ const TemplateQuestionFormModal = ({
     handlePrefillStatusValueChange,
     showStatusPrefillOptions,
     prereqDropdownValues,
+    useManufacturingPrereqOptions,
+    setUseManufacturingPrerqOptions,
+    shouldShowUseManufacturingPrereqOptsSwitch,
     ...otherFields
 }) => {
     return (
@@ -58,6 +59,7 @@ const TemplateQuestionFormModal = ({
                 {prereqOptions.length > 0 && (
                     <Field name="Prerequisite field?">
                         <Select
+                            search
                             name="prereqUUID"
                             options={prereqOptions}
                             value={selectedPrereq}
@@ -69,9 +71,23 @@ const TemplateQuestionFormModal = ({
                     </Field>
                 )}
 
+                {shouldShowUseManufacturingPrereqOptsSwitch && (
+                    <Field name="Enable Manufacturing options?">
+                        <CheckboxContainer
+                            name="enableManOptions"
+                            checked={useManufacturingPrereqOptions}
+                            handleChange={(_, val) => {
+                                setUseManufacturingPrerqOptions(val);
+                                handleInputChange('prereqDropdownValues', []);
+                            }}
+                        />
+                    </Field>
+                )}
+
                 {prereqValueOptions.length > 0 && (
                     <Field name="Prerequisite values">
                         <MultiSelect
+                            search
                             name="prereqDropdownValues"
                             onChange={handleInputChange}
                             value={prereqDropdownValues}
@@ -79,18 +95,6 @@ const TemplateQuestionFormModal = ({
                         />
                     </Field>
                 )}
-
-                {/* {!!selectedPrereq &&
-                    showManufacturingOptionsToggle &&
-                    selectedPrereq.options.length && (
-                        <Field name="Enable Manufacturing options?">
-                            <CheckboxContainer
-                                name="isRequired"
-                                checked={showManufacturingOptions}
-                                handleChange={() => handleShowManufacturerOptionsCheck()}
-                            />
-                        </Field>
-                    )} */}
 
                 <Field name="Field name" required>
                     <TextInputContainer

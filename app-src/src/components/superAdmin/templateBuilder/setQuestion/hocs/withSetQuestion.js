@@ -6,13 +6,17 @@ import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import resetQuestionFields from 'actions/superAdmin/templateBuilder/sync/resetQuestionFields';
 import updateQuestionFields from 'actions/superAdmin/templateBuilder/sync/updateQuestionFields';
-import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import { DROPDOWN_OPTION_VALS, PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { updateObj, removeObjItem } from 'helpers/generic';
 import { PREREQ_TYPES, QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
 const { STATUS } = QUESTION_TYPE_NUMBERS;
 
 export default function (WrappedComponent) {
     class WithSetQuestion extends React.Component {
+        state = {
+            useManufacturingPrereqOptions: false,
+        };
+
         render() {
             return (
                 <WrappedComponent
@@ -24,11 +28,18 @@ export default function (WrappedComponent) {
                     statusOptions={this._getStatusOptions()}
                     handlePrefillStatusChange={this.handlePrefillStatusChange}
                     handlePrefillStatusValueChange={this.handlePrefillStatusValueChange}
+                    useManufacturingPrereqOptions={this.state.useManufacturingPrereqOptions}
+                    setUseManufacturingPrerqOptions={this.setUseManufacturingPrerqOptions}
+                    shouldShowUseManufacturingPrereqOptsSwitch={this._checkShouldShowUseManufacturingPrereqOptsSwitch()}
                 />
             );
         }
         componentWillUnmount = () => {
             this.props.resetQuestionFields();
+        };
+
+        setUseManufacturingPrerqOptions = val => {
+            this.setState({ useManufacturingPrereqOptions: val });
         };
 
         handleInputChange = (name, value) => {
@@ -62,6 +73,20 @@ export default function (WrappedComponent) {
             updateQuestionField('prefillStatuses', value);
         };
 
+        _checkShouldShowUseManufacturingPrereqOptsSwitch = () => {
+            const { questionsObj, fields } = this.props;
+
+            if (!fields.prereqUUID) return false;
+
+            const prereq = questionsObj[fields.prereqUUID];
+            if (!prereq) return false;
+
+            const { optionType } = prereq;
+            const shouldShow = optionType === DROPDOWN_OPTION_VALS.installationTypes;
+
+            return shouldShow;
+        };
+
         _getPrereqOptions = () => {
             const { questions, templateUUID } = this.props;
 
@@ -75,6 +100,7 @@ export default function (WrappedComponent) {
 
         _getPrereqValueOptions = () => {
             const { questionsObj, fields } = this.props;
+
             if (!fields.prereqUUID) return [];
 
             const prereq = questionsObj[fields.prereqUUID];
@@ -113,9 +139,28 @@ export default function (WrappedComponent) {
         _getDropownOptionsByType = optionType => {
             const {
                 companyDropdownOptions: { dropdownOptions },
+                companyManufacturerOptions,
             } = this.props;
 
-            const options = dropdownOptions
+            const { useManufacturingPrereqOptions } = this.state;
+
+            let names = dropdownOptions.filter(opt => opt.type === optionType).map(opt => opt.name);
+
+            if (useManufacturingPrereqOptions) {
+                names = companyManufacturerOptions
+                    .filter(opt => opt.type === optionType)
+                    .map(opt => opt.name)
+                    .concat(names);
+            }
+
+            const options = [...new Set(names)].map(name => ({ label: name, value: name }));
+            return options;
+        };
+
+        _getManufacturerOptionsByOptionType = optionType => {
+            const { companyManufacturerOptions } = this.props;
+
+            const options = companyManufacturerOptions
                 .filter(opt => opt.type === optionType)
                 .map(opt => ({
                     label: opt.name,
