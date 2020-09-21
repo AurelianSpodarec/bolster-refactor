@@ -97,6 +97,7 @@ import {
     COMPANY_ADD_OPTION_VALUE_DOCUMENT_VERSION,
     COMPANY_DELETE_OPTION_VALUE_DOCUMENT_VERSION,
     ADMIN_EDIT_COMPANY_ADDRESS,
+    WHY_USE_OUR_SYSTEM,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -196,6 +197,7 @@ import ConfirmDeleteDocumentVersionModalContainer from 'components/companyAdmin/
 import EditCompanyAddressModalContainer from './EditCompanyAddressModalContainer';
 import UploadUserGuideModalContainer from './UploadUserGuideModalContainer';
 import AddCommentToContactSubmissionModalContainer from 'components/superAdmin/contactSubmissions/singleContactSubmission/containers/AddCommentToContactSubmissionModalContainer';
+import OurSystemModalContainer from 'components/frontEnd/whyUseOurSystem/containers/OurSystemModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -293,6 +295,7 @@ const MODAL_COMPONENTS = {
     [COMPANY_DELETE_OPTION_VALUE_DOCUMENT_VERSION]: ConfirmDeleteDocumentVersionModalContainer,
     [ADMIN_EDIT_COMPANY_ADDRESS]: EditCompanyAddressModalContainer,
     [UPLOAD_USER_GUIDE]: UploadUserGuideModalContainer,
+    [WHY_USE_OUR_SYSTEM]: OurSystemModalContainer,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
