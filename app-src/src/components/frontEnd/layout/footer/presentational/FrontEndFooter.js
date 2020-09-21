@@ -20,19 +20,19 @@ const FrontEndFooter = () => (
             <div className="frontend-footer-navlinks">
                 <ul>
                     <li>
-                        <Link to="">About Us</Link>
+                        <Link to="/about-us">About us</Link>
                     </li>
                     <li>
-                        <Link to="">Our System</Link>
+                        <Link to="/our-system">Our system</Link>
                     </li>
                     <li>
-                        <Link to="">How it works</Link>
+                        <Link to="/how-it-works">How it works</Link>
                     </li>
                     <li>
-                        <Link to="">Request a demo</Link>
+                        <Link to="/contact">Contact</Link>
                     </li>
                     <li>
-                        <Link to="">Register</Link>
+                        <Link to="/auth/register">Register</Link>
                     </li>
                 </ul>
             </div>

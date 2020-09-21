@@ -24,10 +24,10 @@ const FrontEndHeader = ({
             <div className="frontend-header-navlinks-container">
                 <ul>
                     <li>
-                        <Link to="">About us</Link>
+                        <Link to="/about-us">About us</Link>
                     </li>
                     <li>
-                        <Link to="">Our System</Link>
+                        <Link to="/our-system">Our system</Link>
                     </li>
                     <li>
                         <Link to="/how-it-works">How it works</Link>
