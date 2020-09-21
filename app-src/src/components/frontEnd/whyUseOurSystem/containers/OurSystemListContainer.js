@@ -1,18 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import OurSystemList from '../presentational/OurSystemList';
 import { InfoCardList } from 'constants/frontEnd/infoCard';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { WHY_USE_OUR_SYSTEM } from 'constants/shared/modalTypes';
 
-const OurSystemListContainer = () => {
+const OurSystemListContainer = ({ showModal }) => {
     return (
         <div className="our-system-list-wrapper">
             <div className="info-card-list-wrapper">
-                {InfoCardList.map(({ title, icon }, index) => {
+                {InfoCardList.map((item, index) => {
                     return (
                         <OurSystemList
-                            title={title}
-                            icon={icon}
-                            handleClick={handleClick}
+                            title={item.title}
+                            icon={item.icon}
+                            handleClick={() => handleModalClick(item)}
                             key={index}
                         />
                     );
@@ -21,9 +24,13 @@ const OurSystemListContainer = () => {
         </div>
     );
 
-    function handleClick() {
-        console.log('inside handle click');
+    function handleModalClick(item) {
+        showModal(WHY_USE_OUR_SYSTEM, item);
     }
 };
 
-export default OurSystemListContainer;
+const mapDispatchToProps = {
+    showModal,
+};
+
+export default connect(null, mapDispatchToProps)(OurSystemListContainer);

@@ -1,41 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import HomeSlides from '../presentational/HomeSlides';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 import { HomeSlidesList } from 'constants/frontEnd/homeSlides';
-import useInView from 'react-cool-inview';
 
 const HomeSlidesContainer = () => {
-    const [lockHomeSlides, setLockHomeSlides] = useState(true);
-    const [unlockSlides, setUnlockSlides] = useState(false);
-
-    const unlockSlidesFunc = () => setUnlockSlides(true);
-    const lockSlidesFunc = () => setUnlockSlides(false);
-
-    const { ref: homeSlidesRef } = useInView({
-        threshold: 1,
-        onEnter: () => {
-            setLockHomeSlides(true);
-        },
-        onLeave: () => {
-            setLockHomeSlides(false);
-        },
-    });
-
     return (
-        <div
-            ref={homeSlidesRef}
-            className={`home-slides-container ${lockHomeSlides && !unlockSlides ? 'visible' : ''}`}
-        >
+        <div className={'home-slides-container'}>
             {HomeSlidesList.map((item, index) => {
-                const lastSlide = index === HomeSlidesList.length - 1;
                 return (
-                    <HomeSlides
-                        key={index}
-                        background={item.background}
-                        last={lastSlide}
-                        unlock={unlockSlidesFunc}
-                        lock={lockSlidesFunc}
-                    >
+                    <HomeSlides key={index} background={item.background}>
                         <div className="slide-content">
                             <h1 className="slide-title">{item.title}</h1>
                             <p className="slide-description">{item.description}</p>

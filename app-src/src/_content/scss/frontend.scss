@@ -274,22 +274,9 @@ $header-height: 75px;
         .home-slides-container {
             width: 100%;
             height: calc(100vh - 75px);
-
-            &.visible {
-                scroll-snap-type: y mandatory;
-                scroll-behavior: smooth;
-                overflow-y: scroll;
-
-                .home-slides {
-                    scroll-snap-align: start;
-                    scroll-snap-stop: always;
-                }
-            }
-
-            &.last-slide {
-                scroll-snap-type: y proximity;
-            }
-
+            scroll-snap-type: y proximity;
+            scroll-behavior: smooth;
+            overflow-y: scroll;
 
             .home-slides {
                 width: 100%;
@@ -297,6 +284,8 @@ $header-height: 75px;
                 position: relative;
                 background-repeat: no-repeat;
                 background-position: center center;
+                scroll-snap-align: start;
+                scroll-snap-stop: always;
     
                 .overlay {
                     position: absolute;
@@ -764,6 +753,7 @@ $header-height: 75px;
             justify-content: center;
             max-width: 1200px;
             margin: 0 auto;
+            padding-bottom: 45px;
         }
 
         .info-card-wrapper {
@@ -785,6 +775,10 @@ $header-height: 75px;
                position: absolute;
                top: 12px;
                right: 12px;
+               
+                &:hover{
+                  cursor: pointer;
+                }
            }
 
            .icon-wrapper {
@@ -824,6 +818,7 @@ $header-height: 75px;
         }
                
         }
+        
     }
 
     // banners
@@ -863,4 +858,127 @@ $header-height: 75px;
             line-height: 1.75;
         }
     }
+}
+// Front end Modal  
+.frontend-modal-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            z-index: 1000;
+
+            
+            .bg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background: black;
+                opacity: 0.35;
+            }
+                   
+            .frontend-modal-block {
+                max-height: 90%;
+                transform: translateX(-50%) translateY(-50%);
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 733px;
+                overflow: visible;
+        
+                & h2 {
+                    font-size: 20px;
+                    @include opensans-bold;
+                }
+
+                .modal-description{
+                    font-size: 16px;
+                }
+        
+                .block-heading {
+                    .heading {
+                        max-width: 100%;
+                    }
+                }
+        
+                .label-field {
+                    padding-top: 10px;
+                    padding-bottom: 8px;
+                    
+                    .form-field {
+                        padding-left: 15px;
+                        padding-right: 15px;
+                    }
+                    
+                    &:nth-child(even) {
+                        background-color: $background-grey;
+                        .generic-input {
+                            background-color: white;
+                        }
+                    }
+        
+                    &:first-child {
+                        padding-top: 0;
+                    }
+                }
+            }
+        
+            .content-container {
+                height: 100%;
+                width: 100%;
+                min-width: 35%;
+                padding: 0;
+                
+                .content-area {
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                    width: 100%;
+                    min-width: 100%;
+                    margin-bottom: 0;
+                    padding: 0 52px 52px 52px;
+                }
+
+            }
+            
+            .divider{
+                width: 37px;
+                height: 6px;
+                background-color: #EB1C24;
+                margin: 24px 24px 24px 0;
+            }
+
+            .icon-wrapper {
+                align-self: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: -70px;
+                border-radius: 50%;
+                background-color: white;
+                width: 125px; 
+                height: 125px;                  
+                
+                .icon {
+                   max-width: 90px;
+                }
+            }    
+
+            .close {
+                position: absolute;
+                top: 12px;
+                right: 12px;
+                color: $button-grey;
+                font-size: 150%;
+                z-index: 2;
+                cursor: pointer;
+                background: transparent;
+                transform: rotate(45deg);
+            }
+               
+            .react-datepicker-popper {
+                position: relative !important;
+                margin-top: 0 !important;
+            }
 }
