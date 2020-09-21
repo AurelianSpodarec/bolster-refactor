@@ -12,7 +12,7 @@ const ContactPage = () => {
                 <source src={ServerRoomBackgroundVideo} type="video/mp4" />
             </video>
             <div className="contact-form-wrapper">
-                <div className="contact-heading">
+                <div className="heading">
                     <heading>
                         <h1>Contact</h1>
                     </heading>

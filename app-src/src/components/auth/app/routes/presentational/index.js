@@ -8,7 +8,7 @@ import Terms from 'components/shared/terms/Terms';
 
 const AuthRoutes = ({ base = '/auth' }) => (
     <SwitchWith404>
-        <Route exact path={`${base}/login`} component={Login} />
+        {/* <Route exact path={`${base}/login`} component={Login} /> */}
         <Route exact path={`${base}/register`} component={Register} />
         <Route exact path={`${base}/terms`} component={Terms} />
     </SwitchWith404>
