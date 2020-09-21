@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, Fragment } from 'react';
 import { HomeSlidesList } from 'constants/frontEnd/homeSlides';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 import TrustedBy from 'components/frontEnd/trustedBy/presentational/TrustedBy';
@@ -10,15 +10,15 @@ const HomeSlidesContainer = () => {
     const ref = useRef();
     const onScreen = useOnScreen(ref, 1);
 
-    console.log('erjkognqrjgne4wkjgnkrjgnrekjgn3rjkgnEWF@ER$G£Wf', onScreen);
+    console.log(onScreen);
 
     return (
         <div className={`home-slides-container visible ${onScreen ? 'last-slide' : ''}`}>
             {HomeSlidesList.map((item, index) => {
                 const lastSlide = index === HomeSlidesList.length - 1;
                 return (
-                    <>
-                        <HomeSlides key={index} background={item.background} last={lastSlide}>
+                    <Fragment key={index}>
+                        <HomeSlides background={item.background} last={lastSlide} ref={ref}>
                             <div className="slide-content">
                                 <h1 className="slide-title">{item.title}</h1>
                                 <p className="slide-description">{item.description}</p>
@@ -31,7 +31,7 @@ const HomeSlidesContainer = () => {
                                 <FrontEndFooter />
                             </>
                         )}
-                    </>
+                    </Fragment>
                 );
             })}
         </div>

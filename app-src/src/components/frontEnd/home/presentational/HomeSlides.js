@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
-const HomeSlides = ({ background, children, last, ref }) => {
+// eslint-disable-next-line react/display-name
+const HomeSlides = forwardRef(({ background, children, last }, ref) => {
     if (last)
         return (
             <div
@@ -22,6 +23,6 @@ const HomeSlides = ({ background, children, last, ref }) => {
             {children}
         </div>
     );
-};
+});
 
 export default HomeSlides;
