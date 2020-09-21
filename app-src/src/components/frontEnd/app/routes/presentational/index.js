@@ -10,6 +10,7 @@ import ShareLinkDrawingContainer from 'components/frontEnd/drawingShareLinks/con
 import QRCodesPageRedirect from 'components/frontEnd/qrCodes/containers/QRCodesPageRedirect';
 import QRCodesPage from 'components/frontEnd/qrCodes/presentational/QRCodesPage';
 import WhyUseOurSystem from 'components/frontEnd/whyUseOurSystem/containers/WhyUseOurSystemContainer';
+import LoginContainer from 'components/frontEnd/auth/login/containers/LoginContainer';
 
 const FrontEndRoutes = ({ base = '/' }) => (
     <SwitchWith404>
@@ -25,6 +26,8 @@ const FrontEndRoutes = ({ base = '/' }) => (
         />
         <Route path={`${base}qr/pin`} component={QRCodesPageRedirect} />
         <Route path={`${base}qrcode`} component={QRCodesPage} />
+
+        <Route exact path={`${base}auth/Login`} component={LoginContainer} />
     </SwitchWith404>
 );
 
