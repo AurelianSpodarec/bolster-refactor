@@ -758,6 +758,7 @@ $header-height: 75px;
             justify-content: center;
             max-width: 1200px;
             margin: 0 auto;
+            padding-bottom: 45px;
         }
 
         .info-card-wrapper {
@@ -841,11 +842,9 @@ $header-height: 75px;
                 height: 100%;
                 width: 100%;
                 background: black;
-                opacity: 0.8;
+                opacity: 0.35;
             }
-            
-           
-        
+                   
             .frontend-modal-block {
                 max-height: 90%;
                 transform: translateX(-50%) translateY(-50%);
@@ -929,7 +928,7 @@ $header-height: 75px;
                 height: 125px;                  
                 
                 .icon {
-                   width: 100px;
+                   max-width: 90px;
                 }
             }    
 
