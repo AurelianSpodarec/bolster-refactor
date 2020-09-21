@@ -2,7 +2,7 @@ import React from 'react';
 
 import ContactInfoContainer from '../containers/ContactInfoContainer';
 import ContactPageFormContainer from '../containers/ContactPageFormContainer';
-import ServerRoomBackgroundVideo from '_content/images/frontend-new/contact/icons/video/Server_Room.mp4';
+import ServerRoomBackgroundVideo from '_content/videos/frontend/Server_Room.mp4';
 
 const ContactPage = () => {
     return (
