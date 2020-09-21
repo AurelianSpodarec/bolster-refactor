@@ -9,7 +9,7 @@ import ContactPageContainer from 'components/frontEnd/contact/containers/Contact
 import ShareLinkDrawingContainer from 'components/frontEnd/drawingShareLinks/containers/ShareLinkDrawingContainer';
 import QRCodesPageRedirect from 'components/frontEnd/qrCodes/containers/QRCodesPageRedirect';
 import QRCodesPage from 'components/frontEnd/qrCodes/presentational/QRCodesPage';
-import WhyUseOurSystem from 'components/frontEnd/whyUseOurSystem/containers/WhyUseOurSystemContainer';
+import WhyUseOurSystem from 'components/frontEnd/whyUseOurSystem/presentational/WhyUseOurSystem';
 
 const FrontEndRoutes = ({ base = '/' }) => (
     <SwitchWith404>
