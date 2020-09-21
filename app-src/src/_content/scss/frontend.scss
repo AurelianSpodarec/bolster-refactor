@@ -779,6 +779,10 @@ $header-height: 75px;
                position: absolute;
                top: 12px;
                right: 12px;
+               
+                &:hover{
+                  cursor: pointer;
+                }
            }
 
            .icon-wrapper {
