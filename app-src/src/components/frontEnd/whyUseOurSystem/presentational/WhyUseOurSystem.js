@@ -7,6 +7,8 @@ import PinsVideo from '_content/videos/frontend/05_Pins.mp4';
 
 import OurSystemListContainer from '../containers/OurSystemListContainer';
 import FrontEndBanner from 'components/frontEnd/shared/banners/presentational/FrontEndBanner';
+import OurSystemDivider from './OurSystemDivider';
+import OurSystemCloudList from './OurSystemCloudList';
 
 const WhyUseOurSystem = () => {
     const { width } = useWindowDimensions();
@@ -19,11 +21,16 @@ const WhyUseOurSystem = () => {
                 description="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet?"
                 video={PinsVideo}
             />
-            <div className="page-divider">
-                <h2>Lorem Ipsum</h2>
-                <div className="divider"></div>
-                <p>Neque porro quisquam est qui do lorem amet?</p>
-            </div>
+            <OurSystemDivider
+                heading="Lorem Ipsum"
+                description="Neque porro quisquam est qui do lorem amet?"
+                extraClasses="grey"
+            />
+            <OurSystemCloudList />
+            <OurSystemDivider
+                heading="Lorem Ipsum"
+                description="Neque porro quisquam est qui do lorem amet?"
+            />
             <OurSystemListContainer />
         </div>
     );
