@@ -938,6 +938,16 @@ $header-height: 75px;
             font-size: 250%;
             line-height: 1.75;
         }
+
+        .arrow {
+            position: absolute;
+            width: 24.5px;
+            margin-left: -12.25px;
+            height: 15px;
+            left: 50%;
+            bottom: 15px;
+            opacity: 0.5;
+        }
     }
 }
 // Front end Modal  
