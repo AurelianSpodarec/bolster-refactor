@@ -1,9 +1,22 @@
 import React from 'react';
 
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
+import FrontEndModalOuterContainer from 'components/frontEnd/shared/modals/containers/FrontEndModalOuterContainer';
 
-const OurSystemModal = () => {
-    return <ModalOuterContainer></ModalOuterContainer>;
+const OurSystemModal = ({ item }) => {
+    const { title, icon, description } = item;
+    return (
+        <FrontEndModalOuterContainer>
+            <div className="icon-wrapper">
+                <img src={icon} className="icon" />
+            </div>
+            <h2>{title}</h2>
+            <div className="divider"></div>
+            <div
+                className="modal-description"
+                dangerouslySetInnerHTML={{ __html: description }}
+            ></div>
+        </FrontEndModalOuterContainer>
+    );
 };
 
 export default OurSystemModal;

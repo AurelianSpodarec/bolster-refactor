@@ -10,12 +10,12 @@ const OurSystemListContainer = ({ showModal }) => {
     return (
         <div className="our-system-list-wrapper">
             <div className="info-card-list-wrapper">
-                {InfoCardList.map(({ title, icon }, index) => {
+                {InfoCardList.map((item, index) => {
                     return (
                         <OurSystemList
-                            title={title}
-                            icon={icon}
-                            handleClick={handleModalClick}
+                            title={item.title}
+                            icon={item.icon}
+                            handleClick={() => handleModalClick(item)}
                             key={index}
                         />
                     );
@@ -24,8 +24,8 @@ const OurSystemListContainer = ({ showModal }) => {
         </div>
     );
 
-    function handleModalClick() {
-        showModal(WHY_USE_OUR_SYSTEM);
+    function handleModalClick(item) {
+        showModal(WHY_USE_OUR_SYSTEM, item);
     }
 };
 

@@ -13,17 +13,95 @@ import AnyOtherDocs from '_content/images/frontend-new/why-use-our-system/any-ot
 import Windows from '_content/images/frontend-new/why-use-our-system/windows.png';
 
 export const InfoCardList = [
-    { title: 'Passive fire protection', icon: PassiveFire },
-    { title: 'Electrical', icon: Electrical },
-    { title: 'Project Management', icon: ProjectManagement },
-    { title: 'Fire Door', icon: FireDoor },
-    { title: 'Water management', icon: WaterManagement },
-    { title: 'Health and Safety', icon: HealthAndSafety },
-    { title: 'Windows', icon: Windows },
-    { title: 'Joinery', icon: Joinery },
-    { title: 'Dampers', icon: Dampers },
-    { title: 'External Walls', icon: ExternalWalls },
-    { title: 'Internal Walls', icon: InternalWalls },
-    { title: 'Asset Management', icon: AssetManagement },
-    { title: 'Any other Compliance Documentation', icon: AnyOtherDocs },
+    {
+        title: 'Passive fire protection',
+        icon: PassiveFire,
+        description: `Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br><br>
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+    },
+    {
+        title: 'Electrical',
+        icon: Electrical,
+        description: `Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br><br>
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+    },
+    {
+        title: 'Project Management',
+        icon: ProjectManagement,
+        description: `Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br><br>
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+    },
+    {
+        title: 'Fire Door',
+        icon: FireDoor,
+        description: `Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br><br>
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+    },
+    {
+        title: 'Water management',
+        icon: WaterManagement,
+        description: `Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br><br>
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+    },
+    {
+        title: 'Health and Safety',
+        icon: HealthAndSafety,
+        description: `Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br><br>
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+    },
+    {
+        title: 'Windows',
+        icon: Windows,
+        description: `Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br><br>
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+    },
+    {
+        title: 'Joinery',
+        icon: Joinery,
+        description: `Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br><br>
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+    },
+    {
+        title: 'Dampers',
+        icon: Dampers,
+        description: `Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br><br>
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+    },
+    {
+        title: 'External Walls',
+        icon: ExternalWalls,
+        description: `Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br><br>
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+    },
+    {
+        title: 'Internal Walls',
+        icon: InternalWalls,
+        description: `Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br><br>
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+    },
+    {
+        title: 'Asset Management',
+        icon: AssetManagement,
+        description: `Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                     Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                     Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+    },
+    {
+        title: 'Any other Compliance Documentation',
+        icon: AnyOtherDocs,
+        description: `Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet? quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+    },
 ];
