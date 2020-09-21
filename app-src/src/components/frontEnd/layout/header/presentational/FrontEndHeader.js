@@ -56,7 +56,7 @@ const FrontEndHeader = ({
                             Client Access
                         </FrontEndButton>
                     )}
-                    <FrontEndButton classes="red spacing-right" to="" handleClick={logout}>
+                    <FrontEndButton type="button" classes="red spacing-right" handleClick={logout}>
                         Logout
                     </FrontEndButton>
                 </div>
@@ -67,10 +67,10 @@ const FrontEndHeader = ({
                         <img src={AppleAppStore} alt="Apple App Store" />
                     </div>
                     <div>
-                        <FrontEndButton to="register" classes="gray spacing-right">
+                        <FrontEndButton to="auth/register" classes="gray spacing-right">
                             Register
                         </FrontEndButton>
-                        <FrontEndButton to="login" classes="red">
+                        <FrontEndButton to="auth/login" classes="red">
                             Login
                         </FrontEndButton>
                     </div>
