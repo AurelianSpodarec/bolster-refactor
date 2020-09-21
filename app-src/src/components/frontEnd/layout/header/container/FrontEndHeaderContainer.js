@@ -23,11 +23,11 @@ class FrontEndHeaderContainer extends Component {
 
     handleClick = path => {
         const { history } = this.props;
-        console.log(path);
         history.push(path);
     };
 
     logout = () => {
+        console.log('hi');
         const { history, logout } = this.props;
         logout();
         history.push('/');

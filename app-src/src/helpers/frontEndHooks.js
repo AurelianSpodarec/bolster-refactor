@@ -32,7 +32,7 @@ export const useBannerScroll = width => {
 
         const windowHeight = window.innerHeight;
         const headerHeight = document.querySelector('.frontend-header').offsetHeight;
-        const bannerElement = document.querySelector('.banner');
+        const bannerElement = document.querySelector('.frontend-banner');
         const { bottom } = bannerElement.getBoundingClientRect();
         const duration = 350;
 

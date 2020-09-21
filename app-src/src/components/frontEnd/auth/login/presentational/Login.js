@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ServerRoomBackgroundVideo from '_content/images/frontend-new/contact/icons/video/Server_Room.mp4';
+// import ServerRoomBackgroundVideo from '_content/images/frontend-new/contact/icons/video/Server_Room.mp4';
 import LoginFormContainer from '../containers/LoginFormContainer';
 
 const Login = () => {
@@ -8,7 +8,7 @@ const Login = () => {
         <div id="login">
             <div className="login-background"></div>
             <video className="login-background-video" autoPlay="autoplay" loop muted>
-                <source src={ServerRoomBackgroundVideo} type="video/mp4" />
+                <source src={'ServerRoomBackgroundVideo'} type="video/mp4" />
             </video>
             <div className="login-wrapper">
                 <div className="heading-body-wrapper">
