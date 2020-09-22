@@ -111,36 +111,6 @@ export function useForm(initialState = {}) {
     return [formData, handleChange];
 }
 
-export const useOnScreen = (ref, threshold) => {
-    const [isIntersecting, setIntersecting] = useState(false);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                console.log('in view');
-                console.log(entry);
-                // setIntersecting(entry.isIntersecting);
-                setIntersecting(entry.boundingClientRect.y < 76);
-            },
-            {
-                threshold,
-            },
-        );
-
-        if (ref.current) {
-            console.log('observing', ref.current);
-            observer.observe(ref.current);
-        }
-        return () => {
-            observer.unobserve(ref.current);
-        };
-    }, []);
-
-    return isIntersecting;
-};
-
-export const useFullPageCarousel = () => {};
-
 function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
     return {
