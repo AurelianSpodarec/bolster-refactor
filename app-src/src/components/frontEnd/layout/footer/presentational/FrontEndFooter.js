@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom';
 import Container from 'components/frontEnd/shared/container/presentational/Container';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 import FooterLogo from '_content/images/frontend-new/footer-logo.svg';
-import BackToTop from 'components/frontEnd/shared/backToTop/presentational/BackToTop';
 
 const FrontEndFooter = () => (
     <>
-        <BackToTop />
         <Container className="frontend-footer">
             <div className="frontend-footer-register">
                 <FrontEndButton classes="gray" to="/register">

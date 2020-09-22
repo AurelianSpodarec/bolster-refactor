@@ -8,21 +8,25 @@ import InspectVideo from '_content/videos/frontend/08_Inspect_Locate_Document.mp
 import AboutUsInfoContainer from '../container/AboutUsInfoContainer';
 import FrontEndBanner from 'components/frontEnd/shared/banners/presentational/FrontEndBanner';
 import TrustedBy from 'components/frontEnd/trustedBy/presentational/TrustedBy';
+import BackToTop from 'components/frontEnd/shared/backToTop/presentational/BackToTop';
 
 const AboutPage = () => {
     const { width } = useWindowDimensions();
     useBannerScroll(width);
 
     return (
-        <div id="about">
-            <FrontEndBanner
-                heading="About us"
-                description="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet?"
-                video={InspectVideo}
-            />
-            <AboutUsInfoContainer />
-            <TrustedBy />
-        </div>
+        <>
+            <div id="about">
+                <FrontEndBanner
+                    heading="About us"
+                    description="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet?"
+                    video={InspectVideo}
+                />
+                <AboutUsInfoContainer />
+                <TrustedBy />
+            </div>
+            <BackToTop />
+        </>
     );
 };
 
