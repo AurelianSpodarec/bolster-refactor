@@ -12,15 +12,16 @@ const FrontEndHeaderDesktop = ({
     isSuperAdmin,
     isCompanyAdmin,
     isClientAccess,
+    handleClick,
     handleLogout,
     curRoute,
 }) => (
     <Container className="frontend-header">
         <div className="frontend-header-left">
             <div className="frontend-logo">
-                <Link to="/">
+                <a href="/" onClick={e => handleClick(e, '/')}>
                     <img src={Logo} alt="Logo of Bolster Systems" />
-                </Link>
+                </a>
             </div>
             <div className="frontend-header-navlinks-container">
                 <ul>
@@ -28,9 +29,13 @@ const FrontEndHeaderDesktop = ({
                         .filter(({ name }) => name !== 'Register')
                         .map(({ name, slug }) => (
                             <li key={name}>
-                                <Link to={slug} className={curRoute === slug ? 'active' : ''}>
+                                <a
+                                    href={slug}
+                                    className={curRoute === slug ? 'active' : ''}
+                                    onClick={e => handleClick(e, slug)}
+                                >
                                     {name}
-                                </Link>
+                                </a>
                             </li>
                         ))}
                 </ul>
@@ -40,17 +45,29 @@ const FrontEndHeaderDesktop = ({
             {isSuperAdmin || isCompanyAdmin || isClientAccess ? (
                 <div className="logged-in-button-container">
                     {isSuperAdmin && (
-                        <FrontEndButton to="admin" classes="gray spacing-right">
+                        <FrontEndButton
+                            to="/admin"
+                            classes="gray spacing-right"
+                            handleClick={e => handleClick(e, '/admin')}
+                        >
                             Super Admin
                         </FrontEndButton>
                     )}
                     {isCompanyAdmin && (
-                        <FrontEndButton to="company" classes="gray spacing-right">
+                        <FrontEndButton
+                            to="/company"
+                            classes="gray spacing-right"
+                            handleClick={e => handleClick(e, '/company')}
+                        >
                             Company Admin
                         </FrontEndButton>
                     )}
                     {isClientAccess && (
-                        <FrontEndButton to="client/companies" classes="gray spacing-right">
+                        <FrontEndButton
+                            to="/client/companies"
+                            classes="gray spacing-right"
+                            handleClick={e => handleClick(e, '/client/companies')}
+                        >
                             Client Access
                         </FrontEndButton>
                     )}

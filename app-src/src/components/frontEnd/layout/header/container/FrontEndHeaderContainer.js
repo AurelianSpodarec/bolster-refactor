@@ -20,21 +20,34 @@ const FrontEndHeaderContainer = ({
             isSuperAdmin={isSuperAdmin}
             isCompanyAdmin={isCompanyAdmin}
             isClientAccess={isClientAccess}
-            logout={handleLogout}
-            onClick={handleClick}
+            handleLogout={handleLogout}
+            handleClick={handleClick}
             curRoute={location.pathname.toLowerCase()}
             menuOpen={menuOpen}
             setMenuOpen={setMenuOpen}
         />
     );
 
-    function handleClick(path) {
+    function handleClick(e, path) {
+        e.preventDefault();
+
         history.push(path);
+
+        if (menuOpen) {
+            setMenuOpen(false);
+        }
     }
 
-    function handleLogout() {
+    function handleLogout(e) {
+        e.preventDefault();
+
         logout();
+
         history.push('/');
+
+        if (menuOpen) {
+            setMenuOpen(false);
+        }
     }
 };
 

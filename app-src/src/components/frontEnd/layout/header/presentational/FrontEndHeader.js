@@ -8,6 +8,7 @@ const FrontEndHeader = ({
     isSuperAdmin,
     isCompanyAdmin,
     isClientAccess,
+    handleClick,
     handleLogout,
     curRoute,
     menuOpen,
@@ -22,6 +23,7 @@ const FrontEndHeader = ({
                 isCompanyAdmin={isCompanyAdmin}
                 isClientAccess={isClientAccess}
                 curRoute={curRoute}
+                handleClick={handleClick}
                 handleLogout={handleLogout}
                 menuOpen={menuOpen}
                 setMenuOpen={setMenuOpen}
@@ -34,6 +36,7 @@ const FrontEndHeader = ({
             isCompanyAdmin={isCompanyAdmin}
             isClientAccess={isClientAccess}
             curRoute={curRoute}
+            handleClick={handleClick}
             handleLogout={handleLogout}
         />
     );

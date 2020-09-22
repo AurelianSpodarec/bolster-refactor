@@ -170,6 +170,10 @@ $header-height: 75px;
             &.active {
                 color: $red-alt;
             }
+
+            @include devices(lgMobile) {
+                font-size: 180%;
+            }
         }
     }
 

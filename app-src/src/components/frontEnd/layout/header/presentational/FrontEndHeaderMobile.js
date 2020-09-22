@@ -9,6 +9,7 @@ const FrontEndHeaderMobile = ({
     isSuperAdmin,
     isCompanyAdmin,
     isClientAccess,
+    handleClick,
     handleLogout,
     curRoute,
     menuOpen,
@@ -17,9 +18,9 @@ const FrontEndHeaderMobile = ({
     <>
         <Container className="frontend-header mobile">
             <div className="frontend-logo">
-                <Link to="/">
+                <a href="/" onClick={e => handleClick(e, '/')}>
                     <img src={Logo} alt="Logo of Bolster Systems" />
-                </Link>
+                </a>
             </div>
 
             <i className="menu-button fa fa-bars" onClick={() => setMenuOpen(!menuOpen)} />
@@ -31,34 +32,47 @@ const FrontEndHeaderMobile = ({
                     .filter(({ name }) => name !== 'Register')
                     .map(({ name, slug }) => (
                         <li key={name}>
-                            <Link to={slug} className={curRoute === slug ? 'active' : ''}>
+                            <a
+                                href={slug}
+                                className={curRoute === slug ? 'active' : ''}
+                                onClick={e => handleClick(e, slug)}
+                            >
                                 {name}
-                            </Link>
+                            </a>
                         </li>
                     ))}
                 {isSuperAdmin && (
                     <li>
-                        <Link to="/admin">Super Admin</Link>
+                        <a href="/admin" onClick={e => handleClick(e, '/admin')}>
+                            Super Admin
+                        </a>
                     </li>
                 )}
 
                 {isCompanyAdmin && (
                     <li>
-                        <Link to="/company">Company Admin</Link>
+                        <a href="/company" onClick={e => handleClick(e, '/company')}>
+                            Company Admin
+                        </a>
                     </li>
                 )}
 
                 {isClientAccess && (
                     <li>
-                        <Link to="/client/companies">Client Access</Link>
+                        <a
+                            href="/client/companies"
+                            onClick={e => handleClick(e, '/client/companies')}
+                        >
+                            Client Access
+                        </a>
                     </li>
                 )}
 
                 {isSuperAdmin || isCompanyAdmin || isClientAccess ? (
                     <li>
-                        <Link to="" onClick={handleLogout}>
+                        <a href="" onClick={handleLogout}>
                             Logout
-                        </Link>
+                        </a>
                     </li>
                 ) : (
                     <></>
