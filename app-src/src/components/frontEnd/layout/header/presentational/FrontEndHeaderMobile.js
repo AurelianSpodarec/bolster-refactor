@@ -1,0 +1,71 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+import Logo from '_content/images/frontend-new/logo.png';
+import Container from 'components/frontEnd/shared/container/presentational/Container';
+import navItems from 'constants/frontEnd/navItems';
+
+const FrontEndHeaderMobile = ({
+    isSuperAdmin,
+    isCompanyAdmin,
+    isClientAccess,
+    handleLogout,
+    curRoute,
+    menuOpen,
+    setMenuOpen,
+}) => (
+    <>
+        <Container className="frontend-header mobile">
+            <div className="frontend-logo">
+                <Link to="/">
+                    <img src={Logo} alt="Logo of Bolster Systems" />
+                </Link>
+            </div>
+
+            <i className="menu-button fa fa-bars" onClick={() => setMenuOpen(!menuOpen)} />
+        </Container>
+
+        <div className={`nav-mobile ${menuOpen ? 'open' : ''}`}>
+            <ul>
+                {navItems
+                    .filter(({ name }) => name !== 'Register')
+                    .map(({ name, slug }) => (
+                        <li key={name}>
+                            <Link to={slug} className={curRoute === slug ? 'active' : ''}>
+                                {name}
+                            </Link>
+                        </li>
+                    ))}
+                {isSuperAdmin && (
+                    <li>
+                        <Link to="/admin">Super Admin</Link>
+                    </li>
+                )}
+
+                {isCompanyAdmin && (
+                    <li>
+                        <Link to="/company">Company Admin</Link>
+                    </li>
+                )}
+
+                {isClientAccess && (
+                    <li>
+                        <Link to="/client/companies">Client Access</Link>
+                    </li>
+                )}
+
+                {isSuperAdmin || isCompanyAdmin || isClientAccess ? (
+                    <li>
+                        <Link to="" onClick={handleLogout}>
+                            Logout
+                        </Link>
+                    </li>
+                ) : (
+                    <></>
+                )}
+            </ul>
+        </div>
+    </>
+);
+
+export default FrontEndHeaderMobile;

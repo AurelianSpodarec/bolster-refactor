@@ -1,20 +1,20 @@
 import React from 'react';
 
+import RegisterFormContainer from '../containers/RegisterFormContainer';
 import ServerRoomBackgroundVideo from '_content/videos/frontend/Server_Room.mp4';
-import LoginFormContainer from '../containers/LoginFormContainer';
 
-const Login = () => {
+const Register = () => {
     return (
-        <div id="login">
+        <div id="register">
             <div className="auth-background"></div>
             <video className="auth-background-video" autoPlay="autoplay" loop muted>
                 <source src={ServerRoomBackgroundVideo} type="video/mp4" />
             </video>
-            <div className="auth-wrapper">
+            <div className="auth-wrapper register">
                 <div className="heading-body-wrapper">
                     <div className="auth-heading">
                         <heading>
-                            <h1>Login</h1>
+                            <h1>Registering with Bolster Systems</h1>
                         </heading>
                     </div>
                     <p>
@@ -33,10 +33,10 @@ const Login = () => {
                         Et harum quidem rerum facilis est et expedita distinctio.
                     </p>
                 </div>
-                <LoginFormContainer />
+                <RegisterFormContainer />
             </div>
         </div>
     );
 };
 
-export default Login;
+export default Register;

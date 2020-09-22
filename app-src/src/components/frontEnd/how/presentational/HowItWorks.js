@@ -7,20 +7,24 @@ import InspectVideo from '_content/videos/frontend/08_Inspect_Locate_Document.mp
 
 import HowItWorksSections from './HowItWorksSections';
 import FrontEndBanner from 'components/frontEnd/shared/banners/presentational/FrontEndBanner';
+import BackToTop from 'components/frontEnd/shared/backToTop/presentational/BackToTop';
 
 const HowItWorks = () => {
     const { width } = useWindowDimensions();
     useBannerScroll(width);
 
     return (
-        <div id="how-it-works">
-            <FrontEndBanner
-                heading="How it works"
-                description="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet?"
-                video={InspectVideo}
-            />
-            <HowItWorksSections />
-        </div>
+        <>
+            <div id="how-it-works">
+                <FrontEndBanner
+                    heading="How it works"
+                    description="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet?"
+                    video={InspectVideo}
+                />
+                <HowItWorksSections />
+            </div>
+            <BackToTop />
+        </>
     );
 };
 
