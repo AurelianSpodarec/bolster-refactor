@@ -9,8 +9,9 @@ import { getSelectedCompanyForClient, isEmpty } from 'helpers/generic';
 import clientFetchServicesForDrawing from 'actions/client/services/async/clientFetchServicesForDrawing';
 
 class SinglePinContainer extends Component {
+    state = { isLoading: true };
     render() {
-        return <SinglePin />;
+        return <SinglePin isLoading={this.state.isLoading} />;
     }
 
     componentDidMount = () => {
@@ -22,15 +23,19 @@ class SinglePinContainer extends Component {
         } = this.props;
         const selectedCompanyID = getSelectedCompanyForClient();
 
-        fetchClientSinglePin(selectedCompanyID, pinID).then(
-            ({
-                payload: {
-                    pin: { drawingID },
+        fetchClientSinglePin(selectedCompanyID, pinID)
+            .then(
+                ({
+                    payload: {
+                        pin: { drawingID },
+                    },
+                }) => {
+                    clientFetchServicesForDrawing(drawingID);
                 },
-            }) => {
-                clientFetchServicesForDrawing(drawingID);
-            },
-        );
+            )
+            .then(() => {
+                this.setState({ isLoading: false });
+            });
         clientFetchPinOperatives(selectedCompanyID, pinID);
     };
 
