@@ -5,7 +5,7 @@ import PlusIcon from '_content/images/frontend-new/why-use-our-system/plus-icon.
 
 const FrontEndModalOuter = ({ children, handleClose, extraClasses = '', hideCloseButton }) => (
     <div className="frontend-modal-container size-lg-12">
-        <div className="bg" />
+        <div className="bg" onClick={handleClose} />
 
         <div className={`frontend-modal-block ${extraClasses}`}>
             {!hideCloseButton && <img src={PlusIcon} className="close" onClick={handleClose} />}
