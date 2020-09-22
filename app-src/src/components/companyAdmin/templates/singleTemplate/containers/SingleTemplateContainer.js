@@ -4,11 +4,7 @@ import { connect } from 'react-redux';
 import SingleTemplate from '../presentational/SingleTemplate';
 import fetchAllTemplates from 'actions/companyAdmin/templates/async/fetchAllTemplates';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
-import {
-    getLatestVersion,
-    getVersionSections,
-    getSectionQuestions
-} from 'helpers/templates';
+import { getLatestVersion, getVersionSections, getSectionQuestions } from 'helpers/templates';
 import selectQuestion from 'actions/companyAdmin/templates/sync/selectQuestion';
 
 class SingleTemplateContainer extends Component {
@@ -24,6 +20,7 @@ class SingleTemplateContainer extends Component {
                     headers={['Question Name', 'Type', 'Required?', '']}
                     sections={versSections}
                     questions={sectQuestions}
+                    templateID={id}
                 />
             );
         }
@@ -43,10 +40,10 @@ const mapStateToProps = (
             templateSectionsReducer: { sections },
             templateVersionsReducer: { versions },
             templateQuestionsReducer: { questions },
-            dropdownOptionsReducer: { isFetching: fetchingOptions }
-        }
+            dropdownOptionsReducer: { isFetching: fetchingOptions },
+        },
     },
-    ownProps
+    ownProps,
 ) => ({
     templates: Object.values(templates),
     versions: Object.values(versions),
@@ -54,13 +51,8 @@ const mapStateToProps = (
     questions: Object.values(questions),
     isFetching: !!(isFetching || fetchingOptions),
     error,
-    id: ownProps.match.params.id
+    id: ownProps.match.params.id,
 });
 
 const mapDispatchToProps = { fetchAllTemplates, selectQuestion };
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(SingleTemplateContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SingleTemplateContainer));

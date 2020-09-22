@@ -5,13 +5,9 @@ import TemplateBuilderHeaderContainer from '../containers/TemplateBuilderHeaderC
 import SaveTemplateButtonContainer from '../containers/SaveTemplateButtonContainer';
 // import TemplateLabelInfoContainer from '../containers/TemplateLabelInfoContainer';
 import PreviewSectionListContainer from '../../templatePreview/containers/PreviewSectionListContainer';
+import TemplateDetailsContainer from '../containers/TemplateDetailsContainer';
 
-const TemplateBuilder = ({
-    showAddSectionModal,
-    saveRequired,
-    isExisting,
-    templateUUID
-}) => (
+const TemplateBuilder = ({ showAddSectionModal, saveRequired, isExisting, templateUUID }) => (
     <div className="size-lg-12">
         <TemplateBuilderHeaderContainer
             showAddSectionModal={showAddSectionModal}
@@ -23,6 +19,7 @@ const TemplateBuilder = ({
             {saveRequired && <SaveTemplateButtonContainer />}
         </div>
         <div className="size-lg-4">
+            <TemplateDetailsContainer templateUUID={templateUUID} />
             <PreviewSectionListContainer />
         </div>
     </div>
