@@ -5,6 +5,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Field from 'components/shared/generic/form/presentational/Field';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import ImageVisualContainer from '../containers/ImageVisualContainer';
 
 const OutputSettings = ({
     handleSubmit,
@@ -98,9 +99,7 @@ const OutputSettings = ({
                                 </div>
                             </>
                         )}
-                    </div>
-                    <div className="size-lg-6 size-md-12">
-                        <Field name="Sort by">
+                        <Field name="Sort by" styles={{ marginTop: isPDFGeneration ? '8px' : '0' }}>
                             <DropdownContainer
                                 name="sortBy"
                                 options={sortByOptions}
@@ -123,6 +122,9 @@ const OutputSettings = ({
                                 - Check to include questions that are hidden on the templates?
                             </p>
                         </Field>
+                    </div>
+                    <div className="size-lg-6 size-md-12">
+                        <ImageVisualContainer />
                     </div>
                     <BlockButtonWrapper>
                         <button className="button green" onClick={handleSubmit}>
