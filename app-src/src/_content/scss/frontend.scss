@@ -122,6 +122,18 @@ $header-height: 75px;
                 }
             }
         }
+
+        // mobile specifics
+        &.mobile {
+            justify-content: center;
+        }
+
+        .menu-button {
+            position: absolute;
+            left: 16px;
+            cursor: pointer;
+            font-size: 300%;
+        }
     }
 
     .heading {
