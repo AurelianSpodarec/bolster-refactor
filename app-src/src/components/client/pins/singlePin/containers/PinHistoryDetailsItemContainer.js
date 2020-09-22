@@ -1,3 +1,4 @@
+import Loading from 'components/shared/generic/misc/presentational/Loading';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -5,7 +6,7 @@ import PinHistoryDetailsItem from '../presentational/PinHistoryDetailsItem';
 
 class PinHistoryDetailsItemContainer extends Component {
     render() {
-        const { history, users, services, drawingID } = this.props;
+        const { history, users, services, drawingID, isLoading } = this.props;
 
         const user = users[history.createdByCompanyUserID] || {};
         const editedUser = users[history.lastEditedByCompanyUserID];
@@ -13,7 +14,9 @@ class PinHistoryDetailsItemContainer extends Component {
             ? `${editedUser.userFirstName} ${editedUser.userLastName}`
             : 'N/A';
 
-        return (
+        return isLoading ? (
+            <Loading />
+        ) : (
             <PinHistoryDetailsItem
                 history={history}
                 createdBy={user}
@@ -29,11 +32,11 @@ const mapStateToProps = ({
     client: {
         pinOperativesReducer: { users },
         servicesReducer: { services },
-        pinHistoriesReducer: { histories }
-    }
+        pinHistoriesReducer: { histories },
+    },
 }) => ({
     users,
     services,
-    allHistories: Object.values(histories)
+    allHistories: Object.values(histories),
 });
 export default connect(mapStateToProps)(PinHistoryDetailsItemContainer);

@@ -5,12 +5,12 @@ import PinDetailsContainer from '../containers/PinDetailsContainer';
 // import PinHistoriesContainer from '../containers/PinHistoriesContainer';
 import SinglePinHeaderContainer from '../containers/SinglePinHeaderContainer';
 
-const SinglePin = () => (
+const SinglePin = ({ isLoading }) => (
     <>
         <SinglePinHeaderContainer />
         <div className="size-lg-12">
             <SinglePinMapContainer />
-            <PinDetailsContainer />
+            <PinDetailsContainer isLoading={isLoading} />
         </div>
         {/* <div className="size-lg-4">
             <PinHistoriesContainer />
