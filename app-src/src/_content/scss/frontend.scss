@@ -82,6 +82,10 @@ $header-height: 75px;
             font-size: 130%;
             font-weight: 500;
 
+            @include devices(xsDesktop) {
+                margin-left: 15px;
+            }
+
             ul {
                 display: flex;
 
@@ -117,6 +121,18 @@ $header-height: 75px;
                     }
                 }
             }
+        }
+
+        // mobile specifics
+        &.mobile {
+            justify-content: center;
+        }
+
+        .menu-button {
+            position: absolute;
+            left: 16px;
+            cursor: pointer;
+            font-size: 300%;
         }
     }
 
@@ -166,16 +182,18 @@ $header-height: 75px;
         align-self: center;
         display: flex;
         flex-direction: column;
-        margin-top: 105px;
+        margin-top: 75px;
 
-        & > heading, h1 {
+        & > h1 {
             font-size: 400%;
+            @include opensans-semibold;
             color: #FFFFFF;
             align-self: center;
         }
         & > p {
-            margin: 40px 0 80px 0;
+            margin: 10px 0 80px 0;
             font-size: 300%;
+            @include opensans-regular;
             color: #FFFFFF;
         }
     }
@@ -422,44 +440,65 @@ $header-height: 75px;
                 }
             }
         }
+
+        .trusted-by-header {
+            margin-bottom: 50px;
+
+            .line {
+                font-size: 350%;
+                @include opensans-bold;
+
+                &:after {
+                    width: 39px;
+                    height: 6px;
+                    bottom: -15px;
+                }
+            }
+        }
     }
 
-    // About us section
-    #about {
+    // content pages
+    .content-page {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        flex-direction: column;
+        max-width: 1330px;
+        margin: 0 auto;
+        padding: 50px 20px 75px;
+    }
 
-        .frontend-about-info {
-            display: flex;
-            width: 100%;
-            justify-content: center;
-            flex-direction: column;
-            max-width: 1330px;
-            margin: 0 auto;
-            padding-bottom: 117px;
+    .wysiwyg {
+        h2, h3, p {
+            line-height: 2;
+        }
 
-            h2 {
-                margin: 42px 0 18px 0;
-                font-size: 350%;
-                font-weight: bold;
-                color: #444444;
-            }
-            .divider{
-                width: 37px;
-                height: 6px;
-                background-color: #EB1C24;
-                margin-bottom: 18px;
-            }
+        h2, h3 {
+            color: $very-dark-grey-alt;
+        }
 
-            h3{
-                font-size: 250%;
-                color: #444444;
-                margin-bottom: 37px;
-            }
+        h2 {
+            margin-bottom: 5px;
+            font-size: 350%;
+            @include opensans-bold;
+        }
 
-            p {
-                color: #888888;
-                line-height: 25px;
-            }
+        .divider{
+            margin-bottom: 10px;
+            width: 37px;
+            height: 6px;
+            background-color: $red-alt;
+        }
 
+        h3 {
+            margin-bottom: 15px;
+            font-size: 250%;
+        }
+
+        p {
+            margin-bottom: 35px;
+            font-size: 180%;
+            color: $grey-alt;
         }
     }
 
@@ -650,7 +689,9 @@ $header-height: 75px;
     }
 
     // Contact page
-    #contact {        
+    #contact { 
+        min-height: calc(100vh - #{$header-height});
+        
         .contact-background {
            position: absolute;
            background-color: #3C3C3C;
@@ -671,9 +712,11 @@ $header-height: 75px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            padding-bottom: 75px;
+            min-height: 0;
                     
             .contact-form {
-              margin: 0 143px 166px 0;
+              margin: 0 143px 0 0;
               color: #FFFFFF;
               flex: 1;
               max-width: 610px;
@@ -764,8 +807,8 @@ $header-height: 75px;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 190px;
             width: 100%;
+            padding: 40px 20px 50px;
             background-color: #ffffff;
             
             & > h2 {
@@ -788,6 +831,7 @@ $header-height: 75px;
             }
         }
         .our-system-list-wrapper {
+            padding-top: 30px;
             background-color: #f5f5f5;
             width: 100%;
         }
@@ -851,7 +895,7 @@ $header-height: 75px;
             & > h2 {
                 color: #444444;
                 font-size: 260%;
-                @include opensans-bold;
+                @include opensans-semibold;
             }
 
             .divider{
@@ -992,98 +1036,144 @@ $header-height: 75px;
     }
 }
 
-//Log in page
-#login {
-    .login-background {
-        position: absolute;
-        background-color: #3C3C3C;
-        height: 100%;
-        width: 100%;
- 
-     }     
-     .login-background-video {
-         position: absolute;
-         height: 100%;
-         width: 100%;
-         opacity: 0.09;
-         object-fit: fill;
-     }
-     .login-wrapper {
+// Auth area
+
+.auth-background {
+    position: absolute;
+    background-color: #3C3C3C;
+    height: 100%;
+    width: 100%;
+
+ }     
+ .auth-background-video {
+     position: absolute;
+     height: 100%;
+     width: 100%;
+     opacity: 0.09;
+     object-fit: fill;
+ }
+ .auth-wrapper {
+    display: flex;
+    height: calc(100vh - #{$header-height});
+    
+    .heading-body-wrapper{
         display: flex;
+        flex-direction: column;
+        margin: 104px 200px 0 143px;
+        flex: 1;
 
+    .auth-heading {
+            font-size: 400%;
+            @include opensans-semibold;
+            color: white;
+            margin-bottom: 30px;
+        }
+        & > p {
+            color: white;
+            font-size: 300%;
+            max-width: 1066px;
+            margin-bottom: 40px;
+            font-weight: normal;
+        }
+    }
+
+    &.register {
         .heading-body-wrapper{
-            display: flex;
-            flex-direction: column;
-            margin: 104px 200px 0 143px;
+            margin: 104px 143px 0 137px;
+        }
 
-            .login-heading {
-                font-size: 400%;
-                @include opensans-semibold;
-                color: white;
-            }
-            
-            & > p {
-                color: white;
-                font-size: 300%;
-                max-width: 1066px;
-                margin-bottom: 40px;
-            }
+        .auth-heading{
+            margin-bottom: 25px;
         }
     }
 }
 
-// Front end form styles
-.frontend-form-wrapper {
+.auth-form-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 527px;
-    height: 100vh;
+    width: 550px;
+    height: 100%;
     background-color: white;
-
-}
-
-.frontend-form-heading {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 35px;
     
-    & > h2 {
-        @include opensans-semibold;
-        font-size: 400%; 
-        color: black;
-        margin: 30px 0;
-    }
-    & > p {
-        font-size: 300%;
-        color: #888888
+    &.wide {
+        width: 787px;
     }
 
-}
-.frontend-form-field {
-    width: 445px;
-    margin: 10px 40px;
-    display: flex;
-    flex-direction: column;
+    & > form {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
 
-    & .title{
-        font-size: 180%;
-        color: #444444;
-        font-weight: normal;
+        .register-input-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
     }
-    
-    .frontend-text-input-container {
-        background-color: #e8e8e8;
-        border: none;
-        height: 44px;
+
+    .auth-form-heading {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 35px;
         
+        & > h2 {
+            @include opensans-semibold;
+            font-size: 400%; 
+            color: black;
+            margin: 30px 0;
+        }
+        & > p {
+            font-size: 300%;
+            color: #888888
+        }
+    
     }
+    
 
-    & > .frontend-button {
-        align-self: flex-end;
+    
+    .auth-form-field {
+        width: 445px;
+        margin: 10px 40px;
+        display: flex;
+        flex-direction: column;
+          
+        & .title{
+            font-size: 180%;
+            color: #444444;
+            font-weight: normal;
+        }
+        
+        .auth-text-input-container {
+            background-color: #e8e8e8;
+            border: none;
+            height: 44px;
+            
+        }
+        
+        & > .frontend-button {
+            &.right {
+                align-self: center;
+            }
+            &.left {
+                align-self: center;
+            }
+            
+          }
+    
+        &.wide{
+            width: 665px;
+        }
+
+        &.row {
+            flex-direction: row;
+            justify-content: space-between;
+        }
     }
 }
+
 
 // Front end Modal  
 .frontend-modal-container {
@@ -1115,11 +1205,17 @@ $header-height: 75px;
 
         & h2 {
             font-size: 200%;
-            @include opensans-bold;
+            @include opensans-semibold;
+            color: $very-dark-grey-alt;
         }
 
-        .modal-description{
-            font-size: 160%;
+        .modal-description {
+            p {
+                @include opensans-regular;
+                font-size: 160%;
+                color: $grey-alt;
+                line-height: 2;
+            }
         }
 
         .block-heading {
@@ -1163,42 +1259,16 @@ $header-height: 75px;
             width: 100%;
             min-width: 100%;
             margin-bottom: 0;
-            padding: 0 52px 52px 52px;
+            padding: 0 40px 30px 40px
         }
 
-        .block-heading {
-            .heading {
-                max-width: 100%;
-            }
-        }
-
-        .label-field {
-            padding-top: 10px;
-            padding-bottom: 8px;
-            
-            .form-field {
-                padding-left: 15px;
-                padding-right: 15px;
-            }
-            
-            &:nth-child(even) {
-                background-color: $background-grey;
-                .generic-input {
-                    background-color: white;
-                }
-            }
-
-            &:first-child {
-                padding-top: 0;
-            }
-        }
     }
     
     .divider{
         width: 37px;
         height: 6px;
         background-color: #EB1C24;
-        margin: 24px 24px 24px 0;
+        margin: 15px 0;
     }
 
     .icon-wrapper {
