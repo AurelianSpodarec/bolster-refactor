@@ -32,8 +32,8 @@ const LoginForm = ({ formData, handleChange, handleSubmit }) => {
                         classes="auth-text-input-container"
                     />
                 </Field>
-                <Field classes="auth-form-field right">
-                    <FrontEndButton classes="gray" type="submit">
+                <Field classes="auth-form-field">
+                    <FrontEndButton classes="gray right" type="submit">
                         Submit
                     </FrontEndButton>
                 </Field>

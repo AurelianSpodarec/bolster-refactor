@@ -10,11 +10,11 @@ const Register = () => {
             <video className="auth-background-video" autoPlay="autoplay" loop muted>
                 <source src={ServerRoomBackgroundVideo} type="video/mp4" />
             </video>
-            <div className="auth-wrapper">
+            <div className="auth-wrapper register">
                 <div className="heading-body-wrapper">
                     <div className="auth-heading">
                         <heading>
-                            <h1>Register</h1>
+                            <h1>Registering with Bolster Systems</h1>
                         </heading>
                     </div>
                     <p>

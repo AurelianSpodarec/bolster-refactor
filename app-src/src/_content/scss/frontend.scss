@@ -981,9 +981,6 @@ $header-height: 75px;
 
 // Auth area
 
-//Log in page
-#login {
-}
 .auth-background {
     position: absolute;
     background-color: #3C3C3C;
@@ -1000,91 +997,126 @@ $header-height: 75px;
  }
  .auth-wrapper {
     display: flex;
-
-    .heading-body-wrapper{
-        display: flex;
-        flex-direction: column;
-        margin: 104px 200px 0 143px;
-
+    height: calc(100vh - #{$header-height});
+    
         .heading-body-wrapper{
             display: flex;
             flex-direction: column;
             margin: 104px 200px 0 143px;
+            flex: 1;
 
         .auth-heading {
                 font-size: 400%;
                 @include opensans-semibold;
                 color: white;
+                margin-bottom: 30px;
             }
             & > p {
                 color: white;
                 font-size: 300%;
                 max-width: 1066px;
                 margin-bottom: 40px;
+                font-weight: normal;
             }
         }
-        
-        & > p {
-            color: white;
-            font-size: 30px;
-            max-width: 1066px;
-            margin-bottom: 40px;
+    
+        &.register {
+            .heading-body-wrapper{
+                margin: 104px 143px 0 137px;
+            }
+
+            .auth-heading{
+                margin-bottom: 25px;
+            }
         }
-    }
 }
 
-// Front end form styles
 .auth-form-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 527px;
-    height: 100vh;
+    width: 550px;
+    height: 100%;
     background-color: white;
-
-}
-
-.auth-form-heading {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 35px;
     
-    & > h2 {
-        @include opensans-semibold;
-        font-size: 400%; 
-        color: black;
-        margin: 30px 0;
-    }
-    & > p {
-        font-size: 300%;
-        color: #888888
+    &.wide {
+        width: 787px;
     }
 
-}
-.auth-form-field {
-    width: 445px;
-    margin: 10px 40px;
-    display: flex;
-    flex-direction: column;
+    & > form {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
 
-    & .title{
-        font-size: 180%;
-        color: #444444;
-        font-weight: normal;
+        .register-input-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
     }
-    
-    .auth-text-input-container {
-        background-color: #e8e8e8;
-        border: none;
-        height: 44px;
+
+    .auth-form-heading {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 35px;
         
+        & > h2 {
+            @include opensans-semibold;
+            font-size: 400%; 
+            color: black;
+            margin: 30px 0;
+        }
+        & > p {
+            font-size: 300%;
+            color: #888888
+        }
+    
     }
+    
 
-    & > .frontend-button {
-        align-self: flex-end;
+    
+    .auth-form-field {
+        width: 445px;
+        margin: 10px 40px;
+        display: flex;
+        flex-direction: column;
+          
+        & .title{
+            font-size: 180%;
+            color: #444444;
+            font-weight: normal;
+        }
+        
+        .auth-text-input-container {
+            background-color: #e8e8e8;
+            border: none;
+            height: 44px;
+            
+        }
+        
+        & > .frontend-button {
+            &.right {
+                align-self: center;
+            }
+            &.left {
+                align-self: center;
+            }
+            
+          }
+    
+        &.wide{
+            width: 665px;
+        }
+
+        &.row {
+            flex-direction: row;
+            justify-content: space-between;
+        }
     }
 }
+
 
 // Front end Modal  
 .frontend-modal-container {
