@@ -82,6 +82,10 @@ $header-height: 75px;
             font-size: 130%;
             font-weight: 500;
 
+            @include devices(xsDesktop) {
+                margin-left: 15px;
+            }
+
             ul {
                 display: flex;
 
