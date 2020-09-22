@@ -25,7 +25,6 @@ export const fetchContactSubmissionFailure = error => ({
 
 export default id => dispatch => {
     dispatch(fetchContactSubmissionRequest());
-    console.log(id, 'inside axios request');
     axios
         .get(`${ADMIN_API_URL}/contact/${id}`, getHeaders())
         .then(res => dispatch(fetchContactSubmissionSuccess(res.data)))

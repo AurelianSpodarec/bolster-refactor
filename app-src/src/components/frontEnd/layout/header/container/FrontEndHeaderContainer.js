@@ -27,7 +27,6 @@ class FrontEndHeaderContainer extends Component {
     };
 
     logout = () => {
-        console.log('hi');
         const { history, logout } = this.props;
         logout();
         history.push('/');
