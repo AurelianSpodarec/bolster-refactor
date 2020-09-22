@@ -127,6 +127,7 @@ const AddDrawingsForm = ({
                                         name={`${drawing.id}.*.clientPermissionIDs`}
                                         selectedOptions={drawing.clientPermissionIDs}
                                         handleChange={(name, value) =>
+                                            console.log(value) ||
                                             updateDrawing(name, value, drawing.id)
                                         }
                                     />

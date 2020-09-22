@@ -25,7 +25,6 @@ import {
     DROPDOWN_OPTION_MANUFACTURER_ENABLED,
 } from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { isObjEmpty } from 'helpers/generic';
 
 import AddDrawingsForm from '../presentational/AddDrawingsForm';
 
@@ -51,9 +50,9 @@ const AddDrawingsFormContainer = ({
     operatives,
     fetchClientsForFloor,
     fetchOperativesForFloor,
+    fetchingClients,
+    fetchingOperatives,
 }) => {
-    const initialClientPermissionIDs = clients.map(({ id }) => id + '');
-    const initialOperativePermissionIDs = operatives.map(({ id }) => id + '');
 
     const [
         drawings,
@@ -77,8 +76,8 @@ const AddDrawingsFormContainer = ({
         selectedManufacturerOptions: [],
         selectedOptionValues: [],
         optionValuesOptions: {},
-        clientPermissionIDs: initialClientPermissionIDs,
-        operativePermissionIDs: initialOperativePermissionIDs,
+        clientPermissionIDs: [],
+        operativePermissionIDs: [],
     });
 
     const [initialOptions, setInitialOptions] = useState({
@@ -108,7 +107,7 @@ const AddDrawingsFormContainer = ({
             const fn = function fetchManufacturers(pinOptionType) {
                 return fetchManufacturersByPinOptionType(pinOptionType);
             };
-            
+
             const manufacturerActions = pinOptionTypes.map(fn);
             await Promise.all(manufacturerActions).then(() => {
                 fetchAllOptionValues();
@@ -170,6 +169,19 @@ const AddDrawingsFormContainer = ({
             setAreOptionsLoaded(true);
         }
     }, [isFetching]);
+
+    useEffect(() => {
+        const operativeIDs = operatives.map(({ id }) => id + '');
+        Object.values(drawings).map(drawing => {
+            updateDrawing(`${drawing.id}.*.operativePermissionIDs`, operativeIDs);
+        });
+    }, [fetchingOperatives]);
+    useEffect(() => {
+        const clientIDs = clients.map(({ id }) => id + '');
+        Object.values(drawings).map(drawing => {
+            updateDrawing(`${drawing.id}.*.clientPermissionIDs`, clientIDs);
+        });
+    }, [fetchingClients]);
 
     const clientOptions = clients.map(({ id, userFirstName, userLastName, companyName }) => ({
         value: id,
@@ -333,6 +345,8 @@ const mapStateToProps = (
     subscriptionServiceIDs,
     clients: Object.values(clients),
     operatives: Object.values(operatives),
+    fetchingClients,
+    fetchingOperatives,
 });
 
 const mapDispatchToProps = {
