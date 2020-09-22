@@ -1105,6 +1105,74 @@ input {
             }
         }
     }
+
+    .recent-updates {
+        display: flex;
+        float: left;
+        height: 100%;
+        margin-left: 15px;
+        justify-content: center;
+        align-items: center;
+
+        .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: $background-grey;
+            cursor: pointer;
+            outline: none;
+
+            &.unread {
+                background-color: $red;
+            }
+
+            i {
+                color: white;
+                font-size: 160%;
+            }
+        }
+
+        .list {
+            position: absolute;
+            right: 0;
+            width: 300px;
+            max-height: 295px;
+            overflow: auto;
+            box-shadow: 0px 1px 3px -2px black;
+            background-color: #fefefe;
+            @include dropdown-popup();
+
+            .item {
+                display: block;
+                padding: 10px;
+                background-color: #fefefe;
+                cursor: pointer;
+
+                &:nth-child(even) {
+                    background-color: $background-grey;
+                }
+            }
+
+            h2, p {
+                line-height: 1.5;
+            }
+
+            h2 {
+                font-size: 140%;
+            }
+
+            p {
+                font-size: 120%;
+                color: $text-grey;
+            }
+
+            .info {
+                padding: 20px 15px;
+                font-size: 140%;
+                text-align: center;
+            }
+        }
+    }
 }
 
 .heading {

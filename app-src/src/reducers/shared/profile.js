@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import moment from 'moment';
 
 import {
     FETCH_PROFILE_REQUEST,
@@ -9,8 +10,9 @@ import {
     EDIT_PROFILE_FAILURE,
     CHANGE_PROFILE_PASSWORD_REQUEST,
     CHANGE_PROFILE_PASSWORD_SUCCESS,
-    CHANGE_PROFILE_PASSWORD_FAILURE
+    CHANGE_PROFILE_PASSWORD_FAILURE,
 } from 'constants/actionTypes/profile';
+import { POST_RECENT_UPDATES_SUCCESS } from 'constants/actionTypes/recentUpdates';
 import { updateObj } from 'helpers/generic';
 
 export default combineReducers({
@@ -18,7 +20,7 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
     isPosting: isPostingReducer,
-    postSuccess: postSuccessReducer
+    postSuccess: postSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -79,6 +81,7 @@ function postSuccessReducer(state = false, action) {
 function profileReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_PROFILE_SUCCESS:
+        case POST_RECENT_UPDATES_SUCCESS:
             return action.payload;
         case EDIT_PROFILE_SUCCESS:
             return updateObj(state, 'profile', action.payload);

@@ -1,0 +1,99 @@
+import { combineReducers } from 'redux';
+import {
+    FETCH_ALL_NEW_FEATURES_REQUEST,
+    FETCH_ALL_NEW_FEATURES_SUCCESS,
+    FETCH_ALL_NEW_FEATURES_FAILURE,
+    ADD_NEW_FEATURE_REQUEST,
+    ADD_NEW_FEATURE_SUCCESS,
+    ADD_NEW_FEATURE_FAILURE,
+    FETCH_SINGLE_FEATURE_REQUEST,
+    FETCH_SINGLE_FEATURE_SUCCESS,
+    FETCH_SINGLE_FEATURE_FAILURE,
+    DELETE_FEATURE_SUCCESS,
+    EDIT_FEATURE_REQUEST,
+    EDIT_FEATURE_SUCCESS,
+    EDIT_FEATURE_FAILURE,
+} from 'constants/actionTypes/superAdminNewFeatures';
+import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
+
+export default combineReducers({
+    isFetching: isFetchingReducer,
+    error: errorReducer,
+    newFeatures: newFeaturesReducer,
+    postSuccess: postSuccessReducer,
+    isPosting: isPostingReducer,
+});
+
+function isFetchingReducer(state = false, action) {
+    switch (action.type) {
+        case FETCH_ALL_NEW_FEATURES_REQUEST:
+        case FETCH_SINGLE_FEATURE_REQUEST:
+            return true;
+        case FETCH_ALL_NEW_FEATURES_SUCCESS:
+        case FETCH_ALL_NEW_FEATURES_FAILURE:
+        case FETCH_SINGLE_FEATURE_SUCCESS:
+        case FETCH_SINGLE_FEATURE_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function errorReducer(state = null, action) {
+    switch (action.type) {
+        case FETCH_ALL_NEW_FEATURES_REQUEST:
+        case ADD_NEW_FEATURE_REQUEST:
+        case FETCH_SINGLE_FEATURE_REQUEST:
+        case EDIT_FEATURE_REQUEST:
+            return null;
+        case FETCH_ALL_NEW_FEATURES_FAILURE:
+        case ADD_NEW_FEATURE_FAILURE:
+        case FETCH_SINGLE_FEATURE_FAILURE:
+        case EDIT_FEATURE_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
+function newFeaturesReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_ALL_NEW_FEATURES_SUCCESS:
+            return convertArrToObj(action.payload);
+        case FETCH_SINGLE_FEATURE_SUCCESS:
+        case ADD_NEW_FEATURE_SUCCESS:
+        case EDIT_FEATURE_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
+        case DELETE_FEATURE_SUCCESS:
+            return removeObjItem(state, action.id);
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case ADD_NEW_FEATURE_REQUEST:
+        case EDIT_FEATURE_REQUEST:
+            return false;
+        case ADD_NEW_FEATURE_SUCCESS:
+        case EDIT_FEATURE_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case ADD_NEW_FEATURE_REQUEST:
+        case EDIT_FEATURE_REQUEST:
+            return true;
+        case ADD_NEW_FEATURE_SUCCESS:
+        case ADD_NEW_FEATURE_FAILURE:
+        case EDIT_FEATURE_SUCCESS:
+            return false;
+        default:
+            return state;
+    }
+}
