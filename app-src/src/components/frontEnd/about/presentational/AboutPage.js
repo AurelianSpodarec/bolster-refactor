@@ -7,6 +7,7 @@ import InspectVideo from '_content/videos/frontend/08_Inspect_Locate_Document.mp
 
 import AboutUsInfoContainer from '../container/AboutUsInfoContainer';
 import FrontEndBanner from 'components/frontEnd/shared/banners/presentational/FrontEndBanner';
+import TrustedBy from 'components/frontEnd/trustedBy/presentational/TrustedBy';
 
 const AboutPage = () => {
     const { width } = useWindowDimensions();
@@ -20,6 +21,7 @@ const AboutPage = () => {
                 video={InspectVideo}
             />
             <AboutUsInfoContainer />
+            <TrustedBy />
         </div>
     );
 };
