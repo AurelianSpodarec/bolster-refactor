@@ -125,16 +125,18 @@ $header-height: 75px;
         align-self: center;
         display: flex;
         flex-direction: column;
-        margin-top: 105px;
+        margin-top: 75px;
 
-        & > heading, h1 {
+        & > h1 {
             font-size: 400%;
+            @include opensans-semibold;
             color: #FFFFFF;
             align-self: center;
         }
         & > p {
-            margin: 40px 0 80px 0;
+            margin: 10px 0 80px 0;
             font-size: 300%;
+            @include opensans-regular;
             color: #FFFFFF;
         }
     }
@@ -630,7 +632,9 @@ $header-height: 75px;
     }
 
     // Contact page
-    #contact {        
+    #contact { 
+        min-height: calc(100vh - #{$header-height});
+        
         .contact-background {
            position: absolute;
            background-color: #3C3C3C;
@@ -651,9 +655,11 @@ $header-height: 75px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            padding-bottom: 75px;
+            min-height: 0;
                     
             .contact-form {
-              margin: 0 143px 166px 0;
+              margin: 0 143px 0 0;
               color: #FFFFFF;
               flex: 1;
               max-width: 610px;

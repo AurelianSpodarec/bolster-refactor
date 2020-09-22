@@ -13,9 +13,7 @@ const ContactPage = () => {
             </video>
             <div className="contact-form-wrapper">
                 <div className="heading">
-                    <heading>
-                        <h1>Contact</h1>
-                    </heading>
+                    <h1>Contact</h1>
                     <p>Neque porro quisquam est qui do lorem amet</p>
                 </div>
                 <div className="contact-section">
