@@ -11,6 +11,7 @@ import QRCodesPageRedirect from 'components/frontEnd/qrCodes/containers/QRCodesP
 import QRCodesPage from 'components/frontEnd/qrCodes/presentational/QRCodesPage';
 import LoginContainer from 'components/frontEnd/auth/login/containers/LoginContainer';
 import WhyUseOurSystem from 'components/frontEnd/whyUseOurSystem/presentational/WhyUseOurSystem';
+import RegisterContainer from 'components/frontEnd/auth/register/containers/RegisterContainer';
 
 const FrontEndRoutes = ({ base = '/' }) => (
     <SwitchWith404>
@@ -28,6 +29,7 @@ const FrontEndRoutes = ({ base = '/' }) => (
         <Route path={`${base}qrcode`} component={QRCodesPage} />
 
         <Route exact path={`${base}auth/Login`} component={LoginContainer} />
+        <Route exact path={`${base}auth/register`} component={RegisterContainer} />
     </SwitchWith404>
 );
 

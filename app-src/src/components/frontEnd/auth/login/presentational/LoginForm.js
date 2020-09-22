@@ -9,30 +9,30 @@ import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/Fr
 const LoginForm = ({ formData, handleChange, handleSubmit }) => {
     const { email, password } = formData;
     return (
-        <div className="frontend-form-wrapper">
+        <div className="auth-form-wrapper">
             <FrontEndFormHeading title="Login" subtitle="Neque porro quisquam" />
             <Form onSubmit={handleSubmit}>
-                <Field name="Email" classes="frontend-form-field">
+                <Field name="Email" classes="auth-form-field">
                     <TextInputContainer
                         value={email}
                         name="email"
                         type="email"
                         required
                         handleChange={handleChange}
-                        classes="frontend-text-input-container"
+                        classes="auth-text-input-container"
                     />
                 </Field>
-                <Field name="Password" classes="frontend-form-field">
+                <Field name="Password" classes="auth-form-field">
                     <TextInputContainer
                         value={password}
                         name="password"
                         type="password"
                         required
                         handleChange={handleChange}
-                        classes="frontend-text-input-container"
+                        classes="auth-text-input-container"
                     />
                 </Field>
-                <Field classes="frontend-form-field right">
+                <Field classes="auth-form-field right">
                     <FrontEndButton classes="gray" type="submit">
                         Submit
                     </FrontEndButton>
