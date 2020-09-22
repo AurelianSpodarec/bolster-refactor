@@ -33,46 +33,9 @@ const LoginFormContainer = ({
         }
     }, []);
 
-    useEffect(async () => {
+    useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
-            const {
-                isSuperAdmin,
-                companyUserType,
-                companyID,
-                isClientAccess,
-            } = await authenticate();
-
-            if (+companyUserType === ROLES.OPERATIVE) {
-                localStorage.removeItem('token');
-                addFieldError(
-                    'password',
-                    'Operatives logins are not permitted to use the desktop site.',
-                );
-                showFieldErrors();
-                return;
-            }
-            if (+companyUserType === ROLES.OWNER) {
-                const { payload, type } = await fetchCompanySettings();
-                if (type === FETCH_COMPANY_SETTINGS_SUCCESS) {
-                    localStorage.setItem('colourCode', payload.colourCode);
-                }
-            }
-
-            let url = '/client/companies';
-
-            if (companyID) {
-                if (!isClientAccess) url = '/company';
-                else {
-                    const hasSub = await checkActive(companyID);
-                    if (hasSub) {
-                        url = '/company';
-                    } else {
-                        url = '/client/companies';
-                    }
-                }
-            }
-            if (isSuperAdmin) url = '/admin';
-            history.push(url);
+            onSuccess();
         }
     }, [postSuccess, prevProps.postSuccess]);
 
@@ -93,6 +56,42 @@ const LoginFormContainer = ({
 
     function handleForgotPassword() {
         showModal(FORGOT_PASSWORD);
+    }
+
+    async function onSuccess() {
+        const { isSuperAdmin, companyUserType, companyID, isClientAccess } = await authenticate();
+
+        if (+companyUserType === ROLES.OPERATIVE) {
+            localStorage.removeItem('token');
+            addFieldError(
+                'password',
+                'Operatives logins are not permitted to use the desktop site.',
+            );
+            showFieldErrors();
+        }
+
+        if (+companyUserType === ROLES.OWNER) {
+            const { payload, type } = await fetchCompanySettings();
+            if (type === FETCH_COMPANY_SETTINGS_SUCCESS) {
+                localStorage.setItem('colourCode', payload.colourCode);
+            }
+        }
+
+        let url = '/client/companies';
+
+        if (companyID) {
+            if (!isClientAccess) url = '/company';
+            else {
+                const hasSub = await checkActive(companyID);
+                if (hasSub) {
+                    url = '/company';
+                } else {
+                    url = '/client/companies';
+                }
+            }
+        }
+        if (isSuperAdmin) url = '/admin';
+        history.push(url);
     }
 };
 

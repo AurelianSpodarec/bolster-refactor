@@ -4,6 +4,7 @@ import FrontEndFormHeading from 'components/frontEnd/shared/forms/presentational
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
+import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 
 const LoginForm = ({ formData, handleChange, handleSubmit }) => {
     const { email, password } = formData;
@@ -30,6 +31,11 @@ const LoginForm = ({ formData, handleChange, handleSubmit }) => {
                         handleChange={handleChange}
                         classes="frontend-text-input-container"
                     />
+                </Field>
+                <Field classes="frontend-form-field right">
+                    <FrontEndButton classes="gray" type="submit">
+                        Submit
+                    </FrontEndButton>
                 </Field>
             </Form>
         </div>

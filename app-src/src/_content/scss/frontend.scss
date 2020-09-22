@@ -1023,10 +1023,13 @@ $header-height: 75px;
 .frontend-form-field {
     width: 445px;
     margin: 10px 40px;
+    display: flex;
+    flex-direction: column;
 
     & .title{
         font-size: 180%;
-        color: #444444
+        color: #444444;
+        font-weight: normal;
     }
     
     .frontend-text-input-container {
@@ -1034,6 +1037,10 @@ $header-height: 75px;
         border: none;
         height: 44px;
         
+    }
+
+    & > .frontend-button {
+        align-self: flex-end;
     }
 }
 
