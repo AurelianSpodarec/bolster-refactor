@@ -14,7 +14,7 @@ const AllOperativesTable = ({
     handleShowModal,
     onMobile,
     searchTerm,
-    handleChange
+    handleChange,
 }) => (
     <>
         <BlockContainer>
@@ -29,7 +29,7 @@ const AllOperativesTable = ({
             <BlockHeading title="Operatives">
                 <button className="button green" onClick={handleShowModal}>
                     <i className="fa fa-plus" /> Create Operative
-            </button>
+                </button>
             </BlockHeading>
             <Table
                 withActions
@@ -49,7 +49,7 @@ const AllOperativesTable = ({
                 ))}
             </Table>
         </BlockContainer>
-        </>
-    );
+    </>
+);
 
 export default AllOperativesTable;

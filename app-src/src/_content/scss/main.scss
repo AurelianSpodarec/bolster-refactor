@@ -1105,6 +1105,74 @@ input {
             }
         }
     }
+
+    .recent-updates {
+        display: flex;
+        float: left;
+        height: 100%;
+        margin-left: 15px;
+        justify-content: center;
+        align-items: center;
+
+        .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: $background-grey;
+            cursor: pointer;
+            outline: none;
+
+            &.unread {
+                background-color: $red;
+            }
+
+            i {
+                color: white;
+                font-size: 160%;
+            }
+        }
+
+        .list {
+            position: absolute;
+            right: 0;
+            width: 300px;
+            max-height: 295px;
+            overflow: auto;
+            box-shadow: 0px 1px 3px -2px black;
+            background-color: #fefefe;
+            @include dropdown-popup();
+
+            .item {
+                display: block;
+                padding: 10px;
+                background-color: #fefefe;
+                cursor: pointer;
+
+                &:nth-child(even) {
+                    background-color: $background-grey;
+                }
+            }
+
+            h2, p {
+                line-height: 1.5;
+            }
+
+            h2 {
+                font-size: 140%;
+            }
+
+            p {
+                font-size: 120%;
+                color: $text-grey;
+            }
+
+            .info {
+                padding: 20px 15px;
+                font-size: 140%;
+                text-align: center;
+            }
+        }
+    }
 }
 
 .heading {
@@ -2415,6 +2483,14 @@ input {
         margin-left: 0;
     }
 
+    .red-icon {
+        color: red;
+    }
+
+    .red-row {
+        background-color:#ffdcdb;
+    }
+
     tbody {
         &.dragging {
             tr {
@@ -3324,6 +3400,10 @@ input {
 
 .tooltip-container {
     float: right;
+
+    &.left {
+        float: left;
+    }
 }
 
 .tooltip {
@@ -4368,6 +4448,7 @@ input {
             float: right;
             margin-left: 10px;
         }
+
     }
 }
 
@@ -5690,4 +5771,116 @@ input {
             padding-left: 5px;
         }
     }
+}
+
+.client-drawing-single {
+    margin-bottom: 30px;
+}
+
+.image-visual {
+    height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.pdf {
+        height: 375px;
+    }
+
+    > div {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    img {
+        animation: fadeInAnimation ease 400ms;
+        animation-iteration-count: 1; 
+        animation-fill-mode: forwards;
+        max-width: 95px;
+    }
+
+    &.multiple {
+        position: relative;
+
+        .arrow {
+            width: 100%;
+            max-width: 10px;
+            height: 15px;
+        }
+
+        .image-visual-top {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            top: -120px;
+
+            .arrow {
+                top: 10px;
+            }
+
+            img {
+                max-width: 55px;
+            }
+        }
+
+        .image-visual-right {
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            position: absolute;
+            right: -100px;
+
+            .arrow {
+                transform: rotate(90deg);
+            }
+
+            img {
+                max-width: 55px;
+            }
+        }
+
+        .image-visual-bottom {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            position: absolute;
+            top: 120px;
+
+            .arrow {
+                top: -10px;
+                transform: rotate(180deg);
+            }
+
+            img {
+                max-width: 55px;
+            }
+        }
+
+        .image-visual-left {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            left: -100px;
+
+            .arrow {
+                transform: rotate(270deg);
+            }
+
+            img {
+                max-width: 55px;
+            }
+        }
+    }
+
+    @keyframes fadeInAnimation { 
+        0% { 
+            opacity: 0; 
+        } 
+        100% { 
+            opacity: 1; 
+         } 
+    } 
 }

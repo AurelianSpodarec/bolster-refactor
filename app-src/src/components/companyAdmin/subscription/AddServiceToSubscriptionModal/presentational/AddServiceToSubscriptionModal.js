@@ -22,18 +22,16 @@ const AddServiceToSubscriptionModal = ({
     service,
     proRataCost,
     noCards,
-    termsAgreed
+    termsAgreed,
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Add service to your subscription" />
         <p className="generic-text intro-text size-lg-12">
-            Adding the <strong>{service.name}</strong> service to your
-            subscription will increase your yearly renewal from{' '}
-            <strong>£{formatNumber(proRataCost.currentAnnualCost)}</strong> to{' '}
-            <strong>£{formatNumber(proRataCost.newAnnualCost)}</strong>, you
-            will be billed pro-rata for your remaining subscription, leaving a{' '}
-            <strong>£{formatNumber(proRataCost.proRataCost)}</strong> fee to pay
-            now.
+            Adding the <strong>{service.name}</strong> service to your subscription will increase
+            your yearly renewal from <strong>£{formatNumber(proRataCost.currentAnnualCost)}</strong>{' '}
+            to <strong>£{formatNumber(proRataCost.newAnnualCost)}</strong>, you will be billed
+            pro-rata for your remaining subscription, leaving a{' '}
+            <strong>£{formatNumber(proRataCost.proRataCost)}</strong> fee to pay now.
         </p>
 
         <Form className="generic-form" onSubmit={handleSubmit}>
@@ -87,8 +85,10 @@ const AddServiceToSubscriptionModal = ({
                 <Field name="Agree to terms" required>
                     <p className="generic-text size-lg-12">
                         Please check that you agree with the{' '}
-                        <Link to="/auth/terms ">sales terms</Link> to proceed
-                        with payment.
+                        <Link to="/auth/terms" target="_blank">
+                            sales terms
+                        </Link>{' '}
+                        to proceed with payment.
                     </p>
                     <CheckboxContainer
                         checked={termsAgreed}
@@ -103,9 +103,7 @@ const AddServiceToSubscriptionModal = ({
                 <button className="button green" type="submit">
                     Buy
                 </button>
-                <ButtonContainer handleClick={hideModal}>
-                    Cancel
-                </ButtonContainer>
+                <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
             </BlockButtonWrapper>
         </Form>
     </ModalOuterContainer>

@@ -8,6 +8,7 @@ import SearchContainer from '../containers/SearchContainer';
 import HeaderProfileContainer from '../containers/HeaderProfileContainer';
 import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
 import { PARENTAL_TYPES } from 'constants/companyAdmin/enums';
+import RecentUpdatesContainer from '../containers/RecentUpdatesContainer';
 
 const Header = ({
     company,
@@ -16,7 +17,7 @@ const Header = ({
     totalCredits,
     totalRequests,
     showModal,
-    shouldRestrictPayments
+    shouldRestrictPayments,
 }) => (
     <header id="page-header" style={{ borderColor: companyColour }}>
         <div className="container">
@@ -48,9 +49,7 @@ const Header = ({
                     {!shouldRestrictPayments && (
                         <button className="item main" onClick={showModal}>
                             {company.parentalType === PARENTAL_TYPES.NONE && (
-                                <span className="number green">
-                                    {totalCredits}
-                                </span>
+                                <span className="number green">{totalCredits}</span>
                             )}
                             <i className="far fa-money-bill-alt fa-fw" />
                         </button>
@@ -62,19 +61,17 @@ const Header = ({
                         )}
                         <i className="far fa-envelope fa-fw" />
                     </Link>
-                    <Link
-                        to="/company/tools/transfer-requests"
-                        className="item main"
-                    >
-                        {!!totalRequests && (
-                            <span className="number">{totalRequests}</span>
-                        )}
+                    <Link to="/company/tools/transfer-requests" className="item main">
+                        {!!totalRequests && <span className="number">{totalRequests}</span>}
                         <i className="far fa-exchange-alt fa-fw" />
                     </Link>
                 </div>
 
                 {/*** profile ***/}
                 <HeaderProfileContainer />
+
+                {/*** recent updates ***/}
+                <RecentUpdatesContainer />
             </div>
             <div className="clear" />
         </div>

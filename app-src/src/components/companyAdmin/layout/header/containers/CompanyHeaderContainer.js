@@ -13,7 +13,7 @@ import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
 
 class CompanyHeaderContainer extends Component {
     state = {
-        shouldRestrictPayments: false
+        shouldRestrictPayments: false,
     };
     render() {
         const {
@@ -26,7 +26,7 @@ class CompanyHeaderContainer extends Component {
             showModal,
             onMobile,
             toggleMobileMenu,
-            shouldUsePayments
+            shouldUsePayments,
         } = this.props;
 
         const companyColour = getCompanyColour(companySettings.companyColour);
@@ -69,8 +69,7 @@ class CompanyHeaderContainer extends Component {
 
         if (users && users[companyUserID]) {
             this.setState({
-                shouldRestrictPayments:
-                    users[companyUserID].shouldRestrictPayments
+                shouldRestrictPayments: users[companyUserID].shouldRestrictPayments,
             });
         }
     };
@@ -79,8 +78,7 @@ class CompanyHeaderContainer extends Component {
 
         if (users && users[companyUserID] && !prevProps.users[companyUserID]) {
             this.setState({
-                shouldRestrictPayments:
-                    users[companyUserID].shouldRestrictPayments
+                shouldRestrictPayments: users[companyUserID].shouldRestrictPayments,
             });
         }
     };
@@ -93,28 +91,24 @@ const mapStateToProps = ({
         creditsReducer: { credits, isFetching, costOfCredits },
         transferRequestsReducer: { incomingTransferRequests },
         pendingInvitesReducer: { pendingInvites },
-        companyUsersReducer: { users }
+        companyUsersReducer: { users },
     },
     shared: {
         profileReducer: { profile },
         decodeJWTReducer: {
-            jwtData: { headquartersCompanyID, companyID, companyUserID }
+            jwtData: { headquartersCompanyID, companyID, companyUserID },
         },
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => {
     const isImpersonating = headquartersCompanyID !== companyID;
 
     const unreadMessageCount = Object.values(messages).filter(
-        ({ type, isRead }) => type === MESSAGE_TYPES.SYSTEM && !isRead
+        ({ type, isRead }) => type === MESSAGE_TYPES.SYSTEM && !isRead,
     ).length;
-    const totalCredits = Object.values(credits).reduce(
-        (a, b) => a + b.quantity,
-        0
-    );
+    const totalCredits = Object.values(credits).reduce((a, b) => a + b.quantity, 0);
     const totalRequests =
-        Object.values(incomingTransferRequests).length +
-        Object.values(pendingInvites).length;
+        Object.values(incomingTransferRequests).length + Object.values(pendingInvites).length;
 
     return {
         profile: profile,
@@ -128,16 +122,13 @@ const mapStateToProps = ({
         costOfCredits,
         onMobile,
         companyUserID,
-        users
+        users,
     };
 };
 
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => dispatch(showModal(type, props)),
-    toggleMobileMenu: () => dispatch(toggleMobileMenu())
+    toggleMobileMenu: () => dispatch(toggleMobileMenu()),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CompanyHeaderContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CompanyHeaderContainer);

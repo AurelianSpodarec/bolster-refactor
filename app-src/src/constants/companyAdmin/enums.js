@@ -412,6 +412,13 @@ export const DOCUMENT_VISIBILITY = {
     VISIBLE_TO_OWN_COMPANY: 2,
 };
 
+export const IMAGE_VISUAL_POSITION = {
+    0: 'top',
+    1: 'right',
+    2: 'bottom',
+    3: 'left',
+};
+
 export const ACTIVITY_LOG_ACTION_TYPES = {
     CREATE: 1,
     UPDATE: 2,
