@@ -16,7 +16,7 @@ const PayInvoiceModal = ({
     hideModal,
     cards,
     selectedCard,
-    termsAgreed
+    termsAgreed,
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Pay invoice" />
@@ -41,8 +41,10 @@ const PayInvoiceModal = ({
             <Field name="Agree to terms" required>
                 <p className="description">
                     Please check that you agree with the{' '}
-                    <Link to="/auth/terms ">sales terms</Link> to proceed with
-                    payment.
+                    <Link to="/auth/terms" target="_blank">
+                        sales terms
+                    </Link>{' '}
+                    to proceed with payment.
                 </p>
                 <CheckboxContainer
                     checked={termsAgreed}
