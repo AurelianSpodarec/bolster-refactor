@@ -2415,6 +2415,14 @@ input {
         margin-left: 0;
     }
 
+    .red-icon {
+        color: red;
+    }
+
+    .red-row {
+        background-color:#ffdcdb;
+    }
+
     tbody {
         &.dragging {
             tr {
@@ -3324,6 +3332,10 @@ input {
 
 .tooltip-container {
     float: right;
+
+    &.left {
+        float: left;
+    }
 }
 
 .tooltip {

@@ -4,11 +4,11 @@ import Tooltip from '../presentational/Tooltip';
 
 class TooltipContainer extends Component {
     state = {
-        show: false
+        show: false,
     };
     render() {
         const { show } = this.state;
-        const { side } = this.props;
+        const { side, containerSide } = this.props;
         return (
             <Tooltip
                 {...this.props}
@@ -16,6 +16,7 @@ class TooltipContainer extends Component {
                 side={side}
                 handleMouseOver={this.handleMouseOver}
                 handleMouseOut={this.handleMouseOut}
+                containerSide={containerSide}
             />
         );
     }
