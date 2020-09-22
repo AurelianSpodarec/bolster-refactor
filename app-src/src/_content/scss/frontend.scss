@@ -951,48 +951,50 @@ $header-height: 75px;
     }
 }
 
+// Auth area
+
 //Log in page
 #login {
-    .login-background {
-        position: absolute;
-        background-color: #3C3C3C;
-        height: 100%;
-        width: 100%;
- 
-     }     
-     .login-background-video {
-         position: absolute;
-         height: 100%;
-         width: 100%;
-         opacity: 0.09;
-         object-fit: fill;
-     }
-     .login-wrapper {
+}
+.auth-background {
+    position: absolute;
+    background-color: #3C3C3C;
+    height: 100%;
+    width: 100%;
+
+ }     
+ .auth-background-video {
+     position: absolute;
+     height: 100%;
+     width: 100%;
+     opacity: 0.09;
+     object-fit: fill;
+ }
+ .auth-wrapper {
+    display: flex;
+
+    .heading-body-wrapper{
         display: flex;
+        flex-direction: column;
+        margin: 104px 200px 0 143px;
 
-        .heading-body-wrapper{
-            display: flex;
-            flex-direction: column;
-            margin: 104px 200px 0 143px;
-
-            .login-heading {
-                font-size: 40px;
-                @include opensans-semibold;
-                color: white;
-            }
-            
-            & > p {
-                color: white;
-                font-size: 30px;
-                max-width: 1066px;
-                margin-bottom: 40px;
-            }
+        .auth-heading {
+            font-size: 40px;
+            @include opensans-semibold;
+            color: white;
+        }
+        
+        & > p {
+            color: white;
+            font-size: 30px;
+            max-width: 1066px;
+            margin-bottom: 40px;
         }
     }
 }
 
 // Front end form styles
-.frontend-form-wrapper {
+.auth-form-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1002,7 +1004,7 @@ $header-height: 75px;
 
 }
 
-.frontend-form-heading {
+.auth-form-heading {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1020,7 +1022,7 @@ $header-height: 75px;
     }
 
 }
-.frontend-form-field {
+.auth-form-field {
     width: 445px;
     margin: 10px 40px;
     display: flex;
@@ -1032,7 +1034,7 @@ $header-height: 75px;
         font-weight: normal;
     }
     
-    .frontend-text-input-container {
+    .auth-text-input-container {
         background-color: #e8e8e8;
         border: none;
         height: 44px;
