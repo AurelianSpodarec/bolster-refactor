@@ -135,7 +135,7 @@ const AddDrawingsForm = ({
                         )}
                         {!!operativeOptions.length && (
                             <div className="size-lg-12 check-col-6">
-                                <Field name="These operatives have access to drawings on this level - invite them to this drawing?">
+                                <Field name="These operatives have access to drawings on this level - attach them to this drawing?">
                                     <CheckboxListContainer
                                         options={operativeOptions}
                                         name={`${drawing.id}.*.operativePermissionIDs`}
