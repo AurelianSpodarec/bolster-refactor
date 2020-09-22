@@ -23,7 +23,7 @@ const FrontEndHeaderMobile = ({
             <i className="menu-button fa fa-bars" />
         </Container>
 
-        <div className="mobile-menu">
+        <div className="nav-mobile">
             <ul>
                 {navItems
                     .filter(({ name }) => name !== 'Register')

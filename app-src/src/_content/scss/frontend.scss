@@ -137,8 +137,40 @@ $header-height: 75px;
     }
 
     // mobile menu
-    .mobile-menu {
-        display: none;
+    .nav-mobile {
+        position: fixed;
+        top: $header-height;
+        left: 0;
+        width: 90%;
+        height: calc(100vh - #{$header-height});
+        padding: 20px;
+        z-index: 9999;
+        background-color: white;
+        box-shadow: 0 0 4px -2px black;
+        overflow: auto;
+        transform: translateX(-150%);
+        transition: transform 0.3s;
+
+        &.open {
+            transform: translateX(0);
+        }
+
+        li {
+            border-bottom: 1px solid $light-grey-alt;
+        }
+
+        a {
+            display: block;
+            padding: 20px;
+            @include opensans-semibold;
+            color: $very-dark-grey-alt;
+            font-size: 220%;
+            text-decoration: none;
+
+            &.active {
+                color: $red-alt;
+            }
+        }
     }
 
     .heading {
