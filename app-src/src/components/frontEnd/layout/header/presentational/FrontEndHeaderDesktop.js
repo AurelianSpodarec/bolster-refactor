@@ -12,7 +12,7 @@ const FrontEndHeaderDesktop = ({
     isSuperAdmin,
     isCompanyAdmin,
     isClientAccess,
-    logout,
+    handleLogout,
     curRoute,
 }) => (
     <Container className="frontend-header">
@@ -54,7 +54,11 @@ const FrontEndHeaderDesktop = ({
                             Client Access
                         </FrontEndButton>
                     )}
-                    <FrontEndButton type="button" classes="red spacing-right" handleClick={logout}>
+                    <FrontEndButton
+                        type="button"
+                        classes="red spacing-right"
+                        handleClick={handleLogout}
+                    >
                         Logout
                     </FrontEndButton>
                 </div>

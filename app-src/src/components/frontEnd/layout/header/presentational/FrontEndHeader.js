@@ -4,7 +4,15 @@ import { useWindowDimensions } from 'helpers/hooks';
 import FrontEndHeaderDesktop from './FrontEndHeaderDesktop';
 import FrontEndHeaderMobile from './FrontEndHeaderMobile';
 
-const FrontEndHeader = ({ isSuperAdmin, isCompanyAdmin, isClientAccess, logout, curRoute }) => {
+const FrontEndHeader = ({
+    isSuperAdmin,
+    isCompanyAdmin,
+    isClientAccess,
+    handleLogout,
+    curRoute,
+    menuOpen,
+    setMenuOpen,
+}) => {
     const { width } = useWindowDimensions();
 
     if (width <= 1100)
@@ -14,7 +22,9 @@ const FrontEndHeader = ({ isSuperAdmin, isCompanyAdmin, isClientAccess, logout, 
                 isCompanyAdmin={isCompanyAdmin}
                 isClientAccess={isClientAccess}
                 curRoute={curRoute}
-                logout={logout}
+                handleLogout={handleLogout}
+                menuOpen={menuOpen}
+                setMenuOpen={setMenuOpen}
             />
         );
 
@@ -24,7 +34,7 @@ const FrontEndHeader = ({ isSuperAdmin, isCompanyAdmin, isClientAccess, logout, 
             isCompanyAdmin={isCompanyAdmin}
             isClientAccess={isClientAccess}
             curRoute={curRoute}
-            logout={logout}
+            handleLogout={handleLogout}
         />
     );
 };

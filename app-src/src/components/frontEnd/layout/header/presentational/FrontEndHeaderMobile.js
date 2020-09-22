@@ -9,8 +9,10 @@ const FrontEndHeaderMobile = ({
     isSuperAdmin,
     isCompanyAdmin,
     isClientAccess,
-    logout,
+    handleLogout,
     curRoute,
+    menuOpen,
+    setMenuOpen,
 }) => (
     <>
         <Container className="frontend-header mobile">
@@ -20,10 +22,10 @@ const FrontEndHeaderMobile = ({
                 </Link>
             </div>
 
-            <i className="menu-button fa fa-bars" />
+            <i className="menu-button fa fa-bars" onClick={() => setMenuOpen(!menuOpen)} />
         </Container>
 
-        <div className="nav-mobile">
+        <div className={`nav-mobile ${menuOpen ? 'open' : ''}`}>
             <ul>
                 {navItems
                     .filter(({ name }) => name !== 'Register')
@@ -54,7 +56,7 @@ const FrontEndHeaderMobile = ({
 
                 {isSuperAdmin || isCompanyAdmin || isClientAccess ? (
                     <li>
-                        <Link to="" onClick={logout}>
+                        <Link to="" onClick={handleLogout}>
                             Logout
                         </Link>
                     </li>
