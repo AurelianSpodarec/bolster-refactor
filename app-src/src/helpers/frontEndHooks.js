@@ -87,14 +87,46 @@ export const useOnScreen = (ref, threshold) => {
     return isIntersecting;
 };
 
+export const useEventListener = (eventName, handler, options = {}, element = window) => {
+    const savedHandler = useRef();
+
+    useEffect(() => {
+        savedHandler.current = handler;
+    }, [handler]);
+
+    useEffect(() => {
+        const isSupported = element && element.addEventListener;
+        if (!isSupported) return;
+
+        const eventListener = event => savedHandler.current(event);
+
+        element.addEventListener(eventName, eventListener, options);
+
+        return () => {
+            element.removeEventListener(eventName, eventListener, options);
+        };
+    }, [eventName, element]);
+};
+
 export const useFullPageCarousel = (ref, max = 4) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
     const currentPage = useRef(0);
     const lastAnimation = useRef(0);
     const quietPeriod = 500;
     const animationTime = 800;
 
-    const handlePrevSlide = () => (currentPage.current = currentPage.current - 1);
-    const handleNextSlide = () => (currentPage.current = currentPage.current + 1);
+    const handlePrevSlide = () => {
+        setCurrentIndex(prevState => prevState - 1);
+        currentPage.current = currentPage.current - 1;
+    };
+    const handleNextSlide = () => {
+        setCurrentIndex(prevState => prevState + 1);
+        currentPage.current = currentPage.current + 1;
+    };
+    const handleJumpToSlide = index => {
+        setCurrentIndex(index);
+        currentPage.current = index;
+    };
 
     const handleScroll = event => {
         const delta = Math.sign(event.deltaY);
@@ -113,6 +145,8 @@ export const useFullPageCarousel = (ref, max = 4) => {
 
         lastAnimation.current = currentTime;
     };
+
+    const handleClick = index => moveTo(index);
 
     const transformPage = position => {
         const el = ref.current;
@@ -134,6 +168,12 @@ export const useFullPageCarousel = (ref, max = 4) => {
         transformPage(position);
     };
 
+    const moveTo = index => {
+        const position = Number(index * 100 * -1);
+        handleJumpToSlide(index);
+        transformPage(position);
+    };
+
     useEffect(() => {
         const debounced = debounce(handleScroll, 200, {
             leading: true,
@@ -149,27 +189,7 @@ export const useFullPageCarousel = (ref, max = 4) => {
     }, []);
 
     return {
-        currentPage,
+        currentIndex,
+        handleClick,
     };
-};
-
-export const useEventListener = (eventName, handler, options = {}, element = window) => {
-    const savedHandler = useRef();
-
-    useEffect(() => {
-        savedHandler.current = handler;
-    }, [handler]);
-
-    useEffect(() => {
-        const isSupported = element && element.addEventListener;
-        if (!isSupported) return;
-
-        const eventListener = event => savedHandler.current(event);
-
-        element.addEventListener(eventName, eventListener, options);
-
-        return () => {
-            element.removeEventListener(eventName, eventListener, options);
-        };
-    }, [eventName, element]);
 };

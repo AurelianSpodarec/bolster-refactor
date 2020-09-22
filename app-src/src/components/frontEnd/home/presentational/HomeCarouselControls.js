@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const HomeCarouselControls = ({ active, max = 5 }) => {
+const HomeCarouselControls = ({ active, handleClick, max = 5 }) => {
     const [currentPage, setCurrentPage] = useState(active);
     const arr = Array(max).fill(0);
 
@@ -13,6 +13,7 @@ const HomeCarouselControls = ({ active, max = 5 }) => {
             {arr.map((_el, index) => (
                 <span
                     key={index}
+                    onClick={() => handleClick(index)}
                     className={`control-item ${currentPage === index ? 'active' : ''}`}
                 />
             ))}

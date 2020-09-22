@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useCallback } from 'react';
 
 import { useFullPageCarousel } from 'helpers/frontEndHooks';
 import { HomeSlidesList } from 'constants/frontEnd/homeSlides';
@@ -9,7 +9,7 @@ import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/Fr
 
 const HomeSlidesCarousel = () => {
     const wrapperRef = useRef();
-    const { currentPage } = useFullPageCarousel(wrapperRef);
+    const { currentIndex, handleClick } = useFullPageCarousel(wrapperRef);
 
     return (
         <>
@@ -28,7 +28,7 @@ const HomeSlidesCarousel = () => {
                     </HomeSlidesCarouselItem>
                 ))}
             </div>
-            <HomeCarouselControls active={currentPage} />
+            <HomeCarouselControls active={currentIndex} handleClick={handleClick} />
         </>
     );
 };
