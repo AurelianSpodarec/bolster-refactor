@@ -5,6 +5,7 @@ import GoogleAppStore from '_content/images/frontend-new/google-play-badge.png';
 import AppleAppStore from '_content/images/frontend-new/apple-store.svg';
 import Container from 'components/frontEnd/shared/container/presentational/Container';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
+import navItems from 'constants/frontEnd/navItems';
 
 const FrontEndHeader = ({
     isSuperAdmin,
@@ -13,6 +14,7 @@ const FrontEndHeader = ({
     onClick,
     logout,
     hideHeader,
+    curRoute,
 }) => (
     <Container className="frontend-header">
         <div className="frontend-header-left">
@@ -23,18 +25,15 @@ const FrontEndHeader = ({
             </div>
             <div className="frontend-header-navlinks-container">
                 <ul>
-                    <li>
-                        <Link to="/about-us">About us</Link>
-                    </li>
-                    <li>
-                        <Link to="/our-system">Our system</Link>
-                    </li>
-                    <li>
-                        <Link to="/how-it-works">How it works</Link>
-                    </li>
-                    <li>
-                        <Link to="/contact">Contact</Link>
-                    </li>
+                    {navItems
+                        .filter(({ name }) => name !== 'Register')
+                        .map(({ name, slug }) => (
+                            <li key={name}>
+                                <Link to={slug} className={curRoute === slug ? 'active' : ''}>
+                                    {name}
+                                </Link>
+                            </li>
+                        ))}
                 </ul>
             </div>
         </div>

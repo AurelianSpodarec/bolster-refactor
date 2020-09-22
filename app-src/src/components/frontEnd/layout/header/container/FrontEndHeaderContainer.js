@@ -7,7 +7,7 @@ import { logout } from 'actions/shared/auth/sync/logout';
 
 class FrontEndHeaderContainer extends Component {
     render() {
-        const { isSuperAdmin, isCompanyAdmin, isClientAccess, hideHeader } = this.props;
+        const { isSuperAdmin, isCompanyAdmin, isClientAccess, hideHeader, location } = this.props;
 
         return (
             <FrontEndHeader
@@ -17,6 +17,7 @@ class FrontEndHeaderContainer extends Component {
                 logout={this.logout}
                 hideHeader={hideHeader}
                 onClick={this.handleClick}
+                curRoute={location.pathname.toLowerCase()}
             />
         );
     }

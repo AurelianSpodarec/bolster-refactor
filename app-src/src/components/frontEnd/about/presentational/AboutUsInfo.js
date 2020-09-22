@@ -2,7 +2,7 @@ import React from 'react';
 
 const AboutUsInfo = () => {
     return (
-        <div className="frontend-about-info">
+        <div className="content-page wysiwyg">
             <h2>About Us</h2>
             <div className="divider"></div>
             <h3>Neque porro quisquam est qui do lorem amet?</h3>
