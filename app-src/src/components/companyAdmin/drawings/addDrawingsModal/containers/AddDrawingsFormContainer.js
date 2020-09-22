@@ -97,6 +97,8 @@ const AddDrawingsFormContainer = ({
     const [showManufacturingOptions, setShowManufacturingOptions] = useState(true);
 
     useEffect(() => {
+        fetchClientsForFloor(floorID);
+        fetchOperativesForFloor(floorID);
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before adding a drawing.
         async function getPinOptions() {
             const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
@@ -106,11 +108,9 @@ const AddDrawingsFormContainer = ({
             const fn = function fetchManufacturers(pinOptionType) {
                 return fetchManufacturersByPinOptionType(pinOptionType);
             };
-
+            
             const manufacturerActions = pinOptionTypes.map(fn);
             await Promise.all(manufacturerActions).then(() => {
-                fetchClientsForFloor(floorID);
-                fetchOperativesForFloor(floorID);
                 fetchAllOptionValues();
             });
         }
@@ -182,7 +182,7 @@ const AddDrawingsFormContainer = ({
 
     return (
         <BlockContainer
-            isEmpty={isObjEmpty(manufacturers) || isObjEmpty(optionValues) || !areOptionsLoaded}
+            isEmpty={isFetching || !areOptionsLoaded}
             isFetching={isFetching || !areOptionsLoaded}
             error={error}
             contentClass="no-padding"

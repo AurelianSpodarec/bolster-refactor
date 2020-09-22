@@ -131,6 +131,10 @@ function postSuccessReducer(state = false, action) {
 
 function clientsReducer(state = {}, action) {
     switch (action.type) {
+        case FETCH_CLIENT_USERS_REQUEST:
+        case FETCH_CLIENTS_FOR_DRAWING_REQUEST:
+        case FETCH_CLIENTS_FOR_FLOOR_REQUEST:
+            return {};
         case FETCH_CLIENT_USERS_SUCCESS:
         case FETCH_CLIENTS_FOR_DRAWING_SUCCESS:
         case FETCH_CLIENTS_FOR_FLOOR_SUCCESS:
