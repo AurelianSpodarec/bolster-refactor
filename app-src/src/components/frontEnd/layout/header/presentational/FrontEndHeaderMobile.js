@@ -75,7 +75,21 @@ const FrontEndHeaderMobile = ({
                         </a>
                     </li>
                 ) : (
-                    <></>
+                    <>
+                        <li>
+                            <a href="/auth/login" onClick={e => handleClick(e, '/auth/login')}>
+                                Login
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="/auth/register"
+                                onClick={e => handleClick(e, '/auth/register')}
+                            >
+                                Register
+                            </a>
+                        </li>
+                    </>
                 )}
             </ul>
         </div>
