@@ -1222,6 +1222,10 @@ $header-height: 75px;
             }
 
             @include devices(xsDesktop) {
+                .bolster-cloud {
+                    margin-top: -50px;
+                }
+
                 .info-card {
                     margin: 0 5px;
                 }
@@ -1229,6 +1233,50 @@ $header-height: 75px;
                 .title-wrapper {
                     h2 {
                         font-size: 160%;
+                    }
+                }
+            }
+
+            @include devices(lsTablet) {
+                padding-top: 0;
+
+                .bolster-cloud-container {
+                    position: relative;
+                }
+
+                .bolster-cloud {
+                    margin-top: 0;
+                }
+
+                .list-wrapper {
+                    padding: 0 10px;
+                    flex-wrap: wrap;
+                    align-items: stretch;
+
+                    &.bottom {
+                        margin-top: 0;
+                    }
+
+                    .info-card {
+                        flex: auto;
+                        width: calc(100% / 3 - 20px);
+                        margin: 100px 10px 0!important;
+                    }
+                }
+
+                .icon-wrapper {
+                    width: 110px;
+                    height: 110px;
+                    margin-top: -55px;
+
+                    .icon {
+                        width: 70px;
+                    }
+                }
+
+                .title-wrapper {
+                    h2 {
+                        font-size: 200%;
                     }
                 }
             }
