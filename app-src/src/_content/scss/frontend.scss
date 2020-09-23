@@ -198,6 +198,19 @@ $header-height: 75px;
             @include opensans-regular;
             color: #FFFFFF;
         }
+
+        @include devices(lsTablet) {
+            margin-top: 50px;
+
+            > h1 {
+                font-size: 320%;
+            }
+
+            > p {
+                font-size: 220%;
+                margin-bottom: 50px;
+            }
+        }
     }
 
     .frontend-footer {
@@ -914,6 +927,7 @@ $header-height: 75px;
         .contact-section {
             display: flex;
             justify-content: center;
+            padding: 0 20px;
         }
         
         .contact-info-wrapper {
@@ -969,6 +983,27 @@ $header-height: 75px;
                 font-size: 180%;
             }
         }
+
+        @include devices(lsTablet) {
+            .contact-form-wrapper {
+                .contact-form {
+                    margin-right: 50px;
+                    max-width: none;
+                }
+            }
+        }
+
+        @include devices(ptTablet) {
+            .contact-form-wrapper {
+                .contact-form {
+                    flex: 1.5;
+                }
+
+                .contact-info-wrapper {
+                    flex: 1;
+                }
+            }
+        }
     }
 
     //why use our system page
@@ -982,6 +1017,7 @@ $header-height: 75px;
             width: 100%;
             padding: 40px 20px 50px;
             background-color: #ffffff;
+            text-align: center;
             
             & > h2 {
                 font-size: 350%;
@@ -1122,6 +1158,58 @@ $header-height: 75px;
             }
         }
 
+        @include devices(lsTablet) {
+            .info-card-list-wrapper {
+                padding: 0 10px;
+                padding-bottom: 50px;
+            }
+
+            .info-card-wrapper {
+                width: calc(100% / 3);
+                padding: 0 10px;
+            }
+        }
+
+        @include devices(ptTablet) {
+            .info-card {
+                .title-wrapper {
+                    > h2 {
+                        font-size: 190%;
+                    }
+                }
+            }
+
+            .page-divider {
+                > h2 {
+                    font-size: 300%;
+                }
+
+                > p {
+                    font-size: 220%;
+                }
+            }
+        }
+
+        @include devices(lgMobile) {
+            .page-divider {
+                > h2 {
+                    font-size: 240%;
+                }
+
+                > p {
+                    font-size: 190%;
+                }
+            }
+
+            .info-card-wrapper {
+                width: 100%;
+            }
+
+            .info-card {
+                margin-top: 75px;
+            }
+        }
+
         //cloud list
         .cloud-list-container {
             padding: 75px 0;
@@ -1222,6 +1310,10 @@ $header-height: 75px;
             }
 
             @include devices(xsDesktop) {
+                .bolster-cloud {
+                    margin-top: -50px;
+                }
+
                 .info-card {
                     margin: 0 5px;
                 }
@@ -1229,6 +1321,76 @@ $header-height: 75px;
                 .title-wrapper {
                     h2 {
                         font-size: 160%;
+                    }
+                }
+            }
+
+            @include devices(lsTablet) {
+                padding-top: 0;
+
+                .bolster-cloud-container {
+                    position: relative;
+                }
+
+                .bolster-cloud {
+                    margin-top: 0;
+                }
+
+                .list-wrapper {
+                    padding: 0 10px;
+                    flex-wrap: wrap;
+                    align-items: stretch;
+
+                    &.bottom {
+                        margin-top: 0;
+                    }
+
+                    .info-card {
+                        flex: auto;
+                        width: calc(100% / 3 - 20px);
+                        margin: 100px 10px 0!important;
+                    }
+                }
+
+                .icon-wrapper {
+                    width: 110px;
+                    height: 110px;
+                    margin-top: -55px;
+
+                    .icon {
+                        width: 70px;
+                    }
+                }
+
+                .title-wrapper {
+                    h2 {
+                        font-size: 200%;
+                    }
+                }
+            }
+
+            @include devices(ptTablet) {
+                .title-wrapper {
+                    h2 {
+                        font-size: 190%;
+                    }
+                }
+            }
+
+            @include devices(lgMobile) {
+                .bolster-cloud-container {
+                    padding: 0 40px;
+                    margin-bottom: 25px;
+                }
+
+                .bolster-cloud {
+                    width: 100%;
+                }
+
+                .list-wrapper {
+                    .info-card {
+                        width: 100%;
+                        margin-top: 75px!important;
                     }
                 }
             }
@@ -1607,7 +1769,8 @@ $header-height: 75px;
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 733px;
+        width: 90%;
+        max-width: 733px;
         overflow: visible;
 
         & h2 {
@@ -1709,6 +1872,16 @@ $header-height: 75px;
     .react-datepicker-popper {
         position: relative !important;
         margin-top: 0 !important;
+    }
+
+    @include devices(lgMobile) {
+        .frontend-modal-block {
+            overflow: auto;
+        }
+
+        .icon-wrapper {
+            margin-top: 0;
+        }
     }
 }
 
