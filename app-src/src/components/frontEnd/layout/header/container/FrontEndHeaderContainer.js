@@ -1,38 +1,55 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import FrontEndHeader from '../presentational/FrontEndHeader';
 import { logout } from 'actions/shared/auth/sync/logout';
 
-class FrontEndHeaderContainer extends Component {
-    render() {
-        const { isSuperAdmin, isCompanyAdmin, isClientAccess, hideHeader, location } = this.props;
+const FrontEndHeaderContainer = ({
+    isSuperAdmin,
+    isCompanyAdmin,
+    isClientAccess,
+    location,
+    history,
+    logout,
+}) => {
+    const [menuOpen, setMenuOpen] = useState(false);
 
-        return (
-            <FrontEndHeader
-                isSuperAdmin={isSuperAdmin}
-                isCompanyAdmin={isCompanyAdmin}
-                isClientAccess={isClientAccess}
-                logout={this.logout}
-                hideHeader={hideHeader}
-                onClick={this.handleClick}
-                curRoute={location.pathname.toLowerCase()}
-            />
-        );
+    return (
+        <FrontEndHeader
+            isSuperAdmin={isSuperAdmin}
+            isCompanyAdmin={isCompanyAdmin}
+            isClientAccess={isClientAccess}
+            handleLogout={handleLogout}
+            handleClick={handleClick}
+            curRoute={location.pathname.toLowerCase()}
+            menuOpen={menuOpen}
+            setMenuOpen={setMenuOpen}
+        />
+    );
+
+    function handleClick(e, path) {
+        e.preventDefault();
+
+        history.push(path);
+
+        if (menuOpen) {
+            setMenuOpen(false);
+        }
     }
 
-    handleClick = path => {
-        const { history } = this.props;
-        history.push(path);
-    };
+    function handleLogout(e) {
+        e.preventDefault();
 
-    logout = () => {
-        const { history, logout } = this.props;
         logout();
+
         history.push('/');
-    };
-}
+
+        if (menuOpen) {
+            setMenuOpen(false);
+        }
+    }
+};
 
 const mapStateToProps = ({
     shared: {
@@ -40,16 +57,10 @@ const mapStateToProps = ({
             jwtData: { isSuperAdmin, isClientAccess, companyID },
         },
     },
-    frontEnd: {
-        layoutReducer: {
-            layout: { hideHeader },
-        },
-    },
 }) => ({
     isSuperAdmin,
     isCompanyAdmin: !!companyID,
     isClientAccess,
-    hideHeader,
 });
 
 const mapDispatchToProps = { logout };

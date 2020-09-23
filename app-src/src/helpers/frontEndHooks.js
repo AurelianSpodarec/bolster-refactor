@@ -1,5 +1,6 @@
-import { useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Events, animateScroll as scroll, scrollSpy } from 'react-scroll';
+import debounce from 'lodash/debounce';
 
 export const useBannerScroll = width => {
     const lastScrollTopRef = useRef(window.pageYOffset || document.documentElement.scrollTop);
@@ -59,4 +60,136 @@ export const useBannerScroll = width => {
     function setLastScrollTop(value) {
         lastScrollTopRef.current = value;
     }
+};
+
+export const useOnScreen = (ref, threshold) => {
+    const [isIntersecting, setIntersecting] = useState(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                // setIntersecting(entry.isIntersecting);
+                setIntersecting(entry.boundingClientRect.y < 76);
+            },
+            {
+                threshold,
+            },
+        );
+
+        if (ref.current) {
+            observer.observe(ref.current);
+        }
+        return () => {
+            observer.unobserve(ref.current);
+        };
+    }, []);
+
+    return isIntersecting;
+};
+
+export const useEventListener = (eventName, handler, options = {}, element = window) => {
+    const savedHandler = useRef();
+
+    useEffect(() => {
+        savedHandler.current = handler;
+    }, [handler]);
+
+    useEffect(() => {
+        const isSupported = element && element.addEventListener;
+        if (!isSupported) return;
+
+        const eventListener = event => savedHandler.current(event);
+
+        element.addEventListener(eventName, eventListener, options);
+
+        return () => {
+            element.removeEventListener(eventName, eventListener, options);
+        };
+    }, [eventName, element]);
+};
+
+export const useFullPageCarousel = (ref, max = 4) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const currentPage = useRef(0);
+    const lastAnimation = useRef(0);
+    const quietPeriod = 500;
+    const animationTime = 800;
+
+    const handlePrevSlide = () => {
+        setCurrentIndex(prevState => prevState - 1);
+        currentPage.current = currentPage.current - 1;
+    };
+    const handleNextSlide = () => {
+        setCurrentIndex(prevState => prevState + 1);
+        currentPage.current = currentPage.current + 1;
+    };
+    const handleJumpToSlide = index => {
+        setCurrentIndex(index);
+        currentPage.current = index;
+    };
+
+    const handleScroll = event => {
+        const delta = Math.sign(event.deltaY);
+        const currentTime = new Date().getTime();
+
+        if (Number(currentTime) - Number(lastAnimation.current) < quietPeriod + animationTime) {
+            event.preventDefault();
+            return;
+        }
+
+        if (delta < 0) {
+            moveUp();
+        } else {
+            moveDown();
+        }
+
+        lastAnimation.current = currentTime;
+    };
+
+    const handleClick = index => moveTo(index);
+
+    const transformPage = position => {
+        const el = ref.current;
+        const transformCSS = `transform: translate3d(0, ${position}%, 0); transition: transform ${animationTime}ms ease-in-out;`;
+        el.style.cssText = transformCSS;
+    };
+
+    const moveUp = (page = currentPage.current) => {
+        if (page === 0) return;
+        const position = (page - 1) * 100 * -1;
+        handlePrevSlide();
+        transformPage(position);
+    };
+
+    const moveDown = (page = currentPage.current) => {
+        if (page === max) return;
+        const position = Number((page + 1) * 100 * -1);
+        handleNextSlide();
+        transformPage(position);
+    };
+
+    const moveTo = index => {
+        const position = Number(index * 100 * -1);
+        handleJumpToSlide(index);
+        transformPage(position);
+    };
+
+    useEffect(() => {
+        const debounced = debounce(handleScroll, 200, {
+            leading: true,
+            trailing: false,
+            maxWait: quietPeriod,
+        });
+
+        document.addEventListener('wheel', debounced, { passive: false });
+
+        return () => {
+            document.removeEventListener('wheel', debounced, { passive: false });
+        };
+    }, []);
+
+    return {
+        currentIndex,
+        handleClick,
+    };
 };

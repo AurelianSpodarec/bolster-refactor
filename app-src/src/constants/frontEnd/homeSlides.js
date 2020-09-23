@@ -1,8 +1,8 @@
-import FirstSlide from '_content/images/frontend-new/slides/first-slide.png';
-import SecondSlide from '_content/images/frontend-new/slides/second-slide.png';
-import ThirdSlide from '_content/images/frontend-new/slides/third-slide.png';
-import FourthSlide from '_content/images/frontend-new/slides/fourth-slide.png';
-import FifthSlide from '_content/images/frontend-new/slides/fifth-slide.png';
+import FirstSlide from '_content/videos/frontend/home1.mp4';
+import SecondSlide from '_content/videos/frontend/home2.mp4';
+import ThirdSlide from '_content/videos/frontend/home3.mp4';
+import FourthSlide from '_content/videos/frontend/home4.mp4';
+import FifthSlide from '_content/videos/frontend/home5.mp4';
 
 export const HomeSlidesList = [
     {
