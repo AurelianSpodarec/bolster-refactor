@@ -50,7 +50,18 @@ const RegisterForm = ({
     return (
         <div className="auth-form-wrapper wide">
             <Form onSubmit={handleSubmit}>
-                <FrontEndFormHeading title="Register" subtitle="User Details" />
+                <FrontEndFormHeading
+                    title="Register"
+                    subtitle={
+                        activePage === 1
+                            ? 'User Details'
+                            : activePage === 2
+                            ? 'Company Details'
+                            : activePage === 3
+                            ? 'Company Address'
+                            : ''
+                    }
+                />
                 {activePage === 1 && (
                     <div className="register-input-wrapper">
                         <Field required name="First Name" classes="auth-form-field wide">
@@ -254,7 +265,7 @@ const RegisterForm = ({
                         <Field required classes="auth-form-field wide row">
                             <p className="generic-text size-lg-12">
                                 I agree to Bolster Systems{terms}{' '}
-                                <Link to="/auth/terms">Terms of Service</Link>. and{' '}
+                                <Link to="/auth/terms">Terms of Service</Link> and{' '}
                                 <Link to="/auth/privacy-policy">Privacy Policy</Link>
                             </p>
                             <CheckboxContainer
