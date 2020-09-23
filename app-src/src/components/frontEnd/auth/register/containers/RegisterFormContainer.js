@@ -76,6 +76,8 @@ const RegisterFormContainer = ({
         'Company.country',
     ];
 
+    let disabled = false;
+
     const prevProps = usePrevious({ postSuccess, loginSuccess });
 
     useEffect(() => {
@@ -113,6 +115,7 @@ const RegisterFormContainer = ({
             timezoneOptions={timezoneOptions}
             dateFormats={dateFormatOptions}
             vatOptions={vatOptions}
+            disabled={disabled}
         />
     );
 
