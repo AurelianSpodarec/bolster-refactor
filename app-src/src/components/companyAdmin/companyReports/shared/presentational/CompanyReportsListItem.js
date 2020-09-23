@@ -20,7 +20,7 @@ const CompanyReportsListItem = ({
     if (queueItem.isCSVGeneration) typeArr.push('CSV');
     if (queueItem.isPDFGeneration) typeArr.push('PDF');
     if (queueItem.isFloorplanGeneration) typeArr.push('Floor plan');
-    if (queueItem.isOEMManualGeneration) typeArr.push('OEM Manual');
+    if (queueItem.isOEMManualGeneration) typeArr.push('O&M Manual');
 
     const { COMPLETE, FAILED, DELETED } = GENERATION_STATE_VAL;
 
