@@ -75,6 +75,14 @@ $header-height: 75px;
                 display: flex;
                 justify-content: flex-end;
             }
+
+            .frontend-button {
+                width: 150px;
+                min-width: 0;
+                padding: 6px 0;
+                border-radius: 20px;
+                font-size: 120%;
+            }
         }
 
         .frontend-header-navlinks-container {
@@ -185,6 +193,8 @@ $header-height: 75px;
         display: flex;
         flex-direction: column;
         margin-top: 75px;
+        padding: 0 20px;
+        text-align: center;
 
         & > h1 {
             font-size: 400%;
@@ -208,6 +218,20 @@ $header-height: 75px;
 
             > p {
                 font-size: 220%;
+                margin-bottom: 50px;
+            }
+        }
+
+        @include devices(lgMobile) {
+            margin-top: 0;
+            padding-top: 50px;
+
+            > h1 {
+                font-size: 300%;
+            }
+
+            > p {
+                font-size: 190%;
                 margin-bottom: 50px;
             }
         }
@@ -288,12 +312,13 @@ $header-height: 75px;
     }
 
     .frontend-button {
-        border-radius: 20px;
-        padding: 6px 0;
-        width: 150px;
+        border-radius: 25px;
+        padding: 9px 15px;
+        min-width: 220px;
         text-align: center;
-        font-size: 120%;
+        font-size: 180%;
         transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+        @include opensans-semibold;
 
         &.red {
             border: 1px $red-alt solid; 
@@ -1001,6 +1026,36 @@ $header-height: 75px;
 
                 .contact-info-wrapper {
                     flex: 1;
+                }
+            }
+        }
+
+        @include devices(lgMobile) {
+            .contact-section {
+                display: block;
+            }
+
+            .contact-form-wrapper {
+                display: block;
+                padding-bottom: 50px;
+
+                .contact-form {
+                    width: 100%;
+                    text-align: center;
+
+                    .title {
+                        text-align: left;
+                    }
+
+                    .frontend-button {
+                        float: none;
+                        display: inline-block;
+                    }
+                }
+
+                .contact-info-wrapper {
+                    padding: 50px 10px 0;
+                    width: 100%;
                 }
             }
         }
