@@ -304,6 +304,10 @@ $header-height: 75px;
             }
         }
 
+        &.disabled {
+            opacity: 0.2;
+        }    
+
         &.spacing-left {
             margin-left: 16px;
         }
@@ -1234,7 +1238,7 @@ $header-height: 75px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 35px;
+        margin-bottom: 20px;
         
         & > h2 {
             @include opensans-semibold;
@@ -1287,7 +1291,9 @@ $header-height: 75px;
             &.left {
                 align-self: center;
             }
-            
+            & > .disabled {
+                opacity: 0.2;
+            }            
           }
 
           & > .item-wrapper {

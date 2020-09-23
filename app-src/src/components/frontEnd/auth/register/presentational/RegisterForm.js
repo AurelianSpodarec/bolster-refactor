@@ -43,6 +43,7 @@ const RegisterForm = ({
     validateConfirmPassword,
     handlePaginationClick,
     activePage,
+    disabled,
 }) => {
     const isVatCodeRequired = needsVatCode(vatType);
     if (activePage === 2) {
@@ -135,7 +136,11 @@ const RegisterForm = ({
                     </div>
                     <Field required classes="auth-form-field buttons wide row">
                         <div className="item-wrapper left">
-                            <FrontEndButton classes="gray" type="button">
+                            <FrontEndButton
+                                classes="gray"
+                                type="button"
+                                handleClick={() => handlePaginationClick(1)}
+                            >
                                 Back
                             </FrontEndButton>
                         </div>
@@ -146,17 +151,21 @@ const RegisterForm = ({
                             <div className="auth-nav-box-wrapper">
                                 <div
                                     className="auth-nav-box"
-                                    onClick={() => handlePaginationClick(1)}
+                                    onClick={!disabled ? () => handlePaginationClick(1) : ''}
                                 ></div>
                                 <div className="auth-nav-box selected"></div>
                                 <div
                                     className="auth-nav-box "
-                                    onClick={() => handlePaginationClick(3)}
+                                    onClick={!disabled ? () => handlePaginationClick(3) : ''}
                                 ></div>
                             </div>
                         </div>
                         <div className="item-wrapper right">
-                            <FrontEndButton classes="gray" type="button">
+                            <FrontEndButton
+                                classes={`gray ${disabled ? 'disabled' : ''}`}
+                                type="button"
+                                handleClick={!disabled ? () => handlePaginationClick(3) : ''}
+                            >
                                 Next
                             </FrontEndButton>
                         </div>
@@ -236,7 +245,11 @@ const RegisterForm = ({
                     </div>
                     <Field required classes="auth-form-field buttons wide row">
                         <div className="item-wrapper left">
-                            <FrontEndButton classes="gray" type="button">
+                            <FrontEndButton
+                                classes="gray"
+                                type="button"
+                                handleClick={() => handlePaginationClick(2)}
+                            >
                                 Back
                             </FrontEndButton>
                         </div>
@@ -247,17 +260,20 @@ const RegisterForm = ({
                             <div className="auth-nav-box-wrapper">
                                 <div
                                     className="auth-nav-box"
-                                    onClick={() => handlePaginationClick(1)}
+                                    onClick={!disabled ? () => handlePaginationClick(1) : ''}
                                 ></div>
                                 <div
                                     className="auth-nav-box"
-                                    onClick={() => handlePaginationClick(2)}
+                                    onClick={!disabled ? () => handlePaginationClick(2) : ''}
                                 ></div>
                                 <div className="auth-nav-box selected"></div>
                             </div>
                         </div>
                         <div className="item-wrapper right">
-                            <FrontEndButton classes="red" type="submit">
+                            <FrontEndButton
+                                classes={`red ${disabled ? 'disabled' : ''}`}
+                                type="submit"
+                            >
                                 Submit
                             </FrontEndButton>
                         </div>
@@ -341,16 +357,20 @@ const RegisterForm = ({
                             <div className="auth-nav-box selected"></div>
                             <div
                                 className="auth-nav-box"
-                                onClick={() => handlePaginationClick(2)}
+                                onClick={!disabled ? () => handlePaginationClick(2) : ''}
                             ></div>
                             <div
                                 className="auth-nav-box"
-                                onClick={() => handlePaginationClick(3)}
+                                onClick={!disabled ? () => handlePaginationClick(3) : ''}
                             ></div>
                         </div>
                     </div>
                     <div className="item-wrapper right">
-                        <FrontEndButton classes="gray" type="button">
+                        <FrontEndButton
+                            classes={`gray ${disabled ? 'disabled' : ''}`}
+                            type="button"
+                            handleClick={!disabled ? () => handlePaginationClick(2) : ''}
+                        >
                             Next
                         </FrontEndButton>
                     </div>
