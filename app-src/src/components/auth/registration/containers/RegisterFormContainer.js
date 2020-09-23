@@ -34,12 +34,12 @@ class RegisterFormContainer extends Component {
         'Company.vatType': null,
         'Company.country': '',
         terms: false,
-    };
+    }; // <--- moved into new register form
 
     render() {
-        const timezoneOptions = this._getTimezoneOptions();
+        const timezoneOptions = this._getTimezoneOptions(); // <--- moved into new register form
 
-        const dateFormats = this._formatDateFormats();
+        const dateFormats = this._formatDateFormats(); // <--- moved into new register form
 
         return (
             <RegisterForm
@@ -60,19 +60,19 @@ class RegisterFormContainer extends Component {
 
     handleChange = (name, value) => {
         this.setState({ [name]: value });
-    };
+    }; // <--- not needed as using useForm hook now
 
-    _handleTimezoneChange = timezone => this.setState({ timezone });
+    _handleTimezoneChange = timezone => this.setState({ timezone }); //<--- not being used
 
     _handleDateFormatChange = (name, val) => {
         this.setState({ [name]: val });
-    };
+    }; //<--- not being used
 
     handleDropDown = (name, val) => {
         this.setState({ [name]: val });
-    };
+    }; //< --- moved into new reg file
 
-    _handleVatTypeChange = vatType => this.setState({ vatType });
+    _handleVatTypeChange = vatType => this.setState({ vatType }); // <--- not being used
 
     handleColourSelect = ({ hex }) => this.setState({ 'Company.colourCode': hex });
 
@@ -134,20 +134,21 @@ class RegisterFormContainer extends Component {
             value: id,
             label: `${name} (${offset})`,
         }));
-    };
+    }; // <-- moved into new register form
 
     _formatDateFormats = () =>
         this.props.dateFormats.map(({ id, example, momentDateTimeFormat }) => ({
             value: id,
             label: `${momentDateTimeFormat} (eg. ${example})`,
-        }));
+        })); //<-- moved into new register form
 
     componentDidMount = () => {
         const { fetchTimeZones, fetchDateFormats } = this.props;
 
         fetchTimeZones();
         fetchDateFormats();
-    };
+    }; //<--- moved into new reg form
+
     componentDidUpdate = prevProps => {
         const { 'User.email': email, 'User.password': password } = this.state;
         const { postSuccess, loginSuccess, history, postLogin } = this.props;
