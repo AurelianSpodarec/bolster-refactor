@@ -125,12 +125,10 @@ export const useFullPageCarousel = (ref, lastRef, max = 4) => {
     };
 
     const handleScroll = event => {
+        if (disableScroll.current) return;
+
         const delta = Math.sign(event.deltaY);
         const currentTime = new Date().getTime();
-
-        console.log(disableScroll.current);
-
-        if (disableScroll.current) return;
 
         if (Number(currentTime) - Number(lastAnimation.current) < quietPeriod + animationTime) {
             event.preventDefault();
@@ -149,9 +147,13 @@ export const useFullPageCarousel = (ref, lastRef, max = 4) => {
     const handleClick = index => moveTo(index);
 
     const transformPage = position => {
+        disableScroll.current = true;
         const el = ref.current;
         const transformCSS = `transform: translate3d(0, ${position}%, 0); transition: transform ${animationTime}ms ease-in-out;`;
         el.style.cssText = transformCSS;
+        setTimeout(() => {
+            disableScroll.current = false;
+        }, 1500);
     };
 
     const moveUp = (page = currentPage.current) => {
@@ -175,22 +177,26 @@ export const useFullPageCarousel = (ref, lastRef, max = 4) => {
     };
 
     const handleLastSlideScroll = event => {
+        if (disableScroll.current) return;
+
         if (prevScroll.current === 0) {
             const delta = Math.sign(event.deltaY);
             if (delta < 0 && lastRef.current.scrollTop === 0) {
                 disableScroll.current = true;
-                moveTo(3);
+                moveUp();
                 setTimeout(() => {
                     disableScroll.current = false;
-                }, 1400);
+                }, 2000);
             }
         }
-        prevScroll.current = lastRef.current.scrollTop;
+        setTimeout(() => {
+            prevScroll.current = lastRef.current.scrollTop;
+        }, 200);
     };
 
     useEffect(() => {
-        document.addEventListener('wheel', handleScroll, { passive: false });
         document.removeEventListener('wheel', handleLastSlideScroll, { passive: false });
+        document.addEventListener('wheel', handleScroll, { passive: false });
 
         if (isLast) {
             document.removeEventListener('wheel', handleScroll, { passive: false });
