@@ -75,6 +75,14 @@ $header-height: 75px;
                 display: flex;
                 justify-content: flex-end;
             }
+
+            .frontend-button {
+                width: 150px;
+                min-width: 0;
+                padding: 6px 0;
+                border-radius: 20px;
+                font-size: 120%;
+            }
         }
 
         .frontend-header-navlinks-container {
