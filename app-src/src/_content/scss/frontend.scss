@@ -982,6 +982,7 @@ $header-height: 75px;
             width: 100%;
             padding: 40px 20px 50px;
             background-color: #ffffff;
+            text-align: center;
             
             & > h2 {
                 font-size: 350%;
@@ -1119,6 +1120,58 @@ $header-height: 75px;
                         font-size: 200%;
                     }
                 }
+            }
+        }
+
+        @include devices(lsTablet) {
+            .info-card-list-wrapper {
+                padding: 0 10px;
+                padding-bottom: 50px;
+            }
+
+            .info-card-wrapper {
+                width: calc(100% / 3);
+                padding: 0 10px;
+            }
+        }
+
+        @include devices(ptTablet) {
+            .info-card {
+                .title-wrapper {
+                    > h2 {
+                        font-size: 190%;
+                    }
+                }
+            }
+
+            .page-divider {
+                > h2 {
+                    font-size: 300%;
+                }
+
+                > p {
+                    font-size: 220%;
+                }
+            }
+        }
+
+        @include devices(lgMobile) {
+            .page-divider {
+                > h2 {
+                    font-size: 240%;
+                }
+
+                > p {
+                    font-size: 190%;
+                }
+            }
+
+            .info-card-wrapper {
+                width: 100%;
+            }
+
+            .info-card {
+                margin-top: 75px;
             }
         }
 
@@ -1277,6 +1330,32 @@ $header-height: 75px;
                 .title-wrapper {
                     h2 {
                         font-size: 200%;
+                    }
+                }
+            }
+
+            @include devices(ptTablet) {
+                .title-wrapper {
+                    h2 {
+                        font-size: 190%;
+                    }
+                }
+            }
+
+            @include devices(lgMobile) {
+                .bolster-cloud-container {
+                    padding: 0 40px;
+                    margin-bottom: 25px;
+                }
+
+                .bolster-cloud {
+                    width: 100%;
+                }
+
+                .list-wrapper {
+                    .info-card {
+                        width: 100%;
+                        margin-top: 75px!important;
                     }
                 }
             }
@@ -1603,7 +1682,8 @@ $header-height: 75px;
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 733px;
+        width: 90%;
+        max-width: 733px;
         overflow: visible;
 
         & h2 {
@@ -1705,6 +1785,16 @@ $header-height: 75px;
     .react-datepicker-popper {
         position: relative !important;
         margin-top: 0 !important;
+    }
+
+    @include devices(lgMobile) {
+        .frontend-modal-block {
+            overflow: auto;
+        }
+
+        .icon-wrapper {
+            margin-top: 0;
+        }
     }
 }
 
