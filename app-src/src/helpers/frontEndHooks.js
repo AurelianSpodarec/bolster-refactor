@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
 import { Events, animateScroll as scroll, scrollSpy } from 'react-scroll';
-import debounce from 'lodash/debounce';
 
 export const useBannerScroll = width => {
     const lastScrollTopRef = useRef(window.pageYOffset || document.documentElement.scrollTop);
@@ -62,19 +61,13 @@ export const useBannerScroll = width => {
     }
 };
 
-export const useOnScreen = (ref, threshold) => {
+export const useOnScreen = ref => {
     const [isIntersecting, setIntersecting] = useState(false);
 
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                // setIntersecting(entry.isIntersecting);
-                setIntersecting(entry.boundingClientRect.y < 76);
-            },
-            {
-                threshold,
-            },
-        );
+        const observer = new IntersectionObserver(([entry]) => {
+            setIntersecting(entry.boundingClientRect.y < 76);
+        });
 
         if (ref.current) {
             observer.observe(ref.current);
@@ -108,12 +101,15 @@ export const useEventListener = (eventName, handler, options = {}, element = win
     }, [eventName, element]);
 };
 
-export const useFullPageCarousel = (ref, max = 4) => {
+export const useFullPageCarousel = (ref, lastRef, max = 4) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const currentPage = useRef(0);
     const lastAnimation = useRef(0);
+    const disableScroll = useRef(false);
+    const prevScroll = useRef(0);
     const quietPeriod = 500;
     const animationTime = 800;
+    const isLast = currentIndex === max;
 
     const handlePrevSlide = () => {
         setCurrentIndex(prevState => prevState - 1);
@@ -131,6 +127,10 @@ export const useFullPageCarousel = (ref, max = 4) => {
     const handleScroll = event => {
         const delta = Math.sign(event.deltaY);
         const currentTime = new Date().getTime();
+
+        console.log(disableScroll.current);
+
+        if (disableScroll.current) return;
 
         if (Number(currentTime) - Number(lastAnimation.current) < quietPeriod + animationTime) {
             event.preventDefault();
@@ -174,22 +174,38 @@ export const useFullPageCarousel = (ref, max = 4) => {
         transformPage(position);
     };
 
-    useEffect(() => {
-        const debounced = debounce(handleScroll, 200, {
-            leading: true,
-            trailing: false,
-            maxWait: quietPeriod,
-        });
+    const handleLastSlideScroll = event => {
+        if (prevScroll.current === 0) {
+            const delta = Math.sign(event.deltaY);
+            if (delta < 0 && lastRef.current.scrollTop === 0) {
+                disableScroll.current = true;
+                moveTo(3);
+                setTimeout(() => {
+                    disableScroll.current = false;
+                }, 1400);
+            }
+        }
+        prevScroll.current = lastRef.current.scrollTop;
+    };
 
-        document.addEventListener('wheel', debounced, { passive: false });
+    useEffect(() => {
+        document.addEventListener('wheel', handleScroll, { passive: false });
+        document.removeEventListener('wheel', handleLastSlideScroll, { passive: false });
+
+        if (isLast) {
+            document.removeEventListener('wheel', handleScroll, { passive: false });
+            document.addEventListener('wheel', handleLastSlideScroll, { passive: false });
+        }
 
         return () => {
-            document.removeEventListener('wheel', debounced, { passive: false });
+            document.removeEventListener('wheel', handleScroll, { passive: false });
+            document.removeEventListener('wheel', handleLastSlideScroll, { passive: false });
         };
-    }, []);
+    }, [isLast]);
 
     return {
         currentIndex,
+        max,
         handleClick,
     };
 };
