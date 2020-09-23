@@ -86,10 +86,18 @@ const FrontEndHeaderDesktop = ({
                         <img src={AppleAppStore} alt="Apple App Store" />
                     </div>
                     <div>
-                        <FrontEndButton to="auth/register" classes="gray spacing-right">
+                        <FrontEndButton
+                            to="/auth/register"
+                            classes="gray spacing-right"
+                            handleClick={e => handleClick(e, '/auth/register')}
+                        >
                             Register
                         </FrontEndButton>
-                        <FrontEndButton to="auth/login" classes="red">
+                        <FrontEndButton
+                            to="/auth/login"
+                            classes="red"
+                            handleClick={e => handleClick(e, '/auth/login')}
+                        >
                             Login
                         </FrontEndButton>
                     </div>
