@@ -1201,6 +1201,30 @@ $header-height: 75px;
             bottom: 15px;
             opacity: 0.5;
         }
+
+        @include devices(ptTablet) {
+            .content {
+                margin-bottom: 75px;
+            }
+
+            h1 {
+                font-size: 300%;
+            }
+
+            p {
+                font-size: 220%;
+            }
+        }
+
+        @include devices(lgMobile) {
+            h1 {
+                font-size: 240%;
+            }
+
+            p {
+                font-size: 190%;
+            }
+        }
     }
 }
 
