@@ -992,6 +992,18 @@ $header-height: 75px;
                 }
             }
         }
+
+        @include devices(ptTablet) {
+            .contact-form-wrapper {
+                .contact-form {
+                    flex: 1.5;
+                }
+
+                .contact-info-wrapper {
+                    flex: 1;
+                }
+            }
+        }
     }
 
     //why use our system page
