@@ -510,8 +510,12 @@ $header-height: 75px;
 
         .section {
             max-width: 1500px;
-            padding: 75px 20px 0;
+            padding: 75px 20px 50px;
             margin: 0 auto;
+
+            &:last-child {
+                padding-bottom: 0;
+            }
         }
 
         .headings-area {
@@ -523,7 +527,7 @@ $header-height: 75px;
                 flex: 0.23;
 
                 img {
-                    width: 116.5px;
+                    width: 100px;
                     margin-right: 20px;
                 }
 
@@ -533,7 +537,7 @@ $header-height: 75px;
 
                 h3 {
                     @include opensans-semibold;
-                    font-size: 350%;
+                    font-size: 300%;
                 }
 
                 .divider {
@@ -544,7 +548,7 @@ $header-height: 75px;
                 }
 
                 p {
-                    font-size: 250%;
+                    font-size: 220%;
                 }
             }
         }
