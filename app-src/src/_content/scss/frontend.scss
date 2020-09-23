@@ -1340,6 +1340,7 @@ $header-height: 75px;
             color: #444444;
             font-weight: normal;
         }
+
         
         .auth-text-input-container {
             background-color: #e8e8e8;
@@ -1433,7 +1434,21 @@ $header-height: 75px;
 
         &.row {
             flex-direction: row;
-            justify-content: space-between;
+            justify-content: center;
+        }
+
+        & > p {
+            white-space: nowrap;
+            margin-right: 20px;
+
+            & > a {
+                color: #E91A22;
+                text-decoration: none;
+
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
         }
     }
 }
