@@ -9,7 +9,9 @@ const HowItWorksHeadings = () => (
     <div className="section">
         <div className="headings-area">
             <div className="item">
-                <img alt="Inspect" src={InspectIcon} />
+                <div className="icon">
+                    <img alt="Inspect" src={InspectIcon} />
+                </div>
                 <div className="text">
                     <h3>Inspect</h3>
                     <div className="divider" />
@@ -17,25 +19,31 @@ const HowItWorksHeadings = () => (
                 </div>
             </div>
             <div className="item">
-                <img alt="Locate" src={LocateIcon} />
+                <div className="icon">
+                    <img alt="Locate" src={LocateIcon} />
+                </div>
                 <div className="text">
-                    <h3>Inspect</h3>
+                    <h3>Locate</h3>
                     <div className="divider" />
                     <p>Neque porro qui</p>
                 </div>
             </div>
             <div className="item">
-                <img alt="Document" src={DocumentIcon} />
+                <div className="icon">
+                    <img alt="Document" src={DocumentIcon} />
+                </div>
                 <div className="text">
-                    <h3>Inspect</h3>
+                    <h3>Document</h3>
                     <div className="divider" />
                     <p>Neque porro qui</p>
                 </div>
             </div>
             <div className="item">
-                <img alt="Manage" src={ManageIcon} />
+                <div className="icon">
+                    <img alt="Manage" src={ManageIcon} />
+                </div>
                 <div className="text">
-                    <h3>Inspect</h3>
+                    <h3>Manage</h3>
                     <div className="divider" />
                     <p>Neque porro qui</p>
                 </div>
