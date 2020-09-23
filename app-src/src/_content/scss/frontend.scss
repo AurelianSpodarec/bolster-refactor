@@ -198,6 +198,19 @@ $header-height: 75px;
             @include opensans-regular;
             color: #FFFFFF;
         }
+
+        @include devices(lsTablet) {
+            margin-top: 50px;
+
+            > h1 {
+                font-size: 320%;
+            }
+
+            > p {
+                font-size: 220%;
+                margin-bottom: 50px;
+            }
+        }
     }
 
     .frontend-footer {
@@ -914,6 +927,7 @@ $header-height: 75px;
         .contact-section {
             display: flex;
             justify-content: center;
+            padding: 0 20px;
         }
         
         .contact-info-wrapper {
@@ -967,6 +981,15 @@ $header-height: 75px;
             & > p {
                 color: #ffffff;
                 font-size: 180%;
+            }
+        }
+
+        @include devices(lsTablet) {
+            .contact-form-wrapper {
+                .contact-form {
+                    margin-right: 50px;
+                    max-width: none;
+                }
             }
         }
     }
