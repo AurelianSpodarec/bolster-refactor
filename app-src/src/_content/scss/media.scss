@@ -29,12 +29,6 @@
         }
     }
 
-    @else if $size == ptTablet {
-        @media only screen and (max-width: 1023px) {
-            @content;
-        }
-    }
-
     @else if $size == lgMobile {
         @media only screen and (max-width: 767px) {
             @content;
