@@ -25,6 +25,7 @@ const RegisterFormContainer = ({
     addFieldError,
     removeFieldError,
     dateFormats,
+    fieldErrors,
 }) => {
     const [page, setPage] = useState(1);
     const [formData, handleChange] = useForm({
@@ -50,34 +51,35 @@ const RegisterFormContainer = ({
         terms: false,
     });
 
-    const pageOne = [
-        'User.firstName',
-        'User.lastName',
-        'User.phoneNumber',
-        'User.email',
-        'User.password',
-        'confirmPassword',
-    ];
-    const pageTwo = [
-        'Company.name',
-        'Company.phoneNumber',
-        'Company.fax',
-        'Company.vatCode',
-        'Company.timezone',
-        'Company.dateFormatID',
-        'Company.vatType',
-    ];
-    const pageThree = [
-        'Company.addressLine1',
-        'Company.addressLine2',
-        'Company.town',
-        'Company.county',
-        'Company.postcode',
-        'Company.country',
+    const pageContents = [
+        [
+            'User.firstName',
+            'User.lastName',
+            'User.phoneNumber',
+            'User.email',
+            'User.password',
+            'confirmPassword',
+        ],
+        [
+            'Company.name',
+            'Company.phoneNumber',
+            'Company.fax',
+            'Company.vatCode',
+            'Company.timezone',
+            'Company.dateFormatID',
+            'Company.vatType',
+        ],
+        [
+            'Company.addressLine1',
+            'Company.addressLine2',
+            'Company.town',
+            'Company.county',
+            'Company.postcode',
+            'Company.country',
+        ],
     ];
 
     let disabled = false;
-
     const prevProps = usePrevious({ postSuccess, loginSuccess });
 
     useEffect(() => {
@@ -221,6 +223,7 @@ const mapStateToProps = ({
         timeReducer: { timeZones, dateFormats },
         registerReducer: { error, postSuccess },
         loginReducer: { postSuccess: loginSuccess },
+        fieldErrorsReducer: { fieldErrors },
     },
 }) => ({
     timezones: Object.values(timeZones) || [],
@@ -228,6 +231,7 @@ const mapStateToProps = ({
     error,
     postSuccess,
     loginSuccess,
+    fieldErrors,
 });
 
 const mapDispatchToProps = {
