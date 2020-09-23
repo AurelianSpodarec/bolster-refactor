@@ -10,6 +10,7 @@ import FrontEndBanner from 'components/frontEnd/shared/banners/presentational/Fr
 import OurSystemDivider from './OurSystemDivider';
 import OurSystemCloudList from './OurSystemCloudList';
 import BackToTop from 'components/frontEnd/shared/backToTop/presentational/BackToTop';
+import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
 
 const WhyUseOurSystem = () => {
     const { width } = useWindowDimensions();
@@ -17,6 +18,7 @@ const WhyUseOurSystem = () => {
 
     return (
         <>
+            <Helmet title="Our System" />
             <div id="why-use-our-system">
                 <FrontEndBanner
                     heading="So why use Bolster?"

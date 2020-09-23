@@ -5,10 +5,12 @@ import BackButtonContainer from 'components/shared/generic/backButton/containers
 import PrivacyPolicy from './PrivacyPolicy';
 import EULA from './EULA';
 import TsAndCs from './TsAndCs';
+import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
 
 const Terms = () => (
     <>
-        <PageHeading leftChildren={true} title="Terms & Conditions">
+        <Helmet title="Terms &amp; Conditions" />
+        <PageHeading leftChildren={true} title="Terms &amp; Conditions">
             <BackButtonContainer />
         </PageHeading>
         <TsAndCs />

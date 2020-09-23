@@ -2,26 +2,26 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
-import HomeContainer from 'components/frontEnd/home/containers/HomeContainer';
+import Home from 'components/frontEnd/home/presentational/Home';
 import HowItWorks from 'components/frontEnd/how/presentational/HowItWorks';
-import AboutPageContainer from 'components/frontEnd/about/container/AboutPageContainer';
-import ContactPageContainer from 'components/frontEnd/contact/containers/ContactPageContainer';
+import AboutPage from 'components/frontEnd/about/presentational/AboutPage';
+import ContactPage from 'components/frontEnd/contact/presentational/ContactPage';
 import ShareLinkDrawingContainer from 'components/frontEnd/drawingShareLinks/containers/ShareLinkDrawingContainer';
 import QRCodesPageRedirect from 'components/frontEnd/qrCodes/containers/QRCodesPageRedirect';
 import QRCodesPage from 'components/frontEnd/qrCodes/presentational/QRCodesPage';
-import LoginContainer from 'components/frontEnd/auth/login/containers/LoginContainer';
+import Login from 'components/frontEnd/auth/login/presentational/Login';
 import WhyUseOurSystem from 'components/frontEnd/whyUseOurSystem/presentational/WhyUseOurSystem';
-import RegisterContainer from 'components/frontEnd/auth/register/containers/RegisterContainer';
+import Register from 'components/frontEnd/auth/register/presentational/Register';
 import Terms from 'components/shared/terms/Terms';
 import PrivacyPolicy from 'components/shared/terms/PrivacyPolicy';
 
 const FrontEndRoutes = ({ base = '/' }) => (
     <SwitchWith404>
-        <Route exact path={`${base}`} component={HomeContainer} />
-        <Route exact path={`${base}about-us`} component={AboutPageContainer} />
+        <Route exact path={`${base}`} component={Home} />
+        <Route exact path={`${base}about-us`} component={AboutPage} />
         <Route exact path={`${base}how-it-works`} component={HowItWorks} />
         <Route exact path={`${base}our-system`} component={WhyUseOurSystem} />
-        <Route exact path={`${base}contact`} component={ContactPageContainer} />
+        <Route exact path={`${base}contact`} component={ContactPage} />
         <Route
             exact
             path={`${base}drawingShareLinks/:shareKey`}
@@ -30,8 +30,8 @@ const FrontEndRoutes = ({ base = '/' }) => (
         <Route path={`${base}qr/pin`} component={QRCodesPageRedirect} />
         <Route path={`${base}qrcode`} component={QRCodesPage} />
 
-        <Route exact path={`${base}auth/Login`} component={LoginContainer} />
-        <Route exact path={`${base}auth/register`} component={RegisterContainer} />
+        <Route exact path={`${base}auth/Login`} component={Login} />
+        <Route exact path={`${base}auth/register`} component={Register} />
         <Route exact path={`${base}auth/terms`} component={Terms} />
         <Route exact path={`${base}auth/privacy-policy`} component={PrivacyPolicy} />
     </SwitchWith404>
