@@ -1,9 +1,9 @@
 import React from 'react';
-import HomeSlidesCarousel from './HomeSlidesCarousel';
+import HomeSlidesCarouselContainer from '../containers/HomeSlidesCarouselContainer';
 
 const Home = () => (
     <div className="frontend-home-wrapper">
-        <HomeSlidesCarousel />
+        <HomeSlidesCarouselContainer />
     </div>
 );
 
