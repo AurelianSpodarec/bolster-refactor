@@ -38,7 +38,6 @@ const RegisterForm = ({
     'Company.dateFormatID': dateFormatID,
     'Company.timezone': timezone,
     terms,
-    error,
     validatePassword,
     validateConfirmPassword,
     handlePaginationClick,
