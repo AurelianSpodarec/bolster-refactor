@@ -769,8 +769,10 @@ $header-height: 75px;
             }
             
             @include devices(ptTablet) {
+                padding: 0 15px;
+
                 .line-divider {
-                    left: 0;
+                    left: 15px;
                 }
 
                 .item-container {
