@@ -134,7 +134,7 @@ const RegisterForm = ({
                             </Field>
                         )}
                     </div>
-                    <Field required classes="auth-form-field buttons wide row">
+                    <Field required classes="auth-form-field wide row">
                         <div className="item-wrapper left">
                             <FrontEndButton
                                 classes="gray"
@@ -229,9 +229,9 @@ const RegisterForm = ({
                                 classes="auth-text-input-container"
                             />
                         </Field>
-                        <Field required name="Terms and Conditions">
+                        <Field required classes="auth-form-field wide row">
                             <p className="generic-text size-lg-12">
-                                To register, please agree to our{terms}
+                                I agree to Bolster Systems{terms}{' '}
                                 <Link to="/auth/terms">Terms of Service</Link>. and{' '}
                                 <Link to="/auth/privacy-policy">Privacy Policy</Link>
                             </p>
@@ -243,7 +243,7 @@ const RegisterForm = ({
                             />
                         </Field>
                     </div>
-                    <Field required classes="auth-form-field buttons wide row">
+                    <Field required classes="auth-form-field wide row">
                         <div className="item-wrapper left">
                             <FrontEndButton
                                 classes="gray"
