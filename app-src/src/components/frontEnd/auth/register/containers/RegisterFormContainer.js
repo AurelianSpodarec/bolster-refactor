@@ -11,8 +11,7 @@ import fetchDateFormats from 'actions/shared/time/async/fetchDateFormats';
 import postLogin from 'actions/shared/auth/async/postLogin';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-
-// All commented out code is code that is currently being imported from old register form
+import { vatOptions } from 'constants/shared/vatTypes';
 
 const RegisterFormContainer = ({
     timezones,
@@ -25,6 +24,7 @@ const RegisterFormContainer = ({
     postLogin,
     addFieldError,
     removeFieldError,
+    dateFormats,
 }) => {
     const [page, setPage] = useState(1);
     const [formData, handleChange] = useForm({
@@ -49,7 +49,7 @@ const RegisterFormContainer = ({
         'Company.country': '',
         terms: false,
     });
-    console.log(formData);
+
     const prevProps = usePrevious({ postSuccess, loginSuccess });
 
     useEffect(() => {
@@ -69,13 +69,13 @@ const RegisterFormContainer = ({
         }
     }, [loginSuccess, postSuccess, prevProps.loginSuccess, prevProps.postSuccess]);
 
-    // const timezoneOptions = _getTimezoneOptions();
+    const timezoneOptions = _getTimezoneOptions();
 
-    // const dateFormats = _formatDateFormats();
+    const dateFormatOptions = _formatDateFormats();
 
     return (
         <RegisterForm
-            formData={formData}
+            {...formData}
             activePage={page}
             handleChange={handleChange}
             handlePaginationClick={handlePaginationClick}
@@ -84,24 +84,25 @@ const RegisterFormContainer = ({
             handleSubmit={handleSubmit}
             validatePassword={validatePassword}
             validateConfirmPassword={validateConfirmPassword}
-            // timezoneOptions={timezoneOptions}
-            // dateFormats={dateFormats}
+            timezoneOptions={timezoneOptions}
+            dateFormats={dateFormatOptions}
+            vatOptions={vatOptions}
         />
     );
 
-    // function _getTimezoneOptions() {
-    //     return sortTimezones(timezones).map(({ id, name, offset }) => ({
-    //         value: id,
-    //         label: `${name} (${offset})`,
-    //     }));
-    // }
+    function _getTimezoneOptions() {
+        return sortTimezones(timezones).map(({ id, name, offset }) => ({
+            value: id,
+            label: `${name} (${offset})`,
+        }));
+    }
 
-    // function _formatDateFormats() {
-    //     dateFormats.map(({ id, example, momentDateTimeFormat }) => ({
-    //         value: id,
-    //         label: `${momentDateTimeFormat} (eg. ${example})`,
-    //     }));
-    // }
+    function _formatDateFormats() {
+        return dateFormats.map(({ id, example, momentDateTimeFormat }) => ({
+            value: id,
+            label: `${momentDateTimeFormat} (eg. ${example})`,
+        }));
+    }
 
     function handleDropDown(name, val) {
         handleChange({ [name]: val });
