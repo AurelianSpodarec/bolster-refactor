@@ -767,6 +767,39 @@ $header-height: 75px;
                     }
                 }
             }
+            
+            @include devices(ptTablet) {
+                .line-divider {
+                    left: 0;
+                }
+
+                .item-container {
+                    margin-top: 50px;
+
+                    .line-points {
+                        left: 0;
+
+                        .circle {
+                            &:last-child {
+                                bottom: -75px;
+                            }
+                        }
+
+                        .line {
+                            height: calc(100% + 50px);
+                        }
+                    }
+
+                    .item {
+                        flex: 1;
+                        padding-left: 30px;
+                    }
+                }
+
+                h4, p {
+                    font-size: 180%;
+                }
+            }
         }
     }
 
