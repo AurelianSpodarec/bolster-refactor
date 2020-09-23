@@ -488,6 +488,7 @@ $header-height: 75px;
 
         .trusted-by-header {
             margin-bottom: 50px;
+            text-align: center;
 
             .line {
                 font-size: 350%;
@@ -523,6 +524,21 @@ $header-height: 75px;
                 }
             }
         }
+
+        @include devices(lgMobile) {
+            .trusted-by-header {
+                .line {
+                    font-size: 240%;
+                }
+            }
+
+            .trusted-by-grid {
+                .item {
+                    width: calc(100% / 2 - 20px);
+                    min-height: 180px;
+                }
+            }
+        }
     }
 
     // content pages
@@ -534,6 +550,10 @@ $header-height: 75px;
         max-width: 1330px;
         margin: 0 auto;
         padding: 50px 20px 75px;
+
+        @include devices(ptTablet) {
+            padding-bottom: 50px;
+        }
     }
 
     .wysiwyg {
@@ -569,6 +589,10 @@ $header-height: 75px;
             color: $grey-alt;
         }
 
+        :last-child {
+            margin-bottom: 0!important;
+        }
+
         @include devices(ptTablet) {
             h2 {
                 font-size: 300%;
@@ -576,6 +600,17 @@ $header-height: 75px;
 
             h3 {
                 font-size: 220%;
+            }
+        }
+
+        @include devices(lgMobile) {
+            h2 {
+                font-size: 240%;
+            }
+
+            h3 {
+                font-size: 190%;
+                margin-bottom: 30px;
             }
         }
     }
