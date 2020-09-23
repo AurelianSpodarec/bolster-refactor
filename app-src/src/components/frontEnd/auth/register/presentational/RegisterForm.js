@@ -63,7 +63,7 @@ const RegisterForm = ({
                         <Field required name="Telephone" classes="auth-form-field wide">
                             <TextInputContainer
                                 value={companyPhoneNumber}
-                                name="telephone"
+                                name="Company.phoneNumber"
                                 required
                                 handleChange={handleChange}
                                 classes="auth-text-input-container"
@@ -175,7 +175,6 @@ const RegisterForm = ({
                             <TextInputContainer
                                 value={addressLine1}
                                 name="Company.addressLine1"
-                                placeholder="Address line 1"
                                 handleChange={handleChange}
                                 required
                                 classes="auth-text-input-container"
@@ -185,7 +184,6 @@ const RegisterForm = ({
                             <TextInputContainer
                                 value={addressLine2}
                                 name="Company.addressLine2"
-                                placeholder="Address line 2"
                                 handleChange={handleChange}
                                 classes="auth-text-input-container"
                             />
@@ -194,7 +192,6 @@ const RegisterForm = ({
                             <TextInputContainer
                                 value={town}
                                 name="Company.town"
-                                placeholder="Town or City"
                                 handleChange={handleChange}
                                 classes="auth-text-input-container"
                             />
@@ -203,16 +200,15 @@ const RegisterForm = ({
                             <TextInputContainer
                                 value={county}
                                 name="Company.county"
-                                placeholder="County"
                                 handleChange={handleChange}
                                 classes="auth-text-input-container"
                             />
                         </Field>
                         <Field required name="Postcode" classes="auth-form-field wide">
                             <TextInputContainer
-                                alue={postcode}
+                                value={postcode}
                                 name="Company.postcode"
-                                placeholder="Postcode"
+                                handleChange={handleChange}
                                 classes="auth-text-input-container"
                             />
                         </Field>
