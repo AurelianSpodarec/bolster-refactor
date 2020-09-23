@@ -1543,7 +1543,7 @@ $header-height: 75px;
  }
  .auth-wrapper {
     display: flex;
-    // height: calc(100vh - #{$header-height});
+    height: calc(100vh - #{$header-height});
     
     .heading-body-wrapper{
         display: flex;
