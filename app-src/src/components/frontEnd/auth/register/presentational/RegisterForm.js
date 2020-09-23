@@ -69,11 +69,10 @@ const RegisterForm = ({
                                 classes="auth-text-input-container"
                             />
                         </Field>
-                        <Field required name="Fax" classes="auth-form-field wide">
+                        <Field name="Fax" classes="auth-form-field wide">
                             <TextInputContainer
                                 value={fax}
                                 name="Company.fax"
-                                placeholder="Fax No."
                                 handleChange={handleChange}
                                 classes="auth-text-input-container"
                             />
@@ -84,7 +83,7 @@ const RegisterForm = ({
                                 options={timezoneOptions}
                                 value={timezone}
                                 onChange={handleChange}
-                                omitPlaceholder
+                                placeholer="GMT"
                                 required
                                 search
                                 classes="auth-text-input-container"
@@ -122,7 +121,7 @@ const RegisterForm = ({
                                         : null
                                 }
                                 required={isVatCodeRequired}
-                                classes="auth-text-input-container"
+                                classes="auth-form-field wide"
                             >
                                 <TextInputContainer
                                     name="Company.vatCode"
@@ -140,20 +139,21 @@ const RegisterForm = ({
                                 Back
                             </FrontEndButton>
                         </div>
-                        <div className="item-wrapper center">
-                            <div
-                                className="auth-nav-box"
-                                onClick={() => handlePaginationClick(1)}
-                            ></div>
-                            <div className="auth-nav-box selected">
-                                <div className="page-number">
-                                    <p>2/3</p>
-                                </div>
+                        <div className="item-wrapper column">
+                            <div className="page-number">
+                                <p>2/3</p>
                             </div>
-                            <div
-                                className="auth-nav-box"
-                                onClick={() => handlePaginationClick(3)}
-                            ></div>
+                            <div className="auth-nav-box-wrapper">
+                                <div
+                                    className="auth-nav-box"
+                                    onClick={() => handlePaginationClick(1)}
+                                ></div>
+                                <div className="auth-nav-box selected"></div>
+                                <div
+                                    className="auth-nav-box "
+                                    onClick={() => handlePaginationClick(3)}
+                                ></div>
+                            </div>
                         </div>
                         <div className="item-wrapper right">
                             <FrontEndButton classes="gray" type="button">
@@ -223,14 +223,14 @@ const RegisterForm = ({
                         <Field required name="Terms and Conditions">
                             <p className="generic-text size-lg-12">
                                 To register, please agree to our{terms}
-                                <Link to="/auth/terms">Terms and Conditions</Link>.
+                                <Link to="/auth/terms">Terms of Service</Link>. and{' '}
+                                <Link to="/auth/privacy-policy">Privacy Policy</Link>
                             </p>
                             <CheckboxContainer
-                                checked={'terms'}
+                                checked={terms}
                                 handleChange={handleChange}
                                 name="terms"
                                 required
-                                classes="tickbox"
                             />
                         </Field>
                     </div>
@@ -240,21 +240,25 @@ const RegisterForm = ({
                                 Back
                             </FrontEndButton>
                         </div>
-                        <div className="item-wrapper center">
-                            <div
-                                className="auth-nav-box"
-                                onClick={() => handlePaginationClick(1)}
-                            ></div>
-                            <div className="auth-nav-box" onClick={() => handlePaginationClick(2)}>
-                                <div className="page-number">
-                                    <p>3/3</p>
-                                </div>
+                        <div className="item-wrapper column">
+                            <div className="page-number">
+                                <p>3/3</p>
                             </div>
-                            <div className="auth-nav-box selected"></div>
+                            <div className="auth-nav-box-wrapper">
+                                <div
+                                    className="auth-nav-box"
+                                    onClick={() => handlePaginationClick(1)}
+                                ></div>
+                                <div
+                                    className="auth-nav-box"
+                                    onClick={() => handlePaginationClick(2)}
+                                ></div>
+                                <div className="auth-nav-box selected"></div>
+                            </div>
                         </div>
                         <div className="item-wrapper right">
-                            <FrontEndButton classes="gray" type="button">
-                                Next
+                            <FrontEndButton classes="red" type="submit">
+                                Submit
                             </FrontEndButton>
                         </div>
                     </Field>
@@ -329,17 +333,21 @@ const RegisterForm = ({
                 </div>
                 <Field required classes="auth-form-field row wide">
                     <div className="item-wrapper left">&nbsp;</div>
-                    <div className="item-wrapper center">
-                        <div className="auth-nav-box selected"></div>
-                        <div className="auth-nav-box" onClick={() => handlePaginationClick(2)}>
-                            <div className="page-number">
-                                <p>1/3</p>
-                            </div>
+                    <div className="item-wrapper column">
+                        <div className="page-number">
+                            <p>1/3</p>
                         </div>
-                        <div
-                            className="auth-nav-box"
-                            onClick={() => handlePaginationClick(3)}
-                        ></div>
+                        <div className="auth-nav-box-wrapper">
+                            <div className="auth-nav-box selected"></div>
+                            <div
+                                className="auth-nav-box"
+                                onClick={() => handlePaginationClick(2)}
+                            ></div>
+                            <div
+                                className="auth-nav-box"
+                                onClick={() => handlePaginationClick(3)}
+                            ></div>
+                        </div>
                     </div>
                     <div className="item-wrapper right">
                         <FrontEndButton classes="gray" type="button">

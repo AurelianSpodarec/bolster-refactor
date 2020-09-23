@@ -39,9 +39,9 @@ const RegisterFormContainer = ({
         'Company.addressLine2': '',
         'Company.town': '',
         'Company.county': '',
-        'Company.postcode ': '',
-        'Company.phoneNumber ': '',
-        'Company.fax ': '',
+        'Company.postcode': '',
+        'Company.phoneNumber': '',
+        'Company.fax': '',
         'Company.vatCode': '',
         'Company.timezone': null,
         'Company.dateFormatID': null,
@@ -49,6 +49,32 @@ const RegisterFormContainer = ({
         'Company.country': '',
         terms: false,
     });
+
+    const pageOne = [
+        'User.firstName',
+        'User.lastName',
+        'User.phoneNumber',
+        'User.email',
+        'User.password',
+        'confirmPassword',
+    ];
+    const pageTwo = [
+        'Company.name',
+        'Company.phoneNumber',
+        'Company.fax',
+        'Company.vatCode',
+        'Company.timezone',
+        'Company.dateFormatID',
+        'Company.vatType',
+    ];
+    const pageThree = [
+        'Company.addressLine1',
+        'Company.addressLine2',
+        'Company.town',
+        'Company.county',
+        'Company.postcode',
+        'Company.country',
+    ];
 
     const prevProps = usePrevious({ postSuccess, loginSuccess });
 
