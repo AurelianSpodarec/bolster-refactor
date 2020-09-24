@@ -2081,22 +2081,38 @@ $header-height: 75px;
                     text-align: center;
                     color: #fff;
                     z-index: 3;
+
+                    @include devices(mdMobile) {
+                        bottom: 8vh;
+                    }
     
                     .slide-title {
                         font-size: 180%;
                         font-weight: 500;
                         margin-bottom: 8px;
+                        
+                        @include devices(mdMobile) {
+                            font-size: 160%;
+                        }
                     }
     
                     .slide-description {
                         font-size: 160%;
                         margin-bottom: 12px;
+
+                        @include devices(mdMobile) {
+                            font-size: 120%;
+                        }
                     }
     
                     .frontend-button  {
                         margin: 0 auto;
                         background-color: white;
                         color: black;
+
+                        @include devices(mdMobile) {
+                            font-size: 140% !important;
+                        }
                     }
                 }
             }
@@ -2112,6 +2128,10 @@ $header-height: 75px;
     top: 50%;
     transform: translateY(-50%);
     right: 64px;
+
+    @include devices(mdMobile) {
+        right: 16px;
+    }
 
     .control-item {
         width: 20px;
@@ -2132,6 +2152,11 @@ $header-height: 75px;
 
         &.active {
             background-color: rgba(255, 255, 255, 1);
+        }
+
+        @include devices(mdMobile) {
+            width: 14px;
+            height: 14px;
         }
     }
 }
