@@ -77,7 +77,11 @@ const FrontEndHeaderMobile = ({
                 ) : (
                     <>
                         <li>
-                            <a href="/auth/login" onClick={e => handleClick(e, '/auth/login')}>
+                            <a
+                                href="/auth/login"
+                                onClick={e => handleClick(e, '/auth/login')}
+                                className={curRoute === '/auth/login' ? 'active' : ''}
+                            >
                                 Login
                             </a>
                         </li>
@@ -85,6 +89,7 @@ const FrontEndHeaderMobile = ({
                             <a
                                 href="/auth/register"
                                 onClick={e => handleClick(e, '/auth/register')}
+                                className={curRoute === '/auth/register' ? 'active' : ''}
                             >
                                 Register
                             </a>
