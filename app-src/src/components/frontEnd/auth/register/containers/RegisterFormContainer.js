@@ -54,34 +54,6 @@ const RegisterFormContainer = ({
         terms: false,
     });
 
-    const pageContents = [
-        [
-            'User.firstName',
-            'User.lastName',
-            'User.phoneNumber',
-            'User.email',
-            'User.password',
-            'confirmPassword',
-        ],
-        [
-            'Company.name',
-            'Company.phoneNumber',
-            'Company.fax',
-            'Company.vatCode',
-            'Company.timezone',
-            'Company.dateFormatID',
-            'Company.vatType',
-        ],
-        [
-            'Company.addressLine1',
-            'Company.addressLine2',
-            'Company.town',
-            'Company.county',
-            'Company.postcode',
-            'Company.country',
-        ],
-    ];
-
     const prevProps = usePrevious({ postSuccess, loginSuccess, fieldErrors });
 
     useEffect(() => {
