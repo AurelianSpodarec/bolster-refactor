@@ -9,6 +9,7 @@ import AboutUsInfoContainer from '../container/AboutUsInfoContainer';
 import FrontEndBanner from 'components/frontEnd/shared/banners/presentational/FrontEndBanner';
 import TrustedBy from 'components/frontEnd/trustedBy/presentational/TrustedBy';
 import BackToTop from 'components/frontEnd/shared/backToTop/presentational/BackToTop';
+import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
 
 const AboutPage = () => {
     const { width } = useWindowDimensions();
@@ -16,6 +17,7 @@ const AboutPage = () => {
 
     return (
         <>
+            <Helmet title="About Us" />
             <div id="about">
                 <FrontEndBanner
                     heading="About us"

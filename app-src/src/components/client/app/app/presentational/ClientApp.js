@@ -4,9 +4,11 @@ import ClientHeaderContainer from 'components/client/layout/header/containers/Cl
 import FooterContainer from 'components/client/layout/footer/containers/FooterContainer';
 import MenuContainer from 'components/shared/layout/menu/containers/MenuContainer';
 import Routes from 'components/client/app/routes';
+import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
 
 const ClientApp = () => (
     <>
+        <Helmet title="Client Access" />
         <ClientHeaderContainer />
         <div className="full-container container">
             <MenuContainer />

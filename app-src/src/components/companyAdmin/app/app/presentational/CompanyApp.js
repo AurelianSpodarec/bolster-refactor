@@ -4,9 +4,11 @@ import CompanyHeaderContainer from 'components/companyAdmin/layout/header/contai
 import FooterContainer from 'components/companyAdmin/layout/footer/containers/FooterContainer';
 import MenuContainer from 'components/shared/layout/menu/containers/MenuContainer';
 import Routes from 'components/companyAdmin/app/routes/presentational';
+import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
 
 const CompanyApp = () => (
     <>
+        <Helmet title="Company Admin" />
         <CompanyHeaderContainer />
         <div className="full-container container">
             <MenuContainer />

@@ -8,6 +8,7 @@ import InspectVideo from '_content/videos/frontend/08_Inspect_Locate_Document.mp
 import HowItWorksSections from './HowItWorksSections';
 import FrontEndBanner from 'components/frontEnd/shared/banners/presentational/FrontEndBanner';
 import BackToTop from 'components/frontEnd/shared/backToTop/presentational/BackToTop';
+import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
 
 const HowItWorks = () => {
     const { width } = useWindowDimensions();
@@ -15,6 +16,7 @@ const HowItWorks = () => {
 
     return (
         <>
+            <Helmet title="How It Works" />
             <div id="how-it-works">
                 <FrontEndBanner
                     heading="How it works"
