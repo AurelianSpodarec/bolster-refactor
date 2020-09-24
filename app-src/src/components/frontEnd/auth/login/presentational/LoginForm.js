@@ -5,6 +5,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
+import { Link } from 'react-scroll';
 
 const LoginForm = ({ formData, handleChange, handleSubmit }) => {
     const { email, password } = formData;
@@ -32,11 +33,19 @@ const LoginForm = ({ formData, handleChange, handleSubmit }) => {
                         classes="auth-text-input-container"
                     />
                 </Field>
-                <Field classes="auth-form-field">
+                <Field classes="auth-form-field row right">
                     <FrontEndButton classes="gray right" type="submit">
                         Submit
                     </FrontEndButton>
                 </Field>
+                <div className="auth-form-field">
+                    <div className="forgot-credentials-wrapper">
+                        <Link>Forgot your Email?</Link>
+                    </div>
+                    <div className="forgot-credentials-wrapper">
+                        <Link>Forgot your Password?</Link>
+                    </div>
+                </div>
             </Form>
         </div>
     );
