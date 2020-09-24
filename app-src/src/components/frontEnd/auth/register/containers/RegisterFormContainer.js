@@ -216,6 +216,8 @@ const RegisterFormContainer = ({
             ? 'Passwords do not match'
             : removeFieldError('confirmPassword');
     }
+
+    function checkFieldValidation() {}
 };
 
 const mapStateToProps = ({
