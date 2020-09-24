@@ -25,7 +25,6 @@ $header-height: 75px;
 
     .frontend-container {
         display: flex;
-        align-items: center;
         width: 100%;
         padding: 8px 16px;
     }
@@ -238,76 +237,82 @@ $header-height: 75px;
     }
 
     .frontend-footer {
-        flex-direction: column;
+        justify-content: space-between;
         width: 100%;
         background-color: $very-dark-grey-alt;
         position: relative;
         padding: 26px;
 
-        .frontend-footer-register {
-            position: absolute;
-            top: 24px;
-            right: 26px;
+        .information, .internal-links, .external-links {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            flex: 1;
         }
-        
-        .frontend-footer-logo {
-            margin: 0 auto;
-            
-            img {
-                width: 200px;
-                height: 75px;
+
+        .information {
+            justify-content: flex-end;
+
+            p {
+                font-size: 140%;
+                color: white;
+                opacity: 0.5;
             }
         }
 
-        .frontend-footer-navlinks {
-            margin: 8px auto 0;
-            font-size: 130%;
-            font-weight: 500;
+        .internal-links {
+            flex: 3;
+
+            .logo {
+                text-align: center;
+
+                img {
+                    max-height: 75px;
+                }
+            }
 
             ul {
                 display: flex;
+                justify-content: center;
+                margin-top: 15px;
 
                 li {
-                    margin-left: 24px;
+                    font-size: 180%;
+                    margin: 0 15px;
+                    text-align: center;
+                }
 
-                    a {
-                        color: white;
-                        transition: color 200ms ease-in-out;
-                        text-decoration: none;
+                a {
+                    color: white;
+                    text-decoration: none;
 
-                        &:hover {
-                            color: $red-alt;
-                        }
-
-                        &.active {
-                            color: $red-alt;
-                            padding-bottom: 6px;
-                            border-bottom: 2px $red;
-                            position: relative;
-
-                            &:after {
-                                content: "";
-                                background: $red;
-                                position: absolute;
-                                bottom: 0;
-                                left: 50%;
-                                transform: translateX(-50%);
-                                height: 2px;
-                                width: 60%;
-                            }
-                        }
+                    &:hover {
+                        text-decoration: underline;
                     }
                 }
             }
         }
 
-        .frontend-footer-copyright {
-            position: absolute;
-            bottom: 14px;
-            left: 26px;
-            font-size: 120%;
-            color: white;
-            max-width: 380px;
+        .external-links {
+            .register-button {
+                display: flex;
+                justify-content: flex-end;
+            }
+
+            .app-buttons {
+                display: flex;
+                justify-content: flex-end;
+                margin-top: 20px;
+
+                a {
+                    flex: 1;
+                    margin-left: 10px;
+                }
+
+                img {
+                    width: 100%;
+                }
+            }
         }
     }
 
