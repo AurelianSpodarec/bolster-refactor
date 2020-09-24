@@ -40,6 +40,8 @@ class EditSettingsFormContainer extends Component {
         shouldDeleteReportsAfterDownload: false,
         enableQRCodes: false,
         useManufacturingByDefault: false,
+        unsyncedCompanyNotificationDays: '',
+        unsyncedOperativeWarningDays: '',
     };
 
     render() {
@@ -50,6 +52,8 @@ class EditSettingsFormContainer extends Component {
             dateFormat,
             timeZoneOptions,
             dateFormatOptions,
+            unsyncedCompanyNotificationDays,
+            unsyncedOperativeWarningDays,
         } = this.state;
 
         const templateUsageRuleOptions = {
@@ -77,6 +81,8 @@ class EditSettingsFormContainer extends Component {
                 handleDateFormatChange={this.handleDateFormatChange}
                 vatOptions={vatOptions}
                 siteSortOptions={siteSortOptions}
+                unsyncedCompanyNotificationDays={unsyncedCompanyNotificationDays}
+                unsyncedOperativeWarningDays={unsyncedOperativeWarningDays}
             />
         );
     }

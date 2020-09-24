@@ -13,46 +13,48 @@ import Search from 'components/shared/generic/form/presentational/Search';
 
 class AllCompanyAdminTableContainer extends Component {
     state = {
-        searchTerm: ''
+        searchTerm: '',
     };
     render() {
         const { isFetching, error, users } = this.props;
         const { searchTerm } = this.state;
         return (
             <>
-            <BlockContainer>
-                <Search 
-                       value={searchTerm}
-                       placeholder="Search by name/email"
-                       handleChange={this.handleChange}
-                       name="searchTerm"
-                />
-            </BlockContainer>
-            <BlockContainer isFetching={isFetching} error={error} isEmpty={isEmpty(users)}>
-                <AllCompanyAdminsTable
-                    searchTerm={searchTerm}
-                    handleChange={this.handleChange}
-                    headers={[
-                        'Name',
-                        'Email',
-                        'Phone Number',
-                        'Has linked device?',
-                        'Operative Code',
-                        ''
-                    ]}
-                    users={this._filterUsersForAdmins()}
-                    isFetching={isFetching}
-                    error={error}
-                    handleCreateCompanyAdmin={this.handleCreateCompanyAdmin}
-                />
-            </BlockContainer>
+                <BlockContainer>
+                    <Search
+                        value={searchTerm}
+                        placeholder="Search by name/email"
+                        handleChange={this.handleChange}
+                        name="searchTerm"
+                    />
+                </BlockContainer>
+                <BlockContainer isFetching={isFetching} error={error} isEmpty={isEmpty(users)}>
+                    <AllCompanyAdminsTable
+                        searchTerm={searchTerm}
+                        handleChange={this.handleChange}
+                        headers={[
+                            'Name',
+                            'Email',
+                            'Phone Number',
+                            'Has linked device?',
+                            'Operative Code',
+                            'Last upsynced date',
+                            'Last detected unsynced data',
+                            '',
+                        ]}
+                        users={this._filterUsersForAdmins()}
+                        isFetching={isFetching}
+                        error={error}
+                        handleCreateCompanyAdmin={this.handleCreateCompanyAdmin}
+                    />
+                </BlockContainer>
             </>
         );
     }
 
     _filterUsersForAdmins = () => {
         const { users } = this.props;
-        const  searchTerm = this.state.searchTerm.toLowerCase();
+        const searchTerm = this.state.searchTerm.toLowerCase();
 
         const ret = users.filter(user => {
             const name = `${user.userFirstName} ${user.userLastName}`.toLowerCase();
@@ -74,13 +76,13 @@ class AllCompanyAdminTableContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        companyUsersReducer: { users, isFetching, error, postSuccess }
-    }
+        companyUsersReducer: { users, isFetching, error, postSuccess },
+    },
 }) => ({
     isFetching,
     error,
     postSuccess,
-    users: Object.values(users) || []
+    users: Object.values(users) || [],
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -89,10 +91,7 @@ const mapDispatchToProps = dispatch => ({
     },
     hideModal: () => {
         dispatch(hideModal());
-    }
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AllCompanyAdminTableContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AllCompanyAdminTableContainer);

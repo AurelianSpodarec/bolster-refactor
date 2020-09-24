@@ -32,6 +32,7 @@ import pinHistoriesReducer from './pinHistories';
 import pinsReducer from './pins';
 import searchReducer from './search';
 import servicesReducer from './services';
+import recentUpdatesReducer from './recentUpdates';
 import reportsReducer from './reports';
 import sitesReducer from './sites';
 import statsReducer from './stats';
@@ -93,6 +94,7 @@ export default combineReducers({
     pinHistoriesReducer,
     pinsReducer,
     qrCodesReducer,
+    recentUpdatesReducer,
     reportsReducer,
     searchReducer,
     servicesReducer,

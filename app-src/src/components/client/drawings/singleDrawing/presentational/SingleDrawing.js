@@ -4,7 +4,7 @@ import SingleDrawingHeaderContainer from '../containers/SingleDrawingHeaderConta
 import DrawingMapGeneralContainer from '../containers/DrawingMapGeneralContainer';
 
 const SingleDrawing = () => (
-    <div className="size-lg-12">
+    <div className="size-lg-12 client-drawing-single">
         <SingleDrawingHeaderContainer />
         <DrawingMapGeneralContainer />
     </div>

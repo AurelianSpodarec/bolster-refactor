@@ -5,7 +5,7 @@ import {
     DELETE_COMPANY_USER,
     UNLINK_DEVICE,
     REVOKE_ADMIN_ACCESS,
-    RESTRICT_ADMIN_PAYMENTS
+    RESTRICT_ADMIN_PAYMENTS,
 } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
@@ -22,13 +22,13 @@ class AllCompanyAdminsListItemContainer extends Component {
                 colCount={colCount}
                 showDeleteModal={this.deleteModal}
                 showUnlinkModal={this.unlinkModal}
-                showRestrictUserPaymentsModal={
-                    this.showRestrictUserPaymentsModal
-                }
+                showRestrictUserPaymentsModal={this.showRestrictUserPaymentsModal}
                 showRevokeAdminAccessModal={this.revokeAdminAccess}
                 loggedInUser={loggedInUser}
                 headers={headers}
                 onMobile={onMobile}
+                showNotUpsyncedRecentlyWarning={user.notUpsyncedRecently}
+                tooltipDate={user.notUpSyncedInXDays}
             />
         );
     }
@@ -45,7 +45,7 @@ class AllCompanyAdminsListItemContainer extends Component {
         showModal(UNLINK_DEVICE, {
             hideModal,
             user,
-            message: `Are you sure you want to unlink ${user.userFirstName} ${user.userLastName}'s device?`
+            message: `Are you sure you want to unlink ${user.userFirstName} ${user.userLastName}'s device?`,
         });
     };
 
@@ -55,7 +55,7 @@ class AllCompanyAdminsListItemContainer extends Component {
         showModal(REVOKE_ADMIN_ACCESS, {
             hideModal,
             user,
-            message: `Are you sure you want to revoke the admin access for ${user.userFirstName} ${user.userLastName}?`
+            message: `Are you sure you want to revoke the admin access for ${user.userFirstName} ${user.userLastName}?`,
         });
     };
     showRestrictUserPaymentsModal = () => {
@@ -63,31 +63,28 @@ class AllCompanyAdminsListItemContainer extends Component {
 
         showModal(RESTRICT_ADMIN_PAYMENTS, {
             hideModal,
-            user
+            user,
         });
     };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        companyUsersReducer: { users }
+        companyUsersReducer: { users },
     },
     shared: {
         decodeJWTReducer: { jwtData },
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => ({
     loggedInUser: users[jwtData.companyUserID] || { type: null },
     onMobile,
-    jwtData
+    jwtData,
 });
 
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => dispatch(showModal(type, props)),
-    hideModal: () => dispatch(hideModal())
+    hideModal: () => dispatch(hideModal()),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AllCompanyAdminsListItemContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AllCompanyAdminsListItemContainer);

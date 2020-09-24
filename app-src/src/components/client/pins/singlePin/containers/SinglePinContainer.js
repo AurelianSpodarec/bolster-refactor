@@ -6,17 +6,36 @@ import fetchClientPinTemplates from 'actions/client/pins/async/clientFetchPinTem
 import clientFetchPinOperatives from 'actions/client/drawings/async/clientFetchPinOperatives';
 import SinglePin from '../presentational/SinglePin';
 import { getSelectedCompanyForClient, isEmpty } from 'helpers/generic';
+import clientFetchServicesForDrawing from 'actions/client/services/async/clientFetchServicesForDrawing';
 
 class SinglePinContainer extends Component {
+    state = { isLoading: true };
     render() {
-        return <SinglePin />;
+        return <SinglePin isLoading={this.state.isLoading} />;
     }
 
     componentDidMount = () => {
-        const { pinID, clientFetchPinOperatives, fetchClientSinglePin } = this.props;
+        const {
+            pinID,
+            clientFetchPinOperatives,
+            fetchClientSinglePin,
+            clientFetchServicesForDrawing,
+        } = this.props;
         const selectedCompanyID = getSelectedCompanyForClient();
 
-        fetchClientSinglePin(selectedCompanyID, pinID);
+        fetchClientSinglePin(selectedCompanyID, pinID)
+            .then(
+                ({
+                    payload: {
+                        pin: { drawingID },
+                    },
+                }) => {
+                    clientFetchServicesForDrawing(drawingID);
+                },
+            )
+            .then(() => {
+                this.setState({ isLoading: false });
+            });
         clientFetchPinOperatives(selectedCompanyID, pinID);
     };
 
@@ -33,30 +52,30 @@ class SinglePinContainer extends Component {
 const mapStateToProps = (
     {
         client: {
-            pinsReducer: { pins, isFetching: fetchingPins, error }
-        }
+            pinsReducer: { pins, isFetching: fetchingPins, error },
+        },
     },
-    { match: { params } }
+    { match: { params } },
 ) => ({
     pinID: params.id,
     pins,
     fetchingPins,
-    error
+    error,
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchClientSinglePin: (companyID, pinID) => {
-        dispatch(fetchClientSinglePin(companyID, pinID));
+        return dispatch(fetchClientSinglePin(companyID, pinID));
     },
     fetchExtraPinData: (companyID, drawingID) => {
-        dispatch(fetchClientPinTemplates(companyID, drawingID));
+        return dispatch(fetchClientPinTemplates(companyID, drawingID));
     },
     clientFetchPinOperatives: (companyID, pinID) => {
-        dispatch(clientFetchPinOperatives(companyID, pinID));
-    }
+        return dispatch(clientFetchPinOperatives(companyID, pinID));
+    },
+    clientFetchServicesForDrawing: drawingID => {
+        return dispatch(clientFetchServicesForDrawing(drawingID));
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SinglePinContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SinglePinContainer);

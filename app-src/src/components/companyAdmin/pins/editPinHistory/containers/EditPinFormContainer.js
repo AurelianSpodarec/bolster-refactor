@@ -13,6 +13,7 @@ import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { convertEnumToDropdownOptions } from 'helpers/generic';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import { isEmpty } from '../../../../../helpers/generic';
 
 class EditPinFormContainer extends Component {
     state = {
@@ -67,8 +68,8 @@ class EditPinFormContainer extends Component {
             hierarchyType,
             selectedHistory,
         } = this.props;
-
-        if (!coordinates.lat || !coordinates.lng) {
+        
+        if (isEmpty(coordinates.lat) || isEmpty(coordinates.lng)) {
             if (hierarchyType === 'drawing') {
                 history.push(`/company/drawings/${drawingID}`);
             }
