@@ -43,6 +43,7 @@ const RegisterForm = ({
     handlePaginationClick,
     activePage,
     disabled,
+    isPosting,
 }) => {
     const isVatCodeRequired = needsVatCode(vatType);
 

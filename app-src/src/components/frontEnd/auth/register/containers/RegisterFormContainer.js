@@ -26,6 +26,7 @@ const RegisterFormContainer = ({
     removeFieldError,
     dateFormats,
     fieldErrors,
+    isPosting,
 }) => {
     const [page, setPage] = useState(1);
     const [formData, handleChange] = useForm({
@@ -118,6 +119,7 @@ const RegisterFormContainer = ({
             dateFormats={dateFormatOptions}
             vatOptions={vatOptions}
             disabled={disabled}
+            isPosting={isPosting}
         />
     );
 
@@ -223,7 +225,7 @@ const RegisterFormContainer = ({
 const mapStateToProps = ({
     shared: {
         timeReducer: { timeZones, dateFormats },
-        registerReducer: { error, postSuccess },
+        registerReducer: { error, postSuccess, isPosting },
         loginReducer: { postSuccess: loginSuccess },
         fieldErrorsReducer: { fieldErrors },
     },
