@@ -203,7 +203,7 @@ const RegisterFormContainer = ({
     function checkPageValidation() {
         const errors = Object.keys(fieldErrors);
         const curPage = registerPages[page - 1];
-        const errorExists = errors.some(r => curPage.indexOf(r) >= 0);
+        const errorExists = errors.some(err => curPage.indexOf(err) >= 0);
 
         if (errorExists && !nextDisabled) {
             setNextDisabled(true);
@@ -221,7 +221,7 @@ const RegisterFormContainer = ({
 
         for (let i = 0; i < registerPages.length; i++) {
             const page = registerPages[i];
-            const errorExists = errors.some(r => page.indexOf(r) >= 0);
+            const errorExists = errors.some(err => page.indexOf(err) >= 0);
 
             if (errorExists) {
                 goToPage = i + 1;
