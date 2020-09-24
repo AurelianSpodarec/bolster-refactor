@@ -314,6 +314,115 @@ $header-height: 75px;
                 }
             }
         }
+
+        @include devices(xsDesktop) {
+            .internal-links {
+                flex: 2;
+
+                ul {
+                    li {
+                        margin: 0 10px;
+                        font-size: 160%;
+                    }
+                }
+            }
+
+            .external-links {
+                .register-button {
+                    .frontend-button {
+                        padding: 9px 50px;
+                        min-width: 0;
+                        font-size: 160%;
+                    }
+                }
+            }
+        }
+
+        @include devices(lsTablet) {
+            .internal-links {
+                ul {
+                    li {
+                        font-size: 150%;
+                    }
+                }
+            }
+        }
+
+        @include devices(ptTablet) {
+            flex-direction: column;
+
+            .internal-links {
+                order: 1;
+
+                ul {
+                    li {
+                        font-size: 180%;
+                    }
+                }
+            }
+
+            .external-links {
+                margin-top: 30px;
+                order: 2;
+
+                .register-button {
+                    display: none;
+                }
+
+                .app-buttons {
+                    margin-top: 0;
+                    justify-content: center;
+
+                    a {
+                        flex: 0.3;
+                        margin: 0 5px;
+                    }
+                }
+            }
+
+            .information {
+                margin-top: 30px;
+                order: 3;
+
+                p {
+                    font-size: 180%;
+                    text-align: center;
+                }
+            }
+        }
+
+        @include devices(lgMobile) {
+            .internal-links {
+                .logo {
+                    img {
+                        max-height: 50px;
+                    }
+                }
+
+                ul {
+                    flex-wrap: wrap;
+
+                    li {
+                        margin: 5px 10px;
+                        font-size: 150%;
+                    }
+                }
+            }
+
+            .external-links {
+                .app-buttons {
+                    a {
+                        flex: 1;
+                    }
+                }
+            }
+
+            .information {
+                p {
+                    font-size: 150%;
+                }
+            }
+        }
     }
 
     .frontend-button {
