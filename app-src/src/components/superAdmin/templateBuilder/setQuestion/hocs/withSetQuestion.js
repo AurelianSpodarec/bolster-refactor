@@ -236,7 +236,11 @@ export default function (WrappedComponent) {
                 case VALS.MULTI_DROPDOWN:
                 case VALS.MULTI_MULTI_DROPDOWN:
                 case VALS.RADIO:
-                    return { options, canCompanyEdit, defaultValue };
+                    return {
+                        options: options.map(({ text }) => ({ text, id: text })),
+                        canCompanyEdit,
+                        defaultValue,
+                    };
                 case VALS.MULTI_PHOTO:
                     return { maxPhotos };
                 case VALS.DROPDOWN_OPTIONS:

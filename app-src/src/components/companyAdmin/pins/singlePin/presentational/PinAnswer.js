@@ -41,33 +41,7 @@ const PinAnswer = ({
         }
     }
 
-    if (curAnswer) {
-        const curQuestion = questionsObj[curAnswer.templateQuestionID];
-
-        if (curQuestion && curQuestion.prerequisiteQuestionID) {
-            const prereqAnswer = answers.filter(
-                answer =>
-                    answer.templateQuestionID === curQuestion.prerequisiteQuestionID &&
-                    answer.pinHistoryID === pinHistory.id,
-            );
-
-            if (!isEmpty(prereqAnswer)) {
-                const prereqQuestion = questionsObj[prereqAnswer[0].templateQuestionID];
-
-                if (prereqQuestion.type === TYPES.MULTI_DROPDOWN) {
-                    if (!prereqAnswer[0].answer.includes(curQuestion.prerequisiteQuestionValue))
-                        return notFoundResponse;
-                } else if (prereqQuestion.type === TYPES.CHECKBOX) {
-                    // do nothing
-                } else {
-                    if (curQuestion.prerequisiteQuestionValue !== prereqAnswer[0].answer)
-                        return notFoundResponse;
-                }
-            }
-        }
-    }
-
-    if ((!curAnswer || !curAnswer.answer) && type !== TYPES.STATUS) {
+    if ((!curAnswer || isEmpty(curAnswer.answer)) && type !== TYPES.STATUS) {
         return notFoundResponse;
     }
     switch (type) {

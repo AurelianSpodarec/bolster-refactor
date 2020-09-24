@@ -139,7 +139,6 @@ class AddPinQuestionRoute extends Component {
         const prereqVals = question.prerequisiteQuestionValue.toLowerCase().split(',');
 
         if (preReqType === STATUS) {
-            console.log({ prereqVals, status });
             return prereqVals.includes(`${status}`);
         }
 
@@ -185,26 +184,28 @@ class AddPinQuestionRoute extends Component {
             const selectedOption = dropdownOptions.find(option => option.name === preReqAnswer);
             // specifying not undefined in case pre-req answers are falsy ie. 0, ''
             if (selectedOption !== undefined) {
-                preReqAnswer = selectedOption.text;
+                preReqAnswer = selectedOption.name;
             } else {
                 return false;
             }
         }
+
         if ([MULTI_DROPDOWN_OPTIONS, MULTI_MULTI_DROPDOWN_OPTIONS].includes(preReqType)) {
             //For a drop down we have to convert the GUID to the question option.
-            const selectedOption = dropdownOptions.filter(option =>
-                preReqAnswer.includes(option.name),
-            );
+            const selectedOptions = dropdownOptions
+                .filter(option => preReqAnswer.includes(option.name))
+                .map(opt => opt.name);
 
             // specifying not undefined in case pre-req answers are falsy ie. 0, ''
-            if (selectedOption.length > 0) {
-                preReqAnswer = selectedOption;
+            if (selectedOptions.length > 0) {
+                preReqAnswer = selectedOptions;
             } else {
                 return false;
             }
         }
 
         if (Array.isArray(preReqAnswer)) {
+            console.log({ preReqAnswer, prereqVals });
             return preReqAnswer.some(answer => prereqVals.includes(`${answer}`.toLowerCase()));
         }
 
