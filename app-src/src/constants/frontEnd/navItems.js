@@ -19,8 +19,4 @@ export default [
         name: 'Register',
         slug: '/auth/register',
     },
-    {
-        name: 'Login',
-        slug: '/auth/login',
-    },
 ];
