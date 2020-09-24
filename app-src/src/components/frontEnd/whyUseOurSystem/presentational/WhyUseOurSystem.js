@@ -39,7 +39,7 @@ const WhyUseOurSystem = () => {
                 <OurSystemListContainer />
                 <div className="request-demo-banner">
                     <FrontEndButton classes="gray" to="/contact">
-                        Request Demo
+                        Contact
                     </FrontEndButton>
                 </div>
             </div>

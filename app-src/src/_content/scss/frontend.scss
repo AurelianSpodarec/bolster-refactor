@@ -1816,6 +1816,38 @@ $header-height: 75px;
     
     }
 
+    &.modal{
+        align-self: center;
+        width: 100%;
+
+        & h2 {
+            margin-bottom: 20px;
+        }
+        & p {
+            font-size: 180%;
+        }    
+        & form {
+            width: 100%;
+        }
+        
+        & .auth-form-field {
+            width: 100%;
+            align-self: center;
+        }
+        
+        & .frontend-button {
+                &.modal {
+                    border-radius: 25px;
+                    width: 150px;
+                    height: 44px;
+                    &:last-child {
+                        margin-left: 15px;
+                    }
+                }
+            }
+        
+    }
+
     
     .auth-form-field {
         width: 445px;
@@ -1854,10 +1886,16 @@ $header-height: 75px;
         & > .forgot-credentials-wrapper {
             display: flex;
             justify-content: flex-end;
+            padding-right: 7.5px;
 
-            & > a {
+            & > p {
                 font-size: 180%;
                 color: #444444;
+
+                &:hover {
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
             }
         }
   
@@ -2041,12 +2079,13 @@ $header-height: 75px;
         max-width: 733px;
         overflow: visible;
 
+
         & h2 {
             font-size: 200%;
             @include opensans-semibold;
             color: $very-dark-grey-alt;
         }
-
+        
         .modal-description {
             p {
                 @include opensans-regular;
