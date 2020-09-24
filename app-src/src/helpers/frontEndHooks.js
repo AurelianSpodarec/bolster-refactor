@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { Events, animateScroll as scroll, scrollSpy } from 'react-scroll';
 
 export const useBannerScroll = width => {
@@ -214,4 +214,12 @@ export const useFullPageCarousel = (ref, lastRef, max = 4) => {
         max,
         handleClick,
     };
+};
+
+export const useLockOnModal = () => {
+    useLayoutEffect(() => {
+        const originalStyle = window.getComputedStyle(document.body).overflow;
+        document.body.style.overflow = 'hidden';
+        return () => (document.body.style.overflow = originalStyle);
+    }, []);
 };
