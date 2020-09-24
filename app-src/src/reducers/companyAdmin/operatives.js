@@ -21,6 +21,7 @@ import {
     FETCH_COMPANY_OPERATIVES_SUCCESS,
     FETCH_COMPANY_OPERATIVES_FAILURE,
     FETCH_OPERATIVES_FOR_FLOOR_SUCCESS,
+    FETCH_OPERATIVES_FOR_FLOOR_REQUEST,
 } from 'constants/actionTypes/operatives';
 import {
     FETCH_CLIENTS_FOR_FLOOR_REQUEST,
@@ -44,6 +45,7 @@ function isFetchingReducer(state = false, action) {
         case FETCH_COMPANY_OPERATIVES_REQUEST:
         case FETCH_OPERATIVES_REQUEST:
         case FETCH_CLIENTS_FOR_FLOOR_REQUEST:
+        case FETCH_OPERATIVES_FOR_FLOOR_REQUEST:
             return true;
         case FETCH_COMPANY_OPERATIVES_SUCCESS:
         case FETCH_COMPANY_OPERATIVES_FAILURE:
@@ -51,6 +53,8 @@ function isFetchingReducer(state = false, action) {
         case FETCH_CLIENTS_FOR_FLOOR_FAILURE:
         case FETCH_OPERATIVES_SUCCESS:
         case FETCH_OPERATIVES_FAILURE:
+        case FETCH_OPERATIVES_FOR_FLOOR_SUCCESS:
+        case FETCH_CLIENTS_FOR_FLOOR_FAILURE:
             return false;
         default:
             return state;

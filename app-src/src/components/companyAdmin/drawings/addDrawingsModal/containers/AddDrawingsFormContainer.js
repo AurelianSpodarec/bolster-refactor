@@ -96,8 +96,7 @@ const AddDrawingsFormContainer = ({
     const [showManufacturingOptions, setShowManufacturingOptions] = useState(true);
 
     useEffect(() => {
-        fetchClientsForFloor(floorID);
-        fetchOperativesForFloor(floorID);
+        fetchClientsForFloor(floorID).then(() => fetchOperativesForFloor(floorID));
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before adding a drawing.
         async function getPinOptions() {
             const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
