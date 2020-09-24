@@ -88,14 +88,18 @@ const FrontEndHeaderDesktop = ({
                     <div>
                         <FrontEndButton
                             to="/auth/register"
-                            classes="gray spacing-right"
+                            classes={`gray spacing-right ${
+                                curRoute === '/auth/register' ? 'active' : ''
+                            }`}
                             handleClick={e => handleClick(e, '/auth/register')}
                         >
                             Register
                         </FrontEndButton>
                         <FrontEndButton
                             to="/auth/login"
-                            classes="red"
+                            classes={`red spacing-right ${
+                                curRoute === '/auth/login' ? 'active' : ''
+                            }`}
                             handleClick={e => handleClick(e, '/auth/login')}
                         >
                             Login

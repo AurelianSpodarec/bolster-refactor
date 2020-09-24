@@ -443,6 +443,10 @@ $header-height: 75px;
                 background-color: $red-alt;
                 color: white
             }
+            &.active {
+                background-color: $red-alt;
+                color: white
+            }
         }
 
         &.gray {
@@ -454,11 +458,16 @@ $header-height: 75px;
                 background-color: $new-grey-alt;
                 color: white
             }
+            &.active {
+                background-color: $new-grey-alt;
+                color: white;
+            }
         }
 
         &.disabled {
             opacity: 0.2;
         }    
+
 
         &.spacing-left {
             margin-left: 16px;
@@ -479,6 +488,7 @@ $header-height: 75px;
         &.right {
            float: right;
         }
+
     }
 
     .frontend-section-title {
