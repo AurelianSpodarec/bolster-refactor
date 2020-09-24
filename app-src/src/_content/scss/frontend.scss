@@ -57,14 +57,19 @@ $header-height: 75px;
             .logged-out-button-container {
                 display: flex;
                 align-items: center;
-                justify-content: space-between;
+                justify-content: flex-end;
                 width: 100%;
 
                 .mobile-app-button-container {
+                    margin-right: 48px;
 
                     img {
                         width: 150px;
                         height: 45px;
+                        
+                        &:last-child {
+                            margin-left: 8px;;
+                        }
                     }
                 }
             }
