@@ -92,7 +92,7 @@ const TemplateQuestionFormModal = ({
                 </Field>
 
                 <SpecificFieldsRoute
-                    questionType={questionType.value}
+                    questionType={questionType}
                     handleInputChange={handleInputChange}
                     {...otherFields}
                 />
