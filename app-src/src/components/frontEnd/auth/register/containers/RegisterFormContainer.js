@@ -12,7 +12,6 @@ import postLogin from 'actions/shared/auth/async/postLogin';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { vatOptions } from 'constants/shared/vatTypes';
-import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import registerPages from 'constants/frontEnd/registerPages';
 
 const RegisterFormContainer = ({
@@ -29,7 +28,6 @@ const RegisterFormContainer = ({
     dateFormats,
     fieldErrors,
     isPosting,
-    showFieldErrors,
 }) => {
     const [page, setPage] = useState(1);
     const [nextDisabled, setNextDisabled] = useState(true);
@@ -286,6 +284,5 @@ const mapDispatchToProps = {
     postLogin,
     addFieldError,
     removeFieldError,
-    showFieldErrors,
 };
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RegisterFormContainer));
