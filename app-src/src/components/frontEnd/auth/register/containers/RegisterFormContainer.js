@@ -12,6 +12,8 @@ import postLogin from 'actions/shared/auth/async/postLogin';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { vatOptions } from 'constants/shared/vatTypes';
+import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
+import registerPages from 'constants/frontEnd/registerPages';
 
 const RegisterFormContainer = ({
     timezones,
@@ -26,8 +28,10 @@ const RegisterFormContainer = ({
     removeFieldError,
     dateFormats,
     fieldErrors,
+    showFieldErrors,
 }) => {
     const [page, setPage] = useState(1);
+    const [nextDisabled, setNextDisabled] = useState(true);
     const [formData, handleChange] = useForm({
         'User.firstName': '',
         'User.lastName': '',
@@ -79,7 +83,6 @@ const RegisterFormContainer = ({
         ],
     ];
 
-    let disabled = false;
     const prevProps = usePrevious({ postSuccess, loginSuccess });
 
     useEffect(() => {
@@ -103,6 +106,8 @@ const RegisterFormContainer = ({
 
     const dateFormatOptions = _formatDateFormats();
 
+    checkPageValidation();
+
     return (
         <RegisterForm
             {...formData}
@@ -117,7 +122,7 @@ const RegisterFormContainer = ({
             timezoneOptions={timezoneOptions}
             dateFormats={dateFormatOptions}
             vatOptions={vatOptions}
-            disabled={disabled}
+            nextDisabled={nextDisabled}
         />
     );
 
@@ -217,7 +222,37 @@ const RegisterFormContainer = ({
             : removeFieldError('confirmPassword');
     }
 
-    function checkFieldValidation() {}
+    function checkPageValidation() {
+        const errors = Object.keys(fieldErrors);
+        const curPage = registerPages[page - 1];
+        const errorExists = errors.some(r => curPage.indexOf(r) >= 0);
+
+        if (errorExists && !nextDisabled) {
+            setNextDisabled(true);
+            return;
+        }
+
+        if (!errorExists && nextDisabled) {
+            setNextDisabled(false);
+        }
+    }
+
+    function checkSubmissionValidation() {
+        let goToPage = null;
+        const errors = Object.keys(fieldErrors);
+
+        for (let i = 0; i < registerPages.length; i++) {
+            const page = registerPages[i];
+            const errorExists = errors.some(r => page.indexOf(r) >= 0);
+
+            if (errorExists) {
+                goToPage = i + 1;
+                break;
+            }
+        }
+
+        return goToPage;
+    }
 };
 
 const mapStateToProps = ({
@@ -243,5 +278,6 @@ const mapDispatchToProps = {
     postLogin,
     addFieldError,
     removeFieldError,
+    showFieldErrors,
 };
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RegisterFormContainer));
