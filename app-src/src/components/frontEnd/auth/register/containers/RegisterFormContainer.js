@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { useForm, usePrevious } from 'helpers/hooks';
-import { sortTimezones } from 'helpers/generic';
+import { isEmpty, sortTimezones } from 'helpers/generic';
 import RegisterForm from '../presentational/RegisterForm';
 import postRegister from 'actions/shared/register/async/postRegister';
 import fetchTimeZones from 'actions/shared/time/async/fetchTimezones';
@@ -84,7 +84,7 @@ const RegisterFormContainer = ({
         ],
     ];
 
-    const prevProps = usePrevious({ postSuccess, loginSuccess });
+    const prevProps = usePrevious({ postSuccess, loginSuccess, fieldErrors });
 
     useEffect(() => {
         fetchTimeZones();
@@ -102,6 +102,12 @@ const RegisterFormContainer = ({
             history.push('/company');
         }
     }, [loginSuccess, postSuccess, prevProps.loginSuccess, prevProps.postSuccess]);
+
+    useEffect(() => {
+        if (isEmpty(prevProps.fieldErrors) && !isEmpty(fieldErrors)) {
+            checkSubmissionValidation();
+        }
+    }, [fieldErrors, prevProps.fieldErrors]);
 
     const timezoneOptions = _getTimezoneOptions();
 
@@ -253,7 +259,7 @@ const RegisterFormContainer = ({
             }
         }
 
-        return goToPage;
+        handlePaginationClick(goToPage || 1);
     }
 };
 
