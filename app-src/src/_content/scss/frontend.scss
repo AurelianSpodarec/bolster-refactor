@@ -1028,6 +1028,7 @@ $header-height: 75px;
             justify-content: center;
             padding: 0 20px;
         }
+
         
         .contact-info-wrapper {
             display: flex;
@@ -1338,6 +1339,16 @@ $header-height: 75px;
                 margin-top: 75px;
             }
         }
+        .request-demo-banner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 123px; 
+            background-color: white;
+            border-top: 1px solid #707070;
+        }
+        
 
         //cloud list
         .cloud-list-container {
@@ -1730,6 +1741,16 @@ $header-height: 75px;
             }
             
         }
+
+        & > .forgot-credentials-wrapper {
+            display: flex;
+            justify-content: flex-end;
+
+            & > a {
+                font-size: 180%;
+                color: #444444;
+            }
+        }
   
         & > .frontend-button {
             &.right {
@@ -1806,6 +1827,10 @@ $header-height: 75px;
         &.row {
             flex-direction: row;
             justify-content: center;
+
+            &.right {
+                justify-content: flex-end;
+            }
         }
 
         & > p {
