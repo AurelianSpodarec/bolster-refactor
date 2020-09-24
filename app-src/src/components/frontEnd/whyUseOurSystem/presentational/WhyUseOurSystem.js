@@ -10,6 +10,7 @@ import FrontEndBanner from 'components/frontEnd/shared/banners/presentational/Fr
 import OurSystemDivider from './OurSystemDivider';
 import OurSystemCloudList from './OurSystemCloudList';
 import BackToTop from 'components/frontEnd/shared/backToTop/presentational/BackToTop';
+import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
 
 const WhyUseOurSystem = () => {
@@ -36,6 +37,11 @@ const WhyUseOurSystem = () => {
                     description="Neque porro quisquam est qui do lorem amet?"
                 />
                 <OurSystemListContainer />
+                <div className="request-demo-banner">
+                    <FrontEndButton classes="gray" to="/contact">
+                        Contact
+                    </FrontEndButton>
+                </div>
             </div>
             <BackToTop />
         </>

@@ -82,20 +82,36 @@ const FrontEndHeaderDesktop = ({
             ) : (
                 <div className="logged-out-button-container">
                     <div className="mobile-app-button-container">
-                        <img src={GoogleAppStore} alt="Google App Store" />
-                        <img src={AppleAppStore} alt="Apple App Store" />
+                        <a
+                            href="https://apps.apple.com/gb/app/bolster-systems/id1459750473"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <img src={AppleAppStore} alt="Apple App Store" />
+                        </a>
+                        <a
+                            href="https://play.google.com/store/apps/details?id=com.bolster.dynamicdroid&hl=en"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <img src={GoogleAppStore} alt="Google App Store" />
+                        </a>
                     </div>
                     <div>
                         <FrontEndButton
                             to="/auth/register"
-                            classes="gray spacing-right"
+                            classes={`gray spacing-right ${
+                                curRoute === '/auth/register' ? 'active' : ''
+                            }`}
                             handleClick={e => handleClick(e, '/auth/register')}
                         >
                             Register
                         </FrontEndButton>
                         <FrontEndButton
                             to="/auth/login"
-                            classes="red"
+                            classes={`red spacing-right ${
+                                curRoute === '/auth/login' ? 'active' : ''
+                            }`}
                             handleClick={e => handleClick(e, '/auth/login')}
                         >
                             Login
