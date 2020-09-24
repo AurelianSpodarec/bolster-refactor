@@ -23,9 +23,10 @@ const LoginFormContainer = ({
     postLogin,
     postSuccess,
     history,
+    isPosting,
 }) => {
     const [formData, handleChange] = useForm({ email: '', password: '' });
-    const prevProps = usePrevious({ postSuccess });
+    const prevProps = usePrevious({ postSuccess, isPosting });
 
     useEffect(() => {
         if (history.action.includes('REPLACE')) {
@@ -45,6 +46,7 @@ const LoginFormContainer = ({
             handleChange={handleChange}
             handleSubmit={handleSubmit}
             handleForgotPassword={handleForgotPassword}
+            isPosting={isPosting}
         />
     );
 

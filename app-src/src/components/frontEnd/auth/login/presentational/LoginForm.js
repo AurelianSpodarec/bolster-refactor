@@ -5,8 +5,9 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
+import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 
-const LoginForm = ({ formData, handleChange, handleSubmit, handleForgotPassword }) => {
+const LoginForm = ({ formData, handleChange, handleSubmit, handleForgotPassword, isPosting }) => {
     const { email, password } = formData;
     return (
         <div className="auth-form-wrapper">
@@ -33,9 +34,15 @@ const LoginForm = ({ formData, handleChange, handleSubmit, handleForgotPassword 
                     />
                 </Field>
                 <Field classes="auth-form-field row right">
-                    <FrontEndButton classes="gray right" type="submit">
-                        Submit
-                    </FrontEndButton>
+                    {!isPosting ? (
+                        <FrontEndButton classes="gray right" type="submit">
+                            Submit
+                        </FrontEndButton>
+                    ) : (
+                        <FrontEndButton classes="gray right" type="button">
+                            <LoadingIcon />
+                        </FrontEndButton>
+                    )}
                 </Field>
                 <div className="auth-form-field">
                     <div className="forgot-credentials-wrapper">
