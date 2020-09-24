@@ -5,6 +5,7 @@ import PlusIcon from '_content/images/frontend-new/why-use-our-system/plus-icon.
 const InfoCard = ({ title = '', icon, hidePlusIcon = false, handleClick = () => {} }) => {
     return (
         <div className={`info-card ${!hidePlusIcon ? 'clickable' : ''}`} onClick={handleClick}>
+            <div className="info-card-background"></div>
             {icon && (
                 <div className="icon-wrapper">
                     <img src={icon} className="icon" />

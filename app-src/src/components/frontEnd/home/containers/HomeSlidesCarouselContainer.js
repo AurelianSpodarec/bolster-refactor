@@ -20,7 +20,6 @@ const HomeSlidesCarouselContainer = () => {
                     return (
                         <HomeSlidesItem
                             key={index}
-                            name={`element-${index}`}
                             background={item.background}
                             className={`slide${index + 1}`}
                             isLast={isLast}

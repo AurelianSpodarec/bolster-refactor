@@ -42,6 +42,7 @@ const RegisterForm = ({
     validateConfirmPassword,
     handlePaginationClick,
     activePage,
+    isPosting,
     nextDisabled,
 }) => {
     const isVatCodeRequired = needsVatCode(vatType);
