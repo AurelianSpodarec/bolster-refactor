@@ -1023,6 +1023,7 @@ $header-height: 75px;
             justify-content: center;
             padding: 0 20px;
         }
+
         
         .contact-info-wrapper {
             display: flex;
@@ -1333,6 +1334,16 @@ $header-height: 75px;
                 margin-top: 75px;
             }
         }
+        .request-demo-banner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 123px; 
+            background-color: white;
+            border-top: 1px solid #707070;
+        }
+        
 
         //cloud list
         .cloud-list-container {
