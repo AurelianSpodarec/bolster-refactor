@@ -416,6 +416,10 @@ $header-height: 95px;
                 ul {
                     li {
                         font-size: 150%;
+
+                        &.hide-on-mobile {
+                            display: none;
+                        }
                     }
                 }
             }

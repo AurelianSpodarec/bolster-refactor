@@ -20,11 +20,13 @@ const FrontEndFooter = ({ hideFooter }) => (
             </div>
             {!hideFooter && (
                 <ul>
-                    {navItems.map(({ name, slug }) => (
-                        <li key={name}>
-                            <Link to={slug}>{name}</Link>
-                        </li>
-                    ))}
+                    {navItems
+                        .filter(({ name }) => name !== 'Home')
+                        .map(({ name, slug }) => (
+                            <li className={name === 'Register' ? 'hide-on-mobile' : ''} key={name}>
+                                <Link to={slug}>{name}</Link>
+                            </li>
+                        ))}
                 </ul>
             )}
         </div>

@@ -28,7 +28,10 @@ const FrontEndHeaderDesktop = ({
                 <div className="frontend-header-navlinks-container">
                     <ul>
                         {navItems
-                            .filter(({ name }) => name !== 'Register')
+                            .filter(({ name }) => {
+                                if (name === 'Home' || name === 'Register') return false;
+                                return true;
+                            })
                             .map(({ name, slug }) => (
                                 <li key={name}>
                                     <a
