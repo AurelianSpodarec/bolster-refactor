@@ -1,4 +1,4 @@
-$header-height: 75px;
+$header-height: 95px;
 
 #frontend-site {
     position: relative;
@@ -42,7 +42,7 @@ $header-height: 75px;
         .frontend-logo {
             
             img {
-                width: 120px;
+                width: 152px;
             }
         }
 
@@ -66,6 +66,7 @@ $header-height: 75px;
                     img {
                         width: 150px;
                         height: 45px;
+                        margin-top: 5px;
                         
                         &:last-child {
                             margin-left: 8px;;
@@ -81,18 +82,19 @@ $header-height: 75px;
             }
 
             .frontend-button {
-                width: 150px;
+                // width: 150px;
+                width: 230px;
                 min-width: 0;
-                padding: 6px 0;
+                padding: 6px 10px;
                 border-radius: 20px;
-                font-size: 120%;
+                font-size: 180%;
             }
         }
 
         .frontend-header-navlinks-container {
             margin-left: 56px;
-            font-size: 130%;
-            font-weight: 500;
+            font-size: 180%;
+            @include opensans-semibold;
 
             ul {
                 display: flex;
@@ -138,6 +140,7 @@ $header-height: 75px;
         // mobile specifics
         &.mobile {
             justify-content: center;
+            align-items: center;
         }
 
         .menu-button {
@@ -145,6 +148,71 @@ $header-height: 75px;
             left: 16px;
             cursor: pointer;
             font-size: 300%;
+        }
+
+        @include devices(mdDesktop) {
+            .frontend-header-right {
+                .frontend-button {
+                    width: 150px;
+                    font-size: 150%;
+                }
+
+                .logged-out-button-container {
+                    .mobile-app-button-container {
+                        margin-right: 15px;
+                    }
+                }
+            }
+
+            .frontend-header-navlinks-container {
+                font-size: 150%;
+            }
+        }
+
+        @include devices(smDesktop) {
+            .frontend-header-right {
+                .frontend-button {
+                    font-size: 140%;
+                }
+
+                .logged-out-button-container {
+                    .mobile-app-button-container {
+                        img {
+                            width: auto;
+                            height: 38px;
+                        }
+                    }
+                }
+            }
+
+            .frontend-header-navlinks-container {
+                font-size: 140%;
+            }
+        }
+
+        @include devices(xsDesktop) {
+            .frontend-header-right {
+                .frontend-button {
+                    font-size: 130%;
+                    margin-right: 5px;
+                }
+
+                .logged-out-button-container {
+                    .mobile-app-button-container {
+                        display: none;
+                    }
+                }
+            }
+
+            .frontend-header-navlinks-container {
+                font-size: 130%;
+
+                ul {
+                    li {
+                        margin-left: 15px;
+                    }
+                }
+            }
         }
     }
 
@@ -538,14 +606,14 @@ $header-height: 75px;
 
         .home-slides-container {
             width: 100%;
-            height: calc(100vh - 75px);
+            height: calc(100vh - #{$header-height});
             scroll-snap-type: y proximity;
             scroll-behavior: smooth;
             overflow-y: scroll;
 
             .home-slides {
                 width: 100%;
-                height: calc(100vh - 75px);
+                height: calc(100vh - #{$header-height});
                 position: relative;
                 background-repeat: no-repeat;
                 background-position: center center;
@@ -2293,7 +2361,7 @@ $header-height: 75px;
 
 .frontend-home-wrapper {
     width: 100%;
-    height: calc(100vh - 75px);
+    height: calc(100vh - #{$header-height});
     overflow: hidden;
 
     .frontend-home-carousel {
@@ -2308,7 +2376,7 @@ $header-height: 75px;
     
         .slide {
             width: 100%;
-            height: calc(100vh - 75px);
+            height: calc(100vh - #{$header-height});
             position: relative;
 
             &.last-slide {
@@ -2316,7 +2384,7 @@ $header-height: 75px;
                 overflow-y: scroll;
 
                 .slide-container {
-                    height: calc(100vh - 75px);
+                    height: calc(100vh - #{$header-height});
 
                     .video-bg {
                         width: 100%;
