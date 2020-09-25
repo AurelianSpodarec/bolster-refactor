@@ -7,8 +7,9 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 import Form from 'components/shared/generic/form/containers/Form';
 import Error from 'components/shared/generic/form/presentational/Error';
+import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 
-const ContactPageForm = ({ form, handleChange, handleSubmit, error, sent }) => {
+const ContactPageForm = ({ form, handleChange, handleSubmit, error, sent, isPosting }) => {
     if (error) {
         return <Error>{error}</Error>;
     }
@@ -63,8 +64,12 @@ const ContactPageForm = ({ form, handleChange, handleSubmit, error, sent }) => {
                     required
                 />
             </Field>
-            <FrontEndButton classes="gray right spacing-right-sm" type="submit">
-                Submit
+            <FrontEndButton
+                classes={`gray right spacing-right-sm ${isPosting ? 'disabled' : ''}`}
+                type="submit"
+                disabled={isPosting}
+            >
+                {isPosting ? <LoadingIcon /> : 'Submit'}
             </FrontEndButton>
         </Form>
     );

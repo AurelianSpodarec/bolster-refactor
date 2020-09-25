@@ -5,7 +5,7 @@ import postContactForm from 'actions/frontEnd/contact/async/postContactForm';
 import ContactPageForm from '../presentational/ContactPageForm';
 import { useForm, usePrevious } from 'helpers/hooks';
 
-const ContactPageFormContainer = ({ error, postSuccess, postContactForm }) => {
+const ContactPageFormContainer = ({ error, postSuccess, postContactForm, isPosting }) => {
     const [formData, handleChange] = useForm({
         name: '',
         email: '',
@@ -36,17 +36,19 @@ const ContactPageFormContainer = ({ error, postSuccess, postContactForm }) => {
             handleChange={handleChange}
             handleSubmit={handleSubmit}
             sent={sent}
+            isPosting={isPosting}
         />
     );
 };
 
 const mapStateToProps = ({
     frontEnd: {
-        contactReducer: { error, postSuccess },
+        contactReducer: { error, postSuccess, isPosting },
     },
 }) => ({
     error,
     postSuccess,
+    isPosting,
 });
 
 const mapDispatchToProps = { postContactForm };
