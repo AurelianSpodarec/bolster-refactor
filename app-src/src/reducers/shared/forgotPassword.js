@@ -3,12 +3,13 @@ import { combineReducers } from 'redux';
 import {
     POST_FORGOT_PASSWORD_REQUEST,
     POST_FORGOT_PASSWORD_SUCCESS,
-    POST_FORGOT_PASSWORD_FAILURE
+    POST_FORGOT_PASSWORD_FAILURE,
 } from 'constants/actionTypes/auth';
 
 export default combineReducers({
     postSuccess: postSuccessReducer,
-    error: errorReducer
+    error: errorReducer,
+    isPosting: isPostingReducer,
 });
 
 function postSuccessReducer(state = false, action) {
@@ -29,6 +30,18 @@ function errorReducer(state = null, action) {
             return null;
         case POST_FORGOT_PASSWORD_FAILURE:
             return action.payload;
+        default:
+            return state;
+    }
+}
+
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case POST_FORGOT_PASSWORD_FAILURE:
+        case POST_FORGOT_PASSWORD_SUCCESS:
+            return false;
+        case POST_FORGOT_PASSWORD_REQUEST:
+            return true;
         default:
             return state;
     }
