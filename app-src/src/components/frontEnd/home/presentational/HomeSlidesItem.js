@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { forwardRef } from 'react';
-import FrontEndFooter from 'components/frontEnd/layout/footer/presentational/FrontEndFooter';
+import FrontEndFooterContainer from 'components/frontEnd/layout/footer/containers/FrontEndFooterContainer';
 import TrustedBy from 'components/frontEnd/trustedBy/presentational/TrustedBy';
 import BackToTop from 'components/frontEnd/shared/backToTop/presentational/BackToTop';
 
@@ -32,7 +32,7 @@ const HomeSlidesItem = forwardRef(({ background, className, isLast, children }, 
             </div>
             <TrustedBy />
             <BackToTop />
-            <FrontEndFooter />
+            <FrontEndFooterContainer />
         </section>
     );
 });
