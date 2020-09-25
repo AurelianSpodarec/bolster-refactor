@@ -761,7 +761,7 @@ $header-height: 75px;
     .qr-code-page-wrapper {
         display: flex;
         align-items: center;
-        
+        justify-content: center;
         .qr-code-page { 
             margin: 0 0 0 200px;
             width: 750px;
