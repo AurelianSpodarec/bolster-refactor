@@ -70,6 +70,7 @@ const LoginFormContainer = ({
                 'Operatives logins are not permitted to use the desktop site.',
             );
             showFieldErrors();
+            return;
         }
 
         if (+companyUserType === ROLES.OWNER) {

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import Logo from '_content/images/frontend-new/logo.png';
 import GoogleAppStore from '_content/images/frontend-new/google-play-badge.png';
@@ -21,14 +20,17 @@ const FrontEndHeaderDesktop = ({
         <div className="frontend-header-left">
             <div className="frontend-logo">
                 <a href="/" onClick={e => handleClick(e, '/')}>
-                    <img src={Logo} alt="Logo of Bolster Systems" />
+                    <img src={Logo} alt="Bolster Systems" />
                 </a>
             </div>
             {!hideHeader && (
                 <div className="frontend-header-navlinks-container">
                     <ul>
                         {navItems
-                            .filter(({ name }) => name !== 'Register')
+                            .filter(({ name }) => {
+                                if (name === 'Home' || name === 'Register') return false;
+                                return true;
+                            })
                             .map(({ name, slug }) => (
                                 <li key={name}>
                                     <a

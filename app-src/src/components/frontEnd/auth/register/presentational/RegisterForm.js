@@ -265,8 +265,13 @@ const RegisterForm = ({
                     <Field required classes="auth-form-field wide row terms-input">
                         <p className="generic-text size-lg-12">
                             I agree to Bolster Systems{terms}{' '}
-                            <Link to="/auth/terms">Terms of Service</Link> and{' '}
-                            <Link to="/auth/privacy-policy">Privacy Policy</Link>
+                            <Link to="/auth/terms" target="_blank">
+                                Terms of Service
+                            </Link>{' '}
+                            and{' '}
+                            <Link to="/auth/privacy-policy" target="_blank">
+                                Privacy Policy
+                            </Link>
                         </p>
                         <CheckboxContainer
                             checked={terms}

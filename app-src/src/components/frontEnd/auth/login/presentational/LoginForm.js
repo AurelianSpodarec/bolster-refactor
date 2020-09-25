@@ -34,15 +34,13 @@ const LoginForm = ({ formData, handleChange, handleSubmit, handleForgotPassword,
                     />
                 </Field>
                 <Field classes="auth-form-field row right">
-                    {!isPosting ? (
-                        <FrontEndButton classes="gray right" type="submit">
-                            Submit
-                        </FrontEndButton>
-                    ) : (
-                        <FrontEndButton classes="gray right" type="button">
-                            <LoadingIcon />
-                        </FrontEndButton>
-                    )}
+                    <FrontEndButton
+                        classes={`gray right ${!isPosting ? '' : 'disabled'}`}
+                        type="submit"
+                        disabled={isPosting}
+                    >
+                        {!isPosting ? 'Submit' : <LoadingIcon />}
+                    </FrontEndButton>
                 </Field>
                 <div className="auth-form-field">
                     <div className="forgot-credentials-wrapper">

@@ -16,15 +16,17 @@ const FrontEndFooter = ({ hideFooter }) => (
         </div>
         <div className="internal-links">
             <div className="logo">
-                <img src={FooterLogo} alt="Footer Logo" />
+                <img src={FooterLogo} alt="Powered by bolstersystems.com" />
             </div>
             {!hideFooter && (
                 <ul>
-                    {navItems.map(({ name, slug }) => (
-                        <li key={name}>
-                            <Link to={slug}>{name}</Link>
-                        </li>
-                    ))}
+                    {navItems
+                        .filter(({ name }) => name !== 'Home')
+                        .map(({ name, slug }) => (
+                            <li className={name === 'Register' ? 'hide-on-mobile' : ''} key={name}>
+                                <Link to={slug}>{name}</Link>
+                            </li>
+                        ))}
                 </ul>
             )}
         </div>
@@ -32,7 +34,7 @@ const FrontEndFooter = ({ hideFooter }) => (
             {!hideFooter && (
                 <>
                     <div className="register-button">
-                        <FrontEndButton classes="gray" to="/register">
+                        <FrontEndButton classes="gray" to="/auth/register">
                             Register
                         </FrontEndButton>
                     </div>
