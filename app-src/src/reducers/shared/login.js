@@ -5,6 +5,7 @@ import {
     POST_LOGIN_SUCCESS,
     POST_LOGIN_FAILURE,
 } from 'constants/actionTypes/auth';
+import { SET_API_FIELD_ERRORS } from 'constants/actionTypes/generic';
 
 export default combineReducers({
     postSuccess: postSuccessReducer,
@@ -39,6 +40,7 @@ function isPostingReducer(state = false, action) {
     switch (action.type) {
         case POST_LOGIN_FAILURE:
         case POST_LOGIN_SUCCESS:
+        case SET_API_FIELD_ERRORS:
             return false;
         case POST_LOGIN_REQUEST:
             return true;
