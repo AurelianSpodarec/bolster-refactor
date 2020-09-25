@@ -16,7 +16,7 @@ const FrontEndFooter = ({ hideFooter }) => (
         </div>
         <div className="internal-links">
             <div className="logo">
-                <img src={FooterLogo} alt="Footer Logo" />
+                <img src={FooterLogo} alt="Powered by bolstersystems.com" />
             </div>
             {!hideFooter && (
                 <ul>
