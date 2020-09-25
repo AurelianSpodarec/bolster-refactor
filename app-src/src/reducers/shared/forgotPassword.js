@@ -30,7 +30,7 @@ function errorReducer(state = null, action) {
         case POST_FORGOT_PASSWORD_REQUEST:
             return null;
         case POST_FORGOT_PASSWORD_FAILURE:
-            return action.payload;
+            return action.error;
         default:
             return state;
     }
