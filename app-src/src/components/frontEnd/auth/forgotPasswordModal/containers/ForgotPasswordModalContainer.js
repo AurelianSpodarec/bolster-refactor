@@ -7,11 +7,11 @@ import postForgotPassword from 'actions/shared/auth/async/postForgotPassword';
 
 class ForgotPasswordModalContainer extends Component {
     state = {
-        email: ''
+        email: '',
     };
 
     render = () => {
-        const { hideModal } = this.props;
+        const { hideModal, isPosting } = this.props;
         return (
             <ForgotPasswordModal
                 {...this.state}
@@ -21,6 +21,7 @@ class ForgotPasswordModalContainer extends Component {
                     e.preventDefault();
                     hideModal();
                 }}
+                isPosting={isPosting}
             />
         );
     };
@@ -31,7 +32,7 @@ class ForgotPasswordModalContainer extends Component {
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
                 message:
-                    'Your request has successfully been sent. If your email exists in the system, an email will be sent with instructions to reset your password.'
+                    'Your request has successfully been sent. If your email exists in the system, an email will be sent with instructions to reset your password.',
             });
         }
     };
@@ -46,18 +47,16 @@ class ForgotPasswordModalContainer extends Component {
 
 const mapStateToProps = ({
     shared: {
-        forgotPasswordReducer: { postSuccess, error }
-    }
+        forgotPasswordReducer: { postSuccess, error, isPosting },
+    },
 }) => ({
     error,
-    postSuccess
+    postSuccess,
+    isPosting,
 });
 
 const mapDispatchToProps = {
-    postForgotPassword
+    postForgotPassword,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ForgotPasswordModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordModalContainer);

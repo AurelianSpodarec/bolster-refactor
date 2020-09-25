@@ -2082,6 +2082,10 @@ $header-height: 95px;
                         margin-left: 15px;
                     }
                 }
+
+                &.disabled {
+                    opacity: 0.2;
+                }
             }
         
     }
