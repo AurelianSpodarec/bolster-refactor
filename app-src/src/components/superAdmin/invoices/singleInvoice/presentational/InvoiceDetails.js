@@ -10,7 +10,7 @@ import { formatCurrency } from 'helpers/generic';
 import {
     ADMIN_CONFIRM_FREE_INVOICE,
     ADMIN_CONFIRM_SET_IS_INVOICE_PAID,
-    ADMIN_DELETE_INVOICE
+    ADMIN_DELETE_INVOICE,
 } from 'constants/shared/modalTypes';
 import { INVOICE_GEN_URL } from 'config';
 
@@ -18,9 +18,9 @@ const InvoiceDetails = ({
     isFetching,
     companyName,
     error,
-    invoice: { createdOn, id, isPaid, paymentType, total, isRenewal, guid },
+    invoice: { createdOn, id, isPaid, paymentType, total, isRenewal, guid, comment },
     invoice,
-    showModal
+    showModal,
 }) => (
     <BlockContainer
         containerClass="flex-row-item size-lg-12"
@@ -90,6 +90,20 @@ const InvoiceDetails = ({
             description={`${total && formatCurrency(total)} GBP (inc. VAT)`}
             sizeClass="size-lg-12"
         />
+
+        {/* TODO: PLUG THIS IN TO ADD A COMMENT */}
+        <div className="size-lg-12">
+            <FieldOutput title="Comments" fieldClass="comments">
+                <textarea
+                    rows="5"
+                    name="comments-textarea"
+                    value={comment}
+                    onChange={event => comment(event.target.value)}
+                >
+                    {'I am dummy'}
+                </textarea>
+            </FieldOutput>
+        </div>
     </BlockContainer>
 );
 

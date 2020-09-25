@@ -13,7 +13,6 @@ const InvoiceDetailsContainer = ({
     showModal,
     postSuccess,
     hideModal,
-    history
 }) => {
     useEffect(() => {
         if (postSuccess) {
@@ -36,10 +35,10 @@ const mapStateToProps = (
     {
         superAdmin: {
             invoicesReducer: { invoices, error, isFetching, postSuccess },
-            companiesReducer: { companies }
-        }
+            companiesReducer: { companies },
+        },
     },
-    { match: { params } }
+    { match: { params } },
 ) => {
     const invoice = invoices[params.id] || {};
     return {
@@ -47,15 +46,10 @@ const mapStateToProps = (
         invoice: invoices[params.id] || {},
         error,
         isFetching,
-        postSuccess
+        postSuccess,
     };
 };
 
 const mapDispatchToProps = { showModal, hideModal };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(InvoiceDetailsContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InvoiceDetailsContainer));
