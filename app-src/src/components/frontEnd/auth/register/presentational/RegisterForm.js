@@ -262,7 +262,7 @@ const RegisterForm = ({
                             required
                         />
                     </Field>
-                    <Field required classes="auth-form-field wide row">
+                    <Field required classes="auth-form-field wide row terms-input">
                         <p className="generic-text size-lg-12">
                             I agree to Bolster Systems{terms}{' '}
                             <Link to="/auth/terms">Terms of Service</Link> and{' '}
