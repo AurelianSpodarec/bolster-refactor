@@ -23,12 +23,13 @@ export const fetchCompanyInvoicesBySearchFailure = error => ({
     error,
 });
 
-export default (page = 1, searchTerm, isPaid, limit = 50) => dispatch => {
+export default (page = 1, searchTerm, isPaid, isFree = null, limit = 50) => dispatch => {
     dispatch(fetchCompanyInvoicesBySearchRequest());
     const route = '/invoices/search';
     let queries = `?page=${page}&limit=${limit}`;
     if (searchTerm) queries += `&searchTerm=${searchTerm}`;
     if (isPaid !== undefined) queries += `&isPaid=${isPaid}`;
+    if (isFree) queries += '&isFree=true';
     return axios
         .get(`${ADMIN_API_URL}${route}${queries}`, getHeaders())
         .then(({ data }) => dispatch(fetchCompanyInvoicesBySearchSuccess(data, page)))

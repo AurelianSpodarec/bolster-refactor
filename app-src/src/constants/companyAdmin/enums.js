@@ -400,6 +400,7 @@ export const HAS_PAID_QUERIES = {
     0: undefined,
     1: 'true',
     2: 'false',
+    3: 'true',
 };
 
 export const DOCUMENT_VIEW_TYPES = {

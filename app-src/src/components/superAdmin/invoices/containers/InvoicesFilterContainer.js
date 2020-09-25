@@ -14,6 +14,7 @@ const invoicesFiltersContainer = ({
         { text: 'All', value: 0 },
         { text: 'Paid', value: 1 },
         { text: 'Awaiting Payment', value: 2 },
+        { text: 'Free', value: 3 },
     ];
 
     return (
@@ -29,13 +30,16 @@ const invoicesFiltersContainer = ({
     function handleChange(name, value) {
         updateInvoiceFilters(name, value);
         const hasPaidQuery = HAS_PAID_QUERIES[value];
-        fetchInvoicesBySearch(1, searchTerm, hasPaidQuery);
+        const isFree = value === '3' ? true : null;
+
+        fetchInvoicesBySearch(1, searchTerm, hasPaidQuery, isFree);
     }
 
     function handleSearch(name, value) {
         const hasPaidQuery = HAS_PAID_QUERIES[hasPayed];
+        const isFree = value === '3' ? true : null;
         updateInvoiceFilters(name, value);
-        fetchInvoicesBySearch(1, value, hasPaidQuery);
+        fetchInvoicesBySearch(1, value, hasPaidQuery, isFree);
     }
 };
 
