@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { useForm, usePrevious } from 'helpers/hooks';
-import { sortTimezones } from 'helpers/generic';
+import { isEmpty, sortTimezones } from 'helpers/generic';
 import RegisterForm from '../presentational/RegisterForm';
 import postRegister from 'actions/shared/register/async/postRegister';
 import fetchTimeZones from 'actions/shared/time/async/fetchTimezones';
@@ -12,6 +12,7 @@ import postLogin from 'actions/shared/auth/async/postLogin';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { vatOptions } from 'constants/shared/vatTypes';
+import registerPages from 'constants/frontEnd/registerPages';
 
 const RegisterFormContainer = ({
     timezones,
@@ -29,6 +30,7 @@ const RegisterFormContainer = ({
     isPosting,
 }) => {
     const [page, setPage] = useState(1);
+    const [nextDisabled, setNextDisabled] = useState(true);
     const [formData, handleChange] = useForm({
         'User.firstName': '',
         'User.lastName': '',
@@ -52,36 +54,7 @@ const RegisterFormContainer = ({
         terms: false,
     });
 
-    const pageContents = [
-        [
-            'User.firstName',
-            'User.lastName',
-            'User.phoneNumber',
-            'User.email',
-            'User.password',
-            'confirmPassword',
-        ],
-        [
-            'Company.name',
-            'Company.phoneNumber',
-            'Company.fax',
-            'Company.vatCode',
-            'Company.timezone',
-            'Company.dateFormatID',
-            'Company.vatType',
-        ],
-        [
-            'Company.addressLine1',
-            'Company.addressLine2',
-            'Company.town',
-            'Company.county',
-            'Company.postcode',
-            'Company.country',
-        ],
-    ];
-
-    let disabled = false;
-    const prevProps = usePrevious({ postSuccess, loginSuccess });
+    const prevProps = usePrevious({ postSuccess, loginSuccess, fieldErrors });
 
     useEffect(() => {
         fetchTimeZones();
@@ -100,9 +73,17 @@ const RegisterFormContainer = ({
         }
     }, [loginSuccess, postSuccess, prevProps.loginSuccess, prevProps.postSuccess]);
 
+    useEffect(() => {
+        if (isEmpty(prevProps.fieldErrors) && !isEmpty(fieldErrors)) {
+            checkSubmissionValidation();
+        }
+    }, [fieldErrors, prevProps.fieldErrors]);
+
     const timezoneOptions = _getTimezoneOptions();
 
     const dateFormatOptions = _formatDateFormats();
+
+    checkPageValidation();
 
     return (
         <RegisterForm
@@ -118,8 +99,8 @@ const RegisterFormContainer = ({
             timezoneOptions={timezoneOptions}
             dateFormats={dateFormatOptions}
             vatOptions={vatOptions}
-            disabled={disabled}
             isPosting={isPosting}
+            nextDisabled={nextDisabled}
         />
     );
 
@@ -219,7 +200,37 @@ const RegisterFormContainer = ({
             : removeFieldError('confirmPassword');
     }
 
-    function checkFieldValidation() {}
+    function checkPageValidation() {
+        const errors = Object.keys(fieldErrors);
+        const curPage = registerPages[page - 1];
+        const errorExists = errors.some(err => curPage.indexOf(err) >= 0);
+
+        if (errorExists && !nextDisabled) {
+            setNextDisabled(true);
+            return;
+        }
+
+        if (!errorExists && nextDisabled) {
+            setNextDisabled(false);
+        }
+    }
+
+    function checkSubmissionValidation() {
+        let goToPage = null;
+        const errors = Object.keys(fieldErrors);
+
+        for (let i = 0; i < registerPages.length; i++) {
+            const page = registerPages[i];
+            const errorExists = errors.some(err => page.indexOf(err) >= 0);
+
+            if (errorExists) {
+                goToPage = i + 1;
+                break;
+            }
+        }
+
+        handlePaginationClick(goToPage || 1);
+    }
 };
 
 const mapStateToProps = ({
@@ -236,6 +247,7 @@ const mapStateToProps = ({
     postSuccess,
     loginSuccess,
     fieldErrors,
+    isPosting,
 });
 
 const mapDispatchToProps = {

@@ -11,6 +11,7 @@ import FrontEndFormHeading from 'components/frontEnd/shared/forms/presentational
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
 import { needsVatCode } from 'constants/shared/vatTypes';
+import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 
 const RegisterForm = ({
     handleSubmit,
@@ -42,8 +43,8 @@ const RegisterForm = ({
     validateConfirmPassword,
     handlePaginationClick,
     activePage,
-    disabled,
     isPosting,
+    nextDisabled,
 }) => {
     const isVatCodeRequired = needsVatCode(vatType);
 
@@ -261,7 +262,7 @@ const RegisterForm = ({
                             required
                         />
                     </Field>
-                    <Field required classes="auth-form-field wide row">
+                    <Field required classes="auth-form-field wide row terms-input">
                         <p className="generic-text size-lg-12">
                             I agree to Bolster Systems{terms}{' '}
                             <Link to="/auth/terms">Terms of Service</Link> and{' '}
@@ -280,11 +281,9 @@ const RegisterForm = ({
                     <div className="item-wrapper left">
                         {activePage !== 1 && (
                             <FrontEndButton
-                                classes={`gray ${disabled ? 'disabled' : ''}`}
+                                classes="gray"
                                 type="button"
-                                handleClick={
-                                    !disabled ? () => handlePaginationClick(activePage - 1) : ''
-                                }
+                                handleClick={() => handlePaginationClick(activePage - 1)}
                             >
                                 Back
                             </FrontEndButton>
@@ -297,37 +296,35 @@ const RegisterForm = ({
                         <div className="auth-nav-box-wrapper">
                             <div
                                 className={`auth-nav-box ${activePage === 1 ? 'selected' : ''}`}
-                                onClick={!disabled ? () => handlePaginationClick(1) : ''}
                             ></div>
                             <div
                                 className={`auth-nav-box ${activePage === 2 ? 'selected' : ''}`}
-                                onClick={!disabled ? () => handlePaginationClick(2) : ''}
                             ></div>
                             <div
                                 className={`auth-nav-box ${activePage === 3 ? 'selected' : ''}`}
-                                onClick={!disabled ? () => handlePaginationClick(3) : ''}
                             ></div>
                         </div>
                     </div>
                     <div className="item-wrapper right">
-                        {activePage !== 3 ? (
-                            <FrontEndButton
-                                classes={`gray ${disabled ? 'disabled' : ''}`}
-                                type="button"
-                                handleClick={
-                                    !disabled ? () => handlePaginationClick(activePage + 1) : ''
-                                }
-                            >
-                                Next
-                            </FrontEndButton>
-                        ) : (
-                            <FrontEndButton
-                                classes={`red ${disabled ? 'disabled' : ''}`}
-                                type="submit"
-                            >
-                                Submit
-                            </FrontEndButton>
-                        )}
+                        <FrontEndButton
+                            classes={`gray ${nextDisabled ? 'disabled' : ''} ${
+                                activePage === 3 ? 'hidden' : ''
+                            }`}
+                            type="button"
+                            handleClick={() => handlePaginationClick(activePage + 1)}
+                            disabled={nextDisabled}
+                        >
+                            Next
+                        </FrontEndButton>
+                        <FrontEndButton
+                            classes={`red ${nextDisabled || isPosting ? 'disabled' : ''} ${
+                                activePage !== 3 ? 'hidden' : ''
+                            }`}
+                            type="submit"
+                            disabled={nextDisabled || isPosting}
+                        >
+                            {!isPosting ? 'Submit' : <LoadingIcon />}
+                        </FrontEndButton>
                     </div>
                 </Field>
             </Form>

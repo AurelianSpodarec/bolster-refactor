@@ -1,7 +1,7 @@
 import React from 'react';
 
 import FrontEndRoutes from '../../routes/presentational';
-import FrontEndFooter from 'components/frontEnd/layout/footer/presentational/FrontEndFooter';
+import FrontEndFooterContainer from 'components/frontEnd/layout/footer/containers/FrontEndFooterContainer';
 import FrontEndHeaderContainer from 'components/frontEnd/layout/header/container/FrontEndHeaderContainer';
 
 const FrontEndApp = ({ isHome }) => {
@@ -10,7 +10,7 @@ const FrontEndApp = ({ isHome }) => {
             <FrontEndHeaderContainer />
             <FrontEndRoutes />
 
-            {!isHome && <FrontEndFooter />}
+            {!isHome && <FrontEndFooterContainer />}
         </div>
     );
 };
