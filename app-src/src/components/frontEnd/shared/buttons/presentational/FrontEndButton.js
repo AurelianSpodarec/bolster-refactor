@@ -6,13 +6,15 @@ const FrontEndButton = ({
     children,
     classes = '',
     type = '',
-    handleClick = () => {}
+    handleClick = () => {},
+    disabled = false,
 }) =>
     !!type && type.length ? (
         <button
             type={type}
             className={`frontend-button ${classes}`}
             onClick={e => handleClick(e)}
+            disabled={disabled}
         >
             {children}
         </button>
