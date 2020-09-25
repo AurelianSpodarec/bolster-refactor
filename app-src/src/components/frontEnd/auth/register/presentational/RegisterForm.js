@@ -11,6 +11,7 @@ import FrontEndFormHeading from 'components/frontEnd/shared/forms/presentational
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
 import { needsVatCode } from 'constants/shared/vatTypes';
+import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 
 const RegisterForm = ({
     handleSubmit,
@@ -316,13 +317,13 @@ const RegisterForm = ({
                             Next
                         </FrontEndButton>
                         <FrontEndButton
-                            classes={`red ${nextDisabled ? 'disabled' : ''} ${
+                            classes={`red ${nextDisabled || isPosting ? 'disabled' : ''} ${
                                 activePage !== 3 ? 'hidden' : ''
                             }`}
                             type="submit"
-                            disabled={nextDisabled}
+                            disabled={nextDisabled || isPosting}
                         >
-                            Submit
+                            {!isPosting ? 'Submit' : <LoadingIcon />}
                         </FrontEndButton>
                     </div>
                 </Field>

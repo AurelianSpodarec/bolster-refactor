@@ -803,7 +803,32 @@ $header-height: 95px;
             }
         }
     }
-
+    
+    .qr-code-page-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .qr-code-page { 
+            margin: 0 0 0 200px;
+            width: 750px;
+            .app-links-wrapper {
+                .app-links {
+                    & img {
+                        height: 44px;
+                        width: auto;
+                    }
+                    &:last-child{
+                        margin-left: 10px;
+                    } 
+                }
+            }
+        }
+        .image {
+            align-self: flex-end;
+            margin-bottom: 50px;
+        }
+    }
+        
     // how it works
     #how-it-works {
         .how-it-works-sections {
@@ -1440,7 +1465,7 @@ $header-height: 95px;
             align-items: center;
             text-align: center;
             z-index: 2;
-            
+
             & > h2 {
                 color: #444444;
                 font-size: 260%;

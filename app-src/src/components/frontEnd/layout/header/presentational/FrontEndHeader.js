@@ -13,6 +13,7 @@ const FrontEndHeader = ({
     curRoute,
     menuOpen,
     setMenuOpen,
+    hideHeader,
 }) => {
     const { width } = useWindowDimensions();
 
@@ -27,6 +28,7 @@ const FrontEndHeader = ({
                 handleLogout={handleLogout}
                 menuOpen={menuOpen}
                 setMenuOpen={setMenuOpen}
+                hideNav={hideHeader}
             />
         );
 
@@ -38,6 +40,7 @@ const FrontEndHeader = ({
             curRoute={curRoute}
             handleClick={handleClick}
             handleLogout={handleLogout}
+            hideHeader={hideHeader}
         />
     );
 };

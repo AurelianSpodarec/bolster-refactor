@@ -247,6 +247,7 @@ const mapStateToProps = ({
     postSuccess,
     loginSuccess,
     fieldErrors,
+    isPosting,
 });
 
 const mapDispatchToProps = {
