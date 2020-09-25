@@ -34,7 +34,7 @@ const FrontEndFooter = ({ hideFooter }) => (
             {!hideFooter && (
                 <>
                     <div className="register-button">
-                        <FrontEndButton classes="gray" to="/register">
+                        <FrontEndButton classes="gray" to="/auth/register">
                             Register
                         </FrontEndButton>
                     </div>
