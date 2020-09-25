@@ -832,7 +832,7 @@ $header-height: 95px;
         justify-content: center;
         .qr-code-page { 
             margin: 0 0 0 200px;
-            width: 750px;
+            width: 100%;
             .app-links-wrapper {
                 .app-links {
                     & img {
@@ -847,7 +847,74 @@ $header-height: 95px;
         }
         .image {
             align-self: flex-end;
-            margin-bottom: 50px;
+            margin: 0 200px 25px 0;
+        }
+
+        @include devices(xsDesktop) {
+            .qr-code-page{
+                margin: 0;
+            }
+
+            .image {
+                margin: 0 0 50px 0;
+            }
+        }
+
+        @include devices(lsTablet) {
+            display: block;
+
+            .qr-code-page {
+                margin: 0;
+
+                & > p {
+                    margin-bottom: 20px;
+                }
+            }
+            .image {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+
+                & > img {
+                    max-width: 100%;
+                 }
+            }
+        }
+        
+        @include devices(mdMobile) {
+            .content-page {
+                padding: 25px 15px 50px;
+            }
+            .qr-code-page {
+               & > p {
+               font-size: 190%;
+               }
+            }
+            .image {
+                & > img {
+                   max-width: 100%;
+                }
+            }
+        }
+
+        @include devices(smMobile) {
+            .content-page {
+                padding-bottom: 20px;
+            }
+            .qr-code-page {
+                & > p {
+                font-size: 180%;
+                }
+            .app-links-wrapper {
+                display: block;
+
+                .app-links {
+                    &:last-child{
+                        margin-left: 0;
+                    }
+                } 
+            } 
+            }
         }
     }
         
