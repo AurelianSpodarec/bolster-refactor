@@ -1908,14 +1908,14 @@ $header-height: 95px;
         flex: 1;
 
     .auth-heading {
-            font-size: 400%;
-            @include opensans-semibold;
+            font-size: 350%;
+            @include opensans-bold;
             color: white;
             margin-bottom: 30px;
         }
         & > p {
             color: white;
-            font-size: 300%;
+            font-size: 250%;
             max-width: 1066px;
             margin-bottom: 40px;
             font-weight: normal;
@@ -1942,23 +1942,24 @@ $header-height: 95px;
     background-color: white;
     
     &.wide {
-        width: 787px;
+        width: 40%;
     }
 
     & > form {
         display: flex;
         flex-direction: column;
         flex: 1;
+        width: 100%;
 
         .register-input-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
             flex: 1;
-            overflow: auto;
             position: absolute;
             opacity: 0;
             z-index: -1;
+            width: 100%;
 
             &.active {
                 position: relative;
@@ -1972,13 +1973,13 @@ $header-height: 95px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         
         & > h2 {
             @include opensans-semibold;
             font-size: 400%; 
             color: black;
-            margin: 30px 0;
+            margin: 20px 0 10px;
         }
         & > p {
             font-size: 300%;
@@ -2021,12 +2022,18 @@ $header-height: 95px;
 
     
     .auth-form-field {
-        width: 445px;
-        margin: 10px 40px;
+        width: 100%;
+        margin: 0;
+        padding: 7px 40px;
         display: flex;
         flex-direction: column;
+
+        &.terms-input {
+            margin: 20px 40px 0 40px;
+        }
           
         & .title{
+            margin-bottom: 5px;
             font-size: 180%;
             color: #444444;
             font-weight: normal;
@@ -2040,7 +2047,8 @@ $header-height: 95px;
         .auth-text-input-container {
             background-color: #e8e8e8;
             border: none;
-            height: 44px;
+            @include opensans-regular;
+            font-size: 160%;
 
             & > .selected-box {
                 background-color: #e8e8e8;
@@ -2048,10 +2056,26 @@ $header-height: 95px;
 
                 & > .placeholder{
                     height: 44px;
-                    font-size: 180%;
+                    line-height: 1.9;
                 }
             }
             
+            &.multi-multi-dropdown {
+                .option-selection {
+                    position: relative;
+                    float: left;
+                    top: auto;
+                    left: auto;
+                    margin-top: 0;
+
+                    .search-box {
+                        input {
+                            @include opensans-regular;
+                            font-size: 100%;
+                        }
+                    }
+                }
+            }
         }
 
         & > .forgot-credentials-wrapper {
@@ -2133,14 +2157,11 @@ $header-height: 95px;
                 justify-content: flex-end;
             }
         }
-    
-        &.wide{
-            width: 665px;
-        }
 
         &.row {
             flex-direction: row;
             justify-content: center;
+            margin: 20px 0 10px;
 
             &.right {
                 justify-content: flex-end;
@@ -2149,7 +2170,7 @@ $header-height: 95px;
 
         & > p {
             white-space: nowrap;
-            margin-right: 20px;
+            margin: 0 20px 0 0;
             font-size: 180%;
 
             & > a {
@@ -2160,9 +2181,15 @@ $header-height: 95px;
                     text-decoration: underline;
                 }
             }
+
+            &.error {
+                font-size: 140%;
+            }
         }
 
         .checkbox {
+            cursor: auto;
+
             &.tickbox {
 
                 & .inner {
@@ -2189,6 +2216,7 @@ $header-height: 95px;
                     z-index: 1;
                     border: none;
                     padding: 0;
+                    cursor: pointer;
 
                 + label {
                     width: 40px;
