@@ -66,6 +66,7 @@ $header-height: 95px;
                     img {
                         width: 150px;
                         height: 45px;
+                        margin-top: 5px;
                         
                         &:last-child {
                             margin-left: 8px;;
@@ -155,6 +156,12 @@ $header-height: 95px;
                     width: 150px;
                     font-size: 150%;
                 }
+
+                .logged-out-button-container {
+                    .mobile-app-button-container {
+                        margin-right: 15px;
+                    }
+                }
             }
 
             .frontend-header-navlinks-container {
@@ -166,6 +173,15 @@ $header-height: 95px;
             .frontend-header-right {
                 .frontend-button {
                     font-size: 140%;
+                }
+
+                .logged-out-button-container {
+                    .mobile-app-button-container {
+                        img {
+                            width: auto;
+                            height: 38px;
+                        }
+                    }
                 }
             }
 
@@ -179,6 +195,12 @@ $header-height: 95px;
                 .frontend-button {
                     font-size: 130%;
                     margin-right: 5px;
+                }
+
+                .logged-out-button-container {
+                    .mobile-app-button-container {
+                        display: none;
+                    }
                 }
             }
 
