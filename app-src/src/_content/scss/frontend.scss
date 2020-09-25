@@ -1488,6 +1488,17 @@ $header-height: 95px;
             max-width: 1200px;
             margin: 0 auto;
             padding-bottom: 45px;
+
+            .info-card {
+                &:hover {
+                    & {
+                     border: 4px solid #EB1C24;
+                    }
+                    .icon-wrapper {
+                        border: 4px solid #EB1C24;
+                     }
+                 }
+            }
         }
 
         .info-card-wrapper {
@@ -1514,15 +1525,6 @@ $header-height: 95px;
             position: absolute;
             z-index: 1;
         }
-        
-           &:hover {
-               & {
-                border: 4px solid #EB1C24;
-               }
-               .icon-wrapper {
-                   border: 4px solid #EB1C24;
-                }
-            }
 
            &.clickable {
                cursor: pointer;
