@@ -133,3 +133,21 @@ export function useWindowDimensions() {
 
     return windowDimensions;
 }
+
+export const useIsMobile = (mobileWidth = 1024) => {
+    const [isMobile, setIsMobile] = useState(undefined);
+
+    useEffect(() => {
+        function handleResize() {
+            setIsMobile(window.innerWidth < mobileWidth);
+        }
+
+        window.addEventListener('resize', handleResize);
+
+        handleResize();
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return isMobile;
+};

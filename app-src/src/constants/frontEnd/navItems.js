@@ -1,5 +1,9 @@
 export default [
     {
+        name: 'Home',
+        slug: '/',
+    },
+    {
         name: 'About us',
         slug: '/about-us',
     },
