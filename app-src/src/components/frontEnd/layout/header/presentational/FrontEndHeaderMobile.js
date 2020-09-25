@@ -14,6 +14,7 @@ const FrontEndHeaderMobile = ({
     curRoute,
     menuOpen,
     setMenuOpen,
+    hideNav,
 }) => (
     <>
         <Container className="frontend-header mobile">
@@ -22,8 +23,9 @@ const FrontEndHeaderMobile = ({
                     <img src={Logo} alt="Logo of Bolster Systems" />
                 </a>
             </div>
-
-            <i className="menu-button fa fa-bars" onClick={() => setMenuOpen(!menuOpen)} />
+            {!hideNav && (
+                <i className="menu-button fa fa-bars" onClick={() => setMenuOpen(!menuOpen)} />
+            )}
         </Container>
 
         <div className={`nav-mobile ${menuOpen ? 'open' : ''}`}>

@@ -12,6 +12,7 @@ const FrontEndHeaderContainer = ({
     location,
     history,
     logout,
+    hideHeader,
 }) => {
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -25,6 +26,7 @@ const FrontEndHeaderContainer = ({
             curRoute={location.pathname.toLowerCase()}
             menuOpen={menuOpen}
             setMenuOpen={setMenuOpen}
+            hideHeader={hideHeader}
         />
     );
 
@@ -57,10 +59,16 @@ const mapStateToProps = ({
             jwtData: { isSuperAdmin, isClientAccess, companyID },
         },
     },
+    frontEnd: {
+        layoutReducer: {
+            layout: { hideHeader },
+        },
+    },
 }) => ({
     isSuperAdmin,
     isCompanyAdmin: !!companyID,
     isClientAccess,
+    hideHeader,
 });
 
 const mapDispatchToProps = { logout };
