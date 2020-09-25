@@ -36,7 +36,8 @@ const LoginForm = ({ formData, handleChange, handleSubmit, handleForgotPassword,
                 <Field classes="auth-form-field row right">
                     <FrontEndButton
                         classes={`gray right ${!isPosting ? '' : 'disabled'}`}
-                        type={!isPosting ? 'submit' : 'button'}
+                        type="submit"
+                        disabled={isPosting}
                     >
                         {!isPosting ? 'Submit' : <LoadingIcon />}
                     </FrontEndButton>
