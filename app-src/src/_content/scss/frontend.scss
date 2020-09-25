@@ -1987,6 +1987,20 @@ $header-height: 95px;
             margin-bottom: 40px;
             font-weight: normal;
         }
+
+        @include devices(mdDesktop) {
+            margin: 75px 50px!important;
+        }
+
+        @include devices(smDesktop) {
+            .auth-heading {
+                font-size: 280%;
+            }
+
+            > p {
+                font-size: 200%;
+            }
+        }
     }
 
     &.register {
@@ -2010,6 +2024,10 @@ $header-height: 95px;
     
     &.wide {
         width: 40%;
+
+        @include devices(mdDesktop) {
+            width: 50%;
+        }
     }
 
     & > form {
@@ -2053,6 +2071,15 @@ $header-height: 95px;
             color: #888888
         }
     
+        @include devices(smDesktop) {
+            > h2 {
+                font-size: 280%;
+            }
+
+            > p {
+                font-size: 200%;
+            }
+        }
     }
 
     &.modal{
@@ -2308,6 +2335,33 @@ $header-height: 95px;
                 
         }
 
+        @include devices(smDesktop) {
+            .title {
+                font-size: 160%;
+            }
+
+            > p {
+                font-size: 160%;
+            }
+
+            .frontend-button {
+                min-width: 180px!important;
+            }
+        }
+
+        @include devices(xsDesktop) {
+            .title {
+                font-size: 140%;
+            }
+
+            > p {
+                font-size: 140%;
+            }
+
+            .frontend-button {
+                min-width: 140px!important;
+            }
+        }
     }
 }
 
