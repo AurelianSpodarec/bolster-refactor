@@ -101,7 +101,7 @@ export const useEventListener = (eventName, handler, options = {}, element = win
     }, [eventName, element]);
 };
 
-export const useFullPageCarousel = (ref, lastRef, max = 4) => {
+export const useFullPageCarousel = (ref, lastRef, isMobile, max = 4) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const currentPage = useRef(0);
     const lastAnimation = useRef(0);
@@ -195,19 +195,22 @@ export const useFullPageCarousel = (ref, lastRef, max = 4) => {
     };
 
     useEffect(() => {
-        document.removeEventListener('wheel', handleLastSlideScroll, { passive: false });
-        document.addEventListener('wheel', handleScroll, { passive: false });
+        if (isMobile !== undefined && !isMobile) {
+            console.log('not mobile');
+            document.removeEventListener('wheel', handleLastSlideScroll, { passive: false });
+            document.addEventListener('wheel', handleScroll, { passive: false });
 
-        if (isLast) {
-            document.removeEventListener('wheel', handleScroll, { passive: false });
-            document.addEventListener('wheel', handleLastSlideScroll, { passive: false });
+            if (isLast) {
+                document.removeEventListener('wheel', handleScroll, { passive: false });
+                document.addEventListener('wheel', handleLastSlideScroll, { passive: false });
+            }
         }
 
         return () => {
             document.removeEventListener('wheel', handleScroll, { passive: false });
             document.removeEventListener('wheel', handleLastSlideScroll, { passive: false });
         };
-    }, [isLast]);
+    }, [isMobile, isLast]);
 
     return {
         currentIndex,
