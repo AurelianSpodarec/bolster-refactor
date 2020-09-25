@@ -6,7 +6,6 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import DropdownOptionsList from './DropdownOptionsList';
-import DropdownListSortOrderContainer from '../containers/DropdownListSortOrderContainer';
 
 const DropdownOptionsTable = ({
     handleAddOptionModal,
@@ -17,7 +16,6 @@ const DropdownOptionsTable = ({
     title,
     type,
     selectedSortValue,
-    handleSortChange,
     moveItem,
 }) => {
     return (
@@ -28,11 +26,6 @@ const DropdownOptionsTable = ({
                         <i className="fa fa-plus" /> {`Add ${DROPDOWN_OPTIONS[type].singular}`}
                     </button>
                 </BlockHeading>
-
-                <DropdownListSortOrderContainer
-                    selectedSortValue={selectedSortValue}
-                    handleSortChange={handleSortChange}
-                />
 
                 <div className="size-lg-12">
                     <Table
