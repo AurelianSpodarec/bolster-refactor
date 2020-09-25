@@ -2,14 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import { useLockOnModal } from 'helpers/frontEndHooks';
 
 import FrontEndModalOuter from '../presentational/FrontEndModalOuter';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 
 const FrontEndModalOuterContainer = ({ extraClasses, children, hideCloseButton, hideModal }) => {
-    useLockOnModal();
-
     return (
         <FrontEndModalOuter
             handleClose={handleClose}
