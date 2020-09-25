@@ -51,6 +51,8 @@ const HomeSlidesCarouselContainer = ({ isMobile }) => {
                             className={`slide${index + 1}`}
                             isLast={isLast}
                             ref={lastSlideRef}
+                            active={currentIndex}
+                            handleClick={handleClick}
                         >
                             <div className="slide-content">
                                 <h1 className="slide-title">{item.title}</h1>
