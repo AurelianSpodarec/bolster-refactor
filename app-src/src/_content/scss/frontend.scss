@@ -620,16 +620,16 @@ $header-height: 95px;
                 scroll-snap-align: start;
                 scroll-snap-stop: always;
     
-                .overlay {
-                    position: absolute;
-                    height: 100%;
-                    width: 100%;
-                    z-index: 2;
-                    top: 0;
-                    left: 0;
-                    background-color: #000000;
-                    opacity: 0.3;
-                }
+                // .overlay {
+                //     position: absolute;
+                //     height: 100%;
+                //     width: 100%;
+                //     z-index: 2;
+                //     top: 0;
+                //     left: 0;
+                //     background-color: #000000;
+                //     opacity: 0.3;
+                // }
     
                 .slide-content {
                     display: flex;
@@ -2515,78 +2515,7 @@ $header-height: 95px;
 .frontend-home-mobile-wrapper {
     width: 100%;
     height: 100%;
-
-    .frontend-home-mobile-carousel {
-        
-        .slide {
-            width: 100%;
-            height: calc(100vh - 75px);
-            position: relative;
-
-            .slide-container {
-                width: 100%;
-                height: 100%;
-
-                .overlay {
-                    position: absolute;
-                    height: 100%;
-                    width: 100%;
-                    z-index: 2;
-                    top: 0;
-                    left: 0;
-                    background-color: #000000;
-                    opacity: 0.6;
-                }
-    
-                .slide-content {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    flex-direction: column;
-                    position: absolute;
-                    bottom: 10vh;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    text-align: center;
-                    color: #fff;
-                    z-index: 3;
-
-                    @include devices(mdMobile) {
-                        bottom: 8vh;
-                    }
-    
-                    .slide-title {
-                        font-size: 180%;
-                        font-weight: 500;
-                        margin-bottom: 8px;
-                        
-                        @include devices(mdMobile) {
-                            font-size: 160%;
-                        }
-                    }
-    
-                    .slide-description {
-                        font-size: 160%;
-                        margin-bottom: 12px;
-
-                        @include devices(mdMobile) {
-                            font-size: 120%;
-                        }
-                    }
-    
-                    .frontend-button  {
-                        margin: 0 auto;
-                        background-color: white;
-                        color: black;
-
-                        @include devices(mdMobile) {
-                            font-size: 140% !important;
-                        }
-                    }
-                }
-            }
-        }
-    }
+    overflow-x: hidden;
 }
 
 .frontend-home-wrapper {
@@ -2601,13 +2530,9 @@ $header-height: 95px;
         display: block;
         position: relative;
         padding: 0;
-        transform-style: preserve-3d;
         transform: translate3d(0, 0%, 0);
-    
+
         .slide {
-            width: 100%;
-            height: calc(100vh - #{$header-height});
-            position: relative;
 
             &.last-slide {
                 height: 100%;
@@ -2615,33 +2540,51 @@ $header-height: 95px;
 
                 .slide-container {
                     height: calc(100vh - #{$header-height});
-
-                    .video-bg {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                    }
-
-                    .overlay {
-                        width: 100%;
-                        height: 100%;
-                    }
                 }
+            }
+        }
+    }
+}
+
+.frontend-home-mobile-wrapper, .frontend-home-wrapper {
+
+    .frontend-home-mobile-carousel, .frontend-home-carousel {
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden; 
+        transform-style: flat;
+
+        .slide {
+            width: 100%;
+            height: calc(100vh - #{$header-height});
+            position: relative;
+            background-color: rgba(0,0,0,0.8);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+
+            .overlay {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                top: 0;
+                left: 0;
+                background-color: rgba(0,0,0,0.6);
             }
 
             .slide-container {
                 width: 100%;
                 height: 100%;
+                overflow: hidden;
+                backface-visibility: hidden;
+                -webkit-backface-visibility: hidden;
+                opacity: 1;
 
-                .overlay {
-                    position: absolute;
-                    height: 100%;
+                .video-bg {
                     width: 100%;
-                    z-index: 2;
-                    top: 0;
-                    left: 0;
-                    background-color: #000000;
-                    opacity: 0.6;
+                    height: 100%;
+                    object-fit: cover;
+                    opacity: 0.55;
+                    backface-visibility: hidden;
+                    -webkit-backface-visibility: hidden;
                 }
     
                 .slide-content {
@@ -2656,15 +2599,18 @@ $header-height: 95px;
                     text-align: center;
                     color: #fff;
                     z-index: 3;
+                    backface-visibility: hidden;
+                    -webkit-backface-visibility: hidden;
 
                     @include devices(mdMobile) {
                         bottom: 8vh;
                     }
     
                     .slide-title {
-                        font-size: 180%;
-                        font-weight: 500;
+                        font-size: 275%;
+                        font-weight: 600;
                         margin-bottom: 8px;
+                        opacity: 1;
                         
                         @include devices(mdMobile) {
                             font-size: 160%;
@@ -2672,8 +2618,9 @@ $header-height: 95px;
                     }
     
                     .slide-description {
-                        font-size: 160%;
+                        font-size: 250%;
                         margin-bottom: 12px;
+                        opacity: 1;
 
                         @include devices(mdMobile) {
                             font-size: 120%;
@@ -2684,6 +2631,7 @@ $header-height: 95px;
                         margin: 0 auto;
                         background-color: white;
                         color: black;
+                        opacity: 1;
 
                         @include devices(mdMobile) {
                             font-size: 140% !important;
