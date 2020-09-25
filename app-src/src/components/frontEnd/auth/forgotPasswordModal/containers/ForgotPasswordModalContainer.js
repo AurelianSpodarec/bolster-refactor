@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import ForgotPasswordModal from '../presentational/ForgotPasswordModal';
-import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
+import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import postForgotPassword from 'actions/shared/auth/async/postForgotPassword';
 
 class ForgotPasswordModalContainer extends Component {
@@ -27,12 +27,19 @@ class ForgotPasswordModalContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, showModal } = this.props;
+        const { postSuccess, showModal, isPosting, error } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
                 message:
                     'Your request has successfully been sent. If your email exists in the system, an email will be sent with instructions to reset your password.',
+            });
+        }
+
+        if (prevProps.isPosting && !isPosting && error) {
+            showModal(ERROR_MODAL, {
+                message:
+                    'There was an error with your request. It may be that the submitted account does not exist.',
             });
         }
     };
