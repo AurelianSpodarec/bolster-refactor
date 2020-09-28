@@ -1,7 +1,8 @@
 import React from 'react';
 
-import BackToTop from '../presentational/BackToTop';
 import { animateScroll as scroll } from 'react-scroll';
+
+import BackToTop from '../presentational/BackToTop';
 
 const BackToTopContainer = () => {
     const handleScrollToTop = () => {
