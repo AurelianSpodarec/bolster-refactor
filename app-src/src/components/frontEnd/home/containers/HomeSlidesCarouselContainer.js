@@ -57,7 +57,7 @@ const HomeSlidesCarouselContainer = ({ isMobile }) => {
                             <div className="slide-content">
                                 <h1 className="slide-title">{item.title}</h1>
                                 <p className="slide-description">{item.description}</p>
-                                <FrontEndButton type="button">{item.buttonText}</FrontEndButton>
+                                <FrontEndButton to={item.link}>{item.buttonText}</FrontEndButton>
                             </div>
                         </HomeSlidesItem>
                     );

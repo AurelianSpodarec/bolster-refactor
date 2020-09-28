@@ -9,14 +9,16 @@ export const HomeSlidesList = [
         title: 'The complete survey, installation & management system',
         description:
             'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit',
-        buttonText: 'Request a demo',
+        buttonText: 'Contact',
         background: FirstSlide,
+        link: '/contact',
     },
     {
         title: 'Why use it?',
         description: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit ',
         buttonText: 'Link to why',
         background: SecondSlide,
+        link: '/our-system',
     },
     {
         title: 'About Us',
@@ -24,12 +26,14 @@ export const HomeSlidesList = [
             'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit',
         buttonText: 'About us',
         background: ThirdSlide,
+        link: '/about-us',
     },
     {
         title: 'Our System',
         description: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet',
         buttonText: 'Our System',
         background: FourthSlide,
+        link: '/our-system',
     },
     {
         title: 'Request a demo?',
@@ -37,5 +41,6 @@ export const HomeSlidesList = [
             'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci',
         buttonText: 'Request a demo',
         background: FifthSlide,
+        link: '/contact',
     },
 ];
