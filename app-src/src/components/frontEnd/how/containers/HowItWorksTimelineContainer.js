@@ -17,7 +17,7 @@ const HowItWorksTimelineContainer = () => {
     return <HowItWorksTimeline items={items} activeIndex={activeIndex} />;
 
     function setActiveTimelineItem() {
-        const halfWindowHeight = window.innerHeight / 2 - 200;
+        const halfWindowHeight = window.innerHeight / 2 - 150;
         const footerBounds = document.querySelector('.frontend-footer').getBoundingClientRect();
         const indexOfLast = items.length - 1;
 
