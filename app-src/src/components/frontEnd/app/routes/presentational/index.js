@@ -12,8 +12,6 @@ import QRCodesPage from 'components/frontEnd/qrCodes/presentational/QRCodesPage'
 import Login from 'components/frontEnd/auth/login/presentational/Login';
 import WhyUseOurSystem from 'components/frontEnd/whyUseOurSystem/presentational/WhyUseOurSystem';
 import Register from 'components/frontEnd/auth/register/presentational/Register';
-import Terms from 'components/shared/terms/Terms';
-import PrivacyPolicy from 'components/shared/terms/PrivacyPolicy';
 import PageNotFoundContainer from 'components/frontEnd/404/containers/404PageContainer';
 
 const FrontEndRoutes = ({ base = '/' }) => (
