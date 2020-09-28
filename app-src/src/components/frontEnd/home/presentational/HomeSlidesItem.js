@@ -46,7 +46,7 @@ const HomeSlidesItem = forwardRef(
                     handleClick={handleClick}
                 />
                 <TrustedBy />
-                <BackToTopContainer />
+                <BackToTopContainer handleClick={handleClick ? () => handleClick(0) : null} />
                 <FrontEndFooterContainer />
             </section>
         );

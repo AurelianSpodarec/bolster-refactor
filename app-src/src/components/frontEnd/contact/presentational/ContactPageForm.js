@@ -6,14 +6,9 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 import Form from 'components/shared/generic/form/containers/Form';
-import Error from 'components/shared/generic/form/presentational/Error';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 
-const ContactPageForm = ({ form, handleChange, handleSubmit, error, sent, isPosting }) => {
-    if (error) {
-        return <Error>{error}</Error>;
-    }
-
+const ContactPageForm = ({ form, handleChange, handleSubmit, sent, isPosting }) => {
     if (sent) {
         return (
             <div className="sent-message-wrapper">

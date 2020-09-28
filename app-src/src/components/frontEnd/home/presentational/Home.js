@@ -5,7 +5,7 @@ import { useIsMobile } from 'helpers/hooks';
 import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
 
 const Home = () => {
-    const isMobile = useIsMobile(1023);
+    const isMobile = useIsMobile(1101);
     return (
         <>
             <Helmet title="Home" />

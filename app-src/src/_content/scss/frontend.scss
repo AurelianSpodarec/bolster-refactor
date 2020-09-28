@@ -1652,6 +1652,10 @@ $header-height: 95px;
         }
 
         @include devices(lsTablet) {
+            .info-card {
+                justify-content: flex-start;
+            }
+
             .info-card-list-wrapper {
                 padding: 0 10px;
                 padding-bottom: 50px;
@@ -2161,9 +2165,9 @@ $header-height: 95px;
         flex-direction: column;
 
         &.terms-input {
-            margin: 20px 40px 0 40px;
+            margin-top: 20px;
         }
-          
+        
         & .title{
             margin-bottom: 5px;
             font-size: 180%;
@@ -2174,8 +2178,7 @@ $header-height: 95px;
                 color: #444444;
             }
         }
-
-        
+  
         .auth-text-input-container {
             background-color: #e8e8e8;
             border: none;
@@ -2293,6 +2296,7 @@ $header-height: 95px;
         &.row {
             flex-direction: row;
             justify-content: center;
+            align-items: center;
             margin: 20px 0 10px;
 
             &.right {
@@ -2300,77 +2304,91 @@ $header-height: 95px;
             }
         }
 
-        & > p {
-            white-space: nowrap;
-            margin: 0 20px 0 0;
-            font-size: 180%;
+        
 
-            & > a {
-                color: #E91A22;
-                text-decoration: none;
+        .checkbox-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
 
-                &:hover{
-                    text-decoration: underline;
+            & > .terms-text {
+                white-space: nowrap;
+                margin: 0 20px 0 0;
+                font-size: 180%;
+    
+                & > a {
+                    color: #E91A22;
+                    text-decoration: none;
+    
+                    &:hover{
+                        text-decoration: underline;
+                    }
                 }
             }
 
-            &.error {
-                font-size: 140%;
-            }
-        }
-
-        .checkbox {
-            cursor: auto;
-
-            &.tickbox {
-
-                & .inner {
-                    background-image: url('../images/frontend-new/register/tick@2x.png');
-                    background-repeat: no-repeat;
-                    background-position: 50% 50%;
-                    background-size: cover;
-                    top: 5px;
-                    left: 5px;
-                    width: 30px;
-                    height: 30px;
-                    background-color: #e8e8e8;
-                    border-radius: 0;
-                    display: none;
-                }
-                input {
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    width: 40px;
-                    height: 35px;
-                    opacity: 0;
-                    margin: 0;
-                    z-index: 1;
-                    border: none;
-                    padding: 0;
-                    cursor: pointer;
-
-                + label {
-                    width: 40px;
-                }
-                    &:checked {
-                        + label,
-                        + input + label {            
-                            .inner {
-                                display: block;
+            .checkbox {
+                cursor: auto;
+                &.tickbox {
+                    & .inner {
+                        background-image: url('../images/frontend-new/register/tick@2x.png');
+                        background-repeat: no-repeat;
+                        background-position: 50% 50%;
+                        background-size: cover;
+                        top: 5px;
+                        left: 5px;
+                        width: 30px;
+                        height: 30px;
+                        background-color: #e8e8e8;
+                        border-radius: 0;
+                        display: none;
+                    }
+                    input {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 40px;
+                        height: 35px;
+                        opacity: 0;
+                        margin: 0;
+                        z-index: 1;
+                        border: none;
+                        padding: 0;
+                        cursor: pointer;
+                        
+                        + label {
+                            width: 40px;
+                        }
+                        &:checked {
+                            + label,
+                            + input + label {            
+                                .inner {
+                                    display: block;
+                                }
                             }
                         }
                     }
-                }
-
-                & .outer {
-                    background-color: #E8E8E8;
-                    width: 38px;
-                    height: 38px;
-                    border-radius: 5px;
+                    
+                    & .outer {
+                        background-color: #E8E8E8;
+                        width: 38px;
+                        height: 38px;
+                        border-radius: 5px;
+                    }
+                    
+                    & > .error {
+                        display: none;
+                    }
                 }
             }
                 
+        }
+
+        & .checkbox-error {
+            font-size: 120%;
+            color: red;
+            align-self: flex-start;
+            margin-top: 5px;
         }
 
         @include devices(smDesktop) {
