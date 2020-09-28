@@ -15,7 +15,6 @@ export default combineReducers({
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case POST_CONTACT_REQUEST:
-        case POST_CONTACT_FAILURE:
             return false;
         case POST_CONTACT_SUCCESS:
             return true;
@@ -28,7 +27,6 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case POST_CONTACT_REQUEST:
             return null;
-
         case POST_CONTACT_FAILURE:
             return action.error;
         default:

@@ -4,8 +4,16 @@ import { connect } from 'react-redux';
 import postContactForm from 'actions/frontEnd/contact/async/postContactForm';
 import ContactPageForm from '../presentational/ContactPageForm';
 import { useForm, usePrevious } from 'helpers/hooks';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
-const ContactPageFormContainer = ({ error, postSuccess, postContactForm, isPosting }) => {
+const ContactPageFormContainer = ({
+    error,
+    postSuccess,
+    postContactForm,
+    isPosting,
+    showModal,
+}) => {
     const [formData, handleChange] = useForm({
         name: '',
         email: '',
@@ -15,7 +23,7 @@ const ContactPageFormContainer = ({ error, postSuccess, postContactForm, isPosti
     });
     const [sent, setSent] = useState(false);
 
-    const prevProps = usePrevious({ postSuccess });
+    const prevProps = usePrevious({ postSuccess, isPosting });
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -27,7 +35,13 @@ const ContactPageFormContainer = ({ error, postSuccess, postContactForm, isPosti
         if (postSuccess && !prevProps.postSuccess) {
             setSent(true);
         }
-    }, [postSuccess]);
+
+        if (prevProps.isPosting && !isPosting && error) {
+            showModal(ERROR_MODAL, {
+                message: 'There was an error with your request. Please try again.',
+            });
+        }
+    }, [postSuccess, prevProps.postSuccess, isPosting, prevProps.isPosting]);
 
     return (
         <ContactPageForm
@@ -51,6 +65,6 @@ const mapStateToProps = ({
     isPosting,
 });
 
-const mapDispatchToProps = { postContactForm };
+const mapDispatchToProps = { postContactForm, showModal };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactPageFormContainer);
