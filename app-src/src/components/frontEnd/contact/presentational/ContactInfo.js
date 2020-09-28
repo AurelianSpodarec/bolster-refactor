@@ -10,7 +10,7 @@ const ContactInfo = () => {
             <p>
                 <strong>Phone</strong>
                 <br />
-                0161 873 7679
+                <a href="tel:01618737679">0161 873 7679</a>
             </p>
             <p>
                 <strong>Email</strong>
