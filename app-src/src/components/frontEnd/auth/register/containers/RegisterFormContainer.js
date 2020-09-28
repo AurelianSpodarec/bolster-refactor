@@ -53,6 +53,7 @@ const RegisterFormContainer = ({
         'Company.country': '',
         terms: false,
     });
+    const [tickboxError, setTickboxError] = useState(false);
 
     const prevProps = usePrevious({ postSuccess, loginSuccess, fieldErrors });
 
@@ -76,6 +77,10 @@ const RegisterFormContainer = ({
     useEffect(() => {
         if (isEmpty(prevProps.fieldErrors) && !isEmpty(fieldErrors)) {
             checkSubmissionValidation();
+            checkTickboxValidation();
+        }
+        if (!isEmpty(prevProps.fieldErrors) && isEmpty(fieldErrors)) {
+            checkTickboxValidation();
         }
     }, [fieldErrors, prevProps.fieldErrors]);
 
@@ -101,6 +106,7 @@ const RegisterFormContainer = ({
             vatOptions={vatOptions}
             isPosting={isPosting}
             nextDisabled={nextDisabled}
+            tickboxError={tickboxError}
         />
     );
 
@@ -230,6 +236,15 @@ const RegisterFormContainer = ({
         }
 
         handlePaginationClick(goToPage || 1);
+    }
+
+    function checkTickboxValidation() {
+        const errors = Object.keys(fieldErrors);
+
+        if (errors[0] === 'terms') {
+            return setTickboxError(true);
+        }
+        setTickboxError(false);
     }
 };
 

@@ -45,6 +45,7 @@ const RegisterForm = ({
     activePage,
     isPosting,
     nextDisabled,
+    tickboxError,
 }) => {
     const isVatCodeRequired = needsVatCode(vatType);
 
@@ -262,24 +263,27 @@ const RegisterForm = ({
                             required
                         />
                     </Field>
-                    <Field required classes="auth-form-field wide row terms-input">
-                        <p className="generic-text size-lg-12">
-                            I agree to Bolster Systems{terms}{' '}
-                            <Link to="/auth/terms" target="_blank">
-                                Terms of Service
-                            </Link>{' '}
-                            and{' '}
-                            <Link to="/auth/privacy-policy" target="_blank">
-                                Privacy Policy
-                            </Link>
-                        </p>
-                        <CheckboxContainer
-                            checked={terms}
-                            handleChange={handleChange}
-                            name="terms"
-                            required
-                            classes="tickbox"
-                        />
+                    <Field required classes="auth-form-field wide terms-input">
+                        <div className="checkbox-wrapper">
+                            <p className="terms-text">
+                                I agree to Bolster Systems{terms}{' '}
+                                <Link to="/auth/terms" target="_blank">
+                                    Terms of Service
+                                </Link>{' '}
+                                and{' '}
+                                <Link to="/auth/privacy-policy" target="_blank">
+                                    Privacy Policy
+                                </Link>
+                            </p>
+                            <CheckboxContainer
+                                checked={terms}
+                                handleChange={handleChange}
+                                name="terms"
+                                required
+                                classes="tickbox"
+                            />
+                        </div>
+                        {tickboxError && <p className="checkbox-error">This is a required field</p>}
                     </Field>
                 </div>
                 <Field required classes="auth-form-field wide row">
