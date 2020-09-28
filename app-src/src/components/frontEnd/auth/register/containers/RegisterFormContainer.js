@@ -13,6 +13,8 @@ import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { vatOptions } from 'constants/shared/vatTypes';
 import registerPages from 'constants/frontEnd/registerPages';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
 const RegisterFormContainer = ({
     timezones,
@@ -28,6 +30,8 @@ const RegisterFormContainer = ({
     dateFormats,
     fieldErrors,
     isPosting,
+    error,
+    showModal,
 }) => {
     const [page, setPage] = useState(1);
     const [nextDisabled, setNextDisabled] = useState(true);
@@ -54,7 +58,7 @@ const RegisterFormContainer = ({
         terms: false,
     });
 
-    const prevProps = usePrevious({ postSuccess, loginSuccess, fieldErrors });
+    const prevProps = usePrevious({ postSuccess, loginSuccess, fieldErrors, isPosting });
 
     useEffect(() => {
         fetchTimeZones();
@@ -71,7 +75,20 @@ const RegisterFormContainer = ({
         if (loginSuccess && !prevProps.loginSuccess) {
             history.push('/company');
         }
-    }, [loginSuccess, postSuccess, prevProps.loginSuccess, prevProps.postSuccess]);
+
+        if (prevProps.isPosting && !isPosting && error) {
+            showModal(ERROR_MODAL, {
+                message: 'There was an error with your request. Please try again.',
+            });
+        }
+    }, [
+        loginSuccess,
+        postSuccess,
+        prevProps.loginSuccess,
+        prevProps.postSuccess,
+        isPosting,
+        prevProps.isPosting,
+    ]);
 
     useEffect(() => {
         if (isEmpty(prevProps.fieldErrors) && !isEmpty(fieldErrors)) {
@@ -257,5 +274,6 @@ const mapDispatchToProps = {
     postLogin,
     addFieldError,
     removeFieldError,
+    showModal,
 };
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RegisterFormContainer));
