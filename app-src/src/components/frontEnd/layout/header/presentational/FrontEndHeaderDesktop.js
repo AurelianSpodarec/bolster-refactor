@@ -93,14 +93,14 @@ const FrontEndHeaderDesktop = ({
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                <img src={AppleAppStore} alt="Apple App Store" />
+                                <img src={AppleAppStore} alt="Download on the App Store" />
                             </a>
                             <a
                                 href="https://play.google.com/store/apps/details?id=com.bolster.dynamicdroid&hl=en"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                <img src={GoogleAppStore} alt="Google App Store" />
+                                <img src={GoogleAppStore} alt="Get it on Google Play" />
                             </a>
                         </div>
                         <div>

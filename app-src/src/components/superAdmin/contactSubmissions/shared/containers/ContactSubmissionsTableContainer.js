@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ContactSubmissionsTable from '../presentational/ContactSubmissionsTable';
-import moment from 'moment';
 
 const ContactSubmissionsTableContainer = ({ isFetching, fetchingError, contactSubmissions }) => (
     <ContactSubmissionsTable
@@ -15,7 +14,7 @@ const ContactSubmissionsTableContainer = ({ isFetching, fetchingError, contactSu
 export default connect(({ superAdmin: { contactSubmissionsReducer } }) => ({
     isFetching: contactSubmissionsReducer.isFetching,
     fetchingError: contactSubmissionsReducer.fetchingError,
-    contactSubmissions: Object.values(contactSubmissionsReducer.contactSubmissions).sort((a, b) =>
-        moment(a.createdOn).isBefore(moment(b.createdOn)),
+    contactSubmissions: Object.values(contactSubmissionsReducer.contactSubmissions).sort(
+        (a, b) => new Date(b.createdOn) - new Date(a.createdOn),
     ),
 }))(ContactSubmissionsTableContainer);

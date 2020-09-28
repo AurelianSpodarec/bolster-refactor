@@ -1591,6 +1591,7 @@ $header-height: 95px;
             align-items: center;
             text-align: center;
             z-index: 2;
+            padding: 0 15px;
 
             & > h2 {
                 color: #444444;
@@ -1651,6 +1652,10 @@ $header-height: 95px;
         }
 
         @include devices(lsTablet) {
+            .info-card {
+                justify-content: flex-start;
+            }
+
             .info-card-list-wrapper {
                 padding: 0 10px;
                 padding-bottom: 50px;
@@ -1784,7 +1789,7 @@ $header-height: 95px;
 
             .title-wrapper {
                 h2 {
-                    font-size: 200%;
+                    font-size: 180%;
                     @include opensans-semibold;
                 }
             }
@@ -2607,15 +2612,8 @@ $header-height: 95px;
             background-color: rgba(0,0,0,0.8);
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
-
-            .overlay {
-                position: absolute;
-                height: 100%;
-                width: 100%;
-                top: 0;
-                left: 0;
-                background-color: rgba(0,0,0,0.6);
-            }
+            transform: translate3d(0, 0, 0);
+            -webkit-overflow-scrolling: touch;
 
             .slide-container {
                 width: 100%;
@@ -2629,9 +2627,10 @@ $header-height: 95px;
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
-                    opacity: 0.55;
                     backface-visibility: hidden;
                     -webkit-backface-visibility: hidden;
+                    opacity: 0.55;
+                    z-index: -1;
                 }
     
                 .slide-content {

@@ -8,9 +8,9 @@ const TrustedBy = () => (
             <h3 className="line">Trusted by industry leaders</h3>
         </Header>
         <div className="trusted-by-grid">
-            {TrustedByList.map((item, index) => (
+            {TrustedByList.map(({ logo, name }, index) => (
                 <div key={index} className="item">
-                    <img src={item} alt="item-1" />
+                    <img src={logo} alt={name} />
                 </div>
             ))}
         </div>

@@ -4,7 +4,7 @@ import { animateScroll as scroll } from 'react-scroll';
 
 import BackToTop from '../presentational/BackToTop';
 
-const BackToTopContainer = () => {
+const BackToTopContainer = ({ handleClick }) => {
     const handleScrollToTop = () => {
         const duration = 900;
 
@@ -16,7 +16,7 @@ const BackToTopContainer = () => {
         scroll.scrollToTop(scrollOptions);
     };
 
-    return <BackToTop handleScrollToTop={handleScrollToTop} />;
+    return <BackToTop handleScrollToTop={handleClick ? handleClick : handleScrollToTop} />;
 };
 
 export default BackToTopContainer;

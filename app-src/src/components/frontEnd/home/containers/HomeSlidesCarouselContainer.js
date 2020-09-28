@@ -5,7 +5,6 @@ import { HomeSlidesList } from 'constants/frontEnd/homeSlides';
 
 import HomeSlidesItem from '../presentational/HomeSlidesItem';
 import HomeCarouselControls from '../presentational/HomeCarouselControls';
-import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 
 const HomeSlidesCarouselContainer = ({ isMobile }) => {
     const wrapperRef = useRef();
@@ -27,13 +26,8 @@ const HomeSlidesCarouselContainer = ({ isMobile }) => {
                             background={item.background}
                             className={`slide${index + 1}`}
                             isLast={isLast}
-                        >
-                            <div className="slide-content">
-                                <h1 className="slide-title">{item.title}</h1>
-                                <p className="slide-description">{item.description}</p>
-                                <FrontEndButton to={item.link}>{item.buttonText}</FrontEndButton>
-                            </div>
-                        </HomeSlidesItem>
+                            item={item}
+                        />
                     );
                 })}
             </div>
@@ -53,13 +47,8 @@ const HomeSlidesCarouselContainer = ({ isMobile }) => {
                             ref={lastSlideRef}
                             active={currentIndex}
                             handleClick={handleClick}
-                        >
-                            <div className="slide-content">
-                                <h1 className="slide-title">{item.title}</h1>
-                                <p className="slide-description">{item.description}</p>
-                                <FrontEndButton to={item.link}>{item.buttonText}</FrontEndButton>
-                            </div>
-                        </HomeSlidesItem>
+                            item={item}
+                        />
                     );
                 })}
             </div>

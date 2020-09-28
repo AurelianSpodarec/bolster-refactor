@@ -5,4 +5,45 @@ import Bam from '_content/images/frontend-new/trusted-by/bam.png';
 import NHS from '_content/images/frontend-new/trusted-by/nhs.png';
 import ASFP from '_content/images/frontend-new/trusted-by/asfp.png';
 
-export const TrustedByList = [Sodexo, Engie, ISG, Bam, NHS, ASFP, Sodexo, Engie, ISG, Bam];
+export const TrustedByList = [
+    {
+        logo: Sodexo,
+        name: 'Sodexo',
+    },
+    {
+        logo: Engie,
+        name: 'Engie',
+    },
+    {
+        logo: ISG,
+        name: 'ISG',
+    },
+    {
+        logo: Bam,
+        name: 'Bam',
+    },
+    {
+        logo: NHS,
+        name: 'NHS',
+    },
+    {
+        logo: ASFP,
+        name: 'ASFP',
+    },
+    {
+        logo: Sodexo,
+        name: 'Sodexo',
+    },
+    {
+        logo: Engie,
+        name: 'Engie',
+    },
+    {
+        logo: ISG,
+        name: 'ISG',
+    },
+    {
+        logo: Bam,
+        name: 'Bam',
+    },
+];
