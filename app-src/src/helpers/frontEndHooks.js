@@ -198,7 +198,6 @@ export const useFullPageCarousel = (ref, lastRef, isMobile, max = 4) => {
 
     useEffect(() => {
         if (isMobile !== undefined && !isMobile) {
-            console.log('not mobile');
             document.removeEventListener('wheel', handleLastSlideScroll, { passive: false });
             document.addEventListener('wheel', handleScroll, { passive: false });
             document.getElementById('carouselControls').style.display = 'flex';

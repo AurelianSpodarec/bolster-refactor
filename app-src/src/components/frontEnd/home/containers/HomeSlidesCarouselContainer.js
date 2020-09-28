@@ -34,7 +34,7 @@ const HomeSlidesCarouselContainer = ({ isMobile }) => {
                 })}
                 <HomeCarouselControls isMobile={isMobile} last handleClick={handleClick} />
                 <TrustedBy />
-                <BackToTopContainer handleClick={handleClick ? () => handleClick(0) : null} />
+                <BackToTopContainer />
                 <FrontEndFooterContainer />
             </div>
         );
