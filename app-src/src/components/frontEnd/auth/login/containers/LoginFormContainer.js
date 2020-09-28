@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import LoginForm from '../presentational/LoginForm';
 import postLogin from 'actions/shared/auth/async/postLogin';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { FORGOT_PASSWORD } from 'constants/shared/modalTypes';
+import { ERROR_MODAL, FORGOT_PASSWORD } from 'constants/shared/modalTypes';
 import { authenticate } from 'helpers/api';
 import { COMPANY_USER_ROLE_TYPES as ROLES } from 'constants/companyAdmin/enums';
 import { FETCH_COMPANY_SETTINGS_SUCCESS } from 'constants/actionTypes/companySettings';
@@ -24,6 +24,7 @@ const LoginFormContainer = ({
     postSuccess,
     history,
     isPosting,
+    error,
 }) => {
     const [formData, handleChange] = useForm({ email: '', password: '' });
     const prevProps = usePrevious({ postSuccess, isPosting });
@@ -38,7 +39,13 @@ const LoginFormContainer = ({
         if (postSuccess && !prevProps.postSuccess) {
             onSuccess();
         }
-    }, [postSuccess, prevProps.postSuccess]);
+
+        if (prevProps.isPosting && !isPosting && error) {
+            showModal(ERROR_MODAL, {
+                message: 'There was an error with your request. Please try again.',
+            });
+        }
+    }, [postSuccess, prevProps.postSuccess, isPosting, prevProps.isPosting]);
 
     return (
         <LoginForm
