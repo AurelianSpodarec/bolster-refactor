@@ -1,7 +1,8 @@
 import React from 'react';
 
-import PassiveFire from '_content/images/frontend-new/why-use-our-system/passive-fire-protection.png';
 import BolsterCloud from '_content/images/frontend-new/why-use-our-system/bolster-cloud.png';
+
+import { topList, bottomList } from 'constants/frontEnd/cloudList';
 
 import InfoCard from '../shared/presentational/InfoCard';
 
@@ -13,20 +14,14 @@ const OurSystemCloudList = () => (
             </div>
 
             <div className="list-wrapper top">
-                <InfoCard title="Lorem ipsum" icon={PassiveFire} hidePlusIcon />
-                <InfoCard title="Lorem ipsum" icon={PassiveFire} hidePlusIcon />
-                <InfoCard title="Lorem ipsum" icon={PassiveFire} hidePlusIcon />
-                <InfoCard title="Lorem ipsum" icon={PassiveFire} hidePlusIcon />
-                <InfoCard title="Lorem ipsum" icon={PassiveFire} hidePlusIcon />
-                <InfoCard title="Lorem ipsum" icon={PassiveFire} hidePlusIcon />
+                {topList.map(({ icon, title }, index) => (
+                    <InfoCard key={index} title={title} icon={icon} hidePlusIcon />
+                ))}
             </div>
             <div className="list-wrapper bottom">
-                <InfoCard title="Lorem ipsum" icon={PassiveFire} hidePlusIcon />
-                <InfoCard title="Lorem ipsum" icon={PassiveFire} hidePlusIcon />
-                <InfoCard title="Lorem ipsum" icon={PassiveFire} hidePlusIcon />
-                <InfoCard title="Lorem ipsum" icon={PassiveFire} hidePlusIcon />
-                <InfoCard title="Lorem ipsum" icon={PassiveFire} hidePlusIcon />
-                <InfoCard title="Lorem ipsum" icon={PassiveFire} hidePlusIcon />
+                {bottomList.map(({ icon, title }, index) => (
+                    <InfoCard key={index} title={title} icon={icon} hidePlusIcon />
+                ))}
             </div>
         </div>
     </div>

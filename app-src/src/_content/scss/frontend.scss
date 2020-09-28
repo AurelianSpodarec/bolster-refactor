@@ -1591,6 +1591,7 @@ $header-height: 95px;
             align-items: center;
             text-align: center;
             z-index: 2;
+            padding: 0 15px;
 
             & > h2 {
                 color: #444444;
@@ -1784,7 +1785,7 @@ $header-height: 95px;
 
             .title-wrapper {
                 h2 {
-                    font-size: 200%;
+                    font-size: 180%;
                     @include opensans-semibold;
                 }
             }
