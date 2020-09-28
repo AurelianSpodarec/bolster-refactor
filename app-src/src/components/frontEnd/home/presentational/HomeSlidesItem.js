@@ -3,7 +3,7 @@ import React, { forwardRef } from 'react';
 import HomeCarouselControls from './HomeCarouselControls';
 import FrontEndFooterContainer from 'components/frontEnd/layout/footer/containers/FrontEndFooterContainer';
 import TrustedBy from 'components/frontEnd/trustedBy/presentational/TrustedBy';
-import BackToTop from 'components/frontEnd/shared/backToTop/presentational/BackToTop';
+import BackToTopContainer from 'components/frontEnd/shared/backToTop/containers/BackToTopContainer';
 
 const HomeSlidesItem = forwardRef(
     ({ background, className, isLast, children, active, handleClick }, ref) => {
@@ -32,7 +32,7 @@ const HomeSlidesItem = forwardRef(
                 </div>
                 <HomeCarouselControls active={active} last handleClick={handleClick} />
                 <TrustedBy />
-                <BackToTop />
+                <BackToTopContainer />
                 <FrontEndFooterContainer />
             </section>
         );
