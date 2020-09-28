@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ContactSubmissionsTable from '../presentational/ContactSubmissionsTable';
-import moment from 'moment';
 
 const ContactSubmissionsTableContainer = ({ isFetching, fetchingError, contactSubmissions }) => (
     <ContactSubmissionsTable
