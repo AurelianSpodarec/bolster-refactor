@@ -2629,6 +2629,10 @@ $header-height: 95px;
                     backface-visibility: hidden;
                     -webkit-backface-visibility: hidden;
                     z-index: -1;
+                    
+                    @include devices(ptTablet) {
+                        z-index: 0;
+                    }
                 }
     
                 .slide-content {
