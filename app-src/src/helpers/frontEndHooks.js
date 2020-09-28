@@ -149,7 +149,7 @@ export const useFullPageCarousel = (ref, lastRef, isMobile, max = 4) => {
     const transformPage = position => {
         disableScroll.current = true;
         const el = ref.current;
-        const transformCSS = `transform: translate3d(0, ${position}%, 0); transition: transform ${animationTime}ms ease-in-out;`;
+        const transformCSS = `transform: translate3d(0, ${position}%, 0); transition: transform ${animationTime}ms ease-in-out; -webkit-backface-visibility: hidden; backface-visibility: hidden;`;
         el.style.cssText = transformCSS;
         setTimeout(() => {
             disableScroll.current = false;
