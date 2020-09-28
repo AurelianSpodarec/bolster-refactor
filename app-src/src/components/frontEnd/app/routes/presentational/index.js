@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
+import SwitchWith404 from './SwitchWith404';
 import Home from 'components/frontEnd/home/presentational/Home';
 import HowItWorks from 'components/frontEnd/how/presentational/HowItWorks';
 import AboutPage from 'components/frontEnd/about/presentational/AboutPage';
@@ -14,9 +14,12 @@ import WhyUseOurSystem from 'components/frontEnd/whyUseOurSystem/presentational/
 import Register from 'components/frontEnd/auth/register/presentational/Register';
 import Terms from 'components/shared/terms/Terms';
 import PrivacyPolicy from 'components/shared/terms/PrivacyPolicy';
+import PageNotFoundContainer from 'components/frontEnd/404/containers/404PageContainer';
 
 const FrontEndRoutes = ({ base = '/' }) => (
     <SwitchWith404>
+        <Route exact path={`${base}page-not-found`} component={PageNotFoundContainer} />
+
         <Route exact path={`${base}`} component={Home} />
         <Route exact path={`${base}about-us`} component={AboutPage} />
         <Route exact path={`${base}how-it-works`} component={HowItWorks} />

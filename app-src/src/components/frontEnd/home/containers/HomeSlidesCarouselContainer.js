@@ -27,7 +27,6 @@ const HomeSlidesCarouselContainer = ({ isMobile }) => {
                             background={item.background}
                             className={`slide${index + 1}`}
                             isLast={isLast}
-                            ref={lastSlideRef}
                         >
                             <div className="slide-content">
                                 <h1 className="slide-title">{item.title}</h1>
@@ -52,11 +51,13 @@ const HomeSlidesCarouselContainer = ({ isMobile }) => {
                             className={`slide${index + 1}`}
                             isLast={isLast}
                             ref={lastSlideRef}
+                            active={currentIndex}
+                            handleClick={handleClick}
                         >
                             <div className="slide-content">
                                 <h1 className="slide-title">{item.title}</h1>
                                 <p className="slide-description">{item.description}</p>
-                                <FrontEndButton type="button">{item.buttonText}</FrontEndButton>
+                                <FrontEndButton to={item.link}>{item.buttonText}</FrontEndButton>
                             </div>
                         </HomeSlidesItem>
                     );

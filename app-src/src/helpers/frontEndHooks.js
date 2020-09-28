@@ -190,19 +190,28 @@ export const useFullPageCarousel = (ref, lastRef, isMobile, max = 4) => {
             }
         }
         setTimeout(() => {
-            prevScroll.current = lastRef.current.scrollTop;
+            if (lastRef.current) {
+                prevScroll.current = lastRef.current.scrollTop;
+            }
         }, 200);
     };
 
     useEffect(() => {
         if (isMobile !== undefined && !isMobile) {
-            console.log('not mobile');
             document.removeEventListener('wheel', handleLastSlideScroll, { passive: false });
             document.addEventListener('wheel', handleScroll, { passive: false });
+            document.getElementById('carouselControls').style.display = 'flex';
+            document.getElementById('carouselControlsLast').style.display = 'none';
 
             if (isLast) {
                 document.removeEventListener('wheel', handleScroll, { passive: false });
                 document.addEventListener('wheel', handleLastSlideScroll, { passive: false });
+                setTimeout(() => {
+                    if (document) {
+                        document.getElementById('carouselControls').style.display = 'none';
+                        document.getElementById('carouselControlsLast').style.display = 'flex';
+                    }
+                }, 800);
             }
         }
 
