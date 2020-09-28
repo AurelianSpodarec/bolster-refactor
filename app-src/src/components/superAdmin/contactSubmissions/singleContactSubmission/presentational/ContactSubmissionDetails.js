@@ -3,6 +3,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import moment from 'moment';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const EnquiryDetails = ({
     handleShowModal,
@@ -56,7 +57,11 @@ const EnquiryDetails = ({
                     {!!createdOn && (
                         <FieldOutput
                             title="Sent on"
-                            description={moment(createdOn).format('DD-MM-YYYY HH:mm')}
+                            description={
+                                <DateTimeContainer
+                                    date={moment.utc(createdOn).format('YYYY-MM-DDTHH:mm:ss')}
+                                />
+                            }
                             fieldClass="no-h-padding"
                         />
                     )}

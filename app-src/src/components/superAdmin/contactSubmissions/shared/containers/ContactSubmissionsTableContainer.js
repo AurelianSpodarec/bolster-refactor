@@ -15,7 +15,7 @@ const ContactSubmissionsTableContainer = ({ isFetching, fetchingError, contactSu
 export default connect(({ superAdmin: { contactSubmissionsReducer } }) => ({
     isFetching: contactSubmissionsReducer.isFetching,
     fetchingError: contactSubmissionsReducer.fetchingError,
-    contactSubmissions: Object.values(contactSubmissionsReducer.contactSubmissions).sort((a, b) =>
-        moment(a.createdOn).isBefore(moment(b.createdOn)),
+    contactSubmissions: Object.values(contactSubmissionsReducer.contactSubmissions).sort(
+        (a, b) => new Date(b.createdOn) - new Date(a.createdOn),
     ),
 }))(ContactSubmissionsTableContainer);
