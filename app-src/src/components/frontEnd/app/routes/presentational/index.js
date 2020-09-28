@@ -35,8 +35,6 @@ const FrontEndRoutes = ({ base = '/' }) => (
 
         <Route exact path={`${base}auth/Login`} component={Login} />
         <Route exact path={`${base}auth/register`} component={Register} />
-        <Route exact path={`${base}auth/terms`} component={Terms} />
-        <Route exact path={`${base}auth/privacy-policy`} component={PrivacyPolicy} />
     </SwitchWith404>
 );
 
