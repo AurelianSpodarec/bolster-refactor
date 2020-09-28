@@ -21,6 +21,9 @@ const HomeSlidesItem = forwardRef(
                             <p className="slide-description">{item.description}</p>
                             <FrontEndButton to={item.link}>{item.buttonText}</FrontEndButton>
                         </div>
+                        <div className="icon">
+                            <i className="fas fa-chevron-down"></i>
+                        </div>
                     </div>
                 </section>
             );
@@ -37,6 +40,9 @@ const HomeSlidesItem = forwardRef(
                         <h1 className="slide-title">{item.title}</h1>
                         <p className="slide-description">{item.description}</p>
                         <FrontEndButton to={item.link}>{item.buttonText}</FrontEndButton>
+                    </div>
+                    <div className="icon">
+                        <i className="fas fa-chevron-down"></i>
                     </div>
                 </div>
                 <HomeCarouselControls

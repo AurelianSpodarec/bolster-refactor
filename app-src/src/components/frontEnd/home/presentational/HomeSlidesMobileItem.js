@@ -15,6 +15,9 @@ const HomeSlidesMobileItem = ({ background, className, item }) => {
                     <p className="slide-description">{item.description}</p>
                     <FrontEndButton to={item.link}>{item.buttonText}</FrontEndButton>
                 </div>
+                <div className="icon">
+                    <i className="fas fa-chevron-down"></i>
+                </div>
             </div>
         </section>
     );
