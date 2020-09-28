@@ -12,7 +12,7 @@ const HomeSlidesItem = forwardRef(
             return (
                 <section className={`slide ${className}`}>
                     <div className="slide-container">
-                        <video className="video-bg" autoPlay muted loop>
+                        <video className="video-bg" autoPlay muted loop playsInline>
                             <source src={background} type="video/mp4" />
                             Your browser does not support HTML5 video.
                         </video>
