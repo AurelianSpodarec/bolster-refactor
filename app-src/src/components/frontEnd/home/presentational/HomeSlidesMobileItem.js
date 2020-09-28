@@ -6,7 +6,7 @@ const HomeSlidesMobileItem = ({ background, className, item }) => {
     return (
         <section className={`slide ${className} last-slide`}>
             <div className="slide-container">
-                <video className="video-bg" autoPlay muted loop>
+                <video className="video-bg" autoPlay muted loop playsInline>
                     <source src={background} type="video/mp4" />
                     Your browser does not support HTML5 video.
                 </video>
