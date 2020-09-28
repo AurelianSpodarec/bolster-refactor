@@ -19,7 +19,7 @@ const HomeSlidesItem = forwardRef(
                         <div className="slide-content">
                             <h1 className="slide-title">{item.title}</h1>
                             <p className="slide-description">{item.description}</p>
-                            <FrontEndButton type="button">{item.buttonText}</FrontEndButton>
+                            <FrontEndButton to={item.link}>{item.buttonText}</FrontEndButton>
                         </div>
                     </div>
                 </section>
@@ -36,7 +36,7 @@ const HomeSlidesItem = forwardRef(
                     <div className="slide-content">
                         <h1 className="slide-title">{item.title}</h1>
                         <p className="slide-description">{item.description}</p>
-                        <FrontEndButton type="button">{item.buttonText}</FrontEndButton>
+                        <FrontEndButton to={item.link}>{item.buttonText}</FrontEndButton>
                     </div>
                 </div>
                 <HomeCarouselControls active={active} last handleClick={handleClick} />
