@@ -7,7 +7,7 @@ import BackToTopContainer from 'components/frontEnd/shared/backToTop/containers/
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 
 const HomeSlidesItem = forwardRef(
-    ({ background, className, isLast, active, handleClick, item }, ref) => {
+    ({ background, className, isLast, active, handleClick, item, isMobile }, ref) => {
         if (!isLast) {
             return (
                 <section className={`slide ${className}`}>
@@ -39,7 +39,12 @@ const HomeSlidesItem = forwardRef(
                         <FrontEndButton to={item.link}>{item.buttonText}</FrontEndButton>
                     </div>
                 </div>
-                <HomeCarouselControls active={active} last handleClick={handleClick} />
+                <HomeCarouselControls
+                    isMobile={isMobile}
+                    active={active}
+                    last
+                    handleClick={handleClick}
+                />
                 <TrustedBy />
                 <BackToTopContainer handleClick={handleClick ? () => handleClick(0) : null} />
                 <FrontEndFooterContainer />

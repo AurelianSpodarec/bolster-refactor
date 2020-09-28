@@ -2609,11 +2609,11 @@ $header-height: 95px;
             width: 100%;
             height: calc(100vh - #{$header-height});
             position: relative;
-            background-color: rgba(0,0,0,0.8);
+            background-color: rgba(0,0,0,0.6);
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
-            transform: translate3d(0, 0, 0);
             -webkit-overflow-scrolling: touch;
+            
 
             .slide-container {
                 width: 100%;
@@ -2621,7 +2621,6 @@ $header-height: 95px;
                 overflow: hidden;
                 backface-visibility: hidden;
                 -webkit-backface-visibility: hidden;
-                opacity: 1;
 
                 .video-bg {
                     width: 100%;
@@ -2629,7 +2628,6 @@ $header-height: 95px;
                     object-fit: cover;
                     backface-visibility: hidden;
                     -webkit-backface-visibility: hidden;
-                    opacity: 0.55;
                     z-index: -1;
                 }
     
@@ -2648,7 +2646,7 @@ $header-height: 95px;
                     backface-visibility: hidden;
                     -webkit-backface-visibility: hidden;
 
-                    @include devices(mdMobile) {
+                    @include devices(lgMobile) {
                         bottom: 8vh;
                     }
     
@@ -2656,9 +2654,8 @@ $header-height: 95px;
                         font-size: 275%;
                         font-weight: 600;
                         margin-bottom: 8px;
-                        opacity: 1;
                         
-                        @include devices(mdMobile) {
+                        @include devices(lgMobile) {
                             font-size: 160%;
                         }
                     }
@@ -2666,9 +2663,8 @@ $header-height: 95px;
                     .slide-description {
                         font-size: 250%;
                         margin-bottom: 12px;
-                        opacity: 1;
 
-                        @include devices(mdMobile) {
+                        @include devices(lgMobile) {
                             font-size: 120%;
                         }
                     }
@@ -2677,9 +2673,8 @@ $header-height: 95px;
                         margin: 0 auto;
                         background-color: white;
                         color: black;
-                        opacity: 1;
 
-                        @include devices(mdMobile) {
+                        @include devices(lgMobile) {
                             font-size: 140% !important;
                         }
                     }
@@ -2698,7 +2693,7 @@ $header-height: 95px;
     transform: translateY(-50%);
     right: 64px;
 
-    @include devices(mdMobile) {
+    @include devices(lgMobile) {
         right: 16px;
     }
 
@@ -2706,7 +2701,6 @@ $header-height: 95px;
         width: 20px;
         height: 20px;
         background-color: rgba(255, 255, 255, 0.3);
-        // background-color: rgba(0, 0, 0, 0.3);
         margin-bottom: 16px;
         transition: 150ms background-color ease-in-out;
         cursor: pointer;
@@ -2723,7 +2717,7 @@ $header-height: 95px;
             background-color: rgba(255, 255, 255, 1);
         }
 
-        @include devices(mdMobile) {
+        @include devices(lgMobile) {
             width: 14px;
             height: 14px;
         }
