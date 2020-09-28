@@ -1,13 +1,6 @@
 import React from 'react';
 
-const BackToTop = () => {
-    const handleScrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-        });
-    };
-
+const BackToTop = ({ handleScrollToTop }) => {
     return (
         <div className="back-to-top-container">
             <i onClick={handleScrollToTop} className="far fa-chevron-up" />
