@@ -1199,9 +1199,12 @@ $header-height: 95px;
             }
 
             .icon {
-                width: 62px;
-                height: 62px;
+                min-width: 62px;
                 margin: 10px 20px 0;
+
+                img {
+                    width: 100%;
+                }
             }
 
             h4, p {
@@ -1226,8 +1229,7 @@ $header-height: 95px;
                 }
 
                 .icon {
-                    width: 50px;
-                    height: 50px;
+                    min-width: 50px;
                 }
             }
 
@@ -1292,7 +1294,7 @@ $header-height: 95px;
                 .icon {
                     margin: 0 0 10px 40px;
                     width: 40px;
-                    height: 40px;
+                    min-width: 0;
                 }
 
                 h4, p {
@@ -1589,6 +1591,7 @@ $header-height: 95px;
             align-items: center;
             text-align: center;
             z-index: 2;
+            padding: 0 15px;
 
             & > h2 {
                 color: #444444;
@@ -1782,7 +1785,7 @@ $header-height: 95px;
 
             .title-wrapper {
                 h2 {
-                    font-size: 200%;
+                    font-size: 180%;
                     @include opensans-semibold;
                 }
             }

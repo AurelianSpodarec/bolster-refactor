@@ -9,7 +9,7 @@ const SingleContactSubmission = () => (
             <Breadcrumb
                 breadcrumbs={[
                     { link: '/admin/contact-submissions', text: 'Contact Submissions' },
-                    { text: 'ContactSubmission' },
+                    { text: 'Contact Submission' },
                 ]}
             />
         </PageHeading>

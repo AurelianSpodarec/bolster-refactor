@@ -7,7 +7,7 @@ import InspectVideo from '_content/videos/frontend/08_Inspect_Locate_Document.mp
 
 import HowItWorksSections from './HowItWorksSections';
 import FrontEndBanner from 'components/frontEnd/shared/banners/presentational/FrontEndBanner';
-import BackToTop from 'components/frontEnd/shared/backToTop/presentational/BackToTop';
+import BackToTopContainer from 'components/frontEnd/shared/backToTop/containers/BackToTopContainer';
 import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
 
 const HowItWorks = () => {
@@ -25,7 +25,7 @@ const HowItWorks = () => {
                 />
                 <HowItWorksSections />
             </div>
-            <BackToTop />
+            <BackToTopContainer />
         </>
     );
 };

@@ -9,7 +9,7 @@ import OurSystemListContainer from '../containers/OurSystemListContainer';
 import FrontEndBanner from 'components/frontEnd/shared/banners/presentational/FrontEndBanner';
 import OurSystemDivider from './OurSystemDivider';
 import OurSystemCloudList from './OurSystemCloudList';
-import BackToTop from 'components/frontEnd/shared/backToTop/presentational/BackToTop';
+import BackToTopContainer from 'components/frontEnd/shared/backToTop/containers/BackToTopContainer';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
 
@@ -43,7 +43,7 @@ const WhyUseOurSystem = () => {
                     </FrontEndButton>
                 </div>
             </div>
-            <BackToTop />
+            <BackToTopContainer />
         </>
     );
 };
