@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
-const HomeCarouselControls = ({ active, handleClick, last = false, max = 5 }) => {
+const HomeCarouselControls = ({ active, handleClick, last = false, max = 5, isMobile }) => {
     const [currentPage, setCurrentPage] = useState(active);
     const arr = Array(max).fill(0);
 
     useEffect(() => {
         setCurrentPage(active);
     }, [active]);
+
+    if (isMobile) return null;
 
     return (
         <div

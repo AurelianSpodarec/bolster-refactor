@@ -27,6 +27,7 @@ const HomeSlidesCarouselContainer = ({ isMobile }) => {
                             className={`slide${index + 1}`}
                             isLast={isLast}
                             item={item}
+                            isMobile={isMobile}
                         />
                     );
                 })}
@@ -52,7 +53,11 @@ const HomeSlidesCarouselContainer = ({ isMobile }) => {
                     );
                 })}
             </div>
-            <HomeCarouselControls active={currentIndex} handleClick={handleClick} />
+            <HomeCarouselControls
+                isMobile={isMobile}
+                active={currentIndex}
+                handleClick={handleClick}
+            />
         </>
     );
 };
