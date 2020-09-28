@@ -1652,6 +1652,10 @@ $header-height: 95px;
         }
 
         @include devices(lsTablet) {
+            .info-card {
+                justify-content: flex-start;
+            }
+
             .info-card-list-wrapper {
                 padding: 0 10px;
                 padding-bottom: 50px;
