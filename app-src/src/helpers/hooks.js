@@ -135,7 +135,7 @@ export function useWindowDimensions() {
 }
 
 export const useIsMobile = (mobileWidth = 1024) => {
-    const [isMobile, setIsMobile] = useState(undefined);
+    const [isMobile, setIsMobile] = useState(true);
 
     useEffect(() => {
         function handleResize() {

@@ -5,6 +5,10 @@ import { HomeSlidesList } from 'constants/frontEnd/homeSlides';
 
 import HomeSlidesItem from '../presentational/HomeSlidesItem';
 import HomeCarouselControls from '../presentational/HomeCarouselControls';
+import FrontEndFooterContainer from 'components/frontEnd/layout/footer/containers/FrontEndFooterContainer';
+import TrustedBy from 'components/frontEnd/trustedBy/presentational/TrustedBy';
+import BackToTopContainer from 'components/frontEnd/shared/backToTop/containers/BackToTopContainer';
+import HomeSlidesMobileItem from '../presentational/HomeSlidesMobileItem';
 
 const HomeSlidesCarouselContainer = ({ isMobile }) => {
     const wrapperRef = useRef();
@@ -19,18 +23,19 @@ const HomeSlidesCarouselContainer = ({ isMobile }) => {
         return (
             <div className="frontend-home-mobile-carousel">
                 {HomeSlidesList.map((item, index) => {
-                    const isLast = index === max;
                     return (
-                        <HomeSlidesItem
+                        <HomeSlidesMobileItem
                             key={index}
                             background={item.background}
                             className={`slide${index + 1}`}
-                            isLast={isLast}
                             item={item}
-                            isMobile={isMobile}
                         />
                     );
                 })}
+                <HomeCarouselControls isMobile={isMobile} last handleClick={handleClick} />
+                <TrustedBy />
+                <BackToTopContainer />
+                <FrontEndFooterContainer />
             </div>
         );
 

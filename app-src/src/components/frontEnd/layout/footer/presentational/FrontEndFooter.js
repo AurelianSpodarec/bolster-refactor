@@ -9,7 +9,7 @@ import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/Fr
 import FooterLogo from '_content/images/frontend-new/footer-logo.png';
 import navItems from 'constants/frontEnd/navItems';
 
-const FrontEndFooter = ({ hideFooter }) => (
+const FrontEndFooter = ({ hideFooter, isLoggedIn }) => (
     <Container className="frontend-footer">
         <div className="information">
             <p>Bolster is a registered trademark lore ipsum dolor sit amet Adipiscing sit amet</p>
@@ -21,7 +21,11 @@ const FrontEndFooter = ({ hideFooter }) => (
             {!hideFooter && (
                 <ul>
                     {navItems
-                        .filter(({ name }) => name !== 'Home')
+                        .filter(({ name }) => {
+                            if (name === 'Home') return false;
+                            if (name === 'Register' && isLoggedIn) return false;
+                            return true;
+                        })
                         .map(({ name, slug }) => (
                             <li className={name === 'Register' ? 'hide-on-mobile' : ''} key={name}>
                                 <Link to={slug}>{name}</Link>
@@ -33,11 +37,13 @@ const FrontEndFooter = ({ hideFooter }) => (
         <div className="external-links">
             {!hideFooter && (
                 <>
-                    <div className="register-button">
-                        <FrontEndButton classes="gray" to="/auth/register">
-                            Register
-                        </FrontEndButton>
-                    </div>
+                    {!isLoggedIn && (
+                        <div className="register-button">
+                            <FrontEndButton classes="gray" to="/auth/register">
+                                Register
+                            </FrontEndButton>
+                        </div>
+                    )}
 
                     <div className="app-buttons">
                         <a
