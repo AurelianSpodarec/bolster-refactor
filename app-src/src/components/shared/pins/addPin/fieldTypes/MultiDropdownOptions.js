@@ -62,7 +62,7 @@ const MultiDropdownOptions = ({
         <MultiSelect
             required={isRequired}
             options={formattedOpts}
-            value={answers[id]}
+            value={answers[id] || []}
             name={`answer-${id}`}
             onChange={handleChange}
         />
