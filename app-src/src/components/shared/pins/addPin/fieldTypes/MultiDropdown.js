@@ -14,7 +14,7 @@ const MultiDropdown = ({
         <MultiSelect
             placeholder="-- select --"
             options={opts}
-            value={answers[id]}
+            value={answers[id] || []}
             name={`answer-${id}`}
             onChange={handleChange}
             required={isRequired}
