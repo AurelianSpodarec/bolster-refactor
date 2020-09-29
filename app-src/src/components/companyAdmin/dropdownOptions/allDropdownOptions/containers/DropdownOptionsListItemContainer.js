@@ -8,7 +8,7 @@ import postDropdownOptionsSort from 'actions/companyAdmin/dropdownOptions/async/
 
 class DropdownOptionsListItemContainer extends Component {
     render() {
-        const { option, colCount, headers, index, isCustomSort, onMobile, moveItem } = this.props;
+        const { option, colCount, headers, index, onMobile, moveItem } = this.props;
         return (
             <DropdownOptionsListItem
                 index={index}
@@ -21,7 +21,6 @@ class DropdownOptionsListItemContainer extends Component {
                 handleToggleEnable={this.handleToggleEnable}
                 headers={headers}
                 onMobile={onMobile}
-                isCustomSort={isCustomSort}
             />
         );
     }

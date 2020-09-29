@@ -19,7 +19,6 @@ class OptionValuesListItemContainer extends Component {
             headers,
             onMobile,
             services,
-            isCustomSort,
             index,
             moveItem,
             match: { url },
@@ -42,7 +41,6 @@ class OptionValuesListItemContainer extends Component {
                 headers={headers}
                 onMobile={onMobile}
                 selectedServiceNames={selectedServiceNames}
-                isCustomSort={isCustomSort}
                 index={index}
                 onMove={moveItem}
                 onDrop={() => this.handlePostOptionValuesSort()}

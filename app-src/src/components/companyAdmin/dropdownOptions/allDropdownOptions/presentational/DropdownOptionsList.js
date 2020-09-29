@@ -8,12 +8,11 @@ const DropdownOptionsList = ({
     colCount,
     headers,
     type,
-    isCustomSort,
     forwardRef,
     isOver,
     moveItem,
 }) => (
-    <tbody ref={isCustomSort ? forwardRef : null} className={isOver ? 'dragging' : ''}>
+    <tbody ref={forwardRef} className={isOver ? 'dragging' : ''}>
         {dropdownOptions.map((option, i) => (
             <DropdownOptionsListItemContainer
                 key={option.id}
@@ -22,7 +21,6 @@ const DropdownOptionsList = ({
                 index={i}
                 headers={headers}
                 type={type}
-                isCustomSort={isCustomSort}
                 moveItem={moveItem}
             />
         ))}

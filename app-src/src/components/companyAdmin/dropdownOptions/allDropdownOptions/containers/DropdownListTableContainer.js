@@ -7,11 +7,10 @@ import { ADD_DROPDOWN_OPTION, SUCCESS_MODAL, ERROR_MODAL } from 'constants/share
 import DropdownOptionsTable from '../presentational/DropdownOptionsTable';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { isObjEmpty } from 'helpers/generic';
-import { DEFAULT_PIN_OPTIONS_SORT } from 'constants/companyAdmin/enums';
 
 class DropdownListTableContainer extends Component {
     render() {
-        const { isFetching, error, title, type, selectedSortValue, handleSortChange } = this.props;
+        const { isFetching, error, title, type } = this.props;
 
         return (
             <DropdownOptionsTable
@@ -22,8 +21,6 @@ class DropdownListTableContainer extends Component {
                 title={title}
                 handleAddOptionModal={this.handleAddOptionModal}
                 type={type}
-                selectedSortValue={selectedSortValue}
-                handleSortChange={handleSortChange}
                 moveItem={this.moveItem}
             />
         );
@@ -64,33 +61,7 @@ class DropdownListTableContainer extends Component {
     };
 
     getSortedDropdownOptions = () => {
-        const { dropdownOptions, selectedSortValue } = this.props;
-        const { NAME_ASC, NAME_DESC, DATE_ASC, DATE_DESC } = DEFAULT_PIN_OPTIONS_SORT;
-
-        if (+selectedSortValue === NAME_ASC) {
-            return [...dropdownOptions].sort((a, b) =>
-                a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }),
-            );
-        }
-
-        if (+selectedSortValue === NAME_DESC) {
-            return [...dropdownOptions].sort((a, b) =>
-                b.name.localeCompare(a.name, undefined, { numeric: true, sensitivity: 'base' }),
-            );
-        }
-
-        if (+selectedSortValue === DATE_ASC) {
-            return [...dropdownOptions].sort(
-                (a, b) => new Date(a.createdOn) - new Date(b.createdOn),
-            );
-        }
-
-        if (+selectedSortValue === DATE_DESC) {
-            return [...dropdownOptions].sort(
-                (a, b) => new Date(b.createdOn) - new Date(a.createdOn),
-            );
-        }
-
+        const { dropdownOptions } = this.props;
         return [...dropdownOptions].sort((a, b) => a.sort - b.sort);
     };
 }

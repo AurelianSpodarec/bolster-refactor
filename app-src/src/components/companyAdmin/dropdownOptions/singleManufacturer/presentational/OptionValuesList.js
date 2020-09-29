@@ -8,13 +8,12 @@ const OptionValuesList = ({
     colCount,
     headers,
     services,
-    isCustomSort,
     forwardRef,
     isOver,
     moveItem,
 }) => {
     return (
-        <tbody ref={isCustomSort ? forwardRef : null} className={isOver ? 'dragging' : ''}>
+        <tbody ref={forwardRef} className={isOver ? 'dragging' : ''}>
             {optionValues.map((optionValue, i) => (
                 <OptionValuesListItemContainer
                     key={optionValue.id}
@@ -22,7 +21,6 @@ const OptionValuesList = ({
                     colCount={colCount}
                     headers={headers}
                     services={services}
-                    isCustomSort={isCustomSort}
                     moveItem={moveItem}
                     index={i}
                     optionValues={optionValues}

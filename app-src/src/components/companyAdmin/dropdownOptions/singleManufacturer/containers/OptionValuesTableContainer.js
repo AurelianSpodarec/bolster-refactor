@@ -7,28 +7,13 @@ import { SUCCESS_MODAL, ERROR_MODAL, COMPANY_ADD_OPTION_VALUE } from 'constants/
 import OptionValuesTable from '../presentational/OptionValuesTable';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { isObjEmpty } from 'helpers/generic';
-import {
-    DROPDOWN_OPTIONS,
-    DROPDOWN_OPTION_LOOKUP,
-    DEFAULT_PIN_OPTIONS_SORT,
-} from 'constants/companyAdmin/enums';
+import { DROPDOWN_OPTIONS, DROPDOWN_OPTION_LOOKUP } from 'constants/companyAdmin/enums';
 import reorderManufacturerOptionValues from 'actions/companyAdmin/dropdownOptions/sync/reorderManufacturerOptionValues';
 
 class OptionValuesTableContainer extends Component {
     render() {
-        const {
-            isFetching,
-            error,
-            title,
-            type,
-            services,
-            handleSortChange,
-            selectedSortValue,
-        } = this.props;
+        const { isFetching, error, title, type, services } = this.props;
         const sortedOptions = this.getSortedOptionValues();
-        // const optionValuesFilteredBySubscription = sortedOptions.filter(optionValue => {
-        //     return this.shouldOptionValueBeIncluded(optionValue.serviceIDs);
-        // });
 
         return (
             <OptionValuesTable
@@ -40,8 +25,6 @@ class OptionValuesTableContainer extends Component {
                 handleAddOptionValueModal={this.handleAddOptionValueModal}
                 type={type}
                 services={Object.values(services)}
-                handleSortChange={handleSortChange}
-                selectedSortValue={selectedSortValue}
                 moveItem={this.moveItem}
             />
         );
@@ -77,32 +60,9 @@ class OptionValuesTableContainer extends Component {
     };
 
     getSortedOptionValues = () => {
-        const { selectedSortValue } = this.props;
-        const { NAME_ASC, NAME_DESC, DATE_ASC, DATE_DESC } = DEFAULT_PIN_OPTIONS_SORT;
-        const optionValues = this.props.optionValues.filter(optionValue => {
-            return this.shouldOptionValueBeIncluded(optionValue.serviceIDs);
-        });
-        if (+selectedSortValue === NAME_ASC) {
-            return [...optionValues].sort((a, b) =>
-                a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }),
-            );
-        }
-
-        if (+selectedSortValue === NAME_DESC) {
-            return [...optionValues].sort((a, b) =>
-                b.name.localeCompare(a.name, undefined, { numeric: true, sensitivity: 'base' }),
-            );
-        }
-
-        if (+selectedSortValue === DATE_ASC) {
-            return [...optionValues].sort((a, b) => new Date(a.createdOn) - new Date(b.createdOn));
-        }
-
-        if (+selectedSortValue === DATE_DESC) {
-            return [...optionValues].sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn));
-        }
-
-        return [...optionValues].sort((a, b) => a.sort - b.sort);
+        return this.props.optionValues
+            .filter(optionValue => this.shouldOptionValueBeIncluded(optionValue.serviceIDs))
+            .sort((a, b) => a.sort - b.sort);
     };
 
     moveItem = (overindex, fromIndex) => {

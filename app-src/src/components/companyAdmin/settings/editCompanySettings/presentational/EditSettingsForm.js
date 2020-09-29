@@ -43,9 +43,7 @@ const EditSettingsForm = ({
     dateFormatOptions,
     dateFormat,
     defaultSitesSort,
-    // defaultDropdownSorting,
     siteSortOptions,
-    // pinOptionsSortOptions,
     shouldDeleteReportsAfterDownload,
     enableQRCodes,
     useManufacturingByDefault,
@@ -228,7 +226,6 @@ const EditSettingsForm = ({
                 )}
             </div>
             <div className="size-lg-12">
-                {/* <p>##Template Settings##</p> */}
                 <Field name="Default Template Usage Rule" sizeClasses="size-lg-12" required>
                     <DropdownContainer
                         placeholder="-- select rule --"
@@ -251,15 +248,6 @@ const EditSettingsForm = ({
                         omitPlaceholder
                     />
                 </Field>
-                {/* <Field name="Default pin options sort" sizeClasses="size-lg-6 size-md-12">
-                    <Select
-                        options={pinOptionsSortOptions}
-                        onChange={handleInputChange}
-                        name="defaultDropdownSorting"
-                        value={defaultDropdownSorting}
-                        omitPlaceholder
-                    />
-                </Field> */}
             </div>
             <div className="size-lg-12">
                 <Field name="Use O&M Manufacturing By Default" sizeClasses="size-lg-6 size-md-12">

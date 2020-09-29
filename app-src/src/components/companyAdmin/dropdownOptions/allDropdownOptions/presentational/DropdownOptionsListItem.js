@@ -10,7 +10,6 @@ const DropdownOptionsListItem = ({
     headers,
     forwardRef,
     isDragging,
-    isCustomSort,
 }) => (
     <tr ref={forwardRef} className="draggable" style={{ opacity: isDragging ? 0 : 1 }}>
         <td>

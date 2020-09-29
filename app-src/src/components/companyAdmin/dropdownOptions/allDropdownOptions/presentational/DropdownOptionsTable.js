@@ -15,7 +15,6 @@ const DropdownOptionsTable = ({
     error,
     title,
     type,
-    selectedSortValue,
     moveItem,
 }) => {
     return (
@@ -43,7 +42,6 @@ const DropdownOptionsTable = ({
                             dropdownOptions={dropdownOptions}
                             headers={headers}
                             type={type}
-                            isCustomSort={+selectedSortValue === DEFAULT_PIN_OPTIONS_SORT.CUSTOM}
                             moveItem={moveItem}
                         />
                     </Table>

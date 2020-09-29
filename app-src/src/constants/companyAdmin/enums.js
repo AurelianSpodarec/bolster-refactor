@@ -1,16 +1,16 @@
 export const ROLE_TYPES = {
-    '0': 'Owner',
-    '1': 'Admin',
-    '2': 'Operative',
-    '3': 'Client',
+    0: 'Owner',
+    1: 'Admin',
+    2: 'Operative',
+    3: 'Client',
 };
 
 export const HIERARCHY_TYPES = {
-    '1': 'site',
-    '2': 'building',
-    '3': 'floor',
-    '4': 'drawing',
-    '100': 'all sites',
+    1: 'site',
+    2: 'building',
+    3: 'floor',
+    4: 'drawing',
+    100: 'all sites',
 };
 
 export const HIERARCHY_IDS = {
@@ -34,9 +34,9 @@ export const TEMPLATE_USAGE_RULES_VALUES = {
 };
 
 export const DOCUMENT_TYPE = {
-    '1': 'View only',
-    '2': 'Requires agreement (once)',
-    '3': 'Requires agreement (multiple)',
+    1: 'View only',
+    2: 'Requires agreement (once)',
+    3: 'Requires agreement (multiple)',
 };
 
 export const COMPANY_USER_ROLE_TYPES = {
@@ -190,9 +190,9 @@ export const VAT_TYPES = {
 };
 
 export const VAT_TYPE_NAME = {
-    '1': 'GB',
-    '2': 'Europe',
-    '3': 'Outside Europe',
+    1: 'GB',
+    2: 'Europe',
+    3: 'Outside Europe',
 };
 
 //Report generator
@@ -411,12 +411,4 @@ export const DEFAULT_PIN_OPTIONS_SORT = {
     NAME_ASC: 3,
     NAME_DESC: 4,
     CUSTOM: 5,
-};
-
-export const DEFAULT_PIN_OPTIONS_SORT_NAMES = {
-    1: 'Date Ascending',
-    2: 'Date Descending',
-    3: 'Name Ascending',
-    4: 'Name Descending',
-    5: 'Custom',
 };
