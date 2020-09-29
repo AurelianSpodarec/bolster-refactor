@@ -5,7 +5,7 @@ const PageNotFound = () => {
         <div className="content-page wysiwyg">
             <h2>404: Page Not Found</h2>
             <div className="divider"></div>
-            <h3>Sorry, the page you were looking for doesnt exist.</h3>
+            <h3>Sorry, the page you were looking for doesn't exist.</h3>
         </div>
     );
 };
