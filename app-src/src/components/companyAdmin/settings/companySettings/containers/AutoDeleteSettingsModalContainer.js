@@ -3,9 +3,7 @@ import { useForm, usePrevious } from 'helpers/hooks';
 import { connect } from 'react-redux';
 
 import AutoDeleteSettingsModal from '../presentational/AutoDeleteSettingsModal';
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import editReportAutoDeleteSettings from 'actions/companyAdmin/companySettings/async/editReportAutoDeleteSettings';
 
 const AutoDeleteSettingsModalContainer = ({
@@ -14,16 +12,13 @@ const AutoDeleteSettingsModalContainer = ({
     isPosting,
     editReportAutoDeleteSettings,
     modalProps: id,
-    showModal,
 }) => {
     const [formData, handleChange] = useForm({ valueToUpdate: '' });
     const prevProps = usePrevious(postSuccess);
 
     useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
-            showModal(SUCCESS_MODAL, {
-                message: `Your report auto delete time has successfully been changed to: ${formData.valueToUpdate} days`,
-            });
+            hideModal();
         }
     }, [postSuccess, prevProps.postSuccess]);
 
@@ -59,7 +54,6 @@ const mapStateToProps = ({
 const mapDispatchToProps = {
     hideModal,
     editReportAutoDeleteSettings,
-    showModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AutoDeleteSettingsModalContainer);
