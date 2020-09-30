@@ -9,8 +9,6 @@ import {
     EDIT_COMPANY_SETTINGS_FAILURE,
 } from 'constants/actionTypes/companySettings';
 
-import { EDIT_REPORT_AUTO_DELETE_SETTINGS_SUCCESS } from 'constants/actionTypes/reportAutoDeleteSettings';
-
 export default combineReducers({
     companySettings: companySettingsReducer,
     isFetching: isFetchingReducer,
@@ -58,7 +56,6 @@ function companySettingsReducer(state = { colorCode: 'white' }, action) {
     switch (action.type) {
         case FETCH_COMPANY_SETTINGS_SUCCESS:
         case EDIT_COMPANY_SETTINGS_SUCCESS:
-        case EDIT_REPORT_AUTO_DELETE_SETTINGS_SUCCESS:
             return action.payload;
         default:
             return state;
