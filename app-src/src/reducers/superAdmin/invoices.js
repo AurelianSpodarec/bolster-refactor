@@ -25,6 +25,9 @@ import {
     SA_FETCH_INVOICES_BY_SEARCH_FAILURE,
     SA_FETCH_INVOICES_BY_SEARCH_REQUEST,
     SA_RESET_INVOICES,
+    ADD_INVOICE_COMMENT_FAILURE,
+    ADD_INVOICE_COMMENT_REQUEST,
+    ADD_INVOICE_COMMENT_SUCCESS,
 } from 'constants/actionTypes/superAdminInvoices';
 import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
 import { HIDE_MODAL } from 'constants/actionTypes/generic';
@@ -39,6 +42,9 @@ export default combineReducers({
     postSuccess: postSuccessReducer,
     filters: filtersReducer,
     count: countReducer,
+    isCommenting: isCommentingReducer,
+    commentingError: commentingErrorReducer,
+    commentingSuccess: commentingSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -160,11 +166,45 @@ function invoiceItemsReducer(state = {}, action) {
 
 function filtersReducer(
     state = { searchTerm: '', paymentType: 0, hasPayed: '0', page: 1 },
-    action
+    action,
 ) {
     switch (action.type) {
         case UPDATE_INVOICE_FILTERS:
             return updateObj(state, action.fieldName, action.searchTerm);
+        default:
+            return state;
+    }
+}
+
+function isCommentingReducer(state = false, action) {
+    switch (action.type) {
+        case ADD_INVOICE_COMMENT_REQUEST:
+            return true;
+        case ADD_INVOICE_COMMENT_SUCCESS:
+        case ADD_INVOICE_COMMENT_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function commentingSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case ADD_INVOICE_COMMENT_REQUEST:
+            return false;
+        case ADD_INVOICE_COMMENT_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function commentingErrorReducer(state = null, action) {
+    switch (action.type) {
+        case ADD_INVOICE_COMMENT_REQUEST:
+            return null;
+        case ADD_INVOICE_COMMENT_FAILURE:
+            return action.error;
         default:
             return state;
     }
