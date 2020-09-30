@@ -13,6 +13,16 @@ import { isEmpty } from 'helpers/generic';
 import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
 import { max } from 'lodash';
 
+const QR_CODE_TYPES = {
+    PIN: 'Pin',
+    ZONE: 'Zone',
+};
+
+const typeOptions = [
+    { value: QR_CODE_TYPES.PIN, label: QR_CODE_TYPES.PIN },
+    { value: QR_CODE_TYPES.ZONE, label: QR_CODE_TYPES.ZONE },
+];
+
 const GenerateQRCodesModalContainer = ({
     showModal,
     hideModal,
@@ -30,6 +40,7 @@ const GenerateQRCodesModalContainer = ({
 
     const [form, handleChange] = useState({
         numberOfCodes: 250,
+        type: QR_CODE_TYPES.PIN,
     });
 
     const minQRCodes = 250;
@@ -82,6 +93,7 @@ const GenerateQRCodesModalContainer = ({
             form={form}
             handleFormChange={handleFormChange}
             handleSubmit={handleSubmit}
+            typeOptions={typeOptions}
         />
     );
 
@@ -96,7 +108,9 @@ const GenerateQRCodesModalContainer = ({
         e.preventDefault();
 
         setIsGenerating(true);
-        generateQRCodes(form.numberOfCodes);
+
+        const { numberOfCodes, type } = form;
+        generateQRCodes(numberOfCodes, type);
     }
 };
 
@@ -120,8 +134,8 @@ const mapDispatchToProps = dispatch => ({
     fetchCompanySettings: () => {
         dispatch(fetchCompanySettings());
     },
-    generateQRCodes: numberOfCodes => {
-        dispatch(generateQRCodes(numberOfCodes));
+    generateQRCodes: (numberOfCodes, zone) => {
+        dispatch(generateQRCodes(numberOfCodes, zone));
     },
 });
 

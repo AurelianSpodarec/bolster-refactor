@@ -10,10 +10,13 @@ import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDraw
 import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
 import fetchAllPinsForDrawing from 'actions/companyAdmin/pins/async/fetchAllPinsForDrawing.js';
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
+import fetchZonesByDrawingID from 'actions/companyAdmin/zones/async/fetchZonesByDrawingID';
 
 class SinglePinContainer extends Component {
     state = { isLoading: true };
-    render = () => <SinglePin isLoading={this.state.isLoading} pin={this.props.pin} />;
+    render = () => (
+        <SinglePin isLoading={this.state.isLoading} pin={this.props.pin} />
+    );
 
     componentDidMount = () => {
         const {
@@ -22,12 +25,16 @@ class SinglePinContainer extends Component {
             fetchSinglePin,
             fetchPinsForInspectionLog,
             fetchAllOptionValues,
+            fetchZonesByDrawingID,
         } = this.props;
 
         let drawingID = null;
+
         fetchSinglePin(pinId)
             .then(({ payload }) => {
                 drawingID = payload.pin.drawingID;
+                fetchZonesByDrawingID(drawingID);
+                fetchPinsForInspectionLog(drawingID, pinId);
                 return fetchSinglePinData(pinId, drawingID);
             })
             .then(() => {
@@ -50,19 +57,23 @@ const mapStateToProps = (
     pin: pins[params.id],
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     fetchSinglePinData: (id, drawingID) => {
         return Promise.all([
             dispatch(fetchPinTemplates(id)),
             dispatch(fetchCompanyUsers()),
             dispatch(fetchDrawingTemplates(drawingID)),
             dispatch(fetchDrawingDropdownOptions(drawingID)),
+            dispatch(fetchZonesByDrawingID(drawingID)),
         ]);
     },
-    fetchSinglePin: id => dispatch(fetchSinglePin(id)),
+    fetchSinglePin: (id) => dispatch(fetchSinglePin(id)),
     fetchPinsForInspectionLog: (id, pinIDToKeep) =>
         dispatch(fetchAllPinsForDrawing(id, pinIDToKeep)),
     fetchAllOptionValues: () => dispatch(fetchAllOptionValues()),
+    fetchZonesByDrawingID: (drawingID) => fetchZonesByDrawingID(drawingID),
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SinglePinContainer));
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(SinglePinContainer)
+);
