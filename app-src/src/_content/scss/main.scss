@@ -1,6 +1,6 @@
-@import "./reset.scss";
-@import "./variables.scss";
-@import "./sizing.scss";
+@import './reset.scss';
+@import './variables.scss';
+@import './sizing.scss';
 
 @mixin dropdown-popup() {
     z-index: -1;
@@ -749,6 +749,10 @@ input {
     &:hover,
     &.active {
         background-color: #737373;
+    }
+
+    &:focus {
+        outline: none;
     }
 
     &.red {
@@ -1523,7 +1527,7 @@ input {
         .dropdown-content {
             z-index: 1;
         }
-        input[type="checkbox"] {
+        input[type='checkbox'] {
             display: none;
         }
     }
@@ -1546,7 +1550,7 @@ input {
         line-height: 26px !important;
         span {
             color: $body-text !important;
-            font-family: "Ubuntu", sans-serif !important;
+            font-family: 'Ubuntu', sans-serif !important;
             font-size: 14px;
             font-weight: 400 !important;
         }
@@ -1559,7 +1563,7 @@ input {
     .dropdown-content {
         z-index: 1;
     }
-    input[type="checkbox"] {
+    input[type='checkbox'] {
         display: none;
     }
 }
@@ -2981,12 +2985,104 @@ input {
     width: 100%;
     height: calc(100vh - 200px);
     z-index: 10;
-}
-.leaflet-pane {
-    .leaflet-tooltip-pane {
-        opacity: 0;
+
+    .zone-tooltip {
+        font-size: 12px;
+        border: none;
+        background-color: transparent;
+        box-shadow: none;
+
+        &.small-zoom {
+            font-size: 8px;
+        }
+
+        &.large-zoom {
+            font-size: 16px;
+        }
+    }
+
+    // &.small-zoom {
+    //     .zone-tooltip {
+    //         font-size: 8px;
+    //     }
+    // }
+
+    // &.large-zoom {
+    //     .zone-tooltip {
+    //         font-size: 16px;
+    //     }
+    // }
+
+    .leaflet-pane {
+        .leaflet-tooltip-pane {
+            z-index: 400;
+        }
+    }
+
+    &.hide-tooltips {
+        .leaflet-pane {
+            .leaflet-tooltip-pane {
+                opacity: 0;
+            }
+        }
     }
 }
+
+//buttons below map
+.map-bottom-buttons {
+    margin-top: 20px;
+
+    .button {
+        float: right;
+        margin-left: 2.5px;
+    }
+}
+
+//map opacity slider
+.map-opacity {
+    padding-top: 2px;
+    margin: 0 10px;
+
+    p {
+        float: left;
+        margin-right: 10px;
+    }
+
+    input {
+        float: left;
+        width: 150px;
+    }
+}
+
+//zones list
+.zones-list {
+    max-height: 410px;
+    overflow: auto;
+
+    .headings,
+    .zone {
+        border-bottom: 1px solid #eee;
+    }
+
+    .item {
+        padding: 10px;
+    }
+
+    .colour-box {
+        display: inline-block;
+        width: 80px;
+        height: 20px;
+    }
+
+    .button {
+        margin-right: 5px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
 .pin-tooltip {
     width: 250px;
     padding: 10px;
@@ -3088,6 +3184,9 @@ input {
         margin-bottom: 5px;
         font-size: 140%;
         @include ubuntu-medium;
+        &.included {
+            float: right;
+        }
     }
 
     .content {
@@ -3107,12 +3206,32 @@ input {
                 background-color: #f5f5f5;
             }
         }
+
+        &.included {
+            float: right;
+        }
     }
 }
 
 .pin-selection-buttons {
     width: 100px;
     min-height: 1px;
+
+    &.zone-buttons {
+        float: left;
+        width: 50px;
+        position: absolute;
+        right: auto;
+        left: -40px;
+        top: 0;
+        z-index: 1;
+
+        &.right {
+            float: right;
+            right: -40px;
+            left: auto;
+        }
+    }
 
     button {
         position: absolute;
@@ -3255,7 +3374,28 @@ input {
         top: 50%;
         left: 50%;
         width: 750px;
+        max-width: 95%;
         overflow: auto;
+
+        &.zone-modal {
+            width: 1200px;
+
+            .content-area {
+                min-height: 350px;
+            }
+        }
+
+        &.qr-view {
+            width: 230px;
+
+            .button {
+                margin-top: 10px;
+            }
+
+            .content-area {
+                min-height: 0;
+            }
+        }
 
         &.w-label-example {
             width: 850px;
@@ -3762,7 +3902,7 @@ input {
             font-size: 120%;
         }
 
-        input[type="checkbox"] {
+        input[type='checkbox'] {
             display: block;
             margin: 0 auto;
             cursor: move;
@@ -4413,7 +4553,7 @@ input {
             }
         }
 
-        input[type="text"] {
+        input[type='text'] {
             float: left;
             width: 100%;
             padding: 5px 8px;
@@ -4471,7 +4611,7 @@ input {
     float: left;
     padding: 10px 20px;
     color: #fff;
-    font-family: "Neo Sans W01 Medium", Arial, sans-serif;
+    font-family: 'Neo Sans W01 Medium', Arial, sans-serif;
     font-size: 180%;
     background-color: gray;
     border: none;
@@ -4608,7 +4748,7 @@ input {
         width: 100%;
         padding: 5px 10px 0;
         text-align: right;
-        font-family: "Neo Sans W01 Medium", sans-serif !important;
+        font-family: 'Neo Sans W01 Medium', sans-serif !important;
     }
 }
 
@@ -5883,4 +6023,48 @@ input {
             opacity: 1; 
          } 
     } 
+}
+
+//service area when viewing zone pins
+.service-area {
+    margin-bottom: 35px;
+
+    .heading {
+        font-size: 140%;
+        margin-bottom: 15px;
+    }
+
+    .status-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .status {
+        display: flex;
+        align-items: center;
+        width: 18%;
+
+        .icon {
+            width: 30px;
+
+            img {
+                width: 100%;
+            }
+
+            p {
+                font-size: 220%;
+                text-align: center;
+            }
+        }
+
+        .name {
+            flex: 1;
+            padding-left: 10px;
+            margin-top: -45px;
+        }
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 }

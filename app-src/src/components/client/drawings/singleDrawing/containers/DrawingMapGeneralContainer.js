@@ -7,7 +7,11 @@ import { withRouter } from 'react-router-dom';
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { convertEnumToDropdownOptions, momentComparisonFormat, isEmpty } from 'helpers/generic';
+import {
+    convertEnumToDropdownOptions,
+    momentComparisonFormat,
+    isEmpty,
+} from 'helpers/generic';
 import {
     PIN_STATUS_TYPES,
     RECTANGLE_MODES,
@@ -45,12 +49,18 @@ class DrawingMapGeneralContainer extends Component {
     render() {
         const { mapZoom, position, updating, firstCorner, mode } = this.state;
 
-        const { error, drawing = {}, furtherFiltrationOption, rectangles } = this.props;
+        const {
+            error,
+            drawing = {},
+            furtherFiltrationOption,
+            rectangles,
+        } = this.props;
 
         const cornerClicked = firstCorner;
         const isExcluding = +mode === EXCLUDE;
 
-        const shouldShowPinSelectorOptions = +furtherFiltrationOption === +PIN_SELECTOR;
+        const shouldShowPinSelectorOptions =
+            +furtherFiltrationOption === +PIN_SELECTOR;
 
         return (
             <>
@@ -75,7 +85,9 @@ class DrawingMapGeneralContainer extends Component {
                         currentTooltip={this.state.currentTooltip}
                         handleClick={this.handleClick}
                         cornerClicked={cornerClicked}
-                        shouldShowPinSelectorOptions={shouldShowPinSelectorOptions}
+                        shouldShowPinSelectorOptions={
+                            shouldShowPinSelectorOptions
+                        }
                         setMode={this.setMode}
                         rectangles={rectangles}
                         handleDelete={this.handleDelete}
@@ -166,7 +178,10 @@ class DrawingMapGeneralContainer extends Component {
             handleChange('pinIDs', pinIDs);
         }
 
-        if (fieldErrors.fromDateInclusive && moment(fromDateInclusive) <= moment(toDateInclusive)) {
+        if (
+            fieldErrors.fromDateInclusive &&
+            moment(fromDateInclusive) <= moment(toDateInclusive)
+        ) {
             removeFieldError('fromDateInclusive');
             removeFieldError('toDateInclusive');
         }
@@ -184,7 +199,7 @@ class DrawingMapGeneralContainer extends Component {
         handleChange(name, date).then(postFilters);
     };
 
-    handleClick = e => {
+    handleClick = (e) => {
         const { lat, lng } = e.latlng;
         const { mode, firstCorner } = this.state;
         const { addRectangle, furtherFiltrationOption } = this.props;
@@ -211,7 +226,8 @@ class DrawingMapGeneralContainer extends Component {
         }, []);
 
         return services.reduce((acc, { id, name }) => {
-            if (servicesOnDrawing.includes(id)) acc[id] = { value: id, text: name };
+            if (servicesOnDrawing.includes(id))
+                acc[id] = { value: id, text: name };
 
             return acc;
         }, {});
@@ -247,19 +263,22 @@ class DrawingMapGeneralContainer extends Component {
         } = filters;
         const NO = false;
         // simple
-        return furtherFiltrationOption <= FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
-            ? pins.filter(pin => {
+        return furtherFiltrationOption <=
+            FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+            ? pins.filter((pin) => {
                   // start date
                   if (
                       fromDateInclusive &&
-                      moment(pin.createdOn) < moment(fromDateInclusive, momentComparisonFormat)
+                      moment(pin.createdOn) <
+                          moment(fromDateInclusive, momentComparisonFormat)
                   ) {
                       return NO;
                   }
                   // end date
                   if (
                       toDateInclusive &&
-                      moment(pin.createdOn) > moment(toDateInclusive, momentComparisonFormat)
+                      moment(pin.createdOn) >
+                          moment(toDateInclusive, momentComparisonFormat)
                   ) {
                       return NO;
                   }
@@ -283,7 +302,10 @@ class DrawingMapGeneralContainer extends Component {
                   ) {
                       return NO;
                   }
-                  if (+furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS) {
+                  if (
+                      +furtherFiltrationOption ===
+                      FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+                  ) {
                       if (!filters.pinIDs.includes(pin.id)) {
                           return NO;
                       }
@@ -294,22 +316,25 @@ class DrawingMapGeneralContainer extends Component {
               pins.filter(({ id }) => filters.pinIDs.includes(id));
     };
 
-    setMode = mode => {
+    setMode = (mode) => {
         this.setState({ mode, firstCorner: null });
     };
 
-    handleDelete = id => {
+    handleDelete = (id) => {
         const { mode } = this.state;
         const { removeRectangle } = this.props;
         if (mode === DELETE) removeRectangle(id);
     };
 
     handleCancelPinSelector = () => {
-        const { removeAllRectangles, updateFurtherFiltrationOption } = this.props;
+        const {
+            removeAllRectangles,
+            updateFurtherFiltrationOption,
+        } = this.props;
         updateFurtherFiltrationOption(FURTHER_FILTRATION_OPTIONS.NONE);
         removeAllRectangles();
     };
-    updateCurTooltip = id => {
+    updateCurTooltip = (id) => {
         this.setState({ currentTooltip: id });
     };
 }
@@ -359,5 +384,7 @@ const mapDispatchToProps = {
 };
 
 export default withRouter(
-    withUpdateOnChange(connect(mapStateToProps, mapDispatchToProps)(DrawingMapGeneralContainer)),
+    withUpdateOnChange(
+        connect(mapStateToProps, mapDispatchToProps)(DrawingMapGeneralContainer)
+    )
 );
