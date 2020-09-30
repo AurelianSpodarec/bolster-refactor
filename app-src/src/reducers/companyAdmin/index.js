@@ -52,7 +52,6 @@ import manufacturersReducer from './manufacturers';
 import manufacturersOptionValuesReducer from './manufacturersOptionValues';
 import optionValueDocumentsReducer from './optionValueDocuments';
 import userGuideReducer from './userGuide';
-import reportAutoDeleteSettingsReducer from './reportAutoDeleteSettings';
 
 export default combineReducers({
     activityLogReducer,
@@ -107,5 +106,4 @@ export default combineReducers({
     transferRequestsReducer,
     userDrawingsReducer,
     userGuideReducer,
-    reportAutoDeleteSettingsReducer,
 });

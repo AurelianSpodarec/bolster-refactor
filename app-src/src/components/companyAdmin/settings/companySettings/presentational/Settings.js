@@ -290,7 +290,7 @@ const Settings = ({
                         <button
                             type="button"
                             className="button green"
-                            onClick={() => showAutoDeleteSettingsModal(company.id)}
+                            onClick={() => showAutoDeleteSettingsModal()}
                         >
                             <i className="fa fa-plus fa-fw" />
                             Auto Delete Settings
