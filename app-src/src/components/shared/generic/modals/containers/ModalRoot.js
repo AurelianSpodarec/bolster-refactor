@@ -72,6 +72,7 @@ import {
     GENERATE_SOS_CODE,
     DELETE_DEMO_REQUEST,
     ADD_DEMO_REQUEST_COMMENT,
+    ADD_INVOICE_COMMENT,
     CONFIRM_MOVE_HIERARCHY_TO_COMPANY,
     ADMIN_CONFIRM_SET_IS_INVOICE_PAID,
     ADMIN_DELETE_INVOICE,
@@ -204,6 +205,7 @@ import UploadUserGuideModalContainer from './UploadUserGuideModalContainer';
 import AddNewFeatureModal from 'components/superAdmin/newFeatures/addNewFeatureModal/presentational/AddNewFeatureModal';
 import EditNewFeatureModal from 'components/superAdmin/newFeatures/editNewFeatureModal/presentational/EditNewFeatureModal';
 import RecentUpdateModal from 'components/companyAdmin/layout/header/presentational/RecentUpdateModal';
+import AddCommentToInvoiceModalContainer from 'components/superAdmin/invoices/singleInvoice/containers/AddCommentToInvoiceModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -305,6 +307,7 @@ const MODAL_COMPONENTS = {
     [ADD_NEW_FEATURE]: AddNewFeatureModal,
     [EDIT_NEW_FEATURE]: EditNewFeatureModal,
     [RECENT_UPDATE_MODAL]: RecentUpdateModal,
+    [ADD_INVOICE_COMMENT]: AddCommentToInvoiceModalContainer,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
