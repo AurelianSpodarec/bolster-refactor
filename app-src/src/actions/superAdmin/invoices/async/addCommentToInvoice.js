@@ -25,7 +25,7 @@ export const addInvoiceCommentFailure = error => ({
 export default (invoiceID, comment) => dispatch => {
     dispatch(addInvoiceCommentRequest());
     return axios
-        .post(`${ADMIN_API_URL}/invoices/${invoiceID}`, { Comment: comment }, getHeaders())
+        .put(`${ADMIN_API_URL}/invoices/${invoiceID}`, { Comment: comment }, getHeaders())
         .then(({ data }) => dispatch(addInvoiceCommentSuccess(data)))
         .catch(err => dispatch(addInvoiceCommentFailure(err.message)));
 };

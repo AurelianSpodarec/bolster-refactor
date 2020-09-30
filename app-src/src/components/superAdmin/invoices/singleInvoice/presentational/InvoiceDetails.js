@@ -94,20 +94,19 @@ const InvoiceDetails = ({
                 description={`${total && formatCurrency(total)} GBP (inc. VAT)`}
                 sizeClass="size-lg-12"
             />
-
-            {/* TODO: PLUG THIS IN TO ADD A COMMENT */}
             <div className="size-lg-12">
                 <FieldOutput title="Comments" fieldClass="comments">
                     <textarea
                         rows="5"
                         name="comments-textarea"
-                        value={comment}
+                        value={commentValue}
                         onChange={event => setCommentValue(event.target.value)}
                     >
                         {comment}
                     </textarea>
                 </FieldOutput>
             </div>
+
             <BlockButtonWrapper>
                 <button onClick={() => handleShowModal(id, commentValue)} className="button green">
                     <i className="far fa-trash-alt" />
