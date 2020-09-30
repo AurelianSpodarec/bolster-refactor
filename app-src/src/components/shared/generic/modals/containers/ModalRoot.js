@@ -199,7 +199,7 @@ import AddNewDocumentVersionModal from 'components/companyAdmin/dropdownOptions/
 import ConfirmDeleteDocumentVersionModalContainer from 'components/companyAdmin/dropdownOptions/confirmDeleteDocumentVersion/containers/ConfirmDeleteDocumentVersionModalContainer';
 import EditCompanyAddressModalContainer from './EditCompanyAddressModalContainer';
 import UploadUserGuideModalContainer from './UploadUserGuideModalContainer';
-import AutoDeleteSettingsModalContainer from 'components/companyAdmin/settings/companySettings/containers/AutoDeleteSettingsModalContainer';
+import AutoDeleteSettingsModalContainer from 'components/companyAdmin/settings/editCompanySettings/containers/AutoDeleteSettingsModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
