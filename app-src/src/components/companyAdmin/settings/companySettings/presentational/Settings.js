@@ -284,28 +284,19 @@ const Settings = ({
                             sizeClass="size-lg-12"
                         />
                     </Block>
-                    {companyUserType === COMPANY_USER_ROLE_TYPES.OWNER && (
-                        <Block>
-                            <BlockHeading title="Auto Delete Settings" />
-                            <FieldOutput
-                                title="Report Auto Delete Time (Days)"
-                                description={company.reportAutoDelete}
-                                fieldClass="no-h-padding"
-                                sizeClass="size-lg-12"
-                            />
-                            <BlockButtonWrapper>
-                                <button
-                                    type="button"
-                                    className="button yellow"
-                                    onClick={() => showAutoDeleteSettingsModal(company.id)}
-                                >
-                                    <i className="fa fa-pencil fa-fw" />
-                                    Edit Auto Delete Settings
-                                </button>
-                            </BlockButtonWrapper>
-                        </Block>
-                    )}
                 </div>
+                {companyUserType === COMPANY_USER_ROLE_TYPES.OWNER && (
+                    <BlockButtonWrapper>
+                        <button
+                            type="button"
+                            className="button green"
+                            onClick={() => showAutoDeleteSettingsModal(company.id)}
+                        >
+                            <i className="fa fa-plus fa-fw" />
+                            Auto Delete Settings
+                        </button>
+                    </BlockButtonWrapper>
+                )}
             </BlockContainer>
         </>
     );
