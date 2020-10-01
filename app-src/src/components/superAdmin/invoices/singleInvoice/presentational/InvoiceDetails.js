@@ -102,7 +102,7 @@ const InvoiceDetails = ({
                         value={commentValue}
                         onChange={event => setCommentValue(event.target.value)}
                     >
-                        {comment}
+                        {commentValue}
                     </textarea>
                 </FieldOutput>
             </div>

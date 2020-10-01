@@ -138,6 +138,8 @@ function invoicesReducer(state = {}, action) {
             return convertArrToObj(action.payload.invoices);
         case SA_DELETE_INVOICE_SUCCESS:
             return removeObjItem(state, action.id);
+        case ADD_INVOICE_COMMENT_SUCCESS:
+            return { ...state, [action.data.id]: action.data };
         default:
             return state;
     }
