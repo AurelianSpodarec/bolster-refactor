@@ -36,6 +36,10 @@ const SuperAdminMenu = ({ logout, unreadRequests }) => (
                 <i className="fa fa-code-merge icon" />{' '}
                 <span className="menu-text">Merge Tool</span>
             </MenuItemContainer>
+            <MenuItemContainer link="/admin/expiry-tool">
+                <i className="fa fa-code-merge icon" />{' '}
+                <span className="menu-text">Expiry Tool</span>
+            </MenuItemContainer>
             <MenuItemContainer link="/admin/services">
                 <i className="fa fa-folder-open icon" /> <span className="menu-text">Services</span>
             </MenuItemContainer>

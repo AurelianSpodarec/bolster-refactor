@@ -15,6 +15,7 @@ import SOSManagementRoutes from './SOSManagementRoutes';
 import DashboardContainer from 'components/superAdmin/dashboard/containers/DashboardContainer';
 import OperativeAlertsRoutes from './OperativeAlertsRoutes';
 import MergeToolRoutes from './MergeToolRoutes';
+import ExpiryToolRoutes from './ExpiryToolRoutes';
 import PinOptionsManufacturersRoutes from './PinOptionsManufacturersRoutes';
 import UserGuidesRoutes from './UserGuidesRoutes';
 
@@ -27,13 +28,12 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/profile`} component={ProfilesRoutes} />
         <Route path={`${base}/company-reports`} component={CompanyReportsRoutes} />
         <Route path={`${base}/invoices`} component={InvoicesRoutes} />
-
         <Route path={`${base}/site-management/user-enquiries`} component={EnquiriesRoutes} />
         <Route path={`${base}/enquiries`} component={EnquiriesRoutes} />
-
         <Route path={`${base}/demo-requests`} component={DemoRequestsRoutes} />
         <Route path={`${base}/move-tool`} component={MoveToolRoutes} />
         <Route path={`${base}/merge-tool`} component={MergeToolRoutes} />
+        <Route path={`${base}/expiry-tool`} component={ExpiryToolRoutes} />
         <Route path={`${base}/sos-management`} component={SOSManagementRoutes} />
         <Route path={`${base}/operative-alerts`} component={OperativeAlertsRoutes} />
         <Route path={`${base}/user-guides`} component={UserGuidesRoutes} />
