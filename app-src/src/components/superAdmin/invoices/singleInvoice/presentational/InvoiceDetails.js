@@ -14,6 +14,7 @@ import {
     ADMIN_DELETE_INVOICE,
 } from 'constants/shared/modalTypes';
 import { INVOICE_GEN_URL } from 'config';
+import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 
 const InvoiceDetails = ({
     isFetching,
@@ -95,15 +96,12 @@ const InvoiceDetails = ({
                 sizeClass="size-lg-12"
             />
             <div className="size-lg-12">
-                <FieldOutput title="Comments" fieldClass="comments">
-                    <textarea
-                        rows="5"
-                        name="comments-textarea"
+                <FieldOutput title="Comments" fieldClass="comments" sizeClass="size-md-12">
+                    <TextAreaContainer
+                        name={commentValue}
                         value={commentValue}
-                        onChange={event => setCommentValue(event.target.value)}
-                    >
-                        {commentValue}
-                    </textarea>
+                        handleChange={(name, value) => setCommentValue(value)}
+                    />
                 </FieldOutput>
             </div>
 
