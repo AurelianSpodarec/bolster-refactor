@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+
+import moment from 'moment';
+
 import fetchAllCompanies from 'actions/superAdmin/companies/async/fetchAllCompanies';
 import fetchDrawingsForCompany from 'actions/superAdmin/moveTool/async/fetchDrawingsForCompany';
 import { componentDidMount, componentDidUpdate, sortArrayByKeyAndOrder } from 'helpers/generic';
 import ExpiryToolForm from '../presentational/ExpiryToolForm';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
-const defaultPoints = { A: null, B: null };
+import { useForm } from 'helpers/hooks';
 
 const ExpiryToolFormContainer = ({
     companies,
@@ -25,7 +28,11 @@ const ExpiryToolFormContainer = ({
     const [companyID, setCompanyID] = useState(0);
     const [drawingID, setDrawingID] = useState(0);
     const [currentDrawing, setCurrentDrawing] = useState({});
-
+    const [extendDrawingForm, handleFormChange] = useForm({
+        newExpirationDate: '',
+        extensionReason: '',
+    });
+    const [daysToExtendBy, handleChange] = useForm({ amountOfDays: '' });
     componentDidMount(fetchAllCompanies);
     componentDidUpdate(handleUpdateCompany, [companyID]);
 
@@ -33,7 +40,11 @@ const ExpiryToolFormContainer = ({
         if (drawingID) {
             setCurrentDrawing(drawings[drawingID]);
         }
-    }, [drawingID]);
+
+        if (daysToExtendBy.amountOfDays) {
+            calculateNewExpiryDate();
+        }
+    }, [drawingID, daysToExtendBy]);
 
     return (
         <ExpiryToolForm
@@ -50,6 +61,11 @@ const ExpiryToolFormContainer = ({
             drawingID={drawingID}
             setDrawingID={setDrawingID}
             currentDrawing={currentDrawing}
+            extendDrawingForm={extendDrawingForm}
+            handleFormChange={handleFormChange}
+            daysToExtendBy={daysToExtendBy}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
         />
     );
 
@@ -81,6 +97,18 @@ const ExpiryToolFormContainer = ({
 
     function handleUpdateCompany() {
         fetchDrawingsForCompany(companyID);
+    }
+
+    function calculateNewExpiryDate() {
+        const newDate = moment(currentDrawing.expiresOn)
+            .add(daysToExtendBy.amountOfDays, 'days')
+            .format('YYYY-MM-DDTHH:mm:ss');
+
+        handleFormChange('newExpirationDate', newDate);
+    }
+
+    function handleSubmit() {
+        console.log('inside handle submit');
     }
 };
 
