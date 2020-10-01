@@ -76,14 +76,14 @@ const mapStateToProps = (
                 commentingError,
                 commentingSuccess,
             },
-            companiesReducer: { companies },
+            companiesReducer: { singleCompany },
         },
     },
     { match: { params } },
 ) => {
     const invoice = invoices[params.id] || {};
     return {
-        company: companies[invoice.companyID] || {},
+        company: singleCompany[invoice.companyID] || {},
         invoice: invoices[params.id] || {},
         error,
         isFetching,
