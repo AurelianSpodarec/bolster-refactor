@@ -1,10 +1,13 @@
 import React from 'react';
+
+import moment from 'moment';
+
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isEmpty } from 'helpers/generic';
 import Field from 'components/shared/generic/form/presentational/Field';
 import Select from 'components/shared/generic/form/presentational/Select';
-// import MergeToolBoxes from './MergeToolBoxes';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
 const ExpiryToolForm = ({
     companiesOptions,
@@ -13,19 +16,9 @@ const ExpiryToolForm = ({
     companyID,
     setCompanyID,
     drawingsOptions,
-    drawings,
-    sourceDrawingID,
-    setSourceDrawingID,
-    sourceDrawingPoints,
-    setSourceDrawingPoints,
-    destDrawingID,
-    setDestDrawingID,
-    destDrawingPoints,
-    setDestDrawingPoints,
-    shouldShowSubmit,
-    handleSubmit,
-    isPosting,
-    fetchingDrawings,
+    setDrawingID,
+    drawingID,
+    currentDrawing: { id, expiresOn, createdOn },
 }) => (
     <BlockContainer
         isFetching={fetchingCompanies}
@@ -42,31 +35,23 @@ const ExpiryToolForm = ({
                 omitPlaceholder
             />
         </Field>
-        {/* {!!companyID && (
-            <MergeToolBoxes
-                drawingsOptions={drawingsOptions}
-                drawings={drawings}
-                sourceDrawingID={sourceDrawingID}
-                setSourceDrawingID={setSourceDrawingID}
-                sourceDrawingPoints={sourceDrawingPoints}
-                setSourceDrawingPoints={setSourceDrawingPoints}
-                destDrawingID={destDrawingID}
-                setDestDrawingID={setDestDrawingID}
-                destDrawingPoints={destDrawingPoints}
-                setDestDrawingPoints={setDestDrawingPoints}
-                fetchingDrawings={fetchingDrawings}
-            />
+        {!!companyID && (
+            <Field name="Select a drawing" classes>
+                <Select
+                    name="companyID"
+                    options={drawingsOptions}
+                    value={drawingID}
+                    onChange={(_, value) => setDrawingID(value)}
+                    search
+                    omitPlaceholder
+                />
+            </Field>
         )}
-        {shouldShowSubmit && (
-            <ButtonContainer handleClick={handleSubmit}>
-                Merge source drawing into destination drawing
-            </ButtonContainer>
+        {!!drawingID && (
+            <Field name="Expiry Date" classes>
+                <FieldOutput description={moment(expiresOn).format()} />
+            </Field>
         )}
-        {isPosting && (
-            <ButtonContainer handleClick={() => {}} disabled>
-                Sending merge request...
-            </ButtonContainer>
-        )} */}
     </BlockContainer>
 );
 
