@@ -13,16 +13,17 @@ const AutoDeleteSettingsModalContainer = ({
     postSuccess,
     isPosting,
     editReportAutoDeleteSettings,
+    modalProps: id,
     showModal,
     error,
 }) => {
-    const [formData, handleChange] = useForm({ numberOfDays: '' });
+    const [formData, handleChange] = useForm({ valueToUpdate: '' });
     const prevProps = usePrevious({ postSuccess, error });
 
     useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
-                message: `Your report auto delete time has successfully been changed to: ${formData.numberOfDays} days`,
+                message: `Your report auto delete time has successfully been changed to: ${formData.valueToUpdate} days`,
             });
         }
         if (error && !prevProps.error) {
@@ -43,7 +44,7 @@ const AutoDeleteSettingsModalContainer = ({
         />
     );
     function handleSubmit() {
-        const postBody = { numberOfDays: formData.numberOfDays };
+        const postBody = { valueToUpdate: formData.valueToUpdate, id };
         editReportAutoDeleteSettings(postBody);
     }
 };

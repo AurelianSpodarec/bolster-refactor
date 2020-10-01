@@ -16,8 +16,8 @@ const AutoDeleteSettingsModal = ({ handleChange, handleSubmit, form, hideModal, 
                     <Field name="Amount of days (Max 30)" required>
                         <TextInputContainer
                             handleChange={handleChange}
-                            name={'numberOfDays'}
-                            value={form.numberOfDays}
+                            name={'valueToUpdate'}
+                            value={form.valueToUpdate}
                             type="number"
                             maxNum="30"
                             required
