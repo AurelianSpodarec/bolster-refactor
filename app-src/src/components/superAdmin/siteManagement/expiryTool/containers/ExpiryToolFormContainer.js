@@ -8,8 +8,10 @@ import fetchDrawingsForCompany from 'actions/superAdmin/moveTool/async/fetchDraw
 import { componentDidMount, componentDidUpdate, sortArrayByKeyAndOrder } from 'helpers/generic';
 import ExpiryToolForm from '../presentational/ExpiryToolForm';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import { ERROR_MODAL, SUCCESS_MODAL, CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 import { useForm } from 'helpers/hooks';
+import adminEditNewDrawingExpirationDate from 'actions/superAdmin/expiryTool/asyc/expiryTool';
 
 const ExpiryToolFormContainer = ({
     companies,
@@ -24,6 +26,8 @@ const ExpiryToolFormContainer = ({
     postSuccess,
     error,
     showModal,
+    hideModal,
+    adminEditNewDrawingExpirationDate,
 }) => {
     const [companyID, setCompanyID] = useState(0);
     const [drawingID, setDrawingID] = useState(0);
@@ -65,7 +69,7 @@ const ExpiryToolFormContainer = ({
             handleFormChange={handleFormChange}
             daysToExtendBy={daysToExtendBy}
             handleChange={handleChange}
-            handleSubmit={handleSubmit}
+            handleSubmit={handleSubmitModal}
         />
     );
 
@@ -102,13 +106,18 @@ const ExpiryToolFormContainer = ({
     function calculateNewExpiryDate() {
         const newDate = moment(currentDrawing.expiresOn)
             .add(daysToExtendBy.amountOfDays, 'days')
-            .format('YYYY-MM-DDTHH:mm:ss');
+            .format('YYYY-MM-DD HH:mm:ss');
 
         handleFormChange('newExpirationDate', newDate);
     }
 
-    function handleSubmit() {
-        console.log('inside handle submit');
+    function handleSubmitModal() {
+        const handleSubmit = () => {
+            adminEditNewDrawingExpirationDate(extendDrawingForm, drawingID);
+            hideModal();
+        };
+        const message = 'Are you sure you wish to extend this drawings expiration date?';
+        showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
     }
 };
 
@@ -126,6 +135,12 @@ const mapStateToProps = ({
     drawingsError,
 });
 
-const mapDispatchToProps = { fetchAllCompanies, fetchDrawingsForCompany, showModal };
+const mapDispatchToProps = {
+    fetchAllCompanies,
+    fetchDrawingsForCompany,
+    showModal,
+    hideModal,
+    adminEditNewDrawingExpirationDate,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpiryToolFormContainer);
