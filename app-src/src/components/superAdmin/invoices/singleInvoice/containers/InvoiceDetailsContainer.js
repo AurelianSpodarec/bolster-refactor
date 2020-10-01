@@ -34,7 +34,7 @@ const InvoiceDetailsContainer = ({
             showModal(ERROR_MODAL, {
                 title: 'Save Comments Error:',
                 message:
-                    'An error occurred while saving this demos comment, please try again later',
+                    'An error occurred while saving this invoice comment, please try again later',
             });
         }
 
