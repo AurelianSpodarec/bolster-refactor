@@ -11,8 +11,8 @@ const SettingsContainer = ({ onMobile, fetchCompanySettings, showModal }) => {
         fetchCompanySettings();
     }, []);
 
-    function showAutoDeleteSettingsModal(id) {
-        showModal(COMPANY_AUTO_DELETE_SETTINGS, id);
+    function showAutoDeleteSettingsModal() {
+        showModal(COMPANY_AUTO_DELETE_SETTINGS);
     }
 
     return (
