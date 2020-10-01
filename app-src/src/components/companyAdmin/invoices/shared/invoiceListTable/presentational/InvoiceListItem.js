@@ -14,18 +14,19 @@ const InvoiceListItem = ({
     invoice: {
         createdOn,
         isPaid,
+        isFree,
         subTotal,
         total,
         id,
         paymentType,
         userFirstName,
         userLastName,
-        remainingToPay
+        remainingToPay,
     },
     showModal,
     onMobile,
     headers,
-    location
+    location,
 }) => (
     <tr>
         <td>
@@ -62,7 +63,7 @@ const InvoiceListItem = ({
         <td>
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[6]}</span>}
-            {isPaid ? 'Paid' : 'Awaiting Payment'}{' '}
+            {isFree ? 'Free' : isPaid ? 'Paid' : 'Awaiting Payment'}{' '}
             {onMobile && (
                 <StatusIcon classes="warning" iconClass="fa fa-exclamation-triangle far" />
             )}
@@ -106,7 +107,7 @@ const InvoiceListItem = ({
                 <LinkWithPropsContainer
                     to={{
                         pathname: `/company/invoices/${id}`,
-                        state: { fromURL: location.pathname }
+                        state: { fromURL: location.pathname },
                     }}
                 >
                     View
