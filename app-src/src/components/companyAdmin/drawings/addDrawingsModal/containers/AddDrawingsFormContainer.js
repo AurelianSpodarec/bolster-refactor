@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom';
 
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
+import fetchClientsForFloor from 'actions/companyAdmin/clients/async/fetchClientsForFloor';
+import fetchOperativesForFloor from 'actions/companyAdmin/operatives/async/fetchOperativesForFloor';
 import {
     createManufacturerOptionList,
     createOptionValuesList,
@@ -23,7 +25,6 @@ import {
     DROPDOWN_OPTION_MANUFACTURER_ENABLED,
 } from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { isObjEmpty } from 'helpers/generic';
 
 import AddDrawingsForm from '../presentational/AddDrawingsForm';
 
@@ -45,7 +46,14 @@ const AddDrawingsFormContainer = ({
     floor,
     useManufacturingByDefault,
     error,
+    clients,
+    operatives,
+    fetchClientsForFloor,
+    fetchOperativesForFloor,
+    fetchingClients,
+    fetchingOperatives,
 }) => {
+
     const [
         drawings,
         updateDrawing,
@@ -53,9 +61,9 @@ const AddDrawingsFormContainer = ({
         removeDrawing,
         getKeys,
         getPostBody,
+        setInitialManufacturerFloorOptions,
         // eslint-disable-next-line no-unused-vars
         _,
-        setInitialManufacturerFloorOptions,
     ] = useMultipleHierarchies({
         name: '',
         file: '',
@@ -68,6 +76,8 @@ const AddDrawingsFormContainer = ({
         selectedManufacturerOptions: [],
         selectedOptionValues: [],
         optionValuesOptions: {},
+        clientPermissionIDs: [],
+        operativePermissionIDs: [],
     });
 
     const [initialOptions, setInitialOptions] = useState({
@@ -86,6 +96,7 @@ const AddDrawingsFormContainer = ({
     const [showManufacturingOptions, setShowManufacturingOptions] = useState(true);
 
     useEffect(() => {
+        fetchClientsForFloor(floorID).then(() => fetchOperativesForFloor(floorID));
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before adding a drawing.
         async function getPinOptions() {
             const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
@@ -96,9 +107,8 @@ const AddDrawingsFormContainer = ({
                 return fetchManufacturersByPinOptionType(pinOptionType);
             };
 
-            const actions = pinOptionTypes.map(fn);
-
-            await Promise.all(actions).then(() => {
+            const manufacturerActions = pinOptionTypes.map(fn);
+            await Promise.all(manufacturerActions).then(() => {
                 fetchAllOptionValues();
             });
         }
@@ -159,9 +169,31 @@ const AddDrawingsFormContainer = ({
         }
     }, [isFetching]);
 
+    useEffect(() => {
+        const operativeIDs = operatives.map(({ id }) => id + '');
+        Object.values(drawings).map(drawing => {
+            updateDrawing(`${drawing.id}.*.operativePermissionIDs`, operativeIDs);
+        });
+    }, [fetchingOperatives]);
+    useEffect(() => {
+        const clientIDs = clients.map(({ id }) => id + '');
+        Object.values(drawings).map(drawing => {
+            updateDrawing(`${drawing.id}.*.clientPermissionIDs`, clientIDs);
+        });
+    }, [fetchingClients]);
+
+    const clientOptions = clients.map(({ id, userFirstName, userLastName, companyName }) => ({
+        value: id,
+        text: `${userFirstName} ${userLastName} (${companyName})`,
+    }));
+    const operativeOptions = operatives.map(({ id, userFirstName, userLastName, companyName }) => ({
+        value: id,
+        text: `${userFirstName} ${userLastName} (${companyName})`,
+    }));
+
     return (
         <BlockContainer
-            isEmpty={isObjEmpty(manufacturers) || isObjEmpty(optionValues) || !areOptionsLoaded}
+            isEmpty={isFetching || !areOptionsLoaded}
             isFetching={isFetching || !areOptionsLoaded}
             error={error}
             contentClass="no-padding"
@@ -182,6 +214,8 @@ const AddDrawingsFormContainer = ({
                 initialOptions={initialOptions}
                 setShowManufacturingOptions={setShowManufacturingOptions}
                 showManufacturingOptions={showManufacturingOptions}
+                clientOptions={clientOptions}
+                operativeOptions={operativeOptions}
             />
         </BlockContainer>
     );
@@ -197,25 +231,30 @@ const AddDrawingsFormContainer = ({
                     isAlertShowing,
                     message,
                     dateToSend,
+                    clientPermissionIDs,
+                    operativePermissionIDs,
                     setManufacturersForHierarchy,
                 } = drawing;
-
                 const optionValueIDs = removeUnusedManufacturerDefaults(drawing);
 
                 const manufacturingEnabledOptions = initialOptions.isManufacturingInherited
                     ? {}
                     : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
 
-                isAlertShowing
-                    ? createDrawing({
-                          name,
-                          file,
-                          message,
-                          dateToSend,
-                          floorID,
-                          ...manufacturingEnabledOptions,
-                      })
-                    : createDrawing({ name, file, floorID, ...manufacturingEnabledOptions });
+                const postBody = {
+                    name,
+                    file,
+                    floorID,
+                    clientPermissionIDs,
+                    operativePermissionIDs,
+                    ...manufacturingEnabledOptions,
+                };
+                if (isAlertShowing) {
+                    postBody.message = message;
+                    postBody.dateToSend = dateToSend;
+                }
+
+                createDrawing(postBody);
             } else if (drawings.length > 1) {
                 const formattedDrawings = drawings.map(drawing => {
                     const {
@@ -225,6 +264,8 @@ const AddDrawingsFormContainer = ({
                         dateToSend,
                         message,
                         setManufacturersForHierarchy,
+                        clientPermissionIDs,
+                        operativePermissionIDs,
                     } = drawing;
 
                     const optionValueIDs = removeUnusedManufacturerDefaults(drawing);
@@ -232,22 +273,19 @@ const AddDrawingsFormContainer = ({
                     const manufacturingEnabledOptions = initialOptions.isManufacturingInherited
                         ? {}
                         : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
-
-                    return isAlertShowing
-                        ? {
-                              name,
-                              file,
-                              floorID,
-                              dateToSend,
-                              message,
-                              ...manufacturingEnabledOptions,
-                          }
-                        : {
-                              name,
-                              file,
-                              floorID,
-                              ...manufacturingEnabledOptions,
-                          };
+                    const postBody = {
+                        name,
+                        file,
+                        floorID,
+                        clientPermissionIDs,
+                        operativePermissionIDs,
+                        ...manufacturingEnabledOptions,
+                    };
+                    if (isAlertShowing) {
+                        postBody.message = message;
+                        postBody.dateToSend = dateToSend;
+                    }
+                    return postBody;
                 });
                 createDrawings({ drawings: formattedDrawings, floorID });
             }
@@ -268,6 +306,9 @@ const mapStateToProps = (
             companySettingsReducer: {
                 companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
             },
+            clientsReducer: { clients, isFetching: fetchingClients },
+            operativesReducer: { operatives, isFetching: fetchingOperatives },
+
             manufacturersReducer: {
                 manufacturers,
                 isFetching: isFetchingManufacturers,
@@ -297,9 +338,14 @@ const mapStateToProps = (
     floor: floors[floorID],
     manufacturers,
     optionValues: manufacturersOptionValues,
-    isFetching: isFetchingManufacturers || isFetchingOptionValues,
+    isFetching:
+        isFetchingManufacturers || isFetchingOptionValues || fetchingOperatives || fetchingClients,
     useManufacturingByDefault,
     subscriptionServiceIDs,
+    clients: Object.values(clients),
+    operatives: Object.values(operatives),
+    fetchingClients,
+    fetchingOperatives,
 });
 
 const mapDispatchToProps = {
@@ -309,5 +355,8 @@ const mapDispatchToProps = {
     updateHierarchyAddState,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
+    fetchClientsForFloor,
+    fetchOperativesForFloor,
 };
+
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddDrawingsFormContainer));

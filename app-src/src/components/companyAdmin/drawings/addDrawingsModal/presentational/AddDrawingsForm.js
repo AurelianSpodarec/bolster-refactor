@@ -28,6 +28,8 @@ const AddDrawingsForm = ({
     initialOptions,
     setShowManufacturingOptions,
     showManufacturingOptions,
+    clientOptions,
+    operativeOptions,
 }) => {
     const hasEnoughCredits = credits >= drawings.length;
     return (
@@ -117,6 +119,35 @@ const AddDrawingsForm = ({
                                 </div>
                             )}
                         </div>
+                        {!!clientOptions.length && (
+                            <div className="size-lg-12 check-col-6">
+                                <Field name="These clients have access to drawings on this level - invite them to this drawing?">
+                                    <CheckboxListContainer
+                                        options={clientOptions}
+                                        name={`${drawing.id}.*.clientPermissionIDs`}
+                                        selectedOptions={drawing.clientPermissionIDs}
+                                        handleChange={(name, value) =>
+                                            console.log(value) ||
+                                            updateDrawing(name, value, drawing.id)
+                                        }
+                                    />
+                                </Field>
+                            </div>
+                        )}
+                        {!!operativeOptions.length && (
+                            <div className="size-lg-12 check-col-6">
+                                <Field name="These operatives have access to drawings on this level - attach them to this drawing?">
+                                    <CheckboxListContainer
+                                        options={operativeOptions}
+                                        name={`${drawing.id}.*.operativePermissionIDs`}
+                                        selectedOptions={drawing.operativePermissionIDs}
+                                        handleChange={(name, value) =>
+                                            updateDrawing(name, value, drawing.id)
+                                        }
+                                    />
+                                </Field>
+                            </div>
+                        )}
                         {showManufacturingOptions ? (
                             <>
                                 <div className="size-lg-12">
