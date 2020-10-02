@@ -58,6 +58,12 @@ const ExpiryToolFormContainer = ({
                 message: `This drawings expiration date has been extended by ${daysToExtendBy.amountOfDays} days`,
             });
         }
+        if (error && !prevProps.error) {
+            showModal(ERROR_MODAL, {
+                title: error.title || 'Error',
+                message: error.message,
+            });
+        }
     }, [
         drawingID,
         daysToExtendBy,
