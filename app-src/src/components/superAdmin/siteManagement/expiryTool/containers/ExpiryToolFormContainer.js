@@ -33,7 +33,7 @@ const ExpiryToolFormContainer = ({
     const [drawingID, setDrawingID] = useState(0);
     const [currentDrawing, setCurrentDrawing] = useState({});
     const [extendDrawingForm, handleFormChange] = useForm({
-        newExpirationDate: '',
+        newExpiryDate: '',
         extensionReason: '',
     });
     const [daysToExtendBy, handleChange] = useForm({ amountOfDays: '' });
@@ -106,9 +106,9 @@ const ExpiryToolFormContainer = ({
     function calculateNewExpiryDate() {
         const newDate = moment(currentDrawing.expiresOn)
             .add(daysToExtendBy.amountOfDays, 'days')
-            .format('YYYY-MM-DD HH:mm:ss');
+            .format('YYYY-MM-DDTHH:mm:ss');
 
-        handleFormChange('newExpirationDate', newDate);
+        handleFormChange('newExpiryDate', newDate);
     }
 
     function handleSubmitModal() {

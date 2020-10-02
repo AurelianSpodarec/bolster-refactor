@@ -75,8 +75,8 @@ const ExpiryToolForm = ({
                 </Field>
                 <Field name="New Expiration Date" classes>
                     <p className="size-lg-12">
-                        {extendDrawingForm.newExpirationDate && (
-                            <DateTimeContainer date={extendDrawingForm.newExpirationDate} />
+                        {extendDrawingForm.newExpiryDate && (
+                            <DateTimeContainer date={extendDrawingForm.newExpiryDate} />
                         )}
                     </p>
                 </Field>
