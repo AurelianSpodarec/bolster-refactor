@@ -25,7 +25,7 @@ const ExpiryToolFormContainer = ({
     fetchDrawingsForCompany,
     isPosting,
     postSuccess,
-    error,
+    postError,
     showModal,
     hideModal,
     adminEditNewDrawingExpirationDate,
@@ -42,7 +42,7 @@ const ExpiryToolFormContainer = ({
     componentDidMount(fetchAllCompanies);
     componentDidUpdate(handleUpdateCompany, [companyID]);
 
-    const prevProps = usePrevious({ error, postSuccess, isPosting });
+    const prevProps = usePrevious({ postError, postSuccess, isPosting });
 
     useEffect(() => {
         if (drawingID) {
@@ -53,21 +53,20 @@ const ExpiryToolFormContainer = ({
             calculateNewExpiryDate();
         }
         if (postSuccess && !prevProps.postSuccess) {
-            history.push('/admin');
             showModal(SUCCESS_MODAL, {
-                message: `This drawings expiration date has been extended by ${daysToExtendBy.amountOfDays} days`,
+                message: `The drawing ${currentDrawing.name} expiration date has been extended by ${daysToExtendBy.amountOfDays} days`,
             });
+            setDrawingID(0);
         }
-        if (error && !prevProps.error) {
+        if (postError && !prevProps.postError) {
             showModal(ERROR_MODAL, {
-                title: error.title || 'Error',
-                message: error.message,
+                title: postError.title || 'Error',
+                message: postError.message,
             });
         }
     }, [
         drawingID,
         daysToExtendBy,
-        error,
         postSuccess,
         isPosting,
         prevProps.postError,
@@ -86,7 +85,6 @@ const ExpiryToolFormContainer = ({
             fetchingDrawings={fetchingDrawings}
             companyID={companyID}
             setCompanyID={setCompanyID}
-            isPosting={isPosting}
             drawingID={drawingID}
             setDrawingID={setDrawingID}
             currentDrawing={currentDrawing}
@@ -153,9 +151,9 @@ const ExpiryToolFormContainer = ({
 
 const mapStateToProps = ({
     superAdmin: {
-        companiesReducer: { companies, isFetching: fetchingCompanies, error: companiesError },
-        drawingsReducer: { drawings, isFetching: fetchingDrawings, error: drawingsError },
-        expiryToolReducer: { isPosting, postSuccess, error: postError },
+        companiesReducer: { companies, isFetching: fetchingCompanies, companiesError },
+        drawingsReducer: { drawings, isFetching: fetchingDrawings, drawingsError },
+        expiryToolReducer: { isPosting, postSuccess, postError },
     },
 }) => ({
     companies,

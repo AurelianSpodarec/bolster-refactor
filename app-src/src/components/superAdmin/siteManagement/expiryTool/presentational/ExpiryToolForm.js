@@ -62,13 +62,13 @@ const ExpiryToolForm = ({
                         <DateTimeContainer date={expiresOn} />
                     </p>
                 </Field>
-                <Field name="Days to extend expiration by (max 120)" classes required>
+                <Field name="Days to extend expiration by" classes required>
+                    <p>Max number of days allowed to extend by is 120</p>
                     <TextInputContainer
                         name="amountOfDays"
                         value={daysToExtendBy.amountOfDays}
                         handleChange={handleChange}
                         type="number"
-                        maxNum="120"
                         required
                     />
                 </Field>
