@@ -53,7 +53,7 @@ const ExpiryToolFormContainer = ({
             calculateNewExpiryDate();
         }
         if (postSuccess && !prevProps.postSuccess) {
-            history.push('/admin/expiry-tool');
+            history.push('/admin');
             showModal(SUCCESS_MODAL, {
                 message: `This drawings expiration date has been extended by ${daysToExtendBy.amountOfDays} days`,
             });
@@ -95,6 +95,7 @@ const ExpiryToolFormContainer = ({
             daysToExtendBy={daysToExtendBy}
             handleChange={handleChange}
             handleSubmit={handleSubmitModal}
+            handleCancel={handleCancel}
         />
     );
 
@@ -143,6 +144,10 @@ const ExpiryToolFormContainer = ({
         };
         const message = 'Are you sure you wish to extend this drawings expiration date?';
         showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
+    }
+
+    function handleCancel() {
+        history.push('/admin');
     }
 };
 

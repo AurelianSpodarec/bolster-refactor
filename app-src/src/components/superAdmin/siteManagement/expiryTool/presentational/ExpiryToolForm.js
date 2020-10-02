@@ -93,9 +93,10 @@ const ExpiryToolForm = ({
                         <i className="fa fa-check" />
                         Submit
                     </button>
-                    <ButtonContainer classes="button red" handleClick={handleCancel}>
+                    <button onClick={handleCancel} className="button red" type="submit">
+                        <i className="far fa-times fa-fw" />
                         Cancel
-                    </ButtonContainer>
+                    </button>
                 </BlockButtonWrapper>
             </>
         )}
