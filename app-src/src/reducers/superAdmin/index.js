@@ -26,6 +26,7 @@ import manufacturersReducer from './manufacturers';
 import manufacturersOptionValuesReducer from './manufacturersOptionValues';
 import optionValueDocumentsReducer from './optionValueDocuments';
 import userGuideReducer from './userGuide';
+import expiryToolReducer from './expiryTool';
 
 export default combineReducers({
     adminServicesReducer,
@@ -54,4 +55,5 @@ export default combineReducers({
     templateQuestionFormReducer,
     usersReducer,
     userGuideReducer,
+    expiryToolReducer,
 });

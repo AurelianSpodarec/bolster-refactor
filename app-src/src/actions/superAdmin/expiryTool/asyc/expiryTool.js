@@ -25,7 +25,6 @@ export const adminEditDrawingExpiryDateFailure = error => ({
 
 export default (postBody, drawingID) => dispatch => {
     dispatch(adminEditDrawingExpiryDateRequest());
-    console.log(postBody, '<--- postBody ');
     return axios
         .post(`${ADMIN_API_URL}/drawings/${drawingID}/extend`, postBody, getHeaders())
         .then(result => dispatch(adminEditDrawingExpiryDateSuccess(result.data)))

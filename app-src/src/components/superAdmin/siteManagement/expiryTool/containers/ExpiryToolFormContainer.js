@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import moment from 'moment';
 
@@ -10,7 +11,7 @@ import ExpiryToolForm from '../presentational/ExpiryToolForm';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { ERROR_MODAL, SUCCESS_MODAL, CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
-import { useForm } from 'helpers/hooks';
+import { useForm, usePrevious } from 'helpers/hooks';
 import adminEditNewDrawingExpirationDate from 'actions/superAdmin/expiryTool/asyc/expiryTool';
 
 const ExpiryToolFormContainer = ({
@@ -28,6 +29,7 @@ const ExpiryToolFormContainer = ({
     showModal,
     hideModal,
     adminEditNewDrawingExpirationDate,
+    history,
 }) => {
     const [companyID, setCompanyID] = useState(0);
     const [drawingID, setDrawingID] = useState(0);
@@ -40,6 +42,8 @@ const ExpiryToolFormContainer = ({
     componentDidMount(fetchAllCompanies);
     componentDidUpdate(handleUpdateCompany, [companyID]);
 
+    const prevProps = usePrevious({ error, postSuccess, isPosting });
+
     useEffect(() => {
         if (drawingID) {
             setCurrentDrawing(drawings[drawingID]);
@@ -48,7 +52,22 @@ const ExpiryToolFormContainer = ({
         if (daysToExtendBy.amountOfDays) {
             calculateNewExpiryDate();
         }
-    }, [drawingID, daysToExtendBy]);
+        if (postSuccess && !prevProps.postSuccess) {
+            history.push('/admin/expiry-tool');
+            showModal(SUCCESS_MODAL, {
+                message: `This drawings expiration date has been extended by ${daysToExtendBy.amountOfDays} days`,
+            });
+        }
+    }, [
+        drawingID,
+        daysToExtendBy,
+        error,
+        postSuccess,
+        isPosting,
+        prevProps.postError,
+        prevProps.postSuccess,
+        prevProps.isPosting,
+    ]);
 
     return (
         <ExpiryToolForm
@@ -125,6 +144,7 @@ const mapStateToProps = ({
     superAdmin: {
         companiesReducer: { companies, isFetching: fetchingCompanies, error: companiesError },
         drawingsReducer: { drawings, isFetching: fetchingDrawings, error: drawingsError },
+        expiryToolReducer: { isPosting, postSuccess, error: postError },
     },
 }) => ({
     companies,
@@ -133,6 +153,9 @@ const mapStateToProps = ({
     fetchingDrawings,
     companiesError,
     drawingsError,
+    postError,
+    isPosting,
+    postSuccess,
 });
 
 const mapDispatchToProps = {
@@ -143,4 +166,4 @@ const mapDispatchToProps = {
     adminEditNewDrawingExpirationDate,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExpiryToolFormContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ExpiryToolFormContainer));
