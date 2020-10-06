@@ -65,6 +65,9 @@ const ExpiryToolFormContainer = ({
                 message: `The drawing ${currentDrawing.name} expiration date has been extended by ${daysToExtendBy.amountOfDays} days`,
             });
             setDrawingID(0);
+            handleChange('amountOfDays', 0);
+            handleFormChange('extensionReason', '');
+            handleFormChange('newExpiryDate', '');
         }
 
         if (postError && !prevProps.postError) {
