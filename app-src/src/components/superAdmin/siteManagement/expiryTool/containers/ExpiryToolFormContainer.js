@@ -130,18 +130,18 @@ const ExpiryToolFormContainer = ({
     function calculateNewExpiryDate() {
         const currentExpiryDate = moment(currentDrawing.expiresOn);
         const today = moment();
+
         let newDate = moment(currentDrawing.expiresOn)
             .add(daysToExtendBy.amountOfDays, 'days')
             .format('YYYY-MM-DDTHH:mm:ss');
 
-        if (currentExpiryDate.diff(today, 'days') >= 1) {
-            handleFormChange('newExpiryDate', newDate);
-        } else {
+        if (currentExpiryDate.diff(today, 'days') < 0) {
             newDate = moment()
                 .add(daysToExtendBy.amountOfDays, 'days')
                 .format('YYYY-MM-DDTHH:mm:ss');
-            handleFormChange('newExpiryDate', newDate);
         }
+
+        handleFormChange('newExpiryDate', newDate);
     }
 
     function handleSubmitModal() {
