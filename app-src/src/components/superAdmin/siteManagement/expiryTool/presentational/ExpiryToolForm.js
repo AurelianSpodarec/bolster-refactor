@@ -25,6 +25,7 @@ const ExpiryToolForm = ({
     daysToExtendBy,
     handleSubmit,
     handleCancel,
+    showExpiredMessage,
 }) => (
     <BlockContainer
         isFetching={fetchingCompanies}
@@ -57,6 +58,12 @@ const ExpiryToolForm = ({
         )}
         {!!drawingID && (
             <>
+                {showExpiredMessage && (
+                    <p className="info-message error" style={{ marginBottom: '10px' }}>
+                        The drawing you have selected has expired. If you extend this drawing you
+                        will be re-activating it from todays date.
+                    </p>
+                )}
                 <Field name="Current Expiration Date" classes>
                     <p className="size-lg-12">
                         <DateTimeContainer date={expiresOn} />

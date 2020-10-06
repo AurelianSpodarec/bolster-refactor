@@ -34,11 +34,13 @@ const ExpiryToolFormContainer = ({
     const [companyID, setCompanyID] = useState(0);
     const [drawingID, setDrawingID] = useState(0);
     const [currentDrawing, setCurrentDrawing] = useState({});
+    const [showExpiredMessage, setShowExpiredMessage] = useState(false);
     const [extendDrawingForm, handleFormChange] = useForm({
         newExpiryDate: '',
         extensionReason: '',
     });
     const [daysToExtendBy, handleChange] = useForm({ amountOfDays: '' });
+
     componentDidMount(fetchAllCompanies);
     componentDidUpdate(handleUpdateCompany, [companyID]);
 
@@ -47,17 +49,24 @@ const ExpiryToolFormContainer = ({
     useEffect(() => {
         if (drawingID) {
             setCurrentDrawing(drawings[drawingID]);
+            isExpired();
         }
 
         if (daysToExtendBy.amountOfDays) {
             calculateNewExpiryDate();
         }
+
+        if (currentDrawing) {
+            calculateNewExpiryDate();
+        }
+
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
                 message: `The drawing ${currentDrawing.name} expiration date has been extended by ${daysToExtendBy.amountOfDays} days`,
             });
             setDrawingID(0);
         }
+
         if (postError && !prevProps.postError) {
             showModal(ERROR_MODAL, {
                 title: postError.title || 'Error',
@@ -69,6 +78,7 @@ const ExpiryToolFormContainer = ({
         daysToExtendBy,
         postSuccess,
         isPosting,
+        currentDrawing,
         prevProps.postError,
         prevProps.postSuccess,
         prevProps.isPosting,
@@ -94,6 +104,7 @@ const ExpiryToolFormContainer = ({
             handleChange={handleChange}
             handleSubmit={handleSubmitModal}
             handleCancel={handleCancel}
+            showExpiredMessage={showExpiredMessage}
         />
     );
 
@@ -131,6 +142,10 @@ const ExpiryToolFormContainer = ({
         const currentExpiryDate = moment(currentDrawing.expiresOn);
         const today = moment();
 
+        if (!daysToExtendBy.amountOfDays) {
+            return;
+        }
+
         let newDate = moment(currentDrawing.expiresOn)
             .add(daysToExtendBy.amountOfDays, 'days')
             .format('YYYY-MM-DDTHH:mm:ss');
@@ -142,6 +157,17 @@ const ExpiryToolFormContainer = ({
         }
 
         handleFormChange('newExpiryDate', newDate);
+    }
+
+    function isExpired() {
+        const currentExpiryDate = moment(currentDrawing.expiresOn);
+        const today = moment();
+
+        if (currentExpiryDate.diff(today, 'days') < 0) {
+            setShowExpiredMessage(true);
+        } else {
+            setShowExpiredMessage(false);
+        }
     }
 
     function handleSubmitModal() {
