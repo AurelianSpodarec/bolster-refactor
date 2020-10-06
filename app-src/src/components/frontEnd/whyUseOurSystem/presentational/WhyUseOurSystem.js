@@ -26,16 +26,9 @@ const WhyUseOurSystem = () => {
                     description="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet?"
                     video={PinsVideo}
                 />
-                <OurSystemDivider
-                    heading="Lorem Ipsum"
-                    description="Neque porro quisquam est qui do lorem amet?"
-                    extraClasses="grey"
-                />
+                <OurSystemDivider heading="Why use it?" extraClasses="grey" />
                 <OurSystemCloudList />
-                <OurSystemDivider
-                    heading="Lorem Ipsum"
-                    description="Neque porro quisquam est qui do lorem amet?"
-                />
+                <OurSystemDivider heading="Services covered" />
                 <OurSystemListContainer />
                 <div className="request-demo-banner">
                     <FrontEndButton classes="gray" to="/contact">
