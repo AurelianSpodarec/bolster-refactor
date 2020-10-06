@@ -693,6 +693,91 @@ $header-height: 95px;
         }
     }
 
+    // Accreditations
+    .accreditations-container {
+        width: 100%;
+        background-color: $light-grey-bg;
+        padding: 24px;
+
+        .accreditations-header {
+            margin-bottom: 50px;
+            text-align: center;
+
+            .line {
+                font-size: 350%;
+                @include opensans-bold;
+
+                &:after {
+                    width: 39px;
+                    height: 6px;
+                    bottom: -15px;
+                }
+            }
+        }
+
+        .accreditations-grid {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+
+            .item {
+                flex:1;
+                text-align: center;
+                padding: 16px;
+                background-color: white;
+                max-width: 227px;
+                max-height: 227px;
+                margin: 0 20px 0 20px;
+
+                img {
+                    width: 100%;
+                    object-fit: scale-down;
+                    max-height: 180px;
+                }
+            }
+        }
+
+        @include devices(ptTablet) {
+            padding: 48px 10px;
+
+            .accreditations-header {
+                .line {
+                    font-size: 300%;
+                }
+            }
+
+            .accreditations-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0;
+                justify-content: center;
+
+                .item {
+                    width: calc(100% / 3 - 20px);
+                    margin: 10px;
+                    min-height: 210px;
+                }
+            }
+        }
+
+        @include devices(lgMobile) {
+            .accreditations-header {
+                .line {
+                    font-size: 240%;
+                }
+            }
+
+            .accreditations-grid {
+                .item {
+                    width: calc(100% / 2 - 20px);
+                    min-height: 180px;
+                }
+            }
+        }
+    }
+
     // content pages
     .content-page {
         display: flex;
@@ -1321,6 +1406,7 @@ $header-height: 95px;
             strong {
             @include opensans-semibold();
         }
+
         }
 
         .sent-message-wrapper {
