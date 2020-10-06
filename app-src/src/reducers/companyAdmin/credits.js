@@ -19,11 +19,12 @@ import {
 export default combineReducers({
     credits: creditsReducer,
     isFetching: isFetchingReducer,
+    isPosting: isPostingReducer,
     postSuccess: postSuccessReducer,
     postError: postErrorReducer,
     error: errorReducer,
     costOfCredits: costOfCreditsReducer,
-    vatCostOfCredits: vatCostOfCreditsReducer
+    vatCostOfCredits: vatCostOfCreditsReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -35,6 +36,18 @@ function isFetchingReducer(state = false, action) {
         case FETCH_COST_OF_CREDITS_SUCCESS:
         case FETCH_COST_OF_CREDITS_FAILURE:
         case FETCH_CREDITS_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case CREATE_CREDITS_REQUEST:
+            return true;
+        case CREATE_CREDITS_SUCCESS:
+        case CREATE_CREDITS_FAILURE:
             return false;
         default:
             return state;
