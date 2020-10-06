@@ -31,7 +31,6 @@ const RegisterForm = ({
     'Company.postcode': postcode,
     'Company.country': country,
     'Company.phoneNumber': companyPhoneNumber,
-    'Company.fax': fax,
     'Company.vatCode': vatCode,
     'Company.vatType': vatType,
     vatOptions,
@@ -126,7 +125,7 @@ const RegisterForm = ({
                     </Field>
                 </div>
                 <div className={`register-input-wrapper ${activePage === 2 ? 'active' : ''}`}>
-                    <Field required name="Name" classes="auth-form-field wide">
+                    <Field required name="Company Name" classes="auth-form-field wide">
                         <TextInputContainer
                             value={name}
                             name="Company.name"
@@ -140,14 +139,6 @@ const RegisterForm = ({
                             value={companyPhoneNumber}
                             name="Company.phoneNumber"
                             required
-                            handleChange={handleChange}
-                            classes="auth-text-input-container"
-                        />
-                    </Field>
-                    <Field name="Fax" classes="auth-form-field wide">
-                        <TextInputContainer
-                            value={fax}
-                            name="Company.fax"
                             handleChange={handleChange}
                             classes="auth-text-input-container"
                         />
