@@ -20,7 +20,7 @@ class BuyCreditsModalContainer extends Component {
         termsAgreed: false,
         addCardVisible: false,
         creditsToBuy: this.props.creditsToBuy || '',
-        idempotentKey: uuid(),
+        idempotencyKey: uuid(),
     };
 
     render = () => {
@@ -82,13 +82,13 @@ class BuyCreditsModalContainer extends Component {
             postSuccess,
             fetchAllCredits,
             showModal,
-            error
+            error,
         } = this.props;
         const { paymentType } = this.state;
         if (!isFetching && prevProps.isFetching) {
             const primaryCard = cards.find(({ isPrimary }) => isPrimary);
             this.setState({
-                stripeCardID: primaryCard ? primaryCard.id : null
+                stripeCardID: primaryCard ? primaryCard.id : null,
             });
         }
         if (postSuccess && !prevProps.postSuccess) {
@@ -98,7 +98,7 @@ class BuyCreditsModalContainer extends Component {
                     +paymentType === PAYMENT_IDS.CARD
                         ? 'have been added.'
                         : 'will be available once the invoice has been paid'
-                }`
+                }`,
             });
         }
         if (postError && !prevProps.postError) {
@@ -106,7 +106,7 @@ class BuyCreditsModalContainer extends Component {
             showModal(PAYMENT_ERROR, {
                 message:
                     error || 'There was an error while purchasing your credits. Please try again.',
-                resubmit: this.handleSubmit
+                resubmit: this.handleSubmit,
             });
         }
     };
@@ -131,15 +131,14 @@ class BuyCreditsModalContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { paymentType, creditsToBuy: credits, stripeCardID, idempotentKey } = this.state;
+        const { paymentType, creditsToBuy: credits, stripeCardID, idempotencyKey } = this.state;
         const { createCredits, isPosting } = this.props;
         if (isPosting) return;
         const postBody = {
             paymentType,
             credits,
-            stripeCardID:
-                +paymentType === PAYMENT_IDS.CARD ? stripeCardID : null,
-            idempotentKey,
+            stripeCardID: +paymentType === PAYMENT_IDS.CARD ? stripeCardID : null,
+            idempotencyKey,
         };
 
         createCredits(postBody);
@@ -178,10 +177,7 @@ const mapDispatchToProps = {
     fetchAllCredits,
     fetchAllInvoices,
     showModal,
-    hideModal
+    hideModal,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(BuyCreditsModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(BuyCreditsModalContainer);
