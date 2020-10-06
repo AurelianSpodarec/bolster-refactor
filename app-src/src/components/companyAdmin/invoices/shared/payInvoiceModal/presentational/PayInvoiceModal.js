@@ -17,6 +17,7 @@ const PayInvoiceModal = ({
     cards,
     selectedCard,
     termsAgreed,
+    isPosting,
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Pay invoice" />
@@ -55,8 +56,17 @@ const PayInvoiceModal = ({
             </Field>
 
             <BlockButtonWrapper>
-                <button className="button green" type="submit">
-                    Pay invoice
+                <button
+                    className={`button green ${isPosting ? 'disabled' : ''}`}
+                    type="submit"
+                    disabled={isPosting}
+                >
+                    {isPosting ? (
+                        <i className="fa fa-spinner fa-spin" />
+                    ) : (
+                        <i className="fa fa-check" />
+                    )}{' '}
+                    Pay Invoice
                 </button>
                 <ButtonContainer
                     handleClick={e => {

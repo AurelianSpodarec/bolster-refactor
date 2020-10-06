@@ -11,20 +11,18 @@ import { PAYMENT_SUCCESS, PAYMENT_ERROR } from 'constants/shared/modalTypes';
 class PayInvoiceModalContainer extends Component {
     state = {
         stripeCardID: null,
-        termsAgreed: false
+        termsAgreed: false,
     };
 
     render() {
-        const { cards, hideModal } = this.props;
+        const { cards, hideModal, isPosting } = this.props;
         const { stripeCardID, termsAgreed } = this.state;
         const cardOptions = cards.map(card => ({
             text: `${card.nickname || card.name} - ${card.lastFour}`,
-            value: card.id
+            value: card.id,
         }));
 
-        const selectedCard = cardOptions.find(
-            ({ value }) => value === stripeCardID
-        );
+        const selectedCard = cardOptions.find(({ value }) => value === stripeCardID);
         return (
             <PayInvoiceModal
                 cards={cardOptions}
@@ -33,6 +31,7 @@ class PayInvoiceModalContainer extends Component {
                 handleSubmit={this.handleSubmit}
                 hideModal={hideModal}
                 termsAgreed={termsAgreed}
+                isPosting={isPosting}
             />
         );
     }
@@ -42,32 +41,25 @@ class PayInvoiceModalContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const {
-            isFetching,
-            cards,
-            postSuccess,
-            postFailure,
-            showModal
-        } = this.props;
+        const { isFetching, cards, postSuccess, postFailure, showModal } = this.props;
 
         if (!isFetching && prevProps.isFetching && cards.length) {
             const primaryCard = cards.find(({ isPrimary }) => isPrimary);
             this.setState({
-                stripeCardID: primaryCard ? primaryCard.id : null
+                stripeCardID: primaryCard ? primaryCard.id : null,
             });
         }
 
         if (postSuccess && !prevProps.postSuccess) {
             showModal(PAYMENT_SUCCESS, {
-                message: 'Your invoice has been successfully paid.'
+                message: 'Your invoice has been successfully paid.',
             });
         }
 
         if (postFailure && !prevProps.postFailure) {
             showModal(PAYMENT_ERROR, {
-                message:
-                    'There was an error while paying this invoice, please try again.',
-                resubmit: this.handleSubmit
+                message: 'There was an error while paying this invoice, please try again.',
+                resubmit: this.handleSubmit,
             });
         }
     };
@@ -76,8 +68,11 @@ class PayInvoiceModalContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { payInvoice, invoiceID } = this.props;
+        const { payInvoice, invoiceID, isPosting } = this.props;
         const { stripeCardID } = this.state;
+        if (isPosting) {
+            return;
+        }
         payInvoice(invoiceID, stripeCardID);
     };
 }
@@ -85,18 +80,16 @@ class PayInvoiceModalContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         cardsReducer: { cards, isFetching },
-        invoicesReducer: { postSuccess, postFailure }
-    }
+        invoicesReducer: { postSuccess, postFailure, isPosting },
+    },
 }) => ({
     cards: Object.values(cards),
     isFetching,
     postSuccess,
-    postFailure
+    postFailure,
+    isPosting,
 });
 
 const mapDispatchToProps = { fetchAllCards, payInvoice, hideModal, showModal };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PayInvoiceModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(PayInvoiceModalContainer);
