@@ -28,32 +28,6 @@ const ContactInfo = () => {
                 <br />
                 M17 1DZ
             </p>
-            <a
-                className="social-link-container"
-                href="https://twitter.com/bolstersystems?lang=en"
-                rel="noopener noreferrer"
-                target="_blank"
-            >
-                <img className="contact-icons" src={TwitterIcon} />
-                <div>Follow us on Twitter</div>
-            </a>
-            <a
-                className="social-link-container"
-                href="https://facebook.com/BolsterSystems/"
-                rel="noopener noreferrer"
-                target="_blank"
-            >
-                <img className="contact-icons" src={FacebookIcon} />
-                <div>Like us on Facebook</div>
-            </a>
-            <a
-                className="social-link-container"
-                href="https://vimeo.com/bolstersystems"
-                rel="noopener noreferrer"
-                target="_blank"
-            >
-                <img className="contact-icons" src={VimeoIcon} /> <div>Follow us on Vimeo</div>
-            </a>
         </div>
     );
 };
