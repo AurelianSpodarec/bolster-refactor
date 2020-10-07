@@ -8,7 +8,6 @@ const HomeSlidesMobileItem = ({ background, className, item }) => {
             <div className="slide-container">
                 <video className="video-bg" autoPlay muted loop playsInline>
                     <source src={background} type="video/mp4" />
-                    Your browser does not support HTML5 video.
                 </video>
                 <div className="slide-content">
                     <h1 className="slide-title">{item.title}</h1>

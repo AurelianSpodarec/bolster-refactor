@@ -7,40 +7,42 @@ import FifthSlide from '_content/videos/frontend/home5.mp4';
 export const HomeSlidesList = [
     {
         title: 'The complete survey, installation & management system',
-        description:
-            'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit',
+        description: '',
         buttonText: 'Contact',
         background: FirstSlide,
+        backgroundLoop: false,
         link: '/contact',
     },
     {
-        title: 'Why use it?',
-        description: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit ',
-        buttonText: 'Link to why',
+        title: 'Building compliance documentation made easy',
+        description: '',
+        buttonText: 'Our System',
         background: SecondSlide,
+        backgroundLoop: false,
         link: '/our-system',
     },
     {
-        title: 'About Us',
-        description:
-            'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit',
+        title: 'Traceability, accountability and transparency between you and your client',
+        description: '',
         buttonText: 'About us',
         background: ThirdSlide,
+        backgroundLoop: false,
         link: '/about-us',
     },
     {
-        title: 'Our System',
-        description: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet',
+        title: 'Mobile app and secure cloud-based system',
+        description: '',
         buttonText: 'Our System',
         background: FourthSlide,
+        backgroundLoop: false,
         link: '/our-system',
     },
     {
-        title: 'Request a demo?',
-        description:
-            'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci',
+        title: 'Cost effective solution for companies of all sizes',
+        description: '',
         buttonText: 'Request a demo',
         background: FifthSlide,
+        backgroundLoop: false,
         link: '/contact',
     },
 ];

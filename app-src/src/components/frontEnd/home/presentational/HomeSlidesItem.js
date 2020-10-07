@@ -7,14 +7,14 @@ import BackToTopContainer from 'components/frontEnd/shared/backToTop/containers/
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 
 const HomeSlidesItem = forwardRef(
-    ({ background, className, isLast, active, handleClick, item, isMobile }, ref) => {
+    ({ background, className, isLast, active, handleClick, item, isMobile, loop }, ref) => {
+        console.log(loop);
         if (!isLast) {
             return (
                 <section className={`slide ${className}`}>
                     <div className="slide-container">
-                        <video className="video-bg" autoPlay muted loop playsInline>
+                        <video className="video-bg" autoPlay muted loop={loop} playsInline>
                             <source src={background} type="video/mp4" />
-                            Your browser does not support HTML5 video.
                         </video>
                         <div className="slide-content">
                             <h1 className="slide-title">{item.title}</h1>
@@ -32,9 +32,8 @@ const HomeSlidesItem = forwardRef(
         return (
             <section ref={ref} className={`slide ${className} last-slide`}>
                 <div className="slide-container">
-                    <video className="video-bg" autoPlay muted loop playsInline>
+                    <video className="video-bg" autoPlay muted loop={loop} playsInline>
                         <source src={background} type="video/mp4" />
-                        Your browser does not support HTML5 video.
                     </video>
                     <div className="slide-content">
                         <h1 className="slide-title">{item.title}</h1>
