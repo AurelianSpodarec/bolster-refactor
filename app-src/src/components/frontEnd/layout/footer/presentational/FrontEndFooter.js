@@ -12,7 +12,7 @@ import navItems from 'constants/frontEnd/navItems';
 const FrontEndFooter = ({ hideFooter, isLoggedIn }) => (
     <Container className="frontend-footer">
         <div className="information">
-            <p>Bolster is a registered trademark lore ipsum dolor sit amet Adipiscing sit amet</p>
+            <p>Copyright Bolster Systems 2020. All rights reserved</p>
         </div>
         <div className="internal-links">
             <div className="logo">

@@ -2627,6 +2627,10 @@ $footer-height: 173px;
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
 
+            &.slide1, &.slide2, &.slide3, &.slide4, {
+                background-color: rgba(0,0,0,0.2);
+            }
+
             @include devices(ptTablet) {
                 background-color: rgba(0,0,0,1);
             }
