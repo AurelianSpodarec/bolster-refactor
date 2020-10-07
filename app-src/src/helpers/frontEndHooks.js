@@ -61,25 +61,6 @@ export const useBannerScroll = width => {
     }
 };
 
-export const useOnScreen = ref => {
-    const [isIntersecting, setIntersecting] = useState(false);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(([entry]) => {
-            setIntersecting(entry.boundingClientRect.y < 76);
-        });
-
-        if (ref.current) {
-            observer.observe(ref.current);
-        }
-        return () => {
-            observer.unobserve(ref.current);
-        };
-    }, []);
-
-    return isIntersecting;
-};
-
 export const useEventListener = (eventName, handler, options = {}, element = window) => {
     const savedHandler = useRef();
 
@@ -101,8 +82,10 @@ export const useEventListener = (eventName, handler, options = {}, element = win
     }, [eventName, element]);
 };
 
-export const useFullPageCarousel = (ref, lastRef, isMobile, max = 4) => {
+export const useFullPageCarousel = (isMobile, max = 4) => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const ref = useRef();
+    const lastRef = useRef(null);
     const currentPage = useRef(0);
     const lastAnimation = useRef(0);
     const disableScroll = useRef(false);
@@ -197,6 +180,10 @@ export const useFullPageCarousel = (ref, lastRef, isMobile, max = 4) => {
     };
 
     useEffect(() => {
+        if (lastRef.current) {
+            lastRef.current.getElementsByClassName('video-bg')[0].playbackRate = 0.9;
+        }
+
         if (isMobile !== undefined && !isMobile) {
             document.removeEventListener('wheel', handleLastSlideScroll, { passive: false });
             document.addEventListener('wheel', handleScroll, { passive: false });
@@ -225,6 +212,8 @@ export const useFullPageCarousel = (ref, lastRef, isMobile, max = 4) => {
         currentIndex,
         max,
         handleClick,
+        ref,
+        lastRef,
     };
 };
 
@@ -234,4 +223,30 @@ export const useLockOnModal = () => {
         document.body.style.overflow = 'hidden';
         return () => (document.body.style.overflow = originalStyle);
     }, []);
+};
+
+export const useVideoShouldPlay = () => {
+    const videoRef = useRef(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                const video = videoRef.current;
+                if (entry.isIntersecting) {
+                    video.currentTime = 0;
+                    video.play();
+                }
+            },
+            { threshold: 0.1 },
+        );
+
+        if (videoRef.current) {
+            observer.observe(videoRef.current);
+        }
+        return () => {
+            observer.unobserve(videoRef.current);
+        };
+    }, []);
+
+    return videoRef;
 };

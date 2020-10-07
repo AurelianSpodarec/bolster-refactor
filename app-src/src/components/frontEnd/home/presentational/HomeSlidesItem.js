@@ -5,15 +5,17 @@ import FrontEndFooterContainer from 'components/frontEnd/layout/footer/container
 import TrustedBy from 'components/frontEnd/trustedBy/presentational/TrustedBy';
 import BackToTopContainer from 'components/frontEnd/shared/backToTop/containers/BackToTopContainer';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
+import { useVideoShouldPlay } from 'helpers/frontEndHooks';
 
 const HomeSlidesItem = forwardRef(
-    ({ background, className, isLast, active, handleClick, item, isMobile, loop }, ref) => {
-        console.log(loop);
+    ({ background, className, isLast, active, handleClick, item, isMobile, loop, index }, ref) => {
+        const videoRef = useVideoShouldPlay();
+
         if (!isLast) {
             return (
                 <section className={`slide ${className}`}>
                     <div className="slide-container">
-                        <video className="video-bg" autoPlay muted loop={loop} playsInline>
+                        <video ref={videoRef} className={`video-bg ${index}`} muted loop={loop}>
                             <source src={background} type="video/mp4" />
                         </video>
                         <div className="slide-content">
@@ -32,7 +34,7 @@ const HomeSlidesItem = forwardRef(
         return (
             <section ref={ref} className={`slide ${className} last-slide`}>
                 <div className="slide-container">
-                    <video className="video-bg" autoPlay muted loop={loop} playsInline>
+                    <video ref={videoRef} className={`video-bg ${index}`} muted loop={loop}>
                         <source src={background} type="video/mp4" />
                     </video>
                     <div className="slide-content">

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
 import { useFullPageCarousel } from 'helpers/frontEndHooks';
 import { HomeSlidesList } from 'constants/frontEnd/homeSlides';
@@ -11,13 +11,13 @@ import BackToTopContainer from 'components/frontEnd/shared/backToTop/containers/
 import HomeSlidesMobileItem from '../presentational/HomeSlidesMobileItem';
 
 const HomeSlidesCarouselContainer = ({ isMobile }) => {
-    const wrapperRef = useRef();
-    const lastSlideRef = useRef(null);
-    const { currentIndex, max, handleClick } = useFullPageCarousel(
-        wrapperRef,
-        lastSlideRef,
-        isMobile,
-    );
+    const {
+        currentIndex,
+        max,
+        handleClick,
+        ref: wrapperRef,
+        lastRef: lastSlideRef,
+    } = useFullPageCarousel(isMobile);
 
     if (isMobile)
         return (
@@ -56,6 +56,7 @@ const HomeSlidesCarouselContainer = ({ isMobile }) => {
                             active={currentIndex}
                             handleClick={handleClick}
                             item={item}
+                            index={index}
                         />
                     );
                 })}
