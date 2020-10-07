@@ -26,7 +26,7 @@ const WhyUseOurSystem = () => {
                     description="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet?"
                     video={PinsVideo}
                 />
-                <OurSystemDivider heading="Why use it?" extraClasses="grey" />
+                <OurSystemDivider heading="Why use it? (Key benefits)" extraClasses="grey" />
                 <OurSystemCloudList />
                 <OurSystemDivider heading="Services covered" />
                 <OurSystemListContainer />
