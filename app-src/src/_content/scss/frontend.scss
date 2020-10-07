@@ -1,4 +1,5 @@
 $header-height: 95px;
+$footer-height: 173px;
 
 #frontend-site {
     position: relative;
@@ -280,7 +281,7 @@ $header-height: 95px;
             @include opensans-regular;
             color: #FFFFFF;
         }
-
+        
         @include devices(lsTablet) {
             margin-top: 50px;
 
@@ -1328,14 +1329,13 @@ $header-height: 95px;
 
     // Contact page
     #contact { 
-        min-height: calc(100vh - #{$header-height});
-        
-        .contact-background {
+        min-height: calc(100vh - #{$header-height} - #{$footer-height});
+
+        .contact-background {   
            position: absolute;
            background-color: #3C3C3C;
            height: 100%;
            width: 100%;
-    
         }
         
         .contact-background-video {
@@ -1350,29 +1350,40 @@ $header-height: 95px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding-bottom: 75px;
-            min-height: 0;
-                    
+            padding-bottom: 55px;
+
+            & > .heading {
+                margin-top: 20px;
+                & > p {
+                    margin: 0 0 45px 0;
+                }
+            }
+
             .contact-form {
-              margin: 0 143px 0 0;
-              color: #FFFFFF;
-              flex: 1;
-              max-width: 610px;
+                margin: 0 143px 0 0;
+                color: #FFFFFF;
+                flex: 1;
+                max-width: 610px;
             
                 & label {
                     font-size: 180%;
                     font-weight: normal;
                 }
-
-              .recaptcha-wrapper {
-                display: flex;
-                justify-content: flex-end;
-                margin: 8px 0 4px 0;
-
-               + .error {
-                    text-align: right;
+                .submit-wrapper {
+                    display: flex;
+                    justify-content: space-between;
+                    & > button {
+                        align-self: flex-end;
+                        margin-bottom: 19px;
+                    }
                 }
-              }
+                .recaptcha-wrapper {
+                    margin: 8px 0 4px 0;
+
+                    + .error {
+                        align-self: center;
+                    }
+            } 
           }
 
         }
@@ -2573,6 +2584,10 @@ $header-height: 95px;
             background-color: rgba(0,0,0,0.6);
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
+
+            &.slide1, &.slide2, &.slide3, &.slide4, {
+                background-color: rgba(0,0,0,0.2);
+            }
 
             @include devices(ptTablet) {
                 background-color: rgba(0,0,0,1);

@@ -27,6 +27,7 @@ const HomeSlidesCarouselContainer = ({ isMobile }) => {
                         <HomeSlidesMobileItem
                             key={index}
                             background={item.background}
+                            loop={item.backgroundLoop}
                             className={`slide${index + 1}`}
                             item={item}
                         />
@@ -48,6 +49,7 @@ const HomeSlidesCarouselContainer = ({ isMobile }) => {
                         <HomeSlidesItem
                             key={index}
                             background={item.background}
+                            loop={item.backgroundLoop}
                             className={`slide${index + 1}`}
                             isLast={isLast}
                             ref={lastSlideRef}
