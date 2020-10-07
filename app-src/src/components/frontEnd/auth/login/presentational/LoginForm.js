@@ -10,7 +10,7 @@ import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIc
 const LoginForm = ({ formData, handleChange, handleSubmit, handleForgotPassword, isPosting }) => {
     const { email, password } = formData;
     return (
-        <div className="auth-form-wrapper">
+        <div className="auth-form-wrapper login">
             <FrontEndFormHeading title="Login" subtitle="Neque porro quisquam" />
             <Form onSubmit={handleSubmit}>
                 <Field name="Email" classes="auth-form-field">

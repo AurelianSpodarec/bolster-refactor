@@ -17,7 +17,7 @@ const ContactPage = () => {
                 <div className="contact-form-wrapper">
                     <div className="heading">
                         <h1>Contact</h1>
-                        <p>Neque porro quisquam est qui do lorem amet</p>
+                        <p>Get in touch</p>
                     </div>
                     <div className="contact-section">
                         <ContactPageFormContainer />

@@ -1004,10 +1004,11 @@ $footer-height: 173px;
             .item {
                 display: flex;
                 flex: 0.23;
+                align-items: center;
+                justify-content: center;
 
                 img {
-                    width: 100px;
-                    margin-right: 20px;
+                    width: 200px;
                 }
 
                 .text {
@@ -1034,7 +1035,7 @@ $footer-height: 173px;
             @include devices(smDesktop) {
                 .item {
                     img {
-                        width: 90px;
+                        width: 200px;
                     }
 
                     h3 {
@@ -1222,17 +1223,24 @@ $footer-height: 173px;
             }
 
             .icon {
-                min-width: 62px;
                 margin: 10px 20px 0;
 
                 img {
-                    width: 100%;
+                    width: 62px;
                 }
             }
 
             h4, p {
                 font-size: 180%;
                 line-height: 2;
+            }
+
+            p {
+                margin-bottom: 15px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
 
             .divider {
@@ -1252,7 +1260,9 @@ $footer-height: 173px;
                 }
 
                 .icon {
-                    min-width: 50px;
+                    img {
+                        width: 50px;
+                    }
                 }
             }
 
@@ -1316,8 +1326,11 @@ $footer-height: 173px;
 
                 .icon {
                     margin: 0 0 10px 40px;
-                    width: 40px;
                     min-width: 0;
+
+                    img {
+                        width: 40px;
+                    }
                 }
 
                 h4, p {
@@ -1355,7 +1368,7 @@ $footer-height: 173px;
             & > .heading {
                 margin-top: 35px;
                 & > p {
-                    margin: 0 0 45px 0;
+                    margin: 0 0 25px 0;
                 }
             }
 
@@ -1570,17 +1583,6 @@ $footer-height: 173px;
             margin: 0 auto;
             padding-bottom: 45px;
 
-            .info-card {
-                &:hover {
-                    & {
-                     border: 4px solid #EB1C24;
-                     box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.45);
-                    }
-                    .icon-wrapper {
-                        border: 4px solid #EB1C24;
-                        box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.5)                     }
-                 }
-            }
         }
 
         .info-card-wrapper {
@@ -1606,7 +1608,18 @@ $footer-height: 173px;
             height: 100%;
             position: absolute;
             z-index: 1;
-        }
+            }
+
+            &:hover {
+                & {
+                 border: 4px solid #EB1C24;
+                 box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.45);
+                }
+                .icon-wrapper {
+                    border: 4px solid #EB1C24;
+                    box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.5)
+                }
+             }
 
            &.clickable {
                cursor: pointer;
@@ -1814,7 +1827,7 @@ $footer-height: 173px;
                     margin-top: -40px;
 
                     .icon {
-                        width: 60px;
+                        width: 50px;
                     }
                 }
 
@@ -1874,7 +1887,7 @@ $footer-height: 173px;
                     margin-top: -55px;
 
                     .icon {
-                        width: 70px;
+                        width: 60px;
                     }
                 }
 
@@ -2017,7 +2030,7 @@ $footer-height: 173px;
  }
  .auth-wrapper {
     display: flex;
-    min-height: calc(100vh - #{$header-height});
+    min-height: calc(100vh - #{$header-height} - #{$footer-height});
     
     .heading-body-wrapper{
         display: flex;
@@ -2075,6 +2088,10 @@ $footer-height: 173px;
     
     @include devices(mdDesktop) {
         width: 50%;
+    }
+
+    &.login {
+        padding-top: 45px;
     }
 
     & > form {

@@ -30,7 +30,7 @@ const HowItWorksTimeline = ({ items, activeIndex }) => (
                                 <div className="text">
                                     <h4>{item.title}</h4>
                                     <div className="divider" />
-                                    <p>{item.description}</p>
+                                    <div dangerouslySetInnerHTML={{ __html: item.description }} />
                                 </div>
                             </div>
                         </div>
