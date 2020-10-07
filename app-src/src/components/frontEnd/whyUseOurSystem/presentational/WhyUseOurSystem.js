@@ -28,7 +28,10 @@ const WhyUseOurSystem = () => {
                 />
                 <OurSystemDivider heading="Why use it? (Key benefits)" extraClasses="grey" />
                 <OurSystemCloudList />
-                <OurSystemDivider heading="Services covered" />
+                <OurSystemDivider
+                    heading="Services covered"
+                    description="Click on an icon to find out more"
+                />
                 <OurSystemListContainer />
                 <div className="request-demo-banner">
                     <FrontEndButton classes="gray" to="/contact">
