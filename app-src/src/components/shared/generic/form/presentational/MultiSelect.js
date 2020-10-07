@@ -102,7 +102,10 @@ const MultiSelect = ({
     }
 
     function getSelected() {
-        return options.filter(opt => value.includes(opt.value));
+        const selectedOptions = value
+            .filter(val => !options.find(({ value }) => value === val))
+            .map(val => ({ label: val, value: val }));
+        return options.filter(opt => value.includes(opt.value)).concat(selectedOptions);
     }
 
     function getFilteredOptions() {
