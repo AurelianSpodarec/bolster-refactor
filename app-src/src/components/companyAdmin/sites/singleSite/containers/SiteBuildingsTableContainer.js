@@ -13,19 +13,26 @@ import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateH
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuildings';
 import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
+import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierarchyIsSorting';
 
 class SiteBuildingsTableContainer extends Component {
     render() {
-        const { site } = this.props;
+        const { site, isSorting } = this.props;
         return (
             <BlockContainer>
                 <BlockHeading title="Buildings" classes="w-table">
                     {site.accessType === ACCESS_TYPES_VALUES.OWNER && (
-                        <button
-                            className="button green"
-                            onClick={this.handleAddBuildingsModal}
-                        >
+                        <button className="button green" onClick={this.handleAddBuildingsModal}>
                             <i className="fa fa-plus" /> Add buildings
+                        </button>
+                    )}
+                    {isSorting ? (
+                        <button className="button green" onClick={this._toggleIsSorting}>
+                            <i className="far fa-check" /> Finish Sort
+                        </button>
+                    ) : (
+                        <button className="button" onClick={this._toggleIsSorting}>
+                            <i className="far fa-sort" /> Sort Mode
                         </button>
                     )}
                 </BlockHeading>
@@ -35,8 +42,9 @@ class SiteBuildingsTableContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { showModal, siteID, isAdding } = this.props;
+        const { showModal, siteID, isAdding, setHierarchyIsSorting } = this.props;
         if (isAdding) showModal(ADD_BUILDINGS, { siteID });
+        setHierarchyIsSorting(false);
     };
 
     componentDidUpdate = prevProps => {
@@ -50,7 +58,7 @@ class SiteBuildingsTableContainer extends Component {
             updateHierarchyAddState,
             fetchAllBuildings,
             fetchSingleSite,
-            siteID
+            siteID,
         } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
@@ -70,7 +78,7 @@ class SiteBuildingsTableContainer extends Component {
                 title: 'Error',
                 message:
                     error.message ||
-                    'There was an error processing your request, please try again later.'
+                    'There was an error processing your request, please try again later.',
             });
             updateHierarchyAddState(false);
         }
@@ -79,6 +87,11 @@ class SiteBuildingsTableContainer extends Component {
         const { showModal, siteID } = this.props;
         showModal(ADD_BUILDINGS, { siteID });
     };
+
+    _toggleIsSorting = () => {
+        const { setHierarchyIsSorting, isSorting } = this.props;
+        setHierarchyIsSorting(!isSorting);
+    };
 }
 
 const mapStateToProps = (
@@ -86,10 +99,10 @@ const mapStateToProps = (
         companyAdmin: {
             sitesReducer: { isFetching, sites },
             buildingsReducer: { postSuccess, updatedBuildingID, error },
-            hierarchyReducer: { isAdding }
-        }
+            hierarchyReducer: { isAdding, isSorting },
+        },
     },
-    { match }
+    { match },
 ) => ({
     error,
     postSuccess,
@@ -97,7 +110,8 @@ const mapStateToProps = (
     site: sites[match.params.id] || {},
     isFetching,
     siteID: match.params.id,
-    isAdding
+    isAdding,
+    isSorting,
 });
 
 const mapDispatchToProps = {
@@ -105,11 +119,9 @@ const mapDispatchToProps = {
     hideModal,
     updateHierarchyAddState,
     fetchAllBuildings,
-    fetchSingleSite
+    fetchSingleSite,
+    setHierarchyIsSorting,
 };
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(SiteBuildingsTableContainer)
+    connect(mapStateToProps, mapDispatchToProps)(SiteBuildingsTableContainer),
 );

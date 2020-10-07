@@ -18,7 +18,7 @@ let SitesListItem = ({
     onMobile,
     headers,
     connectDropTarget,
-    isSortingSites,
+    isSorting,
 }) => {
     let rowClass = 'draggable expandable';
     if (isExpanded) rowClass += ' open';
@@ -28,7 +28,7 @@ let SitesListItem = ({
         <>
             {connectDropTarget(
                 <tr
-                    ref={isSortingSites ? forwardRef : null}
+                    ref={isSorting ? forwardRef : null}
                     onClick={toggleExpanded}
                     className={rowClass}
                 >

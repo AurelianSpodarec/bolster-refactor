@@ -2,8 +2,8 @@ import React from 'react';
 
 import DrawingListItemContainer from '../containers/DrawingListItemContainer';
 
-const DrawingList = ({ drawings, forwardRef, isOver, headers, colSpanFirst = false }) => (
-    <tbody ref={forwardRef} className={isOver ? 'dragging' : ''}>
+const DrawingList = ({ drawings, forwardRef, isSorting, headers, colSpanFirst = false }) => (
+    <tbody ref={forwardRef} className={isSorting ? 'sorting' : ''}>
         {[...drawings]
             .sort((a, b) => a.sort - b.sort)
             .map((drawing, i) => (

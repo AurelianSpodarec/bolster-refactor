@@ -10,7 +10,6 @@ import {
 
 import SitesListItem from '../presentational/SitesListItem';
 import reorderSite from 'actions/companyAdmin/sites/sync/reorderSite';
-import postSitesSort from 'actions/companyAdmin/sites/async/postSitesSort';
 import { hierarchySort } from 'helpers/generic';
 
 const SitesListItemContainer = ({
@@ -27,14 +26,14 @@ const SitesListItemContainer = ({
     onMobile,
     sortBy,
     connectDropTarget,
-    isSortingSites,
+    isSorting,
 }) => {
     return (
         <SitesListItem
             index={index}
             id={site.id}
             onMove={moveItem}
-            onDrop={() => postSitesSort(sites)}
+            onDrop={postSitesSort}
             site={site}
             isExpanded={expandedSiteIds.includes(site.id)}
             colCount={colCount}
@@ -43,7 +42,7 @@ const SitesListItemContainer = ({
             headers={headers}
             onMobile={onMobile}
             connectDropTarget={connectDropTarget}
-            isSortingSites={isSortingSites}
+            isSorting={isSorting}
         />
     );
 
@@ -53,9 +52,6 @@ const SitesListItemContainer = ({
         const [item] = items.splice(fromIndex, 1);
         items.splice(overindex, 0, item);
         const sorted = items.map((x, i) => ({ ...x, sort: i + 1 }));
-        console.log('  ');
-        sorted.forEach(x => console.log(x.name));
-        console.log('  ');
         reorderSite(sorted);
     }
 };
@@ -78,7 +74,7 @@ const mapStateToProps = ({
     sortBy,
 });
 
-const mapDispatchToProps = { reorderSite, toggleSiteExpanded, postSitesSort };
+const mapDispatchToProps = { reorderSite, toggleSiteExpanded };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SitesListItemContainer);
 

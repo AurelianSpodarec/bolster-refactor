@@ -13,8 +13,9 @@ const SitesTable = ({
     error,
     handleAddSite,
     forwardRef,
-    isSortingSites,
+    isSorting,
     toggleIsSortingSites,
+    postSitesSort,
 }) => {
     return (
         <BlockContainer>
@@ -22,13 +23,13 @@ const SitesTable = ({
                 <button onClick={handleAddSite} className="button green">
                     <i className="fa fa-plus" /> Add site
                 </button>
-                {isSortingSites ? (
+                {isSorting ? (
                     <button className="button green" onClick={toggleIsSortingSites}>
                         <i className="far fa-check" /> Finish Sort
                     </button>
                 ) : (
                     <button className="button" onClick={toggleIsSortingSites}>
-                        <i className="far fa-sort" /> Sort Sites
+                        <i className="far fa-sort" /> Sort Mode
                     </button>
                 )}
             </BlockHeading>
@@ -41,14 +42,15 @@ const SitesTable = ({
                 noData={!items.length}
                 noDataMessage="No sites to display"
                 withoutTBody
-                extraClasses={`${isSortingSites ? 'dragging' : ''}`}
+                extraClasses={`${isSorting ? 'dragging' : ''}`}
             >
                 <SitesList
                     forwardRef={forwardRef}
-                    isSortingSites={isSortingSites}
+                    isSorting={isSorting}
                     colCount={headers.length}
                     sites={items}
                     headers={headers}
+                    postSitesSort={postSitesSort}
                 />
             </Table>
         </BlockContainer>

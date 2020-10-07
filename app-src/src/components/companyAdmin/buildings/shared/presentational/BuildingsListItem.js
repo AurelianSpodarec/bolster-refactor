@@ -5,6 +5,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import FloorTableContainer from 'components/companyAdmin/floors/shared/containers/FloorTableContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import withDrag from 'components/shared/dragDrop/hocs/withDrag';
+
 const BuldingsListItem = ({
     building,
     toggleExpanded,
@@ -16,59 +17,70 @@ const BuldingsListItem = ({
     headers,
     onMobile,
     colSpanFirst,
-}) => (
-    <>
-        <tr
-            ref={forwardRef}
-            onClick={toggleExpanded}
-            className={`draggable expandable ${isExpanded ? 'open' : ''}`}
-            style={{ opacity: isDragging ? 0 : 1 }}
-        >
-            <td>
-                {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
-                {isExpanded ? (
-                    <i className="fa fa-chevron-down" />
-                ) : (
-                    <i className="fa fa-chevron-right" />
-                )}{' '}
-                {building.name}
-            </td>
-            <td>
-                {' '}
-                {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-                <DateTimeContainer date={building.createdOn} datetime={DATE_TIME_IDS.DATE} />
-            </td>
-            <td>
-                {' '}
-                {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
-                {permissions}
-            </td>
-            <td>
-                {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
-                <ButtonContainer
-                    to={`/company/buildings/${building.id}`}
-                    handleClick={e => e.stopPropagation()}
+    connectDropTarget,
+    isSorting,
+}) => {
+    let rowClass = 'draggable expandable';
+    if (isExpanded) rowClass += ' open';
+    if (isDragging) rowClass += ' dragging';
+    return (
+        <>
+            {connectDropTarget(
+                <tr
+                    ref={isSorting ? forwardRef : null}
+                    onClick={toggleExpanded}
+                    className={rowClass}
                 >
-                    View
-                </ButtonContainer>
-            </td>
-        </tr>
-        {isExpanded && (
-            <tr className="expanded-row ">
-                <td
-                    colSpan={colCount}
-                    className="table-container"
-                    style={{ display: isDragging ? 'none' : '' }}
-                >
-                    <FloorTableContainer
-                        className="with-actions"
-                        ids={building.floorIDs}
-                        colSpanFirst={colSpanFirst}
-                    />
-                </td>
-            </tr>
-        )}
-    </>
-);
+                    <td>
+                        {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
+                        {isExpanded ? (
+                            <i className="fa fa-chevron-down" />
+                        ) : (
+                            <i className="fa fa-chevron-right" />
+                        )}{' '}
+                        {building.name}
+                    </td>
+                    <td>
+                        {' '}
+                        {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
+                        <DateTimeContainer
+                            date={building.createdOn}
+                            datetime={DATE_TIME_IDS.DATE}
+                        />
+                    </td>
+                    <td>
+                        {' '}
+                        {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
+                        {permissions}
+                    </td>
+                    <td>
+                        {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
+                        <ButtonContainer
+                            to={`/company/buildings/${building.id}`}
+                            handleClick={e => e.stopPropagation()}
+                        >
+                            View
+                        </ButtonContainer>
+                    </td>
+                </tr>,
+            )}
+            {isExpanded && (
+                <tr className="expanded-row ">
+                    <td
+                        colSpan={colCount}
+                        className="table-container"
+                        style={{ display: isDragging ? 'none' : '' }}
+                    >
+                        <FloorTableContainer
+                            className="with-actions"
+                            ids={building.floorIDs}
+                            colSpanFirst={colSpanFirst}
+                        />
+                    </td>
+                </tr>
+            )}
+        </>
+    );
+};
 
 export default withDrag(BuldingsListItem, 'BUILDING');

@@ -73,14 +73,7 @@ export default function (WrappedComponent, type = 'CARD') {
     }
 
     const target = {
-        drop({ onMove, onDrop }, monitor) {
-            const { id: droppedId, originalIndex } = monitor.getItem();
-            const didDrop = monitor.didDrop();
-            if (!didDrop) {
-                onMove(droppedId, originalIndex);
-                return;
-            }
-
+        drop({ onDrop }) {
             onDrop();
         },
     };
@@ -89,6 +82,7 @@ export default function (WrappedComponent, type = 'CARD') {
         connectDropTarget: connect.dropTarget(),
         isOver: monitor.isOver(),
         canDrop: monitor.canDrop(),
+        didDrop: monitor.didDrop(),
     }))(WithDrag);
 
     return WithDragAndDrop;
