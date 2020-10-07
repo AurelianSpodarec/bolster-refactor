@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -13,6 +13,7 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { ERROR_MODAL, SUCCESS_MODAL, CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 import { useForm, usePrevious } from 'helpers/hooks';
 import adminEditNewDrawingExpirationDate from 'actions/superAdmin/expiryTool/asyc/expiryTool';
+import { COMPANY_TYPES } from 'constants/companyAdmin/enums';
 
 const ExpiryToolFormContainer = ({
     companies,
@@ -33,39 +34,31 @@ const ExpiryToolFormContainer = ({
 }) => {
     const [companyID, setCompanyID] = useState(0);
     const [drawingID, setDrawingID] = useState(0);
-    const [currentDrawing, setCurrentDrawing] = useState({});
+    const currentDrawing = drawings[drawingID] || {};
     const [showExpiredMessage, setShowExpiredMessage] = useState(false);
     const [extendDrawingForm, handleFormChange] = useForm({
         newExpiryDate: '',
         extensionReason: '',
     });
-    const [daysToExtendBy, handleChange] = useForm({ amountOfDays: '' });
-
     componentDidMount(fetchAllCompanies);
     componentDidUpdate(handleUpdateCompany, [companyID]);
 
-    const prevProps = usePrevious({ postError, postSuccess, isPosting });
+    const prevProps = usePrevious({ postError, postSuccess });
 
     useEffect(() => {
         if (drawingID) {
-            setCurrentDrawing(drawings[drawingID]);
             isExpired();
-        }
-
-        if (daysToExtendBy.amountOfDays) {
-            calculateNewExpiryDate();
-        }
-
-        if (currentDrawing) {
-            calculateNewExpiryDate();
         }
 
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
-                message: `The drawing ${currentDrawing.name} expiration date has been extended by ${daysToExtendBy.amountOfDays} days`,
+                message: `The drawing ${
+                    currentDrawing.name
+                } expiration date has been set to ${moment(extendDrawingForm.newExpiryDate).format(
+                    'DD/MM/yyyy',
+                )}`,
             });
             setDrawingID(0);
-            handleChange('amountOfDays', 0);
             handleFormChange('extensionReason', '');
             handleFormChange('newExpiryDate', '');
         }
@@ -76,16 +69,7 @@ const ExpiryToolFormContainer = ({
                 message: postError.message,
             });
         }
-    }, [
-        drawingID,
-        daysToExtendBy,
-        postSuccess,
-        isPosting,
-        currentDrawing,
-        prevProps.postError,
-        prevProps.postSuccess,
-        prevProps.isPosting,
-    ]);
+    }, [drawingID, postSuccess, currentDrawing, prevProps.postError, prevProps.postSuccess]);
 
     return (
         <ExpiryToolForm
@@ -103,8 +87,6 @@ const ExpiryToolFormContainer = ({
             currentDrawing={currentDrawing}
             extendDrawingForm={extendDrawingForm}
             handleFormChange={handleFormChange}
-            daysToExtendBy={daysToExtendBy}
-            handleChange={handleChange}
             handleSubmit={handleSubmitModal}
             handleCancel={handleCancel}
             showExpiredMessage={showExpiredMessage}
@@ -112,11 +94,15 @@ const ExpiryToolFormContainer = ({
     );
 
     function _getCompaniesOptionsList() {
-        const companiesArr = Object.values(companies).map(({ id, name }) => ({
-            value: id,
-            label: name,
-            text: name,
-        }));
+        const companiesArr = Object.values(companies)
+            .filter(
+                ({ companyType }) => companyType === COMPANY_TYPES['Company - Active Subscription'],
+            )
+            .map(({ id, name }) => ({
+                value: id,
+                label: name,
+                text: name,
+            }));
         const sortedCompanies = sortArrayByKeyAndOrder(companiesArr, 'text', true, 'id');
         return sortedCompanies;
     }
@@ -139,27 +125,6 @@ const ExpiryToolFormContainer = ({
 
     function handleUpdateCompany() {
         fetchDrawingsForCompany(companyID);
-    }
-
-    function calculateNewExpiryDate() {
-        const currentExpiryDate = moment(currentDrawing.expiresOn);
-        const today = moment();
-
-        if (!daysToExtendBy.amountOfDays) {
-            return;
-        }
-
-        let newDate = moment(currentDrawing.expiresOn)
-            .add(daysToExtendBy.amountOfDays, 'days')
-            .format('YYYY-MM-DDTHH:mm:ss');
-
-        if (currentExpiryDate.diff(today, 'days') < 0) {
-            newDate = moment()
-                .add(daysToExtendBy.amountOfDays, 'days')
-                .format('YYYY-MM-DDTHH:mm:ss');
-        }
-
-        handleFormChange('newExpiryDate', newDate);
     }
 
     function isExpired() {
@@ -191,7 +156,7 @@ const mapStateToProps = ({
     superAdmin: {
         companiesReducer: { companies, isFetching: fetchingCompanies, companiesError },
         drawingsReducer: { drawings, isFetching: fetchingDrawings, drawingsError },
-        expiryToolReducer: { isPosting, postSuccess, postError },
+        expiryToolReducer: { postSuccess, postError },
     },
 }) => ({
     companies,
@@ -201,7 +166,6 @@ const mapStateToProps = ({
     companiesError,
     drawingsError,
     postError,
-    isPosting,
     postSuccess,
 });
 

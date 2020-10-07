@@ -8,6 +8,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import Select from 'components/shared/generic/form/presentational/Select';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 
 const ExpiryToolForm = ({
     companiesOptions,
@@ -20,9 +21,7 @@ const ExpiryToolForm = ({
     drawingID,
     currentDrawing: { expiresOn },
     handleFormChange,
-    handleChange,
     extendDrawingForm,
-    daysToExtendBy,
     handleSubmit,
     handleCancel,
     showExpiredMessage,
@@ -61,7 +60,7 @@ const ExpiryToolForm = ({
                 {showExpiredMessage && (
                     <p className="info-message error" style={{ marginBottom: '10px' }}>
                         The drawing you have selected has expired. If you extend this drawing you
-                        will be re-activating it from todays date.
+                        could be re-activating it from todays date.
                     </p>
                 )}
                 <Field name="Current Expiration Date" classes>
@@ -69,22 +68,13 @@ const ExpiryToolForm = ({
                         <DateTimeContainer date={expiresOn} />
                     </p>
                 </Field>
-                <Field name="Days to extend expiration by" classes required>
-                    <p>Max number of days allowed to extend by is 120</p>
-                    <TextInputContainer
-                        name="amountOfDays"
-                        value={daysToExtendBy.amountOfDays}
-                        handleChange={handleChange}
-                        type="number"
+                <Field name="New Expiration Date" classes required>
+                    <DatePickerContainer
+                        name="newExpiryDate"
+                        selected={new Date(extendDrawingForm.newExpiryDate || expiresOn)}
+                        onChange={newDate => handleFormChange('newExpiryDate', newDate)}
                         required
                     />
-                </Field>
-                <Field name="New Expiration Date" classes>
-                    <p className="size-lg-12">
-                        {extendDrawingForm.newExpiryDate && (
-                            <DateTimeContainer date={extendDrawingForm.newExpiryDate} />
-                        )}
-                    </p>
                 </Field>
                 <Field name="Reason for extension" classes required>
                     <TextInputContainer
