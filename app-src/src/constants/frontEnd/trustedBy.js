@@ -26,24 +26,4 @@ export const TrustedByList = [
         logo: NHS,
         name: 'NHS',
     },
-    {
-        logo: ASFP,
-        name: 'ASFP',
-    },
-    {
-        logo: Sodexo,
-        name: 'Sodexo',
-    },
-    {
-        logo: Engie,
-        name: 'Engie',
-    },
-    {
-        logo: ISG,
-        name: 'ISG',
-    },
-    {
-        logo: Bam,
-        name: 'Bam',
-    },
 ];
