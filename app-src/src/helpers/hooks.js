@@ -46,6 +46,8 @@ export const useMultipleHierarchies = hierarchyShape => {
     function updateState(name, value) {
         // * This is to split the field validations up
         const [id, fieldName] = name.split('.*.');
+        console.log({ name, value, id, fieldName });
+        console.log(state[id]);
         return setState({
             ...state,
             [id]: { ...state[id], [fieldName]: value },

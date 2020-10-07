@@ -5,17 +5,19 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Loading from '../../misc/presentational/Loading';
 import Form from '../../form/containers/Form';
 import Field from '../../form/presentational/Field';
+import NumberInputContainer from '../../form/containers/NumberInputContainer';
 import Select from '../../form/presentational/Select';
 
 const GenerateQRCodesModal = ({
+    form: { numberOfCodes, type },
     hideModal,
     isLoading,
     isGenerating,
     qrCodeCount,
-    form,
     handleFormChange,
     handleSubmit,
     options,
+    typeOptions,
 }) => {
     if (isLoading)
         return (
@@ -37,11 +39,22 @@ const GenerateQRCodesModal = ({
             <p className="generic-text">You currently have {qrCodeCount} QR Codes.</p>
 
             <Form className="generic-form" onSubmit={handleSubmit}>
+                <Field name="Type" required>
+                    <Select
+                        required
+                        omitPlaceholder
+                        name="type"
+                        value={type}
+                        options={typeOptions}
+                        onChange={handleFormChange}
+                    />
+                </Field>
+
                 <Field name="Number of new codes to generate" required>
                     <Select
                         required
                         name="numberOfCodes"
-                        value={form.numberOfCodes}
+                        value={numberOfCodes}
                         onChange={handleFormChange}
                         options={options}
                     />

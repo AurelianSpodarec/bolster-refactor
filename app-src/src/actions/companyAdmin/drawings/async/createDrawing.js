@@ -6,21 +6,21 @@ import { getHeaders } from 'helpers/api';
 import {
     CREATE_DRAWING_REQUEST,
     CREATE_DRAWING_SUCCESS,
-    CREATE_DRAWING_FAILURE
+    CREATE_DRAWING_FAILURE,
 } from 'constants/actionTypes/drawings';
 
 export const createDrawingRequest = () => ({
-    type: CREATE_DRAWING_REQUEST
+    type: CREATE_DRAWING_REQUEST,
 });
 
 export const createDrawingSuccess = payload => ({
     type: CREATE_DRAWING_SUCCESS,
-    payload
+    payload,
 });
 
 export const createDrawingFailure = error => ({
     type: CREATE_DRAWING_FAILURE,
-    error
+    error,
 });
 
 export default drawing => dispatch => {
