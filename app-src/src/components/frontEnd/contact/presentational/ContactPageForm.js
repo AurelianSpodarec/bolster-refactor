@@ -52,12 +52,14 @@ const ContactPageForm = ({ form, handleChange, handleSubmit, sent, isPosting }) 
                 />
             </Field>
             <Field classes="submit-wrapper">
-                <ReCaptcha
-                    name="reCaptchaToken"
-                    value={form.reCaptchaToken}
-                    onChange={handleChange}
-                    required
-                />
+                <Field>
+                    <ReCaptcha
+                        name="reCaptchaToken"
+                        value={form.reCaptchaToken}
+                        onChange={handleChange}
+                        required
+                    />
+                </Field>
                 <FrontEndButton
                     classes={`gray ${isPosting ? 'disabled' : ''}`}
                     type="submit"

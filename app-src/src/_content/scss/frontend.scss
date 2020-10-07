@@ -1374,15 +1374,15 @@ $footer-height: 173px;
                     justify-content: space-between;
                     & > button {
                         align-self: flex-end;
+                        margin-bottom: 19px;
                     }
                 }
                 .recaptcha-wrapper {
-                    display: flex;
                     margin: 8px 0 4px 0;
 
-                + .error {
-                    text-align: right;
-                }
+                    + .error {
+                        align-self: center;
+                    }
             } 
           }
 
