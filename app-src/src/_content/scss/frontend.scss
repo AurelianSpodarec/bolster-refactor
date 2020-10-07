@@ -1222,17 +1222,24 @@ $footer-height: 173px;
             }
 
             .icon {
-                min-width: 62px;
                 margin: 10px 20px 0;
 
                 img {
-                    width: 100%;
+                    width: 62px;
                 }
             }
 
             h4, p {
                 font-size: 180%;
                 line-height: 2;
+            }
+
+            p {
+                margin-bottom: 15px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
 
             .divider {
@@ -1252,7 +1259,9 @@ $footer-height: 173px;
                 }
 
                 .icon {
-                    min-width: 50px;
+                    img {
+                        width: 50px;
+                    }
                 }
             }
 
@@ -1316,8 +1325,11 @@ $footer-height: 173px;
 
                 .icon {
                     margin: 0 0 10px 40px;
-                    width: 40px;
                     min-width: 0;
+
+                    img {
+                        width: 40px;
+                    }
                 }
 
                 h4, p {

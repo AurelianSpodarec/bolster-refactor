@@ -2,45 +2,65 @@ import BespokeTemplatesIcon from '_content/images/frontend-new/how-it-works/time
 
 export default [
     {
-        title: 'Lorem ipsum dolor sit amet consectetur 1',
-        description: `Mauris at arcu lectus. Aenean vitae placerat sapien. Curabitur non dolor at 
-        neque viverra congue. Morbi vitae justo mauris. Mauris vestibulum vitae lacus et finibus. 
-        Nunc bibendum dignissim condimentum.`,
+        title: 'Create Users',
+        description:
+            '<p>Create an unlimited number of Admins/Operatives through the Bolster desktop.</p>',
         icon: BespokeTemplatesIcon,
     },
     {
-        title: 'Lorem ipsum dolor sit amet consectetur 2',
-        description: `Mauris at arcu lectus. Aenean vitae placerat sapien. Curabitur non dolor at 
-        neque viverra congue. Morbi vitae justo mauris. Mauris vestibulum vitae lacus et finibus. 
-        Nunc bibendum dignissim condimentum.`,
+        title: 'Create bespoke templates',
+        description: `<p>Each service subscribed to will come with default templates curated by Bolster Systems. You can outline bespoke templates to Bolster Systems to ensure your 
+        documentation requirements are met.</p>`,
         icon: BespokeTemplatesIcon,
     },
     {
-        title: 'Lorem ipsum dolor sit amet consectetur 3',
-        description: `Mauris at arcu lectus. Aenean vitae placerat sapien. Curabitur non dolor at 
-        neque viverra congue. Morbi vitae justo mauris. Mauris vestibulum vitae lacus et finibus. 
-        Nunc bibendum dignissim condimentum.`,
+        title: 'Create sites & upload floorplan drawings',
+        description:
+            '<p>Upload PDF or JPEG floorplan drawings for sites you are working on to locate any defects or remedial works.</p>',
         icon: BespokeTemplatesIcon,
     },
     {
-        title: 'Lorem ipsum dolor sit amet consectetur 4',
-        description: `Mauris at arcu lectus. Aenean vitae placerat sapien. Curabitur non dolor at 
-        neque viverra congue. Morbi vitae justo mauris. Mauris vestibulum vitae lacus et finibus. 
-        Nunc bibendum dignissim condimentum.`,
+        title: 'Upload and sign on site required documentation',
+        description: `<p>Upload PDF or JPEG documents such as Data Sheets, Method Statements, RAM’s, permits & Safe Starts to sites to ensure all essential documentation is available to 
+        operatives.</p>
+        <p>Operatives will then have the ability to view and digitally sign documents directly through the Bolster Systems app ensuring your company is compliant with industry standards</p>`,
         icon: BespokeTemplatesIcon,
     },
     {
-        title: 'Lorem ipsum dolor sit amet consectetur 5',
-        description: `Mauris at arcu lectus. Aenean vitae placerat sapien. Curabitur non dolor at 
-        neque viverra congue. Morbi vitae justo mauris. Mauris vestibulum vitae lacus et finibus. 
-        Nunc bibendum dignissim condimentum.`,
+        title: 'Drop pins on drawings to document works',
+        description:
+            '<p>Use the colour coded pin system and bespoke templates to locate and document any survey, remedial or maintenance works being carried out on site.</p>',
         icon: BespokeTemplatesIcon,
     },
     {
-        title: 'Lorem ipsum dolor sit amet consectetur 6',
-        description: `Mauris at arcu lectus. Aenean vitae placerat sapien. Curabitur non dolor at 
-        neque viverra congue. Morbi vitae justo mauris. Mauris vestibulum vitae lacus et finibus. 
-        Nunc bibendum dignissim condimentum.`,
+        title: 'Up-sync work to the cloud & track real time through the company dashboard',
+        description: `<p>Send any data documented on site to the Bolster Systems dedicated cloud-based servers to be accessed by company admins through the desktop.</p>
+        <p>Through the desktop admins can keep track of their company’s progress across all live projects.</p>`,
+        icon: BespokeTemplatesIcon,
+    },
+    {
+        title: 'Grant client’s free access',
+        description:
+            '<p>Invite client’s free of charge for read-only access to required sites to view progress ensuring transparency between all parties</p>',
+        icon: BespokeTemplatesIcon,
+    },
+    {
+        title: 'Generate unlimited PDF, CSV, Floorplan reports & O&M Manuals',
+        description: `<p>Bolster Systems report generator will drastically reduce your time spent collating data allowing you to generate PDF, Spreadsheet and Floorplan reports in a 
+        matter of seconds.</p>
+        <p>Download Data Sheets for all materials used within a project to include in your O & M upon completion of works.</p>`,
+        icon: BespokeTemplatesIcon,
+    },
+    {
+        title: 'Transfer/receive works from other Bolster companies free of charge',
+        description: `<p>Work alongside other Bolster Approved Companies on the same drawings enabling all stages of work are documented in one place to ensure complete transparency 
+        between all parties.</p>`,
+        icon: BespokeTemplatesIcon,
+    },
+    {
+        title: 'Manage jobs and set up alerts for scheduled future works',
+        description: `<p>Manage on-going or completed projects on a daily basis through the desktop admin area.</p>
+        <p>Schedule email and system alerts for future survey or remedial actions required across sites.</p>`,
         icon: BespokeTemplatesIcon,
     },
 ];
