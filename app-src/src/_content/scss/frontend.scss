@@ -1350,28 +1350,40 @@ $footer-height: 173px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding-bottom: 75px;
+            padding-bottom: 55px;
+
+            & > .heading {
+                margin-top: 20px;
+                & > p {
+                    margin: 0 0 45px 0;
+                }
+            }
 
             .contact-form {
-              margin: 0 143px 0 0;
-              color: #FFFFFF;
-              flex: 1;
-              max-width: 610px;
+                margin: 0 143px 0 0;
+                color: #FFFFFF;
+                flex: 1;
+                max-width: 610px;
             
                 & label {
                     font-size: 180%;
                     font-weight: normal;
                 }
+                .submit-wrapper {
+                    display: flex;
+                    justify-content: space-between;
+                    & > button {
+                        align-self: flex-end;
+                    }
+                }
+                .recaptcha-wrapper {
+                    display: flex;
+                    margin: 8px 0 4px 0;
 
-              .recaptcha-wrapper {
-                display: flex;
-                justify-content: flex-end;
-                margin: 8px 0 4px 0;
-
-               + .error {
+                + .error {
                     text-align: right;
                 }
-              }
+            } 
           }
 
         }

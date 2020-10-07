@@ -51,21 +51,21 @@ const ContactPageForm = ({ form, handleChange, handleSubmit, sent, isPosting }) 
                     required
                 />
             </Field>
-            <Field>
+            <Field classes="submit-wrapper">
                 <ReCaptcha
                     name="reCaptchaToken"
                     value={form.reCaptchaToken}
                     onChange={handleChange}
                     required
                 />
+                <FrontEndButton
+                    classes={`gray ${isPosting ? 'disabled' : ''}`}
+                    type="submit"
+                    disabled={isPosting}
+                >
+                    {isPosting ? <LoadingIcon /> : 'Submit'}
+                </FrontEndButton>
             </Field>
-            <FrontEndButton
-                classes={`gray right spacing-right-sm ${isPosting ? 'disabled' : ''}`}
-                type="submit"
-                disabled={isPosting}
-            >
-                {isPosting ? <LoadingIcon /> : 'Submit'}
-            </FrontEndButton>
         </Form>
     );
 };
