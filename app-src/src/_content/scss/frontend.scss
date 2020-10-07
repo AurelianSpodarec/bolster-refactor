@@ -1353,7 +1353,7 @@ $footer-height: 173px;
             padding-bottom: 55px;
 
             & > .heading {
-                margin-top: 20px;
+                margin-top: 35px;
                 & > p {
                     margin: 0 0 45px 0;
                 }
@@ -1372,9 +1372,9 @@ $footer-height: 173px;
                 .submit-wrapper {
                     display: flex;
                     justify-content: space-between;
+
                     & > button {
                         align-self: flex-end;
-                        margin-bottom: 19px;
                     }
                 }
                 .recaptcha-wrapper {
@@ -1432,6 +1432,14 @@ $footer-height: 173px;
 
         @include devices(lsTablet) {
             .contact-form-wrapper {
+                & > .heading {
+                    padding-top: 50px;
+                }
+
+                .contact-section {
+                    margin-top: 25px;
+                }
+
                 .contact-form {
                     margin-right: 50px;
                     max-width: none;
@@ -1441,13 +1449,35 @@ $footer-height: 173px;
 
         @include devices(ptTablet) {
             .contact-form-wrapper {
+                & > .heading {
+                    padding-top: 0;
+                }
                 .contact-form {
                     flex: 1.5;
+
+                    .submit-wrapper {
+                        display: flex;
+                        flex-direction: column;
+
+                        & > .recaptcha-wrapper {
+                            align-self: flex-end;
+
+                            + .error {
+                                text-align: right;
+                            }
+                        }
+                        & > button {
+                            margin-top: 15px;
+                            align-self: flex-end;
+                        }
+                    }
                 }
 
                 .contact-info-wrapper {
                     flex: 1;
                 }
+
+                
             }
         }
 
@@ -1459,6 +1489,18 @@ $footer-height: 173px;
             .contact-form-wrapper {
                 display: block;
                 padding-bottom: 50px;
+                
+                .contact-section {
+                    margin-top: 0;
+                }
+                & > .heading {
+                    margin-top: 0;
+                    padding-top: 25px;
+
+                    & > p {
+                        margin-bottom: 0;
+                    }
+                }
 
                 .contact-form {
                     width: 100%;
