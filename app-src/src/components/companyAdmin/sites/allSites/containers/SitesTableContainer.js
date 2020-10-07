@@ -12,17 +12,25 @@ import { ADD_SITE, ERROR_MODAL } from 'constants/shared/modalTypes';
 import SitesTable from '../presentational/SitesTable';
 import { hierarchySort } from 'helpers/generic';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
+import updateSitesFilters from 'actions/companyAdmin/sites/sync/updateSitesFilters';
 
 class SitesTableContainer extends Component {
+    state = {
+        isSortingSites: false,
+    };
+
     render() {
+        const { isSortingSites } = this.state;
         const { isFetching, error } = this.props;
         return (
             <SitesTable
+                isSortingSites={isSortingSites}
                 headers={['Site name', 'Client', 'Created on', 'Owned by', 'Permissions', '']}
                 items={this._getFilteredSites()}
                 isFetching={isFetching}
                 error={error}
                 handleAddSite={this.handleAddSite}
+                toggleIsSortingSites={this.toggleIsSortingSites}
             />
         );
     }
@@ -55,6 +63,10 @@ class SitesTableContainer extends Component {
 
     _getFilteredSites = () => {
         const { sites, filters } = this.props;
+        const { isSortingSites } = this.state;
+
+        if (isSortingSites) return this._getSortedSites(sites);
+
         const { status } = filters;
         const name = filters.name.toLowerCase();
 
@@ -78,6 +90,7 @@ class SitesTableContainer extends Component {
     };
 
     _getSortedSites = sites => {
+        const { isSortingSites } = this.state;
         const {
             filters: { sortBy },
         } = this.props;
@@ -95,7 +108,7 @@ class SitesTableContainer extends Component {
         const order = descKeys.includes(+sortBy) ? 'desc' : 'asc';
 
         // default sort order as per api
-        if (+sortBy === CUSTOM) return sites.sort(hierarchySort);
+        if (+sortBy === CUSTOM || isSortingSites) return sites.sort(hierarchySort);
 
         if (order === 'desc') {
             if (key === 'createdOn') {
@@ -112,6 +125,16 @@ class SitesTableContainer extends Component {
                 return sites.sort((a, b) => (a[key] > b[key] ? 1 : a[key] < b[key] ? -1 : 0));
             }
         }
+    };
+
+    toggleIsSortingSites = e => {
+        e.preventDefault();
+
+        const { updateSitesFilters } = this.props;
+        updateSitesFilters('name', '');
+        updateSitesFilters('status', '');
+        updateSitesFilters('sortBy', DEFAULT_SITES_SORT.CUSTOM);
+        this.setState(prev => ({ isSortingSites: !prev.isSortingSites }));
     };
 
     handleAddSite = () => {
@@ -135,6 +158,6 @@ const mapStateToProps = ({
     updatedSiteID,
 });
 
-const mapDispatchToProps = { showModal, hideModal, updateHierarchyAddState };
+const mapDispatchToProps = { showModal, hideModal, updateHierarchyAddState, updateSitesFilters };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SitesTableContainer));

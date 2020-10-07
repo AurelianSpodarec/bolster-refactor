@@ -2496,11 +2496,23 @@ input {
     }
 
     tbody {
+        &.sorting,
         &.dragging {
             tr {
                 overflow: hidden;
                 width: 100%;
                 white-space: nowrap;
+
+                &.draggable {
+                    &:hover {
+                        cursor: move;
+                    }
+                    &:active {
+                        cursor: move;
+                    }
+                    
+                }
+
                 td {
                     overflow: hidden;
                 }
@@ -2517,12 +2529,10 @@ input {
         }
         &.draggable {
             &:hover {
-                cursor: grab;
+                cursor: pointer;
             }
 
-            &:active {
-                cursor: grabbing;
-            }
+           
 
             &.dragging {
                 height: 43px;

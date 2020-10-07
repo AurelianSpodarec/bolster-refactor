@@ -2,9 +2,9 @@ import React from 'react';
 
 import SitesListItemContainer from '../containers/SitesListItemContainer';
 
-const SitesList = ({ sites, colCount, forwardRef, isOver, headers }) => (
+const SitesList = ({ sites, colCount, forwardRef, isSortingSites, headers }) => (
     // ! sort function now in sites table container to optionally sort by date added.
-    <tbody ref={forwardRef} className={isOver ? 'dragging' : ''}>
+    <tbody ref={isSortingSites ? forwardRef : null} className={isSortingSites ? 'dragging' : ''}>
         {[...sites].map((site, i) => (
             <SitesListItemContainer
                 key={site.id}
@@ -12,6 +12,7 @@ const SitesList = ({ sites, colCount, forwardRef, isOver, headers }) => (
                 colCount={colCount}
                 index={i}
                 headers={headers}
+                isSortingSites={isSortingSites}
             />
         ))}
     </tbody>

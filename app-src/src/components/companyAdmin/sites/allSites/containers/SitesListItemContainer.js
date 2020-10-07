@@ -26,6 +26,8 @@ const SitesListItemContainer = ({
     headers,
     onMobile,
     sortBy,
+    connectDropTarget,
+    isSortingSites,
 }) => {
     return (
         <SitesListItem
@@ -40,6 +42,8 @@ const SitesListItemContainer = ({
             permissions={formatPermissions(permissions, accessType)}
             headers={headers}
             onMobile={onMobile}
+            connectDropTarget={connectDropTarget}
+            isSortingSites={isSortingSites}
         />
     );
 
