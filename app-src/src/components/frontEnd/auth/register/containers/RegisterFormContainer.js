@@ -55,6 +55,7 @@ const RegisterFormContainer = ({
         'Company.vatType': null,
         'Company.country': '',
         terms: false,
+        logoFile: '',
     });
     const [tickboxError, setTickboxError] = useState(false);
 
@@ -173,6 +174,7 @@ const RegisterFormContainer = ({
             'Company.vatType': vatType,
             'Company.dateFormatID': dateFormatID,
             'Company.timezone': timezone,
+            'Company.logoFile': logoFile,
         } = formData;
 
         const postBody = {
@@ -196,6 +198,7 @@ const RegisterFormContainer = ({
                 vatCode,
                 dateFormatID,
                 timezone,
+                logoFile,
             },
         };
 
