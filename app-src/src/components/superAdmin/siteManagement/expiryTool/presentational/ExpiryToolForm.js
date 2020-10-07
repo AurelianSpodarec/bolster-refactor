@@ -40,6 +40,7 @@ const ExpiryToolForm = ({
                 search
                 omitPlaceholder
                 required
+                classes="large"
             />
         </Field>
         {!!companyID && (
@@ -52,6 +53,7 @@ const ExpiryToolForm = ({
                     search
                     omitPlaceholder
                     required
+                    classes="large"
                 />
             </Field>
         )}

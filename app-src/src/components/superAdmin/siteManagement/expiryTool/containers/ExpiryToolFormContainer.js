@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -24,7 +24,6 @@ const ExpiryToolFormContainer = ({
     drawingsError,
     fetchAllCompanies,
     fetchDrawingsForCompany,
-    isPosting,
     postSuccess,
     postError,
     showModal,
