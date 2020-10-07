@@ -18,46 +18,47 @@ let SitesListItem = ({
     onMobile,
     headers,
 }) => {
+    let rowClass = 'draggable expandable';
+    if (isExpanded) rowClass += ' open';
+    if (isDragging) rowClass += ' dragging';
+
     return (
         <>
-            <tr
-                ref={forwardRef}
-                onClick={toggleExpanded}
-                className={`draggable expandable ${isExpanded ? 'open' : ''}`}
-                style={{ opacity: isDragging ? 0 : 1 }}
-            >
-                <td>
-                    {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
-                    <i className={`fa fa-chevron-${isExpanded ? 'down' : 'right'}`} />
-                    {site.name}
-                </td>
+            <tr ref={forwardRef} onClick={toggleExpanded} className={rowClass}>
+                <>
+                    <td>
+                        {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
+                        <i className={`fa fa-chevron-${isExpanded ? 'down' : 'right'}`} />
+                        {site.name}
+                    </td>
 
-                <td>
-                    {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-                    {site.client}
-                </td>
-                <td>
-                    {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
-                    <DateTimeContainer date={site.createdOn} datetime={DATE_TIME_IDS.DATE} />
-                </td>
-                <td>
-                    {' '}
-                    {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
-                    {site.ownerCompanyName}
-                </td>
-                <td>
-                    {' '}
-                    {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
-                    {permissions}
-                </td>
-                <td>
-                    <ButtonContainer
-                        to={`/company/sites/${site.id}`}
-                        handleClick={e => e.stopPropagation()}
-                    >
-                        View
-                    </ButtonContainer>
-                </td>
+                    <td>
+                        {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
+                        {site.client}
+                    </td>
+                    <td>
+                        {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
+                        <DateTimeContainer date={site.createdOn} datetime={DATE_TIME_IDS.DATE} />
+                    </td>
+                    <td>
+                        {' '}
+                        {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
+                        {site.ownerCompanyName}
+                    </td>
+                    <td>
+                        {' '}
+                        {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
+                        {permissions}
+                    </td>
+                    <td>
+                        <ButtonContainer
+                            to={`/company/sites/${site.id}`}
+                            handleClick={e => e.stopPropagation()}
+                        >
+                            View
+                        </ButtonContainer>
+                    </td>
+                </>
             </tr>
             {isExpanded && (
                 <tr

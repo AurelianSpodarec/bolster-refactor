@@ -45,11 +45,13 @@ const SitesListItemContainer = ({
 
     function moveItem(overindex, fromIndex) {
         if (sortBy && sortBy != DEFAULT_SITES_SORT.CUSTOM) return;
-
         const items = [...sites].sort(hierarchySort);
         const [item] = items.splice(fromIndex, 1);
         items.splice(overindex, 0, item);
         const sorted = items.map((x, i) => ({ ...x, sort: i + 1 }));
+        console.log('  ');
+        sorted.forEach(x => console.log(x.name));
+        console.log('  ');
         reorderSite(sorted);
     }
 };

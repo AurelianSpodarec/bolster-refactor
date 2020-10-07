@@ -4,10 +4,7 @@ import flow from 'lodash/flow';
 
 export default function (WrappedComponent, type = 'CARD') {
     class WithDrag extends React.Component {
-        constructor(props) {
-            super(props);
-            this.ref = React.createRef();
-        }
+        ref = React.createRef();
 
         render() {
             const { isDragging, connectDragSource, connectDropTarget, ...rest } = this.props;

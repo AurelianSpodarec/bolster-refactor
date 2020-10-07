@@ -4,13 +4,10 @@ import { updateObj } from 'helpers/generic';
 import { UPDATE_SITES_FILTERS } from 'constants/actionTypes/sites';
 
 export default combineReducers({
-    filters: filtersReducer
+    filters: filtersReducer,
 });
 
-function filtersReducer(
-    state = { name: '', status: '', sortBy: 'descending' },
-    action
-) {
+function filtersReducer(state = { name: '', status: '', sortBy: 1 }, action) {
     switch (action.type) {
         case UPDATE_SITES_FILTERS:
             return updateObj(state, action.fieldName, action.searchTerm);
