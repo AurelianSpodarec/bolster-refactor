@@ -34,7 +34,7 @@ export const useBannerScroll = width => {
         const headerHeight = document.querySelector('.frontend-header').offsetHeight;
         const bannerElement = document.querySelector('.frontend-banner');
         const { bottom } = bannerElement.getBoundingClientRect();
-        const duration = 350;
+        const duration = 1100;
 
         const newScrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
