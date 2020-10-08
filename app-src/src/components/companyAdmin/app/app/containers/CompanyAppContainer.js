@@ -21,6 +21,8 @@ import fetchOutgoingTransferRequests from 'actions/companyAdmin/transferRequests
 import fetchPendingInvites from 'actions/companyAdmin/pendingInvites/fetchPendingInvites';
 import fetchOutgoingInvites from 'actions/companyAdmin/pendingInvites/fetchOutgoingInvites';
 import fetchSingleCompanyUser from 'actions/companyAdmin/userManagement/async/fetchSingleCompanyUser';
+import withAuth from 'components/shared/auth/auth/hocs/withAuth';
+import { AUTH_TYPES } from 'constants/shared/auth';
 
 class CompanyAppContainer extends Component {
     render() {
@@ -33,7 +35,7 @@ class CompanyAppContainer extends Component {
             fetchCompanySettings,
             selectCompanyMenuTab,
             decodeJWT,
-            fetchSingleCompanyUser
+            fetchSingleCompanyUser,
         } = this.props;
 
         fetchHomeData();
@@ -76,7 +78,8 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchSingleCompanyUser: companyUserID => {
         dispatch(fetchSingleCompanyUser(companyUserID));
-    }
+    },
 });
 
-export default connect(null, mapDispatchToProps)(CompanyAppContainer);
+const withConnect = connect(null, mapDispatchToProps)(CompanyAppContainer);
+export default withAuth(withConnect, AUTH_TYPES.COMPANY);
