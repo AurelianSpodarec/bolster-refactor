@@ -7,7 +7,7 @@ import Routes from 'components/companyAdmin/app/routes/presentational';
 import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
 
 const CompanyApp = () => (
-    <>
+    <div className="dashboard-area">
         <Helmet title="Company Admin" />
         <CompanyHeaderContainer />
         <div className="full-container container">
@@ -17,7 +17,7 @@ const CompanyApp = () => (
             </div>
         </div>
         <FooterContainer />
-    </>
+    </div>
 );
 
 export default CompanyApp;

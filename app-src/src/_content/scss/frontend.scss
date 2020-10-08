@@ -772,7 +772,12 @@ $footer-height: 173px;
             .accreditations-grid {
                 .item {
                     width: calc(100% / 2 - 20px);
-                    min-height: 180px;
+                    min-height: 100px;
+
+                    & > img {
+                        min-height: 100px;
+                        max-height: 110px;
+                    }
                 }
             }
         }
