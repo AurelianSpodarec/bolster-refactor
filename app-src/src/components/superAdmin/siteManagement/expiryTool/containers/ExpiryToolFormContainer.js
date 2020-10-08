@@ -42,11 +42,15 @@ const ExpiryToolFormContainer = ({
     componentDidMount(fetchAllCompanies);
     componentDidUpdate(handleUpdateCompany, [companyID]);
 
-    const prevProps = usePrevious({ postError, postSuccess });
+    const prevProps = usePrevious({ postError, postSuccess, drawingID });
 
     useEffect(() => {
         if (drawingID) {
             isExpired();
+        }
+        if (drawingID && drawingID !== prevProps.drawingID) {
+            handleFormChange('newExpiryDate', currentDrawing.expiresOn);
+            handleFormChange('extensionReason', currentDrawing.extensionReason);
         }
 
         if (postSuccess && !prevProps.postSuccess) {
