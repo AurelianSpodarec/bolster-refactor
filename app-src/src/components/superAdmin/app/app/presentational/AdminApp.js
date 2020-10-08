@@ -7,7 +7,7 @@ import AdminRoutes from '../../routes/presentational';
 import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
 
 const AdminApp = () => (
-    <>
+    <div className="dashboard-area">
         <Helmet title="Super Admin" />
         <AdminHeader />
         <div className="full-container container">
@@ -17,7 +17,7 @@ const AdminApp = () => (
             </div>
         </div>
         <AdminFooter />
-    </>
+    </div>
 );
 
 export default AdminApp;
