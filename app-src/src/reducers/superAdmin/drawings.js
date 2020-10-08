@@ -3,17 +3,18 @@ import { combineReducers } from 'redux';
 import {
     ADMIN_FETCH_DRAWINGS_FOR_COMPANY_REQUEST,
     ADMIN_FETCH_DRAWINGS_FOR_COMPANY_SUCCESS,
-    ADMIN_FETCH_DRAWINGS_FOR_COMPANY_FAILURE
+    ADMIN_FETCH_DRAWINGS_FOR_COMPANY_FAILURE,
+    ADMIN_EDIT_DRAWING_EXIPIRATION_DATE_SUCCESS,
 } from 'constants/actionTypes/companies';
 
 import { ADMIN_MOVE_DRAWING_SUCCESS } from 'constants/actionTypes/moveTool';
 
-import { convertArrToObj, removeObjItem } from 'helpers/generic';
+import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
 
 export default combineReducers({
     drawings: drawingsReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -45,6 +46,8 @@ function drawingsReducer(state = {}, action) {
             return { ...state, ...convertArrToObj(action.payload) };
         case ADMIN_MOVE_DRAWING_SUCCESS:
             return removeObjItem(state, action.drawingID);
+        case ADMIN_EDIT_DRAWING_EXIPIRATION_DATE_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }

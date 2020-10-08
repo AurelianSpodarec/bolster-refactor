@@ -84,7 +84,7 @@ const Select = ({
 
                         {filteredOptions.map((opt, i) => (
                             <p
-                                key={opt.value + i}
+                                key={`${opt.value} - ${i}`}
                                 className={`option ${value === opt.value ? 'active' : ''}`}
                                 onClick={e => handleSelect(e, opt.value)}
                             >
@@ -123,7 +123,6 @@ const Select = ({
 
     function handleSearchChange(e) {
         e.preventDefault();
-
         setSearch(e.target.value);
     }
 
