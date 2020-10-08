@@ -7,21 +7,19 @@ const ManufacturerList = ({
     manufacturers,
     colCount,
     headers,
-    isCustomSort,
     forwardRef,
-    isOver,
     moveItem,
     type,
+    isSorting,
 }) => {
     return (
-        <tbody ref={isCustomSort ? forwardRef : null} className={isOver ? 'dragging' : ''}>
+        <tbody ref={forwardRef} className={isSorting ? 'sorting' : ''}>
             {manufacturers.map((manufacturer, i) => (
                 <ManufacturerListItemContainer
                     key={manufacturer.id}
                     manufacturer={manufacturer}
                     colCount={colCount}
                     headers={headers}
-                    isCustomSort={isCustomSort}
                     moveItem={moveItem}
                     type={type}
                     index={i}

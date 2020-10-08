@@ -6,24 +6,24 @@ import { SUCCESS_MODAL, ERROR_MODAL, COMPANY_ADD_MANUFACTURER } from 'constants/
 import ManufacturerTable from '../presentational/ManufacturerTable';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { isObjEmpty } from 'helpers/generic';
-import { DROPDOWN_OPTIONS, DEFAULT_PIN_OPTIONS_SORT } from 'constants/companyAdmin/enums';
+import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 import reorderManufacturers from 'actions/companyAdmin/dropdownOptions/sync/reorderManufacturers';
 
 class ManufacturerTableContainer extends Component {
     render() {
-        const { isFetching, error, title, type, selectedSortValue } = this.props;
+        const { isFetching, error, title, type, isSorting, manufacturers } = this.props;
 
         return (
             <ManufacturerTable
                 headers={['Name', '']}
-                manufacturers={this.getSortedManufacturerOptions()}
+                manufacturers={manufacturers}
                 isFetching={isFetching}
                 error={error}
                 title={title}
                 handleAddManufacturerModal={this.handleAddManufacturerModal}
                 type={type}
-                selectedSortValue={selectedSortValue}
                 moveItem={this.moveItem}
+                isSorting={isSorting}
             />
         );
     }
@@ -52,35 +52,6 @@ class ManufacturerTableContainer extends Component {
         showModal(COMPANY_ADD_MANUFACTURER, { type });
     };
 
-    getSortedManufacturerOptions = () => {
-        const { manufacturers, selectedSortValue } = this.props;
-        const { NAME_ASC, NAME_DESC, DATE_ASC, DATE_DESC } = DEFAULT_PIN_OPTIONS_SORT;
-
-        if (+selectedSortValue === NAME_ASC) {
-            return [...manufacturers].sort((a, b) =>
-                a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }),
-            );
-        }
-
-        if (+selectedSortValue === NAME_DESC) {
-            return [...manufacturers].sort((a, b) =>
-                b.name.localeCompare(a.name, undefined, { numeric: true, sensitivity: 'base' }),
-            );
-        }
-
-        if (+selectedSortValue === DATE_ASC) {
-            return [...manufacturers].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-        }
-
-        if (+selectedSortValue === DATE_DESC) {
-            return [...manufacturers].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        }
-
-        return [...manufacturers].sort((a, b) => {
-            return a.sort - b.sort;
-        });
-    };
-
     moveItem = (overindex, fromIndex) => {
         const { manufacturers, reorderManufacturers, type } = this.props;
         const items = [...manufacturers].sort((a, b) => a.sort - b.sort);
@@ -98,6 +69,7 @@ const mapStateToProps = (
         },
         shared: {
             fieldErrorsReducer: { fieldErrors },
+            sortReducer: { isSorting },
         },
     },
     ownProps,
@@ -109,9 +81,10 @@ const mapStateToProps = (
         isFetching,
         error,
         manufacturers: manufacturers[pinOptionKey]
-            ? Object.values(manufacturers[pinOptionKey])
+            ? Object.values(manufacturers[pinOptionKey]).sort((a, b) => a.sort - b.sort)
             : [],
         fieldErrors,
+        isSorting,
     };
 };
 

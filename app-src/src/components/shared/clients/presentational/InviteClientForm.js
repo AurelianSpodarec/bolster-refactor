@@ -10,7 +10,6 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import client from 'reducers/client';
 
 const InviteClientForm = ({
     location,
@@ -27,25 +26,21 @@ const InviteClientForm = ({
     showClientServicesMessage,
     clients,
     inviteNewClient,
-    userOptions
+    userOptions,
 }) => (
     <>
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
             <Field labelClasses="no-capitalise" name="Invite new client?">
-            <CheckboxContainer
-                checked={inviteNewClient } 
-                name="inviteNewClient"
-                text=""
-                handleChange={handleChange}
-            />
+                <CheckboxContainer
+                    checked={inviteNewClient}
+                    name="inviteNewClient"
+                    text=""
+                    handleChange={handleChange}
+                />
             </Field>
-                          
-                {!inviteNewClient && (
-                <Field
-                       name="Select client(s)"
-                       sizeClasses="size-lg-6 size-md-12"
-                       required
-                   >   
+
+            {!inviteNewClient && (
+                <Field name="Select client(s)" sizeClasses="size-lg-6 size-md-12" required>
                     <MultiSelect
                         name="clients"
                         options={userOptions}
@@ -55,10 +50,10 @@ const InviteClientForm = ({
                         search
                         required
                     />
-                    </Field>
-                )}
+                </Field>
+            )}
 
-                {/* <DropdownContainer
+            {/* <DropdownContainer
                     placeholder="-- select operative --"
                     name="companyUserID"
                     options={users}
@@ -66,8 +61,7 @@ const InviteClientForm = ({
                     handleChange={handleChange}
                     required
                 /> */}
-         
-        
+
             {inviteNewClient && (
                 <>
                     <BlockHeading title="Client Details" />

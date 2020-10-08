@@ -4,7 +4,6 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ManufacturerList from './ManufacturerList';
-import { DEFAULT_PIN_OPTIONS_SORT } from 'constants/companyAdmin/enums';
 
 const ManufacturerTable = ({
     handleAddManufacturerModal,
@@ -12,9 +11,9 @@ const ManufacturerTable = ({
     manufacturers,
     isFetching,
     error,
-    selectedSortValue,
     moveItem,
     type,
+    isSorting,
 }) => {
     return (
         <BlockContainer>
@@ -42,9 +41,9 @@ const ManufacturerTable = ({
                             colCount={headers.length}
                             manufacturers={manufacturers}
                             headers={headers}
-                            isCustomSort={+selectedSortValue === DEFAULT_PIN_OPTIONS_SORT.CUSTOM}
                             moveItem={moveItem}
                             type={type}
+                            isSorting={isSorting}
                         />
                     </Table>
                 </div>

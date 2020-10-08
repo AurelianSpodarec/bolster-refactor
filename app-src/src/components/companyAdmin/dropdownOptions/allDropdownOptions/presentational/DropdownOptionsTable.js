@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DROPDOWN_OPTIONS, DEFAULT_PIN_OPTIONS_SORT } from 'constants/companyAdmin/enums';
+import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';

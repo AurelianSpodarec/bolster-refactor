@@ -18,10 +18,10 @@ class ManufacturerListItemContainer extends Component {
             colCount,
             headers,
             onMobile,
-            isCustomSort,
             moveItem,
             url,
             index,
+            isSorting,
         } = this.props;
         return (
             <ManufacturerListItem
@@ -33,9 +33,9 @@ class ManufacturerListItemContainer extends Component {
                 headers={headers}
                 onMobile={onMobile}
                 handleToggleEnable={this.handleToggleEnable}
-                isCustomSort={isCustomSort}
                 url={url}
                 index={index}
+                isSorting={isSorting}
             />
         );
     }
@@ -58,12 +58,14 @@ const mapStateToProps = (
     {
         shared: {
             mobileReducer: { onMobile },
+            sortReducer: { isSorting },
         },
     },
     { match: { url } },
 ) => ({
     onMobile,
     url,
+    isSorting,
 });
 const mapDispatchToProps = { showModal, postManufacturersSort };
 
