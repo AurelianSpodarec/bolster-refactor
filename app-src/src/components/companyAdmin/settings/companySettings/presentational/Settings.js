@@ -274,6 +274,15 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                             sizeClass="size-lg-12"
                         />
                     </Block>
+                    <Block>
+                        <BlockHeading title="Report Settings" />
+                        <FieldOutput
+                            title="Delete reports after?"
+                            description={`${company.reportAutoDelete} days`}
+                            fieldClass="no-h-padding"
+                            sizeClass="size-lg-12"
+                        />
+                    </Block>
                 </div>
             </BlockContainer>
         </>

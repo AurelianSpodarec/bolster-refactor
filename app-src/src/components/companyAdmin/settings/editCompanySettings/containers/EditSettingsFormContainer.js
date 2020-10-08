@@ -40,6 +40,7 @@ class EditSettingsFormContainer extends Component {
         shouldDeleteReportsAfterDownload: false,
         enableQRCodes: false,
         useManufacturingByDefault: false,
+        reportAutoDelete: 0,
     };
 
     render() {
