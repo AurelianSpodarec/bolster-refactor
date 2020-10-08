@@ -7,7 +7,7 @@ import Routes from 'components/client/app/routes';
 import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
 
 const ClientApp = () => (
-    <>
+    <div className="dashboard-area">
         <Helmet title="Client Access" />
         <ClientHeaderContainer />
         <div className="full-container container">
@@ -17,7 +17,7 @@ const ClientApp = () => (
             </div>
         </div>
         <FooterContainer />
-    </>
+    </div>
 );
 
 export default ClientApp;
