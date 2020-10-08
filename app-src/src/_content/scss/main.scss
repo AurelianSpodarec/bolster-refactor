@@ -4163,11 +4163,13 @@ input {
         margin-top: -1px;
         left: 0;
         width: auto;
+        min-width: 100%;
         background-color: white;
         z-index: 100;
         border: 1px solid #e1e1e1;
         @include rounded-bottom(3px);
         white-space: nowrap;
+
         .search-box {
             float: left;
             width: 100%;
