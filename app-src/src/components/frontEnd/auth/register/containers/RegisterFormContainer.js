@@ -32,6 +32,7 @@ const RegisterFormContainer = ({
     isPosting,
     error,
     showModal,
+    filesUploading,
 }) => {
     const [page, setPage] = useState(1);
     const [nextDisabled, setNextDisabled] = useState(true);
@@ -55,7 +56,6 @@ const RegisterFormContainer = ({
         'Company.vatType': null,
         'Company.country': '',
         terms: false,
-        logoFile: '',
     });
     const [tickboxError, setTickboxError] = useState(false);
 
@@ -124,6 +124,7 @@ const RegisterFormContainer = ({
             isPosting={isPosting}
             nextDisabled={nextDisabled}
             tickboxError={tickboxError}
+            filesUploading={filesUploading}
         />
     );
 
@@ -174,7 +175,6 @@ const RegisterFormContainer = ({
             'Company.vatType': vatType,
             'Company.dateFormatID': dateFormatID,
             'Company.timezone': timezone,
-            'Company.logoFile': logoFile,
         } = formData;
 
         const postBody = {
@@ -198,11 +198,12 @@ const RegisterFormContainer = ({
                 vatCode,
                 dateFormatID,
                 timezone,
-                logoFile,
             },
         };
 
-        postRegister(postBody);
+        if (!filesUploading) {
+            postRegister(postBody);
+        }
     }
 
     function validatePassword(password) {
@@ -271,6 +272,7 @@ const mapStateToProps = ({
         registerReducer: { error, postSuccess, isPosting },
         loginReducer: { postSuccess: loginSuccess },
         fieldErrorsReducer: { fieldErrors },
+        filesUploadingReducer: { filesUploading },
     },
 }) => ({
     timezones: Object.values(timeZones) || [],
@@ -280,6 +282,7 @@ const mapStateToProps = ({
     loginSuccess,
     fieldErrors,
     isPosting,
+    filesUploading,
 });
 
 const mapDispatchToProps = {

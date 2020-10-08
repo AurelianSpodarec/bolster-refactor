@@ -258,7 +258,7 @@ const RegisterForm = ({
                     </Field>
                     <Field name="Add a Company Logo" classes="auth-form-field wide">
                         <FileUploadContainer
-                            name="Company.logoFile"
+                            name="logoFile"
                             value={logoFile}
                             acceptedTypes={['application/pdf', 'image/*']}
                             handleChange={handleChange}

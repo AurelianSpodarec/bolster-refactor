@@ -14,7 +14,7 @@ import { areArraysEqual } from 'helpers/generic';
 class FileUploadContainer extends Component {
     static defaultProps = {
         maxFiles: 1,
-        handleChange: () => {}
+        handleChange: () => {},
     };
 
     constructor(props) {
@@ -30,7 +30,7 @@ class FileUploadContainer extends Component {
             fileS3Keys,
             progress: null,
             uploadingFileName: null,
-            softError: null
+            softError: null,
         };
 
         this.source = null;
@@ -174,32 +174,32 @@ class FileUploadContainer extends Component {
         this.source = axios.CancelToken.source();
         const headers = {
             ...getAuthHeader(),
-            'content-type': 'multipart/form-data'
+            'content-type': 'multipart/form-data',
         };
         const reqConfig = {
             headers,
             cancelToken: this.source.token,
-            onUploadProgress: this._handleProgress
+            onUploadProgress: this._handleProgress,
         };
 
         try {
             this.setState({
-                uploadingFileName: file.name
+                uploadingFileName: file.name,
             });
 
             const response = await axios.post(
                 `${FILE_API_URL}?skipTemp=${skipTemp}`,
                 formData,
-                reqConfig
+                reqConfig,
             );
             const newS3Key = response.data.s3Key;
 
             this.setState(
                 prevState => ({
                     fileS3Keys: prevState.fileS3Keys.concat(newS3Key),
-                    softError: null
+                    softError: null,
                 }),
-                this._handleChange
+                this._handleChange,
             );
         } catch (e) {
             if (!axios.isCancel(e)) {
@@ -215,21 +215,18 @@ class FileUploadContainer extends Component {
         this.setState(
             prevState => ({
                 fileS3Keys: prevState.fileS3Keys.filter(key => key !== s3Key),
-                softError: null
+                softError: null,
             }),
-            this._handleChange
+            this._handleChange,
         );
     };
 }
 
 const mapDispatchToProps = dispatch => ({
     fileUploadStart: () => dispatch(fileUploadStart()),
-    fileUploadFinish: close => dispatch(fileUploadFinish(close))
+    fileUploadFinish: close => dispatch(fileUploadFinish(close)),
 });
 
-const WithConnect = connect(
-    null,
-    mapDispatchToProps
-)(FileUploadContainer);
+const WithConnect = connect(null, mapDispatchToProps)(FileUploadContainer);
 
 export default withFieldValidation(WithConnect);
