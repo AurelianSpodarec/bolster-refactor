@@ -51,6 +51,7 @@ class ManufacturerTableContainer extends Component {
         const { showModal, type } = this.props;
         showModal(COMPANY_ADD_MANUFACTURER, { type });
     };
+
     getSortedManufacturerOptions = () => {
         const { manufacturers, selectedSortValue } = this.props;
         const { NAME_ASC, NAME_DESC, DATE_ASC, DATE_DESC } = DEFAULT_PIN_OPTIONS_SORT;

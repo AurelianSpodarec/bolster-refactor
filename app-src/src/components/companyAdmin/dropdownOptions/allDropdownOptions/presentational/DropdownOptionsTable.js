@@ -16,6 +16,7 @@ const DropdownOptionsTable = ({
     title,
     type,
     moveItem,
+    isSorting,
 }) => {
     return (
         <BlockContainer>
@@ -43,6 +44,7 @@ const DropdownOptionsTable = ({
                             headers={headers}
                             type={type}
                             moveItem={moveItem}
+                            isSorting={isSorting}
                         />
                     </Table>
                 </div>

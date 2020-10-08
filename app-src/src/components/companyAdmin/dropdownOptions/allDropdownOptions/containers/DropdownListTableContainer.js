@@ -10,18 +10,19 @@ import { isObjEmpty } from 'helpers/generic';
 
 class DropdownListTableContainer extends Component {
     render() {
-        const { isFetching, error, title, type } = this.props;
+        const { isFetching, error, title, type, dropdownOptions, isSorting } = this.props;
 
         return (
             <DropdownOptionsTable
                 headers={['Name', '']}
-                dropdownOptions={this.getSortedDropdownOptions()}
+                dropdownOptions={dropdownOptions}
                 isFetching={isFetching}
                 error={error}
                 title={title}
                 handleAddOptionModal={this.handleAddOptionModal}
                 type={type}
                 moveItem={this.moveItem}
+                isSorting={isSorting}
             />
         );
     }
@@ -59,11 +60,6 @@ class DropdownListTableContainer extends Component {
         const sorted = items.map((x, i) => ({ ...x, sort: i + 1 }));
         reorderDropdownOptions(sorted);
     };
-
-    getSortedDropdownOptions = () => {
-        const { dropdownOptions } = this.props;
-        return [...dropdownOptions].sort((a, b) => a.sort - b.sort);
-    };
 }
 
 const mapStateToProps = ({
@@ -72,14 +68,16 @@ const mapStateToProps = ({
     },
     shared: {
         fieldErrorsReducer: { fieldErrors },
+        sortReducer: { isSorting },
     },
 }) => ({
     postError,
     postSuccess,
     isFetching,
     error,
-    dropdownOptions: Object.values(dropdownOptions) || [],
+    dropdownOptions: Object.values(dropdownOptions).sort((a, b) => a.sort - b.sort),
     fieldErrors,
+    isSorting,
 });
 
 const mapDispatchToProps = {

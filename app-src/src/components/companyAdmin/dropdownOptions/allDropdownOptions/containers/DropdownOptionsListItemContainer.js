@@ -8,7 +8,7 @@ import postDropdownOptionsSort from 'actions/companyAdmin/dropdownOptions/async/
 
 class DropdownOptionsListItemContainer extends Component {
     render() {
-        const { option, colCount, headers, index, onMobile, moveItem } = this.props;
+        const { option, colCount, headers, index, onMobile, moveItem, isSorting } = this.props;
         return (
             <DropdownOptionsListItem
                 index={index}
@@ -21,6 +21,7 @@ class DropdownOptionsListItemContainer extends Component {
                 handleToggleEnable={this.handleToggleEnable}
                 headers={headers}
                 onMobile={onMobile}
+                isSorting={isSorting}
             />
         );
     }
@@ -36,27 +37,27 @@ class DropdownOptionsListItemContainer extends Component {
 
     handlePostDropdownOptionsSort = () => {
         const { type, dropdownOptions, postDropdownOptionsSort } = this.props;
-
         postDropdownOptionsSort(type, dropdownOptions);
     };
 }
 
-const mapDispatchToProps = {
+const mapState = ({
+    companyAdmin: {
+        dropdownOptionsReducer: { dropdownOptions },
+    },
+    shared: {
+        mobileReducer: { onMobile },
+        sortReducer: { isSorting },
+    },
+}) => ({
+    onMobile,
+    dropdownOptions: Object.values(dropdownOptions),
+    isSorting,
+});
+
+const mapDispatch = {
     showModal,
     postDropdownOptionsSort,
 };
 
-export default connect(
-    ({
-        companyAdmin: {
-            dropdownOptionsReducer: { dropdownOptions },
-        },
-        shared: {
-            mobileReducer: { onMobile },
-        },
-    }) => ({
-        onMobile,
-        dropdownOptions: Object.values(dropdownOptions),
-    }),
-    mapDispatchToProps,
-)(DropdownOptionsListItemContainer);
+export default connect(mapState, mapDispatch)(DropdownOptionsListItemContainer);
