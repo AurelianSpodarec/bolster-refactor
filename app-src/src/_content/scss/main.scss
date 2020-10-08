@@ -5352,4 +5352,35 @@ input {
     }
 }
 
+.trusted-by-settings-container {
+
+    .trusted-by-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 16px;
+
+        .trusted-by-grid-item-container {
+
+            .trusted-by-grid-item {
+                position: relative;
+                height: 175px;
+                background-color: #FFFAF2;
+                margin-bottom: 24px;
+
+                .file-drop-container {
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+
+            .button {
+                margin: 16px auto 0;
+            }
+        }
+    }
+}
+
 @import "./frontend.scss";

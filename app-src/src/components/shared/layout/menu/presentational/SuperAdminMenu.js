@@ -60,6 +60,10 @@ const SuperAdminMenu = ({ logout, unreadRequests }) => (
                 <i className="far fa-book fa-fw icon" />
                 <span className="menu-text">User guides</span>
             </MenuItemContainer>
+            <MenuItemContainer link="/admin/home-settings">
+                <i className="far fa-book fa-fw icon" />
+                <span className="menu-text">Home Settings</span>
+            </MenuItemContainer>
             <Link className="item" to="#" link="/admin/users" onClick={logout}>
                 <i className="icon fas fa-sign-out" />
                 <span className="menu-text">Logout</span>
