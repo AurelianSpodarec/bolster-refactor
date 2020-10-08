@@ -32,6 +32,7 @@ const BuyCreditsModal = ({
     hideAddCard,
     handleAddCardSuccess,
     termsAgreed,
+    isPosting,
 }) => {
     if (addCardVisible)
         return <AddCardFormContainer close={hideAddCard} onSuccess={handleAddCardSuccess} />;
@@ -130,7 +131,16 @@ const BuyCreditsModal = ({
                 </div>
 
                 <BlockButtonWrapper>
-                    <button className="button green" type="submit">
+                    <button
+                        className={`button green ${isPosting ? 'disabled' : ''}`}
+                        type="submit"
+                        disabled={isPosting}
+                    >
+                        {isPosting ? (
+                            <i className="fa fa-spinner fa-spin" />
+                        ) : (
+                            <i className="fa fa-check" />
+                        )}{' '}
                         Buy
                     </button>
                     <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>

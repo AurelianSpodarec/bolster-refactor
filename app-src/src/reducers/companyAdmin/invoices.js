@@ -13,7 +13,7 @@ import {
     FETCH_SINGLE_INVOICE_PAYMENTS_SUCCESS,
     DELETE_INVOICE_REQUEST,
     DELETE_INVOICE_SUCCESS,
-    DELETE_INVOICE_FAILURE
+    DELETE_INVOICE_FAILURE,
 } from 'constants/actionTypes/invoices';
 import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
 import { HIDE_MODAL } from 'constants/actionTypes/generic';
@@ -26,7 +26,8 @@ export default combineReducers({
     invoicePayments: paymentsReducer,
     error: errorReducer,
     isDeleting: isDeletingReducer,
-    deleteSuccess: deleteSuccessReducer
+    deleteSuccess: deleteSuccessReducer,
+    isPosting: isPostingReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -79,6 +80,18 @@ function deleteSuccessReducer(state = false, action) {
             return false;
         case DELETE_INVOICE_SUCCESS:
             return true;
+        default:
+            return state;
+    }
+}
+
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case PAY_INVOICE_REQUEST:
+            return true;
+        case PAY_INVOICE_SUCCESS:
+        case PAY_INVOICE_FAILURE:
+            return false;
         default:
             return state;
     }

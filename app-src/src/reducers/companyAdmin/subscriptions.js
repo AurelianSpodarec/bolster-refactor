@@ -13,7 +13,7 @@ import {
     EDIT_SUBSCRIPTION_RENEWAL_STATUS_REQUEST,
     ADD_SERVICE_TO_SUBSCRIPTION_REQUEST,
     EDIT_SERVICE_RENEWAL_STATUS_SUCCESS,
-    ADD_SERVICE_TO_SUBSCRIPTION_SUCCESS
+    ADD_SERVICE_TO_SUBSCRIPTION_SUCCESS,
 } from 'constants/actionTypes/subscriptions';
 import { EDIT_SERVICE_RENEWAL_STATUS_REQUEST } from 'constants/actionTypes/services';
 import { LOGOUT } from 'constants/actionTypes/auth';
@@ -25,7 +25,8 @@ export default combineReducers({
     postSuccess: postSuccessReducer,
     postFailure: postFailureReducer,
     proRataCost: proRataCostReducer,
-    hasInitiallyFetched: hasInitiallyFetchedReducer
+    hasInitiallyFetched: hasInitiallyFetchedReducer,
+    isPosting: isPostingReducer,
 });
 
 function hasInitiallyFetchedReducer(state = false, action) {
@@ -66,6 +67,24 @@ function errorReducer(state = null, action) {
         case FETCH_PRO_RATA_SUBSCRIPTION_COST_FAILURE:
         case ADD_SERVICE_TO_SUBSCRIPTION_FAILURE:
             return action.error;
+        default:
+            return state;
+    }
+}
+
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case EDIT_SERVICE_RENEWAL_STATUS_REQUEST:
+        case EDIT_SUBSCRIPTION_RENEWAL_STATUS_REQUEST:
+        case ADD_SERVICE_TO_SUBSCRIPTION_REQUEST:
+            return true;
+        case EDIT_SERVICE_RENEWAL_STATUS_SUCCESS:
+        case EDIT_SUBSCRIPTION_RENEWAL_STATUS_SUCCESS:
+        case ADD_SERVICE_TO_SUBSCRIPTION_SUCCESS:
+        case EDIT_SERVICE_RENEWAL_STATUS_FAILURE:
+        case EDIT_SUBSCRIPTION_RENEWAL_STATUS_FAILURE:
+        case ADD_SERVICE_TO_SUBSCRIPTION_FAILURE:
+            return false;
         default:
             return state;
     }

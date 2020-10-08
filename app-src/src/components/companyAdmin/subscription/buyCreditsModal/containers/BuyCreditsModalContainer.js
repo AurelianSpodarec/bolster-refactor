@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import uuid from 'uuid/v4';
 
 import BuyCreditsModal from '../presentational/BuyCreditsModal';
 import createCredits from 'actions/companyAdmin/credits/createCredits';
@@ -18,7 +19,8 @@ class BuyCreditsModalContainer extends Component {
         stripeCardID: null,
         termsAgreed: false,
         addCardVisible: false,
-        creditsToBuy: this.props.creditsToBuy || ''
+        creditsToBuy: this.props.creditsToBuy || '',
+        idempotencyKey: uuid(),
     };
 
     render = () => {
@@ -27,7 +29,8 @@ class BuyCreditsModalContainer extends Component {
             hideModal,
             costOfCredits,
             vatCostOfCredits,
-            credits
+            credits,
+            isPosting,
         } = this.props;
         const { creditsToBuy } = this.state;
 
@@ -37,12 +40,8 @@ class BuyCreditsModalContainer extends Component {
 
         const cardOptions = cards.map(card => ({
             label: `${card.nickname || card.name} - ${card.lastFour}`,
-            value: card.id
+            value: card.id,
         }));
-        // const selectedCard = cardOptions.find(
-        //     ({ isPrimary, value }) =>
-        //         value === this.state.stripeCardID || isPrimary
-        // );
 
         return (
             <BuyCreditsModal
@@ -64,6 +63,7 @@ class BuyCreditsModalContainer extends Component {
                 showAddCard={this.showAddCard}
                 hideAddCard={this.hideAddCard}
                 handleAddCardSuccess={this.handleAddCardSuccess}
+                isPosting={isPosting}
             />
         );
     };
@@ -82,13 +82,13 @@ class BuyCreditsModalContainer extends Component {
             postSuccess,
             fetchAllCredits,
             showModal,
-            error
+            error,
         } = this.props;
         const { paymentType } = this.state;
         if (!isFetching && prevProps.isFetching) {
             const primaryCard = cards.find(({ isPrimary }) => isPrimary);
             this.setState({
-                stripeCardID: primaryCard ? primaryCard.id : null
+                stripeCardID: primaryCard ? primaryCard.id : null,
             });
         }
         if (postSuccess && !prevProps.postSuccess) {
@@ -98,7 +98,7 @@ class BuyCreditsModalContainer extends Component {
                     +paymentType === PAYMENT_IDS.CARD
                         ? 'have been added.'
                         : 'will be available once the invoice has been paid'
-                }`
+                }`,
             });
         }
         if (postError && !prevProps.postError) {
@@ -106,7 +106,7 @@ class BuyCreditsModalContainer extends Component {
             showModal(PAYMENT_ERROR, {
                 message:
                     error || 'There was an error while purchasing your credits. Please try again.',
-                resubmit: this.handleSubmit
+                resubmit: this.handleSubmit,
             });
         }
     };
@@ -131,14 +131,14 @@ class BuyCreditsModalContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { paymentType, creditsToBuy: credits, stripeCardID } = this.state;
-        const { createCredits } = this.props;
-
+        const { paymentType, creditsToBuy: credits, stripeCardID, idempotencyKey } = this.state;
+        const { createCredits, isPosting } = this.props;
+        if (isPosting) return;
         const postBody = {
             paymentType,
             credits,
-            stripeCardID:
-                +paymentType === PAYMENT_IDS.CARD ? stripeCardID : null
+            stripeCardID: +paymentType === PAYMENT_IDS.CARD ? stripeCardID : null,
+            idempotencyKey,
         };
 
         createCredits(postBody);
@@ -153,22 +153,21 @@ const mapStateToProps = ({
             costOfCredits,
             vatCostOfCredits,
             credits,
-            error
+            error,
+            isPosting,
         },
-        cardsReducer: { cards, isFetching }
-    }
+        cardsReducer: { cards, isFetching },
+    },
 }) => ({
     cards: Object.values(cards || {}),
-    credits: Object.values(credits).reduce(
-        (total, log) => total + log.quantity,
-        0
-    ),
+    credits: Object.values(credits).reduce((total, log) => total + log.quantity, 0),
     costOfCredits,
     vatCostOfCredits,
     postSuccess,
     postError,
     isFetching,
     error,
+    isPosting,
 });
 
 const mapDispatchToProps = {
@@ -178,10 +177,7 @@ const mapDispatchToProps = {
     fetchAllCredits,
     fetchAllInvoices,
     showModal,
-    hideModal
+    hideModal,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(BuyCreditsModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(BuyCreditsModalContainer);

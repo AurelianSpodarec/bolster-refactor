@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import uuid from 'uuid/v4';
 
 import { isObjEmpty } from 'helpers/generic';
 import AddMulitpleServicesToSubscriptionModal from '../presentational/AddMulitpleServicesToSubscriptionModal';
@@ -22,6 +23,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
         creditsToBuy: this.props.creditsToBuy || '',
         selectedServiceNames: [],
         addCardVisible: false,
+        idempotencyKey: uuid(),
     };
 
     render() {
@@ -31,7 +33,8 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
             proRataCost,
             costOfCredits,
             vatCostOfCredits,
-            credits
+            credits,
+            isPosting,
         } = this.props;
 
         const {
@@ -40,7 +43,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
             termsAgreed,
             serviceIDs,
             creditsToBuy,
-            selectedServiceNames
+            selectedServiceNames,
         } = this.state;
 
         const costWithoutVAT = costOfCredits * creditsToBuy;
@@ -50,7 +53,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
         const noCards = !cards.length;
         const cardOptions = cards.map(card => ({
             label: `${card.nickname || card.name} - ${card.lastFour}`,
-            value: card.id
+            value: card.id,
         }));
 
         const serviceOptions = this._getServicesOptions();
@@ -82,6 +85,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
                 }}
                 termsAgreed={termsAgreed}
                 addCardVisible={this.state.addCardVisible}
+                isPosting={isPosting}
             />
         );
     }
@@ -92,7 +96,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
 
         if (serviceID) {
             this.setState({
-                serviceIDs: [...serviceIDs, serviceID.toString()]
+                serviceIDs: [...serviceIDs, serviceID.toString()],
             });
         }
         this.setState({ subscriptions });
@@ -101,7 +105,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
         const primaryCard = cards.find(({ isPrimary }) => isPrimary);
 
         this.setState({
-            stripeCardID: primaryCard ? primaryCard.id : null
+            stripeCardID: primaryCard ? primaryCard.id : null,
         });
     };
 
@@ -119,7 +123,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
                     +paymentType === PAYMENT_IDS.CARD
                         ? 'You can now use this service. If you would like a custom pin template, please call us on +44(0)161 873 7679.'
                         : 'Your new service will be available for use once the invoice has been paid.'
-                }`
+                }`,
             });
         }
         // if (postFailure && !prevProps.postFailure)
@@ -129,7 +133,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
             showModal(PAYMENT_ERROR, {
                 message: 'There was an error while purchasing your subscription. Please try again.',
                 resubmit: this.handleSubmit,
-                error: error.replace('office', 'invoice')
+                error: error.replace('office', 'invoice'),
             });
         }
 
@@ -138,7 +142,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
             this.setState({
                 selectedServiceNames: serviceOptions
                     .filter(service => serviceIDs.includes(service.value.toString()))
-                    .map(service => service.text)
+                    .map(service => service.text),
             });
 
             this.props.fetchProRataSubscriptionCost(serviceIDs.length);
@@ -150,7 +154,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
         if (subscriptions.services && !isObjEmpty(services)) {
             return subscriptions.services.map(service => ({
                 ...service,
-                name: services[service.serviceID].name
+                name: services[service.serviceID].name,
             }));
         } else return [];
     };
@@ -159,7 +163,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
         return services.map(({ id, name }) => ({
             value: id,
             text: name,
-            disabled: subscriptions.serviceIDs && subscriptions.serviceIDs.includes(id)
+            disabled: subscriptions.serviceIDs && subscriptions.serviceIDs.includes(id),
         }));
     };
     // handleServiceChange = value => {
@@ -188,14 +192,16 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { paymentType, stripeCardID, creditsToBuy, serviceIDs } = this.state;
-        const { addServiceToSubscription } = this.props;
+        const { paymentType, stripeCardID, creditsToBuy, serviceIDs, idempotencyKey } = this.state;
+        const { addServiceToSubscription, isPosting } = this.props;
 
+        if (isPosting) return;
         const postBody = {
             paymentType,
             stripeCardID: +paymentType === PAYMENT_IDS.CARD ? stripeCardID : null,
             serviceIDs: serviceIDs.map(id => parseInt(id)),
-            Credits: parseInt(creditsToBuy)
+            Credits: parseInt(creditsToBuy),
+            idempotencyKey,
         };
         addServiceToSubscription(postBody);
     };
@@ -210,7 +216,7 @@ const mapStateToProps = ({
             postError,
             costOfCredits,
             vatCostOfCredits,
-            credits
+            credits,
         },
         subscriptionsReducer: {
             isFetching: fetchingSubs,
@@ -218,10 +224,11 @@ const mapStateToProps = ({
             postSuccess,
             postFailure,
             error,
-            subscriptions
+            subscriptions,
+            isPosting,
         },
-        servicesReducer: { services, isFetching: fetchingServices }
-    }
+        servicesReducer: { services, isFetching: fetchingServices },
+    },
 }) => ({
     creditsPostSuccess,
     postError,
@@ -236,21 +243,20 @@ const mapStateToProps = ({
     postFailure,
     services: Object.values(services),
     fetchingServices,
-    error
+    error,
+    isPosting,
 });
 
-//fetch
-const mapDispatchToProps = dispatch => ({
-    addServiceToSubscription: body => dispatch(addServiceToSubscription(body)),
-    fetchAllCards: () => dispatch(fetchAllCards()),
-    fetchAllSubscriptions: () => dispatch(fetchAllSubscriptions()),
-    fetchProRataSubscriptionCost: numberOfServices =>
-        dispatch(fetchProRataSubscriptionCost(numberOfServices)),
-    hideModal: () => dispatch(hideModal()),
-    showModal: (type, props) => dispatch(showModal(type, props))
-});
+const mapDispatchToProps = {
+    addServiceToSubscription,
+    fetchAllCards,
+    fetchAllSubscriptions,
+    fetchProRataSubscriptionCost,
+    hideModal,
+    showModal,
+};
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(AddMulitpleServicesToSubscriptionModalContainer);
