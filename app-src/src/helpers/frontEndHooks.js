@@ -237,7 +237,7 @@ export const useVideoShouldPlay = () => {
                     video.play();
                 }
             },
-            { threshold: 0.1 },
+            { threshold: 0.01 },
         );
 
         if (videoRef.current) {

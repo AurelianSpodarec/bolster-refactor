@@ -2639,12 +2639,11 @@ $footer-height: 173px;
             width: 100%;
             height: calc(100vh - #{$header-height});
             position: relative;
-            background-color: rgba(0,0,0,0.6);
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
 
             &.slide1, &.slide2, &.slide3, &.slide4, &.slide5 {
-                background-color: rgba(0,0,0,0.2);
+                background-color: rgba(0,0,0,0.0);
             }
 
             @include devices(ptTablet) {
@@ -2679,7 +2678,6 @@ $footer-height: 173px;
                     
                     @include devices(ptTablet) {
                         z-index: 0;
-                        opacity: 0.45;
                     }
                 }
     
