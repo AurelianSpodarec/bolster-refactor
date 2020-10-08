@@ -5,7 +5,7 @@ import { TrustedByList } from 'constants/frontEnd/trustedBy';
 const TrustedBy = () => (
     <div className="trusted-by-container">
         <Header className="trusted-by-header">
-            <h3 className="line">Trusted by industry leaders</h3>
+            <h3 className="line">Trusted worldwide by industry leaders</h3>
         </Header>
         <div className="trusted-by-grid">
             {TrustedByList.map(({ logo, name }, index) => (
