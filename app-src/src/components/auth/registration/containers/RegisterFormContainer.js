@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { VAT_TYPES } from 'constants/companyAdmin/enums';
-
 import fetchTimeZones from 'actions/shared/time/async/fetchTimezones';
 import fetchDateFormats from 'actions/shared/time/async/fetchDateFormats';
 import postRegister from 'actions/shared/register/async/postRegister';
@@ -12,6 +10,7 @@ import RegisterForm from '../presentational/RegisterForm';
 import { sortTimezones } from 'helpers/generic';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
+import { vatOptions } from 'constants/shared/vatTypes';
 
 class RegisterFormContainer extends Component {
     state = {
@@ -21,7 +20,6 @@ class RegisterFormContainer extends Component {
         'User.password': '',
         'User.phoneNumber': '',
         confirmPassword: '',
-        //company name
         'Company.name': '',
         'Company.addressLine1': '',
         'Company.addressLine2': '',
@@ -34,6 +32,7 @@ class RegisterFormContainer extends Component {
         'Company.timezone': null,
         'Company.dateFormatID': null,
         'Company.vatType': null,
+        'Company.country': '',
         terms: false,
     };
 
@@ -41,11 +40,6 @@ class RegisterFormContainer extends Component {
         const timezoneOptions = this._getTimezoneOptions();
 
         const dateFormats = this._formatDateFormats();
-        const vatOptions = [
-            { label: 'GB', value: VAT_TYPES.GB },
-            { label: 'Europe', value: VAT_TYPES.EU },
-            { label: 'Outside Europe', value: VAT_TYPES.OUTSIDEEU },
-        ];
 
         return (
             <RegisterForm
@@ -91,13 +85,13 @@ class RegisterFormContainer extends Component {
             'User.firstName': firstName,
             'User.lastName': lastName,
             'User.phoneNumber': phoneNumber,
-            //company name
             'Company.name': name,
             'Company.addressLine1': addressLine1,
             'Company.addressLine2': addressLine2,
             'Company.town': town,
             'Company.county': county,
             'Company.postcode': postcode,
+            'Company.country': country,
             'Company.phoneNumber': companyPhoneNumber,
             'Company.fax': fax,
             'Company.vatCode': vatCode,
@@ -108,11 +102,11 @@ class RegisterFormContainer extends Component {
 
         const postBody = {
             user: {
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                phoneNumber: phoneNumber,
-                password: password,
+                firstName,
+                lastName,
+                email,
+                phoneNumber,
+                password,
             },
             company: {
                 name,
@@ -121,6 +115,7 @@ class RegisterFormContainer extends Component {
                 town,
                 county,
                 postcode,
+                country,
                 phoneNumber: companyPhoneNumber,
                 fax,
                 vatType,
@@ -201,13 +196,12 @@ const mapStateToProps = ({
     loginSuccess,
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchTimeZones: () => dispatch(fetchTimeZones()),
-    fetchDateFormats: () => dispatch(fetchDateFormats()),
-    postRegister: postBody => dispatch(postRegister(postBody)),
-    postLogin: (email, password) => dispatch(postLogin(email, password)),
-    addFieldError: (field, err) => dispatch(addFieldError(field, err)),
-    removeFieldError: field => dispatch(removeFieldError(field)),
-});
-
+const mapDispatchToProps = {
+    fetchTimeZones,
+    fetchDateFormats,
+    postRegister,
+    postLogin,
+    addFieldError,
+    removeFieldError,
+};
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RegisterFormContainer));

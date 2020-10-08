@@ -7,11 +7,8 @@ import editCompanySettings from 'actions/companyAdmin/companySettings/async/edit
 
 import EditSettingsForm from '../presentational/EditSettingsForm';
 import { sortTimezones, isObjEmpty, enumFormat } from 'helpers/generic';
-import {
-    VAT_TYPES,
-    DEFAULT_SITES_SORT,
-    DEFAULT_SITES_SORT_NAMES,
-} from 'constants/companyAdmin/enums';
+import { DEFAULT_SITES_SORT, DEFAULT_SITES_SORT_NAMES } from 'constants/companyAdmin/enums';
+import { vatOptions } from 'constants/shared/vatTypes';
 
 class EditSettingsFormContainer extends Component {
     state = {
@@ -26,6 +23,7 @@ class EditSettingsFormContainer extends Component {
         town: '',
         county: '',
         postcode: '',
+        country: '',
         logoFile: null,
         colourCode: null,
         isBolsterLogoDark: false,
@@ -48,6 +46,8 @@ class EditSettingsFormContainer extends Component {
         shouldDeleteReportsAfterDownload: false,
         enableQRCodes: false,
         useManufacturingByDefault: false,
+        unsyncedCompanyNotificationDays: '',
+        unsyncedOperativeWarningDays: '',
     };
 
     render() {
@@ -58,6 +58,8 @@ class EditSettingsFormContainer extends Component {
             dateFormat,
             timeZoneOptions,
             dateFormatOptions,
+            unsyncedCompanyNotificationDays,
+            unsyncedOperativeWarningDays,
         } = this.state;
 
         const templateUsageRuleOptions = {
@@ -65,12 +67,6 @@ class EditSettingsFormContainer extends Component {
             2: { text: 'Use Only Own', value: 2 },
             3: { text: 'Use Any', value: 3 },
         };
-
-        const vatOptions = [
-            { label: 'GB', value: VAT_TYPES.GB },
-            { label: 'Europe', value: VAT_TYPES.EU },
-            { label: 'Outside Europe', value: VAT_TYPES.OUTSIDEEU },
-        ];
 
         const siteSortOptions = enumFormat(DEFAULT_SITES_SORT_NAMES);
 
@@ -91,6 +87,8 @@ class EditSettingsFormContainer extends Component {
                 handleDateFormatChange={this.handleDateFormatChange}
                 vatOptions={vatOptions}
                 siteSortOptions={siteSortOptions}
+                unsyncedCompanyNotificationDays={unsyncedCompanyNotificationDays}
+                unsyncedOperativeWarningDays={unsyncedOperativeWarningDays}
             />
         );
     }
@@ -138,8 +136,8 @@ class EditSettingsFormContainer extends Component {
     };
 
     handleInputChange = (name, value) => {
-        if (name === 'vatType' && value === 3) {
-            // * clear the vatCode field if the company admin is now outside of the eu
+        if (name === 'vatType' && value >= 3) {
+            // * clear the vatCode field if the company admin no longer has vat code
             this.setState({ [name]: value, vatCode: null });
         } else {
             // * otherwise set the state in the usual way
@@ -151,7 +149,7 @@ class EditSettingsFormContainer extends Component {
         e.preventDefault();
         const { filesUploading, editCompanySettings } = this.props;
         if (!filesUploading) {
-            const { templateUsageRuleOptions, dateFormat, ...postBody } = this.state;
+            const { dateFormat, ...postBody } = this.state;
 
             localStorage.setItem('colourCode', postBody.colourCode);
 
@@ -175,23 +173,17 @@ class EditSettingsFormContainer extends Component {
         }));
 }
 
-const mapDispatchToProps = dispatch => ({
-    editCompanySettings: postBody => {
-        dispatch(editCompanySettings(postBody));
-    },
-});
+const mapDispatchToProps = { editCompanySettings };
 
 const mapStateToProps = ({
     companyAdmin: {
-        companySettingsReducer: { isFetching, error, companySettings, postSuccess },
+        companySettingsReducer: { companySettings, postSuccess },
     },
     shared: {
         filesUploadingReducer: { filesUploading },
         timeReducer: { timeZones, dateFormats },
     },
 }) => ({
-    isFetching,
-    error,
     companySettings,
     filesUploading,
     postSuccess,

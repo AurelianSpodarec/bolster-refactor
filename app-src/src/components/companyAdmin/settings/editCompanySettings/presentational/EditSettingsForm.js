@@ -12,6 +12,8 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
 import { VAT_TYPES } from 'constants/companyAdmin/enums';
+import CountriesSelectList from 'components/shared/generic/form/presentational/CountriesSelectList';
+import { needsVatCode } from 'constants/shared/vatTypes';
 
 const EditSettingsForm = ({
     handleInputChange,
@@ -25,6 +27,7 @@ const EditSettingsForm = ({
     town,
     county,
     postcode,
+    country,
     vatCode,
     vatType,
     vatOptions,
@@ -47,6 +50,8 @@ const EditSettingsForm = ({
     shouldDeleteReportsAfterDownload,
     enableQRCodes,
     useManufacturingByDefault,
+    unsyncedCompanyNotificationDays,
+    unsyncedOperativeWarningDays,
 }) => (
     <>
         <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
@@ -104,6 +109,14 @@ const EditSettingsForm = ({
                     required
                 />
             </Field>
+            <Field name="Country" sizeClasses="size-lg-6 size-md-12" required>
+                <CountriesSelectList
+                    value={country}
+                    name="country"
+                    onChange={handleInputChange}
+                    required
+                />
+            </Field>
             <Field name="Telephone No." sizeClasses="size-lg-6 size-md-12" required>
                 <TextInputContainer
                     value={telephone}
@@ -131,7 +144,7 @@ const EditSettingsForm = ({
                     required
                 />
             </Field>
-            {vatType && vatType !== VAT_TYPES.OUTSIDEEU && (
+            {vatType && needsVatCode(vatType) && (
                 <Field
                     name="VAT Code"
                     smallDesc={
@@ -139,7 +152,7 @@ const EditSettingsForm = ({
                             ? '(Please enter GB before your VAT code e.g GB123456789)'
                             : null
                     }
-                    required={vatType !== VAT_TYPES.OUTSIDEEU}
+                    required={needsVatCode(vatType)}
                     sizeClasses="size-lg-6 size-md-12"
                 >
                     <TextInputContainer
@@ -302,6 +315,27 @@ const EditSettingsForm = ({
                         name="dateFormat"
                         isSearchable
                         onChange={handleInputChange}
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-12">
+                <Field
+                    name="Unsynced Company Notification (Days)"
+                    sizeClasses="size-lg-6 size-md-12"
+                >
+                    <TextInputContainer
+                        value={unsyncedCompanyNotificationDays}
+                        name="unsyncedCompanyNotificationDays"
+                        type="number"
+                        handleChange={handleInputChange}
+                    />
+                </Field>
+                <Field name="Unsynced Operative Warning (Days)" sizeClasses="size-lg-6 size-md-12">
+                    <TextInputContainer
+                        value={unsyncedOperativeWarningDays}
+                        name="unsyncedOperativeWarningDays"
+                        type="number"
+                        handleChange={handleInputChange}
                     />
                 </Field>
             </div>

@@ -1,14 +1,14 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 
-import { PAYMENT_TYPES, DATE_TIME_IDS } from "constants/companyAdmin/enums";
-import { formatCurrency } from "helpers/generic";
-import DateTimeContainer from "components/shared/dateTime/containers/DateTimeContainer";
-import BlockButtonWrapper from "components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper";
-import LinkWithPropsContainer from "components/shared/generic/button/containers/LinkWithPropsContainer.js";
+import { PAYMENT_TYPES, DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+import { formatCurrency } from 'helpers/generic';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import LinkWithPropsContainer from 'components/shared/generic/button/containers/LinkWithPropsContainer.js';
 
 const SuperAdminListItem = ({
-    invoice: { createdOn, isPaid, subTotal, id, paymentType, companyID },
+    invoice: { createdOn, isPaid, subTotal, id, paymentType, companyID, isFree },
     companies,
 }) => (
     <tr>
@@ -19,7 +19,7 @@ const SuperAdminListItem = ({
         <td>{id}</td>
         <td>{`£${formatCurrency(subTotal)}`}</td>
         <td>{PAYMENT_TYPES[paymentType]}</td>
-        <td>{isPaid ? "Paid" : "Awaiting Payment"}</td>
+        <td>{isFree ? 'Free' : isPaid ? 'Paid' : 'Awaiting Payment'}</td>
         <td>
             <BlockButtonWrapper>
                 <LinkWithPropsContainer

@@ -31,7 +31,13 @@ const PinAnswer = ({
             type === TYPES.MULTI_DROPDOWN_OPTIONS ||
             type === TYPES.MULTI_MULTI_DROPDOWN_OPTIONS
         ) {
-            curAnswer.answer = curAnswer.answer.map(id => optionValuesLookup[id].name);
+            curAnswer.answer = curAnswer.answer.map(id => {
+                if (!id) {
+                    return null;
+                } else {
+                    return optionValuesLookup[id].name;
+                }
+            });
         }
     }
 
@@ -153,12 +159,7 @@ const PinAnswer = ({
         case TYPES.DOCUMENT_UPLOAD:
             var docURL = `${RAW_S3_STORAGE_URL}/${curAnswer.answer}`;
             inner = (
-                <ButtonContainer
-                    to={docURL}
-                    isAnchor
-                    className="btn blue"
-                    openNewTab
-                >
+                <ButtonContainer to={docURL} isAnchor className="btn blue" openNewTab>
                     <i className="table-icon far fa-eye" />
                     View pdf
                 </ButtonContainer>
@@ -184,7 +185,7 @@ function formatMultiMulti(answer) {
     if (!Array.isArray(answer)) return answer;
     const formatted = answer.map(item => {
         const count = answer.filter(x => item === x).length;
-        return count > 1 ? `${item} (${count})` : item;
+        return count > 1 && item ? `${item} (${count})` : item;
     });
 
     return [...new Set(formatted)].join(', ');

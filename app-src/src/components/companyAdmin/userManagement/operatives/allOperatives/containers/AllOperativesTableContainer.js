@@ -11,7 +11,7 @@ import { nameSort } from 'helpers/generic';
 const { OPERATIVE } = COMPANY_USER_ROLE_TYPES;
 
 class AllOperativesTableContainer extends Component {
-    state={searchTerm:''}
+    state = { searchTerm: '' };
     render = () => {
         const { users, isFetching, error, onMobile } = this.props;
         const searchTerm = this.state.searchTerm.toLowerCase();
@@ -22,15 +22,17 @@ class AllOperativesTableContainer extends Component {
         const sortedUsers = filteredUsers.sort(nameSort);
         return (
             <AllOperativesTable
-            searchTerm={searchTerm}
-            handleChange={this.handleChange}
+                searchTerm={searchTerm}
+                handleChange={this.handleChange}
                 headers={[
                     'Name',
                     'Email',
                     'Phone Number',
                     'Has linked device?',
                     'Operative Code',
-                    ''
+                    'Last upsynced date',
+                    'Last detected unsynced data',
+                    '',
                 ]}
                 users={sortedUsers}
                 isFetching={isFetching}
@@ -51,30 +53,26 @@ class AllOperativesTableContainer extends Component {
         }
     };
 
-    
     handleShowModal = () => this.props.showModal(CREATE_OPERATIVE);
 
-    handleChange = (name, value) => this.setState({[name]:value})
+    handleChange = (name, value) => this.setState({ [name]: value });
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        companyUsersReducer: { isFetching, error, users, postSuccess }
+        companyUsersReducer: { isFetching, error, users, postSuccess },
     },
     shared: {
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => ({
     users: Object.values(users).filter(({ type }) => type === OPERATIVE),
     isFetching,
     error,
     onMobile,
-    postSuccess
+    postSuccess,
 });
 
 const mapDispatchToProps = { fetchCompanyUsers, hideModal, showModal };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AllOperativesTableContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AllOperativesTableContainer);

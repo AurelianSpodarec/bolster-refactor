@@ -46,6 +46,8 @@ export const useMultipleHierarchies = hierarchyShape => {
     function updateState(name, value) {
         // * This is to split the field validations up
         const [id, fieldName] = name.split('.*.');
+        console.log({ name, value, id, fieldName });
+        console.log(state[id]);
         return setState({
             ...state,
             [id]: { ...state[id], [fieldName]: value },
@@ -92,12 +94,12 @@ export function usePrevious(value) {
     return ref.current;
 }
 
-export function useThrottle(action, timeout = 1000, deps = []) {
-    let throttleTimeout;
+export function useDebounce(action, deps = [], timeout = 1000) {
+    let debounceTimeout;
     useEffect(() => {
-        clearTimeout(throttleTimeout);
-        throttleTimeout = setTimeout(action, timeout);
-        return () => clearTimeout(throttleTimeout);
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(action, timeout);
+        return () => clearTimeout(debounceTimeout);
     }, deps);
 }
 
@@ -123,3 +125,13 @@ export const useLocalStorage = (key, initialValue = 'placeholder') => {
 
     return [storedValue, setValue];
 };
+
+export function useForm(initialState = {}) {
+    const [formData, setFormData] = useState(initialState);
+
+    function handleChange(name, value) {
+        setFormData(prev => ({ ...prev, [name]: value }));
+    }
+
+    return [formData, handleChange];
+}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect, batch } from 'react-redux';
 
 import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
@@ -11,11 +11,11 @@ import SingleFloor from '../presentational/SingleFloor';
 import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
 import { FLOOR_TABS } from 'constants/shared/tabNames';
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
+import fetchClientsForFloor from 'actions/companyAdmin/clients/async/fetchClientsForFloor';
+import fetchOperativesForFloor from 'actions/companyAdmin/operatives/async/fetchOperativesForFloor';
 
 class SingleFloorContainer extends Component {
-    render() {
-        return <SingleFloor />;
-    }
+    render = () => <SingleFloor />;
 
     componentDidMount = () => {
         const {
@@ -25,21 +25,27 @@ class SingleFloorContainer extends Component {
             fetchDocuments,
             fetchPinStatsForLevel,
             fetchHistoricServicesForCompany,
-            setTabs
+            fetchOperativesForFloor,
+            fetchClientsForFloor,
+            setTabs,
         } = this.props;
         setTabs(Object.values(FLOOR_TABS), FLOOR_TABS.GENERAL_OVERVIEW);
-        fetchSingleFloor(floorID);
-        fetchAllDrawings();
-        fetchDocuments('floor', floorID);
-        fetchPinStatsForLevel('floor', floorID);
-        fetchHistoricServicesForCompany();
+        batch(() => {
+            fetchSingleFloor(floorID);
+            fetchAllDrawings();
+            fetchDocuments('floor', floorID);
+            fetchPinStatsForLevel('floor', floorID);
+            fetchOperativesForFloor(floorID);
+            fetchClientsForFloor(floorID);
+            fetchHistoricServicesForCompany();
+        });
     };
 
     componentWillUnmount = () => this.props.resetFilterOptions();
 }
 
 const mapStateToProps = (_, { match }) => ({
-    floorID: match.params['id']
+    floorID: match.params['id'],
 });
 
 const mapDispatchToProps = {
@@ -49,10 +55,9 @@ const mapDispatchToProps = {
     fetchPinStatsForLevel,
     fetchHistoricServicesForCompany,
     setTabs,
-    resetFilterOptions
+    resetFilterOptions,
+    fetchClientsForFloor,
+    fetchOperativesForFloor,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SingleFloorContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleFloorContainer);

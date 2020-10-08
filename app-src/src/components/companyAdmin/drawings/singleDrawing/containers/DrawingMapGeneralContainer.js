@@ -20,6 +20,8 @@ import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleD
 import updateFloorPlanConfirmed from 'actions/companyAdmin/drawings/sync/updateFloorPlanConfirmed';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
+import setZoneAddMode from 'actions/companyAdmin/zones/sync/setZoneAddMode';
+import setZonesOpacity from 'actions/companyAdmin/zones/sync/setZonesOpacity';
 import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
 import DrawingDetailsContainer from './DrawingDetailsContainer';
 import FurtherFiltrationContainer from 'components/companyAdmin/reports/createReport/components/containers/FurtherFiltrationContainer';
@@ -29,12 +31,14 @@ import addRectangle from 'actions/companyAdmin/reports/sync/addRectangle';
 import removeRectangle from 'actions/companyAdmin/reports/sync/removeRectangle';
 import removeAllRectangles from 'actions/companyAdmin/reports/sync/removeAllRectangles';
 import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/updateFurtherFiltrationOption';
+import { VIEW_ZONES, ADD_DRAWING_ZONE } from 'constants/shared/modalTypes';
 
 const { ADD, DELETE, EXCLUDE } = RECTANGLE_MODES;
 const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 
 // ! The pin selector code is repeated in the filtermapcontainer component
-// todo tidy this and maybe make them use the same component or use smaller generic components within
+// todo tidy this and maybe make them use the same component or
+// use smaller generic components within
 
 class DrawingMapGeneralContainer extends Component {
     state = {
@@ -48,6 +52,8 @@ class DrawingMapGeneralContainer extends Component {
         mode: ADD,
         currentTooltip: null,
         shouldRestrictPayments: false,
+        showZones: false,
+        curZoom: 3,
     };
 
     render() {
@@ -61,8 +67,18 @@ class DrawingMapGeneralContainer extends Component {
             firstCorner,
             mode,
             shouldRestrictPayments,
+            showZones,
+            curZoom,
         } = this.state;
-        const { error, drawing, furtherFiltrationOption, rectangles } = this.props;
+        const {
+            error,
+            drawing,
+            furtherFiltrationOption,
+            rectangles,
+            isAddingZone,
+            zonesOpacity,
+            zones,
+        } = this.props;
         const position = [centerLat, centerLng];
         const addPinPosition = [addPinLat, addPinLng];
         const cornerClicked = firstCorner;
@@ -113,6 +129,18 @@ class DrawingMapGeneralContainer extends Component {
                         handleCancelPinSelector={this.handleCancelPinSelector}
                         isExcluding={isExcluding}
                         shouldRestrictPayments={shouldRestrictPayments}
+                        isAddingZone={isAddingZone}
+                        handleZoneAdd={this.handleZoneAdd}
+                        cancelZoneAdd={this.cancelZoneAdd}
+                        zones={zones}
+                        toggleZones={this.toggleZones}
+                        showZones={showZones}
+                        zonesOpacity={zonesOpacity}
+                        handleOpacityChange={this.handleOpacityChange}
+                        showAddZoneModal={this.showAddZoneModal}
+                        hasZoneCoords={!!this.props.zoneFormCoordinates}
+                        handleZoomChange={this.handleZoomChange}
+                        curZoom={curZoom}
                     />
                 </BlockContainer>
                 <FurtherFiltrationContainer />
@@ -169,7 +197,10 @@ class DrawingMapGeneralContainer extends Component {
         rectangles: prevRectangles,
         furtherFiltrationOption: prevOption,
         objectUsers: prevUsers,
+        isModified: prevIsModified,
     }) => {
+        const { showZones } = this.state;
+
         const {
             drawing = {},
             handleChange,
@@ -183,6 +214,7 @@ class DrawingMapGeneralContainer extends Component {
             removeAllRectangles,
             objectUsers,
             companyUserID,
+            isModified,
         } = this.props;
         // re-fetch drawing every 5 seconds until the updated floorplan is retrieved
         if (postSuccess && !prevSuccess) fetchSingleDrawing(drawing.id);
@@ -222,9 +254,22 @@ class DrawingMapGeneralContainer extends Component {
                 shouldRestrictPayments: objectUsers[companyUserID].shouldRestrictPayments,
             });
         }
+
+        if (!prevIsModified && isModified && showZones) {
+            this.setState(
+                {
+                    showZones: false,
+                },
+                () => {
+                    this.setState({
+                        showZones: true,
+                    });
+                }
+            );
+        }
     };
 
-    updateCurTooltip = id => {
+    updateCurTooltip = (id) => {
         this.setState({ currentTooltip: id });
     };
 
@@ -235,7 +280,7 @@ class DrawingMapGeneralContainer extends Component {
 
     componentWillUnmount = () => clearInterval(this._floorplanInterval);
 
-    handleClick = e => {
+    handleClick = (e) => {
         const { lat, lng } = e.latlng;
         const { mode, firstCorner } = this.state;
         const { addRectangle, furtherFiltrationOption } = this.props;
@@ -257,6 +302,12 @@ class DrawingMapGeneralContainer extends Component {
         const { drawing, history, location } = this.props;
         localStorage.removeItem(`pinCache/${drawing.id}`);
         history.replace(`${location.pathname}/add-pin`);
+    };
+
+    handleOpacityChange = (value) => {
+        const { setZonesOpacity } = this.props;
+
+        setZonesOpacity(value);
     };
 
     handleDateChange = (date, name) => {
@@ -311,7 +362,7 @@ class DrawingMapGeneralContainer extends Component {
         const { users } = this.props;
 
         const options = users
-            .filter(user => user.type >= USER_ROLE.OPERATIVE)
+            .filter((user) => user.type >= USER_ROLE.OPERATIVE)
             .map(({ id, userFirstName, userLastName, userEmail }) => ({
                 value: id,
                 text: `${userFirstName} ${userLastName} <${userEmail}>`,
@@ -319,20 +370,67 @@ class DrawingMapGeneralContainer extends Component {
         return convertArrToObj(options, 'value');
     };
 
-    setMode = mode => {
+    setMode = (mode) => {
         this.setState({ mode, firstCorner: null });
     };
 
-    handleDelete = id => {
+    handleDelete = (id) => {
         const { mode } = this.state;
         const { removeRectangle } = this.props;
         if (mode === DELETE) removeRectangle(id);
     };
 
     handleCancelPinSelector = () => {
-        const { removeAllRectangles, updateFurtherFiltrationOption } = this.props;
+        const {
+            removeAllRectangles,
+            updateFurtherFiltrationOption,
+        } = this.props;
         updateFurtherFiltrationOption(FURTHER_FILTRATION_OPTIONS.NONE);
         removeAllRectangles();
+    };
+
+    handleZoneAdd = () => {
+        const { showModal } = this.props;
+
+        showModal(VIEW_ZONES);
+    };
+
+    cancelZoneAdd = () => {
+        const { setZoneAddMode } = this.props;
+
+        setZoneAddMode(false);
+    };
+
+    toggleZones = () => {
+        const { showZones } = this.state;
+
+        this.setState({
+            showZones: !showZones,
+        });
+    };
+
+    handleCreateZoneFinish = () => {
+        const { setZoneAddMode } = this.props;
+        setZoneAddMode(false);
+
+        this.setState({
+            showZones: true,
+        });
+    };
+
+    showAddZoneModal = () => {
+        const { showModal, drawingID } = this.props;
+
+        showModal(ADD_DRAWING_ZONE, {
+            handleCreateZoneFinish: this.handleCreateZoneFinish,
+            drawingID,
+        });
+    };
+
+    handleZoomChange = (zoomLevel) => {
+        this.setState({
+            curZoom: zoomLevel,
+        });
     };
 }
 
@@ -351,6 +449,13 @@ const mapStateToProps = (
                 rectangles,
                 isFetching: isFetchingReports,
             },
+            zonesReducer: {
+                isAddMode,
+                isModified,
+                zonesOpacity,
+                zoneFormCoordinates,
+                zones,
+            },
         },
         shared: {
             decodeJWTReducer: {
@@ -360,6 +465,7 @@ const mapStateToProps = (
     },
     { match },
 ) => ({
+    drawingID: match.params.id,
     drawing: drawings[match.params.id] || {},
     coordinates,
     pins: Object.values(pins),
@@ -377,6 +483,11 @@ const mapStateToProps = (
     rectangles: Object.values(rectangles),
     companyUserIDs,
     companyUserID,
+    isAddingZone: isAddMode,
+    zonesOpacity,
+    zoneFormCoordinates,
+    isModified,
+    zones,
 });
 
 const mapDispatchToProps = {
@@ -390,8 +501,12 @@ const mapDispatchToProps = {
     removeRectangle,
     removeAllRectangles,
     updateFurtherFiltrationOption,
+    setZoneAddMode,
+    setZonesOpacity,
 };
 
 export default withRouter(
-    withUpdateOnChange(connect(mapStateToProps, mapDispatchToProps)(DrawingMapGeneralContainer)),
+    withUpdateOnChange(
+        connect(mapStateToProps, mapDispatchToProps)(DrawingMapGeneralContainer)
+    )
 );

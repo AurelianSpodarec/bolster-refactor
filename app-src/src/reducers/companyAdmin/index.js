@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+import activityLogReducer from './activityLog';
 import addPinDropdownOptions from './addPinDropdownOptions';
 import addPinFormReducer from './addPinForm';
 import addPinCoordinatesReducer from './addPinCoordinates';
@@ -31,6 +32,7 @@ import pinHistoriesReducer from './pinHistories';
 import pinsReducer from './pins';
 import searchReducer from './search';
 import servicesReducer from './services';
+import recentUpdatesReducer from './recentUpdates';
 import reportsReducer from './reports';
 import sitesReducer from './sites';
 import statsReducer from './stats';
@@ -50,8 +52,11 @@ import qrCodesReducer from './qrCodes';
 import manufacturersReducer from './manufacturers';
 import manufacturersOptionValuesReducer from './manufacturersOptionValues';
 import optionValueDocumentsReducer from './optionValueDocuments';
+import userGuideReducer from './userGuide';
+import zonesReducer from './zones';
 
 export default combineReducers({
+    activityLogReducer,
     addPinDropdownOptions,
     addPinCoordinatesReducer,
     addPinFormReducer,
@@ -90,6 +95,7 @@ export default combineReducers({
     pinHistoriesReducer,
     pinsReducer,
     qrCodesReducer,
+    recentUpdatesReducer,
     reportsReducer,
     searchReducer,
     servicesReducer,
@@ -102,4 +108,6 @@ export default combineReducers({
     templateVersionsReducer,
     transferRequestsReducer,
     userDrawingsReducer,
+    userGuideReducer,
+    zonesReducer,
 });

@@ -8,10 +8,11 @@ import FieldOutput from 'components/shared/generic/fieldOutput/presentational/Fi
 
 const PinAnswer = ({ trimmedAnswer, type, questions, answers, dispatch, question }) => {
     const curAnswer = answers.find(item => +item.id === +trimmedAnswer.id);
+
     const notFoundResponse = null;
     let inner;
 
-    if (!curAnswer && type !== TYPES.STATUS) return notFoundResponse;
+    if ((!curAnswer || !curAnswer.answer) && type !== TYPES.STATUS) return notFoundResponse;
     switch (type) {
         case TYPES.SINGLE_LINE:
         case TYPES.MULTI_LINE:
@@ -35,16 +36,18 @@ const PinAnswer = ({ trimmedAnswer, type, questions, answers, dispatch, question
 
             var relevantOption = relevantQuestion.options.find(({ id }) => {
                 if (id === curAnswer.answer) return true;
+                // radio button answers are used as their ID,
+                // but when going into db the answer has special quote chars replaced
                 if (typeof id === 'string') {
                     const apostropheRegex = /[‘’]/gi;
-                    return (relevantOption = relevantQuestion.options.find(
-                        ({ id }) =>
-                            curAnswer.answer ===
-                            id.replace(apostropheRegex, "'").replace(apostropheRegex, "'"),
-                    ));
+                    return (
+                        curAnswer.answer ===
+                        id.replace(apostropheRegex, "'").replace(apostropheRegex, "'")
+                    );
                 }
                 return false;
             });
+
             if (!relevantOption) return notFoundResponse;
 
             inner = <p>{relevantOption.text}</p>;

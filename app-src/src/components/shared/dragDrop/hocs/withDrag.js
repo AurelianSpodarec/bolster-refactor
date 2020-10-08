@@ -1,64 +1,89 @@
-import React from 'react';
-import { DragSource, DropTarget } from 'react-dnd';
-import flow from 'lodash/flow';
+import React, { useRef } from 'react';
+import { DropTarget, useDrag, useDrop } from 'react-dnd';
 
 export default function (WrappedComponent, type = 'CARD') {
-    class WithDrag extends React.Component {
-        constructor(props) {
-            super(props);
-            this.ref = React.createRef();
+    function WithDrag({ connectDropTarget, onMove, index, ...rest }) {
+        const ref = useRef(null);
+        const [{ isDragging }, drag] = useDrag({
+            item: { type: type, originalIndex: index, index },
+            collect: handleCollect,
+        });
+
+        const [, drop] = useDrop({
+            accept: type,
+            canDrop: () => false,
+            hover: handleHover,
+        });
+
+        return (
+            <WrappedComponent
+                isDragging={isDragging}
+                connectDropTarget={connectDropTarget}
+                forwardRef={node => {
+                    drag(drop(node));
+                    ref.current = node;
+                }}
+                {...rest}
+            />
+        );
+
+        function handleHover(item, monitor) {
+            if (!ref.current) {
+                return;
+            }
+            const dragIndex = item.index;
+            const hoverIndex = index;
+            // Don't replace items with themselves
+            if (dragIndex === hoverIndex) {
+                return;
+            }
+            // Determine rectangle on screen
+            const hoverBoundingRect = ref.current.getBoundingClientRect();
+            // Get vertical middle
+            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+            // Determine mouse position
+            const clientOffset = monitor.getClientOffset();
+            // Get pixels to the top
+            const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+            // Only perform the move when the mouse has crossed half of the items height
+            // When dragging downwards, only move when the cursor is below 50%
+            // When dragging upwards, only move when the cursor is above 50%
+            // Dragging downwards
+            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+                return;
+            }
+            // Dragging upwards
+            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+                return;
+            }
+            // Time to actually perform the action
+            onMove(hoverIndex, dragIndex);
+            // Note: we're mutating the monitor item here!
+            // Generally it's better to avoid mutations,
+            // but it's good here for the sake of performance
+            // to avoid expensive index searches.
+            item.index = hoverIndex;
         }
 
-        render() {
-            const { isDragging, connectDragSource, connectDropTarget, ...rest } = this.props;
-            const ref = this.ref;
-            connectDragSource(ref);
-            connectDropTarget(ref);
-
-            return <WrappedComponent forwardRef={ref} {...rest} isDragging={isDragging} />;
+        function handleCollect(monitor) {
+            return {
+                isDragging: monitor.isDragging(),
+            };
         }
     }
 
-    const specTarget = {
-        canDrop: () => false,
-        hover(props, monitor) {
-            const { index: dragIndex } = monitor.getItem();
-            const { index: overIndex } = props;
-            if (dragIndex === overIndex) return;
-            props.onMove(overIndex, dragIndex);
-            monitor.getItem().index = overIndex;
-        },
-    };
-    const collectTarget = (connect, monitor) => ({
-        connectDropTarget: connect.dropTarget(),
-        isOver: monitor.isOver(),
-        canDrop: monitor.canDrop(),
-    });
-
-    const specSource = {
-        beginDrag: props => ({
-            id: props.id,
-            originalIndex: props.index,
-            index: props.index,
-        }),
-        endDrag({ onMove, onDrop }, monitor) {
-            const { id: droppedId, originalIndex } = monitor.getItem();
-            const didDrop = monitor.didDrop();
-            if (!didDrop) {
-                onMove(droppedId, originalIndex);
-                return;
-            }
-
+    const target = {
+        drop({ onDrop }) {
             onDrop();
         },
     };
-    const collectSource = (connect, monitor) => ({
-        connectDragSource: connect.dragSource(),
-        isDragging: monitor.isDragging(),
-    });
 
-    return flow(
-        DropTarget(type, specTarget, collectTarget),
-        DragSource(type, specSource, collectSource),
-    )(WithDrag);
+    const WithDragAndDrop = DropTarget(type, target, (connect, monitor) => ({
+        connectDropTarget: connect.dropTarget(),
+        isOver: monitor.isOver(),
+        canDrop: monitor.canDrop(),
+        didDrop: monitor.didDrop(),
+    }))(WithDrag);
+
+    return WithDragAndDrop;
 }

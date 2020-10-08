@@ -11,10 +11,9 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 
 class PinDetailsContainer extends Component {
     render() {
-        const { histories, users, services, error, isFetching, pin } = this.props;
-
+        const { histories, users, services, error, isFetching, pin, isLoading } = this.props;
         const sortedHistories = [...histories].sort(
-            (a, b) => moment(b.createdOn) - moment(a.createdOn)
+            (a, b) => moment(b.createdOn) - moment(a.createdOn),
         );
 
         return sortedHistories.map((history, i) => {
@@ -29,7 +28,7 @@ class PinDetailsContainer extends Component {
                     isFetching={isFetching}
                     error={error}
                 >
-                    <BlockHeading title={`Pin ${pin.pinCode || ''}`}>
+                    <BlockHeading classes="underline-full" title={`Pin ${pin.pinCode || ''}`}>
                         <h4 className="small-text">
                             (History {histories.length - i} of {histories.length}{' '}
                             {histories.length - i === histories.length
@@ -47,6 +46,7 @@ class PinDetailsContainer extends Component {
                         services={services}
                         pin={pin}
                         drawingID={pin.drawingID}
+                        isLoading={isLoading}
                     />
                 </BlockContainer>
             );
@@ -61,13 +61,13 @@ const mapStateToProps = (
             pinHistoriesReducer: {
                 histories,
                 isFetching: fetchingHistories,
-                error: pinHistoriesError
+                error: pinHistoriesError,
             },
             pinOperativesReducer: { users, isFetching: fetchingUsers, error: operativesError },
-            servicesReducer: { services }
-        }
+            servicesReducer: { services },
+        },
     },
-    { match }
+    { match },
 ) => {
     const pin = singlePin[match.params.id] || {};
     return {
@@ -77,7 +77,7 @@ const mapStateToProps = (
         histories: Object.values(histories),
         users: users || {},
         services: services || {},
-        pin
+        pin,
     };
 };
 

@@ -20,7 +20,8 @@ const Select = ({
     showError,
     iconClass = '',
     placeholder = '-- select option --',
-    omitPlaceholder = false
+    omitPlaceholder = false,
+    classes = '',
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [hasOpened, setHasOpened] = useState(false);
@@ -44,9 +45,9 @@ const Select = ({
 
     return (
         <div
-            className={`multi-multi-dropdown size-lg-12 ${
+            className={`select-list multi-multi-dropdown size-lg-12 ${
                 disabled ? 'disabled' : ''
-            }`}
+            } ${classes}`}
             ref={node}
             onClick={() => !disabled && setIsOpen(!isOpen)}
         >
@@ -57,20 +58,13 @@ const Select = ({
                     <p className="placeholder">{selected.label}</p>
                 )}
 
-                <i
-                    className={`arrow ${
-                        iconClass.length ? iconClass : 'fal fa-angle-down'
-                    }`}
-                />
+                <i className={`arrow ${iconClass.length ? iconClass : 'fal fa-angle-down'}`} />
             </div>
 
             {isOpen && (
                 <div className="option-selection">
                     {search && !!options.length && (
-                        <div
-                            className="search-box"
-                            onClick={e => e.stopPropagation()}
-                        >
+                        <div className="search-box" onClick={e => e.stopPropagation()}>
                             <input
                                 type="text"
                                 placeholder="Search..."
@@ -88,16 +82,12 @@ const Select = ({
                                 {placeholder}
                             </p>
                         )}
-                        {!filteredOptions.length && (
-                            <p>There are no options to display</p>
-                        )}
+                        {!filteredOptions.length && <p>There are no options to display</p>}
 
-                        {filteredOptions.map(opt => (
+                        {filteredOptions.map((opt, i) => (
                             <p
-                                key={opt.value}
-                                className={`option ${
-                                    value === opt.value ? 'active' : ''
-                                }`}
+                                key={opt.value + i}
+                                className={`option ${value === opt.value ? 'active' : ''}`}
                                 onClick={e => handleSelect(e, opt.value)}
                             >
                                 {opt.label}
@@ -129,7 +119,7 @@ const Select = ({
             opt.label
                 .replace(/[^A-Z0-9]/gi, '')
                 .toLowerCase()
-                .includes(searchTerm.replace(/[^A-Z0-9]/gi, '').toLowerCase())
+                .includes(searchTerm.replace(/[^A-Z0-9]/gi, '').toLowerCase()),
         );
     }
 

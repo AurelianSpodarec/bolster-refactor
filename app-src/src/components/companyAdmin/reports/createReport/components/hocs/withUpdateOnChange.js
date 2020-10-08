@@ -12,7 +12,7 @@ import { FURTHER_FILTRATION_OPTIONS, HIERARCHY_IDS } from 'constants/companyAdmi
 import getOperativeOptions from 'actions/companyAdmin/reports/async/getOperativeOptions';
 import getTemplateReportOptions from 'actions/companyAdmin/reports/async/getTemplateReportOptions';
 
-export default function (ProtectedComponent) {
+export default function(ProtectedComponent) {
     class WithUpdateOnChange extends React.Component {
         state = {
             showError: false,
@@ -66,10 +66,10 @@ export default function (ProtectedComponent) {
 
         _getFilteredPins = pins => {
             const { filters, furtherFiltrationOption } = this.props;
-            const { PIN_SELECTOR, INDIVIDUAL_PINS } = FURTHER_FILTRATION_OPTIONS;
+            const { PIN_SELECTOR, INDIVIDUAL_PINS, ZONES } = FURTHER_FILTRATION_OPTIONS;
 
             // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
-            if (+furtherFiltrationOption > PIN_SELECTOR) {
+            if (+furtherFiltrationOption > PIN_SELECTOR && +furtherFiltrationOption !== ZONES) {
                 // advanced
                 return pins.filter(({ id }) => filters.pinIDs.includes(id));
             }
@@ -132,24 +132,24 @@ export default function (ProtectedComponent) {
                     ) {
                         return NO;
                     }
-                    // if (
-                    //     +furtherFiltrationOption ===
-                    //     FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
-                    // ) {
-                    //     if (!filters.pinIDs.includes(pin.id)) {
-                    //         return NO;
-                    //     }
-                    // }
 
                     return YES;
                 })
-                .map(pin => ({
-                    ...pin,
-                    excluded:
-                        (+furtherFiltrationOption === PIN_SELECTOR ||
-                            +furtherFiltrationOption === INDIVIDUAL_PINS) &&
-                        !filters.pinIDs.includes(pin.id),
-                }));
+                .map(pin => {
+                    const isEXcludeFilterType =
+                        +furtherFiltrationOption === PIN_SELECTOR ||
+                        +furtherFiltrationOption === ZONES ||
+                        +furtherFiltrationOption === INDIVIDUAL_PINS;
+
+                    const { pinIDs } = filters;
+                    const excluded =
+                        (isEXcludeFilterType && !pinIDs.length) || !pinIDs.includes(pin.id);
+
+                    return {
+                        ...pin,
+                        excluded,
+                    };
+                });
         };
 
         _getPostBody = () => {
@@ -211,9 +211,10 @@ export default function (ProtectedComponent) {
             let questionFilters = null;
             let selectedPinIDs = null;
 
-            const { INDIVIDUAL_PINS, FILTERS } = FURTHER_FILTRATION_OPTIONS;
+            const { INDIVIDUAL_PINS, ZONES, FILTERS } = FURTHER_FILTRATION_OPTIONS;
 
             switch (+furtherFiltrationOption) {
+                case ZONES:
                 case INDIVIDUAL_PINS: {
                     selectedPinIDs = pinIDs.filter(
                         id => !Object.values(excludedPinIDs).includes(id),
@@ -247,7 +248,11 @@ export default function (ProtectedComponent) {
             ).map(({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]);
             // get the utc converted time for both from date and to date.
             const startDate = fromDateInclusive
-                ? moment.tz(fromDateInclusive, timeZone.name).startOf('day').utc().toISOString()
+                ? moment
+                      .tz(fromDateInclusive, timeZone.name)
+                      .startOf('day')
+                      .utc()
+                      .toISOString()
                 : null;
 
             // to date needs to be start of next day so that we get all pins from the previous day.
@@ -360,6 +365,7 @@ export default function (ProtectedComponent) {
                 companySettingsReducer: {
                     companySettings: { timeZone },
                 },
+                zonesReducer: { zones },
             },
         },
         { blockName },
@@ -398,6 +404,7 @@ export default function (ProtectedComponent) {
             furtherFiltrationOption,
             timeZone,
             includedDrawingsIDs,
+            zonesObj: zones,
         };
     };
 

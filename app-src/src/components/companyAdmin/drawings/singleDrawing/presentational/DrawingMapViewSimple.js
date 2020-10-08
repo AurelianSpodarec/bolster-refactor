@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Map, TileLayer, Marker } from 'react-leaflet';
+
 import ReactDOMServer from 'react-dom/server';
 import { FILE_STORAGE_URL } from 'config';
 import L from 'leaflet';
@@ -10,7 +11,7 @@ import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import {
     ACCESS_TYPES_VALUES,
-    FLOORPLAN_STATES
+    FLOORPLAN_STATES,
 } from 'constants/companyAdmin/enums';
 import { EDIT_DRAWING } from 'constants/shared/modalTypes';
 import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
@@ -18,8 +19,10 @@ import RedX from 'components/shared/pins/map/presentational/RedX';
 import PinSelectorOptions from 'components/shared/pinSelector/presentational/PinSelectorOptions';
 import Rectangle from 'components/shared/pinSelector/presentational/Rectangle';
 import AddCreditsToDrawingButtonContainer from '../../addCreditsToDrawing/containers/AddCreditsToDrawingButtonContainer';
+import DrawingMapAddZone from './DrawingMapAddZone';
+import DrawingMapViewZones from './DrawingMapViewZones';
 
-const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
+const getDataUrl = (src) => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 
 const DrawingMapViewSimple = ({
     position,
@@ -45,8 +48,22 @@ const DrawingMapViewSimple = ({
     updateCurTooltip,
     currentTooltip,
     isExpired,
+    isAddingZone,
+    handleZoneAdd,
+    cancelZoneAdd,
+    zones,
+    toggleZones,
+    showZones,
+    zonesOpacity,
+    handleOpacityChange,
+    showAddZoneModal,
+    hasZoneCoords,
+    handleZoomChange,
+    curZoom,
     shouldRestrictPayments
 }) => {
+    const mapRef = useRef();
+
     const newPinIcon = L.divIcon({
         className: '',
         html: ReactDOMServer.renderToString(
@@ -65,12 +82,15 @@ const DrawingMapViewSimple = ({
         popupAnchor: [0, -50]
     });
     const shouldShowFloorplan = !!drawing.tilesetS3Key && !updating;
+
     return (
         <>
             {shouldShowFloorplan ? (
                 <div className="size-lg-12" id="map">
                     <BlockHeading>
-                        {shouldShowPinSelectorOptions ? (
+                        {isAddingZone ? (
+                            <></>
+                        ) : shouldShowPinSelectorOptions ? (
                             <PinSelectorOptions
                                 setMode={setMode}
                                 mode={mode}
@@ -149,12 +169,19 @@ const DrawingMapViewSimple = ({
                         )}
                     </BlockHeading>
                     <Map
+                        ref={mapRef}
                         center={position}
                         zoom={zoom}
                         minZoom={0}
                         maxZoom={8}
-                        onClick={e => handleClick(e)}
+                        onClick={(e) => handleClick(e)}
                         crs={CRS.Simple}
+                        onzoomend={() =>
+                            handleZoomChange(
+                                mapRef.current.leafletElement.getZoom()
+                            )
+                        }
+                        className={!showZones ? 'hide-tooltips' : ''}
                     >
                         <TileLayer
                             attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
@@ -162,41 +189,118 @@ const DrawingMapViewSimple = ({
                             noWrap={true}
                             maxNativeZoom={6}
                         />
-                        {pins.map(pin => (
-                            <MapPinContainer
-                                updateCurTooltip={updateCurTooltip}
-                                tooltipVisible={currentTooltip === pin.id}
-                                urlStart="company"
-                                key={pin.id}
-                                pin={pin}
-                                withLink={
-                                    !shouldShowPinSelectorOptions && !addMode
-                                }
-                                withTooltip={!isExcluding}
-                                isExcluding={isExcluding}
-                            />
-                        ))}
-                        {addMode && (
-                            <Marker
-                                position={addPinPosition}
-                                icon={newPinIcon}
-                            />
-                        )}
-                        {cornerClicked && (
-                            <Marker
-                                position={cornerClicked}
-                                icon={cornerClickedIcon}
-                            />
-                        )}
 
-                        {rectangles.map(rectangle => (
-                            <Rectangle
-                                key={rectangle.id}
-                                rectangle={rectangle}
-                                onClick={() => handleDelete(rectangle.id)}
-                            />
-                        ))}
+                        {isAddingZone ? (
+                            <DrawingMapAddZone />
+                        ) : (
+                            <>
+                                {showZones && (
+                                    <DrawingMapViewZones
+                                        curZoom={curZoom}
+                                        zones={zones}
+                                    />
+                                )}
+                                {pins.map((pin) => (
+                                    <MapPinContainer
+                                        updateCurTooltip={updateCurTooltip}
+                                        tooltipVisible={
+                                            currentTooltip === pin.id
+                                        }
+                                        urlStart="company"
+                                        key={pin.id}
+                                        pin={pin}
+                                        withLink={
+                                            !shouldShowPinSelectorOptions &&
+                                            !addMode
+                                        }
+                                        withTooltip={!isExcluding}
+                                        isExcluding={isExcluding}
+                                    />
+                                ))}
+                                {addMode && (
+                                    <Marker
+                                        position={addPinPosition}
+                                        icon={newPinIcon}
+                                    />
+                                )}
+                                {cornerClicked && (
+                                    <Marker
+                                        position={cornerClicked}
+                                        icon={cornerClickedIcon}
+                                    />
+                                )}
+
+                                {rectangles.map((rectangle) => (
+                                    <Rectangle
+                                        key={rectangle.id}
+                                        rectangle={rectangle}
+                                        onClick={() =>
+                                            handleDelete(rectangle.id)
+                                        }
+                                    />
+                                ))}
+                            </>
+                        )}
                     </Map>
+
+                    {!shouldShowPinSelectorOptions &&
+                        !isExpired &&
+                        !addMode &&
+                        drawing.accessType >= ACCESS_TYPES_VALUES.WRITE && (
+                            <div className="map-bottom-buttons">
+                                {isAddingZone ? (
+                                    <>
+                                        <button
+                                            className={`button green ${
+                                                hasZoneCoords ? '' : 'disabled'
+                                            }`}
+                                            onClick={showAddZoneModal}
+                                        >
+                                            <i className="far fa-check fa-fw" />{' '}
+                                            Finish
+                                        </button>
+                                        <button
+                                            className="button grey"
+                                            onClick={cancelZoneAdd}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <button
+                                            className="button blue"
+                                            onClick={handleZoneAdd}
+                                        >
+                                            View Zones
+                                        </button>
+                                        <button
+                                            className="button blue"
+                                            onClick={toggleZones}
+                                        >
+                                            Toggle zones on/off
+                                        </button>
+                                        {showZones && (
+                                            <div className="map-opacity pull-right">
+                                                <p>Opacity</p>
+                                                <input
+                                                    type="range"
+                                                    min="0"
+                                                    max="1"
+                                                    value={zonesOpacity}
+                                                    step="0.1"
+                                                    onChange={(e) =>
+                                                        handleOpacityChange(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        )}
+                                    </>
+                                )}
+                            </div>
+                        )}
                 </div>
             ) : drawing.latestFloorplanState ===
               FLOORPLAN_STATES.FAILEDCANCELLED ? (

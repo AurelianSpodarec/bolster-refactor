@@ -15,6 +15,7 @@ import {
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import { needsVatCode } from 'constants/shared/vatTypes';
 
 const Settings = ({ isFetching, error, companySettings: company, onMobile }) => {
     const { timeZone = {}, dateFormat = {} } = company;
@@ -84,7 +85,7 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                                     fieldClass="no-h-padding"
                                     sizeClass="size-lg-12"
                                 />
-                                {company.vatType && company.vatType !== VAT_TYPES.OUTSIDEEU && (
+                                {company.vatType && needsVatCode(company.vatType) && (
                                     <FieldOutput
                                         title="VAT Code"
                                         description={company.vatCode}
@@ -110,6 +111,7 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                                         <p>{company.town}</p>
                                         <p>{company.county}</p>
                                         <p>{company.postcode}</p>
+                                        <p>{company.country}</p>
                                     </FieldOutput>
                                 </div>
 
@@ -202,6 +204,17 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                         <FieldOutput
                             title="Date Format"
                             description={dateFormat.momentDateTimeFormat}
+                        />
+                    </Block>
+                    <Block>
+                        <BlockHeading title="Notifications" />
+                        <FieldOutput
+                            title="Unsynced Company Notification (Days)"
+                            description={company.unsyncedCompanyNotificationDays}
+                        />
+                        <FieldOutput
+                            title="Unsynced Operative Warning (Days)"
+                            description={company.unsyncedOperativeWarningDays}
                         />
                     </Block>
                 </div>

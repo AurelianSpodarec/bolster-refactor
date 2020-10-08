@@ -21,6 +21,9 @@ const BuildingsListItemContainer = ({
     index,
     headers,
     onMobile,
+    colSpanFirst = false,
+    connectDropTarget,
+    isSorting,
 }) => {
     return (
         <BuildingsListItem
@@ -35,6 +38,9 @@ const BuildingsListItemContainer = ({
             onDrop={() => postBuildingsSort(buildings)}
             onMobile={onMobile}
             headers={headers}
+            colSpanFirst={colSpanFirst}
+            connectDropTarget={connectDropTarget}
+            isSorting={isSorting}
         />
     );
 
@@ -48,11 +54,15 @@ const BuildingsListItemContainer = ({
 };
 
 const mapStateToProps = ({
+    companyAdmin: {
+        hierarchyReducer: { isSorting },
+    },
     shared: {
         tablesReducer: { expandedBuildingIds },
         mobileReducer: { onMobile },
     },
 }) => ({
+    isSorting,
     onMobile,
     expandedBuildingIds,
 });

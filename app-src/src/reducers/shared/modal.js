@@ -4,7 +4,7 @@ import { HIDE_MODAL, SHOW_MODAL } from 'constants/actionTypes/generic';
 
 export default combineReducers({
     modalType: modalTypeReducer,
-    modalProps: modalPropsReducer
+    modalProps: modalPropsReducer,
 });
 
 function modalTypeReducer(state = '', action) {

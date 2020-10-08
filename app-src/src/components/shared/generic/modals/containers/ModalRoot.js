@@ -42,6 +42,7 @@ import {
     EDIT_TEMPLATE_QUESTION,
     EDIT_USER,
     EDIT_USER_PASSWORD,
+    UPLOAD_USER_GUIDE,
     ERROR_MODAL,
     LOADING_DATA,
     PAY_INVOICE,
@@ -96,6 +97,14 @@ import {
     COMPANY_EDIT_OPTION_VALUE_DOCUMENT,
     COMPANY_ADD_OPTION_VALUE_DOCUMENT_VERSION,
     COMPANY_DELETE_OPTION_VALUE_DOCUMENT_VERSION,
+    ADMIN_EDIT_COMPANY_ADDRESS,
+    ADD_NEW_FEATURE,
+    EDIT_NEW_FEATURE,
+    RECENT_UPDATE_MODAL,
+    VIEW_ZONES,
+    ADD_DRAWING_ZONE,
+    ZONE_DETAILS,
+    EDIT_ZONE_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -194,6 +203,15 @@ import AddDocumentToOptionValueModal from 'components/companyAdmin/dropdownOptio
 import EditOptionValueDocumentModal from 'components/companyAdmin/dropdownOptions/editOptionValueDocument/presentational/EditOptionValueDocumentModal';
 import AddNewDocumentVersionModal from 'components/companyAdmin/dropdownOptions/addNewDocumentVersion/presentational/AddNewDocumentVersionModal';
 import ConfirmDeleteDocumentVersionModalContainer from 'components/companyAdmin/dropdownOptions/confirmDeleteDocumentVersion/containers/ConfirmDeleteDocumentVersionModalContainer';
+import EditCompanyAddressModalContainer from './EditCompanyAddressModalContainer';
+import UploadUserGuideModalContainer from './UploadUserGuideModalContainer';
+import AddNewFeatureModal from 'components/superAdmin/newFeatures/addNewFeatureModal/presentational/AddNewFeatureModal';
+import EditNewFeatureModal from 'components/superAdmin/newFeatures/editNewFeatureModal/presentational/EditNewFeatureModal';
+import RecentUpdateModal from 'components/companyAdmin/layout/header/presentational/RecentUpdateModal';
+import ViewZonesModalContainer from 'components/companyAdmin/drawings/singleDrawing/containers/ViewZonesModalContainer';
+import AddDrawingZoneModalContainer from 'components/companyAdmin/drawings/addDrawingZoneModal/containers/AddDrawingZoneModalContainer';
+import ZoneDetailsModalContainer from 'components/companyAdmin/drawings/singleDrawing/containers/ZoneDetailsModalContainer';
+import EditZoneModalContainer from 'components/companyAdmin/drawings/singleDrawing/containers/EditZoneModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -290,11 +308,19 @@ const MODAL_COMPONENTS = {
     [COMPANY_EDIT_OPTION_VALUE_DOCUMENT]: EditOptionValueDocumentModal,
     [COMPANY_ADD_OPTION_VALUE_DOCUMENT_VERSION]: AddNewDocumentVersionModal,
     [COMPANY_DELETE_OPTION_VALUE_DOCUMENT_VERSION]: ConfirmDeleteDocumentVersionModalContainer,
+    [ADMIN_EDIT_COMPANY_ADDRESS]: EditCompanyAddressModalContainer,
+    [UPLOAD_USER_GUIDE]: UploadUserGuideModalContainer,
+    [ADD_NEW_FEATURE]: AddNewFeatureModal,
+    [EDIT_NEW_FEATURE]: EditNewFeatureModal,
+    [RECENT_UPDATE_MODAL]: RecentUpdateModal,
+    [VIEW_ZONES]: ViewZonesModalContainer,
+    [ADD_DRAWING_ZONE]: AddDrawingZoneModalContainer,
+    [ZONE_DETAILS]: ZoneDetailsModalContainer,
+    [EDIT_ZONE_MODAL]: EditZoneModalContainer,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
     if (!modalType) return null;
-
     const SpecificModel = MODAL_COMPONENTS[modalType];
     return <SpecificModel {...modalProps} {...otherProps} />;
 };

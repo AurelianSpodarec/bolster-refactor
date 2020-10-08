@@ -302,8 +302,5 @@ const mapStateToProps = ({
     pins: Object.values(pins)
 });
 export default withUpdateOnChange(
-    connect(
-        mapStateToProps,
-        null
-    )(PinSelectorContainer)
+    connect(mapStateToProps, null)(PinSelectorContainer)
 );

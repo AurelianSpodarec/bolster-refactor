@@ -20,6 +20,9 @@ const FloorListItemContainer = ({
     reorderFloor,
     headers,
     onMobile,
+    colSpanFirst,
+    connectDropTarget,
+    isSorting,
 }) => {
     const isExpanded = expandedFloorIds.includes(floor.id);
     return (
@@ -35,6 +38,9 @@ const FloorListItemContainer = ({
             onMove={moveItem}
             headers={headers}
             onMobile={onMobile}
+            colSpanFirst={colSpanFirst}
+            connectDropTarget={connectDropTarget}
+            isSorting={isSorting}
         />
     );
 
@@ -48,11 +54,15 @@ const FloorListItemContainer = ({
 };
 
 const mapStateToProps = ({
+    companyAdmin: {
+        hierarchyReducer: { isSorting },
+    },
     shared: {
         tablesReducer: { expandedFloorIds },
         mobileReducer: { onMobile },
     },
 }) => ({
+    isSorting,
     expandedFloorIds,
     onMobile,
 });

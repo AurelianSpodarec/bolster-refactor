@@ -1,6 +1,6 @@
-@import "./reset.scss";
-@import "./variables.scss";
-@import "./sizing.scss";
+@import './reset.scss';
+@import './variables.scss';
+@import './sizing.scss';
 
 @mixin dropdown-popup() {
     z-index: -1;
@@ -22,7 +22,7 @@ body {
     font-size: 10px;
     -webkit-font-smoothing: antialiased;
     @include ubuntu;
-    background-color: #212228;
+    background-color: $background-color;
     color: $body-text;
     line-height: 1.35;
 }
@@ -60,7 +60,7 @@ em {
     width: calc(100% - 250px);
     padding: 10px 5px;
     height: 100%;
-    background-color: #212228;
+    background-color: $background-color;
 
     &.full {
         width: 100%;
@@ -751,6 +751,10 @@ input {
         background-color: #737373;
     }
 
+    &:focus {
+        outline: none;
+    }
+
     &.red {
         background-color: $red;
 
@@ -1105,6 +1109,74 @@ input {
             }
         }
     }
+
+    .recent-updates {
+        display: flex;
+        float: left;
+        height: 100%;
+        margin-left: 15px;
+        justify-content: center;
+        align-items: center;
+
+        .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: $background-grey;
+            cursor: pointer;
+            outline: none;
+
+            &.unread {
+                background-color: $red;
+            }
+
+            i {
+                color: white;
+                font-size: 160%;
+            }
+        }
+
+        .list {
+            position: absolute;
+            right: 0;
+            width: 300px;
+            max-height: 295px;
+            overflow: auto;
+            box-shadow: 0px 1px 3px -2px black;
+            background-color: #fefefe;
+            @include dropdown-popup();
+
+            .item {
+                display: block;
+                padding: 10px;
+                background-color: #fefefe;
+                cursor: pointer;
+
+                &:nth-child(even) {
+                    background-color: $background-grey;
+                }
+            }
+
+            h2, p {
+                line-height: 1.5;
+            }
+
+            h2 {
+                font-size: 140%;
+            }
+
+            p {
+                font-size: 120%;
+                color: $text-grey;
+            }
+
+            .info {
+                padding: 20px 15px;
+                font-size: 140%;
+                text-align: center;
+            }
+        }
+    }
 }
 
 .heading {
@@ -1163,6 +1235,11 @@ input {
 
     &.error {
         color: $red;
+    }
+
+    &.in-form {
+        padding-left: 7.5px;
+        padding-right: 7.5px;
     }
 }
 
@@ -1450,7 +1527,7 @@ input {
         .dropdown-content {
             z-index: 1;
         }
-        input[type="checkbox"] {
+        input[type='checkbox'] {
             display: none;
         }
     }
@@ -1473,7 +1550,7 @@ input {
         line-height: 26px !important;
         span {
             color: $body-text !important;
-            font-family: "Ubuntu", sans-serif !important;
+            font-family: 'Ubuntu', sans-serif !important;
             font-size: 14px;
             font-weight: 400 !important;
         }
@@ -1486,7 +1563,7 @@ input {
     .dropdown-content {
         z-index: 1;
     }
-    input[type="checkbox"] {
+    input[type='checkbox'] {
         display: none;
     }
 }
@@ -2269,7 +2346,7 @@ input {
 
         //custom hover
         &.custom-hover {
-            background-color: #212228;
+            background-color: $background-color;
             transition: background-color 0.25s ease-in-out;
             color: white;
 
@@ -2313,7 +2390,7 @@ input {
         font-size: 12px;
         color: white;
         text-decoration: none;
-        background-color: #212228;
+        background-color: $background-color;
         @include ubuntu;
         transition: background-color 0.25s ease-in-out;
 
@@ -2397,7 +2474,9 @@ input {
     width: calc(100% + 30px);
     margin-left: -15px;
     text-align: left;
-    table-layout: fixed;
+    &.dragging {
+        table-layout: fixed;
+    }
 
     &.with-actions {
         td {
@@ -2420,15 +2499,30 @@ input {
         margin-left: 0;
     }
 
+    .red-icon {
+        color: red;
+    }
+
+    .red-row {
+        background-color:#ffdcdb;
+    }
+
     tbody {
+        &.sorting,
         &.dragging {
             tr {
                 overflow: hidden;
                 width: 100%;
                 white-space: nowrap;
 
-                &:hover {
-                    background-color: transparent !important;
+                &.draggable {
+                    &:hover {
+                        cursor: move;
+                    }
+                    &:active {
+                        cursor: move;
+                    }
+                    
                 }
 
                 td {
@@ -2440,16 +2534,24 @@ input {
 
     tr {
         border-bottom: 2px solid #f5f5f5;
+        min-height: 43px;
 
         &:last-child {
             border-bottom: none;
         }
         &.draggable {
             &:hover {
-                cursor: grab;
+                cursor: pointer;
             }
-            &:active {
-                cursor: grabbing;
+
+            &.dragging {
+                height: 43px;
+                background-color: $background-color !important;
+                content: '';
+
+                td {
+                    opacity: 0;
+                }
             }
         }
         &.expandable {
@@ -2698,10 +2800,12 @@ input {
             }
         }
 
-        .custom-dropdown {
+        .custom-dropdown,
+        .select-list {
             float: right;
             width: 42%;
         }
+        
         .multi-multi-dropdown {
             float: right;
             max-width: 250px;
@@ -2715,7 +2819,8 @@ input {
             }
             .selected-box {
                 min-height: 0;
-
+                
+                
                 .placeholder {
                     line-height: 25px;
 
@@ -2790,7 +2895,7 @@ input {
     padding: 7px 0;
     // display above leaflet map
     z-index: $leaflet-z-index + 1;
-    background-color: #212228;
+    background-color: $background-color;
     p {
         float: left;
         font-size: 120%;
@@ -2910,12 +3015,104 @@ input {
     width: 100%;
     height: calc(100vh - 200px);
     z-index: 10;
-}
-.leaflet-pane {
-    .leaflet-tooltip-pane {
-        opacity: 0;
+
+    .zone-tooltip {
+        font-size: 12px;
+        border: none;
+        background-color: transparent;
+        box-shadow: none;
+
+        &.small-zoom {
+            font-size: 8px;
+        }
+
+        &.large-zoom {
+            font-size: 16px;
+        }
+    }
+
+    // &.small-zoom {
+    //     .zone-tooltip {
+    //         font-size: 8px;
+    //     }
+    // }
+
+    // &.large-zoom {
+    //     .zone-tooltip {
+    //         font-size: 16px;
+    //     }
+    // }
+
+    .leaflet-pane {
+        .leaflet-tooltip-pane {
+            z-index: 400;
+        }
+    }
+
+    &.hide-tooltips {
+        .leaflet-pane {
+            .leaflet-tooltip-pane {
+                opacity: 0;
+            }
+        }
     }
 }
+
+//buttons below map
+.map-bottom-buttons {
+    margin-top: 20px;
+
+    .button {
+        float: right;
+        margin-left: 2.5px;
+    }
+}
+
+//map opacity slider
+.map-opacity {
+    padding-top: 2px;
+    margin: 0 10px;
+
+    p {
+        float: left;
+        margin-right: 10px;
+    }
+
+    input {
+        float: left;
+        width: 150px;
+    }
+}
+
+//zones list
+.zones-list {
+    max-height: 410px;
+    overflow: auto;
+
+    .headings,
+    .zone {
+        border-bottom: 1px solid #eee;
+    }
+
+    .item {
+        padding: 10px;
+    }
+
+    .colour-box {
+        display: inline-block;
+        width: 80px;
+        height: 20px;
+    }
+
+    .button {
+        margin-right: 5px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
 .pin-tooltip {
     width: 250px;
     padding: 10px;
@@ -3017,6 +3214,9 @@ input {
         margin-bottom: 5px;
         font-size: 140%;
         @include ubuntu-medium;
+        &.included {
+            float: right;
+        }
     }
 
     .content {
@@ -3036,12 +3236,32 @@ input {
                 background-color: #f5f5f5;
             }
         }
+
+        &.included {
+            float: right;
+        }
     }
 }
 
 .pin-selection-buttons {
     width: 100px;
     min-height: 1px;
+
+    &.zone-buttons {
+        float: left;
+        width: 50px;
+        position: absolute;
+        right: auto;
+        left: -40px;
+        top: 0;
+        z-index: 1;
+
+        &.right {
+            float: right;
+            right: -40px;
+            left: auto;
+        }
+    }
 
     button {
         position: absolute;
@@ -3184,7 +3404,28 @@ input {
         top: 50%;
         left: 50%;
         width: 750px;
+        max-width: 95%;
         overflow: auto;
+
+        &.zone-modal {
+            width: 1200px;
+
+            .content-area {
+                min-height: 350px;
+            }
+        }
+
+        &.qr-view {
+            width: 230px;
+
+            .button {
+                margin-top: 10px;
+            }
+
+            .content-area {
+                min-height: 0;
+            }
+        }
 
         &.w-label-example {
             width: 850px;
@@ -3329,6 +3570,10 @@ input {
 
 .tooltip-container {
     float: right;
+
+    &.left {
+        float: left;
+    }
 }
 
 .tooltip {
@@ -3687,7 +3932,7 @@ input {
             font-size: 120%;
         }
 
-        input[type="checkbox"] {
+        input[type='checkbox'] {
             display: block;
             margin: 0 auto;
             cursor: move;
@@ -3866,7 +4111,9 @@ input {
         border-radius: 3px;
         cursor: pointer;
         background-color: white;
-
+        white-space: nowrap;
+        overflow: hidden;;
+        
         .placeholder {
             padding: 6px 5px;
         }
@@ -3915,16 +4162,17 @@ input {
         top: 100%;
         margin-top: -1px;
         left: 0;
-        width: 100%;
+        width: auto;
         background-color: white;
         z-index: 100;
         border: 1px solid #e1e1e1;
         @include rounded-bottom(3px);
-
+        white-space: nowrap;
         .search-box {
             float: left;
             width: 100%;
             padding: 5px 10px;
+            white-space: nowrap;
 
             input {
                 width: 100%;
@@ -3937,7 +4185,7 @@ input {
 
         .option-container {
             float: left;
-            width: 100%;
+            min-width: 100%;
             max-height: 87px;
             overflow: auto;
             &.large {
@@ -3949,11 +4197,20 @@ input {
 
             .option {
                 cursor: pointer;
-
+                white-space: nowrap;
                 &:hover,
                 &.active {
                     background-color: #f2f2f2;
                 }
+            }
+        }
+    }
+
+    &.large{
+        .option-selection{
+            .option-container{
+                max-height: 147px;
+
             }
         }
     }
@@ -4329,7 +4586,7 @@ input {
             }
         }
 
-        input[type="text"] {
+        input[type='text'] {
             float: left;
             width: 100%;
             padding: 5px 8px;
@@ -4364,6 +4621,7 @@ input {
             float: right;
             margin-left: 10px;
         }
+
     }
 }
 
@@ -4386,7 +4644,7 @@ input {
     float: left;
     padding: 10px 20px;
     color: #fff;
-    font-family: "Neo Sans W01 Medium", Arial, sans-serif;
+    font-family: 'Neo Sans W01 Medium', Arial, sans-serif;
     font-size: 180%;
     background-color: gray;
     border: none;
@@ -4523,7 +4781,7 @@ input {
         width: 100%;
         padding: 5px 10px 0;
         text-align: right;
-        font-family: "Neo Sans W01 Medium", sans-serif !important;
+        font-family: 'Neo Sans W01 Medium', sans-serif !important;
     }
 }
 
@@ -5346,7 +5604,7 @@ input {
 }
 
 .google-maps-marker {
-    width: 50px;
+    width:75px;
     text-align: center;
     .holder {
         float: left;
@@ -5356,13 +5614,24 @@ input {
     }
     span {
         float: left;
-        width: 150%;
-        left: -25%;
+        width: 200%;
+        left: -50%;
         text-emphasis: center;
-        @include ubuntu-medium;
+        @include ubuntu;
         @include rounded-all;
         background-color: white;
         padding: 2.5px 2.5px 3.5px 2.5px;
+
+        strong{
+            @include ubuntu-medium;
+        }
+        .company-logo{
+            width:auto;
+            max-width:65px;
+            margin:0 auto;
+            margin-bottom:-10px;
+            display: block;
+        }
     }
 }
 
@@ -5373,7 +5642,7 @@ input {
     border-radius: 0 0 5px 5px;
 
     .block-heading {
-        background-color: #212228;
+        background-color: $background-color;
         border-radius: 5px 5px 0 0;
         padding: 10px 15px;
         h3 {
@@ -5674,5 +5943,171 @@ input {
         .text-section{
             padding-left: 5px;
         }
+    }
+}
+
+.check-col-6 {
+
+    .checkbox-list {
+
+        .checkbox {
+            width: 50%;
+        }
+    }
+}
+
+.client-drawing-single {
+    margin-bottom: 30px;
+}
+
+.image-visual {
+    height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.pdf {
+        height: 375px;
+    }
+
+    > div {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    img {
+        animation: fadeInAnimation ease 400ms;
+        animation-iteration-count: 1; 
+        animation-fill-mode: forwards;
+        max-width: 95px;
+    }
+
+    &.multiple {
+        position: relative;
+
+        .arrow {
+            width: 100%;
+            max-width: 10px;
+            height: 15px;
+        }
+
+        .image-visual-top {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            top: -120px;
+
+            .arrow {
+                top: 10px;
+            }
+
+            img {
+                max-width: 55px;
+            }
+        }
+
+        .image-visual-right {
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            position: absolute;
+            right: -100px;
+
+            .arrow {
+                transform: rotate(90deg);
+            }
+
+            img {
+                max-width: 55px;
+            }
+        }
+
+        .image-visual-bottom {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            position: absolute;
+            top: 120px;
+
+            .arrow {
+                top: -10px;
+                transform: rotate(180deg);
+            }
+
+            img {
+                max-width: 55px;
+            }
+        }
+
+        .image-visual-left {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            left: -100px;
+
+            .arrow {
+                transform: rotate(270deg);
+            }
+
+            img {
+                max-width: 55px;
+            }
+        }
+    }
+
+    @keyframes fadeInAnimation { 
+        0% { 
+            opacity: 0; 
+        } 
+        100% { 
+            opacity: 1; 
+         } 
+    } 
+}
+
+//service area when viewing zone pins
+.service-area {
+    margin-bottom: 35px;
+
+    .heading {
+        font-size: 140%;
+        margin-bottom: 15px;
+    }
+
+    .status-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .status {
+        display: flex;
+        align-items: center;
+        width: 18%;
+
+        .icon {
+            width: 30px;
+
+            img {
+                width: 100%;
+            }
+
+            p {
+                font-size: 220%;
+                text-align: center;
+            }
+        }
+
+        .name {
+            flex: 1;
+            padding-left: 10px;
+            margin-top: -45px;
+        }
+    }
+
+    &:last-child {
+        margin-bottom: 0;
     }
 }
