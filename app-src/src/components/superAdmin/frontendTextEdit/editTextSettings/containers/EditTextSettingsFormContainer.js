@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
-import { useForm } from 'helpers/hooks';
+import { useForm, usePrevious } from 'helpers/hooks';
 import { connect } from 'react-redux';
 
-import fetchLoginText from 'actions/superAdmin/frontendSite/textSettings/async/fetchLoginText';
-import fetchRegisterText from 'actions/superAdmin/frontendSite/textSettings/async/fetchRegisterText';
+import fetchFrontendText from 'actions/superAdmin/frontendSite/textSettings/async/fetchFrontendText';
 import updateFrontendText from 'actions/superAdmin/frontendSite/textSettings/async/updateFrontendText';
 
 import EditTextSettingsForm from '../presentational/EditTextSettingsForm';
-import { convertArrToObj } from 'helpers/generic';
 
 const EditTextSettingsFormContainer = ({
     updateFrontendText,
@@ -15,18 +13,28 @@ const EditTextSettingsFormContainer = ({
     fetchRegisterText,
     isPosting,
     error,
+    isFetching,
     loginText,
     registerText,
 }) => {
     const [formData, handleChange] = useForm({
-        loginText: loginText || '',
-        registerText: registerText || '',
+        loginText: loginText.text || '',
+        registerText: registerText.text || '',
     });
+    console.log(formData);
+    const prevProps = usePrevious({ isFetching });
 
     useEffect(() => {
         fetchLoginText();
         fetchRegisterText();
     }, []);
+
+    useEffect(() => {
+        if (!isFetching && isFetching !== prevProps.isFetching) {
+            handleChange('loginText', loginText.text);
+            handleChange('registerText', registerText.text);
+        }
+    }, [isFetching, prevProps.isFetching]);
 
     return (
         <EditTextSettingsForm
@@ -44,15 +52,15 @@ const EditTextSettingsFormContainer = ({
 
 const mapStateToProps = ({
     superAdmin: {
-        frontendTextSettingsReducer: { isPosting, error, loginText, registerText },
+        frontendTextSettingsReducer: { isPosting, error, frontendText, isFetching },
     },
 }) => ({
     isPosting,
     error,
-    loginText: loginText,
-    registerText: registerText,
+    isFetching,
+    frontendText,
 });
 
-const mapDispatchToProps = { updateFrontendText, fetchLoginText, fetchRegisterText };
+const mapDispatchToProps = { updateFrontendText, fetchFrontendText };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditTextSettingsFormContainer);

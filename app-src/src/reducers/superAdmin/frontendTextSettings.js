@@ -1,13 +1,9 @@
 import { combineReducers } from 'redux';
-import { convertArrToObj } from 'helpers/generic';
 
 import {
-    ADMIN_FETCH_LOGIN_TEXT_REQUEST,
-    ADMIN_FETCH_LOGIN_TEXT_FAILURE,
-    ADMIN_FETCH_LOGIN_TEXT_SUCCESS,
-    ADMIN_FETCH_REGISTER_TEXT_REQUEST,
-    ADMIN_FETCH_REGISTER_TEXT_FAILURE,
-    ADMIN_FETCH_REGISTER_TEXT_SUCCESS,
+    ADMIN_FETCH_FRONTEND_TEXT_REQUEST,
+    ADMIN_FETCH_FRONTEND_TEXT_FAILURE,
+    ADMIN_FETCH_FRONTEND_TEXT_SUCCESS,
     ADMIN_UPDATE_FRONTEND_TEXT_REQUEST,
     ADMIN_UPDATE_FRONTEND_TEXT_SUCCESS,
     ADMIN_UPDATE_FRONTEND_TEXT_FAILURE,
@@ -16,20 +12,17 @@ import {
 export default combineReducers({
     error: errorReducer,
     isFetching: isFetchingReducer,
-    registerText: registerTextReducer,
-    loginText: loginTextReducer,
+    frontendText: frontendTextReducer,
     isPosting: isPostingReducer,
     postSuccess: postSuccessReducer,
 });
 
 function errorReducer(state = null, action) {
     switch (action.type) {
-        case ADMIN_FETCH_LOGIN_TEXT_REQUEST:
-        case ADMIN_FETCH_REGISTER_TEXT_REQUEST:
+        case ADMIN_FETCH_FRONTEND_TEXT_REQUEST:
         case ADMIN_UPDATE_FRONTEND_TEXT_REQUEST:
             return null;
-        case ADMIN_FETCH_LOGIN_TEXT_FAILURE:
-        case ADMIN_FETCH_REGISTER_TEXT_FAILURE:
+        case ADMIN_FETCH_FRONTEND_TEXT_FAILURE:
         case ADMIN_UPDATE_FRONTEND_TEXT_FAILURE:
             return action.error;
         default:
@@ -39,31 +32,19 @@ function errorReducer(state = null, action) {
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
-        case ADMIN_FETCH_LOGIN_TEXT_REQUEST:
-        case ADMIN_FETCH_REGISTER_TEXT_REQUEST:
+        case ADMIN_FETCH_FRONTEND_TEXT_REQUEST:
             return true;
-        case ADMIN_FETCH_LOGIN_TEXT_SUCCESS:
-        case ADMIN_FETCH_LOGIN_TEXT_FAILURE:
-        case ADMIN_FETCH_REGISTER_TEXT_SUCCESS:
-        case ADMIN_FETCH_REGISTER_TEXT_FAILURE:
+        case ADMIN_FETCH_FRONTEND_TEXT_SUCCESS:
+        case ADMIN_FETCH_FRONTEND_TEXT_FAILURE:
             return false;
         default:
             return state;
     }
 }
 
-function loginTextReducer(state = {}, action) {
+function frontendTextReducer(state = {}, action) {
     switch (action.type) {
-        case ADMIN_FETCH_LOGIN_TEXT_SUCCESS:
-            return action.payload;
-        default:
-            return state;
-    }
-}
-
-function registerTextReducer(state = {}, action) {
-    switch (action.type) {
-        case ADMIN_FETCH_REGISTER_TEXT_SUCCESS:
+        case ADMIN_FETCH_FRONTEND_TEXT_SUCCESS:
             return action.payload;
         default:
             return state;
