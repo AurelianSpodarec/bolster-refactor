@@ -6,7 +6,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
-const TextEditor = () => {
+const TextEditor = ({ registerText, loginText }) => {
     return (
         <>
             <PageHeading title="Frontend Text Settings" withBackButton>
@@ -17,7 +17,8 @@ const TextEditor = () => {
             </PageHeading>
             <BlockContainer>
                 <BlockHeading title="Frontend Text Settings" />
-                <FieldOutput title="Login page copy" description="Text goes in here" />
+                <FieldOutput title="Login page text" description={loginText} />
+                <FieldOutput title="Register page text" description={registerText} />
             </BlockContainer>
         </>
     );

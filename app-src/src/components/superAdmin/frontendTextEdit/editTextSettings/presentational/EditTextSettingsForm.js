@@ -13,6 +13,7 @@ const EditTextSettingsForm = ({
     handleChange,
     handleSubmit,
     location,
+    isPosting,
 }) => {
     return (
         <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
@@ -33,7 +34,7 @@ const EditTextSettingsForm = ({
                 </Field>
             </div>
             <BlockButtonWrapper>
-                <button onClick={handleSubmit} className="button green">
+                <button onClick={handleSubmit} disabled={isPosting} className="button green">
                     Confirm
                 </button>
                 <ButtonContainer to={location.pathname.replace('/edit-settings', '')}>
