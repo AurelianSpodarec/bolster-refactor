@@ -9,30 +9,29 @@ import EditTextSettingsForm from '../presentational/EditTextSettingsForm';
 
 const EditTextSettingsFormContainer = ({
     updateFrontendText,
-    fetchLoginText,
-    fetchRegisterText,
     isPosting,
     error,
     isFetching,
-    loginText,
-    registerText,
+    frontendText,
+    fetchFrontendText,
 }) => {
+    const { loginText, registerText } = frontendText;
+
     const [formData, handleChange] = useForm({
-        loginText: loginText.text || '',
-        registerText: registerText.text || '',
+        loginText: loginText || '',
+        registerText: registerText || '',
     });
-    console.log(formData);
+
     const prevProps = usePrevious({ isFetching });
 
     useEffect(() => {
-        fetchLoginText();
-        fetchRegisterText();
+        fetchFrontendText();
     }, []);
 
     useEffect(() => {
         if (!isFetching && isFetching !== prevProps.isFetching) {
-            handleChange('loginText', loginText.text);
-            handleChange('registerText', registerText.text);
+            handleChange('loginText', loginText);
+            handleChange('registerText', registerText);
         }
     }, [isFetching, prevProps.isFetching]);
 

@@ -24,7 +24,7 @@ export const fetchFrontendTextFailure = error => ({
 export default () => dispatch => {
     dispatch(fetchFrontendTextRequest());
     return axios
-        .get(`${ADMIN_API_URL}/FrontEndSettings/logintext`, getHeaders())
+        .get(`${ADMIN_API_URL}/FrontEndSettings/text`, getHeaders())
         .then(({ data }) => dispatch(fetchFrontendTextSuccess(data)))
         .catch(err => dispatch(fetchFrontendTextFailure(err.message)));
 };
