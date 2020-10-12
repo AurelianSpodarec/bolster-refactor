@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TextSettings from '../presentational/TextSettings';
+import TextSettings from '../textSettings/presentational/TextSettings';
 
 const TextSettingsContainer = () => {
     return <TextSettings />;
