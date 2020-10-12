@@ -28,6 +28,7 @@ const invoicesFiltersContainer = ({
     );
 
     function handleChange(name, value) {
+        updateInvoiceFilters('page', 1);
         updateInvoiceFilters(name, value);
         const hasPaidQuery = HAS_PAID_QUERIES[value];
         const isFree = value === '3' ? true : null;
@@ -38,6 +39,7 @@ const invoicesFiltersContainer = ({
     function handleSearch(name, value) {
         const hasPaidQuery = HAS_PAID_QUERIES[hasPayed];
         const isFree = value === '3' ? true : null;
+        updateInvoiceFilters('page', 1);
         updateInvoiceFilters(name, value);
         fetchInvoicesBySearch(1, value, hasPaidQuery, isFree);
     }
