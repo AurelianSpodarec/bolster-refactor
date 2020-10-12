@@ -4,23 +4,11 @@ import { withRouter } from 'react-router-dom';
 
 import InvoiceItemsTable from 'components/shared/invoices/invoiceItemsTable/presentational/InvoiceItemsTable';
 
-const InvoiceItemsTableContainer = ({
-    invoice,
-    error,
-    isFetching,
-    invoiceItems
-}) => {
+const InvoiceItemsTableContainer = ({ invoice, error, isFetching, invoiceItems }) => {
     return (
         <InvoiceItemsTable
             {...{ invoice, error, isFetching, invoiceItems }}
-            headers={[
-                'Item',
-                'Custom Name',
-                'QTY',
-                'Item Price',
-                'Item VAT',
-                'Total'
-            ]}
+            headers={['Item', 'Custom Name', 'QTY', 'Item Price', 'Item VAT', 'Total']}
         />
     );
 };
@@ -28,28 +16,23 @@ const InvoiceItemsTableContainer = ({
 const mapStateToProps = (
     {
         superAdmin: {
-            invoicesReducer: {
-                invoices,
-                isFetching: fetchingInvoices,
-                invoiceItems,
-                error
-            },
+            invoicesReducer: { invoices, isFetching: fetchingInvoices, invoiceItems, error },
             companiesReducer: {
-                companies,
+                singleCompany,
                 isFetching: fetchingCompanies,
-                error: companiesError
-            }
-        }
+                error: companiesError,
+            },
+        },
     },
-    { match }
+    { match },
 ) => ({
     error: error || companiesError,
     isFetching: fetchingInvoices || fetchingCompanies,
-    company: companies[match.params.id],
+    company: singleCompany,
     invoice: invoices[match.params.id] || {},
     invoiceItems: Object.values(invoiceItems).filter(
-        ({ invoiceID }) => +invoiceID === +match.params.id
-    )
+        ({ invoiceID }) => +invoiceID === +match.params.id,
+    ),
 });
 
 export default withRouter(connect(mapStateToProps)(InvoiceItemsTableContainer));

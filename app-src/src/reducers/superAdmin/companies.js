@@ -17,6 +17,9 @@ import {
     FETCH_SINGLE_COMPANY_SUCCESS,
     FETCH_SINGLE_COMPANY_REQUEST,
     FETCH_SINGLE_COMPANY_FAILURE,
+    FETCH_SINGLE_COMPANY_FOR_INVOICE_FAILURE,
+    FETCH_SINGLE_COMPANY_FOR_INVOICE_REQUEST,
+    FETCH_SINGLE_COMPANY_FOR_INVOICE_SUCCESS,
 } from 'constants/actionTypes/companiesWithPermissions';
 import { COMPANY_TYPES } from 'constants/companyAdmin/enums';
 
@@ -27,17 +30,21 @@ export default combineReducers({
     postSuccess: postSuccessReducer,
     error: errorReducer,
     filters: filtersReducer,
+    singleCompany: singleCompanyReducer,
 });
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_ALL_COMPANIES_REQUEST:
         case FETCH_SINGLE_COMPANY_REQUEST:
+        case FETCH_SINGLE_COMPANY_FOR_INVOICE_REQUEST:
             return true;
         case FETCH_ALL_COMPANIES_SUCCESS:
         case FETCH_ALL_COMPANIES_FAILURE:
         case FETCH_SINGLE_COMPANY_FAILURE:
         case FETCH_SINGLE_COMPANY_SUCCESS:
+        case FETCH_SINGLE_COMPANY_FOR_INVOICE_FAILURE:
+        case FETCH_SINGLE_COMPANY_FOR_INVOICE_SUCCESS:
             return false;
         default:
             return state;
@@ -85,6 +92,7 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_ALL_COMPANIES_REQUEST:
         case FETCH_SINGLE_COMPANY_REQUEST:
+        case FETCH_SINGLE_COMPANY_FOR_INVOICE_REQUEST:
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_REQUEST:
         case ADMIN_EDIT_COMPANY_ADDRESS_REQUEST:
             return null;
@@ -92,6 +100,7 @@ function errorReducer(state = null, action) {
         case FETCH_SINGLE_COMPANY_FAILURE:
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_FAILURE:
         case ADMIN_EDIT_COMPANY_ADDRESS_FAILURE:
+        case FETCH_SINGLE_COMPANY_FOR_INVOICE_FAILURE:
             return action.error;
         default:
             return state;
@@ -106,6 +115,15 @@ function companiesReducer(state = {}, action) {
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_SUCCESS:
         case ADMIN_EDIT_COMPANY_ADDRESS_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+        default:
+            return state;
+    }
+}
+
+function singleCompanyReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_SINGLE_COMPANY_FOR_INVOICE_SUCCESS:
+            return action.payload;
         default:
             return state;
     }
