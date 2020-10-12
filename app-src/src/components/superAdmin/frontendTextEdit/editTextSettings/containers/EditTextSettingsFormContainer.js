@@ -18,12 +18,9 @@ const EditTextSettingsFormContainer = ({
     loginText,
     registerText,
 }) => {
-    console.log(loginText);
-    console.log(registerText);
-
     const [formData, handleChange] = useForm({
-        loginText: loginText.text || '',
-        registerText: registerText.text || '',
+        loginText: loginText || '',
+        registerText: registerText || '',
     });
 
     useEffect(() => {

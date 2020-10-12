@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { convertArrToObj } from 'helpers/generic';
 
 import {
     ADMIN_FETCH_LOGIN_TEXT_REQUEST,
@@ -18,6 +19,7 @@ export default combineReducers({
     registerText: registerTextReducer,
     loginText: loginTextReducer,
     isPosting: isPostingReducer,
+    postSuccess: postSuccessReducer,
 });
 
 function errorReducer(state = null, action) {
@@ -73,6 +75,18 @@ function isPostingReducer(state = false, action) {
         case ADMIN_UPDATE_FRONTEND_TEXT_REQUEST:
             return true;
         case ADMIN_UPDATE_FRONTEND_TEXT_SUCCESS:
+        case ADMIN_UPDATE_FRONTEND_TEXT_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case ADMIN_UPDATE_FRONTEND_TEXT_SUCCESS:
+            return true;
+        case ADMIN_UPDATE_FRONTEND_TEXT_REQUEST:
         case ADMIN_UPDATE_FRONTEND_TEXT_FAILURE:
             return false;
         default:
