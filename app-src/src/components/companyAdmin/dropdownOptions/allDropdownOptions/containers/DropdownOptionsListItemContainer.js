@@ -15,7 +15,7 @@ class DropdownOptionsListItemContainer extends Component {
                 id={option.id}
                 option={option}
                 onMove={moveItem}
-                onDrop={() => this.handlePostDropdownOptionsSort()}
+                onDrop={this.handlePostDropdownOptionsSort}
                 colCount={colCount}
                 handleEditOptionModal={this.handleEditOptionModal}
                 handleToggleEnable={this.handleToggleEnable}

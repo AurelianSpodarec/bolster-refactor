@@ -22,6 +22,7 @@ class OptionValuesListItemContainer extends Component {
             index,
             moveItem,
             match: { url },
+            isSorting,
         } = this.props;
         const selectedServiceNames = services
             .reduce((acc, currService) => {
@@ -43,8 +44,9 @@ class OptionValuesListItemContainer extends Component {
                 selectedServiceNames={selectedServiceNames}
                 index={index}
                 onMove={moveItem}
-                onDrop={() => this.handlePostOptionValuesSort()}
+                onDrop={this.handlePostOptionValuesSort}
                 url={url}
+                isSorting={isSorting}
             />
         );
     }
@@ -71,24 +73,22 @@ class OptionValuesListItemContainer extends Component {
     };
 }
 
+const mapState = (
+    {
+        shared: {
+            mobileReducer: { onMobile },
+            sortReducer: { isSorting },
+        },
+    },
+    { match: { params } },
+) => ({
+    onMobile,
+    params,
+    isSorting,
+});
 const mapDispatchToProps = {
     showModal,
     postManufacturerOptionValuesSort,
 };
 
-export default withRouter(
-    connect(
-        (
-            {
-                shared: {
-                    mobileReducer: { onMobile },
-                },
-            },
-            { match: { params } },
-        ) => ({
-            onMobile,
-            params,
-        }),
-        mapDispatchToProps,
-    )(OptionValuesListItemContainer),
-);
+export default withRouter(connect(mapState, mapDispatchToProps)(OptionValuesListItemContainer));

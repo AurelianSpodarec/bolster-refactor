@@ -1,19 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import OptionValuesListItemContainer from '../containers/OptionValuesListItemContainer';
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 
-const OptionValuesList = ({
-    optionValues,
-    colCount,
-    headers,
-    services,
-    forwardRef,
-    isOver,
-    moveItem,
-}) => {
+const OptionValuesList = ({ optionValues, colCount, headers, services, forwardRef, moveItem }) => {
+    const isSorting = useSelector(state => state.shared.sortReducer.isSorting);
+
     return (
-        <tbody ref={forwardRef} className={isOver ? 'dragging' : ''}>
+        <tbody ref={forwardRef} className={isSorting ? 'sorting' : ''}>
             {optionValues.map((optionValue, i) => (
                 <OptionValuesListItemContainer
                     key={optionValue.id}

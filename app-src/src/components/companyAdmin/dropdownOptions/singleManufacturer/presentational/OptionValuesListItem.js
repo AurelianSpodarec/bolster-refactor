@@ -13,57 +13,59 @@ const OptionValuesListItem = ({
     handleToggleEnable,
     forwardRef,
     isDragging,
-    isCustomSort,
-}) => (
-    <tr
-        ref={isCustomSort ? forwardRef : null}
-        className={isCustomSort ? 'draggable' : ''}
-        style={{ opacity: isDragging ? 0 : 1 }}
-    >
-        <td>
-            {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
-            {optionValue.name}
-        </td>
+    connectDropTarget,
+    isSorting,
+}) => {
+    let rowClass = 'draggable';
+    if (isDragging) rowClass += ' dragging';
 
-        <td>
-            {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-            {selectedServiceNames}
-        </td>
-        <td>
-            {onMobile && <span className="mobile-table-heading">Actions</span>}
-            <BlockButtonWrapper>
-                {!optionValue.isDefault && (
-                    <button
-                        onClick={() => handleEditOptionValueModal(optionValue)}
-                        className="button yellow"
-                    >
-                        <i className="far fa-pencil" />
-                        Edit
-                    </button>
-                )}
-                <button
-                    onClick={handleToggleEnable}
-                    className={`button ${optionValue.isEnabled ? 'red' : 'green'}`}
-                >
-                    {optionValue.isEnabled ? (
-                        <>
-                            <i className="fa fa-minus fa-fw" />
-                            Disable
-                        </>
-                    ) : (
-                        <>
-                            <i className="fa fa-plus fa-fw" />
-                            Enable
-                        </>
+    return connectDropTarget(
+        <tr ref={isSorting ? forwardRef : null} className={rowClass}>
+            <td>
+                {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
+                {optionValue.name}
+            </td>
+
+            <td>
+                {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
+                {selectedServiceNames}
+            </td>
+            <td>
+                {onMobile && <span className="mobile-table-heading">Actions</span>}
+                <BlockButtonWrapper>
+                    {!optionValue.isDefault && (
+                        <button
+                            onClick={() => handleEditOptionValueModal(optionValue)}
+                            className="button yellow"
+                        >
+                            <i className="far fa-pencil" />
+                            Edit
+                        </button>
                     )}
-                </button>
-                <Link to={`${url}/${optionValue.id}/documents`} className="button">
-                    <i className="fa fa-eye fa-fw" />
-                    Documents
-                </Link>
-            </BlockButtonWrapper>
-        </td>
-    </tr>
-);
+                    <button
+                        onClick={handleToggleEnable}
+                        className={`button ${optionValue.isEnabled ? 'red' : 'green'}`}
+                    >
+                        {optionValue.isEnabled ? (
+                            <>
+                                <i className="fa fa-minus fa-fw" />
+                                Disable
+                            </>
+                        ) : (
+                            <>
+                                <i className="fa fa-plus fa-fw" />
+                                Enable
+                            </>
+                        )}
+                    </button>
+                    <Link to={`${url}/${optionValue.id}/documents`} className="button">
+                        <i className="fa fa-eye fa-fw" />
+                        Documents
+                    </Link>
+                </BlockButtonWrapper>
+            </td>
+        </tr>,
+    );
+};
 
 export default withDrag(OptionValuesListItem, 'MANUFACTURER_OPTION_VALUES');
