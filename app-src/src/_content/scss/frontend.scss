@@ -1,5 +1,6 @@
 $header-height: 95px;
 $footer-height: 173px;
+$back-to-top-height: 35px;
 
 #frontend-site {
     position: relative;
@@ -980,7 +981,14 @@ $footer-height: 173px;
     // how it works
     #how-it-works {
         .how-it-works-sections {
-            margin-bottom: 75px;
+            height: calc(100vh - #{$header-height} - #{$footer-height} - #{$back-to-top-height});;
+            padding-bottom: 75px;
+            overflow: auto;
+            scrollbar-width: none;
+        }
+
+        .how-it-works-sections::-webkit-scrollbar {
+            display: none;
         }
 
         .section {
@@ -1340,6 +1348,13 @@ $footer-height: 173px;
                 h4, p {
                     font-size: 150%;
                 }
+            }
+        }
+
+        @include devices(lsTablet) {
+            .how-it-works-sections {
+                height: auto;
+                overflow: visible;
             }
         }
     }
