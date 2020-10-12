@@ -3,6 +3,7 @@ import SecondSlide from '_content/videos/frontend/home2.mp4';
 import ThirdSlide from '_content/videos/frontend/home3.mp4';
 import FourthSlide from '_content/videos/frontend/home4.mp4';
 import FifthSlide from '_content/videos/frontend/home5.mp4';
+import PromotionalVideo from '_content/videos/frontend/PromotionalVideo.mp4';
 
 export const HomeSlidesList = [
     {
@@ -11,6 +12,7 @@ export const HomeSlidesList = [
         buttonText: 'Contact',
         background: FirstSlide,
         backgroundLoop: false,
+        fullVideo: PromotionalVideo,
         link: '/contact',
     },
     {
@@ -19,6 +21,7 @@ export const HomeSlidesList = [
         buttonText: 'Our System',
         background: SecondSlide,
         backgroundLoop: false,
+        fullVideo: null,
         link: '/our-system',
     },
     {
@@ -27,6 +30,7 @@ export const HomeSlidesList = [
         buttonText: 'About us',
         background: ThirdSlide,
         backgroundLoop: false,
+        fullVideo: null,
         link: '/about-us',
     },
     {
@@ -35,6 +39,7 @@ export const HomeSlidesList = [
         buttonText: 'Our System',
         background: FourthSlide,
         backgroundLoop: false,
+        fullVideo: null,
         link: '/our-system',
     },
     {
@@ -43,6 +48,7 @@ export const HomeSlidesList = [
         buttonText: 'Request a demo',
         background: FifthSlide,
         backgroundLoop: false,
+        fullVideo: null,
         link: '/contact',
     },
 ];
