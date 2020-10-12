@@ -9,9 +9,15 @@ const HowItWorksTimelineContainer = () => {
     const activeIndexRef = useRef(activeIndex);
 
     useEffect(() => {
-        window.addEventListener('scroll', setActiveTimelineItem);
+        let section = window;
 
-        return () => window.removeEventListener('scroll', setActiveTimelineItem);
+        if (window.innerWidth >= 1100) {
+            section = document.getElementById('how-it-works-sections');
+        }
+
+        section.addEventListener('scroll', setActiveTimelineItem);
+
+        return () => section.removeEventListener('scroll', setActiveTimelineItem);
     }, []);
 
     return <HowItWorksTimeline items={items} activeIndex={activeIndex} />;
@@ -34,7 +40,11 @@ const HowItWorksTimelineContainer = () => {
 
         const indexOfClosest = topValues.indexOf(closestToCenter);
 
-        if (footerBounds.bottom <= window.innerHeight && activeIndexRef.current !== indexOfLast) {
+        if (
+            footerBounds.bottom <= window.innerHeight &&
+            activeIndexRef.current !== indexOfLast &&
+            window.innerWidth < 1100
+        ) {
             setActiveIndex(indexOfLast);
             return;
         }

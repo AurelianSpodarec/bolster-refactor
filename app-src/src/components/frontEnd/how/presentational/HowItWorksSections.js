@@ -4,7 +4,10 @@ import HowItWorksTimelineContainer from '../containers/HowItWorksTimelineContain
 import HowItWorksHeadings from './HowItWorksHeadings';
 
 const HowItWorksSections = ({ innerScrollable }) => (
-    <div className={`how-it-works-sections ${innerScrollable ? 'scrollable' : ''}`}>
+    <div
+        id="how-it-works-sections"
+        className={`how-it-works-sections ${innerScrollable ? 'scrollable' : ''}`}
+    >
         <HowItWorksHeadings />
         <HowItWorksTimelineContainer />
     </div>
