@@ -25,6 +25,7 @@ import manufacturersReducer from './manufacturers';
 import manufacturersOptionValuesReducer from './manufacturersOptionValues';
 import optionValueDocumentsReducer from './optionValueDocuments';
 import userGuideReducer from './userGuide';
+import frontendTextSettingsReducer from './frontendTextSettings';
 
 export default combineReducers({
     adminServicesReducer,
@@ -52,4 +53,5 @@ export default combineReducers({
     templateQuestionFormReducer,
     usersReducer,
     userGuideReducer,
+    frontendTextSettingsReducer,
 });
