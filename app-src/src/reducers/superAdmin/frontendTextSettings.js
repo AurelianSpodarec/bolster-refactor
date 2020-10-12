@@ -66,7 +66,7 @@ function isPostingReducer(state = false, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case ADMIN_UPDATE_FRONTEND_TEXT_SUCCESS:
-            return true;
+            return action.payload;
         case ADMIN_UPDATE_FRONTEND_TEXT_REQUEST:
         case ADMIN_UPDATE_FRONTEND_TEXT_FAILURE:
             return false;
