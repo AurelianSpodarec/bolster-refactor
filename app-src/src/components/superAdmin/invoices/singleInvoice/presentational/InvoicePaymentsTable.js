@@ -8,14 +8,15 @@ const InvoicePaymentsTable = ({
     headers,
     isFetching,
     error,
-    handleShowModal
+    handleShowModal,
+    companies,
 }) => (
     <Table
         withActions
         headers={headers}
         isFetching={isFetching}
         error={error}
-        noData={!invoicePayments.length}
+        noData={!invoicePayments.length || !companies.length}
         noDataMessage="No items to display"
     >
         <InvoicePaymentsList

@@ -9,6 +9,7 @@ import fetchInvoicesBySearch from 'actions/superAdmin/invoices/async/fetchInvoic
 class SuperAdminInvoicesContainer extends Component {
     render = () => {
         const { isFetching, error, invoices, companies } = this.props;
+
         return (
             <SuperAdminInvoices
                 isFetching={isFetching}
