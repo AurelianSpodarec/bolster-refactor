@@ -2726,6 +2726,14 @@ $back-to-top-height: 35px;
                         &:hover {
                             opacity: 0.75;
                         }
+
+                        @include devices(lgMobile) {
+                            width: 120px;
+                        }
+
+                        @include devices(smMobile) {
+                            width: 90px;
+                        }
                     }
 
                     .mute-button {
