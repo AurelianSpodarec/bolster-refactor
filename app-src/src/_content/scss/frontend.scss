@@ -2037,13 +2037,13 @@ $back-to-top-height: 35px;
     position: absolute;
     background-color: #3C3C3C;
     height: 100%;
-    width: 100%;
+    width: 60%;
 
  }     
  .auth-background-video {
      position: absolute;
      height: 100%;
-     width: 100%;
+     width: 60%;
      opacity: 0.09;
      object-fit: fill;
  }
@@ -2101,7 +2101,7 @@ $back-to-top-height: 35px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 40%;;
+    width: 40%;
     min-height: 100%;
     background-color: white;
     
