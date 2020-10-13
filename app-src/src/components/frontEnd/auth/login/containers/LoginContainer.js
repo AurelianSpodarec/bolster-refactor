@@ -5,12 +5,12 @@ import fetchAuthAreaText from 'actions/frontEnd/auth/fetchAuthAreaText';
 import Login from '../presentational/Login';
 
 const LoginContainer = ({ fetchAuthAreaText, auth, isFetching, error }) => {
-    const { registerText } = auth;
+    const { loginText } = auth;
     useEffect(() => {
         fetchAuthAreaText();
     }, []);
 
-    return <Login registerText={registerText} isFetching={isFetching} error={error} />;
+    return <Login loginText={loginText} isFetching={isFetching} error={error} />;
 };
 
 const mapStateToProps = ({

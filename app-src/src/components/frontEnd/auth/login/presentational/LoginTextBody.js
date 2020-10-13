@@ -1,10 +1,10 @@
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import React from 'react';
 
-const LoginTextBody = ({ registerText, error, isFetching }) => {
+const LoginTextBody = ({ loginText, error, isFetching }) => {
     return (
         <BlockContainer noWhiteBackground error={error} isFetching={isFetching}>
-            <p>{registerText}</p>
+            <p>{loginText}</p>
         </BlockContainer>
     );
 };

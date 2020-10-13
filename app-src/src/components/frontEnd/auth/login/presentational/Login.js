@@ -5,7 +5,7 @@ import LoginFormContainer from '../containers/LoginFormContainer';
 import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
 import LoginTextBody from './LoginTextBody';
 
-const Login = ({ registerText, error, isFetching }) => {
+const Login = ({ loginText, error, isFetching }) => {
     return (
         <>
             <Helmet title="Login" />
@@ -24,7 +24,7 @@ const Login = ({ registerText, error, isFetching }) => {
                             </heading>
                         </div>
                         <LoginTextBody
-                            registerText={registerText}
+                            loginText={loginText}
                             error={error}
                             isFetching={isFetching}
                         />
