@@ -27,6 +27,7 @@ const HomeSlidesItem = forwardRef(
     ) => {
         const [initVideoFinished, setInitVideoFinished] = useState(false);
         const [playingFullVideo, setPlayingFullVideo] = useState(false);
+        const [fullVideoMuted, setFullVideoMuted] = useState(true);
         const [videoRef, isSlideIntersecting] = useVideoShouldPlay();
 
         const prevProps = usePrevious({ isSlideIntersecting });
@@ -55,13 +56,18 @@ const HomeSlidesItem = forwardRef(
                         {fullVideo && (
                             <div className="full-video-container">
                                 {playingFullVideo && (
-                                    <video
-                                        autoPlay
-                                        className={`video-bg ${index}`}
-                                        onEnded={() => setPlayingFullVideo(false)}
-                                    >
-                                        <source src={fullVideo} type="video/mp4" />
-                                    </video>
+                                    <>
+                                        <video
+                                            autoPlay
+                                            className={`video-bg ${index}`}
+                                            muted={fullVideoMuted}
+                                            onEnded={() => setPlayingFullVideo(false)}
+                                        >
+                                            <source src={fullVideo} type="video/mp4" />
+                                        </video>
+
+                                        <i className={`mute-button fa fa-fw ${fullVideoMuted ? 'fa-volume-slash' : 'fa-volume-up'}`} onClick={() => setFullVideoMuted(!fullVideoMuted)} />
+                                    </>
                                 )}
 
                                 {initVideoFinished && !playingFullVideo && (
@@ -103,13 +109,18 @@ const HomeSlidesItem = forwardRef(
                     {fullVideo && (
                         <div className="full-video-container">
                             {playingFullVideo && (
-                                <video
-                                    autoPlay
-                                    className={`video-bg ${index}`}
-                                    onEnded={() => setPlayingFullVideo(false)}
-                                >
-                                    <source src={fullVideo} type="video/mp4" />
-                                </video>
+                                <>
+                                    <video
+                                        autoPlay
+                                        className={`video-bg ${index}`}
+                                        muted={fullVideoMuted}
+                                        onEnded={() => setPlayingFullVideo(false)}
+                                    >
+                                        <source src={fullVideo} type="video/mp4" />
+                                    </video>
+
+                                    <i className={`mute-button fa fa-fw ${fullVideoMuted ? 'fa-volume-slash' : 'fa-volume-up'}`} onClick={() => setFullVideoMuted(!fullVideoMuted)} />
+                                </>
                             )}
 
                             {initVideoFinished && !playingFullVideo && (

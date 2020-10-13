@@ -4,7 +4,7 @@ import ArrowIcon from '_content/images/frontend-new/banners/banner-arrow.png';
 
 const FrontEndBanner = ({ video = '', heading = '', description = '' }) => (
     <div className="frontend-banner">
-        <video className="video" autoPlay="autoplay" loop muted>
+        <video className="video" autoPlay="autoplay" playsInline loop muted>
             <source src={video} type="video/mp4" />
         </video>
 

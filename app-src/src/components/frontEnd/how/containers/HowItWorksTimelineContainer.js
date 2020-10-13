@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Events, animateScroll as scroll, scrollSpy } from 'react-scroll';
 
 import items from 'constants/frontEnd/timeline';
 
@@ -7,20 +8,60 @@ import HowItWorksTimeline from '../presentational/HowItWorksTimeline';
 const HowItWorksTimelineContainer = () => {
     const [activeIndex, _setActiveIndex] = useState(0);
     const activeIndexRef = useRef(activeIndex);
+    const lastScrollTopRef = useRef(window.pageYOffset || document.documentElement.scrollTop);
 
     useEffect(() => {
         let section = window;
 
         if (window.innerWidth >= 1100) {
             section = document.getElementById('how-it-works-sections');
+
+            section.addEventListener('scroll', scrollToTop);
+            Events.scrollEvent.register('begin', function () {
+                window.removeEventListener('scroll', scrollToTop);
+            });
+
+            Events.scrollEvent.register('end', function () {
+                window.addEventListener('scroll', scrollToTop);
+                setLastScrollTop(window.pageYOffset || document.documentElement.scrollTop);
+            });
         }
 
         section.addEventListener('scroll', setActiveTimelineItem);
 
-        return () => section.removeEventListener('scroll', setActiveTimelineItem);
+        return () => {
+            Events.scrollEvent.remove('begin');
+            Events.scrollEvent.remove('end');
+            window.removeEventListener('scroll', scrollToTop);
+            section.removeEventListener('scroll', setActiveTimelineItem);
+        };
     }, []);
 
     return <HowItWorksTimeline items={items} activeIndex={activeIndex} />;
+
+    function scrollToTop() {
+        const headerHeight = document.querySelector('.frontend-header').offsetHeight;
+        const howItWorksSections = document.querySelector('.how-it-works-headings');
+        const { top } = howItWorksSections.getBoundingClientRect();
+        const duration = 1100;
+
+        const newScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        const scrollOptions = {
+            duration,
+            ignoreCancelEvents: true,
+        };
+
+        if (top >= headerHeight) {
+            scroll.scrollToTop(scrollOptions);
+        }
+
+        setLastScrollTop(newScrollTop <= 0 ? 0 : newScrollTop); // For Mobile or negative scrolling
+    }
+
+    function setLastScrollTop(value) {
+        lastScrollTopRef.current = value;
+    }
 
     function setActiveTimelineItem() {
         const halfWindowHeight = window.innerHeight / 2 - 150;

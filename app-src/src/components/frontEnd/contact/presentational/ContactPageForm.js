@@ -12,7 +12,7 @@ const ContactPageForm = ({ form, handleChange, handleSubmit, sent, isPosting }) 
     if (sent) {
         return (
             <div className="sent-message-wrapper">
-                <p>Thank you, we will be in touch shortly.</p>
+                <p>Thank you! We will be in touch shortly.</p>
             </div>
         );
     }

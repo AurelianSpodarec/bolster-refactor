@@ -32,7 +32,6 @@ const RegisterFormContainer = ({
     isPosting,
     error,
     showModal,
-    filesUploading,
 }) => {
     const [page, setPage] = useState(1);
     const [nextDisabled, setNextDisabled] = useState(true);
@@ -124,7 +123,6 @@ const RegisterFormContainer = ({
             isPosting={isPosting}
             nextDisabled={nextDisabled}
             tickboxError={tickboxError}
-            filesUploading={filesUploading}
         />
     );
 
@@ -201,9 +199,7 @@ const RegisterFormContainer = ({
             },
         };
 
-        if (!filesUploading) {
-            postRegister(postBody);
-        }
+        postRegister(postBody);
     }
 
     function validatePassword(password) {
@@ -272,7 +268,6 @@ const mapStateToProps = ({
         registerReducer: { error, postSuccess, isPosting },
         loginReducer: { postSuccess: loginSuccess },
         fieldErrorsReducer: { fieldErrors },
-        filesUploadingReducer: { filesUploading },
     },
 }) => ({
     timezones: Object.values(timeZones) || [],
@@ -282,7 +277,6 @@ const mapStateToProps = ({
     loginSuccess,
     fieldErrors,
     isPosting,
-    filesUploading,
 });
 
 const mapDispatchToProps = {

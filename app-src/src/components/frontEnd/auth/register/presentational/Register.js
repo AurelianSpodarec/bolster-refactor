@@ -3,8 +3,9 @@ import React from 'react';
 import RegisterFormContainer from '../containers/RegisterFormContainer';
 import ServerRoomBackgroundVideo from '_content/videos/frontend/Server_Room.mp4';
 import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
+import RegisterTextBody from './RegisterTextBody';
 
-const Register = () => {
+const Register = ({ registerText, error, isFetching }) => {
     return (
         <>
             <Helmet title="Register" />
@@ -20,21 +21,11 @@ const Register = () => {
                                 <h1>Registering with Bolster Systems</h1>
                             </heading>
                         </div>
-                        <p>
-                            Neque porro quisquam est qui do lorem amet
-                            <br />
-                            <br />
-                            At vero eos et accusamus et iusto odio dignissimos ducimus qui
-                            blanditiis praesentium voluptatum deleniti atque corrupti quos.
-                            <br />
-                            <br />
-                            Dolores et quas molestias excepturi sint occaecati cupiditate non
-                            provident, similique sunt in culpa qui officia deserunt mollitia animi,
-                            id est laborum et dolorum fuga.
-                            <br />
-                            <br />
-                            Et harum quidem rerum facilis est et expedita distinctio.
-                        </p>
+                        <RegisterTextBody
+                            registerText={registerText}
+                            error={error}
+                            isFetching={isFetching}
+                        />
                     </div>
                     <RegisterFormContainer />
                 </div>

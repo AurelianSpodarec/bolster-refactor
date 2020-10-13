@@ -981,8 +981,7 @@ $back-to-top-height: 35px;
     // how it works
     #how-it-works {
         .how-it-works-sections {
-            height: calc(100vh - #{$header-height} - #{$footer-height} - #{$back-to-top-height});;
-            padding-bottom: 75px;
+            height: calc(100vh - #{$header-height} - #{$footer-height} - #{$back-to-top-height});
             overflow: auto;
             scrollbar-width: none;
         }
@@ -1046,8 +1045,10 @@ $back-to-top-height: 35px;
 
             @include devices(smDesktop) {
                 .item {
+                    padding-left: 0;
+
                     img {
-                        width: 200px;
+                        width: 150px;
                     }
 
                     h3 {
@@ -1062,9 +1063,6 @@ $back-to-top-height: 35px;
 
             @include devices(xsDesktop) {
                 .item {
-                    img {
-                        width: 80px;
-                    }
 
                     h3 {
                         font-size: 220%;
@@ -1082,24 +1080,22 @@ $back-to-top-height: 35px;
                 .item {
                     flex: auto;
                     width: 50%;
-                    margin: 30px 0;
-                    padding-left: 100px;
-                }
-            }
-
-            @include devices(ptTablet) {
-                .item {
-                    padding-left: 50px;
+                    margin: 20px 0;
                 }
             }
 
             @include devices(lgMobile) {
-                display: block;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
 
                 .item {
                     width: 100%;
-                    padding-left: 0;
 
+                    img {
+                        width: 100px;
+                    }
+                      
                     .text {
                         flex: auto;
                     }
@@ -1127,6 +1123,7 @@ $back-to-top-height: 35px;
 
         .timeline {
             min-height: 200px;
+            margin-bottom: 100px;
 
             .line-divider {
                 @include timeline-line();
@@ -1387,7 +1384,10 @@ $back-to-top-height: 35px;
             & > .heading {
                 margin-top: 35px;
                 & > p {
-                    margin: 0 0 25px 0;
+                    align-self: center;
+                    margin: 10px 0 50px 0;
+                    font-size: 220%;
+                    width: 63%;
                 }
             }
 
@@ -1458,7 +1458,7 @@ $back-to-top-height: 35px;
 
             & > p {
                 color: #ffffff;
-                font-size: 180%;
+                font-size: 240%;
             }
         }
 
@@ -1466,6 +1466,9 @@ $back-to-top-height: 35px;
             .contact-form-wrapper {
                 & > .heading {
                     padding-top: 50px;
+                    & > p {
+                        width: 80%;   
+                    }
                 }
 
                 .contact-section {
@@ -1483,6 +1486,9 @@ $back-to-top-height: 35px;
             .contact-form-wrapper {
                 & > .heading {
                     padding-top: 0;
+                    & > p {
+                        width: 90%;
+                    }
                 }
                 .contact-form {
                     flex: 1.5;
@@ -1526,11 +1532,12 @@ $back-to-top-height: 35px;
                     margin-top: 0;
                 }
                 & > .heading {
-                    margin-top: 0;
+                    margin: 0 0 25px 0;
                     padding-top: 25px;
 
                     & > p {
                         margin-bottom: 0;
+                        font-size: 160%;
                     }
                 }
 
@@ -1551,6 +1558,15 @@ $back-to-top-height: 35px;
                 .contact-info-wrapper {
                     padding: 50px 10px 0;
                     width: 100%;
+                }
+            }
+            .sent-message-wrapper {
+                margin-right: 0;
+
+                & > p {
+                    font-size: 200%;
+                    text-align: center;
+                    text-decoration: underline;
                 }
             }
         }
@@ -2087,12 +2103,8 @@ $back-to-top-height: 35px;
     }
 
     &.register {
-        .heading-body-wrapper{
-            margin: 104px 143px 0 137px;
-        }
-
-        .auth-heading{
-            margin-bottom: 25px;
+            .auth-heading {
+                margin-bottom: 25px;
         }
     }
 }
@@ -2142,15 +2154,16 @@ $back-to-top-height: 35px;
         flex-direction: column;
         align-items: center;
         margin-bottom: 15px;
+        height: 100px;
         
         & > h2 {
             @include opensans-semibold;
-            font-size: 400%; 
+            font-size: 350%; 
             color: black;
-            margin: 20px 0 10px;
+            margin: 20px 0 5px;
         }
         & > p {
-            font-size: 300%;
+            font-size: 280%;
             color: #888888
         }
     
@@ -2722,6 +2735,29 @@ $back-to-top-height: 35px;
                         cursor: pointer;
                         opacity: 0.4;
                         transition: opacity 0.3s;
+
+                        &:hover {
+                            opacity: 0.75;
+                        }
+
+                        @include devices(lgMobile) {
+                            width: 120px;
+                        }
+
+                        @include devices(smMobile) {
+                            width: 90px;
+                        }
+                    }
+
+                    .mute-button {
+                        position: absolute;
+                        top: 50px;
+                        right: 50px;
+                        font-size: 520%;
+                        color: white;
+                        opacity: 0.4;
+                        transition: opacity 0.3s;
+                        cursor: pointer;
 
                         &:hover {
                             opacity: 0.75;

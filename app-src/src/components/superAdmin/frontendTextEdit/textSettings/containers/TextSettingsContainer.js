@@ -4,24 +4,46 @@ import { connect } from 'react-redux';
 import TextSettings from '../presentational/TextSettings';
 import fetchFrontendText from 'actions/superAdmin/frontendSite/textSettings/async/fetchFrontendText';
 
-const TextSettingsContainer = ({ frontendText, fetchFrontendText }) => {
+const TextSettingsContainer = ({
+    frontendText,
+    fetchFrontendText,
+    isFetching,
+    error,
+    lastFetchedDate,
+}) => {
     const { loginText, registerText } = frontendText;
 
     useEffect(() => {
-        fetchFrontendText();
+        if (!lastFetchedDate) {
+            fetchFrontendText();
+        } else {
+            const diff = Date.now() - lastFetchedDate;
+
+            if (diff > 100) {
+                fetchFrontendText();
+            }
+        }
     }, []);
 
-    return <TextSettings loginText={loginText} registerText={registerText} />;
+    return (
+        <TextSettings
+            loginText={loginText}
+            registerText={registerText}
+            isFetching={isFetching}
+            error={error}
+        />
+    );
 };
 
 const mapStateToProps = ({
     superAdmin: {
-        frontendTextSettingsReducer: { frontendText, isFetching, postSuccess },
+        frontendTextSettingsReducer: { frontendText, error, isFetching, lastFetchedDate },
     },
 }) => ({
-    isFetching,
     frontendText,
-    postSuccess,
+    error,
+    isFetching,
+    lastFetchedDate,
 });
 
 const mapDispatchToProps = { fetchFrontendText };

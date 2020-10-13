@@ -6,7 +6,7 @@ import DocumentIcon from '_content/images/frontend-new/how-it-works/document.png
 import ManageIcon from '_content/images/frontend-new/how-it-works/manage.png';
 
 const HowItWorksHeadings = () => (
-    <div className="section">
+    <div className="section how-it-works-headings">
         <div className="headings-area">
             <div className="item">
                 <div className="icon">
