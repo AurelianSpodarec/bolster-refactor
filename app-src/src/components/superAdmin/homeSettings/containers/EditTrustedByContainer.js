@@ -9,7 +9,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import Block from 'components/shared/generic/block/presentational/Block';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import EditTrustedBy from '../presentational/EditTrustedBy';
-import { orderTrustedByArr } from 'helpers/generic';
+import { getOrderObjId } from 'helpers/generic';
 
 const EditTrustedByContainer = () => {
     const dispatch = useDispatch();
@@ -39,18 +39,22 @@ const EditTrustedByContainer = () => {
 
     const handleSubmit = event => {
         const fieldName = event.target.classList[1];
-        const orderNumber = Number(fieldName.slice(fieldName.length - 1)) + 1;
-        // const dataArr = getOrderObjId(trustedBy);
         const { name, file } = formValues[fieldName];
-        if (!name || !file) return;
+        if (!file) return;
+
+        const orderNumber = Number(fieldName.slice(fieldName.length - 1)) + 1;
+        const deleteId = getOrderObjId(trustedBy, orderNumber);
 
         const body = {
-            Name: name,
+            Name: name || 'Temp Name',
             S3Key: file,
             Order: orderNumber,
         };
 
-        // dispatch(deleteFrontendTrustedBy());
+        if (deleteId) {
+            dispatch(deleteFrontendTrustedBy(deleteId));
+        }
+
         dispatch(uploadFrontendTrustedBy(body));
         handleClearInput(fieldName);
     };

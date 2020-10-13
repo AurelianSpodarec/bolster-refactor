@@ -308,3 +308,15 @@ export const orderTrustedByArr = (arr, maxLength = 5) => {
             return item ? [...result, item] : [...result, null];
         }, []);
 };
+
+export const getOrderObjId = (arr, deleteOrder) => {
+    if (!arr || !arr.length) return null;
+
+    const formattedArr = orderTrustedByArr(arr);
+
+    const objId = find(formattedArr, value => {
+        if (value) return value.order === deleteOrder;
+    });
+
+    return objId ? objId.id : null;
+};
