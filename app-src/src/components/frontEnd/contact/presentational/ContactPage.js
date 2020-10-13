@@ -11,7 +11,13 @@ const ContactPage = () => {
             <Helmet title="Contact" />
             <div id="contact">
                 <div className="contact-background"></div>
-                <video className="contact-background-video" autoPlay="autoplay" loop muted>
+                <video
+                    className="contact-background-video"
+                    autoPlay="autoplay"
+                    loop
+                    muted
+                    playsInline
+                >
                     <source src={ServerRoomBackgroundVideo} type="video/mp4" />
                 </video>
                 <div className="contact-form-wrapper">
