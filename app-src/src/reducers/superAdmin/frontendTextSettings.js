@@ -15,6 +15,7 @@ export default combineReducers({
     frontendText: frontendTextReducer,
     isPosting: isPostingReducer,
     postSuccess: postSuccessReducer,
+    lastFetchedDate: lastFetchedDateReducer,
 });
 
 function errorReducer(state = null, action) {
@@ -45,6 +46,7 @@ function isFetchingReducer(state = false, action) {
 function frontendTextReducer(state = {}, action) {
     switch (action.type) {
         case ADMIN_FETCH_FRONTEND_TEXT_SUCCESS:
+        case ADMIN_UPDATE_FRONTEND_TEXT_SUCCESS:
             return action.payload;
         default:
             return state;
@@ -66,10 +68,20 @@ function isPostingReducer(state = false, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case ADMIN_UPDATE_FRONTEND_TEXT_SUCCESS:
-            return action.payload;
+            return true;
         case ADMIN_UPDATE_FRONTEND_TEXT_REQUEST:
         case ADMIN_UPDATE_FRONTEND_TEXT_FAILURE:
             return false;
+        default:
+            return state;
+    }
+}
+
+function lastFetchedDateReducer(state = null, action) {
+    switch (action.type) {
+        case ADMIN_FETCH_FRONTEND_TEXT_SUCCESS:
+        case ADMIN_UPDATE_FRONTEND_TEXT_SUCCESS:
+            return Date.now();
         default:
             return state;
     }
