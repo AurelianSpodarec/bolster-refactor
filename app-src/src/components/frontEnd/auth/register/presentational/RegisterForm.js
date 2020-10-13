@@ -12,7 +12,6 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 import Select from 'components/shared/generic/form/presentational/Select';
 import { needsVatCode } from 'constants/shared/vatTypes';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
-import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 
 const RegisterForm = ({
     handleSubmit,
@@ -254,14 +253,6 @@ const RegisterForm = ({
                             handleChange={handleChange}
                             classes="auth-text-input-container"
                             required
-                        />
-                    </Field>
-                    <Field name="Add a Company Logo" classes="auth-form-field wide">
-                        <FileUploadContainer
-                            name="logoFile"
-                            value={logoFile}
-                            acceptedTypes={['application/pdf', 'image/*']}
-                            handleChange={handleChange}
                         />
                     </Field>
                     <Field required classes="auth-form-field wide terms-input">
