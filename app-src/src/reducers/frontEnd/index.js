@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+import authReducer from './auth';
 import contactReducer from './contact';
 import drawingsReducer from './drawings';
 import pinsReducer from './pins';
@@ -10,4 +11,5 @@ export default combineReducers({
     drawingsReducer,
     pinsReducer,
     layoutReducer,
+    authReducer,
 });

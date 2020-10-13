@@ -2087,12 +2087,8 @@ $back-to-top-height: 35px;
     }
 
     &.register {
-        .heading-body-wrapper{
-            margin: 104px 143px 0 137px;
-        }
-
-        .auth-heading{
-            margin-bottom: 25px;
+            .auth-heading {
+                margin-bottom: 25px;
         }
     }
 }
@@ -2142,15 +2138,16 @@ $back-to-top-height: 35px;
         flex-direction: column;
         align-items: center;
         margin-bottom: 15px;
+        height: 100px;
         
         & > h2 {
             @include opensans-semibold;
-            font-size: 400%; 
+            font-size: 350%; 
             color: black;
-            margin: 20px 0 10px;
+            margin: 20px 0 5px;
         }
         & > p {
-            font-size: 300%;
+            font-size: 280%;
             color: #888888
         }
     

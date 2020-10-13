@@ -9,9 +9,9 @@ import ContactPage from 'components/frontEnd/contact/presentational/ContactPage'
 import ShareLinkDrawingContainer from 'components/frontEnd/drawingShareLinks/containers/ShareLinkDrawingContainer';
 import QRCodesPageRedirect from 'components/frontEnd/qrCodes/containers/QRCodesPageRedirect';
 import QRCodesPage from 'components/frontEnd/qrCodes/presentational/QRCodesPage';
-import Login from 'components/frontEnd/auth/login/presentational/Login';
+import LoginContainer from 'components/frontEnd/auth/login/containers/LoginContainer';
 import WhyUseOurSystem from 'components/frontEnd/whyUseOurSystem/presentational/WhyUseOurSystem';
-import Register from 'components/frontEnd/auth/register/presentational/Register';
+import RegisterContainer from 'components/frontEnd/auth/register/containers/RegisterContainer';
 import PageNotFoundContainer from 'components/frontEnd/404/containers/404PageContainer';
 import TermsContainer from 'components/frontEnd/termsAndConditions/containers/Ts&CsContainer';
 
@@ -32,8 +32,8 @@ const FrontEndRoutes = ({ base = '/' }) => (
         <Route path={`${base}qr/pin`} component={QRCodesPageRedirect} />
         <Route path={`${base}qrcode`} component={QRCodesPage} />
 
-        <Route exact path={`${base}auth/Login`} component={Login} />
-        <Route exact path={`${base}auth/register`} component={Register} />
+        <Route exact path={`${base}auth/Login`} component={LoginContainer} />
+        <Route exact path={`${base}auth/register`} component={RegisterContainer} />
         <Route exact path={`${base}auth/terms`} component={TermsContainer} />
         <Route exact path={`${base}auth/privacy-policy`} component={TermsContainer} />
     </SwitchWith404>
