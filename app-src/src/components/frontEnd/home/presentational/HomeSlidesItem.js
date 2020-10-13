@@ -66,7 +66,7 @@ const HomeSlidesItem = forwardRef(
                                             <source src={fullVideo} type="video/mp4" />
                                         </video>
 
-                                        <i className={`mute-button fa ${fullVideoMuted ? 'fa-volume-slash' : 'fa-volume'}`} onClick={() => setFullVideoMuted(!fullVideoMuted)} />
+                                        <i className={`mute-button fa fa-fw ${fullVideoMuted ? 'fa-volume-slash' : 'fa-volume-up'}`} onClick={() => setFullVideoMuted(!fullVideoMuted)} />
                                     </>
                                 )}
 
@@ -119,7 +119,7 @@ const HomeSlidesItem = forwardRef(
                                         <source src={fullVideo} type="video/mp4" />
                                     </video>
 
-                                    <i className={`mute-button fa ${fullVideoMuted ? 'fa-volume-slash' : 'fa-volume'}`} onClick={() => setFullVideoMuted(!fullVideoMuted)} />
+                                    <i className={`mute-button fa fa-fw ${fullVideoMuted ? 'fa-volume-slash' : 'fa-volume-up'}`} onClick={() => setFullVideoMuted(!fullVideoMuted)} />
                                 </>
                             )}
 
