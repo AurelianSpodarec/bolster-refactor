@@ -1,27 +1,26 @@
 import React from 'react';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
+import { FILE_STORAGE_URL } from 'config';
 
-const TrustedBy = () => {
+const TrustedBy = ({ data }) => {
+    console.log('data', data);
     return (
         <div className="trusted-by-settings-container">
             <div className="trusted-by-grid">
-                {Array(5)
-                    .fill(0)
-                    .map((item, index) => (
-                        <div key={index} className="trusted-by-grid-item-container">
-                            <div className="trusted-by-grid-item">
-                                <FileUploadContainer
-                                    name={`fileS3Key${index}`}
-                                    acceptedTypes={['image/*']}
-                                    required
-                                />
-                            </div>
-                            <TextInputContainer />
-                            <ButtonContainer>Save</ButtonContainer>
+                {data.map((item, index) => (
+                    <div key={index} className="trusted-by-grid-item-container">
+                        <div
+                            className="trusted-by-grid-item"
+                            style={{ backgroundImage: `url(${item ? item.s3Key : ''})` }}
+                        >
+                            {!item ? (
+                                'N/A'
+                            ) : (
+                                <img src={`${FILE_STORAGE_URL}/${item.s3Key}`} alt={item.name} />
+                            )}
                         </div>
-                    ))}
+                        <p>{!item ? 'N/A' : item.name}</p>
+                    </div>
+                ))}
             </div>
         </div>
     );

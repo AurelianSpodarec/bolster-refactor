@@ -2,7 +2,7 @@
 import React, { useEffect, useState, forwardRef } from 'react';
 import HomeCarouselControls from './HomeCarouselControls';
 import FrontEndFooterContainer from 'components/frontEnd/layout/footer/containers/FrontEndFooterContainer';
-import TrustedBy from 'components/frontEnd/trustedBy/presentational/TrustedBy';
+import TrustedByContainer from 'components/frontEnd/trustedBy/containers/TrustedByContainer';
 import BackToTopContainer from 'components/frontEnd/shared/backToTop/containers/BackToTopContainer';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 import { useVideoShouldPlay } from 'helpers/frontEndHooks';
@@ -137,7 +137,7 @@ const HomeSlidesItem = forwardRef(
                     last
                     handleClick={handleClick}
                 />
-                <TrustedBy />
+                <TrustedByContainer />
                 <BackToTopContainer handleClick={handleClick ? () => handleClick(0) : null} />
                 <FrontEndFooterContainer />
             </section>

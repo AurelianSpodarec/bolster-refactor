@@ -4,7 +4,7 @@ import {
     ADMIN_FETCH_TRUSTED_BY_REQUEST,
     ADMIN_FETCH_TRUSTED_BY_SUCCESS,
     ADMIN_FETCH_TRUSTED_BY_FAILURE,
-} from 'constants/actionTypes/homeSettings';
+} from 'constants/actionTypes/frontendTrustedBySettings';
 
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';

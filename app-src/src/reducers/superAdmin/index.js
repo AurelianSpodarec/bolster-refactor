@@ -26,6 +26,7 @@ import manufacturersOptionValuesReducer from './manufacturersOptionValues';
 import optionValueDocumentsReducer from './optionValueDocuments';
 import userGuideReducer from './userGuide';
 import frontendTextSettingsReducer from './frontendTextSettings';
+import frontendTrustedBySettingsReducer from './frontendTrustedBySettings';
 
 export default combineReducers({
     adminServicesReducer,
@@ -54,4 +55,5 @@ export default combineReducers({
     usersReducer,
     userGuideReducer,
     frontendTextSettingsReducer,
+    frontendTrustedBySettingsReducer,
 });
