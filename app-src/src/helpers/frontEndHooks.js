@@ -226,6 +226,7 @@ export const useLockOnModal = () => {
 };
 
 export const useVideoShouldPlay = () => {
+    const [isSlideIntersecting, setSlideIntersecting] = useState(null);
     const videoRef = useRef(null);
 
     useEffect(() => {
@@ -233,8 +234,11 @@ export const useVideoShouldPlay = () => {
             ([entry]) => {
                 const video = videoRef.current;
                 if (entry.isIntersecting) {
+                    setSlideIntersecting(true);
                     video.currentTime = 0;
                     video.play();
+                } else {
+                    setSlideIntersecting(false);
                 }
             },
             { threshold: 0.01 },
@@ -248,5 +252,5 @@ export const useVideoShouldPlay = () => {
         };
     }, []);
 
-    return videoRef;
+    return [videoRef, isSlideIntersecting];
 };

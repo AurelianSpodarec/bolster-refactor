@@ -49,6 +49,7 @@ const HomeSlidesCarouselContainer = ({ isMobile }) => {
                         <HomeSlidesItem
                             key={index}
                             background={item.background}
+                            fullVideo={item.fullVideo}
                             loop={item.backgroundLoop}
                             className={`slide${index + 1}`}
                             isLast={isLast}
