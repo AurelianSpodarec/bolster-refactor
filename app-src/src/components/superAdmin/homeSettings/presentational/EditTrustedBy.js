@@ -36,7 +36,10 @@ const EditTrustedBy = ({ values, handleTextChange, handleUploadChange, handleSub
                                 />
                             </Field>
                             <BlockButtonWrapper>
-                                <button className="button green">
+                                <button
+                                    disabled={!values[`trustedBy${index}`].file}
+                                    className="button green"
+                                >
                                     <i className="fa fa-plus" /> Save
                                 </button>
                             </BlockButtonWrapper>

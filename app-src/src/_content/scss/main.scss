@@ -5407,6 +5407,11 @@ input {
                     max-height: 75px;
                 }
             }
+
+            button:disabled {
+                background-color: #939393;
+                pointer-events: none;
+            }
         }
 
         .button {
