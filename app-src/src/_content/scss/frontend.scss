@@ -2727,6 +2727,21 @@ $back-to-top-height: 35px;
                             opacity: 0.75;
                         }
                     }
+
+                    .mute-button {
+                        position: absolute;
+                        top: 50px;
+                        right: 50px;
+                        font-size: 520%;
+                        color: white;
+                        opacity: 0.4;
+                        transition: opacity 0.3s;
+                        cursor: pointer;
+
+                        &:hover {
+                            opacity: 0.75;
+                        }
+                    }
                 }
     
                 .slide-content {
