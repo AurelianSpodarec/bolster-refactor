@@ -6,7 +6,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
-const TextEditor = ({ registerText, loginText }) => {
+const TextSettings = ({ registerText, loginText, isFetching, error }) => {
     return (
         <>
             <PageHeading title="Frontend Text Settings" withBackButton>
@@ -15,7 +15,7 @@ const TextEditor = ({ registerText, loginText }) => {
                     Edit Settings
                 </Link>
             </PageHeading>
-            <BlockContainer>
+            <BlockContainer isFetching={isFetching} error={error}>
                 <BlockHeading title="Frontend Text Settings" />
                 <FieldOutput title="Login page text" description={loginText} />
                 <FieldOutput title="Register page text" description={registerText} />
@@ -24,4 +24,4 @@ const TextEditor = ({ registerText, loginText }) => {
     );
 };
 
-export default TextEditor;
+export default TextSettings;
