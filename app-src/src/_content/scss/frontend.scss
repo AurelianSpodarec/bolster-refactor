@@ -1046,8 +1046,10 @@ $back-to-top-height: 35px;
 
             @include devices(smDesktop) {
                 .item {
+                    padding-left: 0;
+
                     img {
-                        width: 200px;
+                        width: 150px;
                     }
 
                     h3 {
@@ -1062,9 +1064,6 @@ $back-to-top-height: 35px;
 
             @include devices(xsDesktop) {
                 .item {
-                    img {
-                        width: 80px;
-                    }
 
                     h3 {
                         font-size: 220%;
@@ -1082,24 +1081,22 @@ $back-to-top-height: 35px;
                 .item {
                     flex: auto;
                     width: 50%;
-                    margin: 30px 0;
-                    padding-left: 100px;
-                }
-            }
-
-            @include devices(ptTablet) {
-                .item {
-                    padding-left: 50px;
+                    margin: 20px 0;
                 }
             }
 
             @include devices(lgMobile) {
-                display: block;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
 
                 .item {
                     width: 100%;
-                    padding-left: 0;
 
+                    img {
+                        width: 100px;
+                    }
+                      
                     .text {
                         flex: auto;
                     }
