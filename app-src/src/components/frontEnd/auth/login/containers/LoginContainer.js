@@ -2,15 +2,15 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import fetchAuthAreaText from 'actions/frontEnd/auth/fetchAuthAreaText';
-import Register from '../presentational/Register';
+import Login from '../presentational/Login';
 
-const RegisterContainer = ({ fetchAuthAreaText, auth, isFetching, error }) => {
+const LoginContainer = ({ fetchAuthAreaText, auth, isFetching, error }) => {
     const { registerText } = auth;
     useEffect(() => {
         fetchAuthAreaText();
     }, []);
 
-    return <Register registerText={registerText} isFetching={isFetching} error={error} />;
+    return <Login registerText={registerText} isFetching={isFetching} error={error} />;
 };
 
 const mapStateToProps = ({
@@ -24,4 +24,4 @@ const mapStateToProps = ({
 });
 const mapDispatchToProps = { fetchAuthAreaText };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
