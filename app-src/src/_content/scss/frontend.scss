@@ -1458,7 +1458,7 @@ $back-to-top-height: 35px;
 
             & > p {
                 color: #ffffff;
-                font-size: 180%;
+                font-size: 240%;
             }
         }
 
@@ -1558,6 +1558,15 @@ $back-to-top-height: 35px;
                 .contact-info-wrapper {
                     padding: 50px 10px 0;
                     width: 100%;
+                }
+            }
+            .sent-message-wrapper {
+                margin-right: 0;
+
+                & > p {
+                    font-size: 200%;
+                    text-align: center;
+                    text-decoration: underline;
                 }
             }
         }
