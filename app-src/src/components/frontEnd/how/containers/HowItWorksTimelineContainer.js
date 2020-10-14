@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Events, animateScroll as scroll, scrollSpy } from 'react-scroll';
+import {connect} from 'react-redux';
+import { Events, animateScroll as scroll } from 'react-scroll';
+
+import setIsBannerScrolling from 'actions/frontEnd/banners/sync/setIsBannerScrolling';
 
 import items from 'constants/frontEnd/timeline';
 
 import HowItWorksTimeline from '../presentational/HowItWorksTimeline';
 
-const HowItWorksTimelineContainer = () => {
+const HowItWorksTimelineContainer = ({ setIsBannerScrolling }) => {
     const [activeIndex, _setActiveIndex] = useState(0);
     const activeIndexRef = useRef(activeIndex);
     const lastScrollTopRef = useRef(window.pageYOffset || document.documentElement.scrollTop);
@@ -19,11 +22,13 @@ const HowItWorksTimelineContainer = () => {
             section.addEventListener('scroll', scrollToTop);
             Events.scrollEvent.register('begin', function () {
                 window.removeEventListener('scroll', scrollToTop);
+                setIsBannerScrolling(true);
             });
 
             Events.scrollEvent.register('end', function () {
                 window.addEventListener('scroll', scrollToTop);
                 setLastScrollTop(window.pageYOffset || document.documentElement.scrollTop);
+                setIsBannerScrolling(false);
             });
         }
 
@@ -101,4 +106,8 @@ const HowItWorksTimelineContainer = () => {
     }
 };
 
-export default HowItWorksTimelineContainer;
+const mapDispatchToProps = {
+    setIsBannerScrolling,
+};
+
+export default connect(null, mapDispatchToProps)(HowItWorksTimelineContainer);

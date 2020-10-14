@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { Events, animateScroll as scroll, scrollSpy } from 'react-scroll';
 
-export const useBannerScroll = width => {
+export const useBannerScroll = (width, setIsBannerScrolling) => {
     const lastScrollTopRef = useRef(window.pageYOffset || document.documentElement.scrollTop);
 
     useEffect(() => {
@@ -9,19 +9,22 @@ export const useBannerScroll = width => {
 
         Events.scrollEvent.register('begin', function () {
             window.removeEventListener('scroll', scrollToArea);
+            setIsBannerScrolling(true);
         });
 
         Events.scrollEvent.register('end', function () {
             window.addEventListener('scroll', scrollToArea);
             setLastScrollTop(window.pageYOffset || document.documentElement.scrollTop);
+            setIsBannerScrolling(false);
         });
 
         scrollSpy.update();
 
         return () => {
+            window.removeEventListener('scroll', scrollToArea);
+            setIsBannerScrolling(false);
             Events.scrollEvent.remove('begin');
             Events.scrollEvent.remove('end');
-            window.removeEventListener('scroll', scrollToArea);
         };
     }, []);
 
