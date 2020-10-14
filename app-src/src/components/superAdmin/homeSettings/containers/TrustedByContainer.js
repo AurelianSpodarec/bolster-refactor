@@ -30,7 +30,7 @@ const TrustedByContainer = () => {
             </PageHeading>
             <Block>
                 <BlockContainer isFetching={isFetching} error={error}>
-                    {trustedBy && <TrustedBy data={orderTrustedByArr(trustedBy)} />}
+                    {trustedBy && <TrustedBy data={trustedBy} />}
                 </BlockContainer>
             </Block>
         </>

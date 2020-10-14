@@ -2,7 +2,6 @@ import React from 'react';
 import { FILE_STORAGE_URL } from 'config';
 
 const TrustedBy = ({ data }) => {
-    console.log('data', data);
     return (
         <div className="trusted-by-settings-container">
             <div className="trusted-by-grid">

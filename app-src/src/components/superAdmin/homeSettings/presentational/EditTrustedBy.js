@@ -6,7 +6,6 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 
 const EditTrustedBy = ({ values, handleTextChange, handleUploadChange, handleSubmit }) => {
-    console.log('values', values);
     return (
         <div className="trusted-by-settings-container">
             <div className="trusted-by-grid">

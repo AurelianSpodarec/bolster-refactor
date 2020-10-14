@@ -8,6 +8,7 @@ import {
     ADMIN_UPLOAD_TRUSTED_BY_FAILURE,
     ADMIN_UPLOAD_TRUSTED_BY_SUCCESS,
 } from 'constants/actionTypes/frontendTrustedBySettings';
+import { orderTrustedByArr } from 'helpers/generic';
 
 export default combineReducers({
     postSuccess: postSuccessReducer,
@@ -58,7 +59,7 @@ function isFetchingReducer(state = false, action) {
 function trustedByReducer(state = null, action) {
     switch (action.type) {
         case ADMIN_FETCH_TRUSTED_BY_SUCCESS:
-            return action.payload;
+            return orderTrustedByArr(action.payload);
         default:
             return state;
     }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import fetchFrontendTrustedBy from 'actions/superAdmin/frontendSite/trustedBySettings/async/fetchAllTrustedBy';
@@ -13,7 +13,7 @@ import { getOrderObjId } from 'helpers/generic';
 
 const EditTrustedByContainer = () => {
     const dispatch = useDispatch();
-    const { trustedBy } = useSelector(
+    const { error, isFetching, trustedBy } = useSelector(
         ({ superAdmin: { frontendTrustedBySettingsReducer } }) => frontendTrustedBySettingsReducer,
     );
 
@@ -32,6 +32,13 @@ const EditTrustedByContainer = () => {
     const handleTextChange = (field, value) => {
         updateForm({ ...formValues, [field]: { ...formValues[field], name: value } });
     };
+
+    const handleInitial = useCallback(
+        value => {
+            updateForm(value);
+        },
+        [updateForm],
+    );
 
     const handleClearInput = field => {
         updateForm({ ...formValues, [field]: { name: '', value: '' } });
@@ -65,11 +72,27 @@ const EditTrustedByContainer = () => {
         }
     }, []);
 
+    useEffect(() => {
+        if (trustedBy) {
+            const initialObj = trustedBy.reduce((result, item, index) => {
+                if (!item) return;
+                return {
+                    ...result,
+                    [`trustedBy${index}`]: {
+                        name: item.name,
+                        file: item.s3Key,
+                    },
+                };
+            }, {});
+            handleInitial(initialObj);
+        }
+    }, [trustedBy]);
+
     return (
         <>
             <PageHeading title="Trusted By Settings" withBackButton />
             <Block>
-                <BlockContainer>
+                <BlockContainer isFetching={isFetching} error={error}>
                     <EditTrustedBy
                         values={formValues}
                         handleUploadChange={handleUploadChange}
