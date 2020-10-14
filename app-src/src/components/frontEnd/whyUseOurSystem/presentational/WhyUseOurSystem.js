@@ -1,9 +1,12 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 import { useWindowDimensions } from 'helpers/hooks';
 import { useBannerScroll } from 'helpers/frontEndHooks';
 
 import PinsVideo from '_content/videos/frontend/05_Pins.mp4';
+
+import setIsBannerScrolling from 'actions/frontEnd/banners/sync/setIsBannerScrolling';
 
 import OurSystemListContainer from '../containers/OurSystemListContainer';
 import FrontEndBanner from 'components/frontEnd/shared/banners/presentational/FrontEndBanner';
@@ -13,9 +16,9 @@ import BackToTopContainer from 'components/frontEnd/shared/backToTop/containers/
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
 
-const WhyUseOurSystem = () => {
+const WhyUseOurSystem = ({ setIsBannerScrolling }) => {
     const { width } = useWindowDimensions();
-    useBannerScroll(width);
+    useBannerScroll(width, setIsBannerScrolling);
 
     return (
         <>
@@ -44,4 +47,8 @@ const WhyUseOurSystem = () => {
     );
 };
 
-export default WhyUseOurSystem;
+const mapDispatchToProps = {
+    setIsBannerScrolling,
+};
+
+export default connect(null, mapDispatchToProps)(WhyUseOurSystem);

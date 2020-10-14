@@ -13,6 +13,7 @@ const FrontEndHeaderContainer = ({
     history,
     logout,
     hideHeader,
+    isBannerScrolling,
 }) => {
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -33,6 +34,8 @@ const FrontEndHeaderContainer = ({
     function handleClick(e, path) {
         e.preventDefault();
 
+        if (isBannerScrolling) return false;
+
         history.push(path);
 
         if (menuOpen) {
@@ -42,6 +45,8 @@ const FrontEndHeaderContainer = ({
 
     function handleLogout(e) {
         e.preventDefault();
+
+        if (isBannerScrolling) return false;
 
         logout();
 
@@ -63,12 +68,16 @@ const mapStateToProps = ({
         layoutReducer: {
             layout: { hideHeader },
         },
+        bannersReducer: {
+            isBannerScrolling,
+        }
     },
 }) => ({
     isSuperAdmin,
     isCompanyAdmin: !!companyID,
     isClientAccess,
     hideHeader,
+    isBannerScrolling,
 });
 
 const mapDispatchToProps = { logout };

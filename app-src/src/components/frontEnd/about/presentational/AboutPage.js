@@ -1,9 +1,12 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 import { useWindowDimensions } from 'helpers/hooks';
 import { useBannerScroll } from 'helpers/frontEndHooks';
 
 import InspectVideo from '_content/videos/frontend/08_Inspect_Locate_Document.mp4';
+
+import setIsBannerScrolling from 'actions/frontEnd/banners/sync/setIsBannerScrolling';
 
 import AboutUsInfoContainer from '../container/AboutUsInfoContainer';
 import FrontEndBanner from 'components/frontEnd/shared/banners/presentational/FrontEndBanner';
@@ -11,9 +14,9 @@ import Accreditations from 'components/frontEnd/accreditations/presentational/Ac
 import BackToTopContainer from 'components/frontEnd/shared/backToTop/containers/BackToTopContainer';
 import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
 
-const AboutPage = () => {
+const AboutPage = ({ setIsBannerScrolling }) => {
     const { width } = useWindowDimensions();
-    useBannerScroll(width);
+    useBannerScroll(width, setIsBannerScrolling);
 
     return (
         <>
@@ -32,4 +35,8 @@ const AboutPage = () => {
     );
 };
 
-export default AboutPage;
+const mapDispatchToProps = {
+    setIsBannerScrolling,
+};
+
+export default connect(null, mapDispatchToProps)(AboutPage);
