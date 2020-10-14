@@ -63,7 +63,7 @@ const EditTrustedByContainer = () => {
         }
 
         dispatch(uploadFrontendTrustedBy(body));
-        handleClearInput(fieldName);
+        // handleClearInput(fieldName);
     };
 
     useEffect(() => {
