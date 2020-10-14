@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 
 import {
-    ADMIN_FETCH_TRUSTED_BY_REQUEST,
-    ADMIN_FETCH_TRUSTED_BY_FAILURE,
-    ADMIN_FETCH_TRUSTED_BY_SUCCESS,
-} from 'constants/actionTypes/userGuide';
+    FETCH_TRUSTED_BY_REQUEST,
+    FETCH_TRUSTED_BY_FAILURE,
+    FETCH_TRUSTED_BY_SUCCESS,
+} from 'constants/actionTypes/frontendTrustedBySettings';
 
 export default combineReducers({
     error: errorReducer,
@@ -14,9 +14,9 @@ export default combineReducers({
 
 function errorReducer(state = null, action) {
     switch (action.type) {
-        case ADMIN_FETCH_TRUSTED_BY_REQUEST:
+        case FETCH_TRUSTED_BY_REQUEST:
             return null;
-        case ADMIN_FETCH_TRUSTED_BY_FAILURE:
+        case FETCH_TRUSTED_BY_FAILURE:
             return action.error;
         default:
             return state;
@@ -25,19 +25,19 @@ function errorReducer(state = null, action) {
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
-        case ADMIN_FETCH_TRUSTED_BY_REQUEST:
+        case FETCH_TRUSTED_BY_REQUEST:
             return true;
-        case ADMIN_FETCH_TRUSTED_BY_SUCCESS:
-        case ADMIN_FETCH_TRUSTED_BY_FAILURE:
+        case FETCH_TRUSTED_BY_SUCCESS:
+        case FETCH_TRUSTED_BY_FAILURE:
             return false;
         default:
             return state;
     }
 }
 
-function trustedByReducer(state = {}, action) {
+function trustedByReducer(state = null, action) {
     switch (action.type) {
-        case ADMIN_FETCH_TRUSTED_BY_SUCCESS:
+        case FETCH_TRUSTED_BY_SUCCESS:
             return action.payload;
         default:
             return state;

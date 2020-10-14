@@ -17,7 +17,7 @@ import MergeToolRoutes from './MergeToolRoutes';
 import PinOptionsManufacturersRoutes from './PinOptionsManufacturersRoutes';
 import UserGuidesRoutes from './UserGuidesRoutes';
 import TextSettingRoutes from './TextSettingRoutes';
-import HomeSettingsRoutes from './HomeSettingsRoutes';
+import TrustedBySettingRoutes from './TrustedBySettingRoutes';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
@@ -35,7 +35,7 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/operative-alerts`} component={OperativeAlertsRoutes} />
         <Route path={`${base}/user-guides`} component={UserGuidesRoutes} />
         <Route path={`${base}/pin-options`} component={PinOptionsManufacturersRoutes} />
-        <Route path={`${base}/home-settings`} component={HomeSettingsRoutes} />
+        <Route path={`${base}/trusted-by-settings`} component={TrustedBySettingRoutes} />
         <Route path={`${base}/text-settings`} component={TextSettingRoutes} />
     </SwitchWith404>
 );

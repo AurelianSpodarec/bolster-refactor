@@ -6,7 +6,7 @@ import { HomeSlidesList } from 'constants/frontEnd/homeSlides';
 import HomeSlidesItem from '../presentational/HomeSlidesItem';
 import HomeCarouselControls from '../presentational/HomeCarouselControls';
 import FrontEndFooterContainer from 'components/frontEnd/layout/footer/containers/FrontEndFooterContainer';
-import TrustedBy from 'components/frontEnd/trustedBy/presentational/TrustedBy';
+import TrustedByContainer from 'components/frontEnd/trustedBy/containers/TrustedByContainer';
 import BackToTopContainer from 'components/frontEnd/shared/backToTop/containers/BackToTopContainer';
 import HomeSlidesMobileItem from '../presentational/HomeSlidesMobileItem';
 
@@ -35,7 +35,7 @@ const HomeSlidesCarouselContainer = ({ isMobile }) => {
                     );
                 })}
                 <HomeCarouselControls isMobile={isMobile} last handleClick={handleClick} />
-                <TrustedBy />
+                <TrustedByContainer />
                 <BackToTopContainer />
                 <FrontEndFooterContainer />
             </div>
