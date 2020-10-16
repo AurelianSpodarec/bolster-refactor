@@ -6,31 +6,39 @@ import EditDocumentForm from '../presentational/EditDocumentForm';
 import editDocument from 'actions/documents/async/editDocument';
 import fetchSingleDocument from 'actions/documents/async/fetchSingleDocument';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
-
+import { HIERARCHY_IDS, HIERARCHY_TYPES } from 'constants/companyAdmin/enums';
+import fetchOperativesForSite from 'actions/companyAdmin/operatives/async/fetchOperativesForSite';
+import fetchOperativesForBuilding from 'actions/companyAdmin/operatives/async/fetchOperativesForBuilding';
+import fetchOperativesForFloor from 'actions/companyAdmin/operatives/async/fetchOperativesForFloor';
+import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
+const { SITE, BUILDING, FLOOR, DRAWING } = HIERARCHY_IDS;
 class EditDocumentFormContainer extends Component {
     state = {
-        // view only, agreement once, agreement daily - radio buttons
         type: '1',
-        // textboxes
         name: '',
         file: '',
-        // toggles
         isPhotoRequired: false,
         isFileViewRequired: false,
         isSignatureRequired: false,
         isUpsyncForced: false,
-        // dropdown
         serviceIDs: [],
         agreeanceEveryXDays: '0',
-        // date selector
         startOn: undefined,
         endOn: undefined,
-        isFileViewHidden: false
+        isFileViewHidden: false,
+        operativeIDs: [],
     };
 
     render() {
-        const { document, backUrl, documentID, filesUploading } = this.props;
+        const { document, backUrl, documentID, filesUploading, operatives } = this.props;
         const serviceOptions = this._getServicesOptions();
+        const operativeOptions = Object.values(operatives).map(
+            ({ id, userFirstName, userLastName, userEmail }) => ({
+                value: id,
+                text: `${userFirstName} ${userLastName} <${userEmail}>`,
+                label: `${userFirstName} ${userLastName} <${userEmail}>`,
+            }),
+        );
 
         return document ? (
             <EditDocumentForm
@@ -44,6 +52,7 @@ class EditDocumentFormContainer extends Component {
                 backUrl={backUrl}
                 documentID={documentID}
                 filesUploading={filesUploading}
+                operativeOptions={operativeOptions}
             />
         ) : (
             <Loading />
@@ -52,7 +61,16 @@ class EditDocumentFormContainer extends Component {
 
     componentDidMount() {
         const { documentID } = this.props.match.params;
-        const { document, fetchSingleDocument } = this.props;
+        const {
+            document,
+            hierarchyType,
+            hierarchyID,
+            fetchSingleDocument,
+            fetchOperativesForSite,
+            fetchOperativesForBuilding,
+            fetchOperativesForFloor,
+            fetchOperativesForDrawing,
+        } = this.props;
 
         if (document && document.type) {
             this.setState({
@@ -60,11 +78,21 @@ class EditDocumentFormContainer extends Component {
                 type: String(document.type),
                 startOn: new Date(document.startOn),
                 endOn: new Date(document.endOn),
-                serviceIDs: document.serviceIDs.map(key => String(key))
+                serviceIDs: document.serviceIDs.map(key => String(key)),
             });
         }
 
         fetchSingleDocument(documentID);
+
+        if (hierarchyType === HIERARCHY_TYPES[SITE]) {
+            fetchOperativesForSite(hierarchyID);
+        } else if (hierarchyType === HIERARCHY_TYPES[BUILDING]) {
+            fetchOperativesForBuilding(hierarchyID);
+        } else if (hierarchyType === HIERARCHY_TYPES[FLOOR]) {
+            fetchOperativesForFloor(hierarchyID);
+        } else if (hierarchyType === HIERARCHY_TYPES[DRAWING]) {
+            fetchOperativesForDrawing(hierarchyID);
+        }
     }
 
     componentDidUpdate = prevProps => {
@@ -79,7 +107,7 @@ class EditDocumentFormContainer extends Component {
                 type: String(document.type),
                 startOn: document.startOn ? new Date(document.startOn) : undefined,
                 endOn: document.endOn ? new Date(document.endOn) : undefined,
-                serviceIDs
+                serviceIDs,
             });
         }
 
@@ -93,20 +121,20 @@ class EditDocumentFormContainer extends Component {
         return services.map(({ id, name }) => ({
             value: id,
             text: name,
-            disabled: !subscriptions.includes(id)
+            disabled: !subscriptions.includes(id),
         }));
     };
 
     handleHide = () => {
         this.setState({
-            isFileViewHidden: true
+            isFileViewHidden: true,
         });
     };
 
     handleCancelUpload = () => {
         this.setState({
             file: '',
-            isFileViewHidden: false
+            isFileViewHidden: false,
         });
     };
 
@@ -114,7 +142,7 @@ class EditDocumentFormContainer extends Component {
 
     handleDateChange = (date, name) => {
         this.setState({
-            [name]: date
+            [name]: date,
         });
     };
 
@@ -135,7 +163,7 @@ class EditDocumentFormContainer extends Component {
                 serviceIDs: serviceIDs,
                 file: file || '',
                 hierarchyID,
-                hierarchyType
+                hierarchyType,
             };
             editDocument(documentID, postBody);
         }
@@ -144,12 +172,17 @@ class EditDocumentFormContainer extends Component {
 
 const mapStateToProps = (
     {
-        companyAdmin: { documentsReducer, servicesReducer, subscriptionsReducer },
+        companyAdmin: {
+            documentsReducer,
+            servicesReducer,
+            subscriptionsReducer,
+            operativesReducer: { operatives },
+        },
         shared: {
-            filesUploadingReducer: { filesUploading }
-        }
+            filesUploadingReducer: { filesUploading },
+        },
     },
-    { match }
+    { match },
 ) => ({
     filesUploading,
     isFetching:
@@ -161,17 +194,17 @@ const mapStateToProps = (
     document: documentsReducer.documents[match.params.documentID],
     hierarchyID: match.params.id,
     documentID: match.params.documentID,
-    postSuccess: documentsReducer.postSuccess
+    postSuccess: documentsReducer.postSuccess,
+    operatives,
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchSingleDocument: ID => dispatch(fetchSingleDocument(ID)),
-    editDocument: (id, postBody) => dispatch(editDocument(id, postBody))
-});
+const mapDispatchToProps = {
+    fetchSingleDocument,
+    editDocument,
+    fetchOperativesForSite,
+    fetchOperativesForBuilding,
+    fetchOperativesForFloor,
+    fetchOperativesForDrawing,
+};
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(EditDocumentFormContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditDocumentFormContainer));
