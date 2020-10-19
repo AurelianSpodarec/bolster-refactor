@@ -14,7 +14,7 @@ const HowItWorksTimeline = ({ items, activeIndex }) => (
                             key={item.title}
                             className={`item-container item-${index} ${
                                 index === activeIndex ? 'active' : ''
-                            }`}
+                            } ${index <= activeIndex ? 'line-active' : ''}`}
                         >
                             <div className="line-points">
                                 <div className="circle" />

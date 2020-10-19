@@ -1215,19 +1215,22 @@ $back-to-top-height: 35px;
                     }
                 }
 
-                &.active {
+                &.line-active {
                     .line-points {
                         z-index: 1;
-
-                        .line {
-                            background-color: $red-alt;
-                        }
-
-                        .circle {
-                            background-color: $red-alt;
-                        }
                     }
 
+                    .line {
+                        top: 0;
+                        background-color: $red-alt;
+                    }
+
+                    .circle {
+                        background-color: $red-alt;
+                    }
+                }
+
+                &.active {
                     .item {
                         opacity: 1;
 
@@ -1242,6 +1245,33 @@ $back-to-top-height: 35px;
 
                             .active-icon {
                                 opacity: 1;
+                            }
+                        }
+                    }
+                }
+
+                @media only screen and (min-width: 1024px) {
+                    &.active {
+                        .line-points {
+                            .line {
+                                top: -10px;
+                                height: calc(100% - 26px);
+                            }
+                        }
+    
+                        &:first-child {
+                            .line-points {
+                                .line {
+                                    top: 0;
+                                }
+                            }
+                        }
+    
+                        &:last-child {
+                            .line-points {
+                                .line {
+                                    height: 100%;
+                                }
                             }
                         }
                     }
@@ -1328,13 +1358,31 @@ $back-to-top-height: 35px;
                         }
 
                         .line {
-                            height: calc(100% + 50px);
+                            height: calc(100% + 65px);
                         }
                     }
 
                     .item {
                         flex: 1;
                         padding-left: 30px;
+                    }
+
+                    &.line-active {
+                        .line-points {
+                            .line {
+                                top: 0px;
+                            }
+                        }
+                    }
+    
+                    &.active {
+                        &:last-child {
+                            .line-points {
+                                .line {
+                                    height: 100%!important;
+                                }
+                            }
+                        }
                     }
                 }
 
