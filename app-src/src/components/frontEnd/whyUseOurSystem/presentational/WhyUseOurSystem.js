@@ -26,7 +26,6 @@ const WhyUseOurSystem = ({ setIsBannerScrolling }) => {
             <div id="why-use-our-system">
                 <FrontEndBanner
                     heading="So why use Bolster?"
-                    description="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet?"
                     video={PinsVideo}
                 />
                 <OurSystemDivider heading="Why use it? (Key benefits)" extraClasses="grey" />
