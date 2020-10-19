@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import { useWindowDimensions } from 'helpers/hooks';
 import { useBannerScroll } from 'helpers/frontEndHooks';
@@ -22,11 +22,7 @@ const AboutPage = ({ setIsBannerScrolling }) => {
         <>
             <Helmet title="About Us" />
             <div id="about">
-                <FrontEndBanner
-                    heading="About us"
-                    description="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet?"
-                    video={InspectVideo}
-                />
+                <FrontEndBanner heading="About us" video={InspectVideo} />
                 <AboutUsInfoContainer />
                 <Accreditations />
             </div>
