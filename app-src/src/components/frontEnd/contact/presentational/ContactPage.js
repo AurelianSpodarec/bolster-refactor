@@ -2,7 +2,7 @@ import React from 'react';
 
 import ContactInfoContainer from '../containers/ContactInfoContainer';
 import ContactPageFormContainer from '../containers/ContactPageFormContainer';
-import ServerRoomBackgroundVideo from '_content/videos/frontend/Server_Room.mp4';
+import ServerRoomBackgroundVideo from '_content/videos/frontend/Server_Room_Long.mp4';
 import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
 
 const ContactPage = () => {
@@ -14,7 +14,6 @@ const ContactPage = () => {
                 <video
                     className="contact-background-video"
                     autoPlay="autoplay"
-                    loop
                     muted
                     playsInline
                 >
