@@ -981,13 +981,7 @@ $back-to-top-height: 35px;
     // how it works
     #how-it-works {
         .how-it-works-sections {
-            height: calc(100vh - #{$header-height} - #{$footer-height} - #{$back-to-top-height});
-            overflow: auto;
-            scrollbar-width: none;
-        }
-
-        .how-it-works-sections::-webkit-scrollbar {
-            display: none;
+            padding-bottom: 75px;
         }
 
         .section {

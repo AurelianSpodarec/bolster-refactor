@@ -1,72 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {connect} from 'react-redux';
-import { Events, animateScroll as scroll } from 'react-scroll';
-
-import setIsBannerScrolling from 'actions/frontEnd/banners/sync/setIsBannerScrolling';
 
 import items from 'constants/frontEnd/timeline';
 
 import HowItWorksTimeline from '../presentational/HowItWorksTimeline';
 
-const HowItWorksTimelineContainer = ({ setIsBannerScrolling }) => {
+const HowItWorksTimelineContainer = () => {
     const [activeIndex, _setActiveIndex] = useState(0);
     const activeIndexRef = useRef(activeIndex);
-    const lastScrollTopRef = useRef(window.pageYOffset || document.documentElement.scrollTop);
 
     useEffect(() => {
-        let section = window;
-
-        if (window.innerWidth >= 1100) {
-            section = document.getElementById('how-it-works-sections');
-
-            section.addEventListener('scroll', scrollToTop);
-            Events.scrollEvent.register('begin', function () {
-                window.removeEventListener('scroll', scrollToTop);
-                setIsBannerScrolling(true);
-            });
-
-            Events.scrollEvent.register('end', function () {
-                window.addEventListener('scroll', scrollToTop);
-                setLastScrollTop(window.pageYOffset || document.documentElement.scrollTop);
-                setIsBannerScrolling(false);
-            });
-        }
-
-        section.addEventListener('scroll', setActiveTimelineItem);
+        window.addEventListener('scroll', setActiveTimelineItem);
 
         return () => {
-            Events.scrollEvent.remove('begin');
-            Events.scrollEvent.remove('end');
-            window.removeEventListener('scroll', scrollToTop);
-            section.removeEventListener('scroll', setActiveTimelineItem);
+            window.removeEventListener('scroll', setActiveTimelineItem);
         };
     }, []);
 
     return <HowItWorksTimeline items={items} activeIndex={activeIndex} />;
-
-    function scrollToTop() {
-        const headerHeight = document.querySelector('.frontend-header').offsetHeight;
-        const howItWorksSections = document.querySelector('.how-it-works-headings');
-        const { top } = howItWorksSections.getBoundingClientRect();
-        const duration = 1100;
-
-        const newScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-        const scrollOptions = {
-            duration,
-            ignoreCancelEvents: true,
-        };
-
-        if (top >= headerHeight) {
-            scroll.scrollToTop(scrollOptions);
-        }
-
-        setLastScrollTop(newScrollTop <= 0 ? 0 : newScrollTop); // For Mobile or negative scrolling
-    }
-
-    function setLastScrollTop(value) {
-        lastScrollTopRef.current = value;
-    }
 
     function setActiveTimelineItem() {
         const halfWindowHeight = window.innerHeight / 2 - 150;
@@ -106,8 +56,4 @@ const HowItWorksTimelineContainer = ({ setIsBannerScrolling }) => {
     }
 };
 
-const mapDispatchToProps = {
-    setIsBannerScrolling,
-};
-
-export default connect(null, mapDispatchToProps)(HowItWorksTimelineContainer);
+export default HowItWorksTimelineContainer;
