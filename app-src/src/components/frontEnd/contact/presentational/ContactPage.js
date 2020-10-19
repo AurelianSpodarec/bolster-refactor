@@ -24,8 +24,7 @@ const ContactPage = () => {
                     <div className="heading">
                         <h1>Contact</h1>
                         <p>
-                            The best way to ensure our system is right for your company is to see it
-                            for yourself! Bolster Systems offer full demos exploring both the
+                            Bolster Systems offer a full demo exploring both the
                             desktop and application platforms of the system, its functionality, ease
                             of use and key benefits.
                             <br />
