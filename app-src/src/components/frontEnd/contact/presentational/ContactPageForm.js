@@ -19,7 +19,7 @@ const ContactPageForm = ({ form, handleChange, handleSubmit, sent, isPosting }) 
 
     return (
         <Form id="contact-form-content" className="contact-form" onSubmit={handleSubmit}>
-            <Field name="Name">
+            <Field name="Name" required>
                 <TextInputContainer
                     name="name"
                     value={form.name}
@@ -27,7 +27,7 @@ const ContactPageForm = ({ form, handleChange, handleSubmit, sent, isPosting }) 
                     required
                 />
             </Field>
-            <Field name="Email">
+            <Field name="Email" required>
                 <TextInputContainer
                     name="email"
                     value={form.email}
@@ -35,7 +35,7 @@ const ContactPageForm = ({ form, handleChange, handleSubmit, sent, isPosting }) 
                     required
                 />
             </Field>
-            <Field name="Company">
+            <Field name="Company" required>
                 <TextInputContainer
                     name="companyName"
                     value={form.companyName}
@@ -43,7 +43,7 @@ const ContactPageForm = ({ form, handleChange, handleSubmit, sent, isPosting }) 
                     required
                 />
             </Field>
-            <Field name="Contact Number">
+            <Field name="Contact Number" required>
                 <TextInputContainer
                     name="contactNumber"
                     value={form.contactNumber}
