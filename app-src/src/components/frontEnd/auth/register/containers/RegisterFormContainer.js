@@ -6,6 +6,8 @@ import { useForm, usePrevious } from 'helpers/hooks';
 import { isEmpty, sortTimezones } from 'helpers/generic';
 import RegisterForm from '../presentational/RegisterForm';
 import postRegister from 'actions/shared/register/async/postRegister';
+import postRegisterStepOne from 'actions/shared/register/async/postRegisterStepOne';
+import postRegisterStepTwo from 'actions/shared/register/async/postRegisterStepTwo';
 import fetchTimeZones from 'actions/shared/time/async/fetchTimezones';
 import fetchDateFormats from 'actions/shared/time/async/fetchDateFormats';
 import postLogin from 'actions/shared/auth/async/postLogin';
@@ -19,9 +21,12 @@ import { ERROR_MODAL } from 'constants/shared/modalTypes';
 const RegisterFormContainer = ({
     timezones,
     postRegister,
+    postRegisterStepOne,
+    postRegisterStepTwo,
     fetchTimeZones,
     fetchDateFormats,
     postSuccess,
+    postStepValidationSuccess,
     loginSuccess,
     history,
     postLogin,
@@ -41,6 +46,7 @@ const RegisterFormContainer = ({
         'User.email': '',
         'User.password': '',
         'User.phoneNumber': '',
+        'User.reCaptchaToken': '',
         confirmPassword: '',
         'Company.name': '',
         'Company.addressLine1': '',
@@ -58,7 +64,7 @@ const RegisterFormContainer = ({
     });
     const [tickboxError, setTickboxError] = useState(false);
 
-    const prevProps = usePrevious({ postSuccess, loginSuccess, fieldErrors, isPosting });
+    const prevProps = usePrevious({ postSuccess, postStepValidationSuccess, loginSuccess, fieldErrors, isPosting });
 
     useEffect(() => {
         fetchTimeZones();
@@ -67,6 +73,10 @@ const RegisterFormContainer = ({
 
     useEffect(() => {
         const { 'User.email': email, 'User.password': password } = formData;
+
+        if (postStepValidationSuccess && !prevProps.postStepValidationSuccess) {
+            handlePaginationClick(page + 1);
+        }
 
         if (postSuccess && !prevProps.postSuccess) {
             postLogin(email, password);
@@ -88,6 +98,8 @@ const RegisterFormContainer = ({
         prevProps.postSuccess,
         isPosting,
         prevProps.isPosting,
+        postStepValidationSuccess,
+        prevProps.postStepValidationSuccess,
     ]);
 
     useEffect(() => {
@@ -114,6 +126,7 @@ const RegisterFormContainer = ({
             handlePaginationClick={handlePaginationClick}
             handleDropDown={handleDropDown}
             handleColourSelect={handleColourSelect}
+            handleStepSubmit={handleStepSubmit}
             handleSubmit={handleSubmit}
             validatePassword={validatePassword}
             validateConfirmPassword={validateConfirmPassword}
@@ -152,6 +165,42 @@ const RegisterFormContainer = ({
         handleChange({ 'Company.colourCode': hex });
     }
 
+    function handleStepSubmit() {
+        let postBody = {};
+        const stepOnePostBody = registerPages[0];
+        const stepTwoPostBody = registerPages[1];
+
+        if (page === 1) {
+            postBody = {
+                user: {}
+            };
+
+            stepOnePostBody.forEach(field => {
+                const strippedField = field.replace('User.', '');
+
+                if (strippedField === 'confirmPassword') return;
+
+                return postBody.user[strippedField] = formData[field];
+            });
+
+            postRegisterStepOne(postBody);
+        }
+
+        if (page === 2) {
+            postBody = {
+                company: {}
+            };
+
+            stepTwoPostBody.forEach(field => {
+                const strippedField = field.replace('Company.', '');
+
+                return postBody.company[strippedField] = formData[field];
+            });
+
+            postRegisterStepTwo(postBody);
+        }
+    }
+
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -161,6 +210,7 @@ const RegisterFormContainer = ({
             'User.firstName': firstName,
             'User.lastName': lastName,
             'User.phoneNumber': phoneNumber,
+            'User.reCaptchaToken': reCaptchaToken,
             'Company.name': name,
             'Company.addressLine1': addressLine1,
             'Company.addressLine2': addressLine2,
@@ -182,6 +232,7 @@ const RegisterFormContainer = ({
                 email,
                 phoneNumber,
                 password,
+                reCaptchaToken,
             },
             company: {
                 name,
@@ -265,7 +316,7 @@ const RegisterFormContainer = ({
 const mapStateToProps = ({
     shared: {
         timeReducer: { timeZones, dateFormats },
-        registerReducer: { error, postSuccess, isPosting },
+        registerReducer: { error, postSuccess, isPosting, postStepValidationSuccess },
         loginReducer: { postSuccess: loginSuccess },
         fieldErrorsReducer: { fieldErrors },
     },
@@ -277,12 +328,15 @@ const mapStateToProps = ({
     loginSuccess,
     fieldErrors,
     isPosting,
+    postStepValidationSuccess,
 });
 
 const mapDispatchToProps = {
     fetchTimeZones,
     fetchDateFormats,
     postRegister,
+    postRegisterStepOne,
+    postRegisterStepTwo,
     postLogin,
     addFieldError,
     removeFieldError,

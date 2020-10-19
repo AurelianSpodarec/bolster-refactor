@@ -12,8 +12,10 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 import Select from 'components/shared/generic/form/presentational/Select';
 import { needsVatCode } from 'constants/shared/vatTypes';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
+import ReCaptcha from 'components/shared/generic/form/presentational/ReCaptcha';
 
 const RegisterForm = ({
+    handleStepSubmit,
     handleSubmit,
     handleChange,
     timezoneOptions,
@@ -23,6 +25,7 @@ const RegisterForm = ({
     'User.firstName': firstName,
     'User.lastName': lastName,
     'User.phoneNumber': phoneNumber,
+    'User.reCaptchaToken': reCaptchaToken,
     'Company.name': name,
     'Company.addressLine1': addressLine1,
     'Company.addressLine2': addressLine2,
@@ -45,7 +48,6 @@ const RegisterForm = ({
     isPosting,
     nextDisabled,
     tickboxError,
-    logoFile,
 }) => {
     const isVatCodeRequired = needsVatCode(vatType);
 
@@ -277,6 +279,14 @@ const RegisterForm = ({
                         </div>
                         {tickboxError && <p className="checkbox-error">This is a required field</p>}
                     </Field>
+                    <Field classes='auth-form-field wide'>
+                        <ReCaptcha
+                            name="User.reCaptchaToken"
+                            value={reCaptchaToken}
+                            onChange={handleChange}
+                            required
+                        />
+                    </Field>
                 </div>
                 <Field required classes="auth-form-field wide row">
                     <div className="item-wrapper left">
@@ -312,10 +322,10 @@ const RegisterForm = ({
                                 activePage === 3 ? 'hidden' : ''
                             }`}
                             type="button"
-                            handleClick={() => handlePaginationClick(activePage + 1)}
-                            disabled={nextDisabled}
+                            handleClick={handleStepSubmit}
+                            disabled={nextDisabled || isPosting}
                         >
-                            Next
+                            {!isPosting ? 'Next' : <LoadingIcon />}
                         </FrontEndButton>
                         <FrontEndButton
                             classes={`red ${nextDisabled || isPosting ? 'disabled' : ''} ${

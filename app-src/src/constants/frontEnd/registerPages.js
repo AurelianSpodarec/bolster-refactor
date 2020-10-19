@@ -10,11 +10,10 @@ export default [
     [
         'Company.name',
         'Company.phoneNumber',
-        'Company.fax',
         'Company.timezone',
         'Company.dateFormatID',
         'Company.vatType',
-        'VAT Code',
+        'Company.vatCode',
     ],
     [
         'Company.addressLine1',
@@ -24,5 +23,6 @@ export default [
         'Company.postcode',
         'Company.country',
         'terms',
+        'User.reCaptchaToken',
     ],
 ];
