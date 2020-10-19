@@ -1,20 +1,71 @@
 import React from 'react';
 
 import Logo from '_content/images/frontend-new/logo.png';
-import Container from 'components/frontEnd/shared/container/presentational/Container';
 import navItems from 'constants/frontEnd/navItems';
 
-const FrontEndHeaderMobile = ({ handleClick, curRoute, menuOpen, setMenuOpen, hideNav }) => (
+import Container from 'components/frontEnd/shared/container/presentational/Container';
+import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
+
+const FrontEndHeaderMobile = ({
+    isSuperAdmin,
+    isCompanyAdmin,
+    isClientAccess,
+    handleClick,
+    curRoute,
+    menuOpen,
+    setMenuOpen,
+    hideNav,
+    handleLogout,
+    hideHeader,
+}) => (
     <>
         <Container className="frontend-header mobile">
-            <div className="frontend-logo">
-                <a href="/" onClick={e => handleClick(e, '/')}>
-                    <img src={Logo} alt="Bolster Systems" />
-                </a>
+            <div className="frontend-header-mobile-wrapper">
+                {!hideNav && (
+                    <i className="menu-button fa fa-bars" onClick={() => setMenuOpen(!menuOpen)} />
+                )}
+                <div className="frontend-logo">
+                    <a href="/" onClick={e => handleClick(e, '/')}>
+                        <img src={Logo} alt="Bolster Systems" />
+                    </a>
+                </div>
+                {!hideHeader && (
+                    <div className="">
+                        {isSuperAdmin || isCompanyAdmin || isClientAccess ? (
+                            <div className="logged-in-button-container">
+                                <FrontEndButton
+                                    type="button"
+                                    classes="red spacing-right"
+                                    handleClick={handleLogout}
+                                >
+                                    Logout
+                                </FrontEndButton>
+                            </div>
+                        ) : (
+                            <div className="logged-out-button-container">
+                                <FrontEndButton
+                                    to="/auth/register"
+                                    classes={`gray spacing-right ${
+                                        curRoute === '/auth/register' ? 'active' : ''
+                                    }`}
+                                    handleClick={e => handleClick(e, '/auth/register')}
+                                >
+                                    Register
+                                </FrontEndButton>
+                                <FrontEndButton
+                                    to="/auth/login"
+                                    classes={`red spacing-right ${
+                                        curRoute === '/auth/login' ? 'active' : ''
+                                    }`}
+                                    handleClick={e => handleClick(e, '/auth/login')}
+                                >
+                                    Login
+                                </FrontEndButton>
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
-            {!hideNav && (
-                <i className="menu-button fa fa-bars" onClick={() => setMenuOpen(!menuOpen)} />
-            )}
         </Container>
 
         <div className={`nav-mobile ${menuOpen ? 'open' : ''}`}>

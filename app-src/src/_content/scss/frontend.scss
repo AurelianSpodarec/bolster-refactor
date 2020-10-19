@@ -143,6 +143,62 @@ $back-to-top-height: 35px;
         &.mobile {
             justify-content: center;
             align-items: center;
+
+            .frontend-header-mobile-wrapper {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .menu-button {
+                    position: unset;
+                    cursor: pointer;
+                    font-size: 300%;
+                }
+
+                .frontend-logo {
+                    @include devices(1100px) {
+                        position: absolute;
+                        left: 50%;
+                        transform: translateX(-50%);
+                    }
+
+                    @include devices(850px) {
+                        position: unset;
+                        transform: unset;
+
+                        img {
+                            width: 120px;
+                        }
+                    }
+                }
+
+                .logged-out-button-container {
+                    display: flex;
+
+                    @include devices(750px) {
+                        flex-direction: column;
+                    }
+
+
+                    .frontend-button {
+                    
+                        @include devices(1100px) {
+                            min-width: 120px;
+                            font-size: 130%;
+                        }
+    
+                        @include devices(750px) {
+                            min-width: 90px;
+                            font-size: 100%;
+                            padding: 8px 8px;
+                            margin-bottom: 4px;
+                        }
+                    }
+                }
+            }
         }
 
         .menu-button {
