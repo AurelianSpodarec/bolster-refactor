@@ -637,6 +637,27 @@ $back-to-top-height: 35px;
                     max-height: 160px;
                 }
             }
+
+            &.carousel-container {
+                display: block;
+                position: relative;
+
+                & > div {
+
+                    & > div {
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+
+                .item {
+                    margin-right: 16px;
+
+                    img {
+                        max-width: 100%;
+                    }
+                }
+            }
         }
 
         .trusted-by-header {
