@@ -4,6 +4,9 @@ import {
     POST_REGISTER_REQUEST,
     POST_REGISTER_SUCCESS,
     POST_REGISTER_FAILURE,
+    POST_REGISTER_STEP_VALIDATION_REQUEST,
+    POST_REGISTER_STEP_VALIDATION_SUCCESS,
+    POST_REGISTER_STEP_VALIDATION_FAILURE,
 } from 'constants/actionTypes/auth';
 import { SET_API_FIELD_ERRORS } from 'constants/actionTypes/generic';
 
@@ -11,6 +14,7 @@ export default combineReducers({
     postSuccess: postSuccessReducer,
     error: errorReducer,
     isPosting: isPostingReducer,
+    postStepValidationSuccess: postStepValidationSuccessReducer,
 });
 
 function postSuccessReducer(state = false, action) {
@@ -25,12 +29,25 @@ function postSuccessReducer(state = false, action) {
     }
 }
 
+function postStepValidationSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case POST_REGISTER_STEP_VALIDATION_REQUEST:
+        case POST_REGISTER_STEP_VALIDATION_FAILURE:
+            return false;
+        case POST_REGISTER_STEP_VALIDATION_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
 function errorReducer(state = null, action) {
     switch (action.type) {
         case POST_REGISTER_REQUEST:
+        case POST_REGISTER_STEP_VALIDATION_REQUEST:
             return null;
-
         case POST_REGISTER_FAILURE:
+        case POST_REGISTER_STEP_VALIDATION_FAILURE:
             return action.error;
         default:
             return state;
@@ -41,9 +58,12 @@ function isPostingReducer(state = false, action) {
     switch (action.type) {
         case POST_REGISTER_FAILURE:
         case POST_REGISTER_SUCCESS:
+        case POST_REGISTER_STEP_VALIDATION_FAILURE:
+        case POST_REGISTER_STEP_VALIDATION_SUCCESS:
         case SET_API_FIELD_ERRORS:
             return false;
         case POST_REGISTER_REQUEST:
+        case POST_REGISTER_STEP_VALIDATION_REQUEST:
             return true;
         default:
             return state;
