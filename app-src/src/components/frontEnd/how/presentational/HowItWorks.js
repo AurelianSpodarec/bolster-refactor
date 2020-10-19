@@ -23,7 +23,6 @@ const HowItWorks = ({ setIsBannerScrolling }) => {
             <div id="how-it-works">
                 <FrontEndBanner
                     heading="How it works"
-                    description="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet?"
                     video={InspectVideo}
                 />
                 <HowItWorksSections />
