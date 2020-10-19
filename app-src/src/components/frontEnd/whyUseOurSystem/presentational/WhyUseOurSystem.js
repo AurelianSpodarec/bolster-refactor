@@ -28,7 +28,6 @@ const WhyUseOurSystem = ({ setIsBannerScrolling }) => {
                     heading="So why use Bolster?"
                     video={PinsVideo}
                 />
-                <OurSystemDivider heading="Why use it? (Key benefits)" extraClasses="grey" />
                 <OurSystemCloudList />
                 <OurSystemDivider
                     heading="Services covered"
