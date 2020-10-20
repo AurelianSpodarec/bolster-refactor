@@ -1758,6 +1758,24 @@ $back-to-top-height: 35px;
                 }
             }
         }
+
+        @include devices(ptTablet) {
+            min-height: 0;
+        }
+
+        @include devices(lgMobile) {
+            .contact-info-wrapper {
+                p {
+                    font-size: 180%;
+                }
+
+                .contact-info-row {
+                    &.columns {
+                        display: block;
+                    }
+                }
+            }
+        }
     }
 
     //why use our system page
@@ -2244,6 +2262,11 @@ $back-to-top-height: 35px;
      width: 60%;
      opacity: 0.7;
      object-fit: fill;
+
+     @include devices(ptTablet) {
+         width: 100%;
+         object-fit: cover;
+     }
  }
  .auth-wrapper {
     display: flex;
@@ -2287,6 +2310,30 @@ $back-to-top-height: 35px;
     &.register {
             .auth-heading {
                 margin-bottom: 25px;
+        }
+    }
+
+    @include devices(ptTablet) {
+        display: block;
+        min-height: 0;
+
+        .heading-body-wrapper {
+            margin: 0!important;
+            padding: 50px;
+        }
+    }
+
+    @include devices(lgMobile) {
+        .heading-body-wrapper {
+            padding: 50px 30px 30px;
+
+            .auth-heading {
+                font-size: 240%;
+            }
+
+            p {
+                font-size: 180%;
+            }
         }
     }
 }
@@ -2665,6 +2712,38 @@ $back-to-top-height: 35px;
             .frontend-button {
                 min-width: 120px!important;
             }
+        }
+    }
+
+    @include devices(ptTablet) {
+        padding-top: 20px!important;
+        padding-bottom: 20px;
+        width: 100%;
+    }
+
+    @include devices(lgMobile) {
+        .auth-form-heading {
+            height: auto;
+
+            h2 {
+                font-size: 240%;
+            }
+        }
+
+        .auth-form-field {
+            display: block;
+            padding: {
+                left: 30px;
+                right: 30px;
+            }
+        }
+
+        .recaptcha-wrapper {
+            margin-bottom: 20px;
+        }
+
+        .frontend-button {
+            width: 100%;
         }
     }
 }
