@@ -1963,14 +1963,14 @@ $back-to-top-height: 35px;
                 align-items: flex-start;
 
                 .info-card {
-                    &:nth-child(2), &:nth-child(5) {
+                    &:nth-child(2), &:nth-child(3) {
                         margin-top: 100px;
                     }
                 }
 
                 &.top {
                     .info-card {
-                        &:nth-child(1), &:nth-child(6) {
+                        &:nth-child(1), &:nth-child(4) {
                             margin-top: 200px;
                         }
                     }
@@ -1978,12 +1978,6 @@ $back-to-top-height: 35px;
 
                 &.bottom {
                     margin-top: 100px;
-
-                    .info-card {
-                        &:nth-child(3), &:nth-child(4) {
-                            margin-top: 200px;
-                        }
-                    }
                 }
             }
 
