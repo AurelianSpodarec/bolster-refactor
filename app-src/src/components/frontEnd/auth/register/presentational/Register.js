@@ -1,7 +1,7 @@
 import React from 'react';
 
 import RegisterFormContainer from '../containers/RegisterFormContainer';
-import ServerRoomBackgroundVideo from '_content/videos/frontend/Server_Room.mp4';
+import ServerRoomBackgroundVideo from '_content/videos/frontend/Server_Room_Long.mp4';
 import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
 import RegisterTextBody from './RegisterTextBody';
 

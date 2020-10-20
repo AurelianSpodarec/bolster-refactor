@@ -1620,6 +1620,14 @@ $back-to-top-height: 35px;
             }
         }
 
+        @include devices(smDesktop) {
+            .contact-info-wrapper {
+                p {
+                    font-size: 200%;
+                }
+            }
+        }
+
         @include devices(lsTablet) {
             .contact-form-wrapper {
                 & > .heading {
@@ -2633,7 +2641,7 @@ $back-to-top-height: 35px;
             }
 
             .frontend-button {
-                min-width: 140px!important;
+                min-width: 120px!important;
             }
         }
     }

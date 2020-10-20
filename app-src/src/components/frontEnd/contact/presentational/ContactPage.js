@@ -12,7 +12,7 @@ const ContactPage = () => {
             <div id="contact">
                 <div className="contact-background"></div>
                 <video
-                    className="contact-background-video"
+                    className="auth-background-video"
                     autoPlay="autoplay"
                     muted
                     playsInline
