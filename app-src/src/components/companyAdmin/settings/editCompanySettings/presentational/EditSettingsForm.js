@@ -52,6 +52,7 @@ const EditSettingsForm = ({
     useManufacturingByDefault,
     unsyncedCompanyNotificationDays,
     unsyncedOperativeWarningDays,
+    reportAutoDelete,
 }) => (
     <>
         <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
@@ -296,6 +297,19 @@ const EditSettingsForm = ({
                         checked={shouldDeleteReportsAfterDownload}
                         handleChange={handleInputChange}
                         name="shouldDeleteReportsAfterDownload"
+                    />
+                </Field>
+                <Field
+                    name="Auto delete reports after (days - max 30)"
+                    sizeClasses="size-lg-6 size-md-12"
+                >
+                    <TextInputContainer
+                        handleChange={handleInputChange}
+                        name={'reportAutoDelete'}
+                        value={reportAutoDelete}
+                        type="number"
+                        maxNum={30}
+                        required
                     />
                 </Field>
             </div>

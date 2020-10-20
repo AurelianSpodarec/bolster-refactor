@@ -42,6 +42,7 @@ class EditSettingsFormContainer extends Component {
         useManufacturingByDefault: false,
         unsyncedCompanyNotificationDays: '',
         unsyncedOperativeWarningDays: '',
+        reportAutoDelete: 0,
     };
 
     render() {
