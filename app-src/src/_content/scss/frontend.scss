@@ -832,29 +832,28 @@ $back-to-top-height: 35px;
     }
 
     .wysiwyg {
-        h2, h3, h4, p {
+        h1, h2, h3, h4, p {
             line-height: 2;
         }
 
-        h2, h3 {
+        h1, h2, h3 {
             color: $very-dark-grey-alt;
         }
 
-        h2 {
+        h1, h2 {
             margin-bottom: 5px;
-            font-size: 350%;
+            font-size: 35px;
             @include opensans-bold;
         }
 
         h4 {
-            font-size: 300%;
+            font-size: 30px;
             margin-top: 10px;
         }
 
         ol, ul {
-            font-size: 10px;
             & > li {
-                font-size: 180%;
+                font-size: 18px;
                 & > a {
                     font-size: 100%;
                     }
@@ -879,12 +878,16 @@ $back-to-top-height: 35px;
 
         h3 {
             margin-bottom: 15px;
-            font-size: 250%;
+            font-size: 25px;
+        }
+
+        h4 {
+            font-size: 22px;
         }
 
         p {
             margin-bottom: 35px;
-            font-size: 180%;
+            font-size: 18px;
             color: $grey-alt;
 
             & > a {
@@ -898,21 +901,21 @@ $back-to-top-height: 35px;
 
         @include devices(ptTablet) {
             h2 {
-                font-size: 300%;
+                font-size: 30px;
             }
 
             h3 {
-                font-size: 220%;
+                font-size: 22px;
             }
         }
 
         @include devices(lgMobile) {
             h2 {
-                font-size: 240%;
+                font-size: 24px;
             }
 
             h3 {
-                font-size: 190%;
+                font-size: 19px;
                 margin-bottom: 30px;
             }
         }

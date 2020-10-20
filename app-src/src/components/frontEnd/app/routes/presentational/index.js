@@ -13,6 +13,7 @@ import LoginContainer from 'components/frontEnd/auth/login/containers/LoginConta
 import WhyUseOurSystem from 'components/frontEnd/whyUseOurSystem/presentational/WhyUseOurSystem';
 import RegisterContainer from 'components/frontEnd/auth/register/containers/RegisterContainer';
 import TermsContainer from 'components/frontEnd/termsAndConditions/containers/Ts&CsContainer';
+import PrivacyPolicyContainer from 'components/frontEnd/privacyPolicy/containers/PrivacyPolicyContainer';
 import PageNotFound from 'components/frontEnd/404/presentational/404Page';
 
 const FrontEndRoutes = ({ base = '/' }) => (
@@ -35,7 +36,7 @@ const FrontEndRoutes = ({ base = '/' }) => (
         <Route exact path={`${base}auth/Login`} component={LoginContainer} />
         <Route exact path={`${base}auth/register`} component={RegisterContainer} />
         <Route exact path={`${base}auth/terms`} component={TermsContainer} />
-        <Route exact path={`${base}auth/privacy-policy`} component={TermsContainer} />
+        <Route exact path={`${base}auth/privacy-policy`} component={PrivacyPolicyContainer} />
     </SwitchWith404>
 );
 

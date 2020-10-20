@@ -10,12 +10,25 @@ export default combineReducers({
     docs: docsReducer,
     fetchError: fetchErrorReducer,
     fetchSuccess: fetchSuccessReducer,
+    isFetching: isFetchingReducer,
 });
 
 function docsReducer(state = {}, action) {
     switch (action.type) {
         case SHARED_FETCH_TERMS_SUCCESS:
             return action.payload;
+        default:
+            return state;
+    }
+}
+
+function isFetchingReducer(state = false, action) {
+    switch (action.type) {
+        case SHARED_FETCH_TERMS_REQUEST:
+            return true;
+        case SHARED_FETCH_TERMS_SUCCESS:
+        case SHARED_FETCH_TERMS_FAILURE:
+            return false;
         default:
             return state;
     }

@@ -3,11 +3,11 @@ import React from 'react';
 import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 
-const Terms = ({ terms, error, isFetching }) => {
-    let pageTitle = 'Terms & Conditions';
+const PrivacyPolicy = ({ privacy, error, isFetching }) => {
+    let pageTitle = 'Privacy Policy';
     const meta = {
         description: '',
-        canonical: '/auth/terms',
+        canonical: '/auth/privacy-policy',
         excludeFromSearchEngines: true,
     };
 
@@ -33,17 +33,17 @@ const Terms = ({ terms, error, isFetching }) => {
         );
     }
 
-    pageTitle = terms.title;
+    pageTitle = privacy.title;
 
     return (
         <>
             <PageMeta meta={{ title: pageTitle, ...meta }} />
             <div className="content-page wysiwyg">
-                <h1>{terms.title}</h1>
-                <div dangerouslySetInnerHTML={{ __html: terms.copy }}></div>
+                <h1>{privacy.title}</h1>
+                <div dangerouslySetInnerHTML={{ __html: privacy.copy }}></div>
             </div>
         </>
     );
 };
 
-export default Terms;
+export default PrivacyPolicy;
