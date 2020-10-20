@@ -12,7 +12,7 @@ const FrontEndFooter = ({ hideFooter, isMobile }) => {
     return (
         <Container className="frontend-footer">
             <div className="information">
-                <p>Copyright Bolster Systems 2020. All rights reserved</p>
+                <p>Copyright Bolster Systems 2020. <br />All rights reserved</p>
             </div>
             <div className="internal-links">
                 <div className="logo">
