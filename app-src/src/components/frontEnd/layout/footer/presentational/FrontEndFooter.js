@@ -45,10 +45,10 @@ const FrontEndFooter = ({ hideFooter, isMobile }) => {
                             </div>
                         )}
                         <p className="terms-text">
-                            <Link to="/auth/terms" target="_blank">
+                            <Link to="/auth/terms">
                                 Terms of Service
                             </Link>{' '}
-                            <Link to="/auth/privacy-policy" target="_blank">
+                            <Link to="/auth/privacy-policy">
                                 Privacy Policy
                             </Link>
                         </p>
