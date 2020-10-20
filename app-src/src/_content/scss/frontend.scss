@@ -3080,6 +3080,10 @@ $back-to-top-height: 35px;
         width: 100%;
         padding: 18px;
 
+        @include devices(lgMobile) {
+            justify-content: space-between;
+        }
+
         .cookie-consent-message {
             position: absolute;
             top: 50%;
@@ -3087,6 +3091,15 @@ $back-to-top-height: 35px;
             transform: translate(-50%, -50%);
             color: white;
             font-size: 160%;
+
+            @include devices(lgMobile) {
+                font-size: 130%;
+                position: unset;
+                left: unset;
+                top: unset;
+                transform: unset;
+                width: 100%;
+            }
         }
 
         .button-container {
