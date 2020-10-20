@@ -15,7 +15,6 @@ const MultiMultiDropdownOptions = ({
     defaultDropdownSorting,
 }) => {
     let isManufacturingEnabledForType = false;
-
     let formattedOpts = [];
     const filteredOptions = dropdownOptions.filter(option => {
         if (option.type + '' === optionType + '') {
@@ -55,6 +54,8 @@ const MultiMultiDropdownOptions = ({
             id: option.id || null,
             sort: option.sort,
             createdOn: option.createdOn,
+            manufacturerSort: option.manufacturerSort,
+            manufacturerID: option.manufacturerID,
         }));
     } else {
         formattedOpts = filteredOptions.map(option => ({
@@ -63,13 +64,17 @@ const MultiMultiDropdownOptions = ({
             id: option.id || null,
             sort: option.sort,
             createdOn: option.createdOn,
+            manufacturerSort: option.manufacturerSort,
+            manufacturerID: option.manufacturerID,
         }));
     }
+
+    const options = getSortedDropdownOptions(formattedOpts, defaultDropdownSorting);
 
     return (
         <BoundlessSelect
             required={isRequired}
-            options={getSortedDropdownOptions(formattedOpts, defaultDropdownSorting)}
+            options={options}
             value={answers[id]}
             name={`answer-${id}`}
             onChange={handleChange}

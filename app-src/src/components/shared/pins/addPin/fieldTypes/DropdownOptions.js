@@ -45,6 +45,8 @@ const DropdownOptions = ({
             id: option.id || null,
             sort: option.sort,
             createdOn: option.createdOn,
+            manufacturerSort: option.manufacturerSort,
+            manufacturerID: option.manufacturerID,
         }));
 
         if (!curOptions.includes(originalDropdownAns)) {
@@ -59,6 +61,8 @@ const DropdownOptions = ({
                 id: option.id || null,
                 sort: option.sort,
                 createdOn: option.createdOn,
+                manufacturerSort: option.manufacturerSort,
+                manufacturerID: option.manufacturerID,
             }));
     }
 

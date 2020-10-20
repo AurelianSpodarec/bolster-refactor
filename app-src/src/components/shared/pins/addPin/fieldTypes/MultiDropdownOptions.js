@@ -53,6 +53,8 @@ const MultiDropdownOptions = ({
             id: option.id || null,
             sort: option.sort,
             createdOn: option.createdOn,
+            manufacturerSort: option.manufacturerSort,
+            manufacturerID: option.manufacturerID,
         }));
     } else {
         formattedOpts = filteredOptions.map(option => ({
@@ -61,6 +63,8 @@ const MultiDropdownOptions = ({
             id: option.id || null,
             sort: option.sort,
             createdOn: option.createdOn,
+            manufacturerSort: option.manufacturerSort,
+            manufacturerID: option.manufacturerID,
         }));
     }
 
