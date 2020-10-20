@@ -13,6 +13,7 @@ const OptionValuesTable = ({
     isFetching,
     error,
     services,
+    moveItem,
 }) => {
     return (
         <BlockContainer>
@@ -29,12 +30,14 @@ const OptionValuesTable = ({
                 noData={!optionValues.length}
                 noDataMessage={'There are no option values to display.'}
                 extraClasses="large"
+                withoutTBody
             >
                 <OptionValuesList
                     colCount={headers.length}
                     optionValues={optionValues}
                     headers={headers}
                     services={services}
+                    moveItem={moveItem}
                 />
             </Table>
         </BlockContainer>

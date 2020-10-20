@@ -14,23 +14,30 @@ import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateH
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
+import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierarchyIsSorting';
 
 class FloorDrawingsTableContainer extends Component {
     state = { shouldRestrictPayments: false };
     render() {
-        const { floor } = this.props;
+        const { floor, isSorting } = this.props;
         return (
             <BlockContainer>
                 <BlockHeading title="Drawings" classes="w-table">
                     {floor.accessType === ACCESS_TYPES_VALUES.OWNER &&
                         !this.state.shouldRestrictPayments && (
-                            <button
-                                className="button green"
-                                onClick={this.handleAddDrawingsModal}
-                            >
+                            <button className="button green" onClick={this.handleAddDrawingsModal}>
                                 <i className="fa fa-plus" /> Add Drawing
                             </button>
                         )}
+                    {isSorting ? (
+                        <button className="button green" onClick={this._toggleIsSorting}>
+                            <i className="far fa-check" /> Finish Sort
+                        </button>
+                    ) : (
+                        <button className="button" onClick={this._toggleIsSorting}>
+                            <i className="far fa-sort" /> Sort Mode
+                        </button>
+                    )}
                 </BlockHeading>
                 <DrawingTableContainer ids={floor.drawingIDs || []} />
             </BlockContainer>
@@ -43,14 +50,16 @@ class FloorDrawingsTableContainer extends Component {
             floorID,
             isAdding,
             users,
-            companyUserID
+            companyUserID,
+            setHierarchyIsSorting,
         } = this.props;
+
+        setHierarchyIsSorting(false);
 
         if (isAdding) showModal(ADD_DRAWINGS, { floorID });
         if (users && users[companyUserID]) {
             this.setState({
-                shouldRestrictPayments:
-                    users[companyUserID].shouldRestrictPayments
+                shouldRestrictPayments: users[companyUserID].shouldRestrictPayments,
             });
         }
     };
@@ -68,12 +77,11 @@ class FloorDrawingsTableContainer extends Component {
             fetchSingleFloor,
             floorID,
             users,
-            companyUserID
+            companyUserID,
         } = this.props;
         if (users && users[companyUserID] && !prevProps.users[companyUserID]) {
             this.setState({
-                shouldRestrictPayments:
-                    users[companyUserID].shouldRestrictPayments
+                shouldRestrictPayments: users[companyUserID].shouldRestrictPayments,
             });
         }
         if (!prevProps.postSuccess && postSuccess) {
@@ -91,14 +99,20 @@ class FloorDrawingsTableContainer extends Component {
                 title: 'Error',
                 message:
                     error.message ||
-                    '##There was an error processing your request, please try again later.##'
+                    '##There was an error processing your request, please try again later.##',
             });
             updateHierarchyAddState(false);
         }
     };
+
     handleAddDrawingsModal = () => {
         const { showModal, floorID } = this.props;
         showModal(ADD_DRAWINGS, { floorID });
+    };
+
+    _toggleIsSorting = () => {
+        const { setHierarchyIsSorting, isSorting } = this.props;
+        setHierarchyIsSorting(!isSorting);
     };
 }
 
@@ -107,16 +121,16 @@ const mapStateToProps = (
         companyAdmin: {
             floorsReducer: { isFetching, floors },
             drawingsReducer: { postSuccess, updatedID, error },
-            hierarchyReducer: { isAdding },
-            companyUsersReducer: { users }
+            hierarchyReducer: { isAdding, isSorting },
+            companyUsersReducer: { users },
         },
         shared: {
             decodeJWTReducer: {
-                jwtData: { companyUserID }
-            }
-        }
+                jwtData: { companyUserID },
+            },
+        },
     },
-    { match: { params } }
+    { match: { params } },
 ) => ({
     error,
     postSuccess,
@@ -126,7 +140,8 @@ const mapStateToProps = (
     floor: floors[params.id] || {},
     floorID: params.id,
     users,
-    companyUserID
+    companyUserID,
+    isSorting,
 });
 
 const mapDispatchToProps = {
@@ -134,8 +149,9 @@ const mapDispatchToProps = {
     hideModal,
     updateHierarchyAddState,
     fetchSingleFloor,
-    fetchAllDrawings
+    fetchAllDrawings,
+    setHierarchyIsSorting,
 };
 export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(FloorDrawingsTableContainer)
+    connect(mapStateToProps, mapDispatchToProps)(FloorDrawingsTableContainer),
 );

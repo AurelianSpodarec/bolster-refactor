@@ -6,22 +6,20 @@ import { companyAdminSitesSort } from 'constants/shared/sortAndFilterOptions';
 
 import SitesFilters from '../presentational/SitesFilters';
 import { DEFAULT_SITES_SORT_NAMES } from 'constants/companyAdmin/enums';
-import { convertEnumToDropdownOptions } from 'helpers/generic';
+import { enumFormat } from 'helpers/generic';
 
 class SitesFiltersContainer extends Component {
     render() {
         const { name, status, sortBy } = this.props.filters;
         const { statusOptions } = companyAdminSitesSort;
 
-        const sortOptions = convertEnumToDropdownOptions(DEFAULT_SITES_SORT_NAMES);
-
         return (
             <SitesFilters
                 name={name}
                 statusOptions={Object.values(statusOptions)}
-                selectedStatus={statusOptions[status]}
-                sortOptions={Object.values(sortOptions)}
-                selectedSort={sortOptions[sortBy]}
+                selectedStatus={status}
+                sortOptions={enumFormat(DEFAULT_SITES_SORT_NAMES)}
+                selectedSort={sortBy}
                 handleChange={this.handleChange}
                 onMobile={this.props.onMobile}
             />
@@ -33,9 +31,7 @@ class SitesFiltersContainer extends Component {
 
         dispatch(updateSitesFilters('name', ''));
         dispatch(updateSitesFilters('status', 'active'));
-        dispatch(updateSitesFilters('sortBy', defaultSitesSort));
-
-
+        dispatch(updateSitesFilters('sortBy', defaultSitesSort || 1));
     };
 
     handleChange = (name, value) => {
@@ -48,18 +44,16 @@ export default connect(
     ({
         companyAdmin: {
             companySettingsReducer: {
-                companySettings: {
-                    defaultSitesSort
-                }
-            }
+                companySettings: { defaultSitesSort },
+            },
         },
         shared: {
             sitesFilterReducer: { filters },
-            mobileReducer: { onMobile }
-        }
+            mobileReducer: { onMobile },
+        },
     }) => ({
         filters,
         onMobile,
-        defaultSitesSort
-    })
+        defaultSitesSort,
+    }),
 )(SitesFiltersContainer);

@@ -37,7 +37,6 @@ const SectionContainer = ({
     setSection,
     showModal,
     i,
-    findSection,
     moveSection,
     hovered,
     isSortingSections,

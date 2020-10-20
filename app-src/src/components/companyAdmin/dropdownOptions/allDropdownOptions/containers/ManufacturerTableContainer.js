@@ -7,10 +7,11 @@ import ManufacturerTable from '../presentational/ManufacturerTable';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { isObjEmpty } from 'helpers/generic';
 import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import reorderManufacturers from 'actions/companyAdmin/dropdownOptions/sync/reorderManufacturers';
 
 class ManufacturerTableContainer extends Component {
     render() {
-        const { isFetching, error, manufacturers, title, type } = this.props;
+        const { isFetching, error, title, type, isSorting, manufacturers } = this.props;
 
         return (
             <ManufacturerTable
@@ -21,6 +22,8 @@ class ManufacturerTableContainer extends Component {
                 title={title}
                 handleAddManufacturerModal={this.handleAddManufacturerModal}
                 type={type}
+                moveItem={this.moveItem}
+                isSorting={isSorting}
             />
         );
     }
@@ -48,6 +51,15 @@ class ManufacturerTableContainer extends Component {
         const { showModal, type } = this.props;
         showModal(COMPANY_ADD_MANUFACTURER, { type });
     };
+
+    moveItem = (overindex, fromIndex) => {
+        const { manufacturers, reorderManufacturers, type } = this.props;
+        const items = [...manufacturers].sort((a, b) => a.sort - b.sort);
+        const [item] = items.splice(fromIndex, 1);
+        items.splice(overindex, 0, item);
+        const sorted = items.map((x, i) => ({ ...x, sort: i + 1, manufacturerID: x.ID }));
+        reorderManufacturers(sorted, type);
+    };
 }
 
 const mapStateToProps = (
@@ -57,6 +69,7 @@ const mapStateToProps = (
         },
         shared: {
             fieldErrorsReducer: { fieldErrors },
+            sortReducer: { isSorting },
         },
     },
     ownProps,
@@ -68,16 +81,13 @@ const mapStateToProps = (
         isFetching,
         error,
         manufacturers: manufacturers[pinOptionKey]
-            ? Object.values(manufacturers[pinOptionKey])
+            ? Object.values(manufacturers[pinOptionKey]).sort((a, b) => a.sort - b.sort)
             : [],
         fieldErrors,
+        isSorting,
     };
 };
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => {
-        dispatch(showModal(type, props));
-    },
-});
+const mapDispatchToProps = { showModal, reorderManufacturers };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManufacturerTableContainer);

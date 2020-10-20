@@ -1,6 +1,7 @@
 import React from 'react';
 import Select from 'components/shared/generic/form/presentational/Select';
 import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
+import { getSortedDropdownOptions } from 'helpers/addPin';
 
 const DropdownOptions = ({
     isRequired,
@@ -11,11 +12,13 @@ const DropdownOptions = ({
     edit,
     originalDropdownAns,
     isManufacturingEnabledForDrawing,
+    defaultDropdownSorting,
 }) => {
     let isManufacturingEnabledForType = false;
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
     // ! this needs to be kept as an option.
     let formattedOpts = [];
+
     const filteredOptions = dropdownOptions.filter(option => {
         if (option.type + '' === optionType + '') {
             // while filtering check whether manufacturing enabled for specific type
@@ -40,6 +43,8 @@ const DropdownOptions = ({
             value: isManufacturingEnabledForType ? option.id : option.name,
             label: option.name,
             id: option.id || null,
+            sort: option.sort,
+            createdOn: option.createdOn,
         }));
 
         if (!curOptions.includes(originalDropdownAns)) {
@@ -52,6 +57,8 @@ const DropdownOptions = ({
                 value: isManufacturingEnabledForType ? option.id : option.name,
                 label: option.name,
                 id: option.id || null,
+                sort: option.sort,
+                createdOn: option.createdOn,
             }));
     }
 
@@ -59,7 +66,7 @@ const DropdownOptions = ({
         <Select
             placeholder="-- select --"
             name={`answer-${id}`}
-            options={formattedOpts}
+            options={getSortedDropdownOptions(formattedOpts, defaultDropdownSorting)}
             value={answers[id]}
             onChange={handleChange}
             required={isRequired}

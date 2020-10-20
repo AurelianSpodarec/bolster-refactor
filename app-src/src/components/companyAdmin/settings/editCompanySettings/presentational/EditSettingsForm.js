@@ -240,7 +240,6 @@ const EditSettingsForm = ({
                 )}
             </div>
             <div className="size-lg-12">
-                {/* <p>##Template Settings##</p> */}
                 <Field name="Default Template Usage Rule" sizeClasses="size-lg-12" required>
                     <DropdownContainer
                         placeholder="-- select rule --"

@@ -12,6 +12,11 @@ import { vatOptions } from 'constants/shared/vatTypes';
 
 class EditSettingsFormContainer extends Component {
     state = {
+        templateUsageRuleOptions: {
+            1: { label: 'Use Only Owner Company', value: 1 },
+            2: { label: 'Use Only Own', value: 2 },
+            3: { label: 'Use Any', value: 3 },
+        },
         name: '',
         addressLine1: '',
         addressLine2: '',
@@ -37,6 +42,7 @@ class EditSettingsFormContainer extends Component {
         dateFormatOptions: [],
         isEditButtonDisabled: false,
         deafultSitesSort: DEFAULT_SITES_SORT.CUSTOM,
+        // defaultDropdownSorting: DEFAULT_PIN_OPTIONS_SORT.CUSTOM,
         shouldDeleteReportsAfterDownload: false,
         enableQRCodes: false,
         useManufacturingByDefault: false,

@@ -13,19 +13,27 @@ import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateH
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
 import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
+import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierarchyIsSorting';
 
 class BuildingsFloorsTableContainer extends Component {
     render() {
-        const { building } = this.props;
+        const { building, isSorting } = this.props;
         return (
             <BlockContainer>
                 <BlockHeading title="Floors" classes="w-table">
                     {building.accessType === ACCESS_TYPES_VALUES.OWNER && (
-                        <button
-                            className="button green"
-                            onClick={this.handleAddFloorsModal}
-                        >
-                            <i className="fa fa-plus" />Add floor
+                        <button className="button green" onClick={this.handleAddFloorsModal}>
+                            <i className="fa fa-plus" />
+                            Add floor
+                        </button>
+                    )}
+                    {isSorting ? (
+                        <button className="button green" onClick={this._toggleIsSorting}>
+                            <i className="far fa-check" /> Finish Sort
+                        </button>
+                    ) : (
+                        <button className="button" onClick={this._toggleIsSorting}>
+                            <i className="far fa-sort" /> Sort Mode
                         </button>
                     )}
                 </BlockHeading>
@@ -35,8 +43,9 @@ class BuildingsFloorsTableContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { showModal, buildingID, isAdding } = this.props;
+        const { showModal, buildingID, isAdding, setHierarchyIsSorting } = this.props;
         if (isAdding) showModal(ADD_FLOORS, { buildingID });
+        setHierarchyIsSorting(false);
     };
 
     componentDidUpdate = prevProps => {
@@ -50,7 +59,7 @@ class BuildingsFloorsTableContainer extends Component {
             updateHierarchyAddState,
             buildingID,
             fetchAllFloors,
-            fetchSingleBuilding
+            fetchSingleBuilding,
         } = this.props;
 
         if (!prevProps.postSuccess && postSuccess) {
@@ -68,14 +77,20 @@ class BuildingsFloorsTableContainer extends Component {
                 title: 'Error',
                 message:
                     error.message ||
-                    '##There was an error processing your request, please try again later.##'
+                    '##There was an error processing your request, please try again later.##',
             });
             updateHierarchyAddState(false);
         }
     };
+
     handleAddFloorsModal = () => {
         const { showModal, buildingID } = this.props;
         showModal(ADD_FLOORS, { buildingID });
+    };
+
+    _toggleIsSorting = () => {
+        const { setHierarchyIsSorting, isSorting } = this.props;
+        setHierarchyIsSorting(!isSorting);
     };
 }
 
@@ -84,10 +99,10 @@ const mapStateToProps = (
         companyAdmin: {
             buildingsReducer: { buildings, isFetching },
             floorsReducer: { postSuccess, updatedFloorID, error, floors },
-            hierarchyReducer: { isAdding }
-        }
+            hierarchyReducer: { isAdding, isSorting },
+        },
     },
-    { match: { params } }
+    { match: { params } },
 ) => ({
     error,
     postSuccess,
@@ -96,7 +111,8 @@ const mapStateToProps = (
     isFetching: isFetching,
     buildingID: params.id,
     floors,
-    isAdding
+    isAdding,
+    isSorting,
 });
 
 const mapDispatchToProps = {
@@ -104,12 +120,10 @@ const mapDispatchToProps = {
     hideModal,
     updateHierarchyAddState,
     fetchAllFloors,
-    fetchSingleBuilding
+    fetchSingleBuilding,
+    setHierarchyIsSorting,
 };
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(BuildingsFloorsTableContainer)
+    connect(mapStateToProps, mapDispatchToProps)(BuildingsFloorsTableContainer),
 );
