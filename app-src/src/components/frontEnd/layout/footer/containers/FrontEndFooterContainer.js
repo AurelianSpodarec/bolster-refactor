@@ -3,12 +3,16 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import FrontEndFooter from '../presentational/FrontEndFooter';
+import { useWindowDimensions } from 'helpers/hooks';
 
 const FrontEndFooterContainer = ({ hideHeader, isSuperAdmin, isCompanyAdmin, isClientAccess }) => {
+    const { width } = useWindowDimensions();
+
     return (
         <FrontEndFooter
             hideFooter={hideHeader}
             isLoggedIn={isSuperAdmin || isCompanyAdmin || isClientAccess}
+            isMobile={width < 768}
         />
     );
 };
