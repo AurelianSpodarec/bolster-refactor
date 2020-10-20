@@ -1,4 +1,4 @@
-import BolsterB from '_content/images/frontend-new/why-use-our-system/bolster-b.png';
+import BolsterB from '_content/images/frontend-new/why-use-our-system/bolster-logo-b.svg';
 
 export const topList = [
     {
