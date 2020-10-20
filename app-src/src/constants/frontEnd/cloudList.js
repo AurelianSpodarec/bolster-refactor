@@ -17,19 +17,15 @@ export const topList = [
     },
     {
         icon: BolsterB,
-        title: 'Standardise documentation throughout your business',
-    },
-    {
-        icon: BolsterB,
         title: 'Multi service documentation through one portal',
-    },
-    {
-        icon: BolsterB,
-        title: 'Secure cloud-based data storage accessible from any location',
     },
 ];
 
 export const bottomList = [
+    {
+        icon: BolsterB,
+        title: 'Secure cloud-based data storage accessible from any location',
+    },
     {
         icon: BolsterB,
         title: 'Track project progress in real time',
@@ -42,17 +38,5 @@ export const bottomList = [
         icon: BolsterB,
         title:
             'Sign on site required documentation (method statements, RAM’s, Safe Starts, Permits) directly through the app',
-    },
-    {
-        icon: BolsterB,
-        title: 'Schedule maintenance alerts of required upcoming works',
-    },
-    {
-        icon: BolsterB,
-        title: 'Ability for contractors to win projects through the system',
-    },
-    {
-        icon: BolsterB,
-        title: 'Ability for clients to tender projects through the system',
     },
 ];

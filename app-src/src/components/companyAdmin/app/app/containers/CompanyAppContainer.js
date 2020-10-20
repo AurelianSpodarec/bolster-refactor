@@ -12,6 +12,7 @@ import fetchCreditLogs from 'actions/companyAdmin/creditLogs/async/fetchCreditLo
 import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 import selectMenuTab from 'actions/shared/generic/tabs/sync/selectMenuTab';
 import fetchAllCredits from 'actions/companyAdmin/credits/fetchAllCredits';
+import fetchLatestAppVersion from 'actions/companyAdmin/app/async/fetchLatestAppVersion';
 
 import CompanyApp from '../presentational/CompanyApp';
 
@@ -36,6 +37,7 @@ class CompanyAppContainer extends Component {
             selectCompanyMenuTab,
             decodeJWT,
             fetchSingleCompanyUser,
+            fetchLatestAppVersion,
         } = this.props;
 
         fetchHomeData();
@@ -49,6 +51,8 @@ class CompanyAppContainer extends Component {
         });
 
         selectCompanyMenuTab();
+
+        fetchLatestAppVersion();
     };
 }
 
@@ -79,6 +83,9 @@ const mapDispatchToProps = dispatch => ({
     fetchSingleCompanyUser: companyUserID => {
         dispatch(fetchSingleCompanyUser(companyUserID));
     },
+    fetchLatestAppVersion: () => {
+        dispatch(fetchLatestAppVersion());
+    }
 });
 
 const withConnect = connect(null, mapDispatchToProps)(CompanyAppContainer);

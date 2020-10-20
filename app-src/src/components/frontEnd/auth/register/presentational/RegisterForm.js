@@ -13,6 +13,7 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import { needsVatCode } from 'constants/shared/vatTypes';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 import ReCaptcha from 'components/shared/generic/form/presentational/ReCaptcha';
+import CountriesSelectList from 'components/shared/generic/form/presentational/CountriesSelectList';
 
 const RegisterForm = ({
     handleStepSubmit,
@@ -249,11 +250,11 @@ const RegisterForm = ({
                         />
                     </Field>
                     <Field required name="Country" classes="auth-form-field wide">
-                        <TextInputContainer
+                        <CountriesSelectList
                             value={country}
                             name="Company.country"
-                            handleChange={handleChange}
-                            classes="auth-text-input-container"
+                            onChange={handleChange}
+                            classes="large auth-text-input-container"
                             required
                         />
                     </Field>

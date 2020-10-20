@@ -2,13 +2,14 @@ import React from 'react';
 
 import WhiteLogo from '_content/images/footer/logo-footer-white.png';
 import BlackLogo from '_content/images/footer/logo-footer-black.png';
+import AppVersionMessage from './AppVersionMessage';
 
 const logos = {
     white: WhiteLogo,
     black: BlackLogo
 };
 
-const Footer = ({ company, companyColour }) => (
+const Footer = ({ company, companyColour, version, isFetching, error }) => (
     <footer
         id="page-footer"
         style={{
@@ -17,8 +18,7 @@ const Footer = ({ company, companyColour }) => (
     >
         <div className="container">
             <p style={{ color: company.isBolsterLogoDark ? '#000' : '#fff' }}>
-                {/* Bolster Systems Ltd<sup>®</sup> is a company registered in
-                England and Wales. */}
+                <AppVersionMessage version={version} isFetching={isFetching} error={error} />
             </p>
 
             <img
