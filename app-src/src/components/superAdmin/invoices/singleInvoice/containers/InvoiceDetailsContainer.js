@@ -53,10 +53,12 @@ const InvoiceDetailsContainer = ({
             invoice={invoice}
             error={error}
             isFetching={isFetching}
-            companyName={company.name || null}
+            companyName={invoice.companyName || null}
+            
             showModal={showModal}
             handleShowModal={handleShowModal}
         />
+        
     );
 
     function handleShowModal(id, comment) {
