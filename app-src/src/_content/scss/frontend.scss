@@ -396,7 +396,6 @@ $back-to-top-height: 35px;
 
             .logo {
                 text-align: center;
-                margin-bottom: 16px;
 
                 img {
                     max-height: 50px;
@@ -435,13 +434,8 @@ $back-to-top-height: 35px;
             .app-buttons {
                 display: flex;
                 justify-content: flex-end;
-                margin: 20px auto 0;
+                margin: 0 auto;
                 width: 180px;
-
-                a {
-                    flex: 1;
-                    margin-left: 10px;
-                }
 
                 img {
                     width: 100%;
@@ -450,7 +444,7 @@ $back-to-top-height: 35px;
 
             .terms-text {
                 text-align: right;
-                font-size: 160%;
+                font-size: 140%;
                 color: white;
                 margin-top: 16px;
 
@@ -474,44 +468,10 @@ $back-to-top-height: 35px;
                     }
                 }
             }
-
-            .external-links {
-                .register-button {
-                    .frontend-button {
-                        padding: 9px 50px;
-                        min-width: 0;
-                        font-size: 160%;
-                    }
-                }
-            }
-        }
-
-        @include devices(lsTablet) {
-            .internal-links {
-                ul {
-                    li {
-                        font-size: 150%;
-
-                        &.hide-on-mobile {
-                            display: none;
-                        }
-                    }
-                }
-            }
         }
 
         @include devices(ptTablet) {
             flex-direction: column;
-
-            .internal-links {
-                order: 1;
-
-                ul {
-                    li {
-                        font-size: 180%;
-                    }
-                }
-            }
 
             .external-links {
                 // margin-top: 30px;
@@ -519,17 +479,6 @@ $back-to-top-height: 35px;
 
                 .register-button {
                     display: none;
-                }
-
-                .app-buttons {
-                    margin-top: 0;
-                    justify-content: center;
-
-                    a {
-                        margin-top: 30px;
-                        flex: 0.3;
-                        margin: 0 5px;
-                    }
                 }
 
                 .terms-text {
@@ -542,7 +491,7 @@ $back-to-top-height: 35px;
                 order: 3;
 
                 p {
-                    font-size: 180%;
+                    font-size: 120%;
                     text-align: center;
                 }
             }
@@ -553,30 +502,14 @@ $back-to-top-height: 35px;
                 .logo {
                     img {
                         max-height: 50px;
-                    }
-                }
-
-                ul {
-                    flex-wrap: wrap;
-
-                    li {
-                        margin: 5px 10px;
-                        font-size: 150%;
-                    }
-                }
-            }
-
-            .external-links {
-                .app-buttons {
-                    a {
-                        flex: 1;
+                        margin-bottom: 16px;
                     }
                 }
             }
 
             .information {
                 p {
-                    font-size: 150%;
+                    font-size: 140%;
                 }
             }
         }
@@ -2978,6 +2911,11 @@ $back-to-top-height: 35px;
                     backface-visibility: hidden;
                     -webkit-backface-visibility: hidden;
                     z-index: -1;
+                    
+                    @supports (-webkit-touch-callout: none) {
+                        z-index: 0;
+                    }
+                      
                     
                     @include devices(ptTablet) {
                         z-index: 0;

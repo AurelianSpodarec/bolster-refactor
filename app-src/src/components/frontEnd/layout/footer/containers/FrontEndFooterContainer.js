@@ -12,7 +12,7 @@ const FrontEndFooterContainer = ({ hideHeader, isSuperAdmin, isCompanyAdmin, isC
         <FrontEndFooter
             hideFooter={hideHeader}
             isLoggedIn={isSuperAdmin || isCompanyAdmin || isClientAccess}
-            isMobile={width < 768}
+            isMobile={width < 1025}
         />
     );
 };

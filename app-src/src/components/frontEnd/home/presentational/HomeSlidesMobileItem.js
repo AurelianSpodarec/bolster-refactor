@@ -5,22 +5,18 @@ import PlayButton from '_content/images/frontend-new/banners/play-button.png';
 
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 
-const HomeSlidesMobileItem = ({ background, fullVideo, className, item }) => {
+const HomeSlidesMobileItem = ({ background, fullVideo, className, item, loop }) => {
     return (
         <section className={`slide ${className} last-slide`}>
             <div className="slide-container">
-                <video className="video-bg" autoPlay muted loop playsInline>
+                <video className="video-bg" autoPlay muted loop={loop} playsInline>
                     <source src={background} type="video/mp4" />
                 </video>
 
                 {fullVideo && (
                     <div className="full-video-container">
-                        <a href={fullVideo} target="_blank" rel='noopener noreferrer'>
-                            <img
-                                className="play-button"
-                                alt="Play full video"
-                                src={PlayButton}
-                            />
+                        <a href={fullVideo} target="_blank" rel="noopener noreferrer">
+                            <img className="play-button" alt="Play full video" src={PlayButton} />
                         </a>
                     </div>
                 )}
