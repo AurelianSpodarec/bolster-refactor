@@ -36,6 +36,7 @@
         "react-dnd-html5-backend": "^7.7.0",
         "react-dom": "^16.11.0",
         "react-filepond": "^7.0.1",
+        "react-ga": "^3.2.0",
         "react-google-recaptcha": "^2.1.0",
         "react-helmet": "^6.1.0",
         "react-leaflet": "^2.5.0",
@@ -58,6 +59,7 @@
         "redux-mock-store": "^1.5.3",
         "redux-thunk": "^2.3.0",
         "styled-components": "^5.2.0",
+        "suneditor-react": "^2.13.2",
         "use-is-in-viewport": "^1.0.9",
         "suneditor-react": "^2.13.2",
         "uuid": "^3.3.3"
