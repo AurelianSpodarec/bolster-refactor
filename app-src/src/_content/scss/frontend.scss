@@ -2090,7 +2090,7 @@ $back-to-top-height: 35px;
             }
 
             @include devices(lsTablet) {
-                padding-top: 0;
+                padding-top: 50px;
 
                 .bolster-cloud-container {
                     position: relative;
@@ -2098,6 +2098,7 @@ $back-to-top-height: 35px;
 
                 .bolster-cloud {
                     margin-top: 0;
+                    width: 45%;
                 }
 
                 .list-wrapper {
@@ -2111,7 +2112,7 @@ $back-to-top-height: 35px;
 
                     .info-card {
                         flex: auto;
-                        width: calc(100% / 3 - 20px);
+                        width: calc(100% / 2 - 20px);
                         margin: 100px 10px 0!important;
                     }
                 }
