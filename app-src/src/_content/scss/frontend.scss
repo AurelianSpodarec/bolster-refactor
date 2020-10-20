@@ -3065,3 +3065,47 @@ $back-to-top-height: 35px;
         }
     }
 }
+
+.cookie-consent-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(53, 53, 53);
+    z-index: 9999;
+
+    .cookie-consent-wrapper {
+        display: flex;
+        position: relative;
+        width: 100%;
+        padding: 18px;
+
+        .cookie-consent-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 160%;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            
+            .button-wrapper {
+                display: inline-flex;
+                align-items: center;
+
+                button {
+                    margin-right: 16px;
+                    font-size: 130%;
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+    }
+}

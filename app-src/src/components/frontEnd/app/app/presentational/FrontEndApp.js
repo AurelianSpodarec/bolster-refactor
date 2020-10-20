@@ -3,6 +3,7 @@ import React from 'react';
 import FrontEndRoutes from '../../routes/presentational';
 import FrontEndFooterContainer from 'components/frontEnd/layout/footer/containers/FrontEndFooterContainer';
 import FrontEndHeaderContainer from 'components/frontEnd/layout/header/container/FrontEndHeaderContainer';
+import CookieConsentContainer from 'components/frontEnd/cookieConsent/containers/CookieConsentContainer';
 
 const FrontEndApp = ({ isHome }) => {
     return (
@@ -10,6 +11,7 @@ const FrontEndApp = ({ isHome }) => {
             <FrontEndHeaderContainer />
             <FrontEndRoutes />
 
+            <CookieConsentContainer />
             {!isHome && <FrontEndFooterContainer />}
         </div>
     );
