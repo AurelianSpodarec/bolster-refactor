@@ -127,7 +127,6 @@ const AddDrawingsForm = ({
                                         name={`${drawing.id}.*.clientPermissionIDs`}
                                         selectedOptions={drawing.clientPermissionIDs}
                                         handleChange={(name, value) =>
-                                            console.log(value) ||
                                             updateDrawing(name, value, drawing.id)
                                         }
                                     />
@@ -185,7 +184,7 @@ const AddDrawingsForm = ({
                                                 selectedOptions={
                                                     drawing.selectedManufacturerOptions
                                                 }
-                                                options={drawing.manufacturerOptions}
+                                                options={initialOptions.manufacturerOptions}
                                                 allOptionsDisabled={
                                                     drawing.isManufacturingInherited
                                                 }
@@ -196,59 +195,51 @@ const AddDrawingsForm = ({
                                 )}
 
                                 {drawing.setManufacturersForHierarchy &&
-                                    Object.entries(drawing.optionValuesOptions).map(
-                                        ([manufacturerID, optionValues]) => {
-                                            if (
-                                                drawing.selectedManufacturerOptions.includes(
-                                                    manufacturerID,
-                                                )
-                                            ) {
-                                                const manufacturerInfo = drawing.manufacturerOptions.find(
-                                                    element =>
-                                                        String(element.id) ===
-                                                        String(manufacturerID),
-                                                );
+                                    initialOptions.manufacturerOptions
+                                        .filter(man =>
+                                            drawing.selectedManufacturerOptions.includes(
+                                                `${man.id}`,
+                                            ),
+                                        )
+                                        .map(man => {
+                                            return (
+                                                <div className="size-lg-12" key={man.id}>
+                                                    <Field
+                                                        labelClasses="no-capitalise"
+                                                        name={`${man.name} ${
+                                                            DROPDOWN_OPTIONS[man.pinOptionType].name
+                                                        }
 
-                                                return (
-                                                    <div className="size-lg-12">
-                                                        <Field
-                                                            labelClasses="no-capitalise"
-                                                            name={`${manufacturerInfo.name} ${
-                                                                DROPDOWN_OPTIONS[
-                                                                    manufacturerInfo.pinOptionType
-                                                                ].name
+`}
+                                                        required
+                                                    >
+                                                        <CheckboxListContainer
+                                                            name={`${drawing.id}.*.selectedOptionValues`}
+                                                            text=""
+                                                            handleChange={(name, value) =>
+                                                                updateDrawing(
+                                                                    name,
+                                                                    value,
+                                                                    drawing.id,
+                                                                )
                                                             }
-                                                
-                          `}
+                                                            selectedOptions={
+                                                                drawing.selectedOptionValues
+                                                            }
+                                                            options={
+                                                                initialOptions.optionValuesOptions[
+                                                                    man.id
+                                                                ] || []
+                                                            }
+                                                            allOptionsDisabled={
+                                                                drawing.isManufacturingInherited
+                                                            }
                                                             required
-                                                        >
-                                                            <CheckboxListContainer
-                                                                name={`${drawing.id}.*.selectedOptionValues`}
-                                                                text=""
-                                                                handleChange={(name, value) =>
-                                                                    updateDrawing(
-                                                                        name,
-                                                                        value,
-                                                                        drawing.id,
-                                                                    )
-                                                                }
-                                                                selectedOptions={
-                                                                    drawing.selectedOptionValues
-                                                                }
-                                                                options={Object.values(
-                                                                    optionValues,
-                                                                )}
-                                                                allOptionsDisabled={
-                                                                    drawing.isManufacturingInherited
-                                                                }
-                                                                required
-                                                            />
-                                                        </Field>
-                                                    </div>
-                                                );
-                                            } else return null;
-                                        },
-                                    )}
+                                                        />
+                                                    </Field>
+                                                </div>
+                                            );
+                                        })}
                             </>
                         ) : (
                             <FieldOutput fieldClass="center-align">
