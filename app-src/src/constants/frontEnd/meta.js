@@ -6,19 +6,19 @@ export const pageMeta = {
         excludeFromSearchEngines: false,
     },
     aboutUs: {
-        title: 'About us',
+        title: 'About Us',
         description: '',
         canonical: '/about-us',
         excludeFromSearchEngines: false,
     },
     ourSystem: {
-        title: 'Our system',
+        title: 'Our System',
         description: '',
         canonical: '/our-system',
         excludeFromSearchEngines: false,
     },
     howItWorks: {
-        title: 'How it works',
+        title: 'How It Works',
         description: '',
         canonical: '/how-it-works',
         excludeFromSearchEngines: false,
@@ -84,7 +84,7 @@ export const pageMeta = {
         excludeFromSearchEngines: true,
     },
     pageNotFound: {
-        title: 'Page not found',
+        title: 'Page Not Found',
         description: '',
         canonical: '/page-not-found',
         excludeFromSearchEngines: true,

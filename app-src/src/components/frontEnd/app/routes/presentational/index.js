@@ -12,12 +12,12 @@ import QRCodesPage from 'components/frontEnd/qrCodes/presentational/QRCodesPage'
 import LoginContainer from 'components/frontEnd/auth/login/containers/LoginContainer';
 import WhyUseOurSystem from 'components/frontEnd/whyUseOurSystem/presentational/WhyUseOurSystem';
 import RegisterContainer from 'components/frontEnd/auth/register/containers/RegisterContainer';
-import PageNotFoundContainer from 'components/frontEnd/404/containers/404PageContainer';
 import TermsContainer from 'components/frontEnd/termsAndConditions/containers/Ts&CsContainer';
+import PageNotFound from 'components/frontEnd/404/presentational/404Page';
 
 const FrontEndRoutes = ({ base = '/' }) => (
     <SwitchWith404>
-        <Route exact path={`${base}page-not-found`} component={PageNotFoundContainer} />
+        <Route exact path={`${base}page-not-found`} component={PageNotFound} />
 
         <Route exact path={`${base}`} component={Home} />
         <Route exact path={`${base}about-us`} component={AboutPage} />
