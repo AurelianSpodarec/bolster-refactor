@@ -6,11 +6,12 @@ import EditDocumentForm from '../presentational/EditDocumentForm';
 import editDocument from 'actions/documents/async/editDocument';
 import fetchSingleDocument from 'actions/documents/async/fetchSingleDocument';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
-import { HIERARCHY_IDS, HIERARCHY_TYPES } from 'constants/companyAdmin/enums';
+import { ACCESS_TYPES_VALUES, HIERARCHY_IDS, HIERARCHY_TYPES } from 'constants/companyAdmin/enums';
 import fetchOperativesForSite from 'actions/companyAdmin/operatives/async/fetchOperativesForSite';
 import fetchOperativesForBuilding from 'actions/companyAdmin/operatives/async/fetchOperativesForBuilding';
 import fetchOperativesForFloor from 'actions/companyAdmin/operatives/async/fetchOperativesForFloor';
 import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
+import fetchCompanyPermissions from 'actions/companyAdmin/companiesPermissions/async/fetchCompanyPermissions';
 const { SITE, BUILDING, FLOOR, DRAWING } = HIERARCHY_IDS;
 class EditDocumentFormContainer extends Component {
     state = {
@@ -43,6 +44,7 @@ class EditDocumentFormContainer extends Component {
         return document ? (
             <EditDocumentForm
                 {...this.state}
+                isOwner={this.checkIsOwner()}
                 services={serviceOptions}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
@@ -70,6 +72,7 @@ class EditDocumentFormContainer extends Component {
             fetchOperativesForBuilding,
             fetchOperativesForFloor,
             fetchOperativesForDrawing,
+            fetchCompanyPermissions,
         } = this.props;
 
         if (document && document.type) {
@@ -83,14 +86,15 @@ class EditDocumentFormContainer extends Component {
         }
 
         fetchSingleDocument(documentID);
+        fetchCompanyPermissions(hierarchyType, hierarchyID);
 
-        if (hierarchyType === HIERARCHY_TYPES[SITE]) {
+        if (hierarchyType.toLowerCase() === HIERARCHY_TYPES[SITE]) {
             fetchOperativesForSite(hierarchyID);
-        } else if (hierarchyType === HIERARCHY_TYPES[BUILDING]) {
+        } else if (hierarchyType.toLowerCase() === HIERARCHY_TYPES[BUILDING]) {
             fetchOperativesForBuilding(hierarchyID);
-        } else if (hierarchyType === HIERARCHY_TYPES[FLOOR]) {
+        } else if (hierarchyType.toLowerCase() === HIERARCHY_TYPES[FLOOR]) {
             fetchOperativesForFloor(hierarchyID);
-        } else if (hierarchyType === HIERARCHY_TYPES[DRAWING]) {
+        } else if (hierarchyType.toLowerCase() === HIERARCHY_TYPES[DRAWING]) {
             fetchOperativesForDrawing(hierarchyID);
         }
     }
@@ -123,6 +127,23 @@ class EditDocumentFormContainer extends Component {
             text: name,
             disabled: !subscriptions.includes(id),
         }));
+    };
+
+    checkIsOwner = () => {
+        const { companiesWithPermissions, companyID } = this.props;
+
+        const filteredThisCompany = companiesWithPermissions.filter(
+            company => company.companyID === companyID,
+        );
+
+        if (
+            filteredThisCompany.length > 0 &&
+            filteredThisCompany[0].accessType === ACCESS_TYPES_VALUES.OWNER
+        ) {
+            return true;
+        } else {
+            return false;
+        }
     };
 
     handleHide = () => {
@@ -176,10 +197,14 @@ const mapStateToProps = (
             documentsReducer,
             servicesReducer,
             subscriptionsReducer,
+            companiesPermissionsReducer,
             operativesReducer: { operatives },
         },
         shared: {
             filesUploadingReducer: { filesUploading },
+            decodeJWTReducer: {
+                jwtData: { companyID },
+            },
         },
     },
     { match },
@@ -195,16 +220,19 @@ const mapStateToProps = (
     hierarchyID: match.params.id,
     documentID: match.params.documentID,
     postSuccess: documentsReducer.postSuccess,
+    companiesWithPermissions: Object.values(companiesPermissionsReducer.companiesPermissions),
     operatives,
+    companyID,
 });
 
 const mapDispatchToProps = {
-    fetchSingleDocument,
     editDocument,
+    fetchCompanyPermissions,
     fetchOperativesForSite,
     fetchOperativesForBuilding,
     fetchOperativesForFloor,
     fetchOperativesForDrawing,
+    fetchSingleDocument,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditDocumentFormContainer));

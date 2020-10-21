@@ -8,13 +8,20 @@ import { withRouter } from 'react-router-dom';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
 import DatePickerContainer from 'components/shared/documents/containers/AttachDocumentDatePickerContainer';
-import { DOCUMENT_TYPE } from 'constants/companyAdmin/enums';
+import { DOCUMENT_TYPE, DOCUMENT_VISIBILITY } from 'constants/companyAdmin/enums';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+
+const {
+    VISIBLE_TO_ALL,
+    VISIBLE_TO_OWN_COMPANY,
+    VISIBLE_TO_SELECT_OPERATIVES,
+} = DOCUMENT_VISIBILITY;
 
 const EditDocumentForm = ({
     handleInputChange,
@@ -35,6 +42,10 @@ const EditDocumentForm = ({
     location,
     documentID,
     file,
+    isOwner,
+    documentVisibility,
+    operativeIDs,
+    operativeOptions,
 }) => (
     <>
         <PageHeading leftChildren={true} title="Edit Document" withBackButton />
@@ -107,6 +118,44 @@ const EditDocumentForm = ({
                         startRequired
                     />
                 </div>
+
+                {isOwner && (
+                    <div className="size-lg-12">
+                        <Field name="Document Visible to" required>
+                            <RadioButton
+                                name="documentVisibility"
+                                checked={documentVisibility === VISIBLE_TO_ALL}
+                                text="All companies"
+                                value={VISIBLE_TO_ALL}
+                                handleInputChange={handleInputChange}
+                            />
+
+                            <RadioButton
+                                name="documentVisibility"
+                                checked={documentVisibility === VISIBLE_TO_OWN_COMPANY}
+                                text={'Only own company'}
+                                value={VISIBLE_TO_OWN_COMPANY}
+                                handleInputChange={handleInputChange}
+                            />
+                            <RadioButton
+                                name="documentVisibility"
+                                checked={documentVisibility === VISIBLE_TO_SELECT_OPERATIVES}
+                                text={'Selected Operatives'}
+                                value={VISIBLE_TO_SELECT_OPERATIVES}
+                                handleInputChange={handleInputChange}
+                            />
+                            {documentVisibility === VISIBLE_TO_SELECT_OPERATIVES && (
+                                <MultiSelect
+                                    name="operativeIDs"
+                                    onChange={handleInputChange}
+                                    options={operativeOptions}
+                                    value={operativeIDs}
+                                    search
+                                />
+                            )}
+                        </Field>
+                    </div>
+                )}
                 <div className="size-lg-12">
                     <Field name="Service types" required>
                         <CheckboxListContainer

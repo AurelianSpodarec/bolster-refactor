@@ -78,13 +78,13 @@ class AttachDocumentFormContainer extends Component {
         } = this.props;
 
         fetchCompaniesPermissions(hierarchyType, hierarchyID);
-        if (hierarchyType === HIERARCHY_TYPES[SITE]) {
+        if (hierarchyType.toLowerCase() === HIERARCHY_TYPES[SITE]) {
             fetchOperativesForSite(hierarchyID);
-        } else if (hierarchyType === HIERARCHY_TYPES[BUILDING]) {
+        } else if (hierarchyType.toLowerCase() === HIERARCHY_TYPES[BUILDING]) {
             fetchOperativesForBuilding(hierarchyID);
-        } else if (hierarchyType === HIERARCHY_TYPES[FLOOR]) {
+        } else if (hierarchyType.toLowerCase() === HIERARCHY_TYPES[FLOOR]) {
             fetchOperativesForFloor(hierarchyID);
-        } else if (hierarchyType === HIERARCHY_TYPES[DRAWING]) {
+        } else if (hierarchyType.toLowerCase() === HIERARCHY_TYPES[DRAWING]) {
             fetchOperativesForDrawing(hierarchyID);
         }
     };
