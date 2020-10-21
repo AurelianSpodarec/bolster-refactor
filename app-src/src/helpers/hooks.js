@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import uuid from 'uuid/v4';
 import moment from 'moment';
+import { isMobile, deviceType } from 'react-device-detect';
 
 import { removeObjItem } from './generic';
 
@@ -135,11 +136,15 @@ export function useWindowDimensions() {
 }
 
 export const useIsMobile = (mobileWidth = 1024) => {
-    const [isMobile, setIsMobile] = useState(true);
+    const [isWidthMobile, setIsWidthMobile] = useState(true);
+    const isIOS =
+        (/iPad|iPhone|iPod/.test(navigator.platform) ||
+            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) &&
+        !window.MSStream;
 
     useEffect(() => {
         function handleResize() {
-            setIsMobile(window.innerWidth < mobileWidth);
+            setIsWidthMobile(window.innerWidth < mobileWidth);
         }
 
         window.addEventListener('resize', handleResize);
@@ -149,5 +154,5 @@ export const useIsMobile = (mobileWidth = 1024) => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    return isMobile;
+    return isMobile || isIOS;
 };
