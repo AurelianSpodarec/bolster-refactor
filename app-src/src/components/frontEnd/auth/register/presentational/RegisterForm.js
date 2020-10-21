@@ -14,6 +14,7 @@ import { needsVatCode } from 'constants/shared/vatTypes';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 import ReCaptcha from 'components/shared/generic/form/presentational/ReCaptcha';
 import CountriesSelectList from 'components/shared/generic/form/presentational/CountriesSelectList';
+import Base64Upload from 'components/shared/generic/form/presentational/Base64Upload';
 
 const RegisterForm = ({
     handleStepSubmit,
@@ -37,6 +38,8 @@ const RegisterForm = ({
     'Company.phoneNumber': companyPhoneNumber,
     'Company.vatCode': vatCode,
     'Company.vatType': vatType,
+    'Company.base64LogoFile': base64LogoFile,
+    'Company.base64LogoFileName': base64LogoFileName,
     vatOptions,
     dateFormats,
     'Company.dateFormatID': dateFormatID,
@@ -256,6 +259,15 @@ const RegisterForm = ({
                             onChange={handleChange}
                             classes="large auth-text-input-container"
                             required
+                        />
+                    </Field>
+                    <Field name="Upload Logo" classes="auth-form-field wide">
+                        <Base64Upload 
+                            onChange={handleChange} 
+                            name='Company.base64LogoFile' 
+                            fileName='Company.base64LogoFileName' 
+                            value={base64LogoFile}
+                            allowedFileTypes={['image/jpeg', 'image/png']}
                         />
                     </Field>
                     <Field required classes="auth-form-field wide terms-input">

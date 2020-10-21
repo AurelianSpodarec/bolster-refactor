@@ -590,6 +590,9 @@ $back-to-top-height: 35px;
            float: right;
         }
 
+        &.small {
+            font-size: 140%;
+        }
     }
 
     .frontend-section-title {
@@ -2618,6 +2621,17 @@ $back-to-top-height: 35px;
             color: red;
             align-self: flex-start;
             margin-top: 5px;
+        }
+
+        .base64-image-preview {
+            margin-top: 10px;
+            max-width: 200px;
+        }
+
+        .base64-image-button {
+            width: 200px;
+            min-width: 0!important;
+            margin-top: 10px;
         }
 
         @include devices(smDesktop) {

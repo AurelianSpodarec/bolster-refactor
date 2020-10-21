@@ -60,6 +60,8 @@ const RegisterFormContainer = ({
         'Company.dateFormatID': null,
         'Company.vatType': null,
         'Company.country': '',
+        'Company.base64LogoFile': '',
+        'Company.base64LogoFileName': '',
         terms: false,
     });
     const [tickboxError, setTickboxError] = useState(false);
@@ -223,7 +225,15 @@ const RegisterFormContainer = ({
             'Company.vatType': vatType,
             'Company.dateFormatID': dateFormatID,
             'Company.timezone': timezone,
+            'Company.base64LogoFile': base64LogoFile,
+            'Company.base64LogoFileName': base64LogoFileName,
         } = formData;
+
+        let base64LogoFileStripped = '';
+
+        if (base64LogoFile) {
+            base64LogoFileStripped = base64LogoFile.split(',')[1];
+        }
 
         const postBody = {
             user: {
@@ -247,6 +257,8 @@ const RegisterFormContainer = ({
                 vatCode,
                 dateFormatID,
                 timezone,
+                base64LogoFile: base64LogoFileStripped,
+                base64LogoFileName,
             },
         };
 

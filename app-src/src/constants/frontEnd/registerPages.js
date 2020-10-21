@@ -22,7 +22,8 @@ export default [
         'Company.county',
         'Company.postcode',
         'Company.country',
-        'terms',
+        'Company.base64LogoFile',
+        'Company.base64LogoFileName',
         'User.reCaptchaToken',
     ],
 ];
