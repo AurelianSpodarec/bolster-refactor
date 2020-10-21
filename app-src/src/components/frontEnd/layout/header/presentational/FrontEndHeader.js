@@ -29,6 +29,7 @@ const FrontEndHeader = ({
                 menuOpen={menuOpen}
                 setMenuOpen={setMenuOpen}
                 hideNav={hideHeader}
+                screenWidth={width}
             />
         );
 

@@ -166,9 +166,6 @@ $back-to-top-height: 35px;
                     }
 
                     @include devices(850px) {
-                        position: unset;
-                        transform: unset;
-
                         img {
                             width: 120px;
                         }

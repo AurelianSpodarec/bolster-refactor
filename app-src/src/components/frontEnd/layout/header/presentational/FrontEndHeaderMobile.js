@@ -17,6 +17,7 @@ const FrontEndHeaderMobile = ({
     hideNav,
     handleLogout,
     hideHeader,
+    screenWidth,
 }) => (
     <>
         <Container className="frontend-header mobile">
@@ -29,7 +30,7 @@ const FrontEndHeaderMobile = ({
                         <img src={Logo} alt="Bolster Systems" />
                     </a>
                 </div>
-                {!hideHeader && (
+                {!hideHeader && screenWidth >= 1024 && (
                     <div className="">
                         {isSuperAdmin || isCompanyAdmin || isClientAccess ? (
                             <div className="logged-in-button-container">
