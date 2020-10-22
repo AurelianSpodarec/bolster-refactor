@@ -8,11 +8,14 @@ import GooglePlayBadge from '_content/images/frontend-new/google-play-badge.png'
 import Container from 'components/frontEnd/shared/container/presentational/Container';
 import FooterLogo from '_content/images/frontend-new/footer-logo.png';
 
-const FrontEndFooter = ({ hideFooter, isMobile }) => {
+const FrontEndFooter = ({ hideFooter, isMobile, cookieConsent }) => {
     return (
-        <Container className="frontend-footer">
+        <Container className={`frontend-footer ${!cookieConsent ? 'cookie-visible' : ''}`}>
             <div className="information">
-                <p>Copyright Bolster Systems 2020. <br />All rights reserved</p>
+                <p>
+                    Copyright Bolster Systems 2020. <br />
+                    All rights reserved
+                </p>
             </div>
             <div className="internal-links">
                 <div className="logo">
@@ -45,12 +48,8 @@ const FrontEndFooter = ({ hideFooter, isMobile }) => {
                             </div>
                         )}
                         <p className="terms-text">
-                            <Link to="/auth/terms">
-                                Terms of Service
-                            </Link>{' '}
-                            <Link to="/auth/privacy-policy">
-                                Privacy Policy
-                            </Link>
+                            <Link to="/auth/terms">Terms of Service</Link>{' '}
+                            <Link to="/auth/privacy-policy">Privacy Policy</Link>
                         </p>
                     </>
                 )}

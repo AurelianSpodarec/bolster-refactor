@@ -7,6 +7,7 @@ import drawingsReducer from './drawings';
 import pinsReducer from './pins';
 import layoutReducer from './layout';
 import frontendTrustedByReducer from './frontendTrustedBy';
+import cookieReducer from './cookie';
 
 export default combineReducers({
     bannersReducer,
@@ -16,4 +17,5 @@ export default combineReducers({
     layoutReducer,
     frontendTrustedByReducer,
     authReducer,
+    cookieReducer,
 });

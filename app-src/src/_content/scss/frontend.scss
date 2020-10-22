@@ -454,6 +454,10 @@ $back-to-top-height: 35px;
             }
         }
 
+        &.cookie-visible {
+            padding-bottom: 75px;
+        }
+
         @include devices(xsDesktop) {
             .internal-links {
                 flex: 2;
