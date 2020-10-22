@@ -16,6 +16,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
 import { fieldTypes, getDefaultValue } from '../fieldTypes/allFieldTypes';
 import { QUESTION_TYPE_VALUES, QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
+import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
 const {
     SINGLE_LINE,
     SINGLE_PHOTO,
@@ -214,6 +215,7 @@ class AddPinQuestionRoute extends Component {
             template,
             areManufacturerOptionsIncluded,
             optionValues,
+            drawing,
         } = this.props;
 
         const isShowingFromPrereq = this.checkIfShouldShowByPreReq();
@@ -282,6 +284,35 @@ class AddPinQuestionRoute extends Component {
             if (oldAnswer) {
                 const { templateQuestionID, answer } = oldAnswer;
                 updateAddPinAnswer(templateQuestionID, answer);
+
+                // preventing stealth prefill manufacturer with non manufacturing answers & vice versa
+                if (
+                    drawing.isManufacturingEnabled &&
+                    DROPDOWN_OPTION_MANUFACTURER_ENABLED[question.optionType]
+                ) {
+                    if (Array.isArray(answer)) {
+                        updateAddPinAnswer(
+                            templateQuestionID,
+                            answer.filter(ans => typeof ans === 'number'),
+                        );
+                    } else {
+                        if (typeof answer !== 'number') {
+                            resetPinAnswer(templateQuestionID, getDefaultValue(question));
+                        }
+                    }
+                } else {
+                    if (Array.isArray(answer)) {
+                        updateAddPinAnswer(
+                            templateQuestionID,
+                            answer.filter(ans => typeof ans === 'string'),
+                        );
+                    } else {
+                        if (typeof answer === 'number') {
+                            resetPinAnswer(templateQuestionID, getDefaultValue(question));
+                        }
+                    }
+                }
+
                 if (
                     question.type + '' === MULTI_DROPDOWN_OPTIONS ||
                     question.type + '' === MULTI_MULTI_DROPDOWN_OPTIONS
