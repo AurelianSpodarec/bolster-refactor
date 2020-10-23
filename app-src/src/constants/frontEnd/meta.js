@@ -30,21 +30,21 @@ export const pageMeta = {
     contact: {
         title: 'Demo our construction compliance documentation software and app',
         description:
-            'Contact our expert team to learn more about our enteprise level compliance documentation software. Automate, streamline and improve your compliance documentation today.',
+            'Contact our expert team to learn more about our enterprise level compliance documentation software. Automate, streamline and improve your compliance documentation today.',
         canonical: '/contact',
         excludeFromSearchEngines: false,
     },
     login: {
         title: 'Login to our documentation software for construction',
         description:
-            'Register now to Bolster Systems, the world leading enteprise level compliance documentation software, complete with Android and iOS mobile apps and fully cloud based.',
+            'Login to  Bolster Systems, the world leading enterprise level compliance documentation software, complete with android and iOS mobile apps and fully cloud based.',
         canonical: '/auth/login',
         excludeFromSearchEngines: false,
     },
     register: {
         title: 'Sign up to our compliance documentation software',
         description:
-            'Login to  Bolster Systems, the world leading enteprise level compliance documentation software, complete with android and iOS mobile apps and fully cloud based.',
+            'Register now to Bolster Systems, the world leading enterprise level compliance documentation software, complete with Android and iOS mobile apps and fully cloud based.',
         canonical: '/auth/register',
         excludeFromSearchEngines: false,
     },
