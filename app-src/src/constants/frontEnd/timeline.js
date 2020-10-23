@@ -13,9 +13,9 @@ import BespokeTemplatesIconRed from '_content/images/frontend-new/how-it-works/t
 import CreateUsersIconRed from '_content/images/frontend-new/how-it-works/timeline/Create-Users-red.png';
 import CreateSitesAndUploadIconRed from '_content/images/frontend-new/how-it-works/timeline/Create–sites-&-upload-floorplan-drawings-red.png';
 import UploadAndSignIconRed from '_content/images/frontend-new/how-it-works/timeline/Attach-site-required-documentation-red.png';
-import DropPinsIconRed from '_content/images/frontend-new/how-it-works/timeline/Drop-pins-on-drawings-red.png';
+import DropPinsIconRed from '_content/images/frontend-new/how-it-works/timeline/Drop-pins-on-drawings-red.jpg';
 import UpsyncWorkIconRed from '_content/images/frontend-new/how-it-works/timeline/Up-sync-work–to-the-cloud-red.png';
-import GrantsClientsFreeAccessIconRed from '_content/images/frontend-new/how-it-works/timeline/Grant-clients-free-access-red.png';
+import GrantsClientsFreeAccessIconRed from '_content/images/frontend-new/how-it-works/timeline/Grant-clients-free-access-red.jpg';
 import GenerateUnlimitedPDFIconRed from '_content/images/frontend-new/how-it-works/timeline/Generate-PDF-CSV-&-Floorplan-reports-red.png';
 import TransferRecieveIconRed from '_content/images/frontend-new/how-it-works/timeline/Transfer-receive-works-from-other-Bolster-companies-free–of-charge-red.png';
 import ManageJobsIconRed from '_content/images/frontend-new/how-it-works/timeline/Schedule-alerts-on-sites-for-future-works-red.png';
