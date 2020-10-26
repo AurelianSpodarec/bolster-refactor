@@ -308,7 +308,7 @@ class AddPinQuestionRoute extends Component {
                         );
                     } else {
                         if (typeof answer === 'number') {
-                            resetPinAnswer(templateQuestionID, getDefaultValue(question));
+                            // resetPinAnswer(templateQuestionID, getDefaultValue(question));
                         }
                     }
                 }
