@@ -8,7 +8,6 @@ import DatePickerPresentational from 'components/shared/generic/form/presentatio
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
-import buildings from 'reducers/companyAdmin/buildings';
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
 

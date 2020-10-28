@@ -2100,6 +2100,18 @@ input {
     }
 }
 
+.dropdown-sort-container {
+    margin: -10px 0 20px;
+
+    .sort-text {
+        padding: 7px 5px 0 0;
+    }
+
+    .sort-input-container {
+        width: 200px;
+    }
+}
+
 .generic-input,
 .StripeElement {
     float: left;
@@ -4151,11 +4163,13 @@ input {
         margin-top: -1px;
         left: 0;
         width: auto;
+        min-width: 100%;
         background-color: white;
         z-index: 100;
         border: 1px solid #e1e1e1;
         @include rounded-bottom(3px);
         white-space: nowrap;
+
         .search-box {
             float: left;
             width: 100%;

@@ -8,25 +8,24 @@ import OptionValuesTable from '../presentational/OptionValuesTable';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { isObjEmpty } from 'helpers/generic';
 import { DROPDOWN_OPTIONS, DROPDOWN_OPTION_LOOKUP } from 'constants/companyAdmin/enums';
+import reorderManufacturerOptionValues from 'actions/companyAdmin/dropdownOptions/sync/reorderManufacturerOptionValues';
 
 class OptionValuesTableContainer extends Component {
     render() {
-        const { isFetching, error, optionValues, title, type, services } = this.props;
-
-        const optionValuesFilteredBySubscription = optionValues.filter(optionValue => {
-            return this.shouldOptionValueBeIncluded(optionValue.serviceIDs);
-        });
+        const { isFetching, error, title, type, services } = this.props;
+        const sortedOptions = this.getSortedOptionValues();
 
         return (
             <OptionValuesTable
                 headers={['Name', 'Services', '']}
-                optionValues={optionValuesFilteredBySubscription}
+                optionValues={sortedOptions}
                 isFetching={isFetching}
                 error={error}
                 title={title}
                 handleAddOptionValueModal={this.handleAddOptionValueModal}
                 type={type}
                 services={Object.values(services)}
+                moveItem={this.moveItem}
             />
         );
     }
@@ -53,12 +52,26 @@ class OptionValuesTableContainer extends Component {
     handleAddOptionValueModal = () => {
         const { showModal, manufacturer, services } = this.props;
         showModal(COMPANY_ADD_OPTION_VALUE, { manufacturer, services });
-        // todo company admin add option value reducer and modal
     };
 
     shouldOptionValueBeIncluded = serviceIDs => {
         const { subscriptionServiceIDs } = this.props;
         return serviceIDs.some(id => subscriptionServiceIDs.includes(id));
+    };
+
+    getSortedOptionValues = () => {
+        return this.props.optionValues
+            .filter(optionValue => this.shouldOptionValueBeIncluded(optionValue.serviceIDs))
+            .sort((a, b) => a.sort - b.sort);
+    };
+
+    moveItem = (overindex, fromIndex) => {
+        const { reorderManufacturerOptionValues, manufacturerID } = this.props;
+        const items = this.getSortedOptionValues();
+        const [item] = items.splice(fromIndex, 1);
+        items.splice(overindex, 0, item);
+        const sorted = items.map((x, i) => ({ ...x, sort: i + 1 }));
+        reorderManufacturerOptionValues(sorted, manufacturerID);
     };
 }
 
@@ -113,10 +126,6 @@ const mapStateToProps = (
     };
 };
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => {
-        dispatch(showModal(type, props));
-    },
-});
+const mapDispatchToProps = { showModal, reorderManufacturerOptionValues };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(OptionValuesTableContainer));

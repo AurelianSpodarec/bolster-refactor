@@ -15,15 +15,19 @@ export const formatOptions = options => {
 // ===================== CREATING OPTION VALUES AND MANUFACTURER OPTIONS IF NOT SET ABOVE ===========
 export const createManufacturerOptionList = manufacturers => {
     if (!isObjEmpty(manufacturers)) {
-        return Object.values(DROPDOWN_OPTIONS).reduce((acc, { reduxKey }) => {
-            if (manufacturers[reduxKey]) {
-                const manufacturerOptions = formatOptions(Object.values(manufacturers[reduxKey]));
+        return Object.values(DROPDOWN_OPTIONS)
+            .reduce((acc, { reduxKey }) => {
+                if (manufacturers[reduxKey]) {
+                    const manufacturerOptions = formatOptions(
+                        Object.values(manufacturers[reduxKey]),
+                    );
 
-                acc = [...acc, ...manufacturerOptions];
-            }
+                    acc = [...acc, ...manufacturerOptions];
+                }
 
-            return acc;
-        }, []);
+                return acc;
+            }, [])
+            .sort((a, b) => a.sort - b.sort);
     }
     return [];
 };

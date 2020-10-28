@@ -1,41 +1,41 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { DROPDOWN_OPTION_LOOKUP, DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+
 import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
 
 import DropdownList from '../presentational/DropdownList';
 import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
+import setIsSorting from 'actions/shared/sort/setIsSorting';
+import toggleIsSorting from 'actions/shared/sort/toggleIsSorting';
 
-class DropdownListContainer extends Component {
-    render() {
-        const { type } = this.props;
-        const { name } = DROPDOWN_OPTIONS[DROPDOWN_OPTION_LOOKUP[type]];
-        return <DropdownList name={name} type={DROPDOWN_OPTION_LOOKUP[type]} />;
-    }
+const DropdownListContainer = () => {
+    const { type } = useParams();
+    const dispatch = useDispatch();
+    const { name } = DROPDOWN_OPTIONS[DROPDOWN_OPTION_LOOKUP[type]];
+    const isSorting = useSelector(state => state.shared.sortReducer.isSorting);
 
-    componentDidMount = () => {
-        const { fetchAllDropdownOptions, fetchManufacturersByPinOptionType, type } = this.props;
+    useEffect(() => {
+        dispatch(fetchManufacturersByPinOptionType(DROPDOWN_OPTION_LOOKUP[type]));
+        dispatch(fetchAllDropdownOptions(DROPDOWN_OPTION_LOOKUP[type]));
+        dispatch(setIsSorting(false));
+    }, []);
 
-        fetchManufacturersByPinOptionType(DROPDOWN_OPTION_LOOKUP[type]);
-        fetchAllDropdownOptions(DROPDOWN_OPTION_LOOKUP[type]);
-    };
-}
+    const handleToggleSort = useCallback(e => {
+        e.preventDefault();
+        dispatch(toggleIsSorting());
+    });
 
-const mapStateToProps = (
-    _,
-    {
-        match: {
-            params: { type },
-        },
-    },
-) => ({
-    type,
-});
-
-const mapDispatchToProps = {
-    fetchAllDropdownOptions,
-    fetchManufacturersByPinOptionType,
+    return (
+        <DropdownList
+            name={name}
+            type={DROPDOWN_OPTION_LOOKUP[type]}
+            isSorting={isSorting}
+            toggleIsSorting={handleToggleSort}
+        />
+    );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DropdownListContainer);
+export default DropdownListContainer;

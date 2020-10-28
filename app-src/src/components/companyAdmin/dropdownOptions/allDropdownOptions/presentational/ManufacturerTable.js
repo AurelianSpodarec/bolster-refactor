@@ -11,6 +11,9 @@ const ManufacturerTable = ({
     manufacturers,
     isFetching,
     error,
+    moveItem,
+    type,
+    isSorting,
 }) => {
     return (
         <BlockContainer>
@@ -32,11 +35,15 @@ const ManufacturerTable = ({
                         noData={!manufacturers.length}
                         noDataMessage={'There are no manufacturers to display.'}
                         extraClasses="large"
+                        withoutTBody
                     >
                         <ManufacturerList
                             colCount={headers.length}
                             manufacturers={manufacturers}
                             headers={headers}
+                            moveItem={moveItem}
+                            type={type}
+                            isSorting={isSorting}
                         />
                     </Table>
                 </div>

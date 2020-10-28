@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 
 import { convertArrToObj, updateObj } from 'helpers/generic';
+import { REORDER_MANUFACTURERS } from 'constants/actionTypes/dropdownOptions';
+
 import {
     FETCH_PIN_OPTION_MANUFACTURERS_REQUEST,
     FETCH_PIN_OPTION_MANUFACTURERS_SUCCESS,
@@ -104,6 +106,12 @@ function manufacturersReducer(state = {}, action) {
                     action.payload,
                 ),
             };
+        case REORDER_MANUFACTURERS:
+            return updateObj(
+                state,
+                DROPDOWN_OPTIONS[action.pinOptionType].reduxKey,
+                convertArrToObj(action.payload),
+            );
         default:
             return state;
     }

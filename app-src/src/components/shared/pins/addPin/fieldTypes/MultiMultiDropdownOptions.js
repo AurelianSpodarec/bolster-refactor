@@ -1,6 +1,7 @@
 import React from 'react';
 import BoundlessSelect from 'components/shared/generic/form/presentational/BoundlessSelect';
 import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
+import { getSortedDropdownOptions } from 'helpers/addPin';
 
 const MultiMultiDropdownOptions = ({
     isRequired,
@@ -11,9 +12,9 @@ const MultiMultiDropdownOptions = ({
     edit,
     originalDropdownMultiAns,
     isManufacturingEnabledForDrawing,
+    defaultDropdownSorting,
 }) => {
     let isManufacturingEnabledForType = false;
-
     let formattedOpts = [];
     const filteredOptions = dropdownOptions.filter(option => {
         if (option.type + '' === optionType + '') {
@@ -51,19 +52,29 @@ const MultiMultiDropdownOptions = ({
             value: isManufacturingEnabledForType ? option.id : option.name,
             label: option.name,
             id: option.id || null,
+            sort: option.sort,
+            createdOn: option.createdOn,
+            manufacturerSort: option.manufacturerSort,
+            manufacturerID: option.manufacturerID,
         }));
     } else {
         formattedOpts = filteredOptions.map(option => ({
             value: isManufacturingEnabledForType ? option.id : option.name,
             label: option.name,
             id: option.id || null,
+            sort: option.sort,
+            createdOn: option.createdOn,
+            manufacturerSort: option.manufacturerSort,
+            manufacturerID: option.manufacturerID,
         }));
     }
+
+    const options = getSortedDropdownOptions(formattedOpts, defaultDropdownSorting);
 
     return (
         <BoundlessSelect
             required={isRequired}
-            options={formattedOpts}
+            options={options}
             value={answers[id]}
             name={`answer-${id}`}
             onChange={handleChange}

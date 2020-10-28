@@ -8,18 +8,34 @@ import {
 } from 'constants/shared/modalTypes';
 
 import ManufacturerListItem from '../presentational/ManufacturerListItem';
+import postManufacturersSort from 'actions/companyAdmin/dropdownOptions/async/postManufacturersSort';
+import { withRouter } from 'react-router-dom';
 
 class ManufacturerListItemContainer extends Component {
     render() {
-        const { manufacturer, colCount, headers, onMobile } = this.props;
+        const {
+            manufacturer,
+            colCount,
+            headers,
+            onMobile,
+            moveItem,
+            url,
+            index,
+            isSorting,
+        } = this.props;
         return (
             <ManufacturerListItem
                 manufacturer={manufacturer}
                 colCount={colCount}
                 handleEditManufacturerModal={this.handleEditManufacturerModal}
+                onMove={moveItem}
+                onDrop={() => this.handlePostManufacturerSort()}
                 headers={headers}
                 onMobile={onMobile}
                 handleToggleEnable={this.handleToggleEnable}
+                url={url}
+                index={index}
+                isSorting={isSorting}
             />
         );
     }
@@ -31,21 +47,28 @@ class ManufacturerListItemContainer extends Component {
     handleToggleEnable = () => {
         const { showModal, manufacturer } = this.props;
         showModal(COMPANY_TOGGLE_MANUFACTURER, { manufacturer });
-        // todo company admin enable and disable manufacturers
+    };
+
+    handlePostManufacturerSort = () => {
+        const { type, manufacturers, postManufacturersSort } = this.props;
+        postManufacturersSort(type, manufacturers);
     };
 }
-
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => dispatch(showModal(type, props)),
-});
-
-export default connect(
-    ({
+const mapStateToProps = (
+    {
         shared: {
             mobileReducer: { onMobile },
+            sortReducer: { isSorting },
         },
-    }) => ({
-        onMobile,
-    }),
-    mapDispatchToProps,
-)(ManufacturerListItemContainer);
+    },
+    { match: { url } },
+) => ({
+    onMobile,
+    url,
+    isSorting,
+});
+const mapDispatchToProps = { showModal, postManufacturersSort };
+
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(ManufacturerListItemContainer),
+);

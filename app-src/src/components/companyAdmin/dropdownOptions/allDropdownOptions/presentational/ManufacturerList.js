@@ -1,15 +1,32 @@
 import React from 'react';
 
 import ManufacturerListItemContainer from '../containers/ManufacturerListItemContainer';
+import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 
-const ManufacturerList = ({ manufacturers, colCount, headers }) => {
-    return manufacturers.map(manufacturer => (
-        <ManufacturerListItemContainer
-            key={manufacturer.id}
-            manufacturer={manufacturer}
-            colCount={colCount}
-            headers={headers}
-        />
-    ));
+const ManufacturerList = ({
+    manufacturers,
+    colCount,
+    headers,
+    forwardRef,
+    moveItem,
+    type,
+    isSorting,
+}) => {
+    return (
+        <tbody ref={forwardRef} className={isSorting ? 'sorting' : ''}>
+            {manufacturers.map((manufacturer, i) => (
+                <ManufacturerListItemContainer
+                    key={manufacturer.id}
+                    manufacturer={manufacturer}
+                    colCount={colCount}
+                    headers={headers}
+                    moveItem={moveItem}
+                    type={type}
+                    index={i}
+                    manufacturers={manufacturers}
+                />
+            ))}
+        </tbody>
+    );
 };
-export default ManufacturerList;
+export default withDropZone(ManufacturerList, 'MANUFACTURERS');
