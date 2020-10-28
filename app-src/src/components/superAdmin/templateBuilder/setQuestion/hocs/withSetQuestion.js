@@ -38,7 +38,7 @@ export default function (WrappedComponent) {
                 fields: { statusPrefills },
                 updateQuestionField,
             } = this.props;
-            console.log({ value, prefillStatus });
+
             updateQuestionField('statusPrefills', updateObj(statusPrefills, prefillStatus, value));
         };
 
@@ -48,7 +48,7 @@ export default function (WrappedComponent) {
                 updateQuestionField,
             } = this.props;
 
-            if (prefillStatuses.length != value.length) {
+            if (prefillStatuses.length !== value.length) {
                 prefillStatuses.forEach(status => {
                     if (!value.includes(status)) {
                         updateQuestionField(

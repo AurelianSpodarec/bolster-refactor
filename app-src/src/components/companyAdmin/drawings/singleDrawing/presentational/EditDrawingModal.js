@@ -41,149 +41,149 @@ const EditDrawingModal = ({
     handleShowManufacturingOptions,
     showManufacturingOptions,
     manufacturingInheritedFrom,
-}) => (
-    <ModalOuterContainer extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}>
-        <BlockHeading title="Edit drawing">
-            {latestFloorplanState === FLOORPLAN_STATES.COMPLETE && (
-                <button
-                    className="button r-margin"
-                    onClick={() =>
-                        fetch(`${RAW_S3_STORAGE_URL}/${tilesetS3KeyOrig}`).then(res => {
-                            res.blob().then(blob =>
-                                fileDownload(blob, getFileName(tilesetS3KeyOrig)),
-                            );
-                        })
-                    }
-                >
-                    <i className="fa fa-download" /> Download current floorplan
-                </button>
-            )}
-        </BlockHeading>
-        {doesRequireCreditToReplaceFloorplan ? (
-            <p className="generic-text size-lg-12">
-                Note: updating the floorplan for this drawing will cost a credit.
-            </p>
-        ) : (
-            <p className="generic-text size-lg-12">
-                Note: This will not cost you a credit as this is a{' '}
-                {latestFloorplanState === FLOORPLAN_STATES.FAILEDCANCELLED
-                    ? 'failed upload'
-                    : 'recently created drawing'}
-                .
-            </p>
-        )}
-
-        <Form className="generic-form" onSubmit={handleSubmit}>
-            <div className={isUsingBolsterLabels ? 'size-lg-6 size-md-12' : 'size-lg-12'}>
-                <Field name="Drawing name" required>
-                    <TextInputContainer
-                        name="name"
-                        value={name}
-                        handleChange={handleChange}
-                        required
-                    />
-                </Field>
-                <Field name="Change floorplan">
-                    <FileUploadContainer
-                        name="file"
-                        value={file}
-                        handleChange={handleChange}
-                        acceptedTypes={['application/pdf', 'image/*']}
-                    />
-                </Field>
-
-                <div className="size-lg-12">
-                    <div className="size-lg-6 size-md-12">
-                        <Field name="Send an alert?">
-                            <CheckboxContainer
-                                checked={isAlertShowing}
-                                name="isAlertShowing"
-                                text=""
-                                handleChange={handleChange}
-                            />
-                        </Field>
-                    </div>
-                </div>
-
-                {isAlertShowing && (
-                    <div className="size-lg-12">
-                        <div
-                            className={isUsingBolsterLabels ? 'size-lg-12' : 'size-lg-6 size-md-12'}
-                        >
-                            <Field name="Alert Message">
-                                <TextAreaContainer
-                                    value={message}
-                                    name="message"
-                                    handleChange={handleChange}
-                                />
-                            </Field>
-                        </div>
-
-                        <div
-                            className={isUsingBolsterLabels ? 'size-lg-12' : 'size-lg-6 size-md-12'}
-                        >
-                            <Field name="Date to send">
-                                <DatePickerPresentational
-                                    name="dateToSend"
-                                    selected={dateToSend}
-                                    onChange={handleDateChange}
-                                    placeholderText="Date"
-                                    showTimeSelect
-                                />
-                            </Field>
-                        </div>
-                    </div>
+}) => {
+    return (
+        <ModalOuterContainer extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}>
+            <BlockHeading title="Edit drawing">
+                {latestFloorplanState === FLOORPLAN_STATES.COMPLETE && (
+                    <button
+                        className="button r-margin"
+                        onClick={() =>
+                            fetch(`${RAW_S3_STORAGE_URL}/${tilesetS3KeyOrig}`).then(res => {
+                                res.blob().then(blob =>
+                                    fileDownload(blob, getFileName(tilesetS3KeyOrig)),
+                                );
+                            })
+                        }
+                    >
+                        <i className="fa fa-download" /> Download current floorplan
+                    </button>
                 )}
-            </div>
+            </BlockHeading>
+            {doesRequireCreditToReplaceFloorplan ? (
+                <p className="generic-text size-lg-12">
+                    Note: updating the floorplan for this drawing will cost a credit.
+                </p>
+            ) : (
+                <p className="generic-text size-lg-12">
+                    Note: This will not cost you a credit as this is a{' '}
+                    {latestFloorplanState === FLOORPLAN_STATES.FAILEDCANCELLED
+                        ? 'failed upload'
+                        : 'recently created drawing'}
+                    .
+                </p>
+            )}
 
-            {showManufacturingOptions ? (
-                <>
+            <Form className="generic-form" onSubmit={handleSubmit}>
+                <div className={isUsingBolsterLabels ? 'size-lg-6 size-md-12' : 'size-lg-12'}>
+                    <Field name="Drawing name" required>
+                        <TextInputContainer
+                            name="name"
+                            value={name}
+                            handleChange={handleChange}
+                            required
+                        />
+                    </Field>
+                    <Field name="Change floorplan">
+                        <FileUploadContainer
+                            name="file"
+                            value={file}
+                            handleChange={handleChange}
+                            acceptedTypes={['application/pdf', 'image/*']}
+                        />
+                    </Field>
+
                     <div className="size-lg-12">
                         <div className="size-lg-6 size-md-12">
-                            <Field
-                                labelClasses="no-capitalise"
-                                name="Set manufacturer(s) for drawing?"
-                            >
+                            <Field name="Send an alert?">
                                 <CheckboxContainer
-                                    checked={setManufacturersForHierarchy}
-                                    name="setManufacturersForHierarchy"
+                                    checked={isAlertShowing}
+                                    name="isAlertShowing"
                                     text=""
                                     handleChange={handleChange}
-                                    disabled={isManufacturingInherited}
                                 />
                             </Field>
                         </div>
                     </div>
-                    {setManufacturersForHierarchy && (
+
+                    {isAlertShowing && (
                         <div className="size-lg-12">
-                            <Field labelClasses="no-capitalise" name="Manufacturer(s)">
-                                <CheckboxListContainer
-                                    name="selectedManufacturerOptions"
-                                    text=""
-                                    handleChange={handleChange}
-                                    selectedOptions={selectedManufacturerOptions}
-                                    options={manufacturerOptions}
-                                    allOptionsDisabled={isManufacturingInherited}
-                                />
-                            </Field>
+                            <div
+                                className={
+                                    isUsingBolsterLabels ? 'size-lg-12' : 'size-lg-6 size-md-12'
+                                }
+                            >
+                                <Field name="Alert Message">
+                                    <TextAreaContainer
+                                        value={message}
+                                        name="message"
+                                        handleChange={handleChange}
+                                    />
+                                </Field>
+                            </div>
+
+                            <div
+                                className={
+                                    isUsingBolsterLabels ? 'size-lg-12' : 'size-lg-6 size-md-12'
+                                }
+                            >
+                                <Field name="Date to send">
+                                    <DatePickerPresentational
+                                        name="dateToSend"
+                                        selected={dateToSend}
+                                        onChange={handleDateChange}
+                                        placeholderText="Date"
+                                        showTimeSelect
+                                    />
+                                </Field>
+                            </div>
                         </div>
                     )}
+                </div>
 
-                    {setManufacturersForHierarchy &&
-                        Object.entries(optionValuesOptions).map(
-                            ([manufacturerID, optionValues]) => {
-                                if (selectedManufacturerOptions.includes(manufacturerID)) {
-                                    const manufacturerInfo = manufacturerOptions.find(
-                                        element => String(element.id) === String(manufacturerID),
-                                    );
+                {showManufacturingOptions ? (
+                    <>
+                        <div className="size-lg-12">
+                            <div className="size-lg-6 size-md-12">
+                                <Field
+                                    labelClasses="no-capitalise"
+                                    name="Set manufacturer(s) for drawing?"
+                                >
+                                    <CheckboxContainer
+                                        checked={setManufacturersForHierarchy}
+                                        name="setManufacturersForHierarchy"
+                                        text=""
+                                        handleChange={handleChange}
+                                        disabled={isManufacturingInherited}
+                                    />
+                                </Field>
+                            </div>
+                        </div>
+                        {setManufacturersForHierarchy && (
+                            <div className="size-lg-12">
+                                <Field labelClasses="no-capitalise" name="Manufacturer(s)">
+                                    <CheckboxListContainer
+                                        name="selectedManufacturerOptions"
+                                        text=""
+                                        handleChange={handleChange}
+                                        selectedOptions={selectedManufacturerOptions}
+                                        options={manufacturerOptions}
+                                        allOptionsDisabled={isManufacturingInherited}
+                                    />
+                                </Field>
+                            </div>
+                        )}
 
+                        {setManufacturersForHierarchy &&
+                            manufacturerOptions
+                                .filter(man => selectedManufacturerOptions.includes(`${man.id}`))
+                                .map(man => {
                                     return (
-                                        <div className="size-lg-12">
+                                        <div className="size-lg-12" key={man.id}>
                                             <Field
                                                 labelClasses="no-capitalise"
-                                                name={`${manufacturerInfo.name} ${
-                                                    DROPDOWN_OPTIONS[manufacturerInfo.pinOptionType]
-                                                        .name
+                                                name={`${man.name} ${
+                                                    DROPDOWN_OPTIONS[man.pinOptionType].name
                                                 }
                               `}
                                             >
@@ -192,49 +192,48 @@ const EditDrawingModal = ({
                                                     text=""
                                                     handleChange={handleChange}
                                                     selectedOptions={selectedOptionValues}
-                                                    options={Object.values(optionValues)}
+                                                    options={optionValuesOptions[man.id] || []}
                                                     allOptionsDisabled={isManufacturingInherited}
                                                 />
                                             </Field>
                                         </div>
                                     );
-                                } else return null;
-                            },
-                        )}
-                </>
-            ) : (
-                <>
-                    <FieldOutput fieldClass="center-align">
-                        <div className="form-field size-lg-12">
-                            <p>
-                                Manufacturers already set at {manufacturingInheritedFrom}.
-                                <br /> This cannot be overridden at this level, click{' '}
-                                <span onClick={() => handleShowManufacturingOptions()}>
-                                    here
-                                </span>{' '}
-                                to see the settings.
-                            </p>
-                        </div>
-                    </FieldOutput>
-                </>
-            )}
+                                })}
+                    </>
+                ) : (
+                    <>
+                        <FieldOutput fieldClass="center-align">
+                            <div className="form-field size-lg-12">
+                                <p>
+                                    Manufacturers already set at {manufacturingInheritedFrom}.
+                                    <br /> This cannot be overridden at this level, click{' '}
+                                    <span onClick={() => handleShowManufacturingOptions()}>
+                                        here
+                                    </span>{' '}
+                                    to see the settings.
+                                </p>
+                            </div>
+                        </FieldOutput>
+                    </>
+                )}
 
-            <BlockButtonWrapper>
-                <button className="button green" type="submit">
-                    {filesUploading ? (
-                        'Please wait...'
-                    ) : (
-                        <>
-                            <i className="fa fa-plus" />
-                            Update
-                        </>
-                    )}
-                </button>
-                <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
-            </BlockButtonWrapper>
-        </Form>
-    </ModalOuterContainer>
-);
+                <BlockButtonWrapper>
+                    <button className="button green" type="submit">
+                        {filesUploading ? (
+                            'Please wait...'
+                        ) : (
+                            <>
+                                <i className="fa fa-plus" />
+                                Update
+                            </>
+                        )}
+                    </button>
+                    <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
+                </BlockButtonWrapper>
+            </Form>
+        </ModalOuterContainer>
+    );
+};
 
 const mapStateToProps = ({
     companyAdmin: {

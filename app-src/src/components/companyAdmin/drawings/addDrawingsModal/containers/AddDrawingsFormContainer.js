@@ -53,7 +53,6 @@ const AddDrawingsFormContainer = ({
     fetchingClients,
     fetchingOperatives,
 }) => {
-
     const [
         drawings,
         updateDrawing,

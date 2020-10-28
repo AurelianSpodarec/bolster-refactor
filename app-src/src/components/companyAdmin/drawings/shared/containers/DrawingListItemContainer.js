@@ -14,6 +14,8 @@ const DrawingListItemContainer = ({
     postDrawingsSort,
     headers,
     onMobile,
+    connectDropTarget,
+    isSorting,
     ...rest
 }) => {
     return (
@@ -27,6 +29,8 @@ const DrawingListItemContainer = ({
             onDrop={() => postDrawingsSort(drawings)}
             headers={headers}
             onMobile={onMobile}
+            connectDropTarget={connectDropTarget}
+            isSorting={isSorting}
         />
     );
 
@@ -43,10 +47,14 @@ const mapDispatchToProps = { reorderDrawing, postDrawingsSort };
 
 export default connect(
     ({
+        companyAdmin: {
+            hierarchyReducer: { isSorting },
+        },
         shared: {
             mobileReducer: { onMobile },
         },
     }) => ({
+        isSorting,
         onMobile,
     }),
     mapDispatchToProps,

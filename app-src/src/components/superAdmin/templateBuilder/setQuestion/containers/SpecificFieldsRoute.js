@@ -22,7 +22,7 @@ const {
     MULTI_DROPDOWN_OPTIONS,
     MULTI_MULTI_DROPDOWN,
     MULTI_MULTI_DROPDOWN_OPTIONS,
-    DOCUMENT_UPLOAD
+    DOCUMENT_UPLOAD,
 } = QUESTION_TYPE_VALUES;
 
 const NoFields = () => null;
@@ -43,15 +43,9 @@ const SpecificFieldsRoute = ({ questionType, ...otherProps }) => {
         [MULTI_MULTI_DROPDOWN]: MultiOptionFormContainer,
         [MULTI_MULTI_DROPDOWN_OPTIONS]: OptionTypeFrom,
         [DOCUMENT_UPLOAD]: NoFields,
-
     };
 
     const SpecificForm = questionForms[questionType] || NoFields;
-    console.warn({ otherProps: { ...otherProps } });
-    console.warn({ otherProps: { ...otherProps } });
-    console.warn({ otherProps: { ...otherProps } });
-    console.warn({ otherProps: { ...otherProps } });
-    console.warn({ otherProps: { ...otherProps } });
 
     return <SpecificForm {...otherProps} questionType={questionType} />;
 };

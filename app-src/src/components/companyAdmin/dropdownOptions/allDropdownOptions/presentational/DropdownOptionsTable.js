@@ -15,6 +15,8 @@ const DropdownOptionsTable = ({
     error,
     title,
     type,
+    moveItem,
+    isSorting,
 }) => {
     return (
         <BlockContainer>
@@ -24,6 +26,7 @@ const DropdownOptionsTable = ({
                         <i className="fa fa-plus" /> {`Add ${DROPDOWN_OPTIONS[type].singular}`}
                     </button>
                 </BlockHeading>
+
                 <div className="size-lg-12">
                     <Table
                         withActions
@@ -33,11 +36,15 @@ const DropdownOptionsTable = ({
                         noData={!dropdownOptions.length}
                         noDataMessage={`There are no ${DROPDOWN_OPTIONS[type].name} to display.`}
                         extraClasses="large"
+                        withoutTBody
                     >
                         <DropdownOptionsList
                             colCount={headers.length}
                             dropdownOptions={dropdownOptions}
                             headers={headers}
+                            type={type}
+                            moveItem={moveItem}
+                            isSorting={isSorting}
                         />
                     </Table>
                 </div>

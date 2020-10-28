@@ -6,11 +6,11 @@ const BuildingsList = ({
     colCount,
     buildings,
     forwardRef,
-    isOver,
+    isSorting,
     headers,
     colSpanFirst = false,
 }) => (
-    <tbody ref={forwardRef} className={isOver ? 'dragging' : ''}>
+    <tbody ref={forwardRef} className={isSorting ? 'sorting' : ''}>
         {buildings.map((building, index) => (
             <BuildingsListItemContainer
                 key={building.id}

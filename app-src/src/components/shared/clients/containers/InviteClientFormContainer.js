@@ -8,7 +8,6 @@ import fetchCompaniesPermissions from 'actions/companyAdmin/companiesPermissions
 import addClient from 'actions/companyAdmin/clients/async/addClient';
 import fetchClientUsers from 'actions/companyAdmin/userManagement/async/fetchClientUsers';
 import addManyClients from 'actions/companyAdmin/clients/async/addManyClients';
-import { isEmpty } from 'helpers/generic';
 
 class InviteClientFormContainer extends Component {
     state = {
@@ -27,13 +26,13 @@ class InviteClientFormContainer extends Component {
         const serviceOptions = this._getServicesOptions();
         const showMoreServicesMesssage = serviceOptions.some(option => option.disabled === true);
         const showClientServicesMessage = serviceOptions.some(option => option.hideClientAccess);
-        const { isFetching, clients } = this.props;
+        const { isFetching } = this.props;
         const userOptions = this._getUserOptions();
         return (
             <BlockContainer isFetching={isFetching} isEmpty={isFetching}>
                 <InviteClientForm
                     {...this.state}
-                    inviteNewClient = { inviteNewClient || !userOptions.length}
+                    inviteNewClient={inviteNewClient || !userOptions.length}
                     serviceOptions={this._getServicesOptions()}
                     checkedServices={serviceIDs}
                     handleChange={this.handleChange}
@@ -47,7 +46,12 @@ class InviteClientFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { fetchCompaniesPermissions, hierarchyType, hierarchyID, fetchClientUsers } = this.props;
+        const {
+            fetchCompaniesPermissions,
+            hierarchyType,
+            hierarchyID,
+            fetchClientUsers,
+        } = this.props;
         fetchCompaniesPermissions(hierarchyType, hierarchyID);
         fetchClientUsers();
     };
@@ -121,7 +125,7 @@ class InviteClientFormContainer extends Component {
                 serviceIDs,
             };
             addClient(hierarchyType, hierarchyID, postBody);
-            
+
             return;
         }
         const postBody = {
@@ -164,6 +168,11 @@ const mapStateToProps = (
     companyID,
 });
 
-const mapDispatchToProps = { addClient, fetchCompaniesPermissions, addManyClients, fetchClientUsers };
+const mapDispatchToProps = {
+    addClient,
+    fetchCompaniesPermissions,
+    addManyClients,
+    fetchClientUsers,
+};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InviteClientFormContainer));

@@ -63,7 +63,7 @@ class QuestionContainer extends Component {
             sort: questionToCopy.sort + 1,
         };
 
-        questionsToUpdate.map(question => {
+        questionsToUpdate.forEach(question => {
             setQuestion({
                 ...question,
                 sort: question.sort + 1,
