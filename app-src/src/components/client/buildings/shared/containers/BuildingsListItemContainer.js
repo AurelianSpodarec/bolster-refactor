@@ -11,7 +11,7 @@ const BuildingsListItemContainer = ({
     building,
     colCount,
     headers,
-    onMobile
+    onMobile,
 }) => (
     <BuildingsListItem
         building={building}
@@ -27,10 +27,10 @@ export default connect(
     ({
         shared: {
             tablesReducer: { expandedBuildingIds },
-            mobileReducer: { onMobile }
-        }
+            mobileReducer: { onMobile },
+        },
     }) => ({
         expandedBuildingIds,
-        onMobile
-    })
+        onMobile,
+    }),
 )(BuildingsListItemContainer);

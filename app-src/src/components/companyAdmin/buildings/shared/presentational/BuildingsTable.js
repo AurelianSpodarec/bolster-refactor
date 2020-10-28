@@ -4,7 +4,15 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import BuildingsList from 'components/companyAdmin/buildings/shared/presentational/BuildingsList';
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 
-const BuildingsTable = ({ items, headers, isFetching, error, forwardRef, isOver, colSpanFirst = false }) => {
+const BuildingsTable = ({
+    items,
+    headers,
+    isFetching,
+    error,
+    forwardRef,
+    colSpanFirst = false,
+    isSorting,
+}) => {
     return (
         <>
             <Table
@@ -15,14 +23,14 @@ const BuildingsTable = ({ items, headers, isFetching, error, forwardRef, isOver,
                 noData={!items.length}
                 noDataMessage="There are no buildings to display."
                 withoutTBody
-                extraClasses={isOver ? 'dragging' : ''}
+                extraClasses={isSorting ? 'sorting' : ''}
             >
                 <BuildingsList
                     colCount={headers.length}
                     buildings={items}
                     headers={headers}
                     forwardRef={forwardRef}
-                    isOver={isOver}
+                    isSorting={isSorting}
                     colSpanFirst={colSpanFirst}
                 />
             </Table>

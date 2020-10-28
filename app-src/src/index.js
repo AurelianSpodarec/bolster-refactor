@@ -38,7 +38,7 @@ ReactDOM.render(
             </Provider>
         </ScrollToTop>
     </Router>,
-    document.getElementById('root')
+    document.getElementById('root'),
 );
 
 serviceWorker.unregister();

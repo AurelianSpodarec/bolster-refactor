@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Search from 'components/shared/generic/form/presentational/Search';
-import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
+import Select from 'components/shared/generic/form/presentational/Select';
 
 const SitesListFilters = ({
     name,
@@ -10,7 +10,7 @@ const SitesListFilters = ({
     handleChange,
     onMobile,
     sortOptions,
-    selectedSort
+    selectedSort,
 }) => (
     <form className="table-search size-lg-12">
         {onMobile ? (
@@ -23,23 +23,22 @@ const SitesListFilters = ({
                 />
                 <div className="table-filter">
                     <p>Filter by status:</p>
-                    <Dropdown
+                    <Select
                         placeholder="All sites"
                         name="status"
                         options={statusOptions}
-                        selectedOption={selectedStatus}
-                        handleChange={handleChange}
-                        />
+                        value={selectedStatus}
+                        onChange={handleChange}
+                    />
                 </div>
                 <div className="table-filter">
                     <p>Sort by:</p>
-                    <Dropdown
+                    <Select
                         name="sortBy"
                         options={sortOptions}
-                        selectedOption={selectedSort}
                         value={selectedSort}
-                        handleChange={handleChange}
                         onChange={handleChange}
+                        omitPlaceholder
                     />
                 </div>
             </>
@@ -52,23 +51,22 @@ const SitesListFilters = ({
                     handleChange={handleChange}
                 />
                 <div className="table-filter">
-                    <Dropdown
+                    <Select
                         placeholder="All sites"
                         name="status"
                         options={statusOptions}
-                        selectedOption={selectedStatus}
-                        handleChange={handleChange}
+                        value={selectedStatus}
+                        onChange={handleChange}
                     />
                     <p>Filter by status:</p>
-                </div>{' '}
+                </div>
                 <div className="table-filter">
-                    <Dropdown
+                    <Select
                         name="sortBy"
                         options={sortOptions}
-                        selectedOption={selectedSort}
                         value={selectedSort}
                         onChange={handleChange}
-                        handleChange={handleChange}
+                        omitPlaceholder
                     />
                     <p>Sort by:</p>
                 </div>

@@ -45,7 +45,9 @@ const Select = ({
 
     return (
         <div
-            className={`multi-multi-dropdown size-lg-12 ${disabled ? 'disabled' : ''} ${classes}`}
+            className={`select-list multi-multi-dropdown size-lg-12 ${
+                disabled ? 'disabled' : ''
+            } ${classes}`}
             ref={node}
             onClick={() => !disabled && setIsOpen(!isOpen)}
         >

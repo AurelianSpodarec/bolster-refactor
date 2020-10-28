@@ -151,10 +151,7 @@ function sitesReducer(state = {}, action) {
                 buildingIDs: [...state[action.payload.siteID].buildingIDs, action.payload.id],
             });
         case REORDER_SITE:
-            return {
-                ...state,
-                ...convertArrToObj(action.payload),
-            };
+            return convertArrToObj(action.payload);
 
         default:
             return state;
