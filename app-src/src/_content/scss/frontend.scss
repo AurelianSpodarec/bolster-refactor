@@ -1043,12 +1043,11 @@ $back-to-top-height: 35px;
 
         .headings-area {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
 
             .item {
                 display: flex;
-                flex: 0.23;
-
+                margin: 0 100px 0 100px;
                 img {
                     width: 100px;
                     margin-right: 20px;
