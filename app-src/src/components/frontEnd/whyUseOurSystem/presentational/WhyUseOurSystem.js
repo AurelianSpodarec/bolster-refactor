@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import { pageMeta } from 'constants/frontEnd/meta';
 
@@ -26,10 +26,7 @@ const WhyUseOurSystem = ({ setIsBannerScrolling }) => {
         <>
             <PageMeta meta={pageMeta.ourSystem} />
             <div id="why-use-our-system">
-                <FrontEndBanner
-                    heading="So why use Bolster?"
-                    video={PinsVideo}
-                />
+                <FrontEndBanner heading="So why use Bolster?" video={PinsVideo} />
                 <OurSystemCloudList />
                 <OurSystemDivider
                     heading="Services covered"
@@ -40,9 +37,9 @@ const WhyUseOurSystem = ({ setIsBannerScrolling }) => {
                     <FrontEndButton classes="gray" to="/contact">
                         Contact
                     </FrontEndButton>
+                    <BackToTopContainer />
                 </div>
             </div>
-            <BackToTopContainer />
         </>
     );
 };
