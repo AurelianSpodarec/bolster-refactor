@@ -8,19 +8,38 @@ import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/Fr
 import Form from 'components/shared/generic/form/containers/Form';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 import FrontEndFormHeading from 'components/frontEnd/shared/forms/presentational/FrontEndFormHeading';
+import ContactInfo from './ContactInfo';
 
 const ContactPageForm = ({ form, handleChange, handleSubmit, sent, isPosting }) => {
     if (sent) {
         return (
             <div className="auth-form-wrapper contact">
-                <FrontEndFormHeading title="Success" subtitle='Thank you! We will be in touch shortly.' />
+                <FrontEndFormHeading
+                    title="Success"
+                    subtitle="Thank you! We will be in touch shortly."
+                />
             </div>
         );
     }
 
     return (
         <div className="auth-form-wrapper contact">
-            <FrontEndFormHeading title="Enter your details" />
+            <div className="auth-text-wrapper">
+                <div className="auth-heading">
+                    <heading>
+                        <h1>Contact</h1>
+                    </heading>
+                </div>
+                <p>
+                    Bolster Systems offer a full demo exploring both the desktop and application
+                    platforms of the system, its functionality, ease of use and key benefits.
+                    <br />
+                    <div className="custom-line-break"></div>
+                    If you would like any further information on our system or to arrange a demo,
+                    please fill in the contact form and a member of the Bolster Systems team will
+                    get back to you.
+                </p>
+            </div>
             <Form id="contact-form-content" className="contact-form" onSubmit={handleSubmit}>
                 <Field name="Name" classes="auth-form-field" required>
                     <TextInputContainer
@@ -67,7 +86,7 @@ const ContactPageForm = ({ form, handleChange, handleSubmit, sent, isPosting }) 
                             required
                         />
                     </div>
-                    
+
                     <FrontEndButton
                         classes={`gray ${isPosting ? 'disabled' : ''}`}
                         type="submit"
@@ -77,8 +96,8 @@ const ContactPageForm = ({ form, handleChange, handleSubmit, sent, isPosting }) 
                     </FrontEndButton>
                 </Field>
             </Form>
+            <ContactInfo />
         </div>
-        
     );
 };
 

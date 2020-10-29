@@ -25,6 +25,10 @@ $back-to-top-height: 35px;
         }
     }
 
+    .custom-line-break {
+        margin-top: 5px;
+    }
+
     .frontend-container {
         display: flex;
         width: 100%;
@@ -1545,10 +1549,17 @@ $back-to-top-height: 35px;
 
         
         .contact-info-wrapper {
+            width: 100%;
+            display: flex;
+
             .contact-info-row {
+                padding: 0 40px;
+                 & > .full {
+                    width: 95%;
+                }
                 &.columns {
                     display: flex;
-                    justify-content: space-between;
+                    flex-direction: column;
 
                     p {
                         flex: 0.48;
@@ -1557,14 +1568,14 @@ $back-to-top-height: 35px;
             }
 
             p {
-                color: #FFFFFF;
+                color: black;
                 margin-bottom:  35px;
                 line-height: 1.3;
-                font-size: 250%;
+                font-size: 180%;
                 
             & > a {
                 text-decoration: none;
-                color: white;
+                color: black;
 
                 &:hover {
                     text-decoration: underline;
@@ -2215,6 +2226,7 @@ $back-to-top-height: 35px;
          object-fit: cover;
      }
  }
+
  .auth-wrapper {
     display: flex;
     min-height: calc(100vh - #{$header-height} - #{$footer-height});
@@ -2253,6 +2265,22 @@ $back-to-top-height: 35px;
             }
         }
     }
+
+    .auth-text-wrapper {
+        padding: 0 40px;
+
+        & > .auth-heading {
+            font-size: 280%;
+            @include opensans-bold;
+            margin-bottom: 10px;
+        }
+        & > p {
+            font-size: 180%;
+            max-width: 1066px;
+            margin-bottom: 10px;
+           
+    }
+}
 
     &.register {
             .auth-heading {
@@ -2302,7 +2330,7 @@ $back-to-top-height: 35px;
     }
 
     &.contact {
-        padding-top: 55px;
+        padding-top: 25px;
     }
 
     & > form {
