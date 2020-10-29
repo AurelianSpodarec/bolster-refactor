@@ -2,7 +2,7 @@ import React from 'react';
 
 const AboutUsInfo = () => {
     return (
-        <div className="content-page wysiwyg">
+        <div className="content-page wysiwyg about-us">
             <h2>bol•ster (ˈboʊl stər) Support: Reinforce: Strengthen</h2>
             <div className="divider"></div>
             <p>

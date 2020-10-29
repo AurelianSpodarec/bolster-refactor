@@ -833,6 +833,13 @@ $back-to-top-height: 35px;
         @include devices(ptTablet) {
             padding-bottom: 50px;
         }
+
+        &.about-us {
+            padding: 15px 0px 30px;
+            h1, h2, h3, h4, p {
+                line-height: 1.8;
+            }
+        }
     }
 
     .wysiwyg {
