@@ -34,8 +34,8 @@ class EditDocumentFormContainer extends Component {
         const { document, backUrl, documentID, filesUploading, operatives } = this.props;
         const serviceOptions = this._getServicesOptions();
         const operativeOptions = Object.values(operatives).map(
-            ({ id, userFirstName, userLastName, userEmail }) => ({
-                value: id,
+            ({ companyUserID, userFirstName, userLastName, userEmail }) => ({
+                value: companyUserID,
                 text: `${userFirstName} ${userLastName} <${userEmail}>`,
                 label: `${userFirstName} ${userLastName} <${userEmail}>`,
             }),

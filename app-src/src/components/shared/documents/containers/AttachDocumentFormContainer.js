@@ -40,8 +40,8 @@ class AttachDocumentFormContainer extends Component {
         const showMoreServicesMesssage = serviceOptions.some(option => option.disabled);
         const showClientServicesMessage = serviceOptions.some(option => option.hideClientAccess);
         const operativeOptions = Object.values(operatives).map(
-            ({ id, userFirstName, userLastName, userEmail }) => ({
-                value: id,
+            ({ companyUserID, userFirstName, userLastName, userEmail }) => ({
+                value: companyUserID,
                 text: `${userFirstName} ${userLastName} <${userEmail}>`,
                 label: `${userFirstName} ${userLastName} <${userEmail}>`,
             }),
