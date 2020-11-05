@@ -8,7 +8,7 @@ import { withRouter, Link } from 'react-router-dom';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
 import DatePickerContainer from 'components/shared/documents/containers/AttachDocumentDatePickerContainer';
-import { DOCUMENT_TYPE } from 'constants/companyAdmin/enums';
+import { DOCUMENT_TYPE, DOCUMENT_TYPES } from 'constants/companyAdmin/enums';
 import { DOCUMENT_VISIBILITY } from 'constants/companyAdmin/enums';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -16,6 +16,13 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import SubmitContainer from 'components/shared/generic/form/containers/SubmitContainer';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+
+const {
+    VISIBLE_TO_ALL,
+    VISIBLE_TO_OWN_COMPANY,
+    VISIBLE_TO_SELECT_OPERATIVES,
+} = DOCUMENT_VISIBILITY;
 
 const AttachDocumentForm = ({
     handleInputChange,
@@ -39,6 +46,8 @@ const AttachDocumentForm = ({
     documentVisibility,
     isOwner,
     showClientServicesMessage,
+    operativeIDs,
+    operativeOptions,
 }) => (
     <BlockContainer>
         <BlockHeading title="Document details" />
@@ -53,7 +62,7 @@ const AttachDocumentForm = ({
             <Field name="Document Type" sizeClasses="size-lg-12" required>
                 <RadioButton
                     name="type"
-                    checked={type === '1' ? true : false}
+                    checked={type === DOCUMENT_TYPES.VIEW_ONLY ? true : false}
                     text={DOCUMENT_TYPE[1]}
                     value="1"
                     handleInputChange={handleInputChange}
@@ -61,7 +70,7 @@ const AttachDocumentForm = ({
 
                 <RadioButton
                     name="type"
-                    checked={type === '2' ? true : false}
+                    checked={type === DOCUMENT_TYPES.REQUIRES_AGREEMENT_ONCE ? true : false}
                     text={DOCUMENT_TYPE[2]}
                     value="2"
                     handleInputChange={handleInputChange}
@@ -69,7 +78,7 @@ const AttachDocumentForm = ({
 
                 <RadioButton
                     name="type"
-                    checked={type === '3' ? true : false}
+                    checked={type === DOCUMENT_TYPES.REQUIRES_AGREEMENT_MULTIPLE ? true : false}
                     text={DOCUMENT_TYPE[3]}
                     value="3"
                     handleInputChange={handleInputChange}
@@ -114,27 +123,35 @@ const AttachDocumentForm = ({
                     <Field name="Document Visible to" required>
                         <RadioButton
                             name="documentVisibility"
-                            checked={
-                                documentVisibility === DOCUMENT_VISIBILITY.VISIBLE_TO_ALL
-                                    ? true
-                                    : false
-                            }
+                            checked={documentVisibility === VISIBLE_TO_ALL}
                             text="All companies"
-                            value={DOCUMENT_VISIBILITY.VISIBLE_TO_ALL}
+                            value={VISIBLE_TO_ALL}
                             handleInputChange={handleInputChange}
                         />
 
                         <RadioButton
                             name="documentVisibility"
-                            checked={
-                                documentVisibility === DOCUMENT_VISIBILITY.VISIBLE_TO_OWN_COMPANY
-                                    ? true
-                                    : false
-                            }
+                            checked={documentVisibility === VISIBLE_TO_OWN_COMPANY}
                             text={'Only own company'}
-                            value={DOCUMENT_VISIBILITY.VISIBLE_TO_OWN_COMPANY}
+                            value={VISIBLE_TO_OWN_COMPANY}
                             handleInputChange={handleInputChange}
                         />
+                        <RadioButton
+                            name="documentVisibility"
+                            checked={documentVisibility === VISIBLE_TO_SELECT_OPERATIVES}
+                            text={'Selected Operatives'}
+                            value={VISIBLE_TO_SELECT_OPERATIVES}
+                            handleInputChange={handleInputChange}
+                        />
+                        {documentVisibility === VISIBLE_TO_SELECT_OPERATIVES && (
+                            <MultiSelect
+                                name="operativeIDs"
+                                onChange={handleInputChange}
+                                options={operativeOptions}
+                                value={operativeIDs}
+                                search
+                            />
+                        )}
                     </Field>
                 </div>
             )}
