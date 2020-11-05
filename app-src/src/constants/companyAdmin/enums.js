@@ -405,6 +405,12 @@ export const HAS_PAID_QUERIES = {
     3: 'true',
 };
 
+export const DOCUMENT_TYPES = {
+    VIEW_ONLY: '1',
+    REQUIRES_AGREEMENT_ONCE: '2',
+    REQUIRES_AGREEMENT_MULTIPLE: '3',
+};
+
 export const DOCUMENT_VIEW_TYPES = {
     IMAGE: 0,
     PDF: 1,
@@ -413,6 +419,7 @@ export const DOCUMENT_VIEW_TYPES = {
 export const DOCUMENT_VISIBILITY = {
     VISIBLE_TO_ALL: 1,
     VISIBLE_TO_OWN_COMPANY: 2,
+    VISIBLE_TO_SELECT_OPERATIVES: 3,
 };
 
 export const IMAGE_VISUAL_POSITION = {

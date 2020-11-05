@@ -3,39 +3,40 @@ import { connect } from 'react-redux';
 import fetchCompanyReports from 'actions/companyAdmin/companyReports/async/fetchCompanyReports';
 import CompanyReports from '../presentational/CompanyReports';
 import fetchCompanyReportsFull from 'actions/companyAdmin/companyReports/async/fetchCompanyReportsFull';
+import fetchMessagesBasic from 'actions/companyAdmin/messages/async/fetchMessagesBasic';
 
 class CompanyReportsQueueContainer extends Component {
     state = {
         fetchFullReports: false,
     };
+
     render = () => <CompanyReports />;
 
-    componentDidUpdate = (prevProps, prevState) => {
-        const { fetchingFullReports, fetchCompanyReportsFull } = this.props;
-        const { fetchFullReports } = this.state;
+    componentDidUpdate = prevProps => {
+        const { fetchingFullReports, fetchCompanyReportsFull, fetchMessagesBasic } = this.props;
 
         if (fetchingFullReports && !prevProps.fetchingFullReports) {
-            console.warn('hitting props fetchingFullReports');
             this.setState({
                 fetchingFullReports: true,
             });
             clearInterval(this._interval);
-            this._interval = setInterval(() => fetchCompanyReportsFull(), 5000);
-        }
-        if (!prevState.fetchFullReports && fetchFullReports) {
-            console.warn('hitting state clear interval');
+            this._interval = setInterval(() => {
+                fetchCompanyReportsFull();
+                fetchMessagesBasic();
+            }, 5000);
         }
     };
     componentDidMount = () => {
-        const { fetchCompanyReports, fetchingFullReports } = this.props;
-        console.log({ fetchingFullReports });
-        this._interval = setInterval(() => fetchCompanyReports(), 5000);
+        const { fetchCompanyReports, fetchMessagesBasic } = this.props;
+        this._interval = setInterval(() => {
+            fetchCompanyReports();
+            fetchMessagesBasic();
+        }, 5000);
     };
 
     componentWillUnmount = () => clearInterval(this._interval);
 }
 
-const mapDispatchToProps = { fetchCompanyReports, fetchCompanyReportsFull };
 const mapStateToProps = ({
     companyAdmin: {
         companyReportsReducer: { fetchingFullReports },
@@ -43,5 +44,7 @@ const mapStateToProps = ({
 }) => ({
     fetchingFullReports,
 });
+
+const mapDispatchToProps = { fetchCompanyReports, fetchCompanyReportsFull, fetchMessagesBasic };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompanyReportsQueueContainer);

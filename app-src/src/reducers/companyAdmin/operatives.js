@@ -22,6 +22,10 @@ import {
     FETCH_COMPANY_OPERATIVES_FAILURE,
     FETCH_OPERATIVES_FOR_FLOOR_SUCCESS,
     FETCH_OPERATIVES_FOR_FLOOR_REQUEST,
+    FETCH_OPERATIVES_FOR_BUILDING_REQUEST,
+    FETCH_OPERATIVES_FOR_SITE_REQUEST,
+    FETCH_OPERATIVES_FOR_SITE_SUCCESS,
+    FETCH_OPERATIVES_FOR_BUILDING_SUCCESS,
 } from 'constants/actionTypes/operatives';
 import {
     FETCH_CLIENTS_FOR_FLOOR_REQUEST,
@@ -46,6 +50,8 @@ function isFetchingReducer(state = false, action) {
         case FETCH_OPERATIVES_REQUEST:
         case FETCH_CLIENTS_FOR_FLOOR_REQUEST:
         case FETCH_OPERATIVES_FOR_FLOOR_REQUEST:
+        case FETCH_OPERATIVES_FOR_BUILDING_REQUEST:
+        case FETCH_OPERATIVES_FOR_SITE_REQUEST:
             return true;
         case FETCH_COMPANY_OPERATIVES_SUCCESS:
         case FETCH_COMPANY_OPERATIVES_FAILURE:
@@ -54,7 +60,8 @@ function isFetchingReducer(state = false, action) {
         case FETCH_OPERATIVES_SUCCESS:
         case FETCH_OPERATIVES_FAILURE:
         case FETCH_OPERATIVES_FOR_FLOOR_SUCCESS:
-        case FETCH_CLIENTS_FOR_FLOOR_FAILURE:
+        case FETCH_OPERATIVES_FOR_BUILDING_SUCCESS:
+        case FETCH_OPERATIVES_FOR_SITE_SUCCESS:
             return false;
         default:
             return state;
@@ -151,6 +158,8 @@ function operativesReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_COMPANY_OPERATIVES_SUCCESS:
         case FETCH_OPERATIVES_FOR_FLOOR_SUCCESS:
+        case FETCH_OPERATIVES_FOR_BUILDING_SUCCESS:
+        case FETCH_OPERATIVES_FOR_SITE_SUCCESS:
         case FETCH_OPERATIVES_SUCCESS:
             return convertArrToObj(action.payload);
         case ADD_OPERATIVE_SUCCESS:

@@ -21,6 +21,7 @@ import fetchOutgoingTransferRequests from 'actions/companyAdmin/transferRequests
 import fetchPendingInvites from 'actions/companyAdmin/pendingInvites/fetchPendingInvites';
 import fetchOutgoingInvites from 'actions/companyAdmin/pendingInvites/fetchOutgoingInvites';
 import fetchSingleCompanyUser from 'actions/companyAdmin/userManagement/async/fetchSingleCompanyUser';
+import fetchMessagesBasic from 'actions/companyAdmin/messages/async/fetchMessagesBasic';
 
 class CompanyAppContainer extends Component {
     render() {
@@ -54,7 +55,7 @@ const mapDispatchToProps = dispatch => ({
     fetchHomeData: () => {
         dispatch(fetchProfile());
         dispatch(fetchSingleCompany());
-        dispatch(fetchMessages());
+        dispatch(fetchMessagesBasic());
         dispatch(fetchCompanyReports());
         dispatch(companyFetchAllServices());
         dispatch(fetchAllSubscriptions());

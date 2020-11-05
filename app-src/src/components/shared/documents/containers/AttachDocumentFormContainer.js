@@ -5,33 +5,47 @@ import { withRouter } from 'react-router-dom';
 import AttachDocumentForm from '../presentational/AttachDocumentForm';
 import createDocument from 'actions/documents/async/createDocument';
 import fetchCompaniesPermissions from 'actions/companyAdmin/companiesPermissions/async/fetchCompanyPermissions';
-import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
+import {
+    ACCESS_TYPES_VALUES,
+    DOCUMENT_TYPES,
+    DOCUMENT_VISIBILITY,
+    HIERARCHY_IDS,
+    HIERARCHY_TYPES,
+} from 'constants/companyAdmin/enums';
+import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
+import fetchOperativesForBuilding from 'actions/companyAdmin/operatives/async/fetchOperativesForBuilding';
+import fetchOperativesForFloor from 'actions/companyAdmin/operatives/async/fetchOperativesForFloor';
+import fetchOperativesForSite from 'actions/companyAdmin/operatives/async/fetchOperativesForSite';
+const { SITE, BUILDING, FLOOR, DRAWING } = HIERARCHY_IDS;
 
 class AttachDocumentFormContainer extends Component {
     state = {
-        // view only, agreement once, agreement daily - radio buttons
-        type: '1',
-        // textboxes
+        type: DOCUMENT_TYPES.VIEW_ONLY,
         name: '',
         file: '',
-        // toggles
         isPhotoRequired: false,
         isFileViewRequired: false,
         isSignatureRequired: false,
         isUpsyncForced: false,
-        // dropdown
         serviceIDs: [],
         agreeanceEveryXDays: 0,
-        // date selector
         startOn: undefined,
         endOn: undefined,
         documentVisibility: null,
+        operativeIDs: [],
     };
     render = () => {
-        const { filesUploading, backUrl } = this.props;
+        const { filesUploading, backUrl, operatives } = this.props;
         const serviceOptions = this._getServicesOptions();
         const showMoreServicesMesssage = serviceOptions.some(option => option.disabled);
         const showClientServicesMessage = serviceOptions.some(option => option.hideClientAccess);
+        const operativeOptions = Object.values(operatives).map(
+            ({ companyUserID, userFirstName, userLastName, userEmail }) => ({
+                value: companyUserID,
+                text: `${userFirstName} ${userLastName} <${userEmail}>`,
+                label: `${userFirstName} ${userLastName} <${userEmail}>`,
+            }),
+        );
         return (
             <AttachDocumentForm
                 {...this.state}
@@ -48,16 +62,34 @@ class AttachDocumentFormContainer extends Component {
                 filesUploading={filesUploading}
                 showMoreServicesMesssage={showMoreServicesMesssage}
                 showClientServicesMessage={showClientServicesMessage}
+                operativeOptions={operativeOptions}
             />
         );
     };
     componentDidMount = () => {
-        const { fetchCompaniesPermissions, hierarchyType, hierarchyID } = this.props;
+        const {
+            fetchCompaniesPermissions,
+            hierarchyType,
+            hierarchyID,
+            fetchOperativesForSite,
+            fetchOperativesForBuilding,
+            fetchOperativesForFloor,
+            fetchOperativesForDrawing,
+        } = this.props;
 
         fetchCompaniesPermissions(hierarchyType, hierarchyID);
+        if (hierarchyType.toLowerCase() === HIERARCHY_TYPES[SITE]) {
+            fetchOperativesForSite(hierarchyID);
+        } else if (hierarchyType.toLowerCase() === HIERARCHY_TYPES[BUILDING]) {
+            fetchOperativesForBuilding(hierarchyID);
+        } else if (hierarchyType.toLowerCase() === HIERARCHY_TYPES[FLOOR]) {
+            fetchOperativesForFloor(hierarchyID);
+        } else if (hierarchyType.toLowerCase() === HIERARCHY_TYPES[DRAWING]) {
+            fetchOperativesForDrawing(hierarchyID);
+        }
     };
 
-    componentDidUpdate = prevProps => {
+    componentDidUpdate = (prevProps, prevState) => {
         const {
             postSuccess,
             history,
@@ -65,6 +97,7 @@ class AttachDocumentFormContainer extends Component {
             hierarchyID,
             companiesWithPermissions,
         } = this.props;
+        const { documentVisibility } = this.state;
         if (
             companiesWithPermissions.length > 0 &&
             prevProps.companiesWithPermissions.length === 0
@@ -77,6 +110,13 @@ class AttachDocumentFormContainer extends Component {
         }
         if (!prevProps.postSuccess && postSuccess) {
             history.replace(`/company/${hierarchyType}s/${hierarchyID}`);
+        }
+
+        if (
+            +prevState.documentVisibility === DOCUMENT_VISIBILITY.VISIBLE_TO_SELECT_OPERATIVES &&
+            +documentVisibility !== DOCUMENT_VISIBILITY.VISIBLE_TO_SELECT_OPERATIVES
+        ) {
+            this.setState({ operativeIDs: [] });
         }
     };
     checkIsOwner = () => {
@@ -131,15 +171,8 @@ class AttachDocumentFormContainer extends Component {
         e.preventDefault();
         const { createDocument, hierarchyType, hierarchyID, filesUploading } = this.props;
         if (!filesUploading) {
-            const {
-                serviceIDs,
-                // eslint-disable-next-line no-unused-vars
-                services,
-                ...body
-            } = this.state;
             const postBody = {
-                ...body,
-                serviceIDs: serviceIDs,
+                ...this.state,
             };
             createDocument(hierarchyType, hierarchyID, postBody);
         }
@@ -153,6 +186,7 @@ const mapStateToProps = (
             subscriptionsReducer,
             documentsReducer,
             companiesPermissionsReducer,
+            operativesReducer: { operatives },
         },
         shared: {
             filesUploadingReducer: { filesUploading },
@@ -171,9 +205,17 @@ const mapStateToProps = (
     postSuccess: documentsReducer.postSuccess,
     companyID,
     companiesWithPermissions: Object.values(companiesPermissionsReducer.companiesPermissions),
+    operatives,
 });
 
-const mapDispatchToProps = { createDocument, fetchCompaniesPermissions };
+const mapDispatchToProps = {
+    createDocument,
+    fetchCompaniesPermissions,
+    fetchOperativesForDrawing,
+    fetchOperativesForBuilding,
+    fetchOperativesForFloor,
+    fetchOperativesForSite,
+};
 
 export default withRouter(
     connect(mapStateToProps, mapDispatchToProps)(AttachDocumentFormContainer),

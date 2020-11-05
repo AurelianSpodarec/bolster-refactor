@@ -6,35 +6,45 @@ import EditDocumentForm from '../presentational/EditDocumentForm';
 import editDocument from 'actions/documents/async/editDocument';
 import fetchSingleDocument from 'actions/documents/async/fetchSingleDocument';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
-
+import { ACCESS_TYPES_VALUES, HIERARCHY_IDS, HIERARCHY_TYPES } from 'constants/companyAdmin/enums';
+import fetchOperativesForSite from 'actions/companyAdmin/operatives/async/fetchOperativesForSite';
+import fetchOperativesForBuilding from 'actions/companyAdmin/operatives/async/fetchOperativesForBuilding';
+import fetchOperativesForFloor from 'actions/companyAdmin/operatives/async/fetchOperativesForFloor';
+import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
+import fetchCompanyPermissions from 'actions/companyAdmin/companiesPermissions/async/fetchCompanyPermissions';
+const { SITE, BUILDING, FLOOR, DRAWING } = HIERARCHY_IDS;
 class EditDocumentFormContainer extends Component {
     state = {
-        // view only, agreement once, agreement daily - radio buttons
         type: '1',
-        // textboxes
         name: '',
         file: '',
-        // toggles
         isPhotoRequired: false,
         isFileViewRequired: false,
         isSignatureRequired: false,
         isUpsyncForced: false,
-        // dropdown
         serviceIDs: [],
         agreeanceEveryXDays: '0',
-        // date selector
         startOn: undefined,
         endOn: undefined,
-        isFileViewHidden: false
+        isFileViewHidden: false,
+        operativeIDs: [],
     };
 
     render() {
-        const { document, backUrl, documentID, filesUploading } = this.props;
+        const { document, backUrl, documentID, filesUploading, operatives } = this.props;
         const serviceOptions = this._getServicesOptions();
+        const operativeOptions = Object.values(operatives).map(
+            ({ companyUserID, userFirstName, userLastName, userEmail }) => ({
+                value: companyUserID,
+                text: `${userFirstName} ${userLastName} <${userEmail}>`,
+                label: `${userFirstName} ${userLastName} <${userEmail}>`,
+            }),
+        );
 
         return document ? (
             <EditDocumentForm
                 {...this.state}
+                isOwner={this.checkIsOwner()}
                 services={serviceOptions}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
@@ -44,6 +54,7 @@ class EditDocumentFormContainer extends Component {
                 backUrl={backUrl}
                 documentID={documentID}
                 filesUploading={filesUploading}
+                operativeOptions={operativeOptions}
             />
         ) : (
             <Loading />
@@ -52,7 +63,17 @@ class EditDocumentFormContainer extends Component {
 
     componentDidMount() {
         const { documentID } = this.props.match.params;
-        const { document, fetchSingleDocument } = this.props;
+        const {
+            document,
+            hierarchyType,
+            hierarchyID,
+            fetchSingleDocument,
+            fetchOperativesForSite,
+            fetchOperativesForBuilding,
+            fetchOperativesForFloor,
+            fetchOperativesForDrawing,
+            fetchCompanyPermissions,
+        } = this.props;
 
         if (document && document.type) {
             this.setState({
@@ -60,11 +81,22 @@ class EditDocumentFormContainer extends Component {
                 type: String(document.type),
                 startOn: new Date(document.startOn),
                 endOn: new Date(document.endOn),
-                serviceIDs: document.serviceIDs.map(key => String(key))
+                serviceIDs: document.serviceIDs.map(key => String(key)),
             });
         }
 
         fetchSingleDocument(documentID);
+        fetchCompanyPermissions(hierarchyType, hierarchyID);
+
+        if (hierarchyType.toLowerCase() === HIERARCHY_TYPES[SITE]) {
+            fetchOperativesForSite(hierarchyID);
+        } else if (hierarchyType.toLowerCase() === HIERARCHY_TYPES[BUILDING]) {
+            fetchOperativesForBuilding(hierarchyID);
+        } else if (hierarchyType.toLowerCase() === HIERARCHY_TYPES[FLOOR]) {
+            fetchOperativesForFloor(hierarchyID);
+        } else if (hierarchyType.toLowerCase() === HIERARCHY_TYPES[DRAWING]) {
+            fetchOperativesForDrawing(hierarchyID);
+        }
     }
 
     componentDidUpdate = prevProps => {
@@ -79,7 +111,7 @@ class EditDocumentFormContainer extends Component {
                 type: String(document.type),
                 startOn: document.startOn ? new Date(document.startOn) : undefined,
                 endOn: document.endOn ? new Date(document.endOn) : undefined,
-                serviceIDs
+                serviceIDs,
             });
         }
 
@@ -93,20 +125,37 @@ class EditDocumentFormContainer extends Component {
         return services.map(({ id, name }) => ({
             value: id,
             text: name,
-            disabled: !subscriptions.includes(id)
+            disabled: !subscriptions.includes(id),
         }));
+    };
+
+    checkIsOwner = () => {
+        const { companiesWithPermissions, companyID } = this.props;
+
+        const filteredThisCompany = companiesWithPermissions.filter(
+            company => company.companyID === companyID,
+        );
+
+        if (
+            filteredThisCompany.length > 0 &&
+            filteredThisCompany[0].accessType === ACCESS_TYPES_VALUES.OWNER
+        ) {
+            return true;
+        } else {
+            return false;
+        }
     };
 
     handleHide = () => {
         this.setState({
-            isFileViewHidden: true
+            isFileViewHidden: true,
         });
     };
 
     handleCancelUpload = () => {
         this.setState({
             file: '',
-            isFileViewHidden: false
+            isFileViewHidden: false,
         });
     };
 
@@ -114,7 +163,7 @@ class EditDocumentFormContainer extends Component {
 
     handleDateChange = (date, name) => {
         this.setState({
-            [name]: date
+            [name]: date,
         });
     };
 
@@ -135,7 +184,7 @@ class EditDocumentFormContainer extends Component {
                 serviceIDs: serviceIDs,
                 file: file || '',
                 hierarchyID,
-                hierarchyType
+                hierarchyType,
             };
             editDocument(documentID, postBody);
         }
@@ -144,12 +193,21 @@ class EditDocumentFormContainer extends Component {
 
 const mapStateToProps = (
     {
-        companyAdmin: { documentsReducer, servicesReducer, subscriptionsReducer },
+        companyAdmin: {
+            documentsReducer,
+            servicesReducer,
+            subscriptionsReducer,
+            companiesPermissionsReducer,
+            operativesReducer: { operatives },
+        },
         shared: {
-            filesUploadingReducer: { filesUploading }
-        }
+            filesUploadingReducer: { filesUploading },
+            decodeJWTReducer: {
+                jwtData: { companyID },
+            },
+        },
     },
-    { match }
+    { match },
 ) => ({
     filesUploading,
     isFetching:
@@ -161,17 +219,20 @@ const mapStateToProps = (
     document: documentsReducer.documents[match.params.documentID],
     hierarchyID: match.params.id,
     documentID: match.params.documentID,
-    postSuccess: documentsReducer.postSuccess
+    postSuccess: documentsReducer.postSuccess,
+    companiesWithPermissions: Object.values(companiesPermissionsReducer.companiesPermissions),
+    operatives,
+    companyID,
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchSingleDocument: ID => dispatch(fetchSingleDocument(ID)),
-    editDocument: (id, postBody) => dispatch(editDocument(id, postBody))
-});
+const mapDispatchToProps = {
+    editDocument,
+    fetchCompanyPermissions,
+    fetchOperativesForSite,
+    fetchOperativesForBuilding,
+    fetchOperativesForFloor,
+    fetchOperativesForDrawing,
+    fetchSingleDocument,
+};
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(EditDocumentFormContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditDocumentFormContainer));
