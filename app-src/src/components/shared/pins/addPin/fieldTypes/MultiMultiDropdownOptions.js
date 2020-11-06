@@ -46,7 +46,7 @@ const MultiMultiDropdownOptions = ({
                 }
                 return acc;
             }, [])
-            .map(opt => ({ name: opt }));
+            .map(opt => ({ name: opt, id: opt }));
 
         formattedOpts = [...filteredOptions, ...extraOptions].map(option => ({
             value: isManufacturingEnabledForType ? option.id : option.name,

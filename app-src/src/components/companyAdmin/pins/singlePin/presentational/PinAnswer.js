@@ -34,8 +34,10 @@ const PinAnswer = ({
             curAnswer.answer = curAnswer.answer.map(id => {
                 if (!id) {
                     return null;
-                } else {
+                } else if (optionValuesLookup[id]) {
                     return optionValuesLookup[id].name;
+                } else {
+                    return id;
                 }
             });
         }
