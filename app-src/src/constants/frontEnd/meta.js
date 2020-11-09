@@ -1,6 +1,6 @@
 export const pageMeta = {
     home: {
-        title: '',
+        title: 'Home',
         description:
             'Bolster Systems is the world leading compliance documentation software, complete with mobile app experience. Streamline and automate your compliance documentation today.',
         canonical: '/',
