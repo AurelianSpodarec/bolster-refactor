@@ -20,7 +20,7 @@ const Login = ({ loginText, error, isFetching }) => {
                 />
                 <div className="auth-wrapper">
                     <div className="heading-body-wrapper">
-                        <div className="auth-heading">
+                        {/* <div className="auth-heading">
                             <heading>
                                 <h1>Login</h1>
                             </heading>
@@ -29,9 +29,9 @@ const Login = ({ loginText, error, isFetching }) => {
                             loginText={loginText}
                             error={error}
                             isFetching={isFetching}
-                        />
+                        /> */}
                     </div>
-                    <LoginFormContainer />
+                    <LoginFormContainer loginText={loginText} />
                 </div>
             </div>
         </>

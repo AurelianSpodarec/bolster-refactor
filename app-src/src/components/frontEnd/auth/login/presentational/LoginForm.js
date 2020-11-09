@@ -7,11 +7,19 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 
-const LoginForm = ({ formData, handleChange, handleSubmit, handleForgotPassword, isPosting }) => {
+const LoginForm = ({
+    formData,
+    handleChange,
+    handleSubmit,
+    handleForgotPassword,
+    isPosting,
+    loginText,
+}) => {
     const { email, password } = formData;
+
     return (
         <div className="auth-form-wrapper login">
-            <FrontEndFormHeading title="Login" subtitle="Neque porro quisquam" />
+            <FrontEndFormHeading title="Login" subtitle={loginText} />
             <Form onSubmit={handleSubmit}>
                 <Field name="Email" classes="auth-form-field">
                     <TextInputContainer

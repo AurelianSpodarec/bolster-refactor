@@ -14,6 +14,7 @@ import { checkActive } from 'actions/companyAdmin/subscriptions/async/checkActiv
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
+import fetchAuthAreaText from 'actions/frontEnd/auth/fetchAuthAreaText';
 
 const LoginFormContainer = ({
     showModal,
@@ -25,11 +26,16 @@ const LoginFormContainer = ({
     history,
     isPosting,
     error,
+    fetchAuthAreaText,
+    auth,
+    isFetching,
 }) => {
     const [formData, handleChange] = useForm({ email: '', password: '' });
     const prevProps = usePrevious({ postSuccess, isPosting });
 
     useEffect(() => {
+        fetchAuthAreaText();
+
         if (history.action.includes('REPLACE')) {
             window.location.reload();
         }
@@ -54,6 +60,7 @@ const LoginFormContainer = ({
             handleSubmit={handleSubmit}
             handleForgotPassword={handleForgotPassword}
             isPosting={isPosting}
+            loginText={auth.loginText}
         />
     );
 
@@ -105,7 +112,14 @@ const LoginFormContainer = ({
     }
 };
 
-const mapStateToProps = ({ shared: { loginReducer } }) => loginReducer;
+const mapStateToProps = ({
+    shared: { loginReducer },
+    frontEnd: {
+        authReducer: { auth: auth },
+        error,
+        isFetching,
+    },
+}) => ({ loginReducer, auth, error, isFetching });
 
 const mapDispatchToProps = {
     showModal,
@@ -113,6 +127,7 @@ const mapDispatchToProps = {
     showFieldErrors,
     fetchCompanySettings,
     postLogin,
+    fetchAuthAreaText,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginFormContainer));
