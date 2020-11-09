@@ -5,9 +5,8 @@ import { pageMeta } from 'constants/frontEnd/meta';
 import RegisterFormContainer from '../containers/RegisterFormContainer';
 import RegisterVideo from '_content/videos/frontend/Register.mp4';
 import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
-import RegisterTextBody from './RegisterTextBody';
 
-const Register = ({ registerText, error, isFetching }) => {
+const Register = () => {
     return (
         <>
             <PageMeta meta={pageMeta.register} />
@@ -17,18 +16,7 @@ const Register = ({ registerText, error, isFetching }) => {
                     <source src={RegisterVideo} type="video/mp4" />
                 </video>
                 <div className="auth-wrapper register">
-                    <div className="heading-body-wrapper">
-                        <div className="auth-heading">
-                            <heading>
-                                <h1>Registering with Bolster Systems</h1>
-                            </heading>
-                        </div>
-                        <RegisterTextBody
-                            registerText={registerText}
-                            error={error}
-                            isFetching={isFetching}
-                        />
-                    </div>
+                    <div className="heading-body-wrapper"></div>
                     <RegisterFormContainer />
                 </div>
             </div>
