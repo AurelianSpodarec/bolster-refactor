@@ -2,36 +2,22 @@ import React from 'react';
 
 import { pageMeta } from 'constants/frontEnd/meta';
 
-import ServerRoom from '_content/images/frontend-new/login/server-room.png';
+import LoginVideo from '_content/videos/frontend/Login.mp4';
 import LoginFormContainer from '../containers/LoginFormContainer';
 import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
-import LoginTextBody from './LoginTextBody';
 
-const Login = ({ loginText, error, isFetching }) => {
+const Login = () => {
     return (
         <>
             <PageMeta meta={pageMeta.login} />
             <div id="login">
                 <div className="auth-background"></div>
-                <img
-                    src={ServerRoom}
-                    alt="Server room background video"
-                    className="auth-background-video"
-                />
+                <video className="auth-background-video" autoPlay="autoplay" loop muted>
+                    <source src={LoginVideo} type="video/mp4" />
+                </video>
                 <div className="auth-wrapper">
-                    <div className="heading-body-wrapper">
-                        {/* <div className="auth-heading">
-                            <heading>
-                                <h1>Login</h1>
-                            </heading>
-                        </div>
-                        <LoginTextBody
-                            loginText={loginText}
-                            error={error}
-                            isFetching={isFetching}
-                        /> */}
-                    </div>
-                    <LoginFormContainer loginText={loginText} />
+                    <div className="heading-body-wrapper"></div>
+                    <LoginFormContainer />
                 </div>
             </div>
         </>

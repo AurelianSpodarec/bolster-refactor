@@ -3,7 +3,7 @@ import React from 'react';
 import { pageMeta } from 'constants/frontEnd/meta';
 
 import RegisterFormContainer from '../containers/RegisterFormContainer';
-import ServerRoomBackgroundVideo from '_content/videos/frontend/Server_Room_Long.mp4';
+import RegisterVideo from '_content/videos/frontend/Register.mp4';
 import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 import RegisterTextBody from './RegisterTextBody';
 
@@ -14,7 +14,7 @@ const Register = ({ registerText, error, isFetching }) => {
             <div id="register">
                 <div className="auth-background"></div>
                 <video className="auth-background-video" autoPlay="autoplay" loop muted>
-                    <source src={ServerRoomBackgroundVideo} type="video/mp4" />
+                    <source src={RegisterVideo} type="video/mp4" />
                 </video>
                 <div className="auth-wrapper register">
                     <div className="heading-body-wrapper">
