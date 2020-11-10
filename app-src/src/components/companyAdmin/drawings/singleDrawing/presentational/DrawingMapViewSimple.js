@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Map, TileLayer, Marker } from 'react-leaflet';
+import moment from 'moment';
 
 import ReactDOMServer from 'react-dom/server';
 import { FILE_STORAGE_URL } from 'config';
@@ -84,6 +85,14 @@ const DrawingMapViewSimple = ({
             {shouldShowFloorplan ? (
                 <div className="size-lg-12" id="map">
                     <BlockHeading>
+                        {drawingNotStarted && (
+                            <p className="info-message error" style={{ marginBottom: '15px' }}>
+                                This drawing has not yet started, and as such has restricted
+                                functionality. This drawing is due to start on{' '}
+                                {moment(drawing.startDate).format('dddd, MMMM Do YYYY, h:mm:ss a')}.
+                                You may bring this date forward by editing the drawing.
+                            </p>
+                        )}
                         {isAddingZone ? (
                             <></>
                         ) : shouldShowPinSelectorOptions ? (
