@@ -56,14 +56,19 @@ const PinAnswer = ({
             if (!isEmpty(prereqAnswer)) {
                 const prereqQuestion = questionsObj[prereqAnswer[0].templateQuestionID];
 
-                if (prereqQuestion.type === TYPES.MULTI_DROPDOWN) {
+                if (prereqQuestion.type === TYPES.STATUS) {
+                    if (+curQuestion.prerequisiteQuestionValue !== +pinHistory.status) {
+                        return notFoundResponse;
+                    }
+                } else if (prereqQuestion.type === TYPES.MULTI_DROPDOWN) {
                     if (!prereqAnswer[0].answer.includes(curQuestion.prerequisiteQuestionValue))
                         return notFoundResponse;
                 } else if (prereqQuestion.type === TYPES.CHECKBOX) {
                     // do nothing
                 } else {
-                    if (curQuestion.prerequisiteQuestionValue !== prereqAnswer[0].answer)
+                    if (curQuestion.prerequisiteQuestionValue !== prereqAnswer[0].answer) {
                         return notFoundResponse;
+                    }
                 }
             }
         }
@@ -72,6 +77,7 @@ const PinAnswer = ({
     if ((!curAnswer || !curAnswer.answer) && type !== TYPES.STATUS) {
         return notFoundResponse;
     }
+
     switch (type) {
         case TYPES.SINGLE_LINE:
         case TYPES.MULTI_LINE:
