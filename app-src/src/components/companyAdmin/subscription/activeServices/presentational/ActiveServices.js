@@ -8,42 +8,63 @@ import CompanyServicesList from './CompanyServicesList';
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
 import AddServiceItem from './AddServiceItem';
 
-const ActiveServices = ({ subscriptions, handleChange, services, showModal, isAutoRenew }) => (
-    <BlockContainer>
-        <BlockHeading title="Services" />
+const ActiveServices = ({
+    subscriptions,
+    handleChange,
+    services,
+    showModal,
+    isAutoRenew,
+    isLatest,
+}) => {
+    return (
+        <BlockContainer>
+            <BlockHeading title="Services" />
+            <Form className="generic-form ignore-padding size-lg-12">
+                <CompanyServicesList
+                    isLatest={isLatest}
+                    subscriptions={subscriptions}
+                    handleChange={handleChange}
+                    isAutoRenew={isAutoRenew}
+                >
+                    {services
+                        .filter(service => service.showOnCompanySite)
+                        .map(service => (
+                            <AddServiceItem
+                                key={service.id}
+                                showModal={showModal}
+                                service={service}
+                                isLatest={isLatest}
+                            />
+                        ))}
+                </CompanyServicesList>
+            </Form>
+            {isLatest === false && (
+                <p className="size-lg-12" style={{ paddingBottom: 10, color: 'red' }}>
+                    <strong>Note:</strong> You will be able to update your services when your new
+                    subscription begins.
+                </p>
+            )}
 
-        <Form className="generic-form ignore-padding size-lg-12">
-            <CompanyServicesList
-                subscriptions={subscriptions}
-                handleChange={handleChange}
-                isAutoRenew={isAutoRenew}
-            >
-                {services
-                    .filter(service => service.showOnCompanySite)
-                    .map(service => (
-                        <AddServiceItem key={service.id} showModal={showModal} service={service} />
-                    ))}
-            </CompanyServicesList>
-        </Form>
-        <div className="size-lg-12">
-            <BlockHeading
-                leftIcon={true}
-                classes="w-left-icon"
-                title="Looking for something specific?"
-            >
-                <StatusIcon classes="question pull-left" iconClass="fa fa-question" />
-            </BlockHeading>
+            <div className="size-lg-12">
+                <BlockHeading
+                    leftIcon={true}
+                    classes="w-left-icon"
+                    title="Looking for something specific?"
+                >
+                    <StatusIcon classes="question pull-left" iconClass="fa fa-question" />
+                </BlockHeading>
 
-            <p className="size-lg-12">
-                The Bolster System can support a wide range of additional services, template and
-                workflows, <Link to="/company/tools/support">so get in touch</Link> and we can talk
-                through your custom requirements.
-                <br />
-                You can call us on <a href="tel:0161 873 7679">0161 873 7679</a>, or e-mail at{' '}
-                <a href="mailto:info@bolstersystems.com">info@bolstersystems.com</a>
-            </p>
-        </div>
-    </BlockContainer>
-);
+                <p className="size-lg-12">
+                    The Bolster System can support a wide range of additional services, template and
+                    workflows, <Link to="/company/tools/support">so get in touch</Link> and we can
+                    talk through your custom requirements.
+                    <br />
+                    You can call us on <a href="tel:0161 873 7679">0161 873 7679</a>, or e-mail at{' '}
+                    <a href="mailto:info@bolstersystems.com">info@bolstersystems.com</a>
+                </p>
+            </div>
+        </BlockContainer>
+    );
+};
 
 export default ActiveServices;

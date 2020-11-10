@@ -15,9 +15,11 @@ class SubscriptionContainer extends Component {
         shouldRestrictPayments: false
     };
     render() {
+        
         return (
             <Subscription
                 shouldRestrictPayments={this.state.shouldRestrictPayments}
+                subscription={this.props.subscription}
             />
         );
     }
@@ -60,7 +62,8 @@ const mapStateToProps = ({
         servicesReducer,
         cardsReducer,
         creditsReducer,
-        companyUsersReducer: { users }
+        companyUsersReducer: { users },
+        subscriptionsReducer: { subscriptions },
     },
     shared: {
         decodeJWTReducer: {
@@ -74,7 +77,8 @@ const mapStateToProps = ({
         invoicesReducer.postSuccess ||
         servicesReducer.postSuccess ||
         cardsReducer.postSuccess ||
-        creditsReducer.postSuccess
+        creditsReducer.postSuccess,
+        subscription: subscriptions
 });
 
 const mapDispatchToProps = dispatch => ({

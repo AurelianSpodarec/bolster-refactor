@@ -13,7 +13,6 @@ class SubscriptionStatusContainer extends Component {
             shouldRestrictPayments
         } = this.props;
         const noCards = !Object.values(cards).length;
-
         return (
             <BlockContainer isFetching={isFetching}>
                 <SubscriptionStatus

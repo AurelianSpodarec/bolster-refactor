@@ -12,18 +12,11 @@ class ActiveServicesContainer extends Component {
     state = { subscriptions: [] };
 
     render = () => {
-        const {
-            services,
-            subscriptions,
-            showModal,
-            isAutoRenew,
-            cards
-        } = this.props;
+        const { services, subscriptions, showModal, isAutoRenew, cards } = this.props;
         const { serviceIDs = [] } = subscriptions;
         const unsubscribedServices = Object.values(services).filter(
-            ({ id }) => !serviceIDs.includes(id)
+            ({ id }) => !serviceIDs.includes(id),
         );
-
         return (
             <ActiveServices
                 subscriptions={this.state.subscriptions}
@@ -32,6 +25,7 @@ class ActiveServicesContainer extends Component {
                 showModal={showModal}
                 isAutoRenew={isAutoRenew}
                 noCards={!cards.length}
+                isLatest={subscriptions.isLatest}
             />
         );
     };
