@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BolsterCloud from '_content/images/frontend-new/why-use-our-system/bolster-cloud-new.png';
+import BolsterCloud from '_content/images/frontend-new/why-use-our-system/bolster-cloud-new1.png';
 
 import { topList, bottomList } from 'constants/frontEnd/cloudList';
 
