@@ -27,14 +27,14 @@ class SubscriptionStatusContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        subscriptionsReducer: { error, isFetching, subscriptions },
-        cardsReducer: { cards },
+        subscriptionsReducer: { error, isFetchingSubscription, subscriptions },
+        cardsReducer: { cards, isFetching: isFetchingCards },
         invoicesReducer: { invoices },
     },
 }) => ({
     subscriptions,
     error,
-    isFetching,
+    isFetching: isFetchingSubscription || isFetchingCards,
     cards: cards || {},
     invoices: Object.values(invoices),
 });

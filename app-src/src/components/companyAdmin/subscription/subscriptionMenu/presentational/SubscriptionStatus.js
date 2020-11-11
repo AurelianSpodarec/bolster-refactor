@@ -43,22 +43,29 @@ const SubscriptionStatus = ({
             {active ? (
                 isAutoRenew ? (
                     <>
-                        {hadPendingProforma && renewalType === INVOICE ? (
+                        <p className="size-lg-12">
+                            Company subscription is set to auto-renew on{' '}
+                            <strong>
+                                <DateTimeContainer date={endOn} />
+                            </strong>{' '}
+                            at a cost of <strong>£{formatNumber(renewalPrice)}</strong>
+                        </p>
+
+                        {hadPendingProforma && renewalType === INVOICE && (
                             <p className="info-message warning" style={{ marginTop: '15px' }}>
-                                You have an outstanding auto-renew invoice. If no action is taken,
+                                There is an outstanding auto-renew invoice. If no action is taken,
                                 your subscription will expire on{' '}
                                 <strong>
                                     <DateTimeContainer date={endOn} />
                                 </strong>
                                 .
                             </p>
-                        ) : (
-                            <p className="size-lg-12">
-                                Company subscription is set to auto-renew on{' '}
-                                <strong>
-                                    <DateTimeContainer date={endOn} />
-                                </strong>{' '}
-                                at a cost of <strong>£{formatNumber(renewalPrice)}</strong>
+                        )}
+                        {hadPendingProforma && renewalType === CARD && (
+                            <p className="info-message warning" style={{ marginTop: '15px' }}>
+                                There is an outstanding auto-renew invoice. Since you're set to
+                                auto-renewal & pay by card, we will automatically attempt to take
+                                payment before your renewal date.
                             </p>
                         )}
                         {noCards && renewalType === CARD && (
