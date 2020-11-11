@@ -37,10 +37,6 @@ export default postBody => dispatch => {
                 return dispatch(setAPIFieldErrors(err.response.data.errors || err.response.data));
             }
             // pulls out nested API error if existing
-            return dispatch(
-                addServiceToSubscriptionFailure(
-                    err.response.data.ServiceIDs ? err.response.data.ServiceIDs[0] : err.message,
-                ),
-            );
+            return dispatch(addServiceToSubscriptionFailure(err.message));
         });
 };
