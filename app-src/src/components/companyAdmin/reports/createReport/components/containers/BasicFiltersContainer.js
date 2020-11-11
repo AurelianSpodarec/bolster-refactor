@@ -87,14 +87,14 @@ class BasicFiltersContainer extends Component {
         if (locationState && locationState.selectedStartDate) {
             this.handleDateChange(
                 'fromDateInclusive',
-                moment(locationState.selectedStartDate).toDate()
+                moment(locationState.selectedStartDate).toDate(),
             );
         }
 
         if (locationState && locationState.selectedEndDate) {
             this.handleDateChange(
                 'toDateInclusive',
-                moment(locationState.selectedEndDate).toDate()
+                moment(locationState.selectedEndDate).toDate(),
             );
         }
 
@@ -132,7 +132,10 @@ class BasicFiltersContainer extends Component {
             const diff = moment(toDate).diff(fromDateInclusive, 'days');
 
             if (diff >= 7 && hierarchyType === HIERARCHY_IDS.ALL_SITES) {
-                return addFieldError('fromDateInclusive', 'You must select a date range of 7 days or less.');
+                return addFieldError(
+                    'fromDateInclusive',
+                    'You must select a date range of 7 days or less.',
+                );
             }
 
             return removeFieldError('fromDateInclusive');
@@ -169,13 +172,14 @@ const mapStateToProps = ({
     companyAdmin: {
         reportsReducer: {
             fields,
-            customFilters: { pins = [], templates = [] },
+            customFilters: { pins = [], templates = [], services = [] },
             filters: { pinIDs = [] },
         },
     },
 }) => ({
     shouldConfirm: !isObjEmpty(fields) || pins.length !== pinIDs.length,
     templates,
+    services,
 });
 
 const mapDispatchToProps = {
@@ -184,5 +188,5 @@ const mapDispatchToProps = {
 };
 
 export default withRouter(
-    withUpdateOnChange(connect(mapStateToProps, mapDispatchToProps)(BasicFiltersContainer))
+    withUpdateOnChange(connect(mapStateToProps, mapDispatchToProps)(BasicFiltersContainer)),
 );

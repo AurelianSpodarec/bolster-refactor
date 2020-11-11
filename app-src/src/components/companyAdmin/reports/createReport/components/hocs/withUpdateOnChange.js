@@ -11,8 +11,9 @@ import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldEr
 import { FURTHER_FILTRATION_OPTIONS, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import getOperativeOptions from 'actions/companyAdmin/reports/async/getOperativeOptions';
 import getTemplateReportOptions from 'actions/companyAdmin/reports/async/getTemplateReportOptions';
+import getServiceReportOptions from 'actions/companyAdmin/reports/async/getServiceReportOptions';
 
-export default function(ProtectedComponent) {
+export default function (ProtectedComponent) {
     class WithUpdateOnChange extends React.Component {
         state = {
             showError: false,
@@ -248,11 +249,7 @@ export default function(ProtectedComponent) {
             ).map(({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]);
             // get the utc converted time for both from date and to date.
             const startDate = fromDateInclusive
-                ? moment
-                      .tz(fromDateInclusive, timeZone.name)
-                      .startOf('day')
-                      .utc()
-                      .toISOString()
+                ? moment.tz(fromDateInclusive, timeZone.name).startOf('day').utc().toISOString()
                 : null;
 
             // to date needs to be start of next day so that we get all pins from the previous day.
@@ -416,6 +413,7 @@ export default function(ProtectedComponent) {
         showFieldErrors: () => dispatch(showFieldErrors()),
         getOperativeOptions: postBody => dispatch(getOperativeOptions(postBody)),
         getTemplateOptions: postBody => dispatch(getTemplateReportOptions(postBody)),
+        getServiceReportOptions: postBody => dispatch(getServiceReportOptions(postBody)),
     });
 
     return connect(mapStateToProps, mapDispatchToProps)(WithUpdateOnChange);

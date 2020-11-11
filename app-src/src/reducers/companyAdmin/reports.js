@@ -29,6 +29,9 @@ import {
     GET_TEMPLATE_REPORT_OPTIONS_SUCCESS,
     GET_TEMPLATE_REPORT_OPTIONS_REQUEST,
     GET_TEMPLATE_REPORT_OPTIONS_FAILURE,
+    GET_SERVICE_REPORT_OPTIONS_SUCCESS,
+    GET_SERVICE_REPORT_OPTIONS_REQUEST,
+    GET_SERVICE_REPORT_OPTIONS_FAILURE,
     UPDATE_DRAWING_IDS_INCLUDED,
 } from 'constants/actionTypes/reports';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
@@ -201,7 +204,7 @@ function isFetchingReducer(state = false, action) {
 }
 
 function customFiltersReducer(
-    state = { operatives: [], pins: [], questions: [], templates: [] },
+    state = { operatives: [], pins: [], questions: [], templates: [], services: [] },
     action,
 ) {
     switch (action.type) {
@@ -212,6 +215,7 @@ function customFiltersReducer(
         case POST_CUSTOM_FILTERS_SUCCESS:
             return { ...state, ...action.payload };
         case GET_TEMPLATE_REPORT_OPTIONS_SUCCESS:
+        case GET_SERVICE_REPORT_OPTIONS_SUCCESS:
             return { ...state, templates: action.payload };
 
         default:
@@ -253,6 +257,7 @@ function errorReducer(state = null, action) {
         case POST_CUSTOM_FILTERS_REQUEST:
         case GET_OPERATIVE_OPTIONS_REQUEST:
         case GET_TEMPLATE_REPORT_OPTIONS_REQUEST:
+        case GET_SERVICE_REPORT_OPTIONS_REQUEST:
         case POST_REPORT_REQUEST:
             return null;
         case POST_REPORT_NO_PINS:
@@ -260,6 +265,7 @@ function errorReducer(state = null, action) {
         case POST_CUSTOM_FILTERS_FAILURE:
         case GET_OPERATIVE_OPTIONS_FAILURE:
         case GET_TEMPLATE_REPORT_OPTIONS_FAILURE:
+        case GET_SERVICE_REPORT_OPTIONS_FAILURE:
         case POST_REPORT_FAILURE:
             return action.error;
         default:
