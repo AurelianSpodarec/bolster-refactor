@@ -51,10 +51,12 @@ const SubscriptionAutoRenewal = ({
                     handleInputChange={handleRadioChange}
                     extraDetails="'You can choose to pay for your renewal with either your default credit card or by invoice'"
                 />
-                <p className="size-lg-12" style={{ paddingTop: 10, color: 'red' }}>
-                    <strong>Note:</strong> You will be able to update your payment method when your
-                    new subscription begins.
-                </p>
+                {expiresWithin2Days && (
+                    <p className="size-lg-12" style={{ paddingTop: 10, color: 'red' }}>
+                        <strong>Note:</strong> You will be able to update your payment method when
+                        your new subscription begins.
+                    </p>
+                )}
             </Field>
         </div>
     </Form>
