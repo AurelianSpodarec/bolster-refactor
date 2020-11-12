@@ -3,14 +3,14 @@ import React from 'react';
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
-const SubscribedServicesItem = ({ key, subscription, handleChange, isAutoRenew, isLatest }) => {
+const SubscribedServicesItem = ({ key, subscription, handleChange, isAutoRenew, canEdit }) => {
     return (
         <div key={`subscription-${key}`} className="subscription-item size-lg-6 size-md-12">
             <div className="field-name size-lg-6 size-md-8">
                 <StatusIcon />
                 <label htmlFor={`subscription-id-${subscription.id}`}>{subscription.name}</label>
             </div>
-            {isAutoRenew && isLatest && (
+            {isAutoRenew && canEdit && (
                 <CheckboxContainer
                     classes="small-text"
                     checked={subscription.isAutoRenew}

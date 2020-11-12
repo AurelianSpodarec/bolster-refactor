@@ -1,7 +1,7 @@
 import React from 'react';
 import SubscribedServicesItem from './SubscribedServicesItem';
 
-const CompanyServicesList = ({ subscriptions, handleChange, isAutoRenew, children, isLatest }) => (
+const CompanyServicesList = ({ subscriptions, handleChange, isAutoRenew, children, canEdit }) => (
     <div className="subscriptions-list size-lg-12">
         {subscriptions.map(subscription => (
             <SubscribedServicesItem
@@ -9,7 +9,7 @@ const CompanyServicesList = ({ subscriptions, handleChange, isAutoRenew, childre
                 subscription={subscription}
                 handleChange={handleChange}
                 isAutoRenew={isAutoRenew}
-                isLatest={isLatest}
+                canEdit={canEdit}
             />
         ))}
         {children}

@@ -14,14 +14,14 @@ const ActiveServices = ({
     services,
     showModal,
     isAutoRenew,
-    isLatest,
+    canEdit,
 }) => {
     return (
         <BlockContainer>
             <BlockHeading title="Services" />
             <Form className="generic-form ignore-padding size-lg-12">
                 <CompanyServicesList
-                    isLatest={isLatest}
+                    canEdit={canEdit}
                     subscriptions={subscriptions}
                     handleChange={handleChange}
                     isAutoRenew={isAutoRenew}
@@ -33,12 +33,12 @@ const ActiveServices = ({
                                 key={service.id}
                                 showModal={showModal}
                                 service={service}
-                                isLatest={isLatest}
+                                canEdit={canEdit}
                             />
                         ))}
                 </CompanyServicesList>
             </Form>
-            {isLatest === false && (
+            {!canEdit && (
                 <p className="size-lg-12" style={{ paddingBottom: 10, color: 'red' }}>
                     <strong>Note:</strong> You will be able to update your services when your new
                     subscription begins.

@@ -13,10 +13,15 @@ class ActiveServicesContainer extends Component {
 
     render = () => {
         const { services, subscriptions, showModal, isAutoRenew, cards } = this.props;
-        const { serviceIDs = [] } = subscriptions;
+        const { serviceIDs = [], endOn } = subscriptions;
         const unsubscribedServices = Object.values(services).filter(
             ({ id }) => !serviceIDs.includes(id),
         );
+
+        const d = new Date();
+        d.setDate(d.getDate() + 2);
+        const expiresWithin2Days = d > new Date(endOn);
+
         return (
             <ActiveServices
                 subscriptions={this.state.subscriptions}
@@ -25,7 +30,8 @@ class ActiveServicesContainer extends Component {
                 showModal={showModal}
                 isAutoRenew={isAutoRenew}
                 noCards={!cards.length}
-                isLatest={subscriptions.isLatest}
+                expiresWithin2Days={expiresWithin2Days}
+                canEdit={subscriptions.isLatest && !expiresWithin2Days}
             />
         );
     };
@@ -33,20 +39,12 @@ class ActiveServicesContainer extends Component {
     componentDidMount = () => this.props.fetchAllSubscriptions();
 
     componentDidUpdate = prevProps => {
-        const {
-            isFetching,
-            postSuccess,
-            fetchAllSubscriptions,
-            invoicePaid
-        } = this.props;
+        const { isFetching, postSuccess, fetchAllSubscriptions, invoicePaid } = this.props;
         const subscriptions = this.getActiveSubscriptions();
         if (!isFetching && prevProps.isFetching) {
             this.setState({ subscriptions });
         }
-        if (
-            (postSuccess && !prevProps.postSuccess) ||
-            (invoicePaid && !prevProps.invoicePaid)
-        ) {
+        if ((postSuccess && !prevProps.postSuccess) || (invoicePaid && !prevProps.invoicePaid)) {
             fetchAllSubscriptions();
         }
     };
@@ -56,21 +54,21 @@ class ActiveServicesContainer extends Component {
         if (subscriptions.services && !isObjEmpty(services)) {
             return subscriptions.services.map(service => ({
                 ...service,
-                name: services[service.serviceID].name
+                name: services[service.serviceID].name,
             }));
         } else return [];
     };
 
     handleChange = name => {
         const {
-            editServiceRenewalStatus
+            editServiceRenewalStatus,
             // editSubscriptionRenewalStatus
         } = this.props;
         const updatedServices = this.state.subscriptions.reduce((acc, curr) => {
             if (curr.name === name) {
                 const postBody = {
                     companySubscriptionServiceID: curr.id,
-                    renewalStatus: !curr.isAutoRenew
+                    renewalStatus: !curr.isAutoRenew,
                 };
                 editServiceRenewalStatus(postBody);
                 return [...acc, { ...curr, isAutoRenew: !curr.isAutoRenew }];
@@ -89,12 +87,12 @@ const mapStateToProps = ({
             error,
             isFetching: fetchingSubscriptions,
             subscriptions,
-            postSuccess
+            postSuccess,
         },
         servicesReducer: { services, isFetching: fetchingServices },
         invoicesReducer: { postSuccess: invoicePaid },
-        cardsReducer: { cards }
-    }
+        cardsReducer: { cards },
+    },
 }) => ({
     subscriptions,
     services,
@@ -103,17 +101,14 @@ const mapStateToProps = ({
     postSuccess,
     isFetching: fetchingSubscriptions || fetchingServices,
     invoicePaid,
-    isAutoRenew: subscriptions.isAutoRenew
+    isAutoRenew: subscriptions.isAutoRenew,
 });
 
 const mapDispatchToProps = {
     fetchAllSubscriptions,
     editServiceRenewalStatus,
     showModal,
-    editSubscriptionRenewalStatus
+    editSubscriptionRenewalStatus,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ActiveServicesContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ActiveServicesContainer);
