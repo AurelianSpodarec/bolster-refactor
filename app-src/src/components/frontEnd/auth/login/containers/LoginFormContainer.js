@@ -113,13 +113,15 @@ const LoginFormContainer = ({
 };
 
 const mapStateToProps = ({
-    shared: { loginReducer },
+    shared: {
+        loginReducer: { postSuccess, isPosting },
+    },
     frontEnd: {
         authReducer: { auth: auth },
         error,
         isFetching,
     },
-}) => ({ loginReducer, auth, error, isFetching });
+}) => ({ postSuccess, auth, error, isFetching, isPosting });
 
 const mapDispatchToProps = {
     showModal,
