@@ -25,7 +25,6 @@ class BasicFiltersContainer extends Component {
             isDrawingPage,
             fieldErrors,
             fieldError,
-            formatArrForDropdown,
             filters: {
                 templateID,
                 serviceID,
@@ -37,8 +36,8 @@ class BasicFiltersContainer extends Component {
             templates,
             services,
         } = this.props;
-        console.log({ services });
-        const serviceOptions = formatArrForDropdown(services);
+
+        const serviceOptions = this.formatServicesArrForDropdown(services);
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
         const historyNumsOptions = convertEnumToDropdownOptions(NUMBER_OF_HISTORIES);
         const templateOptions = this.formatTemplateArrForDropdown(templates);
@@ -162,6 +161,16 @@ class BasicFiltersContainer extends Component {
             value: id,
             label: `${name} (${companyName})`,
             text: `${name} (${companyName})`,
+        }));
+
+        return convertArrToObj(options, 'value');
+    };
+
+    formatServicesArrForDropdown = arr => {
+        const options = arr.map(({ id, name }) => ({
+            value: id,
+            label: `${name}`,
+            text: `${name}`,
         }));
 
         return convertArrToObj(options, 'value');
