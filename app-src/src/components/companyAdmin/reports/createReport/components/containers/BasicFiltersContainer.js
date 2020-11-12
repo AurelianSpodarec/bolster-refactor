@@ -26,7 +26,6 @@ class BasicFiltersContainer extends Component {
             fieldErrors,
             fieldError,
             formatArrForDropdown,
-            services,
             filters: {
                 templateID,
                 serviceID,
@@ -36,9 +35,10 @@ class BasicFiltersContainer extends Component {
                 reportHistories,
             },
             templates,
+            services,
         } = this.props;
-
-        const serviceOptions = formatArrForDropdown(services, true);
+        console.log({ services });
+        const serviceOptions = formatArrForDropdown(services);
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
         const historyNumsOptions = convertEnumToDropdownOptions(NUMBER_OF_HISTORIES);
         const templateOptions = this.formatTemplateArrForDropdown(templates);

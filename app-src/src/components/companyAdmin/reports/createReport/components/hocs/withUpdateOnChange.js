@@ -321,8 +321,18 @@ export default function (ProtectedComponent) {
             return getOperativeOptions(this._getPostBody());
         };
 
+        getServiceOptions = () => {
+            const { getServiceOptions } = this.props;
+            return getServiceOptions(this._getPostBody());
+        };
+
         postFilters = async () => {
-            const { postCustomFilters, getOperativeOptions, getTemplateOptions } = this.props;
+            const {
+                postCustomFilters,
+                getOperativeOptions,
+                getTemplateOptions,
+                getServiceOptions,
+            } = this.props;
             const body = this._getPostBody();
 
             if (body.hasQuestions) {
@@ -331,6 +341,7 @@ export default function (ProtectedComponent) {
 
             await getOperativeOptions(body);
             await getTemplateOptions(body);
+            await getServiceOptions(body);
         };
     }
 
@@ -413,7 +424,7 @@ export default function (ProtectedComponent) {
         showFieldErrors: () => dispatch(showFieldErrors()),
         getOperativeOptions: postBody => dispatch(getOperativeOptions(postBody)),
         getTemplateOptions: postBody => dispatch(getTemplateReportOptions(postBody)),
-        getServiceReportOptions: postBody => dispatch(getServiceReportOptions(postBody)),
+        getServiceOptions: postBody => dispatch(getServiceReportOptions(postBody)),
     });
 
     return connect(mapStateToProps, mapDispatchToProps)(WithUpdateOnChange);

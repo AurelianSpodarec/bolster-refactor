@@ -215,9 +215,9 @@ function customFiltersReducer(
         case POST_CUSTOM_FILTERS_SUCCESS:
             return { ...state, ...action.payload };
         case GET_TEMPLATE_REPORT_OPTIONS_SUCCESS:
-        case GET_SERVICE_REPORT_OPTIONS_SUCCESS:
             return { ...state, templates: action.payload };
-
+        case GET_SERVICE_REPORT_OPTIONS_SUCCESS:
+            return { ...state, services: action.payload };
         default:
             return state;
     }
