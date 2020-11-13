@@ -30,7 +30,7 @@ const FrontEndHeaderMobile = ({
                         <img src={Logo} alt="Bolster Systems" />
                     </a>
                 </div>
-                {!hideHeader && screenWidth >= 1024 && (
+                {!hideHeader && screenWidth >= 750 && (
                     <div className="">
                         {isSuperAdmin || isCompanyAdmin || isClientAccess ? (
                             <div className="logged-in-button-container">
@@ -44,15 +44,17 @@ const FrontEndHeaderMobile = ({
                             </div>
                         ) : (
                             <div className="logged-out-button-container">
-                                <FrontEndButton
-                                    to="/auth/register"
-                                    classes={`gray spacing-right ${
-                                        curRoute === '/auth/register' ? 'active' : ''
-                                    }`}
-                                    handleClick={e => handleClick(e, '/auth/register')}
-                                >
-                                    Register
-                                </FrontEndButton>
+                                {screenWidth >= 1024 && (
+                                    <FrontEndButton
+                                        to="/auth/register"
+                                        classes={`gray spacing-right ${
+                                            curRoute === '/auth/register' ? 'active' : ''
+                                        }`}
+                                        handleClick={e => handleClick(e, '/auth/register')}
+                                    >
+                                        Register
+                                    </FrontEndButton>
+                                )}
                                 <FrontEndButton
                                     to="/auth/login"
                                     classes={`red spacing-right ${

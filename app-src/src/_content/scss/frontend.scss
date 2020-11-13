@@ -2287,12 +2287,15 @@ $back-to-top-height: 35px;
 
 // Auth area
 
+  
 .auth-background {
     position: absolute;
     background-color: #3C3C3C;
     height: 100%;
     width: 60%;
-
+    @include devices(ptTablet) {
+        width: 100%;
+     }
  }     
  .auth-background-video {
      position: absolute;
@@ -2300,11 +2303,12 @@ $back-to-top-height: 35px;
      width: 65%;
      opacity: 0.7;
      object-fit: fill;
-
+     
      @include devices(ptTablet) {
-         width: 100%;
-         object-fit: cover;
+        position: relative;
+        width: 100%;
      }
+     
  }
 
  .auth-wrapper {
@@ -2317,7 +2321,7 @@ $back-to-top-height: 35px;
         margin: 70px 200px 50px 143px;
         flex: 1;
 
-    .auth-heading {
+     .auth-heading {
             font-size: 350%;
             @include opensans-bold;
             color: white;
@@ -2344,6 +2348,7 @@ $back-to-top-height: 35px;
                 font-size: 200%;
             }
         }
+
     }
 
     .auth-text-wrapper {
@@ -2374,7 +2379,7 @@ $back-to-top-height: 35px;
 
         .heading-body-wrapper {
             margin: 0!important;
-            padding: 50px;
+            // padding: 50px;
         }
     }
 
@@ -2403,6 +2408,9 @@ $back-to-top-height: 35px;
     
     @include devices(mdDesktop) {
         width: 50%;
+    }
+    @include devices(ptTablet) {
+        margin-top: -5px;
     }
 
     &.login {
