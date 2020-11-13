@@ -14,6 +14,13 @@ $back-to-top-height: 35px;
 
     .custom-line-break {
         margin-top: 16px;
+
+        &.small {
+            margin-top: 8px;
+        }
+        &.v-small {
+            margin-top: 4px;
+        }
     }
 
     .frontend-container {
@@ -1665,12 +1672,19 @@ $back-to-top-height: 35px;
                 .contact-info-wrapper {
                     flex: 1;
                 }
-
-                
             }
         }
 
         @include devices(lgMobile) {
+            .auth-background-video {
+                position: relative;
+            }
+            .auth-form-wrapper {
+                margin-top: -5px;
+            }
+            .heading-body-wrapper {
+                padding: 0;
+            }
             .contact-section {
                 display: block;
             }
@@ -1704,13 +1718,22 @@ $back-to-top-height: 35px;
                         float: none;
                         display: inline-block;
                     }
+                
                 }
-
+                 
+             }
                 .contact-info-wrapper {
                     padding: 50px 10px 0;
                     width: 100%;
-                }
-            }
+                    
+                    .contact-info-row {
+                        padding: 0 10px;
+                  }
+
+                  & p {
+                      font-size: 160%;
+                  }
+               } 
             .sent-message-wrapper {
                 margin-right: 0;
 
@@ -1729,7 +1752,7 @@ $back-to-top-height: 35px;
         @include devices(lgMobile) {
             .contact-info-wrapper {
                 p {
-                    font-size: 180%;
+                    font-size: 160%;
                 }
 
                 .contact-info-row {
@@ -1737,6 +1760,10 @@ $back-to-top-height: 35px;
                         display: block;
                     }
                 }
+            }
+
+            .custom-line-break {
+                margin-top: 4px;
             }
         }
     }
