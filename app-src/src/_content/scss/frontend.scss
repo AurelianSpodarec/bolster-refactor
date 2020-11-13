@@ -1750,6 +1750,9 @@ $back-to-top-height: 35px;
         }
 
         @include devices(lgMobile) {
+            .auth-text-wrapper {
+                padding: 0 30px;
+            }
             .contact-info-wrapper {
                 p {
                     font-size: 160%;
