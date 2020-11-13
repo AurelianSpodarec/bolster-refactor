@@ -1045,9 +1045,10 @@ $back-to-top-height: 35px;
                 padding-bottom: 0;
             }
 
-            @include devices(lgMobile) {
+            @include devices (ptTablet) {
                 padding-top: 25px;
             }
+
         }
 
         .headings-area {
@@ -1117,29 +1118,32 @@ $back-to-top-height: 35px;
             }
 
             @include devices(lsTablet) {
-                flex-wrap: wrap;
-
                 .item {
-                    flex: auto;
-                    width: 50%;
-                    margin: 30px 0;
-                    padding-left: 100px;
+                    margin: 0 50px;
+                    img {
+                        height: 150px;
+                        width: 150px;
+                    }
                 }
             }
 
             @include devices(ptTablet) {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-gap: 16px;
+
                 .item {
-                    padding-left: 50px;
+                    justify-content: center;
+                    align-items: center;
                 }
             }
 
             @include devices(lgMobile) {
-                display: block;
-
                 .item {
-                    width: 100%;
-                    padding-left: 0;
-                      
+                    img {
+                        height: 100px;
+                        width: 100px;
+                    }
                     .text {
                         flex: auto;
                     }
@@ -1151,6 +1155,11 @@ $back-to-top-height: 35px;
                     p {
                         font-size: 170%;
                     }
+                }
+            }
+            @include devices(smMobile) {
+                .item{
+                    margin: 0 10px;
                 }
             }
         }
