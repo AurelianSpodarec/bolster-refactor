@@ -1641,6 +1641,16 @@ $back-to-top-height: 35px;
         }
 
         @include devices(ptTablet) {
+            .auth-background-video {
+                position: relative;
+            }
+            .auth-form-wrapper {
+                margin-top: -5px;
+            }
+              
+            .heading-body-wrapper {
+                padding: 0;
+            }
             .contact-form-wrapper {
                 & > .heading {
                     padding-top: 0;
@@ -1676,15 +1686,7 @@ $back-to-top-height: 35px;
         }
 
         @include devices(lgMobile) {
-            .auth-background-video {
-                position: relative;
-            }
-            .auth-form-wrapper {
-                margin-top: -5px;
-            }
-            .heading-body-wrapper {
-                padding: 0;
-            }
+         
             .contact-section {
                 display: block;
             }
