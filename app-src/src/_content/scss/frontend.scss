@@ -2393,6 +2393,10 @@ $back-to-top-height: 35px;
                 font-size: 200%;
             }
         }
+
+        &.smaller {
+            height: 75px;
+        }
     }
 
     &.modal{
