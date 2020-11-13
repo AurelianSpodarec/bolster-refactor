@@ -8,6 +8,7 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 import agreeToTerms from 'actions/companyAdmin/legalDocuments/agreeToTerms';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TermsAndConditions from 'components/shared/terms/TermsAndConditions';
+import TsCsContainer from 'components/frontEnd/termsAndConditions/containers/Ts&CsContainer';
 
 const AgreeToTerms = ({ terms, eula, privacy, agreeToTerms }) => {
     const [hasAgreed, setHasAgreed] = useState(false);
@@ -15,7 +16,7 @@ const AgreeToTerms = ({ terms, eula, privacy, agreeToTerms }) => {
     return (
         <>
             <PageHeading title="Terms & Conditions"></PageHeading>
-            <TermsAndConditions terms={terms} eula={eula} privacy={privacy} />
+            <TsCsContainer terms={terms} />
             <div className="flex-row size-lg-12">
                 <Block>
                     <Form onSubmit={agreeToTerms}>
