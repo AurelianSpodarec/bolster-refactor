@@ -9,7 +9,7 @@ import {
 
 import { ADMIN_MOVE_DRAWING_SUCCESS } from 'constants/actionTypes/moveTool';
 
-import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
+import { convertArrToObj, removeObjItem } from 'helpers/generic';
 
 export default combineReducers({
     drawings: drawingsReducer,

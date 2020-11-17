@@ -19,6 +19,7 @@ import ExpiryToolRoutes from './ExpiryToolRoutes';
 import PinOptionsManufacturersRoutes from './PinOptionsManufacturersRoutes';
 import UserGuidesRoutes from './UserGuidesRoutes';
 import NewFeaturesRoutes from './NewFeaturesRoutes';
+import RecentlyExtendedRoutes from './RecentlyExtendedRoutes';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
@@ -40,6 +41,7 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/user-guides`} component={UserGuidesRoutes} />
         <Route path={`${base}/pin-options`} component={PinOptionsManufacturersRoutes} />
         <Route path={`${base}/new-features`} component={NewFeaturesRoutes} />
+        <Route path={`${base}/recently-extended`} component={RecentlyExtendedRoutes} />
     </SwitchWith404>
 );
 

@@ -28,6 +28,7 @@ import optionValueDocumentsReducer from './optionValueDocuments';
 import userGuideReducer from './userGuide';
 import expiryToolReducer from './expiryTool';
 import newFeaturesReducer from './newFeatures';
+import recentlyExtendedReducer from './recentlyExtended';
 
 export default combineReducers({
     adminServicesReducer,
@@ -47,6 +48,7 @@ export default combineReducers({
     moveToolReducer,
     operativeAlertsReducer,
     optionValueDocumentsReducer,
+    recentlyExtendedReducer,
     sitesReducer,
     sosCodesReducer,
     templateLabelFieldsReducer,
