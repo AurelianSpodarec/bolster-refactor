@@ -25,7 +25,7 @@ const ExpiryToolForm = ({
     handleCancel,
     showExpiredMessage,
 }) => {
-    const sortedDrawings = currentDrawings.sort((a, b) => b - a);
+    const sortedDrawings = currentDrawings.sort((a, b) => b.expiresOn - a.expiresOn);
     const earliestDrawing = sortedDrawings[0];
     const latestDrawing = sortedDrawings[sortedDrawings.length - 1];
     return (
