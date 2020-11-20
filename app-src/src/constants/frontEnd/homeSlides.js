@@ -3,6 +3,11 @@ import SecondSlide from '_content/videos/frontend/home2.mp4';
 import ThirdSlide from '_content/videos/frontend/home3.mp4';
 import FourthSlide from '_content/videos/frontend/home4.mp4';
 import FifthSlide from '_content/videos/frontend/home5.mp4';
+import FirstPoster from '_content/videos/frontend/posters/home1.jpg';
+import SecondPoster from '_content/videos/frontend/posters/home2.jpg';
+import ThirdPoster from '_content/videos/frontend/posters/home3.jpg';
+import FourthPoster from '_content/videos/frontend/posters/home4.jpg';
+import FifthPoster from '_content/videos/frontend/posters/home5.jpg';
 import PromotionalVideo from '_content/videos/frontend/PromotionalVideo.mp4';
 
 export const HomeSlidesList = [
@@ -11,6 +16,7 @@ export const HomeSlidesList = [
         description: '',
         buttonText: 'Contact',
         background: FirstSlide,
+        poster: FirstPoster,
         desktopBackgroundLoop: false,
         mobileBackgroundLoop: false,
         fullVideo: PromotionalVideo,
@@ -21,6 +27,7 @@ export const HomeSlidesList = [
         description: '',
         buttonText: 'Our System',
         background: SecondSlide,
+        poster: SecondPoster,
         desktopBackgroundLoop: false,
         mobileBackgroundLoop: true,
         fullVideo: null,
@@ -31,6 +38,7 @@ export const HomeSlidesList = [
         description: '',
         buttonText: 'About us',
         background: ThirdSlide,
+        poster: ThirdPoster,
         desktopBackgroundLoop: false,
         mobileBackgroundLoop: true,
         fullVideo: null,
@@ -41,6 +49,7 @@ export const HomeSlidesList = [
         description: '',
         buttonText: 'Our System',
         background: FourthSlide,
+        poster: FourthPoster,
         desktopBackgroundLoop: false,
         mobileBackgroundLoop: true,
         fullVideo: null,
@@ -51,6 +60,7 @@ export const HomeSlidesList = [
         description: '',
         buttonText: 'Request a demo',
         background: FifthSlide,
+        poster: FifthPoster,
         desktopBackgroundLoop: false,
         mobileBackgroundLoop: true,
         fullVideo: null,

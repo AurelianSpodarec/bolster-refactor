@@ -2,9 +2,9 @@ import React from 'react';
 
 import ArrowIcon from '_content/images/frontend-new/banners/banner-arrow.png';
 
-const FrontEndBanner = ({ video = '', heading = '', description = '' }) => (
+const FrontEndBanner = ({ video = '', heading = '', description = '', poster }) => (
     <div className="frontend-banner">
-        <video className="video" autoPlay playsInline loop muted>
+        <video className="video" autoPlay playsInline loop muted poster={poster ? poster : null}>
             <source src={video} type="video/mp4" />
         </video>
 

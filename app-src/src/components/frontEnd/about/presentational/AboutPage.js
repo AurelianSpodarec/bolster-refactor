@@ -6,6 +6,7 @@ import { useWindowDimensions } from 'helpers/hooks';
 import { useBannerScroll } from 'helpers/frontEndHooks';
 
 import InspectVideo from '_content/videos/frontend/about-us.mp4';
+import InspectPoster from '_content/videos/frontend/posters/about-us.jpg';
 
 import setIsBannerScrolling from 'actions/frontEnd/banners/sync/setIsBannerScrolling';
 
@@ -23,7 +24,7 @@ const AboutPage = ({ setIsBannerScrolling }) => {
         <>
             <PageMeta meta={pageMeta.aboutUs} />
             <div id="about">
-                <FrontEndBanner heading="About us" video={InspectVideo} />
+                <FrontEndBanner heading="About us" video={InspectVideo} poster={InspectPoster} />
                 <AboutUsInfoContainer />
                 <Accreditations />
             </div>

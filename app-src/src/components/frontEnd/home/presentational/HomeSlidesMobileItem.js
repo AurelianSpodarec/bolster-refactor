@@ -5,7 +5,7 @@ import PlayButton from '_content/images/frontend-new/banners/play-button.png';
 
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 
-const HomeSlidesMobileItem = ({ background, fullVideo, className, item, loop }) => {
+const HomeSlidesMobileItem = ({ background, poster, fullVideo, className, item, loop }) => {
     const [playingFullVideo, setPlayingFullVideo] = useState(false);
     const [fullVideoMuted, setFullVideoMuted] = useState(true);
     const [fullVideoPaused, setFullVideoPaused] = useState(false);
@@ -15,7 +15,7 @@ const HomeSlidesMobileItem = ({ background, fullVideo, className, item, loop }) 
     return (
         <section className={`slide ${className} last-slide`}>
             <div className="slide-container">
-                <video className="video-bg" autoPlay muted loop={loop} playsInline>
+                <video className="video-bg" autoPlay muted loop={loop} playsInline poster={poster}>
                     <source src={background} type="video/mp4" />
                 </video>
 

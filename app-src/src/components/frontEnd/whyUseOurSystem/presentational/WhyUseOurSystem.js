@@ -7,6 +7,7 @@ import { useWindowDimensions } from 'helpers/hooks';
 import { useBannerScroll } from 'helpers/frontEndHooks';
 
 import PinsVideo from '_content/videos/frontend/05_Pins.mp4';
+import PinsPoster from '_content/videos/frontend/posters/05_Pins.jpg';
 
 import setIsBannerScrolling from 'actions/frontEnd/banners/sync/setIsBannerScrolling';
 
@@ -25,7 +26,11 @@ const WhyUseOurSystem = ({ setIsBannerScrolling }) => {
         <>
             <PageMeta meta={pageMeta.ourSystem} />
             <div id="why-use-our-system">
-                <FrontEndBanner heading="So why use Bolster?" video={PinsVideo} />
+                <FrontEndBanner
+                    heading="So why use Bolster?"
+                    video={PinsVideo}
+                    poster={PinsPoster}
+                />
                 <OurSystemCloudList />
                 <OurSystemDivider
                     heading="Services covered"

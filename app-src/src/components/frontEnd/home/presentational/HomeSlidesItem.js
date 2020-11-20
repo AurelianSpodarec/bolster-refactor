@@ -13,6 +13,7 @@ const HomeSlidesItem = forwardRef(
     (
         {
             background,
+            poster,
             fullVideo,
             className,
             isLast,
@@ -53,6 +54,7 @@ const HomeSlidesItem = forwardRef(
                             className={`video-bg ${index}`}
                             muted
                             loop={loop}
+                            poster={poster}
                             onEnded={() => setInitVideoFinished(true)}
                         >
                             <source src={background} type="video/mp4" />
@@ -119,6 +121,7 @@ const HomeSlidesItem = forwardRef(
                         className={`video-bg ${index}`}
                         muted
                         loop={loop}
+                        poster={poster}
                         onEnded={() => setInitVideoFinished(true)}
                     >
                         <source src={background} type="video/mp4" />

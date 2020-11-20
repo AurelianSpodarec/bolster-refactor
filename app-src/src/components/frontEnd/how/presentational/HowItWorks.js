@@ -7,6 +7,7 @@ import { useBannerScroll } from 'helpers/frontEndHooks';
 import { useWindowDimensions } from 'helpers/hooks';
 
 import InspectVideo from '_content/videos/frontend/08_Inspect_Locate_Document.mp4';
+import InspectPoster from '_content/videos/frontend/posters/08_Inspect_Locate_Document.jpg';
 
 import setIsBannerScrolling from 'actions/frontEnd/banners/sync/setIsBannerScrolling';
 
@@ -23,7 +24,11 @@ const HowItWorks = ({ setIsBannerScrolling }) => {
         <>
             <PageMeta meta={pageMeta.howItWorks} />
             <div id="how-it-works">
-                <FrontEndBanner heading="How it works" video={InspectVideo} />
+                <FrontEndBanner
+                    heading="How it works"
+                    video={InspectVideo}
+                    poster={InspectPoster}
+                />
                 <HowItWorksSections />
             </div>
 
