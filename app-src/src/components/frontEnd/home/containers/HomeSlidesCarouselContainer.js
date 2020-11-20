@@ -28,7 +28,7 @@ const HomeSlidesCarouselContainer = ({ isMobile }) => {
                             key={index}
                             background={item.background}
                             fullVideo={item.fullVideo}
-                            loop={item.backgroundLoop}
+                            loop={item.mobileBackgroundLoop}
                             className={`slide${index + 1}`}
                             item={item}
                         />
@@ -51,7 +51,7 @@ const HomeSlidesCarouselContainer = ({ isMobile }) => {
                             key={index}
                             background={item.background}
                             fullVideo={item.fullVideo}
-                            loop={item.backgroundLoop}
+                            loop={item.desktopBackgroundLoop}
                             className={`slide${index + 1}`}
                             isLast={isLast}
                             ref={lastSlideRef}
