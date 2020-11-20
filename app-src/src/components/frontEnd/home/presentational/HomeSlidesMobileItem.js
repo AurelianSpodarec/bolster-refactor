@@ -1,11 +1,17 @@
 /* eslint-disable react/display-name */
-import React from 'react';
+import React, { useRef, useState } from 'react';
 
 import PlayButton from '_content/images/frontend-new/banners/play-button.png';
 
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 
 const HomeSlidesMobileItem = ({ background, fullVideo, className, item, loop }) => {
+    const [playingFullVideo, setPlayingFullVideo] = useState(false);
+    const [fullVideoMuted, setFullVideoMuted] = useState(true);
+    const [fullVideoPaused, setFullVideoPaused] = useState(false);
+
+    const fullVideoRef = useRef(null);
+
     return (
         <section className={`slide ${className} last-slide`}>
             <div className="slide-container">
@@ -15,9 +21,39 @@ const HomeSlidesMobileItem = ({ background, fullVideo, className, item, loop }) 
 
                 {fullVideo && (
                     <div className="full-video-container">
-                        <a href={fullVideo} target="_blank" rel="noopener noreferrer">
-                            <img className="play-button" alt="Play full video" src={PlayButton} />
-                        </a>
+                        <img
+                            className="play-button"
+                            alt="Play full video"
+                            src={PlayButton}
+                            onClick={() => setPlayingFullVideo(true)}
+                        />
+                        {playingFullVideo && (
+                            <>
+                                <video
+                                    ref={fullVideoRef}
+                                    autoPlay
+                                    className="video-bg"
+                                    muted={fullVideoMuted}
+                                    playsInline
+                                    onEnded={() => setPlayingFullVideo(false)}
+                                >
+                                    <source src={fullVideo} type="video/mp4" />
+                                </video>
+
+                                <i
+                                    className={`pause-button fa fa-fw ${
+                                        fullVideoPaused ? 'fa-play' : 'fa-pause'
+                                    }`}
+                                    onClick={playPauseVideo}
+                                />
+                                <i
+                                    className={`mute-button fa fa-fw ${
+                                        fullVideoMuted ? 'fa-volume-slash' : 'fa-volume-up'
+                                    }`}
+                                    onClick={() => setFullVideoMuted(!fullVideoMuted)}
+                                />
+                            </>
+                        )}
                     </div>
                 )}
 
@@ -32,5 +68,15 @@ const HomeSlidesMobileItem = ({ background, fullVideo, className, item, loop }) 
             </div>
         </section>
     );
+
+    function playPauseVideo() {
+        if (fullVideoPaused) {
+            fullVideoRef.current.play();
+        } else {
+            fullVideoRef.current.pause();
+        }
+
+        setFullVideoPaused(!fullVideoPaused);
+    }
 };
 export default HomeSlidesMobileItem;

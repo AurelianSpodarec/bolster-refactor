@@ -3108,10 +3108,9 @@ $back-to-top-height: 35px;
                         }
                     }
 
-                    .mute-button {
+                    .mute-button, .pause-button {
                         position: absolute;
                         top: 50px;
-                        right: 50px;
                         font-size: 520%;
                         color: white;
                         opacity: 0.4;
@@ -3121,6 +3120,14 @@ $back-to-top-height: 35px;
                         &:hover {
                             opacity: 0.75;
                         }
+                    }
+
+                    .pause-button {
+                        right: 120px;
+                    }
+
+                    .mute-button {
+                        right: 50px;
                     }
                 }
     

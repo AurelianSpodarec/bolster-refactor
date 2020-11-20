@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import React, { useEffect, useState, forwardRef } from 'react';
+import React, { useEffect, useRef, useState, forwardRef } from 'react';
 import HomeCarouselControls from './HomeCarouselControls';
 import FrontEndFooterContainer from 'components/frontEnd/layout/footer/containers/FrontEndFooterContainer';
 import TrustedByContainer from 'components/frontEnd/trustedBy/containers/TrustedByContainer';
@@ -28,7 +28,10 @@ const HomeSlidesItem = forwardRef(
         const [initVideoFinished, setInitVideoFinished] = useState(false);
         const [playingFullVideo, setPlayingFullVideo] = useState(false);
         const [fullVideoMuted, setFullVideoMuted] = useState(true);
+        const [fullVideoPaused, setFullVideoPaused] = useState(false);
         const [videoRef, isSlideIntersecting] = useVideoShouldPlay();
+
+        const fullVideoRef = useRef(null);
 
         const prevProps = usePrevious({ isSlideIntersecting });
 
@@ -36,6 +39,7 @@ const HomeSlidesItem = forwardRef(
             if (prevProps.isSlideIntersecting !== isSlideIntersecting && !isSlideIntersecting) {
                 if (initVideoFinished) setInitVideoFinished(false);
                 if (playingFullVideo) setPlayingFullVideo(false);
+                if (fullVideoPaused) setFullVideoPaused(false);
             }
         }, [isSlideIntersecting, prevProps.isSlideIntersecting]);
 
@@ -58,6 +62,7 @@ const HomeSlidesItem = forwardRef(
                                 {playingFullVideo && (
                                     <>
                                         <video
+                                            ref={fullVideoRef}
                                             autoPlay
                                             className={`video-bg ${index}`}
                                             muted={fullVideoMuted}
@@ -66,7 +71,19 @@ const HomeSlidesItem = forwardRef(
                                             <source src={fullVideo} type="video/mp4" />
                                         </video>
 
-                                        <i className={`mute-button fa fa-fw ${fullVideoMuted ? 'fa-volume-slash' : 'fa-volume-up'}`} onClick={() => setFullVideoMuted(!fullVideoMuted)} />
+                                        <i
+                                            className={`pause-button fa fa-fw ${
+                                                fullVideoPaused ? 'fa-play' : 'fa-pause'
+                                            }`}
+                                            onClick={playPauseVideo}
+                                        />
+
+                                        <i
+                                            className={`mute-button fa fa-fw ${
+                                                fullVideoMuted ? 'fa-volume-slash' : 'fa-volume-up'
+                                            }`}
+                                            onClick={() => setFullVideoMuted(!fullVideoMuted)}
+                                        />
                                     </>
                                 )}
 
@@ -119,7 +136,12 @@ const HomeSlidesItem = forwardRef(
                                         <source src={fullVideo} type="video/mp4" />
                                     </video>
 
-                                    <i className={`mute-button fa fa-fw ${fullVideoMuted ? 'fa-volume-slash' : 'fa-volume-up'}`} onClick={() => setFullVideoMuted(!fullVideoMuted)} />
+                                    <i
+                                        className={`mute-button fa fa-fw ${
+                                            fullVideoMuted ? 'fa-volume-slash' : 'fa-volume-up'
+                                        }`}
+                                        onClick={() => setFullVideoMuted(!fullVideoMuted)}
+                                    />
                                 </>
                             )}
 
@@ -153,6 +175,16 @@ const HomeSlidesItem = forwardRef(
                 <FrontEndFooterContainer />
             </section>
         );
+
+        function playPauseVideo() {
+            if (fullVideoPaused) {
+                fullVideoRef.current.play();
+            } else {
+                fullVideoRef.current.pause();
+            }
+
+            setFullVideoPaused(!fullVideoPaused);
+        }
     },
 );
 
