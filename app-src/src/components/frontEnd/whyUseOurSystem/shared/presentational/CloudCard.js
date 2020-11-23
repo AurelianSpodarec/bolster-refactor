@@ -11,7 +11,9 @@ const CloudCard = ({ title = '', left, secondary, isVisible }) => {
                 <h2>{title}</h2>
             </div>
             <div className="base">
-                <div className="cloud" />
+                <div className="box">
+                    <div className="cloud" />
+                </div>
             </div>
         </div>
     );
