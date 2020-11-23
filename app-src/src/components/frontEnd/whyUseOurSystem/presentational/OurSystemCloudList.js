@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BolsterCloud from '_content/images/frontend-new/why-use-our-system/bolster-cloud-new1.png';
+import BolsterCloud from '_content/images/frontend-new/why-use-our-system/bolster-animated.gif';
 
 import { topList, bottomList } from 'constants/frontEnd/cloudList';
 import { useCloudShouldAnimate } from 'helpers/frontEndHooks';
@@ -11,7 +11,6 @@ import CloudCard from '../shared/presentational/CloudCard';
 const OurSystemCloudList = () => {
     const [ref, isVisible] = useCloudShouldAnimate();
     const isMobile = useIsMobile(1101);
-    console.log(isMobile);
 
     return (
         <div ref={ref} className="cloud-list-container">
