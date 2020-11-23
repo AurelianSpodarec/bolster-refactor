@@ -3531,7 +3531,7 @@ input {
         position: relative !important;
         margin-top: 0 !important;
     }
-
+ 
     .wysiwyg {
         h1, h2, h3, h4, p {
             line-height: 2;
@@ -3552,6 +3552,7 @@ input {
             margin-top: 10px;
         }
 
+        
         ol, ul {
             & > li {
                 font-size: 18px;
@@ -3567,7 +3568,7 @@ input {
 
         strong {
             font-weight: bold;
-        }      
+        }  
         
 
         .divider{
