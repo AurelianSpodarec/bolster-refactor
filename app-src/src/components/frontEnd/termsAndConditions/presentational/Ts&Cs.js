@@ -13,7 +13,7 @@ const Terms = ({ terms, error, isFetching }) => {
 
     if (error) {
         return (
-            <>  
+            <>
                 <PageMeta meta={{ title: pageTitle, ...meta }} />
                 <div className="content-page wysiwyg">
                     <p>There was an error fetching the data.</p>
@@ -39,7 +39,6 @@ const Terms = ({ terms, error, isFetching }) => {
         <>
             <PageMeta meta={{ title: pageTitle, ...meta }} />
             <div className="content-page wysiwyg">
-                <h1>{terms.title}</h1>
                 <div dangerouslySetInnerHTML={{ __html: terms.copy }}></div>
             </div>
         </>
