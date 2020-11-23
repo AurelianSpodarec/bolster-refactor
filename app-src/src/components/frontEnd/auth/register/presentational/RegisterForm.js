@@ -262,10 +262,10 @@ const RegisterForm = ({
                         />
                     </Field>
                     <Field name="Upload Logo" classes="auth-form-field wide">
-                        <Base64Upload 
-                            onChange={handleChange} 
-                            name='Company.base64LogoFile' 
-                            fileName='Company.base64LogoFileName' 
+                        <Base64Upload
+                            onChange={handleChange}
+                            name="Company.base64LogoFile"
+                            fileName="Company.base64LogoFileName"
                             value={base64LogoFile}
                             allowedFileTypes={['image/jpeg', 'image/png']}
                         />
@@ -276,10 +276,6 @@ const RegisterForm = ({
                                 I agree to Bolster Systems{terms}{' '}
                                 <Link to="/auth/terms" target="_blank">
                                     Terms of Service
-                                </Link>{' '}
-                                and{' '}
-                                <Link to="/auth/privacy-policy" target="_blank">
-                                    Privacy Policy
                                 </Link>
                             </p>
                             <CheckboxContainer
@@ -292,7 +288,7 @@ const RegisterForm = ({
                         </div>
                         {tickboxError && <p className="checkbox-error">This is a required field</p>}
                     </Field>
-                    <Field classes='auth-form-field wide'>
+                    <Field classes="auth-form-field wide">
                         <ReCaptcha
                             name="User.reCaptchaToken"
                             value={reCaptchaToken}

@@ -48,8 +48,7 @@ const FrontEndFooter = ({ hideFooter, isMobile, cookieConsent }) => {
                             </div>
                         )}
                         <p className="terms-text">
-                            <Link to="/auth/terms">Terms of Service</Link>{' '}
-                            <Link to="/auth/privacy-policy">Privacy Policy</Link>
+                            <Link to="/auth/terms">Terms of Service</Link>
                         </p>
                     </>
                 )}
