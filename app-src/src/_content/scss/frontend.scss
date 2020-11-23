@@ -1839,28 +1839,83 @@ $back-to-top-height: 35px;
            border: 4px solid transparent;
            
            .info-card-background {
-            background-color: white;
-            border-radius: 20px;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            z-index: 1;
+                background-color: white;
+                border-radius: 20px;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                z-index: 1;
             }
 
             &:hover {
-                & {
-                 border: 4px solid #EB1C24;
-                 box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.45);
-                }
+                border: 4px solid #EB1C24;
+                box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.45);
+
                 .icon-wrapper {
                     border: 4px solid #EB1C24;
                     box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.5)
                 }
-             }
+            }
 
-           &.clickable {
-               cursor: pointer;
-           }
+            &.cloud-card {
+                position: relative;
+                border: none;
+                border-radius: 0;
+                background-color: white;
+
+                &:hover {
+                    border: none;
+                    box-shadow: none;
+                }
+
+                .title-wrapper {
+                    padding: 20px;
+                }
+                
+                .base {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    min-height: 40px;
+                    z-index: 3;
+                    background-color: white;
+                    border-radius: 60px;
+
+                    .cloud {
+                        margin: -11% 0px 0px 25px;
+                        background-color: white;
+                        width: 70px;
+                        height: 70px;
+                        border-radius: 50%;
+                        position: absolute;
+                        left: 12%;
+
+                        &:before {
+                            content: '';
+                            background-color: white;
+                            margin: -30px 0px 0px 50px;
+                            width: 70px;
+                            height: 70px;
+                            border-radius: 50%;
+                            position: absolute;
+                        }
+
+                        &:after {
+                            content: '';
+                            background-color: white;
+                            margin: -0px 0px 0px 100px;
+                            width: 70px;
+                            height: 70px;
+                            border-radius: 50%;
+                            position: absolute;
+                        }
+                    }
+                }
+            }
+
+            &.clickable {
+                cursor: pointer;
+            }
 
            .plus-icon {
                position: absolute;
@@ -1870,44 +1925,43 @@ $back-to-top-height: 35px;
            }
 
            .icon-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: -50px;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: white;
-            border: 4px solid transparent;
-            
-            .icon {
-               width: 70px;
-               z-index: 2;
-            }
-        }
-
-        .title-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            z-index: 2;
-            padding: 0 15px;
-
-            & > h2 {
-                color: #444444;
-                font-size: 200%;
-                @include opensans-semibold;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: -50px;
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                background-color: white;
+                border: 4px solid transparent;
+                
+                .icon {
+                width: 70px;
+                z-index: 2;
+                }
             }
 
-            .divider{
-                width: 37px;
-                height: 6px;
-                background-color: #EB1C24;
-                margin: 19px
+            .title-wrapper {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                z-index: 2;
+                padding: 0 15px;
+
+                & > h2 {
+                    color: #444444;
+                    font-size: 200%;
+                    @include opensans-semibold;
+                }
+
+                .divider{
+                    width: 37px;
+                    height: 6px;
+                    background-color: #EB1C24;
+                    margin: 19px
+                }
             }
-        }
-               
         }
 
         @include devices(lsTablet) {
@@ -2007,7 +2061,6 @@ $back-to-top-height: 35px;
                     .info-card {
                         &:nth-child(1), &:nth-child(4) {
                             margin-top: 150px;
-
                         }
                     }
                 }

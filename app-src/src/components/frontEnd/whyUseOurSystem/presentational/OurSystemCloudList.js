@@ -4,7 +4,7 @@ import BolsterCloud from '_content/images/frontend-new/why-use-our-system/bolste
 
 import { topList, bottomList } from 'constants/frontEnd/cloudList';
 
-import InfoCard from '../shared/presentational/InfoCard';
+import CloudCard from '../shared/presentational/CloudCard';
 
 const OurSystemCloudList = () => (
     <div className="cloud-list-container">
@@ -15,12 +15,12 @@ const OurSystemCloudList = () => (
 
             <div className="list-wrapper top">
                 {topList.map(({ icon, title }, index) => (
-                    <InfoCard key={index} title={title} icon={icon} hidePlusIcon />
+                    <CloudCard key={index} title={title} icon={icon} hidePlusIcon />
                 ))}
             </div>
             <div className="list-wrapper bottom">
                 {bottomList.map(({ icon, title }, index) => (
-                    <InfoCard key={index} title={title} icon={icon} hidePlusIcon />
+                    <CloudCard key={index} title={title} icon={icon} hidePlusIcon />
                 ))}
             </div>
         </div>
