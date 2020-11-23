@@ -258,6 +258,33 @@ export const useVideoShouldPlay = () => {
     return [videoRef, isSlideIntersecting];
 };
 
+export const useCloudShouldAnimate = () => {
+    const [isVisible, setIsVisible] = useState(null);
+    const cloudRef = useRef(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                } else {
+                    setIsVisible(false);
+                }
+            },
+            { threshold: 0.2 },
+        );
+
+        if (cloudRef.current) {
+            observer.observe(cloudRef.current);
+        }
+        return () => {
+            observer.unobserve(cloudRef.current);
+        };
+    }, []);
+
+    return [cloudRef, isVisible];
+};
+
 export const useLocalStorage = (key, initialValue) => {
     const [storedValue, setStoredValue] = useState(() => {
         try {
