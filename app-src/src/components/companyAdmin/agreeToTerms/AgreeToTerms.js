@@ -9,13 +9,12 @@ import agreeToTerms from 'actions/companyAdmin/legalDocuments/agreeToTerms';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TsCsContainer from 'components/frontEnd/termsAndConditions/containers/Ts&CsContainer';
 
-const AgreeToTerms = ({ terms, eula, privacy, agreeToTerms }) => {
+const AgreeToTerms = ({ agreeToTerms }) => {
     const [hasAgreed, setHasAgreed] = useState(false);
 
     return (
         <>
-            <PageHeading title="Terms & Conditions"></PageHeading>
-            <TsCsContainer terms={terms} />
+            <TsCsContainer />
             <div className="flex-row size-lg-12">
                 <Block>
                     <Form onSubmit={agreeToTerms}>
