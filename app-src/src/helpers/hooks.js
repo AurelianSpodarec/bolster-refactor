@@ -154,5 +154,5 @@ export const useIsMobile = (mobileWidth = 1024) => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    return isMobile || isIOS;
+    return isWidthMobile || isIOS;
 };

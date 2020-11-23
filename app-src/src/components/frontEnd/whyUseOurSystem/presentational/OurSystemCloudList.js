@@ -4,11 +4,14 @@ import BolsterCloud from '_content/images/frontend-new/why-use-our-system/bolste
 
 import { topList, bottomList } from 'constants/frontEnd/cloudList';
 import { useCloudShouldAnimate } from 'helpers/frontEndHooks';
+import { useIsMobile } from 'helpers/hooks';
 
 import CloudCard from '../shared/presentational/CloudCard';
 
 const OurSystemCloudList = () => {
     const [ref, isVisible] = useCloudShouldAnimate();
+    const isMobile = useIsMobile(1101);
+    console.log(isMobile);
 
     return (
         <div ref={ref} className="cloud-list-container">
@@ -18,26 +21,34 @@ const OurSystemCloudList = () => {
                 </div>
 
                 <div className="list-wrapper top">
-                    {topList.map(({ title }, index) => (
-                        <CloudCard
-                            key={index}
-                            title={title}
-                            left={index === 0 || index === 1}
-                            secondary={index === 1 || index === 2}
-                            isVisible={isVisible}
-                        />
-                    ))}
+                    {topList.map(({ title }, index) => {
+                        const left = !isMobile ? index === 0 || index === 1 : index % 2;
+                        const secondary = !isMobile ? index === 1 || index === 2 : false;
+                        return (
+                            <CloudCard
+                                key={index}
+                                title={title}
+                                left={left}
+                                secondary={secondary}
+                                isVisible={isVisible}
+                            />
+                        );
+                    })}
                 </div>
                 <div className="list-wrapper bottom">
-                    {bottomList.map(({ title }, index) => (
-                        <CloudCard
-                            key={index}
-                            title={title}
-                            left={index === 0 || index === 1}
-                            secondary={index === 1 || index === 2}
-                            isVisible={isVisible}
-                        />
-                    ))}
+                    {bottomList.map(({ title }, index) => {
+                        const left = !isMobile ? index === 0 || index === 1 : index % 2;
+                        const secondary = !isMobile ? index === 1 || index === 2 : false;
+                        return (
+                            <CloudCard
+                                key={index}
+                                title={title}
+                                left={left}
+                                secondary={secondary}
+                                isVisible={isVisible}
+                            />
+                        );
+                    })}
                 </div>
             </div>
         </div>
