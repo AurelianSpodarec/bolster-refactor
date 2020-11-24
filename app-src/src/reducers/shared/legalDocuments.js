@@ -4,6 +4,9 @@ import {
     SHARED_FETCH_TERMS_REQUEST,
     SHARED_FETCH_TERMS_SUCCESS,
     SHARED_FETCH_TERMS_FAILURE,
+    UPDATE_TERMS_CANCEL_COUNT_REQUEST,
+    UPDATE_TERMS_CANCEL_COUNT_SUCCESS,
+    UPDATE_TERMS_CANCEL_COUNT_FAILURE,
 } from 'constants/actionTypes/legalDocuments';
 
 export default combineReducers({
@@ -11,6 +14,7 @@ export default combineReducers({
     fetchError: fetchErrorReducer,
     fetchSuccess: fetchSuccessReducer,
     isFetching: isFetchingReducer,
+    isPosting: isPostingReducer,
 });
 
 function docsReducer(state = {}, action) {
@@ -49,6 +53,17 @@ function fetchErrorReducer(state = null, action) {
             return null;
         case SHARED_FETCH_TERMS_FAILURE:
             return action.error;
+        default:
+            return state;
+    }
+}
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case UPDATE_TERMS_CANCEL_COUNT_REQUEST:
+            return true;
+        case UPDATE_TERMS_CANCEL_COUNT_SUCCESS:
+        case UPDATE_TERMS_CANCEL_COUNT_FAILURE:
+            return false;
         default:
             return state;
     }
