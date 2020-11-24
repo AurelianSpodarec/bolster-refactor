@@ -19,10 +19,7 @@ const LoginForm = ({
 
     return (
         <div className="auth-form-wrapper login">
-            <div className="auth-text-wrapper">
-                <FrontEndFormHeading title="Login" classes="smaller" />
-                <p>{loginText}</p>
-            </div>
+            <FrontEndFormHeading title="Login" classes="smaller" />
             <Form onSubmit={handleSubmit}>
                 <Field name="Email" classes="auth-form-field">
                     <TextInputContainer
@@ -59,6 +56,9 @@ const LoginForm = ({
                     </div>
                 </div>
             </Form>
+            <div className="auth-text-wrapper">
+                <p>{loginText}</p>
+            </div>
         </div>
     );
 };

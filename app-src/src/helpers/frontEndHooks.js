@@ -261,6 +261,7 @@ export const useVideoShouldPlay = () => {
 export const useCloudShouldAnimate = () => {
     const [isVisible, setIsVisible] = useState(null);
     const cloudRef = useRef(null);
+    // const
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -271,7 +272,7 @@ export const useCloudShouldAnimate = () => {
                     setIsVisible(false);
                 }
             },
-            { threshold: 0.2 },
+            { threshold: 0.1 },
         );
 
         if (cloudRef.current) {
