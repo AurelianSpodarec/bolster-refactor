@@ -10,6 +10,7 @@ import {
     createPreselectedOptionValuesList,
     createHierarchyPreselectedManufacturersList,
     removeUnusedManufacturerDefaults,
+    formatOptions,
 } from 'helpers/manufacturers';
 import editSite from 'actions/companyAdmin/sites/async/editSite';
 import {
@@ -38,6 +39,9 @@ class EditSiteFormContainer extends Component {
         selectedOptionValues: [],
         optionValuesOptions: {},
         areOptionsLoaded: false,
+        setInstallationTypes: false,
+        selectedInstallationTypes: [],
+        installationTypes: [],
     };
 
     render() {
@@ -103,6 +107,8 @@ class EditSiteFormContainer extends Component {
                 selectedOptionValues: [],
                 optionValuesOptions: {},
                 areOptionsLoaded: true,
+                installationTypes: [],
+                selectedInstallationTypes: [],
             };
 
             initialOptions.optionValuesOptions = createOptionValuesList(
@@ -129,10 +135,13 @@ class EditSiteFormContainer extends Component {
                     initialOptions.manufacturerOptions,
                 );
             }
+            initialOptions.installationTypes = formatOptions(site.dropDownOptions);
+            initialOptions.selectedInstallationTypes = this.createPreselectedInstallationTypesList(
+                initialOptions.installationTypes,
+            );
 
             this.setState(initialOptions);
         }
-
         if (!prevProps.site.id && !!site.id) {
             this._setFormDetails();
         }
@@ -184,6 +193,8 @@ class EditSiteFormContainer extends Component {
             dateToSend,
             isAlertShowing,
             setManufacturersForHierarchy,
+            setInstallationTypes,
+            selectedInstallationTypes,
         } = this.state;
 
         const manufacturingEnabledOptions = {
@@ -203,6 +214,18 @@ class EditSiteFormContainer extends Component {
                 dateToSend: moment(dateToSend).format(),
                 ...manufacturingEnabledOptions,
             };
+        }
+        if (setInstallationTypes) {
+            postBody = {
+                name,
+                client,
+                addressLine1,
+                addressLine2,
+                postcode,
+                message: message,
+                dropDownOptions: selectedInstallationTypes,
+                ...manufacturingEnabledOptions,
+            };
         } else {
             postBody = {
                 name,
@@ -213,9 +236,20 @@ class EditSiteFormContainer extends Component {
                 ...manufacturingEnabledOptions,
             };
         }
+        console.log(postBody);
         editSite(id, postBody);
         hideModal();
     };
+
+    createPreselectedInstallationTypesList(installationTypeList) {
+        return installationTypeList.reduce((acc, installationType) => {
+            if (!installationType.isDisabled) {
+                acc.push(String(installationType.value));
+            }
+
+            return acc;
+        }, []);
+    }
 }
 
 const mapStateToProps = ({

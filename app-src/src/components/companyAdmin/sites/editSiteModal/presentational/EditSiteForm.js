@@ -31,6 +31,9 @@ const EditSiteForm = ({
     selectedManufacturerOptions,
     selectedOptionValues,
     optionValuesOptions,
+    setInstallationTypes,
+    selectedInstallationTypes,
+    installationTypes,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -186,6 +189,36 @@ const EditSiteForm = ({
                     );
                 } else return null;
             })}
+
+        <div className="size-lg-12">
+            <div className="size-lg-6 size-md-12">
+                <Field labelClasses="no-capitalise" name="Set Custom Installation Types for site?">
+                    <CheckboxContainer
+                        checked={setInstallationTypes}
+                        name="setInstallationTypes"
+                        text=""
+                        handleChange={handleInputChange}
+                    />
+                </Field>
+            </div>
+        </div>
+        {setInstallationTypes && (
+            <div className="size-lg-12">
+                <Field
+                    labelClasses="no-capitalise"
+                    name="Installation Types"
+                    required={setInstallationTypes}
+                >
+                    <CheckboxListContainer
+                        name="selectedInstallationTypes"
+                        text=""
+                        handleChange={handleInputChange}
+                        selectedOptions={selectedInstallationTypes}
+                        options={installationTypes}
+                    />
+                </Field>
+            </div>
+        )}
 
         <BlockButtonWrapper>
             <button className="button green">
