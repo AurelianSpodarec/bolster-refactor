@@ -15,6 +15,7 @@ export default combineReducers({
     fetchSuccess: fetchSuccessReducer,
     isFetching: isFetchingReducer,
     isPosting: isPostingReducer,
+    postError: postErrorReducer,
 });
 
 function docsReducer(state = {}, action) {
@@ -57,6 +58,7 @@ function fetchErrorReducer(state = null, action) {
             return state;
     }
 }
+
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case UPDATE_TERMS_CANCEL_COUNT_REQUEST:
@@ -64,6 +66,17 @@ function isPostingReducer(state = false, action) {
         case UPDATE_TERMS_CANCEL_COUNT_SUCCESS:
         case UPDATE_TERMS_CANCEL_COUNT_FAILURE:
             return false;
+        default:
+            return state;
+    }
+}
+
+function postErrorReducer(state = null, action) {
+    switch (action.type) {
+        case UPDATE_TERMS_CANCEL_COUNT_REQUEST:
+            return null;
+        case UPDATE_TERMS_CANCEL_COUNT_FAILURE:
+            return action.error;
         default:
             return state;
     }
