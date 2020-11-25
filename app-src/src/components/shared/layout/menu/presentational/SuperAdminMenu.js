@@ -71,6 +71,10 @@ const SuperAdminMenu = ({ logout, unreadRequests }) => (
                 <i className="fas fa-file-medical icon" />
                 <span className="menu-text">New Features</span>
             </MenuItemContainer>
+            <MenuItemContainer link="/admin/banners">
+                <i className="fas fa-pennant icon" />
+                <span className="menu-text">Banner Notifications</span>
+            </MenuItemContainer>
             <Link className="item" to="#" link="/admin/users" onClick={logout}>
                 <i className="icon fas fa-sign-out" />
                 <span className="menu-text">Logout</span>
