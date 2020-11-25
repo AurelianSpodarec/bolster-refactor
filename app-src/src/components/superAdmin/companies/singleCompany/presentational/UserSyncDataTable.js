@@ -7,7 +7,7 @@ const UserSyncDataTable = ({ headers, syncData, isFetching }) => {
     return (
         <Table headers={headers} isFetching={isFetching} noData={!syncData.length}>
             {Object.values(syncData)
-                .sort((a, b) => moment(b.startDate) - moment(a.completionDate))
+                .sort((a, b) => moment(b.startDate) - moment(a.startDate))
                 .map(syncData => {
                     return (
                         <tr key={syncData.id}>
