@@ -1,8 +1,15 @@
-import React from 'react';
-
+import React, { useEffect, useCallback } from 'react';
+import { connect } from 'react-redux';
 import UserSyncDataTable from '../presentational/UserSyncDataTable';
+import fetchUserLatestSyncData from 'actions/superAdmin/syncs/async/fetchUserLatestSyncData';
 
-const UserSyncDataTableContainer = () => {
+const UserSyncDataTableContainer = ({
+    id,
+    fetchUserLatestSyncData,
+    isFetching,
+    error,
+    syncData,
+}) => {
     const headers = [
         'Sync ID',
         'Start Date',
@@ -13,220 +20,31 @@ const UserSyncDataTableContainer = () => {
         '# Pins Synced',
         '# Pin Histories Synced',
     ];
-    const syncData = [
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-        {
-            syncID: 'Some data',
-            startDate: 'Some data',
-            completionDate: 'Some data',
-            errored: 'Some data',
-            deviceType: 'Some data',
-            appVersion: 'Some data',
-            numOfPinsSynced: 'Some data',
-            numOfPinHistory: 'Some data',
-        },
-    ];
 
-    return <UserSyncDataTable headers={headers} syncData={syncData} />;
+    const getLatestSyncs = useCallback(async () => {
+        try {
+            await fetchUserLatestSyncData({ id });
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
+
+    useEffect(() => {
+        getLatestSyncs();
+    }, []);
+
+    return <UserSyncDataTable headers={headers} syncData={syncData} isFetching={isFetching} />;
 };
 
-export default UserSyncDataTableContainer;
+const mapDispatchToProps = { fetchUserLatestSyncData };
+
+const mapStateToProps = ({
+    superAdmin: {
+        syncsReducer: { isFetching, error, syncData },
+    },
+}) => ({
+    isFetching,
+    error,
+    syncData,
+});
+export default connect(mapStateToProps, mapDispatchToProps)(UserSyncDataTableContainer);
