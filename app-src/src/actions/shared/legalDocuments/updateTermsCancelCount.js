@@ -26,7 +26,7 @@ export default () => dispatch => {
     dispatch(updateTermsCancelCountRequest());
 
     return axios
-        .post(`${API_URL}/legal-documents/cancel`, getHeaders())
+        .post(`${API_URL}/legal-documents/cancel`, {}, getHeaders())
         .then(res => dispatch(updateTermsCancelCountSuccess(res.data)))
         .catch(err => dispatch(updateTermsCancelCountFailure(err.message)));
 };
