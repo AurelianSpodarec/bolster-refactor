@@ -26,8 +26,6 @@ const SubscriptionStatus = ({
     hadPendingProforma,
     isLatest,
 }) => {
-    console.log(moment(new Date()).isBefore(endOn));
-
     if (shouldRestrictPayments)
         return (
             <div className="size-lg-12">
