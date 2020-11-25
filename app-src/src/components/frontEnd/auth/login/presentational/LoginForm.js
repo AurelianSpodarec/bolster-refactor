@@ -56,7 +56,7 @@ const LoginForm = ({
                     </div>
                 </div>
             </Form>
-            <div className="auth-text-wrapper">
+            <div className="auth-text-wrapper login-text">
                 <p>{loginText}</p>
             </div>
         </div>

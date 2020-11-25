@@ -23,6 +23,7 @@ const EditTextSettingsForm = ({
                         value={loginText}
                         name={'loginText'}
                         handleChange={handleChange}
+                        charLimit="500"
                     />
                 </Field>
                 <Field name="Register page text" sizeClasses="size-lg-6 size-md-12">
@@ -30,6 +31,7 @@ const EditTextSettingsForm = ({
                         value={registerText}
                         name={'registerText'}
                         handleChange={handleChange}
+                        charLimit="500"
                     />
                 </Field>
             </div>
