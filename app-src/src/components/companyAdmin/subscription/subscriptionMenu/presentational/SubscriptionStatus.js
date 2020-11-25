@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
@@ -18,10 +19,15 @@ const SubscriptionStatus = ({
     subscriptions: { isAutoRenew, renewalPrice, renewalType },
     active,
     endOn,
+    latestStartOn,
+    latestEndOn,
     noCards,
     shouldRestrictPayments,
     hadPendingProforma,
+    isLatest,
 }) => {
+    console.log(moment(new Date()).isBefore(endOn));
+
     if (shouldRestrictPayments)
         return (
             <div className="size-lg-12">
@@ -46,7 +52,7 @@ const SubscriptionStatus = ({
                         <p className="size-lg-12">
                             Company subscription is set to auto-renew on{' '}
                             <strong>
-                                <DateTimeContainer date={endOn} />
+                                <DateTimeContainer date={latestEndOn || endOn} />
                             </strong>{' '}
                             at a cost of <strong>£{formatNumber(renewalPrice)}</strong>
                         </p>
@@ -68,6 +74,17 @@ const SubscriptionStatus = ({
                                 payment before your renewal date.
                             </p>
                         )}
+
+                        {hadPendingProforma &&
+                            !isLatest &&
+                            moment(new Date()).isBefore(latestStartOn) && (
+                                <p className="info-message warning" style={{ marginTop: '15px' }}>
+                                    Your auto renewal subscription will begin on{' '}
+                                    {moment(endOn).format('DD/MM/YYYY')}, you will be able to manage
+                                    your subscription preferences after this date.
+                                </p>
+                            )}
+
                         {noCards && renewalType === CARD && (
                             <p className="info-message error" style={{ marginTop: '15px' }}>
                                 Your auto-renewal is set to use a card payment, however you do not

@@ -15,10 +15,13 @@ class SubscriptionStatusContainer extends Component {
                 <SubscriptionStatus
                     subscriptions={subscriptions}
                     noCards={noCards}
+                    latestStartOn={subscriptions.nextSubscriptionStartOn}
                     endOn={subscriptions.endOn}
+                    latestEndOn={subscriptions.nextSubscriptionEndOn}
                     active={!!subscriptions.startOn}
                     shouldRestrictPayments={shouldRestrictPayments}
                     hadPendingProforma={hadPendingProforma}
+                    isLatest={subscriptions.isLatest}
                 />
             </BlockContainer>
         );
