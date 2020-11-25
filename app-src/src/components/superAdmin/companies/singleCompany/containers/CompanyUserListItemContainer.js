@@ -1,8 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import CompanyUserListItem from '../presentational/CompanyUserListItem';
 
-const CompanyUserListItemContainer = ({ user }) => {
-    return <CompanyUserListItem user={user} />;
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { ADMIN_LATEST_SYNCS } from 'constants/shared/modalTypes';
+
+const CompanyUserListItemContainer = ({ user, showModal }) => {
+    const handleModalClick = () => {
+        showModal(ADMIN_LATEST_SYNCS, {});
+    };
+    return <CompanyUserListItem user={user} handleModalClick={handleModalClick} />;
 };
 
-export default CompanyUserListItemContainer;
+const mapDispatchToProps = { showModal };
+
+export default connect(null, mapDispatchToProps)(CompanyUserListItemContainer);

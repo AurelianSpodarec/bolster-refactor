@@ -15,10 +15,7 @@ const CompanyUsersTableContainer = ({ users, error, isFetching, headers, match, 
             <div className="size-lg-6 size-md-12">
                 <BlockHeading title="Users" />
             </div>
-            <BlockButtonWrapper
-                additionalClasses="no-margin"
-                sizeClasses="size-lg-6 size-md-12"
-            >
+            <BlockButtonWrapper additionalClasses="no-margin" sizeClasses="size-lg-6 size-md-12">
                 <button className=" button green" onClick={handleShowAddModal} type="button">
                     <i className="fa fa-plus" /> Add Company Admin
                 </button>
@@ -29,31 +26,31 @@ const CompanyUsersTableContainer = ({ users, error, isFetching, headers, match, 
 
     function handleShowAddModal() {
         const companyID = match.params.id;
-        showModal(ADMIN_CREATE_COMPANY_ADMIN, {companyID});
+        showModal(ADMIN_CREATE_COMPANY_ADMIN, { companyID });
     }
 };
 
 const mapStateToProps = (
     {
         superAdmin: {
-            usersReducer: { users, error, isFetching }
-        }
+            usersReducer: { users, error, isFetching },
+        },
     },
-    { match: { params } }
+    { match: { params } },
 ) => ({
-    users: Object.values(users).filter(
-        ({ companyID }) => +companyID === +params.id
-    ),
+    users: Object.values(users).filter(({ companyID }) => +companyID === +params.id),
     error,
     isFetching,
     headers: [
         'Name',
-        'Email',
+        // 'Email',
         'Phone #',
         'User Type',
         'Operative Code',
-        'Linked Device?'
-    ]
+        'Linked Device?',
+        'Device Type',
+        'App Version',
+    ],
 });
 
 const mapDispatchToProps = { showModal };
