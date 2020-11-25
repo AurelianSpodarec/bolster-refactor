@@ -12,8 +12,8 @@ const CompanyUserListItem = ({ user, handleModalClick }) => (
         <td>{COMPANY_USER_ROLE_IDS[String(user.type)]}</td>
         <td>{user.formattedOperativeCode}</td>
         <td className="left-align">{user.linkedDeviceID ? 'Yes' : 'No'}</td>
-        <td>{user.deviceType ? user.deviceType : '-'}</td>
-        <td className="left-align">{user.deviceType ? user.deviceType : '-'}</td>
+        <td>{user.appVersion ? user.appVersion : '-'}</td>
+        <td className="left-align">{user.linkedDeviceName ? user.linkedDeviceName : '-'}</td>
         <td>
             <ButtonContainer handleClick={() => handleModalClick()} className="button">
                 View Latest Syncs

@@ -48,8 +48,8 @@ const mapStateToProps = (
         'User Type',
         'Operative Code',
         'Linked Device?',
-        'Device Type',
         'App Version',
+        'Device Type',
     ],
 });
 
