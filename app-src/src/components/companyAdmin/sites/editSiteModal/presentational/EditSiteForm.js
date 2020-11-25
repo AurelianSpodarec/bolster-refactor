@@ -192,7 +192,7 @@ const EditSiteForm = ({
 
         <div className="size-lg-12">
             <div className="size-lg-6 size-md-12">
-                <Field labelClasses="no-capitalise" name="Set Custom DropDown Types for site?">
+                <Field labelClasses="no-capitalise" name="Set Custom Types for site?">
                     <CheckboxContainer
                         checked={setDropDownTypes}
                         name="setDropDownTypes"
@@ -204,17 +204,13 @@ const EditSiteForm = ({
         </div>
         {setDropDownTypes && (
             <div className="size-lg-12">
-                <Field
-                    labelClasses="no-capitalise"
-                    name="DropDown Types"
-                    required={setDropDownTypes}
-                >
+                <Field labelClasses="no-capitalise" name="Types" required={setDropDownTypes}>
                     <CheckboxListContainer
                         name="selectedDropDownTypes"
                         text=""
                         handleChange={handleInputChange}
                         selectedOptions={selectedDropDownTypes}
-                        options={Object.values(dropDownTypes)}
+                        options={dropDownTypes}
                     />
                 </Field>
             </div>
