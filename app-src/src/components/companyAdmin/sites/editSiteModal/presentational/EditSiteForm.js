@@ -31,9 +31,9 @@ const EditSiteForm = ({
     selectedManufacturerOptions,
     selectedOptionValues,
     optionValuesOptions,
-    setInstallationTypes,
-    selectedInstallationTypes,
-    installationTypes,
+    setDropDownTypes,
+    selectedDropDownTypes,
+    dropDownTypes,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -192,29 +192,29 @@ const EditSiteForm = ({
 
         <div className="size-lg-12">
             <div className="size-lg-6 size-md-12">
-                <Field labelClasses="no-capitalise" name="Set Custom Installation Types for site?">
+                <Field labelClasses="no-capitalise" name="Set Custom DropDown Types for site?">
                     <CheckboxContainer
-                        checked={setInstallationTypes}
-                        name="setInstallationTypes"
+                        checked={setDropDownTypes}
+                        name="setDropDownTypes"
                         text=""
                         handleChange={handleInputChange}
                     />
                 </Field>
             </div>
         </div>
-        {setInstallationTypes && (
+        {setDropDownTypes && (
             <div className="size-lg-12">
                 <Field
                     labelClasses="no-capitalise"
-                    name="Installation Types"
-                    required={setInstallationTypes}
+                    name="DropDown Types"
+                    required={setDropDownTypes}
                 >
                     <CheckboxListContainer
-                        name="selectedInstallationTypes"
+                        name="selectedDropDownTypes"
                         text=""
                         handleChange={handleInputChange}
-                        selectedOptions={selectedInstallationTypes}
-                        options={installationTypes}
+                        selectedOptions={selectedDropDownTypes}
+                        options={Object.values(dropDownTypes)}
                     />
                 </Field>
             </div>

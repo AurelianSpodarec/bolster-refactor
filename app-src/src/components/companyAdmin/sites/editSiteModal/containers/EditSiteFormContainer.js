@@ -39,14 +39,15 @@ class EditSiteFormContainer extends Component {
         selectedOptionValues: [],
         optionValuesOptions: {},
         areOptionsLoaded: false,
-        setInstallationTypes: false,
-        selectedInstallationTypes: [],
-        installationTypes: [],
+        setDropDownTypes: false,
+        selectedDropDownTypes: [],
+        dropDownTypes: [],
     };
 
     render() {
         const { isUsingBolsterLabels, error } = this.props;
         const { areOptionsLoaded } = this.state;
+
         return (
             <BlockContainer
                 isEmpty={!areOptionsLoaded}
@@ -107,8 +108,9 @@ class EditSiteFormContainer extends Component {
                 selectedOptionValues: [],
                 optionValuesOptions: {},
                 areOptionsLoaded: true,
-                installationTypes: [],
-                selectedInstallationTypes: [],
+                dropDownTypes: [],
+                selectedDropDownTypes: [],
+                dropDownTypeOptions: {},
             };
 
             initialOptions.optionValuesOptions = createOptionValuesList(
@@ -135,10 +137,11 @@ class EditSiteFormContainer extends Component {
                     initialOptions.manufacturerOptions,
                 );
             }
-            initialOptions.installationTypes = formatOptions(site.dropDownOptions);
-            initialOptions.selectedInstallationTypes = this.createPreselectedInstallationTypesList(
-                initialOptions.installationTypes,
+            initialOptions.dropDownTypes = formatOptions(site.dropDownOptions);
+            initialOptions.selectedDropDownTypes = this.createPreselectedDropDownTypesList(
+                initialOptions.dropDownTypes,
             );
+            // initialOptions.dropDownTypes = this.sortTypes(initialOptions.dropDownTypes);
 
             this.setState(initialOptions);
         }
@@ -193,8 +196,8 @@ class EditSiteFormContainer extends Component {
             dateToSend,
             isAlertShowing,
             setManufacturersForHierarchy,
-            setInstallationTypes,
-            selectedInstallationTypes,
+            setDropDownTypes,
+            selectedDropDownTypes,
         } = this.state;
 
         const manufacturingEnabledOptions = {
@@ -215,7 +218,7 @@ class EditSiteFormContainer extends Component {
                 ...manufacturingEnabledOptions,
             };
         }
-        if (setInstallationTypes) {
+        if (setDropDownTypes) {
             postBody = {
                 name,
                 client,
@@ -223,7 +226,7 @@ class EditSiteFormContainer extends Component {
                 addressLine2,
                 postcode,
                 message: message,
-                dropDownOptions: selectedInstallationTypes,
+                dropDownOptions: selectedDropDownTypes,
                 ...manufacturingEnabledOptions,
             };
         } else {
@@ -241,14 +244,22 @@ class EditSiteFormContainer extends Component {
         hideModal();
     };
 
-    createPreselectedInstallationTypesList(installationTypeList) {
-        return installationTypeList.reduce((acc, installationType) => {
-            if (!installationType.isDisabled) {
-                acc.push(String(installationType.value));
+    createPreselectedDropDownTypesList(dropDownTypeList) {
+        return dropDownTypeList.reduce((acc, dropDownType) => {
+            if (!dropDownType.isDisabled) {
+                acc.push(String(dropDownType.value));
             }
 
             return acc;
         }, []);
+    }
+
+    sortTypes(dropDownTypesList) {
+        const frRatings = [];
+        const itemTypes = [];
+        const installationTypes = [];
+
+        dropDownTypesList.map(dropDownTypesList => {});
     }
 }
 
