@@ -3,18 +3,23 @@ import { connect } from 'react-redux';
 
 import BannerNotificationTable from '../presentational/BannerNotificationTable';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+
 import {
     CONFIRM_DELETE,
     ERROR_MODAL,
     EDIT_BANNER_NOTIFICATION,
     ADD_NEW_BANNER_NOTIFICATION,
 } from 'constants/shared/modalTypes';
+import deleteBannerNotification from 'actions/superAdmin/bannerNotifications/async/deleteBannerNotification';
 
 const BannerNotificationTableContainer = ({
     isFetching,
     error,
     bannerNotifications,
     showModal,
+    hideModal,
+    deleteBannerNotification,
 }) => {
     return (
         <BannerNotificationTable
@@ -39,13 +44,14 @@ const BannerNotificationTableContainer = ({
     function showEditModal(bannerNotification) {
         showModal(EDIT_BANNER_NOTIFICATION, { bannerNotification });
     }
+
     async function handleDelete(id) {
-        // const { success } = await deleteBannerNotification(id);
-        // if (success) {
-        //     hideModal();
-        // } else {
-        // showModal(ERROR_MODAL);
-        // }
+        const { success } = await deleteBannerNotification(id);
+        if (success) {
+            hideModal();
+        } else {
+            showModal(ERROR_MODAL);
+        }
     }
 };
 
@@ -59,5 +65,6 @@ const mapStateToProps = ({
     bannerNotifications: Object.values(bannerNotifications),
 });
 
-const mapDispatchToProps = { showModal };
+const mapDispatchToProps = { showModal, hideModal, deleteBannerNotification };
+
 export default connect(mapStateToProps, mapDispatchToProps)(BannerNotificationTableContainer);

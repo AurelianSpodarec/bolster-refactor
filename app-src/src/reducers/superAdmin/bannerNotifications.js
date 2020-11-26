@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
 import {
     FETCH_ALL_BANNER_NOTIFICATIONS_FAILURE,
     FETCH_ALL_BANNER_NOTIFICATIONS_REQUEST,
@@ -11,6 +11,7 @@ import {
     ADD_BANNER_NOTIFICATION_FAILURE,
     ADD_BANNER_NOTIFICATION_REQUEST,
     ADD_BANNER_NOTIFICATION_SUCCESS,
+    DELETE_BANNER_NOTIFICATION_SUCCESS,
 } from 'constants/actionTypes/superAdminBannerNotifications';
 
 export default combineReducers({
@@ -55,6 +56,8 @@ function bannerNotificationsReducer(state = {}, action) {
         case EDIT_BANNER_NOTIFICATION_SUCCESS:
         case ADD_BANNER_NOTIFICATION_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+        case DELETE_BANNER_NOTIFICATION_SUCCESS:
+            return removeObjItem(state, action.id);
         default:
             return state;
     }

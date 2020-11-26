@@ -32,7 +32,7 @@ const BannerNotificationTable = ({
                 <BannerNotificationList
                     bannerNotifications={bannerNotifications}
                     showEditModal={showEditModal}
-                    showDeletModal={showDeleteModal}
+                    showDeleteModal={showDeleteModal}
                 />
             </Table>
         </BlockContainer>
