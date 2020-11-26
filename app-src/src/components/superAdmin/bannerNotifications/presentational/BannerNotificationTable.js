@@ -11,6 +11,8 @@ const BannerNotificationTable = ({
     isFetching,
     error,
     bannerNotifications,
+    showEditModal,
+    showDeleteModal,
 }) => {
     return (
         <BlockContainer>
@@ -27,7 +29,11 @@ const BannerNotificationTable = ({
                 noData={!bannerNotifications.length}
                 noDataMessage="No Banner Notifications to Display"
             >
-                <BannerNotificationList bannerNotifications={bannerNotifications} />
+                <BannerNotificationList
+                    bannerNotifications={bannerNotifications}
+                    showEditModal={showEditModal}
+                    showDeletModal={showDeleteModal}
+                />
             </Table>
         </BlockContainer>
     );

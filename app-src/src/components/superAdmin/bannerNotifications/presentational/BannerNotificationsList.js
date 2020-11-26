@@ -26,13 +26,6 @@ const BannerNotificationList = ({ bannerNotifications, showDeleteModal, showEdit
                 <td>{bannerNotification.colour}</td>
 
                 <td>
-                    <Link
-                        to={`/admin/banner-notifications/${bannerNotification.id}`}
-                        className="button blue"
-                    >
-                        <i className="fa fa-eye fa-fw" />
-                        View
-                    </Link>
                     <button
                         className="button yellow"
                         onClick={() => showEditModal(bannerNotification)}
