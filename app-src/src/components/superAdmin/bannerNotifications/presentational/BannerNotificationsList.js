@@ -9,7 +9,9 @@ const BannerNotificationList = ({ bannerNotifications, showDeleteModal, showEdit
         .map(bannerNotification => (
             <tr key={bannerNotification.id}>
                 <td>{bannerNotification.name}</td>
-                <td>{bannerNotification.content}</td>
+                <td className="wide-row">
+                    <div dangerouslySetInnerHTML={{ __html: bannerNotification.content }}></div>
+                </td>
                 <td>
                     <DateTimeContainer
                         date={moment
@@ -22,7 +24,7 @@ const BannerNotificationList = ({ bannerNotifications, showDeleteModal, showEdit
                         date={moment.utc(bannerNotification.endDate).format('YYYY-MM-DDTHH:mm:ss')}
                     />
                 </td>
-                <td>{bannerNotification.colour}</td>
+                <td className="center-align">{bannerNotification.colour}</td>
 
                 <td>
                     <button

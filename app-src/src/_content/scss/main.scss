@@ -2633,6 +2633,10 @@ input {
                 }
             }
         }
+
+        & > .wide-row {
+            width: 550px;
+        }
     }
 
     th,
