@@ -5,6 +5,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
+import SunEditorSimpleWysiwyg from 'components/shared/generic/form/presentational/SunEditorSimpleWysiwyg';
 
 const BannerNotificationForm = ({
     formData: { name, content, startDate, endDate, colour },
@@ -17,7 +18,11 @@ const BannerNotificationForm = ({
                 <TextInputContainer name="name" value={name} handleChange={handleChange} />
             </Field>
             <Field name="Banner Content">
-                <TextInputContainer name="content" value={content} handleChange={handleChange} />
+                <SunEditorSimpleWysiwyg
+                    name="content"
+                    onChange={content => handleChange('content', content)}
+                    value={content}
+                />
             </Field>
             <Field name="Start Date">
                 <DatePicker
