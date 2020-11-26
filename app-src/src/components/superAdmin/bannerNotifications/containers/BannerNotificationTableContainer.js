@@ -32,8 +32,8 @@ const BannerNotificationTableContainer = ({
         showModal(CONFIRM_DELETE, { handleDelete: () => handleDelete(id) });
     }
 
-    function showEditModal(feature) {
-        showModal(EDIT_BANNER_NOTIFICATION, { feature });
+    function showEditModal(bannerNotification) {
+        showModal(EDIT_BANNER_NOTIFICATION, { bannerNotification });
     }
     async function handleDelete(id) {
         // const { success } = await deleteBannerNotification(id);
