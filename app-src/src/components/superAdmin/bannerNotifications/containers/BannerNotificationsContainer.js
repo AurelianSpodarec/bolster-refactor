@@ -1,9 +1,9 @@
 import React from 'react';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BannerNotifications from '../presentational/BannerNotifications';
 
 const BannerNotificationsContainer = () => {
-    return <BlockContainer></BlockContainer>;
+    return <BannerNotifications />;
 };
 
 export default BannerNotificationsContainer;

@@ -1,13 +1,16 @@
 import React from 'react';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BannerNotificationsContainer from '../containers/BannerNotificationsContainer';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BannerNotificationFormContainer from '../containers/BannerNotificationFormContainer';
 
 const BannerNotifications = () => {
     return (
         <>
             <PageHeading withBackButton title="Banner Notifications" />
-            <BannerNotificationsContainer />
+            <BlockContainer>
+                <BannerNotificationFormContainer />
+            </BlockContainer>
         </>
     );
 };
