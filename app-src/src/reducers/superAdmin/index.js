@@ -28,6 +28,7 @@ import optionValueDocumentsReducer from './optionValueDocuments';
 import userGuideReducer from './userGuide';
 import expiryToolReducer from './expiryTool';
 import newFeaturesReducer from './newFeatures';
+import bannerNotificationsReducer from './bannerNotifications';
 
 export default combineReducers({
     adminServicesReducer,
@@ -58,4 +59,5 @@ export default combineReducers({
     userGuideReducer,
     expiryToolReducer,
     newFeaturesReducer,
+    bannerNotificationsReducer,
 });
