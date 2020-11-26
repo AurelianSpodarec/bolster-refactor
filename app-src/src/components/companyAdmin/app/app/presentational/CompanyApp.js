@@ -4,6 +4,7 @@ import CompanyHeaderContainer from 'components/companyAdmin/layout/header/contai
 import FooterContainer from 'components/companyAdmin/layout/footer/containers/FooterContainer';
 import MenuContainer from 'components/shared/layout/menu/containers/MenuContainer';
 import Routes from 'components/companyAdmin/app/routes/presentational';
+import BannerNotificationContainer from 'components/shared/banners/containers/BannerNotificationContainer';
 
 const CompanyApp = () => (
     <>
@@ -11,6 +12,7 @@ const CompanyApp = () => (
         <div className="full-container container">
             <MenuContainer />
             <div id="page-area" className="obvious-class-name">
+                <BannerNotificationContainer />
                 <Routes />
             </div>
         </div>
