@@ -3,7 +3,12 @@ import { connect } from 'react-redux';
 
 import BannerNotificationTable from '../presentational/BannerNotificationTable';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-import { CONFIRM_DELETE, ERROR_MODAL, EDIT_BANNER_NOTIFICATION } from 'constants/shared/modalTypes';
+import {
+    CONFIRM_DELETE,
+    ERROR_MODAL,
+    EDIT_BANNER_NOTIFICATION,
+    ADD_NEW_BANNER_NOTIFICATION,
+} from 'constants/shared/modalTypes';
 
 const BannerNotificationTableContainer = ({
     isFetching,
@@ -13,7 +18,7 @@ const BannerNotificationTableContainer = ({
 }) => {
     return (
         <BannerNotificationTable
-            showModal={showNewBannerModal}
+            showAddNewBannerModal={showAddNewBannerModal}
             error={error}
             bannerNotifications={bannerNotifications}
             isFetching={isFetching}
@@ -23,9 +28,8 @@ const BannerNotificationTableContainer = ({
         />
     );
 
-    function showNewBannerModal() {
-        console.log('inside modal');
-        // show the Form container inside a modal
+    function showAddNewBannerModal() {
+        showModal(ADD_NEW_BANNER_NOTIFICATION);
     }
 
     function showDeleteModal(id) {

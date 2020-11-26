@@ -8,6 +8,9 @@ import {
     EDIT_BANNER_NOTIFICATION_FAILURE,
     EDIT_BANNER_NOTIFICATION_REQUEST,
     EDIT_BANNER_NOTIFICATION_SUCCESS,
+    ADD_BANNER_NOTIFICATION_FAILURE,
+    ADD_BANNER_NOTIFICATION_REQUEST,
+    ADD_BANNER_NOTIFICATION_SUCCESS,
 } from 'constants/actionTypes/superAdminBannerNotifications';
 
 export default combineReducers({
@@ -34,9 +37,11 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_ALL_BANNER_NOTIFICATIONS_REQUEST:
         case EDIT_BANNER_NOTIFICATION_REQUEST:
+        case ADD_BANNER_NOTIFICATION_REQUEST:
             return null;
         case FETCH_ALL_BANNER_NOTIFICATIONS_FAILURE:
         case EDIT_BANNER_NOTIFICATION_FAILURE:
+        case ADD_BANNER_NOTIFICATION_FAILURE:
             return action.error;
         default:
             return state;
@@ -48,6 +53,7 @@ function bannerNotificationsReducer(state = {}, action) {
         case FETCH_ALL_BANNER_NOTIFICATIONS_SUCCESS:
             return convertArrToObj(action.payload);
         case EDIT_BANNER_NOTIFICATION_SUCCESS:
+        case ADD_BANNER_NOTIFICATION_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
@@ -57,8 +63,10 @@ function bannerNotificationsReducer(state = {}, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case EDIT_BANNER_NOTIFICATION_REQUEST:
+        case ADD_BANNER_NOTIFICATION_REQUEST:
             return false;
         case EDIT_BANNER_NOTIFICATION_SUCCESS:
+        case ADD_BANNER_NOTIFICATION_SUCCESS:
             return true;
         default:
             return state;
@@ -68,8 +76,11 @@ function postSuccessReducer(state = false, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case EDIT_BANNER_NOTIFICATION_REQUEST:
+        case ADD_BANNER_NOTIFICATION_REQUEST:
             return true;
         case EDIT_BANNER_NOTIFICATION_SUCCESS:
+        case ADD_BANNER_NOTIFICATION_SUCCESS:
+        case ADD_BANNER_NOTIFICATION_FAILURE:
             return false;
         default:
             return state;

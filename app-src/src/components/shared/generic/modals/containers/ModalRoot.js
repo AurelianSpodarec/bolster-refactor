@@ -107,6 +107,7 @@ import {
     ZONE_DETAILS,
     EDIT_ZONE_MODAL,
     EDIT_BANNER_NOTIFICATION,
+    ADD_NEW_BANNER_NOTIFICATION,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -216,6 +217,7 @@ import ZoneDetailsModalContainer from 'components/companyAdmin/drawings/singleDr
 import EditZoneModalContainer from 'components/companyAdmin/drawings/singleDrawing/containers/EditZoneModalContainer';
 import AddCommentToInvoiceModalContainer from 'components/superAdmin/invoices/singleInvoice/containers/AddCommentToInvoiceModalContainer';
 import EditBannerNotificationModal from 'components/superAdmin/bannerNotifications/editBannerNotificationModal/presentational/EditBannerNotificationModal';
+import AddBannerNotificationModel from 'components/superAdmin/bannerNotifications/addBannerNotifcationModel/presentational/AddBannerNotificationModel';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -323,6 +325,7 @@ const MODAL_COMPONENTS = {
     [EDIT_ZONE_MODAL]: EditZoneModalContainer,
     [ADD_INVOICE_COMMENT]: AddCommentToInvoiceModalContainer,
     [EDIT_BANNER_NOTIFICATION]: EditBannerNotificationModal,
+    [ADD_NEW_BANNER_NOTIFICATION]: AddBannerNotificationModel,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

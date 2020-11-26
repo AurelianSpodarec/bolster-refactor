@@ -6,7 +6,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import BannerNotificationList from './BannerNotificationsList';
 
 const BannerNotificationTable = ({
-    showModal,
+    showAddNewBannerModal,
     headers,
     isFetching,
     error,
@@ -17,7 +17,7 @@ const BannerNotificationTable = ({
     return (
         <BlockContainer>
             <BlockHeading title="Notifcations">
-                <button className="button green" onClick={showModal}>
+                <button className="button green" onClick={() => showAddNewBannerModal()}>
                     <i className="fa fa-plus" /> Add New Banner Notifcation
                 </button>
             </BlockHeading>
