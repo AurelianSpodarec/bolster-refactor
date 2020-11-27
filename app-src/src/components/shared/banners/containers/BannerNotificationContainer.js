@@ -9,7 +9,6 @@ import { usePrevious } from 'helpers/hooks';
 const BannerNotificationContainer = ({
     fetchBannerNotification,
     isFetching,
-    error,
     bannerNotification,
     postBannerNotificationClose,
     isPosting,
@@ -37,6 +36,7 @@ const BannerNotificationContainer = ({
         return (
             <BannerNotification
                 content={bannerNotification.content}
+                colour={bannerNotification.colour.value}
                 handleBannerClose={handleBannerClose}
             />
         );

@@ -2637,7 +2637,7 @@ input {
         & > .wide-row {
             width: 550px;
 
-            a, p, strong, div, em, u {
+            a, p, strong, div, em, u,span {
                 font-size: 100%;
             }
         }
@@ -6128,7 +6128,6 @@ input {
 .banner-notification-wrapper {
     display: flex;
     height: 40px;
-    background-color: red;
     margin-bottom: 10px;
     border-radius: 5px;
     align-items: center;
@@ -6146,7 +6145,7 @@ input {
         & > .banner-wysiwyg-text {
             margin-left: 5px;
 
-            p, a, div, strong, em, u {
+            p, a, div, strong, em, u, span {
                 font-size: 100%;
             }
             strong {

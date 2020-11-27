@@ -1,8 +1,11 @@
 import React from 'react';
 
-const BannerNotification = ({ content, handleBannerClose }) => {
+const BannerNotification = ({ content, handleBannerClose, colour }) => {
     return (
-        <div className="banner-notification-wrapper">
+        <div
+            className="banner-notification-wrapper"
+            style={colour ? { backgroundColor: colour } : '#d71a1a'}
+        >
             <div className="banner-text">
                 <i className="fas fa-bullhorn fa-fw" />{' '}
                 <div

@@ -71,7 +71,6 @@ const EditBannerNotificationFormContainer = ({
             startDate: moment.utc(formData.startDate).format(),
             endDate: moment.utc(formData.endDate).format(),
         };
-        console.log(postBody);
         editBannerNotification(postBody, bannerNotification.id);
     }
 };

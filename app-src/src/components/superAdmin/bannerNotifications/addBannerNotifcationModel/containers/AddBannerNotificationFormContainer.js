@@ -28,6 +28,12 @@ const AddBannerNotificationFormContainer = ({
 
     const prevProps = usePrevious({ isPosting });
 
+    const colourOptions = [
+        { text: 'Red', value: '#d71a1a' },
+        { text: 'Orange', value: '#e89901' },
+        { text: 'Green', value: '#2eac58' },
+    ];
+
     useEffect(() => {
         if (prevProps.isPosting && !isPosting && postSuccess) {
             hideModal();
@@ -42,8 +48,18 @@ const AddBannerNotificationFormContainer = ({
             formData={formData}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
+            colourOptions={colourOptions}
+            handleColourChange={handleColourChange}
         />
     );
+
+    function handleColourChange(name, value) {
+        colourOptions.forEach(colourOption => {
+            if (value === colourOption.value) {
+                handleChange(name, { text: colourOption.text, value: value });
+            }
+        });
+    }
 
     function handleSubmit(e) {
         e.preventDefault();
