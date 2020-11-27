@@ -240,7 +240,6 @@ class EditSiteFormContainer extends Component {
                 ...manufacturingEnabledOptions,
             };
         }
-        console.log(postBody);
         editSite(id, postBody);
         hideModal();
     };
@@ -249,11 +248,11 @@ class EditSiteFormContainer extends Component {
     createPreselectedDropDownTypesList(dropDownTypeList) {
         console.log(dropDownTypeList);
         return dropDownTypeList.reduce((acc, dropDownType) => {
-            if (!dropDownType.isDisabled) {
-                acc.push(String(dropDownType.value));
-            }
-
-            return acc;
+            // if (!dropDownType.isDisabled) {
+            //     acc.push(String(dropDownType));
+            // }
+            console.log({ acc });
+            // return acc;
         }, []);
     }
 
@@ -275,7 +274,7 @@ class EditSiteFormContainer extends Component {
             }
         });
 
-        const sortedDropDownTypes = { 1: frRatings, 2: itemTypes, 3: installationTypes };
+        const sortedDropDownTypes = [{ 1: frRatings }, { 2: itemTypes }, { 3: installationTypes }];
 
         return sortedDropDownTypes;
     }
