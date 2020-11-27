@@ -6135,13 +6135,19 @@ input {
         margin-left: 5px;
         display: inline-flex;
 
+        & > i {
+            margin-top: 1px;
+        }
+
         & > .banner-wysiwyg-text {
             margin-left: 5px;
 
-            p, a, div, strong,em, u {
+            p, a, div, strong, em, u {
                 font-size: 100%;
             }
-
+            strong {
+                font-weight: 500;
+            }
             a {
                 color: white;
 

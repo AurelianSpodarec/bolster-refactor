@@ -1,41 +1,73 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import BannerNotification from '../presentational/BannerNotification';
 import fetchBannerNotification from 'actions/shared/banners/async/fetchBannerNotification';
+import postBannerNotificationClose from 'actions/shared/banners/async/postBannerNotificationClose';
+import { usePrevious } from 'helpers/hooks';
 
 const BannerNotificationContainer = ({
     fetchBannerNotification,
     isFetching,
     error,
-    bannerNotifications,
+    bannerNotification,
+    postBannerNotificationClose,
+    isPosting,
+    postSuccess,
 }) => {
-    useEffect(() => {
-        fetchBannerNotification();
+    const [visible, setVisible] = useState(false);
+    const prevProps = usePrevious({ isPosting, postSuccess });
+
+    const getBannerNotification = useCallback(async () => {
+        await fetchBannerNotification();
+        setVisible(true);
     }, []);
 
-    return (
-        <BannerNotification
-            content={bannerNotifications.content}
-            handleBannerClose={handleBannerClose}
-        />
-    );
+    useEffect(() => {
+        getBannerNotification();
+    }, []);
+
+    useEffect(() => {
+        if (postSuccess && !prevProps.postSuccess) {
+            setVisible(false);
+        }
+    }, [postSuccess, isPosting, prevProps.postSuccess, prevProps.isPosting]);
+
+    if (bannerNotification && visible) {
+        return (
+            <BannerNotification
+                content={bannerNotification.content}
+                handleBannerClose={handleBannerClose}
+            />
+        );
+    } else {
+        return null;
+    }
 
     function handleBannerClose() {
-        console.log('close the banner');
+        const postBody = { bannerID: bannerNotification.id };
+        postBannerNotificationClose(postBody);
     }
 };
 
 const mapStateToProps = ({
     shared: {
-        bannerNotificationReducer: { isFetching, error, bannerNotifications },
+        bannerNotificationReducer: {
+            isFetching,
+            error,
+            bannerNotifications,
+            isPosting,
+            postSuccess,
+        },
     },
 }) => ({
     isFetching,
     error,
-    bannerNotifications: bannerNotifications,
+    bannerNotification: bannerNotifications,
+    isPosting,
+    postSuccess,
 });
 
-const mapDispatchToProps = { fetchBannerNotification };
+const mapDispatchToProps = { fetchBannerNotification, postBannerNotificationClose };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BannerNotificationContainer);
