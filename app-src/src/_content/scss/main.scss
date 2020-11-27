@@ -2636,6 +2636,10 @@ input {
 
         & > .wide-row {
             width: 550px;
+
+            a, p, strong, div, em, u {
+                font-size: 100%;
+            }
         }
     }
 
