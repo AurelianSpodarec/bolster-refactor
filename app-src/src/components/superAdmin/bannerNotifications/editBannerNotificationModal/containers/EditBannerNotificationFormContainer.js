@@ -26,9 +26,16 @@ const EditBannerNotificationFormContainer = ({
         startDate: new Date(moment.utc(bannerNotification.startDate)),
         endDate: new Date(moment.utc(bannerNotification.endDate)),
         content: bannerNotification.content,
-        colour: bannerNotification.colour,
+        colour: { text: bannerNotification.colour.text, value: bannerNotification.colour.value },
     });
+
     const prevProps = usePrevious({ isPosting });
+
+    const colourOptions = [
+        { text: 'Red', value: '#d71a1a' },
+        { text: 'Orange', value: '#e89901' },
+        { text: 'Green', value: '#2eac58' },
+    ];
 
     useEffect(() => {
         if (prevProps.isPosting && !isPosting && postSuccess) {
@@ -44,19 +51,28 @@ const EditBannerNotificationFormContainer = ({
             formData={formData}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
+            colourOptions={colourOptions}
+            handleColourChange={handleColourChange}
         />
     );
 
+    function handleColourChange(name, value) {
+        colourOptions.forEach(colourOption => {
+            if (value === colourOption.value) {
+                handleChange(name, { text: colourOption.text, value: value });
+            }
+        });
+    }
+
     function handleSubmit(e) {
         e.preventDefault();
-        editBannerNotification(
-            {
-                ...formData,
-                startDate: moment.utc(formData.startDate).format(),
-                endDate: moment.utc(formData.endDate).format(),
-            },
-            bannerNotification.id,
-        );
+        const postBody = {
+            ...formData,
+            startDate: moment.utc(formData.startDate).format(),
+            endDate: moment.utc(formData.endDate).format(),
+        };
+        console.log(postBody);
+        editBannerNotification(postBody, bannerNotification.id);
     }
 };
 

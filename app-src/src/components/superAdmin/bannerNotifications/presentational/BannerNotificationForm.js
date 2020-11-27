@@ -6,11 +6,14 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
 import SunEditorSimpleWysiwyg from 'components/shared/generic/form/presentational/SunEditorSimpleWysiwyg';
+import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
 const BannerNotificationForm = ({
     formData: { name, content, startDate, endDate, colour },
     handleChange,
     handleSubmit,
+    colourOptions,
+    handleColourChange,
 }) => {
     return (
         <Form onSubmit={handleSubmit}>
@@ -43,7 +46,13 @@ const BannerNotificationForm = ({
                 />
             </Field>
             <Field name="Banner Colour">
-                <TextInputContainer name="colour" value={colour} handleChange={handleChange} />
+                <DropdownContainer
+                    placeholder="Select Colour"
+                    name="colour"
+                    options={colourOptions}
+                    selectedOption={colour}
+                    handleChange={handleColourChange}
+                />
             </Field>
             <BlockButtonWrapper>
                 <button type="submit" className="button green">
