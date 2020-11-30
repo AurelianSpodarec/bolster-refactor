@@ -5,12 +5,9 @@ import fetchTerms from 'actions/shared/legalDocuments/fetchTerms';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
-import PrivacyPolicy from './PrivacyPolicy';
-import EULA from './EULA';
-import TsAndCs from './TsAndCs';
-import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
+import TermsAndConditions from './TermsAndConditions';
 
-const Terms = ({ fetchTerms, copy }) => {
+const Terms = ({ fetchTerms, terms, eula, privacy }) => {
     useEffect(() => {
         fetchTerms();
     }, []);
@@ -20,15 +17,16 @@ const Terms = ({ fetchTerms, copy }) => {
             <PageHeading leftChildren={true} title="Terms & Conditions">
                 <BackButtonContainer />
             </PageHeading>
-            <TsAndCs copy={copy} />
-            <EULA />
-            <PrivacyPolicy />
+            <TermsAndConditions terms={terms} eula={eula} privacy={privacy} />
         </>
     );
 };
 
 const mapState = ({ shared: { legalDocumentsReducer } }) => ({
-    copy: legalDocumentsReducer.terms.copy,
+    terms: legalDocumentsReducer.docs.terms || {},
+    eula: legalDocumentsReducer.docs.eula || {},
+    privacy: legalDocumentsReducer.docs.privacy || {},
+    docs: legalDocumentsReducer.docs,
     fetchSuccess: legalDocumentsReducer.fetchSuccess,
     fetchError: legalDocumentsReducer.fetchError,
 });

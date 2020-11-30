@@ -7,12 +7,12 @@ import {
 } from 'constants/actionTypes/legalDocuments';
 
 export default combineReducers({
-    terms: termsReducer,
+    docs: docsReducer,
     fetchError: fetchErrorReducer,
     fetchSuccess: fetchSuccessReducer,
 });
 
-function termsReducer(state = {}, action) {
+function docsReducer(state = {}, action) {
     switch (action.type) {
         case SHARED_FETCH_TERMS_SUCCESS:
             return action.payload;

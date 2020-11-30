@@ -23,11 +23,11 @@ function withTermsAuth(ProtectedComponent) {
             fetchTerms();
         }, []);
 
-        // if (fetchError) return <ErrorBlock>{fetchError}</ErrorBlock>;
-        // if (!fetchSuccess || !hasFetchedCompany) return null;
+        if (fetchError) return <ErrorBlock>{fetchError}</ErrorBlock>;
+        if (!fetchSuccess || !hasFetchedCompany) return null;
 
-        // if (termsExists && (!termsAcceptedOn || new Date(publishedOn) > new Date(termsAcceptedOn)))
-        //     return <AgreeToTerms copy={copy} />;
+        if (termsExists && (!termsAcceptedOn || new Date(publishedOn) > new Date(termsAcceptedOn)))
+            return <AgreeToTerms copy={copy} />;
 
         return <ProtectedComponent {...props} />;
     };
@@ -36,7 +36,7 @@ function withTermsAuth(ProtectedComponent) {
         companyAdmin: { companySettingsReducer },
         shared: { legalDocumentsReducer },
     }) => ({
-        terms: legalDocumentsReducer.terms,
+        terms: legalDocumentsReducer.docs,
         fetchSuccess: legalDocumentsReducer.fetchSuccess,
         fetchError: legalDocumentsReducer.fetchError,
         hasFetchedCompany: !isEmpty(companySettingsReducer.companySettings),
