@@ -11,7 +11,6 @@ import { LEGAL_DOCUMENT_TYPE } from 'constants/superAdmin/enums';
 import { getKeyByValue } from 'helpers/generic';
 
 import AddLegalDocumentVersion from '../presentational/AddLegalDocumentVersion';
-import { useParams } from 'react-router-dom';
 
 const AddLegalDocumentVersionContainer = ({ data }) => {
     const history = useHistory();
@@ -29,7 +28,6 @@ const AddLegalDocumentVersionContainer = ({ data }) => {
     useEffect(() => {
         // fetch document, latest version / draft
     }, []);
-    const [documentText, setDocText] = useState('');
 
     useEffect(() => {
         if (prevProps.postIsFetching && !postIsFetching && postSuccess) {
@@ -89,14 +87,14 @@ const AddLegalDocumentVersionContainer = ({ data }) => {
         <AddLegalDocumentVersion
             handleSaveDraft={handleSaveDraft}
             handlePublishDraft={handlePublishDraft}
+            handleFormChange={handleFormChange}
+            handleTypeChange={handleTypeChange}
             handleBack={handleBack}
             documentText={documentText}
             setDocText={setDocText}
+            {...form}
         />
     );
-
-    function handleSaveDraft() {}
-    function handlePublishDraft() {}
 };
 
 export default AddLegalDocumentVersionContainer;

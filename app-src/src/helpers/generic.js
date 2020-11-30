@@ -297,6 +297,10 @@ export const toTitleCase = string => {
 export const sortArrayByField = (arr, field = 'id', ascending = false) =>
     orderBy(arr, [field], [ascending ? 'asc' : 'desc']);
 
+export const getKeyByValue = (object, value) => {
+    return Object.keys(object).find(key => object[key] === value);
+};
+
 export const orderTrustedByArr = (arr, maxLength = 5) => {
     if (!arr || !arr.length) return null;
 

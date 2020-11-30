@@ -6,7 +6,7 @@ import { pageMeta } from 'constants/frontEnd/meta';
 import fetchTerms from 'actions/shared/legalDocuments/fetchTerms';
 
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
-import TermsAndConditions from './TermsAndConditions';
+// import TermsAndConditions from './TermsAndConditions';
 import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 import PageHeading from '../generic/pageHeading/presentational/PageHeading';
 
@@ -21,7 +21,7 @@ const Terms = ({ fetchTerms, terms, eula, privacy }) => {
             <PageHeading leftChildren={true} title="Terms & Conditions">
                 <BackButtonContainer />
             </PageHeading>
-            <TermsAndConditions terms={terms} eula={eula} privacy={privacy} />
+            {/* <TermsAndConditions terms={terms} eula={eula} privacy={privacy} /> */}
         </>
     );
 };

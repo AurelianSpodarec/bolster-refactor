@@ -7,7 +7,6 @@ import Block from 'components/shared/generic/block/presentational/Block';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import agreeToTerms from 'actions/companyAdmin/legalDocuments/agreeToTerms';
 import Field from 'components/shared/generic/form/presentational/Field';
-import TermsAndConditions from 'components/shared/terms/TermsAndConditions';
 import TsCsContainer from 'components/frontEnd/termsAndConditions/containers/Ts&CsContainer';
 
 const AgreeToTerms = ({ terms, eula, privacy, agreeToTerms }) => {

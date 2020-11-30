@@ -16,6 +16,7 @@ import {
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isObjEmpty } from 'helpers/generic';
+import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOAndMTsAndCsModal';
 
 class AddSiteFormContainer extends Component {
     state = {
@@ -64,6 +65,7 @@ class AddSiteFormContainer extends Component {
             fetchManufacturersByPinOptionType,
             fetchAllOptionValues,
             useManufacturingByDefault,
+            showOAndMTsAndCsModal,
         } = this.props;
         if (useManufacturingByDefault) {
             showOAndMTsAndCsModal('add site');
@@ -280,6 +282,7 @@ const mapDispatchToProps = {
     hideModal,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
+    showOAndMTsAndCsModal,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddSiteFormContainer));
