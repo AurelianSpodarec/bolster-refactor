@@ -29,6 +29,7 @@ import frontendTextSettingsReducer from './frontendTextSettings';
 import frontendTrustedBySettingsReducer from './frontendTrustedBySettings';
 import expiryToolReducer from './expiryTool';
 import newFeaturesReducer from './newFeatures';
+import legalDocumentsReducer from './legalDocuments';
 
 export default combineReducers({
     adminServicesReducer,
@@ -41,6 +42,7 @@ export default combineReducers({
     floorsReducer,
     invoicePaymentsReducer,
     invoicesReducer,
+    legalDocumentsReducer,
     manufacturersReducer,
     manufacturersOptionValuesReducer,
     mergeToolReducer,

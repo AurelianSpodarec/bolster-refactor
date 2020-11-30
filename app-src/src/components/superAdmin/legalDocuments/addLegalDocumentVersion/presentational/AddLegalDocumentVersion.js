@@ -23,12 +23,12 @@ const AddLegalDocumentVersion = ({
     setDocText,
     handleFormChange,
     handleTypeChange,
-    docType,
     docTitle,
+    docType,
 }) => {
     return (
         <>
-            <PageHeading title={'document name, version, (draft)'} />
+            <PageHeading title={`${docTitle} (draft)`} withBackButton />
             <BlockContainer>
                 <Field name="Document Title" required>
                     <TextInputContainer
@@ -53,9 +53,9 @@ const AddLegalDocumentVersion = ({
                 <SunEditorRichTextContainer value={documentText} onChange={setDocText} />
 
                 <BlockButtonWrapper>
-                    <ButtonContainer handleClick={handleSaveDraft}>Save draft</ButtonContainer>
+                    <ButtonContainer handleClick={handleSaveDraft}>Save Draft</ButtonContainer>
                     <ButtonContainer handleClick={handlePublishDraft}>
-                        Publish draft
+                        Publish Draft
                     </ButtonContainer>
                     <ButtonContainer setColour={'#d71a1a'} handleClick={handleBack}>
                         Back

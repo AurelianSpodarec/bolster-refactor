@@ -2584,6 +2584,10 @@ input {
             }
         }
 
+        &.latest {
+            font-weight: 700;
+        }
+
         &.expanded-row {
             table {
                 thead {
@@ -6085,7 +6089,7 @@ input {
 }
 
 .ql-editor {
-    min-height: 30vh;
+    height: 45vh;
 }
 
 .wysiwyg-container {
