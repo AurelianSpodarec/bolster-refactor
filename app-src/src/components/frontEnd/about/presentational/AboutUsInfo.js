@@ -14,19 +14,23 @@ const AboutUsInfo = () => {
                 simple applications that allow trade professionals to be more productive by
                 automating compliance documentation.
                 <br />
+                <div className="custom-line-break" />
+                Bolster Systems mission is to create simple applications that allow trade
+                professionals to be more productive by automating compliance documentation.
                 <br />
-                Our dedicated team offer a mix of both construction and technology experience
+                <div className="custom-line-break" />
+                Our dedicated team offer a mix of both construction and technology expertise
                 allowing us to create software that is both at the forefront of current advancements
                 of available technology whilst also simple and effective to use in its
                 implementation.
                 <br />
-                <br />
+                <div className="custom-line-break" />
                 Bolster Systems are Association for Specialist Fire Protection (ASFP) associate
                 members. Our aim is to better the industry through the medium of technology. We are
                 Cyber Essential’s accredited meaning we always keep the system in line with the
                 latest industry standards for security and data protection.
                 <br />
-                <br />
+                <div className="custom-line-break" />
                 We use the latest in cloud technology to provide access to the Bolster system not
                 matter where you are in the world, as well as investing heavily into our
                 infrastructure to provide reliable and fast access to the system.
