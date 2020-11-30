@@ -14,7 +14,7 @@ export default combineReducers({
     fetchError: fetchErrorReducer,
     fetchSuccess: fetchSuccessReducer,
     isFetching: isFetchingReducer,
-    isPosting: isPostingReducer,
+    isPosting: postingCancelCountReducer,
     postError: postErrorReducer,
 });
 
@@ -59,7 +59,7 @@ function fetchErrorReducer(state = null, action) {
     }
 }
 
-function isPostingReducer(state = false, action) {
+function postingCancelCountReducer(state = false, action) {
     switch (action.type) {
         case UPDATE_TERMS_CANCEL_COUNT_REQUEST:
             return true;
