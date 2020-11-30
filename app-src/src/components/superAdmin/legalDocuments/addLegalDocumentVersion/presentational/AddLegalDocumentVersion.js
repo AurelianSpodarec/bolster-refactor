@@ -39,6 +39,7 @@ const AddLegalDocumentVersion = ({
             <PageHeading title={'document name, version, (draft)'} />
             <BlockContainer>
                 <ReactQuill
+                    className="wysiwyg-container"
                     theme="snow"
                     value={documentText}
                     onChange={setDocText}

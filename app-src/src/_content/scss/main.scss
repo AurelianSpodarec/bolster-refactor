@@ -5447,3 +5447,36 @@ input {
 .ql-editor {
     min-height: 30vh;
 }
+
+.wysiwyg-container {
+
+    .ql-snow {
+
+        .ql-editor {
+
+            h1 {
+                font-size: 300%;
+            }
+        
+            h2 {
+                font-size: 225%;
+            }
+        
+            h3 {
+                font-size: 175%;
+            }
+        
+            p {
+                font-size: 120%;
+            }   
+
+            strong {
+                font-size: 122%;
+            }
+
+            a {
+                color: $red;
+            }
+        }
+    }
+}
