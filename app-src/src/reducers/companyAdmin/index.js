@@ -53,6 +53,7 @@ import manufacturersReducer from './manufacturers';
 import manufacturersOptionValuesReducer from './manufacturersOptionValues';
 import optionValueDocumentsReducer from './optionValueDocuments';
 import userGuideReducer from './userGuide';
+import legalDocumentsReducer from './legalDocuments';
 
 export default combineReducers({
     activityLogReducer,
@@ -108,4 +109,5 @@ export default combineReducers({
     transferRequestsReducer,
     userDrawingsReducer,
     userGuideReducer,
+    legalDocumentsReducer,
 });

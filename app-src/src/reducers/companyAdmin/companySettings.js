@@ -8,6 +8,7 @@ import {
     EDIT_COMPANY_SETTINGS_SUCCESS,
     EDIT_COMPANY_SETTINGS_FAILURE,
 } from 'constants/actionTypes/companySettings';
+import { COMPANY_AGREE_TO_TERMS_SUCCESS } from 'constants/actionTypes/legalDocuments';
 
 export default combineReducers({
     companySettings: companySettingsReducer,
@@ -56,6 +57,7 @@ function companySettingsReducer(state = { colorCode: 'white' }, action) {
     switch (action.type) {
         case FETCH_COMPANY_SETTINGS_SUCCESS:
         case EDIT_COMPANY_SETTINGS_SUCCESS:
+        case COMPANY_AGREE_TO_TERMS_SUCCESS:
             return action.payload;
         default:
             return state;
