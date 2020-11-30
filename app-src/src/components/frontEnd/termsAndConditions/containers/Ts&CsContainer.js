@@ -5,16 +5,34 @@ import fetchTerms from 'actions/shared/legalDocuments/fetchTerms';
 
 import Terms from '../presentational/Ts&Cs';
 
-const TermsContainer = ({ fetchTerms, terms, fetchError, isFetching }) => {
+const TermsContainer = ({ fetchTerms, terms, privacy, eula, fetchError, isFetching }) => {
     useEffect(() => {
         fetchTerms();
     }, []);
 
-    return <Terms terms={terms} error={fetchError} isFetching={isFetching} />;
+    return (
+        <Terms
+            terms={terms}
+            privacy={privacy}
+            eula={eula}
+            error={fetchError}
+            isFetching={isFetching}
+        />
+    );
 };
 
-const mapStateToProps = ({ shared: { legalDocumentsReducer: { docs: { terms }, fetchError, isFetching } } }) => ({
+const mapStateToProps = ({
+    shared: {
+        legalDocumentsReducer: {
+            docs: { terms, eula, privacy },
+            fetchError,
+            isFetching,
+        },
+    },
+}) => ({
     terms: terms || '',
+    eula: eula || '',
+    privacy: privacy || '',
     fetchError,
     isFetching,
 });
