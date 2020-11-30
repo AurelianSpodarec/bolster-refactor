@@ -1,14 +1,16 @@
 import React from 'react';
 
+import { pageMeta } from 'constants/frontEnd/meta';
+
 import AdminHeader from 'components/superAdmin/layout/header/presentational/AdminHeader';
 import MenuContainer from 'components/shared/layout/menu/containers/MenuContainer';
 import AdminFooter from 'components/superAdmin/layout/footer/presentational/AdminFooter';
 import AdminRoutes from '../../routes/presentational';
-import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
+import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 
 const AdminApp = () => (
     <div className="dashboard-area">
-        <Helmet title="Super Admin" />
+        <PageMeta meta={pageMeta.adminApp} />
         <AdminHeader />
         <div className="full-container container">
             <MenuContainer />

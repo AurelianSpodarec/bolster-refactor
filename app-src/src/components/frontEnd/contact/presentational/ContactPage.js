@@ -1,14 +1,16 @@
 import React from 'react';
 
+import { pageMeta } from 'constants/frontEnd/meta';
+
 import ContactInfo from './ContactInfo';
 import ContactPageFormContainer from '../containers/ContactPageFormContainer';
 import ServerRoomBackgroundVideo from '_content/videos/frontend/Server_Room_Long.mp4';
-import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
+import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 
 const ContactPage = () => {
     return (
         <>
-            <Helmet title="Contact" />
+            <PageMeta meta={pageMeta.contact} />
             <div id="contact">
                 <div className="contact-background"></div>
                 <video

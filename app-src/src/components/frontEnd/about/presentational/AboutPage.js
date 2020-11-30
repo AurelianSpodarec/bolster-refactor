@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { pageMeta } from 'constants/frontEnd/meta';
 import { useWindowDimensions } from 'helpers/hooks';
 import { useBannerScroll } from 'helpers/frontEndHooks';
 
@@ -12,7 +13,7 @@ import AboutUsInfoContainer from '../container/AboutUsInfoContainer';
 import FrontEndBanner from 'components/frontEnd/shared/banners/presentational/FrontEndBanner';
 import Accreditations from 'components/frontEnd/accreditations/presentational/Accreditations';
 import BackToTopContainer from 'components/frontEnd/shared/backToTop/containers/BackToTopContainer';
-import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
+import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 
 const AboutPage = ({ setIsBannerScrolling }) => {
     const { width } = useWindowDimensions();
@@ -20,7 +21,7 @@ const AboutPage = ({ setIsBannerScrolling }) => {
 
     return (
         <>
-            <Helmet title="About Us" />
+            <PageMeta meta={pageMeta.aboutUs} />
             <div id="about">
                 <FrontEndBanner heading="About us" video={InspectVideo} />
                 <AboutUsInfoContainer />

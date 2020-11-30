@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
+import { pageMeta } from 'constants/frontEnd/meta';
+
 import fetchTerms from 'actions/shared/legalDocuments/fetchTerms';
 
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 import TermsAndConditions from './TermsAndConditions';
+import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
+import PageHeading from '../generic/pageHeading/presentational/PageHeading';
 
 const Terms = ({ fetchTerms, terms, eula, privacy }) => {
     useEffect(() => {
@@ -14,6 +17,7 @@ const Terms = ({ fetchTerms, terms, eula, privacy }) => {
 
     return (
         <>
+            <PageMeta meta={pageMeta.terms} />
             <PageHeading leftChildren={true} title="Terms & Conditions">
                 <BackButtonContainer />
             </PageHeading>

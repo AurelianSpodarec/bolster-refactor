@@ -1,14 +1,16 @@
 import React from 'react';
 
+import { pageMeta } from 'constants/frontEnd/meta';
+
 import HomeSlidesCarouselContainer from '../containers/HomeSlidesCarouselContainer';
 import { useIsMobile } from 'helpers/hooks';
-import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
+import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 
 const Home = () => {
     const isMobile = useIsMobile(1101);
     return (
         <>
-            <Helmet title="Home" />
+            <PageMeta meta={pageMeta.home} />
             <div
                 className={`${isMobile ? 'frontend-home-mobile-wrapper' : 'frontend-home-wrapper'}`}
             >

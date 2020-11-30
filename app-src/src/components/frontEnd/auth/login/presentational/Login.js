@@ -1,14 +1,16 @@
 import React from 'react';
 
+import { pageMeta } from 'constants/frontEnd/meta';
+
 import ServerRoom from '_content/images/frontend-new/login/server-room.png';
 import LoginFormContainer from '../containers/LoginFormContainer';
-import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
+import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 import LoginTextBody from './LoginTextBody';
 
 const Login = ({ loginText, error, isFetching }) => {
     return (
         <>
-            <Helmet title="Login" />
+            <PageMeta meta={pageMeta.login} />
             <div id="login">
                 <div className="auth-background"></div>
                 <img

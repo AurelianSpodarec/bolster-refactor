@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+import { pageMeta } from 'constants/frontEnd/meta';
+
 import { useBannerScroll } from 'helpers/frontEndHooks';
 import { useWindowDimensions } from 'helpers/hooks';
 
@@ -11,7 +13,7 @@ import setIsBannerScrolling from 'actions/frontEnd/banners/sync/setIsBannerScrol
 import HowItWorksSections from './HowItWorksSections';
 import FrontEndBanner from 'components/frontEnd/shared/banners/presentational/FrontEndBanner';
 import BackToTopContainer from 'components/frontEnd/shared/backToTop/containers/BackToTopContainer';
-import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
+import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 
 const HowItWorks = ({ setIsBannerScrolling }) => {
     const { width } = useWindowDimensions();
@@ -19,7 +21,7 @@ const HowItWorks = ({ setIsBannerScrolling }) => {
 
     return (
         <>
-            <Helmet title="How It Works" />
+            <PageMeta meta={pageMeta.howItWorks} />
             <div id="how-it-works">
                 <FrontEndBanner
                     heading="How it works"

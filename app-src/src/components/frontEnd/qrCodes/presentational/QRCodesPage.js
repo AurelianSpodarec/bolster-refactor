@@ -1,14 +1,16 @@
 import React from 'react';
 
+import { pageMeta } from 'constants/frontEnd/meta';
+
 import TwoPhonesGoldImage from '_content/images/frontend/example-images/two-phones-gold.png';
 
 import AppleStoreImage from '_content/images/frontend/buttons/apple-store.svg';
 import GooglePlayImage from '_content/images/frontend/buttons/google-play-badge.png';
-import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
+import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 
 const AboutPage = () => (
     <>
-        <Helmet title="QR Code" />
+        <PageMeta meta={pageMeta.qrCode} />
         <div className="qr-code-page-wrapper">
             <div className="qr-code-page content-page wysiwyg">
                 <h2>QR Codes</h2>

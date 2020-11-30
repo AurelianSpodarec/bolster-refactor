@@ -2,12 +2,14 @@
 import React from 'react';
 import { NavHashLink } from 'react-router-hash-link';
 
+import { pageMeta } from 'constants/frontEnd/meta';
+
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
+import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 
 const PrivacyPolicy = () => (
     <>
-        <Helmet title="Privacy Policy" />
+        <PageMeta meta={pageMeta.privacy} />
         <BlockContainer>
             <div className="content-page wysiwyg">
                 <h2>Privacy Policy</h2>

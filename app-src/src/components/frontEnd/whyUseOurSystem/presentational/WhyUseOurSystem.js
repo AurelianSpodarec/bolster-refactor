@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+import { pageMeta } from 'constants/frontEnd/meta';
+
 import { useWindowDimensions } from 'helpers/hooks';
 import { useBannerScroll } from 'helpers/frontEndHooks';
 
@@ -14,7 +16,7 @@ import OurSystemDivider from './OurSystemDivider';
 import OurSystemCloudList from './OurSystemCloudList';
 import BackToTopContainer from 'components/frontEnd/shared/backToTop/containers/BackToTopContainer';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
-import Helmet from 'components/frontEnd/shared/meta/presentational/Helmet';
+import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 
 const WhyUseOurSystem = ({ setIsBannerScrolling }) => {
     const { width } = useWindowDimensions();
@@ -22,7 +24,7 @@ const WhyUseOurSystem = ({ setIsBannerScrolling }) => {
 
     return (
         <>
-            <Helmet title="Our System" />
+            <PageMeta meta={pageMeta.ourSystem} />
             <div id="why-use-our-system">
                 <FrontEndBanner
                     heading="So why use Bolster?"
