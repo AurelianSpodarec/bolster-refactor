@@ -22,7 +22,7 @@ import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturer
 
 import EditSiteForm from '../presentational/EditSiteForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import DropdownList from 'components/companyAdmin/dropdownOptions/allDropdownOptions/presentational/DropdownList';
+import { createPreselectedItemOptionValuesList } from 'helpers/itemTypes';
 
 class EditSiteFormContainer extends Component {
     state = {
@@ -40,9 +40,9 @@ class EditSiteFormContainer extends Component {
         selectedOptionValues: [],
         optionValuesOptions: {},
         areOptionsLoaded: false,
-        setDropDownTypes: false,
-        selectedDropDownTypes: [],
-        dropDownTypes: [],
+        setDropDownOptions: false,
+        selectedDropDownOptions: [],
+        dropDownOptions: [],
     };
 
     render() {
@@ -110,8 +110,8 @@ class EditSiteFormContainer extends Component {
                 optionValuesOptions: {},
                 areOptionsLoaded: true,
                 dropDownTypes: [],
-                selectedDropDownTypes: [],
-                dropDownTypeOptions: {},
+                selectedDropDownOptions: [],
+                dropDownOptions: {},
             };
 
             initialOptions.optionValuesOptions = createOptionValuesList(
@@ -138,10 +138,11 @@ class EditSiteFormContainer extends Component {
                     initialOptions.manufacturerOptions,
                 );
             }
-            initialOptions.dropDownTypes = formatOptions(site.dropDownOptions);
-            initialOptions.dropDownTypes = this.sortTypes(initialOptions.dropDownTypes);
-            initialOptions.selectedDropDownTypes = this.createPreselectedDropDownTypesList(
-                initialOptions.dropDownTypes,
+
+            initialOptions.dropDownOptions = formatOptions(site.dropDownOptions);
+
+            initialOptions.selectedDropDownOptions = createPreselectedItemOptionValuesList(
+                site.dropDownOptions,
             );
 
             this.setState(initialOptions);
@@ -197,8 +198,6 @@ class EditSiteFormContainer extends Component {
             dateToSend,
             isAlertShowing,
             setManufacturersForHierarchy,
-            setDropDownTypes,
-            selectedDropDownTypes,
         } = this.state;
 
         const manufacturingEnabledOptions = {
@@ -218,18 +217,6 @@ class EditSiteFormContainer extends Component {
                 dateToSend: moment(dateToSend).format(),
                 ...manufacturingEnabledOptions,
             };
-        }
-        if (setDropDownTypes) {
-            postBody = {
-                name,
-                client,
-                addressLine1,
-                addressLine2,
-                postcode,
-                message: message,
-                dropDownOptions: selectedDropDownTypes,
-                ...manufacturingEnabledOptions,
-            };
         } else {
             postBody = {
                 name,
@@ -243,41 +230,6 @@ class EditSiteFormContainer extends Component {
         editSite(id, postBody);
         hideModal();
     };
-
-    // This did sort the list but now doesn't because of the sortTypes method, needs tweaking
-    createPreselectedDropDownTypesList(dropDownTypeList) {
-        console.log(dropDownTypeList);
-        return dropDownTypeList.reduce((acc, dropDownType) => {
-            // if (!dropDownType.isDisabled) {
-            //     acc.push(String(dropDownType));
-            // }
-            console.log({ acc });
-            // return acc;
-        }, []);
-    }
-
-    // Sorts dorpdown options so it can be sorted by ENUM.
-    sortTypes(dropDownTypesList) {
-        const frRatings = [];
-        const itemTypes = [];
-        const installationTypes = [];
-
-        dropDownTypesList.forEach(dropDownType => {
-            if (dropDownType.type === 1) {
-                frRatings.push(dropDownType);
-            }
-            if (dropDownType.type === 2) {
-                itemTypes.push(dropDownType);
-            }
-            if (dropDownType.type === 3) {
-                installationTypes.push(dropDownType);
-            }
-        });
-
-        const sortedDropDownTypes = [{ 1: frRatings }, { 2: itemTypes }, { 3: installationTypes }];
-
-        return sortedDropDownTypes;
-    }
 }
 
 const mapStateToProps = ({
