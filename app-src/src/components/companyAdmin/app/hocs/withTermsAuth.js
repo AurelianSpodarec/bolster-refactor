@@ -7,7 +7,7 @@ import Error from 'components/shared/generic/misc/presentational/Error';
 import { isEmpty } from 'lodash';
 import Block from 'components/shared/generic/block/presentational/Block';
 import AgreeToTermsModal from 'components/companyAdmin/agreeToTerms/AgreeToTermsModal';
-
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 function withTermsAuth(ProtectedComponent) {
     const WithTermsAuth = ({
         fetchTerms,
@@ -19,19 +19,22 @@ function withTermsAuth(ProtectedComponent) {
         fetchSuccess,
         hasFetchedCompany,
         fetchError,
+        companyUserType,
         ...props
     }) => {
         useEffect(() => {
             fetchTerms();
         }, []);
 
-        console.log(terms);
-
         if (fetchError) return <ErrorBlock>{fetchError}</ErrorBlock>;
         if (!fetchSuccess || !hasFetchedCompany) return null;
 
         var maxDate = getMaxDate([terms.publishedOn, eula.publishedOn, privacy.publishedOn]);
-        if (termsExists && (!termsAcceptedOn || new Date(maxDate) > new Date(termsAcceptedOn)))
+        if (
+            companyUserType === COMPANY_USER_ROLE_TYPES.OWNER &&
+            termsExists &&
+            (!termsAcceptedOn || new Date(maxDate) > new Date(termsAcceptedOn))
+        )
             return <AgreeToTermsModal terms={terms} eula={eula} privacy={privacy} />;
 
         return <ProtectedComponent {...props} />;
@@ -39,7 +42,7 @@ function withTermsAuth(ProtectedComponent) {
 
     const mapState = ({
         companyAdmin: { companySettingsReducer },
-        shared: { legalDocumentsReducer },
+        shared: { legalDocumentsReducer, decodeJWTReducer },
     }) => ({
         terms: legalDocumentsReducer.docs.terms || {},
         eula: legalDocumentsReducer.docs.eula || {},
@@ -49,6 +52,7 @@ function withTermsAuth(ProtectedComponent) {
         hasFetchedCompany: !!companySettingsReducer.companySettings.id,
         termsExists: !!legalDocumentsReducer.docs.terms,
         termsAcceptedOn: companySettingsReducer.companySettings.termsAcceptedOn,
+        companyUserType: decodeJWTReducer.jwtData.companyUserType,
     });
 
     const mapDispatch = { fetchTerms };
