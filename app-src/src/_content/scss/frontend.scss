@@ -1861,7 +1861,6 @@ $back-to-top-height: 35px;
                 position: relative;
                 border: none;
                 border-radius: 0;
-                background-color: white;
 
                 &:hover {
                     border: none;
@@ -1927,7 +1926,7 @@ $back-to-top-height: 35px;
                     width: 100%;
                     height: 100%;
                     min-height: 40px;
-                    z-index: 3;
+                    z-index: 1;
                     background-color: white;
                     border-radius: 60px;
 
@@ -2149,6 +2148,7 @@ $back-to-top-height: 35px;
                 width: 25%;
                 max-width: 734px;
                 // margin-top: -30px;
+                margin-top: 32px;
             }
 
             .list-wrapper {
@@ -2163,6 +2163,7 @@ $back-to-top-height: 35px;
                 }
 
                 &.top {
+
                     .info-card {
                         &:nth-child(1), &:nth-child(4) {
                             margin-top: 150px;
@@ -2171,7 +2172,7 @@ $back-to-top-height: 35px;
                 }
 
                 &.bottom {
-                    margin-top: 140px;
+                    margin-top: 180px;
                     
                     .info-card {
                         &:nth-child(2), &:nth-child(3) {
@@ -2227,7 +2228,7 @@ $back-to-top-height: 35px;
 
             @include devices(xsDesktop) {
                 .bolster-cloud {
-                    margin-top: -50px;
+                    // margin-top: -50px;
                 }
 
                 .info-card {
