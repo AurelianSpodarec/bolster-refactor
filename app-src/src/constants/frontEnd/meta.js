@@ -1,43 +1,50 @@
 export const pageMeta = {
     home: {
-        title: 'Welcome to Bolster Systems',
-        description: '',
+        title: 'Compliance documentation software app for construction',
+        description:
+            'Bolster Systems is the world leading compliance documentation software, complete with mobile app experience. Streamline and automate your compliance documentation today.',
         canonical: '/',
         excludeFromSearchEngines: false,
     },
     aboutUs: {
-        title: 'About Us',
-        description: '',
+        title: 'About our award winning compliance documentation software',
+        description:
+            'About our industry leading compliance documentation software and team for construction. Automate, streamline and improve your compliance documentation today. Bolster Systems.',
         canonical: '/about-us',
         excludeFromSearchEngines: false,
     },
     ourSystem: {
-        title: 'Our System',
-        description: '',
+        title: 'Bespoke compliance documentation automation app for construction',
+        description:
+            'Learn how our world beating compliance documentation software could help you automate and streamline your compliance documentation today. Bolster Systems.',
         canonical: '/our-system',
         excludeFromSearchEngines: false,
     },
     howItWorks: {
-        title: 'How It Works',
-        description: '',
+        title: 'Enterprise compliance documentation software with mobile app',
+        description:
+            'Enterprise level, cloud based compliance documentation software for the construction industry. Our dynamic system can help automate and streamline your compliance documentation.',
         canonical: '/how-it-works',
         excludeFromSearchEngines: false,
     },
     contact: {
-        title: 'Contact',
-        description: '',
+        title: 'Demo our construction compliance documentation software and app',
+        description:
+            'Contact our expert team to learn more about our enteprise level compliance documentation software. Automate, streamline and improve your compliance documentation today.',
         canonical: '/contact',
         excludeFromSearchEngines: false,
     },
     login: {
-        title: 'Login',
-        description: '',
+        title: 'Login to our documentation software for construction',
+        description:
+            'Register now to Bolster Systems, the world leading enteprise level compliance documentation software, complete with Android and iOS mobile apps and fully cloud based.',
         canonical: '/auth/login',
         excludeFromSearchEngines: false,
     },
     register: {
-        title: 'Register',
-        description: '',
+        title: 'Sign up to our compliance documentation software',
+        description:
+            'Login to  Bolster Systems, the world leading enteprise level compliance documentation software, complete with android and iOS mobile apps and fully cloud based.',
         canonical: '/auth/register',
         excludeFromSearchEngines: false,
     },
@@ -88,5 +95,5 @@ export const pageMeta = {
         description: '',
         canonical: '/page-not-found',
         excludeFromSearchEngines: true,
-    }
+    },
 };
