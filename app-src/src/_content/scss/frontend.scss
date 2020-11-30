@@ -2525,6 +2525,23 @@ $back-to-top-height: 35px;
             margin-bottom: 10px;
            
     }
+
+    &.login-text {
+        padding-bottom: 100px;
+        font-style: italic;
+    }
+
+    @include devices(lsTablet) {
+        &.login-text {
+            padding-bottom: 250px;
+        }
+    }
+    @include devices(ptTablet) {
+        &.login-text {
+            padding-bottom: 0px;
+            margin-top: 25px;
+        }
+    }
 }
 
     &.register {
