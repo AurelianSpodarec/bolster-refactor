@@ -10,20 +10,7 @@ $back-to-top-height: 35px;
     line-height: 1.5;
     padding-top: $header-height;
 
-    .back-to-top-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-top: 1px $darker-grey-alt solid;
-        padding: 8px 0;
-        font-size: 180%;
-        background-color: white;
-        
-        i {
-            cursor: pointer;
-            color: $very-dark-grey-alt;
-        }
-    }
+
 
     .custom-line-break {
         margin-top: 16px;
@@ -827,8 +814,8 @@ $back-to-top-height: 35px;
     // content pages
     .content-page {
         display: flex;
-        width: 100%;
         justify-content: center;
+        align-items: center;
         flex-direction: column;
         max-width: 1330px;
         margin: 0 auto;
@@ -839,9 +826,20 @@ $back-to-top-height: 35px;
         }
 
         &.about-us {
+            width: 90%;
             padding: 15px 0px 30px;
             h1, h2, h3, h4, p {
                 line-height: 1.8;
+            }
+
+            & > p {
+                width: 95%;
+            }
+
+            @media only screen and (max-width: 375px) {
+                & > p {
+                    width: 100%;
+                }
             }
         }
     }
@@ -2125,6 +2123,38 @@ $back-to-top-height: 35px;
         background-color: white;
         border-top: 1px solid #707070;
         padding-left: 25px;
+
+        .back-to-top-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            margin-right: 15px;
+    
+            .back-to-top {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 8px 0;
+                font-size: 180%;
+                background-color: white;
+                width: 5%;
+                i {
+                    cursor: pointer;
+                    color: $very-dark-grey-alt;
+                }
+            }
+        }
+
+        @media only screen and (max-width: 414px) {
+            & .frontend-button {
+                min-width: 175px;
+                font-size: 160%;
+            }
+
+            & > .back-to-top-wrapper {
+                margin-right: 30px;
+            }
+        }
     }
     
 
