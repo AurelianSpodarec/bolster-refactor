@@ -8,7 +8,9 @@ import AddLegalDocumentVersionContainer from 'components/superAdmin/legalDocumen
 const LegalDocumentsRoutes = ({ base = '/admin/legal-documents' }) => (
     <SwitchWith404>
         <Route exact path={base} component={AllLegalDocumentsTableContainer} />
-        <Route exact path={`${base}/update/:id`} component={AddLegalDocumentVersionContainer} />
+        <Route exact path={`${base}/new`} component={CreateLegalDocumentContainer} />
+        <Route exact path={`${base}/update/:id`} component={UpdateLegalDocumentVersion} />
+        <Route exact path={`${base}/edit/:id`} component={UpdateLegalDocumentVersion} />
     </SwitchWith404>
 );
 

@@ -5476,6 +5476,26 @@ input {
         border: 1px solid #eee;
         padding: 3px;
     }
+
+    ul {
+        li {
+            font-size: 100%;
+        }
+    }
+}
+
+.legal-documents-table {
+
+    td {
+        white-space: nowrap;
+
+        &:first-child {
+            width: 100%;
+            white-space: unset;
+            max-width: 365px;
+            width: 365px;
+        }
+    }
 }
 
 .sun-editor {
@@ -5486,5 +5506,12 @@ input {
     .se-toolbar {
         padding: 0;
         outline: none;
+    }
+
+    .se-wrapper-wysiwyg {
+
+        p {
+            font-size: 100%;
+        }
     }
 }

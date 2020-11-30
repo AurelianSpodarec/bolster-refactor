@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import postLegalDocument from 'actions/superAdmin/legalDocuments/async/postLegalDocument';
+import updateLegalDocument from 'actions/superAdmin/legalDocuments/async/updateLegalDocument';
 import { usePrevious } from 'helpers/hooks';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
@@ -10,14 +10,23 @@ import { LEGAL_DOCUMENT_TYPE } from 'constants/superAdmin/enums';
 import { getKeyByValue } from 'helpers/generic';
 
 import AddLegalDocumentVersion from '../presentational/AddLegalDocumentVersion';
-import { useParams } from 'react-router-dom';
 
-const AddLegalDocumentVersionContainer = () => {
-    const { id } = useParams();
-    useEffect(() => {
-        // fetch document, latest version / draft
-    }, []);
+const EditLegalDocumentVersionContainer = ({ data, id }) => {
+    const dispatch = useDispatch();
+    const { postIsFetching, postSuccess, postError } = useSelector(
+        ({ superAdmin: { legalDocumentsReducer } }) => legalDocumentsReducer,
+    );
     const [documentText, setDocText] = useState('');
+    const [form, setFormChange] = useState({
+        docTitle: data.title,
+        docType: { text: LEGAL_DOCUMENT_TYPE[10], value: LEGAL_DOCUMENT_TYPE[10] },
+    });
+    const prevProps = usePrevious({ postIsFetching });
+
+    useEffect(() => {
+        setDocText(data.copy);
+        handleTypeChange('docType', LEGAL_DOCUMENT_TYPE[data.type]);
+    }, []);
 
     useEffect(() => {
         if (prevProps.postIsFetching && !postIsFetching && postSuccess) {
@@ -66,7 +75,7 @@ const AddLegalDocumentVersionContainer = () => {
             Type: Number(getKeyByValue(LEGAL_DOCUMENT_TYPE, docType.value)),
         };
 
-        dispatch(postLegalDocument(postBody));
+        dispatch(updateLegalDocument(id, postBody));
     };
 
     const handlePublishDraft = () => handleDraft(true);
@@ -74,15 +83,15 @@ const AddLegalDocumentVersionContainer = () => {
 
     return (
         <AddLegalDocumentVersion
+            {...form}
             handleSaveDraft={handleSaveDraft}
             handlePublishDraft={handlePublishDraft}
             documentText={documentText}
             setDocText={setDocText}
+            handleFormChange={handleFormChange}
+            handleTypeChange={handleTypeChange}
         />
     );
-
-    function handleSaveDraft() {}
-    function handlePublishDraft() {}
 };
 
-export default AddLegalDocumentVersionContainer;
+export default EditLegalDocumentVersionContainer;
