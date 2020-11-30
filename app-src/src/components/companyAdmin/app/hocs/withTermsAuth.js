@@ -25,6 +25,8 @@ function withTermsAuth(ProtectedComponent) {
             fetchTerms();
         }, []);
 
+        console.log(terms);
+
         if (fetchError) return <ErrorBlock>{fetchError}</ErrorBlock>;
         if (!fetchSuccess || !hasFetchedCompany) return null;
 

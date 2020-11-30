@@ -16,15 +16,18 @@ const options = [
     { text: LEGAL_DOCUMENT_TYPE[30], value: LEGAL_DOCUMENT_TYPE[30] },
 ];
 
-const AddLegalDocumentVersion = ({
+const CreateLegalDocument = ({
     handleSaveDraft,
     handlePublishDraft,
     documentText,
     setDocText,
+    handleFormChange,
+    docTitle,
+    docType,
 }) => {
     return (
         <>
-            <PageHeading title={'document name, version, (draft)'} />
+            <PageHeading title={`${docTitle} (draft)`} withBackButton />
             <BlockContainer>
                 <Field name="Document Title" required>
                     <TextInputContainer
@@ -36,7 +39,7 @@ const AddLegalDocumentVersion = ({
                 </Field>
                 <Field name="Document Type" required>
                     <DropdownContainer
-                        handleChange={handleTypeChange}
+                        handleChange={handleFormChange}
                         name="docType"
                         value={docType}
                         options={options}
@@ -53,9 +56,11 @@ const AddLegalDocumentVersion = ({
                 />
 
                 <BlockButtonWrapper>
-                    <ButtonContainer handleClick={handleSaveDraft}>Save draft</ButtonContainer>
+                    <ButtonContainer handleClick={handleSaveDraft}>
+                        Save New Document
+                    </ButtonContainer>
                     <ButtonContainer handleClick={handlePublishDraft}>
-                        Publish draft
+                        Publish New Document
                     </ButtonContainer>
                 </BlockButtonWrapper>
             </BlockContainer>
@@ -63,4 +68,4 @@ const AddLegalDocumentVersion = ({
     );
 };
 
-export default AddLegalDocumentVersion;
+export default CreateLegalDocument;

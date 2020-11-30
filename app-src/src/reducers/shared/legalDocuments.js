@@ -23,8 +23,8 @@ function docsReducer(state = {}, action) {
 
 function fetchSuccessReducer(state = false, action) {
     switch (action.type) {
-        case SHARED_FETCH_TERMS_SUCCESS:
-            return true;
+        // case SHARED_FETCH_TERMS_SUCCESS:
+        //     return true;
         default:
             return state;
     }
