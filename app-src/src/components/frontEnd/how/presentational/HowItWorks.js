@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import { pageMeta } from 'constants/frontEnd/meta';
 
@@ -23,12 +23,10 @@ const HowItWorks = ({ setIsBannerScrolling }) => {
         <>
             <PageMeta meta={pageMeta.howItWorks} />
             <div id="how-it-works">
-                <FrontEndBanner
-                    heading="How it works"
-                    video={InspectVideo}
-                />
+                <FrontEndBanner heading="How it works" video={InspectVideo} />
                 <HowItWorksSections />
             </div>
+
             <BackToTopContainer />
         </>
     );

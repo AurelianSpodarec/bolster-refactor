@@ -15,7 +15,6 @@ import FrontEndBanner from 'components/frontEnd/shared/banners/presentational/Fr
 import OurSystemDivider from './OurSystemDivider';
 import OurSystemCloudList from './OurSystemCloudList';
 import BackToTopContainer from 'components/frontEnd/shared/backToTop/containers/BackToTopContainer';
-import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 
 const WhyUseOurSystem = ({ setIsBannerScrolling }) => {
@@ -33,12 +32,7 @@ const WhyUseOurSystem = ({ setIsBannerScrolling }) => {
                     description="Click on an icon to find out more"
                 />
                 <OurSystemListContainer />
-                <div className="request-demo-banner">
-                    <FrontEndButton classes="gray" to="/contact">
-                        Contact
-                    </FrontEndButton>
-                    <BackToTopContainer />
-                </div>
+                <BackToTopContainer />
             </div>
         </>
     );
