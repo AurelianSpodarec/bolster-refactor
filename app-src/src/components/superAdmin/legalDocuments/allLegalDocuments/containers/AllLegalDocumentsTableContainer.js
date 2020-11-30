@@ -19,8 +19,6 @@ const AllLegalDocumentsTableContainer = () => {
         dispatch(fetchAllLegalDocuments());
     }, []);
 
-    console.log('erjgnilrjnejrnfinqrf qrFQ£RG£QRG£QRG£QRFG£Q', legalDocuments);
-
     return (
         <AllLegalDocumentsTable
             documents={Object.values(legalDocuments)}

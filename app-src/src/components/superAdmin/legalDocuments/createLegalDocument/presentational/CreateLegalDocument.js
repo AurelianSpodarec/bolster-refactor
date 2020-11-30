@@ -4,7 +4,6 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 
@@ -41,7 +40,7 @@ const CreateLegalDocument = ({
 }) => {
     return (
         <>
-            <PageHeading title={`${docTitle}, version, (draft)`} withBackButton />
+            <PageHeading title={`${docTitle} (draft)`} withBackButton />
             <BlockContainer>
                 <Field name="Document Title" required>
                     <TextInputContainer
@@ -63,9 +62,11 @@ const CreateLegalDocument = ({
                 />
 
                 <BlockButtonWrapper>
-                    <ButtonContainer handleClick={handleSaveDraft}>Save draft</ButtonContainer>
+                    <ButtonContainer handleClick={handleSaveDraft}>
+                        Save New Document
+                    </ButtonContainer>
                     <ButtonContainer handleClick={handlePublishDraft}>
-                        Publish draft
+                        Publish New Document
                     </ButtonContainer>
                 </BlockButtonWrapper>
             </BlockContainer>

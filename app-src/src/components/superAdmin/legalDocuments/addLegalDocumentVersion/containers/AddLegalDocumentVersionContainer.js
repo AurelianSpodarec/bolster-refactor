@@ -86,6 +86,7 @@ const AddLegalDocumentVersionContainer = ({ data }) => {
 
     return (
         <AddLegalDocumentVersion
+            {...form}
             handleSaveDraft={handleSaveDraft}
             handlePublishDraft={handlePublishDraft}
             handleFormChange={handleFormChange}
