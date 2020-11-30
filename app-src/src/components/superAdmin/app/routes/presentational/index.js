@@ -31,9 +31,6 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/profile`} component={ProfilesRoutes} />
         <Route path={`${base}/company-reports`} component={CompanyReportsRoutes} />
         <Route path={`${base}/invoices`} component={InvoicesRoutes} />
-        <Route path={`${base}/site-management/user-enquiries`} component={EnquiriesRoutes} />
-        <Route path={`${base}/enquiries`} component={EnquiriesRoutes} />
-        <Route path={`${base}/demo-requests`} component={DemoRequestsRoutes} />
         <Route path={`${base}/contact-submissions`} component={ContactSubmissionsRoutes} />
         <Route path={`${base}/move-tool`} component={MoveToolRoutes} />
         <Route path={`${base}/merge-tool`} component={MergeToolRoutes} />
