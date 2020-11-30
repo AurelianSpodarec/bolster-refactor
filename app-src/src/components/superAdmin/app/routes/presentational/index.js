@@ -18,6 +18,7 @@ import PinOptionsManufacturersRoutes from './PinOptionsManufacturersRoutes';
 import UserGuidesRoutes from './UserGuidesRoutes';
 import TextSettingRoutes from './TextSettingRoutes';
 import TrustedBySettingRoutes from './TrustedBySettingRoutes';
+import LegalDocumentsRoutes from './LegalDocumentsRoutes';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
@@ -37,6 +38,7 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/pin-options`} component={PinOptionsManufacturersRoutes} />
         <Route path={`${base}/trusted-by-settings`} component={TrustedBySettingRoutes} />
         <Route path={`${base}/text-settings`} component={TextSettingRoutes} />
+        <Route path={`${base}/legal-documents`} component={LegalDocumentsRoutes} />
     </SwitchWith404>
 );
 
