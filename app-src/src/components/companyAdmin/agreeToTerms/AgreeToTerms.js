@@ -33,7 +33,7 @@ const AgreeToTerms = ({ agreeToTerms, handleClick }) => {
                             </button>
                             <ButtonContainer handleClick={handleClick}>
                                 <i className="fa fa-times" />
-                                Close
+                                Cancel
                             </ButtonContainer>
                         </div>
                     </Form>
