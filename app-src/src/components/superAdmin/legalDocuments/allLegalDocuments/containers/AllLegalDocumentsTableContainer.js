@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import fetchAllLegalDocuments from 'actions/superAdmin/legalDocuments/async/fetchAllLegalDocuments';
+
 import AllLegalDocumentsTable from '../presentational/AllLegalDocumentsTable';
 
 const AllLegalDocumentsTableContainer = () => {
-    const documents = [{ id: 1, name: 'Terms and Conditions', version: 1 }];
+    const dispatch = useDispatch();
+    const { legalDocuments, isFetching } = useSelector(
+        ({ superAdmin: { legalDocumentsReducer } }) => legalDocumentsReducer,
+    );
 
-    return <AllLegalDocumentsTable documents={documents} />;
+    useEffect(() => {
+        dispatch(fetchAllLegalDocuments());
+    }, []);
+
+    return (
+        <AllLegalDocumentsTable documents={Object.values(legalDocuments)} isFetching={isFetching} />
+    );
 };
 
 export default AllLegalDocumentsTableContainer;

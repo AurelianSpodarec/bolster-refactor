@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import BlockTable from '../presentational/BlockTable';
 
-const headers = ['Name', 'Status', 'Type', 'Published On', ''];
+const headers = ['Name', 'Status', 'type', 'Published On', ''];
 
 const BlockTableContainer = ({ documents, isFetching, title, type }) => {
     const history = useHistory();

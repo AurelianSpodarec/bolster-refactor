@@ -15,6 +15,12 @@ const options = [
     { text: LEGAL_DOCUMENT_TYPE[30], value: LEGAL_DOCUMENT_TYPE[30] },
 ];
 
+const options = [
+    { text: LEGAL_DOCUMENT_TYPE[10], value: LEGAL_DOCUMENT_TYPE[10] },
+    { text: LEGAL_DOCUMENT_TYPE[20], value: LEGAL_DOCUMENT_TYPE[20] },
+    { text: LEGAL_DOCUMENT_TYPE[30], value: LEGAL_DOCUMENT_TYPE[30] },
+];
+
 const AddLegalDocumentVersion = ({
     handleSaveDraft,
     handlePublishDraft,
@@ -23,9 +29,10 @@ const AddLegalDocumentVersion = ({
     setDocText,
     handleFormChange,
     handleTypeChange,
-    docType,
     docTitle,
+    docType,
 }) => {
+    console.log(docTitle);
     return (
         <>
             <PageHeading title={'document name, version, (draft)'} />

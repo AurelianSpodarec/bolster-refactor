@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import get from 'lodash/get';
 
 import postLegalDocument from 'actions/superAdmin/legalDocuments/async/postLegalDocument';
 import { usePrevious } from 'helpers/hooks';
@@ -10,24 +11,24 @@ import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
 import { LEGAL_DOCUMENT_TYPE } from 'constants/superAdmin/enums';
 import { getKeyByValue } from 'helpers/generic';
 
-import AddLegalDocumentVersion from '../presentational/AddLegalDocumentVersion';
+import CreateLegalDocument from '../presentational/CreateLegalDocument';
 
-const AddLegalDocumentVersionContainer = ({ data }) => {
-    const history = useHistory();
+const CreateLegalDocumentContainer = () => {
     const dispatch = useDispatch();
+    const location = useLocation();
     const { postIsFetching, postSuccess, postError } = useSelector(
         ({ superAdmin: { legalDocumentsReducer } }) => legalDocumentsReducer,
     );
     const [documentText, setDocText] = useState('');
     const [form, setFormChange] = useState({
-        docTitle: data.title,
+        docTitle: 'Document Name',
         docType: { text: LEGAL_DOCUMENT_TYPE[10], value: LEGAL_DOCUMENT_TYPE[10] },
     });
     const prevProps = usePrevious({ postIsFetching });
 
     useEffect(() => {
-        setDocText(data.copy);
-        handleTypeChange('docType', LEGAL_DOCUMENT_TYPE[data.type]);
+        if (get(location, ['state', 'type']))
+            handleFormChange('docType', LEGAL_DOCUMENT_TYPE[get(location, ['state', 'type'])]);
     }, []);
 
     useEffect(() => {
@@ -54,17 +55,17 @@ const AddLegalDocumentVersionContainer = ({ data }) => {
     }, [postIsFetching]);
 
     const handleFormChange = (name, value) => {
-        setFormChange({
-            ...form,
-            [name]: value,
-        });
-    };
-
-    const handleTypeChange = (name, value) => {
-        setFormChange({
-            ...form,
-            [name]: { text: value, value: value },
-        });
+        if (name === 'docType') {
+            setFormChange({
+                ...form,
+                [name]: { text: value, value: value },
+            });
+        } else {
+            setFormChange({
+                ...form,
+                [name]: value,
+            });
+        }
     };
 
     const handleDraft = (isPublish = false) => {
@@ -80,24 +81,19 @@ const AddLegalDocumentVersionContainer = ({ data }) => {
         dispatch(postLegalDocument(postBody));
     };
 
-    const handleBack = () => history.push('/admin/legal-documents');
     const handlePublishDraft = () => handleDraft(true);
     const handleSaveDraft = () => handleDraft();
 
     return (
-        <AddLegalDocumentVersion
+        <CreateLegalDocument
+            {...form}
             handleSaveDraft={handleSaveDraft}
             handlePublishDraft={handlePublishDraft}
-            handleFormChange={handleFormChange}
-            handleTypeChange={handleTypeChange}
-            handleBack={handleBack}
             documentText={documentText}
             setDocText={setDocText}
             handleFormChange={handleFormChange}
-            handleTypeChange={handleTypeChange}
-            {...form}
         />
     );
 };
 
-export default AddLegalDocumentVersionContainer;
+export default CreateLegalDocumentContainer;
