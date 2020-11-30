@@ -2,91 +2,96 @@
 import React from 'react';
 import { NavHashLink } from 'react-router-hash-link';
 
+import { pageMeta } from 'constants/frontEnd/meta';
+
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import WysiwygBlock from 'components/shared/generic/wysiwyg/presentational/WysiwygBlock';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 
 const PrivacyPolicy = () => (
-    <BlockContainer>
-        <BlockHeading title="Privacy Policy"></BlockHeading>
-        <WysiwygBlock>
-            <h4>Introduction</h4>
-            <p>Welcome to the Bolster Systems’ privacy notice. </p>
-            <p>
-                Bolster Systems Limited respects your privacy and is committed to protecting your
-                personal data. This privacy notice will tell you about your privacy rights and how
-                the law protects you and will inform you as to how we look after your personal data
-                when you visit or use:
-            </p>
-            <ul>
-                <li>
-                    <p>
-                        the Bolster Systems mobile application software (“<strong>App</strong>”)
-                        hosted on{' '}
-                        <a href="https://www.bolstersystems.com">www.bolstersystems.com</a> (“
-                        <strong>Website</strong>”) once you have downloaded or streamed a copy of
-                        the App onto your mobile telephone or handheld device (“
-                        <strong>Device</strong>”) and any services accessible through the App; and
-                    </p>
-                </li>
-                <li>
-                    <p>
-                        our Website and any of the services accessible through the Website including
-                        the web portal access (“<strong>Services</strong>”) that are available on
-                        the Website or other sites of ours (“
-                        <strong>Services Sites</strong>”).
-                    </p>
-                </li>
-            </ul>
-            <p>
-                Please use the Glossary to understand the meaning of some of the terms used in this
-                privacy notice.
-            </p>
-            <ol>
-                <li>
-                    <NavHashLink to="/company/terms#important">
-                        IMPORTANT INFORMATION AND WHO WE ARE
-                    </NavHashLink>
-                </li>
-                <li>
-                    <NavHashLink to="/company/terms#data">
-                        THE DATA WE COLLECT ABOUT YOU
-                    </NavHashLink>
-                </li>
-                <li>
-                    <NavHashLink to="/company/terms#personalCollected">
-                        HOW IS YOUR PERSONAL DATA COLLECTED
-                    </NavHashLink>
-                </li>
-                <li>
-                    <NavHashLink to="/company/terms#personalUse">
-                        HOW WE USE YOUR PERSONAL DATA
-                    </NavHashLink>
-                </li>
-                <li>
-                    <NavHashLink to="/company/terms#disclosure">
-                        DISCLOSURES OF YOUR PERSONAL DATA
-                    </NavHashLink>
-                </li>
-                <li>
-                    <NavHashLink to="/company/terms#transfers">INTERNATIONAL TRANSFERS</NavHashLink>
-                </li>
-                <li>
-                    <NavHashLink to="/company/terms#security">DATA SECURITY</NavHashLink>
-                </li>
-                <li>
-                    <NavHashLink to="/company/terms#retention">DATA RETENTION</NavHashLink>
-                </li>
-                <li>
-                    <NavHashLink to="/company/terms#rights">YOUR LEGAL RIGHTS</NavHashLink>
-                </li>
-                <li>
-                    <NavHashLink to="/company/terms#glossary">GLOSSARY</NavHashLink>
-                </li>
-            </ol>
-            <ol>
-                <li id="important">
-                    <h4>Important information and who we are</h4>
+    <>
+        <PageMeta meta={pageMeta.privacy} />
+        <BlockContainer>
+            <div className="content-page wysiwyg">
+                <h2>Privacy Policy</h2>
+                <h4>Introduction</h4>
+                <p>Welcome to the Bolster Systems’ privacy notice. </p>
+                <p>
+                    Bolster Systems Limited respects your privacy and is committed to protecting
+                    your personal data. This privacy notice will tell you about your privacy rights
+                    and how the law protects you and will inform you as to how we look after your
+                    personal data when you visit or use:
+                </p>
+                <ul>
+                    <li>
+                        <p>
+                            the Bolster Systems mobile application software (“<strong>App</strong>”)
+                            hosted on{' '}
+                            <a href="https://www.bolstersystems.com">www.bolstersystems.com</a> (“
+                            <strong>Website</strong>”) once you have downloaded or streamed a copy
+                            of the App onto your mobile telephone or handheld device (“
+                            <strong>Device</strong>”) and any services accessible through the App;
+                            and
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            our Website and any of the services accessible through the Website
+                            including the web portal access (“<strong>Services</strong>”) that are
+                            available on the Website or other sites of ours (“
+                            <strong>Services Sites</strong>”).
+                        </p>
+                    </li>
+                </ul>
+                <p>
+                    Please use the Glossary to understand the meaning of some of the terms used in
+                    this privacy notice.
+                </p>
+                <ol>
+                    <li>
+                        <NavHashLink to="/company/terms#important">
+                            IMPORTANT INFORMATION AND WHO WE ARE
+                        </NavHashLink>
+                    </li>
+                    <li>
+                        <NavHashLink to="/company/terms#data">
+                            THE DATA WE COLLECT ABOUT YOU
+                        </NavHashLink>
+                    </li>
+                    <li>
+                        <NavHashLink to="/company/terms#personalCollected">
+                            HOW IS YOUR PERSONAL DATA COLLECTED
+                        </NavHashLink>
+                    </li>
+                    <li>
+                        <NavHashLink to="/company/terms#personalUse">
+                            HOW WE USE YOUR PERSONAL DATA
+                        </NavHashLink>
+                    </li>
+                    <li>
+                        <NavHashLink to="/company/terms#disclosure">
+                            DISCLOSURES OF YOUR PERSONAL DATA
+                        </NavHashLink>
+                    </li>
+                    <li>
+                        <NavHashLink to="/company/terms#transfers">
+                            INTERNATIONAL TRANSFERS
+                        </NavHashLink>
+                    </li>
+                    <li>
+                        <NavHashLink to="/company/terms#security">DATA SECURITY</NavHashLink>
+                    </li>
+                    <li>
+                        <NavHashLink to="/company/terms#retention">DATA RETENTION</NavHashLink>
+                    </li>
+                    <li>
+                        <NavHashLink to="/company/terms#rights">YOUR LEGAL RIGHTS</NavHashLink>
+                    </li>
+                    <li>
+                        <NavHashLink to="/company/terms#glossary">GLOSSARY</NavHashLink>
+                    </li>
+                </ol>
+                <div id="important">
+                    <h4>1. Important information and who we are</h4>
                     <h4>Purpose of this privacy notice</h4>
                     <p>
                         This privacy notice aims to give you information on how Bolster Systems
@@ -159,9 +164,9 @@ const PrivacyPolicy = () => (
                         statements. When you leave our website, we encourage you to read the privacy
                         notice of every website you visit.
                     </p>
-                </li>
-                <li id="data">
-                    <h4>The data we collect about you</h4>
+                </div>
+                <div id="data">
+                    <h4>2. The data we collect about you</h4>
                     <p>
                         Personal data, or personal information, means any information about an
                         individual from which that person can be identified. It does not include
@@ -255,9 +260,9 @@ const PrivacyPolicy = () => (
                         case, we may have to cancel a product or service you have with us, but we
                         will notify you if this is the case at the time.
                     </p>
-                </li>
-                <li id="personalCollected">
-                    <h4>How is your personal data collected?</h4>
+                </div>
+                <div id="personalCollected">
+                    <h4>3. How is your personal data collected?</h4>
                     <p>
                         We use different methods to collect data from and about you including
                         through:
@@ -340,9 +345,9 @@ const PrivacyPolicy = () => (
                             </p>
                         </li>
                     </ul>
-                </li>
-                <li id="personalUse">
-                    <h4>How we use your personal data</h4>
+                </div>
+                <div id="personalUse">
+                    <h4>4. How we use your personal data</h4>
                     <p>
                         We will only use your personal data when the law allows us to. Most
                         commonly, we will use your personal data in the following circumstances:
@@ -603,9 +608,9 @@ const PrivacyPolicy = () => (
                         consent, in compliance with the above rules, where this is required or
                         permitted by law.
                     </p>
-                </li>
-                <li id="disclosure">
-                    <h4>Disclosures of your personal data</h4>
+                </div>
+                <div id="disclosure">
+                    <h4>5. Disclosures of your personal data</h4>
                     <p>
                         We may have to share your personal data with the parties set out below for
                         the purposes set out in the table in paragraph 4 above.
@@ -641,16 +646,16 @@ const PrivacyPolicy = () => (
                         permit them to process your personal data for specified purposes and in
                         accordance with our instructions.
                     </p>
-                </li>
-                <li id="transfers">
-                    <h4>International transfers</h4>
+                </div>
+                <div id="transfers">
+                    <h4>6. International transfers</h4>
                     <p>
                         We may transfer your personal data outside the European Economic Area (
                         <strong>EEA</strong>).
                     </p>
-                </li>
-                <li id="security">
-                    <h4>Data security</h4>
+                </div>
+                <div id="security">
+                    <h4>7. Data security</h4>
                     <p>
                         We have put in place appropriate security measures to prevent your personal
                         data from being accidentally lost, used or accessed in an unauthorised way,
@@ -664,9 +669,9 @@ const PrivacyPolicy = () => (
                         breach and will notify you and any applicable regulator of a breach where we
                         are legally required to do so.
                     </p>
-                </li>
-                <li id="retention">
-                    <h4>Data retention</h4>
+                </div>
+                <div id="retention">
+                    <h4>8. Data retention</h4>
                     <h4>How long will you use my personal data for?</h4>
                     <p>
                         We will only retain your personal data for as long as necessary to fulfil
@@ -694,9 +699,9 @@ const PrivacyPolicy = () => (
                         longer be associated with you) for research or statistical purposes in which
                         case we may use this information indefinitely without further notice to you.
                     </p>
-                </li>
-                <li id="rights">
-                    <h4>Your legal rights</h4>
+                </div>
+                <div id="rights">
+                    <h4>9. Your legal rights</h4>
                     <p>
                         Under certain circumstances, you have rights under data protection laws in
                         relation to your personal data. Please click on the links below to find out
@@ -770,9 +775,9 @@ const PrivacyPolicy = () => (
                         or you have made a number of requests. In this case, we will notify you and
                         keep you updated.
                     </p>
-                </li>
-                <li id="glossary">
-                    <h4>Glossary</h4>
+                </div>
+                <div id="glossary">
+                    <h4>10. Glossary</h4>
                     <h4>LAWFUL BASIS</h4>
                     <p>
                         <strong>Legitimate Interest</strong> means the interest of our business in
@@ -897,10 +902,10 @@ const PrivacyPolicy = () => (
                         or services to you. We will advise you if this is the case at the time you
                         withdraw your consent.
                     </p>
-                </li>
-            </ol>
-        </WysiwygBlock>
-    </BlockContainer>
+                </div>
+            </div>
+        </BlockContainer>
+    </>
 );
 
 export default PrivacyPolicy;

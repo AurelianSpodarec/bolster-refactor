@@ -2,6 +2,7 @@ import React from 'react';
 
 import ModalRoute from 'components/shared/generic/modals/containers/ModalRoot';
 import Routes from '../../routes/presentational';
+import OAndMTsAndCsModalContainer from 'components/shared/generic/modals/containers/OAndMTsAndCsModalContainer';
 
 const App = () => (
     <div className="App">
@@ -10,6 +11,7 @@ const App = () => (
         <div className="hidden">hidden</div>
         <div className="clear" />
         <ModalRoute />
+        <OAndMTsAndCsModalContainer />
     </div>
 );
 

@@ -1,20 +1,20 @@
 import React from 'react';
 
-import FrontEndMenu from 'components/frontEnd/layout/navigation/presentational/FrontEndMenu';
 import FrontEndRoutes from '../../routes/presentational';
-import FrontEndFooter from 'components/frontEnd/layout/footer/presentational/FrontEndFooter';
-import FrontEndMobileMenuContainer from 'components/frontEnd/layout/navigation/containers/FrontEndMobileMenuContainer';
+import FrontEndFooterContainer from 'components/frontEnd/layout/footer/containers/FrontEndFooterContainer';
 import FrontEndHeaderContainer from 'components/frontEnd/layout/header/container/FrontEndHeaderContainer';
+import CookieConsentContainer from 'components/frontEnd/cookieConsent/containers/CookieConsentContainer';
 
-const FrontEndApp = () => (
-    <div id="frontend-site">
-        <FrontEndHeaderContainer />
-        <FrontEndMenu />
-        <FrontEndMobileMenuContainer />
-        <FrontEndRoutes />
+const FrontEndApp = ({ isHome }) => {
+    return (
+        <div id="frontend-site">
+            <FrontEndHeaderContainer />
+            <FrontEndRoutes />
 
-        <FrontEndFooter />
-    </div>
-);
+            <CookieConsentContainer />
+            {!isHome && <FrontEndFooterContainer />}
+        </div>
+    );
+};
 
 export default FrontEndApp;

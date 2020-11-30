@@ -26,6 +26,7 @@ import DropdownOptionsRoutes from './DropdownOptionsRoutes';
 import HeadquartersRoutes from './HeadquartersRoutes';
 import ApprovedCompaniesRoutes from './ApprovedCompaniesRoutes';
 import UserGuidesRoutes from './UserGuidesRoutes';
+import withTermsAuth from '../../hocs/withTermsAuth';
 
 const CompanyRoutes = ({ base = '/company' }) => (
     <SwitchWith404>
@@ -63,4 +64,4 @@ const CompanyRoutes = ({ base = '/company' }) => (
     </SwitchWith404>
 );
 
-export default CompanyRoutes;
+export default withTermsAuth(CompanyRoutes);

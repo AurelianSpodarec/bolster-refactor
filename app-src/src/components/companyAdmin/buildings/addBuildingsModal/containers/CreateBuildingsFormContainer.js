@@ -25,6 +25,7 @@ import {
 } from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isObjEmpty } from 'helpers/generic';
+import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOAndMTsAndCsModal';
 
 const CreateBuildingsFormContainer = ({
     siteID,
@@ -42,6 +43,7 @@ const CreateBuildingsFormContainer = ({
     site,
     useManufacturingByDefault,
     error,
+    showOAndMTsAndCsModal,
 }) => {
     const [
         buildings,
@@ -77,9 +79,7 @@ const CreateBuildingsFormContainer = ({
     });
 
     const [showManufacturingOptions, setShowManufacturingOptions] = useState(true);
-
     const [areOptionsLoaded, setAreOptionsLoaded] = useState(false);
-
     const prevProps = usePrevious({ isFetching });
 
     useEffect(() => {
@@ -151,6 +151,9 @@ const CreateBuildingsFormContainer = ({
             setInitialOptions(initialOptions);
             setInitialManufacturerBuildingOptions(initialOptions);
             setAreOptionsLoaded(true);
+            if (useManufacturingByDefault && !isManufacturingInherited) {
+                handleShowOandMModal();
+            }
         }
     }, [isFetching]);
 
@@ -177,6 +180,7 @@ const CreateBuildingsFormContainer = ({
                 initialOptions={initialOptions}
                 showManufacturingOptions={showManufacturingOptions}
                 setShowManufacturingOptions={setShowManufacturingOptions}
+                handleShowOandMModal={handleShowOandMModal}
             />
         </BlockContainer>
     );
@@ -263,6 +267,9 @@ const CreateBuildingsFormContainer = ({
         hideModal();
         updateHierarchyAddState(false);
     }
+    function handleShowOandMModal() {
+        showOAndMTsAndCsModal('add building');
+    }
 };
 
 const mapStateToProps = (
@@ -307,6 +314,7 @@ const mapDispatchToProps = {
     updateHierarchyAddState,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
+    showOAndMTsAndCsModal,
 };
 
 export default withRouter(

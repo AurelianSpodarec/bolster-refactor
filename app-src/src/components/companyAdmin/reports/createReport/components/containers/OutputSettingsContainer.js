@@ -20,6 +20,7 @@ import OutputSettings from '../presentational/OutputSettings';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { POST_REPORT_SUCCESS } from 'constants/actionTypes/reports';
+import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOAndMTsAndCsModal';
 
 class OutputSettingsContainer extends Component {
     render() {
@@ -51,6 +52,7 @@ class OutputSettingsContainer extends Component {
                 handleFilterChange={this.handleFilterChange}
                 handleOptionChange={this.handleOptionChange}
                 handleSubmit={this.handleSubmit}
+                handleShowOandMModal={this.handleShowOandMModal}
             />
         );
     }
@@ -197,6 +199,8 @@ class OutputSettingsContainer extends Component {
 
         return availableDrawings[0];
     };
+
+    handleShowOandMModal = () => this.props.showOAndMTsAndCsModal('create report');
 }
 
 const mapStateToProps = ({
@@ -222,8 +226,8 @@ const mapDispatchToProps = {
     showFieldErrors,
     addFieldError,
     removeFieldError,
+    showOAndMTsAndCsModal,
 };
-
 const WithConnect = connect(mapStateToProps, mapDispatchToProps)(OutputSettingsContainer);
 
 const WithUpdateOnChange = withUpdateOnChange(WithConnect);

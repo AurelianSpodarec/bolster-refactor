@@ -5,11 +5,11 @@ import { authenticate } from 'helpers/api';
 import { AUTH_TYPES } from 'constants/shared/auth';
 const { COMPANY, SUPER_ADMIN, CLIENT } = AUTH_TYPES;
 
-export default function(ProtectedComponent, authType = COMPANY) {
+export default function (ProtectedComponent, authType = COMPANY) {
     class WithAuth extends React.Component {
         state = {
             checkComplete: false,
-            isAuthorized: false
+            isAuthorized: false,
         };
 
         render() {
@@ -18,12 +18,7 @@ export default function(ProtectedComponent, authType = COMPANY) {
             if (!checkComplete) return null;
             if (!isAuthorized) return <Redirect to="/auth/login" />;
 
-            return (
-                <ProtectedComponent
-                    curUrl={this.props.location.pathname}
-                    {...this.props}
-                />
-            );
+            return <ProtectedComponent curUrl={this.props.location.pathname} {...this.props} />;
         }
 
         componentDidMount() {
@@ -31,13 +26,13 @@ export default function(ProtectedComponent, authType = COMPANY) {
                 .then(() => {
                     this.setState({
                         checkComplete: true,
-                        isAuthorized: true
+                        isAuthorized: true,
                     });
                 })
                 .catch(() => {
                     this.setState({
                         checkComplete: true,
-                        isAuthorized: false
+                        isAuthorized: false,
                     });
                 });
         }
@@ -46,12 +41,9 @@ export default function(ProtectedComponent, authType = COMPANY) {
             return new Promise((resolve, reject) => {
                 authenticate()
                     .then(({ companyID, isSuperAdmin, isClientAccess }) => {
-                        if (authType === COMPANY)
-                            return companyID ? resolve() : reject();
-                        if (authType === SUPER_ADMIN)
-                            return isSuperAdmin ? resolve() : reject();
-                        if (authType === CLIENT)
-                            return isClientAccess ? resolve() : reject();
+                        if (authType === COMPANY) return companyID ? resolve() : reject();
+                        if (authType === SUPER_ADMIN) return isSuperAdmin ? resolve() : reject();
+                        if (authType === CLIENT) return isClientAccess ? resolve() : reject();
 
                         return reject();
                     })

@@ -3,18 +3,18 @@ import { combineReducers } from 'redux';
 import {
     POST_CONTACT_REQUEST,
     POST_CONTACT_SUCCESS,
-    POST_CONTACT_FAILURE
+    POST_CONTACT_FAILURE,
 } from 'constants/actionTypes/contact';
 
 export default combineReducers({
     postSuccess: postSuccessReducer,
-    error: errorReducer
+    error: errorReducer,
+    isPosting: isPostingReducer,
 });
 
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case POST_CONTACT_REQUEST:
-        case POST_CONTACT_FAILURE:
             return false;
         case POST_CONTACT_SUCCESS:
             return true;
@@ -27,9 +27,20 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case POST_CONTACT_REQUEST:
             return null;
-
         case POST_CONTACT_FAILURE:
             return action.error;
+        default:
+            return state;
+    }
+}
+
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case POST_CONTACT_FAILURE:
+        case POST_CONTACT_SUCCESS:
+            return false;
+        case POST_CONTACT_REQUEST:
+            return true;
         default:
             return state;
     }
