@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import postLegalDocument from 'actions/superAdmin/legalDocuments/async/postLegalDocument';
 import { usePrevious } from 'helpers/hooks';
@@ -12,8 +13,19 @@ import { getKeyByValue } from 'helpers/generic';
 import AddLegalDocumentVersion from '../presentational/AddLegalDocumentVersion';
 import { useParams } from 'react-router-dom';
 
-const AddLegalDocumentVersionContainer = () => {
-    const { id } = useParams();
+const AddLegalDocumentVersionContainer = ({ data }) => {
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const { postIsFetching, postSuccess, postError } = useSelector(
+        ({ superAdmin: { legalDocumentsReducer } }) => legalDocumentsReducer,
+    );
+    const [documentText, setDocText] = useState('');
+    const [form, setFormChange] = useState({
+        docTitle: data.title,
+        docType: { text: LEGAL_DOCUMENT_TYPE[10], value: LEGAL_DOCUMENT_TYPE[10] },
+    });
+    const prevProps = usePrevious({ postIsFetching });
+
     useEffect(() => {
         // fetch document, latest version / draft
     }, []);
@@ -69,6 +81,7 @@ const AddLegalDocumentVersionContainer = () => {
         dispatch(postLegalDocument(postBody));
     };
 
+    const handleBack = () => history.push('/admin/legal-documents');
     const handlePublishDraft = () => handleDraft(true);
     const handleSaveDraft = () => handleDraft();
 
@@ -76,6 +89,7 @@ const AddLegalDocumentVersionContainer = () => {
         <AddLegalDocumentVersion
             handleSaveDraft={handleSaveDraft}
             handlePublishDraft={handlePublishDraft}
+            handleBack={handleBack}
             documentText={documentText}
             setDocText={setDocText}
         />

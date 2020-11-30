@@ -19,6 +19,7 @@ const options = [
 const AddLegalDocumentVersion = ({
     handleSaveDraft,
     handlePublishDraft,
+    handleBack,
     documentText,
     setDocText,
 }) => {
@@ -52,6 +53,9 @@ const AddLegalDocumentVersion = ({
                     <ButtonContainer handleClick={handleSaveDraft}>Save draft</ButtonContainer>
                     <ButtonContainer handleClick={handlePublishDraft}>
                         Publish draft
+                    </ButtonContainer>
+                    <ButtonContainer setColour={'#d71a1a'} handleClick={handleBack}>
+                        Back
                     </ButtonContainer>
                 </BlockButtonWrapper>
             </BlockContainer>
