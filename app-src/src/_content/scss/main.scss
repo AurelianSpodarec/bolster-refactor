@@ -2,6 +2,7 @@
 @import "./variables.scss";
 @import "./sizing.scss";
 @import "./media.scss";
+@import "~react-quill/dist/quill.snow.css";
 
 @mixin dropdown-popup() {
     z-index: -1;
@@ -5421,3 +5422,26 @@ input {
 }
 
 @import "./frontend.scss";
+
+.quill {
+
+    .ql-toolbar {
+
+        &.ql-snow {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+    }
+    
+    .ql-container {
+
+        &.ql-snow {
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+    }
+}
+
+.ql-editor {
+    min-height: 30vh;
+}

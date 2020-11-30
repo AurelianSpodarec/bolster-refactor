@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 
 const AddLegalDocumentVersionContainer = () => {
     const { id } = useParams();
-    console.log({ id });
     useEffect(() => {
         // fetch document, latest version / draft
     }, []);
