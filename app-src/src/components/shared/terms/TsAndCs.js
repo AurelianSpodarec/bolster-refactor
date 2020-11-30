@@ -3,7 +3,7 @@ import React from 'react';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-const TsAndCs = () => (
+const TsAndCs = ({ copy }) => (
     <BlockContainer>
         <div className="content-page wysiwyg">
             <h2>

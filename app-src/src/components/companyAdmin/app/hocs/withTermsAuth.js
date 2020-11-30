@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import fetchTerms from 'actions/companyAdmin/legalDocuments/fetchTerms';
+import fetchTerms from 'actions/shared/legalDocuments/fetchTerms';
 
 import Error from 'components/shared/generic/misc/presentational/Error';
 import { isEmpty } from 'lodash';
@@ -23,16 +23,19 @@ function withTermsAuth(ProtectedComponent) {
             fetchTerms();
         }, []);
 
-        if (fetchError) return <ErrorBlock>{fetchError}</ErrorBlock>;
-        if (!fetchSuccess || !hasFetchedCompany) return null;
+        // if (fetchError) return <ErrorBlock>{fetchError}</ErrorBlock>;
+        // if (!fetchSuccess || !hasFetchedCompany) return null;
 
-        if (termsExists && (!termsAcceptedOn || new Date(publishedOn) > new Date(termsAcceptedOn)))
-            return <AgreeToTerms copy={copy} />;
+        // if (termsExists && (!termsAcceptedOn || new Date(publishedOn) > new Date(termsAcceptedOn)))
+        //     return <AgreeToTerms copy={copy} />;
 
         return <ProtectedComponent {...props} />;
     };
 
-    const mapState = ({ companyAdmin: { companySettingsReducer, legalDocumentsReducer } }) => ({
+    const mapState = ({
+        companyAdmin: { companySettingsReducer },
+        shared: { legalDocumentsReducer },
+    }) => ({
         terms: legalDocumentsReducer.terms,
         fetchSuccess: legalDocumentsReducer.fetchSuccess,
         fetchError: legalDocumentsReducer.fetchError,
