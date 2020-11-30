@@ -8,7 +8,7 @@ const AgreeToTermsModal = ({ terms, eula, privacy }) => {
         <div className="modal-container size-lg-12">
             <div className="bg" />
 
-            <div className="modal-block">
+            <div className="modal-block" style={{ width: '80%', maxWidth: '80%' }}>
                 <BlockContainer>
                     <AgreeToTerms terms={terms} eula={eula} privacy={privacy} />
                 </BlockContainer>

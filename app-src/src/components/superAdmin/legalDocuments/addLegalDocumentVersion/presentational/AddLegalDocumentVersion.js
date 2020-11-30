@@ -46,11 +46,7 @@ const AddLegalDocumentVersion = ({
             </BlockContainer>
 
             <BlockContainer>
-                <SunEditorRichTextContainer
-                    className="wysiwyg-container"
-                    value={documentText}
-                    onChange={setDocText}
-                />
+                <SunEditorRichTextContainer value={documentText} onChange={setDocText} />
 
                 <BlockButtonWrapper>
                     <ButtonContainer handleClick={handleSaveDraft}>Save draft</ButtonContainer>
