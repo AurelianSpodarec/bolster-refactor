@@ -1,0 +1,311 @@
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import { Events, animateScroll as scroll, scrollSpy } from 'react-scroll';
+
+export const useBannerScroll = (width, setIsBannerScrolling) => {
+    const lastScrollTopRef = useRef(window.pageYOffset || document.documentElement.scrollTop);
+
+    useEffect(() => {
+        window.addEventListener('scroll', scrollToArea);
+
+        Events.scrollEvent.register('begin', function () {
+            window.removeEventListener('scroll', scrollToArea);
+            setIsBannerScrolling(true);
+        });
+
+        Events.scrollEvent.register('end', function () {
+            window.addEventListener('scroll', scrollToArea);
+            setLastScrollTop(window.pageYOffset || document.documentElement.scrollTop);
+            setIsBannerScrolling(false);
+        });
+
+        scrollSpy.update();
+
+        return () => {
+            window.removeEventListener('scroll', scrollToArea);
+            setIsBannerScrolling(false);
+            Events.scrollEvent.remove('begin');
+            Events.scrollEvent.remove('end');
+        };
+    }, []);
+
+    function scrollToArea() {
+        if (width && width < 1024) {
+            return;
+        }
+
+        const windowHeight = window.innerHeight;
+        const headerHeight = document.querySelector('.frontend-header').offsetHeight;
+        const bannerElement = document.querySelector('.frontend-banner');
+        const { bottom } = bannerElement.getBoundingClientRect();
+        const duration = 1100;
+
+        const newScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        const scrollOptions = {
+            duration,
+            ignoreCancelEvents: true,
+        };
+
+        // if scrolling down and banner in view
+        if (newScrollTop > lastScrollTopRef.current && bottom > headerHeight) {
+            scroll.scrollTo(windowHeight - headerHeight, scrollOptions);
+        }
+
+        // if scrolling up and banner in view
+        if (newScrollTop < lastScrollTopRef.current && bottom > headerHeight) {
+            scroll.scrollToTop(scrollOptions);
+        }
+
+        setLastScrollTop(newScrollTop <= 0 ? 0 : newScrollTop); // For Mobile or negative scrolling
+    }
+
+    function setLastScrollTop(value) {
+        lastScrollTopRef.current = value;
+    }
+};
+
+export const useEventListener = (eventName, handler, options = {}, element = window) => {
+    const savedHandler = useRef();
+
+    useEffect(() => {
+        savedHandler.current = handler;
+    }, [handler]);
+
+    useEffect(() => {
+        const isSupported = element && element.addEventListener;
+        if (!isSupported) return;
+
+        const eventListener = event => savedHandler.current(event);
+
+        element.addEventListener(eventName, eventListener, options);
+
+        return () => {
+            element.removeEventListener(eventName, eventListener, options);
+        };
+    }, [eventName, element]);
+};
+
+export const useFullPageCarousel = (isMobile, max = 4) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const ref = useRef();
+    const lastRef = useRef(null);
+    const currentPage = useRef(0);
+    const lastAnimation = useRef(0);
+    const disableScroll = useRef(false);
+    const prevScroll = useRef(0);
+    const quietPeriod = 500;
+    const animationTime = 800;
+    const isLast = currentIndex === max;
+
+    const handlePrevSlide = () => {
+        setCurrentIndex(prevState => prevState - 1);
+        currentPage.current = currentPage.current - 1;
+    };
+    const handleNextSlide = () => {
+        setCurrentIndex(prevState => prevState + 1);
+        currentPage.current = currentPage.current + 1;
+    };
+    const handleJumpToSlide = index => {
+        setCurrentIndex(index);
+        currentPage.current = index;
+    };
+
+    const handleScroll = event => {
+        if (disableScroll.current || isMobile) return;
+
+        const delta = Math.sign(event.deltaY);
+        const currentTime = new Date().getTime();
+
+        if (Number(currentTime) - Number(lastAnimation.current) < quietPeriod + animationTime) {
+            event.preventDefault();
+            return;
+        }
+
+        if (delta < 0) {
+            moveUp();
+        } else {
+            moveDown();
+        }
+
+        lastAnimation.current = currentTime;
+    };
+
+    const handleClick = index => moveTo(index);
+
+    const transformPage = position => {
+        disableScroll.current = true;
+        const el = ref.current;
+        const transformCSS = `transform: translate3d(0, ${position}%, 0); transition: transform ${animationTime}ms ease-in-out; -webkit-backface-visibility: hidden; backface-visibility: hidden;`;
+        el.style.cssText = transformCSS;
+        setTimeout(() => {
+            disableScroll.current = false;
+        }, 1500);
+    };
+
+    const moveUp = (page = currentPage.current) => {
+        if (page === 0) return;
+        const position = (page - 1) * 100 * -1;
+        handlePrevSlide();
+        transformPage(position);
+    };
+
+    const moveDown = (page = currentPage.current) => {
+        if (page === max) return;
+        const position = Number((page + 1) * 100 * -1);
+        handleNextSlide();
+        transformPage(position);
+    };
+
+    const moveTo = index => {
+        const position = Number(index * 100 * -1);
+        handleJumpToSlide(index);
+        transformPage(position);
+    };
+
+    const handleLastSlideScroll = event => {
+        if (disableScroll.current) return;
+
+        if (prevScroll.current === 0) {
+            const delta = Math.sign(event.deltaY);
+            if (delta < 0 && lastRef.current.scrollTop === 0) {
+                disableScroll.current = true;
+                moveUp();
+                setTimeout(() => {
+                    disableScroll.current = false;
+                }, 2000);
+            }
+        }
+        setTimeout(() => {
+            if (lastRef.current) {
+                prevScroll.current = lastRef.current.scrollTop;
+            }
+        }, 200);
+    };
+
+    useEffect(() => {
+        if (lastRef.current) {
+            lastRef.current.getElementsByClassName('video-bg')[0].playbackRate = 0.9;
+        }
+
+        if (isMobile !== undefined && !isMobile) {
+            document.removeEventListener('wheel', handleLastSlideScroll, { passive: false });
+            document.addEventListener('wheel', handleScroll, { passive: false });
+            document.getElementById('carouselControls').style.display = 'flex';
+            document.getElementById('carouselControlsLast').style.display = 'none';
+
+            if (isLast) {
+                document.removeEventListener('wheel', handleScroll, { passive: false });
+                document.addEventListener('wheel', handleLastSlideScroll, { passive: false });
+                setTimeout(() => {
+                    if (document) {
+                        document.getElementById('carouselControls').style.display = 'none';
+                        document.getElementById('carouselControlsLast').style.display = 'flex';
+                    }
+                }, 800);
+            }
+        }
+
+        return () => {
+            document.removeEventListener('wheel', handleScroll, { passive: false });
+            document.removeEventListener('wheel', handleLastSlideScroll, { passive: false });
+        };
+    }, [isMobile, isLast]);
+
+    return {
+        currentIndex,
+        max,
+        handleClick,
+        ref,
+        lastRef,
+    };
+};
+
+export const useLockOnModal = () => {
+    useLayoutEffect(() => {
+        const originalStyle = window.getComputedStyle(document.body).overflow;
+        document.body.style.overflow = 'hidden';
+        return () => (document.body.style.overflow = originalStyle);
+    }, []);
+};
+
+export const useVideoShouldPlay = () => {
+    const [isSlideIntersecting, setSlideIntersecting] = useState(null);
+    const videoRef = useRef(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                const video = videoRef.current;
+                if (entry.isIntersecting) {
+                    setSlideIntersecting(true);
+                    video.currentTime = 0;
+                    video.play();
+                } else {
+                    setSlideIntersecting(false);
+                }
+            },
+            { threshold: 0.01 },
+        );
+
+        if (videoRef.current) {
+            observer.observe(videoRef.current);
+        }
+        return () => {
+            observer.unobserve(videoRef.current);
+        };
+    }, []);
+
+    return [videoRef, isSlideIntersecting];
+};
+
+export const useCloudShouldAnimate = () => {
+    const [isVisible, setIsVisible] = useState(null);
+    const cloudRef = useRef(null);
+    // const
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                } else {
+                    setIsVisible(false);
+                }
+            },
+            { threshold: 0.1 },
+        );
+
+        if (cloudRef.current) {
+            observer.observe(cloudRef.current);
+        }
+        return () => {
+            observer.unobserve(cloudRef.current);
+        };
+    }, []);
+
+    return [cloudRef, isVisible];
+};
+
+export const useLocalStorage = (key, initialValue) => {
+    const [storedValue, setStoredValue] = useState(() => {
+        try {
+            const item = window.localStorage.getItem(key);
+            return item ? JSON.parse(item) : initialValue;
+        } catch (error) {
+            console.log(error);
+            return initialValue;
+        }
+    });
+
+    const setValue = value => {
+        try {
+            const valueToStore = value instanceof Function ? value(storedValue) : value;
+            setStoredValue(valueToStore);
+            window.localStorage.setItem(key, JSON.stringify(valueToStore));
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    return [storedValue, setValue];
+};

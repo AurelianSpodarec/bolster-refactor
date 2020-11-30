@@ -1,55 +1,85 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import FrontEndHeader from '../presentational/FrontEndHeader';
 import { logout } from 'actions/shared/auth/sync/logout';
 
-class FrontEndHeaderContainer extends Component {
-    render() {
-        const { isSuperAdmin, isCompanyAdmin, isClientAccess, hideHeader } = this.props;
+const FrontEndHeaderContainer = ({
+    isSuperAdmin,
+    isCompanyAdmin,
+    isClientAccess,
+    location,
+    history,
+    logout,
+    hideHeader,
+    isBannerScrolling,
+}) => {
+    const [menuOpen, setMenuOpen] = useState(false);
 
-        return (
-            <FrontEndHeader
-                isSuperAdmin={isSuperAdmin}
-                isCompanyAdmin={isCompanyAdmin}
-                isClientAccess={isClientAccess}
-                logout={this.logout}
-                hideHeader={hideHeader}
-            />
-        );
+    return (
+        <FrontEndHeader
+            isSuperAdmin={isSuperAdmin}
+            isCompanyAdmin={isCompanyAdmin}
+            isClientAccess={isClientAccess}
+            handleLogout={handleLogout}
+            handleClick={handleClick}
+            curRoute={location.pathname.toLowerCase()}
+            menuOpen={menuOpen}
+            setMenuOpen={setMenuOpen}
+            hideHeader={hideHeader}
+        />
+    );
+
+    function handleClick(e, path) {
+        e.preventDefault();
+
+        if (isBannerScrolling) return false;
+
+        history.push(path);
+
+        if (menuOpen) {
+            setMenuOpen(false);
+        }
     }
 
-    logout = () => {
-        const { history, logout } = this.props;
+    function handleLogout(e) {
+        e.preventDefault();
+
+        if (isBannerScrolling) return false;
+
         logout();
+
         history.push('/');
-    };
-}
+
+        if (menuOpen) {
+            setMenuOpen(false);
+        }
+    }
+};
 
 const mapStateToProps = ({
     shared: {
         decodeJWTReducer: {
-            jwtData: { isSuperAdmin, isClientAccess, companyID }
-        }
+            jwtData: { isSuperAdmin, isClientAccess, companyID },
+        },
     },
     frontEnd: {
         layoutReducer: {
-            layout: { hideHeader }
+            layout: { hideHeader },
+        },
+        bannersReducer: {
+            isBannerScrolling,
         }
-    }
+    },
 }) => ({
     isSuperAdmin,
     isCompanyAdmin: !!companyID,
     isClientAccess,
-    hideHeader
+    hideHeader,
+    isBannerScrolling,
 });
 
 const mapDispatchToProps = { logout };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(FrontEndHeaderContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FrontEndHeaderContainer));

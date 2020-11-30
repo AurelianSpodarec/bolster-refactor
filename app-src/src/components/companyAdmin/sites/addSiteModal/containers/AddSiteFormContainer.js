@@ -16,6 +16,7 @@ import {
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isObjEmpty } from 'helpers/generic';
+import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOAndMTsAndCsModal';
 
 class AddSiteFormContainer extends Component {
     state = {
@@ -60,8 +61,15 @@ class AddSiteFormContainer extends Component {
     }
 
     async componentDidMount() {
-        const { fetchManufacturersByPinOptionType, fetchAllOptionValues } = this.props;
-
+        const {
+            fetchManufacturersByPinOptionType,
+            fetchAllOptionValues,
+            useManufacturingByDefault,
+            showOAndMTsAndCsModal,
+        } = this.props;
+        if (useManufacturingByDefault) {
+            showOAndMTsAndCsModal('add site');
+        }
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before adding a site.
         const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
             return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option];
@@ -274,6 +282,7 @@ const mapDispatchToProps = {
     hideModal,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
+    showOAndMTsAndCsModal,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddSiteFormContainer));

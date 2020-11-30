@@ -22,11 +22,7 @@ class ModalOuterContainer extends Component {
     }
 
     handleClose = () => {
-        const {
-            hideModal,
-            updateHierarchyAddState,
-            close = hideModal
-        } = this.props;
+        const { hideModal, updateHierarchyAddState, close = hideModal } = this.props;
 
         close();
         updateHierarchyAddState(false);
@@ -39,10 +35,7 @@ const mapDispatchToProps = dispatch => ({
     },
     updateHierarchyAddState: value => {
         dispatch(updateHierarchyAddState(value));
-    }
+    },
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(ModalOuterContainer);
+export default connect(null, mapDispatchToProps)(ModalOuterContainer);

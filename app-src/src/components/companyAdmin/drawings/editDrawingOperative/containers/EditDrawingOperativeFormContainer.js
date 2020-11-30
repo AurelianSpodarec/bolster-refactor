@@ -76,7 +76,6 @@ class EditDrawingOperativeFormContainer extends Component {
             const hasPerm = relevantPermissions.find(
                 perm => perm.serviceID === id || perm.serviceID === null,
             );
-            console.log({ relevantPermissions, companyID, hasSub, hasPerm });
             acc.push({
                 value: id,
                 text: name,

@@ -15,7 +15,6 @@ const CopyTemplateModal = ({
     templateUUID,
     handleChange,
 }) => {
-    console.log(companyOptions);
     return (
         <ModalOuterContainer extraClasses="w-form">
             <BlockHeading title="Create template from existing" />

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import companiesReducer from './companies';
-import enquiriesReducer from './enquiries';
+import contactSubmissionsReducer from './contactSubmissions';
 import companyReportsReducer from './companyReports';
 import invoicesReducer from './invoices';
 import invoicePaymentsReducer from './invoicePayments';
@@ -17,7 +17,6 @@ import sitesReducer from './sites';
 import buildingsReducer from './buildings';
 import floorsReducer from './floors';
 import drawingsReducer from './drawings';
-import demoRequestsReducer from './demoRequests';
 import moveToolReducer from './moveTool';
 import sosCodesReducer from './sosCodes';
 import operativeAlertsReducer from 'reducers/superAdmin/operativeAlerts';
@@ -26,6 +25,8 @@ import manufacturersReducer from './manufacturers';
 import manufacturersOptionValuesReducer from './manufacturersOptionValues';
 import optionValueDocumentsReducer from './optionValueDocuments';
 import userGuideReducer from './userGuide';
+import frontendTextSettingsReducer from './frontendTextSettings';
+import frontendTrustedBySettingsReducer from './frontendTrustedBySettings';
 import expiryToolReducer from './expiryTool';
 import newFeaturesReducer from './newFeatures';
 
@@ -35,9 +36,8 @@ export default combineReducers({
     companiesReducer,
     companyReportsReducer,
     companySubscriptionReducer,
-    demoRequestsReducer,
     drawingsReducer,
-    enquiriesReducer,
+    contactSubmissionsReducer,
     floorsReducer,
     invoicePaymentsReducer,
     invoicesReducer,
@@ -56,6 +56,8 @@ export default combineReducers({
     templateQuestionFormReducer,
     usersReducer,
     userGuideReducer,
+    frontendTextSettingsReducer,
+    frontendTrustedBySettingsReducer,
     expiryToolReducer,
     newFeaturesReducer,
 });

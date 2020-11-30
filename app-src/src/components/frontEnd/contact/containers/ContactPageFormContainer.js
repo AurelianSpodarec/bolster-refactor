@@ -1,67 +1,70 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import postContactForm from 'actions/frontEnd/contact/async/postContactForm';
 import ContactPageForm from '../presentational/ContactPageForm';
+import { useForm, usePrevious } from 'helpers/hooks';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
-class ContactPageFormContainer extends Component {
-    state = {
+const ContactPageFormContainer = ({
+    error,
+    postSuccess,
+    postContactForm,
+    isPosting,
+    showModal,
+}) => {
+    const [formData, handleChange] = useForm({
         name: '',
         email: '',
         contactNumber: '',
         companyName: '',
-        message: '',
-        sent: false
-    };
+        reCaptchaToken: '',
+    });
+    const [sent, setSent] = useState(false);
 
-    render = () => (
-        <ContactPageForm
-            {...this.state}
-            error={this.props.error}
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-        />
-    );
+    const prevProps = usePrevious({ postSuccess, isPosting });
 
-    handleChange = (name, value) => this.setState({ [name]: value });
-
-    handleSubmit = e => {
+    const handleSubmit = e => {
         e.preventDefault();
 
-        const { name, email, contactNumber, companyName, message } = this.state;
-        const { postContactForm } = this.props;
-
-        const postBody = {
-            name,
-            email,
-            contactNumber,
-            companyName,
-            message
-        };
-
-        postContactForm(postBody);
+        postContactForm(formData);
     };
 
-    componentDidUpdate = prevProps => {
-        const { postSuccess } = this.props;
+    useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
-            this.setState({ sent: true });
+            setSent(true);
         }
-    };
-}
+
+        if (prevProps.isPosting && !isPosting && error) {
+            showModal(ERROR_MODAL, {
+                message: 'There was an error with your request. Please try again.',
+            });
+        }
+    }, [postSuccess, prevProps.postSuccess, isPosting, prevProps.isPosting]);
+
+    return (
+        <ContactPageForm
+            error={error}
+            form={formData}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            sent={sent}
+            isPosting={isPosting}
+        />
+    );
+};
 
 const mapStateToProps = ({
     frontEnd: {
-        contactReducer: { error, postSuccess }
-    }
+        contactReducer: { error, postSuccess, isPosting },
+    },
 }) => ({
     error,
-    postSuccess
+    postSuccess,
+    isPosting,
 });
 
-const mapDispatchToProps = { postContactForm };
+const mapDispatchToProps = { postContactForm, showModal };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ContactPageFormContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactPageFormContainer);

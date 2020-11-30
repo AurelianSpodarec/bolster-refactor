@@ -2,12 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import {
-    ADD_BUILDING,
     ADD_BUILDINGS,
     ADD_CARD,
-    ADD_DRAWING,
     ADD_DROPDOWN_OPTION,
-    ADD_FLOOR,
     ADD_FLOORS,
     ADD_SERVICE_TO_SUBSCRIPTION,
     ADD_SITE,
@@ -26,7 +23,7 @@ import {
     CREATE_COMPANY_ADMIN,
     CREATE_OPERATIVE,
     TOGGLE_DROPDOWN_OPTION,
-    DELETE_ENQUIRY,
+    DELETE_CONTACT_SUBMISSION,
     DELETE_COMPANY_USER,
     DELETE_DOCUMENT,
     DELETE_CLIENT_FROM_DRAWING,
@@ -73,6 +70,7 @@ import {
     DELETE_DEMO_REQUEST,
     ADD_DEMO_REQUEST_COMMENT,
     ADD_INVOICE_COMMENT,
+    ADD_CONTACT_SUBMISSION_COMMENT,
     CONFIRM_MOVE_HIERARCHY_TO_COMPANY,
     ADMIN_CONFIRM_SET_IS_INVOICE_PAID,
     ADMIN_DELETE_INVOICE,
@@ -106,6 +104,7 @@ import {
     ADD_DRAWING_ZONE,
     ZONE_DETAILS,
     EDIT_ZONE_MODAL,
+    WHY_USE_OUR_SYSTEM,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -119,7 +118,7 @@ import AddTemplateSectionModalContainer from 'components/superAdmin/templateBuil
 import AddTemplateQuestionModalContainer from 'components/superAdmin/templateBuilder/setQuestion/containers/AddTemplateQuestionModalContainer';
 import BuyCreditsModalContainer from 'components/companyAdmin/subscription/buyCreditsModal/containers/BuyCreditsModalContainer';
 import CompanyEditTemplateQuestionModalContainer from 'components/companyAdmin/templates/singleTemplate/editTemplateQuestionModal/containers/EditTemplateQuestionModalContainer.js';
-import DeleteEnquiryModalContainer from './DeleteEnquiryModalContainer';
+import DeleteContactSubmissionModalContainer from './DeleteContactSubmissionModalContainer';
 import DeleteDocumentModalContainer from './DeleteDocumentModalContainer';
 import DeleteOperativeModalContainer from './DeleteOperativeModalContainer';
 import DeleteClientModalContainer from './DeleteClientModalContainer';
@@ -145,9 +144,6 @@ import PaymentSuccessModalContainer from './PaymentSuccessModalContainer';
 import EditDrawingModalContainer from 'components/companyAdmin/drawings/singleDrawing/containers/EditDrawingModalContainer';
 import ConfirmEditPinModalContainer from 'components/companyAdmin/pins/confirmEditPinModal/containers/ConfirmEditPinModalContainer';
 import AddSiteModal from 'components/companyAdmin/sites/addSiteModal/presentational/AddSiteModal';
-import CreateBuildingModal from 'components/companyAdmin/buildings/addBuildingModal/presentational/CreateBuildingModal';
-import AddFloorModal from 'components/companyAdmin/floors/addFloorModal/presentational/AddFloorModal';
-import AddDrawingModal from 'components/companyAdmin/drawings/addDrawingModal/presentational/AddDrawingModal';
 import EditSiteModal from 'components/companyAdmin/sites/editSiteModal/presentational/EditSiteModal';
 import EditBuildingModal from 'components/companyAdmin/buildings/editBuildingModal/presentational/EditBuildingModal';
 import EditFloorModal from 'components/companyAdmin/floors/editFloorModal/presentational/EditFloorModal';
@@ -173,10 +169,8 @@ import ConfirmFreeInvoiceModalContainer from 'components/superAdmin/invoices/con
 import EditPaymentModalContainer from 'components/superAdmin/invoices/editPaymentModal/containers/EditPaymentModalContainer';
 import DeletePaymentModalContainer from 'components/superAdmin/invoices/confirmDeletePaymentModal/containers/DeletePaymentModalContainer';
 import RemoveUserDrawingsAccessModalContainer from 'components/companyAdmin/userManagement/userDrawings/containers/RemoveUserDrawingsAccessModalContainer';
-import ForgotPasswordModalContainer from 'components/auth/forgotPasswordModal/containers/ForgotPasswordModalContainer';
+import ForgotPasswordModalContainer from 'components/frontEnd/auth/forgotPasswordModal/containers/ForgotPasswordModalContainer';
 import AddCreditsToDrawingModal from 'components/companyAdmin/drawings/addCreditsToDrawing/presentational/AddCreditsToDrawingModal';
-import DeleteDemoRequestModalContainer from 'components/superAdmin/demoRequests/containers/DeleteDemoRequestModalContainer';
-import AddCommentToDemoRequestModalContainer from 'components/superAdmin/demoRequests/containers/AddCommentToDemoRequestModalContainer';
 import SOSGenerationModal from 'components/superAdmin/sosManagement/sosGenerationModal/presentational/SOSGenerationModal';
 import SiteManagementConfirmMoveModalContainer from 'components/superAdmin/siteManagement/moveTool/containers/MoveToolConfirmMoveModalContainer';
 import ConfirmSetIsInvoicePaidModalContainer from 'components/superAdmin/invoices/confirmSetIsInvoicePaidModal/containers/ConfirmSetIsInvoicePaidModalContainer';
@@ -214,6 +208,8 @@ import AddDrawingZoneModalContainer from 'components/companyAdmin/drawings/addDr
 import ZoneDetailsModalContainer from 'components/companyAdmin/drawings/singleDrawing/containers/ZoneDetailsModalContainer';
 import EditZoneModalContainer from 'components/companyAdmin/drawings/singleDrawing/containers/EditZoneModalContainer';
 import AddCommentToInvoiceModalContainer from 'components/superAdmin/invoices/singleInvoice/containers/AddCommentToInvoiceModalContainer';
+import AddCommentToContactSubmissionModalContainer from 'components/superAdmin/contactSubmissions/singleContactSubmission/containers/AddCommentToContactSubmissionModalContainer';
+import OurSystemModalContainer from 'components/frontEnd/whyUseOurSystem/containers/OurSystemModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -221,7 +217,7 @@ const MODAL_COMPONENTS = {
     [ADD_TEMPLATE]: AddTemplateModalContainer,
     [ADD_TEMPLATE_QUESTION]: AddTemplateQuestionModalContainer,
     [ADD_TEMPLATE_SECTION]: AddTemplateSectionModalContainer,
-    [ADD_DEMO_REQUEST_COMMENT]: AddCommentToDemoRequestModalContainer,
+    [ADD_CONTACT_SUBMISSION_COMMENT]: AddCommentToContactSubmissionModalContainer,
     [ADMIN_CREATE_COMPANY_ADMIN]: AddCompanyAdminModalContainer,
     [SET_LABEL_FIELDS]: SetLabelFieldsModalContainer,
     [ADMIN_EDIT_SERVICE]: EditServiceModalContainer,
@@ -234,8 +230,7 @@ const MODAL_COMPONENTS = {
     [DELETE_COMPANY_PERMISSIONS]: DeleteCompanyPermissionsModalContainer,
     [DELETE_COMPANY_USER]: DeleteCompanyUserModalContainer,
     [DELETE_DOCUMENT]: DeleteDocumentModalContainer,
-    [DELETE_ENQUIRY]: DeleteEnquiryModalContainer,
-    [DELETE_DEMO_REQUEST]: DeleteDemoRequestModalContainer,
+    [DELETE_CONTACT_SUBMISSION]: DeleteContactSubmissionModalContainer,
     [DELETE_OPERATIVE]: DeleteOperativeModalContainer,
     [ERROR_MODAL]: ErrorModal,
     [EDIT_TEMPLATE]: EditTemplateModalContainer,
@@ -254,11 +249,8 @@ const MODAL_COMPONENTS = {
     [EDIT_DRAWING]: EditDrawingModalContainer,
     [CONFIRM_EDIT_PIN]: ConfirmEditPinModalContainer,
     [ADD_SITE]: AddSiteModal,
-    [ADD_BUILDING]: CreateBuildingModal,
     [ADD_BUILDINGS]: CreateBuildingsModal,
-    [ADD_FLOOR]: AddFloorModal,
     [ADD_FLOORS]: CreateFloorsModal,
-    [ADD_DRAWING]: AddDrawingModal,
     [ADD_DRAWINGS]: AddDrawingsModal,
     [EDIT_SITE]: EditSiteModal,
     [EDIT_BUILDING]: EditBuildingModal,
@@ -320,6 +312,7 @@ const MODAL_COMPONENTS = {
     [ZONE_DETAILS]: ZoneDetailsModalContainer,
     [EDIT_ZONE_MODAL]: EditZoneModalContainer,
     [ADD_INVOICE_COMMENT]: AddCommentToInvoiceModalContainer,
+    [WHY_USE_OUR_SYSTEM]: OurSystemModalContainer,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

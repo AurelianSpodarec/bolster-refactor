@@ -25,6 +25,7 @@ import {
 } from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isObjEmpty } from 'helpers/generic';
+import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOAndMTsAndCsModal';
 
 const CreateFloorsFormContainer = ({
     buildingID,
@@ -42,6 +43,7 @@ const CreateFloorsFormContainer = ({
     building,
     useManufacturingByDefault,
     error,
+    showOAndMTsAndCsModal,
 }) => {
     const [
         floors,
@@ -152,6 +154,9 @@ const CreateFloorsFormContainer = ({
             setInitialOptions(initialOptions);
             setInitialManufacturerFloorOptions(initialOptions);
             setAreOptionsLoaded(true);
+            if (useManufacturingByDefault && !isManufacturingInherited) {
+                handleShowOandMModal();
+            }
         }
     }, [isFetching]);
 
@@ -177,6 +182,7 @@ const CreateFloorsFormContainer = ({
                 initialOptions={initialOptions}
                 setShowManufacturingOptions={setShowManufacturingOptions}
                 showManufacturingOptions={showManufacturingOptions}
+                handleShowOandMModal={handleShowOandMModal}
             />
         </BlockContainer>
     );
@@ -248,6 +254,10 @@ const CreateFloorsFormContainer = ({
         hideModal();
         updateHierarchyAddState(false);
     }
+
+    function handleShowOandMModal() {
+        showOAndMTsAndCsModal('add floor');
+    }
 };
 
 const mapStateToProps = (
@@ -291,6 +301,7 @@ const mapDispatchToProps = {
     updateHierarchyAddState,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
+    showOAndMTsAndCsModal,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateFloorsFormContainer));

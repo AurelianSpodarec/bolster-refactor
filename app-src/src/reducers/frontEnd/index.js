@@ -1,15 +1,21 @@
 import { combineReducers } from 'redux';
 
+import authReducer from './auth';
+import bannersReducer from './banners';
 import contactReducer from './contact';
-import requestDemoReducer from './requestDemo';
 import drawingsReducer from './drawings';
 import pinsReducer from './pins';
 import layoutReducer from './layout';
+import frontendTrustedByReducer from './frontendTrustedBy';
+import cookieReducer from './cookie';
 
 export default combineReducers({
+    bannersReducer,
     contactReducer,
-    requestDemoReducer,
     drawingsReducer,
     pinsReducer,
-    layoutReducer
+    layoutReducer,
+    frontendTrustedByReducer,
+    authReducer,
+    cookieReducer,
 });

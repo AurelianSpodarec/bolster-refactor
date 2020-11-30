@@ -24,6 +24,7 @@ const CreateFloorsForm = ({
     initialOptions,
     setShowManufacturingOptions,
     showManufacturingOptions,
+    handleShowOandMModal,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -103,9 +104,12 @@ const CreateFloorsForm = ({
                                             checked={floor.setManufacturersForHierarchy}
                                             name={`${floor.id}.*.setManufacturersForHierarchy`}
                                             text=""
-                                            handleChange={(name, value) =>
-                                                updateFloor(name, value, floor.id)
-                                            }
+                                            handleChange={(name, value) => {
+                                                updateFloor(name, value, floor.id);
+                                                if (value) {
+                                                    handleShowOandMModal();
+                                                }
+                                            }}
                                             disabled={floor.isManufacturingInherited}
                                         />
                                     </Field>
