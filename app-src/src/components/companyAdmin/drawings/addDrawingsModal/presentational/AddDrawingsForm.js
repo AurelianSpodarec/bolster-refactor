@@ -148,7 +148,6 @@ const AddDrawingsForm = ({
                                                     )
                                                 }
                                                 placeholderText="Date"
-                                                showTimeSelect
                                             />
                                         </Field>
                                     </div>

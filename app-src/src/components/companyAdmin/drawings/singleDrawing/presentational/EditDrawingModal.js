@@ -102,7 +102,6 @@ const EditDrawingModal = ({
                                 selected={startDate}
                                 onChange={handleStartDateChange}
                                 placeholderText="Date"
-                                showTimeSelect
                             />
                         </Field>
                     )}
