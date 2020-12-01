@@ -10,7 +10,6 @@ import {
     createPreselectedOptionValuesList,
     createHierarchyPreselectedManufacturersList,
     removeUnusedManufacturerDefaults,
-    formatOptions,
 } from 'helpers/manufacturers';
 import editSite from 'actions/companyAdmin/sites/async/editSite';
 import {
@@ -22,7 +21,11 @@ import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturer
 
 import EditSiteForm from '../presentational/EditSiteForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { createPreselectedItemOptionValuesList } from 'helpers/itemTypes';
+import {
+    createPreselectedItemOptionValuesList,
+    formatDropDownOptions,
+    removeUnusedDropDownDefaults,
+} from 'helpers/itemTypes';
 
 class EditSiteFormContainer extends Component {
     state = {
@@ -48,7 +51,7 @@ class EditSiteFormContainer extends Component {
     render() {
         const { isUsingBolsterLabels, error } = this.props;
         const { areOptionsLoaded } = this.state;
-
+        console.log(this.state);
         return (
             <BlockContainer
                 isEmpty={!areOptionsLoaded}
@@ -109,7 +112,10 @@ class EditSiteFormContainer extends Component {
                 selectedOptionValues: [],
                 optionValuesOptions: {},
                 areOptionsLoaded: true,
-                dropDownTypes: [],
+            };
+
+            const dropDownOptions = {
+                setDropDownOptions: site.isDropDownOptionEnabled,
                 selectedDropDownOptions: [],
                 dropDownOptions: {},
             };
@@ -139,13 +145,16 @@ class EditSiteFormContainer extends Component {
                 );
             }
 
-            initialOptions.dropDownOptions = formatOptions(site.dropDownOptions);
+            // if (site.isDropDownOptionEnabled) {
+            dropDownOptions.dropDownOptions = formatDropDownOptions(site.dropDownOptions);
 
-            initialOptions.selectedDropDownOptions = createPreselectedItemOptionValuesList(
+            dropDownOptions.selectedDropDownOptions = createPreselectedItemOptionValuesList(
                 site.dropDownOptions,
             );
+            // }
 
             this.setState(initialOptions);
+            this.setState(dropDownOptions);
         }
         if (!prevProps.site.id && !!site.id) {
             this._setFormDetails();
@@ -198,11 +207,18 @@ class EditSiteFormContainer extends Component {
             dateToSend,
             isAlertShowing,
             setManufacturersForHierarchy,
+            setDropDownOptions,
+            selectedDropDownOptions,
         } = this.state;
 
         const manufacturingEnabledOptions = {
             isManufacturingEnabled: setManufacturersForHierarchy,
             optionValueIDs: removeUnusedManufacturerDefaults(this.state),
+        };
+
+        const dropDownEnabledOptions = {
+            isDropDownOptionEnabled: setDropDownOptions,
+            dropDownOptionIDs: selectedDropDownOptions,
         };
 
         let postBody = {};
@@ -216,6 +232,7 @@ class EditSiteFormContainer extends Component {
                 message: message,
                 dateToSend: moment(dateToSend).format(),
                 ...manufacturingEnabledOptions,
+                ...dropDownEnabledOptions,
             };
         } else {
             postBody = {
@@ -225,6 +242,7 @@ class EditSiteFormContainer extends Component {
                 addressLine2,
                 postcode,
                 ...manufacturingEnabledOptions,
+                ...dropDownEnabledOptions,
             };
         }
         editSite(id, postBody);

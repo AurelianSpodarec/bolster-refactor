@@ -7,3 +7,14 @@ export const createPreselectedItemOptionValuesList = optionValuesList => {
     });
     return selectedOptionValues;
 };
+
+export const formatDropDownOptions = options => {
+    return options.map(option => {
+        return {
+            ...option,
+            text: option.name,
+            value: option.id,
+            isEnabled: option.isEnabled,
+        };
+    });
+};
