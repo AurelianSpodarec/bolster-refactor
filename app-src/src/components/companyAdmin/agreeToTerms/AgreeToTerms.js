@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import Form from 'components/shared/generic/form/containers/Form';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import Block from 'components/shared/generic/block/presentational/Block';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import agreeToTerms from 'actions/companyAdmin/legalDocuments/agreeToTerms';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TsCsContainer from 'components/frontEnd/termsAndConditions/containers/Ts&CsContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
-const AgreeToTerms = ({ agreeToTerms }) => {
+const AgreeToTerms = ({ agreeToTerms, handleClick }) => {
     const [hasAgreed, setHasAgreed] = useState(false);
 
     return (
@@ -31,6 +31,10 @@ const AgreeToTerms = ({ agreeToTerms }) => {
                             <button className="button green" type="submit">
                                 Submit
                             </button>
+                            <ButtonContainer handleClick={handleClick}>
+                                <i className="fa fa-times" />
+                                Cancel
+                            </ButtonContainer>
                         </div>
                     </Form>
                 </Block>
