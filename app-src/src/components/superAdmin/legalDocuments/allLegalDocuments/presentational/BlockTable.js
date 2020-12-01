@@ -17,12 +17,7 @@ const BlockTable = ({ documents, isFetching, createDocument, title, headers }) =
                     <i className="fa fa-plus" /> New Document
                 </button>
             </BlockHeading>
-            <Table
-                extraClasses="legal-documents-table"
-                headers={headers}
-                noData={!documents.length}
-                isFetching={isFetching}
-            >
+            <Table headers={headers} noData={!documents.length} isFetching={isFetching}>
                 {orderBy(documents, doc => [get(doc, 'type'), get(doc, 'publishedOn')], [
                     'desc',
                     'desc',
@@ -40,22 +35,11 @@ const BlockTable = ({ documents, isFetching, createDocument, title, headers }) =
                                 : 'Not Published'}
                         </td>
                         <td>
-                            {doc.publishedOn ? (
-                                <BlockButtonWrapper>
-                                    <ButtonContainer to={`/admin/legal-documents/update/${doc.id}`}>
-                                        Create Draft
-                                    </ButtonContainer>
-                                </BlockButtonWrapper>
-                            ) : (
-                                <BlockButtonWrapper>
-                                    <ButtonContainer
-                                        className="yellow"
-                                        to={`/admin/legal-documents/edit/${doc.id}`}
-                                    >
-                                        Edit Draft
-                                    </ButtonContainer>
-                                </BlockButtonWrapper>
-                            )}
+                            <BlockButtonWrapper>
+                                <ButtonContainer to={`/admin/legal-documents/update/${doc.id}`}>
+                                    Add new version
+                                </ButtonContainer>
+                            </BlockButtonWrapper>
                         </td>
                     </tr>
                 ))}
