@@ -9,7 +9,6 @@ import updateTermsCancelCount from 'actions/shared/legalDocuments/updateTermsCan
 import Error from 'components/shared/generic/misc/presentational/Error';
 import Block from 'components/shared/generic/block/presentational/Block';
 import AgreeToTermsModal from 'components/companyAdmin/agreeToTerms/AgreeToTermsModal';
-import { usePrevious } from 'helpers/hooks';
 
 const AgreeToTermsCheck = ({
     fetchTerms,
@@ -56,7 +55,7 @@ const AgreeToTermsCheck = ({
         termsExists &&
         !modalClose &&
         (!termsAcceptedOn || new Date(maxDate) > new Date(termsAcceptedOn))
-    )
+    ) {
         return (
             <AgreeToTermsModal
                 terms={terms}
@@ -65,7 +64,7 @@ const AgreeToTermsCheck = ({
                 handleClick={handleClick}
             />
         );
-
+    }
     return children;
 };
 

@@ -7,6 +7,7 @@ import FooterContainer from 'components/companyAdmin/layout/footer/containers/Fo
 import MenuContainer from 'components/shared/layout/menu/containers/MenuContainer';
 import Routes from 'components/companyAdmin/app/routes/presentational';
 import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
+import AgreeToTermsCheck from '../containers/AgreeToTermsCheck';
 
 const CompanyApp = () => (
     <div className="dashboard-area">
@@ -15,7 +16,9 @@ const CompanyApp = () => (
         <div className="full-container container">
             <MenuContainer />
             <div id="page-area" className="obvious-class-name">
-                <Routes />
+                <AgreeToTermsCheck>
+                    <Routes />
+                </AgreeToTermsCheck>
             </div>
         </div>
         <FooterContainer />
