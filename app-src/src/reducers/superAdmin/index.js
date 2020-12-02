@@ -31,6 +31,7 @@ import expiryToolReducer from './expiryTool';
 import newFeaturesReducer from './newFeatures';
 import recentlyExtendedReducer from './recentlyExtended';
 import legalDocumentsReducer from './legalDocuments';
+import syncsReducer from './syncs';
 
 export default combineReducers({
     adminServicesReducer,
@@ -64,4 +65,5 @@ export default combineReducers({
     frontendTrustedBySettingsReducer,
     expiryToolReducer,
     newFeaturesReducer,
+    syncsReducer,
 });
