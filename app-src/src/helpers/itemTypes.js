@@ -1,14 +1,14 @@
-export const createPreselectedItemOptionValuesList = optionValuesList => {
+export const createPreselectedItemOptionValuesList = optionValues => {
     let selectedOptionValues = [];
-    Object.values(optionValuesList).forEach(option => {
-        if (!option.isDisabled) {
-            selectedOptionValues.push(option.id + '');
-        }
-    });
+    if (optionValues) {
+        optionValues.map(value => {
+            selectedOptionValues.push(value + '');
+        });
+    }
     return selectedOptionValues;
 };
 
-export const formatDropDownOptions = options => {
+export const formatDropdownOptions = options => {
     return options.map(option => {
         return {
             ...option,

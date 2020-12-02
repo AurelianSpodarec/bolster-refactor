@@ -21,11 +21,8 @@ import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturer
 
 import EditSiteForm from '../presentational/EditSiteForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import {
-    createPreselectedItemOptionValuesList,
-    formatDropDownOptions,
-    removeUnusedDropDownDefaults,
-} from 'helpers/itemTypes';
+import { createPreselectedItemOptionValuesList, formatDropdownOptions } from 'helpers/itemTypes';
+import fetchSingleSiteDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchSingleSiteDropdownOptions';
 
 class EditSiteFormContainer extends Component {
     state = {
@@ -43,15 +40,15 @@ class EditSiteFormContainer extends Component {
         selectedOptionValues: [],
         optionValuesOptions: {},
         areOptionsLoaded: false,
-        setDropDownOptions: false,
-        selectedDropDownOptions: [],
-        dropDownOptions: [],
+        setDropdownOptions: false,
+        selectedDropdownOptions: [],
+        dropdownOptions: [],
     };
 
     render() {
         const { isUsingBolsterLabels, error } = this.props;
         const { areOptionsLoaded } = this.state;
-        console.log(this.state);
+
         return (
             <BlockContainer
                 isEmpty={!areOptionsLoaded}
@@ -73,7 +70,12 @@ class EditSiteFormContainer extends Component {
     }
 
     componentDidMount = async () => {
-        const { site, fetchManufacturersByPinOptionType, fetchAllOptionValues } = this.props;
+        const {
+            site,
+            fetchManufacturersByPinOptionType,
+            fetchAllOptionValues,
+            fetchSingleSiteDropdownOptions,
+        } = this.props;
 
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before editing a site.
         const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
@@ -85,6 +87,8 @@ class EditSiteFormContainer extends Component {
         };
 
         const actions = pinOptionTypes.map(fn);
+
+        await fetchSingleSiteDropdownOptions(2, site.id);
 
         await Promise.all(actions).then(() => {
             fetchAllOptionValues();
@@ -102,6 +106,7 @@ class EditSiteFormContainer extends Component {
             optionValues,
             subscriptionServiceIDs,
             manufacturers,
+            singleSiteDropdownOptions,
         } = this.props;
 
         if (prevProps.isFetching && !isFetching) {
@@ -114,10 +119,10 @@ class EditSiteFormContainer extends Component {
                 areOptionsLoaded: true,
             };
 
-            const dropDownOptions = {
-                setDropDownOptions: site.isDropDownOptionEnabled,
-                selectedDropDownOptions: [],
-                dropDownOptions: {},
+            const dropdownOptions = {
+                setDropdownOptions: site.isDropDownOptionsEnabled,
+                selectedDropdownOptions: [],
+                dropdownOptions: {},
             };
 
             initialOptions.optionValuesOptions = createOptionValuesList(
@@ -144,17 +149,14 @@ class EditSiteFormContainer extends Component {
                     initialOptions.manufacturerOptions,
                 );
             }
+            dropdownOptions.dropdownOptions = formatDropdownOptions(singleSiteDropdownOptions);
 
-            // if (site.isDropDownOptionEnabled) {
-            dropDownOptions.dropDownOptions = formatDropDownOptions(site.dropDownOptions);
-
-            dropDownOptions.selectedDropDownOptions = createPreselectedItemOptionValuesList(
-                site.dropDownOptions,
+            dropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
+                site.dropDownOptionIDs,
             );
-            // }
 
             this.setState(initialOptions);
-            this.setState(dropDownOptions);
+            this.setState(dropdownOptions);
         }
         if (!prevProps.site.id && !!site.id) {
             this._setFormDetails();
@@ -207,8 +209,8 @@ class EditSiteFormContainer extends Component {
             dateToSend,
             isAlertShowing,
             setManufacturersForHierarchy,
-            setDropDownOptions,
-            selectedDropDownOptions,
+            setDropdownOptions,
+            selectedDropdownOptions,
         } = this.state;
 
         const manufacturingEnabledOptions = {
@@ -216,9 +218,9 @@ class EditSiteFormContainer extends Component {
             optionValueIDs: removeUnusedManufacturerDefaults(this.state),
         };
 
-        const dropDownEnabledOptions = {
-            isDropDownOptionEnabled: setDropDownOptions,
-            dropDownOptionIDs: selectedDropDownOptions,
+        const dropdownEnabledOptions = {
+            isDropDownOptionEnabled: setDropdownOptions,
+            DropDownOptionIDs: selectedDropdownOptions.map(id => +id),
         };
 
         let postBody = {};
@@ -232,7 +234,7 @@ class EditSiteFormContainer extends Component {
                 message: message,
                 dateToSend: moment(dateToSend).format(),
                 ...manufacturingEnabledOptions,
-                ...dropDownEnabledOptions,
+                ...dropdownEnabledOptions,
             };
         } else {
             postBody = {
@@ -242,9 +244,10 @@ class EditSiteFormContainer extends Component {
                 addressLine2,
                 postcode,
                 ...manufacturingEnabledOptions,
-                ...dropDownEnabledOptions,
+                ...dropdownEnabledOptions,
             };
         }
+        console.log({ postBody });
         editSite(id, postBody);
         hideModal();
     };
@@ -255,6 +258,10 @@ const mapStateToProps = ({
         sitesReducer,
         companySettingsReducer: {
             companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
+        },
+        dropdownOptionsReducer: {
+            singleSiteDropdownOptions,
+            isFetching: isFetchingDropdownOptions,
         },
         manufacturersReducer: {
             manufacturers,
@@ -277,9 +284,10 @@ const mapStateToProps = ({
     updatedSiteID: sitesReducer.updatedSiteID,
     manufacturers,
     optionValues: manufacturersOptionValues,
-    isFetching: isFetchingManufacturers || isFetchingOptionValues,
+    isFetching: isFetchingManufacturers || isFetchingOptionValues || isFetchingDropdownOptions,
     useManufacturingByDefault,
     subscriptionServiceIDs,
+    singleSiteDropdownOptions,
 });
 
 const mapDispatchToProps = {
@@ -287,6 +295,7 @@ const mapDispatchToProps = {
     hideModal,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
+    fetchSingleSiteDropdownOptions,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditSiteFormContainer);

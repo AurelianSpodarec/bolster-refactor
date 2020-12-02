@@ -32,6 +32,9 @@ class AddSiteFormContainer extends Component {
         selectedManufacturerOptions: [],
         selectedOptionValues: [],
         optionValuesOptions: {},
+        setDropDownOptions: false,
+        selectedDropDownOptions: [],
+        dropDownOptions: [],
     };
 
     render() {
@@ -107,11 +110,22 @@ class AddSiteFormContainer extends Component {
                 selectedOptionValues = selectedOptionValues.concat(optionListSelectedIDs);
             });
 
+            const dropDownOptions = this.createItemTypeDropDownOptions;
+            // const selectedDropDownOptions = dropDownOptions.reduce((acc, option) => {
+            //     if (!option.isDisabled) {
+            //         acc.push(String(option.value));
+            //     }
+
+            //     return acc;
+            // }, []);
+
             this.setState({
                 manufacturerOptions,
                 selectedManufacturerOptions,
                 optionValuesOptions,
                 selectedOptionValues,
+                dropDownOptions,
+                // selectedDropDownOptions,
             });
         }
     };
@@ -139,6 +153,8 @@ class AddSiteFormContainer extends Component {
             dateToSend,
             isAlertShowing,
             setManufacturersForSite,
+            setDropDownOptions,
+            selectedDropDownOptions,
         } = this.state;
 
         const filteredOptionValues = this.removeUnusedManufacturerDefaults();
@@ -155,6 +171,8 @@ class AddSiteFormContainer extends Component {
                 dateToSend: moment(dateToSend).format(),
                 isManufacturingEnabled: setManufacturersForSite,
                 optionValueIDs: filteredOptionValues,
+                isDropDownOptionEnabled: setDropDownOptions,
+                dropDownOptionIDs: selectedDropDownOptions,
             };
         } else {
             postBody = {
@@ -165,6 +183,8 @@ class AddSiteFormContainer extends Component {
                 postcode,
                 isManufacturingEnabled: setManufacturersForSite,
                 optionValueIDs: filteredOptionValues,
+                isDropDownOptionEnabled: setDropDownOptions,
+                dropDownOptionIDs: selectedDropDownOptions,
             };
         }
 
@@ -188,6 +208,14 @@ class AddSiteFormContainer extends Component {
             }, []);
         }
         return [];
+    };
+
+    createItemTypeDropDownOptions = () => {
+        const { dropDownOptions } = this.props;
+
+        if (!isObjEmpty(dropDownOptions)) {
+            console.log(dropDownOptions);
+        }
     };
 
     createOptionValuesList = () => {

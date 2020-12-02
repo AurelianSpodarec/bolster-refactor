@@ -31,9 +31,9 @@ const EditSiteForm = ({
     selectedManufacturerOptions,
     selectedOptionValues,
     optionValuesOptions,
-    setDropDownOptions,
-    selectedDropDownOptions,
-    dropDownOptions,
+    setDropdownOptions,
+    selectedDropdownOptions,
+    dropdownOptions,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -194,23 +194,23 @@ const EditSiteForm = ({
             <div className="size-lg-6 size-md-12">
                 <Field labelClasses="no-capitalise" name="Set Custom Types for site?">
                     <CheckboxContainer
-                        checked={setDropDownOptions}
-                        name="setDropDownOptions"
+                        checked={setDropdownOptions}
+                        name="setDropdownOptions"
                         text=""
                         handleChange={handleInputChange}
                     />
                 </Field>
             </div>
         </div>
-        {setDropDownOptions && (
+        {setDropdownOptions && (
             <div className="size-lg-12">
-                <Field labelClasses="no-capitalise" name="Item Types" required={setDropDownOptions}>
+                <Field labelClasses="no-capitalise" name="Item Types" required={setDropdownOptions}>
                     <CheckboxListContainer
-                        name="selectedDropDownOptions"
+                        name="selectedDropdownOptions"
                         text=""
                         handleChange={handleInputChange}
-                        selectedOptions={selectedDropDownOptions}
-                        options={dropDownOptions}
+                        selectedOptions={selectedDropdownOptions}
+                        options={dropdownOptions}
                     />
                 </Field>
             </div>
