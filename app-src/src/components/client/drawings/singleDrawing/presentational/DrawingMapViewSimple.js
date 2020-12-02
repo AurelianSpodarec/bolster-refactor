@@ -4,6 +4,7 @@ import L from 'leaflet';
 import { CRS } from 'leaflet';
 import { Map, TileLayer, Marker } from 'react-leaflet';
 import { FILE_STORAGE_URL } from 'config';
+import moment from 'moment';
 
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 // import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
@@ -32,19 +33,28 @@ const DrawingMapViewSimple = ({
     handleCancelPinSelector,
     updateCurTooltip,
     isExcluding,
-    currentTooltip
+    currentTooltip,
+    drawingNotStarted,
 }) => {
     const cornerClickedIcon = L.divIcon({
         className: '',
         html: ReactDOMServer.renderToString(<RedX />),
         iconSize: [30, 50],
         iconAnchor: [15, 50],
-        popupAnchor: [0, -50]
+        popupAnchor: [0, -50],
     });
 
     return drawing.tilesetS3Key ? (
         <>
             <BlockHeading>
+                {drawingNotStarted && (
+                    <p className="info-message error" style={{ marginBottom: '15px' }}>
+                        This drawing has not yet started, and as such has restricted functionality.
+                        This drawing is due to start on{' '}
+                        {moment(drawing.startDate).format('dddd, MMMM Do YYYY, h:mm:ss a')}. You may
+                        bring this date forward by editing the drawing.
+                    </p>
+                )}
                 {updating && (
                     <p>
                         Uploading Drawing... <LoadingIcon />

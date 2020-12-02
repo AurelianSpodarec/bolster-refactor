@@ -79,6 +79,8 @@ const AddDrawingsFormContainer = ({
         optionValuesOptions: {},
         clientPermissionIDs: [],
         operativePermissionIDs: [],
+        startDate: '',
+        isStartDateShowing: false,
     });
 
     const [initialOptions, setInitialOptions] = useState({
@@ -239,6 +241,8 @@ const AddDrawingsFormContainer = ({
                     clientPermissionIDs,
                     operativePermissionIDs,
                     setManufacturersForHierarchy,
+                    startDate,
+                    isStartDateShowing,
                 } = drawing;
                 const optionValueIDs = removeUnusedManufacturerDefaults(drawing);
 
@@ -249,6 +253,7 @@ const AddDrawingsFormContainer = ({
                 const postBody = {
                     name,
                     file,
+                    startDate,
                     floorID,
                     clientPermissionIDs,
                     operativePermissionIDs,
@@ -258,6 +263,9 @@ const AddDrawingsFormContainer = ({
                     postBody.message = message;
                     postBody.dateToSend = dateToSend;
                 }
+                if (isStartDateShowing) {
+                    postBody.startDate = startDate;
+                }
 
                 createDrawing(postBody);
             } else if (drawings.length > 1) {
@@ -265,6 +273,8 @@ const AddDrawingsFormContainer = ({
                     const {
                         name,
                         file,
+                        startDate,
+                        isStartDateShowing,
                         isAlertShowing,
                         dateToSend,
                         message,
@@ -281,6 +291,7 @@ const AddDrawingsFormContainer = ({
                     const postBody = {
                         name,
                         file,
+                        startDate,
                         floorID,
                         clientPermissionIDs,
                         operativePermissionIDs,
@@ -289,6 +300,9 @@ const AddDrawingsFormContainer = ({
                     if (isAlertShowing) {
                         postBody.message = message;
                         postBody.dateToSend = dateToSend;
+                    }
+                    if (isStartDateShowing) {
+                        postBody.startDate = startDate;
                     }
                     return postBody;
                 });

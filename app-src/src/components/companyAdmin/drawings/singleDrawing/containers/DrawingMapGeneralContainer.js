@@ -90,18 +90,21 @@ class DrawingMapGeneralContainer extends Component {
 
         const isExpired = moment(drawing.expiresOn).isBefore(moment.now());
 
+        const drawingNotStarted = moment(Date.now()).isBefore(drawing.startDate);
+
         return (
             <>
-                <div className="flex-container size-lg-12">
-                    <div className="flex-item size-lg-4 size-md-12">
-                        <BasicFiltersContainer isDrawingPage />
+                {!drawingNotStarted && (
+                    <div className="flex-container size-lg-12">
+                        <div className="flex-item size-lg-4 size-md-12">
+                            <BasicFiltersContainer isDrawingPage />
+                        </div>
+                        <div className="flex-item size-lg-4 size-md-12">
+                            <DrawingDetailsContainer />
+                        </div>
+                        <DrawingInspectionLogContainer />
                     </div>
-                    <div className="flex-item size-lg-4 size-md-12">
-                        <DrawingDetailsContainer />
-                    </div>
-
-                    <DrawingInspectionLogContainer />
-                </div>
+                )}
                 <BlockContainer error={error} isEmpty={!drawing}>
                     <DrawingMapViewSimple
                         isExpired={isExpired}
@@ -141,10 +144,15 @@ class DrawingMapGeneralContainer extends Component {
                         hasZoneCoords={!!this.props.zoneFormCoordinates}
                         handleZoomChange={this.handleZoomChange}
                         curZoom={curZoom}
+                        drawingNotStarted={drawingNotStarted}
                     />
                 </BlockContainer>
-                <FurtherFiltrationContainer />
-                <OutputSettingsContainer />
+                {!drawingNotStarted && (
+                    <>
+                        <FurtherFiltrationContainer />
+                        <OutputSettingsContainer />
+                    </>
+                )}
             </>
         );
     }
@@ -264,12 +272,12 @@ class DrawingMapGeneralContainer extends Component {
                     this.setState({
                         showZones: true,
                     });
-                }
+                },
             );
         }
     };
 
-    updateCurTooltip = (id) => {
+    updateCurTooltip = id => {
         this.setState({ currentTooltip: id });
     };
 
@@ -280,7 +288,7 @@ class DrawingMapGeneralContainer extends Component {
 
     componentWillUnmount = () => clearInterval(this._floorplanInterval);
 
-    handleClick = (e) => {
+    handleClick = e => {
         const { lat, lng } = e.latlng;
         const { mode, firstCorner } = this.state;
         const { addRectangle, furtherFiltrationOption } = this.props;
@@ -304,7 +312,7 @@ class DrawingMapGeneralContainer extends Component {
         history.replace(`${location.pathname}/add-pin`);
     };
 
-    handleOpacityChange = (value) => {
+    handleOpacityChange = value => {
         const { setZonesOpacity } = this.props;
 
         setZonesOpacity(value);
@@ -362,7 +370,7 @@ class DrawingMapGeneralContainer extends Component {
         const { users } = this.props;
 
         const options = users
-            .filter((user) => user.type >= USER_ROLE.OPERATIVE)
+            .filter(user => user.type >= USER_ROLE.OPERATIVE)
             .map(({ id, userFirstName, userLastName, userEmail }) => ({
                 value: id,
                 text: `${userFirstName} ${userLastName} <${userEmail}>`,
@@ -370,21 +378,18 @@ class DrawingMapGeneralContainer extends Component {
         return convertArrToObj(options, 'value');
     };
 
-    setMode = (mode) => {
+    setMode = mode => {
         this.setState({ mode, firstCorner: null });
     };
 
-    handleDelete = (id) => {
+    handleDelete = id => {
         const { mode } = this.state;
         const { removeRectangle } = this.props;
         if (mode === DELETE) removeRectangle(id);
     };
 
     handleCancelPinSelector = () => {
-        const {
-            removeAllRectangles,
-            updateFurtherFiltrationOption,
-        } = this.props;
+        const { removeAllRectangles, updateFurtherFiltrationOption } = this.props;
         updateFurtherFiltrationOption(FURTHER_FILTRATION_OPTIONS.NONE);
         removeAllRectangles();
     };
@@ -427,7 +432,7 @@ class DrawingMapGeneralContainer extends Component {
         });
     };
 
-    handleZoomChange = (zoomLevel) => {
+    handleZoomChange = zoomLevel => {
         this.setState({
             curZoom: zoomLevel,
         });
@@ -449,13 +454,7 @@ const mapStateToProps = (
                 rectangles,
                 isFetching: isFetchingReports,
             },
-            zonesReducer: {
-                isAddMode,
-                isModified,
-                zonesOpacity,
-                zoneFormCoordinates,
-                zones,
-            },
+            zonesReducer: { isAddMode, isModified, zonesOpacity, zoneFormCoordinates, zones },
         },
         shared: {
             decodeJWTReducer: {
@@ -506,7 +505,5 @@ const mapDispatchToProps = {
 };
 
 export default withRouter(
-    withUpdateOnChange(
-        connect(mapStateToProps, mapDispatchToProps)(DrawingMapGeneralContainer)
-    )
+    withUpdateOnChange(connect(mapStateToProps, mapDispatchToProps)(DrawingMapGeneralContainer)),
 );
