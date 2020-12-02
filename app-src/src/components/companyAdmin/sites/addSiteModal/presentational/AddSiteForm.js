@@ -33,7 +33,7 @@ const AddSiteForm = ({
     selectedOptionValues,
     setDropDownOptions,
     selectedDropDownOptions,
-    dropDownOptions,
+    dropdownOptions,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -216,7 +216,7 @@ const AddSiteForm = ({
                         text=""
                         handleChange={handleInputChange}
                         selectedOptions={selectedDropDownOptions}
-                        options={dropDownOptions}
+                        options={dropdownOptions}
                     />
                 </Field>
             </div>

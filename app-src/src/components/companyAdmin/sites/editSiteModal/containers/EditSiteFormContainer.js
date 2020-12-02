@@ -247,7 +247,6 @@ class EditSiteFormContainer extends Component {
                 ...dropdownEnabledOptions,
             };
         }
-        console.log({ postBody });
         editSite(id, postBody);
         hideModal();
     };

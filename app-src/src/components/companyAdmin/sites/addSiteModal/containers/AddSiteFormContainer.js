@@ -16,6 +16,8 @@ import {
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isObjEmpty } from 'helpers/generic';
+import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
+import { formatDropdownOptions } from 'helpers/itemTypes';
 
 class AddSiteFormContainer extends Component {
     state = {
@@ -32,9 +34,9 @@ class AddSiteFormContainer extends Component {
         selectedManufacturerOptions: [],
         selectedOptionValues: [],
         optionValuesOptions: {},
-        setDropDownOptions: false,
+        setDropDownOptions: true,
         selectedDropDownOptions: [],
-        dropDownOptions: [],
+        dropdownOptions: [],
     };
 
     render() {
@@ -63,7 +65,11 @@ class AddSiteFormContainer extends Component {
     }
 
     async componentDidMount() {
-        const { fetchManufacturersByPinOptionType, fetchAllOptionValues } = this.props;
+        const {
+            fetchManufacturersByPinOptionType,
+            fetchAllOptionValues,
+            fetchAllDropdownOptions,
+        } = this.props;
 
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before adding a site.
         const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
@@ -76,13 +82,15 @@ class AddSiteFormContainer extends Component {
 
         const actions = pinOptionTypes.map(fn);
 
+        await fetchAllDropdownOptions(2);
+
         await Promise.all(actions).then(() => {
             fetchAllOptionValues();
         });
     }
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history, updatedSiteID, isFetching } = this.props;
+        const { postSuccess, history, updatedSiteID, isFetching, dropdownOptions } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
             history.push(`/company/sites/${updatedSiteID}`);
@@ -110,22 +118,14 @@ class AddSiteFormContainer extends Component {
                 selectedOptionValues = selectedOptionValues.concat(optionListSelectedIDs);
             });
 
-            const dropDownOptions = this.createItemTypeDropDownOptions;
-            // const selectedDropDownOptions = dropDownOptions.reduce((acc, option) => {
-            //     if (!option.isDisabled) {
-            //         acc.push(String(option.value));
-            //     }
-
-            //     return acc;
-            // }, []);
+            const convertedDropdown = Object.values(dropdownOptions);
 
             this.setState({
                 manufacturerOptions,
                 selectedManufacturerOptions,
                 optionValuesOptions,
                 selectedOptionValues,
-                dropDownOptions,
-                // selectedDropDownOptions,
+                dropdownOptions: formatDropdownOptions(convertedDropdown),
             });
         }
     };
@@ -172,7 +172,7 @@ class AddSiteFormContainer extends Component {
                 isManufacturingEnabled: setManufacturersForSite,
                 optionValueIDs: filteredOptionValues,
                 isDropDownOptionEnabled: setDropDownOptions,
-                dropDownOptionIDs: selectedDropDownOptions,
+                dropDownOptionIDs: selectedDropDownOptions.map(id => +id),
             };
         } else {
             postBody = {
@@ -184,7 +184,7 @@ class AddSiteFormContainer extends Component {
                 isManufacturingEnabled: setManufacturersForSite,
                 optionValueIDs: filteredOptionValues,
                 isDropDownOptionEnabled: setDropDownOptions,
-                dropDownOptionIDs: selectedDropDownOptions,
+                dropDownOptionIDs: selectedDropDownOptions.map(id => +id),
             };
         }
 
@@ -208,14 +208,6 @@ class AddSiteFormContainer extends Component {
             }, []);
         }
         return [];
-    };
-
-    createItemTypeDropDownOptions = () => {
-        const { dropDownOptions } = this.props;
-
-        if (!isObjEmpty(dropDownOptions)) {
-            console.log(dropDownOptions);
-        }
     };
 
     createOptionValuesList = () => {
@@ -271,6 +263,8 @@ const mapStateToProps = ({
         companySettingsReducer: {
             companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
         },
+
+        dropdownOptionsReducer: { dropdownOptions, isFetching: isFetchingDropdownOptions },
         manufacturersReducer: {
             manufacturers,
             isFetching: isFetchingManufacturers,
@@ -292,9 +286,10 @@ const mapStateToProps = ({
     updatedSiteID: sitesReducer.updatedSiteID,
     manufacturers,
     optionValues: manufacturersOptionValues,
-    isFetching: isFetchingManufacturers || isFetchingOptionValues,
+    isFetching: isFetchingManufacturers || isFetchingOptionValues || isFetchingDropdownOptions,
     useManufacturingByDefault,
     subscriptionServiceIDs,
+    dropdownOptions,
 });
 
 const mapDispatchToProps = {
@@ -302,6 +297,7 @@ const mapDispatchToProps = {
     hideModal,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
+    fetchAllDropdownOptions,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddSiteFormContainer));
