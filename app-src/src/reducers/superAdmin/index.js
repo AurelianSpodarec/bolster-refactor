@@ -29,6 +29,7 @@ import frontendTextSettingsReducer from './frontendTextSettings';
 import frontendTrustedBySettingsReducer from './frontendTrustedBySettings';
 import expiryToolReducer from './expiryTool';
 import newFeaturesReducer from './newFeatures';
+import recentlyExtendedReducer from './recentlyExtended';
 import legalDocumentsReducer from './legalDocuments';
 
 export default combineReducers({
@@ -49,6 +50,7 @@ export default combineReducers({
     moveToolReducer,
     operativeAlertsReducer,
     optionValueDocumentsReducer,
+    recentlyExtendedReducer,
     sitesReducer,
     sosCodesReducer,
     templateLabelFieldsReducer,

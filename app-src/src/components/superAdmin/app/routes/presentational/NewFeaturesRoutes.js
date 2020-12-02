@@ -5,11 +5,11 @@ import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith4
 import NewFeaturesContainer from 'components/superAdmin/newFeatures/containers/NewFeaturesContainer';
 import featureSingleContainer from 'components/superAdmin/newFeatures/containers/FeatureSingleContainer';
 
-const UsersRoutes = ({ base = '/admin/new-features' }) => (
+const NewFeaturesRoutes = ({ base = '/admin/new-features' }) => (
     <SwitchWith404>
         <Route exact path={base} component={NewFeaturesContainer} />
         <Route path={`${base}/:id`} component={featureSingleContainer} />
     </SwitchWith404>
 );
 
-export default UsersRoutes;
+export default NewFeaturesRoutes;
