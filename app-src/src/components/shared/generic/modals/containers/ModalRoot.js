@@ -105,6 +105,7 @@ import {
     ZONE_DETAILS,
     EDIT_ZONE_MODAL,
     WHY_USE_OUR_SYSTEM,
+    ADMIN_LATEST_SYNCS,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -210,6 +211,7 @@ import EditZoneModalContainer from 'components/companyAdmin/drawings/singleDrawi
 import AddCommentToInvoiceModalContainer from 'components/superAdmin/invoices/singleInvoice/containers/AddCommentToInvoiceModalContainer';
 import AddCommentToContactSubmissionModalContainer from 'components/superAdmin/contactSubmissions/singleContactSubmission/containers/AddCommentToContactSubmissionModalContainer';
 import OurSystemModalContainer from 'components/frontEnd/whyUseOurSystem/containers/OurSystemModalContainer';
+import UserLatestSyncsModalContainer from 'components/superAdmin/companies/singleCompany/containers/UserLatestSyncsModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -313,6 +315,7 @@ const MODAL_COMPONENTS = {
     [EDIT_ZONE_MODAL]: EditZoneModalContainer,
     [ADD_INVOICE_COMMENT]: AddCommentToInvoiceModalContainer,
     [WHY_USE_OUR_SYSTEM]: OurSystemModalContainer,
+    [ADMIN_LATEST_SYNCS]: UserLatestSyncsModalContainer,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

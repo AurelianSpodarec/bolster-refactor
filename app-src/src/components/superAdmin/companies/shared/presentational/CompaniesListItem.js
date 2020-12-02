@@ -5,7 +5,16 @@ import { DATE_TIME_IDS, COMPANY_TYPES, getEnumKey } from 'constants/companyAdmin
 import { capitaliseWords } from 'helpers/generic';
 
 const CompaniesListItem = ({
-    company: { name, telephone, address, id, termsAcceptedOn, companyType, hideOnClientList, creditValue },
+    company: {
+        name,
+        telephone,
+        address,
+        id,
+        nextSubscriptionExpiryDate,
+        companyType,
+        hideOnClientList,
+        creditValue,
+    },
     match: { url },
 }) => (
     <tr>
@@ -13,8 +22,11 @@ const CompaniesListItem = ({
         <td>{telephone || '-'}</td>
         <td>{address || '-'}</td>
         <td>
-            {termsAcceptedOn ? (
-                <DateTimeContainer date={termsAcceptedOn} datetime={DATE_TIME_IDS.DATE} />
+            {nextSubscriptionExpiryDate ? (
+                <DateTimeContainer
+                    date={nextSubscriptionExpiryDate}
+                    datetime={DATE_TIME_IDS.DATE}
+                />
             ) : (
                 '-'
             )}

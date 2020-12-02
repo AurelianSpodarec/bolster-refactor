@@ -25,6 +25,7 @@ const EditDrawingModal = ({
     filesUploading,
     handleChange,
     handleDateChange,
+    handleStartDateChange,
     hideModal,
     handleSubmit,
     drawing: { doesRequireCreditToReplaceFloorplan, tilesetS3KeyOrig, latestFloorplanState },
@@ -32,6 +33,7 @@ const EditDrawingModal = ({
     isAlertShowing,
     message,
     dateToSend,
+    startDate,
     isManufacturingInherited,
     setManufacturersForHierarchy,
     manufacturerOptions,
@@ -41,6 +43,7 @@ const EditDrawingModal = ({
     handleShowManufacturingOptions,
     showManufacturingOptions,
     manufacturingInheritedFrom,
+    drawingNotStarted,
 }) => {
     return (
         <ModalOuterContainer extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}>
@@ -92,6 +95,16 @@ const EditDrawingModal = ({
                             acceptedTypes={['application/pdf', 'image/*']}
                         />
                     </Field>
+                    {drawingNotStarted && (
+                        <Field name="Start Date">
+                            <DatePickerPresentational
+                                name="startDate"
+                                selected={startDate}
+                                onChange={handleStartDateChange}
+                                placeholderText="Date"
+                            />
+                        </Field>
+                    )}
 
                     <div className="size-lg-12">
                         <div className="size-lg-6 size-md-12">

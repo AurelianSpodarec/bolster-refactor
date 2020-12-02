@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import MenuItemContainer from '../containers/MenuItemContainer';
 import AdminPinOptionsMenuItems from './AdminPinOptionsMenuItems';
 
-// import DropdownMenuItemContainer from '../containers/DropdownMenuItemContainer';
-
 const SuperAdminMenu = ({ logout, unreadRequests }) => (
     <>
         <div className="menu">
@@ -38,6 +36,10 @@ const SuperAdminMenu = ({ logout, unreadRequests }) => (
             </MenuItemContainer>
             <MenuItemContainer link="/admin/expiry-tool">
                 <i className="fa fa-clock icon" /> <span className="menu-text">Expiry Tool</span>
+            </MenuItemContainer>
+            <MenuItemContainer link="/admin/recently-extended">
+                <i className="fa fa-history icon" />{' '}
+                <span className="menu-text">Recently Extended Drawings</span>
             </MenuItemContainer>
             <MenuItemContainer link="/admin/services">
                 <i className="fa fa-folder-open icon" /> <span className="menu-text">Services</span>
