@@ -34,7 +34,7 @@ class AddSiteFormContainer extends Component {
         selectedManufacturerOptions: [],
         selectedOptionValues: [],
         optionValuesOptions: {},
-        setDropDownOptions: true,
+        setDropDownOptions: false,
         selectedDropDownOptions: [],
         dropdownOptions: [],
     };
