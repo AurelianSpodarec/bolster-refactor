@@ -288,32 +288,6 @@ class AddPinQuestionRoute extends Component {
                 updateAddPinAnswer(templateQuestionID, answer);
 
                 // preventing stealth prefill manufacturer with non manufacturing answers & vice versa
-                if (
-                    drawing.isManufacturingEnabled &&
-                    DROPDOWN_OPTION_MANUFACTURER_ENABLED[question.optionType]
-                ) {
-                    if (Array.isArray(answer)) {
-                        updateAddPinAnswer(
-                            templateQuestionID,
-                            answer.filter(ans => typeof ans === 'number'),
-                        );
-                    } else {
-                        if (typeof answer !== 'number') {
-                            resetPinAnswer(templateQuestionID, getDefaultValue(question));
-                        }
-                    }
-                } else {
-                    if (Array.isArray(answer)) {
-                        updateAddPinAnswer(
-                            templateQuestionID,
-                            answer.filter(ans => typeof ans === 'string'),
-                        );
-                    } else {
-                        if (typeof answer === 'number') {
-                            // resetPinAnswer(templateQuestionID, getDefaultValue(question));
-                        }
-                    }
-                }
 
                 if (
                     question.type + '' === MULTI_DROPDOWN_OPTIONS ||
@@ -439,7 +413,6 @@ class AddPinQuestionRoute extends Component {
         const { type, optionType } = question;
 
         const relevantOptions = dropdownOptionsByType[optionType];
-
         if (`${type}` === DROPDOWN_OPTIONS) {
             // handle edge case where answer is an array, set asfirst element in array
             if (Array.isArray(answer)) [answer] = answer;
