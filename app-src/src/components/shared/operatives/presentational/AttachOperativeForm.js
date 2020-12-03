@@ -8,6 +8,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
 const AttachOperativeForm = ({
     location,
@@ -20,6 +21,11 @@ const AttachOperativeForm = ({
     handleChange,
     showMoreServicesMesssage,
     showClientServicesMessage,
+    isTemplateFilteringEnabled,
+    templateIDs,
+    serviceAreas,
+    services,
+    getTemplatesForService,
 }) => (
     <>
         <BlockHeading title="Operative details" />
@@ -55,6 +61,36 @@ const AttachOperativeForm = ({
                         selectedOptions={checkedServices}
                     />
                 </Field>
+
+                <Field name="Enable Template Filtering" sizeClasses="size-lg-12">
+                    <CheckboxContainer
+                        name="isTemplateFilteringEnabled"
+                        checked={isTemplateFilteringEnabled}
+                        value={isTemplateFilteringEnabled}
+                        handleChange={handleChange}
+                    />
+                </Field>
+
+                {isTemplateFilteringEnabled && (
+                    <>
+                        {[...serviceAreas].sort().map(service => (
+                            <Field
+                                key={service}
+                                name={services[service].name}
+                                sizeClasses="size-lg-12"
+                            >
+                                <CheckboxListContainer
+                                    required
+                                    name=""
+                                    handleChange={handleChange}
+                                    options={getTemplatesForService(service)}
+                                    hideDisabled
+                                    selectedOptions={checkedServices}
+                                />
+                            </Field>
+                        ))}
+                    </>
+                )}
             </div>
 
             <BlockButtonWrapper>
