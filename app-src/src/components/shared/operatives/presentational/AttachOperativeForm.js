@@ -81,11 +81,11 @@ const AttachOperativeForm = ({
                             >
                                 <CheckboxListContainer
                                     required
-                                    name=""
+                                    name="templateIDs"
                                     handleChange={handleChange}
                                     options={getTemplatesForService(service)}
                                     hideDisabled
-                                    selectedOptions={checkedServices}
+                                    selectedOptions={templateIDs}
                                 />
                             </Field>
                         ))}

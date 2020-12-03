@@ -34,8 +34,6 @@ class AttachOperativesFormContainer extends Component {
         const showMoreServicesMesssage = serviceOptions.some(option => option.disabled === true);
         const showClientServicesMessage = serviceOptions.some(option => option.hideClientAccess);
 
-        console.log(this.getTemplatesForService(2));
-
         return (
             <BlockContainer
                 isFetching={isFetching}
@@ -112,13 +110,28 @@ class AttachOperativesFormContainer extends Component {
     };
 
     getServiceAreas = () => {
-        const { templates } = this.props;
+        const { companyPermissions, companyID, subscriptions, templates } = this.props;
 
         const set = new Set();
 
         templates.forEach(template => set.add(template.serviceID));
 
-        return [...set];
+        const filteredArray = [];
+
+        [...set].forEach(serviceID => {
+            const relevantPermissions = companyPermissions.filter(
+                perm => perm.companyID === companyID,
+            );
+            const hasSub = subscriptions.includes(serviceID);
+            // relevant service match or null, which implies all access
+            const hasAccess = !!relevantPermissions.find(
+                perm => perm.serviceID === serviceID || perm.serviceID === null,
+            );
+
+            if (hasSub && hasAccess) filteredArray.push(serviceID);
+        });
+
+        return filteredArray;
     };
 
     getTemplatesForService = serviceID => {
