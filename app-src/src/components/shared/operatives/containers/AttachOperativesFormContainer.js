@@ -75,8 +75,24 @@ class AttachOperativesFormContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history, redirectUrl } = this.props;
+        const { postSuccess, history, redirectUrl, isFetching, templates, error } = this.props;
         if (!prevProps.postSuccess && postSuccess) return history.replace(redirectUrl);
+
+        if (prevProps.isFetching && !isFetching && !error) {
+            const serviceAreas = this.getServiceAreas();
+
+            const templatesArr = [];
+
+            templates
+                .filter(template => serviceAreas.includes(template.serviceID))
+                .forEach(template => {
+                    templatesArr.push(template.id + '');
+                });
+
+            this.setState({
+                templateIDs: templatesArr,
+            });
+        }
     };
 
     _getUserOptions = () => {
@@ -154,9 +170,9 @@ class AttachOperativesFormContainer extends Component {
     handleChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = () => {
-        const { companyUserIDs, serviceIDs } = this.state;
+        const { companyUserIDs, serviceIDs, isTemplateFilteringEnabled, templateIDs } = this.state;
         const { hierarchyType, hierarchyID, addOperatives } = this.props;
-        const postBody = { companyUserIDs, serviceIDs };
+        const postBody = { companyUserIDs, serviceIDs, isTemplateFilteringEnabled, templateIDs };
         addOperatives(hierarchyType, hierarchyID, postBody);
     };
 }
