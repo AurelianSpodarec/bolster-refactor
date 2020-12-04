@@ -13,6 +13,7 @@ import {
     ADMIN_FETCH_COMPANY_USERS_REQUEST,
     ADMIN_FETCH_COMPANY_USERS_FAILURE,
     ADMIN_FETCH_COMPANY_USERS_SUCCESS,
+    ADMIN_FETCH_COMPANY_USERS_INFO_SUCCESS,
     ADMIN_FETCH_USERS_BY_SEARCH_SUCCESS,
     ADMIN_FETCH_USERS_BY_SEARCH_REQUEST,
     ADMIN_FETCH_USERS_BY_SEARCH_FAILURE,
@@ -32,6 +33,8 @@ export default combineReducers({
     updatedUserID: updatedUserIDReducer,
     filters: filtersReducer,
     count: countReducer,
+    companyUsers: companyUsersReducer,
+    companyUsersInfo: companyUsersInfoReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -99,6 +102,26 @@ function usersReducer(state = {}, action) {
             return updateObj(state, action.payload.id, action.payload);
         case ADMIN_FETCH_COMPANY_USERS_SUCCESS:
             return { ...state, ...convertArrToObj(action.payload) };
+        default:
+            return state;
+    }
+}
+
+function companyUsersReducer(state = {}, action) {
+    switch (action.type) {
+        case ADMIN_CREATE_COMPANY_USER_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
+        case ADMIN_FETCH_COMPANY_USERS_SUCCESS:
+            return { ...convertArrToObj(action.payload) };
+        default:
+            return state;
+    }
+}
+
+function companyUsersInfoReducer(state = {}, action) {
+    switch (action.type) {
+        case ADMIN_FETCH_COMPANY_USERS_INFO_SUCCESS:
+            return { ...state, ...action.payload };
         default:
             return state;
     }
