@@ -74,13 +74,15 @@ class BasicFiltersContainer extends Component {
             location: { state: locationState },
             postFilters,
         } = this.props;
-
+        let shouldPostFilters = false;
         if (locationState && locationState.selectedService) {
             handleChange('serviceID', locationState.selectedService);
+            shouldPostFilters = true;
         }
 
         if (locationState && locationState.selectedStatus) {
             handleChange('status', locationState.selectedStatus);
+            shouldPostFilters = true;
         }
 
         if (locationState && locationState.selectedStartDate) {
@@ -88,6 +90,7 @@ class BasicFiltersContainer extends Component {
                 'fromDateInclusive',
                 moment(locationState.selectedStartDate).toDate(),
             );
+            shouldPostFilters = true;
         }
 
         if (locationState && locationState.selectedEndDate) {
@@ -95,9 +98,12 @@ class BasicFiltersContainer extends Component {
                 'toDateInclusive',
                 moment(locationState.selectedEndDate).toDate(),
             );
+            shouldPostFilters = true;
         }
 
-        postFilters();
+        if (shouldPostFilters) {
+            postFilters();
+        }
     };
 
     handleDateBlur = isStart => {
@@ -130,8 +136,15 @@ class BasicFiltersContainer extends Component {
 
             const diff = moment(toDate).diff(fromDateInclusive, 'days');
 
-            if (diff >= 7 && (hierarchyType === HIERARCHY_IDS.ALL_SITES && !window.location.href.includes('/drawings'))) {
-                return addFieldError('fromDateInclusive', 'You must select a date range of 7 days or less.');
+            if (
+                diff >= 7 &&
+                hierarchyType === HIERARCHY_IDS.ALL_SITES &&
+                !window.location.href.includes('/drawings')
+            ) {
+                return addFieldError(
+                    'fromDateInclusive',
+                    'You must select a date range of 7 days or less.',
+                );
             }
 
             return removeFieldError('fromDateInclusive');
