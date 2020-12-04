@@ -4,5 +4,5 @@ export default (key, value) => dispatch =>
     dispatch({
         type: UPDATE_ADD_PIN_ANSWER,
         key,
-        value
+        value,
     });

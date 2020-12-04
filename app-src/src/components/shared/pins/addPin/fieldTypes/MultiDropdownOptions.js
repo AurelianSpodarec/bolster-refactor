@@ -32,47 +32,36 @@ const MultiDropdownOptions = ({
 
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
     //    this needs to be kept as an option.
-    if (edit) {
-        // todo change the edit so that it can handle manufacturer pin options
-        const curOptions = filteredOptions.map(opt =>
-            isManufacturingEnabledForType ? opt.id : opt.name,
-        );
 
-        const extraOptions = originalDropdownMultiAns
-            .reduce((acc, opt) => {
-                if (!curOptions.includes(opt) && !acc.includes(opt)) {
-                    acc.push(opt);
-                }
-                return acc;
-            }, [])
-            .map(opt => ({ name: opt }));
+    // todo change the edit so that it can handle manufacturer pin options
+    const curOptions = filteredOptions.map(opt =>
+        isManufacturingEnabledForType ? opt.id : opt.name,
+    );
 
-        formattedOpts = [...filteredOptions, ...extraOptions].map(option => ({
-            value: isManufacturingEnabledForType ? option.id : option.name,
-            label: option.name,
-            id: option.id || null,
-            sort: option.sort,
-            createdOn: option.createdOn,
-            manufacturerSort: option.manufacturerSort,
-            manufacturerID: option.manufacturerID,
-        }));
-    } else {
-        formattedOpts = filteredOptions.map(option => ({
-            value: isManufacturingEnabledForType ? option.id : option.name,
-            label: option.name,
-            id: option.id || null,
-            sort: option.sort,
-            createdOn: option.createdOn,
-            manufacturerSort: option.manufacturerSort,
-            manufacturerID: option.manufacturerID,
-        }));
-    }
+    const extraOptions = originalDropdownMultiAns
+        .reduce((acc, opt) => {
+            if (!curOptions.includes(opt) && !acc.includes(opt)) {
+                acc.push(opt);
+            }
+            return acc;
+        }, [])
+        .map(opt => ({ id: opt, name: opt }));
+
+    formattedOpts = [...filteredOptions, ...extraOptions].map(option => ({
+        value: isManufacturingEnabledForType ? option.id : option.name,
+        label: option.name,
+        id: option.id || null,
+        sort: option.sort,
+        createdOn: option.createdOn,
+        manufacturerSort: option.manufacturerSort,
+        manufacturerID: option.manufacturerID,
+    }));
 
     return (
         <MultiSelect
             required={isRequired}
             options={getSortedDropdownOptions(formattedOpts, defaultDropdownSorting)}
-            value={answers[id]}
+            value={answers[id] || []}
             name={`answer-${id}`}
             onChange={handleChange}
         />
