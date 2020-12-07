@@ -123,96 +123,103 @@ class AddPinQuestionRoute extends Component {
         return false;
     };
 
-    //not just an if check, amends the pre req answer also?
+    // not just an if check, amends the pre req answer also?
     checkIfShouldShowByPreReq = () => {
         const { question, status, questions, answers, dropdownOptions } = this.props;
-        const { prerequisiteQuestionID } = question;
-
-        const preReqQuestion = questions[prerequisiteQuestionID];
-        let preReqAnswer = answers[prerequisiteQuestionID];
+        const { prerequisiteQuestionIDs } = question;
+        const prereqIDArr = (prerequisiteQuestionIDs || '').split(',');
+        const preReqQuestions = Object.values(questions).filter(ques =>
+            prereqIDArr.includes(`${ques.id}`),
+        );
 
         if (!question.prerequisiteQuestionValue) {
             return true;
         }
-        if (!preReqQuestion) {
+        if (!preReqQuestions.length) {
             return true;
         }
+        for (let i = 0; i < preReqQuestions.length; i++) {
+            const preReqQuestion = preReqQuestions[i];
+            const preReqType = `${preReqQuestion.type}`;
+            const prereqVals = question.prerequisiteQuestionValue.toLowerCase().split(',');
+            let preReqAnswer = answers[preReqQuestion.id];
 
-        const preReqType = `${preReqQuestion.type}`;
-        const prereqVals = question.prerequisiteQuestionValue.toLowerCase().split(',');
-
-        if (preReqType === STATUS) {
-            return prereqVals.includes(`${status}`);
-        }
-
-        if (!preReqAnswer) {
-            return false;
-        }
-
-        if ([DROPDOWN, RADIO].includes(preReqType)) {
-            //For a drop down we have to convert the GUID to the question option.
-            const selectedOption = preReqQuestion.options.find(
-                option => option.id === preReqAnswer,
-            );
-            // specifying not undefined in case pre-req answers are falsy ie. 0, ''
-            if (selectedOption !== undefined) {
-                preReqAnswer = selectedOption.text;
-            } else {
-                return false;
+            if (preReqType === STATUS && prereqVals.includes(`${status}`)) {
+                return true;
             }
-        }
 
-        if (preReqType === MULTI_DROPDOWN) {
             if (!preReqAnswer) {
-                return false;
+                continue;
             }
 
-            const retArray = [];
-
-            preReqAnswer.forEach(curAnswer => {
+            if ([DROPDOWN, RADIO].includes(preReqType)) {
+                //For a drop down we have to convert the GUID to the question option.
                 const selectedOption = preReqQuestion.options.find(
-                    option => option.id === curAnswer,
+                    option => option.id === preReqAnswer,
                 );
-
+                // specifying not undefined in case pre-req answers are falsy ie. 0, ''
                 if (selectedOption !== undefined) {
-                    retArray.push(selectedOption.text);
+                    preReqAnswer = selectedOption.text;
+                } else {
+                    continue;
                 }
-            });
+            }
 
-            preReqAnswer = retArray;
-        }
+            if (preReqType === MULTI_DROPDOWN) {
+                if (!preReqAnswer) {
+                    continue;
+                }
 
-        if (preReqType === DROPDOWN_OPTIONS) {
-            //For a drop down we have to convert the GUID to the question option.
-            const selectedOption = dropdownOptions.find(option => option.name === preReqAnswer);
-            // specifying not undefined in case pre-req answers are falsy ie. 0, ''
-            if (selectedOption !== undefined) {
-                preReqAnswer = selectedOption.name;
-            } else {
-                return false;
+                const retArray = [];
+
+                preReqAnswer.forEach(curAnswer => {
+                    const selectedOption = preReqQuestion.options.find(
+                        option => option.id === curAnswer,
+                    );
+
+                    if (selectedOption !== undefined) {
+                        retArray.push(selectedOption.text);
+                    }
+                });
+
+                preReqAnswer = retArray;
+            }
+
+            if (preReqType === DROPDOWN_OPTIONS) {
+                //For a drop down we have to convert the GUID to the question option.
+                const selectedOption = dropdownOptions.find(option => option.name === preReqAnswer);
+                // specifying not undefined in case pre-req answers are falsy ie. 0, ''
+                if (selectedOption !== undefined) {
+                    preReqAnswer = selectedOption.name;
+                } else {
+                    continue;
+                }
+            }
+
+            if ([MULTI_DROPDOWN_OPTIONS, MULTI_MULTI_DROPDOWN_OPTIONS].includes(preReqType)) {
+                //For a drop down we have to convert the GUID to the question option.
+                const selectedOptions = dropdownOptions
+                    .filter(option => preReqAnswer.includes(option.name))
+                    .map(opt => opt.name);
+
+                // specifying not undefined in case pre-req answers are falsy ie. 0, ''
+                if (selectedOptions.length > 0) {
+                    preReqAnswer = selectedOptions;
+                } else {
+                    continue;
+                }
+            }
+
+            if (Array.isArray(preReqAnswer)) {
+                if (preReqAnswer.some(answer => prereqVals.includes(`${answer}`.toLowerCase()))) {
+                    return true;
+                }
+            }
+            if (prereqVals.includes(`${preReqAnswer}`.toLowerCase())) {
+                return true;
             }
         }
-
-        if ([MULTI_DROPDOWN_OPTIONS, MULTI_MULTI_DROPDOWN_OPTIONS].includes(preReqType)) {
-            //For a drop down we have to convert the GUID to the question option.
-            const selectedOptions = dropdownOptions
-                .filter(option => preReqAnswer.includes(option.name))
-                .map(opt => opt.name);
-
-            // specifying not undefined in case pre-req answers are falsy ie. 0, ''
-            if (selectedOptions.length > 0) {
-                preReqAnswer = selectedOptions;
-            } else {
-                return false;
-            }
-        }
-
-        if (Array.isArray(preReqAnswer)) {
-            console.log({ preReqAnswer, prereqVals });
-            return preReqAnswer.some(answer => prereqVals.includes(`${answer}`.toLowerCase()));
-        }
-
-        return prereqVals.includes(`${preReqAnswer}`.toLowerCase());
+        return false;
     };
 
     componentDidMount = () => {
