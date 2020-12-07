@@ -94,15 +94,6 @@ class DrawingMapGeneralContainer extends Component {
                         <OutputSettingsContainer />
                     </>
                 )}
-                {/* <div className="flex-container size-lg-12">
-                    <div className="flex-item small-text-table size-lg-3">
-                        <DrawingDocumentsContainer />
-                    </div>
-
-                    <div className="flex-item small-text-table two-line size-lg-3">
-                        <DrawingCompaniesAccessContainer />
-                    </div>
-                </div> */}
             </>
         );
     }
@@ -161,7 +152,6 @@ class DrawingMapGeneralContainer extends Component {
         // when the component has finished fetching all the options, run get services options once instead of in every render
         if (!isFetching && prevIsFetching) {
             const serviceOptions = this._getServicesOptions();
-            // const operativeOptions = this._getOperativeOptions();
             this.setState({ serviceOptions });
         }
         if (drawing.tilesetS3Key !== prevDrawing.tilesetS3Key) {
@@ -224,22 +214,6 @@ class DrawingMapGeneralContainer extends Component {
             return acc;
         }, {});
     };
-
-    //  !operative information not available at drawing level yet
-    // _getOperativeOptions = () => {
-    //     const { operatives } = this.props;
-
-    //     return operatives.reduce(
-    //         (acc, { id, userFirstName, userLastName, userEmail }) => {
-    //             acc[id] = {
-    //                 value: id,
-    //                 text: `${userFirstName} ${userLastName} <${userEmail}>`
-    //             };
-    //             return acc;
-    //         },
-    //         {}
-    //     );
-    // };
 
     _getFilteredPins = () => {
         const { pins, filters, furtherFiltrationOption } = this.props;
@@ -327,14 +301,12 @@ const mapStateToProps = (
         client: {
             pinsReducer: { pins, isFetching: fetchingPins, error },
             servicesReducer: { services, isFetching: fetchingServices },
-            // drawingOperativesReducer: { users, isFetching: fetchingUsers },
             drawingsReducer: { drawings },
             reportsReducer: {
-                filters: { pinIDs, templateID, companyUserIDs },
+                filters: { pinIDs, companyUserIDs },
                 customFilters: { pins: pinsFromAPI },
                 furtherFiltrationOption,
                 rectangles,
-                isFetching: isFetchingReports,
             },
         },
         shared: {
@@ -345,7 +317,6 @@ const mapStateToProps = (
 ) => ({
     drawing: drawings[match.params.id],
     pins: Object.values(pins),
-    // operatives: Object.values(users),
     services: Object.values(services),
     isFetching: fetchingPins || fetchingServices,
     fieldErrors,
