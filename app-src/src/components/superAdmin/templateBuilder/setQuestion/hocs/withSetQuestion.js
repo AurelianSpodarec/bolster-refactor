@@ -75,17 +75,19 @@ export default function (WrappedComponent) {
         };
 
         _checkShouldShowUseManufacturingPrereqOptsSwitch = () => {
-            const { questionsObj, fields } = this.props;
+            const { questions, fields } = this.props;
 
-            if (!fields.prereqUUID) return false;
+            if (!fields.prereqUUIDs || !fields.prereqUUIDs.length) return [];
 
-            const prereq = questionsObj[fields.prereqUUID];
-            if (!prereq) return false;
+            const prereqs = questions.filter(ques => fields.prereqUUIDs.includes(ques.uuid));
+            if (!prereqs.length) return false;
+            prereqs.forEach(prereq => {
+                const { optionType } = prereq;
+                const shouldShow = optionType === DROPDOWN_OPTION_VALS.installationTypes;
+                if (shouldShow) return true;
+            });
 
-            const { optionType } = prereq;
-            const shouldShow = optionType === DROPDOWN_OPTION_VALS.installationTypes;
-
-            return shouldShow;
+            return false;
         };
 
         _getPrereqOptions = () => {
@@ -100,37 +102,38 @@ export default function (WrappedComponent) {
         };
 
         _getPrereqValueOptions = () => {
-            const { questionsObj, fields } = this.props;
+            const { questions, fields } = this.props;
 
-            if (!fields.prereqUUID) return [];
+            if (!fields.prereqUUIDs || !fields.prereqUUIDs.length) return [];
+            const prereqs = questions.filter(ques => fields.prereqUUIDs.includes(ques.uuid));
+            let prereqValueOptions = [];
 
-            const prereq = questionsObj[fields.prereqUUID];
-            if (!prereq) return [];
-
-            const { questionType, optionType, options } = prereq;
-            if (questionType === STATUS) {
-                return this._getStatusOptions();
-            }
-
-            if (questionType === CHECKBOX) {
-                return [
-                    { label: 'True', value: 'true' },
-                    { label: 'False', value: 'false' },
-                ];
-            }
-
-            if (optionType) {
-                return this._getDropownOptionsByType(optionType);
-            }
-
-            if (options) {
-                return options.map(opt => ({
-                    label: opt.text,
-                    value: opt.id,
-                }));
-            }
-
-            return [];
+            prereqs.forEach(prereq => {
+                const { questionType, optionType, options } = prereq;
+                if (questionType === STATUS) {
+                    prereqValueOptions = prereqValueOptions.concat(this._getStatusOptions());
+                } else if (questionType === CHECKBOX) {
+                    prereqValueOptions = prereqValueOptions.concat([
+                        { label: 'True', value: 'true' },
+                        { label: 'False', value: 'false' },
+                    ]);
+                } else if (optionType) {
+                    prereqValueOptions = prereqValueOptions.concat(
+                        this._getDropownOptionsByType(optionType),
+                    );
+                } else if (options) {
+                    prereqValueOptions = prereqValueOptions.concat(
+                        options.map(opt => ({
+                            label: opt.text,
+                            value: opt.id,
+                        })),
+                    );
+                }
+            });
+            const prereqValueOptionsDuplicatesRemoved = prereqValueOptions.filter(
+                (opt, i) => prereqValueOptions.findIndex(({ value }) => value === opt.value) === i,
+            );
+            return prereqValueOptionsDuplicatesRemoved;
         };
 
         _getStatusOptions = () => {
@@ -190,7 +193,7 @@ export default function (WrappedComponent) {
             const {
                 questionType,
                 name,
-                prereqUUID,
+                prereqUUIDs,
                 prereqVal,
                 isRequired,
                 isHidden,
@@ -202,7 +205,7 @@ export default function (WrappedComponent) {
             return {
                 questionType,
                 name,
-                prereqUUID,
+                prereqUUIDs,
                 isRequired,
                 isHidden,
                 isPrefill,

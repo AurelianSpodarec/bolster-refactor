@@ -25,7 +25,9 @@ class QuestionContainer extends Component {
             deleteQuestion,
         } = this.props;
         const { uuid } = question;
-        const isPrereq = questions.some(item => item.prereqUUID === question.uuid);
+        const isPrereq = questions.some(
+            item => !!item.prereqUUIDs && item.prereqUUIDs.includes(question.uuid),
+        );
 
         return connectDragSource(
             connectDropTarget(

@@ -5,7 +5,7 @@ import TemplateQuestionFormModal from '../presentational/TemplateQuestionFormMod
 import withSetQuestion from '../hocs/withSetQuestion';
 
 const AddTemplateQuestionModalContainer = ({
-    fields: { questionType, questionTypeOptions, prereqUUID, ...fields },
+    fields: { questionType, questionTypeOptions, prereqUUIDs, ...fields },
     hideModal,
     handleInputChange,
     setQuestion,
@@ -27,7 +27,7 @@ const AddTemplateQuestionModalContainer = ({
             {...fields}
             statusOptions={statusOptions}
             prereqOptions={prereqOptions}
-            selectedPrereq={prereqUUID}
+            selectedPrereq={prereqUUIDs}
             prereqValueOptions={prereqValueOptions}
             questionType={questionType}
             questionTypeOptions={questionTypeOptions}

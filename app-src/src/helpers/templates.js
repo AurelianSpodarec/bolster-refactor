@@ -1,30 +1,28 @@
 import { QUESTION_TYPES } from 'constants/shared/templateBuilder';
 import { QUESTION_TYPE_VALUES as VALS } from 'constants/shared/templateBuilder';
 
-const formatQuestion = ({ type, dynamicFields, ...otherFields }) => {
+const formatQuestion = ({ type, dynamicFields, prereqUUIDs, ...otherFields }) => {
     const question = {
         questionType: QUESTION_TYPES[type + ''],
+        prereqUUIDs: !!prereqUUIDs && prereqUUIDs.length ? prereqUUIDs.split(',') : [],
         type,
         ...otherFields,
-        ...dynamicFields
+        ...dynamicFields,
     };
 
     if (dynamicFields && dynamicFields.options)
         question.options = dynamicFields.options.map(opt => ({
             id: opt,
-            text: opt
+            text: opt,
         }));
 
     return question;
 };
 
-export const formatQuestions = questions =>
-    questions.map(ques => formatQuestion(ques));
+export const formatQuestions = questions => questions.map(ques => formatQuestion(ques));
 
 export const getLatestVersion = (id, versions) =>
-    [...versions]
-        .filter(({ templateID }) => +templateID === +id)
-        .sort((a, b) => b.id - a.id)[0];
+    [...versions].filter(({ templateID }) => +templateID === +id).sort((a, b) => b.id - a.id)[0];
 
 export const getVersionSections = (version, sections) =>
     sections
@@ -37,35 +35,27 @@ export const getSectionQuestions = (sections, questions) =>
             ...acc,
             [id]: questions
                 .filter(({ templateSectionID }) => templateSectionID === id)
-                .sort((a, b) => a.sort - b.sort)
+                .sort((a, b) => a.sort - b.sort),
         }),
-        {}
+        {},
     );
 
 export const getQuestionDetails = (question, dropdownOptions) => {
-    const {
-        name,
-        questionType,
-        isHidden,
-        isPrefill,
-        isRequired,
-        groupKey,
-        type
-    } = question;
+    const { name, questionType, isHidden, isPrefill, isRequired, groupKey, type } = question;
     const options = {
         Name: name,
         'Question type': questionType,
         Hidden: `${!isHidden ? 'Not ' : ''}Hidden`,
         Prefill: `${!isPrefill ? 'Not ' : ''}Prefilled`,
         Required: `${!isRequired ? 'Not ' : ''}Required`,
-        'Group Key': groupKey
+        'Group Key': groupKey,
     };
     switch (String(type)) {
         case VALS.SINGLE_LINE:
         case VALS.MULTI_LINE:
             return {
                 ...options,
-                'Character limit': question.charLimit || 'N/A'
+                'Character limit': question.charLimit || 'N/A',
             };
         case VALS.NUMBER:
             return { ...options, 'Max number': question.maxNum || 'N/A' };
@@ -75,18 +65,14 @@ export const getQuestionDetails = (question, dropdownOptions) => {
         case VALS.RADIO:
             return {
                 ...options,
-                'Question options': question.options
-                    .map(({ text }) => `"${text}"`)
-                    .join(', ')
+                'Question options': question.options.map(({ text }) => `"${text}"`).join(', '),
             };
         case VALS.MULTI_DROPDOWN_OPTIONS:
         case VALS.MULTI_MULTI_DROPDOWN_OPTIONS:
         case VALS.DROPDOWN_OPTIONS:
             return {
                 ...options,
-                'Question options': dropdownOptions
-                    .map(({ name }) => name)
-                    .join(', ')
+                'Question options': dropdownOptions.map(({ name }) => name).join(', '),
             };
 
         case VALS.MULTI_PHOTO:
@@ -122,14 +108,12 @@ function setDynamicFieldsSingle({
         case VALS.MULTI_MULTI_DROPDOWN:
         case VALS.RADIO: {
             const opts = [...new Set(Object.values(options))];
-            const defaultOpt = defaultValue
-                ? opts.find(op => op.id === defaultValue)
-                : null;
+            const defaultOpt = defaultValue ? opts.find(op => op.id === defaultValue) : null;
 
             dynamicFields = {
                 options: opts.map(opt => opt.text),
                 canCompanyEdit,
-                defaultValue: defaultOpt ? defaultOpt.text : null
+                defaultValue: defaultOpt ? defaultOpt.text : null,
             };
             break;
         }
@@ -151,5 +135,4 @@ function setDynamicFieldsSingle({
     return { ...otherFields, dynamicFields };
 }
 
-export const setDynamicFields = questions =>
-    questions.map(ques => setDynamicFieldsSingle(ques));
+export const setDynamicFields = questions => questions.map(ques => setDynamicFieldsSingle(ques));

@@ -7,7 +7,7 @@ import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
 const { CHECKBOX } = QUESTION_TYPE_NUMBERS;
 
 const EditTemplateQuestionModalContainerFN = ({
-    fields: { questionType, questionTypeOptions, prereqUUID, ...fields },
+    fields: { questionType, questionTypeOptions, prereqUUIDs, ...fields },
     hideModal,
     handleInputChange,
     setQuestion,
@@ -30,7 +30,7 @@ const EditTemplateQuestionModalContainerFN = ({
             {...fields}
             statusOptions={statusOptions}
             prereqOptions={_getPrereqOptions()}
-            selectedPrereq={prereqUUID}
+            selectedPrereq={prereqUUIDs}
             prereqValueOptions={prereqValueOptions}
             questionType={questionType}
             questionTypeOptions={questionTypeOptions}

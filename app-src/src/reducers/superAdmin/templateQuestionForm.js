@@ -25,7 +25,7 @@ const initialQuestionFields = {
     questionTypeOptions,
     questionType: QUESTION_TYPE_NUMBERS.SINGLE_LINE,
     prereqOptions: {},
-    prereqUUID: '',
+    prereqUUIDs: [],
     prereqVal: [],
     name: '',
     isRequired: false,

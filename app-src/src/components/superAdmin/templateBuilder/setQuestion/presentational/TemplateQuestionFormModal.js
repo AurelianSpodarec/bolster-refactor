@@ -12,6 +12,7 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
+import { isObjEmpty } from 'helpers/generic';
 
 const { CHECKBOX } = QUESTION_TYPE_NUMBERS;
 
@@ -53,12 +54,11 @@ const TemplateQuestionFormModal = ({
                         omitPlaceholder
                     />
                 </Field>
-
-                {prereqOptions.length > 0 && (
-                    <Field name="Prerequisite field?">
-                        <Select
+                {!isObjEmpty(prereqOptions) && (
+                    <Field name="Prerequisite field(s)?">
+                        <MultiSelect
                             search
-                            name="prereqUUID"
+                            name="prereqUUIDs"
                             options={prereqOptions}
                             value={selectedPrereq}
                             onChange={(name, val) => {
