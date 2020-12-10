@@ -18,7 +18,7 @@ const NewFeaturesTableContainer = ({
 }) => {
     return (
         <NewFeaturesTable
-            headers={['Title', 'Short Description', 'Publish Date', ' ']}
+            headers={['Title', 'Full Description', 'Publish Date', ' ']}
             isFetching={isFetching}
             error={error}
             newFeatures={newFeatures}

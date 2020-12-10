@@ -5,7 +5,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
+import SunEditorRichTextContainer from 'components/shared/slateRichText/container/SunEditorRichTextContainer';
 
 const AddNewFeatureForm = ({ handleChange, handleSubmit, form }) => (
     <Form onSubmit={handleSubmit} className="generic-form">
@@ -18,22 +18,13 @@ const AddNewFeatureForm = ({ handleChange, handleSubmit, form }) => (
                 required
             />
         </Field>
-        <Field name="Short Description" required>
-            <TextInputContainer
-                placeholder="Enter a short description"
-                name="shortDescription"
-                value={form.shortDescription}
-                handleChange={handleChange}
-                required
-            />
-        </Field>
+
         <Field name="Full Description" required>
-            <TextAreaContainer
-                placeholder="Enter a long description"
+            <SunEditorRichTextContainer
                 name="fullDescription"
                 value={form.fullDescription}
-                handleChange={handleChange}
-                required
+                onChange={description => handleChange('fullDescription', description)}
+                placeholder="Enter a long description"
             />
         </Field>
         <Field name="Publish on" sizeClasses="w-dates size-lg-12" required>

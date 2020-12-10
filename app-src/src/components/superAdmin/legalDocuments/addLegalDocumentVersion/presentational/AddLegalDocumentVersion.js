@@ -7,7 +7,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import { LEGAL_DOCUMENT_TYPE } from 'constants/superAdmin/enums';
-import SunEditorRichTextContainer from '../../slateRichText/container/SunEditorRichTextContainer';
+import SunEditorRichTextContainer from 'components/shared/slateRichText/container/SunEditorRichTextContainer';
 
 const options = [
     { text: LEGAL_DOCUMENT_TYPE[10], value: LEGAL_DOCUMENT_TYPE[10] },

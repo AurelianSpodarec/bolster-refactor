@@ -19,7 +19,6 @@ function AddNewFeatureFormContainer({ addNewFeature, isPosting, postSuccess, err
         fullDescription: '',
         publishDate: '',
     });
-
     const prevProps = usePrevious({ isPosting });
 
     const handleSubmit = e => {

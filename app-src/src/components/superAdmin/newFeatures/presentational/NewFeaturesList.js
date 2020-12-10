@@ -10,7 +10,7 @@ const NewFeaturesList = ({ newFeatures, showDeleteModal, showEditModal }) => {
         .map(newFeature => (
             <tr key={newFeature.id}>
                 <td>{newFeature.title}</td>
-                <td>{newFeature.shortDescription}</td>
+                <td>{newFeature.fullDescription}</td>
                 <td>
                     <DateTimeContainer
                         date={moment.utc(newFeature.publishDate).format('YYYY-MM-DDTHH:mm:ss')}

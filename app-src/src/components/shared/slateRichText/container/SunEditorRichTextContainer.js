@@ -2,9 +2,10 @@ import React from 'react';
 import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css';
 
-const RichTextContainer = ({ value, onChange }) => {
+const RichTextContainer = ({ value, onChange, placeholder, name }) => {
     return (
         <SunEditor
+            name={name}
             setOptions={{
                 height: 400,
                 buttonList: [
@@ -22,6 +23,7 @@ const RichTextContainer = ({ value, onChange }) => {
             }}
             setContents={value}
             onChange={onChange}
+            placeholder={placeholder}
         />
     );
 };
