@@ -92,6 +92,7 @@ const mapStateToProps = ({
         transferRequestsReducer: { incomingTransferRequests },
         pendingInvitesReducer: { pendingInvites },
         companyUsersReducer: { users },
+        recentUpdatesReducer: { updates },
     },
     shared: {
         profileReducer: { profile },
@@ -102,7 +103,7 @@ const mapStateToProps = ({
     },
 }) => {
     const isImpersonating = headquartersCompanyID !== companyID;
-
+    console.log({ updates });
     const unreadMessageCount = Object.values(messages).filter(
         ({ type, isRead }) => type === MESSAGE_TYPES.SYSTEM && !isRead,
     ).length;

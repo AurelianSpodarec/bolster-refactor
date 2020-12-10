@@ -8,7 +8,7 @@ import SearchContainer from '../containers/SearchContainer';
 import HeaderProfileContainer from '../containers/HeaderProfileContainer';
 import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
 import { PARENTAL_TYPES } from 'constants/companyAdmin/enums';
-import RecentUpdatesContainer from '../containers/RecentUpdatesContainer';
+// import RecentUpdatesContainer from '../containers/RecentUpdatesContainer';
 
 const Header = ({
     company,
@@ -65,13 +65,19 @@ const Header = ({
                         {!!totalRequests && <span className="number">{totalRequests}</span>}
                         <i className="far fa-exchange-alt fa-fw" />
                     </Link>
+                    <Link to="/company/release-notes" className="item main">
+                        {!!unreadMessageCount && ( // <--- change this to show unread release notes number
+                            <span className="number">{unreadMessageCount}</span>
+                        )}
+                        <i className="fas fa-bullhorn" />
+                    </Link>
                 </div>
 
                 {/*** profile ***/}
                 <HeaderProfileContainer />
 
                 {/*** recent updates ***/}
-                <RecentUpdatesContainer />
+                {/* <RecentUpdatesContainer /> */}
             </div>
             <div className="clear" />
         </div>
