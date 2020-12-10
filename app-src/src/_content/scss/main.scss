@@ -1725,6 +1725,10 @@ input {
     .description {
         padding-bottom: 10px;
     }
+
+    &.small-height {
+        min-height: 10px;
+    }
 }
 
 .checkbox {

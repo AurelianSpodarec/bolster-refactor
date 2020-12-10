@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -12,17 +12,32 @@ import { ERROR_MODAL } from 'constants/shared/modalTypes';
 import FeatureForm from '../../presentational/FeatureForm';
 import addNewFeature from 'actions/superAdmin/newFeatures/async/addNewFeature';
 
-function AddNewFeatureFormContainer({ addNewFeature, isPosting, postSuccess, error, hideModal }) {
+function AddNewFeatureFormContainer({
+    addNewFeature,
+    isPosting,
+    postSuccess,
+    error,
+    hideModal,
+    filesUploading,
+}) {
     const [formData, handleChange] = useForm({
-        title: '',
-        fullDescription: '',
-        publishDate: '',
+        title: null,
+        fullDescription: null,
+        publishDate: null,
+        image: null,
+        videoLink: null,
     });
+    const [showVideoField, setShowVideoField] = useState(false);
+    const [showImageField, setShowImageField] = useState(false);
+
     const prevProps = usePrevious({ isPosting });
 
     const handleSubmit = e => {
         e.preventDefault();
-        addNewFeature({ ...formData, publishDate: moment.utc(formData.publishDate).format() });
+
+        if (!filesUploading) {
+            addNewFeature({ ...formData, publishDate: moment.utc(formData.publishDate).format() });
+        }
     };
 
     useEffect(() => {
@@ -34,18 +49,40 @@ function AddNewFeatureFormContainer({ addNewFeature, isPosting, postSuccess, err
         }
     }, [isPosting, postSuccess, prevProps.isPosting, error]);
 
-    return <FeatureForm handleChange={handleChange} form={formData} handleSubmit={handleSubmit} />;
+    return (
+        <FeatureForm
+            handleChange={handleChange}
+            form={formData}
+            handleSubmit={handleSubmit}
+            handleCheckboxChange={handleCheckboxChange}
+            showVideoField={showVideoField}
+            showImageField={showImageField}
+        />
+    );
+
+    function handleCheckboxChange(name, value) {
+        if (name === 'videoLink') {
+            setShowVideoField(value);
+        }
+        if (name === 'image') {
+            setShowImageField(value);
+        }
+    }
 }
 
 const mapStateToProps = ({
     superAdmin: {
         newFeaturesReducer: { postSuccess, addedNewFeature, isPosting, error },
     },
+    shared: {
+        filesUploadingReducer: { filesUploading },
+    },
 }) => ({
     postSuccess,
     addedNewFeature,
     isPosting,
     error,
+    filesUploading,
 });
 
 const mapDispatchToProps = {
