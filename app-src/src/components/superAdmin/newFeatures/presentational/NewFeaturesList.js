@@ -8,7 +8,7 @@ const NewFeaturesList = ({ newFeatures, showDeleteModal, showEditModal }) => {
     return [...newFeatures]
         .sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate))
         .map(newFeature => {
-            const { id, title, fullDescription, publishDate } = newFeature;
+            const { id, title, fullDescription, publishDate, image, videoLink } = newFeature;
             return (
                 <tr key={id}>
                     <td>{title}</td>
@@ -18,6 +18,8 @@ const NewFeaturesList = ({ newFeatures, showDeleteModal, showEditModal }) => {
                             dangerouslySetInnerHTML={{ __html: fullDescription }}
                         />
                     </td>
+                    <td>{image ? 'Yes' : '-'}</td>
+                    <td>{videoLink ? videoLink : '-'}</td>
                     <td>
                         <DateTimeContainer
                             date={moment.utc(publishDate).format('YYYY-MM-DDTHH:mm:ss')}

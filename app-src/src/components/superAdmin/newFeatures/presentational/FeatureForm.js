@@ -36,15 +36,16 @@ const AddNewFeatureForm = ({
                 placeholder="Enter a long description"
             />
         </Field>
-
-        <Field classes="small-height">
-            <CheckboxContainer
-                checked={showVideoField}
-                handleChange={(name, value) => handleCheckboxChange(name, value)}
-                name="videoLink"
-                text="Video link?"
-            />
-        </Field>
+        {!showImageField && (
+            <Field classes="small-height">
+                <CheckboxContainer
+                    checked={showVideoField}
+                    handleChange={(name, value) => handleCheckboxChange(name, value)}
+                    name="videoLink"
+                    text="Video link?"
+                />
+            </Field>
+        )}
         {showVideoField && (
             <Field name="Video link" required>
                 <TextInputContainer
@@ -56,14 +57,16 @@ const AddNewFeatureForm = ({
                 />
             </Field>
         )}
-        <Field classes="small-height">
-            <CheckboxContainer
-                checked={showImageField}
-                handleChange={handleCheckboxChange}
-                name="image"
-                text="Upload image?"
-            />
-        </Field>
+        {!showVideoField && (
+            <Field classes="small-height">
+                <CheckboxContainer
+                    checked={showImageField}
+                    handleChange={handleCheckboxChange}
+                    name="image"
+                    text="Upload image?"
+                />
+            </Field>
+        )}
         {showImageField && (
             <Field name="Upload image" required>
                 <FileUploadContainer
