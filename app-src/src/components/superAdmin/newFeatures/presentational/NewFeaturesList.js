@@ -3,6 +3,7 @@ import moment from 'moment';
 
 import { Link } from 'react-router-dom';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { RAW_S3_STORAGE_URL } from 'config';
 
 const NewFeaturesList = ({ newFeatures, showDeleteModal, showEditModal }) => {
     return [...newFeatures]
@@ -18,7 +19,17 @@ const NewFeaturesList = ({ newFeatures, showDeleteModal, showEditModal }) => {
                             dangerouslySetInnerHTML={{ __html: fullDescription }}
                         />
                     </td>
-                    <td>{image ? 'Yes' : '-'}</td>
+                    <td>
+                        {image ? (
+                            <img
+                                alt="new-feature"
+                                src={`${RAW_S3_STORAGE_URL}/${image}`}
+                                style={{ maxWidth: '50%' }}
+                            />
+                        ) : (
+                            '-'
+                        )}
+                    </td>
                     <td>{videoLink ? videoLink : '-'}</td>
                     <td>
                         <DateTimeContainer
