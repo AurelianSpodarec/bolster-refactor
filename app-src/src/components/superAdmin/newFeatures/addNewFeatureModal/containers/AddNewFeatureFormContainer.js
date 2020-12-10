@@ -15,7 +15,6 @@ import addNewFeature from 'actions/superAdmin/newFeatures/async/addNewFeature';
 function AddNewFeatureFormContainer({ addNewFeature, isPosting, postSuccess, error, hideModal }) {
     const [formData, handleChange] = useForm({
         title: '',
-        shortDescription: '',
         fullDescription: '',
         publishDate: '',
     });
