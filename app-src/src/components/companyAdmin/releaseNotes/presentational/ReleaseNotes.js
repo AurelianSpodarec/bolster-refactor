@@ -13,14 +13,6 @@ const ReleaseNotes = ({ releaseNotes }) => {
             {releaseNotes.map(({ id, fullDescription, title, image, videoLink, publishDate }) => {
                 return (
                     <BlockContainer key={id} containerClass="release-notes">
-                        {image && (
-                            <div className="size-lg-6 size-md-12">
-                                <img
-                                    className="size-lg-12"
-                                    src={`${RAW_S3_STORAGE_URL}/${image}`}
-                                />
-                            </div>
-                        )}
                         <div className="text-section size-lg-6 size-md-12">
                             <BlockHeading
                                 title={title}
@@ -33,6 +25,14 @@ const ReleaseNotes = ({ releaseNotes }) => {
                                 dangerouslySetInnerHTML={{ __html: fullDescription }}
                             />
                         </div>
+                        {image && (
+                            <div className="size-lg-6 size-md-12">
+                                <img
+                                    className="size-lg-12"
+                                    src={`${RAW_S3_STORAGE_URL}/${image}`}
+                                />
+                            </div>
+                        )}
                         {videoLink && (
                             <div className=" size-lg-6 size-md-12">
                                 <iframe

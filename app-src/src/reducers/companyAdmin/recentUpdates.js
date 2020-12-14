@@ -92,7 +92,6 @@ function postSuccessReducer(state = false, action) {
 function updatesReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_RECENT_UPDATES_SUCCESS:
-            console.log(action.payload, '<---- action payload');
             return convertArrToObj(action.payload);
         default:
             return state;
