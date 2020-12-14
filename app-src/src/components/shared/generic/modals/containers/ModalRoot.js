@@ -324,8 +324,8 @@ const MODAL_COMPONENTS = {
     [ZONE_DETAILS]: ZoneDetailsModalContainer,
     [EDIT_ZONE_MODAL]: EditZoneModalContainer,
     [ADD_INVOICE_COMMENT]: AddCommentToInvoiceModalContainer,
-    [EDIT_BANNER_NOTIFICATION]: EditBannerNotificationModal,
     [ADD_NEW_BANNER_NOTIFICATION]: AddBannerNotificationModel,
+    [EDIT_BANNER_NOTIFICATION]: EditBannerNotificationModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
