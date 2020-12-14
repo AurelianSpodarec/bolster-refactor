@@ -4,7 +4,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import AddBannerNotificationFormContainer from '../containers/AddBannerNotificationFormContainer';
 
-const AddBannerNotificationModel = () => {
+const AddBannerNotificationModal = () => {
     return (
         <ModalOuterContainer>
             <BlockHeading title="Add New Banner Notification" />
@@ -13,4 +13,4 @@ const AddBannerNotificationModel = () => {
     );
 };
 
-export default AddBannerNotificationModel;
+export default AddBannerNotificationModal;

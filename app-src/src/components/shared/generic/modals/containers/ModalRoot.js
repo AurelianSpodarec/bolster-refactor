@@ -217,7 +217,7 @@ import ZoneDetailsModalContainer from 'components/companyAdmin/drawings/singleDr
 import EditZoneModalContainer from 'components/companyAdmin/drawings/singleDrawing/containers/EditZoneModalContainer';
 import AddCommentToInvoiceModalContainer from 'components/superAdmin/invoices/singleInvoice/containers/AddCommentToInvoiceModalContainer';
 import EditBannerNotificationModal from 'components/superAdmin/bannerNotifications/editBannerNotificationModal/presentational/EditBannerNotificationModal';
-import AddBannerNotificationModel from 'components/superAdmin/bannerNotifications/addBannerNotifcationModel/presentational/AddBannerNotificationModel';
+import AddBannerNotificationModal from 'components/superAdmin/bannerNotifications/addBannerNotifcationModel/presentational/AddBannerNotificationModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -324,7 +324,7 @@ const MODAL_COMPONENTS = {
     [ZONE_DETAILS]: ZoneDetailsModalContainer,
     [EDIT_ZONE_MODAL]: EditZoneModalContainer,
     [ADD_INVOICE_COMMENT]: AddCommentToInvoiceModalContainer,
-    [ADD_NEW_BANNER_NOTIFICATION]: AddBannerNotificationModel,
+    [ADD_NEW_BANNER_NOTIFICATION]: AddBannerNotificationModal,
     [EDIT_BANNER_NOTIFICATION]: EditBannerNotificationModal,
 };
 
