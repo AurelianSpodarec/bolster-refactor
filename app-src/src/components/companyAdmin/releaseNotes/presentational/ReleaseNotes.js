@@ -10,44 +10,70 @@ const ReleaseNotes = ({ releaseNotes }) => {
     return (
         <>
             <PageHeading title="Release Notes" withBackButton />
-            {releaseNotes.map(({ id, fullDescription, title, image, videoLink, publishDate }) => {
-                return (
-                    <BlockContainer key={id} containerClass="release-notes">
-                        <div className="text-section size-lg-6 size-md-12">
-                            <BlockHeading
-                                title={title}
-                                subTitle={moment(publishDate).format('dddd, MMMM Do YYYY')}
-                                classes="heading heading-2 underline-full half-margin"
-                                subTitleClasses="small"
-                            />
-                            <div
-                                className="generic-text"
-                                dangerouslySetInnerHTML={{ __html: fullDescription }}
-                            />
-                        </div>
-                        {image && (
-                            <div className="size-lg-6 size-md-12">
-                                <img
-                                    className="size-lg-12"
-                                    src={`${RAW_S3_STORAGE_URL}/${image}`}
-                                />
-                            </div>
-                        )}
-                        {videoLink && (
-                            <div className=" size-lg-6 size-md-12">
-                                <iframe
-                                    src="https://www.youtube.com/embed/lbSOLBMUvIE"
-                                    height="360"
-                                    frameBorder="0"
-                                    allow="autoplay; fullscreen"
-                                    allowFullScreen
-                                    className="size-lg-12"
-                                ></iframe>
-                            </div>
-                        )}
-                    </BlockContainer>
-                );
-            })}
+
+            {releaseNotes
+                .sort((a, b) => moment(b.publishDate) - moment(a.publishDate))
+                .map(
+                    ({
+                        id,
+                        fullDescription,
+                        title,
+                        image,
+                        youTubeLink,
+                        vimeoLink,
+                        publishDate,
+                    }) => {
+                        return (
+                            <BlockContainer key={id} containerClass="release-notes">
+                                <div className="text-section size-lg-6 size-md-12">
+                                    <BlockHeading
+                                        title={title}
+                                        subTitle={moment(publishDate).format('dddd, MMMM Do YYYY')}
+                                        classes="heading heading-2 underline-full half-margin"
+                                        subTitleClasses="small"
+                                    />
+                                    <div
+                                        className="generic-text"
+                                        dangerouslySetInnerHTML={{ __html: fullDescription }}
+                                    />
+                                </div>
+                                {image && (
+                                    <div className="size-lg-6 size-md-12">
+                                        <img
+                                            className="size-lg-12"
+                                            src={`${RAW_S3_STORAGE_URL}/${image}`}
+                                        />
+                                    </div>
+                                )}
+                                {youTubeLink ? (
+                                    <div className=" size-lg-6 size-md-12">
+                                        <iframe
+                                            src={`https://www.youtube.com/embed/${youTubeLink}`}
+                                            height="360"
+                                            frameBorder="0"
+                                            allow="autoplay; fullscreen"
+                                            allowFullScreen
+                                            className="size-lg-12"
+                                        ></iframe>
+                                    </div>
+                                ) : (
+                                    vimeoLink && (
+                                        <div className=" size-lg-6 size-md-12">
+                                            <iframe
+                                                src={`https://player.vimeo.com/video/${vimeoLink}`}
+                                                height="360"
+                                                frameBorder="0"
+                                                allow="autoplay; fullscreen"
+                                                allowFullScreen
+                                                className="size-lg-12"
+                                            ></iframe>
+                                        </div>
+                                    )
+                                )}
+                            </BlockContainer>
+                        );
+                    },
+                )}
         </>
     );
 };
