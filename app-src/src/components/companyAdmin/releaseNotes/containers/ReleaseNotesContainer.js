@@ -19,7 +19,8 @@ const ReleaseNotesContainer = ({ fetchRecentUpdates, updates, isFetching, error,
 
     useEffect(() => {
         getRecentUpdates();
-        postRecentUpdates();
+
+        postRecentUpdates({ updatesRead: true });
     }, []);
 
     useEffect(() => {
