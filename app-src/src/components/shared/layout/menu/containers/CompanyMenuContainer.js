@@ -22,7 +22,8 @@ const CompanyMenuContainer = ({
     isClientAccess,
     showModal,
     users,
-    companyUserID
+    companyUserID,
+    unreadReleaseNoteCount,
 }) => {
     if (!hasInitiallyFetched) return null;
 
@@ -44,12 +45,9 @@ const CompanyMenuContainer = ({
 
     useEffect(() => {
         if (users && users[companyUserID] && !prevUsers[companyUserID]) {
-            setShouldRestrictPayments(
-                users[companyUserID].shouldRestrictPayments
-            );
+            setShouldRestrictPayments(users[companyUserID].shouldRestrictPayments);
         }
     }, [users]);
-
     return (
         <CompanyMenu
             isSubscribed={_isSubscribed()}
@@ -63,16 +61,14 @@ const CompanyMenuContainer = ({
             isClientAccess={isClientAccess}
             handleGenerateQRCodesModal={handleGenerateQRCodesModal}
             shouldRestrictPayments={shouldRestrictPayments}
+            unreadReleaseNoteCount={unreadReleaseNoteCount}
         />
     );
 
     function _isSubscribed() {
         if (isEmpty(subscriptions)) return false;
 
-        return (
-            moment(startOn).isBefore(Date.now()) &&
-            moment(endOn).isAfter(Date.now())
-        );
+        return moment(startOn).isBefore(Date.now()) && moment(endOn).isAfter(Date.now());
     }
 
     function _openHelpScout(e) {
@@ -100,25 +96,24 @@ const mapStateToProps = ({
         transferRequestsReducer: { incomingTransferRequests },
         pendingInvitesReducer: { pendingInvites },
         subscriptionsReducer: { hasInitiallyFetched, subscriptions },
-        companyUsersReducer: { users }
+        companyUsersReducer: { users },
+        recentUpdatesReducer: { updates },
     },
     shared: {
         decodeJWTReducer: {
-            jwtData: { headquartersCompanyID, isClientAccess, companyUserID }
+            jwtData: { headquartersCompanyID, isClientAccess, companyUserID },
         },
-        profileReducer: { profile }
-    }
+        profileReducer: { profile },
+    },
 }) => {
     const unreadMessageCount = Object.values(messages).filter(
-        ({ type, isRead }) => type === MESSAGE_TYPES.SYSTEM && !isRead
+        ({ type, isRead }) => type === MESSAGE_TYPES.SYSTEM && !isRead,
     ).length;
-    const totalCredits = Object.values(credits).reduce(
-        (a, b) => a + b.quantity,
-        0
-    );
+    const totalCredits = Object.values(credits).reduce((a, b) => a + b.quantity, 0);
     const totalRequests =
-        Object.values(incomingTransferRequests).length +
-        Object.values(pendingInvites).length;
+        Object.values(incomingTransferRequests).length + Object.values(pendingInvites).length;
+
+    const unreadReleaseNoteCount = Object.values(updates).filter(({ isRead }) => !isRead).length;
 
     return {
         hasInitiallyFetched,
@@ -132,7 +127,8 @@ const mapStateToProps = ({
             .sort((a, b) => moment(b.createdAt) - moment(a.createdAt)),
         isClientAccess,
         companyUserID,
-        users
+        users,
+        unreadReleaseNoteCount,
     };
 };
 
@@ -140,10 +136,7 @@ const mapDispatchToProps = dispatch => ({
     dismissMessages: messageType => {
         dispatch(dismissMessages(messageType));
     },
-    showModal: (type, props) => dispatch(showModal(type, props))
+    showModal: (type, props) => dispatch(showModal(type, props)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CompanyMenuContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CompanyMenuContainer);

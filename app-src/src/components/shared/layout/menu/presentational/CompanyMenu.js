@@ -16,6 +16,7 @@ const CompanyMenu = ({
     isClientAccess,
     handleGenerateQRCodesModal,
     shouldRestrictPayments,
+    unreadReleaseNoteCount,
 }) => (
     <>
         <div className="menu">
@@ -136,6 +137,16 @@ const CompanyMenu = ({
                         <i className="far fa-envelope fa-fw icon" />
                         <span className={`menu-text ${unreadMessageCount ? 'large' : ''}`}>
                             Message Centre
+                        </span>
+                    </CompanyMenuItemContainer>
+
+                    <CompanyMenuItemContainer link="/company/release-notes">
+                        {!!unreadReleaseNoteCount && (
+                            <span className="number">{unreadReleaseNoteCount}</span>
+                        )}
+                        <i className="far fa-flag fa-fw icon" />
+                        <span className={`menu-text ${unreadReleaseNoteCount ? 'large' : ''}`}>
+                            Release Notes
                         </span>
                     </CompanyMenuItemContainer>
                     {/* OLD LINK <MenuItemContainer link="/company/tools/operative-alerts">
