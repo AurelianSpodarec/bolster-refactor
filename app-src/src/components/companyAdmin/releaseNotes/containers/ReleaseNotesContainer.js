@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import ReleaseNotes from '../presentational/ReleaseNotes';
@@ -8,7 +8,14 @@ import postRecentUpdates from 'actions/companyAdmin/recentUpdates/async/postRece
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
-const ReleaseNotesContainer = ({ fetchRecentUpdates, updates, isFetching, error, success }) => {
+const ReleaseNotesContainer = ({
+    fetchRecentUpdates,
+    postRecentUpdates,
+    updates,
+    isFetching,
+    error,
+    success,
+}) => {
     const [releaseNotes, setReleaseNotes] = useState([]);
 
     const prevProps = usePrevious({ isFetching, success, error });
