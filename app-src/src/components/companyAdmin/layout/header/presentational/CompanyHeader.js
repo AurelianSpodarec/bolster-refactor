@@ -65,12 +65,6 @@ const Header = ({
                         {!!totalRequests && <span className="number">{totalRequests}</span>}
                         <i className="far fa-exchange-alt fa-fw" />
                     </Link>
-                    <Link to="/company/release-notes" className="item main">
-                        {!!unreadMessageCount && ( // <--- change this to show unread release notes number
-                            <span className="number">{unreadMessageCount}</span>
-                        )}
-                        <i className="fas fa-bullhorn" />
-                    </Link>
                 </div>
 
                 {/*** profile ***/}

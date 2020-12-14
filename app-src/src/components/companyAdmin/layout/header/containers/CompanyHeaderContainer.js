@@ -92,7 +92,6 @@ const mapStateToProps = ({
         transferRequestsReducer: { incomingTransferRequests },
         pendingInvitesReducer: { pendingInvites },
         companyUsersReducer: { users },
-        recentUpdatesReducer: { updates },
     },
     shared: {
         profileReducer: { profile },
