@@ -13,12 +13,8 @@ const ReleaseNotesContainer = ({ fetchRecentUpdates, updates, isFetching, error,
 
     const prevProps = usePrevious({ isFetching, success, error });
 
-    const getRecentUpdates = useCallback(async () => {
-        await fetchRecentUpdates();
-    }, []);
-
     useEffect(() => {
-        getRecentUpdates();
+        fetchRecentUpdates();
 
         postRecentUpdates({ updatesRead: true });
     }, []);
@@ -46,6 +42,6 @@ const mapStateToProps = ({
     success,
 });
 
-const mapDispatchToProps = { fetchRecentUpdates };
+const mapDispatchToProps = { fetchRecentUpdates, postRecentUpdates };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReleaseNotesContainer);
