@@ -115,6 +115,21 @@ const CompanyMenu = ({
                 <span className="menu-text"> Company Settings</span>
             </CompanyMenuItemContainer>
 
+            <CompanyMenuItemContainer link="/company/tools/templates">
+                <i className="far fa-folders fa-fw icon" />
+                <span className="menu-text">My Templates</span>
+            </CompanyMenuItemContainer>
+
+            <CompanyMenuItemContainer link="/company/release-notes">
+                {!!unreadReleaseNoteCount && (
+                    <span className="number">{unreadReleaseNoteCount}</span>
+                )}
+                <i className="far fa-flag fa-fw icon" />
+                <span className={`menu-text ${unreadReleaseNoteCount ? 'large' : ''}`}>
+                    Release Notes
+                </span>
+            </CompanyMenuItemContainer>
+
             <CompanyMenuItemContainer link="/company/activity-log">
                 <i className="far fa-history fa-fw icon" />
                 <span className="menu-text"> Activity Log</span>
@@ -140,24 +155,16 @@ const CompanyMenu = ({
                         </span>
                     </CompanyMenuItemContainer>
 
-                    <CompanyMenuItemContainer link="/company/release-notes">
-                        {!!unreadReleaseNoteCount && (
-                            <span className="number">{unreadReleaseNoteCount}</span>
-                        )}
-                        <i className="far fa-flag fa-fw icon" />
-                        <span className={`menu-text ${unreadReleaseNoteCount ? 'large' : ''}`}>
-                            Release Notes
-                        </span>
+                    <CompanyMenuItemContainer link="/company/approved-companies">
+                        <i className="far fa-check-circle fa-fw icon" />
+                        <span className="menu-text">Bolster Approved Companies</span>
                     </CompanyMenuItemContainer>
+
                     {/* OLD LINK <MenuItemContainer link="/company/tools/operative-alerts">
                 <i className="far fa-bells fa-fw icon" />
                 <span className="menu-text">Operative Alerts</span>
             </MenuItemContainer> */}
 
-                    <CompanyMenuItemContainer link="/company/tools/templates">
-                        <i className="far fa-folders fa-fw icon" />
-                        <span className="menu-text">My Templates</span>
-                    </CompanyMenuItemContainer>
                     <CompanyMenuItemContainer
                         link="/company/tools/support"
                         onClick={e => openHelpScout(e)}
@@ -165,18 +172,13 @@ const CompanyMenu = ({
                         <i className="far fa-info-circle fa-fw icon" />
                         <span className="menu-text">Support</span>
                     </CompanyMenuItemContainer>
-                    <CompanyMenuItemContainer link="/auth/terms">
-                        <i className="fas fa-align-left fa-fw icon" />
-                        <span className="menu-text"> Terms & Conditions</span>
-                    </CompanyMenuItemContainer>
-                    <CompanyMenuItemContainer link="/company/approved-companies">
-                        <i className="far fa-check-circle fa-fw icon" />
-                        <span className="menu-text">Bolster Approved Companies</span>
-                    </CompanyMenuItemContainer>
-
                     <CompanyMenuItemContainer link="/company/user-guides">
                         <i className="far fa-video fa-fw icon" />
                         <span className="menu-text">User Guides</span>
+                    </CompanyMenuItemContainer>
+                    <CompanyMenuItemContainer link="/auth/terms">
+                        <i className="fas fa-align-left fa-fw icon" />
+                        <span className="menu-text"> Terms & Conditions</span>
                     </CompanyMenuItemContainer>
                 </>
             )}
