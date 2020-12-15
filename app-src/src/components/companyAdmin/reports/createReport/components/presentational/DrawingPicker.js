@@ -9,7 +9,7 @@ const DrawingPicker = ({
     handleAddIncluded,
     handleDrawingClick,
     handleAddExcluded,
-    selectedDrawings
+    selectedDrawings,
 }) => (
     <>
         <BlockContainer>
