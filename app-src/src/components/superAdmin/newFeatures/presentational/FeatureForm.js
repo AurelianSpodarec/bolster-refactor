@@ -100,7 +100,7 @@ const AddNewFeatureForm = ({
                     onChange={val => handleChange('publishDate', val)}
                     placeholderText="Enter a publish date"
                     showTimeSelect
-                    // onBlur={() => handleDateBlur(true)}
+                    minDate={Date.now()}
                 />
             </Field>
         )}
