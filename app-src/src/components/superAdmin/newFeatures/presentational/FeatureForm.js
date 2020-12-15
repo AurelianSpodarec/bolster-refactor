@@ -48,7 +48,7 @@ const AddNewFeatureForm = ({
                 />
             </Field>
         )}
-        {showVideoField && (
+        {showVideoField && !form.image && (
             <Field name="Video link" required>
                 <TextInputContainer
                     placeholder="Enter Youtube or Vimeo link"
@@ -69,7 +69,7 @@ const AddNewFeatureForm = ({
                 />
             </Field>
         )}
-        {showImageField && (
+        {showImageField && !form.videoLink && (
             <Field name="Upload image" required>
                 <FileUploadContainer
                     value={form.image}
