@@ -27,7 +27,7 @@ const DrawingPicker = ({
                                 className={`selector-pin ${
                                     selectedDrawings.includes(drawing.id) ? 'active' : ''
                                 }`}
-                                onClick={e => handleDrawingClick(e, drawing.id)}
+                                onClick={e => handleDrawingClick(e, drawing.id, 'excluded')}
                                 key={drawing.id}
                             >
                                 {drawing.siteName} / {drawing.buildingName} / {drawing.floorName} /{' '}
@@ -54,7 +54,7 @@ const DrawingPicker = ({
                                 className={`selector-pin ${
                                     selectedDrawings.includes(drawing.id) ? 'active' : ''
                                 }`}
-                                onClick={e => handleDrawingClick(e, drawing.id)}
+                                onClick={e => handleDrawingClick(e, drawing.id, 'included')}
                                 key={drawing.id}
                             >
                                 {drawing.siteName} / {drawing.buildingName} / {drawing.floorName} /{' '}

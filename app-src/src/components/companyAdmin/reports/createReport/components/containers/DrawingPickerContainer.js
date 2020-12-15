@@ -152,24 +152,27 @@ const DrawingPickerContainer = ({
     }
 
     //get drawing and select the proper hierarchyID to get the correct floor.
-    function handleDrawingClick(e, drawingID) {
+    function handleDrawingClick(e, drawingID, type) {
         e.preventDefault();
+
         let shiftSelectedDrawings = [];
+        const drawingList = type === 'included' ? includedDrawings : excludedDrawings;
 
         if (e.shiftKey && selectedDrawings.length) {
             if (selectedDrawings[0] < drawingID) {
-                excludedDrawings.forEach(drawing => {
+                drawingList.forEach(drawing => {
                     if (drawing.id <= drawingID) {
                         shiftSelectedDrawings.push(drawing.id);
                     }
                 });
             } else {
-                excludedDrawings.forEach(drawing => {
+                drawingList.forEach(drawing => {
                     if (drawing.id >= drawingID) {
                         shiftSelectedDrawings.push(drawing.id);
                     }
                 });
             }
+
             return setSelectedDrawings(shiftSelectedDrawings);
         }
 
