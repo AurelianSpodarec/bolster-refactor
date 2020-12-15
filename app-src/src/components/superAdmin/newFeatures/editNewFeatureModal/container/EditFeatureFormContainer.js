@@ -54,6 +54,7 @@ const EditFeatureFormContainer = ({
             handleCheckboxChange={handleCheckboxChange}
             showVideoField={showVideoField}
             showImageField={showImageField}
+            formType="edit"
         />
     );
 

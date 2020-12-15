@@ -16,6 +16,8 @@ const AddNewFeatureForm = ({
     showVideoField,
     showImageField,
     handleCheckboxChange,
+    showDateSelect,
+    formType,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form">
         <Field name="Title" required>
@@ -80,15 +82,28 @@ const AddNewFeatureForm = ({
                 />
             </Field>
         )}
-        <Field name="Publish on" sizeClasses="w-dates size-lg-12" required>
-            <DatePickerContainer
-                name="publishDate"
-                selected={form.publishDate}
-                onChange={val => handleChange('publishDate', val)}
-                placeholderText="Enter a publish date"
-                // onBlur={() => handleDateBlur(true)}
-            />
-        </Field>
+        {formType !== 'edit' && (
+            <Field classes="small-height">
+                <CheckboxContainer
+                    checked={showDateSelect}
+                    handleChange={handleCheckboxChange}
+                    name="publishDate"
+                    text="Set date?"
+                />
+            </Field>
+        )}
+        {showDateSelect && (
+            <Field name="Publish on" sizeClasses="w-dates size-lg-12">
+                <DatePickerContainer
+                    name="publishDate"
+                    selected={form.publishDate}
+                    onChange={val => handleChange('publishDate', val)}
+                    placeholderText="Enter a publish date"
+                    showTimeSelect
+                    // onBlur={() => handleDateBlur(true)}
+                />
+            </Field>
+        )}
         <BlockButtonWrapper>
             <button className="button green">Submit</button>
         </BlockButtonWrapper>

@@ -29,6 +29,7 @@ function AddNewFeatureFormContainer({
     });
     const [showVideoField, setShowVideoField] = useState(false);
     const [showImageField, setShowImageField] = useState(false);
+    const [showDateSelect, setShowDateSelect] = useState(false);
 
     const prevProps = usePrevious({ isPosting });
 
@@ -57,6 +58,7 @@ function AddNewFeatureFormContainer({
             handleCheckboxChange={handleCheckboxChange}
             showVideoField={showVideoField}
             showImageField={showImageField}
+            showDateSelect={showDateSelect}
         />
     );
 
@@ -66,6 +68,9 @@ function AddNewFeatureFormContainer({
         }
         if (name === 'image') {
             setShowImageField(value);
+        }
+        if (name === 'publishDate') {
+            setShowDateSelect(value);
         }
     }
 }
