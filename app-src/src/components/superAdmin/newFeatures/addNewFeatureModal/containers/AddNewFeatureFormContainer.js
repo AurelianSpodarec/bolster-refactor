@@ -37,7 +37,13 @@ function AddNewFeatureFormContainer({
         e.preventDefault();
 
         if (!filesUploading) {
-            addNewFeature({ ...formData, publishDate: moment.utc(formData.publishDate).format() });
+            if (!showDateSelect) {
+                return addNewFeature({ ...formData });
+            }
+            return addNewFeature({
+                ...formData,
+                publishDate: moment.utc(formData.publishDate).format(),
+            });
         }
     };
 
