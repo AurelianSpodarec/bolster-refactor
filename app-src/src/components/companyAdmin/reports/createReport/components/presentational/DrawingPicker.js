@@ -22,18 +22,22 @@ const DrawingPicker = ({
                 <div className="pin-selection-box">
                     <h3>Excluded</h3>
                     <div className="content excluded size-lg-12">
-                        {excludedDrawings.map(drawing => (
-                            <div
-                                className={`selector-pin ${
-                                    selectedDrawings.includes(drawing.id) ? 'active' : ''
-                                }`}
-                                onClick={e => handleDrawingClick(e, drawing.id, 'excluded')}
-                                key={drawing.id}
-                            >
-                                {drawing.siteName} / {drawing.buildingName} / {drawing.floorName} /{' '}
-                                {drawing.name}
-                            </div>
-                        ))}
+                        {excludedDrawings
+                            .map((drawing, index) => (
+                                <div
+                                    className={`selector-pin ${
+                                        selectedDrawings.includes(drawing.id) ? 'active' : ''
+                                    }`}
+                                    onClick={e =>
+                                        handleDrawingClick(e, drawing.id, 'excluded', index)
+                                    }
+                                    key={drawing.id}
+                                >
+                                    {drawing.siteName} / {drawing.buildingName} /{' '}
+                                    {drawing.floorName} / {drawing.name}
+                                </div>
+                            ))
+                            .sort((a, b) => a.id - b.id)}
                     </div>
                 </div>
 
@@ -49,18 +53,22 @@ const DrawingPicker = ({
                 <div className="pin-selection-box">
                     <h3>Included</h3>
                     <div className="content excluded size-lg-12">
-                        {includedDrawings.map(drawing => (
-                            <div
-                                className={`selector-pin ${
-                                    selectedDrawings.includes(drawing.id) ? 'active' : ''
-                                }`}
-                                onClick={e => handleDrawingClick(e, drawing.id, 'included')}
-                                key={drawing.id}
-                            >
-                                {drawing.siteName} / {drawing.buildingName} / {drawing.floorName} /{' '}
-                                {drawing.name}
-                            </div>
-                        ))}
+                        {includedDrawings
+                            .map((drawing, index) => (
+                                <div
+                                    className={`selector-pin ${
+                                        selectedDrawings.includes(drawing.id) ? 'active' : ''
+                                    }`}
+                                    onClick={e =>
+                                        handleDrawingClick(e, drawing.id, 'included', index)
+                                    }
+                                    key={drawing.id}
+                                >
+                                    {drawing.siteName} / {drawing.buildingName} /{' '}
+                                    {drawing.floorName} / {drawing.name}
+                                </div>
+                            ))
+                            .sort((a, b) => a.id - b.id)}
                     </div>
                 </div>
             </div>

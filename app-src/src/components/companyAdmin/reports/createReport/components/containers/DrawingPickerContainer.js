@@ -152,35 +152,37 @@ const DrawingPickerContainer = ({
     }
 
     //get drawing and select the proper hierarchyID to get the correct floor.
-    function handleDrawingClick(e, drawingID, type) {
+    function handleDrawingClick(e, drawingID, type, index) {
         e.preventDefault();
 
         let shiftSelectedDrawings = [];
         const drawingList = type === 'included' ? includedDrawings : excludedDrawings;
-
-        if (e.shiftKey && selectedDrawings.length) {
-            if (selectedDrawings[0] < drawingID) {
-                drawingList.forEach(drawing => {
-                    if (drawing.id <= drawingID) {
-                        shiftSelectedDrawings.push(drawing.id);
-                    }
-                });
-            } else {
-                drawingList.forEach(drawing => {
-                    if (drawing.id >= drawingID) {
-                        shiftSelectedDrawings.push(drawing.id);
-                    }
-                });
-            }
-
-            return setSelectedDrawings(shiftSelectedDrawings);
-        }
 
         const newCheckedDrawings = selectedDrawings.includes(drawingID)
             ? selectedDrawings.filter(selectedDrawing => selectedDrawing !== drawingID)
             : [...selectedDrawings, drawingID];
 
         setSelectedDrawings(newCheckedDrawings);
+
+        if (e.shiftKey && selectedDrawings.length) {
+            // See if the index of the first selected is lower than index of new click
+
+            if (drawingList.indexOf(selectedDrawings[0]) < index) {
+                // Loop through and push up all drawings that index are inside the two
+                drawingList.forEach(drawing => {
+                    if (drawingList.indexOf(drawing) <= index) {
+                        shiftSelectedDrawings.push(drawing.id);
+                    }
+                });
+            } else {
+                drawingList.forEach(drawing => {
+                    if (drawingList.indexOf(drawing) >= index) {
+                        shiftSelectedDrawings.push(drawing.id);
+                    }
+                });
+            }
+            setSelectedDrawings(shiftSelectedDrawings);
+        }
     }
 
     function handleAddIncluded(e) {
