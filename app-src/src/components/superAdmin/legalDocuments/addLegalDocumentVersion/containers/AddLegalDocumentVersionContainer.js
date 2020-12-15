@@ -94,8 +94,6 @@ const AddLegalDocumentVersionContainer = ({ data }) => {
             handleBack={handleBack}
             documentText={documentText}
             setDocText={setDocText}
-            handleFormChange={handleFormChange}
-            handleTypeChange={handleTypeChange}
             {...form}
         />
     );

@@ -7,12 +7,35 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import { LEGAL_DOCUMENT_TYPE } from 'constants/superAdmin/enums';
-import SunEditorRichTextContainer from '../../slateRichText/container/SunEditorRichTextContainer';
+import ReactQuill from 'react-quill';
 
 const options = [
     { text: LEGAL_DOCUMENT_TYPE[10], value: LEGAL_DOCUMENT_TYPE[10] },
     { text: LEGAL_DOCUMENT_TYPE[20], value: LEGAL_DOCUMENT_TYPE[20] },
     { text: LEGAL_DOCUMENT_TYPE[30], value: LEGAL_DOCUMENT_TYPE[30] },
+];
+
+const modules = {
+    toolbar: [
+        [{ header: [1, 2, 3, 4, 5, false] }],
+        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+        [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+        ['link'],
+        ['clean'],
+    ],
+};
+
+const formats = [
+    'header',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'bullet',
+    'indent',
+    'link',
 ];
 
 const AddLegalDocumentVersion = ({
@@ -50,7 +73,13 @@ const AddLegalDocumentVersion = ({
             </BlockContainer>
 
             <BlockContainer>
-                <SunEditorRichTextContainer value={documentText} onChange={setDocText} />
+                <ReactQuill
+                    theme="snow"
+                    value={documentText}
+                    onChange={setDocText}
+                    modules={modules}
+                    formats={formats}
+                />
 
                 <BlockButtonWrapper>
                     <ButtonContainer handleClick={handleSaveDraft}>Save Draft</ButtonContainer>
