@@ -6153,7 +6153,15 @@ input {
     border-bottom-right-radius: 5px;
     }
     }
+
+    &.small {
+        & .ql-editor {
+            height: 50px !important;
+        }
+    }
  }
+
+ 
 
 //service area when viewing zone pins
 .service-area {

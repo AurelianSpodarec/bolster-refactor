@@ -43,7 +43,7 @@ const BannerNotificationForm = ({
                     onChange={content => handleChange('content', content)}
                     modules={modules}
                     formats={formats}
-                    className="margin-top"
+                    className="margin-top small"
                 />
             </Field>
             <Field name="Start Date">
