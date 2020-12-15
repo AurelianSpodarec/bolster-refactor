@@ -7,6 +7,30 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
 import SunEditorSimpleWysiwyg from 'components/shared/generic/form/presentational/SunEditorSimpleWysiwyg';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import ReactQuill from 'react-quill';
+
+const modules = {
+    toolbar: [
+        [{ header: [1, 2, 3, 4, 5, false] }],
+        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+        [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+        ['link'],
+        ['clean'],
+    ],
+};
+
+const formats = [
+    'header',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'bullet',
+    'indent',
+    'link',
+];
 
 const BannerNotificationForm = ({
     formData: { name, content, startDate, endDate, colour },
@@ -21,10 +45,17 @@ const BannerNotificationForm = ({
                 <TextInputContainer name="name" value={name} handleChange={handleChange} />
             </Field>
             <Field name="Banner Content">
-                <SunEditorSimpleWysiwyg
+                {/* <SunEditorSimpleWysiwyg
                     name="content"
                     onChange={content => handleChange('content', content)}
                     value={content}
+                /> */}
+                <ReactQuill
+                    theme="snow"
+                    value={content}
+                    onChange={content => handleChange('content', content)}
+                    modules={modules}
+                    formats={formats}
                 />
             </Field>
             <Field name="Start Date">
