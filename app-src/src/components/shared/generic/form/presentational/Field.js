@@ -10,17 +10,17 @@ const Field = ({
     required = false,
     htmlFor,
     styles = {},
+    labelClasses,
 }) => {
     const titleCaseName = toTitleCase(name);
     return (
         <div className={`form-field ${sizeClasses} ${classes} `} style={{ ...styles }}>
             {name && name.length && (
-                <label className="title" htmlFor={htmlFor}>
+                <label className={`title ${labelClasses}`} htmlFor={htmlFor}>
                     {titleCaseName} <span className="small">{smallDesc ? smallDesc : ''}</span>{' '}
                     {required && <sub>*</sub>}
                 </label>
             )}
-
 
             {children}
         </div>

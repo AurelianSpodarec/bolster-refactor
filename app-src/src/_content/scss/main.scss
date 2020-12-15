@@ -1,6 +1,7 @@
 @import './reset.scss';
 @import './variables.scss';
 @import './sizing.scss';
+@import "~react-quill/dist/quill.snow.css";
 
 @mixin dropdown-popup() {
     z-index: -1;
@@ -1569,6 +1570,8 @@ input {
 }
 //form stuff
 .form-field {
+
+    
     padding: {
         left: 7.5px;
         right: 7.5px;
@@ -1626,6 +1629,10 @@ input {
             color: $red;
         }
 
+        &.no-float {
+            float: none;
+            margin-bottom: 5px;
+        }
         .small {
             font-size: 90%;
             text-transform: none;
@@ -6121,6 +6128,32 @@ input {
     }
   
 }
+
+.quill {
+
+    &.margin-top{
+        margin-top: 12.5px;
+    }
+    .ql-tooltip {
+        white-space: nowrap;
+        top: -50px !important;
+        left: 350px !important;
+    }
+    .ql-toolbar {
+
+    &.ql-snow {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    }
+    }
+    .ql-container {
+    
+    &.ql-snow {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    }
+    }
+ }
 
 //service area when viewing zone pins
 .service-area {
