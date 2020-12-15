@@ -33,7 +33,7 @@ const AddNewFeatureForm = ({
                 name="fullDescription"
                 value={form.fullDescription}
                 onChange={description => handleChange('fullDescription', description)}
-                placeholder="Enter a long description"
+                placeholder="Enter a description"
             />
         </Field>
         {!showImageField && (
@@ -86,7 +86,6 @@ const AddNewFeatureForm = ({
                 selected={form.publishDate}
                 onChange={val => handleChange('publishDate', val)}
                 placeholderText="Enter a publish date"
-                showTimeSelect
                 // onBlur={() => handleDateBlur(true)}
             />
         </Field>
