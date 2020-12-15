@@ -32,7 +32,6 @@ const BannerNotificationForm = ({
                     name="startDate"
                     selected={startDate}
                     onChange={val => handleChange('startDate', val)}
-                    showTimeSelect
                     placeholderText="Start Date"
                 />
             </Field>
@@ -41,7 +40,6 @@ const BannerNotificationForm = ({
                     name="endDate"
                     selected={endDate}
                     onChange={val => handleChange('endDate', val)}
-                    showTimeSelect
                     placeholderText="End Date"
                 />
             </Field>
