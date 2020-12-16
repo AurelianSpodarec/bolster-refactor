@@ -255,7 +255,7 @@ const CreateBuildingsFormContainer = ({
                 ? {}
                 : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
 
-            const dropdownEnabledOptions = initialOptions.isDropDownOptionsEnabled
+            const dropdownEnabledOptions = initialDropdownOptions.isDropDownOptionsEnabled
                 ? {}
                 : {
                       isDropDownOptionEnabled: setDropdownOptionsForHierarchy,
@@ -302,10 +302,10 @@ const CreateBuildingsFormContainer = ({
                     ? {}
                     : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
 
-                const dropdownEnabledOptions = initialOptions.isDropDownOptionsEnabled
+                const dropdownEnabledOptions = initialDropdownOptions.isDropDownOptionsEnabled
                     ? {}
                     : {
-                          isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
+                          isDropDownOptionEnabled: setDropdownOptionsForHierarchy,
                           dropDownOptionIDs: selectedDropdownOptions,
                       };
 

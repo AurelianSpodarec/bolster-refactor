@@ -18,9 +18,11 @@ import {
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
 import editBuilding from 'actions/companyAdmin/buildings/async/editBuilding';
+import fetchSingleSiteDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchSingleSiteDropdownOptions';
 
 import BuildingEditForm from '../presentational/EditBuildingForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import { createPreselectedItemOptionValuesList, formatDropdownOptions } from 'helpers/itemTypes';
 
 class BuildingEditFormContainer extends Component {
     state = {
@@ -38,11 +40,16 @@ class BuildingEditFormContainer extends Component {
         areOptionsLoaded: false,
         showManufacturingOptions: true,
         manufacturingInheritedFrom: '',
+        showDropdownOptions: true,
+        isDropdownOptionsInherited: false,
+        setDropdownOptionsForHierarchy: false,
+        selectedDropdownOptions: [],
+        dropdownOptions: [],
     };
 
     render() {
         const { isUsingBolsterLabels, error } = this.props;
-        const { areOptionsLoaded, showManufacturingOptions } = this.state;
+        const { areOptionsLoaded, showManufacturingOptions, showDropdownOptions } = this.state;
         return (
             <BlockContainer
                 isEmpty={!areOptionsLoaded}
@@ -60,13 +67,20 @@ class BuildingEditFormContainer extends Component {
                     isUsingBolsterLabels={isUsingBolsterLabels}
                     handleShowManufacturingOptions={this.handleShowManufacturingOptions}
                     showManufacturingOptions={showManufacturingOptions}
+                    showDropdownOptions={showDropdownOptions}
+                    handleShowDropdownOptions={this.handleShowDropdownOptions}
                 />
             </BlockContainer>
         );
     }
 
     componentDidMount = async () => {
-        const { building, fetchManufacturersByPinOptionType, fetchAllOptionValues } = this.props;
+        const {
+            building,
+            fetchManufacturersByPinOptionType,
+            fetchAllOptionValues,
+            fetchSingleSiteDropdownOptions,
+        } = this.props;
 
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before editing a building
         const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
@@ -79,6 +93,7 @@ class BuildingEditFormContainer extends Component {
 
         const actions = pinOptionTypes.map(fn);
 
+        await fetchSingleSiteDropdownOptions(2, building.siteID);
         await Promise.all(actions).then(() => {
             fetchAllOptionValues();
         });
@@ -109,6 +124,14 @@ class BuildingEditFormContainer extends Component {
                 manufacturingInheritedFrom: building.manufacturingInheritedFrom,
             };
 
+            const initialDropdownOptions = {
+                isDropdownOptionsInherited: building.isDropdownOptionsInherited,
+                setDropdownOptionsForHierarchy: building.isDropDownOptionsEnabled,
+                selectedDropdownOptions: [],
+                dropdownOptions: [],
+                isDropDownOptionsInheritedFrom: building.isDropDownOptionsInheritedFrom,
+            };
+
             initialOptions.optionValuesOptions = createOptionValuesList(
                 optionValues,
                 subscriptionServiceIDs,
@@ -137,7 +160,20 @@ class BuildingEditFormContainer extends Component {
                 );
             }
 
+            //dropdown options
+            initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
+                building.dropDownOptionIDs,
+            );
+            initialDropdownOptions.dropdownOptions = formatDropdownOptions(
+                this.props.dropdownOptions,
+            );
+
+            if (building.isDropDownOptionsInheritedFrom) {
+                this.setState({ showDropdownOptions: false });
+            }
+
             this.setState(initialOptions);
+            this.setState(initialDropdownOptions);
         }
 
         if (!prevProps.building.id && !!building.id) {
@@ -146,6 +182,9 @@ class BuildingEditFormContainer extends Component {
     };
     handleShowManufacturingOptions = () => {
         this.setState({ showManufacturingOptions: true });
+    };
+    handleShowDropdownOptions = () => {
+        this.setState({ showDropdownOptions: true });
     };
 
     handleInputChange = (name, value) => {
@@ -185,6 +224,9 @@ class BuildingEditFormContainer extends Component {
             dateToSend,
             setManufacturersForHierarchy,
             isManufacturingInherited,
+            isDropdownOptionsInherited,
+            setDropdownOptionsForHierarchy,
+            selectedDropdownOptions,
         } = this.state;
 
         const manufacturingEnabledOptions = isManufacturingInherited
@@ -192,6 +234,12 @@ class BuildingEditFormContainer extends Component {
             : {
                   isManufacturingEnabled: setManufacturersForHierarchy,
                   optionValueIDs: removeUnusedManufacturerDefaults(this.state),
+              };
+        const dropdownEnabledOptions = isDropdownOptionsInherited
+            ? {}
+            : {
+                  isDropDownOptionEnabled: setDropdownOptionsForHierarchy,
+                  dropDownOptionIDs: selectedDropdownOptions,
               };
 
         let postBody = {};
@@ -202,12 +250,14 @@ class BuildingEditFormContainer extends Component {
                 message: message,
                 dateToSend: moment(dateToSend).format(),
                 ...manufacturingEnabledOptions,
+                ...dropdownEnabledOptions,
             };
         } else {
             postBody = {
                 name,
                 location,
                 ...manufacturingEnabledOptions,
+                ...dropdownEnabledOptions,
             };
         }
         editBuilding(building.id, postBody);
@@ -220,6 +270,10 @@ const mapStateToProps = ({
         buildingsReducer: { error: buildingError },
         companySettingsReducer: {
             companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
+        },
+        dropdownOptionsReducer: {
+            singleSiteDropdownOptions,
+            isFetching: isFetchingDropdownOptions,
         },
         manufacturersReducer: {
             manufacturers,
@@ -240,9 +294,10 @@ const mapStateToProps = ({
     error: buildingError || manufacturersError || optionValuesError,
     manufacturers,
     optionValues: manufacturersOptionValues,
-    isFetching: isFetchingManufacturers || isFetchingOptionValues,
+    isFetching: isFetchingManufacturers || isFetchingOptionValues || isFetchingDropdownOptions,
     useManufacturingByDefault,
     subscriptionServiceIDs,
+    dropdownOptions: singleSiteDropdownOptions,
 });
 
 const mapDispatchToProps = {
@@ -250,6 +305,7 @@ const mapDispatchToProps = {
     hideModal,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
+    fetchSingleSiteDropdownOptions,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BuildingEditFormContainer);
