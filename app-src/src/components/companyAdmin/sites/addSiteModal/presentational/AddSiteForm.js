@@ -198,7 +198,7 @@ const AddSiteForm = ({
 
         <div className="size-lg-12">
             <div className="size-lg-6 size-md-12">
-                <Field labelClasses="no-capitalise" name="Set Custom Types for site?">
+                <Field labelClasses="no-capitalise" name="Set item types for site?">
                     <CheckboxContainer
                         checked={setDropDownOptions}
                         name="setDropDownOptions"

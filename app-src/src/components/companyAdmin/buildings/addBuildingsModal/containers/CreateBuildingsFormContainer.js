@@ -25,6 +25,8 @@ import {
 } from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isObjEmpty } from 'helpers/generic';
+import { createPreselectedItemOptionValuesList, formatDropdownOptions } from 'helpers/itemTypes';
+import fetchSingleSiteDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchSingleSiteDropdownOptions';
 
 const CreateBuildingsFormContainer = ({
     siteID,
@@ -42,6 +44,8 @@ const CreateBuildingsFormContainer = ({
     site,
     useManufacturingByDefault,
     error,
+    fetchSingleSiteDropdownOptions,
+    dropdownOptions,
 }) => {
     const [
         buildings,
@@ -53,6 +57,7 @@ const CreateBuildingsFormContainer = ({
         // eslint-disable-next-line no-unused-vars
         _,
         setInitialManufacturerBuildingOptions,
+        setIntitialDropdownBuildingOptions,
     ] = useMultipleHierarchies({
         name: '',
         location: '',
@@ -65,6 +70,10 @@ const CreateBuildingsFormContainer = ({
         selectedManufacturerOptions: [],
         selectedOptionValues: [],
         optionValuesOptions: {},
+        isDropdownOptionsInherited: false,
+        setDropdownOptionsForHierarchy: false,
+        selectedDropdownOptions: [],
+        dropdownOptions: {},
     });
 
     const [initialOptions, setInitialOptions] = useState({
@@ -76,7 +85,16 @@ const CreateBuildingsFormContainer = ({
         optionValuesOptions: {},
     });
 
+    const [initialDropdownOptions, setInititalDropdownOptions] = useState({
+        isDropdownOptionsInherited: false,
+        setDropdownOptionsForHierarchy: null,
+        selectedDropdownOptions: [],
+        dropdownOptions: {},
+    });
+
     const [showManufacturingOptions, setShowManufacturingOptions] = useState(true);
+
+    const [showDropdownOptions, setShowDropdownOptions] = useState(true);
 
     const [areOptionsLoaded, setAreOptionsLoaded] = useState(false);
 
@@ -99,12 +117,15 @@ const CreateBuildingsFormContainer = ({
                 fetchAllOptionValues();
             });
         }
+        fetchSingleSiteDropdownOptions(2, site.id);
+
         getPinOptions();
-    }, [fetchManufacturersByPinOptionType, fetchAllOptionValues]);
+    }, [fetchManufacturersByPinOptionType, fetchAllOptionValues, fetchSingleSiteDropdownOptions]);
 
     useEffect(() => {
         if (prevProps.isFetching && !isFetching) {
             const isManufacturingInherited = site.isManufacturingEnabled;
+            const isDropdownOptionsInherited = site.isDropDownOptionsEnabled;
 
             const initialOptions = {
                 isManufacturingInherited,
@@ -115,6 +136,29 @@ const CreateBuildingsFormContainer = ({
                 selectedManufacturerOptions: null,
             };
 
+            const initialDropdownOptions = {
+                isDropdownOptionsInherited,
+                setDropdownOptionsForHierarchy: null,
+                selectedDropdownOptions: [],
+                dropdownOptions: {},
+            };
+
+            if (isDropdownOptionsInherited) {
+                initialDropdownOptions.setDropdownOptionsForHierarchy = true;
+                initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
+                initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
+                    dropdownOptions,
+                    site.dropDownOptionIDs,
+                );
+            }
+            if (!isDropdownOptionsInherited) {
+                initialDropdownOptions.setDropdownOptionsForHierarchy = false;
+                initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
+                initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
+                    dropdownOptions,
+                    site.dropDownOptionIDs,
+                );
+            }
             if (isManufacturingInherited) {
                 // prefill options from hierarchy above
 
@@ -149,11 +193,15 @@ const CreateBuildingsFormContainer = ({
             }
 
             setInitialOptions(initialOptions);
-            setInitialManufacturerBuildingOptions(initialOptions);
+            setInititalDropdownOptions(initialDropdownOptions);
+
+            const combinedOptions = { ...initialOptions, ...initialDropdownOptions };
+
+            setInitialManufacturerBuildingOptions(combinedOptions);
+
             setAreOptionsLoaded(true);
         }
     }, [isFetching]);
-
     return (
         <BlockContainer
             isEmpty={isObjEmpty(manufacturers) || isObjEmpty(optionValues) || !areOptionsLoaded}
@@ -177,6 +225,9 @@ const CreateBuildingsFormContainer = ({
                 initialOptions={initialOptions}
                 showManufacturingOptions={showManufacturingOptions}
                 setShowManufacturingOptions={setShowManufacturingOptions}
+                showDropdownOptions={showDropdownOptions}
+                setShowDropdownOptions={setShowDropdownOptions}
+                initialDropdownOptions={initialDropdownOptions}
             />
         </BlockContainer>
     );
@@ -197,9 +248,15 @@ const CreateBuildingsFormContainer = ({
 
             const optionValueIDs = removeUnusedManufacturerDefaults(building);
 
+            const selectedDropDownOptions = initialDropdownOptions;
+
             const manufacturingEnabledOptions = initialOptions.isManufacturingInherited
                 ? {}
                 : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
+
+            const dropdownEnabledOptions = initialDropdownOptions.isDropdownOptionsInherited
+                ? {}
+                : selectedDropDownOptions;
 
             if (isAlertShowing) {
                 createBuilding({
@@ -208,6 +265,7 @@ const CreateBuildingsFormContainer = ({
                     siteID,
                     dateToSend,
                     message,
+                    ...dropdownEnabledOptions,
                     ...manufacturingEnabledOptions,
                 });
             } else {
@@ -215,6 +273,7 @@ const CreateBuildingsFormContainer = ({
                     name,
                     location,
                     siteID,
+                    ...dropdownEnabledOptions,
                     ...manufacturingEnabledOptions,
                 });
             }
@@ -233,6 +292,12 @@ const CreateBuildingsFormContainer = ({
 
                 const optionValueIDs = removeUnusedManufacturerDefaults(building);
 
+                const selectedDropDownOptions = initialDropdownOptions;
+
+                const dropdownEnabledOptions = initialDropdownOptions.isDropdownOptionsInherited
+                    ? {}
+                    : selectedDropDownOptions;
+
                 const manufacturingEnabledOptions = initialOptions.isManufacturingInherited
                     ? {}
                     : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
@@ -244,12 +309,14 @@ const CreateBuildingsFormContainer = ({
                           siteID,
                           dateToSend,
                           message,
+                          ...dropdownEnabledOptions,
                           ...manufacturingEnabledOptions,
                       }
                     : {
                           name,
                           location,
                           siteID,
+                          ...dropdownEnabledOptions,
                           ...manufacturingEnabledOptions,
                       };
             });
@@ -271,6 +338,11 @@ const mapStateToProps = (
             sitesReducer: { siteError, updatedSiteID, sites },
             companySettingsReducer: {
                 companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
+            },
+
+            dropdownOptionsReducer: {
+                singleSiteDropdownOptions,
+                isFetching: isFetchingDropdownOptions,
             },
             manufacturersReducer: {
                 manufacturers,
@@ -295,9 +367,10 @@ const mapStateToProps = (
     updatedSiteID,
     manufacturers,
     optionValues: manufacturersOptionValues,
-    isFetching: isFetchingManufacturers || isFetchingOptionValues,
+    isFetching: isFetchingManufacturers || isFetchingOptionValues || isFetchingDropdownOptions,
     useManufacturingByDefault,
     subscriptionServiceIDs,
+    dropdownOptions: singleSiteDropdownOptions,
 });
 
 const mapDispatchToProps = {
@@ -307,6 +380,7 @@ const mapDispatchToProps = {
     updateHierarchyAddState,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
+    fetchSingleSiteDropdownOptions,
 };
 
 export default withRouter(

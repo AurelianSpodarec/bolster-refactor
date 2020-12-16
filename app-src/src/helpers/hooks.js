@@ -67,7 +67,6 @@ export const useMultipleHierarchies = hierarchyShape => {
             let [buildingID, buildingState] = formState[0];
 
             const newState = { [buildingID]: { ...buildingState, ...initialOptions } };
-
             setState(newState);
         }
     }
