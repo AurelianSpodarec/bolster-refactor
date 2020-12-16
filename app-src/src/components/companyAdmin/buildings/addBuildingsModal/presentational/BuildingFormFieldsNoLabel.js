@@ -21,7 +21,6 @@ const BuildingFormFieldsWithLabel = ({
     siteName,
     showDropdownOptions,
     setShowDropdownOptions,
-    initialDropdownOptions,
 }) =>
     buildings.map(building => {
         console.log(building);

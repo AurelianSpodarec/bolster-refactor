@@ -199,6 +199,9 @@ const CreateBuildingsFormContainer = ({
             setAreOptionsLoaded(true);
         }
     }, [isFetching]);
+
+    const combinedOptions = { ...initialOptions, ...initialDropdownOptions };
+
     return (
         <BlockContainer
             isEmpty={isObjEmpty(manufacturers) || isObjEmpty(optionValues) || !areOptionsLoaded}
@@ -225,6 +228,7 @@ const CreateBuildingsFormContainer = ({
                 showDropdownOptions={showDropdownOptions}
                 setShowDropdownOptions={setShowDropdownOptions}
                 initialDropdownOptions={initialDropdownOptions}
+                combinedOptions={combinedOptions}
             />
         </BlockContainer>
     );
@@ -320,7 +324,6 @@ const CreateBuildingsFormContainer = ({
                           location,
                           siteID,
                           ...dropdownEnabledOptions,
-
                           ...manufacturingEnabledOptions,
                       };
             });
