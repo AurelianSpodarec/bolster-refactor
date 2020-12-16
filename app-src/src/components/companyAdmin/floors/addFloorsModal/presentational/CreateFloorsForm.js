@@ -24,6 +24,10 @@ const CreateFloorsForm = ({
     initialOptions,
     setShowManufacturingOptions,
     showManufacturingOptions,
+    showDropdownOptions,
+    setShowDropdownOptions,
+    buildingName,
+    combinedOptions,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -200,6 +204,68 @@ const CreateFloorsForm = ({
                             </div>
                         </FieldOutput>
                     )}
+                    {showDropdownOptions ? (
+                        <>
+                            <div className="size-lg-12">
+                                <div className="size-lg-6 size-md-12">
+                                    <Field
+                                        labelClasses="no-capitalise"
+                                        name="Set item types for building?"
+                                    >
+                                        <CheckboxContainer
+                                            checked={floor.setDropdownOptionsForHierarchy}
+                                            name={`${floor.id}.*.setDropdownOptionsForHierarchy`}
+                                            text=""
+                                            handleChange={(name, value) =>
+                                                updateFloor(name, value, floor.id)
+                                            }
+                                            disabled={floor.isDropdownOptionsInherited}
+                                        />
+                                    </Field>
+                                </div>
+                            </div>
+                            {floor.setDropdownOptionsForHierarchy && (
+                                <div className="size-lg-12">
+                                    <Field
+                                        labelClasses="no-capitalise"
+                                        name="Manufacturer(s)"
+                                        required={floor.setDropdownOptionsForHierarchy}
+                                    >
+                                        <CheckboxListContainer
+                                            name={`${floor.id}.*.selectedDropdownOptions`}
+                                            text=""
+                                            handleChange={(name, value) =>
+                                                updateFloor(name, value, floor.id)
+                                            }
+                                            selectedOptions={floor.selectedDropdownOptions}
+                                            options={floor.dropdownOptions}
+                                            allOptionsDisabled={floor.isDropdownOptionsInherited}
+                                            required={floor.setDropdownOptionsForHierarchy}
+                                        />
+                                    </Field>
+                                </div>
+                            )}
+                        </>
+                    ) : (
+                        <>
+                            <FieldOutput fieldClass="center-align">
+                                <div className="form-field size-lg-12">
+                                    <p>
+                                        Item types already set at {buildingName}.
+                                        <br /> This cannot be overridden at this level, click{' '}
+                                        <span
+                                            onClick={() => {
+                                                setShowDropdownOptions(true);
+                                            }}
+                                        >
+                                            here
+                                        </span>{' '}
+                                        to see the settings.
+                                    </p>
+                                </div>
+                            </FieldOutput>
+                        </>
+                    )}
 
                     {floors.length > 1 && (
                         <BlockButtonWrapper>
@@ -219,7 +285,7 @@ const CreateFloorsForm = ({
             <button
                 className="button blue left"
                 type="button"
-                onClick={() => addFloor(initialOptions)}
+                onClick={() => addFloor(combinedOptions)}
             >
                 <i className="fa fa-plus" /> Add another floor
             </button>

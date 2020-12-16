@@ -25,6 +25,8 @@ import {
 } from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isObjEmpty } from 'helpers/generic';
+import fetchSingleSiteDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchSingleSiteDropdownOptions';
+import { createPreselectedItemOptionValuesList, formatDropdownOptions } from 'helpers/itemTypes';
 
 const CreateFloorsFormContainer = ({
     buildingID,
@@ -42,6 +44,8 @@ const CreateFloorsFormContainer = ({
     building,
     useManufacturingByDefault,
     error,
+    fetchSingleSiteDropdownOptions,
+    dropdownOptions,
 }) => {
     const [
         floors,
@@ -64,6 +68,10 @@ const CreateFloorsFormContainer = ({
         selectedManufacturerOptions: [],
         selectedOptionValues: [],
         optionValuesOptions: {},
+        isDropdownOptionsInherited: false,
+        setDropdownOptionsForHierarchy: false,
+        selectedDropdownOptions: [],
+        dropdownOptions: {},
     });
 
     const [initialOptions, setInitialOptions] = useState({
@@ -75,11 +83,20 @@ const CreateFloorsFormContainer = ({
         optionValuesOptions: {},
     });
 
+    const [initialDropdownOptions, setInititalDropdownOptions] = useState({
+        isDropdownOptionsInherited: false,
+        setDropdownOptionsForHierarchy: null,
+        selectedDropdownOptions: [],
+        dropdownOptions: {},
+    });
+
     const [areOptionsLoaded, setAreOptionsLoaded] = useState(false);
 
     const prevProps = usePrevious({ isFetching });
 
     const [showManufacturingOptions, setShowManufacturingOptions] = useState(true);
+
+    const [showDropdownOptions, setShowDropdownOptions] = useState(true);
 
     useEffect(() => {
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before adding a site.
@@ -94,6 +111,8 @@ const CreateFloorsFormContainer = ({
 
             const actions = pinOptionTypes.map(fn);
 
+            await fetchSingleSiteDropdownOptions(2, building.siteID);
+
             await Promise.all(actions).then(() => {
                 fetchAllOptionValues();
             });
@@ -104,6 +123,7 @@ const CreateFloorsFormContainer = ({
     useEffect(() => {
         if (prevProps.isFetching && !isFetching) {
             const isManufacturingInherited = building.manufacturingInheritedFrom;
+            const isDropdownOptionsInherited = building.isDropDownOptionsEnabled;
 
             const initialOptions = {
                 isManufacturingInherited,
@@ -114,6 +134,28 @@ const CreateFloorsFormContainer = ({
                 selectedManufacturerOptions: null,
                 manufacturingInheritedFrom: null,
             };
+
+            const initialDropdownOptions = {
+                isDropdownOptionsInherited,
+                setDropdownOptionsForHierarchy: null,
+                selectedDropdownOptions: [],
+                dropdownOptions: {},
+            };
+
+            if (isDropdownOptionsInherited) {
+                initialDropdownOptions.setDropdownOptionsForHierarchy = true;
+                initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
+                initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
+                    building.dropDownOptionIDs,
+                );
+            }
+            if (!isDropdownOptionsInherited) {
+                initialDropdownOptions.setDropdownOptionsForHierarchy = false;
+                initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
+                initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
+                    building.dropDownOptionIDs,
+                );
+            }
 
             if (isManufacturingInherited) {
                 // prefill options from hierarchy above
@@ -150,10 +192,17 @@ const CreateFloorsFormContainer = ({
             }
 
             setInitialOptions(initialOptions);
-            setInitialManufacturerFloorOptions(initialOptions);
+            setInititalDropdownOptions(initialDropdownOptions);
+
+            const combinedOptions = { ...initialOptions, ...initialDropdownOptions };
+
+            setInitialManufacturerFloorOptions(combinedOptions);
+
             setAreOptionsLoaded(true);
         }
     }, [isFetching]);
+
+    const combinedOptions = { ...initialOptions, ...initialDropdownOptions };
 
     return (
         <BlockContainer
@@ -177,12 +226,18 @@ const CreateFloorsFormContainer = ({
                 initialOptions={initialOptions}
                 setShowManufacturingOptions={setShowManufacturingOptions}
                 showManufacturingOptions={showManufacturingOptions}
+                showDropdownOptions={showDropdownOptions}
+                setShowDropdownOptions={setShowDropdownOptions}
+                initialDropdownOptions={initialDropdownOptions}
+                buildingName={building.name}
+                combinedOptions={combinedOptions}
             />
         </BlockContainer>
     );
 
     function handleSubmit() {
         const floors = getPostBody();
+
         if (floors.length === 1) {
             const [floor] = floors;
             const {
@@ -191,6 +246,8 @@ const CreateFloorsFormContainer = ({
                 message,
                 isAlertShowing,
                 setManufacturersForHierarchy,
+                selectedDropdownOptions,
+                setDropdownOptionsForHierarchy,
             } = floor;
 
             const optionValueIDs = removeUnusedManufacturerDefaults(floor);
@@ -199,6 +256,13 @@ const CreateFloorsFormContainer = ({
                 ? {}
                 : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
 
+            const dropdownEnabledOptions = initialDropdownOptions.isDropDownOptionsEnabled
+                ? {}
+                : {
+                      isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
+                      dropDownOptionIDs: selectedDropdownOptions,
+                  };
+
             isAlertShowing
                 ? createFloor({
                       name,
@@ -206,8 +270,14 @@ const CreateFloorsFormContainer = ({
                       message,
                       dateToSend,
                       ...manufacturingEnabledOptions,
+                      ...dropdownEnabledOptions,
                   })
-                : createFloor({ name, buildingID, ...manufacturingEnabledOptions });
+                : createFloor({
+                      name,
+                      buildingID,
+                      ...manufacturingEnabledOptions,
+                      ...dropdownEnabledOptions,
+                  });
         }
         if (floors.length > 1) {
             const formattedFloors = floors.map(floor => {
@@ -217,6 +287,8 @@ const CreateFloorsFormContainer = ({
                     dateToSend,
                     message,
                     setManufacturersForHierarchy,
+                    selectedDropdownOptions,
+                    setDropdownOptionsForHierarchy,
                 } = floor;
 
                 const optionValueIDs = removeUnusedManufacturerDefaults(floor);
@@ -224,6 +296,12 @@ const CreateFloorsFormContainer = ({
                 const manufacturingEnabledOptions = initialOptions.isManufacturingInherited
                     ? {}
                     : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
+                const dropdownEnabledOptions = initialDropdownOptions.isDropDownOptionsEnabled
+                    ? {}
+                    : {
+                          isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
+                          dropDownOptionIDs: selectedDropdownOptions,
+                      };
 
                 return isAlertShowing
                     ? {
@@ -232,11 +310,13 @@ const CreateFloorsFormContainer = ({
                           dateToSend,
                           message,
                           ...manufacturingEnabledOptions,
+                          ...dropdownEnabledOptions,
                       }
                     : {
                           name,
                           buildingID,
                           ...manufacturingEnabledOptions,
+                          ...dropdownEnabledOptions,
                       };
             });
             createFloors({ floors: formattedFloors, buildingID });
@@ -256,6 +336,10 @@ const mapStateToProps = (
             buildingsReducer: { buildingError, buildings },
             companySettingsReducer: {
                 companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
+            },
+            dropdownOptionsReducer: {
+                singleSiteDropdownOptions,
+                isFetching: isFetchingDropdownOptions,
             },
             manufacturersReducer: {
                 manufacturers,
@@ -279,9 +363,10 @@ const mapStateToProps = (
     building: buildings[buildingID],
     manufacturers,
     optionValues: manufacturersOptionValues,
-    isFetching: isFetchingManufacturers || isFetchingOptionValues,
+    isFetching: isFetchingManufacturers || isFetchingOptionValues || isFetchingDropdownOptions,
     useManufacturingByDefault,
     subscriptionServiceIDs,
+    dropdownOptions: singleSiteDropdownOptions,
 });
 
 const mapDispatchToProps = {
@@ -291,6 +376,7 @@ const mapDispatchToProps = {
     updateHierarchyAddState,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
+    fetchSingleSiteDropdownOptions,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateFloorsFormContainer));
