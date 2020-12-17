@@ -68,10 +68,6 @@ class ApprovedCompaniesMapContainer extends Component {
     render() {
         const { center, zoom, google } = this.state;
         const { companies } = this.props;
-        console.log(companies);
-        console.log(companies);
-        console.log(companies);
-        console.log(companies);
         return (
             <BlockContainer>
                 <div className="size-lg-12" style={{ height: 700 }}>
@@ -82,6 +78,12 @@ class ApprovedCompaniesMapContainer extends Component {
                         bootstrapURLKeys={{
                             key: 'AIzaSyAPCib6iO1b_MTcuzMmb2wx_CyvgGfqmgo',
                         }}
+                        options={maps => ({
+                            zoomControl: true,
+                            zoomControlOptions: {
+                                position: maps.ControlPosition.TOP_RIGHT,
+                            },
+                        })}
                     >
                         {companies.map(company => (
                             <Marker
