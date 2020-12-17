@@ -135,7 +135,7 @@ class EditDrawingModalContainer extends Component {
             };
 
             const initialDropdownOptions = {
-                isDropdownOptionsInherited: drawing.isDropdownOptionsInherited,
+                isDropdownOptionsInherited: drawing.isDropDownOptionsInherited,
                 setDropdownOptionsForHierarchy: drawing.isDropDownOptionsEnabled,
                 selectedDropdownOptions: [],
                 dropdownOptions: [],
@@ -173,13 +173,12 @@ class EditDrawingModalContainer extends Component {
             initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
                 drawing.dropDownOptionIDs,
             );
-            console.log({ dropdownOptions });
+
             initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
 
             if (drawing.isDropDownOptionsInheritedFrom) {
                 this.setState({ showDropdownOptions: false });
             }
-
             this.setState(initialOptions);
             this.setState(initialDropdownOptions);
         }
