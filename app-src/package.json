@@ -62,7 +62,7 @@
         "redux-mock-store": "^1.5.3",
         "redux-thunk": "^2.3.0",
         "styled-components": "^5.2.0",
-        "suneditor-react": "^2.13.2",
+        "suneditor-react": "^2.14.6",
         "use-is-in-viewport": "^1.0.9",
         "uuid": "^3.3.3"
     },

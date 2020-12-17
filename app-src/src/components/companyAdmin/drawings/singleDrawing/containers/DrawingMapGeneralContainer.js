@@ -320,7 +320,6 @@ class DrawingMapGeneralContainer extends Component {
 
     handleDateChange = (date, name) => {
         const { handleChange, postFilters } = this.props;
-        console.warn({ name, date, test: true });
         handleChange(name, date).then(postFilters);
     };
 

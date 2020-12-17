@@ -1578,6 +1578,8 @@ input {
 }
 //form stuff
 .form-field {
+
+    
     padding: {
         left: 7.5px;
         right: 7.5px;
@@ -1635,6 +1637,10 @@ input {
             color: $red;
         }
 
+        &.no-float {
+            float: none;
+            margin-bottom: 5px;
+        }
         .small {
             font-size: 90%;
             text-transform: none;
@@ -2644,6 +2650,14 @@ input {
                         }
                     }
                 }
+            }
+        }
+
+        & > .wide-row {
+            width: 550px;
+
+            a, p, strong, div, em, u,span {
+                font-size: 100%;
             }
         }
     }
@@ -5951,6 +5965,84 @@ input {
          } 
     } 
 }
+// banner notification stylings
+
+.banner-notification-wrapper {
+    display: flex;
+    height: 40px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    align-items: center;
+
+    & > .banner-text {
+        color: white;
+        font-size: 140%;
+        margin-left: 5px;
+        display: inline-flex;
+
+        & > i {
+            margin-top: 1px;
+        }
+
+        & > .banner-wysiwyg-text {
+            margin-left: 5px;
+
+            p, a, div, strong, em, u, span {
+                font-size: 100%;
+            }
+            strong {
+                font-weight: 500;
+            }
+            a {
+                color: white;
+
+            }
+        }
+    }
+
+    & > .banner-dismiss {
+        @include ubuntu;
+        background: none;
+        color: white;
+        font-size: 140%;
+        margin-left: auto;
+    }
+  
+}
+
+.quill {
+
+    &.margin-top{
+        margin-top: 12.5px;
+    }
+    .ql-tooltip {
+        white-space: nowrap;
+        top: -50px !important;
+        left: 350px !important;
+    }
+    .ql-toolbar {
+
+    &.ql-snow {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    }
+    }
+    .ql-container {
+    
+    &.ql-snow {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    }
+    }
+
+    &.small {
+        & .ql-editor {
+            height: 50px !important;
+        }
+    }
+ }
+
+ 
 
 //service area when viewing zone pins
 .service-area {
