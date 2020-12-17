@@ -49,7 +49,13 @@ class BuildingEditFormContainer extends Component {
 
     render() {
         const { isUsingBolsterLabels, error } = this.props;
-        const { areOptionsLoaded, showManufacturingOptions, showDropdownOptions } = this.state;
+        const {
+            areOptionsLoaded,
+            showManufacturingOptions,
+            showDropdownOptions,
+            isDropdownOptionsInherited,
+        } = this.state;
+        console.log({ isDropdownOptionsInherited });
         return (
             <BlockContainer
                 isEmpty={!areOptionsLoaded}
@@ -125,7 +131,7 @@ class BuildingEditFormContainer extends Component {
             };
 
             const initialDropdownOptions = {
-                isDropdownOptionsInherited: building.isDropdownOptionsInherited,
+                isDropdownOptionsInherited: building.isDropDownOptionsInherited,
                 setDropdownOptionsForHierarchy: building.isDropDownOptionsEnabled,
                 selectedDropdownOptions: [],
                 dropdownOptions: [],
@@ -168,7 +174,7 @@ class BuildingEditFormContainer extends Component {
                 this.props.dropdownOptions,
             );
 
-            if (building.isDropDownOptionsInheritedFrom) {
+            if (building.isDropDownOptionsInherited) {
                 this.setState({ showDropdownOptions: false });
             }
 
@@ -238,7 +244,7 @@ class BuildingEditFormContainer extends Component {
         const dropdownEnabledOptions = isDropdownOptionsInherited
             ? {}
             : {
-                  isDropDownOptionEnabled: setDropdownOptionsForHierarchy,
+                  isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
                   dropDownOptionIDs: selectedDropdownOptions,
               };
 

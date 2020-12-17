@@ -65,9 +65,9 @@ const AddDrawingsFormContainer = ({
         removeDrawing,
         getKeys,
         getPostBody,
-        setInitialManufacturerFloorOptions,
         // eslint-disable-next-line no-unused-vars
         _,
+        setInitialManufacturerFloorOptions,
     ] = useMultipleHierarchies({
         name: '',
         file: '',
@@ -152,7 +152,7 @@ const AddDrawingsFormContainer = ({
                 isDropdownOptionsInherited,
                 setDropdownOptionsForHierarchy: null,
                 selectedDropdownOptions: [],
-                dropdownOptions: {},
+                dropdownOptions: [],
             };
 
             if (isDropdownOptionsInherited) {
@@ -161,6 +161,7 @@ const AddDrawingsFormContainer = ({
                 initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
                     floor.dropDownOptionIDs,
                 );
+                setShowDropdownOptions(false);
             }
             if (!isDropdownOptionsInherited) {
                 initialDropdownOptions.setDropdownOptionsForHierarchy = false;
@@ -206,7 +207,6 @@ const AddDrawingsFormContainer = ({
 
             setInitialOptions(initialOptions);
             setInititalDropdownOptions(initialDropdownOptions);
-
             const combinedOptions = { ...initialOptions, ...initialDropdownOptions };
 
             setInitialManufacturerFloorOptions(combinedOptions);
@@ -221,6 +221,7 @@ const AddDrawingsFormContainer = ({
             updateDrawing(`${drawing.id}.*.operativePermissionIDs`, operativeIDs);
         });
     }, [fetchingOperatives]);
+
     useEffect(() => {
         const clientIDs = clients.map(({ id }) => id + '');
         Object.values(drawings).map(drawing => {

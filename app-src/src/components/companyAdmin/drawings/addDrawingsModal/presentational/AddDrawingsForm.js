@@ -306,7 +306,7 @@ const AddDrawingsForm = ({
                                                     selectedOptions={
                                                         drawing.selectedDropdownOptions
                                                     }
-                                                    options={initialDropdownOptions.dropdownOptions}
+                                                    options={drawing.dropdownOptions}
                                                     allOptionsDisabled={
                                                         drawing.isDropdownOptionsInherited
                                                     }

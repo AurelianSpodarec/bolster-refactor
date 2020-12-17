@@ -196,7 +196,6 @@ const CreateBuildingsFormContainer = ({
             const combinedOptions = { ...initialOptions, ...initialDropdownOptions };
 
             setInitialManufacturerBuildingOptions(combinedOptions);
-
             setAreOptionsLoaded(true);
         }
     }, [isFetching]);
