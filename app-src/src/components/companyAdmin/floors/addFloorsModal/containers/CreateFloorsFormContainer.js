@@ -256,7 +256,7 @@ const CreateFloorsFormContainer = ({
                 ? {}
                 : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
 
-            const dropdownEnabledOptions = initialDropdownOptions.isDropDownOptionsEnabled
+            const dropdownEnabledOptions = initialDropdownOptions.isDropdownOptionsInherited
                 ? {}
                 : {
                       isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
@@ -296,7 +296,7 @@ const CreateFloorsFormContainer = ({
                 const manufacturingEnabledOptions = initialOptions.isManufacturingInherited
                     ? {}
                     : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
-                const dropdownEnabledOptions = initialDropdownOptions.isDropDownOptionsEnabled
+                const dropdownEnabledOptions = initialDropdownOptions.isDropdownOptionsInherited
                     ? {}
                     : {
                           isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,

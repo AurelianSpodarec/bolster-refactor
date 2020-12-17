@@ -283,7 +283,7 @@ const AddDrawingsFormContainer = ({
                     ? {}
                     : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
 
-                const dropdownEnabledOptions = initialDropdownOptions.isDropDownOptionsEnabled
+                const dropdownEnabledOptions = initialDropdownOptions.isDropdownOptionsInherited
                     ? {}
                     : {
                           isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
@@ -326,7 +326,7 @@ const AddDrawingsFormContainer = ({
                         ? {}
                         : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
 
-                    const dropdownEnabledOptions = initialDropdownOptions.isDropDownOptionsEnabled
+                    const dropdownEnabledOptions = initialDropdownOptions.isDropdownOptionsInherited
                         ? {}
                         : {
                               isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
