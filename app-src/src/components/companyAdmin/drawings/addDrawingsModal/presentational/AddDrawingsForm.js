@@ -37,6 +37,7 @@ const AddDrawingsForm = ({
     initialDropdownOptions,
 }) => {
     const hasEnoughCredits = credits >= drawings.length;
+    console.log({ drawings });
     return (
         <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
             <div className="size-lg-12">
@@ -325,7 +326,7 @@ const AddDrawingsForm = ({
                                             <p>
                                                 Item types already set at{' '}
                                                 {
-                                                    initialDropdownOptions.isDropdownOptionsInheritedFrom
+                                                    initialDropdownOptions.isDropDownOptionsInheritedFrom
                                                 }
                                                 .
                                                 <br /> This cannot be overridden at this level,

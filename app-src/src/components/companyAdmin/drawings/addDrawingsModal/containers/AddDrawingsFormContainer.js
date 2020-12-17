@@ -149,12 +149,17 @@ const AddDrawingsFormContainer = ({
             };
             const initialDropOptions = {
                 isDropdownOptionsInherited,
+                isDropDownOptionsInheritedFrom: floor.isDropDownOptionsInheritedFrom,
                 setDropdownOptionsForHierarchy: isDropdownOptionsInherited,
                 dropdownOptions: formatDropdownOptions(dropdownOptions),
                 selectedDropdownOptions: createPreselectedItemOptionValuesList(
                     floor.dropDownOptionIDs,
                 ),
             };
+
+            if (floor.isDropDownOptionsEnabled) {
+                setShowDropdownOptions(false);
+            }
 
             if (isManufacturingInherited) {
                 // prefill options from hierarchy above
