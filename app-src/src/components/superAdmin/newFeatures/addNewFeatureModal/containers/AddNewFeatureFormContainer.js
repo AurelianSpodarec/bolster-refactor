@@ -41,11 +41,10 @@ function AddNewFeatureFormContainer({ addNewFeature, isPosting, postSuccess, err
 
 const mapStateToProps = ({
     superAdmin: {
-        newFeaturesReducer: { postSuccess, addedNewFeature, isPosting, error },
+        newFeaturesReducer: { postSuccess, isPosting, error },
     },
 }) => ({
     postSuccess,
-    addedNewFeature,
     isPosting,
     error,
 });

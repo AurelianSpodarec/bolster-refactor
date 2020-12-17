@@ -32,6 +32,7 @@ import newFeaturesReducer from './newFeatures';
 import recentlyExtendedReducer from './recentlyExtended';
 import legalDocumentsReducer from './legalDocuments';
 import syncsReducer from './syncs';
+import bannerNotificationsReducer from './bannerNotifications';
 
 export default combineReducers({
     adminServicesReducer,
@@ -66,4 +67,5 @@ export default combineReducers({
     expiryToolReducer,
     newFeaturesReducer,
     syncsReducer,
+    bannerNotificationsReducer,
 });

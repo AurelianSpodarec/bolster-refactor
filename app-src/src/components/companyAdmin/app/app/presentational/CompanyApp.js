@@ -8,6 +8,7 @@ import MenuContainer from 'components/shared/layout/menu/containers/MenuContaine
 import Routes from 'components/companyAdmin/app/routes/presentational';
 import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 import AgreeToTermsCheck from '../containers/AgreeToTermsCheck';
+import BannerNotificationContainer from 'components/shared/banners/containers/BannerNotificationContainer';
 
 const CompanyApp = () => (
     <div className="dashboard-area">
@@ -17,6 +18,7 @@ const CompanyApp = () => (
             <MenuContainer />
             <div id="page-area" className="obvious-class-name">
                 <AgreeToTermsCheck>
+                <BannerNotificationContainer />
                     <Routes />
                 </AgreeToTermsCheck>
             </div>
