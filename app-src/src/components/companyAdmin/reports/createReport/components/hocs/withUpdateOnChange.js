@@ -293,16 +293,12 @@ export default function (ProtectedComponent) {
 
         getFilterStartDate = date => {
             const { timeZone } = this.props;
-            return date
-                ? moment.tz(date, timeZone.name).add('days', 1).startOf('day').utc().toISOString()
-                : null;
+            return date ? moment.tz(date, timeZone.name).utc().toISOString() : null;
         };
 
         getFilterEndDate = date => {
             const { timeZone } = this.props;
-            const endDate = date
-                ? moment.tz(date, timeZone.name).add('days', 1).startOf('day').utc().toISOString()
-                : null;
+            const endDate = date ? moment.tz(date, timeZone.name).utc().toISOString() : null;
             return endDate;
         };
 
