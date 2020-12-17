@@ -6,6 +6,7 @@ import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetch
 import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
 import fetchClientsForFloor from 'actions/companyAdmin/clients/async/fetchClientsForFloor';
 import fetchOperativesForFloor from 'actions/companyAdmin/operatives/async/fetchOperativesForFloor';
+import fetchAllCredits from 'actions/companyAdmin/credits/fetchAllCredits';
 import {
     createManufacturerOptionList,
     createOptionValuesList,
@@ -54,6 +55,7 @@ const AddDrawingsFormContainer = ({
     fetchOperativesForFloor,
     fetchingClients,
     fetchingOperatives,
+    fetchAllCredits,
 }) => {
     const [
         drawings,
@@ -267,7 +269,7 @@ const AddDrawingsFormContainer = ({
                     postBody.startDate = startDate;
                 }
 
-                createDrawing(postBody);
+                createDrawing(postBody).then(fetchAllCredits);
             } else if (drawings.length > 1) {
                 const formattedDrawings = drawings.map(drawing => {
                     const {
@@ -306,7 +308,7 @@ const AddDrawingsFormContainer = ({
                     }
                     return postBody;
                 });
-                createDrawings({ drawings: formattedDrawings, floorID });
+                createDrawings({ drawings: formattedDrawings, floorID }).then(fetchAllCredits);
             }
             hideModal();
         }
@@ -379,6 +381,7 @@ const mapDispatchToProps = {
     fetchAllOptionValues,
     fetchOperativesForFloor,
     fetchClientsForFloor,
+    fetchAllCredits,
     showOAndMTsAndCsModal,
 };
 
