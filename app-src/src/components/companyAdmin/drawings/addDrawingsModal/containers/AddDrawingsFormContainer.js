@@ -85,7 +85,7 @@ const AddDrawingsFormContainer = ({
         isDropdownOptionsInherited: false,
         setDropdownOptionsForHierarchy: false,
         selectedDropdownOptions: [],
-        dropdownOptions: {},
+        dropdownOptions: [],
     });
 
     const [initialOptions, setInitialOptions] = useState({
@@ -101,12 +101,12 @@ const AddDrawingsFormContainer = ({
         isDropdownOptionsInherited: false,
         setDropdownOptionsForHierarchy: null,
         selectedDropdownOptions: [],
-        dropdownOptions: {},
+        dropdownOptions: [],
     });
 
     const [areOptionsLoaded, setAreOptionsLoaded] = useState(false);
 
-    const prevProps = usePrevious({ isFetching });
+    const prevProps = usePrevious({ isFetching, fetchingOperatives, fetchingClients });
 
     const [showManufacturingOptions, setShowManufacturingOptions] = useState(true);
 
@@ -147,29 +147,14 @@ const AddDrawingsFormContainer = ({
                 selectedManufacturerOptions: null,
                 manufacturingInheritedFrom: null,
             };
-
-            const initialDropdownOptions = {
+            const initialDropOptions = {
                 isDropdownOptionsInherited,
-                setDropdownOptionsForHierarchy: null,
-                selectedDropdownOptions: [],
-                dropdownOptions: [],
+                setDropdownOptionsForHierarchy: isDropdownOptionsInherited,
+                dropdownOptions: formatDropdownOptions(dropdownOptions),
+                selectedDropdownOptions: createPreselectedItemOptionValuesList(
+                    floor.dropDownOptionIDs,
+                ),
             };
-
-            if (isDropdownOptionsInherited) {
-                initialDropdownOptions.setDropdownOptionsForHierarchy = true;
-                initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
-                initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
-                    floor.dropDownOptionIDs,
-                );
-                setShowDropdownOptions(false);
-            }
-            if (!isDropdownOptionsInherited) {
-                initialDropdownOptions.setDropdownOptionsForHierarchy = false;
-                initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
-                initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
-                    floor.dropDownOptionIDs,
-                );
-            }
 
             if (isManufacturingInherited) {
                 // prefill options from hierarchy above
@@ -205,29 +190,23 @@ const AddDrawingsFormContainer = ({
                 );
             }
 
+            const clientIDs = clients.map(({ id }) => id + '');
+            Object.values(drawings).forEach(drawing => {
+                updateDrawing(`${drawing.id}.*.clientPermissionIDs`, clientIDs);
+            });
+            const operativeIDs = operatives.map(({ id }) => id + '');
+            Object.values(drawings).forEach(drawing => {
+                updateDrawing(`${drawing.id}.*.operativePermissionIDs`, operativeIDs);
+            });
             setInitialOptions(initialOptions);
-            setInititalDropdownOptions(initialDropdownOptions);
-            const combinedOptions = { ...initialOptions, ...initialDropdownOptions };
+            setInititalDropdownOptions(initialDropOptions);
+            const combinedOptions = { ...initialOptions, ...initialDropOptions };
 
             setInitialManufacturerFloorOptions(combinedOptions);
 
             setAreOptionsLoaded(true);
         }
     }, [isFetching]);
-
-    useEffect(() => {
-        const operativeIDs = operatives.map(({ id }) => id + '');
-        Object.values(drawings).map(drawing => {
-            updateDrawing(`${drawing.id}.*.operativePermissionIDs`, operativeIDs);
-        });
-    }, [fetchingOperatives]);
-
-    useEffect(() => {
-        const clientIDs = clients.map(({ id }) => id + '');
-        Object.values(drawings).map(drawing => {
-            updateDrawing(`${drawing.id}.*.clientPermissionIDs`, clientIDs);
-        });
-    }, [fetchingClients]);
 
     const clientOptions = clients.map(({ id, userFirstName, userLastName, companyName }) => ({
         value: id,
