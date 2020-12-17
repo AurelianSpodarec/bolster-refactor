@@ -251,7 +251,7 @@ class EditDrawingModalContainer extends Component {
         const dropdownEnabledOptions = isDropdownOptionsInherited
             ? {}
             : {
-                  isDropDownOptionEnabled: setDropdownOptionsForHierarchy,
+                  isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
                   dropDownOptionIDs: selectedDropdownOptions,
               };
 

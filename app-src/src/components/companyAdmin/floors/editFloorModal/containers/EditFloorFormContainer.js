@@ -227,7 +227,7 @@ class EditFloorFormContainer extends Component {
         const dropdownEnabledOptions = isDropdownOptionsInherited
             ? {}
             : {
-                  isDropDownOptionEnabled: setDropdownOptionsForHierarchy,
+                  isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
                   dropDownOptionIDs: selectedDropdownOptions,
               };
         let postBody = {};

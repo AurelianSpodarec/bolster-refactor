@@ -304,7 +304,7 @@ const CreateBuildingsFormContainer = ({
                 const dropdownEnabledOptions = initialDropdownOptions.isDropDownOptionsEnabled
                     ? {}
                     : {
-                          isDropDownOptionEnabled: setDropdownOptionsForHierarchy,
+                          isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
                           dropDownOptionIDs: selectedDropdownOptions,
                       };
 

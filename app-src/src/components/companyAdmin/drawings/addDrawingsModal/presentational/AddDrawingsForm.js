@@ -37,7 +37,6 @@ const AddDrawingsForm = ({
     initialDropdownOptions,
 }) => {
     const hasEnoughCredits = credits >= drawings.length;
-    console.log({ drawings });
     return (
         <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
             <div className="size-lg-12">

@@ -171,7 +171,7 @@ class AddSiteFormContainer extends Component {
                 dateToSend: moment(dateToSend).format(),
                 isManufacturingEnabled: setManufacturersForSite,
                 optionValueIDs: filteredOptionValues,
-                isDropDownOptionEnabled: setDropDownOptions,
+                isDropDownOptionsEnabled: setDropDownOptions,
                 dropDownOptionIDs: selectedDropDownOptions.map(id => +id),
             };
         } else {
@@ -183,7 +183,7 @@ class AddSiteFormContainer extends Component {
                 postcode,
                 isManufacturingEnabled: setManufacturersForSite,
                 optionValueIDs: filteredOptionValues,
-                isDropDownOptionEnabled: setDropDownOptions,
+                isDropDownOptionsEnabled: setDropDownOptions,
                 dropDownOptionIDs: selectedDropDownOptions.map(id => +id),
             };
         }

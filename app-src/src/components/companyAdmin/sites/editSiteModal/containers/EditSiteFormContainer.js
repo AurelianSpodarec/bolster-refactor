@@ -219,7 +219,7 @@ class EditSiteFormContainer extends Component {
         };
 
         const dropdownEnabledOptions = {
-            isDropDownOptionEnabled: setDropdownOptions,
+            isDropDownOptionsEnabled: setDropdownOptions,
             DropDownOptionIDs: selectedDropdownOptions.map(id => +id),
         };
 

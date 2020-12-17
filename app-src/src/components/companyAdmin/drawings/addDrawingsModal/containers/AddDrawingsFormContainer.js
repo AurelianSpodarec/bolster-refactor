@@ -286,7 +286,7 @@ const AddDrawingsFormContainer = ({
                 const dropdownEnabledOptions = initialDropdownOptions.isDropDownOptionsEnabled
                     ? {}
                     : {
-                          isDropDownOptionEnabled: setDropdownOptionsForHierarchy,
+                          isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
                           dropDownOptionIDs: selectedDropdownOptions,
                       };
 
@@ -329,7 +329,7 @@ const AddDrawingsFormContainer = ({
                     const dropdownEnabledOptions = initialDropdownOptions.isDropDownOptionsEnabled
                         ? {}
                         : {
-                              isDropDownOptionEnabled: setDropdownOptionsForHierarchy,
+                              isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
                               dropDownOptionIDs: selectedDropdownOptions,
                           };
                     const postBody = {

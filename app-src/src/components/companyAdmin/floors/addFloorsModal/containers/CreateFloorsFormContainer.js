@@ -151,7 +151,6 @@ const CreateFloorsFormContainer = ({
                 setShowDropdownOptions(false);
             }
             if (!isDropdownOptionsInherited) {
-                initialDropdownOptions.setDropdownOptionsForHierarchy = false;
                 initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
                 initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
                     building.dropDownOptionIDs,
@@ -260,7 +259,7 @@ const CreateFloorsFormContainer = ({
             const dropdownEnabledOptions = initialDropdownOptions.isDropDownOptionsEnabled
                 ? {}
                 : {
-                      isDropDownOptionEnabled: setDropdownOptionsForHierarchy,
+                      isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
                       dropDownOptionIDs: selectedDropdownOptions,
                   };
 
@@ -300,7 +299,7 @@ const CreateFloorsFormContainer = ({
                 const dropdownEnabledOptions = initialDropdownOptions.isDropDownOptionsEnabled
                     ? {}
                     : {
-                          isDropDownOptionEnabled: setDropdownOptionsForHierarchy,
+                          isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
                           dropDownOptionIDs: selectedDropdownOptions,
                       };
 
