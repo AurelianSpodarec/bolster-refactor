@@ -148,6 +148,7 @@ const CreateBuildingsFormContainer = ({
                 initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
                     site.dropDownOptionIDs,
                 );
+                setShowDropdownOptions(false);
             }
             if (!isDropdownOptionsInherited) {
                 initialDropdownOptions.setDropdownOptionsForHierarchy = false;
@@ -258,10 +259,9 @@ const CreateBuildingsFormContainer = ({
             const dropdownEnabledOptions = initialDropdownOptions.isDropDownOptionsEnabled
                 ? {}
                 : {
-                      isDropDownOptionEnabled: setDropdownOptionsForHierarchy,
+                      isDropDownEnabled: setDropdownOptionsForHierarchy,
                       dropDownOptionIDs: selectedDropdownOptions,
                   };
-
             if (isAlertShowing) {
                 createBuilding({
                     name,
