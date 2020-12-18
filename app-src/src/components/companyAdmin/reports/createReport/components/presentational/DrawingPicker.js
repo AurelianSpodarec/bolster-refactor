@@ -20,24 +20,26 @@ const DrawingPicker = ({
             </p>
             <div className="pin-selector size-lg-12 form-field">
                 <div className="pin-selection-box">
-                    <h3>Excluded</h3>
-                    <div className="content excluded size-lg-12">
-                        {excludedDrawings
-                            .map((drawing, index) => (
-                                <div
-                                    className={`selector-pin ${
-                                        selectedDrawings.includes(drawing.id) ? 'active' : ''
-                                    }`}
-                                    onClick={e =>
-                                        handleDrawingClick(e, drawing.id, 'excluded', index)
-                                    }
-                                    key={drawing.id}
-                                >
-                                    {drawing.siteName} / {drawing.buildingName} /{' '}
-                                    {drawing.floorName} / {drawing.name}
-                                </div>
-                            ))
-                            .sort((a, b) => a.id - b.id)}
+                    <div className="pin-user-select-drawings">
+                        <h3>Excluded</h3>
+                        <div className="content excluded size-lg-12">
+                            {excludedDrawings
+                                .map((drawing, index) => (
+                                    <div
+                                        className={`selector-pin ${
+                                            selectedDrawings.includes(drawing.id) ? 'active' : ''
+                                        }`}
+                                        onClick={e =>
+                                            handleDrawingClick(e, drawing.id, 'excluded', index)
+                                        }
+                                        key={drawing.id}
+                                    >
+                                        {drawing.siteName} / {drawing.buildingName} /{' '}
+                                        {drawing.floorName} / {drawing.name}
+                                    </div>
+                                ))
+                                .sort((a, b) => a.id - b.id)}
+                        </div>
                     </div>
                 </div>
 
@@ -51,24 +53,26 @@ const DrawingPicker = ({
                 </div>
 
                 <div className="pin-selection-box">
-                    <h3>Included</h3>
-                    <div className="content excluded size-lg-12">
-                        {includedDrawings
-                            .map((drawing, index) => (
-                                <div
-                                    className={`selector-pin ${
-                                        selectedDrawings.includes(drawing.id) ? 'active' : ''
-                                    }`}
-                                    onClick={e =>
-                                        handleDrawingClick(e, drawing.id, 'included', index)
-                                    }
-                                    key={drawing.id}
-                                >
-                                    {drawing.siteName} / {drawing.buildingName} /{' '}
-                                    {drawing.floorName} / {drawing.name}
-                                </div>
-                            ))
-                            .sort((a, b) => a.id - b.id)}
+                    <div className="pin-user-select-drawings">
+                        <h3>Included</h3>
+                        <div className="content excluded size-lg-12">
+                            {includedDrawings
+                                .map((drawing, index) => (
+                                    <div
+                                        className={`selector-pin ${
+                                            selectedDrawings.includes(drawing.id) ? 'active' : ''
+                                        }`}
+                                        onClick={e =>
+                                            handleDrawingClick(e, drawing.id, 'included', index)
+                                        }
+                                        key={drawing.id}
+                                    >
+                                        {drawing.siteName} / {drawing.buildingName} /{' '}
+                                        {drawing.floorName} / {drawing.name}
+                                    </div>
+                                ))
+                                .sort((a, b) => a.id - b.id)}
+                        </div>
                     </div>
                 </div>
             </div>
