@@ -151,7 +151,6 @@ const DrawingPickerContainer = ({
         return [];
     }
 
-    //get drawing and select the proper hierarchyID to get the correct floor.
     function handleDrawingClick(e, drawingID, type, index) {
         e.preventDefault();
 
@@ -165,22 +164,26 @@ const DrawingPickerContainer = ({
         setSelectedDrawings(newCheckedDrawings);
 
         if (e.shiftKey && selectedDrawings.length) {
-            // See if the index of the first selected is lower than index of new click
+            let firstSelectedDrawingId = selectedDrawings[0];
 
-            if (drawingList.indexOf(selectedDrawings[0]) < index) {
-                // Loop through and push up all drawings that index are inside the two
-                drawingList.forEach(drawing => {
-                    if (drawingList.indexOf(drawing) <= index) {
-                        shiftSelectedDrawings.push(drawing.id);
-                    }
-                });
-            } else {
-                drawingList.forEach(drawing => {
-                    if (drawingList.indexOf(drawing) >= index) {
-                        shiftSelectedDrawings.push(drawing.id);
-                    }
-                });
+            let firstSelectedDrawingIndex;
+            for (let i = 0; i < drawingList.length; i++) {
+                if (drawingList[i].id === firstSelectedDrawingId) {
+                    firstSelectedDrawingIndex = i;
+                }
             }
+            let shiftSelectedDrawingIndex = index;
+
+            if (firstSelectedDrawingIndex < shiftSelectedDrawingIndex) {
+                for (let i = firstSelectedDrawingIndex; i <= shiftSelectedDrawingIndex; i++) {
+                    shiftSelectedDrawings.push(drawingList[i].id);
+                }
+            } else {
+                for (let i = firstSelectedDrawingIndex; i >= shiftSelectedDrawingIndex; i--) {
+                    shiftSelectedDrawings.push(drawingList[i].id);
+                }
+            }
+
             setSelectedDrawings(shiftSelectedDrawings);
         }
     }
