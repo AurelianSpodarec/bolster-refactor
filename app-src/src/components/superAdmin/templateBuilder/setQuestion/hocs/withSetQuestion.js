@@ -154,11 +154,11 @@ export default function (WrappedComponent) {
             } = this.props;
 
             const dropdownOptNames = dropdownOptions
-                .filter(opt => opt.type === optionType)
+                .filter(opt => opt.type === +optionType)
                 .map(opt => opt.name);
 
             const manufacturerOptNames = companyManufacturerOptions
-                .filter(opt => opt.type === optionType)
+                .filter(opt => opt.type === +optionType)
                 .map(opt => opt.name);
 
             const optionNames = dropdownOptNames.concat(manufacturerOptNames);
