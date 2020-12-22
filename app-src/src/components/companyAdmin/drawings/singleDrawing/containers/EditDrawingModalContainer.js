@@ -26,7 +26,11 @@ import fetchSingleSiteDropdownOptions from 'actions/companyAdmin/dropdownOptions
 
 import EditDrawingModal from '../presentational/EditDrawingModal';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { createPreselectedItemOptionValuesList, formatDropdownOptions } from 'helpers/itemTypes';
+import {
+    createPreselectedItemOptionValuesList,
+    formatDropdownOptions,
+    getPreselectedItemTypes,
+} from 'helpers/itemTypes';
 
 class EditDrawingModalContainer extends Component {
     state = {
@@ -170,9 +174,9 @@ class EditDrawingModalContainer extends Component {
                 );
             }
             //dropdown options
-            initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
-                drawing.dropDownOptionIDs,
-            );
+            initialDropdownOptions.selectedDropdownOptions = drawing.dropDownOptionIDs
+                ? createPreselectedItemOptionValuesList(drawing.dropDownOptionIDs)
+                : getPreselectedItemTypes(dropdownOptions);
 
             initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
 

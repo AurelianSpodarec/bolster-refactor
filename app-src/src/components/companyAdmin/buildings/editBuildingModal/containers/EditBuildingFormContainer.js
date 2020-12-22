@@ -22,7 +22,11 @@ import fetchSingleSiteDropdownOptions from 'actions/companyAdmin/dropdownOptions
 
 import BuildingEditForm from '../presentational/EditBuildingForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { createPreselectedItemOptionValuesList, formatDropdownOptions } from 'helpers/itemTypes';
+import {
+    createPreselectedItemOptionValuesList,
+    formatDropdownOptions,
+    getPreselectedItemTypes,
+} from 'helpers/itemTypes';
 
 class BuildingEditFormContainer extends Component {
     state = {
@@ -161,9 +165,10 @@ class BuildingEditFormContainer extends Component {
             }
 
             //dropdown options
-            initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
-                building.dropDownOptionIDs,
-            );
+            initialDropdownOptions.selectedDropdownOptions = building.dropDownOptionIDs
+                ? createPreselectedItemOptionValuesList(building.dropDownOptionIDs)
+                : getPreselectedItemTypes(this.props.dropdownOptions);
+
             initialDropdownOptions.dropdownOptions = formatDropdownOptions(
                 this.props.dropdownOptions,
             );

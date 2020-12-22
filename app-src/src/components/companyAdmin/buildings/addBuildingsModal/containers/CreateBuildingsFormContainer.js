@@ -25,7 +25,11 @@ import {
 } from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isObjEmpty } from 'helpers/generic';
-import { createPreselectedItemOptionValuesList, formatDropdownOptions } from 'helpers/itemTypes';
+import {
+    createPreselectedItemOptionValuesList,
+    formatDropdownOptions,
+    getPreselectedItemTypes,
+} from 'helpers/itemTypes';
 import fetchSingleSiteDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchSingleSiteDropdownOptions';
 
 const CreateBuildingsFormContainer = ({
@@ -153,8 +157,8 @@ const CreateBuildingsFormContainer = ({
             if (!isDropdownOptionsInherited) {
                 initialDropdownOptions.setDropdownOptionsForHierarchy = false;
                 initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
-                initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
-                    site.dropDownOptionIDs,
+                initialDropdownOptions.selectedDropdownOptions = getPreselectedItemTypes(
+                    dropdownOptions,
                 );
             }
             if (isManufacturingInherited) {

@@ -21,7 +21,11 @@ import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturer
 
 import EditSiteForm from '../presentational/EditSiteForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { createPreselectedItemOptionValuesList, formatDropdownOptions } from 'helpers/itemTypes';
+import {
+    createPreselectedItemOptionValuesList,
+    formatDropdownOptions,
+    getPreselectedItemTypes,
+} from 'helpers/itemTypes';
 import fetchSingleSiteDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchSingleSiteDropdownOptions';
 
 class EditSiteFormContainer extends Component {
@@ -152,9 +156,9 @@ class EditSiteFormContainer extends Component {
 
             dropdownOptions.dropdownOptions = formatDropdownOptions(singleSiteDropdownOptions);
 
-            dropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
-                site.dropDownOptionIDs,
-            );
+            dropdownOptions.selectedDropdownOptions = site.dropDownOptionIDs
+                ? createPreselectedItemOptionValuesList(site.dropDownOptionIDs)
+                : getPreselectedItemTypes(singleSiteDropdownOptions);
 
             this.setState(initialOptions);
             this.setState(dropdownOptions);

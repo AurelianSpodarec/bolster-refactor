@@ -23,7 +23,11 @@ import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingl
 
 import EditFloorForm from '../presentational/EditFloorForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { createPreselectedItemOptionValuesList, formatDropdownOptions } from 'helpers/itemTypes';
+import {
+    createPreselectedItemOptionValuesList,
+    formatDropdownOptions,
+    getPreselectedItemTypes,
+} from 'helpers/itemTypes';
 
 class EditFloorFormContainer extends Component {
     state = {
@@ -159,9 +163,9 @@ class EditFloorFormContainer extends Component {
                 );
             }
             //dropdown options
-            initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
-                floor.dropDownOptionIDs,
-            );
+            initialDropdownOptions.selectedDropdownOptions = floor.dropDownOptionIDs
+                ? createPreselectedItemOptionValuesList(floor.dropDownOptionIDs)
+                : getPreselectedItemTypes(this.props.dropdownOptions);
 
             initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
 

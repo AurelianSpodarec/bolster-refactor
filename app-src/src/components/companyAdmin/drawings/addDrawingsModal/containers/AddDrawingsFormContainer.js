@@ -28,7 +28,11 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 import AddDrawingsForm from '../presentational/AddDrawingsForm';
 import fetchSingleSiteDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchSingleSiteDropdownOptions';
-import { createPreselectedItemOptionValuesList, formatDropdownOptions } from 'helpers/itemTypes';
+import {
+    createPreselectedItemOptionValuesList,
+    formatDropdownOptions,
+    getPreselectedItemTypes,
+} from 'helpers/itemTypes';
 
 const AddDrawingsFormContainer = ({
     floorID,
@@ -152,9 +156,9 @@ const AddDrawingsFormContainer = ({
                 isDropDownOptionsInheritedFrom: floor.isDropDownOptionsInheritedFrom,
                 setDropdownOptionsForHierarchy: isDropdownOptionsInherited,
                 dropdownOptions: formatDropdownOptions(dropdownOptions),
-                selectedDropdownOptions: createPreselectedItemOptionValuesList(
-                    floor.dropDownOptionIDs,
-                ),
+                selectedDropdownOptions: floor.dropDownOptionIDs
+                    ? createPreselectedItemOptionValuesList(floor.dropDownOptionIDs)
+                    : getPreselectedItemTypes(dropdownOptions),
             };
 
             if (floor.isDropDownOptionsEnabled) {

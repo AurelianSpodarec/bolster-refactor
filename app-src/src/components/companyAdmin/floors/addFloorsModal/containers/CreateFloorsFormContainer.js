@@ -26,7 +26,11 @@ import {
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isObjEmpty } from 'helpers/generic';
 import fetchSingleSiteDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchSingleSiteDropdownOptions';
-import { createPreselectedItemOptionValuesList, formatDropdownOptions } from 'helpers/itemTypes';
+import {
+    createPreselectedItemOptionValuesList,
+    formatDropdownOptions,
+    getPreselectedItemTypes,
+} from 'helpers/itemTypes';
 
 const CreateFloorsFormContainer = ({
     buildingID,
@@ -152,8 +156,8 @@ const CreateFloorsFormContainer = ({
             }
             if (!isDropdownOptionsInherited) {
                 initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
-                initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
-                    building.dropDownOptionIDs,
+                initialDropdownOptions.selectedDropdownOptions = getPreselectedItemTypes(
+                    dropdownOptions,
                 );
             }
 
