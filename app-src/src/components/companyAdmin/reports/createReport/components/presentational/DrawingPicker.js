@@ -18,6 +18,9 @@ const DrawingPicker = ({
                 Below you can choose the drawings you would like to report on. This is optional and
                 defaults to all drawings on the selected level.
             </p>
+            <p className="generic-text small">
+                Hold 'SHIFT' + 'CLICK' to select multiple drawings at once.
+            </p>
             <div className="pin-selector size-lg-12 form-field">
                 <div className="pin-selection-box">
                     <div className="pin-user-select-drawings">
