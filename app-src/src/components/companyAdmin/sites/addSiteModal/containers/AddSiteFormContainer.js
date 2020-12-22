@@ -17,7 +17,7 @@ import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetch
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isObjEmpty } from 'helpers/generic';
 import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
-import { formatDropdownOptions } from 'helpers/itemTypes';
+import { formatDropdownOptions, getPreselectedItemTypes } from 'helpers/itemTypes';
 
 class AddSiteFormContainer extends Component {
     state = {
@@ -119,6 +119,7 @@ class AddSiteFormContainer extends Component {
             });
 
             const convertedDropdown = Object.values(dropdownOptions);
+            const selectedDropDownOptions = getPreselectedItemTypes(convertedDropdown);
 
             this.setState({
                 manufacturerOptions,
@@ -126,6 +127,7 @@ class AddSiteFormContainer extends Component {
                 optionValuesOptions,
                 selectedOptionValues,
                 dropdownOptions: formatDropdownOptions(convertedDropdown),
+                selectedDropDownOptions,
             });
         }
     };

@@ -149,6 +149,7 @@ class EditSiteFormContainer extends Component {
                     initialOptions.manufacturerOptions,
                 );
             }
+
             dropdownOptions.dropdownOptions = formatDropdownOptions(singleSiteDropdownOptions);
 
             dropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(

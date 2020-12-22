@@ -14,7 +14,16 @@ export const formatDropdownOptions = options => {
             ...option,
             text: option.name,
             value: option.id,
-            isEnabled: option.isEnabled,
+            isDisbled: option.isDisabled,
         };
     });
+};
+
+export const getPreselectedItemTypes = dropdownOptions => {
+    const preselectedDropdowns = [];
+
+    dropdownOptions.forEach(option => {
+        !option.isDisabled && preselectedDropdowns.push(String(option.id));
+    });
+    return preselectedDropdowns;
 };
