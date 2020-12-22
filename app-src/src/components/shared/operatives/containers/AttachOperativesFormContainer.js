@@ -13,7 +13,6 @@ import addOperatives from 'actions/companyAdmin/operatives/async/addOperatives';
 
 class AttachOperativesFormContainer extends Component {
     state = {
-        // companyUserID: '',
         companyUserIDs: [],
         serviceIDs: [],
         isTemplateFilteringEnabled: false,
@@ -21,13 +20,8 @@ class AttachOperativesFormContainer extends Component {
     };
 
     render() {
-        const {
-            //  companyUserID,
-            companyUserIDs,
-            serviceIDs,
-            isTemplateFilteringEnabled,
-            templateIDs,
-        } = this.state;
+        const { companyUserIDs, serviceIDs, isTemplateFilteringEnabled, templateIDs } = this.state;
+
         const userOptions = this._getUserOptions();
         const serviceOptions = this._getServicesOptions();
         const { isFetching, error, services } = this.props;
@@ -43,7 +37,6 @@ class AttachOperativesFormContainer extends Component {
             >
                 <AttachOperativesForm
                     users={Object.values(userOptions)}
-                    // selectedUser={userOptions[companyUserID]}
                     serviceOptions={serviceOptions}
                     checkedServices={serviceIDs}
                     handleChange={this.handleChange}
