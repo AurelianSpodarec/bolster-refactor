@@ -228,7 +228,7 @@ const EditDrawingModal = ({
                             <div className="size-lg-6 size-md-12">
                                 <Field
                                     labelClasses="no-capitalise"
-                                    name="Set item types for building?"
+                                    name="Set item types for drawing?"
                                 >
                                     <CheckboxContainer
                                         checked={setDropdownOptionsForHierarchy}
