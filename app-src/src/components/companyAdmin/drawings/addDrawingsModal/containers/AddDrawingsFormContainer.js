@@ -27,12 +27,13 @@ import {
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 import AddDrawingsForm from '../presentational/AddDrawingsForm';
-import fetchSingleSiteDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchSingleSiteDropdownOptions';
+
 import {
     createPreselectedItemOptionValuesList,
     formatDropdownOptions,
     getPreselectedItemTypes,
 } from 'helpers/itemTypes';
+import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
 
 const AddDrawingsFormContainer = ({
     floorID,
@@ -58,7 +59,7 @@ const AddDrawingsFormContainer = ({
     fetchOperativesForFloor,
     fetchingClients,
     fetchingOperatives,
-    fetchSingleSiteDropdownOptions,
+    fetchAllDropdownOptions,
     dropdownOptions,
     building,
 }) => {
@@ -127,7 +128,7 @@ const AddDrawingsFormContainer = ({
             const fn = function fetchManufacturers(pinOptionType) {
                 return fetchManufacturersByPinOptionType(pinOptionType);
             };
-            await fetchSingleSiteDropdownOptions(2, building[0].siteID);
+            await fetchAllDropdownOptions(2);
 
             const manufacturerActions = pinOptionTypes.map(fn);
             await Promise.all(manufacturerActions).then(() => {
@@ -375,10 +376,7 @@ const mapStateToProps = (
             clientsReducer: { clients, isFetching: fetchingClients },
             operativesReducer: { operatives, isFetching: fetchingOperatives },
 
-            dropdownOptionsReducer: {
-                singleSiteDropdownOptions,
-                isFetching: isFetchingDropdownOptions,
-            },
+            dropdownOptionsReducer: { dropdownOptions, isFetching: isFetchingDropdownOptions },
             manufacturersReducer: {
                 manufacturers,
                 isFetching: isFetchingManufacturers,
@@ -421,7 +419,7 @@ const mapStateToProps = (
     operatives: Object.values(operatives),
     fetchingClients,
     fetchingOperatives,
-    dropdownOptions: singleSiteDropdownOptions,
+    dropdownOptions: Object.values(dropdownOptions),
     building: Object.values(buildings),
 });
 
@@ -434,7 +432,7 @@ const mapDispatchToProps = {
     fetchAllOptionValues,
     fetchClientsForFloor,
     fetchOperativesForFloor,
-    fetchSingleSiteDropdownOptions,
+    fetchAllDropdownOptions,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddDrawingsFormContainer));

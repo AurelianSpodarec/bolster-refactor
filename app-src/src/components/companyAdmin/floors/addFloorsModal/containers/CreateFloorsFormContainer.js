@@ -25,12 +25,13 @@ import {
 } from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isObjEmpty } from 'helpers/generic';
-import fetchSingleSiteDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchSingleSiteDropdownOptions';
+
 import {
     createPreselectedItemOptionValuesList,
     formatDropdownOptions,
     getPreselectedItemTypes,
 } from 'helpers/itemTypes';
+import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
 
 const CreateFloorsFormContainer = ({
     buildingID,
@@ -48,7 +49,7 @@ const CreateFloorsFormContainer = ({
     building,
     useManufacturingByDefault,
     error,
-    fetchSingleSiteDropdownOptions,
+    fetchAllDropdownOptions,
     dropdownOptions,
 }) => {
     const [
@@ -115,14 +116,14 @@ const CreateFloorsFormContainer = ({
 
             const actions = pinOptionTypes.map(fn);
 
-            await fetchSingleSiteDropdownOptions(2, building.siteID);
+            await fetchAllDropdownOptions(2);
 
             await Promise.all(actions).then(() => {
                 fetchAllOptionValues();
             });
         }
         getPinOptions();
-    }, [fetchManufacturersByPinOptionType, fetchAllOptionValues]);
+    }, [fetchManufacturersByPinOptionType, fetchAllOptionValues, fetchAllDropdownOptions]);
 
     useEffect(() => {
         if (prevProps.isFetching && !isFetching) {
@@ -341,10 +342,7 @@ const mapStateToProps = (
             companySettingsReducer: {
                 companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
             },
-            dropdownOptionsReducer: {
-                singleSiteDropdownOptions,
-                isFetching: isFetchingDropdownOptions,
-            },
+            dropdownOptionsReducer: { dropdownOptions, isFetching: isFetchingDropdownOptions },
             manufacturersReducer: {
                 manufacturers,
                 isFetching: isFetchingManufacturers,
@@ -370,7 +368,7 @@ const mapStateToProps = (
     isFetching: isFetchingManufacturers || isFetchingOptionValues || isFetchingDropdownOptions,
     useManufacturingByDefault,
     subscriptionServiceIDs,
-    dropdownOptions: singleSiteDropdownOptions,
+    dropdownOptions: Object.values(dropdownOptions),
 });
 
 const mapDispatchToProps = {
@@ -380,7 +378,7 @@ const mapDispatchToProps = {
     updateHierarchyAddState,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
-    fetchSingleSiteDropdownOptions,
+    fetchAllDropdownOptions,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateFloorsFormContainer));

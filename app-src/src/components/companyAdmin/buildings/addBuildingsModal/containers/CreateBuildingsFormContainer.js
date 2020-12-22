@@ -30,7 +30,8 @@ import {
     formatDropdownOptions,
     getPreselectedItemTypes,
 } from 'helpers/itemTypes';
-import fetchSingleSiteDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchSingleSiteDropdownOptions';
+
+import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
 
 const CreateBuildingsFormContainer = ({
     siteID,
@@ -48,7 +49,7 @@ const CreateBuildingsFormContainer = ({
     site,
     useManufacturingByDefault,
     error,
-    fetchSingleSiteDropdownOptions,
+    fetchAllDropdownOptions,
     dropdownOptions,
 }) => {
     const [
@@ -120,10 +121,10 @@ const CreateBuildingsFormContainer = ({
                 fetchAllOptionValues();
             });
         }
-        fetchSingleSiteDropdownOptions(2, site.id);
+        fetchAllDropdownOptions(2);
 
         getPinOptions();
-    }, [fetchManufacturersByPinOptionType, fetchAllOptionValues, fetchSingleSiteDropdownOptions]);
+    }, [fetchManufacturersByPinOptionType, fetchAllOptionValues, fetchAllDropdownOptions]);
 
     useEffect(() => {
         if (prevProps.isFetching && !isFetching) {
@@ -350,10 +351,7 @@ const mapStateToProps = (
                 companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
             },
 
-            dropdownOptionsReducer: {
-                singleSiteDropdownOptions,
-                isFetching: isFetchingDropdownOptions,
-            },
+            dropdownOptionsReducer: { dropdownOptions, isFetching: isFetchingDropdownOptions },
             manufacturersReducer: {
                 manufacturers,
                 isFetching: isFetchingManufacturers,
@@ -380,7 +378,7 @@ const mapStateToProps = (
     isFetching: isFetchingManufacturers || isFetchingOptionValues || isFetchingDropdownOptions,
     useManufacturingByDefault,
     subscriptionServiceIDs,
-    dropdownOptions: singleSiteDropdownOptions,
+    dropdownOptions: Object.values(dropdownOptions),
 });
 
 const mapDispatchToProps = {
@@ -390,7 +388,7 @@ const mapDispatchToProps = {
     updateHierarchyAddState,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
-    fetchSingleSiteDropdownOptions,
+    fetchAllDropdownOptions,
 };
 
 export default withRouter(

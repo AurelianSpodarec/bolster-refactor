@@ -18,7 +18,7 @@ import {
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
 import editFloor from 'actions/companyAdmin/floors/async/editFloor';
-import fetchSingleSiteDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchSingleSiteDropdownOptions';
+
 import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
 
 import EditFloorForm from '../presentational/EditFloorForm';
@@ -28,6 +28,7 @@ import {
     formatDropdownOptions,
     getPreselectedItemTypes,
 } from 'helpers/itemTypes';
+import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
 
 class EditFloorFormContainer extends Component {
     state = {
@@ -81,7 +82,7 @@ class EditFloorFormContainer extends Component {
             floor,
             fetchManufacturersByPinOptionType,
             fetchAllOptionValues,
-            fetchSingleSiteDropdownOptions,
+            fetchAllDropdownOptions,
             building,
         } = this.props;
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before editing a floor
@@ -95,7 +96,7 @@ class EditFloorFormContainer extends Component {
 
         const actions = pinOptionTypes.map(fn);
 
-        await fetchSingleSiteDropdownOptions(2, building[0].siteID);
+        await fetchAllDropdownOptions(2, building[0].siteID);
         await Promise.all(actions).then(() => {
             fetchAllOptionValues();
         });
@@ -263,10 +264,7 @@ const mapStateToProps = ({
         companySettingsReducer: {
             companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
         },
-        dropdownOptionsReducer: {
-            singleSiteDropdownOptions,
-            isFetching: isFetchingDropdownOptions,
-        },
+        dropdownOptionsReducer: { dropdownOptions, isFetching: isFetchingDropdownOptions },
         manufacturersReducer: {
             manufacturers,
             isFetching: isFetchingManufacturers,
@@ -290,7 +288,7 @@ const mapStateToProps = ({
     useManufacturingByDefault,
     subscriptionServiceIDs,
     building: Object.values(buildings),
-    dropdownOptions: singleSiteDropdownOptions,
+    dropdownOptions: Object.values(dropdownOptions),
 });
 
 const mapDispatchToProps = {
@@ -298,7 +296,7 @@ const mapDispatchToProps = {
     hideModal,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
-    fetchSingleSiteDropdownOptions,
+    fetchAllDropdownOptions,
     fetchSingleBuilding,
 };
 

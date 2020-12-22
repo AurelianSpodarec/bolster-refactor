@@ -27,6 +27,7 @@ import {
     formatDropdownOptions,
     getPreselectedItemTypes,
 } from 'helpers/itemTypes';
+import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
 
 class BuildingEditFormContainer extends Component {
     state = {
@@ -83,7 +84,7 @@ class BuildingEditFormContainer extends Component {
             building,
             fetchManufacturersByPinOptionType,
             fetchAllOptionValues,
-            fetchSingleSiteDropdownOptions,
+            fetchAllDropdownOptions,
         } = this.props;
 
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before editing a building
@@ -97,7 +98,7 @@ class BuildingEditFormContainer extends Component {
 
         const actions = pinOptionTypes.map(fn);
 
-        await fetchSingleSiteDropdownOptions(2, building.siteID);
+        await fetchAllDropdownOptions(2);
         await Promise.all(actions).then(() => {
             fetchAllOptionValues();
         });
@@ -276,10 +277,7 @@ const mapStateToProps = ({
         companySettingsReducer: {
             companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
         },
-        dropdownOptionsReducer: {
-            singleSiteDropdownOptions,
-            isFetching: isFetchingDropdownOptions,
-        },
+        dropdownOptionsReducer: { dropdownOptions, isFetching: isFetchingDropdownOptions },
         manufacturersReducer: {
             manufacturers,
             isFetching: isFetchingManufacturers,
@@ -302,7 +300,7 @@ const mapStateToProps = ({
     isFetching: isFetchingManufacturers || isFetchingOptionValues || isFetchingDropdownOptions,
     useManufacturingByDefault,
     subscriptionServiceIDs,
-    dropdownOptions: singleSiteDropdownOptions,
+    dropdownOptions: Object.values(dropdownOptions),
 });
 
 const mapDispatchToProps = {
@@ -310,7 +308,7 @@ const mapDispatchToProps = {
     hideModal,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
-    fetchSingleSiteDropdownOptions,
+    fetchAllDropdownOptions,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BuildingEditFormContainer);

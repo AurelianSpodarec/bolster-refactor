@@ -22,7 +22,6 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import editDrawing from 'actions/companyAdmin/drawings/async/editDrawing';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
-import fetchSingleSiteDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchSingleSiteDropdownOptions';
 
 import EditDrawingModal from '../presentational/EditDrawingModal';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -31,6 +30,7 @@ import {
     formatDropdownOptions,
     getPreselectedItemTypes,
 } from 'helpers/itemTypes';
+import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
 
 class EditDrawingModalContainer extends Component {
     state = {
@@ -87,8 +87,7 @@ class EditDrawingModalContainer extends Component {
             drawing,
             fetchManufacturersByPinOptionType,
             fetchAllOptionValues,
-            building,
-            fetchSingleSiteDropdownOptions,
+            fetchAllDropdownOptions,
         } = this.props;
 
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before editing a floor
@@ -99,7 +98,7 @@ class EditDrawingModalContainer extends Component {
         const fn = function fetchManufacturers(pinOptionType) {
             return fetchManufacturersByPinOptionType(pinOptionType);
         };
-        await fetchSingleSiteDropdownOptions(2, building[0].siteID);
+        await fetchAllDropdownOptions(2);
 
         const actions = pinOptionTypes.map(fn);
 
@@ -302,10 +301,7 @@ const mapStateToProps = ({
         companySettingsReducer: {
             companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
         },
-        dropdownOptionsReducer: {
-            singleSiteDropdownOptions,
-            isFetching: isFetchingDropdownOptions,
-        },
+        dropdownOptionsReducer: { dropdownOptions, isFetching: isFetchingDropdownOptions },
         manufacturersReducer: {
             manufacturers,
             isFetching: isFetchingManufacturers,
@@ -339,7 +335,7 @@ const mapStateToProps = ({
         useManufacturingByDefault,
         subscriptionServiceIDs,
         building: Object.values(buildings),
-        dropdownOptions: singleSiteDropdownOptions,
+        dropdownOptions: Object.values(dropdownOptions),
     };
 };
 
@@ -351,7 +347,7 @@ const mapDispatchToProps = {
     showFieldErrors,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
-    fetchSingleSiteDropdownOptions,
+    fetchAllDropdownOptions,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditDrawingModalContainer);
