@@ -5,9 +5,33 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import SunEditorRichTextContainer from 'components/shared/slateRichText/container/SunEditorRichTextContainer';
+// import SunEditorRichTextContainer from 'components/shared/slateRichText/container/SunEditorRichTextContainer';
+import ReactQuill from 'react-quill';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+
+const modules = {
+    toolbar: [
+        [{ header: [1, 2, 3, 4, 5, false] }],
+        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+        [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+        ['link'],
+        ['clean'],
+    ],
+};
+
+const formats = [
+    'header',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'bullet',
+    'indent',
+    'link',
+];
 
 const AddNewFeatureForm = ({
     handleChange,
@@ -31,12 +55,20 @@ const AddNewFeatureForm = ({
         </Field>
 
         <Field name="Full Description" required>
-            <SunEditorRichTextContainer
+            <ReactQuill
+                theme="snow"
+                value={form.fullDescription}
+                onChange={description => handleChange('fullDescription', description)}
+                modules={modules}
+                formats={formats}
+                className="new-feature-quill"
+            />
+            {/* <SunEditorRichTextContainer
                 name="fullDescription"
                 value={form.fullDescription}
                 onChange={description => handleChange('fullDescription', description)}
                 placeholder="Enter a description"
-            />
+            /> */}
         </Field>
         {!showImageField && (
             <Field classes="small-height">
