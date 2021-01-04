@@ -5,7 +5,6 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-// import SunEditorRichTextContainer from 'components/shared/slateRichText/container/SunEditorRichTextContainer';
 import ReactQuill from 'react-quill';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
@@ -63,12 +62,6 @@ const AddNewFeatureForm = ({
                 formats={formats}
                 className="new-feature-quill"
             />
-            {/* <SunEditorRichTextContainer
-                name="fullDescription"
-                value={form.fullDescription}
-                onChange={description => handleChange('fullDescription', description)}
-                placeholder="Enter a description"
-            /> */}
         </Field>
         {!showImageField && (
             <Field classes="small-height">
