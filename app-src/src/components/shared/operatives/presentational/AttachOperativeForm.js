@@ -66,6 +66,7 @@ const AttachOperativeForm = ({
                     <>
                         {[...serviceAreas].sort().map(service => {
                             if (checkedServices.includes(service + '')) {
+                                const options = getTemplatesForService(service);
                                 return (
                                     <Field
                                         key={service}
@@ -76,7 +77,7 @@ const AttachOperativeForm = ({
                                             required
                                             name="templateIDs"
                                             handleChange={handleChange}
-                                            options={getTemplatesForService(service)}
+                                            options={options.filter(item => !item.isDeleted)}
                                             hideDisabled
                                             selectedOptions={templateIDs}
                                         />

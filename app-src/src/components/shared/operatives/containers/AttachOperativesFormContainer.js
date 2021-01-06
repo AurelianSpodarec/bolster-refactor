@@ -148,12 +148,13 @@ class AttachOperativesFormContainer extends Component {
 
         const filteredTemplates = templates
             .filter(template => template.serviceID === serviceID)
-            .map(({ id, name }) => {
+            .map(({ id, name, isDeleted }) => {
                 return {
                     value: id,
                     text: name,
                     disabled: false,
                     hideClientAccess: false,
+                    isDeleted,
                 };
             });
 
