@@ -23,9 +23,15 @@ const ReleaseNotes = ({ releaseNotes }) => {
                         vimeoLink,
                         publishDate,
                     }) => {
+                        const isMedia = image || youTubeLink || vimeoLink;
+
                         return (
                             <BlockContainer key={id} containerClass="release-notes">
-                                <div className="text-section size-lg-6 size-md-12">
+                                <div
+                                    className={`text-section size-lg-${
+                                        isMedia ? '6' : '12'
+                                    } size-md-12`}
+                                >
                                     <BlockHeading
                                         title={title}
                                         subTitle={moment(publishDate).format('dddd, MMMM Do YYYY')}
