@@ -32,38 +32,47 @@ const ExpiryToolFormContainer = ({
     history,
 }) => {
     const [companyID, setCompanyID] = useState(0);
-    const [drawingID, setDrawingID] = useState(0);
-    const currentDrawing = drawings[drawingID] || {};
     const [showExpiredMessage, setShowExpiredMessage] = useState(false);
     const [extendDrawingForm, handleFormChange] = useForm({
         newExpiryDate: '',
         extensionReason: '',
+        drawingIDs: [],
     });
+    const currentDrawings = Object.values(drawings).filter(({ id }) =>
+        extendDrawingForm.drawingIDs.includes(id),
+    );
     componentDidMount(fetchAllCompanies);
     componentDidUpdate(handleUpdateCompany, [companyID]);
 
-    const prevProps = usePrevious({ postError, postSuccess, drawingID });
+    const prevProps = usePrevious({
+        postError,
+        postSuccess,
+        drawingIDs: extendDrawingForm.drawingIDs,
+        companyID,
+    });
 
     useEffect(() => {
-        if (drawingID) {
+        if (extendDrawingForm.drawingIDs.length) {
             isExpired();
         }
-        if (drawingID && drawingID !== prevProps.drawingID) {
-            handleFormChange('newExpiryDate', currentDrawing.expiresOn);
-            handleFormChange('extensionReason', currentDrawing.extensionReason);
+        if (extendDrawingForm.drawingIDs.length && !prevProps.drawingIDs.length) {
+            handleFormChange('newExpiryDate', currentDrawings[0].expiresOn);
+            handleFormChange('extensionReason', currentDrawings[0].extensionReason);
         }
 
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
-                message: `The drawing ${
-                    currentDrawing.name
-                } expiration date has been set to ${moment(extendDrawingForm.newExpiryDate).format(
-                    'DD/MM/yyyy',
-                )}`,
+                message: `The drawings expiration date has been set to ${moment(
+                    extendDrawingForm.newExpiryDate,
+                ).format('DD/MM/yyyy')}`,
             });
-            setDrawingID(0);
+            handleFormChange('drawingIDs', []);
             handleFormChange('extensionReason', '');
             handleFormChange('newExpiryDate', '');
+        }
+
+        if (companyID !== prevProps.companyID) {
+            handleFormChange('drawingIDs', []);
         }
 
         if (postError && !prevProps.postError) {
@@ -72,7 +81,13 @@ const ExpiryToolFormContainer = ({
                 message: postError.message,
             });
         }
-    }, [drawingID, postSuccess, currentDrawing, prevProps.postError, prevProps.postSuccess]);
+    }, [
+        extendDrawingForm.drawingIDs,
+        postSuccess,
+        currentDrawings,
+        prevProps.postError,
+        prevProps.postSuccess,
+    ]);
 
     return (
         <ExpiryToolForm
@@ -85,9 +100,7 @@ const ExpiryToolFormContainer = ({
             fetchingDrawings={fetchingDrawings}
             companyID={companyID}
             setCompanyID={setCompanyID}
-            drawingID={drawingID}
-            setDrawingID={setDrawingID}
-            currentDrawing={currentDrawing}
+            currentDrawings={currentDrawings}
             extendDrawingForm={extendDrawingForm}
             handleFormChange={handleFormChange}
             handleSubmit={handleSubmitModal}
@@ -118,7 +131,7 @@ const ExpiryToolFormContainer = ({
                     value: id,
                     label: text,
                     text,
-                    disabled: drawingID === id,
+                    disabled: extendDrawingForm.drawingIDs.includes(id),
                 };
             },
         );
@@ -131,22 +144,23 @@ const ExpiryToolFormContainer = ({
     }
 
     function isExpired() {
-        const currentExpiryDate = moment(currentDrawing.expiresOn);
+        let shouldShowMessage = false;
         const today = moment();
-
-        if (currentExpiryDate.diff(today, 'days') < 0) {
-            setShowExpiredMessage(true);
-        } else {
-            setShowExpiredMessage(false);
-        }
+        currentDrawings.forEach(drawing => {
+            const currentExpiryDate = moment(drawing.expiresOn);
+            if (currentExpiryDate.diff(today, 'days') < 0) {
+                shouldShowMessage = true;
+            }
+        });
+        setShowExpiredMessage(shouldShowMessage);
     }
 
     function handleSubmitModal() {
         const handleSubmit = () => {
-            adminEditNewDrawingExpirationDate(extendDrawingForm, drawingID);
+            adminEditNewDrawingExpirationDate(extendDrawingForm);
             hideModal();
         };
-        const message = 'Are you sure you wish to extend this drawings expiration date?';
+        const message = 'Are you sure you wish to extend these drawings expiration date?';
         showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
     }
 

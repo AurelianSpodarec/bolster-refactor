@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import uuid from 'uuid/v4';
 import moment from 'moment';
+import { isMobile, deviceType } from 'react-device-detect';
 
 import { removeObjItem } from './generic';
 
@@ -46,8 +47,7 @@ export const useMultipleHierarchies = hierarchyShape => {
     function updateState(name, value) {
         // * This is to split the field validations up
         const [id, fieldName] = name.split('.*.');
-        console.log({ name, value, id, fieldName });
-        console.log(state[id]);
+
         return setState({
             ...state,
             [id]: { ...state[id], [fieldName]: value },
@@ -135,3 +135,48 @@ export function useForm(initialState = {}) {
 
     return [formData, handleChange];
 }
+
+function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+        width,
+        height,
+    };
+}
+
+export function useWindowDimensions() {
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+    useEffect(() => {
+        function handleResize() {
+            setWindowDimensions(getWindowDimensions());
+        }
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return windowDimensions;
+}
+
+export const useIsMobile = (mobileWidth = 1024) => {
+    const [isWidthMobile, setIsWidthMobile] = useState(true);
+    const isIOS =
+        (/iPad|iPhone|iPod/.test(navigator.platform) ||
+            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) &&
+        !window.MSStream;
+
+    useEffect(() => {
+        function handleResize() {
+            setIsWidthMobile(window.innerWidth < mobileWidth);
+        }
+
+        window.addEventListener('resize', handleResize);
+
+        handleResize();
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return isWidthMobile || isIOS;
+};

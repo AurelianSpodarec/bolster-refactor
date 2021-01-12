@@ -6,6 +6,7 @@ import createDocumentForOptionValue from 'actions/companyAdmin/manufacturers/asy
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import AddDocumentToOptionValueForm from '../presentational/AddDocumentToOptionValueForm';
+import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOAndMTsAndCsModal';
 
 class AddDocumentToOptionValueFormContainer extends Component {
     state = {
@@ -28,6 +29,9 @@ class AddDocumentToOptionValueFormContainer extends Component {
             />
         );
     }
+    componentDidMount = () => {
+        this.props.showOAndMTsAndCsModal('add option value document');
+    };
 
     handleInputChange = (name, value) => {
         this.setState({ [name]: value });
@@ -75,6 +79,7 @@ const mapStateToProps = (
 const mapDispatchToProps = {
     createDocumentForOptionValue,
     hideModal,
+    showOAndMTsAndCsModal,
 };
 
 export default withRouter(

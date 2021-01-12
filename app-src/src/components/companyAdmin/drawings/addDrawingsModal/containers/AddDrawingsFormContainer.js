@@ -6,6 +6,7 @@ import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetch
 import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
 import fetchClientsForFloor from 'actions/companyAdmin/clients/async/fetchClientsForFloor';
 import fetchOperativesForFloor from 'actions/companyAdmin/operatives/async/fetchOperativesForFloor';
+import fetchAllCredits from 'actions/companyAdmin/credits/fetchAllCredits';
 import {
     createManufacturerOptionList,
     createOptionValuesList,
@@ -27,6 +28,7 @@ import {
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 import AddDrawingsForm from '../presentational/AddDrawingsForm';
+import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOAndMTsAndCsModal';
 
 const AddDrawingsFormContainer = ({
     floorID,
@@ -46,12 +48,14 @@ const AddDrawingsFormContainer = ({
     floor,
     useManufacturingByDefault,
     error,
+    showOAndMTsAndCsModal,
     clients,
     operatives,
     fetchClientsForFloor,
     fetchOperativesForFloor,
     fetchingClients,
     fetchingOperatives,
+    fetchAllCredits,
 }) => {
     const [
         drawings,
@@ -77,6 +81,8 @@ const AddDrawingsFormContainer = ({
         optionValuesOptions: {},
         clientPermissionIDs: [],
         operativePermissionIDs: [],
+        startDate: '',
+        isStartDateShowing: false,
     });
 
     const [initialOptions, setInitialOptions] = useState({
@@ -165,6 +171,9 @@ const AddDrawingsFormContainer = ({
             setInitialOptions(initialOptions);
             setInitialManufacturerFloorOptions(initialOptions);
             setAreOptionsLoaded(true);
+            if (useManufacturingByDefault && !isManufacturingInherited) {
+                handleShowOandMModal();
+            }
         }
     }, [isFetching]);
 
@@ -213,8 +222,9 @@ const AddDrawingsFormContainer = ({
                 initialOptions={initialOptions}
                 setShowManufacturingOptions={setShowManufacturingOptions}
                 showManufacturingOptions={showManufacturingOptions}
-                clientOptions={clientOptions}
+                handleShowOandMModal={handleShowOandMModal}
                 operativeOptions={operativeOptions}
+                clientOptions={clientOptions}
             />
         </BlockContainer>
     );
@@ -233,6 +243,8 @@ const AddDrawingsFormContainer = ({
                     clientPermissionIDs,
                     operativePermissionIDs,
                     setManufacturersForHierarchy,
+                    startDate,
+                    isStartDateShowing,
                 } = drawing;
                 const optionValueIDs = removeUnusedManufacturerDefaults(drawing);
 
@@ -243,6 +255,7 @@ const AddDrawingsFormContainer = ({
                 const postBody = {
                     name,
                     file,
+                    startDate,
                     floorID,
                     clientPermissionIDs,
                     operativePermissionIDs,
@@ -252,13 +265,18 @@ const AddDrawingsFormContainer = ({
                     postBody.message = message;
                     postBody.dateToSend = dateToSend;
                 }
+                if (isStartDateShowing) {
+                    postBody.startDate = startDate;
+                }
 
-                createDrawing(postBody);
+                createDrawing(postBody).then(fetchAllCredits);
             } else if (drawings.length > 1) {
                 const formattedDrawings = drawings.map(drawing => {
                     const {
                         name,
                         file,
+                        startDate,
+                        isStartDateShowing,
                         isAlertShowing,
                         dateToSend,
                         message,
@@ -275,6 +293,7 @@ const AddDrawingsFormContainer = ({
                     const postBody = {
                         name,
                         file,
+                        startDate,
                         floorID,
                         clientPermissionIDs,
                         operativePermissionIDs,
@@ -284,9 +303,12 @@ const AddDrawingsFormContainer = ({
                         postBody.message = message;
                         postBody.dateToSend = dateToSend;
                     }
+                    if (isStartDateShowing) {
+                        postBody.startDate = startDate;
+                    }
                     return postBody;
                 });
-                createDrawings({ drawings: formattedDrawings, floorID });
+                createDrawings({ drawings: formattedDrawings, floorID }).then(fetchAllCredits);
             }
             hideModal();
         }
@@ -295,6 +317,9 @@ const AddDrawingsFormContainer = ({
     function handleClose() {
         hideModal();
         updateHierarchyAddState(false);
+    }
+    function handleShowOandMModal() {
+        showOAndMTsAndCsModal('add drawing');
     }
 };
 
@@ -354,8 +379,10 @@ const mapDispatchToProps = {
     updateHierarchyAddState,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
-    fetchClientsForFloor,
     fetchOperativesForFloor,
+    fetchClientsForFloor,
+    fetchAllCredits,
+    showOAndMTsAndCsModal,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddDrawingsFormContainer));

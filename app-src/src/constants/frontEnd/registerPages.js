@@ -1,0 +1,29 @@
+export default [
+    [
+        'User.firstName',
+        'User.lastName',
+        'User.phoneNumber',
+        'User.email',
+        'User.password',
+        'confirmPassword',
+    ],
+    [
+        'Company.name',
+        'Company.phoneNumber',
+        'Company.timezone',
+        'Company.dateFormatID',
+        'Company.vatType',
+        'Company.vatCode',
+    ],
+    [
+        'Company.addressLine1',
+        'Company.addressLine2',
+        'Company.town',
+        'Company.county',
+        'Company.postcode',
+        'Company.country',
+        'Company.base64LogoFile',
+        'Company.base64LogoFileName',
+        'User.reCaptchaToken',
+    ],
+];

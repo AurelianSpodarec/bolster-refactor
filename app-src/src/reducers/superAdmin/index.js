@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import companiesReducer from './companies';
-import enquiriesReducer from './enquiries';
+import contactSubmissionsReducer from './contactSubmissions';
 import companyReportsReducer from './companyReports';
 import invoicesReducer from './invoices';
 import invoicePaymentsReducer from './invoicePayments';
@@ -17,7 +17,6 @@ import sitesReducer from './sites';
 import buildingsReducer from './buildings';
 import floorsReducer from './floors';
 import drawingsReducer from './drawings';
-import demoRequestsReducer from './demoRequests';
 import moveToolReducer from './moveTool';
 import sosCodesReducer from './sosCodes';
 import operativeAlertsReducer from 'reducers/superAdmin/operativeAlerts';
@@ -26,8 +25,14 @@ import manufacturersReducer from './manufacturers';
 import manufacturersOptionValuesReducer from './manufacturersOptionValues';
 import optionValueDocumentsReducer from './optionValueDocuments';
 import userGuideReducer from './userGuide';
+import frontendTextSettingsReducer from './frontendTextSettings';
+import frontendTrustedBySettingsReducer from './frontendTrustedBySettings';
 import expiryToolReducer from './expiryTool';
 import newFeaturesReducer from './newFeatures';
+import recentlyExtendedReducer from './recentlyExtended';
+import legalDocumentsReducer from './legalDocuments';
+import syncsReducer from './syncs';
+import bannerNotificationsReducer from './bannerNotifications';
 
 export default combineReducers({
     adminServicesReducer,
@@ -35,18 +40,19 @@ export default combineReducers({
     companiesReducer,
     companyReportsReducer,
     companySubscriptionReducer,
-    demoRequestsReducer,
     drawingsReducer,
-    enquiriesReducer,
+    contactSubmissionsReducer,
     floorsReducer,
     invoicePaymentsReducer,
     invoicesReducer,
+    legalDocumentsReducer,
     manufacturersReducer,
     manufacturersOptionValuesReducer,
     mergeToolReducer,
     moveToolReducer,
     operativeAlertsReducer,
     optionValueDocumentsReducer,
+    recentlyExtendedReducer,
     sitesReducer,
     sosCodesReducer,
     templateLabelFieldsReducer,
@@ -56,6 +62,10 @@ export default combineReducers({
     templateQuestionFormReducer,
     usersReducer,
     userGuideReducer,
+    frontendTextSettingsReducer,
+    frontendTrustedBySettingsReducer,
     expiryToolReducer,
     newFeaturesReducer,
+    syncsReducer,
+    bannerNotificationsReducer,
 });

@@ -14,11 +14,21 @@ import fetchZonesByDrawingID from 'actions/companyAdmin/zones/async/fetchZonesBy
 
 class SinglePinContainer extends Component {
     state = { isLoading: true };
-    render = () => (
-        <SinglePin isLoading={this.state.isLoading} pin={this.props.pin} />
-    );
+    render = () => <SinglePin isLoading={this.state.isLoading} pin={this.props.pin} />;
 
     componentDidMount = () => {
+        this.fetchPin();
+    };
+
+    componentDidUpdate = prevProps => {
+        const { pinId } = this.props;
+
+        if (prevProps.pinId !== pinId) {
+            this.fetchPin();
+        }
+    };
+
+    fetchPin = () => {
         const {
             pinId,
             fetchSinglePinData,
@@ -57,7 +67,7 @@ const mapStateToProps = (
     pin: pins[params.id],
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     fetchSinglePinData: (id, drawingID) => {
         return Promise.all([
             dispatch(fetchPinTemplates(id)),
@@ -67,13 +77,11 @@ const mapDispatchToProps = (dispatch) => ({
             dispatch(fetchZonesByDrawingID(drawingID)),
         ]);
     },
-    fetchSinglePin: (id) => dispatch(fetchSinglePin(id)),
+    fetchSinglePin: id => dispatch(fetchSinglePin(id)),
     fetchPinsForInspectionLog: (id, pinIDToKeep) =>
         dispatch(fetchAllPinsForDrawing(id, pinIDToKeep)),
     fetchAllOptionValues: () => dispatch(fetchAllOptionValues()),
-    fetchZonesByDrawingID: (drawingID) => fetchZonesByDrawingID(drawingID),
+    fetchZonesByDrawingID: drawingID => fetchZonesByDrawingID(drawingID),
 });
 
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(SinglePinContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SinglePinContainer));

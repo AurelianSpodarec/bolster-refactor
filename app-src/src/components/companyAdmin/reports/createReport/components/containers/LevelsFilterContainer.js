@@ -27,7 +27,7 @@ class LevelsFilterContainer extends Component {
             floors,
             drawings,
             hierarchy,
-            isFetching
+            isFetching,
         } = this.props;
 
         const sitesOptions = this._formatArrForDropdown(sites);
@@ -75,26 +75,27 @@ class LevelsFilterContainer extends Component {
         return this.updateBuilding().then(() => handleChange('siteID', value));
     };
 
-    handleChange = (name, value, mount = false) => {
+    handleChange = (name, value, mount = false, shouldPostFilters = true) => {
         const { postFilters, shouldConfirm, showModal, hideModal } = this.props;
         const updateMethods = {
             drawingID: this.updateDrawing,
             floorID: this.updateFloor,
             buildingID: this.updateBuilding,
-            siteID: this.updateSite
+            siteID: this.updateSite,
         };
         const update = updateMethods[name];
+        const postFiltersIfNeeded = () => shouldPostFilters && postFilters();
 
         if (shouldConfirm && !mount) {
             const handleSubmit = () => {
                 hideModal();
-                return update(value).then(postFilters);
+                return update(value).then(postFiltersIfNeeded);
             };
             const message = 'Changing this will reset your advanced filters options, continue?';
             // * confirm and then do this:
             showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
         } else {
-            return update(value).then(postFilters);
+            return update(value).then(postFiltersIfNeeded);
         }
     };
 
@@ -103,7 +104,7 @@ class LevelsFilterContainer extends Component {
             .filter(val => val)
             .map(({ name, id }) => ({
                 value: id,
-                text: name
+                text: name,
             }));
 
         return convertArrToObj(options, 'value');
@@ -115,7 +116,7 @@ class LevelsFilterContainer extends Component {
             handleChange,
             hierarchy,
             hierarchyID,
-            location: { state: locationState }
+            location: { state: locationState },
         } = this.props;
 
         // prefill on hierarchy single page advanced reports
@@ -133,14 +134,18 @@ class LevelsFilterContainer extends Component {
             this.handlePrefillDrawing(hierarchyID);
         }
 
-        if (pins.length) handleChange('pinIDs', pins.map(({ id }) => id));
+        if (pins.length)
+            handleChange(
+                'pinIDs',
+                pins.map(({ id }) => id),
+            );
 
         if (locationState && locationState.drawingID) {
             const { siteID, buildingID, floorID, drawingID } = locationState;
 
-            this.handleChange('siteID', siteID, true);
-            this.handleChange('buildingID', buildingID, true);
-            this.handleChange('floorID', floorID, true);
+            this.handleChange('siteID', siteID, true, false);
+            this.handleChange('buildingID', buildingID, true, false);
+            this.handleChange('floorID', floorID, true, false);
             this.handleChange('drawingID', drawingID, true);
 
             this.handlePrefillSite(siteID);
@@ -150,17 +155,23 @@ class LevelsFilterContainer extends Component {
         }
     };
 
-    componentDidUpdate = ({ customFilters: { pins: prevPins = [] }, filters: { siteID: prevSiteID, companyUserIDs: prevCompanyUserIDs = [] } }) => {
+    componentDidUpdate = ({
+        customFilters: { pins: prevPins = [] },
+        filters: { siteID: prevSiteID, companyUserIDs: prevCompanyUserIDs = [] },
+    }) => {
         const {
             customFilters: { pins = [] },
             filters: { siteID, companyUserIDs = [] },
             handleChange,
             updateReportFilter,
             postFilters,
-            removeFieldError
+            removeFieldError,
         } = this.props;
         if (pins.length !== prevPins.length) {
-            handleChange('pinIDs', pins.map(({ id }) => id));
+            handleChange(
+                'pinIDs',
+                pins.map(({ id }) => id),
+            );
         }
         if (siteID !== prevSiteID || companyUserIDs !== prevCompanyUserIDs) {
             let value = null;
@@ -191,21 +202,21 @@ class LevelsFilterContainer extends Component {
         const { handleChange, fetchSingleBuilding } = this.props;
         handleChange('buildingID', buildingID);
         fetchSingleBuilding(buildingID).then(({ payload: { siteID } }) =>
-            this.handlePrefillSite(siteID)
+            this.handlePrefillSite(siteID),
         );
     };
     handlePrefillFloor = floorID => {
         const { handleChange, fetchSingleFloor } = this.props;
         handleChange('floorID', floorID);
         fetchSingleFloor(floorID).then(({ payload: { buildingID } }) =>
-            this.handlePrefillBuilding(buildingID)
+            this.handlePrefillBuilding(buildingID),
         );
     };
     handlePrefillDrawing = drawingID => {
         const { handleChange, fetchSingleDrawing } = this.props;
         handleChange('drawingID', drawingID);
         fetchSingleDrawing(drawingID).then(({ payload: { floorID } }) =>
-            this.handlePrefillFloor(floorID)
+            this.handlePrefillFloor(floorID),
         );
     };
 
@@ -222,7 +233,10 @@ class LevelsFilterContainer extends Component {
             const diff = moment(toDate).diff(fromDateInclusive, 'days');
 
             if (diff >= 7) {
-                return addFieldError('fromDateInclusive', 'You must select a date range of 7 days or less.');
+                return addFieldError(
+                    'fromDateInclusive',
+                    'You must select a date range of 7 days or less.',
+                );
             }
 
             return removeFieldError('fromDateInclusive');
@@ -240,21 +254,21 @@ const mapStateToProps = (
             reportsReducer: {
                 fields,
                 filters: { pinIDs = [] },
-                customFilters: { pins = [] }
-            }
-        }
+                customFilters: { pins = [] },
+            },
+        },
     },
-    { match: { params, path } }
+    { match: { params, path } },
 ) => {
     const hierarchy = path.includes('drawing')
         ? HIERARCHY_IDS.DRAWING
         : path.includes('floor')
-            ? HIERARCHY_IDS.FLOOR
-            : path.includes('building')
-                ? HIERARCHY_IDS.BUILDING
-                : path.includes('site')
-                    ? HIERARCHY_IDS.SITE
-                    : '';
+        ? HIERARCHY_IDS.FLOOR
+        : path.includes('building')
+        ? HIERARCHY_IDS.BUILDING
+        : path.includes('site')
+        ? HIERARCHY_IDS.SITE
+        : '';
     const hierarchyID = params.id;
     return {
         hierarchy,
@@ -264,7 +278,7 @@ const mapStateToProps = (
             buildingsReducer.isFetching ||
             floorsReducer.isFetching ||
             drawingsReducer.isFetching,
-        shouldConfirm: !isObjEmpty(fields) || pins.length !== pinIDs.length
+        shouldConfirm: !isObjEmpty(fields) || pins.length !== pinIDs.length,
     };
 };
 
@@ -276,14 +290,9 @@ const mapDispatchToProps = {
     updateReportFilter,
     showModal,
     hideModal,
-    removeFieldError
+    removeFieldError,
 };
 
 export default withUpdateOnChange(
-    withRouter(
-        connect(
-            mapStateToProps,
-            mapDispatchToProps
-        )(LevelsFilterContainer)
-    )
+    withRouter(connect(mapStateToProps, mapDispatchToProps)(LevelsFilterContainer)),
 );

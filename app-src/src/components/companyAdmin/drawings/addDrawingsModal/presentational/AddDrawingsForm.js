@@ -28,8 +28,9 @@ const AddDrawingsForm = ({
     initialOptions,
     setShowManufacturingOptions,
     showManufacturingOptions,
-    clientOptions,
     operativeOptions,
+    clientOptions,
+    handleShowOandMModal,
 }) => {
     const hasEnoughCredits = credits >= drawings.length;
     return (
@@ -118,6 +119,41 @@ const AddDrawingsForm = ({
                                     </div>
                                 </div>
                             )}
+                            <div className="size-lg-12">
+                                <div className="size-lg-6 size-md-12">
+                                    <Field name="Set a start date?">
+                                        <CheckboxContainer
+                                            checked={drawing.isStartDateShowing}
+                                            name={`${drawing.id}.*.isStartDateShowing`}
+                                            text=""
+                                            handleChange={(name, value) =>
+                                                updateDrawing(name, value, drawing.id)
+                                            }
+                                        />
+                                    </Field>
+                                </div>
+                            </div>
+
+                            {drawing.isStartDateShowing && (
+                                <div className="size-lg-12">
+                                    <div className="size-lg-12">
+                                        <Field name="Start Date">
+                                            <DatePickerPresentational
+                                                name={`${drawing.id}.*.startDate`}
+                                                selected={drawing.startDate}
+                                                onChange={value =>
+                                                    updateDrawing(
+                                                        `${drawing.id}.*.startDate`,
+                                                        value,
+                                                        drawing.id,
+                                                    )
+                                                }
+                                                placeholderText="Date"
+                                            />
+                                        </Field>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                         {!!clientOptions.length && (
                             <div className="size-lg-12 check-col-6">
@@ -159,9 +195,12 @@ const AddDrawingsForm = ({
                                                 checked={drawing.setManufacturersForHierarchy}
                                                 name={`${drawing.id}.*.setManufacturersForHierarchy`}
                                                 text=""
-                                                handleChange={(name, value) =>
-                                                    updateDrawing(name, value, drawing.id)
-                                                }
+                                                handleChange={(name, value) => {
+                                                    updateDrawing(name, value, drawing.id);
+                                                    if (value) {
+                                                        handleShowOandMModal();
+                                                    }
+                                                }}
                                                 disabled={drawing.isManufacturingInherited}
                                             />
                                         </Field>

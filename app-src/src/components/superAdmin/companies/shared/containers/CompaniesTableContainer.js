@@ -12,7 +12,7 @@ const CompaniesTableContainer = ({ isFetching, fetchingError, companies, filters
                 'Company',
                 'Telephone',
                 'Address',
-                'Terms Accepted On',
+                'Next expiry date',
                 'Type',
                 'Credits',
                 'Shows on client list?',

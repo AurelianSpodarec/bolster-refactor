@@ -154,7 +154,7 @@ const CompanyMenu = ({
                         <i className="far fa-info-circle fa-fw icon" />
                         <span className="menu-text">Support</span>
                     </CompanyMenuItemContainer>
-                    <CompanyMenuItemContainer link="/company/terms">
+                    <CompanyMenuItemContainer link="/auth/terms">
                         <i className="fas fa-align-left fa-fw icon" />
                         <span className="menu-text"> Terms & Conditions</span>
                     </CompanyMenuItemContainer>

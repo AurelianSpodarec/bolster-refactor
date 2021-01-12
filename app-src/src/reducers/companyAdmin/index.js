@@ -4,6 +4,7 @@ import activityLogReducer from './activityLog';
 import addPinDropdownOptions from './addPinDropdownOptions';
 import addPinFormReducer from './addPinForm';
 import addPinCoordinatesReducer from './addPinCoordinates';
+import appReducer from './app';
 import buildingsReducer from './buildings';
 import cardsReducer from './cards';
 import clientsReducer from './clients';
@@ -60,6 +61,7 @@ export default combineReducers({
     addPinDropdownOptions,
     addPinCoordinatesReducer,
     addPinFormReducer,
+    appReducer,
     approvedCompaniesReducer,
     buildingsReducer,
     cardsReducer,

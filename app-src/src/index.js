@@ -13,7 +13,6 @@ import * as serviceWorker from 'helpers/serviceWorker';
 import reducer from 'reducers';
 import '_content/scss/font-awesome.css';
 import '_content/scss/main.scss';
-import '_content/scss/mobile.scss';
 import '_content/scss/dashboard-mobile.scss';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';

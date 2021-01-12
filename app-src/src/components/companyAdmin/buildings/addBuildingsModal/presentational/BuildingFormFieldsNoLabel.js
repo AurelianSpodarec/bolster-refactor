@@ -19,6 +19,7 @@ const BuildingFormFieldsWithLabel = ({
     showManufacturingOptions,
     setShowManufacturingOptions,
     siteName,
+    handleShowOandMModal,
 }) =>
     buildings.map(building => (
         <div key={building.id} className="size-lg-12">
@@ -104,9 +105,12 @@ const BuildingFormFieldsWithLabel = ({
                                     checked={building.setManufacturersForHierarchy}
                                     name={`${building.id}.*.setManufacturersForHierarchy`}
                                     text=""
-                                    handleChange={(name, value) =>
-                                        updateBuilding(name, value, building.id)
-                                    }
+                                    handleChange={(name, value) => {
+                                        updateBuilding(name, value, building.id);
+                                        if (value) {
+                                            handleShowOandMModal('add building');
+                                        }
+                                    }}
                                     disabled={building.isManufacturingInherited}
                                 />
                             </Field>

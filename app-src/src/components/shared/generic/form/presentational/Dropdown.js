@@ -12,22 +12,13 @@ const Dropdown = ({
     error,
     disabled = false,
     required = false,
-    classes = ''
+    classes = '',
 }) => {
     return (
-        <div
-            className={`custom-dropdown ${disabled &&
-                'disabled'} ${classes} size-lg-12`}
-        >
-            <input
-                type="text"
-                value={selectedOption.text || placeholder}
-                readOnly
-            />
+        <div className={`custom-dropdown ${disabled && 'disabled'} ${classes} size-lg-12`}>
+            <input type="text" value={selectedOption.text || placeholder} readOnly />
             <i className="arrow fas fa-caret-down" />
-            {!!(error && error.length) && (
-                <p className="error red-text text-accent-4">{error}</p>
-            )}
+            {!!(error && error.length) && <p className="error red-text text-accent-4">{error}</p>}
             <select
                 name={name}
                 onChange={e => {

@@ -2,6 +2,7 @@ import moment from 'moment';
 import { DATE_TIME_DEFAULTS } from 'constants/companyAdmin/enums';
 import { useEffect } from 'react';
 import orderBy from 'lodash/orderBy';
+import find from 'lodash/find';
 
 export function convertArrToObj(arr, field = 'id') {
     return arr.reduce((acc, item) => {
@@ -295,3 +296,31 @@ export const toTitleCase = string => {
 
 export const sortArrayByField = (arr, field = 'id', ascending = false) =>
     orderBy(arr, [field], [ascending ? 'asc' : 'desc']);
+
+export const getKeyByValue = (object, value) => {
+    return Object.keys(object).find(key => object[key] === value);
+};
+
+export const orderTrustedByArr = (arr, maxLength = 5) => {
+    if (!arr || !arr.length) return null;
+
+    return Array(maxLength)
+        .fill(0)
+        .reduce((result, _value, index) => {
+            const item = find(arr, value => value.order === index + 1);
+
+            return item ? [...result, item] : [...result, null];
+        }, []);
+};
+
+export const getOrderObjId = (arr, deleteOrder) => {
+    if (!arr || !arr.length) return null;
+
+    const formattedArr = orderTrustedByArr(arr);
+
+    const objId = find(formattedArr, value => {
+        if (value) return value.order === deleteOrder;
+    });
+
+    return objId ? objId.id : null;
+};

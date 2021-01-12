@@ -40,7 +40,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchCompanyTemplates(id));
         dispatch(fetchCompanyInvoices(id));
         dispatch(fetchCompanySubscription(id));
-        dispatch(fetchCompanyUsers(id));
+        dispatch(fetchCompanyUsers(id, 1));
         dispatch(fetchAllServices());
     },
 });

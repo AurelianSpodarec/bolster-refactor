@@ -7,6 +7,7 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import AddManufacturerForm from '../presentational/AddManufacturerForm';
 import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOAndMTsAndCsModal';
 
 class AddManufacturerFormContainer extends Component {
     state = {
@@ -24,6 +25,10 @@ class AddManufacturerFormContainer extends Component {
                 validateName={this.validateName}
             />
         );
+    }
+
+    componentDidMount() {
+        this.props.showOAndMTsAndCsModal('add manufacturer');
     }
 
     handleInputChange = (name, value) => {
@@ -68,6 +73,7 @@ const mapStateToProps = (
 const mapDispatchToProps = {
     createManufacturer,
     hideModal,
+    showOAndMTsAndCsModal,
 };
 
 export default withRouter(

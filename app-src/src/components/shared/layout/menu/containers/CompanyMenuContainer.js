@@ -69,10 +69,7 @@ const CompanyMenuContainer = ({
     function _isSubscribed() {
         if (isEmpty(subscriptions)) return false;
 
-        return (
-            moment(startOn).isBefore(Date.now()) &&
-            moment(endOn).isAfter(Date.now())
-        );
+        return !!startOn;
     }
 
     function _openHelpScout(e) {

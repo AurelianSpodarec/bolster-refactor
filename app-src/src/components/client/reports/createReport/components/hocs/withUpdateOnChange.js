@@ -92,9 +92,7 @@ export default function (ProtectedComponent) {
             // simple
             return pins
                 .filter(pin => {
-                    // 2066696
                     // start date
-
                     if (
                         fromDateInclusive &&
                         moment(pin.latestCreatedOn) <
@@ -130,14 +128,7 @@ export default function (ProtectedComponent) {
                     ) {
                         return NO;
                     }
-                    // if (
-                    //     +furtherFiltrationOption ===
-                    //     FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
-                    // ) {
-                    //     if (!filters.pinIDs.includes(pin.id)) {
-                    //         return NO;
-                    //     }
-                    // }
+
                     return YES;
                 })
                 .map(pin => ({
@@ -200,11 +191,7 @@ export default function (ProtectedComponent) {
             let questionFilters = null;
             let selectedPinIDs = null;
 
-            const {
-                INDIVIDUAL_PINS,
-                // PIN_SELECTOR,
-                FILTERS,
-            } = FURTHER_FILTRATION_OPTIONS;
+            const { INDIVIDUAL_PINS, FILTERS } = FURTHER_FILTRATION_OPTIONS;
 
             switch (+furtherFiltrationOption) {
                 case INDIVIDUAL_PINS: {
