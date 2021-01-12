@@ -39,7 +39,7 @@ const ActiveServices = ({
                 </CompanyServicesList>
             </Form>
             {!canEdit && (
-                <p className="size-lg-12" style={{ paddingBottom: 10, color: 'red' }}>
+                <p className="size-lg-12 info-message warning" style={{ paddingBottom: 10 }}>
                     <strong>Note:</strong> You will be able to update your services when your new
                     subscription begins.
                 </p>
