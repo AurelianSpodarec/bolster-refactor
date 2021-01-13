@@ -121,6 +121,8 @@ const CompanyMenu = ({
                 <span className="menu-text">My Templates</span>
             </CompanyMenuItemContainer>
 
+            <MenuHeader title="Tools" />
+
             <CompanyMenuItemContainer link="/company/release-notes">
                 {!!unreadReleaseNoteCount && (
                     <span className="number">{unreadReleaseNoteCount}</span>
