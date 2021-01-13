@@ -104,7 +104,8 @@ const CompanyMenu = ({
                 </>
             )}
 
-            <MenuHeader title="Settings &amp; Tools" />
+            <MenuHeader title="Settings" />
+
             <CompanyMenuItemContainer link="/company/profile">
                 <i className="far fa-user fa-fw icon" />
                 <span className="menu-text"> My Profile</span>
@@ -170,7 +171,7 @@ const CompanyMenu = ({
                         onClick={e => openHelpScout(e)}
                     >
                         <i className="far fa-info-circle fa-fw icon" />
-                        <span className="menu-text">Support</span>
+                        <span className="menu-text">Help</span>
                     </CompanyMenuItemContainer>
                     <CompanyMenuItemContainer link="/company/user-guides">
                         <i className="far fa-video fa-fw icon" />
@@ -182,6 +183,7 @@ const CompanyMenu = ({
                     </CompanyMenuItemContainer>
                 </>
             )}
+
             <CompanyMenuItemContainer link="#" logout={true}>
                 <i className="far fa-sign-out-alt fa-fw icon" />
                 <span className="menu-text">Logout</span>
