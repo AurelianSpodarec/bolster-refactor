@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 
@@ -22,11 +22,14 @@ const EditFeatureFormContainer = ({
 }) => {
     const [formData, handleChange] = useForm({
         title: feature.title,
-        shortDescription: feature.shortDescription,
         fullDescription: feature.fullDescription,
         publishDate: new Date(moment.utc(feature.publishDate)),
+        image: feature.image ? feature.image : null,
+        videoLink: feature.videoLink ? feature.videoLink : null,
     });
 
+    const [showVideoField, setShowVideoField] = useState(feature.videoLink ? true : null);
+    const [showImageField, setShowImageField] = useState(feature.image ? true : null);
     const prevProps = usePrevious({ isPosting });
 
     const handleSubmit = e => {
@@ -43,7 +46,26 @@ const EditFeatureFormContainer = ({
         }
     }, [isPosting, postSuccess, prevProps.isPosting, error]);
 
-    return <FeatureForm handleChange={handleChange} form={formData} handleSubmit={handleSubmit} />;
+    return (
+        <FeatureForm
+            handleChange={handleChange}
+            form={formData}
+            handleSubmit={handleSubmit}
+            handleCheckboxChange={handleCheckboxChange}
+            showVideoField={showVideoField}
+            showImageField={showImageField}
+            formType="edit"
+        />
+    );
+
+    function handleCheckboxChange(name, value) {
+        if (name === 'videoLink') {
+            setShowVideoField(value);
+        }
+        if (name === 'image') {
+            setShowImageField(value);
+        }
+    }
 };
 
 const mapStateToProps = ({

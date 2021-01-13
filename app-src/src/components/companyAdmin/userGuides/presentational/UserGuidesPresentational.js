@@ -50,7 +50,6 @@ const UserGuidesPresentational = ({ userGuideLink, isFetching, error }) => (
                     src="https://player.vimeo.com/video/220653194"
                     height="360"
                     frameBorder="0"
-                    allow="autoplay; fullscreen"
                     allowFullScreen
                     className="size-lg-12"
                 ></iframe>

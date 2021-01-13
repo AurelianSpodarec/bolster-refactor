@@ -102,7 +102,6 @@ const mapStateToProps = ({
     },
 }) => {
     const isImpersonating = headquartersCompanyID !== companyID;
-
     const unreadMessageCount = Object.values(messages).filter(
         ({ type, isRead }) => type === MESSAGE_TYPES.SYSTEM && !isRead,
     ).length;
