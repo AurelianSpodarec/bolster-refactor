@@ -33,7 +33,14 @@ class SaveTemplateButtonContainer extends Component {
     handleSave = () => {
         const { template, allSections, allQuestions, allLabelFields, postTemplate } = this.props;
         const sections = allSections.filter(({ templateUUID }) => templateUUID === template.uuid);
-        const questions = allQuestions.filter(({ templateUUID }) => templateUUID === template.uuid);
+        const questions = allQuestions
+            .filter(({ templateUUID }) => templateUUID === template.uuid)
+            .map(ques => {
+                if (ques.prereqUUIDs) {
+                    return { ...ques, prereqUUIDs: ques.prereqUUIDs.join(',') };
+                }
+                return ques;
+            });
 
         const labelFields = allLabelFields
             .filter(({ templateUUID }) => templateUUID === template.uuid)
@@ -48,7 +55,6 @@ class SaveTemplateButtonContainer extends Component {
             questions: setDynamicFields(questions),
             labelFields,
         };
-        console.log(newTemplateData);
         postTemplate(newTemplateData);
     };
 }
