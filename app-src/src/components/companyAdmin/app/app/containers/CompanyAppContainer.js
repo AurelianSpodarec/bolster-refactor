@@ -25,6 +25,7 @@ import fetchSingleCompanyUser from 'actions/companyAdmin/userManagement/async/fe
 import withAuth from 'components/shared/auth/auth/hocs/withAuth';
 import { AUTH_TYPES } from 'constants/shared/auth';
 import fetchMessagesBasic from 'actions/companyAdmin/messages/async/fetchMessagesBasic';
+import fetchRecentUpdates from 'actions/companyAdmin/recentUpdates/async/fetchRecentUpdates';
 
 class CompanyAppContainer extends Component {
     render() {
@@ -71,6 +72,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchOutgoingTransferRequests());
         dispatch(fetchPendingInvites());
         dispatch(fetchOutgoingInvites());
+        dispatch(fetchRecentUpdates());
     },
     decodeJWT: () => {
         return dispatch(decodeJWT());
@@ -86,7 +88,7 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchLatestAppVersion: () => {
         dispatch(fetchLatestAppVersion());
-    }
+    },
 });
 
 const withConnect = connect(null, mapDispatchToProps)(CompanyAppContainer);

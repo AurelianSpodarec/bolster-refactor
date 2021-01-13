@@ -95,11 +95,11 @@ const SectionContainer = ({
         const sectionQuestionUuids = questions.map(({ uuid }) => uuid);
         const otherQuestionPrereqUuids = templateQuestions
             .filter(q => q.sectionUUID !== section.uuid)
-            .map(q => q.prereqUUID);
+            .map(q => q.prereqUUIDs);
 
         return (
-            otherQuestionPrereqUuids.every(
-                prereqUUID => !sectionQuestionUuids.includes(prereqUUID),
+            otherQuestionPrereqUuids.every(prereqUUIDs =>
+                prereqUUIDs.some(prereqUUID => !sectionQuestionUuids.includes(prereqUUID)),
             ) && sections.length > 1
         );
     }

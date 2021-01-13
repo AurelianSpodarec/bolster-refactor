@@ -6,13 +6,10 @@ const PinQuestionsContainer = ({ relevantQuestions, pinHistory }) => (
     <PinQuestion questions={relevantQuestions} pinHistory={pinHistory} />
 );
 
-const mapStateToProps = (
-    { companyAdmin: { templateQuestionsReducer } },
-    { sectionID }
-) => ({
-    relevantQuestions: Object.values(templateQuestionsReducer.questions).filter(
-        ({ templateSectionID }) => templateSectionID === sectionID
-    )
+const mapStateToProps = ({ companyAdmin: { templateQuestionsReducer } }, { sectionID }) => ({
+    relevantQuestions: Object.values(templateQuestionsReducer.questions)
+        .filter(({ templateSectionID }) => templateSectionID === sectionID)
+        .sort((a, b) => a.sort - b.sort),
 });
 
 export default connect(mapStateToProps)(PinQuestionsContainer);

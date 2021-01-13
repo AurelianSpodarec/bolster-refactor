@@ -1,11 +1,8 @@
 import React from 'react';
 
-import { isObjEmpty } from 'helpers/generic';
-
 import ModalOuterContainer from '../../../../shared/generic/modals/containers/ModalOuterContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from '../../../../shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -15,12 +12,16 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
+import { isObjEmpty } from 'helpers/generic';
+
+const { CHECKBOX } = QUESTION_TYPE_NUMBERS;
 
 const TemplateQuestionFormModal = ({
     questionTypeOptions,
     questionType,
-    prereqOptions,
+    prereqOptions = [],
     selectedPrereq,
+    prereqValueOptions,
     prereqVal,
     name,
     isRequired,
@@ -36,65 +37,66 @@ const TemplateQuestionFormModal = ({
     statusPrefills,
     handlePrefillStatusChange,
     handlePrefillStatusValueChange,
-    showStatusPrefillOptions,
+    showPrefillOptions,
     ...otherFields
 }) => {
     return (
         <ModalOuterContainer extraClasses="w-form">
             <BlockHeading title={`${action} question`} />
             <Form onSubmit={handleSubmit} className="generic-form">
-                <Field name="Question type">
-                    <DropdownContainer
+                <Field name="Question type" required>
+                    <Select
+                        required
                         name="questionType"
                         options={questionTypeOptions}
-                        selectedOption={questionType}
-                        handleChange={handleInputChange}
-                        withoutPlaceholder
+                        value={questionType}
+                        onChange={handleInputChange}
+                        omitPlaceholder
                     />
                 </Field>
                 {!isObjEmpty(prereqOptions) && (
-                    <Field name="Prerequisite field?">
-                        <DropdownContainer
-                            name="prereqUUID"
+                    <Field name="Prerequisite field(s)?">
+                        <MultiSelect
+                            search
+                            name="prereqUUIDs"
                             options={prereqOptions}
-                            selectedOption={selectedPrereq}
-                            handleChange={handleInputChange}
+                            value={selectedPrereq}
+                            onChange={(name, val) => {
+                                handleInputChange(name, val);
+                                handleInputChange('prereqVal', []);
+                            }}
                         />
                     </Field>
                 )}
-                {!!selectedPrereq && (
-                    <Field name="Prerequisite value" required>
-                        {selectedPrereq.isStatus ? (
-                            <Select
-                                name="prereqVal"
-                                value={prereqVal}
-                                options={statusOptions}
-                                onChange={handleInputChange}
-                                required
-                            />
-                        ) : (
-                            <TextInputContainer
-                                name="prereqVal"
-                                value={prereqVal}
-                                handleChange={handleInputChange}
-                                required
-                            />
-                        )}
+
+                {prereqValueOptions.length > 0 && (
+                    <Field name="Prerequisite values" required>
+                        <MultiSelect
+                            required
+                            search
+                            name="prereqVal"
+                            onChange={handleInputChange}
+                            value={prereqVal}
+                            options={prereqValueOptions}
+                        />
                     </Field>
                 )}
+
                 <Field name="Field name" required>
                     <TextInputContainer
+                        required
                         name="name"
                         value={name}
                         handleChange={handleInputChange}
-                        required
                     />
                 </Field>
+
                 <SpecificFieldsRoute
-                    questionType={questionType.value}
+                    questionType={questionType}
                     handleInputChange={handleInputChange}
                     {...otherFields}
                 />
+
                 <Field name="Required based on status?">
                     <Select
                         name="isRequiredVal"
@@ -106,6 +108,7 @@ const TemplateQuestionFormModal = ({
                         }}
                     />
                 </Field>
+
                 <Field name="Always Required?">
                     <CheckboxContainer
                         name="isRequired"
@@ -116,6 +119,7 @@ const TemplateQuestionFormModal = ({
                         }}
                     />
                 </Field>
+
                 <Field name="Hidden?">
                     <CheckboxContainer
                         name="isHidden"
@@ -123,6 +127,7 @@ const TemplateQuestionFormModal = ({
                         handleChange={handleInputChange}
                     />
                 </Field>
+
                 <Field name="Prefill on create?">
                     <CheckboxContainer
                         name="isPrefill"
@@ -130,7 +135,8 @@ const TemplateQuestionFormModal = ({
                         handleChange={handleInputChange}
                     />
                 </Field>
-                {showStatusPrefillOptions && (
+
+                {showPrefillOptions && (
                     <div className="dropdown-create  size-lg-12">
                         <Field name="Prefill Based on status?">
                             <MultiSelect
@@ -141,47 +147,46 @@ const TemplateQuestionFormModal = ({
                                 onChange={handlePrefillStatusChange}
                             />
                         </Field>
-                        {+questionType.value === QUESTION_TYPE_NUMBERS.CHECKBOX &&
-                        prefillStatuses.length
-                            ? prefillStatuses.map((prefillStatus, index) => (
-                                  <Field
-                                      name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}
-                                      key={index}
-                                  >
-                                      <CheckboxContainer
-                                          name="statusPrefills"
-                                          checked={statusPrefills[prefillStatus]}
-                                          handleChange={(name, value) => {
-                                              handlePrefillStatusValueChange(prefillStatus, value);
-                                          }}
-                                      />
-                                  </Field>
-                              ))
-                            : ''}
 
-                        {prefillStatuses.length &&
-                        +questionType.value !== QUESTION_TYPE_NUMBERS.CHECKBOX
-                            ? prefillStatuses.map((prefillStatus, index) => (
-                                  <Field
-                                      name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}
-                                      key={index}
-                                  >
-                                      <TextInputContainer
-                                          name="statusPrefills"
-                                          handleChange={(name, value) => {
-                                              handlePrefillStatusValueChange(prefillStatus, value);
-                                          }}
-                                          value={statusPrefills[prefillStatus]}
-                                      />
-                                  </Field>
-                              ))
-                            : ''}
+                        {prefillStatuses.length > 0 &&
+                            questionType == CHECKBOX &&
+                            prefillStatuses.map((prefillStatus, index) => (
+                                <Field
+                                    name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}
+                                    key={index}
+                                >
+                                    <CheckboxContainer
+                                        name="statusPrefills"
+                                        checked={statusPrefills[prefillStatus]}
+                                        handleChange={(_, value) => {
+                                            handlePrefillStatusValueChange(prefillStatus, value);
+                                        }}
+                                    />
+                                </Field>
+                            ))}
+
+                        {prefillStatuses.length > 0 &&
+                            questionType != CHECKBOX &&
+                            prefillStatuses.map((prefillStatus, index) => (
+                                <Field
+                                    name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}
+                                    key={index}
+                                >
+                                    <TextInputContainer
+                                        name="statusPrefills"
+                                        handleChange={(_, value) => {
+                                            handlePrefillStatusValueChange(prefillStatus, value);
+                                        }}
+                                        value={statusPrefills[prefillStatus]}
+                                    />
+                                </Field>
+                            ))}
                     </div>
                 )}
 
                 <BlockButtonWrapper>
                     <button className="button green">
-                        <i className="fa fa-plus" /> Add Question
+                        <i className="fa fa-plus" /> {action} Question
                     </button>
                     <button className="button" onClick={hideModal}>
                         Cancel
