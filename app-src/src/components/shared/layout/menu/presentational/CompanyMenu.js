@@ -167,6 +167,7 @@ const CompanyMenu = ({
                 <i className="far fa-bells fa-fw icon" />
                 <span className="menu-text">Operative Alerts</span>
             </MenuItemContainer> */}
+                    <MenuHeader title="Support" />
 
                     <CompanyMenuItemContainer
                         link="/company/tools/support"
