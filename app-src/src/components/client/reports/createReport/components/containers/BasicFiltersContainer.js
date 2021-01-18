@@ -43,7 +43,7 @@ class BasicFiltersContainer extends Component {
             const hasServiceOption = !!serviceOptions[template.serviceID];
             const hasSelectedService = !!serviceID;
             const isSelectedService = +template.serviceID === +serviceID;
-            return hasServiceOption && (!!hasSelectedService || isSelectedService);
+            return hasServiceOption && (!hasSelectedService || isSelectedService);
         });
         const myServiceTemplateOptions = formatArrForDropdown(myServiceTemplates, true);
 
