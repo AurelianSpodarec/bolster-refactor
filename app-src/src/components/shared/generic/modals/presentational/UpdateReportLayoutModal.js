@@ -30,7 +30,7 @@ const UpdateReportLayoutModal = ({ template }) => {
     };
     return (
         <ModalOuterContainer>
-            <BlockHeading title="Select Size of Pins" />
+            <BlockHeading title="Update Report Layout" />
 
             <Field styles={{ marginBottom: '5em' }} name="Report layout" required>
                 <Select
