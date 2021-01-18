@@ -2,7 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { ADD_TEMPLATE, EDIT_TEMPLATE, CONFIRM_DELETE } from 'constants/shared/modalTypes';
+import {
+    ADD_TEMPLATE,
+    EDIT_TEMPLATE,
+    CONFIRM_DELETE,
+    UPDATE_REPORT_LAYOUT,
+} from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import TemplateBuilderHeader from '../presentational/TemplateBuilderHeader';
 import postTemplate from 'actions/superAdmin/templateBuilder/async/postTemplate';
@@ -24,6 +29,8 @@ const TemplateBuilderHeaderContainer = ({
     canSortSections,
     isSortingSections,
     setIsSortingSections,
+    showModal,
+    showUpdateReportLayoutModal,
 }) => {
     return (
         <TemplateBuilderHeader
@@ -39,6 +46,7 @@ const TemplateBuilderHeaderContainer = ({
             canSortSections={canSortSections}
             isSortingSections={isSortingSections}
             toggleIsSortingSections={toggleIsSortingSections}
+            showUpdateReportLayoutModal={showUpdateReportLayoutModal}
         />
     );
 
@@ -50,6 +58,10 @@ const TemplateBuilderHeaderContainer = ({
 
     function toggleIsSortingSections() {
         setIsSortingSections(!isSortingSections);
+    }
+
+    function showUpdateReportLayoutModal() {
+        showModal(UPDATE_REPORT_LAYOUT, { template });
     }
 };
 
@@ -96,6 +108,7 @@ const mapDispatchToProps = dispatch => ({
     },
     postTemplate: postBody => dispatch(postTemplate(postBody)),
     setIsSortingSections: payload => dispatch(setIsSortingSections(payload)),
+    showModal: (...args) => dispatch(showModal(...args)),
 });
 
 const HeaderWithConnect = connect(

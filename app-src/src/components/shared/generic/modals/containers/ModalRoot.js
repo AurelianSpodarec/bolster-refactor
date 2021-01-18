@@ -108,6 +108,7 @@ import {
     ADMIN_LATEST_SYNCS,
     EDIT_BANNER_NOTIFICATION,
     ADD_NEW_BANNER_NOTIFICATION,
+    UPDATE_REPORT_LAYOUT,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -216,6 +217,7 @@ import OurSystemModalContainer from 'components/frontEnd/whyUseOurSystem/contain
 import UserLatestSyncsModalContainer from 'components/superAdmin/companies/singleCompany/containers/UserLatestSyncsModalContainer';
 import EditBannerNotificationModal from 'components/superAdmin/bannerNotifications/editBannerNotificationModal/presentational/EditBannerNotificationModal';
 import AddBannerNotificationModal from 'components/superAdmin/bannerNotifications/addBannerNotifcationModel/presentational/AddBannerNotificationModal';
+import UpdateReportLayoutModal from '../presentational/UpdateReportLayoutModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -322,6 +324,7 @@ const MODAL_COMPONENTS = {
     [ADMIN_LATEST_SYNCS]: UserLatestSyncsModalContainer,
     [ADD_NEW_BANNER_NOTIFICATION]: AddBannerNotificationModal,
     [EDIT_BANNER_NOTIFICATION]: EditBannerNotificationModal,
+    [UPDATE_REPORT_LAYOUT]: UpdateReportLayoutModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

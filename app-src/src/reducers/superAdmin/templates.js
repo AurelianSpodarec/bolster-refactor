@@ -32,6 +32,9 @@ import {
     FETCH_TEMPLATE_FOR_COMPANY_NOT_FOUND,
     DELETE_TEMPLATE_UNAVAILABLE,
     SET_SECTIONS,
+    UPDATE_REPORT_LAYOUT_ALL_VERSIONS_REQUEST,
+    UPDATE_REPORT_LAYOUT_ALL_VERSIONS_FAILURE,
+    UPDATE_REPORT_LAYOUT_ALL_VERSIONS_SUCCESS,
 } from 'constants/actionTypes/templateBuilder';
 import {
     FETCH_COMPANY_TEMPLATES_REQUEST,
@@ -84,6 +87,7 @@ function errorReducer(state = null, action) {
         case FETCH_TEMPLATE_FOR_COMPANY_REQUEST:
         case FETCH_TEMPLATES_SIMPLE_REQUEST:
         case DELETE_TEMPLATE_REQUEST:
+        case UPDATE_REPORT_LAYOUT_ALL_VERSIONS_REQUEST:
             return null;
         case POST_TEMPLATE_FAILURE:
         case FETCH_TEMPLATES_FAILURE:
@@ -92,6 +96,7 @@ function errorReducer(state = null, action) {
         case FETCH_TEMPLATE_FOR_COMPANY_FAILURE:
         case FETCH_TEMPLATES_SIMPLE_FAILURE:
         case DELETE_TEMPLATE_FAILURE:
+        case UPDATE_REPORT_LAYOUT_ALL_VERSIONS_FAILURE:
             return action.error;
         default:
             return state;
