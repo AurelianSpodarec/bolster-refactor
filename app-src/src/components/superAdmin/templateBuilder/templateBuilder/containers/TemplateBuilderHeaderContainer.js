@@ -30,7 +30,6 @@ const TemplateBuilderHeaderContainer = ({
     isSortingSections,
     setIsSortingSections,
     showModal,
-    showUpdateReportLayoutModal,
 }) => {
     return (
         <TemplateBuilderHeader
