@@ -39,7 +39,11 @@ class BasicFiltersContainer extends Component {
 
         const serviceOptions = formatArrForDropdown(services, true);
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
-        const myServiceTemplates = templates.filter(({ serviceID }) => !!serviceOptions[serviceID]);
+        const myServiceTemplates = templates.filter(template => {
+            const hasServiceOption = !!serviceOptions[template.serviceID];
+            const isSelectedService = +template.serviceID === +serviceID;
+            return hasServiceOption && isSelectedService;
+        });
         const myServiceTemplateOptions = formatArrForDropdown(myServiceTemplates, true);
 
         return (
@@ -77,9 +81,7 @@ class BasicFiltersContainer extends Component {
     handleDateChange = (name, value) => {
         const { handleChange, postFilters } = this.props;
 
-        handleChange(name, value)
-            .then(this.validateDates)
-            .then(postFilters);
+        handleChange(name, value).then(this.validateDates).then(postFilters);
     };
 
     validateDates = () => {
