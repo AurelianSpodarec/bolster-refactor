@@ -15,6 +15,7 @@ const CompanyReportsListItem = ({
     retryCompanyReport,
     shouldDeleteReportsAfterDownload,
     handleDeleteAfterDownload,
+    shouldShowBothReportButtons = false,
 }) => {
     const typeArr = [];
     if (queueItem.isCSVGeneration) typeArr.push('CSV');
@@ -33,14 +34,31 @@ const CompanyReportsListItem = ({
             Download Report
         </button>
     ) : (
-        <a
-            className="button green"
-            target="_blank"
-            rel="noopener noreferrer"
-            href={`${RAW_S3_STORAGE_URL}/${queueItem.s3Key}`}
-        >
-            <i className="fa fa-download" /> Download File
-        </a>
+        <>
+            <a
+                className="button green"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`${RAW_S3_STORAGE_URL}/${queueItem.s3Key}`}
+                style={{ marginBottom: '1em' }}
+            >
+                <i className="fa fa-download" /> Download File{' '}
+                {shouldShowBothReportButtons && ' (old generator)'}
+            </a>
+            {shouldShowBothReportButtons && (
+                <>
+                    <br />
+                    <a
+                        className="button green"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={`${RAW_S3_STORAGE_URL}/${queueItem.newGenS3Key}`}
+                    >
+                        <i className="fa fa-download" /> Download File (new generator)
+                    </a>
+                </>
+            )}
+        </>
     );
     return (
         <tr>
