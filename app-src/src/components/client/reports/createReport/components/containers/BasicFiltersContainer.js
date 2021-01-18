@@ -41,8 +41,9 @@ class BasicFiltersContainer extends Component {
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
         const myServiceTemplates = templates.filter(template => {
             const hasServiceOption = !!serviceOptions[template.serviceID];
+            const hasSelectedService = !!serviceID;
             const isSelectedService = +template.serviceID === +serviceID;
-            return hasServiceOption && isSelectedService;
+            return hasServiceOption && (!!hasSelectedService || isSelectedService);
         });
         const myServiceTemplateOptions = formatArrForDropdown(myServiceTemplates, true);
 
