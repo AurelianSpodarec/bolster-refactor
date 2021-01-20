@@ -12,6 +12,7 @@ import { getHeaders } from '../../helpers/api';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import fetchCard from 'actions/companyAdmin/cards/async/fetchCard';
+import setPrimaryCard from 'actions/companyAdmin/cards/async/setPrimaryCard';
 
 class CheckoutForm extends Component {
     state = {
@@ -34,7 +35,8 @@ class CheckoutForm extends Component {
         } = await axios.get(`${API_URL}/cards/createintent`, getHeaders());
 
         const { name } = this.state;
-        const { close, fetchCard } = this.props;
+        const { close, fetchCard, hasExistingCard, setPrimaryCard, cards } = this.props;
+        console.log({ cards, hasExistingCard });
 
         this.props.stripe
             .handleCardSetup(clientSecret, {
@@ -54,7 +56,11 @@ class CheckoutForm extends Component {
                         errorMessage: '',
                     });
                     fetchCard(result.setupIntent.payment_method);
+                    if (!hasExistingCard) {
+                        setPrimaryCard(result.setupIntent.payment_method);
+                    }
                     close();
+                    return result;
                 }
             });
 
@@ -161,8 +167,17 @@ const createOptions = () => {
     };
 };
 
+const mapStateToProps = ({
+    companyAdmin: {
+        cardsReducer: { cards },
+    },
+}) => ({
+    cards,
+    hasExistingCard: !!Object.values(cards).length,
+});
+
 const mapDispatchToProps = {
     fetchCard,
+    setPrimaryCard,
 };
-
-export default connect(null, mapDispatchToProps)(injectStripe(CheckoutForm));
+export default connect(mapStateToProps, mapDispatchToProps)(injectStripe(CheckoutForm));
