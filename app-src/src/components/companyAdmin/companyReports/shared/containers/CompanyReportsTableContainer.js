@@ -35,6 +35,7 @@ const CompanyReportsTableContainer = ({
         856, // Passive Fire NZ
         1817, // PassSafe Fire Protection
         2058, // Optimal Fire
+        2154, // Flame Stoppers
     ];
     // my id
     const shouldShowBoth = companyIDsForBothGenerators.includes(companyID);
