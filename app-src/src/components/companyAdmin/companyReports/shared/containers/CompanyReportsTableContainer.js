@@ -28,17 +28,7 @@ const CompanyReportsTableContainer = ({
     deleteReport,
     showModal,
     hideModal,
-    companyID,
 }) => {
-    const companyIDsForBothGenerators = [
-        112, // Bolster Systems
-        856, // Passive Fire NZ
-        1817, // PassSafe Fire Protection
-        2058, // Optimal Fire
-        2154, // Flame Stoppers
-    ];
-    // my id
-    const shouldShowBoth = companyIDsForBothGenerators.includes(companyID);
     return (
         <CompanyReportsTable
             headers={['Name', 'Created By', 'Type', 'Status', 'Created On', 'Completed on', '']}
@@ -51,7 +41,6 @@ const CompanyReportsTableContainer = ({
             fetchStatus={fetchStatus}
             shouldDeleteReportsAfterDownload={shouldDeleteReportsAfterDownload}
             handleDeleteAfterDownload={handleDeleteAfterDownload}
-            shouldShowBothReportButtons={shouldShowBoth}
         />
     );
 
@@ -117,9 +106,6 @@ const mapStateToProps = ({
     },
     shared: {
         mobileReducer: { onMobile },
-        decodeJWTReducer: {
-            jwtData: { companyID },
-        },
     },
 }) => ({
     companyReports: Object.values(companyReports),
@@ -129,7 +115,6 @@ const mapStateToProps = ({
     onMobile,
     fetchStatus,
     shouldDeleteReportsAfterDownload,
-    companyID,
 });
 
 const mapDispatchToProps = {

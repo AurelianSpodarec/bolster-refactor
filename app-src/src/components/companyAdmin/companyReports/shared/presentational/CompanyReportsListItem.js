@@ -15,7 +15,6 @@ const CompanyReportsListItem = ({
     retryCompanyReport,
     shouldDeleteReportsAfterDownload,
     handleDeleteAfterDownload,
-    shouldShowBothReportButtons = false,
 }) => {
     const typeArr = [];
     if (queueItem.isCSVGeneration) typeArr.push('CSV');
@@ -29,7 +28,7 @@ const CompanyReportsListItem = ({
         queueItem.state === FAILED ||
         (queueItem.state !== COMPLETE && moment(queueItem.createdOn) > moment().add(-1, 'hours'));
 
-    const DownloadLinkOld = shouldDeleteReportsAfterDownload ? (
+    const DownloadLink = shouldDeleteReportsAfterDownload ? (
         <button className="button green" onClick={() => handleDeleteAfterDownload(queueItem)}>
             Download Report
         </button>
@@ -42,24 +41,8 @@ const CompanyReportsListItem = ({
             style={{ marginBottom: '1em' }}
         >
             <i className="fa fa-download" /> Download File{' '}
-            {shouldShowBothReportButtons && ' (old generator)'}
         </a>
     );
-    const DownloadLinkNew = shouldDeleteReportsAfterDownload ? (
-        <button className="button green" onClick={() => handleDeleteAfterDownload(queueItem)}>
-            Download Report
-        </button>
-    ) : (
-        <a
-            className="button green"
-            target="_blank"
-            rel="noopener noreferrer"
-            href={`${RAW_S3_STORAGE_URL}/${queueItem.newGenS3Key}`}
-        >
-            <i className="fa fa-download" /> Download File (new generator)
-        </a>
-    );
-
     return (
         <tr>
             <td>
@@ -94,10 +77,8 @@ const CompanyReportsListItem = ({
             <td>
                 {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[6]}</span>}
-
-
                 {queueItem.state === COMPLETE ? (
-                    DownloadLinkOld
+                    DownloadLink
                 ) : queueItem.state === FAILED ? (
                     // (
                     //     <button className="button green" onClick={() => {}}>
@@ -127,44 +108,6 @@ const CompanyReportsListItem = ({
                         <LoadingIcon />
                         Generating...
                     </button>
-                )}
-
-                {shouldShowBothReportButtons && (
-                    <>
-                        <br/>
-                        {queueItem.newGenState === COMPLETE ? (
-                            DownloadLinkNew
-                        ) : queueItem.newGenState === FAILED ? (
-                            // (
-                            //     <button className="button green" onClick={() => {}}>
-                            //         <i className="fa fa-envelope" /> Report will be e-mailed
-                            //     </button>
-                            // ) :
-                            <button
-                                className="button red"
-                                onClick={() => retryCompanyReport(+queueItem.id)}
-                            >
-                                <i className="fa fa-times" /> Failed - Retry?
-                            </button>
-                        ) : isRetryAvailable ? (
-                            <button className="button" onClick={() => retryCompanyReport(+queueItem.id)}>
-                                <LoadingIcon />
-                                Generating... (retry?)
-                            </button>
-                        ) : queueItem.newGenState === DELETED ? (
-                            <button
-                                className="button blue"
-                                onClick={() => retryCompanyReport(+queueItem.id)}
-                            >
-                                <i className="fa fa-redo-alt"></i> Regenerate
-                            </button>
-                        ) : (
-                            <button className="button disabled">
-                                <LoadingIcon />
-                                Generating...
-                            </button>
-                        )}
-                    </>
                 )}
             </td>
         </tr>
