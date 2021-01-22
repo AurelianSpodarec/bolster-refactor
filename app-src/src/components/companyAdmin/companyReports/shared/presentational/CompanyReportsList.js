@@ -12,7 +12,6 @@ const CompanyReportsList = ({
     singleReportFetching,
     fetchingReportsIDs,
     handleGeneratingReport,
-    shouldShowBothReportButtons,
 }) =>
     companyReports.map(queueItem => (
         <CompanyReportsListItem
@@ -27,7 +26,6 @@ const CompanyReportsList = ({
             handleDeleteAfterDownload={handleDeleteAfterDownload}
             fetchingReportsIDs={fetchingReportsIDs}
             handleGeneratingReport={handleGeneratingReport}
-            shouldShowBothReportButtons={shouldShowBothReportButtons}
         />
     ));
 

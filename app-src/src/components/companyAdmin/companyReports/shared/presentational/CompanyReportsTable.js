@@ -18,7 +18,6 @@ const CompanyReportsTable = ({
     shouldDeleteReportsAfterDownload,
     handleDeleteAfterDownload,
     singleReportFetching,
-    shouldShowBothReportButtons,
 }) => (
     <>
         <BlockHeading title="Reports Table">
@@ -45,7 +44,6 @@ const CompanyReportsTable = ({
                 retryCompanyReport={retryCompanyReport}
                 shouldDeleteReportsAfterDownload={shouldDeleteReportsAfterDownload}
                 handleDeleteAfterDownload={handleDeleteAfterDownload}
-                shouldShowBothReportButtons={shouldShowBothReportButtons}
             />
         </Table>
         {!isFetching && fetchStatus === FETCH_STATUS.PARTIAL ? (
