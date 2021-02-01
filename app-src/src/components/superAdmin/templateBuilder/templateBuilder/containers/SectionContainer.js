@@ -97,11 +97,24 @@ const SectionContainer = ({
             .filter(q => q.sectionUUID !== section.uuid)
             .map(q => q.prereqUUIDs);
 
-        return (
-            otherQuestionPrereqUuids.every(prereqUUIDs =>
-                prereqUUIDs.some(prereqUUID => !sectionQuestionUuids.includes(prereqUUID)),
-            ) && sections.length > 1
-        );
+        if (sections.length <= 1) {
+            return false;
+        }
+
+        for (let i = 0; i < otherQuestionPrereqUuids.length; i++) {
+            const curPrereqUUIDs = otherQuestionPrereqUuids[i];
+            if (curPrereqUUIDs !== undefined) {
+                const hasPreReq = curPrereqUUIDs.some(prereqUUIDs => {
+                    return sectionQuestionUuids.some(secUuid => prereqUUIDs.includes(secUuid));
+                });
+
+                if (hasPreReq) {
+                    return false;
+                }
+            }
+        }
+        return true;
+        // );
     }
 
     function moveQuestion(dragIndex, hoverIndex) {
