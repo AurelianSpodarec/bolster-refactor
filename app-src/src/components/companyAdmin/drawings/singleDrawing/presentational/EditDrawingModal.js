@@ -88,6 +88,7 @@ const EditDrawingModal = ({
                         />
                     </Field>
                     <Field name="Change floorplan">
+                        <p>Please upload your drawing in .pdf, .jpg or .png format.</p> <br />
                         <FileUploadContainer
                             name="file"
                             value={file}
