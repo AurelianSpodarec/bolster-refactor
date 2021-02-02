@@ -59,7 +59,11 @@ const AddDrawingsForm = ({
                                         value={drawing.file}
                                         required
                                         name={`${drawing.id}.*.file`}
-                                        acceptedTypes={['application/pdf', 'image/*']}
+                                        acceptedTypes={[
+                                            'application/pdf',
+                                            'image/jpg',
+                                            'image/png',
+                                        ]}
                                         handleChange={(name, value) => {
                                             updateDrawing(name, value, drawing.id);
                                         }}
