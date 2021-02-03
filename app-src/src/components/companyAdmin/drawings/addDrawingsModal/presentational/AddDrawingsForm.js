@@ -65,6 +65,7 @@ const AddDrawingsForm = ({
                                             'application/pdf',
                                             'image/jpg',
                                             'image/png',
+                                            'image/jpeg',
                                         ]}
                                         handleChange={(name, value) => {
                                             updateDrawing(name, value, drawing.id);

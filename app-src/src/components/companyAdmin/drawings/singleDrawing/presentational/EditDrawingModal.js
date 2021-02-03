@@ -93,7 +93,12 @@ const EditDrawingModal = ({
                             name="file"
                             value={file}
                             handleChange={handleChange}
-                            acceptedTypes={['application/pdf', 'image/jpg', 'image/png']}
+                            acceptedTypes={[
+                                'application/pdf',
+                                'image/jpg',
+                                'image/jpeg',
+                                'image/png',
+                            ]}
                         />
                     </Field>
                     {drawingNotStarted && (
