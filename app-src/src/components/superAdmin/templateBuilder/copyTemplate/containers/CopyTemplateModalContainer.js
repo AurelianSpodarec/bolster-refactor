@@ -128,13 +128,22 @@ class CopyTemplateModalContainer extends Component {
                 templateUUID: newTemplateUUID,
             }));
 
-            const newQuestions = questions.map(q => ({
-                ...q,
-                uuid: newQuestionUUIDs[q.uuid],
-                templateUUID: newTemplateUUID,
-                sectionUUID: newSectionUUIDs[q.sectionUUID],
-                prereqUUID: newQuestionUUIDs[q.prereqUUID],
-            }));
+            const newQuestions = questions.map(q => {
+                const prereqUUIDs = q.prereqUUIDs
+                    ? q.prereqUUIDs
+                          .split(',')
+                          .map(uuid => newQuestionUUIDs[uuid])
+                          .join(',')
+                    : null;
+
+                return {
+                    ...q,
+                    uuid: newQuestionUUIDs[q.uuid],
+                    templateUUID: newTemplateUUID,
+                    sectionUUID: newSectionUUIDs[q.sectionUUID],
+                    prereqUUIDs,
+                };
+            });
 
             const newLabelFields = labelFields.map(lf => ({
                 ...lf,
@@ -152,7 +161,6 @@ class CopyTemplateModalContainer extends Component {
                 sections: newSections,
                 questions: newQuestions,
             };
-
             postTemplate(templateData)
                 .then(({ template: newTemp }) => {
                     const newPath = `/admin/companies/${companyID}/template/${newTemp.uuid}`;
