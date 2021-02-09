@@ -14,13 +14,13 @@ const EditTemplateQuestionModal = ({
     hideModal,
     handleSubmit,
     handleAddOption,
-    questionName
+    questionName,
 }) => (
     <ModalOuterContainer>
         <BlockHeading title={`Edit question options - ${questionName}`} />
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
             <div className="dropdown-create size-lg-12">
-                {options.map(([id, text], i) => (
+                {options.map(([id, text, createdBySuperAdmin], i) => (
                     <Field key={id} name={`Option ${i + 1}`} required>
                         <TextInputContainer
                             name={id}
@@ -28,12 +28,23 @@ const EditTemplateQuestionModal = ({
                             handleChange={handleChange}
                             required
                         />
-                        <button
-                            className="button red delete-question icon-only"
-                            onClick={() => handleRemoveOption(id)}
-                        >
-                            <i className="far fa-trash-alt" />
-                        </button>
+                        {!createdBySuperAdmin ? (
+                            <div className="container-button delete-question">
+                                <button className="button green icon-only">
+                                    <i className="far fa-plus" /> Enable
+                                </button>
+                                <button className="button red icon-only">
+                                    <i className="far fa-minus" /> Disable
+                                </button>
+                            </div>
+                        ) : (
+                            <button
+                                className="button red delete-question icon-only"
+                                onClick={() => handleRemoveOption(id)}
+                            >
+                                <i className="far fa-trash-alt" />
+                            </button>
+                        )}
                     </Field>
                 ))}
                 <div className="size-lg-12">
@@ -53,9 +64,7 @@ const EditTemplateQuestionModal = ({
                     <i className="fa fa-save" />
                     Save
                 </button>
-                <ButtonContainer handleClick={hideModal}>
-                    Cancel
-                </ButtonContainer>
+                <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
             </BlockButtonWrapper>
         </Form>
     </ModalOuterContainer>
