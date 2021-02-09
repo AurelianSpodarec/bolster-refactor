@@ -264,7 +264,7 @@ const CreateFloorsFormContainer = ({
             const dropdownEnabledOptions = initialDropdownOptions.isDropdownOptionsInherited
                 ? {}
                 : {
-                      isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
+                      isDropDownOptionsEnabled: setDropdownOptionsForHierarchy || false,
                       dropDownOptionIDs: selectedDropdownOptions,
                   };
 
