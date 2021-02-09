@@ -21,6 +21,7 @@ import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/updateFurtherFiltrationOption';
 import FilterFieldsModalContainer from './FilterFieldsModalContainer';
 import ZoneSelectorContainer from 'components/shared/pinSelector/container/ZoneSelectorContainer';
+import { NUMBER_OF_HISTORIES, NUMBER_OF_HISTORIES_WITH_DATE } from 'constants/companyAdmin/enums';
 const { PIN_SELECTOR, INDIVIDUAL_PINS, FILTERS, ZONES } = FURTHER_FILTRATION_OPTIONS;
 
 class FurtherFiltrationContainer extends Component {
@@ -32,8 +33,9 @@ class FurtherFiltrationContainer extends Component {
     render() {
         const {
             fields,
-            filters: { drawingID, reportHistories },
+            filters: { drawingID, reportHistories, fromDateInclusive, toDateInclusive },
             furtherFiltrationOption,
+            isDisabled,
         } = this.props;
         const filtrationOptions = convertEnumToDropdownOptions(FURTHER_FILTRATION);
 
@@ -41,6 +43,15 @@ class FurtherFiltrationContainer extends Component {
             ({ value }) => drawingID || +value === FILTERS,
         );
         const selected = filtrationOptions[furtherFiltrationOption];
+
+        const historyNumsOptions = Object.entries(
+            !fromDateInclusive && !toDateInclusive
+                ? NUMBER_OF_HISTORIES
+                : NUMBER_OF_HISTORIES_WITH_DATE,
+        ).map(([value, label]) => ({
+            value: +value,
+            label,
+        }));
 
         return (
             <BlockContainer>
@@ -53,6 +64,7 @@ class FurtherFiltrationContainer extends Component {
                     selected={selected}
                     handleChange={this.handleChange}
                     handleNumOfHistoriesChange={this.handleNumOfHistoriesChange}
+                    historyNumsOptions={historyNumsOptions}
                     selectedHistoryNum={reportHistories}
                 />
                 {+furtherFiltrationOption === +ZONES ? (
@@ -108,6 +120,7 @@ class FurtherFiltrationContainer extends Component {
             isFetching,
             showModal,
             hideModal,
+            isDisabled,
             postFilters,
         } = this.props;
         // reset filter fields if changing the filter
