@@ -8,14 +8,12 @@ import editSubscriptionRenewalStatus from 'actions/companyAdmin/subscriptions/as
 
 class SubscriptionAutoRenewalContainer extends Component {
     render() {
-        const {
-            isFetching,
-            isAutoRenew,
-            renewalType,
-            subscriptions,
-            cards
-        } = this.props;
+        const { isFetching, isAutoRenew, renewalType, subscriptions, cards, endOn } = this.props;
         const noCards = !cards.length;
+
+        const d = new Date();
+        d.setDate(d.getDate() + 2);
+        const expiresWithin2Days = d > new Date(endOn);
 
         return (
             <BlockContainer isFetching={isFetching}>
@@ -25,36 +23,27 @@ class SubscriptionAutoRenewalContainer extends Component {
                     handleRadioChange={this.handleRadioChange}
                     renewalType={renewalType}
                     noCards={noCards}
-                    active={this.checkSubActive(
-                        subscriptions.startOn,
-                        subscriptions.endOn
-                    )}
+                    active={this.checkSubActive(subscriptions.startOn, subscriptions.endOn)}
+                    expiresWithin2Days={expiresWithin2Days}
                 />
             </BlockContainer>
         );
     }
 
     handleAutoRenewChange = () => {
-        const {
-            editSubscriptionRenewalStatus,
-            isAutoRenew,
-            renewalType
-        } = this.props;
+        const { editSubscriptionRenewalStatus, isAutoRenew, renewalType } = this.props;
         editSubscriptionRenewalStatus({
             renewalStatus: !isAutoRenew,
-            renewPaymentType: renewalType
+            renewPaymentType: renewalType,
         });
     };
 
     handleRadioChange = (_, value) => {
-        const {
-            editSubscriptionRenewalStatus,
-            isAutoRenew: renewalStatus
-        } = this.props;
+        const { editSubscriptionRenewalStatus, isAutoRenew: renewalStatus } = this.props;
         // switch between pay using card, pay by invoice
         editSubscriptionRenewalStatus({
             renewalStatus,
-            renewPaymentType: value
+            renewPaymentType: value,
         });
     };
     checkSubActive = (start, end) =>
@@ -64,22 +53,19 @@ class SubscriptionAutoRenewalContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         subscriptionsReducer: { isFetching, subscriptions },
-        cardsReducer: { cards }
-    }
+        cardsReducer: { cards },
+    },
 }) => ({
     isFetching,
     isAutoRenew: subscriptions.isAutoRenew,
     renewalType: subscriptions.renewalType,
+    endOn: subscriptions.endOn,
     subscriptions,
-    cards: Object.values(cards)
+    cards: Object.values(cards),
 });
 
 const mapDispatchToProps = dispatch => ({
-    editSubscriptionRenewalStatus: body =>
-        dispatch(editSubscriptionRenewalStatus(body))
+    editSubscriptionRenewalStatus: body => dispatch(editSubscriptionRenewalStatus(body)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SubscriptionAutoRenewalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SubscriptionAutoRenewalContainer);
