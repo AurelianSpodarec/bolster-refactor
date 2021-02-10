@@ -32,6 +32,7 @@ const CompanyReportsListItem = ({ queueItem, showDeleteModal, retryCompanyReport
 
             <td>
                 <BlockButtonWrapper additionalClasses="stacked">
+                    {/* OLD GENERATION */}
                     {queueItem.state === COMPLETE ? (
                         <a
                             className="button green"
@@ -39,13 +40,13 @@ const CompanyReportsListItem = ({ queueItem, showDeleteModal, retryCompanyReport
                             rel="noopener noreferrer"
                             href={`${RAW_S3_STORAGE_URL}/${queueItem.s3Key}`}
                         >
-                            <i className="fa fa-download" /> Download File
+                            <i className="fa fa-download" /> Download File (Old Gen)
                         </a>
                     ) : queueItem.state === FAILED ? (
                         <a href={`${REPORT_VIEWER_URL}/${queueItem.id}?page=1&drawingsPerPage=100`}>
                             <button className="button red" type="button">
                                 <i className="fa fa-times" />
-                                Failed - View report
+                                Failed - View report (Old Gen)
                             </button>
                         </a>
                     ) : queueItem.state === DELETED ? (
@@ -53,11 +54,36 @@ const CompanyReportsListItem = ({ queueItem, showDeleteModal, retryCompanyReport
                             className="button red"
                             onClick={() => retryCompanyReport(queueItem.id)}
                         >
-                            <i className="fa fa-times" /> Deleted - Retry?
+                            <i className="fa fa-times" /> Deleted - Retry? (Old Gen)
                         </button>
                     ) : (
-                        <button className="button disabled">Unavailable</button>
+                        <button className="button disabled">Unavailable (Old Gen)</button>
                     )}
+
+                    {/* NEW GENERATION */}
+                    {queueItem.newGenState === COMPLETE ? (
+                        <a
+                            className="button green"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`${RAW_S3_STORAGE_URL}/${queueItem.newGenS3Key}`}
+                        >
+                            <i className="fa fa-download" /> Download File (New Gen)
+                        </a>
+                    ) : queueItem.newGenState === FAILED ? (
+                        <button className="button red disabled" type="button">
+                            <i className="fa fa-times" />
+                            Failed (New Gen)
+                        </button>
+                    ) : queueItem.newGenState === DELETED ? (
+                        <button className="button red disabled">
+                            <i className="fa fa-times" /> Deleted (New Gen)
+                        </button>
+                    ) : (
+                        <button className="button disabled">Unavailable (New Gen)</button>
+                    )}
+
+                    {/* DELETE REPORT */}
                     {canDelete && (
                         <button className="button red" onClick={() => showDeleteModal(id)}>
                             <i className="fa fa-times" /> Delete

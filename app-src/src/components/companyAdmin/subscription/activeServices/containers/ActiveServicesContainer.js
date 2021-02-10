@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { isObjEmpty } from 'helpers/generic';
+import { isEmpty } from 'helpers/generic';
 import ActiveServices from 'components/companyAdmin/subscription/activeServices/presentational/ActiveServices';
 import editServiceRenewalStatus from 'actions/companyAdmin/subscriptions/async/editServiceRenewalStatus';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -31,7 +31,7 @@ class ActiveServicesContainer extends Component {
                 isAutoRenew={isAutoRenew}
                 noCards={!cards.length}
                 expiresWithin2Days={expiresWithin2Days}
-                canEdit={subscriptions.isLatest && !expiresWithin2Days}
+                canEdit={isEmpty(subscriptions) || (subscriptions.isLatest && !expiresWithin2Days)}
             />
         );
     };
@@ -51,7 +51,7 @@ class ActiveServicesContainer extends Component {
 
     getActiveSubscriptions = () => {
         const { subscriptions, services } = this.props;
-        if (subscriptions.services && !isObjEmpty(services)) {
+        if (subscriptions.services && !isEmpty(services)) {
             return subscriptions.services.map(service => ({
                 ...service,
                 name: services[service.serviceID].name,

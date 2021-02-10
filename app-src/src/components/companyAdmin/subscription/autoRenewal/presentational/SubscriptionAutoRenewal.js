@@ -52,7 +52,7 @@ const SubscriptionAutoRenewal = ({
                     extraDetails="'You can choose to pay for your renewal with either your default credit card or by invoice'"
                 />
                 {expiresWithin2Days && (
-                    <p className="size-lg-12" style={{ paddingTop: 10, color: 'red' }}>
+                    <p className="size-lg-12 info-message warning" style={{ paddingTop: 10 }}>
                         <strong>Note:</strong> You will be able to update your payment method when
                         your new subscription begins.
                     </p>
