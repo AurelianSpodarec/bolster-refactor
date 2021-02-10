@@ -15,59 +15,72 @@ const EditTemplateQuestionModal = ({
     handleSubmit,
     handleAddOption,
     questionName,
-}) => (
-    <ModalOuterContainer>
-        <BlockHeading title={`Edit question options - ${questionName}`} />
-        <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
-            <div className="dropdown-create size-lg-12">
-                {options.map(([id, text, createdBySuperAdmin], i) => (
-                    <Field key={id} name={`Option ${i + 1}`} required>
-                        <TextInputContainer
-                            name={id}
-                            value={text}
-                            handleChange={handleChange}
-                            required
-                        />
-                        {!createdBySuperAdmin ? (
-                            <div className="container-button delete-question">
-                                <button className="button green icon-only">
-                                    <i className="far fa-plus" /> Enable
+    optionConfigurations,
+    handleQuestionToggle,
+}) => {
+    return (
+        <ModalOuterContainer>
+            <BlockHeading title={`Edit question options - ${questionName}`} />
+            <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
+                <div className="dropdown-create size-lg-12">
+                    {options.map(([id, text], i) => (
+                        <Field key={id} name={`Option ${i + 1}`} required>
+                            <TextInputContainer
+                                name={id}
+                                value={text}
+                                handleChange={handleChange}
+                                required
+                            />
+                            {id in optionConfigurations ? (
+                                <div className="container-button delete-question checking">
+                                    <div className="checkbox">
+                                        <input
+                                            id={id}
+                                            onChange={handleQuestionToggle}
+                                            type="checkbox"
+                                            checked={optionConfigurations[id]}
+                                            name={id}
+                                        />
+                                        <label htmlFor={id}>
+                                            {text.length && <span className="text">{text}</span>}
+                                            <span className="outer">
+                                                <span className="inner" />
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            ) : (
+                                <button
+                                    className="button red delete-question icon-only"
+                                    onClick={() => handleRemoveOption(id)}
+                                >
+                                    <i className="far fa-trash-alt" />
                                 </button>
-                                <button className="button red icon-only">
-                                    <i className="far fa-minus" /> Disable
-                                </button>
-                            </div>
-                        ) : (
-                            <button
-                                className="button red delete-question icon-only"
-                                onClick={() => handleRemoveOption(id)}
-                            >
-                                <i className="far fa-trash-alt" />
-                            </button>
-                        )}
-                    </Field>
-                ))}
-                <div className="size-lg-12">
-                    <button
-                        className="button add-option green"
-                        type="button"
-                        onClick={handleAddOption}
-                    >
-                        <i className="fa fa-plus" />
-                        Add Option
-                    </button>
+                            )}
+                        </Field>
+                    ))}
+                    <div className="size-lg-12">
+                        <button
+                            className="button add-option green"
+                            type="button"
+                            onClick={handleAddOption}
+                        >
+                            <i className="fa fa-plus" />
+                            Add Option
+                        </button>
+                    </div>
                 </div>
-            </div>
 
-            <BlockButtonWrapper>
-                <button type="submit" className="button green">
-                    <i className="fa fa-save" />
-                    Save
-                </button>
-                <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
-            </BlockButtonWrapper>
-        </Form>
-    </ModalOuterContainer>
-);
+                <BlockButtonWrapper>
+                    <button type="submit" className="button green">
+                        <i className="fa fa-save" />
+                        Save
+                    </button>
+                    <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
+                </BlockButtonWrapper>
+            </Form>
+        </ModalOuterContainer>
+    );
+};
 
 export default EditTemplateQuestionModal;

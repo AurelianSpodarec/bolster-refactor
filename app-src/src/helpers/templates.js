@@ -16,6 +16,9 @@ const formatQuestion = ({ type, dynamicFields, prereqUUIDs, ...otherFields }) =>
             text: opt,
         }));
 
+    if (dynamicFields && dynamicFields.OptionConfigurations)
+        question.OptionConfigurations = dynamicFields.OptionConfigurations.map(opt => opt);
+
     return question;
 };
 
@@ -112,6 +115,11 @@ function setDynamicFieldsSingle({
 
             dynamicFields = {
                 options: opts.map(opt => opt.text),
+                OptionConfigurations: opts.map(opt => ({
+                    name: opt.text,
+                    CreatedBySuperAdmin: true,
+                    IsDisabled: false,
+                })),
                 canCompanyEdit,
                 defaultValue: defaultOpt ? defaultOpt.text : null,
             };

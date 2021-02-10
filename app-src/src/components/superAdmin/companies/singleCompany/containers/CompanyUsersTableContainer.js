@@ -21,7 +21,6 @@ const CompanyUsersTableContainer = ({
     showModal,
 }) => {
     const dispatch = useDispatch();
-    console.log(users);
 
     const setPage = nextPage => {
         const id = match.params.id;

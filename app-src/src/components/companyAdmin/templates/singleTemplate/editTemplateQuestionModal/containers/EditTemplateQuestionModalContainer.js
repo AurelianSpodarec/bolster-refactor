@@ -11,7 +11,8 @@ import { removeObjItem, updateObj } from 'helpers/generic';
 
 class EditTemplateQuestionModalContainer extends Component {
     state = {
-        options: {}
+        options: {},
+        configuration: {},
     };
 
     render = () => (
@@ -23,15 +24,28 @@ class EditTemplateQuestionModalContainer extends Component {
             handleRemoveOption={this.handleRemoveOption}
             handleAddOption={this.handleAddOption}
             questionName={this.props.question.name}
+            optionConfigurations={this.state.configuration}
+            handleQuestionToggle={this.handleQuestionToggle}
         />
     );
 
     componentDidMount = () => {
         const { question } = this.props;
-        const options = question.options.reduce(
-            (acc, { id, text }) => ({ ...acc, [id]: text }),
-            {}
-        );
+        const options = question.options.reduce((acc, { id, text }) => {
+            return { ...acc, [id]: text };
+        }, {});
+
+        if (question.OptionConfigurations) {
+            const configuration = question.OptionConfigurations.reduce(
+                (acc, { Name, IsDisabled }) => {
+                    return { ...acc, [Name]: IsDisabled };
+                },
+                {},
+            );
+
+            this.setState({ configuration });
+        }
+
         this.setState({ options });
     };
 
@@ -43,6 +57,12 @@ class EditTemplateQuestionModalContainer extends Component {
 
     handleChange = (name, value) => {
         this.setState({ options: updateObj(this.state.options, name, value) });
+    };
+
+    handleQuestionToggle = ({ currentTarget }) => {
+        const { name, checked } = currentTarget;
+        const configuration = updateObj(this.state.configuration, name, checked);
+        this.setState({ configuration });
     };
 
     handleRemoveOption = key => {
@@ -57,26 +77,36 @@ class EditTemplateQuestionModalContainer extends Component {
         e.preventDefault();
         const { editTemplateQuestion, question } = this.props;
 
-        const body = {
-            questionID: question.id,
-            options: Object.values(this.state.options)
-        };
+        const OptionConfigurations = this.props.question.optionsConfigurations
+            ? this.question.optionsConfigurations.map(item => {
+                  return {
+                      ...item,
+                      IsDisabled: this.state.configuration[item.name],
+                  };
+              })
+            : null;
+
+        const body = OptionConfigurations
+            ? {
+                  questionID: question.id,
+                  options: Object.values(this.state.options),
+                  OptionConfigurations,
+              }
+            : { questionID: question.id, options: Object.values(this.state.options) };
+        console.log(body);
         editTemplateQuestion(question.id, body);
     };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        templatesReducer: { postSuccess, postFailure }
-    }
+        templatesReducer: { postSuccess, postFailure },
+    },
 }) => ({
     postSuccess,
-    postFailure
+    postFailure,
 });
 
 const mapDispatchToProps = { hideModal, showModal, editTemplateQuestion };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(EditTemplateQuestionModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(EditTemplateQuestionModalContainer);

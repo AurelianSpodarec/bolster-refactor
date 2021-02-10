@@ -4252,6 +4252,10 @@ input {
     position: absolute;
     right: 15px;
     top: -2px;
+
+    &.checking {
+        right: 36px;
+    }
 }
 //report page
 .levels-filter {
