@@ -12,12 +12,13 @@ import fetchCostOfCredits from 'actions/companyAdmin/credits/fetchCostOfCredits'
 
 class SubscriptionContainer extends Component {
     state = {
-        shouldRestrictPayments: false
+        shouldRestrictPayments: false,
     };
     render() {
         return (
             <Subscription
                 shouldRestrictPayments={this.state.shouldRestrictPayments}
+                subscription={this.props.subscription}
             />
         );
     }
@@ -27,8 +28,7 @@ class SubscriptionContainer extends Component {
         this.props.fetchSubscriptionData();
         if (users && users[companyUserID]) {
             this.setState({
-                shouldRestrictPayments:
-                    users[companyUserID].shouldRestrictPayments
+                shouldRestrictPayments: users[companyUserID].shouldRestrictPayments,
             });
         }
     };
@@ -38,7 +38,9 @@ class SubscriptionContainer extends Component {
             users,
             companyUserID,
             postSuccess,
-            fetchSubscriptionData
+            fetchSubscriptionData,
+            subscription,
+            fetchInvoices,
         } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
@@ -47,9 +49,12 @@ class SubscriptionContainer extends Component {
 
         if (users && users[companyUserID] && !prevProps.users[companyUserID]) {
             this.setState({
-                shouldRestrictPayments:
-                    users[companyUserID].shouldRestrictPayments
+                shouldRestrictPayments: users[companyUserID].shouldRestrictPayments,
             });
+        }
+
+        if (subscription != prevProps.subscription) {
+            setTimeout(fetchInvoices, 600);
         }
     };
 }
@@ -60,13 +65,14 @@ const mapStateToProps = ({
         servicesReducer,
         cardsReducer,
         creditsReducer,
-        companyUsersReducer: { users }
+        companyUsersReducer: { users },
+        subscriptionsReducer: { subscriptions },
     },
     shared: {
         decodeJWTReducer: {
-            jwtData: { companyUserID }
-        }
-    }
+            jwtData: { companyUserID },
+        },
+    },
 }) => ({
     companyUserID,
     users,
@@ -74,7 +80,8 @@ const mapStateToProps = ({
         invoicesReducer.postSuccess ||
         servicesReducer.postSuccess ||
         cardsReducer.postSuccess ||
-        creditsReducer.postSuccess
+        creditsReducer.postSuccess,
+    subscription: subscriptions,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -85,9 +92,10 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchAllCards());
         dispatch(fetchAllCredits());
         dispatch(fetchCostOfCredits());
-    }
+    },
+    fetchInvoices: () => {
+        dispatch(fetchAllInvoices());
+    },
 });
 
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(SubscriptionContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SubscriptionContainer));

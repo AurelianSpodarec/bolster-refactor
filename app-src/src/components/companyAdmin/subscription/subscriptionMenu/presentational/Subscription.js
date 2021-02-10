@@ -12,9 +12,7 @@ const Subscription = ({ shouldRestrictPayments }) => (
         <PageHeading title="Account Overview" withBackButton />
 
         <div className="size-lg-8 size-md-12">
-            <SubscriptionStatusContainer
-                shouldRestrictPayments={shouldRestrictPayments}
-            />
+            <SubscriptionStatusContainer shouldRestrictPayments={shouldRestrictPayments} />
             {!shouldRestrictPayments && (
                 <>
                     <ActiveServicesContainer />

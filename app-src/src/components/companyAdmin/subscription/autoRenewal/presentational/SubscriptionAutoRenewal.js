@@ -12,7 +12,8 @@ const SubscriptionAutoRenewal = ({
     handleAutoRenewChange,
     handleRadioChange,
     noCards,
-    active
+    active,
+    expiresWithin2Days,
 }) => (
     <Form className="size-lg-12">
         <BlockHeading title="Auto-Renewal">
@@ -31,7 +32,7 @@ const SubscriptionAutoRenewal = ({
                     name="paymentMethod"
                     value={SUBSCRIPTION_RENEWAL_IDS.CARD}
                     checked={renewalType === SUBSCRIPTION_RENEWAL_IDS.CARD}
-                    disabled={!isAutoRenew || noCards}
+                    disabled={!isAutoRenew || noCards || expiresWithin2Days}
                     text="Pay using card"
                     handleInputChange={handleRadioChange}
                     extraDetails={noCards ? 'No cards available' : ''}
@@ -46,10 +47,16 @@ const SubscriptionAutoRenewal = ({
                     text="Pay by invoice"
                     value={SUBSCRIPTION_RENEWAL_IDS.INVOICE}
                     checked={renewalType === SUBSCRIPTION_RENEWAL_IDS.INVOICE}
-                    disabled={!isAutoRenew}
+                    disabled={!isAutoRenew || expiresWithin2Days}
                     handleInputChange={handleRadioChange}
-                    extraDetails="You can choose to pay for your renewal with either your default credit card or by invoice"
+                    extraDetails="'You can choose to pay for your renewal with either your default credit card or by invoice'"
                 />
+                {expiresWithin2Days && (
+                    <p className="size-lg-12" style={{ paddingTop: 10, color: 'red' }}>
+                        <strong>Note:</strong> You will be able to update your payment method when
+                        your new subscription begins.
+                    </p>
+                )}
             </Field>
         </div>
     </Form>
