@@ -223,10 +223,18 @@ export const NUMBER_OF_HISTORIES = {
     3: 'All',
 };
 
+export const NUMBER_OF_HISTORIES_WITH_DATE = {
+    1: 'Latest',
+    2: 'Earliest',
+    3: 'All',
+    4: 'All histories within set date range',
+};
+
 export const NUMBER_OF_HISTORIES_OPTIONS = {
     LATEST: 1,
     EARLIEST: 2,
     ALL: 3,
+    ALLWHERELATESTINDATERANGE: 4,
 };
 
 export const SORT_BY = {

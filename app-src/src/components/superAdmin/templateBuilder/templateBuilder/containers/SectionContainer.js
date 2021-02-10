@@ -95,13 +95,26 @@ const SectionContainer = ({
         const sectionQuestionUuids = questions.map(({ uuid }) => uuid);
         const otherQuestionPrereqUuids = templateQuestions
             .filter(q => q.sectionUUID !== section.uuid)
-            .map(q => q.prereqUUID);
+            .map(q => q.prereqUUIDs);
 
-        return (
-            otherQuestionPrereqUuids.every(
-                prereqUUID => !sectionQuestionUuids.includes(prereqUUID),
-            ) && sections.length > 1
-        );
+        if (sections.length <= 1) {
+            return false;
+        }
+
+        for (let i = 0; i < otherQuestionPrereqUuids.length; i++) {
+            const curPrereqUUIDs = otherQuestionPrereqUuids[i];
+            if (curPrereqUUIDs !== undefined) {
+                const hasPreReq = curPrereqUUIDs.some(prereqUUIDs => {
+                    return sectionQuestionUuids.some(secUuid => prereqUUIDs.includes(secUuid));
+                });
+
+                if (hasPreReq) {
+                    return false;
+                }
+            }
+        }
+        return true;
+        // );
     }
 
     function moveQuestion(dragIndex, hoverIndex) {

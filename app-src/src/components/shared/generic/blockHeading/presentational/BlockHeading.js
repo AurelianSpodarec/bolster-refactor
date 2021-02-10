@@ -6,17 +6,14 @@ const BlockHeading = ({
     leftIcon = false,
     subTitle = '',
     children,
-    headerClasses = ''
+    headerClasses = '',
+    subTitleClasses = '',
 }) => (
-    <div
-        className={`block-heading ${classes} size-lg-12 ${
-            subTitle ? 'w-subtitle' : ''
-        }`}
-    >
+    <div className={`block-heading ${classes} size-lg-12 ${subTitle ? 'w-subtitle' : ''}`}>
         {leftIcon && children}
         <h3 className={`heading heading-3 ${headerClasses}`}>{title}</h3>
         {!leftIcon && children}
-        {subTitle && <p className="sub-title size-lg-12">{subTitle}</p>}
+        {subTitle && <p className={`sub-title size-lg-12 ${subTitleClasses}`}>{subTitle}</p>}
     </div>
 );
 

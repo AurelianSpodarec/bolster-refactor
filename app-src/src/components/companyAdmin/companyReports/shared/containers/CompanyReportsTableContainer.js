@@ -22,7 +22,6 @@ const CompanyReportsTableContainer = ({
     onMobile,
     retryReport,
     changeCompanyReportsFetchFull,
-
     fetchCompanyReportsFull,
     fetchStatus,
     shouldDeleteReportsAfterDownload,

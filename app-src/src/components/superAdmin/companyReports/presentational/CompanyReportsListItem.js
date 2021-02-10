@@ -58,6 +58,8 @@ const CompanyReportsListItem = ({ queueItem, showDeleteModal, retryCompanyReport
                     ) : (
                         <button className="button disabled">Unavailable</button>
                     )}
+
+                    {/* DELETE REPORT */}
                     {canDelete && (
                         <button className="button red" onClick={() => showDeleteModal(id)}>
                             <i className="fa fa-times" /> Delete

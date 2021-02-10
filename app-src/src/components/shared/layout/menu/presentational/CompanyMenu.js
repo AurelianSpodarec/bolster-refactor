@@ -16,6 +16,7 @@ const CompanyMenu = ({
     isClientAccess,
     handleGenerateQRCodesModal,
     shouldRestrictPayments,
+    unreadReleaseNoteCount,
 }) => (
     <>
         <div className="menu">
@@ -103,7 +104,8 @@ const CompanyMenu = ({
                 </>
             )}
 
-            <MenuHeader title="Settings &amp; Tools" />
+            <MenuHeader title="Settings" />
+
             <CompanyMenuItemContainer link="/company/profile">
                 <i className="far fa-user fa-fw icon" />
                 <span className="menu-text"> My Profile</span>
@@ -112,6 +114,23 @@ const CompanyMenu = ({
             <CompanyMenuItemContainer link="/company/settings">
                 <i className="far fa-cogs fa-fw icon" />
                 <span className="menu-text"> Company Settings</span>
+            </CompanyMenuItemContainer>
+
+            <CompanyMenuItemContainer link="/company/tools/templates">
+                <i className="far fa-folders fa-fw icon" />
+                <span className="menu-text">My Templates</span>
+            </CompanyMenuItemContainer>
+
+            <MenuHeader title="Tools" />
+
+            <CompanyMenuItemContainer link="/company/release-notes">
+                {!!unreadReleaseNoteCount && (
+                    <span className="number">{unreadReleaseNoteCount}</span>
+                )}
+                <i className="far fa-flag fa-fw icon" />
+                <span className={`menu-text ${unreadReleaseNoteCount ? 'large' : ''}`}>
+                    Release Notes
+                </span>
             </CompanyMenuItemContainer>
 
             <CompanyMenuItemContainer link="/company/activity-log">
@@ -138,37 +157,36 @@ const CompanyMenu = ({
                             Message Centre
                         </span>
                     </CompanyMenuItemContainer>
-                    {/* OLD LINK <MenuItemContainer link="/company/tools/operative-alerts">
-                <i className="far fa-bells fa-fw icon" />
-                <span className="menu-text">Operative Alerts</span>
-            </MenuItemContainer> */}
 
-                    <CompanyMenuItemContainer link="/company/tools/templates">
-                        <i className="far fa-folders fa-fw icon" />
-                        <span className="menu-text">My Templates</span>
-                    </CompanyMenuItemContainer>
-                    <CompanyMenuItemContainer
-                        link="/company/tools/support"
-                        onClick={e => openHelpScout(e)}
-                    >
-                        <i className="far fa-info-circle fa-fw icon" />
-                        <span className="menu-text">Support</span>
-                    </CompanyMenuItemContainer>
-                    <CompanyMenuItemContainer link="/auth/terms">
-                        <i className="fas fa-align-left fa-fw icon" />
-                        <span className="menu-text"> Terms & Conditions</span>
-                    </CompanyMenuItemContainer>
                     <CompanyMenuItemContainer link="/company/approved-companies">
                         <i className="far fa-check-circle fa-fw icon" />
                         <span className="menu-text">Bolster Approved Companies</span>
                     </CompanyMenuItemContainer>
 
+                    {/* OLD LINK <MenuItemContainer link="/company/tools/operative-alerts">
+                <i className="far fa-bells fa-fw icon" />
+                <span className="menu-text">Operative Alerts</span>
+            </MenuItemContainer> */}
+                    <MenuHeader title="Support" />
+
+                    <CompanyMenuItemContainer
+                        link="/company/tools/support"
+                        onClick={e => openHelpScout(e)}
+                    >
+                        <i className="far fa-info-circle fa-fw icon" />
+                        <span className="menu-text">Help</span>
+                    </CompanyMenuItemContainer>
                     <CompanyMenuItemContainer link="/company/user-guides">
                         <i className="far fa-video fa-fw icon" />
                         <span className="menu-text">User Guides</span>
                     </CompanyMenuItemContainer>
+                    <CompanyMenuItemContainer link="/auth/terms">
+                        <i className="fas fa-align-left fa-fw icon" />
+                        <span className="menu-text"> Terms & Conditions</span>
+                    </CompanyMenuItemContainer>
                 </>
             )}
+
             <CompanyMenuItemContainer link="#" logout={true}>
                 <i className="far fa-sign-out-alt fa-fw icon" />
                 <span className="menu-text">Logout</span>

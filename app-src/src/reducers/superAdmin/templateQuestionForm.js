@@ -1,25 +1,32 @@
 import { combineReducers } from 'redux';
 import uuid from 'uuid/v1';
 
-import { QUESTION_TYPE_VALUES, QUESTION_TYPES } from 'constants/shared/templateBuilder';
+import {
+    QUESTION_TYPE_VALUES,
+    QUESTION_TYPES,
+    QUESTION_TYPE_NUMBERS,
+} from 'constants/shared/templateBuilder';
 import {
     UPDATE_QUESTION_FIELD,
     UPDATE_QUESTION_FIELDS,
     RESET_QUESTION_FIELDS,
 } from 'constants/actionTypes/templateBuilder';
-import { convertArrToObj } from 'helpers/generic';
 
-const questionTypeOptions = Object.keys(QUESTION_TYPES).map(type => ({
-    text: QUESTION_TYPES[type],
-    value: type,
-}));
-const fotmattedQuestionTypes = convertArrToObj(questionTypeOptions, 'value');
+const { STATUS, STATIC_IMAGE } = QUESTION_TYPE_VALUES;
+
+const questionTypeOptions = Object.keys(QUESTION_TYPES)
+    .filter(({ value }) => value !== STATUS && value !== STATIC_IMAGE)
+    .map(type => ({
+        label: QUESTION_TYPES[type],
+        value: +type,
+    }));
+
 const initialQuestionFields = {
-    questionTypeOptions: fotmattedQuestionTypes,
-    questionType: QUESTION_TYPE_VALUES.SINGLE_LINE,
+    questionTypeOptions,
+    questionType: QUESTION_TYPE_NUMBERS.SINGLE_LINE,
     prereqOptions: {},
-    prereqUUID: '',
-    prereqVal: '',
+    prereqUUIDs: [],
+    prereqVal: [],
     name: '',
     isRequired: false,
     isHidden: false,
