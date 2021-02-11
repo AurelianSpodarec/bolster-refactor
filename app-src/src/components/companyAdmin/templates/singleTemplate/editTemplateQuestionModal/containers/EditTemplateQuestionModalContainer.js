@@ -77,11 +77,11 @@ class EditTemplateQuestionModalContainer extends Component {
         e.preventDefault();
         const { editTemplateQuestion, question } = this.props;
 
-        const OptionConfigurations = this.props.question.optionsConfigurations
-            ? this.question.optionsConfigurations.map(item => {
+        const OptionConfigurations = question.OptionConfigurations
+            ? question.OptionConfigurations.map(item => {
                   return {
                       ...item,
-                      IsDisabled: this.state.configuration[item.name],
+                      IsDisabled: this.state.configuration[item.Name],
                   };
               })
             : null;
@@ -93,7 +93,6 @@ class EditTemplateQuestionModalContainer extends Component {
                   OptionConfigurations,
               }
             : { questionID: question.id, options: Object.values(this.state.options) };
-        console.log(body);
         editTemplateQuestion(question.id, body);
     };
 }

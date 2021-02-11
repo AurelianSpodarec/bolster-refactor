@@ -42,7 +42,13 @@ const EditTemplateQuestionModal = ({
                                             name={id}
                                         />
                                         <label htmlFor={id}>
-                                            {text.length && <span className="text">{text}</span>}
+                                            {text.length && (
+                                                <span className="text">
+                                                    {!optionConfigurations[id]
+                                                        ? 'Enabled'
+                                                        : 'Disabled'}
+                                                </span>
+                                            )}
                                             <span className="outer">
                                                 <span className="inner" />
                                             </span>
