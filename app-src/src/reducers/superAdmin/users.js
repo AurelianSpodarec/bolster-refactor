@@ -109,6 +109,8 @@ function usersReducer(state = {}, action) {
 
 function companyUsersReducer(state = {}, action) {
     switch (action.type) {
+        case ADMIN_FETCH_COMPANY_USERS_REQUEST:
+            return {};
         case ADMIN_CREATE_COMPANY_USER_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case ADMIN_FETCH_COMPANY_USERS_SUCCESS:

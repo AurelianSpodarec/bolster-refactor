@@ -12,8 +12,16 @@ const UserSyncDataTable = ({ headers, syncData, isFetching }) => {
                     return (
                         <tr key={syncData.id}>
                             <td>{syncData.id}</td>
-                            <td>{moment(syncData.startDate).format('DD/MM/YYYY HH:mm')}</td>
-                            <td>{moment(syncData.completionDate).format('DD/MM/YYYY HH:mm')}</td>
+                            <td>
+                                {syncData.startDate
+                                    ? moment(syncData.startDate).format('DD/MM/YYYY HH:mm')
+                                    : '-'}
+                            </td>
+                            <td>
+                                {syncData.completionDate
+                                    ? moment(syncData.completionDate).format('DD/MM/YYYY HH:mm')
+                                    : '-'}
+                            </td>
                             <td>{syncData.hasErrored ? syncData.hasErrored : '-'}</td>
                             <td>{syncData.deviceType ? syncData.deviceType : '-'}</td>
                             <td>{syncData.appVersion ? syncData.appVersion : '-'}</td>
