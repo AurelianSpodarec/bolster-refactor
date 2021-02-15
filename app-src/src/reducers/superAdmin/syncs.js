@@ -37,6 +37,8 @@ function errorReducer(state = null, action) {
 
 function syncDataReducer(state = [], action) {
     switch (action.type) {
+        case FETCH_USER_LATEST_SYNC_DATA_REQUEST:
+            return [];
         case FETCH_USER_LATEST_SYNC_DATA_SUCCESS:
             return action.payload;
         default:
