@@ -125,6 +125,7 @@ class OutputSettingsContainer extends Component {
             showFieldErrors,
             filters: { isFloorplanGeneration, includeFloorplan, isPDFGeneration },
             showModal,
+            furtherFiltrationOption,
         } = this.props;
 
         if (!isEmpty(fieldErrors)) showFieldErrors();
@@ -144,6 +145,7 @@ class OutputSettingsContainer extends Component {
                 drawing: drawingForPinScale,
                 getPostBody,
                 postReport: this._postReport,
+                furtherFiltrationOption,
             });
         } else {
             this._postReport(getPostBody());

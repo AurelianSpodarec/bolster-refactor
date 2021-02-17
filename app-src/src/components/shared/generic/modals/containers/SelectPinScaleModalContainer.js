@@ -4,6 +4,7 @@ import SelectPinScaleModal from '../presentational/SelectPinScaleModal';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import clientUpdateReportFilter from 'actions/client/reports/create/sync/clientUpdateReportFilter';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import { FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
 
 class SelectPinScaleModalContainer extends Component {
     render() {
@@ -13,6 +14,7 @@ class SelectPinScaleModalContainer extends Component {
             selectedCompanyID,
             clientFloorplanPinScale,
             zoneOpacity,
+            furtherFiltrationOption,
         } = this.props;
 
         return (
@@ -22,9 +24,12 @@ class SelectPinScaleModalContainer extends Component {
                 handleUpdatePinScale={this.handleUpdatePinScale}
                 handleSubmit={this.handleSubmit}
                 handleCancelScale={this.handleCancelScale}
-                showZoneSlider={!selectedCompanyID}
                 zoneOpacity={zoneOpacity}
                 handleOpacityChange={this.handleOpacityChange}
+                showZoneSlider={
+                    !selectedCompanyID &&
+                    +furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.ZONES
+                }
             />
         );
     }

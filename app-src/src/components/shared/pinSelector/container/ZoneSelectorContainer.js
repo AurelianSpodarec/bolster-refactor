@@ -166,4 +166,5 @@ const mapStateToProps = ({
 }) => ({
     pinsObj: Object.values(pins),
 });
+
 export default withUpdateOnChange(connect(mapStateToProps, null)(ZoneSelectorContainer));
