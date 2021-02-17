@@ -11,19 +11,20 @@ class SelectPinScaleModalContainer extends Component {
             drawing,
             floorplanPinScale,
             selectedCompanyID,
-            clientFloorplanPinScale
+            clientFloorplanPinScale,
+            zoneOpacity,
         } = this.props;
+
         return (
             <SelectPinScaleModal
                 drawing={drawing}
-                scale={
-                    selectedCompanyID
-                        ? clientFloorplanPinScale
-                        : floorplanPinScale
-                }
+                scale={selectedCompanyID ? clientFloorplanPinScale : floorplanPinScale}
                 handleUpdatePinScale={this.handleUpdatePinScale}
                 handleSubmit={this.handleSubmit}
                 handleCancelScale={this.handleCancelScale}
+                showZoneSlider={!selectedCompanyID}
+                zoneOpacity={zoneOpacity}
+                handleOpacityChange={this.handleOpacityChange}
             />
         );
     }
@@ -33,7 +34,7 @@ class SelectPinScaleModalContainer extends Component {
             updateReportFilter,
             selectedCompanyID,
             clientUpdateReportFilter,
-            hideModal
+            hideModal,
         } = this.props;
         if (selectedCompanyID) {
             clientUpdateReportFilter('floorplanPinScale', 1);
@@ -42,14 +43,15 @@ class SelectPinScaleModalContainer extends Component {
     };
 
     handleUpdatePinScale = e => {
-        const {
-            updateReportFilter,
-            selectedCompanyID,
-            clientUpdateReportFilter
-        } = this.props;
+        const { updateReportFilter, selectedCompanyID, clientUpdateReportFilter } = this.props;
         if (selectedCompanyID) {
             clientUpdateReportFilter('floorplanPinScale', e.target.value);
         } else updateReportFilter('floorplanPinScale', e.target.value);
+    };
+
+    handleOpacityChange = e => {
+        const { updateReportFilter } = this.props;
+        updateReportFilter('zoneOpacity', e.target.value);
     };
 
     handleSubmit = e => {
@@ -64,17 +66,18 @@ class SelectPinScaleModalContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         reportsReducer: {
-            filters: { floorplanPinScale }
-        }
+            filters: { floorplanPinScale, zoneOpacity },
+        },
     },
     client: {
         reportsReducer: {
-            filters: { floorplanPinScale: clientFloorplanPinScale }
-        }
-    }
+            filters: { floorplanPinScale: clientFloorplanPinScale },
+        },
+    },
 }) => ({
     floorplanPinScale,
-    clientFloorplanPinScale
+    clientFloorplanPinScale,
+    zoneOpacity,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -86,9 +89,6 @@ const mapDispatchToProps = dispatch => ({
     },
     hideModal: () => {
         dispatch(hideModal());
-    }
+    },
 });
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SelectPinScaleModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SelectPinScaleModalContainer);
