@@ -900,6 +900,17 @@ $back-to-top-height: 35px;
             }
         }
 
+        table {
+            margin-bottom: 20px;
+            font-size: 18px;
+            
+            th, td {
+                padding: 5px 10px;
+                color: $grey-alt;
+                border: 1px solid #ccc;
+            }
+        }
+
         li {
             &:last-child {
                 margin-bottom: 0;
