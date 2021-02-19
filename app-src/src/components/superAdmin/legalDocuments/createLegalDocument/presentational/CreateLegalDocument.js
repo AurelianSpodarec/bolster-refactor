@@ -6,6 +6,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import BlockEditor from 'components/shared/generic/block/presentational/BlockEditor';
 
 const modules = {
     toolbar: [
@@ -52,7 +53,7 @@ const CreateLegalDocument = ({
                 </Field>
             </BlockContainer>
 
-            <BlockContainer>
+            <BlockEditor>
                 <ReactQuill
                     theme="snow"
                     value={documentText}
@@ -69,7 +70,7 @@ const CreateLegalDocument = ({
                         Publish New Document
                     </ButtonContainer>
                 </BlockButtonWrapper>
-            </BlockContainer>
+            </BlockEditor>
         </>
     );
 };

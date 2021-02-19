@@ -8,6 +8,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import { LEGAL_DOCUMENT_TYPE } from 'constants/superAdmin/enums';
 import ReactQuill from 'react-quill';
+import BlockEditor from 'components/shared/generic/block/presentational/BlockEditor';
 
 const options = [
     { text: LEGAL_DOCUMENT_TYPE[10], value: LEGAL_DOCUMENT_TYPE[10] },
@@ -72,7 +73,7 @@ const AddLegalDocumentVersion = ({
                 </Field>
             </BlockContainer>
 
-            <BlockContainer>
+            <BlockEditor>
                 <ReactQuill
                     theme="snow"
                     value={documentText}
@@ -90,7 +91,7 @@ const AddLegalDocumentVersion = ({
                         Back
                     </ButtonContainer>
                 </BlockButtonWrapper>
-            </BlockContainer>
+            </BlockEditor>
         </>
     );
 };
