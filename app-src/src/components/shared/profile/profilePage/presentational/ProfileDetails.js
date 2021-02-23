@@ -8,7 +8,17 @@ import ProfileImageContainer from '../containers/ProfileImageContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const ProfileDetails = ({ error, isFetching, profile, location, onMobile }) => {
-    const { email, firstName, lastName, phoneNumber } = profile;
+    const {
+        email,
+        firstName,
+        lastName,
+        phoneNumber,
+        isTwoFactorAuthEnabled,
+        twoFactorPhoneNumber,
+    } = profile;
+    const pathName = location.pathname.endsWith('/')
+        ? location.pathname.slice(0, -1)
+        : location.pathname;
     return (
         <BlockContainer error={error} isFetching={isFetching} isEmpty={!email}>
             <BlockHeading title="Your Details" />
@@ -25,20 +35,13 @@ const ProfileDetails = ({ error, isFetching, profile, location, onMobile }) => {
                         description={lastName}
                     />
 
-                    <FieldOutput
-                        fieldClass="no-h-padding"
-                        title="Email"
-                        description={email}
-                    />
+                    <FieldOutput fieldClass="no-h-padding" title="Email" description={email} />
                     <FieldOutput
                         fieldClass="no-h-padding"
                         title="Phone number"
                         description={phoneNumber}
                     />
-                    <FieldOutput
-                        fieldClass="no-h-padding"
-                        title="Profile Picture"
-                    >
+                    <FieldOutput fieldClass="no-h-padding" title="Profile Picture">
                         <ProfileImageContainer />
                     </FieldOutput>
                 </>
@@ -56,19 +59,12 @@ const ProfileDetails = ({ error, isFetching, profile, location, onMobile }) => {
                             title="Last Name"
                             description={lastName}
                         />
-                        <FieldOutput
-                            fieldClass="no-h-padding"
-                            title="Profile Picture"
-                        >
+                        <FieldOutput fieldClass="no-h-padding" title="Profile Picture">
                             <ProfileImageContainer />
                         </FieldOutput>
                     </div>
                     <div className="size-lg-4 size-md-12">
-                        <FieldOutput
-                            fieldClass="no-h-padding"
-                            title="Email"
-                            description={email}
-                        />
+                        <FieldOutput fieldClass="no-h-padding" title="Email" description={email} />
                         <FieldOutput
                             fieldClass="no-h-padding"
                             title="Phone number"
@@ -78,19 +74,34 @@ const ProfileDetails = ({ error, isFetching, profile, location, onMobile }) => {
                 </>
             )}
 
+            <BlockHeading title="Two Factor Authentication" />
+            <FieldOutput
+                fieldClass="no-h-padding"
+                title="Two Factor Authentication enabled?"
+                description={isTwoFactorAuthEnabled ? 'Yes' : 'No'}
+            />
+
+            {!!isTwoFactorAuthEnabled && (
+                <FieldOutput
+                    fieldClass="no-h-padding"
+                    title="Phone number for Two Factor Auth"
+                    description={twoFactorPhoneNumber || 'Not set'}
+                />
+            )}
+
             <BlockButtonWrapper>
-                <Link
-                    className="button yellow"
-                    to={`${location.pathname}/edit`}
-                >
+                <Link className="button yellow" to={`${pathName}/edit`}>
                     <i className="far fa-pencil" /> Edit
                 </Link>
-                <Link
-                    className="button green"
-                    to={`${location.pathname}/change-password`}
-                >
+                <Link className="button green" to={`${pathName}/change-password`}>
                     <i className="far fa-lock-alt fa-fw" />
                     Change Password
+                </Link>
+                <Link className="button green" to={`${pathName}/twofactor/setup`}>
+                    <i className="far fa-lock" />
+                    {isTwoFactorAuthEnabled
+                        ? 'Change two factor authentication number'
+                        : 'Set up two factor authentication'}
                 </Link>
             </BlockButtonWrapper>
         </BlockContainer>
