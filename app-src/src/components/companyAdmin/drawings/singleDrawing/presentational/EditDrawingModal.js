@@ -88,11 +88,17 @@ const EditDrawingModal = ({
                         />
                     </Field>
                     <Field name="Change floorplan">
+                        <p>Please upload your drawing in .pdf, .jpg or .png format.</p> <br />
                         <FileUploadContainer
                             name="file"
                             value={file}
                             handleChange={handleChange}
-                            acceptedTypes={['application/pdf', 'image/*']}
+                            acceptedTypes={[
+                                'application/pdf',
+                                'image/jpg',
+                                'image/jpeg',
+                                'image/png',
+                            ]}
                         />
                     </Field>
                     {drawingNotStarted && (
