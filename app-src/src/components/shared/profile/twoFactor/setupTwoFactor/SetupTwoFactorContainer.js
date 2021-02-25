@@ -27,8 +27,6 @@ const SetupTwoFactorContainer = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        // validate
-        // send to api
         dispatch(postSetupTwoFactor({ phoneNumber }));
         // open modal to submit code
     };
@@ -51,15 +49,15 @@ const SetupTwoFactorContainer = () => {
         if (error && !prevProps.error) {
             // dispatch(showModal(ERROR_MODAL));
         }
+        if (postSuccess && !prevProps.postSuccess && isModalShowing) {
+            // handle success
+            dispatch(
+                showModal(SUCCESS_MODAL, { message: 'Successfully enabled two factor auth.' }),
+            );
+
+            history.push(location.pathname.replace('twofactor/setup', ''));
+        }
     }, [postSuccess, error]);
-
-    if (postSuccess && !prevProps.postSuccess && isModalShowing) {
-        // handle success
-        setShowModal(false);
-        dispatch(showModal(SUCCESS_MODAL, { message: 'Successfully enabled two factor auth.' }));
-
-        history.push(location.pathname.replace('twofactor/setup', ''));
-    }
 
     return (
         <SetupTwoFactor
