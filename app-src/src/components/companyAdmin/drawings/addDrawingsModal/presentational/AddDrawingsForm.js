@@ -55,11 +55,18 @@ const AddDrawingsForm = ({
                             </div>
                             <div className="size-lg-12">
                                 <Field name="Upload plan" required>
+                                    <p>Please upload your drawing in .pdf, .jpg or .png format.</p>
+                                    <br />
                                     <FileUploadContainer
                                         value={drawing.file}
                                         required
                                         name={`${drawing.id}.*.file`}
-                                        acceptedTypes={['application/pdf', 'image/*']}
+                                        acceptedTypes={[
+                                            'application/pdf',
+                                            'image/jpg',
+                                            'image/png',
+                                            'image/jpeg',
+                                        ]}
                                         handleChange={(name, value) => {
                                             updateDrawing(name, value, drawing.id);
                                         }}

@@ -77,6 +77,11 @@ const AllCompanyAdminsListItem = ({
             </td>
             <td>
                 {' '}
+                {onMobile && <span className="mobile-table-heading">{headers[7]}</span>}
+                {user.appVersion ? `${user.appVersion}` : '-'}
+            </td>
+            <td>
+                {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
                 <BlockButtonWrapper additionalClasses="stacked">
                     {user.linkedDeviceID && (
