@@ -32,6 +32,7 @@ class AllOperativesTableContainer extends Component {
                     'Operative Code',
                     'Last upsynced date',
                     'Last detected unsynced data',
+                    'App Version',
                     '',
                 ]}
                 users={sortedUsers}
