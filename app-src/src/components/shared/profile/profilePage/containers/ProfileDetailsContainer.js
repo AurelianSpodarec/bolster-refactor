@@ -12,9 +12,9 @@ const ProfileDetailsContainer = ({ error, isFetching, profile, onMobile }) => {
         dispatch(
             showModal(CONFIRM_SUBMIT, {
                 title: 'Disable Two Factor?',
-                message: `Are you sure you wish to disable two factor authentication?
-                    This action will require you to enter a final code 
-                    from the two factor phone number on your account.`,
+                message: `If your company is configured to require 2fa to
+                remain enabled, you will be logged out and unable 
+                to log back into this company again until you re-enable it`,
                 submitButtonText: 'Confirm',
                 handleSubmit: handleDisableTwoFactorFinalCode,
             }),
