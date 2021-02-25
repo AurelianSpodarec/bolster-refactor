@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, usePrevious } from 'helpers/hooks';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -28,9 +28,9 @@ const LoginFormContainer = ({
     error,
     fetchAuthAreaText,
     auth,
-    isFetching,
+    showTwoFactor,
 }) => {
-    const [formData, handleChange] = useForm({ email: '', password: '' });
+    const [formData, handleChange] = useForm({ email: '', password: '', twoFactorCode: null });
     const prevProps = usePrevious({ postSuccess, isPosting });
 
     useEffect(() => {
@@ -61,13 +61,14 @@ const LoginFormContainer = ({
             handleForgotPassword={handleForgotPassword}
             isPosting={isPosting}
             loginText={auth.loginText}
+            showTwoFactor={showTwoFactor}
         />
     );
 
     function handleSubmit(e) {
         e.preventDefault();
-        const { email, password } = formData;
-        postLogin(email, password);
+        const { email, password, twoFactorCode } = formData;
+        postLogin(email, password, twoFactorCode);
     }
 
     function handleForgotPassword() {
@@ -114,14 +115,13 @@ const LoginFormContainer = ({
 
 const mapStateToProps = ({
     shared: {
-        loginReducer: { postSuccess, isPosting },
+        loginReducer: { postSuccess, isPosting, showTwoFactor },
     },
     frontEnd: {
         authReducer: { auth: auth },
         error,
-        isFetching,
     },
-}) => ({ postSuccess, auth, error, isFetching, isPosting });
+}) => ({ postSuccess, auth, error, isPosting, showTwoFactor });
 
 const mapDispatchToProps = {
     showModal,

@@ -14,8 +14,9 @@ const LoginForm = ({
     handleForgotPassword,
     isPosting,
     loginText,
+    showTwoFactor,
 }) => {
-    const { email, password } = formData;
+    const { email, password, twoFactorCode } = formData;
 
     return (
         <div className="auth-form-wrapper login">
@@ -41,6 +42,23 @@ const LoginForm = ({
                         classes="auth-text-input-container"
                     />
                 </Field>
+                {showTwoFactor && (
+                    <>
+                        <Field classes="auth-form-field" name="Two Factor Code">
+                            <p>
+                                We have sent a code to the Two Factor Authentication phone number in
+                                your profile. Please enter it to continue.
+                            </p>
+                            <TextInputContainer
+                                value={twoFactorCode}
+                                name="twoFactorCode"
+                                required
+                                handleChange={handleChange}
+                                classes="auth-text-input-container"
+                            />
+                        </Field>
+                    </>
+                )}
                 <Field classes="auth-form-field row right">
                     <FrontEndButton
                         classes={`gray right ${!isPosting ? '' : 'disabled'}`}
