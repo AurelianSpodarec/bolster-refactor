@@ -76,7 +76,7 @@ const TemplateQuestionFormModal = ({
                             search
                             name="prereqVal"
                             onChange={handleInputChange}
-                            value={prereqVal}
+                            value={prereqVal.map(str => (!isNaN(str) ? +str : str))}
                             options={prereqValueOptions}
                         />
                     </Field>
