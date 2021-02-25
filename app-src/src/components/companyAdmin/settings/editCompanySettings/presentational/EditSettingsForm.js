@@ -53,6 +53,8 @@ const EditSettingsForm = ({
     unsyncedCompanyNotificationDays,
     unsyncedOperativeWarningDays,
     reportAutoDelete,
+    isTwoFactorAuthRequired,
+    isOwner,
 }) => (
     <>
         <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
@@ -164,7 +166,15 @@ const EditSettingsForm = ({
                     />
                 </Field>
             )}
-
+            {isOwner && (
+                <Field name="Is Two Factor Auth Required?" sizeClasses="size-lg-6 size-md-12">
+                    <CheckboxContainer
+                        checked={isTwoFactorAuthRequired}
+                        name="isTwoFactorAuthRequired"
+                        handleChange={handleInputChange}
+                    />
+                </Field>
+            )}
             <div className="size-lg-12">
                 {/* <p>##Display Settings##</p> */}
                 <Field name="Change Company Logo">

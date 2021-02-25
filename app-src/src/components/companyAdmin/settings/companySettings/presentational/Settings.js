@@ -240,6 +240,12 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                             fieldClass="no-h-padding"
                             sizeClass="size-lg-12"
                         />
+                        <FieldOutput
+                            title="Is Two Factor Authentication Required?"
+                            description={company.isTwoFactorAuthRequired ? 'Yes' : 'No'}
+                            fieldClass="no-h-padding"
+                            sizeClass="size-lg-12"
+                        />
                     </Block>
 
                     <Block>
