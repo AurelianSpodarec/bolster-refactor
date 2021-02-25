@@ -19,6 +19,7 @@ import isIE10Reducer from './isIE10';
 import sortReducer from './sort';
 import legalDocumentsReducer from './legalDocuments';
 import bannerNotificationReducer from './bannerNotifications';
+import twoFactorReducer from './twoFactor';
 
 export default combineReducers({
     confirmLeaveReducer,
@@ -40,4 +41,5 @@ export default combineReducers({
     legalDocumentsReducer,
     sortReducer,
     bannerNotificationReducer,
+    twoFactorReducer,
 });

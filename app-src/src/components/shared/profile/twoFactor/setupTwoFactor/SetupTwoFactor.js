@@ -3,21 +3,22 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
+import PhoneInput from 'components/shared/generic/form/presentational/PhoneInput';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import React from 'react';
-import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 
 const SetupTwoFactor = ({ phoneNumber, setPhoneNumber, handleSubmit }) => (
     <>
-        <PageHeading title="Set up Two Factor Authentication" />
+        <PageHeading title="Set up Two Factor Authentication" withBackButton />
         <BlockContainer>
             <Form onSubmit={handleSubmit}>
                 <Field name="Phone Number" sizeClasses="size-lg-6">
                     <PhoneInput
                         placeholder="Enter phone number"
+                        name="phoneNumber"
                         value={phoneNumber}
-                        onChange={setPhoneNumber}
+                        handleChange={(_, value) => setPhoneNumber(value)}
                         defaultCountry="GB"
                         required
                         style={{ width: '100%' }}

@@ -67,8 +67,6 @@ import {
     REMOVE_DRAWINGS_ACCESS,
     FORGOT_PASSWORD,
     GENERATE_SOS_CODE,
-    DELETE_DEMO_REQUEST,
-    ADD_DEMO_REQUEST_COMMENT,
     ADD_INVOICE_COMMENT,
     ADD_CONTACT_SUBMISSION_COMMENT,
     CONFIRM_MOVE_HIERARCHY_TO_COMPANY,
@@ -109,7 +107,7 @@ import {
     EDIT_BANNER_NOTIFICATION,
     ADD_NEW_BANNER_NOTIFICATION,
     UPDATE_REPORT_LAYOUT,
-    CONFIRM_TWO_FACTOR_SETUP,
+    CONFIRM_TWO_FACTOR,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -219,7 +217,7 @@ import UserLatestSyncsModalContainer from 'components/superAdmin/companies/singl
 import EditBannerNotificationModal from 'components/superAdmin/bannerNotifications/editBannerNotificationModal/presentational/EditBannerNotificationModal';
 import AddBannerNotificationModal from 'components/superAdmin/bannerNotifications/addBannerNotifcationModel/presentational/AddBannerNotificationModal';
 import UpdateReportLayoutModal from '../presentational/UpdateReportLayoutModal';
-import ConfirmTwoFactorSetupModal from '../presentational/ConfirmTwoFactorSetupModal';
+import ConfirmTwoFactorModal from '../presentational/ConfirmTwoFactorModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -327,7 +325,7 @@ const MODAL_COMPONENTS = {
     [ADD_NEW_BANNER_NOTIFICATION]: AddBannerNotificationModal,
     [EDIT_BANNER_NOTIFICATION]: EditBannerNotificationModal,
     [UPDATE_REPORT_LAYOUT]: UpdateReportLayoutModal,
-    [CONFIRM_TWO_FACTOR_SETUP]: ConfirmTwoFactorSetupModal,
+    [CONFIRM_TWO_FACTOR]: ConfirmTwoFactorModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

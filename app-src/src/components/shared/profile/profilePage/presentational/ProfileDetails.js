@@ -6,8 +6,16 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import ProfileImageContainer from '../containers/ProfileImageContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
-const ProfileDetails = ({ error, isFetching, profile, location, onMobile }) => {
+const ProfileDetails = ({
+    error,
+    isFetching,
+    profile,
+    location,
+    onMobile,
+    handleDisableTwoFactor,
+}) => {
     const {
         email,
         firstName,
@@ -103,6 +111,12 @@ const ProfileDetails = ({ error, isFetching, profile, location, onMobile }) => {
                         ? 'Change two factor authentication number'
                         : 'Set up two factor authentication'}
                 </Link>
+                {!!isTwoFactorAuthEnabled && (
+                    <ButtonContainer className="button red" handleClick={handleDisableTwoFactor}>
+                        <i className="far fa-lock" />
+                        Disable Two Factor Auth
+                    </ButtonContainer>
+                )}
             </BlockButtonWrapper>
         </BlockContainer>
     );
