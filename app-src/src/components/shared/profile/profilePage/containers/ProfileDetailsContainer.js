@@ -1,5 +1,7 @@
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { postDisableTwoFactorRequest } from 'actions/shared/twoFactor/postDisableTwoFactor';
+import postDisableTwoFactor, {
+    postDisableTwoFactorRequest,
+} from 'actions/shared/twoFactor/postDisableTwoFactor';
 import { CONFIRM_SUBMIT, CONFIRM_TWO_FACTOR } from 'constants/shared/modalTypes';
 import React from 'react';
 import { connect, useDispatch } from 'react-redux';
@@ -23,12 +25,12 @@ const ProfileDetailsContainer = ({ error, isFetching, profile, onMobile }) => {
 
     const handleDisableTwoFactorFinalCode = () => {
         // generate code
-        dispatch(postDisableTwoFactorRequest());
+        dispatch(postDisableTwoFactor());
         // show modal for code entry
         dispatch(
             showModal(CONFIRM_TWO_FACTOR, {
                 handleSubmit: () => {},
-                phoneNumber: profile.phoneNumber,
+                phoneNumber: profile.twoFactorPhoneNumber,
             }),
         );
     };
