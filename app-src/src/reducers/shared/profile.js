@@ -14,6 +14,9 @@ import {
 import { POST_RECENT_UPDATES_SUCCESS } from 'constants/actionTypes/recentUpdates';
 import { updateObj } from 'helpers/generic';
 import {
+    POST_CONFIRM_DISABLE_TWO_FACTOR_FAILURE,
+    POST_CONFIRM_DISABLE_TWO_FACTOR_REQUEST,
+    POST_CONFIRM_DISABLE_TWO_FACTOR_SUCCESS,
     POST_CONFIRM_SETUP_TWO_FACTOR_FAILURE,
     POST_CONFIRM_SETUP_TWO_FACTOR_REQUEST,
     POST_CONFIRM_SETUP_TWO_FACTOR_SUCCESS,
@@ -64,6 +67,8 @@ function isPostingReducer(state = false, action) {
         case EDIT_PROFILE_REQUEST:
         case CHANGE_PROFILE_PASSWORD_REQUEST:
         case POST_SETUP_TWO_FACTOR_REQUEST:
+        case POST_CONFIRM_SETUP_TWO_FACTOR_REQUEST:
+        case POST_CONFIRM_DISABLE_TWO_FACTOR_REQUEST:
             return true;
         case EDIT_PROFILE_SUCCESS:
         case EDIT_PROFILE_FAILURE:
@@ -73,6 +78,8 @@ function isPostingReducer(state = false, action) {
         case POST_SETUP_TWO_FACTOR_SUCCESS:
         case POST_CONFIRM_SETUP_TWO_FACTOR_FAILURE:
         case POST_CONFIRM_SETUP_TWO_FACTOR_SUCCESS:
+        case POST_CONFIRM_DISABLE_TWO_FACTOR_FAILURE:
+        case POST_CONFIRM_DISABLE_TWO_FACTOR_SUCCESS:
             return false;
         default:
             return state;
@@ -87,11 +94,13 @@ function postSuccessReducer(state = false, action) {
         case CHANGE_PROFILE_PASSWORD_FAILURE:
         case POST_SETUP_TWO_FACTOR_REQUEST:
         case POST_CONFIRM_SETUP_TWO_FACTOR_REQUEST:
+        case POST_CONFIRM_DISABLE_TWO_FACTOR_REQUEST:
             return false;
         case EDIT_PROFILE_SUCCESS:
         case CHANGE_PROFILE_PASSWORD_SUCCESS:
         case POST_SETUP_TWO_FACTOR_SUCCESS:
         case POST_CONFIRM_SETUP_TWO_FACTOR_SUCCESS:
+        case POST_CONFIRM_DISABLE_TWO_FACTOR_SUCCESS:
             return true;
         default:
             return state;
@@ -103,6 +112,7 @@ function profileReducer(state = {}, action) {
         case FETCH_PROFILE_SUCCESS:
         case POST_RECENT_UPDATES_SUCCESS:
         case POST_CONFIRM_SETUP_TWO_FACTOR_SUCCESS:
+        case POST_CONFIRM_DISABLE_TWO_FACTOR_SUCCESS:
             return action.payload;
         case EDIT_PROFILE_SUCCESS:
             return updateObj(state, 'profile', action.payload);

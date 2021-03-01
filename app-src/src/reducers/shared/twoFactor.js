@@ -18,6 +18,8 @@ export default combineReducers({
     error: errorReducer,
     isPosting: isPostingReducer,
     postSuccess: postSuccessReducer,
+    isPostingConfirm: isPostingConfirmReducer,
+    postConfirmSuccess: postConfirmSuccessReducer,
 });
 
 function errorReducer(state = null, action) {
@@ -68,6 +70,34 @@ function postSuccessReducer(state = false, action) {
         case POST_SETUP_TWO_FACTOR_SUCCESS:
         case POST_CONFIRM_SETUP_TWO_FACTOR_SUCCESS:
         case POST_DISABLE_TWO_FACTOR_SUCCESS:
+        case POST_CONFIRM_DISABLE_TWO_FACTOR_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function isPostingConfirmReducer(state = false, action) {
+    switch (action.type) {
+        case POST_CONFIRM_SETUP_TWO_FACTOR_REQUEST:
+        case POST_CONFIRM_DISABLE_TWO_FACTOR_REQUEST:
+            return true;
+        case POST_CONFIRM_SETUP_TWO_FACTOR_FAILURE:
+        case POST_CONFIRM_SETUP_TWO_FACTOR_SUCCESS:
+        case POST_CONFIRM_DISABLE_TWO_FACTOR_FAILURE:
+        case POST_CONFIRM_DISABLE_TWO_FACTOR_SUCCESS:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function postConfirmSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case POST_CONFIRM_SETUP_TWO_FACTOR_REQUEST:
+        case POST_CONFIRM_DISABLE_TWO_FACTOR_REQUEST:
+            return false;
+        case POST_CONFIRM_SETUP_TWO_FACTOR_SUCCESS:
         case POST_CONFIRM_DISABLE_TWO_FACTOR_SUCCESS:
             return true;
         default:
