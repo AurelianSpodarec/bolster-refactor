@@ -1,7 +1,5 @@
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import postDisableTwoFactor, {
-    postDisableTwoFactorRequest,
-} from 'actions/shared/twoFactor/postDisableTwoFactor';
+import postDisableTwoFactor from 'actions/shared/twoFactor/postDisableTwoFactor';
 import { CONFIRM_SUBMIT, CONFIRM_TWO_FACTOR } from 'constants/shared/modalTypes';
 import React from 'react';
 import { connect, useDispatch } from 'react-redux';
