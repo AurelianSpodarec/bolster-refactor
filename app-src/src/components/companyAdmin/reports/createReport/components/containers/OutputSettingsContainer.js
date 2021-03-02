@@ -14,7 +14,7 @@ import {
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { isEmpty, convertEnumToDropdownOptions } from 'helpers/generic';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
-import { SORT_BY_OPTIONS_TEXT } from 'constants/companyAdmin/enums';
+import { FURTHER_FILTRATION_OPTIONS, SORT_BY_OPTIONS_TEXT } from 'constants/companyAdmin/enums';
 import updateFilterOption from 'actions/companyAdmin/reports/sync/updateFilterOption';
 import OutputSettings from '../presentational/OutputSettings';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
@@ -33,8 +33,10 @@ class OutputSettingsContainer extends Component {
                 isFloorplanGeneration,
                 includeFloorplan,
                 isOAndMManualGeneration,
+                includeFloorplanZones,
             },
             options: { showHidden, sortBy },
+            furtherFiltrationOption,
         } = this.props;
 
         const sortByOptions = convertEnumToDropdownOptions(SORT_BY_OPTIONS_TEXT);
@@ -54,6 +56,8 @@ class OutputSettingsContainer extends Component {
                 handleOptionChange={this.handleOptionChange}
                 handleSubmit={this.handleSubmit}
                 handleShowOandMModal={this.handleShowOandMModal}
+                isZoneFilter={+furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.ZONES}
+                includeFloorplanZones={includeFloorplanZones}
             />
         );
     }
@@ -123,7 +127,12 @@ class OutputSettingsContainer extends Component {
             getPostBody,
             fieldErrors,
             showFieldErrors,
-            filters: { isFloorplanGeneration, includeFloorplan, isPDFGeneration },
+            filters: {
+                isFloorplanGeneration,
+                includeFloorplan,
+                isPDFGeneration,
+                includeFloorplanZones,
+            },
             showModal,
             furtherFiltrationOption,
         } = this.props;
@@ -146,6 +155,7 @@ class OutputSettingsContainer extends Component {
                 getPostBody,
                 postReport: this._postReport,
                 furtherFiltrationOption,
+                includeFloorplanZones,
             });
         } else {
             this._postReport(getPostBody());

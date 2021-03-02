@@ -87,6 +87,7 @@ function filtersReducer(
         floorplanPinScale: 0.9,
         zoneIDs: [],
         zoneOpacity: 0.3,
+        includeFloorplanZones: true,
     },
     action,
 ) {

@@ -177,6 +177,7 @@ export default function (ProtectedComponent) {
                     floorplanPinScale,
                     zoneIDs,
                     zoneOpacity,
+                    includeFloorplanZones,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
@@ -291,6 +292,7 @@ export default function (ProtectedComponent) {
                 includedDrawingIDs: includedDrawingsIDs,
                 zoneIDs,
                 zoneOpacity,
+                includeFloorplanZones,
             };
             return body;
         };

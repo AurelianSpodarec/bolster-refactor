@@ -15,6 +15,7 @@ class SelectPinScaleModalContainer extends Component {
             clientFloorplanPinScale,
             zoneOpacity,
             furtherFiltrationOption,
+            includeFloorplanZones = false,
         } = this.props;
 
         return (
@@ -28,7 +29,8 @@ class SelectPinScaleModalContainer extends Component {
                 handleOpacityChange={this.handleOpacityChange}
                 showZoneSlider={
                     !selectedCompanyID &&
-                    +furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.ZONES
+                    +furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.ZONES &&
+                    includeFloorplanZones
                 }
             />
         );
