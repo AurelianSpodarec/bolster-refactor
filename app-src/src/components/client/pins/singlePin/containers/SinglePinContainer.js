@@ -7,6 +7,7 @@ import clientFetchPinOperatives from 'actions/client/drawings/async/clientFetchP
 import SinglePin from '../presentational/SinglePin';
 import { getSelectedCompanyForClient, isEmpty } from 'helpers/generic';
 import clientFetchServicesForDrawing from 'actions/client/services/async/clientFetchServicesForDrawing';
+import clientFetchOptionValuesByCompany from 'actions/client/manufacturers/async/clientFetchOptionValuesByCompany';
 
 class SinglePinContainer extends Component {
     state = { isLoading: true };
@@ -20,6 +21,7 @@ class SinglePinContainer extends Component {
             clientFetchPinOperatives,
             fetchClientSinglePin,
             clientFetchServicesForDrawing,
+            clientFetchOptionValuesByCompany,
         } = this.props;
         const selectedCompanyID = getSelectedCompanyForClient();
 
@@ -33,6 +35,9 @@ class SinglePinContainer extends Component {
                     clientFetchServicesForDrawing(drawingID);
                 },
             )
+            .then(() => {
+                clientFetchOptionValuesByCompany(selectedCompanyID);
+            })
             .then(() => {
                 this.setState({ isLoading: false });
             });
@@ -76,6 +81,8 @@ const mapDispatchToProps = dispatch => ({
     clientFetchServicesForDrawing: drawingID => {
         return dispatch(clientFetchServicesForDrawing(drawingID));
     },
+    clientFetchOptionValuesByCompany: companyID =>
+        dispatch(clientFetchOptionValuesByCompany(companyID)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SinglePinContainer);
