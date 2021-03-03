@@ -1,18 +1,51 @@
 import React from 'react';
 import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
 import { FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
+import { isEmpty, isObjEmpty } from 'helpers/generic';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
 import { connect } from 'react-redux';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
-const PinAnswer = ({ trimmedAnswer, type, questions, answers, dispatch, question }) => {
-    const curAnswer = answers.find(item => +item.id === +trimmedAnswer.id);
+const PinAnswer = ({
+    trimmedAnswer,
+    type,
+    questions,
+    answers,
+    dispatch,
+    question,
+    optionValuesLookup,
+}) => {
+    const curAnswer = { ...answers.find(item => +item.id === +trimmedAnswer.id) };
 
     const notFoundResponse = null;
     let inner;
 
-    if ((!curAnswer || !curAnswer.answer) && type !== TYPES.STATUS) return notFoundResponse;
+    if (!isObjEmpty(optionValuesLookup) && !!curAnswer.answer) {
+        if (type === TYPES.DROPDOWN_OPTIONS && typeof curAnswer.answer === 'number') {
+            curAnswer.answer = optionValuesLookup[curAnswer.answer].name;
+        } else if (
+            type === TYPES.MULTI_DROPDOWN_OPTIONS ||
+            type === TYPES.MULTI_MULTI_DROPDOWN_OPTIONS
+        ) {
+            curAnswer.answer = curAnswer.answer.map(ans => {
+                if (!ans) {
+                    return null;
+                }
+                // handles manufacturer option
+                if (typeof ans === 'number' && optionValuesLookup[ans]) {
+                    return optionValuesLookup[ans].name;
+                }
+                // handle other
+                return ans;
+            });
+        }
+    }
+
+    if ((!curAnswer || isEmpty(curAnswer.answer)) && type !== TYPES.STATUS) {
+        return notFoundResponse;
+    }
+
     switch (type) {
         case TYPES.SINGLE_LINE:
         case TYPES.MULTI_LINE:

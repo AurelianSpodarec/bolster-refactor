@@ -4,7 +4,7 @@ import CompaniesListItemContainer from '../containers/CompaniesListItemContainer
 const CompaniesList = ({ companies, colCount }) =>
     companies.map((company, i) => (
         <CompaniesListItemContainer
-            key={company.id + i}
+            key={`${company.id + i}${company.createdOn}`}
             colCount={colCount}
             company={company}
         />

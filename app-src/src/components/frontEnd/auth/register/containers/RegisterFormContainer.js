@@ -202,8 +202,12 @@ const RegisterFormContainer = ({
             stepTwoPostBody.forEach(field => {
                 const strippedField = field.replace('Company.', '');
 
-                return (postBody.company[strippedField] = formData[field]);
+                postBody.company[strippedField] = formData[field];
             });
+
+            if (postBody.company.vatCode) {
+                postBody.company.vatCode = postBody.company.vatCode.trim();
+            }
 
             postRegisterStepTwo(postBody);
         }
@@ -260,7 +264,7 @@ const RegisterFormContainer = ({
                 country,
                 phoneNumber: companyPhoneNumber,
                 vatType,
-                vatCode,
+                vatCode: vatCode.trim(),
                 dateFormatID,
                 timezone,
                 base64LogoFile: base64LogoFileStripped,
