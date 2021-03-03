@@ -251,7 +251,9 @@ export const useVideoShouldPlay = () => {
             observer.observe(videoRef.current);
         }
         return () => {
-            observer.unobserve(videoRef.current);
+            if (videoRef.current) {
+                observer.unobserve(videoRef.current);
+            }
         };
     }, []);
 
