@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import fetchProfile from 'actions/shared/profile/async/fetchProfile';
 import fetchSingleCompany from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
-import fetchMessages from 'actions/companyAdmin/messages/async/fetchMessages';
 import fetchCompanyReports from 'actions/companyAdmin/companyReports/async/fetchCompanyReports';
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
 import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';

@@ -56,26 +56,25 @@ const EditDrawingOperative = ({
                             />
                         </Field>
 
-                        {isTemplateFilteringEnabled && (
-                            <>
-                                {[...serviceAreas].sort().map(service => (
-                                    <Field
-                                        key={service}
-                                        name={services[service].name}
-                                        sizeClasses="size-lg-12"
-                                    >
-                                        <CheckboxListContainer
-                                            required
-                                            name="templateIDs"
-                                            handleChange={handleMultiSelect}
-                                            options={getTemplatesForService(service).filter(item => !item.isDeleted)}
-                                            hideDisabled
-                                            selectedOptions={templateIDs}
-                                        />
-                                    </Field>
-                                ))}
-                            </>
-                        )}
+                        {isTemplateFilteringEnabled &&
+                            [...serviceAreas].sort().map(service => (
+                                <Field
+                                    key={service}
+                                    name={services[service].name}
+                                    sizeClasses="size-lg-12"
+                                >
+                                    <CheckboxListContainer
+                                        required
+                                        name="templateIDs"
+                                        handleChange={handleMultiSelect}
+                                        options={getTemplatesForService(service).filter(
+                                            item => !item.isDeleted,
+                                        )}
+                                        hideDisabled
+                                        selectedOptions={templateIDs}
+                                    />
+                                </Field>
+                            ))}
                     </Form>
                     <BlockButtonWrapper>
                         <button onClick={handleSubmit} className="button green">

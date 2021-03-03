@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import uuid from 'uuid/v4';
 import moment from 'moment';
-import { isMobile, deviceType } from 'react-device-detect';
 
 import { removeObjItem } from './generic';
 

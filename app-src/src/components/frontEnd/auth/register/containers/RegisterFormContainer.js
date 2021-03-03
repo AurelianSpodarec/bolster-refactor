@@ -66,7 +66,13 @@ const RegisterFormContainer = ({
     });
     const [tickboxError, setTickboxError] = useState(false);
 
-    const prevProps = usePrevious({ postSuccess, postStepValidationSuccess, loginSuccess, fieldErrors, isPosting });
+    const prevProps = usePrevious({
+        postSuccess,
+        postStepValidationSuccess,
+        loginSuccess,
+        fieldErrors,
+        isPosting,
+    });
 
     useEffect(() => {
         fetchTimeZones();
@@ -174,7 +180,7 @@ const RegisterFormContainer = ({
 
         if (page === 1) {
             postBody = {
-                user: {}
+                user: {},
             };
 
             stepOnePostBody.forEach(field => {
@@ -182,7 +188,7 @@ const RegisterFormContainer = ({
 
                 if (strippedField === 'confirmPassword') return;
 
-                return postBody.user[strippedField] = formData[field];
+                return (postBody.user[strippedField] = formData[field]);
             });
 
             postRegisterStepOne(postBody);
@@ -190,13 +196,13 @@ const RegisterFormContainer = ({
 
         if (page === 2) {
             postBody = {
-                company: {}
+                company: {},
             };
 
             stepTwoPostBody.forEach(field => {
                 const strippedField = field.replace('Company.', '');
 
-                return postBody.company[strippedField] = formData[field];
+                return (postBody.company[strippedField] = formData[field]);
             });
 
             postRegisterStepTwo(postBody);

@@ -145,11 +145,12 @@ const AddDrawingsFormContainer = ({
                 initialOptions.selectedOptionValues = floor.optionValueIDs.map(id => String(id));
 
                 initialOptions.manufacturerOptions = createManufacturerOptionList(manufacturers);
-                initialOptions.selectedManufacturerOptions = createHierarchyPreselectedManufacturersList(
+                const selectedOptions = createHierarchyPreselectedManufacturersList(
                     initialOptions.manufacturerOptions,
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
+                initialOptions.selectedManufacturerOptions = selectedOptions;
                 initialOptions.manufacturingInheritedFrom = floor.manufacturingInheritedFrom;
                 setShowManufacturingOptions(false);
             } else {

@@ -15,7 +15,7 @@ class SingleManufacturerContainer extends Component {
     render() {
         const { manufacturerID, manufacturers, isFetching } = this.props;
 
-        const isManufacturerFetched = manufacturers.hasOwnProperty(manufacturerID) && !isFetching;
+        const isManufacturerFetched = manufacturers[manufacturerID] !== undefined && !isFetching;
 
         return !isManufacturerFetched ? (
             <Loading />

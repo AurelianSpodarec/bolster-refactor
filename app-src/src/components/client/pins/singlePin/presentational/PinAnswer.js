@@ -87,9 +87,8 @@ const PinAnswer = ({ trimmedAnswer, type, questions, answers, dispatch, question
                 <p>
                     <a
                         href={docURL}
-                        rel="noopener norefferrer"
-                        // eslint-disable-next-line react/jsx-no-target-blank
                         target="_blank"
+                        rel="noopener noreferrer"
                         className="text-link"
                     >
                         <i className="table-icon far fa-file-alt" /> {curAnswer.answer}

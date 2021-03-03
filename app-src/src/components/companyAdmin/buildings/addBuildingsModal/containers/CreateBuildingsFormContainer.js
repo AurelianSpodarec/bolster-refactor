@@ -126,11 +126,12 @@ const CreateBuildingsFormContainer = ({
                 initialOptions.selectedOptionValues = site.optionValueIDs.map(id => String(id));
 
                 initialOptions.manufacturerOptions = createManufacturerOptionList(manufacturers);
-                initialOptions.selectedManufacturerOptions = createHierarchyPreselectedManufacturersList(
+                const selected = createHierarchyPreselectedManufacturersList(
                     initialOptions.manufacturerOptions,
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
+                initialOptions.selectedManufacturerOptions = selected;
                 setShowManufacturingOptions(false);
             } else {
                 // set default prefills as per the company admin options

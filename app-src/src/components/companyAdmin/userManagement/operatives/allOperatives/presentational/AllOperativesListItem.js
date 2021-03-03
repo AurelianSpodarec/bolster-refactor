@@ -14,7 +14,6 @@ const AllOperativesListItem = ({
     onMobile,
     headers,
     history,
-    mobileDeviceName = '',
     showNotUpsyncedRecentlyWarning,
     tooltipDate,
 }) => {

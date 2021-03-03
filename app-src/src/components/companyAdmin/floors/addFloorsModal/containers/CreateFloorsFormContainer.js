@@ -128,11 +128,12 @@ const CreateFloorsFormContainer = ({
                 initialOptions.selectedOptionValues = building.optionValueIDs.map(id => String(id));
 
                 initialOptions.manufacturerOptions = createManufacturerOptionList(manufacturers);
-                initialOptions.selectedManufacturerOptions = createHierarchyPreselectedManufacturersList(
+                const selected = createHierarchyPreselectedManufacturersList(
                     initialOptions.manufacturerOptions,
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
+                initialOptions.selectedManufacturerOptions = selected;
                 initialOptions.manufacturingInheritedFrom = building.manufacturingInheritedFrom;
                 setShowManufacturingOptions(false);
             } else {

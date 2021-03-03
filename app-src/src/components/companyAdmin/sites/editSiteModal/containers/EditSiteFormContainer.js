@@ -115,11 +115,12 @@ class EditSiteFormContainer extends Component {
                 // prefill options from site already saved
                 initialOptions.selectedOptionValues = site.optionValueIDs.map(id => String(id));
 
-                initialOptions.selectedManufacturerOptions = createHierarchyPreselectedManufacturersList(
+                const selected = createHierarchyPreselectedManufacturersList(
                     initialOptions.manufacturerOptions,
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
+                initialOptions.selectedManufacturerOptions = selected;
             } else {
                 //prefill from company settings in anticipation of isManufacturingEnabled being set to true
                 initialOptions.selectedOptionValues = createPreselectedOptionValuesList(

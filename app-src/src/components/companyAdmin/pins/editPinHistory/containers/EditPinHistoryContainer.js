@@ -118,10 +118,10 @@ class EditPinHistoryContainer extends Component {
 
             // if manufacturing enabled for a specific pin option type, all dropdown options will need to be replaced by the manufacturers option values of that type
             const dropdownOptionsFilteredArray = dropdownOptions.filter(option => {
-                const areManufacturingOptionsReplacingThisOption = originalOptionTypesToRemove.includes(
+                const areManufacturingOptionsReplacingThis = originalOptionTypesToRemove.includes(
                     option.type,
                 );
-                return !areManufacturingOptionsReplacingThisOption;
+                return !areManufacturingOptionsReplacingThis;
             }, []);
 
             const newOptions = [...dropdownOptionsFilteredArray, ...drawingOptionValues];

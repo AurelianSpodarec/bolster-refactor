@@ -16,8 +16,8 @@ export function getSelectedCompanyForClient() {
 }
 
 export function isObjEmpty(obj) {
-    for (var key in obj) {
-        if (obj.hasOwnProperty(key)) return false;
+    for (const key in obj) {
+        return false;
     }
     return true;
 }

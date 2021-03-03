@@ -15,7 +15,6 @@ const PinSelector = ({
     handleMouseUp,
     handleMouseOut,
     clicking,
-    onMobile,
     error,
 }) => (
     <>
