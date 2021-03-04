@@ -59,9 +59,12 @@ class EditTemplateQuestionModalContainer extends Component {
         this.setState({ options: updateObj(this.state.options, name, value) });
     };
 
-    handleQuestionToggle = ({ currentTarget }) => {
-        const { name, checked } = currentTarget;
-        const configuration = updateObj(this.state.configuration, name, checked);
+    handleQuestionToggle = id => {
+        const configuration = updateObj(
+            this.state.configuration,
+            id,
+            !this.state.configuration[id],
+        );
         this.setState({ configuration });
     };
 
@@ -78,9 +81,10 @@ class EditTemplateQuestionModalContainer extends Component {
         const { editTemplateQuestion, question } = this.props;
 
         const OptionConfigurations = question.OptionConfigurations
-            ? question.OptionConfigurations.map(item => {
+            ? question.OptionConfigurations.map((item, index) => {
                   return {
                       ...item,
+                      Name: Object.values(this.state.options)[index],
                       IsDisabled: this.state.configuration[item.Name],
                   };
               })

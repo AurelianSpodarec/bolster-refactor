@@ -25,44 +25,47 @@ const EditTemplateQuestionModal = ({
                 <div className="dropdown-create size-lg-12">
                     {options.map(([id, text], i) => (
                         <Field key={id} name={`Option ${i + 1}`} required>
-                            <TextInputContainer
-                                name={id}
-                                value={text}
-                                handleChange={handleChange}
-                                required
-                            />
-                            {id in optionConfigurations ? (
-                                <div className="container-button delete-question checking">
-                                    <div className="checkbox">
-                                        <input
-                                            id={id}
-                                            onChange={handleQuestionToggle}
-                                            type="checkbox"
-                                            checked={optionConfigurations[id]}
-                                            name={id}
-                                        />
-                                        <label htmlFor={id}>
-                                            {text.length && (
-                                                <span className="text">
-                                                    {!optionConfigurations[id]
-                                                        ? 'Enabled'
-                                                        : 'Disabled'}
-                                                </span>
-                                            )}
-                                            <span className="outer">
-                                                <span className="inner" />
-                                            </span>
-                                        </label>
-                                    </div>
+                            <div className="size-lg-12 template-options-inputs-container">
+                                <div className="size-lg-10">
+                                    <TextInputContainer
+                                        name={id}
+                                        value={text}
+                                        handleChange={handleChange}
+                                        required
+                                    />
                                 </div>
-                            ) : (
-                                <button
-                                    className="button red delete-question icon-only"
-                                    onClick={() => handleRemoveOption(id)}
-                                >
-                                    <i className="far fa-trash-alt" />
-                                </button>
-                            )}
+                                <div className="size-lg-2 buttons-box">
+                                    {id in optionConfigurations ? (
+                                        <div className="container-button checking">
+                                            {optionConfigurations[id] ? (
+                                                <button
+                                                    onClick={() => handleQuestionToggle(id)}
+                                                    className="button red"
+                                                    type="button"
+                                                >
+                                                    <i className="fa fa-minus" /> Disabled
+                                                </button>
+                                            ) : (
+                                                <button
+                                                    onClick={() => handleQuestionToggle(id)}
+                                                    className="button green"
+                                                    type="button"
+                                                >
+                                                    <i className="fa fa-plus" /> Enabled
+                                                </button>
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <button
+                                            className="button red"
+                                            onClick={() => handleRemoveOption(id)}
+                                            type="button"
+                                        >
+                                            <i className="far fa-trash-alt" /> Delete
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
                         </Field>
                     ))}
                     <div className="size-lg-12">

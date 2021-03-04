@@ -6327,3 +6327,14 @@ input {
         }
     }
 }
+
+.template-options-inputs-container {
+    display: flex;
+    align-items: center;
+    
+    .buttons-box {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+}
