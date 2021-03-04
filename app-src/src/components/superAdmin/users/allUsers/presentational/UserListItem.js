@@ -6,7 +6,12 @@ import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { Link } from 'react-router-dom';
 
-const UserListItem = ({ user, handleShowEditUserModal, handleShowEditUserPasswordModal }) => (
+const UserListItem = ({
+    user,
+    handleShowEditUserModal,
+    handleShowEditUserPasswordModal,
+    handleShowConfirmEmailModal,
+}) => (
     <tr>
         <td>{`${user.firstName} ${user.lastName}`}</td>
         <td>{user.email}</td>
@@ -42,6 +47,14 @@ const UserListItem = ({ user, handleShowEditUserModal, handleShowEditUserPasswor
                 <button className="button yellow" onClick={() => handleShowEditUserModal(user)}>
                     <i className="far fa-pencil" /> Edit
                 </button>
+                {!user.isEmailConfirmed && (
+                    <button
+                        className="button blue"
+                        onClick={() => handleShowConfirmEmailModal(user)}
+                    >
+                        <i className="far fa-pencil" /> Confirm e-mail
+                    </button>
+                )}
                 <button onClick={() => handleShowEditUserPasswordModal(user)} className="button">
                     Change password
                 </button>
