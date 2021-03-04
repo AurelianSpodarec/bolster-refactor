@@ -14,11 +14,13 @@
     },
     "plugins": ["react"],
     "rules": {
-        "quotes": ["error", "single", { "avoidEscape": true}],
-        "semi": ["error", "always"],
+        "quotes": ["warn", "single", { "avoidEscape": true}],
+        "semi": ["warn", "always"],
         "react/prop-types": 0,
-        "no-unused-vars": [2, { "vars": "all", "args": "after-used" }],
+        "no-redeclare": "warn",
+        "no-unused-vars": ["warn", { "vars": "all", "args": "after-used" }],
         "react/no-unescaped-entities": "off",
+        "react/jsx-no-duplicate-props": "warn",
         "max-len": [
             1,
             100,
