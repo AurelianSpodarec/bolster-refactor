@@ -18,6 +18,8 @@
         "semi": ["warn", "always"],
         "react/prop-types": 0,
         "no-redeclare": "warn",
+        "no-dupe-keys": "warn",
+        "no-duplicate-case": "warn",
         "no-unused-vars": ["warn", { "vars": "all", "args": "after-used" }],
         "react/no-unescaped-entities": "off",
         "react/jsx-no-duplicate-props": "warn",
