@@ -101,6 +101,13 @@ const AllCompanyAdminsListItem = ({
                         Change password
                     </Link>
                     <Link
+                        className="button green"
+                        to={`/company/users-management/company-admins/${user.id}/edit-email`}
+                    >
+                        <i className="far fa-at fa-fw" />
+                        Change e-mail
+                    </Link>
+                    <Link
                         className="button yellow "
                         to={`/company/users-management/company-admins/${user.id}/edit`}
                     >

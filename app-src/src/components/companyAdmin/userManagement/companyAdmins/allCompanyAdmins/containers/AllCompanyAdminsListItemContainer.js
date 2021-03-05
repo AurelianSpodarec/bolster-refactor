@@ -66,6 +66,12 @@ class AllCompanyAdminsListItemContainer extends Component {
             user,
         });
     };
+
+    showEditUserEmailModal = () => {
+        const { user, showModal } = this.props;
+
+        showModal('', { user }); // todo
+    };
 }
 
 const mapStateToProps = ({
