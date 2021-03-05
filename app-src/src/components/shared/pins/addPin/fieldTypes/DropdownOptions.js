@@ -34,7 +34,6 @@ const DropdownOptions = ({
     });
 
     if (edit) {
-        // todo change the edit so that it can handle manufacturer pin options
         const curOptions = filteredOptions.map(opt =>
             isManufacturingEnabledForType ? opt.id : opt.name,
         );

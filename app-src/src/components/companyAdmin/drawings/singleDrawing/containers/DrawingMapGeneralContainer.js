@@ -37,7 +37,6 @@ const { ADD, DELETE, EXCLUDE } = RECTANGLE_MODES;
 const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 
 // ! The pin selector code is repeated in the filtermapcontainer component
-// todo tidy this and maybe make them use the same component or
 // use smaller generic components within
 
 class DrawingMapGeneralContainer extends Component {

@@ -25,10 +25,10 @@ class ConfirmDeleteInvoiceModalContainer extends Component {
         const {
             deleteSuccess,
             location: {
-                state: { fromURL }
+                state: { fromURL },
             },
             history,
-            hideModal /*showModal*/
+            hideModal /*showModal*/,
         } = this.props;
         if (!prevProps.deleteSuccess && deleteSuccess) {
             if (/subscription/.test(fromURL)) {
@@ -42,25 +42,21 @@ class ConfirmDeleteInvoiceModalContainer extends Component {
 
     handleDelete = () => {
         const { deleteInvoice, id } = this.props;
-        // TODO Put the below function in once the api endpoint has been created for it.
         deleteInvoice(id);
     };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        invoicesReducer: { isDeleting, deleteSuccess }
-    }
+        invoicesReducer: { isDeleting, deleteSuccess },
+    },
 }) => ({
     isDeleting,
-    deleteSuccess
+    deleteSuccess,
 });
 
 const mapDispatchToProps = { hideModal, deleteInvoice };
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(ConfirmDeleteInvoiceModalContainer)
+    connect(mapStateToProps, mapDispatchToProps)(ConfirmDeleteInvoiceModalContainer),
 );
