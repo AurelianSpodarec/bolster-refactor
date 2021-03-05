@@ -29,9 +29,10 @@ const LoginFormContainer = ({
     fetchAuthAreaText,
     auth,
     showTwoFactor,
+    emailConfirmationRequired,
 }) => {
     const [formData, handleChange] = useForm({ email: '', password: '', twoFactorCode: null });
-    const prevProps = usePrevious({ postSuccess, isPosting });
+    const prevProps = usePrevious({ postSuccess, isPosting, emailConfirmationRequired });
 
     useEffect(() => {
         fetchAuthAreaText();
@@ -52,6 +53,13 @@ const LoginFormContainer = ({
             });
         }
     }, [postSuccess, prevProps.postSuccess, isPosting, prevProps.isPosting]);
+
+    useEffect(() => {
+        if (emailConfirmationRequired && !prevProps.emailConfirmationRequired) {
+            // take us to the confirm email page bro
+            history.push('/auth/confirm-email');
+        }
+    }, [emailConfirmationRequired]);
 
     return (
         <LoginForm
@@ -115,13 +123,13 @@ const LoginFormContainer = ({
 
 const mapStateToProps = ({
     shared: {
-        loginReducer: { postSuccess, isPosting, showTwoFactor },
+        loginReducer: { postSuccess, isPosting, showTwoFactor, emailConfirmationRequired },
     },
     frontEnd: {
         authReducer: { auth: auth },
         error,
     },
-}) => ({ postSuccess, auth, error, isPosting, showTwoFactor });
+}) => ({ postSuccess, auth, error, isPosting, showTwoFactor, emailConfirmationRequired });
 
 const mapDispatchToProps = {
     showModal,

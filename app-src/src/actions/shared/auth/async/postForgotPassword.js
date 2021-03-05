@@ -24,11 +24,8 @@ export const postForgotPasswordFailure = error => ({
 export default postBody => dispatch => {
     dispatch(postForgotPasswordRequest());
 
-    return (
-        axios
-            // ! check this endpoint when this is set up
-            .post(`${FRONTEND_API_URL}/forgotpassword`, postBody, getHeaders())
-            .then(res => dispatch(postForgotPasswordSuccess(res.data)))
-            .catch(err => dispatch(handleErrors(postForgotPasswordFailure)(err)))
-    );
+    return axios
+        .post(`${FRONTEND_API_URL}/forgotpassword`, postBody, getHeaders())
+        .then(res => dispatch(postForgotPasswordSuccess(res.data)))
+        .catch(err => dispatch(handleErrors(postForgotPasswordFailure)(err)));
 };

@@ -5,6 +5,7 @@ import {
     POST_LOGIN_SUCCESS,
     POST_LOGIN_FAILURE,
     POST_LOGIN_TWO_FACTOR_REQUIRED,
+    POST_LOGIN_EMAIL_CONFIRMATION_REQUIRED,
 } from 'constants/actionTypes/auth';
 import { SET_API_FIELD_ERRORS } from 'constants/actionTypes/generic';
 
@@ -13,6 +14,7 @@ export default combineReducers({
     error: errorReducer,
     isPosting: isPostingReducer,
     showTwoFactor: showTwoFactorReducer,
+    emailConfirmationRequired: emailConfirmationRequiredReducer,
 });
 
 function postSuccessReducer(state = false, action) {
@@ -61,6 +63,17 @@ function showTwoFactorReducer(state = false, action) {
             return false;
         case POST_LOGIN_FAILURE:
             return false;
+        default:
+            return state;
+    }
+}
+
+function emailConfirmationRequiredReducer(state = null, action) {
+    switch (action.type) {
+        case POST_LOGIN_REQUEST:
+            return false;
+        case POST_LOGIN_EMAIL_CONFIRMATION_REQUIRED:
+            return action.email;
         default:
             return state;
     }

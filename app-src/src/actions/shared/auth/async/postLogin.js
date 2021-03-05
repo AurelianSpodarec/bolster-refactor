@@ -6,6 +6,7 @@ import {
     POST_LOGIN_REQUEST,
     POST_LOGIN_SUCCESS,
     POST_LOGIN_FAILURE,
+    POST_LOGIN_EMAIL_CONFIRMATION_REQUIRED,
     POST_LOGIN_TWO_FACTOR_REQUIRED,
 } from 'constants/actionTypes/auth';
 
@@ -23,6 +24,10 @@ export const postLoginFailure = error => ({
     error,
 });
 
+export const postLoginEmailConirmationRequired = email => ({
+    type: POST_LOGIN_EMAIL_CONFIRMATION_REQUIRED,
+    email,
+});
 export const postLoginTwoFactorRequired = () => ({
     type: POST_LOGIN_TWO_FACTOR_REQUIRED,
 });
@@ -37,12 +42,15 @@ export default (email, password, twoFactorCode = null) => dispatch => {
             { email, password: trimmedPassword, twoFactorCode },
             getHeaders(),
         )
-        .then(res => {
-            if (res.data.isTwoFactorRequired) {
+        .then(({ data }) => {
+            if (data.isEmailConfirmationRequired) {
+                return dispatch(postLoginEmailConirmationRequired(email));
+            }
+            if (data.isTwoFactorRequired) {
                 return dispatch(postLoginTwoFactorRequired(email));
             }
-            localStorage.setItem('token', res.data.token);
-            return dispatch(postLoginSuccess(res.data));
+            localStorage.setItem('token', data.token);
+            return dispatch(postLoginSuccess(data));
         })
         .catch(err => dispatch(handleErrors(postLoginFailure)(err)));
 };

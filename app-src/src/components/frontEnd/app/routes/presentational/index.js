@@ -15,6 +15,7 @@ import RegisterContainer from 'components/frontEnd/auth/register/containers/Regi
 import TermsContainer from 'components/frontEnd/termsAndConditions/containers/Ts&CsContainer';
 import PrivacyPolicyContainer from 'components/frontEnd/privacyPolicy/containers/PrivacyPolicyContainer';
 import PageNotFound from 'components/frontEnd/404/presentational/404Page';
+import EmailConfirmationRequired from 'components/frontEnd/auth/login/presentational/EmailConfirmationRequired';
 
 const FrontEndRoutes = ({ base = '/' }) => (
     <SwitchWith404>
@@ -36,6 +37,7 @@ const FrontEndRoutes = ({ base = '/' }) => (
 
         <Route exact path={`${base}auth/Login`} component={LoginContainer} />
         <Route exact path={`${base}auth/register`} component={RegisterContainer} />
+        <Route exact path={`${base}auth/confirm-email`} component={EmailConfirmationRequired} />
         <Route exact path={`${base}auth/terms`} component={TermsContainer} />
         <Route exact path={`${base}auth/privacy-policy`} component={PrivacyPolicyContainer} />
     </SwitchWith404>
