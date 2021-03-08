@@ -1,32 +1,28 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 import AllClientsTable from '../presentational/AllClientsTable';
 
-class AllClientTableContainer extends Component {
-    render() {
-        const { isFetching, error } = this.props;
+const AllClientTableContainer = () => {
+    const { clients, isFetching, error } = useSelector(mapStateToProps);
 
-        return (
-            <AllClientsTable
-                headers={['Name', 'Company name', 'Drawing', 'Services', '']}
-                clients={this._sortClientsList()}
-                isFetching={isFetching}
-                error={error}
-            />
-        );
-    }
+    return (
+        <AllClientsTable
+            headers={['Name', 'Company name', 'Drawing', 'Services', '']}
+            clients={_sortClientsList()}
+            isFetching={isFetching}
+            error={error}
+        />
+    );
 
-    _sortClientsList = () => {
-        const { clients } = this.props;
-
+    function _sortClientsList() {
         return [...clients].sort(orderByProperty('userID', 'companyName'));
-    };
-}
+    }
+};
 
 function orderByProperty(prop) {
     const args = Array.prototype.slice.call(arguments, 1);
-    return function(a, b) {
+    return function (a, b) {
         const equality = a[prop] - b[prop];
         if (equality === 0 && arguments.length > 1) {
             return orderByProperty.apply(null, args)(a, b);
@@ -37,13 +33,12 @@ function orderByProperty(prop) {
 
 const mapStateToProps = ({
     companyAdmin: {
-        clientsReducer: { clients, isFetching, error, postSuccess }
-    }
+        clientsReducer: { clients = {}, isFetching, error },
+    },
 }) => ({
     isFetching,
     error,
-    postSuccess,
-    clients: Object.values(clients) || []
+    clients: Object.values(clients),
 });
 
-export default connect(mapStateToProps)(AllClientTableContainer);
+export default AllClientTableContainer;

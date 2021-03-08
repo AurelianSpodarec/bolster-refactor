@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import AllClientsListItem from '../presentational/AllClientsListItem';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -8,87 +8,64 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { CONFIRM_DELETE } from 'constants/shared/modalTypes';
 import deleteClientFromDrawing from 'actions/companyAdmin/clients/async/deleteClientFromDrawing';
 
-class AllClientsListItemContainer extends Component {
-    render() {
-        const { client, colCount, onMobile, headers } = this.props;
+const AllClientsListItemContainer = ({ client, colCount, headers }) => {
+    const { services, onMobile } = useSelector(mapStateToProps);
+    const history = useHistory();
+    const dispatch = useDispatch();
+    return (
+        <AllClientsListItem
+            client={client}
+            services={_getServicesForClient()}
+            colCount={colCount}
+            goToEdit={goToEdit}
+            removeAccess={removeAccess}
+            onMobile={onMobile}
+            headers={headers}
+        />
+    );
 
-        return (
-            <AllClientsListItem
-                client={client}
-                services={this._getServicesForClient()}
-                colCount={colCount}
-                goToEdit={this.goToEdit}
-                removeAccess={this.removeAccess}
-                onMobile={onMobile}
-                headers={headers}
-            />
-        );
-    }
-
-    _getServicesForClient = () => {
-        const { services, client } = this.props;
-
-        const filteredServices = services.filter(({ id }) =>
-            client.serviceIDs.includes(id)
-        );
+    function _getServicesForClient() {
+        const filteredServices = services.filter(({ id }) => client.serviceIDs.includes(id));
 
         return filteredServices.map(({ name }) => name);
-    };
+    }
 
-    goToEdit = () => {
-        const { history, client } = this.props;
-
+    function goToEdit() {
         history.push({
-            pathname: `/company/drawings/${client.drawingID}/edit-client/${
-                client.id
-            }`,
+            pathname: `/company/drawings/${client.drawingID}/edit-client/${client.id}`,
             state: {
-                isFromClientUserManagement: true
-            }
+                isFromClientUserManagement: true,
+            },
         });
-    };
+    }
 
-    removeAccess = () => {
-        const {
-            showModal,
-            hideModal,
-            deleteClientFromDrawing,
-            client
-        } = this.props;
-
+    function removeAccess() {
         const handleDelete = () => {
-            deleteClientFromDrawing(client.id);
-            hideModal();
+            dispatch(deleteClientFromDrawing(client.id));
+            dispatch(hideModal());
         };
 
-        showModal(CONFIRM_DELETE, {
-            hideModal,
-            client,
-            message: `Are you sure you would like to remove ${
-                client.userFirstName
-            } ${client.userLastName}'s access?`,
-            handleDelete
-        });
-    };
-}
+        dispatch(
+            showModal(CONFIRM_DELETE, {
+                hideModal,
+                client,
+                message: `Are you sure you would like to remove ${client.userFirstName} ${client.userLastName}'s access?`,
+                handleDelete,
+            }),
+        );
+    }
+};
 
 const mapStateToProps = ({
     companyAdmin: {
-        servicesReducer: { services }
+        servicesReducer: { services },
     },
     shared: {
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => ({
     services: Object.values(services) || [],
-    onMobile
+    onMobile,
 });
 
-const mapDispatchToProps = { showModal, hideModal, deleteClientFromDrawing };
-
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(AllClientsListItemContainer)
-);
+export default AllClientsListItemContainer;
