@@ -25,7 +25,7 @@ export default postBody => dispatch => {
     dispatch(postResendEmailConfirmationRequest());
 
     return axios
-        .post(`${AUTH_API_URL}/email-confirmation/resend`, postBody, getHeaders())
+        .post(`${AUTH_API_URL}/auth/email-confirmation/resend`, postBody, getHeaders())
         .then(res => dispatch(postResendEmailConfirmationSuccess(res.data)))
         .catch(err => dispatch(handleErrors(postResendEmailConfirmationFailure)(err)));
 };

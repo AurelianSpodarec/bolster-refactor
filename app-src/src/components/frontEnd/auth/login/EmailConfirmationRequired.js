@@ -29,7 +29,7 @@ const EmailConfirmationRequired = () => {
     const handleResendConfirmation = () => {
         if (isEmailSent) return;
         const oneMinuteinMS = 1000 * 60;
-        dispatch(postResendConfirmEmail({ emailToConfirm }));
+        dispatch(postResendConfirmEmail({ email: emailToConfirm }));
         setEmailSent(true);
         timeout = setTimeout(() => {
             setEmailSent(false);
@@ -37,7 +37,10 @@ const EmailConfirmationRequired = () => {
     };
 
     return (
-        <div className="auth-form-wrapper">
+        <div
+            className="auth-form-wrapper"
+            style={{ display: 'flex', width: '100%', textAlign: 'center' }}
+        >
             <FrontEndFormHeading title="Confirm e-mail" classes="smaller" />
             <Field classes="auth-form-field">
                 <p>
