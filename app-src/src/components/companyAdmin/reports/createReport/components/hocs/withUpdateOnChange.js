@@ -175,6 +175,9 @@ export default function (ProtectedComponent) {
                     toDateInclusive,
                     companyUserIDs,
                     floorplanPinScale,
+                    includeTime,
+                    startTime,
+                    endTime,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
@@ -287,6 +290,8 @@ export default function (ProtectedComponent) {
                 floorplanPinScale,
                 hasQuestions: +furtherFiltrationOption > +INDIVIDUAL_PINS,
                 includedDrawingIDs: includedDrawingsIDs,
+                startTime: includeTime ? `00:00:0000:${startTime}` : null,
+                endTime: includeTime ? `00:00:0000:${endTime}` : null,
             };
             return body;
         };

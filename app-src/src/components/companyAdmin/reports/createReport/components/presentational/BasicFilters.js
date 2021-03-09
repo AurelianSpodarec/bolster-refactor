@@ -108,7 +108,7 @@ const BasicFilters = ({
                             <TimePickerContainer
                                 name="startTime"
                                 value={startTime}
-                                handleChange={handleChange}
+                                handleChange={val => handleChange('startTime', `${val}`)}
                             />
                         </div>
                         <p className="size-lg-2">to</p>
@@ -116,7 +116,7 @@ const BasicFilters = ({
                             <TimePickerContainer
                                 name="endTime"
                                 value={endTime}
-                                handleChange={handleChange}
+                                handleChange={val => handleChange('endTime', `${val}`)}
                             />
                         </div>
                     </>

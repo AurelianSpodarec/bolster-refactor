@@ -22,8 +22,7 @@ const TimePickerContainer = ({
         hourAriaLabel="Hour"
         hourPlaceholder="HH"
         minutePlaceholder="MM"
-        format="HH:mm a"
-        maxTime="12:59"
+        format="hh:mm a"
     />
 );
 export default TimePickerContainer;
