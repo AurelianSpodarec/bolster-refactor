@@ -4,6 +4,9 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import OperativesFilterContainer from '../containers/OperativesFilterContainer';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import TimePicker from 'react-time-picker';
+import TimePickerContainer from 'components/shared/generic/form/containers/TimePickerContainer';
 
 const BasicFilters = ({
     dateError,
@@ -19,7 +22,10 @@ const BasicFilters = ({
     selectedStatus,
     fromDateInclusive,
     toDateInclusive,
-    isDrawingPage
+    isDrawingPage,
+    includeTime,
+    startTime,
+    endTime,
 }) => (
     <>
         <div className="size-lg-12">
@@ -61,14 +67,13 @@ const BasicFilters = ({
                     handleChange={handleChange}
                 />
             </Field>
+
             <Field name="Date range" sizeClasses="w-dates size-lg-12">
                 <div className="size-lg-5">
                     <DatePickerContainer
                         name="fromDateInclusive"
                         selected={fromDateInclusive}
-                        onChange={val =>
-                            handleDateChange('fromDateInclusive', val)
-                        }
+                        onChange={val => handleDateChange('fromDateInclusive', val)}
                         placeholderText="From Date"
                         onBlur={() => handleDateBlur(true)}
                     />
@@ -78,9 +83,7 @@ const BasicFilters = ({
                     <DatePickerContainer
                         name="toDateInclusive"
                         selected={toDateInclusive}
-                        onChange={val =>
-                            handleDateChange('toDateInclusive', val)
-                        }
+                        onChange={val => handleDateChange('toDateInclusive', val)}
                         placeholderText="To Date"
                         onBlur={() => handleDateBlur()}
                         minDate={fromDateInclusive}
@@ -90,12 +93,39 @@ const BasicFilters = ({
                     <p className="error red-text text-accent-4">{dateError}</p>
                 </div>
             </Field>
+            <Field name="Time range" sizeClasses="w-dates size-lg-12">
+                <div className="size-lg-12 margin-bottom">
+                    <CheckboxContainer
+                        checked={includeTime}
+                        handleChange={handleChange}
+                        name="includeTime"
+                        text="Include time"
+                    />
+                </div>
+                {includeTime && (
+                    <>
+                        <div className="size-lg-5">
+                            <TimePickerContainer
+                                name="startTime"
+                                value={startTime}
+                                handleChange={handleChange}
+                            />
+                        </div>
+                        <p className="size-lg-2">to</p>
+                        <div className="size-lg-5">
+                            <TimePickerContainer
+                                name="endTime"
+                                value={endTime}
+                                handleChange={handleChange}
+                            />
+                        </div>
+                    </>
+                )}
+            </Field>
 
             {isDrawingPage && <OperativesFilterContainer advanced />}
 
-            {!!fieldError && (
-                <p className="error red-text text-accent-4">{fieldError}</p>
-            )}
+            {!!fieldError && <p className="error red-text text-accent-4">{fieldError}</p>}
         </div>
     </>
 );

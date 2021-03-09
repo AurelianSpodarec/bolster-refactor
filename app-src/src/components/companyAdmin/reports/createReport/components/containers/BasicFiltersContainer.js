@@ -32,6 +32,9 @@ class BasicFiltersContainer extends Component {
                 fromDateInclusive,
                 toDateInclusive,
                 reportHistories,
+                includeTime,
+                startTime,
+                endTime,
             },
             templates,
             services,
@@ -62,6 +65,9 @@ class BasicFiltersContainer extends Component {
                         selectedHistoryNum={historyNumsOptions[reportHistories]}
                         fieldError={fieldError}
                         handleDateBlur={this.handleDateBlur}
+                        includeTime={includeTime}
+                        startTime={startTime}
+                        endTime={endTime}
                     />
                 </BlockContainer>
             </div>

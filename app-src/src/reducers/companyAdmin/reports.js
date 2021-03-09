@@ -85,6 +85,9 @@ function filtersReducer(
         companyUserIDs: [],
         pinIDs: [],
         floorplanPinScale: 0.9,
+        includeTime: false,
+        startTime: null,
+        endTime: null,
     },
     action,
 ) {
@@ -116,6 +119,9 @@ function filtersReducer(
                 companyUserIDs: [],
                 pinIDs: [],
                 floorplanPinScale: 0.5,
+                includeTime: false,
+                startTime: null,
+                endTime: null,
             };
         default:
             return state;
