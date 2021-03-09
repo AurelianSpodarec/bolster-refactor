@@ -1,11 +1,11 @@
 import React from 'react';
+
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Field from 'components/shared/generic/form/presentational/Field';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import OperativesFilterContainer from '../containers/OperativesFilterContainer';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import TimePicker from 'react-time-picker';
 import TimePickerContainer from 'components/shared/generic/form/containers/TimePickerContainer';
 
 const BasicFilters = ({

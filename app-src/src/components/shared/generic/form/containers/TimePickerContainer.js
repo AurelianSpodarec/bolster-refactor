@@ -19,6 +19,11 @@ const TimePickerContainer = ({
         disableClock={disableClock}
         className={`${sizeClasses} timepicker ${extraClasses}`}
         required={required}
+        hourAriaLabel="Hour"
+        hourPlaceholder="HH"
+        minutePlaceholder="MM"
+        format="HH:mm a"
+        maxTime="12:59"
     />
 );
 export default TimePickerContainer;

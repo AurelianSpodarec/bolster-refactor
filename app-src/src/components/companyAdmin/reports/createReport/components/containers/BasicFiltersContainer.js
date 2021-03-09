@@ -44,7 +44,6 @@ class BasicFiltersContainer extends Component {
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
         const historyNumsOptions = convertEnumToDropdownOptions(NUMBER_OF_HISTORIES);
         const templateOptions = this.formatTemplateArrForDropdown(templates);
-
         return (
             <div className={`flex-item size-lg-${isDrawingPage ? 12 : 6} size-md-12`}>
                 <BlockContainer>
