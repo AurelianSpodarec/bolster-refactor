@@ -359,6 +359,7 @@ export const INVOICE_STATUS_TYPES = {
     ALL: 0,
     PAID: 1,
     UNPAID: 2,
+    FREE: 3,
 };
 
 export const COMPANY_TYPES = {

@@ -9,6 +9,7 @@ import { INVOICE_STATUS_TYPES, HAS_PAID_QUERIES } from 'constants/companyAdmin/e
 import fetchInvoicesBySearch from 'actions/superAdmin/invoices/async/fetchInvoicesBySearch';
 import updateInvoiceFilter from 'actions/superAdmin/invoices/sync/updateInvoiceFilter';
 import PageSelector from 'components/shared/pagination/presentational/pageSelector';
+import { useEffect } from 'react';
 
 const SuperAdminInvoicesTableContainer = ({
     error,
@@ -22,6 +23,7 @@ const SuperAdminInvoicesTableContainer = ({
 }) => {
     const PAGE_SIZE = 50;
     const { searchTerm, hasPayed, page } = filters;
+    console.log(count);
     const pageCount = Math.ceil(count / PAGE_SIZE);
 
     return (
@@ -66,9 +68,11 @@ const SuperAdminInvoicesTableContainer = ({
                 case INVOICE_STATUS_TYPES.ALL:
                     return true;
                 case INVOICE_STATUS_TYPES.PAID:
-                    return invoice.isPaid;
+                    return !invoice.isFree && invoice.isPaid;
                 case INVOICE_STATUS_TYPES.UNPAID:
-                    return !invoice.isPaid;
+                    return !invoice.isFree && !invoice.isPaid;
+                case INVOICE_STATUS_TYPES.FREE:
+                    return invoice.isFree;
                 default:
                     return true;
             }
@@ -87,7 +91,6 @@ const SuperAdminInvoicesTableContainer = ({
         updateInvoiceFilter('page', nextPage);
         const hasPaidQuery = HAS_PAID_QUERIES[hasPayed];
         const isFree = hasPayed === '3' ? true : null;
-        console.log({ hasPayed });
         fetchInvoicesBySearch(nextPage, searchTerm, hasPaidQuery, isFree, PAGE_SIZE);
     }
 };
