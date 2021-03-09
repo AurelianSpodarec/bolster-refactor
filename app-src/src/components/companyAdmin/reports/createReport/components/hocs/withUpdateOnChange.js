@@ -290,8 +290,9 @@ export default function (ProtectedComponent) {
                 floorplanPinScale,
                 hasQuestions: +furtherFiltrationOption > +INDIVIDUAL_PINS,
                 includedDrawingIDs: includedDrawingsIDs,
-                startTime: includeTime ? `00:00:0000:${startTime}` : null,
-                endTime: includeTime ? `00:00:0000:${endTime}` : null,
+                includeTime,
+                startTime: includeTime && startTime ? `${startTime}:00` : null,
+                endTime: includeTime && endTime ? `${endTime}:00` : null,
             };
             return body;
         };
