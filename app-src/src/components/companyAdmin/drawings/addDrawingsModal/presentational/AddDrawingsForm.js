@@ -179,9 +179,6 @@ const AddDrawingsForm = ({
                             </div>
                         )}
 
-                        {console.log(drawing.operativePermissionIDs)}
-                        {console.log(operativeOptions)}
-
                         {!!operativeOptions.length && (
                             <div className="size-lg-12 check-col-6">
                                 <Field name="These operatives have access to drawings on this level - attach them to this drawing?">
