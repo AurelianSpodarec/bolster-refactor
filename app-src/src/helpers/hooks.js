@@ -54,6 +54,17 @@ export const useMultipleHierarchies = hierarchyShape => {
         });
     }
 
+    function updateSelectAll(select = true, name, options = []) {
+        const [id, fieldName] = name.split('.*.');
+
+        const selectAll = options.reduce((res, item) => [...res, item.value + ''], []);
+
+        return setState({
+            ...state,
+            [id]: { ...state[id], [fieldName]: select ? selectAll : [] },
+        });
+    }
+
     function getState() {
         return state;
     }
@@ -81,6 +92,7 @@ export const useMultipleHierarchies = hierarchyShape => {
         getPostBody,
         getState,
         setInitialHierarchyManufacturerOptions,
+        updateSelectAll,
     ];
 };
 

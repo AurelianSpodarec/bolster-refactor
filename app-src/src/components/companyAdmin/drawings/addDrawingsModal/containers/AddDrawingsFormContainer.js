@@ -56,6 +56,7 @@ const AddDrawingsFormContainer = ({
     fetchingClients,
     fetchingOperatives,
     fetchAllCredits,
+    companyName,
 }) => {
     const [
         drawings,
@@ -67,6 +68,7 @@ const AddDrawingsFormContainer = ({
         setInitialManufacturerFloorOptions,
         // eslint-disable-next-line no-unused-vars
         _,
+        updateSelectAll,
     ] = useMultipleHierarchies({
         name: '',
         file: '',
@@ -194,10 +196,12 @@ const AddDrawingsFormContainer = ({
         value: id,
         text: `${userFirstName} ${userLastName} (${companyName})`,
     }));
-    const operativeOptions = operatives.map(({ id, userFirstName, userLastName, companyName }) => ({
-        value: id,
-        text: `${userFirstName} ${userLastName} (${companyName})`,
-    }));
+    const operativeOptions = operatives
+        .filter(item => companyName === item.companyName)
+        .map(({ id, userFirstName, userLastName, companyName }) => ({
+            value: id,
+            text: `${userFirstName} ${userLastName} (${companyName})`,
+        }));
 
     return (
         <BlockContainer
@@ -225,6 +229,7 @@ const AddDrawingsFormContainer = ({
                 handleShowOandMModal={handleShowOandMModal}
                 operativeOptions={operativeOptions}
                 clientOptions={clientOptions}
+                updateSelectAll={updateSelectAll}
             />
         </BlockContainer>
     );
@@ -328,10 +333,10 @@ const mapStateToProps = (
         companyAdmin: {
             floorsReducer: { floorError, floors },
             companySettingsReducer: {
-                companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
+                companySettings: { name, isUsingBolsterLabels, useManufacturingByDefault },
             },
             clientsReducer: { clients, isFetching: fetchingClients },
-            operativesReducer: { operatives, isFetching: fetchingOperatives },
+            operativesReducer: { operatives, operativesSpecific, isFetching: fetchingOperatives },
 
             manufacturersReducer: {
                 manufacturers,
@@ -368,8 +373,10 @@ const mapStateToProps = (
     subscriptionServiceIDs,
     clients: Object.values(clients),
     operatives: Object.values(operatives),
+    operativesSpecific: Object.values(operativesSpecific),
     fetchingClients,
     fetchingOperatives,
+    companyName: name,
 });
 
 const mapDispatchToProps = {

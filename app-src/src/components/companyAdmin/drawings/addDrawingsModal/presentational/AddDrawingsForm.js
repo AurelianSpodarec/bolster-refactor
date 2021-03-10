@@ -31,6 +31,7 @@ const AddDrawingsForm = ({
     operativeOptions,
     clientOptions,
     handleShowOandMModal,
+    updateSelectAll,
 }) => {
     const hasEnoughCredits = credits >= drawings.length;
     return (
@@ -162,6 +163,7 @@ const AddDrawingsForm = ({
                                 </div>
                             )}
                         </div>
+
                         {!!clientOptions.length && (
                             <div className="size-lg-12 check-col-6">
                                 <Field name="These clients have access to drawings on this level - invite them to this drawing?">
@@ -176,9 +178,41 @@ const AddDrawingsForm = ({
                                 </Field>
                             </div>
                         )}
+
+                        {console.log(drawing.operativePermissionIDs)}
+                        {console.log(operativeOptions)}
+
                         {!!operativeOptions.length && (
                             <div className="size-lg-12 check-col-6">
                                 <Field name="These operatives have access to drawings on this level - attach them to this drawing?">
+                                    <span className="size-lg-12 select-all-check-all">
+                                        <button
+                                            className="button green"
+                                            type="button"
+                                            style={{ marginRight: '16px' }}
+                                            onClick={() => {
+                                                updateSelectAll(
+                                                    true,
+                                                    `${drawing.id}.*.operativePermissionIDs`,
+                                                    operativeOptions,
+                                                );
+                                            }}
+                                        >
+                                            Select All
+                                        </button>
+                                        <button
+                                            className="button red"
+                                            type="button"
+                                            onClick={() => {
+                                                updateSelectAll(
+                                                    false,
+                                                    `${drawing.id}.*.operativePermissionIDs`,
+                                                );
+                                            }}
+                                        >
+                                            Deselect All
+                                        </button>
+                                    </span>
                                     <CheckboxListContainer
                                         options={operativeOptions}
                                         name={`${drawing.id}.*.operativePermissionIDs`}
@@ -186,10 +220,12 @@ const AddDrawingsForm = ({
                                         handleChange={(name, value) =>
                                             updateDrawing(name, value, drawing.id)
                                         }
+                                        classes="select-all-list-container"
                                     />
                                 </Field>
                             </div>
                         )}
+
                         {showManufacturingOptions ? (
                             <>
                                 <div className="size-lg-12">
