@@ -2,13 +2,8 @@ import React from 'react';
 import Field from 'components/shared/generic/form/presentational/Field';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
-const OperativesFilter = ({
-    operativeOptions,
-    handleChange,
-    selectedOperatives,
-    sizeClasses
-}) => (
-    <div className="generic-form">
+const OperativesFilter = ({ operativeOptions, handleChange, selectedOperatives, sizeClasses }) => (
+    <div className="generic-form size-lg-12">
         <Field name="Operatives" sizeClasses={sizeClasses}>
             <MultiSelect
                 options={operativeOptions}

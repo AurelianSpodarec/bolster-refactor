@@ -175,6 +175,7 @@ export default function (ProtectedComponent) {
                     toDateInclusive,
                     companyUserIDs,
                     floorplanPinScale,
+                    createdByCompanyID,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
@@ -287,6 +288,7 @@ export default function (ProtectedComponent) {
                 floorplanPinScale,
                 hasQuestions: +furtherFiltrationOption > +INDIVIDUAL_PINS,
                 includedDrawingIDs: includedDrawingsIDs,
+                createdByCompanyID,
             };
             return body;
         };

@@ -85,6 +85,7 @@ function filtersReducer(
         companyUserIDs: [],
         pinIDs: [],
         floorplanPinScale: 0.9,
+        createdByCompanyID: null,
     },
     action,
 ) {
@@ -116,6 +117,7 @@ function filtersReducer(
                 companyUserIDs: [],
                 pinIDs: [],
                 floorplanPinScale: 0.5,
+                createdByCompanyID: null,
             };
         default:
             return state;
@@ -204,7 +206,7 @@ function isFetchingReducer(state = false, action) {
 }
 
 function customFiltersReducer(
-    state = { operatives: [], pins: [], questions: [], templates: [], services: [] },
+    state = { companies: [], operatives: [], pins: [], questions: [], templates: [], services: [] },
     action,
 ) {
     switch (action.type) {
@@ -318,10 +320,6 @@ function excludedPinIDsReducer(state = {}, action) {
 function includedDrawingsIDsReducer(state = [], action) {
     switch (action.type) {
         case UPDATE_DRAWING_IDS_INCLUDED:
-            console.warn({ updating: true, ids: action.ids });
-            console.warn({ updating: true, ids: action.ids });
-            console.warn({ updating: true, ids: action.ids });
-            console.warn({ updating: true, ids: action.ids });
             return action.ids;
         case RESET_FILTER_OPTIONS:
             return [];
