@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 
-import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import { convertArrToObj } from 'helpers/generic';
 
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
@@ -9,9 +8,10 @@ import CompaniesFilter from '../presentational/CompaniesFilter';
 const CompaniesFilterContainer = ({
     handleChange,
     postFilters,
-    filters: { hierarchyType, createdByCompanyID, siteID },
+    filters: { createdByCompanyID, siteID },
     customFilters: { companies },
     formatArrForDropdown,
+    isDrawingPage,
 }) => {
     useEffect(() => {
         if (!siteID) {
@@ -27,13 +27,14 @@ const CompaniesFilterContainer = ({
         }
     }, [companies]);
 
-    if (hierarchyType === HIERARCHY_IDS.ALL_SITES) return null;
+    if (!siteID) return null;
 
     return (
         <CompaniesFilter
             handleFormChange={handleFormChange}
             companies={formatArrForDropdown(companies)}
             createdByCompanyID={createdByCompanyID}
+            isDrawingPage={isDrawingPage}
         />
     );
 
