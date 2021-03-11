@@ -55,6 +55,7 @@ import manufacturersOptionValuesReducer from './manufacturersOptionValues';
 import optionValueDocumentsReducer from './optionValueDocuments';
 import userGuideReducer from './userGuide';
 import zonesReducer from './zones';
+import companySelectionReducer from './companySelection';
 
 export default combineReducers({
     activityLogReducer,
@@ -68,6 +69,7 @@ export default combineReducers({
     clientsReducer,
     companyAddressesGeocodeReducer,
     companiesPermissionsReducer,
+    companySelectionReducer,
     companySettingsReducer,
     companyUsersReducer,
     creditsReducer,

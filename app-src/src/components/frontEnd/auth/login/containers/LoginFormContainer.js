@@ -103,21 +103,23 @@ const LoginFormContainer = ({
             }
         }
 
-        let url = '/client/companies';
+        if (isSuperAdmin) {
+            return history.push('/admin');
+        }
+        if (!isClientAccess && !companyID) {
+            return history.push('/company/company-selection');
+        }
 
         if (companyID) {
-            if (!isClientAccess) url = '/company';
-            else {
-                const hasSub = await checkActive(companyID);
-                if (hasSub) {
-                    url = '/company';
-                } else {
-                    url = '/client/companies';
-                }
+            if (!isClientAccess) {
+                return history.push('/company');
+            }
+            const hasSub = await checkActive(companyID);
+            if (hasSub) {
+                return history.push('/company');
             }
         }
-        if (isSuperAdmin) url = '/admin';
-        history.push(url);
+        return history.push('/client/companies');
     }
 };
 

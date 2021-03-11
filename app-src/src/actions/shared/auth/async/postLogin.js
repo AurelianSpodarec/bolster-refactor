@@ -49,6 +49,7 @@ export default (email, password, twoFactorCode = null) => dispatch => {
             if (data.isTwoFactorRequired) {
                 return dispatch(postLoginTwoFactorRequired(email));
             }
+            // todo figure out if company was received in response, this tells us where to go next!
             localStorage.setItem('token', data.token);
             return dispatch(postLoginSuccess(data));
         })
