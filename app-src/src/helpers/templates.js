@@ -90,6 +90,7 @@ function setDynamicFieldsSingle({
     canCompanyEdit,
     maxPhotos,
     optionType,
+    optionDefaultValue,
     defaultValue,
     file,
     ...otherFields
@@ -123,7 +124,7 @@ function setDynamicFieldsSingle({
         case VALS.DROPDOWN_OPTIONS:
         case VALS.MULTI_DROPDOWN_OPTIONS:
         case VALS.MULTI_MULTI_DROPDOWN_OPTIONS:
-            dynamicFields = { optionType };
+            dynamicFields = { optionType, optionDefaultValue };
             break;
         case VALS.STATIC_IMAGE:
             dynamicFields = { file };

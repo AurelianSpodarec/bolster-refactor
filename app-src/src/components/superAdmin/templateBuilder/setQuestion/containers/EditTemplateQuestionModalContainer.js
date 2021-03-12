@@ -21,6 +21,7 @@ const EditTemplateQuestionModalContainerFN = ({
     showPrefillOptions,
     question,
     updateQuestionFields,
+    dropdownOptions,
 }) => {
     useEffect(handleMount, []);
 
@@ -41,6 +42,7 @@ const EditTemplateQuestionModalContainerFN = ({
             handlePrefillStatusValueChange={handlePrefillStatusValueChange}
             showPrefillOptions={showPrefillOptions}
             handlePrereqOptionsChange={handlePrereqOptionsChange}
+            dropdownOptions={dropdownOptions}
         />
     );
 

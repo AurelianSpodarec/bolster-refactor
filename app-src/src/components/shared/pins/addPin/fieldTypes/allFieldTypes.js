@@ -9,7 +9,6 @@ import Radio from '../fieldTypes/Radio';
 import SinglePhoto from '../fieldTypes/SinglePhoto';
 import DocumentUpload from '../fieldTypes/DocumentUpload';
 
-
 import MultiPhoto from '../fieldTypes/MultiPhoto';
 import Signature from '../fieldTypes/Signature';
 import Status from '../fieldTypes/Status';
@@ -17,7 +16,6 @@ import DropdownOptions from '../fieldTypes/DropdownOptions';
 import MultiDropdownOptions from '../fieldTypes/MultiDropdownOptions';
 import MultiMultiDropdownOptions from '../fieldTypes/MultiMultiDropdownOptions';
 import StaticImage from '../fieldTypes/StaticImage';
-
 
 import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
 const {
@@ -37,7 +35,7 @@ const {
     MULTI_MULTI_DROPDOWN,
     MULTI_MULTI_DROPDOWN_OPTIONS,
     STATIC_IMAGE,
-    DOCUMENT_UPLOAD
+    DOCUMENT_UPLOAD,
 } = QUESTION_TYPE_VALUES;
 
 export const fieldTypes = {
@@ -67,8 +65,10 @@ export const getDefaultValue = question => {
         case NUMBER:
         case DROPDOWN:
         case SINGLE_PHOTO:
-        case DROPDOWN_OPTIONS:
             return '';
+        case DROPDOWN_OPTIONS: {
+            return question.optionDefaultValue || '';
+        }
         case RADIO:
             return question.configurationJSON.defaultValue || '';
         case MULTI_PHOTO:
@@ -76,7 +76,7 @@ export const getDefaultValue = question => {
         case MULTI_MULTI_DROPDOWN:
         case MULTI_MULTI_DROPDOWN_OPTIONS:
         case MULTI_DROPDOWN_OPTIONS:
-            return [];
+            return question.optionDefaultValue || [];
         case CHECKBOX:
             return false;
         default:

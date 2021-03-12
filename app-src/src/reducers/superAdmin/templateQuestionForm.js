@@ -37,6 +37,7 @@ const initialQuestionFields = {
     maxPhotos: '',
     canCompanyEdit: false,
     optionType: '',
+    optionDefaultValue: null,
     statusOptions: [],
     isRequiredVal: null,
     prefillStatuses: [],

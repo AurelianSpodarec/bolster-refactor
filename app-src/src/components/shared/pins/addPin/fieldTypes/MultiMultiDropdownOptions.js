@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import BoundlessSelect from 'components/shared/generic/form/presentational/BoundlessSelect';
 import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
 import { getSortedDropdownOptions } from 'helpers/addPin';
 
 const MultiMultiDropdownOptions = ({
     isRequired,
-    question: { id, optionType },
+    question: { id, optionType, optionDefaultValue },
     dropdownOptions,
     answers,
     handleChange,
@@ -16,6 +16,13 @@ const MultiMultiDropdownOptions = ({
 }) => {
     let isManufacturingEnabledForType = false;
     let formattedOpts = [];
+
+    useEffect(() => {
+        if (!answers[id] && !edit && optionDefaultValue) {
+            handleChange(null, [optionDefaultValue]);
+        }
+    }, []);
+
     const filteredOptions = dropdownOptions.filter(option => {
         if (option.type + '' === optionType + '') {
             // while filtering check whether manufacturing enabled for specific type
