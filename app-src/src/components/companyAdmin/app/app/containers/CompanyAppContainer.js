@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { batch, connect } from 'react-redux';
 
 import fetchProfile from 'actions/shared/profile/async/fetchProfile';
 import fetchSingleCompany from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
@@ -41,7 +41,6 @@ class CompanyAppContainer extends Component {
             fetchLatestAppVersion,
         } = this.props;
 
-        fetchHomeData();
         decodeJWT().then(({ payload = {} }) => {
             fetchSingleCompanyUser(payload.companyUserID);
         });
@@ -51,43 +50,35 @@ class CompanyAppContainer extends Component {
             }
         });
 
+        fetchHomeData();
         selectCompanyMenuTab();
-
         fetchLatestAppVersion();
     };
 }
 
 const mapDispatchToProps = dispatch => ({
     fetchHomeData: () => {
-        dispatch(fetchProfile());
-        dispatch(fetchSingleCompany());
-        dispatch(fetchMessagesBasic());
-        dispatch(fetchCompanyReports());
-        dispatch(companyFetchAllServices());
-        dispatch(fetchAllSubscriptions());
-        dispatch(fetchCreditLogs());
-        dispatch(fetchAllCredits());
-        dispatch(fetchIncomingTransferRequests());
-        dispatch(fetchOutgoingTransferRequests());
-        dispatch(fetchPendingInvites());
-        dispatch(fetchOutgoingInvites());
-        dispatch(fetchRecentUpdates());
+        batch(() => {
+            dispatch(fetchProfile());
+            dispatch(fetchSingleCompany());
+            dispatch(fetchMessagesBasic());
+            dispatch(fetchCompanyReports());
+            dispatch(companyFetchAllServices());
+            dispatch(fetchAllSubscriptions());
+            dispatch(fetchCreditLogs());
+            dispatch(fetchAllCredits());
+            dispatch(fetchIncomingTransferRequests());
+            dispatch(fetchOutgoingTransferRequests());
+            dispatch(fetchPendingInvites());
+            dispatch(fetchOutgoingInvites());
+            dispatch(fetchRecentUpdates());
+        });
     },
-    decodeJWT: () => {
-        return dispatch(decodeJWT());
-    },
-    fetchCompanySettings: () => {
-        return dispatch(fetchCompanySettings());
-    },
-    selectCompanyMenuTab: () => {
-        dispatch(selectMenuTab(MENU_TABS.COMPANY_USER));
-    },
-    fetchSingleCompanyUser: companyUserID => {
-        dispatch(fetchSingleCompanyUser(companyUserID));
-    },
-    fetchLatestAppVersion: () => {
-        dispatch(fetchLatestAppVersion());
-    },
+    decodeJWT: () => dispatch(decodeJWT()),
+    fetchCompanySettings: () => dispatch(fetchCompanySettings()),
+    selectCompanyMenuTab: () => dispatch(selectMenuTab(MENU_TABS.COMPANY_USER)),
+    fetchSingleCompanyUser: companyUserID => dispatch(fetchSingleCompanyUser(companyUserID)),
+    fetchLatestAppVersion: () => dispatch(fetchLatestAppVersion()),
 });
 
 const withConnect = connect(null, mapDispatchToProps)(CompanyAppContainer);
