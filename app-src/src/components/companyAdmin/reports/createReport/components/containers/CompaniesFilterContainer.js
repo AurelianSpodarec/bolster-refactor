@@ -4,6 +4,7 @@ import { convertArrToObj } from 'helpers/generic';
 
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import CompaniesFilter from '../presentational/CompaniesFilter';
+import { usePrevious } from 'helpers/hooks';
 
 const CompaniesFilterContainer = ({
     handleChange,
@@ -13,8 +14,10 @@ const CompaniesFilterContainer = ({
     formatArrForDropdown,
     isDrawingPage,
 }) => {
+    const prevProps = usePrevious({ siteID });
+
     useEffect(() => {
-        if (!siteID) {
+        if (siteID && !prevProps.siteID && createdByCompanyID) {
             handleChange('createdByCompanyID', null).then(postFilters);
         }
     }, [siteID]);
@@ -22,12 +25,12 @@ const CompaniesFilterContainer = ({
     useEffect(() => {
         const companiesObj = convertArrToObj(companies);
 
-        if (!companiesObj[createdByCompanyID]) {
+        if (!companiesObj[createdByCompanyID] && createdByCompanyID) {
             handleChange('createdByCompanyID', null).then(postFilters);
         }
     }, [companies]);
 
-    if (!siteID) return null;
+    if (!siteID || companies.length < 2) return null;
 
     return (
         <CompaniesFilter
