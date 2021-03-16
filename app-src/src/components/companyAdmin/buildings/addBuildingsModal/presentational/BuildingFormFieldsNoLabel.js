@@ -62,7 +62,6 @@ const BuildingFormFieldsWithLabel = ({
                                         updateBuilding(name, value, building.id)
                                     }
                                 />
-
                             </Field>
                         </div>
                     </div>
@@ -114,11 +113,11 @@ const BuildingFormFieldsWithLabel = ({
                                         name={`${building.id}.*.setManufacturersForHierarchy`}
                                         text=""
                                         handleChange={(name, value) => {
-                                        updateBuilding(name, value, building.id)
-                                        if (value) {
-                                            handleShowOandMModal('add building');
-                                        }
-                                        }                                        }
+                                            updateBuilding(name, value, building.id);
+                                            if (value) {
+                                                handleShowOandMModal('add building');
+                                            }
+                                        }}
                                         disabled={building.isManufacturingInherited}
                                     />
                                 </Field>

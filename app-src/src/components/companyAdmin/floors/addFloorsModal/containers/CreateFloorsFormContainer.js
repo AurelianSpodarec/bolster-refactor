@@ -152,9 +152,11 @@ const CreateFloorsFormContainer = ({
             if (isDropdownOptionsInherited) {
                 initialDropdownOptions.setDropdownOptionsForHierarchy = true;
                 initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
-                initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
+                const selectedOptions = createPreselectedItemOptionValuesList(
                     building.dropDownOptionIDs,
                 );
+
+                initialDropdownOptions.selectedDropdownOptions = selectedOptions;
                 setShowDropdownOptions(false);
             }
             if (!isDropdownOptionsInherited) {

@@ -149,9 +149,11 @@ const CreateBuildingsFormContainer = ({
             if (isDropdownOptionsInherited) {
                 initialDropdownOptions.setDropdownOptionsForHierarchy = true;
                 initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
-                initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
+                const selectedOptions = createPreselectedItemOptionValuesList(
                     site.dropDownOptionIDs,
                 );
+
+                initialDropdownOptions.selectedDropdownOptions = selectedOptions;
                 setShowDropdownOptions(false);
             }
             if (!isDropdownOptionsInherited) {
