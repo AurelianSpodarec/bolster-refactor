@@ -25,6 +25,7 @@ class DocumentPreviewModal extends Component {
                             width: '100%',
                             height: '500px',
                         }}
+                        title="pdf-preview-iframe"
                     />
                 ) : (
                     <img

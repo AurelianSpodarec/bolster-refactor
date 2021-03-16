@@ -40,7 +40,6 @@ class AddPinHistoryContainer extends Component {
             fetchManufacturersByPinOptionType,
             fetchAllOptionValues,
             fetchSingleDrawing,
-            drawing,
         } = this.props;
 
         fetchSinglePin(pinID).then(

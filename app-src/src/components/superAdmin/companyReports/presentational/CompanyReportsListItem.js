@@ -5,7 +5,11 @@ import { RAW_S3_STORAGE_URL, REPORT_VIEWER_URL } from 'config';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
-import { GENERATION_STATE_TEXT, GENERATION_STATE_VAL } from 'constants/companyAdmin/enums';
+import {
+    COMPANY_REPORTS_OUTPUT_TYPES,
+    GENERATION_STATE_TEXT,
+    GENERATION_STATE_VAL,
+} from 'constants/companyAdmin/enums';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const isBeforeOneHour = date => moment(date).isBefore(moment().subtract(1, 'hours'));
@@ -15,13 +19,26 @@ const CompanyReportsListItem = ({ queueItem, showDeleteModal, retryCompanyReport
     const { state, startedOn, id } = queueItem;
     const canDelete =
         state === FAILED || (state === RUNNING && (!startedOn || isBeforeOneHour(startedOn)));
+    const typeInc = [
+        'isCSVGeneration',
+        'isFloorplanGeneration',
+        'isOEMManualGeneration',
+        'isPDFGeneration',
+    ];
+    const companyReportsTypes = Object.keys(queueItem).reduce((res, item) => {
+        if (typeInc.includes(item)) {
+            res = queueItem[item] ? [...res, COMPANY_REPORTS_OUTPUT_TYPES[item]] : res;
+        }
+        return res;
+    }, []);
+
     return (
         <tr>
             <td>{queueItem.companyName}</td>
             <td>{queueItem.friendlyName}</td>
+            <td>{companyReportsTypes.join(', ')}</td>
             <td>{queueItem.createdByUserName}</td>
             <td>{queueItem.userEmail}</td>
-
             <td>{GENERATION_STATE_TEXT[queueItem.state]}</td>
             <td>
                 <DateTimeContainer date={queueItem.createdOn} />
@@ -29,7 +46,6 @@ const CompanyReportsListItem = ({ queueItem, showDeleteModal, retryCompanyReport
             <td>
                 {queueItem.completedOn ? <DateTimeContainer date={queueItem.completedOn} /> : 'N/A'}
             </td>
-
             <td>
                 <BlockButtonWrapper additionalClasses="stacked">
                     {queueItem.state === COMPLETE ? (

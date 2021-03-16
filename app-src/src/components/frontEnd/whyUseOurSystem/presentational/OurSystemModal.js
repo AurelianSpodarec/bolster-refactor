@@ -7,7 +7,7 @@ const OurSystemModal = ({ item }) => {
     return (
         <FrontEndModalOuterContainer>
             <div className="icon-wrapper">
-                <img src={icon} className="icon" />
+                <img src={icon} className="icon" alt="" />
             </div>
             <h2>{title}</h2>
             <div className="divider"></div>

@@ -117,7 +117,7 @@ const mapStateToProps = ({
         loginReducer: { postSuccess, isPosting },
     },
     frontEnd: {
-        authReducer: { auth: auth },
+        authReducer: { auth },
         error,
         isFetching,
     },

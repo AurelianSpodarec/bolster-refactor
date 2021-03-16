@@ -15,7 +15,7 @@ class PayInvoiceModalContainer extends Component {
     };
 
     render() {
-        const { cards, hideModal, isPosting, error } = this.props;
+        const { cards, hideModal, isPosting } = this.props;
         const { stripeCardID, termsAgreed } = this.state;
         const cardOptions = cards.map(card => ({
             text: `${card.nickname || card.name} - ${card.lastFour}`,

@@ -25,7 +25,10 @@
             4,
             {
                 "ignorePattern": "^import\\s.+\\sfrom\\s.+;$",
-                "ignoreUrls": true
+                "ignoreUrls": true,
+                "ignoreStrings": true,
+                "ignoreTemplateLiterals": true,
+                "ignoreComments": true
             }
         ]
     },

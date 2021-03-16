@@ -1,7 +1,6 @@
 import React from 'react';
 import moment from 'moment';
 
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import {
     DATE_TIME_IDS,
     DATE_TIME_DEFAULTS,

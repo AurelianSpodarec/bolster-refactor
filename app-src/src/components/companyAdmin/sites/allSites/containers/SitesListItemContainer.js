@@ -47,7 +47,7 @@ const SitesListItemContainer = ({
     );
 
     function moveItem(overindex, fromIndex) {
-        if (sortBy && sortBy != DEFAULT_SITES_SORT.CUSTOM) return;
+        if (sortBy && +sortBy !== DEFAULT_SITES_SORT.CUSTOM) return;
         const items = [...sites].sort(hierarchySort);
         const [item] = items.splice(fromIndex, 1);
         items.splice(overindex, 0, item);

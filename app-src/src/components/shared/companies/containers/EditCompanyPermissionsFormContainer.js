@@ -62,7 +62,7 @@ class EditCompanyPermissionsFormContainer extends Component {
 
             if (isEmpty(companiesPermissions)) return;
 
-            companiesPermissions.map(permission => {
+            companiesPermissions.forEach(permission => {
                 serviceIDs.push(permission.serviceID + '');
             });
 

@@ -15,7 +15,8 @@ const CookieConsentContainer = ({ setCookieConsentClass }) => {
     }, []);
 
     const handleAcceptedClick = () => {
-        return setCookieConsent(true), setCookieConsentClass(true);
+        setCookieConsent(true);
+        return setCookieConsentClass(true);
     };
 
     return <CookieConsent consent={cookieConsent} handleAcceptedClick={handleAcceptedClick} />;
