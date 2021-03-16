@@ -30,10 +30,8 @@ const AddDrawingsForm = ({
     showManufacturingOptions,
     operativeOptions,
     clientOptions,
-    operativeOptions,
     showDropdownOptions,
     setShowDropdownOptions,
-    floorName,
     combinedOptions,
     initialDropdownOptions,
     handleShowOandMModal,
@@ -83,40 +81,6 @@ const AddDrawingsForm = ({
                                     </p>
                                 </Field>
                             </div>
-
-                            <div className="size-lg-12">
-                                <div className="size-lg-6 size-md-12">
-                                    <Field name="Send an alert?">
-                                        <CheckboxContainer
-                                            checked={drawing.isAlertShowing}
-                                            name={`${drawing.id}.*.isAlertShowing`}
-                                            text=""
-                                            handleChange={(name, value) =>
-                                                updateDrawing(name, value, drawing.id)
-                                            }
-                                            required
-                                        />
-                                    </Field>
-                                </div>
-                                    <div className="size-lg-12">
-                                        <Field name="Date to send">
-                                            <DatePickerPresentational
-                                                name={`${drawing.id}.*.dateToSend`}
-                                                selected={drawing.dateToSend}
-                                                onChange={value =>
-                                                    updateDrawing(
-                                                        `${drawing.id}.*.dateToSend`,
-                                                        value,
-                                                        drawing.id,
-                                                    )
-                                                }
-                                                placeholderText="Date"
-                                                showTimeSelect
-                                            />
-                                        </Field>
-                                    </div>
-                                </div>
-                            )}
                             <div className="size-lg-12">
                                 <div className="size-lg-6 size-md-12">
                                     <Field name="Set a start date?">
@@ -231,144 +195,206 @@ const AddDrawingsForm = ({
                                         </div>
                                     </div>
                                 )}
+                            </>
+                        ) : null}
+                        {!!clientOptions.length && (
+                            <div className="size-lg-12 check-col-6">
+                                <Field name="These clients have access to drawings on this level - invite them to this drawing?">
+                                    <CheckboxListContainer
+                                        options={clientOptions}
+                                        name={`${drawing.id}.*.clientPermissionIDs`}
+                                        selectedOptions={drawing.clientPermissionIDs}
+                                        handleChange={(name, value) =>
+                                            updateDrawing(name, value, drawing.id)
+                                        }
+                                    />
+                                </Field>
                             </div>
-                            {!!clientOptions.length && (
-                                <div className="size-lg-12 check-col-6">
-                                    <Field name="These clients have access to drawings on this level - invite them to this drawing?">
-                                        <CheckboxListContainer
-                                            options={clientOptions}
-                                            name={`${drawing.id}.*.clientPermissionIDs`}
-                                            selectedOptions={drawing.clientPermissionIDs}
-                                            handleChange={(name, value) =>
-                                                updateDrawing(name, value, drawing.id)
-                                            }
-                                        />
-                                    </Field>
-                                </div>
-                            )}
-                            {!!operativeOptions.length && (
-                                <div className="size-lg-12 check-col-6">
-                                    <Field name="These operatives have access to drawings on this level - attach them to this drawing?">
-                                        <CheckboxListContainer
-                                            options={operativeOptions}
-                                            name={`${drawing.id}.*.operativePermissionIDs`}
-                                            selectedOptions={drawing.operativePermissionIDs}
-                                            handleChange={(name, value) =>
-                                                updateDrawing(name, value, drawing.id)
-                                            }
-                                        />
-                                    </Field>
-                                </div>
-                            )}
-                            {showManufacturingOptions ? (
-                                <>
-                                    <div className="size-lg-12">
-                                        <div className="size-lg-6 size-md-12">
-                                            <Field
-                                                labelClasses="no-capitalise"
-                                                name="Set manufacturer(s) for drawing?"
-                                            >
-                                                <CheckboxContainer
-                                                    checked={drawing.setManufacturersForHierarchy}
-                                                    name={`${drawing.id}.*.setManufacturersForHierarchy`}
-                                                    text=""
+                        )}
+                        {!!operativeOptions.length && (
+                            <div className="size-lg-12 check-col-6">
+                                <Field name="These operatives have access to drawings on this level - attach them to this drawing?">
+                                    <CheckboxListContainer
+                                        options={operativeOptions}
+                                        name={`${drawing.id}.*.operativePermissionIDs`}
+                                        selectedOptions={drawing.operativePermissionIDs}
+                                        handleChange={(name, value) =>
+                                            updateDrawing(name, value, drawing.id)
+                                        }
+                                    />
+                                </Field>
+                            </div>
+                        )}
+                        {showManufacturingOptions ? (
+                            <>
+                                <div className="size-lg-12">
+                                    <div className="size-lg-6 size-md-12">
+                                        <Field
+                                            labelClasses="no-capitalise"
+                                            name="Set manufacturer(s) for drawing?"
+                                        >
+                                            <CheckboxContainer
+                                                checked={drawing.setManufacturersForHierarchy}
+                                                name={`${drawing.id}.*.setManufacturersForHierarchy`}
+                                                text=""
                                                 handleChange={(name, value) => {
                                                     updateDrawing(name, value, drawing.id);
                                                     if (value) {
                                                         handleShowOandMModal();
                                                     }
                                                 }}
-                                                    disabled={drawing.isManufacturingInherited}
-                                                />
-                                            </Field>
-                                        </div>
+                                                disabled={drawing.isManufacturingInherited}
+                                            />
+                                        </Field>
                                     </div>
+                                </div>
 
-                                    {drawing.setManufacturersForHierarchy && (
-                                        <div className="size-lg-12">
-                                            <Field
-                                                labelClasses="no-capitalise"
-                                                name="Manufacturer(s)"
+                                {drawing.setManufacturersForHierarchy && (
+                                    <div className="size-lg-12">
+                                        <Field
+                                            labelClasses="no-capitalise"
+                                            name="Manufacturer(s)"
+                                            required={drawing.setManufacturersForHierarchy}
+                                        >
+                                            <CheckboxListContainer
+                                                name={`${drawing.id}.*.selectedManufacturerOptions`}
+                                                text=""
+                                                handleChange={(name, value) =>
+                                                    updateDrawing(name, value, drawing.id)
+                                                }
+                                                selectedOptions={
+                                                    drawing.selectedManufacturerOptions
+                                                }
+                                                options={initialOptions.manufacturerOptions}
+                                                allOptionsDisabled={
+                                                    drawing.isManufacturingInherited
+                                                }
                                                 required={drawing.setManufacturersForHierarchy}
-                                            >
-                                                <CheckboxListContainer
-                                                    name={`${drawing.id}.*.selectedManufacturerOptions`}
-                                                    text=""
-                                                    handleChange={(name, value) =>
-                                                        updateDrawing(name, value, drawing.id)
-                                                    }
-                                                    selectedOptions={
-                                                        drawing.selectedManufacturerOptions
-                                                    }
-                                                    options={initialOptions.manufacturerOptions}
-                                                    allOptionsDisabled={
-                                                        drawing.isManufacturingInherited
-                                                    }
-                                                    required={drawing.setManufacturersForHierarchy}
-                                                />
-                                            </Field>
-                                        </div>
-                                    )}
+                                            />
+                                        </Field>
+                                    </div>
+                                )}
 
-                                    {drawing.setManufacturersForHierarchy &&
-                                        initialOptions.manufacturerOptions
-                                            .filter(man =>
-                                                drawing.selectedManufacturerOptions.includes(
-                                                    `${man.id}`,
-                                                ),
-                                            )
-                                            .map(man => {
-                                                return (
-                                                    <div className="size-lg-12" key={man.id}>
-                                                        <Field
-                                                            labelClasses="no-capitalise"
-                                                            name={`${man.name} ${
-                                                                DROPDOWN_OPTIONS[man.pinOptionType]
-                                                                    .name
+                                {drawing.setManufacturersForHierarchy &&
+                                    initialOptions.manufacturerOptions
+                                        .filter(man =>
+                                            drawing.selectedManufacturerOptions.includes(
+                                                `${man.id}`,
+                                            ),
+                                        )
+                                        .map(man => {
+                                            return (
+                                                <div className="size-lg-12" key={man.id}>
+                                                    <Field
+                                                        labelClasses="no-capitalise"
+                                                        name={`${man.name} ${
+                                                            DROPDOWN_OPTIONS[man.pinOptionType].name
+                                                        }`}
+                                                        required
+                                                    >
+                                                        <CheckboxListContainer
+                                                            name={`${drawing.id}.*.selectedOptionValues`}
+                                                            text=""
+                                                            handleChange={(name, value) =>
+                                                                updateDrawing(
+                                                                    name,
+                                                                    value,
+                                                                    drawing.id,
+                                                                )
                                                             }
-
-`}
+                                                            selectedOptions={
+                                                                drawing.selectedOptionValues
+                                                            }
+                                                            options={
+                                                                initialOptions.optionValuesOptions[
+                                                                    man.id
+                                                                ] || []
+                                                            }
+                                                            allOptionsDisabled={
+                                                                drawing.isManufacturingInherited
+                                                            }
                                                             required
-                                                        >
-                                                            <CheckboxListContainer
-                                                                name={`${drawing.id}.*.selectedOptionValues`}
-                                                                text=""
-                                                                handleChange={(name, value) =>
-                                                                    updateDrawing(
-                                                                        name,
-                                                                        value,
-                                                                        drawing.id,
-                                                                    )
-                                                                }
-                                                                selectedOptions={
-                                                                    drawing.selectedOptionValues
-                                                                }
-                                                                options={
-                                                                    initialOptions
-                                                                        .optionValuesOptions[
-                                                                        man.id
-                                                                    ] || []
-                                                                }
-                                                                allOptionsDisabled={
-                                                                    drawing.isManufacturingInherited
-                                                                }
-                                                                required
-                                                            />
-                                                        </Field>
-                                                    </div>
-                                                );
-                                            })}
-                                </>
-                            ) : (
+                                                        />
+                                                    </Field>
+                                                </div>
+                                            );
+                                        })}
+                            </>
+                        ) : (
+                            <FieldOutput fieldClass="center-align">
+                                <div className="form-field size-lg-12">
+                                    <p>
+                                        Manufacturers already set at{' '}
+                                        {initialOptions.manufacturingInheritedFrom}.
+                                        <br /> This cannot be overridden at this level, click{' '}
+                                        <span
+                                            onClick={() => {
+                                                setShowManufacturingOptions(true);
+                                            }}
+                                        >
+                                            here
+                                        </span>{' '}
+                                        to see the settings.
+                                    </p>
+                                </div>
+                            </FieldOutput>
+                        )}
+                        {showDropdownOptions ? (
+                            <>
+                                <div className="size-lg-12">
+                                    <div className="size-lg-6 size-md-12">
+                                        <Field
+                                            labelClasses="no-capitalise"
+                                            name="Set item types for drawing?"
+                                        >
+                                            <CheckboxContainer
+                                                checked={drawing.setDropdownOptionsForHierarchy}
+                                                name={`${drawing.id}.*.setDropdownOptionsForHierarchy`}
+                                                text=""
+                                                handleChange={(name, value) =>
+                                                    updateDrawing(name, value, drawing.id)
+                                                }
+                                                disabled={drawing.isDropdownOptionsInherited}
+                                            />
+                                        </Field>
+                                    </div>
+                                </div>
+                                {drawing.setDropdownOptionsForHierarchy && (
+                                    <div className="size-lg-12">
+                                        <Field
+                                            labelClasses="no-capitalise"
+                                            name="Manufacturer(s)"
+                                            required={drawing.setDropdownOptionsForHierarchy}
+                                        >
+                                            <CheckboxListContainer
+                                                name={`${drawing.id}.*.selectedDropdownOptions`}
+                                                text=""
+                                                handleChange={(name, value) =>
+                                                    updateDrawing(name, value, drawing.id)
+                                                }
+                                                selectedOptions={drawing.selectedDropdownOptions}
+                                                options={Object.values(drawing.dropdownOptions)}
+                                                allOptionsDisabled={
+                                                    drawing.isDropdownOptionsInherited
+                                                }
+                                                required={drawing.setDropdownOptionsForHierarchy}
+                                            />
+                                        </Field>
+                                    </div>
+                                )}
+                            </>
+                        ) : (
+                            <>
                                 <FieldOutput fieldClass="center-align">
                                     <div className="form-field size-lg-12">
                                         <p>
-                                            Manufacturers already set at{' '}
-                                            {initialOptions.manufacturingInheritedFrom}.
+                                            Item types already set at{' '}
+                                            {initialDropdownOptions.isDropDownOptionsInheritedFrom}
+                                            .
                                             <br /> This cannot be overridden at this level, click{' '}
                                             <span
                                                 onClick={() => {
-                                                    setShowManufacturingOptions(true);
+                                                    setShowDropdownOptions(true);
                                                 }}
                                             >
                                                 here
@@ -377,95 +403,22 @@ const AddDrawingsForm = ({
                                         </p>
                                     </div>
                                 </FieldOutput>
-                            )}
-                            {showDropdownOptions ? (
-                                <>
-                                    <div className="size-lg-12">
-                                        <div className="size-lg-6 size-md-12">
-                                            <Field
-                                                labelClasses="no-capitalise"
-                                                name="Set item types for drawing?"
-                                            >
-                                                <CheckboxContainer
-                                                    checked={drawing.setDropdownOptionsForHierarchy}
-                                                    name={`${drawing.id}.*.setDropdownOptionsForHierarchy`}
-                                                    text=""
-                                                    handleChange={(name, value) =>
-                                                        updateDrawing(name, value, drawing.id)
-                                                    }
-                                                    disabled={drawing.isDropdownOptionsInherited}
-                                                />
-                                            </Field>
-                                        </div>
-                                    </div>
-                                    {drawing.setDropdownOptionsForHierarchy && (
-                                        <div className="size-lg-12">
-                                            <Field
-                                                labelClasses="no-capitalise"
-                                                name="Manufacturer(s)"
-                                                required={drawing.setDropdownOptionsForHierarchy}
-                                            >
-                                                <CheckboxListContainer
-                                                    name={`${drawing.id}.*.selectedDropdownOptions`}
-                                                    text=""
-                                                    handleChange={(name, value) =>
-                                                        updateDrawing(name, value, drawing.id)
-                                                    }
-                                                    selectedOptions={
-                                                        drawing.selectedDropdownOptions
-                                                    }
-                                                    options={Object.values(drawing.dropdownOptions)}
-                                                    allOptionsDisabled={
-                                                        drawing.isDropdownOptionsInherited
-                                                    }
-                                                    required={
-                                                        drawing.setDropdownOptionsForHierarchy
-                                                    }
-                                                />
-                                            </Field>
-                                        </div>
-                                    )}
-                                </>
-                            ) : (
-                                <>
-                                    <FieldOutput fieldClass="center-align">
-                                        <div className="form-field size-lg-12">
-                                            <p>
-                                                Item types already set at{' '}
-                                                {
-                                                    initialDropdownOptions.isDropDownOptionsInheritedFrom
-                                                }
-                                                .
-                                                <br /> This cannot be overridden at this level,
-                                                click{' '}
-                                                <span
-                                                    onClick={() => {
-                                                        setShowDropdownOptions(true);
-                                                    }}
-                                                >
-                                                    here
-                                                </span>{' '}
-                                                to see the settings.
-                                            </p>
-                                        </div>
-                                    </FieldOutput>
-                                </>
-                            )}
+                            </>
+                        )}
 
-                            {drawings.length > 1 && (
-                                <BlockButtonWrapper>
-                                    <button
-                                        className="button red icon-only"
-                                        type="button"
-                                        onClick={() => removeDrawing(drawing.id)}
-                                    >
-                                        <i className="fa fa-trash" />
-                                    </button>
-                                </BlockButtonWrapper>
-                            )}
-                        </div>
-                    );
-                })}
+                        {drawings.length > 1 && (
+                            <BlockButtonWrapper>
+                                <button
+                                    className="button red icon-only"
+                                    type="button"
+                                    onClick={() => removeDrawing(drawing.id)}
+                                >
+                                    <i className="fa fa-trash" />
+                                </button>
+                            </BlockButtonWrapper>
+                        )}
+                    </div>
+                ))}
             </div>
             <BlockButtonWrapper>
                 <button
