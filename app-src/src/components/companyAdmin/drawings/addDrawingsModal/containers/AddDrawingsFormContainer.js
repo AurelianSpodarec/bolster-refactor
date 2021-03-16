@@ -65,7 +65,6 @@ const AddDrawingsFormContainer = ({
     fetchAllCredits,
     fetchAllDropdownOptions,
     dropdownOptions,
-    building,
 }) => {
     const [
         drawings,
@@ -125,7 +124,8 @@ const AddDrawingsFormContainer = ({
 
     useEffect(() => {
         fetchClientsForFloor(floorID).then(() => fetchOperativesForFloor(floorID));
-        // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before adding a drawing.
+        // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled.
+        // ** Wait for them to resolve before adding a drawing.
         async function getPinOptions() {
             const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
                 return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option];
@@ -183,11 +183,12 @@ const AddDrawingsFormContainer = ({
                 initialOptions.selectedOptionValues = floor.optionValueIDs.map(id => String(id));
 
                 initialOptions.manufacturerOptions = createManufacturerOptionList(manufacturers);
-                initialOptions.selectedManufacturerOptions = createHierarchyPreselectedManufacturersList(
+                const selected = createHierarchyPreselectedManufacturersList(
                     initialOptions.manufacturerOptions,
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
+                initialOptions.selectedManufacturerOptions = selected;
                 initialOptions.manufacturingInheritedFrom = floor.manufacturingInheritedFrom;
                 setShowManufacturingOptions(false);
             } else {
@@ -264,7 +265,6 @@ const AddDrawingsFormContainer = ({
                 handleShowOandMModal={handleShowOandMModal}
                 operativeOptions={operativeOptions}
                 clientOptions={clientOptions}
-                operativeOptions={operativeOptions}
                 showDropdownOptions={showDropdownOptions}
                 setShowDropdownOptions={setShowDropdownOptions}
                 initialDropdownOptions={initialDropdownOptions}
@@ -458,7 +458,6 @@ const mapDispatchToProps = {
     fetchAllOptionValues,
     fetchOperativesForFloor,
     fetchClientsForFloor,
-    fetchOperativesForFloor,
     fetchAllDropdownOptions,
     fetchAllCredits,
     showOAndMTsAndCsModal,

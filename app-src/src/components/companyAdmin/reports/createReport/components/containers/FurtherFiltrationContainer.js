@@ -35,7 +35,6 @@ class FurtherFiltrationContainer extends Component {
             fields,
             filters: { drawingID, reportHistories, fromDateInclusive, toDateInclusive },
             furtherFiltrationOption,
-            isDisabled,
         } = this.props;
         const filtrationOptions = convertEnumToDropdownOptions(FURTHER_FILTRATION);
 
@@ -120,7 +119,6 @@ class FurtherFiltrationContainer extends Component {
             isFetching,
             showModal,
             hideModal,
-            isDisabled,
             postFilters,
         } = this.props;
         // reset filter fields if changing the filter

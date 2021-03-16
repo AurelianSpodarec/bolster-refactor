@@ -1,7 +1,7 @@
 export const createPreselectedItemOptionValuesList = optionValues => {
     let selectedOptionValues = [];
     if (optionValues) {
-        optionValues.map(value => {
+        optionValues.forEach(value => {
             selectedOptionValues.push(value + '');
         });
     }

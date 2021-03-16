@@ -53,7 +53,7 @@ class SubscriptionContainer extends Component {
             });
         }
 
-        if (subscription != prevProps.subscription) {
+        if (subscription !== prevProps.subscription) {
             setTimeout(fetchInvoices, 600);
         }
     };

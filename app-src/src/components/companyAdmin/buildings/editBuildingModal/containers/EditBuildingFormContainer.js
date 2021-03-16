@@ -18,7 +18,6 @@ import {
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
 import editBuilding from 'actions/companyAdmin/buildings/async/editBuilding';
-import fetchSingleSiteDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchSingleSiteDropdownOptions';
 
 import BuildingEditForm from '../presentational/EditBuildingForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';

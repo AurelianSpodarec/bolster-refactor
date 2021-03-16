@@ -52,13 +52,14 @@ const UserGuidesPresentational = ({ userGuideLink, isFetching, error }) => (
                     frameBorder="0"
                     allowFullScreen
                     className="size-lg-12"
+                    title="Bolster-Video"
                 ></iframe>
             </div>
         </BlockContainer>
         {!isFetching && !error && (
             <BlockContainer containerClass="user-guides">
                 <div className="size-lg-6 size-md-12">
-                    <img className="size-lg-12" src={pdfImage} />
+                    <img className="size-lg-12" src={pdfImage} alt="" />
                 </div>
                 <div className="text-section size-lg-6 size-md-12">
                     <BlockHeading

@@ -84,7 +84,7 @@ const EditTrustedByContainer = () => {
     useEffect(() => {
         if (trustedBy) {
             const initialObj = trustedBy.reduce((result, item, index) => {
-                if (!item) return;
+                if (!item) return result;
                 return {
                     ...result,
                     [`trustedBy${index}`]: {
