@@ -51,10 +51,7 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route path={`${base}/tools`} component={withSubscriptionAuth(ToolsRoutes)} />
         <Route path={`${base}/terms`} component={withSubscriptionAuth(TermsRoutes)} />
         <Route path={`${base}/user-guides`} component={withSubscriptionAuth(UserGuidesRoutes)} />
-        <Route
-            path={`${base}/release-notes`}
-            component={withSubscriptionAuth(ReleaseNotesRoutes)}
-        />
+        <Route path={`${base}/release-notes`} component={ReleaseNotesRoutes} />
         <Route
             path={`${base}/approved-companies`}
             component={withSubscriptionAuth(ApprovedCompaniesRoutes)}

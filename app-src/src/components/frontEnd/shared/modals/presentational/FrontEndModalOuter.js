@@ -8,7 +8,9 @@ const FrontEndModalOuter = ({ children, handleClose, extraClasses = '', hideClos
         <div className="bg" onClick={handleClose} />
 
         <div className={`frontend-modal-block ${extraClasses}`}>
-            {!hideCloseButton && <img src={PlusIcon} className="close" onClick={handleClose} />}
+            {!hideCloseButton && (
+                <img src={PlusIcon} className="close" onClick={handleClose} alt="" />
+            )}
             <BlockContainer>{children}</BlockContainer>
         </div>
     </div>

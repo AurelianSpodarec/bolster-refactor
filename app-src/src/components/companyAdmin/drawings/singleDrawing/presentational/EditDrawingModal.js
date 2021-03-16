@@ -43,6 +43,13 @@ const EditDrawingModal = ({
     handleShowManufacturingOptions,
     showManufacturingOptions,
     manufacturingInheritedFrom,
+    showDropdownOptions,
+    setDropdownOptionsForHierarchy,
+    isDropdownOptionsInherited,
+    selectedDropdownOptions,
+    dropdownOptions,
+    isDropDownOptionsInheritedFrom,
+    handleShowDropdownOptions,
     drawingNotStarted,
 }) => {
     return (
@@ -159,7 +166,6 @@ const EditDrawingModal = ({
                         </div>
                     )}
                 </div>
-
                 {showManufacturingOptions ? (
                     <>
                         <div className="size-lg-12">
@@ -234,8 +240,60 @@ const EditDrawingModal = ({
                             </div>
                         </FieldOutput>
                     </>
+                )}{' '}
+                {showDropdownOptions ? (
+                    <>
+                        <div className="size-lg-12">
+                            <div className="size-lg-6 size-md-12">
+                                <Field
+                                    labelClasses="no-capitalise"
+                                    name="Set item types for drawing?"
+                                >
+                                    <CheckboxContainer
+                                        checked={setDropdownOptionsForHierarchy}
+                                        name="setDropdownOptionsForHierarchy"
+                                        text=""
+                                        handleChange={handleChange}
+                                        disabled={isDropdownOptionsInherited}
+                                    />
+                                </Field>
+                            </div>
+                        </div>
+                        {setDropdownOptionsForHierarchy && (
+                            <div className="size-lg-12">
+                                <Field labelClasses="no-capitalise" name="Item type(s)">
+                                    <CheckboxListContainer
+                                        name="selectedDropdownOptions"
+                                        text=""
+                                        handleChange={handleChange}
+                                        selectedOptions={selectedDropdownOptions}
+                                        options={dropdownOptions}
+                                        allOptionsDisabled={isDropdownOptionsInherited}
+                                    />
+                                </Field>
+                            </div>
+                        )}
+                    </>
+                ) : (
+                    <>
+                        <FieldOutput fieldClass="center-align">
+                            <div className="form-field size-lg-12">
+                                <p>
+                                    Item types already set at {isDropDownOptionsInheritedFrom}.
+                                    <br /> This cannot be overridden at this level, click{' '}
+                                    <span
+                                        onClick={() => {
+                                            handleShowDropdownOptions();
+                                        }}
+                                    >
+                                        here
+                                    </span>{' '}
+                                    to see the settings.
+                                </p>
+                            </div>
+                        </FieldOutput>
+                    </>
                 )}
-
                 <BlockButtonWrapper>
                     <button className="button green" type="submit">
                         {filesUploading ? (

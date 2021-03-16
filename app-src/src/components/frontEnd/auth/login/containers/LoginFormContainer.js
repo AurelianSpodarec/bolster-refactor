@@ -128,7 +128,7 @@ const mapStateToProps = ({
         loginReducer: { postSuccess, isPosting, showTwoFactor, emailConfirmationRequired },
     },
     frontEnd: {
-        authReducer: { auth: auth },
+        authReducer: { auth },
         error,
     },
 }) => ({ postSuccess, auth, error, isPosting, showTwoFactor, emailConfirmationRequired });

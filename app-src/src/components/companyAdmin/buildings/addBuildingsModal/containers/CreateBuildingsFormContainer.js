@@ -25,7 +25,14 @@ import {
 } from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isObjEmpty } from 'helpers/generic';
+import {
+    createPreselectedItemOptionValuesList,
+    formatDropdownOptions,
+    getPreselectedItemTypes,
+} from 'helpers/itemTypes';
 import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOAndMTsAndCsModal';
+
+import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
 
 const CreateBuildingsFormContainer = ({
     siteID,
@@ -43,6 +50,8 @@ const CreateBuildingsFormContainer = ({
     site,
     useManufacturingByDefault,
     error,
+    fetchAllDropdownOptions,
+    dropdownOptions,
     showOAndMTsAndCsModal,
 }) => {
     const [
@@ -67,6 +76,10 @@ const CreateBuildingsFormContainer = ({
         selectedManufacturerOptions: [],
         selectedOptionValues: [],
         optionValuesOptions: {},
+        isDropdownOptionsInherited: false,
+        setDropdownOptionsForHierarchy: false,
+        selectedDropdownOptions: [],
+        dropdownOptions: {},
     });
 
     const [initialOptions, setInitialOptions] = useState({
@@ -78,7 +91,15 @@ const CreateBuildingsFormContainer = ({
         optionValuesOptions: {},
     });
 
+    const [initialDropdownOptions, setInititalDropdownOptions] = useState({
+        isDropdownOptionsInherited: false,
+        setDropdownOptionsForHierarchy: null,
+        selectedDropdownOptions: [],
+        dropdownOptions: {},
+    });
+
     const [showManufacturingOptions, setShowManufacturingOptions] = useState(true);
+    const [showDropdownOptions, setShowDropdownOptions] = useState(true);
     const [areOptionsLoaded, setAreOptionsLoaded] = useState(false);
     const prevProps = usePrevious({ isFetching });
 
@@ -99,12 +120,15 @@ const CreateBuildingsFormContainer = ({
                 fetchAllOptionValues();
             });
         }
+        fetchAllDropdownOptions(2);
+
         getPinOptions();
-    }, [fetchManufacturersByPinOptionType, fetchAllOptionValues]);
+    }, [fetchManufacturersByPinOptionType, fetchAllOptionValues, fetchAllDropdownOptions]);
 
     useEffect(() => {
         if (prevProps.isFetching && !isFetching) {
             const isManufacturingInherited = site.isManufacturingEnabled;
+            const isDropdownOptionsInherited = site.isDropDownOptionsEnabled;
 
             const initialOptions = {
                 isManufacturingInherited,
@@ -115,6 +139,28 @@ const CreateBuildingsFormContainer = ({
                 selectedManufacturerOptions: null,
             };
 
+            const initialDropdownOptions = {
+                isDropdownOptionsInherited,
+                setDropdownOptionsForHierarchy: null,
+                selectedDropdownOptions: [],
+                dropdownOptions: {},
+            };
+
+            if (isDropdownOptionsInherited) {
+                initialDropdownOptions.setDropdownOptionsForHierarchy = true;
+                initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
+                initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
+                    site.dropDownOptionIDs,
+                );
+                setShowDropdownOptions(false);
+            }
+            if (!isDropdownOptionsInherited) {
+                initialDropdownOptions.setDropdownOptionsForHierarchy = false;
+                initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
+                initialDropdownOptions.selectedDropdownOptions = getPreselectedItemTypes(
+                    dropdownOptions,
+                );
+            }
             if (isManufacturingInherited) {
                 // prefill options from hierarchy above
 
@@ -150,13 +196,19 @@ const CreateBuildingsFormContainer = ({
             }
 
             setInitialOptions(initialOptions);
-            setInitialManufacturerBuildingOptions(initialOptions);
+            setInititalDropdownOptions(initialDropdownOptions);
+
+            const combinedOptions = { ...initialOptions, ...initialDropdownOptions };
+
+            setInitialManufacturerBuildingOptions(combinedOptions);
             setAreOptionsLoaded(true);
             if (useManufacturingByDefault && !isManufacturingInherited) {
                 handleShowOandMModal();
             }
         }
     }, [isFetching]);
+
+    const combinedOptions = { ...initialOptions, ...initialDropdownOptions };
 
     return (
         <BlockContainer
@@ -181,6 +233,10 @@ const CreateBuildingsFormContainer = ({
                 initialOptions={initialOptions}
                 showManufacturingOptions={showManufacturingOptions}
                 setShowManufacturingOptions={setShowManufacturingOptions}
+                showDropdownOptions={showDropdownOptions}
+                setShowDropdownOptions={setShowDropdownOptions}
+                initialDropdownOptions={initialDropdownOptions}
+                combinedOptions={combinedOptions}
                 handleShowOandMModal={handleShowOandMModal}
             />
         </BlockContainer>
@@ -198,6 +254,8 @@ const CreateBuildingsFormContainer = ({
                 dateToSend,
                 message,
                 setManufacturersForHierarchy,
+                selectedDropdownOptions,
+                setDropdownOptionsForHierarchy,
             } = building;
 
             const optionValueIDs = removeUnusedManufacturerDefaults(building);
@@ -206,6 +264,12 @@ const CreateBuildingsFormContainer = ({
                 ? {}
                 : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
 
+            const dropdownEnabledOptions = initialDropdownOptions.isDropDownOptionsEnabled
+                ? {}
+                : {
+                      isDropDownEnabled: setDropdownOptionsForHierarchy,
+                      dropDownOptionIDs: selectedDropdownOptions,
+                  };
             if (isAlertShowing) {
                 createBuilding({
                     name,
@@ -213,6 +277,7 @@ const CreateBuildingsFormContainer = ({
                     siteID,
                     dateToSend,
                     message,
+                    ...dropdownEnabledOptions,
                     ...manufacturingEnabledOptions,
                 });
             } else {
@@ -220,6 +285,7 @@ const CreateBuildingsFormContainer = ({
                     name,
                     location,
                     siteID,
+                    ...dropdownEnabledOptions,
                     ...manufacturingEnabledOptions,
                 });
             }
@@ -234,6 +300,8 @@ const CreateBuildingsFormContainer = ({
                     dateToSend,
                     message,
                     setManufacturersForHierarchy,
+                    selectedDropdownOptions,
+                    setDropdownOptionsForHierarchy,
                 } = building;
 
                 const optionValueIDs = removeUnusedManufacturerDefaults(building);
@@ -242,6 +310,13 @@ const CreateBuildingsFormContainer = ({
                     ? {}
                     : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
 
+                const dropdownEnabledOptions = initialDropdownOptions.isDropDownOptionsEnabled
+                    ? {}
+                    : {
+                          isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
+                          dropDownOptionIDs: selectedDropdownOptions,
+                      };
+
                 return isAlertShowing
                     ? {
                           name,
@@ -249,12 +324,14 @@ const CreateBuildingsFormContainer = ({
                           siteID,
                           dateToSend,
                           message,
+                          ...dropdownEnabledOptions,
                           ...manufacturingEnabledOptions,
                       }
                     : {
                           name,
                           location,
                           siteID,
+                          ...dropdownEnabledOptions,
                           ...manufacturingEnabledOptions,
                       };
             });
@@ -280,6 +357,8 @@ const mapStateToProps = (
             companySettingsReducer: {
                 companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
             },
+
+            dropdownOptionsReducer: { dropdownOptions, isFetching: isFetchingDropdownOptions },
             manufacturersReducer: {
                 manufacturers,
                 isFetching: isFetchingManufacturers,
@@ -303,9 +382,10 @@ const mapStateToProps = (
     updatedSiteID,
     manufacturers,
     optionValues: manufacturersOptionValues,
-    isFetching: isFetchingManufacturers || isFetchingOptionValues,
+    isFetching: isFetchingManufacturers || isFetchingOptionValues || isFetchingDropdownOptions,
     useManufacturingByDefault,
     subscriptionServiceIDs,
+    dropdownOptions: Object.values(dropdownOptions),
 });
 
 const mapDispatchToProps = {
@@ -315,6 +395,7 @@ const mapDispatchToProps = {
     updateHierarchyAddState,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
+    fetchAllDropdownOptions,
     showOAndMTsAndCsModal,
 };
 

@@ -30,6 +30,13 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import AddDrawingsForm from '../presentational/AddDrawingsForm';
 import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOAndMTsAndCsModal';
 
+import {
+    createPreselectedItemOptionValuesList,
+    formatDropdownOptions,
+    getPreselectedItemTypes,
+} from 'helpers/itemTypes';
+import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
+
 const AddDrawingsFormContainer = ({
     floorID,
     hideModal,
@@ -56,6 +63,8 @@ const AddDrawingsFormContainer = ({
     fetchingClients,
     fetchingOperatives,
     fetchAllCredits,
+    fetchAllDropdownOptions,
+    dropdownOptions,
 }) => {
     const [
         drawings,
@@ -64,9 +73,9 @@ const AddDrawingsFormContainer = ({
         removeDrawing,
         getKeys,
         getPostBody,
-        setInitialManufacturerFloorOptions,
         // eslint-disable-next-line no-unused-vars
         _,
+        setInitialManufacturerFloorOptions,
     ] = useMultipleHierarchies({
         name: '',
         file: '',
@@ -81,6 +90,10 @@ const AddDrawingsFormContainer = ({
         optionValuesOptions: {},
         clientPermissionIDs: [],
         operativePermissionIDs: [],
+        isDropdownOptionsInherited: false,
+        setDropdownOptionsForHierarchy: false,
+        selectedDropdownOptions: [],
+        dropdownOptions: [],
         startDate: '',
         isStartDateShowing: false,
     });
@@ -94,15 +107,25 @@ const AddDrawingsFormContainer = ({
         optionValuesOptions: {},
     });
 
+    const [initialDropdownOptions, setInititalDropdownOptions] = useState({
+        isDropdownOptionsInherited: false,
+        setDropdownOptionsForHierarchy: null,
+        selectedDropdownOptions: [],
+        dropdownOptions: [],
+    });
+
     const [areOptionsLoaded, setAreOptionsLoaded] = useState(false);
 
-    const prevProps = usePrevious({ isFetching });
+    const prevProps = usePrevious({ isFetching, fetchingOperatives, fetchingClients });
 
     const [showManufacturingOptions, setShowManufacturingOptions] = useState(true);
 
+    const [showDropdownOptions, setShowDropdownOptions] = useState(true);
+
     useEffect(() => {
         fetchClientsForFloor(floorID).then(() => fetchOperativesForFloor(floorID));
-        // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before adding a drawing.
+        // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled.
+        // ** Wait for them to resolve before adding a drawing.
         async function getPinOptions() {
             const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
                 return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option];
@@ -111,6 +134,7 @@ const AddDrawingsFormContainer = ({
             const fn = function fetchManufacturers(pinOptionType) {
                 return fetchManufacturersByPinOptionType(pinOptionType);
             };
+            await fetchAllDropdownOptions(2);
 
             const manufacturerActions = pinOptionTypes.map(fn);
             await Promise.all(manufacturerActions).then(() => {
@@ -123,6 +147,7 @@ const AddDrawingsFormContainer = ({
     useEffect(() => {
         if (prevProps.isFetching && !isFetching) {
             const isManufacturingInherited = floor.manufacturingInheritedFrom;
+            const isDropdownOptionsInherited = floor.isDropDownOptionsEnabled;
 
             const initialOptions = {
                 isManufacturingInherited,
@@ -133,6 +158,19 @@ const AddDrawingsFormContainer = ({
                 selectedManufacturerOptions: null,
                 manufacturingInheritedFrom: null,
             };
+            const initialDropOptions = {
+                isDropdownOptionsInherited,
+                isDropDownOptionsInheritedFrom: floor.isDropDownOptionsInheritedFrom,
+                setDropdownOptionsForHierarchy: isDropdownOptionsInherited,
+                dropdownOptions: formatDropdownOptions(dropdownOptions),
+                selectedDropdownOptions: floor.dropDownOptionIDs
+                    ? createPreselectedItemOptionValuesList(floor.dropDownOptionIDs)
+                    : getPreselectedItemTypes(dropdownOptions),
+            };
+
+            if (floor.isDropDownOptionsEnabled) {
+                setShowDropdownOptions(false);
+            }
 
             if (isManufacturingInherited) {
                 // prefill options from hierarchy above
@@ -145,12 +183,12 @@ const AddDrawingsFormContainer = ({
                 initialOptions.selectedOptionValues = floor.optionValueIDs.map(id => String(id));
 
                 initialOptions.manufacturerOptions = createManufacturerOptionList(manufacturers);
-                const selectedOptions = createHierarchyPreselectedManufacturersList(
+                const selected = createHierarchyPreselectedManufacturersList(
                     initialOptions.manufacturerOptions,
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
-                initialOptions.selectedManufacturerOptions = selectedOptions;
+                initialOptions.selectedManufacturerOptions = selected;
                 initialOptions.manufacturingInheritedFrom = floor.manufacturingInheritedFrom;
                 setShowManufacturingOptions(false);
             } else {
@@ -169,27 +207,26 @@ const AddDrawingsFormContainer = ({
                 );
             }
 
+            const clientIDs = clients.map(({ id }) => id + '');
+            Object.values(drawings).forEach(drawing => {
+                updateDrawing(`${drawing.id}.*.clientPermissionIDs`, clientIDs);
+            });
+            const operativeIDs = operatives.map(({ id }) => id + '');
+            Object.values(drawings).forEach(drawing => {
+                updateDrawing(`${drawing.id}.*.operativePermissionIDs`, operativeIDs);
+            });
             setInitialOptions(initialOptions);
-            setInitialManufacturerFloorOptions(initialOptions);
+            setInititalDropdownOptions(initialDropOptions);
+            const combinedOptions = { ...initialOptions, ...initialDropOptions };
+
+            setInitialManufacturerFloorOptions(combinedOptions);
+
             setAreOptionsLoaded(true);
             if (useManufacturingByDefault && !isManufacturingInherited) {
                 handleShowOandMModal();
             }
         }
     }, [isFetching]);
-
-    useEffect(() => {
-        const operativeIDs = operatives.map(({ id }) => id + '');
-        Object.values(drawings).map(drawing => {
-            updateDrawing(`${drawing.id}.*.operativePermissionIDs`, operativeIDs);
-        });
-    }, [fetchingOperatives]);
-    useEffect(() => {
-        const clientIDs = clients.map(({ id }) => id + '');
-        Object.values(drawings).map(drawing => {
-            updateDrawing(`${drawing.id}.*.clientPermissionIDs`, clientIDs);
-        });
-    }, [fetchingClients]);
 
     const clientOptions = clients.map(({ id, userFirstName, userLastName, companyName }) => ({
         value: id,
@@ -199,6 +236,8 @@ const AddDrawingsFormContainer = ({
         value: id,
         text: `${userFirstName} ${userLastName} (${companyName})`,
     }));
+
+    const combinedOptions = { ...initialOptions, ...initialDropdownOptions };
 
     return (
         <BlockContainer
@@ -226,12 +265,18 @@ const AddDrawingsFormContainer = ({
                 handleShowOandMModal={handleShowOandMModal}
                 operativeOptions={operativeOptions}
                 clientOptions={clientOptions}
+                showDropdownOptions={showDropdownOptions}
+                setShowDropdownOptions={setShowDropdownOptions}
+                initialDropdownOptions={initialDropdownOptions}
+                floorName={floor.name}
+                combinedOptions={combinedOptions}
             />
         </BlockContainer>
     );
 
     function handleSubmit() {
         const drawings = getPostBody();
+
         if (!filesUploading) {
             if (drawings.length === 1) {
                 const [drawing] = drawings;
@@ -244,14 +289,24 @@ const AddDrawingsFormContainer = ({
                     clientPermissionIDs,
                     operativePermissionIDs,
                     setManufacturersForHierarchy,
+                    selectedDropdownOptions,
+                    setDropdownOptionsForHierarchy,
                     startDate,
                     isStartDateShowing,
                 } = drawing;
+
                 const optionValueIDs = removeUnusedManufacturerDefaults(drawing);
 
                 const manufacturingEnabledOptions = initialOptions.isManufacturingInherited
                     ? {}
                     : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
+
+                const dropdownEnabledOptions = initialDropdownOptions.isDropdownOptionsInherited
+                    ? {}
+                    : {
+                          isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
+                          dropDownOptionIDs: selectedDropdownOptions,
+                      };
 
                 const postBody = {
                     name,
@@ -261,6 +316,7 @@ const AddDrawingsFormContainer = ({
                     clientPermissionIDs,
                     operativePermissionIDs,
                     ...manufacturingEnabledOptions,
+                    ...dropdownEnabledOptions,
                 };
                 if (isAlertShowing) {
                     postBody.message = message;
@@ -284,6 +340,8 @@ const AddDrawingsFormContainer = ({
                         setManufacturersForHierarchy,
                         clientPermissionIDs,
                         operativePermissionIDs,
+                        selectedDropdownOptions,
+                        setDropdownOptionsForHierarchy,
                     } = drawing;
 
                     const optionValueIDs = removeUnusedManufacturerDefaults(drawing);
@@ -291,6 +349,13 @@ const AddDrawingsFormContainer = ({
                     const manufacturingEnabledOptions = initialOptions.isManufacturingInherited
                         ? {}
                         : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
+
+                    const dropdownEnabledOptions = initialDropdownOptions.isDropdownOptionsInherited
+                        ? {}
+                        : {
+                              isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
+                              dropDownOptionIDs: selectedDropdownOptions,
+                          };
                     const postBody = {
                         name,
                         file,
@@ -299,6 +364,7 @@ const AddDrawingsFormContainer = ({
                         clientPermissionIDs,
                         operativePermissionIDs,
                         ...manufacturingEnabledOptions,
+                        ...dropdownEnabledOptions,
                     };
                     if (isAlertShowing) {
                         postBody.message = message;
@@ -328,12 +394,15 @@ const mapStateToProps = (
     {
         companyAdmin: {
             floorsReducer: { floorError, floors },
+            buildingsReducer: { buildingError, buildings },
+
             companySettingsReducer: {
                 companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
             },
             clientsReducer: { clients, isFetching: fetchingClients },
             operativesReducer: { operatives, isFetching: fetchingOperatives },
 
+            dropdownOptionsReducer: { dropdownOptions, isFetching: isFetchingDropdownOptions },
             manufacturersReducer: {
                 manufacturers,
                 isFetching: isFetchingManufacturers,
@@ -358,19 +427,26 @@ const mapStateToProps = (
 ) => ({
     filesUploading,
     credits: Object.values(credits).reduce((acc, curr) => acc + curr.quantity, 0),
+
     isUsingBolsterLabels,
-    error: floorError || manufacturersError || optionValuesError,
+    error: floorError || manufacturersError || optionValuesError || buildingError,
     floor: floors[floorID],
     manufacturers,
     optionValues: manufacturersOptionValues,
     isFetching:
-        isFetchingManufacturers || isFetchingOptionValues || fetchingOperatives || fetchingClients,
+        isFetchingManufacturers ||
+        isFetchingOptionValues ||
+        fetchingOperatives ||
+        fetchingClients ||
+        isFetchingDropdownOptions,
     useManufacturingByDefault,
     subscriptionServiceIDs,
     clients: Object.values(clients),
     operatives: Object.values(operatives),
     fetchingClients,
     fetchingOperatives,
+    dropdownOptions: Object.values(dropdownOptions),
+    building: Object.values(buildings),
 });
 
 const mapDispatchToProps = {
@@ -382,6 +458,7 @@ const mapDispatchToProps = {
     fetchAllOptionValues,
     fetchOperativesForFloor,
     fetchClientsForFloor,
+    fetchAllDropdownOptions,
     fetchAllCredits,
     showOAndMTsAndCsModal,
 };

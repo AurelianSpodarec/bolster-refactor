@@ -21,6 +21,13 @@ import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturer
 
 import EditSiteForm from '../presentational/EditSiteForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import {
+    createPreselectedItemOptionValuesList,
+    formatDropdownOptions,
+    getPreselectedItemTypes,
+} from 'helpers/itemTypes';
+
+import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
 
 class EditSiteFormContainer extends Component {
     state = {
@@ -38,11 +45,15 @@ class EditSiteFormContainer extends Component {
         selectedOptionValues: [],
         optionValuesOptions: {},
         areOptionsLoaded: false,
+        setDropdownOptions: false,
+        selectedDropdownOptions: [],
+        dropdownOptions: [],
     };
 
     render() {
         const { isUsingBolsterLabels, error } = this.props;
         const { areOptionsLoaded } = this.state;
+
         return (
             <BlockContainer
                 isEmpty={!areOptionsLoaded}
@@ -64,7 +75,12 @@ class EditSiteFormContainer extends Component {
     }
 
     componentDidMount = async () => {
-        const { site, fetchManufacturersByPinOptionType, fetchAllOptionValues } = this.props;
+        const {
+            site,
+            fetchManufacturersByPinOptionType,
+            fetchAllOptionValues,
+            fetchAllDropdownOptions,
+        } = this.props;
 
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before editing a site.
         const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
@@ -76,6 +92,8 @@ class EditSiteFormContainer extends Component {
         };
 
         const actions = pinOptionTypes.map(fn);
+
+        await fetchAllDropdownOptions(2);
 
         await Promise.all(actions).then(() => {
             fetchAllOptionValues();
@@ -105,6 +123,12 @@ class EditSiteFormContainer extends Component {
                 areOptionsLoaded: true,
             };
 
+            const dropdownOptions = {
+                setDropdownOptions: site.isDropDownOptionsEnabled,
+                selectedDropdownOptions: [],
+                dropdownOptions: {},
+            };
+
             initialOptions.optionValuesOptions = createOptionValuesList(
                 optionValues,
                 subscriptionServiceIDs,
@@ -131,9 +155,15 @@ class EditSiteFormContainer extends Component {
                 );
             }
 
-            this.setState(initialOptions);
-        }
+            dropdownOptions.dropdownOptions = formatDropdownOptions(this.props.dropdownOptions);
 
+            dropdownOptions.selectedDropdownOptions = site.dropDownOptionIDs
+                ? createPreselectedItemOptionValuesList(site.dropDownOptionIDs)
+                : getPreselectedItemTypes(this.props.dropdownOptions);
+
+            this.setState(initialOptions);
+            this.setState(dropdownOptions);
+        }
         if (!prevProps.site.id && !!site.id) {
             this._setFormDetails();
         }
@@ -185,11 +215,18 @@ class EditSiteFormContainer extends Component {
             dateToSend,
             isAlertShowing,
             setManufacturersForHierarchy,
+            setDropdownOptions,
+            selectedDropdownOptions,
         } = this.state;
 
         const manufacturingEnabledOptions = {
             isManufacturingEnabled: setManufacturersForHierarchy,
             optionValueIDs: removeUnusedManufacturerDefaults(this.state),
+        };
+
+        const dropdownEnabledOptions = {
+            isDropDownOptionsEnabled: setDropdownOptions,
+            DropDownOptionIDs: selectedDropdownOptions.map(id => +id),
         };
 
         let postBody = {};
@@ -203,6 +240,7 @@ class EditSiteFormContainer extends Component {
                 message: message,
                 dateToSend: moment(dateToSend).format(),
                 ...manufacturingEnabledOptions,
+                ...dropdownEnabledOptions,
             };
         } else {
             postBody = {
@@ -212,6 +250,7 @@ class EditSiteFormContainer extends Component {
                 addressLine2,
                 postcode,
                 ...manufacturingEnabledOptions,
+                ...dropdownEnabledOptions,
             };
         }
         editSite(id, postBody);
@@ -225,6 +264,7 @@ const mapStateToProps = ({
         companySettingsReducer: {
             companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
         },
+        dropdownOptionsReducer: { dropdownOptions, isFetching: isFetchingDropdownOptions },
         manufacturersReducer: {
             manufacturers,
             isFetching: isFetchingManufacturers,
@@ -246,9 +286,10 @@ const mapStateToProps = ({
     updatedSiteID: sitesReducer.updatedSiteID,
     manufacturers,
     optionValues: manufacturersOptionValues,
-    isFetching: isFetchingManufacturers || isFetchingOptionValues,
+    isFetching: isFetchingManufacturers || isFetchingOptionValues || isFetchingDropdownOptions,
     useManufacturingByDefault,
     subscriptionServiceIDs,
+    dropdownOptions: Object.values(dropdownOptions),
 });
 
 const mapDispatchToProps = {
@@ -256,6 +297,7 @@ const mapDispatchToProps = {
     hideModal,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
+    fetchAllDropdownOptions,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditSiteFormContainer);
