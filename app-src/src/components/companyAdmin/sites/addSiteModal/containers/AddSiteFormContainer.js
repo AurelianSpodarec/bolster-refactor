@@ -16,6 +16,8 @@ import {
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isObjEmpty } from 'helpers/generic';
+import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
+import { formatDropdownOptions, getPreselectedItemTypes } from 'helpers/itemTypes';
 import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOAndMTsAndCsModal';
 
 class AddSiteFormContainer extends Component {
@@ -33,6 +35,9 @@ class AddSiteFormContainer extends Component {
         selectedManufacturerOptions: [],
         selectedOptionValues: [],
         optionValuesOptions: {},
+        setDropDownOptions: false,
+        selectedDropDownOptions: [],
+        dropdownOptions: [],
     };
 
     render() {
@@ -64,6 +69,7 @@ class AddSiteFormContainer extends Component {
         const {
             fetchManufacturersByPinOptionType,
             fetchAllOptionValues,
+            fetchAllDropdownOptions,
             useManufacturingByDefault,
             showOAndMTsAndCsModal,
         } = this.props;
@@ -81,13 +87,15 @@ class AddSiteFormContainer extends Component {
 
         const actions = pinOptionTypes.map(fn);
 
+        await fetchAllDropdownOptions(2);
+
         await Promise.all(actions).then(() => {
             fetchAllOptionValues();
         });
     }
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history, updatedSiteID, isFetching } = this.props;
+        const { postSuccess, history, updatedSiteID, isFetching, dropdownOptions } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
             history.push(`/company/sites/${updatedSiteID}`);
@@ -115,11 +123,16 @@ class AddSiteFormContainer extends Component {
                 selectedOptionValues = selectedOptionValues.concat(optionListSelectedIDs);
             });
 
+            const convertedDropdown = Object.values(dropdownOptions);
+            const selectedDropDownOptions = getPreselectedItemTypes(convertedDropdown);
+
             this.setState({
                 manufacturerOptions,
                 selectedManufacturerOptions,
                 optionValuesOptions,
                 selectedOptionValues,
+                dropdownOptions: formatDropdownOptions(convertedDropdown),
+                selectedDropDownOptions,
             });
         }
     };
@@ -147,6 +160,8 @@ class AddSiteFormContainer extends Component {
             dateToSend,
             isAlertShowing,
             setManufacturersForSite,
+            setDropDownOptions,
+            selectedDropDownOptions,
         } = this.state;
 
         const filteredOptionValues = this.removeUnusedManufacturerDefaults();
@@ -163,6 +178,8 @@ class AddSiteFormContainer extends Component {
                 dateToSend: moment(dateToSend).format(),
                 isManufacturingEnabled: setManufacturersForSite,
                 optionValueIDs: filteredOptionValues,
+                isDropDownOptionsEnabled: setDropDownOptions,
+                dropDownOptionIDs: selectedDropDownOptions.map(id => +id),
             };
         } else {
             postBody = {
@@ -173,6 +190,8 @@ class AddSiteFormContainer extends Component {
                 postcode,
                 isManufacturingEnabled: setManufacturersForSite,
                 optionValueIDs: filteredOptionValues,
+                isDropDownOptionsEnabled: setDropDownOptions,
+                dropDownOptionIDs: selectedDropDownOptions.map(id => +id),
             };
         }
 
@@ -251,6 +270,8 @@ const mapStateToProps = ({
         companySettingsReducer: {
             companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
         },
+
+        dropdownOptionsReducer: { dropdownOptions, isFetching: isFetchingDropdownOptions },
         manufacturersReducer: {
             manufacturers,
             isFetching: isFetchingManufacturers,
@@ -272,9 +293,10 @@ const mapStateToProps = ({
     updatedSiteID: sitesReducer.updatedSiteID,
     manufacturers,
     optionValues: manufacturersOptionValues,
-    isFetching: isFetchingManufacturers || isFetchingOptionValues,
+    isFetching: isFetchingManufacturers || isFetchingOptionValues || isFetchingDropdownOptions,
     useManufacturingByDefault,
     subscriptionServiceIDs,
+    dropdownOptions,
 });
 
 const mapDispatchToProps = {
@@ -282,6 +304,7 @@ const mapDispatchToProps = {
     hideModal,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
+    fetchAllDropdownOptions,
     showOAndMTsAndCsModal,
 };
 
