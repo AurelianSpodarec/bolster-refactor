@@ -18,7 +18,7 @@ const DrawingPickerContainer = ({
     updateDrawingIDsIncluded,
     sites,
     buildings,
-    floors
+    floors,
 }) => {
     const [includedDrawings, setIncludeDrawings] = useState([]);
     const [excludedDrawings, setExcludeDrawings] = useState([]);
@@ -118,7 +118,7 @@ const DrawingPickerContainer = ({
 
     function availableDrawings(hierarchyID, hierarchyTypeID) {
         const allDrawings = Object.values(drawings);
-                
+
         const drawingMapFunc = drawing => {
             const site = sites[drawing.siteID] || {};
             const building = buildings[drawing.buildingID] || {};
@@ -128,10 +128,9 @@ const DrawingPickerContainer = ({
                 siteName: site.name,
                 buildingName: building.name,
                 floorName: floor.name,
-                included: false
+                included: false,
             };
         };
-
 
         if (hierarchyTypeID === HIERARCHY_IDS.SITE) {
             return allDrawings
@@ -152,15 +151,41 @@ const DrawingPickerContainer = ({
         return [];
     }
 
-    //get drawing and select the proper hierarchyID to get the correct floor.
-    function handleDrawingClick(e, drawingID) {
+    function handleDrawingClick(e, drawingID, type, index) {
         e.preventDefault();
+
+        let shiftSelectedDrawings = [];
+        const drawingList = type === 'included' ? includedDrawings : excludedDrawings;
 
         const newCheckedDrawings = selectedDrawings.includes(drawingID)
             ? selectedDrawings.filter(selectedDrawing => selectedDrawing !== drawingID)
             : [...selectedDrawings, drawingID];
 
         setSelectedDrawings(newCheckedDrawings);
+
+        if (e.shiftKey && selectedDrawings.length) {
+            let firstSelectedDrawingId = selectedDrawings[0];
+
+            let firstSelectedDrawingIndex;
+            for (let i = 0; i < drawingList.length; i++) {
+                if (drawingList[i].id === firstSelectedDrawingId) {
+                    firstSelectedDrawingIndex = i;
+                }
+            }
+            let shiftSelectedDrawingIndex = index;
+
+            if (firstSelectedDrawingIndex < shiftSelectedDrawingIndex) {
+                for (let i = firstSelectedDrawingIndex; i <= shiftSelectedDrawingIndex; i++) {
+                    shiftSelectedDrawings.push(drawingList[i].id);
+                }
+            } else {
+                for (let i = firstSelectedDrawingIndex; i >= shiftSelectedDrawingIndex; i--) {
+                    shiftSelectedDrawings.push(drawingList[i].id);
+                }
+            }
+
+            setSelectedDrawings(shiftSelectedDrawings);
+        }
     }
 
     function handleAddIncluded(e) {
@@ -173,23 +198,23 @@ const DrawingPickerContainer = ({
                     .filter(drawing => selectedDrawings.includes(drawing.id))
                     .map(drawing => ({
                         ...drawing,
-                        included: true
-                    }))
+                        included: true,
+                    })),
             ]);
 
             updateDrawingIDsIncluded([
                 ...includedDrawings.map(drawing => drawing.id),
                 ...excludedDrawings
                     .filter(drawing => selectedDrawings.includes(drawing.id))
-                    .map(drawing => drawing.id)
+                    .map(drawing => drawing.id),
             ]);
             setExcludeDrawings(
                 excludedDrawings
                     .filter(drawing => !selectedDrawings.includes(drawing.id))
                     .map(drawing => ({
                         ...drawing,
-                        included: false
-                    }))
+                        included: false,
+                    })),
             );
             setSelectedDrawings([]);
         }
@@ -204,21 +229,21 @@ const DrawingPickerContainer = ({
                     .filter(drawing => selectedDrawings.includes(drawing.id))
                     .map(drawing => ({
                         ...drawing,
-                        included: false
-                    }))
+                        included: false,
+                    })),
             ]);
             updateDrawingIDsIncluded([
                 includedDrawings
                     .filter(drawing => !selectedDrawings.includes(drawing.id))
-                    .map(drawing => drawing.id)
+                    .map(drawing => drawing.id),
             ]);
             setIncludeDrawings(
                 includedDrawings
                     .filter(drawing => !selectedDrawings.includes(drawing.id))
                     .map(drawing => ({
                         ...drawing,
-                        included: true
-                    }))
+                        included: true,
+                    })),
             );
 
             setSelectedDrawings([]);
@@ -227,7 +252,7 @@ const DrawingPickerContainer = ({
 };
 
 const mapDispatchToProps = {
-    updateDrawingIDsIncluded
+    updateDrawingIDsIncluded,
 };
 
 const mapStateToProps = ({
@@ -237,9 +262,9 @@ const mapStateToProps = ({
         floorsReducer: { floors },
         drawingsReducer: { drawings },
         reportsReducer: {
-            filters: { siteID, floorID, buildingID, drawingID }
-        }
-    }
+            filters: { siteID, floorID, buildingID, drawingID },
+        },
+    },
 }) => ({
     siteID,
     sites,
@@ -248,14 +273,9 @@ const mapStateToProps = ({
     drawingID,
     drawings,
     buildings,
-    floors
+    floors,
 });
 
 export default withUpdateOnChange(
-    withRouter(
-        connect(
-            mapStateToProps,
-            mapDispatchToProps
-        )(DrawingPickerContainer)
-    )
+    withRouter(connect(mapStateToProps, mapDispatchToProps)(DrawingPickerContainer)),
 );

@@ -1,19 +1,18 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { componentDidMount } from 'helpers/generic';
 import fetchAllCompanies from 'actions/superAdmin/companies/async/fetchAllCompanies';
 import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
 import AllCompanies from '../presentational/AllCompanies';
 
-class AllCompaniesContainer extends Component {
-    render() {
-        return <AllCompanies />;
-    }
-    componentDidMount = () => {
-        this.props.fetchAllCompanies();
-        this.props.fetchAllServices();
-    };
-}
+const AllCompaniesContainer = () => {
+    const dispatch = useDispatch();
+    componentDidMount(() => {
+        dispatch(fetchAllCompanies());
+        dispatch(fetchAllServices());
+    });
 
-const mapDispatchToProps = { fetchAllCompanies, fetchAllServices };
+    return <AllCompanies />;
+};
 
-export default connect(null, mapDispatchToProps)(AllCompaniesContainer);
+export default AllCompaniesContainer;

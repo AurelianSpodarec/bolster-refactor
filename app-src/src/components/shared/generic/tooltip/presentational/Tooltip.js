@@ -9,10 +9,12 @@ const Tooltip = ({
     handleMouseOut,
     containerSide = 'right',
 }) => (
-    <div className={`tooltip-container ${containerSide}`}>
-        <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-            {children}
-        </div>
+    <div
+        className={`tooltip-container ${containerSide}`}
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}
+    >
+        <div>{children}</div>
         {show && (
             <div className={`tooltip ${side}`}>
                 <div className="tooltip-arrow" />

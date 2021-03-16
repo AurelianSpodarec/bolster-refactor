@@ -5,9 +5,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
-const FeatureSingleDetails = ({
-    feature: { title, shortDescription, fullDescription, publishDate },
-}) => (
+const FeatureSingleDetails = ({ feature: { title, fullDescription, publishDate } }) => (
     <>
         <BlockHeading title="New Feature" />
         <div className="field-group size-lg-12">
@@ -28,14 +26,6 @@ const FeatureSingleDetails = ({
                 )}
             </div>
             <div className="field-output">
-                {!!shortDescription && (
-                    <FieldOutput
-                        title="Short Description"
-                        description={shortDescription}
-                        fieldClass="no-h-padding"
-                    />
-                )}
-
                 {!!fullDescription && (
                     <FieldOutput
                         title="Full Description"

@@ -25,6 +25,7 @@ import {
 } from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isObjEmpty } from 'helpers/generic';
+import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOAndMTsAndCsModal';
 
 import {
     createPreselectedItemOptionValuesList,
@@ -51,6 +52,7 @@ const CreateFloorsFormContainer = ({
     error,
     fetchAllDropdownOptions,
     dropdownOptions,
+    showOAndMTsAndCsModal,
 }) => {
     const [
         floors,
@@ -204,6 +206,9 @@ const CreateFloorsFormContainer = ({
             setInitialManufacturerFloorOptions(combinedOptions);
 
             setAreOptionsLoaded(true);
+            if (useManufacturingByDefault && !isManufacturingInherited) {
+                handleShowOandMModal();
+            }
         }
     }, [isFetching]);
 
@@ -236,6 +241,7 @@ const CreateFloorsFormContainer = ({
                 initialDropdownOptions={initialDropdownOptions}
                 buildingName={building.name}
                 combinedOptions={combinedOptions}
+                handleShowOandMModal={handleShowOandMModal}
             />
         </BlockContainer>
     );
@@ -333,6 +339,10 @@ const CreateFloorsFormContainer = ({
         hideModal();
         updateHierarchyAddState(false);
     }
+
+    function handleShowOandMModal() {
+        showOAndMTsAndCsModal('add floor');
+    }
 };
 
 const mapStateToProps = (
@@ -379,6 +389,7 @@ const mapDispatchToProps = {
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
     fetchAllDropdownOptions,
+    showOAndMTsAndCsModal,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateFloorsFormContainer));

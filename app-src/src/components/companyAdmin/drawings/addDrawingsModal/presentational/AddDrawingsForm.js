@@ -28,6 +28,7 @@ const AddDrawingsForm = ({
     initialOptions,
     setShowManufacturingOptions,
     showManufacturingOptions,
+    operativeOptions,
     clientOptions,
     operativeOptions,
     showDropdownOptions,
@@ -35,24 +36,61 @@ const AddDrawingsForm = ({
     floorName,
     combinedOptions,
     initialDropdownOptions,
+    handleShowOandMModal,
 }) => {
     const hasEnoughCredits = credits >= drawings.length;
     return (
         <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
             <div className="size-lg-12">
-                {drawings.map((drawing, i) => {
-                    return (
-                        <div className="size-lg-12" key={drawing.id}>
-                            <div
-                                className={
-                                    isUsingBolsterLabels ? 'size-lg-6 size-md-12' : 'size-lg-12'
-                                }
-                            >
-                                <div className="size-lg-12" key={drawing.id}>
-                                    <Field name="Drawing name" required>
-                                        <TextInputContainer
-                                            name={`${drawing.id}.*.name`}
-                                            value={drawing.name}
+                {drawings.map((drawing, i) => (
+                    <div className="size-lg-12" key={drawing.id}>
+                        <div
+                            className={isUsingBolsterLabels ? 'size-lg-6 size-md-12' : 'size-lg-12'}
+                        >
+                            <div className="size-lg-12" key={drawing.id}>
+                                <Field name="Drawing name" required>
+                                    <TextInputContainer
+                                        name={`${drawing.id}.*.name`}
+                                        value={drawing.name}
+                                        handleChange={(name, value) =>
+                                            updateDrawing(name, value, drawing.id)
+                                        }
+                                        required
+                                    />
+                                </Field>
+                            </div>
+                            <div className="size-lg-12">
+                                <Field name="Upload plan" required>
+                                    <p>Please upload your drawing in .pdf, .jpg or .png format.</p>
+                                    <br />
+                                    <FileUploadContainer
+                                        value={drawing.file}
+                                        required
+                                        name={`${drawing.id}.*.file`}
+                                        acceptedTypes={[
+                                            'application/pdf',
+                                            'image/jpg',
+                                            'image/png',
+                                            'image/jpeg',
+                                        ]}
+                                        handleChange={(name, value) => {
+                                            updateDrawing(name, value, drawing.id);
+                                        }}
+                                    />
+                                    <p className="size-lg-12">
+                                        This can be changed free of charge for 24 hours after
+                                        creation.
+                                    </p>
+                                </Field>
+                            </div>
+
+                            <div className="size-lg-12">
+                                <div className="size-lg-6 size-md-12">
+                                    <Field name="Send an alert?">
+                                        <CheckboxContainer
+                                            checked={drawing.isAlertShowing}
+                                            name={`${drawing.id}.*.isAlertShowing`}
+                                            text=""
                                             handleChange={(name, value) =>
                                                 updateDrawing(name, value, drawing.id)
                                             }
@@ -60,24 +98,91 @@ const AddDrawingsForm = ({
                                         />
                                     </Field>
                                 </div>
-                                <div className="size-lg-12">
-                                    <Field name="Upload plan" required>
-                                        <FileUploadContainer
-                                            value={drawing.file}
-                                            required
-                                            name={`${drawing.id}.*.file`}
-                                            acceptedTypes={['application/pdf', 'image/*']}
-                                            handleChange={(name, value) => {
-                                                updateDrawing(name, value, drawing.id);
-                                            }}
+                                    <div className="size-lg-12">
+                                        <Field name="Date to send">
+                                            <DatePickerPresentational
+                                                name={`${drawing.id}.*.dateToSend`}
+                                                selected={drawing.dateToSend}
+                                                onChange={value =>
+                                                    updateDrawing(
+                                                        `${drawing.id}.*.dateToSend`,
+                                                        value,
+                                                        drawing.id,
+                                                    )
+                                                }
+                                                placeholderText="Date"
+                                                showTimeSelect
+                                            />
+                                        </Field>
+                                    </div>
+                                </div>
+                            )}
+                            <div className="size-lg-12">
+                                <div className="size-lg-6 size-md-12">
+                                    <Field name="Set a start date?">
+                                        <CheckboxContainer
+                                            checked={drawing.isStartDateShowing}
+                                            name={`${drawing.id}.*.isStartDateShowing`}
+                                            text=""
+                                            handleChange={(name, value) =>
+                                                updateDrawing(name, value, drawing.id)
+                                            }
                                         />
-                                        <p className="size-lg-12">
-                                            This can be changed free of charge for 24 hours after
-                                            creation.
-                                        </p>
                                     </Field>
                                 </div>
+                            </div>
 
+                            {drawing.isStartDateShowing && (
+                                <div className="size-lg-12">
+                                    <div className="size-lg-12">
+                                        <Field name="Start Date">
+                                            <DatePickerPresentational
+                                                name={`${drawing.id}.*.startDate`}
+                                                selected={drawing.startDate}
+                                                onChange={value =>
+                                                    updateDrawing(
+                                                        `${drawing.id}.*.startDate`,
+                                                        value,
+                                                        drawing.id,
+                                                    )
+                                                }
+                                                placeholderText="Date"
+                                            />
+                                        </Field>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                        {!!clientOptions.length && (
+                            <div className="size-lg-12 check-col-6">
+                                <Field name="These clients have access to drawings on this level - invite them to this drawing?">
+                                    <CheckboxListContainer
+                                        options={clientOptions}
+                                        name={`${drawing.id}.*.clientPermissionIDs`}
+                                        selectedOptions={drawing.clientPermissionIDs}
+                                        handleChange={(name, value) =>
+                                            updateDrawing(name, value, drawing.id)
+                                        }
+                                    />
+                                </Field>
+                            </div>
+                        )}
+                        {!!operativeOptions.length && (
+                            <div className="size-lg-12 check-col-6">
+                                <Field name="These operatives have access to drawings on this level - attach them to this drawing?">
+                                    <CheckboxListContainer
+                                        options={operativeOptions}
+                                        name={`${drawing.id}.*.operativePermissionIDs`}
+                                        selectedOptions={drawing.operativePermissionIDs}
+                                        handleChange={(name, value) =>
+                                            updateDrawing(name, value, drawing.id)
+                                        }
+                                    />
+                                </Field>
+                            </div>
+                        )}
+                        {showManufacturingOptions ? (
+                            <>
                                 <div className="size-lg-12">
                                     <div className="size-lg-6 size-md-12">
                                         <Field name="Send an alert?">
@@ -167,9 +272,12 @@ const AddDrawingsForm = ({
                                                     checked={drawing.setManufacturersForHierarchy}
                                                     name={`${drawing.id}.*.setManufacturersForHierarchy`}
                                                     text=""
-                                                    handleChange={(name, value) =>
-                                                        updateDrawing(name, value, drawing.id)
+                                                handleChange={(name, value) => {
+                                                    updateDrawing(name, value, drawing.id);
+                                                    if (value) {
+                                                        handleShowOandMModal();
                                                     }
+                                                }}
                                                     disabled={drawing.isManufacturingInherited}
                                                 />
                                             </Field>

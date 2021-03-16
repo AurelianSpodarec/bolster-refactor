@@ -20,61 +20,31 @@ const PinAnswer = ({
     optionValuesLookup,
 }) => {
     const curAnswer = { ...answers.find(item => +item.id === +trimmedAnswer.id) };
-    const isCurAnswerForManufacturing = curAnswer.isManufacturing;
     const notFoundResponse = null;
     let inner;
 
-    if (isCurAnswerForManufacturing && !isObjEmpty(optionValuesLookup) && !!curAnswer.answer) {
-        if (type === TYPES.DROPDOWN_OPTIONS) {
+    if (!isObjEmpty(optionValuesLookup) && !!curAnswer.answer) {
+        if (type === TYPES.DROPDOWN_OPTIONS && typeof curAnswer.answer === 'number') {
             curAnswer.answer = optionValuesLookup[curAnswer.answer].name;
         } else if (
             type === TYPES.MULTI_DROPDOWN_OPTIONS ||
             type === TYPES.MULTI_MULTI_DROPDOWN_OPTIONS
         ) {
-            curAnswer.answer = curAnswer.answer.map(id => {
-                if (!id) {
+            curAnswer.answer = curAnswer.answer.map(ans => {
+                if (!ans) {
                     return null;
-                } else if (optionValuesLookup[id]) {
-                    return optionValuesLookup[id].name;
-                } else {
-                    return id;
                 }
+                // handles manufacturer option
+                if (typeof ans === 'number' && optionValuesLookup[ans]) {
+                    return optionValuesLookup[ans].name;
+                }
+                // handle other
+                return ans;
             });
         }
     }
 
-    if (curAnswer) {
-        const curQuestion = questionsObj[curAnswer.templateQuestionID];
-
-        if (curQuestion && curQuestion.prerequisiteQuestionID) {
-            const prereqAnswer = answers.filter(
-                answer =>
-                    answer.templateQuestionID === curQuestion.prerequisiteQuestionID &&
-                    answer.pinHistoryID === pinHistory.id,
-            );
-
-            if (!isEmpty(prereqAnswer)) {
-                const prereqQuestion = questionsObj[prereqAnswer[0].templateQuestionID];
-
-                if (prereqQuestion.type === TYPES.STATUS) {
-                    if (+curQuestion.prerequisiteQuestionValue !== +pinHistory.status) {
-                        return notFoundResponse;
-                    }
-                } else if (prereqQuestion.type === TYPES.MULTI_DROPDOWN) {
-                    if (!prereqAnswer[0].answer.includes(curQuestion.prerequisiteQuestionValue))
-                        return notFoundResponse;
-                } else if (prereqQuestion.type === TYPES.CHECKBOX) {
-                    // do nothing
-                } else {
-                    if (curQuestion.prerequisiteQuestionValue !== prereqAnswer[0].answer) {
-                        return notFoundResponse;
-                    }
-                }
-            }
-        }
-    }
-
-    if ((!curAnswer || !curAnswer.answer) && type !== TYPES.STATUS) {
+    if ((!curAnswer || isEmpty(curAnswer.answer)) && type !== TYPES.STATUS) {
         return notFoundResponse;
     }
 

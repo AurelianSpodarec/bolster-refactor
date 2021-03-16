@@ -19,7 +19,7 @@ class DropdownContainer extends Component {
             value,
             selectedOption,
             placeholder,
-            withoutPlaceholder
+            withoutPlaceholder,
         } = this.props;
         const { errorsVisible } = this.props;
 
@@ -27,9 +27,7 @@ class DropdownContainer extends Component {
             <Dropdown
                 name={name}
                 options={options}
-                selectedOption={
-                    value ? value : selectedOption ? selectedOption : {}
-                }
+                selectedOption={value ? value : selectedOption ? selectedOption : {}}
                 handleChange={this.handleChange}
                 handleFocus={this.handleFocus}
                 handleBlur={this.handleBlur}
@@ -78,7 +76,7 @@ class DropdownContainer extends Component {
             required,
             validate = () => {},
             addFieldError,
-            removeFieldError
+            removeFieldError,
         } = this.props;
         const validateError = validate(value);
         if (required && !value) {
@@ -93,15 +91,12 @@ class DropdownContainer extends Component {
 
 const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
     error: fieldErrorsReducer.fieldErrors[ownProps.name],
-    errorsVisible: fieldErrorsReducer.errorsVisible
+    errorsVisible: fieldErrorsReducer.errorsVisible,
 });
 
 const mapDispatchToProps = dispatch => ({
     addFieldError: (name, error) => dispatch(addFieldError(name, error)),
-    removeFieldError: name => dispatch(removeFieldError(name))
+    removeFieldError: name => dispatch(removeFieldError(name)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(DropdownContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(DropdownContainer);

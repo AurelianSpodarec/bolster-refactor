@@ -20,6 +20,8 @@ import OutputSettings from '../presentational/OutputSettings';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { POST_REPORT_SUCCESS } from 'constants/actionTypes/reports';
+import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOAndMTsAndCsModal';
+import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 
 class OutputSettingsContainer extends Component {
     render() {
@@ -51,6 +53,7 @@ class OutputSettingsContainer extends Component {
                 handleFilterChange={this.handleFilterChange}
                 handleOptionChange={this.handleOptionChange}
                 handleSubmit={this.handleSubmit}
+                handleShowOandMModal={this.handleShowOandMModal}
             />
         );
     }
@@ -148,7 +151,7 @@ class OutputSettingsContainer extends Component {
     };
 
     _postReport = postBody => {
-        const { postReport, showModal, history, error } = this.props;
+        const { postReport, showModal, history, error, resetFilterOptions } = this.props;
 
         showModal(LOADING_DATA, { message: 'Generating report...' });
         postReport(postBody).then((action = {}) => {
@@ -156,6 +159,8 @@ class OutputSettingsContainer extends Component {
                 showModal(SUCCESS_MODAL, {
                     message: 'Your report is now being generated',
                 });
+
+                resetFilterOptions();
 
                 history.push('/company/tools/company-reports');
                 return;
@@ -197,6 +202,8 @@ class OutputSettingsContainer extends Component {
 
         return availableDrawings[0];
     };
+
+    handleShowOandMModal = () => this.props.showOAndMTsAndCsModal('create report');
 }
 
 const mapStateToProps = ({
@@ -222,8 +229,9 @@ const mapDispatchToProps = {
     showFieldErrors,
     addFieldError,
     removeFieldError,
+    showOAndMTsAndCsModal,
+    resetFilterOptions,
 };
-
 const WithConnect = connect(mapStateToProps, mapDispatchToProps)(OutputSettingsContainer);
 
 const WithUpdateOnChange = withUpdateOnChange(WithConnect);

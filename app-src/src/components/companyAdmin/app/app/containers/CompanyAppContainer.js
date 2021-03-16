@@ -12,6 +12,7 @@ import fetchCreditLogs from 'actions/companyAdmin/creditLogs/async/fetchCreditLo
 import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 import selectMenuTab from 'actions/shared/generic/tabs/sync/selectMenuTab';
 import fetchAllCredits from 'actions/companyAdmin/credits/fetchAllCredits';
+import fetchLatestAppVersion from 'actions/companyAdmin/app/async/fetchLatestAppVersion';
 
 import CompanyApp from '../presentational/CompanyApp';
 
@@ -21,7 +22,10 @@ import fetchOutgoingTransferRequests from 'actions/companyAdmin/transferRequests
 import fetchPendingInvites from 'actions/companyAdmin/pendingInvites/fetchPendingInvites';
 import fetchOutgoingInvites from 'actions/companyAdmin/pendingInvites/fetchOutgoingInvites';
 import fetchSingleCompanyUser from 'actions/companyAdmin/userManagement/async/fetchSingleCompanyUser';
+import withAuth from 'components/shared/auth/auth/hocs/withAuth';
+import { AUTH_TYPES } from 'constants/shared/auth';
 import fetchMessagesBasic from 'actions/companyAdmin/messages/async/fetchMessagesBasic';
+import fetchRecentUpdates from 'actions/companyAdmin/recentUpdates/async/fetchRecentUpdates';
 
 class CompanyAppContainer extends Component {
     render() {
@@ -34,7 +38,8 @@ class CompanyAppContainer extends Component {
             fetchCompanySettings,
             selectCompanyMenuTab,
             decodeJWT,
-            fetchSingleCompanyUser
+            fetchSingleCompanyUser,
+            fetchLatestAppVersion,
         } = this.props;
 
         fetchHomeData();
@@ -48,6 +53,8 @@ class CompanyAppContainer extends Component {
         });
 
         selectCompanyMenuTab();
+
+        fetchLatestAppVersion();
     };
 }
 
@@ -65,6 +72,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchOutgoingTransferRequests());
         dispatch(fetchPendingInvites());
         dispatch(fetchOutgoingInvites());
+        dispatch(fetchRecentUpdates());
     },
     decodeJWT: () => {
         return dispatch(decodeJWT());
@@ -77,7 +85,11 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchSingleCompanyUser: companyUserID => {
         dispatch(fetchSingleCompanyUser(companyUserID));
-    }
+    },
+    fetchLatestAppVersion: () => {
+        dispatch(fetchLatestAppVersion());
+    },
 });
 
-export default connect(null, mapDispatchToProps)(CompanyAppContainer);
+const withConnect = connect(null, mapDispatchToProps)(CompanyAppContainer);
+export default withAuth(withConnect, AUTH_TYPES.COMPANY);

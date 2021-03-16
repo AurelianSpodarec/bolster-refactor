@@ -28,6 +28,7 @@ class CompanyReportsQueueContainer extends Component {
     };
     componentDidMount = () => {
         const { fetchCompanyReports, fetchMessagesBasic } = this.props;
+        fetchCompanyReports();
         this._interval = setInterval(() => {
             fetchCompanyReports();
             fetchMessagesBasic();

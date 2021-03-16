@@ -3,23 +3,27 @@ import { withRouter, Link } from 'react-router-dom';
 
 import Form from 'components/shared/generic/form/containers/Form';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-// import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
 const AttachOperativeForm = ({
     location,
     handleSubmit,
     users,
-    // selectedUser,
     serviceOptions,
     checkedServices,
     companyUserIDs,
     handleChange,
     showMoreServicesMesssage,
     showClientServicesMessage,
+    isTemplateFilteringEnabled,
+    templateIDs,
+    serviceAreas,
+    services,
+    getTemplatesForService,
 }) => (
     <>
         <BlockHeading title="Operative details" />
@@ -35,14 +39,6 @@ const AttachOperativeForm = ({
                         required
                         search
                     />
-                    {/* <DropdownContainer
-                    placeholder="-- select operative --"
-                    name="companyUserID"
-                    options={users}
-                    selectedOption={selectedUser}
-                    handleChange={handleChange}
-                    required
-                /> */}
                 </Field>
 
                 <Field name="Service types" sizeClasses="size-lg-12" required>
@@ -55,6 +51,42 @@ const AttachOperativeForm = ({
                         selectedOptions={checkedServices}
                     />
                 </Field>
+
+                <Field name="Enable Template Filtering" sizeClasses="size-lg-12">
+                    <CheckboxContainer
+                        name="isTemplateFilteringEnabled"
+                        checked={isTemplateFilteringEnabled}
+                        value={isTemplateFilteringEnabled}
+                        handleChange={handleChange}
+                        disabled={checkedServices.length === 0}
+                    />
+                </Field>
+
+                {isTemplateFilteringEnabled && (
+                    <>
+                        {[...serviceAreas].sort().map(service => {
+                            if (checkedServices.includes(service + '')) {
+                                const options = getTemplatesForService(service);
+                                return (
+                                    <Field
+                                        key={service}
+                                        name={services[service].name}
+                                        sizeClasses="size-lg-12"
+                                    >
+                                        <CheckboxListContainer
+                                            required
+                                            name="templateIDs"
+                                            handleChange={handleChange}
+                                            options={options.filter(item => !item.isDeleted)}
+                                            hideDisabled
+                                            selectedOptions={templateIDs}
+                                        />
+                                    </Field>
+                                );
+                            }
+                        })}
+                    </>
+                )}
             </div>
 
             <BlockButtonWrapper>

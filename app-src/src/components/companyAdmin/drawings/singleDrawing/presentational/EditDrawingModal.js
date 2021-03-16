@@ -25,6 +25,7 @@ const EditDrawingModal = ({
     filesUploading,
     handleChange,
     handleDateChange,
+    handleStartDateChange,
     hideModal,
     handleSubmit,
     drawing: { doesRequireCreditToReplaceFloorplan, tilesetS3KeyOrig, latestFloorplanState },
@@ -32,6 +33,7 @@ const EditDrawingModal = ({
     isAlertShowing,
     message,
     dateToSend,
+    startDate,
     isManufacturingInherited,
     setManufacturersForHierarchy,
     manufacturerOptions,
@@ -48,6 +50,7 @@ const EditDrawingModal = ({
     dropdownOptions,
     isDropDownOptionsInheritedFrom,
     handleShowDropdownOptions,
+    drawingNotStarted,
 }) => {
     return (
         <ModalOuterContainer extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}>
@@ -92,13 +95,29 @@ const EditDrawingModal = ({
                         />
                     </Field>
                     <Field name="Change floorplan">
+                        <p>Please upload your drawing in .pdf, .jpg or .png format.</p> <br />
                         <FileUploadContainer
                             name="file"
                             value={file}
                             handleChange={handleChange}
-                            acceptedTypes={['application/pdf', 'image/*']}
+                            acceptedTypes={[
+                                'application/pdf',
+                                'image/jpg',
+                                'image/jpeg',
+                                'image/png',
+                            ]}
                         />
                     </Field>
+                    {drawingNotStarted && (
+                        <Field name="Start Date">
+                            <DatePickerPresentational
+                                name="startDate"
+                                selected={startDate}
+                                onChange={handleStartDateChange}
+                                placeholderText="Date"
+                            />
+                        </Field>
+                    )}
 
                     <div className="size-lg-12">
                         <div className="size-lg-6 size-md-12">

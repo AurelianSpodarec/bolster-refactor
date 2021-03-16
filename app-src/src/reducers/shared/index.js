@@ -17,6 +17,8 @@ import mobileReducer from './mobile';
 import forgotPasswordReducer from './forgotPassword';
 import isIE10Reducer from './isIE10';
 import sortReducer from './sort';
+import legalDocumentsReducer from './legalDocuments';
+import bannerNotificationReducer from './bannerNotifications';
 
 export default combineReducers({
     confirmLeaveReducer,
@@ -35,5 +37,7 @@ export default combineReducers({
     selectedHistoryReducer,
     forgotPasswordReducer,
     isIE10Reducer,
+    legalDocumentsReducer,
     sortReducer,
+    bannerNotificationReducer,
 });

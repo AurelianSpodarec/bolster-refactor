@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import withAuth from 'components/shared/auth/auth/hocs/withAuth';
 import ClientApp from '../presentational/ClientApp';
 import fetchProfile from 'actions/shared/profile/async/fetchProfile';
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
@@ -10,6 +10,7 @@ import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetc
 
 import { MENU_TABS } from 'constants/shared/tabNames';
 import { getSelectedCompanyForClient, componentDidMount } from 'helpers/generic';
+import { AUTH_TYPES } from 'constants/shared/auth';
 
 const ClientAppContainer = ({ fetchHomeData, selectClientMenuTab }) => {
     componentDidMount(() => {
@@ -31,4 +32,5 @@ const mapDispatchToProps = dispatch => ({
     selectClientMenuTab: () => dispatch(selectMenuTab(MENU_TABS.CLIENT)),
 });
 
-export default connect(null, mapDispatchToProps)(ClientAppContainer);
+const withConnect = connect(null, mapDispatchToProps)(ClientAppContainer);
+export default withAuth(withConnect, AUTH_TYPES.CLIENT);

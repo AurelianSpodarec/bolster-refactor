@@ -21,6 +21,7 @@ const BuildingFormFieldsWithLabel = ({
     siteName,
     showDropdownOptions,
     setShowDropdownOptions,
+    handleShowOandMModal,
 }) =>
     buildings.map(building => {
         return (
@@ -61,6 +62,7 @@ const BuildingFormFieldsWithLabel = ({
                                         updateBuilding(name, value, building.id)
                                     }
                                 />
+
                             </Field>
                         </div>
                     </div>
@@ -111,9 +113,12 @@ const BuildingFormFieldsWithLabel = ({
                                         checked={building.setManufacturersForHierarchy}
                                         name={`${building.id}.*.setManufacturersForHierarchy`}
                                         text=""
-                                        handleChange={(name, value) =>
-                                            updateBuilding(name, value, building.id)
+                                        handleChange={(name, value) => {
+                                        updateBuilding(name, value, building.id)
+                                        if (value) {
+                                            handleShowOandMModal('add building');
                                         }
+                                        }                                        }
                                         disabled={building.isManufacturingInherited}
                                     />
                                 </Field>

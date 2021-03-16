@@ -13,8 +13,8 @@ const SuperAdminMenuContainer = ({ history, unreadRequests, logout }) => {
     }
 };
 
-const mapStateToProps = ({ superAdmin: { demoRequestsReducer } }) => ({
-    unreadRequests: Object.values(demoRequestsReducer.demoRequests).reduce(
+const mapStateToProps = ({ superAdmin: { contactSubmissionsReducer } }) => ({
+    unreadRequests: Object.values(contactSubmissionsReducer.contactSubmissions).reduce(
         (result, { contacted }) => result + (!contacted ? 1 : 0),
         0,
     ),

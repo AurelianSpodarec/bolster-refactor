@@ -19,6 +19,7 @@ const CreateBuildingsForm = ({
     showDropdownOptions,
     setShowDropdownOptions,
     combinedOptions,
+    handleShowOandMModal,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -31,6 +32,7 @@ const CreateBuildingsForm = ({
                 siteName={siteName}
                 showDropdownOptions={showDropdownOptions}
                 setShowDropdownOptions={setShowDropdownOptions}
+                handleShowOandMModal={handleShowOandMModal}
             />
         </div>
         <BlockButtonWrapper>

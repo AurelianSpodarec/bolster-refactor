@@ -54,12 +54,13 @@ class EditDrawingModalContainer extends Component {
         setDropdownOptionsForHierarchy: false,
         selectedDropdownOptions: [],
         dropdownOptions: [],
+        startDate: null,
     };
 
     render() {
         const { drawing, filesUploading, hideModal, error } = this.props;
         const { areOptionsLoaded } = this.state;
-
+        const drawingNotStarted = moment(Date.now()).isBefore(drawing.startDate);
         return (
             <BlockContainer
                 isEmpty={!areOptionsLoaded}
@@ -72,11 +73,13 @@ class EditDrawingModalContainer extends Component {
                     drawing={drawing}
                     handleChange={this.handleChange}
                     handleDateChange={this.handleDateChange}
+                    handleStartDateChange={this.handleStartDateChange}
                     hideModal={hideModal}
                     handleSubmit={this.handleSubmit}
                     filesUploading={filesUploading}
                     handleShowManufacturingOptions={this.handleShowManufacturingOptions}
                     handleShowDropdownOptions={this.handleShowDropdownOptions}
+                    drawingNotStarted={drawingNotStarted}
                 />
             </BlockContainer>
         );
@@ -108,6 +111,7 @@ class EditDrawingModalContainer extends Component {
 
         this.setState({
             name: drawing.name,
+            startDate: new Date(drawing.startDate),
         });
     };
 
@@ -210,6 +214,11 @@ class EditDrawingModalContainer extends Component {
             dateToSend: date,
         });
     };
+    handleStartDateChange = date => {
+        this.setState({
+            startDate: date,
+        });
+    };
     handleShowManufacturingOptions = () => {
         this.setState({ showManufacturingOptions: true });
     };
@@ -232,6 +241,7 @@ class EditDrawingModalContainer extends Component {
             isDropdownOptionsInherited,
             setDropdownOptionsForHierarchy,
             selectedDropdownOptions,
+            startDate,
         } = this.state;
 
         const {
@@ -273,6 +283,7 @@ class EditDrawingModalContainer extends Component {
             postBody = {
                 name,
                 file,
+                startDate: moment(startDate).format(),
                 ...manufacturingEnabledOptions,
                 ...dropdownEnabledOptions,
             };

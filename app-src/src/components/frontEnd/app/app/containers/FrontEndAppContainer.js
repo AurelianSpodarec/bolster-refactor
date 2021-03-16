@@ -1,27 +1,19 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
 import FrontEndApp from '../presentational/FrontEndApp';
 
-class FrontEndAppContainer extends Component {
-    render() {
-        return <FrontEndApp />;
-    }
+const FrontEndAppContainer = () => {
+    const dispatch = useDispatch();
+    const location = useLocation();
 
-    componentDidMount() {
-        const { decodeJWT } = this.props;
-        decodeJWT();
-    }
-}
-
-const mapDispatchToProps = dispatch => ({
-    decodeJWT: () => {
+    useEffect(() => {
         dispatch(decodeJWT());
-    }
-});
+    }, []);
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(FrontEndAppContainer);
+    return <FrontEndApp isHome={location.pathname === '/'} />;
+};
+
+export default FrontEndAppContainer;

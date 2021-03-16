@@ -25,8 +25,6 @@ class BasicFiltersContainer extends Component {
             isDrawingPage,
             fieldErrors,
             fieldError,
-            formatArrForDropdown,
-            services,
             filters: {
                 templateID,
                 serviceID,
@@ -36,9 +34,10 @@ class BasicFiltersContainer extends Component {
                 reportHistories,
             },
             templates,
+            services,
         } = this.props;
 
-        const serviceOptions = formatArrForDropdown(services, true);
+        const serviceOptions = this.formatServicesArrForDropdown(services);
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
         const historyNumsOptions = convertEnumToDropdownOptions(NUMBER_OF_HISTORIES);
         const templateOptions = this.formatTemplateArrForDropdown(templates);
@@ -75,30 +74,36 @@ class BasicFiltersContainer extends Component {
             location: { state: locationState },
             postFilters,
         } = this.props;
-
+        let shouldPostFilters = false;
         if (locationState && locationState.selectedService) {
             handleChange('serviceID', locationState.selectedService);
+            shouldPostFilters = true;
         }
 
         if (locationState && locationState.selectedStatus) {
             handleChange('status', locationState.selectedStatus);
+            shouldPostFilters = true;
         }
 
         if (locationState && locationState.selectedStartDate) {
             this.handleDateChange(
                 'fromDateInclusive',
-                moment(locationState.selectedStartDate).toDate()
+                moment(locationState.selectedStartDate).toDate(),
             );
+            shouldPostFilters = true;
         }
 
         if (locationState && locationState.selectedEndDate) {
             this.handleDateChange(
                 'toDateInclusive',
-                moment(locationState.selectedEndDate).toDate()
+                moment(locationState.selectedEndDate).toDate(),
             );
+            shouldPostFilters = true;
         }
 
-        postFilters();
+        if (shouldPostFilters) {
+            postFilters();
+        }
     };
 
     handleDateBlur = isStart => {
@@ -131,8 +136,15 @@ class BasicFiltersContainer extends Component {
 
             const diff = moment(toDate).diff(fromDateInclusive, 'days');
 
-            if (diff >= 7 && hierarchyType === HIERARCHY_IDS.ALL_SITES) {
-                return addFieldError('fromDateInclusive', 'You must select a date range of 7 days or less.');
+            if (
+                diff >= 7 &&
+                hierarchyType === HIERARCHY_IDS.ALL_SITES &&
+                !window.location.href.includes('/drawings')
+            ) {
+                return addFieldError(
+                    'fromDateInclusive',
+                    'You must select a date range of 7 days or less.',
+                );
             }
 
             return removeFieldError('fromDateInclusive');
@@ -163,19 +175,30 @@ class BasicFiltersContainer extends Component {
 
         return convertArrToObj(options, 'value');
     };
+
+    formatServicesArrForDropdown = arr => {
+        const options = arr.map(({ id, name }) => ({
+            value: id,
+            label: `${name}`,
+            text: `${name}`,
+        }));
+
+        return convertArrToObj(options, 'value');
+    };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
         reportsReducer: {
             fields,
-            customFilters: { pins = [], templates = [] },
+            customFilters: { pins = [], templates = [], services = [] },
             filters: { pinIDs = [] },
         },
     },
 }) => ({
     shouldConfirm: !isObjEmpty(fields) || pins.length !== pinIDs.length,
     templates,
+    services,
 });
 
 const mapDispatchToProps = {
@@ -184,5 +207,5 @@ const mapDispatchToProps = {
 };
 
 export default withRouter(
-    withUpdateOnChange(connect(mapStateToProps, mapDispatchToProps)(BasicFiltersContainer))
+    withUpdateOnChange(connect(mapStateToProps, mapDispatchToProps)(BasicFiltersContainer)),
 );

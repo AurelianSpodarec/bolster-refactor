@@ -17,6 +17,7 @@ const TemplateBuilderHeader = ({
     canSortSections,
     isSortingSections,
     toggleIsSortingSections,
+    showUpdateReportLayoutModal,
 }) => (
     <PageHeading title={`Template builder : ${name} ${serviceName ? `(${serviceName})` : ''}`}>
         <div className="button-holder">
@@ -24,8 +25,12 @@ const TemplateBuilderHeader = ({
             <button className="button yellow" onClick={showTemplateForm}>
                 <i className="far fa-pencil" /> {name.length ? 'Edit' : 'Add'} template
             </button>
+
             {isExisting && (
                 <>
+                    <button className="button yellow" onClick={showUpdateReportLayoutModal}>
+                        <i className="far fa-pencil" /> Update Report Layout (all versions)
+                    </button>
                     {!error && (
                         <button
                             onClick={() => showDeleteTemplateForm(templateUUID)}

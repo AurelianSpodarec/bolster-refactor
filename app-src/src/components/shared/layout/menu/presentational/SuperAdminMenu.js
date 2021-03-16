@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import MenuItemContainer from '../containers/MenuItemContainer';
 import AdminPinOptionsMenuItems from './AdminPinOptionsMenuItems';
 
-// import DropdownMenuItemContainer from '../containers/DropdownMenuItemContainer';
-
 const SuperAdminMenu = ({ logout, unreadRequests }) => (
     <>
         <div className="menu">
@@ -39,20 +37,20 @@ const SuperAdminMenu = ({ logout, unreadRequests }) => (
             <MenuItemContainer link="/admin/expiry-tool">
                 <i className="fa fa-clock icon" /> <span className="menu-text">Expiry Tool</span>
             </MenuItemContainer>
+            <MenuItemContainer link="/admin/recently-extended">
+                <i className="fa fa-history icon" />{' '}
+                <span className="menu-text">Recently Extended Drawings</span>
+            </MenuItemContainer>
             <MenuItemContainer link="/admin/services">
                 <i className="fa fa-folder-open icon" /> <span className="menu-text">Services</span>
             </MenuItemContainer>
 
             <AdminPinOptionsMenuItems />
-            <MenuItemContainer link="/admin/enquiries">
-                <i className="far fa-phone icon" />{' '}
-                <span className="menu-text">User Enquiries</span>
-            </MenuItemContainer>
-            <MenuItemContainer link="/admin/demo-requests">
+            <MenuItemContainer link="/admin/contact-submissions">
                 {!!unreadRequests && <span className="number">{unreadRequests}</span>}
-                <i className="far fa-video icon" />{' '}
+                <i className="far fa-phone icon" />{' '}
                 <span className={`menu-text ${unreadRequests ? 'large' : ''}`}>
-                    User Demo Requests
+                    Contact Submissions
                 </span>
             </MenuItemContainer>
             <MenuItemContainer link="/admin/sos-management">
@@ -70,6 +68,22 @@ const SuperAdminMenu = ({ logout, unreadRequests }) => (
             <MenuItemContainer link="/admin/new-features">
                 <i className="fas fa-file-medical icon" />
                 <span className="menu-text">New Features</span>
+            </MenuItemContainer>
+            <MenuItemContainer link="/admin/text-settings">
+                <i className="far fa-cogs fa-fw icon" />
+                <span className="menu-text">Frontend Text Settings</span>
+            </MenuItemContainer>
+            <MenuItemContainer link="/admin/trusted-by-settings">
+                <i className="far fa-book fa-fw icon" />
+                <span className="menu-text">Frontend Trusted By Settings</span>
+            </MenuItemContainer>
+            <MenuItemContainer link="/admin/legal-documents">
+                <i className="far fa-file fa-fw icon" />
+                <span className="menu-text">Legal Documents</span>
+            </MenuItemContainer>
+            <MenuItemContainer link="/admin/banners">
+                <i className="fas fa-pennant icon" />
+                <span className="menu-text">Banner Notifications</span>
             </MenuItemContainer>
             <Link className="item" to="#" link="/admin/users" onClick={logout}>
                 <i className="icon fas fa-sign-out" />

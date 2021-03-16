@@ -23,6 +23,7 @@ import companyReportsReducer from './clientCompanyReports';
 import reportsReducer from './clientReports';
 import messagesReducer from './clientMessages';
 import generatePinReportReducer from './clientGeneratePinReport';
+import manufacturersOptionValuesReducer from './clientManufacturersOptionValues';
 
 export default combineReducers({
     buildingsReducer,
@@ -35,6 +36,7 @@ export default combineReducers({
     floorsReducer,
     generatePinReportReducer,
     latestPinFeedReducer,
+    manufacturersOptionValuesReducer,
     messagesReducer,
     pinHistoriesReducer,
     pinAnswersReducer,
@@ -47,5 +49,5 @@ export default combineReducers({
     templatesReducer,
     templateVersionsReducer,
     templateSectionsReducer,
-    templateQuestionsReducer
+    templateQuestionsReducer,
 });

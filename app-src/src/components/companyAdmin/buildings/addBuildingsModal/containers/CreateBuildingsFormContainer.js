@@ -30,6 +30,7 @@ import {
     formatDropdownOptions,
     getPreselectedItemTypes,
 } from 'helpers/itemTypes';
+import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOAndMTsAndCsModal';
 
 import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
 
@@ -51,6 +52,7 @@ const CreateBuildingsFormContainer = ({
     error,
     fetchAllDropdownOptions,
     dropdownOptions,
+    showOAndMTsAndCsModal,
 }) => {
     const [
         buildings,
@@ -97,11 +99,8 @@ const CreateBuildingsFormContainer = ({
     });
 
     const [showManufacturingOptions, setShowManufacturingOptions] = useState(true);
-
     const [showDropdownOptions, setShowDropdownOptions] = useState(true);
-
     const [areOptionsLoaded, setAreOptionsLoaded] = useState(false);
-
     const prevProps = usePrevious({ isFetching });
 
     useEffect(() => {
@@ -202,6 +201,9 @@ const CreateBuildingsFormContainer = ({
 
             setInitialManufacturerBuildingOptions(combinedOptions);
             setAreOptionsLoaded(true);
+            if (useManufacturingByDefault && !isManufacturingInherited) {
+                handleShowOandMModal();
+            }
         }
     }, [isFetching]);
 
@@ -234,6 +236,7 @@ const CreateBuildingsFormContainer = ({
                 setShowDropdownOptions={setShowDropdownOptions}
                 initialDropdownOptions={initialDropdownOptions}
                 combinedOptions={combinedOptions}
+                handleShowOandMModal={handleShowOandMModal}
             />
         </BlockContainer>
     );
@@ -341,6 +344,9 @@ const CreateBuildingsFormContainer = ({
         hideModal();
         updateHierarchyAddState(false);
     }
+    function handleShowOandMModal() {
+        showOAndMTsAndCsModal('add building');
+    }
 };
 
 const mapStateToProps = (
@@ -389,6 +395,7 @@ const mapDispatchToProps = {
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
     fetchAllDropdownOptions,
+    showOAndMTsAndCsModal,
 };
 
 export default withRouter(

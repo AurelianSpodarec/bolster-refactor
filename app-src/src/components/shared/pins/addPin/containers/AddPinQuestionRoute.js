@@ -26,6 +26,9 @@ const {
     MULTI_DROPDOWN_OPTIONS,
     MULTI_MULTI_DROPDOWN_OPTIONS,
     STATIC_IMAGE,
+    RADIO,
+    DROPDOWN,
+    MULTI_DROPDOWN,
 } = QUESTION_TYPE_VALUES;
 
 const dropdownOptionTypes = [
@@ -120,73 +123,99 @@ class AddPinQuestionRoute extends Component {
         return false;
     };
 
+    // not just an if check, amends the pre req answer also?
     checkIfShouldShowByPreReq = () => {
-        const { question, status, questions, answers } = this.props;
-        const { id: currentQuestionID, prerequisiteQuestionID } = question;
+        const { question, status, questions, answers, dropdownOptions } = this.props;
+        const { prerequisiteQuestionIDs } = question;
+        const prereqIDArr = (prerequisiteQuestionIDs || '').split(',');
+        const preReqQuestions = Object.values(questions).filter(ques =>
+            prereqIDArr.includes(`${ques.id}`),
+        );
 
-        const preReqQuestion = questions[prerequisiteQuestionID];
-        let preReqAnswer = answers[prerequisiteQuestionID];
-        const curQuestion = questions[currentQuestionID];
-
-        if (!preReqQuestion) {
+        if (!question.prerequisiteQuestionValue) {
             return true;
         }
-
-        if (`${preReqQuestion.type}` === STATUS) {
-            return `${question.prerequisiteQuestionValue}` === `${status}`;
+        if (!preReqQuestions.length) {
+            return true;
         }
+        for (let i = 0; i < preReqQuestions.length; i++) {
+            const preReqQuestion = preReqQuestions[i];
+            const preReqType = `${preReqQuestion.type}`;
+            const prereqVals = question.prerequisiteQuestionValue.toLowerCase().split(',');
+            let preReqAnswer = answers[preReqQuestion.id];
 
-        if (`${preReqQuestion.type}` === QUESTION_TYPE_VALUES.CHECKBOX) {
-            //Convert true to 'true'
-            preReqAnswer = `${preReqAnswer}`;
-        }
-
-        if (
-            `${preReqQuestion.type}` === QUESTION_TYPE_VALUES.DROPDOWN ||
-            `${preReqQuestion.type}` === QUESTION_TYPE_VALUES.RADIO
-        ) {
-            //For a drop down we have to convert the GUID to the question option.
-            const selectedOption = preReqQuestion.options.find(
-                option => option.id === preReqAnswer,
-            );
-            // specifying not undefined in case pre-req answers are falsy ie. 0, ''
-            if (selectedOption !== undefined) {
-                preReqAnswer = selectedOption.text;
-            } else {
-                return false;
-            }
-        }
-
-        if (`${preReqQuestion.type}` === QUESTION_TYPE_VALUES.MULTI_DROPDOWN) {
-            if (!preReqAnswer) {
-                return false;
-            }
-
-            const retArray = [];
-
-            preReqAnswer.forEach(curAnswer => {
-                const selectedOption = preReqQuestion.options.find(
-                    option => option.id === curAnswer,
-                );
-
-                if (selectedOption !== undefined) {
-                    retArray.push(selectedOption.text);
-                }
-            });
-
-            preReqAnswer = retArray;
-        }
-
-        if (Array.isArray(preReqAnswer)) {
-            const lowerCaseAnswers = preReqAnswer.map(answer => `${answer}`.toLowerCase());
-            if (
-                lowerCaseAnswers.includes(`${curQuestion.prerequisiteQuestionValue}`.toLowerCase())
-            ) {
+            if (preReqType === STATUS && prereqVals.includes(`${status}`)) {
                 return true;
             }
-        } else {
-            if (curQuestion.prerequisiteQuestionValue === preReqAnswer) {
-                //Exactly matches value
+
+            if (!preReqAnswer) {
+                continue;
+            }
+
+            if ([DROPDOWN, RADIO].includes(preReqType)) {
+                //For a drop down we have to convert the GUID to the question option.
+                const selectedOption = preReqQuestion.options.find(
+                    option => option.id === preReqAnswer,
+                );
+                // specifying not undefined in case pre-req answers are falsy ie. 0, ''
+                if (selectedOption !== undefined) {
+                    preReqAnswer = selectedOption.text;
+                } else {
+                    continue;
+                }
+            }
+
+            if (preReqType === MULTI_DROPDOWN) {
+                if (!preReqAnswer) {
+                    continue;
+                }
+
+                const retArray = [];
+
+                preReqAnswer.forEach(curAnswer => {
+                    const selectedOption = preReqQuestion.options.find(
+                        option => option.id === curAnswer,
+                    );
+
+                    if (selectedOption !== undefined) {
+                        retArray.push(selectedOption.text);
+                    }
+                });
+
+                preReqAnswer = retArray;
+            }
+
+            if (preReqType === DROPDOWN_OPTIONS) {
+                //For a drop down we have to convert the GUID to the question option.
+                const selectedOption = dropdownOptions.find(option => option.name === preReqAnswer);
+                // specifying not undefined in case pre-req answers are falsy ie. 0, ''
+                if (selectedOption !== undefined) {
+                    preReqAnswer = selectedOption.name;
+                } else {
+                    continue;
+                }
+            }
+
+            if ([MULTI_DROPDOWN_OPTIONS, MULTI_MULTI_DROPDOWN_OPTIONS].includes(preReqType)) {
+                //For a drop down we have to convert the GUID to the question option.
+                const selectedOptions = dropdownOptions
+                    .filter(option => preReqAnswer.includes(option.name))
+                    .map(opt => opt.name);
+
+                // specifying not undefined in case pre-req answers are falsy ie. 0, ''
+                if (selectedOptions.length > 0) {
+                    preReqAnswer = selectedOptions;
+                } else {
+                    continue;
+                }
+            }
+
+            if (Array.isArray(preReqAnswer)) {
+                if (preReqAnswer.some(answer => prereqVals.includes(`${answer}`.toLowerCase()))) {
+                    return true;
+                }
+            }
+            if (prereqVals.includes(`${preReqAnswer}`.toLowerCase())) {
                 return true;
             }
         }
@@ -288,32 +317,6 @@ class AddPinQuestionRoute extends Component {
                 updateAddPinAnswer(templateQuestionID, answer);
 
                 // preventing stealth prefill manufacturer with non manufacturing answers & vice versa
-                if (
-                    drawing.isManufacturingEnabled &&
-                    DROPDOWN_OPTION_MANUFACTURER_ENABLED[question.optionType]
-                ) {
-                    if (Array.isArray(answer)) {
-                        updateAddPinAnswer(
-                            templateQuestionID,
-                            answer.filter(ans => typeof ans === 'number'),
-                        );
-                    } else {
-                        if (typeof answer !== 'number') {
-                            resetPinAnswer(templateQuestionID, getDefaultValue(question));
-                        }
-                    }
-                } else {
-                    if (Array.isArray(answer)) {
-                        updateAddPinAnswer(
-                            templateQuestionID,
-                            answer.filter(ans => typeof ans === 'string'),
-                        );
-                    } else {
-                        if (typeof answer === 'number') {
-                            // resetPinAnswer(templateQuestionID, getDefaultValue(question));
-                        }
-                    }
-                }
 
                 if (
                     question.type + '' === MULTI_DROPDOWN_OPTIONS ||
@@ -439,7 +442,6 @@ class AddPinQuestionRoute extends Component {
         const { type, optionType } = question;
 
         const relevantOptions = dropdownOptionsByType[optionType];
-
         if (`${type}` === DROPDOWN_OPTIONS) {
             // handle edge case where answer is an array, set asfirst element in array
             if (Array.isArray(answer)) [answer] = answer;
@@ -503,7 +505,7 @@ const mapStateToProps = (
                 manufacturersOptionValues,
                 isFetching: isFetchingOptionValues,
             },
-            addPinDropdownOptions: { dropdownOptions, areManufacturerOptionsIncluded },
+            addPinDropdownOptions: { dropdownOptions = [], areManufacturerOptionsIncluded },
             addPinFormReducer: { answers, status },
             templateQuestionsReducer: { questions },
             pinAnswersReducer: { answers: oldAnswers },

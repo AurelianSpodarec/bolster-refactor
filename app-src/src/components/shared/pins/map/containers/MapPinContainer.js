@@ -110,8 +110,6 @@ const mapStateToProps = (
             companyUsersReducer: { users },
             pinsReducer: { isFetching },
             servicesReducer: { services },
-            pinHistoriesReducer: { histories },
-            pinAnswersReducer: { answers },
         },
         companyAdmin,
         client,

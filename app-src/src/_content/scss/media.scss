@@ -1,0 +1,61 @@
+@mixin devices($size) {
+    @if $size == mdDesktop {
+        @media only screen and (max-width: 1679px) {
+            @content;
+        }
+    }
+
+    @else if $size == smDesktop {
+        @media only screen and (max-width: 1380px) {
+            @content;
+        }
+    }
+
+    @else if $size == xsDesktop {
+        @media only screen and (max-width: 1279px) {
+            @content;
+        }
+    }
+
+    @else if $size == lsTablet {
+        @media only screen and (max-width: 1100px) {
+            @content;
+        }
+    }
+
+    @else if $size == ptTablet {
+        @media only screen and (max-width: 1023px) {
+            @content;
+        }
+    }
+
+    @else if $size == lgMobile {
+        @media only screen and (max-width: 767px) {
+            @content;
+        }
+    }
+
+    @else if $size == mdMobile {
+        @media only screen and (max-width: 411px) {
+            @content;
+        }
+    }
+
+    @else if $size == smMobile {
+        @media only screen and (max-width: 374px) {
+            @content;
+        }
+    }
+
+    @else if $size == xsMobile {
+        @media only screen and (max-width: 359px) {
+            @content;
+        }
+    }
+
+    @else {
+        @media only screen and (max-width: $size) {
+            @content;
+        }
+    }
+}

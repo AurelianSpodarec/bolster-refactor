@@ -38,8 +38,9 @@ const CompanyReportsListItem = ({
             target="_blank"
             rel="noopener noreferrer"
             href={`${RAW_S3_STORAGE_URL}/${queueItem.s3Key}`}
+            style={{ marginBottom: '1em' }}
         >
-            <i className="fa fa-download" /> Download File
+            <i className="fa fa-download" /> Download File{' '}
         </a>
     );
     return (

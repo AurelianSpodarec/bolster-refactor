@@ -8,7 +8,7 @@ import SearchContainer from '../containers/SearchContainer';
 import HeaderProfileContainer from '../containers/HeaderProfileContainer';
 import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
 import { PARENTAL_TYPES } from 'constants/companyAdmin/enums';
-import RecentUpdatesContainer from '../containers/RecentUpdatesContainer';
+// import RecentUpdatesContainer from '../containers/RecentUpdatesContainer';
 
 const Header = ({
     company,
@@ -71,7 +71,7 @@ const Header = ({
                 <HeaderProfileContainer />
 
                 {/*** recent updates ***/}
-                <RecentUpdatesContainer />
+                {/* <RecentUpdatesContainer /> */}
             </div>
             <div className="clear" />
         </div>

@@ -12,7 +12,7 @@ const CompaniesTableContainer = ({ isFetching, fetchingError, companies, filters
                 'Company',
                 'Telephone',
                 'Address',
-                'Terms Accepted On',
+                'Next expiry date',
                 'Type',
                 'Credits',
                 'Shows on client list?',
@@ -28,7 +28,7 @@ const CompaniesTableContainer = ({ isFetching, fetchingError, companies, filters
         const name = filters.name.toLowerCase();
         const { companyType, serviceIDs } = filters;
         const shouldFilterServiceIDs = !!serviceIDs.length;
-        return companies.filter(company => {
+        const filteredCompanies = companies.filter(company => {
             // filter by name
             const nameMatches =
                 company.name.toLowerCase().includes(name) || company.code.includes(+name);
@@ -43,6 +43,15 @@ const CompaniesTableContainer = ({ isFetching, fetchingError, companies, filters
             if (!serviceMatches) return false;
             return true;
         });
+
+        if (companyType === 1) {
+            filteredCompanies.sort(
+                (a, b) =>
+                    new Date(a.nextSubscriptionExpiryDate) - new Date(b.nextSubscriptionExpiryDate),
+            );
+        }
+
+        return filteredCompanies;
     }
 };
 
