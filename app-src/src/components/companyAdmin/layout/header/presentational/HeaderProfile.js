@@ -88,6 +88,11 @@ const HeaderProfile = ({
                 <i className="icon fas fa-chevron-right right" />
             </Link>
 
+            <Link to="/company/company-selection" className="item">
+                <i className="icon far fa-exchange fa-fw" />
+                <span className="item-text">Select Company</span>
+                <i className="icon fas fa-chevron-right right" />
+            </Link>
             <Link onClick={logout} to="#" className="item">
                 <i className="icon far fa-sign-out fa-fw" />
                 <span className="item-text">Logout</span>

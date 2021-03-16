@@ -57,9 +57,9 @@ const CompanySelection = () => {
             >
                 <div className="flex-row size-lg-12">
                     {companies.map(company => (
-                        <Block containerClass="flex-row-item size-lg-6" key={company.id}>
+                        <Block containerClass="flex-row-item size-lg-6" key={company.companyID}>
                             <BlockHeading classes="heading heading-2 underline-full half-margin">
-                                {company.name}
+                                {company.companyName}
                             </BlockHeading>
                             <div className="size-lg-6">
                                 <BlockHeading classes="heading heading-3 half-margin">
@@ -71,17 +71,13 @@ const CompanySelection = () => {
                                     {company.town} <br />
                                     {company.postcode} <br />
                                 </p>
-                                <BlockHeading classes="heading heading-3 half-margin">
-                                    Telephone
-                                </BlockHeading>
-                                <p className="size-lg-12">{company.telephone}</p>
                             </div>
 
-                            {!!company.logoFile && (
+                            {!!company.companyLogoFile && (
                                 <div className="size-lg-6 company-logo">
                                     <img
-                                        alt={`logo of ${company.name}`}
-                                        src={`${FILE_STORAGE_URL}/${company.logoFile}`}
+                                        alt={`logo of ${company.companyName}`}
+                                        src={`${FILE_STORAGE_URL}/${company.companyLogoFile}`}
                                     />
                                 </div>
                             )}
@@ -89,7 +85,7 @@ const CompanySelection = () => {
                             <div className="button-block-container size-lg-12">
                                 <button
                                     className="button green"
-                                    onClick={() => handleSelectCompany(company.id)}
+                                    onClick={() => handleSelectCompany(company.companyID)}
                                 >
                                     Select company
                                 </button>
