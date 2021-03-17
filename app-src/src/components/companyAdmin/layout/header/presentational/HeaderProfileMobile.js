@@ -27,7 +27,6 @@ const HeaderProfileMobile = ({
             ) : (
                 <img src={NoProfilePic} alt="generic profile" />
             )}
-
             <i className="arrow fas fa-chevron-right" />
         </div>
 

@@ -1,48 +1,24 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PinSection from '../presentational/PinSection';
 import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
+import { componentDidMount } from 'helpers/generic';
 
-class PinSectionsContainer extends Component {
-    render() {
-        const { relevantSections, pinHistory } = this.props;
+const PinSectionsContainer = ({ pinHistory, drawingID }) => {
+    const dispatch = useDispatch();
+    const sections = useSelector(({ companyAdmin: { templateSectionsReducer: { sections } } }) =>
+        Object.values(sections),
+    );
 
-        return (
-            <PinSection sections={relevantSections} pinHistory={pinHistory} />
-        );
-    }
+    const relevantSections = sections
+        .filter(({ templateVersionID }) => templateVersionID === pinHistory.templateVersionID)
+        .sort((a, b) => a.sort - b.sort);
 
-    componentDidMount = () => {
-        const { fetchDrawingDropdownOptions, drawingID } = this.props;
+    componentDidMount(() => {
+        dispatch(fetchDrawingDropdownOptions(drawingID));
+    });
 
-        fetchDrawingDropdownOptions(drawingID);
-    };
-}
-
-const mapStateToProps = (
-    {
-        companyAdmin: {
-            templateSectionsReducer: { sections }
-        }
-    },
-    ownProps
-) => {
-    // const history = histories[selectedHistoryId] || {};
-    const { templateVersionID } = ownProps.pinHistory;
-    return {
-        relevantSections: Object.values(sections).filter(
-            section => section.templateVersionID === templateVersionID
-        )
-    };
+    return <PinSection sections={relevantSections} pinHistory={pinHistory} />;
 };
 
-const mapDispatchToProps = dispatch => ({
-    fetchDrawingDropdownOptions: drawingID => {
-        dispatch(fetchDrawingDropdownOptions(drawingID));
-    }
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PinSectionsContainer);
+export default PinSectionsContainer;

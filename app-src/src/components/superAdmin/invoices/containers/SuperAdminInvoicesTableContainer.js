@@ -87,7 +87,6 @@ const SuperAdminInvoicesTableContainer = ({
         updateInvoiceFilter('page', nextPage);
         const hasPaidQuery = HAS_PAID_QUERIES[hasPayed];
         const isFree = hasPayed === '3' ? true : null;
-        console.log({ hasPayed });
         fetchInvoicesBySearch(nextPage, searchTerm, hasPaidQuery, isFree, PAGE_SIZE);
     }
 };

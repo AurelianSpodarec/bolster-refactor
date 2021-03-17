@@ -152,7 +152,6 @@ const CreateBuildingsFormContainer = ({
                 const selectedOptions = createPreselectedItemOptionValuesList(
                     site.dropDownOptionIDs,
                 );
-
                 initialDropdownOptions.selectedDropdownOptions = selectedOptions;
                 setShowDropdownOptions(false);
             }
@@ -174,12 +173,13 @@ const CreateBuildingsFormContainer = ({
                 initialOptions.selectedOptionValues = site.optionValueIDs.map(id => String(id));
 
                 initialOptions.manufacturerOptions = createManufacturerOptionList(manufacturers);
-                const selected = createHierarchyPreselectedManufacturersList(
+                const selectedOptions =  createHierarchyPreselectedManufacturersList(
                     initialOptions.manufacturerOptions,
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
-                initialOptions.selectedManufacturerOptions = selected;
+
+                initialOptions.selectedManufacturerOptions = selectedOptions;
                 setShowManufacturingOptions(false);
             } else {
                 // set default prefills as per the company admin options

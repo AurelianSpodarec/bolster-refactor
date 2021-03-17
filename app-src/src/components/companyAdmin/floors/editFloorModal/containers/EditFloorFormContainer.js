@@ -146,12 +146,12 @@ class EditFloorFormContainer extends Component {
                 // prefill options from floor already saved
                 initialOptions.selectedOptionValues = floor.optionValueIDs.map(id => String(id));
 
-                const selected = createHierarchyPreselectedManufacturersList(
+                const selectedOptions = createHierarchyPreselectedManufacturersList(
                     initialOptions.manufacturerOptions,
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
-                initialOptions.selectedManufacturerOptions = selected;
+                initialOptions.selectedManufacturerOptions = selectedOptions;
                 if (floor.manufacturingInheritedFrom) {
                     this.setState({ showManufacturingOptions: false });
                 }

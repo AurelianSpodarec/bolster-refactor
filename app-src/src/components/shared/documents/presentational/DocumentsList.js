@@ -57,7 +57,6 @@ const DocumentsList = ({
                             )}
                     </>
                 )}
-                {/* {clientControls && <a href={`${fileURL}`} target="_blank" className="button blue"></a>} */}
             </td>
         </tr>
     ));

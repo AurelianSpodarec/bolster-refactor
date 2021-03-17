@@ -155,7 +155,6 @@ const CreateFloorsFormContainer = ({
                 const selectedOptions = createPreselectedItemOptionValuesList(
                     building.dropDownOptionIDs,
                 );
-
                 initialDropdownOptions.selectedDropdownOptions = selectedOptions;
                 setShowDropdownOptions(false);
             }
@@ -177,12 +176,13 @@ const CreateFloorsFormContainer = ({
                 initialOptions.selectedOptionValues = building.optionValueIDs.map(id => String(id));
 
                 initialOptions.manufacturerOptions = createManufacturerOptionList(manufacturers);
-                const selected = createHierarchyPreselectedManufacturersList(
+                const selectedOptions = createHierarchyPreselectedManufacturersList(
                     initialOptions.manufacturerOptions,
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
-                initialOptions.selectedManufacturerOptions = selected;
+
+                initialOptions.selectedManufacturerOptions = selectedOptions;
                 initialOptions.manufacturingInheritedFrom = building.manufacturingInheritedFrom;
                 setShowManufacturingOptions(false);
             } else {

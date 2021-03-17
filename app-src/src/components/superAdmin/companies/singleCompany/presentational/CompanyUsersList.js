@@ -3,7 +3,6 @@ import CompanyUserListItemContainer from '../containers/CompanyUserListItemConta
 
 const CompanyUsersList = ({ users }) =>
     users.map(user => {
-        console.log(user);
         return <CompanyUserListItemContainer key={user.id} user={user} />;
     });
 
