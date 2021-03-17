@@ -63,10 +63,10 @@ export default combineReducers({
 
 function filtersReducer(
     state = {
-        siteID: null,
-        buildingID: null,
-        floorID: null,
-        drawingID: null,
+        siteID: [],
+        buildingID: [],
+        floorID: [],
+        drawingID: [],
         serviceID: null,
         templateID: null,
         hierarchyType: HIERARCHY_IDS.ALL_SITES,
@@ -94,10 +94,10 @@ function filtersReducer(
         case RESET_FILTER_OPTIONS:
             // reset to base state
             return {
-                siteID: null,
-                buildingID: null,
-                floorID: null,
-                drawingID: null,
+                siteID: [],
+                buildingID: [],
+                floorID: [],
+                drawingID: [],
                 serviceID: null,
                 templateID: null,
                 hierarchyType: null,

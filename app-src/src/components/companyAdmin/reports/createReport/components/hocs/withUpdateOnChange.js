@@ -385,17 +385,26 @@ export default function (ProtectedComponent) {
         },
         { blockName },
     ) => {
-        const selectedSite = sites[filters.siteID] || {};
-        const buildingIDs = selectedSite.buildingIDs || [];
+        let buildingIDs = [];
+        filters.siteID.forEach(site => {
+            const curSite = sites[site];
+            buildingIDs = buildingIDs.concat(curSite.buildingIDs);
+        });
         const buildings = buildingIDs.map(id => buildingsReducer.buildings[id]);
 
-        const selectedBuilding = buildingsReducer.buildings[filters.buildingID] || {};
-        const floorIDs = selectedBuilding.floorIDs || [];
+        let floorIDs = [];
+        filters.buildingID.forEach(building => {
+            const curBuilding = convertArrToObj(buildings)[building];
+            floorIDs = floorIDs.concat(curBuilding.floorIDs);
+        });
         const floors = floorIDs.map(id => floorsReducer.floors[id]);
 
-        const selectedFloor = floorsReducer.floors[filters.floorID] || {};
-        const selectedDrawingIDs = selectedFloor.drawingIDs || [];
-        const drawings = selectedDrawingIDs.map(id => drawingsReducer.drawings[id]);
+        let drawingIDs = [];
+        filters.floorID.forEach(floor => {
+            const curFloor = convertArrToObj(floors)[floor];
+            drawingIDs = drawingIDs.concat(curFloor.drawingIDs);
+        });
+        const drawings = drawingIDs.map(id => drawingsReducer.drawings[id]);
 
         return {
             fieldErrors,

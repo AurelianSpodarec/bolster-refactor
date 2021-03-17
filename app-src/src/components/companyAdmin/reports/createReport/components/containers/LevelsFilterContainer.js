@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
 
-import { convertArrToObj, isObjEmpty } from 'helpers/generic';
+import { isObjEmpty } from 'helpers/generic';
 import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
@@ -28,48 +28,50 @@ class LevelsFilterContainer extends Component {
             drawings,
             hierarchy,
             isFetching,
+            formatArrForDropdown,
         } = this.props;
 
-        const sitesOptions = this._formatArrForDropdown(sites);
-        const buildingOptions = this._formatArrForDropdown(buildings);
-        const floorOptions = this._formatArrForDropdown(floors);
-        const drawingOptions = this._formatArrForDropdown(drawings);
+        const sitesOptions = formatArrForDropdown(sites);
+        const buildingOptions = formatArrForDropdown(buildings);
+        const floorOptions = formatArrForDropdown(floors);
+        const drawingOptions = formatArrForDropdown(drawings);
+
         return (
             <LevelFilters
                 handleChange={this.handleChange}
                 siteOptions={Object.values(sitesOptions)}
-                selectedSite={sitesOptions[siteID]}
+                selectedSite={siteID}
                 buildingOptions={Object.values(buildingOptions)}
-                selectedBuilding={buildingOptions[buildingID]}
+                selectedBuilding={buildingID}
                 floorOptions={Object.values(floorOptions)}
-                selectedFloor={floorOptions[floorID]}
+                selectedFloor={floorID}
                 drawingOptions={Object.values(drawingOptions)}
-                selectedDrawing={drawingOptions[drawingID]}
+                selectedDrawing={drawingID}
                 hierarchy={hierarchy}
                 isFetching={isFetching}
             />
         );
     }
 
-    updateDrawing = (value = null) => {
+    updateDrawing = (value = []) => {
         const { handleChange } = this.props;
 
         return handleChange('drawingID', value);
     };
 
-    updateFloor = (value = null) => {
+    updateFloor = (value = []) => {
         const { handleChange } = this.props;
 
         return this.updateDrawing().then(() => handleChange('floorID', value));
     };
 
-    updateBuilding = (value = null) => {
+    updateBuilding = (value = []) => {
         const { handleChange } = this.props;
 
         return this.updateFloor().then(() => handleChange('buildingID', value));
     };
 
-    updateSite = (value = null) => {
+    updateSite = (value = []) => {
         const { handleChange } = this.props;
 
         return this.updateBuilding().then(() => handleChange('siteID', value));
@@ -97,17 +99,6 @@ class LevelsFilterContainer extends Component {
         } else {
             return update(value).then(postFiltersIfNeeded);
         }
-    };
-
-    _formatArrForDropdown = arr => {
-        const options = arr
-            .filter(val => val)
-            .map(({ name, id }) => ({
-                value: id,
-                text: name,
-            }));
-
-        return convertArrToObj(options, 'value');
     };
 
     componentDidMount = () => {
