@@ -7,6 +7,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import { FILE_STORAGE_URL } from 'config';
 import { FETCH_COMPANY_SETTINGS_SUCCESS } from 'constants/actionTypes/companySettings';
+import { COMPANY_USER_ROLE_IDS } from 'constants/companyAdmin/enums';
 import { componentDidMount } from 'helpers/generic';
 import { usePrevious } from 'helpers/hooks';
 import React, { useEffect } from 'react';
@@ -39,9 +40,9 @@ const CompanySelection = () => {
         history.push('/company');
     }
 
-    const handleSelectCompany = companyID => {
+    const handleSelectCompany = (companyID, type) => {
         // todo post company login
-        dispatch(postCompanyLogin({ companyID }));
+        dispatch(postCompanyLogin({ companyID, type }));
     };
 
     const companies = Object.values(availableCompanies);
@@ -59,7 +60,7 @@ const CompanySelection = () => {
                     {companies.map(company => (
                         <Block containerClass="flex-row-item size-lg-6" key={company.companyID}>
                             <BlockHeading classes="heading heading-2 underline-full half-margin">
-                                {company.companyName}
+                                {company.companyName} ({COMPANY_USER_ROLE_IDS[company.type]})
                             </BlockHeading>
                             <div className="size-lg-6">
                                 <BlockHeading classes="heading heading-3 half-margin">
@@ -85,7 +86,9 @@ const CompanySelection = () => {
                             <div className="button-block-container size-lg-12">
                                 <button
                                     className="button green"
-                                    onClick={() => handleSelectCompany(company.companyID)}
+                                    onClick={() =>
+                                        handleSelectCompany(company.companyID, company.type)
+                                    }
                                 >
                                     Select company
                                 </button>
