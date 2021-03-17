@@ -188,7 +188,7 @@ export default function (ProtectedComponent) {
             let hierarchyType;
             let hierarchyID;
 
-            if (siteID) {
+            if (!isEmpty(siteID)) {
                 hierarchyType = 'site';
                 hierarchyID = siteID;
             } else {
@@ -196,15 +196,15 @@ export default function (ProtectedComponent) {
                     hierarchyType = HIERARCHY_IDS.ALL_SITES;
                 }
             }
-            if (buildingID) {
+            if (!isEmpty(buildingID)) {
                 hierarchyType = 'building';
                 hierarchyID = buildingID;
             }
-            if (floorID) {
+            if (!isEmpty(floorID)) {
                 hierarchyType = 'floor';
                 hierarchyID = floorID;
             }
-            if (drawingID) {
+            if (!isEmpty(drawingID)) {
                 hierarchyType = 'drawing';
                 hierarchyID = drawingID;
             }
