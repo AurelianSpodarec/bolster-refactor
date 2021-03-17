@@ -6,7 +6,7 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-import { convertArrToObj, momentComparisonFormat } from 'helpers/generic';
+import { convertArrToObj, isEmpty, momentComparisonFormat } from 'helpers/generic';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { FURTHER_FILTRATION_OPTIONS, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import getOperativeOptions from 'actions/companyAdmin/reports/async/getOperativeOptions';
@@ -385,26 +385,40 @@ export default function (ProtectedComponent) {
         },
         { blockName },
     ) => {
+        const buildingsFromReducer = buildingsReducer.buildings;
+        const floorsFromReducer = floorsReducer.floors;
+        const drawingsFromReducer = drawingsReducer.drawings;
+
         let buildingIDs = [];
-        filters.siteID.forEach(site => {
-            const curSite = sites[site];
-            buildingIDs = buildingIDs.concat(curSite.buildingIDs);
-        });
-        const buildings = buildingIDs.map(id => buildingsReducer.buildings[id]);
+        if (!isEmpty(sites)) {
+            filters.siteID.forEach(site => {
+                const curSite = sites[site];
+                buildingIDs = buildingIDs.concat(curSite.buildingIDs);
+            });
+        }
+        const buildings = !isEmpty(buildingsFromReducer)
+            ? buildingIDs.map(id => buildingsFromReducer[id])
+            : [];
 
         let floorIDs = [];
-        filters.buildingID.forEach(building => {
-            const curBuilding = convertArrToObj(buildings)[building];
-            floorIDs = floorIDs.concat(curBuilding.floorIDs);
-        });
-        const floors = floorIDs.map(id => floorsReducer.floors[id]);
+        if (!isEmpty(buildings)) {
+            filters.buildingID.forEach(building => {
+                const curBuilding = convertArrToObj(buildings)[building];
+                floorIDs = floorIDs.concat(curBuilding.floorIDs);
+            });
+        }
+        const floors = !isEmpty(floorsFromReducer) ? floorIDs.map(id => floorsFromReducer[id]) : [];
 
         let drawingIDs = [];
-        filters.floorID.forEach(floor => {
-            const curFloor = convertArrToObj(floors)[floor];
-            drawingIDs = drawingIDs.concat(curFloor.drawingIDs);
-        });
-        const drawings = drawingIDs.map(id => drawingsReducer.drawings[id]);
+        if (!isEmpty(floors)) {
+            filters.floorID.forEach(floor => {
+                const curFloor = convertArrToObj(floors)[floor];
+                drawingIDs = drawingIDs.concat(curFloor.drawingIDs);
+            });
+        }
+        const drawings = !isEmpty(drawingsFromReducer)
+            ? drawingIDs.map(id => drawingsFromReducer[id])
+            : [];
 
         return {
             fieldErrors,

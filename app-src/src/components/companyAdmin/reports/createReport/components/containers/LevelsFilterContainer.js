@@ -112,16 +112,16 @@ class LevelsFilterContainer extends Component {
 
         // prefill on hierarchy single page advanced reports
         if (hierarchy === HIERARCHY_IDS.SITE) {
-            this.handleChange('siteID', hierarchyID, true);
+            this.handleChange('siteID', [+hierarchyID], true);
             this.handlePrefillSite(hierarchyID);
         } else if (hierarchy === HIERARCHY_IDS.BUILDING) {
-            this.handleChange('buildingID', hierarchyID, true);
+            this.handleChange('buildingID', [+hierarchyID], true);
             this.handlePrefillBuilding(hierarchyID);
         } else if (hierarchy === HIERARCHY_IDS.FLOOR) {
-            this.handleChange('floorID', hierarchyID, true);
+            this.handleChange('floorID', [+hierarchyID], true);
             this.handlePrefillFloor(hierarchyID);
         } else if (hierarchy === HIERARCHY_IDS.DRAWING) {
-            this.handleChange('drawingID', hierarchyID, true);
+            this.handleChange('drawingID', [+hierarchyID], true);
             this.handlePrefillDrawing(hierarchyID);
         }
 
@@ -134,10 +134,10 @@ class LevelsFilterContainer extends Component {
         if (locationState && locationState.drawingID) {
             const { siteID, buildingID, floorID, drawingID } = locationState;
 
-            this.handleChange('siteID', siteID, true, false);
-            this.handleChange('buildingID', buildingID, true, false);
-            this.handleChange('floorID', floorID, true, false);
-            this.handleChange('drawingID', drawingID, true);
+            this.handleChange('siteID', [+siteID], true, false);
+            this.handleChange('buildingID', [+buildingID], true, false);
+            this.handleChange('floorID', [+floorID], true, false);
+            this.handleChange('drawingID', [+drawingID], true);
 
             this.handlePrefillSite(siteID);
             this.handlePrefillBuilding(buildingID);
@@ -186,26 +186,26 @@ class LevelsFilterContainer extends Component {
 
     handlePrefillSite = siteID => {
         const { handleChange } = this.props;
-        handleChange('siteID', siteID);
+        handleChange('siteID', [+siteID]);
         fetchSingleSite(siteID);
     };
     handlePrefillBuilding = buildingID => {
         const { handleChange, fetchSingleBuilding } = this.props;
-        handleChange('buildingID', buildingID);
+        handleChange('buildingID', [+buildingID]);
         fetchSingleBuilding(buildingID).then(({ payload: { siteID } }) =>
             this.handlePrefillSite(siteID),
         );
     };
     handlePrefillFloor = floorID => {
         const { handleChange, fetchSingleFloor } = this.props;
-        handleChange('floorID', floorID);
+        handleChange('floorID', [+floorID]);
         fetchSingleFloor(floorID).then(({ payload: { buildingID } }) =>
             this.handlePrefillBuilding(buildingID),
         );
     };
     handlePrefillDrawing = drawingID => {
         const { handleChange, fetchSingleDrawing } = this.props;
-        handleChange('drawingID', drawingID);
+        handleChange('drawingID', [+drawingID]);
         fetchSingleDrawing(drawingID).then(({ payload: { floorID } }) =>
             this.handlePrefillFloor(floorID),
         );
