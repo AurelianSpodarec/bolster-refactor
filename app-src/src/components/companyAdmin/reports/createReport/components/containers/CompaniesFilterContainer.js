@@ -5,6 +5,7 @@ import { convertArrToObj } from 'helpers/generic';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import CompaniesFilter from '../presentational/CompaniesFilter';
 import { usePrevious } from 'helpers/hooks';
+import { isEmpty } from 'helpers/generic';
 
 const CompaniesFilterContainer = ({
     handleChange,
@@ -33,8 +34,8 @@ const CompaniesFilterContainer = ({
         }
     }, [companies]);
 
-    // don't show if no site selected
-    if (!siteID) return null;
+    // don't show if no site selected or sites / companies lists are empty
+    if (!siteID || isEmpty(sitesObj) || isEmpty(companies)) return null;
 
     // filter out all companies except your own if you don't own the selected site
     if (companyID !== sitesObj[siteID].ownerCompanyID) {
