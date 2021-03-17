@@ -4478,6 +4478,18 @@ input {
             }
         }
     }
+
+    &.disabled {
+        opacity: 0.5;
+        
+        .selected-box {
+            cursor: not-allowed;
+
+            .option, .close {
+                cursor: not-allowed;
+            }
+        }
+    }
 }
 
 .chartjs-render-monitor {
