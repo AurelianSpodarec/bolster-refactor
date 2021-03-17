@@ -145,12 +145,13 @@ class BuildingEditFormContainer extends Component {
             if (building.isManufacturingEnabled) {
                 // prefill options from building already saved
                 initialOptions.selectedOptionValues = building.optionValueIDs.map(id => String(id));
-
-                initialOptions.selectedManufacturerOptions = createHierarchyPreselectedManufacturersList(
+                const selectedOptions = createHierarchyPreselectedManufacturersList(
                     initialOptions.manufacturerOptions,
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
+
+                initialOptions.selectedManufacturerOptions = selectedOptions;
                 if (building.manufacturingInheritedFrom) {
                     this.setState({ showManufacturingOptions: false });
                 }

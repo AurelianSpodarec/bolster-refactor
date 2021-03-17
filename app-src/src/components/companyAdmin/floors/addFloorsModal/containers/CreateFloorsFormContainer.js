@@ -152,9 +152,10 @@ const CreateFloorsFormContainer = ({
             if (isDropdownOptionsInherited) {
                 initialDropdownOptions.setDropdownOptionsForHierarchy = true;
                 initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
-                initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
+                const selectedOptions = createPreselectedItemOptionValuesList(
                     building.dropDownOptionIDs,
                 );
+                initialDropdownOptions.selectedDropdownOptions = selectedOptions;
                 setShowDropdownOptions(false);
             }
             if (!isDropdownOptionsInherited) {
@@ -175,11 +176,13 @@ const CreateFloorsFormContainer = ({
                 initialOptions.selectedOptionValues = building.optionValueIDs.map(id => String(id));
 
                 initialOptions.manufacturerOptions = createManufacturerOptionList(manufacturers);
-                initialOptions.selectedManufacturerOptions = createHierarchyPreselectedManufacturersList(
+                const selectedOptions = createHierarchyPreselectedManufacturersList(
                     initialOptions.manufacturerOptions,
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
+
+                initialOptions.selectedManufacturerOptions = selectedOptions;
                 initialOptions.manufacturingInheritedFrom = building.manufacturingInheritedFrom;
                 setShowManufacturingOptions(false);
             } else {

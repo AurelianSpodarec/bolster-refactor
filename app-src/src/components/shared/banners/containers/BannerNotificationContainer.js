@@ -8,7 +8,6 @@ import { usePrevious } from 'helpers/hooks';
 
 const BannerNotificationContainer = ({
     fetchBannerNotification,
-    isFetching,
     bannerNotification,
     postBannerNotificationClose,
     isPosting,

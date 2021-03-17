@@ -87,7 +87,6 @@ class EditCompanyPermissionsFormContainer extends Component {
     handleSubmit = () => {
         const { serviceIDs, templateUsageRule } = this.state;
         const { hierarchyType, hierarchyID, editCompanyPermissions, companyID } = this.props;
-        console.log({ templateUsageRule });
 
         const postBody = {
             companyID,

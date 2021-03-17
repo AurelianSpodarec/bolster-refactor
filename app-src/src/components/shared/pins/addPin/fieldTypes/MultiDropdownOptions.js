@@ -9,7 +9,6 @@ const MultiDropdownOptions = ({
     dropdownOptions,
     answers,
     handleChange,
-    edit,
     originalDropdownMultiAns,
     isManufacturingEnabledForDrawing,
     defaultDropdownSorting,

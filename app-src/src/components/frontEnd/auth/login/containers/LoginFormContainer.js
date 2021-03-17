@@ -28,7 +28,6 @@ const LoginFormContainer = ({
     error,
     fetchAuthAreaText,
     auth,
-    isFetching,
 }) => {
     const [formData, handleChange] = useForm({ email: '', password: '' });
     const prevProps = usePrevious({ postSuccess, isPosting });

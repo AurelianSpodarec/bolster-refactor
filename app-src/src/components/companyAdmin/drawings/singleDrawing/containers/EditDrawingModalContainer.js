@@ -158,12 +158,12 @@ class EditDrawingModalContainer extends Component {
             if (drawing.isManufacturingEnabled) {
                 // prefill options from drawing already saved
                 initialOptions.selectedOptionValues = drawing.optionValueIDs.map(id => String(id));
-
-                initialOptions.selectedManufacturerOptions = createHierarchyPreselectedManufacturersList(
+                const selectedOptions = createHierarchyPreselectedManufacturersList(
                     initialOptions.manufacturerOptions,
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
+                initialOptions.selectedManufacturerOptions = selectedOptions;
                 if (drawing.manufacturingInheritedFrom) {
                     this.setState({ showManufacturingOptions: false });
                 }

@@ -1,9 +1,9 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
-import { SET_IS_IE10 } from "constants/actionTypes/generic";
+import { SET_IS_IE10 } from 'constants/actionTypes/generic';
 
 export default combineReducers({
-    isIE10: checkIfIE10Reducer
+    isIE10: checkIfIE10Reducer,
 });
 
 function checkIfIE10Reducer(state = false, action) {

@@ -68,7 +68,9 @@ const EditDrawingOperative = ({
                                             required
                                             name="templateIDs"
                                             handleChange={handleMultiSelect}
-                                            options={getTemplatesForService(service).filter(item => !item.isDeleted)}
+                                            options={getTemplatesForService(service).filter(
+                                                item => !item.isDeleted,
+                                            )}
                                             hideDisabled
                                             selectedOptions={templateIDs}
                                         />

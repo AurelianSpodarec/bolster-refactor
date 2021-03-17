@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import BuildingClientAccess from '../presentational/BuildingClientAccess';
 
 class BuildingClientAccessContainer extends Component {
@@ -8,11 +7,4 @@ class BuildingClientAccessContainer extends Component {
     }
 }
 
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = dispatch => ({});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(BuildingClientAccessContainer);
+export default BuildingClientAccessContainer;

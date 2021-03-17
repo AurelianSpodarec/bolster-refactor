@@ -9,13 +9,12 @@ const FileUpload = ({
     onChange,
     onDelete,
     onCancel,
-    onAddFileClick,
     name,
     fileS3Keys = [],
     progress,
     uploadingFileName,
     inputRef,
-    maxFiles
+    maxFiles,
 }) => {
     const { images, other } = organizeS3KeysByType(fileS3Keys);
 
@@ -88,7 +87,7 @@ function organizeS3KeysByType(s3KEys) {
 
             return acc;
         },
-        { images: [], other: [] }
+        { images: [], other: [] },
     );
 }
 

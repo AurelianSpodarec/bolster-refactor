@@ -120,8 +120,7 @@ const PinAnswer = ({
                 <p>
                     <a
                         href={docURL}
-                        rel="noopener norefferrer"
-                        // eslint-disable-next-line react/jsx-no-target-blank
+                        rel="noopener noreferrer"
                         target="_blank"
                         className="text-link"
                     >

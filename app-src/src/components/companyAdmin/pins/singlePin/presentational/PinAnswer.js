@@ -12,11 +12,9 @@ const PinAnswer = ({
     trimmedAnswer,
     type,
     questions,
-    questionsObj,
     answers,
     dispatch,
     question,
-    pinHistory,
     optionValuesLookup,
 }) => {
     const curAnswer = { ...answers.find(item => +item.id === +trimmedAnswer.id) };
