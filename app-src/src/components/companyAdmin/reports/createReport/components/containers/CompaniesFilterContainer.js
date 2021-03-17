@@ -13,8 +13,11 @@ const CompaniesFilterContainer = ({
     customFilters: { companies },
     formatArrForDropdown,
     isDrawingPage,
+    sitesObj,
+    companyID,
 }) => {
     const prevProps = usePrevious({ siteID });
+    let companiesSelection = companies;
 
     useEffect(() => {
         if (siteID && !prevProps.siteID && createdByCompanyID) {
@@ -30,12 +33,18 @@ const CompaniesFilterContainer = ({
         }
     }, [companies]);
 
-    if (!siteID || companies.length < 2) return null;
+    // don't show if no site selected
+    if (!siteID) return null;
+
+    // filter out all companies except your own if you don't own the selected site
+    if (companyID !== sitesObj[siteID].ownerCompanyID) {
+        companiesSelection = companies.filter(company => company.id === companyID);
+    }
 
     return (
         <CompaniesFilter
             handleFormChange={handleFormChange}
-            companies={formatArrForDropdown(companies)}
+            companies={formatArrForDropdown(companiesSelection)}
             createdByCompanyID={createdByCompanyID}
             isDrawingPage={isDrawingPage}
         />

@@ -365,6 +365,9 @@ export default function (ProtectedComponent) {
     const mapStateToProps = (
         {
             shared: {
+                decodeJWTReducer: {
+                    jwtData: { companyID },
+                },
                 fieldErrorsReducer: { fieldErrors, errorsVisible },
             },
             companyAdmin: {
@@ -421,6 +424,7 @@ export default function (ProtectedComponent) {
             companyUsers,
             services: Object.values(historicServices),
             sites: Object.values(sites),
+            sitesObj: sites,
             buildings,
             floors,
             drawings,
@@ -430,6 +434,7 @@ export default function (ProtectedComponent) {
             timeZone,
             includedDrawingsIDs,
             zonesObj: zones,
+            companyID,
         };
     };
 
