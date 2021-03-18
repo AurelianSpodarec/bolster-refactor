@@ -20,7 +20,7 @@
         "no-redeclare": "warn",
         "no-dupe-keys": "warn",
         "no-duplicate-case": "warn",
-        "no-unused-vars": ["warn", { "vars": "all", "args": "after-used" }],
+        "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": true }],
         "react/no-unescaped-entities": "off",
         "react/jsx-no-duplicate-props": "warn",
         "max-len": [

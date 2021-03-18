@@ -8,12 +8,12 @@ import AllClientsContainer from 'components/companyAdmin/userManagement/clients/
 import ClientsAccessContainer from 'components/shared/clients/containers/ClientsAccessContainer';
 import CreateOperative from 'components/companyAdmin/userManagement/operatives/createOperative/presentational/CreateOperative';
 import CreateCompanyAdmin from 'components/companyAdmin/userManagement/companyAdmins/createCompanyAdmin/presentational/CreateCompanyAdmin';
-import EditCompanyAdminContainer from 'components/companyAdmin/userManagement/companyAdmins/editCompanyAdmin/containers/EditCompanyAdminContainer';
 import EditOperativeContainer from 'components/companyAdmin/userManagement/operatives/editOperative/containers/EditOperativeContainer';
-import EditCompanyAdminPasswordContainer from 'components/companyAdmin/userManagement/companyAdmins/editCompanyAdminPassword/containers/EditCompanyAdminPasswordContainer';
 import EditOperativePasswordContainer from 'components/companyAdmin/userManagement/operatives/editOperativePassword/containers/EditOperativePasswordContainer';
 import UserDrawingsContainer from 'components/companyAdmin/userManagement/userDrawings/containers/UserDrawingsContainer';
 import EditCompanyUserEmailContainer from 'components/companyAdmin/userManagement/shared/editCompanyUserEmail/containers/EditCompanyUserEmailContainer';
+import EditCompanyAdmin from 'components/companyAdmin/userManagement/companyAdmins/editCompanyAdmin/presentational/EditCompanyAdmin';
+import EditCompanyAdminPassword from 'components/companyAdmin/userManagement/companyAdmins/editCompanyAdminPassword/presentational/EditCompanyAdminPassword';
 
 const UserManagementRoutes = ({ base = '/company/users-management' }) => (
     <SwitchWith404>
@@ -22,11 +22,7 @@ const UserManagementRoutes = ({ base = '/company/users-management' }) => (
         <Route exact path={`${base}/clients`} component={AllClientsContainer} />
         <Route exact path={`${base}/company-admins/create`} component={CreateCompanyAdmin} />
         <Route exact path={`${base}/operatives/create`} component={CreateOperative} />
-        <Route
-            exact
-            path={`${base}/company-admins/:id/edit`}
-            component={EditCompanyAdminContainer}
-        />
+        <Route exact path={`${base}/company-admins/:id/edit`} component={EditCompanyAdmin} />
         <Route exact path={`${base}/operatives/:id/edit`} component={EditOperativeContainer} />
         <Route
             exact
@@ -41,7 +37,7 @@ const UserManagementRoutes = ({ base = '/company/users-management' }) => (
         <Route
             exact
             path={`${base}/company-admins/:id/edit-password`}
-            component={EditCompanyAdminPasswordContainer}
+            component={EditCompanyAdminPassword}
         />
         <Route
             exact

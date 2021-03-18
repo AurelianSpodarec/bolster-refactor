@@ -1,109 +1,91 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-
-import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
-
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { componentDidMount } from 'helpers/generic';
+import { usePrevious } from 'helpers/hooks';
 
 import CreateCompanyAdminForm from '../presentational/CreateCompanyAdminForm';
-import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import createCompanyUser from 'actions/companyAdmin/userManagement/async/createCompanyUser';
-import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
-import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
-class CreateCompanyAdminFormContainer extends Component {
-    state = {
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+
+const CreateCompanyAdminFormContainer = () => {
+    const dispatch = useDispatch();
+    const prevProps = usePrevious({ postSuccess, error });
+    const { postSuccess, error, companyUserID, users } = useSelector(mapStateToProps);
+    const [state, setState] = useState({
         firstName: '',
         lastName: '',
         email: '',
         phoneNumber: '',
-        password: '',
-        confirmPassword: '',
         shouldRestrictPayments: false,
-        //should the admin be able to restirct payments to other users
         shouldRestrictPaymentsAccess: true,
-    };
+    });
 
-    render() {
-        return (
-            <CreateCompanyAdminForm
-                {...this.state}
-                hideModal={this.props.hideModal}
-                handleInputChange={this.handleInputChange}
-                handleSubmit={this.handleSubmit}
-                validatePassword={this.validatePassword}
-                validateConfirmPassword={this.validateConfirmPassword}
-            />
-        );
-    }
-
-    componentDidUpdate = prevProps => {
-        const { postSuccess, showModal, hideModal, companyUserID, users, error } = this.props;
-        if (postSuccess && !prevProps.postSuccess) {
-            showModal(SUCCESS_MODAL, {
-                hideModal,
-                message: 'Admin added successfully.',
+    componentDidMount(() => {
+        if (users && users[companyUserID]) {
+            setState({
+                ...state,
+                shouldRestrictPaymentsAccess: !users[companyUserID].shouldRestrictPayments,
             });
         }
+    });
+
+    useEffect(() => {
+        if (postSuccess && !prevProps.postSuccess) {
+            dispatch(
+                showModal(SUCCESS_MODAL, {
+                    hideModal,
+                    message: 'Admin added successfully.',
+                }),
+            );
+        }
         if (error && !prevProps.error) {
-            showModal(ERROR_MODAL, {
-                hideModal,
-                title: 'Error',
-                message:
-                    error.message ||
-                    'There was an error processing your request, please try again later.',
-            });
+            dispatch(
+                showModal(ERROR_MODAL, {
+                    hideModal,
+                    title: 'Error',
+                    message:
+                        error.message ||
+                        'There was an error processing your request, please try again later.',
+                }),
+            );
         }
 
         if (users && users[companyUserID] && !prevProps.users[companyUserID]) {
-            this.setState({
+            setState({
+                ...state,
                 shouldRestrictPaymentsAccess: !users[companyUserID].shouldRestrictPayments,
             });
         }
-    };
+    }, []);
 
-    componentDidMount = () => {
-        const { users, companyUserID } = this.props;
-        if (users && users[companyUserID]) {
-            this.setState({
-                shouldRestrictPaymentsAccess: !users[companyUserID].shouldRestrictPayments,
-            });
-        }
-    };
+    return (
+        <CreateCompanyAdminForm
+            {...state}
+            hideModal={dispatch(hideModal())}
+            handleInputChange={handleInputChange}
+            handleSubmit={handleSubmit}
+        />
+    );
 
-    handleInputChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
+    function handleInputChange(name, value) {
+        setState({ ...state, [name]: value });
+    }
 
-    handleSubmit = e => {
+    function handleSubmit(e) {
         e.preventDefault();
-
-        // eslint-disable-next-line no-unused-vars
-        const { confirmPassword, shouldRestrictPaymentsAccess, ...rest } = this.state;
+        const { confirmPassword, shouldRestrictPaymentsAccess, ...rest } = state;
 
         const postBody = {
             ...rest,
             type: COMPANY_USER_ROLE_TYPES.ADMIN,
         };
-        this.props.createCompanyUser(postBody);
-    };
-
-    validatePassword = password => {
-        const { confirmPassword } = this.state;
-        const { addFieldError, removeFieldError } = this.props;
-        if (password !== confirmPassword) {
-            addFieldError('confirmPassword', 'Passwords do not match');
-        } else {
-            removeFieldError('confirmPassword');
-        }
-        return null;
-    };
-
-    validateConfirmPassword = confirmPassword =>
-        this.state.password !== confirmPassword ? 'Passwords do not match' : null;
-}
+        dispatch(createCompanyUser(postBody));
+    }
+};
 
 const mapStateToProps = ({
     companyAdmin: {
@@ -121,14 +103,4 @@ const mapStateToProps = ({
     users,
 });
 
-const mapDispatchToProps = {
-    createCompanyUser,
-    addFieldError,
-    removeFieldError,
-    hideModal,
-    showModal,
-};
-
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(CreateCompanyAdminFormContainer),
-);
+export default CreateCompanyAdminFormContainer;

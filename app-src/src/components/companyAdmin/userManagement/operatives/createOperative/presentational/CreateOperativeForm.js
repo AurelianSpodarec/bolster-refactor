@@ -10,14 +10,10 @@ const CreateOperativeForm = ({
     handleSubmit,
     handleInputChange,
     hideModal,
-    validatePassword,
     firstName,
     lastName,
     email,
     phoneNumber,
-    password,
-    confirmPassword,
-    validateConfirmPassword
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -62,30 +58,6 @@ const CreateOperativeForm = ({
                         value={phoneNumber}
                         name="phoneNumber"
                         handleChange={handleInputChange}
-                    />
-                </Field>
-            </div>
-            <div className="size-lg-6 size-md-12">
-                <Field name="Password" required>
-                    <TextInputContainer
-                        value={password}
-                        name="password"
-                        handleChange={handleInputChange}
-                        type="password"
-                        validate={validatePassword}
-                        required
-                    />
-                </Field>
-            </div>
-            <div className="size-lg-6 size-md-12">
-                <Field name="Confirm Password" required>
-                    <TextInputContainer
-                        value={confirmPassword}
-                        name="confirmPassword"
-                        handleChange={handleInputChange}
-                        type="password"
-                        validate={validateConfirmPassword}
-                        required
                     />
                 </Field>
             </div>
