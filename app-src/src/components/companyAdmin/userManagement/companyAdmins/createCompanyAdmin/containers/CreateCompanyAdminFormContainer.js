@@ -65,7 +65,7 @@ const CreateCompanyAdminFormContainer = () => {
     return (
         <CreateCompanyAdminForm
             {...state}
-            hideModal={dispatch(hideModal())}
+            hideModal={() => dispatch(hideModal())}
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}
         />
