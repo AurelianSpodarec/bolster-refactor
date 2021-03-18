@@ -1,35 +1,27 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import CompaniesList from '../presentational/CompaniesList';
 
-class CompanySelectionContainer extends Component {
-    render = () => {
-        const { companies } = this.props;
+const CompanySelectionContainer = () => {
+    const companies = useSelector(mapStateToProps);
+    const history = useHistory();
 
-        return (
-            <CompaniesList
-                companies={companies}
-                selectCompany={this.selectCompany}
-            />
-        );
-    };
+    return <CompaniesList companies={companies} selectCompany={selectCompany} />;
 
-    selectCompany = companyID => {
-        const { history } = this.props;
-
+    function selectCompany(companyID) {
         localStorage.setItem('selectedCompany', companyID);
         history.push('/client/sites');
-    };
-}
+    }
+};
 
 const mapStateToProps = ({
     client: {
-        companiesReducer: { companies }
-    }
+        companiesReducer: { companies },
+    },
 }) => ({
-    companies: Object.values(companies)
+    companies: Object.values(companies),
 });
 
-export default withRouter(connect(mapStateToProps)(CompanySelectionContainer));
+export default CompanySelectionContainer;

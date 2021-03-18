@@ -7,7 +7,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 
 const AllClientsTable = ({ headers, clients, isFetching, error }) => (
     <BlockContainer>
-        <BlockHeading title="Client Access" />
+        <BlockHeading title="Clients" />
         <Table
             headers={headers}
             isFetching={isFetching}
@@ -16,11 +16,7 @@ const AllClientsTable = ({ headers, clients, isFetching, error }) => (
             noDataMessage="No clients to display."
             extraClasses="large"
         >
-            <AllClientsList
-                colCount={headers.length}
-                clients={clients}
-                headers={headers}
-            />
+            <AllClientsList colCount={headers.length} clients={clients} headers={headers} />
         </Table>
     </BlockContainer>
 );

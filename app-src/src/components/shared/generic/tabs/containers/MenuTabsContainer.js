@@ -1,88 +1,54 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import selectMenuTab from 'actions/shared/generic/tabs/sync/selectMenuTab';
-import setMenuTab from 'actions/shared/generic/tabs/sync/setMenuTabs';
 
 import Tabs from '../presentational/Tabs';
 
-class MenuTabsContainer extends Component {
-    render() {
-        const {
-            menuTabs,
-            selectedMenuTab,
-            isSuperAdmin,
-            isCompanyAdmin,
-            isClientAccess
-        } = this.props;
+const MenuTabsContainer = () => {
+    const dispatch = useDispatch();
+    const { menuTabs, selectedMenuTab, isSuperAdmin, isClientAccess, isCompanyAdmin } = useSelector(
+        mapStateToProps,
+    );
 
-        let filteredTabs = menuTabs;
+    let filteredTabs = menuTabs;
 
-        if (!isSuperAdmin)
-            filteredTabs = menuTabs.filter(tab => tab !== 'Super Admin');
-        if (!isCompanyAdmin)
-            filteredTabs = menuTabs.filter(tab => tab !== 'Admin');
-        if (!isClientAccess)
-            filteredTabs = menuTabs.filter(tab => tab !== 'Client Access');
+    if (!isSuperAdmin) filteredTabs = menuTabs.filter(tab => tab !== 'Super Admin');
+    if (!isCompanyAdmin) filteredTabs = menuTabs.filter(tab => tab !== 'Admin');
+    if (!isClientAccess) filteredTabs = menuTabs.filter(tab => tab !== 'Client Access');
 
-        if (isClientAccess && isCompanyAdmin) {
-            filteredTabs = menuTabs.filter(
-                tab =>
-                    tab !== 'Client Access' &&
-                    tab !== 'Admin' &&
-                    tab !== 'Super Admin'
-            );
-        }
-
-        return (
-            <Tabs
-                tabs={filteredTabs}
-                selectedTab={selectedMenuTab}
-                selectTab={(e, tab) => {
-                    e.preventDefault();
-                    this.props.selectMenuTab(tab);
-                }}
-                isSuperAdmin={isSuperAdmin}
-                isCompanyAdmin={isCompanyAdmin}
-                isClientAccess={isClientAccess}
-            />
+    if (isClientAccess && isCompanyAdmin) {
+        filteredTabs = menuTabs.filter(
+            tab => tab !== 'Client Access' && tab !== 'Admin' && tab !== 'Super Admin',
         );
     }
 
-    // componentDidMount = () => {
-    //     const { isSuperadmin, setMenuTab } = this.props;
-
-    //     if (isSuperadmin) {
-    //         setMenuTab('Super Admin');
-    //     } else {
-    //         setMenuTab('Admin');
-    //     }
-    // };
-}
-
-const mapDispatchToProps = dispatch => ({
-    selectMenuTab: tab => {
-        dispatch(selectMenuTab(tab));
-    },
-    setMenuTab: tab => {
-        dispatch(setMenuTab(tab));
-    }
-});
+    return (
+        <Tabs
+            tabs={filteredTabs}
+            selectedTab={selectedMenuTab}
+            selectTab={(e, tab) => {
+                e.preventDefault();
+                dispatch(selectMenuTab(tab));
+            }}
+            isSuperAdmin={isSuperAdmin}
+            isCompanyAdmin={isCompanyAdmin}
+            isClientAccess={isClientAccess}
+        />
+    );
+};
 
 const mapStateToProps = ({
     shared: {
         tabsReducer,
-        decodeJWTReducer: { jwtData }
-    }
+        decodeJWTReducer: { jwtData },
+    },
 }) => ({
     menuTabs: tabsReducer.menuTabs,
     selectedMenuTab: tabsReducer.selectedMenuTab,
     isSuperAdmin: jwtData.isSuperAdmin,
     isCompanyAdmin: !!jwtData.companyID,
-    isClientAccess: jwtData.isClientAccess
+    isClientAccess: jwtData.isClientAccess,
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(MenuTabsContainer);
+export default MenuTabsContainer;

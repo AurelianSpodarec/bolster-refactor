@@ -3,58 +3,49 @@ import { Link } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
+// todo confirm key for 'isDisabled'
 const AllClientsListItem = ({
     client,
     services,
     goToEdit,
     removeAccess,
     onMobile,
-    headers
+    headers,
+    disableClient,
 }) => (
-    <tr key={client.id}>
+    <tr key={client.id} style={{ opacity: client.isDisabled ? 0.5 : 1 }}>
         <td>
-            {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[0]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
             {`${client.userFirstName} ${client.userLastName}`}
         </td>
         <td>
-            {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[1]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
             {client.companyName}
         </td>
         <td>
-            {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[2]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
             <Link
                 className="link grey"
                 to={`/company/drawings/${client.drawingID}`}
-            >{`${client.siteName} / ${client.buildingName} / ${
-                client.floorName
-            } / ${client.drawingName}`}</Link>
+            >{`${client.siteName} / ${client.buildingName} / ${client.floorName} / ${client.drawingName}`}</Link>
         </td>
         <td>
-            {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[3]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
             {services.join(', ')}
         </td>
         <td>
-            {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[4]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
             <BlockButtonWrapper>
-                <button className="button yellow" onClick={() => goToEdit()}>
+                <button className="button yellow" onClick={goToEdit}>
                     <i className="fal fa-pencil" /> Edit
                 </button>
-                <button className="button red" onClick={() => removeAccess()}>
+                <button
+                    className={`button ${client.isDisabled ? 'green' : 'red'}`}
+                    onClick={disableClient}
+                >
+                    <i className="fal fa-ban" /> {client.isDisabled ? 'Enable' : 'Disable'}
+                </button>
+                <button className="button red" onClick={removeAccess}>
                     <i className="fal fa-times" /> Remove access
                 </button>
             </BlockButtonWrapper>

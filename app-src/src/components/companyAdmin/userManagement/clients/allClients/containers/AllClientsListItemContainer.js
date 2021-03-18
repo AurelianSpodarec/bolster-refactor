@@ -19,6 +19,7 @@ const AllClientsListItemContainer = ({ client, colCount, headers }) => {
             colCount={colCount}
             goToEdit={goToEdit}
             removeAccess={removeAccess}
+            disableClient={disableClient}
             onMobile={onMobile}
             headers={headers}
         />
@@ -31,12 +32,17 @@ const AllClientsListItemContainer = ({ client, colCount, headers }) => {
     }
 
     function goToEdit() {
+        // todo
         history.push({
             pathname: `/company/drawings/${client.drawingID}/edit-client/${client.id}`,
             state: {
                 isFromClientUserManagement: true,
             },
         });
+    }
+
+    function disableClient() {
+        // todo
     }
 
     function removeAccess() {
