@@ -9,9 +9,13 @@ import editCompanyUserType from 'actions/companyAdmin/userManagement/async/editC
 
 const AllOperativesListItemContainer = ({ user, headers, onMobile }) => {
     const dispatch = useDispatch();
+
+    // todo check this when drawings count is done
+    const drawingLimitColour = getOperativeDrawingLimitColour(user.numberOfAttachedDrawings);
     return (
         <AllOperativesListItem
             user={user}
+            drawingLimitColour={drawingLimitColour}
             showDeleteModal={() => dispatch(showModal(DELETE_COMPANY_USER, { id: user.id }))}
             showDisableModal={showDisableUserModal}
             showUnlinkModal={unlinkModal}
@@ -50,6 +54,13 @@ const AllOperativesListItemContainer = ({ user, headers, onMobile }) => {
 
     function showDisableUserModal(userID) {
         // todo
+    }
+
+    function getOperativeDrawingLimitColour(numberOfAttachedDrawings) {
+        if (numberOfAttachedDrawings <= 6) return 'green';
+        if (numberOfAttachedDrawings <= 12) return 'yellow';
+        if (numberOfAttachedDrawings <= 18) return 'orange';
+        return 'red';
     }
 };
 

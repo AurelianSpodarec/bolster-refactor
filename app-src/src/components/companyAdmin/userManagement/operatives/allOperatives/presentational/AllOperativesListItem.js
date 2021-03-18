@@ -16,6 +16,7 @@ const AllOperativesListItem = ({
     headers,
     showNotUpsyncedRecentlyWarning,
     tooltipDate,
+    drawingLimitColour,
 }) => {
     const history = useHistory();
     return (
@@ -37,17 +38,14 @@ const AllOperativesListItem = ({
                 {`${user.userFirstName} ${user.userLastName}`}
             </td>
             <td>
-                {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
                 {user.userEmail}
             </td>
             <td>
-                {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
                 {user.userPhoneNumber}
             </td>
             <td>
-                {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
                 {user.linkedDeviceID ? 'Yes' : 'No'}{' '}
                 {user.linkedDeviceName && (
@@ -55,17 +53,14 @@ const AllOperativesListItem = ({
                 )}
             </td>
             <td>
-                {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
                 {user.formattedOperativeCode}
             </td>
             <td>
-                {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
                 {user.lastUpSynced ? <DateTimeContainer date={user.lastUpSynced} /> : '-'}
             </td>
             <td>
-                {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[6]}</span>}
                 {user.lastDetectedUnsyncedData ? (
                     <DateTimeContainer date={user.lastDetectedUnsyncedData} />
@@ -74,12 +69,16 @@ const AllOperativesListItem = ({
                 )}
             </td>
             <td>
-                {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[7]}</span>}
                 {user.appVersion ? user.appVersion : '-'}
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[8]}</span>}
+                {/* todo */}
+                <span color={drawingLimitColour}>{user.numberOfAttachedDrawings}</span>
+            </td>
+            <td>
+                {onMobile && <span className="mobile-table-heading">{headers[9]}</span>}
                 <BlockButtonWrapper additionalClasses="stacked">
                     {user.linkedDeviceID && (
                         <button className="button blue" onClick={showUnlinkModal}>

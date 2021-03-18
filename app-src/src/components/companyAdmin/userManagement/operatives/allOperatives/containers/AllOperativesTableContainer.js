@@ -52,6 +52,7 @@ const AllOperativesTableContainer = () => {
                 'Last upsynced date',
                 'Last detected unsynced data',
                 'App Version',
+                'Number of attached drawings',
                 '',
             ]}
             users={sortedUsers}
