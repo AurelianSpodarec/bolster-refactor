@@ -13,8 +13,8 @@ import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 
 const CreateCompanyAdminFormContainer = () => {
     const dispatch = useDispatch();
-    const prevProps = usePrevious({ postSuccess, error });
     const { postSuccess, error, companyUserID, users } = useSelector(mapStateToProps);
+    const prevProps = usePrevious({ postSuccess, error, users });
     const [state, setState] = useState({
         firstName: '',
         lastName: '',
