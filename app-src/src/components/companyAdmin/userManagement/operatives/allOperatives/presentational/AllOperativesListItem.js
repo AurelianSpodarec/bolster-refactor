@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
@@ -9,14 +9,15 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 const AllOperativesListItem = ({
     user,
     showDeleteModal,
+    showDisableModal,
     showUnlinkModal,
     showMakeAdminModal,
     onMobile,
     headers,
-    history,
     showNotUpsyncedRecentlyWarning,
     tooltipDate,
 }) => {
+    const history = useHistory();
     return (
         <tr key={user.id} className={`${showNotUpsyncedRecentlyWarning ? 'red-row' : ''}`}>
             <td>
@@ -119,6 +120,10 @@ const AllOperativesListItem = ({
                         <i className="far fa-key" /> Drawings Access
                     </Link>
 
+                    <button className="button red" onClick={showDisableModal}>
+                        <i className="far fa-ban" />
+                        Disable
+                    </button>
                     <button className="button red" onClick={showDeleteModal}>
                         <i className="far fa-trash-alt" />
                         Delete
@@ -138,4 +143,4 @@ const AllOperativesListItem = ({
     }
 };
 
-export default withRouter(AllOperativesListItem);
+export default AllOperativesListItem;

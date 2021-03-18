@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
     DELETE_COMPANY_USER,
@@ -12,67 +12,65 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import AllCompanyAdminsListItem from '../presentational/AllCompanyAdminsListItem';
 
-class AllCompanyAdminsListItemContainer extends Component {
-    render() {
-        const { user, colCount, loggedInUser, headers, onMobile } = this.props;
+const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
+    const { loggedInUser, onMobile } = useSelector(mapStateToProps);
+    const dispatch = useDispatch();
 
-        return (
-            <AllCompanyAdminsListItem
-                user={user}
-                colCount={colCount}
-                showDeleteModal={this.deleteModal}
-                showUnlinkModal={this.unlinkModal}
-                showRestrictUserPaymentsModal={this.showRestrictUserPaymentsModal}
-                showRevokeAdminAccessModal={this.revokeAdminAccess}
-                loggedInUser={loggedInUser}
-                headers={headers}
-                onMobile={onMobile}
-                showNotUpsyncedRecentlyWarning={user.notUpsyncedRecently}
-                tooltipDate={user.notUpSyncedInXDays}
-            />
+    return (
+        <AllCompanyAdminsListItem
+            user={user}
+            colCount={colCount}
+            showDeleteModal={deleteModal}
+            showDisableModal={showDisableUserModal}
+            showUnlinkModal={unlinkModal}
+            showRestrictUserPaymentsModal={showRestrictUserPaymentsModal}
+            showRevokeAdminAccessModal={revokeAdminAccess}
+            loggedInUser={loggedInUser}
+            headers={headers}
+            onMobile={onMobile}
+            showNotUpsyncedRecentlyWarning={user.notUpsyncedRecently}
+            tooltipDate={user.notUpSyncedInXDays}
+        />
+    );
+
+    function deleteModal() {
+        const { user, showModal } = this.props;
+
+        dispatch(showModal(DELETE_COMPANY_USER, { id: user.id }));
+    }
+
+    function unlinkModal() {
+        dispatch(
+            showModal(UNLINK_DEVICE, {
+                hideModal: () => dispatch(hideModal()),
+                user,
+                message: `Are you sure you want to unlink ${user.userFirstName} ${user.userLastName}'s device?`,
+            }),
         );
     }
 
-    deleteModal = () => {
-        const { user, showModal } = this.props;
+    function revokeAdminAccess() {
+        dispatch(
+            showModal(REVOKE_ADMIN_ACCESS, {
+                hideModal: () => dispatch(hideModal()),
+                user,
+                message: `Are you sure you want to revoke the admin access for ${user.userFirstName} ${user.userLastName}?`,
+            }),
+        );
+    }
+    function showRestrictUserPaymentsModal() {
+        dispatch(
+            showModal(RESTRICT_ADMIN_PAYMENTS, {
+                hideModal: () => dispatch(hideModal()),
+                user,
+            }),
+        );
+    }
 
-        showModal(DELETE_COMPANY_USER, { id: user.id });
-    };
-
-    unlinkModal = () => {
-        const { user, showModal, hideModal } = this.props;
-
-        showModal(UNLINK_DEVICE, {
-            hideModal,
-            user,
-            message: `Are you sure you want to unlink ${user.userFirstName} ${user.userLastName}'s device?`,
-        });
-    };
-
-    revokeAdminAccess = () => {
-        const { user, showModal, hideModal } = this.props;
-
-        showModal(REVOKE_ADMIN_ACCESS, {
-            hideModal,
-            user,
-            message: `Are you sure you want to revoke the admin access for ${user.userFirstName} ${user.userLastName}?`,
-        });
-    };
-    showRestrictUserPaymentsModal = () => {
-        const { user, showModal, hideModal } = this.props;
-
-        showModal(RESTRICT_ADMIN_PAYMENTS, {
-            hideModal,
-            user,
-        });
-    };
-
-    showEditUserEmailModal = () => {
-        const { user, showModal } = this.props;
-
-        showModal('', { user }); // todo
-    };
-}
+    function showDisableUserModal(userID) {
+        // todo
+    }
+};
 
 const mapStateToProps = ({
     companyAdmin: {
@@ -85,12 +83,6 @@ const mapStateToProps = ({
 }) => ({
     loggedInUser: users[jwtData.companyUserID] || { type: null },
     onMobile,
-    jwtData,
 });
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => dispatch(showModal(type, props)),
-    hideModal: () => dispatch(hideModal()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AllCompanyAdminsListItemContainer);
+export default AllCompanyAdminsListItemContainer;

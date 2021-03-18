@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
@@ -9,16 +9,17 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 const AllCompanyAdminsListItem = ({
     user,
     showDeleteModal,
+    showDisableModal,
     showUnlinkModal,
     showRevokeAdminAccessModal,
     showRestrictUserPaymentsModal,
     loggedInUser,
     onMobile,
     headers,
-    history,
     showNotUpsyncedRecentlyWarning,
     tooltipDate,
 }) => {
+    const history = useHistory();
     return (
         <tr key={user.id} className={`${showNotUpsyncedRecentlyWarning ? 'red-row' : ''}`}>
             <td>
@@ -150,13 +151,20 @@ const AllCompanyAdminsListItem = ({
                             </button>
                         ))}
 
-                    {+user.type !== +COMPANY_USER_ROLE_TYPES.OWNER ? (
-                        <button className="button red" onClick={() => showDeleteModal(user.id)}>
-                            <i className="far fa-trash-alt" />
-                            Delete
-                        </button>
-                    ) : (
-                        <></>
+                    {+user.type !== +COMPANY_USER_ROLE_TYPES.OWNER && (
+                        <>
+                            <button
+                                className="button red"
+                                onClick={() => showDisableModal(user.id)}
+                            >
+                                <i className="far fa-ban" />
+                                Disable
+                            </button>
+                            <button className="button red" onClick={() => showDeleteModal(user.id)}>
+                                <i className="far fa-trash-alt" />
+                                Delete
+                            </button>
+                        </>
                     )}
                 </BlockButtonWrapper>
             </td>
@@ -173,4 +181,4 @@ const AllCompanyAdminsListItem = ({
     }
 };
 
-export default withRouter(AllCompanyAdminsListItem);
+export default AllCompanyAdminsListItem;

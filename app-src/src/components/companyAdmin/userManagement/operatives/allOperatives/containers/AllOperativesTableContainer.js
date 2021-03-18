@@ -1,63 +1,71 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { componentDidMount, nameSort } from 'helpers/generic';
+import { usePrevious } from 'helpers/hooks';
 
-import AllOperativesTable from '../presentational/AllOperativesTable';
-import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+
+import AllOperativesTable from '../presentational/AllOperativesTable';
 import { CREATE_OPERATIVE } from 'constants/shared/modalTypes';
-import { nameSort } from 'helpers/generic';
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 const { OPERATIVE } = COMPANY_USER_ROLE_TYPES;
 
-class AllOperativesTableContainer extends Component {
-    state = { searchTerm: '' };
-    render = () => {
-        const { users, isFetching, error, onMobile } = this.props;
-        const searchTerm = this.state.searchTerm.toLowerCase();
-        const filteredUsers = users.filter(user => {
-            const name = `${user.userFirstName} ${user.userLastName}`.toLowerCase();
-            return !searchTerm || name.includes(searchTerm) || user.userEmail.includes(searchTerm);
-        });
-        const sortedUsers = filteredUsers.sort(nameSort);
-        return (
-            <AllOperativesTable
-                searchTerm={searchTerm}
-                handleChange={this.handleChange}
-                headers={[
-                    'Name',
-                    'Email',
-                    'Phone Number',
-                    'Has linked device?',
-                    'Operative Code',
-                    'Last upsynced date',
-                    'Last detected unsynced data',
-                    'App Version',
-                    '',
-                ]}
-                users={sortedUsers}
-                isFetching={isFetching}
-                error={error}
-                handleShowModal={this.handleShowModal}
-                onMobile={onMobile}
-            />
-        );
-    };
+const AllOperativesTableContainer = () => {
+    const { users, isFetching, error, onMobile, postSuccess } = useSelector(mapStateToProps);
+    const [searchTerm, setSearchTerm] = useState('');
+    const dispatch = useDispatch();
+    const prevProps = usePrevious({ postSuccess });
 
-    componentDidMount = () => this.props.fetchCompanyUsers();
+    componentDidMount(() => {
+        dispatch(fetchCompanyUsers());
+    }, []);
 
-    componentDidUpdate = prevProps => {
-        const { postSuccess, hideModal, fetchCompanyUsers } = this.props;
+    useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
             fetchCompanyUsers();
             hideModal();
         }
-    };
+    }, [postSuccess]);
 
-    handleShowModal = () => this.props.showModal(CREATE_OPERATIVE);
+    const searchTermLower = searchTerm.toLowerCase();
+    const filteredUsers = users.filter(user => {
+        const name = `${user.userFirstName} ${user.userLastName}`.toLowerCase();
+        return (
+            !searchTermLower ||
+            name.includes(searchTermLower) ||
+            user.userEmail.includes(searchTermLower)
+        );
+    });
+    const sortedUsers = filteredUsers.sort(nameSort);
+    return (
+        <AllOperativesTable
+            searchTerm={searchTerm}
+            handleChange={handleChange}
+            headers={[
+                'Name',
+                'Email',
+                'Phone Number',
+                'Has linked device?',
+                'Operative Code',
+                'Last upsynced date',
+                'Last detected unsynced data',
+                'App Version',
+                '',
+            ]}
+            users={sortedUsers}
+            isFetching={isFetching}
+            error={error}
+            handleShowModal={() => dispatch(showModal(CREATE_OPERATIVE))}
+            onMobile={onMobile}
+        />
+    );
 
-    handleChange = (name, value) => this.setState({ [name]: value });
-}
+    function handleChange(_, value) {
+        setSearchTerm(value);
+    }
+};
 
 const mapStateToProps = ({
     companyAdmin: {
@@ -74,6 +82,4 @@ const mapStateToProps = ({
     postSuccess,
 });
 
-const mapDispatchToProps = { fetchCompanyUsers, hideModal, showModal };
-
-export default connect(mapStateToProps, mapDispatchToProps)(AllOperativesTableContainer);
+export default AllOperativesTableContainer;

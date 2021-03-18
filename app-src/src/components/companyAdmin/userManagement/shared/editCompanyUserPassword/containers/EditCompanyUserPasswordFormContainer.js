@@ -1,81 +1,57 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { usePrevious } from 'helpers/hooks';
 
 import editCompanyUserPassword from 'actions/companyAdmin/userManagement/async/editCompanyUserPassword';
 
 import EditCompanyUserPassword from '../presentational/EditCompanyUserPasswordForm';
-import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
-import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
-class EditCompanyUserPasswordContainer extends Component {
-    state = {
-        password: '',
-        confirmPassword: ''
-    };
+const EditCompanyUserPasswordContainer = () => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const location = useLocation();
+    const { id } = useParams();
 
-    render = () => (
-        <EditCompanyUserPassword
-            {...this.state}
-            handleInputChange={this.handleInputChange}
-            validateConfirmPassword={this.validateConfirmPassword}
-            handleSubmit={this.handleSubmit}
-        />
-    );
+    const { postSuccess } = useSelector(mapStateToProps);
+    const [state, setState] = useState({ password: '', confirmPassword: '' });
+    const prevProps = usePrevious({ postSuccess });
 
-    componentDidUpdate(prevProps) {
-        const { postSuccess, history, location, match } = this.props;
-        const { id } = match.params;
+    useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
             history.push(location.pathname.replace(`/${id}/edit-password`, ''));
         }
+    }, [postSuccess]);
+
+    return (
+        <EditCompanyUserPassword
+            {...state}
+            handleInputChange={handleInputChange}
+            validateConfirmPassword={validateConfirmPassword}
+            handleSubmit={handleSubmit}
+        />
+    );
+
+    function handleInputChange(name, value) {
+        setState({ ...state, [name]: value });
     }
 
-    handleInputChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
-
-    handleSubmit = e => {
+    function handleSubmit(e) {
         e.preventDefault();
-        const { password } = this.state;
-        const { id } = this.props.match.params;
-        this.props.editCompanyUserPassword(id, { password });
-    };
+        const { password } = state;
+        dispatch(editCompanyUserPassword(id, { password }));
+    }
 
-    validatePassword = password => {
-        const { confirmPassword } = this.state;
-        const { addFieldError, removeFieldError } = this.props;
-        if (password !== confirmPassword) {
-            addFieldError('confirmPassword', 'Passwords do not match');
-        } else {
-            removeFieldError('confirmPassword');
-        }
-        return null;
-    };
-
-    validateConfirmPassword = confirmPassword => {
-        const { password } = this.state;
+    function validateConfirmPassword(confirmPassword) {
+        const { password } = state;
         if (password !== confirmPassword) {
             return 'Password and Confirm Password do not match';
         }
-    };
-}
+    }
+};
 
 const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
-    postSuccess: companyUsersReducer.postSuccess
+    postSuccess: companyUsersReducer.postSuccess,
 });
 
-const mapDispatchToProps = dispatch => ({
-    editCompanyUserPassword: (id, password) => {
-        dispatch(editCompanyUserPassword(id, password));
-    },
-    addFieldError: (field, err) => dispatch(addFieldError(field, err)),
-    removeFieldError: field => dispatch(removeFieldError(field))
-});
-
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(EditCompanyUserPasswordContainer)
-);
+export default EditCompanyUserPasswordContainer;
