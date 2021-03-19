@@ -1,6 +1,7 @@
 import fetchAvailableCompanies from 'actions/companyAdmin/companySelection/fetchAvailableCompanies';
 import postCompanyLogin from 'actions/companyAdmin/companySelection/postCompanyLogin';
 import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
+import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import Block from 'components/shared/generic/block/presentational/Block';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -37,6 +38,7 @@ const CompanySelection = () => {
     }, [isFetching, isPosting, postSuccess]);
 
     async function onSuccess() {
+        await dispatch(decodeJWT());
         const { payload, type } = await dispatch(fetchCompanySettings());
         if (type === FETCH_COMPANY_SETTINGS_SUCCESS) {
             localStorage.setItem('colourCode', payload.colourCode);
