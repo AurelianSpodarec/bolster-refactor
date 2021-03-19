@@ -9,6 +9,9 @@ import {
     POST_RESEND_EMAIL_CONFIRMATION_FAILURE,
     POST_EMAIL_CONFIRMATION_SUCCESS,
     POST_RESEND_EMAIL_CONFIRMATION_SUCCESS,
+    POST_ACCEPT_INVITATION_REQUEST,
+    POST_ACCEPT_INVITATION_FAILURE,
+    POST_ACCEPT_INVITATION_SUCCESS,
 } from 'constants/actionTypes/auth';
 
 export default combineReducers({
@@ -23,9 +26,11 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_AUTH_AREA_TEXT_REQUEST:
         case POST_EMAIL_CONFIRMATION_REQUEST:
+        case POST_ACCEPT_INVITATION_REQUEST:
             return false;
         case FETCH_AUTH_AREA_TEXT_FAILURE:
         case POST_EMAIL_CONFIRMATION_FAILURE:
+        case POST_ACCEPT_INVITATION_FAILURE:
             return action.error;
         default:
             return state;
@@ -59,11 +64,14 @@ function isPostingReducer(state = false, action) {
     switch (action.type) {
         case POST_EMAIL_CONFIRMATION_REQUEST:
         case POST_RESEND_EMAIL_CONFIRMATION_REQUEST:
+        case POST_ACCEPT_INVITATION_REQUEST:
             return true;
         case POST_EMAIL_CONFIRMATION_FAILURE:
         case POST_RESEND_EMAIL_CONFIRMATION_FAILURE:
         case POST_EMAIL_CONFIRMATION_SUCCESS:
         case POST_RESEND_EMAIL_CONFIRMATION_SUCCESS:
+        case POST_ACCEPT_INVITATION_FAILURE:
+        case POST_ACCEPT_INVITATION_SUCCESS:
             return false;
         default:
             return state;
@@ -74,9 +82,11 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case POST_EMAIL_CONFIRMATION_REQUEST:
         case POST_RESEND_EMAIL_CONFIRMATION_REQUEST:
+        case POST_ACCEPT_INVITATION_REQUEST:
             return false;
         case POST_EMAIL_CONFIRMATION_SUCCESS:
         case POST_RESEND_EMAIL_CONFIRMATION_SUCCESS:
+        case POST_ACCEPT_INVITATION_SUCCESS:
             return true;
         default:
             return state;
