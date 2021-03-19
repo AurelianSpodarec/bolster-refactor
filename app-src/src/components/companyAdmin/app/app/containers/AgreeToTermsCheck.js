@@ -28,6 +28,8 @@ const AgreeToTermsCheck = ({
     const [modalClose, setModalClose] = useState(false);
     const { pathname } = history.location;
     const prevProps = usePrevious({ pathname });
+    const { companyID } = jwtData;
+    if (!companyID) return children;
     const isAdminOrAbove = jwtData.companyUserType >= 75;
 
     useEffect(() => {

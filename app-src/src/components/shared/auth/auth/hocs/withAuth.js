@@ -43,7 +43,8 @@ export default function (ProtectedComponent, authType = COMPANY) {
                     .then(({ companyID, isSuperAdmin, isClientAccess }) => {
                         // todo handle no company id but valid company (send to company selection screen)
                         if (authType === COMPANY) {
-                            return companyID ? resolve() : reject();
+                            return resolve();
+                            // return companyID ? resolve() : reject();
                         }
                         if (authType === SUPER_ADMIN) return isSuperAdmin ? resolve() : reject();
                         if (authType === CLIENT) return isClientAccess ? resolve() : reject();

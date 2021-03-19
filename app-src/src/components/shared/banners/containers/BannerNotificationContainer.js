@@ -35,7 +35,7 @@ const BannerNotificationContainer = ({
         return (
             <BannerNotification
                 content={bannerNotification.content}
-                colour={bannerNotification.colour.value}
+                colour={bannerNotification?.colour?.value ?? 'red'}
                 handleBannerClose={handleBannerClose}
             />
         );
