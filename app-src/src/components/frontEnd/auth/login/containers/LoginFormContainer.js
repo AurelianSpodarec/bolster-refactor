@@ -84,7 +84,13 @@ const LoginFormContainer = ({
     }
 
     async function onSuccess() {
-        const { isSuperAdmin, companyUserType, companyID, isClientAccess } = await authenticate();
+        const {
+            isSuperAdmin,
+            isCompanyAdmin,
+            companyUserType,
+            companyID,
+            isClientAccess,
+        } = await authenticate();
 
         if (+companyUserType === ROLES.OPERATIVE) {
             localStorage.removeItem('token');
@@ -106,19 +112,17 @@ const LoginFormContainer = ({
         if (isSuperAdmin) {
             return history.push('/admin');
         }
-        if (!companyID) {
-            // if no companies after redirect, send to client area
-            return history.push('/company/company-selection');
+        if (isCompanyAdmin) {
+            if (!companyID) return history.push('/company/company-selection');
+            else {
+                const hasSub = await checkActive(companyID);
+                if (hasSub) {
+                    return history.push('/company');
+                }
+            }
         }
-
-        if (companyID) {
-            if (!isClientAccess) {
-                return history.push('/company');
-            }
-            const hasSub = await checkActive(companyID);
-            if (hasSub) {
-                return history.push('/company');
-            }
+        if (!isClientAccess) {
+            return history.push('/company');
         }
         return history.push('/client/companies');
     }
