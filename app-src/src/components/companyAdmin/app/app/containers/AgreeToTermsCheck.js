@@ -29,7 +29,6 @@ const AgreeToTermsCheck = ({
     const { pathname } = history.location;
     const prevProps = usePrevious({ pathname });
     const { companyID } = jwtData;
-    if (!companyID) return children;
     const isAdminOrAbove = jwtData.companyUserType >= 75;
 
     useEffect(() => {
@@ -49,6 +48,8 @@ const AgreeToTermsCheck = ({
     };
 
     if (fetchError) return <ErrorBlock>{fetchError}</ErrorBlock>;
+    if (!companyID) return children;
+
     if (!fetchSuccess || !hasFetchedCompany) return null;
 
     var maxDate = getMaxDate([terms.publishedOn, eula.publishedOn, privacy.publishedOn]);
