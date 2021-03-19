@@ -61,7 +61,7 @@ const FrontEndHeaderContainer = ({
 const mapStateToProps = ({
     shared: {
         decodeJWTReducer: {
-            jwtData: { isSuperAdmin, isClientAccess, isCompanyAdmin },
+            jwtData: { isSuperAdmin, isClientAccess, isCompanyAdmin, companyID },
         },
     },
     frontEnd: {
@@ -72,7 +72,7 @@ const mapStateToProps = ({
     },
 }) => ({
     isSuperAdmin,
-    isCompanyAdmin,
+    isCompanyAdmin: isCompanyAdmin || !!companyID,
     isClientAccess,
     hideHeader,
     isBannerScrolling,

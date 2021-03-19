@@ -3,12 +3,7 @@ import { connect } from 'react-redux';
 
 import MenusWrapper from '../presentational/MenusWrapper';
 
-const MenuContainer = ({
-    isSuperAdmin,
-    isCompanyAdmin,
-    isClientAccess,
-    menuOpen
-}) => {
+const MenuContainer = ({ isSuperAdmin, isCompanyAdmin, isClientAccess, menuOpen }) => {
     let totalAreas = 0;
 
     if (isSuperAdmin) totalAreas++;
@@ -21,13 +16,13 @@ const MenuContainer = ({
 const mapStateToProps = ({
     shared: {
         decodeJWTReducer: { jwtData },
-        mobileReducer: { menuOpen }
-    }
+        mobileReducer: { menuOpen },
+    },
 }) => ({
     isSuperAdmin: jwtData.isSuperAdmin,
-    isCompanyAdmin: !!jwtData.companyID,
+    isCompanyAdmin: jwtData.isCompanyAdmin || !!jwtData.companyID,
     isClientAccess: jwtData.isClientAccess,
-    menuOpen
+    menuOpen,
 });
 
 export default connect(mapStateToProps)(MenuContainer);

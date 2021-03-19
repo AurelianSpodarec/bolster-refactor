@@ -37,7 +37,7 @@ const mapStateToProps = ({
 
     return {
         selectedCompany: companies[selectedCompanyID] || {},
-        isCompanyAdmin: !!jwtData.companyID,
+        isCompanyAdmin: jwtData.isCompanyAdmin || !!jwtData.companyID,
     };
 };
 
