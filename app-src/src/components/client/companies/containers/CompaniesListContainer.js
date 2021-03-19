@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import CompaniesList from '../presentational/CompaniesList';
 
 const CompanySelectionContainer = () => {
-    const companies = useSelector(mapStateToProps);
+    const { companies } = useSelector(mapStateToProps);
     const history = useHistory();
 
     return <CompaniesList companies={companies} selectCompany={selectCompany} />;
