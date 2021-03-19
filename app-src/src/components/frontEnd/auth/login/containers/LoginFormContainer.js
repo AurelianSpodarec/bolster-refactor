@@ -106,7 +106,8 @@ const LoginFormContainer = ({
         if (isSuperAdmin) {
             return history.push('/admin');
         }
-        if (!isClientAccess && !companyID) {
+        if (!companyID) {
+            // if no companies after redirect, send to client area
             return history.push('/company/company-selection');
         }
 

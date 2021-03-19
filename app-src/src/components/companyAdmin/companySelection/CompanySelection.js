@@ -30,7 +30,11 @@ const CompanySelection = () => {
         if (postSuccess && !prevProps.postSuccess) {
             onSuccess();
         }
-    }, [isPosting, postSuccess]);
+
+        if (!isFetching && prevProps.isFetching) {
+            if (!companies.length) history.push('/client/companies');
+        }
+    }, [isFetching, isPosting, postSuccess]);
 
     async function onSuccess() {
         const { payload, type } = await dispatch(fetchCompanySettings());
