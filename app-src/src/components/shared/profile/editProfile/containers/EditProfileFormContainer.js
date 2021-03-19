@@ -14,7 +14,7 @@ class EditProfileFormContainer extends Component {
         email: '',
         phoneNumber: '',
         profileImageS3Key: '',
-        currentProfileImage: ''
+        currentProfileImage: '',
     };
 
     render() {
@@ -48,7 +48,7 @@ class EditProfileFormContainer extends Component {
     handleImageChange = (name, value) => {
         this.setState(prevState => {
             return {
-                [name]: value === prevState[name] ? '' : value
+                [name]: value === prevState[name] ? '' : value,
             };
         });
     };
@@ -57,26 +57,19 @@ class EditProfileFormContainer extends Component {
         e.preventDefault();
         const { filesUploading } = this.props;
         if (!filesUploading) {
-            const {
-                profileImageS3Key,
-                currentProfileImage,
-                ...restForm
-            } = this.state;
+            const { profileImageS3Key, currentProfileImage, ...restForm } = this.state;
             // check if image should stay the same or be changed to a new value
-            const image = profileImageS3Key
-                ? profileImageS3Key
-                : currentProfileImage;
+            const image = profileImageS3Key ? profileImageS3Key : currentProfileImage;
             const postBody = { profileImageS3Key: image, ...restForm };
             this.props.editProfile(postBody);
         }
     };
 
     _setFormDetails = profile => {
-        // eslint-disable-next-line no-unused-vars
-        const currentS3Key = this.setState({
+        this.setState({
             ...profile,
             profileImageS3Key: '',
-            currentProfileImage: profile.profileImageS3Key
+            currentProfileImage: profile.profileImageS3Key,
         });
     };
 }
@@ -84,14 +77,14 @@ class EditProfileFormContainer extends Component {
 const mapStateToProps = ({
     shared: {
         profileReducer: { isFetching, error, profile, postSuccess },
-        filesUploadingReducer: { filesUploading }
-    }
+        filesUploadingReducer: { filesUploading },
+    },
 }) => ({
     isFetching,
     error,
     profile,
     postSuccess,
-    filesUploading
+    filesUploading,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -100,12 +93,7 @@ const mapDispatchToProps = dispatch => ({
     },
     editProfile: postBody => {
         return dispatch(editProfile(postBody));
-    }
+    },
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(EditProfileFormContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditProfileFormContainer));

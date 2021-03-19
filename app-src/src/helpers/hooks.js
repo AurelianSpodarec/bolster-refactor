@@ -130,7 +130,7 @@ export function useForm(initialState = {}) {
         setFormData(prev => ({ ...prev, [name]: value }));
     }
 
-    return [formData, handleChange];
+    return [formData, handleChange, setFormData];
 }
 
 function getWindowDimensions() {

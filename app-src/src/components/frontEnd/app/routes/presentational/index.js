@@ -44,7 +44,7 @@ const FrontEndRoutes = ({ base = '/' }) => (
             path={`${base}auth/confirm-email/:emailConfirmationCode`}
             component={ConfirmEmailAddress}
         />
-        <Route exact path={`${base}auth/acceptinvitation/:token`} component={ConfirmEmailAddress} />
+        <Route exact path={`${base}auth/acceptinvitation`} component={ConfirmEmailAddress} />
         <Route exact path={`${base}auth/terms`} component={TermsContainer} />
         <Route exact path={`${base}auth/privacy-policy`} component={PrivacyPolicyContainer} />
     </SwitchWith404>

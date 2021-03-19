@@ -7,10 +7,14 @@ import { componentDidMount } from 'helpers/generic';
 import { usePrevious } from 'helpers/hooks';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
+import { useLocation } from 'react-router';
 
 const AcceptInvitation = () => {
-    const { token } = useParams();
+    const location = useLocation();
+    const useQuery = () => new URLSearchParams(location.search);
+    const query = useQuery();
+    const token = query.get('token');
+
     const { isPosting, postSuccess, error } = useSelector(requestStateSelector);
     const prevProps = usePrevious({ isPosting, postSuccess, error });
 
@@ -46,6 +50,11 @@ const AcceptInvitation = () => {
 
     async function handleSuccess() {
         await authenticate();
+        const isNew = query.get('isNew') === 'true' ? true : false;
+        if (isNew) {
+            return history.push('/company/profile/change-password');
+        }
+
         return history.push('/company');
     }
 };
