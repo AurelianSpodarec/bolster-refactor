@@ -47,7 +47,7 @@ const mapStateToProps = ({
     menuTabs: tabsReducer.menuTabs,
     selectedMenuTab: tabsReducer.selectedMenuTab,
     isSuperAdmin: jwtData.isSuperAdmin,
-    isCompanyAdmin: jwtData.isCompnayAdmin || !!jwtData.companyID,
+    isCompanyAdmin: jwtData.isCompanyAdmin,
     isClientAccess: jwtData.isClientAccess,
 });
 

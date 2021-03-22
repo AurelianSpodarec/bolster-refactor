@@ -112,7 +112,7 @@ const LoginFormContainer = ({
         if (isSuperAdmin) {
             return history.push('/admin');
         }
-        if (isCompanyAdmin || !!companyID) {
+        if (isCompanyAdmin) {
             if (!companyID) return history.push('/company/company-selection');
             else {
                 const hasSub = await checkActive(companyID);

@@ -34,8 +34,6 @@ const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
     );
 
     function deleteModal() {
-        const { user, showModal } = this.props;
-
         dispatch(showModal(DELETE_COMPANY_USER, { id: user.id }));
     }
 

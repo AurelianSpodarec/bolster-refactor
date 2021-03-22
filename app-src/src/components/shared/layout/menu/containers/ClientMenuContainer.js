@@ -30,14 +30,14 @@ const mapStateToProps = ({
     },
     shared: {
         decodeJWTReducer: {
-            jwtData: { isCompanyAdmin, companyID },
+            jwtData: { isCompanyAdmin },
         },
     },
 }) => ({
     notifications: Object.values(messages)
         .filter(({ type }) => type === MESSAGE_TYPES.NOTIFICATION)
         .sort((a, b) => moment(b.createdAt) - moment(a.createdAt)),
-    isCompanyAdmin: isCompanyAdmin || !!companyID,
+    isCompanyAdmin: isCompanyAdmin,
 });
 
 export default ClientMenuContainer;

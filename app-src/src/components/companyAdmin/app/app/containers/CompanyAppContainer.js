@@ -43,6 +43,9 @@ class CompanyAppContainer extends Component {
 
         decodeJWT().then(({ payload = {} }) => {
             fetchSingleCompanyUser(payload.companyUserID);
+            if (payload.companyID) {
+                fetchHomeData();
+            }
         });
         fetchCompanySettings().then(({ payload = {} }) => {
             if (payload.colourCode) {
@@ -50,11 +53,36 @@ class CompanyAppContainer extends Component {
             }
         });
 
-        fetchHomeData();
         selectCompanyMenuTab();
         fetchLatestAppVersion();
     };
+
+    componentDidUpdate = prevProps => {
+        const {
+            companyID,
+            fetchHomeData,
+            fetchLatestAppVersion,
+            fetchCompanySettings,
+        } = this.props;
+        if (companyID !== prevProps.companyID) {
+            fetchHomeData();
+            fetchLatestAppVersion();
+            fetchCompanySettings().then(({ payload = {} }) => {
+                if (payload.colourCode) {
+                    localStorage.setItem('colourCode', payload.colourCode);
+                }
+            });
+        }
+    };
 }
+
+const mapStateToProps = ({
+    shared: {
+        decodeJWTReducer: { jwtData },
+    },
+}) => ({
+    companyID: jwtData.companyID,
+});
 
 const mapDispatchToProps = dispatch => ({
     fetchHomeData: () => {
@@ -81,5 +109,5 @@ const mapDispatchToProps = dispatch => ({
     fetchLatestAppVersion: () => dispatch(fetchLatestAppVersion()),
 });
 
-const withConnect = connect(null, mapDispatchToProps)(CompanyAppContainer);
+const withConnect = connect(mapStateToProps, mapDispatchToProps)(CompanyAppContainer);
 export default withAuth(withConnect, AUTH_TYPES.COMPANY);

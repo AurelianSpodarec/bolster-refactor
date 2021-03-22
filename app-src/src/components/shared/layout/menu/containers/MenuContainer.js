@@ -20,7 +20,7 @@ const mapStateToProps = ({
     },
 }) => ({
     isSuperAdmin: jwtData.isSuperAdmin,
-    isCompanyAdmin: jwtData.isCompanyAdmin || !!jwtData.companyID,
+    isCompanyAdmin: jwtData.isCompanyAdmin,
     isClientAccess: jwtData.isClientAccess,
     menuOpen,
 });
