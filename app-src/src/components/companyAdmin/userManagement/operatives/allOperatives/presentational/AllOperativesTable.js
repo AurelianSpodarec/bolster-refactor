@@ -4,52 +4,32 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import AllOperativesListItemContainer from '../containers/AllOperativesListItemContainer';
-import Search from 'components/shared/generic/form/presentational/Search';
 
-const AllOperativesTable = ({
-    headers,
-    users,
-    isFetching,
-    error,
-    handleShowModal,
-    onMobile,
-    searchTerm,
-    handleChange,
-}) => (
-    <>
-        <BlockContainer>
-            <Search
-                value={searchTerm}
-                placeholder="Search by name/email"
-                handleChange={handleChange}
-                name="searchTerm"
-            />
-        </BlockContainer>
-        <BlockContainer>
-            <BlockHeading title="Active Operatives">
-                <button className="button green" onClick={handleShowModal}>
-                    <i className="fa fa-plus" /> Create Operative
-                </button>
-            </BlockHeading>
-            <Table
-                withActions
-                headers={headers}
-                isFetching={isFetching}
-                error={error}
-                noData={!users.length}
-                noDataMessage="No operatives to display."
-            >
-                {users.map(user => (
-                    <AllOperativesListItemContainer
-                        headers={headers}
-                        key={user.id}
-                        user={user}
-                        onMobile={onMobile}
-                    />
-                ))}
-            </Table>
-        </BlockContainer>
-    </>
+const AllOperativesTable = ({ headers, users, isFetching, error, handleShowModal, onMobile }) => (
+    <BlockContainer>
+        <BlockHeading title="Active Operatives">
+            <button className="button green" onClick={handleShowModal}>
+                <i className="fa fa-plus" /> Create Operative
+            </button>
+        </BlockHeading>
+        <Table
+            withActions
+            headers={headers}
+            isFetching={isFetching}
+            error={error}
+            noData={!users.length}
+            noDataMessage="No operatives to display."
+        >
+            {users.map(user => (
+                <AllOperativesListItemContainer
+                    headers={headers}
+                    key={user.id}
+                    user={user}
+                    onMobile={onMobile}
+                />
+            ))}
+        </Table>
+    </BlockContainer>
 );
 
 export default AllOperativesTable;

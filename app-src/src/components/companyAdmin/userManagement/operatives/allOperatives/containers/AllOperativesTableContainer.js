@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { nameSort } from 'helpers/generic';
+
 import { usePrevious } from 'helpers/hooks';
 
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
@@ -9,13 +9,9 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 import AllOperativesTable from '../presentational/AllOperativesTable';
 import { CREATE_OPERATIVE } from 'constants/shared/modalTypes';
-import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 
-const { OPERATIVE } = COMPANY_USER_ROLE_TYPES;
-
-const AllOperativesTableContainer = () => {
+const AllOperativesTableContainer = ({ filteredUsers }) => {
     const { users, isFetching, error, onMobile, postSuccess } = useSelector(mapStateToProps);
-    const [searchTerm, setSearchTerm] = useState('');
     const dispatch = useDispatch();
     const prevProps = usePrevious({ postSuccess });
 
@@ -26,20 +22,8 @@ const AllOperativesTableContainer = () => {
         }
     }, [dispatch, postSuccess]);
 
-    const searchTermLower = searchTerm.toLowerCase();
-    const filteredUsers = users.filter(user => {
-        const name = `${user.userFirstName} ${user.userLastName}`.toLowerCase();
-        return (
-            !searchTermLower ||
-            name.includes(searchTermLower) ||
-            user.userEmail.includes(searchTermLower)
-        );
-    });
-    const sortedUsers = filteredUsers.sort(nameSort);
     return (
         <AllOperativesTable
-            searchTerm={searchTerm}
-            handleChange={handleChange}
             headers={[
                 'Name',
                 'Email',
@@ -52,17 +36,13 @@ const AllOperativesTableContainer = () => {
                 'Number of attached drawings',
                 '',
             ]}
-            users={sortedUsers}
+            users={filteredUsers(users)}
             isFetching={isFetching}
             error={error}
             handleShowModal={() => dispatch(showModal(CREATE_OPERATIVE))}
             onMobile={onMobile}
         />
     );
-
-    function handleChange(_, value) {
-        setSearchTerm(value);
-    }
 };
 
 const mapStateToProps = ({
@@ -73,7 +53,7 @@ const mapStateToProps = ({
         mobileReducer: { onMobile },
     },
 }) => ({
-    users: Object.values(users).filter(({ type }) => type === OPERATIVE),
+    users: Object.values(users),
     isFetching,
     error,
     onMobile,

@@ -35,7 +35,7 @@ const CompanyAdminsRoutes = () => {
                     name="searchTerm"
                 />
             </BlockContainer>
-            <SpecificTable searchTerm={searchTerm} filteredUsers={filteredUsers} />
+            <SpecificTable filteredUsers={filteredUsers} />
         </>
     );
 
