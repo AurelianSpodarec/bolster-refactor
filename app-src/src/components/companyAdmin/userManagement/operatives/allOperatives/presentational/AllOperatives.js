@@ -7,9 +7,9 @@ import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import fetchInactiveCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchInactiveCompanyUsers';
 
-import AllOperativesTableContainer from '../containers/AllOperativesTableContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import TabsContainer from 'components/shared/generic/tabs/containers/TabsContainer';
+import OperativesRoutes from './OperativesRoutes';
 
 const AllOperatives = () => {
     const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const AllOperatives = () => {
             <PageHeading title="All Operatives" withBackButton>
                 <TabsContainer />
             </PageHeading>
-            <AllOperativesTableContainer />
+            <OperativesRoutes />
         </>
     );
 };
