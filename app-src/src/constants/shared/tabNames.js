@@ -32,14 +32,14 @@ export const DASHBOARD_TABS = {
 };
 
 export const USERS_ADMIN_TABS = {
-    ACTIVE: 'Active',
-    INVITED: 'Invited',
     DELETED: 'Deleted',
+    INVITED: 'Invited',
+    ACTIVE: 'Active',
 };
 
 export const USERS_OPERATIVES_TABS = {
-    ACTIVE: 'Active',
-    INACTIVE: 'Inactive',
-    INVITED: 'Invited',
     DELETED: 'Deleted',
+    INVITED: 'Invited',
+    INACTIVE: 'Inactive',
+    ACTIVE: 'Active',
 };
