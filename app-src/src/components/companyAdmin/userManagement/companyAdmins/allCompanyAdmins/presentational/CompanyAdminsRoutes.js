@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import { USERS_ADMIN_TABS } from 'constants/shared/tabNames';
 
 import AllCompanyAdminsTableContainer from '../containers/AllCompanyAdminsTableContainer';
+import InvitedCompanyAdminsTable from '../../invitedCompanyAdmins/presentational/InvitedCompanyAdminsTable';
+import DeletedCompanyAdminsTable from '../../deletedCompanyAdmins/presentational/DeletedCompanyAdminsTable';
 
 const { ACTIVE, INVITED, DELETED } = USERS_ADMIN_TABS;
 
 const routes = {
     [ACTIVE]: AllCompanyAdminsTableContainer,
-    [INVITED]: null,
-    [DELETED]: null,
+    [INVITED]: InvitedCompanyAdminsTable,
+    [DELETED]: DeletedCompanyAdminsTable,
 };
 
 const CompanyAdminsRoutes = ({ selectedTab }) => {
