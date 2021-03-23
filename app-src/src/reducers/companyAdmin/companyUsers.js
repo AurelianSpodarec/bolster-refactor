@@ -31,7 +31,7 @@ import {
     CHANGE_USER_TYPE_FAILURE,
     TOGGLE_RESTRICT_USER_PAYMENTS_REQUEST,
     TOGGLE_RESTRICT_USER_PAYMENTS_SUCCESS,
-    TOGGLE_RESTRICT_USER_PAYMENTS_FAILURE,
+    TOGGLE_RESTRICT_USER_PAYMENTS_FAILURE
 } from 'constants/actionTypes/usersManagement';
 
 export default combineReducers({
@@ -40,7 +40,7 @@ export default combineReducers({
     error: errorReducer,
     isPosting: isPostingReducer,
     postSuccess: postSuccessReducer,
-    updatedCompanyUserID: updatedCompanyUserIDReducer,
+    updatedCompanyUserID: updatedCompanyUserIDReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -154,14 +154,6 @@ function companyUsersReducer(state = {}, action) {
         case EDIT_COMPANY_USER_SUCCESS:
         case FETCH_SINGLE_COMPANY_USER_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
-        case UNLINK_OPERATIVE_DEVICE_SUCCESS: {
-            const operative = state[action.operativeID];
-            return updateObj(state, action.operativeID, {
-                ...operative,
-                linkedDeviceID: null,
-                linkedDeviceName: null,
-            });
-        }
         case DELETE_COMPANY_USER_SUCCESS:
             return removeObjItem(state, action.id);
         default:

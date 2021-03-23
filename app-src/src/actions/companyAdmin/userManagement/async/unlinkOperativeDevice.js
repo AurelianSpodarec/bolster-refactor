@@ -5,28 +5,28 @@ import { getHeaders } from 'helpers/api';
 import {
     UNLINK_OPERATIVE_DEVICE_REQUEST,
     UNLINK_OPERATIVE_DEVICE_SUCCESS,
-    UNLINK_OPERATIVE_DEVICE_FAILURE,
+    UNLINK_OPERATIVE_DEVICE_FAILURE
 } from 'constants/actionTypes/usersManagement';
 
-export const unlinkOperativeDeviceRequest = () => ({
-    type: UNLINK_OPERATIVE_DEVICE_REQUEST,
+export const editCompanyUserRequest = () => ({
+    type: UNLINK_OPERATIVE_DEVICE_REQUEST
 });
 
-export const unlinkOperativeDeviceSuccess = operativeID => ({
+export const editCompanyUserSuccess = payload => ({
     type: UNLINK_OPERATIVE_DEVICE_SUCCESS,
-    operativeID,
+    payload
 });
 
-export const unlinkOperativeDeviceFailure = error => ({
+export const editCompanyUserFailure = error => ({
     type: UNLINK_OPERATIVE_DEVICE_FAILURE,
-    error,
+    error
 });
 
 export default userID => dispatch => {
-    dispatch(unlinkOperativeDeviceRequest());
+    dispatch(editCompanyUserRequest());
 
     return axios
         .post(`${API_URL}/users/${userID}/unlink`, {}, getHeaders())
-        .then(({ data }) => dispatch(unlinkOperativeDeviceSuccess(data)))
-        .catch(error => dispatch(unlinkOperativeDeviceFailure(error)));
+        .then(({ data }) => dispatch(editCompanyUserSuccess(data)))
+        .catch(error => dispatch(editCompanyUserFailure(error)));
 };
