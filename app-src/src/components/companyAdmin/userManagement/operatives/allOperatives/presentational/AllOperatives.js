@@ -23,7 +23,7 @@ const AllOperatives = () => {
     return (
         <>
             <PageHeading title="All Operatives" withBackButton>
-                <TabsContainer />
+                <TabsContainer classes="no-breadcrumb" />
             </PageHeading>
             <OperativesRoutes />
         </>
