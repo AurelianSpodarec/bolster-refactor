@@ -20,6 +20,7 @@ import drawingsReducer from './drawings';
 import floorsReducer from './floors';
 import companyReportsReducer from './companyReports';
 import headquartersReducer from './headquarters';
+import inactiveCompanyUsersReducer from './inactiveCompanyUsers';
 import inspectionLogsReducer from './inspectionLogs';
 import invoiceItemsReducer from './invoiceItems';
 import invoicesReducer from './invoices';
@@ -83,6 +84,7 @@ export default combineReducers({
     generatePinReportReducer,
     headquartersReducer,
     hierarchyReducer,
+    inactiveCompanyUsersReducer,
     inspectionLogsReducer,
     invoicesReducer,
     invoiceItemsReducer,
