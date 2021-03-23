@@ -20,9 +20,9 @@ class UnlinkDeviceModalContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, hideModal } = this.props;
+        const { postSuccess, hideModal, fetchCompanyUsers } = this.props;
         if (postSuccess && !prevProps.postSuccess) {
-            // fetchCompanyUsers();
+            fetchCompanyUsers();
             hideModal();
         }
     };
@@ -30,17 +30,20 @@ class UnlinkDeviceModalContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        companyUsersReducer: { postSuccess, error },
-    },
+        companyUsersReducer: { postSuccess, error }
+    }
 }) => ({
     postSuccess,
-    error,
+    error
 });
 
 const mapDispatchToProps = dispatch => ({
     hideModal: () => dispatch(hideModal()),
     fetchCompanyUsers: () => dispatch(fetchCompanyUsers()),
-    unlinkDevice: id => dispatch(unlinkOperativeDevice(id)),
+    unlinkDevice: id => dispatch(unlinkOperativeDevice(id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UnlinkDeviceModalContainer);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(UnlinkDeviceModalContainer);
