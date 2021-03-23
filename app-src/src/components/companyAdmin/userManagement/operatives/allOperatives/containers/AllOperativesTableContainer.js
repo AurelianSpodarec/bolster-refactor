@@ -4,12 +4,16 @@ import { componentDidMount, nameSort } from 'helpers/generic';
 import { usePrevious } from 'helpers/hooks';
 
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import fetchInactiveCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchInactiveCompanyUsers';
+import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 import AllOperativesTable from '../presentational/AllOperativesTable';
 import { CREATE_OPERATIVE } from 'constants/shared/modalTypes';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import { USERS_OPERATIVES_TABS } from 'constants/shared/tabNames';
+
 const { OPERATIVE } = COMPANY_USER_ROLE_TYPES;
 
 const AllOperativesTableContainer = () => {
@@ -19,7 +23,9 @@ const AllOperativesTableContainer = () => {
     const prevProps = usePrevious({ postSuccess });
 
     componentDidMount(() => {
+        dispatch(setTabs(Object.values(USERS_OPERATIVES_TABS), USERS_OPERATIVES_TABS.ACTIVE));
         dispatch(fetchCompanyUsers());
+        dispatch(fetchInactiveCompanyUsers());
     }, []);
 
     useEffect(() => {
