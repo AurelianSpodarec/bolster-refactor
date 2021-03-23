@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import { isEmpty } from 'helpers/generic';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -13,7 +14,7 @@ const headers = ['Name', 'Email', ''];
 
 const DeletedCompanyAdminsTable = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const { users, isFetching, error } = useSelector(mapStateToProps);
+    const { deleted, isFetching, error } = useSelector(mapStateToProps);
 
     return (
         <>
@@ -25,18 +26,18 @@ const DeletedCompanyAdminsTable = () => {
                     name="searchTerm"
                 />
             </BlockContainer>
-            <BlockContainer isFetching={isFetching} error={error} isEmpty={isEmpty(users)}>
+            <BlockContainer>
                 <BlockHeading title="Deleted Admins" />
                 <Table
                     withActions
                     headers={headers}
                     isFetching={isFetching}
                     error={error}
-                    noData={isEmpty(users)}
+                    noData={isEmpty(deleted)}
                     noDataMessage="No admins to display."
                     extraClasses="large"
                 >
-                    {users.map(user => (
+                    {deleted.map(user => (
                         <DeletedCompanyAdminsListItem key={user.id} user={user} />
                     ))}
                 </Table>
@@ -51,12 +52,12 @@ const DeletedCompanyAdminsTable = () => {
 
 const mapStateToProps = ({
     companyAdmin: {
-        companyUsersReducer: { users, isFetching, error },
+        inactiveCompanyUsersReducer: { deleted, isFetching, error },
     },
 }) => ({
     isFetching,
     error,
-    users: Object.values(users),
+    deleted: Object.values(deleted).filter(user => user.type === COMPANY_USER_ROLE_TYPES.ADMIN),
 });
 
 export default DeletedCompanyAdminsTable;
