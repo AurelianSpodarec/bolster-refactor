@@ -89,20 +89,6 @@ const AllOperativesListItem = ({
                     <button className="button" onClick={generateReport}>
                         Generate Report
                     </button>
-                    <Link
-                        className="button green"
-                        to={`/company/users-management/operatives/${user.id}/edit-password`}
-                    >
-                        <i className="far fa-lock-alt fa-fw" />
-                        Change Password
-                    </Link>
-                    <Link
-                        className="button green"
-                        to={`/company/users-management/operatives/${user.id}/edit-email`}
-                    >
-                        <i className="far fa-at fa-fw" />
-                        Change e-mail
-                    </Link>
                     <ButtonContainer className="button yellow" handleClick={showMakeAdminModal}>
                         <i className="far fa-user" /> Make Admin
                     </ButtonContainer>

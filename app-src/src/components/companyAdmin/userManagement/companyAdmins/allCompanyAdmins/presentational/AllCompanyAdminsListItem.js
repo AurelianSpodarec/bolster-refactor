@@ -95,20 +95,6 @@ const AllCompanyAdminsListItem = ({
                         Generate Report
                     </button>
                     <Link
-                        className="button green"
-                        to={`/company/users-management/company-admins/${user.id}/edit-password`}
-                    >
-                        <i className="far fa-lock-alt fa-fw" />
-                        Change password
-                    </Link>
-                    <Link
-                        className="button green"
-                        to={`/company/users-management/company-admins/${user.id}/edit-email`}
-                    >
-                        <i className="far fa-at fa-fw" />
-                        Change e-mail
-                    </Link>
-                    <Link
                         className="button yellow "
                         to={`/company/users-management/company-admins/${user.id}/edit`}
                     >
