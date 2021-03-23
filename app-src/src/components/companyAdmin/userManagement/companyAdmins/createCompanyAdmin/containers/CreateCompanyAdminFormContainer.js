@@ -60,7 +60,7 @@ const CreateCompanyAdminFormContainer = () => {
                 shouldRestrictPaymentsAccess: !users[companyUserID].shouldRestrictPayments,
             });
         }
-    }, []);
+    }, [postSuccess, error, users]);
 
     return (
         <CreateCompanyAdminForm
