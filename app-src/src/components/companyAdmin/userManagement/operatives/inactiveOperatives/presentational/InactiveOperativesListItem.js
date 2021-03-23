@@ -4,7 +4,9 @@ const InactiveOperativesListItem = ({ user: { userFirstName, userLastName, userE
     <tr>
         <td>{`${userFirstName} ${userLastName}`}</td>
         <td>{userEmail}</td>
-        <td></td>
+        <td>
+            <button className="button grey">Request reactivation</button>
+        </td>
     </tr>
 );
 

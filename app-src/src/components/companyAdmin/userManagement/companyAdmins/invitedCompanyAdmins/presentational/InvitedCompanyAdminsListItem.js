@@ -4,7 +4,6 @@ const InvitedCompanyAdminsListItem = ({ user: { userFirstName, userLastName, use
     <tr>
         <td>{`${userFirstName} ${userLastName}`}</td>
         <td>{userEmail}</td>
-        <td></td>
     </tr>
 );
 

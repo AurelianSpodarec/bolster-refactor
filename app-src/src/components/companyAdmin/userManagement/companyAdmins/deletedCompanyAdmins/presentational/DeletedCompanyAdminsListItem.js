@@ -4,7 +4,9 @@ const DeletedCompanyAdminsListItem = ({ user: { userFirstName, userLastName, use
     <tr>
         <td>{`${userFirstName} ${userLastName}`}</td>
         <td>{userEmail}</td>
-        <td></td>
+        <td>
+            <button className="button grey">Recover</button>
+        </td>
     </tr>
 );
 

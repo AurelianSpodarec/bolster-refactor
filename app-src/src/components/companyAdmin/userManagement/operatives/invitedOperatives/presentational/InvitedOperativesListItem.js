@@ -4,7 +4,6 @@ const InvitedOperativesListItem = ({ user: { userFirstName, userLastName, userEm
     <tr>
         <td>{`${userFirstName} ${userLastName}`}</td>
         <td>{userEmail}</td>
-        <td></td>
     </tr>
 );
 
