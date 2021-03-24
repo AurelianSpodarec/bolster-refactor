@@ -331,7 +331,7 @@ const AddDrawingsFormContainer = ({
 const mapStateToProps = (
     {
         companyAdmin: {
-            floorsReducer: { floorError, floors },
+            floorsReducer: { floorError, floors, isFetching: isFetchingFloors },
             companySettingsReducer: {
                 companySettings: { name, isUsingBolsterLabels, useManufacturingByDefault },
             },
@@ -368,7 +368,11 @@ const mapStateToProps = (
     manufacturers,
     optionValues: manufacturersOptionValues,
     isFetching:
-        isFetchingManufacturers || isFetchingOptionValues || fetchingOperatives || fetchingClients,
+        isFetchingManufacturers ||
+        isFetchingOptionValues ||
+        fetchingOperatives ||
+        fetchingClients ||
+        isFetchingFloors,
     useManufacturingByDefault,
     subscriptionServiceIDs,
     clients: Object.values(clients),

@@ -40,7 +40,7 @@ class AddSiteFormContainer extends Component {
 
         return (
             <BlockContainer
-                // isEmpty={true}
+                isEmpty={isFetching}
                 isFetching={isFetching}
                 error={error}
                 contentClass="no-padding"
@@ -272,7 +272,7 @@ const mapStateToProps = ({
     updatedSiteID: sitesReducer.updatedSiteID,
     manufacturers,
     optionValues: manufacturersOptionValues,
-    isFetching: isFetchingManufacturers || isFetchingOptionValues,
+    isFetching: isFetchingManufacturers || isFetchingOptionValues || sitesReducer.isFetching,
     useManufacturingByDefault,
     subscriptionServiceIDs,
 });

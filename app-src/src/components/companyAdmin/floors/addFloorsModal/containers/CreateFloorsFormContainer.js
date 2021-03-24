@@ -162,7 +162,12 @@ const CreateFloorsFormContainer = ({
 
     return (
         <BlockContainer
-            isEmpty={isObjEmpty(manufacturers) || isObjEmpty(optionValues) || !areOptionsLoaded}
+            isEmpty={
+                isObjEmpty(manufacturers) ||
+                isObjEmpty(optionValues) ||
+                !areOptionsLoaded ||
+                isFetching
+            }
             isFetching={isFetching || !areOptionsLoaded}
             error={error}
             contentClass="no-padding"
@@ -263,7 +268,7 @@ const CreateFloorsFormContainer = ({
 const mapStateToProps = (
     {
         companyAdmin: {
-            buildingsReducer: { buildingError, buildings },
+            buildingsReducer: { buildingError, buildings, isFetching: isFetchingBuildings },
             companySettingsReducer: {
                 companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
             },
@@ -289,7 +294,7 @@ const mapStateToProps = (
     building: buildings[buildingID],
     manufacturers,
     optionValues: manufacturersOptionValues,
-    isFetching: isFetchingManufacturers || isFetchingOptionValues,
+    isFetching: isFetchingManufacturers || isFetchingOptionValues || isFetchingBuildings,
     useManufacturingByDefault,
     subscriptionServiceIDs,
 });
