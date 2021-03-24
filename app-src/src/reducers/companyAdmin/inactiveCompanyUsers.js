@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, removeObjItem } from 'helpers/generic';
+import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
 import {
     FETCH_INACTIVE_COMPANY_USERS_REQUEST,
     FETCH_INACTIVE_COMPANY_USERS_SUCCESS,
@@ -8,6 +8,7 @@ import {
     RECOVER_COMPANY_USER_REQUEST,
     RECOVER_COMPANY_USER_SUCCESS,
     RECOVER_COMPANY_USER_FAILURE,
+    DELETE_COMPANY_USER_SUCCESS,
 } from 'constants/actionTypes/usersManagement';
 
 export default combineReducers({
@@ -102,6 +103,8 @@ function deletedCompanyUsersReducer(state = {}, action) {
             return convertArrToObj(action.payload.deleted);
         case RECOVER_COMPANY_USER_SUCCESS:
             return removeObjItem(state, action.user.id);
+        case DELETE_COMPANY_USER_SUCCESS:
+            return updateObj(state, action.user.id, action.user);
         default:
             return state;
     }

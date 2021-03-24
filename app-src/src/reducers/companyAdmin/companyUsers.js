@@ -164,7 +164,7 @@ function companyUsersReducer(state = {}, action) {
             });
         }
         case DELETE_COMPANY_USER_SUCCESS:
-            return removeObjItem(state, action.id);
+            return removeObjItem(state, action.user.id);
         case RECOVER_COMPANY_USER_SUCCESS:
             return updateObj(state, action.user.id, action.user);
         default:

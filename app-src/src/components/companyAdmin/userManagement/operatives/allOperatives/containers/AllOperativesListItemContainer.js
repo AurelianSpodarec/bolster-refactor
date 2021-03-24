@@ -16,7 +16,7 @@ const AllOperativesListItemContainer = ({ user, headers, onMobile }) => {
         <AllOperativesListItem
             user={user}
             drawingLimitColour={drawingLimitColour}
-            showDeleteModal={() => dispatch(showModal(DELETE_COMPANY_USER, { id: user.id }))}
+            showDeleteModal={() => dispatch(showModal(DELETE_COMPANY_USER, { id: user.id, user }))}
             showDisableModal={showDisableUserModal}
             showUnlinkModal={unlinkModal}
             showMakeAdminModal={makeAdminModal}
