@@ -8,7 +8,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import Table from 'components/shared/generic/tables/presentational/Table';
 import DeletedOperativesListItem from './DeletedOperativesListItem';
 
-const headers = ['Name', 'Email', ''];
+const headers = ['Name', 'Email', 'Phone Number', 'Operative Code', ''];
 
 const DeletedOperativesTable = ({ filteredUsers }) => {
     const { deleted, isFetching, error } = useSelector(mapStateToProps);
