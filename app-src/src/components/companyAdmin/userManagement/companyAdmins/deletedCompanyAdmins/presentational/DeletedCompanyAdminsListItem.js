@@ -4,7 +4,10 @@ import { useDispatch } from 'react-redux';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { RECOVER_USER } from 'constants/shared/modalTypes';
 
-const DeletedCompanyAdminsListItem = ({ user: { id, userFirstName, userLastName, userEmail } }) => {
+const DeletedCompanyAdminsListItem = ({
+    user,
+    user: { userFirstName, userLastName, userEmail },
+}) => {
     const dispatch = useDispatch();
 
     return (
@@ -20,7 +23,7 @@ const DeletedCompanyAdminsListItem = ({ user: { id, userFirstName, userLastName,
     );
 
     function handleRecover() {
-        dispatch(showModal(RECOVER_USER, { id, userFirstName, userLastName }));
+        dispatch(showModal(RECOVER_USER, { user }));
     }
 };
 
