@@ -27,11 +27,7 @@ export default () => dispatch => {
 
     return axios
         .get(`${API_URL}/users/nonactive`, getHeaders())
-        .then(res => {
-            console.log('res');
-            console.log(res);
-            return dispatch(fetchInactiveCompanyUsersSuccess(res.data));
-        })
+        .then(res => dispatch(fetchInactiveCompanyUsersSuccess(res.data)))
         .catch(error => {
             dispatch(fetchInactiveCompanyUsersFailure(error.message));
         });

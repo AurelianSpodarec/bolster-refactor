@@ -12,7 +12,7 @@ const DeletedCompanyAdminsListItem = ({ user: { id, userFirstName, userLastName,
             <td>{`${userFirstName} ${userLastName}`}</td>
             <td>{userEmail}</td>
             <td>
-                <button className="button grey" onClick={handleRecover}>
+                <button className="button blue" onClick={handleRecover}>
                     Recover
                 </button>
             </td>

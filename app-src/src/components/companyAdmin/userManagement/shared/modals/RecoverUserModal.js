@@ -4,7 +4,6 @@ import ModalOuterContainer from 'components/shared/generic/modals/containers/Mod
 import Form from 'components/shared/generic/form/containers/Form';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const RecoverUserModal = ({ id, userFirstName, userLastName }) => {
     return (
@@ -16,7 +15,7 @@ const RecoverUserModal = ({ id, userFirstName, userLastName }) => {
                     {`${userFirstName} ${userLastName}`}'?
                 </p>
                 <BlockButtonWrapper>
-                    <ButtonContainer type="submit">Submit</ButtonContainer>
+                    <button className="button green">Confirm</button>
                 </BlockButtonWrapper>
             </Form>
         </ModalOuterContainer>
