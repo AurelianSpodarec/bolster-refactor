@@ -109,6 +109,7 @@ import {
     UPDATE_REPORT_LAYOUT,
     CONFIRM_TWO_FACTOR,
     RECOVER_USER,
+    REACTIVATE_USER,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -220,6 +221,7 @@ import AddBannerNotificationModal from 'components/superAdmin/bannerNotification
 import UpdateReportLayoutModal from '../presentational/UpdateReportLayoutModal';
 import ConfirmTwoFactorModal from '../presentational/ConfirmTwoFactorModal';
 import RecoverUserModal from 'components/companyAdmin/userManagement/shared/modals/RecoverUserModal';
+import ReactivateUserModal from 'components/companyAdmin/userManagement/operatives/inactiveOperatives/modals/ReactivateUserModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -329,6 +331,7 @@ const MODAL_COMPONENTS = {
     [UPDATE_REPORT_LAYOUT]: UpdateReportLayoutModal,
     [CONFIRM_TWO_FACTOR]: ConfirmTwoFactorModal,
     [RECOVER_USER]: RecoverUserModal,
+    [REACTIVATE_USER]: ReactivateUserModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

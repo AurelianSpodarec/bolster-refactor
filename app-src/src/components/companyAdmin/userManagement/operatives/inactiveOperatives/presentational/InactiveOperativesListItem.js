@@ -1,20 +1,29 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
-const InactiveOperativesListItem = ({ user: { id, userFirstName, userLastName, userEmail } }) => {
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { REACTIVATE_USER } from 'constants/shared/modalTypes';
+
+const InactiveOperativesListItem = ({
+    user,
+    user: { id, userFirstName, userLastName, userEmail },
+}) => {
+    const dispatch = useDispatch();
+
     return (
         <tr>
             <td>{`${userFirstName} ${userLastName}`}</td>
             <td>{userEmail}</td>
             <td>
                 <button className="button blue" onClick={handleRequestReactivation}>
-                    Request reactivation
+                    Reactivate
                 </button>
             </td>
         </tr>
     );
 
     function handleRequestReactivation() {
-        console.log(`request reactivation for id: ${id}`);
+        dispatch(showModal(REACTIVATE_USER, { user }));
     }
 };
 

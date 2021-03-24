@@ -167,6 +167,7 @@ export const UPLOAD_USER_GUIDE = 'UPLOAD_USER_GUIDE';
 
 // company admin user management
 export const RECOVER_USER = 'RECOVER_USER';
+export const REACTIVATE_USER = 'REACTIVATE_USER';
 
 //super admin new features
 export const ADD_NEW_FEATURE = 'ADD_NEW_FEATURE';
