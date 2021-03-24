@@ -26,7 +26,7 @@ const DeletedOperativesTable = ({ filteredUsers }) => {
                 extraClasses="large"
             >
                 {filteredUsers(deleted).map(user => (
-                    <DeletedOperativesListItem key={user.id} user={user} />
+                    <DeletedOperativesListItem key={user.id} user={user} headers={headers} />
                 ))}
             </Table>
         </BlockContainer>

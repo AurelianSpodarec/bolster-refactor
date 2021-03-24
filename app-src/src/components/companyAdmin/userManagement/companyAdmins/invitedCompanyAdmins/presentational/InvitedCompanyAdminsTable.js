@@ -26,7 +26,7 @@ const InvitedCompanyAdminsTable = ({ filteredUsers }) => {
                 extraClasses="large"
             >
                 {filteredUsers(invited).map(user => (
-                    <InvitedCompanyAdminsListItem key={user.id} user={user} />
+                    <InvitedCompanyAdminsListItem key={user.id} user={user} headers={headers} />
                 ))}
             </Table>
         </BlockContainer>

@@ -26,7 +26,7 @@ const DeletedCompanyAdminsTable = ({ filteredUsers }) => {
                 extraClasses="large"
             >
                 {filteredUsers(deleted).map(user => (
-                    <DeletedCompanyAdminsListItem key={user.id} user={user} />
+                    <DeletedCompanyAdminsListItem key={user.id} user={user} headers={headers} />
                 ))}
             </Table>
         </BlockContainer>

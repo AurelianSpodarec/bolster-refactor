@@ -26,7 +26,7 @@ const InvitedOperativesTable = ({ filteredUsers }) => {
                 extraClasses="large"
             >
                 {filteredUsers(invited).map(user => (
-                    <InvitedOperativesListItem key={user.id} user={user} />
+                    <InvitedOperativesListItem key={user.id} user={user} headers={headers} />
                 ))}
             </Table>
         </BlockContainer>

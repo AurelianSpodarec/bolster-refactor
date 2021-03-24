@@ -26,7 +26,7 @@ const InactiveOperativesTable = ({ filteredUsers }) => {
                 extraClasses="large"
             >
                 {filteredUsers(inactive).map(user => (
-                    <InactiveOperativesListItem key={user.id} user={user} />
+                    <InactiveOperativesListItem key={user.id} user={user} headers={headers} />
                 ))}
             </Table>
         </BlockContainer>
