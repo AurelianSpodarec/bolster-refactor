@@ -165,6 +165,9 @@ export const ADMIN_EDIT_COMPANY_ADDRESS = 'ADMIN_EDIT_COMPANY_ADDRESS';
 
 export const UPLOAD_USER_GUIDE = 'UPLOAD_USER_GUIDE';
 
+// company admin user management
+export const RECOVER_USER = 'RECOVER_USER';
+
 //super admin new features
 export const ADD_NEW_FEATURE = 'ADD_NEW_FEATURE';
 export const EDIT_NEW_FEATURE = 'EDIT_NEW_FEATURE';

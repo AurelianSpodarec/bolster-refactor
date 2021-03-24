@@ -108,6 +108,7 @@ import {
     ADD_NEW_BANNER_NOTIFICATION,
     UPDATE_REPORT_LAYOUT,
     CONFIRM_TWO_FACTOR,
+    RECOVER_USER,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -218,6 +219,7 @@ import EditBannerNotificationModal from 'components/superAdmin/bannerNotificatio
 import AddBannerNotificationModal from 'components/superAdmin/bannerNotifications/addBannerNotifcationModel/presentational/AddBannerNotificationModal';
 import UpdateReportLayoutModal from '../presentational/UpdateReportLayoutModal';
 import ConfirmTwoFactorModal from '../presentational/ConfirmTwoFactorModal';
+import RecoverUserModal from 'components/companyAdmin/userManagement/shared/modals/RecoverUserModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -326,6 +328,7 @@ const MODAL_COMPONENTS = {
     [EDIT_BANNER_NOTIFICATION]: EditBannerNotificationModal,
     [UPDATE_REPORT_LAYOUT]: UpdateReportLayoutModal,
     [CONFIRM_TWO_FACTOR]: ConfirmTwoFactorModal,
+    [RECOVER_USER]: RecoverUserModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
