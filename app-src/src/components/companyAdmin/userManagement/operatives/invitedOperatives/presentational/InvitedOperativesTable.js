@@ -8,7 +8,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import Table from 'components/shared/generic/tables/presentational/Table';
 import InvitedOperativesListItem from './InvitedOperativesListItem';
 
-const headers = ['Name', 'Email'];
+const headers = ['Name', 'Email', ''];
 
 const InvitedOperativesTable = ({ filteredUsers }) => {
     const { invited, isFetching, error } = useSelector(mapStateToProps);

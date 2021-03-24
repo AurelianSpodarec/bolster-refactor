@@ -8,7 +8,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import Table from 'components/shared/generic/tables/presentational/Table';
 import InvitedCompanyAdminsListItem from './InvitedCompanyAdminsListItem';
 
-const headers = ['Name', 'Email'];
+const headers = ['Name', 'Email', ''];
 
 const InvitedCompanyAdminsTable = ({ filteredUsers }) => {
     const { invited, isFetching, error } = useSelector(mapStateToProps);
