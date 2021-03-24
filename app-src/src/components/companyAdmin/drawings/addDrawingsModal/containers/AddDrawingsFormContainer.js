@@ -371,11 +371,8 @@ const mapStateToProps = (
     manufacturers,
     optionValues: manufacturersOptionValues,
     isFetching:
-        isFetchingManufacturers ||
-        isFetchingOptionValues ||
-        fetchingOperatives ||
-        fetchingClients ||
-        useManufacturingByDefault,
+        isFetchingManufacturers || isFetchingOptionValues || fetchingOperatives || fetchingClients,
+    useManufacturingByDefault,
     subscriptionServiceIDs,
     clients: Object.values(clients),
     operatives: Object.values(operatives),
