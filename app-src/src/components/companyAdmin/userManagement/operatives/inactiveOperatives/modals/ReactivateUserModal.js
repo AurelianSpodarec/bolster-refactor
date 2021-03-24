@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-// import recoverCompanyUser from 'actions/companyAdmin/userManagement/async/recoverCompanyUser';
+import reactivateCompanyUser from 'actions/companyAdmin/userManagement/async/reactivateCompanyUser';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
@@ -49,8 +49,7 @@ const ReactivateUserModal = ({ user, user: { id, userFirstName, userLastName } }
     );
 
     function handleSubmit() {
-        console.log(`reactivate user id: ${id}`, user);
-        // dispatch(reactivateCompanyUser(id, user));
+        dispatch(reactivateCompanyUser(id, user));
     }
 };
 

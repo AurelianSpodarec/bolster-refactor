@@ -8,6 +8,9 @@ import {
     RECOVER_COMPANY_USER_REQUEST,
     RECOVER_COMPANY_USER_SUCCESS,
     RECOVER_COMPANY_USER_FAILURE,
+    REACTIVATE_COMPANY_USER_REQUEST,
+    REACTIVATE_COMPANY_USER_SUCCESS,
+    REACTIVATE_COMPANY_USER_FAILURE,
     DELETE_COMPANY_USER_SUCCESS,
 } from 'constants/actionTypes/usersManagement';
 
@@ -37,9 +40,12 @@ function isFetchingReducer(state = false, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case RECOVER_COMPANY_USER_REQUEST:
+        case REACTIVATE_COMPANY_USER_REQUEST:
             return true;
         case RECOVER_COMPANY_USER_SUCCESS:
         case RECOVER_COMPANY_USER_FAILURE:
+        case REACTIVATE_COMPANY_USER_SUCCESS:
+        case REACTIVATE_COMPANY_USER_FAILURE:
             return false;
         default:
             return state;
@@ -60,8 +66,10 @@ function errorReducer(state = null, action) {
 function postErrorReducer(state = null, action) {
     switch (action.type) {
         case RECOVER_COMPANY_USER_REQUEST:
+        case REACTIVATE_COMPANY_USER_REQUEST:
             return null;
         case RECOVER_COMPANY_USER_FAILURE:
+        case REACTIVATE_COMPANY_USER_FAILURE:
             return action.error;
         default:
             return state;
@@ -71,8 +79,10 @@ function postErrorReducer(state = null, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case RECOVER_COMPANY_USER_REQUEST:
+        case REACTIVATE_COMPANY_USER_REQUEST:
             return false;
         case RECOVER_COMPANY_USER_SUCCESS:
+        case REACTIVATE_COMPANY_USER_SUCCESS:
             return true;
         default:
             return state;

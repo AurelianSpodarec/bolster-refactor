@@ -4,10 +4,7 @@ import { useDispatch } from 'react-redux';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { REACTIVATE_USER } from 'constants/shared/modalTypes';
 
-const InactiveOperativesListItem = ({
-    user,
-    user: { id, userFirstName, userLastName, userEmail },
-}) => {
+const InactiveOperativesListItem = ({ user, user: { userFirstName, userLastName, userEmail } }) => {
     const dispatch = useDispatch();
 
     return (
