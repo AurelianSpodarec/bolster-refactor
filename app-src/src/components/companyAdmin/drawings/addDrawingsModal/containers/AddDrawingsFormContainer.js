@@ -57,6 +57,7 @@ const AddDrawingsFormContainer = ({
     fetchingOperatives,
     fetchAllCredits,
     companyName,
+    isFetchingHierarchies,
 }) => {
     const [
         drawings,
@@ -230,6 +231,7 @@ const AddDrawingsFormContainer = ({
                 operativeOptions={operativeOptions}
                 clientOptions={clientOptions}
                 updateSelectAll={updateSelectAll}
+                isFetchingHierarchies={isFetchingHierarchies}
             />
         </BlockContainer>
     );
@@ -332,6 +334,7 @@ const mapStateToProps = (
     {
         companyAdmin: {
             floorsReducer: { floorError, floors, isFetching: isFetchingFloors },
+            drawingsReducer: { isFetching: isFetchingDrawings },
             companySettingsReducer: {
                 companySettings: { name, isUsingBolsterLabels, useManufacturingByDefault },
             },
@@ -372,8 +375,7 @@ const mapStateToProps = (
         isFetchingOptionValues ||
         fetchingOperatives ||
         fetchingClients ||
-        isFetchingFloors,
-    useManufacturingByDefault,
+        useManufacturingByDefault,
     subscriptionServiceIDs,
     clients: Object.values(clients),
     operatives: Object.values(operatives),
@@ -381,6 +383,7 @@ const mapStateToProps = (
     fetchingClients,
     fetchingOperatives,
     companyName: name,
+    isFetchingHierarchies: isFetchingFloors || isFetchingDrawings,
 });
 
 const mapDispatchToProps = {

@@ -44,6 +44,7 @@ const CreateBuildingsFormContainer = ({
     useManufacturingByDefault,
     error,
     showOAndMTsAndCsModal,
+    isFetchingHierarchies,
 }) => {
     const [
         buildings,
@@ -186,6 +187,7 @@ const CreateBuildingsFormContainer = ({
                 showManufacturingOptions={showManufacturingOptions}
                 setShowManufacturingOptions={setShowManufacturingOptions}
                 handleShowOandMModal={handleShowOandMModal}
+                isFetchingHierarchies={isFetchingHierarchies}
             />
         </BlockContainer>
     );
@@ -281,6 +283,9 @@ const mapStateToProps = (
     {
         companyAdmin: {
             sitesReducer: { siteError, updatedSiteID, sites, isFetching: isFetchingSites },
+            buildingsReducer: { isFetching: isFetchingBuildings },
+            floorsReducer: { isFetching: isFetchingFloors },
+            drawingsReducer: { isFetching: isFetchingDrawings },
             companySettingsReducer: {
                 companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
             },
@@ -307,9 +312,11 @@ const mapStateToProps = (
     updatedSiteID,
     manufacturers,
     optionValues: manufacturersOptionValues,
-    isFetching: isFetchingManufacturers || isFetchingOptionValues || isFetchingSites,
+    isFetching: isFetchingManufacturers || isFetchingOptionValues,
     useManufacturingByDefault,
     subscriptionServiceIDs,
+    isFetchingHierarchies:
+        isFetchingSites || isFetchingBuildings || isFetchingFloors || isFetchingDrawings,
 });
 
 const mapDispatchToProps = {

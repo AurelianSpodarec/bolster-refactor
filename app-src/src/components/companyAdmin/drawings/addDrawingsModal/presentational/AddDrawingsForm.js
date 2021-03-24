@@ -32,6 +32,7 @@ const AddDrawingsForm = ({
     clientOptions,
     handleShowOandMModal,
     updateSelectAll,
+    isFetchingHierarchies,
 }) => {
     const hasEnoughCredits = credits >= drawings.length;
     return (
@@ -363,7 +364,15 @@ const AddDrawingsForm = ({
                     <i className="fa fa-plus" /> Add another drawing
                 </button>
                 {hasEnoughCredits ? (
-                    <SubmitContainer withPlus text={'Submit'} />
+                    <>
+                        {isFetchingHierarchies ? (
+                            <button className="button green disabled" disabled>
+                                <i className="fa fa-spinner fa-spin"></i> Please wait...
+                            </button>
+                        ) : (
+                            <SubmitContainer text={'Submit'} />
+                        )}
+                    </>
                 ) : (
                     <button className="button red" type="button" onClick={() => {}}>
                         <i className="fa fa-times" />
