@@ -62,26 +62,12 @@ const MergeToolForm = ({
                 destDrawingPoints={destDrawingPoints}
                 setDestDrawingPoints={setDestDrawingPoints}
                 fetchingDrawings={fetchingDrawings}
+                pinsOptions={pinsOptions}
+                selectedPins={selectedPins}
+                setSelectedPins={setSelectedPins}
+                isFetchingPins={isFetchingPins}
+                pinsError={pinsError}
             />
-        )}
-
-        {!!sourceDrawingID && (
-            <Field name="Select pins">
-                <BlockContainerFetch
-                    isFetching={isFetchingPins}
-                    error={pinsError}
-                    noWhiteBackground
-                >
-                    <MultiSelect
-                        search
-                        options={pinsOptions}
-                        value={selectedPins}
-                        name="selectedPins"
-                        onChange={(_, value) => setSelectedPins(value)}
-                        placeholder="All pins"
-                    />
-                </BlockContainerFetch>
-            </Field>
         )}
 
         {shouldShowSubmit && (

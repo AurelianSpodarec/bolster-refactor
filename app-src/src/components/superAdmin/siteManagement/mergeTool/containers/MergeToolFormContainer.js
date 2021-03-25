@@ -110,8 +110,8 @@ const MergeToolFormContainer = ({
         const pinsArr = Object.values(pins).map(pin => {
             return {
                 value: pin.id,
-                label: pin.name,
-                text: pin.name,
+                label: pin.pinCode,
+                text: pin.pinCode,
             };
         });
 
