@@ -22,11 +22,11 @@ export const adminFetchPinsForCompanyFailure = error => ({
     error,
 });
 
-export default companyID => dispatch => {
+export default drawingID => dispatch => {
     dispatch(adminFetchPinsForCompanyRequest());
 
     return axios
-        .get(`${ADMIN_API_URL}/drawings/4/${companyID}/pins`, getHeaders())
+        .get(`${ADMIN_API_URL}/drawings/4/${drawingID}/pins`, getHeaders())
         .then(res => dispatch(adminFetchPinsForCompanySuccess(res.data)))
         .catch(err => dispatch(adminFetchPinsForCompanyFailure(err.message)));
 };
