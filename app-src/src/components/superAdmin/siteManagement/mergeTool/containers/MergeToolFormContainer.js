@@ -7,32 +7,36 @@ import MergeToolForm from '../presentational/MergeToolForm';
 import mergeDrawings from 'actions/superAdmin/mergeTool/async/mergeDrawings';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
-const defaultPoints = {A: null, B: null};
+const defaultPoints = { A: null, B: null };
 
-const MergeToolFormContainer = ({ 
-    companies, 
-    drawings, 
-    fetchingCompanies, 
-    fetchingDrawings, 
-    companiesError, 
-    drawingsError, 
-    fetchAllCompanies, 
+const MergeToolFormContainer = ({
+    companies,
+    drawings,
+    fetchingCompanies,
+    fetchingDrawings,
+    companiesError,
+    drawingsError,
+    fetchAllCompanies,
     fetchDrawingsForCompany,
     isPosting,
     postSuccess,
     error,
     mergeDrawings,
-    showModal
+    showModal,
+    isFetchingPins,
+    pinsError,
+    pins,
 }) => {
     const [companyID, setCompanyID] = useState(0);
     const [sourceDrawingID, setSourceDrawingID] = useState(0);
     const [destDrawingID, setDestDrawingID] = useState(0);
     const [sourceDrawingPoints, setSourceDrawingPoints] = useState(defaultPoints);
     const [destDrawingPoints, setDestDrawingPoints] = useState(defaultPoints);
+    const [selectedPins, setSelectedPins] = useState([]);
 
     const areDrawingIDsSet = sourceDrawingID && destDrawingID;
-    const areSourcePointsSet = (!!sourceDrawingPoints.A && !!sourceDrawingPoints.B);
-    const areDestPointsSet = (!!destDrawingPoints.A && !!destDrawingPoints.B);
+    const areSourcePointsSet = !!sourceDrawingPoints.A && !!sourceDrawingPoints.B;
+    const areDestPointsSet = !!destDrawingPoints.A && !!destDrawingPoints.B;
     const areBothPointsSet = areSourcePointsSet && areDestPointsSet;
 
     const shouldShowSubmit = areBothPointsSet && areDrawingIDsSet && !isPosting;
@@ -42,13 +46,17 @@ const MergeToolFormContainer = ({
     componentDidUpdate(handleUpdateCompany, [companyID]);
     componentDidUpdate(handleError, [error]);
     componentDidUpdate(handleSuccess, [postSuccess]);
+    componentDidUpdate(handleChangeSourceDrawing, [sourceDrawingID]);
 
     return (
-        <MergeToolForm 
+        <MergeToolForm
             companiesOptions={_getCompaniesOptionsList()}
             companiesError={companiesError}
             drawings={drawings}
             drawingsOptions={_getDrawingsOptionsList()}
+            pinsOptions={_getPinsOptionsList()}
+            selectedPins={selectedPins}
+            setSelectedPins={setSelectedPins}
             drawingsError={drawingsError}
             fetchingCompanies={fetchingCompanies}
             fetchingDrawings={fetchingDrawings}
@@ -65,6 +73,8 @@ const MergeToolFormContainer = ({
             shouldShowSubmit={shouldShowSubmit}
             handleSubmit={handleSubmit}
             isPosting={isPosting}
+            isFetchingPins={isFetchingPins}
+            pinsError={pinsError}
         />
     );
 
@@ -72,25 +82,38 @@ const MergeToolFormContainer = ({
         const companiesArr = Object.values(companies).map(({ id, name }) => ({
             value: id,
             label: name,
-            text: name
+            text: name,
         }));
         const sortedCompanies = sortArrayByKeyAndOrder(companiesArr, 'text', true, 'id');
         return sortedCompanies;
     }
 
     function _getDrawingsOptionsList() {
-        const drawingsArr = Object.values(drawings)
-            .map(({id, siteName, buildingName, floorName, name}) => {
+        const drawingsArr = Object.values(drawings).map(
+            ({ id, siteName, buildingName, floorName, name }) => {
                 const text = `${siteName} / ${buildingName} / ${floorName} ${name}`;
                 return {
-                    value: id, 
+                    value: id,
                     label: text,
                     text,
-                    disabled: sourceDrawingID === id || destDrawingID === id
+                    disabled: sourceDrawingID === id || destDrawingID === id,
                 };
-            });
+            },
+        );
         const sortedDrawings = sortArrayByKeyAndOrder(drawingsArr, 'text', true, 'id');
         return sortedDrawings;
+    }
+
+    function _getPinsOptionsList() {
+        const pinsArr = Object.values(pins).map(pin => {
+            return {
+                value: pin.id,
+                label: pin.name,
+                text: pin.name,
+            };
+        });
+
+        return pinsArr;
     }
 
     function handleUpdateCompany() {
@@ -105,34 +128,41 @@ const MergeToolFormContainer = ({
             showModal(ERROR_MODAL, { title, message });
         }
     }
-    
+
     function handleSuccess() {
         if (postSuccess) {
-            const title ='Merge Successful!';
+            const title = 'Merge Successful!';
             const message = 'Drawings Successfully merged.';
             showModal(SUCCESS_MODAL, { title, message });
         } else {
             resetState();
         }
     }
-    
+
+    function handleChangeSourceDrawing() {
+        if (sourceDrawingID) {
+            // fetch pins for source drawing
+        }
+    }
+
     function handleSubmit() {
         if (sourceDrawingID === destDrawingID) {
             const title = 'Validation Error.';
             const message = 'You cannot merge a drawing into itself';
-            return showModal(ERROR_MODAL, {title, message});
+            return showModal(ERROR_MODAL, { title, message });
         }
         const postBody = {
             source: {
                 drawingID: sourceDrawingID,
                 locationA: sourceDrawingPoints.A,
-                locationB: sourceDrawingPoints.B
+                locationB: sourceDrawingPoints.B,
+                pinIDs: selectedPins.length ? selectedPins : null,
             },
             destination: {
                 drawingID: destDrawingID,
                 locationA: destDrawingPoints.A,
-                locationB: destDrawingPoints.B
-            }
+                locationB: destDrawingPoints.B,
+            },
         };
         mergeDrawings(postBody);
     }
@@ -142,15 +172,17 @@ const MergeToolFormContainer = ({
         setSourceDrawingPoints(defaultPoints);
         setDestDrawingID(0);
         setDestDrawingPoints(defaultPoints);
+        setSelectedPins([]);
     }
 };
 
-const mapStateToProps = ({ 
+const mapStateToProps = ({
     superAdmin: {
         companiesReducer: { companies, isFetching: fetchingCompanies, error: companiesError },
         drawingsReducer: { drawings, isFetching: fetchingDrawings, error: drawingsError },
-        mergeToolReducer: { isPosting, error, postSuccess}
-    }
+        mergeToolReducer: { isPosting, error, postSuccess },
+        pinsReducer: { isFetching: isFetchingPins, error: pinsError, pins },
+    },
 }) => ({
     companies,
     drawings,
@@ -159,8 +191,11 @@ const mapStateToProps = ({
     companiesError,
     drawingsError,
     isPosting,
-    error, 
-    postSuccess
+    error,
+    postSuccess,
+    isFetchingPins,
+    pinsError,
+    pins,
 });
 
 const mapDispatchToProps = { fetchAllCompanies, fetchDrawingsForCompany, mergeDrawings, showModal };
