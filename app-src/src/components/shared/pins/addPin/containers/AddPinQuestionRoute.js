@@ -140,7 +140,7 @@ class AddPinQuestionRoute extends Component {
         for (let i = 0; i < preReqQuestions.length; i++) {
             const preReqQuestion = preReqQuestions[i];
             const preReqType = `${preReqQuestion.type}`;
-            const prereqVals = question.prerequisiteQuestionValue.toLowerCase().split(',');
+            const prereqVals = question.prerequisiteQuestionValue.split(',');
             let preReqAnswer = answers[preReqQuestion.id];
 
             if (preReqType === STATUS && prereqVals.includes(`${status}`)) {
@@ -209,14 +209,29 @@ class AddPinQuestionRoute extends Component {
                 }
             }
 
+            let isMatch = false;
+
             if (Array.isArray(preReqAnswer)) {
-                if (preReqAnswer.some(answer => prereqVals.includes(`${answer}`.toLowerCase()))) {
-                    return true;
-                }
+                isMatch = preReqAnswer.some(answer =>  prereqVals.some(val => {
+                    if (!val.includes('#PREREQ_ID_')) {
+                        return val.toLowerCase() === `${answer}`.toLowerCase();
+                    }
+
+                    return val.toLowerCase() === `${answer}#PREREQ_ID_${preReqQuestion.id}`.toLowerCase();
+                }));
+            } 
+            else {
+                
+                isMatch = prereqVals.some(val => {
+                    if (!val.includes('#PREREQ_ID_')) {
+                        return val.toLowerCase() === `${preReqAnswer}`.toLowerCase();
+                    }
+                    
+                    return val.toLowerCase() === `${preReqAnswer}#PREREQ_ID_${preReqQuestion.id}`.toLowerCase();
+                });
             }
-            if (prereqVals.includes(`${preReqAnswer}`.toLowerCase())) {
-                return true;
-            }
+
+            if (isMatch) return true;
         }
         return false;
     };

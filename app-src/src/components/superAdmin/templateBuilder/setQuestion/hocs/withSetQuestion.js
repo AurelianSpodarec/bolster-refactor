@@ -114,26 +114,29 @@ export default function (WrappedComponent) {
                 let curPrereqOptions = [];
 
                 if (questionType === STATUS) {
-                    curPrereqOptions = (this._getStatusOptions());
+                    curPrereqOptions = this._getStatusOptions();
                 } else if (questionType === CHECKBOX) {
                     curPrereqOptions =([
                         { label: 'True', value: 'true' },
                         { label: 'False', value: 'false' },
                     ]);
                 } else if (optionType) {
-                    curPrereqOptions = (
-                        this._getDropownOptionsByType(optionType)
-                    );
+                    curPrereqOptions = this._getDropownOptionsByType(optionType);
                 } else if (options) {
-                    curPrereqOptions = (
-                        options.map(opt => ({
+                    curPrereqOptions = options.map(opt => ({
                             label: opt.text,
                             value: opt.id,
-                        }))
-                    );
+                        }));
                 }
 
-                prereqValueOptions = prereqValueOptions.concat(curPrereqOptions.map(({label, value}) => ({label: `${label} (${name})`, value: `${value}#PREREQ_ID_${uuid}`})));
+                if (questionType === STATUS) {
+                    curPrereqOptions = curPrereqOptions.map(({label, value}) => ({label: `${label} (${name})`, value}));
+                } else {
+                    curPrereqOptions = curPrereqOptions.map(({label, value}) => ({label: `${label} (${name})`, value: `${value}#PREREQ_ID_${uuid}`}));
+                }
+
+                prereqValueOptions = prereqValueOptions.concat(curPrereqOptions);
+                
             });
             
             return prereqValueOptions;
