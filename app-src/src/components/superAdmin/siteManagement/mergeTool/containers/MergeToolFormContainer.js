@@ -6,6 +6,7 @@ import { componentDidMount, componentDidUpdate, sortArrayByKeyAndOrder } from 'h
 import MergeToolForm from '../presentational/MergeToolForm';
 import mergeDrawings from 'actions/superAdmin/mergeTool/async/mergeDrawings';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import fetchPinsForCompany from 'actions/superAdmin/mergeTool/async/fetchPinsForCompany';
 import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 const defaultPoints = { A: null, B: null };
 
@@ -26,6 +27,7 @@ const MergeToolFormContainer = ({
     isFetchingPins,
     pinsError,
     pins,
+    fetchPinsForCompany,
 }) => {
     const [companyID, setCompanyID] = useState(0);
     const [sourceDrawingID, setSourceDrawingID] = useState(0);
@@ -141,7 +143,8 @@ const MergeToolFormContainer = ({
 
     function handleChangeSourceDrawing() {
         if (sourceDrawingID) {
-            // fetch pins for source drawing
+            setSelectedPins([]);
+            fetchPinsForCompany(sourceDrawingID);
         }
     }
 
@@ -198,6 +201,12 @@ const mapStateToProps = ({
     pins,
 });
 
-const mapDispatchToProps = { fetchAllCompanies, fetchDrawingsForCompany, mergeDrawings, showModal };
+const mapDispatchToProps = {
+    fetchAllCompanies,
+    fetchDrawingsForCompany,
+    mergeDrawings,
+    showModal,
+    fetchPinsForCompany,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MergeToolFormContainer);

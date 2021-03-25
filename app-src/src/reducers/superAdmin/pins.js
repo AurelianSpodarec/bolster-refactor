@@ -39,6 +39,8 @@ function errorReducer(state = null, action) {
 
 function pinsReducer(state = {}, action) {
     switch (action.type) {
+        case ADMIN_FETCH_PINS_FOR_COMPANY_REQUEST:
+            return {};
         case ADMIN_FETCH_PINS_FOR_COMPANY_SUCCESS:
             return convertArrToObj(action.payload);
         default:
