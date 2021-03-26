@@ -3,7 +3,13 @@ import { useDispatch } from 'react-redux';
 
 import AllOperativesListItem from '../presentational/AllOperativesListItem';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { DELETE_COMPANY_USER, UNLINK_DEVICE, CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
+import {
+    DELETE_COMPANY_USER,
+    UNLINK_DEVICE,
+    CONFIRM_SUBMIT,
+    DISABLE_USER,
+    ENABLE_USER,
+} from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import editCompanyUserType from 'actions/companyAdmin/userManagement/async/editCompanyUserType';
 
@@ -18,6 +24,7 @@ const AllOperativesListItemContainer = ({ user, headers, onMobile }) => {
             drawingLimitColour={drawingLimitColour}
             showDeleteModal={() => dispatch(showModal(DELETE_COMPANY_USER, { id: user.id, user }))}
             showDisableModal={showDisableUserModal}
+            showEnableModal={showEnableUserModal}
             showUnlinkModal={unlinkModal}
             showMakeAdminModal={makeAdminModal}
             headers={headers}
@@ -52,8 +59,12 @@ const AllOperativesListItemContainer = ({ user, headers, onMobile }) => {
         );
     }
 
-    function showDisableUserModal(userID) {
-        // todo
+    function showDisableUserModal() {
+        dispatch(showModal(DISABLE_USER, { user }));
+    }
+
+    function showEnableUserModal() {
+        dispatch(showModal(ENABLE_USER, { user }));
     }
 
     function getOperativeDrawingLimitColour(numberOfAttachedDrawings) {

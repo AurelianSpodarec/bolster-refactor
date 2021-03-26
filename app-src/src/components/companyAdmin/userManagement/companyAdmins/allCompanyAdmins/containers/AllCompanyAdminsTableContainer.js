@@ -9,11 +9,13 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import { isEmpty } from 'helpers/generic';
 
 const AllCompanyAdminTableContainer = ({ filteredUsers }) => {
-    const { users, isFetching, error } = useSelector(mapStateToProps);
+    const { users, disabledUsers, isFetching, error } = useSelector(mapStateToProps);
     const dispatch = useDispatch();
 
+    const mergedUsers = users.concat(disabledUsers);
+
     return (
-        <BlockContainer isFetching={isFetching} error={error} isEmpty={isEmpty(users)}>
+        <BlockContainer isFetching={isFetching} error={error} isEmpty={isEmpty(mergedUsers)}>
             <AllCompanyAdminsTable
                 headers={[
                     'Name',
@@ -26,7 +28,7 @@ const AllCompanyAdminTableContainer = ({ filteredUsers }) => {
                     'App Version',
                     '',
                 ]}
-                users={filteredUsers(users)}
+                users={filteredUsers(mergedUsers)}
                 isFetching={isFetching}
                 error={error}
                 handleCreateCompanyAdmin={handleCreateCompanyAdmin}
@@ -41,12 +43,18 @@ const AllCompanyAdminTableContainer = ({ filteredUsers }) => {
 
 const mapStateToProps = ({
     companyAdmin: {
-        companyUsersReducer: { users, isFetching, error },
+        companyUsersReducer: { users, isFetching: isFetchingActive, error: activeError },
+        inactiveCompanyUsersReducer: {
+            disabled,
+            isFetching: isFetchingInactive,
+            error: inactiveError,
+        },
     },
 }) => ({
-    isFetching,
-    error,
+    isFetching: isFetchingActive || isFetchingInactive,
+    error: activeError || inactiveError,
     users: Object.values(users),
+    disabledUsers: Object.values(disabled),
 });
 
 export default AllCompanyAdminTableContainer;

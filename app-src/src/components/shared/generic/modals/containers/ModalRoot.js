@@ -110,6 +110,8 @@ import {
     CONFIRM_TWO_FACTOR,
     RECOVER_USER,
     REACTIVATE_USER,
+    DISABLE_USER,
+    ENABLE_USER,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -222,6 +224,8 @@ import UpdateReportLayoutModal from '../presentational/UpdateReportLayoutModal';
 import ConfirmTwoFactorModal from '../presentational/ConfirmTwoFactorModal';
 import RecoverUserModal from 'components/companyAdmin/userManagement/shared/modals/RecoverUserModal';
 import ReactivateUserModal from 'components/companyAdmin/userManagement/operatives/inactiveOperatives/modals/ReactivateUserModal';
+import DisableUserModal from 'components/companyAdmin/userManagement/shared/modals/DisableUserModal';
+import EnableUserModal from 'components/companyAdmin/userManagement/shared/modals/EnableUserModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -332,6 +336,8 @@ const MODAL_COMPONENTS = {
     [CONFIRM_TWO_FACTOR]: ConfirmTwoFactorModal,
     [RECOVER_USER]: RecoverUserModal,
     [REACTIVATE_USER]: ReactivateUserModal,
+    [DISABLE_USER]: DisableUserModal,
+    [ENABLE_USER]: EnableUserModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

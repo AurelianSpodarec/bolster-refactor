@@ -11,9 +11,13 @@ import AllOperativesTable from '../presentational/AllOperativesTable';
 import { CREATE_OPERATIVE } from 'constants/shared/modalTypes';
 
 const AllOperativesTableContainer = ({ filteredUsers }) => {
-    const { users, isFetching, error, onMobile, postSuccess } = useSelector(mapStateToProps);
+    const { users, disabledUsers, isFetching, error, onMobile, postSuccess } = useSelector(
+        mapStateToProps,
+    );
     const dispatch = useDispatch();
     const prevProps = usePrevious({ postSuccess });
+
+    const mergedUsers = users.concat(disabledUsers);
 
     useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
@@ -36,7 +40,7 @@ const AllOperativesTableContainer = ({ filteredUsers }) => {
                 'Number of attached drawings',
                 '',
             ]}
-            users={filteredUsers(users)}
+            users={filteredUsers(mergedUsers)}
             isFetching={isFetching}
             error={error}
             handleShowModal={() => dispatch(showModal(CREATE_OPERATIVE))}
@@ -47,15 +51,26 @@ const AllOperativesTableContainer = ({ filteredUsers }) => {
 
 const mapStateToProps = ({
     companyAdmin: {
-        companyUsersReducer: { isFetching, error, users, postSuccess },
+        companyUsersReducer: {
+            isFetching: isFetchingActive,
+            error: activeError,
+            users,
+            postSuccess,
+        },
+        inactiveCompanyUsersReducer: {
+            disabled,
+            isFetching: isFetchingInactive,
+            error: inactiveError,
+        },
     },
     shared: {
         mobileReducer: { onMobile },
     },
 }) => ({
     users: Object.values(users),
-    isFetching,
-    error,
+    disabledUsers: Object.values(disabled),
+    isFetching: isFetchingActive || isFetchingInactive,
+    error: activeError || inactiveError,
     onMobile,
     postSuccess,
 });

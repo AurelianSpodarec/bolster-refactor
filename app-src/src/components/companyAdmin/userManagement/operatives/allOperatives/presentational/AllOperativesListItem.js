@@ -10,6 +10,7 @@ const AllOperativesListItem = ({
     user,
     showDeleteModal,
     showDisableModal,
+    showEnableModal,
     showUnlinkModal,
     showMakeAdminModal,
     onMobile,

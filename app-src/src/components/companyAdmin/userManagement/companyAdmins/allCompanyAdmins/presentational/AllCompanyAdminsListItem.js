@@ -10,6 +10,7 @@ const AllCompanyAdminsListItem = ({
     user,
     showDeleteModal,
     showDisableModal,
+    showEnableModal,
     showUnlinkModal,
     showRevokeAdminAccessModal,
     showRestrictUserPaymentsModal,

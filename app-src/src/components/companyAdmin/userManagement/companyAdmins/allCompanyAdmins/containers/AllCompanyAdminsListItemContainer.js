@@ -6,6 +6,8 @@ import {
     UNLINK_DEVICE,
     REVOKE_ADMIN_ACCESS,
     RESTRICT_ADMIN_PAYMENTS,
+    DISABLE_USER,
+    ENABLE_USER,
 } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
@@ -22,6 +24,7 @@ const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
             colCount={colCount}
             showDeleteModal={deleteModal}
             showDisableModal={showDisableUserModal}
+            showEnableModal={showEnableUserModal}
             showUnlinkModal={unlinkModal}
             showRestrictUserPaymentsModal={showRestrictUserPaymentsModal}
             showRevokeAdminAccessModal={revokeAdminAccess}
@@ -65,8 +68,12 @@ const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
         );
     }
 
-    function showDisableUserModal(userID) {
-        // todo
+    function showDisableUserModal() {
+        dispatch(showModal(DISABLE_USER, { user }));
+    }
+
+    function showEnableUserModal() {
+        dispatch(showModal(ENABLE_USER, { user }));
     }
 };
 

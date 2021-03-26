@@ -18,6 +18,7 @@ export default combineReducers({
     inactive: inactiveCompanyUsersReducer,
     invited: invitedCompanyUsersReducer,
     deleted: deletedCompanyUsersReducer,
+    disabled: disabledCompanyUsersReducer,
     isFetching: isFetchingReducer,
     isPosting: isPostingReducer,
     error: errorReducer,
@@ -115,6 +116,15 @@ function deletedCompanyUsersReducer(state = {}, action) {
             return removeObjItem(state, action.user.id);
         case DELETE_COMPANY_USER_SUCCESS:
             return updateObj(state, action.user.id, action.user);
+        default:
+            return state;
+    }
+}
+
+function disabledCompanyUsersReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_INACTIVE_COMPANY_USERS_SUCCESS:
+            return convertArrToObj(action.payload.disabled);
         default:
             return state;
     }

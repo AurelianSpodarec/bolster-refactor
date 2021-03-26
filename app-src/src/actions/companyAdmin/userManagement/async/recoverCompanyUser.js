@@ -25,7 +25,7 @@ export const recoverCompanyUserFailure = error => ({
 
 export default (id, user) => dispatch => {
     dispatch(recoverCompanyUserRequest());
-    axios
+    return axios
         .delete(`${API_URL}/users/${id}?undo=true`, getHeaders())
         .then(() => dispatch(recoverCompanyUserSuccess(user)))
         .catch(err => dispatch(recoverCompanyUserFailure(err.message)));
