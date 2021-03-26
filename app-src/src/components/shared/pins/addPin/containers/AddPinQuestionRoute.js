@@ -137,8 +137,8 @@ class AddPinQuestionRoute extends Component {
         if (!preReqQuestions.length) {
             return true;
         }
-        for (let i = 0; i < preReqQuestions.length; i++) {
-            const preReqQuestion = preReqQuestions[i];
+
+        return preReqQuestions.every(preReqQuestion => {
             const preReqType = `${preReqQuestion.type}`;
             const prereqVals = question.prerequisiteQuestionValue.split(',');
             let preReqAnswer = answers[preReqQuestion.id];
@@ -148,7 +148,7 @@ class AddPinQuestionRoute extends Component {
             }
 
             if (!preReqAnswer) {
-                continue;
+                return false;
             }
 
             if ([DROPDOWN, RADIO].includes(preReqType)) {
@@ -160,13 +160,13 @@ class AddPinQuestionRoute extends Component {
                 if (selectedOption !== undefined) {
                     preReqAnswer = selectedOption.text;
                 } else {
-                    continue;
+                    return false;
                 }
             }
 
             if (preReqType === MULTI_DROPDOWN) {
                 if (!preReqAnswer) {
-                    continue;
+                    return false;
                 }
 
                 const retArray = [];
@@ -191,7 +191,7 @@ class AddPinQuestionRoute extends Component {
                 if (selectedOption !== undefined) {
                     preReqAnswer = selectedOption.name;
                 } else {
-                    continue;
+                    return false;
                 }
             }
 
@@ -205,14 +205,14 @@ class AddPinQuestionRoute extends Component {
                 if (selectedOptions.length > 0) {
                     preReqAnswer = selectedOptions;
                 } else {
-                    continue;
+                    return false;
                 }
             }
 
-            let isMatch = false;
+            if (prereqVals.filter(val => !`${val}`.includes(`#PREREQ_ID_${preReqQuestion.id}`)))
 
             if (Array.isArray(preReqAnswer)) {
-                isMatch = preReqAnswer.some(answer =>  prereqVals.some(val => {
+                return preReqAnswer.some(answer =>  prereqVals.some(val => {
                     if (!val.includes('#PREREQ_ID_')) {
                         return val.toLowerCase() === `${answer}`.toLowerCase();
                     }
@@ -222,7 +222,7 @@ class AddPinQuestionRoute extends Component {
             } 
             else {
                 
-                isMatch = prereqVals.some(val => {
+                return prereqVals.some(val => {
                     if (!val.includes('#PREREQ_ID_')) {
                         return val.toLowerCase() === `${preReqAnswer}`.toLowerCase();
                     }
@@ -230,10 +230,7 @@ class AddPinQuestionRoute extends Component {
                     return val.toLowerCase() === `${preReqAnswer}#PREREQ_ID_${preReqQuestion.id}`.toLowerCase();
                 });
             }
-
-            if (isMatch) return true;
-        }
-        return false;
+        });
     };
 
     componentDidMount = () => {
