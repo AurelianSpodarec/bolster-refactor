@@ -17,6 +17,8 @@ import PrivacyPolicyContainer from 'components/frontEnd/privacyPolicy/containers
 import PageNotFound from 'components/frontEnd/404/presentational/404Page';
 import EmailConfirmationRequired from 'components/frontEnd/auth/login/EmailConfirmationRequired';
 import ConfirmEmailAddress from 'components/frontEnd/auth/login/ConfirmEmailAddress';
+import PasswordReset from 'components/frontEnd/auth/passwordReset/PasswordReset';
+import AcceptInvitation from 'components/frontEnd/auth/acceptInvitation/AcceptInvitation';
 
 const FrontEndRoutes = ({ base = '/' }) => (
     <SwitchWith404>
@@ -44,7 +46,8 @@ const FrontEndRoutes = ({ base = '/' }) => (
             path={`${base}auth/confirm-email/:emailConfirmationCode`}
             component={ConfirmEmailAddress}
         />
-        <Route exact path={`${base}auth/acceptinvitation`} component={ConfirmEmailAddress} />
+        <Route exact path={`${base}auth/acceptinvitation`} component={AcceptInvitation} />
+        <Route exact path={`${base}auth/passwordreset`} component={PasswordReset} />
         <Route exact path={`${base}auth/terms`} component={TermsContainer} />
         <Route exact path={`${base}auth/privacy-policy`} component={PrivacyPolicyContainer} />
     </SwitchWith404>

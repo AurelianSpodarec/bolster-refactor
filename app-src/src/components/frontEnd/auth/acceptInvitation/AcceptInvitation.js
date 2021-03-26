@@ -7,9 +7,10 @@ import { componentDidMount } from 'helpers/generic';
 import { usePrevious } from 'helpers/hooks';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 
 const AcceptInvitation = () => {
+    const history = useHistory();
     const location = useLocation();
     const useQuery = () => new URLSearchParams(location.search);
     const query = useQuery();

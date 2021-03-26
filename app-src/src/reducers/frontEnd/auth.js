@@ -12,7 +12,11 @@ import {
     POST_ACCEPT_INVITATION_REQUEST,
     POST_ACCEPT_INVITATION_FAILURE,
     POST_ACCEPT_INVITATION_SUCCESS,
+    POST_PASSWORD_RESET_REQUEST,
+    POST_PASSWORD_RESET_FAILURE,
+    POST_PASSWORD_RESET_SUCCESS,
 } from 'constants/actionTypes/auth';
+import { SET_API_FIELD_ERRORS } from 'constants/actionTypes/generic';
 
 export default combineReducers({
     error: errorReducer,
@@ -27,9 +31,11 @@ function errorReducer(state = null, action) {
         case FETCH_AUTH_AREA_TEXT_REQUEST:
         case POST_EMAIL_CONFIRMATION_REQUEST:
         case POST_ACCEPT_INVITATION_REQUEST:
+        case POST_PASSWORD_RESET_REQUEST:
             return false;
         case FETCH_AUTH_AREA_TEXT_FAILURE:
         case POST_EMAIL_CONFIRMATION_FAILURE:
+        case POST_PASSWORD_RESET_FAILURE:
         case POST_ACCEPT_INVITATION_FAILURE:
             return action.error;
         default:
@@ -65,6 +71,7 @@ function isPostingReducer(state = false, action) {
         case POST_EMAIL_CONFIRMATION_REQUEST:
         case POST_RESEND_EMAIL_CONFIRMATION_REQUEST:
         case POST_ACCEPT_INVITATION_REQUEST:
+        case POST_PASSWORD_RESET_REQUEST:
             return true;
         case POST_EMAIL_CONFIRMATION_FAILURE:
         case POST_RESEND_EMAIL_CONFIRMATION_FAILURE:
@@ -72,6 +79,9 @@ function isPostingReducer(state = false, action) {
         case POST_RESEND_EMAIL_CONFIRMATION_SUCCESS:
         case POST_ACCEPT_INVITATION_FAILURE:
         case POST_ACCEPT_INVITATION_SUCCESS:
+        case POST_PASSWORD_RESET_FAILURE:
+        case POST_PASSWORD_RESET_SUCCESS:
+        case SET_API_FIELD_ERRORS:
             return false;
         default:
             return state;
@@ -83,10 +93,12 @@ function postSuccessReducer(state = false, action) {
         case POST_EMAIL_CONFIRMATION_REQUEST:
         case POST_RESEND_EMAIL_CONFIRMATION_REQUEST:
         case POST_ACCEPT_INVITATION_REQUEST:
+        case POST_PASSWORD_RESET_REQUEST:
             return false;
         case POST_EMAIL_CONFIRMATION_SUCCESS:
         case POST_RESEND_EMAIL_CONFIRMATION_SUCCESS:
         case POST_ACCEPT_INVITATION_SUCCESS:
+        case POST_PASSWORD_RESET_SUCCESS:
             return true;
         default:
             return state;
