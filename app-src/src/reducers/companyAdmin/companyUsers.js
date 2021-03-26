@@ -165,13 +165,13 @@ function companyUsersReducer(state = {}, action) {
                 linkedDeviceName: null,
             });
         }
-        case DELETE_COMPANY_USER_SUCCESS:
-            return removeObjItem(state, action.user.id);
         case RECOVER_COMPANY_USER_SUCCESS:
             return updateObj(state, action.user.id, action.user);
         case ENABLE_COMPANY_USER_SUCCESS:
             return updateObj(state, action.user.id, action.user);
         case DISABLE_COMPANY_USER_SUCCESS:
+            return removeObjItem(state, action.user.id);
+        case DELETE_COMPANY_USER_SUCCESS:
             return removeObjItem(state, action.user.id);
         default:
             return state;
