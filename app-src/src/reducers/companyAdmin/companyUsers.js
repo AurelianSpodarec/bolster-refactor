@@ -33,6 +33,8 @@ import {
     TOGGLE_RESTRICT_USER_PAYMENTS_SUCCESS,
     TOGGLE_RESTRICT_USER_PAYMENTS_FAILURE,
     RECOVER_COMPANY_USER_SUCCESS,
+    DISABLE_COMPANY_USER_SUCCESS,
+    ENABLE_COMPANY_USER_SUCCESS,
 } from 'constants/actionTypes/usersManagement';
 
 export default combineReducers({
@@ -167,6 +169,10 @@ function companyUsersReducer(state = {}, action) {
             return removeObjItem(state, action.user.id);
         case RECOVER_COMPANY_USER_SUCCESS:
             return updateObj(state, action.user.id, action.user);
+        case ENABLE_COMPANY_USER_SUCCESS:
+            return updateObj(state, action.user.id, action.user);
+        case DISABLE_COMPANY_USER_SUCCESS:
+            return removeObjItem(state, action.user.id);
         default:
             return state;
     }
