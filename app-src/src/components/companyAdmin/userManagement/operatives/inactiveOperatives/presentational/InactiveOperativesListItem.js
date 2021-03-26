@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+// import moment from 'moment';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { REACTIVATE_USER } from 'constants/shared/modalTypes';
@@ -24,6 +25,10 @@ const InactiveOperativesListItem = ({
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
+                {/* {moment().calendar()} */}
+            </td>
+            <td>
+                {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
                 <button className="button blue" onClick={handleRequestReactivation}>
                     Request Reactivation
                 </button>
