@@ -25,7 +25,7 @@ const InactiveOperativesListItem = ({
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
                 <button className="button blue" onClick={handleRequestReactivation}>
-                    Reactivate
+                    Request Reactivation
                 </button>
             </td>
         </tr>
