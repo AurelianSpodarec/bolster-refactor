@@ -131,6 +131,8 @@ const AllCompanyAdminsListItem = ({
                                 <i className="far fa-money-bill-alt" />
                                 Enable Payments
                             </button>
+                        ) : isDisabled ? (
+                            <></>
                         ) : (
                             <button
                                 className="button red"
