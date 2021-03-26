@@ -8,7 +8,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import { FILE_STORAGE_URL } from 'config';
 import { FETCH_COMPANY_SETTINGS_SUCCESS } from 'constants/actionTypes/companySettings';
-import { COMPANY_USER_ROLE_IDS } from 'constants/companyAdmin/enums';
+import { COMPANY_USER_ROLE_IDS, COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import { componentDidMount } from 'helpers/generic';
 import { usePrevious } from 'helpers/hooks';
 import React, { useEffect } from 'react';
@@ -51,7 +51,9 @@ const CompanySelection = () => {
         dispatch(postCompanyLogin({ companyID, type }));
     };
 
-    const companies = Object.values(availableCompanies);
+    const companies = Object.values(availableCompanies).filter(
+        ({ type }) => type !== COMPANY_USER_ROLE_TYPES.OPERATIVE,
+    );
     return (
         <>
             <PageHeading title="Companies" />
