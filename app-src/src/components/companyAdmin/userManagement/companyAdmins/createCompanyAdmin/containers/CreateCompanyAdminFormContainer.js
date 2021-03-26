@@ -37,7 +37,7 @@ const CreateCompanyAdminFormContainer = () => {
         if (postSuccess && !prevProps.postSuccess) {
             dispatch(
                 showModal(SUCCESS_MODAL, {
-                    hideModal,
+                    hideModal: () => dispatch(hideModal()),
                     message: 'Admin added successfully.',
                 }),
             );
@@ -45,7 +45,7 @@ const CreateCompanyAdminFormContainer = () => {
         if (error && !prevProps.error) {
             dispatch(
                 showModal(ERROR_MODAL, {
-                    hideModal,
+                    hideModal: () => dispatch(hideModal()),
                     title: 'Error',
                     message:
                         error.message ||
@@ -60,7 +60,7 @@ const CreateCompanyAdminFormContainer = () => {
                 shouldRestrictPaymentsAccess: !users[companyUserID].shouldRestrictPayments,
             });
         }
-    }, []);
+    }, [postSuccess, error, users]);
 
     return (
         <CreateCompanyAdminForm
