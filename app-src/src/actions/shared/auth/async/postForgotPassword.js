@@ -6,7 +6,8 @@ import {
     POST_FORGOT_PASSWORD_SUCCESS,
     POST_FORGOT_PASSWORD_FAILURE,
 } from 'constants/actionTypes/auth';
-import { FRONTEND_API_URL } from 'config';
+
+import { AUTH_API_URL } from 'config';
 
 export const postForgotPasswordRequest = () => ({
     type: POST_FORGOT_PASSWORD_REQUEST,
@@ -25,7 +26,7 @@ export default postBody => dispatch => {
     dispatch(postForgotPasswordRequest());
 
     return axios
-        .post(`${FRONTEND_API_URL}/forgotpassword`, postBody, getHeaders())
+        .post(`${AUTH_API_URL}/auth/requestpasswordreset`, postBody, getHeaders())
         .then(res => dispatch(postForgotPasswordSuccess(res.data)))
         .catch(err => dispatch(handleErrors(postForgotPasswordFailure)(err)));
 };
