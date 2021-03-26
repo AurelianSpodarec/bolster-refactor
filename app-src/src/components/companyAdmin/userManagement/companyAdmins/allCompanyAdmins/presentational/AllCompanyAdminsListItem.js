@@ -144,10 +144,10 @@ const AllCompanyAdminsListItem = ({
                         <>
                             {isDisabled ? (
                                 <button
-                                    className="button red"
+                                    className="button green"
                                     onClick={() => showEnableModal(user.id)}
                                 >
-                                    <i className="far fa-ban" />
+                                    <i className="far fa-check" />
                                     Enable
                                 </button>
                             ) : (
