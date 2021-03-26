@@ -209,8 +209,6 @@ class AddPinQuestionRoute extends Component {
                 }
             }
 
-            if (prereqVals.filter(val => !`${val}`.includes(`#PREREQ_ID_${preReqQuestion.id}`)))
-
             if (Array.isArray(preReqAnswer)) {
                 return preReqAnswer.some(answer =>  prereqVals.some(val => {
                     if (!val.includes('#PREREQ_ID_')) {
