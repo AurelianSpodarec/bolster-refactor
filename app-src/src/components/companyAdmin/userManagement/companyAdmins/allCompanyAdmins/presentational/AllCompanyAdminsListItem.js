@@ -19,6 +19,7 @@ const AllCompanyAdminsListItem = ({
     headers,
     showNotUpsyncedRecentlyWarning,
     tooltipDate,
+    isDisabled,
 }) => {
     const history = useHistory();
     return (
@@ -39,6 +40,7 @@ const AllCompanyAdminsListItem = ({
                 {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                 {`${user.userFirstName} ${user.userLastName}`}{' '}
                 {user.type === COMPANY_USER_ROLE_TYPES.OWNER ? <span>(OWNER)</span> : null}
+                {isDisabled && <span>(DISABLED)</span>}
             </td>
             <td>
                 {' '}
@@ -140,13 +142,23 @@ const AllCompanyAdminsListItem = ({
 
                     {+user.type !== +COMPANY_USER_ROLE_TYPES.OWNER && (
                         <>
-                            <button
-                                className="button red"
-                                onClick={() => showDisableModal(user.id)}
-                            >
-                                <i className="far fa-ban" />
-                                Disable
-                            </button>
+                            {isDisabled ? (
+                                <button
+                                    className="button red"
+                                    onClick={() => showEnableModal(user.id)}
+                                >
+                                    <i className="far fa-ban" />
+                                    Enable
+                                </button>
+                            ) : (
+                                <button
+                                    className="button red"
+                                    onClick={() => showDisableModal(user.id)}
+                                >
+                                    <i className="far fa-ban" />
+                                    Disable
+                                </button>
+                            )}
                             <button className="button red" onClick={() => showDeleteModal(user.id)}>
                                 <i className="far fa-trash-alt" />
                                 Delete

@@ -15,7 +15,7 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import AllCompanyAdminsListItem from '../presentational/AllCompanyAdminsListItem';
 
 const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
-    const { loggedInUser, onMobile } = useSelector(mapStateToProps);
+    const { loggedInUser, onMobile, disabledUsers } = useSelector(mapStateToProps);
     const dispatch = useDispatch();
 
     return (
@@ -33,6 +33,7 @@ const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
             onMobile={onMobile}
             showNotUpsyncedRecentlyWarning={user.notUpsyncedRecently}
             tooltipDate={user.notUpSyncedInXDays}
+            isDisabled={!!disabledUsers[user.id]}
         />
     );
 
@@ -80,6 +81,7 @@ const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
 const mapStateToProps = ({
     companyAdmin: {
         companyUsersReducer: { users },
+        inactiveCompanyUsersReducer: { disabled },
     },
     shared: {
         decodeJWTReducer: { jwtData },
@@ -88,6 +90,7 @@ const mapStateToProps = ({
 }) => ({
     loggedInUser: users[jwtData.companyUserID] || { type: null },
     onMobile,
+    disabledUsers: disabled,
 });
 
 export default AllCompanyAdminsListItemContainer;
