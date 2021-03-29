@@ -125,6 +125,7 @@ class OutputSettingsContainer extends Component {
             showFieldErrors,
             filters: { isFloorplanGeneration, includeFloorplan, isPDFGeneration },
             showModal,
+            customFilters,
         } = this.props;
 
         if (!isEmpty(fieldErrors)) showFieldErrors();
@@ -146,7 +147,16 @@ class OutputSettingsContainer extends Component {
                 postReport: this._postReport,
             });
         } else {
-            this._postReport(getPostBody());
+            const body = getPostBody();
+
+            const postBody = {
+                ...body,
+                serviceID: !body.serviceID
+                    ? customFilters.services.map(({ id }) => id)
+                    : [+body.serviceID],
+            };
+
+            this._postReport(postBody);
         }
     };
 
@@ -209,7 +219,7 @@ class OutputSettingsContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         drawingsReducer: { drawings },
-        reportsReducer: { filters, options, error },
+        reportsReducer: { filters, options, error, customFilters },
     },
     shared: {
         fieldErrorsReducer: { fieldErrors },
@@ -220,6 +230,7 @@ const mapStateToProps = ({
     options,
     drawings,
     error,
+    customFilters,
 });
 
 const mapDispatchToProps = {

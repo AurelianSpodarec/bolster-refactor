@@ -19,7 +19,7 @@ const BasicFilters = ({
     selectedStatus,
     fromDateInclusive,
     toDateInclusive,
-    isDrawingPage
+    isDrawingPage,
 }) => (
     <>
         <div className="size-lg-12">
@@ -30,7 +30,7 @@ const BasicFilters = ({
                 </p>
             )}
 
-            <Field name="Services" required>
+            <Field name="Services">
                 <DropdownContainer
                     placeholder="All services"
                     name="serviceID"
@@ -38,7 +38,6 @@ const BasicFilters = ({
                     selectedOption={selectedService}
                     value={selectedService}
                     handleChange={handleChange}
-                    required
                 />
             </Field>
             <Field name="Templates">
@@ -66,9 +65,7 @@ const BasicFilters = ({
                     <DatePickerContainer
                         name="fromDateInclusive"
                         selected={fromDateInclusive}
-                        onChange={val =>
-                            handleDateChange('fromDateInclusive', val)
-                        }
+                        onChange={val => handleDateChange('fromDateInclusive', val)}
                         placeholderText="From Date"
                         onBlur={() => handleDateBlur(true)}
                     />
@@ -78,9 +75,7 @@ const BasicFilters = ({
                     <DatePickerContainer
                         name="toDateInclusive"
                         selected={toDateInclusive}
-                        onChange={val =>
-                            handleDateChange('toDateInclusive', val)
-                        }
+                        onChange={val => handleDateChange('toDateInclusive', val)}
                         placeholderText="To Date"
                         onBlur={() => handleDateBlur()}
                         minDate={fromDateInclusive}
@@ -93,9 +88,7 @@ const BasicFilters = ({
 
             {isDrawingPage && <OperativesFilterContainer advanced />}
 
-            {!!fieldError && (
-                <p className="error red-text text-accent-4">{fieldError}</p>
-            )}
+            {!!fieldError && <p className="error red-text text-accent-4">{fieldError}</p>}
         </div>
     </>
 );
