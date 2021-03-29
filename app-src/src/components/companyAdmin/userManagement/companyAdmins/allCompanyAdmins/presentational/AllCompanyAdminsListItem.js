@@ -19,6 +19,7 @@ const AllCompanyAdminsListItem = ({
     headers,
     showNotUpsyncedRecentlyWarning,
     tooltipDate,
+    isDisabled,
 }) => {
     const history = useHistory();
     return (
@@ -39,6 +40,7 @@ const AllCompanyAdminsListItem = ({
                 {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                 {`${user.userFirstName} ${user.userLastName}`}{' '}
                 {user.type === COMPANY_USER_ROLE_TYPES.OWNER ? <span>(OWNER)</span> : null}
+                {isDisabled && <span>(DISABLED)</span>}
             </td>
             <td>
                 {' '}
@@ -86,7 +88,7 @@ const AllCompanyAdminsListItem = ({
                 {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
                 <BlockButtonWrapper additionalClasses="stacked">
-                    {user.linkedDeviceID && (
+                    {user.linkedDeviceID && !isDisabled && (
                         <button className="button blue" onClick={showUnlinkModal}>
                             <i className="far fa-unlink" />
                             Unlink Device
@@ -109,7 +111,8 @@ const AllCompanyAdminsListItem = ({
                         <i className="far fa-key" /> Drawings Access
                     </Link>
                     {loggedInUser.type === +COMPANY_USER_ROLE_TYPES.OWNER &&
-                        +user.type !== +COMPANY_USER_ROLE_TYPES.OWNER && (
+                        +user.type !== +COMPANY_USER_ROLE_TYPES.OWNER &&
+                        !isDisabled && (
                             <button
                                 className="button red"
                                 onClick={() => showRevokeAdminAccessModal(user.id)}
@@ -128,6 +131,8 @@ const AllCompanyAdminsListItem = ({
                                 <i className="far fa-money-bill-alt" />
                                 Enable Payments
                             </button>
+                        ) : isDisabled ? (
+                            <></>
                         ) : (
                             <button
                                 className="button red"
@@ -140,17 +145,32 @@ const AllCompanyAdminsListItem = ({
 
                     {+user.type !== +COMPANY_USER_ROLE_TYPES.OWNER && (
                         <>
-                            <button
-                                className="button red"
-                                onClick={() => showDisableModal(user.id)}
-                            >
-                                <i className="far fa-ban" />
-                                Disable
-                            </button>
-                            <button className="button red" onClick={() => showDeleteModal(user.id)}>
-                                <i className="far fa-trash-alt" />
-                                Delete
-                            </button>
+                            {isDisabled ? (
+                                <button
+                                    className="button green"
+                                    onClick={() => showEnableModal(user.id)}
+                                >
+                                    <i className="far fa-check" />
+                                    Enable
+                                </button>
+                            ) : (
+                                <>
+                                    <button
+                                        className="button red"
+                                        onClick={() => showDisableModal(user.id)}
+                                    >
+                                        <i className="far fa-ban" />
+                                        Disable
+                                    </button>
+                                    <button
+                                        className="button red"
+                                        onClick={() => showDeleteModal(user.id)}
+                                    >
+                                        <i className="far fa-trash-alt" />
+                                        Delete
+                                    </button>
+                                </>
+                            )}
                         </>
                     )}
                 </BlockButtonWrapper>

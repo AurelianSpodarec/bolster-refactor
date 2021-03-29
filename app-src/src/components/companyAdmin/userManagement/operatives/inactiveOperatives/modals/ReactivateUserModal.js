@@ -29,10 +29,10 @@ const ReactivateUserModal = ({ user, user: { id, userFirstName, userLastName } }
 
     return (
         <ModalOuterContainer>
-            <BlockHeading title="Reactivate User" />
+            <BlockHeading title="Request Reactivation" />
             <Form onSubmit={handleSubmit}>
                 <p>
-                    Are you sure you would like to reactivate the user '
+                    Are you sure you would like to request reactivation of the user '
                     {`${userFirstName} ${userLastName}`}'?
                 </p>
                 <BlockButtonWrapper>

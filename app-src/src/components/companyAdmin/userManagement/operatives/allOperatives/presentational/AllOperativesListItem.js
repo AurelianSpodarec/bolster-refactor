@@ -18,6 +18,7 @@ const AllOperativesListItem = ({
     showNotUpsyncedRecentlyWarning,
     tooltipDate,
     drawingLimitColour,
+    isDisabled,
 }) => {
     const history = useHistory();
     return (
@@ -36,7 +37,8 @@ const AllOperativesListItem = ({
                     </TooltipContainer>
                 )}
                 {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
-                {`${user.userFirstName} ${user.userLastName}`}
+                {`${user.userFirstName} ${user.userLastName}`}{' '}
+                {isDisabled && <span>(DISABLED)</span>}
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
@@ -81,7 +83,7 @@ const AllOperativesListItem = ({
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[9]}</span>}
                 <BlockButtonWrapper additionalClasses="stacked">
-                    {user.linkedDeviceID && (
+                    {user.linkedDeviceID && !isDisabled && (
                         <button className="button blue" onClick={showUnlinkModal}>
                             <i className="far fa-unlink" />
                             Unlink Device
@@ -90,9 +92,13 @@ const AllOperativesListItem = ({
                     <button className="button" onClick={generateReport}>
                         Generate Report
                     </button>
-                    <ButtonContainer className="button yellow" handleClick={showMakeAdminModal}>
-                        <i className="far fa-user" /> Make Admin
-                    </ButtonContainer>
+
+                    {!isDisabled && (
+                        <ButtonContainer className="button yellow" handleClick={showMakeAdminModal}>
+                            <i className="far fa-user" /> Make Admin
+                        </ButtonContainer>
+                    )}
+
                     <Link
                         className="button yellow"
                         to={`/company/users-management/operatives/${user.id}/edit`}
@@ -106,14 +112,23 @@ const AllOperativesListItem = ({
                         <i className="far fa-key" /> Drawings Access
                     </Link>
 
-                    <button className="button red" onClick={showDisableModal}>
-                        <i className="far fa-ban" />
-                        Disable
-                    </button>
-                    <button className="button red" onClick={showDeleteModal}>
-                        <i className="far fa-trash-alt" />
-                        Delete
-                    </button>
+                    {isDisabled ? (
+                        <button className="button green" onClick={showEnableModal}>
+                            <i className="far fa-check" />
+                            Enable
+                        </button>
+                    ) : (
+                        <>
+                            <button className="button red" onClick={showDisableModal}>
+                                <i className="far fa-ban" />
+                                Disable
+                            </button>
+                            <button className="button red" onClick={showDeleteModal}>
+                                <i className="far fa-trash-alt" />
+                                Delete
+                            </button>
+                        </>
+                    )}
                 </BlockButtonWrapper>
             </td>
         </tr>

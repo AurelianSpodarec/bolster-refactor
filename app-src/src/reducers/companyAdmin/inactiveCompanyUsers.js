@@ -11,6 +11,12 @@ import {
     REACTIVATE_COMPANY_USER_REQUEST,
     REACTIVATE_COMPANY_USER_SUCCESS,
     REACTIVATE_COMPANY_USER_FAILURE,
+    ENABLE_COMPANY_USER_REQUEST,
+    ENABLE_COMPANY_USER_SUCCESS,
+    ENABLE_COMPANY_USER_FAILURE,
+    DISABLE_COMPANY_USER_REQUEST,
+    DISABLE_COMPANY_USER_SUCCESS,
+    DISABLE_COMPANY_USER_FAILURE,
     DELETE_COMPANY_USER_SUCCESS,
 } from 'constants/actionTypes/usersManagement';
 
@@ -42,11 +48,17 @@ function isPostingReducer(state = false, action) {
     switch (action.type) {
         case RECOVER_COMPANY_USER_REQUEST:
         case REACTIVATE_COMPANY_USER_REQUEST:
+        case ENABLE_COMPANY_USER_REQUEST:
+        case DISABLE_COMPANY_USER_REQUEST:
             return true;
         case RECOVER_COMPANY_USER_SUCCESS:
         case RECOVER_COMPANY_USER_FAILURE:
         case REACTIVATE_COMPANY_USER_SUCCESS:
         case REACTIVATE_COMPANY_USER_FAILURE:
+        case ENABLE_COMPANY_USER_SUCCESS:
+        case ENABLE_COMPANY_USER_FAILURE:
+        case DISABLE_COMPANY_USER_SUCCESS:
+        case DISABLE_COMPANY_USER_FAILURE:
             return false;
         default:
             return state;
@@ -68,9 +80,13 @@ function postErrorReducer(state = null, action) {
     switch (action.type) {
         case RECOVER_COMPANY_USER_REQUEST:
         case REACTIVATE_COMPANY_USER_REQUEST:
+        case ENABLE_COMPANY_USER_REQUEST:
+        case DISABLE_COMPANY_USER_REQUEST:
             return null;
         case RECOVER_COMPANY_USER_FAILURE:
         case REACTIVATE_COMPANY_USER_FAILURE:
+        case ENABLE_COMPANY_USER_FAILURE:
+        case DISABLE_COMPANY_USER_FAILURE:
             return action.error;
         default:
             return state;
@@ -81,9 +97,13 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case RECOVER_COMPANY_USER_REQUEST:
         case REACTIVATE_COMPANY_USER_REQUEST:
+        case ENABLE_COMPANY_USER_REQUEST:
+        case DISABLE_COMPANY_USER_REQUEST:
             return false;
         case RECOVER_COMPANY_USER_SUCCESS:
         case REACTIVATE_COMPANY_USER_SUCCESS:
+        case ENABLE_COMPANY_USER_SUCCESS:
+        case DISABLE_COMPANY_USER_SUCCESS:
             return true;
         default:
             return state;
@@ -125,6 +145,10 @@ function disabledCompanyUsersReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_INACTIVE_COMPANY_USERS_SUCCESS:
             return convertArrToObj(action.payload.disabled);
+        case ENABLE_COMPANY_USER_SUCCESS:
+            return removeObjItem(state, action.user.id);
+        case DISABLE_COMPANY_USER_SUCCESS:
+            return updateObj(state, action.user.id, action.user);
         default:
             return state;
     }

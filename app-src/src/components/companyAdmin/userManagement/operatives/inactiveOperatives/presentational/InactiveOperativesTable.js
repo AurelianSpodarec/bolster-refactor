@@ -8,7 +8,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import Table from 'components/shared/generic/tables/presentational/Table';
 import InactiveOperativesListItem from './InactiveOperativesListItem';
 
-const headers = ['Name', 'Email', ''];
+const headers = ['Name', 'Email', 'Last Requested', ''];
 
 const InactiveOperativesTable = ({ filteredUsers }) => {
     const { inactive, isFetching, error } = useSelector(mapStateToProps);
