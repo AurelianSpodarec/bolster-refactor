@@ -4,10 +4,12 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 
 const CompanyUserListItem = ({ user, handleModalClick, tableColumnWidths }) => (
     <tr>
-        <td style={{ width: tableColumnWidths[0] }}>
-            {user.userFirstName} {user.userLastName} ({user.userEmail})
+        <td style={{ width: tableColumnWidths[0] }} className="cell-break-all">
+            {user.userFirstName} {user.userLastName} <br />({user.userEmail})
         </td>
-        <td style={{ width: tableColumnWidths[1] }}>{user.userPhoneNumber}</td>
+        <td style={{ width: tableColumnWidths[1] }} className="cell-break-all">
+            {user.userPhoneNumber}
+        </td>
         <td style={{ width: tableColumnWidths[2] }}>{COMPANY_USER_ROLE_IDS[String(user.type)]}</td>
         <td style={{ width: tableColumnWidths[3] }}>{user.formattedOperativeCode}</td>
         <td style={{ width: tableColumnWidths[4] }} className="left-align">

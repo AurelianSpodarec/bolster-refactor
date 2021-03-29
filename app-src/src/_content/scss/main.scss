@@ -2775,6 +2775,10 @@ input {
                 margin-bottom: 2px;
             }
         }
+
+        &.cell-break-all {
+            word-break: break-all;
+        }
     }
 
     .button {
