@@ -37,6 +37,7 @@ class OutputSettingsContainer extends Component {
             },
             options: { showHidden, sortBy },
             furtherFiltrationOption,
+            hasZones,
         } = this.props;
 
         const sortByOptions = convertEnumToDropdownOptions(SORT_BY_OPTIONS_TEXT);
@@ -58,6 +59,7 @@ class OutputSettingsContainer extends Component {
                 handleShowOandMModal={this.handleShowOandMModal}
                 isZoneFilter={+furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.ZONES}
                 includeFloorplanZones={includeFloorplanZones}
+                hasZones={hasZones}
             />
         );
     }
@@ -222,6 +224,7 @@ const mapStateToProps = ({
     companyAdmin: {
         drawingsReducer: { drawings },
         reportsReducer: { filters, options, error },
+        zonesReducer: { zones },
     },
     shared: {
         fieldErrorsReducer: { fieldErrors },
@@ -232,6 +235,7 @@ const mapStateToProps = ({
     options,
     drawings,
     error,
+    hasZones: !isEmpty(zones),
 });
 
 const mapDispatchToProps = {

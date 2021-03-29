@@ -21,8 +21,8 @@ const OutputSettings = ({
     isOAndMManualGeneration,
     showHidden,
     handleShowOandMModal,
-    isZoneFilter,
     includeFloorplanZones,
+    hasZones = false
 }) => {
     return (
         <div className="size-lg-12">
@@ -108,7 +108,7 @@ const OutputSettings = ({
                                     </div>
                                 </>
                             )}
-                            {isZoneFilter &&
+                            {hasZones &&
                                 ((isPDFGeneration && includeFloorplan) ||
                                     isFloorplanGeneration) && (
                                     <>
