@@ -13,7 +13,6 @@ const InvoiceDetailsContainer = ({
     invoice,
     error,
     isFetching,
-    company,
     showModal,
     postSuccess,
     hideModal,
@@ -54,11 +53,9 @@ const InvoiceDetailsContainer = ({
             error={error}
             isFetching={isFetching}
             companyName={invoice.companyName || null}
-            
             showModal={showModal}
             handleShowModal={handleShowModal}
         />
-        
     );
 
     function handleShowModal(id, comment) {

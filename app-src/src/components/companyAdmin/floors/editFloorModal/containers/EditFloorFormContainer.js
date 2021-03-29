@@ -19,8 +19,16 @@ import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetch
 import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
 import editFloor from 'actions/companyAdmin/floors/async/editFloor';
 
+import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
+
 import EditFloorForm from '../presentational/EditFloorForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import {
+    createPreselectedItemOptionValuesList,
+    formatDropdownOptions,
+    getPreselectedItemTypes,
+} from 'helpers/itemTypes';
+import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
 
 class EditFloorFormContainer extends Component {
     state = {
@@ -37,6 +45,11 @@ class EditFloorFormContainer extends Component {
         areOptionsLoaded: false,
         showManufacturingOptions: true,
         manufacturingInheritedFrom: '',
+        showDropdownOptions: true,
+        isDropdownOptionsInherited: false,
+        setDropdownOptionsForHierarchy: false,
+        selectedDropdownOptions: [],
+        dropdownOptions: [],
     };
 
     render() {
@@ -58,14 +71,20 @@ class EditFloorFormContainer extends Component {
                     hideModal={this.props.hideModal}
                     isUsingBolsterLabels={isUsingBolsterLabels}
                     handleShowManufacturingOptions={this.handleShowManufacturingOptions}
+                    handleShowDropdownOptions={this.handleShowDropdownOptions}
                 />
             </BlockContainer>
         );
     }
 
     componentDidMount = async () => {
-        const { floor, fetchManufacturersByPinOptionType, fetchAllOptionValues } = this.props;
-
+        const {
+            floor,
+            fetchManufacturersByPinOptionType,
+            fetchAllOptionValues,
+            fetchAllDropdownOptions,
+            building,
+        } = this.props;
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before editing a floor
         const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
             return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option];
@@ -77,6 +96,7 @@ class EditFloorFormContainer extends Component {
 
         const actions = pinOptionTypes.map(fn);
 
+        await fetchAllDropdownOptions(2, building[0].siteID);
         await Promise.all(actions).then(() => {
             fetchAllOptionValues();
         });
@@ -93,6 +113,7 @@ class EditFloorFormContainer extends Component {
             optionValues,
             subscriptionServiceIDs,
             manufacturers,
+            dropdownOptions,
         } = this.props;
 
         if (prevProps.isFetching && !isFetching) {
@@ -107,6 +128,14 @@ class EditFloorFormContainer extends Component {
                 manufacturingInheritedFrom: floor.manufacturingInheritedFrom,
             };
 
+            const initialDropdownOptions = {
+                isDropdownOptionsInherited: floor.isDropDownOptionsInherited,
+                setDropdownOptionsForHierarchy: floor.isDropDownOptionsEnabled,
+                selectedDropdownOptions: [],
+                dropdownOptions: [],
+                isDropDownOptionsInheritedFrom: floor.isDropDownOptionsInheritedFrom,
+            };
+
             initialOptions.optionValuesOptions = createOptionValuesList(
                 optionValues,
                 subscriptionServiceIDs,
@@ -117,11 +146,12 @@ class EditFloorFormContainer extends Component {
                 // prefill options from floor already saved
                 initialOptions.selectedOptionValues = floor.optionValueIDs.map(id => String(id));
 
-                initialOptions.selectedManufacturerOptions = createHierarchyPreselectedManufacturersList(
+                const selectedOptions = createHierarchyPreselectedManufacturersList(
                     initialOptions.manufacturerOptions,
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
+                initialOptions.selectedManufacturerOptions = selectedOptions;
                 if (floor.manufacturingInheritedFrom) {
                     this.setState({ showManufacturingOptions: false });
                 }
@@ -134,8 +164,19 @@ class EditFloorFormContainer extends Component {
                     initialOptions.manufacturerOptions,
                 );
             }
+            //dropdown options
+            initialDropdownOptions.selectedDropdownOptions = floor.dropDownOptionIDs
+                ? createPreselectedItemOptionValuesList(floor.dropDownOptionIDs)
+                : getPreselectedItemTypes(this.props.dropdownOptions);
+
+            initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
+
+            if (floor.isDropDownOptionsInheritedFrom) {
+                this.setState({ showDropdownOptions: false });
+            }
 
             this.setState(initialOptions);
+            this.setState(initialDropdownOptions);
         }
 
         if (!prevProps.floor.id && !!floor.id) {
@@ -144,6 +185,10 @@ class EditFloorFormContainer extends Component {
     };
     handleShowManufacturingOptions = () => {
         this.setState({ showManufacturingOptions: true });
+    };
+
+    handleShowDropdownOptions = () => {
+        this.setState({ showDropdownOptions: true });
     };
 
     handleInputChange = (name, value) => {
@@ -170,7 +215,14 @@ class EditFloorFormContainer extends Component {
         e.preventDefault();
         const { floor, editFloor, hideModal, isAlertShowing, message, dateToSend } = this.props;
 
-        const { name, setManufacturersForHierarchy, isManufacturingInherited } = this.state;
+        const {
+            name,
+            setManufacturersForHierarchy,
+            isManufacturingInherited,
+            isDropdownOptionsInherited,
+            setDropdownOptionsForHierarchy,
+            selectedDropdownOptions,
+        } = this.state;
 
         const manufacturingEnabledOptions = isManufacturingInherited
             ? {}
@@ -178,7 +230,12 @@ class EditFloorFormContainer extends Component {
                   isManufacturingEnabled: setManufacturersForHierarchy,
                   optionValueIDs: removeUnusedManufacturerDefaults(this.state),
               };
-
+        const dropdownEnabledOptions = isDropdownOptionsInherited
+            ? {}
+            : {
+                  isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
+                  dropDownOptionIDs: selectedDropdownOptions,
+              };
         let postBody = {};
 
         if (isAlertShowing) {
@@ -187,11 +244,13 @@ class EditFloorFormContainer extends Component {
                 message,
                 dateToSend: moment(dateToSend).format(),
                 ...manufacturingEnabledOptions,
+                ...dropdownEnabledOptions,
             };
         } else {
             postBody = {
                 name,
                 ...manufacturingEnabledOptions,
+                ...dropdownEnabledOptions,
             };
         }
 
@@ -202,10 +261,11 @@ class EditFloorFormContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        buildingsReducer: { error: floorError },
+        buildingsReducer: { error: floorError, buildings },
         companySettingsReducer: {
             companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
         },
+        dropdownOptionsReducer: { dropdownOptions, isFetching: isFetchingDropdownOptions },
         manufacturersReducer: {
             manufacturers,
             isFetching: isFetchingManufacturers,
@@ -225,9 +285,11 @@ const mapStateToProps = ({
     error: floorError || manufacturersError || optionValuesError,
     manufacturers,
     optionValues: manufacturersOptionValues,
-    isFetching: isFetchingManufacturers || isFetchingOptionValues,
+    isFetching: isFetchingManufacturers || isFetchingOptionValues || isFetchingDropdownOptions,
     useManufacturingByDefault,
     subscriptionServiceIDs,
+    building: Object.values(buildings),
+    dropdownOptions: Object.values(dropdownOptions),
 });
 
 const mapDispatchToProps = {
@@ -235,6 +297,8 @@ const mapDispatchToProps = {
     hideModal,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
+    fetchAllDropdownOptions,
+    fetchSingleBuilding,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditFloorFormContainer);

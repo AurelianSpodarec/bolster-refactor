@@ -14,7 +14,6 @@ const AllOperativesListItem = ({
     onMobile,
     headers,
     history,
-    mobileDeviceName = '',
     showNotUpsyncedRecentlyWarning,
     tooltipDate,
 }) => {
@@ -74,7 +73,12 @@ const AllOperativesListItem = ({
                 )}
             </td>
             <td>
+                {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[7]}</span>}
+                {user.appVersion ? user.appVersion : '-'}
+            </td>
+            <td>
+                {onMobile && <span className="mobile-table-heading">{headers[8]}</span>}
                 <BlockButtonWrapper additionalClasses="stacked">
                     {user.linkedDeviceID && (
                         <button className="button blue" onClick={showUnlinkModal}>

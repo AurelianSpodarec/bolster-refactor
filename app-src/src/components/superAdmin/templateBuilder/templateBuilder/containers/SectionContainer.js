@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { connect } from 'react-redux';
 import { DropTarget, useDrag, useDrop } from 'react-dnd';
-import newUuid from 'uuid/v1';
+import newUuid from 'uuid/v4';
 
 import {
     ADD_TEMPLATE_QUESTION,

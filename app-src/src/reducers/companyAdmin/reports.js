@@ -323,10 +323,6 @@ function excludedPinIDsReducer(state = {}, action) {
 function includedDrawingsIDsReducer(state = [], action) {
     switch (action.type) {
         case UPDATE_DRAWING_IDS_INCLUDED:
-            console.warn({ updating: true, ids: action.ids });
-            console.warn({ updating: true, ids: action.ids });
-            console.warn({ updating: true, ids: action.ids });
-            console.warn({ updating: true, ids: action.ids });
             return action.ids;
         case RESET_FILTER_OPTIONS:
             return [];

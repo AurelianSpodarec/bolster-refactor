@@ -21,7 +21,6 @@ const CompanyUsersTableContainer = ({
     showModal,
 }) => {
     const dispatch = useDispatch();
-    console.log(users);
 
     const setPage = nextPage => {
         const id = match.params.id;
@@ -54,14 +53,11 @@ const CompanyUsersTableContainer = ({
     }
 };
 
-const mapStateToProps = (
-    {
-        superAdmin: {
-            usersReducer: { companyUsers, companyUsersInfo, error, isFetching },
-        },
+const mapStateToProps = ({
+    superAdmin: {
+        usersReducer: { companyUsers, companyUsersInfo, error, isFetching },
     },
-    { match: { params } },
-) => ({
+}) => ({
     users: Object.values(companyUsers),
     companyUsersInfo,
     error,

@@ -24,6 +24,13 @@ const BuildingEditForm = ({
     handleShowManufacturingOptions,
     showManufacturingOptions,
     manufacturingInheritedFrom,
+    showDropdownOptions,
+    setDropdownOptionsForHierarchy,
+    isDropdownOptionsInherited,
+    selectedDropdownOptions,
+    dropdownOptions,
+    isDropDownOptionsInheritedFrom,
+    handleShowDropdownOptions,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <EditBuildingFormFieldsNoLabel
@@ -43,6 +50,13 @@ const BuildingEditForm = ({
             handleShowManufacturingOptions={handleShowManufacturingOptions}
             showManufacturingOptions={showManufacturingOptions}
             manufacturingInheritedFrom={manufacturingInheritedFrom}
+            showDropdownOptions={showDropdownOptions}
+            setDropdownOptionsForHierarchy={setDropdownOptionsForHierarchy}
+            isDropdownOptionsInherited={isDropdownOptionsInherited}
+            selectedDropdownOptions={selectedDropdownOptions}
+            dropdownOptions={dropdownOptions}
+            isDropDownOptionsInheritedFrom={isDropDownOptionsInheritedFrom}
+            handleShowDropdownOptions={handleShowDropdownOptions}
         />
 
         <BlockButtonWrapper>

@@ -27,29 +27,26 @@ const UserDrawingListItemContainer = ({
     const [buildingName, setBuildingName] = useState('Unknown');
 
     componentDidMount(() => {
-        fetchSingleSite(drawing.siteID)
-            .then(({ payload }) => {
-                if (payload.name) {
-                    setSiteName(payload.name);
-                }
-            })
-            .catch(error => console.log(error));
+        fetchSingleSite(drawing.siteID).then(({ payload }) => {
+            if (payload.name) {
+                setSiteName(payload.name);
+            }
+        });
+        // .catch(error => console.log(error));
 
-        fetchSingleBuilding(drawing.buildingID)
-            .then(({ payload }) => {
-                if (payload.name) {
-                    setBuildingName(payload.name);
-                }
-            })
-            .catch(error => console.log(error));
+        fetchSingleBuilding(drawing.buildingID).then(({ payload }) => {
+            if (payload.name) {
+                setBuildingName(payload.name);
+            }
+        });
+        // .catch(error => console.log(error));
 
-        fetchSingleFloor(drawing.floorID)
-            .then(({ payload }) => {
-                if (payload.name) {
-                    setFloorName(payload.name);
-                }
-            })
-            .catch(error => console.log(error));
+        fetchSingleFloor(drawing.floorID).then(({ payload }) => {
+            if (payload.name) {
+                setFloorName(payload.name);
+            }
+        });
+        // .catch(error => console.log(error));
     });
     return (
         <UserDrawingListItem
@@ -103,7 +100,7 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchSingleFloor: id => {
         return dispatch(fetchSingleFloor(id));
-    }
+    },
 });
 const mapStateToProps = ({
     companyAdmin: {
@@ -111,8 +108,8 @@ const mapStateToProps = ({
         buildingsReducer: { buildings, isFetching: fetchingBuildings },
         floorsReducer: { floors, isFetching: fetchingFloors },
         userDrawingsReducer: { isFetching: fetchingDrawings },
-        servicesReducer: { services, drawingServices, error: servicesError }
-    }
+        servicesReducer: { services, drawingServices, error: servicesError },
+    },
 }) => {
     return {
         sites: sites || {},
@@ -122,10 +119,7 @@ const mapStateToProps = ({
         isFetching: fetchingFloors || fetchingBuildings || fetchingSites,
         services: Object.values(services) || [],
         drawingServices: Object.values(drawingServices) || [],
-        servicesError
+        servicesError,
     };
 };
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(UserDrawingListItemContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(UserDrawingListItemContainer);

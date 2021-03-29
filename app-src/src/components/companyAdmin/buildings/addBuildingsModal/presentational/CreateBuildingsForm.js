@@ -13,10 +13,12 @@ const CreateBuildingsForm = ({
     addBuilding,
     removeBuilding,
     handleClose,
-    initialOptions,
     showManufacturingOptions,
     setShowManufacturingOptions,
     siteName,
+    showDropdownOptions,
+    setShowDropdownOptions,
+    combinedOptions,
     handleShowOandMModal,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
@@ -28,6 +30,8 @@ const CreateBuildingsForm = ({
                 showManufacturingOptions={showManufacturingOptions}
                 setShowManufacturingOptions={setShowManufacturingOptions}
                 siteName={siteName}
+                showDropdownOptions={showDropdownOptions}
+                setShowDropdownOptions={setShowDropdownOptions}
                 handleShowOandMModal={handleShowOandMModal}
             />
         </div>
@@ -35,7 +39,7 @@ const CreateBuildingsForm = ({
             <button
                 className="button blue left"
                 type="button"
-                onClick={() => addBuilding(initialOptions)}
+                onClick={() => addBuilding(combinedOptions)}
             >
                 <i className="fa fa-plus" /> Add another building
             </button>

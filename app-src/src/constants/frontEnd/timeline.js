@@ -30,7 +30,8 @@ export default [
     },
     {
         title: 'Create bespoke templates',
-        description: `<p>Each service subscribed to will come with default templates curated by Bolster Systems. You can outline bespoke templates to Bolster Systems to ensure your documentation requirements are met</p>`,
+        description:
+            '<p>Each service subscribed to will come with default templates curated by Bolster Systems. You can outline bespoke templates to Bolster Systems to ensure your documentation requirements are met</p>',
         icon: BespokeTemplatesIcon,
         activeIcon: BespokeTemplatesIconRed,
     },
@@ -78,7 +79,8 @@ export default [
     },
     {
         title: 'Transfer/receive works from other Bolster companies free of charge',
-        description: `<p>Work alongside other Bolster Approved Companies on the same drawings to ensure all stages of work are documented in one place and there is complete transparency between all parties</p>`,
+        description:
+            '<p>Work alongside other Bolster Approved Companies on the same drawings to ensure all stages of work are documented in one place and there is complete transparency between all parties</p>',
         icon: TransferRecieveIcon,
         activeIcon: TransferRecieveIconRed,
     },

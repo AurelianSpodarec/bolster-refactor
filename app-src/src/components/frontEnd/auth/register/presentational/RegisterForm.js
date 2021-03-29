@@ -39,7 +39,6 @@ const RegisterForm = ({
     'Company.vatCode': vatCode,
     'Company.vatType': vatType,
     'Company.base64LogoFile': base64LogoFile,
-    'Company.base64LogoFileName': base64LogoFileName,
     vatOptions,
     dateFormats,
     'Company.dateFormatID': dateFormatID,

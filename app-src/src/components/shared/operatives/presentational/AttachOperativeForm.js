@@ -84,6 +84,7 @@ const AttachOperativeForm = ({
                                     </Field>
                                 );
                             }
+                            return null;
                         })}
                     </>
                 )}

@@ -62,7 +62,7 @@ class EditCompanyPermissionsFormContainer extends Component {
 
             if (isEmpty(companiesPermissions)) return;
 
-            companiesPermissions.map(permission => {
+            companiesPermissions.forEach(permission => {
                 serviceIDs.push(permission.serviceID + '');
             });
 
@@ -87,7 +87,6 @@ class EditCompanyPermissionsFormContainer extends Component {
     handleSubmit = () => {
         const { serviceIDs, templateUsageRule } = this.state;
         const { hierarchyType, hierarchyID, editCompanyPermissions, companyID } = this.props;
-        console.log({ templateUsageRule });
 
         const postBody = {
             companyID,

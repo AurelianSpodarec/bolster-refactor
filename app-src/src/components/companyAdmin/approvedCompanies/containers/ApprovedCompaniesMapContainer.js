@@ -31,7 +31,11 @@ const Marker = ({
                     {logo && logo.length && (
                         <>
                             <br />
-                            <img className="company-logo" src={`${FILE_STORAGE_URL}/${logo}`} />
+                            <img
+                                className="company-logo"
+                                src={`${FILE_STORAGE_URL}/${logo}`}
+                                alt=""
+                            />
                         </>
                     )}
 

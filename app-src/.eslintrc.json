@@ -18,6 +18,7 @@
         "quotes": ["error", "single", { "avoidEscape": true}],
         "semi": ["error", "always"],
         "react/prop-types": 0,
+        "react/no-unescaped-entities": 0,
         "no-unused-vars": [2, { "vars": "all", "args": "after-used" }],
         "max-len": [
             1,
@@ -25,7 +26,10 @@
             4,
             {
                 "ignorePattern": "^import\\s.+\\sfrom\\s.+;$",
-                "ignoreUrls": true
+                "ignoreUrls": true,
+                "ignoreStrings": true,
+                "ignoreTemplateLiterals": true,
+                "ignoreComments": true
             }
         ]
     },

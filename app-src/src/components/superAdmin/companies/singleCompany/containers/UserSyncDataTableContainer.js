@@ -29,7 +29,7 @@ const UserSyncDataTableContainer = ({
         try {
             await fetchUserLatestSyncData({ id });
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }, []);
 

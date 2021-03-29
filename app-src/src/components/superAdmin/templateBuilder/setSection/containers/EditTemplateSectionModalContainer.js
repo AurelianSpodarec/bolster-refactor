@@ -1,62 +1,41 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { batch, useDispatch } from 'react-redux';
 
 import setSection from 'actions/superAdmin/templateBuilder/sync/setSection';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 import TemplateSectionFormModal from '../presentational/TemplateSectionFormModal';
 
-class EditTemplateSectionModalContainer extends React.Component {
-    state = {
-        name: '',
-        isAfterLabel: false
-    };
-    render() {
-        return (
-            <TemplateSectionFormModal
-                action="Edit"
-                name={this.state.name}
-                isAfterLabel={this.state.isAfterLabel}
-                handleChange={this.handleChange}
-                handleSubmit={this.handleSubmit}
-                hideModal={e => {
-                    e.preventDefault();
-                    this.props.hideModal();
-                }}
-            />
-        );
+const EditTemplateSectionModalContainer = ({ section }) => {
+    const [state, setState] = useState({ name: section.name, isAfterLabel: section.isAfterLabel });
+    const dispatch = useDispatch();
+
+    return (
+        <TemplateSectionFormModal
+            action="Edit"
+            name={state.name}
+            isAfterLabel={state.isAfterLabel}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            hideModal={e => {
+                e.preventDefault();
+                dispatch(hideModal());
+            }}
+        />
+    );
+
+    function handleChange(name, value) {
+        setState({ ...state, [name]: value });
     }
-    componentDidMount = () => {
-        const { name, isAfterLabel } = this.props.section;
-        this.setState({
-            name,
-            isAfterLabel
-        });
-    };
 
-    handleChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
-
-    handleSubmit = e => {
+    function handleSubmit(e) {
         e.preventDefault();
-        const { section } = this.props;
-        const { name, isAfterLabel } = this.state;
-        this.props.setSection({ ...section, name, isAfterLabel });
-    };
-}
-
-const mapDispatchToProps = dispatch => ({
-    hideModal: () => {
-        dispatch(hideModal());
-    },
-    setSection: section => {
-        dispatch(setSection(section));
-        dispatch(hideModal());
+        const { name, isAfterLabel } = state;
+        batch(() => {
+            dispatch(setSection({ ...section, name, isAfterLabel }));
+            dispatch(hideModal());
+        });
     }
-});
+};
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(EditTemplateSectionModalContainer);
+export default EditTemplateSectionModalContainer;
