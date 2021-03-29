@@ -148,15 +148,7 @@ class OutputSettingsContainer extends Component {
             });
         } else {
             const body = getPostBody();
-
-            const postBody = {
-                ...body,
-                serviceID: !body.serviceID
-                    ? customFilters.services.map(({ id }) => id)
-                    : [+body.serviceID],
-            };
-
-            this._postReport(postBody);
+            this._postReport(body);
         }
     };
 
