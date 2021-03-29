@@ -18,6 +18,7 @@ import {
 } from 'constants/companyAdmin/enums';
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
+import fetchAllCredits from 'actions/companyAdmin/credits/fetchAllCredits';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import editDrawing from 'actions/companyAdmin/drawings/async/editDrawing';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
@@ -127,6 +128,7 @@ class EditDrawingModalContainer extends Component {
             subscriptionServiceIDs,
             manufacturers,
             dropdownOptions,
+            fetchAllCredits,
         } = this.props;
 
         if (prevProps.isFetching && !isFetching) {
@@ -195,12 +197,14 @@ class EditDrawingModalContainer extends Component {
                 message:
                     'New floor plan successfully changed. It may take a few minutes before the updated floor plan is available to view, please check back later',
             });
+            fetchAllCredits();
         } else if (!prevProps.error && error) {
             showModal(ERROR_MODAL);
         } else if (!prevProps.postSuccess && postSuccess && !filesUploaded) {
             showModal(SUCCESS_MODAL, {
                 message: 'Drawing name successfully changed',
             });
+            fetchAllCredits();
         }
     };
 
@@ -359,6 +363,7 @@ const mapDispatchToProps = {
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
     fetchAllDropdownOptions,
+    fetchAllCredits,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditDrawingModalContainer);
