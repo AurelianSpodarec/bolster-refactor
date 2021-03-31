@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { CLIENT_API_URL } from 'config';
+import { getHeaders } from 'helpers/api';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -13,6 +16,8 @@ const CompanySelectionContainer = () => {
     function selectCompany(companyID) {
         localStorage.setItem('selectedCompany', companyID);
         history.push('/client/sites');
+        // logging for last login
+        axios.post(`${CLIENT_API_URL}/companies/${companyID}`, {}, getHeaders()).catch(() => {});
     }
 };
 
