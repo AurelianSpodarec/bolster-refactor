@@ -53,15 +53,6 @@ const InviteClientForm = ({
                 </Field>
             )}
 
-            {/* <DropdownContainer
-                    placeholder="-- select operative --"
-                    name="companyUserID"
-                    options={users}
-                    selectedOption={selectedUser}
-                    handleChange={handleChange}
-                    required
-                /> */}
-
             {inviteNewClient && (
                 <>
                     <BlockHeading title="Client Details" />

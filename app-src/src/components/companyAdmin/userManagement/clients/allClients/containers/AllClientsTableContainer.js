@@ -4,11 +4,19 @@ import { useSelector } from 'react-redux';
 import AllClientsTable from '../presentational/AllClientsTable';
 
 const AllClientTableContainer = () => {
-    const { clients, isFetching, error } = useSelector(mapStateToProps);
+    const { clientUsers, isFetching, error } = useSelector(mapStateToProps);
 
     return (
         <AllClientsTable
-            headers={['Name', 'Company name', 'Drawing', 'Services', '']}
+            headers={[
+                'Name',
+                'Company',
+                'Email',
+                'Phone',
+                'Last login date',
+                'Latest report date',
+                '',
+            ]}
             clients={_sortClientsList()}
             isFetching={isFetching}
             error={error}
@@ -16,7 +24,7 @@ const AllClientTableContainer = () => {
     );
 
     function _sortClientsList() {
-        return [...clients].sort(orderByProperty('userID', 'companyName'));
+        return [...clientUsers].sort(orderByProperty('userID', 'companyName'));
     }
 };
 
@@ -33,11 +41,12 @@ function orderByProperty(prop) {
 
 const mapStateToProps = ({
     companyAdmin: {
-        clientsReducer: { clients = {}, isFetching, error },
+        clientsReducer: { clients = {}, clientUsers, isFetching, error },
     },
 }) => ({
     isFetching,
     error,
+    clientUsers: Object.values(clientUsers),
     clients: Object.values(clients),
 });
 

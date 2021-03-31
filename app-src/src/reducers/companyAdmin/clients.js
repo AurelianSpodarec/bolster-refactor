@@ -22,17 +22,29 @@ import {
     FETCH_CLIENTS_FOR_FLOOR_FAILURE,
     ADD_MANY_CLIENTS_REQUEST,
     ADD_MANY_CLIENTS_FAILURE,
-    ADD_MANY_CLIENTS_SUCCESS
+    ADD_MANY_CLIENTS_SUCCESS,
+    EDIT_CLIENT_REQUEST,
+    EDIT_CLIENT_SUCCESS,
+    EDIT_CLIENT_FAILURE,
+    DISABLE_CLIENT_USER_SUCCESS,
+    DELETE_CLIENT_USER_SUCCESS,
 } from 'constants/actionTypes/clients';
 
 import {
-    FETCH_CLIENT_USERS_REQUEST,
+    FETCH_CLIENT_USER_PERMISSIONS_REQUEST,
+    FETCH_CLIENT_USER_PERMISSIONS_SUCCESS,
+    FETCH_CLIENT_USER_PERMISSIONS_FAILURE,
     FETCH_CLIENT_USERS_SUCCESS,
+    FETCH_CLIENT_USERS_REQUEST,
     FETCH_CLIENT_USERS_FAILURE,
+    FETCH_CLIENT_USER_WITH_PERMISSIONS_REQUEST,
+    FETCH_CLIENT_USER_WITH_PERMISSIONS_SUCCESS,
+    FETCH_CLIENT_USER_WITH_PERMISSIONS_FAILURE,
 } from 'constants/actionTypes/usersManagement';
 
 export default combineReducers({
     clients: clientsReducer,
+    clientUsers: clientUsersReducer,
     isFetching: isFetchingReducer,
     isPosting: isPostingReducer,
     deletionError: deletionErrorReducer,
@@ -44,14 +56,20 @@ function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_CLIENTS_FOR_DRAWING_REQUEST:
         case FETCH_CLIENTS_FOR_FLOOR_REQUEST:
+        case FETCH_CLIENT_USER_PERMISSIONS_REQUEST:
         case FETCH_CLIENT_USERS_REQUEST:
+        case FETCH_CLIENT_USER_WITH_PERMISSIONS_REQUEST:
             return true;
         case FETCH_CLIENTS_FOR_DRAWING_SUCCESS:
         case FETCH_CLIENTS_FOR_DRAWING_FAILURE:
         case FETCH_CLIENTS_FOR_FLOOR_SUCCESS:
         case FETCH_CLIENTS_FOR_FLOOR_FAILURE:
+        case FETCH_CLIENT_USER_PERMISSIONS_SUCCESS:
+        case FETCH_CLIENT_USER_PERMISSIONS_FAILURE:
         case FETCH_CLIENT_USERS_SUCCESS:
         case FETCH_CLIENT_USERS_FAILURE:
+        case FETCH_CLIENT_USER_WITH_PERMISSIONS_SUCCESS:
+        case FETCH_CLIENT_USER_WITH_PERMISSIONS_FAILURE:
             return false;
         default:
             return state;
@@ -63,6 +81,7 @@ function isPostingReducer(state = false, action) {
         case ADD_CLIENT_REQUEST:
         case ADD_MANY_CLIENTS_REQUEST:
         case EDIT_CLIENT_FOR_DRAWING_REQUEST:
+        case EDIT_CLIENT_REQUEST:
             return true;
         case ADD_CLIENT_SUCCESS:
         case ADD_CLIENT_FAILURE:
@@ -70,6 +89,8 @@ function isPostingReducer(state = false, action) {
         case ADD_MANY_CLIENTS_FAILURE:
         case EDIT_CLIENT_FOR_DRAWING_SUCCESS:
         case EDIT_CLIENT_FOR_DRAWING_FAILURE:
+        case EDIT_CLIENT_SUCCESS:
+        case EDIT_CLIENT_FAILURE:
             return false;
         default:
             return state;
@@ -94,14 +115,20 @@ function errorReducer(state = null, action) {
         case INVITE_CLIENT_REQUEST:
         case EDIT_CLIENT_FOR_DRAWING_REQUEST:
         case DELETE_CLIENT_FROM_DRAWING_REQUEST:
+        case FETCH_CLIENT_USER_PERMISSIONS_REQUEST:
         case FETCH_CLIENT_USERS_REQUEST:
+        case EDIT_CLIENT_REQUEST:
+        case FETCH_CLIENT_USER_WITH_PERMISSIONS_REQUEST:
             return null;
         case INVITE_CLIENT_FAILURE:
         case FETCH_CLIENTS_FOR_DRAWING_FAILURE:
         case FETCH_CLIENTS_FOR_FLOOR_FAILURE:
         case EDIT_CLIENT_FOR_DRAWING_FAILURE:
         case DELETE_CLIENT_FROM_DRAWING_FAILURE:
+        case FETCH_CLIENT_USER_PERMISSIONS_FAILURE:
         case FETCH_CLIENT_USERS_FAILURE:
+        case EDIT_CLIENT_FAILURE:
+        case FETCH_CLIENT_USER_WITH_PERMISSIONS_FAILURE:
             return action.error;
         default:
             return state;
@@ -118,11 +145,13 @@ function postSuccessReducer(state = false, action) {
         case EDIT_CLIENT_FOR_DRAWING_FAILURE:
         case DELETE_CLIENT_FROM_DRAWING_REQUEST:
         case DELETE_CLIENT_FROM_DRAWING_FAILURE:
+        case EDIT_CLIENT_REQUEST:
             return false;
         case ADD_CLIENT_SUCCESS:
         case ADD_MANY_CLIENTS_SUCCESS:
         case EDIT_CLIENT_FOR_DRAWING_SUCCESS:
         case DELETE_CLIENT_FROM_DRAWING_SUCCESS:
+        case EDIT_CLIENT_SUCCESS:
             return true;
         default:
             return state;
@@ -131,18 +160,39 @@ function postSuccessReducer(state = false, action) {
 
 function clientsReducer(state = {}, action) {
     switch (action.type) {
-        case FETCH_CLIENT_USERS_REQUEST:
+        case FETCH_CLIENT_USER_PERMISSIONS_REQUEST:
         case FETCH_CLIENTS_FOR_DRAWING_REQUEST:
         case FETCH_CLIENTS_FOR_FLOOR_REQUEST:
+        case FETCH_CLIENT_USER_WITH_PERMISSIONS_REQUEST:
             return {};
-        case FETCH_CLIENT_USERS_SUCCESS:
+        case FETCH_CLIENT_USER_PERMISSIONS_SUCCESS:
         case FETCH_CLIENTS_FOR_DRAWING_SUCCESS:
         case FETCH_CLIENTS_FOR_FLOOR_SUCCESS:
             return convertArrToObj(action.payload);
+        case FETCH_CLIENT_USER_WITH_PERMISSIONS_SUCCESS:
+            return convertArrToObj(action.payload.permissions);
         case INVITE_CLIENT_SUCCESS:
         case EDIT_CLIENT_FOR_DRAWING_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case DELETE_CLIENT_FROM_DRAWING_SUCCESS:
+            return removeObjItem(state, action.id);
+        default:
+            return state;
+    }
+}
+
+function clientUsersReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_CLIENT_USERS_REQUEST:
+            return {};
+        case FETCH_CLIENT_USERS_SUCCESS:
+            return convertArrToObj(action.payload);
+        case FETCH_CLIENT_USER_WITH_PERMISSIONS_SUCCESS:
+            return updateObj(state, action.payload.clientUser.id, action.payload.clientUser);
+        case DISABLE_CLIENT_USER_SUCCESS:
+        case EDIT_CLIENT_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
+        case DELETE_CLIENT_USER_SUCCESS:
             return removeObjItem(state, action.id);
         default:
             return state;

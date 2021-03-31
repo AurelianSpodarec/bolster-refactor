@@ -5,28 +5,28 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_CLIENT_USERS_REQUEST,
     FETCH_CLIENT_USERS_SUCCESS,
-    FETCH_CLIENT_USERS_FAILURE
+    FETCH_CLIENT_USERS_FAILURE,
 } from 'constants/actionTypes/usersManagement';
 
 export const fetchClientUsersRequest = () => ({
-    type: FETCH_CLIENT_USERS_REQUEST
+    type: FETCH_CLIENT_USERS_REQUEST,
 });
 
 export const fetchClientUsersSuccess = payload => ({
     type: FETCH_CLIENT_USERS_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchClientUsersFailure = error => ({
     type: FETCH_CLIENT_USERS_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {
     dispatch(fetchClientUsersRequest());
 
     return axios
-        .get(`${API_URL}/clientpermissions`, getHeaders())
+        .get(`${API_URL}/clientpermissions/clientUsers`, getHeaders())
         .then(res => dispatch(fetchClientUsersSuccess(res.data)))
         .catch(error => {
             dispatch(fetchClientUsersFailure(error.message));

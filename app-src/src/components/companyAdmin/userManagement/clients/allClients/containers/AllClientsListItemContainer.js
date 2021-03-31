@@ -1,40 +1,36 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import AllClientsListItem from '../presentational/AllClientsListItem';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import { CONFIRM_DELETE } from 'constants/shared/modalTypes';
-import deleteClientFromDrawing from 'actions/companyAdmin/clients/async/deleteClientFromDrawing';
+import { CONFIRM_DELETE, CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
+import disableClientUser from 'actions/companyAdmin/clients/async/disableClientUser';
+import deleteClientUser from 'actions/companyAdmin/clients/async/deleteClientUser';
+import { useIsMobile } from 'helpers/hooks';
 
 const AllClientsListItemContainer = ({ client, colCount, headers }) => {
-    const { services, onMobile } = useSelector(mapStateToProps);
+    const onMobile = useIsMobile();
     const history = useHistory();
     const dispatch = useDispatch();
     return (
         <AllClientsListItem
             client={client}
-            services={_getServicesForClient()}
+            services={[]}
             colCount={colCount}
             goToEdit={goToEdit}
-            removeAccess={removeAccess}
+            deleteClient={deleteClient}
             disableClient={disableClient}
             onMobile={onMobile}
             headers={headers}
         />
     );
 
-    function _getServicesForClient() {
-        const filteredServices = services.filter(({ id }) => client.serviceIDs.includes(id));
-
-        return filteredServices.map(({ name }) => name);
-    }
-
     function goToEdit() {
         // todo
         history.push({
-            pathname: `/company/drawings/${client.drawingID}/edit-client/${client.id}`,
+            pathname: `/company/users-management/clients/${client.id}/edit`,
             state: {
                 isFromClientUserManagement: true,
             },
@@ -42,36 +38,35 @@ const AllClientsListItemContainer = ({ client, colCount, headers }) => {
     }
 
     function disableClient() {
-        // todo
+        const handleDisable = () => {
+            dispatch(disableClientUser(client.id, client.isDisabled));
+            dispatch(hideModal());
+        };
+        const action = client.isDisabled ? 'Enable' : 'Disable';
+        dispatch(
+            showModal(CONFIRM_SUBMIT, {
+                title: action,
+                message: 'Are you sure you want to ' + action.toLowerCase() + ' this client?',
+                handleSubmit: handleDisable,
+            }),
+        );
     }
 
-    function removeAccess() {
+    function deleteClient() {
         const handleDelete = () => {
-            dispatch(deleteClientFromDrawing(client.id));
+            dispatch(deleteClientUser(client.id));
             dispatch(hideModal());
         };
 
         dispatch(
             showModal(CONFIRM_DELETE, {
-                hideModal,
+                hideModal: () => dispatch(hideModal()),
                 client,
-                message: `Are you sure you would like to remove ${client.userFirstName} ${client.userLastName}'s access?`,
+                message: `Are you sure you would like to delete ${client.firstName} ${client.lastName} as a client?`,
                 handleDelete,
             }),
         );
     }
 };
-
-const mapStateToProps = ({
-    companyAdmin: {
-        servicesReducer: { services },
-    },
-    shared: {
-        mobileReducer: { onMobile },
-    },
-}) => ({
-    services: Object.values(services) || [],
-    onMobile,
-});
 
 export default AllClientsListItemContainer;

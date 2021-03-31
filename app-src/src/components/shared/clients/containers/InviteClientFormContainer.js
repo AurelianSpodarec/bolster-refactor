@@ -6,7 +6,7 @@ import InviteClientForm from '../presentational/InviteClientForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import fetchCompaniesPermissions from 'actions/companyAdmin/companiesPermissions/async/fetchCompanyPermissions';
 import addClient from 'actions/companyAdmin/clients/async/addClient';
-import fetchClientUsers from 'actions/companyAdmin/userManagement/async/fetchClientUsers';
+import fetchClientUserPermissions from 'actions/companyAdmin/userManagement/async/fetchClientUserPermissions';
 import addManyClients from 'actions/companyAdmin/clients/async/addManyClients';
 
 class InviteClientFormContainer extends Component {
@@ -50,10 +50,10 @@ class InviteClientFormContainer extends Component {
             fetchCompaniesPermissions,
             hierarchyType,
             hierarchyID,
-            fetchClientUsers,
+            fetchClientUserPermissions,
         } = this.props;
         fetchCompaniesPermissions(hierarchyType, hierarchyID);
-        fetchClientUsers();
+        fetchClientUserPermissions();
     };
     componentDidUpdate = prevProps => {
         const { success, history, hierarchyType, hierarchyID } = this.props;
@@ -172,7 +172,7 @@ const mapDispatchToProps = {
     addClient,
     fetchCompaniesPermissions,
     addManyClients,
-    fetchClientUsers,
+    fetchClientUserPermissions,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InviteClientFormContainer));
