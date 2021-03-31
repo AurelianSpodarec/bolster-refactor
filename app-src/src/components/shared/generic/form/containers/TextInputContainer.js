@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import TextInput from '../presentational/TextInput';
-import PasswordStrengh from 'components/shared/passwordStrength/PasswordStrength';
 import { EMAIL_REGEX } from 'helpers/regex';
 
 class TextInputContainer extends Component {
@@ -31,23 +30,20 @@ class TextInputContainer extends Component {
         const errorMessage = showFieldError || errorsVisible ? error : null;
 
         return (
-            <>
-                <TextInput
-                    value={value || ''}
-                    name={name}
-                    classes={classes}
-                    type={type}
-                    placeholder={placeholder}
-                    handleChange={this.handleChange}
-                    handleBlur={this.handleBlur}
-                    error={errorMessage}
-                    charLimit={charLimit}
-                    maxNum={maxNum}
-                    disabled={disabled}
-                />
-
-                {includePasswordStrength && <PasswordStrengh password={value} />}
-            </>
+            <TextInput
+                value={value || ''}
+                name={name}
+                classes={classes}
+                type={type}
+                placeholder={placeholder}
+                handleChange={this.handleChange}
+                handleBlur={this.handleBlur}
+                error={errorMessage}
+                charLimit={charLimit}
+                maxNum={maxNum}
+                disabled={disabled}
+                includePasswordStrength={includePasswordStrength}
+            />
         );
     }
 

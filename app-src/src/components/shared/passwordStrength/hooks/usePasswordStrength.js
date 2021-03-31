@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { passwordStrengthValues } from 'constants/shared/passwordStrength';
 import { isEmpty } from 'helpers/generic';
 
-const { weak, fair, strong } = passwordStrengthValues;
+const { weak, okay, strong } = passwordStrengthValues;
 
 const usePasswordStrength = password => {
     const [strength, setStrength] = useState(null);
@@ -33,7 +33,7 @@ const usePasswordStrength = password => {
         }
 
         if (minimum.test(password)) {
-            if (strength !== fair) setStrength(fair);
+            if (strength !== okay) setStrength(okay);
             return;
         }
 

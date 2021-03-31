@@ -183,6 +183,7 @@ const AddHeadquartersCompanyForm = ({
                                 handleChange={handleChange}
                                 type="password"
                                 validate={validatePassword}
+                                includePasswordStrength
                                 required
                             />
                         </Field>

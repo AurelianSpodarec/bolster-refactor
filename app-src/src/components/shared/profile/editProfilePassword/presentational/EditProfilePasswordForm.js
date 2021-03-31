@@ -26,6 +26,7 @@ const EditProfilePassword = ({
                             handleChange={handleInputChange}
                             validate={validatePassword}
                             type="password"
+                            includePasswordStrength
                             required
                         />
                     </Field>

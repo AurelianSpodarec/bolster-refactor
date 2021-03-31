@@ -324,3 +324,14 @@ export const getOrderObjId = (arr, deleteOrder) => {
 
     return objId ? objId.id : null;
 };
+
+export const reverseEnum = obj =>
+    Object.keys(obj).reduce((acc, key) => {
+        const lower = key
+            .replace(/([A-Z])/g, ' $1')
+            .trim()
+            .toLowerCase();
+
+        acc[obj[key]] = `${lower[0].toUpperCase()}${lower.slice(1)}`;
+        return acc;
+    }, {});

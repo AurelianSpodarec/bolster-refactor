@@ -38,6 +38,7 @@ const PasswordReset = () => {
                                 placeholder="Password..."
                                 required
                                 type="password"
+                                includePasswordStrength
                             />
                         </Field>
                         <ButtonContainer handleClick={handleSubmit}>Submit</ButtonContainer>

@@ -6246,20 +6246,6 @@ input {
         height: 8px;
         border-radius: 2px;
         background-color: $light-grey;
-
-        &.active {
-            &.weak {
-                background-color: $password-weak;
-            }
-
-            &.fair {
-                background-color: $password-fair;
-            }
-
-            &.strong {
-                background-color: $password-strong;
-            }
-        }
     }
 
     p {
@@ -6268,18 +6254,6 @@ input {
         font-size: 12px;
         color: $text-grey;
         text-shadow: 0 0 0 black;
-
-        &.weak {
-            color: $password-weak;
-        }
-
-        &.fair {
-            color: $password-fair;
-        }
-
-        &.strong {
-            color: $password-strong;
-        }
     }
 }
 
