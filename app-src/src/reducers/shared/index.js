@@ -10,6 +10,7 @@ import tablesReducer from './tables';
 import decodeJWTReducer from './decodeJWT';
 import modalReducer from './modal';
 import filesUploadingReducer from './fileUpload';
+import passwordRegexReducer from './passwordRegex';
 import timeReducer from './time';
 import sitesFilterReducer from './sitesFilter';
 import selectedHistoryReducer from './selectedHistory';
@@ -28,6 +29,7 @@ export default combineReducers({
     loginReducer,
     modalReducer,
     mobileReducer,
+    passwordRegexReducer,
     profileReducer,
     tabsReducer,
     timeReducer,
