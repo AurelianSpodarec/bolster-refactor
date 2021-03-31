@@ -46,7 +46,7 @@ class TextInputContainer extends Component {
                     disabled={disabled}
                 />
 
-                {includePasswordStrength && <PasswordStrengh />}
+                {includePasswordStrength && <PasswordStrengh password={value} />}
             </>
         );
     }
