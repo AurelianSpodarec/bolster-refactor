@@ -7,7 +7,13 @@ import { FILE_STORAGE_URL } from 'config/index';
 const CompaniesList = ({ companies, selectCompany }) => (
     <div className="flex-row size-lg-12">
         {companies.map(company => (
-            <Block containerClass="flex-row-item size-lg-6" key={company.id}>
+            <Block
+                containerClass="flex-row-item size-lg-6"
+                key={company.id}
+                style={{
+                    opacity: company.isDisabled ? '0.5' : 1,
+                }}
+            >
                 <>
                     <BlockHeading classes="heading heading-2 underline-full half-margin">
                         {company.name} {company.isDisabled && '(disabled)'}
@@ -40,21 +46,17 @@ const CompaniesList = ({ companies, selectCompany }) => (
                         </div>
                     )}
 
-                    <div className="button-block-container size-lg-12">
-                        <button
-                            className="button green"
-                            disabled={company.isDisabled}
-                            onClick={
-                                company.isDisabled
-                                    ? () => {}
-                                    : () => {
-                                          selectCompany(company.id);
-                                      }
-                            }
-                        >
-                            Select company
-                        </button>
-                    </div>
+                    {!company.isDisabled && (
+                        <div className="button-block-container size-lg-12">
+                            <button
+                                className="button green"
+                                disabled={company.isDisabled}
+                                onClick={() => selectCompany(company.id)}
+                            >
+                                Select company
+                            </button>
+                        </div>
+                    )}
                 </>
             </Block>
         ))}
