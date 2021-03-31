@@ -28,6 +28,9 @@ import {
     EDIT_CLIENT_FAILURE,
     DISABLE_CLIENT_USER_SUCCESS,
     DELETE_CLIENT_USER_SUCCESS,
+    ADD_CLIENT_USER_REQUEST,
+    ADD_CLIENT_USER_SUCCESS,
+    ADD_CLIENT_USER_FAILURE,
 } from 'constants/actionTypes/clients';
 
 import {
@@ -79,12 +82,15 @@ function isFetchingReducer(state = false, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case ADD_CLIENT_REQUEST:
+        case ADD_CLIENT_USER_REQUEST:
         case ADD_MANY_CLIENTS_REQUEST:
         case EDIT_CLIENT_FOR_DRAWING_REQUEST:
         case EDIT_CLIENT_REQUEST:
             return true;
         case ADD_CLIENT_SUCCESS:
         case ADD_CLIENT_FAILURE:
+        case ADD_CLIENT_USER_SUCCESS:
+        case ADD_CLIENT_USER_FAILURE:
         case ADD_MANY_CLIENTS_SUCCESS:
         case ADD_MANY_CLIENTS_FAILURE:
         case EDIT_CLIENT_FOR_DRAWING_SUCCESS:
@@ -139,6 +145,7 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case ADD_CLIENT_FAILURE:
         case ADD_CLIENT_REQUEST:
+        case ADD_CLIENT_USER_REQUEST:
         case ADD_MANY_CLIENTS_REQUEST:
         case ADD_MANY_CLIENTS_FAILURE:
         case EDIT_CLIENT_FOR_DRAWING_REQUEST:
@@ -148,6 +155,7 @@ function postSuccessReducer(state = false, action) {
         case EDIT_CLIENT_REQUEST:
             return false;
         case ADD_CLIENT_SUCCESS:
+        case ADD_CLIENT_USER_SUCCESS:
         case ADD_MANY_CLIENTS_SUCCESS:
         case EDIT_CLIENT_FOR_DRAWING_SUCCESS:
         case DELETE_CLIENT_FROM_DRAWING_SUCCESS:
@@ -191,6 +199,7 @@ function clientUsersReducer(state = {}, action) {
             return updateObj(state, action.payload.clientUser.id, action.payload.clientUser);
         case DISABLE_CLIENT_USER_SUCCESS:
         case EDIT_CLIENT_SUCCESS:
+        case ADD_CLIENT_USER_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case DELETE_CLIENT_USER_SUCCESS:
             return removeObjItem(state, action.id);

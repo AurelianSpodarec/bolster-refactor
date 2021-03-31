@@ -13,12 +13,14 @@ import UserDrawingsContainer from 'components/companyAdmin/userManagement/userDr
 import EditCompanyAdmin from 'components/companyAdmin/userManagement/companyAdmins/editCompanyAdmin/presentational/EditCompanyAdmin';
 import EditClientContainer from 'components/companyAdmin/userManagement/clients/singleClient/containers/EditClientContainer';
 import SingleClientContainer from 'components/companyAdmin/userManagement/clients/singleClient/containers/SingleClientContainer';
+import AddClientContainer from 'components/companyAdmin/userManagement/clients/singleClient/containers/AddClientContainer';
 
 const UserManagementRoutes = ({ base = '/company/users-management' }) => (
     <SwitchWith404>
         <Route exact path={`${base}/company-admins`} component={AllCompanyAdminsContainer} />
         <Route exact path={`${base}/operatives`} component={AllOperatives} />
         <Route exact path={`${base}/clients`} component={AllClientsContainer} />
+        <Route exact path={`${base}/clients/create`} component={AddClientContainer} />
         <Route exact path={`${base}/clients/:id`} component={SingleClientContainer} />
         <Route exact path={`${base}/clients/:id/edit`} component={EditClientContainer} />
         <Route exact path={`${base}/company-admins/create`} component={CreateCompanyAdmin} />
