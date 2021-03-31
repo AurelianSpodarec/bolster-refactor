@@ -58,9 +58,8 @@ class EditDrawingModalContainer extends Component {
     };
 
     render() {
-        const { drawing, filesUploading, hideModal, error } = this.props;
+        const { drawing, filesUploading, hideModal, error, drawingNotStarted } = this.props;
         const { areOptionsLoaded } = this.state;
-        const drawingNotStarted = moment(Date.now()).isBefore(drawing.startDate);
         return (
             <BlockContainer
                 isEmpty={!areOptionsLoaded}
@@ -252,6 +251,7 @@ class EditDrawingModalContainer extends Component {
             totalCredits,
             addFieldError,
             showFieldErrors,
+            drawingNotStarted,
         } = this.props;
 
         const manufacturingEnabledOptions = isManufacturingInherited
@@ -268,26 +268,28 @@ class EditDrawingModalContainer extends Component {
                   dropDownOptionIDs: selectedDropdownOptions,
               };
 
-        let postBody = {};
+        let postBody = {
+            name,
+            file,
+            ...manufacturingEnabledOptions,
+            ...dropdownEnabledOptions,
+        };
 
         if (isAlertShowing) {
             postBody = {
-                name,
-                file,
+                ...postBody,
                 message,
                 dateToSend: moment(dateToSend).format(),
-                ...manufacturingEnabledOptions,
-                ...dropdownEnabledOptions,
-            };
-        } else {
-            postBody = {
-                name,
-                file,
-                startDate: moment(startDate).format(),
-                ...manufacturingEnabledOptions,
-                ...dropdownEnabledOptions,
             };
         }
+
+        if (drawingNotStarted) {
+            postBody = {
+                ...postBody,
+                startDate: startDate ? moment(startDate).format() : null,
+            };
+        }
+
         const hasFileUploaded = !filesUploading && filesUploaded;
         const hasNoCredits = totalCredits < 1;
         if (
@@ -304,33 +306,36 @@ class EditDrawingModalContainer extends Component {
     showErrorModal = () => this.props.showModal(ERROR_MODAL);
 }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        buildingsReducer: { error: floorError, buildings },
-        drawingsReducer: { drawingError, postSuccess },
-        creditsReducer: { credits },
-        companySettingsReducer: {
-            companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            buildingsReducer: { error: floorError, buildings },
+            drawingsReducer: { drawingError, postSuccess },
+            creditsReducer: { credits },
+            companySettingsReducer: {
+                companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
+            },
+            dropdownOptionsReducer: { dropdownOptions, isFetching: isFetchingDropdownOptions },
+            manufacturersReducer: {
+                manufacturers,
+                isFetching: isFetchingManufacturers,
+                error: manufacturersError,
+            },
+            manufacturersOptionValuesReducer: {
+                manufacturersOptionValues,
+                isFetching: isFetchingOptionValues,
+                error: optionValuesError,
+            },
+            subscriptionsReducer: {
+                subscriptions: { serviceIDs: subscriptionServiceIDs },
+            },
         },
-        dropdownOptionsReducer: { dropdownOptions, isFetching: isFetchingDropdownOptions },
-        manufacturersReducer: {
-            manufacturers,
-            isFetching: isFetchingManufacturers,
-            error: manufacturersError,
-        },
-        manufacturersOptionValuesReducer: {
-            manufacturersOptionValues,
-            isFetching: isFetchingOptionValues,
-            error: optionValuesError,
-        },
-        subscriptionsReducer: {
-            subscriptions: { serviceIDs: subscriptionServiceIDs },
+        shared: {
+            filesUploadingReducer: { filesUploading, filesUploaded },
         },
     },
-    shared: {
-        filesUploadingReducer: { filesUploading, filesUploaded },
-    },
-}) => {
+    { drawing },
+) => {
     const totalCredits = Object.values(credits).reduce((a, b) => a + b.quantity, 0);
 
     return {
@@ -347,6 +352,7 @@ const mapStateToProps = ({
         subscriptionServiceIDs,
         building: Object.values(buildings),
         dropdownOptions: Object.values(dropdownOptions),
+        drawingNotStarted: moment(Date.now()).isBefore(drawing.startDate),
     };
 };
 
