@@ -18,6 +18,8 @@ const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
     const { loggedInUser, onMobile, disabledUsers } = useSelector(mapStateToProps);
     const dispatch = useDispatch();
 
+    const drawingLimitColour = getCompanyAdminDrawingLimitColour(user.drawingCount);
+
     return (
         <AllCompanyAdminsListItem
             user={user}
@@ -34,6 +36,7 @@ const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
             showNotUpsyncedRecentlyWarning={user.notUpsyncedRecently}
             tooltipDate={user.notUpSyncedInXDays}
             isDisabled={!!disabledUsers[user.id]}
+            drawingLimitColour={drawingLimitColour}
         />
     );
 
@@ -75,6 +78,13 @@ const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
 
     function showEnableUserModal() {
         dispatch(showModal(ENABLE_USER, { user }));
+    }
+
+    function getCompanyAdminDrawingLimitColour(numberOfAttachedDrawings) {
+        if (numberOfAttachedDrawings <= 6) return 'green';
+        if (numberOfAttachedDrawings <= 12) return 'yellow';
+        if (numberOfAttachedDrawings <= 18) return 'orange';
+        return 'red';
     }
 };
 

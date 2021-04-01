@@ -21,16 +21,22 @@ const AllOperativesListItem = ({
     isDisabled,
 }) => {
     const history = useHistory();
+    const showRedWarning = showNotUpsyncedRecentlyWarning || drawingLimitColour === 'red';
+
     return (
-        <tr key={user.id} className={`${showNotUpsyncedRecentlyWarning ? 'red-row' : ''}`}>
+        <tr key={user.id} className={`${showRedWarning ? 'red-row' : ''}`}>
             <td>
-                {showNotUpsyncedRecentlyWarning && (
+                {showRedWarning && (
                     <TooltipContainer
-                        text={
+                        htmlText={`${
                             tooltipDate
-                                ? `This operative has not upsynced in ${tooltipDate} days`
-                                : 'This operative has never upsynced'
-                        }
+                                ? `<p>This operative has not upsynced in ${tooltipDate} days</p>`
+                                : '<p>This operative has never upsynced<p>'
+                        } ${
+                            drawingLimitColour === 'red'
+                                ? '<p>This operative has reached the maximum number of drawings.</p>'
+                                : ''
+                        }`}
                         containerSide="left"
                     >
                         <i className="far fa-exclamation-triangle red-icon" />
@@ -77,8 +83,7 @@ const AllOperativesListItem = ({
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[8]}</span>}
-                {/* todo */}
-                <span color={drawingLimitColour}>{user.numberOfAttachedDrawings}</span>
+                <span className={`limit-${drawingLimitColour}`}>{user.drawingCount}</span>
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[9]}</span>}

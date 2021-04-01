@@ -2785,6 +2785,23 @@ input {
     &.center {
         float: none;
     }
+
+    // count colours
+    .limit-red {
+        color: red;
+    }
+
+    .limit-orange {
+        color: orange;
+    }
+
+    .limit-yellow {
+        color: #c5c503;
+    }
+
+    .limit-green {
+        color: green;
+    }
 }
 
 //pin feed
@@ -3937,6 +3954,15 @@ input {
         border-radius: 5px;
         @include ubuntu;
         font-size: 13px;
+    }
+
+    p {
+        font-size: 100%;
+        margin-bottom: 10px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 }
 
