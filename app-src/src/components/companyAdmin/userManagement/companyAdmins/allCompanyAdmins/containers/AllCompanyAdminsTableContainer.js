@@ -44,6 +44,7 @@ const AllCompanyAdminTableContainer = ({ filteredUsers }) => {
 
 const mapStateToProps = ({
     companyAdmin: {
+        companySettingsReducer: { isFetching: isFetchingCompanySettings },
         companyUsersReducer: { users, isFetching: isFetchingActive, error: activeError },
         inactiveCompanyUsersReducer: {
             disabled,
@@ -52,7 +53,7 @@ const mapStateToProps = ({
         },
     },
 }) => ({
-    isFetching: isFetchingActive || isFetchingInactive,
+    isFetching: isFetchingActive || isFetchingInactive || isFetchingCompanySettings,
     error: activeError || inactiveError,
     users: Object.values(users),
     disabledUsers: Object.values(disabled),

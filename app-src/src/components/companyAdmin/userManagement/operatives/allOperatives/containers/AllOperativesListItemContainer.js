@@ -15,14 +15,16 @@ import editCompanyUserType from 'actions/companyAdmin/userManagement/async/editC
 
 const AllOperativesListItemContainer = ({ user, headers, onMobile }) => {
     const dispatch = useDispatch();
-    const { disabledUsers } = useSelector(mapStateToProps);
+    const { disabledUsers, maxDrawingsPerOperative } = useSelector(mapStateToProps);
 
     const drawingLimitColour = getOperativeDrawingLimitColour(user.drawingCount);
+    const drawingLimitMaxed = user.drawingCount >= maxDrawingsPerOperative;
 
     return (
         <AllOperativesListItem
             user={user}
             drawingLimitColour={drawingLimitColour}
+            drawingLimitMaxed={drawingLimitMaxed}
             showDeleteModal={() => dispatch(showModal(DELETE_COMPANY_USER, { id: user.id, user }))}
             showDisableModal={showDisableUserModal}
             showEnableModal={showEnableUserModal}
@@ -70,19 +72,26 @@ const AllOperativesListItemContainer = ({ user, headers, onMobile }) => {
     }
 
     function getOperativeDrawingLimitColour(numberOfAttachedDrawings) {
-        if (numberOfAttachedDrawings <= 6) return 'green';
-        if (numberOfAttachedDrawings <= 12) return 'yellow';
-        if (numberOfAttachedDrawings <= 18) return 'orange';
+        const diff = numberOfAttachedDrawings / maxDrawingsPerOperative;
+
+        if (isNaN(diff)) return '';
+        if (diff <= 0.25) return 'green';
+        if (diff <= 0.5) return 'yellow';
+        if (diff <= 0.75) return 'orange';
         return 'red';
     }
 };
 
 const mapStateToProps = ({
     companyAdmin: {
+        companySettingsReducer: {
+            companySettings: { maxDrawingsPerOperative },
+        },
         inactiveCompanyUsersReducer: { disabled },
     },
 }) => ({
     disabledUsers: disabled,
+    maxDrawingsPerOperative,
 });
 
 export default AllOperativesListItemContainer;

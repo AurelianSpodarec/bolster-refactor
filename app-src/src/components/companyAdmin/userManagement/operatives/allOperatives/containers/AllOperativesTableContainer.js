@@ -51,6 +51,7 @@ const AllOperativesTableContainer = ({ filteredUsers }) => {
 
 const mapStateToProps = ({
     companyAdmin: {
+        companySettingsReducer: { isFetching: isFetchingCompanySettings },
         companyUsersReducer: {
             isFetching: isFetchingActive,
             error: activeError,
@@ -69,7 +70,7 @@ const mapStateToProps = ({
 }) => ({
     users: Object.values(users),
     disabledUsers: Object.values(disabled),
-    isFetching: isFetchingActive || isFetchingInactive,
+    isFetching: isFetchingActive || isFetchingInactive || isFetchingCompanySettings,
     error: activeError || inactiveError,
     onMobile,
     postSuccess,

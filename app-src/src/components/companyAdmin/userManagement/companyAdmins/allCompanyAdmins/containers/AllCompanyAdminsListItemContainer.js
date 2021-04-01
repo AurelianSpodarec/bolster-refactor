@@ -15,10 +15,13 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import AllCompanyAdminsListItem from '../presentational/AllCompanyAdminsListItem';
 
 const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
-    const { loggedInUser, onMobile, disabledUsers } = useSelector(mapStateToProps);
+    const { loggedInUser, onMobile, disabledUsers, maxDrawingsPerOperative } = useSelector(
+        mapStateToProps,
+    );
     const dispatch = useDispatch();
 
     const drawingLimitColour = getCompanyAdminDrawingLimitColour(user.drawingCount);
+    const drawingLimitMaxed = user.drawingCount >= maxDrawingsPerOperative;
 
     return (
         <AllCompanyAdminsListItem
@@ -37,6 +40,7 @@ const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
             tooltipDate={user.notUpSyncedInXDays}
             isDisabled={!!disabledUsers[user.id]}
             drawingLimitColour={drawingLimitColour}
+            drawingLimitMaxed={drawingLimitMaxed}
         />
     );
 
@@ -81,15 +85,21 @@ const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
     }
 
     function getCompanyAdminDrawingLimitColour(numberOfAttachedDrawings) {
-        if (numberOfAttachedDrawings <= 6) return 'green';
-        if (numberOfAttachedDrawings <= 12) return 'yellow';
-        if (numberOfAttachedDrawings <= 18) return 'orange';
+        const diff = numberOfAttachedDrawings / maxDrawingsPerOperative;
+
+        if (isNaN(diff)) return '';
+        if (diff <= 0.25) return 'green';
+        if (diff <= 0.5) return 'yellow';
+        if (diff <= 0.75) return 'orange';
         return 'red';
     }
 };
 
 const mapStateToProps = ({
     companyAdmin: {
+        companySettingsReducer: {
+            companySettings: { maxDrawingsPerOperative },
+        },
         companyUsersReducer: { users },
         inactiveCompanyUsersReducer: { disabled },
     },
@@ -101,6 +111,7 @@ const mapStateToProps = ({
     loggedInUser: users[jwtData.companyUserID] || { type: null },
     onMobile,
     disabledUsers: disabled,
+    maxDrawingsPerOperative,
 });
 
 export default AllCompanyAdminsListItemContainer;

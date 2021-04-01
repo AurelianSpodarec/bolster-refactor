@@ -21,9 +21,10 @@ const AllCompanyAdminsListItem = ({
     tooltipDate,
     isDisabled,
     drawingLimitColour,
+    drawingLimitMaxed,
 }) => {
     const history = useHistory();
-    const showRedWarning = showNotUpsyncedRecentlyWarning || drawingLimitColour === 'red';
+    const showRedWarning = showNotUpsyncedRecentlyWarning || drawingLimitMaxed;
 
     return (
         <tr key={user.id} className={`${showRedWarning ? 'red-row' : ''}`}>

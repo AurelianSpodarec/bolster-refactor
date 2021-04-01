@@ -18,10 +18,11 @@ const AllOperativesListItem = ({
     showNotUpsyncedRecentlyWarning,
     tooltipDate,
     drawingLimitColour,
+    drawingLimitMaxed,
     isDisabled,
 }) => {
     const history = useHistory();
-    const showRedWarning = showNotUpsyncedRecentlyWarning || drawingLimitColour === 'red';
+    const showRedWarning = showNotUpsyncedRecentlyWarning || drawingLimitMaxed;
 
     return (
         <tr key={user.id} className={`${showRedWarning ? 'red-row' : ''}`}>
