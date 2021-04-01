@@ -18,7 +18,7 @@ const AllOperativesListItemContainer = ({ user, headers, onMobile }) => {
     const { disabledUsers } = useSelector(mapStateToProps);
 
     // todo check this when drawings count is done
-    const drawingLimitColour = getOperativeDrawingLimitColour(user.numberOfAttachedDrawings);
+    const drawingLimitColour = getOperativeDrawingLimitColour(user.drawingCount);
     return (
         <AllOperativesListItem
             user={user}
