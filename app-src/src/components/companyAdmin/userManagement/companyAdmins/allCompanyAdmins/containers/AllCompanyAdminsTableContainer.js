@@ -26,6 +26,7 @@ const AllCompanyAdminTableContainer = ({ filteredUsers }) => {
                     'Last upsynced date',
                     'Last detected unsynced data',
                     'App Version',
+                    'Number of attached drawings',
                     '',
                 ]}
                 users={filteredUsers(mergedUsers)}
