@@ -1,5 +1,7 @@
 import addClientUser from 'actions/companyAdmin/clients/async/addClientUser';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { ERROR_MODAL } from 'constants/shared/modalTypes';
 import { useForm, usePrevious } from 'helpers/hooks';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,10 +21,15 @@ const AddClientContainer = () => {
         serviceIDs: [],
     });
 
-    const { drawings, services, isPosting, postSuccess, subscriptionServiceIDs } = useSelector(
-        mapStateToProps,
-    );
-    const prevProps = usePrevious({ isPosting, postSuccess });
+    const {
+        drawings,
+        services,
+        isPosting,
+        postSuccess,
+        error,
+        subscriptionServiceIDs,
+    } = useSelector(mapStateToProps);
+    const prevProps = usePrevious({ isPosting, postSuccess, error });
     useEffect(() => {
         dispatch(fetchAllDrawings());
     }, []);
@@ -32,6 +39,12 @@ const AddClientContainer = () => {
             history.push('/company/users-management/clients');
         }
     }, [postSuccess]);
+
+    useEffect(() => {
+        if (error && !prevProps.error) {
+            dispatch(showModal(ERROR_MODAL, { message: error }));
+        }
+    }, [error]);
 
     const handleSubmit = () => {
         dispatch(addClientUser(state));
@@ -63,11 +76,11 @@ const mapStateToProps = ({
     companyAdmin: {
         drawingsReducer: { drawings },
         servicesReducer: { services },
-        clientsReducer: { isPosting, postSuccess },
+        clientsReducer: { isPosting, postSuccess, error },
         subscriptionsReducer: {
             subscriptions: { serviceIDs },
         },
     },
-}) => ({ drawings, services, isPosting, postSuccess, subscriptionServiceIDs: serviceIDs });
+}) => ({ drawings, services, isPosting, postSuccess, error, subscriptionServiceIDs: serviceIDs });
 
 export default AddClientContainer;
