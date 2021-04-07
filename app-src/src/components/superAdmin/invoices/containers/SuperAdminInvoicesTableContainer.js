@@ -26,10 +26,16 @@ const SuperAdminInvoicesTableContainer = ({
     const pageCount = Math.ceil(count / PAGE_SIZE);
 
     useEffect(() => {
-        if (hasPayed !== '0') {
+        if (+hasPayed > 0) {
             fetchInvoicesBySearch(page, searchTerm, HAS_PAID_QUERIES[hasPayed]);
+        } else if (+hasPayed === 2) {
+            fetchInvoicesBySearch(1, searchTerm, HAS_PAID_QUERIES[hasPayed]);
         } else {
             fetchInvoicesBySearch(page, searchTerm);
+        }
+
+        if (page > 1) {
+            setPage(page);
         }
     }, []);
 
