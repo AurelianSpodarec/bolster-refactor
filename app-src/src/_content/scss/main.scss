@@ -851,6 +851,11 @@ input {
         width: 100%;
         margin-left: 0;
     }
+    &.under-component{
+        width: 100%;
+        margin-left: 0;
+        margin-top:5px;
+    }
 
     &.left {
         .button {
@@ -6331,4 +6336,8 @@ input {
             max-height: 116px;
         }
     }
+}
+
+.hide{
+    display:none;
 }

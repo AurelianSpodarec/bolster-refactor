@@ -18,7 +18,7 @@ class ButtonContainer extends Component {
             to = '',
             type = 'button',
             handleClick = () => {},
-            className,
+            className = '',
             isAnchor = false,
             openNewTab = false,
         } = this.props;
