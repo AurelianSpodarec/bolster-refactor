@@ -5,10 +5,10 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 import Signature from '../presentational/Signature';
 
 class SignatureContainer extends Component {
-    state = { showFieldError: false };
+    state = { showFieldError: false, showUploadComponent: false, file: '' };
 
     render() {
-        const { showFieldError } = this.state;
+        const { showFieldError, showUploadComponent, file } = this.state;
         const { name, error, errorsVisible, canvasProps } = this.props;
         const errorMessage = showFieldError || errorsVisible ? error : null;
 
@@ -17,23 +17,31 @@ class SignatureContainer extends Component {
                 updateRef={ref => (this.sigPad = ref)}
                 onEnd={this.handleChange}
                 handleClear={this.handleClear}
+                handleUploadChange={this.handleUploadChange}
                 penColor={'black'}
                 canvasProps={canvasProps}
                 name={name}
                 error={errorMessage}
+                showUploadComponent={showUploadComponent}
+                swtichUploadSig={this._handleSwtichUploadSig}
+                file={file}
             />
         );
     }
 
     componentDidMount = () => this._validate('');
 
-    componentDidUpdate = () => {
-        const { value } = this.props;
+    componentDidUpdate = prevProps => {
+        const { value, filesUploading } = this.props;
 
         const val = this.sigPad.toDataURL('image/jpg');
         const oldVal = this.sigPad.fromDataURL(value);
 
         if (!oldVal && value) this._validate(val);
+
+        if (prevProps.filesUploading && !filesUploading) {
+            this.props.onChange(this.state.file);
+        }
     };
 
     componentWillUnmount = () => {
@@ -45,6 +53,11 @@ class SignatureContainer extends Component {
         this._validate();
         this.props.onChange(this.sigPad.toDataURL('image/jpg'));
     };
+    handleUploadChange = (name, value) => {
+        this.setState({ [name]: value });
+        this._validate(this.state.file);
+        this.props.onChange(this.state.file);
+    };
 
     handleClear = () => this.sigPad.clear();
 
@@ -55,12 +68,12 @@ class SignatureContainer extends Component {
             required,
             validate = () => {},
             addFieldError,
-            removeFieldError
+            removeFieldError,
         } = this.props;
 
         const validateError = validate(value);
 
-        if (required && this.sigPad.isEmpty()) {
+        if (required && this.sigPad.isEmpty() && this.state.file.length < 1) {
             addFieldError(name, 'This is a required field.');
         } else if (validateError && validateError.length) {
             addFieldError(name, validateError);
@@ -68,23 +81,29 @@ class SignatureContainer extends Component {
             removeFieldError(name);
         }
     };
+
+    _handleSwtichUploadSig = () => {
+        const { showUploadComponent } = this.state;
+
+        this.handleClear();
+        this.setState({ showUploadComponent: !showUploadComponent });
+    };
 }
 
 const mapStateToProps = (
     {
         shared: {
-            fieldErrorsReducer: { fieldErrors, errorsVisible }
-        }
+            fieldErrorsReducer: { fieldErrors, errorsVisible },
+            filesUploadingReducer: { filesUploading },
+        },
     },
-    { name }
+    { name },
 ) => ({
     error: fieldErrors[name],
-    errorsVisible
+    errorsVisible,
+    filesUploading,
 });
 
 const mapDispatchToProps = { addFieldError, removeFieldError };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SignatureContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SignatureContainer);
