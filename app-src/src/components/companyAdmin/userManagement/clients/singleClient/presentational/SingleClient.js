@@ -8,30 +8,33 @@ import SingleClientPermissionItem from './SingleClientPermissionItem';
 
 const SingleClient = ({ user, permissions, permissionsHeaders, isFetching, error }) => (
     <>
-        <PageHeading title={`Client: ${user.firstName} ${user.lastName}`} />
+        <PageHeading title={`Client: ${user?.firstName || ''} ${user?.lastName || ''}`} />
         <div className="size-lg-12">
-            <BlockContainer heading="Client Info">
+            <BlockContainer heading="Client Info" isFetching={isFetching} isEmpty={!user}>
                 <div className="size-lg-6">
-                    <FieldOutput title="Name" description={`${user.firstName} ${user.lastName}`} />
-                    <FieldOutput title="Email" description={user.email} />
+                    <FieldOutput
+                        title="Name"
+                        description={`${user?.firstName} ${user?.lastName}`}
+                    />
+                    <FieldOutput title="Email" description={user?.email} />
                 </div>
                 <div className="size-lg-6">
-                    <FieldOutput title="Company Name" description={user.companyName} />
-                    <FieldOutput title="Phone Number" description={user.phoneNumber} />
+                    <FieldOutput title="Company Name" description={user?.companyName} />
+                    <FieldOutput title="Phone Number" description={user?.phoneNumber} />
                 </div>
                 <div className="size-lg-6">
-                    <FieldOutput title="Phone Number" description={user.phoneNumber} />
+                    <FieldOutput title="Phone Number" description={user?.phoneNumber} />
                     <FieldOutput title="Created">
                         <p>
-                            <DateTimeContainer date={user.createdOn} />
+                            <DateTimeContainer date={user?.createdOn} />
                         </p>
                     </FieldOutput>
                 </div>
                 <div className="size-lg-6">
                     <FieldOutput title="Last Login">
                         <p>
-                            {user.lastLoginOn ? (
-                                <DateTimeContainer date={user.lastLoginOn} />
+                            {user?.lastLoginOn ? (
+                                <DateTimeContainer date={user?.lastLoginOn} />
                             ) : (
                                 'N/A'
                             )}
@@ -39,8 +42,8 @@ const SingleClient = ({ user, permissions, permissionsHeaders, isFetching, error
                     </FieldOutput>
                     <FieldOutput title="Last Report Created On">
                         <p>
-                            {user.lastReportCreatedOn ? (
-                                <DateTimeContainer date={user.lastReportCreatedON} />
+                            {user?.lastReportCreatedOn ? (
+                                <DateTimeContainer date={user?.lastReportCreatedON} />
                             ) : (
                                 'N/A'
                             )}
@@ -50,7 +53,11 @@ const SingleClient = ({ user, permissions, permissionsHeaders, isFetching, error
             </BlockContainer>
         </div>
         <div className="size-lg-12">
-            <BlockContainer heading="Client Permissions">
+            <BlockContainer
+                heading="Client Permissions"
+                isFetching={isFetching}
+                isEmpty={!permissions.length}
+            >
                 <Table
                     withActions
                     isFetching={isFetching}
