@@ -2526,6 +2526,10 @@ input {
         background-color:#ffdcdb;
     }
 
+    .grey-row {
+        background-color: $light-grey-alt;
+    }
+
     tbody {
         &.sorting,
         &.dragging {

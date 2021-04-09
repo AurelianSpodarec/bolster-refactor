@@ -27,7 +27,10 @@ const AllCompanyAdminsListItem = ({
     const showRedWarning = showNotUpsyncedRecentlyWarning || drawingLimitMaxed;
 
     return (
-        <tr key={user.id} className={`${showRedWarning ? 'red-row' : ''}`}>
+        <tr
+            key={user.id}
+            className={`${isDisabled ? 'grey-row' : showRedWarning ? 'red-row' : ''}`}
+        >
             <td>
                 {showRedWarning && (
                     <TooltipContainer
