@@ -41,6 +41,13 @@ export const pageMeta = {
         canonical: '/auth/login',
         excludeFromSearchEngines: false,
     },
+    resetPassword: {
+        title: 'Reset Password',
+        description:
+            'Reset your password for Bolster Systems, the world leading enterprise level compliance documentation software, complete with android and iOS mobile apps and fully cloud based.',
+        canonical: '/auth/passwordreset',
+        excludeFromSearchEngines: true,
+    },
     register: {
         title: 'Register',
         description:
