@@ -19,6 +19,7 @@ import EmailConfirmationRequired from 'components/frontEnd/auth/login/EmailConfi
 import ConfirmEmailAddress from 'components/frontEnd/auth/login/ConfirmEmailAddress';
 import PasswordReset from 'components/frontEnd/auth/passwordReset/PasswordReset';
 import AcceptInvitation from 'components/frontEnd/auth/acceptInvitation/AcceptInvitation';
+import SetPassword from 'components/frontEnd/auth/setPassword/presentational/SetPassword';
 
 const FrontEndRoutes = ({ base = '/' }) => (
     <SwitchWith404>
@@ -40,6 +41,7 @@ const FrontEndRoutes = ({ base = '/' }) => (
 
         <Route exact path={`${base}auth/Login`} component={LoginContainer} />
         <Route exact path={`${base}auth/register`} component={RegisterContainer} />
+        <Route exact path={`${base}auth/set-password`} component={SetPassword} />
         <Route exact path={`${base}auth/confirm-email`} component={EmailConfirmationRequired} />
         <Route
             exact

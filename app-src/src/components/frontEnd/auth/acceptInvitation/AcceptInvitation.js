@@ -50,8 +50,12 @@ const AcceptInvitation = () => {
     );
 
     async function handleSuccess() {
-        await authenticate();
+        const { isCompanyAdmin, isClientAccess, isSuperAdmin } = await authenticate();
         const isNew = query.get('isNew') === 'true' ? true : false;
+        const canAccessCompanyProfile = isCompanyAdmin || isClientAccess || isSuperAdmin;
+        if (!canAccessCompanyProfile) {
+            return history.push('/auth/set-password');
+        }
         if (isNew) {
             return history.push('/company/profile/change-password');
         }
