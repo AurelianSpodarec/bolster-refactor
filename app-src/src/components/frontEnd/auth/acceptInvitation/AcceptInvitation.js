@@ -54,7 +54,8 @@ const AcceptInvitation = () => {
         const isNew = query.get('isNew') === 'true' ? true : false;
         const canAccessCompanyProfile = isCompanyAdmin || isClientAccess || isSuperAdmin;
         if (!canAccessCompanyProfile) {
-            return history.push('/auth/set-password');
+            if (isNew) return history.push('/auth/set-password');
+            return history.push('/auth/invitation-accepted');
         }
         if (isNew) {
             return history.push('/company/profile/change-password');
