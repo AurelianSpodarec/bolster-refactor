@@ -58,13 +58,11 @@ class EditCompanyPermissionsFormContainer extends Component {
         if (!prevProps.success && success) return history.replace(redirectUrl);
 
         if (prevProps.isFetching && !isFetching && fetchSuccess) {
-            let serviceIDs = [];
-
             if (isEmpty(companiesPermissions)) return;
 
-            companiesPermissions.forEach(permission => {
-                serviceIDs.push(permission.serviceID + '');
-            });
+            const serviceIDs = companiesPermissions
+                .filter(({serviceID}) => serviceID)
+                .map(({serviceID}) => `${serviceID}`);
 
             this.setState({
                 serviceIDs,
