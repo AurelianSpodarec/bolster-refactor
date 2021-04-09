@@ -36,7 +36,6 @@ const SetPasswordFormContainer = () => {
         } else {
             dispatch(removeFieldError('confirmPassword'));
         }
-        return null;
     }, [formData]);
 
     return (
