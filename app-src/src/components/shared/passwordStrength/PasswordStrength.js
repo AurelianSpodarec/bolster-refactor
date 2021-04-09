@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { isEmpty, reverseEnum } from 'helpers/generic';
+import { isEmpty } from 'helpers/generic';
 
 import useFetchPasswordRegex from './hooks/useFetchPasswordRegex';
 import usePasswordStrength from './hooks/usePasswordStrength';
@@ -11,12 +11,13 @@ import {
     passwordStrengthColours,
 } from 'constants/shared/passwordStrength';
 
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+
 const strengthValues = Object.keys(passwordStrengthValues);
 
 const PasswordStrengh = ({ password }) => {
     const { passwordRegex, isFetching, error } = useFetchPasswordRegex();
     const strength = usePasswordStrength(password);
-    const strengthLookup = strength ? reverseEnum(passwordStrengthValues) : null;
 
     if (error) return null;
 
@@ -48,11 +49,16 @@ const PasswordStrengh = ({ password }) => {
                     );
                 })}
             </div>
-            <p
-                className={`size-lg-12 ${strength ? strengthLookup[strength].toLowerCase() : ''}`}
-                style={strength ? { color: passwordStrengthColours[strength] } : {}}
-            >
-                {strength ? passwordStrengthNames[strength] : 'Strength'}
+            <p>
+                <span style={strength ? { color: passwordStrengthColours[strength] } : {}}>
+                    {strength ? passwordStrengthNames[strength] : 'Strength'}
+                </span>
+                <TooltipContainer
+                    side="left"
+                    text="Password must contain at least one uppercase character, one number, and be 8 characters long."
+                >
+                    <i className="fa fa-info-circle"></i>
+                </TooltipContainer>
             </p>
         </div>
     );
