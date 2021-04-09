@@ -61,8 +61,6 @@ function showTwoFactorReducer(state = false, action) {
             return true;
         case POST_LOGIN_SUCCESS:
             return false;
-        case POST_LOGIN_FAILURE:
-            return false;
         default:
             return state;
     }

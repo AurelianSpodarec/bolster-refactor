@@ -45,7 +45,7 @@ const LoginForm = ({
                 {showTwoFactor && (
                     <>
                         <Field classes="auth-form-field" name="Two Factor Code">
-                            <p>
+                            <p className="generic-text">
                                 We have sent a code to the Two Factor Authentication phone number in
                                 your profile. Please enter it to continue.
                             </p>
