@@ -6,6 +6,7 @@ import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 const ManufacturerListItem = ({
     manufacturer,
     handleEditManufacturerModal,
+    handleDeleteManufacturerModal,
     handleToggleEnable,
     onMobile,
     headers,
@@ -58,6 +59,14 @@ const ManufacturerListItem = ({
                         <i className="fa fa-eye fa-fw" />
                         Values
                     </Link>
+
+                    <button
+                        onClick={() => handleDeleteManufacturerModal(manufacturer.id)}
+                        className="button red"
+                    >
+                        <i className="far fa-trash" />
+                        Delete
+                    </button>
                 </BlockButtonWrapper>
             </td>
         </tr>,

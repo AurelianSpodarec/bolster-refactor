@@ -86,6 +86,7 @@ import {
     ADMIN_DELETE_OPTION_VALUE_DOCUMENT_VERSION,
     COMPANY_ADD_MANUFACTURER,
     COMPANY_EDIT_MANUFACTURER,
+    COMPANY_DELETE_MANUFACTURER,
     COMPANY_TOGGLE_MANUFACTURER,
     COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE,
     COMPANY_ADD_OPTION_VALUE,
@@ -192,6 +193,7 @@ import DocumentViewModal from '../presentational/DocumentViewModal';
 import AdminConfirmDeleteDocumentVersionModalContainer from 'components/superAdmin/pinOptions/confirmDeleteDocumentVersion/containers/ConfirmDeleteDocumentVersionModalContainer';
 import AddManufacturerModal from 'components/companyAdmin/dropdownOptions/addManufacturer/presentational/AddManufacturerModal';
 import EditManufacturerModal from 'components/companyAdmin/dropdownOptions/editManufacturer/presentational/EditManufacturerModal';
+import DeleteManufacturerModal from 'components/companyAdmin/dropdownOptions/deleteManufacturer/presentational/DeleteManufacturerModal';
 import ToggleManufacturerModalContainer from 'components/companyAdmin/dropdownOptions/toggleManufacturerModal/containers/ToggleManufacturerModalContainer';
 import ToggleManufacturerOptionValueModalContainer from 'components/companyAdmin/dropdownOptions/toggleManufacturerOptionValueModal/containers/ToggleManufacturerOptionValueModalContainer';
 import AddOptionValueModal from 'components/companyAdmin/dropdownOptions/addOptionValue/presentational/AddOptionValueModal';
@@ -300,6 +302,7 @@ const MODAL_COMPONENTS = {
     [ADMIN_DELETE_OPTION_VALUE_DOCUMENT_VERSION]: AdminConfirmDeleteDocumentVersionModalContainer,
     [COMPANY_ADD_MANUFACTURER]: AddManufacturerModal,
     [COMPANY_EDIT_MANUFACTURER]: EditManufacturerModal,
+    [COMPANY_DELETE_MANUFACTURER]: DeleteManufacturerModal,
     [COMPANY_TOGGLE_MANUFACTURER]: ToggleManufacturerModalContainer,
     [COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE]: ToggleManufacturerOptionValueModalContainer,
     [COMPANY_ADD_OPTION_VALUE]: AddOptionValueModal,
@@ -330,6 +333,7 @@ const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
     const SpecificModel = MODAL_COMPONENTS[modalType];
     return <SpecificModel {...modalProps} {...otherProps} />;
 };
+
 const mapStateToProps = ({ shared: { modalReducer } }) => modalReducer;
 
 const mapDispatchToProps = { hideModal, showModal };
