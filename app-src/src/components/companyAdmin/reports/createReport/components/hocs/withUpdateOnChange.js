@@ -12,6 +12,7 @@ import { FURTHER_FILTRATION_OPTIONS, HIERARCHY_IDS } from 'constants/companyAdmi
 import getOperativeOptions from 'actions/companyAdmin/reports/async/getOperativeOptions';
 import getTemplateReportOptions from 'actions/companyAdmin/reports/async/getTemplateReportOptions';
 import getServiceReportOptions from 'actions/companyAdmin/reports/async/getServiceReportOptions';
+import getCompanyReportOptions from 'actions/companyAdmin/reports/async/getCompanyReportOptions';
 
 export default function (ProtectedComponent) {
     class WithUpdateOnChange extends React.Component {
@@ -175,6 +176,7 @@ export default function (ProtectedComponent) {
                     toDateInclusive,
                     companyUserIDs,
                     floorplanPinScale,
+                    createdByCompanyID,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
@@ -287,6 +289,7 @@ export default function (ProtectedComponent) {
                 floorplanPinScale,
                 hasQuestions: +furtherFiltrationOption > +INDIVIDUAL_PINS,
                 includedDrawingIDs: includedDrawingsIDs,
+                createdByCompanyID,
             };
             return body;
         };
@@ -322,12 +325,18 @@ export default function (ProtectedComponent) {
             return getServiceOptions(this._getPostBody());
         };
 
+        getCompanyOptions = () => {
+            const { getCompanyOptions } = this.props;
+            return getCompanyOptions(this._getPostBody());
+        };
+
         postFilters = async () => {
             const {
                 postCustomFilters,
                 getOperativeOptions,
                 getTemplateOptions,
                 getServiceOptions,
+                getCompanyOptions,
             } = this.props;
             const body = this._getPostBody();
 
@@ -338,6 +347,7 @@ export default function (ProtectedComponent) {
             await getOperativeOptions(body);
             await getTemplateOptions(body);
             await getServiceOptions(body);
+            await getCompanyOptions(body);
         };
 
         getInitialServices = async () => {
@@ -355,6 +365,9 @@ export default function (ProtectedComponent) {
     const mapStateToProps = (
         {
             shared: {
+                decodeJWTReducer: {
+                    jwtData: { companyID },
+                },
                 fieldErrorsReducer: { fieldErrors, errorsVisible },
             },
             companyAdmin: {
@@ -411,6 +424,7 @@ export default function (ProtectedComponent) {
             companyUsers,
             services: Object.values(historicServices),
             sites: Object.values(sites),
+            sitesObj: sites,
             buildings,
             floors,
             drawings,
@@ -420,6 +434,7 @@ export default function (ProtectedComponent) {
             timeZone,
             includedDrawingsIDs,
             zonesObj: zones,
+            companyID,
         };
     };
 
@@ -432,6 +447,7 @@ export default function (ProtectedComponent) {
         getOperativeOptions: postBody => dispatch(getOperativeOptions(postBody)),
         getTemplateOptions: postBody => dispatch(getTemplateReportOptions(postBody)),
         getServiceOptions: postBody => dispatch(getServiceReportOptions(postBody)),
+        getCompanyOptions: postBody => dispatch(getCompanyReportOptions(postBody)),
     });
 
     return connect(mapStateToProps, mapDispatchToProps)(WithUpdateOnChange);
