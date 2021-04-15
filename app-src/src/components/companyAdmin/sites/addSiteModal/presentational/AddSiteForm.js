@@ -34,6 +34,7 @@ const AddSiteForm = ({
     setDropDownOptions,
     selectedDropDownOptions,
     dropdownOptions,
+    isFetchingHierarchies,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -223,7 +224,13 @@ const AddSiteForm = ({
         )}
 
         <BlockButtonWrapper>
-            <button className="button green">Submit</button>
+            {isFetchingHierarchies ? (
+                <button className="button green disabled" disabled>
+                    <i className="fa fa-spinner fa-spin"></i> Please wait...
+                </button>
+            ) : (
+                <button className="button green">Submit</button>
+            )}
             <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>

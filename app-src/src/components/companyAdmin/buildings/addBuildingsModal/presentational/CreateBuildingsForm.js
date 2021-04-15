@@ -20,6 +20,7 @@ const CreateBuildingsForm = ({
     setShowDropdownOptions,
     combinedOptions,
     handleShowOandMModal,
+    isFetchingHierarchies,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -43,9 +44,13 @@ const CreateBuildingsForm = ({
             >
                 <i className="fa fa-plus" /> Add another building
             </button>
-            <button className="button green" type="submit">
-                <i className="fa fa-plus" /> Submit
-            </button>
+            {isFetchingHierarchies ? (
+                <button className="button green disabled" disabled>
+                    <i className="fa fa-spinner fa-spin"></i> Please wait...
+                </button>
+            ) : (
+                <button className="button green">Submit</button>
+            )}
             <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>
