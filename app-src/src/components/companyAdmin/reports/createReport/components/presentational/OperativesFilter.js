@@ -6,9 +6,10 @@ const OperativesFilter = ({
     operativeOptions,
     handleChange,
     selectedOperatives,
-    sizeClasses
+    sizeClasses,
+    isDrawingPage,
 }) => (
-    <div className="generic-form">
+    <div className={`${!isDrawingPage ? 'generic-form' : ''} size-lg-12`}>
         <Field name="Operatives" sizeClasses={sizeClasses}>
             <MultiSelect
                 options={operativeOptions}
