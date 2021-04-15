@@ -5,7 +5,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 
 const RecentlyExtendedList = ({ recentlyExtended }) => {
     return [...recentlyExtended]
-        .sort((a, b) => new Date(b.extensionDate) - new Date(a.extensionDate))
+        .sort((a, b) => new Date(b.newExpiryDate) - new Date(a.newExpiryDate))
         .map(extension => (
             <tr key={extension.id}>
                 <td>{extension.companyName}</td>
