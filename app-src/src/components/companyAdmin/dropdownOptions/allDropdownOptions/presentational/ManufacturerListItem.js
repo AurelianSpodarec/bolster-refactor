@@ -61,7 +61,7 @@ const ManufacturerListItem = ({
                     </Link>
 
                     <button
-                        onClick={() => handleDeleteManufacturerModal(manufacturer.id)}
+                        onClick={() => handleDeleteManufacturerModal(manufacturer)}
                         className="button red"
                     >
                         <i className="far fa-trash" />

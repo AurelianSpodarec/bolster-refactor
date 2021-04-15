@@ -5,24 +5,25 @@ import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFie
 import { getHeaders } from 'helpers/api';
 
 import {
-    DISABLE_MANUFACTURER_REQUEST,
-    DISABLE_MANUFACTURER_SUCCESS,
-    DISABLE_MANUFACTURER_FAILURE,
-} from 'constants/actionTypes/companyAdminManufacturers';
+    SA_DISABLE_MANUFACTURER_REQUEST,
+    SA_DISABLE_MANUFACTURER_SUCCESS,
+    SA_DISABLE_MANUFACTURER_FAILURE,
+} from 'constants/actionTypes/superAdminManufacturers';
+import { ADMIN_API_URL } from 'config';
 
 export const disableManufacturerRequest = () => ({
-    type: DISABLE_MANUFACTURER_REQUEST,
+    type: SA_DISABLE_MANUFACTURER_REQUEST,
 });
 
 export const disableManufacturerSuccess = (id, payload) => ({
-    type: DISABLE_MANUFACTURER_SUCCESS,
+    type: SA_DISABLE_MANUFACTURER_SUCCESS,
     id,
     payload,
     pinOptionType: payload.pinOptionType,
 });
 
 export const disableManufacturerFailure = error => ({
-    type: DISABLE_MANUFACTURER_FAILURE,
+    type: SA_DISABLE_MANUFACTURER_FAILURE,
     error,
 });
 
@@ -30,7 +31,7 @@ export default manufacturer => dispatch => {
     dispatch(disableManufacturerRequest());
 
     axios
-        .put(`${API_URL}/manufacturer/${manufacturer.id}/disable`, {}, getHeaders())
+        .put(`${ADMIN_API_URL}/manufacturer/${manufacturer.id}/disable`, {}, getHeaders())
         .then(({ data }) => dispatch(disableManufacturerSuccess(manufacturer.id, manufacturer)))
         .catch(error => {
             dispatch(disableManufacturerFailure(error));

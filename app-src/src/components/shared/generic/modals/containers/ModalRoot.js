@@ -108,6 +108,7 @@ import {
     EDIT_BANNER_NOTIFICATION,
     ADD_NEW_BANNER_NOTIFICATION,
     UPDATE_REPORT_LAYOUT,
+    ADMIN_DELETE_MANUFACTURER,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -184,6 +185,7 @@ import GenerateQRCodesModalContainer from './GenerateQRCodesModalContainer';
 import RistrictPaymentsModalContainer from './RistrictPaymentsModalContainer';
 import AdminAddManufacturerModal from 'components/superAdmin/pinOptions/addManufacturer/presentational/AddManufacturerModal';
 import AdminEditManufacturerModal from 'components/superAdmin/pinOptions/editManufacturer/presentational/EditManufacturerModal';
+import AdminDeleteManufacturerModal from 'components/superAdmin/pinOptions/deleteManufacturer/containers/DeleteManufacturerModalContainer';
 import AdminAddOptionValueModal from 'components/superAdmin/pinOptions/addOptionValue/presentational/AddOptionValueModal';
 import AdminEditOptionValueModal from 'components/superAdmin/pinOptions/editOptionValue/presentational/EditOptionValueModal';
 import AdminAddDocumentToOptionValueModal from 'components/superAdmin/pinOptions/addDocumentToOptionValue/presentational/AddDocumentToOptionValueModal';
@@ -193,7 +195,6 @@ import DocumentViewModal from '../presentational/DocumentViewModal';
 import AdminConfirmDeleteDocumentVersionModalContainer from 'components/superAdmin/pinOptions/confirmDeleteDocumentVersion/containers/ConfirmDeleteDocumentVersionModalContainer';
 import AddManufacturerModal from 'components/companyAdmin/dropdownOptions/addManufacturer/presentational/AddManufacturerModal';
 import EditManufacturerModal from 'components/companyAdmin/dropdownOptions/editManufacturer/presentational/EditManufacturerModal';
-import DeleteManufacturerModal from 'components/companyAdmin/dropdownOptions/deleteManufacturer/presentational/DeleteManufacturerModal';
 import ToggleManufacturerModalContainer from 'components/companyAdmin/dropdownOptions/toggleManufacturerModal/containers/ToggleManufacturerModalContainer';
 import ToggleManufacturerOptionValueModalContainer from 'components/companyAdmin/dropdownOptions/toggleManufacturerOptionValueModal/containers/ToggleManufacturerOptionValueModalContainer';
 import AddOptionValueModal from 'components/companyAdmin/dropdownOptions/addOptionValue/presentational/AddOptionValueModal';
@@ -218,6 +219,7 @@ import UserLatestSyncsModalContainer from 'components/superAdmin/companies/singl
 import EditBannerNotificationModal from 'components/superAdmin/bannerNotifications/editBannerNotificationModal/presentational/EditBannerNotificationModal';
 import AddBannerNotificationModal from 'components/superAdmin/bannerNotifications/addBannerNotifcationModel/presentational/AddBannerNotificationModal';
 import UpdateReportLayoutModal from '../presentational/UpdateReportLayoutModal';
+import DeleteManufacturerModalContainer from 'components/companyAdmin/dropdownOptions/deleteManufacturer/containers/DeleteManufacturerModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -293,6 +295,7 @@ const MODAL_COMPONENTS = {
     [GENERATE_QR_CODES]: GenerateQRCodesModalContainer,
     [ADMIN_ADD_MANUFACTURER]: AdminAddManufacturerModal,
     [ADMIN_EDIT_MANUFACTURER]: AdminEditManufacturerModal,
+    [ADMIN_DELETE_MANUFACTURER]: AdminDeleteManufacturerModal,
     [ADMIN_ADD_OPTION_VALUE]: AdminAddOptionValueModal,
     [ADMIN_EDIT_OPTION_VALUE]: AdminEditOptionValueModal,
     [ADMIN_ADD_DOCUMENT_TO_OPTION_VALUE]: AdminAddDocumentToOptionValueModal,
@@ -302,7 +305,7 @@ const MODAL_COMPONENTS = {
     [ADMIN_DELETE_OPTION_VALUE_DOCUMENT_VERSION]: AdminConfirmDeleteDocumentVersionModalContainer,
     [COMPANY_ADD_MANUFACTURER]: AddManufacturerModal,
     [COMPANY_EDIT_MANUFACTURER]: EditManufacturerModal,
-    [COMPANY_DELETE_MANUFACTURER]: DeleteManufacturerModal,
+    [COMPANY_DELETE_MANUFACTURER]: DeleteManufacturerModalContainer,
     [COMPANY_TOGGLE_MANUFACTURER]: ToggleManufacturerModalContainer,
     [COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE]: ToggleManufacturerOptionValueModalContainer,
     [COMPANY_ADD_OPTION_VALUE]: AddOptionValueModal,

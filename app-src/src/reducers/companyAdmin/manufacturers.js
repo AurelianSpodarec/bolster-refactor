@@ -120,6 +120,18 @@ function manufacturersReducer(state = {}, action) {
                     action.payload,
                 ),
             };
+        case DISABLE_MANUFACTURER_SUCCESS:
+            return {
+                ...state,
+                [DROPDOWN_OPTIONS[action.pinOptionType].reduxKey]: updateObj(
+                    state[DROPDOWN_OPTIONS[action.pinOptionType].reduxKey],
+                    action.id,
+                    {
+                        ...action.payload,
+                        isDisabled: true,
+                    },
+                ),
+            };
         case REORDER_MANUFACTURERS:
             return updateObj(
                 state,

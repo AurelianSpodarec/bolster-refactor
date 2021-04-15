@@ -42,9 +42,9 @@ class ManufacturerListItemContainer extends Component {
         );
     }
 
-    handleDeleteManufacturerModal = id => {
+    handleDeleteManufacturerModal = manufacturer => {
         const { showModal } = this.props;
-        showModal(COMPANY_DELETE_MANUFACTURER, { id });
+        showModal(COMPANY_DELETE_MANUFACTURER, { manufacturer });
     };
 
     handleEditManufacturerModal = manufacturer => {
