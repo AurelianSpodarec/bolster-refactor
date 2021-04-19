@@ -2493,6 +2493,51 @@ input {
 }
 
 //tables
+.scrollable-table-outer {
+    position: relative;
+}
+
+.scrollable-table-inner {
+    position: static;
+    overflow-x: scroll;
+    overflow-y: visible;
+    margin-right: 145px;
+
+    .generic-table {
+        position: static;
+        table-layout: fixed;
+
+        thead, tbody, th, td {
+            position: static;
+        }
+
+        tr {
+            border-bottom: none;
+
+            &:first-child {
+                td {
+                    border-top: none;
+                }
+            }
+        }
+
+        th, td {
+            width: 200px;
+
+            &:last-child {
+                position: absolute;
+                right: -15px;
+                width: 160px;
+                margin-top: -1px;
+            }
+        }
+
+        td {
+            border-top: 2px solid #f5f5f5;
+        }
+    }
+}
+
 .generic-table {
     float: left;
     width: calc(100% + 30px);
@@ -2734,6 +2779,10 @@ input {
                 margin-left: 2.5px;
                 margin-bottom: 2px;
             }
+        }
+
+        &.cell-break-all {
+            word-break: break-all;
         }
     }
 
