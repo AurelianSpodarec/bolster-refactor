@@ -79,14 +79,34 @@ class EditTemplateQuestionModalContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
         const { editTemplateQuestion, question } = this.props;
+        const { options, configuration } = this.state;
+
+        // const OptionConfigurations = question.OptionConfigurations
+        //     ? question.OptionConfigurations.map((item, index) => {
+        //           return {
+        //               ...item,
+        //               Name: Object.values(this.state.options)[index],
+        //               IsDisabled: this.state.configuration[item.Name],
+        //           };
+        //       })
+        //     : null;
 
         const OptionConfigurations = question.OptionConfigurations
-            ? question.OptionConfigurations.map((item, index) => {
-                  return {
-                      ...item,
-                      Name: Object.values(this.state.options)[index],
-                      IsDisabled: this.state.configuration[item.Name],
-                  };
+            ? Object.keys(options).map(item => {
+                  if (item in configuration) {
+                      const prevObj = question.OptionConfigurations.find(obj => obj.Name === item);
+                      return {
+                          Name: options[item],
+                          IsDisabled: this.state.configuration[item],
+                          CreatedBySuperAdmin: prevObj.CreatedBySuperAdmin,
+                      };
+                  } else {
+                      return {
+                          Name: options[item],
+                          IsDisabled: false,
+                          CreatedBySuperAdmin: false,
+                      };
+                  }
               })
             : null;
 
