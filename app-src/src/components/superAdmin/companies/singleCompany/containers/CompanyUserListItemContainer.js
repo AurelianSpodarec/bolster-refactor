@@ -6,11 +6,17 @@ import CompanyUserListItem from '../presentational/CompanyUserListItem';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { ADMIN_LATEST_SYNCS } from 'constants/shared/modalTypes';
 
-const CompanyUserListItemContainer = ({ user, showModal }) => {
+const CompanyUserListItemContainer = ({ user, showModal, tableColumnWidths }) => {
     const handleModalClick = () => {
         showModal(ADMIN_LATEST_SYNCS, { id: user.id });
     };
-    return <CompanyUserListItem user={user} handleModalClick={handleModalClick} />;
+    return (
+        <CompanyUserListItem
+            user={user}
+            handleModalClick={handleModalClick}
+            tableColumnWidths={tableColumnWidths}
+        />
+    );
 };
 
 const mapDispatchToProps = { showModal };
