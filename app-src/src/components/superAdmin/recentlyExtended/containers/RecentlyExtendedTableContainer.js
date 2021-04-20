@@ -25,11 +25,12 @@ const RecentlyExtendedTableContainer = ({
     filters,
 }) => {
     const dispatch = useDispatch();
-    const csvURL = `${ADMIN_API_URL}/drawings/extend/csv`;
 
     const PAGE_SIZE = 50;
     const { page } = filters;
     const pageCount = Math.ceil(count / PAGE_SIZE);
+
+    const csvURL = `${ADMIN_API_URL}/drawings/extend/csv?page=${page}`;
 
     useEffect(() => {
         dispatch(fetchRecentlyExtendedByPage());
@@ -61,7 +62,7 @@ const RecentlyExtendedTableContainer = ({
 
     function downloadCSV() {
         axios.get(csvURL, getHeaders()).then(res => {
-            fileDownload(res.data, 'RecentlyExtendedDrawings.csv');
+            fileDownload(res.data, `RecentlyExtendedDrawings-Page-${page}.csv`);
         });
     }
 
