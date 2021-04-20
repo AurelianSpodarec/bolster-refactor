@@ -5,7 +5,11 @@ import moment from 'moment';
 import SuperAdminInvoicesTable from '../presentational/SuperAdminInvoicesTable';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import { INVOICE_STATUS_TYPES, HAS_PAID_QUERIES } from 'constants/companyAdmin/enums';
+import {
+    INVOICE_STATUS_TYPES,
+    HAS_PAID_QUERIES,
+    HAS_PAID_VALUES,
+} from 'constants/companyAdmin/enums';
 import fetchInvoicesBySearch from 'actions/superAdmin/invoices/async/fetchInvoicesBySearch';
 import updateInvoiceFilter from 'actions/superAdmin/invoices/sync/updateInvoiceFilter';
 import PageSelector from 'components/shared/pagination/presentational/pageSelector';
@@ -27,7 +31,11 @@ const SuperAdminInvoicesTableContainer = ({
 
     useEffect(() => {
         if (+hasPayed > 0) {
-            fetchInvoicesBySearch(page, searchTerm, HAS_PAID_QUERIES[hasPayed]);
+            if (+hasPayed === HAS_PAID_VALUES.FREE) {
+                fetchInvoicesBySearch(page, searchTerm, false, HAS_PAID_QUERIES[hasPayed]);
+            } else {
+                fetchInvoicesBySearch(page, searchTerm, HAS_PAID_QUERIES[hasPayed]);
+            }
         } else {
             fetchInvoicesBySearch(page, searchTerm);
         }

@@ -414,6 +414,13 @@ export const HAS_PAID_QUERIES = {
     3: 'true',
 };
 
+export const HAS_PAID_VALUES = {
+    ALL: 0,
+    PAID: 1,
+    AWAITING_PAYMENT: 2,
+    FREE: 3,
+};
+
 export const DOCUMENT_TYPES = {
     VIEW_ONLY: '1',
     REQUIRES_AGREEMENT_ONCE: '2',
