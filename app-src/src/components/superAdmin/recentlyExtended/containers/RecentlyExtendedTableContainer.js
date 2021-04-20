@@ -13,6 +13,7 @@ import RecentlyExtendedTable from '../presentational/RecentlyExtendedTable';
 
 import fetchRecentlyExtendedByPage from 'actions/superAdmin/recentlyExtended/async/fetchRecentlyExtendedByPage';
 import updateRecentlyExtendedPage from 'actions/superAdmin/recentlyExtended/updateRecentlyExtendedPage';
+
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
@@ -31,7 +32,7 @@ const RecentlyExtendedTableContainer = ({
     const pageCount = Math.ceil(count / PAGE_SIZE);
 
     useEffect(() => {
-        dispatch(fetchRecentlyExtendedByPage(1));
+        dispatch(fetchRecentlyExtendedByPage());
     }, []);
 
     return (
