@@ -26,7 +26,7 @@ export default drawingID => dispatch => {
     dispatch(adminFetchPinsForCompanyRequest());
 
     return axios
-        .get(`${ADMIN_API_URL}/drawings/4/${drawingID}/pins`, getHeaders())
+        .get(`${ADMIN_API_URL}/drawings/${drawingID}/pins`, getHeaders())
         .then(res => dispatch(adminFetchPinsForCompanySuccess(res.data)))
         .catch(err => dispatch(adminFetchPinsForCompanyFailure(err.message)));
 };
