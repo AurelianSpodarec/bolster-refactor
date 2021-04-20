@@ -10,13 +10,11 @@ import PageSelector from 'components/shared/pagination/presentational/pageSelect
 import fileDownload from 'js-file-download';
 
 import RecentlyExtendedTable from '../presentational/RecentlyExtendedTable';
-import fetchRecentlyExtended from 'actions/superAdmin/recentlyExtended/async/fetchRecentlyExtended';
-import fetchRecentlyExtendedBySearch from 'actions/superAdmin/recentlyExtended/async/fetchRecentlyExtendedBySearch';
+
+import fetchRecentlyExtendedByPage from 'actions/superAdmin/recentlyExtended/async/fetchRecentlyExtendedByPage';
 import updateRecentlyExtendedPage from 'actions/superAdmin/recentlyExtended/updateRecentlyExtendedPage';
-import { componentDidMount } from 'helpers/generic';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
-import fetchRecentlyExtendedCount from 'actions/superAdmin/recentlyExtended/async/fetchRecentlyExtendedCount';
 
 const RecentlyExtendedTableContainer = ({
     isFetching,
@@ -33,8 +31,7 @@ const RecentlyExtendedTableContainer = ({
     const pageCount = Math.ceil(count / PAGE_SIZE);
 
     useEffect(() => {
-        dispatch(fetchRecentlyExtendedBySearch(1));
-        dispatch(fetchRecentlyExtendedCount());
+        dispatch(fetchRecentlyExtendedByPage(1));
     }, []);
 
     return (
@@ -67,8 +64,8 @@ const RecentlyExtendedTableContainer = ({
     }
 
     function setPage(nextPage) {
-        updateRecentlyExtendedPage('page', nextPage);
-        fetchRecentlyExtendedBySearch(nextPage, PAGE_SIZE);
+        dispatch(updateRecentlyExtendedPage(nextPage));
+        dispatch(fetchRecentlyExtendedByPage(nextPage, PAGE_SIZE));
     }
 };
 
