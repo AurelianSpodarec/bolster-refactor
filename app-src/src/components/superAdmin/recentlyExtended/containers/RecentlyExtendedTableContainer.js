@@ -47,6 +47,7 @@ const RecentlyExtendedTableContainer = ({
                 headers={[
                     'Company Name',
                     'Full Hierarchy',
+                    'Extended On',
                     'Previous Expiry',
                     'New Expiry Date',
                     'Reason',
