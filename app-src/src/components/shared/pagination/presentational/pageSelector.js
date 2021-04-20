@@ -6,7 +6,7 @@ const PageSelector = ({ page = 1, maxPage = 1, setPage }) => {
     const isEmpty = maxPage === 0;
 
     useEffect(() => {
-        setPage(1);
+        setPage(page);
     }, []);
 
     return (
