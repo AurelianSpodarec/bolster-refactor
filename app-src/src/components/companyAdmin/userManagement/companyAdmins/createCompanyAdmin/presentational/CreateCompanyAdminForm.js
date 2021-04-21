@@ -20,11 +20,12 @@ const CreateCompanyAdminForm = ({
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="First name">
+                <Field name="First name" required>
                     <TextInputContainer
                         name="firstName"
                         value={firstName}
                         handleChange={handleInputChange}
+                        required
                     />
                 </Field>
             </div>
