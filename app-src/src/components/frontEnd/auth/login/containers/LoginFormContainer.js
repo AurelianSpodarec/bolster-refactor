@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useForm, usePrevious } from 'helpers/hooks';
+import { useForm, usePrevious, useResend2FA } from 'helpers/hooks';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -32,7 +32,11 @@ const LoginFormContainer = ({
     emailConfirmationRequired,
 }) => {
     const [formData, handleChange] = useForm({ email: '', password: '', twoFactorCode: null });
-    const prevProps = usePrevious({ postSuccess, isPosting, emailConfirmationRequired });
+    const prevProps = usePrevious({
+        postSuccess,
+        isPosting,
+        emailConfirmationRequired,
+    });
 
     useEffect(() => {
         fetchAuthAreaText();
@@ -61,6 +65,8 @@ const LoginFormContainer = ({
         }
     }, [emailConfirmationRequired]);
 
+    const { canResend2FA, setCanResend2FA, handleResendTwoFactor } = useResend2FA(formData.email);
+
     return (
         <LoginForm
             formData={{ ...formData }}
@@ -70,6 +76,9 @@ const LoginFormContainer = ({
             isPosting={isPosting}
             loginText={auth.loginText}
             showTwoFactor={showTwoFactor}
+            canResend2FA={canResend2FA}
+            setCanResend2FA={setCanResend2FA}
+            handleResendTwoFactor={handleResendTwoFactor}
         />
     );
 
@@ -136,7 +145,14 @@ const mapStateToProps = ({
         authReducer: { auth },
         error,
     },
-}) => ({ postSuccess, auth, error, isPosting, showTwoFactor, emailConfirmationRequired });
+}) => ({
+    postSuccess,
+    auth,
+    error,
+    isPosting,
+    showTwoFactor,
+    emailConfirmationRequired,
+});
 
 const mapDispatchToProps = {
     showModal,

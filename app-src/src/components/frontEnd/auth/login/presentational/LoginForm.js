@@ -1,4 +1,5 @@
 import React from 'react';
+import Countdown from 'react-countdown';
 
 import FrontEndFormHeading from 'components/frontEnd/shared/forms/presentational/FrontEndFormHeading';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
@@ -6,6 +7,12 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
+
+const timeRenderer = ({ formatted: { minutes, seconds } }) => (
+    <span>
+        Resend in {minutes}:{seconds}
+    </span>
+);
 
 const LoginForm = ({
     formData,
@@ -15,6 +22,9 @@ const LoginForm = ({
     isPosting,
     loginText,
     showTwoFactor,
+    canResend2FA,
+    setCanResend2FA,
+    handleResendTwoFactor,
 }) => {
     const { email, password, twoFactorCode } = formData;
 
@@ -56,6 +66,20 @@ const LoginForm = ({
                                 handleChange={handleChange}
                                 classes="auth-text-input-container"
                             />
+                            <p className="generic-text" style={{ marginTop: 5 }}>
+                                Not received code?{' '}
+                                {canResend2FA ? (
+                                    <a href="#" onClick={handleResendTwoFactor}>
+                                        Resend
+                                    </a>
+                                ) : (
+                                    <Countdown
+                                        date={Date.now() + 120000}
+                                        renderer={timeRenderer}
+                                        onComplete={() => setCanResend2FA(true)}
+                                    />
+                                )}
+                            </p>
                         </Field>
                     </>
                 )}

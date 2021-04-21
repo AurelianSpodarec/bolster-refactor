@@ -3,6 +3,8 @@ import uuid from 'uuid/v4';
 import moment from 'moment';
 
 import { removeObjItem } from './generic';
+import { useDispatch, useSelector } from 'react-redux';
+import resendTwoFactor from 'actions/shared/auth/async/resendTwoFactor';
 
 export const useMultipleHierarchies = hierarchyShape => {
     // takes an empty version of the hierarchy shape / initial state for a blank hierarchy
@@ -176,4 +178,35 @@ export const useIsMobile = (mobileWidth = 1024) => {
     }, []);
 
     return isWidthMobile || isIOS;
+};
+
+// resending 2FA code
+export const useResend2FA = email => {
+    const dispatch = useDispatch();
+    const [canResend2FA, setCanResend2FA] = useState(false);
+
+    const mapStateToProps = ({
+        shared: {
+            loginReducer: { resendTwoFactorSuccess },
+        },
+    }) => ({
+        resendTwoFactorSuccess,
+    });
+
+    const { resendTwoFactorSuccess } = useSelector(mapStateToProps);
+
+    const prevProps = usePrevious({ resendTwoFactorSuccess });
+
+    useEffect(() => {
+        if (resendTwoFactorSuccess && !prevProps.resendTwoFactorSuccess) {
+            setCanResend2FA(false);
+        }
+    }, [resendTwoFactorSuccess, prevProps.resendTwoFactorSuccess]);
+
+    return { canResend2FA, setCanResend2FA, handleResendTwoFactor };
+
+    function handleResendTwoFactor(e) {
+        e.preventDefault();
+        dispatch(resendTwoFactor({ email }));
+    }
 };
