@@ -41,7 +41,11 @@ const CompanySelection = () => {
         await dispatch(decodeJWT());
         const { payload, type } = await dispatch(fetchCompanySettings());
         if (type === FETCH_COMPANY_SETTINGS_SUCCESS) {
-            localStorage.setItem('colourCode', payload.colourCode);
+            if (payload.colourCode) {
+                localStorage.setItem('colourCode', payload.colourCode);
+            } else {
+                localStorage.removeItem('colourCode');
+            }
         }
         history.push('/company');
     }
