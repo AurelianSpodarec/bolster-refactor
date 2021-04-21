@@ -1,6 +1,7 @@
 import fetchAvailableCompanies from 'actions/companyAdmin/companySelection/fetchAvailableCompanies';
 import postCompanyLogin from 'actions/companyAdmin/companySelection/postCompanyLogin';
 import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import Block from 'components/shared/generic/block/presentational/Block';
@@ -9,6 +10,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import { FILE_STORAGE_URL } from 'config';
 import { FETCH_COMPANY_SETTINGS_SUCCESS } from 'constants/actionTypes/companySettings';
 import { COMPANY_USER_ROLE_IDS, COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import { ERROR_MODAL } from 'constants/shared/modalTypes';
 import { componentDidMount } from 'helpers/generic';
 import { usePrevious } from 'helpers/hooks';
 import React, { useEffect } from 'react';
@@ -19,7 +21,7 @@ const CompanySelection = () => {
     const { availableCompanies, isFetching, isPosting, postSuccess, error } = useSelector(
         companySelector,
     );
-    const prevProps = usePrevious({ isFetching, isPosting, postSuccess });
+    const prevProps = usePrevious({ isFetching, isPosting, postSuccess, error });
     const dispatch = useDispatch();
     const history = useHistory();
     componentDidMount(() => {
@@ -35,7 +37,10 @@ const CompanySelection = () => {
         if (!isFetching && prevProps.isFetching) {
             if (!companies.length) history.push('/client/companies');
         }
-    }, [isFetching, isPosting, postSuccess]);
+        if (error && !prevProps.error) {
+            dispatch(showModal(ERROR_MODAL, { message: error }));
+        }
+    }, [isFetching, isPosting, postSuccess, error]);
 
     async function onSuccess() {
         await dispatch(decodeJWT());
@@ -51,7 +56,6 @@ const CompanySelection = () => {
     }
 
     const handleSelectCompany = (companyID, type) => {
-        // todo post company login
         dispatch(postCompanyLogin({ companyID, type }));
     };
 
@@ -63,7 +67,6 @@ const CompanySelection = () => {
             <PageHeading title="Companies" />
             <BlockContainer
                 isFetching={isFetching}
-                error={error}
                 isEmpty={!companies.length}
                 noDataMessage="There are no companies to choose from"
                 noWhiteBackground

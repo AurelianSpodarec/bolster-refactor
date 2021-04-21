@@ -34,8 +34,11 @@ export default postBody => dispatch => {
             return dispatch(postCompanyLoginSuccess(data));
         })
         .catch(err => {
-            if (err.response.status === 400)
+            console.error({ err });
+            if (err.response.status === 400) {
                 return dispatch(setAPIFieldErrors(err.response.data.errors));
-            return dispatch(postCompanyLoginFailure(err.message));
+            }
+            const message = err.response?.data ?? err.message;
+            return dispatch(postCompanyLoginFailure(message));
         });
 };
