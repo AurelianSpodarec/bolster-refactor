@@ -6,6 +6,7 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
+import PasswordStrengh from 'components/shared/passwordStrength/PasswordStrength';
 
 const SetPasswordForm = ({ formData, handleChange, handleSubmit, isPosting, postSuccess }) => {
     const { password, confirmPassword } = formData;
@@ -31,7 +32,9 @@ const SetPasswordForm = ({ formData, handleChange, handleSubmit, isPosting, post
                             handleChange={handleChange}
                             classes="auth-text-input-container"
                         />
+                        <PasswordStrengh password={password} />
                     </Field>
+
                     <Field name="Confirm Password" classes="auth-form-field">
                         <TextInputContainer
                             value={confirmPassword}
