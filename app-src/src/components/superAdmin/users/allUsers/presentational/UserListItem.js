@@ -11,6 +11,7 @@ const UserListItem = ({
     handleShowEditUserModal,
     handleShowEditUserPasswordModal,
     handleShowConfirmEmailModal,
+    handleShowRemoveLockoutModal,
 }) => (
     <tr>
         <td>{`${user.firstName} ${user.lastName}`}</td>
@@ -53,6 +54,11 @@ const UserListItem = ({
                         onClick={() => handleShowConfirmEmailModal(user)}
                     >
                         <i className="far fa-pencil" /> Confirm e-mail
+                    </button>
+                )}
+                {user.isLockoutEnabled && (
+                    <button className="button blue" onClick={handleShowRemoveLockoutModal}>
+                        <i className="far fa-lock" /> Remove lockout
                     </button>
                 )}
                 <button onClick={() => handleShowEditUserPasswordModal(user)} className="button">

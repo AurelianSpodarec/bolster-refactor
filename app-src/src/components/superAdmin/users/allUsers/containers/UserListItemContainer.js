@@ -4,13 +4,15 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { EDIT_USER_PASSWORD, EDIT_USER, CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 import UserListItem from '../presentational/UserListItem';
 import forceConfirmUserEmail from 'actions/superAdmin/users/async/forceConfirmUserEmail';
+import removeUserLockout from 'actions/superAdmin/users/async/removeUserLockout.js';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 const UserListItemContainer = ({ user }) => {
     const dispatch = useDispatch();
     const showConfirmEmailModal = () => {
-        const handleSubmit = () =>
+        const handleSubmit = () => {
             dispatch(forceConfirmUserEmail(user.id)).then(() => dispatch(hideModal()));
+        };
 
         dispatch(
             showModal(CONFIRM_SUBMIT, {
@@ -20,6 +22,20 @@ const UserListItemContainer = ({ user }) => {
             }),
         );
     };
+    const showRemoveLockoutModal = () => {
+        const handleSubmit = () => {
+            dispatch(removeUserLockout(user.id)).then(() => dispatch(hideModal()));
+        };
+
+        dispatch(
+            showModal(CONFIRM_SUBMIT, {
+                handleSubmit,
+                hideModal: () => dispatch(hideModal()),
+                message: "Are you sure you want to reset this user's lockout?",
+            }),
+        );
+    };
+
     const showEditUserModal = user => dispatch(showModal(EDIT_USER, user));
     const showEditPasswordModal = user => dispatch(showModal(EDIT_USER_PASSWORD, user));
 
@@ -29,6 +45,7 @@ const UserListItemContainer = ({ user }) => {
             handleShowEditUserModal={showEditUserModal}
             handleShowEditUserPasswordModal={showEditPasswordModal}
             handleShowConfirmEmailModal={showConfirmEmailModal}
+            handleShowRemoveLockoutModal={showRemoveLockoutModal}
         />
     );
 };

@@ -20,6 +20,9 @@ import {
     FORCE_CONFIRM_USER_EMAIL_REQUEST,
     FORCE_CONFIRM_USER_EMAIL_SUCCESS,
     FORCE_CONFIRM_USER_EMAIL_FAILURE,
+    REMOVE_USER_LOCKOUT_REQUEST,
+    REMOVE_USER_LOCKOUT_SUCCESS,
+    REMOVE_USER_LOCKOUT_FAILURE,
 } from 'constants/actionTypes/users';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
@@ -64,11 +67,13 @@ function postSuccessReducer(state = false, action) {
         case EDIT_USER_PASSWORD_REQUEST:
         case ADMIN_CREATE_COMPANY_USER_REQUEST:
         case FORCE_CONFIRM_USER_EMAIL_REQUEST:
+        case REMOVE_USER_LOCKOUT_REQUEST:
             return false;
         case EDIT_USER_SUCCESS:
         case EDIT_USER_PASSWORD_SUCCESS:
         case ADMIN_CREATE_COMPANY_USER_SUCCESS:
         case FORCE_CONFIRM_USER_EMAIL_SUCCESS:
+        case REMOVE_USER_LOCKOUT_SUCCESS:
             return true;
         default:
             return state;
@@ -84,6 +89,7 @@ function errorReducer(state = null, action) {
         case ADMIN_CREATE_COMPANY_USER_REQUEST:
         case ADMIN_FETCH_USERS_BY_SEARCH_REQUEST:
         case FORCE_CONFIRM_USER_EMAIL_REQUEST:
+        case REMOVE_USER_LOCKOUT_REQUEST:
             return null;
         case FETCH_ALL_USERS_FAILURE:
         case EDIT_USER_FAILURE:
@@ -92,6 +98,7 @@ function errorReducer(state = null, action) {
         case ADMIN_CREATE_COMPANY_USER_FAILURE:
         case ADMIN_FETCH_USERS_BY_SEARCH_FAILURE:
         case FORCE_CONFIRM_USER_EMAIL_FAILURE:
+        case REMOVE_USER_LOCKOUT_FAILURE:
             return action.error;
         default:
             return state;
@@ -107,6 +114,7 @@ function usersReducer(state = {}, action) {
         case EDIT_USER_SUCCESS:
         case ADMIN_CREATE_COMPANY_USER_SUCCESS:
         case FORCE_CONFIRM_USER_EMAIL_SUCCESS:
+        case REMOVE_USER_LOCKOUT_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case ADMIN_FETCH_COMPANY_USERS_SUCCESS:
             return { ...state, ...convertArrToObj(action.payload) };
