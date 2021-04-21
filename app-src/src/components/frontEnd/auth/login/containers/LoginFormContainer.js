@@ -65,7 +65,9 @@ const LoginFormContainer = ({
         }
     }, [emailConfirmationRequired]);
 
-    const { canResend2FA, setCanResend2FA, handleResendTwoFactor } = useResend2FA(formData.email);
+    const { canResend2FA, setCanResend2FA, lastResent, handleResendTwoFactor } = useResend2FA(
+        formData.email,
+    );
 
     return (
         <LoginForm
@@ -78,6 +80,7 @@ const LoginFormContainer = ({
             showTwoFactor={showTwoFactor}
             canResend2FA={canResend2FA}
             setCanResend2FA={setCanResend2FA}
+            lastResent={lastResent}
             handleResendTwoFactor={handleResendTwoFactor}
         />
     );

@@ -24,6 +24,7 @@ const LoginForm = ({
     showTwoFactor,
     canResend2FA,
     setCanResend2FA,
+    lastResent,
     handleResendTwoFactor,
 }) => {
     const { email, password, twoFactorCode } = formData;
@@ -74,7 +75,7 @@ const LoginForm = ({
                                     </a>
                                 ) : (
                                     <Countdown
-                                        date={Date.now() + 120000}
+                                        date={lastResent + 120000}
                                         renderer={timeRenderer}
                                         onComplete={() => setCanResend2FA(true)}
                                     />

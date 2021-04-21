@@ -184,26 +184,35 @@ export const useIsMobile = (mobileWidth = 1024) => {
 export const useResend2FA = email => {
     const dispatch = useDispatch();
     const [canResend2FA, setCanResend2FA] = useState(false);
+    const [lastResent, setLastResent] = useState(Date.now());
 
     const mapStateToProps = ({
         shared: {
-            loginReducer: { resendTwoFactorSuccess },
+            loginReducer: { resendTwoFactorSuccess, showTwoFactor },
         },
     }) => ({
         resendTwoFactorSuccess,
+        showTwoFactor,
     });
 
-    const { resendTwoFactorSuccess } = useSelector(mapStateToProps);
+    const { resendTwoFactorSuccess, showTwoFactor } = useSelector(mapStateToProps);
 
-    const prevProps = usePrevious({ resendTwoFactorSuccess });
+    const prevProps = usePrevious({ resendTwoFactorSuccess, showTwoFactor });
+
+    useEffect(() => {
+        if (showTwoFactor && !prevProps.showTwoFactor) {
+            setLastResent(Date.now());
+        }
+    }, [showTwoFactor, prevProps.showTwoFactor]);
 
     useEffect(() => {
         if (resendTwoFactorSuccess && !prevProps.resendTwoFactorSuccess) {
             setCanResend2FA(false);
+            setLastResent(Date.now());
         }
     }, [resendTwoFactorSuccess, prevProps.resendTwoFactorSuccess]);
 
-    return { canResend2FA, setCanResend2FA, handleResendTwoFactor };
+    return { canResend2FA, setCanResend2FA, lastResent, handleResendTwoFactor };
 
     function handleResendTwoFactor(e) {
         e.preventDefault();
