@@ -153,7 +153,6 @@ function companyUsersReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_COMPANY_USERS_SUCCESS:
             return convertArrToObj(action.payload);
-        case CREATE_COMPANY_USER_SUCCESS:
         case EDIT_COMPANY_USER_SUCCESS:
         case FETCH_SINGLE_COMPANY_USER_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);

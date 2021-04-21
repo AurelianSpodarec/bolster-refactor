@@ -18,6 +18,7 @@ import {
     DISABLE_COMPANY_USER_SUCCESS,
     DISABLE_COMPANY_USER_FAILURE,
     DELETE_COMPANY_USER_SUCCESS,
+    CREATE_COMPANY_USER_SUCCESS,
 } from 'constants/actionTypes/usersManagement';
 
 export default combineReducers({
@@ -114,6 +115,8 @@ function inactiveCompanyUsersReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_INACTIVE_COMPANY_USERS_SUCCESS:
             return convertArrToObj(action.payload.inactive);
+        case CREATE_COMPANY_USER_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }
