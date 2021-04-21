@@ -108,6 +108,13 @@ const AllCompanyAdminsListItem = ({
                         Edit
                     </Link>
                     <Link
+                        className="button yellow "
+                        to={`/company/users-management/company-admins/${user.id}/documents`}
+                    >
+                        <i className="far fa-file-upload" />
+                        User Documents
+                    </Link>
+                    <Link
                         className="button blue"
                         to={`/company/users-management/company-admins/${user.id}/drawings`}
                     >

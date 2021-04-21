@@ -106,6 +106,12 @@ const AllOperativesListItem = ({
                         <i className="far fa-pencil" /> Edit
                     </Link>
                     <Link
+                        className="button yellow"
+                        to={`/company/users-management/operatives/${user.id}/documents`}
+                    >
+                        <i className="far fa-file-upload" /> User Documents
+                    </Link>
+                    <Link
                         className="button blue"
                         to={`/company/users-management/operative/${user.id}/drawings`}
                     >

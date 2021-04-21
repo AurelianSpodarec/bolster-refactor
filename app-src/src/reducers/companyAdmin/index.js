@@ -54,6 +54,7 @@ import manufacturersReducer from './manufacturers';
 import manufacturersOptionValuesReducer from './manufacturersOptionValues';
 import optionValueDocumentsReducer from './optionValueDocuments';
 import userGuideReducer from './userGuide';
+import userDocumentsReducer from './userDocuments';
 import zonesReducer from './zones';
 
 export default combineReducers({
@@ -110,6 +111,7 @@ export default combineReducers({
     templateVersionsReducer,
     transferRequestsReducer,
     userDrawingsReducer,
+    userDocumentsReducer,
     userGuideReducer,
     zonesReducer,
 });
