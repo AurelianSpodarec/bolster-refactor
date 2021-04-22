@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, removeObjItem } from 'helpers/generic';
+import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
 
 import {
     FETCH_ALL_USER_DOCUMENTS_REQUEST,
@@ -31,6 +31,8 @@ function userDocumentsReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case DELETE_USER_DOCUMENTS_SUCCESS:
             return removeObjItem(state, action.id);
+        case POST_UPLOAD_USER_DOCUMENTS_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }

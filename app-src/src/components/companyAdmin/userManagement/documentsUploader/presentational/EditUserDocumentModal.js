@@ -11,7 +11,7 @@ import FileUploadContainer from 'components/shared/generic/form/containers/FileU
 import { useDispatch } from 'react-redux';
 import postUploadUserDocuments from 'actions/companyAdmin/userManagement/async/postUploadUserDocuments';
 
-const NewUserDocumentModal = ({ adminId, hideModal }) => {
+const EditUserDocumentModal = ({ adminId, hideModal }) => {
     const dispatch = useDispatch();
     const [form, setFormChange] = useState({
         name: '',
@@ -38,7 +38,7 @@ const NewUserDocumentModal = ({ adminId, hideModal }) => {
 
     return (
         <ModalOuterContainer>
-            <BlockHeading title="Upload New User Document" />
+            <BlockHeading title="Edit User Document" />
             <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
                 <div className="size-lg-12">
                     <Field name="Name" required>
@@ -76,4 +76,4 @@ const NewUserDocumentModal = ({ adminId, hideModal }) => {
     );
 };
 
-export default NewUserDocumentModal;
+export default EditUserDocumentModal;

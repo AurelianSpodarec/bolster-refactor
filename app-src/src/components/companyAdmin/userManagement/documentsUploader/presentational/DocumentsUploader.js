@@ -17,7 +17,7 @@ const DocumentsUploader = ({ documents, adminName, newButton, deleteButton }) =>
                     <i className="fa fa-plus" /> Upload Document
                 </button>
             </BlockHeading>
-            <DocumentsTable documents={[{ Id: 1, Name: 'Name' }]} deleteButton={deleteButton} />
+            <DocumentsTable documents={documents} deleteButton={deleteButton} />
         </BlockContainer>
     </>
 );
