@@ -177,6 +177,9 @@ export default function (ProtectedComponent) {
                     companyUserIDs,
                     floorplanPinScale,
                     createdByCompanyID,
+                    zoneIDs,
+                    zoneOpacity,
+                    includeFloorplanZones,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
@@ -290,6 +293,9 @@ export default function (ProtectedComponent) {
                 hasQuestions: +furtherFiltrationOption > +INDIVIDUAL_PINS,
                 includedDrawingIDs: includedDrawingsIDs,
                 createdByCompanyID,
+                zoneIDs,
+                zoneOpacity,
+                includeFloorplanZones,
             };
             return body;
         };

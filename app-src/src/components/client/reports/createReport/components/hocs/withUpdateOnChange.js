@@ -160,6 +160,8 @@ export default function (ProtectedComponent) {
                     companyUserIDs,
                     pinIDs,
                     floorplanPinScale,
+                    zoneIDs,
+                    zoneOpacity,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
@@ -190,7 +192,6 @@ export default function (ProtectedComponent) {
 
             let questionFilters = null;
             let selectedPinIDs = null;
-
             const { INDIVIDUAL_PINS, FILTERS } = FURTHER_FILTRATION_OPTIONS;
 
             switch (+furtherFiltrationOption) {
@@ -250,6 +251,8 @@ export default function (ProtectedComponent) {
                 sortBy,
                 pinBoundingBoxes,
                 floorplanPinScale,
+                zoneIDs,
+                zoneOpacity,
             };
 
             return body;
