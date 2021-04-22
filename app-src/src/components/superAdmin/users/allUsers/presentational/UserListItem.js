@@ -5,6 +5,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { Link } from 'react-router-dom';
+import { boolToYesNo } from 'helpers/generic';
 
 const UserListItem = ({
     user,
@@ -43,6 +44,7 @@ const UserListItem = ({
         <td>
             <DateTimeContainer date={user.createdOn} datetime={DATE_TIME_IDS.DATE} />
         </td>
+        <td>{boolToYesNo(user.isEmailConfirmed)}</td>
         <td>
             <BlockButtonWrapper>
                 <button className="button yellow" onClick={() => handleShowEditUserModal(user)}>
