@@ -5,6 +5,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { boolToYesNo } from 'helpers/generic';
 
 const AllCompanyAdminsListItem = ({
     user,
@@ -100,8 +101,12 @@ const AllCompanyAdminsListItem = ({
                 <span className={`limit-${drawingLimitColour}`}>{user.drawingCount}</span>
             </td>
             <td>
+                {onMobile && <span className="mobile-table-heading">{headers[9]}</span>}
+                {boolToYesNo(user.isEmailConfirmed)}
+            </td>
+            <td>
                 {' '}
-                {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
+                {onMobile && <span className="mobile-table-heading">{headers[10]}</span>}
                 <BlockButtonWrapper additionalClasses="stacked">
                     {user.linkedDeviceID && !isDisabled && (
                         <button className="button blue" onClick={showUnlinkModal}>

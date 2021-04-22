@@ -71,6 +71,7 @@ const mapStateToProps = ({
         'Linked Device?',
         'App Version',
         'Device Type',
+        'Is e-mail confirmed?',
     ],
 });
 

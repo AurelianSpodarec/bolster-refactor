@@ -5,6 +5,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { boolToYesNo } from 'helpers/generic';
 
 const AllOperativesListItem = ({
     user,
@@ -90,7 +91,11 @@ const AllOperativesListItem = ({
                 <span className={`limit-${drawingLimitColour}`}>{user.drawingCount}</span>
             </td>
             <td>
-                {onMobile && <span className="mobile-table-heading">{headers[9]}</span>}
+                {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
+                {boolToYesNo(user.isEmailConfirmed)}
+            </td>
+            <td>
+                {onMobile && <span className="mobile-table-heading">{headers[10]}</span>}
                 <BlockButtonWrapper additionalClasses="stacked">
                     {user.linkedDeviceID && !isDisabled && (
                         <button className="button blue" onClick={showUnlinkModal}>

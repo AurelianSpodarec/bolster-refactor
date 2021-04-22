@@ -335,3 +335,5 @@ export const reverseEnum = obj =>
         acc[obj[key]] = `${lower[0].toUpperCase()}${lower.slice(1)}`;
         return acc;
     }, {});
+
+export const boolToYesNo = bool => (bool ? 'Yes' : 'No');

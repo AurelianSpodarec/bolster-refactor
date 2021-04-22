@@ -1,6 +1,7 @@
 import React from 'react';
 import { COMPANY_USER_ROLE_IDS } from 'constants/companyAdmin/enums';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import { boolToYesNo } from 'helpers/generic';
 
 const CompanyUserListItem = ({ user, handleModalClick }) => (
     <tr>
@@ -14,6 +15,7 @@ const CompanyUserListItem = ({ user, handleModalClick }) => (
         <td className="left-align">{user.linkedDeviceID ? 'Yes' : 'No'}</td>
         <td>{user.appVersion ? user.appVersion : '-'}</td>
         <td className="left-align">{user.linkedDeviceName ? user.linkedDeviceName : '-'}</td>
+        <td className="left-align">{boolToYesNo(user.isEmailConfirmed)}</td>
         <td>
             <ButtonContainer handleClick={() => handleModalClick()} className="button">
                 View Latest Syncs

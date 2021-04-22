@@ -27,6 +27,7 @@ const AllCompanyAdminTableContainer = ({ filteredUsers }) => {
                     'Last detected unsynced data',
                     'App Version',
                     'Number of attached drawings',
+                    'Is e-mail confirmed?',
                     '',
                 ]}
                 users={filteredUsers(mergedUsers)}
