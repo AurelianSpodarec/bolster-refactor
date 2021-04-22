@@ -49,6 +49,7 @@ class EditSettingsFormContainer extends Component {
         unsyncedCompanyNotificationDays: '',
         unsyncedOperativeWarningDays: '',
         reportAutoDelete: 0,
+        invoiceEmail: '',
     };
 
     render() {

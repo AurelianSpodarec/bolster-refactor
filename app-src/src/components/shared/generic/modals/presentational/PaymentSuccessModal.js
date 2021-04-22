@@ -2,11 +2,18 @@ import React from 'react';
 import ModalOuterContainer from '../containers/ModalOuterContainer';
 import BlockHeading from '../../blockHeading/presentational/BlockHeading';
 import StatusIcon from '../../statusIcon/presentationl/StatusIcon';
+import { useSelector } from 'react-redux';
+import BlockButtonWrapper from '../../blockButtonWrappers/presentational/BlockButtonWrapper';
+import { INVOICE_GEN_URL } from 'config';
+import { isEmpty } from 'helpers/generic';
 
 const PaymentSuccessModal = ({
     title = 'Order Complete',
     message = 'Your order has been placed successfully.'
-}) => (
+}) => {
+    const createdInvoice = useSelector(state => state.companyAdmin.invoicesReducer.createdInvoiceDetails);
+
+    return (
     <ModalOuterContainer extraClasses="response-modal">
         <div
             className=" size-lg-12"
@@ -30,12 +37,19 @@ const PaymentSuccessModal = ({
         </div>
         <BlockHeading title={title} />
         <p>{message}</p>
-        {/* <BlockButtonWrapper additionalClasses="center-align">
-            <button onClick={() => handleClose()} className="button green">
-                Confirm
-            </button>
-        </BlockButtonWrapper> */}
+        {
+            !isEmpty(createdInvoice) &&
+                    <a
+                    style={{float: 'left', marginTop: 10}}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={`${INVOICE_GEN_URL}/${createdInvoice.guid}/invoice-${createdInvoice.id}`}
+                        className="button blue"
+                    >
+                        <i className="fa fa-download fa-fw" /> Download Invoice
+                    </a>
+        }
     </ModalOuterContainer>
-);
+);};
 
 export default PaymentSuccessModal;
