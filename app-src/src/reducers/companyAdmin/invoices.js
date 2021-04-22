@@ -17,6 +17,8 @@ import {
 } from 'constants/actionTypes/invoices';
 import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
 import { HIDE_MODAL } from 'constants/actionTypes/generic';
+import { CREATE_CREDITS_SUCCESS } from 'constants/actionTypes/credits';
+import { ADD_SERVICE_TO_SUBSCRIPTION_SUCCESS } from 'constants/actionTypes/subscriptions';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
@@ -28,6 +30,7 @@ export default combineReducers({
     isDeleting: isDeletingReducer,
     deleteSuccess: deleteSuccessReducer,
     isPosting: isPostingReducer,
+    createdInvoiceDetails: createdInvoiceDetailsReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -92,6 +95,24 @@ function isPostingReducer(state = false, action) {
         case PAY_INVOICE_SUCCESS:
         case PAY_INVOICE_FAILURE:
             return false;
+        default:
+            return state;
+    }
+}
+
+function createdInvoiceDetailsReducer(state = {}, action) {
+    switch (action.type) {
+        case PAY_INVOICE_SUCCESS:
+            return {
+                id: action.payload.id,
+                guid: action.payload.guid,
+            };
+        case CREATE_CREDITS_SUCCESS:
+        case ADD_SERVICE_TO_SUBSCRIPTION_SUCCESS:
+            return {
+                id: action.payload.invoiceId,
+                guid: action.payload.invoiceGuid,
+            };
         default:
             return state;
     }

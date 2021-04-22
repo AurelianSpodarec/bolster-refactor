@@ -318,7 +318,7 @@ const AddDrawingsFormContainer = ({
                 const postBody = {
                     name,
                     file,
-                    startDate,
+                    startDate: isStartDateShowing ? startDate : null,
                     floorID,
                     clientPermissionIDs,
                     operativePermissionIDs,
@@ -328,9 +328,6 @@ const AddDrawingsFormContainer = ({
                 if (isAlertShowing) {
                     postBody.message = message;
                     postBody.dateToSend = dateToSend;
-                }
-                if (isStartDateShowing) {
-                    postBody.startDate = startDate;
                 }
 
                 createDrawing(postBody).then(fetchAllCredits);
@@ -366,7 +363,7 @@ const AddDrawingsFormContainer = ({
                     const postBody = {
                         name,
                         file,
-                        startDate,
+                        startDate: isStartDateShowing ? startDate : null,
                         floorID,
                         clientPermissionIDs,
                         operativePermissionIDs,
@@ -377,9 +374,7 @@ const AddDrawingsFormContainer = ({
                         postBody.message = message;
                         postBody.dateToSend = dateToSend;
                     }
-                    if (isStartDateShowing) {
-                        postBody.startDate = startDate;
-                    }
+
                     return postBody;
                 });
                 createDrawings({ drawings: formattedDrawings, floorID }).then(fetchAllCredits);

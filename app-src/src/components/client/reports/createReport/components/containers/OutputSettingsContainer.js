@@ -145,6 +145,7 @@ class OutputSettingsContainer extends Component {
                 getPostBody,
                 postReport,
                 selectedCompanyID,
+                furtherFiltrationOption,
             });
         } else postReport(selectedCompanyID, getPostBody());
     };

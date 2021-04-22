@@ -6,26 +6,26 @@ import { getHeaders } from 'helpers/api';
 import {
     CREATE_DRAWINGS_REQUEST,
     CREATE_DRAWINGS_SUCCESS,
-    CREATE_DRAWINGS_FAILURE
+    CREATE_DRAWINGS_FAILURE,
 } from 'constants/actionTypes/drawings';
 
 export const createDrawingsRequest = () => ({
-    type: CREATE_DRAWINGS_REQUEST
+    type: CREATE_DRAWINGS_REQUEST,
 });
 
 export const createDrawingsSuccess = payload => ({
     type: CREATE_DRAWINGS_SUCCESS,
-    payload
+    payload,
 });
 
 export const createDrawingsFailure = error => ({
     type: CREATE_DRAWINGS_FAILURE,
-    error
+    error,
 });
 
 export default drawing => dispatch => {
     dispatch(createDrawingsRequest());
-    axios
+    return axios
         .post(`${API_URL}/drawings/multiple`, drawing, getHeaders())
         .then(result => dispatch(createDrawingsSuccess(result.data)))
         .catch(error => {

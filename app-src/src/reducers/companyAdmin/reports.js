@@ -89,6 +89,9 @@ function filtersReducer(
         pinIDs: [],
         floorplanPinScale: 0.9,
         createdByCompanyID: null,
+        zoneIDs: [],
+        zoneOpacity: 0.3,
+        includeFloorplanZones: true,
     },
     action,
 ) {
@@ -121,6 +124,8 @@ function filtersReducer(
                 pinIDs: [],
                 floorplanPinScale: 0.5,
                 createdByCompanyID: null,
+                zoneIDs: [],
+                zoneOpacity: 0.3,
             };
         default:
             return state;
