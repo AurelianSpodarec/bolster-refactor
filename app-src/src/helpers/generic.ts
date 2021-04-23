@@ -1,8 +1,8 @@
-import moment from 'moment';
-import { DATE_TIME_DEFAULTS } from 'constants/companyAdmin/enums';
 import { useEffect } from 'react';
+import moment from 'moment';
 import orderBy from 'lodash/orderBy';
 import find from 'lodash/find';
+import { DATE_TIME_DEFAULTS } from '../constants/companyAdmin/enums';
 
 export function convertArrToObj(arr, field = 'id') {
     return arr.reduce((acc, item) => {
@@ -37,7 +37,7 @@ export const nameSort = (a, b) => {
     return 0;
 };
 
-export function isEmpty(item) {
+export function isEmpty(item: any) {
     if (Array.isArray(item)) return !item.length;
     if (typeof item === 'string') return !item.length;
     if (typeof item === 'object') return isObjEmpty(item);
@@ -146,18 +146,20 @@ export const enumFormatCapitalKeys = obj =>
 /**
  * @param {string} word
  */
-export const capitaliseWord = word => `${word[0].toUpperCase()}${word.slice(1).toLowerCase()}`;
+export const capitaliseWord = (word: string) =>
+    `${word[0].toUpperCase()}${word.slice(1).toLowerCase()}`;
 
 /**
  * @param {string} words - a string containing multiple space seperated words (wont work with brackets etc. todo?)
  */
-export const capitaliseWords = words => words.split(' ').map(capitaliseWord).join(' ');
+export const capitaliseWords = (words: string) => words.split(' ').map(capitaliseWord).join(' ');
 
 // For numbers without decimal
-export const formatNumber = num => Number(num).toLocaleString('en-us');
+export const formatNumber = (num: number | string) => Number(num).toLocaleString('en-us');
 
 // for decimal .00
-export const formatCurrency = num => num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+export const formatCurrency = (num: number): string =>
+    num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
 const getOffsetValue = ({ offset }) => Number(offset.slice(4, 10).replace(':', '')) || 0;
 const sortByOffset = (a, b) => getOffsetValue(a) - getOffsetValue(b);
@@ -182,9 +184,11 @@ export function moveItem(arr, id, index) {
     return sortedItems.map((item, i) => ({ ...item, sort: i + 1 }));
 }
 
-export const caseInsensitiveEquals = (str1, str2) => str1.toLowerCase() === str2.toLowerCase();
+export const caseInsensitiveEquals = (str1: string, str2: string): boolean =>
+    str1.toLowerCase() === str2.toLowerCase();
 
-export const caseInsensitiveIncludes = (str1, str2) => str1.toLowerCase() === str2.toLowerCase();
+export const caseInsensitiveIncludes = (str1: string, str2: string): boolean =>
+    str1.toLowerCase() === str2.toLowerCase();
 
 // call this as the argument to a .sort() on an array
 export const hierarchySort = (a, b) => a.sort - b.sort;
@@ -246,7 +250,7 @@ export function getBolsterColour() {
 
 export const momentComparisonFormat = 'YYYY-MM-DD';
 
-export const roundToTwoPlacesMax = num => {
+export const roundToTwoPlacesMax = (num: number) => {
     const rounded = Math.round(num * 100) / 100;
 
     if (isNaN(rounded)) return 0;
@@ -287,7 +291,7 @@ export const deepEquals = (first, second) => {
     return true;
 };
 
-export const toTitleCase = string => {
+export const toTitleCase = (string: string) => {
     return string
         .split(' ')
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
