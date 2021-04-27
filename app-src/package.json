@@ -4,6 +4,7 @@
     "private": true,
     "dependencies": {
         "@khanacademy/react-multi-select": "^0.3.2",
+        "@react-leaflet/core": "^1.0.2",
         "axios": "^0.18.0",
         "chart.js": "^2.8.0",
         "core-js": "^3.3.3",

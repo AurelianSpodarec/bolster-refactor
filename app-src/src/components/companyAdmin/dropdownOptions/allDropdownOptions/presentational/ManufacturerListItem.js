@@ -60,13 +60,15 @@ const ManufacturerListItem = ({
                         Values
                     </Link>
 
-                    <button
-                        onClick={() => handleDeleteManufacturerModal(manufacturer)}
-                        className="button red"
-                    >
-                        <i className="far fa-trash" />
-                        Delete
-                    </button>
+                    {!manufacturer.isDefault && (
+                        <button
+                            onClick={() => handleDeleteManufacturerModal(manufacturer)}
+                            className="button red"
+                        >
+                            <i className="far fa-trash" />
+                            Delete
+                        </button>
+                    )}
                 </BlockButtonWrapper>
             </td>
         </tr>,

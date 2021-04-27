@@ -2,14 +2,16 @@ import { isObjEmpty } from './generic';
 import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
 export const formatOptions = options => {
-    return options.map(option => {
-        return {
-            ...option,
-            text: option.name,
-            value: option.id,
-            isEnabled: option.isEnabled,
-        };
-    });
+    return options
+        .filter(item => !item.isDisabled)
+        .map(option => {
+            return {
+                ...option,
+                text: option.name,
+                value: option.id,
+                isEnabled: option.isEnabled,
+            };
+        });
 };
 
 // ===================== CREATING OPTION VALUES AND MANUFACTURER OPTIONS IF NOT SET ABOVE ===========

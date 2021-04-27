@@ -25,6 +25,9 @@ const ManufacturerTable = ({
                     >
                         <i className="fa fa-plus" /> {'Add Manufacturer'}
                     </button>
+                    {/* <button className="button" onClick={handleAddManufacturerModal}>
+                        {'Recently Deleted'}
+                    </button> */}
                 </BlockHeading>
                 <div className="size-lg-12">
                     <Table
