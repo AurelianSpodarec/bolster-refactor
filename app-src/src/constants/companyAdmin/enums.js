@@ -462,3 +462,10 @@ export const ACTIVITY_LOG_REFERENCE_VALUES = {
     3: 'Floor',
     4: 'Drawing',
 };
+
+export const COMPANY_REPORTS_OUTPUT_TYPES = {
+    isCSVGeneration: 'CSV',
+    isPDFGeneration: 'PDF',
+    isFloorplanGeneration: 'Floor Plan',
+    isOEMManualGeneration: 'O&M Manual',
+};

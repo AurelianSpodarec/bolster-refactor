@@ -9,7 +9,6 @@ import FileUploadContainer from 'components/shared/generic/form/containers/FileU
 
 const EditProfileForm = ({
     handleInputChange,
-    handleImageChange,
     handleSubmit,
     filesUploading,
     firstName,
@@ -17,7 +16,7 @@ const EditProfileForm = ({
     email,
     phoneNumber,
     profileImageS3Key,
-    location
+    location,
 }) => {
     const backURL = location.pathname.includes('admin')
         ? '/admin/profile'

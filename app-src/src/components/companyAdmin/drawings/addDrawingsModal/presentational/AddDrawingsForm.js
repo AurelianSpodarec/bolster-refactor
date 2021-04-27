@@ -30,7 +30,13 @@ const AddDrawingsForm = ({
     showManufacturingOptions,
     operativeOptions,
     clientOptions,
+    showDropdownOptions,
+    setShowDropdownOptions,
+    combinedOptions,
+    initialDropdownOptions,
     handleShowOandMModal,
+    updateSelectAll,
+    isFetchingHierarchies,
 }) => {
     const hasEnoughCredits = credits >= drawings.length;
     return (
@@ -77,55 +83,6 @@ const AddDrawingsForm = ({
                                     </p>
                                 </Field>
                             </div>
-
-                            <div className="size-lg-12">
-                                <div className="size-lg-6 size-md-12">
-                                    <Field name="Send an alert?">
-                                        <CheckboxContainer
-                                            checked={drawing.isAlertShowing}
-                                            name={`${drawing.id}.*.isAlertShowing`}
-                                            text=""
-                                            handleChange={(name, value) =>
-                                                updateDrawing(name, value, drawing.id)
-                                            }
-                                        />
-                                    </Field>
-                                </div>
-                            </div>
-
-                            {drawing.isAlertShowing && (
-                                <div className="size-lg-12">
-                                    <div className="size-lg-12">
-                                        <Field name="Alert Message">
-                                            <TextAreaContainer
-                                                value={drawing.message}
-                                                name={`${drawing.id}.*.message`}
-                                                handleChange={(name, value) =>
-                                                    updateDrawing(name, value, drawing.id)
-                                                }
-                                            />
-                                        </Field>
-                                    </div>
-
-                                    <div className="size-lg-12">
-                                        <Field name="Date to send">
-                                            <DatePickerPresentational
-                                                name={`${drawing.id}.*.dateToSend`}
-                                                selected={drawing.dateToSend}
-                                                onChange={value =>
-                                                    updateDrawing(
-                                                        `${drawing.id}.*.dateToSend`,
-                                                        value,
-                                                        drawing.id,
-                                                    )
-                                                }
-                                                placeholderText="Date"
-                                                showTimeSelect
-                                            />
-                                        </Field>
-                                    </div>
-                                </div>
-                            )}
                             <div className="size-lg-12">
                                 <div className="size-lg-6 size-md-12">
                                     <Field name="Set a start date?">
@@ -162,6 +119,58 @@ const AddDrawingsForm = ({
                                 </div>
                             )}
                         </div>
+                        {showManufacturingOptions ? (
+                            <>
+                                <div className="size-lg-12">
+                                    <div className="size-lg-6 size-md-12">
+                                        <Field name="Send an alert?">
+                                            <CheckboxContainer
+                                                checked={drawing.isAlertShowing}
+                                                name={`${drawing.id}.*.isAlertShowing`}
+                                                text=""
+                                                handleChange={(name, value) =>
+                                                    updateDrawing(name, value, drawing.id)
+                                                }
+                                            />
+                                        </Field>
+                                    </div>
+                                </div>
+
+                                {drawing.isAlertShowing && (
+                                    <div className="size-lg-12">
+                                        <div className="size-lg-12">
+                                            <Field name="Alert Message">
+                                                <TextAreaContainer
+                                                    value={drawing.message}
+                                                    name={`${drawing.id}.*.message`}
+                                                    handleChange={(name, value) =>
+                                                        updateDrawing(name, value, drawing.id)
+                                                    }
+                                                />
+                                            </Field>
+                                        </div>
+
+                                        <div className="size-lg-12">
+                                            <Field name="Date to send">
+                                                <DatePickerPresentational
+                                                    name={`${drawing.id}.*.dateToSend`}
+                                                    selected={drawing.dateToSend}
+                                                    onChange={value =>
+                                                        updateDrawing(
+                                                            `${drawing.id}.*.dateToSend`,
+                                                            value,
+                                                            drawing.id,
+                                                        )
+                                                    }
+                                                    placeholderText="Date"
+                                                    showTimeSelect
+                                                />
+                                            </Field>
+                                        </div>
+                                    </div>
+                                )}
+                            </>
+                        ) : null}
                         {!!clientOptions.length && (
                             <div className="size-lg-12 check-col-6">
                                 <Field name="These clients have access to drawings on this level - invite them to this drawing?">
@@ -176,9 +185,38 @@ const AddDrawingsForm = ({
                                 </Field>
                             </div>
                         )}
+
                         {!!operativeOptions.length && (
                             <div className="size-lg-12 check-col-6">
                                 <Field name="These operatives have access to drawings on this level - attach them to this drawing?">
+                                    <span className="size-lg-12 select-all-check-all">
+                                        <button
+                                            className="button green"
+                                            type="button"
+                                            style={{ marginRight: '16px' }}
+                                            onClick={() => {
+                                                updateSelectAll(
+                                                    true,
+                                                    `${drawing.id}.*.operativePermissionIDs`,
+                                                    operativeOptions,
+                                                );
+                                            }}
+                                        >
+                                            Select All
+                                        </button>
+                                        <button
+                                            className="button red"
+                                            type="button"
+                                            onClick={() => {
+                                                updateSelectAll(
+                                                    false,
+                                                    `${drawing.id}.*.operativePermissionIDs`,
+                                                );
+                                            }}
+                                        >
+                                            Deselect All
+                                        </button>
+                                    </span>
                                     <CheckboxListContainer
                                         options={operativeOptions}
                                         name={`${drawing.id}.*.operativePermissionIDs`}
@@ -186,10 +224,12 @@ const AddDrawingsForm = ({
                                         handleChange={(name, value) =>
                                             updateDrawing(name, value, drawing.id)
                                         }
+                                        classes="select-all-list-container"
                                     />
                                 </Field>
                             </div>
                         )}
+
                         {showManufacturingOptions ? (
                             <>
                                 <div className="size-lg-12">
@@ -254,9 +294,7 @@ const AddDrawingsForm = ({
                                                         labelClasses="no-capitalise"
                                                         name={`${man.name} ${
                                                             DROPDOWN_OPTIONS[man.pinOptionType].name
-                                                        }
-
-`}
+                                                        }`}
                                                         required
                                                     >
                                                         <CheckboxListContainer
@@ -306,6 +344,72 @@ const AddDrawingsForm = ({
                                 </div>
                             </FieldOutput>
                         )}
+                        {showDropdownOptions ? (
+                            <>
+                                <div className="size-lg-12">
+                                    <div className="size-lg-6 size-md-12">
+                                        <Field
+                                            labelClasses="no-capitalise"
+                                            name="Set item types for drawing?"
+                                        >
+                                            <CheckboxContainer
+                                                checked={drawing.setDropdownOptionsForHierarchy}
+                                                name={`${drawing.id}.*.setDropdownOptionsForHierarchy`}
+                                                text=""
+                                                handleChange={(name, value) =>
+                                                    updateDrawing(name, value, drawing.id)
+                                                }
+                                                disabled={drawing.isDropdownOptionsInherited}
+                                            />
+                                        </Field>
+                                    </div>
+                                </div>
+                                {drawing.setDropdownOptionsForHierarchy && (
+                                    <div className="size-lg-12">
+                                        <Field
+                                            labelClasses="no-capitalise"
+                                            name="Manufacturer(s)"
+                                            required={drawing.setDropdownOptionsForHierarchy}
+                                        >
+                                            <CheckboxListContainer
+                                                name={`${drawing.id}.*.selectedDropdownOptions`}
+                                                text=""
+                                                handleChange={(name, value) =>
+                                                    updateDrawing(name, value, drawing.id)
+                                                }
+                                                selectedOptions={drawing.selectedDropdownOptions}
+                                                options={Object.values(drawing.dropdownOptions)}
+                                                allOptionsDisabled={
+                                                    drawing.isDropdownOptionsInherited
+                                                }
+                                                required={drawing.setDropdownOptionsForHierarchy}
+                                            />
+                                        </Field>
+                                    </div>
+                                )}
+                            </>
+                        ) : (
+                            <>
+                                <FieldOutput fieldClass="center-align">
+                                    <div className="form-field size-lg-12">
+                                        <p>
+                                            Item types already set at{' '}
+                                            {initialDropdownOptions.isDropDownOptionsInheritedFrom}
+                                            .
+                                            <br /> This cannot be overridden at this level, click{' '}
+                                            <span
+                                                onClick={() => {
+                                                    setShowDropdownOptions(true);
+                                                }}
+                                            >
+                                                here
+                                            </span>{' '}
+                                            to see the settings.
+                                        </p>
+                                    </div>
+                                </FieldOutput>
+                            </>
+                        )}
 
                         {drawings.length > 1 && (
                             <BlockButtonWrapper>
@@ -325,12 +429,20 @@ const AddDrawingsForm = ({
                 <button
                     className="button blue left"
                     type="button"
-                    onClick={() => addDrawing(initialOptions)}
+                    onClick={() => addDrawing(combinedOptions)}
                 >
                     <i className="fa fa-plus" /> Add another drawing
                 </button>
                 {hasEnoughCredits ? (
-                    <SubmitContainer withPlus text={'Submit'} />
+                    <>
+                        {isFetchingHierarchies ? (
+                            <button className="button green disabled" disabled>
+                                <i className="fa fa-spinner fa-spin"></i> Please wait...
+                            </button>
+                        ) : (
+                            <SubmitContainer text={'Submit'} />
+                        )}
+                    </>
                 ) : (
                     <button className="button red" type="button" onClick={() => {}}>
                         <i className="fa fa-times" />

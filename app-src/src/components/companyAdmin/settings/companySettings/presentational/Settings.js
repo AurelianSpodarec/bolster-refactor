@@ -93,6 +93,12 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                                         sizeClass="size-lg-12"
                                     />
                                 )}
+                                <FieldOutput
+                                    title="Invoice Email"
+                                    description={company.invoiceEmail}
+                                    fieldClass="no-h-padding"
+                                    sizeClass="size-lg-12"
+                                />
                             </>
                         ) : (
                             <div className="field-group size-lg-12">
@@ -143,6 +149,12 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                                     <FieldOutput
                                         title="Short Code"
                                         description={company.shortCode}
+                                        fieldClass="no-h-padding"
+                                        sizeClass="size-lg-12"
+                                    />
+                                    <FieldOutput
+                                        title="Invoice Email"
+                                        description={company.invoiceEmail}
                                         fieldClass="no-h-padding"
                                         sizeClass="size-lg-12"
                                     />

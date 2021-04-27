@@ -1,7 +1,7 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 
-import DatePickerPresentational from "../presentational/DatePicker";
+import DatePickerPresentational from '../presentational/DatePicker';
 
 const DatePickerContainer = ({
     selected,
@@ -10,11 +10,11 @@ const DatePickerContainer = ({
     placeholderText = `Please select ${name}`,
     required = true,
     onBlur = () => {},
-    sizeClasses = "size-lg-12",
+    sizeClasses = 'size-lg-12',
     minDate,
     maxDate,
     showTimeSelect = false,
-    isIE10
+    isIE10,
 }) => (
     <DatePickerPresentational
         name={name}
@@ -33,10 +33,10 @@ const DatePickerContainer = ({
 
 const mapStateToProps = ({
     shared: {
-        isIE10Reducer: { isIE10 }
-    }
+        isIE10Reducer: { isIE10 },
+    },
 }) => ({
-    isIE10
+    isIE10,
 });
 
 export default connect(mapStateToProps)(DatePickerContainer);

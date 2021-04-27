@@ -17,7 +17,7 @@ const CompanyMenuContainer = ({
     notifications,
     dismissMessages,
     subscriptions,
-    subscriptions: { startOn, endOn },
+    subscriptions: { startOn },
     hasInitiallyFetched,
     isClientAccess,
     showModal,
@@ -103,7 +103,6 @@ const mapStateToProps = ({
         decodeJWTReducer: {
             jwtData: { headquartersCompanyID, isClientAccess, companyUserID },
         },
-        profileReducer: { profile },
     },
 }) => {
     const unreadMessageCount = Object.values(messages).filter(

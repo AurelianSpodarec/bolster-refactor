@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import uuid from 'uuid/v4';
 import moment from 'moment';
-import { isMobile, deviceType } from 'react-device-detect';
 
 import { removeObjItem } from './generic';
 
@@ -47,10 +46,20 @@ export const useMultipleHierarchies = hierarchyShape => {
     function updateState(name, value) {
         // * This is to split the field validations up
         const [id, fieldName] = name.split('.*.');
-
         return setState({
             ...state,
             [id]: { ...state[id], [fieldName]: value },
+        });
+    }
+
+    function updateSelectAll(select = true, name, options = []) {
+        const [id, fieldName] = name.split('.*.');
+
+        const selectAll = options.reduce((res, item) => [...res, item.value + ''], []);
+
+        return setState({
+            ...state,
+            [id]: { ...state[id], [fieldName]: select ? selectAll : [] },
         });
     }
 
@@ -67,7 +76,6 @@ export const useMultipleHierarchies = hierarchyShape => {
             let [buildingID, buildingState] = formState[0];
 
             const newState = { [buildingID]: { ...buildingState, ...initialOptions } };
-
             setState(newState);
         }
     }
@@ -81,6 +89,7 @@ export const useMultipleHierarchies = hierarchyShape => {
         getPostBody,
         getState,
         setInitialHierarchyManufacturerOptions,
+        updateSelectAll,
     ];
 };
 

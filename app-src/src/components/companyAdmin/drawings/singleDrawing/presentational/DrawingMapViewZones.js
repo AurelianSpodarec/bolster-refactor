@@ -30,23 +30,17 @@ class DrawingMapViewZones extends Component {
         }
 
         if (prevProps.opacity !== opacity) {
-            layers.eachLayer((layer) =>
-                layer.setStyle({ fillOpacity: opacity })
-            );
+            layers.eachLayer(layer => layer.setStyle({ fillOpacity: opacity }));
         }
 
         if (prevProps.curZoom !== curZoom) {
-            layers.eachLayer((layer) => {
+            layers.eachLayer(layer => {
                 layer.unbindTooltip();
                 layer
                     .bindTooltip(layer.feature.name, {
                         permanent: true,
                         className: `zone-tooltip ${
-                            curZoom < 1
-                                ? 'small-zoom'
-                                : curZoom > 2
-                                ? 'large-zoom'
-                                : ''
+                            curZoom < 1 ? 'small-zoom' : curZoom > 2 ? 'large-zoom' : ''
                         }`,
                         offset: [0, 0],
                         direction: 'center',
@@ -63,7 +57,7 @@ class DrawingMapViewZones extends Component {
 
         const zoneFeatures = {
             type: 'FeatureCollection',
-            features: zonesArr.map((zone) => {
+            features: zonesArr.map(zone => {
                 return {
                     type: 'Feature',
                     properties: {},
@@ -84,7 +78,7 @@ class DrawingMapViewZones extends Component {
         const { curZoom, opacity } = this.props;
         const leafletFG = this.fgRef.current.leafletElement;
 
-        this.leafletGeoJSON.eachLayer((layer) => {
+        this.leafletGeoJSON.eachLayer(layer => {
             const layerColor = layer.feature.color;
             const layerName = layer.feature.name;
 
@@ -98,11 +92,7 @@ class DrawingMapViewZones extends Component {
                 .bindTooltip(layerName, {
                     permanent: true,
                     className: `zone-tooltip ${
-                        curZoom < 1
-                            ? 'small-zoom'
-                            : curZoom > 2
-                            ? 'large-zoom'
-                            : ''
+                        curZoom < 1 ? 'small-zoom' : curZoom > 2 ? 'large-zoom' : ''
                     }`,
                     offset: [0, 0],
                     direction: 'center',
@@ -114,8 +104,8 @@ class DrawingMapViewZones extends Component {
     }
 }
 
-const mapState = ({ companyAdmin }) => ({
-    opacity: companyAdmin.zonesReducer.zonesOpacity,
+const mapState = ({ companyAdmin }, ownProps) => ({
+    opacity: ownProps.opacity ? ownProps.opacity : companyAdmin.zonesReducer.zonesOpacity,
 });
 
 export default connect(mapState)(DrawingMapViewZones);

@@ -5,20 +5,15 @@ import DashboardStats from '../presentational/DashboardStats';
 // import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 
 class DashboardStatsContainer extends Component {
-    render = () => (
-        <DashboardStats
-            data={this._getChartData()}
-            options={this._getChartOptions()}
-        />
-    );
+    render = () => <DashboardStats data={this._getChartData()} options={this._getChartOptions()} />;
 
     _getChartOptions() {
         return {
             title: {
                 text: 'Number of histories added',
                 display: true,
-                position: 'left'
-            }
+                position: 'left',
+            },
         };
     }
 
@@ -39,7 +34,7 @@ class DashboardStatsContainer extends Component {
             '16:00',
             '18:00',
             '20:00',
-            '22:00'
+            '22:00',
         ];
 
         const datasets = [
@@ -49,7 +44,7 @@ class DashboardStatsContainer extends Component {
                 backgroundColor: 'green',
                 stack: 'pins',
                 borderWidth: 1,
-                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
             },
             {
                 label: 'Inspected',
@@ -57,7 +52,7 @@ class DashboardStatsContainer extends Component {
                 backgroundColor: 'blue',
                 stack: 'pins',
                 borderWidth: 1,
-                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
             },
             {
                 label: 'No action',
@@ -65,7 +60,7 @@ class DashboardStatsContainer extends Component {
                 backgroundColor: 'yellow',
                 stack: 'pins',
                 borderWidth: 1,
-                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
             },
             {
                 label: 'Action required',
@@ -73,7 +68,7 @@ class DashboardStatsContainer extends Component {
                 backgroundColor: 'red',
                 stack: 'pins',
                 borderWidth: 1,
-                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
             },
             {
                 label: 'Other',
@@ -81,8 +76,8 @@ class DashboardStatsContainer extends Component {
                 backgroundColor: 'purple',
                 stack: 'pins',
                 borderWidth: 1,
-                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-            }
+                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+            },
         ];
         // const columnHeights = datasets.reduce(
         //     (acc, { data }) => acc.map((num, i) => num + data[i]),
@@ -97,7 +92,7 @@ class DashboardStatsContainer extends Component {
         // };
         return {
             labels,
-            datasets: [...datasets]
+            datasets: [...datasets],
         };
     }
 
@@ -106,19 +101,12 @@ class DashboardStatsContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        pinsReducer: { pins, isFetching, error }
-    }
+        pinsReducer: { pins, isFetching, error },
+    },
 }) => ({
     pins: Object.values(pins),
     isFetching,
-    error
+    error,
 });
 
-const mapDispatchToProps = dispatch => ({
-    // fetchPins: () => dispatch(fetchPins(1, 1))
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(DashboardStatsContainer);
+export default connect(mapStateToProps)(DashboardStatsContainer);

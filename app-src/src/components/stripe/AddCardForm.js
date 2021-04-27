@@ -35,8 +35,7 @@ class CheckoutForm extends Component {
         } = await axios.get(`${API_URL}/cards/createintent`, getHeaders());
 
         const { name } = this.state;
-        const { close, fetchCard, hasExistingCard, setPrimaryCard, cards } = this.props;
-        console.log({ cards, hasExistingCard });
+        const { close, fetchCard, hasExistingCard, setPrimaryCard } = this.props;
 
         this.props.stripe
             .handleCardSetup(clientSecret, {

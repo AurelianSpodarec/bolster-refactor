@@ -18,7 +18,7 @@ const HeaderProfileMobile = ({
     unreadMessageCount,
     totalCredits,
     totalRequests,
-    showModal
+    showModal,
 }) => (
     <div className="profile" ref={updateNode}>
         <div className="user" onClick={handleClick}>
@@ -27,8 +27,6 @@ const HeaderProfileMobile = ({
             ) : (
                 <img src={NoProfilePic} alt="generic profile" />
             )}
-            {/* {todo: need to put FILE_STORAGE_URL on no profile pic and every image, when live. } */}
-
             <i className="arrow fas fa-chevron-right" />
         </div>
 

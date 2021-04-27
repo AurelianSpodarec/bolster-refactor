@@ -53,6 +53,7 @@ const EditSettingsForm = ({
     unsyncedCompanyNotificationDays,
     unsyncedOperativeWarningDays,
     reportAutoDelete,
+    invoiceEmail,
 }) => (
     <>
         <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
@@ -349,6 +350,16 @@ const EditSettingsForm = ({
                         value={unsyncedOperativeWarningDays}
                         name="unsyncedOperativeWarningDays"
                         type="number"
+                        handleChange={handleInputChange}
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-12">
+                <Field name="Invoice Email" sizeClasses="size-lg-6 size-md-12">
+                    <TextInputContainer
+                        value={invoiceEmail}
+                        name="invoiceEmail"
+                        type="email"
                         handleChange={handleInputChange}
                     />
                 </Field>

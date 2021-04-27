@@ -10,21 +10,31 @@ class FooterContainer extends Component {
         const companyColour = getCompanyColour(companySettings.companyColour);
 
         return (
-            <Footer company={companySettings} companyColour={companyColour} version={version} isFetching={isFetching} error={error} />
+            <Footer
+                company={companySettings}
+                companyColour={companyColour}
+                version={version}
+                isFetching={isFetching}
+                error={error}
+            />
         );
     }
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        appReducer: { appVersion: { version }, isFetching, error },
-        companySettingsReducer: { companySettings }
-    }
+        appReducer: {
+            appVersion: { version },
+            isFetching,
+            error,
+        },
+        companySettingsReducer: { companySettings },
+    },
 }) => ({
     version,
     isFetching,
     error,
-    companySettings
+    companySettings,
 });
 
 export default connect(mapStateToProps)(FooterContainer);

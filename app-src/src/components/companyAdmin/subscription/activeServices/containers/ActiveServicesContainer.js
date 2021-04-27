@@ -14,9 +14,9 @@ class ActiveServicesContainer extends Component {
     render = () => {
         const { services, subscriptions, showModal, isAutoRenew, cards } = this.props;
         const { serviceIDs = [], endOn } = subscriptions;
-        const unsubscribedServices = Object.values(services).filter(
-            ({ id }) => !serviceIDs.includes(id),
-        );
+        const unsubscribedServices = Object.values(services)
+            .filter(({ isPurchasable }) => isPurchasable)
+            .filter(({ id }) => !serviceIDs.includes(id));
 
         const d = new Date();
         d.setDate(d.getDate() + 2);

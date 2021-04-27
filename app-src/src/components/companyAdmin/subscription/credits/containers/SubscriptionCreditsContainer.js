@@ -8,18 +8,12 @@ import { BUY_CREDITS } from 'constants/shared/modalTypes';
 
 class SubscriptionCreditsContainer extends Component {
     state = {
-        creditsToBuy: ''
+        creditsToBuy: '',
     };
 
     render = () => {
         const { creditsToBuy } = this.state;
-        const {
-            isFetching,
-            totalCredits,
-            showModal,
-            costOfCredits,
-            vatCostOfCredits
-        } = this.props;
+        const { isFetching, totalCredits, showModal, costOfCredits, vatCostOfCredits } = this.props;
         const costWithoutVAT = creditsToBuy * costOfCredits;
         const costOfVAT = creditsToBuy * vatCostOfCredits;
         const costWithVAT = costWithoutVAT + costOfVAT;
@@ -51,24 +45,15 @@ class SubscriptionCreditsContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        creditsReducer: { credits, isFetching, costOfCredits, vatCostOfCredits }
+        creditsReducer: { credits, isFetching, costOfCredits, vatCostOfCredits },
     },
-    shared: {
-        profileReducer: { profile }
-    }
 }) => ({
-    totalCredits: Object.values(credits).reduce(
-        (acc, curr) => acc + curr.quantity,
-        0
-    ),
+    totalCredits: Object.values(credits).reduce((acc, curr) => acc + curr.quantity, 0),
     isFetching,
     costOfCredits,
-    vatCostOfCredits
+    vatCostOfCredits,
 });
 
 const mapDispatchToProps = { showModal };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SubscriptionCreditsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SubscriptionCreditsContainer);

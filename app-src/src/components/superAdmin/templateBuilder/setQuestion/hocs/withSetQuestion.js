@@ -109,31 +109,37 @@ export default function (WrappedComponent) {
             let prereqValueOptions = [];
 
             prereqs.forEach(prereq => {
-                const { questionType, optionType, options } = prereq;
+                const { questionType, optionType, options, name, uuid } = prereq;
+
+                let curPrereqOptions = [];
+
                 if (questionType === STATUS) {
-                    prereqValueOptions = prereqValueOptions.concat(this._getStatusOptions());
+                    curPrereqOptions = this._getStatusOptions();
                 } else if (questionType === CHECKBOX) {
-                    prereqValueOptions = prereqValueOptions.concat([
+                    curPrereqOptions =([
                         { label: 'True', value: 'true' },
                         { label: 'False', value: 'false' },
                     ]);
                 } else if (optionType) {
-                    prereqValueOptions = prereqValueOptions.concat(
-                        this._getDropownOptionsByType(optionType),
-                    );
+                    curPrereqOptions = this._getDropownOptionsByType(optionType);
                 } else if (options) {
-                    prereqValueOptions = prereqValueOptions.concat(
-                        options.map(opt => ({
+                    curPrereqOptions = options.map(opt => ({
                             label: opt.text,
                             value: opt.id,
-                        })),
-                    );
+                        }));
                 }
+
+                if (questionType === STATUS) {
+                    curPrereqOptions = curPrereqOptions.map(({label, value}) => ({label: `${label} (${name})`, value}));
+                } else {
+                    curPrereqOptions = curPrereqOptions.map(({label, value}) => ({label: `${label} (${name})`, value: `${value}#PREREQ_ID_${uuid}`}));
+                }
+
+                prereqValueOptions = prereqValueOptions.concat(curPrereqOptions);
+                
             });
-            const prereqValueOptionsDuplicatesRemoved = prereqValueOptions.filter(
-                (opt, i) => prereqValueOptions.findIndex(({ value }) => value === opt.value) === i,
-            );
-            return prereqValueOptionsDuplicatesRemoved;
+            
+            return prereqValueOptions;
         };
 
         _getStatusOptions = () => {

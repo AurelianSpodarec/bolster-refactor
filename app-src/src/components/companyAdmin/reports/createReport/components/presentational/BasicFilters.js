@@ -7,6 +7,7 @@ import OperativesFilterContainer from '../containers/OperativesFilterContainer';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import TimePickerContainer from 'components/shared/generic/form/containers/TimePickerContainer';
+import CompaniesFilterContainer from '../containers/CompaniesFilterContainer';
 
 const BasicFilters = ({
     dateError,
@@ -123,7 +124,12 @@ const BasicFilters = ({
                 )}
             </Field>
 
-            {isDrawingPage && <OperativesFilterContainer advanced />}
+            {isDrawingPage && (
+                <>
+                    <CompaniesFilterContainer isDrawingPage />
+                    <OperativesFilterContainer advanced isDrawingPage />
+                </>
+            )}
 
             {!!fieldError && <p className="error red-text text-accent-4">{fieldError}</p>}
         </div>

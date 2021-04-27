@@ -31,6 +31,10 @@ const AddSiteForm = ({
     manufacturerOptions,
     optionValuesOptions,
     selectedOptionValues,
+    setDropDownOptions,
+    selectedDropDownOptions,
+    dropdownOptions,
+    isFetchingHierarchies,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -193,8 +197,40 @@ const AddSiteForm = ({
                 } else return null;
             })}
 
+        <div className="size-lg-12">
+            <div className="size-lg-6 size-md-12">
+                <Field labelClasses="no-capitalise" name="Set item types for site?">
+                    <CheckboxContainer
+                        checked={setDropDownOptions}
+                        name="setDropDownOptions"
+                        text=""
+                        handleChange={handleInputChange}
+                    />
+                </Field>
+            </div>
+        </div>
+        {setDropDownOptions && (
+            <div className="size-lg-12">
+                <Field labelClasses="no-capitalise" name="Item Types" required={setDropDownOptions}>
+                    <CheckboxListContainer
+                        name="selectedDropDownOptions"
+                        text=""
+                        handleChange={handleInputChange}
+                        selectedOptions={selectedDropDownOptions}
+                        options={dropdownOptions}
+                    />
+                </Field>
+            </div>
+        )}
+
         <BlockButtonWrapper>
-            <button className="button green">Submit</button>
+            {isFetchingHierarchies ? (
+                <button className="button green disabled" disabled>
+                    <i className="fa fa-spinner fa-spin"></i> Please wait...
+                </button>
+            ) : (
+                <button className="button green">Submit</button>
+            )}
             <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>

@@ -13,7 +13,15 @@ const PrivacyPolicyContainer = ({ fetchTerms, privacy, fetchError, isFetching })
     return <PrivacyPolicy privacy={privacy} error={fetchError} isFetching={isFetching} />;
 };
 
-const mapStateToProps = ({ shared: { legalDocumentsReducer: { docs: { privacy }, fetchError, isFetching } } }) => ({
+const mapStateToProps = ({
+    shared: {
+        legalDocumentsReducer: {
+            docs: { privacy },
+            fetchError,
+            isFetching,
+        },
+    },
+}) => ({
     privacy: privacy || '',
     fetchError,
     isFetching,
