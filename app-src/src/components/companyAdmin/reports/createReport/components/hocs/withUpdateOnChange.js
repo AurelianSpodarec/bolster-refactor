@@ -83,6 +83,7 @@ export default function (ProtectedComponent) {
                 serviceID,
                 templateID,
                 companyUserIDs,
+                createdByCompanyID,
             } = filters;
 
             const NO = false;
@@ -126,6 +127,10 @@ export default function (ProtectedComponent) {
                     if (templateID && +templateID !== pin.templateID) {
                         return NO;
                     }
+                    // companies
+                    // if (createdByCompanyID && createdByCompanyID !== pin.latestCreatedByCompanyUserID) {
+                    //     return NO;
+                    // }
                     // operatives
                     if (
                         companyUserIDs &&
