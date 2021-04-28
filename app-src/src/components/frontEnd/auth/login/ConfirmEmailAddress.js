@@ -35,9 +35,12 @@ const ConfirmEmailAddress = () => {
             <FrontEndFormHeading title="Confirm e-mail" classes="smaller" />
             <Field classes="auth-form-field">
                 {isPosting && <Loading />}
-                {!!error && <p>Something went wrong. Please try to log in again. ({error})</p>}
+                {!!error && <p className="generic-text">Something went wrong. ({error})</p>}
                 {!!postSuccess && (
-                    <p>Your e-mail address has been confirmed, and you can now log in.</p>
+                    <p className="generic-text">
+                        Thank you for confirming your email address. You can now login to complete
+                        your registration by purchasing your required services and drawing credits.
+                    </p>
                 )}
             </Field>
         </div>
