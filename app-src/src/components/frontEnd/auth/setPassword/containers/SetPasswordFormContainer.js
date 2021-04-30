@@ -57,7 +57,7 @@ const SetPasswordFormContainer = () => {
     }
 
     async function onSuccess() {
-        history.replace('/auth/invitation-accepted');
+        history.replace('/auth/operative/invitation-accepted');
         // log user out and display message
         dispatch(logout());
     }
