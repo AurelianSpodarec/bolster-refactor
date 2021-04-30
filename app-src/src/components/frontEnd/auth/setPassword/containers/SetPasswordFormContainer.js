@@ -7,9 +7,11 @@ import { ERROR_MODAL } from 'constants/shared/modalTypes';
 import { useForm, usePrevious } from 'helpers/hooks';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import SetPasswordForm from '../presentational/SetPasswordForm';
 
 const SetPasswordFormContainer = () => {
+    const history = useHistory();
     const [formData, handleChange] = useForm({ password: '', confirmPassword: '' });
     const dispatch = useDispatch();
     const { postSuccess, isPosting, error } = useSelector(mapStateToProps);
@@ -55,7 +57,7 @@ const SetPasswordFormContainer = () => {
     }
 
     async function onSuccess() {
-        alert('success!');
+        history.replace('/auth/invitation-accepted');
         // log user out and display message
         dispatch(logout());
     }

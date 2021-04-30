@@ -54,14 +54,14 @@ const AcceptInvitation = () => {
         const isNew = query.get('isNew') === 'true' ? true : false;
         const canAccessCompanyProfile = isCompanyAdmin || isClientAccess || isSuperAdmin;
         if (!canAccessCompanyProfile) {
-            if (isNew) return history.push('/auth/set-password');
-            return history.push('/auth/invitation-accepted');
+            if (isNew) return history.replace('/auth/set-password');
+            return history.replace('/auth/operative/invitation-accepted');
         }
         if (isNew) {
-            return history.push('/company/profile/change-password');
+            return history.replace('/company/profile/change-password');
         }
 
-        return history.push('/company');
+        return history.replace('/auth/admin/invitation-accepted');
     }
 };
 

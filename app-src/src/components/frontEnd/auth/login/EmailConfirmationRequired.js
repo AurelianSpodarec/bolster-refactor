@@ -66,7 +66,11 @@ const EmailConfirmationRequired = () => {
                             To complete your registration, please confirm your email address through
                             the link sent to your inbox.
                         </p>
-                        <FrontEndButton classes="gray left" type="submit">
+                        <FrontEndButton
+                            classes="gray left"
+                            type="submit"
+                            handleClick={handleResendConfirmation}
+                        >
                             Re-send confirmation email
                         </FrontEndButton>
                         {isEmailSent && (

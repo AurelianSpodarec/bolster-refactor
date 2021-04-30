@@ -20,8 +20,9 @@ import ConfirmEmailAddress from 'components/frontEnd/auth/login/ConfirmEmailAddr
 import PasswordReset from 'components/frontEnd/auth/passwordReset/PasswordReset';
 import AcceptInvitation from 'components/frontEnd/auth/acceptInvitation/AcceptInvitation';
 import SetPassword from 'components/frontEnd/auth/setPassword/presentational/SetPassword';
-import InvitationAccepted from 'components/frontEnd/auth/success/InvitationAccepted';
+import InvitationAcceptedOperative from 'components/frontEnd/auth/success/InvitationAcceptedOperative';
 import RegistrationSuccess from 'components/frontEnd/auth/success/RegistrationSuccess';
+import InvitationAcceptedAdmin from 'components/frontEnd/auth/success/InvitationAcceptedAdmin';
 
 const FrontEndRoutes = ({ base = '/' }) => (
     <SwitchWith404>
@@ -56,7 +57,16 @@ const FrontEndRoutes = ({ base = '/' }) => (
             component={ConfirmEmailAddress}
         />
         <Route exact path={`${base}auth/acceptinvitation`} component={AcceptInvitation} />
-        <Route exact path={`${base}auth/invitation-accepted`} component={InvitationAccepted} />
+        <Route
+            exact
+            path={`${base}auth/operative/invitation-accepted`}
+            component={InvitationAcceptedOperative}
+        />
+        <Route
+            exact
+            path={`${base}auth/admin/invitation-accepted`}
+            component={InvitationAcceptedAdmin}
+        />
         <Route exact path={`${base}auth/passwordreset`} component={PasswordReset} />
         <Route exact path={`${base}auth/terms`} component={TermsContainer} />
         <Route exact path={`${base}auth/privacy-policy`} component={PrivacyPolicyContainer} />
