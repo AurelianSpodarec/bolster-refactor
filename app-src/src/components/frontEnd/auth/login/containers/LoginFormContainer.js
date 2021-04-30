@@ -61,7 +61,7 @@ const LoginFormContainer = ({
     useEffect(() => {
         if (emailConfirmationRequired && !prevProps.emailConfirmationRequired) {
             // take us to the confirm email page bro
-            history.push('/auth/confirm-email');
+            history.push('/auth/email-confirmation-required');
         }
     }, [emailConfirmationRequired]);
 

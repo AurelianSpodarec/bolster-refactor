@@ -1,13 +1,20 @@
-import postResendConfirmEmail from 'actions/shared/auth/async/postResendConfirmEmail';
-import FrontEndFormHeading from 'components/frontEnd/shared/forms/presentational/FrontEndFormHeading';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import Field from 'components/shared/generic/form/presentational/Field';
-import { componentDidMount, componentWillUnmount } from 'helpers/generic';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
+import LoginVideo from '_content/videos/frontend/Login.mp4';
+import LoginPoster from '_content/videos/frontend/posters/Login.jpg';
+
+import postResendConfirmEmail from 'actions/shared/auth/async/postResendConfirmEmail';
+
+import { componentDidMount, componentWillUnmount } from 'helpers/generic';
+import { useIsMobile } from 'helpers/hooks';
+
+import FrontEndFormHeading from 'components/frontEnd/shared/forms/presentational/FrontEndFormHeading';
+import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
+
 const EmailConfirmationRequired = () => {
+    const isMobile = useIsMobile(1101);
     const history = useHistory();
     const emailToConfirm = useSelector(emailConfirmSelector);
     const dispatch = useDispatch();
@@ -37,26 +44,39 @@ const EmailConfirmationRequired = () => {
     };
 
     return (
-        <div
-            className="auth-form-wrapper"
-            style={{ display: 'flex', width: '100%', textAlign: 'center' }}
-        >
-            <FrontEndFormHeading title="Confirm e-mail" classes="smaller" />
-            <Field classes="auth-form-field">
-                <p>
-                    Your e-mail address has not yet been confirmed! Please check your e-mails and
-                    click the link to confirm your e-mail address, then log in.
-                </p>
-                <ButtonContainer handleClick={handleResendConfirmation}>
-                    Re-send confirmation email
-                </ButtonContainer>
-                {/* todo message */}
-                {isEmailSent && (
-                    <p style={{ textAlign: 'center', color: 'red' }}>
-                        Please check your e-mail for a link!
-                    </p>
-                )}
-            </Field>
+        <div id="login">
+            <div className="auth-background"></div>
+            <video
+                className="auth-background-video"
+                autoPlay={!isMobile}
+                loop
+                muted
+                poster={LoginPoster}
+            >
+                <source src={LoginVideo} type="video/mp4" />
+            </video>
+            <div className="auth-wrapper">
+                <div className="heading-body-wrapper"></div>
+
+                <div className="auth-form-wrapper login">
+                    <FrontEndFormHeading title="Email confirmation required" classes="smaller" />
+
+                    <div className="auth-text-wrapper login-text">
+                        <p style={{ marginBottom: 30 }}>
+                            To complete your registration, please confirm your email address through
+                            the link sent to your inbox.
+                        </p>
+                        <FrontEndButton classes="gray left" type="submit">
+                            Re-send confirmation email
+                        </FrontEndButton>
+                        {isEmailSent && (
+                            <p style={{ textAlign: 'center', color: 'red' }}>
+                                Please check your e-mail for a link!
+                            </p>
+                        )}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

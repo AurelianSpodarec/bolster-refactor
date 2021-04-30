@@ -1,31 +1,20 @@
+import React from 'react';
 import postConfirmEmail from 'actions/shared/auth/async/postConfirmEmail';
 import FrontEndFormHeading from 'components/frontEnd/shared/forms/presentational/FrontEndFormHeading';
 import Field from 'components/shared/generic/form/presentational/Field';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
+import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 import { componentDidMount } from 'helpers/generic';
-import { usePrevious } from 'helpers/hooks';
-import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
 const ConfirmEmailAddress = () => {
     const { emailConfirmationCode } = useParams();
     const { isPosting, postSuccess, error } = useSelector(requestStateSelector);
-    const prevProps = usePrevious({ isPosting, postSuccess, error });
 
     const dispatch = useDispatch();
     componentDidMount(() => {
         dispatch(postConfirmEmail({ emailConfirmationCode }));
     });
-
-    useEffect(() => {
-        if (postSuccess && !prevProps.postSuccess) {
-            // todo handle success
-        }
-        if (error && !prevProps.error) {
-            // todo handle error
-        }
-    }, [isPosting, postSuccess, error]);
 
     return (
         <div
@@ -34,7 +23,12 @@ const ConfirmEmailAddress = () => {
         >
             <FrontEndFormHeading title="Confirm e-mail" classes="smaller" />
             <Field classes="auth-form-field">
-                {isPosting && <Loading />}
+                {isPosting && (
+                    <div className="loading-text size-lg-12">
+                        <p>Loading</p>
+                        <LoadingIcon />
+                    </div>
+                )}
                 {!!error && <p className="generic-text">Something went wrong. ({error})</p>}
                 {!!postSuccess && (
                     <p className="generic-text">
