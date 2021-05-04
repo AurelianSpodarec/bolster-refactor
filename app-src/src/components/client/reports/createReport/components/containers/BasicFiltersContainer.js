@@ -122,6 +122,11 @@ class BasicFiltersContainer extends Component {
             const message = 'Changing this will reset your advanced filters options, continue?';
             showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
         } else {
+            if (name === 'includeTime') {
+                handleChange('startTime', null);
+                handleChange('endTime', null);
+            }
+
             handleChange(name, value).then(postFilters);
         }
     };
