@@ -15,7 +15,6 @@ const TimePickerContainer = ({
         onChange={handleChange}
         name={name}
         value={value}
-        maxDetail="minute"
         disableClock={disableClock}
         className={`${sizeClasses} timepicker ${extraClasses}`}
         required={required}
@@ -25,4 +24,5 @@ const TimePickerContainer = ({
         format="hh:mm a"
     />
 );
+
 export default TimePickerContainer;
