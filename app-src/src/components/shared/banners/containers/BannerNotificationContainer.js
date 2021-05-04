@@ -5,6 +5,7 @@ import BannerNotification from '../presentational/BannerNotification';
 import fetchBannerNotification from 'actions/shared/banners/async/fetchBannerNotification';
 import postBannerNotificationClose from 'actions/shared/banners/async/postBannerNotificationClose';
 import { usePrevious } from 'helpers/hooks';
+import { isEmpty } from 'helpers/generic';
 
 const BannerNotificationContainer = ({
     fetchBannerNotification,
@@ -31,7 +32,7 @@ const BannerNotificationContainer = ({
         }
     }, [postSuccess, isPosting, prevProps.postSuccess, prevProps.isPosting]);
 
-    if (bannerNotification && visible) {
+    if (!isEmpty(bannerNotification) && visible) {
         return (
             <BannerNotification
                 content={bannerNotification.content}
