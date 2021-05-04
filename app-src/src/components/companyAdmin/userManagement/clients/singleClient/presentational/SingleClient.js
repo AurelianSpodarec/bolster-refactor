@@ -26,7 +26,6 @@ const SingleClient = ({ user, permissions, permissionsHeaders, isFetching, error
                     <FieldOutput title="Phone Number" description={user?.phoneNumber} />
                 </div>
                 <div className="size-lg-6">
-                    <FieldOutput title="Phone Number" description={user?.phoneNumber} />
                     <FieldOutput title="Created">
                         <p>
                             <DateTimeContainer date={user?.createdOn} />
