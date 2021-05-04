@@ -28,7 +28,7 @@ const SubscriptionStatus = ({
     isFirst,
 }) => {
     const topMessage = isFirst
-        ? 'To continue the process of completing your account, please select the services and drawing credits you require. If you are paying by card you will also need to add a card.'
+        ? 'To complete the registration process, please select the services and drawing credits you require. If you are paying by card you will also need to add a card below. '
         : 'You have no subscription, please add a service to subscribe and gain access to the site.';
     if (shouldRestrictPayments)
         return (
