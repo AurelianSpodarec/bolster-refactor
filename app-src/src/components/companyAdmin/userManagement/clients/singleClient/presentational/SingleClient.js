@@ -8,7 +8,10 @@ import SingleClientPermissionItem from './SingleClientPermissionItem';
 
 const SingleClient = ({ user, permissions, permissionsHeaders, isFetching, error }) => (
     <>
-        <PageHeading title={`Client: ${user?.firstName || ''} ${user?.lastName || ''}`} />
+        <PageHeading
+            withBackButton
+            title={`Client: ${user?.firstName || ''} ${user?.lastName || ''}`}
+        />
         <div className="size-lg-12">
             <BlockContainer heading="Client Info" isFetching={isFetching} isEmpty={!user}>
                 <div className="size-lg-6">

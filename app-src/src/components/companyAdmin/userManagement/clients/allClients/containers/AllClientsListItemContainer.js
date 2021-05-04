@@ -17,7 +17,6 @@ const AllClientsListItemContainer = ({ client, colCount, headers }) => {
     return (
         <AllClientsListItem
             client={client}
-            services={[]}
             colCount={colCount}
             goToEdit={goToEdit}
             deleteClient={deleteClient}
@@ -28,7 +27,6 @@ const AllClientsListItemContainer = ({ client, colCount, headers }) => {
     );
 
     function goToEdit() {
-        // todo
         history.push({
             pathname: `/company/users-management/clients/${client.id}/edit`,
             state: {
