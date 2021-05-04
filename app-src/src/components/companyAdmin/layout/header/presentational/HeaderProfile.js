@@ -14,6 +14,7 @@ const HeaderProfile = ({
     companyName,
     isSubscribed,
     shouldRestrictPayments,
+    isCompanyUserOrSelecting,
 }) => (
     <div className="profile" ref={updateNode}>
         <div className="user" onClick={handleClick}>
@@ -38,13 +39,15 @@ const HeaderProfile = ({
 
                 <i className="icon fas fa-chevron-right right" />
             </Link>
-            <Link to="/company/settings" className="item">
-                <i className="far fa-cogs fa-fw icon" />
-                <span className="item-text">Company Settings</span>
+            {!isCompanyUserOrSelecting && (
+                <Link to="/company/settings" className="item">
+                    <i className="far fa-cogs fa-fw icon" />
+                    <span className="item-text">Company Settings</span>
 
-                <i className="icon fas fa-chevron-right right" />
-            </Link>
-            {!shouldRestrictPayments && (
+                    <i className="icon fas fa-chevron-right right" />
+                </Link>
+            )}
+            {!shouldRestrictPayments && !isCompanyUserOrSelecting && (
                 <>
                     <Link to="/company/subscription" className="item">
                         <i className="far fa-money-check fa-fw fa-fw icon" />
@@ -61,7 +64,7 @@ const HeaderProfile = ({
                 </>
             )}
 
-            {isSubscribed && (
+            {isSubscribed && !isCompanyUserOrSelecting && (
                 <>
                     <Link to="/company/tools/credit-logs" className="item">
                         <i className="far fa-scroll fa-fw icon" />
@@ -79,14 +82,15 @@ const HeaderProfile = ({
                     </Link>
                 </>
             )}
+            {!isCompanyUserOrSelecting && (
+                <Link to="/company/recently-deleted" className="item">
+                    <i className="far fa-trash fa-fw icon" />
 
-            <Link to="/company/recently-deleted" className="item">
-                <i className="far fa-trash fa-fw icon" />
+                    <span className="item-text">Recently Deleted</span>
 
-                <span className="item-text">Recently Deleted</span>
-
-                <i className="icon fas fa-chevron-right right" />
-            </Link>
+                    <i className="icon fas fa-chevron-right right" />
+                </Link>
+            )}
 
             <Link to="/company/company-selection" className="item">
                 <i className="icon far fa-exchange fa-fw" />

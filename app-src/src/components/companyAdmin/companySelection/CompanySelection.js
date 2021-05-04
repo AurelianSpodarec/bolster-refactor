@@ -78,7 +78,6 @@ const CompanySelection = () => {
                 isEmpty={!companies.length}
                 noDataMessage="There are no companies to choose from"
                 noWhiteBackground
-                heading="Please select the company account you wish to access"
             >
                 <div className="flex-row size-lg-12">
                     {companies.map(company => (

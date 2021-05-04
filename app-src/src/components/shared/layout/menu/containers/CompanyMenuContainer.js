@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
@@ -27,6 +28,8 @@ const CompanyMenuContainer = ({
 }) => {
     if (!hasInitiallyFetched) return null;
 
+    const isCompanySelection = location.pathname.includes('company/company-selection');
+
     const unread = notifications.filter(({ isRead }) => !isRead);
     const unreadCount = unread.length;
     const dismissNotifications = () => {
@@ -48,6 +51,7 @@ const CompanyMenuContainer = ({
             setShouldRestrictPayments(users[companyUserID].shouldRestrictPayments);
         }
     }, [users]);
+    const isCompanyUser = !!companyUserID;
     return (
         <CompanyMenu
             isSubscribed={_isSubscribed()}
@@ -62,6 +66,8 @@ const CompanyMenuContainer = ({
             handleGenerateQRCodesModal={handleGenerateQRCodesModal}
             shouldRestrictPayments={shouldRestrictPayments}
             unreadReleaseNoteCount={unreadReleaseNoteCount}
+            isCompanySelection={isCompanySelection}
+            isCompanyUser={isCompanyUser}
         />
     );
 
@@ -138,4 +144,4 @@ const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => dispatch(showModal(type, props)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CompanyMenuContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CompanyMenuContainer));

@@ -13,7 +13,8 @@ const CompanyHeaderMobile = ({
     totalCredits,
     totalRequests,
     showModal,
-    toggleMobileMenu
+    toggleMobileMenu,
+    isCompanySelection,
 }) => (
     <header id="page-header" style={{ borderColor: companyColour }}>
         <div className="container">
@@ -43,6 +44,7 @@ const CompanyHeaderMobile = ({
                 totalCredits={totalCredits}
                 totalRequests={totalRequests}
                 showModal={showModal}
+                isCompanySelection={isCompanySelection}
             />
 
             <div className="clear" />

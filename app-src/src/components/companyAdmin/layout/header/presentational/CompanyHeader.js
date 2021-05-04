@@ -18,6 +18,7 @@ const Header = ({
     totalRequests,
     showModal,
     shouldRestrictPayments,
+    isCompanySelection,
 }) => (
     <header id="page-header" style={{ borderColor: companyColour }}>
         <div className="container">
@@ -36,42 +37,38 @@ const Header = ({
                     </Link>
                 )}
             </div>
-
-            {/*** search box ***/}
-            <div className="search-area">
-                <SearchContainer />
-            </div>
-
-            {/*** account area ***/}
-            <div className="account-area">
-                {/*** notifications ***/}
-                <div className="notifications">
-                    {!shouldRestrictPayments && (
-                        <button className="item main" onClick={showModal}>
-                            {company.parentalType === PARENTAL_TYPES.NONE && (
-                                <span className="number green">{totalCredits}</span>
-                            )}
-                            <i className="far fa-money-bill-alt fa-fw" />
-                        </button>
-                    )}
-                    <HeaderNotificationsContainer />
-                    <Link to="/company/message-centre" className="item main">
-                        {!!unreadMessageCount && (
-                            <span className="number">{unreadMessageCount}</span>
-                        )}
-                        <i className="far fa-envelope fa-fw" />
-                    </Link>
-                    <Link to="/company/tools/transfer-requests" className="item main">
-                        {!!totalRequests && <span className="number">{totalRequests}</span>}
-                        <i className="far fa-exchange-alt fa-fw" />
-                    </Link>
+            {!isCompanySelection && (
+                <div className="search-area">
+                    <SearchContainer />
                 </div>
+            )}
 
-                {/*** profile ***/}
-                <HeaderProfileContainer />
+            <div className="account-area">
+                {!isCompanySelection && (
+                    <div className="notifications">
+                        {!shouldRestrictPayments && (
+                            <button className="item main" onClick={showModal}>
+                                {company.parentalType === PARENTAL_TYPES.NONE && (
+                                    <span className="number green">{totalCredits}</span>
+                                )}
+                                <i className="far fa-money-bill-alt fa-fw" />
+                            </button>
+                        )}
+                        <HeaderNotificationsContainer />
+                        <Link to="/company/message-centre" className="item main">
+                            {!!unreadMessageCount && (
+                                <span className="number">{unreadMessageCount}</span>
+                            )}
+                            <i className="far fa-envelope fa-fw" />
+                        </Link>
+                        <Link to="/company/tools/transfer-requests" className="item main">
+                            {!!totalRequests && <span className="number">{totalRequests}</span>}
+                            <i className="far fa-exchange-alt fa-fw" />
+                        </Link>
+                    </div>
+                )}
 
-                {/*** recent updates ***/}
-                {/* <RecentUpdatesContainer /> */}
+                <HeaderProfileContainer isCompanySelection={isCompanySelection} />
             </div>
             <div className="clear" />
         </div>
