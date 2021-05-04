@@ -66,12 +66,19 @@ const CompanySelection = () => {
     );
     return (
         <>
-            <PageHeading title="Companies" />
+            <PageHeading title="Company Select">
+                <div className="button-holder">
+                    <p style={{ color: 'white', fontSize: '1.5em' }}>
+                        Please select the company account you wish to access
+                    </p>
+                </div>
+            </PageHeading>
             <BlockContainer
                 isFetching={isFetching}
                 isEmpty={!companies.length}
                 noDataMessage="There are no companies to choose from"
                 noWhiteBackground
+                heading="Please select the company account you wish to access"
             >
                 <div className="flex-row size-lg-12">
                     {companies.map(company => (
