@@ -9,7 +9,14 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 const AllClientsTable = ({ headers, clients, isFetching, error }) => (
     <BlockContainer>
         <BlockHeading title="Clients">
-            <ButtonContainer to="/company/users-management/clients/create">Add</ButtonContainer>
+            <ButtonContainer
+                setColour="#2eac58"
+                setColourHoverCode="#258e48"
+                to="/company/users-management/clients/create"
+            >
+                <i className="fa fa-plus" />
+                Add
+            </ButtonContainer>
         </BlockHeading>
         <Table
             headers={headers}
