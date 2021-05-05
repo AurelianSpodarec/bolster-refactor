@@ -39,6 +39,7 @@ const ProfileDetailsContainer = ({
             showModal(CONFIRM_TWO_FACTOR, {
                 handleSubmit: handleSubmitFinalTwoFactor,
                 phoneNumber: profile.twoFactorPhoneNumber,
+                email: profile.email,
             }),
         );
     };

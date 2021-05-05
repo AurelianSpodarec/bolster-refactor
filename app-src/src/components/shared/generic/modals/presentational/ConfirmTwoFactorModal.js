@@ -1,4 +1,6 @@
+import { useResend2FA } from 'helpers/hooks';
 import React, { useState } from 'react';
+import Countdown from 'react-countdown';
 import BlockButtonWrapper from '../../blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from '../../blockHeading/presentational/BlockHeading';
 import ButtonContainer from '../../button/containers/ButtonContainer';
@@ -7,7 +9,16 @@ import TextInputContainer from '../../form/containers/TextInputContainer';
 import Field from '../../form/presentational/Field';
 import ModalOuterContainer from '../containers/ModalOuterContainer';
 
-const ConfirmTwoFactorModal = ({ phoneNumber, handleSubmit }) => {
+const timeRenderer = ({ formatted: { minutes, seconds } }) => (
+    <span>
+        Resend in {minutes}:{seconds}
+    </span>
+);
+
+const ConfirmTwoFactorModal = ({ phoneNumber, handleSubmit, email }) => {
+    const { canResend2FA, setCanResend2FA, lastResent, handleResendTwoFactor } = useResend2FA(
+        email,
+    );
     const [code, setCode] = useState('');
 
     const onSubmit = e => {
@@ -30,6 +41,22 @@ const ConfirmTwoFactorModal = ({ phoneNumber, handleSubmit }) => {
                         handleChange={(_, value) => setCode(value)}
                         required
                     />
+                </Field>
+                <Field>
+                    <p className="generic-text" style={{ marginTop: 5 }}>
+                        Not received code?{' '}
+                        {canResend2FA ? (
+                            <a href="#" onClick={handleResendTwoFactor}>
+                                Resend
+                            </a>
+                        ) : (
+                            <Countdown
+                                date={lastResent + 120000}
+                                renderer={timeRenderer}
+                                onComplete={() => setCanResend2FA(true)}
+                            />
+                        )}
+                    </p>
                 </Field>
                 <BlockButtonWrapper>
                     <ButtonContainer type="submit">Submit</ButtonContainer>

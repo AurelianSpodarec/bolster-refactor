@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import SetupTwoFactor from './SetupTwoFactor';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 const SetupTwoFactorContainer = () => {
     const dispatch = useDispatch();
@@ -15,12 +16,16 @@ const SetupTwoFactorContainer = () => {
 
     const [phoneNumber, setPhoneNumber] = useState('');
     const [isModalShowing, setShowModal] = useState(false);
-    const { isPosting, postSuccess, error } = useSelector(
+    const { isPosting, postSuccess, error, profile, availableCompanies } = useSelector(
         ({
+            companyAdmin: {
+                companySelectionReducer: { availableCompanies },
+            },
             shared: {
                 twoFactorReducer: { isPosting, postSuccess, error },
+                profileReducer: { profile },
             },
-        }) => ({ isPosting, postSuccess, error }),
+        }) => ({ isPosting, postSuccess, error, profile, availableCompanies }),
     );
 
     const prevProps = usePrevious({ isPosting, postSuccess, error });
@@ -42,22 +47,28 @@ const SetupTwoFactorContainer = () => {
                 showModal(CONFIRM_TWO_FACTOR, {
                     phoneNumber,
                     handleSubmit: handleSubmitConfirmation,
+                    email: profile.email,
                 }),
             );
             setShowModal(true);
         }
-        if (error && !prevProps.error) {
-            // dispatch(showModal(ERROR_MODAL));
-        }
         if (postSuccess && !prevProps.postSuccess && isModalShowing) {
             // handle success
             dispatch(
-                showModal(SUCCESS_MODAL, { message: 'Successfully enabled two factor auth.' }),
+                showModal(SUCCESS_MODAL, {
+                    message: 'You have now successfully set up two factor authentication.',
+                }),
             );
-
-            history.push(location.pathname.replace('twofactor/setup', ''));
+            const shouldRedirect = Object.values(availableCompanies).length > 1;
+            if (shouldRedirect) {
+                history.push('/company/company-selection');
+                dispatch(hideModal());
+            } else {
+                history.push(location.pathname.replace('twofactor/setup', ''));
+                dispatch(hideModal());
+            }
         }
-    }, [postSuccess, error]);
+    }, [postSuccess, error, profile]);
 
     return (
         <SetupTwoFactor
