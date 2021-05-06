@@ -101,6 +101,10 @@ const ProfileDetails = ({
                 <Link className="button yellow" to={`${pathName}/edit`}>
                     <i className="far fa-pencil" /> Edit
                 </Link>
+                <Link className="button green" to={`${pathName}/change-email`}>
+                    <i className="far fa-at fa-fw" />
+                    Change Email
+                </Link>
                 <Link className="button green" to={`${pathName}/change-password`}>
                     <i className="far fa-lock-alt fa-fw" />
                     Change Password
