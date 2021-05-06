@@ -29,6 +29,7 @@ export const createManufacturerOptionList = manufacturers => {
 
                 return acc;
             }, [])
+            .filter(({ isDeleted }) => !isDeleted)
             .sort((a, b) => a.sort - b.sort);
     }
     return [];

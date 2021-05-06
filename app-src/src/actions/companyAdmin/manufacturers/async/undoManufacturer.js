@@ -5,23 +5,23 @@ import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFie
 import { getHeaders } from 'helpers/api';
 
 import {
-    ENABLE_MANUFACTURER_REQUEST,
-    ENABLE_MANUFACTURER_SUCCESS,
-    ENABLE_MANUFACTURER_FAILURE,
+    UNDO_MANUFACTURER_REQUEST,
+    UNDO_MANUFACTURER_SUCCESS,
+    UNDO_MANUFACTURER_FAILURE,
 } from 'constants/actionTypes/companyAdminManufacturers';
 
 export const enableManufacturerRequest = () => ({
-    type: ENABLE_MANUFACTURER_REQUEST,
+    type: UNDO_MANUFACTURER_REQUEST,
 });
 
 export const enableManufacturerSuccess = (payload, pinOptionType) => ({
-    type: ENABLE_MANUFACTURER_SUCCESS,
+    type: UNDO_MANUFACTURER_SUCCESS,
     payload,
     pinOptionType,
 });
 
 export const enableManufacturerFailure = error => ({
-    type: ENABLE_MANUFACTURER_FAILURE,
+    type: UNDO_MANUFACTURER_FAILURE,
     error,
 });
 
@@ -29,7 +29,7 @@ export default id => dispatch => {
     dispatch(enableManufacturerRequest());
 
     axios
-        .delete(`${API_URL}/manufacturer/${id}/enable`, getHeaders())
+        .delete(`${API_URL}/manufacturer/delete/${id}?undo=true`, getHeaders())
         .then(({ data }) => dispatch(enableManufacturerSuccess(data)))
         .catch(error => {
             dispatch(enableManufacturerFailure(error));

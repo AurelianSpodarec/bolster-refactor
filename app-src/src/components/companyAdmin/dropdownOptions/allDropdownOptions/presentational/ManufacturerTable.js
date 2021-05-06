@@ -42,7 +42,7 @@ const ManufacturerTable = ({
                     >
                         <ManufacturerList
                             colCount={headers.length}
-                            manufacturers={manufacturers.filter(({ isDisabled }) => !isDisabled)}
+                            manufacturers={manufacturers.filter(({ isDeleted }) => !isDeleted)}
                             headers={headers}
                             moveItem={moveItem}
                             type={type}
