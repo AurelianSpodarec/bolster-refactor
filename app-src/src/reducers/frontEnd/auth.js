@@ -15,6 +15,9 @@ import {
     POST_PASSWORD_RESET_REQUEST,
     POST_PASSWORD_RESET_FAILURE,
     POST_PASSWORD_RESET_SUCCESS,
+    POST_CHANGE_EMAIL_CONFIRMATION_REQUEST,
+    POST_CHANGE_EMAIL_CONFIRMATION_SUCCESS,
+    POST_CHANGE_EMAIL_CONFIRMATION_FAILURE,
 } from 'constants/actionTypes/auth';
 import { SET_API_FIELD_ERRORS } from 'constants/actionTypes/generic';
 
@@ -72,6 +75,7 @@ function isPostingReducer(state = false, action) {
         case POST_RESEND_EMAIL_CONFIRMATION_REQUEST:
         case POST_ACCEPT_INVITATION_REQUEST:
         case POST_PASSWORD_RESET_REQUEST:
+        case POST_CHANGE_EMAIL_CONFIRMATION_REQUEST:
             return true;
         case POST_EMAIL_CONFIRMATION_FAILURE:
         case POST_RESEND_EMAIL_CONFIRMATION_FAILURE:
@@ -81,6 +85,8 @@ function isPostingReducer(state = false, action) {
         case POST_ACCEPT_INVITATION_SUCCESS:
         case POST_PASSWORD_RESET_FAILURE:
         case POST_PASSWORD_RESET_SUCCESS:
+        case POST_CHANGE_EMAIL_CONFIRMATION_SUCCESS:
+        case POST_CHANGE_EMAIL_CONFIRMATION_FAILURE:
         case SET_API_FIELD_ERRORS:
             return false;
         default:
@@ -94,11 +100,13 @@ function postSuccessReducer(state = false, action) {
         case POST_RESEND_EMAIL_CONFIRMATION_REQUEST:
         case POST_ACCEPT_INVITATION_REQUEST:
         case POST_PASSWORD_RESET_REQUEST:
+        case POST_CHANGE_EMAIL_CONFIRMATION_REQUEST:
             return false;
         case POST_EMAIL_CONFIRMATION_SUCCESS:
         case POST_RESEND_EMAIL_CONFIRMATION_SUCCESS:
         case POST_ACCEPT_INVITATION_SUCCESS:
         case POST_PASSWORD_RESET_SUCCESS:
+        case POST_CHANGE_EMAIL_CONFIRMATION_SUCCESS:
             return true;
         default:
             return state;
