@@ -23,6 +23,7 @@ import SetPassword from 'components/frontEnd/auth/setPassword/presentational/Set
 import InvitationAcceptedOperative from 'components/frontEnd/auth/success/InvitationAcceptedOperative';
 import RegistrationSuccess from 'components/frontEnd/auth/success/RegistrationSuccess';
 import InvitationAcceptedAdmin from 'components/frontEnd/auth/success/InvitationAcceptedAdmin';
+import ConfirmChangeEmail from 'components/frontEnd/auth/confirmChangeEmail/ConfirmChangeEmail';
 
 const FrontEndRoutes = ({ base = '/' }) => (
     <SwitchWith404>
@@ -55,6 +56,11 @@ const FrontEndRoutes = ({ base = '/' }) => (
             exact
             path={`${base}auth/confirm-email/:emailConfirmationCode`}
             component={ConfirmEmailAddress}
+        />
+        <Route
+            exact
+            path={`${base}auth/confirm-change-email/:token`}
+            component={ConfirmChangeEmail}
         />
         <Route exact path={`${base}auth/acceptinvitation`} component={AcceptInvitation} />
         <Route
