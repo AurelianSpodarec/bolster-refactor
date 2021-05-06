@@ -11,7 +11,6 @@ class EditProfileFormContainer extends Component {
     state = {
         firstName: '',
         lastName: '',
-        email: '',
         phoneNumber: '',
         profileImageS3Key: '',
         currentProfileImage: '',
@@ -87,13 +86,6 @@ const mapStateToProps = ({
     filesUploading,
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchProfile: () => {
-        return dispatch(fetchProfile());
-    },
-    editProfile: postBody => {
-        return dispatch(editProfile(postBody));
-    },
-});
+const mapDispatchToProps = { fetchProfile, editProfile };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditProfileFormContainer));
