@@ -242,7 +242,7 @@ class AddPinFormContainer extends Component {
                 const question = questions[questionID];
 
                 if (!question) return false;
-                if (!question.isPrefill) return false;
+                // if (!question.isPrefill) return false;
 
                 const { SIGNATURE, SINGLE_PHOTO, MULTI_PHOTO } = QUESTION_TYPES;
                 const noFillTypes = [SIGNATURE, SINGLE_PHOTO, MULTI_PHOTO];
@@ -256,7 +256,9 @@ class AddPinFormContainer extends Component {
                 {},
             );
 
-        localStorage.setItem(`answersCache#${templateVersion}`, JSON.stringify(prefillValues));
+        if (prefillValues) {
+            localStorage.setItem(`answersCache#${templateVersion}`, JSON.stringify(prefillValues));
+        }
     };
 }
 
