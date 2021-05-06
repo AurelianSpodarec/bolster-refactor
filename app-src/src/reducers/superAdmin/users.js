@@ -24,6 +24,11 @@ import {
     ADMIN_CREATE_COMPANY_USER_SUCCESS,
     ADMIN_CREATE_COMPANY_USER_FAILURE,
 } from 'constants/actionTypes/usersManagement';
+import {
+    ADMIN_EDIT_COMPANY_OWNER_REQUEST,
+    ADMIN_EDIT_COMPANY_OWNER_SUCCESS,
+} from 'constants/actionTypes/companies';
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 
 export default combineReducers({
     error: errorReducer,
@@ -60,10 +65,12 @@ function postSuccessReducer(state = false, action) {
         case EDIT_USER_REQUEST:
         case EDIT_USER_PASSWORD_REQUEST:
         case ADMIN_CREATE_COMPANY_USER_REQUEST:
+        case ADMIN_EDIT_COMPANY_OWNER_REQUEST:
             return false;
         case EDIT_USER_SUCCESS:
         case EDIT_USER_PASSWORD_SUCCESS:
         case ADMIN_CREATE_COMPANY_USER_SUCCESS:
+        case ADMIN_EDIT_COMPANY_OWNER_SUCCESS:
             return true;
         default:
             return state;
@@ -115,6 +122,19 @@ function companyUsersReducer(state = {}, action) {
             return updateObj(state, action.payload.id, action.payload);
         case ADMIN_FETCH_COMPANY_USERS_SUCCESS:
             return { ...convertArrToObj(action.payload) };
+        case ADMIN_EDIT_COMPANY_OWNER_SUCCESS:
+            return Object.values(state).reduce((acc, user) => {
+                if (user.id === action.payload) {
+                    acc[user.id] = { ...user, type: COMPANY_USER_ROLE_TYPES.OWNER };
+                } else if (user.type === COMPANY_USER_ROLE_TYPES.OWNER) {
+                    user.type = COMPANY_USER_ROLE_TYPES.ADMIN;
+                    acc[user.id] = { ...user, type: COMPANY_USER_ROLE_TYPES.ADMIN };
+                } else {
+                    acc[user.id] = user;
+                }
+
+                return acc;
+            }, {});
         default:
             return state;
     }

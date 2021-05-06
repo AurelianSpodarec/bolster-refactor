@@ -22,11 +22,11 @@ export const patchCompanyOwnerFailure = error => ({
     error,
 });
 
-export default (companyID, postBody) => dispatch => {
+export default companyUserID => dispatch => {
     dispatch(patchCompanyOwnerRequest());
     return axios
-        .patch(`${ADMIN_API_URL}/companies/${companyID}/owner`, postBody, getHeaders())
-        .then(({ data }) => dispatch(patchCompanyOwnerSuccess(data)))
+        .post(`${ADMIN_API_URL}/users/owner`, { companyUserID }, getHeaders())
+        .then(() => dispatch(patchCompanyOwnerSuccess(companyUserID)))
         .catch(err => {
             dispatch(patchCompanyOwnerFailure(err.message));
             if (err.response.status === 400) {

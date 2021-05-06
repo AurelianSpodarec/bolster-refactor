@@ -1,26 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-
+import { useHistory } from 'react-router';
 import { usePrevious } from 'helpers/hooks';
+
 import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
 import EditCompanyOwnerModal from '../presentational/EditCompanyOwnerModal';
-import adminEditCompanyOwner from 'actions/superAdmin/companies/async/adminEditCompanyOwner';
+import adminEditCompanyOwner from 'actions/superAdmin/users/async/adminEditCompanyOwner';
 
 const EditCompanyOwnerModalContainer = ({
-    companyID,
     hideModal,
     showModal,
     users,
     postSuccess,
     error,
+    adminEditCompanyOwner,
 }) => {
+    const history = useHistory();
+
     const [form, handleFormChange] = useState({
-        user: '',
+        companyUserID: '',
     });
+    const userDropdownOptions = formatDropdownOptions(users);
 
     const prevProps = usePrevious({ postSuccess, error });
 
     useEffect(() => {
+        console.log({ postSuccess });
         if (!prevProps.postSuccess && postSuccess) {
             handleSuccess();
         } else if (!prevProps.error && error) {
@@ -34,6 +39,7 @@ const EditCompanyOwnerModalContainer = ({
             handleSubmit={handleSubmit}
             form={form}
             hideModal={hideModal}
+            userOptions={userDropdownOptions}
         />
     );
 
@@ -43,28 +49,36 @@ const EditCompanyOwnerModalContainer = ({
             [name]: value,
         });
     }
+
     function handleSubmit() {
-        const postBody = {
-            companyID,
-            ...form,
-        };
-        adminEditCompanyOwner(postBody);
+        adminEditCompanyOwner(form.companyUserID);
     }
+
     function handleSuccess() {
         showModal(SUCCESS_MODAL, { message: 'Successfully changed the owner of this company.' });
     }
+
     function handleError() {
         showModal(ERROR_MODAL, {
             message: 'Something went wrong adding this owner, please try again.',
+        });
+    }
+
+    function formatDropdownOptions(users) {
+        return users.map(user => {
+            return {
+                label: `${user.userFirstName} ${user.userLastName}`,
+                value: user.id,
+            };
         });
     }
 };
 
 const mapStateToProps = ({
     superAdmin: {
-        usersReducer: { postSuccess, error },
+        usersReducer: { users, postSuccess, error },
     },
-}) => ({ postSuccess, error });
+}) => ({ users: Object.values(users), postSuccess, error });
 
 const mapDispatchToProps = { adminEditCompanyOwner };
 
