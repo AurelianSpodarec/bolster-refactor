@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 
 import Field from 'components/shared/generic/form/presentational/Field';
 import resetPinAnswer from 'actions/companyAdmin/drawings/sync/resetPinAnswer';
-import { isEmpty } from 'helpers/generic';
+import { isEmpty, isObjEmpty } from 'helpers/generic';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -210,22 +210,28 @@ class AddPinQuestionRoute extends Component {
             }
 
             if (Array.isArray(preReqAnswer)) {
-                return preReqAnswer.some(answer =>  prereqVals.some(val => {
-                    if (!val.includes('#PREREQ_ID_')) {
-                        return val.toLowerCase() === `${answer}`.toLowerCase();
-                    }
+                return preReqAnswer.some(answer =>
+                    prereqVals.some(val => {
+                        if (!val.includes('#PREREQ_ID_')) {
+                            return val.toLowerCase() === `${answer}`.toLowerCase();
+                        }
 
-                    return val.toLowerCase() === `${answer}#PREREQ_ID_${preReqQuestion.id}`.toLowerCase();
-                }));
-            } 
-            else {
-                
+                        return (
+                            val.toLowerCase() ===
+                            `${answer}#PREREQ_ID_${preReqQuestion.id}`.toLowerCase()
+                        );
+                    }),
+                );
+            } else {
                 return prereqVals.some(val => {
                     if (!val.includes('#PREREQ_ID_')) {
                         return val.toLowerCase() === `${preReqAnswer}`.toLowerCase();
                     }
-                    
-                    return val.toLowerCase() === `${preReqAnswer}#PREREQ_ID_${preReqQuestion.id}`.toLowerCase();
+
+                    return (
+                        val.toLowerCase() ===
+                        `${preReqAnswer}#PREREQ_ID_${preReqQuestion.id}`.toLowerCase()
+                    );
                 });
             }
         });
@@ -233,6 +239,7 @@ class AddPinQuestionRoute extends Component {
 
     componentDidMount = () => {
         this.handlePrefillOrReset();
+        this.handleNewPrefillOrReset();
     };
 
     componentDidUpdate = prevProps => {
@@ -357,6 +364,15 @@ class AddPinQuestionRoute extends Component {
         }
     };
 
+    handleNewPrefillOrReset = () => {
+        const { cachedAnswers = {}, updateAddPinAnswer, question } = this.props;
+
+        if (!isObjEmpty(cachedAnswers)) {
+            const cachedAnswer = cachedAnswers[question.id];
+            updateAddPinAnswer(question.id, cachedAnswer);
+        }
+    };
+
     handlePrefillOrReset = () => {
         const { isSameTemplate, pinAnswersByGroupKey } = this.props;
         const isAddPinHistory = !!pinAnswersByGroupKey;
@@ -470,7 +486,6 @@ class AddPinQuestionRoute extends Component {
 
     handleSignatureChange = d => {
         const { updateAddPinAnswer, question } = this.props;
-        console.log({ d });
         updateAddPinAnswer(question.id, d);
     };
 
