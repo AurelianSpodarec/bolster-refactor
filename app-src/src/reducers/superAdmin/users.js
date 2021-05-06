@@ -108,7 +108,7 @@ function usersReducer(state = {}, action) {
         case ADMIN_CREATE_COMPANY_USER_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case ADMIN_FETCH_COMPANY_USERS_SUCCESS:
-            return { ...state, ...convertArrToObj(action.payload) };
+            return convertArrToObj(action.payload);
         default:
             return state;
     }

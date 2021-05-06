@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
+
 import { usePrevious } from 'helpers/hooks';
 
 import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
@@ -15,17 +15,20 @@ const EditCompanyOwnerModalContainer = ({
     error,
     adminEditCompanyOwner,
 }) => {
-    const history = useHistory();
-
     const [form, handleFormChange] = useState({
         companyUserID: '',
     });
-    const userDropdownOptions = formatDropdownOptions(users);
+
+    const userDropdownOptions = Object.values(users).map(user => {
+        return {
+            label: `${user.userFirstName} ${user.userLastName}`,
+            value: user.id,
+        };
+    });
 
     const prevProps = usePrevious({ postSuccess, error });
 
     useEffect(() => {
-        console.log({ postSuccess });
         if (!prevProps.postSuccess && postSuccess) {
             handleSuccess();
         } else if (!prevProps.error && error) {
@@ -63,22 +66,13 @@ const EditCompanyOwnerModalContainer = ({
             message: 'Something went wrong adding this owner, please try again.',
         });
     }
-
-    function formatDropdownOptions(users) {
-        return users.map(user => {
-            return {
-                label: `${user.userFirstName} ${user.userLastName}`,
-                value: user.id,
-            };
-        });
-    }
 };
 
 const mapStateToProps = ({
     superAdmin: {
         usersReducer: { users, postSuccess, error },
     },
-}) => ({ users: Object.values(users), postSuccess, error });
+}) => ({ users, postSuccess, error });
 
 const mapDispatchToProps = { adminEditCompanyOwner };
 
