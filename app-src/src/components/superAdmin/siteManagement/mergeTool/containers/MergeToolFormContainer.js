@@ -108,10 +108,12 @@ const MergeToolFormContainer = ({
 
     function _getPinsOptionsList() {
         const pinsArr = Object.values(pins).map(pin => {
+            const suffix = pin.isMerged ? '*' : '';
+
             return {
                 value: pin.id,
-                label: pin.pinCode,
-                text: pin.pinCode,
+                label: `${pin.pinCode}${suffix}`,
+                text: `${pin.pinCode}${suffix}`,
             };
         });
 
