@@ -188,6 +188,7 @@ export default function (ProtectedComponent) {
                 fields,
                 timeZone,
                 includedDrawingsIDs,
+                customFilters,
             } = this.props;
 
             let hierarchyType;
@@ -267,6 +268,11 @@ export default function (ProtectedComponent) {
                       .toISOString()
                 : null;
 
+
+            const serviceIDs = serviceID
+                ? [+serviceID] 
+                : customFilters.services.map(({ id }) => id);
+
             const body = {
                 hierarchyType,
                 hierarchyID,
@@ -280,7 +286,7 @@ export default function (ProtectedComponent) {
                 fromDateInclusive: startDate,
                 toDateInclusive: endDate,
                 companyUserIDs,
-                serviceID: serviceID || null,
+                serviceID: serviceIDs,
                 templateID: templateID || null,
                 status: status || null,
                 pinIDs: selectedPinIDs,
