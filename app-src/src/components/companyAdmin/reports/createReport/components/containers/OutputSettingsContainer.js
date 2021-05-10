@@ -137,6 +137,7 @@ class OutputSettingsContainer extends Component {
             },
             showModal,
             furtherFiltrationOption,
+            customFilters,
         } = this.props;
 
         if (!isEmpty(fieldErrors)) showFieldErrors();
@@ -160,7 +161,8 @@ class OutputSettingsContainer extends Component {
                 includeFloorplanZones,
             });
         } else {
-            this._postReport(getPostBody());
+            const body = getPostBody();
+            this._postReport(body);
         }
     };
 
@@ -223,7 +225,7 @@ class OutputSettingsContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         drawingsReducer: { drawings },
-        reportsReducer: { filters, options, error },
+        reportsReducer: { filters, options, error, customFilters },
         zonesReducer: { zones },
     },
     shared: {
@@ -235,6 +237,7 @@ const mapStateToProps = ({
     options,
     drawings,
     error,
+    customFilters,
     hasZones: !isEmpty(zones),
 });
 
