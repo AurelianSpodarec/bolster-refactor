@@ -5,13 +5,8 @@ import MultiOptionForm from '../presentational/MultiOptionForm';
 import updateQuestionField from 'actions/superAdmin/templateBuilder/sync/updateQuestionField';
 import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
 
-const MultiOptionFormContainer = ({
-    options,
-    updateQuestionField,
-    questionType,
-    ...props
-}) => {
-    const radio = questionType === QUESTION_TYPE_VALUES.RADIO;
+const MultiOptionFormContainer = ({ options, updateQuestionField, questionType, ...props }) => {
+    const radio = +questionType === +QUESTION_TYPE_VALUES.RADIO;
     return (
         <MultiOptionForm
             {...props}
@@ -26,7 +21,7 @@ const MultiOptionFormContainer = ({
     );
 
     function optionsForSelect() {
-        return options.map(opt => ({ label: opt.text, value: opt.id }));
+        return options.map(({ text }) => ({ label: text, value: text }));
     }
 
     function addOption() {
@@ -36,13 +31,14 @@ const MultiOptionFormContainer = ({
     }
 
     function removeOption(id) {
-        updateQuestionField('options', options.filter(op => op.id !== id));
+        updateQuestionField(
+            'options',
+            options.filter(op => op.id !== id),
+        );
     }
 
     function updateOption(name, text) {
-        const updated = options.map(opt =>
-            opt.id === name ? { ...opt, text } : opt
-        );
+        const updated = options.map(opt => (opt.id === name ? { ...opt, text } : opt));
 
         updateQuestionField('options', updated);
     }
@@ -50,7 +46,4 @@ const MultiOptionFormContainer = ({
 
 const mapDispatchToProps = { updateQuestionField };
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(MultiOptionFormContainer);
+export default connect(null, mapDispatchToProps)(MultiOptionFormContainer);

@@ -14,7 +14,6 @@ const MultiOptionForm = ({
     canCompanyEdit,
     handleInputChange,
     defaultValue,
-    radio
 }) => (
     <div className="dropdown-create size-lg-12">
         {options.map((option, i) => (
@@ -40,11 +39,7 @@ const MultiOptionForm = ({
 
         <div className="field-intro size-lg-12">
             <div className="size-lg-12">
-                <button
-                    className="button add-option green"
-                    onClick={addOption}
-                    type="button"
-                >
+                <button className="button add-option green" onClick={addOption} type="button">
                     <i className="fa fa-plus" />
                     Add option
                 </button>
@@ -57,16 +52,14 @@ const MultiOptionForm = ({
                 name="canCompanyEdit"
             />
         </Field>
-        {radio && (
-            <Field name="Default value">
-                <Select
-                    options={optionsForSelect}
-                    onChange={handleInputChange}
-                    value={defaultValue}
-                    name="defaultValue"
-                />
-            </Field>
-        )}
+        <Field name="Default value">
+            <Select
+                options={optionsForSelect}
+                onChange={handleInputChange}
+                value={defaultValue}
+                name="defaultValue"
+            />
+        </Field>
     </div>
 );
 

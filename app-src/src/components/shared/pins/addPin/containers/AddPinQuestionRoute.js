@@ -16,7 +16,6 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
 import { fieldTypes, getDefaultValue } from '../fieldTypes/allFieldTypes';
 import { QUESTION_TYPE_VALUES, QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
-import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
 const {
     SINGLE_LINE,
     SINGLE_PHOTO,
@@ -246,7 +245,6 @@ class AddPinQuestionRoute extends Component {
             template,
             areManufacturerOptionsIncluded,
             optionValues,
-            drawing,
         } = this.props;
 
         const isShowingFromPrereq = this.checkIfShouldShowByPreReq();
@@ -382,13 +380,8 @@ class AddPinQuestionRoute extends Component {
     };
 
     handlePrefillDifferentTemplateQuestion = () => {
-        const {
-            oldAnswersByNameObj,
-            question,
-            questions,
-            sectionIDs,
-            updateAddPinAnswer,
-        } = this.props;
+        const { oldAnswersByNameObj, question, questions, sectionIDs, updateAddPinAnswer } =
+            this.props;
 
         const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
         const oldAnswersMatchingName = oldAnswersByNameObj[question.name] || [];
