@@ -142,10 +142,14 @@ const CompanySelection = () => {
 
                             <div className="button-block-container size-lg-12">
                                 <button
-                                    className="button green"
+                                    className={`button green ${
+                                        isPosting || isPostingResetCompany ? 'disabled' : ''
+                                    }`}
                                     onClick={() => handleSelectCompany(company.companyID)}
                                 >
-                                    Select company
+                                    {isPosting || isPostingResetCompany
+                                        ? 'Please wait...'
+                                        : 'Select Company'}
                                 </button>
                             </div>
                         </Block>
