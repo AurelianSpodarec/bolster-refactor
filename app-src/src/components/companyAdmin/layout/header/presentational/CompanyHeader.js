@@ -19,22 +19,34 @@ const Header = ({
     showModal,
     shouldRestrictPayments,
     isCompanySelection,
+    companyUserID,
 }) => (
-    <header id="page-header" style={{ borderColor: companyColour }}>
+    <header
+        id="page-header"
+        style={{ borderColor: companyUserID ? companyColour : defaultStyles.colourCode }}
+    >
         <div className="container">
             {/*** company logo ***/}
             <div className="logo">
-                {!!company.id && (
+                {!companyUserID ? (
                     <Link to="/company">
-                        <img
-                            alt={`logo of ${company.name}`}
-                            src={
-                                company.logoFile
-                                    ? `${FILE_STORAGE_URL}/${company.logoFile}`
-                                    : defaultStyles.logoFile
-                            }
-                        />
+                        <img alt="logo of Bolster Systems" src={defaultStyles.logoFile} />
                     </Link>
+                ) : (
+                    <>
+                        {!!company.id && (
+                            <Link to="/company">
+                                <img
+                                    alt={`logo of ${company.name}`}
+                                    src={
+                                        company.logoFile
+                                            ? `${FILE_STORAGE_URL}/${company.logoFile}`
+                                            : defaultStyles.logoFile
+                                    }
+                                />
+                            </Link>
+                        )}
+                    </>
                 )}
             </div>
             {!isCompanySelection && (

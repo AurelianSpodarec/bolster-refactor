@@ -28,6 +28,7 @@ class CompanyHeaderContainer extends Component {
             onMobile,
             toggleMobileMenu,
             shouldUsePayments,
+            companyUserID,
         } = this.props;
         const isCompanySelection = location.pathname.includes('company/company-selection');
         const companyColour = getCompanyColour(companySettings.companyColour);
@@ -48,6 +49,7 @@ class CompanyHeaderContainer extends Component {
                 }}
                 shouldRestrictPayments={this.state.shouldRestrictPayments}
                 isCompanySelection={isCompanySelection}
+                companyUserID={companyUserID}
             />
         ) : (
             <CompanyHeaderMobile
