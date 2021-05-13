@@ -66,6 +66,7 @@ class CompanyHeaderContainer extends Component {
                 }}
                 toggleMobileMenu={toggleMobileMenu}
                 isCompanySelection={isCompanySelection}
+                companyUserID={companyUserID}
             />
         );
     }
