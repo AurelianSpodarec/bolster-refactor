@@ -1,7 +1,8 @@
 import addClientUser from 'actions/companyAdmin/clients/async/addClientUser';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { ERROR_MODAL } from 'constants/shared/modalTypes';
+import { inviteClientSuccessMessage } from 'constants/companyAdmin/successMessages';
+import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import { useForm, usePrevious } from 'helpers/hooks';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,6 +37,7 @@ const AddClientContainer = () => {
 
     useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
+            dispatch(showModal(SUCCESS_MODAL, { message: inviteClientSuccessMessage }));
             history.push('/company/users-management/clients');
         }
     }, [postSuccess]);

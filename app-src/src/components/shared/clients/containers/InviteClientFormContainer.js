@@ -8,6 +8,9 @@ import fetchCompaniesPermissions from 'actions/companyAdmin/companiesPermissions
 import addClient from 'actions/companyAdmin/clients/async/addClient';
 import fetchClientUserPermissions from 'actions/companyAdmin/userManagement/async/fetchClientUserPermissions';
 import addManyClients from 'actions/companyAdmin/clients/async/addManyClients';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { inviteClientSuccessMessage } from 'constants/companyAdmin/successMessages';
+import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 
 class InviteClientFormContainer extends Component {
     state = {
@@ -56,9 +59,12 @@ class InviteClientFormContainer extends Component {
         fetchClientUserPermissions();
     };
     componentDidUpdate = prevProps => {
-        const { success, history, hierarchyType, hierarchyID } = this.props;
+        const { success, history, hierarchyType, hierarchyID, showModal } = this.props;
 
         if (!prevProps.success && success) {
+            showModal(SUCCESS_MODAL, {
+                message: inviteClientSuccessMessage,
+            });
             history.replace(`/company/${hierarchyType}s/${hierarchyID}`);
         }
     };
@@ -173,6 +179,7 @@ const mapDispatchToProps = {
     fetchCompaniesPermissions,
     addManyClients,
     fetchClientUserPermissions,
+    showModal,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InviteClientFormContainer));
