@@ -5,6 +5,9 @@ import {
     POST_COMPANY_LOGIN_FAILURE,
     POST_COMPANY_LOGIN_REQUEST,
     POST_COMPANY_LOGIN_SUCCESS,
+    POST_RESET_COMPANY_LOGIN_FAILURE,
+    POST_RESET_COMPANY_LOGIN_REQUEST,
+    POST_RESET_COMPANY_LOGIN_SUCCESS,
 } from 'constants/actionTypes/companies';
 import { combineReducers } from 'redux';
 
@@ -13,7 +16,9 @@ export default combineReducers({
     error: errorReducer,
     availableCompanies: availableCompaniesReducer,
     isPosting: isPostingReducer,
+    isPostingResetCompany: isPostingResetCompanyReducer,
     postSuccess: postSuccessReducer,
+    postResetCompanySuccess: postResetCompanySuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -40,6 +45,18 @@ function isPostingReducer(state = false, action) {
     }
 }
 
+function isPostingResetCompanyReducer(state = false, action) {
+    switch (action.type) {
+        case POST_RESET_COMPANY_LOGIN_REQUEST:
+            return true;
+        case POST_RESET_COMPANY_LOGIN_SUCCESS:
+        case POST_RESET_COMPANY_LOGIN_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case POST_COMPANY_LOGIN_SUCCESS:
@@ -51,13 +68,26 @@ function postSuccessReducer(state = false, action) {
     }
 }
 
+function postResetCompanySuccessReducer(state = false, action) {
+    switch (action.type) {
+        case POST_RESET_COMPANY_LOGIN_SUCCESS:
+            return true;
+        case POST_RESET_COMPANY_LOGIN_REQUEST:
+            return false;
+        default:
+            return state;
+    }
+}
+
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_AVAILABLE_COMPANIES_REQUEST:
         case POST_COMPANY_LOGIN_REQUEST:
+        case POST_RESET_COMPANY_LOGIN_REQUEST:
             return null;
         case FETCH_AVAILABLE_COMPANIES_FAILURE:
         case POST_COMPANY_LOGIN_FAILURE:
+        case POST_RESET_COMPANY_LOGIN_FAILURE:
             return action.error;
         default:
             return state;

@@ -1,5 +1,6 @@
 import fetchAvailableCompanies from 'actions/companyAdmin/companySelection/fetchAvailableCompanies';
 import postCompanyLogin from 'actions/companyAdmin/companySelection/postCompanyLogin';
+import postCompanyReset from 'actions/companyAdmin/companySelection/postCompanyReset';
 import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -19,13 +20,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
 const CompanySelection = () => {
-    const { availableCompanies, isFetching, isPosting, postSuccess, error } = useSelector(
-        companySelector,
-    );
-    const prevProps = usePrevious({ isFetching, isPosting, postSuccess, error });
+    const {
+        availableCompanies,
+        isFetching,
+        isPosting,
+        isPostingResetCompany,
+        postSuccess,
+        postResetCompanySuccess,
+        error,
+    } = useSelector(companySelector);
+    const prevProps = usePrevious({
+        isFetching,
+        isPosting,
+        isPostingResetCompany,
+        postSuccess,
+        postResetCompanySuccess,
+        error,
+    });
     const dispatch = useDispatch();
     const history = useHistory();
     componentDidMount(() => {
+        // reset company
+        dispatch(postCompanyReset());
+
         // fetch companies
         dispatch(fetchAvailableCompanies());
     });
@@ -35,13 +52,26 @@ const CompanySelection = () => {
             onSuccess();
         }
 
+        if (postResetCompanySuccess && !prevProps.postResetCompanySuccess) {
+            onResetSuccess();
+        }
+
         if (!isFetching && prevProps.isFetching) {
             if (!companies.length) history.push('/client/companies');
         }
         if (error && !prevProps.error) {
             dispatch(showModal(ERROR_MODAL, { message: error }));
         }
-    }, [isFetching, isPosting, postSuccess, error]);
+    }, [
+        isFetching,
+        prevProps.isFetching,
+        postSuccess,
+        !prevProps.postSuccess,
+        postResetCompanySuccess,
+        prevProps.postResetCompanySuccess,
+        error,
+        !prevProps.error,
+    ]);
 
     async function onSuccess() {
         await dispatch(decodeJWT());
@@ -57,8 +87,12 @@ const CompanySelection = () => {
         history.push('/company');
     }
 
-    const handleSelectCompany = (companyID, type) => {
-        dispatch(postCompanyLogin({ companyID, type }));
+    function onResetSuccess() {
+        dispatch(decodeJWT());
+    }
+
+    const handleSelectCompany = companyID => {
+        dispatch(postCompanyLogin({ companyID }));
     };
 
     const companies = Object.values(availableCompanies).filter(
@@ -109,9 +143,7 @@ const CompanySelection = () => {
                             <div className="button-block-container size-lg-12">
                                 <button
                                     className="button green"
-                                    onClick={() =>
-                                        handleSelectCompany(company.companyID, company.type)
-                                    }
+                                    onClick={() => handleSelectCompany(company.companyID)}
                                 >
                                     Select company
                                 </button>
@@ -125,8 +157,24 @@ const CompanySelection = () => {
 };
 const companySelector = ({
     companyAdmin: {
-        companySelectionReducer: { availableCompanies, isFetching, isPosting, postSuccess, error },
+        companySelectionReducer: {
+            availableCompanies,
+            isFetching,
+            isPosting,
+            isPostingResetCompany,
+            postSuccess,
+            postResetCompanySuccess,
+            error,
+        },
     },
-}) => ({ availableCompanies, isFetching, isPosting, postSuccess, error });
+}) => ({
+    availableCompanies,
+    isFetching,
+    isPosting,
+    isPostingResetCompany,
+    postSuccess,
+    postResetCompanySuccess,
+    error,
+});
 
 export default CompanySelection;
