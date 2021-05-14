@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 import { API_URL } from 'config/index';
-import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
-import { getHeaders } from 'helpers/api';
+import { getHeaders, handleErrors } from 'helpers/api';
 import {
     EDIT_CLIENT_EMAIL_REQUEST,
     EDIT_CLIENT_EMAIL_SUCCESS,
@@ -34,8 +33,6 @@ export default (clientUserID, postBody) => dispatch => {
         )
         .then(result => dispatch(editClientUserEmailSuccess(result.data)))
         .catch(error => {
-            dispatch(editClientUserEmailFailure(error));
-            if (error.response.status === 400)
-                dispatch(setAPIFieldErrors(error.response.data.errors));
+            dispatch(handleErrors(editClientUserEmailFailure)(error));
         });
 };

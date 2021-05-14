@@ -21,7 +21,7 @@ const EditClientUserEmail = () => {
     const history = useHistory();
 
     const [email, setEmail] = useState('');
-    const { postSuccess, error, isPosting } = useSelector(formStateSelector);
+    const { postSuccess, error } = useSelector(formStateSelector);
     const prevProps = usePrevious({ postSuccess, error });
 
     useEffect(() => {
@@ -34,7 +34,6 @@ const EditClientUserEmail = () => {
     }, [postSuccess, error, prevProps]);
 
     const handleSubmit = () => {
-        if (isPosting) return;
         dispatch(editClientUserEmail(id, { email }));
     };
     return (
@@ -73,8 +72,8 @@ const EditClientUserEmail = () => {
 
 const formStateSelector = ({
     companyAdmin: {
-        clientsReducer: { isPosting, postSuccess, error },
+        clientsReducer: { postSuccess, error },
     },
-}) => ({ isPosting, postSuccess, error });
+}) => ({ postSuccess, error });
 
 export default EditClientUserEmail;
