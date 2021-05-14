@@ -31,6 +31,9 @@ import {
     ADD_CLIENT_USER_REQUEST,
     ADD_CLIENT_USER_SUCCESS,
     ADD_CLIENT_USER_FAILURE,
+    EDIT_CLIENT_EMAIL_REQUEST,
+    EDIT_CLIENT_EMAIL_SUCCESS,
+    EDIT_CLIENT_EMAIL_FAILURE,
 } from 'constants/actionTypes/clients';
 
 import {
@@ -86,6 +89,7 @@ function isPostingReducer(state = false, action) {
         case ADD_MANY_CLIENTS_REQUEST:
         case EDIT_CLIENT_FOR_DRAWING_REQUEST:
         case EDIT_CLIENT_REQUEST:
+        case EDIT_CLIENT_EMAIL_REQUEST:
             return true;
         case ADD_CLIENT_SUCCESS:
         case ADD_CLIENT_FAILURE:
@@ -97,6 +101,8 @@ function isPostingReducer(state = false, action) {
         case EDIT_CLIENT_FOR_DRAWING_FAILURE:
         case EDIT_CLIENT_SUCCESS:
         case EDIT_CLIENT_FAILURE:
+        case EDIT_CLIENT_EMAIL_SUCCESS:
+        case EDIT_CLIENT_EMAIL_FAILURE:
             return false;
         default:
             return state;
@@ -124,6 +130,7 @@ function errorReducer(state = null, action) {
         case FETCH_CLIENT_USER_PERMISSIONS_REQUEST:
         case FETCH_CLIENT_USERS_REQUEST:
         case EDIT_CLIENT_REQUEST:
+        case EDIT_CLIENT_EMAIL_REQUEST:
         case FETCH_CLIENT_USER_WITH_PERMISSIONS_REQUEST:
             return null;
         case INVITE_CLIENT_FAILURE:
@@ -134,6 +141,7 @@ function errorReducer(state = null, action) {
         case FETCH_CLIENT_USER_PERMISSIONS_FAILURE:
         case FETCH_CLIENT_USERS_FAILURE:
         case EDIT_CLIENT_FAILURE:
+        case EDIT_CLIENT_EMAIL_FAILURE:
         case FETCH_CLIENT_USER_WITH_PERMISSIONS_FAILURE:
             return action.error;
         default:
@@ -153,6 +161,7 @@ function postSuccessReducer(state = false, action) {
         case DELETE_CLIENT_FROM_DRAWING_REQUEST:
         case DELETE_CLIENT_FROM_DRAWING_FAILURE:
         case EDIT_CLIENT_REQUEST:
+        case EDIT_CLIENT_EMAIL_REQUEST:
             return false;
         case ADD_CLIENT_SUCCESS:
         case ADD_CLIENT_USER_SUCCESS:
@@ -160,6 +169,7 @@ function postSuccessReducer(state = false, action) {
         case EDIT_CLIENT_FOR_DRAWING_SUCCESS:
         case DELETE_CLIENT_FROM_DRAWING_SUCCESS:
         case EDIT_CLIENT_SUCCESS:
+        case EDIT_CLIENT_EMAIL_SUCCESS:
             return true;
         default:
             return state;

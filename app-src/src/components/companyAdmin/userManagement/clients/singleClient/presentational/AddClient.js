@@ -70,42 +70,46 @@ const AddClient = ({
 
                     <div className="size-lg-12">
                         <div className="size-lg-6">
-                            <Field name="Phone Number">
+                            <Field name="Phone Number" required>
                                 <TextInputContainer
                                     value={phoneNumber}
                                     name="phoneNumber"
                                     handleChange={handleChange}
+                                    required
                                 />
                             </Field>
                         </div>
                         <div className="size-lg-6">
-                            <Field name="Company Name">
+                            <Field name="Company Name" required>
                                 <TextInputContainer
                                     value={companyName}
                                     name="companyName"
                                     handleChange={handleChange}
+                                    required
                                 />
                             </Field>
                         </div>
                     </div>
                     <div className="size-lg-12">
                         <div className="size-lg-6">
-                            <Field name="Drawings">
+                            <Field name="Drawings" required>
                                 <MultiSelect
                                     value={drawingIDs}
                                     name="drawingIDs"
                                     onChange={handleChange}
                                     options={drawingOptions}
+                                    required
                                 />
                             </Field>
                         </div>
                         <div className="size-lg-6">
-                            <Field name="Services">
+                            <Field name="Services" required>
                                 <MultiSelect
                                     value={serviceIDs}
                                     name="serviceIDs"
                                     onChange={handleChange}
                                     options={serviceOptions}
+                                    required
                                 />
                             </Field>
                         </div>

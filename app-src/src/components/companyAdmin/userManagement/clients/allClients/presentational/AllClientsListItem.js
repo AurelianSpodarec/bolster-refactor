@@ -7,6 +7,7 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 const AllClientsListItem = ({
     client,
     goToEdit,
+    goToEditEmail,
     onMobile,
     headers,
     disableClient,
@@ -49,6 +50,9 @@ const AllClientsListItem = ({
                 </ButtonContainer>
                 <button className="button yellow" onClick={goToEdit}>
                     <i className="fal fa-pencil" /> Edit
+                </button>
+                <button className="button yellow" onClick={goToEditEmail}>
+                    <i className="fal fa-at" /> Edit Email
                 </button>
                 <button
                     className={`button ${client.isDisabled ? 'green' : 'red'}`}

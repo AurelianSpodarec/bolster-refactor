@@ -46,7 +46,7 @@ const InviteClientForm = ({
                         options={userOptions}
                         value={clients}
                         onChange={handleChange}
-                        placeholder="-- select operatives --"
+                        placeholder="-- select clients --"
                         search
                         required
                     />

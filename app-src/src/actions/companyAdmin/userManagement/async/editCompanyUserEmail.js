@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 import { API_URL } from 'config/index';
-import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
-import { getHeaders } from 'helpers/api';
+import { getHeaders, handleErrors } from 'helpers/api';
 import {
     EDIT_COMPANY_USER_EMAIL_REQUEST,
     EDIT_COMPANY_USER_EMAIL_SUCCESS,
@@ -26,13 +25,10 @@ export const editCompanyUserEmailFailure = error => ({
 export default (companyUserID, postBody) => dispatch => {
     dispatch(editCompanyUserEmailRequest());
 
-    // todo confirm endpoint
     return axios
         .post(`${API_URL}/users/${companyUserID}/email`, postBody, getHeaders())
         .then(result => dispatch(editCompanyUserEmailSuccess(result.data)))
         .catch(error => {
-            dispatch(editCompanyUserEmailFailure(error));
-            if (error.response.status === 400)
-                dispatch(setAPIFieldErrors(error.response.data.errors));
+            dispatch(handleErrors(editCompanyUserEmailFailure)(error));
         });
 };

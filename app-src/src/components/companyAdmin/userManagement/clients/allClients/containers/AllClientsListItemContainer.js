@@ -19,6 +19,7 @@ const AllClientsListItemContainer = ({ client, colCount, headers }) => {
             client={client}
             colCount={colCount}
             goToEdit={goToEdit}
+            goToEditEmail={goToEditEmail}
             deleteClient={deleteClient}
             disableClient={disableClient}
             onMobile={onMobile}
@@ -33,6 +34,10 @@ const AllClientsListItemContainer = ({ client, colCount, headers }) => {
                 isFromClientUserManagement: true,
             },
         });
+    }
+
+    function goToEditEmail() {
+        history.push(`/company/users-management/clients/${client.id}/edit-email`);
     }
 
     function disableClient() {

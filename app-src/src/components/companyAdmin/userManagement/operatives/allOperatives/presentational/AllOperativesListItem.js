@@ -120,6 +120,12 @@ const AllOperativesListItem = ({
                         <i className="far fa-pencil" /> Edit
                     </Link>
                     <Link
+                        className="button yellow"
+                        to={`/company/users-management/operatives/${user.id}/edit-email`}
+                    >
+                        <i className="far fa-at" /> Edit Email
+                    </Link>
+                    <Link
                         className="button blue"
                         to={`/company/users-management/operative/${user.id}/drawings`}
                     >

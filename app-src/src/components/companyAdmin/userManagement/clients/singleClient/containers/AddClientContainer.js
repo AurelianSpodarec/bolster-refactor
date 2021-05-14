@@ -54,7 +54,7 @@ const AddClientContainer = () => {
 
     const drawingOptions = Object.values(drawings).map(drawing => ({
         value: drawing.id,
-        label: drawing.name,
+        label: `${drawing.siteName} / ${drawing.buildingName} / ${drawing.floorName} / ${drawing.name}`,
     }));
     const serviceOptions = Object.values(services)
         .filter(service => subscriptionServiceIDs.includes(service.id))

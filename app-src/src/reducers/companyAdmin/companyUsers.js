@@ -14,6 +14,9 @@ import {
     EDIT_COMPANY_USER_PASSWORD_REQUEST,
     EDIT_COMPANY_USER_PASSWORD_SUCCESS,
     EDIT_COMPANY_USER_PASSWORD_FAILURE,
+    EDIT_COMPANY_USER_EMAIL_REQUEST,
+    EDIT_COMPANY_USER_EMAIL_SUCCESS,
+    EDIT_COMPANY_USER_EMAIL_FAILURE,
     DELETE_COMPANY_USER_REQUEST,
     DELETE_COMPANY_USER_SUCCESS,
     DELETE_COMPANY_USER_FAILURE,
@@ -67,6 +70,7 @@ function isPostingReducer(state = false, action) {
         case UNLINK_OPERATIVE_DEVICE_REQUEST:
         case CHANGE_USER_TYPE_REQUEST:
         case TOGGLE_RESTRICT_USER_PAYMENTS_REQUEST:
+        case EDIT_COMPANY_USER_EMAIL_REQUEST:
             return true;
         case CREATE_COMPANY_USER_SUCCESS:
         case CREATE_COMPANY_USER_FAILURE:
@@ -76,6 +80,8 @@ function isPostingReducer(state = false, action) {
         case CHANGE_USER_TYPE_FAILURE:
         case TOGGLE_RESTRICT_USER_PAYMENTS_SUCCESS:
         case TOGGLE_RESTRICT_USER_PAYMENTS_FAILURE:
+        case EDIT_COMPANY_USER_EMAIL_FAILURE:
+        case EDIT_COMPANY_USER_EMAIL_SUCCESS:
             return false;
         default:
             return state;
@@ -91,6 +97,7 @@ function postSuccessReducer(state = false, action) {
         case UNLINK_OPERATIVE_DEVICE_REQUEST:
         case CHANGE_USER_TYPE_REQUEST:
         case TOGGLE_RESTRICT_USER_PAYMENTS_REQUEST:
+        case EDIT_COMPANY_USER_EMAIL_REQUEST:
             return false;
         case CREATE_COMPANY_USER_SUCCESS:
         case EDIT_COMPANY_USER_SUCCESS:
@@ -99,6 +106,7 @@ function postSuccessReducer(state = false, action) {
         case UNLINK_OPERATIVE_DEVICE_SUCCESS:
         case CHANGE_USER_TYPE_SUCCESS:
         case TOGGLE_RESTRICT_USER_PAYMENTS_SUCCESS:
+        case EDIT_COMPANY_USER_EMAIL_SUCCESS:
             return true;
         default:
             return state;
@@ -117,6 +125,7 @@ function errorReducer(state = null, action) {
         case TOGGLE_RESTRICT_USER_PAYMENTS_REQUEST:
         case UNLINK_OPERATIVE_DEVICE_REQUEST:
         case CHANGE_USER_TYPE_REQUEST:
+        case EDIT_COMPANY_USER_EMAIL_REQUEST:
             return null;
         case FETCH_COMPANY_USERS_FAILURE:
         case DELETE_COMPANY_USER_FAILURE:
@@ -128,6 +137,7 @@ function errorReducer(state = null, action) {
         case UNLINK_OPERATIVE_DEVICE_FAILURE:
         case CHANGE_USER_TYPE_FAILURE:
         case TOGGLE_RESTRICT_USER_PAYMENTS_FAILURE:
+        case EDIT_COMPANY_USER_EMAIL_FAILURE:
             return action.error;
         default:
             return state;
