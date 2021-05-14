@@ -45,6 +45,8 @@ const CompanySelection = () => {
 
         // fetch companies
         dispatch(fetchAvailableCompanies());
+
+        console.log('mounted');
     });
 
     useEffect(() => {
@@ -66,34 +68,12 @@ const CompanySelection = () => {
         isFetching,
         prevProps.isFetching,
         postSuccess,
-        !prevProps.postSuccess,
+        prevProps.postSuccess,
         postResetCompanySuccess,
         prevProps.postResetCompanySuccess,
         error,
-        !prevProps.error,
+        prevProps.error,
     ]);
-
-    async function onSuccess() {
-        await dispatch(decodeJWT());
-        const { payload, type } = await dispatch(fetchCompanySettings());
-        await dispatch(fetchAllSubscriptions());
-        if (type === FETCH_COMPANY_SETTINGS_SUCCESS) {
-            if (payload.colourCode) {
-                localStorage.setItem('colourCode', payload.colourCode);
-            } else {
-                localStorage.removeItem('colourCode');
-            }
-        }
-        history.push('/company');
-    }
-
-    function onResetSuccess() {
-        dispatch(decodeJWT());
-    }
-
-    const handleSelectCompany = companyID => {
-        dispatch(postCompanyLogin({ companyID }));
-    };
 
     const companies = Object.values(availableCompanies).filter(
         ({ type }) => type !== COMPANY_USER_ROLE_TYPES.OPERATIVE,
@@ -158,6 +138,19 @@ const CompanySelection = () => {
             </BlockContainer>
         </>
     );
+
+    async function onSuccess() {
+        await dispatch(decodeJWT());
+        history.push('/company');
+    }
+
+    function onResetSuccess() {
+        dispatch(decodeJWT());
+    }
+
+    function handleSelectCompany(companyID) {
+        dispatch(postCompanyLogin({ companyID }));
+    }
 };
 const companySelector = ({
     companyAdmin: {

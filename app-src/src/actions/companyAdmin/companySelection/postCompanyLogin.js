@@ -26,12 +26,10 @@ export const postCompanyLoginFailure = error => ({
 export default postBody => dispatch => {
     dispatch(postCompanyLoginRequest());
 
-    // todo url
     return axios
         .post(`${AUTH_API_URL}/auth/company`, postBody, getHeaders())
         .then(({ data }) => {
-            localStorage.setItem('token', data.token);
-            return dispatch(postCompanyLoginSuccess(data));
+            return onSuccess(data, dispatch);
         })
         .catch(err => {
             console.error({ err });
@@ -41,4 +39,22 @@ export default postBody => dispatch => {
             const message = err.response?.data ?? err.message;
             return dispatch(postCompanyLoginFailure(message));
         });
+};
+
+async function onSuccess(data, dispatch) {
+    await asyncLocalStorage.setItem('token', data.token);
+    return dispatch(postCompanyLoginSuccess(data));
+}
+
+const asyncLocalStorage = {
+    setItem: function (key, value) {
+        return Promise.resolve().then(function () {
+            localStorage.setItem(key, value);
+        });
+    },
+    getItem: function (key) {
+        return Promise.resolve().then(function () {
+            return localStorage.getItem(key);
+        });
+    },
 };
