@@ -58,7 +58,10 @@ const AcceptInvitation = () => {
             return history.replace('/auth/operative/invitation-accepted');
         }
         if (isNew) {
-            return history.replace('/company/profile/change-password');
+            if (isCompanyAdmin || isSuperAdmin) {
+                return history.replace('/company/profile/change-password');
+            }
+            return history.replace('/client/profile/change-password');
         }
 
         return history.replace('/auth/admin/invitation-accepted');
