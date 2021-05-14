@@ -1,8 +1,6 @@
 import fetchAvailableCompanies from 'actions/companyAdmin/companySelection/fetchAvailableCompanies';
 import postCompanyLogin from 'actions/companyAdmin/companySelection/postCompanyLogin';
 import postCompanyReset from 'actions/companyAdmin/companySelection/postCompanyReset';
-import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
-import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -10,7 +8,6 @@ import Block from 'components/shared/generic/block/presentational/Block';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import { FILE_STORAGE_URL } from 'config';
-import { FETCH_COMPANY_SETTINGS_SUCCESS } from 'constants/actionTypes/companySettings';
 import { COMPANY_USER_ROLE_IDS, COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 import { componentDidMount } from 'helpers/generic';
@@ -45,8 +42,6 @@ const CompanySelection = () => {
 
         // fetch companies
         dispatch(fetchAvailableCompanies());
-
-        console.log('mounted');
     });
 
     useEffect(() => {
