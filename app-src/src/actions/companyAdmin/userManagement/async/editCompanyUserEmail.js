@@ -26,7 +26,6 @@ export const editCompanyUserEmailFailure = error => ({
 export default (companyUserID, postBody) => dispatch => {
     dispatch(editCompanyUserEmailRequest());
 
-    // todo confirm endpoint
     return axios
         .post(`${API_URL}/users/${companyUserID}/email`, postBody, getHeaders())
         .then(result => dispatch(editCompanyUserEmailSuccess(result.data)))

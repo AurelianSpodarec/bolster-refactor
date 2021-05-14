@@ -1,4 +1,4 @@
-import editCompanyUserEmail from 'actions/companyAdmin/userManagement/async/editCompanyUserEmail';
+import editClientUserEmail from 'actions/companyAdmin/clients/async/editClientUserEmail';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -15,7 +15,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 
-const EditCompanyUserEmail = () => {
+const EditClientUserEmail = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const history = useHistory();
@@ -35,11 +35,11 @@ const EditCompanyUserEmail = () => {
 
     const handleSubmit = () => {
         if (isPosting) return;
-        dispatch(editCompanyUserEmail(id, { email }));
+        dispatch(editClientUserEmail(id, { email }));
     };
     return (
         <>
-            <PageHeading leftChildren={true} title="Edit User's Email">
+            <PageHeading leftChildren={true} title="Edit Client's Email">
                 <BackButtonContainer />
             </PageHeading>
             <BlockContainer>
@@ -73,8 +73,8 @@ const EditCompanyUserEmail = () => {
 
 const formStateSelector = ({
     companyAdmin: {
-        companyUsersReducer: { isPosting, postSuccess, error },
+        clientsReducer: { isPosting, postSuccess, error },
     },
 }) => ({ isPosting, postSuccess, error });
 
-export default EditCompanyUserEmail;
+export default EditClientUserEmail;
