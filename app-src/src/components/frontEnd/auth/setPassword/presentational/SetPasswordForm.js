@@ -5,7 +5,6 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
-import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 import PasswordStrengh from 'components/shared/passwordStrength/PasswordStrength';
 
 const SetPasswordForm = ({ formData, handleChange, handleSubmit, isPosting, postSuccess }) => {
@@ -46,12 +45,8 @@ const SetPasswordForm = ({ formData, handleChange, handleSubmit, isPosting, post
                         />
                     </Field>
                     <Field classes="auth-form-field row right">
-                        <FrontEndButton
-                            classes={`gray right ${!isPosting ? '' : 'disabled'}`}
-                            type="submit"
-                            disabled={isPosting}
-                        >
-                            {!isPosting ? 'Submit' : <LoadingIcon />}
+                        <FrontEndButton classes="gray right" type="submit" disabled={isPosting}>
+                            Submit
                         </FrontEndButton>
                     </Field>
                 </Form>
