@@ -1280,8 +1280,24 @@ input {
         padding-left: 19px;
         @include ubuntu-medium;
         font-size: 14px;
+        
         ol {
             list-style: lower-alpha outside;
+            font-size: 12px;
+            @include ubuntu;
+        }
+    }
+
+    ul {
+        width: 100%;
+        @include ubuntu;
+        list-style: disc outside;
+        padding-left: 19px;
+        @include ubuntu-medium;
+        font-size: 14px;
+        
+        ul {
+            list-style: circle outside;
             font-size: 12px;
             @include ubuntu;
         }
@@ -1292,10 +1308,7 @@ input {
         @include ubuntu-medium;
         margin-bottom: 10px;
     }
-    ul {
-        list-style: disc;
-        padding-left: 19px;
-    }
+
     p {
         width: 100%;
         @include ubuntu;
