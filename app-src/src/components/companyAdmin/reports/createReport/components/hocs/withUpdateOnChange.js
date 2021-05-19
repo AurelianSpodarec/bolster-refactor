@@ -83,6 +83,7 @@ export default function (ProtectedComponent) {
                 serviceID,
                 templateID,
                 companyUserIDs,
+                createdByCompanyID,
             } = filters;
 
             const NO = false;
@@ -124,6 +125,10 @@ export default function (ProtectedComponent) {
                     }
                     // templates
                     if (templateID && +templateID !== pin.templateID) {
+                        return NO;
+                    }
+                    // companies
+                    if (createdByCompanyID && createdByCompanyID !== pin.companyID) {
                         return NO;
                     }
                     // operatives
@@ -250,9 +255,9 @@ export default function (ProtectedComponent) {
                 return { latY, lngX };
             };
 
-            const pinBoundingBoxes = Object.values(
-                rectangles,
-            ).map(({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]);
+            const pinBoundingBoxes = Object.values(rectangles).map(
+                ({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)],
+            );
             // get the utc converted time for both from date and to date.
             const startDate = fromDateInclusive
                 ? moment.tz(fromDateInclusive, timeZone.name).startOf('day').utc().toISOString()
