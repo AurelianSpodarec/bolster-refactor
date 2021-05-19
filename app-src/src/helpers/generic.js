@@ -324,3 +324,28 @@ export const getOrderObjId = (arr, deleteOrder) => {
 
     return objId ? objId.id : null;
 };
+
+export const getStorageString = (bytes = 0) => {
+    const kb = bytes / 1024;
+    const mb = kb / 1024;
+    const gb = mb / 1024;
+    if (gb >= 1) {
+        return `${gb.toFixed(1)}GB`;
+    }
+    return `${mb.toFixed(1)}MB`;
+};
+
+export const isLowMemory = bytes => {
+    const gbLowerLimit = 3;
+    const kb = bytes / 1024;
+    const mb = kb / 1024;
+    const gb = mb / 1024;
+    return gb < gbLowerLimit;
+};
+
+export const isLowStorage = bytes => {
+    const mbLowerLimit = 500;
+    const kb = bytes / 1024;
+    const mb = kb / 1024;
+    return mb < mbLowerLimit;
+};
