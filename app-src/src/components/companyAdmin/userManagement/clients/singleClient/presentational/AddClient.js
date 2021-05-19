@@ -23,6 +23,7 @@ const AddClient = ({
     serviceIDs,
     phoneNumber,
     companyName,
+    isFetchingDrawings,
 }) => {
     return (
         <>
@@ -99,6 +100,10 @@ const AddClient = ({
                                     onChange={handleChange}
                                     options={drawingOptions}
                                     required
+                                    search
+                                    placeholder={
+                                        isFetchingDrawings ? 'Loading...' : '-- select options --'
+                                    }
                                 />
                             </Field>
                         </div>

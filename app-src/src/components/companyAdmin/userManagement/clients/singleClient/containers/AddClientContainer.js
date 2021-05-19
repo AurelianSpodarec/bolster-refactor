@@ -29,6 +29,7 @@ const AddClientContainer = () => {
         postSuccess,
         error,
         subscriptionServiceIDs,
+        isFetchingDrawings,
     } = useSelector(mapStateToProps);
     const prevProps = usePrevious({ isPosting, postSuccess, error });
     useEffect(() => {
@@ -70,19 +71,28 @@ const AddClientContainer = () => {
             handleSubmit={handleSubmit}
             drawingOptions={drawingOptions}
             serviceOptions={serviceOptions}
+            isFetchingDrawings={isFetchingDrawings}
         />
     );
 };
 
 const mapStateToProps = ({
     companyAdmin: {
-        drawingsReducer: { drawings },
+        drawingsReducer: { drawings, isFetching },
         servicesReducer: { services },
         clientsReducer: { isPosting, postSuccess, error },
         subscriptionsReducer: {
             subscriptions: { serviceIDs },
         },
     },
-}) => ({ drawings, services, isPosting, postSuccess, error, subscriptionServiceIDs: serviceIDs });
+}) => ({
+    drawings,
+    services,
+    isPosting,
+    postSuccess,
+    error,
+    subscriptionServiceIDs: serviceIDs,
+    isFetchingDrawings: isFetching,
+});
 
 export default AddClientContainer;
