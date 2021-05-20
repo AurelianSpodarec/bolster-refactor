@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { COMPANY_USER_ROLE_IDS } from 'constants/companyAdmin/enums';
 import { lowMemoryMessage, lowStorageMessage } from '../../../../../constants/shared/messages';
 
@@ -8,12 +8,19 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import TooltipContainer from '../../../../shared/generic/tooltip/containers/TooltipContainer';
 
 const CompanyUserListItem = ({ user, handleModalClick, tableColumnWidths }) => {
+    const [rowHeight, setRowHeight] = useState(null);
     const isMemoryLow = user.deviceRAM && isLowMemory(user.deviceRAM);
     const isStorageLow = user.physicalStorageTotal && isLowStorage(user.physicalStorageAvailable);
     const isRowRed = isMemoryLow || isStorageLow;
 
+    const row = useCallback(node => {
+        if (node !== null) {
+            setRowHeight(node.getBoundingClientRect().height);
+        }
+    }, []);
+
     return (
-        <tr className={`${isRowRed ? 'red-row' : ''}`}>
+        <tr ref={row} className={`${isRowRed ? 'red-row' : ''}`}>
             <td style={{ width: tableColumnWidths[0] }} className="cell-break-all">
                 {isRowRed && (
                     <TooltipContainer
@@ -54,7 +61,10 @@ const CompanyUserListItem = ({ user, handleModalClick, tableColumnWidths }) => {
                     </>
                 )}
             </td>
-            <td style={{ width: tableColumnWidths[7] }}>
+            <td
+                className={isRowRed ? 'red-column' : ''}
+                style={{ width: tableColumnWidths[7], height: rowHeight ? rowHeight : 'auto' }}
+            >
                 <ButtonContainer handleClick={() => handleModalClick()} className="button">
                     View Latest Syncs
                 </ButtonContainer>
