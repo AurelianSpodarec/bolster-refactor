@@ -38,7 +38,9 @@ const AddClientContainer = () => {
 
     useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
-            dispatch(showModal(SUCCESS_MODAL, { message: inviteClientSuccessMessage }));
+            dispatch(
+                showModal(SUCCESS_MODAL, { message: inviteClientSuccessMessage('drawing(s)') }),
+            );
             history.push('/company/users-management/clients');
         }
     }, [postSuccess]);

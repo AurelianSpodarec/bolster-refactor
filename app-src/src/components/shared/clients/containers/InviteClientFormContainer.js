@@ -63,7 +63,7 @@ class InviteClientFormContainer extends Component {
 
         if (!prevProps.success && success) {
             showModal(SUCCESS_MODAL, {
-                message: inviteClientSuccessMessage,
+                message: inviteClientSuccessMessage(hierarchyType),
             });
             history.replace(`/company/${hierarchyType}s/${hierarchyID}`);
         }
