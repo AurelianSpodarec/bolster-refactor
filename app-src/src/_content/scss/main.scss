@@ -4030,6 +4030,15 @@ input {
         @include ubuntu;
         font-size: 13px;
     }
+
+    p {
+        font-size: 100%;
+        margin-bottom: 10px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
 }
 
 .status-icon {
