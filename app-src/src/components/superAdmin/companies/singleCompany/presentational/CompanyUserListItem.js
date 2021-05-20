@@ -2,15 +2,32 @@ import React from 'react';
 import { COMPANY_USER_ROLE_IDS } from 'constants/companyAdmin/enums';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { getStorageString, isLowMemory, isLowStorage } from 'helpers/generic';
+import TooltipContainer from '../../../../shared/generic/tooltip/containers/TooltipContainer';
 
 const CompanyUserListItem = ({ user, handleModalClick, tableColumnWidths }) => {
-    const isRowRed =
-        (user.deviceRAM && isLowMemory(user.deviceRAM)) ||
-        (user.physicalStorageTotal && isLowStorage(user.physicalStorageAvailable));
+    const isMemoryLow = user.deviceRAM && isLowMemory(user.deviceRAM);
+    const isStorageLow = user.physicalStorageTotal && isLowStorage(user.physicalStorageAvailable);
+    const isRowRed = isMemoryLow || isStorageLow;
 
     return (
         <tr className={`${isRowRed ? 'red-row' : ''}`}>
             <td style={{ width: tableColumnWidths[0] }} className="cell-break-all">
+                {isRowRed && (
+                    <TooltipContainer
+                        htmlText={`${
+                            isMemoryLow
+                                ? '<p>This device has low RAM and may struggle to run the Bolster App.</p>'
+                                : ''
+                        } ${
+                            isStorageLow
+                                ? '<p>This device has low storage space. It may struggle to create new pins or down sync new data.</p>'
+                                : ''
+                        }`}
+                        containerSide="left"
+                    >
+                        <i className="far fa-exclamation-triangle red-icon" />
+                    </TooltipContainer>
+                )}
                 {user.userFirstName} {user.userLastName} <br />({user.userEmail})
             </td>
             <td style={{ width: tableColumnWidths[1] }} className="cell-break-all">
@@ -31,16 +48,12 @@ const CompanyUserListItem = ({ user, handleModalClick, tableColumnWidths }) => {
                 {user.deviceRAM && (
                     <>
                         <br />({getStorageString(user.deviceRAM)} RAM.)
-                        {isLowMemory(user.deviceRAM) &&
-                            'This device has low RAM and may struggle to run the Bolster App.'}
                     </>
                 )}
                 {user.physicalStorageTotal && (
                     <>
                         <br />({getStorageString(user.physicalStorageAvailable)} /{' '}
                         {getStorageString(user.physicalStorageTotal)} storage free)
-                        {isLowStorage(user.physicalStorageAvailable) &&
-                            'This device has low storage space. It may struggle to create new pins or down sync new data.'}
                     </>
                 )}
             </td>
