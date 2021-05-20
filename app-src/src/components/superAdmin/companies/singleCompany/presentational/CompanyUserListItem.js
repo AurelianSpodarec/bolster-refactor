@@ -1,7 +1,10 @@
 import React from 'react';
 import { COMPANY_USER_ROLE_IDS } from 'constants/companyAdmin/enums';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import { lowMemoryMessage, lowStorageMessage } from '../../../../../constants/shared/messages';
+
 import { getStorageString, isLowMemory, isLowStorage } from 'helpers/generic';
+
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import TooltipContainer from '../../../../shared/generic/tooltip/containers/TooltipContainer';
 
 const CompanyUserListItem = ({ user, handleModalClick, tableColumnWidths }) => {
@@ -14,14 +17,8 @@ const CompanyUserListItem = ({ user, handleModalClick, tableColumnWidths }) => {
             <td style={{ width: tableColumnWidths[0] }} className="cell-break-all">
                 {isRowRed && (
                     <TooltipContainer
-                        htmlText={`${
-                            isMemoryLow
-                                ? '<p>This device has low RAM and may struggle to run the Bolster App.</p>'
-                                : ''
-                        } ${
-                            isStorageLow
-                                ? '<p>This device has low storage space. It may struggle to create new pins or down sync new data.</p>'
-                                : ''
+                        htmlText={`${isMemoryLow ? `<p>${lowMemoryMessage}</p>` : ''} ${
+                            isStorageLow ? `<p>${lowStorageMessage}</p>` : ''
                         }`}
                         containerSide="left"
                     >
