@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
+import { lowMemoryMessage, lowStorageMessage } from '../../../../../../constants/shared/messages';
+import { getStorageString, isLowMemory, isLowStorage } from 'helpers/generic';
+
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
@@ -19,16 +22,23 @@ const AllCompanyAdminsListItem = ({
     showNotUpsyncedRecentlyWarning,
     tooltipDate,
 }) => {
+    const isMemoryLow = user.deviceRAM && isLowMemory(user.deviceRAM);
+    const isStorageLow = user.physicalStorageTotal && isLowStorage(user.physicalStorageAvailable);
+    const isRowRed = isMemoryLow || isStorageLow || showNotUpsyncedRecentlyWarning;
+    const upsyncedMessage = tooltipDate
+        ? `This operative has not upsynced in ${tooltipDate} days`
+        : 'This operative has never upsynced.';
+
     return (
-        <tr key={user.id} className={`${showNotUpsyncedRecentlyWarning ? 'red-row' : ''}`}>
+        <tr key={user.id} className={`${isRowRed ? 'red-row' : ''}`}>
             <td>
-                {showNotUpsyncedRecentlyWarning && (
+                {isRowRed && (
                     <TooltipContainer
-                        text={
-                            tooltipDate
-                                ? `This operative has not upsynced in ${tooltipDate} days`
-                                : 'This operative has never upsynced'
-                        }
+                        htmlText={`${
+                            showNotUpsyncedRecentlyWarning ? `<p>${upsyncedMessage}</p>` : ''
+                        } ${isMemoryLow ? `<p>${lowMemoryMessage}</p>` : ''} ${
+                            isStorageLow ? `<p>${lowStorageMessage}</p>` : ''
+                        }`}
                         containerSide="left"
                     >
                         <i className="far fa-exclamation-triangle red-icon" />
@@ -54,6 +64,17 @@ const AllCompanyAdminsListItem = ({
                 {user.linkedDeviceID ? 'Yes' : 'No'}
                 {user.linkedDeviceName && (
                     <span className="red-text">{` (${user.linkedDeviceName})`}</span>
+                )}
+                {user.deviceRAM && (
+                    <>
+                        <br />({getStorageString(user.deviceRAM)} RAM.)
+                    </>
+                )}
+                {user.physicalStorageTotal && (
+                    <>
+                        <br />({getStorageString(user.physicalStorageAvailable)} /{' '}
+                        {getStorageString(user.physicalStorageTotal)} storage free)
+                    </>
                 )}
             </td>
             <td>
