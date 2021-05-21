@@ -3,19 +3,26 @@ import Block from 'components/shared/generic/block/presentational/Block';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 import { FILE_STORAGE_URL } from 'config/index';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const CompaniesList = ({ companies, selectCompany }) => (
     <div className="flex-row size-lg-12">
-        {companies.map(company => (
+        {companies.map((company, index) => (
             <Block
                 containerClass="flex-row-item size-lg-6"
                 key={company.id}
-                style={{
-                    opacity: company.isDisabled ? '0.5' : 1,
-                }}
+                contentClass={`${company.isDisabled ? 'disabled' : ''}`}
             >
-                <>
+                <div>
                     <BlockHeading classes="heading heading-2 underline-full half-margin">
+                        {company.isDisabled && (
+                            <TooltipContainer
+                                side={`${index % 2 === 0 ? 'right' : 'left'}`}
+                                text="Your access has been disabled by the inviting company. If you still require access, please contact this company directly."
+                            >
+                                <i className="fa fa-info-circle" />
+                            </TooltipContainer>
+                        )}
                         {company.name} {company.isDisabled && '(disabled)'}
                     </BlockHeading>
 
@@ -57,7 +64,7 @@ const CompaniesList = ({ companies, selectCompany }) => (
                             </button>
                         </div>
                     )}
-                </>
+                </div>
             </Block>
         ))}
     </div>
