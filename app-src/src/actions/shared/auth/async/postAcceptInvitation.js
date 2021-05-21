@@ -30,5 +30,11 @@ export default postBody => dispatch => {
             localStorage.setItem('token', data.token);
             dispatch(postAcceptInvitationSuccess(data));
         })
-        .catch(err => dispatch(handleErrors(postAcceptInvitationFailure)(err)));
+        .catch(err => {
+            if (typeof err?.response?.data === 'string') {
+                dispatch(postAcceptInvitationFailure(err.response.data));
+            } else {
+                dispatch(handleErrors(postAcceptInvitationFailure)(err));
+            }
+        });
 };
