@@ -103,4 +103,10 @@ export const pageMeta = {
         canonical: '/page-not-found',
         excludeFromSearchEngines: true,
     },
+    acceptInvitation: {
+        title: null,
+        description: '',
+        canonical: null,
+        excludeFromSearchEngines: true,
+    },
 };

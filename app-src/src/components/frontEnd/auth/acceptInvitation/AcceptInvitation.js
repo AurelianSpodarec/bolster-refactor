@@ -1,7 +1,9 @@
 import postAcceptInvitation from 'actions/shared/auth/async/postAcceptInvitation';
 import FrontEndFormHeading from 'components/frontEnd/shared/forms/presentational/FrontEndFormHeading';
+import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 import Field from 'components/shared/generic/form/presentational/Field';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
+import { pageMeta } from 'constants/frontEnd/meta';
 import { authenticate } from 'helpers/api';
 import { componentDidMount } from 'helpers/generic';
 import { usePrevious } from 'helpers/hooks';
@@ -35,6 +37,7 @@ const AcceptInvitation = () => {
             className="auth-form-wrapper"
             style={{ textAlign: 'center', display: 'flex', width: '100%', height: '80vh' }}
         >
+            <PageMeta meta={pageMeta.acceptInvitation} />
             <FrontEndFormHeading title="Accept Invitation" classes="smaller" />
             <Field classes="auth-form-field">
                 {isPosting && <Loading />}
