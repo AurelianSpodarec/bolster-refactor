@@ -18,7 +18,7 @@ const CompaniesList = ({ companies, selectCompany }) => (
                         {company.isDisabled && (
                             <TooltipContainer
                                 side={`${index % 2 === 0 ? 'right' : 'left'}`}
-                                text="Your access has been disabled by the inviting company. If you still require access, please contact this company direct."
+                                text="Your access has been disabled by the inviting company. If you still require access, please contact this company directly."
                             >
                                 <i className="fa fa-info-circle" />
                             </TooltipContainer>
