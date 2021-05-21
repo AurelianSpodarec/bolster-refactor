@@ -19,6 +19,9 @@ import {
     DISABLE_COMPANY_USER_FAILURE,
     DELETE_COMPANY_USER_SUCCESS,
     CREATE_COMPANY_USER_SUCCESS,
+    DELETE_COMPANY_USER_INVITE_REQUEST,
+    DELETE_COMPANY_USER_INVITE_FAILURE,
+    DELETE_COMPANY_USER_INVITE_SUCCESS,
 } from 'constants/actionTypes/usersManagement';
 
 export default combineReducers({
@@ -51,6 +54,7 @@ function isPostingReducer(state = false, action) {
         case REACTIVATE_COMPANY_USER_REQUEST:
         case ENABLE_COMPANY_USER_REQUEST:
         case DISABLE_COMPANY_USER_REQUEST:
+        case DELETE_COMPANY_USER_INVITE_REQUEST:
             return true;
         case RECOVER_COMPANY_USER_SUCCESS:
         case RECOVER_COMPANY_USER_FAILURE:
@@ -60,6 +64,8 @@ function isPostingReducer(state = false, action) {
         case ENABLE_COMPANY_USER_FAILURE:
         case DISABLE_COMPANY_USER_SUCCESS:
         case DISABLE_COMPANY_USER_FAILURE:
+        case DELETE_COMPANY_USER_INVITE_FAILURE:
+        case DELETE_COMPANY_USER_INVITE_SUCCESS:
             return false;
         default:
             return state;
@@ -83,11 +89,13 @@ function postErrorReducer(state = null, action) {
         case REACTIVATE_COMPANY_USER_REQUEST:
         case ENABLE_COMPANY_USER_REQUEST:
         case DISABLE_COMPANY_USER_REQUEST:
+        case DELETE_COMPANY_USER_INVITE_REQUEST:
             return null;
         case RECOVER_COMPANY_USER_FAILURE:
         case REACTIVATE_COMPANY_USER_FAILURE:
         case ENABLE_COMPANY_USER_FAILURE:
         case DISABLE_COMPANY_USER_FAILURE:
+        case DELETE_COMPANY_USER_INVITE_FAILURE:
             return action.error;
         default:
             return state;
@@ -128,6 +136,8 @@ function invitedCompanyUsersReducer(state = {}, action) {
             return convertArrToObj(action.payload.invited);
         case CREATE_COMPANY_USER_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+        case DELETE_COMPANY_USER_INVITE_SUCCESS:
+            return removeObjItem(state, action.payload.id);
         default:
             return state;
     }
