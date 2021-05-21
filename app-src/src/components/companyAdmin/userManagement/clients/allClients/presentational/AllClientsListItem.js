@@ -13,10 +13,11 @@ const AllClientsListItem = ({
     disableClient,
     deleteClient,
 }) => (
-    <tr key={client.id} style={{ opacity: client.isDisabled ? 0.5 : 1 }}>
+    <tr key={client.id} className={`${client.isDisabled ? 'grey-row' : ''}`}>
         <td>
             {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
-            {`${client.firstName} ${client.lastName}`}
+            {`${client.firstName} ${client.lastName}`}{' '}
+            {client.isDisabled && <span>(DISABLED)</span>}
         </td>
         <td>
             {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
@@ -61,7 +62,7 @@ const AllClientsListItem = ({
                     <i className="fal fa-ban" /> {client.isDisabled ? 'Enable' : 'Disable'}
                 </button>
                 <button className="button red" onClick={deleteClient}>
-                    <i className="fal fa-ban" /> Delete
+                    <i className="fal fa-trash-alt" /> Delete
                 </button>
             </BlockButtonWrapper>
         </td>
