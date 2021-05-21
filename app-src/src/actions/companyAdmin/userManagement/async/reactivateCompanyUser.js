@@ -13,9 +13,9 @@ export const reactivateCompanyUserRequest = () => ({
     type: REACTIVATE_COMPANY_USER_REQUEST,
 });
 
-export const reactivateCompanyUserSuccess = user => ({
+export const reactivateCompanyUserSuccess = id => ({
     type: REACTIVATE_COMPANY_USER_SUCCESS,
-    user,
+    id,
 });
 
 export const reactivateCompanyUserFailure = error => ({
@@ -23,10 +23,10 @@ export const reactivateCompanyUserFailure = error => ({
     error,
 });
 
-export default (id, user) => dispatch => {
+export default id => dispatch => {
     dispatch(reactivateCompanyUserRequest());
     return axios
         .post(`${API_URL}/users/requestactiveoperativechange`, { companyUserID: id }, getHeaders())
-        .then(() => dispatch(reactivateCompanyUserSuccess(user)))
+        .then(() => dispatch(reactivateCompanyUserSuccess(id)))
         .catch(err => dispatch(reactivateCompanyUserFailure(err.message)));
 };

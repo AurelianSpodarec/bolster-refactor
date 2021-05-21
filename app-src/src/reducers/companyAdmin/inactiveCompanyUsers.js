@@ -23,6 +23,7 @@ import {
     DELETE_COMPANY_USER_INVITE_FAILURE,
     DELETE_COMPANY_USER_INVITE_SUCCESS,
 } from 'constants/actionTypes/usersManagement';
+import moment from 'moment';
 
 export default combineReducers({
     inactive: inactiveCompanyUsersReducer,
@@ -123,8 +124,10 @@ function inactiveCompanyUsersReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_INACTIVE_COMPANY_USERS_SUCCESS:
             return convertArrToObj(action.payload.inactive);
-        // case CREATE_COMPANY_USER_SUCCESS:
-        //     return updateObj(state, action.payload.id, action.payload);
+        case REACTIVATE_COMPANY_USER_SUCCESS:
+            var user = state[action.id];
+            user.reactivateRequestedOn = moment().utc().format('YYYY-MM-DDTHH:mm:ss');
+            return updateObj(state, user.id, user);
         default:
             return state;
     }

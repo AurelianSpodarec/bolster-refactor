@@ -12,7 +12,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { usePrevious } from 'helpers/hooks';
 
-const ReactivateUserModal = ({ user, user: { id, userFirstName, userLastName } }) => {
+const ReactivateUserModal = ({ user: { id, userFirstName, userLastName } }) => {
     const dispatch = useDispatch();
     const { isPosting, postError, postSuccess } = useSelector(mapStateToProps);
     const prevProps = usePrevious({ isPosting });
@@ -49,7 +49,7 @@ const ReactivateUserModal = ({ user, user: { id, userFirstName, userLastName } }
     );
 
     function handleSubmit() {
-        dispatch(reactivateCompanyUser(id, user));
+        dispatch(reactivateCompanyUser(id));
     }
 };
 
