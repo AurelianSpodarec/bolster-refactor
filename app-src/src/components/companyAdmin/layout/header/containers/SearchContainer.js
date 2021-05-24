@@ -35,7 +35,7 @@ class SearchContainer extends Component {
         );
     }
 
-    componentDidUpdate = (prevProps) => {
+    componentDidUpdate = prevProps => {
         const { isFetching } = this.props;
 
         if (prevProps.isFetching && !isFetching) {
@@ -43,7 +43,7 @@ class SearchContainer extends Component {
                 isLoading: false,
             });
         }
-    }
+    };
 
     formatSearchResults() {
         const { searchTerm } = this.state;
@@ -53,18 +53,13 @@ class SearchContainer extends Component {
             const typeData = result.siteID
                 ? { type: 'sites', hierarchyID: result.siteID }
                 : result.buildingID
-                    ? { type: 'buildings', hierarchyID: result.buildingID }
-                    : result.floorID
-                        ? { type: 'floors', hierarchyID: result.floorID }
-                        : { type: 'drawings', hierarchyID: result.drawingID };
+                ? { type: 'buildings', hierarchyID: result.buildingID }
+                : result.floorID
+                ? { type: 'floors', hierarchyID: result.floorID }
+                : { type: 'drawings', hierarchyID: result.drawingID };
             // split search terms to highlight multiple words split by / or space
-            const multiSearchTerms = searchTerm
-                .split(/\/|\s/gi)
-                .map(term => term.toLowerCase());
-            const splitRegex = new RegExp(
-                `(${multiSearchTerms.join('|')})`,
-                'ig'
-            );
+            const multiSearchTerms = searchTerm.split(/\/|\s/gi).map(term => term.toLowerCase());
+            const splitRegex = new RegExp(`(${multiSearchTerms.join('|')})`, 'ig');
             // highlight searchterm
             const searchText = result.searchText.split(splitRegex);
             const searchTextComponent = (
@@ -76,8 +71,8 @@ class SearchContainer extends Component {
                                 {text}
                             </span>
                         ) : (
-                                text
-                            )
+                            text
+                        ),
                     )}
                 </span>
             );
@@ -103,11 +98,7 @@ class SearchContainer extends Component {
                 fetchSearchResults(value);
             }, 750);
         } else {
-            document.removeEventListener(
-                'click',
-                this.handleOutsideClick,
-                false
-            );
+            document.removeEventListener('click', this.handleOutsideClick, false);
             clearSearchResults();
         }
     };
@@ -124,18 +115,18 @@ class SearchContainer extends Component {
         const { resultsVisible } = this.state;
         if (!resultsVisible) return;
         document.removeEventListener('click', this.handleOutsideClick, false);
-        // this.setState({ resultsVisible: false });
+        this.setState({ resultsVisible: false });
     };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        searchReducer: { results, isFetching, error }
-    }
+        searchReducer: { results, isFetching, error },
+    },
 }) => ({
     results: Object.values(results),
     isFetching,
-    error
+    error,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -144,10 +135,7 @@ const mapDispatchToProps = dispatch => ({
     },
     clearSearchResults: () => {
         dispatch(clearSearchResults());
-    }
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SearchContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer);
