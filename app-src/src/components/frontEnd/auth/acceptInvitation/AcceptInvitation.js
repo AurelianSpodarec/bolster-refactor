@@ -1,7 +1,6 @@
 import postAcceptInvitation from 'actions/shared/auth/async/postAcceptInvitation';
 import FrontEndFormHeading from 'components/frontEnd/shared/forms/presentational/FrontEndFormHeading';
 import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
-import Field from 'components/shared/generic/form/presentational/Field';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import { pageMeta } from 'constants/frontEnd/meta';
 import { authenticate } from 'helpers/api';
@@ -10,6 +9,7 @@ import { usePrevious } from 'helpers/hooks';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const AcceptInvitation = () => {
     const history = useHistory();
@@ -39,16 +39,33 @@ const AcceptInvitation = () => {
         >
             <PageMeta meta={pageMeta.acceptInvitation} />
             <FrontEndFormHeading title="Accept Invitation" classes="smaller" />
-            <Field classes="auth-form-field">
-                {isPosting && <Loading />}
-                {!!error && (
-                    <p>
-                        Something went wrong. Please again. If this persists, contact Bolster
+            {isPosting && <Loading />}
+            {!!error && (
+                <div
+                    className="size-lg-12"
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'flex-start',
+                        height: '50%',
+                    }}
+                >
+                    <p style={{ fontSize: '1.5em', marginBottom: '1em' }}>
+                        Something went wrong. Please try again. If this persists, contact Bolster
                         support. ({error})
                     </p>
-                )}
-                {!!postSuccess && <p>Your invitation has been accepted, logging in...</p>}
-            </Field>
+                    <br />
+                    <p style={{ fontSize: '1.5em', marginBottom: '1em' }}>
+                        If you've already accepted this invitation but not set up your login
+                        credentials, please reset your password below
+                    </p>
+                    <Link className="button red" to="/auth/login?showForgotPassword=true">
+                        Reset password
+                    </Link>
+                </div>
+            )}
+            {!!postSuccess && <p>Your invitation has been accepted, logging in...</p>}
         </div>
     );
 

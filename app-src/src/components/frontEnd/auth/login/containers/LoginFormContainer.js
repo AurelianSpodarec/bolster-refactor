@@ -15,6 +15,7 @@ import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 import fetchAuthAreaText from 'actions/frontEnd/auth/fetchAuthAreaText';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 const LoginFormContainer = ({
     showModal,
@@ -30,7 +31,11 @@ const LoginFormContainer = ({
     auth,
     showTwoFactor,
     emailConfirmationRequired,
+    hideModal,
 }) => {
+    const useQuery = () => new URLSearchParams(location.search);
+    const query = useQuery();
+    const showForgotPassword = query.get('showForgotPassword');
     const [formData, handleChange] = useForm({ email: '', password: '', twoFactorCode: null });
     const prevProps = usePrevious({
         postSuccess,
@@ -44,6 +49,11 @@ const LoginFormContainer = ({
         if (history.action.includes('REPLACE')) {
             window.location.reload();
         }
+        if (showForgotPassword) {
+            handleForgotPassword();
+        }
+
+        return () => hideModal();
     }, []);
 
     useEffect(() => {
@@ -159,6 +169,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = {
     showModal,
+    hideModal,
     addFieldError,
     showFieldErrors,
     fetchCompanySettings,
