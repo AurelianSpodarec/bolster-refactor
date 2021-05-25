@@ -1,11 +1,15 @@
+import deleteCompanyUserInvite from 'actions/companyAdmin/userManagement/async/deleteCompanyUserInvite';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-const InvitedOperativesListItem = ({
-    user: { userFirstName, userLastName, userEmail },
-    headers,
-}) => {
+const InvitedOperativesListItem = ({ user, headers }) => {
+    const { userFirstName, userLastName, userEmail, id } = user;
+
     const { onMobile } = useSelector(mapStateToProps);
+    const dispatch = useDispatch();
+    const handleDelete = () => {
+        dispatch(deleteCompanyUserInvite(id, user));
+    };
 
     return (
         <tr>
@@ -17,7 +21,13 @@ const InvitedOperativesListItem = ({
                 {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
                 {userEmail}
             </td>
-            <td>{onMobile && <span className="mobile-table-heading">{headers[2]}</span>}</td>
+            <td>
+                {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}{' '}
+                <button className="button red" onClick={handleDelete}>
+                    <i className="fas fa-trash" />
+                    Delete Invite
+                </button>
+            </td>
         </tr>
     );
 };
