@@ -29,6 +29,7 @@ export default function (ProtectedComponent) {
                     fieldError={showError || errorsVisible ? fieldError : null}
                     postFilters={this.postFilters}
                     formatArrForDropdown={this.formatArrForDropdown}
+                    formatArrForDropdownOperative={this.formatArrForDropdownOperative}
                     validate={this.validate}
                     showFieldError={this.showFieldError}
                     getPostBody={this._getPostBody}
@@ -46,6 +47,16 @@ export default function (ProtectedComponent) {
             }));
 
             return asObj ? convertArrToObj(options, 'value') : options;
+        };
+
+        formatArrForDropdownOperative = arr => {
+            const options = arr.map(({ id, name, companyName }) => ({
+                value: id,
+                label: `${name} (${companyName || ''})`,
+                text: `${name} (${companyName || ''})`,
+            }));
+
+            return options;
         };
 
         validate = errorMessage => {
@@ -273,9 +284,8 @@ export default function (ProtectedComponent) {
                       .toISOString()
                 : null;
 
-
             const serviceIDs = serviceID
-                ? [+serviceID] 
+                ? [+serviceID]
                 : customFilters.services.map(({ id }) => id);
 
             const body = {
@@ -427,6 +437,8 @@ export default function (ProtectedComponent) {
         const selectedDrawingIDs = selectedFloor.drawingIDs || [];
         const drawings = selectedDrawingIDs.map(id => drawingsReducer.drawings[id]);
 
+        const selectedDrawing = drawingsReducer.drawings[filters.drawingID] || {};
+
         return {
             fieldErrors,
             fieldError: fieldErrors[blockName],
@@ -452,6 +464,8 @@ export default function (ProtectedComponent) {
             includedDrawingsIDs,
             zonesObj: zones,
             companyID,
+            drawingCompanyID: selectedDrawing.ownerCompanyID,
+            isDrawingOwner: companyID === selectedDrawing.ownerCompanyID,
         };
     };
 

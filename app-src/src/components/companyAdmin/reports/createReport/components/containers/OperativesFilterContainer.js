@@ -7,16 +7,22 @@ import OperativesFilter from '../presentational/OperativesFilter';
 class OperativesFilterContainer extends Component {
     render() {
         const {
-            formatArrForDropdown,
+            formatArrForDropdownOperative,
             customFilters: { operatives },
             filters: { companyUserIDs },
             sizeClasses,
             isDrawingPage,
+            isDrawingOwner,
+            drawingCompanyID,
         } = this.props;
+
+        const filteredOperatives = isDrawingOwner
+            ? operatives
+            : operatives.filter(item => item.companyID === drawingCompanyID);
 
         return (
             <OperativesFilter
-                operativeOptions={formatArrForDropdown(operatives)}
+                operativeOptions={formatArrForDropdownOperative(filteredOperatives)}
                 selectedOperatives={companyUserIDs}
                 handleChange={this.handleChange}
                 sizeClasses={sizeClasses}
