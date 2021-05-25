@@ -15,20 +15,30 @@ import {
 } from 'constants/shared/modalTypes';
 import deleteBuilding from 'actions/companyAdmin/buildings/async/deleteBuilding';
 import archiveBuilding from 'actions/companyAdmin/buildings/async/archiveBuilding';
-import { isObjEmpty } from 'helpers/generic';
+import { isEmpty, isObjEmpty } from 'helpers/generic';
 
 class BuildingDetailsContainer extends Component {
     state = {
         serviceID: null,
+        companyID: null,
     };
     render() {
         const { building, stats, isFetching, error, onMobile, serviceIDs, services } = this.props;
-        const { serviceID } = this.state;
+        const { serviceID, companyID } = this.state;
         const filteredServices = services.filter(service => serviceIDs.includes(service.id));
         const servicesForDropdown = filteredServices.map(service => ({
             value: service.id,
             text: service.name,
         }));
+        const companiesForDropdown = !isEmpty(stats)
+            ? Object.entries(stats.statusesByCompany).map(([key]) => {
+                  const [name] = key.split('#');
+                  return {
+                      value: key,
+                      text: name,
+                  };
+              })
+            : [];
         return (
             <BlockContainer
                 error={error}
@@ -45,6 +55,8 @@ class BuildingDetailsContainer extends Component {
                     handleChange={this.handleChange}
                     serviceOptions={servicesForDropdown}
                     serviceID={serviceID}
+                    companyID={companyID}
+                    companyOptions={companiesForDropdown}
                 />
             </BlockContainer>
         );

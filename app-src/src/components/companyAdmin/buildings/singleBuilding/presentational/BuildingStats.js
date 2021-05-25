@@ -14,6 +14,8 @@ const BuildingStats = ({
     handleChange,
     serviceID,
     serviceOptions,
+    companyID,
+    companyOptions,
 }) => (
     <div className="stats size-lg-12">
         <div className="flex-item size-lg-12">
@@ -27,6 +29,8 @@ const BuildingStats = ({
                 handleChange={handleChange}
                 serviceOptions={serviceOptions}
                 serviceID={serviceID}
+                companyID={companyID}
+                companyOptions={companyOptions}
             />
         </div>
 

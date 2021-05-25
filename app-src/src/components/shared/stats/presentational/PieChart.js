@@ -23,10 +23,16 @@ const PieChart = ({
     isFiltered,
     serviceID,
     serviceOptions,
+    companyID,
+    companyOptions,
     handleChange,
     // style
 }) => {
-    const statsToUse = serviceID ? stats.statusesByService[serviceID] || {} : stats.statuses;
+    const statsToUse = serviceID
+        ? stats.statusesByService[serviceID] || {}
+        : companyID
+        ? stats.statusesByCompany[companyID] || {}
+        : stats.statuses;
     const isStatsEmpty = !statsToUse || Object.values(statsToUse).every(stat => stat === 0);
 
     const total = Object.values(statsToUse).reduce((acc, val) => {
@@ -62,6 +68,18 @@ const PieChart = ({
                         value={serviceOptions.find(opt => opt.value === +serviceID)}
                         options={serviceOptions}
                         placeholder="All Services"
+                    />
+                </Field>
+            )}
+
+            {!!serviceOptions && (
+                <Field name="Filter histories by companies">
+                    <DropdownContainer
+                        handleChange={handleChange}
+                        name="companyID"
+                        value={companyOptions.find(opt => opt.value === companyID)}
+                        options={companyOptions}
+                        placeholder="All Companies"
                     />
                 </Field>
             )}

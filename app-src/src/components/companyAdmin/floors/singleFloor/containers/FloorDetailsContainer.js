@@ -15,20 +15,31 @@ import {
     EDIT_FLOOR,
 } from 'constants/shared/modalTypes';
 import archiveFloor from 'actions/companyAdmin/floors/async/archiveFloor';
+import { isEmpty } from 'helpers/generic';
 
 class FloorDetailsContainer extends Component {
     state = {
         serviceID: null,
+        companyID: null,
     };
     render() {
         const { floor, stats, error, isFetching, onMobile, services, serviceIDs } = this.props;
 
-        const { serviceID } = this.state;
+        const { serviceID, companyID } = this.state;
         const filteredServices = services.filter(service => serviceIDs.includes(service.id));
         const servicesForDropdown = filteredServices.map(service => ({
             value: service.id,
             text: service.name,
         }));
+        const companiesForDropdown = !isEmpty(stats)
+            ? Object.entries(stats.statusesByCompany).map(([key]) => {
+                  const [name] = key.split('#');
+                  return {
+                      value: key,
+                      text: name,
+                  };
+              })
+            : [];
         return (
             <BlockContainer
                 error={error}
@@ -45,6 +56,8 @@ class FloorDetailsContainer extends Component {
                     handleChange={this.handleChange}
                     serviceOptions={servicesForDropdown}
                     serviceID={serviceID}
+                    companyID={companyID}
+                    companyOptions={companiesForDropdown}
                 />
             </BlockContainer>
         );

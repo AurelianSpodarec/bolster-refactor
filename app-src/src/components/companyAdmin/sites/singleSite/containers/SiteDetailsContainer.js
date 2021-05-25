@@ -15,19 +15,30 @@ import {
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import deleteSite from 'actions/companyAdmin/sites/async/deleteSite';
 import archiveSite from 'actions/companyAdmin/sites/async/archiveSite';
+import { isEmpty } from 'helpers/generic';
 
 class SiteDetailsContainer extends Component {
     state = {
         serviceID: null,
+        companyID: null,
     };
     render() {
         const { site, error, isFetching, stats, onMobile, serviceIDs, services } = this.props;
-        const { serviceID } = this.state;
+        const { serviceID, companyID } = this.state;
         const filteredServices = services.filter(service => serviceIDs.includes(service.id));
         const servicesForDropdown = filteredServices.map(service => ({
             value: service.id,
             text: service.name,
         }));
+        const companiesForDropdown = !isEmpty(stats)
+            ? Object.entries(stats.statusesByCompany).map(([key]) => {
+                  const [name] = key.split('#');
+                  return {
+                      value: key,
+                      text: name,
+                  };
+              })
+            : [];
         return (
             <BlockContainer
                 error={error}
@@ -44,21 +55,16 @@ class SiteDetailsContainer extends Component {
                     handleChange={this.handleChange}
                     serviceOptions={servicesForDropdown}
                     serviceID={serviceID}
+                    companyID={companyID}
+                    companyOptions={companiesForDropdown}
                 />
             </BlockContainer>
         );
     }
 
     componentDidUpdate = prevProps => {
-        const {
-            error,
-            deleteSuccess,
-            postSuccess,
-            postFailure,
-            history,
-            showModal,
-            hideModal,
-        } = this.props;
+        const { error, deleteSuccess, postSuccess, postFailure, history, showModal, hideModal } =
+            this.props;
         if (deleteSuccess && !prevProps.deleteSuccess) {
             hideModal();
             history.push('/company/sites');
@@ -111,12 +117,16 @@ class SiteDetailsContainer extends Component {
         });
     };
 
-    handleChange = (name, value) => this.setState({ [name]: value });
+    handleChange = (name, value) => {
+        const otherState = name === 'serviceID' ? 'companyID' : 'serviceID';
+        this.setState({ [name]: value, [otherState]: null });
+    };
 }
 
 const mapStateToProps = (
     {
         companyAdmin: {
+            // companiesReducer: { companies },
             sitesReducer: { sites, postSuccess, isFetching, error, deleteSuccess, postFailure },
             statsReducer: { stats, isFetching: fetchingStats },
             subscriptionsReducer: {
@@ -130,6 +140,7 @@ const mapStateToProps = (
     },
     { match },
 ) => ({
+    // companies: Object.values(companies),
     postSuccess,
     site: sites[match.params.id] || {},
     isFetching: isFetching || fetchingStats,

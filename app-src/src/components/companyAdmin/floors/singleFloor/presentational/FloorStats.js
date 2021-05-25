@@ -14,6 +14,8 @@ const FloorStats = ({
     handleChange,
     serviceID,
     serviceOptions,
+    companyID,
+    companyOptions,
 }) => (
     <div className="stats size-lg-12">
         <FloorDetails stats={stats} floor={floor} />
@@ -25,6 +27,8 @@ const FloorStats = ({
             handleChange={handleChange}
             serviceOptions={serviceOptions}
             serviceID={serviceID}
+            companyID={companyID}
+            companyOptions={companyOptions}
         />
 
         <div className="button-container relative-position">
