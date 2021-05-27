@@ -11,12 +11,28 @@ import fetchSingleCompanyUser from 'actions/companyAdmin/userManagement/async/fe
 
 class PinHistoryDetailsItemContainer extends Component {
     render() {
-        const { history, services, drawingID, historyCount, isLoading, users, pin } = this.props;
+        const {
+            history,
+            services,
+            drawingID,
+            historyCount,
+            isLoading,
+            isFetching,
+            users,
+            pin,
+            templates,
+        } = this.props;
 
         const editedByUser = users[history.lastEditedByCompanyUserID];
         const editedByUserName = editedByUser
             ? `${editedByUser.userFirstName} ${editedByUser.userLastName}`
             : null;
+
+        const createdByUser = users[pin.createdByCompanyUserID];
+        const addedByCompany = `${createdByUser.formattedOperativeCode} (${createdByUser.companyName})`;
+
+        const template = templates[pin.templateID];
+        const templateName = template ? template.name : null;
 
         return isLoading ? (
             <Loading />
@@ -30,6 +46,8 @@ class PinHistoryDetailsItemContainer extends Component {
                 editedByUserName={editedByUserName}
                 isDeleteHistory={historyCount > 1}
                 pin={pin}
+                addedByCompany={addedByCompany}
+                templateName={templateName}
             />
         );
     }
@@ -38,9 +56,11 @@ class PinHistoryDetailsItemContainer extends Component {
         const {
             history: { lastEditedByCompanyUserID },
             users,
-            fetchSingleCompanyUser
+            fetchSingleCompanyUser,
         } = this.props;
+
         const user = users[lastEditedByCompanyUserID];
+
         if (lastEditedByCompanyUserID && !user) {
             fetchSingleCompanyUser(lastEditedByCompanyUserID);
         }
@@ -72,20 +92,19 @@ const mapStateToProps = (
             servicesReducer: { services },
             pinHistoriesReducer: { histories },
             pinsReducer: { singlePin, isFetching: isFetchingPin },
-            companyUsersReducer: { users }
-        }
+            companyUsersReducer: { users },
+            templatesReducer: { pinTemplates, isFetching: isFetchingTemplate },
+        },
     },
-    ownProps
+    ownProps,
 ) => ({
     services,
-    isFetchingPin,
+    isFetching: isFetchingPin && isFetchingTemplate,
     histories: Object.values(histories),
     users,
-    pin: singlePin[ownProps.history.pinID]
+    pin: singlePin[ownProps.history.pinID],
+    templates: pinTemplates,
 });
 
 const mapDispatchToProps = { showModal, hideModal, deletePinHistory, fetchSingleCompanyUser };
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PinHistoryDetailsItemContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(PinHistoryDetailsItemContainer);

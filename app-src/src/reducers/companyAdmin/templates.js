@@ -4,12 +4,12 @@ import { convertArrToObj } from 'helpers/generic';
 import {
     FETCH_PIN_TEMPLATES_REQUEST,
     FETCH_PIN_TEMPLATES_SUCCESS,
-    FETCH_PIN_TEMPLATES_FAILURE
+    FETCH_PIN_TEMPLATES_FAILURE,
 } from 'constants/actionTypes/pins';
 import {
     FETCH_DRAWING_TEMPLATES_REQUEST,
     FETCH_DRAWING_TEMPLATES_SUCCESS,
-    FETCH_DRAWING_TEMPLATES_FAILURE
+    FETCH_DRAWING_TEMPLATES_FAILURE,
 } from 'constants/actionTypes/drawings';
 import {
     FETCH_ALL_TEMPLATES_REQUEST,
@@ -17,7 +17,7 @@ import {
     FETCH_ALL_TEMPLATES_FAILURE,
     EDIT_TEMPLATE_QUESTION_FAILURE,
     EDIT_TEMPLATE_QUESTION_REQUEST,
-    EDIT_TEMPLATE_QUESTION_SUCCESS
+    EDIT_TEMPLATE_QUESTION_SUCCESS,
 } from 'constants/actionTypes/templates';
 
 export default combineReducers({
@@ -25,7 +25,8 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
     postSuccess: postSuccessReducer,
-    postFailure: postFailureReducer
+    postFailure: postFailureReducer,
+    pinTemplates: pinTemplatesReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -89,6 +90,15 @@ function templatesReducer(state = {}, action) {
         case FETCH_PIN_TEMPLATES_SUCCESS:
         case FETCH_DRAWING_TEMPLATES_SUCCESS:
         case FETCH_ALL_TEMPLATES_SUCCESS:
+            return convertArrToObj(action.payload.templates);
+        default:
+            return state;
+    }
+}
+
+function pinTemplatesReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_PIN_TEMPLATES_SUCCESS:
             return convertArrToObj(action.payload.templates);
         default:
             return state;
