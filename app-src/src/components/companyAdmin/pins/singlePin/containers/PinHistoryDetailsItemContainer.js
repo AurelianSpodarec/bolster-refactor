@@ -8,6 +8,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import fetchSingleCompanyUser from 'actions/companyAdmin/userManagement/async/fetchSingleCompanyUser';
+import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
 class PinHistoryDetailsItemContainer extends Component {
     render() {
@@ -17,10 +18,10 @@ class PinHistoryDetailsItemContainer extends Component {
             drawingID,
             historyCount,
             isLoading,
-            isFetching,
             users,
             pin,
             templates,
+            isFetching,
         } = this.props;
 
         const editedByUser = users[history.lastEditedByCompanyUserID];
@@ -28,13 +29,15 @@ class PinHistoryDetailsItemContainer extends Component {
             ? `${editedByUser.userFirstName} ${editedByUser.userLastName}`
             : null;
 
-        const createdByUser = users[pin.createdByCompanyUserID];
-        const addedByCompany = `${createdByUser.formattedOperativeCode} (${createdByUser.companyName})`;
+        const createdByUser = users[history.createdByCompanyUserID];
+        const addedByCompany = createdByUser
+            ? `${createdByUser.formattedOperativeCode} (${createdByUser.companyName})`
+            : null;
 
-        const template = templates[pin.templateID];
+        const template = pin ? templates[pin.templateID] : null;
         const templateName = template ? template.name : null;
 
-        return isLoading ? (
+        return isLoading && isFetching ? (
             <Loading />
         ) : (
             <PinHistoryDetailsItem
@@ -53,17 +56,9 @@ class PinHistoryDetailsItemContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            history: { lastEditedByCompanyUserID },
-            users,
-            fetchSingleCompanyUser,
-        } = this.props;
+        const { fetchCompanyUsers } = this.props;
 
-        const user = users[lastEditedByCompanyUserID];
-
-        if (lastEditedByCompanyUserID && !user) {
-            fetchSingleCompanyUser(lastEditedByCompanyUserID);
-        }
+        fetchCompanyUsers();
     };
 
     handleEditHistoryModal = () => {
@@ -92,19 +87,25 @@ const mapStateToProps = (
             servicesReducer: { services },
             pinHistoriesReducer: { histories },
             pinsReducer: { singlePin, isFetching: isFetchingPin },
-            companyUsersReducer: { users },
+            companyUsersReducer: { users, isFetching: isFetchingUsers },
             templatesReducer: { pinTemplates, isFetching: isFetchingTemplate },
         },
     },
     ownProps,
 ) => ({
     services,
-    isFetching: isFetchingPin && isFetchingTemplate,
+    isFetching: isFetchingPin || isFetchingTemplate || isFetchingUsers,
     histories: Object.values(histories),
     users,
     pin: singlePin[ownProps.history.pinID],
     templates: pinTemplates,
 });
 
-const mapDispatchToProps = { showModal, hideModal, deletePinHistory, fetchSingleCompanyUser };
+const mapDispatchToProps = {
+    showModal,
+    hideModal,
+    deletePinHistory,
+    fetchSingleCompanyUser,
+    fetchCompanyUsers,
+};
 export default connect(mapStateToProps, mapDispatchToProps)(PinHistoryDetailsItemContainer);
