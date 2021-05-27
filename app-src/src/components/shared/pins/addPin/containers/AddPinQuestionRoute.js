@@ -170,7 +170,9 @@ class AddPinQuestionRoute extends Component {
                 }
 
                 const retArray = [];
-
+                if (!Array.isArray(preReqAnswer)) {
+                    preReqAnswer = preReqAnswer.toString().split(',');
+                }
                 preReqAnswer.forEach(curAnswer => {
                     const selectedOption = preReqQuestion.options.find(
                         option => option.id === curAnswer,
@@ -210,22 +212,28 @@ class AddPinQuestionRoute extends Component {
             }
 
             if (Array.isArray(preReqAnswer)) {
-                return preReqAnswer.some(answer =>  prereqVals.some(val => {
-                    if (!val.includes('#PREREQ_ID_')) {
-                        return val.toLowerCase() === `${answer}`.toLowerCase();
-                    }
+                return preReqAnswer.some(answer =>
+                    prereqVals.some(val => {
+                        if (!val.includes('#PREREQ_ID_')) {
+                            return val.toLowerCase() === `${answer}`.toLowerCase();
+                        }
 
-                    return val.toLowerCase() === `${answer}#PREREQ_ID_${preReqQuestion.id}`.toLowerCase();
-                }));
-            } 
-            else {
-                
+                        return (
+                            val.toLowerCase() ===
+                            `${answer}#PREREQ_ID_${preReqQuestion.id}`.toLowerCase()
+                        );
+                    }),
+                );
+            } else {
                 return prereqVals.some(val => {
                     if (!val.includes('#PREREQ_ID_')) {
                         return val.toLowerCase() === `${preReqAnswer}`.toLowerCase();
                     }
-                    
-                    return val.toLowerCase() === `${preReqAnswer}#PREREQ_ID_${preReqQuestion.id}`.toLowerCase();
+
+                    return (
+                        val.toLowerCase() ===
+                        `${preReqAnswer}#PREREQ_ID_${preReqQuestion.id}`.toLowerCase()
+                    );
                 });
             }
         });
@@ -390,13 +398,8 @@ class AddPinQuestionRoute extends Component {
     };
 
     handlePrefillDifferentTemplateQuestion = () => {
-        const {
-            oldAnswersByNameObj,
-            question,
-            questions,
-            sectionIDs,
-            updateAddPinAnswer,
-        } = this.props;
+        const { oldAnswersByNameObj, question, questions, sectionIDs, updateAddPinAnswer } =
+            this.props;
 
         const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
         const oldAnswersMatchingName = oldAnswersByNameObj[question.name] || [];
@@ -470,7 +473,6 @@ class AddPinQuestionRoute extends Component {
 
     handleSignatureChange = d => {
         const { updateAddPinAnswer, question } = this.props;
-        console.log({ d });
         updateAddPinAnswer(question.id, d);
     };
 
