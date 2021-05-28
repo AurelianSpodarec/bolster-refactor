@@ -112,6 +112,7 @@ import {
     REACTIVATE_USER,
     DISABLE_USER,
     ENABLE_USER,
+    RESEND_INVITE,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -226,6 +227,7 @@ import RecoverUserModal from 'components/companyAdmin/userManagement/shared/moda
 import ReactivateUserModal from 'components/companyAdmin/userManagement/operatives/inactiveOperatives/modals/ReactivateUserModal';
 import DisableUserModal from 'components/companyAdmin/userManagement/shared/modals/DisableUserModal';
 import EnableUserModal from 'components/companyAdmin/userManagement/shared/modals/EnableUserModal';
+import ResendInviteModal from 'components/companyAdmin/userManagement/shared/modals/ResendInviteModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -338,6 +340,7 @@ const MODAL_COMPONENTS = {
     [REACTIVATE_USER]: ReactivateUserModal,
     [DISABLE_USER]: DisableUserModal,
     [ENABLE_USER]: EnableUserModal,
+    [RESEND_INVITE]: ResendInviteModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

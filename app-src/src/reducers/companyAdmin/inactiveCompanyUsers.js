@@ -19,6 +19,9 @@ import {
     DISABLE_COMPANY_USER_FAILURE,
     DELETE_COMPANY_USER_SUCCESS,
     CREATE_COMPANY_USER_SUCCESS,
+    RESEND_COMPANY_USER_INVITE_REQUEST,
+    RESEND_COMPANY_USER_INVITE_SUCCESS,
+    RESEND_COMPANY_USER_INVITE_FAILURE,
     DELETE_COMPANY_USER_INVITE_REQUEST,
     DELETE_COMPANY_USER_INVITE_FAILURE,
     DELETE_COMPANY_USER_INVITE_SUCCESS,
@@ -55,6 +58,7 @@ function isPostingReducer(state = false, action) {
         case REACTIVATE_COMPANY_USER_REQUEST:
         case ENABLE_COMPANY_USER_REQUEST:
         case DISABLE_COMPANY_USER_REQUEST:
+        case RESEND_COMPANY_USER_INVITE_REQUEST:
         case DELETE_COMPANY_USER_INVITE_REQUEST:
             return true;
         case RECOVER_COMPANY_USER_SUCCESS:
@@ -65,6 +69,8 @@ function isPostingReducer(state = false, action) {
         case ENABLE_COMPANY_USER_FAILURE:
         case DISABLE_COMPANY_USER_SUCCESS:
         case DISABLE_COMPANY_USER_FAILURE:
+        case RESEND_COMPANY_USER_INVITE_FAILURE:
+        case RESEND_COMPANY_USER_INVITE_SUCCESS:
         case DELETE_COMPANY_USER_INVITE_FAILURE:
         case DELETE_COMPANY_USER_INVITE_SUCCESS:
             return false;
@@ -90,12 +96,14 @@ function postErrorReducer(state = null, action) {
         case REACTIVATE_COMPANY_USER_REQUEST:
         case ENABLE_COMPANY_USER_REQUEST:
         case DISABLE_COMPANY_USER_REQUEST:
+        case RESEND_COMPANY_USER_INVITE_REQUEST:
         case DELETE_COMPANY_USER_INVITE_REQUEST:
             return null;
         case RECOVER_COMPANY_USER_FAILURE:
         case REACTIVATE_COMPANY_USER_FAILURE:
         case ENABLE_COMPANY_USER_FAILURE:
         case DISABLE_COMPANY_USER_FAILURE:
+        case RESEND_COMPANY_USER_INVITE_FAILURE:
         case DELETE_COMPANY_USER_INVITE_FAILURE:
             return action.error;
         default:
@@ -109,11 +117,13 @@ function postSuccessReducer(state = false, action) {
         case REACTIVATE_COMPANY_USER_REQUEST:
         case ENABLE_COMPANY_USER_REQUEST:
         case DISABLE_COMPANY_USER_REQUEST:
+        case RESEND_COMPANY_USER_INVITE_REQUEST:
             return false;
         case RECOVER_COMPANY_USER_SUCCESS:
         case REACTIVATE_COMPANY_USER_SUCCESS:
         case ENABLE_COMPANY_USER_SUCCESS:
         case DISABLE_COMPANY_USER_SUCCESS:
+        case RESEND_COMPANY_USER_INVITE_SUCCESS:
             return true;
         default:
             return state;
