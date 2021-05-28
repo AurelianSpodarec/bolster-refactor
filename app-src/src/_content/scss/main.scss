@@ -6473,10 +6473,7 @@ input {
     }
 }
 
-.react-datepicker-popper {
-    transform: translate3d(-164px, 35px, 0px) !important;
-
-    .react-datepicker {
-        display: inline-flex;
-    }
+.react-daterange-picker__wrapper {
+    padding: 8px 4px;
+    font-size: 12px;
 }

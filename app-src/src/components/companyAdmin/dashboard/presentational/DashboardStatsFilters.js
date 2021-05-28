@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
-import ReactDatePicker from 'react-datepicker';
+// import ReactDatePicker from 'react-datepicker';
+import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 
 const DashboardStatsFilters = ({
     serviceOptions,
@@ -43,7 +44,7 @@ const DashboardStatsFilters = ({
                         />
                     </div>
                 </div>
-                <div className="flex item ">
+                {/* <div className="flex item ">
                     <p className="">Dates</p>
                     <div className="flex">
                         <ReactDatePicker
@@ -52,6 +53,18 @@ const DashboardStatsFilters = ({
                             endDate={selectedEndDate}
                             onChange={date => handleDateChange('dates', date)}
                             monthsShown={2}
+                        />
+                    </div>
+                </div> */}
+                <div className="flex item ">
+                    <p className="">Dates</p>
+                    <div className="flex">
+                        <DateRangePicker
+                            onChange={date => handleDateChange('dates', date)}
+                            value={[selectedStartDate, selectedEndDate]}
+                            showDoubleView
+                            calendarIcon={null}
+                            clearIcon={null}
                         />
                     </div>
                 </div>
