@@ -6472,3 +6472,11 @@ input {
         margin-top: 32px;
     }
 }
+
+.react-datepicker-popper {
+    transform: translate3d(-164px, 35px, 0px) !important;
+
+    .react-datepicker {
+        display: inline-flex;
+    }
+}

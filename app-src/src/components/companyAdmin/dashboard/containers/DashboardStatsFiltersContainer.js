@@ -13,7 +13,9 @@ import { isEmpty } from 'helpers/generic';
 class DashboardStatsFiltersContainer extends Component {
     state = {
         serviceOptions: {},
-        statusOptions: {}
+        statusOptions: {},
+        monthOptions: {},
+        selectedMonth: {},
     };
 
     render() {
@@ -35,6 +37,12 @@ class DashboardStatsFiltersContainer extends Component {
                     selectedStartDate={filters.startDate}
                     selectedEndDate={filters.endDate}
                     handleDateChange={this.handleDateChange}
+                    handleMonthChange={this.handleMonthChange}
+                    monthOptions={Object.keys(this.state.monthOptions).map(item => ({
+                        text: item,
+                        value: item,
+                    }))}
+                    selectedMonth={this.state.selectedMonth}
                     handleChange={this.handleChange}
                     today={today}
                 />
@@ -49,38 +57,41 @@ class DashboardStatsFiltersContainer extends Component {
         if (name === 'serviceID') localStorage.setItem('selectedService', value);
         if (name === 'status') localStorage.setItem('selectedStatus', value);
     };
+
     handleDateChange = (name, date) => {
-        const {
-            updateDashboardFilters,
-            filters: { startDate, endDate }
-        } = this.props;
-        if (name === 'startDate') {
-            const diffFromEnd = Math.abs(moment(endDate).diff(date, 'days'));
-            if (diffFromEnd > 30) {
-                const newEnd = moment(date)
-                    .add(30, 'days')
-                    .toDate();
-                updateDashboardFilters('endDate', newEnd);
-            }
-            localStorage.setItem('selectedStartDate', date);
-        } else if (name === 'endDate') {
-            const diffFromStart = Math.abs(moment(startDate).diff(date, 'days'));
-            if (diffFromStart > 30) {
-                const newStart = moment(date)
-                    .subtract(30, 'days')
-                    .toDate();
-                updateDashboardFilters('startDate', newStart);
-            }
-            localStorage.setItem('selectedEndDate', date);
+        const { updateDashboardFilters } = this.props;
+
+        const [startDateValue, endDateValue] = date;
+
+        const diffFromEnd = Math.abs(moment(endDateValue).diff(startDateValue, 'days'));
+
+        if (diffFromEnd > 90) {
+            const newEnd = moment(date).add(90, 'days').toDate();
+            updateDashboardFilters('startDate', startDateValue);
+            updateDashboardFilters('endDate', newEnd);
+        } else {
+            updateDashboardFilters('startDate', startDateValue);
+            updateDashboardFilters('endDate', endDateValue);
         }
-        updateDashboardFilters(name, date);
+        localStorage.setItem('selectedStartDate', startDateValue);
+        localStorage.setItem('selectedEndDate', endDateValue);
+    };
+
+    handleMonthChange = (name, month) => {
+        const { updateDashboardFilters } = this.props;
+
+        const { monthOptions } = this.state;
+
+        updateDashboardFilters('startDate', monthOptions[month].startDate);
+        updateDashboardFilters('endDate', monthOptions[month].endDate);
+
+        this.setState({ selectedMonth: { text: month } });
     };
 
     componentDidMount = () => {
-
         const statusOptions = Object.entries(PIN_STATUS_TYPES).map(([key, value]) => ({
             text: value,
-            value: key
+            value: key,
         }));
 
         const statusOptionsUpdated = Object.values(statusOptions).reduce((acc, { value, text }) => {
@@ -88,8 +99,10 @@ class DashboardStatsFiltersContainer extends Component {
         }, {});
 
         this.setState({
-            statusOptions: statusOptionsUpdated
+            statusOptions: statusOptionsUpdated,
         });
+
+        this.createMonthDropdown();
     };
 
     componentDidUpdate = prevProps => {
@@ -104,7 +117,7 @@ class DashboardStatsFiltersContainer extends Component {
     _getRelevantServices = () => {
         const {
             services,
-            subscriptions: { serviceIDs }
+            subscriptions: { serviceIDs },
         } = this.props;
 
         const arrServices = Object.values(services);
@@ -115,6 +128,25 @@ class DashboardStatsFiltersContainer extends Component {
                 return { ...acc, [id]: { value: id, text: name } };
             }, {});
     };
+
+    createMonthDropdown = () => {
+        const months = new Array(12).fill(0);
+        const monthsOptions = months.reduce((acc, _, index) => {
+            const prevMonth = moment().subtract(index, 'months');
+            const label = prevMonth.format('MMM YYYY');
+            const startDate = prevMonth.startOf('month').toDate();
+            const endDate = prevMonth.endOf('month').toDate();
+
+            acc[label] = {
+                startDate,
+                endDate,
+            };
+
+            return acc;
+        }, {});
+
+        this.setState({ monthOptions: monthsOptions });
+    };
 }
 
 const mapStateToProps = ({
@@ -123,24 +155,21 @@ const mapStateToProps = ({
         subscriptionsReducer: {
             subscriptions,
             isFetching: isFetchingSubscriptions,
-            error: subscriptionsError
+            error: subscriptionsError,
         },
-        dashboardReducer: { filters }
-    }
+        dashboardReducer: { filters },
+    },
 }) => ({
     services: services || {},
     subscriptions: subscriptions || [],
     isFetching: isFetchingServices || isFetchingSubscriptions,
     error: servicesError || subscriptionsError,
-    filters
+    filters,
 });
 
 const mapDispatchToProps = {
     updateDashboardFilters,
-    fetchPinStats
+    fetchPinStats,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(DashboardStatsFiltersContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardStatsFiltersContainer);
