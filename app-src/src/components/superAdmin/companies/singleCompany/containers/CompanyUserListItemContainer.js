@@ -8,7 +8,7 @@ import { ADMIN_LATEST_SYNCS } from 'constants/shared/modalTypes';
 
 const CompanyUserListItemContainer = ({ user, showModal, tableColumnWidths }) => {
     const handleModalClick = () => {
-        showModal(ADMIN_LATEST_SYNCS, { id: user.id });
+        showModal(ADMIN_LATEST_SYNCS, { id: user.id, companyID: user.companyID });
     };
     return (
         <CompanyUserListItem
