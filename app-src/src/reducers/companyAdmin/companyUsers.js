@@ -174,8 +174,12 @@ function companyUsersReducer(state = {}, action) {
                 linkedDeviceName: null,
             });
         }
-        case RECOVER_COMPANY_USER_SUCCESS:
-            return updateObj(state, action.user.id, action.user);
+        case RECOVER_COMPANY_USER_SUCCESS: {
+            if (action.user.isAccepted) {
+                return updateObj(state, action.user.id, action.user);
+            }
+            return state;
+        }
         case ENABLE_COMPANY_USER_SUCCESS:
             return updateObj(state, action.user.id, action.user);
         case DISABLE_COMPANY_USER_SUCCESS:

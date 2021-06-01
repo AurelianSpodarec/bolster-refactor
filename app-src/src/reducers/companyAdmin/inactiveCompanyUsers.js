@@ -151,6 +151,12 @@ function invitedCompanyUsersReducer(state = {}, action) {
             return updateObj(state, action.payload.id, action.payload);
         case DELETE_COMPANY_USER_INVITE_SUCCESS:
             return removeObjItem(state, action.payload.id);
+        case RECOVER_COMPANY_USER_SUCCESS: {
+            if (!action.user.isAccepted) {
+                return updateObj(state, action.user.id, action.user);
+            }
+            return state;
+        }
         default:
             return state;
     }
@@ -164,6 +170,8 @@ function deletedCompanyUsersReducer(state = {}, action) {
             return removeObjItem(state, action.user.id);
         case DELETE_COMPANY_USER_SUCCESS:
             return updateObj(state, action.user.id, action.user);
+        case DELETE_COMPANY_USER_INVITE_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }
