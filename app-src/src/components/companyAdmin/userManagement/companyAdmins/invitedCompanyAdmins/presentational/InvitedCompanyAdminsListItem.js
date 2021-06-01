@@ -1,6 +1,10 @@
 import React from 'react';
-import deleteCompanyUserInvite from 'actions/companyAdmin/userManagement/async/deleteCompanyUserInvite';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import deleteCompanyUserInvite from 'actions/companyAdmin/userManagement/async/deleteCompanyUserInvite';
+
+import { RESEND_INVITE } from 'constants/shared/modalTypes';
 
 const InvitedCompanyAdminsListItem = ({ user, headers }) => {
     const { userFirstName, userLastName, userEmail, id } = user;
@@ -8,6 +12,9 @@ const InvitedCompanyAdminsListItem = ({ user, headers }) => {
     const dispatch = useDispatch();
     const handleDelete = () => {
         dispatch(deleteCompanyUserInvite(id, user));
+    };
+    const handleResend = () => {
+        dispatch(showModal(RESEND_INVITE, { user }));
     };
 
     return (
@@ -22,6 +29,10 @@ const InvitedCompanyAdminsListItem = ({ user, headers }) => {
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
+                <button className="button blue" onClick={handleResend}>
+                    <i className="fas fa-paper-plane" />
+                    Resend Invite
+                </button>
                 <button className="button red" onClick={handleDelete}>
                     <i className="fas fa-trash" />
                     Delete Invite
