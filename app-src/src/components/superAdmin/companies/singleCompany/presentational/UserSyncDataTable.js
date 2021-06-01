@@ -4,7 +4,7 @@ import moment from 'moment';
 import Table from 'components/shared/generic/tables/presentational/Table';
 
 const UserSyncDataTable = ({ headers, syncData, isFetching, companyTimezone }) => {
-    console.log(companyTimezone);
+
     return (
         <Table headers={headers} isFetching={isFetching} noData={!syncData.length}>
             {Object.values(syncData)
