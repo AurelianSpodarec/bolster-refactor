@@ -13,9 +13,6 @@ import PinRoutes from './PinRoutes';
 import ProfilesRoutes from './ProfilesRoutes';
 import ReportsRoutes from './ReportsRoutes';
 
-// ? Should a client have access to report generation features?
-// import ReportsRoutes from './ReportsRoutes';
-
 const ClientAreaRoutes = ({ base = '/client' }) => (
     <SwitchWith404>
         <Route exact path={`${base}/companies`} component={CompaniesRoutes} />
