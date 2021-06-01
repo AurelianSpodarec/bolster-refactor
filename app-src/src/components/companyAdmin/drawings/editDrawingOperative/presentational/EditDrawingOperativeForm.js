@@ -23,6 +23,7 @@ const EditDrawingOperative = ({
     serviceAreas,
     getTemplatesForService,
     isFetching,
+    getSelectedTemplates,
 }) => {
     if (!isFetching) {
         const { userFirstName, userLastName } = operative;
@@ -58,24 +59,29 @@ const EditDrawingOperative = ({
 
                         {isTemplateFilteringEnabled && (
                             <>
-                                {[...serviceAreas].sort().map(service => (
-                                    <Field
-                                        key={service}
-                                        name={services[service].name}
-                                        sizeClasses="size-lg-12"
-                                    >
-                                        <CheckboxListContainer
-                                            required
-                                            name="templateIDs"
-                                            handleChange={handleMultiSelect}
-                                            options={getTemplatesForService(service).filter(
-                                                item => !item.isDeleted,
-                                            )}
-                                            hideDisabled
-                                            selectedOptions={templateIDs}
-                                        />
-                                    </Field>
-                                ))}
+                                {[...serviceAreas].sort().map(service => {
+                                    return (
+                                        <Field
+                                            key={service}
+                                            name={services[service].name}
+                                            sizeClasses="size-lg-12"
+                                        >
+                                            <CheckboxListContainer
+                                                required
+                                                name="templateIDs"
+                                                handleChange={handleMultiSelect}
+                                                options={getTemplatesForService(service).filter(
+                                                    item => !item.isDeleted,
+                                                )}
+                                                hideDisabled
+                                                selectedOptions={getSelectedTemplates(
+                                                    serviceIDs,
+                                                    templateIDs,
+                                                )}
+                                            />
+                                        </Field>
+                                    );
+                                })}
                             </>
                         )}
                     </Form>

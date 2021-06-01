@@ -13,6 +13,7 @@ import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isEmpty } from 'helpers/generic';
+import { template } from 'lodash';
 
 class EditDrawingOperativeFormContainer extends Component {
     state = {
@@ -47,17 +48,14 @@ class EditDrawingOperativeFormContainer extends Component {
                     templateIDs={templateIDs}
                     serviceAreas={this.getServiceAreas()}
                     getTemplatesForService={this.getTemplatesForService}
+                    getSelectedTemplates={this.getSelectedTemplates}
                 />
             </BlockContainer>
         );
     }
     componentDidMount() {
-        const {
-            fetchOperativesForDrawing,
-            match,
-            fetchCompanyPermissions,
-            fetchAllTemplates,
-        } = this.props;
+        const { fetchOperativesForDrawing, match, fetchCompanyPermissions, fetchAllTemplates } =
+            this.props;
         const { id } = match.params;
         fetchOperativesForDrawing(id);
         fetchAllTemplates();
@@ -155,6 +153,19 @@ class EditDrawingOperativeFormContainer extends Component {
             });
 
         return filteredTemplates;
+    };
+
+    getSelectedTemplates = selectedServiceIDs => {
+        const { templates } = this.props;
+
+        const selectedIDs = [];
+
+        templates.filter(template => {
+            if (selectedServiceIDs.includes(template.serviceID + ''))
+                return selectedIDs.push(template.id);
+        });
+
+        return selectedIDs + '';
     };
 
     handleSubmit = e => {
