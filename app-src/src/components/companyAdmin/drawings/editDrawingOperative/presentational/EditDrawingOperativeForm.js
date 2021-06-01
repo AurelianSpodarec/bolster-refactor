@@ -19,11 +19,10 @@ const EditDrawingOperative = ({
     serviceIDs,
     backUrl,
     isTemplateFilteringEnabled,
-    templateIDs,
     serviceAreas,
     getTemplatesForService,
     isFetching,
-    getSelectedTemplates,
+    selectedTemplates,
 }) => {
     if (!isFetching) {
         const { userFirstName, userLastName } = operative;
@@ -73,11 +72,8 @@ const EditDrawingOperative = ({
                                                 options={getTemplatesForService(service).filter(
                                                     item => !item.isDeleted,
                                                 )}
+                                                selectedOptions={selectedTemplates}
                                                 hideDisabled
-                                                selectedOptions={getSelectedTemplates(
-                                                    serviceIDs,
-                                                    templateIDs,
-                                                )}
                                             />
                                         </Field>
                                     );
