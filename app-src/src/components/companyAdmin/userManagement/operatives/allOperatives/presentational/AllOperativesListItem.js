@@ -34,9 +34,11 @@ const AllOperativesListItem = ({
                 {showRedWarning && (
                     <TooltipContainer
                         htmlText={`${
-                            tooltipDate
-                                ? `<p>This operative has not upsynced in ${tooltipDate} days</p>`
-                                : '<p>This operative has never upsynced<p>'
+                            showNotUpsyncedRecentlyWarning
+                                ? tooltipDate
+                                    ? `<p>This operative has not upsynced in ${tooltipDate} days</p>`
+                                    : '<p>This operative has never upsynced<p>'
+                                : ''
                         } ${
                             drawingLimitColour === 'red'
                                 ? '<p>This operative has reached the maximum number of drawings.</p>'
