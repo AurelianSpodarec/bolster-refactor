@@ -75,17 +75,17 @@ class BasicFiltersContainer extends Component {
             postFilters,
         } = this.props;
         let shouldPostFilters = false;
-        if (locationState && locationState.selectedService) {
+        if (locationState?.selectedService) {
             handleChange('serviceID', locationState.selectedService);
             shouldPostFilters = true;
         }
 
-        if (locationState && locationState.selectedStatus) {
+        if (locationState?.selectedStatus) {
             handleChange('status', locationState.selectedStatus);
             shouldPostFilters = true;
         }
 
-        if (locationState && locationState.selectedStartDate) {
+        if (locationState?.selectedStartDate) {
             this.handleDateChange(
                 'fromDateInclusive',
                 moment(locationState.selectedStartDate).toDate(),
@@ -93,11 +93,15 @@ class BasicFiltersContainer extends Component {
             shouldPostFilters = true;
         }
 
-        if (locationState && locationState.selectedEndDate) {
+        if (locationState?.selectedEndDate) {
             this.handleDateChange(
                 'toDateInclusive',
                 moment(locationState.selectedEndDate).toDate(),
             );
+            shouldPostFilters = true;
+        }
+        if (locationState?.operativeID) {
+            // handleChange in operativesFilterContainer
             shouldPostFilters = true;
         }
 

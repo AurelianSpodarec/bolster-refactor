@@ -90,7 +90,6 @@ class AttachOperativesFormContainer extends Component {
 
     _getUserOptions = () => {
         const { operativeUsers, maxDrawingsPerOperative } = this.props;
-        console.log(maxDrawingsPerOperative);
 
         const options = operativeUsers.map(
             ({ id, userFirstName, userLastName, userEmail, drawingCount }) => ({
