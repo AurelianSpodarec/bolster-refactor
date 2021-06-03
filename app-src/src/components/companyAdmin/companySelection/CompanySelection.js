@@ -57,7 +57,7 @@ const CompanySelection = () => {
             if (!companies.length) history.push('/client/companies');
         }
         if (error && !prevProps.error) {
-            dispatch(showModal(ERROR_MODAL, { message: error }));
+            dispatch(showModal(ERROR_MODAL, { message: error, title: 'warning' }));
         }
     }, [
         isFetching,
