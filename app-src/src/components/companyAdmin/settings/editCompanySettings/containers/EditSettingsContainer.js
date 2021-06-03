@@ -9,13 +9,14 @@ import { componentDidMount } from 'helpers/generic';
 
 const EditSettingsContainer = () => {
     const dispatch = useDispatch();
-    componentDidMount(() => {
+    const fetchData = () => {
         batch(() => {
             dispatch(fetchCompanySettings());
             dispatch(fetchTimezones());
             dispatch(fetchDateFormats());
         });
-    });
+    };
+    componentDidMount(fetchData);
 
     return <EditSettings />;
 };

@@ -53,6 +53,7 @@ const CreateBuildingsFormContainer = ({
     fetchAllDropdownOptions,
     dropdownOptions,
     showOAndMTsAndCsModal,
+    isFetchingHierarchies,
 }) => {
     const [
         buildings,
@@ -214,7 +215,12 @@ const CreateBuildingsFormContainer = ({
 
     return (
         <BlockContainer
-            isEmpty={isObjEmpty(manufacturers) || isObjEmpty(optionValues) || !areOptionsLoaded}
+            isEmpty={
+                isObjEmpty(manufacturers) ||
+                isObjEmpty(optionValues) ||
+                !areOptionsLoaded ||
+                isFetching
+            }
             isFetching={isFetching || !areOptionsLoaded}
             error={error}
             contentClass="no-padding"
@@ -240,6 +246,7 @@ const CreateBuildingsFormContainer = ({
                 initialDropdownOptions={initialDropdownOptions}
                 combinedOptions={combinedOptions}
                 handleShowOandMModal={handleShowOandMModal}
+                isFetchingHierarchies={isFetchingHierarchies}
             />
         </BlockContainer>
     );
@@ -355,7 +362,10 @@ const CreateBuildingsFormContainer = ({
 const mapStateToProps = (
     {
         companyAdmin: {
-            sitesReducer: { siteError, updatedSiteID, sites },
+            sitesReducer: { siteError, updatedSiteID, sites, isFetching: isFetchingSites },
+            buildingsReducer: { isFetching: isFetchingBuildings },
+            floorsReducer: { isFetching: isFetchingFloors },
+            drawingsReducer: { isFetching: isFetchingDrawings },
             companySettingsReducer: {
                 companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
             },
@@ -388,6 +398,8 @@ const mapStateToProps = (
     useManufacturingByDefault,
     subscriptionServiceIDs,
     dropdownOptions: Object.values(dropdownOptions),
+    isFetchingHierarchies:
+        isFetchingSites || isFetchingBuildings || isFetchingFloors || isFetchingDrawings,
 });
 
 const mapDispatchToProps = {

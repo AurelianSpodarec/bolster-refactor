@@ -39,7 +39,7 @@ const ReleaseNotes = ({ releaseNotes }) => {
                                         subTitleClasses="small"
                                     />
                                     <div
-                                        className="generic-text"
+                                        className="wysiwyg"
                                         dangerouslySetInnerHTML={{ __html: fullDescription }}
                                     />
                                 </div>

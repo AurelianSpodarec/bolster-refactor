@@ -12,6 +12,7 @@ import { FURTHER_FILTRATION_OPTIONS, HIERARCHY_IDS } from 'constants/companyAdmi
 import getOperativeOptions from 'actions/companyAdmin/reports/async/getOperativeOptions';
 import getTemplateReportOptions from 'actions/companyAdmin/reports/async/getTemplateReportOptions';
 import getServiceReportOptions from 'actions/companyAdmin/reports/async/getServiceReportOptions';
+import getCompanyReportOptions from 'actions/companyAdmin/reports/async/getCompanyReportOptions';
 
 export default function (ProtectedComponent) {
     class WithUpdateOnChange extends React.Component {
@@ -82,6 +83,7 @@ export default function (ProtectedComponent) {
                 serviceID,
                 templateID,
                 companyUserIDs,
+                createdByCompanyID,
             } = filters;
 
             const NO = false;
@@ -123,6 +125,10 @@ export default function (ProtectedComponent) {
                     }
                     // templates
                     if (templateID && +templateID !== pin.templateID) {
+                        return NO;
+                    }
+                    // companies
+                    if (createdByCompanyID && createdByCompanyID !== pin.companyID) {
                         return NO;
                     }
                     // operatives
@@ -175,6 +181,10 @@ export default function (ProtectedComponent) {
                     toDateInclusive,
                     companyUserIDs,
                     floorplanPinScale,
+                    createdByCompanyID,
+                    zoneIDs,
+                    zoneOpacity,
+                    includeFloorplanZones,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
@@ -183,6 +193,7 @@ export default function (ProtectedComponent) {
                 fields,
                 timeZone,
                 includedDrawingsIDs,
+                customFilters,
             } = this.props;
 
             let hierarchyType;
@@ -244,9 +255,9 @@ export default function (ProtectedComponent) {
                 return { latY, lngX };
             };
 
-            const pinBoundingBoxes = Object.values(
-                rectangles,
-            ).map(({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]);
+            const pinBoundingBoxes = Object.values(rectangles).map(
+                ({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)],
+            );
             // get the utc converted time for both from date and to date.
             const startDate = fromDateInclusive
                 ? moment.tz(fromDateInclusive, timeZone.name).startOf('day').utc().toISOString()
@@ -262,6 +273,11 @@ export default function (ProtectedComponent) {
                       .toISOString()
                 : null;
 
+
+            const serviceIDs = serviceID
+                ? [+serviceID] 
+                : customFilters.services.map(({ id }) => id);
+
             const body = {
                 hierarchyType,
                 hierarchyID,
@@ -275,7 +291,7 @@ export default function (ProtectedComponent) {
                 fromDateInclusive: startDate,
                 toDateInclusive: endDate,
                 companyUserIDs,
-                serviceID: serviceID || null,
+                serviceID: serviceIDs,
                 templateID: templateID || null,
                 status: status || null,
                 pinIDs: selectedPinIDs,
@@ -287,6 +303,10 @@ export default function (ProtectedComponent) {
                 floorplanPinScale,
                 hasQuestions: +furtherFiltrationOption > +INDIVIDUAL_PINS,
                 includedDrawingIDs: includedDrawingsIDs,
+                createdByCompanyID,
+                zoneIDs,
+                zoneOpacity,
+                includeFloorplanZones,
             };
             return body;
         };
@@ -322,12 +342,18 @@ export default function (ProtectedComponent) {
             return getServiceOptions(this._getPostBody());
         };
 
+        getCompanyOptions = () => {
+            const { getCompanyOptions } = this.props;
+            return getCompanyOptions(this._getPostBody());
+        };
+
         postFilters = async () => {
             const {
                 postCustomFilters,
                 getOperativeOptions,
                 getTemplateOptions,
                 getServiceOptions,
+                getCompanyOptions,
             } = this.props;
             const body = this._getPostBody();
 
@@ -338,6 +364,7 @@ export default function (ProtectedComponent) {
             await getOperativeOptions(body);
             await getTemplateOptions(body);
             await getServiceOptions(body);
+            await getCompanyOptions(body);
         };
 
         getInitialServices = async () => {
@@ -355,6 +382,9 @@ export default function (ProtectedComponent) {
     const mapStateToProps = (
         {
             shared: {
+                decodeJWTReducer: {
+                    jwtData: { companyID },
+                },
                 fieldErrorsReducer: { fieldErrors, errorsVisible },
             },
             companyAdmin: {
@@ -411,6 +441,7 @@ export default function (ProtectedComponent) {
             companyUsers,
             services: Object.values(historicServices),
             sites: Object.values(sites),
+            sitesObj: sites,
             buildings,
             floors,
             drawings,
@@ -420,6 +451,7 @@ export default function (ProtectedComponent) {
             timeZone,
             includedDrawingsIDs,
             zonesObj: zones,
+            companyID,
         };
     };
 
@@ -432,6 +464,7 @@ export default function (ProtectedComponent) {
         getOperativeOptions: postBody => dispatch(getOperativeOptions(postBody)),
         getTemplateOptions: postBody => dispatch(getTemplateReportOptions(postBody)),
         getServiceOptions: postBody => dispatch(getServiceReportOptions(postBody)),
+        getCompanyOptions: postBody => dispatch(getCompanyReportOptions(postBody)),
     });
 
     return connect(mapStateToProps, mapDispatchToProps)(WithUpdateOnChange);

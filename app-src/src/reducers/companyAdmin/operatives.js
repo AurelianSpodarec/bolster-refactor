@@ -35,6 +35,7 @@ import {
 
 export default combineReducers({
     operatives: operativesReducer,
+    operativesSpecific: operativesSpecificReducer,
     isFetching: isFetchingReducer,
     isPosting: isPostingReducer,
     error: errorReducer,
@@ -161,6 +162,20 @@ function operativesReducer(state = {}, action) {
         case FETCH_OPERATIVES_FOR_BUILDING_SUCCESS:
         case FETCH_OPERATIVES_FOR_SITE_SUCCESS:
         case FETCH_OPERATIVES_SUCCESS:
+            return convertArrToObj(action.payload);
+        case ADD_OPERATIVE_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
+        case DELETE_OPERATIVE_SUCCESS:
+            return removeObjItem(state, action.id);
+        default:
+            return state;
+    }
+}
+
+function operativesSpecificReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_OPERATIVES_FOR_FLOOR_SUCCESS:
+        case FETCH_OPERATIVES_FOR_BUILDING_SUCCESS:
             return convertArrToObj(action.payload);
         case ADD_OPERATIVE_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);

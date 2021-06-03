@@ -5,11 +5,16 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 
 const RecentlyExtendedList = ({ recentlyExtended }) => {
     return [...recentlyExtended]
-        .sort((a, b) => new Date(b.extensionDate) - new Date(a.extensionDate))
+        .sort((a, b) => new Date(b.extendedOn) - new Date(a.extendedOn))
         .map(extension => (
             <tr key={extension.id}>
                 <td>{extension.companyName}</td>
                 <td>{extension.hierarchy}</td>
+                <td>
+                    <DateTimeContainer
+                        date={moment.utc(extension.extendedOn).format('YYYY-MM-DDTHH:mm:ss')}
+                    />
+                </td>
                 <td>
                     <DateTimeContainer
                         date={moment.utc(extension.oldExpiryDate).format('YYYY-MM-DDTHH:mm:ss')}

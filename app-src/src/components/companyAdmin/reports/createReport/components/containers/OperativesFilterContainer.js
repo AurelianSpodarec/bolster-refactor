@@ -11,6 +11,7 @@ class OperativesFilterContainer extends Component {
             customFilters: { operatives },
             filters: { companyUserIDs },
             sizeClasses,
+            isDrawingPage,
         } = this.props;
 
         return (
@@ -19,6 +20,7 @@ class OperativesFilterContainer extends Component {
                 selectedOperatives={companyUserIDs}
                 handleChange={this.handleChange}
                 sizeClasses={sizeClasses}
+                isDrawingPage={isDrawingPage}
             />
         );
     }

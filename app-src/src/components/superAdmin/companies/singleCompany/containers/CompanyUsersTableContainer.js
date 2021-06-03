@@ -43,7 +43,10 @@ const CompanyUsersTableContainer = ({
                     <i className="fa fa-plus" /> Add Company Admin
                 </button>
             </BlockButtonWrapper>
-            <CompanyUsersTable {...{ users, error, isFetching, headers }} />
+            <CompanyUsersTable
+                {...{ users, error, isFetching, headers }}
+                tableColumnWidths={tableColumnWidths}
+            />
         </BlockContainer>
     );
 
@@ -52,6 +55,8 @@ const CompanyUsersTableContainer = ({
         showModal(ADMIN_CREATE_COMPANY_ADMIN, { companyID });
     }
 };
+
+const tableColumnWidths = ['260px', '130px', '120px', '160px', '150px', '130px', '130px', '160px'];
 
 const mapStateToProps = ({
     superAdmin: {
@@ -64,7 +69,6 @@ const mapStateToProps = ({
     isFetching,
     headers: [
         'Name',
-        // 'Email',
         'Phone #',
         'User Type',
         'Operative Code',
@@ -72,6 +76,7 @@ const mapStateToProps = ({
         'App Version',
         'Device Type',
         'Is e-mail confirmed?',
+        '',
     ],
 });
 

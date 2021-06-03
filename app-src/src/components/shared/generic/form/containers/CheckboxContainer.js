@@ -25,6 +25,7 @@ class CheckboxContainer extends Component {
             fromList,
             hideDisabled,
         } = this.props;
+
         const errorMessage = showFieldError || errorsVisible ? error : null;
         return (
             <Checkbox
