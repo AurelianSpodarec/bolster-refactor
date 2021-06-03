@@ -48,6 +48,7 @@ class UserDrawingsTableContainer extends Component {
     componentDidUpdate = prevProps => {
         const { removeSuccess, hideModal, fetchUserDrawings, id } = this.props;
         if (removeSuccess && !prevProps.removeSuccess) {
+            this.setState({ drawingIDs: [] });
             fetchUserDrawings(id);
             hideModal();
         }
