@@ -255,9 +255,9 @@ export default function (ProtectedComponent) {
                 return { latY, lngX };
             };
 
-            const pinBoundingBoxes = Object.values(rectangles).map(
-                ({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)],
-            );
+            const pinBoundingBoxes = Object.values(
+                rectangles,
+            ).map(({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]);
             // get the utc converted time for both from date and to date.
             const startDate = fromDateInclusive
                 ? moment.tz(fromDateInclusive, timeZone.name).startOf('day').utc().toISOString()
@@ -273,9 +273,8 @@ export default function (ProtectedComponent) {
                       .toISOString()
                 : null;
 
-
             const serviceIDs = serviceID
-                ? [+serviceID] 
+                ? [+serviceID]
                 : customFilters.services.map(({ id }) => id);
 
             const body = {
@@ -406,7 +405,7 @@ export default function (ProtectedComponent) {
                     furtherFiltrationOption,
                     includedDrawingsIDs,
                 },
-                operativesReducer: { operatives },
+                operativesReducer: { operatives, isFetching: isFetchingOperatives },
                 companySettingsReducer: {
                     companySettings: { timeZone },
                 },
@@ -452,6 +451,7 @@ export default function (ProtectedComponent) {
             includedDrawingsIDs,
             zonesObj: zones,
             companyID,
+            isFetchingOperatives,
         };
     };
 
