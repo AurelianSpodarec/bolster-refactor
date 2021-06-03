@@ -91,6 +91,7 @@ import {
     COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE,
     COMPANY_ADD_OPTION_VALUE,
     COMPANY_EDIT_OPTION_VALUE,
+    COMPANY_DELETE_OPTION_VALUE,
     COMPANY_ADD_DOCUMENT_TO_OPTION_VALUE,
     COMPANY_EDIT_OPTION_VALUE_DOCUMENT,
     COMPANY_ADD_OPTION_VALUE_DOCUMENT_VERSION,
@@ -220,6 +221,7 @@ import EditBannerNotificationModal from 'components/superAdmin/bannerNotificatio
 import AddBannerNotificationModal from 'components/superAdmin/bannerNotifications/addBannerNotifcationModel/presentational/AddBannerNotificationModal';
 import UpdateReportLayoutModal from '../presentational/UpdateReportLayoutModal';
 import DeleteManufacturerModalContainer from 'components/companyAdmin/dropdownOptions/deleteManufacturer/containers/DeleteManufacturerModalContainer';
+import DeleteOptionValueModalContainer from 'components/companyAdmin/dropdownOptions/deleteOptionValue/containers/DeleteOptionValueModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -329,6 +331,7 @@ const MODAL_COMPONENTS = {
     [ADD_NEW_BANNER_NOTIFICATION]: AddBannerNotificationModal,
     [EDIT_BANNER_NOTIFICATION]: EditBannerNotificationModal,
     [UPDATE_REPORT_LAYOUT]: UpdateReportLayoutModal,
+    [COMPANY_DELETE_OPTION_VALUE]: DeleteOptionValueModalContainer,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {
     COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE,
     COMPANY_EDIT_OPTION_VALUE,
+    COMPANY_DELETE_OPTION_VALUE,
 } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
@@ -38,6 +39,7 @@ class OptionValuesListItemContainer extends Component {
                 optionValue={optionValue}
                 colCount={colCount}
                 handleEditOptionValueModal={this.handleEditOptionValueModal}
+                handleDeleteOptionValueModal={this.handleDeleteOptionValueModal}
                 handleToggleEnable={this.handleToggleEnable}
                 headers={headers}
                 onMobile={onMobile}
@@ -50,6 +52,12 @@ class OptionValuesListItemContainer extends Component {
             />
         );
     }
+
+    handleDeleteOptionValueModal = optionValue => {
+        const { showModal } = this.props;
+        showModal(COMPANY_DELETE_OPTION_VALUE, { optionValue });
+    };
+
     handleEditOptionValueModal = optionValue => {
         const { showModal, services } = this.props;
         showModal(COMPANY_EDIT_OPTION_VALUE, { optionValue, services });
