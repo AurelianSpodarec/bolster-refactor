@@ -9,16 +9,20 @@ class OperativesFilterContainer extends Component {
         const {
             formatArrForDropdownOperative,
             customFilters: { operatives },
-            filters: { companyUserIDs },
+            filters: { companyUserIDs, createdByCompanyID },
             sizeClasses,
             isDrawingPage,
             isDrawingOwner,
-            drawingCompanyID,
+            companyID,
         } = this.props;
 
-        const filteredOperatives = isDrawingOwner
+        const companyFilteredOperatives = !createdByCompanyID
             ? operatives
-            : operatives.filter(item => item.companyID === drawingCompanyID);
+            : operatives.filter(item => item.companyID === createdByCompanyID);
+
+        const filteredOperatives = isDrawingOwner
+            ? companyFilteredOperatives
+            : companyFilteredOperatives.filter(item => item.companyID === companyID);
 
         return (
             <OperativesFilter
