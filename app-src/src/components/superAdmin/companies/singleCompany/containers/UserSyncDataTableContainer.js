@@ -26,7 +26,7 @@ const UserSyncDataTableContainer = ({
         '# Pin Histories Synced',
     ];
 
-    const { timeZone } = companies[companyID];
+    const { timeZone = {} } = companies[companyID];
 
     const prevProps = usePrevious({ error });
 
