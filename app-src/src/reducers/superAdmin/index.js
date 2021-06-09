@@ -33,6 +33,7 @@ import recentlyExtendedReducer from './recentlyExtended';
 import legalDocumentsReducer from './legalDocuments';
 import syncsReducer from './syncs';
 import bannerNotificationsReducer from './bannerNotifications';
+import demoAccessCodesReducer from './demoAccessCodes';
 
 export default combineReducers({
     adminServicesReducer,
@@ -68,4 +69,5 @@ export default combineReducers({
     newFeaturesReducer,
     syncsReducer,
     bannerNotificationsReducer,
+    demoAccessCodesReducer,
 });

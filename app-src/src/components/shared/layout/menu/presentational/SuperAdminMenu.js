@@ -81,6 +81,10 @@ const SuperAdminMenu = ({ logout, unreadRequests }) => (
                 <i className="far fa-file fa-fw icon" />
                 <span className="menu-text">Legal Documents</span>
             </MenuItemContainer>
+            <MenuItemContainer link="/admin/demo-access-codes">
+                <i className="far fa-key fa-fw icon" />
+                <span className="menu-text">Demo Access Codes</span>
+            </MenuItemContainer>
             <MenuItemContainer link="/admin/banners">
                 <i className="fas fa-pennant icon" />
                 <span className="menu-text">Banner Notifications</span>

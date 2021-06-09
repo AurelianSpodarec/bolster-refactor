@@ -107,6 +107,10 @@ import {
     EDIT_BANNER_NOTIFICATION,
     ADD_NEW_BANNER_NOTIFICATION,
     UPDATE_REPORT_LAYOUT,
+    ADD_DEMO_ACCESS_CODES,
+    EDIT_DEMO_ACCESS_CODES,
+    DELETE_DEMO_ACCESS_CODES,
+    ENTER_DEMO_ACCESS_CODES,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -216,6 +220,10 @@ import UserLatestSyncsModalContainer from 'components/superAdmin/companies/singl
 import EditBannerNotificationModal from 'components/superAdmin/bannerNotifications/editBannerNotificationModal/presentational/EditBannerNotificationModal';
 import AddBannerNotificationModal from 'components/superAdmin/bannerNotifications/addBannerNotifcationModel/presentational/AddBannerNotificationModal';
 import UpdateReportLayoutModal from '../presentational/UpdateReportLayoutModal';
+import AddDemoAccessCodesModal from 'components/superAdmin/demoAccessCodes/presentational/AddDemoAccessCodesModal';
+import EditDemoAccessCodesModal from 'components/superAdmin/demoAccessCodes/presentational/EditDemoAccessCodesModal';
+import DeleteDemoAccessCodesModal from 'components/superAdmin/demoAccessCodes/presentational/DeleteDemoAccessCodesModal';
+import EnterDemoFullSiteModal from 'components/shared/demo-full-site/presentational/DemoFullSiteModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -323,6 +331,10 @@ const MODAL_COMPONENTS = {
     [ADD_NEW_BANNER_NOTIFICATION]: AddBannerNotificationModal,
     [EDIT_BANNER_NOTIFICATION]: EditBannerNotificationModal,
     [UPDATE_REPORT_LAYOUT]: UpdateReportLayoutModal,
+    [ADD_DEMO_ACCESS_CODES]: AddDemoAccessCodesModal,
+    [EDIT_DEMO_ACCESS_CODES]: EditDemoAccessCodesModal,
+    [DELETE_DEMO_ACCESS_CODES]: DeleteDemoAccessCodesModal,
+    [ENTER_DEMO_ACCESS_CODES]: EnterDemoFullSiteModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

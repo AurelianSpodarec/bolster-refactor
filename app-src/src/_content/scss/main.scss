@@ -6472,3 +6472,22 @@ input {
         margin-top: 32px;
     }
 }
+
+.demo-full-site-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%; 
+    margin: 32px auto 0;
+
+    .title {
+        font-size: 200%;
+        font-weight: bold;
+    }
+
+    .demo-video {
+        margin-top: 32px;
+        max-width: 100%;
+        object-fit: cover;
+    }
+}
