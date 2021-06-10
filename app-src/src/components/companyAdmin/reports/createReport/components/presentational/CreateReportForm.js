@@ -1,15 +1,16 @@
 import React from 'react';
 
+import useMultiReportDrawings from '../../hooks/useMultiReportDrawings';
+
 import FurtherFiltrationContainer from '../containers/FurtherFiltrationContainer';
 import FilterMapContainer from '../containers/FilterMapContainer';
 import Block1FiltersContainer from '../containers/Block1FiltersContainer';
 import BasicFiltersContainer from '../containers/BasicFiltersContainer';
 import OutputSettingsContainer from '../containers/OutputSettingsContainer';
 import DrawingPickerContainer from '../containers/DrawingPickerContainer';
-import { useSelector } from 'react-redux';
 
 const CreateReportForm = () => {
-    const { drawingIDs } = useSelector(mapStateToProps);
+    const { drawingIDs, selectedDrawingID } = useMultiReportDrawings();
 
     return (
         <>
@@ -28,13 +29,5 @@ const CreateReportForm = () => {
         </>
     );
 };
-
-const mapStateToProps = ({
-    companyAdmin: {
-        reportsReducer: { filters },
-    },
-}) => ({
-    drawingIDs: filters.drawingID || [],
-});
 
 export default CreateReportForm;
