@@ -6,13 +6,10 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 
 import addRectangle from 'actions/companyAdmin/reports/sync/addRectangle';
 import removeRectangle from 'actions/companyAdmin/reports/sync/removeRectangle';
-import {
-    RECTANGLE_MODES,
-    FURTHER_FILTRATION_OPTIONS
-} from 'constants/companyAdmin/enums';
+import { RECTANGLE_MODES, FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import removeAllRectangles from 'actions/companyAdmin/reports/sync/removeAllRectangles';
-import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
+import fetchPinsForReport from 'actions/companyAdmin/pins/async/fetchPinsForReport';
 import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/updateFurtherFiltrationOption';
 import removeAllExcludedPins from 'actions/companyAdmin/reports/sync/removeAllExcludedPins';
 import FilterMap from 'components/shared/maps/presentational/FilterMap';
@@ -22,13 +19,14 @@ const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 class FilterMapContainer extends Component {
     state = {
         mode: ADD,
-        firstCorner: null
+        firstCorner: null,
     };
 
     render() {
         const { drawing, rectangles, furtherFiltrationOption } = this.props;
         const { firstCorner, mode } = this.state;
         const cornerClicked = firstCorner;
+
         if (!drawing.id) return null;
 
         const shouldShowMapOptions = +furtherFiltrationOption === +PIN_SELECTOR;
@@ -52,25 +50,22 @@ class FilterMapContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            fetchPins,
-            filters: { drawingID }
-        } = this.props;
-        if (drawingID) fetchPins('drawing', drawingID);
+        const { fetchPinsForReport, mapDrawingID } = this.props;
+        fetchPinsForReport('drawing', mapDrawingID);
     };
 
     componentDidUpdate = ({
         rectangles: prevRectangles,
         furtherFiltrationOption: prevOption,
-        ...prevProps
+        // ...prevProps
     }) => {
         const {
             rectangles,
             postFilters,
             furtherFiltrationOption,
             removeAllRectangles,
-            filters: { drawingID },
-            fetchPins
+            // filters: { drawingID },
+            // fetchPins,
         } = this.props;
         if (rectangles.length !== prevRectangles.length) {
             postFilters();
@@ -79,15 +74,15 @@ class FilterMapContainer extends Component {
             removeAllRectangles();
         }
 
-        if (drawingID !== prevProps.filters.drawingID) {
-            fetchPins('drawing', drawingID);
-        }
+        // if (drawingID !== prevProps.filters.drawingID) {
+        //     fetchPins('drawing', drawingID);
+        // }
     };
 
     handleClick = ({ latlng }) => {
         const { firstCorner, mode } = this.state;
         const { lat, lng } = latlng;
-        const { addRectangle, furtherFiltrationOption } = this.props;
+        const { addRectangle, furtherFiltrationOption, mapDrawingID } = this.props;
         if (+furtherFiltrationOption === +PIN_SELECTOR && mode === ADD) {
             if (!firstCorner) {
                 // draw first corner
@@ -96,7 +91,7 @@ class FilterMapContainer extends Component {
                 // draw second corner
                 const id = uuid();
                 const secondCorner = [lat, lng];
-                addRectangle(id, firstCorner, secondCorner);
+                addRectangle(id, firstCorner, secondCorner, mapDrawingID);
                 this.setState({ firstCorner: null });
             }
         }
@@ -113,31 +108,32 @@ class FilterMapContainer extends Component {
     };
 
     handleCancelPinSelector = () => {
-        const {
-            removeAllRectangles,
-            removeAllExcludedPins,
-            updateFurtherFiltrationOption
-        } = this.props;
+        const { removeAllRectangles, removeAllExcludedPins, updateFurtherFiltrationOption } =
+            this.props;
         updateFurtherFiltrationOption(FURTHER_FILTRATION_OPTIONS.NONE);
         removeAllExcludedPins();
         removeAllRectangles();
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        reportsReducer: { filters, rectangles, furtherFiltrationOption },
-        drawingsReducer: { drawings },
-        pinsReducer: { pins }
-    }
-}) => ({
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            reportsReducer: { filters, rectangles, furtherFiltrationOption },
+            drawingsReducer: { drawings },
+            pinsReducer: { pins },
+        },
+    },
+    { mapDrawingID },
+) => ({
     filters,
-    drawing: drawings[filters.drawingID] || {},
+    drawing: drawings[mapDrawingID] || {},
     pins: Object.values(pins).filter(
-        ({ drawingID }) => +drawingID === +filters.drawingID
+        ({ drawingID }) =>
+            filters.drawingID.includes(drawingID || +drawingID) && +drawingID === +mapDrawingID,
     ),
-    rectangles: Object.values(rectangles),
-    furtherFiltrationOption
+    rectangles: Object.values(rectangles).filter(rect => rect.drawingID === mapDrawingID),
+    furtherFiltrationOption,
 });
 
 const mapDispatchToProps = {
@@ -146,13 +142,8 @@ const mapDispatchToProps = {
     removeRectangle,
     removeAllRectangles,
     removeAllExcludedPins,
-    fetchPins,
-    updateFurtherFiltrationOption
+    fetchPinsForReport,
+    updateFurtherFiltrationOption,
 };
 
-export default withUpdateOnChange(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(FilterMapContainer)
-);
+export default withUpdateOnChange(connect(mapStateToProps, mapDispatchToProps)(FilterMapContainer));

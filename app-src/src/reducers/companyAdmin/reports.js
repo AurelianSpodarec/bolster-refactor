@@ -279,6 +279,7 @@ function rectanglesReducer(state = {}, action) {
             return updateObj(state, action.id, {
                 id: action.id,
                 corners: [action.topLeft, action.bottomRight],
+                drawingID: action.drawingID,
             });
         case REMOVE_RECTANGLE:
             return removeObjItem(state, action.id);
