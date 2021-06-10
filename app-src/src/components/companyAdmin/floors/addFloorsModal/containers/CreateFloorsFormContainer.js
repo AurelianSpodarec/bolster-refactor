@@ -93,7 +93,7 @@ const CreateFloorsFormContainer = ({
 
     const [initialDropdownOptions, setInititalDropdownOptions] = useState({
         isDropdownOptionsInherited: false,
-        setDropdownOptionsForHierarchy: null,
+        setDropdownOptionsForHierarchy: false,
         selectedDropdownOptions: [],
         dropdownOptions: {},
     });
@@ -145,7 +145,7 @@ const CreateFloorsFormContainer = ({
 
             const initialDropdownOptions = {
                 isDropdownOptionsInherited,
-                setDropdownOptionsForHierarchy: null,
+                setDropdownOptionsForHierarchy: false,
                 selectedDropdownOptions: [],
                 dropdownOptions: {},
             };
