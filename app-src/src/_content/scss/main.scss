@@ -1438,6 +1438,22 @@ input {
     &.no-breadcrumb {
         margin-top: 0;
     }
+
+    &.left {
+        float: left;
+
+        .button {
+            float: left;
+        }
+    }
+
+    &.report-drawings-tabs {
+        button {
+            margin-top: 5px;
+            margin-left: 5px;
+            border-radius: 5px;
+        }
+    }
 }
 
 .block-heading {

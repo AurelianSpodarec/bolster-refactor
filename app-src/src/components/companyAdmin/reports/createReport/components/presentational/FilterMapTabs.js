@@ -7,7 +7,7 @@ const FilterMapTabs = ({ drawingIDs, selectedDrawingID, setSelectedDrawingID }) 
     return (
         <div className="page-heading size-lg-12">
             <div className="content-container">
-                <div className="tab-container">
+                <div className="tab-container report-drawings-tabs">
                     {drawingIDs.map(drawingID => (
                         <button
                             key={drawingID}
