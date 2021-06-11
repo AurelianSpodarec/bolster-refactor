@@ -22,7 +22,7 @@ class DashboardBarContainer extends Component {
                         containerClass="size-lg-12"
                         noWhiteBackground
                     >
-                        <DashboardBarChart data={this._data} isDaily={labels.length < 32} />
+                        <DashboardBarChart data={this._data} isDaily={labels.length < 33} />
                     </BlockContainer>
                 </Block>
             </>

@@ -66,7 +66,7 @@ class DashboardStatsFiltersContainer extends Component {
         const diffFromEnd = Math.abs(moment(endDateValue).diff(startDateValue, 'days'));
 
         if (diffFromEnd > 90) {
-            const newEnd = moment(date).add(90, 'days').toDate();
+            const newEnd = moment(startDateValue).add(90, 'days').toDate();
             updateDashboardFilters('startDate', startDateValue);
             updateDashboardFilters('endDate', newEnd);
         } else {
