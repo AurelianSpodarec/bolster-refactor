@@ -57,15 +57,15 @@ class FilterMapContainer extends Component {
     componentDidUpdate = ({
         rectangles: prevRectangles,
         furtherFiltrationOption: prevOption,
-        // ...prevProps
+        mapDrawingID: prevMapDrawingID,
     }) => {
         const {
             rectangles,
             postFilters,
             furtherFiltrationOption,
             removeAllRectangles,
-            // filters: { drawingID },
-            // fetchPins,
+            mapDrawingID,
+            fetchPinsForReport,
         } = this.props;
         if (rectangles.length !== prevRectangles.length) {
             postFilters();
@@ -74,9 +74,9 @@ class FilterMapContainer extends Component {
             removeAllRectangles();
         }
 
-        // if (drawingID !== prevProps.filters.drawingID) {
-        //     fetchPins('drawing', drawingID);
-        // }
+        if (mapDrawingID !== prevMapDrawingID) {
+            fetchPinsForReport('drawing', mapDrawingID);
+        }
     };
 
     handleClick = ({ latlng }) => {

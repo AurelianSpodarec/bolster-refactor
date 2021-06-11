@@ -8,15 +8,23 @@ import Block1FiltersContainer from '../containers/Block1FiltersContainer';
 import BasicFiltersContainer from '../containers/BasicFiltersContainer';
 import OutputSettingsContainer from '../containers/OutputSettingsContainer';
 import DrawingPickerContainer from '../containers/DrawingPickerContainer';
+import FilterMapTabs from './FilterMapTabs';
 
 const CreateReportForm = () => {
-    const { drawingIDs, selectedDrawingID } = useMultiReportDrawings();
+    const { drawingIDs, selectedDrawingID, setSelectedDrawingID } = useMultiReportDrawings();
 
     return (
         <>
-            {drawingIDs.map(drawingID => (
-                <FilterMapContainer key={drawingID} mapDrawingID={drawingID} />
-            ))}
+            {drawingIDs.length > 1 && (
+                <FilterMapTabs
+                    drawingIDs={drawingIDs}
+                    selectedDrawingID={selectedDrawingID}
+                    setSelectedDrawingID={setSelectedDrawingID}
+                />
+            )}
+
+            {selectedDrawingID && <FilterMapContainer mapDrawingID={selectedDrawingID} />}
+
             <div className="flex-container size-lg-12">
                 <Block1FiltersContainer blockName="hierarchyFilters" getAllOperatives />
                 <BasicFiltersContainer blockName="basicFilters" />
