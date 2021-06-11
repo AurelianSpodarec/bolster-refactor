@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
+import _ from 'lodash';
 
 import { isObjEmpty } from 'helpers/generic';
 import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
@@ -17,6 +18,7 @@ import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
+import fetchZonesForReportByDrawingID from 'actions/companyAdmin/zones/async/fetchZonesForReportByDrawingID';
 
 class LevelsFilterContainer extends Component {
     render() {
@@ -148,15 +150,20 @@ class LevelsFilterContainer extends Component {
 
     componentDidUpdate = ({
         customFilters: { pins: prevPins = [] },
-        filters: { siteID: prevSiteID, companyUserIDs: prevCompanyUserIDs = [] },
+        filters: {
+            siteID: prevSiteID,
+            companyUserIDs: prevCompanyUserIDs = [],
+            drawingID: prevDrawingID,
+        },
     }) => {
         const {
             customFilters: { pins = [] },
-            filters: { siteID, companyUserIDs = [] },
+            filters: { siteID, companyUserIDs = [], drawingID },
             handleChange,
             updateReportFilter,
             postFilters,
             removeFieldError,
+            fetchZonesForReportByDrawingID,
         } = this.props;
         if (pins.length !== prevPins.length) {
             handleChange(
@@ -179,6 +186,13 @@ class LevelsFilterContainer extends Component {
             });
 
             updateReportFilter('hierarchyType', value).then(postFilters);
+        }
+
+        if (!_.isEqual(drawingID, prevDrawingID)) {
+            if (drawingID.length > prevDrawingID.length) {
+                const diffID = drawingID.filter(id => !prevDrawingID.includes(id))[0];
+                fetchZonesForReportByDrawingID(diffID);
+            }
         }
     };
 
@@ -282,6 +296,7 @@ const mapDispatchToProps = {
     showModal,
     hideModal,
     removeFieldError,
+    fetchZonesForReportByDrawingID,
 };
 
 export default withUpdateOnChange(

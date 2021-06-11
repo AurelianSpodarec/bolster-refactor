@@ -52,16 +52,14 @@ class ZoneSelectorContainer extends Component {
         const { zoneOptions, included } = this.state;
         return zoneOptions.reduce(
             (acc, opt) => {
-                included.includes(opt.value)
-                    ? acc.included.push(opt)
-                    : acc.excluded.push(opt);
+                included.includes(opt.value) ? acc.included.push(opt) : acc.excluded.push(opt);
 
                 return acc;
             },
             {
                 included: [],
                 excluded: [],
-            }
+            },
         );
     };
 
@@ -70,19 +68,19 @@ class ZoneSelectorContainer extends Component {
         const { included } = this.state;
 
         const pinIDsWithinZones = included
-            .map((id) => zonesObj[id])
-            .filter((zone) => zone)
+            .map(id => zonesObj[id])
+            .filter(zone => zone)
             .map(({ coordinates }) => coordinates)
             .reduce((acc, poly) => {
                 const pinIDsWithinCoords = this._filterPinsWithinPolygon(poly);
                 return acc.concat(pinIDsWithinCoords);
             }, [])
-            .map((pin) => pin.id);
+            .map(pin => pin.id);
 
         return pinIDsWithinZones;
     };
 
-    _filterPinsWithinPolygon = (poly) => {
+    _filterPinsWithinPolygon = poly => {
         const {
             customFilters: { pins },
         } = this.props;
@@ -105,9 +103,7 @@ class ZoneSelectorContainer extends Component {
             var xj = polygon[j][0],
                 yj = polygon[j][1];
 
-            var intersect =
-                yi > y !== yj > y &&
-                x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+            var intersect = yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
             if (intersect) inside = !inside;
         }
 
@@ -115,14 +111,14 @@ class ZoneSelectorContainer extends Component {
     };
 
     _setZoneOptions = () => {
-        const { zonesObj } = this.props;
-        const zoneOptions = Object.values(zonesObj).map(
-            ({ id, name, colorHex }) => ({
+        const { zonesObj, drawingID } = this.props;
+        const zoneOptions = Object.values(zonesObj)
+            .filter(zone => drawingID.includes(zone.drawingID))
+            .map(({ id, name, colorHex }) => ({
                 value: id,
                 text: name,
                 colorHex,
-            })
-        );
+            }));
 
         this.setState({ zoneOptions, includedZones: [] }, this._handleChange);
     };
@@ -136,7 +132,7 @@ class ZoneSelectorContainer extends Component {
         this._validate(pinIDs);
     };
 
-    _validate = (pinIDs) => {
+    _validate = pinIDs => {
         const { blockName, addFieldError, removeFieldError } = this.props;
 
         if (!pinIDs.length) {
@@ -147,15 +143,15 @@ class ZoneSelectorContainer extends Component {
         }
     };
 
-    handleInclude = (zoneIDs) => {
+    handleInclude = zoneIDs => {
         const { included } = this.state;
         const updated = included.concat(zoneIDs);
         this.setState({ included: updated }, this._handleChange);
     };
 
-    handleExclude = (zoneIDs) => {
+    handleExclude = zoneIDs => {
         const { included } = this.state;
-        const updated = included.filter((val) => !zoneIDs.includes(val));
+        const updated = included.filter(val => !zoneIDs.includes(val));
         this.setState({ included: updated }, this._handleChange);
     };
 }
@@ -163,10 +159,12 @@ class ZoneSelectorContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         pinsReducer: { pins },
+        reportsReducer: {
+            filters: { drawingID },
+        },
     },
 }) => ({
     pinsObj: Object.values(pins),
+    drawingID,
 });
-export default withUpdateOnChange(
-    connect(mapStateToProps, null)(ZoneSelectorContainer)
-);
+export default withUpdateOnChange(connect(mapStateToProps, null)(ZoneSelectorContainer));
