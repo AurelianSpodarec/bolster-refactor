@@ -78,6 +78,14 @@ const EditTemplateQuestionModalContainerFN = ({
                 [key]: statusPrefills[key] === 'true',
             }));
         }
+        if (
+            ('optionColour' in formData === false || !formData.optionColour) &&
+            !isEmpty(question.options)
+        ) {
+            formData.optionColour = formData.options.reduce((res, item) => {
+                return [...res, { Name: item.text, HexValue: '#ffffff' }];
+            }, []);
+        }
 
         updateQuestionFields(formData);
     }
