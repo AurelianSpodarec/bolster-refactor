@@ -16,7 +16,6 @@ const PinHistoryDetailsItem = ({
     drawingID,
     isDeleteHistory,
     pin,
-    addedByCompany,
     templateName,
 }) => (
     <div className="item">
@@ -36,7 +35,7 @@ const PinHistoryDetailsItem = ({
 
         <FieldOutput
             title="Added by"
-            description={`${history.createdByOperativeFullName} - ${addedByCompany}`}
+            description={`${history.createdByOperativeFullName} - ${history.formattedOperativeCode} (${history.companyName})`}
             sizeClass="size-lg-3 size-md-12"
         />
         <FieldOutput
