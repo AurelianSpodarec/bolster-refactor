@@ -116,29 +116,34 @@ export default function (WrappedComponent) {
                 if (questionType === STATUS) {
                     curPrereqOptions = this._getStatusOptions();
                 } else if (questionType === CHECKBOX) {
-                    curPrereqOptions =([
+                    curPrereqOptions = [
                         { label: 'True', value: 'true' },
                         { label: 'False', value: 'false' },
-                    ]);
+                    ];
                 } else if (optionType) {
                     curPrereqOptions = this._getDropownOptionsByType(optionType);
                 } else if (options) {
                     curPrereqOptions = options.map(opt => ({
-                            label: opt.text,
-                            value: opt.id,
-                        }));
+                        label: opt.text,
+                        value: opt.id,
+                    }));
                 }
 
                 if (questionType === STATUS) {
-                    curPrereqOptions = curPrereqOptions.map(({label, value}) => ({label: `${label} (${name})`, value}));
+                    curPrereqOptions = curPrereqOptions.map(({ label, value }) => ({
+                        label: `${label} (${name})`,
+                        value,
+                    }));
                 } else {
-                    curPrereqOptions = curPrereqOptions.map(({label, value}) => ({label: `${label} (${name})`, value: `${value}#PREREQ_ID_${uuid}`}));
+                    curPrereqOptions = curPrereqOptions.map(({ label, value }) => ({
+                        label: `${label} (${name})`,
+                        value: `${value}#PREREQ_ID_${uuid}`,
+                    }));
                 }
 
                 prereqValueOptions = prereqValueOptions.concat(curPrereqOptions);
-                
             });
-            
+
             return prereqValueOptions;
         };
 
@@ -233,6 +238,7 @@ export default function (WrappedComponent) {
                 canCompanyEdit,
                 defaultValue,
                 optionType,
+                optionColour,
             } = this.props.fields;
 
             switch (questionType) {
@@ -247,6 +253,7 @@ export default function (WrappedComponent) {
                 case VALS.RADIO:
                     return {
                         options: options.map(({ text }) => ({ text, id: text })),
+                        optionColour,
                         canCompanyEdit,
                         defaultValue,
                     };

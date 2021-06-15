@@ -87,6 +87,7 @@ function setDynamicFieldsSingle({
     charLimit,
     maxNum,
     options,
+    optionColour,
     canCompanyEdit,
     maxPhotos,
     optionType,
@@ -113,6 +114,7 @@ function setDynamicFieldsSingle({
             dynamicFields = {
                 options: opts.map(opt => opt.text),
                 canCompanyEdit,
+                optionColour,
                 defaultValue: defaultOpt ? defaultOpt.text : null,
             };
             break;
