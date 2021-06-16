@@ -35,7 +35,7 @@ const PinHistoryDetailsItem = ({
 
         <FieldOutput
             title="Added by"
-            description={`${history.createdByOperativeFullName} - ${history.formattedOperativeCode} (${history.companyName})`}
+            description={`${history.createdByOperativeFullName} - ${history.formattedOperativeCode} (${history.createdByCompanyName})`}
             sizeClass="size-lg-3 size-md-12"
         />
         <FieldOutput
