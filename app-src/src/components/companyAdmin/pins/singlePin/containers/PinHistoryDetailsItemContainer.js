@@ -7,8 +7,6 @@ import { CONFIRM_DELETE, CONFIRM_EDIT_PIN } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
-import fetchSingleCompanyUser from 'actions/companyAdmin/userManagement/async/fetchSingleCompanyUser';
-import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
 class PinHistoryDetailsItemContainer extends Component {
     render() {
@@ -29,11 +27,6 @@ class PinHistoryDetailsItemContainer extends Component {
             ? `${editedByUser.userFirstName} ${editedByUser.userLastName}`
             : null;
 
-        const createdByUser = users[history.createdByCompanyUserID];
-        const addedByCompany = createdByUser
-            ? `${createdByUser.formattedOperativeCode} (${createdByUser.companyName})`
-            : null;
-
         const template = pin ? templates[pin.templateID] : null;
         const templateName = template ? template.name : null;
 
@@ -49,17 +42,10 @@ class PinHistoryDetailsItemContainer extends Component {
                 editedByUserName={editedByUserName}
                 isDeleteHistory={historyCount > 1}
                 pin={pin}
-                addedByCompany={addedByCompany}
                 templateName={templateName}
             />
         );
     }
-
-    componentDidMount = () => {
-        const { fetchCompanyUsers } = this.props;
-
-        fetchCompanyUsers();
-    };
 
     handleEditHistoryModal = () => {
         const { showModal, history } = this.props;
@@ -105,7 +91,5 @@ const mapDispatchToProps = {
     showModal,
     hideModal,
     deletePinHistory,
-    fetchSingleCompanyUser,
-    fetchCompanyUsers,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(PinHistoryDetailsItemContainer);
