@@ -135,19 +135,6 @@ function companyUsersReducer(state = {}, action) {
             return updateObj(state, action.payload.id, action.payload);
         case ADMIN_FETCH_COMPANY_USERS_SUCCESS:
             return { ...convertArrToObj(action.payload) };
-        case ADMIN_EDIT_COMPANY_OWNER_SUCCESS:
-            return Object.values(state).reduce((acc, user) => {
-                if (user.id === action.payload) {
-                    acc[user.id] = { ...user, type: COMPANY_USER_ROLE_TYPES.OWNER };
-                } else if (user.type === COMPANY_USER_ROLE_TYPES.OWNER) {
-                    user.type = COMPANY_USER_ROLE_TYPES.ADMIN;
-                    acc[user.id] = { ...user, type: COMPANY_USER_ROLE_TYPES.ADMIN };
-                } else {
-                    acc[user.id] = user;
-                }
-
-                return acc;
-            }, {});
         default:
             return state;
     }

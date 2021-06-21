@@ -6,6 +6,7 @@ import { usePrevious } from 'helpers/hooks';
 import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
 import EditCompanyOwnerModal from '../presentational/EditCompanyOwnerModal';
 import adminEditCompanyOwner from 'actions/superAdmin/users/async/adminEditCompanyOwner';
+import fetchCompanyAdminUsers from 'actions/superAdmin/users/async/fetchCompanyAdminUsers';
 
 const EditCompanyOwnerModalContainer = ({
     hideModal,
@@ -15,6 +16,8 @@ const EditCompanyOwnerModalContainer = ({
     error,
     adminEditCompanyOwner,
     isPosting,
+    fetchCompanyAdminUsers,
+    companyID,
 }) => {
     const [form, handleFormChange] = useState({
         companyUserID: '',
@@ -31,6 +34,7 @@ const EditCompanyOwnerModalContainer = ({
 
     useEffect(() => {
         if (!prevProps.postSuccess && postSuccess) {
+            fetchCompanyAdminUsers(companyID);
             handleSuccess();
         } else if (!prevProps.error && error) {
             handleError();
@@ -76,6 +80,6 @@ const mapStateToProps = ({
     },
 }) => ({ companyAdmins, postSuccess, error, isPosting });
 
-const mapDispatchToProps = { adminEditCompanyOwner };
+const mapDispatchToProps = { adminEditCompanyOwner, fetchCompanyAdminUsers };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditCompanyOwnerModalContainer);
