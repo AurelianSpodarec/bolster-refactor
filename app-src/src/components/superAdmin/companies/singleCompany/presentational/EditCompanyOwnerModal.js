@@ -5,8 +5,16 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import Select from 'components/shared/generic/form/presentational/Select';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 
-const EditCompanyOwnerModal = ({ handleChange, handleSubmit, hideModal, form, userOptions }) => {
+const EditCompanyOwnerModal = ({
+    handleChange,
+    handleSubmit,
+    hideModal,
+    form,
+    userOptions,
+    isPosting,
+}) => {
     return (
         <ModalOuterContainer>
             <Form onSubmit={handleSubmit}>
@@ -22,9 +30,9 @@ const EditCompanyOwnerModal = ({ handleChange, handleSubmit, hideModal, form, us
                     />
                 </Field>
                 <BlockButtonWrapper additionalClasses="margin-top-lg">
-                    <button type="submit" className="button green">
+                    <button type="submit" className="button green" disabled={isPosting}>
                         <i className="fa fa-plus" />
-                        Submit
+                        {isPosting ? <LoadingIcon /> : 'Submit'}
                     </button>
                     <button type="button" className="button red" onClick={hideModal}>
                         <i className="fa fa-times" />

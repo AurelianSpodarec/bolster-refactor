@@ -30,6 +30,7 @@ import {
 import {
     ADMIN_EDIT_COMPANY_OWNER_REQUEST,
     ADMIN_EDIT_COMPANY_OWNER_SUCCESS,
+    ADMIN_EDIT_COMPANY_OWNER_FAILURE,
 } from 'constants/actionTypes/companies';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 
@@ -44,6 +45,7 @@ export default combineReducers({
     companyUsers: companyUsersReducer,
     companyUsersInfo: companyUsersInfoReducer,
     companyAdmins: companyAdminUsersReducer,
+    isPosting: isPostingReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -93,6 +95,7 @@ function errorReducer(state = null, action) {
         case ADMIN_CREATE_COMPANY_USER_REQUEST:
         case ADMIN_FETCH_USERS_BY_SEARCH_REQUEST:
         case FETCH_COMPANY_ADMIN_USERS_REQUEST:
+        case ADMIN_EDIT_COMPANY_OWNER_REQUEST:
             return null;
         case FETCH_ALL_USERS_FAILURE:
         case EDIT_USER_FAILURE:
@@ -101,6 +104,7 @@ function errorReducer(state = null, action) {
         case ADMIN_CREATE_COMPANY_USER_FAILURE:
         case ADMIN_FETCH_USERS_BY_SEARCH_FAILURE:
         case FETCH_COMPANY_ADMIN_USERS_FAILURE:
+        case ADMIN_EDIT_COMPANY_OWNER_FAILURE:
             return action.error;
         default:
             return state;
@@ -192,6 +196,18 @@ function companyAdminUsersReducer(state = { companyAdmins: {} }, action) {
     switch (action.type) {
         case FETCH_COMPANY_ADMIN_USERS_SUCCESS:
             return { ...convertArrToObj(action.payload) };
+        default:
+            return state;
+    }
+}
+
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case ADMIN_EDIT_COMPANY_OWNER_REQUEST:
+            return true;
+        case ADMIN_EDIT_COMPANY_OWNER_FAILURE:
+        case ADMIN_EDIT_COMPANY_OWNER_SUCCESS:
+            return false;
         default:
             return state;
     }

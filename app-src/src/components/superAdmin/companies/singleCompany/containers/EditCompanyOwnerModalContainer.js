@@ -13,6 +13,8 @@ const EditCompanyOwnerModalContainer = ({
     companyAdmins,
     postSuccess,
     error,
+    adminEditCompanyOwner,
+    isPosting,
 }) => {
     const [form, handleFormChange] = useState({
         companyUserID: '',
@@ -42,6 +44,7 @@ const EditCompanyOwnerModalContainer = ({
             form={form}
             hideModal={hideModal}
             userOptions={userDropdownOptions}
+            isPosting={isPosting}
         />
     );
 
@@ -69,9 +72,9 @@ const EditCompanyOwnerModalContainer = ({
 
 const mapStateToProps = ({
     superAdmin: {
-        usersReducer: { companyAdmins, postSuccess, error },
+        usersReducer: { companyAdmins, postSuccess, error, isPosting },
     },
-}) => ({ companyAdmins, postSuccess, error });
+}) => ({ companyAdmins, postSuccess, error, isPosting });
 
 const mapDispatchToProps = { adminEditCompanyOwner };
 
