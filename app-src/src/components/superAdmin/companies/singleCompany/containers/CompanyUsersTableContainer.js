@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import fetchCompanyUsers from 'actions/superAdmin/users/async/fetchCompanyUsers';
@@ -11,6 +11,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { ADMIN_CREATE_COMPANY_ADMIN, ADMIN_EDIT_COMPANY_OWNER } from 'constants/shared/modalTypes';
 
 import PageSelector from 'components/shared/pagination/presentational/pageSelector';
+import fetchCompanyAdminUsers from 'actions/superAdmin/users/async/fetchCompanyAdminUsers';
 
 const CompanyUsersTableContainer = ({
     users,
@@ -22,11 +23,15 @@ const CompanyUsersTableContainer = ({
     showModal,
 }) => {
     const dispatch = useDispatch();
+    const id = match.params.id;
 
     const setPage = nextPage => {
-        const id = match.params.id;
         dispatch(fetchCompanyUsers(id, nextPage));
     };
+
+    useEffect(() => {
+        dispatch(fetchCompanyAdminUsers(id));
+    }, []);
 
     return (
         <BlockContainer>
@@ -41,9 +46,10 @@ const CompanyUsersTableContainer = ({
             </div>
             <BlockButtonWrapper additionalClasses="no-margin" sizeClasses="size-lg-6 size-md-12">
                 <button
-                    className=" button yellow"
+                    className="button yellow"
                     onClick={handleShowEditCompanyOwnerModal}
                     type="button"
+                    disabled={isFetching}
                 >
                     <i className="fa fa-edit" /> Edit Company Owner
                 </button>

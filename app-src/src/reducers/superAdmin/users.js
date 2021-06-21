@@ -17,6 +17,9 @@ import {
     ADMIN_FETCH_USERS_BY_SEARCH_SUCCESS,
     ADMIN_FETCH_USERS_BY_SEARCH_REQUEST,
     ADMIN_FETCH_USERS_BY_SEARCH_FAILURE,
+    FETCH_COMPANY_ADMIN_USERS_REQUEST,
+    FETCH_COMPANY_ADMIN_USERS_SUCCESS,
+    FETCH_COMPANY_ADMIN_USERS_FAILURE,
 } from 'constants/actionTypes/users';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
@@ -40,6 +43,7 @@ export default combineReducers({
     count: countReducer,
     companyUsers: companyUsersReducer,
     companyUsersInfo: companyUsersInfoReducer,
+    companyAdmins: companyAdminUsersReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -47,6 +51,7 @@ function isFetchingReducer(state = false, action) {
         case FETCH_ALL_USERS_REQUEST:
         case ADMIN_FETCH_COMPANY_USERS_REQUEST:
         case ADMIN_FETCH_USERS_BY_SEARCH_REQUEST:
+        case FETCH_COMPANY_ADMIN_USERS_REQUEST:
             return true;
         case FETCH_ALL_USERS_SUCCESS:
         case FETCH_ALL_USERS_FAILURE:
@@ -54,6 +59,8 @@ function isFetchingReducer(state = false, action) {
         case ADMIN_FETCH_COMPANY_USERS_SUCCESS:
         case ADMIN_FETCH_USERS_BY_SEARCH_SUCCESS:
         case ADMIN_FETCH_USERS_BY_SEARCH_FAILURE:
+        case FETCH_COMPANY_ADMIN_USERS_FAILURE:
+        case FETCH_COMPANY_ADMIN_USERS_SUCCESS:
             return false;
         default:
             return state;
@@ -85,6 +92,7 @@ function errorReducer(state = null, action) {
         case ADMIN_FETCH_COMPANY_USERS_REQUEST:
         case ADMIN_CREATE_COMPANY_USER_REQUEST:
         case ADMIN_FETCH_USERS_BY_SEARCH_REQUEST:
+        case FETCH_COMPANY_ADMIN_USERS_REQUEST:
             return null;
         case FETCH_ALL_USERS_FAILURE:
         case EDIT_USER_FAILURE:
@@ -92,6 +100,7 @@ function errorReducer(state = null, action) {
         case ADMIN_FETCH_COMPANY_USERS_FAILURE:
         case ADMIN_CREATE_COMPANY_USER_FAILURE:
         case ADMIN_FETCH_USERS_BY_SEARCH_FAILURE:
+        case FETCH_COMPANY_ADMIN_USERS_FAILURE:
             return action.error;
         default:
             return state;
@@ -174,6 +183,15 @@ function countReducer(state = 0, action) {
     switch (action.type) {
         case ADMIN_FETCH_USERS_BY_SEARCH_SUCCESS:
             return action.payload.count;
+        default:
+            return state;
+    }
+}
+
+function companyAdminUsersReducer(state = { companyAdmins: {} }, action) {
+    switch (action.type) {
+        case FETCH_COMPANY_ADMIN_USERS_SUCCESS:
+            return { ...convertArrToObj(action.payload) };
         default:
             return state;
     }

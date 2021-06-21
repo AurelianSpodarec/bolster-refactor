@@ -10,16 +10,15 @@ import adminEditCompanyOwner from 'actions/superAdmin/users/async/adminEditCompa
 const EditCompanyOwnerModalContainer = ({
     hideModal,
     showModal,
-    users,
+    companyAdmins,
     postSuccess,
     error,
-    adminEditCompanyOwner,
 }) => {
     const [form, handleFormChange] = useState({
         companyUserID: '',
     });
 
-    const userDropdownOptions = Object.values(users).map(user => {
+    const userDropdownOptions = Object.values(companyAdmins).map(user => {
         return {
             label: `${user.userFirstName} ${user.userLastName}`,
             value: user.id,
@@ -70,9 +69,9 @@ const EditCompanyOwnerModalContainer = ({
 
 const mapStateToProps = ({
     superAdmin: {
-        usersReducer: { users, postSuccess, error },
+        usersReducer: { companyAdmins, postSuccess, error },
     },
-}) => ({ users, postSuccess, error });
+}) => ({ companyAdmins, postSuccess, error });
 
 const mapDispatchToProps = { adminEditCompanyOwner };
 
