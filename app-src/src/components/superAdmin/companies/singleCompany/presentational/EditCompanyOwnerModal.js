@@ -21,7 +21,7 @@ const EditCompanyOwnerModal = ({ handleChange, handleSubmit, hideModal, form, us
                         required
                     />
                 </Field>
-                <BlockButtonWrapper>
+                <BlockButtonWrapper additionalClasses="margin-top-lg">
                     <button type="submit" className="button green">
                         <i className="fa fa-plus" />
                         Submit
