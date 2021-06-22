@@ -21,7 +21,6 @@ const Terms = ({ fetchTerms }) => {
             <PageHeading leftChildren={true} title="Terms & Conditions">
                 <BackButtonContainer />
             </PageHeading>
-            {/* <TermsAndConditions terms={terms} eula={eula} privacy={privacy} /> */}
         </>
     );
 };

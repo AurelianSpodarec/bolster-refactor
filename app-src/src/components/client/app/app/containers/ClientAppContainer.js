@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { batch, connect } from 'react-redux';
 import withAuth from 'components/shared/auth/auth/hocs/withAuth';
 import ClientApp from '../presentational/ClientApp';
 import fetchProfile from 'actions/shared/profile/async/fetchProfile';
@@ -24,10 +24,12 @@ const ClientAppContainer = ({ fetchHomeData, selectClientMenuTab }) => {
 
 const mapDispatchToProps = dispatch => ({
     fetchHomeData: companyID => {
-        dispatch(fetchProfile());
-        dispatch(fetchClientCompanyReports(companyID));
-        dispatch(decodeJWT());
-        dispatch(fetchAllSubscriptions());
+        batch(() => {
+            dispatch(fetchProfile());
+            dispatch(fetchClientCompanyReports(companyID));
+            dispatch(decodeJWT());
+            dispatch(fetchAllSubscriptions());
+        });
     },
     selectClientMenuTab: () => dispatch(selectMenuTab(MENU_TABS.CLIENT)),
 });

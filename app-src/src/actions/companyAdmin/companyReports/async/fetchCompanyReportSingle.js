@@ -22,8 +22,6 @@ export const fetchCompanyReportSingleFailure = error => ({
     error,
 });
 
-// TODO: reducer
-
 export default reportID => dispatch => {
     dispatch(fetchCompanyReportSingleRequest());
     return axios

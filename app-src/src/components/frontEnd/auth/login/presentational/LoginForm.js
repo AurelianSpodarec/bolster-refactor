@@ -1,4 +1,5 @@
 import React from 'react';
+import Countdown from 'react-countdown';
 
 import FrontEndFormHeading from 'components/frontEnd/shared/forms/presentational/FrontEndFormHeading';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
@@ -7,6 +8,12 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 
+const timeRenderer = ({ formatted: { minutes, seconds } }) => (
+    <span>
+        Resend in {minutes}:{seconds}
+    </span>
+);
+
 const LoginForm = ({
     formData,
     handleChange,
@@ -14,8 +21,13 @@ const LoginForm = ({
     handleForgotPassword,
     isPosting,
     loginText,
+    showTwoFactor,
+    canResend2FA,
+    setCanResend2FA,
+    lastResent,
+    handleResendTwoFactor,
 }) => {
-    const { email, password } = formData;
+    const { email, password, twoFactorCode } = formData;
 
     return (
         <div className="auth-form-wrapper login">
@@ -41,6 +53,37 @@ const LoginForm = ({
                         classes="auth-text-input-container"
                     />
                 </Field>
+                {showTwoFactor && (
+                    <>
+                        <Field classes="auth-form-field" name="Two Factor Code">
+                            <p className="generic-text">
+                                We have sent a code to the Two Factor Authentication phone number in
+                                your profile. Please enter it to continue.
+                            </p>
+                            <TextInputContainer
+                                value={twoFactorCode}
+                                name="twoFactorCode"
+                                required
+                                handleChange={handleChange}
+                                classes="auth-text-input-container"
+                            />
+                            <p className="generic-text" style={{ marginTop: 5 }}>
+                                Not received code?{' '}
+                                {canResend2FA ? (
+                                    <a href="#" onClick={handleResendTwoFactor}>
+                                        Resend
+                                    </a>
+                                ) : (
+                                    <Countdown
+                                        date={lastResent + 120000}
+                                        renderer={timeRenderer}
+                                        onComplete={() => setCanResend2FA(true)}
+                                    />
+                                )}
+                            </p>
+                        </Field>
+                    </>
+                )}
                 <Field classes="auth-form-field row right">
                     <FrontEndButton
                         classes={`gray right ${!isPosting ? '' : 'disabled'}`}

@@ -14,7 +14,7 @@ import { isEmpty } from 'helpers/generic';
 class HeaderProfileContainer extends Component {
     state = {
         popupVisible: false,
-        shouldRestrictPayments: false
+        shouldRestrictPayments: false,
     };
 
     render() {
@@ -28,8 +28,11 @@ class HeaderProfileContainer extends Component {
             unreadMessageCount,
             totalCredits,
             totalRequests,
-            showModal
+            showModal,
+            isCompanySelection,
+            companyUserID,
         } = this.props;
+        const isCompanyUserOrSelecting = !companyUserID || isCompanySelection;
         return !onMobile ? (
             <HeaderProfile
                 updateNode={node => {
@@ -44,6 +47,7 @@ class HeaderProfileContainer extends Component {
                 companyName={companyName}
                 isSubscribed={this._isSubscribed()}
                 shouldRestrictPayments={this.state.shouldRestrictPayments}
+                isCompanyUserOrSelecting={isCompanyUserOrSelecting}
             />
         ) : (
             <HeaderProfileMobile
@@ -64,6 +68,7 @@ class HeaderProfileContainer extends Component {
                 totalRequests={totalRequests}
                 showModal={showModal}
                 shouldRestrictPayments={this.state.shouldRestrictPayments}
+                isCompanyUserOrSelecting={isCompanyUserOrSelecting}
             />
         );
     }
@@ -72,8 +77,7 @@ class HeaderProfileContainer extends Component {
 
         if (users && users[companyUserID]) {
             this.setState({
-                shouldRestrictPayments:
-                    users[companyUserID].shouldRestrictPayments
+                shouldRestrictPayments: users[companyUserID].shouldRestrictPayments,
             });
         }
     };
@@ -82,8 +86,7 @@ class HeaderProfileContainer extends Component {
 
         if (users && users[companyUserID] && !prevProps.users[companyUserID]) {
             this.setState({
-                shouldRestrictPayments:
-                    users[companyUserID].shouldRestrictPayments
+                shouldRestrictPayments: users[companyUserID].shouldRestrictPayments,
             });
         }
     };
@@ -91,14 +94,11 @@ class HeaderProfileContainer extends Component {
     _isSubscribed = () => {
         const {
             subscriptions,
-            subscriptions: { startOn, endOn }
+            subscriptions: { startOn, endOn },
         } = this.props;
         if (isEmpty(subscriptions)) return false;
 
-        return (
-            moment(startOn).isBefore(Date.now()) &&
-            moment(endOn).isAfter(Date.now())
-        );
+        return moment(startOn).isBefore(Date.now()) && moment(endOn).isAfter(Date.now());
     };
 
     handleClick = () => {
@@ -107,18 +107,14 @@ class HeaderProfileContainer extends Component {
             // attach/remove event handler
             document.addEventListener('click', this.handleOutsideClick, false);
         } else {
-            document.removeEventListener(
-                'click',
-                this.handleOutsideClick,
-                false
-            );
+            document.removeEventListener('click', this.handleOutsideClick, false);
             if (menuOpen) {
                 toggleMobileMenu();
             }
         }
 
         this.setState(prevState => ({
-            popupVisible: !prevState.popupVisible
+            popupVisible: !prevState.popupVisible,
         }));
     };
 
@@ -143,38 +139,33 @@ class HeaderProfileContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: {
-            companySettings: { name }
+            companySettings: { name },
         },
         subscriptionsReducer: { subscriptions },
-        companyUsersReducer: { users }
+        companyUsersReducer: { users },
     },
     superAdmin: { companyReportsReducer },
     shared: {
         profileReducer,
         decodeJWTReducer: {
-            jwtData: { companyID, headquartersCompanyID, companyUserID }
+            jwtData: { companyID, headquartersCompanyID, companyUserID },
         },
-        mobileReducer: { onMobile, menuOpen }
-    }
+        mobileReducer: { onMobile, menuOpen },
+    },
 }) => ({
     subscriptions,
-    isImpersonating:
-        companyID &&
-        headquartersCompanyID &&
-        companyID !== headquartersCompanyID,
+    isImpersonating: companyID && headquartersCompanyID && companyID !== headquartersCompanyID,
     companyName: name,
     profile: profileReducer.profile || {},
-    companyReportsLength: Object.values(
-        companyReportsReducer.companyReports
-    ).filter(item => item.state === GENERATION_STATE_VAL.WAITING).length,
+    companyReportsLength: Object.values(companyReportsReducer.companyReports).filter(
+        item => item.state === GENERATION_STATE_VAL.WAITING,
+    ).length,
     onMobile,
     menuOpen,
     companyUserID,
-    users
+    users,
 });
 
 export default withRouter(
-    connect(mapStateToProps, { logout, toggleMobileMenu })(
-        HeaderProfileContainer
-    )
+    connect(mapStateToProps, { logout, toggleMobileMenu })(HeaderProfileContainer),
 );

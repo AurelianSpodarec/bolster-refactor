@@ -5,6 +5,8 @@ import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import OperativesFilter from '../presentational/OperativesFilter';
 
 class OperativesFilterContainer extends Component {
+    state = { hasSetOp: false };
+
     render() {
         const {
             formatArrForDropdown,
@@ -12,15 +14,23 @@ class OperativesFilterContainer extends Component {
             filters: { companyUserIDs },
             sizeClasses,
             isDrawingPage,
+            isFetchingOperatives,
         } = this.props;
+
+        const filteredOperatives = isDrawingOwner
+            ? operatives
+            : operatives.filter(item => !drawingCompanyID || item.companyID === drawingCompanyID);
+
+        const operativeOptions = formatArrForDropdownOperative(filteredOperatives);
 
         return (
             <OperativesFilter
-                operativeOptions={formatArrForDropdown(operatives)}
+                operativeOptions={operativeOptions}
                 selectedOperatives={companyUserIDs}
                 handleChange={this.handleChange}
                 sizeClasses={sizeClasses}
                 isDrawingPage={isDrawingPage}
+                isFetchingOperatives={isFetchingOperatives}
             />
         );
     }
@@ -29,11 +39,12 @@ class OperativesFilterContainer extends Component {
         const {
             handleChange,
             location: { state: locationState },
+            operatives,
         } = this.props;
-
-        if (locationState && locationState.operativeID) {
+        if (locationState && operatives[locationState.operativeID]) {
             const opIDs = [locationState.operativeID];
             handleChange('companyUserIDs', opIDs);
+            this.setState({ hasSetOp: true });
         }
     };
 
@@ -42,10 +53,21 @@ class OperativesFilterContainer extends Component {
             handleChange,
             customFilters: { operatives },
             filters: { companyUserIDs },
+            location: { state: locationState },
         } = this.props;
         if (operatives.length !== prevOps.length) {
             // remove operative if they're no longer available after filter update
             const opIDs = companyUserIDs.filter(opID => operatives.some(op => opID === op.id));
+            if (
+                !this.state.hasSetOp &&
+                locationState?.operativeID &&
+                operatives.some(({ id }) => id === locationState.operativeID)
+            ) {
+                if (!opIDs.some(opID => opID === locationState.operativeID)) {
+                    opIDs.push(locationState.operativeID);
+                }
+                this.setState({ hasSetOp: true });
+            }
 
             handleChange('companyUserIDs', opIDs);
         }

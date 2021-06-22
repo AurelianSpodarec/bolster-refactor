@@ -24,15 +24,14 @@ const FilterMap = ({
     mode,
     handleCancelPinSelector = () => {},
     isExcluding,
-    isClient
+    isClient,
 }) => {
-    // TODO change icon
     const cornerClickedIcon = L.divIcon({
         className: '',
         html: ReactDOMServer.renderToString(<RedX />),
         iconSize: [30, 50],
         iconAnchor: [15, 50],
-        popupAnchor: [0, -50]
+        popupAnchor: [0, -50],
     });
     return (
         <Block>

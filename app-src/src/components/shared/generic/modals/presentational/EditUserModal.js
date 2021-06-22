@@ -13,7 +13,7 @@ const EditUserModal = ({
     phoneNumber,
     handleSubmit,
     hideModal,
-    handleChange
+    handleChange,
 }) => {
     return (
         <ModalOuterContainer>
@@ -53,13 +53,12 @@ const EditUserModal = ({
                     </Field>
                 </div>
                 <div className="size-lg-12">
-                    <Field name="Phone number" required>
+                    <Field name="Phone number">
                         <TextInputContainer
                             handleChange={handleChange}
                             name={'phoneNumber'}
                             value={phoneNumber}
                             type="text"
-                            required
                         />
                     </Field>
                 </div>

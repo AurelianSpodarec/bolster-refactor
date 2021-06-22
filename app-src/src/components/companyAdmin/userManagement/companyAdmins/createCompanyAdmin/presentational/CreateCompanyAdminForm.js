@@ -7,7 +7,6 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
 const CreateCompanyAdminForm = ({
-    confirmPassword,
     email,
     firstName,
     handleSubmit,
@@ -15,20 +14,18 @@ const CreateCompanyAdminForm = ({
     hideModal,
     lastName,
     phoneNumber,
-    password,
-    validatePassword,
-    validateConfirmPassword,
     shouldRestrictPayments,
     shouldRestrictPaymentsAccess,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="First name">
+                <Field name="First name" required>
                     <TextInputContainer
                         name="firstName"
                         value={firstName}
                         handleChange={handleInputChange}
+                        required
                     />
                 </Field>
             </div>
@@ -68,31 +65,6 @@ const CreateCompanyAdminForm = ({
                 </Field>
             </div>
 
-            <div className="size-lg-6">
-                <Field name="Password" required>
-                    <TextInputContainer
-                        value={password}
-                        name="password"
-                        type="password"
-                        handleChange={handleInputChange}
-                        validate={validatePassword}
-                        required
-                    />
-                </Field>
-            </div>
-
-            <div className="size-lg-6">
-                <Field name="Confirm Password" required>
-                    <TextInputContainer
-                        value={confirmPassword}
-                        name="confirmPassword"
-                        type="password"
-                        handleChange={handleInputChange}
-                        validate={validateConfirmPassword}
-                        required
-                    />
-                </Field>
-            </div>
             {shouldRestrictPaymentsAccess && (
                 <div className="size-lg-6">
                     <Field name="Restrict Payments?">

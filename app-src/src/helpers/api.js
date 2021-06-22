@@ -15,7 +15,7 @@ export function getAuthHeader() {
 // getHeaders returns a header object to pass to api requests.
 export function getHeaders() {
     return {
-        headers: getAuthHeader()
+        headers: getAuthHeader(),
     };
 }
 
@@ -47,6 +47,7 @@ export function getDecodedJWT() {
 
 export function formatJWTData({
     IsSuperAdmin,
+    IsCompanyAdmin,
     IsClientAccess,
     ID,
     CompanyID,
@@ -60,6 +61,7 @@ export function formatJWTData({
     return {
         id: JSON.parse(ID),
         isSuperAdmin: JSON.parse(IsSuperAdmin),
+        isCompanyAdmin: JSON.parse(IsCompanyAdmin),
         isClientAccess: JSON.parse(IsClientAccess),
         companyID: JSON.parse(CompanyID),
         companyUserID: JSON.parse(CompanyUserID),
@@ -67,14 +69,13 @@ export function formatJWTData({
         headquartersCompanyID: JSON.parse(HeadquartersCompanyID),
         headQuartersCompanyUserID: JSON.parse(HeadquartersCompanyUserID),
         headQuartersCompanyUserType: JSON.parse(HeadquartersCompanyUserType),
-        ...rest
+        ...rest,
     };
 }
 
 export function handleErrors(func) {
-    return function({ response, message }) {
-        if (response && response.status === 400)
-            return setAPIFieldErrors(response.data.errors);
+    return function ({ response, message }) {
+        if (response && response.status === 400) return setAPIFieldErrors(response.data.errors);
         // if (response && response.status === 401)
         // redirect to login
 

@@ -89,13 +89,15 @@ class AttachOperativesFormContainer extends Component {
     };
 
     _getUserOptions = () => {
-        const { operativeUsers } = this.props;
+        const { operativeUsers, maxDrawingsPerOperative } = this.props;
 
-        const options = operativeUsers.map(({ id, userFirstName, userLastName, userEmail }) => ({
-            value: id,
-            text: `${userFirstName} ${userLastName} <${userEmail}>`,
-            label: `${userFirstName} ${userLastName} <${userEmail}>`,
-        }));
+        const options = operativeUsers.map(
+            ({ id, userFirstName, userLastName, userEmail, drawingCount }) => ({
+                value: id,
+                text: `${userFirstName} ${userLastName} <${userEmail}> (${drawingCount}/${maxDrawingsPerOperative} drawings)`,
+                label: `${userFirstName} ${userLastName} <${userEmail}> (${drawingCount}/${maxDrawingsPerOperative} drawings)`,
+            }),
+        );
 
         return convertArrToObj(options, 'value');
     };
@@ -174,6 +176,10 @@ class AttachOperativesFormContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
+            companySettingsReducer: {
+                isFetching: isFetchingCompanySettings,
+                companySettings: { maxDrawingsPerOperative },
+            },
             companyUsersReducer: { users, isFetching, error },
             companiesPermissionsReducer: { companiesPermissions: companyPermissions },
             servicesReducer: { services },
@@ -199,13 +205,14 @@ const mapStateToProps = (
     operativeUsers: operativeUsers || Object.values(users),
     services,
     subscriptions: subscriptions.serviceIDs || [],
-    isFetching: isFetching || fetchingOps || fetchingTemplates,
+    isFetching: isFetching || fetchingOps || fetchingTemplates || isFetchingCompanySettings,
     error: error || opsError || templatesError,
     postSuccess,
     drawingUserIDs: Object.values(operatives).map(({ companyUserID }) => companyUserID),
     companyPermissions: Object.values(companyPermissions),
     companyID,
     templates: Object.values(templates),
+    maxDrawingsPerOperative,
 });
 
 const mapDispatchToProps = {

@@ -1,6 +1,3 @@
-/* eslint no-mixed-operators: 0 */
-/* eslint egegeg: 0 */
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -41,7 +38,7 @@ class SinglePinMapContainer extends Component {
         ];
 
         const latestUserName = [...histories].sort(
-            (a, b) => moment(b.createdOn) - moment(a.createdOn).format()
+            (a, b) => moment(b.createdOn) - moment(a.createdOn).format(),
         );
 
         return (
@@ -75,7 +72,7 @@ class SinglePinMapContainer extends Component {
         );
     }
 
-    componentDidUpdate = (prevProps) => {
+    componentDidUpdate = prevProps => {
         const { pin, fetchDrawing, updatePinCoordinates } = this.props;
         if (!prevProps.pin.id && pin.id) {
             const lat = pin.location.latY;
@@ -117,12 +114,10 @@ class SinglePinMapContainer extends Component {
 
     _getIncludedZones = () => {
         const { zones } = this.props;
-        return Object.values(zones).filter(({ coordinates }) =>
-            this._checkIsInside(coordinates)
-        );
+        return Object.values(zones).filter(({ coordinates }) => this._checkIsInside(coordinates));
     };
 
-    _checkIsInside = (vs) => {
+    _checkIsInside = vs => {
         const { pin } = this.props;
         const { lngX, latY } = pin.location || {};
         const point = [lngX, latY];
@@ -137,9 +132,7 @@ class SinglePinMapContainer extends Component {
             var xj = vs[j][0],
                 yj = vs[j][1];
 
-            var intersect =
-                yi > y !== yj > y &&
-                x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+            var intersect = yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
             if (intersect) inside = !inside;
         }
 
@@ -180,7 +173,7 @@ const mapStateToProps = (
             mobileReducer: { onMobile },
         },
     },
-    { match: { params } }
+    { match: { params } },
 ) => {
     const pin = singlePin[params.id] || {};
 
@@ -197,16 +190,14 @@ const mapStateToProps = (
     };
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     editPinLocation: (id, lat, lng) =>
         dispatch(editPinLocation(id, { location: { lngX: lng, latY: lat } })),
     updatePinCoordinates: (name, value) => {
         dispatch(updatePinCoordinates(name, value));
     },
-    fetchDrawing: (drawingID) => dispatch(fetchSingleDrawing(drawingID)),
+    fetchDrawing: drawingID => dispatch(fetchSingleDrawing(drawingID)),
     showModal: (type, props) => dispatch(showModal(type, props)),
 });
 
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(SinglePinMapContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SinglePinMapContainer));

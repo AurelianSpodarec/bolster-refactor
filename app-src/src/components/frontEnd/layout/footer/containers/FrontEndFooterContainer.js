@@ -27,7 +27,7 @@ const FrontEndFooterContainer = ({
 const mapStateToProps = ({
     shared: {
         decodeJWTReducer: {
-            jwtData: { isSuperAdmin, isClientAccess, companyID },
+            jwtData: { isSuperAdmin, isClientAccess, isCompanyAdmin },
         },
     },
     frontEnd: {
@@ -39,7 +39,7 @@ const mapStateToProps = ({
 }) => ({
     hideHeader,
     isSuperAdmin,
-    isCompanyAdmin: !!companyID,
+    isCompanyAdmin,
     isClientAccess,
     cookieConsent,
 });

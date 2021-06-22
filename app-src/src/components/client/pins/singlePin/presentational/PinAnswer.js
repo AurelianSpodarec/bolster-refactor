@@ -142,8 +142,8 @@ const PinAnswer = ({
                 <p>
                     <a
                         href={docURL}
-                        rel="noopener noreferrer"
                         target="_blank"
+                        rel="noopener noreferrer"
                         className="text-link"
                     >
                         <i className="table-icon far fa-file-alt" /> {curAnswer.answer}

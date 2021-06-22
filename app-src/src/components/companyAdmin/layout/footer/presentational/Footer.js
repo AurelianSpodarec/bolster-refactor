@@ -6,23 +6,23 @@ import AppVersionMessage from './AppVersionMessage';
 
 const logos = {
     white: WhiteLogo,
-    black: BlackLogo
+    black: BlackLogo,
 };
 
-const Footer = ({ company, companyColour, version, isFetching, error }) => (
+const Footer = ({ company, companyColour, version, isFetching, error, companyUserID }) => (
     <footer
         id="page-footer"
         style={{
-            backgroundColor: companyColour
+            backgroundColor: companyColour,
         }}
     >
         <div className="container">
-            <p style={{ color: company.isBolsterLogoDark ? '#000' : '#fff' }}>
+            <p style={{ color: !company.isBolsterLogoDark || !companyUserID ? '#fff' : '#000' }}>
                 <AppVersionMessage version={version} isFetching={isFetching} error={error} />
             </p>
 
             <img
-                src={company.isBolsterLogoDark ? logos.black : logos.white}
+                src={!company.isBolsterLogoDark || !companyUserID ? logos.white : logos.black}
                 className="footer-logo"
                 alt="powered by bolster systems logo"
             />

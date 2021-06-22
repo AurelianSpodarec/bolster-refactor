@@ -53,13 +53,11 @@ class OptionValuesListItemContainer extends Component {
     handleEditOptionValueModal = optionValue => {
         const { showModal, services } = this.props;
         showModal(COMPANY_EDIT_OPTION_VALUE, { optionValue, services });
-        // todo company admin edit option value redux and modal
     };
 
     handleToggleEnable = () => {
         const { showModal, optionValue } = this.props;
         showModal(COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE, { optionValue });
-        // todo company admin toggle enable disable option value redux and modal
     };
 
     handlePostOptionValuesSort = () => {
