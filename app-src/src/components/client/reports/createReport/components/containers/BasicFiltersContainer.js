@@ -32,7 +32,16 @@ class BasicFiltersContainer extends Component {
             fieldError,
             formatArrForDropdown,
             services,
-            filters: { serviceID, status, fromDateInclusive, toDateInclusive, templateID },
+            filters: {
+                serviceID,
+                status,
+                fromDateInclusive,
+                toDateInclusive,
+                templateID,
+                includeTime,
+                startTime,
+                endTime,
+            },
             isFetchingTemplates,
             templates,
         } = this.props;
@@ -65,6 +74,9 @@ class BasicFiltersContainer extends Component {
                         toDateInclusive={toDateInclusive}
                         fieldError={fieldError}
                         handleDateBlur={this.handleDateBlur}
+                        includeTime={includeTime}
+                        startTime={startTime}
+                        endTime={endTime}
                     />
                 </BlockContainer>
             </div>
@@ -110,6 +122,11 @@ class BasicFiltersContainer extends Component {
             const message = 'Changing this will reset your advanced filters options, continue?';
             showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
         } else {
+            if (name === 'includeTime') {
+                handleChange('startTime', null);
+                handleChange('endTime', null);
+            }
+
             handleChange(name, value).then(postFilters);
         }
     };

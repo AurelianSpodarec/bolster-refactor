@@ -73,7 +73,10 @@ const SubscriptionStatus = ({
                             <p className="info-message warning" style={{ marginTop: '15px' }}>
                                 There is an outstanding auto-renew invoice. Since you{"'"}re set to
                                 auto-renewal & pay by card, we will automatically attempt to take
-                                payment before your renewal date.
+                                payment before your renewal date. Your renewal date is{' '}
+                                <strong>
+                                    <DateTimeContainer date={endOn} />
+                                </strong>
                             </p>
                         )}
 

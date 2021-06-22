@@ -124,6 +124,8 @@ class OutputSettingsContainer extends Component {
         this.props.updateFilterOption(name, value);
     };
 
+
+
     handleSubmit = () => {
         const {
             getPostBody,
@@ -139,7 +141,6 @@ class OutputSettingsContainer extends Component {
             furtherFiltrationOption,
             customFilters,
         } = this.props;
-
         if (!isEmpty(fieldErrors)) showFieldErrors();
         else if (isFloorplanGeneration || (isPDFGeneration && includeFloorplan)) {
             const drawingForPinScale = this._getDrawingForPinScale();

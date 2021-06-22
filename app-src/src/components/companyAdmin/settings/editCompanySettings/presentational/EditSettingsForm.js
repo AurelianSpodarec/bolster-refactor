@@ -229,26 +229,6 @@ const EditSettingsForm = ({
                         name="isUsingBolsterLabels"
                     />
                 </Field>
-                {isUsingBolsterLabels && (
-                    <>
-                        <Field name="Label Company Name" sizeClasses="size-lg-6 size-md-12">
-                            <TextInputContainer
-                                value={labelCompanyName}
-                                name="labelCompanyName"
-                                type="text"
-                                handleChange={handleInputChange}
-                            />
-                        </Field>
-                        <Field name="Label Telephone No." sizeClasses="size-lg-6 size-md-12">
-                            <TextInputContainer
-                                value={labelTelNumber}
-                                name="labelTelNumber"
-                                type="text"
-                                handleChange={handleInputChange}
-                            />
-                        </Field>
-                    </>
-                )}
             </div>
             <div className="size-lg-12">
                 <Field name="Default Template Usage Rule" sizeClasses="size-lg-12" required>

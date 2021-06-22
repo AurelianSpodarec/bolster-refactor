@@ -112,7 +112,7 @@ const AddDrawingsFormContainer = ({
 
     const [initialDropdownOptions, setInititalDropdownOptions] = useState({
         isDropdownOptionsInherited: false,
-        setDropdownOptionsForHierarchy: null,
+        setDropdownOptionsForHierarchy: false,
         selectedDropdownOptions: [],
         dropdownOptions: [],
     });

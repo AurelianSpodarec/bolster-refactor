@@ -6,7 +6,7 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-import { convertArrToObj, momentComparisonFormat } from 'helpers/generic';
+import { convertArrToObj,  } from 'helpers/generic';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { FURTHER_FILTRATION_OPTIONS, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import getOperativeOptions from 'actions/companyAdmin/reports/async/getOperativeOptions';
@@ -77,8 +77,6 @@ export default function (ProtectedComponent) {
             }
 
             const {
-                fromDateInclusive: startDate,
-                toDateInclusive: endDate,
                 status,
                 serviceID,
                 templateID,
@@ -89,28 +87,30 @@ export default function (ProtectedComponent) {
             const NO = false;
             const YES = true;
 
-            const fromDateInclusive = this.getFilterStartDate(startDate);
-            const toDateInclusive = this.getFilterEndDate(endDate);
+            const [from, to] = this._getDateTimeFilters();
 
             // simple
             return pins
                 .filter(pin => {
                     // 2066696
                     // start date
+                    // if (pin.id === 3233480) {
+                    //     console.log('{pin}');
+                    //     console.log(moment(pin.latestCreatedOn).utc(true).toISOString());
+                    //     console.log(from && moment(from).toISOString());
+                    //     console.log(to && moment(to).toISOString());
+                    //     console.log('{pin}');
+                    // }
 
                     if (
-                        fromDateInclusive &&
-                        moment(pin.latestCreatedOn, momentComparisonFormat) <
-                            moment(fromDateInclusive, momentComparisonFormat)
+                        from && moment(pin.latestCreatedOn).utc(true) < moment(from)
                     ) {
                         return NO;
                     }
 
                     // end date
                     if (
-                        toDateInclusive &&
-                        moment(pin.latestCreatedOn, momentComparisonFormat) >
-                            moment(toDateInclusive, momentComparisonFormat)
+                        to && moment(pin.latestCreatedOn).utc(true) > moment(to)
                     ) {
                         return NO;
                     }
@@ -159,6 +159,59 @@ export default function (ProtectedComponent) {
                 });
         };
 
+        _getDateTimeFilters = () => {
+            const {
+                filters: {
+                    fromDateInclusive,
+                    toDateInclusive,
+                    includeTime,
+                    startTime,
+                    endTime,
+                },
+                timeZone,
+            } = this.props;
+
+            let startDateTimeUTC = null;
+            let endDateTimeUTC = null;
+
+            if (includeTime && startTime && fromDateInclusive) {
+                const [hour, minute] = startTime.split(':');
+
+                    startDateTimeUTC = moment
+                        .tz(fromDateInclusive, timeZone.name)
+                        .set({ hour, minute })
+                        .utc()
+                        .toISOString();
+            }
+            else if (fromDateInclusive) {
+                startDateTimeUTC = moment
+                .tz(fromDateInclusive, timeZone.name)
+                .startOf('day')
+                .utc()
+                .toISOString();
+            }
+
+            if (includeTime && endTime && toDateInclusive) {
+                    const [hour, minute] = endTime.split(':');
+                    endDateTimeUTC = moment
+                        .tz(toDateInclusive, timeZone.name)
+                        .set({ hour, minute: parseInt(minute) + 1 })
+                        .utc()
+                        .toISOString();
+            }
+            else if (toDateInclusive) {
+                // to date needs to be start of next day so that we get all pins from the previous day.
+                endDateTimeUTC = moment
+                .tz(toDateInclusive, timeZone.name)
+                .add(1, 'days')
+                .startOf('day')
+                .utc()
+                .toISOString();
+            }
+
+            return [startDateTimeUTC, endDateTimeUTC];
+        }
+
         _getPostBody = () => {
             const {
                 filters: {
@@ -177,21 +230,19 @@ export default function (ProtectedComponent) {
                     isFloorplanGeneration,
                     includeFloorplan,
                     isOAndMManualGeneration,
-                    fromDateInclusive,
-                    toDateInclusive,
                     companyUserIDs,
                     floorplanPinScale,
                     createdByCompanyID,
                     zoneIDs,
                     zoneOpacity,
                     includeFloorplanZones,
+                    includeTime,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
                 rectangles,
                 options: { showHidden, sortBy },
                 fields,
-                timeZone,
                 includedDrawingsIDs,
                 customFilters,
             } = this.props;
@@ -250,6 +301,8 @@ export default function (ProtectedComponent) {
                     break;
             }
 
+            
+
             const getLatLng = corner => {
                 const [latY, lngX] = corner;
                 return { latY, lngX };
@@ -259,19 +312,9 @@ export default function (ProtectedComponent) {
                 rectangles,
             ).map(({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]);
             // get the utc converted time for both from date and to date.
-            const startDate = fromDateInclusive
-                ? moment.tz(fromDateInclusive, timeZone.name).startOf('day').utc().toISOString()
-                : null;
 
-            // to date needs to be start of next day so that we get all pins from the previous day.
-            const endDate = toDateInclusive
-                ? moment
-                      .tz(toDateInclusive, timeZone.name)
-                      .add('days', 1)
-                      .startOf('day')
-                      .utc()
-                      .toISOString()
-                : null;
+
+            const [startDate, endDate] = this._getDateTimeFilters();
 
             const serviceIDs = serviceID
                 ? [+serviceID]
@@ -306,6 +349,7 @@ export default function (ProtectedComponent) {
                 zoneIDs,
                 zoneOpacity,
                 includeFloorplanZones,
+                includeTime,
             };
             return body;
         };
