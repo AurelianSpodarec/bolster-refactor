@@ -17,15 +17,9 @@ class OperativesFilterContainer extends Component {
             isFetchingOperatives,
         } = this.props;
 
-        const filteredOperatives = isDrawingOwner
-            ? operatives
-            : operatives.filter(item => !drawingCompanyID || item.companyID === drawingCompanyID);
-
-        const operativeOptions = formatArrForDropdownOperative(filteredOperatives);
-
         return (
             <OperativesFilter
-                operativeOptions={operativeOptions}
+                operativeOptions={formatArrForDropdown(operatives)}
                 selectedOperatives={companyUserIDs}
                 handleChange={this.handleChange}
                 sizeClasses={sizeClasses}
