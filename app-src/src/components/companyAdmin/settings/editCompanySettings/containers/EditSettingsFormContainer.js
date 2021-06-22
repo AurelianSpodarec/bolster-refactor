@@ -7,7 +7,11 @@ import editCompanySettings from 'actions/companyAdmin/companySettings/async/edit
 
 import EditSettingsForm from '../presentational/EditSettingsForm';
 import { sortTimezones, isObjEmpty, enumFormat } from 'helpers/generic';
-import { DEFAULT_SITES_SORT, DEFAULT_SITES_SORT_NAMES } from 'constants/companyAdmin/enums';
+import {
+    COMPANY_USER_ROLE_TYPES,
+    DEFAULT_SITES_SORT,
+    DEFAULT_SITES_SORT_NAMES,
+} from 'constants/companyAdmin/enums';
 import { vatOptions } from 'constants/shared/vatTypes';
 
 class EditSettingsFormContainer extends Component {
@@ -50,10 +54,11 @@ class EditSettingsFormContainer extends Component {
         unsyncedOperativeWarningDays: '',
         reportAutoDelete: 0,
         invoiceEmail: '',
+        isTwoFactorAuthRequired: false,
     };
 
     render() {
-        const { filesUploading } = this.props;
+        const { filesUploading, isOwner } = this.props;
         const {
             defaultTemplateUsageRule,
             timeZone,
@@ -91,6 +96,7 @@ class EditSettingsFormContainer extends Component {
                 siteSortOptions={siteSortOptions}
                 unsyncedCompanyNotificationDays={unsyncedCompanyNotificationDays}
                 unsyncedOperativeWarningDays={unsyncedOperativeWarningDays}
+                isOwner={isOwner}
             />
         );
     }
@@ -184,11 +190,15 @@ const mapStateToProps = ({
     shared: {
         filesUploadingReducer: { filesUploading },
         timeReducer: { timeZones, dateFormats },
+        decodeJWTReducer: {
+            jwtData: { companyUserType },
+        },
     },
 }) => ({
     companySettings,
     filesUploading,
     postSuccess,
+    isOwner: companyUserType === COMPANY_USER_ROLE_TYPES.OWNER,
     timeZones: Object.values(timeZones),
     dateFormats: Object.values(dateFormats),
 });

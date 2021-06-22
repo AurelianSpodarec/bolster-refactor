@@ -158,7 +158,6 @@ class EditPinFormContainer extends Component {
             answers: formattedAnswers,
             status,
         };
-        console.log(postBody);
 
         if (!filesUploading) {
             editPinHistory(selectedHistory.id, postBody);

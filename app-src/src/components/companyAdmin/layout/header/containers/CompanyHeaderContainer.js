@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import CompanyHeader from '../presentational/CompanyHeader';
 import CompanyHeaderMobile from '../presentational/CompanyHeaderMobile';
@@ -27,8 +28,9 @@ class CompanyHeaderContainer extends Component {
             onMobile,
             toggleMobileMenu,
             shouldUsePayments,
+            companyUserID,
         } = this.props;
-
+        const isCompanySelection = location.pathname.includes('company/company-selection');
         const companyColour = getCompanyColour(companySettings.companyColour);
 
         return !onMobile ? (
@@ -46,6 +48,8 @@ class CompanyHeaderContainer extends Component {
                     showModal(BUY_CREDITS);
                 }}
                 shouldRestrictPayments={this.state.shouldRestrictPayments}
+                isCompanySelection={isCompanySelection}
+                companyUserID={companyUserID}
             />
         ) : (
             <CompanyHeaderMobile
@@ -61,6 +65,8 @@ class CompanyHeaderContainer extends Component {
                     showModal(BUY_CREDITS);
                 }}
                 toggleMobileMenu={toggleMobileMenu}
+                isCompanySelection={isCompanySelection}
+                companyUserID={companyUserID}
             />
         );
     }
@@ -130,4 +136,4 @@ const mapDispatchToProps = dispatch => ({
     toggleMobileMenu: () => dispatch(toggleMobileMenu()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CompanyHeaderContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CompanyHeaderContainer));

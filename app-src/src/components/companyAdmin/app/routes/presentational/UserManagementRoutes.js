@@ -8,61 +8,36 @@ import AllClientsContainer from 'components/companyAdmin/userManagement/clients/
 import ClientsAccessContainer from 'components/shared/clients/containers/ClientsAccessContainer';
 import CreateOperative from 'components/companyAdmin/userManagement/operatives/createOperative/presentational/CreateOperative';
 import CreateCompanyAdmin from 'components/companyAdmin/userManagement/companyAdmins/createCompanyAdmin/presentational/CreateCompanyAdmin';
-import EditCompanyAdminContainer from 'components/companyAdmin/userManagement/companyAdmins/editCompanyAdmin/containers/EditCompanyAdminContainer';
 import EditOperativeContainer from 'components/companyAdmin/userManagement/operatives/editOperative/containers/EditOperativeContainer';
-import EditCompanyAdminPasswordContainer from 'components/companyAdmin/userManagement/companyAdmins/editCompanyAdminPassword/containers/EditCompanyAdminPasswordContainer';
-import EditOperativePasswordContainer from 'components/companyAdmin/userManagement/operatives/editOperativePassword/containers/EditOperativePasswordContainer';
 import UserDrawingsContainer from 'components/companyAdmin/userManagement/userDrawings/containers/UserDrawingsContainer';
+import EditCompanyAdmin from 'components/companyAdmin/userManagement/companyAdmins/editCompanyAdmin/presentational/EditCompanyAdmin';
+import EditClientContainer from 'components/companyAdmin/userManagement/clients/singleClient/containers/EditClientContainer';
+import SingleClientContainer from 'components/companyAdmin/userManagement/clients/singleClient/containers/SingleClientContainer';
+import AddClientContainer from 'components/companyAdmin/userManagement/clients/singleClient/containers/AddClientContainer';
+import EditCompanyUserEmail from 'components/companyAdmin/userManagement/shared/editCompanyUserEmail/EditCompanyUserEmail';
+import EditClientUserEmail from 'components/companyAdmin/userManagement/clients/singleClient/EditClientUserEmail';
 
 const UserManagementRoutes = ({ base = '/company/users-management' }) => (
     <SwitchWith404>
-        <Route
-            exact
-            path={`${base}/company-admins`}
-            component={AllCompanyAdminsContainer}
-        />
+        <Route exact path={`${base}/company-admins`} component={AllCompanyAdminsContainer} />
         <Route exact path={`${base}/operatives`} component={AllOperatives} />
         <Route exact path={`${base}/clients`} component={AllClientsContainer} />
+        <Route exact path={`${base}/clients/create`} component={AddClientContainer} />
+        <Route exact path={`${base}/clients/:id`} component={SingleClientContainer} />
+        <Route exact path={`${base}/clients/:id/edit`} component={EditClientContainer} />
+        <Route exact path={`${base}/clients/:id/edit-email`} component={EditClientUserEmail} />
+        <Route exact path={`${base}/company-admins/create`} component={CreateCompanyAdmin} />
+        <Route exact path={`${base}/company-admins/:id/edit`} component={EditCompanyAdmin} />
         <Route
             exact
-            path={`${base}/company-admins/create`}
-            component={CreateCompanyAdmin}
+            path={`${base}/company-admins/:id/edit-email`}
+            component={EditCompanyUserEmail}
         />
-        <Route
-            exact
-            path={`${base}/operatives/create`}
-            component={CreateOperative}
-        />
-        <Route
-            exact
-            path={`${base}/company-admins/:id/edit`}
-            component={EditCompanyAdminContainer}
-        />
-        <Route
-            exact
-            path={`${base}/operatives/:id/edit`}
-            component={EditOperativeContainer}
-        />
-        <Route
-            exact
-            path={`${base}/operatives/:id/edit-password`}
-            component={EditOperativePasswordContainer}
-        />
-        <Route
-            exact
-            path={`${base}/company-admins/:id/edit-password`}
-            component={EditCompanyAdminPasswordContainer}
-        />
-        <Route
-            exact
-            path={`${base}/client-access`}
-            component={ClientsAccessContainer}
-        />
-        <Route
-            exact
-            path={`${base}/operative/:id/drawings`}
-            component={UserDrawingsContainer}
-        />
+        <Route exact path={`${base}/operatives/create`} component={CreateOperative} />
+        <Route exact path={`${base}/operatives/:id/edit`} component={EditOperativeContainer} />
+        <Route exact path={`${base}/operatives/:id/edit-email`} component={EditCompanyUserEmail} />
+        <Route exact path={`${base}/operative/:id/drawings`} component={UserDrawingsContainer} />
+        <Route exact path={`${base}/client-access`} component={ClientsAccessContainer} />
         <Route
             exact
             path={`${base}/company-admins/:id/drawings`}

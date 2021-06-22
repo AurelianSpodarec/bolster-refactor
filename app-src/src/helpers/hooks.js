@@ -3,6 +3,8 @@ import uuid from 'uuid/v4';
 import moment from 'moment';
 
 import { removeObjItem } from './generic';
+import { useDispatch, useSelector } from 'react-redux';
+import resendTwoFactor from 'actions/shared/auth/async/resendTwoFactor';
 
 export const useMultipleHierarchies = hierarchyShape => {
     // takes an empty version of the hierarchy shape / initial state for a blank hierarchy
@@ -142,7 +144,7 @@ export function useForm(initialState = {}) {
         setFormData(prev => ({ ...prev, [name]: value }));
     }
 
-    return [formData, handleChange];
+    return [formData, handleChange, setFormData];
 }
 
 function getWindowDimensions() {
@@ -188,4 +190,44 @@ export const useIsMobile = (mobileWidth = 1024) => {
     }, []);
 
     return isWidthMobile || isIOS;
+};
+
+// resending 2FA code
+export const useResend2FA = email => {
+    const dispatch = useDispatch();
+    const [canResend2FA, setCanResend2FA] = useState(false);
+    const [lastResent, setLastResent] = useState(Date.now());
+
+    const mapStateToProps = ({
+        shared: {
+            loginReducer: { resendTwoFactorSuccess, showTwoFactor },
+        },
+    }) => ({
+        resendTwoFactorSuccess,
+        showTwoFactor,
+    });
+
+    const { resendTwoFactorSuccess, showTwoFactor } = useSelector(mapStateToProps);
+
+    const prevProps = usePrevious({ resendTwoFactorSuccess, showTwoFactor });
+
+    useEffect(() => {
+        if (showTwoFactor && !prevProps.showTwoFactor) {
+            setLastResent(Date.now());
+        }
+    }, [showTwoFactor, prevProps.showTwoFactor]);
+
+    useEffect(() => {
+        if (resendTwoFactorSuccess && !prevProps.resendTwoFactorSuccess) {
+            setCanResend2FA(false);
+            setLastResent(Date.now());
+        }
+    }, [resendTwoFactorSuccess, prevProps.resendTwoFactorSuccess]);
+
+    return { canResend2FA, setCanResend2FA, lastResent, handleResendTwoFactor };
+
+    function handleResendTwoFactor(e) {
+        e.preventDefault();
+        dispatch(resendTwoFactor({ email }));
+    }
 };

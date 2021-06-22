@@ -20,6 +20,7 @@ import drawingsReducer from './drawings';
 import floorsReducer from './floors';
 import companyReportsReducer from './companyReports';
 import headquartersReducer from './headquarters';
+import inactiveCompanyUsersReducer from './inactiveCompanyUsers';
 import inspectionLogsReducer from './inspectionLogs';
 import invoiceItemsReducer from './invoiceItems';
 import invoicesReducer from './invoices';
@@ -55,6 +56,7 @@ import manufacturersOptionValuesReducer from './manufacturersOptionValues';
 import optionValueDocumentsReducer from './optionValueDocuments';
 import userGuideReducer from './userGuide';
 import zonesReducer from './zones';
+import companySelectionReducer from './companySelection';
 
 export default combineReducers({
     activityLogReducer,
@@ -68,6 +70,7 @@ export default combineReducers({
     clientsReducer,
     companyAddressesGeocodeReducer,
     companiesPermissionsReducer,
+    companySelectionReducer,
     companySettingsReducer,
     companyUsersReducer,
     creditsReducer,
@@ -81,6 +84,7 @@ export default combineReducers({
     generatePinReportReducer,
     headquartersReducer,
     hierarchyReducer,
+    inactiveCompanyUsersReducer,
     inspectionLogsReducer,
     invoicesReducer,
     invoiceItemsReducer,

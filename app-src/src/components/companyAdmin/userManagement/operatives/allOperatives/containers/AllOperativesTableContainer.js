@@ -1,79 +1,80 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import AllOperativesTable from '../presentational/AllOperativesTable';
-import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import { usePrevious } from 'helpers/hooks';
+
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+
+import AllOperativesTable from '../presentational/AllOperativesTable';
 import { CREATE_OPERATIVE } from 'constants/shared/modalTypes';
-import { nameSort } from 'helpers/generic';
-const { OPERATIVE } = COMPANY_USER_ROLE_TYPES;
 
-class AllOperativesTableContainer extends Component {
-    state = { searchTerm: '' };
-    render = () => {
-        const { users, isFetching, error, onMobile } = this.props;
-        const searchTerm = this.state.searchTerm.toLowerCase();
-        const filteredUsers = users.filter(user => {
-            const name = `${user.userFirstName} ${user.userLastName}`.toLowerCase();
-            return !searchTerm || name.includes(searchTerm) || user.userEmail.includes(searchTerm);
-        });
-        const sortedUsers = filteredUsers.sort(nameSort);
-        return (
-            <AllOperativesTable
-                searchTerm={searchTerm}
-                handleChange={this.handleChange}
-                headers={[
-                    'Name',
-                    'Email',
-                    'Phone Number',
-                    'Has linked device?',
-                    'Operative Code',
-                    'Last upsynced date',
-                    'Last detected unsynced data',
-                    'App Version',
-                    '',
-                ]}
-                users={sortedUsers}
-                isFetching={isFetching}
-                error={error}
-                handleShowModal={this.handleShowModal}
-                onMobile={onMobile}
-            />
-        );
-    };
+const AllOperativesTableContainer = ({ filteredUsers }) => {
+    const { users, disabledUsers, isFetching, error, onMobile, postSuccess } = useSelector(
+        mapStateToProps,
+    );
+    const dispatch = useDispatch();
+    const prevProps = usePrevious({ postSuccess });
 
-    componentDidMount = () => this.props.fetchCompanyUsers();
+    const mergedUsers = users.concat(disabledUsers);
 
-    componentDidUpdate = prevProps => {
-        const { postSuccess, hideModal, fetchCompanyUsers } = this.props;
+    useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
-            fetchCompanyUsers();
-            hideModal();
+            dispatch(fetchCompanyUsers());
+            dispatch(hideModal());
         }
-    };
+    }, [dispatch, postSuccess]);
 
-    handleShowModal = () => this.props.showModal(CREATE_OPERATIVE);
-
-    handleChange = (name, value) => this.setState({ [name]: value });
-}
+    return (
+        <AllOperativesTable
+            headers={[
+                'Name',
+                'Email',
+                'Phone Number',
+                'Has linked device?',
+                'Operative Code',
+                'Last upsynced date',
+                'Last detected unsynced data',
+                'App Version',
+                'Number of attached drawings',
+                'Is e-mail confirmed?',
+                '',
+            ]}
+            users={filteredUsers(mergedUsers)}
+            isFetching={isFetching}
+            error={error}
+            handleShowModal={() => dispatch(showModal(CREATE_OPERATIVE))}
+            onMobile={onMobile}
+        />
+    );
+};
 
 const mapStateToProps = ({
     companyAdmin: {
-        companyUsersReducer: { isFetching, error, users, postSuccess },
+        companySettingsReducer: { isFetching: isFetchingCompanySettings },
+        companyUsersReducer: {
+            isFetching: isFetchingActive,
+            error: activeError,
+            users,
+            postSuccess,
+        },
+        inactiveCompanyUsersReducer: {
+            disabled,
+            isFetching: isFetchingInactive,
+            error: inactiveError,
+        },
     },
     shared: {
         mobileReducer: { onMobile },
     },
 }) => ({
-    users: Object.values(users).filter(({ type }) => type === OPERATIVE),
-    isFetching,
-    error,
+    users: Object.values(users),
+    disabledUsers: Object.values(disabled),
+    isFetching: isFetchingActive || isFetchingInactive || isFetchingCompanySettings,
+    error: activeError || inactiveError,
     onMobile,
     postSuccess,
 });
 
-const mapDispatchToProps = { fetchCompanyUsers, hideModal, showModal };
-
-export default connect(mapStateToProps, mapDispatchToProps)(AllOperativesTableContainer);
+export default AllOperativesTableContainer;

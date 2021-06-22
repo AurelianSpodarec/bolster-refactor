@@ -5,14 +5,14 @@ import {
     CLIENT_FETCH_ALL_BUILDINGS_FAILURE,
     CLIENT_FETCH_ALL_BUILDINGS_SUCCESS,
     CLIENT_FETCH_SINGLE_BUILDING_SUCCESS,
-    CLIENT_FETCH_SINGLE_BUILDING_FAILURE
+    CLIENT_FETCH_SINGLE_BUILDING_FAILURE,
 } from 'constants/client/actionTypes/clientBuildings';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
-    buildings: buildingsReducer
+    buildings: buildingsReducer,
 });
 
 function isFetchingReducer(state = false, action) {

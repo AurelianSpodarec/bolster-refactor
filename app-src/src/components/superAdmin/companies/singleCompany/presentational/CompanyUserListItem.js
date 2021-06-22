@@ -1,6 +1,7 @@
 import React from 'react';
 import { COMPANY_USER_ROLE_IDS } from 'constants/companyAdmin/enums';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import { boolToYesNo } from 'helpers/generic';
 
 const CompanyUserListItem = ({ user, handleModalClick, tableColumnWidths }) => (
     <tr>

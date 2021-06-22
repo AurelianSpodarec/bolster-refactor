@@ -6,9 +6,8 @@ const FilterField = ({
     field: { selectedValues = [], questionValues = [], selectedQuestions, id },
     questions,
     handleShowCustomFieldModal,
-    removeCustomField
+    removeCustomField,
 }) => {
-    // todo: styling here
     const answers = selectedValues.length ? selectedValues : questionValues;
     const joinedAnswers = answers.join(' OR ');
     const chosenQuestions = selectedQuestions.map(id => questions[id].text);
@@ -26,17 +25,11 @@ const FilterField = ({
                 </p>
             </div>
             <BlockButtonWrapper sizeClasses="size-lg-5">
-                <button
-                    className="button yellow"
-                    onClick={() => handleShowCustomFieldModal(id)}
-                >
+                <button className="button yellow" onClick={() => handleShowCustomFieldModal(id)}>
                     <i className="far fa-edit fa-fw" />
                     Edit
                 </button>
-                <button
-                    className="button red"
-                    onClick={() => removeCustomField(id)}
-                >
+                <button className="button red" onClick={() => removeCustomField(id)}>
                     <i className="fa fa-times fa-fw" />
                     Remove
                 </button>

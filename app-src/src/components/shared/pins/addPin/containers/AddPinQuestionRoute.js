@@ -269,7 +269,7 @@ class AddPinQuestionRoute extends Component {
         const answer = answers[question.id];
         const answerName = `answer-${question.id}`;
 
-        if (!isShowingFromPrereq && answer) {
+        if (!isShowingFromPrereq && !isEmpty(answer)) {
             resetPinAnswer(question.id, getDefaultValue(question));
         }
 
