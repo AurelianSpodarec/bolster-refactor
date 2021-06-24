@@ -112,8 +112,10 @@ function manufacturersOptionValuesReducer(state = {}, action) {
                     action.payload,
                 ),
             };
-        case DELETE_OPTION_VALUE_SUCCESS:
-            return removeObjItem(state, action.payload.manufacturerID);
+        case DELETE_OPTION_VALUE_SUCCESS: {
+            const newObj = removeObjItem(state[action.id], action.payload.id);
+            return updateObj(state, action.id, newObj);
+        }
         case FETCH_ALL_OPTION_VALUES_SUCCESS:
             return formatAllOptionValuesByManufacturer(action.payload);
         default:
