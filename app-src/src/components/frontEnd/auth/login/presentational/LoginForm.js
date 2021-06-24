@@ -67,7 +67,10 @@ const LoginForm = ({
                                 handleChange={handleChange}
                                 classes="auth-text-input-container"
                             />
-                            <p className="generic-text" style={{ marginTop: 5 }}>
+                            <p
+                                className="generic-text"
+                                style={{ marginTop: 5, pointerEvents: 'none' }}
+                            >
                                 Not received code?{' '}
                                 {canResend2FA ? (
                                     <a href="#" onClick={handleResendTwoFactor}>
