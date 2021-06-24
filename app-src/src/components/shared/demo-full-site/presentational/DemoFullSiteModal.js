@@ -60,7 +60,7 @@ const EnterDemoFullSiteModal = () => {
                 {showError && (
                     <p className="error error-message">
                         An error occurred when submitting access code, please check access code is
-                        correct and try again.
+                        correct and not deleted/disabled before trying again.
                     </p>
                 )}
                 <BlockButtonWrapper>
