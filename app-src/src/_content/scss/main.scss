@@ -6491,3 +6491,9 @@ input {
         object-fit: cover;
     }
 }
+
+.error-message {
+    color: red;
+    padding-left: 8px;
+    pointer-events: none;
+}

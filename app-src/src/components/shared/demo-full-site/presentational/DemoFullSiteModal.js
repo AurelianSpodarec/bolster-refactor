@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 
 const EnterDemoFullSiteModal = () => {
     const dispatch = useDispatch();
-
+    const [showError, setShowError] = useState(false);
     const [form, setFormChange] = useState({
         accessCode: '',
     });
@@ -24,7 +24,11 @@ const EnterDemoFullSiteModal = () => {
         });
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = event => {
+        event.preventDefault();
+
+        setShowError(false);
+
         const postBody = {
             AccessCode: form.accessCode,
         };
@@ -32,6 +36,7 @@ const EnterDemoFullSiteModal = () => {
         dispatch(postAccessCode(postBody)).then(data => {
             // eslint-disable-next-line no-empty
             if ('error' in data) {
+                setShowError(true);
             } else {
                 dispatch(hideModal());
             }
@@ -52,6 +57,12 @@ const EnterDemoFullSiteModal = () => {
                         />
                     </Field>
                 </div>
+                {showError && (
+                    <p className="error error-message">
+                        An error occurred when submitting access code, please check access code is
+                        correct and try again.
+                    </p>
+                )}
                 <BlockButtonWrapper>
                     <SubmitContainer text="Submit" withPlus />
                 </BlockButtonWrapper>
