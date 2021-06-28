@@ -228,7 +228,7 @@ export default function (WrappedComponent) {
                 canCompanyEdit,
                 defaultValue,
                 optionType,
-                optionDefaultValue,
+                defaultValue,
             } = this.props.fields;
 
             switch (questionType) {
@@ -251,7 +251,7 @@ export default function (WrappedComponent) {
                 case VALS.DROPDOWN_OPTIONS:
                 case VALS.MULTI_DROPDOWN_OPTIONS:
                 case VALS.MULTI_MULTI_DROPDOWN_OPTIONS:
-                    return { optionType, optionDefaultValue };
+                    return { optionType, defaultValue };
                 default:
                     return {};
             }

@@ -66,7 +66,7 @@ export const getDefaultValue = question => {
         case SINGLE_PHOTO:
             return '';
         case DROPDOWN_OPTIONS: {
-            return question.optionDefaultValue || [];
+            return question.defaultValue || [];
         }
         case RADIO:
             return [question.defaultValue] || [];
@@ -79,7 +79,7 @@ export const getDefaultValue = question => {
         case MULTI_PHOTO:
         case MULTI_MULTI_DROPDOWN_OPTIONS:
         case MULTI_DROPDOWN_OPTIONS:
-            return question.optionDefaultValue || [];
+            return question.defaultValue || [];
         case CHECKBOX:
             return false;
         default:

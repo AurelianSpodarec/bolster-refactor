@@ -8,12 +8,7 @@ import Select from 'components/shared/generic/form/presentational/Select';
 
 const options = convertEnumToDropdownOptions(DROPDOWN_OPTION_ENUM);
 
-const OptionTypeFrom = ({
-    handleInputChange,
-    optionType,
-    dropdownOptions = [],
-    optionDefaultValue,
-}) => {
+const OptionTypeFrom = ({ handleInputChange, optionType, dropdownOptions = [], defaultValue }) => {
     const getOptions = () => {
         const dropdownOptNames = dropdownOptions
             .filter(opt => opt.type === +optionType)
@@ -39,9 +34,9 @@ const OptionTypeFrom = ({
             {options[optionType] && (
                 <Field name="Option Default Value">
                     <Select
-                        name="optionDefaultValue"
+                        name="defaultValue"
                         options={getOptions()}
-                        value={optionDefaultValue}
+                        value={defaultValue}
                         onChange={handleInputChange}
                     />
                 </Field>

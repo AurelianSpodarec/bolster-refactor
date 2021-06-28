@@ -5,7 +5,7 @@ import { getSortedDropdownOptions } from 'helpers/addPin';
 
 const DropdownOptions = ({
     isRequired,
-    question: { id, optionType, optionDefaultValue },
+    question: { id, optionType, defaultValue },
     dropdownOptions,
     answers,
     handleChange,
@@ -20,8 +20,8 @@ const DropdownOptions = ({
     let formattedOpts = [];
 
     useEffect(() => {
-        if (!answers[id] && !edit && optionDefaultValue) {
-            handleChange(null, optionDefaultValue);
+        if (!answers[id] && !edit && defaultValue) {
+            handleChange(null, defaultValue);
         }
     }, []);
 
