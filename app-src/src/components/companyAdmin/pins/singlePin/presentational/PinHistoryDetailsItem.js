@@ -76,7 +76,7 @@ const PinHistoryDetailsItem = ({
         <PinSectionsContainer pinHistory={history} drawingID={drawingID} />
 
         <BlockButtonWrapper additionalClasses="item-button-container" sizeClasses="size-lg-12">
-            {!canDeleteHistory ? (
+            {canDeleteHistory ? (
                 <button className="button red " onClick={handleDeleteHistoryModal} >
                     <i className="far fa-times" /> Delete {isDeleteHistory > 1 ? 'History' : 'Pin'}
                 </button> 
