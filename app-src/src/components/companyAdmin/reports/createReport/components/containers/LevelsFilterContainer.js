@@ -62,9 +62,18 @@ class LevelsFilterContainer extends Component {
     };
 
     updateFloor = (value = []) => {
-        const { handleChange } = this.props;
+        const {
+            handleChange,
+            filters: { drawingID },
+            drawings,
+        } = this.props;
+        let updatedDrawingIDs = [];
 
-        return this.updateDrawing().then(() => handleChange('floorID', value));
+        if (drawingID) {
+            updatedDrawingIDs = this.getUpdatedIDs(value, drawingID, drawings, 'floorID');
+        }
+
+        return this.updateDrawing(updatedDrawingIDs).then(() => handleChange('floorID', value));
     };
 
     updateBuilding = (value = []) => {
@@ -78,6 +87,7 @@ class LevelsFilterContainer extends Component {
         if (floorID.length) {
             updatedFloorIDs = this.getUpdatedIDs(value, floorID, floors, 'buildingID');
         }
+
         return this.updateFloor(updatedFloorIDs).then(() => handleChange('buildingID', value));
     };
 
