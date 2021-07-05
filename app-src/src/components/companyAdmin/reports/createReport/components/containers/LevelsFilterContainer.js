@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import moment from 'moment-timezone';
 import _ from 'lodash';
 
-import { isObjEmpty } from 'helpers/generic';
+import { convertArrToObj, isObjEmpty } from 'helpers/generic';
 import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
@@ -68,15 +68,44 @@ class LevelsFilterContainer extends Component {
     };
 
     updateBuilding = (value = []) => {
-        const { handleChange } = this.props;
+        const {
+            handleChange,
+            filters: { floorID },
+        } = this.props;
+        let updatedFloorIDs = [];
 
-        return this.updateFloor().then(() => handleChange('buildingID', value));
+        if (floorID.length) {
+            updatedFloorIDs = this.getUpdatedFloorIDs(value, floorID);
+        }
+        return this.updateFloor(updatedFloorIDs).then(() => handleChange('buildingID', value));
     };
 
     updateSite = (value = []) => {
         const { handleChange } = this.props;
 
         return this.updateBuilding().then(() => handleChange('siteID', value));
+    };
+
+    getUpdatedFloorIDs = (buildingIDs, floorIDs) => {
+        const { floors } = this.props;
+
+        const floorsObj = convertArrToObj(floors);
+
+        const filteredFloors = floorIDs.reduce((acc, id) => {
+            acc.push(floorsObj[id]);
+
+            return acc;
+        }, []);
+
+        const updatedFloorIDs = filteredFloors.reduce((acc, floor) => {
+            buildingIDs.forEach(id => {
+                if (+id === +floor.buildingID) acc.push(floor.id);
+            });
+
+            return acc;
+        }, []);
+
+        return updatedFloorIDs;
     };
 
     handleChange = (name, value, mount = false, shouldPostFilters = true) => {
