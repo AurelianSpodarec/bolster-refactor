@@ -71,11 +71,12 @@ class LevelsFilterContainer extends Component {
         const {
             handleChange,
             filters: { floorID },
+            floors,
         } = this.props;
         let updatedFloorIDs = [];
 
         if (floorID.length) {
-            updatedFloorIDs = this.getUpdatedFloorIDs(value, floorID);
+            updatedFloorIDs = this.getUpdatedIDs(value, floorID, floors, 'buildingID');
         }
         return this.updateFloor(updatedFloorIDs).then(() => handleChange('buildingID', value));
     };
@@ -86,20 +87,18 @@ class LevelsFilterContainer extends Component {
         return this.updateBuilding().then(() => handleChange('siteID', value));
     };
 
-    getUpdatedFloorIDs = (buildingIDs, floorIDs) => {
-        const { floors } = this.props;
+    getUpdatedIDs = (value, unfilteredIDs, hierarchyArray, keyToCheck) => {
+        const convertedHierarchyObj = convertArrToObj(hierarchyArray);
 
-        const floorsObj = convertArrToObj(floors);
-
-        const filteredFloors = floorIDs.reduce((acc, id) => {
-            acc.push(floorsObj[id]);
+        const filteredFloors = unfilteredIDs.reduce((acc, id) => {
+            acc.push(convertedHierarchyObj[id]);
 
             return acc;
         }, []);
 
         const updatedFloorIDs = filteredFloors.reduce((acc, floor) => {
-            buildingIDs.forEach(id => {
-                if (+id === +floor.buildingID) acc.push(floor.id);
+            value.forEach(id => {
+                if (+id === +floor[keyToCheck]) acc.push(floor.id);
             });
 
             return acc;
