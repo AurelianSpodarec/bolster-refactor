@@ -92,9 +92,18 @@ class LevelsFilterContainer extends Component {
     };
 
     updateSite = (value = []) => {
-        const { handleChange } = this.props;
+        const {
+            handleChange,
+            filters: { buildingID },
+            buildings,
+        } = this.props;
+        let updatedBuildingIDs = [];
 
-        return this.updateBuilding().then(() => handleChange('siteID', value));
+        if (buildingID.length) {
+            updatedBuildingIDs = this.getUpdatedIDs(value, buildingID, buildings, 'siteID');
+        }
+
+        return this.updateBuilding(updatedBuildingIDs).then(() => handleChange('siteID', value));
     };
 
     getUpdatedIDs = (value, unfilteredIDs, hierarchyArray, keyToCheck) => {
