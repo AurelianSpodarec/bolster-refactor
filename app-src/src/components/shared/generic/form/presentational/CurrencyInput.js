@@ -6,9 +6,7 @@ const CurrencyInput = ({
     disabled = false,
     value = null,
     onChange,
-    showError,
     placeholder = '-- select option --',
-    omitPlaceholder = false
 }) => {
     return (
         <div className="size-lg-12">

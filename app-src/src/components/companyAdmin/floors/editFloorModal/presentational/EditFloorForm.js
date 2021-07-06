@@ -110,7 +110,7 @@ const FloorEditForm = ({
                     </div>
                     {setManufacturersForHierarchy && (
                         <div className="size-lg-12">
-                            <Field labelClasses="no-capitalise" name="Manufacturer(s)">
+                            <Field labelClasses="no-capitalise" name="Manufacturer(s)" required>
                                 <CheckboxListContainer
                                     name="selectedManufacturerOptions"
                                     text=""
@@ -118,6 +118,7 @@ const FloorEditForm = ({
                                     selectedOptions={selectedManufacturerOptions}
                                     options={manufacturerOptions}
                                     allOptionsDisabled={isManufacturingInherited}
+                                    required
                                 />
                             </Field>
                         </div>

@@ -53,6 +53,7 @@ const CreateFloorsFormContainer = ({
     fetchAllDropdownOptions,
     dropdownOptions,
     showOAndMTsAndCsModal,
+    isFetchingHierarchies,
 }) => {
     const [
         floors,
@@ -92,7 +93,7 @@ const CreateFloorsFormContainer = ({
 
     const [initialDropdownOptions, setInititalDropdownOptions] = useState({
         isDropdownOptionsInherited: false,
-        setDropdownOptionsForHierarchy: null,
+        setDropdownOptionsForHierarchy: false,
         selectedDropdownOptions: [],
         dropdownOptions: {},
     });
@@ -144,7 +145,7 @@ const CreateFloorsFormContainer = ({
 
             const initialDropdownOptions = {
                 isDropdownOptionsInherited,
-                setDropdownOptionsForHierarchy: null,
+                setDropdownOptionsForHierarchy: false,
                 selectedDropdownOptions: [],
                 dropdownOptions: {},
             };
@@ -152,9 +153,10 @@ const CreateFloorsFormContainer = ({
             if (isDropdownOptionsInherited) {
                 initialDropdownOptions.setDropdownOptionsForHierarchy = true;
                 initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
-                initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
+                const selectedOptions = createPreselectedItemOptionValuesList(
                     building.dropDownOptionIDs,
                 );
+                initialDropdownOptions.selectedDropdownOptions = selectedOptions;
                 setShowDropdownOptions(false);
             }
             if (!isDropdownOptionsInherited) {
@@ -175,11 +177,13 @@ const CreateFloorsFormContainer = ({
                 initialOptions.selectedOptionValues = building.optionValueIDs.map(id => String(id));
 
                 initialOptions.manufacturerOptions = createManufacturerOptionList(manufacturers);
-                initialOptions.selectedManufacturerOptions = createHierarchyPreselectedManufacturersList(
+                const selectedOptions = createHierarchyPreselectedManufacturersList(
                     initialOptions.manufacturerOptions,
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
+
+                initialOptions.selectedManufacturerOptions = selectedOptions;
                 initialOptions.manufacturingInheritedFrom = building.manufacturingInheritedFrom;
                 setShowManufacturingOptions(false);
             } else {
@@ -216,7 +220,12 @@ const CreateFloorsFormContainer = ({
 
     return (
         <BlockContainer
-            isEmpty={isObjEmpty(manufacturers) || isObjEmpty(optionValues) || !areOptionsLoaded}
+            isEmpty={
+                isObjEmpty(manufacturers) ||
+                isObjEmpty(optionValues) ||
+                !areOptionsLoaded ||
+                isFetching
+            }
             isFetching={isFetching || !areOptionsLoaded}
             error={error}
             contentClass="no-padding"
@@ -242,6 +251,7 @@ const CreateFloorsFormContainer = ({
                 buildingName={building.name}
                 combinedOptions={combinedOptions}
                 handleShowOandMModal={handleShowOandMModal}
+                isFetchingHierarchies={isFetchingHierarchies}
             />
         </BlockContainer>
     );
@@ -348,7 +358,9 @@ const CreateFloorsFormContainer = ({
 const mapStateToProps = (
     {
         companyAdmin: {
-            buildingsReducer: { buildingError, buildings },
+            buildingsReducer: { buildingError, buildings, isFetching: isFetchingBuildings },
+            floorsReducer: { isFetching: isFetchingFloors },
+            drawingsReducer: { isFetching: isFetchingDrawings },
             companySettingsReducer: {
                 companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
             },
@@ -379,6 +391,7 @@ const mapStateToProps = (
     useManufacturingByDefault,
     subscriptionServiceIDs,
     dropdownOptions: Object.values(dropdownOptions),
+    isFetchingHierarchies: isFetchingBuildings || isFetchingFloors || isFetchingDrawings,
 });
 
 const mapDispatchToProps = {

@@ -10,7 +10,7 @@ import BackButtonContainer from 'components/shared/generic/backButton/containers
 import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 import PageHeading from '../generic/pageHeading/presentational/PageHeading';
 
-const Terms = ({ fetchTerms, terms, eula, privacy }) => {
+const Terms = ({ fetchTerms }) => {
     useEffect(() => {
         fetchTerms();
     }, []);
@@ -21,7 +21,6 @@ const Terms = ({ fetchTerms, terms, eula, privacy }) => {
             <PageHeading leftChildren={true} title="Terms & Conditions">
                 <BackButtonContainer />
             </PageHeading>
-            {/* <TermsAndConditions terms={terms} eula={eula} privacy={privacy} /> */}
         </>
     );
 };

@@ -2,28 +2,31 @@ import React from 'react';
 
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { PIN_STATUS_IDS as STATUS } from 'constants/companyAdmin/enums';
+import { pin2xImgs } from '_content/images/map-markers';
+
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const DashboardPinFeedItem = ({ pin }) => {
-    let pinColour = require('_content/images/map-markers/red-pin2x.png');
+    let pinColour;
 
     switch (pin.status) {
         case STATUS.INSTALLED:
-            pinColour = require('_content/images/map-markers/green-pin2x.png');
+            pinColour = pin2xImgs.green;
             break;
         case STATUS.INSPECTED:
-            pinColour = require('_content/images/map-markers/blue-pin2x.png');
+            pinColour = pin2xImgs.blue;
             break;
         case STATUS.NO_ACTION:
-            pinColour = require('_content/images/map-markers/yellow-pin2x.png');
+            pinColour = pin2xImgs.yellow;
             break;
         case STATUS.ACTION_REQUIRED:
-            pinColour = require('_content/images/map-markers/red-pin2x.png');
+            pinColour = pin2xImgs.red;
             break;
         case STATUS.OTHER:
-            pinColour = require('_content/images/map-markers/purple-pin2x.png');
+            pinColour = pin2xImgs.purple;
             break;
         default:
+            pinColour = pin2xImgs.red;
             break;
     }
 

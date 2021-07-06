@@ -43,7 +43,10 @@ const CompanyUsersTableContainer = ({
                     <i className="fa fa-plus" /> Add Company Admin
                 </button>
             </BlockButtonWrapper>
-            <CompanyUsersTable {...{ users, error, isFetching, headers }} />
+            <CompanyUsersTable
+                {...{ users, error, isFetching, headers }}
+                tableColumnWidths={tableColumnWidths}
+            />
         </BlockContainer>
     );
 
@@ -53,27 +56,27 @@ const CompanyUsersTableContainer = ({
     }
 };
 
-const mapStateToProps = (
-    {
-        superAdmin: {
-            usersReducer: { companyUsers, companyUsersInfo, error, isFetching },
-        },
+const tableColumnWidths = ['260px', '130px', '120px', '160px', '150px', '130px', '130px', '160px'];
+
+const mapStateToProps = ({
+    superAdmin: {
+        usersReducer: { companyUsers, companyUsersInfo, error, isFetching },
     },
-    { match: { params } },
-) => ({
+}) => ({
     users: Object.values(companyUsers),
     companyUsersInfo,
     error,
     isFetching,
     headers: [
         'Name',
-        // 'Email',
         'Phone #',
         'User Type',
         'Operative Code',
         'Linked Device?',
         'App Version',
         'Device Type',
+        'Is e-mail confirmed?',
+        '',
     ],
 });
 

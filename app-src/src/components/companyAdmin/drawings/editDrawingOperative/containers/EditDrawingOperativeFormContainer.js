@@ -44,20 +44,17 @@ class EditDrawingOperativeFormContainer extends Component {
                     isFetching={isFetching}
                     backUrl={backUrl}
                     isTemplateFilteringEnabled={isTemplateFilteringEnabled}
-                    templateIDs={templateIDs}
                     serviceAreas={this.getServiceAreas()}
                     getTemplatesForService={this.getTemplatesForService}
+                    getSelectedTemplates={this.getSelectedTemplates}
+                    selectedTemplates={this.getSelectedTemplates()}
                 />
             </BlockContainer>
         );
     }
     componentDidMount() {
-        const {
-            fetchOperativesForDrawing,
-            match,
-            fetchCompanyPermissions,
-            fetchAllTemplates,
-        } = this.props;
+        const { fetchOperativesForDrawing, match, fetchCompanyPermissions, fetchAllTemplates } =
+            this.props;
         const { id } = match.params;
         fetchOperativesForDrawing(id);
         fetchAllTemplates();
@@ -155,6 +152,21 @@ class EditDrawingOperativeFormContainer extends Component {
             });
 
         return filteredTemplates;
+    };
+
+    getSelectedTemplates = () => {
+        const { templates } = this.props;
+        const { serviceIDs, templateIDs } = this.state;
+
+        const selectedIDs = [];
+
+        templates.filter(template => {
+            if (serviceIDs.includes(template.serviceID + '')) {
+                return selectedIDs.push(template.id + '');
+            }
+        });
+
+        return templateIDs.filter(template => selectedIDs.includes(template));
     };
 
     handleSubmit = e => {

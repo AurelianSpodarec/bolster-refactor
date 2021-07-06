@@ -32,6 +32,9 @@ import {
     GET_SERVICE_REPORT_OPTIONS_SUCCESS,
     GET_SERVICE_REPORT_OPTIONS_REQUEST,
     GET_SERVICE_REPORT_OPTIONS_FAILURE,
+    GET_COMPANY_REPORT_OPTIONS_REQUEST,
+    GET_COMPANY_REPORT_OPTIONS_SUCCESS,
+    GET_COMPANY_REPORT_OPTIONS_FAILURE,
     UPDATE_DRAWING_IDS_INCLUDED,
 } from 'constants/actionTypes/reports';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
@@ -85,6 +88,13 @@ function filtersReducer(
         companyUserIDs: [],
         pinIDs: [],
         floorplanPinScale: 0.9,
+        includeTime: false,
+        startTime: null,
+        endTime: null,
+        createdByCompanyID: null,
+        zoneIDs: [],
+        zoneOpacity: 0.3,
+        includeFloorplanZones: true,
     },
     action,
 ) {
@@ -116,6 +126,12 @@ function filtersReducer(
                 companyUserIDs: [],
                 pinIDs: [],
                 floorplanPinScale: 0.5,
+                includeTime: false,
+                startTime: null,
+                endTime: null,
+                createdByCompanyID: null,
+                zoneIDs: [],
+                zoneOpacity: 0.3,
             };
         default:
             return state;
@@ -204,7 +220,14 @@ function isFetchingReducer(state = false, action) {
 }
 
 function customFiltersReducer(
-    state = { operatives: [], pins: [], questions: [], templates: [], services: [] },
+    state = {
+        companies: [],
+        operatives: [],
+        pins: [],
+        questions: [],
+        templates: [],
+        services: [],
+    },
     action,
 ) {
     switch (action.type) {
@@ -218,6 +241,8 @@ function customFiltersReducer(
             return { ...state, templates: action.payload };
         case GET_SERVICE_REPORT_OPTIONS_SUCCESS:
             return { ...state, services: action.payload };
+        case GET_COMPANY_REPORT_OPTIONS_SUCCESS:
+            return { ...state, companies: action.payload };
         default:
             return state;
     }
@@ -258,6 +283,7 @@ function errorReducer(state = null, action) {
         case GET_OPERATIVE_OPTIONS_REQUEST:
         case GET_TEMPLATE_REPORT_OPTIONS_REQUEST:
         case GET_SERVICE_REPORT_OPTIONS_REQUEST:
+        case GET_COMPANY_REPORT_OPTIONS_REQUEST:
         case POST_REPORT_REQUEST:
             return null;
         case POST_REPORT_NO_PINS:
@@ -266,6 +292,7 @@ function errorReducer(state = null, action) {
         case GET_OPERATIVE_OPTIONS_FAILURE:
         case GET_TEMPLATE_REPORT_OPTIONS_FAILURE:
         case GET_SERVICE_REPORT_OPTIONS_FAILURE:
+        case GET_COMPANY_REPORT_OPTIONS_FAILURE:
         case POST_REPORT_FAILURE:
             return action.error;
         default:
@@ -319,10 +346,6 @@ function excludedPinIDsReducer(state = {}, action) {
 function includedDrawingsIDsReducer(state = [], action) {
     switch (action.type) {
         case UPDATE_DRAWING_IDS_INCLUDED:
-            console.warn({ updating: true, ids: action.ids });
-            console.warn({ updating: true, ids: action.ids });
-            console.warn({ updating: true, ids: action.ids });
-            console.warn({ updating: true, ids: action.ids });
             return action.ids;
         case RESET_FILTER_OPTIONS:
             return [];

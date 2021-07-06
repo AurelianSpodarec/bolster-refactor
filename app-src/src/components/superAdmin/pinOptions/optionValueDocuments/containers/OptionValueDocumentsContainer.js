@@ -18,7 +18,7 @@ class OptionValueDocumentsContainer extends Component {
     render() {
         const { optionValues, isFetching, optionValueID } = this.props;
 
-        const areOptionValuesFetched = optionValues.hasOwnProperty(optionValueID) && !isFetching;
+        const areOptionValuesFetched = optionValues[optionValueID] !== undefined && !isFetching;
 
         return !areOptionValuesFetched ? (
             <Loading />

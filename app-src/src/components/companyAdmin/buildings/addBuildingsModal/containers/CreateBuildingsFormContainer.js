@@ -53,6 +53,7 @@ const CreateBuildingsFormContainer = ({
     fetchAllDropdownOptions,
     dropdownOptions,
     showOAndMTsAndCsModal,
+    isFetchingHierarchies,
 }) => {
     const [
         buildings,
@@ -93,7 +94,7 @@ const CreateBuildingsFormContainer = ({
 
     const [initialDropdownOptions, setInititalDropdownOptions] = useState({
         isDropdownOptionsInherited: false,
-        setDropdownOptionsForHierarchy: null,
+        setDropdownOptionsForHierarchy: false,
         selectedDropdownOptions: [],
         dropdownOptions: {},
     });
@@ -141,7 +142,7 @@ const CreateBuildingsFormContainer = ({
 
             const initialDropdownOptions = {
                 isDropdownOptionsInherited,
-                setDropdownOptionsForHierarchy: null,
+                setDropdownOptionsForHierarchy: false,
                 selectedDropdownOptions: [],
                 dropdownOptions: {},
             };
@@ -149,9 +150,10 @@ const CreateBuildingsFormContainer = ({
             if (isDropdownOptionsInherited) {
                 initialDropdownOptions.setDropdownOptionsForHierarchy = true;
                 initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
-                initialDropdownOptions.selectedDropdownOptions = createPreselectedItemOptionValuesList(
+                const selectedOptions = createPreselectedItemOptionValuesList(
                     site.dropDownOptionIDs,
                 );
+                initialDropdownOptions.selectedDropdownOptions = selectedOptions;
                 setShowDropdownOptions(false);
             }
             if (!isDropdownOptionsInherited) {
@@ -172,11 +174,13 @@ const CreateBuildingsFormContainer = ({
                 initialOptions.selectedOptionValues = site.optionValueIDs.map(id => String(id));
 
                 initialOptions.manufacturerOptions = createManufacturerOptionList(manufacturers);
-                initialOptions.selectedManufacturerOptions = createHierarchyPreselectedManufacturersList(
+                const selectedOptions = createHierarchyPreselectedManufacturersList(
                     initialOptions.manufacturerOptions,
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
+
+                initialOptions.selectedManufacturerOptions = selectedOptions;
                 setShowManufacturingOptions(false);
             } else {
                 // set default prefills as per the company admin options
@@ -211,7 +215,12 @@ const CreateBuildingsFormContainer = ({
 
     return (
         <BlockContainer
-            isEmpty={isObjEmpty(manufacturers) || isObjEmpty(optionValues) || !areOptionsLoaded}
+            isEmpty={
+                isObjEmpty(manufacturers) ||
+                isObjEmpty(optionValues) ||
+                !areOptionsLoaded ||
+                isFetching
+            }
             isFetching={isFetching || !areOptionsLoaded}
             error={error}
             contentClass="no-padding"
@@ -237,6 +246,7 @@ const CreateBuildingsFormContainer = ({
                 initialDropdownOptions={initialDropdownOptions}
                 combinedOptions={combinedOptions}
                 handleShowOandMModal={handleShowOandMModal}
+                isFetchingHierarchies={isFetchingHierarchies}
             />
         </BlockContainer>
     );
@@ -352,7 +362,10 @@ const CreateBuildingsFormContainer = ({
 const mapStateToProps = (
     {
         companyAdmin: {
-            sitesReducer: { siteError, updatedSiteID, sites },
+            sitesReducer: { siteError, updatedSiteID, sites, isFetching: isFetchingSites },
+            buildingsReducer: { isFetching: isFetchingBuildings },
+            floorsReducer: { isFetching: isFetchingFloors },
+            drawingsReducer: { isFetching: isFetchingDrawings },
             companySettingsReducer: {
                 companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
             },
@@ -385,6 +398,8 @@ const mapStateToProps = (
     useManufacturingByDefault,
     subscriptionServiceIDs,
     dropdownOptions: Object.values(dropdownOptions),
+    isFetchingHierarchies:
+        isFetchingSites || isFetchingBuildings || isFetchingFloors || isFetchingDrawings,
 });
 
 const mapDispatchToProps = {

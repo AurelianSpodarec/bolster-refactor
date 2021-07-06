@@ -162,8 +162,6 @@ class EditPinFormContainer extends Component {
         if (!filesUploading) {
             editPinHistory(selectedHistory.id, postBody);
         }
-
-        // console.log(postBody);
     };
 }
 

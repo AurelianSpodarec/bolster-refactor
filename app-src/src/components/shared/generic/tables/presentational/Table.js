@@ -15,13 +15,18 @@ const Table = ({
     //colspan first th, sometimes have spacing issues
     //needs colspan on table item also, if true
     colSpanFirst = false,
+    tableColumnWidths = [],
 }) => {
     return (
         <table className={`generic-table ${withActions ? 'with-actions' : ''} ${extraClasses}`}>
             <thead>
                 <tr>
                     {headers.map((header, i) => (
-                        <th colSpan={colSpanFirst && i === 0 ? '2' : ''} key={header + i}>
+                        <th
+                            colSpan={colSpanFirst && i === 0 ? '2' : ''}
+                            key={header + i}
+                            style={tableColumnWidths.length ? { width: tableColumnWidths[i] } : {}}
+                        >
                             {header}
                         </th>
                     ))}

@@ -4,6 +4,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import LevelsFilterContainer from '../containers/LevelsFilterContainer';
 import OperativesFilterContainer from '../containers/OperativesFilterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import CompaniesFilterContainer from '../containers/CompaniesFilterContainer';
 
 const Block1Filters = ({ fieldError, advanced, isFetching, getAllOperatives }) => (
     <div className="flex-item size-lg-6 size-md-12">
@@ -15,6 +16,7 @@ const Block1Filters = ({ fieldError, advanced, isFetching, getAllOperatives }) =
                     report at any level or drill down to a specific drawing.
                 </p>
                 <LevelsFilterContainer advanced={advanced} isFetching={isFetching} />
+                <CompaniesFilterContainer />
                 <OperativesFilterContainer
                     advanced={advanced}
                     getAllOperatives={getAllOperatives}

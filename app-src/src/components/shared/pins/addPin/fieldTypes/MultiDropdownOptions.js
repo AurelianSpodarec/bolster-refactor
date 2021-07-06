@@ -9,7 +9,6 @@ const MultiDropdownOptions = ({
     dropdownOptions,
     answers,
     handleChange,
-    edit,
     originalDropdownMultiAns,
     isManufacturingEnabledForDrawing,
     defaultDropdownSorting,
@@ -33,7 +32,6 @@ const MultiDropdownOptions = ({
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
     //    this needs to be kept as an option.
 
-    // todo change the edit so that it can handle manufacturer pin options
     const curOptions = filteredOptions.map(opt =>
         isManufacturingEnabledForType ? opt.id : opt.name,
     );

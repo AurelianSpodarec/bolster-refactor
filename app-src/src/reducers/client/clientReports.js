@@ -21,7 +21,7 @@ import {
     CLIENT_REMOVE_ALL_RECTANGLES,
     CLIENT_UPDATE_FURTHER_FILTRATION_OPTION,
     CLIENT_UPDATE_IS_PIN_EXCLUDED,
-    CLIENT_REMOVE_ALL_EXCLUDED_PINS
+    CLIENT_REMOVE_ALL_EXCLUDED_PINS,
 } from 'constants/client/actionTypes/clientReports';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import { SORT_BY_OPTIONS } from 'constants/companyAdmin/enums';
@@ -40,7 +40,7 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     rectangles: rectanglesReducer,
     furtherFiltrationOption: furtherFiltrationOptionReducer,
-    excludedPinIDs: excludedPinIDsReducer
+    excludedPinIDs: excludedPinIDsReducer,
 });
 
 //send the questionsIDs
@@ -70,9 +70,11 @@ function filtersReducer(
         toDateInclusive: undefined,
         companyUserIDs: [],
         pinIDs: [],
-        floorplanPinScale: 0.5
+        floorplanPinScale: 0.5,
+        zoneIDs: [],
+        zoneOpacity: 0.3,
     },
-    action
+    action,
 ) {
     switch (action.type) {
         case CLIENT_UPDATE_REPORT_FILTER:
@@ -99,7 +101,9 @@ function filtersReducer(
                 toDateInclusive: undefined,
                 companyUserIDs: [],
                 pinIDs: [],
-                floorplanPinScale: 0.5
+                floorplanPinScale: 0.5,
+                zoneIDs: [],
+                zoneOpacity: 0.3,
             };
         default:
             return state;
@@ -111,7 +115,7 @@ function fieldsReducer(state = {}, action) {
         case CLIENT_UPDATE_FILTER_QUESTION_FIELD:
             return {
                 ...state,
-                [action.name]: action.value
+                [action.name]: action.value,
             };
         case CLIENT_REMOVE_FILTER_QUESTION:
             return removeObjItem(state, action.id);
@@ -122,8 +126,8 @@ function fieldsReducer(state = {}, action) {
                     id: action.id,
                     selectedQuestions: [],
                     questionValues: [],
-                    selectedValues: []
-                }
+                    selectedValues: [],
+                },
             };
         case CLIENT_REMOVE_FILTER_QUESTIONS:
         case CLIENT_RESET_FILTER_OPTIONS:
@@ -190,9 +194,9 @@ function pinResultsReducer(state = {}, action) {
 function optionsReducer(
     state = {
         showHidden: false,
-        sortBy: String(SORT_BY_OPTIONS.PIN_NO_ASC)
+        sortBy: String(SORT_BY_OPTIONS.PIN_NO_ASC),
     },
-    action
+    action,
 ) {
     switch (action.type) {
         case CLIENT_UPDATE_FILTER_OPTION:
@@ -200,7 +204,7 @@ function optionsReducer(
         case CLIENT_RESET_FILTER_OPTIONS:
             return {
                 showHidden: false,
-                sortBy: String(SORT_BY_OPTIONS.PIN_NO_ASC)
+                sortBy: String(SORT_BY_OPTIONS.PIN_NO_ASC),
             };
         default:
             return state;
@@ -227,7 +231,7 @@ function rectanglesReducer(state = {}, action) {
         case CLIENT_ADD_RECTANGLE:
             return updateObj(state, action.id, {
                 id: action.id,
-                corners: [action.topLeft, action.bottomRight]
+                corners: [action.topLeft, action.bottomRight],
             });
         case CLIENT_REMOVE_RECTANGLE:
             return removeObjItem(state, action.id);

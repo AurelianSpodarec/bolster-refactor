@@ -505,6 +505,15 @@ em {
     }
 }
 
+.content-area-editor {
+    float: left;
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 15px;
+}
+
 .content-area {
     float: left;
     width: 100%;
@@ -541,6 +550,10 @@ em {
             left: 0;
             right: 0;
         }
+    }
+
+    &.disabled {
+        background-color: grey;
     }
 
     .twitter {
@@ -850,6 +863,11 @@ input {
     &.outside-block {
         width: 100%;
         margin-left: 0;
+    }
+    &.under-component{
+        width: 100%;
+        margin-left: 0;
+        margin-top:5px;
     }
 
     &.left {
@@ -1266,8 +1284,24 @@ input {
         padding-left: 19px;
         @include ubuntu-medium;
         font-size: 14px;
+        
         ol {
             list-style: lower-alpha outside;
+            font-size: 12px;
+            @include ubuntu;
+        }
+    }
+
+    ul {
+        width: 100%;
+        @include ubuntu;
+        list-style: disc outside;
+        padding-left: 19px;
+        @include ubuntu-medium;
+        font-size: 14px;
+        
+        ul {
+            list-style: circle outside;
             font-size: 12px;
             @include ubuntu;
         }
@@ -1276,12 +1310,9 @@ input {
         font-size: 14px;
         width: 100%;
         @include ubuntu-medium;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
     }
-    ul {
-        list-style: disc;
-        padding-left: 19px;
-    }
+
     p {
         width: 100%;
         @include ubuntu;
@@ -2504,6 +2535,51 @@ input {
 }
 
 //tables
+.scrollable-table-outer {
+    position: relative;
+}
+
+.scrollable-table-inner {
+    position: static;
+    overflow-x: scroll;
+    overflow-y: visible;
+    margin-right: 145px;
+
+    .generic-table {
+        position: static;
+        table-layout: fixed;
+
+        thead, tbody, th, td {
+            position: static;
+        }
+
+        tr {
+            border-bottom: none;
+
+            &:first-child {
+                td {
+                    border-top: none;
+                }
+            }
+        }
+
+        th, td {
+            width: 200px;
+
+            &:last-child {
+                position: absolute;
+                right: -15px;
+                width: 160px;
+                margin-top: -1px;
+            }
+        }
+
+        td {
+            border-top: 2px solid #f5f5f5;
+        }
+    }
+}
+
 .generic-table {
     float: left;
     width: calc(100% + 30px);
@@ -2540,6 +2616,10 @@ input {
 
     .red-row {
         background-color:#ffdcdb;
+    }
+
+    .grey-row {
+        background-color: $light-grey-alt;
     }
 
     tbody {
@@ -2746,6 +2826,10 @@ input {
                 margin-bottom: 2px;
             }
         }
+
+        &.cell-break-all {
+            word-break: break-all;
+        }
     }
 
     .button {
@@ -2800,6 +2884,23 @@ input {
 
     &.center {
         float: none;
+    }
+
+    // count colours
+    .limit-red {
+        color: red;
+    }
+
+    .limit-orange {
+        color: orange;
+    }
+
+    .limit-yellow {
+        color: #c5c503;
+    }
+
+    .limit-green {
+        color: green;
     }
 }
 
@@ -3616,27 +3717,74 @@ input {
         }
     }
     .wysiwyg {
-        h1, h2, h3, h4, p {
-            line-height: 2;
+        h1, h2, h3, h4, p, li {
+            line-height: 1.5;
+
+            span {
+                color: inherit!important;
+                font-size: 100%!important;
+                
+                font: {
+                    family: inherit!important;
+                    weight: inherit!important;
+                };
+            }
+        }
+
+        p, li, table {
+            @include neosans;
         }
 
         h1, h2, h3 {
             color: $very-dark-grey-alt;
+            @include neosans-bold;
         }
 
         h1, h2 {
-            margin-bottom: 5px;
+            margin-bottom: 30px;
             font-size: 35px;
-            @include opensans-bold;
+        }
+
+        h3 {
+            margin-bottom: 15px;
+            font-size: 25px;
         }
 
         h4 {
-            font-size: 30px;
+            font-size: 22px;
             margin-top: 10px;
         }
 
-        
+        p, li {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: $grey-alt;
+
+            & > a {
+                font-size: 100%;
+            }
+        }
+
+        table {
+            margin-bottom: 20px;
+            font-size: 18px;
+            
+            th, td {
+                padding: 5px 10px;
+                color: $grey-alt;
+                border: 1px solid #ccc;
+            }
+        }
+
+        li {
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
         ol, ul {
+            margin-bottom: 20px;
+
             & > li {
                 font-size: 18px;
                 & > a {
@@ -3651,36 +3799,18 @@ input {
 
         strong {
             font-weight: bold;
-        }  
-        
+        }      
+
+        hr {
+            width: 100%;
+            margin: 50px 0;
+        }
 
         .divider{
             margin-bottom: 10px;
             width: 37px;
             height: 6px;
             background-color: $red-alt;
-        }
-
-        h3 {
-            margin-bottom: 15px;
-            font-size: 25px;
-        }
-
-        h4 {
-            font-size: 22px;
-        }
-
-        p {
-            margin-bottom: 35px;
-            font-size: 18px;
-            color: $grey-alt;
-
-            & > a {
-                font-size: 100%;
-            }
-        }
-        hr {
-            width: 100%;
         }
 
         :last-child {
@@ -3888,7 +4018,8 @@ input {
     }
 
     &.left {
-        margin-left: -5px;
+        left: auto;
+        right: 30px;
 
         .tooltip-arrow {
             top: 50%;
@@ -3953,6 +4084,15 @@ input {
         border-radius: 5px;
         @include ubuntu;
         font-size: 13px;
+    }
+
+    p {
+        font-size: 100%;
+        margin-bottom: 10px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 }
 
@@ -4806,35 +4946,52 @@ input {
     }
 }
 
-.pinscale-slider {
-    position: absolute;
-    width: 90%;
-    max-width: 350px;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 15px;
-    padding: 22px 45px 20px 40px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px -1px black;
-    background-color: #f5f5f5;
-    opacity: 0.7;
-    transition: opacity 0.3s;
-    .js-pinscale {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-    }
-    .pin {
-        position: absolute;
-        &.pin-small {
-            height: 30px;
-            left: 10px;
-            top: 15px;
+.sliders {
+    .slider {
+        width: 90%;
+        max-width: 350px;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 15px;
+        padding: 22px 45px 20px 40px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px -1px black;
+        background-color: #f5f5f5;
+        opacity: 0.7;
+        transition: opacity 0.3s;
+
+        .js-pinscale {
+            width: 100%;
+            margin: 0;
+            padding: 0;
         }
-        &.pin-large {
-            height: 40px;
-            right: 10px;
-            top: 10px;
+        .pin {
+            position: absolute;
+            &.pin-small {
+                height: 30px;
+                left: 10px;
+                top: 15px;
+            }
+            &.pin-large {
+                height: 40px;
+                right: 10px;
+                top: 10px;
+            }
+        }
+
+        &.opacity {
+            margin-top: 10px;
+            padding-bottom: 35px;
+            p {
+                float: left;
+                margin-right: 12px;
+                font-weight: 400;
+            }
+        
+            input {
+                float: left;
+                width: 150px;
+            }
         }
     }
 }
@@ -6254,6 +6411,41 @@ input {
     }
 }
 
+// password strength
+.loading-password-strength {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.password-strength {
+    margin-top: 10px;
+
+    .bar {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .indicator {
+        width: calc(100% / 3 - 2px);
+        height: 8px;
+        border-radius: 2px;
+        background-color: $light-grey;
+    }
+
+    p {
+        margin-top: 3px;
+        text-align: right;
+        font-size: 12px;
+        color: $text-grey;
+        text-shadow: 0 0 0 black;
+
+        i {
+            margin-left: 5px;
+        }
+    }
+}
+
 @import "./frontend.scss";
 
 .quill {
@@ -6352,11 +6544,43 @@ input {
     }
 }
 
+.sun-editor-editable {
+    strong {
+        font-weight: bold;
+    }
+}
+
 .historiesSelect {
 
     .option-selection {
         .option-container {
             max-height: 116px;
         }
+    }
+}
+
+.margin-bottom {
+    margin-bottom: 15px;
+}
+
+.timepicker {
+    font-size: 160%;
+}
+
+.template-color-question {
+    position: absolute;
+    right: 42px;
+    top: -1px;
+}
+
+.hide{
+    display:none;
+}
+
+.select-all-check-all {
+    margin-bottom: 16px;
+
+    .select-all-list-container { 
+        margin-top: 32px;
     }
 }

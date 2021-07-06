@@ -6,11 +6,12 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 const ConfirmSubmitModal = ({
     handleSubmit,
     hideModal,
+    title = 'Submit Confirmation',
     message = 'Are you sure you want to submit this?',
-    submitButtonText = 'Submit'
+    submitButtonText = 'Submit',
 }) => (
     <ModalOuterContainer>
-        <BlockHeading title="Submit Confirmation" />
+        <BlockHeading title={title} />
         <p className="generic-text intro-text size-lg-12">{message}</p>
         <BlockButtonWrapper>
             <button className="button green" onClick={handleSubmit}>

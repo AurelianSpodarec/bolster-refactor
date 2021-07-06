@@ -6,27 +6,32 @@ import SitesListItem from '../presentational/SitesListItem';
 import postSitesSort from 'actions/companyAdmin/sites/async/postSitesSort';
 
 const SitesListItemContainer = ({
-    dispatch,
+    toggleSiteExpanded,
     expandedSiteIds,
     site,
     colCount,
     headers,
     onMobile,
-}) => (
-    <SitesListItem
-        site={site}
-        isExpanded={expandedSiteIds.includes(site.id)}
-        colCount={colCount}
-        toggleExpanded={() => dispatch(toggleSiteExpanded(site.id))}
-        headers={headers}
-        onMobile={onMobile}
-    />
-);
+}) => {
+    return (
+        <SitesListItem
+            site={site}
+            isExpanded={expandedSiteIds.includes(site.id)}
+            colCount={colCount}
+            toggleExpanded={() => toggleSiteExpanded(site.id)}
+            headers={headers}
+            onMobile={onMobile}
+        />
+    );
+};
 
 const mapState = ({ shared: { tablesReducer, mobileReducer } }) => ({
     expandedSiteIds: tablesReducer.expandedSiteIds,
     onMobile: mobileReducer.onMobile,
 });
-const mapDispatch = { postSitesSort };
+const mapDispatch = {
+    postSitesSort,
+    toggleSiteExpanded,
+};
 
 export default connect(mapState, mapDispatch)(SitesListItemContainer);

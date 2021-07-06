@@ -101,10 +101,10 @@ class AddPinContainer extends Component {
             }, []);
 
             const dropdownOptionsFilteredArray = dropdownOptions.filter(option => {
-                const areManufacturingOptionsReplacingThisOption = originalOptionTypesToRemove.includes(
+                const areManufacturingOptionsReplacingThis = originalOptionTypesToRemove.includes(
                     option.type,
                 );
-                return !areManufacturingOptionsReplacingThisOption;
+                return !areManufacturingOptionsReplacingThis;
             }, []);
 
             const newOptions = [...dropdownOptionsFilteredArray, ...drawingOptionValues];
