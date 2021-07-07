@@ -27,6 +27,7 @@ const EditCompanyOwnerModal = ({
                         onChange={handleChange}
                         omitPlaceholder
                         required
+                        optionListClasses='large-list'
                     />
                 </Field>
                 <BlockButtonWrapper additionalClasses="margin-top-lg">

@@ -25,7 +25,7 @@ const EditCompanyOwnerModalContainer = ({
 
     const userDropdownOptions = Object.values(companyAdmins).map(user => {
         return {
-            label: `${user.userFirstName} ${user.userLastName}`,
+            label: `${user.userFirstName} ${user.userLastName} - ${user.userEmail}`,
             value: user.id,
         };
     });
