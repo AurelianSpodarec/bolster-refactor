@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { isEmpty } from 'helpers/generic';
@@ -9,7 +9,6 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ActivityLogItem from './ActivityLogItem';
 import Select from 'components/shared/generic/form/presentational/Select';
-import fetchActivityLog from 'actions/companyAdmin/activityLog/async/fetchActivityLog';
 
 const typeOptions = [
     { label: 'Site', value: 'Site' },
@@ -21,25 +20,11 @@ const typeOptions = [
     { label: 'Operative Permission', value: 'Operative Permission' },
 ];
 
-const ActivityLog = ({ logs, users, isOwner, isFetching, error, headers }) => {
-    const pageSize = 50;
+const ActivityLog = ({ logs, users, isFetching, error, headers }) => {
     const [type, setType] = useState(null);
-    const [page, setPage] = useState(1);
-
-    // useEffect(() => {
-    //     fetchActivityLog({ pageSize, pageNumber: page, type });
-    // }, [page, type]);
-
     return (
         <>
-            <PageHeading title="Activity Log" withBackButton>
-                {isOwner && (
-                    <Link className="button yellow" to="/company/activity-log/edit-settings">
-                        <i className="far fa-pencil" />
-                        Edit Settings
-                    </Link>
-                )}
-            </PageHeading>
+            <PageHeading title="Activity Log" withBackButton />
 
             <BlockContainer isFetching={isFetching} error={error} isEmpty={isEmpty(logs)}>
                 <BlockHeading title="Activity Log">

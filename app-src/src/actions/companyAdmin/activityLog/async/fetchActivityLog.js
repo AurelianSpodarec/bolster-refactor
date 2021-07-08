@@ -30,3 +30,15 @@ export default () => dispatch => {
         .then(res => dispatch(fetchActivityLogSuccess(res.data)))
         .catch(err => dispatch(fetchActivityLogFailure(err.message)));
 };
+
+// export default (postbody = {
+//     pageSize: 25,
+//     pageNumber: 1,
+// }) => dispatch => {
+//     dispatch(fetchActivityLogRequest());
+
+//     return axios
+//         .post(`${API_URL}/settings/activity`, postBody, getHeaders())
+//         .then(res => dispatch(fetchActivityLogSuccess(res.data)))
+//         .catch(err => dispatch(fetchActivityLogFailure(err.message)));
+// };
