@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { isEmpty } from 'helpers/generic';
+import { isEmpty, titleCaseString, toTitleCase } from 'helpers/generic';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -10,22 +10,14 @@ import ActivityLogItem from './ActivityLogItem';
 import Select from 'components/shared/generic/form/presentational/Select';
 import { useDispatch } from 'react-redux';
 import fetchActivityLog from 'actions/superAdmin/activityLog/async/fetchActivityLog';
+import { ACTIVITY_LOG_REFERENCE_TYPES } from 'constants/companyAdmin/enums';
 
-const typeOptions = [
-    { label: 'Site', value: 'site' },
-    { label: 'Building', value: 'building' },
-    { label: 'Floor', value: 'floor' },
-    { label: 'Drawing', value: 'drawing' },
-    { label: 'Pin History', value: 'pin_history' },
-    { label: 'User', value: 'user' },
-    { label: 'Template', value: 'template' },
-    { label: 'Client Access', value: 'client_access' },
-    { label: 'Company Permission', value: 'company_permission' },
-    { label: 'User Drawings', value: 'user_drawings' },
-    { label: 'User Passwords', value: 'user_passwords' },
-    { label: 'Operative Alert', value: 'operative_alert' },
-    { label: 'Operative Permission', value: 'operative_permission' },
-];
+const typeOptions = Object.keys(ACTIVITY_LOG_REFERENCE_TYPES).map(item => {
+    return {
+        label: titleCaseString(item),
+        value: ACTIVITY_LOG_REFERENCE_TYPES[item],
+    };
+});
 
 const ActivityLog = ({ logs, isFetching, error, headers }) => {
     const dispatch = useDispatch();
