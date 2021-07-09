@@ -22,11 +22,11 @@ export const fetchActivityLogFailure = error => ({
     error,
 });
 
-export default () => dispatch => {
+export default type => dispatch => {
     dispatch(fetchActivityLogRequest());
 
     return axios
-        .get(`${API_URL}/settings/activity`, getHeaders())
+        .get(`${API_URL}/settings/activity?type=${type}`, getHeaders())
         .then(res => dispatch(fetchActivityLogSuccess(res.data)))
         .catch(err => dispatch(fetchActivityLogFailure(err.message)));
 };
