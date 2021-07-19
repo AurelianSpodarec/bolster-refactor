@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 
 import Field from 'components/shared/generic/form/presentational/Field';
 import resetPinAnswer from 'actions/companyAdmin/drawings/sync/resetPinAnswer';
-import { isEmpty } from 'helpers/generic';
+import { isEmpty, isObjEmpty } from 'helpers/generic';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -241,6 +241,7 @@ class AddPinQuestionRoute extends Component {
 
     componentDidMount = () => {
         this.handlePrefillOrReset();
+        this.handleNewPrefillOrReset();
     };
 
     componentDidUpdate = prevProps => {
@@ -362,6 +363,15 @@ class AddPinQuestionRoute extends Component {
             if (shouldReset) {
                 this.handlePrefillOrReset();
             }
+        }
+    };
+
+    handleNewPrefillOrReset = () => {
+        const { cachedAnswers = {}, updateAddPinAnswer, question } = this.props;
+
+        if (!isObjEmpty(cachedAnswers)) {
+            const cachedAnswer = cachedAnswers[question.id];
+            updateAddPinAnswer(question.id, cachedAnswer);
         }
     };
 
