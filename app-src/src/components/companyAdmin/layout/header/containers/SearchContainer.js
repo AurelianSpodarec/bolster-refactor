@@ -114,7 +114,7 @@ class SearchContainer extends Component {
         const { resultsVisible } = this.state;
         if (!resultsVisible) return;
         document.removeEventListener('click', this.handleOutsideClick, false);
-        // this.setState({ resultsVisible: false });
+        this.setState({ resultsVisible: false, searchTerm: '' });
     };
 }
 
