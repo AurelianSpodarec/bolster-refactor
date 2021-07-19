@@ -59,8 +59,9 @@ const EnterDemoFullSiteModal = () => {
                 </div>
                 {showError && (
                     <p className="error error-message">
-                        An error occurred when submitting access code, please check access code is
-                        correct and not deleted/disabled before trying again.
+                        An error occurred when submitting the access code. Please check the access
+                        code is correct, has not expired or been disabled before trying again. If
+                        the issue persists please contact Bolster Systems.
                     </p>
                 )}
                 <BlockButtonWrapper>
