@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { isEmpty, titleCaseString, toTitleCase } from 'helpers/generic';
+import { isEmpty, titleCaseString } from 'helpers/generic';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';

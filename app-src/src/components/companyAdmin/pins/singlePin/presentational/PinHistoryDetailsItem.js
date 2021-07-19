@@ -15,7 +15,7 @@ const PinHistoryDetailsItem = ({
     editedByUserName,
     drawingID,
     isDeleteHistory,
-    pin
+    pin,
 }) => (
     <div className="item">
         <FieldOutput
@@ -23,6 +23,8 @@ const PinHistoryDetailsItem = ({
             description={services[history.serviceID].name}
             sizeClass="size-lg-3 size-md-12"
         />
+
+        {console.log('history', history)}
 
         <FieldOutput title="Date added" sizeClass="size-lg-3 size-md-12">
             <p>
