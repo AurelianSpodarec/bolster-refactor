@@ -37,7 +37,7 @@ const PinAnswer = ({
                     return optionValuesLookup[ans].name;
                 }
                 // handle other
-                return ans;
+                // return ans;
             });
         }
     }
