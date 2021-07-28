@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 
 import Field from 'components/shared/generic/form/presentational/Field';
 import resetPinAnswer from 'actions/companyAdmin/drawings/sync/resetPinAnswer';
-import { isEmpty, isObjEmpty } from 'helpers/generic';
+import { isEmpty } from 'helpers/generic';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -241,7 +241,6 @@ class AddPinQuestionRoute extends Component {
 
     componentDidMount = () => {
         this.handlePrefillOrReset();
-        this.handleNewPrefillOrReset();
     };
 
     componentDidUpdate = prevProps => {
@@ -366,23 +365,23 @@ class AddPinQuestionRoute extends Component {
         }
     };
 
-    handleNewPrefillOrReset = () => {
-        const { cachedAnswers = {}, updateAddPinAnswer, question } = this.props;
-
-        if (!isObjEmpty(cachedAnswers)) {
-            const cachedAnswer = cachedAnswers[question.id];
-            updateAddPinAnswer(question.id, cachedAnswer);
-        }
-    };
-
     handlePrefillOrReset = () => {
-        const { isSameTemplate, pinAnswersByGroupKey } = this.props;
+        const {
+            isSameTemplate,
+            pinAnswersByGroupKey,
+            cachedAnswers = {},
+            updateAddPinAnswer,
+            question,
+        } = this.props;
+        const cachedAnswer = cachedAnswers[question.id];
         const isAddPinHistory = !!pinAnswersByGroupKey;
 
         if (isSameTemplate && isAddPinHistory) {
             this.handlePrefillSameTemplateQuestion();
         } else if (isAddPinHistory) {
             this.handlePrefillDifferentTemplateQuestion();
+        } else if (!!cachedAnswer && question.isPrefill) {
+            updateAddPinAnswer(question.id, cachedAnswer);
         } else {
             this.handleResetAnswer();
         }
@@ -408,8 +407,13 @@ class AddPinQuestionRoute extends Component {
     };
 
     handlePrefillDifferentTemplateQuestion = () => {
-        const { oldAnswersByNameObj, question, questions, sectionIDs, updateAddPinAnswer } =
-            this.props;
+        const {
+            oldAnswersByNameObj,
+            question,
+            questions,
+            sectionIDs,
+            updateAddPinAnswer,
+        } = this.props;
 
         const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
         const oldAnswersMatchingName = oldAnswersByNameObj[question.name] || [];
