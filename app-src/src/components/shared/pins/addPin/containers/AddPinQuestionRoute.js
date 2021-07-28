@@ -373,7 +373,7 @@ class AddPinQuestionRoute extends Component {
             updateAddPinAnswer,
             question,
         } = this.props;
-        const cachedAnswer = cachedAnswers[question.id];
+        const cachedAnswer = cachedAnswers?.[question.id];
         const isAddPinHistory = !!pinAnswersByGroupKey;
 
         if (isSameTemplate && isAddPinHistory) {
