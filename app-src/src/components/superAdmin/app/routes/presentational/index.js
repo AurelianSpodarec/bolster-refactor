@@ -23,6 +23,7 @@ import TrustedBySettingRoutes from './TrustedBySettingRoutes';
 import LegalDocumentsRoutes from './LegalDocumentsRoutes';
 import RecentlyExtendedRoutes from './RecentlyExtendedRoutes';
 import BannersRoutes from './BannersRoutes';
+import DemoAccessCodesRoutes from './DemoAccessCodesRoutes';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
@@ -44,6 +45,7 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/trusted-by-settings`} component={TrustedBySettingRoutes} />
         <Route path={`${base}/text-settings`} component={TextSettingRoutes} />
         <Route path={`${base}/legal-documents`} component={LegalDocumentsRoutes} />
+        <Route path={`${base}/demo-access-codes`} component={DemoAccessCodesRoutes} />
         <Route path={`${base}/new-features`} component={NewFeaturesRoutes} />
         <Route path={`${base}/recently-extended`} component={RecentlyExtendedRoutes} />
         <Route path={`${base}/banners`} component={BannersRoutes} />
