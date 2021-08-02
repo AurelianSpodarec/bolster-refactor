@@ -42,6 +42,8 @@ const CompaniesFilterContainer = ({
         companiesSelection = companies.filter(company => company.id === companyID);
     }
 
+    console.log('createdByCompanyID', createdByCompanyID);
+
     return (
         <CompaniesFilter
             handleFormChange={handleFormChange}
