@@ -42,51 +42,56 @@ const SuperAdminMenu = ({ logout, unreadRequests }) => (
             <i className="fa fa-folder-open icon" /> <span className="menu-text">Services</span>
         </MenuItemContainer>
 
-        <AdminPinOptionsMenuItems />
-        <MenuItemContainer link="/admin/contact-submissions">
-            {!!unreadRequests && <span className="number">{unreadRequests}</span>}
-            <i className="far fa-phone icon" />{' '}
-            <span className={`menu-text ${unreadRequests ? 'large' : ''}`}>
-                Contact Submissions
-            </span>
-        </MenuItemContainer>
-        <MenuItemContainer link="/admin/sos-management">
-            <i className="fas fa-hands-helping icon" />
-            <span className="menu-text">SOS Management</span>
-        </MenuItemContainer>
-        <MenuItemContainer link="/admin/operative-alerts">
-            <i className="fas fa-envelope icon" />
-            <span className="menu-text">Operative Alerts</span>
-        </MenuItemContainer>
-        <MenuItemContainer link="/admin/user-guides">
-            <i className="far fa-book fa-fw icon" />
-            <span className="menu-text">User guides</span>
-        </MenuItemContainer>
-        <MenuItemContainer link="/admin/new-features">
-            <i className="fas fa-file-medical icon" />
-            <span className="menu-text">New Features</span>
-        </MenuItemContainer>
-        <MenuItemContainer link="/admin/text-settings">
-            <i className="far fa-cogs fa-fw icon" />
-            <span className="menu-text">Frontend Text Settings</span>
-        </MenuItemContainer>
-        <MenuItemContainer link="/admin/trusted-by-settings">
-            <i className="far fa-book fa-fw icon" />
-            <span className="menu-text">Frontend Trusted By Settings</span>
-        </MenuItemContainer>
-        <MenuItemContainer link="/admin/legal-documents">
-            <i className="far fa-file fa-fw icon" />
-            <span className="menu-text">Legal Documents</span>
-        </MenuItemContainer>
-        <MenuItemContainer link="/admin/banners">
-            <i className="fas fa-pennant icon" />
-            <span className="menu-text">Banner Notifications</span>
-        </MenuItemContainer>
-        <Link className="item" to="#" link="/admin/users" onClick={logout}>
-            <i className="icon fas fa-sign-out" />
-            <span className="menu-text">Logout</span>
-        </Link>
-    </div>
+            <AdminPinOptionsMenuItems />
+            <MenuItemContainer link="/admin/contact-submissions">
+                {!!unreadRequests && <span className="number">{unreadRequests}</span>}
+                <i className="far fa-phone icon" />{' '}
+                <span className={`menu-text ${unreadRequests ? 'large' : ''}`}>
+                    Contact Submissions
+                </span>
+            </MenuItemContainer>
+            <MenuItemContainer link="/admin/sos-management">
+                <i className="fas fa-hands-helping icon" />
+                <span className="menu-text">SOS Management</span>
+            </MenuItemContainer>
+            <MenuItemContainer link="/admin/operative-alerts">
+                <i className="fas fa-envelope icon" />
+                <span className="menu-text">Operative Alerts</span>
+            </MenuItemContainer>
+            <MenuItemContainer link="/admin/user-guides">
+                <i className="far fa-book fa-fw icon" />
+                <span className="menu-text">User guides</span>
+            </MenuItemContainer>
+            <MenuItemContainer link="/admin/new-features">
+                <i className="fas fa-file-medical icon" />
+                <span className="menu-text">New Features</span>
+            </MenuItemContainer>
+            <MenuItemContainer link="/admin/text-settings">
+                <i className="far fa-cogs fa-fw icon" />
+                <span className="menu-text">Frontend Text Settings</span>
+            </MenuItemContainer>
+            <MenuItemContainer link="/admin/trusted-by-settings">
+                <i className="far fa-book fa-fw icon" />
+                <span className="menu-text">Frontend Trusted By Settings</span>
+            </MenuItemContainer>
+            <MenuItemContainer link="/admin/legal-documents">
+                <i className="far fa-file fa-fw icon" />
+                <span className="menu-text">Legal Documents</span>
+            </MenuItemContainer>
+            <MenuItemContainer link="/admin/demo-access-codes">
+                <i className="far fa-key fa-fw icon" />
+                <span className="menu-text">Demo Access Codes</span>
+            </MenuItemContainer>
+            <MenuItemContainer link="/admin/banners">
+                <i className="fas fa-pennant icon" />
+                <span className="menu-text">Banner Notifications</span>
+            </MenuItemContainer>
+            <Link className="item" to="#" link="/admin/users" onClick={logout}>
+                <i className="icon fas fa-sign-out" />
+                <span className="menu-text">Logout</span>
+            </Link>
+        </div>
+    </>
 );
 
 export default SuperAdminMenu;

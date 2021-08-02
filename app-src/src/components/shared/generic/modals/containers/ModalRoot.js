@@ -113,6 +113,10 @@ import {
     DISABLE_USER,
     ENABLE_USER,
     RESEND_INVITE,
+    ADD_DEMO_ACCESS_CODES,
+    EDIT_DEMO_ACCESS_CODES,
+    DELETE_DEMO_ACCESS_CODES,
+    ENTER_DEMO_ACCESS_CODES,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -228,6 +232,10 @@ import ReactivateUserModal from 'components/companyAdmin/userManagement/operativ
 import DisableUserModal from 'components/companyAdmin/userManagement/shared/modals/DisableUserModal';
 import EnableUserModal from 'components/companyAdmin/userManagement/shared/modals/EnableUserModal';
 import ResendInviteModal from 'components/companyAdmin/userManagement/shared/modals/ResendInviteModal';
+import AddDemoAccessCodesModal from 'components/superAdmin/demoAccessCodes/presentational/AddDemoAccessCodesModal';
+import EditDemoAccessCodesModal from 'components/superAdmin/demoAccessCodes/presentational/EditDemoAccessCodesModal';
+import DeleteDemoAccessCodesModal from 'components/superAdmin/demoAccessCodes/presentational/DeleteDemoAccessCodesModal';
+import EnterDemoFullSiteModal from 'components/shared/demo-full-site/presentational/DemoFullSiteModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -341,6 +349,10 @@ const MODAL_COMPONENTS = {
     [DISABLE_USER]: DisableUserModal,
     [ENABLE_USER]: EnableUserModal,
     [RESEND_INVITE]: ResendInviteModal,
+    [ADD_DEMO_ACCESS_CODES]: AddDemoAccessCodesModal,
+    [EDIT_DEMO_ACCESS_CODES]: EditDemoAccessCodesModal,
+    [DELETE_DEMO_ACCESS_CODES]: DeleteDemoAccessCodesModal,
+    [ENTER_DEMO_ACCESS_CODES]: EnterDemoFullSiteModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

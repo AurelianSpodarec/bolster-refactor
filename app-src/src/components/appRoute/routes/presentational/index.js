@@ -12,6 +12,7 @@ import CompanyAppContainer from 'components/companyAdmin/app/app/containers/Comp
 
 import ClientAppContainer from 'components/client/app/app/containers/ClientAppContainer';
 import FrontEndAppContainer from 'components/frontEnd/app/app/containers/FrontEndAppContainer';
+import DemoFullSite from 'components/shared/demo-full-site/presentational/DemoFullSite';
 
 const Routes = () => {
     const location = useLocation();
@@ -36,6 +37,7 @@ const Routes = () => {
             <Route path="/admin" component={AdminAppContainer} />
             <Route path="/company" component={CompanyAppContainer} />
             <Route path="/client" component={ClientAppContainer} />
+            <Route path="/demo-full-site" component={DemoFullSite} />
             <Route path="/" component={FrontEndAppContainer} />
         </SwitchWith404>
     );
