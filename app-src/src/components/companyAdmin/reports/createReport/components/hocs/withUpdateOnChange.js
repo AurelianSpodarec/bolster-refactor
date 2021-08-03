@@ -6,7 +6,7 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-import { convertArrToObj,  } from 'helpers/generic';
+import { convertArrToObj } from 'helpers/generic';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { FURTHER_FILTRATION_OPTIONS, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import getOperativeOptions from 'actions/companyAdmin/reports/async/getOperativeOptions';
@@ -76,13 +76,7 @@ export default function (ProtectedComponent) {
                 return pins.filter(({ id }) => filters.pinIDs.includes(id));
             }
 
-            const {
-                status,
-                serviceID,
-                templateID,
-                companyUserIDs,
-                createdByCompanyID,
-            } = filters;
+            const { status, serviceID, templateID, companyUserIDs, createdByCompanyID } = filters;
 
             const NO = false;
             const YES = true;
@@ -102,16 +96,12 @@ export default function (ProtectedComponent) {
                     //     console.log('{pin}');
                     // }
 
-                    if (
-                        from && moment(pin.latestCreatedOn).utc(true) < moment(from)
-                    ) {
+                    if (from && moment(pin.latestCreatedOn).utc(true) < moment(from)) {
                         return NO;
                     }
 
                     // end date
-                    if (
-                        to && moment(pin.latestCreatedOn).utc(true) > moment(to)
-                    ) {
+                    if (to && moment(pin.latestCreatedOn).utc(true) > moment(to)) {
                         return NO;
                     }
 
@@ -161,13 +151,7 @@ export default function (ProtectedComponent) {
 
         _getDateTimeFilters = () => {
             const {
-                filters: {
-                    fromDateInclusive,
-                    toDateInclusive,
-                    includeTime,
-                    startTime,
-                    endTime,
-                },
+                filters: { fromDateInclusive, toDateInclusive, includeTime, startTime, endTime },
                 timeZone,
             } = this.props;
 
@@ -177,40 +161,38 @@ export default function (ProtectedComponent) {
             if (includeTime && startTime && fromDateInclusive) {
                 const [hour, minute] = startTime.split(':');
 
-                    startDateTimeUTC = moment
-                        .tz(fromDateInclusive, timeZone.name)
-                        .set({ hour, minute })
-                        .utc()
-                        .toISOString();
-            }
-            else if (fromDateInclusive) {
                 startDateTimeUTC = moment
-                .tz(fromDateInclusive, timeZone.name)
-                .startOf('day')
-                .utc()
-                .toISOString();
+                    .tz(fromDateInclusive, timeZone.name)
+                    .set({ hour, minute })
+                    .utc()
+                    .toISOString();
+            } else if (fromDateInclusive) {
+                startDateTimeUTC = moment
+                    .tz(fromDateInclusive, timeZone.name)
+                    .startOf('day')
+                    .utc()
+                    .toISOString();
             }
 
             if (includeTime && endTime && toDateInclusive) {
-                    const [hour, minute] = endTime.split(':');
-                    endDateTimeUTC = moment
-                        .tz(toDateInclusive, timeZone.name)
-                        .set({ hour, minute: parseInt(minute) + 1 })
-                        .utc()
-                        .toISOString();
-            }
-            else if (toDateInclusive) {
+                const [hour, minute] = endTime.split(':');
+                endDateTimeUTC = moment
+                    .tz(toDateInclusive, timeZone.name)
+                    .set({ hour, minute: parseInt(minute) + 1 })
+                    .utc()
+                    .toISOString();
+            } else if (toDateInclusive) {
                 // to date needs to be start of next day so that we get all pins from the previous day.
                 endDateTimeUTC = moment
-                .tz(toDateInclusive, timeZone.name)
-                .add(1, 'days')
-                .startOf('day')
-                .utc()
-                .toISOString();
+                    .tz(toDateInclusive, timeZone.name)
+                    .add(1, 'days')
+                    .startOf('day')
+                    .utc()
+                    .toISOString();
             }
 
             return [startDateTimeUTC, endDateTimeUTC];
-        }
+        };
 
         _getPostBody = () => {
             const {
@@ -301,8 +283,6 @@ export default function (ProtectedComponent) {
                     break;
             }
 
-            
-
             const getLatLng = corner => {
                 const [latY, lngX] = corner;
                 return { latY, lngX };
@@ -312,7 +292,6 @@ export default function (ProtectedComponent) {
                 rectangles,
             ).map(({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]);
             // get the utc converted time for both from date and to date.
-
 
             const [startDate, endDate] = this._getDateTimeFilters();
 
@@ -411,10 +390,11 @@ export default function (ProtectedComponent) {
         };
 
         getInitialServices = async () => {
-            const { getServiceOptions } = this.props;
+            const { getServiceOptions, getOperativeOptions } = this.props;
             const body = this._getPostBody();
 
             await getServiceOptions(body);
+            await getOperativeOptions(body);
         };
 
         componentDidMount = () => {
