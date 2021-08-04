@@ -388,18 +388,6 @@ export default function (ProtectedComponent) {
             await getServiceOptions(body);
             await getCompanyOptions(body);
         };
-
-        getInitialServices = async () => {
-            const { getServiceOptions, getOperativeOptions } = this.props;
-            const body = this._getPostBody();
-
-            await getServiceOptions(body);
-            await getOperativeOptions(body);
-        };
-
-        componentDidMount = () => {
-            this.getInitialServices();
-        };
     }
 
     const mapStateToProps = (

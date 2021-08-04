@@ -73,7 +73,17 @@ class BasicFiltersContainer extends Component {
         );
     }
 
+    getInitialServices = async () => {
+        const { getServiceOptions, getOperativeOptions, getPostBody } = this.props;
+        const body = getPostBody();
+
+        await getServiceOptions(body);
+        await getOperativeOptions(body);
+    };
+
     componentDidMount = () => {
+        this.getInitialServices();
+
         const {
             handleChange,
             location: { state: locationState },
