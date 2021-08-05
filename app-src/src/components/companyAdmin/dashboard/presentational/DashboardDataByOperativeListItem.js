@@ -36,7 +36,11 @@ const DrawingDataByOperativeListItem = ({ operative, history, onMobile, headers 
             <td>
                 {' '}
                 {onMobile && <span className="mobile-table-heading">Actions</span>}
-                <button className="button blue" onClick={generateReport}>
+                <button
+                    className={`button blue ${operative.isInvited ? 'disabled' : ''}`}
+                    onClick={generateReport}
+                    disabled={operative.isInvited}
+                >
                     Generate Report
                 </button>
             </td>
