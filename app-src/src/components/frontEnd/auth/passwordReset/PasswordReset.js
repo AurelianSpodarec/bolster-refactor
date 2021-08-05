@@ -34,6 +34,8 @@ const PasswordReset = () => {
         confirmPassword: '',
     });
 
+    const isExpired = error?.includes?.('expired');
+
     return (
         <>
             <PageMeta meta={pageMeta.resetPassword} />
@@ -112,8 +114,15 @@ const PasswordReset = () => {
                                 className="generic-text field-validation-error"
                                 style={{ marginBottom: '10px', color: 'red' }}
                             >
-                                Something went wrong. Please again. If this persists, contact
-                                Bolster support. ({error})
+                                {!isExpired ? (
+                                    `Something went wrong. Please again. If this persists, contact
+                                Bolster support. (${error})`
+                                ) : (
+                                    <span>
+                                        This reset password link has expired, please re-submit{' '}
+                                        <a href="/auth/login?showForgotPassword=true">here</a>
+                                    </span>
+                                )}
                             </p>
                         )}
                     </div>
