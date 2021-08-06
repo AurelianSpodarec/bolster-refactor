@@ -46,7 +46,7 @@ const mapDispatchToProps = dispatch => ({
     reissueToken: companyID =>
         dispatch(reissueToken(companyID))
             .then(() => dispatch(decodeJWT()))
-            .then(() => dispatch(fetchCompanySettings('HQ LIST ITEM'))),
+            .then(() => dispatch(fetchCompanySettings())),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeadquartersCompanyListItemContainer);

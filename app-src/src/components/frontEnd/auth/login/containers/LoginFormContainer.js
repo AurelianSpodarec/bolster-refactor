@@ -125,7 +125,7 @@ const LoginFormContainer = ({
         }
 
         if (+companyUserType === ROLES.OWNER) {
-            const { payload, type } = await fetchCompanySettings('LOGIN FORM');
+            const { payload, type } = await fetchCompanySettings();
             if (type === FETCH_COMPANY_SETTINGS_SUCCESS) {
                 localStorage.setItem('colourCode', payload.colourCode);
             }

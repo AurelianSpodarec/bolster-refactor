@@ -40,7 +40,7 @@ const mapDispatchToProps = dispatch => ({
     reissueToken: () => {
         dispatch(reissueToken())
             .then(() => dispatch(decodeJWT()))
-            .then(() => dispatch(fetchCompanySettings('HQ')));
+            .then(() => dispatch(fetchCompanySettings()));
     },
 });
 

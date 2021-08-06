@@ -11,7 +11,7 @@ const EditSettingsContainer = () => {
     const dispatch = useDispatch();
     const fetchData = () => {
         batch(() => {
-            dispatch(fetchCompanySettings('EDIT SETTINGS'));
+            dispatch(fetchCompanySettings());
             dispatch(fetchTimezones());
             dispatch(fetchDateFormats());
         });

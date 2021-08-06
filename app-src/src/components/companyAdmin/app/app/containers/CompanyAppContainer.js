@@ -48,7 +48,7 @@ class CompanyAppContainer extends React.PureComponent {
             fetchHomeData();
             if (companyID) {
                 fetchCompanyData();
-                fetchCompanySettings(' app app').then(({ payload = {} }) => {
+                fetchCompanySettings().then(({ payload = {} }) => {
                     if (payload.colourCode) {
                         localStorage.setItem('colourCode', payload.colourCode);
                     }
@@ -88,10 +88,7 @@ const mapDispatchToProps = dispatch => ({
         });
     },
     decodeJWT: () => dispatch(decodeJWT()),
-    fetchCompanySettings: () => {
-        console.log('call on me');
-        return dispatch(fetchCompanySettings('company app container'));
-    },
+    fetchCompanySettings: () => dispatch(fetchCompanySettings()),
     selectCompanyMenuTab: () => dispatch(selectMenuTab(MENU_TABS.COMPANY_USER)),
     fetchSingleCompanyUser: companyUserID => dispatch(fetchSingleCompanyUser(companyUserID)),
     fetchLatestAppVersion: () => dispatch(fetchLatestAppVersion()),

@@ -10,7 +10,7 @@ class SettingsContainer extends Component {
     }
 
     componentDidMount = () => {
-        this.props.fetchCompanySettings('settings container mount');
+        this.props.fetchCompanySettings();
     };
 }
 
@@ -24,7 +24,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
     fetchCompanySettings: () => {
-        dispatch(fetchCompanySettings('SETTINGS CONTAINER'));
+        dispatch(fetchCompanySettings());
     },
 });
 
