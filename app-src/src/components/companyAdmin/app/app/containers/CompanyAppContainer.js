@@ -2,7 +2,6 @@ import React from 'react';
 import { batch, connect } from 'react-redux';
 
 import fetchProfile from 'actions/shared/profile/async/fetchProfile';
-import fetchSingleCompany from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 import fetchCompanyReports from 'actions/companyAdmin/companyReports/async/fetchCompanyReports';
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
 import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
@@ -81,7 +80,6 @@ const mapDispatchToProps = dispatch => ({
             dispatch(fetchOutgoingTransferRequests());
             dispatch(fetchPendingInvites());
             dispatch(fetchOutgoingInvites());
-            dispatch(fetchSingleCompany());
             dispatch(fetchMessagesBasic());
             dispatch(fetchCompanyReports());
             dispatch(companyFetchAllServices());

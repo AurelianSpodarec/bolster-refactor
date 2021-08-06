@@ -333,42 +333,6 @@ export default function (ProtectedComponent) {
             return body;
         };
 
-        getFilterStartDate = date => {
-            const { timeZone } = this.props;
-            return date ? moment.tz(date, timeZone.name).utc().toISOString() : null;
-        };
-
-        getFilterEndDate = date => {
-            const { timeZone } = this.props;
-            const endDate = date ? moment.tz(date, timeZone.name).utc().toISOString() : null;
-            return endDate;
-        };
-
-        getDateOfPin = date => {
-            const { timeZone } = this.props;
-            return moment.tz(date, timeZone.name).utc().toISOString();
-        };
-
-        getTemplateOptions = () => {
-            const { getTemplateOptions } = this.props;
-            return getTemplateOptions(this._getPostBody());
-        };
-
-        getOperativeOptions = () => {
-            const { getOperativeOptions } = this.props;
-            return getOperativeOptions(this._getPostBody());
-        };
-
-        getServiceOptions = () => {
-            const { getServiceOptions } = this.props;
-            return getServiceOptions(this._getPostBody());
-        };
-
-        getCompanyOptions = () => {
-            const { getCompanyOptions } = this.props;
-            return getCompanyOptions(this._getPostBody());
-        };
-
         postFilters = async () => {
             const {
                 postCustomFilters,
