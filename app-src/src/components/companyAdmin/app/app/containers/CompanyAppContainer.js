@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { batch, connect } from 'react-redux';
 
 import fetchProfile from 'actions/shared/profile/async/fetchProfile';
@@ -7,7 +7,6 @@ import fetchCompanyReports from 'actions/companyAdmin/companyReports/async/fetch
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
 import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
 import companyFetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
-import fetchCreditLogs from 'actions/companyAdmin/creditLogs/async/fetchCreditLogs';
 import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 import selectMenuTab from 'actions/shared/generic/tabs/sync/selectMenuTab';
 import fetchAllCredits from 'actions/companyAdmin/credits/fetchAllCredits';
@@ -26,52 +25,36 @@ import { AUTH_TYPES } from 'constants/shared/auth';
 import fetchMessagesBasic from 'actions/companyAdmin/messages/async/fetchMessagesBasic';
 import fetchRecentUpdates from 'actions/companyAdmin/recentUpdates/async/fetchRecentUpdates';
 
-class CompanyAppContainer extends Component {
+class CompanyAppContainer extends React.PureComponent {
     render() {
         return <CompanyApp />;
     }
 
     componentDidMount = () => {
-        const {
-            fetchHomeData,
-            fetchCompanySettings,
-            selectCompanyMenuTab,
-            decodeJWT,
-            fetchSingleCompanyUser,
-            fetchLatestAppVersion,
-        } = this.props;
+        const { selectCompanyMenuTab, decodeJWT, fetchSingleCompanyUser } = this.props;
 
         decodeJWT().then(({ payload = {} }) => {
-            fetchSingleCompanyUser(payload.companyUserID);
-            if (payload.companyID) {
-                fetchHomeData();
+            if (payload.companyUserID) {
+                fetchSingleCompanyUser(payload.companyUserID);
             }
-        });
-        fetchCompanySettings().then(({ payload = {} }) => {
-            if (payload.colourCode) {
-                localStorage.setItem('colourCode', payload.colourCode);
-            }
+            // home data then fetched in componentDidUpdate
         });
 
         selectCompanyMenuTab();
-        fetchLatestAppVersion();
     };
 
     componentDidUpdate = prevProps => {
-        const {
-            companyID,
-            fetchHomeData,
-            fetchLatestAppVersion,
-            fetchCompanySettings,
-        } = this.props;
-        if (companyID !== prevProps.companyID) {
+        const { companyID, fetchHomeData, fetchCompanySettings, fetchCompanyData } = this.props;
+        if (companyID !== undefined && companyID !== prevProps.companyID) {
             fetchHomeData();
-            fetchLatestAppVersion();
-            fetchCompanySettings().then(({ payload = {} }) => {
-                if (payload.colourCode) {
-                    localStorage.setItem('colourCode', payload.colourCode);
-                }
-            });
+            if (companyID) {
+                fetchCompanyData();
+                fetchCompanySettings(' app app').then(({ payload = {} }) => {
+                    if (payload.colourCode) {
+                        localStorage.setItem('colourCode', payload.colourCode);
+                    }
+                });
+            }
         }
     };
 }
@@ -88,22 +71,29 @@ const mapDispatchToProps = dispatch => ({
     fetchHomeData: () => {
         batch(() => {
             dispatch(fetchProfile());
-            dispatch(fetchSingleCompany());
-            dispatch(fetchMessagesBasic());
-            dispatch(fetchCompanyReports());
-            dispatch(companyFetchAllServices());
-            dispatch(fetchAllSubscriptions());
-            dispatch(fetchCreditLogs());
+        });
+    },
+    fetchCompanyData: () => {
+        batch(() => {
+            dispatch(fetchRecentUpdates());
             dispatch(fetchAllCredits());
             dispatch(fetchIncomingTransferRequests());
             dispatch(fetchOutgoingTransferRequests());
             dispatch(fetchPendingInvites());
             dispatch(fetchOutgoingInvites());
-            dispatch(fetchRecentUpdates());
+            dispatch(fetchSingleCompany());
+            dispatch(fetchMessagesBasic());
+            dispatch(fetchCompanyReports());
+            dispatch(companyFetchAllServices());
+            dispatch(fetchAllSubscriptions());
+            dispatch(fetchLatestAppVersion());
         });
     },
     decodeJWT: () => dispatch(decodeJWT()),
-    fetchCompanySettings: () => dispatch(fetchCompanySettings()),
+    fetchCompanySettings: () => {
+        console.log('call on me');
+        return dispatch(fetchCompanySettings('company app container'));
+    },
     selectCompanyMenuTab: () => dispatch(selectMenuTab(MENU_TABS.COMPANY_USER)),
     fetchSingleCompanyUser: companyUserID => dispatch(fetchSingleCompanyUser(companyUserID)),
     fetchLatestAppVersion: () => dispatch(fetchLatestAppVersion()),

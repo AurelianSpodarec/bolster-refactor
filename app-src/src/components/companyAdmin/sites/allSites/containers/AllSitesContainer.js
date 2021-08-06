@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { batch, connect } from 'react-redux';
 
 import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
 import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuildings';
@@ -19,14 +19,13 @@ class AllSitesContainer extends Component {
     };
 }
 
-export default connect(
-    null,
-    dispatch => ({
-        fetchAllLevels: () => {
+export default connect(null, dispatch => ({
+    fetchAllLevels: () => {
+        batch(() => {
             dispatch(fetchAllSites());
             dispatch(fetchAllBuildings());
             dispatch(fetchAllFloors());
             dispatch(fetchAllDrawings());
-        }
-    })
-)(AllSitesContainer);
+        });
+    },
+}))(AllSitesContainer);

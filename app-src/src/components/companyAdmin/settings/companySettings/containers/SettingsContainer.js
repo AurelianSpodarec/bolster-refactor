@@ -10,25 +10,22 @@ class SettingsContainer extends Component {
     }
 
     componentDidMount = () => {
-        this.props.fetchCompanySettings();
+        this.props.fetchCompanySettings('settings container mount');
     };
 }
 
 const mapStateToProps = ({
     shared: {
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => ({
-    onMobile
+    onMobile,
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchCompanySettings: () => {
-        dispatch(fetchCompanySettings());
-    }
+        dispatch(fetchCompanySettings('SETTINGS CONTAINER'));
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SettingsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsContainer);

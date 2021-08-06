@@ -57,7 +57,7 @@ const GenerateQRCodesModalContainer = ({
     const prevProps = usePrevious({ isFetching, isGeneratingQRCodes });
 
     useEffect(() => {
-        fetchCompanySettings();
+        fetchCompanySettings(' qr modal');
     }, []);
 
     useEffect(() => {
@@ -131,7 +131,7 @@ const mapDispatchToProps = dispatch => ({
     hideModal: () => dispatch(hideModal()),
     showModal: (type, props) => dispatch(showModal(type, props)),
     fetchCompanySettings: () => {
-        dispatch(fetchCompanySettings());
+        dispatch(fetchCompanySettings('QR MODAL???'));
     },
     generateQRCodes: (numberOfCodes, zone) => {
         dispatch(generateQRCodes(numberOfCodes, zone));

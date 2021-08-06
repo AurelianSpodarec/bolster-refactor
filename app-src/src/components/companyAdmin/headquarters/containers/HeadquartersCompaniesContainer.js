@@ -22,33 +22,26 @@ class HeadquartersCompaniesContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        headquartersReducer: { companies, postSuccess }
+        headquartersReducer: { companies, postSuccess },
     },
     shared: {
         decodeJWTReducer: {
-            jwtData: { companyID, headquartersCompanyID }
-        }
-    }
+            jwtData: { companyID, headquartersCompanyID },
+        },
+    },
 }) => ({
     companies,
-    isImpersonating:
-        companyID &&
-        headquartersCompanyID &&
-        companyID !== headquartersCompanyID,
-    postSuccess
+    isImpersonating: companyID && headquartersCompanyID && companyID !== headquartersCompanyID,
+    postSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchAllHeadquartersCompanies: () =>
-        dispatch(fetchAllHeadquartersCompanies()),
+    fetchAllHeadquartersCompanies: () => dispatch(fetchAllHeadquartersCompanies()),
     reissueToken: () => {
         dispatch(reissueToken())
             .then(() => dispatch(decodeJWT()))
-            .then(() => dispatch(fetchCompanySettings()));
-    }
+            .then(() => dispatch(fetchCompanySettings('HQ')));
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(HeadquartersCompaniesContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(HeadquartersCompaniesContainer);
