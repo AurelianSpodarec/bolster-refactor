@@ -218,7 +218,7 @@ class LevelsFilterContainer extends Component {
                 pins.map(({ id }) => id),
             );
         }
-        if (siteID !== prevSiteID || companyUserIDs !== prevCompanyUserIDs) {
+        if (!_.isEqual(siteID, prevSiteID) || !_.isEqual(companyUserIDs, prevCompanyUserIDs)) {
             let value = null;
 
             if (!siteID && !companyUserIDs.length) {
