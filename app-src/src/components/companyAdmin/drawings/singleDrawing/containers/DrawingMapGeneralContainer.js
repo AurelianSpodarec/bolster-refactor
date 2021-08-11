@@ -161,7 +161,6 @@ class DrawingMapGeneralContainer extends Component {
         const {
             drawing = {},
             postFilters,
-            getTemplateOptions,
             updateReportFilter,
             fetchSingleDrawing,
             pinsFromAPI = [],
@@ -185,7 +184,6 @@ class DrawingMapGeneralContainer extends Component {
 
         updateReportFilter('drawingID', [+drawingID]).then(() => {
             postFilters();
-            getTemplateOptions();
         });
         if (drawing.isFloorplanUpdating) {
             this._floorplanInterval = setInterval(() => {
