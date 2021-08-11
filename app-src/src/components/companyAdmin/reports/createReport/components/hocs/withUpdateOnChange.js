@@ -6,7 +6,7 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, isEmpty, momentComparisonFormat } from 'helpers/generic';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { FURTHER_FILTRATION_OPTIONS, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import getOperativeOptions from 'actions/companyAdmin/reports/async/getOperativeOptions';
@@ -232,7 +232,7 @@ export default function (ProtectedComponent) {
             let hierarchyType;
             let hierarchyID;
 
-            if (siteID) {
+            if (!isEmpty(siteID)) {
                 hierarchyType = 'site';
                 hierarchyID = siteID;
             } else {
@@ -240,15 +240,15 @@ export default function (ProtectedComponent) {
                     hierarchyType = HIERARCHY_IDS.ALL_SITES;
                 }
             }
-            if (buildingID) {
+            if (!isEmpty(buildingID)) {
                 hierarchyType = 'building';
                 hierarchyID = buildingID;
             }
-            if (floorID) {
+            if (!isEmpty(floorID)) {
                 hierarchyType = 'floor';
                 hierarchyID = floorID;
             }
-            if (drawingID) {
+            if (!isEmpty(drawingID)) {
                 hierarchyType = 'drawing';
                 hierarchyID = drawingID;
             }
@@ -390,17 +390,40 @@ export default function (ProtectedComponent) {
         },
         { blockName },
     ) => {
-        const selectedSite = sites[filters.siteID] || {};
-        const buildingIDs = selectedSite.buildingIDs || [];
-        const buildings = buildingIDs.map(id => buildingsReducer.buildings[id]);
+        const buildingsFromReducer = buildingsReducer.buildings;
+        const floorsFromReducer = floorsReducer.floors;
+        const drawingsFromReducer = drawingsReducer.drawings;
 
-        const selectedBuilding = buildingsReducer.buildings[filters.buildingID] || {};
-        const floorIDs = selectedBuilding.floorIDs || [];
-        const floors = floorIDs.map(id => floorsReducer.floors[id]);
+        let buildingIDs = [];
+        if (!isEmpty(sites)) {
+            filters.siteID.forEach(site => {
+                const curSite = sites[site];
+                buildingIDs = buildingIDs.concat(curSite.buildingIDs);
+            });
+        }
+        const buildings = !isEmpty(buildingsFromReducer)
+            ? buildingIDs.map(id => buildingsFromReducer[id])
+            : [];
 
-        const selectedFloor = floorsReducer.floors[filters.floorID] || {};
-        const selectedDrawingIDs = selectedFloor.drawingIDs || [];
-        const drawings = selectedDrawingIDs.map(id => drawingsReducer.drawings[id]);
+        let floorIDs = [];
+        if (!isEmpty(buildings)) {
+            filters.buildingID.forEach(building => {
+                const curBuilding = convertArrToObj(buildings)[building];
+                floorIDs = floorIDs.concat(curBuilding.floorIDs);
+            });
+        }
+        const floors = !isEmpty(floorsFromReducer) ? floorIDs.map(id => floorsFromReducer[id]) : [];
+
+        let drawingIDs = [];
+        if (!isEmpty(floors)) {
+            filters.floorID.forEach(floor => {
+                const curFloor = convertArrToObj(floors)[floor];
+                drawingIDs = drawingIDs.concat(curFloor.drawingIDs);
+            });
+        }
+        const drawings = !isEmpty(drawingsFromReducer)
+            ? drawingIDs.map(id => drawingsFromReducer[id])
+            : [];
 
         return {
             fieldErrors,

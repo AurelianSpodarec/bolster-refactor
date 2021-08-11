@@ -39,7 +39,7 @@ class FurtherFiltrationContainer extends Component {
         const filtrationOptions = convertEnumToDropdownOptions(FURTHER_FILTRATION);
 
         const filtrationOptionsArr = Object.values(filtrationOptions).filter(
-            ({ value }) => drawingID || +value === FILTERS,
+            ({ value }) => drawingID.length || +value === FILTERS,
         );
         const selected = filtrationOptions[furtherFiltrationOption];
 

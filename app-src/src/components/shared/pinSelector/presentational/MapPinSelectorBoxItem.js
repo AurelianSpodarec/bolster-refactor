@@ -1,7 +1,11 @@
 import React from 'react';
 
-const MapPinSelectorBoxItem = ({ pin }) => {
-    return <div className={'selector-pin active}'}>{pin.pinCode}</div>;
-};
+import PinSelectionText from './PinSelectionText';
+
+const MapPinSelectorBoxItem = ({ pin }) => (
+    <div className={'selector-pin active}'}>
+        <PinSelectionText pinID={pin.id} pinCode={pin.pinCode} />
+    </div>
+);
 
 export default MapPinSelectorBoxItem;
