@@ -52,8 +52,8 @@ export default function (ProtectedComponent) {
         formatArrForDropdownOperative = arr => {
             const options = arr.map(({ id, name, companyName }) => ({
                 value: id,
-                label: `${name} (${companyName || ''})`,
-                text: `${name} (${companyName || ''})`,
+                label: `${name} ${companyName ? `(${companyName})` : ''}`,
+                text: `${name} ${companyName ? `(${companyName})` : ''}`,
             }));
 
             return options;
