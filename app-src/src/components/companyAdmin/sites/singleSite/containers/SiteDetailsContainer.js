@@ -118,8 +118,8 @@ class SiteDetailsContainer extends Component {
     };
 
     handleChange = (name, value) => {
-        const otherState = name === 'serviceID' ? 'companyID' : 'serviceID';
-        this.setState({ [name]: value, [otherState]: null });
+        // const otherState = name === 'serviceID' ? 'companyID' : 'serviceID';
+        this.setState({ [name]: value });
     };
 }
 
