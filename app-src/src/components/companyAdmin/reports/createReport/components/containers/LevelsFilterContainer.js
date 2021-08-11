@@ -126,8 +126,8 @@ class LevelsFilterContainer extends Component {
         return updatedFloorIDs;
     };
 
-    handleChange = (name, value, mount = false, shouldPostFilters = true) => {
-        const { postFilters, shouldConfirm, showModal, hideModal } = this.props;
+    handleChange = (name, value) => {
+        const { shouldConfirm, showModal, hideModal } = this.props;
         const updateMethods = {
             drawingID: this.updateDrawing,
             floorID: this.updateFloor,
@@ -135,18 +135,17 @@ class LevelsFilterContainer extends Component {
             siteID: this.updateSite,
         };
         const update = updateMethods[name];
-        const postFiltersIfNeeded = () => shouldPostFilters && postFilters();
 
-        if (shouldConfirm && !mount) {
+        if (shouldConfirm) {
             const handleSubmit = () => {
                 hideModal();
-                return update(value).then(postFiltersIfNeeded);
+                return update(value);
             };
             const message = 'Changing this will reset your advanced filters options, continue?';
             // * confirm and then do this:
             showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
         } else {
-            return update(value).then(postFiltersIfNeeded);
+            return update(value);
         }
     };
 
