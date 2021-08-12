@@ -3,6 +3,7 @@ import moment from 'moment';
 import orderBy from 'lodash/orderBy';
 import find from 'lodash/find';
 import { DATE_TIME_DEFAULTS } from '../constants/companyAdmin/enums';
+import _ from 'lodash';
 
 export function convertArrToObj(arr, field = 'id') {
     return arr.reduce((acc, item) => {
@@ -341,3 +342,7 @@ export const reverseEnum = obj =>
     }, {});
 
 export const boolToYesNo = bool => (bool ? 'Yes' : 'No');
+
+export const isDifferent = (value1, value2) => {
+    return !_.isEqual(value1, value2);
+};

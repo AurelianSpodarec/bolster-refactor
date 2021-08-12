@@ -117,7 +117,6 @@ class FilterFieldsModalContainer extends Component {
             removeFilterQuestion,
             toggleAddFilter,
             customQuestions,
-            postFilters,
         } = this.props;
 
         const newID = uuid();
@@ -146,7 +145,6 @@ class FilterFieldsModalContainer extends Component {
         await updateFilterQuestionField(id, filterItem);
         toggleAddFilter();
 
-        postFilters();
     };
 
     _getValidValueOptions = () => {

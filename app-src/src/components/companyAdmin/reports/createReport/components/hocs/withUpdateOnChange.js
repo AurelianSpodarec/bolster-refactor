@@ -6,7 +6,7 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-import { convertArrToObj, isEmpty, momentComparisonFormat } from 'helpers/generic';
+import { convertArrToObj, isEmpty } from 'helpers/generic';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { FURTHER_FILTRATION_OPTIONS, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import getOperativeOptions from 'actions/companyAdmin/reports/async/getOperativeOptions';
@@ -22,18 +22,20 @@ export default function (ProtectedComponent) {
         render() {
             const { showError } = this.state;
             const { errorsVisible, fieldError, ...props } = this.props;
+            const { hierarchyType, hierarchyID } = this._getHierarchyValues();
 
             return (
                 <ProtectedComponent
                     {...props}
                     fieldError={showError || errorsVisible ? fieldError : null}
-                    postFilters={this.postFilters}
                     formatArrForDropdown={this.formatArrForDropdown}
                     validate={this.validate}
                     showFieldError={this.showFieldError}
                     getPostBody={this._getPostBody}
                     getFilteredPins={this._getFilteredPins}
-                    getTemplateOptions={this.getTemplateOptions}
+                    getTemplateOptions={this.props.getTemplateOptions}
+                    hierarchyType={hierarchyType}
+                    hierarchyID={hierarchyID}
                 />
             );
         }
@@ -194,13 +196,47 @@ export default function (ProtectedComponent) {
             return [startDateTimeUTC, endDateTimeUTC];
         };
 
-        _getPostBody = () => {
+        _getHierarchyValues = () => {
             const {
                 filters: {
                     siteID,
                     buildingID,
                     floorID,
                     drawingID,
+                    companyUserIDs,
+                },
+            } = this.props;
+
+            let hierarchyType;
+            let hierarchyID;
+
+            if (!isEmpty(siteID)) {
+                hierarchyType = 'site';
+                hierarchyID = siteID;
+            } else {
+                if (!companyUserIDs.length) {
+                    hierarchyType = HIERARCHY_IDS.ALL_SITES;
+                }
+            }
+            if (!isEmpty(buildingID)) {
+                hierarchyType = 'building';
+                hierarchyID = buildingID;
+            }
+            if (!isEmpty(floorID)) {
+                hierarchyType = 'floor';
+                hierarchyID = floorID;
+            }
+            if (!isEmpty(drawingID)) {
+                hierarchyType = 'drawing';
+                hierarchyID = drawingID;
+            }
+
+            return { hierarchyType, hierarchyID };
+        }
+
+        _getPostBody = () => {
+            const {
+                filters: {
                     serviceID,
                     templateID,
                     status,
@@ -229,29 +265,7 @@ export default function (ProtectedComponent) {
                 customFilters,
             } = this.props;
 
-            let hierarchyType;
-            let hierarchyID;
-
-            if (!isEmpty(siteID)) {
-                hierarchyType = 'site';
-                hierarchyID = siteID;
-            } else {
-                if (!companyUserIDs.length) {
-                    hierarchyType = HIERARCHY_IDS.ALL_SITES;
-                }
-            }
-            if (!isEmpty(buildingID)) {
-                hierarchyType = 'building';
-                hierarchyID = buildingID;
-            }
-            if (!isEmpty(floorID)) {
-                hierarchyType = 'floor';
-                hierarchyID = floorID;
-            }
-            if (!isEmpty(drawingID)) {
-                hierarchyType = 'drawing';
-                hierarchyID = drawingID;
-            }
+            const { hierarchyType, hierarchyID } = this._getHierarchyValues();
 
             let questionFilters = null;
             let selectedPinIDs = null;
@@ -333,25 +347,6 @@ export default function (ProtectedComponent) {
             return body;
         };
 
-        postFilters = async () => {
-            const {
-                postCustomFilters,
-                getOperativeOptions,
-                getTemplateOptions,
-                getServiceOptions,
-                getCompanyOptions,
-            } = this.props;
-            const body = this._getPostBody();
-
-            if (body.hasQuestions) {
-                return postCustomFilters(body);
-            }
-
-            await getOperativeOptions(body);
-            await getTemplateOptions(body);
-            await getServiceOptions(body);
-            await getCompanyOptions(body);
-        };
     }
 
     const mapStateToProps = (

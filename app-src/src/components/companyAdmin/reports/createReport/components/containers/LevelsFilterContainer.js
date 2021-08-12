@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import moment from 'moment-timezone';
 import _ from 'lodash';
 
-import { convertArrToObj, isObjEmpty } from 'helpers/generic';
+import { convertArrToObj, isDifferent, isObjEmpty } from 'helpers/generic';
 import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
@@ -207,15 +207,15 @@ class LevelsFilterContainer extends Component {
             filters: { siteID, companyUserIDs = [], drawingID },
             handleChange,
             updateReportFilter,
-            postFilters,
             removeFieldError,
             fetchZonesForReportByDrawingID,
         } = this.props;
-        if (pins.length !== prevPins.length) {
-            handleChange(
-                'pinIDs',
-                pins.map(({ id }) => id),
-            );
+
+        const prevPinIDs = prevPins.map(pin => pin.id);
+        const pinIDs = pins.map(pin => pin.id);
+
+        if (isDifferent(pinIDs, prevPinIDs)) {
+            handleChange('pinIDs', pinIDs);
         }
         if (!_.isEqual(siteID, prevSiteID) || !_.isEqual(companyUserIDs, prevCompanyUserIDs)) {
             let value = null;
@@ -230,8 +230,8 @@ class LevelsFilterContainer extends Component {
             this.setState({
                 initialLoad: false,
             });
-
-            updateReportFilter('hierarchyType', value).then(postFilters);
+            console.log({siteID, prevSiteID, companyUserIDs, prevCompanyUserIDs});
+            updateReportFilter('hierarchyType', value);
         }
 
         if (!_.isEqual(drawingID, prevDrawingID)) {

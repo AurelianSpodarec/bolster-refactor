@@ -9,7 +9,6 @@ import { isEmpty } from 'helpers/generic';
 
 const CompaniesFilterContainer = ({
     handleChange,
-    postFilters,
     filters: { createdByCompanyID, siteID },
     customFilters: { companies },
     formatArrForDropdown,
@@ -22,7 +21,7 @@ const CompaniesFilterContainer = ({
 
     useEffect(() => {
         if (siteID && !prevProps.siteID && createdByCompanyID) {
-            handleChange('createdByCompanyID', null).then(postFilters);
+            handleChange('createdByCompanyID', null);
         }
     }, [siteID]);
 
@@ -30,7 +29,7 @@ const CompaniesFilterContainer = ({
         const companiesObj = convertArrToObj(companies);
 
         if (!companiesObj[createdByCompanyID] && createdByCompanyID) {
-            handleChange('createdByCompanyID', null).then(postFilters);
+            handleChange('createdByCompanyID', null);
         }
     }, [companies]);
 
@@ -59,7 +58,7 @@ const CompaniesFilterContainer = ({
     );
 
     function handleFormChange(name, val) {
-        handleChange(name, val).then(postFilters);
+        handleChange(name, val);
     }
 };
 
