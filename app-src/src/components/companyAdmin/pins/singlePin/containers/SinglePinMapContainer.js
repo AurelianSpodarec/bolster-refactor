@@ -9,10 +9,12 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 import editPinLocation from 'actions/companyAdmin/pins/async/editPinLocation';
 import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
-import { CONFIRM_EDIT_PIN } from 'constants/shared/modalTypes';
+import { CONFIRM_DELETE, CONFIRM_EDIT_PIN } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { isEmpty } from 'helpers/generic';
 import PinInspectionLogContainer from './PinInspectionLogContainer';
+import deleteAllPinHistory from 'actions/companyAdmin/pins/async/deleteAllPinHistory';
 
 class SinglePinMapContainer extends Component {
     state = {
@@ -64,6 +66,7 @@ class SinglePinMapContainer extends Component {
                         handleEditHistoryModal={this.handleEditHistoryModal}
                         onMobile={onMobile}
                         zones={this._getIncludedZones()}
+                        handleDeleteAllHistories={this.handleDeleteAllHistories}
                     />
                 </BlockContainer>
 
@@ -158,6 +161,25 @@ class SinglePinMapContainer extends Component {
             moveMode: false,
         });
     };
+
+    handleDeleteAllHistories = () => {
+        const {
+            showModal,
+            deleteAllHistories,
+            hideModal,
+            pin: { id, drawingID },
+            history,
+        } = this.props;
+
+        showModal(CONFIRM_DELETE, {
+            handleDelete: () => {
+                deleteAllHistories(id);
+                history.push(`/company/drawings/${drawingID}`);
+            },
+            hideModal,
+            message: 'Are you sure you want to delete all pin histories',
+        });
+    };
 }
 
 const mapStateToProps = (
@@ -198,6 +220,11 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchDrawing: drawingID => dispatch(fetchSingleDrawing(drawingID)),
     showModal: (type, props) => dispatch(showModal(type, props)),
+    deleteAllHistories: pinId => {
+        dispatch(deleteAllPinHistory(pinId));
+        dispatch(hideModal());
+    },
+    hideModal: () => dispatch(hideModal()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SinglePinMapContainer));
