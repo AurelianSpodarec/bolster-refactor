@@ -6,14 +6,14 @@ import deleteManufacturer from 'actions/companyAdmin/manufacturers/async/deleteM
 import DeleteManufacturerModal from '../presentational/DeleteManufacturerModal';
 
 const DeleteManufacturerModalContainer = ({ manufacturer, hideModal, deleteManufacturer }) => {
-    const handleDisable = () => {
+    const handleDelete = () => {
         deleteManufacturer(manufacturer);
         hideModal();
     };
 
     return (
         <DeleteManufacturerModal
-            deleteManufacturer={handleDisable}
+            deleteManufacturer={handleDelete}
             hideModal={e => {
                 e.preventDefault();
                 hideModal();
