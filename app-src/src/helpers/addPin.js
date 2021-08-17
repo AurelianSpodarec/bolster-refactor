@@ -8,3 +8,15 @@ export function getSortedDropdownOptions(options) {
         return a.sort - b.sort;
     });
 }
+
+export const formatAnswers = (answers, options) => {
+    if (!answers || !Array.isArray(answers) || !Array.isArray(options)) return answers;
+
+    const formattedOptions = options.map(({ value }) => value).filter(Boolean);
+
+    const formattedAnswers = answers.filter(item => {
+        return formattedOptions.includes(item);
+    });
+
+    return formattedAnswers;
+};

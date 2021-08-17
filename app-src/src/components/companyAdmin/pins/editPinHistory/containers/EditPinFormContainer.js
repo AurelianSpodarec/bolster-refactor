@@ -59,16 +59,9 @@ class EditPinFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            pins,
-            drawingID,
-            pinID,
-            coordinates,
-            history,
-            hierarchyType,
-            selectedHistory,
-        } = this.props;
-        
+        const { pins, drawingID, pinID, coordinates, history, hierarchyType, selectedHistory } =
+            this.props;
+
         if (isEmpty(coordinates.lat) || isEmpty(coordinates.lng)) {
             if (hierarchyType === 'drawing') {
                 history.push(`/company/drawings/${drawingID}`);
@@ -158,7 +151,6 @@ class EditPinFormContainer extends Component {
             answers: formattedAnswers,
             status,
         };
-        console.log(postBody);
 
         if (!filesUploading) {
             editPinHistory(selectedHistory.id, postBody);

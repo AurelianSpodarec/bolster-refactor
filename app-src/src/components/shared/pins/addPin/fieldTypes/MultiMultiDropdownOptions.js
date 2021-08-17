@@ -1,7 +1,7 @@
 import React from 'react';
 import BoundlessSelect from 'components/shared/generic/form/presentational/BoundlessSelect';
 import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
-import { getSortedDropdownOptions } from 'helpers/addPin';
+import { formatAnswers, getSortedDropdownOptions } from 'helpers/addPin';
 
 const MultiMultiDropdownOptions = ({
     isRequired,
@@ -58,15 +58,25 @@ const MultiMultiDropdownOptions = ({
             manufacturerID: option.manufacturerID,
         }));
     } else {
-        formattedOpts = filteredOptions.map(option => ({
-            value: isManufacturingEnabledForType ? option.id : option.name,
-            label: option.name,
-            id: option.id || null,
-            sort: option.sort,
-            createdOn: option.createdOn,
-            manufacturerSort: option.manufacturerSort,
-            manufacturerID: option.manufacturerID,
-        }));
+        formattedOpts = filteredOptions
+            .map(option => {
+                const value = isManufacturingEnabledForType ? option.id : option.name;
+
+                if (value) {
+                    return {
+                        value: isManufacturingEnabledForType ? option.id : option.name,
+                        label: option.name,
+                        id: option.id || null,
+                        sort: option.sort,
+                        createdOn: option.createdOn,
+                        manufacturerSort: option.manufacturerSort,
+                        manufacturerID: option.manufacturerID,
+                    };
+                }
+
+                return null;
+            })
+            .filter(Boolean);
     }
 
     const options = getSortedDropdownOptions(formattedOpts, defaultDropdownSorting);
@@ -75,7 +85,7 @@ const MultiMultiDropdownOptions = ({
         <BoundlessSelect
             required={isRequired}
             options={options}
-            value={answers[id]}
+            value={formatAnswers(answers[id], options)}
             name={`answer-${id}`}
             onChange={handleChange}
             search

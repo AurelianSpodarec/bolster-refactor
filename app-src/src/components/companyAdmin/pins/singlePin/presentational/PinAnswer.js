@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
 import { FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
-import { connect } from 'react-redux';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import { isEmpty, isObjEmpty } from 'helpers/generic';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
@@ -35,6 +34,10 @@ const PinAnswer = ({
                 // handles manufacturer option
                 if (typeof ans === 'number' && optionValuesLookup[ans]) {
                     return optionValuesLookup[ans].name;
+                }
+
+                if (typeof ans === 'string') {
+                    return ans;
                 }
                 // handle other
                 // return ans;
@@ -175,7 +178,7 @@ const PinAnswer = ({
     );
 };
 
-export default connect()(PinAnswer);
+export default memo(PinAnswer);
 
 function formatMultiMulti(answer) {
     if (!Array.isArray(answer)) return answer;
