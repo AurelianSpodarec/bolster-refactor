@@ -7,13 +7,27 @@ import PinDetails from '../presentational/PinDetails';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
+import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 
 class PinDetailsContainer extends Component {
     render() {
-        const { histories, users, services, error, isFetching, pin, isLoading } = this.props;
+        const {
+            histories,
+            users,
+            services,
+            error,
+            isFetching,
+            pin,
+            isLoading,
+            drawings,
+            fetchingDrawings,
+            drawingsError,
+        } = this.props;
+
+        const { drawingID } = pin;
 
         const sortedHistories = [...histories].sort(
-            (a, b) => moment(b.createdOn) - moment(a.createdOn)
+            (a, b) => moment(b.createdOn) - moment(a.createdOn),
         );
 
         return sortedHistories.map((history, i) => {
@@ -25,8 +39,8 @@ class PinDetailsContainer extends Component {
                         // !users[history.createdByCompanyUserID] ||
                         !Object.values(services).length || !histories.length
                     }
-                    isFetching={isFetching}
-                    error={error}
+                    isFetching={isFetching || fetchingDrawings}
+                    error={error || drawingsError}
                 >
                     <BlockHeading classes="underline-full" title={`Pin ${pin.pinCode}`}>
                         <h4 className="small-text">
@@ -38,7 +52,7 @@ class PinDetailsContainer extends Component {
                                 : ''}
                             )
                         </h4>
-                        {isFirst && (
+                        {isFirst && !!moment(Date.now()).isBefore(drawings[drawingID]?.expiresOn) && (
                             <Link
                                 className="button green"
                                 style={{ marginBottom: '0.25em' }}
@@ -82,6 +96,14 @@ class PinDetailsContainer extends Component {
             });
         }
     };
+
+    componentDidMount() {
+        const {
+            fetchSingleDrawing,
+            pin: { drawingID },
+        } = this.props;
+        fetchSingleDrawing(drawingID);
+    }
 }
 
 const mapStateToProps = (
@@ -90,10 +112,11 @@ const mapStateToProps = (
             pinsReducer: { isFetching: fetchingPins, postSuccess, singlePin },
             pinHistoriesReducer: { histories, isFetching: fetchingHistories, error },
             companyUsersReducer: { users, isFetching: fetchingUsers },
-            servicesReducer: { services }
-        }
+            servicesReducer: { services },
+            drawingsReducer: { drawings, isFetching: fetchingDrawings, error: drawingsError },
+        },
     },
-    { match }
+    { match },
 ) => {
     const pin = singlePin[match.params.id] || {};
     return {
@@ -104,17 +127,16 @@ const mapStateToProps = (
         users: users || {},
         services: services || {},
         pin,
-        postSuccess
+        postSuccess,
+        drawings,
+        fetchingDrawings,
+        drawingsError,
     };
 };
 
 const mapDispatchToProps = dispatch => ({
-    fetchSinglePin: id => dispatch(fetchSinglePin(id))
+    fetchSinglePin: id => dispatch(fetchSinglePin(id)),
+    fetchSingleDrawing: id => dispatch(fetchSingleDrawing(id)),
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(PinDetailsContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PinDetailsContainer));

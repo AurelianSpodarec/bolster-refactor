@@ -14,6 +14,7 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
 import SinglePinGenerateReportContainer from '../containers/SinglePinGenerateReportContainer';
 import DrawingMapViewZones from 'components/companyAdmin/drawings/singleDrawing/presentational/DrawingMapViewZones';
+import moment from 'moment';
 
 const SinglePinMap = ({
     pin,
@@ -34,9 +35,7 @@ const SinglePinMap = ({
     const pinColour = COLOURS[status] || 'red';
     const newPinIcon = L.divIcon({
         className: '',
-        html: ReactDOMServer.renderToString(
-            <CustomPin pinColour={pinColour} history={history} />
-        ),
+        html: ReactDOMServer.renderToString(<CustomPin pinColour={pinColour} history={history} />),
         iconSize: [30, 50],
         iconAnchor: [15, 50],
         popupAnchor: [0, -50],
@@ -49,50 +48,34 @@ const SinglePinMap = ({
                 classes={`${onMobile ? 'mobile-buttons' : ''}`}
             >
                 <SinglePinGenerateReportContainer pinID={pin.id} />
-                <Link
-                    className="button green"
-                    to={`/company/pins/${pin.id}/add-history`}
-                >
-                    <i className="fa fa-plus" /> Add Pin History
-                </Link>
+                {!!moment(Date.now()).isBefore(drawing?.expiresOn) && (
+                    <Link className="button green" to={`/company/pins/${pin.id}/add-history`}>
+                        <i className="fa fa-plus" /> Add Pin History
+                    </Link>
+                )}
                 {moveMode ? (
                     <>
-                        <button
-                            onClick={handleEditPinLocation}
-                            className="button green pull-right"
-                        >
+                        <button onClick={handleEditPinLocation} className="button green pull-right">
                             <i className="fa fa-check" /> Confirm position
                         </button>
-                        <button
-                            className="button red pull-right"
-                            onClick={toggleMoveMode}
-                        >
+                        <button className="button red pull-right" onClick={toggleMoveMode}>
                             Cancel
                         </button>
                     </>
                 ) : (
-                    <button
-                        className="button pull-right"
-                        onClick={toggleMoveMode}
-                    >
+                    <button className="button pull-right" onClick={toggleMoveMode}>
                         <i className="fa fa-arrows-alt" />
                         Edit pin location
                     </button>
                 )}
 
                 {!!pin.nextPinID && (
-                    <ButtonContainer
-                        className="pull-right"
-                        to={`/company/pins/${pin.nextPinID}`}
-                    >
+                    <ButtonContainer className="pull-right" to={`/company/pins/${pin.nextPinID}`}>
                         Next <i className="fa fa-arrow-right" />
                     </ButtonContainer>
                 )}
                 {!!pin.prevPinID && (
-                    <ButtonContainer
-                        className="pull-right"
-                        to={`/company/pins/${pin.prevPinID}`}
-                    >
+                    <ButtonContainer className="pull-right" to={`/company/pins/${pin.prevPinID}`}>
                         <i className="fa fa-arrow-left" />
                         Previous
                     </ButtonContainer>
@@ -113,17 +96,10 @@ const SinglePinMap = ({
                     noWrap={true}
                     maxNativeZoom={6}
                 />
-                {!!zones.length && (
-                    <DrawingMapViewZones curZoom={zoom} zones={zones} />
-                )}
+                {!!zones.length && <DrawingMapViewZones curZoom={zoom} zones={zones} />}
                 <MapPin key={pin.id} pin={pin} pinHistory={pinHistory} />
 
-                {moveMode && (
-                    <Marker
-                        position={editPinLocationPosition}
-                        icon={newPinIcon}
-                    />
-                )}
+                {moveMode && <Marker position={editPinLocationPosition} icon={newPinIcon} />}
             </Map>
             <p className="map-details">
                 Last updated by: {`${user.createdByOperativeFullName} `}
