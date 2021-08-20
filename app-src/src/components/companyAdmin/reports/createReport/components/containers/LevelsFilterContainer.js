@@ -214,10 +214,12 @@ class LevelsFilterContainer extends Component {
     };
     handlePrefillDrawing = drawingID => {
         const { handleChange, fetchSingleDrawing } = this.props;
-        handleChange('drawingID', drawingID);
-        fetchSingleDrawing(drawingID).then(({ payload: { floorID } }) =>
-            this.handlePrefillFloor(floorID),
-        );
+        if (drawingID) {
+            handleChange('drawingID', drawingID);
+            fetchSingleDrawing(drawingID).then(({ payload: { floorID } }) =>
+                this.handlePrefillFloor(floorID),
+            );
+        }
     };
 
     validateDates = () => {

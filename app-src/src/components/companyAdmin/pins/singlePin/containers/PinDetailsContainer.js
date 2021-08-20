@@ -102,7 +102,9 @@ class PinDetailsContainer extends Component {
             fetchSingleDrawing,
             pin: { drawingID },
         } = this.props;
-        fetchSingleDrawing(drawingID);
+        if (drawingID) {
+            fetchSingleDrawing(drawingID);
+        }
     }
 }
 

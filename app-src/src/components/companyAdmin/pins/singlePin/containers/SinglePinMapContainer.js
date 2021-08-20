@@ -87,7 +87,9 @@ class SinglePinMapContainer extends Component {
                 editPinLocationLat: pin.location.latY,
                 editPinLocationLng: pin.location.lngX,
             });
-            fetchDrawing(pin.drawingID);
+            if (pin?.drawingID) {
+                fetchDrawing(pin.drawingID);
+            }
         }
     };
 
