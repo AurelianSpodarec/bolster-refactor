@@ -20,8 +20,10 @@ class EditCompanyPermissionsOnDrawingContainer extends Component {
             fetchPermissionsForCompanyPermission,
             companyID,
         } = this.props;
-        fetchSingleDrawing(drawingID);
-        fetchPermissionsForCompanyPermission('drawing', drawingID, companyID);
+        if (drawingID) {
+            fetchSingleDrawing(drawingID);
+            fetchPermissionsForCompanyPermission('drawing', drawingID, companyID);
+        }
     };
 }
 
