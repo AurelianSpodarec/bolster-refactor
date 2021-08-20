@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import RecentlyDeletedListItem from '../presentational/RecentlyDeletedListItem';
-import restoreRecentlyDeleted from 'actions/companyAdmin/recentlyDeleted/async/restoreRecentlyDeleted';
+// import restoreRecentlyDeleted from 'actions/superAdmin/recentlyDeleted/async/restoreRecentlyDeleted';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
@@ -38,7 +38,7 @@ class RecentlyDeletedListItemContainer extends Component {
 const mapDispatchToProps = {
     hideModal,
     showModal,
-    restoreRecentlyDeleted,
+    // restoreRecentlyDeleted,
 };
 
 export default withRouter(connect(null, mapDispatchToProps)(RecentlyDeletedListItemContainer));

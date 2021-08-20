@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import RecentlyDeletedTable from '../presentational/RecentlyDeletedTable';
 import { useDebounce } from 'helpers/hooks';
-import fetchRecentlyDeleted from 'actions/companyAdmin/recentlyDeleted/async/fetchRecentlyDeleted';
+import fetchRecentlyDeleted from 'actions/superAdmin/recentlyDeleted/async/fetchRecentlyDeleted';
 
 const RecentlyDeletedTableContainer = ({
     isFetchingData,
@@ -32,6 +32,7 @@ const RecentlyDeletedTableContainer = ({
         { label: 'Pin History', value: 'Pin History' },
         { label: 'User', value: 'User' },
         { label: 'Operative Permission', value: 'Operative Permission' },
+        { label: 'Template', value: 'Template' },
     ];
 
     return (
@@ -53,7 +54,7 @@ const RecentlyDeletedTableContainer = ({
 };
 
 const mapStateToProps = ({
-    companyAdmin: {
+    superAdmin: {
         deletedDataReducer: {
             drawings,
             floors,

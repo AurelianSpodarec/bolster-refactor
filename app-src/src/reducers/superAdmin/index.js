@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import companiesReducer from './companies';
 import contactSubmissionsReducer from './contactSubmissions';
 import companyReportsReducer from './companyReports';
+import deletedDataReducer from './deletedData';
 import invoicesReducer from './invoices';
 import invoicePaymentsReducer from './invoicePayments';
 import adminServicesReducer from './adminServices';
@@ -40,6 +41,7 @@ export default combineReducers({
     companiesReducer,
     companyReportsReducer,
     companySubscriptionReducer,
+    deletedDataReducer,
     drawingsReducer,
     contactSubmissionsReducer,
     floorsReducer,

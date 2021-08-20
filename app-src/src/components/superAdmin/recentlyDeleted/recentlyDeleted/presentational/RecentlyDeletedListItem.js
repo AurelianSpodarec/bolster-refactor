@@ -31,7 +31,7 @@ const RecentlyDeletedListItem = ({ item, onMobile, headers, handleRestore }) => 
             {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
             {item.type}
         </td>
-        <td>
+        {/* <td>
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
             <BlockButtonWrapper>
@@ -39,7 +39,7 @@ const RecentlyDeletedListItem = ({ item, onMobile, headers, handleRestore }) => 
                     <i className="fal fa-sync" /> Restore
                 </button>
             </BlockButtonWrapper>
-        </td>
+        </td> */}
     </tr>
 );
 
