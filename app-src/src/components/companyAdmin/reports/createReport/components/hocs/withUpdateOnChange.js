@@ -198,13 +198,7 @@ export default function (ProtectedComponent) {
 
         _getHierarchyValues = () => {
             const {
-                filters: {
-                    siteID,
-                    buildingID,
-                    floorID,
-                    drawingID,
-                    companyUserIDs,
-                },
+                filters: { siteID, buildingID, floorID, drawingID, companyUserIDs },
             } = this.props;
 
             let hierarchyType;
@@ -232,7 +226,7 @@ export default function (ProtectedComponent) {
             }
 
             return { hierarchyType, hierarchyID };
-        }
+        };
 
         _getPostBody = () => {
             const {
@@ -346,7 +340,6 @@ export default function (ProtectedComponent) {
             };
             return body;
         };
-
     }
 
     const mapStateToProps = (
@@ -397,7 +390,7 @@ export default function (ProtectedComponent) {
             });
         }
         const buildings = !isEmpty(buildingsFromReducer)
-            ? buildingIDs.map(id => buildingsFromReducer[id])
+            ? buildingIDs.map(id => buildingsFromReducer[id]).filter(x => !!x)
             : [];
 
         let floorIDs = [];
@@ -407,7 +400,9 @@ export default function (ProtectedComponent) {
                 floorIDs = floorIDs.concat(curBuilding.floorIDs);
             });
         }
-        const floors = !isEmpty(floorsFromReducer) ? floorIDs.map(id => floorsFromReducer[id]) : [];
+        const floors = !isEmpty(floorsFromReducer)
+            ? floorIDs.map(id => floorsFromReducer[id]).filter(x => !!x)
+            : [];
 
         let drawingIDs = [];
         if (!isEmpty(floors)) {
@@ -417,7 +412,7 @@ export default function (ProtectedComponent) {
             });
         }
         const drawings = !isEmpty(drawingsFromReducer)
-            ? drawingIDs.map(id => drawingsFromReducer[id])
+            ? drawingIDs.map(id => drawingsFromReducer[id]).filter(x => !!x)
             : [];
 
         return {
