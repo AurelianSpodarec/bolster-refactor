@@ -352,6 +352,12 @@ export default function (ProtectedComponent) {
             await getServiceOptions(body);
             await getCompanyOptions(body);
         };
+
+        getTemplateOptions = () => {
+            const { getTemplateOptions } = this.props;
+            const body = this._getPostBody();
+            getTemplateOptions(body);
+        };
     }
 
     const mapStateToProps = (
