@@ -9,7 +9,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 import editPinLocation from 'actions/companyAdmin/pins/async/editPinLocation';
 import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
-import { CONFIRM_DELETE, CONFIRM_EDIT_PIN } from 'constants/shared/modalTypes';
+import { CONFIRM_DELETE, CONFIRM_EDIT_PIN, ERROR_MODAL } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { isEmpty } from 'helpers/generic';
@@ -32,6 +32,7 @@ class SinglePinMapContainer extends Component {
             selectedHistory,
             onMobile,
             histories,
+            loggedInCompanyID,
         } = this.props;
 
         const editPinLocationPosition = [
@@ -42,6 +43,10 @@ class SinglePinMapContainer extends Component {
         const latestUserName = [...histories].sort(
             (a, b) => moment(b.createdOn) - moment(a.createdOn).format(),
         );
+
+        const drawingCompanyID = drawing?.ownerCompanyID;
+
+        const canDeleteHistory = drawingCompanyID === loggedInCompanyID;
 
         return (
             <div className="flex-container">
@@ -169,16 +174,25 @@ class SinglePinMapContainer extends Component {
             hideModal,
             pin: { id, drawingID },
             history,
+            canDeleteHistory,
         } = this.props;
 
-        showModal(CONFIRM_DELETE, {
-            handleDelete: () => {
-                deleteAllHistories(id);
-                history.push(`/company/drawings/${drawingID}`);
-            },
-            hideModal,
-            message: 'Are you sure you want to delete all pin histories',
-        });
+        if (!canDeleteHistory) {
+            showModal(CONFIRM_DELETE, {
+                handleDelete: () => {
+                    deleteAllHistories(id);
+                    history.push(`/company/drawings/${drawingID}`);
+                },
+                hideModal,
+                message: 'Are you sure you want to delete all pin histories',
+            });
+        } else {
+            showModal(ERROR_MODAL, {
+                hideModal,
+                message:
+                    'You cannot delete all histories of this pin as another company has created some of the histories. Please delete your histories individually',
+            });
+        }
     };
 }
 
@@ -193,6 +207,9 @@ const mapStateToProps = (
         shared: {
             selectedHistoryReducer: { selectedHistoryId },
             mobileReducer: { onMobile },
+            decodeJWTReducer: {
+                jwtData: { companyID: loggedInCompanyID },
+            },
         },
     },
     { match: { params } },
@@ -209,6 +226,7 @@ const mapStateToProps = (
         drawing: drawings[pin.drawingID] || {},
         onMobile,
         zones,
+        loggedInCompanyID,
     };
 };
 
