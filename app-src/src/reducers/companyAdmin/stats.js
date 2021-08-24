@@ -2,13 +2,20 @@ import { combineReducers } from 'redux';
 import {
     FETCH_PIN_STATS_REQUEST,
     FETCH_PIN_STATS_SUCCESS,
-    FETCH_PIN_STATS_FAILURE
+    FETCH_PIN_STATS_FAILURE,
+    POST_FILTER_PIN_STATS_REQUEST,
+    POST_FILTER_PIN_STATS_SUCCESS,
+    POST_FILTER_PIN_STATS_FAILURE,
 } from 'constants/actionTypes/stats';
 
 export default combineReducers({
     error: errorReducer,
     isFetching: isFetchingReducer,
-    stats: statsReducer
+    stats: statsReducer,
+    postFilterErrors: errorFiltersReducer,
+    isPostingFilters: isPostingFiltersReducer,
+    filteredStats: filteredStatsReducer,
+    filteredStatsBool: filteredStatsBoolReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -41,6 +48,53 @@ function statsReducer(state = {}, action) {
             return {};
         case FETCH_PIN_STATS_SUCCESS:
             return action.payload;
+        default:
+            return state;
+    }
+}
+
+function isPostingFiltersReducer(state = false, action) {
+    switch (action.type) {
+        case POST_FILTER_PIN_STATS_REQUEST:
+            return true;
+        case POST_FILTER_PIN_STATS_SUCCESS:
+        case POST_FILTER_PIN_STATS_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function errorFiltersReducer(state = null, action) {
+    switch (action.type) {
+        case POST_FILTER_PIN_STATS_REQUEST:
+            return null;
+
+        case POST_FILTER_PIN_STATS_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
+function filteredStatsReducer(state = {}, action) {
+    switch (action.type) {
+        case POST_FILTER_PIN_STATS_REQUEST:
+        case POST_FILTER_PIN_STATS_FAILURE:
+            return {};
+        case POST_FILTER_PIN_STATS_SUCCESS:
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+function filteredStatsBoolReducer(state = false, action) {
+    switch (action.type) {
+        case POST_FILTER_PIN_STATS_FAILURE:
+            return false;
+        case POST_FILTER_PIN_STATS_SUCCESS:
+            return true;
         default:
             return state;
     }

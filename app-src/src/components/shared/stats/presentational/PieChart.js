@@ -26,13 +26,21 @@ const PieChart = ({
     companyID,
     companyOptions,
     handleChange,
+    filteredStatsBool,
     // style
 }) => {
-    const statsToUse = serviceID
+    console.log('stats', stats);
+    console.log('filteredStatsBool', filteredStatsBool);
+
+    const statsToUse = filteredStatsBool
+        ? stats.statuses
+        : serviceID
         ? stats.statusesByService[serviceID] || {}
         : companyID
         ? stats.statusesByCompany[companyID] || {}
         : stats.statuses;
+
+    console.log('statsToUse', statsToUse);
     const isStatsEmpty = !statsToUse || Object.values(statsToUse).every(stat => stat === 0);
 
     const total = Object.values(statsToUse).reduce((acc, val) => {
