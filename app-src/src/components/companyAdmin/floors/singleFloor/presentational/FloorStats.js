@@ -16,6 +16,7 @@ const FloorStats = ({
     serviceOptions,
     companyID,
     companyOptions,
+    filteredStatsBool,
 }) => (
     <div className="stats size-lg-12">
         <FloorDetails stats={stats} floor={floor} />
@@ -29,6 +30,7 @@ const FloorStats = ({
             serviceID={serviceID}
             companyID={companyID}
             companyOptions={companyOptions}
+            filteredStatsBool={filteredStatsBool}
         />
 
         <div className="button-container relative-position">

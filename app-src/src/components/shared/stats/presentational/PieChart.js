@@ -29,9 +29,6 @@ const PieChart = ({
     filteredStatsBool,
     // style
 }) => {
-    console.log('stats', stats);
-    console.log('filteredStatsBool', filteredStatsBool);
-
     const statsToUse = filteredStatsBool
         ? stats.statuses
         : serviceID
@@ -40,7 +37,6 @@ const PieChart = ({
         ? stats.statusesByCompany[companyID] || {}
         : stats.statuses;
 
-    console.log('statsToUse', statsToUse);
     const isStatsEmpty = !statsToUse || Object.values(statsToUse).every(stat => stat === 0);
 
     const total = Object.values(statsToUse).reduce((acc, val) => {
