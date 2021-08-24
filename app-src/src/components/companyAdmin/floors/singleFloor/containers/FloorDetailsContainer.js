@@ -45,8 +45,7 @@ class FloorDetailsContainer extends Component {
             text: service.name,
         }));
 
-        const requestFilteredStats =
-            filteredStats && !isEmpty(filteredStats) ? filteredStats : stats;
+        const requestFilteredStats = !isEmpty(filteredStats) ? filteredStats : stats;
 
         const companiesForDropdown = !isEmpty(stats)
             ? Object.entries(stats.statusesByCompany).map(([key]) => {

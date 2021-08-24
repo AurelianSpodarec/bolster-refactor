@@ -38,12 +38,13 @@ class SiteDetailsContainer extends Component {
         } = this.props;
         const { serviceID, companyID } = this.state;
         const filteredServices = services.filter(service => serviceIDs.includes(service.id));
+
         const servicesForDropdown = filteredServices.map(service => ({
             value: service.id,
             text: service.name,
         }));
-        const requestFilteredStats =
-            filteredStats && !isEmpty(filteredStats) ? filteredStats : stats;
+
+        const requestFilteredStats = !isEmpty(filteredStats) ? filteredStats : stats;
 
         const companiesForDropdown = !isEmpty(stats)
             ? Object.entries(stats.statusesByCompany).map(([key]) => {
@@ -148,9 +149,7 @@ class SiteDetailsContainer extends Component {
                 : companyID;
         const serviceIDOption = name === 'serviceID' ? value : serviceID;
 
-        if (site) {
-            filterPinStats(site.id, HIERARCHY_IDS.SITE, companyIDOption, serviceIDOption);
-        }
+        filterPinStats(site.id, HIERARCHY_IDS.SITE, companyIDOption, serviceIDOption);
     };
 }
 

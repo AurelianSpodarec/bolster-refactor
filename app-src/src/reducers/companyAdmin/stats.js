@@ -79,7 +79,7 @@ function errorFiltersReducer(state = null, action) {
 
 function filteredStatsReducer(state = {}, action) {
     switch (action.type) {
-        case POST_FILTER_PIN_STATS_REQUEST:
+        // case POST_FILTER_PIN_STATS_REQUEST:
         case POST_FILTER_PIN_STATS_FAILURE:
             return {};
         case POST_FILTER_PIN_STATS_SUCCESS:
