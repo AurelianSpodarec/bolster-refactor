@@ -171,13 +171,26 @@ class SinglePinMapContainer extends Component {
             history,
             loggedInCompanyID,
             drawing,
+            users,
+            histories,
         } = this.props;
+
+        let canDeleteOtherHistories = false;
+
+        if (
+            histories.some(item => {
+                users[item.createdByCompanyUserID]?.companyID === loggedInCompanyID;
+                console.log('users', users[item.createdByCompanyUserID]);
+            })
+        ) {
+            canDeleteOtherHistories = true;
+        }
 
         const drawingCompanyID = drawing?.ownerCompanyID;
 
-        const canDeleteHistory = drawingCompanyID === loggedInCompanyID;
+        const canDeleteHistory = drawingCompanyID === loggedInCompanyID || canDeleteOtherHistories;
 
-        if (!canDeleteHistory) {
+        if (canDeleteHistory) {
             showModal(CONFIRM_DELETE, {
                 handleDelete: () => {
                     deleteAllHistories(id);
@@ -203,6 +216,7 @@ const mapStateToProps = (
             pinHistoriesReducer: { histories },
             drawingsReducer: { drawings },
             zonesReducer: { zones },
+            companyUsersReducer: { users, isFetching: isFetchingUsers },
         },
         shared: {
             selectedHistoryReducer: { selectedHistoryId },
@@ -221,11 +235,12 @@ const mapStateToProps = (
         histories: Object.values(histories),
         selectedHistory: histories[selectedHistoryId] || {},
         error,
-        isFetching,
+        isFetching: isFetching || isFetchingUsers,
         postSuccess,
         drawing: drawings[pin.drawingID] || {},
         onMobile,
         zones,
+        users,
         loggedInCompanyID,
     };
 };
