@@ -32,7 +32,6 @@ class SinglePinMapContainer extends Component {
             selectedHistory,
             onMobile,
             histories,
-            loggedInCompanyID,
         } = this.props;
 
         const editPinLocationPosition = [
@@ -43,10 +42,6 @@ class SinglePinMapContainer extends Component {
         const latestUserName = [...histories].sort(
             (a, b) => moment(b.createdOn) - moment(a.createdOn).format(),
         );
-
-        const drawingCompanyID = drawing?.ownerCompanyID;
-
-        const canDeleteHistory = drawingCompanyID === loggedInCompanyID;
 
         return (
             <div className="flex-container">
@@ -174,8 +169,13 @@ class SinglePinMapContainer extends Component {
             hideModal,
             pin: { id, drawingID },
             history,
-            canDeleteHistory,
+            loggedInCompanyID,
+            drawing,
         } = this.props;
+
+        const drawingCompanyID = drawing?.ownerCompanyID;
+
+        const canDeleteHistory = drawingCompanyID === loggedInCompanyID;
 
         if (!canDeleteHistory) {
             showModal(CONFIRM_DELETE, {
