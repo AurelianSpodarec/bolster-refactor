@@ -12,6 +12,7 @@ import templatesReducer from './templates';
 import templateSectionsReducer from './templateSections';
 import templateLabelFieldsReducer from './templateLabelFields';
 import usersReducer from './users';
+import userCreationsReducer from './userCreations';
 import companySubscriptionReducer from './companySubscription';
 import sitesReducer from './sites';
 import buildingsReducer from './buildings';
@@ -64,6 +65,7 @@ export default combineReducers({
     templateQuestionsReducer,
     templateQuestionFormReducer,
     usersReducer,
+    userCreationsReducer,
     userGuideReducer,
     frontendTextSettingsReducer,
     frontendTrustedBySettingsReducer,
