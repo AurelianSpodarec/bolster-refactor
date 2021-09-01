@@ -22,23 +22,12 @@ export const fetchActivityLogFailure = error => ({
     error,
 });
 
-export default type => dispatch => {
-    dispatch(fetchActivityLogRequest());
+export default (type = '') =>
+    dispatch => {
+        dispatch(fetchActivityLogRequest());
 
-    return axios
-        .get(`${API_URL}/settings/activity?type=${type}`, getHeaders())
-        .then(res => dispatch(fetchActivityLogSuccess(res.data)))
-        .catch(err => dispatch(fetchActivityLogFailure(err.message)));
-};
-
-// export default (postbody = {
-//     pageSize: 25,
-//     pageNumber: 1,
-// }) => dispatch => {
-//     dispatch(fetchActivityLogRequest());
-
-//     return axios
-//         .post(`${API_URL}/settings/activity`, postBody, getHeaders())
-//         .then(res => dispatch(fetchActivityLogSuccess(res.data)))
-//         .catch(err => dispatch(fetchActivityLogFailure(err.message)));
-// };
+        return axios
+            .get(`${API_URL}/settings/activity?referenceType=${type || ''}`, getHeaders())
+            .then(res => dispatch(fetchActivityLogSuccess(res.data)))
+            .catch(err => dispatch(fetchActivityLogFailure(err.message)));
+    };
