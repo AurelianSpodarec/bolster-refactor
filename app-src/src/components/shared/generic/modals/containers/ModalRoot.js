@@ -117,6 +117,7 @@ import {
     EDIT_DEMO_ACCESS_CODES,
     DELETE_DEMO_ACCESS_CODES,
     ENTER_DEMO_ACCESS_CODES,
+    ADMIN_EDIT_COMPANY_OWNER,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -236,6 +237,7 @@ import AddDemoAccessCodesModal from 'components/superAdmin/demoAccessCodes/prese
 import EditDemoAccessCodesModal from 'components/superAdmin/demoAccessCodes/presentational/EditDemoAccessCodesModal';
 import DeleteDemoAccessCodesModal from 'components/superAdmin/demoAccessCodes/presentational/DeleteDemoAccessCodesModal';
 import EnterDemoFullSiteModal from 'components/shared/demo-full-site/presentational/DemoFullSiteModal';
+import EditCompanyOwnerModalContainer from 'components/superAdmin/companies/singleCompany/containers/EditCompanyOwnerModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -353,6 +355,7 @@ const MODAL_COMPONENTS = {
     [EDIT_DEMO_ACCESS_CODES]: EditDemoAccessCodesModal,
     [DELETE_DEMO_ACCESS_CODES]: DeleteDemoAccessCodesModal,
     [ENTER_DEMO_ACCESS_CODES]: EnterDemoFullSiteModal,
+    [ADMIN_EDIT_COMPANY_OWNER]: EditCompanyOwnerModalContainer,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

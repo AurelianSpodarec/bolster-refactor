@@ -471,6 +471,10 @@ em {
         display: flex;
         flex-direction: column;
     }
+    &.margin-top-lg {
+        margin-top: 80px;
+    }
+    
     a {
         &.button {
             text-align: center;
@@ -4606,6 +4610,10 @@ input {
                 &.active {
                     background-color: #f2f2f2;
                 }
+            }
+
+            &.large-list {
+                max-height: 125px;
             }
         }
     }
