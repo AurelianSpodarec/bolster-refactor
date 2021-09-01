@@ -55,6 +55,13 @@ export const COMPANY_USER_ROLE_IDS = {
     1000: 'Deleted',
 };
 
+export const COMPANY_USER_ROLE_STATUS_VALUES = {
+    1: 'Invited',
+    2: 'Active',
+    3: 'Inactive',
+    4: 'Disabled',
+};
+
 export const CREDIT_LOG_TYPES = {
     1: 'Purchased',
     2: 'Free credits from purchase',
