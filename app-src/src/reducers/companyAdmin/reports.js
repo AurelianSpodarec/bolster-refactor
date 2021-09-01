@@ -66,14 +66,14 @@ export default combineReducers({
 
 function filtersReducer(
     state = {
-        siteID: null,
-        buildingID: null,
-        floorID: null,
-        drawingID: null,
+        siteID: [],
+        buildingID: [],
+        floorID: [],
+        drawingID: [],
         serviceID: null,
         templateID: null,
         hierarchyType: HIERARCHY_IDS.ALL_SITES,
-        hierarchyID: null,
+        hierarchyID: [],
         status: null,
         reportHistories: 1,
         sortByID: null,
@@ -104,14 +104,14 @@ function filtersReducer(
         case RESET_FILTER_OPTIONS:
             // reset to base state
             return {
-                siteID: null,
-                buildingID: null,
-                floorID: null,
-                drawingID: null,
+                siteID: [],
+                buildingID: [],
+                floorID: [],
+                drawingID: [],
                 serviceID: null,
                 templateID: null,
                 hierarchyType: null,
-                hierarchyID: null,
+                hierarchyID: [],
                 status: null,
                 reportHistories: 1,
                 sortByID: null,
@@ -306,6 +306,7 @@ function rectanglesReducer(state = {}, action) {
             return updateObj(state, action.id, {
                 id: action.id,
                 corners: [action.topLeft, action.bottomRight],
+                drawingID: action.drawingID,
             });
         case REMOVE_RECTANGLE:
             return removeObjItem(state, action.id);
