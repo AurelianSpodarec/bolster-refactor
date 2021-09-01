@@ -25,6 +25,9 @@ const SuperAdminMenu = ({ logout, unreadRequests }) => (
         <MenuItemContainer link="/admin/users">
             <i className="fa fa-user icon" /> <span className="menu-text">Users</span>
         </MenuItemContainer>
+        <MenuItemContainer link="/admin/user-creations">
+            <i className="fa fa-user-plus icon" /> <span className="menu-text">User Creations</span>
+        </MenuItemContainer>
         <MenuItemContainer link="/admin/move-tool">
             <i className="fa fa-layer-group icon" /> <span className="menu-text">Move Tool</span>
         </MenuItemContainer>
