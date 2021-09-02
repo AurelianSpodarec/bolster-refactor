@@ -60,6 +60,7 @@ export const COMPANY_USER_ROLE_STATUS_VALUES = {
     2: 'Active',
     3: 'Inactive',
     4: 'Disabled',
+    5: 'Deleted',
 };
 
 export const CREDIT_LOG_TYPES = {
