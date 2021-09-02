@@ -7,14 +7,24 @@ import PinDetails from '../presentational/PinDetails';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
+import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 
 class PinDetailsContainer extends Component {
     render() {
-        const { histories, users, services, error, isFetching, pin, isLoading, drawing } = this.props;
+        const {
+            histories,
+            users,
+            services,
+            error,
+            isFetching,
+            pin,
+            isLoading,
+            drawing,
+        } = this.props;
         const canAddPin = drawing.accessType > ACCESS_TYPES_VALUES.VIEW_ONLY;
 
         const sortedHistories = [...histories].sort(
-            (a, b) => moment(b.createdOn) - moment(a.createdOn)
+            (a, b) => moment(b.createdOn) - moment(a.createdOn),
         );
 
         return sortedHistories.map((history, i) => {
@@ -93,9 +103,9 @@ const mapStateToProps = (
             companyUsersReducer: { users, isFetching: fetchingUsers },
             servicesReducer: { services },
             drawingsReducer: { drawings },
-        }
+        },
     },
-    { match }
+    { match },
 ) => {
     const pin = singlePin[match.params.id] || {};
     return {
@@ -112,12 +122,7 @@ const mapStateToProps = (
 };
 
 const mapDispatchToProps = dispatch => ({
-    fetchSinglePin: id => dispatch(fetchSinglePin(id))
+    fetchSinglePin: id => dispatch(fetchSinglePin(id)),
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(PinDetailsContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PinDetailsContainer));
