@@ -21,7 +21,7 @@ class PinDetailsContainer extends Component {
             isLoading,
             drawing,
         } = this.props;
-        const canAddPin = drawing.accessType > ACCESS_TYPES_VALUES.VIEW_ONLY;
+        const canAddPin = drawing?.accessType > ACCESS_TYPES_VALUES.VIEW_ONLY;
 
         const sortedHistories = [...histories].sort(
             (a, b) => moment(b.createdOn) - moment(a.createdOn),
