@@ -10,7 +10,8 @@ import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 
 class PinDetailsContainer extends Component {
     render() {
-        const { histories, users, services, error, isFetching, pin, isLoading } = this.props;
+        const { histories, users, services, error, isFetching, pin, isLoading, drawing } = this.props;
+        const canAddPin = drawing.accessType > ACCESS_TYPES_VALUES.VIEW_ONLY;
 
         const sortedHistories = [...histories].sort(
             (a, b) => moment(b.createdOn) - moment(a.createdOn)
@@ -38,7 +39,7 @@ class PinDetailsContainer extends Component {
                                 : ''}
                             )
                         </h4>
-                        {isFirst && (
+                        {isFirst && canAddPin && (
                             <Link
                                 className="button green"
                                 style={{ marginBottom: '0.25em' }}
@@ -104,7 +105,8 @@ const mapStateToProps = (
         users: users || {},
         services: services || {},
         pin,
-        postSuccess
+        postSuccess,
+        drawing: drawings[pin?.drawingID] || {},
     };
 };
 
