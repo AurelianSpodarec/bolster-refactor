@@ -91,7 +91,8 @@ const mapStateToProps = (
             pinsReducer: { isFetching: fetchingPins, postSuccess, singlePin },
             pinHistoriesReducer: { histories, isFetching: fetchingHistories, error },
             companyUsersReducer: { users, isFetching: fetchingUsers },
-            servicesReducer: { services }
+            servicesReducer: { services },
+            drawingsReducer: { drawings },
         }
     },
     { match }
