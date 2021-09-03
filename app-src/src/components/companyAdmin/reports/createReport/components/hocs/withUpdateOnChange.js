@@ -268,12 +268,18 @@ export default function (ProtectedComponent) {
                 }
                 case FILTERS: {
                     questionFilters = fields.map(
-                        ({ selectedQuestions, questionValues = [], selectedValues = [] }) => {
+                        ({ 
+                            selectedQuestions, 
+                            exactMatch, 
+                            questionValues = [], 
+                            selectedValues = [] 
+                        }) => {
                             let values = questionValues.length ? questionValues : selectedValues;
 
                             return {
                                 questionGroupKeys: selectedQuestions,
                                 values,
+                                exactMatch,
                             };
                         },
                     );

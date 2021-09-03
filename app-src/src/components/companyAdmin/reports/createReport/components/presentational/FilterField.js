@@ -12,7 +12,7 @@ const FilterField = ({
     const joinedAnswers = answers.join(' OR ');
     const chosenQuestions = selectedQuestions.map(id => questions[id].text);
     const joinedQuestions = chosenQuestions.join(' OR ');
-
+    
     return (
         <FieldOutput fieldClass="filters">
             <div className="filters-calc">

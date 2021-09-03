@@ -21,10 +21,11 @@ class FilterFieldsModalContainer extends Component {
         selectedQuestions: [],
         freeFormValues: [],
         optionOrientedVals: [],
+        exactMatch: false,
     };
     render() {
         const { toggleAddFilter } = this.props;
-        const { freeFormValues, optionOrientedVals, selectedQuestions } = this.state;
+        const { freeFormValues, optionOrientedVals, selectedQuestions, exactMatch } = this.state;
 
         return (
             <FilterFieldsModal
@@ -43,6 +44,7 @@ class FilterFieldsModalContainer extends Component {
                 removeFreeFormVal={this.removeFreeFormVal}
                 toggleAddFilter={toggleAddFilter}
                 handleSubmit={this.handleSubmit}
+                exactMatch={exactMatch}
             />
         );
     }
@@ -51,12 +53,13 @@ class FilterFieldsModalContainer extends Component {
         const { field } = this.props;
         // add an option if none exist, makes modal reusable for edit
         if (field) {
-            const { selectedQuestions, questionValues, selectedValues } = field;
+            const { selectedQuestions, questionValues, selectedValues, exactMatch } = field;
             this.setState({
                 selectedQuestions,
                 freeFormValues: questionValues,
                 optionOrientedVals: selectedValues,
                 showFreeForm: !selectedValues.length,
+                exactMatch,
             });
         } else {
             this.addFreeFormVal();
@@ -110,7 +113,7 @@ class FilterFieldsModalContainer extends Component {
     };
 
     handleSubmit = async () => {
-        const { selectedQuestions, freeFormValues, optionOrientedVals } = this.state;
+        const { selectedQuestions, freeFormValues, optionOrientedVals, exactMatch } = this.state;
         const {
             field,
             updateFilterQuestionField,
@@ -141,6 +144,7 @@ class FilterFieldsModalContainer extends Component {
             selectedQuestions: validQuestionIDs,
             questionValues: showFreeForm ? freeFormValues : [],
             selectedValues: showFreeForm ? [] : optionOrientedVals,
+            exactMatch,
         };
 
         await updateFilterQuestionField(id, filterItem);
