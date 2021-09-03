@@ -228,7 +228,6 @@ export default function (WrappedComponent) {
                 canCompanyEdit,
                 defaultValue,
                 optionType,
-                defaultValue,
             } = this.props.fields;
 
             switch (questionType) {

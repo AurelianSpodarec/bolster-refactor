@@ -91,7 +91,6 @@ function setDynamicFieldsSingle({
     maxPhotos,
     optionType,
     defaultValue,
-    defaultValue,
     file,
     ...otherFields
 }) {
