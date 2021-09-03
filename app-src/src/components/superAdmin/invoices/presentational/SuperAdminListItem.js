@@ -8,10 +8,10 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import LinkWithPropsContainer from 'components/shared/generic/button/containers/LinkWithPropsContainer.js';
 
 const SuperAdminListItem = ({
-    invoice: { createdOn, isPaid, subTotal, id, paymentType, companyID, isFree },
+    invoice: { createdOn, isPaid, subTotal, id, paymentType, companyID, isFree, isDeleted },
     companies,
 }) => (
-    <tr>
+    <tr className={isDeleted ? 'deleted-invoice' : ''}>
         <td>
             <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATE} />
         </td>

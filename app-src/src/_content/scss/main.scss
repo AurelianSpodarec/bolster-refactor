@@ -6648,3 +6648,22 @@ input {
         color: red;
     }
 }
+
+.super-admin-invoices-table {
+
+    .deleted-invoice {
+
+        opacity: 0.4;
+    }
+}
+
+.comments {
+    textarea {
+        margin-top: 8px;
+    }
+
+    .error-text {
+        color: red !important;
+        margin-top: 8px;
+    }
+}
