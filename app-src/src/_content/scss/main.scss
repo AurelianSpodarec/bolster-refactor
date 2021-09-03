@@ -6616,3 +6616,54 @@ input {
     margin-top: 5px;
     font-size: 120%;
 }
+
+.tooltip-container {
+    margin-top: 4px;
+
+    &.drawing-expired {
+        margin-right: 10px;
+
+        i {
+            font-size: 140%;
+        }
+
+        .red-icon {
+            color: red;
+        }
+    }
+
+    .tooltip {
+        z-index: 9999;
+    }
+}
+
+.expired-date-text {
+    color: green;
+
+    strong {
+        font-weight: bold;
+    }
+
+    &.expired {
+        color: red;
+    }
+}
+
+.super-admin-invoices-table {
+
+    .deleted-invoice {
+
+        opacity: 0.4;
+    }
+}
+
+.comments {
+    textarea {
+        margin-top: 8px;
+    }
+
+    .error-text {
+        color: red !important;
+        margin-top: 8px;
+    }
+}

@@ -21,10 +21,10 @@ const InvoiceDetails = ({
         isRenewal,
         userFirstName,
         userLastName,
-        guid
+        guid,
     },
     toggleConfirmDeleteModal,
-    showDeleteButton
+    showDeleteButton,
 }) => (
     <BlockContainer error={error} isEmpty={!id} isFetching={isFetching}>
         <BlockHeading title="Invoice Details">
@@ -38,9 +38,9 @@ const InvoiceDetails = ({
                 <i className="fa fa-download fa-fw" /> Download Invoice
             </a>
             {showDeleteButton && (
-                <button onClick={toggleConfirmDeleteModal} className="button red">
-                    <i className="far fa-trash-alt fa-fw" />
-                    Delete Invoice
+                <button onClick={toggleConfirmDeleteModal} className="button blue">
+                    <i className="far fa-envelope fa-fw" />
+                    Request Delete Invoice
                 </button>
             )}
         </BlockHeading>
