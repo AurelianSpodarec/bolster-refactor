@@ -91,9 +91,12 @@ function deleteSuccessReducer(state = false, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case PAY_INVOICE_REQUEST:
+        case DELETE_INVOICE_REQUEST:
             return true;
         case PAY_INVOICE_SUCCESS:
         case PAY_INVOICE_FAILURE:
+        case DELETE_INVOICE_FAILURE:
+        case DELETE_INVOICE_SUCCESS:
             return false;
         default:
             return state;
@@ -132,9 +135,11 @@ function postSuccessReducer(state = false, action) {
 function postFailureReducer(state = false, action) {
     switch (action.type) {
         case PAY_INVOICE_REQUEST:
+        case DELETE_INVOICE_REQUEST:
             return false;
         case PAY_INVOICE_FAILURE:
-            return true;
+        case DELETE_INVOICE_FAILURE:
+            return action.error;
         default:
             return state;
     }
