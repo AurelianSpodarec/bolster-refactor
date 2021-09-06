@@ -10,7 +10,7 @@ import {
     COMPANY_TRACKING_PERIOD_TYPE,
 } from 'constants/superAdmin/enums';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
-import { companyTrackingShowWarning, reverseObject } from 'helpers/general';
+import { companyTrackingShowWarning } from 'helpers/general';
 
 const headers = [
     'Name',
@@ -78,13 +78,16 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
                         const { period, showWarning } = companyTrackingShowWarning(company);
 
                         return (
-                            <tr key={company.companyID}>
-                                <td>
+                            <tr
+                                className={`${showWarning ? 'warning' : ''}`}
+                                key={company.companyID}
+                            >
+                                <td className="center">
                                     {showWarning && (
                                         <TooltipContainer
                                             htmlText={`This company has yet to be contacted within a ${COMPANY_TRACKING_PERIOD_KEY[
                                                 period
-                                            ].toLowerCase()}`}
+                                            ].toLowerCase()} period`}
                                             containerSide="left"
                                         >
                                             <i className="far fa-exclamation-triangle red-icon" />
