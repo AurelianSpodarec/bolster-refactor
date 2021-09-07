@@ -15,6 +15,7 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { isEmpty } from 'helpers/generic';
 import PinInspectionLogContainer from './PinInspectionLogContainer';
 import deleteAllPinHistory from 'actions/companyAdmin/pins/async/deleteAllPinHistory';
+import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 
 class SinglePinMapContainer extends Component {
     state = {
@@ -175,6 +176,7 @@ class SinglePinMapContainer extends Component {
             drawing,
             users,
             histories,
+            refetchPins,
         } = this.props;
 
         let canDeleteOtherHistories = false;
@@ -182,7 +184,6 @@ class SinglePinMapContainer extends Component {
         if (
             histories.some(item => {
                 users[item.createdByCompanyUserID]?.companyID === loggedInCompanyID;
-                console.log('users', users[item.createdByCompanyUserID]);
             })
         ) {
             canDeleteOtherHistories = true;
@@ -196,6 +197,7 @@ class SinglePinMapContainer extends Component {
             showModal(CONFIRM_DELETE, {
                 handleDelete: () => {
                     deleteAllHistories(id);
+                    refetchPins(drawingID);
                     history.push(`/company/drawings/${drawingID}`);
                 },
                 hideModal,
@@ -260,6 +262,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(hideModal());
     },
     hideModal: () => dispatch(hideModal()),
+    refetchPins: drawingID => dispatch(fetchPins('drawing', drawingID)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SinglePinMapContainer));
