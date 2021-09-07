@@ -6,6 +6,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const FilterFieldsModal = ({
     showFreeForm,
@@ -19,7 +20,8 @@ const FilterFieldsModal = ({
     removeFreeFormVal,
     toggleAddFilter,
     handleSubmit,
-    exactMatch
+    exactMatch,
+    forceExactMatch
 }) => {
     return (
         <BlockContainer noWhiteBackground={true}>
@@ -72,12 +74,29 @@ const FilterFieldsModal = ({
                 classes="fields-inside"
                 sizeClasses="size-lg-2 size-md-12"
             >
-               <CheckboxContainer
-                    checked={exactMatch}
-                    name="exactMatch"
-                    text=""
-                    handleChange={handleChange}
-                />
+                {!forceExactMatch ? (
+                    <CheckboxContainer
+                       checked={exactMatch}
+                       name="exactMatch"
+                       text=""
+                       handleChange={handleChange}
+                    />  
+
+                ) : (
+                    <TooltipContainer containerSide="left" side="top" text="The specified field type can only be an exact match.">
+                        <CheckboxContainer
+                            disabled
+                            checked={exactMatch}
+                            name="exactMatch"
+                            text=""
+                            handleChange={handleChange}
+                            
+                        />
+                    </TooltipContainer>
+                )
+            }
+                
+              
             </Field>
             <BlockButtonWrapper>
                 <button
