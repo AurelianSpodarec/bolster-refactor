@@ -25,6 +25,7 @@ import withAuth from 'components/shared/auth/auth/hocs/withAuth';
 import { AUTH_TYPES } from 'constants/shared/auth';
 import fetchMessagesBasic from 'actions/companyAdmin/messages/async/fetchMessagesBasic';
 import fetchRecentUpdates from 'actions/companyAdmin/recentUpdates/async/fetchRecentUpdates';
+import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 
 class CompanyAppContainer extends Component {
     render() {
@@ -63,8 +64,10 @@ class CompanyAppContainer extends Component {
             fetchHomeData,
             fetchLatestAppVersion,
             fetchCompanySettings,
+            resetFilterOptions,
         } = this.props;
         if (companyID !== prevProps.companyID) {
+            resetFilterOptions();
             fetchHomeData();
             fetchLatestAppVersion();
             fetchCompanySettings().then(({ payload = {} }) => {
@@ -107,6 +110,7 @@ const mapDispatchToProps = dispatch => ({
     selectCompanyMenuTab: () => dispatch(selectMenuTab(MENU_TABS.COMPANY_USER)),
     fetchSingleCompanyUser: companyUserID => dispatch(fetchSingleCompanyUser(companyUserID)),
     fetchLatestAppVersion: () => dispatch(fetchLatestAppVersion()),
+    resetFilterOptions: () => dispatch(resetFilterOptions()),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps)(CompanyAppContainer);
