@@ -336,6 +336,7 @@ em {
     display: flex;
     justify-content: space-around;
     align-items: center;
+
     .flex {
         display: flex;
         align-items: center;
@@ -471,6 +472,10 @@ em {
         display: flex;
         flex-direction: column;
     }
+    &.margin-top-lg {
+        margin-top: 80px;
+    }
+    
     a {
         &.button {
             text-align: center;
@@ -4621,6 +4626,10 @@ input {
                     background-color: #f2f2f2;
                 }
             }
+
+            &.large-list {
+                max-height: 125px;
+            }
         }
     }
 
@@ -6663,5 +6672,69 @@ input {
     .error-text {
         color: red !important;
         margin-top: 8px;
+    }
+}
+
+.company-tracking-container {
+
+    .company-tracking-filters {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-bottom: 32px;
+        
+        .flex {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+    
+        .item {
+            &:first-child {
+                p {
+                    padding-left: 0;
+                }
+            }
+        }
+    
+        p {
+            text-align: right;
+            padding-left: 20px;
+            padding-right: 10px;
+        }
+
+        .react-datepicker-wrapper {
+            width: 100%;
+            height: 100%;
+            input {
+                width: 100%;
+                height: 100%;
+                font-size: 140%;
+                padding: 7.5px 10px;
+                margin-right: 10px;
+            }
+        }   
+    }
+
+    .contacted-container {
+        
+        .checkbox {
+            
+            label {
+                width: initial;
+            }
+        }
+    }
+
+    .generic-table {
+
+        .center {
+            display: flex;
+            align-items: center;
+        }
+
+        .warning {
+            background-color: #ffdcdb;
+        }
     }
 }
