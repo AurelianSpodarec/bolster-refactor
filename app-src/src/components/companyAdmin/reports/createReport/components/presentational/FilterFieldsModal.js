@@ -86,7 +86,7 @@ const FilterFieldsModal = ({
                     <TooltipContainer containerSide="left" side="top" text="The specified field type can only be an exact match.">
                         <CheckboxContainer
                             disabled
-                            checked={exactMatch}
+                            checked
                             name="exactMatch"
                             text=""
                             handleChange={handleChange}

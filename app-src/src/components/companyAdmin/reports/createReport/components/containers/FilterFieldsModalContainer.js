@@ -23,7 +23,7 @@ class FilterFieldsModalContainer extends Component {
         selectedQuestions: [],
         freeFormValues: [],
         optionOrientedVals: [],
-        exactMatch: true,
+        exactMatch: false,
     };
     render() {
         const { toggleAddFilter } = this.props;
@@ -142,12 +142,14 @@ class FilterFieldsModalContainer extends Component {
             return;
         }
 
+        const forceExactMatch = this._getShouldForceExactMatch();
+
         let filterItem = {
             id,
             selectedQuestions: validQuestionIDs,
             questionValues: showFreeForm ? freeFormValues : [],
             selectedValues: showFreeForm ? [] : optionOrientedVals,
-            exactMatch,
+            exactMatch: forceExactMatch || exactMatch,
         };
 
         await updateFilterQuestionField(id, filterItem);
