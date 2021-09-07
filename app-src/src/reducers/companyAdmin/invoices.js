@@ -153,8 +153,6 @@ function invoiceReducer(state = {}, action) {
             return updateObj(state, action.payload.id, action.payload);
         case PAY_INVOICE_SUCCESS:
             return removeObjItem(state, action.payload.id);
-        case DELETE_INVOICE_SUCCESS:
-            return removeObjItem(state, action.id);
         default:
             return state;
     }

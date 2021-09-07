@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -10,6 +10,7 @@ import { usePrevious } from 'helpers/hooks';
 const RequestDeleteInvoiceModal = ({ id }) => {
     const dispatch = useDispatch();
     const { postFailure, isPosting } = useSelector(state => state.companyAdmin.invoicesReducer);
+    const [success, setSuccess] = useState();
     const prevPosting = usePrevious({ isPosting });
 
     const handleDelete = () => {
@@ -18,7 +19,7 @@ const RequestDeleteInvoiceModal = ({ id }) => {
 
     useEffect(() => {
         if (prevPosting.isPosting && !isPosting && !postFailure) {
-            dispatch(hideModal());
+            setSuccess('Request has been sent.');
         }
     }, [isPosting, prevPosting.isPosting]);
 
@@ -32,6 +33,7 @@ const RequestDeleteInvoiceModal = ({ id }) => {
                 {postFailure && (
                     <p className="generic-text intro-text size-lg-12 error">{postFailure}</p>
                 )}
+                {success && <p className="generic-text intro-text size-lg-12">{success}</p>}
                 <BlockButtonWrapper>
                     <button className="button blue" onClick={handleDelete}>
                         <i className="far fa-envelope fa-fw" />
