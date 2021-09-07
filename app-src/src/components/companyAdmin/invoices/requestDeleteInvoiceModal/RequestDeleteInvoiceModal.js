@@ -33,15 +33,23 @@ const RequestDeleteInvoiceModal = ({ id }) => {
                 {postFailure && (
                     <p className="generic-text intro-text size-lg-12 error">{postFailure}</p>
                 )}
-                {success && <p className="generic-text intro-text size-lg-12">{success}</p>}
+                {success && <p className="generic-text intro-text size-lg-12 success">{success}</p>}
                 <BlockButtonWrapper>
-                    <button className="button blue" onClick={handleDelete}>
-                        <i className="far fa-envelope fa-fw" />
-                        Request Delete
-                    </button>
-                    <button className="button" onClick={() => dispatch(hideModal())}>
-                        Cancel
-                    </button>
+                    {!success ? (
+                        <>
+                            <button className="button blue" onClick={handleDelete}>
+                                <i className="far fa-envelope fa-fw" />
+                                Request Delete
+                            </button>
+                            <button className="button" onClick={() => dispatch(hideModal())}>
+                                Cancel
+                            </button>{' '}
+                        </>
+                    ) : (
+                        <button className="button green" onClick={() => dispatch(hideModal())}>
+                            Close
+                        </button>
+                    )}
                 </BlockButtonWrapper>
             </>
         </ModalOuterContainer>

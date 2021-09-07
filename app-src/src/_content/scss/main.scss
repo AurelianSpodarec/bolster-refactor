@@ -1269,6 +1269,10 @@ input {
         color: $red;
     }
 
+    &.success {
+        color: green;
+    }
+
     &.in-form {
         padding-left: 7.5px;
         padding-right: 7.5px;
