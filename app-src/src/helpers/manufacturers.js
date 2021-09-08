@@ -69,7 +69,7 @@ export const createPreselectedOptionValuesList = optionValuesList => {
 };
 
 export const shouldOptionValueBeIncluded = (serviceIDs, subscriptionServiceIDs) => {
-    return serviceIDs.some(id => subscriptionServiceIDs.includes(id));
+    return serviceIDs === null || serviceIDs.some(id => subscriptionServiceIDs.includes(id));
 };
 
 // ======================== CREATING OPTION VALUES AND MANUFACTURING OPTIONS IF DEFINED IN HIERARCHY ABOVE ========

@@ -26,7 +26,8 @@ class OptionValuesListItemContainer extends Component {
         } = this.props;
         const selectedServiceNames = services
             .reduce((acc, currService) => {
-                if (optionValue.serviceIDs.includes(currService.id)) {
+                const { serviceIDs } = optionValue;
+                if (serviceIDs === null || serviceIDs.includes(currService.id)) {
                     acc.push(currService.name);
                 }
                 return acc;
