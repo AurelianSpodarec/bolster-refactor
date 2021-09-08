@@ -3,10 +3,19 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { PAYMENT_TYPES } from 'constants/companyAdmin/enums';
 import { formatNumber } from 'helpers/generic';
 import LinkWithPropsContainer from 'components/shared/generic/button/containers/LinkWithPropsContainer';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const InvoiceListItem = ({ invoice }) => (
-    <tr>
+    <tr className={invoice.isDeleted ? 'deleted-invoice' : ''}>
         <td>
+            {invoice.isDeleted && (
+                <TooltipContainer
+                    htmlText={'This invoice has been deleted'}
+                    containerSide="drawing-expired"
+                >
+                    <i className="far fa-exclamation-triangle red-icon pull-right" />
+                </TooltipContainer>
+            )}
             <DateTimeContainer date={invoice.createdOn} />
         </td>
         <td>£{formatNumber(invoice.total)}</td>
@@ -16,7 +25,7 @@ const InvoiceListItem = ({ invoice }) => (
             <LinkWithPropsContainer
                 to={{
                     pathname: `/admin/invoices/${invoice.companyID}/${invoice.id}`,
-                    state: { fromCompany: true }
+                    state: { fromCompany: true },
                 }}
                 className="button"
             >

@@ -30,38 +30,30 @@ const SuperAdminConfirmDeleteInvoiceModal = ({
             ) : (
                 <>
                     <p className="generic-text intro-text size-lg-12">{message}</p>
-                    {!location.state ||
-                        (location.state && !location.state.fromCompany && (
-                            <div className="size-lg-12">
-                                <FieldOutput
-                                    title="Comments"
-                                    fieldClass="comments"
-                                    description="Please add reason for deleting invoice."
-                                    sizeClass="size-md-12"
-                                >
-                                    <TextAreaContainer
-                                        name={commentValue}
-                                        value={commentValue}
-                                        handleChange={(name, value) => setCommentValue(value)}
-                                    />
-                                    {error && <p className="error-text">{error}</p>}
-                                </FieldOutput>
-                            </div>
-                        ))}
+                    <div className="size-lg-12">
+                        <FieldOutput
+                            title="Comments"
+                            fieldClass="comments"
+                            description="Please add reason for deleting invoice."
+                            sizeClass="size-md-12"
+                        >
+                            <TextAreaContainer
+                                name={commentValue}
+                                value={commentValue}
+                                handleChange={(name, value) => setCommentValue(value)}
+                            />
+                            {error && <p className="error-text">{error}</p>}
+                        </FieldOutput>
+                    </div>
 
                     <BlockButtonWrapper>
                         <button
                             className="button red"
                             onClick={() => {
-                                if (
-                                    !location.state ||
-                                    (location.state &&
-                                        !location.state.fromCompany &&
-                                        commentValue === '')
-                                ) {
+                                if (commentValue === '') {
                                     setError('Please fill out comments before deleting invoice.');
                                 } else {
-                                    handleDelete(!commentValue ? null : commentValue);
+                                    handleDelete(commentValue);
                                 }
                             }}
                         >
