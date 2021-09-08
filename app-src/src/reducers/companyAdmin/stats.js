@@ -6,6 +6,7 @@ import {
     POST_FILTER_PIN_STATS_REQUEST,
     POST_FILTER_PIN_STATS_SUCCESS,
     POST_FILTER_PIN_STATS_FAILURE,
+    CHANGE_BOOL,
 } from 'constants/actionTypes/stats';
 
 export default combineReducers({
@@ -84,6 +85,8 @@ function filteredStatsReducer(state = {}, action) {
             return {};
         case POST_FILTER_PIN_STATS_SUCCESS:
             return action.payload;
+        case CHANGE_BOOL:
+            return !action.payload ? {} : state;
         default:
             return state;
     }
@@ -95,6 +98,8 @@ function filteredStatsBoolReducer(state = false, action) {
             return false;
         case POST_FILTER_PIN_STATS_SUCCESS:
             return true;
+        case CHANGE_BOOL:
+            return action.payload;
         default:
             return state;
     }

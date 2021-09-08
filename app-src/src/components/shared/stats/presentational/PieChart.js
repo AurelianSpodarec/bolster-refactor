@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import ReactPieChart from 'react-minimal-pie-chart';
 import { isIE } from 'react-device-detect';
 
@@ -13,6 +14,7 @@ import purplePin from '_content/images/map-markers/purple-pin2x.png';
 import statsPieChartColours from 'constants/companyAdmin/statsPieColours';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
+import changeFilterBool from 'actions/companyAdmin/stats/async/changeFilterBool';
 
 const PieChart = ({
     stats,
@@ -29,6 +31,13 @@ const PieChart = ({
     filteredStatsBool,
     // style
 }) => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        return () => {
+            dispatch(changeFilterBool(false));
+        };
+    }, []);
+
     const statsToUse = filteredStatsBool
         ? stats.statuses
         : serviceID
