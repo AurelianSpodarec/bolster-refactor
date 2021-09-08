@@ -15,8 +15,9 @@ import { companyTrackingShowWarning } from 'helpers/general';
 const headers = [
     'Name',
     'Owner Info',
-    'Date created',
-    'Subscription Ends',
+    'Date Created',
+    'Most Recent Resubscription',
+    'Subscription Expiry',
     'Auto Renew',
     'Services',
     'Contacted After 1 Month?',
@@ -99,10 +100,13 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
                                     {company.accountOwnerName} - {company.accountOwnerEmail}
                                 </td>
                                 <td>
-                                    <DateTimeContainer date={company.createdOn} />
+                                    <DateTimeContainer date={company.companyCreatedOn} />
                                 </td>
                                 <td>
-                                    <DateTimeContainer date={company.endOn} />
+                                    <DateTimeContainer date={company.latestSubscriptionStartOn} />
+                                </td>
+                                <td>
+                                    <DateTimeContainer date={company.latestSubscriptionEndOn} />
                                 </td>
                                 <td>
                                     {company.autoRenew ? (
