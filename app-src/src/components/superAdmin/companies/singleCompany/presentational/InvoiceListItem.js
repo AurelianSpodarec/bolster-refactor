@@ -7,11 +7,11 @@ import TooltipContainer from 'components/shared/generic/tooltip/containers/Toolt
 
 const InvoiceListItem = ({ invoice }) => (
     <tr className={invoice.isDeleted ? 'deleted-invoice' : ''}>
-        <td>
+        <td style={{ display: 'flex' }}>
             {invoice.isDeleted && (
                 <TooltipContainer
                     htmlText={'This invoice has been deleted'}
-                    containerSide="drawing-expired"
+                    containerSide="tooltip-invoice"
                 >
                     <i className="far fa-exclamation-triangle red-icon pull-right" />
                 </TooltipContainer>
