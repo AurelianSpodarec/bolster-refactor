@@ -8,7 +8,8 @@ import AddDropdownOptionForm from '../presentational/AddDropdownOptionForm';
 
 class AddDropdownOptionFormContainer extends Component {
     state = {
-        name: ''
+        name: '',
+        serviceIDs: [],
     };
 
     render() {
@@ -20,6 +21,7 @@ class AddDropdownOptionFormContainer extends Component {
                 hideModal={this.props.hideModal}
                 buttonText={this.props.buttonText}
                 validateName={this.validateName}
+                subscribedServices={this.getServicesFromSubscriptions()}
             />
         );
     }
@@ -31,8 +33,15 @@ class AddDropdownOptionFormContainer extends Component {
     validateName = value => {
         const { dropdownOptions } = this.props;
         const existingNames = dropdownOptions.map(({ name }) => name);
-        if (existingNames.includes(value))
-            return 'Please choose a unique name.';
+        if (existingNames.includes(value)) return 'Please choose a unique name.';
+    };
+
+    getServicesFromSubscriptions = () => {
+        const { services, subscriptions } = this.props;
+        const subscribedServices = subscriptions.services.map(
+            ({ serviceID }) => services[serviceID],
+        );
+        return subscribedServices;
     };
 
     handleSubmit = e => {
@@ -40,7 +49,7 @@ class AddDropdownOptionFormContainer extends Component {
         const { createDropdownOption, type } = this.props;
 
         const postBody = {
-            ...this.state
+            ...this.state,
         };
 
         createDropdownOption(type, postBody);
@@ -50,24 +59,23 @@ class AddDropdownOptionFormContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            dropdownOptionsReducer: { dropdownOptions }
-        }
+            dropdownOptionsReducer: { dropdownOptions },
+            servicesReducer: { services },
+            subscriptionsReducer: { subscriptions },
+        },
     },
-    { type }
+    { type },
 ) => ({
-    dropdownOptions: Object.values(dropdownOptions).filter(
-        op => op.type === type
-    )
+    dropdownOptions: Object.values(dropdownOptions).filter(op => op.type === type),
+    services,
+    subscriptions,
 });
 
 const mapDispatchToProps = {
     createDropdownOption,
-    hideModal
+    hideModal,
 };
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(AddDropdownOptionFormContainer)
+    connect(mapStateToProps, mapDispatchToProps)(AddDropdownOptionFormContainer),
 );
