@@ -12,6 +12,7 @@ import { INVOICE_GEN_URL } from 'config';
 const InvoiceDetails = ({
     isFetching,
     error,
+    invoice,
     invoice: {
         createdOn,
         id,
@@ -22,65 +23,79 @@ const InvoiceDetails = ({
         userFirstName,
         userLastName,
         guid,
+        isRequestedForDelete,
     },
     toggleConfirmDeleteModal,
     showDeleteButton,
-}) => (
-    <BlockContainer error={error} isEmpty={!id} isFetching={isFetching}>
-        <BlockHeading title="Invoice Details">
-            <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href={`${INVOICE_GEN_URL}/${guid}/invoice-${id}`}
-                className="button blue"
-                download={`invoice-${id}.pdf`}
-            >
-                <i className="fa fa-download fa-fw" /> Download Invoice
-            </a>
-            {showDeleteButton && (
-                <button onClick={toggleConfirmDeleteModal} className="button blue">
-                    <i className="far fa-envelope fa-fw" />
-                    Request Delete Invoice
-                </button>
-            )}
-        </BlockHeading>
+}) => {
+    console.log('invoice', invoice);
+    return (
+        <BlockContainer error={error} isEmpty={!id} isFetching={isFetching}>
+            <BlockHeading title="Invoice Details">
+                <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={`${INVOICE_GEN_URL}/${guid}/invoice-${id}`}
+                    className="button blue"
+                    download={`invoice-${id}.pdf`}
+                >
+                    <i className="fa fa-download fa-fw" /> Download Invoice
+                </a>
+                {showDeleteButton &&
+                    (!isRequestedForDelete ? (
+                        <button onClick={toggleConfirmDeleteModal} className="button blue">
+                            <i className="far fa-envelope fa-fw" />
+                            Request Delete Invoice
+                        </button>
+                    ) : (
+                        <button className="button red">
+                            <i className="far fa-trash fa-fw" />
+                            Delete invoice requested
+                        </button>
+                    ))}
+            </BlockHeading>
 
-        <FieldOutput title="Invoice no" description={`${id}`} sizeClass="size-lg-4 size-md-12" />
-        <FieldOutput title="Date" sizeClass="size-lg-4 size-md-12">
-            <p>
-                <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATE} />
-            </p>
-        </FieldOutput>
-        <FieldOutput
-            title="Type"
-            description={isRenewal ? 'Renewal' : 'New Purchase'}
-            sizeClass="size-lg-4 size-md-12"
-        />
-        <FieldOutput
-            title="Status"
-            description={isPaid ? 'Paid' : 'Not Paid'}
-            sizeClass="size-lg-4 size-md-12"
-        />
-        <FieldOutput
-            title="Ordered By"
-            description={`${userFirstName} ${userLastName}`}
-            sizeClass="size-lg-4 size-md-12"
-        />
-
-        {isPaid && (
             <FieldOutput
-                title="Payment Method"
-                description={PAYMENT_TYPES[paymentType]}
+                title="Invoice no"
+                description={`${id}`}
                 sizeClass="size-lg-4 size-md-12"
             />
-        )}
+            <FieldOutput title="Date" sizeClass="size-lg-4 size-md-12">
+                <p>
+                    <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATE} />
+                </p>
+            </FieldOutput>
+            <FieldOutput
+                title="Type"
+                description={isRenewal ? 'Renewal' : 'New Purchase'}
+                sizeClass="size-lg-4 size-md-12"
+            />
+            <FieldOutput
+                title="Status"
+                description={isPaid ? 'Paid' : 'Not Paid'}
+                sizeClass="size-lg-4 size-md-12"
+            />
+            <FieldOutput
+                title="Ordered By"
+                description={`${userFirstName} ${userLastName}`}
+                sizeClass="size-lg-4 size-md-12"
+            />
 
-        <FieldOutput
-            title="Total"
-            description={`${total && formatCurrency(total)} GBP (inc. VAT)`}
-            sizeClass="size-lg-6 size-md-12"
-        />
-    </BlockContainer>
-);
+            {isPaid && (
+                <FieldOutput
+                    title="Payment Method"
+                    description={PAYMENT_TYPES[paymentType]}
+                    sizeClass="size-lg-4 size-md-12"
+                />
+            )}
+
+            <FieldOutput
+                title="Total"
+                description={`${total && formatCurrency(total)} GBP (inc. VAT)`}
+                sizeClass="size-lg-6 size-md-12"
+            />
+        </BlockContainer>
+    );
+};
 
 export default InvoiceDetails;
