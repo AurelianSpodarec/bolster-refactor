@@ -73,7 +73,9 @@ class AddOptionValueFormContainer extends Component {
             docName,
         } = this.state;
 
-        let postBody = {};
+        let postBody = { name, serviceIDs };
+
+        // if (serviceIDs.length) postBody = { ...postBody, serviceIDs };
 
         if (!filesUploading) {
             if (!fileS3Key.length && !confirmNoDocument && !showConfirmNoDocument) {
@@ -85,14 +87,8 @@ class AddOptionValueFormContainer extends Component {
 
             if (fileS3Key.length && !confirmNoDocument) {
                 postBody = {
-                    name,
-                    serviceIDs,
+                    ...postBody,
                     document: { fileS3Key, name: docName },
-                };
-            } else {
-                postBody = {
-                    name,
-                    serviceIDs,
                 };
             }
             createOptionValue(manufacturer.id, postBody);

@@ -24,15 +24,19 @@ class OptionValuesListItemContainer extends Component {
             match: { url },
             isSorting,
         } = this.props;
-        const selectedServiceNames = services
-            .reduce((acc, currService) => {
-                const { serviceIDs } = optionValue;
-                if (serviceIDs === null || serviceIDs.includes(currService.id)) {
-                    acc.push(currService.name);
-                }
-                return acc;
-            }, [])
-            .join(', ');
+        console.log({ services });
+        const selectedServiceNames = services.reduce((acc, currService) => {
+            const { serviceIDs } = optionValue;
+            if (serviceIDs === null || serviceIDs.includes(currService.id)) {
+                acc.push(currService.name);
+            }
+            return acc;
+        }, []);
+
+        const selectedServiceNamesToShow =
+            selectedServiceNames.length >= services.length
+                ? '[All services]'
+                : selectedServiceNames.join(', ');
 
         return (
             <OptionValuesListItem
@@ -42,7 +46,7 @@ class OptionValuesListItemContainer extends Component {
                 handleToggleEnable={this.handleToggleEnable}
                 headers={headers}
                 onMobile={onMobile}
-                selectedServiceNames={selectedServiceNames}
+                selectedServiceNames={selectedServiceNamesToShow}
                 index={index}
                 onMove={moveItem}
                 onDrop={this.handlePostOptionValuesSort}

@@ -57,14 +57,13 @@ const AddOptionValueForm = ({
                 </div>
             </div>
             <div className="size-lg-12">
-                <Field name="Select services for this option value" required>
+                <Field name="Select services for this option value">
                     <MultiSelect
                         name="serviceIDs"
                         options={serviceOptions}
                         value={serviceIDs}
                         onChange={handleInputChange}
                         placeholder="-- select services --"
-                        required
                         search
                     />
                 </Field>
