@@ -74,7 +74,7 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
                 noDataMessage="No companies to display"
             >
                 {Object.values(companies)
-                    .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn))
+                    .sort((a, b) => new Date(b.companyCreatedOn) - new Date(a.companyCreatedOn))
                     .map(company => {
                         const { period, showWarning } = companyTrackingShowWarning(company);
 
