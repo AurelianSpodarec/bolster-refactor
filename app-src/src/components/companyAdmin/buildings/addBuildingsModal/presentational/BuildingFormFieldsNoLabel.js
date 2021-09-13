@@ -51,21 +51,6 @@ const BuildingFormFieldsWithLabel = ({
                         </Field>
                     </div>
 
-                    <div className="size-lg-12">
-                        <div className="size-lg-6 size-md-12">
-                            <Field name="Send an alert?">
-                                <CheckboxContainer
-                                    checked={building.isAlertShowing}
-                                    name={`${building.id}.*.isAlertShowing`}
-                                    text=""
-                                    handleChange={(name, value) =>
-                                        updateBuilding(name, value, building.id)
-                                    }
-                                />
-                            </Field>
-                        </div>
-                    </div>
-
                     {building.isAlertShowing && (
                         <div className="size-lg-12">
                             <div className="size-lg-12">

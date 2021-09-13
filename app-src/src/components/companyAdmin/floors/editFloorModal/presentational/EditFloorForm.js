@@ -50,7 +50,7 @@ const FloorEditForm = ({
                         required
                     />
                 </Field>
-
+                {/* 
                 <div className="size-lg-12">
                     <div className="size-lg-6 size-md-12">
                         <Field name="Send an alert?">
@@ -62,7 +62,7 @@ const FloorEditForm = ({
                             />
                         </Field>
                     </div>
-                </div>
+                </div> */}
 
                 {isAlertShowing && (
                     <div className="size-lg-12">

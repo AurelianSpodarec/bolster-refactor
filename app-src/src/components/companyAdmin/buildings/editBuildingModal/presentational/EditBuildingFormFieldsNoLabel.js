@@ -59,6 +59,7 @@ const BuildingFormFieldsNoLabel = ({
             </div>
         </div>
 
+        {/* 
         <div className="size-lg-12">
             <div className="size-lg-6 size-md-12">
                 <Field name="Send an alert?">
@@ -70,7 +71,7 @@ const BuildingFormFieldsNoLabel = ({
                     />
                 </Field>
             </div>
-        </div>
+        </div> */}
 
         {isAlertShowing && (
             <div className="size-lg-12">
