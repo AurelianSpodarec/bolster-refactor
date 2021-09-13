@@ -131,7 +131,7 @@ const EditDrawingModal = ({
                             </Field>
                         </div>
                     </div> */}
-
+                    {/* 
                     {isAlertShowing && (
                         <div className="size-lg-12">
                             <div
@@ -164,7 +164,7 @@ const EditDrawingModal = ({
                                 </Field>
                             </div>
                         </div>
-                    )}
+                    )} */}
                 </div>
                 {showManufacturingOptions ? (
                     <>

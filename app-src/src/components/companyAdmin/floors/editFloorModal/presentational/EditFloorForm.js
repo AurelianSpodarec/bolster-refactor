@@ -63,7 +63,7 @@ const FloorEditForm = ({
                         </Field>
                     </div>
                 </div> */}
-
+                {/* 
                 {isAlertShowing && (
                     <div className="size-lg-12">
                         <div className={`size-lg-${isUsingBolsterLabels ? '12' : '6'}`}>
@@ -88,7 +88,7 @@ const FloorEditForm = ({
                             </Field>
                         </div>
                     </div>
-                )}
+                )} */}
             </div>
             {showManufacturingOptions ? (
                 <>
