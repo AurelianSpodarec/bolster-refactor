@@ -3,7 +3,7 @@ import FieldOutput from 'components/shared/generic/fieldOutput/presentational/Fi
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const FilterField = ({
-    field: { selectedValues = [], questionValues = [], selectedQuestions, id, exactMatch },
+    field: { selectedValues = [], questionValues = [], selectedQuestions, id },
     questions,
     handleShowCustomFieldModal,
     removeCustomField,
@@ -22,9 +22,6 @@ const FilterField = ({
 
                 <p className="centered">
                     <strong>Answer</strong>: {joinedAnswers}
-                </p>
-                <p className="centered">
-                    <strong>Exact match</strong>: {exactMatch ? 'Yes' : 'No'}
                 </p>
             </div>
             <BlockButtonWrapper sizeClasses="size-lg-5 size-md-12">

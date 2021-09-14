@@ -5,8 +5,8 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+// import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+// import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const FilterFieldsModal = ({
     showFreeForm,
@@ -20,8 +20,8 @@ const FilterFieldsModal = ({
     removeFreeFormVal,
     toggleAddFilter,
     handleSubmit,
-    exactMatch,
-    forceExactMatch
+    // exactMatch,
+    // forceExactMatch
 }) => {
     return (
         <BlockContainer noWhiteBackground={true}>
@@ -69,7 +69,7 @@ const FilterFieldsModal = ({
                 )}
             </div>
 
-            <Field 
+            {/* <Field 
                 name="Exact match"
                 classes="fields-inside"
                 sizeClasses="size-lg-2 size-md-12"
@@ -97,7 +97,7 @@ const FilterFieldsModal = ({
             }
                 
               
-            </Field>
+            </Field> */}
             <BlockButtonWrapper>
                 <button
                     className="button green"

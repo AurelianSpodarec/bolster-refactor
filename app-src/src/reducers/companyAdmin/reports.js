@@ -95,6 +95,7 @@ function filtersReducer(
         zoneIDs: [],
         zoneOpacity: 0.3,
         includeFloorplanZones: true,
+        isQuestionFilterExact: false,
     },
     action,
 ) {

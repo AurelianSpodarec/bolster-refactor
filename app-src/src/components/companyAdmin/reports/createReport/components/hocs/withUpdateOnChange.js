@@ -219,6 +219,7 @@ export default function (ProtectedComponent) {
                     zoneOpacity,
                     includeFloorplanZones,
                     includeTime,
+                    isQuestionFilterExact,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
@@ -270,7 +271,6 @@ export default function (ProtectedComponent) {
                     questionFilters = fields.map(
                         ({ 
                             selectedQuestions, 
-                            exactMatch, 
                             questionValues = [], 
                             selectedValues = [] 
                         }) => {
@@ -279,7 +279,7 @@ export default function (ProtectedComponent) {
                             return {
                                 questionGroupKeys: selectedQuestions,
                                 values,
-                                exactMatch,
+                                exactMatch: isQuestionFilterExact,
                             };
                         },
                     );
@@ -335,6 +335,7 @@ export default function (ProtectedComponent) {
                 zoneOpacity,
                 includeFloorplanZones,
                 includeTime,
+                isQuestionFilterExact,
             };
             return body;
         };
