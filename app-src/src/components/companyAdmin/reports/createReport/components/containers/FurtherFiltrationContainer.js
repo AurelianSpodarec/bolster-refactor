@@ -99,7 +99,6 @@ class FurtherFiltrationContainer extends Component {
                                     id={this.state.filterToEditID}
                                     toggleAddFilter={this.toggleAddFilter}
                                 />
-
                             ) : (
                                 <>
                                     <div className="size-lg-12">
@@ -110,6 +109,8 @@ class FurtherFiltrationContainer extends Component {
                                                 questions={this._getQuestionsOptions()}
                                                 handleShowCustomFieldModal={this.handleShowCustomFieldModal}
                                                 removeCustomField={this.removeCustomField}
+                                                isQuestionFilterExact={this.props.filters.isQuestionFilterExact}
+                                                
                                                 />
                                             ))}
                                     </div>
