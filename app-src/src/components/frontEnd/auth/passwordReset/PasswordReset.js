@@ -18,6 +18,8 @@ import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIc
 import { Link } from 'react-router-dom';
 import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 import { pageMeta } from 'constants/frontEnd/meta';
+import { componentDidMount } from 'helpers/generic';
+import checkPasswordResetTokenValidity from 'actions/shared/auth/async/checkPasswordResetTokenValidity';
 
 const PasswordReset = () => {
     const location = useLocation();
@@ -27,12 +29,18 @@ const PasswordReset = () => {
     const token = query.get('token');
     const isMobile = useIsMobile(1101);
 
-    const { isPosting, postSuccess, error } = useSelector(requestStateSelector);
+    componentDidMount(() => {
+        dispatch(checkPasswordResetTokenValidity(token));
+    });
+
+    const { isPosting, postSuccess, error, isFetching } = useSelector(requestStateSelector);
 
     const [form, handleChange] = useForm({
         password: '',
         confirmPassword: '',
     });
+
+    const isExpired = error?.includes?.('expired');
 
     return (
         <>
@@ -58,53 +66,57 @@ const PasswordReset = () => {
                                 Password successfully reset. You may now{' '}
                                 <Link to="/auth/login">log in</Link>.
                             </p>
+                        ) : isFetching ? (
+                            <LoadingIcon />
                         ) : (
-                            <Form onSubmit={handleSubmit}>
-                                <Field
-                                    name="Enter new password"
-                                    sizeClasses="size-lg-6"
-                                    classes="auth-form-field"
-                                    required
-                                >
-                                    <TextInputContainer
-                                        name="password"
-                                        value={form.password}
-                                        handleChange={handleChange}
-                                        placeholder="Password..."
+                            !isExpired && (
+                                <Form onSubmit={handleSubmit}>
+                                    <Field
+                                        name="Enter new password"
+                                        sizeClasses="size-lg-6"
+                                        classes="auth-form-field"
                                         required
-                                        type="password"
-                                        validate={validatePassword}
-                                        classes="auth-text-input-container"
-                                        includePasswordStrength
-                                    />
-                                </Field>
-                                <Field
-                                    name="Confirm password"
-                                    sizeClasses="size-lg-6"
-                                    classes="auth-form-field"
-                                    required
-                                >
-                                    <TextInputContainer
-                                        name="confirmPassword"
-                                        value={form.confirmPassword}
-                                        handleChange={handleChange}
-                                        placeholder="Confirm password..."
-                                        required
-                                        validate={validateConfirmPassword}
-                                        classes="auth-text-input-container"
-                                        type="password"
-                                    />
-                                </Field>
-                                <Field classes="auth-form-field row right">
-                                    <FrontEndButton
-                                        classes={`gray right ${!isPosting ? '' : 'disabled'}`}
-                                        type="submit"
-                                        disabled={isPosting}
                                     >
-                                        {!isPosting ? 'Submit' : <LoadingIcon />}
-                                    </FrontEndButton>
-                                </Field>
-                            </Form>
+                                        <TextInputContainer
+                                            name="password"
+                                            value={form.password}
+                                            handleChange={handleChange}
+                                            placeholder="Password..."
+                                            required
+                                            type="password"
+                                            validate={validatePassword}
+                                            classes="auth-text-input-container"
+                                            includePasswordStrength
+                                        />
+                                    </Field>
+                                    <Field
+                                        name="Confirm password"
+                                        sizeClasses="size-lg-6"
+                                        classes="auth-form-field"
+                                        required
+                                    >
+                                        <TextInputContainer
+                                            name="confirmPassword"
+                                            value={form.confirmPassword}
+                                            handleChange={handleChange}
+                                            placeholder="Confirm password..."
+                                            required
+                                            validate={validateConfirmPassword}
+                                            classes="auth-text-input-container"
+                                            type="password"
+                                        />
+                                    </Field>
+                                    <Field classes="auth-form-field row right">
+                                        <FrontEndButton
+                                            classes={`gray right ${!isPosting ? '' : 'disabled'}`}
+                                            type="submit"
+                                            disabled={isPosting}
+                                        >
+                                            {!isPosting ? 'Submit' : <LoadingIcon />}
+                                        </FrontEndButton>
+                                    </Field>
+                                </Form>
+                            )
                         )}
 
                         {!!error && (
@@ -112,8 +124,15 @@ const PasswordReset = () => {
                                 className="generic-text field-validation-error"
                                 style={{ marginBottom: '10px', color: 'red' }}
                             >
-                                Something went wrong. Please again. If this persists, contact
-                                Bolster support. ({error})
+                                {!isExpired ? (
+                                    `Something went wrong. Please again. If this persists, contact
+                                Bolster support. (${error})`
+                                ) : (
+                                    <span>
+                                        This reset password link has expired, please re-submit{' '}
+                                        <a href="/auth/login?showForgotPassword=true">here</a>
+                                    </span>
+                                )}
                             </p>
                         )}
                     </div>
@@ -150,8 +169,8 @@ const PasswordReset = () => {
 
 const requestStateSelector = ({
     frontEnd: {
-        authReducer: { isPosting, postSuccess, error },
+        authReducer: { isPosting, isFetching, postSuccess, error },
     },
-}) => ({ isPosting, postSuccess, error });
+}) => ({ isPosting, isFetching, postSuccess, error });
 
 export default PasswordReset;

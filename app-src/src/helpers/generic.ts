@@ -6,6 +6,8 @@ import { DATE_TIME_DEFAULTS } from '../constants/companyAdmin/enums';
 
 export function convertArrToObj(arr, field = 'id') {
     return arr.reduce((acc, item) => {
+        if (!item) return acc;
+
         acc[item[field]] = item;
         return acc;
     }, {});
