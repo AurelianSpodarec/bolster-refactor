@@ -11,9 +11,11 @@ import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 class EditManufacturerFormContainer extends Component {
     state = {
         name: this.props.manufacturer.name,
+        serviceIDs: this.props.manufacturer.serviceIDs || [],
     };
 
     render() {
+        console.log(this.props.manufacturer);
         return (
             <EditManufacturerForm
                 {...this.state}
@@ -22,6 +24,7 @@ class EditManufacturerFormContainer extends Component {
                 hideModal={this.props.hideModal}
                 buttonText={this.props.buttonText}
                 validateName={this.validateName}
+                subscribedServices={this.getServicesFromSubscriptions()}
             />
         );
     }
@@ -37,6 +40,14 @@ class EditManufacturerFormContainer extends Component {
                 manufacturer.name === value && manufacturer.id !== manufacturerBeingEdited.id,
         );
         if (nameTaken) return 'Please choose a unique name.';
+    };
+
+    getServicesFromSubscriptions = () => {
+        const { services, subscriptions } = this.props;
+        const subscribedServices = subscriptions.services.map(
+            ({ serviceID }) => services[serviceID],
+        );
+        return subscribedServices;
     };
 
     handleSubmit = e => {
@@ -56,6 +67,8 @@ const mapStateToProps = (
     {
         companyAdmin: {
             manufacturersReducer: { manufacturers },
+            servicesReducer: { services },
+            subscriptionsReducer: { subscriptions },
         },
     },
     { type },
@@ -65,6 +78,8 @@ const mapStateToProps = (
         manufacturers: manufacturers[pinOptionType]
             ? Object.values(manufacturers[pinOptionType])
             : [],
+        services,
+        subscriptions,
     };
 };
 
