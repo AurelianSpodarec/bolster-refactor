@@ -26,7 +26,7 @@ const EditManufacturerForm = ({
                             name="name"
                             value={name}
                             handleChange={handleInputChange}
-                            validate={validateName}
+                            validate={undefined}
                             required
                         />
                     </Field>
