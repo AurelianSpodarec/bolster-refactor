@@ -7,7 +7,7 @@ import ModalOuterContainer from '../containers/ModalOuterContainer';
 import { connect, useSelector } from 'react-redux';
 import postResendConfirmEmail from 'actions/shared/auth/async/postResendConfirmEmail';
 
-const ConfirmTwoFactorModal = ({ profile, sendConfirmEmail }) => {
+const ConfirmTwoFactorModal = ({ profile, postSuccess, sendConfirmEmail }) => {
     const onSubmit = e => {
         e.preventDefault();
         sendConfirmEmail(profile.email);
@@ -23,7 +23,9 @@ const ConfirmTwoFactorModal = ({ profile, sendConfirmEmail }) => {
                 </p>
 
                 <BlockButtonWrapper>
-                    <ButtonContainer type="submit">Send Email</ButtonContainer>
+                    <ButtonContainer type="submit">
+                        {postSuccess ? 'Resend' : 'Send'} Email
+                    </ButtonContainer>
                 </BlockButtonWrapper>
             </Form>
         </ModalOuterContainer>
@@ -32,9 +34,9 @@ const ConfirmTwoFactorModal = ({ profile, sendConfirmEmail }) => {
 
 const mapStateToProps = ({
     shared: {
-        profileReducer: { profile },
+        profileReducer: { profile, postSuccess },
     },
-}) => ({ profile });
+}) => ({ profile, postSuccess });
 const mapDispatchToProps = dispatch => ({
     sendConfirmEmail: email => dispatch(postResendConfirmEmail(email)),
 });
