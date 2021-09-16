@@ -26,6 +26,9 @@ import {
     POST_SETUP_TWO_FACTOR_FAILURE,
     POST_SETUP_TWO_FACTOR_REQUEST,
     POST_SETUP_TWO_FACTOR_SUCCESS,
+    POST_RESEND_EMAIL_CONFIRMATION_REQUEST,
+    POST_RESEND_EMAIL_CONFIRMATION_SUCCESS,
+    POST_RESEND_EMAIL_CONFIRMATION_FAILURE,
 } from 'constants/actionTypes/auth';
 
 export default combineReducers({
@@ -61,6 +64,7 @@ function errorReducer(state = null, action) {
         case POST_SETUP_TWO_FACTOR_FAILURE:
         case POST_CONFIRM_SETUP_TWO_FACTOR_FAILURE:
         case CHANGE_PROFILE_EMAIL_FAILURE:
+        case POST_RESEND_EMAIL_CONFIRMATION_FAILURE:
             return action.error;
         default:
             return state;
@@ -75,6 +79,7 @@ function isPostingReducer(state = false, action) {
         case POST_CONFIRM_SETUP_TWO_FACTOR_REQUEST:
         case POST_CONFIRM_DISABLE_TWO_FACTOR_REQUEST:
         case CHANGE_PROFILE_EMAIL_REQUEST:
+        case POST_RESEND_EMAIL_CONFIRMATION_REQUEST:
             return true;
         case EDIT_PROFILE_SUCCESS:
         case EDIT_PROFILE_FAILURE:
@@ -111,6 +116,7 @@ function postSuccessReducer(state = false, action) {
         case POST_CONFIRM_SETUP_TWO_FACTOR_SUCCESS:
         case POST_CONFIRM_DISABLE_TWO_FACTOR_SUCCESS:
         case CHANGE_PROFILE_EMAIL_SUCCESS:
+        case POST_RESEND_EMAIL_CONFIRMATION_SUCCESS:
             return true;
         default:
             return state;

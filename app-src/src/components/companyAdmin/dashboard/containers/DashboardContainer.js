@@ -52,7 +52,7 @@ class DashboardContainer extends Component {
         localStorage.setItem('selectedStartDate', '');
         localStorage.setItem('selectedEndDate', '');
 
-        if (profile.isEmailConfirmed) showModal(CONFIRM_EMAIL, { user: profile });
+        if (!profile.isEmailConfirmed) showModal(CONFIRM_EMAIL, { user: profile });
     };
 }
 
