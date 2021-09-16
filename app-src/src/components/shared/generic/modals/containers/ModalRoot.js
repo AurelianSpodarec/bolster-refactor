@@ -117,6 +117,7 @@ import {
     EDIT_DEMO_ACCESS_CODES,
     DELETE_DEMO_ACCESS_CODES,
     ENTER_DEMO_ACCESS_CODES,
+    REQUEST_DELETE_INVOICE,
     ADMIN_EDIT_COMPANY_OWNER,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
@@ -238,6 +239,7 @@ import EditDemoAccessCodesModal from 'components/superAdmin/demoAccessCodes/pres
 import DeleteDemoAccessCodesModal from 'components/superAdmin/demoAccessCodes/presentational/DeleteDemoAccessCodesModal';
 import EnterDemoFullSiteModal from 'components/shared/demo-full-site/presentational/DemoFullSiteModal';
 import EditCompanyOwnerModalContainer from 'components/superAdmin/companies/singleCompany/containers/EditCompanyOwnerModalContainer';
+import RequestDeleteInvoiceModal from 'components/companyAdmin/invoices/requestDeleteInvoiceModal/RequestDeleteInvoiceModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -309,6 +311,7 @@ const MODAL_COMPONENTS = {
     [ADMIN_CONFIRM_SET_IS_INVOICE_PAID]: ConfirmSetIsInvoicePaidModalContainer,
     [ADMIN_DELETE_INVOICE]: SuperAdminConfirmDeleteInvoiceModalContainer,
     [DELETE_INVOICE]: ConfirmDeleteInvoiceModalContainer,
+    [REQUEST_DELETE_INVOICE]: RequestDeleteInvoiceModal,
     [ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION]: AddMulitpleServicesToSubscriptionModalContainer,
     [GENERATE_QR_CODES]: GenerateQRCodesModalContainer,
     [ADMIN_ADD_MANUFACTURER]: AdminAddManufacturerModal,

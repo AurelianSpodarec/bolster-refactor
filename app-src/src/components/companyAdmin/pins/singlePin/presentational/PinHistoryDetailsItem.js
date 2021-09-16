@@ -77,17 +77,20 @@ const PinHistoryDetailsItem = ({
 
         <BlockButtonWrapper additionalClasses="item-button-container" sizeClasses="size-lg-12">
             {canDeleteHistory ? (
-                <button className="button red " onClick={handleDeleteHistoryModal} >
-                    <i className="far fa-times" /> Delete {isDeleteHistory > 1 ? 'History' : 'Pin'}
-                </button> 
+                <button className="button red " onClick={handleDeleteHistoryModal}>
+                    <i className="far fa-trash" /> Delete Pin History
+                </button>
             ) : (
-                <TooltipContainer side="top" text="You cannot delete a pin history which has been created by another company">
+                <TooltipContainer
+                    side="top"
+                    text="You cannot delete a pin history which has been created by another company"
+                >
                     <button className="button red disabled" disabled>
-                        <i className="far fa-times" /> Delete {isDeleteHistory > 1 ? 'History' : 'Pin'}
+                        <i className="far fa-trash" /> Delete Pin History
                     </button>
                 </TooltipContainer>
             )}
-          
+
             {pin && pin.isEditButtonEnabled && (
                 <button className="button yellow" onClick={handleEditHistoryModal}>
                     <i className="far fa-pencil" /> Edit this history

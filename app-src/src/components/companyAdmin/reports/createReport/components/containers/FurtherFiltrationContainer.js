@@ -22,6 +22,8 @@ import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/upd
 import FilterFieldsModalContainer from './FilterFieldsModalContainer';
 import ZoneSelectorContainer from 'components/shared/pinSelector/container/ZoneSelectorContainer';
 import { NUMBER_OF_HISTORIES, NUMBER_OF_HISTORIES_WITH_DATE } from 'constants/companyAdmin/enums';
+import Field from 'components/shared/generic/form/presentational/Field';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 const { PIN_SELECTOR, INDIVIDUAL_PINS, FILTERS, ZONES } = FURTHER_FILTRATION_OPTIONS;
 
 class FurtherFiltrationContainer extends Component {
@@ -39,7 +41,7 @@ class FurtherFiltrationContainer extends Component {
         const filtrationOptions = convertEnumToDropdownOptions(FURTHER_FILTRATION);
 
         const filtrationOptionsArr = Object.values(filtrationOptions).filter(
-            ({ value }) => drawingID || +value === FILTERS,
+            ({ value }) => drawingID.length || +value === FILTERS,
         );
         const selected = filtrationOptions[furtherFiltrationOption];
 
@@ -76,36 +78,58 @@ class FurtherFiltrationContainer extends Component {
                         blockName="pinSelector"
                     />
                 ) : +furtherFiltrationOption === +FILTERS ? (
-                    this.state.addFilter ? (
-                        <FilterFieldsModalContainer
-                            id={this.state.filterToEditID}
-                            toggleAddFilter={this.toggleAddFilter}
-                        />
-                    ) : (
+                    
                         <div className="custom-filters-block">
-                            <div className="size-lg-12">
-                                {fields.map(field => (
-                                    <FilterField
-                                        key={field.id}
-                                        field={field}
-                                        questions={this._getQuestionsOptions()}
-                                        handleShowCustomFieldModal={this.handleShowCustomFieldModal}
-                                        removeCustomField={this.removeCustomField}
-                                    />
-                                ))}
-                            </div>
+                            <Field 
+                                name="Exact match?"
+                                classes="fields-inside"
+                                sizeClasses="size-lg-2 size-md-12"
+                            >
 
-                            <BlockButtonWrapper>
-                                <button
-                                    onClick={this.toggleAddFilter}
-                                    type="button"
-                                    className="button green"
-                                >
-                                    <i className="fa fa-plus fa-fw" /> Add filter
-                                </button>
-                            </BlockButtonWrapper>
+                                <CheckboxContainer
+                                    checked={this.props.filters.isQuestionFilterExact}
+                                    name="isQuestionFilterExact"
+                                    text=""
+                                    handleChange={this.handleExactMatchChange}
+                                />  
+                            </Field>
+
+                            {this.state.addFilter ? (
+                                <FilterFieldsModalContainer
+                                    id={this.state.filterToEditID}
+                                    toggleAddFilter={this.toggleAddFilter}
+                                />
+                            ) : (
+                                <>
+                                    <div className="size-lg-12">
+                                        {fields.map(field => (
+                                            <FilterField
+                                                key={field.id}
+                                                field={field}
+                                                questions={this._getQuestionsOptions()}
+                                                handleShowCustomFieldModal={this.handleShowCustomFieldModal}
+                                                removeCustomField={this.removeCustomField}
+                                                isQuestionFilterExact={this.props.filters.isQuestionFilterExact}
+                                                
+                                                />
+                                            ))}
+                                    </div>
+                                    
+
+                                    <BlockButtonWrapper>
+                                        <button
+                                            onClick={this.toggleAddFilter}
+                                            type="button"
+                                            className="button green"
+                                        >
+                                            <i className="fa fa-plus fa-fw" /> Add filter
+                                        </button>
+                                    </BlockButtonWrapper>
+                                </>
+                            )
+                            }
+                            
                         </div>
-                    )
                 ) : null}
             </BlockContainer>
         );
@@ -197,6 +221,11 @@ class FurtherFiltrationContainer extends Component {
         const { postFilters, updateFurtherFiltrationOption } = this.props;
         await updateFurtherFiltrationOption(value);
         postFilters();
+    };
+
+    handleExactMatchChange = async (_, value) => {
+        const { postFilters, handleChange } = this.props;
+        handleChange('isQuestionFilterExact', value).then(postFilters);
     };
 
     handleNumOfHistoriesChange = (name, value) => {

@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import InvoiceDetails from '../presentational/InvoiceDetails';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { DELETE_INVOICE } from 'constants/shared/modalTypes';
+import { REQUEST_DELETE_INVOICE } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 const InvoiceDetailsContainer = ({ invoice, error, isFetching, showModal }) => {
@@ -20,29 +20,24 @@ const InvoiceDetailsContainer = ({ invoice, error, isFetching, showModal }) => {
     );
 
     function toggleConfirmDeleteModal() {
-        showModal(DELETE_INVOICE, { invoice, id: invoice.id });
+        showModal(REQUEST_DELETE_INVOICE, { invoice, id: invoice.id });
     }
 };
 
 const mapStateToProps = (
     {
         companyAdmin: {
-            invoicesReducer: { invoices, error, isFetching, postSuccess }
-        }
+            invoicesReducer: { invoices, error, isFetching, postSuccess },
+        },
     },
-    ownProps
+    ownProps,
 ) => ({
     invoice: invoices[ownProps.match.params.id] || {},
     error,
     isFetching,
-    postSuccess
+    postSuccess,
 });
 
 const mapDispatchToProps = { showModal, hideModal };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(InvoiceDetailsContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InvoiceDetailsContainer));
