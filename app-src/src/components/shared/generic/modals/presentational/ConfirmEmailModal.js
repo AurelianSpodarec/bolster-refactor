@@ -38,6 +38,6 @@ const mapStateToProps = ({
     },
 }) => ({ profile, postSuccess });
 const mapDispatchToProps = dispatch => ({
-    sendConfirmEmail: email => dispatch(postResendConfirmEmail(email)),
+    sendConfirmEmail: email => dispatch(postResendConfirmEmail({ email })),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ConfirmTwoFactorModal);
