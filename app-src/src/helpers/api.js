@@ -75,10 +75,13 @@ export function formatJWTData({
 
 export function handleErrors(func) {
     return function ({ response, message }) {
-        if (response && response.status === 400) return setAPIFieldErrors(response.data.errors);
+        console.log({ response, message });
+        if (response?.status === 400) return setAPIFieldErrors(response.data.errors);
         // if (response && response.status === 401)
         // redirect to login
-
+        if (typeof response?.data === 'string') {
+            return func(response.data);
+        }
         return func(message);
     };
 }
