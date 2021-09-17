@@ -11,6 +11,7 @@ import updateDashboardFilters from 'actions/companyAdmin/dashboard/sync/updateDa
 import fetchPinStatusStats from 'actions/companyAdmin/dashboard/async/fetchPinStatusStats';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { CONFIRM_EMAIL } from 'constants/shared/modalTypes';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 class DashboardContainer extends Component {
     render() {
@@ -54,6 +55,11 @@ class DashboardContainer extends Component {
 
         if (!profile.isEmailConfirmed) showModal(CONFIRM_EMAIL, { user: profile });
     };
+
+    componentDidUpdate(prevProps) {
+        if (!prevProps.profile.isEmailConfirmed && this.props.isEmailConfirmed)
+            this.props.hideModal();
+    }
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -64,6 +70,7 @@ const mapDispatchToProps = dispatch => ({
     },
     setTabs: (tabs, selectedTab) => dispatch(setTabs(tabs, selectedTab)),
     showModal: (type, props) => dispatch(showModal(type, props)),
+    hideModal: () => dispatch(hideModal),
 });
 
 const mapStateToProps = ({
