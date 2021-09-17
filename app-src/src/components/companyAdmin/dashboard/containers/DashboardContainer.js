@@ -28,6 +28,7 @@ class DashboardContainer extends Component {
             setTabs,
             showModal,
             profile,
+            emailConfirmationRequired,
         } = this.props;
         const startDate = moment().subtract(7, 'days').toDate();
 
@@ -53,7 +54,7 @@ class DashboardContainer extends Component {
         localStorage.setItem('selectedStartDate', '');
         localStorage.setItem('selectedEndDate', '');
 
-        if (!profile.isEmailConfirmed) showModal(CONFIRM_EMAIL, { user: profile });
+        if (emailConfirmationRequired) showModal(CONFIRM_EMAIL, { user: profile });
     };
 
     componentDidUpdate(prevProps) {
@@ -77,10 +78,12 @@ const mapStateToProps = ({
     shared: {
         isIE10Reducer: { isIE10 },
         profileReducer: { profile },
+        loginReducer: { emailConfirmationRequired },
     },
 }) => ({
     isIE10,
     profile,
+    emailConfirmationRequired,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);
