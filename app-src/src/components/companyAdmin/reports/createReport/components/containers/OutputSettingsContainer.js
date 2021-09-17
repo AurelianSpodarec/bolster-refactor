@@ -124,8 +124,6 @@ class OutputSettingsContainer extends Component {
         this.props.updateFilterOption(name, value);
     };
 
-
-
     handleSubmit = () => {
         const {
             getPostBody,
@@ -142,7 +140,6 @@ class OutputSettingsContainer extends Component {
             customFilters,
         } = this.props;
         if (!isEmpty(fieldErrors)) showFieldErrors();
-
         else if (isFloorplanGeneration || (isPDFGeneration && includeFloorplan)) {
             const drawingForPinScale = this._getDrawingForPinScale();
             console.log(isFloorplanGeneration, drawingForPinScale);
@@ -201,27 +198,23 @@ class OutputSettingsContainer extends Component {
         } = this.props;
 
         let availableDrawings = Object.values(drawings);
-        
         // uses the url to figure out which hierarchy the report is being generated on
         // and find an appropriate drawing for the pin scale modal
-        if (siteID && siteID.length) {
-            availableDrawings = availableDrawings.filter(
-                drawing => siteID.includes(drawing.siteID));
-        }
-        if (buildingID && buildingID.length) {
-            availableDrawings = availableDrawings.filter(
-                drawing => drawingID.includes(drawing.buildingID)
+        if (drawingID?.length) {
+            availableDrawings = availableDrawings.filter(drawing => drawingID.includes(drawing.id));
+        } else if (floorID?.length) {
+            availableDrawings = availableDrawings.filter(drawing =>
+                floorID.includes(drawing.floorID),
+            );
+        } else if (buildingID?.length) {
+            availableDrawings = availableDrawings.filter(drawing =>
+                buildingID.includes(drawing.buildingID),
+            );
+        } else if (siteID?.length) {
+            availableDrawings = availableDrawings.filter(drawing =>
+                siteID.includes(drawing.siteID),
             );
         }
-        if (floorID && floorID.length) {
-            availableDrawings = availableDrawings.filter(
-                drawing => floorID.includes(drawing.floorID));
-        }
-        if (drawingID && drawingID.length) {
-            availableDrawings = availableDrawings.filter(
-                drawing => drawingID.includes(drawing.id));
-        }
-
         return availableDrawings[0];
     };
 
