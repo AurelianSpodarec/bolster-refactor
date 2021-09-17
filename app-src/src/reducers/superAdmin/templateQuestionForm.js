@@ -38,6 +38,7 @@ const initialQuestionFields = {
     canCompanyEdit: false,
     optionColour: [{ Name: '', HexValue: '#ffffff' }],
     optionType: '',
+    defaultValue: null,
     statusOptions: [],
     isRequiredVal: null,
     prefillStatuses: [],

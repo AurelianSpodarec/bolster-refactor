@@ -17,7 +17,6 @@ const MultiOptionForm = ({
     canCompanyEdit,
     handleInputChange,
     defaultValue,
-    radio,
 }) => {
     return (
         <div className="dropdown-create size-lg-12">
@@ -65,16 +64,15 @@ const MultiOptionForm = ({
                     name="canCompanyEdit"
                 />
             </Field>
-            {radio && (
-                <Field name="Default value">
-                    <Select
-                        options={optionsForSelect}
-                        onChange={handleInputChange}
-                        value={defaultValue}
-                        name="defaultValue"
-                    />
-                </Field>
-            )}
+
+            <Field name="Default value">
+                <Select
+                    options={optionsForSelect}
+                    onChange={handleInputChange}
+                    value={defaultValue}
+                    name="defaultValue"
+                />
+            </Field>
         </div>
     );
 };
