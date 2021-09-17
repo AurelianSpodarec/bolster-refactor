@@ -15,7 +15,6 @@ class EditManufacturerFormContainer extends Component {
     };
 
     render() {
-        console.log(this.props.manufacturer);
         return (
             <EditManufacturerForm
                 {...this.state}
@@ -57,6 +56,7 @@ class EditManufacturerFormContainer extends Component {
         const postBody = {
             ...manufacturer,
             name: this.state.name,
+            serviceIDs: this.state.serviceIDs,
         };
 
         editManufacturer(type, postBody);
@@ -83,10 +83,10 @@ const mapStateToProps = (
     };
 };
 
-const mapDispatchToProps = {
-    editManufacturer,
-    hideModal,
-};
+const mapDispatchToProps = dispatch => ({
+    editManufacturer: (type, postBody) => dispatch(editManufacturer(type, postBody)),
+    hideModal: () => dispatch(hideModal()),
+});
 
 export default withRouter(
     connect(mapStateToProps, mapDispatchToProps)(EditManufacturerFormContainer),
