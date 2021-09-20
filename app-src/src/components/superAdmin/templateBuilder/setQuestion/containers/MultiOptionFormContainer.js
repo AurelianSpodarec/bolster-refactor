@@ -3,16 +3,8 @@ import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
 import MultiOptionForm from '../presentational/MultiOptionForm';
 import updateQuestionField from 'actions/superAdmin/templateBuilder/sync/updateQuestionField';
-import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
 
-const MultiOptionFormContainer = ({
-    options,
-    updateQuestionField,
-    questionType,
-    optionColour,
-    ...props
-}) => {
-    const radio = questionType === QUESTION_TYPE_VALUES.RADIO;
+const MultiOptionFormContainer = ({ options, updateQuestionField, optionColour, ...props }) => {
     return (
         <MultiOptionForm
             {...props}
@@ -24,12 +16,11 @@ const MultiOptionFormContainer = ({
             removeOption={removeOption}
             updateOption={updateOption}
             updateColorOption={updateColorOption}
-            radio={radio}
         />
     );
 
     function optionsForSelect() {
-        return options.map(opt => ({ label: opt.text, value: opt.id }));
+        return options.map(({ text }) => ({ label: text, value: text }));
     }
 
     function addOption() {

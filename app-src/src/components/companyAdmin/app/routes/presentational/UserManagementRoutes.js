@@ -16,6 +16,7 @@ import SingleClientContainer from 'components/companyAdmin/userManagement/client
 import AddClientContainer from 'components/companyAdmin/userManagement/clients/singleClient/containers/AddClientContainer';
 import EditCompanyUserEmail from 'components/companyAdmin/userManagement/shared/editCompanyUserEmail/EditCompanyUserEmail';
 import EditClientUserEmail from 'components/companyAdmin/userManagement/clients/singleClient/EditClientUserEmail';
+import DocumentsUploaderContainer from 'components/companyAdmin/userManagement/documentsUploader/containers/DocumentsUploaderContainer';
 
 const UserManagementRoutes = ({ base = '/company/users-management' }) => (
     <SwitchWith404>
@@ -40,9 +41,31 @@ const UserManagementRoutes = ({ base = '/company/users-management' }) => (
         <Route exact path={`${base}/client-access`} component={ClientsAccessContainer} />
         <Route
             exact
+            path={`${base}/company-admins/:id/documents`}
+            component={DocumentsUploaderContainer}
+        />
+        <Route
+            exact
+            path={`${base}/operatives/:id/documents`}
+            component={DocumentsUploaderContainer}
+        />
+        <Route
+            exact
+            path={`${base}/operatives/:id/edit-password`}
+            component={EditOperativePasswordContainer}
+        />
+        <Route
+            exact
+            path={`${base}/company-admins/:id/edit-password`}
+            component={EditCompanyAdminPasswordContainer}
+        />
+        <Route exact path={`${base}/client-access`} component={ClientsAccessContainer} />
+        <Route
+            exact
             path={`${base}/company-admins/:id/drawings`}
             component={UserDrawingsContainer}
         />
+        <Route exact path={`${base}/operative/:id/drawings`} component={UserDrawingsContainer} />
     </SwitchWith404>
 );
 

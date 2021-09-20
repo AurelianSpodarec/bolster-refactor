@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
+import { lowMemoryMessage, lowStorageMessage } from '../../../../../../constants/shared/messages';
+import { getStorageString, isLowMemory, isLowStorage } from 'helpers/generic';
+
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
@@ -25,22 +28,26 @@ const AllCompanyAdminsListItem = ({
     drawingLimitMaxed,
 }) => {
     const history = useHistory();
-    const showRedWarning = showNotUpsyncedRecentlyWarning || drawingLimitMaxed;
+
+    const isMemoryLow = user.deviceRAM && isLowMemory(user.deviceRAM);
+    const isStorageLow = user.physicalStorageTotal && isLowStorage(user.physicalStorageAvailable);
+    const isRowRed = isMemoryLow || isStorageLow || showNotUpsyncedRecentlyWarning || drawingLimitMaxed;
+    const upsyncedMessage = tooltipDate
+        ? `This operative has not upsynced in ${tooltipDate} days`
+        : 'This operative has never upsynced.';
 
     return (
         <tr
             key={user.id}
-            className={`${isDisabled ? 'grey-row' : showRedWarning ? 'red-row' : ''}`}
+            className={`${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}
         >
             <td>
-                {showRedWarning && (
+                {isRowRed && (
                     <TooltipContainer
                         htmlText={`${
-                            showNotUpsyncedRecentlyWarning
-                                ? tooltipDate
-                                    ? `<p>This operative has not upsynced in ${tooltipDate} days</p>`
-                                    : '<p>This operative has never upsynced<p>'
-                                : ''
+                            showNotUpsyncedRecentlyWarning ? `<p>${upsyncedMessage}</p>` : ''
+                        } ${isMemoryLow ? `<p>${lowMemoryMessage}</p>` : ''} ${
+                            isStorageLow ? `<p>${lowStorageMessage}</p>` : ''
                         } ${
                             drawingLimitColour === 'red'
                                 ? '<p>This operative has reached the maximum number of drawings.</p>'
@@ -72,6 +79,17 @@ const AllCompanyAdminsListItem = ({
                 {user.linkedDeviceID ? 'Yes' : 'No'}
                 {user.linkedDeviceName && (
                     <span className="red-text">{` (${user.linkedDeviceName})`}</span>
+                )}
+                {user.deviceRAM && (
+                    <>
+                        <br />({getStorageString(user.deviceRAM)} RAM.)
+                    </>
+                )}
+                {user.physicalStorageTotal && (
+                    <>
+                        <br />({getStorageString(user.physicalStorageAvailable)} /{' '}
+                        {getStorageString(user.physicalStorageTotal)} storage free)
+                    </>
                 )}
             </td>
             <td>
@@ -132,6 +150,13 @@ const AllCompanyAdminsListItem = ({
                     >
                         <i className="far fa-at" />
                         Edit Email
+                    </Link>
+                    <Link
+                        className="button yellow "
+                        to={`/company/users-management/company-admins/${user.id}/documents`}
+                    >
+                        <i className="far fa-file-upload" />
+                        User Documents
                     </Link>
                     <Link
                         className="button blue"

@@ -63,8 +63,10 @@ const EmailConfirmationRequired = () => {
 
                     <div className="auth-text-wrapper login-text">
                         <p style={{ marginBottom: 30 }}>
-                            To complete your registration, please confirm your email address through
-                            the link sent to your inbox.
+                            Your email address is unconfirmed. Please confirm your email address by
+                            clicking the button below and following the steps on the email you will
+                            receive. If your email address is incorrect, invalid or old a company
+                            admin will need to update this for you through User management.
                         </p>
                         <FrontEndButton
                             classes="gray left"
