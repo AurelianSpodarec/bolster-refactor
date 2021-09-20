@@ -3,11 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
-import {
-    convertEnumToDropdownOptions,
-    isObjEmpty,
-    getSelectedCompanyForClient,
-} from 'helpers/generic';
+import { isObjEmpty, getSelectedCompanyForClient, convertArrToObj } from 'helpers/generic';
 
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import BasicFilters from '../presentational/BasicFilters';
@@ -47,7 +43,7 @@ class BasicFiltersContainer extends Component {
         } = this.props;
 
         const serviceOptions = formatArrForDropdown(services, true);
-        const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
+        const statusOptions = this.formatStatusesForDropdown(PIN_STATUS_TYPES);
         const myServiceTemplates = templates.filter(template => {
             const hasServiceOption = !!serviceOptions[template.serviceID];
             const hasSelectedService = !!serviceID;
@@ -69,7 +65,7 @@ class BasicFiltersContainer extends Component {
                         templateOptions={Object.values(myServiceTemplateOptions)}
                         selectedTemplate={myServiceTemplateOptions[templateID]}
                         statusOptions={Object.values(statusOptions)}
-                        selectedStatus={statusOptions[status]}
+                        selectedStatus={status ? status : []}
                         fromDateInclusive={fromDateInclusive}
                         toDateInclusive={toDateInclusive}
                         fieldError={fieldError}
@@ -77,6 +73,7 @@ class BasicFiltersContainer extends Component {
                         includeTime={includeTime}
                         startTime={startTime}
                         endTime={endTime}
+                        handleStatusChange={this.handleStatusChange}
                     />
                 </BlockContainer>
             </div>
@@ -148,6 +145,18 @@ class BasicFiltersContainer extends Component {
         } else {
             clientFetchAllTemplates(selectedCompanyID);
         }
+    };
+
+    formatStatusesForDropdown = statusObj => {
+        const formattedStatuses = Object.keys(statusObj).map(status => {
+            return { value: status, text: statusObj[status], label: statusObj[status] };
+        });
+
+        return convertArrToObj(formattedStatuses, 'value');
+    };
+
+    handleStatusChange = (name, value) => {
+        this.handleChange(name, value);
     };
 }
 
