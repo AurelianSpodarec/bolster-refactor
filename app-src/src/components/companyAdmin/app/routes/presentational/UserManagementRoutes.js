@@ -17,6 +17,7 @@ import AddClientContainer from 'components/companyAdmin/userManagement/clients/s
 import EditCompanyUserEmail from 'components/companyAdmin/userManagement/shared/editCompanyUserEmail/EditCompanyUserEmail';
 import EditClientUserEmail from 'components/companyAdmin/userManagement/clients/singleClient/EditClientUserEmail';
 import DocumentsUploaderContainer from 'components/companyAdmin/userManagement/documentsUploader/containers/DocumentsUploaderContainer';
+// import EditOperativePasswordContainer from 'components/companyAdmin/userManagement/operatives/editOperativePassword/containers/EditOperativePasswordContainer';
 
 const UserManagementRoutes = ({ base = '/company/users-management' }) => (
     <SwitchWith404>
@@ -49,16 +50,16 @@ const UserManagementRoutes = ({ base = '/company/users-management' }) => (
             path={`${base}/operatives/:id/documents`}
             component={DocumentsUploaderContainer}
         />
-        <Route
+        {/* <Route
             exact
             path={`${base}/operatives/:id/edit-password`}
             component={EditOperativePasswordContainer}
-        />
-        <Route
+        /> */}
+        {/* <Route
             exact
             path={`${base}/company-admins/:id/edit-password`}
             component={EditCompanyAdminPasswordContainer}
-        />
+        /> */}
         <Route exact path={`${base}/client-access`} component={ClientsAccessContainer} />
         <Route
             exact
