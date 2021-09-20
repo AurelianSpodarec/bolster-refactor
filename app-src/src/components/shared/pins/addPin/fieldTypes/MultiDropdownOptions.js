@@ -8,6 +8,7 @@ const MultiDropdownOptions = ({
     question: { id, optionType, defaultValue },
     dropdownOptions,
     answers,
+    edit,
     handleChange,
     originalDropdownMultiAns,
     isManufacturingEnabledForDrawing,
