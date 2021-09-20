@@ -1,34 +1,58 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+
+import { lowMemoryMessage, lowStorageMessage } from '../../../../../../constants/shared/messages';
+import { getStorageString, isLowMemory, isLowStorage } from 'helpers/generic';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { boolToYesNo } from 'helpers/generic';
 
 const AllCompanyAdminsListItem = ({
     user,
     showDeleteModal,
+    showDisableModal,
+    showEnableModal,
     showUnlinkModal,
     showRevokeAdminAccessModal,
     showRestrictUserPaymentsModal,
     loggedInUser,
     onMobile,
     headers,
-    history,
     showNotUpsyncedRecentlyWarning,
     tooltipDate,
+    isDisabled,
+    drawingLimitColour,
+    drawingLimitMaxed,
 }) => {
+    const history = useHistory();
+
+    const isMemoryLow = user.deviceRAM && isLowMemory(user.deviceRAM);
+    const isStorageLow = user.physicalStorageTotal && isLowStorage(user.physicalStorageAvailable);
+    const isRowRed = isMemoryLow || isStorageLow || showNotUpsyncedRecentlyWarning || drawingLimitMaxed;
+    const upsyncedMessage = tooltipDate
+        ? `This operative has not upsynced in ${tooltipDate} days`
+        : 'This operative has never upsynced.';
+
     return (
-        <tr key={user.id} className={`${showNotUpsyncedRecentlyWarning ? 'red-row' : ''}`}>
+        <tr
+            key={user.id}
+            className={`${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}
+        >
             <td>
-                {showNotUpsyncedRecentlyWarning && (
+                {isRowRed && (
                     <TooltipContainer
-                        text={
-                            tooltipDate
-                                ? `This operative has not upsynced in ${tooltipDate} days`
-                                : 'This operative has never upsynced'
-                        }
+                        htmlText={`${
+                            showNotUpsyncedRecentlyWarning ? `<p>${upsyncedMessage}</p>` : ''
+                        } ${isMemoryLow ? `<p>${lowMemoryMessage}</p>` : ''} ${
+                            isStorageLow ? `<p>${lowStorageMessage}</p>` : ''
+                        } ${
+                            drawingLimitColour === 'red'
+                                ? '<p>This operative has reached the maximum number of drawings.</p>'
+                                : ''
+                        }`}
                         containerSide="left"
                     >
                         <i className="far fa-exclamation-triangle red-icon" />
@@ -37,6 +61,7 @@ const AllCompanyAdminsListItem = ({
                 {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                 {`${user.userFirstName} ${user.userLastName}`}{' '}
                 {user.type === COMPANY_USER_ROLE_TYPES.OWNER ? <span>(OWNER)</span> : null}
+                {isDisabled && <span>(DISABLED)</span>}
             </td>
             <td>
                 {' '}
@@ -54,6 +79,17 @@ const AllCompanyAdminsListItem = ({
                 {user.linkedDeviceID ? 'Yes' : 'No'}
                 {user.linkedDeviceName && (
                     <span className="red-text">{` (${user.linkedDeviceName})`}</span>
+                )}
+                {user.deviceRAM && (
+                    <>
+                        <br />({getStorageString(user.deviceRAM)} RAM.)
+                    </>
+                )}
+                {user.physicalStorageTotal && (
+                    <>
+                        <br />({getStorageString(user.physicalStorageAvailable)} /{' '}
+                        {getStorageString(user.physicalStorageTotal)} storage free)
+                    </>
                 )}
             </td>
             <td>
@@ -81,10 +117,18 @@ const AllCompanyAdminsListItem = ({
                 {user.appVersion ? `${user.appVersion}` : '-'}
             </td>
             <td>
+                {onMobile && <span className="mobile-table-heading">{headers[8]}</span>}
+                <span className={`limit-${drawingLimitColour}`}>{user.drawingCount}</span>
+            </td>
+            <td>
+                {onMobile && <span className="mobile-table-heading">{headers[9]}</span>}
+                {boolToYesNo(user.isEmailConfirmed)}
+            </td>
+            <td>
                 {' '}
-                {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
+                {onMobile && <span className="mobile-table-heading">{headers[10]}</span>}
                 <BlockButtonWrapper additionalClasses="stacked">
-                    {user.linkedDeviceID && (
+                    {user.linkedDeviceID && !isDisabled && (
                         <button className="button blue" onClick={showUnlinkModal}>
                             <i className="far fa-unlink" />
                             Unlink Device
@@ -94,18 +138,25 @@ const AllCompanyAdminsListItem = ({
                         Generate Report
                     </button>
                     <Link
-                        className="button green"
-                        to={`/company/users-management/company-admins/${user.id}/edit-password`}
-                    >
-                        <i className="far fa-lock-alt fa-fw" />
-                        Change password
-                    </Link>
-                    <Link
                         className="button yellow "
                         to={`/company/users-management/company-admins/${user.id}/edit`}
                     >
                         <i className="far fa-pencil" />
                         Edit
+                    </Link>
+                    <Link
+                        className="button yellow "
+                        to={`/company/users-management/company-admins/${user.id}/edit-email`}
+                    >
+                        <i className="far fa-at" />
+                        Edit Email
+                    </Link>
+                    <Link
+                        className="button yellow "
+                        to={`/company/users-management/company-admins/${user.id}/documents`}
+                    >
+                        <i className="far fa-file-upload" />
+                        User Documents
                     </Link>
                     <Link
                         className="button blue"
@@ -114,7 +165,8 @@ const AllCompanyAdminsListItem = ({
                         <i className="far fa-key" /> Drawings Access
                     </Link>
                     {loggedInUser.type === +COMPANY_USER_ROLE_TYPES.OWNER &&
-                        +user.type !== +COMPANY_USER_ROLE_TYPES.OWNER && (
+                        +user.type !== +COMPANY_USER_ROLE_TYPES.OWNER &&
+                        !isDisabled && (
                             <button
                                 className="button red"
                                 onClick={() => showRevokeAdminAccessModal(user.id)}
@@ -133,6 +185,8 @@ const AllCompanyAdminsListItem = ({
                                 <i className="far fa-money-bill-alt" />
                                 Enable Payments
                             </button>
+                        ) : isDisabled ? (
+                            <></>
                         ) : (
                             <button
                                 className="button red"
@@ -143,13 +197,35 @@ const AllCompanyAdminsListItem = ({
                             </button>
                         ))}
 
-                    {+user.type !== +COMPANY_USER_ROLE_TYPES.OWNER ? (
-                        <button className="button red" onClick={() => showDeleteModal(user.id)}>
-                            <i className="far fa-trash-alt" />
-                            Delete
-                        </button>
-                    ) : (
-                        <></>
+                    {+user.type !== +COMPANY_USER_ROLE_TYPES.OWNER && (
+                        <>
+                            {isDisabled ? (
+                                <button
+                                    className="button green"
+                                    onClick={() => showEnableModal(user.id)}
+                                >
+                                    <i className="far fa-check" />
+                                    Enable
+                                </button>
+                            ) : (
+                                <>
+                                    <button
+                                        className="button red"
+                                        onClick={() => showDisableModal(user.id)}
+                                    >
+                                        <i className="far fa-ban" />
+                                        Disable
+                                    </button>
+                                    <button
+                                        className="button red"
+                                        onClick={() => showDeleteModal(user.id)}
+                                    >
+                                        <i className="far fa-trash-alt" />
+                                        Delete
+                                    </button>
+                                </>
+                            )}
+                        </>
                     )}
                 </BlockButtonWrapper>
             </td>
@@ -166,4 +242,4 @@ const AllCompanyAdminsListItem = ({
     }
 };
 
-export default withRouter(AllCompanyAdminsListItem);
+export default AllCompanyAdminsListItem;

@@ -1,90 +1,66 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import EditProfilePasswordForm from 'components/shared/profile/editProfilePassword/presentational/EditProfilePasswordForm';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import changeProfilePassword from 'actions/shared/profile/async/changeProfilePassword';
+import { useForm, usePrevious } from 'helpers/hooks';
 
-class EditProfilePasswordFormContainer extends Component {
-    state = {
-        oldPassword: '',
+const EditProfilePasswordFormContainer = () => {
+    const [{ password, confirmPassword }, handleChange] = useForm({
         password: '',
         confirmPassword: '',
-    };
+    });
+    const history = useHistory();
+    const location = useLocation();
+    const dispatch = useDispatch();
 
-    render = () => {
-        let isClient = this.props.location.pathname.includes('client');
-        return (
-            <EditProfilePasswordForm
-                {...this.state}
-                isClient={isClient}
-                handleInputChange={this.handleInputChange}
-                validatePassword={this.validatePassword}
-                validateConfirmPassword={this.validateConfirmPassword}
-                handleSubmit={this.handleSubmit}
-            />
-        );
-    };
+    const isClient = location.pathname.includes('client');
+    const { postSuccess } = useSelector(mapStateToProps);
+    const prevProps = usePrevious({ postSuccess });
 
-    componentDidUpdate(prevProps) {
-        const { postSuccess, history, location } = this.props;
+    useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
             history.push(location.pathname.replace('/change-password', ''));
         }
+    });
+    return (
+        <EditProfilePasswordForm
+            password={password}
+            confirmPassword={confirmPassword}
+            isClient={isClient}
+            handleInputChange={handleChange}
+            validatePassword={validatePassword}
+            validateConfirmPassword={validateConfirmPassword}
+            handleSubmit={handleSubmit}
+        />
+    );
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        dispatch(changeProfilePassword({ password }));
     }
 
-    handleInputChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
-
-    handleSubmit = e => {
-        let isClient = this.props.location.pathname.includes('client');
-        e.preventDefault();
-        const { password, oldPassword } = this.state;
-        let postBody;
-
-        if (isClient) {
-            postBody = { password };
-        } else {
-            postBody = { password, oldPassword };
-        }
-
-        this.props.changeProfilePassword(postBody);
-    };
-
-    validatePassword = password => {
-        const { confirmPassword } = this.state;
-        const { addFieldError, removeFieldError } = this.props;
+    function validatePassword(password) {
         if (password !== confirmPassword) {
-            addFieldError('confirmPassword', 'Passwords do not match');
+            dispatch(addFieldError('confirmPassword', 'Passwords do not match'));
         } else {
-            removeFieldError('confirmPassword');
+            dispatch(removeFieldError('confirmPassword'));
         }
         return null;
-    };
+    }
 
-    validateConfirmPassword = confirmPassword => {
-        const { password } = this.state;
+    function validateConfirmPassword(confirmPassword) {
         if (password !== confirmPassword) {
             return 'Password and Confirm Password do not match';
         }
-    };
-}
+    }
+};
 
 const mapStateToProps = ({ shared: { profileReducer } }) => ({
     postSuccess: profileReducer.postSuccess,
 });
 
-const mapDispatchToProps = dispatch => ({
-    addFieldError: (field, err) => dispatch(addFieldError(field, err)),
-    removeFieldError: field => dispatch(removeFieldError(field)),
-    changeProfilePassword: (id, password) => {
-        dispatch(changeProfilePassword(id, password));
-    },
-});
-
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(EditProfilePasswordFormContainer),
-);
+export default EditProfilePasswordFormContainer;

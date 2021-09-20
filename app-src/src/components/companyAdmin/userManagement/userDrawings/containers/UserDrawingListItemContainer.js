@@ -28,21 +28,21 @@ const UserDrawingListItemContainer = ({
 
     componentDidMount(() => {
         fetchSingleSite(drawing.siteID).then(({ payload }) => {
-            if (payload.name) {
+            if (payload && payload.name) {
                 setSiteName(payload.name);
             }
         });
         // .catch(error => console.log(error));
 
         fetchSingleBuilding(drawing.buildingID).then(({ payload }) => {
-            if (payload.name) {
+            if (payload && payload.name) {
                 setBuildingName(payload.name);
             }
         });
         // .catch(error => console.log(error));
 
         fetchSingleFloor(drawing.floorID).then(({ payload }) => {
-            if (payload.name) {
+            if (payload && payload.name) {
                 setFloorName(payload.name);
             }
         });

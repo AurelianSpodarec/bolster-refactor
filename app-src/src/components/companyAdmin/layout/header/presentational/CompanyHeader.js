@@ -18,60 +18,69 @@ const Header = ({
     totalRequests,
     showModal,
     shouldRestrictPayments,
+    isCompanySelection,
+    companyUserID,
 }) => (
-    <header id="page-header" style={{ borderColor: companyColour }}>
+    <header
+        id="page-header"
+        style={{ borderColor: companyUserID ? companyColour : defaultStyles.colourCode }}
+    >
         <div className="container">
             {/*** company logo ***/}
             <div className="logo">
-                {!!company.id && (
+                {!companyUserID ? (
                     <Link to="/company">
-                        <img
-                            alt={`logo of ${company.name}`}
-                            src={
-                                company.logoFile
-                                    ? `${FILE_STORAGE_URL}/${company.logoFile}`
-                                    : defaultStyles.logoFile
-                            }
-                        />
+                        <img alt="logo of Bolster Systems" src={defaultStyles.logoFile} />
                     </Link>
+                ) : (
+                    <>
+                        {!!company.id && (
+                            <Link to="/company">
+                                <img
+                                    alt={`logo of ${company.name}`}
+                                    src={
+                                        company.logoFile
+                                            ? `${FILE_STORAGE_URL}/${company.logoFile}`
+                                            : defaultStyles.logoFile
+                                    }
+                                />
+                            </Link>
+                        )}
+                    </>
                 )}
             </div>
-
-            {/*** search box ***/}
-            <div className="search-area">
-                <SearchContainer />
-            </div>
-
-            {/*** account area ***/}
-            <div className="account-area">
-                {/*** notifications ***/}
-                <div className="notifications">
-                    {!shouldRestrictPayments && (
-                        <button className="item main" onClick={showModal}>
-                            {company.parentalType === PARENTAL_TYPES.NONE && (
-                                <span className="number green">{totalCredits}</span>
-                            )}
-                            <i className="far fa-money-bill-alt fa-fw" />
-                        </button>
-                    )}
-                    <HeaderNotificationsContainer />
-                    <Link to="/company/message-centre" className="item main">
-                        {!!unreadMessageCount && (
-                            <span className="number">{unreadMessageCount}</span>
-                        )}
-                        <i className="far fa-envelope fa-fw" />
-                    </Link>
-                    <Link to="/company/tools/transfer-requests" className="item main">
-                        {!!totalRequests && <span className="number">{totalRequests}</span>}
-                        <i className="far fa-exchange-alt fa-fw" />
-                    </Link>
+            {!isCompanySelection && (
+                <div className="search-area">
+                    <SearchContainer />
                 </div>
+            )}
 
-                {/*** profile ***/}
-                <HeaderProfileContainer />
+            <div className="account-area">
+                {!isCompanySelection && (
+                    <div className="notifications">
+                        {!shouldRestrictPayments && (
+                            <button className="item main" onClick={showModal}>
+                                {company.parentalType === PARENTAL_TYPES.NONE && (
+                                    <span className="number green">{totalCredits}</span>
+                                )}
+                                <i className="far fa-money-bill-alt fa-fw" />
+                            </button>
+                        )}
+                        <HeaderNotificationsContainer />
+                        <Link to="/company/message-centre" className="item main">
+                            {!!unreadMessageCount && (
+                                <span className="number">{unreadMessageCount}</span>
+                            )}
+                            <i className="far fa-envelope fa-fw" />
+                        </Link>
+                        <Link to="/company/tools/transfer-requests" className="item main">
+                            {!!totalRequests && <span className="number">{totalRequests}</span>}
+                            <i className="far fa-exchange-alt fa-fw" />
+                        </Link>
+                    </div>
+                )}
 
-                {/*** recent updates ***/}
-                {/* <RecentUpdatesContainer /> */}
+                <HeaderProfileContainer isCompanySelection={isCompanySelection} />
             </div>
             <div className="clear" />
         </div>

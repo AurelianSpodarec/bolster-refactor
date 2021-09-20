@@ -42,7 +42,7 @@ class AddPinHistoryContainer extends Component {
             fetchSingleDrawing,
         } = this.props;
 
-        fetchSinglePin(pinID).then(
+        fetchSinglePin(pinID, true).then(
             ({
                 payload: {
                     pin: { drawingID },

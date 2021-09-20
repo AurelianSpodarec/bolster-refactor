@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import fetchCompanyUsers from 'actions/superAdmin/users/async/fetchCompanyUsers';
@@ -8,8 +8,10 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { ADMIN_CREATE_COMPANY_ADMIN } from 'constants/shared/modalTypes';
+import { ADMIN_CREATE_COMPANY_ADMIN, ADMIN_EDIT_COMPANY_OWNER } from 'constants/shared/modalTypes';
+
 import PageSelector from 'components/shared/pagination/presentational/pageSelector';
+import fetchCompanyAdminUsers from 'actions/superAdmin/users/async/fetchCompanyAdminUsers';
 
 const CompanyUsersTableContainer = ({
     users,
@@ -21,11 +23,15 @@ const CompanyUsersTableContainer = ({
     showModal,
 }) => {
     const dispatch = useDispatch();
+    const id = match.params.id;
 
     const setPage = nextPage => {
-        const id = match.params.id;
         dispatch(fetchCompanyUsers(id, nextPage));
     };
+
+    useEffect(() => {
+        dispatch(fetchCompanyAdminUsers(id));
+    }, []);
 
     return (
         <BlockContainer>
@@ -39,6 +45,14 @@ const CompanyUsersTableContainer = ({
                 </BlockHeading>
             </div>
             <BlockButtonWrapper additionalClasses="no-margin" sizeClasses="size-lg-6 size-md-12">
+                <button
+                    className="button yellow"
+                    onClick={handleShowEditCompanyOwnerModal}
+                    type="button"
+                    disabled={isFetching}
+                >
+                    <i className="fa fa-edit" /> Edit Company Owner
+                </button>
                 <button className=" button green" onClick={handleShowAddModal} type="button">
                     <i className="fa fa-plus" /> Add Company Admin
                 </button>
@@ -53,6 +67,12 @@ const CompanyUsersTableContainer = ({
     function handleShowAddModal() {
         const companyID = match.params.id;
         showModal(ADMIN_CREATE_COMPANY_ADMIN, { companyID });
+    }
+
+    function handleShowEditCompanyOwnerModal() {
+        const companyID = match.params.id;
+
+        showModal(ADMIN_EDIT_COMPANY_OWNER, { companyID, users });
     }
 };
 
@@ -75,6 +95,7 @@ const mapStateToProps = ({
         'Linked Device?',
         'App Version',
         'Device Type',
+        'Is e-mail confirmed?',
         '',
     ],
 });

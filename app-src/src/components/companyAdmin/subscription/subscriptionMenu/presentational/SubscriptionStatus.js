@@ -25,7 +25,11 @@ const SubscriptionStatus = ({
     shouldRestrictPayments,
     hadPendingProforma,
     isLatest,
+    isFirst,
 }) => {
+    const topMessage = isFirst
+        ? 'To complete the registration process, please select the services and drawing credits you require. If you are paying by card you will also need to add a card below. '
+        : 'You have no subscription, please add a service to subscribe and gain access to the site.';
     if (shouldRestrictPayments)
         return (
             <div className="size-lg-12">
@@ -69,7 +73,10 @@ const SubscriptionStatus = ({
                             <p className="info-message warning" style={{ marginTop: '15px' }}>
                                 There is an outstanding auto-renew invoice. Since you{"'"}re set to
                                 auto-renewal & pay by card, we will automatically attempt to take
-                                payment before your renewal date.
+                                payment before your renewal date. Your renewal date is{' '}
+                                <strong>
+                                    <DateTimeContainer date={endOn} />
+                                </strong>
                             </p>
                         )}
 
@@ -105,10 +112,7 @@ const SubscriptionStatus = ({
                     </p>
                 )
             ) : (
-                <p className="size-lg-12">
-                    You have no subscription, please add a service to subscribe and gain access to
-                    the site.
-                </p>
+                <p className="size-lg-12">{topMessage}</p>
             )}
         </div>
     );

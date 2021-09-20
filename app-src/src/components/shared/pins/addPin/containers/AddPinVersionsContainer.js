@@ -3,42 +3,40 @@ import { connect } from 'react-redux';
 import AddPinVersions from '../presentational/AddPinVersions';
 
 const AddPinVersionsContainer = ({
-     selectedVersion, 
-     template, 
-     isHistory, 
-     isSameTemplate, 
-     pinAnswersByGroupKey, 
-     dropdownOptionsByType, 
-     oldAnswersByNameObj,
-     latestPinHistory,
-}) => 
-    (
-        <AddPinVersions
-            selectedVersion={selectedVersion}
-            isHistory={isHistory}
-            isSameTemplate={isSameTemplate}
-            pinAnswersByGroupKey={pinAnswersByGroupKey}
-            dropdownOptionsByType={dropdownOptionsByType}
-            oldAnswersByNameObj={oldAnswersByNameObj}
-            template={template}
-            latestPinHistory={latestPinHistory}
-        />
-    );
-
+    selectedVersion,
+    template,
+    isHistory,
+    isSameTemplate,
+    pinAnswersByGroupKey,
+    dropdownOptionsByType,
+    oldAnswersByNameObj,
+    latestPinHistory,
+}) => (
+    <AddPinVersions
+        selectedVersion={selectedVersion}
+        isHistory={isHistory}
+        isSameTemplate={isSameTemplate}
+        pinAnswersByGroupKey={pinAnswersByGroupKey}
+        dropdownOptionsByType={dropdownOptionsByType}
+        oldAnswersByNameObj={oldAnswersByNameObj}
+        template={template}
+        latestPinHistory={latestPinHistory}
+    />
+);
 
 const mapStateToProps = (
     {
         companyAdmin: {
             templateVersionsReducer: { versions },
-            templatesReducer: { templates }
-        }
+            templatesReducer: { templates },
+        },
     },
-    ownProps
+    ownProps,
 ) => {
     const template = templates[ownProps.selectedTemplateID] || {};
     return {
         selectedVersion: versions[template.latestVersionID] || {},
-        template
+        template,
     };
 };
 

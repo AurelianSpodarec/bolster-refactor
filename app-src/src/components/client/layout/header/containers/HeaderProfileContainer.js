@@ -9,7 +9,7 @@ import { toggleMobileMenu } from 'actions/shared/mobile/sync/toggleMobileMenu';
 
 class HeaderProfileContainer extends Component {
     state = {
-        dropdownVisible: false
+        dropdownVisible: false,
     };
 
     render() {
@@ -31,18 +31,13 @@ class HeaderProfileContainer extends Component {
 
     handleClick = () => {
         if (!this.state.dropdownVisible) {
-            // attach/remove event handler
             document.addEventListener('click', this.handleOutsideClick, false);
         } else {
-            document.removeEventListener(
-                'click',
-                this.handleOutsideClick,
-                false
-            );
+            document.removeEventListener('click', this.handleOutsideClick, false);
         }
 
         this.setState(prevState => ({
-            dropdownVisible: !prevState.dropdownVisible
+            dropdownVisible: !prevState.dropdownVisible,
         }));
     };
 
@@ -68,29 +63,23 @@ class HeaderProfileContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: {
-            companySettings: { name }
-        }
+            companySettings: { name },
+        },
     },
     superAdmin: { companyReportsReducer },
     shared: {
         profileReducer,
-        mobileReducer: { menuOpen }
-        // decodeJWTReducer: {
-        //     jwtData: {}
-        // }
-    }
+        mobileReducer: { menuOpen },
+    },
 }) => ({
     companyName: name,
     profile: profileReducer.profile || {},
-    companyReportsLength: Object.values(
-        companyReportsReducer.companyReports
-    ).filter(item => item.state === GENERATION_STATE_VAL.WAITING).length,
-    menuOpen
+    companyReportsLength: Object.values(companyReportsReducer.companyReports).filter(
+        item => item.state === GENERATION_STATE_VAL.WAITING,
+    ).length,
+    menuOpen,
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        { logout, toggleMobileMenu }
-    )(HeaderProfileContainer)
+    connect(mapStateToProps, { logout, toggleMobileMenu })(HeaderProfileContainer),
 );

@@ -31,6 +31,7 @@ const UserTableContainer = ({
                     'Role',
                     'Access granted by',
                     'Created On',
+                    'Is e-mail confirmed?',
                     '',
                 ]}
                 isFetching={isFetching}

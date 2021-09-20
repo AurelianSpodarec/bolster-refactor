@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PinSection from '../presentational/PinSection';
 import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
-import { componentDidMount } from 'helpers/generic';
 
 const PinSectionsContainer = ({ pinHistory, drawingID }) => {
     const dispatch = useDispatch();
@@ -13,11 +12,11 @@ const PinSectionsContainer = ({ pinHistory, drawingID }) => {
     const relevantSections = sections
         .filter(({ templateVersionID }) => templateVersionID === pinHistory.templateVersionID)
         .sort((a, b) => a.sort - b.sort);
-
-    componentDidMount(() => {
-        dispatch(fetchDrawingDropdownOptions(drawingID));
-    });
-
+    useEffect(() => {
+        if (drawingID) {
+            dispatch(fetchDrawingDropdownOptions(drawingID));
+        }
+    }, [drawingID]);
     return <PinSection sections={relevantSections} pinHistory={pinHistory} />;
 };
 

@@ -7,14 +7,12 @@ import { connect } from 'react-redux';
 import ApprovedCompaniesFilters from '../presentational/ApprovedCompaniesFilters';
 import updateApprovedCompaniesSort from 'actions/companyAdmin/approvedCompanies/sync/updateApprovedCompaniesSort';
 
-// TODO: add filters
-
 const ApprovedCompaniesFiltersContainer = ({
     filters: { name, serviceIDs },
     sort,
     updateApprovedCompaniesFilters,
     updateApprovedCompaniesSort,
-    services
+    services,
 }) => {
     const handleChange = (name, value) => {
         updateApprovedCompaniesFilters(name, value);
@@ -26,12 +24,12 @@ const ApprovedCompaniesFiltersContainer = ({
 
     const sortOptions = [
         { label: 'A - Z', value: 'A - Z' },
-        { label: 'Z - A', value: 'Z - A' }
+        { label: 'Z - A', value: 'Z - A' },
     ];
 
     const serviceOpts = services.map(({ id, name }) => ({
         value: id,
-        label: name
+        label: name,
     }));
 
     return (
@@ -50,12 +48,12 @@ const ApprovedCompaniesFiltersContainer = ({
 const mapStateToProps = ({
     companyAdmin: {
         approvedCompaniesReducer: { filters, sort },
-        servicesReducer: { services }
-    }
+        servicesReducer: { services },
+    },
 }) => ({
     filters,
     sort,
-    services: Object.values(services)
+    services: Object.values(services),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -64,10 +62,7 @@ const mapDispatchToProps = dispatch => ({
     },
     updateApprovedCompaniesSort: sort => {
         dispatch(updateApprovedCompaniesSort(sort));
-    }
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ApprovedCompaniesFiltersContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ApprovedCompaniesFiltersContainer);

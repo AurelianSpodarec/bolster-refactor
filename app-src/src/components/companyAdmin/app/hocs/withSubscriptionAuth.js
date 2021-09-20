@@ -4,12 +4,11 @@ import { Redirect } from 'react-router-dom';
 
 import { isEmpty } from 'helpers/generic';
 
-export default function(ProtectedComponent) {
+export default function (ProtectedComponent) {
     class WithSubscriptionAuth extends React.Component {
         render() {
-            const { hasInitiallyFetched } = this.props;
-
-            if (!hasInitiallyFetched) return null;
+            const { hasInitiallyFetched, isFetching } = this.props;
+            if (!hasInitiallyFetched || (!this._isSubscribed() && isFetching)) return null;
             if (!this._isSubscribed()) return <Redirect to="/company/subscription" />;
 
             return <ProtectedComponent {...this.props} />;
@@ -28,11 +27,12 @@ export default function(ProtectedComponent) {
 
     const mapStateToProps = ({
         companyAdmin: {
-            subscriptionsReducer: { hasInitiallyFetched, subscriptions },
+            subscriptionsReducer: { hasInitiallyFetched, subscriptions, isFetching },
         },
     }) => ({
         hasInitiallyFetched,
         subscriptions,
+        isFetching,
     });
     return connect(mapStateToProps)(WithSubscriptionAuth);
 }

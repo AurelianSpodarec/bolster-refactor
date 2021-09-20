@@ -49,6 +49,7 @@ const AddCompanyAdminModal = ({ handleChange, handleSubmit, hideModal, form }) =
                         name="password"
                         value={form.password}
                         type="password"
+                        includePasswordStrength
                         required
                     />
                 </Field>

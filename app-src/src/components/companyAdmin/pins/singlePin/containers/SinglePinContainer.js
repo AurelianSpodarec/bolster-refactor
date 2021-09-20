@@ -8,7 +8,7 @@ import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCo
 import SinglePin from '../presentational/SinglePin';
 import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
 import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
-import fetchAllPinsForDrawing from 'actions/companyAdmin/pins/async/fetchAllPinsForDrawing.js';
+import fetchAllPinsForDrawing from 'actions/companyAdmin/pins/async/fetchAllPinsForDrawing';
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import fetchZonesByDrawingID from 'actions/companyAdmin/zones/async/fetchZonesByDrawingID';
 
@@ -23,7 +23,7 @@ class SinglePinContainer extends Component {
     componentDidUpdate = prevProps => {
         const { pinId } = this.props;
 
-        if (prevProps.pinId !== pinId) {
+        if (prevProps.pinId !== pinId && pinId) {
             this.fetchPin();
         }
     };
@@ -43,13 +43,17 @@ class SinglePinContainer extends Component {
         fetchSinglePin(pinId)
             .then(({ payload }) => {
                 drawingID = payload.pin.drawingID;
-                fetchZonesByDrawingID(drawingID);
-                fetchPinsForInspectionLog(drawingID, pinId);
-                return fetchSinglePinData(pinId, drawingID);
+                if (drawingID) {
+                    fetchZonesByDrawingID(drawingID);
+                    fetchPinsForInspectionLog(drawingID, pinId);
+                    return fetchSinglePinData(pinId, drawingID);
+                }
             })
             .then(() => {
                 this.setState({ isLoading: false });
-                fetchPinsForInspectionLog(drawingID, pinId);
+                if (drawingID) {
+                    fetchPinsForInspectionLog(drawingID, pinId);
+                }
                 fetchAllOptionValues();
             });
     };

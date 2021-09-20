@@ -41,7 +41,7 @@ class Form extends Component {
 
     handleSubmit = e => {
         const { disabled } = this.state;
-        const { fieldErrors, showFieldErrors, errorsVisible, onSubmit } = this.props;
+        const { fieldErrors, showFieldErrors, errorsVisible, onSubmit ,onSubmitError } = this.props;
         e.persist();
         e.preventDefault();
 
@@ -49,6 +49,10 @@ class Form extends Component {
             if (!errorsVisible) {
                 showFieldErrors();
             }
+            if (onSubmitError){
+                onSubmitError();
+            }
+
             return;
         }
         if (disabled) return;

@@ -1,50 +1,43 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
 import ClientMenu from '../presentational/ClientMenu';
-import dismissMessages from 'actions/companyAdmin/messages/async/dismissMessages';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
 
-const ClientMenuContainer = ({ notifications, dismissMessages, companyID }) => {
+const ClientMenuContainer = ({ dismissMessages }) => {
+    const dispatch = useDispatch();
+    const { notifications, isCompanyAdmin } = useSelector(mapStateToProps);
     const unread = notifications.filter(({ isRead }) => !isRead);
     const unreadCount = unread.length;
+
     const dismissNotifications = () => {
-        dismissMessages(MESSAGE_TYPES.NOTIFICATION);
+        dispatch(dismissMessages(MESSAGE_TYPES.NOTIFICATION));
     };
 
     return (
         <ClientMenu
             unreadCount={unreadCount}
             dismissMessages={dismissNotifications}
-            isCompany={!!companyID}
+            isCompany={isCompanyAdmin}
         />
     );
 };
 
 const mapStateToProps = ({
     client: {
-        messagesReducer: { messages }
+        messagesReducer: { messages },
     },
     shared: {
         decodeJWTReducer: {
-            jwtData: { companyID }
-        }
-    }
+            jwtData: { isCompanyAdmin },
+        },
+    },
 }) => ({
     notifications: Object.values(messages)
         .filter(({ type }) => type === MESSAGE_TYPES.NOTIFICATION)
         .sort((a, b) => moment(b.createdAt) - moment(a.createdAt)),
-    companyID
+    isCompanyAdmin: isCompanyAdmin,
 });
 
-const mapDispatchToProps = dispatch => ({
-    dismissMessages: messageType => {
-        dispatch(dismissMessages(messageType));
-    }
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ClientMenuContainer);
+export default ClientMenuContainer;

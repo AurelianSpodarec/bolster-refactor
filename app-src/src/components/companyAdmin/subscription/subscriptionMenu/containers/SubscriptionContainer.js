@@ -24,7 +24,10 @@ class SubscriptionContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { users, companyUserID } = this.props;
+        const { users, companyUserID, companyID, history } = this.props;
+        if (!companyID) {
+            history.push('/company/company-selection');
+        }
         this.props.fetchSubscriptionData();
         if (users && users[companyUserID]) {
             this.setState({
@@ -70,11 +73,12 @@ const mapStateToProps = ({
     },
     shared: {
         decodeJWTReducer: {
-            jwtData: { companyUserID },
+            jwtData: { companyUserID, companyID },
         },
     },
 }) => ({
     companyUserID,
+    companyID,
     users,
     postSuccess:
         invoicesReducer.postSuccess ||
