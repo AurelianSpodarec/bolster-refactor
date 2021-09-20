@@ -15,7 +15,7 @@ export function getAuthHeader() {
 // getHeaders returns a header object to pass to api requests.
 export function getHeaders() {
     return {
-        headers: getAuthHeader(),
+        headers: { ...getAuthHeader(), platform: 'Web' },
     };
 }
 
