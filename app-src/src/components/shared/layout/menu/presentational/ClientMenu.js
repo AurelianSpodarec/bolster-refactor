@@ -13,7 +13,7 @@ const ClientMenu = ({ dismissMessages, unreadCount, isCompany }) => (
             </MenuItemContainer>
 
             <MenuHeader title="Reports" />
-            <MenuItemContainer onClick={dismissMessages} link="/client/reports">
+            <MenuItemContainer link="/client/reports">
                 {/* <MenuItemContainer link="/company/reports"> */}
                 {!!unreadCount && <span className="number">{unreadCount}</span>}
                 <i className="far fa-file-chart-pie fa-fw icon" />
