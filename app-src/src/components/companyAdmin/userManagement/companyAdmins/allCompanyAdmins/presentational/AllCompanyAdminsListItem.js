@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import { lowMemoryMessage, lowStorageMessage } from '../../../../../../constants/shared/messages';
 import { getStorageString, isLowMemory, isLowStorage } from 'helpers/generic';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
@@ -9,6 +8,7 @@ import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { boolToYesNo } from 'helpers/generic';
+import { getLowMemoryMessage } from 'constants/shared/messages';
 
 const AllCompanyAdminsListItem = ({
     user,
@@ -29,9 +29,9 @@ const AllCompanyAdminsListItem = ({
 }) => {
     const history = useHistory();
 
-    const isMemoryLow = user.deviceRAM && isLowMemory(user.deviceRAM);
-    const isStorageLow = user.physicalStorageTotal && isLowStorage(user.physicalStorageAvailable);
-    const isRowRed = isMemoryLow || isStorageLow || showNotUpsyncedRecentlyWarning || drawingLimitMaxed;
+    const lowMemMessage = getLowMemoryMessage(user.deviceRAM, user.physicalStorageAvailable);
+
+    const isRowRed = lowMemMessage !== null || showNotUpsyncedRecentlyWarning || drawingLimitMaxed;
     const upsyncedMessage = tooltipDate
         ? `This operative has not upsynced in ${tooltipDate} days`
         : 'This operative has never upsynced.';
@@ -46,9 +46,8 @@ const AllCompanyAdminsListItem = ({
                     <TooltipContainer
                         htmlText={`${
                             showNotUpsyncedRecentlyWarning ? `<p>${upsyncedMessage}</p>` : ''
-                        } ${isMemoryLow ? `<p>${lowMemoryMessage}</p>` : ''} ${
-                            isStorageLow ? `<p>${lowStorageMessage}</p>` : ''
-                        } ${
+                        } ${lowMemMessage ? `<p>${lowMemMessage}</p>` : ''} 
+                        ${
                             drawingLimitColour === 'red'
                                 ? '<p>This operative has reached the maximum number of drawings.</p>'
                                 : ''

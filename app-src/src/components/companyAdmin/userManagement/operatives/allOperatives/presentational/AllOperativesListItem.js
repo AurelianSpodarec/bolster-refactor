@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import { lowMemoryMessage, lowStorageMessage } from '../../../../../../constants/shared/messages';
-import { getStorageString, isLowMemory, isLowStorage } from 'helpers/generic';
+import { getStorageString } from 'helpers/generic';
+import { getLowMemoryMessage } from 'constants/shared/messages';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
@@ -26,9 +26,9 @@ const AllOperativesListItem = ({
     isDisabled,
 }) => {
     const history = useHistory();
-    const isMemoryLow = user.deviceRAM && isLowMemory(user.deviceRAM);
-    const isStorageLow = user.physicalStorageTotal && isLowStorage(user.physicalStorageAvailable);
-    const isRowRed = isMemoryLow || isStorageLow || showNotUpsyncedRecentlyWarning || drawingLimitMaxed;
+
+    const lowMemMessage = getLowMemoryMessage(user.deviceRAM, user.physicalStorageAvailable);
+    const isRowRed = !!lowMemMessage || showNotUpsyncedRecentlyWarning || drawingLimitMaxed;
     const upsyncedMessage = tooltipDate
         ? `This operative has not upsynced in ${tooltipDate} days`
         : 'This operative has never upsynced.';
@@ -43,9 +43,7 @@ const AllOperativesListItem = ({
                     <TooltipContainer
                         htmlText={`${
                             showNotUpsyncedRecentlyWarning ? `<p>${upsyncedMessage}</p>` : ''
-                        } ${isMemoryLow ? `<p>${lowMemoryMessage}</p>` : ''} ${
-                            isStorageLow ? `<p>${lowStorageMessage}</p>` : ''
-                        } ${
+                        } ${lowMemMessage ? `<p>${lowMemMessage}</p>` : ''} ${
                             drawingLimitColour === 'red'
                                 ? '<p>This operative has reached the maximum number of drawings.</p>'
                                 : ''
