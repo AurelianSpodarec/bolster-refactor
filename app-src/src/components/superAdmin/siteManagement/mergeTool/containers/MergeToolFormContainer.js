@@ -235,7 +235,6 @@ const mapDispatchToProps = {
     mergeDrawings,
     showModal,
     fetchPinsForCompany,
-    postCSVMergeTool,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MergeToolFormContainer);
