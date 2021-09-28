@@ -5,6 +5,8 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import BlockContainerFetch from 'components/shared/generic/block/containers/BlockContainerFetch';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
+import MergeToolCSVUploader from 'components/shared/generic/form/containers/MergeToolCSVUploader';
 
 const MergeToolBoxes = ({
     drawingsOptions,
@@ -23,6 +25,7 @@ const MergeToolBoxes = ({
     setSelectedPins,
     isFetchingPins,
     pinsError,
+    handleCSVUpload,
 }) =>
     fetchingDrawings ? (
         <Loading message="Fetching drawings..." />
@@ -52,6 +55,23 @@ const MergeToolBoxes = ({
                     />
                 </Field>
             </div>
+
+            {!!sourceDrawingID && (
+                <div className="size-lg-12">
+                    <Field name="Upload PinIDs">
+                        <BlockContainerFetch
+                            isFetching={isFetchingPins}
+                            error={pinsError}
+                            noWhiteBackground
+                        >
+                            <MergeToolCSVUploader
+                                handleChange={handleCSVUpload}
+                                sourceDrawingID={sourceDrawingID}
+                            />
+                        </BlockContainerFetch>
+                    </Field>
+                </div>
+            )}
 
             <div className="size-lg-12">
                 {!!sourceDrawingID && (

@@ -8,6 +8,9 @@ import mergeDrawings from 'actions/superAdmin/mergeTool/async/mergeDrawings';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import fetchPinsForCompany from 'actions/superAdmin/mergeTool/async/fetchPinsForCompany';
 import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
+import { ADMIN_API_URL } from 'config';
+import { getHeaders } from 'helpers/api';
+import { rest } from 'lodash';
 const defaultPoints = { A: null, B: null };
 
 const MergeToolFormContainer = ({
@@ -77,6 +80,7 @@ const MergeToolFormContainer = ({
             isPosting={isPosting}
             isFetchingPins={isFetchingPins}
             pinsError={pinsError}
+            handleCSVUpload={handleCSVUpload}
         />
     );
 
@@ -168,6 +172,24 @@ const MergeToolFormContainer = ({
             },
         };
         mergeDrawings(postBody);
+    }
+
+    function handleCSVUpload(sourceDrawingID, file) {
+        fetch(`${ADMIN_API_URL}/drawings/pins/${sourceDrawingID}`, {
+            ...getHeaders(),
+            method: 'POST',
+            body: file,
+        }).then(({ data }) => {
+            console.log('res', data);
+            const pinOptions = _getPinsOptionsList().map(item => item.id);
+            const filteredPins =
+                data && Array.isArray(data)
+                    ? data.filter(item => {
+                          return !selectedPins.includes(item) && pinOptions.includes(item);
+                      })
+                    : [];
+            setSelectedPins([...selectedPins, ...filteredPins]);
+        });
     }
 
     function resetState() {
