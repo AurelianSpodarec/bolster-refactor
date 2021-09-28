@@ -175,10 +175,18 @@ const MergeToolFormContainer = ({
     }
 
     function handleCSVUpload(sourceDrawingID, file) {
+        const body = {
+            File: file,
+        };
+        console.log('body', body);
+        const headers = getHeaders().headers;
         fetch(`${ADMIN_API_URL}/drawings/pins/${sourceDrawingID}`, {
-            ...getHeaders(),
+            headers: {
+                ...headers,
+                'Content-Type': 'multipart/form-data; charset=utf-8;',
+            },
             method: 'POST',
-            body: file,
+            body,
         }).then(({ data }) => {
             console.log('res', data);
             const pinOptions = _getPinsOptionsList().map(item => item.id);
