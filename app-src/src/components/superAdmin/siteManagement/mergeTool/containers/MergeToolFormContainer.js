@@ -11,6 +11,7 @@ import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 import { rest } from 'lodash';
+import axios from 'axios';
 const defaultPoints = { A: null, B: null };
 
 const MergeToolFormContainer = ({
@@ -178,26 +179,21 @@ const MergeToolFormContainer = ({
         const body = {
             File: file,
         };
-        console.log('body', body);
-        const headers = getHeaders().headers;
-        fetch(`${ADMIN_API_URL}/drawings/pins/${sourceDrawingID}`, {
-            headers: {
-                ...headers,
-                'Content-Type': 'multipart/form-data; charset=utf-8;',
-            },
-            method: 'POST',
-            body,
-        }).then(({ data }) => {
-            console.log('res', data);
-            const pinOptions = _getPinsOptionsList().map(item => item.id);
-            const filteredPins =
-                data && Array.isArray(data)
-                    ? data.filter(item => {
-                          return !selectedPins.includes(item) && pinOptions.includes(item);
-                      })
-                    : [];
-            setSelectedPins([...selectedPins, ...filteredPins]);
-        });
+        const headers = {
+            headers: { ...getHeaders().headers, 'Content-Type': 'multipart/form-data' },
+        };
+        axios
+            .post(`${ADMIN_API_URL}/drawings/pins/${sourceDrawingID}`, body, headers)
+            .then(({ data }) => {
+                const pinOptions = _getPinsOptionsList().map(item => item.id);
+                const filteredPins =
+                    data && Array.isArray(data)
+                        ? data.filter(({ id }) => {
+                              return !selectedPins.includes(id) && pinOptions.includes(id);
+                          })
+                        : [];
+                setSelectedPins([...selectedPins, ...filteredPins]);
+            });
     }
 
     function resetState() {
