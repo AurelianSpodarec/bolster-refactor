@@ -269,11 +269,7 @@ export default function (ProtectedComponent) {
                 }
                 case FILTERS: {
                     questionFilters = fields.map(
-                        ({ 
-                            selectedQuestions, 
-                            questionValues = [], 
-                            selectedValues = [] 
-                        }) => {
+                        ({ selectedQuestions, questionValues = [], selectedValues = [] }) => {
                             let values = questionValues.length ? questionValues : selectedValues;
 
                             return {
@@ -320,7 +316,7 @@ export default function (ProtectedComponent) {
                 companyUserIDs,
                 serviceID: serviceIDs,
                 templateID: templateID || null,
-                status: status || null,
+                status: status ? status.map(item => +item) : null,
                 pinIDs: selectedPinIDs,
                 excludedPinIDs: Object.values(excludedPinIDs),
                 questionFilters: questionFilters,
