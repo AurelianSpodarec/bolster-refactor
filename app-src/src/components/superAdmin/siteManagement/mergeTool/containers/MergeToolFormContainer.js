@@ -10,8 +10,8 @@ import fetchPinsForCompany from 'actions/superAdmin/mergeTool/async/fetchPinsFor
 import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
-import { rest } from 'lodash';
 import axios from 'axios';
+
 const defaultPoints = { A: null, B: null };
 
 const MergeToolFormContainer = ({
@@ -53,6 +53,7 @@ const MergeToolFormContainer = ({
     componentDidUpdate(handleError, [error]);
     componentDidUpdate(handleSuccess, [postSuccess]);
     componentDidUpdate(handleChangeSourceDrawing, [sourceDrawingID]);
+    console.log('selectedPins', selectedPins);
 
     return (
         <MergeToolForm
@@ -176,22 +177,23 @@ const MergeToolFormContainer = ({
     }
 
     function handleCSVUpload(sourceDrawingID, file) {
-        const body = {
-            File: file,
-        };
-        const headers = {
-            headers: { ...getHeaders().headers, 'Content-Type': 'multipart/form-data' },
-        };
+        const data = new FormData();
+
+        data.append('File', new Blob([file], { type: 'text/csv' }));
+
         axios
-            .post(`${ADMIN_API_URL}/drawings/pins/${sourceDrawingID}`, body, headers)
+            .post(`${ADMIN_API_URL}/drawings/pins/${sourceDrawingID}`, data, getHeaders())
             .then(({ data }) => {
-                const pinOptions = _getPinsOptionsList().map(item => item.id);
+                const pinOptions = _getPinsOptionsList().map(item => item.value);
                 const filteredPins =
                     data && Array.isArray(data)
-                        ? data.filter(({ id }) => {
-                              return !selectedPins.includes(id) && pinOptions.includes(id);
-                          })
+                        ? data
+                              .filter(({ id }) => {
+                                  return !selectedPins.includes(id) && pinOptions.includes(id);
+                              })
+                              .map(({ id }) => id)
                         : [];
+
                 setSelectedPins([...selectedPins, ...filteredPins]);
             });
     }
@@ -233,6 +235,7 @@ const mapDispatchToProps = {
     mergeDrawings,
     showModal,
     fetchPinsForCompany,
+    postCSVMergeTool,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MergeToolFormContainer);
