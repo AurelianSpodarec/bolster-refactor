@@ -23,12 +23,12 @@ const data = [
     { hours: 4, pins: 101, date: dayjs('10-03-2021') },
 ];
 
-const WeekTable = () => {
+const WeekTable = ({ selected, setSelected }) => {
     return (
         <Table headers={days}>
             <tr>
                 {data.map(({ hours, pins, date }, i) => (
-                    <td key={i}>
+                    <td key={i} onClick={() => setSelected(i)}>
                         <div className="date">
                             <p>{date.date().toString().padStart(2, '0')}</p>
                             <i class="fal fa-circle" />
@@ -39,6 +39,7 @@ const WeekTable = () => {
                                 {pins} Pins
                             </Tab>
                         </div>
+                        {selected === i && <div className="film" />}
                     </td>
                 ))}
                 <td key={-1}>

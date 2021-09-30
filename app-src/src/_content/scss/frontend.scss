@@ -3579,6 +3579,21 @@ $back-to-top-height: 35px;
                 font-size: 200%;
                 font-weight: normal;
 
+                cursor: pointer;
+
+                .film {
+                    border: 2px solid $blue;
+                    display: block;
+                }
+
+                .film {
+                    position: absolute;
+                    display: block;
+                    pointer-events: none;
+                    inset: 0;
+                    background-color: rgba(66, 200, 255, 0.2);
+                }
+
                 &:last-of-type {
                     border-style: none;
                 }
@@ -3616,6 +3631,7 @@ $back-to-top-height: 35px;
 
         .tab {
             display: flex;
+            align-items: center;
             gap: 8px;
 
             padding: 6px 16px;
