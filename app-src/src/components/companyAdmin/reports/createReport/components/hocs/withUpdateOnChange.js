@@ -106,7 +106,11 @@ export default function (ProtectedComponent) {
                     }
 
                     // status
-                    if (status && +pin.latestStatus !== +status) {
+                    if (
+                        status &&
+                        !isEmpty(status) &&
+                        !status.some(item => +item === +pin.latestStatus)
+                    ) {
                         return NO;
                     }
                     // services
