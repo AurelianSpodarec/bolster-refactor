@@ -3496,6 +3496,140 @@ $back-to-top-height: 35px;
     }
 }
 
+.timesheet-calender {
+    .controls {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        padding: 0 8px;
+        gap: 24px;
+
+        .nav-butons {
+            display: flex;
+            flex-direction: row;
+            gap: 32px;
+
+            button {
+                background-color: transparent;
+
+                &:hover > .far {
+                    color: $button-grey;
+
+                }
+
+                .far {
+                    font-size: 160%;
+                }
+            }
+        }
+
+        .date-range {
+            display: flex;
+            flex-direction: row;
+            gap: 16px;
+
+            p {
+                font-size: 200%;
+            }
+
+        }
+
+        .today-button {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            gap: 8px;
+
+            color: $dark-grey;
+            font-size: 160%;
+        
+            border-radius: 8px;
+
+            &:hover {
+                background-color: $light-grey-alt;
+            }
+
+            .far {
+                font-size: 160%;
+            }
+        }
+    }
+
+    .generic-table {
+        margin-top: 16px;
+        margin-left: -8px;
+        margin-bottom: -15px;;
+        width: calc(100% + 16px);
+
+        tr {
+            border-color: $light-grey-alt;
+            border-width: 1px;    
+
+            border-style: solid none none none;
+
+            th, td {
+                border-color: $light-grey-alt;
+                border-width: 1px;    
+                border-style: none solid none none;
+                width: 12.5%;
+
+                padding: 6px 8px;
+                font-size: 200%;
+                font-weight: normal;
+
+                &:last-of-type {
+                    border-style: none;
+                }
+
+                &:last-child {
+                    text-align: left;
+                }
+
+                .date {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    p {
+                        font-size: 100%;
+                    }
+
+                    .fal {
+                        font-size: 80%;
+                        color: $body-text;
+                    }
+
+                }
+            }
+        }
+
+        .tabs {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 120px;
+
+            margin-top: 8px;
+        }
+
+        .tab {
+            display: flex;
+            gap: 8px;
+
+            padding: 6px 16px;
+
+            background-color: $light-blue;
+            border-radius: 4px;;
+
+            p {
+                font-size: 90%;
+            }
+        }
+    }
+}
+
 
 @keyframes slidein-left {
     0% {
