@@ -11,7 +11,8 @@ const WeekTable = ({ week, selectedDate, timePeriod, onDaySelect, onWeekSelect }
                 {week.map(({ hours, pins, timestamp }, i) => (
                     <td key={i} onClick={() => onDaySelect(timestamp)}>
                         <div className="date">
-                            <p>{moment(timestamp).date().toString().padStart(2, '0')}</p>
+                            <p>{moment(timestamp).format('DD')}</p>
+                            <p className="full">{moment(timestamp).format('dddd DD')}</p>
                             <i class="fal fa-circle" />
                         </div>
                         <div className="tabs">

@@ -3505,7 +3505,7 @@ $back-to-top-height: 35px;
         padding: 0 8px;
         gap: 24px;
 
-        .nav-butons {
+        .nav-buttons {
             display: flex;
             flex-direction: row;
             gap: 32px;
@@ -3545,7 +3545,7 @@ $back-to-top-height: 35px;
             color: $dark-grey;
             font-size: 160%;
         
-            border-radius: 8px;
+            border-radius: 5px;
 
             &:hover {
                 background-color: $light-grey-alt;
@@ -3609,6 +3609,10 @@ $back-to-top-height: 35px;
 
                     p {
                         font-size: 100%;
+
+                        &.full {
+                            display: none;
+                        }
                     }
 
                     .fal {

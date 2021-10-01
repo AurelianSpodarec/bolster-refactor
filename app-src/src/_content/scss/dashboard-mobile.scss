@@ -711,4 +711,76 @@
     .area-filter {
         width: 35%;
     }
+
+    .timesheet-calender {
+
+        .controls {
+            justify-content: space-between;
+            gap: 0;
+            padding: 0;
+
+            .nav-buttons {
+                gap: 8px;
+
+                button {
+                    .far {
+                        font-size: 120%;
+                    }
+                }
+            }
+
+            .date-range {
+                gap: 8px;
+                p {
+                    flex-shrink: 1;
+                    font-size: 120%
+                }
+            }
+
+            .today-button {
+                gap: 4px;
+                padding: 4px;
+                font-size: 110%;
+                min-width: 0;
+            }
+        }
+    
+        .generic-table {
+            margin-top: 8px;
+
+            tr {
+                border: none;
+
+                td {
+                    width: 100%;
+                    border-style: solid none none solid;
+
+                    &:first-of-type {
+                        border-style: solid none none none;
+                    }
+
+                    .date {
+                        p {
+                            display: none;
+                            font-size: 100%;
+                            
+                            &.full {
+                                position: relative;
+                                display: inline;
+                                margin-right: 10px;
+                                text-align: center;
+                                width: 100%;
+                            }
+                        }
+
+                        .fal {
+                            position: absolute;
+                            right: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
+
