@@ -1,5 +1,5 @@
 import Table from 'components/shared/generic/tables/presentational/Table';
-import dayjs from 'dayjs';
+import moment from 'moment';
 import Tab from './Tab';
 
 const days = [
@@ -14,23 +14,55 @@ const days = [
 ];
 
 const data = [
-    { hours: 9, pins: 98, date: dayjs('09-27-2021') },
-    { hours: 6, pins: 87, date: dayjs('09-28-2021') },
-    { hours: 9, pins: 76, date: dayjs('09-29-2021') },
-    { hours: 12, pins: 56, date: dayjs('09-30-2021') },
-    { hours: 15, pins: 34, date: dayjs('10-01-2021') },
-    { hours: 10, pins: 34, date: dayjs('10-02-2021') },
-    { hours: 4, pins: 101, date: dayjs('10-03-2021') },
+    { hours: 9, pins: 98, timestamp: '2021-09-20' },
+    { hours: 9, pins: 98, timestamp: '2021-09-21' },
+    { hours: 9, pins: 98, timestamp: '2021-09-22' },
+    { hours: 9, pins: 98, timestamp: '2021-09-23' },
+    { hours: 9, pins: 98, timestamp: '2021-09-24' },
+    { hours: 9, pins: 98, timestamp: '2021-09-25' },
+    { hours: 9, pins: 98, timestamp: '2021-09-26' },
+
+    { hours: 9, pins: 98, timestamp: '2021-09-27' },
+    { hours: 6, pins: 87, timestamp: '2021-09-28' },
+    { hours: 9, pins: 76, timestamp: '2021-09-29' },
+    { hours: 12, pins: 56, timestamp: '2021-09-30' },
+    { hours: 15, pins: 34, timestamp: '2021-09-01' },
+    { hours: 10, pins: 34, timestamp: '2021-10-02' },
+    { hours: 4, pins: 101, timestamp: '2021-10-03' },
+
+    { hours: 9, pins: 98, timestamp: '2021-10-04' },
+    { hours: 6, pins: 87, timestamp: '2021-10-05' },
+    { hours: 9, pins: 76, timestamp: '2021-10-06' },
+    { hours: 12, pins: 56, timestamp: '2021-10-07' },
+    { hours: 15, pins: 34, timestamp: '2021-10-08' },
+    { hours: 10, pins: 34, timestamp: '2021-10-09' },
+    { hours: 4, pins: 101, timestamp: '2021-10-10' },
 ];
 
-const WeekTable = ({ selected, setSelected }) => {
+const getWeek = startDate => {
+    const start = moment(startDate);
+
+    const week = Array(7)
+        .fill(null)
+        .map((_day, i) => {
+            const date = moment(start).add(i, 'days');
+            const entry = data.find(({ timestamp }) => date.isSame(timestamp));
+            if (entry) return entry;
+            return { hours: 0, pins: 0, timestamp: date.format('YYYY-MM-DD') };
+        });
+
+    return week;
+};
+
+const WeekTable = ({ selected, setSelected, startDate }) => {
+    const week = getWeek(startDate);
     return (
         <Table headers={days}>
             <tr>
-                {data.map(({ hours, pins, date }, i) => (
-                    <td key={i} onClick={() => setSelected(i)}>
+                {week.map(({ hours, pins, timestamp }, i) => (
+                    <td key={i} onClick={() => setSelected(timestamp)}>
                         <div className="date">
-                            <p>{date.date().toString().padStart(2, '0')}</p>
+                            <p>{moment(timestamp).date().toString().padStart(2, '0')}</p>
                             <i class="fal fa-circle" />
                         </div>
                         <div className="tabs">
@@ -39,14 +71,14 @@ const WeekTable = ({ selected, setSelected }) => {
                                 {pins} Pins
                             </Tab>
                         </div>
-                        {selected === i && <div className="film" />}
+                        {selected === timestamp && <div className="film" />}
                     </td>
                 ))}
                 <td key={-1}>
                     <div className="date">
                         <p>
-                            {data[0].date.date().toString().padStart(2, '0')} -{' '}
-                            {data[6].date.date().toString().padStart(2, '0')}
+                            {moment(data[0].timestamp).date().toString().padStart(2, '0')} -{' '}
+                            {moment(data[6].timestamp).date().toString().padStart(2, '0')}
                         </p>
                         <i class="fal fa-circle" />
                     </div>
