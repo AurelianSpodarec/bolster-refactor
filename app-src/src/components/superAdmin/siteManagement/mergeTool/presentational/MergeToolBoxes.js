@@ -5,7 +5,6 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import BlockContainerFetch from 'components/shared/generic/block/containers/BlockContainerFetch';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
-import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import MergeToolCSVUploader from 'components/shared/generic/form/containers/MergeToolCSVUploader';
 
 const MergeToolBoxes = ({
@@ -26,6 +25,7 @@ const MergeToolBoxes = ({
     isFetchingPins,
     pinsError,
     handleCSVUpload,
+    csvError,
 }) =>
     fetchingDrawings ? (
         <Loading message="Fetching drawings..." />
@@ -67,6 +67,7 @@ const MergeToolBoxes = ({
                             <MergeToolCSVUploader
                                 handleChange={handleCSVUpload}
                                 sourceDrawingID={sourceDrawingID}
+                                csvError={csvError}
                             />
                         </BlockContainerFetch>
                     </Field>

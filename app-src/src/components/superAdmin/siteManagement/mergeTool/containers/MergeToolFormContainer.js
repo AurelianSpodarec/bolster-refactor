@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import fetchAllCompanies from 'actions/superAdmin/companies/async/fetchAllCompanies';
 import fetchDrawingsForCompany from 'actions/superAdmin/moveTool/async/fetchDrawingsForCompany';
-import { componentDidMount, componentDidUpdate, sortArrayByKeyAndOrder } from 'helpers/generic';
+import {
+    componentDidMount,
+    componentDidUpdate,
+    componentWillUnmount,
+    sortArrayByKeyAndOrder,
+} from 'helpers/generic';
 import MergeToolForm from '../presentational/MergeToolForm';
 import mergeDrawings from 'actions/superAdmin/mergeTool/async/mergeDrawings';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -11,6 +16,7 @@ import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 import axios from 'axios';
+import { isEmpty } from 'lodash';
 
 const defaultPoints = { A: null, B: null };
 
@@ -39,6 +45,7 @@ const MergeToolFormContainer = ({
     const [sourceDrawingPoints, setSourceDrawingPoints] = useState(defaultPoints);
     const [destDrawingPoints, setDestDrawingPoints] = useState(defaultPoints);
     const [selectedPins, setSelectedPins] = useState([]);
+    const [csvError, setError] = useState(null);
 
     const areDrawingIDsSet = sourceDrawingID && destDrawingID;
     const areSourcePointsSet = !!sourceDrawingPoints.A && !!sourceDrawingPoints.B;
@@ -53,7 +60,8 @@ const MergeToolFormContainer = ({
     componentDidUpdate(handleError, [error]);
     componentDidUpdate(handleSuccess, [postSuccess]);
     componentDidUpdate(handleChangeSourceDrawing, [sourceDrawingID]);
-    console.log('selectedPins', selectedPins);
+
+    componentWillUnmount(() => setError(null));
 
     return (
         <MergeToolForm
@@ -83,6 +91,7 @@ const MergeToolFormContainer = ({
             isFetchingPins={isFetchingPins}
             pinsError={pinsError}
             handleCSVUpload={handleCSVUpload}
+            csvError={csvError}
         />
     );
 
@@ -176,14 +185,21 @@ const MergeToolFormContainer = ({
         mergeDrawings(postBody);
     }
 
-    function handleCSVUpload(sourceDrawingID, file) {
+    function handleCSVUpload(sourceDrawingID, file, event) {
+        setError(null);
         const data = new FormData();
+        console.log('file', file);
 
-        data.append('File', new Blob([file], { type: 'text/csv' }));
+        data.append('File', new Blob([file]));
 
         axios
             .post(`${ADMIN_API_URL}/drawings/pins/${sourceDrawingID}`, data, getHeaders())
             .then(({ data }) => {
+                if (!data || isEmpty(data)) {
+                    setError('No pins could be found from this csv. Please try again');
+                    return;
+                }
+
                 const pinOptions = _getPinsOptionsList().map(item => item.value);
                 const filteredPins =
                     data && Array.isArray(data)
@@ -195,6 +211,9 @@ const MergeToolFormContainer = ({
                         : [];
 
                 setSelectedPins([...selectedPins, ...filteredPins]);
+            })
+            .catch(err => {
+                setError(err.message);
             });
     }
 
