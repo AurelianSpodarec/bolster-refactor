@@ -1,12 +1,16 @@
 import React from 'react';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
-import { days } from '../../../../../../../constants/companyAdmin/timesheets';
+import { days } from 'constants/companyAdmin/timesheets';
 import moment from 'moment';
 import Tab from './Tab';
-import { TIME_PERIOD } from '../../../../../../../constants/companyAdmin/enums';
 
-const WeekTable = ({ week, selectedDate, timePeriod, onDaySelect, onWeekSelect }) => {
+import useWeek from './hooks/useWeek';
+import { TIME_PERIOD } from 'constants/companyAdmin/enums';
+
+const WeekTable = ({ startDate, selectedDate, timePeriod, onDaySelect, onWeekSelect }) => {
+    const week = useWeek(startDate);
+
     return (
         <Table headers={days}>
             <tr>
@@ -23,9 +27,8 @@ const WeekTable = ({ week, selectedDate, timePeriod, onDaySelect, onWeekSelect }
                                 {pins} Pins
                             </Tab>
                         </div>
-                        {selectedDate === timestamp && timePeriod === TIME_PERIOD.DAY && (
-                            <div className="film" />
-                        )}
+                        {moment(selectedDate).isSame(timestamp, 'day') &&
+                            timePeriod === TIME_PERIOD.DAY && <div className="film" />}
                     </td>
                 ))}
                 <td key={-1} onClick={() => onWeekSelect(week[0].timestamp)}>

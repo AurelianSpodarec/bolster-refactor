@@ -1,13 +1,8 @@
-import React, { useState } from 'react';
-
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-
-import OperativeTimesheet from '../presentational/OperativeTimesheet';
 import { TIME_PERIOD } from 'constants/companyAdmin/enums';
 import moment from 'moment';
+import { useState } from 'react';
 
-const OperativeTimesheetContainer = () => {
+const useOperativeTimesheet = () => {
     const thisWeek = moment(new Date()).startOf('week').add(1, 'days').toISOString();
     const [startDate, setStartDate] = useState(thisWeek);
 
@@ -16,7 +11,10 @@ const OperativeTimesheetContainer = () => {
 
     const onPrev = () => setStartDate(moment(startDate).subtract(7, 'days').toISOString());
     const onNext = () => setStartDate(moment(startDate).add(7, 'days').toISOString());
-    const onToday = () => setStartDate(thisWeek);
+    const onToday = () => {
+        setStartDate(thisWeek);
+        setSelectedDate(moment(new Date()).toISOString());
+    };
 
     const onDaySelect = timestamp => {
         setTimePeriod(TIME_PERIOD.DAY);
@@ -27,19 +25,16 @@ const OperativeTimesheetContainer = () => {
         setSelectedDate(timestamp);
     };
 
-    return (
-        <OperativeTimesheet
-            operativeName="##User Name##"
-            startDate={startDate}
-            selectedDate={selectedDate}
-            timePeriod={timePeriod}
-            onPrev={onPrev}
-            onNext={onNext}
-            onToday={onToday}
-            onDaySelect={onDaySelect}
-            onWeekSelect={onWeekSelect}
-        />
-    );
+    return {
+        startDate,
+        selectedDate,
+        timePeriod,
+        onPrev,
+        onNext,
+        onToday,
+        onDaySelect,
+        onWeekSelect,
+    };
 };
 
-export default withRouter(connect(null)(OperativeTimesheetContainer));
+export default useOperativeTimesheet;

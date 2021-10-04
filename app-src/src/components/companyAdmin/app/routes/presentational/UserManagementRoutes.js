@@ -17,7 +17,7 @@ import AddClientContainer from 'components/companyAdmin/userManagement/clients/s
 import EditCompanyUserEmail from 'components/companyAdmin/userManagement/shared/editCompanyUserEmail/EditCompanyUserEmail';
 import EditClientUserEmail from 'components/companyAdmin/userManagement/clients/singleClient/EditClientUserEmail';
 import DocumentsUploaderContainer from 'components/companyAdmin/userManagement/documentsUploader/containers/DocumentsUploaderContainer';
-import OperativeTimesheetContainer from 'components/companyAdmin/userManagement/operatives/operativeTimesheet/containers/OperativeTimesheetContainer';
+import OperativeTimesheet from 'components/companyAdmin/userManagement/operatives/operativeTimesheet/OperativeTimesheet';
 // import EditOperativePasswordContainer from 'components/companyAdmin/userManagement/operatives/editOperativePassword/containers/EditOperativePasswordContainer';
 
 const UserManagementRoutes = ({ base = '/company/users-management' }) => (
@@ -37,11 +37,7 @@ const UserManagementRoutes = ({ base = '/company/users-management' }) => (
             component={EditCompanyUserEmail}
         />
         <Route exact path={`${base}/operatives/create`} component={CreateOperative} />
-        <Route
-            exact
-            path={`${base}/operatives/:id/timesheet`}
-            component={OperativeTimesheetContainer}
-        />
+        <Route exact path={`${base}/operatives/:id/timesheet`} component={OperativeTimesheet} />
         <Route exact path={`${base}/operatives/:id/edit`} component={EditOperativeContainer} />
         <Route exact path={`${base}/operatives/:id/edit-email`} component={EditCompanyUserEmail} />
         <Route exact path={`${base}/operative/:id/drawings`} component={UserDrawingsContainer} />

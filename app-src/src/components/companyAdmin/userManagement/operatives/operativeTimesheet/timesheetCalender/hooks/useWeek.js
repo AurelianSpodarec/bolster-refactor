@@ -1,8 +1,6 @@
-import React from 'react';
-
 import moment from 'moment';
-import WeekTable from '../presentational/WeekTable';
 
+// Temporary dummy data
 const data = [
     { hours: 9, pins: 98, timestamp: '2021-09-20' },
     { hours: 9, pins: 98, timestamp: '2021-09-21' },
@@ -36,7 +34,7 @@ const getWeek = startDate => {
         .fill(null)
         .map((_day, i) => {
             const date = moment(start).add(i, 'days');
-            const entry = data.find(({ timestamp }) => date.isSame(timestamp));
+            const entry = data.find(({ timestamp }) => date.isSame(timestamp, 'day'));
             if (entry) return entry;
             return { hours: 0, pins: 0, timestamp: date.format('YYYY-MM-DD') };
         });
@@ -44,17 +42,8 @@ const getWeek = startDate => {
     return week;
 };
 
-const WeekTableContainer = ({ startDate, selectedDate, timePeriod, onDaySelect, onWeekSelect }) => {
-    const week = getWeek(startDate);
-    return (
-        <WeekTable
-            week={week}
-            selectedDate={selectedDate}
-            timePeriod={timePeriod}
-            onDaySelect={onDaySelect}
-            onWeekSelect={onWeekSelect}
-        />
-    );
+const useWeek = startDate => {
+    return getWeek(startDate);
 };
 
-export default WeekTableContainer;
+export default useWeek;
