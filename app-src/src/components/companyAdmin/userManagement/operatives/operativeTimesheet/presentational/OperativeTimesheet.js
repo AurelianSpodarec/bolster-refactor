@@ -1,8 +1,5 @@
 import React from 'react';
 
-import { TIME_PERIOD } from '../../../../../../constants/companyAdmin/enums';
-import moment from 'moment';
-import { useState } from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
