@@ -1,3 +1,5 @@
+import React from 'react';
+
 import ControlsContainer from '../containers/ControlsContainer';
 import WeekTableContainer from '../containers/WeekTableContainer';
 

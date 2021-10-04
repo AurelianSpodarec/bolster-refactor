@@ -1,3 +1,4 @@
+import React from 'react';
 import Controls from '../presentational/Controls';
 
 const ControlsContainer = ({ startDate, onPrev, onNext, onToday }) => {

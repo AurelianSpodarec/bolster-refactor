@@ -1,3 +1,5 @@
+import React from 'react';
+
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import moment from 'moment';
 
