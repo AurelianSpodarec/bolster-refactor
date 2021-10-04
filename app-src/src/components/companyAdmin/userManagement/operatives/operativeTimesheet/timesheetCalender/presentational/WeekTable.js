@@ -28,7 +28,7 @@ const WeekTable = ({ week, selectedDate, timePeriod, onDaySelect, onWeekSelect }
                         )}
                     </td>
                 ))}
-                <td key={-1} onClick={() => onWeekSelect()}>
+                <td key={-1} onClick={() => onWeekSelect(week[0].timestamp)}>
                     <div className="date">
                         <p>
                             {moment(week[0].timestamp).date().toString().padStart(2, '0')} -{' '}

@@ -4,6 +4,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 import TimesheetCalenderContainer from '../timesheetCalender/containers/TimesheetCalenderContainer';
+import BreakdownContainer from '../breakdownContainer/containers/BreakdownContainer';
 
 const OperativeTimesheet = ({
     operativeName,
@@ -33,7 +34,9 @@ const OperativeTimesheet = ({
                     onWeekSelect={onWeekSelect}
                 />
             </BlockContainer>
-            <BlockContainer></BlockContainer>
+            <BlockContainer>
+                <BreakdownContainer selectedDate={selectedDate} timePeriod={timePeriod} />
+            </BlockContainer>
         </>
     );
 };

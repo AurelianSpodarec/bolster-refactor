@@ -22,7 +22,10 @@ const OperativeTimesheetContainer = () => {
         setTimePeriod(TIME_PERIOD.DAY);
         setSelectedDate(timestamp);
     };
-    const onWeekSelect = () => setTimePeriod(TIME_PERIOD.WEEK);
+    const onWeekSelect = timestamp => {
+        setTimePeriod(TIME_PERIOD.WEEK);
+        setSelectedDate(timestamp);
+    };
 
     return (
         <OperativeTimesheet
