@@ -3581,9 +3581,8 @@ $back-to-top-height: 35px;
 
                 cursor: pointer;
 
-                .film {
-                    border: 2px solid $blue;
-                    display: block;
+                @include devices(smDesktop) {
+                    font-size: 140%;
                 }
 
                 .film {
@@ -3592,6 +3591,7 @@ $back-to-top-height: 35px;
                     pointer-events: none;
                     inset: 0;
                     background-color: rgba(66, 200, 255, 0.2);
+                    border: 2px solid $blue;
                 }
 
                 &:last-of-type {
@@ -3618,6 +3618,10 @@ $back-to-top-height: 35px;
                     .fal {
                         font-size: 80%;
                         color: $body-text;
+
+                        @include devices(smDesktop) {
+                            font-size: 60%;
+                        }
                     }
 
                 }
@@ -3628,7 +3632,6 @@ $back-to-top-height: 35px;
             display: flex;
             flex-direction: column;
             gap: 10px;
-            min-height: 120px;
 
             margin-top: 8px;
         }
@@ -3641,10 +3644,19 @@ $back-to-top-height: 35px;
             padding: 6px 16px;
 
             background-color: $light-blue;
-            border-radius: 4px;;
+            border-radius: 4px;
+
+            @include devices(smDesktop) {
+                padding: 2px 10px;
+                gap: 4px;
+            }
 
             p {
                 font-size: 90%;
+
+                @include devices(smDesktop) {
+                    font-size: 70%;
+                }
             }
         }
     }
