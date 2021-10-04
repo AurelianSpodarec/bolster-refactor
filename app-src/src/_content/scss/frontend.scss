@@ -3502,13 +3502,12 @@ $back-to-top-height: 35px;
         flex-direction: row;
         align-items: center;
 
-        padding: 0 8px;
-        gap: 24px;
+        gap: 16px;
 
         .nav-buttons {
             display: flex;
             flex-direction: row;
-            gap: 32px;
+            gap: 16px;
 
             button {
                 background-color: transparent;
@@ -3519,7 +3518,7 @@ $back-to-top-height: 35px;
                 }
 
                 .far {
-                    font-size: 160%;
+                    font-size: 110%;
                 }
             }
         }
@@ -3530,29 +3529,21 @@ $back-to-top-height: 35px;
             gap: 16px;
 
             p {
-                font-size: 200%;
+                font-size: 150%;
             }
 
         }
 
         .today-button {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-
-            gap: 8px;
-
             color: $dark-grey;
-            font-size: 160%;
-        
-            border-radius: 5px;
+            font-size: 130%;
 
             &:hover {
                 background-color: $light-grey-alt;
             }
 
             .far {
-                font-size: 160%;
+                font-size: 110%;
             }
         }
     }
@@ -3560,7 +3551,7 @@ $back-to-top-height: 35px;
     .generic-table {
         margin-top: 16px;
         margin-left: -8px;
-        margin-bottom: -15px;;
+        margin-bottom: -8px;
         width: calc(100% + 16px);
 
         tr {
@@ -3576,7 +3567,7 @@ $back-to-top-height: 35px;
                 width: 12.5%;
 
                 padding: 6px 8px;
-                font-size: 200%;
+                font-size: 150%;
                 font-weight: normal;
 
                 cursor: pointer;
@@ -3661,6 +3652,38 @@ $back-to-top-height: 35px;
         }
     }
 }
+
+.timesheet-breakdown {
+    .breakdown-tabs {
+        display: flex;
+        gap: 32px;
+        
+        border-width: 1px;
+        border-color: $darker-grey-alt;
+        border-style: none none solid none;
+        margin: 0 -15px;
+        padding: 0 15px;
+
+        .breakdown-tab {
+            background-color: transparent;
+            font-size: 150%;
+            margin-bottom: -1px;
+            padding: 0;
+            
+            border-color: transparent;
+            border-width: 2px;
+            border-style: none none solid none;
+
+            &.selected {
+                border-color: $blue;
+                color: $blue;
+            }
+        }
+    }
+
+}
+
+
 
 
 @keyframes slidein-left {

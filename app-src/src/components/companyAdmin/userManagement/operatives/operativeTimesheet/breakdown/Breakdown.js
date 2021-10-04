@@ -2,24 +2,43 @@ import React from 'react';
 
 import { TIME_PERIOD } from 'constants/companyAdmin/enums';
 import BreakdownLayout from './BreakdownLayout';
-import WeekBreakdown from './weekBreakdown/WeekBreakdown';
-import DayBreakdown from './dayBreakdown/DayBreakdown';
+import WeekBreakdownOverview from './weekBreakdown/WeekBreakdownOverview';
+import DayBreakdownOverview from './dayBreakdown/DayBreakdownOverview';
+import DayBreakdownLocation from './dayBreakdown/DayBreakdownLocation';
 
 const Breakdown = ({ selectedDate, timePeriod }) => {
-    let nodes = null;
-
     switch (timePeriod) {
         case TIME_PERIOD.WEEK:
-            nodes = <WeekBreakdown selectedDate={selectedDate} />;
-            break;
+            return (
+                <BreakdownLayout
+                    selectedDate={selectedDate}
+                    tabs={[
+                        {
+                            title: 'Overview',
+                            component: <WeekBreakdownOverview selectedDate={selectedDate} />,
+                        },
+                    ]}
+                />
+            );
         case TIME_PERIOD.DAY:
-            nodes = <DayBreakdown selectedDate={selectedDate} />;
-            break;
+            return (
+                <BreakdownLayout
+                    selectedDate={selectedDate}
+                    tabs={[
+                        {
+                            title: 'Overview',
+                            component: <DayBreakdownOverview selectedDate={selectedDate} />,
+                        },
+                        {
+                            title: 'Location',
+                            component: <DayBreakdownLocation selectedDate={selectedDate} />,
+                        },
+                    ]}
+                />
+            );
         default:
             break;
     }
-
-    return <BreakdownLayout selectedDate={selectedDate}>{nodes}</BreakdownLayout>;
 };
 
 export default Breakdown;

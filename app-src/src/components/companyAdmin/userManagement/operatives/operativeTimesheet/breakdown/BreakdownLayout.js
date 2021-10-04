@@ -3,10 +3,14 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import React from 'react';
+import BreakdownTabs from './BreakdownTabs';
+import useSelectedTab from './hooks/useSelectedTab';
 
-const BreakdownLayout = ({ children, selectedDate }) => {
+const BreakdownLayout = ({ selectedDate, tabs }) => {
+    const { selectedTab, onTabChange } = useSelectedTab();
+
     return (
-        <BlockContainer>
+        <BlockContainer contentClass="timesheet-breakdown">
             <BlockHeading
                 title={
                     <DateTimeContainer
@@ -15,7 +19,8 @@ const BreakdownLayout = ({ children, selectedDate }) => {
                     />
                 }
             />
-            {children}
+            <BreakdownTabs tabs={tabs} selectedTab={selectedTab} onTabChange={onTabChange} />
+            {tabs[selectedTab].component}
         </BlockContainer>
     );
 };
