@@ -1,9 +1,17 @@
 import { TIME_PERIOD } from 'constants/companyAdmin/enums';
 import moment from 'moment';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 
 const useOperativeTimesheet = () => {
-    const thisWeek = moment(new Date()).startOf('week').add(1, 'days').toISOString();
+    const { timeZone } = useSelector(selectCompanySettings);
+
+    const thisWeek = moment(new Date())
+        .tz(timeZone.id)
+        .startOf('week')
+        .add(1, 'days')
+        .toISOString();
     const [startDate, setStartDate] = useState(thisWeek);
 
     const [selectedDate, setSelectedDate] = useState(moment(new Date()).toISOString());
@@ -13,7 +21,7 @@ const useOperativeTimesheet = () => {
     const onNext = () => setStartDate(moment(startDate).add(7, 'days').toISOString());
     const onToday = () => {
         setStartDate(thisWeek);
-        setSelectedDate(moment(new Date()).toISOString());
+        setSelectedDate(moment(new Date()).tz(timeZone.id).toISOString());
     };
 
     const onDaySelect = timestamp => {

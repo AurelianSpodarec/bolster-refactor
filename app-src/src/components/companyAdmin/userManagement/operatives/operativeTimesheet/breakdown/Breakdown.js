@@ -11,7 +11,7 @@ const Breakdown = ({ selectedDate, timePeriod }) => {
     switch (timePeriod) {
         case TIME_PERIOD.WEEK:
             nodes = <WeekBreakdown selectedDate={selectedDate} />;
-            breakl;
+            break;
         case TIME_PERIOD.DAY:
             nodes = <DayBreakdown selectedDate={selectedDate} />;
             break;
