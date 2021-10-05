@@ -3791,6 +3791,43 @@ $back-to-top-height: 35px;
         }
     }
 
+    .breakdown-piechart {
+        .history {
+            display: flex;
+            flex-direction: column;
+
+            gap: 16px;
+            width: 100%;
+
+            .heading {
+                display: none;
+            }
+
+            .pin-key {
+                display: flex;
+                flex-direction: column;
+    
+                gap: 8px;
+
+                .pin {
+                    display: flex;
+                    align-items: center;
+
+                    gap: 16px;
+    
+                    img {
+                        max-height: 40px;
+                    }
+                }
+
+                .no-pin {
+                    display: none;
+                }
+            }
+        }
+    }
+
+
     .day-breakdown-overview {
         .left {
             display: flex;

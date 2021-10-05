@@ -1,3 +1,4 @@
+import PieChart from 'components/shared/stats/presentational/PieChart';
 import React from 'react';
 import useDay from '../../hooks/useDay';
 import BreakdownColumns from '../BreakdownColumns';
@@ -6,6 +7,16 @@ import BreakdownNotes from '../BreakdownNotes';
 
 const DayBreakdownOverview = ({ selectedDate }) => {
     const { hours, pins, reference, description, notes } = useDay(selectedDate) ?? {};
+
+    const tempData = {
+        statuses: {
+            ActionRequired: 32,
+            Installed: 25,
+            Inspected: 18,
+            NoAction: 1,
+            Other: 2,
+        },
+    };
 
     return (
         <BreakdownColumns
@@ -21,7 +32,13 @@ const DayBreakdownOverview = ({ selectedDate }) => {
                     <BreakdownNotes notes={notes} />
                 </>
             }
-            right={<></>}
+            right={
+                <>
+                    <div className="breakdown-piechart">
+                        <PieChart stats={tempData} />
+                    </div>
+                </>
+            }
         />
     );
 };
