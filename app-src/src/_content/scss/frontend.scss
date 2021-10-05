@@ -3662,8 +3662,8 @@ $back-to-top-height: 35px;
         display: flex;
         gap: 32px;
         
-        border-width: 1px;
-        border-color: $darker-grey-alt;
+        border-width: 2px;
+        border-color: $light-grey-alt;
         border-style: none none solid none;
         margin: 0 -15px;
         padding: 0 15px;
@@ -3671,7 +3671,7 @@ $back-to-top-height: 35px;
         .breakdown-tab {
             background-color: transparent;
             font-size: 150%;
-            margin-bottom: -1px;
+            margin-bottom: -2px;
             padding: 0;
             
             border-color: transparent;
@@ -3685,25 +3685,85 @@ $back-to-top-height: 35px;
         }
     }
 
-    .breakdown-day-summary {
-        .breakdown-row {
+    .breakdown-columns {
+        display: flex;
+
+        .breakdown-column {
+            flex-grow: 1;
             display: flex;
+            flex-direction: column;
+
+            margin: 32px 0;
+
+            &.left {
+                flex-grow: 60%;
+                padding: 0 16px 0 0;
+
+        
+                border-width: 1px;
+                border-color: $light-grey-alt;
+                border-style: none solid none none;
+            }
+            &.right {
+                flex-grow: 40%;
+                padding: 0 0 0 16px;
+            }
+        }
+
+        .block-heading {
+            margin: 0;
+            float: none;
+
+            border-width: 1px;
+            border-color: #000;
+            border-style: none none solid none;
         }
     }
 
-    .breakdown-textbox {
-        
-        .title {
+    .breakdown-day-summary {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
 
+        .summary-row {
+            display: flex;
+            gap: 16px;
         }
 
-        .text {
-            
+        .field-output {
+            flex-grow: 1;
+            background-color: $light-grey-bg;
+            padding: 8px;
+        }
+
+        .hours, .pins {
+            flex-basis: 25%;
+        }
+
+        .reference {
+            flex-basis: 50%;
+        }
+
+        .description {
+            flex-basis: 100%;
         }
     }
 
     .day-breakdown-overview {
+    }
 
+    .week-breakdown-overview {
+        .left {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+
+            .day {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
     }
 
 }

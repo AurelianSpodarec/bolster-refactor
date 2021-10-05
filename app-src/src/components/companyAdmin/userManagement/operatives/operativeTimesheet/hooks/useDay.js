@@ -2,13 +2,13 @@ import moment from 'moment';
 import data from './tempData';
 
 const getDay = date => {
-    const start = moment(startDate);
+    const start = moment(date);
 
-    return data.find(({ timestamp }) => date.isSame(timestamp, 'day'));
+    return data.find(({ timestamp }) => start.isSame(timestamp, 'day'));
 };
 
 const useDay = date => {
-    return getWeek(date);
+    return getDay(date);
 };
 
 export default useDay;

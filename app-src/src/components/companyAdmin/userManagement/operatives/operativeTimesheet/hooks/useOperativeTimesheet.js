@@ -22,6 +22,7 @@ const useOperativeTimesheet = () => {
     const onToday = () => {
         setStartDate(thisWeek);
         setSelectedDate(moment(new Date()).tz(timeZone.id).toISOString());
+        setTimePeriod(TIME_PERIOD.DAY);
     };
 
     const onDaySelect = timestamp => {
