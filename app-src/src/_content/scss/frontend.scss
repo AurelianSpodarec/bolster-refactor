@@ -3497,11 +3497,18 @@ $back-to-top-height: 35px;
 }
 
 .timesheet-calender {
+    .block-heading {
+        margin: 0;
+        width: 100%;
+    }
+
     .controls {
         display: flex;
         flex-direction: row;
         align-items: center;
 
+        width: 100%;
+        min-width: 100%;
         gap: 16px;
 
         .nav-buttons {
@@ -3523,33 +3530,30 @@ $back-to-top-height: 35px;
             }
         }
 
+        
         .date-range {
             display: flex;
             flex-direction: row;
             gap: 16px;
 
-            p {
-                font-size: 150%;
-            }
-
         }
 
         .today-button {
-            color: $dark-grey;
-            font-size: 130%;
+            color: inherit;
+            font-size: 90%;
 
             &:hover {
                 background-color: $light-grey-alt;
             }
 
             .far {
-                font-size: 110%;
+                font-size: 100%;
             }
         }
     }
 
     .generic-table {
-        margin-top: 16px;
+        margin-top: 14px;
         margin-left: -8px;
         margin-bottom: -8px;
         width: calc(100% + 16px);
@@ -3679,6 +3683,27 @@ $back-to-top-height: 35px;
                 color: $blue;
             }
         }
+    }
+
+    .breakdown-day-summary {
+        .breakdown-row {
+            display: flex;
+        }
+    }
+
+    .breakdown-textbox {
+        
+        .title {
+
+        }
+
+        .text {
+            
+        }
+    }
+
+    .day-breakdown-overview {
+
     }
 
 }

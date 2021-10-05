@@ -1,17 +1,26 @@
 import React from 'react';
 
-import { TIME_PERIOD } from 'constants/companyAdmin/enums';
+import { DATE_TIME_IDS, TIME_PERIOD } from 'constants/companyAdmin/enums';
 import BreakdownLayout from './BreakdownLayout';
 import WeekBreakdownOverview from './weekBreakdown/WeekBreakdownOverview';
 import DayBreakdownOverview from './dayBreakdown/DayBreakdownOverview';
 import DayBreakdownLocation from './dayBreakdown/DayBreakdownLocation';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const Breakdown = ({ selectedDate, timePeriod }) => {
     switch (timePeriod) {
         case TIME_PERIOD.WEEK:
             return (
                 <BreakdownLayout
-                    selectedDate={selectedDate}
+                    title={
+                        <>
+                            Week Overview -{' '}
+                            <DateTimeContainer
+                                date={new Date(selectedDate)}
+                                datetime={DATE_TIME_IDS.DATE}
+                            />
+                        </>
+                    }
                     tabs={[
                         {
                             title: 'Overview',
@@ -23,7 +32,15 @@ const Breakdown = ({ selectedDate, timePeriod }) => {
         case TIME_PERIOD.DAY:
             return (
                 <BreakdownLayout
-                    selectedDate={selectedDate}
+                    title={
+                        <>
+                            Day Overview -{' '}
+                            <DateTimeContainer
+                                date={new Date(selectedDate)}
+                                datetime={DATE_TIME_IDS.DATE}
+                            />
+                        </>
+                    }
                     tabs={[
                         {
                             title: 'Overview',

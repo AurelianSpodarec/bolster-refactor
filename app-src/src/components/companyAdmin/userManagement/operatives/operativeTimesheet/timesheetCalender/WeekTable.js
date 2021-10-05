@@ -5,14 +5,14 @@ import { days } from 'constants/companyAdmin/timesheets';
 import moment from 'moment';
 import Tab from './Tab';
 
-import useWeek from './hooks/useWeek';
 import { TIME_PERIOD } from 'constants/companyAdmin/enums';
+import useWeek from '../hooks/useWeek';
 
 const WeekTable = ({ startDate, selectedDate, timePeriod, onDaySelect, onWeekSelect }) => {
     const week = useWeek(startDate);
 
     return (
-        <Table headers={days}>
+        <Table headers={[...days, 'Weekly']}>
             <tr>
                 {week.map(({ hours, pins, timestamp }, i) => (
                     <td key={i} onClick={() => onDaySelect(timestamp)}>
@@ -34,8 +34,12 @@ const WeekTable = ({ startDate, selectedDate, timePeriod, onDaySelect, onWeekSel
                 <td key={-1} onClick={() => onWeekSelect(week[0].timestamp)}>
                     <div className="date">
                         <p>
-                            {moment(week[0].timestamp).date().toString().padStart(2, '0')} -{' '}
-                            {moment(week[6].timestamp).date().toString().padStart(2, '0')}
+                            {moment(week[0].timestamp).format('DD')} -{' '}
+                            {moment(week[6].timestamp).format('DD')}
+                        </p>
+                        <p className="full">
+                            {moment(week[0].timestamp).format('dddd D')} -{' '}
+                            {moment(week[6].timestamp).format('dddd D')}
                         </p>
                         <i class="fal fa-circle" />
                     </div>
