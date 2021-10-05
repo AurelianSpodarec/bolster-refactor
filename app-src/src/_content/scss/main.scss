@@ -6239,6 +6239,11 @@ input {
     border-radius: 5px;
     align-items: center;
 
+    &.alerts {
+        height: auto;
+        padding: 6px 0;
+    }
+
     & > .banner-text {
         color: white;
         font-size: 140%;
