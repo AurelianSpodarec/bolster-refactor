@@ -7,7 +7,7 @@ function BreakdownNotes({ notes }) {
         <div className="breakdown-notes">
             <BlockHeading title="Notes" />
             <div className="notes">
-                {notes.length > 0 ? (
+                {notes?.length > 0 ? (
                     notes.map((note, i) => <BreakdownNote key={i} note={note} />)
                 ) : (
                     <p>No notes to show</p>
