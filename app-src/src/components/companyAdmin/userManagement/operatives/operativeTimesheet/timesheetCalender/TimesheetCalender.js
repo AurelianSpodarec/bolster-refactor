@@ -8,6 +8,11 @@ const TimesheetCalender = ({
     startDate,
     selectedDate,
     timePeriod,
+
+    isFetching,
+    fetchError,
+    timesheet,
+
     onPrev,
     onNext,
     onToday,
@@ -33,6 +38,9 @@ const TimesheetCalender = ({
                     timePeriod={timePeriod}
                     onDaySelect={onDaySelect}
                     onWeekSelect={onWeekSelect}
+                    isFetching={isFetching}
+                    fetchError={fetchError}
+                    timesheet={timesheet}
                 />
             </div>
         </BlockContainer>

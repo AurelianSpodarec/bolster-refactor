@@ -11,6 +11,11 @@ const OperativeTimesheet = ({ operativeName }) => {
         startDate,
         selectedDate,
         timePeriod,
+
+        isFetching,
+        fetchError,
+        timesheet,
+
         onPrev,
         onNext,
         onToday,
@@ -27,6 +32,9 @@ const OperativeTimesheet = ({ operativeName }) => {
                 startDate={startDate}
                 selectedDate={selectedDate}
                 timePeriod={timePeriod}
+                isFetching={isFetching}
+                fetchError={fetchError}
+                timesheet={timesheet}
                 onPrev={onPrev}
                 onNext={onNext}
                 onToday={onToday}
