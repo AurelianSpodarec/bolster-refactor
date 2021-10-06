@@ -1,14 +1,17 @@
 import moment from 'moment';
-import data from './tempData';
 
-const getDay = date => {
-    const start = moment(date);
+const getDay = (timesheet, selectedDate) => {
+    const start = moment(selectedDate);
 
-    return data.find(({ timestamp }) => start.isSame(timestamp, 'day'));
+    return timesheet.clockerEntries.find(({ date }) => start.isSame(date, 'day'));
 };
 
-const useDay = date => {
-    return getDay(date);
+const useDay = (timesheet, selectedDate) => {
+    const day = getDay(timesheet, selectedDate);
+
+    const { totalPins, totalHours, clockerEntries, clockerNotes } = day;
+
+    return { totalPins, totalHours, clockerEntries, clockerNotes };
 };
 
 export default useDay;

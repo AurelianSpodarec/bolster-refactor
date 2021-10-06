@@ -7,7 +7,7 @@ import DayBreakdownOverview from './dayBreakdown/DayBreakdownOverview';
 import DayBreakdownLocation from './dayBreakdown/DayBreakdownLocation';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
-const Breakdown = ({ selectedDate, timePeriod }) => {
+const Breakdown = ({ selectedDate, timePeriod, isFetching, fetchError, timesheet }) => {
     switch (timePeriod) {
         case TIME_PERIOD.WEEK:
             return (
@@ -24,7 +24,14 @@ const Breakdown = ({ selectedDate, timePeriod }) => {
                     tabs={[
                         {
                             title: 'Overview',
-                            component: <WeekBreakdownOverview selectedDate={selectedDate} />,
+                            component: (
+                                <WeekBreakdownOverview
+                                    selectedDate={selectedDate}
+                                    isFetching={isFetching}
+                                    fetchError={fetchError}
+                                    timesheet={timesheet}
+                                />
+                            ),
                         },
                     ]}
                 />
@@ -44,11 +51,25 @@ const Breakdown = ({ selectedDate, timePeriod }) => {
                     tabs={[
                         {
                             title: 'Overview',
-                            component: <DayBreakdownOverview selectedDate={selectedDate} />,
+                            component: (
+                                <DayBreakdownOverview
+                                    selectedDate={selectedDate}
+                                    isFetching={isFetching}
+                                    fetchError={fetchError}
+                                    timesheet={timesheet}
+                                />
+                            ),
                         },
                         {
                             title: 'Location',
-                            component: <DayBreakdownLocation selectedDate={selectedDate} />,
+                            component: (
+                                <DayBreakdownLocation
+                                    selectedDate={selectedDate}
+                                    isFetching={isFetching}
+                                    fetchError={fetchError}
+                                    timesheet={timesheet}
+                                />
+                            ),
                         },
                     ]}
                 />

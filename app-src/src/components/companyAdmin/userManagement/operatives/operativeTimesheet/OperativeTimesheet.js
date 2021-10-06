@@ -41,7 +41,13 @@ const OperativeTimesheet = ({ operativeName }) => {
                 onDaySelect={onDaySelect}
                 onWeekSelect={onWeekSelect}
             />
-            <Breakdown selectedDate={selectedDate} timePeriod={timePeriod} />
+            <Breakdown
+                selectedDate={selectedDate}
+                timePeriod={timePeriod}
+                isFetching={isFetching}
+                fetchError={fetchError}
+                timesheet={timesheet}
+            />
         </>
     );
 };

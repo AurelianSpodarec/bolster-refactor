@@ -3,38 +3,49 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+import { isEmpty } from 'helpers/generic';
 import React from 'react';
 import useWeek from '../../hooks/useWeek';
 import BreakdownColumns from '../BreakdownColumns';
 import BreakdownDaySummary from '../BreakdownDaySummary';
 
-const WeekBreakdownOverview = ({ selectedDate }) => {
-    const week = useWeek(selectedDate);
+const WeekBreakdownOverview = ({
+    selectedDate,
+
+    isFetching,
+    fetchError,
+    timesheet,
+}) => {
+    if (isFetching) return <LoadingIcon />;
+    if (fetchError) return <p>{fetchError}</p>;
+    if (isEmpty(timesheet)) return <p>Something went wrong</p>;
 
     return (
         <BreakdownColumns
             className="week-breakdown-overview"
-            left={week.map(({ hours, pins, reference, description, timestamp }, i) => (
-                <div className="day" key={i}>
-                    <BlockHeading
-                        title={
-                            <>
-                                Day Overview -{' '}
-                                <DateTimeContainer
-                                    date={new Date(timestamp)}
-                                    datetime={DATE_TIME_IDS.DATE}
-                                />
-                            </>
-                        }
-                    />
-                    <BreakdownDaySummary
-                        hours={hours}
-                        pins={pins}
-                        reference={reference}
-                        description={description}
-                    />
-                </div>
-            ))}
+            left={timesheet.clockerEntries.map(
+                ({ totalPins, totalHours, clockerEntries, date }, i) => (
+                    <div className="day" key={i}>
+                        <BlockHeading
+                            title={
+                                <>
+                                    Day Overview -{' '}
+                                    <DateTimeContainer
+                                        date={new Date(date)}
+                                        datetime={DATE_TIME_IDS.DATE}
+                                    />
+                                </>
+                            }
+                        />
+                        <BreakdownDaySummary
+                            hours={totalHours}
+                            pins={totalPins}
+                            reference={'reference'}
+                            description={'description'}
+                        />
+                    </div>
+                ),
+            )}
             right={
                 <>
                     <div className="breakdown-piechart">

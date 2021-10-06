@@ -5,9 +5,21 @@ import BreakdownColumns from '../BreakdownColumns';
 import BreakdownDaySummary from '../BreakdownDaySummary';
 import BreakdownNotes from '../BreakdownNotes';
 import DashboardPinFeed from '../../../../../dashboard/presentational/DashboardPinFeed';
+import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
+import { isEmpty } from 'helpers/generic';
 
-const DayBreakdownOverview = ({ selectedDate }) => {
-    const { hours, pins, reference, description, notes } = useDay(selectedDate) ?? {};
+const DayBreakdownOverview = ({
+    selectedDate,
+
+    isFetching,
+    fetchError,
+    timesheet,
+}) => {
+    if (isFetching) return <LoadingIcon />;
+    if (fetchError) return <p>{fetchError}</p>;
+    if (isEmpty(timesheet)) return <p>Something went wrong</p>;
+
+    const { totalPins, totalHours, clockerEntries, clockerNotes } = useDay(timesheet, selectedDate);
 
     return (
         <BreakdownColumns
@@ -15,12 +27,12 @@ const DayBreakdownOverview = ({ selectedDate }) => {
             left={
                 <>
                     <BreakdownDaySummary
-                        hours={hours}
-                        pins={pins}
-                        reference={reference}
-                        description={description}
+                        hours={totalHours}
+                        pins={totalPins}
+                        reference={'reference'}
+                        description={'description'}
                     />
-                    <BreakdownNotes notes={notes} />
+                    <BreakdownNotes notes={clockerNotes} />
                 </>
             }
             right={
