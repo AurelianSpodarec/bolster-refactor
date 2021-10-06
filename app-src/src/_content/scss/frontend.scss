@@ -3706,6 +3706,12 @@ $back-to-top-height: 35px;
             }
             &.right {
                 flex-basis: 40%;
+
+                display: flex;
+                flex-direction: column;
+
+                gap: 32px;
+
                 padding: 0 0 0 16px;
             }
         }
@@ -3823,6 +3829,16 @@ $back-to-top-height: 35px;
                 .no-pin {
                     display: none;
                 }
+            }
+        }
+    }
+
+    .breakdown-feed {
+        .content-container {
+            width: 100%;
+
+            .block-heading {
+                display: none;
             }
         }
     }
