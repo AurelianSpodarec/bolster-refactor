@@ -51,7 +51,7 @@ const WeekBreakdownOverview = ({
                         <BreakdownDaySummary
                             hours={totalHours}
                             pins={totalPins}
-                            reference={'reference'}
+                            reference={clockerEntries[0]?.jobReference ?? 'N/A'}
                         />
                     </div>
                 ),
