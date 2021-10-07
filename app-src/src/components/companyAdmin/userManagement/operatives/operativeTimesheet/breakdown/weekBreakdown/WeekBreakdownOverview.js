@@ -35,7 +35,7 @@ const WeekBreakdownOverview = ({
         <BreakdownColumns
             className="week-breakdown-overview"
             left={timesheet.clockerEntries.map(
-                ({ totalPins, totalHours, clockerEntries, date }, i) => (
+                ({ totalPins, totalHours, clockerEntries = [], date }, i) => (
                     <div className="day" key={i}>
                         <BlockHeading
                             title={

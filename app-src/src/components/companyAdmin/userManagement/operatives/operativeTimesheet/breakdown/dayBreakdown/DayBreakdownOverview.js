@@ -32,7 +32,10 @@ const DayBreakdownOverview = ({
         false,
     );
 
-    const { totalPins, totalHours, clockerEntries, clockerNotes } = useDay(timesheet, selectedDate);
+    const { totalPins, totalHours, clockerEntries = [], clockerNotes } = useDay(
+        timesheet,
+        selectedDate,
+    );
 
     return (
         <BreakdownColumns
