@@ -71,7 +71,7 @@ class AddPinContainer extends Component {
 
         // check to see if we should be using manufacturing pin options instead of the original dropdown options
         if (drawing.isManufacturingEnabled) {
-            const drawingOptionValueIDs = drawing.optionValueIDs;
+            const drawingOptionValueIDs = drawing.optionValueIDs ?? [];
             const originalOptionTypesToRemove = [];
 
             // get manufacturer option values in an array ready to be reduced into the options that may replace certain fields.
@@ -84,9 +84,9 @@ class AddPinContainer extends Component {
 
             const drawingOptionValues = formattedManufacturerOptionValues.reduce((acc, option) => {
                 const isCorrectForDrawingAndServiceID = serviceID
-                    ? drawingOptionValueIDs.includes(option.id) &&
-                      option.serviceIDs.includes(Number(serviceID))
-                    : drawingOptionValueIDs.includes(option.id);
+                    ? drawingOptionValueIDs?.includes(option.id) &&
+                      option.serviceIDs?.includes(Number(serviceID))
+                    : drawingOptionValueIDs?.includes(option.id);
 
                 if (isCorrectForDrawingAndServiceID) {
                     // mark the types that need to be removed from the dropdown options
