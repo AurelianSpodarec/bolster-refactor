@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, Prompt } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
@@ -23,8 +23,12 @@ const AddPinForm = ({
     dropdownOptionsByType,
     oldAnswersByNameObj,
     latestPinHistory,
-}) => (
-    <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
+}) => {
+    const [showFixError, setShowFixError] = useState();
+    
+
+    return (
+    <Form onSubmit={handleSubmit} onSubmitError={() => setShowFixError(true)} className="generic-form size-lg-12">
         <div className="size-lg-12">
             <Field name="Select a service" sizeClasses="size-lg-6 size-md-12" required>
                 <DropdownContainer
@@ -66,6 +70,11 @@ const AddPinForm = ({
             />
         )}
 
+        {showFixError && 
+            <div className="form-field" style={{float: 'right', minHeight: 0}}>
+                <p className="error red-text text-accent-4">Please correct the field errors and try again</p>
+            </div>
+        }
         <BlockButtonWrapper>
             <Prompt
                 when={confirmLeave}
@@ -91,6 +100,6 @@ const AddPinForm = ({
             </Link>
         </BlockButtonWrapper>
     </Form>
-);
+);};
 
 export default AddPinForm;

@@ -41,11 +41,17 @@ class AddSiteFormContainer extends Component {
     };
 
     render() {
-        const { isUsingBolsterLabels, isFetching, error, manufacturers } = this.props;
+        const {
+            isUsingBolsterLabels,
+            isFetching,
+            error,
+            manufacturers,
+            isFetchingHierarchies,
+        } = this.props;
 
         return (
             <BlockContainer
-                // isEmpty={true}
+                isEmpty={isFetching}
                 isFetching={isFetching}
                 error={error}
                 contentClass="no-padding"
@@ -60,6 +66,7 @@ class AddSiteFormContainer extends Component {
                     isFetching={isFetching}
                     error={error}
                     manufacturers={manufacturers}
+                    isFetchingHierarchies={isFetchingHierarchies}
                 />
             </BlockContainer>
         );
@@ -231,6 +238,7 @@ class AddSiteFormContainer extends Component {
     };
 
     shouldOptionValueBeIncluded = serviceIDs => {
+        if (!serviceIDs) return false;
         const { subscriptionServiceIDs } = this.props;
         return serviceIDs.some(id => subscriptionServiceIDs.includes(id));
     };
@@ -267,6 +275,9 @@ class AddSiteFormContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         sitesReducer,
+        buildingsReducer: { isFetching: isFetchingBuildings },
+        floorsReducer: { isFetching: isFetchingFloors },
+        drawingsReducer: { isFetching: isFetchingDrawings },
         companySettingsReducer: {
             companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
         },
@@ -297,6 +308,8 @@ const mapStateToProps = ({
     useManufacturingByDefault,
     subscriptionServiceIDs,
     dropdownOptions,
+    isFetchingHierarchies:
+        sitesReducer.isFetching || isFetchingBuildings || isFetchingFloors || isFetchingDrawings,
 });
 
 const mapDispatchToProps = {

@@ -1,8 +1,14 @@
 import React from 'react';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import { useEffect } from 'react';
 
 const PageSelector = ({ page = 1, maxPage = 1, setPage }) => {
     const isEmpty = maxPage === 0;
+
+    useEffect(() => {
+        setPage(page);
+    }, []);
+
     return (
         <div
             style={{

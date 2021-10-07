@@ -3,30 +3,30 @@ import axios from 'axios';
 import {
     DELETE_COMPANY_USER_REQUEST,
     DELETE_COMPANY_USER_SUCCESS,
-    DELETE_COMPANY_USER_FAILURE
+    DELETE_COMPANY_USER_FAILURE,
 } from 'constants/actionTypes/usersManagement';
 
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 export const deleteCompanyUserRequest = () => ({
-    type: DELETE_COMPANY_USER_REQUEST
+    type: DELETE_COMPANY_USER_REQUEST,
 });
 
-export const deleteCompanyUserSuccess = id => ({
+export const deleteCompanyUserSuccess = user => ({
     type: DELETE_COMPANY_USER_SUCCESS,
-    id
+    user,
 });
 
 export const deleteCompanyUserFailure = error => ({
     type: DELETE_COMPANY_USER_FAILURE,
-    error
+    error,
 });
 
-export default id => dispatch => {
+export default (id, user) => dispatch => {
     dispatch(deleteCompanyUserRequest());
     axios
         .delete(`${API_URL}/users/${id}`, getHeaders())
-        .then(() => dispatch(deleteCompanyUserSuccess(id)))
+        .then(() => dispatch(deleteCompanyUserSuccess(user)))
         .catch(err => dispatch(deleteCompanyUserFailure(err.message)));
 };

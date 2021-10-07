@@ -72,6 +72,7 @@ export const createPreselectedOptionValuesList = optionValuesList => {
 };
 
 export const shouldOptionValueBeIncluded = (serviceIDs, subscriptionServiceIDs) => {
+    if (!serviceIDs) return false;
     return serviceIDs.some(id => subscriptionServiceIDs.includes(id));
 };
 

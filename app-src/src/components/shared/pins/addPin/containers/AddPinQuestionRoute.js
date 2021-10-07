@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 
 import Field from 'components/shared/generic/form/presentational/Field';
 import resetPinAnswer from 'actions/companyAdmin/drawings/sync/resetPinAnswer';
-import { isEmpty } from 'helpers/generic';
+import { deepEquals, isEmpty } from 'helpers/generic';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -170,7 +170,9 @@ class AddPinQuestionRoute extends Component {
                 }
 
                 const retArray = [];
-
+                if (!Array.isArray(preReqAnswer)) {
+                    preReqAnswer = preReqAnswer.toString().split(',');
+                }
                 preReqAnswer.forEach(curAnswer => {
                     const selectedOption = preReqQuestion.options.find(
                         option => option.id === curAnswer,
@@ -267,7 +269,11 @@ class AddPinQuestionRoute extends Component {
         const answer = answers[question.id];
         const answerName = `answer-${question.id}`;
 
-        if (!isShowingFromPrereq && answer) {
+        if (
+            !isShowingFromPrereq &&
+            !isEmpty(answer) &&
+            !deepEquals(answer, getDefaultValue(question))
+        ) {
             resetPinAnswer(question.id, getDefaultValue(question));
         }
 
@@ -364,13 +370,22 @@ class AddPinQuestionRoute extends Component {
     };
 
     handlePrefillOrReset = () => {
-        const { isSameTemplate, pinAnswersByGroupKey } = this.props;
+        const {
+            isSameTemplate,
+            pinAnswersByGroupKey,
+            cachedAnswers = {},
+            updateAddPinAnswer,
+            question,
+        } = this.props;
+        const cachedAnswer = cachedAnswers?.[question.id];
         const isAddPinHistory = !!pinAnswersByGroupKey;
 
         if (isSameTemplate && isAddPinHistory) {
             this.handlePrefillSameTemplateQuestion();
         } else if (isAddPinHistory) {
             this.handlePrefillDifferentTemplateQuestion();
+        } else if (!!cachedAnswer && question.isPrefill) {
+            updateAddPinAnswer(question.id, cachedAnswer);
         } else {
             this.handleResetAnswer();
         }

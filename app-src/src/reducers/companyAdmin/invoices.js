@@ -17,6 +17,8 @@ import {
 } from 'constants/actionTypes/invoices';
 import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
 import { HIDE_MODAL } from 'constants/actionTypes/generic';
+import { CREATE_CREDITS_SUCCESS } from 'constants/actionTypes/credits';
+import { ADD_SERVICE_TO_SUBSCRIPTION_SUCCESS } from 'constants/actionTypes/subscriptions';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
@@ -28,6 +30,7 @@ export default combineReducers({
     isDeleting: isDeletingReducer,
     deleteSuccess: deleteSuccessReducer,
     isPosting: isPostingReducer,
+    createdInvoiceDetails: createdInvoiceDetailsReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -88,10 +91,31 @@ function deleteSuccessReducer(state = false, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case PAY_INVOICE_REQUEST:
+        case DELETE_INVOICE_REQUEST:
             return true;
         case PAY_INVOICE_SUCCESS:
         case PAY_INVOICE_FAILURE:
+        case DELETE_INVOICE_FAILURE:
+        case DELETE_INVOICE_SUCCESS:
             return false;
+        default:
+            return state;
+    }
+}
+
+function createdInvoiceDetailsReducer(state = {}, action) {
+    switch (action.type) {
+        case PAY_INVOICE_SUCCESS:
+            return {
+                id: action.payload.id,
+                guid: action.payload.guid,
+            };
+        case CREATE_CREDITS_SUCCESS:
+        case ADD_SERVICE_TO_SUBSCRIPTION_SUCCESS:
+            return {
+                id: action.payload.invoiceId,
+                guid: action.payload.invoiceGuid,
+            };
         default:
             return state;
     }
@@ -111,9 +135,11 @@ function postSuccessReducer(state = false, action) {
 function postFailureReducer(state = false, action) {
     switch (action.type) {
         case PAY_INVOICE_REQUEST:
+        case DELETE_INVOICE_REQUEST:
             return false;
         case PAY_INVOICE_FAILURE:
-            return true;
+        case DELETE_INVOICE_FAILURE:
+            return action.error;
         default:
             return state;
     }
@@ -128,7 +154,7 @@ function invoiceReducer(state = {}, action) {
         case PAY_INVOICE_SUCCESS:
             return removeObjItem(state, action.payload.id);
         case DELETE_INVOICE_SUCCESS:
-            return removeObjItem(state, action.id);
+            return updateObj(state, action.id, { ...state[action.id], isRequestedForDelete: true });
         default:
             return state;
     }

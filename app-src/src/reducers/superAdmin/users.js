@@ -17,6 +17,15 @@ import {
     ADMIN_FETCH_USERS_BY_SEARCH_SUCCESS,
     ADMIN_FETCH_USERS_BY_SEARCH_REQUEST,
     ADMIN_FETCH_USERS_BY_SEARCH_FAILURE,
+    FORCE_CONFIRM_USER_EMAIL_REQUEST,
+    FORCE_CONFIRM_USER_EMAIL_SUCCESS,
+    FORCE_CONFIRM_USER_EMAIL_FAILURE,
+    REMOVE_USER_LOCKOUT_REQUEST,
+    REMOVE_USER_LOCKOUT_SUCCESS,
+    REMOVE_USER_LOCKOUT_FAILURE,
+    FETCH_COMPANY_ADMIN_USERS_REQUEST,
+    FETCH_COMPANY_ADMIN_USERS_SUCCESS,
+    FETCH_COMPANY_ADMIN_USERS_FAILURE,
 } from 'constants/actionTypes/users';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
@@ -24,6 +33,11 @@ import {
     ADMIN_CREATE_COMPANY_USER_SUCCESS,
     ADMIN_CREATE_COMPANY_USER_FAILURE,
 } from 'constants/actionTypes/usersManagement';
+import {
+    ADMIN_EDIT_COMPANY_OWNER_REQUEST,
+    ADMIN_EDIT_COMPANY_OWNER_SUCCESS,
+    ADMIN_EDIT_COMPANY_OWNER_FAILURE,
+} from 'constants/actionTypes/companies';
 
 export default combineReducers({
     error: errorReducer,
@@ -35,6 +49,8 @@ export default combineReducers({
     count: countReducer,
     companyUsers: companyUsersReducer,
     companyUsersInfo: companyUsersInfoReducer,
+    companyAdmins: companyAdminUsersReducer,
+    isPosting: isPostingReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -42,6 +58,7 @@ function isFetchingReducer(state = false, action) {
         case FETCH_ALL_USERS_REQUEST:
         case ADMIN_FETCH_COMPANY_USERS_REQUEST:
         case ADMIN_FETCH_USERS_BY_SEARCH_REQUEST:
+        case FETCH_COMPANY_ADMIN_USERS_REQUEST:
             return true;
         case FETCH_ALL_USERS_SUCCESS:
         case FETCH_ALL_USERS_FAILURE:
@@ -49,6 +66,8 @@ function isFetchingReducer(state = false, action) {
         case ADMIN_FETCH_COMPANY_USERS_SUCCESS:
         case ADMIN_FETCH_USERS_BY_SEARCH_SUCCESS:
         case ADMIN_FETCH_USERS_BY_SEARCH_FAILURE:
+        case FETCH_COMPANY_ADMIN_USERS_FAILURE:
+        case FETCH_COMPANY_ADMIN_USERS_SUCCESS:
             return false;
         default:
             return state;
@@ -60,10 +79,16 @@ function postSuccessReducer(state = false, action) {
         case EDIT_USER_REQUEST:
         case EDIT_USER_PASSWORD_REQUEST:
         case ADMIN_CREATE_COMPANY_USER_REQUEST:
+        case FORCE_CONFIRM_USER_EMAIL_REQUEST:
+        case REMOVE_USER_LOCKOUT_REQUEST:
+        case ADMIN_EDIT_COMPANY_OWNER_REQUEST:
             return false;
         case EDIT_USER_SUCCESS:
         case EDIT_USER_PASSWORD_SUCCESS:
         case ADMIN_CREATE_COMPANY_USER_SUCCESS:
+        case FORCE_CONFIRM_USER_EMAIL_SUCCESS:
+        case REMOVE_USER_LOCKOUT_SUCCESS:
+        case ADMIN_EDIT_COMPANY_OWNER_SUCCESS:
             return true;
         default:
             return state;
@@ -78,6 +103,10 @@ function errorReducer(state = null, action) {
         case ADMIN_FETCH_COMPANY_USERS_REQUEST:
         case ADMIN_CREATE_COMPANY_USER_REQUEST:
         case ADMIN_FETCH_USERS_BY_SEARCH_REQUEST:
+        case FORCE_CONFIRM_USER_EMAIL_REQUEST:
+        case REMOVE_USER_LOCKOUT_REQUEST:
+        case FETCH_COMPANY_ADMIN_USERS_REQUEST:
+        case ADMIN_EDIT_COMPANY_OWNER_REQUEST:
             return null;
         case FETCH_ALL_USERS_FAILURE:
         case EDIT_USER_FAILURE:
@@ -85,6 +114,10 @@ function errorReducer(state = null, action) {
         case ADMIN_FETCH_COMPANY_USERS_FAILURE:
         case ADMIN_CREATE_COMPANY_USER_FAILURE:
         case ADMIN_FETCH_USERS_BY_SEARCH_FAILURE:
+        case FORCE_CONFIRM_USER_EMAIL_FAILURE:
+        case REMOVE_USER_LOCKOUT_FAILURE:
+        case FETCH_COMPANY_ADMIN_USERS_FAILURE:
+        case ADMIN_EDIT_COMPANY_OWNER_FAILURE:
             return action.error;
         default:
             return state;
@@ -99,9 +132,11 @@ function usersReducer(state = {}, action) {
             return convertArrToObj(action.payload.users);
         case EDIT_USER_SUCCESS:
         case ADMIN_CREATE_COMPANY_USER_SUCCESS:
+        case FORCE_CONFIRM_USER_EMAIL_SUCCESS:
+        case REMOVE_USER_LOCKOUT_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case ADMIN_FETCH_COMPANY_USERS_SUCCESS:
-            return { ...state, ...convertArrToObj(action.payload) };
+            return convertArrToObj(action.payload);
         default:
             return state;
     }
@@ -154,6 +189,27 @@ function countReducer(state = 0, action) {
     switch (action.type) {
         case ADMIN_FETCH_USERS_BY_SEARCH_SUCCESS:
             return action.payload.count;
+        default:
+            return state;
+    }
+}
+
+function companyAdminUsersReducer(state = { companyAdmins: {} }, action) {
+    switch (action.type) {
+        case FETCH_COMPANY_ADMIN_USERS_SUCCESS:
+            return { ...convertArrToObj(action.payload) };
+        default:
+            return state;
+    }
+}
+
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case ADMIN_EDIT_COMPANY_OWNER_REQUEST:
+            return true;
+        case ADMIN_EDIT_COMPANY_OWNER_FAILURE:
+        case ADMIN_EDIT_COMPANY_OWNER_SUCCESS:
+            return false;
         default:
             return state;
     }

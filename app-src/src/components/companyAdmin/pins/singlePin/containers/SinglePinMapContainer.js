@@ -1,6 +1,3 @@
-/* eslint no-mixed-operators: 0 */
-/* eslint egegeg: 0 */
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -12,10 +9,13 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 import editPinLocation from 'actions/companyAdmin/pins/async/editPinLocation';
 import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
-import { CONFIRM_EDIT_PIN } from 'constants/shared/modalTypes';
+import { CONFIRM_DELETE, CONFIRM_EDIT_PIN, ERROR_MODAL } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { isEmpty } from 'helpers/generic';
 import PinInspectionLogContainer from './PinInspectionLogContainer';
+import deleteAllPinHistory from 'actions/companyAdmin/pins/async/deleteAllPinHistory';
+import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 
 class SinglePinMapContainer extends Component {
     state = {
@@ -41,7 +41,7 @@ class SinglePinMapContainer extends Component {
         ];
 
         const latestUserName = [...histories].sort(
-            (a, b) => moment(b.createdOn) - moment(a.createdOn).format()
+            (a, b) => moment(b.createdOn) - moment(a.createdOn).format(),
         );
 
         return (
@@ -67,6 +67,7 @@ class SinglePinMapContainer extends Component {
                         handleEditHistoryModal={this.handleEditHistoryModal}
                         onMobile={onMobile}
                         zones={this._getIncludedZones()}
+                        handleDeleteAllHistories={this.handleDeleteAllHistories}
                     />
                 </BlockContainer>
 
@@ -75,7 +76,7 @@ class SinglePinMapContainer extends Component {
         );
     }
 
-    componentDidUpdate = (prevProps) => {
+    componentDidUpdate = prevProps => {
         const { pin, fetchDrawing, updatePinCoordinates } = this.props;
         if (!prevProps.pin.id && pin.id) {
             const lat = pin.location.latY;
@@ -90,7 +91,9 @@ class SinglePinMapContainer extends Component {
                 editPinLocationLat: pin.location.latY,
                 editPinLocationLng: pin.location.lngX,
             });
-            fetchDrawing(pin.drawingID);
+            if (pin?.drawingID) {
+                fetchDrawing(pin.drawingID);
+            }
         }
     };
 
@@ -117,12 +120,10 @@ class SinglePinMapContainer extends Component {
 
     _getIncludedZones = () => {
         const { zones } = this.props;
-        return Object.values(zones).filter(({ coordinates }) =>
-            this._checkIsInside(coordinates)
-        );
+        return Object.values(zones).filter(({ coordinates }) => this._checkIsInside(coordinates));
     };
 
-    _checkIsInside = (vs) => {
+    _checkIsInside = vs => {
         const { pin } = this.props;
         const { lngX, latY } = pin.location || {};
         const point = [lngX, latY];
@@ -137,9 +138,7 @@ class SinglePinMapContainer extends Component {
             var xj = vs[j][0],
                 yj = vs[j][1];
 
-            var intersect =
-                yi > y !== yj > y &&
-                x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+            var intersect = yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
             if (intersect) inside = !inside;
         }
 
@@ -165,6 +164,53 @@ class SinglePinMapContainer extends Component {
             moveMode: false,
         });
     };
+
+    handleDeleteAllHistories = () => {
+        const {
+            showModal,
+            deleteAllHistories,
+            hideModal,
+            pin: { id, drawingID },
+            history,
+            loggedInCompanyID,
+            drawing,
+            users,
+            histories,
+            refetchPins,
+        } = this.props;
+
+        let canDeleteOtherHistories = false;
+
+        if (
+            histories.some(item => {
+                users[item.createdByCompanyUserID]?.companyID === loggedInCompanyID;
+            })
+        ) {
+            canDeleteOtherHistories = true;
+        }
+
+        const drawingCompanyID = drawing?.ownerCompanyID;
+
+        const canDeleteHistory = drawingCompanyID === loggedInCompanyID || canDeleteOtherHistories;
+
+        if (canDeleteHistory) {
+            showModal(CONFIRM_DELETE, {
+                handleDelete: () => {
+                    deleteAllHistories(id);
+                    refetchPins(drawingID);
+                    history.push(`/company/drawings/${drawingID}`);
+                },
+                hideModal,
+                message: 'Are you sure you want to delete all pin histories',
+            });
+        } else {
+            showModal(ERROR_MODAL, {
+                hideModal,
+                message:
+                    'You cannot delete all histories of this pin as another company has created some of the histories. Please delete your histories individually',
+            });
+        }
+    };
 }
 
 const mapStateToProps = (
@@ -174,13 +220,17 @@ const mapStateToProps = (
             pinHistoriesReducer: { histories },
             drawingsReducer: { drawings },
             zonesReducer: { zones },
+            companyUsersReducer: { users, isFetching: isFetchingUsers },
         },
         shared: {
             selectedHistoryReducer: { selectedHistoryId },
             mobileReducer: { onMobile },
+            decodeJWTReducer: {
+                jwtData: { companyID: loggedInCompanyID },
+            },
         },
     },
-    { match: { params } }
+    { match: { params } },
 ) => {
     const pin = singlePin[params.id] || {};
 
@@ -189,24 +239,30 @@ const mapStateToProps = (
         histories: Object.values(histories),
         selectedHistory: histories[selectedHistoryId] || {},
         error,
-        isFetching,
+        isFetching: isFetching || isFetchingUsers,
         postSuccess,
         drawing: drawings[pin.drawingID] || {},
         onMobile,
         zones,
+        users,
+        loggedInCompanyID,
     };
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     editPinLocation: (id, lat, lng) =>
         dispatch(editPinLocation(id, { location: { lngX: lng, latY: lat } })),
     updatePinCoordinates: (name, value) => {
         dispatch(updatePinCoordinates(name, value));
     },
-    fetchDrawing: (drawingID) => dispatch(fetchSingleDrawing(drawingID)),
+    fetchDrawing: drawingID => dispatch(fetchSingleDrawing(drawingID)),
     showModal: (type, props) => dispatch(showModal(type, props)),
+    deleteAllHistories: pinId => {
+        dispatch(deleteAllPinHistory(pinId));
+        dispatch(hideModal());
+    },
+    hideModal: () => dispatch(hideModal()),
+    refetchPins: drawingID => dispatch(fetchPins('drawing', drawingID)),
 });
 
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(SinglePinMapContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SinglePinMapContainer));

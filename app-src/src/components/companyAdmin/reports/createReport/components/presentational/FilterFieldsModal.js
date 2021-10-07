@@ -5,6 +5,8 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+// import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+// import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const FilterFieldsModal = ({
     showFreeForm,
@@ -17,7 +19,9 @@ const FilterFieldsModal = ({
     handleFreeFormValChange,
     removeFreeFormVal,
     toggleAddFilter,
-    handleSubmit
+    handleSubmit,
+    // exactMatch,
+    // forceExactMatch
 }) => {
     return (
         <BlockContainer noWhiteBackground={true}>
@@ -25,7 +29,7 @@ const FilterFieldsModal = ({
             <Field
                 name="Question(s)"
                 classes="no-caps"
-                sizeClasses="size-lg-6 size-md-12"
+                sizeClasses="size-lg-5 size-md-12"
                 required
             >
                 <MultiSelect
@@ -37,7 +41,7 @@ const FilterFieldsModal = ({
                     required
                 />
             </Field>
-            <div className="size-lg-6 size-md-12">
+            <div className="size-lg-5 size-md-12">
                 {showFreeForm ? (
                     <>
                         <Field
@@ -47,16 +51,6 @@ const FilterFieldsModal = ({
                         >
                             {freeFormValues.map(renderOption)}
                         </Field>
-                        {/* <BlockButtonWrapper>
-                            <button
-                                className="button green"
-                                type="button"
-                                onClick={addFreeFormVal}
-                            >
-                                <i className="fa fa-plus fa-fw" />
-                                add option
-                            </button>
-                        </BlockButtonWrapper> */}
                     </>
                 ) : (
                     <Field
@@ -74,6 +68,36 @@ const FilterFieldsModal = ({
                     </Field>
                 )}
             </div>
+
+            {/* <Field 
+                name="Exact match"
+                classes="fields-inside"
+                sizeClasses="size-lg-2 size-md-12"
+            >
+                {!forceExactMatch ? (
+                    <CheckboxContainer
+                       checked={exactMatch}
+                       name="exactMatch"
+                       text=""
+                       handleChange={handleChange}
+                    />  
+
+                ) : (
+                    <TooltipContainer containerSide="left" side="top" text="The specified field type can only be an exact match.">
+                        <CheckboxContainer
+                            disabled
+                            checked
+                            name="exactMatch"
+                            text=""
+                            handleChange={handleChange}
+                            
+                        />
+                    </TooltipContainer>
+                )
+            }
+                
+              
+            </Field> */}
             <BlockButtonWrapper>
                 <button
                     className="button green"

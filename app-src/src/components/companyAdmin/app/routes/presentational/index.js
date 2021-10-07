@@ -27,11 +27,13 @@ import HeadquartersRoutes from './HeadquartersRoutes';
 import ApprovedCompaniesRoutes from './ApprovedCompaniesRoutes';
 import UserGuidesRoutes from './UserGuidesRoutes';
 import ReleaseNotesRoutes from './ReleaseNotesRoutes';
+import CompanySelection from 'components/companyAdmin/companySelection/CompanySelection';
 // import withTermsAuth from '../../hocs/withTermsAuth';
 
 const CompanyRoutes = ({ base = '/company' }) => (
     <SwitchWith404>
         <Route exact path={base} component={withSubscriptionAuth(DashboardContainer)} />
+        <Route path={`${base}/company-selection`} component={CompanySelection} />
         <Route path={`${base}/buildings`} component={withSubscriptionAuth(BuildingsRoutes)} />
         <Route path={`${base}/drawings`} component={withSubscriptionAuth(DrawingsRoutes)} />
         <Route path={`${base}/floors`} component={withSubscriptionAuth(FloorRoutes)} />

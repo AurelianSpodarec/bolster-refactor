@@ -21,7 +21,7 @@ class SingleManufacturerContainer extends Component {
             isSorting,
             toggleIsSorting,
         } = this.props;
-        const isManufacturerFetched = manufacturers.hasOwnProperty(manufacturerID) && !isFetching;
+        const isManufacturerFetched = !!manufacturers[manufacturerID] && !isFetching;
 
         return !isManufacturerFetched ? (
             <Loading />

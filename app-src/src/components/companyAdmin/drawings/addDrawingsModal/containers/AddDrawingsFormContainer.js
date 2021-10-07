@@ -65,6 +65,8 @@ const AddDrawingsFormContainer = ({
     fetchAllCredits,
     fetchAllDropdownOptions,
     dropdownOptions,
+    companyName,
+    isFetchingHierarchies,
 }) => {
     const [
         drawings,
@@ -76,6 +78,7 @@ const AddDrawingsFormContainer = ({
         // eslint-disable-next-line no-unused-vars
         _,
         setInitialManufacturerFloorOptions,
+        updateSelectAll,
     ] = useMultipleHierarchies({
         name: '',
         file: '',
@@ -109,7 +112,7 @@ const AddDrawingsFormContainer = ({
 
     const [initialDropdownOptions, setInititalDropdownOptions] = useState({
         isDropdownOptionsInherited: false,
-        setDropdownOptionsForHierarchy: null,
+        setDropdownOptionsForHierarchy: false,
         selectedDropdownOptions: [],
         dropdownOptions: [],
     });
@@ -232,10 +235,12 @@ const AddDrawingsFormContainer = ({
         value: id,
         text: `${userFirstName} ${userLastName} (${companyName})`,
     }));
-    const operativeOptions = operatives.map(({ id, userFirstName, userLastName, companyName }) => ({
-        value: id,
-        text: `${userFirstName} ${userLastName} (${companyName})`,
-    }));
+    const operativeOptions = operatives
+        .filter(item => companyName === item.companyName)
+        .map(({ id, userFirstName, userLastName, companyName }) => ({
+            value: id,
+            text: `${userFirstName} ${userLastName} (${companyName})`,
+        }));
 
     const combinedOptions = { ...initialOptions, ...initialDropdownOptions };
 
@@ -270,6 +275,8 @@ const AddDrawingsFormContainer = ({
                 initialDropdownOptions={initialDropdownOptions}
                 floorName={floor.name}
                 combinedOptions={combinedOptions}
+                updateSelectAll={updateSelectAll}
+                isFetchingHierarchies={isFetchingHierarchies}
             />
         </BlockContainer>
     );
@@ -311,7 +318,7 @@ const AddDrawingsFormContainer = ({
                 const postBody = {
                     name,
                     file,
-                    startDate,
+                    startDate: isStartDateShowing ? startDate : null,
                     floorID,
                     clientPermissionIDs,
                     operativePermissionIDs,
@@ -321,9 +328,6 @@ const AddDrawingsFormContainer = ({
                 if (isAlertShowing) {
                     postBody.message = message;
                     postBody.dateToSend = dateToSend;
-                }
-                if (isStartDateShowing) {
-                    postBody.startDate = startDate;
                 }
 
                 createDrawing(postBody).then(fetchAllCredits);
@@ -359,7 +363,7 @@ const AddDrawingsFormContainer = ({
                     const postBody = {
                         name,
                         file,
-                        startDate,
+                        startDate: isStartDateShowing ? startDate : null,
                         floorID,
                         clientPermissionIDs,
                         operativePermissionIDs,
@@ -370,9 +374,7 @@ const AddDrawingsFormContainer = ({
                         postBody.message = message;
                         postBody.dateToSend = dateToSend;
                     }
-                    if (isStartDateShowing) {
-                        postBody.startDate = startDate;
-                    }
+
                     return postBody;
                 });
                 createDrawings({ drawings: formattedDrawings, floorID }).then(fetchAllCredits);
@@ -393,14 +395,14 @@ const AddDrawingsFormContainer = ({
 const mapStateToProps = (
     {
         companyAdmin: {
-            floorsReducer: { floorError, floors },
             buildingsReducer: { buildingError, buildings },
-
+            floorsReducer: { floorError, floors, isFetching: isFetchingFloors },
+            drawingsReducer: { isFetching: isFetchingDrawings },
             companySettingsReducer: {
-                companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
+                companySettings: { name, isUsingBolsterLabels, useManufacturingByDefault },
             },
             clientsReducer: { clients, isFetching: fetchingClients },
-            operativesReducer: { operatives, isFetching: fetchingOperatives },
+            operativesReducer: { operatives, operativesSpecific, isFetching: fetchingOperatives },
 
             dropdownOptionsReducer: { dropdownOptions, isFetching: isFetchingDropdownOptions },
             manufacturersReducer: {
@@ -443,10 +445,13 @@ const mapStateToProps = (
     subscriptionServiceIDs,
     clients: Object.values(clients),
     operatives: Object.values(operatives),
+    operativesSpecific: Object.values(operativesSpecific),
     fetchingClients,
     fetchingOperatives,
     dropdownOptions: Object.values(dropdownOptions),
     building: Object.values(buildings),
+    companyName: name,
+    isFetchingHierarchies: isFetchingFloors || isFetchingDrawings,
 });
 
 const mapDispatchToProps = {

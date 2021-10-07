@@ -26,7 +26,7 @@ const EditBannerNotificationFormContainer = ({
         startDate: new Date(moment.utc(bannerNotification.startDate)),
         endDate: new Date(moment.utc(bannerNotification.endDate)),
         content: bannerNotification.content,
-        colour: { text: bannerNotification.colour.text, value: bannerNotification.colour.value },
+        colour: { text: bannerNotification.colour?.text, value: bannerNotification.colour?.value },
     });
 
     const prevProps = usePrevious({ isPosting });

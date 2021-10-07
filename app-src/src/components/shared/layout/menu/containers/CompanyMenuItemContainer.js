@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom';
 
 import { getCompanyColour } from 'helpers/generic';
 import { toggleMobileMenu } from 'actions/shared/mobile/sync/toggleMobileMenu';
+import defaultStyles from 'constants/defaultStyles';
 
 class MenuItemContainer extends Component {
     state = {
-        hover: false
+        hover: false,
     };
 
     render() {
@@ -22,7 +23,8 @@ class MenuItemContainer extends Component {
             onClick = () => {},
             base = false,
             colourCode,
-            isBolsterLogoDark
+            isBolsterLogoDark,
+            companyUserID,
         } = this.props;
         const route = location.pathname.toLowerCase();
         const isActive = base
@@ -30,8 +32,10 @@ class MenuItemContainer extends Component {
             : route.toLowerCase().includes(link.toLowerCase());
 
         let textColor = 'white';
-        const companyColour = getCompanyColour(colourCode);
-        if (isBolsterLogoDark) textColor = 'black';
+        const companyColour = !companyUserID
+            ? defaultStyles.colourCode
+            : getCompanyColour(colourCode);
+        if (isBolsterLogoDark && !!companyUserID) textColor = 'black';
 
         return (
             <div
@@ -40,9 +44,15 @@ class MenuItemContainer extends Component {
                 className={`item ${isActive ? 'active' : ''} custom-hover`}
                 style={
                     isActive
-                        ? { backgroundColor: companyColour, color: isBolsterLogoDark ? 'white' :textColor  }
+                        ? {
+                              backgroundColor: companyColour,
+                              color: isBolsterLogoDark ? 'white' : textColor,
+                          }
                         : hover
-                        ? { backgroundColor: companyColour, color: isBolsterLogoDark ? 'white' :textColor }
+                        ? {
+                              backgroundColor: companyColour,
+                              color: isBolsterLogoDark ? 'white' : textColor,
+                          }
                         : {}
                 }
                 onClick={() => this._toggleMobileMenu()}
@@ -89,24 +99,23 @@ class MenuItemContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: {
-            companySettings: { colourCode, isBolsterLogoDark }
-        }
+            companySettings: { colourCode, isBolsterLogoDark },
+        },
     },
     shared: {
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+        decodeJWTReducer: {
+            jwtData: { companyUserID },
+        },
+    },
 }) => ({
     colourCode: colourCode || '',
     isBolsterLogoDark,
-    onMobile
+    onMobile,
+    companyUserID,
 });
 
 const mapDispatchToProps = dispatch => ({
-    toggleMobileMenu: () => dispatch(toggleMobileMenu())
+    toggleMobileMenu: () => dispatch(toggleMobileMenu()),
 });
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(MenuItemContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MenuItemContainer));

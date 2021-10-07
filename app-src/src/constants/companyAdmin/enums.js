@@ -359,6 +359,7 @@ export const INVOICE_STATUS_TYPES = {
     ALL: 0,
     PAID: 1,
     UNPAID: 2,
+    FREE: 3,
 };
 
 export const COMPANY_TYPES = {
@@ -411,6 +412,13 @@ export const HAS_PAID_QUERIES = {
     1: 'true',
     2: 'false',
     3: 'true',
+};
+
+export const HAS_PAID_VALUES = {
+    ALL: 0,
+    PAID: 1,
+    AWAITING_PAYMENT: 2,
+    FREE: 3,
 };
 
 export const DOCUMENT_TYPES = {

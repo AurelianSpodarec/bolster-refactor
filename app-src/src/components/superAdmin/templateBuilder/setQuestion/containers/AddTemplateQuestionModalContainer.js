@@ -20,6 +20,7 @@ const AddTemplateQuestionModalContainer = ({
     prereqOptions,
     prereqValueOptions,
     showPrefillOptions,
+    dropdownOptions,
 }) => {
     return (
         <TemplateQuestionFormModal
@@ -38,6 +39,7 @@ const AddTemplateQuestionModalContainer = ({
             handlePrefillStatusValueChange={handlePrefillStatusValueChange}
             showPrefillOptions={showPrefillOptions}
             handlePrereqOptionsChange={handlePrereqOptionsChange}
+            dropdownOptions={dropdownOptions}
         />
     );
 

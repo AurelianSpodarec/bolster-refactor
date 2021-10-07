@@ -87,6 +87,7 @@ function setDynamicFieldsSingle({
     charLimit,
     maxNum,
     options,
+    optionColour,
     canCompanyEdit,
     maxPhotos,
     optionType,
@@ -113,6 +114,7 @@ function setDynamicFieldsSingle({
             dynamicFields = {
                 options: opts.map(opt => opt.text),
                 canCompanyEdit,
+                optionColour,
                 defaultValue: defaultOpt ? defaultOpt.text : null,
             };
             break;
@@ -123,7 +125,7 @@ function setDynamicFieldsSingle({
         case VALS.DROPDOWN_OPTIONS:
         case VALS.MULTI_DROPDOWN_OPTIONS:
         case VALS.MULTI_MULTI_DROPDOWN_OPTIONS:
-            dynamicFields = { optionType };
+            dynamicFields = { optionType, defaultValue };
             break;
         case VALS.STATIC_IMAGE:
             dynamicFields = { file };

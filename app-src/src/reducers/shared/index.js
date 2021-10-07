@@ -10,6 +10,7 @@ import tablesReducer from './tables';
 import decodeJWTReducer from './decodeJWT';
 import modalReducer from './modal';
 import filesUploadingReducer from './fileUpload';
+import passwordRegexReducer from './passwordRegex';
 import timeReducer from './time';
 import sitesFilterReducer from './sitesFilter';
 import selectedHistoryReducer from './selectedHistory';
@@ -19,6 +20,7 @@ import isIE10Reducer from './isIE10';
 import sortReducer from './sort';
 import legalDocumentsReducer from './legalDocuments';
 import bannerNotificationReducer from './bannerNotifications';
+import twoFactorReducer from './twoFactor';
 
 export default combineReducers({
     confirmLeaveReducer,
@@ -27,6 +29,7 @@ export default combineReducers({
     loginReducer,
     modalReducer,
     mobileReducer,
+    passwordRegexReducer,
     profileReducer,
     tabsReducer,
     timeReducer,
@@ -40,4 +43,5 @@ export default combineReducers({
     legalDocumentsReducer,
     sortReducer,
     bannerNotificationReducer,
+    twoFactorReducer,
 });

@@ -14,7 +14,7 @@ import {
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { isEmpty, convertEnumToDropdownOptions } from 'helpers/generic';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
-import { SORT_BY_OPTIONS_TEXT } from 'constants/companyAdmin/enums';
+import { FURTHER_FILTRATION_OPTIONS, SORT_BY_OPTIONS_TEXT } from 'constants/companyAdmin/enums';
 import updateFilterOption from 'actions/companyAdmin/reports/sync/updateFilterOption';
 import OutputSettings from '../presentational/OutputSettings';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
@@ -33,8 +33,11 @@ class OutputSettingsContainer extends Component {
                 isFloorplanGeneration,
                 includeFloorplan,
                 isOAndMManualGeneration,
+                includeFloorplanZones,
             },
             options: { showHidden, sortBy },
+            furtherFiltrationOption,
+            hasZones,
         } = this.props;
 
         const sortByOptions = convertEnumToDropdownOptions(SORT_BY_OPTIONS_TEXT);
@@ -54,6 +57,9 @@ class OutputSettingsContainer extends Component {
                 handleOptionChange={this.handleOptionChange}
                 handleSubmit={this.handleSubmit}
                 handleShowOandMModal={this.handleShowOandMModal}
+                isZoneFilter={+furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.ZONES}
+                includeFloorplanZones={includeFloorplanZones}
+                hasZones={hasZones}
             />
         );
     }
@@ -123,13 +129,20 @@ class OutputSettingsContainer extends Component {
             getPostBody,
             fieldErrors,
             showFieldErrors,
-            filters: { isFloorplanGeneration, includeFloorplan, isPDFGeneration },
+            filters: {
+                isFloorplanGeneration,
+                includeFloorplan,
+                isPDFGeneration,
+                includeFloorplanZones,
+            },
             showModal,
+            furtherFiltrationOption,
+            customFilters,
         } = this.props;
-
         if (!isEmpty(fieldErrors)) showFieldErrors();
         else if (isFloorplanGeneration || (isPDFGeneration && includeFloorplan)) {
             const drawingForPinScale = this._getDrawingForPinScale();
+            console.log(isFloorplanGeneration, drawingForPinScale);
 
             if (!drawingForPinScale) {
                 showModal(ERROR_MODAL, {
@@ -144,9 +157,12 @@ class OutputSettingsContainer extends Component {
                 drawing: drawingForPinScale,
                 getPostBody,
                 postReport: this._postReport,
+                furtherFiltrationOption,
+                includeFloorplanZones,
             });
         } else {
-            this._postReport(getPostBody());
+            const body = getPostBody();
+            this._postReport(body);
         }
     };
 
@@ -182,24 +198,23 @@ class OutputSettingsContainer extends Component {
         } = this.props;
 
         let availableDrawings = Object.values(drawings);
-
         // uses the url to figure out which hierarchy the report is being generated on
         // and find an appropriate drawing for the pin scale modal
-        if (siteID) {
-            availableDrawings = availableDrawings.filter(drawing => +drawing.siteID === +siteID);
-        }
-        if (buildingID) {
-            availableDrawings = availableDrawings.filter(
-                drawing => +drawing.buildingID === +buildingID,
+        if (drawingID?.length) {
+            availableDrawings = availableDrawings.filter(drawing => drawingID.includes(drawing.id));
+        } else if (floorID?.length) {
+            availableDrawings = availableDrawings.filter(drawing =>
+                floorID.includes(drawing.floorID),
+            );
+        } else if (buildingID?.length) {
+            availableDrawings = availableDrawings.filter(drawing =>
+                buildingID.includes(drawing.buildingID),
+            );
+        } else if (siteID?.length) {
+            availableDrawings = availableDrawings.filter(drawing =>
+                siteID.includes(drawing.siteID),
             );
         }
-        if (floorID) {
-            availableDrawings = availableDrawings.filter(drawing => +drawing.floorID === +floorID);
-        }
-        if (drawingID) {
-            availableDrawings = availableDrawings.filter(drawing => +drawing.id === +drawingID);
-        }
-
         return availableDrawings[0];
     };
 
@@ -209,7 +224,8 @@ class OutputSettingsContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         drawingsReducer: { drawings },
-        reportsReducer: { filters, options, error },
+        reportsReducer: { filters, options, error, customFilters },
+        zonesReducer: { zones },
     },
     shared: {
         fieldErrorsReducer: { fieldErrors },
@@ -220,6 +236,8 @@ const mapStateToProps = ({
     options,
     drawings,
     error,
+    customFilters,
+    hasZones: !isEmpty(zones),
 });
 
 const mapDispatchToProps = {

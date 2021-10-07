@@ -16,7 +16,7 @@ const AllCompanyAdminsTable = ({
 }) => {
     return (
         <>
-        <BlockHeading title="Admins">
+            <BlockHeading title="Active Admins">
                 <ButtonContainer
                     handleClick={handleCreateCompanyAdmin}
                     setColour={GREEN}
@@ -46,8 +46,7 @@ const AllCompanyAdminsTable = ({
                     showDeleteModal={showDeleteModal}
                 />
             </Table>
-            </>
-
+        </>
     );
 };
 

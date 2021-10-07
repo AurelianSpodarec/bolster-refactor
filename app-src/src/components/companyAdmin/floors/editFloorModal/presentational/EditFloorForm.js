@@ -50,7 +50,7 @@ const FloorEditForm = ({
                         required
                     />
                 </Field>
-
+                {/* 
                 <div className="size-lg-12">
                     <div className="size-lg-6 size-md-12">
                         <Field name="Send an alert?">
@@ -62,8 +62,8 @@ const FloorEditForm = ({
                             />
                         </Field>
                     </div>
-                </div>
-
+                </div> */}
+                {/* 
                 {isAlertShowing && (
                     <div className="size-lg-12">
                         <div className={`size-lg-${isUsingBolsterLabels ? '12' : '6'}`}>
@@ -88,7 +88,7 @@ const FloorEditForm = ({
                             </Field>
                         </div>
                     </div>
-                )}
+                )} */}
             </div>
             {showManufacturingOptions ? (
                 <>
@@ -110,7 +110,7 @@ const FloorEditForm = ({
                     </div>
                     {setManufacturersForHierarchy && (
                         <div className="size-lg-12">
-                            <Field labelClasses="no-capitalise" name="Manufacturer(s)">
+                            <Field labelClasses="no-capitalise" name="Manufacturer(s)" required>
                                 <CheckboxListContainer
                                     name="selectedManufacturerOptions"
                                     text=""
@@ -118,6 +118,7 @@ const FloorEditForm = ({
                                     selectedOptions={selectedManufacturerOptions}
                                     options={manufacturerOptions}
                                     allOptionsDisabled={isManufacturingInherited}
+                                    required
                                 />
                             </Field>
                         </div>

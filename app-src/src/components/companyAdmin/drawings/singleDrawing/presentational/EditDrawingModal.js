@@ -119,7 +119,7 @@ const EditDrawingModal = ({
                         </Field>
                     )}
 
-                    <div className="size-lg-12">
+                    {/* <div className="size-lg-12">
                         <div className="size-lg-6 size-md-12">
                             <Field name="Send an alert?">
                                 <CheckboxContainer
@@ -130,8 +130,8 @@ const EditDrawingModal = ({
                                 />
                             </Field>
                         </div>
-                    </div>
-
+                    </div> */}
+                    {/* 
                     {isAlertShowing && (
                         <div className="size-lg-12">
                             <div
@@ -164,7 +164,7 @@ const EditDrawingModal = ({
                                 </Field>
                             </div>
                         </div>
-                    )}
+                    )} */}
                 </div>
                 {showManufacturingOptions ? (
                     <>
@@ -186,7 +186,7 @@ const EditDrawingModal = ({
                         </div>
                         {setManufacturersForHierarchy && (
                             <div className="size-lg-12">
-                                <Field labelClasses="no-capitalise" name="Manufacturer(s)">
+                                <Field labelClasses="no-capitalise" name="Manufacturer(s)" required>
                                     <CheckboxListContainer
                                         name="selectedManufacturerOptions"
                                         text=""
@@ -194,6 +194,7 @@ const EditDrawingModal = ({
                                         selectedOptions={selectedManufacturerOptions}
                                         options={manufacturerOptions}
                                         allOptionsDisabled={isManufacturingInherited}
+                                        required
                                     />
                                 </Field>
                             </div>

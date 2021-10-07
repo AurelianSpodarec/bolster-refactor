@@ -8,15 +8,8 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 
 const EditSettings = ({ isFetching, companySettings: company }) => (
     <>
-        <PageHeading
-            leftChildren={true}
-            title="Edit Company Settings"
-            withBackButton
-        />
-        <BlockContainer
-            isFetching={isFetching}
-            isEmpty={!company.name}
-        >
+        <PageHeading leftChildren={true} title="Edit Company Settings" withBackButton />
+        <BlockContainer isFetching={isFetching} isEmpty={!company.name}>
             <BlockHeading title="Company Details" />
             <EditSettingsFormContainer />
         </BlockContainer>
@@ -25,12 +18,12 @@ const EditSettings = ({ isFetching, companySettings: company }) => (
 
 const mapStateToProps = ({
     companyAdmin: {
-        companySettingsReducer: { isFetching, error, companySettings }
-    }
+        companySettingsReducer: { isFetching, error, companySettings },
+    },
 }) => ({
     isFetching,
     error,
-    companySettings
+    companySettings,
 });
 
 export default connect(mapStateToProps)(EditSettings);
