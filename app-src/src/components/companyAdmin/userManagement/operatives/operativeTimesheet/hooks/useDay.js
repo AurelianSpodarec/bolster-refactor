@@ -7,7 +7,11 @@ const getDay = (timesheet, selectedDate) => {
 };
 
 const useDay = (timesheet, selectedDate) => {
+    if (!timesheet) return {};
+
     const day = getDay(timesheet, selectedDate);
+
+    if (!day) return {};
 
     const { totalPins, totalHours, clockerEntries, clockerNotes } = day;
 

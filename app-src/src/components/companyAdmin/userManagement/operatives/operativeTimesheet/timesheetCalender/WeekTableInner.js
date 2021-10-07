@@ -15,8 +15,6 @@ const WeekTableInner = ({
 }) => {
     const { totalPins, totalHours, clockerEntries } = timesheet;
 
-    console.log({ totalPins, totalHours, clockerEntries });
-
     return (
         <>
             {clockerEntries.map(({ date, totalPins, totalHours }, i) => (

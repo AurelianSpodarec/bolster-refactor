@@ -5,19 +5,32 @@ import BreakdownColumns from '../BreakdownColumns';
 import BreakdownDaySummary from '../BreakdownDaySummary';
 import BreakdownNotes from '../BreakdownNotes';
 import DashboardPinFeed from '../../../../../dashboard/presentational/DashboardPinFeed';
-import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 import { isEmpty } from 'helpers/generic';
+import usePinStats from '../../hooks/usePinStats';
+import { useParams } from 'react-router-dom';
+import moment from 'moment';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import usePinFeed from '../../hooks/usePinFeed';
 
 const DayBreakdownOverview = ({
     selectedDate,
 
-    isFetching,
-    fetchError,
     timesheet,
 }) => {
-    if (isFetching) return <LoadingIcon />;
-    if (fetchError) return <p>{fetchError}</p>;
-    if (isEmpty(timesheet)) return <p>Something went wrong</p>;
+    const { id } = useParams();
+    const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
+        id,
+        selectedDate,
+        moment(selectedDate).endOf('day').toISOString(),
+    );
+
+    const { isFetching: feedIsFetching, fetchError: feedFetchError, feed } = usePinFeed(
+        id,
+        selectedDate,
+        false,
+    );
 
     const { totalPins, totalHours, clockerEntries, clockerNotes } = useDay(timesheet, selectedDate);
 
@@ -29,8 +42,7 @@ const DayBreakdownOverview = ({
                     <BreakdownDaySummary
                         hours={totalHours}
                         pins={totalPins}
-                        reference={'reference'}
-                        description={'description'}
+                        reference={clockerEntries[0]?.jobReference ?? 'N/A'}
                     />
                     <BreakdownNotes notes={clockerNotes} />
                 </>
@@ -38,10 +50,33 @@ const DayBreakdownOverview = ({
             right={
                 <>
                     <div className="breakdown-piechart">
-                        <PieChart stats={stats} />
+                        <BlockContainer
+                            isFetching={statsIsFetching}
+                            error={statsFetchError}
+                            isEmpty={isEmpty(stats) || statsIsFetching}
+                        >
+                            <PieChart
+                                stats={stats}
+                                noDataMessageOverride={
+                                    <>
+                                        No pins were placed on{' '}
+                                        {
+                                            <DateTimeContainer
+                                                date={new Date(selectedDate)}
+                                                datetime={DATE_TIME_IDS.DATE}
+                                            />
+                                        }
+                                    </>
+                                }
+                            />
+                        </BlockContainer>
                     </div>
                     <div className="breakdown-feed">
-                        <DashboardPinFeed pins={feed} isFetching={false} error={null} />
+                        <DashboardPinFeed
+                            pins={feed ?? []}
+                            isFetching={feedIsFetching}
+                            error={feedFetchError}
+                        />
                     </div>
                 </>
             }
@@ -51,15 +86,15 @@ const DayBreakdownOverview = ({
 
 export default DayBreakdownOverview;
 
-const stats = {
-    statuses: {
-        ActionRequired: 32,
-        Installed: 25,
-        Inspected: 18,
-        NoAction: 1,
-        Other: 2,
-    },
-};
+// const stats = {
+//     statuses: {
+//         ActionRequired: 32,
+//         Installed: 25,
+//         Inspected: 18,
+//         NoAction: 1,
+//         Other: 2,
+//     },
+// };
 
 const feed = [
     {

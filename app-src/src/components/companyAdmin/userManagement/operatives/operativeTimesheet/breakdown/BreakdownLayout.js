@@ -4,14 +4,25 @@ import React from 'react';
 import BreakdownTabs from './BreakdownTabs';
 import useSelectedTab from './hooks/useSelectedTab';
 
-const BreakdownLayout = ({ title, tabs }) => {
+const BreakdownLayout = ({
+    title = '',
+    tabs = [],
+    isLoading = false,
+    error = null,
+    noData = false,
+}) => {
     const { selectedTab, onTabChange } = useSelectedTab();
 
     return (
-        <BlockContainer contentClass="timesheet-breakdown">
+        <BlockContainer
+            contentClass="timesheet-breakdown"
+            isFetching={isLoading}
+            error={error}
+            isEmpty={noData}
+        >
             <BlockHeading title={title} />
             <BreakdownTabs tabs={tabs} selectedTab={selectedTab} onTabChange={onTabChange} />
-            {tabs[selectedTab].component}
+            {tabs[selectedTab]?.component}
         </BlockContainer>
     );
 };

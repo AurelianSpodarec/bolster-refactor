@@ -59,6 +59,8 @@ import userDocumentsReducer from './userDocuments';
 import zonesReducer from './zones';
 import companySelectionReducer from './companySelection';
 import timesheetsReducer from './timesheets';
+import timesheetPinStatsReducer from './timesheetPinStats';
+import userPinFeedReducer from './userPinFeed';
 
 export default combineReducers({
     activityLogReducer,
@@ -120,4 +122,6 @@ export default combineReducers({
     userGuideReducer,
     zonesReducer,
     timesheetsReducer,
+    timesheetPinStatsReducer,
+    userPinFeedReducer,
 });

@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
 import {
     FETCH_TIMESHEET_WEEK_REQUEST,
     FETCH_TIMESHEET_WEEK_FAILURE,
@@ -25,12 +24,14 @@ function isFetchingReducer(state = false, action) {
             return true;
         case FETCH_TIMESHEET_WEEK_FAILURE:
             return false;
+
         case FETCH_TIMESHEET_DAY_FAILURE:
             return false;
         case FETCH_TIMESHEET_WEEK_SUCCESS:
             return false;
         case FETCH_TIMESHEET_DAY_SUCCESS:
             return false;
+
         default:
             return state;
     }
@@ -44,12 +45,14 @@ function errorReducer(state = null, action) {
             return null;
         case FETCH_TIMESHEET_WEEK_FAILURE:
             return action.payload;
+
         case FETCH_TIMESHEET_DAY_FAILURE:
             return action.payload;
         case FETCH_TIMESHEET_WEEK_SUCCESS:
             return null;
         case FETCH_TIMESHEET_DAY_SUCCESS:
             return null;
+
         default:
             return state;
     }
@@ -63,9 +66,11 @@ function timesheetReducer(state = {}, action) {
         case FETCH_TIMESHEET_WEEK_FAILURE:
             return state;
         case FETCH_TIMESHEET_DAY_FAILURE:
+
         case FETCH_TIMESHEET_WEEK_SUCCESS:
             return action.payload;
         case FETCH_TIMESHEET_DAY_SUCCESS:
+
         default:
             return state;
     }

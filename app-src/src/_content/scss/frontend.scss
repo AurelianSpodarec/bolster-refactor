@@ -3658,6 +3658,7 @@ $back-to-top-height: 35px;
 }
 
 .timesheet-breakdown {
+
     .breakdown-tabs {
         display: flex;
         gap: 32px;
@@ -3798,6 +3799,12 @@ $back-to-top-height: 35px;
     }
 
     .breakdown-piechart {
+
+        .no-data {
+            text-align: center;
+            margin: 26px 0;
+        }
+        
         .history {
             display: flex;
             flex-direction: column;

@@ -3,7 +3,7 @@ import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
-import fetchTimesheetWeek from 'actions/companyAdmin/timesheets/fetchTimesheetWeek';
+import fetchTimesheetWeek from 'actions/companyAdmin/timesheets/async/fetchTimesheetWeek';
 import { useParams } from 'react-router-dom';
 import {
     selectTimesheet,
@@ -24,20 +24,21 @@ const useOperativeTimesheet = () => {
 
     const thisWeek = moment(new Date())
         .tz(timeZone.id)
-        .startOf('week')
-        .add(1, 'hours')
-        .add(1, 'days')
+        .startOf('isoWeek')
+        .add(1, 'day')
         .toISOString();
 
+    const thisDay = moment(new Date()).tz(timeZone.id).startOf('day').toISOString();
+
     const [startDate, setStartDate] = useState(thisWeek);
-    const [selectedDate, setSelectedDate] = useState(moment(new Date()).toISOString());
+    const [selectedDate, setSelectedDate] = useState(thisDay);
     const [timePeriod, setTimePeriod] = useState(TIME_PERIOD.DAY);
 
     const onPrev = () => setStartDate(moment(startDate).subtract(7, 'days').toISOString());
     const onNext = () => setStartDate(moment(startDate).add(7, 'days').toISOString());
     const onToday = () => {
         setStartDate(thisWeek);
-        setSelectedDate(moment(new Date()).tz(timeZone.id).toISOString());
+        setSelectedDate(thisDay);
         setTimePeriod(TIME_PERIOD.DAY);
     };
 
@@ -51,9 +52,16 @@ const useOperativeTimesheet = () => {
     };
 
     useEffect(() => {
-        console.log({ startDate });
         dispatch(fetchTimesheetWeek(id, startDate));
     }, [dispatch, id, startDate]);
+
+    useEffect(() => {
+        setSelectedDate(startDate);
+    }, [startDate]);
+
+    useEffect(() => {
+        onToday();
+    }, []);
 
     return {
         startDate,

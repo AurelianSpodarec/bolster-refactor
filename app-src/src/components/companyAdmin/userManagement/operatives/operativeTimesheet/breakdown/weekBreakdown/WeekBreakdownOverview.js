@@ -1,24 +1,35 @@
 import DashboardPinFeed from 'components/companyAdmin/dashboard/presentational/DashboardPinFeed';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
-import { isEmpty } from 'helpers/generic';
+import moment from 'moment';
 import React from 'react';
-import useWeek from '../../hooks/useWeek';
 import BreakdownColumns from '../BreakdownColumns';
 import BreakdownDaySummary from '../BreakdownDaySummary';
+import { useParams } from 'react-router-dom';
+import usePinStats from '../../hooks/usePinStats';
+import usePinFeed from '../../hooks/usePinFeed';
+import { isEmpty } from 'lodash';
 
 const WeekBreakdownOverview = ({
     selectedDate,
 
-    isFetching,
-    fetchError,
     timesheet,
 }) => {
-    if (isFetching) return <LoadingIcon />;
-    if (fetchError) return <p>{fetchError}</p>;
-    if (isEmpty(timesheet)) return <p>Something went wrong</p>;
+    const { id } = useParams();
+    const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
+        id,
+        selectedDate,
+        moment(selectedDate).endOf('week').toISOString(),
+    );
+
+    const { isFetching: feedIsFetching, fetchError: feedFetchError, feed } = usePinFeed(
+        id,
+        selectedDate,
+        true,
+    );
 
     return (
         <BreakdownColumns
@@ -41,7 +52,6 @@ const WeekBreakdownOverview = ({
                             hours={totalHours}
                             pins={totalPins}
                             reference={'reference'}
-                            description={'description'}
                         />
                     </div>
                 ),
@@ -49,10 +59,33 @@ const WeekBreakdownOverview = ({
             right={
                 <>
                     <div className="breakdown-piechart">
-                        <PieChart stats={stats} />
+                        <BlockContainer
+                            isFetching={statsIsFetching}
+                            error={statsFetchError}
+                            isEmpty={isEmpty(stats) || statsIsFetching}
+                        >
+                            <PieChart
+                                stats={stats}
+                                noDataMessageOverride={
+                                    <>
+                                        No pins were placed on{' '}
+                                        {
+                                            <DateTimeContainer
+                                                date={new Date(selectedDate)}
+                                                datetime={DATE_TIME_IDS.DATE}
+                                            />
+                                        }
+                                    </>
+                                }
+                            />
+                        </BlockContainer>
                     </div>
                     <div className="breakdown-feed">
-                        <DashboardPinFeed pins={feed} isFetching={false} error={null} />
+                        <DashboardPinFeed
+                            pins={feed ?? []}
+                            isFetching={feedIsFetching}
+                            error={feedFetchError}
+                        />
                     </div>
                 </>
             }

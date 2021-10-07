@@ -1,12 +1,12 @@
 import axios from 'axios';
-
 import { API_URL } from 'config';
+import { getHeaders } from 'helpers/api';
+
 import {
     FETCH_TIMESHEET_WEEK_REQUEST,
     FETCH_TIMESHEET_WEEK_FAILURE,
     FETCH_TIMESHEET_WEEK_SUCCESS,
 } from 'constants/actionTypes/timesheets';
-import { getHeaders } from 'helpers/api';
 
 export const fetchTimesheetWeekRequest = () => ({
     type: FETCH_TIMESHEET_WEEK_REQUEST,
