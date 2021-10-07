@@ -8,10 +8,10 @@ import { Link } from 'react-router-dom';
 const UnconfirmedEmailBanner = () => {
     const dispatch = useDispatch();
     const isEmailUnconfirmed = useSelector(
-        ({ shared }) => shared.loginReducer.emailConfirmationRequired,
+        ({ shared }) => shared.profileReducer.profile.isEmailConfirmed,
     );
 
-    if (!isEmailUnconfirmed) return null;
+    if (isEmailUnconfirmed) return null;
 
     return (
         <div className="banner-notification-wrapper alerts" style={{ backgroundColor: '#d71a1a' }}>
