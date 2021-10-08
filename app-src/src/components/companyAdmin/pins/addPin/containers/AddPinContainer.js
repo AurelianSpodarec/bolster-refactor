@@ -119,7 +119,6 @@ class AddPinContainer extends Component {
                     else return false;
                 }
             });
-
             updateDrawingDropdownOptions(filteredNewOptions);
         } else {
             const formattedOptionValues = Object.values(dropdownOptions).flat();
