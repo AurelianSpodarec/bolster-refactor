@@ -22,24 +22,28 @@ const useOperativeTimesheet = () => {
 
     const { id } = useParams();
 
-    const thisWeek = moment(new Date())
-        .tz(timeZone.id)
-        .startOf('isoWeek')
-        .add(1, 'day')
-        .toISOString();
+    const thisWeek = moment(new Date()).tz(timeZone.id).startOf('isoWeek').format();
 
-    const thisDay = moment(new Date()).tz(timeZone.id).startOf('day').toISOString();
+    const thisDay = moment(new Date()).tz(timeZone.id).startOf('day').format();
 
     const [startDate, setStartDate] = useState(thisWeek);
     const [selectedDate, setSelectedDate] = useState(thisDay);
     const [timePeriod, setTimePeriod] = useState(TIME_PERIOD.DAY);
 
-    const onPrev = () => setStartDate(moment(startDate).subtract(7, 'days').toISOString());
-    const onNext = () => setStartDate(moment(startDate).add(7, 'days').toISOString());
+    const onPrev = () => {
+        const newStartDate = moment(startDate).subtract(7, 'days').format();
+        setStartDate(newStartDate);
+        setSelectedDate(newStartDate);
+    };
+    const onNext = () => {
+        const newStartDate = moment(startDate).add(7, 'days').format();
+        setStartDate(newStartDate);
+        setSelectedDate(newStartDate);
+    };
     const onToday = () => {
         setStartDate(thisWeek);
-        setSelectedDate(thisDay);
         setTimePeriod(TIME_PERIOD.DAY);
+        setSelectedDate(thisDay);
     };
 
     const onDaySelect = timestamp => {
@@ -54,14 +58,6 @@ const useOperativeTimesheet = () => {
     useEffect(() => {
         dispatch(fetchTimesheetWeek(id, startDate));
     }, [dispatch, id, startDate]);
-
-    useEffect(() => {
-        setSelectedDate(startDate);
-    }, [startDate]);
-
-    useEffect(() => {
-        onToday();
-    }, []);
 
     return {
         startDate,

@@ -22,7 +22,7 @@ const WeekBreakdownOverview = ({
     const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
         id,
         selectedDate,
-        moment(selectedDate).endOf('week').toISOString(),
+        moment(selectedDate).endOf('week').format(),
     );
 
     const { isFetching: feedIsFetching, fetchError: feedFetchError, feed } = usePinFeed(

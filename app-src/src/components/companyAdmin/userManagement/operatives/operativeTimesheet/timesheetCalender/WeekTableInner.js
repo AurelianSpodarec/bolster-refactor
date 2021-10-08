@@ -3,6 +3,8 @@ import moment from 'moment';
 import Tab from './Tab';
 
 import { TIME_PERIOD } from 'constants/companyAdmin/enums';
+import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
+import { useSelector } from 'react-redux';
 
 const WeekTableInner = ({
     startDate,
@@ -13,14 +15,16 @@ const WeekTableInner = ({
 
     timesheet,
 }) => {
-    const { totalPins, totalHours, clockerEntries } = timesheet;
+    const { totalPins, totalHours, clockerEntries = [] } = timesheet;
+
+    const { timeZone } = useSelector(selectCompanySettings);
 
     return (
         <>
             {clockerEntries.map(({ date, totalPins, totalHours }, i) => (
                 <td key={i} onClick={() => onDaySelect(date)}>
                     <div className="date">
-                        <p>{moment(date).format('DD')}</p>
+                        <p>{moment(date).tz(timeZone.id).format('DD')}</p>
                         <p className="full">{moment(date).format('dddd DD')}</p>
                         <i class="fal fa-circle" />
                     </div>

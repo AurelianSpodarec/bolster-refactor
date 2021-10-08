@@ -23,7 +23,7 @@ const DayBreakdownOverview = ({
     const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
         id,
         selectedDate,
-        moment(selectedDate).endOf('day').toISOString(),
+        moment(selectedDate).endOf('day').format(),
     );
 
     const { isFetching: feedIsFetching, fetchError: feedFetchError, feed } = usePinFeed(
