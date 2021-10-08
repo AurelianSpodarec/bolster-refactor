@@ -14,8 +14,18 @@ const DayBreakdownLocation = ({
     return (
         <BreakdownColumns
             className="day-breakdown-location"
-            left={<BreakdownDetailedTimeline clockerEntries={clockerEntries} />}
-            right={<BreakdownBasicTimeline clockerEntries={clockerEntries} />}
+            left={
+                <BreakdownDetailedTimeline
+                    clockerEntries={clockerEntries}
+                    selectedDate={selectedDate}
+                />
+            }
+            right={
+                <BreakdownBasicTimeline
+                    clockerEntries={clockerEntries}
+                    selectedDate={selectedDate}
+                />
+            }
         />
     );
 };

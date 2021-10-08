@@ -35,8 +35,6 @@ const useTimeline = clockerEntries => {
     // push final block
     if (currBlock.clockIn || currBlock.clockOut) timeline.push(currBlock);
 
-    console.log(timeline);
-
     return timeline;
 };
 
