@@ -69,18 +69,21 @@ class AddPinContainer extends Component {
             subscriptionServiceIDs,
         } = this.props;
 
+        console.log({
+            dropdownOptions,
+            drawing,
+            optionValues,
+            updateDrawingDropdownOptions,
+            subscriptionServiceIDs,
+        });
+
         // check to see if we should be using manufacturing pin options instead of the original dropdown options
         if (drawing.isManufacturingEnabled) {
             const drawingOptionValueIDs = drawing.optionValueIDs ?? [];
             const originalOptionTypesToRemove = [];
 
             // get manufacturer option values in an array ready to be reduced into the options that may replace certain fields.
-            const formattedManufacturerOptionValues = Object.values(optionValues).reduce(
-                (acc, options) => {
-                    return [...acc, ...Object.values(options)];
-                },
-                [],
-            );
+            const formattedManufacturerOptionValues = Object.values(optionValues).flat();
 
             const drawingOptionValues = formattedManufacturerOptionValues.reduce((acc, option) => {
                 const isCorrectForDrawingAndServiceID = serviceID
@@ -109,7 +112,25 @@ class AddPinContainer extends Component {
 
             const newOptions = [...dropdownOptionsFilteredArray, ...drawingOptionValues];
 
-            updateDrawingDropdownOptions(newOptions);
+            const filteredNewOptions = newOptions.filter(val => {
+                if (!serviceID) return true;
+                else {
+                    if (val.serviceIDs?.includes(Number(serviceID)) || !val.serviceIDs) return true;
+                    else return false;
+                }
+            });
+
+            updateDrawingDropdownOptions(filteredNewOptions);
+        } else {
+            const formattedOptionValues = Object.values(dropdownOptions).flat();
+            const filteredOptionValues = formattedOptionValues.filter(val => {
+                if (!serviceID) return true;
+                else {
+                    if (val.serviceIDs?.includes(Number(serviceID)) || !val.serviceIDs) return true;
+                    else return false;
+                }
+            });
+            updateDrawingDropdownOptions(filteredOptionValues);
         }
     };
 }
