@@ -3,13 +3,15 @@ import { CONFIRM_EMAIL } from 'constants/shared/modalTypes';
 import { isEmpty } from 'lodash';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 const UnconfirmedEmailBanner = () => {
     const dispatch = useDispatch();
+    const { pathname } = useLocation();
     const isEmailUnconfirmed = useSelector(
         ({ shared }) => shared.profileReducer.profile.isEmailConfirmed,
     );
+    const isClient = pathname.includes('client');
 
     if (isEmailUnconfirmed) return null;
 
@@ -27,7 +29,7 @@ const UnconfirmedEmailBanner = () => {
                     and follow the steps on the email you will receive to complete this process. If
                     your email address is incorrect, invalid or old, please update through{' '}
                     <strong>
-                        <Link to="profile">My profile</Link>
+                        <Link to={`${isClient ? '/client' : '/company'}/profile`}>My profile</Link>
                     </strong>
                     .
                 </div>
