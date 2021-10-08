@@ -26,11 +26,11 @@ const WeekTableInner = ({
                     <div className="date">
                         <p>{moment(date).tz(timeZone.id).format('DD')}</p>
                         <p className="full">{moment(date).format('dddd DD')}</p>
-                        <i class="fal fa-circle" />
+                        <i className="fal fa-circle" />
                     </div>
                     <div className="tabs">
-                        <Tab icon={<i class="fal fa-stopwatch" />}>{totalHours} Hours</Tab>
-                        <Tab icon={<i class="fal fa-map-pin" style={{ padding: '0 3px' }} />}>
+                        <Tab icon={<i className="fal fa-stopwatch" />}>{totalHours} Hours</Tab>
+                        <Tab icon={<i className="fal fa-map-pin" style={{ padding: '0 3px' }} />}>
                             {totalPins} Pins
                         </Tab>
                     </div>
@@ -49,11 +49,11 @@ const WeekTableInner = ({
                         {moment(clockerEntries[0].date).format('dddd D')} -{' '}
                         {moment(clockerEntries[6].date).format('dddd D')}
                     </p>
-                    <i class="fal fa-circle" />
+                    <i className="fal fa-circle" />
                 </div>
                 <div className="tabs">
-                    <Tab icon={<i class="fal fa-stopwatch" />}>{totalHours} Hours</Tab>
-                    <Tab icon={<i class="fal fa-map-pin" style={{ padding: '0 3px' }} />}>
+                    <Tab icon={<i className="fal fa-stopwatch" />}>{totalHours} Hours</Tab>
+                    <Tab icon={<i className="fal fa-map-pin" style={{ padding: '0 3px' }} />}>
                         {totalPins} Pins
                     </Tab>
                 </div>

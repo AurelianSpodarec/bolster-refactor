@@ -1,4 +1,5 @@
 import { decimalToSexagesimal } from 'geolib';
+import React from 'react';
 
 const BreakdownPositionCard = ({ location, locationUnavailableReason }) => {
     const sexagesimal = {

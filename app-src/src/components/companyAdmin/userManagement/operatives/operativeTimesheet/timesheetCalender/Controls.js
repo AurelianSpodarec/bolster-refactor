@@ -14,10 +14,10 @@ const Controls = ({ startDate, onPrev, onNext, onToday }) => {
                 <>
                     <div className="nav-buttons">
                         <button onClick={onPrev}>
-                            <i class="far fa-chevron-left" />
+                            <i className="far fa-chevron-left" />
                         </button>
                         <button onClick={onNext}>
-                            <i class="far fa-chevron-right" />
+                            <i className="far fa-chevron-right" />
                         </button>
                     </div>
                     <div className="date-range">
@@ -36,7 +36,7 @@ const Controls = ({ startDate, onPrev, onNext, onToday }) => {
                         setColour="transparent"
                         handleClick={onToday}
                     >
-                        <i class="far fa-calendar-week"></i> Today
+                        <i className="far fa-calendar-week"></i> Today
                     </ButtonContainer>
                 </>
             }
