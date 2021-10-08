@@ -22,11 +22,12 @@ function isFetchingReducer(state = false, action) {
             return true;
         case FETCH_TIMESHEET_DAY_REQUEST:
             return true;
+
         case FETCH_TIMESHEET_WEEK_FAILURE:
             return false;
-
         case FETCH_TIMESHEET_DAY_FAILURE:
             return false;
+
         case FETCH_TIMESHEET_WEEK_SUCCESS:
             return false;
         case FETCH_TIMESHEET_DAY_SUCCESS:
@@ -43,11 +44,12 @@ function errorReducer(state = null, action) {
             return null;
         case FETCH_TIMESHEET_DAY_REQUEST:
             return null;
-        case FETCH_TIMESHEET_WEEK_FAILURE:
-            return action.payload;
 
+        case FETCH_TIMESHEET_WEEK_FAILURE:
+            return action.error;
         case FETCH_TIMESHEET_DAY_FAILURE:
-            return action.payload;
+            return action.error;
+
         case FETCH_TIMESHEET_WEEK_SUCCESS:
             return null;
         case FETCH_TIMESHEET_DAY_SUCCESS:
@@ -63,6 +65,7 @@ function timesheetReducer(state = {}, action) {
         case FETCH_TIMESHEET_WEEK_REQUEST:
             return state;
         case FETCH_TIMESHEET_DAY_REQUEST:
+
         case FETCH_TIMESHEET_WEEK_FAILURE:
             return state;
         case FETCH_TIMESHEET_DAY_FAILURE:

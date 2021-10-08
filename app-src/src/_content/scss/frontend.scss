@@ -3696,10 +3696,15 @@ $back-to-top-height: 35px;
 
             margin: 32px 0 17px 0;
 
+            &.right, &.left {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+
             &.left {
                 flex-basis: 60%;
                 padding: 0 16px 0 0;
-
         
                 border-width: 1px;
                 border-color: $light-grey-alt;
@@ -3707,11 +3712,6 @@ $back-to-top-height: 35px;
             }
             &.right {
                 flex-basis: 40%;
-
-                display: flex;
-                flex-direction: column;
-
-                gap: 32px;
 
                 padding: 0 0 0 16px;
             }
@@ -3804,7 +3804,7 @@ $back-to-top-height: 35px;
             text-align: center;
             margin: 26px 0;
         }
-        
+
         .history {
             display: flex;
             flex-direction: column;
@@ -3850,21 +3850,108 @@ $back-to-top-height: 35px;
         }
     }
 
+    .breakdown-basic-timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+
+        margin-left: 96px;
+        padding-left: 32px;
+        
+        border-width: 2px;
+        border-color: $light-grey-alt;
+        border-style: none none none solid;
+    }
+
+    .breakdown-position-card {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 8px;
+
+        border: 1px solid $light-grey-alt;
+        border-radius: 5px;
+
+        .title {
+            color: $mobile-grey;
+            font-size: 120%;
+        }
+    }
+
+    .breakdown-basic-timeline-block {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .block-entry {
+            display: flex;
+            gap: 30px;
+
+            time {
+                position: absolute;
+                left: -96px;
+                top: 0;
+
+                font-size: 160%;
+            }
+
+            .bar-wrapper {
+                top: 16px;
+
+                .bar {
+                    height: 100%;
+                    width: 8px;
+                }
+
+                .ball {
+                    position: absolute;
+                    width: 16px;
+                    height: 16px;
+
+                    margin: -12px 0 0 -4px;
+
+                    border-radius: 100%;
+
+                    z-index: 100;
+                }
+
+                .bar, .ball {
+                    &.red {
+                        background-color: $timeline-red;
+                    }
+    
+                    &.yellow {
+                        background-color: $timeline-yellow;
+                    }
+    
+                    &.green {
+                        background-color: $timeline-green;
+                    }
+                }
+            }
+
+            .wrapper {
+                flex-grow: 1;
+                .title {
+                    font-size: 160%;
+                }
+
+                .breakdown-position-card {
+                    margin-top: 8px;
+                }
+            }
+        }
+    }
+
 
     .day-breakdown-overview {
-        .left {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
+    }
+
+    .day-breakdown-location {
     }
 
     .week-breakdown-overview {
         .left {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-
             .day {
                 display: flex;
                 flex-direction: column;

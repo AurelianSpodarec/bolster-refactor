@@ -28,8 +28,6 @@ const Breakdown = ({ selectedDate, timePeriod, isFetching, fetchError, timesheet
                             component: (
                                 <WeekBreakdownOverview
                                     selectedDate={selectedDate}
-                                    isFetching={isFetching}
-                                    fetchError={fetchError}
                                     timesheet={timesheet}
                                 />
                             ),
@@ -58,8 +56,6 @@ const Breakdown = ({ selectedDate, timePeriod, isFetching, fetchError, timesheet
                             component: (
                                 <DayBreakdownOverview
                                     selectedDate={selectedDate}
-                                    isFetching={isFetching}
-                                    fetchError={fetchError}
                                     timesheet={timesheet}
                                 />
                             ),
@@ -69,8 +65,6 @@ const Breakdown = ({ selectedDate, timePeriod, isFetching, fetchError, timesheet
                             component: (
                                 <DayBreakdownLocation
                                     selectedDate={selectedDate}
-                                    isFetching={isFetching}
-                                    fetchError={fetchError}
                                     timesheet={timesheet}
                                 />
                             ),

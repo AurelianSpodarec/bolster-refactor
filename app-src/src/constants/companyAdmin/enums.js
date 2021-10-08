@@ -482,3 +482,8 @@ export const TIME_PERIOD = {
     DAY: 'day',
     WEEK: 'week',
 };
+
+export const CLOCKER_ENTRY_TYPE = {
+    WORKING: 1,
+    ON_BREAK: 2,
+};

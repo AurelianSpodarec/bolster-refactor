@@ -1,0 +1,31 @@
+import { decimalToSexagesimal } from 'geolib';
+
+const BreakdownPositionCard = ({ location, locationUnavailableReason }) => {
+    const sexagesimal = {
+        x: decimalToSexagesimal(location.x),
+        y: decimalToSexagesimal(location.y),
+    };
+    return (
+        <div className="breakdown-position-card">
+            {locationUnavailableReason ? (
+                <>
+                    <p className="title">No location data available</p>
+                    <p className="text">{locationUnavailableReason}</p>
+                </>
+            ) : (
+                <>
+                    <p className="title">Lat Long</p>
+                    <p className="text">
+                        ({location.x}, {location.y})
+                    </p>
+                    <p className="title">GPD Coordinates</p>
+                    <p className="text">
+                        ({sexagesimal.x}, {sexagesimal.y})
+                    </p>
+                </>
+            )}
+        </div>
+    );
+};
+
+export default BreakdownPositionCard;
