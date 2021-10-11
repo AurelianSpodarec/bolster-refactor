@@ -30,8 +30,8 @@ const OperativeTimesheet = () => {
                 leftChildren={true}
                 title={`Timesheet - ${
                     isFetching
-                        ? 'Loading'
-                        : companyUser.userFirstName + ' ' + companyUser.userLastName
+                        ? 'Loading...'
+                        : companyUser?.userFirstName + ' ' + companyUser?.userLastName
                 }`}
             >
                 <BackButtonContainer />
