@@ -31,22 +31,21 @@ class EditTemplateQuestionModalContainer extends Component {
 
     componentDidMount = () => {
         const { question } = this.props;
-        const options = question.options.reduce((acc, { id, text }) => {
-            return { ...acc, [id]: text };
-        }, {});
 
-        if (question.OptionConfigurations) {
-            const configuration = question.OptionConfigurations.reduce(
-                (acc, { Name, IsDisabled }) => {
-                    return { ...acc, [Name]: IsDisabled };
+        if (question.optionConfigurations) {
+            const options = question.optionConfigurations.reduce((acc, { name }) => {
+                return { ...acc, [name]: name };
+            }, {});
+
+            const configuration = question.optionConfigurations.reduce(
+                (acc, { name, isDisabled }) => {
+                    return { ...acc, [name]: isDisabled };
                 },
                 {},
             );
 
-            this.setState({ configuration });
+            this.setState({ configuration, options });
         }
-
-        this.setState({ options });
     };
 
     componentDidUpdate = prevProps => {
@@ -81,40 +80,30 @@ class EditTemplateQuestionModalContainer extends Component {
         const { editTemplateQuestion, question } = this.props;
         const { options, configuration } = this.state;
 
-        // const OptionConfigurations = question.OptionConfigurations
-        //     ? question.OptionConfigurations.map((item, index) => {
-        //           return {
-        //               ...item,
-        //               Name: Object.values(this.state.options)[index],
-        //               IsDisabled: this.state.configuration[item.Name],
-        //           };
-        //       })
-        //     : null;
-
-        const OptionConfigurations = question.OptionConfigurations
+        const optionConfigurations = question.optionConfigurations
             ? Object.keys(options).map(item => {
                   if (item in configuration) {
-                      const prevObj = question.OptionConfigurations.find(obj => obj.Name === item);
+                      const prevObj = question.optionConfigurations.find(obj => obj.name === item);
                       return {
-                          Name: options[item],
-                          IsDisabled: this.state.configuration[item],
-                          CreatedBySuperAdmin: prevObj.CreatedBySuperAdmin,
+                          name: options[item],
+                          isDisabled: this.state.configuration[item],
+                          createdBySuperAdmin: prevObj.createdBySuperAdmin,
                       };
                   } else {
                       return {
-                          Name: options[item],
-                          IsDisabled: false,
-                          CreatedBySuperAdmin: false,
+                          name: options[item],
+                          isDisabled: false,
+                          createdBySuperAdmin: false,
                       };
                   }
               })
             : null;
 
-        const body = OptionConfigurations
+        const body = optionConfigurations
             ? {
                   questionID: question.id,
                   options: Object.values(this.state.options),
-                  OptionConfigurations,
+                  optionConfigurations,
               }
             : { questionID: question.id, options: Object.values(this.state.options) };
         editTemplateQuestion(question.id, body);
