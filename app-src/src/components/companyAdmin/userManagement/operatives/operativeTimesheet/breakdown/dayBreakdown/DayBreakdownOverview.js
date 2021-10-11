@@ -13,6 +13,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import usePinFeed from '../../hooks/usePinFeed';
+import useReferences from '../../hooks/useReferences';
 
 const DayBreakdownOverview = ({
     selectedDate,
@@ -37,6 +38,8 @@ const DayBreakdownOverview = ({
         selectedDate,
     );
 
+    const references = useReferences(clockerEntries);
+
     return (
         <BreakdownColumns
             className="day-breakdown-overview"
@@ -45,7 +48,7 @@ const DayBreakdownOverview = ({
                     <BreakdownDaySummary
                         hours={totalHours}
                         pins={totalPins}
-                        reference={clockerEntries[0]?.jobReference ?? 'N/A'}
+                        references={references}
                     />
                     <BreakdownNotes notes={clockerNotes} />
                 </>

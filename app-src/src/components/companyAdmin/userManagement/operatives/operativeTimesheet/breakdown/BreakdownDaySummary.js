@@ -1,7 +1,7 @@
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
-import React from 'react';
+import React, { Fragment } from 'react';
 
-const BreakdownDaySummary = ({ hours, pins, reference }) => {
+const BreakdownDaySummary = ({ hours, pins, references }) => {
     return (
         <div className="breakdown-day-summary">
             <div className="summary-row">
@@ -13,8 +13,15 @@ const BreakdownDaySummary = ({ hours, pins, reference }) => {
                 </FieldOutput>
             </div>
             <div className="summary-row">
-                <FieldOutput title="Job Reference" fieldClass="reference">
-                    {reference || 'N/A'}
+                <FieldOutput title="Job References" fieldClass="references">
+                    {references.length === 0
+                        ? 'N/A'
+                        : references.map((reference, i) => (
+                              <Fragment key={i}>
+                                  {reference}
+                                  <br />
+                              </Fragment>
+                          ))}
                 </FieldOutput>
             </div>
         </div>

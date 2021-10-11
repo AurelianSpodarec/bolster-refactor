@@ -12,6 +12,7 @@ import { useParams } from 'react-router-dom';
 import usePinStats from '../../hooks/usePinStats';
 import usePinFeed from '../../hooks/usePinFeed';
 import { isEmpty } from 'lodash';
+import useReferences from '../../hooks/useReferences';
 
 const WeekBreakdownOverview = ({
     selectedDate,
@@ -35,26 +36,29 @@ const WeekBreakdownOverview = ({
         <BreakdownColumns
             className="week-breakdown-overview"
             left={timesheet.clockerEntries.map(
-                ({ totalPins, totalHours, clockerEntries = [], date }, i) => (
-                    <div className="day" key={i}>
-                        <BlockHeading
-                            title={
-                                <>
-                                    Day Overview -{' '}
-                                    <DateTimeContainer
-                                        date={new Date(date)}
-                                        datetime={DATE_TIME_IDS.DATE}
-                                    />
-                                </>
-                            }
-                        />
-                        <BreakdownDaySummary
-                            hours={totalHours}
-                            pins={totalPins}
-                            reference={clockerEntries[0]?.jobReference ?? 'N/A'}
-                        />
-                    </div>
-                ),
+                ({ totalPins, totalHours, clockerEntries = [], date }, i) => {
+                    const references = useReferences(clockerEntries);
+                    return (
+                        <div className="day" key={i}>
+                            <BlockHeading
+                                title={
+                                    <>
+                                        Day Overview -{' '}
+                                        <DateTimeContainer
+                                            date={new Date(date)}
+                                            datetime={DATE_TIME_IDS.DATE}
+                                        />
+                                    </>
+                                }
+                            />
+                            <BreakdownDaySummary
+                                hours={totalHours}
+                                pins={totalPins}
+                                references={references}
+                            />
+                        </div>
+                    );
+                },
             )}
             right={
                 <>
