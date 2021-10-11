@@ -28,7 +28,11 @@ const OperativeTimesheet = () => {
         <>
             <PageHeading
                 leftChildren={true}
-                title={`Timesheet - ${companyUser.userFirstName} ${companyUser.userLastName}`}
+                title={`Timesheet - ${
+                    isFetching
+                        ? 'Loading'
+                        : companyUser.userFirstName + ' ' + companyUser.userLastName
+                }`}
             >
                 <BackButtonContainer />
             </PageHeading>
