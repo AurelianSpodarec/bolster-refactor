@@ -3564,6 +3564,10 @@ $back-to-top-height: 35px;
 
             border-style: solid none none none;
 
+            td {
+                cursor: pointer;
+            }
+
             th, td {
                 border-color: $light-grey-alt;
                 border-width: 1px;    
@@ -3573,8 +3577,6 @@ $back-to-top-height: 35px;
                 padding: 6px 8px;
                 font-size: 150%;
                 font-weight: normal;
-
-                cursor: pointer;
 
                 @include devices(smDesktop) {
                     font-size: 140%;
