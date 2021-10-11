@@ -6,7 +6,7 @@ import Breakdown from './breakdown/Breakdown';
 import useOperativeTimesheet from './hooks/useOperativeTimesheet';
 import TimesheetCalender from './timesheetCalender/TimesheetCalender';
 
-const OperativeTimesheet = ({ operativeName }) => {
+const OperativeTimesheet = () => {
     const {
         startDate,
         selectedDate,
@@ -15,6 +15,7 @@ const OperativeTimesheet = ({ operativeName }) => {
         isFetching,
         fetchError,
         timesheet,
+        companyUser,
 
         onPrev,
         onNext,
@@ -25,7 +26,10 @@ const OperativeTimesheet = ({ operativeName }) => {
 
     return (
         <>
-            <PageHeading leftChildren={true} title={`Timesheet - ${operativeName}`}>
+            <PageHeading
+                leftChildren={true}
+                title={`Timesheet - ${companyUser.userFirstName} ${companyUser.userLastName}`}
+            >
                 <BackButtonContainer />
             </PageHeading>
             <TimesheetCalender

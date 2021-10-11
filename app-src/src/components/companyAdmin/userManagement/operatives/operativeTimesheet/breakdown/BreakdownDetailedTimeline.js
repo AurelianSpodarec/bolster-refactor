@@ -29,7 +29,7 @@ const BreakdownDetailedTimeline = ({ clockerEntries, selectedDate }) => {
                     <DateTimeContainer date={selectedDate} datetime={DATE_TIME_IDS.DATE} />
                 </p>
             ) : (
-                timeline.map(block => <BreakdownDetailedTimelineBlock block={block} />)
+                timeline.map((block, i) => <BreakdownDetailedTimelineBlock key={i} block={block} />)
             )}
         </div>
     );

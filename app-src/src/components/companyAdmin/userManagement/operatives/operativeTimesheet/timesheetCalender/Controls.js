@@ -7,8 +7,6 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const Controls = ({ startDate, onPrev, onNext, onToday }) => {
-    console.log(new Date(startDate));
-
     return (
         <BlockHeading
             headerClasses="controls"

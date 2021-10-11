@@ -10,17 +10,25 @@ import {
     selectTimesheetsFetchError,
     selectTimesheetsIsFetching,
 } from 'selectors/companyAdmin/timesheets';
+import useFetchCompanyUser from '../../../../hooks/useFetchCompanyUser';
 
 const useOperativeTimesheet = () => {
     const dispatch = useDispatch();
 
     const { timeZone } = useSelector(selectCompanySettings);
 
-    const isFetching = useSelector(selectTimesheetsIsFetching);
-    const fetchError = useSelector(selectTimesheetsFetchError);
+    const { id } = useParams();
+
+    const timesheetsIsFetching = useSelector(selectTimesheetsIsFetching);
+    const timesheetsFetchError = useSelector(selectTimesheetsFetchError);
     const timesheet = useSelector(selectTimesheet);
 
-    const { id } = useParams();
+    const {
+        isFetching: companyUserIsFetching,
+        fetchError,
+        companyUserFetchError,
+        companyUser,
+    } = useFetchCompanyUser(id);
 
     const thisWeek = moment(new Date()).tz(timeZone.id).startOf('isoWeek').format();
 
@@ -64,9 +72,10 @@ const useOperativeTimesheet = () => {
         selectedDate,
         timePeriod,
 
-        isFetching,
-        fetchError,
+        isFetching: companyUserIsFetching || timesheetsIsFetching,
+        fetchError: companyUserFetchError || timesheetsFetchError,
         timesheet,
+        companyUser,
 
         onPrev,
         onNext,
