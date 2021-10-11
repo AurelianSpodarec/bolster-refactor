@@ -8,18 +8,16 @@ const BreakdownDetailedTimelineMap = ({
     markers = [],
     className = '',
     zoom = 18,
-    noLocation = false,
+    disable = false,
 }) => {
     const startLocation = markers.find(marker => !marker.location.isEmpty)?.location || {
         x: 0,
         y: 0,
     };
 
-    if (noLocation) return null;
-
     return (
         <div className={`${className} breakdown-detailed-timeline-map`}>
-            {markers.length === 0 && (
+            {(markers.length === 0 || disable) && (
                 <div className="no-data-cover">
                     <p className="no-data-message">No mapping data available</p>
                 </div>

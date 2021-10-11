@@ -20,7 +20,7 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
                 <BreakdownDetailedTimelineMap
                     markers={[{ type: 'clockIn', name: 'Time In', location: clockIn.location }]}
                     className="map"
-                    noLocation={clockIn.location.isEmpty}
+                    disable={clockIn.location.isEmpty}
                 />
             </div>
             {breakIn && (
@@ -40,7 +40,7 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
                             { type: 'breakIn', name: 'On break', location: breakIn.location },
                         ]}
                         className="map"
-                        noLocation={breakIn.location.isEmpty}
+                        disable={breakIn.location.isEmpty}
                     />
                 </div>
             )}
@@ -61,7 +61,7 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
                             { type: 'breakOut', name: 'Off break', location: breakOut.location },
                         ]}
                         className="map"
-                        noLocation={breakOut.location.isEmpty}
+                        disable={breakOut.location.isEmpty}
                     />
                 </div>
             )}
@@ -79,7 +79,7 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
                 <BreakdownDetailedTimelineMap
                     markers={[{ type: 'clockOut', name: 'Time Out', location: clockOut.location }]}
                     className="map"
-                    noLocation={clockOut.location.isEmpty}
+                    disable={clockOut.location.isEmpty}
                 />
             </div>
         </div>
