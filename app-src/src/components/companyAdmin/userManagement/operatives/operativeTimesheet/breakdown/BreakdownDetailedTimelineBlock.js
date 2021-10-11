@@ -1,6 +1,7 @@
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import React from 'react';
+import BreakdownDetailedTimelineMap from './BreakdownDetailedTimelineMap';
 import BreakdownPositionCard from './BreakdownPositionCard';
 
 const BreakdownDetailedTimelineBlock = ({ block }) => {
@@ -16,6 +17,11 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
                     </p>
                     <BreakdownPositionCard {...clockIn} />
                 </div>
+                <BreakdownDetailedTimelineMap
+                    markers={[{ type: 'clockIn', name: 'Time In', location: clockIn.location }]}
+                    className="map"
+                    noLocation={clockIn.location.isEmpty}
+                />
             </div>
             {breakIn && (
                 <div className="block-entry break-in">
@@ -29,6 +35,13 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
                         </p>
                         <BreakdownPositionCard {...breakIn} />
                     </div>
+                    <BreakdownDetailedTimelineMap
+                        markers={[
+                            { type: 'breakIn', name: 'On break', location: breakIn.location },
+                        ]}
+                        className="map"
+                        noLocation={breakIn.location.isEmpty}
+                    />
                 </div>
             )}
             {breakOut && (
@@ -43,6 +56,13 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
                         </p>
                         <BreakdownPositionCard {...breakOut} />
                     </div>
+                    <BreakdownDetailedTimelineMap
+                        markers={[
+                            { type: 'breakOut', name: 'Off break', location: breakOut.location },
+                        ]}
+                        className="map"
+                        noLocation={breakOut.location.isEmpty}
+                    />
                 </div>
             )}
             <div className="block-entry clock-out">
@@ -56,6 +76,11 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
                     </p>
                     <BreakdownPositionCard {...clockOut} />
                 </div>
+                <BreakdownDetailedTimelineMap
+                    markers={[{ type: 'clockOut', name: 'Time Out', location: clockOut.location }]}
+                    className="map"
+                    noLocation={clockOut.location.isEmpty}
+                />
             </div>
         </div>
     );

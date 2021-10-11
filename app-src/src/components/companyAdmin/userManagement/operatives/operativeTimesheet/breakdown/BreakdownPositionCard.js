@@ -8,10 +8,10 @@ const BreakdownPositionCard = ({ location, locationUnavailableReason }) => {
     };
     return (
         <div className="breakdown-position-card">
-            {locationUnavailableReason ? (
+            {location.isEmpty ? (
                 <>
                     <p className="title">No location data available</p>
-                    <p className="text">{locationUnavailableReason}</p>
+                    <p className="text">{locationUnavailableReason || 'Reason Unknown'}</p>
                 </>
             ) : (
                 <>

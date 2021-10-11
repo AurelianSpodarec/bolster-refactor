@@ -3943,12 +3943,32 @@ $back-to-top-height: 35px;
         display: flex;
         flex-direction: column;
         gap: 16px;
+        padding-bottom: 32px;
+
+        border-width: 2px;
+        border-color: $light-grey-alt;
+        border-style: none none solid none;
+
+        &:last-child {
+            border-style: none;
+            padding-bottom: 0;
+        }
         
         .block-entry {
+            display: flex;
+            gap: 30px;
+
             .wrapper {
+                flex-basis: 40%;
                 display: flex;
                 flex-direction: column;
                 gap: 8px;
+            }
+
+            .map {
+                flex-basis: 60%;
+                height: 250px;
+
             }
         }
     }
@@ -3965,6 +3985,71 @@ $back-to-top-height: 35px;
         .title {
             color: $mobile-grey;
             font-size: 120%;
+        }
+    }
+
+    .breakdown-detailed-timeline-map {
+        .marker {
+
+            .circle {
+                background-color: black;
+                width: 12px;
+                height: 12px;
+                border-radius: 100%;
+
+                box-shadow: -1px 2px 4px $dark-grey;
+
+                &.red {
+                    background-color: $timeline-red;
+                }
+
+                &.yellow {
+                    background-color: $timeline-yellow;
+                }
+
+                &.green {
+                    background-color: $timeline-green;
+                }
+
+                &:hover + .tooltip {
+                    opacity: 1;
+                }
+            }
+
+            .tooltip {
+                display: flex;
+                flex-direction: column;
+
+                margin: 16px;
+                padding: 8px;
+                gap: 6px;
+
+                background-color: rgba($dark-grey, 0.7);
+                border-radius: 5px;;
+                opacity: 0;
+
+                transition: opacity 300ms ease;
+
+                p {
+                    color: $light-grey;
+                    white-space: nowrap;
+                    margin: 0;
+                }
+
+                .text {
+                    margin: 0 4px;
+                    white-space: nowrap;
+
+                    .title {
+                        font-size: 120%;
+                        font-weight: 500;
+                    }
+    
+                    .refernce {
+                        font-size: 100%;
+                    }
+                }
+            }
         }
     }
 

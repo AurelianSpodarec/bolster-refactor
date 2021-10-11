@@ -14,7 +14,7 @@ const BreakdownDaySummary = ({ hours, pins, reference }) => {
             </div>
             <div className="summary-row">
                 <FieldOutput title="Job Reference" fieldClass="reference">
-                    {reference}
+                    {reference || 'N/A'}
                 </FieldOutput>
             </div>
         </div>

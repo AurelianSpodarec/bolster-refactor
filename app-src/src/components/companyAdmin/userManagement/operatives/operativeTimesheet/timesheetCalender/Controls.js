@@ -7,6 +7,8 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const Controls = ({ startDate, onPrev, onNext, onToday }) => {
+    console.log(new Date(startDate));
+
     return (
         <BlockHeading
             headerClasses="controls"
@@ -22,7 +24,7 @@ const Controls = ({ startDate, onPrev, onNext, onToday }) => {
                     </div>
                     <div className="date-range">
                         <DateTimeContainer
-                            date={new Date(startDate)}
+                            date={moment(startDate).toDate()}
                             datetime={DATE_TIME_IDS.DATE}
                         />
                         -

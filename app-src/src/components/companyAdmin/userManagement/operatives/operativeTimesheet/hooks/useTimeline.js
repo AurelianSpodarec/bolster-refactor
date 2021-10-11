@@ -45,12 +45,14 @@ const buildBlockEntry = (entry, position) => {
                 timestamp: entry.startOn,
                 location: entry.startLocation,
                 locationUnavailableReason: entry.startLocationUnavailableReason,
+                jobReference: entry.jobReference,
             };
         case 'end':
             return {
                 timestamp: entry.endOn,
                 location: entry.endLocation,
                 locationUnavailableReason: entry.endLocationUnavailableReason,
+                jobReference: entry.jobReference,
             };
         default:
             return {};
