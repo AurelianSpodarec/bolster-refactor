@@ -37,7 +37,8 @@ const BreakdownDetailedTimelineMap = ({
 
                     return (
                         <Marker key={i} lat={location.y} lng={location.x} type={type}>
-                            <div className="tooltip">
+                            {/* Disabled tooltip for timebeing - available to be re-enaled */}
+                            {/* <div className="tooltip">
                                 <div className="text">
                                     <p className="title">
                                         {name} -{' '}
@@ -49,7 +50,7 @@ const BreakdownDetailedTimelineMap = ({
                                     <p className="reference">Reference: {jobReference}</p>
                                 </div>
                                 <BreakdownPositionCard location={location} />
-                            </div>
+                            </div> */}
                         </Marker>
                     );
                 })}
