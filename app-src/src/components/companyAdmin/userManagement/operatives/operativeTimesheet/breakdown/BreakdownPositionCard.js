@@ -19,7 +19,7 @@ const BreakdownPositionCard = ({ location, locationUnavailableReason }) => {
                     <p className="text">
                         ({location.x}, {location.y})
                     </p>
-                    <p className="title">GPD Coordinates</p>
+                    <p className="title">GPS Coordinates</p>
                     <p className="text">
                         ({sexagesimal.x}, {sexagesimal.y})
                     </p>
