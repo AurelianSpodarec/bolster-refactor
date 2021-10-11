@@ -95,6 +95,7 @@ function setDynamicFieldsSingle({
     optionType,
     defaultValue,
     file,
+    OptionConfigurations,
     ...otherFields
 }) {
     let dynamicFields = {};
@@ -115,11 +116,21 @@ function setDynamicFieldsSingle({
 
             dynamicFields = {
                 options: opts.map(opt => opt.text),
-                OptionConfigurations: opts.map(opt => ({
-                    name: opt.text,
-                    CreatedBySuperAdmin: true,
-                    IsDisabled: false,
-                })),
+                OptionConfigurations: opts.map(opt => {
+                    const savedOptionConfiguration =
+                        OptionConfigurations &&
+                        OptionConfigurations.find(savedOpt => savedOpt.Name === opt.text);
+
+                    return {
+                        name: opt.text,
+                        CreatedBySuperAdmin: savedOptionConfiguration
+                            ? savedOptionConfiguration.CreatedBySuperAdmin
+                            : true,
+                        IsDisabled: savedOptionConfiguration
+                            ? savedOptionConfiguration.IsDisabled
+                            : false,
+                    };
+                }),
                 canCompanyEdit,
                 defaultValue: defaultOpt ? defaultOpt.text : null,
             };
