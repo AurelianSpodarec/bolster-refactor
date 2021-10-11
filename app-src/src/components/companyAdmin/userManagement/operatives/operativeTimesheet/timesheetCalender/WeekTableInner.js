@@ -28,12 +28,16 @@ const WeekTableInner = ({
                         <p className="full">{moment(date).format('dddd DD')}</p>
                         <i className="fal fa-circle" />
                     </div>
-                    <div className="tabs">
-                        <Tab icon={<i className="fal fa-stopwatch" />}>{totalHours} Hours</Tab>
-                        <Tab icon={<i className="fal fa-map-pin" style={{ padding: '0 3px' }} />}>
-                            {totalPins} Pins
-                        </Tab>
-                    </div>
+                    {(totalHours !== 0 || totalPins !== 0) && (
+                        <div className="tabs">
+                            <Tab icon={<i className="fal fa-stopwatch" />}>{totalHours} Hours</Tab>
+                            <Tab
+                                icon={<i className="fal fa-map-pin" style={{ padding: '0 3px' }} />}
+                            >
+                                {totalPins} Pins
+                            </Tab>
+                        </div>
+                    )}
                     {moment(selectedDate).isSame(date, 'day') && timePeriod === TIME_PERIOD.DAY && (
                         <div className="film" />
                     )}
