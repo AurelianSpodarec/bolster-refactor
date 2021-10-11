@@ -3991,8 +3991,23 @@ $back-to-top-height: 35px;
     }
 
     .breakdown-detailed-timeline-map {
-        .marker {
 
+        .no-data-cover {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            inset: 0;
+            background-color: rgba($dark-grey, 0.75);
+            z-index: 100;
+
+            .no-data-message {
+                color: $light-grey;
+                font-weight: 500;
+            }
+        }
+
+        .marker {
             .circle {
                 background-color: black;
                 width: 12px;
@@ -4018,6 +4033,7 @@ $back-to-top-height: 35px;
                 }
             }
 
+            // Tooltip current not in use - unless tooltip is re-enabled
             .tooltip {
                 display: flex;
                 flex-direction: column;

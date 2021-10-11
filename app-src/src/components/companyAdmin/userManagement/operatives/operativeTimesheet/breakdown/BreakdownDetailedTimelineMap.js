@@ -19,6 +19,11 @@ const BreakdownDetailedTimelineMap = ({
 
     return (
         <div className={`${className} breakdown-detailed-timeline-map`}>
+            {markers.length === 0 && (
+                <div className="no-data-cover">
+                    <p className="no-data-message">No mapping data available</p>
+                </div>
+            )}
             <GoogleMapReact
                 center={{ lat: startLocation.y, lng: startLocation.x }}
                 defaultZoom={zoom}
