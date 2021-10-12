@@ -5,19 +5,11 @@ import SingleInvoice from '../presentational/SingleInvoice';
 import fetchCompanyInvoices from 'actions/superAdmin/invoices/async/fetchCompanyInvoices';
 import fetchCompanyInvoiceItems from 'actions/superAdmin/invoices/async/fetchCompanyInvoiceItems';
 import fetchPaymentsByInvoice from 'actions/superAdmin/invoices/async/fetchPaymentsByInvoice';
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import { ADMIN_DELETE_INVOICE } from 'constants/shared/modalTypes';
 import fetchSingleCompanyForInvoice from 'actions/superAdmin/invoices/async/fetchSingleCompanyForInvoice';
 
 class SingleInvoiceContainer extends Component {
     render() {
-        return (
-            <SingleInvoice
-                id={this.props.match.params.id}
-                toggleDeleteInvoiceModal={this.toggleDeleteInvoiceModal}
-            />
-        );
+        return <SingleInvoice id={this.props.match.params.id} />;
     }
     componentDidMount = () => {
         const { fetchInvoiceData } = this.props;
@@ -29,16 +21,6 @@ class SingleInvoiceContainer extends Component {
         if (!prevProps.postSuccess && postSuccess) {
             fetchInvoiceData();
         }
-    };
-
-    toggleDeleteInvoiceModal = () => {
-        const {
-            showModal,
-            match: {
-                params: { id },
-            },
-        } = this.props;
-        showModal(ADMIN_DELETE_INVOICE, { id });
     };
 }
 
@@ -66,8 +48,6 @@ const mapDispatchToProps = (
             dispatch(fetchPaymentsByInvoice(id));
         });
     },
-    showModal: (modalType, props) => dispatch(showModal(modalType, props)),
-    hideModal: () => dispatch(hideModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleInvoiceContainer);

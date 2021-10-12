@@ -72,6 +72,7 @@ import {
     CONFIRM_MOVE_HIERARCHY_TO_COMPANY,
     ADMIN_CONFIRM_SET_IS_INVOICE_PAID,
     ADMIN_DELETE_INVOICE,
+    ADMIN_RESTORE_INVOICE,
     DELETE_INVOICE,
     ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION,
     GENERATE_QR_CODES,
@@ -191,6 +192,7 @@ import SOSGenerationModal from 'components/superAdmin/sosManagement/sosGeneratio
 import SiteManagementConfirmMoveModalContainer from 'components/superAdmin/siteManagement/moveTool/containers/MoveToolConfirmMoveModalContainer';
 import ConfirmSetIsInvoicePaidModalContainer from 'components/superAdmin/invoices/confirmSetIsInvoicePaidModal/containers/ConfirmSetIsInvoicePaidModalContainer';
 import SuperAdminConfirmDeleteInvoiceModalContainer from 'components/superAdmin/invoices/superAdminConfirmDeleteInvoiceModal/containers/SuperAdminConfirmDeleteInvoiceModalContainer';
+import SuperAdminConfirmRestoreInvoiceModalContainer from 'components/superAdmin/invoices/superAdminConfirmRestoreInvoiceModal/containers/SuperAdminConfirmRestoreInvoiceModalContainer';
 import ConfirmDeleteInvoiceModalContainer from 'components/companyAdmin/invoices/confirmDeleteInvoiceModal/containers/ConfirmDeleteInvoiceModalContainer';
 import AddCompanyAdminModalContainer from 'components/superAdmin/companies/singleCompany/containers/AddCompanyAdminModalContainer';
 import GenerateQRCodesModalContainer from './GenerateQRCodesModalContainer';
@@ -314,6 +316,7 @@ const MODAL_COMPONENTS = {
     [CONFIRM_MOVE_HIERARCHY_TO_COMPANY]: SiteManagementConfirmMoveModalContainer,
     [ADMIN_CONFIRM_SET_IS_INVOICE_PAID]: ConfirmSetIsInvoicePaidModalContainer,
     [ADMIN_DELETE_INVOICE]: SuperAdminConfirmDeleteInvoiceModalContainer,
+    [ADMIN_RESTORE_INVOICE]: SuperAdminConfirmRestoreInvoiceModalContainer,
     [DELETE_INVOICE]: ConfirmDeleteInvoiceModalContainer,
     [REQUEST_DELETE_INVOICE]: RequestDeleteInvoiceModal,
     [ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION]: AddMulitpleServicesToSubscriptionModalContainer,
