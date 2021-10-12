@@ -26,17 +26,11 @@ export const companyTrackingShowWarning = company => {
         return { period: 1, showWarning: true };
     }
 
-    if (
-        moment.utc().isAfter(timeFromCreatedOn[2]) &&
-        (!contactedAfterMonth || !contactedAfterThreeMonths)
-    ) {
+    if (moment.utc().isAfter(timeFromCreatedOn[2]) && !contactedAfterThreeMonths) {
         return { period: 2, showWarning: true };
     }
 
-    if (
-        moment.utc().isAfter(timeFromCreatedOn[3]) &&
-        (!contactedAfterMonth || !contactedAfterThreeMonths || !contactedAfterElevenMonths)
-    ) {
+    if (moment.utc().isAfter(timeFromCreatedOn[3]) && !contactedAfterElevenMonths) {
         return { period: 3, showWarning: true };
     }
 
