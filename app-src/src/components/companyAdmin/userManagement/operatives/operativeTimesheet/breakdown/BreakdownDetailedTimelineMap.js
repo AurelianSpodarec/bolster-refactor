@@ -15,6 +15,9 @@ const BreakdownDetailedTimelineMap = ({
         y: 0,
     };
 
+    if (markers.length === 0 || disable)
+        return <p className="no-data-message">No mapping data available</p>;
+
     return (
         <div className={`${className} breakdown-detailed-timeline-map`}>
             {(markers.length === 0 || disable) && (

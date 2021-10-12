@@ -3970,7 +3970,13 @@ $back-to-top-height: 35px;
             .map {
                 flex-basis: 60%;
                 height: 250px;
+            }
 
+            .no-data-message {
+                flex-basis: 60%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
     }
