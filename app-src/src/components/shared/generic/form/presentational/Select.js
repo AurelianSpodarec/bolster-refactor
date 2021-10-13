@@ -22,6 +22,7 @@ const Select = ({
     placeholder = '-- select option --',
     omitPlaceholder = false,
     classes = '',
+    optionListClasses = '',
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [hasOpened, setHasOpened] = useState(false);
@@ -73,7 +74,7 @@ const Select = ({
                             />
                         </div>
                     )}
-                    <div className="option-container">
+                    <div className={`option-container ${optionListClasses}`}>
                         {!omitPlaceholder && !!filteredOptions.length && (
                             <p
                                 className={`option ${!value ? 'active' : ''}`}

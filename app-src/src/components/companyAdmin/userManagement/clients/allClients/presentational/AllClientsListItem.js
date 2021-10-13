@@ -1,61 +1,68 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const AllClientsListItem = ({
     client,
-    services,
     goToEdit,
-    removeAccess,
+    goToEditEmail,
     onMobile,
-    headers
+    headers,
+    disableClient,
+    deleteClient,
 }) => (
-    <tr key={client.id}>
+    <tr key={client.id} className={`${client.isDisabled ? 'grey-row' : ''}`}>
         <td>
-            {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[0]}</span>
-            )}
-            {`${client.userFirstName} ${client.userLastName}`}
+            {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
+            {`${client.firstName} ${client.lastName}`}{' '}
+            {client.isDisabled && <span>(DISABLED)</span>}
         </td>
         <td>
-            {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[1]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
             {client.companyName}
         </td>
         <td>
-            {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[2]}</span>
-            )}
-            <Link
-                className="link grey"
-                to={`/company/drawings/${client.drawingID}`}
-            >{`${client.siteName} / ${client.buildingName} / ${
-                client.floorName
-            } / ${client.drawingName}`}</Link>
+            {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
+            {client.email}
         </td>
         <td>
-            {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[3]}</span>
-            )}
-            {services.join(', ')}
+            {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
+            {client.phoneNumber}
         </td>
         <td>
-            {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[4]}</span>
+            {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
+            {client.lastLoginOn ? <DateTimeContainer date={client.lastLoginOn} /> : 'N/A'}
+        </td>
+        <td>
+            {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
+            {client.lastReportCreatedOn ? (
+                <DateTimeContainer date={client.lastReportCreatedOn} />
+            ) : (
+                'N/A'
             )}
+        </td>
+        <td>
+            {onMobile && <span className="mobile-table-heading">{headers[6]}</span>}
             <BlockButtonWrapper>
-                <button className="button yellow" onClick={() => goToEdit()}>
+                <ButtonContainer to={`/company/users-management/clients/${client.id}`}>
+                    View
+                </ButtonContainer>
+                <button className="button yellow" onClick={goToEdit}>
                     <i className="fal fa-pencil" /> Edit
                 </button>
-                <button className="button red" onClick={() => removeAccess()}>
-                    <i className="fal fa-times" /> Remove access
+                <button className="button yellow" onClick={goToEditEmail}>
+                    <i className="fal fa-at" /> Edit Email
+                </button>
+                <button
+                    className={`button ${client.isDisabled ? 'green' : 'red'}`}
+                    onClick={disableClient}
+                >
+                    <i className="fal fa-ban" /> {client.isDisabled ? 'Enable' : 'Disable'}
+                </button>
+                <button className="button red" onClick={deleteClient}>
+                    <i className="fal fa-trash-alt" /> Delete
                 </button>
             </BlockButtonWrapper>
         </td>

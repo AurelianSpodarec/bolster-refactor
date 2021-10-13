@@ -8,7 +8,7 @@ import { EMAIL_REGEX } from 'helpers/regex';
 
 class TextInputContainer extends Component {
     state = {
-        showFieldError: false
+        showFieldError: false,
     };
 
     render() {
@@ -23,7 +23,8 @@ class TextInputContainer extends Component {
             errorsVisible,
             charLimit,
             disabled = false,
-            maxNum
+            maxNum,
+            includePasswordStrength,
         } = this.props;
 
         const errorMessage = showFieldError || errorsVisible ? error : null;
@@ -41,6 +42,7 @@ class TextInputContainer extends Component {
                 charLimit={charLimit}
                 maxNum={maxNum}
                 disabled={disabled}
+                includePasswordStrength={includePasswordStrength}
             />
         );
     }
@@ -57,8 +59,7 @@ class TextInputContainer extends Component {
         if (error) removeFieldError(name);
     };
 
-    handleChange = ({ target: { name, value } }) =>
-        this.props.handleChange(name, value);
+    handleChange = ({ target: { name, value } }) => this.props.handleChange(name, value);
 
     handleBlur = () => this.setState({ showFieldError: true });
 
@@ -70,12 +71,12 @@ class TextInputContainer extends Component {
             required,
             validate = () => {},
             addFieldError,
-            removeFieldError
+            removeFieldError,
         } = this.props;
         const validateError = validate(value);
         const isNumber = typeof value === 'number';
 
-        if (required && (!(value && value.length) && !isNumber)) {
+        if (required && !(value && value.length) && !isNumber) {
             addFieldError(name, 'This is a required field.');
         } else if (type === 'email' && !this._valdateEmail(value)) {
             addFieldError(name, 'This is not a valid email.');
@@ -91,15 +92,12 @@ class TextInputContainer extends Component {
 
 const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
     error: fieldErrorsReducer.fieldErrors[ownProps.name],
-    errorsVisible: fieldErrorsReducer.errorsVisible
+    errorsVisible: fieldErrorsReducer.errorsVisible,
 });
 
 const mapDispatchToProps = dispatch => ({
     addFieldError: (name, error) => dispatch(addFieldError(name, error)),
-    removeFieldError: name => dispatch(removeFieldError(name))
+    removeFieldError: name => dispatch(removeFieldError(name)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TextInputContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(TextInputContainer);

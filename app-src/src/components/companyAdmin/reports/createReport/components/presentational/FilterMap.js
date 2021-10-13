@@ -23,15 +23,14 @@ const FilterMap = ({
     shouldShowMapOptions,
     mode,
     handleCancelPinSelector,
-    isExcluding
+    isExcluding,
 }) => {
-    // TODO change icon
     const cornerClickedIcon = L.divIcon({
         className: '',
         html: ReactDOMServer.renderToString(<RedX />),
         iconSize: [30, 50],
         iconAnchor: [15, 50],
-        popupAnchor: [0, -50]
+        popupAnchor: [0, -50],
     });
     return (
         <Block>

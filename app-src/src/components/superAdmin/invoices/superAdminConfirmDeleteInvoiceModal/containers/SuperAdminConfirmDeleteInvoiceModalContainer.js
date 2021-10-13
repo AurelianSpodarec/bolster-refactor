@@ -15,7 +15,7 @@ const SuperAdminConfirmDeleteInvoiceModalContainer = ({
     deleteInvoice,
     deleteSuccess,
     history,
-    location
+    location,
 }) => {
     useEffect(() => {
         if (deleteSuccess) {
@@ -38,25 +38,22 @@ const SuperAdminConfirmDeleteInvoiceModalContainer = ({
         />
     );
 
-    function handleDelete() {
-        deleteInvoice(id);
+    function handleDelete(comments) {
+        deleteInvoice(id, comments);
     }
 };
 
 const mapStateToProps = ({
     superAdmin: {
-        invoicesReducer: { isDeleting, deleteSuccess }
-    }
+        invoicesReducer: { isDeleting, deleteSuccess },
+    },
 }) => ({
     isDeleting,
-    deleteSuccess
+    deleteSuccess,
 });
 
 const mapDispatchToProps = { hideModal, deleteInvoice };
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(SuperAdminConfirmDeleteInvoiceModalContainer)
+    connect(mapStateToProps, mapDispatchToProps)(SuperAdminConfirmDeleteInvoiceModalContainer),
 );

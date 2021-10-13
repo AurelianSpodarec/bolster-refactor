@@ -203,9 +203,12 @@ export default function (ProtectedComponent) {
                 }
                 case FILTERS: {
                     questionFilters = fields.map(
-                        ({ selectedQuestions, questionValues = [], selectedValues = [] }) => {
+                        ({ 
+                            selectedQuestions,
+                            questionValues = [], 
+                            selectedValues = [] 
+                        }) => {
                             let values = questionValues.length ? questionValues : selectedValues;
-
                             return {
                                 questionGroupKeys: selectedQuestions,
                                 values,

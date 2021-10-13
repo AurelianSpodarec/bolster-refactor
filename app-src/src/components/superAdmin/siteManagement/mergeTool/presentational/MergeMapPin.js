@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import L from 'leaflet';
 import { Marker } from 'react-leaflet';
+import { pin2xImgs } from '_content/images/map-markers';
 
-const MergeMapPin = ({point, name}) => {
-    const redPin = require('_content/images/map-markers/red-pin2x.png');
-    const bluePin = require('_content/images/map-markers/blue-pin2x.png');
+const MergeMapPin = ({ point, name }) => {
+    const redPin = pin2xImgs.red;
+    const bluePin = pin2xImgs.blue;
     const pin = name === 'A' ? redPin : bluePin;
 
     const divIcon = L.divIcon({
@@ -16,22 +17,17 @@ const MergeMapPin = ({point, name}) => {
                 <div className="code">
                     <p className="code-full">{name}</p>
                 </div>
-            </div>
+            </div>,
         ),
         iconSize: [30, 50],
-        iconAnchor: [15,50],
+        iconAnchor: [15, 50],
     });
-
 
     const { latY = 0, lngX = 0 } = point;
     return (
-    <>
-        <Marker
-            position={[latY, lngX]}
-            icon={divIcon}
-            onClick={() => {}}
-        />
-    </>
+        <>
+            <Marker position={[latY, lngX]} icon={divIcon} onClick={() => {}} />
+        </>
     );
 };
 

@@ -1,98 +1,63 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import AllCompanyAdminsTable from '../presentational/AllCompanyAdminsTable';
-import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import { CREATE_COMPANY_ADMIN } from 'constants/shared/modalTypes';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { isEmpty, nameSort } from 'helpers/generic';
-import Search from 'components/shared/generic/form/presentational/Search';
+import { isEmpty } from 'helpers/generic';
 
-class AllCompanyAdminTableContainer extends Component {
-    state = {
-        searchTerm: '',
-    };
-    render() {
-        const { isFetching, error, users } = this.props;
-        const { searchTerm } = this.state;
-        return (
-            <>
-                <BlockContainer>
-                    <Search
-                        value={searchTerm}
-                        placeholder="Search by name/email"
-                        handleChange={this.handleChange}
-                        name="searchTerm"
-                    />
-                </BlockContainer>
-                <BlockContainer isFetching={isFetching} error={error} isEmpty={isEmpty(users)}>
-                    <AllCompanyAdminsTable
-                        searchTerm={searchTerm}
-                        handleChange={this.handleChange}
-                        headers={[
-                            'Name',
-                            'Email',
-                            'Phone Number',
-                            'Has linked device?',
-                            'Operative Code',
-                            'Last upsynced date',
-                            'Last detected unsynced data',
-                            'App Version',
-                            '',
-                        ]}
-                        users={this._filterUsersForAdmins()}
-                        isFetching={isFetching}
-                        error={error}
-                        handleCreateCompanyAdmin={this.handleCreateCompanyAdmin}
-                    />
-                </BlockContainer>
-            </>
-        );
+const AllCompanyAdminTableContainer = ({ filteredUsers }) => {
+    const { users, disabledUsers, isFetching, error } = useSelector(mapStateToProps);
+    const dispatch = useDispatch();
+
+    const mergedUsers = users.concat(disabledUsers);
+
+    return (
+        <BlockContainer isFetching={isFetching} error={error} isEmpty={isEmpty(mergedUsers)}>
+            <AllCompanyAdminsTable
+                headers={[
+                    'Name',
+                    'Email',
+                    'Phone Number',
+                    'Has linked device?',
+                    'Operative Code',
+                    'Last upsynced date',
+                    'Last detected unsynced data',
+                    'App Version',
+                    'Number of attached drawings',
+                    'Is e-mail confirmed?',
+                    '',
+                ]}
+                users={filteredUsers(mergedUsers)}
+                isFetching={isFetching}
+                error={error}
+                handleCreateCompanyAdmin={handleCreateCompanyAdmin}
+            />
+        </BlockContainer>
+    );
+
+    function handleCreateCompanyAdmin() {
+        dispatch(showModal(CREATE_COMPANY_ADMIN));
     }
-
-    _filterUsersForAdmins = () => {
-        const { users } = this.props;
-        const searchTerm = this.state.searchTerm.toLowerCase();
-
-        const ret = users.filter(user => {
-            const name = `${user.userFirstName} ${user.userLastName}`.toLowerCase();
-            return (
-                user.type >= COMPANY_USER_ROLE_TYPES.ADMIN &&
-                (!searchTerm || name.includes(searchTerm) || user.userEmail.includes(searchTerm))
-            );
-        });
-
-        return ret.sort(nameSort);
-    };
-
-    handleCreateCompanyAdmin = () => {
-        this.props.showModal(CREATE_COMPANY_ADMIN);
-    };
-
-    handleChange = (name, value) => this.setState({ [name]: value });
-}
+};
 
 const mapStateToProps = ({
     companyAdmin: {
-        companyUsersReducer: { users, isFetching, error, postSuccess },
+        companySettingsReducer: { isFetching: isFetchingCompanySettings },
+        companyUsersReducer: { users, isFetching: isFetchingActive, error: activeError },
+        inactiveCompanyUsersReducer: {
+            disabled,
+            isFetching: isFetchingInactive,
+            error: inactiveError,
+        },
     },
 }) => ({
-    isFetching,
-    error,
-    postSuccess,
-    users: Object.values(users) || [],
+    isFetching: isFetchingActive || isFetchingInactive || isFetchingCompanySettings,
+    error: activeError || inactiveError,
+    users: Object.values(users),
+    disabledUsers: Object.values(disabled),
 });
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => {
-        dispatch(showModal(type, props));
-    },
-    hideModal: () => {
-        dispatch(hideModal());
-    },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AllCompanyAdminTableContainer);
+export default AllCompanyAdminTableContainer;

@@ -3,20 +3,31 @@ import Block from 'components/shared/generic/block/presentational/Block';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 import { FILE_STORAGE_URL } from 'config/index';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const CompaniesList = ({ companies, selectCompany }) => (
     <div className="flex-row size-lg-12">
-        {companies.map(company => (
-            <Block containerClass="flex-row-item size-lg-6" key={company.id}>
-                <>
+        {companies.map((company, index) => (
+            <Block
+                containerClass="flex-row-item size-lg-6"
+                key={company.id}
+                contentClass={`${company.isDisabled ? 'disabled' : ''}`}
+            >
+                <div>
                     <BlockHeading classes="heading heading-2 underline-full half-margin">
-                        {company.name}
+                        {company.isDisabled && (
+                            <TooltipContainer
+                                side={`${index % 2 === 0 ? 'right' : 'left'}`}
+                                text="Your access has been disabled by the inviting company. If you still require access, please contact this company directly."
+                            >
+                                <i className="fa fa-info-circle" />
+                            </TooltipContainer>
+                        )}
+                        {company.name} {company.isDisabled && '(disabled)'}
                     </BlockHeading>
 
                     <div className="size-lg-6">
-                        <BlockHeading classes="heading heading-3 half-margin">
-                            Address
-                        </BlockHeading>
+                        <BlockHeading classes="heading heading-3 half-margin">Address</BlockHeading>
                         <p className="size-lg-12">
                             {company.addressLine1} <br />
                             {company.addressLine2 && (
@@ -42,15 +53,18 @@ const CompaniesList = ({ companies, selectCompany }) => (
                         </div>
                     )}
 
-                    <div className="button-block-container size-lg-12">
-                        <button
-                            className="button green"
-                            onClick={() => selectCompany(company.id)}
-                        >
-                            Select company
-                        </button>
-                    </div>
-                </>
+                    {!company.isDisabled && (
+                        <div className="button-block-container size-lg-12">
+                            <button
+                                className="button green"
+                                disabled={company.isDisabled}
+                                onClick={() => selectCompany(company.id)}
+                            >
+                                Select company
+                            </button>
+                        </div>
+                    )}
+                </div>
             </Block>
         ))}
     </div>

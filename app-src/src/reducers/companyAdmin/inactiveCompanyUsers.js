@@ -1,0 +1,191 @@
+import { combineReducers } from 'redux';
+
+import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
+import {
+    FETCH_INACTIVE_COMPANY_USERS_REQUEST,
+    FETCH_INACTIVE_COMPANY_USERS_SUCCESS,
+    FETCH_INACTIVE_COMPANY_USERS_FAILURE,
+    RECOVER_COMPANY_USER_REQUEST,
+    RECOVER_COMPANY_USER_SUCCESS,
+    RECOVER_COMPANY_USER_FAILURE,
+    REACTIVATE_COMPANY_USER_REQUEST,
+    REACTIVATE_COMPANY_USER_SUCCESS,
+    REACTIVATE_COMPANY_USER_FAILURE,
+    ENABLE_COMPANY_USER_REQUEST,
+    ENABLE_COMPANY_USER_SUCCESS,
+    ENABLE_COMPANY_USER_FAILURE,
+    DISABLE_COMPANY_USER_REQUEST,
+    DISABLE_COMPANY_USER_SUCCESS,
+    DISABLE_COMPANY_USER_FAILURE,
+    DELETE_COMPANY_USER_SUCCESS,
+    CREATE_COMPANY_USER_SUCCESS,
+    RESEND_COMPANY_USER_INVITE_REQUEST,
+    RESEND_COMPANY_USER_INVITE_SUCCESS,
+    RESEND_COMPANY_USER_INVITE_FAILURE,
+    DELETE_COMPANY_USER_INVITE_REQUEST,
+    DELETE_COMPANY_USER_INVITE_FAILURE,
+    DELETE_COMPANY_USER_INVITE_SUCCESS,
+} from 'constants/actionTypes/usersManagement';
+import moment from 'moment';
+
+export default combineReducers({
+    inactive: inactiveCompanyUsersReducer,
+    invited: invitedCompanyUsersReducer,
+    deleted: deletedCompanyUsersReducer,
+    disabled: disabledCompanyUsersReducer,
+    isFetching: isFetchingReducer,
+    isPosting: isPostingReducer,
+    error: errorReducer,
+    postError: postErrorReducer,
+    postSuccess: postSuccessReducer,
+});
+
+function isFetchingReducer(state = false, action) {
+    switch (action.type) {
+        case FETCH_INACTIVE_COMPANY_USERS_REQUEST:
+            return true;
+        case FETCH_INACTIVE_COMPANY_USERS_SUCCESS:
+        case FETCH_INACTIVE_COMPANY_USERS_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case RECOVER_COMPANY_USER_REQUEST:
+        case REACTIVATE_COMPANY_USER_REQUEST:
+        case ENABLE_COMPANY_USER_REQUEST:
+        case DISABLE_COMPANY_USER_REQUEST:
+        case RESEND_COMPANY_USER_INVITE_REQUEST:
+        case DELETE_COMPANY_USER_INVITE_REQUEST:
+            return true;
+        case RECOVER_COMPANY_USER_SUCCESS:
+        case RECOVER_COMPANY_USER_FAILURE:
+        case REACTIVATE_COMPANY_USER_SUCCESS:
+        case REACTIVATE_COMPANY_USER_FAILURE:
+        case ENABLE_COMPANY_USER_SUCCESS:
+        case ENABLE_COMPANY_USER_FAILURE:
+        case DISABLE_COMPANY_USER_SUCCESS:
+        case DISABLE_COMPANY_USER_FAILURE:
+        case RESEND_COMPANY_USER_INVITE_FAILURE:
+        case RESEND_COMPANY_USER_INVITE_SUCCESS:
+        case DELETE_COMPANY_USER_INVITE_FAILURE:
+        case DELETE_COMPANY_USER_INVITE_SUCCESS:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function errorReducer(state = null, action) {
+    switch (action.type) {
+        case FETCH_INACTIVE_COMPANY_USERS_REQUEST:
+            return null;
+        case FETCH_INACTIVE_COMPANY_USERS_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
+function postErrorReducer(state = null, action) {
+    switch (action.type) {
+        case RECOVER_COMPANY_USER_REQUEST:
+        case REACTIVATE_COMPANY_USER_REQUEST:
+        case ENABLE_COMPANY_USER_REQUEST:
+        case DISABLE_COMPANY_USER_REQUEST:
+        case RESEND_COMPANY_USER_INVITE_REQUEST:
+        case DELETE_COMPANY_USER_INVITE_REQUEST:
+            return null;
+        case RECOVER_COMPANY_USER_FAILURE:
+        case REACTIVATE_COMPANY_USER_FAILURE:
+        case ENABLE_COMPANY_USER_FAILURE:
+        case DISABLE_COMPANY_USER_FAILURE:
+        case RESEND_COMPANY_USER_INVITE_FAILURE:
+        case DELETE_COMPANY_USER_INVITE_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case RECOVER_COMPANY_USER_REQUEST:
+        case REACTIVATE_COMPANY_USER_REQUEST:
+        case ENABLE_COMPANY_USER_REQUEST:
+        case DISABLE_COMPANY_USER_REQUEST:
+        case RESEND_COMPANY_USER_INVITE_REQUEST:
+            return false;
+        case RECOVER_COMPANY_USER_SUCCESS:
+        case REACTIVATE_COMPANY_USER_SUCCESS:
+        case ENABLE_COMPANY_USER_SUCCESS:
+        case DISABLE_COMPANY_USER_SUCCESS:
+        case RESEND_COMPANY_USER_INVITE_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function inactiveCompanyUsersReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_INACTIVE_COMPANY_USERS_SUCCESS:
+            return convertArrToObj(action.payload.inactive);
+        case REACTIVATE_COMPANY_USER_SUCCESS:
+            var user = state[action.id];
+            user.reactivateRequestedOn = moment().utc().format('YYYY-MM-DDTHH:mm:ss');
+            return updateObj(state, user.id, user);
+        default:
+            return state;
+    }
+}
+
+function invitedCompanyUsersReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_INACTIVE_COMPANY_USERS_SUCCESS:
+            return convertArrToObj(action.payload.invited);
+        case CREATE_COMPANY_USER_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
+        case DELETE_COMPANY_USER_INVITE_SUCCESS:
+            return removeObjItem(state, action.payload.id);
+        case RECOVER_COMPANY_USER_SUCCESS: {
+            if (!action.user.isAccepted) {
+                return updateObj(state, action.user.id, action.user);
+            }
+            return state;
+        }
+        default:
+            return state;
+    }
+}
+
+function deletedCompanyUsersReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_INACTIVE_COMPANY_USERS_SUCCESS:
+            return convertArrToObj(action.payload.deleted);
+        case RECOVER_COMPANY_USER_SUCCESS:
+            return removeObjItem(state, action.user.id);
+        case DELETE_COMPANY_USER_SUCCESS:
+            return updateObj(state, action.user.id, action.user);
+        case DELETE_COMPANY_USER_INVITE_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
+        default:
+            return state;
+    }
+}
+
+function disabledCompanyUsersReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_INACTIVE_COMPANY_USERS_SUCCESS:
+            return convertArrToObj(action.payload.disabled);
+        case ENABLE_COMPANY_USER_SUCCESS:
+            return removeObjItem(state, action.user.id);
+        case DISABLE_COMPANY_USER_SUCCESS:
+            return updateObj(state, action.user.id, action.user);
+        default:
+            return state;
+    }
+}

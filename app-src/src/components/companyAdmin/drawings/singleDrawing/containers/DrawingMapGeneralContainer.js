@@ -37,7 +37,6 @@ const { ADD, DELETE, EXCLUDE } = RECTANGLE_MODES;
 const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 
 // ! The pin selector code is repeated in the filtermapcontainer component
-// todo tidy this and maybe make them use the same component or
 // use smaller generic components within
 
 class DrawingMapGeneralContainer extends Component {
@@ -164,12 +163,12 @@ class DrawingMapGeneralContainer extends Component {
             postFilters,
             getTemplateOptions,
             updateReportFilter,
-            match,
             fetchSingleDrawing,
             pinsFromAPI = [],
             handleChange,
             objectUsers,
             companyUserID,
+            drawingID,
         } = this.props;
         if (objectUsers && objectUsers[companyUserID]) {
             this.setState({
@@ -179,12 +178,12 @@ class DrawingMapGeneralContainer extends Component {
         const pinIDs = pinsFromAPI.map(({ id }) => id);
         handleChange('pinIDs', pinIDs);
         if (drawing.siteID) {
-            handleChange('siteID', String(drawing.siteID));
-            handleChange('buildingID', String(drawing.buildingID));
-            handleChange('floorID', String(drawing.floorID));
+            handleChange('siteID', [drawing.siteID]);
+            handleChange('buildingID', [drawing.buildingID]);
+            handleChange('floorID', [drawing.floorID]);
         }
 
-        updateReportFilter('drawingID', match.params.id).then(() => {
+        updateReportFilter('drawingID', [+drawingID]).then(() => {
             postFilters();
             getTemplateOptions();
         });
@@ -252,9 +251,9 @@ class DrawingMapGeneralContainer extends Component {
         }
 
         if (drawing.siteID && !prevDrawing.siteID) {
-            handleChange('siteID', String(drawing.siteID));
-            handleChange('buildingID', String(drawing.buildingID));
-            handleChange('floorID', String(drawing.floorID));
+            handleChange('siteID', [+drawing.siteID]);
+            handleChange('buildingID', [+drawing.buildingID]);
+            handleChange('floorID', [+drawing.floorID]);
         }
 
         if (objectUsers && objectUsers[companyUserID] && !prevUsers[companyUserID]) {

@@ -9,7 +9,7 @@ const SuccessModal = ({
     title = 'Success!',
     message = 'Operation successful',
     link,
-    linkMessage
+    linkMessage,
 }) => (
     <ModalOuterContainer>
         <BlockHeading title={title} />

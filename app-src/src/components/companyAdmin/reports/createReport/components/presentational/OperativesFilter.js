@@ -8,6 +8,7 @@ const OperativesFilter = ({
     selectedOperatives,
     sizeClasses,
     isDrawingPage,
+    isFetchingOperatives,
 }) => (
     <div className={`${!isDrawingPage ? 'generic-form' : ''} size-lg-12`}>
         <Field name="Operatives" sizeClasses={sizeClasses}>
@@ -17,7 +18,7 @@ const OperativesFilter = ({
                 onChange={handleChange}
                 value={selectedOperatives}
                 search
-                placeholder="All Operatives"
+                placeholder={isFetchingOperatives ? 'Loading...' : 'All Operatives'}
             />
         </Field>
     </div>

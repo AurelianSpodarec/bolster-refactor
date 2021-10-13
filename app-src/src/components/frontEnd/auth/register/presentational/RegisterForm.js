@@ -116,6 +116,7 @@ const RegisterForm = ({
                             handleChange={handleChange}
                             validate={validatePassword}
                             classes="auth-text-input-container"
+                            includePasswordStrength
                         />
                     </Field>
                     <Field required name="Confirm Password" classes="auth-form-field wide">

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { batch, connect } from 'react-redux';
 
 import fetchProfile from 'actions/shared/profile/async/fetchProfile';
 import fetchSingleCompany from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
@@ -25,6 +25,7 @@ import withAuth from 'components/shared/auth/auth/hocs/withAuth';
 import { AUTH_TYPES } from 'constants/shared/auth';
 import fetchMessagesBasic from 'actions/companyAdmin/messages/async/fetchMessagesBasic';
 import fetchRecentUpdates from 'actions/companyAdmin/recentUpdates/async/fetchRecentUpdates';
+import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 
 class CompanyAppContainer extends Component {
     render() {
@@ -41,9 +42,11 @@ class CompanyAppContainer extends Component {
             fetchLatestAppVersion,
         } = this.props;
 
-        fetchHomeData();
         decodeJWT().then(({ payload = {} }) => {
             fetchSingleCompanyUser(payload.companyUserID);
+            if (payload.companyID) {
+                fetchHomeData();
+            }
         });
         fetchCompanySettings().then(({ payload = {} }) => {
             if (payload.colourCode) {
@@ -52,43 +55,63 @@ class CompanyAppContainer extends Component {
         });
 
         selectCompanyMenuTab();
-
         fetchLatestAppVersion();
+    };
+
+    componentDidUpdate = prevProps => {
+        const {
+            companyID,
+            fetchHomeData,
+            fetchLatestAppVersion,
+            fetchCompanySettings,
+            resetFilterOptions,
+        } = this.props;
+        if (companyID !== prevProps.companyID) {
+            resetFilterOptions();
+            fetchHomeData();
+            fetchLatestAppVersion();
+            fetchCompanySettings().then(({ payload = {} }) => {
+                if (payload.colourCode) {
+                    localStorage.setItem('colourCode', payload.colourCode);
+                }
+            });
+        }
     };
 }
 
-const mapDispatchToProps = dispatch => ({
-    fetchHomeData: () => {
-        dispatch(fetchProfile());
-        dispatch(fetchSingleCompany());
-        dispatch(fetchMessagesBasic());
-        dispatch(fetchCompanyReports());
-        dispatch(companyFetchAllServices());
-        dispatch(fetchAllSubscriptions());
-        dispatch(fetchCreditLogs());
-        dispatch(fetchAllCredits());
-        dispatch(fetchIncomingTransferRequests());
-        dispatch(fetchOutgoingTransferRequests());
-        dispatch(fetchPendingInvites());
-        dispatch(fetchOutgoingInvites());
-        dispatch(fetchRecentUpdates());
+const mapStateToProps = ({
+    shared: {
+        decodeJWTReducer: { jwtData },
     },
-    decodeJWT: () => {
-        return dispatch(decodeJWT());
-    },
-    fetchCompanySettings: () => {
-        return dispatch(fetchCompanySettings());
-    },
-    selectCompanyMenuTab: () => {
-        dispatch(selectMenuTab(MENU_TABS.COMPANY_USER));
-    },
-    fetchSingleCompanyUser: companyUserID => {
-        dispatch(fetchSingleCompanyUser(companyUserID));
-    },
-    fetchLatestAppVersion: () => {
-        dispatch(fetchLatestAppVersion());
-    },
+}) => ({
+    companyID: jwtData.companyID,
 });
 
-const withConnect = connect(null, mapDispatchToProps)(CompanyAppContainer);
+const mapDispatchToProps = dispatch => ({
+    fetchHomeData: () => {
+        batch(() => {
+            dispatch(fetchProfile());
+            dispatch(fetchSingleCompany());
+            dispatch(fetchMessagesBasic());
+            dispatch(fetchCompanyReports());
+            dispatch(companyFetchAllServices());
+            dispatch(fetchAllSubscriptions());
+            dispatch(fetchCreditLogs());
+            dispatch(fetchAllCredits());
+            dispatch(fetchIncomingTransferRequests());
+            dispatch(fetchOutgoingTransferRequests());
+            dispatch(fetchPendingInvites());
+            dispatch(fetchOutgoingInvites());
+            dispatch(fetchRecentUpdates());
+        });
+    },
+    decodeJWT: () => dispatch(decodeJWT()),
+    fetchCompanySettings: () => dispatch(fetchCompanySettings()),
+    selectCompanyMenuTab: () => dispatch(selectMenuTab(MENU_TABS.COMPANY_USER)),
+    fetchSingleCompanyUser: companyUserID => dispatch(fetchSingleCompanyUser(companyUserID)),
+    fetchLatestAppVersion: () => dispatch(fetchLatestAppVersion()),
+    resetFilterOptions: () => dispatch(resetFilterOptions()),
+});
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps)(CompanyAppContainer);
 export default withAuth(withConnect, AUTH_TYPES.COMPANY);

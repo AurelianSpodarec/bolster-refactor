@@ -139,10 +139,10 @@ class OutputSettingsContainer extends Component {
             furtherFiltrationOption,
             customFilters,
         } = this.props;
-
         if (!isEmpty(fieldErrors)) showFieldErrors();
         else if (isFloorplanGeneration || (isPDFGeneration && includeFloorplan)) {
             const drawingForPinScale = this._getDrawingForPinScale();
+            console.log(isFloorplanGeneration, drawingForPinScale);
 
             if (!drawingForPinScale) {
                 showModal(ERROR_MODAL, {
@@ -198,24 +198,23 @@ class OutputSettingsContainer extends Component {
         } = this.props;
 
         let availableDrawings = Object.values(drawings);
-
         // uses the url to figure out which hierarchy the report is being generated on
         // and find an appropriate drawing for the pin scale modal
-        if (siteID) {
-            availableDrawings = availableDrawings.filter(drawing => +drawing.siteID === +siteID);
-        }
-        if (buildingID) {
-            availableDrawings = availableDrawings.filter(
-                drawing => +drawing.buildingID === +buildingID,
+        if (drawingID?.length) {
+            availableDrawings = availableDrawings.filter(drawing => drawingID.includes(drawing.id));
+        } else if (floorID?.length) {
+            availableDrawings = availableDrawings.filter(drawing =>
+                floorID.includes(drawing.floorID),
+            );
+        } else if (buildingID?.length) {
+            availableDrawings = availableDrawings.filter(drawing =>
+                buildingID.includes(drawing.buildingID),
+            );
+        } else if (siteID?.length) {
+            availableDrawings = availableDrawings.filter(drawing =>
+                siteID.includes(drawing.siteID),
             );
         }
-        if (floorID) {
-            availableDrawings = availableDrawings.filter(drawing => +drawing.floorID === +floorID);
-        }
-        if (drawingID) {
-            availableDrawings = availableDrawings.filter(drawing => +drawing.id === +drawingID);
-        }
-
         return availableDrawings[0];
     };
 

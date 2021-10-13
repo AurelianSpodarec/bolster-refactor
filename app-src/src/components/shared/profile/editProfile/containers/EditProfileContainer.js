@@ -1,46 +1,27 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import fetchProfile from 'actions/shared/profile/async/fetchProfile';
 import EditProfile from '../presentational/EditProfile';
+import { componentDidMount } from 'helpers/generic';
 
-class EditProfileContainer extends Component {
-    render() {
-        const { error, isFetching, profile } = this.props;
-        return (
-            <EditProfile
-                error={error}
-                isFetching={isFetching}
-                profile={profile}
-            />
-        );
-    }
-
-    componentDidMount = () => {
-        this.props.fetchProfile();
-    };
-}
+const EditProfileContainer = () => {
+    const { isFetching, error, profile } = useSelector(mapStateToProps);
+    const dispatch = useDispatch();
+    componentDidMount(() => {
+        dispatch(fetchProfile());
+    });
+    return <EditProfile error={error} isFetching={isFetching} profile={profile} />;
+};
 
 const mapStateToProps = ({
     shared: {
-        profileReducer: { isFetching, error, profile }
-    }
+        profileReducer: { isFetching, error, profile },
+    },
 }) => ({
     isFetching,
     error,
-    profile: profile || null
+    profile: profile || null,
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchProfile: () => {
-        return dispatch(fetchProfile());
-    }
-});
-
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(EditProfileContainer)
-);
+export default EditProfileContainer;
