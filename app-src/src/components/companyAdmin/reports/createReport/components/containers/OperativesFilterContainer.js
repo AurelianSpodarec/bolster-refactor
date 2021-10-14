@@ -33,9 +33,10 @@ class OperativesFilterContainer extends Component {
         const {
             handleChange,
             location: { state: locationState },
-            operatives,
+            customFilters: { operatives },
         } = this.props;
-        if (locationState && operatives[locationState.operativeID]) {
+
+        if (locationState && operatives.some(op => op.id === locationState.operativeID)) {
             const opIDs = [locationState.operativeID];
             handleChange('companyUserIDs', opIDs);
             this.setState({ hasSetOp: true });
