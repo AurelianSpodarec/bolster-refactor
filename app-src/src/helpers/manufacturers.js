@@ -45,9 +45,11 @@ export const createPreselectedManufacturersList = manufacturerList => {
 export const createOptionValuesList = (optionValues, subscriptionServiceIDs) => {
     return Object.entries(optionValues).reduce((acc, [manufacturerID, options]) => {
         const formattedOptionValues = formatOptions(Object.values(options));
-        const filteredOptionValues = formattedOptionValues.filter(option =>
-            shouldOptionValueBeIncluded(option.serviceIDs, subscriptionServiceIDs),
-        );
+        const filteredOptionValues = formattedOptionValues
+            .filter(option => option.isEnabled)
+            .filter(option =>
+                shouldOptionValueBeIncluded(option.serviceIDs, subscriptionServiceIDs),
+            );
         acc = { ...acc, [manufacturerID]: filteredOptionValues };
         return acc;
     }, {});
@@ -89,7 +91,6 @@ export const createHierarchyPreselectedManufacturersList = (
                 acc.push(String(manufacturer.id));
             }
         }
-
         return acc;
     }, []);
 };
