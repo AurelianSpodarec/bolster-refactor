@@ -477,3 +477,15 @@ export const COMPANY_REPORTS_OUTPUT_TYPES = {
     isFloorplanGeneration: 'Floor Plan',
     isOEMManualGeneration: 'O&M Manual',
 };
+
+export const PIN_STATS_DASHBOARD_VIEW = {
+    CALENDER: 'calender',
+    LIST: 'list',
+    SERIES: 'series',
+};
+
+export const TIME_PERIOD = {
+    DAY: 'day',
+    WEEK: 'week',
+    MONTH: 'month',
+};

@@ -3496,6 +3496,69 @@ $back-to-top-height: 35px;
     }
 }
 
+.pin-tasks-dashboard-header {
+    padding: 10px;
+
+    .block-heading {
+        margin: 0;
+        width: 100%;
+    }
+
+    .controls {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        width: 100%;
+        min-width: 100%;
+        gap: 16px;
+
+        .nav-buttons {
+            display: flex;
+            flex-direction: row;
+            gap: 16px;
+
+            button {
+                background-color: transparent;
+
+                &:hover > .far {
+                    color: $button-grey;
+
+                }
+
+                .far {
+                    font-size: 110%;
+                }
+            }
+        }
+
+        .date-range {
+            display: flex;
+            flex-direction: row;
+            gap: 16px;
+
+        }
+
+        .today-button {
+            color: inherit;
+            font-size: 90%;
+
+            &:hover {
+                background-color: $light-grey-alt;
+            }
+
+            .far {
+                font-size: 100%;
+            }
+        }
+
+        .custom-dropdown {
+            width: fit-content;
+            font-size: 60%;
+        }
+    }
+    
+}
 
 @keyframes slidein-left {
     0% {

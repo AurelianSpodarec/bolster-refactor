@@ -17,7 +17,7 @@ import AddClientContainer from 'components/companyAdmin/userManagement/clients/s
 import EditCompanyUserEmail from 'components/companyAdmin/userManagement/shared/editCompanyUserEmail/EditCompanyUserEmail';
 import EditClientUserEmail from 'components/companyAdmin/userManagement/clients/singleClient/EditClientUserEmail';
 import DocumentsUploaderContainer from 'components/companyAdmin/userManagement/documentsUploader/containers/DocumentsUploaderContainer';
-import PinTasksDashboard from 'components/companyAdmin/userManagement/pinTasks/PinTasksDashboard';
+import PinTasksDashboard from 'components/companyAdmin/userManagement/pinTasks/dashboard/PinTasksDashboard';
 // import EditOperativePasswordContainer from 'components/companyAdmin/userManagement/operatives/editOperativePassword/containers/EditOperativePasswordContainer';
 
 const UserManagementRoutes = ({ base = '/company/users-management' }) => (
