@@ -25,7 +25,6 @@ const useOperativeTimesheet = () => {
 
     const {
         isFetching: companyUserIsFetching,
-        fetchError,
         companyUserFetchError,
         companyUser,
     } = useFetchCompanyUser(id);
@@ -71,12 +70,10 @@ const useOperativeTimesheet = () => {
         startDate,
         selectedDate,
         timePeriod,
-
         isFetching: companyUserIsFetching || timesheetsIsFetching,
         fetchError: companyUserFetchError || timesheetsFetchError,
         timesheet,
         companyUser,
-
         onPrev,
         onNext,
         onToday,

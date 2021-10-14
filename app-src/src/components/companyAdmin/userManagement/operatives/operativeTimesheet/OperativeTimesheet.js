@@ -11,12 +11,10 @@ const OperativeTimesheet = () => {
         startDate,
         selectedDate,
         timePeriod,
-
         isFetching,
         fetchError,
         timesheet,
         companyUser,
-
         onPrev,
         onNext,
         onToday,

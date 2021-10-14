@@ -4,11 +4,7 @@ import BreakdownDetailedTimeline from '../BreakdownDetailedTimeline';
 import BreakdownBasicTimeline from '../BreakdownBasicTimeline';
 import useDay from '../../hooks/useDay';
 
-const DayBreakdownLocation = ({
-    selectedDate,
-
-    timesheet,
-}) => {
+const DayBreakdownLocation = ({ selectedDate, timesheet }) => {
     const { clockerEntries = [] } = useDay(timesheet, selectedDate);
 
     return (
