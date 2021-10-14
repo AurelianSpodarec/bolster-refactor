@@ -24,6 +24,14 @@ $very-dark-grey-alt: #444444;
 $light-grey-bg: #F8F8F8;
 $darker-grey-alt: #707070;
 
+//pin-tasks-colors
+$recurring-blue: #42C8FF;
+$non-recurring-purple: #7B61FF;
+$complete-green: #34C759;
+$complete-late-yellow: #FFE27A;
+$due-soon-orange: #FF9500;
+$incomplete-red: #FF3B30;
+
 //fonts
 @mixin ubuntu() {
     font: {

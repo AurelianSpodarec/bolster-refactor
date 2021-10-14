@@ -1,9 +1,13 @@
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import { PIN_STATS_DASHBOARD_VIEW } from 'constants/companyAdmin/enums';
 import React from 'react';
 import usePinTasksDashboard from '../hooks/usePinTasksDashboard';
 import Controls from './Controls';
+import CalendarView from './views/calendar/CalendarView';
+import ListView from './views/list/ListView';
+import SeriesView from './views/series/SeriesView';
 
 const PinTasksDashboard = () => {
     const {
@@ -16,6 +20,14 @@ const PinTasksDashboard = () => {
         onNext,
         onToday,
     } = usePinTasksDashboard();
+
+    const views = {
+        [PIN_STATS_DASHBOARD_VIEW.CALENDER]: CalendarView,
+        [PIN_STATS_DASHBOARD_VIEW.LIST]: ListView,
+        [PIN_STATS_DASHBOARD_VIEW.SERIES]: SeriesView,
+    };
+
+    const View = views[view];
 
     return (
         <>
@@ -33,6 +45,9 @@ const PinTasksDashboard = () => {
                     onToday={onToday}
                 />
             </BlockContainer>
+            <div className="pin-tasks-dashboard size-lg-12">
+                <View startDate={startDate} />
+            </div>
         </>
     );
 };
