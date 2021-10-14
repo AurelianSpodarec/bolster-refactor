@@ -368,3 +368,10 @@ export const isLowStorage = bytes => {
     const mb = kb / 1024;
     return mb < mbLowerLimit;
 };
+
+export const isMinMemory = (bytes: number) => {
+    const kb = bytes / 1024;
+    const mb = kb / 1024;
+    const gb = mb / 1024;
+    return gb >= 2.5 && gb < 3.5;
+};

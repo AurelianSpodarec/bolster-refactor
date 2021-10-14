@@ -238,6 +238,7 @@ class AddSiteFormContainer extends Component {
     };
 
     shouldOptionValueBeIncluded = serviceIDs => {
+        if (!serviceIDs) return false;
         const { subscriptionServiceIDs } = this.props;
         return serviceIDs.some(id => subscriptionServiceIDs.includes(id));
     };
