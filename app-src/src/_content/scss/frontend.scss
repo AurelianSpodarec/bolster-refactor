@@ -3660,6 +3660,7 @@ $back-to-top-height: 35px;
                 .content {
                     display: flex;
                     flex-direction: column;
+                    width: 100%;
 
                     .tab-title {
                         display: flex;
@@ -3685,9 +3686,6 @@ $back-to-top-height: 35px;
                         }
                     }
 
-                    @include devices(smDesktop) {
-                        width: 100%;
-                    }
                 }
 
                 .expand-icon {
