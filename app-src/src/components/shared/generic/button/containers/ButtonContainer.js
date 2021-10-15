@@ -21,17 +21,18 @@ class ButtonContainer extends Component {
             className = '',
             isAnchor = false,
             openNewTab = false,
+            disabled = false,
         } = this.props;
 
         let style = {};
 
         if (setColour && setColour.length) {
             style = {
-                backgroundColor: this.state.hover ? setColourHoverCode : setColour,
+                backgroundColor: this.state.hover && !disabled ? setColourHoverCode : setColour,
             };
         } else {
             style = {
-                backgroundColor: this.state.hover ? colourCode : '#939393',
+                backgroundColor: this.state.hover && !disabled ? colourCode : '#939393',
             };
         }
 
@@ -65,7 +66,7 @@ class ButtonContainer extends Component {
                 </div>
             )
         ) : (
-            <button {...sharedProps} type={type}>
+            <button {...sharedProps} type={type} disabled={disabled}>
                 {children}
             </button>
         );

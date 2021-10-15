@@ -41,7 +41,7 @@ const Calendar = ({ startDate }) => {
                             return (
                                 <td key={x} className={disabled ? 'disabled' : ''}>
                                     <div className="cell">
-                                        <date>{moment(date).date()}</date>
+                                        <date>{moment(date).format('DD')}</date>
                                         {tasks && !disabled ? (
                                             <p className="tasks">
                                                 {tasks.map(({ type, status }, i) => (
@@ -60,6 +60,7 @@ const Calendar = ({ startDate }) => {
                                         <ButtonContainer
                                             setColour="transparent"
                                             setColourHoverCode="#e6e6e6"
+                                            disabled={disabled}
                                         >
                                             <i class="fas fa-plus" />
                                         </ButtonContainer>

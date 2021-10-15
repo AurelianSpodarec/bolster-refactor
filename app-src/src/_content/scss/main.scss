@@ -36,6 +36,10 @@ body {
 
 button {
     margin: 0;
+
+    &:disabled {
+        cursor: default;
+    }
 }
 
 em {
