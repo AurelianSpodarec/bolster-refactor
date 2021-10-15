@@ -3655,6 +3655,52 @@ $back-to-top-height: 35px;
                     font-size: 70%;
                 }
             }
+
+            &.expandable {
+                .content {
+                    display: flex;
+                    flex-direction: column;
+
+                    .tab-title {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        margin-bottom: 3px;
+
+                        p {
+                            margin-left: 8px;
+                        }
+                    }
+                    .list-wrapper {
+                        display: flex;
+                        flex-direction: column;
+                        
+                        p {
+                            margin-bottom: 1px;
+                            padding: 3px;
+
+                            &:last-child {
+                                border-bottom: none;
+                            }
+                        }
+                    }
+
+                    @include devices(smDesktop) {
+                        width: 100%;
+                    }
+                }
+
+                .expand-icon {
+                    position: absolute;
+                    right: 0;
+                    top: 2px;
+                    font-size: 12px;
+                }
+
+                .border-bottom {
+                    border-bottom: 1px solid lightgrey;
+                }
+            }
         }
     }
 }
