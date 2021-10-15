@@ -128,7 +128,7 @@ const AllOperativesListItem = ({
                     )}
 
                     <Link
-                        className="button yellow"
+                        className="button green"
                         to={`/company/users-management/operatives/${user.id}/timesheet`}
                     >
                         <i className="far fa-eye" /> View Timesheet
