@@ -38,7 +38,7 @@ class ButtonContainer extends Component {
 
         const sharedProps = {
             onMouseLeave: this.handleMouseLeave,
-            onMouseOver: this.handleMouseOver,
+            onMouseOver: !disabled && this.handleMouseOver,
 
             className: to && to.length ? `link-holder ${className}` : `button ${className}`,
             onClick: handleClick,
