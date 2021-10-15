@@ -6,6 +6,7 @@ import { TIME_PERIOD } from 'constants/companyAdmin/enums';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import { useSelector } from 'react-redux';
 import useReferences from '../hooks/useReferences';
+import useWeeklyReferences from '../hooks/useWeeklyReferences';
 import useDay from '../hooks/useDay';
 import ExpandableTab from './ExpandableTab';
 
@@ -21,6 +22,7 @@ const WeekTableInner = ({
     const { totalPins, totalHours, clockerEntries = [] } = timesheet;
 
     const { timeZone } = useSelector(selectCompanySettings);
+    const weeklyReferences = useWeeklyReferences(clockerEntries);
 
     return (
         <>
@@ -79,6 +81,11 @@ const WeekTableInner = ({
                     <Tab icon={<i className="fal fa-map-pin" style={{ padding: '0 3px' }} />}>
                         {totalPins} Pins
                     </Tab>
+                    <ExpandableTab
+                        icon={<i className="fal fa-sticky-note" />}
+                        items={weeklyReferences}
+                        itemType="references"
+                    />
                 </div>
                 {timePeriod === TIME_PERIOD.WEEK && <div className="film" />}
             </td>
