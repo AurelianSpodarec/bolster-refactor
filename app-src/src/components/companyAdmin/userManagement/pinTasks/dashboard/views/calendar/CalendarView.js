@@ -6,7 +6,7 @@ const CalendarView = ({ startDate }) => {
     return (
         <div className="calendar-view size-lg-12">
             <CalendarLegend />
-            <Calendar />
+            <Calendar startDate={startDate} />
         </div>
     );
 };
