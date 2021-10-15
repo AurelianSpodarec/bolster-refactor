@@ -3,6 +3,7 @@ import GoogleMapReact from 'google-map-react';
 // import BreakdownPositionCard from './BreakdownPositionCard';
 // import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 // import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+import { pin2xImgs } from '_content/images/map-markers';
 
 const BreakdownDetailedTimelineMap = ({
     markers = [],
@@ -65,7 +66,7 @@ const BreakdownDetailedTimelineMap = ({
     );
 };
 
-const Marker = ({ children, type }) => {
+const Marker = ({ type, children }) => {
     const color = {
         clockIn: 'green',
         clockOut: 'red',
@@ -74,9 +75,8 @@ const Marker = ({ children, type }) => {
     }[type];
 
     return (
-        <div className="marker">
-            <div className={`circle ${color}`}></div>
-
+        <div className="custom-pin">
+            <img alt={`${color} pin`} src={pin2xImgs[color]} />
             {children}
         </div>
     );
