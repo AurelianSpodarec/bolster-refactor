@@ -2,11 +2,11 @@ import React from 'react';
 import Calendar from './Calendar';
 import CalendarLegend from './CalendarLegend';
 
-const CalendarView = ({ startDate }) => {
+const CalendarView = ({ startDate, startCreatePinTask }) => {
     return (
         <div className="calendar-view size-lg-12">
             <CalendarLegend />
-            <Calendar startDate={startDate} />
+            <Calendar startDate={startDate} startCreatePinTask={startCreatePinTask} />
         </div>
     );
 };

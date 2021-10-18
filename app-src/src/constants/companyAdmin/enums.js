@@ -489,3 +489,19 @@ export const TIME_PERIOD = {
     WEEK: 'week',
     MONTH: 'month',
 };
+
+export const RECURRING_TYPE = {
+    NONE: 'none',
+    WEEKLY: 'weekly',
+    MONTHLY: 'monthly',
+};
+
+export const DAY = {
+    MONDAY: 'monday',
+    TUESDAY: 'tuesday',
+    WEDNESDAY: 'wednesday',
+    THURSDAY: 'thursday',
+    FRIDAY: 'friday',
+    SATURDAY: 'saturday',
+    SUNDAY: 'sunday',
+};

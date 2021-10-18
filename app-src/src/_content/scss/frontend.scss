@@ -3783,6 +3783,52 @@ $back-to-top-height: 35px;
     }
 }
 
+.create-pin-task-modal {
+    .header {
+        display: flex;
+
+            .form-field{
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                width: 100%;
+                min-height: 40px;
+
+                margin: 0;
+    
+                label {
+                    width: unset;
+                    margin: 0;
+                    width: 80px;
+                }
+
+                .date-picker {
+                    #date {
+                        height: 33px;
+                        border-color: #BCBCBC;
+                    }
+
+                    .far {
+                        margin: 3px 3px 0 0;
+                    }
+                }
+            }
+
+        .pick-list {
+            .options {
+                justify-content: space-evenly;
+                
+                .option {
+                    width: 30px;
+                    height: 30px;
+    
+                    border-radius: 100%;
+                }
+            }
+        }
+    }   
+}
+
 @keyframes slidein-left {
     0% {
       transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);

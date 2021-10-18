@@ -1,5 +1,6 @@
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import { PIN_STATS_DASHBOARD_VIEW } from 'constants/companyAdmin/enums';
 import React from 'react';
@@ -19,6 +20,7 @@ const PinTasksDashboard = () => {
         onPrev,
         onNext,
         onToday,
+        startCreatePinTask,
     } = usePinTasksDashboard();
 
     const views = {
@@ -31,8 +33,11 @@ const PinTasksDashboard = () => {
 
     return (
         <>
-            <PageHeading leftChildren={true} title="Tasks">
+            <PageHeading leftChildren={true} title="Title">
                 <BackButtonContainer />
+                <ButtonContainer handleClick={() => startCreatePinTask()}>
+                    Create Task
+                </ButtonContainer>
             </PageHeading>
             <BlockContainer contentClass="pin-tasks-dashboard-header">
                 <Controls
@@ -46,7 +51,7 @@ const PinTasksDashboard = () => {
                 />
             </BlockContainer>
             <div className="pin-tasks-dashboard size-lg-12">
-                <View startDate={startDate} />
+                <View startDate={startDate} startCreatePinTask={startCreatePinTask} />
             </div>
         </>
     );

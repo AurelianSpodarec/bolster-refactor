@@ -2001,6 +2001,29 @@ input {
         }
     }
 }
+
+.pick-list {
+    display: flex;
+    flex-direction: column;
+
+    .options {
+        display: flex;
+        gap: 8px;
+        
+        .option {
+            padding: 4px 8px;
+    
+            color: $dark-grey;
+            font-size: 140%;
+    
+            &.selected {
+                background-color: $blue;
+                color: #fff;
+            }
+        }
+    }
+}
+
 .filepond--drop-label {
     label {
         top: 1px;

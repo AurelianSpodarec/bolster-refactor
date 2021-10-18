@@ -2,11 +2,14 @@ import React from 'react';
 
 import moment from 'moment';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import { PIN_STATS_DASHBOARD_VIEW, TIME_PERIOD } from 'constants/companyAdmin/enums';
+import { CREATE_PIN_TASK } from 'constants/shared/modalTypes';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
 
 const usePinTasksDashboard = () => {
+    const dispatch = useDispatch();
     const { timeZone } = useSelector(selectCompanySettings);
 
     const [view, setView] = useState(PIN_STATS_DASHBOARD_VIEW.CALENDER);
@@ -51,6 +54,10 @@ const usePinTasksDashboard = () => {
         setStartDate(newStartDate);
     };
 
+    const startCreatePinTask = (initialDate = undefined) => {
+        dispatch(showModal(CREATE_PIN_TASK, { initialDate }));
+    };
+
     return {
         startDate,
         view,
@@ -60,6 +67,7 @@ const usePinTasksDashboard = () => {
         onPrev,
         onNext,
         onToday,
+        startCreatePinTask,
     };
 };
 

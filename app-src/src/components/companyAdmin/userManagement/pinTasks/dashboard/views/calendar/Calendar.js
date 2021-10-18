@@ -6,7 +6,7 @@ import React from 'react';
 
 import useCalendar from './hooks/useCalendar';
 
-const Calendar = ({ startDate }) => {
+const Calendar = ({ startDate, startCreatePinTask }) => {
     const { days, matrix } = useCalendar(startDate);
 
     const dataMatrix = [
@@ -41,9 +41,9 @@ const Calendar = ({ startDate }) => {
                             return (
                                 <td key={x} className={disabled ? 'disabled' : ''}>
                                     <div className="cell">
-                                        <date>{moment(date).format('DD')}</date>
+                                        <time>{moment(date).format('DD')}</time>
                                         {tasks && !disabled ? (
-                                            <p className="tasks">
+                                            <div className="tasks">
                                                 {tasks.map(({ type, status }, i) => (
                                                     <div className="task" key={i}>
                                                         <div className="circles">
@@ -53,7 +53,7 @@ const Calendar = ({ startDate }) => {
                                                         <p className="name">0001:01</p>
                                                     </div>
                                                 ))}
-                                            </p>
+                                            </div>
                                         ) : (
                                             <p className="no-tasks">No Tasks</p>
                                         )}
@@ -61,8 +61,9 @@ const Calendar = ({ startDate }) => {
                                             setColour="transparent"
                                             setColourHoverCode="#e6e6e6"
                                             disabled={disabled}
+                                            handleClick={() => startCreatePinTask(date)}
                                         >
-                                            <i class="fas fa-plus" />
+                                            <i className="fas fa-plus" />
                                         </ButtonContainer>
                                     </div>
                                 </td>

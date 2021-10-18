@@ -204,3 +204,5 @@ export const CONFIRM_TWO_FACTOR = 'CONFIRM_TWO_FACTOR';
 export const CONFIRM_EMAIL = 'CONFIRM_EMAIL';
 
 export const USER_NEW_DOCUMENT = 'USER_NEW_DOCUMENT';
+// pin tasks
+export const CREATE_PIN_TASK = 'CREATE_PIN_TASK';
