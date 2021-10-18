@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
@@ -21,7 +21,6 @@ const PickListContainer = ({
     removeFieldError,
 }) => {
     const _validate = () => {
-        console.log({ error, errorsVisible, addFieldError, removeFieldError });
         const validateError = validate(value);
         if (required && value.length === 0) {
             addFieldError(name, 'This is a required field.');
@@ -42,7 +41,7 @@ const PickListContainer = ({
         handleChange(name, newValue);
     };
 
-    const handleBlur = () => _validate();
+    useEffect(() => _validate(), [value, _validate]);
 
     return (
         <PickList
@@ -50,7 +49,7 @@ const PickListContainer = ({
             options={options}
             error={errorsVisible ? error : null}
             handleChange={_handleChange}
-            onBlur={handleBlur}
+            onBlur={() => _validate()}
             value={value}
             disabled={disabled}
             classes={classes}

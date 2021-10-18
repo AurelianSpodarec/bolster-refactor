@@ -1,17 +1,18 @@
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import PickListContainer from 'components/shared/generic/form/containers/PickListContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import { DAY, RECURRING_TYPE } from 'constants/companyAdmin/enums';
-import { useForm } from 'helpers/hooks';
-import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import useCreatePinTask from './hooks/useCreatePinTask';
+import CreatePinTaskStep1 from './CreatePinTaskStep1';
+import CreatePinTaskStep2 from './CreatePinTaskStep2';
+import CreatePinTaskStep3 from './CreatePinTaskStep3';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const recurringOptions = [
     {
@@ -39,29 +40,42 @@ const dayOptions = [
 ];
 
 const CreatePinTaskModal = ({ initialDate }) => {
-    const dispatch = useDispatch();
+    const {
+        formData: { days, recurring, date },
+        handleChange,
+        step,
+        setStep,
+        closeModal,
+        isWeekly,
+        isNotRecurring,
+    } = useCreatePinTask(initialDate);
 
-    const [{ date, recurring, days }, handleChange] = useForm({
-        date: initialDate ?? new Date(),
-        recurring: RECURRING_TYPE.NONE,
-        days,
-    });
+    const steps = [
+        <CreatePinTaskStep1
+            date={date}
+            handleChange={handleChange}
+            isNotRecurring={isNotRecurring}
+        />,
+        <CreatePinTaskStep2 />,
+        <CreatePinTaskStep3 />,
+    ];
 
-    const isWeekly = recurring === RECURRING_TYPE.WEEKLY;
+    const Step = steps[step];
 
-    useEffect(() => {
-        if (!isWeekly) {
-            handleChange('days', []);
-            dispatch(removeFieldError('days'));
-        }
-    }, [isWeekly]);
+    const buttons = [
+        <button className="button blue">Next</button>,
+        <button className="button blue">Confirm</button>,
+        <button className="button green">Submit</button>,
+    ];
+
+    const Button = buttons[step];
 
     return (
         <ModalOuterContainer extraClasses="create-pin-task-modal">
-            <Form onSubmit={() => {}}>
+            <Form onSubmit={() => setStep(step + 1)}>
+                <BlockHeading title="Create Task" />
                 <div className="size-lg-12 header">
                     <div className="size-lg-6">
-                        <BlockHeading title="Create Task" />
                         <Field sizeClasses="size-lg-12">
                             <PickListContainer
                                 name="days"
@@ -83,24 +97,28 @@ const CreatePinTaskModal = ({ initialDate }) => {
                                 withoutPlaceholder
                             />
                         </Field>
-                        <Field name="date" sizeClasses="size-lg-6">
-                            <DatePickerContainer
-                                name="date"
-                                selected={new Date(date)}
-                                onChange={value => handleChange('name', value)}
-                            />
-                        </Field>
                     </div>
+                </div>
+                <div className="size-lg-12 step-tabs">
+                    {new Array(3).fill(null).map((_, i) => (
+                        <div className={`step-tab ${step === i ? 'selected' : ''}`} key={i}>
+                            <p className="text">Step {i + 1}</p>
+                        </div>
+                    ))}
                 </div>
                 <div className="size-lg-12">
                     {false && <Loading message="Loading task..." />}
 
-                    <div className="size-lg-12">
-                        <ButtonContainer type="submit">Submit</ButtonContainer>
-                    </div>
+                    {Step}
+
+                    <BlockButtonWrapper>
+                        {Button}
+                        <button type="button" className="button" onClick={closeModal}>
+                            Cancel
+                        </button>
+                    </BlockButtonWrapper>
                 </div>
             </Form>
-            ¸
         </ModalOuterContainer>
     );
 };
