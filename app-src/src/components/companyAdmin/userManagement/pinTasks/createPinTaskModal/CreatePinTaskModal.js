@@ -1,5 +1,4 @@
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import PickListContainer from 'components/shared/generic/form/containers/PickListContainer';
@@ -11,7 +10,6 @@ import useCreatePinTask from './hooks/useCreatePinTask';
 import CreatePinTaskStep1 from './CreatePinTaskStep1';
 import CreatePinTaskStep2 from './CreatePinTaskStep2';
 import CreatePinTaskStep3 from './CreatePinTaskStep3';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const recurringOptions = [
@@ -52,6 +50,7 @@ const CreatePinTaskModal = ({ initialDate }) => {
 
     const steps = [
         <CreatePinTaskStep1
+            key={1}
             date={date}
             handleChange={handleChange}
             isNotRecurring={isNotRecurring}
@@ -61,16 +60,22 @@ const CreatePinTaskModal = ({ initialDate }) => {
             floor={floor}
             drawing={drawing}
         />,
-        <CreatePinTaskStep2 />,
-        <CreatePinTaskStep3 />,
+        <CreatePinTaskStep2 key={2} />,
+        <CreatePinTaskStep3 key={3} />,
     ];
 
     const Step = steps[step];
 
     const buttons = [
-        <button className="button blue">Next</button>,
-        <button className="button blue">Confirm</button>,
-        <button className="button green">Submit</button>,
+        <button className="button blue" key={1}>
+            Next
+        </button>,
+        <button className="button blue" key={2}>
+            Confirm
+        </button>,
+        <button className="button green" key={3}>
+            Submit
+        </button>,
     ];
 
     const Button = buttons[step];
@@ -112,8 +117,6 @@ const CreatePinTaskModal = ({ initialDate }) => {
                     ))}
                 </div>
                 <div className="size-lg-12">
-                    {false && <Loading message="Loading task..." />}
-
                     {Step}
 
                     <BlockButtonWrapper>
