@@ -3852,6 +3852,27 @@ $back-to-top-height: 35px;
         }
     }
 
+    .loading-text {
+        position: absolute;
+
+        p {
+            font-size: 150%;
+            margin-bottom: 4px;
+        }
+    }
+
+    .fetch-error {
+        position: absolute;
+        left: 0;
+        right: 0;
+
+        margin: 10px;
+
+        color: $red;
+        font-size: 120%;
+        text-align: center;
+    }
+
     .step-block {
         margin-top: 32px;
 

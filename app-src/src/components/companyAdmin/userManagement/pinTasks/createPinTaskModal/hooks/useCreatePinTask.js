@@ -15,6 +15,11 @@ const useCreatePinTask = initialDate => {
         date: initialDate ?? new Date(),
         recurring: RECURRING_TYPE.NONE,
         days: [],
+        operatives: [],
+        site: null,
+        building: null,
+        floor: null,
+        drawing: null,
     });
 
     const isWeekly = formData.recurring === RECURRING_TYPE.WEEKLY;
@@ -29,7 +34,15 @@ const useCreatePinTask = initialDate => {
 
     const closeModal = () => dispatch(hideModal(CREATE_PIN_TASK));
 
-    return { formData, handleChange, step, setStep, closeModal, isWeekly, isNotRecurring };
+    return {
+        formData,
+        handleChange,
+        step,
+        setStep,
+        closeModal,
+        isWeekly,
+        isNotRecurring,
+    };
 };
 
 export default useCreatePinTask;
