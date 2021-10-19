@@ -44,8 +44,9 @@ const CreatePinTaskModal = ({ initialDate }) => {
         step,
         setStep,
         closeModal,
+        isRecurring,
         isWeekly,
-        isNotRecurring,
+        isMonthly,
     } = useCreatePinTask(initialDate);
 
     const steps = [
@@ -53,12 +54,12 @@ const CreatePinTaskModal = ({ initialDate }) => {
             key={1}
             date={date}
             handleChange={handleChange}
-            isNotRecurring={isNotRecurring}
             operatives={operatives}
             site={site}
             building={building}
             floor={floor}
             drawing={drawing}
+            isRecurring={isRecurring}
         />,
         <CreatePinTaskStep2 key={2} />,
         <CreatePinTaskStep3 key={3} />,

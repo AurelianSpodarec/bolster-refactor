@@ -14,7 +14,7 @@ const CreatePinTaskStep1 = ({
     floor,
     drawing,
     handleChange,
-    isNotRecurring,
+    isRecurring,
 }) => {
     const {
         isFetching,
@@ -24,7 +24,7 @@ const CreatePinTaskStep1 = ({
         buildingOptions,
         floorOptions,
         drawingOptions,
-    } = useStep1Options(site, building, floor);
+    } = useStep1Options(handleChange, site, building, floor, drawing);
 
     return (
         <>
@@ -34,7 +34,7 @@ const CreatePinTaskStep1 = ({
                 <Field
                     name="date"
                     sizeClasses="size-lg-12"
-                    label={isNotRecurring ? 'Date' : 'Start Date'}
+                    label={!isRecurring ? 'Date' : 'Start Date'}
                 >
                     <DatePickerContainer
                         name="date"
@@ -43,6 +43,17 @@ const CreatePinTaskStep1 = ({
                         required
                     />
                 </Field>
+
+                {isRecurring && (
+                    <Field name="end-date" sizeClasses="size-lg-12" label="End Date">
+                        <DatePickerContainer
+                            name="end-date"
+                            selected={new Date(date)}
+                            onChange={value => handleChange('end-date', value)}
+                            required
+                        />
+                    </Field>
+                )}
 
                 <Field name="operatives" sizeClasses="size-lg-12">
                     <MultiSelect

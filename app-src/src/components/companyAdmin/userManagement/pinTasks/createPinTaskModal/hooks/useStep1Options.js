@@ -31,7 +31,7 @@ import {
     selectSitesFetchError,
 } from 'selectors/companyAdmin/sites';
 
-const useStep1Options = (site, building, floor) => {
+const useStep1Options = (handleChange, site, building, floor, drawing) => {
     const dispatch = useDispatch();
 
     const users = useSelector(selectCompanyUsers) ?? [];
@@ -94,6 +94,18 @@ const useStep1Options = (site, building, floor) => {
             value: id,
             text: name,
         }));
+
+    useEffect(() => {
+        handleChange('building', null);
+    }, [site]);
+
+    useEffect(() => {
+        handleChange('floor', null);
+    }, [building]);
+
+    useEffect(() => {
+        handleChange('drawing', null);
+    }, [floor]);
 
     const isFetching =
         usersIsFetching ||

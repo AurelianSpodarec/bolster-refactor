@@ -22,8 +22,9 @@ const useCreatePinTask = initialDate => {
         drawing: null,
     });
 
+    const isRecurring = formData.recurring !== RECURRING_TYPE.NONE;
     const isWeekly = formData.recurring === RECURRING_TYPE.WEEKLY;
-    const isNotRecurring = formData.recurring === RECURRING_TYPE.NONE;
+    const isMonthly = formData.recurring === RECURRING_TYPE.MONTHLY;
 
     useEffect(() => {
         if (!isWeekly) {
@@ -40,8 +41,9 @@ const useCreatePinTask = initialDate => {
         step,
         setStep,
         closeModal,
+        isRecurring,
         isWeekly,
-        isNotRecurring,
+        isMonthly,
     };
 };
 
