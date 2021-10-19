@@ -1,5 +1,4 @@
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import PickListContainer from 'components/shared/generic/form/containers/PickListContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
@@ -11,19 +10,20 @@ import CreatePinTaskStep1 from './CreatePinTaskStep1';
 import CreatePinTaskStep2 from './CreatePinTaskStep2';
 import CreatePinTaskStep3 from './CreatePinTaskStep3';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import Select from 'components/shared/generic/form/presentational/Select';
 
 const recurringOptions = [
     {
         value: RECURRING_TYPE.NONE,
-        text: 'None',
+        label: 'None',
     },
     {
         value: RECURRING_TYPE.WEEKLY,
-        text: 'Weekly',
+        label: 'Weekly',
     },
     {
         value: RECURRING_TYPE.MONTHLY,
-        text: 'Monthly',
+        label: 'Monthly',
     },
 ];
 
@@ -100,12 +100,12 @@ const CreatePinTaskModal = ({ initialDate }) => {
                     </div>
                     <div className="size-lg-6">
                         <Field name="recurring" sizeClasses="size-lg-12">
-                            <DropdownContainer
+                            <Select
                                 name="recurring"
-                                value={recurringOptions.find(option => option.value === recurring)}
-                                handleChange={handleChange}
+                                value={recurring}
+                                onChange={handleChange}
                                 options={recurringOptions}
-                                withoutPlaceholder
+                                omitPlaceholder
                             />
                         </Field>
                     </div>

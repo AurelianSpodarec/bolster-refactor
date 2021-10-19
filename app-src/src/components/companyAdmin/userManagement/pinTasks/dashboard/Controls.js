@@ -5,20 +5,20 @@ import moment from 'moment';
 import { DATE_TIME_IDS, PIN_STATS_DASHBOARD_VIEW } from 'constants/companyAdmin/enums';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import Select from 'components/shared/generic/form/presentational/Select';
 
 const viewOptions = [
     {
         value: PIN_STATS_DASHBOARD_VIEW.CALENDER,
-        text: 'Calender',
+        label: 'Calender',
     },
     {
         value: PIN_STATS_DASHBOARD_VIEW.LIST,
-        text: 'List',
+        label: 'List',
     },
     {
         value: PIN_STATS_DASHBOARD_VIEW.SERIES,
-        text: 'Series',
+        label: 'Series',
     },
 ];
 
@@ -54,12 +54,12 @@ const Controls = ({ startDate, view, timePeriod, onViewChange, onPrev, onNext, o
                     >
                         <i className="far fa-calendar-week"></i> Today
                     </ButtonContainer>
-                    <DropdownContainer
+                    <Select
                         name="view"
-                        value={viewOptions.find(option => option.value === view)}
-                        handleChange={(_, value) => onViewChange(value)}
+                        value={view}
+                        onChange={(_, value) => onViewChange(value)}
                         options={viewOptions}
-                        withoutPlaceholder
+                        omitPlaceholder
                     />
                 </>
             }

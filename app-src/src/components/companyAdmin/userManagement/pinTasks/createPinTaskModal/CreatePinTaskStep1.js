@@ -1,10 +1,10 @@
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import Field from 'components/shared/generic/form/presentational/Field';
 import useStep1Options from './hooks/useStep1Options';
 import React from 'react';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
+import Select from 'components/shared/generic/form/presentational/Select';
 
 const CreatePinTaskStep1 = ({
     date,
@@ -29,7 +29,7 @@ const CreatePinTaskStep1 = ({
     return (
         <>
             {isFetching && <Loading />}
-            {fetchError && <p className="fetch-error">{fetchError}</p>}
+            {fetchError && !isFetching && <p className="fetch-error">{fetchError}</p>}
             <div className="size-lg-12 step-block">
                 <Field
                     name="date"
@@ -66,10 +66,10 @@ const CreatePinTaskStep1 = ({
                 </Field>
 
                 <Field name="site" sizeClasses="size-lg-12">
-                    <DropdownContainer
+                    <Select
                         name="site"
-                        value={siteOptions.find(({ value }) => value == site)}
-                        handleChange={handleChange}
+                        value={site}
+                        onChange={handleChange}
                         options={siteOptions}
                         disabled={isFetching || fetchError}
                         required
@@ -77,10 +77,10 @@ const CreatePinTaskStep1 = ({
                 </Field>
 
                 <Field name="building" sizeClasses="size-lg-12">
-                    <DropdownContainer
+                    <Select
                         name="building"
-                        value={buildingOptions.find(({ value }) => value == building)}
-                        handleChange={handleChange}
+                        value={building}
+                        onChange={handleChange}
                         options={buildingOptions}
                         disabled={isFetching || fetchError || !site}
                         required
@@ -88,10 +88,10 @@ const CreatePinTaskStep1 = ({
                 </Field>
 
                 <Field name="floor" sizeClasses="size-lg-12">
-                    <DropdownContainer
+                    <Select
                         name="floor"
-                        value={floorOptions.find(({ value }) => value == floor)}
-                        handleChange={handleChange}
+                        value={floor}
+                        onChange={handleChange}
                         options={floorOptions}
                         disabled={isFetching || fetchError || !building}
                         required
@@ -99,10 +99,10 @@ const CreatePinTaskStep1 = ({
                 </Field>
 
                 <Field name="drawing" sizeClasses="size-lg-12">
-                    <DropdownContainer
+                    <Select
                         name="drawing"
-                        value={drawingOptions.find(({ value }) => value == drawing)}
-                        handleChange={handleChange}
+                        value={drawing}
+                        onChange={handleChange}
                         options={drawingOptions}
                         disabled={isFetching || fetchError || !floor}
                         required

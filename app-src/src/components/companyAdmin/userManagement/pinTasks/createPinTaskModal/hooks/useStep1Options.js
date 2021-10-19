@@ -1,8 +1,12 @@
 import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuildings';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
+import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
+import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { useEffect } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import {
@@ -25,6 +29,11 @@ import {
     selectFloorsFetchError,
     selectFloorsIsFetching,
 } from 'selectors/companyAdmin/floors';
+import {
+    selectPins,
+    selectPinsFetchError,
+    selectPinsIsFetching,
+} from 'selectors/companyAdmin/pins';
 import {
     selectSites,
     selectSitesIsFetching,
@@ -54,6 +63,10 @@ const useStep1Options = (handleChange, site, building, floor, drawing) => {
     const drawingsIsFetching = useSelector(selectDrawingsIsFetching);
     const drawingsFetchError = useSelector(selectDrawingsFetchError);
 
+    const pins = useSelector(selectPins) ?? [];
+    const pinsIsFetching = useSelector(selectPinsIsFetching);
+    const pinsFetchError = useSelector(selectPinsFetchError);
+
     useEffect(() => {
         batch(() => {
             dispatch(fetchCompanyUsers());
@@ -64,6 +77,10 @@ const useStep1Options = (handleChange, site, building, floor, drawing) => {
         });
     }, [dispatch]);
 
+    useEffect(() => {
+        if (drawing) dispatch(fetchPins('Drawing', drawing));
+    }, [dispatch, drawing]);
+
     const operativesOptions = Object.values(users).map(({ id, userFirstName, userLastName }) => ({
         value: id,
         label: `${userFirstName} ${userLastName}`,
@@ -71,28 +88,28 @@ const useStep1Options = (handleChange, site, building, floor, drawing) => {
 
     const siteOptions = Object.values(sites).map(({ id, name }) => ({
         value: id,
-        text: name,
+        label: name,
     }));
 
     const buildingOptions = Object.values(buildings)
         .filter(({ siteID }) => siteID == site)
         .map(({ id, name }) => ({
             value: id,
-            text: name,
+            label: name,
         }));
 
     const floorOptions = Object.values(floors)
         .filter(({ buildingID }) => buildingID == building)
         .map(({ id, name }) => ({
             value: id,
-            text: name,
+            label: name,
         }));
 
     const drawingOptions = Object.values(drawings)
         .filter(({ floorID }) => floorID == floor)
         .map(({ id, name }) => ({
             value: id,
-            text: name,
+            label: name,
         }));
 
     useEffect(() => {
@@ -107,18 +124,26 @@ const useStep1Options = (handleChange, site, building, floor, drawing) => {
         handleChange('drawing', null);
     }, [floor]);
 
+    useEffect(() => {
+        if (Object.values(pins).length === 0 && !isFetching && drawing != null) {
+            dispatch(addFieldError('drawing', 'The selected drawing must have at least one pin'));
+        }
+    }, [dispatch, pins, isFetching]);
+
     const isFetching =
         usersIsFetching ||
         sitesIsFetching ||
         buildingsIsFetching ||
         floorsIsFetching ||
-        drawingsIsFetching;
+        drawingsIsFetching ||
+        pinsIsFetching;
     const fetchError =
         usersFetchError ||
         sitesFetchError ||
         buildingsFetchError ||
         floorsFetchError ||
-        drawingsFetchError;
+        drawingsFetchError ||
+        pinsFetchError;
 
     return {
         isFetching,
