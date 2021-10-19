@@ -24,8 +24,9 @@ const ConfirmTwoFactorModal = ({ profile, isPosting, postSuccess, sendConfirmEma
             <Form onSubmit={onSubmit}>
                 {!postSuccess ? (
                     <p>
-                        Your email address is unconfirmed. Please confirm your email address to
-                        continue.
+                        Your email address is unconfirmed. Please click here and follow the steps on
+                        the email you will receive to complete this process. If your email address
+                        is incorrect, invalid or old, please update through My Profile.
                     </p>
                 ) : (
                     <p>Confirmation email sent. Please check your inbox.</p>
