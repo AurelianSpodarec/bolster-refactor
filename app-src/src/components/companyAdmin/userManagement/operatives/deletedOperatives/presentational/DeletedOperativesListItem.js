@@ -12,6 +12,8 @@ const DeletedOperativesListItem = ({
     const dispatch = useDispatch();
     const { onMobile } = useSelector(mapStateToProps);
 
+    console.log({ user });
+
     return (
         <tr>
             <td>
@@ -32,7 +34,17 @@ const DeletedOperativesListItem = ({
                 {formattedOperativeCode}
             </td>
             <td>
+                {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
+                {'### WIP ###'}
+            </td>
+            <td>
+                {' '}
+                {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
+                {'### WIP ###'}
+            </td>
+            <td>
+                {onMobile && <span className="mobile-table-heading">{headers[6]}</span>}
                 <button className="button blue" onClick={handleRecover}>
                     Recover
                 </button>
