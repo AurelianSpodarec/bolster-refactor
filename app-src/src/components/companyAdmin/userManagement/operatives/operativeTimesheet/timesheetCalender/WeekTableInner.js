@@ -47,7 +47,7 @@ const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, t
                                 <ExpandableTab
                                     icon={<i className="fal fa-sticky-note" />}
                                     items={references}
-                                    itemType="references"
+                                    itemType="Job references"
                                 />
                             </div>
                         )}
@@ -76,7 +76,7 @@ const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, t
                     <ExpandableTab
                         icon={<i className="fal fa-sticky-note" />}
                         items={weeklyReferences}
-                        itemType="references"
+                        itemType="Job references"
                     />
                 </div>
                 {timePeriod === TIME_PERIOD.WEEK && <div className="film" />}

@@ -8,19 +8,21 @@ const ExpandableTab = ({ icon, items, itemType = 'items' }) => {
             <div className="content">
                 <div className="tab-title">
                     {icon}
-                    <p>
-                        {items.length} {itemType}
-                    </p>
+
+                    <p>{items.length}</p>
+                    <p> {itemType}</p>
                 </div>
                 {isExpanded && (
-                    <div className="list-wrapper">
-                        {items.length
-                            ? items.map((item, i) => (
-                                  <p key={i} className="border-bottom">
-                                      {item}
-                                  </p>
-                              ))
-                            : 0}
+                    <div className="popup">
+                        <div className="list-wrapper">
+                            {items.length
+                                ? items.map((item, i) => (
+                                      <p key={i} className="border-bottom">
+                                          {item}
+                                      </p>
+                                  ))
+                                : 0}
+                        </div>
                     </div>
                 )}
             </div>

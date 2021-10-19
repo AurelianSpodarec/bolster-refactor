@@ -3672,20 +3672,41 @@ $back-to-top-height: 35px;
                             margin-left: 8px;
                         }
                     }
-                    .list-wrapper {
-                        display: flex;
-                        flex-direction: column;
-                        
-                        p {
-                            margin-bottom: 1px;
-                            padding: 3px;
 
-                            &:last-child {
-                                border-bottom: none;
+                    .popup {
+                        position: absolute;
+                        top: 55px;
+                        left: -50%;
+                        z-index: 1;
+                        background-color: $light-blue;
+                        border-radius: 4px;
+                        flex: 1;
+                        padding: 6px 15px;
+                        width: 200%;
+                        border: 1px solid $dark-grey;
+
+                        .list-wrapper {
+                            display: flex;
+                            flex-direction: column;
+                            transition: all 5s ease-in-out;
+
+                            p {
+                                margin-bottom: 1px;
+                                padding: 3px;
+                                
+                                &:last-child {
+                                    border-bottom: none;
+                                }
                             }
                         }
-                    }
 
+                        @include devices(smDesktop) {
+                            width: 100%;
+                            left: 0;
+                            top: 25px;
+                        }
+                    }
+                        
                 }
 
                 .expand-icon {
