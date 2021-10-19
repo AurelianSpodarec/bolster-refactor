@@ -4,12 +4,14 @@ import BlockHeading from '../../blockHeading/presentational/BlockHeading';
 import ButtonContainer from '../../button/containers/ButtonContainer';
 import Form from '../../form/containers/Form';
 import ModalOuterContainer from '../containers/ModalOuterContainer';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import postResendConfirmEmail from 'actions/shared/auth/async/postResendConfirmEmail';
 import Loading from '../../misc/presentational/Loading';
 import { usePrevious } from 'helpers/hooks';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
-const ConfirmTwoFactorModal = ({ profile, isPosting, postSuccess, sendConfirmEmail }) => {
+const ConfirmEmailModal = ({ showDismiss, profile, isPosting, postSuccess, sendConfirmEmail }) => {
+    const dispatch = useDispatch();
     const onSubmit = e => {
         e.preventDefault();
         sendConfirmEmail(profile.email);
@@ -17,7 +19,6 @@ const ConfirmTwoFactorModal = ({ profile, isPosting, postSuccess, sendConfirmEma
 
     const prevProps = usePrevious({ postSuccess, isPosting });
 
-    console.log({ postSuccess, isPosting });
     return (
         <ModalOuterContainer hideCloseButton>
             <BlockHeading title="Confirm" />
@@ -35,6 +36,11 @@ const ConfirmTwoFactorModal = ({ profile, isPosting, postSuccess, sendConfirmEma
                 {!!isPosting && <Loading />}
 
                 <BlockButtonWrapper>
+                    {showDismiss && (
+                        <ButtonContainer type="submit" handleClick={() => dispatch(hideModal())}>
+                            Dismiss
+                        </ButtonContainer>
+                    )}
                     <ButtonContainer type="submit" handleClick={onSubmit}>
                         {postSuccess ? 'Resend' : 'Send'} Email
                     </ButtonContainer>
@@ -57,4 +63,4 @@ const mapDispatchToProps = dispatch => ({
         return dispatch(postResendConfirmEmail({ email }));
     },
 });
-export default connect(mapStateToProps, mapDispatchToProps)(ConfirmTwoFactorModal);
+export default connect(mapStateToProps, mapDispatchToProps)(ConfirmEmailModal);

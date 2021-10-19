@@ -21,6 +21,7 @@ import sortReducer from './sort';
 import legalDocumentsReducer from './legalDocuments';
 import bannerNotificationReducer from './bannerNotifications';
 import twoFactorReducer from './twoFactor';
+import bannerReducer from './banner';
 
 export default combineReducers({
     confirmLeaveReducer,
@@ -44,4 +45,5 @@ export default combineReducers({
     sortReducer,
     bannerNotificationReducer,
     twoFactorReducer,
+    bannerReducer,
 });
