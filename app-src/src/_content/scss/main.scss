@@ -2597,6 +2597,14 @@ input {
     }
 
     &.with-actions {
+        a {
+            color: $very-dark-grey-alt;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
         td {
             &:last-child {
                 text-align: right;
