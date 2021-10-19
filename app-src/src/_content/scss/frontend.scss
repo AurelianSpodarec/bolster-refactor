@@ -3877,13 +3877,31 @@ $back-to-top-height: 35px;
         margin-top: 32px;
 
         .date-picker, .multi-multi-dropdown {
-            #date, .selected-box {
+            #date, #end-date, .selected-box {
                 height: 33px;
                 border-color: #BCBCBC;
             }
 
             .far {
                 margin: 3px 3px 0 0;
+            }
+
+            .react-datepicker {
+                position: absolute;
+                top: 8px;
+                left: 0;
+                right: 0;
+                margin: 0 auto;
+                width: fit-content;
+
+                .react-datepicker__triangle {
+                    position: absolute;
+                    top: -8px;
+                    left: 0 !important;
+                    right: 0;
+                    margin: 0 auto;
+
+                }
             }
         }
 
