@@ -177,7 +177,7 @@ function updatedUserIDReducer(state = 0, action) {
     }
 }
 
-function filtersReducer(state = { email: '', role: '', page: 1 }, action) {
+function filtersReducer(state = { searchTerm: '', role: '', page: 1 }, action) {
     switch (action.type) {
         case UPDATE_USERS_FILTERS:
             return updateObj(state, action.fieldName, action.searchTerm);

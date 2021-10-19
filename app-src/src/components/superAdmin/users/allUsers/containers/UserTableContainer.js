@@ -13,7 +13,7 @@ const UserTableContainer = ({
     users,
     fetchUsersBySearch,
     updateUsersFilters,
-    filters: { role, email, page },
+    filters: { role, searchTerm, page },
     count,
 }) => {
     const PAGE_SIZE = 50;
@@ -49,11 +49,16 @@ const UserTableContainer = ({
                 if (role === deletedRole) return u.isDeleted;
                 return u.roles && u.roles.find(({ type }) => String(type) === role);
             })
-            .filter(u => u.email && u.email.toLowerCase().includes(email.toLowerCase()));
+            .filter(u => {
+                if (u.email) return u.email.toLowerCase().includes(searchTerm.toLowerCase());
+                if (u.firstName)
+                    return u.firstName.toLowerCase().includes(searchTerm.toLowerCase());
+                if (u.lastName) return u.lastName.toLowerCase().includes(searchTerm.toLowerCase());
+            });
     }
 
     function setPage(nextPage) {
-        fetchUsersBySearch(nextPage, email, role, PAGE_SIZE);
+        fetchUsersBySearch(nextPage, searchTerm, role, PAGE_SIZE);
         updateUsersFilters('page', nextPage);
     }
 };
