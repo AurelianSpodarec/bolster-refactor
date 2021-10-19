@@ -10,15 +10,7 @@ import useWeeklyReferences from '../hooks/useWeeklyReferences';
 import useDay from '../hooks/useDay';
 import ExpandableTab from './ExpandableTab';
 
-const WeekTableInner = ({
-    startDate,
-    selectedDate,
-    timePeriod,
-    onDaySelect,
-    onWeekSelect,
-
-    timesheet,
-}) => {
+const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, timesheet }) => {
     const { totalPins, totalHours, clockerEntries = [] } = timesheet;
 
     const { timeZone } = useSelector(selectCompanySettings);
@@ -37,7 +29,7 @@ const WeekTableInner = ({
                             <p className="full">{moment(date).format('dddd DD')}</p>
                             <i className="fal fa-circle" />
                         </div>
-                        {(totalHours !== 0 || totalPins !== 0 || !references.length) && (
+                        {totalHours !== 0 && (
                             <div className="tabs">
                                 <Tab icon={<i className="fal fa-stopwatch" />}>
                                     {totalHours} Hours
