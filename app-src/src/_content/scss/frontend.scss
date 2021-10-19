@@ -3680,7 +3680,6 @@ $back-to-top-height: 35px;
                         z-index: 1;
                         background-color: $light-blue;
                         border-radius: 4px;
-                        flex: 1;
                         padding: 6px 15px;
                         width: 200%;
                         border: 1px solid $dark-grey;
@@ -3688,7 +3687,6 @@ $back-to-top-height: 35px;
                         .list-wrapper {
                             display: flex;
                             flex-direction: column;
-                            transition: all 5s ease-in-out;
 
                             p {
                                 margin-bottom: 1px;
