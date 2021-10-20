@@ -1,14 +1,17 @@
 import React from 'react';
 import moment from 'moment';
-import Tab from './Tab';
 
-import { TIME_PERIOD } from 'constants/companyAdmin/enums';
-import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
+import useDay from '../hooks/useDay';
 import { useSelector } from 'react-redux';
 import useReferences from '../hooks/useReferences';
 import useWeeklyReferences from '../hooks/useWeeklyReferences';
-import useDay from '../hooks/useDay';
+
+import Tab from './Tab';
 import ExpandableTab from './ExpandableTab';
+
+import { TIME_PERIOD } from 'constants/companyAdmin/enums';
+import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
+import timesheetPin from '_content/images/pins-examples/timesheet-pin.png';
 
 const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, timesheet }) => {
     const { totalPins, totalHours, clockerEntries = [] } = timesheet;
@@ -34,15 +37,8 @@ const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, t
                                 <Tab icon={<i className="fal fa-stopwatch" />}>
                                     {totalHours} Hours
                                 </Tab>
-                                <Tab
-                                    icon={
-                                        <i
-                                            className="fal fa-map-pin"
-                                            style={{ padding: '0 3px' }}
-                                        />
-                                    }
-                                >
-                                    {totalPins} Pins
+                                <Tab icon={<img src={timesheetPin} />}>
+                                    {totalPins} Pin histories
                                 </Tab>
                                 <ExpandableTab
                                     icon={<i className="fal fa-sticky-note" />}
@@ -70,9 +66,7 @@ const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, t
                 </div>
                 <div className="tabs">
                     <Tab icon={<i className="fal fa-stopwatch" />}>{totalHours} Hours</Tab>
-                    <Tab icon={<i className="fal fa-map-pin" style={{ padding: '0 3px' }} />}>
-                        {totalPins} Pins
-                    </Tab>
+                    <Tab icon={<img src={timesheetPin} />}>{totalPins} Pins</Tab>
                     <ExpandableTab
                         icon={<i className="fal fa-sticky-note" />}
                         items={weeklyReferences}

@@ -2,7 +2,7 @@ import moment from 'moment';
 
 const getDay = (timesheet, selectedDate) => {
     const start = moment(selectedDate);
-
+    console.log({ timesheet });
     return timesheet.clockerEntries.find(({ date }) => start.isSame(date, 'day'));
 };
 
