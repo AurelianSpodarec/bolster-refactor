@@ -206,3 +206,4 @@ export const CONFIRM_EMAIL = 'CONFIRM_EMAIL';
 export const USER_NEW_DOCUMENT = 'USER_NEW_DOCUMENT';
 // pin tasks
 export const CREATE_PIN_TASK = 'CREATE_PIN_TASK';
+export const EDIT_PIN_TASK = 'EDIT_PIN_TASK';

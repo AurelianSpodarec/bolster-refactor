@@ -1,12 +1,16 @@
+import showModal from 'actions/shared/generic/modals/sync/showModal';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import Table from 'components/shared/generic/tables/presentational/Table';
+import { EDIT_PIN_TASK } from 'constants/shared/modalTypes';
 import moment from 'moment';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import useCalendar from './hooks/useCalendar';
 
 const Calendar = ({ startDate, startCreatePinTask }) => {
+    const dispatch = useDispatch();
     const { days, matrix } = useCalendar(startDate);
 
     const dataMatrix = [
@@ -30,6 +34,8 @@ const Calendar = ({ startDate, startCreatePinTask }) => {
         [null, null, null, null, null, null, null],
     ];
 
+    const editTask = date => dispatch(showModal(EDIT_PIN_TASK, { date }));
+
     return (
         <BlockContainer contentClass="calendar">
             <Table headers={days}>
@@ -46,11 +52,20 @@ const Calendar = ({ startDate, startCreatePinTask }) => {
                                             <div className="tasks">
                                                 {tasks.map(({ type, status }, i) => (
                                                     <div className="task" key={i}>
-                                                        <div className="circles">
+                                                        <div className="group">
                                                             <div className={`circle ${type}`} />
                                                             <div className={`circle ${status}`} />
                                                         </div>
-                                                        <p className="name">0001:01</p>
+                                                        <div className="group">
+                                                            <ButtonContainer
+                                                                setColour="transparent"
+                                                                setColourHoverCode="#cccccc"
+                                                                handleClick={() => editTask(date)}
+                                                            >
+                                                                <i class="far fa-pencil" />
+                                                            </ButtonContainer>
+                                                            <p className="name">0001:01</p>
+                                                        </div>
                                                     </div>
                                                 ))}
                                             </div>

@@ -3724,27 +3724,37 @@ $back-to-top-height: 35px;
                                 .task {
                                     display: flex;
                                     justify-content: space-between;
+                                    align-items: center;
                                     gap: 6px;
                                     border-radius: 5px;
                                     padding-right: 4px;
 
                                     background-color: $light-grey-alt;
 
-                                    .circles {
+                                    .group {
                                         display: flex;
                                         gap: 6px;
                                         padding: 4px;
+
+                                        &:last-of-type {
+                                            padding: 0;
+                                        }
 
                                         .circle {
                                             width: 15px;
                                             height: 15px;
                                             border-radius: 100%;
                                         }
+
+                                        .button {
+                                            padding: 5px;
+                                            width: 22px;
+                                            height: 22px;
+                                        }
                                     }
 
                                     .name {
                                         font-size: 100%;
-                                        line-height: 1.5em;
                                     }
                                 }
                             }
@@ -3762,7 +3772,7 @@ $back-to-top-height: 35px;
                                 padding: 5px;
                                 margin: 0;
 
-                                .fas {
+                                .fas, .far {
                                     font-size: 110%;
                                     color: $body-text;
                                 }
@@ -3780,6 +3790,37 @@ $back-to-top-height: 35px;
 
     .series-view {
 
+    }
+}
+
+@mixin reactDatePickerStyles() {
+    .date-picker, .multi-multi-dropdown {
+        #date, #endDate, .selected-box {
+            height: 33px;
+            border-color: #BCBCBC;
+        }
+
+        .far {
+            margin: 3px 3px 0 0;
+        }
+
+        .react-datepicker {
+            position: absolute;
+            top: 8px;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            width: fit-content;
+
+            .react-datepicker__triangle {
+                position: absolute;
+                top: -8px;
+                left: 0 !important;
+                right: 0;
+                margin: 0 auto;
+
+            }
+        }
     }
 }
 
@@ -3876,35 +3917,6 @@ $back-to-top-height: 35px;
     .step-block {
         margin-top: 32px;
 
-        .date-picker, .multi-multi-dropdown {
-            #date, #endDate, .selected-box {
-                height: 33px;
-                border-color: #BCBCBC;
-            }
-
-            .far {
-                margin: 3px 3px 0 0;
-            }
-
-            .react-datepicker {
-                position: absolute;
-                top: 8px;
-                left: 0;
-                right: 0;
-                margin: 0 auto;
-                width: fit-content;
-
-                .react-datepicker__triangle {
-                    position: absolute;
-                    top: -8px;
-                    left: 0 !important;
-                    right: 0;
-                    margin: 0 auto;
-
-                }
-            }
-        }
-
         .content-area {
             background-color: transparent;
         }
@@ -3927,6 +3939,13 @@ $back-to-top-height: 35px;
         justify-content: flex-end;
         gap: 16px;
     }
+
+    @include reactDatePickerStyles();
+}
+
+.edit-pin-task-modal {
+    @include reactDatePickerStyles();
+    
 }
 
 @keyframes slidein-left {

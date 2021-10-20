@@ -122,6 +122,7 @@ import {
     CONFIRM_EMAIL,
     USER_NEW_DOCUMENT,
     CREATE_PIN_TASK,
+    EDIT_PIN_TASK,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -246,6 +247,7 @@ import EditCompanyOwnerModalContainer from 'components/superAdmin/companies/sing
 import RequestDeleteInvoiceModal from 'components/companyAdmin/invoices/requestDeleteInvoiceModal/RequestDeleteInvoiceModal';
 import NewUserDocumentModal from 'components/companyAdmin/userManagement/documentsUploader/presentational/NewUserDocumentModal';
 import CreatePinTaskModal from 'components/companyAdmin/userManagement/pinTasks/createPinTaskModal/CreatePinTaskModal';
+import EditPinTaskModal from 'components/companyAdmin/userManagement/pinTasks/editPinTaskModal/EditPinTaskModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -368,6 +370,7 @@ const MODAL_COMPONENTS = {
     [CONFIRM_EMAIL]: ConfirmEmailModal,
     [USER_NEW_DOCUMENT]: NewUserDocumentModal,
     [CREATE_PIN_TASK]: CreatePinTaskModal,
+    [EDIT_PIN_TASK]: EditPinTaskModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
