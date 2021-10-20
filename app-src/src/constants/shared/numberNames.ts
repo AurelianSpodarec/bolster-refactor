@@ -1,6 +1,9 @@
 const numberNames = {
     basement: -1,
     b: -1,
+    ground: 0,
+    lobby: 0,
+    reception: 0,
     zero: 0,
     one: 1,
     first: 1,
@@ -83,7 +86,6 @@ const numeralNames = {
     [numberNames['three hundred']]: 300,
     [numberNames['four hundred']]: 400,
     [numberNames.basement]: -1,
-    [numberNames.b]: -1,
 };
 
 export default { ...numberNames, ...numeralNames };
