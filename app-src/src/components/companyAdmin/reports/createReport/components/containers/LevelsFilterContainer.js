@@ -19,7 +19,7 @@ import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleD
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import fetchZonesForReportByDrawingID from 'actions/companyAdmin/zones/async/fetchZonesForReportByDrawingID';
-
+import { convertNameToNumber } from 'helpers/general';
 class LevelsFilterContainer extends Component {
     render() {
         const {
@@ -38,6 +38,11 @@ class LevelsFilterContainer extends Component {
         const floorOptions = formatArrForDropdown(floors);
         const drawingOptions = formatArrForDropdown(drawings);
 
+        const sortedFloorOptions = Object.values(floorOptions).sort(
+            (a, b) => convertNameToNumber(a.label) - convertNameToNumber(b.label),
+        );
+        console.log({ sortedFloorOptions });
+
         return (
             <LevelFilters
                 handleChange={this.handleChange}
@@ -45,7 +50,7 @@ class LevelsFilterContainer extends Component {
                 selectedSite={siteID}
                 buildingOptions={Object.values(buildingOptions)}
                 selectedBuilding={buildingID}
-                floorOptions={Object.values(floorOptions)}
+                floorOptions={sortedFloorOptions}
                 selectedFloor={floorID}
                 drawingOptions={Object.values(drawingOptions)}
                 selectedDrawing={drawingID}
