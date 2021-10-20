@@ -4,7 +4,7 @@ import PickListContainer from 'components/shared/generic/form/containers/PickLis
 import Field from 'components/shared/generic/form/presentational/Field';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import { DAY, RECURRING_TYPE } from 'constants/companyAdmin/enums';
-import React from 'react';
+import React, { useEffect } from 'react';
 import useCreatePinTask from './hooks/useCreatePinTask';
 import CreatePinTaskStep1 from './CreatePinTaskStep1';
 import CreatePinTaskStep2 from './CreatePinTaskStep2';
@@ -39,19 +39,7 @@ const dayOptions = [
 
 const CreatePinTaskModal = ({ initialDate }) => {
     const {
-        formData: {
-            days,
-            recurring,
-            date,
-            operatives,
-            site,
-            building,
-            floor,
-            drawing,
-            service,
-            template,
-            pins,
-        },
+        formData,
         handleChange,
         step,
         setStep,
@@ -59,13 +47,31 @@ const CreatePinTaskModal = ({ initialDate }) => {
         isRecurring,
         isWeekly,
         isMonthly,
+        onNextStep,
+        isPosting,
     } = useCreatePinTask(initialDate);
+
+    const {
+        days,
+        recurring,
+        date,
+        endDate,
+        operatives,
+        site,
+        building,
+        floor,
+        drawing,
+        service,
+        template,
+        pins,
+    } = formData;
 
     const steps = [
         <CreatePinTaskStep1
             key={1}
             handleChange={handleChange}
             date={date}
+            endDate={endDate}
             operatives={operatives}
             site={site}
             building={building}
@@ -80,7 +86,7 @@ const CreatePinTaskModal = ({ initialDate }) => {
             template={template}
             pins={pins}
         />,
-        <CreatePinTaskStep3 key={3} />,
+        <CreatePinTaskStep3 key={3} formData={formData} isPosting={isPosting} />,
     ];
 
     const Step = steps[step];
@@ -92,7 +98,7 @@ const CreatePinTaskModal = ({ initialDate }) => {
         <button className="button blue" key={2}>
             Confirm
         </button>,
-        <button className="button green" key={3}>
+        <button className="button green" key={3} disabled={isPosting}>
             Submit
         </button>,
     ];
@@ -101,7 +107,7 @@ const CreatePinTaskModal = ({ initialDate }) => {
 
     return (
         <ModalOuterContainer extraClasses="create-pin-task-modal">
-            <Form onSubmit={() => setStep(step + 1)}>
+            <Form onSubmit={onNextStep}>
                 <BlockHeading title="Create Task" />
                 <div className="size-lg-12 header">
                     <div className="size-lg-6">
@@ -112,7 +118,7 @@ const CreatePinTaskModal = ({ initialDate }) => {
                                 handleChange={handleChange}
                                 options={dayOptions}
                                 required={isWeekly}
-                                disabled={!isWeekly}
+                                disabled={!isWeekly || step === 2}
                             />
                         </Field>
                     </div>
@@ -124,6 +130,7 @@ const CreatePinTaskModal = ({ initialDate }) => {
                                 onChange={handleChange}
                                 options={recurringOptions}
                                 omitPlaceholder
+                                disabled={step === 2}
                             />
                         </Field>
                     </div>
@@ -140,7 +147,12 @@ const CreatePinTaskModal = ({ initialDate }) => {
 
                     <BlockButtonWrapper>
                         {Button}
-                        <button type="button" className="button" onClick={closeModal}>
+                        <button
+                            type="button"
+                            className="button"
+                            onClick={closeModal}
+                            disabled={isPosting}
+                        >
                             Cancel
                         </button>
                     </BlockButtonWrapper>

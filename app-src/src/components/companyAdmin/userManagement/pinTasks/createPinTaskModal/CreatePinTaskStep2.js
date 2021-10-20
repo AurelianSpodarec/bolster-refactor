@@ -48,6 +48,7 @@ const CreatePinTaskStep2 = ({ handleChange, service, template, pins }) => {
                         handleChange={handleChange}
                         options={pinOptions}
                         selected={pins}
+                        required
                     />
                 </Field>
             </div>

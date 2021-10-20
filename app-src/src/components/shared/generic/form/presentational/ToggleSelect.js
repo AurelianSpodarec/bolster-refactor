@@ -1,7 +1,21 @@
-import React, { useState } from 'react';
+import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import ButtonContainer from '../../button/containers/ButtonContainer';
 
-const ToggleSelect = ({ name, handleChange, options = [], selected = [] }) => {
+const ToggleSelect = ({
+    name,
+    handleChange,
+    options = [],
+    selected = [],
+    required = false,
+    validate = () => {},
+    error,
+    errorsVisible,
+    addFieldError,
+    removeFieldError,
+}) => {
     const [chosen, setChosen] = useState([]);
 
     const idleOptions = options.filter(({ value }) => !selected.includes(value));
@@ -31,6 +45,19 @@ const ToggleSelect = ({ name, handleChange, options = [], selected = [] }) => {
         });
     };
 
+    const _validate = () => {
+        const validateError = validate(selected);
+        if (required && selected.length === 0) {
+            addFieldError(name, 'This is a required field.');
+        } else if (validateError && validateError.length) {
+            addFieldError(name, validateError);
+        } else if (error) {
+            removeFieldError(name);
+        }
+    };
+
+    useEffect(() => _validate(), [selected, _validate]);
+
     return (
         <div id={name} className="toggle-select">
             <div className="list">
@@ -48,6 +75,9 @@ const ToggleSelect = ({ name, handleChange, options = [], selected = [] }) => {
                         <i className="far fa-long-arrow-right" />
                     </ButtonContainer>
                 </div>
+                {errorsVisible && error && error.length && (
+                    <p className="error red-text text-accent-4">{error}</p>
+                )}
             </div>
             <div className="list">
                 {chosenOptions.map((option, i) => (
@@ -70,4 +100,14 @@ const Option = ({ option: { value, label }, chosen, choose }) => {
     );
 };
 
-export default ToggleSelect;
+const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
+    error: fieldErrorsReducer.fieldErrors[ownProps.name],
+    errorsVisible: fieldErrorsReducer.errorsVisible,
+});
+
+const mapDispatchToProps = dispatch => ({
+    addFieldError: (name, error) => dispatch(addFieldError(name, error)),
+    removeFieldError: name => dispatch(removeFieldError(name)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ToggleSelect);

@@ -1,8 +1,10 @@
+import clearFieldErrors from 'actions/shared/generic/fieldErrors/sync/clearFieldErrors';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import { RECURRING_TYPE } from 'constants/companyAdmin/enums';
 import { CREATE_PIN_TASK } from 'constants/shared/modalTypes';
 import { useForm } from 'helpers/hooks';
+import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -12,7 +14,8 @@ const useCreatePinTask = initialDate => {
     const [step, setStep] = useState(0);
 
     const [formData, handleChange] = useForm({
-        date: initialDate ?? new Date(),
+        date: initialDate ?? new Date().toISOString(),
+        endDate: new Date().toISOString(),
         recurring: RECURRING_TYPE.NONE,
         days: [],
         operatives: [],
@@ -36,7 +39,23 @@ const useCreatePinTask = initialDate => {
         }
     }, [isWeekly]);
 
+    useEffect(() => {
+        dispatch(clearFieldErrors());
+    }, [dispatch, step]);
+
     const closeModal = () => dispatch(hideModal(CREATE_PIN_TASK));
+
+    const [isPosting, setIsPosting] = useState(false);
+
+    const onNextStep = () => {
+        if (step < 2) return setStep(step + 1);
+        // handle submit here
+        setIsPosting(true);
+        setTimeout(() => {
+            setIsPosting(false);
+            closeModal();
+        }, 2000);
+    };
 
     return {
         formData,
@@ -47,6 +66,8 @@ const useCreatePinTask = initialDate => {
         isRecurring,
         isWeekly,
         isMonthly,
+        onNextStep,
+        isPosting,
     };
 };
 

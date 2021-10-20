@@ -8,6 +8,7 @@ import Select from 'components/shared/generic/form/presentational/Select';
 
 const CreatePinTaskStep1 = ({
     date,
+    endDate,
     operatives,
     site,
     building,
@@ -45,11 +46,11 @@ const CreatePinTaskStep1 = ({
                 </Field>
 
                 {isRecurring && (
-                    <Field name="end-date" sizeClasses="size-lg-12" label="End Date">
+                    <Field name="endDate" sizeClasses="size-lg-12" label="End Date">
                         <DatePickerContainer
-                            name="end-date"
-                            selected={new Date(date)}
-                            onChange={value => handleChange('end-date', value)}
+                            name="endDate"
+                            selected={new Date(endDate)}
+                            onChange={value => handleChange('endDate', value)}
                             required
                         />
                     </Field>

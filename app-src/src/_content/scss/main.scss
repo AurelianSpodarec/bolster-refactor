@@ -831,7 +831,7 @@ input {
         margin-right: 5px;
     }
 
-    &.disabled {
+    &.disabled, &:disabled {
         opacity: 0.5;
         pointer-events: none;
         cursor: not-allowed;
@@ -2042,6 +2042,12 @@ input {
                 width: 22px;
             }
         }
+
+        .error {
+            margin-top: 16px;
+
+            text-align: center;
+        }
     }
 
     .list {
@@ -2084,14 +2090,6 @@ input {
                 }
             }
         }
-    }
-
-    .unselected {
-
-    }
-
-    .selected {
-
     }
 }
 

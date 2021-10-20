@@ -1,7 +1,6 @@
 import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 import fetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
 import fetchAllTemplates from 'actions/companyAdmin/templates/async/fetchAllTemplates';
-import { convertArrToObj } from 'helpers/generic';
 import { useEffect } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import {
@@ -77,7 +76,7 @@ const useStep2Options = (handleChange, service, template) => {
 
     useEffect(() => {
         handleChange('pins', []);
-    }, [template]);
+    }, [service, template]);
 
     const isFetching = servicesIsFetching || templatesIsFetching || pinsIsFetching;
     const fetchError = servicesFetchError || templatesFetchError || pinsFetchError;
