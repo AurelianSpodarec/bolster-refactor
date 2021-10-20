@@ -83,7 +83,7 @@ const CreatePinTaskStep1 = ({
                         value={building}
                         onChange={handleChange}
                         options={buildingOptions}
-                        disabled={isFetching || fetchError || !site}
+                        disabled={isFetching || fetchError || site == null}
                         search
                         required
                     />
@@ -95,7 +95,7 @@ const CreatePinTaskStep1 = ({
                         value={floor}
                         onChange={handleChange}
                         options={floorOptions}
-                        disabled={isFetching || fetchError || !building}
+                        disabled={isFetching || fetchError || building == null}
                         search
                         required
                     />
@@ -107,7 +107,7 @@ const CreatePinTaskStep1 = ({
                         value={drawing}
                         onChange={handleChange}
                         options={drawingOptions}
-                        disabled={isFetching || fetchError || !floor}
+                        disabled={isFetching || fetchError || floor == null}
                         search
                         required
                     />

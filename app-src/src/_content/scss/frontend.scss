@@ -3910,6 +3910,12 @@ $back-to-top-height: 35px;
                 top: 17px;
             }
         }
+
+        .form-field {
+            .block-heading, .intro-text {
+                display: none;
+            }
+        }
     }
 
     .buttons {

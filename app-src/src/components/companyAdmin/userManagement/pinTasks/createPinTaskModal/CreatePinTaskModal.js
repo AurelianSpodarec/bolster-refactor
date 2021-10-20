@@ -39,7 +39,19 @@ const dayOptions = [
 
 const CreatePinTaskModal = ({ initialDate }) => {
     const {
-        formData: { days, recurring, date, operatives, site, building, floor, drawing },
+        formData: {
+            days,
+            recurring,
+            date,
+            operatives,
+            site,
+            building,
+            floor,
+            drawing,
+            service,
+            template,
+            pins,
+        },
         handleChange,
         step,
         setStep,
@@ -52,8 +64,8 @@ const CreatePinTaskModal = ({ initialDate }) => {
     const steps = [
         <CreatePinTaskStep1
             key={1}
-            date={date}
             handleChange={handleChange}
+            date={date}
             operatives={operatives}
             site={site}
             building={building}
@@ -61,7 +73,13 @@ const CreatePinTaskModal = ({ initialDate }) => {
             drawing={drawing}
             isRecurring={isRecurring}
         />,
-        <CreatePinTaskStep2 key={2} />,
+        <CreatePinTaskStep2
+            key={2}
+            handleChange={handleChange}
+            service={service}
+            template={template}
+            pins={pins}
+        />,
         <CreatePinTaskStep3 key={3} />,
     ];
 

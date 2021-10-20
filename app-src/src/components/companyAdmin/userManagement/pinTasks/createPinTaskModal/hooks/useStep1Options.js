@@ -78,7 +78,7 @@ const useStep1Options = (handleChange, site, building, floor, drawing) => {
     }, [dispatch]);
 
     useEffect(() => {
-        if (drawing) dispatch(fetchPins('Drawing', drawing));
+        if (drawing != null) dispatch(fetchPins('Drawing', drawing));
     }, [dispatch, drawing]);
 
     const operativesOptions = Object.values(users).map(({ id, userFirstName, userLastName }) => ({

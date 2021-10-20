@@ -20,6 +20,9 @@ const useCreatePinTask = initialDate => {
         building: null,
         floor: null,
         drawing: null,
+        service: null,
+        template: null,
+        pins: [],
     });
 
     const isRecurring = formData.recurring !== RECURRING_TYPE.NONE;

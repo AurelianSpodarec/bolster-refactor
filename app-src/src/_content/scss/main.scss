@@ -2024,6 +2024,77 @@ input {
     }
 }
 
+.toggle-select {
+    display: flex;
+    justify-content: space-between;
+
+    .controls {
+        flex-basis: 20%;
+        display: flex;
+        flex-direction: column;
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+
+            .button {
+                width: 22px;
+            }
+        }
+    }
+
+    .list {
+        flex-basis: 40%;
+        display: flex;
+        flex-direction: column;
+
+        border: 1px solid $dark-grey;
+        height: 200px;
+        overflow: auto;
+
+        .no-data {
+            padding: 4px 8px;
+            text-align: center;
+        }
+
+        .option {
+            padding: 4px 8px;
+
+            background-color: transparent;
+
+            cursor: pointer;
+
+            .text {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                font-size: 110%;
+            }
+
+            &:hover {
+                background-color: $light-grey-alt;
+            }
+
+            &.chosen {
+                background-color: $light-grey;
+                
+                &:hover {
+                    background-color: $light-grey-alt;
+                }
+            }
+        }
+    }
+
+    .unselected {
+
+    }
+
+    .selected {
+
+    }
+}
+
 .filepond--drop-label {
     label {
         top: 1px;
