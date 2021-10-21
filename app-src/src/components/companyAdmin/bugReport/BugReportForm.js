@@ -9,12 +9,12 @@ import NumberInputContainer from 'components/shared/generic/form/containers/Numb
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
-import TextArea from 'components/shared/generic/form/presentational/TextArea';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const BugReportForm = () => {
     const { form, handleChange, handleSubmit } = useBugReport();
     return (
-        <Form className="generic-form">
+        <Form className="generic-form" onSubmit={handleSubmit}>
             <div className="size-lg-12 margin-bottom">
                 <Field
                     name="Access Credentials (affected user(s) login details)"
@@ -47,24 +47,14 @@ const BugReportForm = () => {
                 />
 
                 <div className="size-lg-12 margin-bottom">
-                    <Field name="Manufacturer of phone/tablet? " sizeClasses="size-lg-6">
+                    <Field name="Manufacturer and model of phone/tablet? " sizeClasses="size-lg-6">
                         <TextInputContainer
-                            name="deviceManufacturer"
-                            value={form.deviceManufacturer}
+                            name="deviceDetails"
+                            value={form.deviceDetails}
                             handleChange={handleChange}
                         />
                     </Field>
 
-                    <Field name="Manufacturer model of phone/tablet? " sizeClasses="size-lg-6">
-                        <TextInputContainer
-                            name="deviceModel"
-                            value={form.deviceModel}
-                            handleChange={handleChange}
-                        />
-                    </Field>
-                </div>
-
-                <div className="size-lg-12 margin-bottom">
                     <Field
                         name="Screenshot of the 'About device' page. This can be found through the devices settings."
                         sizeClasses="size-lg-6"
@@ -83,7 +73,7 @@ const BugReportForm = () => {
                         name="App version number? This can be found in the top right corner of the app."
                         sizeClasses="size-lg-6"
                     >
-                        <NumberInputContainer
+                        <TextInputContainer
                             name="appVersion"
                             value={form.appVersion}
                             handleChange={handleChange}
@@ -114,7 +104,7 @@ const BugReportForm = () => {
 
                 <div className="size-lg-12 margin-bottom">
                     <Field
-                        name="Where in the system is the issue (what page)?"
+                        name="Where in the system is the issue (What page)?"
                         sizeClasses="size-lg-6"
                         required
                     >
@@ -129,17 +119,16 @@ const BugReportForm = () => {
                     <Field name="When did the issue occur?" sizeClasses="size-lg-6" required>
                         <DatePickerContainer
                             name="dateIssueOccured"
-                            value={form.dateIssueOccured}
+                            selected={form.dateIssueOccured}
+                            onChange={val => handleChange('dateIssueOccured', val)}
                             placeholderText="Select Date"
-                            handleChange={handleChange}
-                            required
                         />
                     </Field>
                 </div>
 
                 <div className="size-lg-12 margin-bottom">
                     <Field name="Full Description" sizeClasses="size-lg-6" required>
-                        <TextArea
+                        <TextAreaContainer
                             name="fullDescription"
                             value={form.fullDescription}
                             handleChange={handleChange}
@@ -166,6 +155,12 @@ const BugReportForm = () => {
                     </Field>
                 </div>
             </div>
+            <BlockButtonWrapper>
+                <button className="button green" type="submit">
+                    <i className="fa fa-plus" />
+                    Submit
+                </button>
+            </BlockButtonWrapper>
         </Form>
     );
 };

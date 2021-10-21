@@ -1,12 +1,14 @@
 import { useForm } from 'helpers/hooks';
+import { useSelector } from 'react-redux';
 
 const useBugReport = () => {
+    const { name } = useSelector(mapStateToProps);
+
     const [form, handleChange] = useForm({
-        companyName: '',
+        companyName: name,
         accessCredentials: '',
         affectedUserCount: null,
-        deviceManufacturer: '',
-        deviceModel: '',
+        deviceDetails: '',
         appVersion: '',
         aboutDeviceScreenshot: '',
         browserUsed: '',
@@ -16,13 +18,21 @@ const useBugReport = () => {
         evidenceFile: '',
     });
 
-    //get company name from logged in user
-
     const handleSubmit = () => {
         console.log(form);
     };
 
     return { form, handleChange, handleSubmit };
 };
+
+const mapStateToProps = ({
+    companyAdmin: {
+        companySettingsReducer: {
+            companySettings: { name },
+        },
+    },
+}) => ({
+    name,
+});
 
 export default useBugReport;
