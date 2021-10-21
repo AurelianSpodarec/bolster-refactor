@@ -340,6 +340,32 @@ export default function (ProtectedComponent) {
             };
             return body;
         };
+
+        postFilters = async () => {
+            const {
+                postCustomFilters,
+                getOperativeOptions,
+                getTemplateOptions,
+                getServiceOptions,
+                getCompanyOptions,
+            } = this.props;
+            const body = this._getPostBody();
+
+            if (body.hasQuestions) {
+                return postCustomFilters(body);
+            }
+
+            await getOperativeOptions(body);
+            await getTemplateOptions(body);
+            await getServiceOptions(body);
+            await getCompanyOptions(body);
+        };
+
+        getTemplateOptions = () => {
+            const { getTemplateOptions } = this.props;
+            const body = this._getPostBody();
+            getTemplateOptions(body);
+        };
     }
 
     const mapStateToProps = (
