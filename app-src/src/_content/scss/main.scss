@@ -2156,6 +2156,10 @@ input {
     &.center-align{
         text-align:center;
     }
+
+    &.form-padding {
+        padding-left: 7.5px;
+    }
 }
 
 .filter {
