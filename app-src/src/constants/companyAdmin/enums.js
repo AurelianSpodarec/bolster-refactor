@@ -505,3 +505,15 @@ export const DAY = {
     SATURDAY: 'saturday',
     SUNDAY: 'sunday',
 };
+
+export const PIN_TASK_STATUS_NAMES = {
+    COMPLETE: 'Complete',
+    COMPLETE_LATE: 'Complete (Late)',
+    DUE_SOON: 'Due Soon',
+    INCOMPLETE: 'Incomplete',
+};
+
+export const PIN_TASK_RECURRING_NAMES = {
+    RECURRING: 'Recurring',
+    NON_RECURRING: 'Non-Recurring',
+};

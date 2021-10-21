@@ -1,4 +1,5 @@
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import { PIN_TASK_RECURRING_NAMES, PIN_TASK_STATUS_NAMES } from 'constants/companyAdmin/enums';
 import React from 'react';
 import LegendSegment from './LegendSegment';
 
@@ -6,12 +7,12 @@ const CalendarLegend = () => {
     const types = [
         {
             name: 'recurring',
-            title: 'Recurring',
+            title: PIN_TASK_RECURRING_NAMES.RECURRING,
             percent: 99,
         },
         {
-            name: 'non-recurring',
-            title: 'Non-Recurring',
+            name: 'non_recurring',
+            title: PIN_TASK_RECURRING_NAMES.NON_RECURRING,
             percent: 1,
         },
     ];
@@ -19,22 +20,22 @@ const CalendarLegend = () => {
     const statuses = [
         {
             name: 'complete',
-            title: 'Complete',
+            title: PIN_TASK_STATUS_NAMES.COMPLETE,
             percent: 25,
         },
         {
-            name: 'complete-late',
-            title: 'Complete (Late)',
+            name: 'complete_late',
+            title: PIN_TASK_STATUS_NAMES.COMPLETE_LATE,
             percent: 25,
         },
         {
-            name: 'due-soon',
-            title: 'Due Soon',
+            name: 'due_soon',
+            title: PIN_TASK_STATUS_NAMES.DUE_SOON,
             percent: 20,
         },
         {
             name: 'incomplete',
-            title: 'Incomplete',
+            title: PIN_TASK_STATUS_NAMES.INCOMPLETE,
             percent: 30,
         },
     ];

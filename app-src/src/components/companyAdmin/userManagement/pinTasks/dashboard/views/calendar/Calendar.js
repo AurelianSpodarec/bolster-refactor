@@ -37,10 +37,9 @@ const Calendar = ({ startDate, startCreatePinTask }) => {
                 },
             ],
             null,
-
             [
                 {
-                    type: 'non-recurring',
+                    type: 'non_recurring',
                     status: 'complete',
                     date: '2021-10-21T10:09:36.792Z',
                     endDate: '2021-10-21T10:09:36.792Z',
@@ -54,14 +53,12 @@ const Calendar = ({ startDate, startCreatePinTask }) => {
                     pins: [3233348, 3233350, 3233412],
                 },
             ],
-            ,
         ],
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null],
     ];
 
     const editTask = (date, endDate, pins, drawing) => {
-        console.log({ date, endDate, pins });
         if (endDate && pins)
             dispatch(showModal(EDIT_PIN_TASK_SERIES, { date, endDate, pins, drawing }));
         else dispatch(showModal(EDIT_PIN_TASK, { date }));
