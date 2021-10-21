@@ -4,10 +4,16 @@ import { useForm } from 'helpers/hooks';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-const useEditPinTask = (date, endDate, pins) => {
+const useEditPinTaskSeries = (date, endDate, pins) => {
     const dispatch = useDispatch();
 
-    const [formData, handleChange] = useForm({ date });
+    const [formData, handleChange] = useForm({
+        date,
+        endDate,
+        pins,
+        service: null,
+        template: null,
+    });
 
     const closeModal = () => dispatch(hideModal(EDIT_PIN_TASK));
 
@@ -30,4 +36,4 @@ const useEditPinTask = (date, endDate, pins) => {
     };
 };
 
-export default useEditPinTask;
+export default useEditPinTaskSeries;

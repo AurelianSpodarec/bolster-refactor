@@ -19,7 +19,7 @@ import {
     selectTemplatesIsFetching,
 } from 'selectors/companyAdmin/templates';
 
-const useStep2Options = (handleChange, service, template) => {
+const useStep2Options = (handleChange, drawing, service, template) => {
     const dispatch = useDispatch();
 
     const services = useSelector(selectServices) ?? [];
@@ -36,6 +36,7 @@ const useStep2Options = (handleChange, service, template) => {
 
     useEffect(() => {
         batch(() => {
+            dispatch(fetchPins('Drawing', drawing));
             dispatch(fetchAllServices());
             dispatch(fetchAllTemplates());
         });

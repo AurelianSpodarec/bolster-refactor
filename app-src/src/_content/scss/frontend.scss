@@ -3946,6 +3946,15 @@ $back-to-top-height: 35px;
 .edit-pin-task-modal {
     @include reactDatePickerStyles();
     
+
+    .loading-text {
+        position: absolute;
+
+        p {
+            font-size: 150%;
+            margin-bottom: 4px;
+        }
+    }
 }
 
 @keyframes slidein-left {

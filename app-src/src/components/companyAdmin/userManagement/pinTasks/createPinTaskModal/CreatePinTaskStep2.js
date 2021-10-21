@@ -5,9 +5,10 @@ import Loading from 'components/shared/generic/misc/presentational/Loading';
 import React from 'react';
 import useStep2Options from './hooks/useStep2Options';
 
-const CreatePinTaskStep2 = ({ handleChange, service, template, pins }) => {
+const CreatePinTaskStep2 = ({ handleChange, drawing, service, template, pins }) => {
     const { isFetching, fetchError, serviceOptions, templateOptions, pinOptions } = useStep2Options(
         handleChange,
+        drawing,
         service,
         template,
     );
@@ -40,8 +41,6 @@ const CreatePinTaskStep2 = ({ handleChange, service, template, pins }) => {
                 <Field name="pins" sizeClasses="size-lg-12">
                     <p>Use the boxes below to select the pins relevant to this task.</p>
                     <p>Pins can be filtered by selecting a Service and a Template.</p>
-                    <br />
-                    <p>Hold ‘SHIFT’ + ‘CLICK’ to select multiple pins at once.</p>
                     <br />
                     <ToggleSelect
                         name="pins"

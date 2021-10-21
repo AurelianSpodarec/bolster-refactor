@@ -5,7 +5,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import { DATE_TIME_IDS, RECURRING_TYPE } from 'constants/companyAdmin/enums';
-import React from 'react';
+import React, { Fragment } from 'react';
 import useStep3Details from './hooks/useStep3Details';
 
 const CreatePinTaskStep3 = ({
@@ -36,8 +36,6 @@ const CreatePinTaskStep3 = ({
         selectedPins,
     } = useStep3Details(days, recurring, operatives, site, building, floor, drawing, pins);
 
-    console.log({ isPosting });
-
     return (
         <>
             {isPosting && <Loading />}
@@ -56,11 +54,11 @@ const CreatePinTaskStep3 = ({
                                     description={
                                         !selectedDays.length
                                             ? 'None'
-                                            : selectedDays.map(day => (
-                                                  <>
+                                            : selectedDays.map((day, i) => (
+                                                  <Fragment key={i}>
                                                       {day}
                                                       <br />
-                                                  </>
+                                                  </Fragment>
                                               ))
                                     }
                                 />
@@ -97,21 +95,21 @@ const CreatePinTaskStep3 = ({
                                     description={
                                         !selectedOperatives.length
                                             ? 'None'
-                                            : selectedOperatives.map(operative => (
-                                                  <>
+                                            : selectedOperatives.map((operative, i) => (
+                                                  <Fragment key={i}>
                                                       {operative}
                                                       <br />
-                                                  </>
+                                                  </Fragment>
                                               ))
                                     }
                                 />
                                 <FieldOutput
                                     title="Pins"
-                                    description={selectedPins.map(pin => (
-                                        <>
+                                    description={selectedPins.map((pin, i) => (
+                                        <Fragment key={i}>
                                             {pin}
                                             <br />
-                                        </>
+                                        </Fragment>
                                     ))}
                                 />
                             </div>

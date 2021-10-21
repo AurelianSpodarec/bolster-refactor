@@ -59,32 +59,42 @@ const ToggleSelect = ({
     useEffect(() => _validate(), [selected, _validate]);
 
     return (
-        <div id={name} className="toggle-select">
-            <div className="list">
-                {options.length === 0 && <p className="no-data">No options available</p>}
-                {idleOptions.map((option, i) => (
-                    <Option option={option} chosen={chosen} choose={choose} key={i} />
-                ))}
-            </div>
-            <div className="controls">
-                <div className="buttons">
-                    <ButtonContainer className="exclude icon-only" handleClick={() => shift('sub')}>
-                        <i className="far fa-long-arrow-left" />
-                    </ButtonContainer>
-                    <ButtonContainer className="include icon-only" handleClick={() => shift('add')}>
-                        <i className="far fa-long-arrow-right" />
-                    </ButtonContainer>
+        <>
+            <p>Hold ‘SHIFT’ + ‘CLICK’ to select multiple pins at once.</p>
+            <br />
+            <div id={name} className="toggle-select">
+                <div className="list">
+                    {options.length === 0 && <p className="no-data">No options available</p>}
+                    {idleOptions.map((option, i) => (
+                        <Option option={option} chosen={chosen} choose={choose} key={i} />
+                    ))}
                 </div>
-                {errorsVisible && error && error.length && (
-                    <p className="error red-text text-accent-4">{error}</p>
-                )}
+                <div className="controls">
+                    <div className="buttons">
+                        <ButtonContainer
+                            className="exclude icon-only"
+                            handleClick={() => shift('sub')}
+                        >
+                            <i className="far fa-long-arrow-left" />
+                        </ButtonContainer>
+                        <ButtonContainer
+                            className="include icon-only"
+                            handleClick={() => shift('add')}
+                        >
+                            <i className="far fa-long-arrow-right" />
+                        </ButtonContainer>
+                    </div>
+                    {errorsVisible && error && error.length && (
+                        <p className="error red-text text-accent-4">{error}</p>
+                    )}
+                </div>
+                <div className="list">
+                    {chosenOptions.map((option, i) => (
+                        <Option option={option} chosen={chosen} choose={choose} key={i} />
+                    ))}
+                </div>
             </div>
-            <div className="list">
-                {chosenOptions.map((option, i) => (
-                    <Option option={option} chosen={chosen} choose={choose} key={i} />
-                ))}
-            </div>
-        </div>
+        </>
     );
 };
 

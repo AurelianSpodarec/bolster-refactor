@@ -82,6 +82,7 @@ const CreatePinTaskModal = ({ initialDate }) => {
         <CreatePinTaskStep2
             key={2}
             handleChange={handleChange}
+            drawing={drawing}
             service={service}
             template={template}
             pins={pins}
