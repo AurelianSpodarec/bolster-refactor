@@ -74,12 +74,10 @@ class BasicFiltersContainer extends Component {
     }
 
     getInitialServices = async () => {
-        const { getServiceOptions, getOperativeOptions, getPostBody } = this.props;
+        const { getServiceOptions, getPostBody } = this.props;
         const body = getPostBody();
 
         await getServiceOptions(body);
-        console.log('getInitialServices');
-        await getOperativeOptions(body);
     };
 
     componentDidMount = () => {
@@ -89,7 +87,7 @@ class BasicFiltersContainer extends Component {
             handleChange,
             location: { state: locationState },
         } = this.props;
-    
+
         if (locationState?.selectedService) {
             handleChange('serviceID', locationState.selectedService);
         }
