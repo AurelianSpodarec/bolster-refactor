@@ -32,6 +32,9 @@ const SuperAdminMenu = ({ logout, unreadRequests }) => (
             <i className="fa fa-building icon" />{' '}
             <span className="menu-text">Company Tracking</span>
         </MenuItemContainer>
+        <MenuItemContainer link="/admin/bug-reports">
+            <i className="fa fa-bug icon" /> <span className="menu-text">Bug Reports</span>
+        </MenuItemContainer>
         <MenuItemContainer link="/admin/move-tool">
             <i className="fa fa-layer-group icon" /> <span className="menu-text">Move Tool</span>
         </MenuItemContainer>
