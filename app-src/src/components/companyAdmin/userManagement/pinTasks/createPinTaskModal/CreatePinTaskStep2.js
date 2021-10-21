@@ -6,12 +6,14 @@ import React from 'react';
 import useStep2Options from './hooks/useStep2Options';
 
 const CreatePinTaskStep2 = ({ handleChange, drawing, service, template, pins }) => {
-    const { isFetching, fetchError, serviceOptions, templateOptions, pinOptions } = useStep2Options(
-        handleChange,
-        drawing,
-        service,
-        template,
-    );
+    const {
+        isFetching,
+        fetchError,
+        serviceOptions,
+        templateOptions,
+        pinOptions,
+        pinOptionsFilter,
+    } = useStep2Options(handleChange, drawing, service, template);
 
     return (
         <>
@@ -46,6 +48,7 @@ const CreatePinTaskStep2 = ({ handleChange, drawing, service, template, pins }) 
                         name="pins"
                         handleChange={handleChange}
                         options={pinOptions}
+                        idleOptionsFilter={pinOptionsFilter}
                         selected={pins}
                         required
                     />

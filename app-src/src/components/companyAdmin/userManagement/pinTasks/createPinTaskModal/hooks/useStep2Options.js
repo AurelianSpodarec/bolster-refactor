@@ -64,20 +64,22 @@ const useStep2Options = (handleChange, drawing, service, template) => {
             label: name,
         }));
 
-    let pinOptions = Object.values(pins);
-    if (service != null)
-        pinOptions = pinOptions.filter(({ latestServiceID }) => latestServiceID == service);
-    if (template != null)
-        pinOptions = pinOptions.filter(({ templateID }) => templateID == template);
-    pinOptions = pinOptions.map(({ id, pinCode }) => ({ value: id, label: pinCode }));
+    const pinOptions = Object.values(pins).map(({ id, pinCode }) => ({
+        value: id,
+        label: pinCode,
+    }));
+
+    const pinOptionsFilter = ({ value }) => {
+        const { latestServiceID, templateID } = pins[value];
+        let valid = true;
+        if (service != null) valid = latestServiceID == service;
+        if (template != null) valid = templateID == template;
+        return valid;
+    };
 
     useEffect(() => {
         handleChange('template', null);
     }, [service]);
-
-    useEffect(() => {
-        handleChange('pins', []);
-    }, [service, template]);
 
     const isFetching = servicesIsFetching || templatesIsFetching || pinsIsFetching;
     const fetchError = servicesFetchError || templatesFetchError || pinsFetchError;
@@ -88,6 +90,7 @@ const useStep2Options = (handleChange, drawing, service, template) => {
         serviceOptions,
         templateOptions,
         pinOptions,
+        pinOptionsFilter,
     };
 };
 

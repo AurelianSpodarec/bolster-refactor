@@ -15,10 +15,12 @@ const ToggleSelect = ({
     errorsVisible,
     addFieldError,
     removeFieldError,
+    idleOptionsFilter,
 }) => {
     const [chosen, setChosen] = useState([]);
 
-    const idleOptions = options.filter(({ value }) => !selected.includes(value));
+    let idleOptions = options.filter(({ value }) => !selected.includes(value));
+    if (idleOptionsFilter) idleOptions = idleOptions.filter(option => idleOptionsFilter(option));
     const chosenOptions = options.filter(({ value }) => selected.includes(value));
 
     const shift = mode => {

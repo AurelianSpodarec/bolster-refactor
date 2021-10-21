@@ -28,8 +28,6 @@ const useCreatePinTask = initialDate => {
         pins: [],
     });
 
-    console.log(formData);
-
     const isRecurring = formData.recurring !== RECURRING_TYPE.NONE;
     const isWeekly = formData.recurring === RECURRING_TYPE.WEEKLY;
     const isMonthly = formData.recurring === RECURRING_TYPE.MONTHLY;

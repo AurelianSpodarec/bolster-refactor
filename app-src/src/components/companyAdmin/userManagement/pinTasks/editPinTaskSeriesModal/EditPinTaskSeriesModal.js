@@ -25,12 +25,14 @@ const EditPinTaskSeriesModal = ({
 
     const { date, endDate, pins, service, template } = formData;
 
-    const { isFetching, fetchError, serviceOptions, templateOptions, pinOptions } = useStep2Options(
-        handleChange,
-        drawing,
-        service,
-        template,
-    );
+    const {
+        isFetching,
+        fetchError,
+        serviceOptions,
+        templateOptions,
+        pinOptions,
+        pinOptionsFilter,
+    } = useStep2Options(handleChange, drawing, service, template);
 
     return (
         <ModalOuterContainer extraClasses="edit-pin-task-modal">
@@ -83,6 +85,7 @@ const EditPinTaskSeriesModal = ({
                             name="pins"
                             handleChange={handleChange}
                             options={pinOptions}
+                            idleOptionsFilter={pinOptionsFilter}
                             selected={pins}
                             required
                         />
