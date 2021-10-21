@@ -1,18 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { RECOVER_USER } from 'constants/shared/modalTypes';
+import moment from 'moment';
+import fetchCompanyUsers from 'actions/superAdmin/users/async/fetchCompanyUsers';
 
 const DeletedOperativesListItem = ({
     user,
-    user: { userFirstName, userLastName, userEmail, userPhoneNumber, formattedOperativeCode },
+    user: {
+        userFirstName,
+        userLastName,
+        userEmail,
+        userPhoneNumber,
+        formattedOperativeCode,
+        userDeletedOn,
+        userDeletedByCompanyUserID,
+    },
     headers,
 }) => {
     const dispatch = useDispatch();
-    const { onMobile } = useSelector(mapStateToProps);
+    const { onMobile, users } = useSelector(mapStateToProps);
+    const deletedBy = users[userDeletedByCompanyUserID] || {};
 
-    console.log({ user });
+    useEffect(() => {
+        if (user?.userDeletedByCompanyUserID && !users[userDeletedByCompanyUserID])
+            dispatch(fetchCompanyUsers);
+    }, [dispatch, user.userDeletedByCompanyUserID]);
 
     return (
         <tr>
@@ -36,12 +50,14 @@ const DeletedOperativesListItem = ({
             <td>
                 {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
-                {'### WIP ###'}
+                {userDeletedOn ? moment(userDeletedOn).format('DD/MM/YYYY') : '-'}
             </td>
             <td>
                 {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
-                {'### WIP ###'}
+                {!!deletedBy.firstName && !!deletedBy.lastName
+                    ? `${deletedBy.firstName} ${deletedBy.lastName}`
+                    : '-'}
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[6]}</span>}
@@ -61,8 +77,12 @@ const mapStateToProps = ({
     shared: {
         mobileReducer: { onMobile },
     },
+    companyAdmin: {
+        companyUsersReducer: { users },
+    },
 }) => ({
     onMobile,
+    users,
 });
 
 export default DeletedOperativesListItem;
