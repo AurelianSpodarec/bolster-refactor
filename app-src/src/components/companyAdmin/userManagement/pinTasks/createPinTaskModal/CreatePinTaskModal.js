@@ -11,6 +11,7 @@ import CreatePinTaskStep2 from './CreatePinTaskStep2';
 import CreatePinTaskStep3 from './CreatePinTaskStep3';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Select from 'components/shared/generic/form/presentational/Select';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const recurringOptions = [
     {
@@ -110,7 +111,7 @@ const CreatePinTaskModal = ({ initialDate }) => {
         <ModalOuterContainer extraClasses="create-pin-task-modal">
             <Form onSubmit={onNextStep}>
                 <BlockHeading title="Create Task" />
-                <div className="size-lg-12 header">
+                <BlockContainer contentClass="header">
                     <div className="size-lg-6">
                         <Field sizeClasses="size-lg-12">
                             <PickListContainer
@@ -135,15 +136,15 @@ const CreatePinTaskModal = ({ initialDate }) => {
                             />
                         </Field>
                     </div>
-                </div>
-                <div className="size-lg-12 step-tabs">
+                </BlockContainer>
+                <BlockContainer contentClass="step-tabs">
                     {new Array(3).fill(null).map((_, i) => (
                         <div className={`step-tab ${step === i ? 'selected' : ''}`} key={i}>
                             <p className="text">Step {i + 1}</p>
                         </div>
                     ))}
-                </div>
-                <div className="size-lg-12">
+                </BlockContainer>
+                <BlockContainer>
                     {Step}
 
                     <BlockButtonWrapper>
@@ -157,7 +158,7 @@ const CreatePinTaskModal = ({ initialDate }) => {
                             Cancel
                         </button>
                     </BlockButtonWrapper>
-                </div>
+                </BlockContainer>
             </Form>
         </ModalOuterContainer>
     );

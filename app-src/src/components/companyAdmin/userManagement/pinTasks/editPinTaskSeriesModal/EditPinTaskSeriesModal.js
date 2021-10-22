@@ -10,6 +10,7 @@ import ToggleSelect from 'components/shared/generic/form/presentational/ToggleSe
 import Select from 'components/shared/generic/form/presentational/Select';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import useEditPinTaskSeries from './hooks/useEditPinTaskSeries';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const EditPinTaskSeriesModal = ({
     date: prevDate,
@@ -36,11 +37,11 @@ const EditPinTaskSeriesModal = ({
 
     return (
         <ModalOuterContainer extraClasses="edit-pin-task-modal">
-            {isFetching && <Loading />}
+            {isFetching && <Loading message="Loading Filters" />}
             {fetchError && !isFetching && <p className="fetch-error">{fetchError}</p>}
             <Form onSubmit={onSubmit}>
                 <BlockHeading title="Edit Task" />
-                <div className="size-lg-12">
+                <BlockContainer>
                     <Field name="date" sizeClasses="size-lg-12" label="Start Date">
                         <DatePickerContainer
                             name="date"
@@ -57,6 +58,8 @@ const EditPinTaskSeriesModal = ({
                             required
                         />
                     </Field>
+                </BlockContainer>
+                <BlockContainer>
                     <Field name="service" sizeClasses="size-lg-12">
                         <Select
                             name="service"
@@ -90,8 +93,6 @@ const EditPinTaskSeriesModal = ({
                             required
                         />
                     </Field>
-                </div>
-                <div className="size-lg-12">
                     <BlockButtonWrapper>
                         <button className="button green" key={3} disabled={isPosting}>
                             Submit
@@ -105,7 +106,7 @@ const EditPinTaskSeriesModal = ({
                             Cancel
                         </button>
                     </BlockButtonWrapper>
-                </div>
+                </BlockContainer>
             </Form>
         </ModalOuterContainer>
     );

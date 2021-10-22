@@ -6,6 +6,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import React from 'react';
 import useEditPinTask from './hooks/useEditPinTask';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const EditPinTaskModal = ({ date: prevDate }) => {
     const { formData, handleChange, closeModal, isPosting, onSubmit, isSeries } = useEditPinTask(
@@ -18,7 +19,7 @@ const EditPinTaskModal = ({ date: prevDate }) => {
         <ModalOuterContainer extraClasses="edit-pin-task-modal">
             <Form onSubmit={onSubmit}>
                 <BlockHeading title="Edit Task" />
-                <div className="size-lg-12">
+                <BlockContainer>
                     <Field
                         name="date"
                         sizeClasses="size-lg-12"
@@ -31,8 +32,6 @@ const EditPinTaskModal = ({ date: prevDate }) => {
                             required
                         />
                     </Field>
-                </div>
-                <div className="size-lg-12">
                     <BlockButtonWrapper>
                         <button className="button green" key={3} disabled={isPosting}>
                             Submit
@@ -46,7 +45,7 @@ const EditPinTaskModal = ({ date: prevDate }) => {
                             Cancel
                         </button>
                     </BlockButtonWrapper>
-                </div>
+                </BlockContainer>
             </Form>
         </ModalOuterContainer>
     );
