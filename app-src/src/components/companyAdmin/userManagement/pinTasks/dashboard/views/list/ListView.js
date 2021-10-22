@@ -2,11 +2,11 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import React from 'react';
 import ListTable from './ListTable';
 
-const ListView = ({ startDate }) => {
+const ListView = ({ startDate, startEditPinTask }) => {
     return (
         <div className="list-view size-lg-12">
             <BlockContainer contentClass="list">
-                <ListTable />
+                <ListTable startEditPinTask={startEditPinTask} />
             </BlockContainer>
         </div>
     );

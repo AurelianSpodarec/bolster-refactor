@@ -20,6 +20,7 @@ const SeriesListRow = ({
     floor,
     drawing,
     pins,
+    startEditPinTaskSeries,
 }) => {
     return (
         <tr>
@@ -47,7 +48,16 @@ const SeriesListRow = ({
                 <DateTimeContainer datetime={DATE_TIME_IDS.DATE} date={new Date(endDate)} />
             </td>
             <td>N/A</td>
-            <td></td>
+            <td>
+                <button
+                    className="button yellow"
+                    type="button"
+                    onClick={() => startEditPinTaskSeries(date, endDate, pins, drawing)}
+                >
+                    <i className="far fa-pencil" />
+                    Edit Series
+                </button>
+            </td>
         </tr>
     );
 };

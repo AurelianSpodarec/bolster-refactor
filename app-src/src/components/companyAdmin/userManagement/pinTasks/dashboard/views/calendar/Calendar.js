@@ -91,20 +91,6 @@ const Calendar = ({ startDate, startCreatePinTask }) => {
                                                                 />
                                                             </div>
                                                             <div className="group">
-                                                                <ButtonContainer
-                                                                    setColour="transparent"
-                                                                    setColourHoverCode="#cccccc"
-                                                                    handleClick={() =>
-                                                                        editTask(
-                                                                            date,
-                                                                            endDate,
-                                                                            pins,
-                                                                            drawing,
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    <i class="far fa-pencil" />
-                                                                </ButtonContainer>
                                                                 <p className="name">0001:01</p>
                                                             </div>
                                                         </div>

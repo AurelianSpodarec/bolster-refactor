@@ -21,6 +21,8 @@ const PinTasksDashboard = () => {
         onNext,
         onToday,
         startCreatePinTask,
+        startEditPinTask,
+        startEditPinTaskSeries,
     } = usePinTasksDashboard();
 
     const views = {
@@ -51,7 +53,12 @@ const PinTasksDashboard = () => {
                 />
             </BlockContainer>
             <div className="pin-tasks-dashboard size-lg-12">
-                <View startDate={startDate} startCreatePinTask={startCreatePinTask} />
+                <View
+                    startDate={startDate}
+                    startCreatePinTask={startCreatePinTask}
+                    startEditPinTask={startEditPinTask}
+                    startEditPinTaskSeries={startEditPinTaskSeries}
+                />
             </div>
         </>
     );

@@ -2,11 +2,11 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import React from 'react';
 import SeriesTable from './SeriesTable';
 
-const SeriesView = ({ startDate }) => {
+const SeriesView = ({ startDate, startEditPinTaskSeries }) => {
     return (
         <div className="list-view size-lg-12">
             <BlockContainer contentClass="series">
-                <SeriesTable />
+                <SeriesTable startEditPinTaskSeries={startEditPinTaskSeries} />
             </BlockContainer>
         </div>
     );

@@ -2,7 +2,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import React from 'react';
 import ListTableRow from './ListTableRow';
 
-const ListTable = () => {
+const ListTable = ({ startEditPinTask }) => {
     const headers = ['Operatives', 'Drawing', 'Pins', 'Due Date', 'Action Date', 'Tags'];
 
     const rows = [
@@ -24,7 +24,7 @@ const ListTable = () => {
     return (
         <Table headers={headers}>
             {rows.map((row, i) => (
-                <ListTableRow key={i} {...row} />
+                <ListTableRow key={i} {...row} startEditPinTask={startEditPinTask} />
             ))}
         </Table>
     );

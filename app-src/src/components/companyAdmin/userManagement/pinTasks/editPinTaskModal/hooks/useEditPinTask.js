@@ -4,7 +4,7 @@ import { useForm } from 'helpers/hooks';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-const useEditPinTask = (date, endDate, pins) => {
+const useEditPinTask = date => {
     const dispatch = useDispatch();
 
     const [formData, handleChange] = useForm({ date });

@@ -19,6 +19,7 @@ const ListTableRow = ({
     floor,
     drawing,
     pins,
+    startEditPinTask,
 }) => {
     return (
         <tr>
@@ -43,9 +44,21 @@ const ListTableRow = ({
                 <DateTimeContainer datetime={DATE_TIME_IDS.DATE} date={new Date(date)} />
             </td>
             <td>N/A</td>
-            <td className="pills">
-                <TaskPill name={type} title={PIN_TASK_RECURRING_NAMES[type.toUpperCase()]} />
-                <TaskPill name={status} title={PIN_TASK_STATUS_NAMES[status.toUpperCase()]} />
+            <td>
+                <div className="pills">
+                    <TaskPill name={type} title={PIN_TASK_RECURRING_NAMES[type.toUpperCase()]} />
+                    <TaskPill name={status} title={PIN_TASK_STATUS_NAMES[status.toUpperCase()]} />
+                </div>
+            </td>
+            <td>
+                <button
+                    className="button yellow"
+                    type="button"
+                    onClick={() => startEditPinTask(date)}
+                >
+                    <i className="far fa-pencil" />
+                    Edit Task
+                </button>
             </td>
         </tr>
     );

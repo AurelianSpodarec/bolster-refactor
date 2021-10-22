@@ -2,7 +2,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import React from 'react';
 import SeriesListRow from './SeriesTableRow';
 
-const SeriesTable = () => {
+const SeriesTable = ({ startEditPinTaskSeries }) => {
     const headers = [
         'Operative',
         'Drawing',
@@ -32,7 +32,7 @@ const SeriesTable = () => {
     return (
         <Table headers={headers}>
             {rows.map((row, i) => (
-                <SeriesListRow key={i} {...row} />
+                <SeriesListRow key={i} {...row} startEditPinTaskSeries={startEditPinTaskSeries} />
             ))}
         </Table>
     );

@@ -7115,7 +7115,7 @@ input {
             .generic-table {
                 tr {
                     td {
-                        &.pills {
+                        .pills {
                             display: flex;
                             gap: 16px;
                         }
