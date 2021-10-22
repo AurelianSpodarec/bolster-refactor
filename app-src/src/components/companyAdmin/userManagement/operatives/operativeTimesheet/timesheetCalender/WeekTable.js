@@ -11,7 +11,6 @@ const WeekTable = ({
     timePeriod,
     onDaySelect,
     onWeekSelect,
-
     isFetching,
     fetchError,
     timesheet,
