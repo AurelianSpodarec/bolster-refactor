@@ -1,101 +1,37 @@
-import showModal from 'actions/shared/generic/modals/sync/showModal';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import Table from 'components/shared/generic/tables/presentational/Table';
-import { EDIT_PIN_TASK, EDIT_PIN_TASK_SERIES } from 'constants/shared/modalTypes';
 import moment from 'moment';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import CalendarPinTask from './CalendarPinTask';
 
 import useCalendar from './hooks/useCalendar';
 
 const Calendar = ({ startDate, startCreatePinTask }) => {
-    const dispatch = useDispatch();
-    const { days, matrix } = useCalendar(startDate);
-
-    const dataMatrix = [
-        [null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null],
-        [
-            null,
-            null,
-            null,
-            null,
-            [
-                {
-                    type: 'recurring',
-                    status: 'complete',
-                    date: '2021-10-21T10:11:07.738Z',
-                    recurring: 'none',
-                    days: [],
-                    operatives: [223, 5739, 8601],
-                    site: 865,
-                    building: 1356,
-                    floor: 16845,
-                    drawing: 18970,
-                    pins: [3145722, 3145725, 3145727, 3145724, 3145726],
-                },
-            ],
-            null,
-            [
-                {
-                    type: 'non_recurring',
-                    status: 'complete',
-                    date: '2021-10-21T10:09:36.792Z',
-                    endDate: '2021-10-21T10:09:36.792Z',
-                    recurring: 'none',
-                    days: [],
-                    operatives: [5738, 223],
-                    site: 821,
-                    building: 1288,
-                    floor: 2740,
-                    drawing: 3226,
-                    pins: [3233348, 3233350, 3233412],
-                },
-            ],
-        ],
-        [null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null],
-    ];
-
-    const editTask = (date, endDate, pins, drawing) => {
-        if (endDate && pins)
-            dispatch(showModal(EDIT_PIN_TASK_SERIES, { date, endDate, pins, drawing }));
-        else dispatch(showModal(EDIT_PIN_TASK, { date }));
-    };
+    const { days, matrix, noData, isFetching, error } = useCalendar(startDate);
 
     return (
-        <BlockContainer contentClass="calendar">
+        <BlockContainer
+            contentClass="calendar"
+            isFetching={isFetching}
+            error={error}
+            isEmpty={noData}
+        >
             <Table headers={days}>
                 {matrix.map((row, y) => (
                     <tr key={y}>
-                        {row.map((date, x) => {
-                            const tasks = dataMatrix[y][x];
+                        {row.map(({ date, pinTasks }, x) => {
                             const disabled = !moment(startDate).isSame(date, 'month');
+                            const isToday = moment(date).isSame(new Date(), 'day');
                             return (
                                 <td key={x} className={disabled ? 'disabled' : ''}>
                                     <div className="cell">
                                         <time>{moment(date).format('DD')}</time>
-                                        {tasks && !disabled ? (
+                                        {!disabled ? (
                                             <div className="tasks">
-                                                {tasks.map(
-                                                    (
-                                                        { type, status, endDate, pins, drawing },
-                                                        i,
-                                                    ) => (
-                                                        <div className="task" key={i}>
-                                                            <div className="group">
-                                                                <div className={`circle ${type}`} />
-                                                                <div
-                                                                    className={`circle ${status}`}
-                                                                />
-                                                            </div>
-                                                            <div className="group">
-                                                                <p className="name">0001:01</p>
-                                                            </div>
-                                                        </div>
-                                                    ),
-                                                )}
+                                                {pinTasks.map((pinTask, i) => (
+                                                    <CalendarPinTask pinTask={pinTask} key={i} />
+                                                ))}
                                             </div>
                                         ) : (
                                             <p className="no-tasks">No Tasks</p>
@@ -108,6 +44,7 @@ const Calendar = ({ startDate, startCreatePinTask }) => {
                                         >
                                             <i className="fas fa-plus" />
                                         </ButtonContainer>
+                                        {isToday && <div className="film" />}
                                     </div>
                                 </td>
                             );

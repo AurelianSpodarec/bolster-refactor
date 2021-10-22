@@ -36,11 +36,11 @@ const useStep2Options = (handleChange, drawing, service, template) => {
 
     useEffect(() => {
         batch(() => {
-            dispatch(fetchPins('Drawing', drawing));
+            if (drawing) dispatch(fetchPins('Drawing', drawing));
             dispatch(fetchAllServices());
             dispatch(fetchAllTemplates());
         });
-    }, [dispatch]);
+    }, [dispatch, drawing]);
 
     const validServiceIDs = [];
     const validTemplateIDs = [];

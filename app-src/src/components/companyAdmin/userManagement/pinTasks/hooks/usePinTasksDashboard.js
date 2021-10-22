@@ -58,12 +58,12 @@ const usePinTasksDashboard = () => {
         dispatch(showModal(CREATE_PIN_TASK, { initialDate }));
     };
 
-    const startEditPinTask = date => {
-        dispatch(showModal(EDIT_PIN_TASK, { date }));
+    const startEditPinTask = id => {
+        dispatch(showModal(EDIT_PIN_TASK, { id }));
     };
 
-    const startEditPinTaskSeries = (date, endDate, pins, drawing) => {
-        dispatch(showModal(EDIT_PIN_TASK_SERIES, { date, endDate, pins, drawing }));
+    const startEditPinTaskSeries = id => {
+        dispatch(showModal(EDIT_PIN_TASK_SERIES, { id }));
     };
 
     return {

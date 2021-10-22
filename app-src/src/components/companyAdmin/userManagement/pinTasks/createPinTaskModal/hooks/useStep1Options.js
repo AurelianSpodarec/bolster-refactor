@@ -81,7 +81,7 @@ const useStep1Options = (handleChange, site, building, floor, drawing) => {
         if (drawing != null) dispatch(fetchPins('Drawing', drawing));
     }, [dispatch, drawing]);
 
-    const operativesOptions = Object.values(users).map(({ id, userFirstName, userLastName }) => ({
+    const operativeOptions = Object.values(users).map(({ id, userFirstName, userLastName }) => ({
         value: id,
         label: `${userFirstName} ${userLastName}`,
     }));
@@ -148,7 +148,7 @@ const useStep1Options = (handleChange, site, building, floor, drawing) => {
     return {
         isFetching,
         fetchError,
-        operativesOptions,
+        operativeOptions,
         siteOptions,
         buildingOptions,
         floorOptions,

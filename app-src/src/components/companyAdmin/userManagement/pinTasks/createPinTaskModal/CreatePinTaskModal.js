@@ -57,7 +57,7 @@ const CreatePinTaskModal = ({ initialDate }) => {
         recurring,
         date,
         endDate,
-        operatives,
+        operative,
         site,
         building,
         floor,
@@ -73,7 +73,7 @@ const CreatePinTaskModal = ({ initialDate }) => {
             handleChange={handleChange}
             date={date}
             endDate={endDate}
-            operatives={operatives}
+            operative={operative}
             site={site}
             building={building}
             floor={floor}

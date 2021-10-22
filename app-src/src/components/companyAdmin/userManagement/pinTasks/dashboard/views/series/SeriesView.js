@@ -5,9 +5,7 @@ import SeriesTable from './SeriesTable';
 const SeriesView = ({ startDate, startEditPinTaskSeries }) => {
     return (
         <div className="list-view size-lg-12">
-            <BlockContainer contentClass="series">
-                <SeriesTable startEditPinTaskSeries={startEditPinTaskSeries} />
-            </BlockContainer>
+            <SeriesTable startDate={startDate} startEditPinTaskSeries={startEditPinTaskSeries} />
         </div>
     );
 };

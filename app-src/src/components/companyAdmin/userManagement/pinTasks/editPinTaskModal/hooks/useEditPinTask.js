@@ -1,32 +1,56 @@
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import { EDIT_PIN_TASK } from 'constants/shared/modalTypes';
-import { useForm } from 'helpers/hooks';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useForm, usePrevious } from 'helpers/hooks';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    selectPinTask,
+    selectPinTasksIsFetching,
+    selectPinTasksIsPosting,
+    selectPinTasksPostSuccess,
+    selectPinTasksError,
+} from 'selectors/companyAdmin/pinTasks';
+import editPinTask from 'actions/companyAdmin/pinTasks/async/editPinTask';
+import fetchPinTask from 'actions/companyAdmin/pinTasks/async/fetchPinTask';
 
-const useEditPinTask = date => {
+const useEditPinTask = id => {
     const dispatch = useDispatch();
 
-    const [formData, handleChange] = useForm({ date });
+    const pinTask = useSelector(state => selectPinTask(state, id));
+    const pinTasksIsFetching = useSelector(selectPinTasksIsFetching);
+
+    const pinTasksIsPosting = useSelector(selectPinTasksIsPosting);
+    const pinTasksPostSuccess = useSelector(selectPinTasksPostSuccess);
+
+    const pinTasksError = useSelector(selectPinTasksError);
+
+    useEffect(() => {
+        dispatch(fetchPinTask(id));
+    }, [dispatch]);
+
+    const [formData, handleChange] = useForm({ date: pinTask?.dueOn });
 
     const closeModal = () => dispatch(hideModal(EDIT_PIN_TASK));
 
-    const [isPosting, setIsPosting] = useState(false);
-
     const onSubmit = () => {
-        setIsPosting(true);
-        setTimeout(() => {
-            setIsPosting(false);
-            closeModal();
-        }, 2000);
+        const { date } = formData;
+        dispatch(editPinTask(id, date));
     };
+
+    const prevPinTasksPostSuccess = usePrevious(pinTasksPostSuccess);
+    useEffect(() => {
+        if (!prevPinTasksPostSuccess && pinTasksPostSuccess) closeModal();
+    }, [dispatch, pinTasksPostSuccess, prevPinTasksPostSuccess]);
 
     return {
         formData,
         handleChange,
         closeModal,
-        isPosting,
+        isFetching: pinTasksIsFetching,
+        isPosting: pinTasksIsPosting,
+        error: pinTasksError,
         onSubmit,
+        pinTask,
     };
 };
 

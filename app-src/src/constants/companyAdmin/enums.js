@@ -506,11 +506,33 @@ export const DAY = {
     SUNDAY: 'sunday',
 };
 
+export const DAYS_FLAGGED = {
+    MONDAY: 1,
+    TUESDAY: 2,
+    WEDNESDAY: 4,
+    THURSDAY: 8,
+    FRIDAY: 16,
+    SATURDAY: 32,
+    SUNDAY: 64,
+};
+
+export const PIN_TASK_STATUS = {
+    COMPLETE: 'complete',
+    COMPLETE_LATE: 'complete_late',
+    DUE_SOON: 'due_soon',
+    INCOMPLETE: 'incomplete',
+};
+
 export const PIN_TASK_STATUS_NAMES = {
     COMPLETE: 'Complete',
     COMPLETE_LATE: 'Complete (Late)',
     DUE_SOON: 'Due Soon',
     INCOMPLETE: 'Incomplete',
+};
+
+export const PIN_TASK_RECURRING = {
+    RECURRING: 'recurring',
+    NON_RECURRING: 'non_recurring',
 };
 
 export const PIN_TASK_RECURRING_NAMES = {

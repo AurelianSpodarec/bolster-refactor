@@ -6999,7 +6999,7 @@ input {
                         border-style: none solid none none;
                         width: 12.5%;
 
-                        padding: 6px 8px;
+                        padding: 0;
                         font-size: 150%;
                         font-weight: normal;
 
@@ -7017,7 +7017,6 @@ input {
                     }
 
                     td {
-                        height: 160px;
                         text-align: left;
                     }
                 }
@@ -7032,20 +7031,35 @@ input {
                             background-color: $light-grey;
                         }
 
+                        .film {
+                            position: absolute;
+                            inset: 0;
+                            background-color: rgba($blue, 0.2);
+                            pointer-events: none;
+
+                            border: 2px solid $blue;
+                        }
 
                         .cell {
                             display: flex;
                             flex-direction: column;
                             justify-content: space-between;
 
-                            height: 100%;
+                            min-height: 170px;
+                            max-height: 170px;
+
+                            padding: 6px 8px;
 
                             .tasks {
                                 flex-grow: 1;
                                 display: flex;
                                 flex-direction: column;
+                                gap: 8px;
 
                                 padding: 4px 0;
+                                margin: 4px 0;
+        
+                                overflow: auto;
 
                                 .task {
                                     display: flex;

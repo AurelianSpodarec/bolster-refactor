@@ -4,46 +4,23 @@ import {
     PIN_TASK_RECURRING_NAMES,
     PIN_TASK_STATUS_NAMES,
 } from 'constants/companyAdmin/enums';
-import React, { Fragment } from 'react';
+import React from 'react';
 import TaskPill from '../../TaskPill';
+import useTypeAndStatus from '../hooks/useTypeAndStatus';
 
-const ListTableRow = ({
-    type,
-    status,
-    date,
-    recurring,
-    days,
-    operatives,
-    site,
-    building,
-    floor,
-    drawing,
-    pins,
-    startEditPinTask,
-}) => {
+const ListTableRow = ({ pinTask, startEditPinTask }) => {
+    const { id, companyUserID, pinID, isRecurring, actionedOn, dueOn } = pinTask;
+    const { type, status } = useTypeAndStatus(isRecurring, actionedOn, dueOn);
+
     return (
         <tr>
+            <td>{companyUserID}</td>
+            <td></td>
+            <td>{pinID}</td>
             <td>
-                {operatives.map((operative, i) => (
-                    <Fragment key={i}>
-                        {operative}
-                        <br />
-                    </Fragment>
-                ))}
+                <DateTimeContainer datetime={DATE_TIME_IDS.DATE} date={new Date(dueOn)} />
             </td>
-            <td>{drawing}</td>
-            <td>
-                {pins.map((pin, i) => (
-                    <Fragment key={i}>
-                        {pin}
-                        <br />
-                    </Fragment>
-                ))}
-            </td>
-            <td>
-                <DateTimeContainer datetime={DATE_TIME_IDS.DATE} date={new Date(date)} />
-            </td>
-            <td>N/A</td>
+            <td>{!actionedOn ? 'N/A' : <DateTimeContainer date={new Date(actionedOn)} />}</td>
             <td>
                 <div className="pills">
                     <TaskPill name={type} title={PIN_TASK_RECURRING_NAMES[type.toUpperCase()]} />
@@ -54,7 +31,7 @@ const ListTableRow = ({
                 <button
                     className="button yellow"
                     type="button"
-                    onClick={() => startEditPinTask(date)}
+                    onClick={() => startEditPinTask(id)}
                 >
                     <i className="far fa-pencil" />
                     Edit Task

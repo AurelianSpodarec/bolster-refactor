@@ -8,10 +8,17 @@ import useEditPinTask from './hooks/useEditPinTask';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-const EditPinTaskModal = ({ date: prevDate }) => {
-    const { formData, handleChange, closeModal, isPosting, onSubmit, isSeries } = useEditPinTask(
-        prevDate,
-    );
+const EditPinTaskModal = ({ id }) => {
+    const {
+        formData,
+        handleChange,
+        closeModal,
+        isFetching,
+        isPosting,
+        error,
+        onSubmit,
+        pinTask,
+    } = useEditPinTask(id);
 
     const { date } = formData;
 
@@ -19,12 +26,8 @@ const EditPinTaskModal = ({ date: prevDate }) => {
         <ModalOuterContainer extraClasses="edit-pin-task-modal">
             <Form onSubmit={onSubmit}>
                 <BlockHeading title="Edit Task" />
-                <BlockContainer>
-                    <Field
-                        name="date"
-                        sizeClasses="size-lg-12"
-                        label={isSeries ? 'Start Date' : 'Date'}
-                    >
+                <BlockContainer isFetching={isFetching} error={error} isEmpty={!pinTask}>
+                    <Field name="date" sizeClasses="size-lg-12" label="Date">
                         <DatePickerContainer
                             name="date"
                             selected={new Date(date)}

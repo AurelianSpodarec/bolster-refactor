@@ -1,32 +1,28 @@
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import Table from 'components/shared/generic/tables/presentational/Table';
+import { isEmpty } from 'helpers/generic';
 import React from 'react';
+import useList from './hooks/useList';
 import ListTableRow from './ListTableRow';
 
-const ListTable = ({ startEditPinTask }) => {
-    const headers = ['Operatives', 'Drawing', 'Pins', 'Due Date', 'Action Date', 'Tags'];
+const ListTable = ({ startDate, startEditPinTask }) => {
+    const headers = ['Operative', 'Drawing', 'Pin Number', 'Due Date', 'Action Date', 'Tags'];
 
-    const rows = [
-        {
-            type: 'non_recurring',
-            status: 'complete',
-            date: '2021-10-21T10:09:36.792Z',
-            recurring: 'none',
-            days: [],
-            operatives: [5738, 223],
-            site: 821,
-            building: 1288,
-            floor: 2740,
-            drawing: 3226,
-            pins: [3233348, 3233350, 3233412],
-        },
-    ];
+    const { pinTasks, isFetching, error } = useList(startDate);
 
     return (
-        <Table headers={headers}>
-            {rows.map((row, i) => (
-                <ListTableRow key={i} {...row} startEditPinTask={startEditPinTask} />
-            ))}
-        </Table>
+        <BlockContainer
+            contentClass="list"
+            isFetching={isFetching}
+            error={error}
+            isEmpty={isEmpty(pinTasks)}
+        >
+            <Table headers={headers}>
+                {pinTasks.map((pinTask, i) => (
+                    <ListTableRow key={i} pinTask={pinTask} startEditPinTask={startEditPinTask} />
+                ))}
+            </Table>
+        </BlockContainer>
     );
 };
 

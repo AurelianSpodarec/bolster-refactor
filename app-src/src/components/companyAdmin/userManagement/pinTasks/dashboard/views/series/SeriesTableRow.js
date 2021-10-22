@@ -1,58 +1,56 @@
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import {
-    DATE_TIME_IDS,
-    PIN_TASK_RECURRING_NAMES,
-    PIN_TASK_STATUS_NAMES,
-} from 'constants/companyAdmin/enums';
+import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import React, { Fragment } from 'react';
-import TaskPill from '../../TaskPill';
+import SeriesTableRowPins from './SeriesTableRowPins';
 
-const SeriesListRow = ({
-    type,
-    status,
-    date,
-    endDate,
-    recurring,
-    days,
-    operatives,
-    site,
-    building,
-    floor,
-    drawing,
-    pins,
-    startEditPinTaskSeries,
-}) => {
+const SeriesListRow = ({ pinTaskSeries, startEditPinTaskSeries }) => {
+    const {
+        id,
+        operativeFirstName,
+        operativeLastName,
+        siteName,
+        buildingName,
+        floorName,
+        drawingName,
+        pinCount,
+        pinIDs,
+        recurrenceStartsOn,
+        recurrenceEndsOn,
+    } = pinTaskSeries;
+
     return (
         <tr>
             <td>
-                {operatives.map((operative, i) => (
-                    <Fragment key={i}>
-                        {operative}
-                        <br />
-                    </Fragment>
-                ))}
-            </td>
-            <td>{drawing}</td>
-            <td>
-                {pins.map((pin, i) => (
-                    <Fragment key={i}>
-                        {pin}
-                        <br />
-                    </Fragment>
-                ))}
+                {operativeFirstName} {operativeLastName}
             </td>
             <td>
-                <DateTimeContainer datetime={DATE_TIME_IDS.DATE} date={new Date(date)} />
+                {siteName} / {buildingName} / {floorName} / {drawingName}
             </td>
             <td>
-                <DateTimeContainer datetime={DATE_TIME_IDS.DATE} date={new Date(endDate)} />
+                <SeriesTableRowPins pinCount={pinCount} pinIDs={pinIDs} />
+            </td>
+            <td>
+                <DateTimeContainer
+                    datetime={DATE_TIME_IDS.DATE}
+                    date={new Date(recurrenceStartsOn)}
+                />
+            </td>
+            <td>
+                {!recurrenceEndsOn ? (
+                    'Indefinite'
+                ) : (
+                    <DateTimeContainer
+                        datetime={DATE_TIME_IDS.DATE}
+                        date={new Date(recurrenceEndsOn)}
+                    />
+                )}
             </td>
             <td>N/A</td>
             <td>
                 <button
                     className="button yellow"
                     type="button"
-                    onClick={() => startEditPinTaskSeries(date, endDate, pins, drawing)}
+                    onClick={() => startEditPinTaskSeries(id)}
                 >
                     <i className="far fa-pencil" />
                     Edit Series

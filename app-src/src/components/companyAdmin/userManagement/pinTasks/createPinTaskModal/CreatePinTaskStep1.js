@@ -1,5 +1,4 @@
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import Field from 'components/shared/generic/form/presentational/Field';
 import useStep1Options from './hooks/useStep1Options';
 import React from 'react';
@@ -9,7 +8,7 @@ import Select from 'components/shared/generic/form/presentational/Select';
 const CreatePinTaskStep1 = ({
     date,
     endDate,
-    operatives,
+    operative,
     site,
     building,
     floor,
@@ -20,7 +19,7 @@ const CreatePinTaskStep1 = ({
     const {
         isFetching,
         fetchError,
-        operativesOptions,
+        operativeOptions,
         siteOptions,
         buildingOptions,
         floorOptions,
@@ -56,13 +55,14 @@ const CreatePinTaskStep1 = ({
                     </Field>
                 )}
 
-                <Field name="operatives" sizeClasses="size-lg-12">
-                    <MultiSelect
-                        name="operatives"
-                        value={operatives}
+                <Field name="operative" sizeClasses="size-lg-12">
+                    <Select
+                        name="operative"
+                        value={operative}
                         onChange={handleChange}
-                        options={operativesOptions}
+                        options={operativeOptions}
                         disabled={isFetching || fetchError}
+                        search
                     />
                 </Field>
 

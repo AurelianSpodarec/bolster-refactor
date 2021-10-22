@@ -1,8 +1,11 @@
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import Table from 'components/shared/generic/tables/presentational/Table';
+import { isEmpty } from 'helpers/generic';
 import React from 'react';
+import useSeries from './hooks/useSeries';
 import SeriesListRow from './SeriesTableRow';
 
-const SeriesTable = ({ startEditPinTaskSeries }) => {
+const SeriesTable = ({ startDate, startEditPinTaskSeries }) => {
     const headers = [
         'Operative',
         'Drawing',
@@ -12,29 +15,25 @@ const SeriesTable = ({ startEditPinTaskSeries }) => {
         'Last Action Date',
     ];
 
-    const rows = [
-        {
-            type: 'non_recurring',
-            status: 'complete',
-            date: '2021-10-21T10:09:36.792Z',
-            endDate: '2021-11-21T00:00:00.002Z',
-            recurring: 'none',
-            days: [],
-            operatives: [5738, 223],
-            site: 821,
-            building: 1288,
-            floor: 2740,
-            drawing: 3226,
-            pins: [3233348, 3233350, 3233412],
-        },
-    ];
+    const { pinTaskSeriesMultiple, isFetching, error } = useSeries(startDate);
 
     return (
-        <Table headers={headers}>
-            {rows.map((row, i) => (
-                <SeriesListRow key={i} {...row} startEditPinTaskSeries={startEditPinTaskSeries} />
-            ))}
-        </Table>
+        <BlockContainer
+            contentClass="series"
+            isFetching={isFetching}
+            error={error}
+            isEmpty={isEmpty(pinTaskSeriesMultiple)}
+        >
+            <Table headers={headers}>
+                {pinTaskSeriesMultiple.map((pinTaskSeries, i) => (
+                    <SeriesListRow
+                        key={i}
+                        pinTaskSeries={pinTaskSeries}
+                        startEditPinTaskSeries={startEditPinTaskSeries}
+                    />
+                ))}
+            </Table>
+        </BlockContainer>
     );
 };
 

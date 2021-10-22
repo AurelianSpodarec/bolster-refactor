@@ -11,45 +11,42 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import useEditPinTaskSeries from './hooks/useEditPinTaskSeries';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import { isEmpty } from 'helpers/generic';
 
-const EditPinTaskSeriesModal = ({
-    date: prevDate,
-    endDate: prevEndDate,
-    pins: prevPins,
-    drawing,
-}) => {
-    const { formData, handleChange, closeModal, isPosting, onSubmit } = useEditPinTaskSeries(
-        prevDate,
-        prevEndDate,
-        prevPins,
-    );
+const EditPinTaskSeriesModal = ({ id }) => {
+    const {
+        formData,
+        handleChange,
+        closeModal,
+        isFetching,
+        isPosting,
+        error,
+        onSubmit,
+        pinTaskSeries,
+    } = useEditPinTaskSeries(id);
 
-    const { date, endDate, pins, service, template } = formData;
+    const { drawingID } = pinTaskSeries;
+
+    const { endDate, pins, service, template } = formData;
 
     const {
-        isFetching,
-        fetchError,
+        pinsIsFetching,
+        pinsFetchError,
         serviceOptions,
         templateOptions,
         pinOptions,
         pinOptionsFilter,
-    } = useStep2Options(handleChange, drawing, service, template);
+    } = useStep2Options(handleChange, drawingID, service, template);
 
     return (
         <ModalOuterContainer extraClasses="edit-pin-task-modal">
-            {isFetching && <Loading message="Loading Filters" />}
-            {fetchError && !isFetching && <p className="fetch-error">{fetchError}</p>}
             <Form onSubmit={onSubmit}>
                 <BlockHeading title="Edit Task" />
-                <BlockContainer>
-                    <Field name="date" sizeClasses="size-lg-12" label="Start Date">
-                        <DatePickerContainer
-                            name="date"
-                            selected={new Date(date)}
-                            onChange={value => handleChange('date', value)}
-                            required
-                        />
-                    </Field>
+                <BlockContainer
+                    isFetching={isFetching || pinsIsFetching}
+                    error={error || pinsFetchError}
+                    isEmpty={!pinTaskSeries || isEmpty(pinOptions)}
+                >
                     <Field name="endDate" sizeClasses="size-lg-12" label="End Date">
                         <DatePickerContainer
                             name="endDate"
@@ -66,7 +63,7 @@ const EditPinTaskSeriesModal = ({
                             value={service}
                             onChange={handleChange}
                             options={serviceOptions}
-                            disabled={isFetching || fetchError}
+                            disabled={isFetching || error || pinsFetchError}
                             search
                         />
                     </Field>
@@ -76,7 +73,7 @@ const EditPinTaskSeriesModal = ({
                             value={template}
                             onChange={handleChange}
                             options={templateOptions}
-                            disabled={isFetching || fetchError || service == null}
+                            disabled={isFetching || error || pinsFetchError || service == null}
                             search
                         />
                     </Field>

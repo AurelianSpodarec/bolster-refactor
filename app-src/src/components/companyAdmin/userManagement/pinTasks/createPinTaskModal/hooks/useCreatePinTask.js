@@ -18,7 +18,7 @@ const useCreatePinTask = initialDate => {
         endDate: new Date().toISOString(),
         recurring: RECURRING_TYPE.NONE,
         days: [],
-        operatives: [],
+        operative: null,
         site: null,
         building: null,
         floor: null,
