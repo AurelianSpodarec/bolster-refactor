@@ -12,8 +12,13 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
             <div className="block-entry clock-in">
                 <div className="wrapper">
                     <p className="title">
-                        <strong>Time In - </strong>
-                        <DateTimeContainer date={clockIn.timestamp} datetime={DATE_TIME_IDS.TIME} />
+                        <strong>
+                            Time In -
+                            <DateTimeContainer
+                                date={clockIn.timestamp}
+                                datetime={DATE_TIME_IDS.TIME}
+                            />
+                        </strong>
                     </p>
                     <BreakdownPositionCard {...clockIn} />
                 </div>
@@ -27,11 +32,13 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
                 <div className="block-entry break-in">
                     <div className="wrapper">
                         <p className="title">
-                            <strong>On Break - </strong>
-                            <DateTimeContainer
-                                date={breakIn.timestamp}
-                                datetime={DATE_TIME_IDS.TIME}
-                            />
+                            <strong>
+                                On Break -
+                                <DateTimeContainer
+                                    date={breakIn.timestamp}
+                                    datetime={DATE_TIME_IDS.TIME}
+                                />
+                            </strong>
                         </p>
                         <BreakdownPositionCard {...breakIn} />
                     </div>
@@ -48,11 +55,13 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
                 <div className="block-entry break-out">
                     <div className="wrapper">
                         <p className="title">
-                            <strong>Off Break - </strong>
-                            <DateTimeContainer
-                                date={breakOut.timestamp}
-                                datetime={DATE_TIME_IDS.TIME}
-                            />
+                            <strong>
+                                Off Break -
+                                <DateTimeContainer
+                                    date={breakOut.timestamp}
+                                    datetime={DATE_TIME_IDS.TIME}
+                                />
+                            </strong>
                         </p>
                         <BreakdownPositionCard {...breakOut} />
                     </div>
@@ -68,11 +77,13 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
             <div className="block-entry clock-out">
                 <div className="wrapper">
                     <p className="title">
-                        <strong>Time Out - </strong>
-                        <DateTimeContainer
-                            date={clockOut.timestamp}
-                            datetime={DATE_TIME_IDS.TIME}
-                        />
+                        <strong>
+                            Time Out -
+                            <DateTimeContainer
+                                date={clockOut.timestamp}
+                                datetime={DATE_TIME_IDS.TIME}
+                            />
+                        </strong>
                     </p>
                     <BreakdownPositionCard {...clockOut} />
                 </div>
