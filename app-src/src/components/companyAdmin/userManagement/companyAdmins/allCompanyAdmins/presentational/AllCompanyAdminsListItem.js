@@ -135,7 +135,7 @@ const AllCompanyAdminsListItem = ({
                     </button>
                     <Link
                         className="button green"
-                        to={`/company/users-management/operatives/${user.id}/timesheet`}
+                        to={`/company/users-management/company-admins/${user.id}/timesheet`}
                     >
                         <i className="far fa-eye" /> View Timesheet
                     </Link>
