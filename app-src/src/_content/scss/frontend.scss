@@ -4032,6 +4032,8 @@ $back-to-top-height: 35px;
         .block-entry {
             display: flex;
             gap: 30px;
+            padding: 15px 0 30px;
+            border-bottom: 1px solid $light-grey-alt;
 
             .wrapper {
                 flex-basis: 40%;
@@ -4050,6 +4052,11 @@ $back-to-top-height: 35px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+            }
+
+            &:last-child {
+                border: none;
+                padding-bottom: 0px;
             }
         }
     }
