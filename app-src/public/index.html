@@ -143,6 +143,12 @@
             type="text/css"
             href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
         />
+        <!-- IE PLaceholder styles -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="placeholder.css"
+        />
 
         <!-- Hotjar Tracking Code for https://app.bolstersystems.com/ -->
         <script>
@@ -161,7 +167,25 @@
         <div id="root"></div>
 
         <div id="ie-placeholder" style='display: none;'>
-            Internet Explorer...
+            <span class="ie-container">
+                <img src="/static/media/logo.c01341b6.png" alt="" width="304" height="124"/>
+                <h1>Browser not supported</h1>
+                <p>This app does not currently support your web browser.<br/>
+                Please use one of the following supported browsers to continue to use Bolster Dynamic:</p>
+                <p>
+                    <ul>
+                        <li><a href="https://www.google.com/intl/en_uk/chrome/" target="_blank" title="">Google Chrome</a></li>
+                        <li><a href="https://www.microsoft.com/en-us/edge" target="_blank" title="">Microsoft Edge</a></li>
+                        <li><a href="https://www.mozilla.org/en-GB/firefox/new/" target="_blank" title="">Mozilla Firefox</a></li>
+                        <li><a href="https://www.apple.com/uk/safari/" target="_blank" title="">Safari (MacOS only)</a></li>
+                    </ul>
+                </p>
+                <p>
+                    For technical assistance, plase contact Bolster support.<br/>
+                    You can call us on <a href="tel:+441618737679">0161 873 7679</a>,<br/>
+                    or e-mail at <a href="mailto:info@bolstersystems.com">info@bolstersystems.com</a>
+                </p>
+            </span>
         </div>
 
         <script type="text/javascript">
@@ -169,10 +193,10 @@
             var msie = ua.indexOf('MSIE '); // IE 10 or older
             var trident = ua.indexOf('Trident/'); //IE 11
     
-            if (msie > 0 || trident > 0) {
-                document.getElementById("root").style.display = "none";
-                document.getElementById("ie-placeholder").style.display = "block";
-            }
+            // if (msie > 0 || trident > 0) {
+            //     document.getElementById("root").style.display = "none";
+            //     document.getElementById("ie-placeholder").style.display = "flex";
+            // }
         </script>
 
         <!--
