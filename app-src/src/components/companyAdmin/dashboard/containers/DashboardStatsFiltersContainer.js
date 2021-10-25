@@ -131,8 +131,9 @@ class DashboardStatsFiltersContainer extends Component {
 
     createMonthDropdown = () => {
         const months = new Array(13).fill(0);
+
         const monthOptions = months.reduce((acc, _, index) => {
-            const prevMonth = moment.utc().subtract(index, 'months');
+            const prevMonth = moment().subtract(index, 'months');
             const label = prevMonth.format('MMM YYYY');
             const startDate = prevMonth.startOf('month').toDate();
             const endDate = prevMonth.endOf('month').toDate();
