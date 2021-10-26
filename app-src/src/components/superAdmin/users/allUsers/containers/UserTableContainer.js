@@ -29,6 +29,7 @@ const UserTableContainer = ({
                     'Email Address',
                     'Phone Number',
                     'Role',
+                    'App version',
                     'Access granted by',
                     'Created On',
                     'Is e-mail confirmed?',
