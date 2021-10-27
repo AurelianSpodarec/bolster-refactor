@@ -18,6 +18,7 @@ const EditPinTaskModal = ({ id }) => {
         error,
         onSubmit,
         pinTask,
+        handleDeleteTask,
     } = useEditPinTask(id);
 
     const { date } = formData;
@@ -38,6 +39,14 @@ const EditPinTaskModal = ({ id }) => {
                     <BlockButtonWrapper>
                         <button className="button green" key={3} disabled={isPosting}>
                             Submit
+                        </button>
+                        <button
+                            type="button"
+                            className="button red"
+                            onClick={handleDeleteTask}
+                            disabled={isPosting}
+                        >
+                            Delete
                         </button>
                         <button
                             type="button"
