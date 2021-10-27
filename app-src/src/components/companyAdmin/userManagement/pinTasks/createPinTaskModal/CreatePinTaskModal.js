@@ -88,7 +88,7 @@ const CreatePinTaskModal = ({ initialDate }) => {
             template={template}
             pins={pins}
         />,
-        <CreatePinTaskStep3 key={3} formData={formData} isPosting={isPosting} />,
+        // <CreatePinTaskStep3 key={3} formData={formData} isPosting={isPosting} />,
     ];
 
     const Step = steps[step];
@@ -98,11 +98,11 @@ const CreatePinTaskModal = ({ initialDate }) => {
             Next
         </button>,
         <button className="button blue" key={2}>
-            Confirm
-        </button>,
-        <button className="button green" key={3} disabled={isPosting}>
             Submit
         </button>,
+        // <button className="button green" key={3} disabled={isPosting}>
+        //     Submit
+        // </button>,
     ];
 
     const Button = buttons[step];
@@ -138,7 +138,7 @@ const CreatePinTaskModal = ({ initialDate }) => {
                     </div>
                 </BlockContainer>
                 <BlockContainer contentClass="step-tabs">
-                    {new Array(3).fill(null).map((_, i) => (
+                    {new Array(2).fill(null).map((_, i) => (
                         <div className={`step-tab ${step === i ? 'selected' : ''}`} key={i}>
                             <p className="text">Step {i + 1}</p>
                         </div>

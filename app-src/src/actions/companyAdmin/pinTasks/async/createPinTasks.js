@@ -23,7 +23,7 @@ export const createPinTasksFailure = error => ({
 });
 
 export default (
-    operativeID,
+    companyUserID,
     pinIDs,
     startDate,
     recurranceType,
@@ -36,7 +36,7 @@ export default (
         .post(
             `${API_URL}/tasks/create`,
             {
-                operativeID,
+                companyUserID,
                 pinIDs,
                 startDate,
                 recurranceType,

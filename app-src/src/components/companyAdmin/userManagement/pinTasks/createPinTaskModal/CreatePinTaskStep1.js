@@ -63,6 +63,7 @@ const CreatePinTaskStep1 = ({
                         options={operativeOptions}
                         disabled={isFetching || fetchError}
                         search
+                        required
                     />
                 </Field>
 

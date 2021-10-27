@@ -1,3 +1,4 @@
+import createPinTasks from 'actions/companyAdmin/pinTasks/async/createPinTasks';
 import clearFieldErrors from 'actions/shared/generic/fieldErrors/sync/clearFieldErrors';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
@@ -7,6 +8,7 @@ import { useForm } from 'helpers/hooks';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { DAYS_FLAGGED } from 'constants/companyAdmin/enums';
 
 const useCreatePinTask = initialDate => {
     const dispatch = useDispatch();
@@ -47,10 +49,27 @@ const useCreatePinTask = initialDate => {
 
     const [isPosting, setIsPosting] = useState(false);
 
+    const handleDaysConversion = () => {
+        const { days } = formData;
+
+        return days.reduce((res, item) => res + DAYS_FLAGGED[item], 0);
+    };
+
     const onNextStep = () => {
-        if (step < 2) return setStep(step + 1);
+        if (step < 1) return setStep(step + 1);
         // handle submit here
         setIsPosting(true);
+
+        const data = (({ operative, pins, date, recurring, endDate }) => ({
+            operative,
+            pins,
+            date,
+            recurring,
+            days: handleDaysConversion(),
+            endDate,
+        }))(formData);
+
+        dispatch(createPinTasks(...Object.values(data)));
         setTimeout(() => {
             setIsPosting(false);
             closeModal();
