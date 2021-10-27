@@ -22,7 +22,16 @@ const viewOptions = [
     },
 ];
 
-const Controls = ({ startDate, view, timePeriod, onViewChange, onPrev, onNext, onToday }) => {
+const Controls = ({
+    startDate,
+    view,
+    timePeriod,
+    onViewChange,
+    onPrev,
+    onNext,
+    onToday,
+    endDate,
+}) => {
     return (
         <BlockHeading
             headerClasses="controls"
@@ -43,7 +52,7 @@ const Controls = ({ startDate, view, timePeriod, onViewChange, onPrev, onNext, o
                         />
                         -
                         <DateTimeContainer
-                            date={moment(startDate).add(1, timePeriod).subtract(1, 'day').toDate()}
+                            date={moment(endDate).toDate()}
                             datetime={DATE_TIME_IDS.DATE}
                         />
                     </div>

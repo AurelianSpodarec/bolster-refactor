@@ -13,9 +13,9 @@ import SeriesView from './views/series/SeriesView';
 const PinTasksDashboard = () => {
     const {
         startDate,
+        endDate,
         view,
         timePeriod,
-
         onViewChange,
         onPrev,
         onNext,
@@ -50,6 +50,7 @@ const PinTasksDashboard = () => {
                     onPrev={onPrev}
                     onNext={onNext}
                     onToday={onToday}
+                    endDate={endDate}
                 />
             </BlockContainer>
             <div className="pin-tasks-dashboard size-lg-12">
