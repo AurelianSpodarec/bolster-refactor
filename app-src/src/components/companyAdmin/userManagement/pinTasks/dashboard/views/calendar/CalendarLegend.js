@@ -3,9 +3,7 @@ import { PIN_TASK_RECURRING_NAMES, PIN_TASK_STATUS_NAMES } from 'constants/compa
 import React from 'react';
 import LegendSegment from './LegendSegment';
 
-const CalendarLegend = ({ types, statuses, pinTasks }) => {
-    console.log('types', types, statuses);
-    const numberOfTasks = Object.values(pinTasks).length;
+const calculatePercentage = (obj, target) => {
     const titleEnum = {
         recurring: PIN_TASK_RECURRING_NAMES.RECURRING,
         non_recurring: PIN_TASK_RECURRING_NAMES.NON_RECURRING,
@@ -15,26 +13,48 @@ const CalendarLegend = ({ types, statuses, pinTasks }) => {
         incomplete: PIN_TASK_STATUS_NAMES.INCOMPLETE,
     };
 
-    const type = Object.keys(types).map(item => {
+    const percentageObj = Object.keys(obj).reduce(
+        (res, item) => ({ ...res, [item]: (obj[item] / target) * 100 }),
+        {},
+    );
+
+    const off =
+        100 -
+        Object.keys(percentageObj).reduce((res, item) => {
+            return res + Math.round(percentageObj[item]);
+        }, 0);
+
+    const sortedObj = Object.keys(percentageObj)
+        .sort((a, b) => percentageObj[a] - percentageObj[b])
+        .reduce(
+            (res, item) => ({
+                ...res,
+                [item]: Math.round(percentageObj[item]),
+            }),
+            {},
+        );
+
+    const formattedObj = Object.keys(sortedObj).map((item, index) => {
         return {
             name: item,
             title: titleEnum[item],
-            percent: types[item] ? Math.round((types[item] / numberOfTasks) * 100) : 0,
+            percent:
+                Math.round(sortedObj[item]) +
+                (off > index) -
+                (index >= Object.keys(percentageObj).length + off),
         };
     });
 
-    const status = Object.keys(statuses).map(item => {
-        return {
-            name: item,
-            title: titleEnum[item],
-            percent: statuses[item] ? Math.round((statuses[item] / numberOfTasks) * 100) : 0,
-        };
-    });
+    return formattedObj;
+};
+
+const CalendarLegend = ({ types, statuses, pinTasks }) => {
+    const numberOfTasks = Object.values(pinTasks).length;
 
     return (
         <BlockContainer contentClass="legend" containerClass="size-lg-8 pull-right">
-            <LegendSegment stats={type} />
-            <LegendSegment stats={status} />
+            <LegendSegment stats={calculatePercentage(types, numberOfTasks)} />
+            <LegendSegment stats={calculatePercentage(statuses, numberOfTasks)} />
         </BlockContainer>
     );
 };
