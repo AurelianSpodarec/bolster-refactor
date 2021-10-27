@@ -181,7 +181,7 @@ function pinTasksReducer(state = {}, action) {
             return updateObj(state, action.payload.id, action.payload);
 
         case DELETE_PIN_TASK_SUCCESS:
-            return removeObjItem(state, action.payload.id);
+            return removeObjItem(state, action.payload);
 
         default:
             return state;
@@ -200,7 +200,7 @@ function pinTaskSeriesReducer(state = {}, action) {
             return updateObj(state, action.payload.id, action.payload);
 
         case DELETE_PIN_TASK_SERIES_SUCCESS:
-            return removeObjItem(state, action.payload.id);
+            return removeObjItem(state, action.payload);
 
         default:
             return state;

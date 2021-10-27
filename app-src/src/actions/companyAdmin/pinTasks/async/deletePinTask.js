@@ -27,6 +27,6 @@ export default id => dispatch => {
 
     return axios
         .delete(`${API_URL}/tasks/${id}`, getHeaders())
-        .then(res => dispatch(deletePinTaskSuccess(res.data)))
+        .then(res => dispatch(deletePinTaskSuccess(id)))
         .catch(err => dispatch(deletePinTaskFailure(err.message)));
 };
