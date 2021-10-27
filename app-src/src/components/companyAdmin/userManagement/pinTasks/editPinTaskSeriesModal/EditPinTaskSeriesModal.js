@@ -23,6 +23,7 @@ const EditPinTaskSeriesModal = ({ id }) => {
         error,
         onSubmit,
         pinTaskSeries,
+        handleDeleteSeries,
     } = useEditPinTaskSeries(id);
 
     const { drawingID } = pinTaskSeries;
@@ -93,6 +94,14 @@ const EditPinTaskSeriesModal = ({ id }) => {
                     <BlockButtonWrapper>
                         <button className="button green" key={3} disabled={isPosting}>
                             Submit
+                        </button>
+                        <button
+                            type="button red"
+                            className="button"
+                            onClick={handleDeleteSeries}
+                            disabled={isPosting}
+                        >
+                            Delete
                         </button>
                         <button
                             type="button"

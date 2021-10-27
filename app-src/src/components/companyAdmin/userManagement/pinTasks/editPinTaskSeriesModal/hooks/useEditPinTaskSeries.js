@@ -1,7 +1,9 @@
+import deletePinTaskSeries from 'actions/companyAdmin/pinTasks/async/deletePinTaskSeries';
 import editPinTaskSeries from 'actions/companyAdmin/pinTasks/async/editPinTaskSeries';
 import fetchPinTaskSeries from 'actions/companyAdmin/pinTasks/async/fetchPinTaskSeries';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import { EDIT_PIN_TASK_SERIES } from 'constants/shared/modalTypes';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { CONFIRM_DELETE, EDIT_PIN_TASK_SERIES } from 'constants/shared/modalTypes';
 import { useForm, usePrevious } from 'helpers/hooks';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -42,7 +44,20 @@ const useEditPinTaskSeries = id => {
         dispatch(editPinTaskSeries(id, endDate, pins));
     };
 
+    const handleDeleteSeries = () => {
+        dispatch(
+            showModal(CONFIRM_DELETE, {
+                message: 'Are you sure you want to delete this task>',
+                handleDelete: () => {
+                    dispatch(deletePinTaskSeries(id));
+                    closeModal();
+                },
+            }),
+        );
+    };
+
     const prevPinTasksPostSuccess = usePrevious(pinTasksPostSuccess);
+
     useEffect(() => {
         if (!prevPinTasksPostSuccess && pinTasksPostSuccess) closeModal();
     }, [dispatch, pinTasksPostSuccess, prevPinTasksPostSuccess]);
@@ -56,6 +71,7 @@ const useEditPinTaskSeries = id => {
         error: pinTasksError,
         onSubmit,
         pinTaskSeries,
+        handleDeleteSeries,
     };
 };
 
