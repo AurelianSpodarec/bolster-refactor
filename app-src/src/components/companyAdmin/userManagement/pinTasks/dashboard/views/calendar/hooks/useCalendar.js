@@ -58,13 +58,13 @@ const useCalendar = startDate => {
     const statuses = Object.values(pinTasks).reduce(
         (res, { dueOn, actionedOn }) => {
             if (actionedOn) {
-                if (moment(actionedOn).isAfter(dueOn))
-                    return { ...res, complete_late: res.complete_late + 1 };
-                else return { ...res, complete: res.complete_late + 1 };
+                if (moment(actionedOn).isAfter(dueOn)) res.complete_late = res.complete_late + 1;
+                else res.complete = res.complete + 1;
             } else {
-                if (moment(dueOn).isBefore()) return { ...res, incomplete: res.incomplete + 1 };
-                else return { ...res, due_soon: res.due_soon + 1 };
+                if (moment(dueOn).isBefore()) res.incomplete = res.incomplete + 1;
+                else res.due_soon = res.due_soon + 1;
             }
+            return res;
         },
         { complete: 0, complete_late: 0, due_soon: 0, incomplete: 0 },
     );

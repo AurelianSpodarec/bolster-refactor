@@ -15,17 +15,22 @@ const CalendarLegend = ({ types, statuses, pinTasks }) => {
         incomplete: PIN_TASK_STATUS_NAMES.INCOMPLETE,
     };
 
-    const type = Object.keys(types).map(item => ({
-        name: item,
-        title: titleEnum[item],
-        percent: types[item] ? Math.round((types[item] / numberOfTasks) * 100) : 0,
-    }));
+    const type = Object.keys(types).map(item => {
+        return {
+            name: item,
+            title: titleEnum[item],
+            percent: types[item] ? Math.round((types[item] / numberOfTasks) * 100) : 0,
+        };
+    });
 
-    const status = Object.keys(statuses).map(item => ({
-        name: item,
-        title: titleEnum[item],
-        percent: statuses[item] ? Math.round((statuses[item] / numberOfTasks) * 100) : 0,
-    }));
+    const status = Object.keys(statuses).map(item => {
+        console.log('hi', (statuses[item] / numberOfTasks) * 100);
+        return {
+            name: item,
+            title: titleEnum[item],
+            percent: statuses[item] ? Math.round((statuses[item] / numberOfTasks) * 100) : 0,
+        };
+    });
 
     return (
         <BlockContainer contentClass="legend" containerClass="size-lg-8 pull-right">
