@@ -136,7 +136,7 @@ function errorReducer(state = null, action) {
 
         case EDIT_PIN_TASK_FAILURE:
             return action.error;
-        case EDIT_PIN_TASK_SERIES_REQUEST:
+        case EDIT_PIN_TASK_REQUEST:
             return null;
 
         case DELETE_PIN_TASK_FAILURE:
