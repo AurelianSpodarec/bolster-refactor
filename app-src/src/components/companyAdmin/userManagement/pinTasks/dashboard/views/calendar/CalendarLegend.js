@@ -24,7 +24,6 @@ const CalendarLegend = ({ types, statuses, pinTasks }) => {
     });
 
     const status = Object.keys(statuses).map(item => {
-        console.log('hi', (statuses[item] / numberOfTasks) * 100);
         return {
             name: item,
             title: titleEnum[item],
