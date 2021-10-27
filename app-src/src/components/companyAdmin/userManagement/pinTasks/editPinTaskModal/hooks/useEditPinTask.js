@@ -42,7 +42,7 @@ const useEditPinTask = id => {
     const handleDeleteTask = () => {
         dispatch(
             showModal(CONFIRM_DELETE, {
-                message: 'Are you sure you want to delete this task>',
+                message: 'Are you sure you want to delete this task.',
                 handleDelete: () => {
                     dispatch(deletePinTask(id));
                     closeModal();
