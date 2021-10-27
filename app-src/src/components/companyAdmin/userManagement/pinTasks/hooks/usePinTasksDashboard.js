@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import moment from 'moment';
 import { useState } from 'react';
@@ -32,18 +32,24 @@ const usePinTasksDashboard = () => {
     const timePeriodStart = starts[timePeriod];
 
     const [startDate, setStartDate] = useState(timePeriodStart);
+    const [endDate, setEndDate] = useState(
+        moment(startDate).add(1, timePeriod).subtract(1, 'day').format(),
+    );
 
     const onPrev = () => {
         const newStartDate = moment(startDate).subtract(1, timePeriod).format();
         setStartDate(newStartDate);
     };
+
     const onNext = () => {
         const newStartDate = moment(startDate).add(1, timePeriod).format();
         setStartDate(newStartDate);
     };
+
     const onToday = () => {
         setStartDate(timePeriodStart);
     };
+
     const onViewChange = newView => {
         const newTimePeriod = timePeriods[newView];
         const newStartDate = moment(startDate)
@@ -66,11 +72,15 @@ const usePinTasksDashboard = () => {
         dispatch(showModal(EDIT_PIN_TASK_SERIES, { id }));
     };
 
+    useEffect(() => {
+        setEndDate(moment(startDate).add(1, timePeriod).subtract(1, 'day').format());
+    }, [startDate]);
+
     return {
         startDate,
+        endDate,
         view,
         timePeriod,
-
         onViewChange,
         onPrev,
         onNext,
