@@ -491,19 +491,19 @@ export const TIME_PERIOD = {
 };
 
 export const RECURRING_TYPE = {
-    NONE: 'none',
-    WEEKLY: 'weekly',
-    MONTHLY: 'monthly',
+    NONE: 1,
+    WEEKLY: 2,
+    MONTHLY: 3,
 };
 
 export const DAY = {
-    MONDAY: 'monday',
-    TUESDAY: 'tuesday',
-    WEDNESDAY: 'wednesday',
-    THURSDAY: 'thursday',
-    FRIDAY: 'friday',
-    SATURDAY: 'saturday',
-    SUNDAY: 'sunday',
+    MONDAY: 'MONDAY',
+    TUESDAY: 'TUESDAY',
+    WEDNESDAY: 'WEDNESDAY',
+    THURSDAY: 'THURSDAY',
+    FRIDAY: 'FRIDAY',
+    SATURDAY: 'SATURDAY',
+    SUNDAY: 'SUNDAY',
 };
 
 export const DAYS_FLAGGED = {
