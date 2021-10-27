@@ -44,6 +44,7 @@ const useStep2Options = (handleChange, drawing, service, template) => {
 
     const validServiceIDs = [];
     const validTemplateIDs = [];
+
     Object.values(pins).forEach(({ latestServiceID, templateID }) => {
         if (!validServiceIDs.includes(latestServiceID)) validServiceIDs.push(latestServiceID);
         if (!validTemplateIDs.includes(templateID)) validTemplateIDs.push(templateID);
@@ -58,7 +59,7 @@ const useStep2Options = (handleChange, drawing, service, template) => {
 
     const templateOptions = Object.values(templates)
         .filter(({ id }) => validTemplateIDs.includes(id))
-        .filter(({ serviceID }) => serviceID == service)
+        .filter(({ serviceID }) => serviceID === service)
         .map(({ id, name }) => ({
             value: id,
             label: name,
