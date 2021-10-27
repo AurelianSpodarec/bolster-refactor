@@ -1,15 +1,12 @@
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import Table from 'components/shared/generic/tables/presentational/Table';
+import { isEmpty } from 'lodash';
 import moment from 'moment';
 import React from 'react';
 import CalendarPinTask from './CalendarPinTask';
 
-import useCalendar from './hooks/useCalendar';
-
-const Calendar = ({ startDate, startCreatePinTask }) => {
-    const { days, matrix, noData, isFetching, error } = useCalendar(startDate);
-
+const Calendar = ({ startDate, startCreatePinTask, days, matrix, noData, isFetching, error }) => {
     return (
         <BlockContainer
             contentClass="calendar"
@@ -23,18 +20,19 @@ const Calendar = ({ startDate, startCreatePinTask }) => {
                         {row.map(({ date, pinTasks }, x) => {
                             const disabled = !moment(startDate).isSame(date, 'month');
                             const isToday = moment(date).isSame(new Date(), 'day');
+
                             return (
                                 <td key={x} className={disabled ? 'disabled' : ''}>
                                     <div className="cell">
                                         <time>{moment(date).format('DD')}</time>
-                                        {!disabled ? (
+                                        {!pinTasks || !isEmpty(pinTasks) ? (
                                             <div className="tasks">
                                                 {pinTasks.map((pinTask, i) => (
-                                                    <CalendarPinTask pinTask={pinTask} key={i} />
+                                                    <CalendarPinTask {...pinTask} key={i} />
                                                 ))}
                                             </div>
                                         ) : (
-                                            <p className="no-tasks">No Tasks</p>
+                                            <p className="no-tasks">{!disabled && 'No Tasks'}</p>
                                         )}
                                         <ButtonContainer
                                             setColour="transparent"

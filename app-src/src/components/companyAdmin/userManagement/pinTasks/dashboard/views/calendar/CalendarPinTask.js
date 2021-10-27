@@ -1,7 +1,7 @@
 import React from 'react';
 import useTypeAndStatus from '../hooks/useTypeAndStatus';
 
-const CalendarPinTask = ({ isRecurring, actionedOn, dueOn }) => {
+const CalendarPinTask = ({ isRecurring, actionedOn, dueOn, pinCode }) => {
     const { type, status } = useTypeAndStatus(isRecurring, actionedOn, dueOn);
 
     return (
@@ -11,7 +11,7 @@ const CalendarPinTask = ({ isRecurring, actionedOn, dueOn }) => {
                 <div className={`circle ${status}`} />
             </div>
             <div className="group">
-                <p className="name">0001:01</p>
+                <p className="name">{pinCode}</p>
             </div>
         </div>
     );
