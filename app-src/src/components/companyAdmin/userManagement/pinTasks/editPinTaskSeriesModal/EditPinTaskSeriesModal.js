@@ -96,8 +96,8 @@ const EditPinTaskSeriesModal = ({ id }) => {
                             Submit
                         </button>
                         <button
-                            type="button red"
-                            className="button"
+                            type="button"
+                            className="button red"
                             onClick={handleDeleteSeries}
                             disabled={isPosting}
                         >
