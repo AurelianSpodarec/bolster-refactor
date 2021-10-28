@@ -197,7 +197,8 @@ function pinTaskSeriesReducer(state = {}, action) {
             return updateObj(state, action.payload.id, action.payload);
 
         case EDIT_PIN_TASK_SERIES_SUCCESS:
-            return updateObj(state, action.payload.id, action.payload);
+            //return updateObj(state, action.payload.id, action.payload);
+            return state;
 
         case DELETE_PIN_TASK_SERIES_SUCCESS:
             return removeObjItem(state, action.payload);

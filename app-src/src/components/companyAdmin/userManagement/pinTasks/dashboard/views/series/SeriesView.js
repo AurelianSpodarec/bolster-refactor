@@ -1,4 +1,3 @@
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import React from 'react';
 import SeriesTable from './SeriesTable';
 

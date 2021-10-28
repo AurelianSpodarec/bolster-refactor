@@ -59,7 +59,10 @@ const useEditPinTaskSeries = id => {
     const prevPinTasksPostSuccess = usePrevious(pinTasksPostSuccess);
 
     useEffect(() => {
-        if (!prevPinTasksPostSuccess && pinTasksPostSuccess) closeModal();
+        if (!prevPinTasksPostSuccess && pinTasksPostSuccess) {
+            closeModal();
+            dispatch(fetchPinTaskSeries(id));
+        }
     }, [dispatch, pinTasksPostSuccess, prevPinTasksPostSuccess]);
 
     return {
