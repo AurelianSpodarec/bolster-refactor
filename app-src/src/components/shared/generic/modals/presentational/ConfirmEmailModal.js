@@ -10,7 +10,13 @@ import Loading from '../../misc/presentational/Loading';
 import { usePrevious } from 'helpers/hooks';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
-const ConfirmEmailModal = ({ showDismiss, profile, isPosting, postSuccess, sendConfirmEmail }) => {
+const ConfirmEmailModal = ({
+    showDismiss = true,
+    profile,
+    isPosting,
+    postSuccess,
+    sendConfirmEmail,
+}) => {
     const dispatch = useDispatch();
     const onSubmit = e => {
         e.preventDefault();
