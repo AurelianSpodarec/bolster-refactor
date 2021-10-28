@@ -8,7 +8,6 @@ import DatePickerContainer from 'components/shared/generic/form/containers/DateP
 import useStep2Options from '../createPinTaskModal/hooks/useStep2Options';
 import ToggleSelect from 'components/shared/generic/form/presentational/ToggleSelect';
 import Select from 'components/shared/generic/form/presentational/Select';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
 import useEditPinTaskSeries from './hooks/useEditPinTaskSeries';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isEmpty } from 'helpers/generic';
@@ -74,7 +73,7 @@ const EditPinTaskSeriesModal = ({ id }) => {
                             value={template}
                             onChange={handleChange}
                             options={templateOptions}
-                            disabled={isFetching || error || pinsFetchError || service == null}
+                            disabled={isFetching || error || pinsFetchError}
                             search
                         />
                     </Field>

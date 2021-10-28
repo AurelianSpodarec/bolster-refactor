@@ -36,7 +36,7 @@ const CreatePinTaskStep2 = ({ handleChange, drawing, service, template, pins }) 
                         value={template}
                         onChange={handleChange}
                         options={templateOptions}
-                        disabled={isFetching || fetchError || service == null}
+                        disabled={isFetching || fetchError}
                         search
                     />
                 </Field>
