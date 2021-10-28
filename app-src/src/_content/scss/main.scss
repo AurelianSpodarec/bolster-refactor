@@ -7323,8 +7323,8 @@ input {
 }
 
 .edit-pin-task-modal {
+    overflow: visible !important;
     @include reactDatePickerStyles();
-    
 
     .loading-text {
         position: absolute;
