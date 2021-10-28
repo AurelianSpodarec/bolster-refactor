@@ -16,12 +16,13 @@ const BreakdownDetailedTimelineMap = ({
         y: 0,
     };
 
-    if (markers.length === 0 || disable)
+    if (!markers.length || disable || (!startLocation.x && !startLocation.y)) {
         return <p className="no-data-message">No mapping data available</p>;
+    }
 
     return (
         <div className={`${className} breakdown-detailed-timeline-map`}>
-            {(markers.length === 0 || disable) && (
+            {(!markers.length || disable) && (
                 <div className="no-data-cover">
                     <p className="no-data-message">No mapping data available</p>
                 </div>
@@ -41,7 +42,6 @@ const BreakdownDetailedTimelineMap = ({
             >
                 {markers.map(({ location, type, name, timestamp, jobReference }, i) => {
                     if (location.isEmpty) return null;
-
                     return (
                         <Marker key={i} lat={location.y} lng={location.x} type={type}>
                             {/* Disabled tooltip for timebeing - available to be re-enaled */}
