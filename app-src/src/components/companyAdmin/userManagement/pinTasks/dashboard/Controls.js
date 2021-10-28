@@ -22,16 +22,7 @@ const viewOptions = [
     },
 ];
 
-const Controls = ({
-    startDate,
-    view,
-    timePeriod,
-    onViewChange,
-    onPrev,
-    onNext,
-    onToday,
-    endDate,
-}) => {
+const Controls = ({ startDate, view, onViewChange, onPrev, onNext, onToday, endDate }) => {
     return (
         <BlockHeading
             headerClasses="controls"
