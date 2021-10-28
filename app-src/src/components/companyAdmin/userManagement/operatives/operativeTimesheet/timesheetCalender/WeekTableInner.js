@@ -38,12 +38,12 @@ const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, t
                                     {totalHours} Hours
                                 </Tab>
                                 <Tab icon={<img src={timesheetPin} />}>
-                                    {totalPins} Pin histories
+                                    {totalPins} Pin Histories
                                 </Tab>
                                 <ExpandableTab
                                     icon={<i className="fal fa-sticky-note" />}
                                     items={references}
-                                    itemType="Job references"
+                                    itemType="Job References"
                                 />
                             </div>
                         )}
@@ -66,11 +66,11 @@ const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, t
                 </div>
                 <div className="tabs">
                     <Tab icon={<i className="fal fa-stopwatch" />}>{totalHours} Hours</Tab>
-                    <Tab icon={<img src={timesheetPin} />}>{totalPins} Pins</Tab>
+                    <Tab icon={<img src={timesheetPin} />}>{totalPins} Pin Histories</Tab>
                     <ExpandableTab
                         icon={<i className="fal fa-sticky-note" />}
                         items={weeklyReferences}
-                        itemType="Job references"
+                        itemType="Job References"
                     />
                 </div>
                 {timePeriod === TIME_PERIOD.WEEK && <div className="film" />}
