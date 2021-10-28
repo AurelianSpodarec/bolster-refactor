@@ -38,7 +38,7 @@ const dayOptions = [
     { value: DAY.SUNDAY, text: 'S' },
 ];
 
-const CreatePinTaskModal = ({ initialDate }) => {
+const CreatePinTaskModal = ({ initialDate, startDate }) => {
     const {
         formData,
         handleChange,
@@ -50,7 +50,7 @@ const CreatePinTaskModal = ({ initialDate }) => {
         isMonthly,
         onNextStep,
         isPosting,
-    } = useCreatePinTask(initialDate);
+    } = useCreatePinTask(initialDate, startDate);
 
     const {
         days,

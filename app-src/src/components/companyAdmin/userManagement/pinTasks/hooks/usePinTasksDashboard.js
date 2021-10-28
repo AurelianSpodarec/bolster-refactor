@@ -61,7 +61,7 @@ const usePinTasksDashboard = () => {
     };
 
     const startCreatePinTask = (initialDate = undefined) => {
-        dispatch(showModal(CREATE_PIN_TASK, { initialDate }));
+        dispatch(showModal(CREATE_PIN_TASK, { initialDate, startDate }));
     };
 
     const startEditPinTask = id => {

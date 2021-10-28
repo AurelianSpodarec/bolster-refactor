@@ -9,8 +9,9 @@ import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { DAYS_FLAGGED } from 'constants/companyAdmin/enums';
+import fetchPinTasks from 'actions/companyAdmin/pinTasks/async/fetchPinTasks';
 
-const useCreatePinTask = initialDate => {
+const useCreatePinTask = (initialDate, startDate) => {
     const dispatch = useDispatch();
 
     const [step, setStep] = useState(0);
@@ -71,9 +72,10 @@ const useCreatePinTask = initialDate => {
 
         dispatch(createPinTasks(...Object.values(data)));
         setTimeout(() => {
+            dispatch(fetchPinTasks(startDate, moment(startDate).add(1, 'month').format()));
             setIsPosting(false);
             closeModal();
-        }, 2000);
+        }, 1500);
     };
 
     return {
