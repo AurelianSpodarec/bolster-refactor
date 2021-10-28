@@ -7315,6 +7315,11 @@ input {
     }
 
     @include reactDatePickerStyles();
+
+    .d-none {
+        display: none !important;
+    }
+
 }
 
 .edit-pin-task-modal {

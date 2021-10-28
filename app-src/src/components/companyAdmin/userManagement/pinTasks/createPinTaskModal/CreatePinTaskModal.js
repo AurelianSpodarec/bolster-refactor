@@ -113,7 +113,9 @@ const CreatePinTaskModal = ({ initialDate }) => {
                 <BlockHeading title="Create Task" />
                 <BlockContainer contentClass="header">
                     <div className="size-lg-6">
-                        <Field sizeClasses="size-lg-12">
+                        <Field
+                            sizeClasses={`size-lg-12 ${!isWeekly || step === 2 ? 'd-none' : ''}`}
+                        >
                             <PickListContainer
                                 name="days"
                                 value={days}
