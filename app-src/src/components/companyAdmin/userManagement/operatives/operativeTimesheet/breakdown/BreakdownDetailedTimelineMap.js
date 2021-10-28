@@ -16,10 +16,12 @@ const BreakdownDetailedTimelineMap = ({
         y: 0,
     };
 
-    if (!markers.length || disable || (!startLocation.x && !startLocation.y)) {
+    if (!markers.length || disable) {
         return <p className="no-data-message">No mapping data available</p>;
     }
-
+    if (markers.length && !startLocation.x && !startLocation.y) {
+        return <p className="no-data-message">Location rejected. No mapping data available</p>;
+    }
     return (
         <div className={`${className} breakdown-detailed-timeline-map`}>
             {(!markers.length || disable) && (
