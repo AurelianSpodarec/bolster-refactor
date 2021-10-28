@@ -4,6 +4,7 @@ import useStep1Options from './hooks/useStep1Options';
 import React from 'react';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import Select from 'components/shared/generic/form/presentational/Select';
+import moment from 'moment';
 
 const CreatePinTaskStep1 = ({
     date,
@@ -40,6 +41,9 @@ const CreatePinTaskStep1 = ({
                         name="date"
                         selected={new Date(date)}
                         onChange={value => handleChange('date', value)}
+                        maxDate={
+                            !isRecurring ? moment(new Date()).add(13, 'months').toDate() : undefined
+                        }
                         required
                     />
                 </Field>

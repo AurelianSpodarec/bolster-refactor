@@ -7,6 +7,7 @@ import React from 'react';
 import useEditPinTask from './hooks/useEditPinTask';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import moment from 'moment';
 
 const EditPinTaskModal = ({ id }) => {
     const {
@@ -34,6 +35,7 @@ const EditPinTaskModal = ({ id }) => {
                             selected={new Date(date)}
                             onChange={value => handleChange('date', value)}
                             required
+                            maxDate={moment(new Date()).add(13, 'months').toDate()}
                         />
                     </Field>
                     <BlockButtonWrapper>
