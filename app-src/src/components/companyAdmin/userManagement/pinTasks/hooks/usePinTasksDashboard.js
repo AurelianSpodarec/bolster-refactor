@@ -52,7 +52,7 @@ const usePinTasksDashboard = () => {
 
     const onViewChange = newView => {
         const newTimePeriod = timePeriods[newView];
-        const newStartDate = moment(startDate)
+        const newStartDate = moment(new Date())
             .tz(timeZone.id)
             .startOf(newTimePeriod === TIME_PERIOD.WEEK ? 'isoWeek' : 'month')
             .format();
