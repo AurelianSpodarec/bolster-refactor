@@ -9,13 +9,29 @@ import TaskPill from '../../TaskPill';
 import useTypeAndStatus from '../hooks/useTypeAndStatus';
 
 const ListTableRow = ({ pinTask, startEditPinTask }) => {
-    const { id, companyUserID, pinCode, isRecurring, actionedOn, dueOn } = pinTask;
+    const {
+        id,
+        operativeFirstName,
+        operativeLastName,
+        siteName,
+        buildingName,
+        floorName,
+        drawingName,
+        pinCode,
+        isRecurring,
+        actionedOn,
+        dueOn,
+    } = pinTask;
     const { type, status } = useTypeAndStatus(isRecurring, actionedOn, dueOn);
 
     return (
         <tr>
-            <td>{companyUserID}</td>
-            <td></td>
+            <td>
+                {operativeFirstName} {operativeLastName}
+            </td>
+            <td>
+                {siteName} / {buildingName} / {floorName} / {drawingName}
+            </td>
             <td>{pinCode}</td>
             <td>
                 <DateTimeContainer datetime={DATE_TIME_IDS.DATE} date={new Date(dueOn)} />

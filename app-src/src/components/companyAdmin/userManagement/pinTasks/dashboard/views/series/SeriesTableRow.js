@@ -1,6 +1,6 @@
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
-import React, { Fragment } from 'react';
+import React from 'react';
 import SeriesTableRowPins from './SeriesTableRowPins';
 
 const SeriesListRow = ({ pinTaskSeries, startEditPinTaskSeries }) => {
