@@ -11,8 +11,6 @@ let DocumentsListItem = ({
     toggleExpanded,
     isExpanded,
     item,
-    colCount,
-    permissions,
     forwardRef,
     isDragging,
     onMobile,
@@ -23,6 +21,7 @@ let DocumentsListItem = ({
     let rowClass = 'draggable expandable';
     if (isExpanded) rowClass += ' open';
     if (isDragging) rowClass += ' dragging';
+    console.log(item.uploadDate);
 
     return (
         <>
@@ -34,7 +33,7 @@ let DocumentsListItem = ({
                 >
                     <>
                         <td>
-                            <i className={`fa fa-chevron-${isExpanded ? 'down' : 'right'}`} />
+                            <i className={`fa fa-circle`} />
                         </td>
                         <td>
                             {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
@@ -47,16 +46,18 @@ let DocumentsListItem = ({
 
                         <td>
                             {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-                            ### Uploaded by ###
+                            {item.uploadedBy}
                         </td>
                         <td>
                             {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
-                            <DateTimeContainer date={new Date()} datetime={DATE_TIME_IDS.DATE} />
-                            {/* ### Upload date ### */}
+                            <DateTimeContainer
+                                date={new Date(item.uploadDate)}
+                                datetime={DATE_TIME_IDS.DATE}
+                            />
                         </td>
                         <td>
                             {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
-                            ### File size / Contents length ###
+                            {item.contentLength || '### No. of files ###'}
                         </td>
                     </>
                 </tr>,

@@ -6,7 +6,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 
-const DocumentsTable = ({ items, forwardRef, isSorting = false, postSitesSort }) => {
+const DocumentsTable = ({ items, forwardRef, isSorting = false, postItemsSort }) => {
     const headers = ['', '', 'Name', 'Uploaded by', 'Uploaded', 'File size'];
     return (
         <BlockContainer>
@@ -32,7 +32,7 @@ const DocumentsTable = ({ items, forwardRef, isSorting = false, postSitesSort })
                     colCount={headers.length}
                     items={items}
                     headers={headers}
-                    postSitesSort={postSitesSort}
+                    postItemsSort={postItemsSort}
                 />
             </Table>
         </BlockContainer>
