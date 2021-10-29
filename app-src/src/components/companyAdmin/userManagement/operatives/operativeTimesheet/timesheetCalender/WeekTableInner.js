@@ -35,7 +35,7 @@ const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, t
                         {totalHours !== 0 && (
                             <div className="tabs">
                                 <Tab icon={<i className="fal fa-stopwatch" />}>
-                                    {totalHours} Hours
+                                    {totalHours.toFixed(2)} Hours
                                 </Tab>
                                 <Tab icon={<img src={timesheetPin} />}>
                                     {totalPins} Pin Histories

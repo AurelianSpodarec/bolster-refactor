@@ -7,7 +7,7 @@ const BreakdownDaySummary = ({ hours, pins, references }) => {
         <div className="breakdown-day-summary">
             <div className="summary-row">
                 <FieldOutput title="Total Hours" fieldClass="hours">
-                    {hours}
+                    {hours.toFixed(2)}
                 </FieldOutput>
                 <FieldOutput title="Total Pin histories" fieldClass="pins">
                     {pins}
