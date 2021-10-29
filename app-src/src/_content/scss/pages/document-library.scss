@@ -1,8 +1,14 @@
 
-  .transparent {
-    background-color: transparent;
-    padding: 15px 0;
+.document-filters {
+  .select-list {
+    margin-left: 10px;
   }
+}  
+
+.transparent {
+  background-color: transparent;
+  padding: 15px 0;
+}
 
 .documents-grid {
   display: grid;

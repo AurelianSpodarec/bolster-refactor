@@ -10,7 +10,7 @@ const viewModeOptions = [
 
 const DocumentFilters = ({ searchTerm, onMobile, viewMode, setViewMode }) => (
     <form className="table-search size-lg-12">
-        <div className="flex-container">
+        <div className="flex-container document-filters">
             <Search
                 value={searchTerm}
                 name="searchTerm"
