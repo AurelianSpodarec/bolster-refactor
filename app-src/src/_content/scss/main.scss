@@ -6868,9 +6868,10 @@ input {
             button {
                 background-color: transparent;
 
-                &:hover > .far {
-                    color: $button-grey;
-
+                &:not(:disabled) {
+                    &:hover > .far {
+                        color: $button-grey;
+                    }
                 }
 
                 .far {
@@ -6884,6 +6885,10 @@ input {
             flex-direction: row;
             gap: 16px;
 
+            p {
+                font-size: 100%;
+                font-weight: 500;
+            }
         }
 
         .today-button {

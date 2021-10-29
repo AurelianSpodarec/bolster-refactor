@@ -22,11 +22,11 @@ export const fetchPinTaskSeriesMultipleFailure = error => ({
     error,
 });
 
-export default (from, to) => dispatch => {
+export default () => dispatch => {
     dispatch(fetchPinTaskSeriesMultipleRequest());
 
     return axios
-        .post(`${API_URL}/tasks/series`, { from, to }, getHeaders())
+        .get(`${API_URL}/tasks/series`, getHeaders())
         .then(res => dispatch(fetchPinTaskSeriesMultipleSuccess(res.data)))
         .catch(err => dispatch(fetchPinTaskSeriesMultipleFailure(err.message)));
 };

@@ -8,7 +8,7 @@ import {
     selectPinTasksIsFetching,
 } from 'selectors/companyAdmin/pinTasks';
 
-const useSeries = startDate => {
+const useSeries = () => {
     const dispatch = useDispatch();
 
     const pinTaskSeriesMultiple = useSelector(selectPinTaskSeriesMultiple);
@@ -17,8 +17,8 @@ const useSeries = startDate => {
     const error = useSelector(selectPinTasksError);
 
     useEffect(() => {
-        dispatch(fetchPinTaskSeriesMultiple(startDate, moment(startDate).add(1, 'week').format()));
-    }, [dispatch, startDate]);
+        dispatch(fetchPinTaskSeriesMultiple());
+    }, [dispatch]);
 
     return { pinTaskSeriesMultiple: Object.values(pinTaskSeriesMultiple), isFetching, error };
 };

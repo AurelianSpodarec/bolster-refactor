@@ -5,7 +5,7 @@ import React from 'react';
 import useSeries from './hooks/useSeries';
 import SeriesListRow from './SeriesTableRow';
 
-const SeriesTable = ({ startDate, startEditPinTaskSeries }) => {
+const SeriesTable = ({ startEditPinTaskSeries }) => {
     const headers = [
         'Operative',
         'Drawing',
@@ -15,7 +15,7 @@ const SeriesTable = ({ startDate, startEditPinTaskSeries }) => {
         'Last Action Date',
     ];
 
-    const { pinTaskSeriesMultiple, isFetching, error } = useSeries(startDate);
+    const { pinTaskSeriesMultiple, isFetching, error } = useSeries();
 
     return (
         <BlockContainer
