@@ -18,7 +18,7 @@ const useCreatePinTask = (initialDate, startDate) => {
 
     const [formData, handleChange] = useForm({
         date: initialDate ?? new Date().toISOString(),
-        endDate: new Date().toISOString(),
+        endDate: initialDate ?? new Date().toISOString(),
         recurring: RECURRING_TYPE.NONE,
         days: [],
         operative: null,
@@ -77,6 +77,11 @@ const useCreatePinTask = (initialDate, startDate) => {
             closeModal();
         }, 1500);
     };
+
+    const { date, endDate } = formData;
+    useEffect(() => {
+        if (moment(date).isAfter(endDate, 'day')) handleChange('endDate', date);
+    }, [date]);
 
     return {
         formData,

@@ -26,8 +26,8 @@ export default (
     companyUserID,
     pinIDs,
     startDate,
-    recurranceType,
-    recurranceDays,
+    recurrenceType,
+    recurrenceDays,
     endDate,
 ) => dispatch => {
     dispatch(createPinTasksRequest());
@@ -39,8 +39,8 @@ export default (
                 companyUserID,
                 pinIDs,
                 startDate,
-                recurranceType,
-                recurranceDays,
+                recurrenceType,
+                recurrenceDays,
                 endDate,
             },
             getHeaders(),

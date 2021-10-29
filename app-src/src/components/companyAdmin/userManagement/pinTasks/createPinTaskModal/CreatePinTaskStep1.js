@@ -54,6 +54,7 @@ const CreatePinTaskStep1 = ({
                             name="endDate"
                             selected={new Date(endDate)}
                             onChange={value => handleChange('endDate', value)}
+                            minDate={new Date(date)}
                             required
                         />
                     </Field>
