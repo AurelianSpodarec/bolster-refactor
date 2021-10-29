@@ -28,6 +28,7 @@ import ApprovedCompaniesRoutes from './ApprovedCompaniesRoutes';
 import UserGuidesRoutes from './UserGuidesRoutes';
 import ReleaseNotesRoutes from './ReleaseNotesRoutes';
 import CompanySelection from 'components/companyAdmin/companySelection/CompanySelection';
+import DocumentLibraryRoutes from './DocumentLibraryRoutes';
 // import withTermsAuth from '../../hocs/withTermsAuth';
 
 const CompanyRoutes = ({ base = '/company' }) => (
@@ -63,6 +64,10 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route
             path={`${base}/dropdown-options`}
             component={withSubscriptionAuth(DropdownOptionsRoutes)}
+        />
+        <Route
+            path={`${base}/document-library`}
+            component={withSubscriptionAuth(DocumentLibraryRoutes)}
         />
     </SwitchWith404>
 );
