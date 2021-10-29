@@ -491,9 +491,9 @@ export const TIME_PERIOD = {
 };
 
 export const RECURRING_TYPE = {
-    NONE: 1,
-    WEEKLY: 2,
-    MONTHLY: 3,
+    NONE: 0,
+    WEEKLY: 1,
+    MONTHLY: 2,
 };
 
 export const DAY = {

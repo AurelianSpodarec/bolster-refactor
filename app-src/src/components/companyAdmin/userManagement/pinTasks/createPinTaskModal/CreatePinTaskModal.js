@@ -4,11 +4,10 @@ import PickListContainer from 'components/shared/generic/form/containers/PickLis
 import Field from 'components/shared/generic/form/presentational/Field';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import { DAY, RECURRING_TYPE } from 'constants/companyAdmin/enums';
-import React, { useEffect } from 'react';
+import React from 'react';
 import useCreatePinTask from './hooks/useCreatePinTask';
 import CreatePinTaskStep1 from './CreatePinTaskStep1';
 import CreatePinTaskStep2 from './CreatePinTaskStep2';
-import CreatePinTaskStep3 from './CreatePinTaskStep3';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Select from 'components/shared/generic/form/presentational/Select';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
