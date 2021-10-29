@@ -4,12 +4,15 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import DocumentFilters from './DocumentFilters';
 import DocumentsListTable from './DocumentsListTable';
 import DocumentsGrid from './DocumentsGrid';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const DocumentLibrary = () => {
     const [viewMode, setViewMode] = useState('list');
     return (
         <>
-            <PageHeading title="Document Library" withBackButton />
+            <PageHeading title="Document Library" withBackButton>
+                <ButtonContainer>Upload File</ButtonContainer>
+            </PageHeading>
 
             <BlockContainer>
                 <DocumentFilters viewMode={viewMode} setViewMode={setViewMode} />
