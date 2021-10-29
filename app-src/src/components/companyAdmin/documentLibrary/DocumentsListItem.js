@@ -3,8 +3,6 @@ import React from 'react';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 import withToggleExpand from 'components/shared/generic/tables/hocs/withToggleExpand';
-import BuildingsTableContainer from 'components/companyAdmin/buildings/shared/containers/BuildingsTableContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 let DocumentsListItem = ({
@@ -21,7 +19,6 @@ let DocumentsListItem = ({
     let rowClass = 'draggable expandable';
     if (isExpanded) rowClass += ' open';
     if (isDragging) rowClass += ' dragging';
-    console.log(item.uploadDate);
 
     return (
         <>

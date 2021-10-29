@@ -1,0 +1,60 @@
+
+  .transparent {
+    background-color: transparent;
+    padding: 15px 0;
+  }
+
+.documents-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 20px;
+
+  .grid-item {
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 17vw;
+    overflow: hidden;
+
+    .image-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    p {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    img {
+      width: 75%;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .details-container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      align-self: stretch;
+
+      img {
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+      }
+    }
+
+    .meta {
+      align-self: stretch;
+      font-size: 12px;
+      color: $button-grey;
+    }
+  }
+}

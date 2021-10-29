@@ -1,22 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import DocumentFilters from './DocumentFilters';
 import DocumentsListTable from './DocumentsListTable';
+import DocumentsGrid from './DocumentsGrid';
 
-const DocumentLibrary = () => (
-    <>
-        <PageHeading title="Document Library" withBackButton />
+const DocumentLibrary = () => {
+    const [viewMode, setViewMode] = useState('list');
+    return (
+        <>
+            <PageHeading title="Document Library" withBackButton />
 
-        <BlockContainer>
-            <DocumentFilters />
-        </BlockContainer>
+            <BlockContainer>
+                <DocumentFilters viewMode={viewMode} setViewMode={setViewMode} />
+            </BlockContainer>
 
-        <BlockContainer>
-            <DocumentsListTable items={Object.values(dummyData)} />
-        </BlockContainer>
-    </>
-);
+            {viewMode === 'list' ? (
+                <BlockContainer>
+                    <DocumentsListTable items={Object.values(dummyData)} />
+                </BlockContainer>
+            ) : (
+                <BlockContainer contentClass="transparent">
+                    <DocumentsGrid items={Object.values(dummyData)} />
+                </BlockContainer>
+            )}
+        </>
+    );
+};
 
 export default DocumentLibrary;
 

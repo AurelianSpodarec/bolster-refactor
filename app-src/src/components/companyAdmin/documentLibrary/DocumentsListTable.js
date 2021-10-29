@@ -25,6 +25,7 @@ const DocumentsTable = ({ items, forwardRef, isSorting = false, postItemsSort })
                 noDataMessage="No documents to display"
                 withoutTBody
                 extraClasses={`${isSorting ? 'dragging' : ''}`}
+                tableColumnWidths={['50px', '50px']}
             >
                 <DocumentsList
                     forwardRef={forwardRef}
