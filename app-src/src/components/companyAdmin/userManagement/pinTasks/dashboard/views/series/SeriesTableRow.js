@@ -13,7 +13,7 @@ const SeriesListRow = ({ pinTaskSeries, startEditPinTaskSeries }) => {
         floorName,
         drawingName,
         pinCount,
-        pinIDs,
+        pinCodes,
         recurrenceStartsOn,
         recurrenceEndsOn,
     } = pinTaskSeries;
@@ -27,7 +27,7 @@ const SeriesListRow = ({ pinTaskSeries, startEditPinTaskSeries }) => {
                 {siteName} / {buildingName} / {floorName} / {drawingName}
             </td>
             <td>
-                <SeriesTableRowPins pinCount={pinCount} pinIDs={pinIDs} />
+                <SeriesTableRowPins pinCount={pinCount} pinCodes={pinCodes} />
             </td>
             <td>
                 <DateTimeContainer

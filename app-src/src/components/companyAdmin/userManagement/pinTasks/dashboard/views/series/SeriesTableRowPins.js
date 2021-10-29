@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const SeriesTableRowPins = ({ pinCount, pinIDs }) => {
+const SeriesTableRowPins = ({ pinCount, pinCodes }) => {
     const [expanded, setExpanded] = useState(false);
 
     if (!expanded)
@@ -10,9 +10,9 @@ const SeriesTableRowPins = ({ pinCount, pinIDs }) => {
             </button>
         );
 
-    return pinIDs.map(pinID => (
-        <div key={pinID} onClick={() => setExpanded(false)}>
-            {pinID}
+    return pinCodes.map(pinCode => (
+        <div key={pinCode} onClick={() => setExpanded(false)}>
+            {pinCode}
             <br />
         </div>
     ));
