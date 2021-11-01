@@ -9,29 +9,21 @@ const viewModeOptions = [
 ];
 
 const DocumentFilters = ({ searchTerm, onMobile, viewMode, setViewMode }) => (
-    <form className="table-search size-lg-12">
-        <div className="flex-container document-filters">
-            <Search
-                value={searchTerm}
-                name="searchTerm"
-                placeholder="Search by filename..."
-                handleChange={() => {}}
-            />
-            <Select
-                name="viewMode"
-                value={viewMode}
-                options={viewModeOptions}
-                onChange={(_, value) => setViewMode(value)}
-                placeholder="-- View mode --"
-            />
-            <Select
-                name="filter"
-                value={null}
-                options={[]}
-                onChange={() => {}}
-                placeholder="Filter"
-            />
-        </div>
+    <form className="table-search size-lg-12 flex-container document-filters">
+        <Search
+            value={searchTerm}
+            name="searchTerm"
+            placeholder="Search by file/folder name..."
+            handleChange={() => {}}
+        />
+        <Select
+            name="viewMode"
+            value={viewMode}
+            options={viewModeOptions}
+            onChange={(_, value) => setViewMode(value)}
+            placeholder="-- View mode --"
+        />
+        <Select name="filter" value={null} options={[]} onChange={() => {}} placeholder="Filter" />
     </form>
 );
 

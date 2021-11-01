@@ -58,6 +58,7 @@ import userGuideReducer from './userGuide';
 import userDocumentsReducer from './userDocuments';
 import zonesReducer from './zones';
 import companySelectionReducer from './companySelection';
+import documentLibraryReducer from './documentLibrary';
 
 export default combineReducers({
     activityLogReducer,
@@ -78,6 +79,7 @@ export default combineReducers({
     creditLogsReducer,
     dashboardReducer,
     deletedDataReducer,
+    documentLibraryReducer,
     documentsReducer,
     drawingsReducer,
     dropdownOptionsReducer,
