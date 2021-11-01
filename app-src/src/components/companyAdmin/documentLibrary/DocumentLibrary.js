@@ -5,28 +5,94 @@ import DocumentFilters from './DocumentFilters';
 import DocumentsListTable from './DocumentsListTable';
 import DocumentsGrid from './DocumentsGrid';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import useCreateLibraryDocument from './_hooks/useCreateLibraryDocument';
+import FileUploadModal from './FileUploadModal';
 
 const DocumentLibrary = () => {
     const [viewMode, setViewMode] = useState('list');
+    const {
+        isPosting,
+        postError,
+        postSuccess,
+        showUploadModal,
+        setShowUploadModal,
+        maxFiles,
+        maxFileSize,
+        canDrop,
+        isOver,
+        progress,
+        error,
+        formattedVal,
+        handlePress,
+        handleRemove,
+        setTimeoutAsync,
+        dropRef,
+        formData,
+        onChange,
+        setProgress,
+        libCanDrop,
+        libIsOver,
+        libDropRef,
+        handleShowModal,
+    } = useCreateLibraryDocument();
+
+    const isActive = canDrop && isOver;
+
     return (
         <>
             <PageHeading title="Document Library" withBackButton>
-                <ButtonContainer>Upload File</ButtonContainer>
+                <ButtonContainer handleClick={handleShowModal}>Upload File</ButtonContainer>
+                <ButtonContainer handleClick={() => {}}>Create Folder</ButtonContainer>
             </PageHeading>
 
             <BlockContainer>
                 <DocumentFilters viewMode={viewMode} setViewMode={setViewMode} />
             </BlockContainer>
 
-            {viewMode === 'list' ? (
-                <BlockContainer>
-                    <DocumentsListTable items={Object.values(dummyData)} />
-                </BlockContainer>
-            ) : (
-                <BlockContainer contentClass="transparent">
-                    <DocumentsGrid items={Object.values(dummyData)} />
-                </BlockContainer>
-            )}
+            <div ref={dropRef}>
+                {viewMode === 'list' ? (
+                    <BlockContainer>
+                        <DocumentsListTable items={Object.values(dummyData)} />
+                        {isActive && (
+                            <div className="dnd-overlay">
+                                <h3>Release file to upload</h3>
+                            </div>
+                        )}
+                    </BlockContainer>
+                ) : (
+                    <BlockContainer contentClass="transparent">
+                        <DocumentsGrid items={Object.values(dummyData)} />
+                        {isActive && (
+                            <div className="dnd-overlay">
+                                <h3>Release file to upload</h3>
+                            </div>
+                        )}
+                    </BlockContainer>
+                )}
+            </div>
+            {/* <BlockContainer>
+                <FileUploadModal
+                    name="urls"
+                    isPosting={isPosting}
+                    postError={postError}
+                    postSuccess={postSuccess}
+                    showUploadModal={showUploadModal}
+                    setShowUploadModal={setShowUploadModal}
+                    maxFiles={maxFiles}
+                    maxFileSize={maxFileSize}
+                    canDrop={canDrop}
+                    isOver={isOver}
+                    progress={progress}
+                    error={postError}
+                    handlePress={handlePress}
+                    handleRemove={handleRemove}
+                    setTimeoutAsync={setTimeoutAsync}
+                    dropRef={dropRef}
+                    formData={formData}
+                    onChange={onChange}
+                    setProgress={setProgress}
+                />
+            </BlockContainer> */}
         </>
     );
 };
