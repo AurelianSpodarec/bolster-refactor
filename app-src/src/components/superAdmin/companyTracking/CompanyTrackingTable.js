@@ -11,6 +11,7 @@ import {
 } from 'constants/superAdmin/enums';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import { companyTrackingShowWarning } from 'helpers/general';
+import moment from 'moment';
 
 const headers = [
     'Name',
@@ -66,7 +67,6 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
                 </div>
             </div>
             <Table
-                withActions
                 headers={headers}
                 isFetching={isFetching}
                 error={error}
@@ -81,6 +81,10 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
                     )
                     .map(company => {
                         const { period, showWarning } = companyTrackingShowWarning(company);
+                        const cutOffDate = moment('2021-09-16');
+                        const showCheckboxes = moment(company.latestSubscriptionStartOn).isBefore(
+                            cutOffDate,
+                        );
 
                         return (
                             <tr
@@ -132,25 +136,37 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
                                             .join(', ')}
                                 </td>
                                 <td>
-                                    <ContactContacted
-                                        contacted={company.contactedAfterMonth}
-                                        period={COMPANY_TRACKING_PERIOD_TYPE.ONE_MONTH}
-                                        companyID={company.companyID}
-                                    />
+                                    {showCheckboxes ? (
+                                        <ContactContacted
+                                            contacted={company.contactedAfterMonth}
+                                            period={COMPANY_TRACKING_PERIOD_TYPE.ONE_MONTH}
+                                            companyID={company.companyID}
+                                        />
+                                    ) : (
+                                        'N/A'
+                                    )}
                                 </td>
                                 <td>
-                                    <ContactContacted
-                                        contacted={company.contactedAfterThreeMonths}
-                                        period={COMPANY_TRACKING_PERIOD_TYPE.THREE_MONTHS}
-                                        companyID={company.companyID}
-                                    />
+                                    {showCheckboxes ? (
+                                        <ContactContacted
+                                            contacted={company.contactedAfterThreeMonths}
+                                            period={COMPANY_TRACKING_PERIOD_TYPE.THREE_MONTHS}
+                                            companyID={company.companyID}
+                                        />
+                                    ) : (
+                                        'N/A'
+                                    )}
                                 </td>
                                 <td>
-                                    <ContactContacted
-                                        contacted={company.contactedAfterElevenMonths}
-                                        period={COMPANY_TRACKING_PERIOD_TYPE.ELEVEN_MONTHS}
-                                        companyID={company.companyID}
-                                    />
+                                    {showCheckboxes ? (
+                                        <ContactContacted
+                                            contacted={company.contactedAfterElevenMonths}
+                                            period={COMPANY_TRACKING_PERIOD_TYPE.ELEVEN_MONTHS}
+                                            companyID={company.companyID}
+                                        />
+                                    ) : (
+                                        'N/A'
+                                    )}
                                 </td>
                             </tr>
                         );
