@@ -71,9 +71,7 @@ const useCalendar = startDate => {
         dispatch(fetchPinTasks(startDate, moment(startDate).add(1, 'month').format()));
     }, [dispatch, startDate]);
 
-    const noData = isEmpty(pinTasks);
-
-    return { days, matrix, noData, pinTasks, isFetching, error, types, statuses };
+    return { days, matrix, pinTasks, isFetching, error, types, statuses };
 };
 
 export default useCalendar;

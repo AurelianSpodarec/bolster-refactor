@@ -35,13 +35,14 @@ const calculatePercentage = (obj, target) => {
         );
 
     const formattedObj = Object.keys(sortedObj).map((item, index) => {
+        const percent =
+            Math.round(sortedObj[item]) +
+            (off > index) -
+            (index >= Object.keys(percentageObj).length + off);
         return {
             name: item,
             title: titleEnum[item],
-            percent:
-                Math.round(sortedObj[item]) +
-                (off > index) -
-                (index >= Object.keys(percentageObj).length + off),
+            percent: isNaN(percent) ? 0 : percent,
         };
     });
 

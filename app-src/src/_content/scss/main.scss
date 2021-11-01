@@ -6957,7 +6957,7 @@ input {
 
                     height: 30px;
 
-                    background-color: black;
+                    background-color: $light-grey-alt;
 
                     overflow: visible;
 
@@ -6966,9 +6966,13 @@ input {
                         justify-content: center;
                         align-items: center;
 
+                        transition: flex-basis 300ms ease;
+
                         .percent {
                             position: absolute;
                             color: $body-text;
+
+                            z-index: 100;
                         }
                     }
                 }

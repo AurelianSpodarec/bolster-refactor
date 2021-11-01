@@ -11,7 +11,7 @@ const LegendPercentBar = ({ stats }) => {
                         style={{ flexBasis: percentString }}
                         key={name}
                     >
-                        <p className="percent">{percentString}</p>
+                        {percent > 0 && <p className="percent">{percentString}</p>}
                     </div>
                 );
             })}

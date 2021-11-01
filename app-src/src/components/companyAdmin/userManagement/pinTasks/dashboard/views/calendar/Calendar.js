@@ -6,13 +6,13 @@ import moment from 'moment';
 import React from 'react';
 import CalendarPinTask from './CalendarPinTask';
 
-const Calendar = ({ startDate, startCreatePinTask, days, matrix, noData, isFetching, error }) => {
+const Calendar = ({ startDate, startCreatePinTask, days, matrix, isFetching, error }) => {
     return (
         <BlockContainer
             contentClass="calendar"
             isFetching={isFetching}
             error={error}
-            isEmpty={noData}
+            isEmpty={isFetching}
         >
             <Table headers={days}>
                 {matrix.map((row, y) => (
