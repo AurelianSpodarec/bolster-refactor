@@ -96,7 +96,7 @@ const CreatePinTaskModal = ({ initialDate, startDate }) => {
         <button className="button blue" key={1}>
             Next
         </button>,
-        <button className="button blue" key={2}>
+        <button className="button blue" key={2} disabled={isPosting}>
             Submit
         </button>,
         // <button className="button green" key={3} disabled={isPosting}>
