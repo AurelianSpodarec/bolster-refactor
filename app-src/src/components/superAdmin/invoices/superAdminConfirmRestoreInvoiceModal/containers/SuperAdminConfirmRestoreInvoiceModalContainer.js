@@ -2,52 +2,49 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import deleteInvoice from 'actions/superAdmin/invoices/async/deleteInvoice';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import SuperAdminConfirmRestoreInvoiceModal from '../presentational/SuperAdminConfirmRestoreInvoiceModal';
+import restoreInvoice from 'actions/superAdmin/invoices/async/restoreInvoice';
 
 const SuperAdminConfirmRestoreInvoiceModalContainer = ({
     id,
-    invoice,
     hideModal,
-    isDeleting,
-    deleteInvoice,
-    deleteSuccess,
-    history,
-    location,
+    isRestoring,
+    restoreInvoice,
+    restoreSuccess,
 }) => {
     useEffect(() => {
-        if (deleteSuccess) {
+        if (restoreSuccess) {
             hideModal();
         }
-    }, [deleteSuccess]);
+    }, [restoreSuccess]);
 
     return (
         <SuperAdminConfirmRestoreInvoiceModal
-            handleDelete={handleDelete}
+            handleRestore={handleRestore}
             hideModal={hideModal}
             message={`Are you sure you want to restore invoice ${id}?`}
-            isDeleting={isDeleting}
-            deleteSuccess={deleteSuccess}
+            isRestoring={isRestoring}
+            restoreSuccess={restoreSuccess}
         />
     );
 
-    function handleDelete(comments) {
-        // deleteInvoice(id, comments);
+    function handleRestore() {
+        restoreInvoice(id);
     }
 };
 
 const mapStateToProps = ({
     superAdmin: {
-        invoicesReducer: { isDeleting, deleteSuccess },
+        invoicesReducer: { isRestoring, restoreSuccess },
     },
 }) => ({
-    isDeleting,
-    deleteSuccess,
+    isRestoring,
+    restoreSuccess,
 });
 
-const mapDispatchToProps = { hideModal, deleteInvoice };
+const mapDispatchToProps = { hideModal, restoreInvoice };
 
 export default withRouter(
     connect(mapStateToProps, mapDispatchToProps)(SuperAdminConfirmRestoreInvoiceModalContainer),
