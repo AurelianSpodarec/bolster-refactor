@@ -8,9 +8,11 @@ import DocumentsGrid from './DocumentsGrid';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import useCreateLibraryDocument from './_hooks/useCreateLibraryDocument';
 import FileUploadModal from './FileUploadModal';
+import { useSelector } from 'react-redux';
+import switchDocumentLibraryView from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryView';
 
 const DocumentLibrary = () => {
-    const [viewMode, setViewMode] = useState('list');
+    const { libraryView } = useSelector(mapStateToProps);
     const {
         isPosting,
         postError,
@@ -49,11 +51,11 @@ const DocumentLibrary = () => {
             </PageHeading>
 
             <BlockContainer>
-                <DocumentFilters viewMode={viewMode} setViewMode={setViewMode} />
+                <DocumentFilters viewMode={libraryView} setViewMode={switchDocumentLibraryView} />
             </BlockContainer>
 
             <div ref={dropRef}>
-                {viewMode === 'list' ? (
+                {libraryView === 'list' ? (
                     <BlockContainer>
                         <DocumentsListTable items={Object.values(dummyData)} />
                         {isActive && (
@@ -99,6 +101,12 @@ const DocumentLibrary = () => {
         </>
     );
 };
+
+const mapStateToProps = ({
+    companyAdmin: {
+        documentLibraryReducer: { libraryView },
+    },
+}) => ({ libraryView });
 
 export default DocumentLibrary;
 

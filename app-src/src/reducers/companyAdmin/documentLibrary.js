@@ -17,6 +17,7 @@ import {
     CREATE_LIBRARY_DOCUMENT_REQUEST,
     CREATE_LIBRARY_DOCUMENT_SUCCESS,
     CREATE_LIBRARY_DOCUMENT_FAILURE,
+    SWITCH_DOCUMENT_LIBRARY_VIEW,
 } from 'constants/actionTypes/documentLibrary';
 
 export default combineReducers({
@@ -29,6 +30,7 @@ export default combineReducers({
     isDeleting: isDeletingReducer,
     deletionError: deletionErrorReducer,
     deleteSuccess: deleteSuccessReducer,
+    libraryView: libraryViewReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -152,6 +154,15 @@ function postSuccessReducer(state = false, action) {
             return false;
         case CREATE_LIBRARY_DOCUMENT_SUCCESS:
             return true;
+        default:
+            return state;
+    }
+}
+
+function libraryViewReducer(state = 'list', action) {
+    switch (action.type) {
+        case SWITCH_DOCUMENT_LIBRARY_VIEW:
+            return action.view;
         default:
             return state;
     }
