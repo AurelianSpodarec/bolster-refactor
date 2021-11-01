@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import DocumentFilters from './DocumentFilters';
@@ -35,6 +36,8 @@ const DocumentLibrary = () => {
         libDropRef,
         handleShowModal,
     } = useCreateLibraryDocument();
+
+    const prefixQuery = new URLSearchParams(useLocation().search).get('prefix');
 
     const isActive = canDrop && isOver;
 
