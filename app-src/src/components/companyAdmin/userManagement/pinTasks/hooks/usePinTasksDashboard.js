@@ -61,7 +61,10 @@ const usePinTasksDashboard = () => {
     };
 
     const startCreatePinTask = (initialDate = undefined) => {
-        dispatch(showModal(CREATE_PIN_TASK, { initialDate, startDate }));
+        const sanitisedDate = initialDate
+            ? moment(initialDate).format('YYYY-MM-DDTHH:mm:ss') // sanitises timezone from passed date
+            : undefined;
+        dispatch(showModal(CREATE_PIN_TASK, { initialDate: sanitisedDate, startDate }));
     };
 
     const startEditPinTask = id => {
