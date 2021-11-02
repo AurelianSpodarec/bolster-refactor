@@ -16,7 +16,7 @@ import useDocumentLibraryPagination from './_hooks/useDocumentsLibraryPagination
 
 const DocumentLibrary = () => {
     const { libraryView } = useSelector(mapStateToProps);
-    const prefixQuery = new URLSearchParams(useLocation().search).get('prefix');
+    const s3KeyQuery = new URLSearchParams(useLocation().search).get('s3key');
     const {
         isPosting,
         postError,
@@ -49,7 +49,7 @@ const DocumentLibrary = () => {
         fetchError,
         selectedItems,
         toggleItemSelect,
-    } = useLibraryDocuments(prefixQuery);
+    } = useLibraryDocuments(s3KeyQuery);
 
     const {
         handleShowSoftDeleteModal,

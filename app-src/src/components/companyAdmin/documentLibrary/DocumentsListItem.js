@@ -25,7 +25,7 @@ let DocumentsListItem = ({
     return (
         <>
             {connectDropTarget(
-                <tr ref={isSorting ? forwardRef : null} className={rowClass} onClick={() => {}}>
+                <tr ref={isSorting ? forwardRef : null} className={rowClass}>
                     <>
                         <td className="dl-selection-container">
                             <div
@@ -40,19 +40,36 @@ let DocumentsListItem = ({
                         </td>
                         <td>
                             {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-                            <FileTypeIcon
-                                src={
-                                    item.type === 200
-                                        ? getIconFromExt(item.fileExtension)
-                                        : FolderIcon
+                            <a
+                                href={
+                                    item.type === 100
+                                        ? `/document/library?s3Key=${item.s3Key}`
+                                        : '/document-library' //WIP
                                 }
-                            />
+                                title=""
+                            >
+                                <FileTypeIcon
+                                    src={
+                                        item.type === 200
+                                            ? getIconFromExt(item.fileExtension)
+                                            : FolderIcon
+                                    }
+                                />
+                            </a>
                         </td>
-                        <td>
+                        <td onClick={() => {}}>
                             {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
-                            {item.name}
+                            <a
+                                href={
+                                    item.type === 100
+                                        ? `/document/library?s3Key=${item.s3Key}`
+                                        : '/document-library' //WIP
+                                }
+                                title=""
+                            >
+                                {item.name}
+                            </a>
                         </td>
-
                         <td>
                             {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
                             {item.uploadedBy}
