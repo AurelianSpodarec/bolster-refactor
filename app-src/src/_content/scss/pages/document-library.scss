@@ -28,6 +28,8 @@
     position: relative;
     transition: transform 200ms ease;
     cursor: pointer;
+    color: #212228;
+    text-decoration: none;
 
     &:hover {
       transform: scale(105%) translateY(5px) 

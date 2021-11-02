@@ -6,6 +6,7 @@ import withToggleExpand from 'components/shared/generic/tables/hocs/withToggleEx
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { getIconFromExt } from 'helpers/general';
 import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
+import FileTypeIcon from './FileTypeIcon';
 
 let DocumentsListItem = ({
     item,
@@ -39,15 +40,12 @@ let DocumentsListItem = ({
                         </td>
                         <td>
                             {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-                            <img
+                            <FileTypeIcon
                                 src={
                                     item.fileExtension
                                         ? getIconFromExt(item.fileExtension)
                                         : FolderIcon
                                 }
-                                alt="File type icon"
-                                width="24"
-                                height="24"
                             />
                         </td>
                         <td>
