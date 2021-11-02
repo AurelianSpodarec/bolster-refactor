@@ -68,6 +68,10 @@ const DocumentLibrary = () => {
         <>
             <PageHeading title="Document Library" withBackButton>
                 <ButtonContainer handleClick={handleShowModal}>Upload File</ButtonContainer>
+                <button className="button green" type="button" onClick={handleShowModal}>
+                    <i className="fa fa-file-medical" />
+                    Upload File
+                </button>
                 <ButtonContainer handleClick={() => {}}>Create Folder</ButtonContainer>
             </PageHeading>
 

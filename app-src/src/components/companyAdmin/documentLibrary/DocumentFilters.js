@@ -38,7 +38,7 @@ const DocumentFilters = ({
             <Select
                 name="filter"
                 value={null}
-                options={[]}
+                options={[]} // View in app, Folders, file types, deleted
                 onChange={() => {}}
                 placeholder="Filter"
             />

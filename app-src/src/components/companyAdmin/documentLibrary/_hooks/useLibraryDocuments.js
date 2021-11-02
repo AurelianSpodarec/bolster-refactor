@@ -19,9 +19,8 @@ const useLibraryDocuments = s3Key => {
         deleteSuccess,
         libraryPage: currentPage,
         libraryPageSize: limit,
+        libraryView,
     } = useSelector(mapStateToProps);
-
-    // const documentLibrary = dummyData;
 
     const prevProps = usePrevious({
         s3Key,
@@ -30,6 +29,7 @@ const useLibraryDocuments = s3Key => {
         isPosting,
         isDeleting,
         deleteSuccess,
+        libraryView,
     });
 
     useEffect(() => {
@@ -37,11 +37,10 @@ const useLibraryDocuments = s3Key => {
     }, []);
 
     useEffect(() => {
-        console.log({ currentPage, prevPage: prevProps.currentPage });
         if (currentPage !== prevProps.currentPage) {
-            dispatch(searchAllLibraryDocuments(currentPage, limit, s3Key));
+            dispatch(searchAllLibraryDocuments(currentPage));
         }
-    }, [dispatch, s3Key, currentPage]);
+    }, [dispatch, s3Key, currentPage, libraryView, prevProps]);
 
     const setCurrentPage = page => {
         dispatch(switchDocumentLibraryPage(page));
@@ -85,6 +84,7 @@ const mapStateToProps = ({
             isDeleting,
             libraryPage,
             libraryPageSize,
+            libraryView,
         },
     },
 }) => ({
@@ -97,6 +97,7 @@ const mapStateToProps = ({
     deleteSuccess,
     libraryPage,
     libraryPageSize,
+    libraryView,
 });
 
 export default useLibraryDocuments;
