@@ -55,6 +55,7 @@ const WeekBreakdownOverview = ({
                                 formattedHours={formattedHours}
                                 pins={totalPins}
                                 references={references}
+                                clockerEntries={clockerEntries}
                             />
                         </div>
                     );

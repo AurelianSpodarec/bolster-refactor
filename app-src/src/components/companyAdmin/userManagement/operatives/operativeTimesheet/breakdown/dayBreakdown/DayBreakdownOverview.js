@@ -49,6 +49,7 @@ const DayBreakdownOverview = ({
                         formattedHours={formattedHours}
                         pins={totalPins}
                         references={references}
+                        clockerEntries={clockerEntries}
                     />
                     <BreakdownNotes notes={clockerNotes} />
                 </>
