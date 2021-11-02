@@ -194,7 +194,7 @@ import SuperAdminConfirmDeleteInvoiceModalContainer from 'components/superAdmin/
 import ConfirmDeleteInvoiceModalContainer from 'components/companyAdmin/invoices/confirmDeleteInvoiceModal/containers/ConfirmDeleteInvoiceModalContainer';
 import AddCompanyAdminModalContainer from 'components/superAdmin/companies/singleCompany/containers/AddCompanyAdminModalContainer';
 import GenerateQRCodesModalContainer from './GenerateQRCodesModalContainer';
-import RistrictPaymentsModalContainer from './RistrictPaymentsModalContainer';
+import RestrictPaymentsModalContainer from './RestrictPaymentsModalContainer';
 import AdminAddManufacturerModal from 'components/superAdmin/pinOptions/addManufacturer/presentational/AddManufacturerModal';
 import AdminEditManufacturerModal from 'components/superAdmin/pinOptions/editManufacturer/presentational/EditManufacturerModal';
 import AdminAddOptionValueModal from 'components/superAdmin/pinOptions/addOptionValue/presentational/AddOptionValueModal';
@@ -296,7 +296,7 @@ const MODAL_COMPONENTS = {
     [CREATE_OPERATIVE]: CreateOperativeModal,
     [LOADING_DATA]: LoadingDataModal,
     [UNLINK_DEVICE]: UnlinkDeviceModalContainer,
-    [RESTRICT_ADMIN_PAYMENTS]: RistrictPaymentsModalContainer,
+    [RESTRICT_ADMIN_PAYMENTS]: RestrictPaymentsModalContainer,
     [REVOKE_ADMIN_ACCESS]: RevokeAdminAccessModalContainer,
     [DOCUMENT_RESPONSE_AGREEANCE]: DocumentResponseAgreeanceModalContainer,
     [SINGLE_PIN_GENERATE_REPORT_SUCCESS]: SinglePinGenerateReportSuccessModalContainer,
