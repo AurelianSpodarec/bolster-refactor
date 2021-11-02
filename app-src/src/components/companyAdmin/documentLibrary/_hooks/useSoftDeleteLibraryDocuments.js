@@ -13,10 +13,7 @@ const useSoftDeleteLibraryDocuments = (ids = []) => {
         mapStateToProps,
     );
 
-    const filenames = ids.map(id => ({
-        name: documentLibrary[id].name,
-        fileExtension: documentLibrary[id].fileExtension,
-    }));
+    const filenames = Object.values(documentLibrary).filter(item => ids.includes(item.id));
 
     const message = () => (
         <>
@@ -27,14 +24,14 @@ const useSoftDeleteLibraryDocuments = (ids = []) => {
                     <li key={i}>
                         <FileTypeIcon
                             src={
-                                item.fileExtension ? getIconFromExt(item.fileExtension) : FolderIcon
+                                item.type === 200 ? getIconFromExt(item.fileExtension) : FolderIcon
                             }
                             width="18"
                             height="18"
                             style={{ marginRight: '5px' }}
                         />
                         {`${item.name}${
-                            item.fileExtension ? `.${item.fileExtension}` : ' (folder)'
+                            item.type === 200 ? '.' + item.fileExtension : ' (folder)'
                         }`}
                     </li>
                 ))}

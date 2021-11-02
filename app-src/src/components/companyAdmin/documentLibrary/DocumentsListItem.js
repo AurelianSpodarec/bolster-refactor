@@ -42,7 +42,7 @@ let DocumentsListItem = ({
                             {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
                             <FileTypeIcon
                                 src={
-                                    item.fileExtension
+                                    item.type === 200
                                         ? getIconFromExt(item.fileExtension)
                                         : FolderIcon
                                 }

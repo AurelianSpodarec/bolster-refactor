@@ -2,8 +2,6 @@ import { usePrevious } from 'helpers/hooks';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import searchAllLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/searchAllLibraryDocuments';
-import switchDocumentLibraryPage from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryPage';
-import switchDocumentLibraryPageSize from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryPageSize';
 import { convertArrToObj } from 'helpers/generic';
 
 const useLibraryDocuments = s3Key => {
@@ -42,14 +40,6 @@ const useLibraryDocuments = s3Key => {
         }
     }, [dispatch, s3Key, currentPage, libraryView, prevProps]);
 
-    const setCurrentPage = page => {
-        dispatch(switchDocumentLibraryPage(page));
-    };
-
-    const setPageSize = limit => {
-        dispatch(switchDocumentLibraryPageSize(limit));
-    };
-
     const toggleItemSelect = id => {
         if (selectedItems.includes(id)) setSelectedItems(selectedItems.filter(i => i !== id));
         else setSelectedItems([...selectedItems, id]);
@@ -63,9 +53,7 @@ const useLibraryDocuments = s3Key => {
         isFetching,
         fetchError,
         currentPage,
-        setCurrentPage,
         prevProps,
-        setPageSize,
         limit,
         selectedItems,
         toggleItemSelect,

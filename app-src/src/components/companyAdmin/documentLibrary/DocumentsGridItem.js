@@ -14,15 +14,15 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
         >
             <div className="image-container">
                 <FileTypeIcon
-                    src={item.fileExtension ? getIconFromExt(item.fileExtension) : FolderIcon}
+                    src={item.type === 200 ? getIconFromExt(item.fileExtension) : FolderIcon}
                     alt={`${item.name} icon`}
                     width="auto"
                     height="160"
                 />
             </div>
             <div className="details-container">
-                {!!item.fileExtension && <FileTypeIcon src={getIconFromExt(item.fileExtension)} />}
-                <p>{`${item.name || '-'}${item.fileExtension ? '.' + item.fileExtension : ''}`}</p>
+                {item.type === 200 && <FileTypeIcon src={getIconFromExt(item.fileExtension)} />}
+                <p>{`${item.name || '-'}${item.type === 200 ? '.' + item.fileExtension : ''}`}</p>
             </div>
             <p className="meta">
                 Updated{' '}
