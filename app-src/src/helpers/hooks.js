@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import uuid from 'uuid/v4';
@@ -240,3 +240,17 @@ export function useQueryParam(paramName) {
     const params = new URLSearchParams(search);
     return params.get(paramName);
   }
+
+export const useTimeout = () => {
+    const isMounted = useRef(true);
+
+    useEffect(() => {
+        return () => (isMounted.current = false);
+    }, []);
+
+    return useCallback((cb, timout) => {
+        setTimeout(() => {
+            if (isMounted.current) cb();
+        }, timout);
+    }, []);
+};

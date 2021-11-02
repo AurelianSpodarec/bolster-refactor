@@ -16,13 +16,6 @@ const FileUploadModal = ({
         <ModalOuterContainer>
             <BlockHeading>Upload files</BlockHeading>
             <FileUpload />
-            <BlockButtonWrapper>
-                <button type="submit" className="button green">
-                    <i className="fa fa-save" />
-                    Upload
-                </button>
-                <ButtonContainer handleClick={handleHideModal}>Cancel</ButtonContainer>
-            </BlockButtonWrapper>
         </ModalOuterContainer>
     );
 };

@@ -1,24 +1,20 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
-import {  useSelector, useDispatch } from 'react-redux';
-import { useForm, useQueryParam } from 'helpers/hooks';
+import { useState  } from 'react';
+import { useQueryParam } from 'helpers/hooks';
 import { useDrop } from 'react-dnd';
 import { NativeTypes } from 'react-dnd-html5-backend';
-import { v4 as uuidv4 } from 'uuid';
-import showModal from 'actions/shared/generic/modals/sync/showModal';
-import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import { UPLOAD_LIBRARY_DOCUMENT } from 'constants/shared/modalTypes';
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 import axios from 'axios';
+import uuid from 'uuid/v4';
+
+const maxFileSizeMB = 5;
 
 const useUploadFiles = (initialFiles = []) => {
-    const maxFiles = 10;
-    const maxFileSize = 5;
-
+    const [progress, setProgress] = useState(0);
     const [error, setError] = useState(null);
 
     const prefix = useQueryParam('prefix') || '';
-    const [files, setFiles] = useState(initialFiles);
+    const [files, setFiles] = useState(initialFiles.map(addKeyToFileItem));
 
     const [{ canDrop, isOver }, dropRef] = useDrop({
         accept: [NativeTypes.FILE],
@@ -28,11 +24,8 @@ const useUploadFiles = (initialFiles = []) => {
 
     function handleDrop(item, monitor) {
         if (monitor) {
-            const { files: newFiles} = monitor.getItem();
-
-            handleChooseFiles(newFiles);
-
-            setFiles([...files, ...newFiles]);
+            const newFiles = [...monitor.getItem().files].map(addKeyToFileItem);
+            setFiles(prev => prev.concat(newFiles));
         }
     }
 
@@ -46,62 +39,120 @@ const useUploadFiles = (initialFiles = []) => {
     async function handlePress(e) {
         e.preventDefault();
 
-        const newFiles = [...e.target.files];
-        
-        handleChooseFiles(newFiles);
+        const newFiles = [...e.target.files].map(addKeyToFileItem);
+        setFiles(prev => prev.concat(newFiles));
 
         e.target.value = null;
-        
-
-        setFiles([...files, ...newFiles]);
     }
 
-    async function handleChooseFiles(files){
-        const filePrefix = prefix ? `${prefix}/` : '';
+    async function handleSubmit(e){
+        e.preventDefault();
 
         try {
-            const uploadUrls = await Promise.all(files.map(file => {
-                const s3Key = `${filePrefix}/${file.name}`;
-                return requestMediaURL(s3Key, file.type);
-            }));
-    
-            console.log({uploadUrls});
-            
+            for (const file of files) {
+                await uploadFile(file);
+            }
         } catch (error) {
             setError(error.message);
+            setProgress(0);
         }
+    }
+
+    async function uploadFile({ file, uuid }) {
+        try {
+            if (bytesToMB(file.size) > maxFileSizeMB) {
+                const errorMessage = `You cannot upload a file larger than ${maxFileSizeMB}MB.`;
+                setFiles(prev => prev.map(item => item.uuid === uuid 
+                    ? ({ ...item, errorMessage })
+                    : item));
+
+                return;
+              }
+    
+            const filePrefix = prefix ? `${prefix}/` : '';
+    
+            const key = `${filePrefix}${file.name}`;
+            const { url, s3Key } = await requestMediaURL(key, file.type, file.size);
+    
+            const options = {
+                onUploadProgress: handleUploadProgress,
+                headers: { 
+                    'Content-Type': file.type, 
+                    'x-amz-acl': 'public-read', 
+                },
+            };
+    
+            await axios.put(url, file, options);
+    
+            await setTimeoutAsync(600);
+            setProgress(0);
+            
+            setFiles(prev => prev.map(item => item.uuid === uuid 
+                ? ({ ...item, uploaded: true, error: null }) 
+                : item));
+
+        } catch (err) {
+            await setTimeoutAsync(600);
+            setProgress(0);
+            
+            setFiles(prev => prev.map(item => item.uuid === uuid 
+                ? ({ ...item, errorMessage: err.message }) 
+                : item));
+        }
+    }
+
+    function handleUploadProgress(e) {
+        const percentComplete = Math.round((e.loaded * 100) / e.total);
+        setProgress(percentComplete);
+    }
+
+    async function handleRemove(uuid) {
+        const newFiles = files.filter((item) => item.uuid !== uuid);
+       setFiles(newFiles);
     }
 
     return {
         handlePress,
+        handleRemove,
+        handleSubmit,
         dropRef,
         isActive: canDrop && isOver,
-        progress: 0,
         files,
         error,
+        progress,
+        uploading: progress > 1,
     };
 };
 
-const requestMediaURL = async (s3Key, fileType) => {
+const requestMediaURL = async (s3Key, contentType, size) => {
+    const url = `${API_URL}/document-library/request-signed-s3-upload-url`;
     const body = {
         key: s3Key,
-        fileType,
+        contentType,
+        size,
     };
 
-    const res = await axios.post(
-        `${API_URL}/document-library/request-signed-s3-upload-url`,
-        body,
-        getHeaders());
-    
-        const { url } = res.data;
-        return url;
+    const { data } = await axios.post(url, body, getHeaders());
+    return data;
 };
 
-const mapStateToProps = ({
-    companyAdmin: {
-        documentLibraryReducer: { isPosting, postError, postSuccess },
-    },
-}) => ({ isPosting, postError, postSuccess });
+const setTimeoutAsync = async (wait) => {
+    return new Promise(resolve => {
+      setTimeout(resolve, wait);
+    });
+};
+
+const addKeyToFileItem = (file) => {
+    return {
+        file,
+        uuid: uuid(),
+        uploaded: false,
+    };
+};
+
+function bytesToMB(bytes) {
+    return bytes / 1024 / 1024;
+}
 
 
 export default useUploadFiles;
