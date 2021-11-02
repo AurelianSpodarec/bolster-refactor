@@ -22,7 +22,11 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
             </div>
             <div className="details-container">
                 {item.type === 200 && <FileTypeIcon src={getIconFromExt(item.fileExtension)} />}
-                <p>{`${item.name || '-'}${item.type === 200 ? '.' + item.fileExtension : ''}`}</p>
+                <p
+                    style={
+                        item.type === 200 ? { maxWidth: 'calc(100% - 34px)' } : { maxWidth: '100%' }
+                    }
+                >{`${item.name || '-'}${item.type === 200 ? '.' + item.fileExtension : ''}`}</p>
             </div>
             <p className="meta">
                 Updated{' '}

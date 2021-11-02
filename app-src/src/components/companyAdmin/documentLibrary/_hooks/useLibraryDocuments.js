@@ -45,8 +45,8 @@ const useLibraryDocuments = s3Key => {
         else setSelectedItems([...selectedItems, id]);
     };
 
-    const folders = Object.values(documentLibrary).filter(d => !d.fileExtension);
-    const files = Object.values(documentLibrary).filter(d => d.fileExtension);
+    const folders = Object.values(documentLibrary).filter(d => d.type === 100);
+    const files = Object.values(documentLibrary).filter(d => d.type === 200);
 
     return {
         documentLibrary: convertArrToObj([...folders, ...files]),
