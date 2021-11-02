@@ -13,9 +13,9 @@ const useDay = (timesheet, selectedDate) => {
 
     if (!day) return {};
 
-    const { totalPins, totalHours, clockerEntries, clockerNotes } = day;
+    const { totalPins, formattedHours, clockerEntries, clockerNotes } = day;
 
-    return { totalPins, totalHours, clockerEntries, clockerNotes };
+    return { totalPins, formattedHours, clockerEntries, clockerNotes };
 };
 
 export default useDay;

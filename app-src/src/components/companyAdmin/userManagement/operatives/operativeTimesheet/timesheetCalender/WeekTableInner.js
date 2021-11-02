@@ -12,16 +12,17 @@ import ExpandableTab from './ExpandableTab';
 import { TIME_PERIOD } from 'constants/companyAdmin/enums';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import timesheetPin from '_content/images/pins-examples/timesheet-pin.png';
+import { formatAsHrsMinsSecs } from 'helpers/generic';
 
 const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, timesheet }) => {
-    const { totalPins, totalHours, clockerEntries = [] } = timesheet;
+    const { totalPins, formattedHours, clockerEntries = [] } = timesheet;
 
     const { timeZone } = useSelector(selectCompanySettings);
     const weeklyReferences = useWeeklyReferences(clockerEntries);
 
     return (
         <>
-            {clockerEntries.map(({ date, totalPins, totalHours }, i) => {
+            {clockerEntries.map(({ date, totalPins, totalHours, formattedHours }, i) => {
                 const { clockerEntries: dayClockerEntries } = useDay(timesheet, date);
                 const references = useReferences(dayClockerEntries);
 
@@ -35,7 +36,7 @@ const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, t
                         {totalHours !== 0 && (
                             <div className="tabs">
                                 <Tab icon={<i className="fal fa-stopwatch" />}>
-                                    {totalHours.toFixed(2)} Hours
+                                    {formatAsHrsMinsSecs(formattedHours)}
                                 </Tab>
                                 <Tab icon={<img src={timesheetPin} />}>
                                     {totalPins} Pin Histories
@@ -65,7 +66,9 @@ const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, t
                     <i className="fal fa-circle" />
                 </div>
                 <div className="tabs">
-                    <Tab icon={<i className="fal fa-stopwatch" />}>{totalHours} Hours</Tab>
+                    <Tab icon={<i className="fal fa-stopwatch" />}>
+                        {formatAsHrsMinsSecs(formattedHours)}
+                    </Tab>
                     <Tab icon={<img src={timesheetPin} />}>{totalPins} Pin Histories</Tab>
                     <ExpandableTab
                         icon={<i className="fal fa-sticky-note" />}

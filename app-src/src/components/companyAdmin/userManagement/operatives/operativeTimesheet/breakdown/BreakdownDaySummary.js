@@ -1,13 +1,14 @@
 import React, { Fragment } from 'react';
 
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import { formatAsHrsMinsSecs } from 'helpers/generic';
 
-const BreakdownDaySummary = ({ hours, pins, references }) => {
+const BreakdownDaySummary = ({ formattedHours, pins, references }) => {
     return (
         <div className="breakdown-day-summary">
             <div className="summary-row">
                 <FieldOutput title="Total Hours" fieldClass="hours">
-                    {hours.toFixed(2)}
+                    {formatAsHrsMinsSecs(formattedHours)}
                 </FieldOutput>
                 <FieldOutput title="Total Pin histories" fieldClass="pins">
                     {pins}

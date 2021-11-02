@@ -33,7 +33,7 @@ const DayBreakdownOverview = ({
         false,
     );
 
-    const { totalPins, totalHours, clockerEntries = [], clockerNotes } = useDay(
+    const { totalPins, formattedHours, clockerEntries = [], clockerNotes } = useDay(
         timesheet,
         selectedDate,
     );
@@ -46,7 +46,7 @@ const DayBreakdownOverview = ({
             left={
                 <>
                     <BreakdownDaySummary
-                        hours={totalHours}
+                        formattedHours={formattedHours}
                         pins={totalPins}
                         references={references}
                     />

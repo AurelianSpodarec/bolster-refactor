@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import moment from 'moment';
+import moment, { MomentInput } from 'moment';
 import orderBy from 'lodash/orderBy';
 import find from 'lodash/find';
 import { DATE_TIME_DEFAULTS } from '../constants/companyAdmin/enums';
@@ -377,3 +377,11 @@ export const isMinMemory = (bytes: number) => {
 };
 
 export const totalArray = (array: number[]) => array.reduce((acc, val) => acc + val, 0);
+
+export const formatAsHrsMinsSecs = (date: MomentInput) => {
+    const diff = moment.duration(moment(date).diff('0001-01-01T00:00:00.00'));
+    const hours = Math.floor(diff.asHours()).toString().padStart(2, '0');
+    const mins = diff.minutes().toString().padStart(2, '0');
+    const secs = diff.seconds().toString().padStart(2, '0');
+    return `${hours}:${mins}:${secs}`;
+};

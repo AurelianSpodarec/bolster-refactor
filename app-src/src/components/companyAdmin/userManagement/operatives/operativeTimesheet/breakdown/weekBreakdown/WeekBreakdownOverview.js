@@ -36,7 +36,7 @@ const WeekBreakdownOverview = ({
         <BreakdownColumns
             className="week-breakdown-overview"
             left={timesheet.clockerEntries.map(
-                ({ totalPins, totalHours, clockerEntries = [], date }, i) => {
+                ({ totalPins, formattedHours, clockerEntries = [], date }, i) => {
                     const references = useReferences(clockerEntries);
                     return (
                         <div className="day" key={i}>
@@ -52,7 +52,7 @@ const WeekBreakdownOverview = ({
                                 }
                             />
                             <BreakdownDaySummary
-                                hours={totalHours}
+                                formattedHours={formattedHours}
                                 pins={totalPins}
                                 references={references}
                             />
