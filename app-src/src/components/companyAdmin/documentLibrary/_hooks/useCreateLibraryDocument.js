@@ -7,6 +7,9 @@ import { v4 as uuidv4 } from 'uuid';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import { UPLOAD_LIBRARY_DOCUMENT } from 'constants/shared/modalTypes';
+import { getHeaders } from 'helpers/api';
+import { API_URL } from 'config';
+import axios from 'axios';
 
 const useCreateLibraryDocument = () => {
     const maxFiles = 10;
@@ -120,7 +123,7 @@ const useCreateLibraryDocument = () => {
 
         try {
             const s3Key = `${uuidv4()}/${file.name}`;
-            // const { data: url } = await requestMediaURL(s3Key, file.type);
+            const { data: url } = await requestMediaURL(s3Key, file.type);
 
             // const options = {
             //     onUploadProgress: handleUploadProgress,
@@ -169,6 +172,7 @@ const useCreateLibraryDocument = () => {
     function bytesToMB(bytes) {
         return bytes / 1024 / 1024;
     }
+    
 
     return {
         isPosting,
@@ -193,6 +197,21 @@ const useCreateLibraryDocument = () => {
         handleShowModal,
         handleHideModal,
     };
+};
+
+const requestMediaURL = async (s3Key, fileType) => {
+    const body = {
+        key: s3Key,
+        fileType,
+    };
+
+    const res = await axios.post(
+        `${API_URL}/document-library/request-signed-s3-upload-url`,
+        body,
+        getHeaders());
+    
+        const { url } = res.data;
+        return url;
 };
 
 const mapStateToProps = ({

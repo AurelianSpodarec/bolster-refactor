@@ -1,0 +1,46 @@
+
+.file-upload-container {
+  .error-message{
+    padding: 0;
+  }
+}
+
+.image-upload {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 26px;
+  cursor: pointer;
+  margin: 15px 0px;
+  padding: 10px;
+  border: 2px dashed grey;
+  border-radius: 10px;
+
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-content: center;
+
+  .progress-bar {
+    width: 98%;
+    height: 8px;
+    border-radius: 15px;
+    position: absolute;
+    bottom: 0;
+    margin: 5px 0px 5px 0px;
+
+    .progress {
+      height: 100%;
+      background-color: blue;
+      position: absolute;
+      border-radius: 15px;
+    }
+  }
+
+  &.uploading {
+    .progress {
+      transition: width 0.5s ease-in;
+    }
+  }
+}
+

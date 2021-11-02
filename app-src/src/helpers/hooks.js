@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import uuid from 'uuid/v4';
 import moment from 'moment';
 
@@ -231,3 +233,10 @@ export const useResend2FA = email => {
         dispatch(resendTwoFactor({ email }));
     }
 };
+
+
+export function useQueryParam(paramName) {
+    const search = useLocation();
+    const params = new URLSearchParams(search);
+    return params.get(paramName);
+  }
