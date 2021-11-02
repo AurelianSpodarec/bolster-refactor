@@ -7,7 +7,7 @@ import { getIconFromExt } from 'helpers/general';
 
 const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
     return (
-        <div className="grid-item" onClick={() => toggleItemSelect(item.id)}>
+        <div className="grid-item" onClick={() => {}}>
             <div className="image-container">
                 <img
                     src={item.fileExtension ? getIconFromExt(item.fileExtension) : FolderIcon}
@@ -30,7 +30,7 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                 Updated{' '}
                 <DateTimeContainer date={new Date(item.uploadDate)} datetime={DATE_TIME_IDS.DATE} />
             </p>
-            <div className={`dl-selection grid`}>
+            <div className="dl-selection grid" onClick={() => toggleItemSelect(item.id)}>
                 <div className="selection-dot" style={{ opacity: isSelected ? 1 : 0 }} />
             </div>
         </div>

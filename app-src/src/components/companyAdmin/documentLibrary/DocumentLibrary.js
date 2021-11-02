@@ -7,10 +7,11 @@ import DocumentsListTable from './DocumentsListTable';
 import DocumentsGrid from './DocumentsGrid';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import useCreateLibraryDocument from './_hooks/useCreateLibraryDocument';
-import useFetchLibraryDocuments from './_hooks/useFetchLibraryDocuments';
+import useLibraryDocuments from './_hooks/useLibraryDocuments';
 import FileUploadModal from './FileUploadModal';
 import { useSelector } from 'react-redux';
 import switchDocumentLibraryView from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryView';
+import useSoftDeleteLibraryDocuments from './_hooks/useSoftDeleteLibraryDocuments';
 
 const DocumentLibrary = () => {
     const { libraryView } = useSelector(mapStateToProps);
@@ -51,7 +52,15 @@ const DocumentLibrary = () => {
         limit,
         selectedItems,
         toggleItemSelect,
-    } = useFetchLibraryDocuments(prefixQuery);
+    } = useLibraryDocuments(prefixQuery);
+
+    const {
+        handleShowSoftDeleteModal,
+        handleHideSoftDeleteModal,
+        isDeleting,
+        deleteSuccess,
+        deleteError,
+    } = useSoftDeleteLibraryDocuments(selectedItems);
 
     const isActive = canDrop && isOver;
 
@@ -67,6 +76,7 @@ const DocumentLibrary = () => {
                     viewMode={libraryView}
                     setViewMode={switchDocumentLibraryView}
                     selectedItems={selectedItems}
+                    handleShowSoftDeleteModal={handleShowSoftDeleteModal}
                 />
             </BlockContainer>
 

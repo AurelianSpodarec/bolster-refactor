@@ -24,14 +24,13 @@ let DocumentsListItem = ({
     return (
         <>
             {connectDropTarget(
-                <tr
-                    ref={isSorting ? forwardRef : null}
-                    onClick={() => toggleItemSelect(item.id)}
-                    className={rowClass}
-                >
+                <tr ref={isSorting ? forwardRef : null} className={rowClass} onClick={() => {}}>
                     <>
                         <td className="dl-selection-container">
-                            <div className={`dl-selection`}>
+                            <div
+                                className={`dl-selection`}
+                                onClick={() => toggleItemSelect(item.id)}
+                            >
                                 <div
                                     className="selection-dot"
                                     style={{ opacity: isSelected ? 1 : 0 }}
@@ -42,7 +41,7 @@ let DocumentsListItem = ({
                             {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
                             <img
                                 src={
-                                    !!item.fileExtension
+                                    item.fileExtension
                                         ? getIconFromExt(item.fileExtension)
                                         : FolderIcon
                                 }

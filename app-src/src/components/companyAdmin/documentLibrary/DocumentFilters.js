@@ -10,7 +10,14 @@ const viewModeOptions = [
     { value: 'grid', label: 'Grid View' },
 ];
 
-const DocumentFilters = ({ searchTerm, onMobile, viewMode, setViewMode, selectedItems }) => {
+const DocumentFilters = ({
+    searchTerm,
+    onMobile,
+    viewMode,
+    setViewMode,
+    selectedItems,
+    handleShowSoftDeleteModal = () => {},
+}) => {
     const dispatch = useDispatch();
     return (
         <form className="table-search size-lg-12 flex-container document-filters">
@@ -62,9 +69,9 @@ const DocumentFilters = ({ searchTerm, onMobile, viewMode, setViewMode, selected
                 disabled={!selectedItems.length}
                 className={`library-button button ${selectedItems.length && 'red'}`}
                 type="button"
-                onClick={() => {}}
+                onClick={handleShowSoftDeleteModal}
             >
-                <i className="fa fa-trash" />
+                <i className="fa fa-trash-alt" />
             </button>
         </form>
     );

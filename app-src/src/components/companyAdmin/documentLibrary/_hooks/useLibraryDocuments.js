@@ -6,7 +6,7 @@ import switchDocumentLibraryPage from 'actions/companyAdmin/documentLibrary/sync
 import switchDocumentLibraryPageSize from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryPageSize';
 import { convertArrToObj } from 'helpers/generic';
 
-const useFetchLibraryDocuments = prefix => {
+const useLibraryDocuments = prefix => {
     const dispatch = useDispatch();
     const [selectedItems, setSelectedItems] = useState([]);
     const {
@@ -98,9 +98,9 @@ const mapStateToProps = ({
     libraryPageSize,
 });
 
-export default useFetchLibraryDocuments;
+export default useLibraryDocuments;
 
-const dummyData = {
+export const dummyData = {
     1: {
         id: 1,
         companyID: 51,

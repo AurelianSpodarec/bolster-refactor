@@ -27,6 +27,7 @@
     overflow: hidden;
     position: relative;
     transition: transform 200ms ease;
+    cursor: pointer;
 
     &:hover {
       transform: scale(105%) translateY(5px) 
