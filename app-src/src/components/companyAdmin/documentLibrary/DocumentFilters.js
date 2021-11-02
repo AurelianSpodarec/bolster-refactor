@@ -2,7 +2,6 @@ import React from 'react';
 import { connect, useDispatch } from 'react-redux';
 import Search from 'components/shared/generic/form/presentational/Search';
 import Select from 'components/shared/generic/form/presentational/Select';
-import placeholder from '_content/images/examples/jamie.png';
 import UserPermissions from '_content/images/icons/user-permission.svg';
 
 const viewModeOptions = [
@@ -10,7 +9,14 @@ const viewModeOptions = [
     { value: 'grid', label: 'Grid View' },
 ];
 
-const DocumentFilters = ({ searchTerm, onMobile, viewMode, setViewMode, selectedItems }) => {
+const DocumentFilters = ({
+    searchTerm,
+    onMobile,
+    viewMode,
+    setViewMode,
+    selectedItems,
+    handleShowSoftDeleteModal = () => {},
+}) => {
     const dispatch = useDispatch();
     return (
         <form className="table-search size-lg-12 flex-container document-filters">
@@ -32,7 +38,7 @@ const DocumentFilters = ({ searchTerm, onMobile, viewMode, setViewMode, selected
             <Select
                 name="filter"
                 value={null}
-                options={[]}
+                options={[]} // View in app, Folders, file types, deleted
                 onChange={() => {}}
                 placeholder="Filter"
             />
@@ -62,9 +68,9 @@ const DocumentFilters = ({ searchTerm, onMobile, viewMode, setViewMode, selected
                 disabled={!selectedItems.length}
                 className={`library-button button ${selectedItems.length && 'red'}`}
                 type="button"
-                onClick={() => {}}
+                onClick={handleShowSoftDeleteModal}
             >
-                <i className="fa fa-trash" />
+                <i className="fa fa-trash-alt" />
             </button>
         </form>
     );

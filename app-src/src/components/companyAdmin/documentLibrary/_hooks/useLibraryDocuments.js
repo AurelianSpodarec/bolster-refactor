@@ -1,16 +1,14 @@
 import { usePrevious } from 'helpers/hooks';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import fetchAllLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/fetchAllLibraryDocuments';
-import switchDocumentLibraryPage from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryPage';
-import switchDocumentLibraryPageSize from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryPageSize';
+import searchAllLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/searchAllLibraryDocuments';
 import { convertArrToObj } from 'helpers/generic';
 
-const useFetchLibraryDocuments = prefix => {
+const useLibraryDocuments = s3Key => {
     const dispatch = useDispatch();
     const [selectedItems, setSelectedItems] = useState([]);
     const {
-        // documentLibrary,
+        documentLibrary,
         isFetching,
         fetchError,
         isPosting,
@@ -19,53 +17,43 @@ const useFetchLibraryDocuments = prefix => {
         deleteSuccess,
         libraryPage: currentPage,
         libraryPageSize: limit,
+        libraryView,
     } = useSelector(mapStateToProps);
 
-    const documentLibrary = dummyData;
-
     const prevProps = usePrevious({
-        prefix,
+        s3Key,
         currentPage,
         postSuccess,
         isPosting,
         isDeleting,
         deleteSuccess,
+        libraryView,
     });
 
     useEffect(() => {
-        if (
-            currentPage !== prevProps.currentPage ||
-            prefix !== prevProps.prefix ||
-            (postSuccess && !prevProps.postSuccess) ||
-            (deleteSuccess && !prevProps.deleteSuccess)
-        )
-            dispatch(fetchAllLibraryDocuments(prefix, currentPage, limit));
-    }, [dispatch, prefix, currentPage]);
+        dispatch(searchAllLibraryDocuments(currentPage, limit, s3Key));
+    }, []);
 
-    const setCurrentPage = page => {
-        dispatch(switchDocumentLibraryPage(page));
-    };
-
-    const setPageSize = limit => {
-        dispatch(switchDocumentLibraryPageSize(limit));
-    };
+    useEffect(() => {
+        if (currentPage !== prevProps.currentPage) {
+            dispatch(searchAllLibraryDocuments(currentPage));
+        }
+    }, [dispatch, s3Key, currentPage, libraryView, prevProps]);
 
     const toggleItemSelect = id => {
         if (selectedItems.includes(id)) setSelectedItems(selectedItems.filter(i => i !== id));
         else setSelectedItems([...selectedItems, id]);
     };
 
-    const folders = Object.values(documentLibrary).filter(d => !d.fileExtension);
-    const files = Object.values(documentLibrary).filter(d => d.fileExtension);
+    const folders = Object.values(documentLibrary).filter(d => d.type === 100);
+    const files = Object.values(documentLibrary).filter(d => d.type === 200);
 
     return {
         documentLibrary: convertArrToObj([...folders, ...files]),
         isFetching,
         fetchError,
         currentPage,
-        setCurrentPage,
         prevProps,
-        setPageSize,
         limit,
         selectedItems,
         toggleItemSelect,
@@ -84,6 +72,7 @@ const mapStateToProps = ({
             isDeleting,
             libraryPage,
             libraryPageSize,
+            libraryView,
         },
     },
 }) => ({
@@ -96,11 +85,12 @@ const mapStateToProps = ({
     deleteSuccess,
     libraryPage,
     libraryPageSize,
+    libraryView,
 });
 
-export default useFetchLibraryDocuments;
+export default useLibraryDocuments;
 
-const dummyData = {
+export const dummyData = {
     1: {
         id: 1,
         companyID: 51,

@@ -122,6 +122,7 @@ import {
     CONFIRM_EMAIL,
     USER_NEW_DOCUMENT,
     UPLOAD_LIBRARY_DOCUMENT,
+    SOFT_DELETE_LIBRARY_DOCUMENT,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -368,6 +369,7 @@ const MODAL_COMPONENTS = {
     [CONFIRM_EMAIL]: ConfirmEmailModal,
     [USER_NEW_DOCUMENT]: NewUserDocumentModal,
     [UPLOAD_LIBRARY_DOCUMENT]: FileUploadModal,
+    [SOFT_DELETE_LIBRARY_DOCUMENT]: ConfirmDeleteModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

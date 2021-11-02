@@ -7,14 +7,16 @@ import DocumentsListTable from './DocumentsListTable';
 import DocumentsGrid from './DocumentsGrid';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import useCreateLibraryDocument from './_hooks/useCreateLibraryDocument';
-import useFetchLibraryDocuments from './_hooks/useFetchLibraryDocuments';
+import useLibraryDocuments from './_hooks/useLibraryDocuments';
 import FileUploadModal from './FileUploadModal';
 import { useSelector } from 'react-redux';
 import switchDocumentLibraryView from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryView';
+import useSoftDeleteLibraryDocuments from './_hooks/useSoftDeleteLibraryDocuments';
+import useDocumentLibraryPagination from './_hooks/useDocumentsLibraryPagination';
 
 const DocumentLibrary = () => {
     const { libraryView } = useSelector(mapStateToProps);
-    const prefixQuery = new URLSearchParams(useLocation().search).get('prefix');
+    const s3KeyQuery = new URLSearchParams(useLocation().search).get('s3key');
     const {
         isPosting,
         postError,
@@ -45,21 +47,33 @@ const DocumentLibrary = () => {
         documentLibrary,
         isFetching,
         fetchError,
-        currentPage,
-        setCurrentPage,
-        setPageSize,
-        limit,
         selectedItems,
         toggleItemSelect,
-    } = useFetchLibraryDocuments(prefixQuery);
+    } = useLibraryDocuments(s3KeyQuery);
+
+    const {
+        handleShowSoftDeleteModal,
+        handleHideSoftDeleteModal,
+        isDeleting,
+        deleteSuccess,
+        deleteError,
+    } = useSoftDeleteLibraryDocuments(selectedItems);
+
+    const { currentPage, setCurrentPage, setPageSize, limit } = useDocumentLibraryPagination();
 
     const isActive = canDrop && isOver;
 
     return (
         <>
             <PageHeading title="Document Library" withBackButton>
-                <ButtonContainer handleClick={handleShowModal}>Upload File</ButtonContainer>
-                <ButtonContainer handleClick={() => {}}>Create Folder</ButtonContainer>
+                <button className="button green" type="button" onClick={handleShowModal}>
+                    <i className="fa fa-file-medical" />
+                    Upload File
+                </button>
+                <button className="button blue" type="button" onClick={() => {}}>
+                    <i className="fa fa-folder-plus" />
+                    Create Folder
+                </button>
             </PageHeading>
 
             <BlockContainer>
@@ -67,6 +81,7 @@ const DocumentLibrary = () => {
                     viewMode={libraryView}
                     setViewMode={switchDocumentLibraryView}
                     selectedItems={selectedItems}
+                    handleShowSoftDeleteModal={handleShowSoftDeleteModal}
                 />
             </BlockContainer>
 

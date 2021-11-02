@@ -6,6 +6,7 @@ import withToggleExpand from 'components/shared/generic/tables/hocs/withToggleEx
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { getIconFromExt } from 'helpers/general';
 import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
+import FileTypeIcon from './FileTypeIcon';
 
 let DocumentsListItem = ({
     item,
@@ -24,14 +25,13 @@ let DocumentsListItem = ({
     return (
         <>
             {connectDropTarget(
-                <tr
-                    ref={isSorting ? forwardRef : null}
-                    onClick={() => toggleItemSelect(item.id)}
-                    className={rowClass}
-                >
+                <tr ref={isSorting ? forwardRef : null} className={rowClass}>
                     <>
                         <td className="dl-selection-container">
-                            <div className={`dl-selection`}>
+                            <div
+                                className={`dl-selection`}
+                                onClick={() => toggleItemSelect(item.id)}
+                            >
                                 <div
                                     className="selection-dot"
                                     style={{ opacity: isSelected ? 1 : 0 }}
@@ -40,22 +40,36 @@ let DocumentsListItem = ({
                         </td>
                         <td>
                             {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-                            <img
-                                src={
-                                    !!item.fileExtension
-                                        ? getIconFromExt(item.fileExtension)
-                                        : FolderIcon
+                            <a
+                                href={
+                                    item.type === 100
+                                        ? `/document/library?s3Key=${item.s3Key}`
+                                        : '/document-library' //WIP
                                 }
-                                alt="File type icon"
-                                width="24"
-                                height="24"
-                            />
+                                title=""
+                            >
+                                <FileTypeIcon
+                                    src={
+                                        item.type === 200
+                                            ? getIconFromExt(item.fileExtension)
+                                            : FolderIcon
+                                    }
+                                />
+                            </a>
                         </td>
-                        <td>
+                        <td onClick={() => {}}>
                             {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
-                            {item.name}
+                            <a
+                                href={
+                                    item.type === 100
+                                        ? `/document/library?s3Key=${item.s3Key}`
+                                        : '/document-library' //WIP
+                                }
+                                title=""
+                            >
+                                {item.name}
+                            </a>
                         </td>
-
                         <td>
                             {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
                             {item.uploadedBy}
@@ -63,7 +77,7 @@ let DocumentsListItem = ({
                         <td>
                             {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
                             <DateTimeContainer
-                                date={new Date(item.uploadDate)}
+                                date={new Date(item.createdOn)}
                                 datetime={DATE_TIME_IDS.DATE}
                             />
                         </td>
