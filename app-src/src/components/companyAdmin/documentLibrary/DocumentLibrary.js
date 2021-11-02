@@ -86,7 +86,15 @@ const DocumentLibrary = () => {
                     </BlockContainer>
                 ) : (
                     <BlockContainer contentClass="transparent">
-                        <DocumentsGrid items={Object.values(dummyData)} />
+                        <DocumentsGrid
+                            items={Object.values(documentLibrary)}
+                            currentPage={currentPage}
+                            setCurrentPage={setCurrentPage}
+                            limit={limit}
+                            setPageSize={setPageSize}
+                            selectedItems={selectedItems}
+                            toggleItemSelect={toggleItemSelect}
+                        />
                         {isActive && (
                             <div className="dnd-overlay">
                                 <h3>Release file to upload</h3>

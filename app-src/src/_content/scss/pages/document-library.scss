@@ -25,6 +25,12 @@
     justify-content: flex-end;
     min-height: 17vw;
     overflow: hidden;
+    position: relative;
+    transition: transform 200ms ease;
+
+    &:hover {
+      transform: scale(105%) translateY(5px) 
+    }
 
     .image-container {
       flex: 1;
@@ -123,21 +129,27 @@
   height: 100%;
   align-items: center;
 
-  .dl-selection {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 16px;
-    height: 16px;
-    border-radius: 8px;
-    border: 1px solid #939393;
-    margin-top: auto;
+}
+.dl-selection {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  border: 1px solid #939393;
+  margin-top: auto;
 
-    .selection-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 4px;
-      background-color: #16a6e2;
-    }
+  &.grid {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+  .selection-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background-color: #16a6e2;
   }
 }
