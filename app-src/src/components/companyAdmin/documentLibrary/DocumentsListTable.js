@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import DocumentsList from './DocumentsList';
@@ -7,18 +7,31 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 import PageSelector from 'components/shared/pagination/presentational/pageSelector';
 
-const DocumentsTable = ({ items, forwardRef, isSorting = false, postItemsSort }) => {
+const DocumentsTable = ({
+    items,
+    forwardRef,
+    isSorting = false,
+    postItemsSort,
+    currentPage,
+    setCurrentPage = () => {},
+    limit = 50,
+    setPageSize = () => {},
+}) => {
     const headers = ['', '', 'Name', 'Uploaded by', 'Uploaded', 'File size'];
-    const PAGE_SIZE = 50;
-    const maxPage = Math.ceil(items.length / PAGE_SIZE);
-    const [currentPage, setCurrentPage] = useState(1);
+
+    const maxPage = Math.ceil(items.length / limit);
+
+    useEffect(() => {
+        if (currentPage > maxPage) setCurrentPage(1);
+    }, [maxPage, currentPage]);
+
     return (
         <BlockContainer>
             <BlockHeading title="Files & Folders" classes="w-table">
                 <PageSelector setPage={setCurrentPage} page={currentPage} maxPage={maxPage} />
-                <button className="button" onClick={() => {}}>
+                {/* <button className="button" onClick={() => {}}>
                     <i className="far fa-sort" /> Sort Mode
-                </button>
+                </button> */}
             </BlockHeading>
 
             <Table

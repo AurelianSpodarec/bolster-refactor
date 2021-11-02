@@ -7,12 +7,14 @@ import DocumentsListTable from './DocumentsListTable';
 import DocumentsGrid from './DocumentsGrid';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import useCreateLibraryDocument from './_hooks/useCreateLibraryDocument';
+import useFetchLibraryDocuments from './_hooks/useFetchLibraryDocuments';
 import FileUploadModal from './FileUploadModal';
 import { useSelector } from 'react-redux';
 import switchDocumentLibraryView from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryView';
 
 const DocumentLibrary = () => {
     const { libraryView } = useSelector(mapStateToProps);
+    const prefixQuery = new URLSearchParams(useLocation().search).get('prefix');
     const {
         isPosting,
         postError,
@@ -39,7 +41,15 @@ const DocumentLibrary = () => {
         handleShowModal,
     } = useCreateLibraryDocument();
 
-    const prefixQuery = new URLSearchParams(useLocation().search).get('prefix');
+    const {
+        documentLibrary,
+        isFetching,
+        fetchError,
+        currentPage,
+        setCurrentPage,
+        setPageSize,
+        limit,
+    } = useFetchLibraryDocuments(prefixQuery);
 
     const isActive = canDrop && isOver;
 
@@ -57,7 +67,13 @@ const DocumentLibrary = () => {
             <div ref={dropRef}>
                 {libraryView === 'list' ? (
                     <BlockContainer>
-                        <DocumentsListTable items={Object.values(dummyData)} />
+                        <DocumentsListTable
+                            items={Object.values(documentLibrary)}
+                            currentPage={currentPage}
+                            setCurrentPage={setCurrentPage}
+                            limit={limit}
+                            setPageSize={setPageSize}
+                        />
                         {isActive && (
                             <div className="dnd-overlay">
                                 <h3>Release file to upload</h3>
@@ -109,78 +125,3 @@ const mapStateToProps = ({
 }) => ({ libraryView });
 
 export default DocumentLibrary;
-
-const dummyData = {
-    1: {
-        id: 1,
-        companyID: 51,
-        documentLibraryFolderID: null,
-        name: 'Dummy Folder 1',
-        uploadedBy: 8572,
-        uploadDate: new Date().toISOString(),
-        isViewApp: true,
-        isAttachPins: true,
-        isSoftDeleted: false,
-        softDeletedByCompanyUserID: null,
-        softDeletedOn: null,
-        isHardDeleted: false,
-        hardDeletedByCompanyUserID: null,
-        hardDeletedOn: null,
-    },
-    2: {
-        id: 2,
-        companyID: 51,
-        documentLibraryFolderID: null,
-        name: 'Dummy Folder 2',
-        uploadedBy: 8572,
-        uploadDate: new Date().toISOString(),
-        isViewApp: true,
-        isAttachPins: true,
-        isSoftDeleted: false,
-        softDeletedByCompanyUserID: null,
-        softDeletedOn: null,
-        isHardDeleted: false,
-        hardDeletedByCompanyUserID: null,
-        hardDeletedOn: null,
-    },
-    3: {
-        id: 3,
-        companyID: 51,
-        documentLibraryFolderID: null,
-        name: 'Dummy File 1',
-        uploadedBy: 8572,
-        uploadDate: new Date().toISOString(),
-        s3Key: '',
-        contentLength: 1000000000,
-        MIMEType: 'application/pdf',
-        fileExtension: 'pdf',
-        isViewApp: true,
-        isAttachPins: true,
-        isSoftDeleted: false,
-        softDeletedByCompanyUserID: null,
-        softDeletedOn: null,
-        isHardDeleted: false,
-        hardDeletedByCompanyUserID: null,
-        hardDeletedOn: null,
-    },
-    4: {
-        id: 4,
-        companyID: 51,
-        documentLibraryFolderID: null,
-        name: 'Dummy File 2',
-        uploadedBy: 8572,
-        uploadDate: new Date().toISOString(),
-        s3Key: '',
-        contentLength: 1000000000,
-        MIMEType: 'application/pdf',
-        fileExtension: 'pdf',
-        isViewApp: true,
-        isAttachPins: true,
-        isSoftDeleted: false,
-        softDeletedByCompanyUserID: null,
-        softDeletedOn: null,
-        isHardDeleted: false,
-        hardDeletedByCompanyUserID: null,
-        hardDeletedOn: null,
-    },
-};

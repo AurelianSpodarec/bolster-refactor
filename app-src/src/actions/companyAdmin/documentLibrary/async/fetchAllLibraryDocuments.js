@@ -22,11 +22,12 @@ export const fetchAllLibraryDocumentsFailure = error => ({
     error,
 });
 
-export default (page, limit) => dispatch => {
+export default (prefix, page = 1, limit = 50) => dispatch => {
+    const queryString = `?${prefix ? `prefix=${prefix}` : ''}page=${page}&limit=${limit}`;
     dispatch(fetchAllLibraryDocumentsRequest());
 
     return axios
-        .get(`${API_URL}/TODO?page=${page}&limit=${limit}`, getHeaders())
+        .get(`${API_URL}/TODO${queryString}`, getHeaders())
         .then(res => dispatch(fetchAllLibraryDocumentsSuccess(res.data)))
         .catch(err => dispatch(fetchAllLibraryDocumentsFailure(err.message)));
 };
