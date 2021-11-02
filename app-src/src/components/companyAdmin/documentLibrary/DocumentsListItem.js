@@ -4,6 +4,8 @@ import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 import withToggleExpand from 'components/shared/generic/tables/hocs/withToggleExpand';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { getIconFromExt } from 'helpers/general';
+import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
 
 let DocumentsListItem = ({
     item,
@@ -38,7 +40,16 @@ let DocumentsListItem = ({
                         </td>
                         <td>
                             {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-                            <i className={`fa fa-file`} />
+                            <img
+                                src={
+                                    !!item.fileExtension
+                                        ? getIconFromExt(item.fileExtension)
+                                        : FolderIcon
+                                }
+                                alt="File type icon"
+                                width="24"
+                                height="24"
+                            />
                         </td>
                         <td>
                             {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}

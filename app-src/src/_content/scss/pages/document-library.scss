@@ -55,6 +55,7 @@
       align-items: center;
       justify-content: flex-start;
       align-self: stretch;
+      min-height: 34px;
 
       img {
         width: 24px;
@@ -119,8 +120,16 @@
 }
 
 .dl-row {
-
   padding: 8px 0;
+  transition: transform 200ms ease;
+
+    &:hover {
+      transform: scale(102%);
+    }
+
+  td {
+    vertical-align: middle;
+  }
 }
 
 .dl-selection-container {
@@ -128,6 +137,7 @@
   display: flex;
   height: 100%;
   align-items: center;
+  margin-top: 5px;
 
 }
 .dl-selection {
