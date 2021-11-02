@@ -63,7 +63,11 @@ const DocumentLibrary = () => {
             </PageHeading>
 
             <BlockContainer>
-                <DocumentFilters viewMode={libraryView} setViewMode={switchDocumentLibraryView} />
+                <DocumentFilters
+                    viewMode={libraryView}
+                    setViewMode={switchDocumentLibraryView}
+                    selectedItems={selectedItems}
+                />
             </BlockContainer>
 
             <div ref={dropRef}>

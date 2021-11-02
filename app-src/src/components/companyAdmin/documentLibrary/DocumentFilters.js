@@ -10,7 +10,7 @@ const viewModeOptions = [
     { value: 'grid', label: 'Grid View' },
 ];
 
-const DocumentFilters = ({ searchTerm, onMobile, viewMode, setViewMode }) => {
+const DocumentFilters = ({ searchTerm, onMobile, viewMode, setViewMode, selectedItems }) => {
     const dispatch = useDispatch();
     return (
         <form className="table-search size-lg-12 flex-container document-filters">
@@ -36,7 +36,12 @@ const DocumentFilters = ({ searchTerm, onMobile, viewMode, setViewMode }) => {
                 onChange={() => {}}
                 placeholder="Filter"
             />
-            <button className="library-button button blue" type="button" onClick={() => {}}>
+            <button
+                disabled={!selectedItems.length}
+                className={`library-button button ${selectedItems.length && 'blue'}`}
+                type="button"
+                onClick={() => {}}
+            >
                 <img
                     src={UserPermissions}
                     alt="Delete icon"
@@ -45,10 +50,20 @@ const DocumentFilters = ({ searchTerm, onMobile, viewMode, setViewMode }) => {
                     // height="24"
                 />
             </button>
-            <button className="library-button button blue" type="button" onClick={() => {}}>
+            <button
+                disabled={!selectedItems.length}
+                className={`library-button button ${selectedItems.length && 'blue'}`}
+                type="button"
+                onClick={() => {}}
+            >
                 <i className="fa fa-cloud-download" />
             </button>
-            <button className="library-button button red" type="button" onClick={() => {}}>
+            <button
+                disabled={!selectedItems.length}
+                className={`library-button button ${selectedItems.length && 'red'}`}
+                type="button"
+                onClick={() => {}}
+            >
                 <i className="fa fa-trash" />
             </button>
         </form>

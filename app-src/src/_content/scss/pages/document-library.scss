@@ -99,6 +99,11 @@
   min-width: 36px;
   color: #ffffff;
   text-align: center;
+  transition: all 200ms ease;
+
+  &:disabled {
+    opacity: 0.33;
+  }
 
   img {
     width: auto;
