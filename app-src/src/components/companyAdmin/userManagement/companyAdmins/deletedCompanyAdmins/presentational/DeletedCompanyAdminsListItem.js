@@ -55,8 +55,8 @@ const DeletedCompanyAdminsListItem = ({
             <td>
                 {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
-                {!!deletedBy.firstName && !!deletedBy.lastName
-                    ? `${deletedBy.firstName} ${deletedBy.lastName}`
+                {!!deletedBy.userFirstName && !!deletedBy.userLastName
+                    ? `${deletedBy.userFirstName} ${deletedBy.userLastName}`
                     : '-'}
             </td>
             <td>
