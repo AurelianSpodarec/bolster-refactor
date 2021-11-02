@@ -2,6 +2,8 @@ import React from 'react';
 import { connect, useDispatch } from 'react-redux';
 import Search from 'components/shared/generic/form/presentational/Search';
 import Select from 'components/shared/generic/form/presentational/Select';
+import placeholder from '_content/images/examples/jamie.png';
+import UserPermissions from '_content/images/icons/user-permission.svg';
 
 const viewModeOptions = [
     { value: 'list', label: 'List View' },
@@ -34,6 +36,21 @@ const DocumentFilters = ({ searchTerm, onMobile, viewMode, setViewMode }) => {
                 onChange={() => {}}
                 placeholder="Filter"
             />
+            <button className="library-button button blue" type="button" onClick={() => {}}>
+                <img
+                    src={UserPermissions}
+                    alt="Delete icon"
+                    title="Delete"
+                    // width="24"
+                    // height="24"
+                />
+            </button>
+            <button className="library-button button blue" type="button" onClick={() => {}}>
+                <i className="fa fa-cloud-download" />
+            </button>
+            <button className="library-button button red" type="button" onClick={() => {}}>
+                <i className="fa fa-trash" />
+            </button>
         </form>
     );
 };
