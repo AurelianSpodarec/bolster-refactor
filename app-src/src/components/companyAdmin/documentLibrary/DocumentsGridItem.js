@@ -26,7 +26,7 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
             </div>
             <p className="meta">
                 Updated{' '}
-                <DateTimeContainer date={new Date(item.uploadDate)} datetime={DATE_TIME_IDS.DATE} />
+                <DateTimeContainer date={new Date(item.createdOn)} datetime={DATE_TIME_IDS.DATE} />
             </p>
             <div className="dl-selection grid" onClick={() => toggleItemSelect(item.id)}>
                 <div className="selection-dot" style={{ opacity: isSelected ? 1 : 0 }} />

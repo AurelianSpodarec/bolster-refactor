@@ -49,12 +49,18 @@ export const companyTrackingShowWarning = company => {
 export const getIconFromExt = ext => {
     switch (ext) {
         case 'pdf':
+        case '.pdf':
             return PDFIcon;
         case 'png':
+        case '.png':
         case 'jpg':
+        case '.jpg':
         case 'jpeg':
+        case '.jpeg':
         case 'bmp':
+        case '.bmp':
         case 'gif':
+        case '.gif':
             return ImageIcon;
         default:
             return FileIcon;

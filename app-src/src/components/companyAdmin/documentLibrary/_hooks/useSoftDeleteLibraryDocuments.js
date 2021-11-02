@@ -3,31 +3,37 @@ import { useDispatch, useSelector } from 'react-redux';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import { SOFT_DELETE_LIBRARY_DOCUMENT } from 'constants/shared/modalTypes';
-import { dummyData as documentLibrary } from './useLibraryDocuments';
+import { getIconFromExt } from 'helpers/general';
+import FileTypeIcon from '../FileTypeIcon';
 
 const useSoftDeleteLibraryDocuments = (ids = []) => {
     const dispatch = useDispatch();
-    const { isDeleting, deleteSuccess, deleteError } = useSelector(mapStateToProps);
+    const { isDeleting, deleteSuccess, deleteError, documentLibrary } = useSelector(
+        mapStateToProps,
+    );
 
-    const filenames = ids
-        .map(id =>
-            documentLibrary[id].name
-                ? `${documentLibrary[id].name}${
-                      documentLibrary[id].fileExtension
-                          ? `.${documentLibrary[id].fileExtension}`
-                          : ' (folder)'
-                  }`
-                : null,
-        )
-        .filter(name => !!name);
+    const filenames = ids.map(id => ({
+        name: documentLibrary[id].name,
+        fileExtension: documentLibrary[id].fileExtension,
+    }));
 
     const message = () => (
         <>
             Are you sure you want to delete the following library documents? <br />
             <br />
             <ul>
-                {filenames.map((name, i) => (
-                    <li key={i}>{name}</li>
+                {filenames.map((item, i) => (
+                    <li key={i}>
+                        <FileTypeIcon
+                            src={getIconFromExt(item.fileExtension)}
+                            width="18"
+                            height="18"
+                            style={{ marginRight: '5px' }}
+                        />
+                        {`${item.name}${
+                            item.fileExtension ? `.${item.fileExtension}` : ' (folder)'
+                        }`}
+                    </li>
                 ))}
             </ul>
             <br />

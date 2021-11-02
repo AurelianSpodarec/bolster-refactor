@@ -1,16 +1,16 @@
 import { usePrevious } from 'helpers/hooks';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import fetchAllLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/fetchAllLibraryDocuments';
+import searchAllLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/searchAllLibraryDocuments';
 import switchDocumentLibraryPage from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryPage';
 import switchDocumentLibraryPageSize from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryPageSize';
 import { convertArrToObj } from 'helpers/generic';
 
-const useLibraryDocuments = prefix => {
+const useLibraryDocuments = s3Key => {
     const dispatch = useDispatch();
     const [selectedItems, setSelectedItems] = useState([]);
     const {
-        // documentLibrary,
+        documentLibrary,
         isFetching,
         fetchError,
         isPosting,
@@ -21,10 +21,10 @@ const useLibraryDocuments = prefix => {
         libraryPageSize: limit,
     } = useSelector(mapStateToProps);
 
-    const documentLibrary = dummyData;
+    // const documentLibrary = dummyData;
 
     const prevProps = usePrevious({
-        prefix,
+        s3Key,
         currentPage,
         postSuccess,
         isPosting,
@@ -33,14 +33,15 @@ const useLibraryDocuments = prefix => {
     });
 
     useEffect(() => {
-        if (
-            currentPage !== prevProps.currentPage ||
-            prefix !== prevProps.prefix ||
-            (postSuccess && !prevProps.postSuccess) ||
-            (deleteSuccess && !prevProps.deleteSuccess)
-        )
-            dispatch(fetchAllLibraryDocuments(prefix, currentPage, limit));
-    }, [dispatch, prefix, currentPage]);
+        dispatch(searchAllLibraryDocuments(currentPage, limit, s3Key));
+    }, []);
+
+    useEffect(() => {
+        console.log({ currentPage, prevPage: prevProps.currentPage });
+        if (currentPage !== prevProps.currentPage) {
+            dispatch(searchAllLibraryDocuments(currentPage, limit, s3Key));
+        }
+    }, [dispatch, s3Key, currentPage]);
 
     const setCurrentPage = page => {
         dispatch(switchDocumentLibraryPage(page));

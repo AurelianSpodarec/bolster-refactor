@@ -60,7 +60,7 @@ let DocumentsListItem = ({
                         <td>
                             {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
                             <DateTimeContainer
-                                date={new Date(item.uploadDate)}
+                                date={new Date(item.createdOn)}
                                 datetime={DATE_TIME_IDS.DATE}
                             />
                         </td>

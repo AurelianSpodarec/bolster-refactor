@@ -2,7 +2,6 @@ import React from 'react';
 import { connect, useDispatch } from 'react-redux';
 import Search from 'components/shared/generic/form/presentational/Search';
 import Select from 'components/shared/generic/form/presentational/Select';
-import placeholder from '_content/images/examples/jamie.png';
 import UserPermissions from '_content/images/icons/user-permission.svg';
 
 const viewModeOptions = [

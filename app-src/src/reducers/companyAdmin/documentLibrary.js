@@ -2,9 +2,12 @@ import { combineReducers } from 'redux';
 
 import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
 import {
-    FETCH_ALL_LIBRARY_DOCUMENTS_REQUEST,
-    FETCH_ALL_LIBRARY_DOCUMENTS_SUCCESS,
-    FETCH_ALL_LIBRARY_DOCUMENTS_FAILURE,
+    SEARCH_ALL_LIBRARY_DOCUMENTS_REQUEST,
+    SEARCH_ALL_LIBRARY_DOCUMENTS_SUCCESS,
+    SEARCH_ALL_LIBRARY_DOCUMENTS_FAILURE,
+    FETCH_DOCUMENT_LIBRARY_FILES_FOR_COMPANY_REQUEST,
+    FETCH_DOCUMENT_LIBRARY_FILES_FOR_COMPANY_SUCCESS,
+    FETCH_DOCUMENT_LIBRARY_FILES_FOR_COMPANY_FAILURE,
     FETCH_SINGLE_LIBRARY_DOCUMENT_REQUEST,
     FETCH_SINGLE_LIBRARY_DOCUMENT_SUCCESS,
     FETCH_SINGLE_LIBRARY_DOCUMENT_FAILURE,
@@ -39,11 +42,11 @@ export default combineReducers({
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
-        case FETCH_ALL_LIBRARY_DOCUMENTS_REQUEST:
+        case SEARCH_ALL_LIBRARY_DOCUMENTS_REQUEST:
         case FETCH_SINGLE_LIBRARY_DOCUMENT_REQUEST:
             return true;
-        case FETCH_ALL_LIBRARY_DOCUMENTS_SUCCESS:
-        case FETCH_ALL_LIBRARY_DOCUMENTS_FAILURE:
+        case SEARCH_ALL_LIBRARY_DOCUMENTS_SUCCESS:
+        case SEARCH_ALL_LIBRARY_DOCUMENTS_FAILURE:
         case FETCH_SINGLE_LIBRARY_DOCUMENT_SUCCESS:
         case FETCH_SINGLE_LIBRARY_DOCUMENT_FAILURE:
             return false;
@@ -54,12 +57,12 @@ function isFetchingReducer(state = false, action) {
 
 function fetchErrorReducer(state = null, action) {
     switch (action.type) {
-        case FETCH_ALL_LIBRARY_DOCUMENTS_REQUEST:
-        case FETCH_ALL_LIBRARY_DOCUMENTS_SUCCESS:
+        case SEARCH_ALL_LIBRARY_DOCUMENTS_REQUEST:
+        case SEARCH_ALL_LIBRARY_DOCUMENTS_SUCCESS:
         case FETCH_SINGLE_LIBRARY_DOCUMENT_REQUEST:
         case FETCH_SINGLE_LIBRARY_DOCUMENT_SUCCESS:
             return null;
-        case FETCH_ALL_LIBRARY_DOCUMENTS_FAILURE:
+        case SEARCH_ALL_LIBRARY_DOCUMENTS_FAILURE:
         case FETCH_SINGLE_LIBRARY_DOCUMENT_FAILURE:
             return action.error;
         default:
@@ -138,7 +141,7 @@ function deleteSuccessReducer(state = false, action) {
 
 function documentLibraryReducer(state = {}, action) {
     switch (action.type) {
-        case FETCH_ALL_LIBRARY_DOCUMENTS_SUCCESS:
+        case SEARCH_ALL_LIBRARY_DOCUMENTS_SUCCESS:
             return convertArrToObj(action.payload);
         case FETCH_SINGLE_LIBRARY_DOCUMENT_SUCCESS:
         case CREATE_LIBRARY_DOCUMENT_SUCCESS:
