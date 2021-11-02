@@ -17,6 +17,9 @@ import {
     CREATE_LIBRARY_DOCUMENT_REQUEST,
     CREATE_LIBRARY_DOCUMENT_SUCCESS,
     CREATE_LIBRARY_DOCUMENT_FAILURE,
+    SWITCH_DOCUMENT_LIBRARY_VIEW,
+    SWITCH_DOCUMENT_LIBRARY_PAGE_SIZE,
+    SWITCH_DOCUMENT_LIBRARY_PAGE,
 } from 'constants/actionTypes/documentLibrary';
 
 export default combineReducers({
@@ -29,6 +32,9 @@ export default combineReducers({
     isDeleting: isDeletingReducer,
     deletionError: deletionErrorReducer,
     deleteSuccess: deleteSuccessReducer,
+    libraryView: libraryViewReducer,
+    libraryPage: libraryPageReducer,
+    libraryPageSize: libraryPageSizeReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -152,6 +158,33 @@ function postSuccessReducer(state = false, action) {
             return false;
         case CREATE_LIBRARY_DOCUMENT_SUCCESS:
             return true;
+        default:
+            return state;
+    }
+}
+
+function libraryViewReducer(state = 'list', action) {
+    switch (action.type) {
+        case SWITCH_DOCUMENT_LIBRARY_VIEW:
+            return action.view;
+        default:
+            return state;
+    }
+}
+
+function libraryPageReducer(state = 1, action) {
+    switch (action.type) {
+        case SWITCH_DOCUMENT_LIBRARY_PAGE:
+            return action.page;
+        default:
+            return state;
+    }
+}
+
+function libraryPageSizeReducer(state = 50, action) {
+    switch (action.type) {
+        case SWITCH_DOCUMENT_LIBRARY_PAGE_SIZE:
+            return action.limit;
         default:
             return state;
     }

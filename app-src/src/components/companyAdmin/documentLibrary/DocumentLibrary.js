@@ -7,10 +7,14 @@ import DocumentsListTable from './DocumentsListTable';
 import DocumentsGrid from './DocumentsGrid';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import useCreateLibraryDocument from './_hooks/useCreateLibraryDocument';
+import useFetchLibraryDocuments from './_hooks/useFetchLibraryDocuments';
 import FileUploadModal from './FileUploadModal';
+import { useSelector } from 'react-redux';
+import switchDocumentLibraryView from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryView';
 
 const DocumentLibrary = () => {
-    const [viewMode, setViewMode] = useState('list');
+    const { libraryView } = useSelector(mapStateToProps);
+    const prefixQuery = new URLSearchParams(useLocation().search).get('prefix');
     const {
         isPosting,
         postError,
@@ -37,7 +41,17 @@ const DocumentLibrary = () => {
         handleShowModal,
     } = useCreateLibraryDocument();
 
-    const prefixQuery = new URLSearchParams(useLocation().search).get('prefix');
+    const {
+        documentLibrary,
+        isFetching,
+        fetchError,
+        currentPage,
+        setCurrentPage,
+        setPageSize,
+        limit,
+        selectedItems,
+        toggleItemSelect,
+    } = useFetchLibraryDocuments(prefixQuery);
 
     const isActive = canDrop && isOver;
 
@@ -49,13 +63,25 @@ const DocumentLibrary = () => {
             </PageHeading>
 
             <BlockContainer>
-                <DocumentFilters viewMode={viewMode} setViewMode={setViewMode} />
+                <DocumentFilters
+                    viewMode={libraryView}
+                    setViewMode={switchDocumentLibraryView}
+                    selectedItems={selectedItems}
+                />
             </BlockContainer>
 
             <div ref={dropRef}>
-                {viewMode === 'list' ? (
+                {libraryView === 'list' ? (
                     <BlockContainer>
-                        <DocumentsListTable items={Object.values(dummyData)} />
+                        <DocumentsListTable
+                            items={Object.values(documentLibrary)}
+                            currentPage={currentPage}
+                            setCurrentPage={setCurrentPage}
+                            limit={limit}
+                            setPageSize={setPageSize}
+                            selectedItems={selectedItems}
+                            toggleItemSelect={toggleItemSelect}
+                        />
                         {isActive && (
                             <div className="dnd-overlay">
                                 <h3>Release file to upload</h3>
@@ -64,7 +90,15 @@ const DocumentLibrary = () => {
                     </BlockContainer>
                 ) : (
                     <BlockContainer contentClass="transparent">
-                        <DocumentsGrid items={Object.values(dummyData)} />
+                        <DocumentsGrid
+                            items={Object.values(documentLibrary)}
+                            currentPage={currentPage}
+                            setCurrentPage={setCurrentPage}
+                            limit={limit}
+                            setPageSize={setPageSize}
+                            selectedItems={selectedItems}
+                            toggleItemSelect={toggleItemSelect}
+                        />
                         {isActive && (
                             <div className="dnd-overlay">
                                 <h3>Release file to upload</h3>
@@ -100,79 +134,10 @@ const DocumentLibrary = () => {
     );
 };
 
-export default DocumentLibrary;
+const mapStateToProps = ({
+    companyAdmin: {
+        documentLibraryReducer: { libraryView },
+    },
+}) => ({ libraryView });
 
-const dummyData = {
-    1: {
-        id: 1,
-        companyID: 51,
-        documentLibraryFolderID: null,
-        name: 'Dummy Folder 1',
-        uploadedBy: 8572,
-        uploadDate: new Date().toISOString(),
-        isViewApp: true,
-        isAttachPins: true,
-        isSoftDeleted: false,
-        softDeletedByCompanyUserID: null,
-        softDeletedOn: null,
-        isHardDeleted: false,
-        hardDeletedByCompanyUserID: null,
-        hardDeletedOn: null,
-    },
-    2: {
-        id: 2,
-        companyID: 51,
-        documentLibraryFolderID: null,
-        name: 'Dummy Folder 2',
-        uploadedBy: 8572,
-        uploadDate: new Date().toISOString(),
-        isViewApp: true,
-        isAttachPins: true,
-        isSoftDeleted: false,
-        softDeletedByCompanyUserID: null,
-        softDeletedOn: null,
-        isHardDeleted: false,
-        hardDeletedByCompanyUserID: null,
-        hardDeletedOn: null,
-    },
-    3: {
-        id: 3,
-        companyID: 51,
-        documentLibraryFolderID: null,
-        name: 'Dummy File 1',
-        uploadedBy: 8572,
-        uploadDate: new Date().toISOString(),
-        s3Key: '',
-        contentLength: 1000000000,
-        MIMEType: 'application/pdf',
-        fileExtension: 'pdf',
-        isViewApp: true,
-        isAttachPins: true,
-        isSoftDeleted: false,
-        softDeletedByCompanyUserID: null,
-        softDeletedOn: null,
-        isHardDeleted: false,
-        hardDeletedByCompanyUserID: null,
-        hardDeletedOn: null,
-    },
-    4: {
-        id: 4,
-        companyID: 51,
-        documentLibraryFolderID: null,
-        name: 'Dummy File 2',
-        uploadedBy: 8572,
-        uploadDate: new Date().toISOString(),
-        s3Key: '',
-        contentLength: 1000000000,
-        MIMEType: 'application/pdf',
-        fileExtension: 'pdf',
-        isViewApp: true,
-        isAttachPins: true,
-        isSoftDeleted: false,
-        softDeletedByCompanyUserID: null,
-        softDeletedOn: null,
-        isHardDeleted: false,
-        hardDeletedByCompanyUserID: null,
-        hardDeletedOn: null,
-    },
-};
+export default DocumentLibrary;

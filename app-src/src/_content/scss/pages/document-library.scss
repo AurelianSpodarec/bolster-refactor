@@ -25,6 +25,12 @@
     justify-content: flex-end;
     min-height: 17vw;
     overflow: hidden;
+    position: relative;
+    transition: transform 200ms ease;
+
+    &:hover {
+      transform: scale(105%) translateY(5px) 
+    }
 
     .image-container {
       flex: 1;
@@ -49,6 +55,7 @@
       align-items: center;
       justify-content: flex-start;
       align-self: stretch;
+      min-height: 34px;
 
       img {
         width: 24px;
@@ -82,5 +89,82 @@
   h3 {
     color: #ffffff;
     font-size: 24px;
+  }
+}
+
+.library-button {
+  margin-left: 10px;
+  padding: 5px;
+  min-height: 36px;
+  min-width: 36px;
+  color: #ffffff;
+  text-align: center;
+  transition: all 200ms ease;
+
+  &:disabled {
+    opacity: 0.33;
+  }
+
+  img {
+    width: auto;
+    height: 22px;
+  }
+
+  i {
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: auto
+  }
+}
+
+.selected-message {
+  margin-left: 10px;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+}
+
+.dl-row {
+  padding: 8px 0;
+  transition: transform 200ms ease;
+
+    &:hover {
+      transform: scale(102%);
+    }
+
+  td {
+    vertical-align: middle;
+  }
+}
+
+.dl-selection-container {
+
+  display: flex;
+  height: 100%;
+  align-items: center;
+  margin-top: 5px;
+
+}
+.dl-selection {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  border: 1px solid #939393;
+  margin-top: auto;
+
+  &.grid {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+  .selection-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background-color: #16a6e2;
   }
 }

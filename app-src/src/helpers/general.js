@@ -1,4 +1,7 @@
 import moment from 'moment';
+import FileIcon from '_content/images/icons/dl-file-icon.svg';
+import PDFIcon from '_content/images/icons/dl-pdf-icon.svg';
+import ImageIcon from '_content/images/icons/dl-image-icon.svg';
 
 export const reverseObject = obj => {
     return Object.entries(obj).reduce((ret, entry) => {
@@ -41,4 +44,19 @@ export const companyTrackingShowWarning = company => {
     }
 
     return { period: null, showWarning: false };
+};
+
+export const getIconFromExt = ext => {
+    switch (ext) {
+        case 'pdf':
+            return PDFIcon;
+        case 'png':
+        case 'jpg':
+        case 'jpeg':
+        case 'bmp':
+        case 'gif':
+            return ImageIcon;
+        default:
+            return FileIcon;
+    }
 };

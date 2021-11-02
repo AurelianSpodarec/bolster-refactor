@@ -4,10 +4,10 @@ import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 import withToggleExpand from 'components/shared/generic/tables/hocs/withToggleExpand';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { getIconFromExt } from 'helpers/general';
+import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
 
 let DocumentsListItem = ({
-    toggleExpanded,
-    isExpanded,
     item,
     forwardRef,
     isDragging,
@@ -15,9 +15,10 @@ let DocumentsListItem = ({
     headers,
     connectDropTarget,
     isSorting,
+    isSelected = false,
+    toggleItemSelect,
 }) => {
-    let rowClass = 'draggable expandable';
-    if (isExpanded) rowClass += ' open';
+    let rowClass = 'draggable expandable dl-row';
     if (isDragging) rowClass += ' dragging';
 
     return (
@@ -25,16 +26,30 @@ let DocumentsListItem = ({
             {connectDropTarget(
                 <tr
                     ref={isSorting ? forwardRef : null}
-                    onClick={toggleExpanded}
+                    onClick={() => toggleItemSelect(item.id)}
                     className={rowClass}
                 >
                     <>
-                        <td>
-                            <i className={`fa fa-circle`} />
+                        <td className="dl-selection-container">
+                            <div className={`dl-selection`}>
+                                <div
+                                    className="selection-dot"
+                                    style={{ opacity: isSelected ? 1 : 0 }}
+                                />
+                            </div>
                         </td>
                         <td>
                             {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-                            <i className={`fa fa-file`} />
+                            <img
+                                src={
+                                    !!item.fileExtension
+                                        ? getIconFromExt(item.fileExtension)
+                                        : FolderIcon
+                                }
+                                alt="File type icon"
+                                width="24"
+                                height="24"
+                            />
                         </td>
                         <td>
                             {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
