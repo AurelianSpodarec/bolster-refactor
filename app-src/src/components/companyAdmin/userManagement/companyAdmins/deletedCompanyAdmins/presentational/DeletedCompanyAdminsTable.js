@@ -8,7 +8,15 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import Table from 'components/shared/generic/tables/presentational/Table';
 import DeletedCompanyAdminsListItem from './DeletedCompanyAdminsListItem';
 
-const headers = ['Name', 'Email', 'Phone Number', 'Operative Code', ''];
+const headers = [
+    'Name',
+    'Email',
+    'Phone Number',
+    'Operative Code',
+    'Date Deleted',
+    'Deleted By',
+    '',
+];
 
 const DeletedCompanyAdminsTable = ({ filteredUsers }) => {
     const { deleted, isFetching, error } = useSelector(mapStateToProps);
