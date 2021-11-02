@@ -14,20 +14,19 @@ const DeletedCompanyAdminsListItem = ({
         userEmail,
         userPhoneNumber,
         formattedOperativeCode,
-        userDeletedOn,
-        userDeletedByCompanyUserID,
+        endedOn,
+        endedByCompanyUserID,
     },
     headers,
 }) => {
     const dispatch = useDispatch();
     const { onMobile, users } = useSelector(mapStateToProps);
 
-    const deletedBy = users[userDeletedByCompanyUserID] || {};
+    const deletedBy = users[endedByCompanyUserID] || {};
 
     useEffect(() => {
-        if (user?.userDeletedByCompanyUserID && !users[userDeletedByCompanyUserID])
-            dispatch(fetchCompanyUsers);
-    }, [dispatch, user.userDeletedByCompanyUserID]);
+        if (user?.endedByCompanyUserID && !users[endedByCompanyUserID]) dispatch(fetchCompanyUsers);
+    }, [dispatch, user.endedByCompanyUserID]);
 
     return (
         <tr>
@@ -51,7 +50,7 @@ const DeletedCompanyAdminsListItem = ({
             <td>
                 {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
-                {userDeletedOn ? moment(userDeletedOn).format('DD/MM/YYYY') : '-'}
+                {endedOn ? moment(endedOn).format('DD/MM/YYYY') : '-'}
             </td>
             <td>
                 {' '}
