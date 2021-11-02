@@ -8,6 +8,8 @@ import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 import PageSelector from 'components/shared/pagination/presentational/pageSelector';
 
 const DocumentsTable = ({
+    selectedItems = [],
+    toggleItemSelect = () => {},
     items,
     forwardRef,
     isSorting = false,
@@ -27,7 +29,14 @@ const DocumentsTable = ({
 
     return (
         <BlockContainer>
-            <BlockHeading title="Files & Folders" classes="w-table">
+            <BlockHeading title="Company Files" classes="w-table">
+                {!!selectedItems.length && (
+                    <span className="selected-message">
+                        <span>{`${selectedItems.length} file${
+                            selectedItems.length !== 1 ? 's' : ''
+                        } selected`}</span>
+                    </span>
+                )}
                 <PageSelector setPage={setCurrentPage} page={currentPage} maxPage={maxPage} />
                 {/* <button className="button" onClick={() => {}}>
                     <i className="far fa-sort" /> Sort Mode
@@ -52,6 +61,8 @@ const DocumentsTable = ({
                     items={items}
                     headers={headers}
                     postItemsSort={postItemsSort}
+                    selectedItems={selectedItems}
+                    toggleItemSelect={toggleItemSelect}
                 />
             </Table>
         </BlockContainer>

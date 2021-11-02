@@ -6,8 +6,6 @@ import withToggleExpand from 'components/shared/generic/tables/hocs/withToggleEx
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 let DocumentsListItem = ({
-    toggleExpanded,
-    isExpanded,
     item,
     forwardRef,
     isDragging,
@@ -15,9 +13,10 @@ let DocumentsListItem = ({
     headers,
     connectDropTarget,
     isSorting,
+    isSelected = false,
+    toggleItemSelect,
 }) => {
-    let rowClass = 'draggable expandable';
-    if (isExpanded) rowClass += ' open';
+    let rowClass = 'draggable expandable dl-row';
     if (isDragging) rowClass += ' dragging';
 
     return (
@@ -25,12 +24,17 @@ let DocumentsListItem = ({
             {connectDropTarget(
                 <tr
                     ref={isSorting ? forwardRef : null}
-                    onClick={toggleExpanded}
+                    onClick={() => toggleItemSelect(item.id)}
                     className={rowClass}
                 >
                     <>
-                        <td>
-                            <i className={`fa fa-circle`} />
+                        <td className="dl-selection-container">
+                            <div className={`dl-selection`}>
+                                <div
+                                    className="selection-dot"
+                                    style={{ opacity: isSelected ? 1 : 0 }}
+                                />
+                            </div>
                         </td>
                         <td>
                             {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}

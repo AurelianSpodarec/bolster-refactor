@@ -49,6 +49,8 @@ const DocumentLibrary = () => {
         setCurrentPage,
         setPageSize,
         limit,
+        selectedItems,
+        toggleItemSelect,
     } = useFetchLibraryDocuments(prefixQuery);
 
     const isActive = canDrop && isOver;
@@ -73,6 +75,8 @@ const DocumentLibrary = () => {
                             setCurrentPage={setCurrentPage}
                             limit={limit}
                             setPageSize={setPageSize}
+                            selectedItems={selectedItems}
+                            toggleItemSelect={toggleItemSelect}
                         />
                         {isActive && (
                             <div className="dnd-overlay">

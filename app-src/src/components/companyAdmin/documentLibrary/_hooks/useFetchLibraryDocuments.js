@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import fetchAllLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/fetchAllLibraryDocuments';
 import switchDocumentLibraryPage from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryPage';
 import switchDocumentLibraryPageSize from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryPageSize';
+import { convertArrToObj } from 'helpers/generic';
 
 const useFetchLibraryDocuments = prefix => {
     const dispatch = useDispatch();
-
+    const [selectedItems, setSelectedItems] = useState([]);
     const {
-        documentLibrary,
+        // documentLibrary,
         isFetching,
         fetchError,
         isPosting,
@@ -19,6 +20,8 @@ const useFetchLibraryDocuments = prefix => {
         libraryPage: currentPage,
         libraryPageSize: limit,
     } = useSelector(mapStateToProps);
+
+    const documentLibrary = dummyData;
 
     const prevProps = usePrevious({
         prefix,
@@ -47,8 +50,16 @@ const useFetchLibraryDocuments = prefix => {
         dispatch(switchDocumentLibraryPageSize(limit));
     };
 
+    const toggleItemSelect = id => {
+        if (selectedItems.includes(id)) setSelectedItems(selectedItems.filter(i => i !== id));
+        else setSelectedItems([...selectedItems, id]);
+    };
+
+    const folders = Object.values(documentLibrary).filter(d => !d.fileExtension);
+    const files = Object.values(documentLibrary).filter(d => d.fileExtension);
+
     return {
-        documentLibrary: dummyData,
+        documentLibrary: convertArrToObj([...folders, ...files]),
         isFetching,
         fetchError,
         currentPage,
@@ -56,6 +67,8 @@ const useFetchLibraryDocuments = prefix => {
         prevProps,
         setPageSize,
         limit,
+        selectedItems,
+        toggleItemSelect,
     };
 };
 
