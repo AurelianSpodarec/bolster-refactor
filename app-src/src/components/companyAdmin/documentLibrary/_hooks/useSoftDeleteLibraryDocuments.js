@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
@@ -6,12 +6,20 @@ import { SOFT_DELETE_LIBRARY_DOCUMENT } from 'constants/shared/modalTypes';
 import { getIconFromExt } from 'helpers/general';
 import FileTypeIcon from '../FileTypeIcon';
 import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
+import softDeleteLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/softDeleteLibraryDocuments';
+import { usePrevious } from 'helpers/hooks';
 
 const useSoftDeleteLibraryDocuments = (ids = []) => {
     const dispatch = useDispatch();
     const { isDeleting, deleteSuccess, deleteError, documentLibrary } = useSelector(
         mapStateToProps,
     );
+
+    const prevProps = usePrevious({ deleteSuccess });
+
+    useEffect(() => {
+        if (!prevProps.deleteSuccess && deleteSuccess) dispatch(hideModal());
+    }, [prevProps.deleteSuccess, deleteSuccess]);
 
     const filenames = Object.values(documentLibrary).filter(item => ids.includes(item.id));
 
@@ -30,9 +38,7 @@ const useSoftDeleteLibraryDocuments = (ids = []) => {
                             height="18"
                             style={{ marginRight: '5px' }}
                         />
-                        {`${item.name}${
-                            item.type === 200 ? '.' + item.fileExtension : ' (folder)'
-                        }`}
+                        {`${item.name}${item.type === 200 ? '' : ' (folder)'}`}
                     </li>
                 ))}
             </ul>
@@ -44,7 +50,7 @@ const useSoftDeleteLibraryDocuments = (ids = []) => {
     const handleShowSoftDeleteModal = () => {
         dispatch(
             showModal(SOFT_DELETE_LIBRARY_DOCUMENT, {
-                handleDelete: () => console.log('Delete'),
+                handleDelete: () => dispatch(softDeleteLibraryDocuments(ids, true)),
                 handleCancel: () => dispatch(hideModal()),
                 message,
             }),

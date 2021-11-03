@@ -1,8 +1,8 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import { getIconFromExt } from 'helpers/general';
+import { getIconFromExt, stripS3Key } from 'helpers/general';
 import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
 import FileTypeIcon from './FileTypeIcon';
 
@@ -19,6 +19,8 @@ let DocumentsListItem = ({
     let rowClass = 'draggable expandable dl-row';
     if (isDragging) rowClass += ' dragging';
 
+    console.log(stripS3Key(item.s3Key, item.companyID));
+
     return (
         <tr ref={isSorting ? forwardRef : null} className={rowClass}>
             <>
@@ -29,10 +31,13 @@ let DocumentsListItem = ({
                 </td>
                 <td>
                     {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-                    <a
-                        href={
+                    <Link
+                        to={
                             item.type === 100
-                                ? `/company/document-library?s3Key=${item.s3Key}`
+                                ? `/company/document-library?s3Key=${stripS3Key(
+                                      item.s3Key,
+                                      item.companyID,
+                                  )}`
                                 : '/company/document-library' //WIP
                         }
                         title=""
@@ -42,20 +47,23 @@ let DocumentsListItem = ({
                                 item.type === 200 ? getIconFromExt(item.fileExtension) : FolderIcon
                             }
                         />
-                    </a>
+                    </Link>
                 </td>
                 <td>
                     {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
-                    <a
+                    <Link
                         href={
                             item.type === 100
-                                ? `/company/document-library?s3Key=${item.s3Key}`
+                                ? `/company/document-library?s3Key=${stripS3Key(
+                                      item.s3Key,
+                                      item.companyID,
+                                  )}`
                                 : '/company/document-library'
                         }
                         title=""
                     >
                         {item.name}
-                    </a>
+                    </Link>
                 </td>
                 <td>
                     {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}

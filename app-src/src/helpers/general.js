@@ -66,3 +66,8 @@ export const getIconFromExt = ext => {
             return FileIcon;
     }
 };
+
+export const stripS3Key = (s3Key, companyID) => {
+    const keyArr = s3Key.split('/');
+    return keyArr.slice(keyArr.indexOf('' + companyID) + 1, keyArr.length).join('/');
+};

@@ -48,7 +48,11 @@ const useLibraryDocuments = s3Key => {
     useEffect(searchAction, []); // Fetch on mount, regardless
 
     useEffect(() => {
-        if (currentPage !== prevProps.currentPage || libraryFilter !== prevProps.libraryFilter) {
+        if (
+            currentPage !== prevProps.currentPage ||
+            libraryFilter !== prevProps.libraryFilter ||
+            libraryView !== prevProps.libraryView
+        ) {
             searchAction();
         }
     }, [dispatch, s3Key, currentPage, libraryFilter, libraryView, prevProps]); // Fetch on changes to page & filter
