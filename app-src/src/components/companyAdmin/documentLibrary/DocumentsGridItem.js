@@ -12,8 +12,8 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                 href={
                     item.type === 100
                         ? `/company/document-library?s3Key=${item.s3Key}`
-                        : '/document-library'
-                } // WIP
+                        : '/company/document-library'
+                }
                 title={`Open ${item.name}${item.fileExtension ? `.${item.fileExtension}` : ''}`}
                 className="image-container"
             >
@@ -29,8 +29,8 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                 href={
                     item.type === 100
                         ? `/company/document-library?s3Key=${item.s3Key}`
-                        : '/document-library'
-                } // WIP
+                        : '/company/document-library'
+                }
                 title={`Open ${item.name}${item.fileExtension ? `.${item.fileExtension}` : ''}`}
             >
                 {item.type === 200 && <FileTypeIcon src={getIconFromExt(item.fileExtension)} />}
