@@ -6,8 +6,6 @@ import { getIconFromExt } from 'helpers/general';
 import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
 import FileTypeIcon from './FileTypeIcon';
 
-
-
 let DocumentsListItem = ({
     item,
     forwardRef,
@@ -35,13 +33,13 @@ let DocumentsListItem = ({
                         to={
                             item.type === DOCUMENT_LIBRARY_TYPES.FOLDER
                                 ? `/company/document-library?prefix=${item.searchTerm}`
-                                : '/company/document-library' //WIP
+                                : '/company/document-library' // WIP
                         }
                     >
                         <FileTypeIcon
                             src={
-                                item.type === DOCUMENT_LIBRARY_TYPES.FILE 
-                                    ? getIconFromExt(item.fileExtension) 
+                                item.type === DOCUMENT_LIBRARY_TYPES.FILE
+                                    ? getIconFromExt(item.fileExtension)
                                     : FolderIcon
                             }
                         />

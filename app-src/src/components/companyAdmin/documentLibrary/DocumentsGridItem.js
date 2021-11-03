@@ -12,7 +12,7 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
             <Link
                 to={
                     item.type === 100
-                        ? `/company/document-library?prefix=${item.s3Key}`
+                        ? `/company/document-library?prefix=${item.searchTerm}`
                         : '/company/document-library'
                 }
                 title={`Open ${item.name}${item.fileExtension ? `.${item.fileExtension}` : ''}`}
@@ -29,7 +29,7 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                 className="details-container"
                 to={
                     item.type === 100
-                        ? `/company/document-library?prefix=${item.s3Key}`
+                        ? `/company/document-library?prefix=${item.searchTerm}`
                         : '/company/document-library'
                 }
                 title={`Open ${item.name}${item.fileExtension ? `.${item.fileExtension}` : ''}`}

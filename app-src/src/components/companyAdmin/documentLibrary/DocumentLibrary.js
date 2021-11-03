@@ -9,7 +9,7 @@ import DocumentsGrid from './DocumentsGrid';
 import useLibraryDocuments from './_hooks/useLibraryDocuments';
 import { useSelector } from 'react-redux';
 import switchDocumentLibraryView from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryView';
-import useSoftDeleteLibraryDocuments from './_hooks/useSoftDeleteLibraryDocuments';
+import useDeleteLibraryDocuments from './_hooks/useDeleteLibraryDocuments';
 import useDocumentLibraryPagination from './_hooks/useDocumentsLibraryPagination';
 import useOpenCreateDocumentModal from './_hooks/useOpenCreateDocumentModal';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
@@ -33,12 +33,12 @@ const DocumentLibrary = () => {
     } = useLibraryDocuments(prefixQuery);
 
     const {
-        handleShowSoftDeleteModal,
-        handleHideSoftDeleteModal,
+        handleShowDeleteModal,
+        handleHideDeleteModal,
         isDeleting,
         deleteSuccess,
         deleteError,
-    } = useSoftDeleteLibraryDocuments(selectedItems);
+    } = useDeleteLibraryDocuments(selectedItems);
 
     const { currentPage, setCurrentPage, setPageSize, limit } = useDocumentLibraryPagination();
 
@@ -66,7 +66,7 @@ const DocumentLibrary = () => {
                     viewMode={libraryView}
                     setViewMode={switchDocumentLibraryView}
                     selectedItems={selectedItems}
-                    handleShowSoftDeleteModal={handleShowSoftDeleteModal}
+                    handleShowSoftDeleteModal={handleShowDeleteModal}
                 />
             </BlockContainer>
             <div ref={dropRef}>

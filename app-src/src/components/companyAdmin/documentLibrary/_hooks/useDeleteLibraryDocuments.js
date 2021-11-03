@@ -2,16 +2,20 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import { SOFT_DELETE_LIBRARY_DOCUMENT } from 'constants/shared/modalTypes';
+import {
+    SOFT_DELETE_LIBRARY_DOCUMENT,
+    HARD_DELETE_LIBRARY_DOCUMENT,
+} from 'constants/shared/modalTypes';
 import { getIconFromExt } from 'helpers/general';
 import FileTypeIcon from '../FileTypeIcon';
 import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
 import softDeleteLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/softDeleteLibraryDocuments';
+import hardDeleteLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/hardDeleteLibraryDocuments';
 import { usePrevious } from 'helpers/hooks';
 import { useLocation } from 'react-router-dom';
 import searchAllLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/searchAllLibraryDocuments';
 
-const useSoftDeleteLibraryDocuments = (ids = []) => {
+const useDeleteLibraryDocuments = (ids = []) => {
     const dispatch = useDispatch();
     const {
         isDeleting,
@@ -25,7 +29,11 @@ const useSoftDeleteLibraryDocuments = (ids = []) => {
 
     const prefixQuery = new URLSearchParams(useLocation().search).get('prefix');
 
-    const prevProps = usePrevious({ deleteSuccess });
+    const prevProps = usePrevious({ deleteSuccess, deleteError });
+
+    const areIDsArchived = documentLibrary[ids[0]]
+        ? ids.some(id => !!documentLibrary[id].isArchived)
+        : false;
 
     useEffect(() => {
         if (!prevProps.deleteSuccess && deleteSuccess) {
@@ -63,27 +71,40 @@ const useSoftDeleteLibraryDocuments = (ids = []) => {
                 ))}
             </ul>
             <br />
-            The items will be move to Deleted folder and can be recovered later.
+            {areIDsArchived
+                ? 'The items will be permanently deleted and will not be recoverable.'
+                : 'The items will be move to Deleted folder and can be recovered later.'}
         </>
     );
 
-    const handleShowSoftDeleteModal = () => {
-        dispatch(
-            showModal(SOFT_DELETE_LIBRARY_DOCUMENT, {
-                handleDelete: () => dispatch(softDeleteLibraryDocuments(ids, true)),
-                handleCancel: () => dispatch(hideModal()),
-                message,
-            }),
-        );
+    const handleShowDeleteModal = () => {
+        if (!areIDsArchived)
+            dispatch(
+                showModal(SOFT_DELETE_LIBRARY_DOCUMENT, {
+                    handleDelete: () => dispatch(softDeleteLibraryDocuments(ids, false)),
+                    handleCancel: () => dispatch(hideModal()),
+                    message,
+                    error: deleteError,
+                }),
+            );
+        else
+            dispatch(
+                showModal(HARD_DELETE_LIBRARY_DOCUMENT, {
+                    handleDelete: () => dispatch(hardDeleteLibraryDocuments(ids)),
+                    handleCancel: () => dispatch(hideModal()),
+                    message,
+                    error: deleteError,
+                }),
+            );
     };
 
-    const handleHideSoftDeleteModal = () => {
+    const handleHideDeleteModal = () => {
         dispatch(hideModal());
     };
 
     return {
-        handleShowSoftDeleteModal,
-        handleHideSoftDeleteModal,
+        handleShowDeleteModal,
+        handleHideDeleteModal,
         isDeleting,
         deleteSuccess,
         deleteError,
@@ -112,4 +133,4 @@ const mapStateToProps = ({
     libraryPageSize,
 });
 
-export default useSoftDeleteLibraryDocuments;
+export default useDeleteLibraryDocuments;

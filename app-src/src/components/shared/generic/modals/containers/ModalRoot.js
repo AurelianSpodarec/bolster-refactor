@@ -124,6 +124,7 @@ import {
     UPLOAD_LIBRARY_DOCUMENT,
     SOFT_DELETE_LIBRARY_DOCUMENT,
     CREATE_LIBRARY_FOLDER,
+    HARD_DELETE_LIBRARY_DOCUMENT,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -250,8 +251,6 @@ import NewUserDocumentModal from 'components/companyAdmin/userManagement/documen
 import FileUploadModal from 'components/companyAdmin/documentLibrary/CreateDocumentModal';
 import CreateDocumentFolderModal from 'components/companyAdmin/documentLibrary/CreateDocumentFolderModal';
 
-
-
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
     [ADD_SERVICE_TO_SUBSCRIPTION]: AddServiceToSubscriptionModalContainer,
@@ -374,6 +373,7 @@ const MODAL_COMPONENTS = {
     [USER_NEW_DOCUMENT]: NewUserDocumentModal,
     [UPLOAD_LIBRARY_DOCUMENT]: FileUploadModal,
     [SOFT_DELETE_LIBRARY_DOCUMENT]: ConfirmDeleteModal,
+    [HARD_DELETE_LIBRARY_DOCUMENT]: ConfirmDeleteModal,
     [CREATE_LIBRARY_FOLDER]: CreateDocumentFolderModal,
 };
 

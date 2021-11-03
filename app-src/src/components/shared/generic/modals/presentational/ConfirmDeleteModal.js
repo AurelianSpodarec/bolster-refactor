@@ -11,31 +11,36 @@ const ConfirmDeleteModal = ({
     isIncoming = false,
     deleteButtonText = 'Delete',
     icon = 'trash-alt',
-}) => (
-    <ModalOuterContainer>
-        <BlockHeading title={'Confirmation'} />
-        <p className="generic-text intro-text size-lg-12">
-            {typeof message === 'string' ? message : message()}
-        </p>
-        <BlockButtonWrapper>
-            <button className="button red" onClick={handleDelete}>
-                {isIncoming ? (
-                    <>
-                        <i className="far fa-ban fa-fw" />
-                        Decline
-                    </>
-                ) : (
-                    <>
-                        <i className={`far fa-${icon} fa-fw`} />
-                        {deleteButtonText}
-                    </>
-                )}
-            </button>
-            <button className="button" onClick={handleCancel}>
-                Cancel
-            </button>
-        </BlockButtonWrapper>
-    </ModalOuterContainer>
-);
+    error = null,
+}) => {
+    console.log({ error });
+    return (
+        <ModalOuterContainer>
+            <BlockHeading title={'Confirmation'} />
+            <p className="generic-text intro-text size-lg-12">
+                {typeof message === 'string' ? message : message()}
+            </p>
+            {error && <p className="error">{error}</p>}
+            <BlockButtonWrapper>
+                <button className="button red" onClick={handleDelete}>
+                    {isIncoming ? (
+                        <>
+                            <i className="far fa-ban fa-fw" />
+                            Decline
+                        </>
+                    ) : (
+                        <>
+                            <i className={`far fa-${icon} fa-fw`} />
+                            {deleteButtonText}
+                        </>
+                    )}
+                </button>
+                <button className="button" onClick={handleCancel}>
+                    Cancel
+                </button>
+            </BlockButtonWrapper>
+        </ModalOuterContainer>
+    );
+};
 
 export default ConfirmDeleteModal;
