@@ -18,6 +18,7 @@ const useLibraryDocuments = s3Key => {
         libraryPage: currentPage,
         libraryPageSize: limit,
         libraryView,
+        libraryFilter,
     } = useSelector(mapStateToProps);
 
     const prevProps = usePrevious({
@@ -45,11 +46,30 @@ const useLibraryDocuments = s3Key => {
         else setSelectedItems([...selectedItems, id]);
     };
 
-    const folders = Object.values(documentLibrary).filter(d => d.type === 100);
-    const files = Object.values(documentLibrary).filter(d => d.type === 200);
+    const filterDocuments = () => {
+        // value is allFolders, allFiles, [fileExtension], isArchived, isViewApp, isAttachPins
+        const libraryArr = Object.values(documentLibrary);
+        console.log({ libraryFilter });
+        switch (libraryFilter) {
+            case null:
+                return libraryArr;
+            case 'allFolders':
+                return libraryArr.filter(({ type }) => type === 100);
+            case 'allFiles':
+                return libraryArr.filter(({ type }) => type === 200);
+            case 'isArchived':
+                return libraryArr.filter(({ isArchived }) => !!isArchived);
+            case 'isViewApp':
+                return libraryArr.filter(({ isViewApp }) => !!isViewApp);
+            case 'isAttachPins':
+                return libraryArr.filter(({ isAttachPins }) => !!isAttachPins);
+            default:
+                return libraryArr;
+        }
+    };
 
     return {
-        documentLibrary: convertArrToObj([...folders, ...files]),
+        documentLibrary: convertArrToObj(filterDocuments()),
         isFetching,
         fetchError,
         currentPage,
@@ -73,6 +93,7 @@ const mapStateToProps = ({
             libraryPage,
             libraryPageSize,
             libraryView,
+            libraryFilter,
         },
     },
 }) => ({
@@ -86,6 +107,7 @@ const mapStateToProps = ({
     libraryPage,
     libraryPageSize,
     libraryView,
+    libraryFilter,
 });
 
 export default useLibraryDocuments;

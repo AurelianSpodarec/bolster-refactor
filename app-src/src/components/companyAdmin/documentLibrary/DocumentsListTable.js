@@ -4,7 +4,6 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import DocumentsList from './DocumentsList';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 import PageSelector from 'components/shared/pagination/presentational/pageSelector';
 
 const DocumentsTable = ({
@@ -69,4 +68,4 @@ const DocumentsTable = ({
     );
 };
 
-export default withDropZone(DocumentsTable, 'SITE');
+export default DocumentsTable;

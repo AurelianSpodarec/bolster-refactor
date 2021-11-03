@@ -3,10 +3,21 @@ import { connect, useDispatch } from 'react-redux';
 import Search from 'components/shared/generic/form/presentational/Search';
 import Select from 'components/shared/generic/form/presentational/Select';
 import UserPermissions from '_content/images/icons/user-permission.svg';
+import switchDocumentLibraryFilter from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryFilter';
 
 const viewModeOptions = [
     { value: 'list', label: 'List View' },
     { value: 'grid', label: 'Grid View' },
+];
+
+const filterOptions = [
+    // value is allFolders, allFiles, [fileExtension], isArchived, isViewApp, isAttachPins
+    { value: null, label: 'All' },
+    { value: 'allFolders', label: 'Folders only' },
+    { value: 'allFiles', label: 'Files only' },
+    { value: 'isArchived', label: 'Deleted' },
+    { value: 'isViewApp', label: 'Viewable in app' },
+    { value: 'isAttachPins', label: 'Attachable to pins' },
 ];
 
 const DocumentFilters = ({
@@ -15,6 +26,7 @@ const DocumentFilters = ({
     viewMode,
     setViewMode,
     selectedItems,
+    libraryFilter,
     handleShowSoftDeleteModal = () => {},
 }) => {
     const dispatch = useDispatch();
@@ -39,9 +51,9 @@ const DocumentFilters = ({
                 />
                 <Select
                     name="filter"
-                    value={null}
-                    options={[]} // View in app, Folders, file types, deleted
-                    onChange={() => {}}
+                    value={libraryFilter}
+                    options={filterOptions} // View in app, Folders, file types, deleted
+                    onChange={(_, value) => dispatch(switchDocumentLibraryFilter(value))}
                     placeholder="Filter"
                 />
                 <button
@@ -79,6 +91,16 @@ const DocumentFilters = ({
     );
 };
 
-export default connect(({ shared: { mobileReducer: { onMobile } } }) => ({
-    onMobile,
-}))(DocumentFilters);
+export default connect(
+    ({
+        shared: {
+            mobileReducer: { onMobile },
+        },
+        companyAdmin: {
+            documentLibraryReducer: { libraryFilter },
+        },
+    }) => ({
+        onMobile,
+        libraryFilter,
+    }),
+)(DocumentFilters);
