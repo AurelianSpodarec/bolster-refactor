@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+import { DATE_TIME_IDS, DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { getIconFromExt, stripS3Key } from 'helpers/general';
 import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
 import FileTypeIcon from './FileTypeIcon';
+
+
 
 let DocumentsListItem = ({
     item,
@@ -25,7 +27,7 @@ let DocumentsListItem = ({
         <tr ref={isSorting ? forwardRef : null} className={rowClass}>
             <>
                 <td className="dl-selection-container">
-                    <div className={`dl-selection`} onClick={() => toggleItemSelect(item.id)}>
+                    <div className={'dl-selection'} onClick={() => toggleItemSelect(item.id)}>
                         <div className="selection-dot" style={{ opacity: isSelected ? 1 : 0 }} />
                     </div>
                 </td>
@@ -33,18 +35,16 @@ let DocumentsListItem = ({
                     {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
                     <Link
                         to={
-                            item.type === 100
-                                ? `/company/document-library?s3Key=${stripS3Key(
-                                      item.s3Key,
-                                      item.companyID,
-                                  )}`
+                            item.type === DOCUMENT_LIBRARY_TYPES.FOLDER
+                                ? `/company/document-library?prefix=${item.searchTerm}`
                                 : '/company/document-library' //WIP
                         }
-                        title=""
                     >
                         <FileTypeIcon
                             src={
-                                item.type === 200 ? getIconFromExt(item.fileExtension) : FolderIcon
+                                item.type === DOCUMENT_LIBRARY_TYPES.FILE 
+                                    ? getIconFromExt(item.fileExtension) 
+                                    : FolderIcon
                             }
                         />
                     </Link>
@@ -52,15 +52,11 @@ let DocumentsListItem = ({
                 <td>
                     {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                     <Link
-                        href={
-                            item.type === 100
-                                ? `/company/document-library?s3Key=${stripS3Key(
-                                      item.s3Key,
-                                      item.companyID,
-                                  )}`
-                                : '/company/document-library'
+                        to={
+                            item.type === DOCUMENT_LIBRARY_TYPES.FOLDER
+                                ? `/company/document-library?prefix=${item.searchTerm}`
+                                : '/company/document-library' //WIP
                         }
-                        title=""
                     >
                         {item.name}
                     </Link>
@@ -78,7 +74,7 @@ let DocumentsListItem = ({
                 </td>
                 <td>
                     {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
-                    {item.contentLength || '### No. of files ###'}
+                    {item.contentLength || ' '}
                 </td>
             </>
         </tr>
