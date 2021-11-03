@@ -17,12 +17,13 @@ import {
     HARD_DELETE_LIBRARY_DOCUMENT_REQUEST,
     HARD_DELETE_LIBRARY_DOCUMENT_SUCCESS,
     HARD_DELETE_LIBRARY_DOCUMENT_FAILURE,
-    CREATE_LIBRARY_DOCUMENT_REQUEST,
-    CREATE_LIBRARY_DOCUMENT_SUCCESS,
-    CREATE_LIBRARY_DOCUMENT_FAILURE,
+    CREATE_LIBRARY_DOCUMENT_FOLDER_REQUEST,
+    CREATE_LIBRARY_DOCUMENT_FOLDER_SUCCESS,
+    CREATE_LIBRARY_DOCUMENT_FOLDER_FAILURE,
     SWITCH_DOCUMENT_LIBRARY_VIEW,
     SWITCH_DOCUMENT_LIBRARY_PAGE_SIZE,
     SWITCH_DOCUMENT_LIBRARY_PAGE,
+    ADD_DOCUMENT_LIBRARY_ITEM,
 } from 'constants/actionTypes/documentLibrary';
 
 export default combineReducers({
@@ -72,10 +73,10 @@ function fetchErrorReducer(state = null, action) {
 
 function isPostingReducer(state = false, action) {
     switch (action.type) {
-        case CREATE_LIBRARY_DOCUMENT_REQUEST:
+        case CREATE_LIBRARY_DOCUMENT_FOLDER_REQUEST:
             return true;
-        case CREATE_LIBRARY_DOCUMENT_SUCCESS:
-        case CREATE_LIBRARY_DOCUMENT_FAILURE:
+        case CREATE_LIBRARY_DOCUMENT_FOLDER_SUCCESS:
+        case CREATE_LIBRARY_DOCUMENT_FOLDER_FAILURE:
             return false;
         default:
             return state;
@@ -84,10 +85,10 @@ function isPostingReducer(state = false, action) {
 
 function postErrorReducer(state = null, action) {
     switch (action.type) {
-        case CREATE_LIBRARY_DOCUMENT_REQUEST:
-        case CREATE_LIBRARY_DOCUMENT_SUCCESS:
+        case CREATE_LIBRARY_DOCUMENT_FOLDER_REQUEST:
+        case CREATE_LIBRARY_DOCUMENT_FOLDER_SUCCESS:
             return null;
-        case CREATE_LIBRARY_DOCUMENT_FAILURE:
+        case CREATE_LIBRARY_DOCUMENT_FOLDER_FAILURE:
             return action.error;
         default:
             return state;
@@ -144,7 +145,8 @@ function documentLibraryReducer(state = {}, action) {
         case SEARCH_ALL_LIBRARY_DOCUMENTS_SUCCESS:
             return convertArrToObj(action.payload);
         case FETCH_SINGLE_LIBRARY_DOCUMENT_SUCCESS:
-        case CREATE_LIBRARY_DOCUMENT_SUCCESS:
+        case CREATE_LIBRARY_DOCUMENT_FOLDER_SUCCESS:
+        case ADD_DOCUMENT_LIBRARY_ITEM:
             return updateObj(state, action.payload.id, action.payload);
         case SOFT_DELETE_LIBRARY_DOCUMENT_SUCCESS:
         case HARD_DELETE_LIBRARY_DOCUMENT_SUCCESS:
@@ -156,10 +158,10 @@ function documentLibraryReducer(state = {}, action) {
 
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
-        case CREATE_LIBRARY_DOCUMENT_REQUEST:
-        case CREATE_LIBRARY_DOCUMENT_FAILURE:
+        case CREATE_LIBRARY_DOCUMENT_FOLDER_REQUEST:
+        case CREATE_LIBRARY_DOCUMENT_FOLDER_FAILURE:
             return false;
-        case CREATE_LIBRARY_DOCUMENT_SUCCESS:
+        case CREATE_LIBRARY_DOCUMENT_FOLDER_SUCCESS:
             return true;
         default:
             return state;

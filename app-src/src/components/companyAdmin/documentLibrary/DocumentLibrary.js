@@ -1,47 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import DocumentFilters from './DocumentFilters';
 import DocumentsListTable from './DocumentsListTable';
 import DocumentsGrid from './DocumentsGrid';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import useCreateLibraryDocument from './_hooks/useCreateLibraryDocument';
 import useLibraryDocuments from './_hooks/useLibraryDocuments';
-import FileUploadModal from './FileUploadModal';
 import { useSelector } from 'react-redux';
 import switchDocumentLibraryView from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryView';
 import useSoftDeleteLibraryDocuments from './_hooks/useSoftDeleteLibraryDocuments';
 import useDocumentLibraryPagination from './_hooks/useDocumentsLibraryPagination';
+import useOpenCreateDocumentModal from './_hooks/useOpenCreateDocumentModal';
 
 const DocumentLibrary = () => {
     const { libraryView } = useSelector(mapStateToProps);
     const s3KeyQuery = new URLSearchParams(useLocation().search).get('s3key');
     const {
-        isPosting,
-        postError,
-        postSuccess,
-        showUploadModal,
-        setShowUploadModal,
-        maxFiles,
-        maxFileSize,
         canDrop,
         isOver,
-        progress,
-        error,
-        formattedVal,
-        handlePress,
-        handleRemove,
-        setTimeoutAsync,
         dropRef,
-        formData,
-        onChange,
-        setProgress,
-        libCanDrop,
-        libIsOver,
-        libDropRef,
-        handleShowModal,
-    } = useCreateLibraryDocument();
+        showCreateModal,
+    } = useOpenCreateDocumentModal();
 
     const {
         documentLibrary,
@@ -66,7 +45,7 @@ const DocumentLibrary = () => {
     return (
         <>
             <PageHeading title="Document Library" withBackButton>
-                <button className="button green" type="button" onClick={handleShowModal}>
+                <button className="button green" type="button" onClick={showCreateModal}>
                     <i className="fa fa-file-medical" />
                     Upload File
                 </button>
@@ -122,29 +101,6 @@ const DocumentLibrary = () => {
                     </BlockContainer>
                 )}
             </div>
-            {/* <BlockContainer>
-                <FileUploadModal
-                    name="urls"
-                    isPosting={isPosting}
-                    postError={postError}
-                    postSuccess={postSuccess}
-                    showUploadModal={showUploadModal}
-                    setShowUploadModal={setShowUploadModal}
-                    maxFiles={maxFiles}
-                    maxFileSize={maxFileSize}
-                    canDrop={canDrop}
-                    isOver={isOver}
-                    progress={progress}
-                    error={postError}
-                    handlePress={handlePress}
-                    handleRemove={handleRemove}
-                    setTimeoutAsync={setTimeoutAsync}
-                    dropRef={dropRef}
-                    formData={formData}
-                    onChange={onChange}
-                    setProgress={setProgress}
-                />
-            </BlockContainer> */}
         </>
     );
 };

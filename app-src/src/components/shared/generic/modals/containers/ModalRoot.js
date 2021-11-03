@@ -246,7 +246,7 @@ import EnterDemoFullSiteModal from 'components/shared/demo-full-site/presentatio
 import EditCompanyOwnerModalContainer from 'components/superAdmin/companies/singleCompany/containers/EditCompanyOwnerModalContainer';
 import RequestDeleteInvoiceModal from 'components/companyAdmin/invoices/requestDeleteInvoiceModal/RequestDeleteInvoiceModal';
 import NewUserDocumentModal from 'components/companyAdmin/userManagement/documentsUploader/presentational/NewUserDocumentModal';
-import FileUploadModal from 'components/companyAdmin/documentLibrary/FileUploadModal';
+import FileUploadModal from 'components/companyAdmin/documentLibrary/CreateDocumentModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
