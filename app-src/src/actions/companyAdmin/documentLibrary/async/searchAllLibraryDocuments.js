@@ -25,7 +25,7 @@ export const searchAllLibraryDocumentsFailure = error => ({
 export default (page = 1, limit = 50, s3Key, isArchived) => dispatch => {
     const queryString = `?${
         s3Key ? `s3Key=${s3Key}` : ''
-    }page=${page}&pageSize=${limit}&isArchived=${!!isArchived}`;
+    }&page=${page}&pageSize=${limit}&isArchived=${!!isArchived}`;
     dispatch(searchAllLibraryDocumentsRequest());
 
     return axios

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import searchAllLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/searchAllLibraryDocuments';
 import { convertArrToObj } from 'helpers/generic';
+import { useDebounce } from 'helpers/hooks';
 
 const useLibraryDocuments = s3Key => {
     const dispatch = useDispatch();
@@ -31,31 +32,34 @@ const useLibraryDocuments = s3Key => {
         deleteSuccess,
         libraryView,
         libraryFilter,
+        librarySearchTerm,
     });
 
-    useEffect(() => {
+    const searchAction = () =>
         dispatch(
             searchAllLibraryDocuments(
                 currentPage,
                 limit,
-                s3Key,
+                librarySearchTerm ? librarySearchTerm : s3Key,
                 libraryFilter === 'isArchived' ? true : false,
             ),
         );
-    }, []);
+
+    useEffect(() => searchAction, []); // Fetch on mount, regardless
 
     useEffect(() => {
         if (currentPage !== prevProps.currentPage || libraryFilter !== prevProps.libraryFilter) {
-            dispatch(
-                searchAllLibraryDocuments(
-                    currentPage,
-                    limit,
-                    s3Key,
-                    libraryFilter === 'isArchived' ? true : false,
-                ),
-            );
+            searchAction();
         }
-    }, [dispatch, s3Key, currentPage, libraryFilter, libraryView, prevProps]);
+    }, [dispatch, s3Key, currentPage, libraryFilter, libraryView, prevProps]); // Fetch on changes to page & filter
+
+    useDebounce(
+        () => {
+            if (librarySearchTerm !== prevProps.librarySearchTerm) searchAction();
+        },
+        [dispatch, librarySearchTerm, prevProps],
+        500,
+    ); // Fetch with debounce as user types a search query
 
     const toggleItemSelect = id => {
         if (selectedItems.includes(id)) setSelectedItems(selectedItems.filter(i => i !== id));
@@ -63,7 +67,6 @@ const useLibraryDocuments = s3Key => {
     };
 
     const filterDocuments = () => {
-        // value is allFolders, allFiles, [fileExtension](TODO), isArchived, isViewApp, isAttachPins
         let filteredLibrary = Object.values(documentLibrary);
         switch (libraryFilter) {
             case null:
@@ -74,9 +77,6 @@ const useLibraryDocuments = s3Key => {
             case 'allFiles':
                 filteredLibrary = filteredLibrary.filter(({ type }) => type === 200);
                 break;
-            // case 'isArchived':
-            //     filteredLibrary = filteredLibrary.filter(({ isArchived }) => !!isArchived);
-            //     break;
             case 'isViewApp':
                 filteredLibrary = filteredLibrary.filter(({ isViewApp }) => !!isViewApp);
                 break;
