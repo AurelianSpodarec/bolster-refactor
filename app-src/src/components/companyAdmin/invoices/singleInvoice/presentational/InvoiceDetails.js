@@ -2,7 +2,7 @@ import React from 'react';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-import { PAYMENT_TYPES, DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+import { PAYMENT_TYPES, DATE_TIME_IDS, INVOICE_TYPES } from 'constants/companyAdmin/enums';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
@@ -12,7 +12,6 @@ import { INVOICE_GEN_URL } from 'config';
 const InvoiceDetails = ({
     isFetching,
     error,
-    invoice,
     invoice: {
         createdOn,
         id,
@@ -24,11 +23,11 @@ const InvoiceDetails = ({
         userLastName,
         guid,
         isRequestedForDelete,
+        invoiceType,
     },
     toggleConfirmDeleteModal,
     showDeleteButton,
 }) => {
-    console.log('invoice', invoice);
     return (
         <BlockContainer error={error} isEmpty={!id} isFetching={isFetching}>
             <BlockHeading title="Invoice Details">
@@ -79,6 +78,11 @@ const InvoiceDetails = ({
                 title="Ordered By"
                 description={`${userFirstName} ${userLastName}`}
                 sizeClass="size-lg-4 size-md-12"
+            />
+            <FieldOutput
+                title="Invoice Type"
+                description={INVOICE_TYPES[invoiceType] || '-'}
+                sizeClass="size-lg-4"
             />
 
             {isPaid && (
