@@ -25,53 +25,56 @@ const DocumentFilters = ({
                 name="searchTerm"
                 placeholder="Search by file/folder name..."
                 handleChange={() => {}}
+                className="document-search"
             />
-            <Select
-                name="viewMode"
-                value={viewMode}
-                options={viewModeOptions}
-                onChange={(_, value) => {
-                    dispatch(setViewMode(value));
-                }}
-                placeholder="-- View mode --"
-            />
-            <Select
-                name="filter"
-                value={null}
-                options={[]} // View in app, Folders, file types, deleted
-                onChange={() => {}}
-                placeholder="Filter"
-            />
-            <button
-                disabled={!selectedItems.length}
-                className={`library-button button ${selectedItems.length && 'blue'}`}
-                type="button"
-                onClick={() => {}}
-            >
-                <img
-                    src={UserPermissions}
-                    alt="Delete icon"
-                    title="Delete"
-                    // width="24"
-                    // height="24"
+            <div style={{ display: 'flex', maxWidth: '50%' }}>
+                <Select
+                    name="viewMode"
+                    value={viewMode}
+                    options={viewModeOptions}
+                    onChange={(_, value) => {
+                        dispatch(setViewMode(value));
+                    }}
+                    placeholder="-- View mode --"
                 />
-            </button>
-            <button
-                disabled={!selectedItems.length}
-                className={`library-button button ${selectedItems.length && 'blue'}`}
-                type="button"
-                onClick={() => {}}
-            >
-                <i className="fa fa-cloud-download" />
-            </button>
-            <button
-                disabled={!selectedItems.length}
-                className={`library-button button ${selectedItems.length && 'red'}`}
-                type="button"
-                onClick={handleShowSoftDeleteModal}
-            >
-                <i className="fa fa-trash-alt" />
-            </button>
+                <Select
+                    name="filter"
+                    value={null}
+                    options={[]} // View in app, Folders, file types, deleted
+                    onChange={() => {}}
+                    placeholder="Filter"
+                />
+                <button
+                    disabled={!selectedItems.length}
+                    className={`library-button button ${selectedItems.length && 'blue'}`}
+                    type="button"
+                    onClick={() => {}}
+                >
+                    <img
+                        src={UserPermissions}
+                        alt="Delete icon"
+                        title="Delete"
+                        // width="24"
+                        // height="24"
+                    />
+                </button>
+                <button
+                    disabled={!selectedItems.length}
+                    className={`library-button button ${selectedItems.length && 'blue'}`}
+                    type="button"
+                    onClick={() => {}}
+                >
+                    <i className="fa fa-cloud-download" />
+                </button>
+                <button
+                    disabled={!selectedItems.length}
+                    className={`library-button button ${selectedItems.length && 'red'}`}
+                    type="button"
+                    onClick={handleShowSoftDeleteModal}
+                >
+                    <i className="fa fa-trash-alt" />
+                </button>
+            </div>
         </form>
     );
 };

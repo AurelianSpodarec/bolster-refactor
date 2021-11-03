@@ -5,9 +5,10 @@ const Search = ({
     placeholder,
     value,
     handleChange,
-    autoComplete = 'off'
+    autoComplete = 'off',
+    className = '',
 }) => (
-    <div className="generic-search">
+    <div className={`generic-search ${className}`}>
         <i className="search-icon far fa-search" />
         <input
             autoComplete={autoComplete}
@@ -15,9 +16,7 @@ const Search = ({
             name={name}
             placeholder={placeholder}
             value={value}
-            onChange={({ target: { name, value } }) =>
-                handleChange(name, value)
-            }
+            onChange={({ target: { name, value } }) => handleChange(name, value)}
         />
     </div>
 );

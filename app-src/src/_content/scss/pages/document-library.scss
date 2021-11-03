@@ -1,5 +1,9 @@
 
 .document-filters {
+  justify-content: space-between;
+  .generic-search {
+    min-width: 49%;
+  }
   .select-list {
     margin-left: 10px;
   }
