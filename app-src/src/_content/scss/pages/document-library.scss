@@ -9,6 +9,9 @@
     min-width: 160px;
   }
 }  
+.no-overflow {
+  overflow: hidden;
+}
 
 .transparent {
   background-color: transparent;
@@ -150,7 +153,7 @@
   cursor: default;
   
   &:hover {
-    transform: scale(102%);
+    transform: scale(101%);
   }
   
   td {
@@ -197,4 +200,9 @@
     border-radius: 4px;
     background-color: #16a6e2;
   }
+}
+
+.dl-breadcrumb {
+  margin-left: 10px;
+  font-size: 16px;
 }
