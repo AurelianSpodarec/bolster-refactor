@@ -4,6 +4,7 @@ import Search from 'components/shared/generic/form/presentational/Search';
 import Select from 'components/shared/generic/form/presentational/Select';
 import UserPermissions from '_content/images/icons/user-permission.svg';
 import switchDocumentLibraryFilter from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryFilter';
+import switchDocumentLibrarySearchTerm from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibrarySearchTerm';
 
 const viewModeOptions = [
     { value: 'list', label: 'List View' },
@@ -36,7 +37,7 @@ const DocumentFilters = ({
                 value={searchTerm}
                 name="searchTerm"
                 placeholder="Search by file/folder name..."
-                handleChange={() => {}}
+                handleChange={(_, value) => dispatch(switchDocumentLibrarySearchTerm(value))}
                 className="document-search"
             />
             <div style={{ display: 'flex', maxWidth: '50%' }}>

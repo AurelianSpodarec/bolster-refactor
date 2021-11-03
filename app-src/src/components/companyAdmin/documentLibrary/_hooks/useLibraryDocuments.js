@@ -19,6 +19,7 @@ const useLibraryDocuments = s3Key => {
         libraryPageSize: limit,
         libraryView,
         libraryFilter,
+        librarySearchTerm,
     } = useSelector(mapStateToProps);
 
     const prevProps = usePrevious({
@@ -47,29 +48,40 @@ const useLibraryDocuments = s3Key => {
     };
 
     const filterDocuments = () => {
-        // value is allFolders, allFiles, [fileExtension], isArchived, isViewApp, isAttachPins
-        const libraryArr = Object.values(documentLibrary);
-        console.log({ libraryFilter });
+        // value is allFolders, allFiles, [fileExtension](TODO), isArchived, isViewApp, isAttachPins
+        let filteredLibrary = Object.values(documentLibrary);
         switch (libraryFilter) {
             case null:
-                return libraryArr;
+                break;
             case 'allFolders':
-                return libraryArr.filter(({ type }) => type === 100);
+                filteredLibrary = filteredLibrary.filter(({ type }) => type === 100);
+                break;
             case 'allFiles':
-                return libraryArr.filter(({ type }) => type === 200);
+                filteredLibrary = filteredLibrary.filter(({ type }) => type === 200);
+                break;
             case 'isArchived':
-                return libraryArr.filter(({ isArchived }) => !!isArchived);
+                filteredLibrary = filteredLibrary.filter(({ isArchived }) => !!isArchived);
+                break;
             case 'isViewApp':
-                return libraryArr.filter(({ isViewApp }) => !!isViewApp);
+                filteredLibrary = filteredLibrary.filter(({ isViewApp }) => !!isViewApp);
+                break;
             case 'isAttachPins':
-                return libraryArr.filter(({ isAttachPins }) => !!isAttachPins);
+                filteredLibrary = filteredLibrary.filter(({ isAttachPins }) => !!isAttachPins);
+                break;
             default:
-                return libraryArr;
+                break;
         }
+
+        filteredLibrary = filteredLibrary.filter(item => {
+            const matchStr = `${item.name.toLowerCase()}${item.s3Key.toLowerCase()}`;
+            return matchStr.includes(librarySearchTerm.toLowerCase());
+        });
+
+        return convertArrToObj(filteredLibrary);
     };
 
     return {
-        documentLibrary: convertArrToObj(filterDocuments()),
+        documentLibrary: filterDocuments(),
         isFetching,
         fetchError,
         currentPage,
@@ -94,6 +106,7 @@ const mapStateToProps = ({
             libraryPageSize,
             libraryView,
             libraryFilter,
+            librarySearchTerm,
         },
     },
 }) => ({
@@ -108,6 +121,7 @@ const mapStateToProps = ({
     libraryPageSize,
     libraryView,
     libraryFilter,
+    librarySearchTerm,
 });
 
 export default useLibraryDocuments;
