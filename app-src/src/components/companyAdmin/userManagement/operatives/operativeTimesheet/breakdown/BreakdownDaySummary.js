@@ -19,7 +19,7 @@ const BreakdownDaySummary = ({ formattedHours, pins, references, clockerEntries 
     return (
         <div className="breakdown-day-summary">
             <div className="summary-row">
-                <FieldOutput title="Total Clocked Time" fieldClass="hours" sizeClass="size-lg-4">
+                <FieldOutput title="Total Hours Worked" fieldClass="hours" sizeClass="size-lg-4">
                     {formatAsHrsMinsSecs(formattedHours)}
                 </FieldOutput>
                 <FieldOutput title="Total Break Time" fieldClass="breakHours" sizeClass="size-lg-4">
