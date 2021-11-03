@@ -54,7 +54,7 @@ const useLibraryDocuments = prefix => {
             currentPage !== prevProps.currentPage ||
             libraryFilter !== prevProps.libraryFilter ||
             libraryView !== prevProps.libraryView
-        )
+        ) {
             searchAction();
         }
     }, [dispatch, prefix, currentPage, libraryFilter, libraryView, prevProps]); // Fetch on changes to page, filter & view
