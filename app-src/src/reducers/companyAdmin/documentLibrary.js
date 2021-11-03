@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
+import { convertArrToObj, updateObj, removeObjItem, removeObjItems } from 'helpers/generic';
 import {
     SEARCH_ALL_LIBRARY_DOCUMENTS_REQUEST,
     SEARCH_ALL_LIBRARY_DOCUMENTS_SUCCESS,
@@ -36,7 +36,7 @@ export default combineReducers({
     postError: postErrorReducer,
     postSuccess: postSuccessReducer,
     isDeleting: isDeletingReducer,
-    deletionError: deletionErrorReducer,
+    deleteError: deleteErrorReducer,
     deleteSuccess: deleteSuccessReducer,
     libraryView: libraryViewReducer,
     libraryPage: libraryPageReducer,
@@ -114,7 +114,7 @@ function isDeletingReducer(state = false, action) {
     }
 }
 
-function deletionErrorReducer(state = null, action) {
+function deleteErrorReducer(state = null, action) {
     switch (action.type) {
         case SOFT_DELETE_LIBRARY_DOCUMENT_REQUEST:
         case SOFT_DELETE_LIBRARY_DOCUMENT_SUCCESS:
@@ -154,7 +154,7 @@ function documentLibraryReducer(state = {}, action) {
             return updateObj(state, action.payload.id, action.payload);
         case SOFT_DELETE_LIBRARY_DOCUMENT_SUCCESS:
         case HARD_DELETE_LIBRARY_DOCUMENT_SUCCESS:
-            return removeObjItem(state, action.id);
+            return removeObjItems(state, action.ids);
         default:
             return state;
     }

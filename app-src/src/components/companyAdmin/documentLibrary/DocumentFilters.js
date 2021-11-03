@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import Search from 'components/shared/generic/form/presentational/Search';
 import Select from 'components/shared/generic/form/presentational/Select';
 import UserPermissions from '_content/images/icons/user-permission.svg';
 import switchDocumentLibraryFilter from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryFilter';
 import switchDocumentLibrarySearchTerm from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibrarySearchTerm';
+import { usePrevious } from 'helpers/hooks';
 
 const viewModeOptions = [
     { value: 'list', label: 'List View' },
@@ -28,10 +29,19 @@ const DocumentFilters = ({
     setViewMode,
     selectedItems,
     libraryFilter,
+    deleteSuccess,
     handleShowSoftDeleteModal = () => {},
     showEditModal,
 }) => {
     const dispatch = useDispatch();
+
+    const prevProps = usePrevious({ deleteSuccess });
+
+    useEffect(() => {
+        if (!prevProps.deleteSuccess && deleteSuccess && libraryFilter === 'isArchived')
+            dispatch(switchDocumentLibraryFilter(null));
+    }, [dispatch, libraryFilter, deleteSuccess, prevProps.deleteSuccess]);
+
     return (
         <form className="table-search size-lg-12 flex-container document-filters">
             <Search
@@ -99,10 +109,11 @@ export default connect(
             mobileReducer: { onMobile },
         },
         companyAdmin: {
-            documentLibraryReducer: { libraryFilter },
+            documentLibraryReducer: { libraryFilter, deleteSuccess },
         },
     }) => ({
         onMobile,
         libraryFilter,
+        deleteSuccess,
     }),
 )(DocumentFilters);

@@ -53,14 +53,14 @@ const CreateDocumentForm = ({ initialFiles }) => {
             <div>
                 <p>Document Use:</p>
                 <div className="checkbox-items">
-                    <CheckboxContainer 
+                    <CheckboxContainer
                         name="isViewApp"
                         checked={form.isViewApp}
                         text="View in app"
                         handleChange={handleChange}
                     />
 
-                    <CheckboxContainer 
+                    <CheckboxContainer
                         name="isAttachPins"
                         checked={form.isAttachPins}
                         text="Attach to pins"
@@ -83,38 +83,39 @@ const CreateDocumentForm = ({ initialFiles }) => {
         if (!files || !files.length) return null;
 
         return (
-            <ul className="file-previews" >
-                {files.map((item) => {
+            <ul className="file-previews">
+                {files.map(item => {
                     const { file, uuid, uploaded, errorMessage } = item;
 
                     let className = '';
                     if (errorMessage) className = 'error';
                     else if (uploaded) className = 'uploaded';
 
-                    return ( 
-                        
-                            <li key={uuid}>
-                                <div className={`file-item ${className}`}>
-                               
-                                <p className="main-text"> 
+                    return (
+                        <li key={uuid}>
+                            <div className={`file-item ${className}`}>
+                                <p className="main-text">
                                     <strong>{escape(file.name)}</strong> ({file.type})
                                     {formatBytes(file.size)}
                                 </p>
-                                {
-                                    uploaded ? (
-                                        <i className="fa fa-check" />
-                                    ) : (
-                                        <button type="button" onClick={e => {
+                                {uploaded ? (
+                                    <i className="fa fa-check" />
+                                ) : (
+                                    <button
+                                        type="button"
+                                        onClick={e => {
                                             e.preventDefault();
                                             handleRemove(uuid);
-                                        }}>
-                                            <i className="fa fa-times" />
-                                        </button>
-                                    )
-                                }
-                                </div>
-                                {!!errorMessage && <p className="error-message text-accent-4">{errorMessage}</p>}
-                            </li>
+                                        }}
+                                    >
+                                        <i className="fa fa-times" />
+                                    </button>
+                                )}
+                            </div>
+                            {!!errorMessage && (
+                                <p className="error-message text-accent-4">{errorMessage}</p>
+                            )}
+                        </li>
                     );
                 })}
             </ul>
@@ -132,16 +133,16 @@ const CreateDocumentForm = ({ initialFiles }) => {
     }
 };
 
-function formatBytes(bytes) {
+export function formatBytes(bytes) {
     const kb = bytes / 1024;
     const mb = kb / 1024;
-    const gb  = mb / 1024;
+    const gb = mb / 1024;
 
     if (gb > 1) return `${gb.toFixed(2)} gb`;
     if (mb > 1) return `${mb.toFixed(2)} mb`;
     if (kb > 1) return `${kb.toFixed(2)} kb`;
-    
-    return  `${bytes} bytes`;
+
+    return `${bytes} bytes`;
 }
 
 export default CreateDocumentForm;

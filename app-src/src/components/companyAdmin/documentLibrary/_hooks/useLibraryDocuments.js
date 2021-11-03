@@ -35,7 +35,7 @@ const useLibraryDocuments = prefix => {
         librarySearchTerm,
     });
 
-    const searchAction = () =>
+    const searchAction = () => {
         dispatch(
             searchAllLibraryDocuments(
                 currentPage,
@@ -44,6 +44,8 @@ const useLibraryDocuments = prefix => {
                 libraryFilter === 'isArchived' ? true : false,
             ),
         );
+        setSelectedItems([]);
+    };
 
     useEffect(searchAction, []); // Fetch on mount, regardless
 

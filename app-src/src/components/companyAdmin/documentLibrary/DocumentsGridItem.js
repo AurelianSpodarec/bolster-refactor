@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+import { DATE_TIME_IDS, DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
 import React from 'react';
 import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
 import { getIconFromExt } from 'helpers/general';
@@ -9,38 +9,68 @@ import FileTypeIcon from './FileTypeIcon';
 const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
     return (
         <div className="grid-item">
-            <Link
-                to={
-                    item.type === 100
-                        ? `/company/document-library?prefix=${item.s3Key}`
-                        : '/company/document-library'
-                }
-                title={`Open ${item.name}${item.fileExtension ? `.${item.fileExtension}` : ''}`}
-                className="image-container"
-            >
-                <FileTypeIcon
-                    src={item.type === 200 ? getIconFromExt(item.fileExtension) : FolderIcon}
-                    alt={`${item.name} icon`}
-                    width="auto"
-                    height="160"
-                />
-            </Link>
-            <Link
-                className="details-container"
-                to={
-                    item.type === 100
-                        ? `/company/document-library?prefix=${item.s3Key}`
-                        : '/company/document-library'
-                }
-                title={`Open ${item.name}${item.fileExtension ? `.${item.fileExtension}` : ''}`}
-            >
-                {item.type === 200 && <FileTypeIcon src={getIconFromExt(item.fileExtension)} />}
-                <p
-                    style={
-                        item.type === 200 ? { maxWidth: 'calc(100% - 34px)' } : { maxWidth: '100%' }
-                    }
-                >{`${item.name || '-'}${item.type === 200 ? '.' + item.fileExtension : ''}`}</p>
-            </Link>
+            {item.type === DOCUMENT_LIBRARY_TYPES.FOLDER ? (
+                <Link
+                    to={`/company/document-library?prefix=${item.searchTerm}`}
+                    title={`Open ${item.name}${item.fileExtension ? `.${item.fileExtension}` : ''}`}
+                    className="image-container"
+                >
+                    <FileTypeIcon
+                        src={
+                            item.type === DOCUMENT_LIBRARY_TYPES.FILE
+                                ? getIconFromExt(item.fileExtension)
+                                : FolderIcon
+                        }
+                        alt={`${item.name} icon`}
+                        width="auto"
+                        height="160"
+                    />
+                </Link>
+            ) : (
+                <div className="image-container">
+                    <FileTypeIcon
+                        src={
+                            item.type === DOCUMENT_LIBRARY_TYPES.FILE
+                                ? getIconFromExt(item.fileExtension)
+                                : FolderIcon
+                        }
+                        alt={`${item.name} icon`}
+                        width="auto"
+                        height="160"
+                    />
+                </div>
+            )}
+            {item.type === DOCUMENT_LIBRARY_TYPES.FOLDER ? (
+                <Link
+                    className="details-container"
+                    to={`/company/document-library?prefix=${item.searchTerm}`}
+                    title={`Open ${item.name}`}
+                >
+                    {item.type === DOCUMENT_LIBRARY_TYPES.FILE && (
+                        <FileTypeIcon src={getIconFromExt(item.fileExtension)} />
+                    )}
+                    <p
+                        style={
+                            item.type === DOCUMENT_LIBRARY_TYPES.FILE
+                                ? { maxWidth: 'calc(100% - 34px)' }
+                                : { maxWidth: '100%' }
+                        }
+                    >{`${item.name || '-'}`}</p>
+                </Link>
+            ) : (
+                <div className="details-container">
+                    {item.type === DOCUMENT_LIBRARY_TYPES.FILE && (
+                        <FileTypeIcon src={getIconFromExt(item.fileExtension)} />
+                    )}
+                    <p
+                        style={
+                            item.type === DOCUMENT_LIBRARY_TYPES.FILE
+                                ? { maxWidth: 'calc(100% - 34px)' }
+                                : { maxWidth: '100%' }
+                        }
+                    >{`${item.name || '-'}`}</p>
+                </div>
+            )}
             <p className="meta">
                 Updated{' '}
                 <DateTimeContainer date={new Date(item.createdOn)} datetime={DATE_TIME_IDS.DATE} />

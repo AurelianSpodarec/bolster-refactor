@@ -5,8 +5,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { getIconFromExt } from 'helpers/general';
 import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
 import FileTypeIcon from './FileTypeIcon';
-
-
+import { formatBytes } from './CreateDocumentForm';
 
 let DocumentsListItem = ({
     item,
@@ -31,33 +30,35 @@ let DocumentsListItem = ({
                 </td>
                 <td>
                     {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-                    <Link
-                        to={
-                            item.type === DOCUMENT_LIBRARY_TYPES.FOLDER
-                                ? `/company/document-library?prefix=${item.searchTerm}`
-                                : '/company/document-library' //WIP
-                        }
-                    >
+                    {item.type === DOCUMENT_LIBRARY_TYPES.FOLDER ? (
+                        <Link to={`/company/document-library?prefix=${item.searchTerm}`}>
+                            <FileTypeIcon
+                                src={
+                                    item.type === DOCUMENT_LIBRARY_TYPES.FILE
+                                        ? getIconFromExt(item.fileExtension)
+                                        : FolderIcon
+                                }
+                            />
+                        </Link>
+                    ) : (
                         <FileTypeIcon
                             src={
-                                item.type === DOCUMENT_LIBRARY_TYPES.FILE 
-                                    ? getIconFromExt(item.fileExtension) 
+                                item.type === DOCUMENT_LIBRARY_TYPES.FILE
+                                    ? getIconFromExt(item.fileExtension)
                                     : FolderIcon
                             }
                         />
-                    </Link>
+                    )}
                 </td>
                 <td>
                     {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
-                    <Link
-                        to={
-                            item.type === DOCUMENT_LIBRARY_TYPES.FOLDER
-                                ? `/company/document-library?prefix=${item.searchTerm}`
-                                : '/company/document-library' //WIP
-                        }
-                    >
-                        {item.name}
-                    </Link>
+                    {item.type === DOCUMENT_LIBRARY_TYPES.FOLDER ? (
+                        <Link to={`/company/document-library?prefix=${item.searchTerm}`}>
+                            <p>{item.name}</p>
+                        </Link>
+                    ) : (
+                        <p>{item.name}</p>
+                    )}
                 </td>
                 <td>
                     {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
@@ -72,7 +73,7 @@ let DocumentsListItem = ({
                 </td>
                 <td>
                     {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
-                    {item.contentLength || ' '}
+                    {item.contentLength ? formatBytes(item.contentLength) : ' '}
                 </td>
             </>
         </tr>

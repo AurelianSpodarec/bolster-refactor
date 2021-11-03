@@ -12,9 +12,9 @@ export const softDeleteLibraryDocumentsRequest = () => ({
     type: SOFT_DELETE_LIBRARY_DOCUMENT_REQUEST,
 });
 
-export const softDeleteLibraryDocumentsSuccess = payload => ({
+export const softDeleteLibraryDocumentsSuccess = ids => ({
     type: SOFT_DELETE_LIBRARY_DOCUMENT_SUCCESS,
-    payload,
+    ids,
 });
 
 export const softDeleteLibraryDocumentsFailure = error => ({
@@ -22,11 +22,11 @@ export const softDeleteLibraryDocumentsFailure = error => ({
     error,
 });
 
-export default (ids = [], undo = true) => dispatch => {
+export default (ids = [], undo = false) => dispatch => {
     dispatch(softDeleteLibraryDocumentsRequest());
 
     return axios
         .patch(`${API_URL}/document-library/archive`, { ids, undo }, getHeaders())
-        .then(res => dispatch(softDeleteLibraryDocumentsSuccess(res.data)))
+        .then(res => dispatch(softDeleteLibraryDocumentsSuccess(ids, undo)))
         .catch(err => dispatch(softDeleteLibraryDocumentsFailure(err.message)));
 };
