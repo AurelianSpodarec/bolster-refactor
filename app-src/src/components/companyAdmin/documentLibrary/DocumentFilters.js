@@ -29,6 +29,7 @@ const DocumentFilters = ({
     selectedItems,
     libraryFilter,
     handleShowSoftDeleteModal = () => {},
+    showEditModal,
 }) => {
     const dispatch = useDispatch();
     return (
@@ -61,12 +62,12 @@ const DocumentFilters = ({
                     disabled={!selectedItems.length}
                     className={`library-button button ${selectedItems.length && 'blue'}`}
                     type="button"
-                    onClick={() => {}}
+                    onClick={showEditModal}
                 >
                     <img
                         src={UserPermissions}
-                        alt="Delete icon"
-                        title="Delete"
+                        alt="user"
+                        title="user"
                         // width="24"
                         // height="24"
                     />

@@ -12,21 +12,23 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import createDocumentLibraryFolder from 'actions/companyAdmin/documentLibrary/async/fetchDocumentLibraryFilesForCompany';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
-const CreateDocumentFolderModal = () => {
+const EditDocumentItemsModal = () => {
     const disptach = useDispatch();
-    const [form, handleChange] = useForm({ key: '' });
-    const prefix = useQueryParam('prefix') || '';
+    const [{ isAttachPins, isViewApp }, handleChange] = useForm({ isAttachPins: false, isViewApp: false });
 
     const isPosting = useSelector(selectIsPosting);
     const error = useSelector(selectError);
     const success = useSelector(selectIsSuccess);
 
     const handleSubmit = () => {
-        const folderPrefix = prefix ? `${prefix}/` : '';
-        const key = `${folderPrefix}${form.key}`;
+        const postBody = {
+            isAttachPins,
+            isViewApp,
 
-        disptach(createDocumentLibraryFolder({ key }));
+        };
+        console.log({  });
     };
 
     const handleCancel = () => {
@@ -40,19 +42,26 @@ const CreateDocumentFolderModal = () => {
 
     return (
         <ModalOuterContainer>
-             <BlockHeading title="Create folder" />
+            <BlockHeading title="Edit items" />
             <Form onSubmit={handleSubmit}>
-
-                <Field required name="Name">
-                    <TextInputContainer 
-                        name="key" 
-                        value={form.key} 
-                        handleChange={handleChange}
-                        required
-                        placeholder="Enter a folder name..."
-                    />
-                </Field>
-
+                <div >
+                    <p>Document Use:</p>
+                    <div className="checkbox-items">
+                        <CheckboxContainer
+                            name="isViewApp"
+                            checked={isViewApp}
+                            text="View in app"
+                            handleChange={handleChange}
+                        />
+                        <CheckboxContainer 
+                            name="isAttachPins"
+                            checked={isAttachPins}
+                            text="Attach to pins"
+                            handleChange={handleChange}
+                        />
+                    </div>
+                <p>(if none selected, document is only viewable on desktop)</p>
+            </div>
                 <BlockButtonWrapper>
                     <button onClick={handleSubmit} 
                         className={`button green ${isPosting ? 'disabled' : ''}`}
@@ -73,4 +82,4 @@ const selectIsPosting = state => state.companyAdmin.documentLibraryReducer.isPos
 const selectError = state => state.companyAdmin.documentLibraryReducer.postError;
 const selectIsSuccess = state => state.companyAdmin.documentLibraryReducer.postSuccess;
 
-export default CreateDocumentFolderModal;
+export default EditDocumentItemsModal;

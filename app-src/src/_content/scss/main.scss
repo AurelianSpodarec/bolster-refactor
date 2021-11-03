@@ -6747,4 +6747,11 @@ input {
     margin-top: 2px;
 }
 
+.checkbox-items {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin: 5px 0;
+  }
+
 @import './pages/document-library.scss'
