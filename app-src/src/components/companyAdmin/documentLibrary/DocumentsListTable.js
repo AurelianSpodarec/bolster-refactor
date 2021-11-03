@@ -6,6 +6,7 @@ import DocumentsList from './DocumentsList';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import PageSelector from 'components/shared/pagination/presentational/pageSelector';
+import DocumentLibraryBreadcrumb from './DocumentLibraryBreadcrumb';
 
 const DocumentsTable = ({
     selectedItems = [],
@@ -18,6 +19,9 @@ const DocumentsTable = ({
     setCurrentPage = () => {},
     limit = 50,
     setPageSize = () => {},
+    s3KeyQuery,
+    isFetching,
+    fetchError,
 }) => {
     const headers = ['', '', 'Name', 'Uploaded by', 'Uploaded', 'File size'];
 
@@ -30,8 +34,9 @@ const DocumentsTable = ({
     }, [maxPage, currentPage]);
 
     return (
-        <BlockContainer>
+        <BlockContainer contentClass="no-overflow">
             <BlockHeading title="Company Files" classes="w-table">
+                <DocumentLibraryBreadcrumb s3Key={s3KeyQuery} />
                 {!!selectedItems.length && (
                     <span className="selected-message">
                         <span>{`${selectedItems.length} file${
@@ -40,16 +45,13 @@ const DocumentsTable = ({
                     </span>
                 )}
                 <PageSelector setPage={setCurrentPage} page={currentPage} maxPage={maxPage} />
-                {/* <button className="button" onClick={() => {}}>
-                    <i className="far fa-sort" /> Sort Mode
-                </button> */}
             </BlockHeading>
 
             <Table
                 withActions
                 headers={headers}
-                isFetching={false}
-                error={null}
+                isFetching={isFetching}
+                error={fetchError}
                 noData={!items.length}
                 noDataMessage={
                     !librarySearchTerm && !libraryFilter

@@ -50,7 +50,7 @@ let DocumentsListItem = ({
                         href={
                             item.type === 100
                                 ? `/company/document-library?s3Key=${item.s3Key}`
-                                : '/company/document-library' //WIP
+                                : '/company/document-library'
                         }
                         title=""
                     >
