@@ -32,14 +32,14 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                         ? `/company/document-library?prefix=${item.searchTerm}`
                         : '/company/document-library'
                 }
-                title={`Open ${item.name}${item.fileExtension ? `.${item.fileExtension}` : ''}`}
+                title={`Open ${item.name}`}
             >
                 {item.type === 200 && <FileTypeIcon src={getIconFromExt(item.fileExtension)} />}
                 <p
                     style={
                         item.type === 200 ? { maxWidth: 'calc(100% - 34px)' } : { maxWidth: '100%' }
                     }
-                >{`${item.name || '-'}${item.type === 200 ? '.' + item.fileExtension : ''}`}</p>
+                >{`${item.name || '-'}`}</p>
             </Link>
             <p className="meta">
                 Updated{' '}
