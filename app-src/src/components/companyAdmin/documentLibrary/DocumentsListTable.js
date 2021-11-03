@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
@@ -23,7 +23,6 @@ const DocumentsTable = ({
     fetchError,
 }) => {
     const headers = ['', '', 'Name', 'Uploaded by', 'Uploaded', 'File size'];
-
     const maxPage = Math.ceil(items.length / limit);
 
     const { librarySearchTerm, libraryFilter } = useSelector(mapStateToProps);

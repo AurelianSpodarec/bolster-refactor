@@ -70,7 +70,8 @@ const DocumentLibrary = () => {
                     viewMode={libraryView}
                     setViewMode={switchDocumentLibraryView}
                     selectedItems={selectedItems}
-                    handleShowSoftDeleteModal={handleShowSoftDeleteModal}
+                    showEditModal={showEditModal}
+                    // handleShowSoftDeleteModal={handleShowSoftDeleteModal}
                 />
             </BlockContainer>
             <div ref={dropRef}>

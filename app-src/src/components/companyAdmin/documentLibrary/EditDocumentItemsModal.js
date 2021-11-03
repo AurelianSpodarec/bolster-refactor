@@ -4,19 +4,22 @@ import {useDispatch, useSelector} from 'react-redux';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Form from 'components/shared/generic/form/containers/Form';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import { useForm, usePrevious, useQueryParam } from 'helpers/hooks';
-import Field from 'components/shared/generic/form/presentational/Field';
+import { useForm, usePrevious } from 'helpers/hooks';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import createDocumentLibraryFolder from 'actions/companyAdmin/documentLibrary/async/fetchDocumentLibraryFilesForCompany';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import editDocumentLibraryFolder from 'actions/companyAdmin/documentLibrary/async/editDocumentLibraryFolder';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 
-const EditDocumentItemsModal = () => {
-    const disptach = useDispatch();
-    const [{ isAttachPins, isViewApp }, handleChange] = useForm({ isAttachPins: false, isViewApp: false });
+const EditDocumentItemsModal = ({ ids }) => {
+    const dispatch = useDispatch();
+    const [{ 
+        isAttachPins, 
+        isViewApp 
+    }, handleChange] = useForm({ isAttachPins: false, isViewApp: false });
 
     const isPosting = useSelector(selectIsPosting);
     const error = useSelector(selectError);
@@ -26,18 +29,18 @@ const EditDocumentItemsModal = () => {
         const postBody = {
             isAttachPins,
             isViewApp,
-
+            ids,
         };
-        console.log({  });
+        dispatch(editDocumentLibraryFolder(postBody));
     };
 
     const handleCancel = () => {
-        disptach(hideModal());
+        dispatch(hideModal());
     };
 
     const prevSuccess = usePrevious(success);
     useEffect(() => {
-        if (!prevSuccess && success) disptach(hideModal());
+        if (!prevSuccess && success) dispatch(showModal(SUCCESS_MODAL, { message: 'Successfully updated library items' }));
     }, [success, prevSuccess]);
 
     return (

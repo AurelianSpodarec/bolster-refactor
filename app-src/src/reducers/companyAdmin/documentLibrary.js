@@ -20,6 +20,9 @@ import {
     CREATE_LIBRARY_DOCUMENT_FOLDER_REQUEST,
     CREATE_LIBRARY_DOCUMENT_FOLDER_SUCCESS,
     CREATE_LIBRARY_DOCUMENT_FOLDER_FAILURE,
+    EDIT_DOCUMENT_LIBRARY_ITEMS_REQUEST,
+    EDIT_DOCUMENT_LIBRARY_ITEMS_SUCCESS,
+    EDIT_DOCUMENT_LIBRARY_ITEMS_FAILURE,
     SWITCH_DOCUMENT_LIBRARY_VIEW,
     SWITCH_DOCUMENT_LIBRARY_PAGE_SIZE,
     SWITCH_DOCUMENT_LIBRARY_PAGE,
@@ -78,9 +81,12 @@ function fetchErrorReducer(state = null, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case CREATE_LIBRARY_DOCUMENT_FOLDER_REQUEST:
+        case EDIT_DOCUMENT_LIBRARY_ITEMS_REQUEST:
             return true;
         case CREATE_LIBRARY_DOCUMENT_FOLDER_SUCCESS:
         case CREATE_LIBRARY_DOCUMENT_FOLDER_FAILURE:
+        case EDIT_DOCUMENT_LIBRARY_ITEMS_SUCCESS:
+        case EDIT_DOCUMENT_LIBRARY_ITEMS_FAILURE:
             return false;
         default:
             return state;
@@ -90,9 +96,10 @@ function isPostingReducer(state = false, action) {
 function postErrorReducer(state = null, action) {
     switch (action.type) {
         case CREATE_LIBRARY_DOCUMENT_FOLDER_REQUEST:
-        case CREATE_LIBRARY_DOCUMENT_FOLDER_SUCCESS:
+        case EDIT_DOCUMENT_LIBRARY_ITEMS_REQUEST:
             return null;
         case CREATE_LIBRARY_DOCUMENT_FOLDER_FAILURE:
+        case EDIT_DOCUMENT_LIBRARY_ITEMS_FAILURE:
             return action.error;
         default:
             return state;
@@ -152,6 +159,8 @@ function documentLibraryReducer(state = {}, action) {
         case CREATE_LIBRARY_DOCUMENT_FOLDER_SUCCESS:
         case ADD_DOCUMENT_LIBRARY_ITEM:
             return updateObj(state, action.payload.id, action.payload);
+        case EDIT_DOCUMENT_LIBRARY_ITEMS_SUCCESS:
+            return {...state, ...convertArrToObj(action.payload)};
         case SOFT_DELETE_LIBRARY_DOCUMENT_SUCCESS:
         case HARD_DELETE_LIBRARY_DOCUMENT_SUCCESS:
             return removeObjItems(state, action.ids);
@@ -164,8 +173,11 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_LIBRARY_DOCUMENT_FOLDER_REQUEST:
         case CREATE_LIBRARY_DOCUMENT_FOLDER_FAILURE:
+        case EDIT_DOCUMENT_LIBRARY_ITEMS_REQUEST:
+        case EDIT_DOCUMENT_LIBRARY_ITEMS_FAILURE:
             return false;
         case CREATE_LIBRARY_DOCUMENT_FOLDER_SUCCESS:
+        case EDIT_DOCUMENT_LIBRARY_ITEMS_SUCCESS:
             return true;
         default:
             return state;
