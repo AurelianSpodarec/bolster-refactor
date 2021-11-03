@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -12,8 +13,11 @@ import useSoftDeleteLibraryDocuments from './_hooks/useSoftDeleteLibraryDocument
 import useDocumentLibraryPagination from './_hooks/useDocumentsLibraryPagination';
 import useOpenCreateDocumentModal from './_hooks/useOpenCreateDocumentModal';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { CREATE_LIBRARY_FOLDER } from 'constants/shared/modalTypes';
 
 const DocumentLibrary = () => {
+    const dispatch = useDispatch();
     const { libraryView } = useSelector(mapStateToProps);
     const s3KeyQuery = new URLSearchParams(useLocation().search).get('s3key');
     const {
@@ -50,7 +54,7 @@ const DocumentLibrary = () => {
                     <i className="fa fa-file-medical" />
                     Upload File
                 </button>
-                <button className="button blue" type="button" onClick={() => {}}>
+                <button className="button blue" type="button" onClick={() => dispatch(showModal(CREATE_LIBRARY_FOLDER))}>
                     <i className="fa fa-folder-plus" />
                     Create Folder
                 </button>
