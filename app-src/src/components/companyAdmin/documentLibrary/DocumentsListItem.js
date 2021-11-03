@@ -19,8 +19,6 @@ let DocumentsListItem = ({
     let rowClass = 'draggable expandable dl-row';
     if (isDragging) rowClass += ' dragging';
 
-    console.log(stripS3Key(item.s3Key, item.companyID));
-
     return (
         <tr ref={isSorting ? forwardRef : null} className={rowClass}>
             <>
