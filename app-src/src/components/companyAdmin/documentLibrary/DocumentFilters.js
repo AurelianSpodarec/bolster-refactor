@@ -36,10 +36,10 @@ const DocumentFilters = ({
 
     const prevProps = usePrevious({ deleteSuccess });
 
-    // useEffect(() => {
-    //     if (!prevProps.deleteSuccess && deleteSuccess && libraryFilter === 'isArchived')
-    //         dispatch(switchDocumentLibraryFilter(null));
-    // }, [dispatch, libraryFilter, deleteSuccess, prevProps.deleteSuccess]);
+    useEffect(() => {
+        if (!prevProps.deleteSuccess && deleteSuccess && libraryFilter === 'isArchived')
+            dispatch(switchDocumentLibraryFilter(null));
+    }, [dispatch, libraryFilter, deleteSuccess, prevProps.deleteSuccess]);
 
     return (
         <form className="table-search size-lg-12 flex-container document-filters">
