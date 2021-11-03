@@ -82,8 +82,8 @@ const InvoiceDetails = ({
             />
             <FieldOutput title="Company" description={companyName} sizeClass="size-lg-4" />
             <FieldOutput
-                title="Payment Method"
-                description={INVOICE_TYPES[invoiceType]}
+                title="Invoice Type"
+                description={INVOICE_TYPES[invoiceType] || '-'}
                 sizeClass="size-lg-4"
             />
 

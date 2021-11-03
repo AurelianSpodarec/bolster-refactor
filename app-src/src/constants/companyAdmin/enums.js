@@ -163,8 +163,7 @@ export const PAYMENT_TYPES = {
 };
 
 export const INVOICE_TYPES = {
-    0: '-',
-    1: 'Invoice',
+    1: 'Current Invoice',
     2: 'Card',
 };
 
