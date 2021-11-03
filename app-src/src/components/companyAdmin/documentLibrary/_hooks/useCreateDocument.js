@@ -85,8 +85,10 @@ const useCreateDocument = (initialFiles = []) => {
               }
     
             const filePrefix = prefix ? `${prefix}/` : '';
-    
+
+            
             const key = `${filePrefix}${file.name}`;
+            
             const postBody = {
                 key: key,
                 contentType: file.type,
@@ -121,11 +123,15 @@ const useCreateDocument = (initialFiles = []) => {
 
             return true;
         } catch (err) {
+            let message = err.message;
+            if (typeof err.response?.data === 'string') message = err.response?.data;
+
+            console.log({err});
             await setTimeoutAsync(600);
             setProgress(0);
             
             setFiles(prev => prev.map(item => item.uuid === uuid 
-                ? ({ ...item, errorMessage: err.message }) 
+                ? ({ ...item, errorMessage: message }) 
                 : item));
 
             return false;

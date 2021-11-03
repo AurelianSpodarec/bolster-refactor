@@ -236,9 +236,10 @@ export const useResend2FA = email => {
 
 
 export function useQueryParam(paramName) {
-    const search = useLocation();
+    const search = useLocation().search;
     const params = new URLSearchParams(search);
     return params.get(paramName);
+
   }
 
 export const useTimeout = () => {
