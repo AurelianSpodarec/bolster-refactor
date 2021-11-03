@@ -18,7 +18,6 @@ const DocumentsTable = ({
     currentPage,
     setCurrentPage = () => {},
     limit = 50,
-    setPageSize = () => {},
     prefixQuery,
     isFetching,
     fetchError,
@@ -35,7 +34,7 @@ const DocumentsTable = ({
 
     return (
         <BlockContainer contentClass="no-overflow">
-            <BlockHeading title="Company Files" classes="w-table">
+            <BlockHeading classes="w-table">
                 <DocumentLibraryBreadcrumb prefix={prefixQuery} />
                 {!!selectedItems.length && (
                     <span className="selected-message">

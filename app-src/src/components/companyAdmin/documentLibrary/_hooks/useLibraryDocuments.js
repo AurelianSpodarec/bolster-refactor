@@ -5,7 +5,7 @@ import searchAllLibraryDocuments from 'actions/companyAdmin/documentLibrary/asyn
 import { convertArrToObj } from 'helpers/generic';
 import { useDebounce } from 'helpers/hooks';
 
-const useLibraryDocuments = s3Key => {
+const useLibraryDocuments = prefix => {
     const dispatch = useDispatch();
     const [selectedItems, setSelectedItems] = useState([]);
     const {
@@ -24,7 +24,7 @@ const useLibraryDocuments = s3Key => {
     } = useSelector(mapStateToProps);
 
     const prevProps = usePrevious({
-        s3Key,
+        prefix,
         currentPage,
         postSuccess,
         isPosting,
@@ -40,7 +40,7 @@ const useLibraryDocuments = s3Key => {
             searchAllLibraryDocuments(
                 currentPage,
                 limit,
-                librarySearchTerm ? librarySearchTerm : s3Key,
+                prefix ? `${prefix}/${librarySearchTerm}` : librarySearchTerm,
                 libraryFilter === 'isArchived' ? true : false,
             ),
         );
@@ -55,7 +55,7 @@ const useLibraryDocuments = s3Key => {
         ) {
             searchAction();
         }
-    }, [dispatch, s3Key, currentPage, libraryFilter, libraryView, prevProps]); // Fetch on changes to page, filter & view
+    }, [dispatch, prefix, currentPage, libraryFilter, libraryView, prevProps]); // Fetch on changes to page, filter & view
 
     useDebounce(
         () => {

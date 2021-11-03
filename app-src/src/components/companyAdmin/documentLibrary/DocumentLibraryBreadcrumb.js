@@ -5,18 +5,19 @@ import { Link } from 'react-router-dom';
 const DocumentLibraryBreadcrumb = ({ prefix }) => {
     if (!prefix) return <></>;
     const prefixArr = stripS3Key(prefix).split('/');
+    
     return (
         <div className="dl-breadcrumb">
+             <Link to={'/company/document-library'} >
+                Company files
+            </Link>
             {prefixArr.map((item, i) => (
-                <>
-                    <Link
-                        href={`/company/document-library/${prefixArr.slice(
-                            0,
-                            prefixArr.indexOf(item) + 1,
-                        )}`}
-                        title={item}
-                    >{`${item}${i === prefixArr.length - 1 ? ' / ' : ''}`}</Link>
-                </>
+                <React.Fragment key={i}>
+                    {' / '}
+                    <Link to={`/company/document-library?prefix=${item}`} >
+                        {item}
+                    </Link>
+                </React.Fragment>
             ))}
         </div>
     );
