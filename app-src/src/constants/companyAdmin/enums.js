@@ -162,6 +162,12 @@ export const PAYMENT_TYPES = {
     2: 'By Invoice',
 };
 
+export const INVOICE_TYPES = {
+    0: '-',
+    1: 'Invoice',
+    2: 'Card',
+};
+
 export const SUBSCRIPTION_RENEWAL_IDS = {
     CARD: 10,
     INVOICE: 20,
