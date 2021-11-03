@@ -30,17 +30,32 @@ const useLibraryDocuments = s3Key => {
         isDeleting,
         deleteSuccess,
         libraryView,
+        libraryFilter,
     });
 
     useEffect(() => {
-        dispatch(searchAllLibraryDocuments(currentPage, limit, s3Key));
+        dispatch(
+            searchAllLibraryDocuments(
+                currentPage,
+                limit,
+                s3Key,
+                libraryFilter === 'isArchived' ? true : false,
+            ),
+        );
     }, []);
 
     useEffect(() => {
-        if (currentPage !== prevProps.currentPage) {
-            dispatch(searchAllLibraryDocuments(currentPage));
+        if (currentPage !== prevProps.currentPage || libraryFilter !== prevProps.libraryFilter) {
+            dispatch(
+                searchAllLibraryDocuments(
+                    currentPage,
+                    limit,
+                    s3Key,
+                    libraryFilter === 'isArchived' ? true : false,
+                ),
+            );
         }
-    }, [dispatch, s3Key, currentPage, libraryView, prevProps]);
+    }, [dispatch, s3Key, currentPage, libraryFilter, libraryView, prevProps]);
 
     const toggleItemSelect = id => {
         if (selectedItems.includes(id)) setSelectedItems(selectedItems.filter(i => i !== id));
@@ -59,9 +74,9 @@ const useLibraryDocuments = s3Key => {
             case 'allFiles':
                 filteredLibrary = filteredLibrary.filter(({ type }) => type === 200);
                 break;
-            case 'isArchived':
-                filteredLibrary = filteredLibrary.filter(({ isArchived }) => !!isArchived);
-                break;
+            // case 'isArchived':
+            //     filteredLibrary = filteredLibrary.filter(({ isArchived }) => !!isArchived);
+            //     break;
             case 'isViewApp':
                 filteredLibrary = filteredLibrary.filter(({ isViewApp }) => !!isViewApp);
                 break;
@@ -72,10 +87,10 @@ const useLibraryDocuments = s3Key => {
                 break;
         }
 
-        filteredLibrary = filteredLibrary.filter(item => {
-            const matchStr = `${item.name.toLowerCase()}${item.s3Key.toLowerCase()}`;
-            return matchStr.includes(librarySearchTerm.toLowerCase());
-        });
+        // filteredLibrary = filteredLibrary.filter(item => {
+        //     const matchStr = `${item.name.toLowerCase()}${item.s3Key.toLowerCase()}`;
+        //     return matchStr.includes(librarySearchTerm.toLowerCase());
+        // });
 
         return convertArrToObj(filteredLibrary);
     };
