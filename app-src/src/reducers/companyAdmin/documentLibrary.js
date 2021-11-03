@@ -24,6 +24,8 @@ import {
     SWITCH_DOCUMENT_LIBRARY_PAGE_SIZE,
     SWITCH_DOCUMENT_LIBRARY_PAGE,
     ADD_DOCUMENT_LIBRARY_ITEM,
+    SWITCH_DOCUMENT_LIBRARY_FILTER,
+    SWITCH_DOCUMENT_LIBRARY_SEARCH_TERM,
 } from 'constants/actionTypes/documentLibrary';
 
 export default combineReducers({
@@ -39,6 +41,8 @@ export default combineReducers({
     libraryView: libraryViewReducer,
     libraryPage: libraryPageReducer,
     libraryPageSize: libraryPageSizeReducer,
+    libraryFilter: libraryFilterReducer,
+    librarySearchTerm: librarySearchTermReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -190,6 +194,24 @@ function libraryPageSizeReducer(state = 50, action) {
     switch (action.type) {
         case SWITCH_DOCUMENT_LIBRARY_PAGE_SIZE:
             return action.limit;
+        default:
+            return state;
+    }
+}
+
+function libraryFilterReducer(state = null, action) {
+    switch (action.type) {
+        case SWITCH_DOCUMENT_LIBRARY_FILTER:
+            return action.filter;
+        default:
+            return state;
+    }
+}
+
+function librarySearchTermReducer(state = '', action) {
+    switch (action.type) {
+        case SWITCH_DOCUMENT_LIBRARY_SEARCH_TERM:
+            return action.searchTerm;
         default:
             return state;
     }

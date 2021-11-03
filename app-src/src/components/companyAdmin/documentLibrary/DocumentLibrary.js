@@ -11,6 +11,7 @@ import switchDocumentLibraryView from 'actions/companyAdmin/documentLibrary/sync
 import useSoftDeleteLibraryDocuments from './_hooks/useSoftDeleteLibraryDocuments';
 import useDocumentLibraryPagination from './_hooks/useDocumentsLibraryPagination';
 import useOpenCreateDocumentModal from './_hooks/useOpenCreateDocumentModal';
+import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 const DocumentLibrary = () => {
     const { libraryView } = useSelector(mapStateToProps);
@@ -63,44 +64,49 @@ const DocumentLibrary = () => {
                     handleShowSoftDeleteModal={handleShowSoftDeleteModal}
                 />
             </BlockContainer>
-
-            <div ref={dropRef}>
-                {libraryView === 'list' ? (
-                    <BlockContainer>
-                        <DocumentsListTable
-                            items={Object.values(documentLibrary)}
-                            currentPage={currentPage}
-                            setCurrentPage={setCurrentPage}
-                            limit={limit}
-                            setPageSize={setPageSize}
-                            selectedItems={selectedItems}
-                            toggleItemSelect={toggleItemSelect}
-                        />
-                        {isActive && (
-                            <div className="dnd-overlay">
-                                <h3>Release file to upload</h3>
-                            </div>
+            {!isFetching ? (
+                <>
+                    <div ref={dropRef}>
+                        {libraryView === 'list' ? (
+                            <BlockContainer>
+                                <DocumentsListTable
+                                    items={Object.values(documentLibrary)}
+                                    currentPage={currentPage}
+                                    setCurrentPage={setCurrentPage}
+                                    limit={limit}
+                                    setPageSize={setPageSize}
+                                    selectedItems={selectedItems}
+                                    toggleItemSelect={toggleItemSelect}
+                                />
+                                {isActive && (
+                                    <div className="dnd-overlay">
+                                        <h3>Release file to upload</h3>
+                                    </div>
+                                )}
+                            </BlockContainer>
+                        ) : (
+                            <BlockContainer contentClass="transparent">
+                                <DocumentsGrid
+                                    items={Object.values(documentLibrary)}
+                                    currentPage={currentPage}
+                                    setCurrentPage={setCurrentPage}
+                                    limit={limit}
+                                    setPageSize={setPageSize}
+                                    selectedItems={selectedItems}
+                                    toggleItemSelect={toggleItemSelect}
+                                />
+                                {isActive && (
+                                    <div className="dnd-overlay">
+                                        <h3>Release file to upload</h3>
+                                    </div>
+                                )}
+                            </BlockContainer>
                         )}
-                    </BlockContainer>
-                ) : (
-                    <BlockContainer contentClass="transparent">
-                        <DocumentsGrid
-                            items={Object.values(documentLibrary)}
-                            currentPage={currentPage}
-                            setCurrentPage={setCurrentPage}
-                            limit={limit}
-                            setPageSize={setPageSize}
-                            selectedItems={selectedItems}
-                            toggleItemSelect={toggleItemSelect}
-                        />
-                        {isActive && (
-                            <div className="dnd-overlay">
-                                <h3>Release file to upload</h3>
-                            </div>
-                        )}
-                    </BlockContainer>
-                )}
-            </div>
+                    </div>
+                </>
+            ) : (
+                <Loading withIcon />
+            )}
         </>
     );
 };

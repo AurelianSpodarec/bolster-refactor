@@ -18,6 +18,8 @@ const useLibraryDocuments = s3Key => {
         libraryPage: currentPage,
         libraryPageSize: limit,
         libraryView,
+        libraryFilter,
+        librarySearchTerm,
     } = useSelector(mapStateToProps);
 
     const prevProps = usePrevious({
@@ -45,11 +47,41 @@ const useLibraryDocuments = s3Key => {
         else setSelectedItems([...selectedItems, id]);
     };
 
-    const folders = Object.values(documentLibrary).filter(d => d.type === 100);
-    const files = Object.values(documentLibrary).filter(d => d.type === 200);
+    const filterDocuments = () => {
+        // value is allFolders, allFiles, [fileExtension](TODO), isArchived, isViewApp, isAttachPins
+        let filteredLibrary = Object.values(documentLibrary);
+        switch (libraryFilter) {
+            case null:
+                break;
+            case 'allFolders':
+                filteredLibrary = filteredLibrary.filter(({ type }) => type === 100);
+                break;
+            case 'allFiles':
+                filteredLibrary = filteredLibrary.filter(({ type }) => type === 200);
+                break;
+            case 'isArchived':
+                filteredLibrary = filteredLibrary.filter(({ isArchived }) => !!isArchived);
+                break;
+            case 'isViewApp':
+                filteredLibrary = filteredLibrary.filter(({ isViewApp }) => !!isViewApp);
+                break;
+            case 'isAttachPins':
+                filteredLibrary = filteredLibrary.filter(({ isAttachPins }) => !!isAttachPins);
+                break;
+            default:
+                break;
+        }
+
+        filteredLibrary = filteredLibrary.filter(item => {
+            const matchStr = `${item.name.toLowerCase()}${item.s3Key.toLowerCase()}`;
+            return matchStr.includes(librarySearchTerm.toLowerCase());
+        });
+
+        return convertArrToObj(filteredLibrary);
+    };
 
     return {
-        documentLibrary: convertArrToObj([...folders, ...files]),
+        documentLibrary: filterDocuments(),
         isFetching,
         fetchError,
         currentPage,
@@ -73,6 +105,8 @@ const mapStateToProps = ({
             libraryPage,
             libraryPageSize,
             libraryView,
+            libraryFilter,
+            librarySearchTerm,
         },
     },
 }) => ({
@@ -86,6 +120,8 @@ const mapStateToProps = ({
     libraryPage,
     libraryPageSize,
     libraryView,
+    libraryFilter,
+    librarySearchTerm,
 });
 
 export default useLibraryDocuments;

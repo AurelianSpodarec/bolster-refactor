@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import DocumentsList from './DocumentsList';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 import PageSelector from 'components/shared/pagination/presentational/pageSelector';
 
 const DocumentsTable = ({
@@ -22,6 +22,8 @@ const DocumentsTable = ({
     const headers = ['', '', 'Name', 'Uploaded by', 'Uploaded', 'File size'];
 
     const maxPage = Math.ceil(items.length / limit);
+
+    const { librarySearchTerm, libraryFilter } = useSelector(mapStateToProps);
 
     useEffect(() => {
         if (currentPage > maxPage) setCurrentPage(1);
@@ -49,7 +51,11 @@ const DocumentsTable = ({
                 isFetching={false}
                 error={null}
                 noData={!items.length}
-                noDataMessage="No documents to display"
+                noDataMessage={
+                    !librarySearchTerm && !libraryFilter
+                        ? 'No documents to display'
+                        : 'No documents match search criteria'
+                }
                 withoutTBody
                 extraClasses={`${isSorting ? 'dragging' : ''}`}
                 tableColumnWidths={['50px', '50px']}
@@ -69,4 +75,10 @@ const DocumentsTable = ({
     );
 };
 
-export default withDropZone(DocumentsTable, 'SITE');
+const mapStateToProps = ({
+    companyAdmin: {
+        documentLibraryReducer: { librarySearchTerm, libraryFilter },
+    },
+}) => ({ librarySearchTerm, libraryFilter });
+
+export default DocumentsTable;

@@ -3,10 +3,22 @@ import { connect, useDispatch } from 'react-redux';
 import Search from 'components/shared/generic/form/presentational/Search';
 import Select from 'components/shared/generic/form/presentational/Select';
 import UserPermissions from '_content/images/icons/user-permission.svg';
+import switchDocumentLibraryFilter from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryFilter';
+import switchDocumentLibrarySearchTerm from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibrarySearchTerm';
 
 const viewModeOptions = [
     { value: 'list', label: 'List View' },
     { value: 'grid', label: 'Grid View' },
+];
+
+const filterOptions = [
+    // value is allFolders, allFiles, [fileExtension], isArchived, isViewApp, isAttachPins
+    { value: null, label: 'All' },
+    { value: 'allFolders', label: 'Folders only' },
+    { value: 'allFiles', label: 'Files only' },
+    { value: 'isArchived', label: 'Deleted' },
+    { value: 'isViewApp', label: 'Viewable in app' },
+    { value: 'isAttachPins', label: 'Attachable to pins' },
 ];
 
 const DocumentFilters = ({
@@ -15,6 +27,7 @@ const DocumentFilters = ({
     viewMode,
     setViewMode,
     selectedItems,
+    libraryFilter,
     handleShowSoftDeleteModal = () => {},
 }) => {
     const dispatch = useDispatch();
@@ -24,58 +37,71 @@ const DocumentFilters = ({
                 value={searchTerm}
                 name="searchTerm"
                 placeholder="Search by file/folder name..."
-                handleChange={() => {}}
+                handleChange={(_, value) => dispatch(switchDocumentLibrarySearchTerm(value))}
+                className="document-search"
             />
-            <Select
-                name="viewMode"
-                value={viewMode}
-                options={viewModeOptions}
-                onChange={(_, value) => {
-                    dispatch(setViewMode(value));
-                }}
-                placeholder="-- View mode --"
-            />
-            <Select
-                name="filter"
-                value={null}
-                options={[]} // View in app, Folders, file types, deleted
-                onChange={() => {}}
-                placeholder="Filter"
-            />
-            <button
-                disabled={!selectedItems.length}
-                className={`library-button button ${selectedItems.length && 'blue'}`}
-                type="button"
-                onClick={() => {}}
-            >
-                <img
-                    src={UserPermissions}
-                    alt="Delete icon"
-                    title="Delete"
-                    // width="24"
-                    // height="24"
+            <div style={{ display: 'flex', maxWidth: '50%' }}>
+                <Select
+                    name="viewMode"
+                    value={viewMode}
+                    options={viewModeOptions}
+                    onChange={(_, value) => {
+                        dispatch(setViewMode(value));
+                    }}
+                    placeholder="-- View mode --"
                 />
-            </button>
-            <button
-                disabled={!selectedItems.length}
-                className={`library-button button ${selectedItems.length && 'blue'}`}
-                type="button"
-                onClick={() => {}}
-            >
-                <i className="fa fa-cloud-download" />
-            </button>
-            <button
-                disabled={!selectedItems.length}
-                className={`library-button button ${selectedItems.length && 'red'}`}
-                type="button"
-                onClick={handleShowSoftDeleteModal}
-            >
-                <i className="fa fa-trash-alt" />
-            </button>
+                <Select
+                    name="filter"
+                    value={libraryFilter}
+                    options={filterOptions} // View in app, Folders, file types, deleted
+                    onChange={(_, value) => dispatch(switchDocumentLibraryFilter(value))}
+                    placeholder="Filter"
+                />
+                <button
+                    disabled={!selectedItems.length}
+                    className={`library-button button ${selectedItems.length && 'blue'}`}
+                    type="button"
+                    onClick={() => {}}
+                >
+                    <img
+                        src={UserPermissions}
+                        alt="Delete icon"
+                        title="Delete"
+                        // width="24"
+                        // height="24"
+                    />
+                </button>
+                <button
+                    disabled={!selectedItems.length}
+                    className={`library-button button ${selectedItems.length && 'blue'}`}
+                    type="button"
+                    onClick={() => {}}
+                >
+                    <i className="fa fa-cloud-download" />
+                </button>
+                <button
+                    disabled={!selectedItems.length}
+                    className={`library-button button ${selectedItems.length && 'red'}`}
+                    type="button"
+                    onClick={handleShowSoftDeleteModal}
+                >
+                    <i className="fa fa-trash-alt" />
+                </button>
+            </div>
         </form>
     );
 };
 
-export default connect(({ shared: { mobileReducer: { onMobile } } }) => ({
-    onMobile,
-}))(DocumentFilters);
+export default connect(
+    ({
+        shared: {
+            mobileReducer: { onMobile },
+        },
+        companyAdmin: {
+            documentLibraryReducer: { libraryFilter },
+        },
+    }) => ({
+        onMobile,
+        libraryFilter,
+    }),
+)(DocumentFilters);

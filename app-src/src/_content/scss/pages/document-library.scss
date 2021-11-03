@@ -1,7 +1,12 @@
 
 .document-filters {
+  justify-content: space-between;
+  .generic-search {
+    min-width: 49%;
+  }
   .select-list {
     margin-left: 10px;
+    min-width: 160px;
   }
 }  
 
@@ -142,18 +147,21 @@
 .dl-row {
   padding: 8px 0;
   transition: transform 200ms ease;
-
-    &:hover {
-      transform: scale(102%);
-    }
-
+  cursor: default;
+  
+  &:hover {
+    transform: scale(102%);
+  }
+  
   td {
     vertical-align: middle;
+    cursor: default;
 
     a {
       color: inherit;
       text-decoration: none;
     }
+
   }
 }
 
@@ -174,6 +182,7 @@
   border-radius: 8px;
   border: 1px solid #939393;
   margin-top: auto;
+  cursor: pointer;
 
   &.grid {
     position: absolute;
