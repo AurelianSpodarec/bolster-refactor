@@ -13,6 +13,8 @@ import useSoftDeleteLibraryDocuments from './_hooks/useSoftDeleteLibraryDocument
 import useDocumentLibraryPagination from './_hooks/useDocumentsLibraryPagination';
 import useOpenCreateDocumentModal from './_hooks/useOpenCreateDocumentModal';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import PageSelector from 'components/shared/pagination/presentational/pageSelector';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { CREATE_LIBRARY_FOLDER } from 'constants/shared/modalTypes';
 
@@ -20,12 +22,7 @@ const DocumentLibrary = () => {
     const dispatch = useDispatch();
     const { libraryView } = useSelector(mapStateToProps);
     const s3KeyQuery = new URLSearchParams(useLocation().search).get('s3key');
-    const {
-        canDrop,
-        isOver,
-        dropRef,
-        showCreateModal,
-    } = useOpenCreateDocumentModal();
+    const { canDrop, isOver, dropRef, showCreateModal } = useOpenCreateDocumentModal();
 
     const {
         documentLibrary,
@@ -68,49 +65,50 @@ const DocumentLibrary = () => {
                     handleShowSoftDeleteModal={handleShowSoftDeleteModal}
                 />
             </BlockContainer>
-            {!isFetching ? (
-                <>
-                    <div ref={dropRef}>
-                        {libraryView === 'list' ? (
-                            <BlockContainer>
-                                <DocumentsListTable
-                                    items={Object.values(documentLibrary)}
-                                    currentPage={currentPage}
-                                    setCurrentPage={setCurrentPage}
-                                    limit={limit}
-                                    setPageSize={setPageSize}
-                                    selectedItems={selectedItems}
-                                    toggleItemSelect={toggleItemSelect}
-                                />
-                                {isActive && (
-                                    <div className="dnd-overlay">
-                                        <h3>Release file to upload</h3>
-                                    </div>
-                                )}
-                            </BlockContainer>
-                        ) : (
-                            <BlockContainer contentClass="transparent">
-                                <DocumentsGrid
-                                    items={Object.values(documentLibrary)}
-                                    currentPage={currentPage}
-                                    setCurrentPage={setCurrentPage}
-                                    limit={limit}
-                                    setPageSize={setPageSize}
-                                    selectedItems={selectedItems}
-                                    toggleItemSelect={toggleItemSelect}
-                                />
-                                {isActive && (
-                                    <div className="dnd-overlay">
-                                        <h3>Release file to upload</h3>
-                                    </div>
-                                )}
-                            </BlockContainer>
+            <div ref={dropRef}>
+                {libraryView === 'list' ? (
+                    <>
+                        <DocumentsListTable
+                            items={Object.values(documentLibrary)}
+                            currentPage={currentPage}
+                            setCurrentPage={setCurrentPage}
+                            limit={limit}
+                            setPageSize={setPageSize}
+                            selectedItems={selectedItems}
+                            toggleItemSelect={toggleItemSelect}
+                            s3KeyQuery={s3KeyQuery}
+                            isFetching={isFetching}
+                            fetchError={fetchError}
+                        />
+                        {isActive && (
+                            <div className="dnd-overlay">
+                                <h3>Release file to upload</h3>
+                            </div>
                         )}
-                    </div>
-                </>
-            ) : (
-                <Loading withIcon />
-            )}
+                    </>
+                ) : (
+                    <>
+                        <DocumentsGrid
+                            items={Object.values(documentLibrary)}
+                            currentPage={currentPage}
+                            setCurrentPage={setCurrentPage}
+                            limit={limit}
+                            setPageSize={setPageSize}
+                            selectedItems={selectedItems}
+                            toggleItemSelect={toggleItemSelect}
+                            s3KeyQuery={s3KeyQuery}
+                            isFetching={isFetching}
+                            fetchError={fetchError}
+                        />
+                        {isActive && (
+                            <div className="dnd-overlay">
+                                <h3>Release file to upload</h3>
+                            </div>
+                        )}
+                        {/* </BlockContainer> */}
+                    </>
+                )}
+            </div>
         </>
     );
 };

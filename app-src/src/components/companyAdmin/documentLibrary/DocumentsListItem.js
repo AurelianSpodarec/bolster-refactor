@@ -32,8 +32,8 @@ let DocumentsListItem = ({
                     <a
                         href={
                             item.type === 100
-                                ? `/document/library?s3Key=${item.s3Key}`
-                                : '/document-library' //WIP
+                                ? `/company/document-library?s3Key=${item.s3Key}`
+                                : '/company/document-library' //WIP
                         }
                         title=""
                     >
@@ -44,13 +44,13 @@ let DocumentsListItem = ({
                         />
                     </a>
                 </td>
-                <td onClick={() => {}}>
+                <td>
                     {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                     <a
                         href={
                             item.type === 100
-                                ? `/document/library?s3Key=${item.s3Key}`
-                                : '/document-library' //WIP
+                                ? `/company/document-library?s3Key=${item.s3Key}`
+                                : '/company/document-library'
                         }
                         title=""
                     >

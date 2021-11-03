@@ -55,7 +55,7 @@ const DocumentFilters = ({
                     value={libraryFilter}
                     options={filterOptions} // View in app, Folders, file types, deleted
                     onChange={(_, value) => dispatch(switchDocumentLibraryFilter(value))}
-                    placeholder="Filter"
+                    placeholder="-- Filter --"
                 />
                 <button
                     disabled={!selectedItems.length}
