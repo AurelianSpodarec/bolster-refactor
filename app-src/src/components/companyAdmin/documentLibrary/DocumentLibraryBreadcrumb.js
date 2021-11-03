@@ -1,19 +1,21 @@
+import { stripS3Key } from 'helpers/general';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const DocumentLibraryBreadcrumb = ({ s3Key }) => {
-    if (!s3Key) return <></>;
-    const s3Arr = s3Key.split('/');
+const DocumentLibraryBreadcrumb = ({ prefix }) => {
+    if (!prefix) return <></>;
+    const prefixArr = stripS3Key(prefix).split('/');
     return (
         <div className="dl-breadcrumb">
-            {s3Arr.map((item, i) => (
+            {prefixArr.map((item, i) => (
                 <>
-                    <a
-                        href={`/company/document-library/${s3Arr.slice(
+                    <Link
+                        href={`/company/document-library/${prefixArr.slice(
                             0,
-                            s3Arr.indexOf(item) + 1,
+                            prefixArr.indexOf(item) + 1,
                         )}`}
                         title={item}
-                    >{`${item}${i === s3Arr.length - 1 ? ' / ' : ''}`}</a>
+                    >{`${item}${i === prefixArr.length - 1 ? ' / ' : ''}`}</Link>
                 </>
             ))}
         </div>

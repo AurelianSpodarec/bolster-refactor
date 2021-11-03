@@ -55,7 +55,7 @@ const useLibraryDocuments = s3Key => {
         ) {
             searchAction();
         }
-    }, [dispatch, s3Key, currentPage, libraryFilter, libraryView, prevProps]); // Fetch on changes to page & filter
+    }, [dispatch, s3Key, currentPage, libraryFilter, libraryView, prevProps]); // Fetch on changes to page, filter & view
 
     useDebounce(
         () => {
@@ -90,11 +90,6 @@ const useLibraryDocuments = s3Key => {
             default:
                 break;
         }
-
-        // filteredLibrary = filteredLibrary.filter(item => {
-        //     const matchStr = `${item.name.toLowerCase()}${item.s3Key.toLowerCase()}`;
-        //     return matchStr.includes(librarySearchTerm.toLowerCase());
-        // });
 
         return convertArrToObj(filteredLibrary);
     };
@@ -144,78 +139,3 @@ const mapStateToProps = ({
 });
 
 export default useLibraryDocuments;
-
-export const dummyData = {
-    1: {
-        id: 1,
-        companyID: 51,
-        documentLibraryFolderID: null,
-        name: 'Dummy Folder 1',
-        uploadedBy: 8572,
-        uploadDate: new Date().toISOString(),
-        isViewApp: true,
-        isAttachPins: true,
-        isSoftDeleted: false,
-        softDeletedByCompanyUserID: null,
-        softDeletedOn: null,
-        isHardDeleted: false,
-        hardDeletedByCompanyUserID: null,
-        hardDeletedOn: null,
-    },
-    2: {
-        id: 2,
-        companyID: 51,
-        documentLibraryFolderID: null,
-        name: 'Dummy Folder 2',
-        uploadedBy: 8572,
-        uploadDate: new Date().toISOString(),
-        isViewApp: true,
-        isAttachPins: true,
-        isSoftDeleted: false,
-        softDeletedByCompanyUserID: null,
-        softDeletedOn: null,
-        isHardDeleted: false,
-        hardDeletedByCompanyUserID: null,
-        hardDeletedOn: null,
-    },
-    3: {
-        id: 3,
-        companyID: 51,
-        documentLibraryFolderID: null,
-        name: 'Dummy File 1',
-        uploadedBy: 8572,
-        uploadDate: new Date().toISOString(),
-        s3Key: '',
-        contentLength: 1000000000,
-        MIMEType: 'application/pdf',
-        fileExtension: 'pdf',
-        isViewApp: true,
-        isAttachPins: true,
-        isSoftDeleted: false,
-        softDeletedByCompanyUserID: null,
-        softDeletedOn: null,
-        isHardDeleted: false,
-        hardDeletedByCompanyUserID: null,
-        hardDeletedOn: null,
-    },
-    4: {
-        id: 4,
-        companyID: 51,
-        documentLibraryFolderID: null,
-        name: 'Dummy File 2',
-        uploadedBy: 8572,
-        uploadDate: new Date().toISOString(),
-        s3Key: '',
-        contentLength: 1000000000,
-        MIMEType: 'application/pdf',
-        fileExtension: 'pdf',
-        isViewApp: true,
-        isAttachPins: true,
-        isSoftDeleted: false,
-        softDeletedByCompanyUserID: null,
-        softDeletedOn: null,
-        isHardDeleted: false,
-        hardDeletedByCompanyUserID: null,
-        hardDeletedOn: null,
-    },
-};

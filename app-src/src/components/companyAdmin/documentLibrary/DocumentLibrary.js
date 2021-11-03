@@ -21,7 +21,7 @@ import { CREATE_LIBRARY_FOLDER } from 'constants/shared/modalTypes';
 const DocumentLibrary = () => {
     const dispatch = useDispatch();
     const { libraryView } = useSelector(mapStateToProps);
-    const s3KeyQuery = new URLSearchParams(useLocation().search).get('s3key');
+    const prefixQuery = new URLSearchParams(useLocation().search).get('prefix');
     const { canDrop, isOver, dropRef, showCreateModal } = useOpenCreateDocumentModal();
 
     const {
@@ -30,7 +30,7 @@ const DocumentLibrary = () => {
         fetchError,
         selectedItems,
         toggleItemSelect,
-    } = useLibraryDocuments(s3KeyQuery);
+    } = useLibraryDocuments(prefixQuery);
 
     const {
         handleShowSoftDeleteModal,
@@ -51,7 +51,11 @@ const DocumentLibrary = () => {
                     <i className="fa fa-file-medical" />
                     Upload File
                 </button>
-                <button className="button blue" type="button" onClick={() => dispatch(showModal(CREATE_LIBRARY_FOLDER))}>
+                <button
+                    className="button blue"
+                    type="button"
+                    onClick={() => dispatch(showModal(CREATE_LIBRARY_FOLDER))}
+                >
                     <i className="fa fa-folder-plus" />
                     Create Folder
                 </button>
@@ -76,7 +80,7 @@ const DocumentLibrary = () => {
                             setPageSize={setPageSize}
                             selectedItems={selectedItems}
                             toggleItemSelect={toggleItemSelect}
-                            s3KeyQuery={s3KeyQuery}
+                            prefixQuery={prefixQuery}
                             isFetching={isFetching}
                             fetchError={fetchError}
                         />
@@ -96,7 +100,7 @@ const DocumentLibrary = () => {
                             setPageSize={setPageSize}
                             selectedItems={selectedItems}
                             toggleItemSelect={toggleItemSelect}
-                            s3KeyQuery={s3KeyQuery}
+                            prefixQuery={prefixQuery}
                             isFetching={isFetching}
                             fetchError={fetchError}
                         />

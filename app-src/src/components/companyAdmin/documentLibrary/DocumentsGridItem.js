@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import React from 'react';
@@ -8,10 +9,10 @@ import FileTypeIcon from './FileTypeIcon';
 const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
     return (
         <div className="grid-item">
-            <a
-                href={
+            <Link
+                to={
                     item.type === 100
-                        ? `/company/document-library?s3Key=${item.s3Key}`
+                        ? `/company/document-library?prefix=${item.s3Key}`
                         : '/company/document-library'
                 }
                 title={`Open ${item.name}${item.fileExtension ? `.${item.fileExtension}` : ''}`}
@@ -23,12 +24,12 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                     width="auto"
                     height="160"
                 />
-            </a>
-            <a
+            </Link>
+            <Link
                 className="details-container"
-                href={
+                to={
                     item.type === 100
-                        ? `/company/document-library?s3Key=${item.s3Key}`
+                        ? `/company/document-library?prefix=${item.s3Key}`
                         : '/company/document-library'
                 }
                 title={`Open ${item.name}${item.fileExtension ? `.${item.fileExtension}` : ''}`}
@@ -39,7 +40,7 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                         item.type === 200 ? { maxWidth: 'calc(100% - 34px)' } : { maxWidth: '100%' }
                     }
                 >{`${item.name || '-'}${item.type === 200 ? '.' + item.fileExtension : ''}`}</p>
-            </a>
+            </Link>
             <p className="meta">
                 Updated{' '}
                 <DateTimeContainer date={new Date(item.createdOn)} datetime={DATE_TIME_IDS.DATE} />

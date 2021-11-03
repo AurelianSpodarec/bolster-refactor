@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { DATE_TIME_IDS, DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import { getIconFromExt, stripS3Key } from 'helpers/general';
+import { getIconFromExt } from 'helpers/general';
 import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
 import FileTypeIcon from './FileTypeIcon';
 
@@ -20,8 +20,6 @@ let DocumentsListItem = ({
 }) => {
     let rowClass = 'draggable expandable dl-row';
     if (isDragging) rowClass += ' dragging';
-
-    console.log(stripS3Key(item.s3Key, item.companyID));
 
     return (
         <tr ref={isSorting ? forwardRef : null} className={rowClass}>
