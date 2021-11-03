@@ -8,17 +8,37 @@ import FileTypeIcon from '../FileTypeIcon';
 import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
 import softDeleteLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/softDeleteLibraryDocuments';
 import { usePrevious } from 'helpers/hooks';
+import { useLocation } from 'react-router-dom';
+import searchAllLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/searchAllLibraryDocuments';
 
 const useSoftDeleteLibraryDocuments = (ids = []) => {
     const dispatch = useDispatch();
-    const { isDeleting, deleteSuccess, deleteError, documentLibrary } = useSelector(
-        mapStateToProps,
-    );
+    const {
+        isDeleting,
+        deleteSuccess,
+        deleteError,
+        documentLibrary,
+        librarySearchTerm,
+        libraryPage,
+        libraryPageSize,
+    } = useSelector(mapStateToProps);
+
+    const prefixQuery = new URLSearchParams(useLocation().search).get('prefix');
 
     const prevProps = usePrevious({ deleteSuccess });
 
     useEffect(() => {
-        if (!prevProps.deleteSuccess && deleteSuccess) dispatch(hideModal());
+        if (!prevProps.deleteSuccess && deleteSuccess) {
+            dispatch(hideModal());
+            dispatch(
+                searchAllLibraryDocuments(
+                    libraryPage,
+                    libraryPageSize,
+                    librarySearchTerm ? librarySearchTerm : prefixQuery,
+                    false,
+                ),
+            );
+        }
     }, [prevProps.deleteSuccess, deleteSuccess]);
 
     const filenames = Object.values(documentLibrary).filter(item => ids.includes(item.id));
@@ -56,6 +76,7 @@ const useSoftDeleteLibraryDocuments = (ids = []) => {
             }),
         );
     };
+
     const handleHideSoftDeleteModal = () => {
         dispatch(hideModal());
     };
@@ -71,8 +92,24 @@ const useSoftDeleteLibraryDocuments = (ids = []) => {
 
 const mapStateToProps = ({
     companyAdmin: {
-        documentLibraryReducer: { isDeleting, deleteSuccess, deleteError, documentLibrary },
+        documentLibraryReducer: {
+            isDeleting,
+            deleteSuccess,
+            deleteError,
+            documentLibrary,
+            librarySearchTerm,
+            libraryPage,
+            libraryPageSize,
+        },
     },
-}) => ({ isDeleting, deleteSuccess, deleteError, documentLibrary });
+}) => ({
+    isDeleting,
+    deleteSuccess,
+    deleteError,
+    documentLibrary,
+    librarySearchTerm,
+    libraryPage,
+    libraryPageSize,
+});
 
 export default useSoftDeleteLibraryDocuments;

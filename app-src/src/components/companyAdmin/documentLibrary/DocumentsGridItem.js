@@ -3,7 +3,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import React from 'react';
 import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
-import { getIconFromExt, stripS3Key } from 'helpers/general';
+import { getIconFromExt } from 'helpers/general';
 import FileTypeIcon from './FileTypeIcon';
 
 const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
@@ -12,10 +12,7 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
             <Link
                 to={
                     item.type === 100
-                        ? `/company/document-library?s3Key=${stripS3Key(
-                              item.s3Key,
-                              item.companyID,
-                          )}`
+                        ? `/company/document-library?prefix=${item.s3Key}`
                         : '/company/document-library'
                 }
                 title={`Open ${item.name}${item.fileExtension ? `.${item.fileExtension}` : ''}`}
@@ -32,10 +29,7 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                 className="details-container"
                 to={
                     item.type === 100
-                        ? `/company/document-library?s3Key=${stripS3Key(
-                              item.s3Key,
-                              item.companyID,
-                          )}`
+                        ? `/company/document-library?prefix=${item.s3Key}`
                         : '/company/document-library'
                 }
                 title={`Open ${item.name}${item.fileExtension ? `.${item.fileExtension}` : ''}`}

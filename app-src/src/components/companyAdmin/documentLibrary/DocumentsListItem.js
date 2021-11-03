@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import { getIconFromExt, stripS3Key } from 'helpers/general';
+import { getIconFromExt } from 'helpers/general';
 import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
 import FileTypeIcon from './FileTypeIcon';
 
@@ -32,11 +32,8 @@ let DocumentsListItem = ({
                     <Link
                         to={
                             item.type === 100
-                                ? `/company/document-library?s3Key=${stripS3Key(
-                                      item.s3Key,
-                                      item.companyID,
-                                  )}`
-                                : '/company/document-library' //WIP
+                                ? `/company/document-library?prefix=${item.s3Key}`
+                                : '/company/document-library'
                         }
                         title=""
                     >
@@ -52,10 +49,7 @@ let DocumentsListItem = ({
                     <Link
                         href={
                             item.type === 100
-                                ? `/company/document-library?s3Key=${stripS3Key(
-                                      item.s3Key,
-                                      item.companyID,
-                                  )}`
+                                ? `/company/document-library?prefix=${item.s3Key}`
                                 : '/company/document-library'
                         }
                         title=""
