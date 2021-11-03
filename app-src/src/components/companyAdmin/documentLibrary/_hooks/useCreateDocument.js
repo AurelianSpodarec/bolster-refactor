@@ -1,17 +1,22 @@
-import { useState  } from 'react';
-import { useQueryParam } from 'helpers/hooks';
+import { useRef, useState  } from 'react';
+import { useDispatch  } from 'react-redux';
+import { useForm, useQueryParam } from 'helpers/hooks';
 import { useDrop } from 'react-dnd';
 import { NativeTypes } from 'react-dnd-html5-backend';
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 import axios from 'axios';
 import uuid from 'uuid/v4';
+import addDocumentLibraryItem from 'actions/companyAdmin/documentLibrary/sync/addDocumentLibraryItem';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 const maxFileSizeMB = 5;
 
-const useUploadFiles = (initialFiles = []) => {
+const useCreateDocument = (initialFiles = []) => {
     const [progress, setProgress] = useState(0);
     const [error, setError] = useState(null);
+    const [form, handleChange] = useForm({ isViewApp: false, isAttachPins: false });
+    const dispatch = useDispatch();
 
     const prefix = useQueryParam('prefix') || '';
     const [files, setFiles] = useState(initialFiles.map(addKeyToFileItem));
@@ -48,17 +53,27 @@ const useUploadFiles = (initialFiles = []) => {
     async function handleSubmit(e){
         e.preventDefault();
 
+        let isFullSuccess = true;
+
         try {
             for (const file of files) {
-                await uploadFile(file);
+                if (!file.uploaded) {
+                    const success = await tryUploadFile(file);
+                    if (!success) isFullSuccess = false;
+                }
+            }
+
+            if (isFullSuccess){
+                dispatch(hideModal());
             }
         } catch (error) {
             setError(error.message);
             setProgress(0);
+            isFullSuccess.current = false;
         }
     }
 
-    async function uploadFile({ file, uuid }) {
+    async function tryUploadFile({ file, uuid }) {
         try {
             if (bytesToMB(file.size) > maxFileSizeMB) {
                 const errorMessage = `You cannot upload a file larger than ${maxFileSizeMB}MB.`;
@@ -66,13 +81,24 @@ const useUploadFiles = (initialFiles = []) => {
                     ? ({ ...item, errorMessage })
                     : item));
 
-                return;
+                return false;
               }
     
             const filePrefix = prefix ? `${prefix}/` : '';
     
             const key = `${filePrefix}${file.name}`;
-            const { url, s3Key } = await requestMediaURL(key, file.type, file.size);
+            const postBody = {
+                key: key,
+                contentType: file.type,
+                size: file.size,
+                isViewApp: form.isViewApp,
+                isAttachPins: form.isAttachPins,
+            };
+
+            const { 
+                s3UploadURL, 
+                documentLibraryItem 
+            } = await postCreateItem(postBody);
     
             const options = {
                 onUploadProgress: handleUploadProgress,
@@ -82,7 +108,7 @@ const useUploadFiles = (initialFiles = []) => {
                 },
             };
     
-            await axios.put(url, file, options);
+            await axios.put(s3UploadURL, file, options);
     
             await setTimeoutAsync(600);
             setProgress(0);
@@ -91,6 +117,9 @@ const useUploadFiles = (initialFiles = []) => {
                 ? ({ ...item, uploaded: true, error: null }) 
                 : item));
 
+            dispatch(addDocumentLibraryItem(documentLibraryItem));
+
+            return true;
         } catch (err) {
             await setTimeoutAsync(600);
             setProgress(0);
@@ -98,6 +127,8 @@ const useUploadFiles = (initialFiles = []) => {
             setFiles(prev => prev.map(item => item.uuid === uuid 
                 ? ({ ...item, errorMessage: err.message }) 
                 : item));
+
+            return false;
         }
     }
 
@@ -111,27 +142,28 @@ const useUploadFiles = (initialFiles = []) => {
        setFiles(newFiles);
     }
 
+    function handleCancel() {
+        dispatch(hideModal());
+    }
+
     return {
         handlePress,
         handleRemove,
         handleSubmit,
+        handleCancel,
         dropRef,
         isActive: canDrop && isOver,
         files,
         error,
         progress,
         uploading: progress > 1,
+        form,
+        handleChange,
     };
 };
 
-const requestMediaURL = async (s3Key, contentType, size) => {
-    const url = `${API_URL}/document-library/request-signed-s3-upload-url`;
-    const body = {
-        key: s3Key,
-        contentType,
-        size,
-    };
-
+const postCreateItem = async (body) => {
+    const url = `${API_URL}/document-library/file`;
     const { data } = await axios.post(url, body, getHeaders());
     return data;
 };
@@ -155,4 +187,4 @@ function bytesToMB(bytes) {
 }
 
 
-export default useUploadFiles;
+export default useCreateDocument;
