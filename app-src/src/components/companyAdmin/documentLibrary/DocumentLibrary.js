@@ -105,7 +105,7 @@ const DocumentLibrary = () => {
                 {libraryView === 'list' ? (
                     <>
                         <DocumentsListTable
-                            items={Object.values(documentLibrary)}
+                            items={documentLibrary}
                             selectedItems={selectedItems}
                             toggleItemSelect={toggleItemSelect}
                             prefixQuery={prefixQuery}
@@ -127,7 +127,7 @@ const DocumentLibrary = () => {
                 ) : (
                     <>
                         <DocumentsGrid
-                            items={Object.values(documentLibrary)}
+                            items={documentLibrary}
                             selectedItems={selectedItems}
                             toggleItemSelect={toggleItemSelect}
                             prefixQuery={prefixQuery}
