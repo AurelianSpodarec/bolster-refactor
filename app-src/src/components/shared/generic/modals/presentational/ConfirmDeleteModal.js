@@ -14,7 +14,6 @@ const ConfirmDeleteModal = ({
     icon = 'trash-alt',
     error = null,
 }) => {
-    console.log({ error });
     return (
         <ModalOuterContainer>
             <BlockHeading title={'Confirmation'} />

@@ -65,7 +65,7 @@ const DocumentFilters = ({
                 <Select
                     name="filter"
                     value={libraryFilter}
-                    options={filterOptions} // View in app, Folders, file types, deleted
+                    options={filterOptions}
                     onChange={(_, value) => dispatch(switchDocumentLibraryFilter(value))}
                     placeholder="-- Filter --"
                 />
