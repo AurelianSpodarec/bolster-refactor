@@ -19,9 +19,6 @@ const FileDropBox = ({
     onSelectFromDocLibClick, 
     children 
 }) => {
-    const dispatch = useDispatch();
-
-
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: [NativeTypes.FILE],
         drop(item, monitor) {
