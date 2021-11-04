@@ -5,6 +5,7 @@ import React from 'react';
 import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
 import { getIconFromExt } from 'helpers/general';
 import FileTypeIcon from './FileTypeIcon';
+import { RAW_S3_STORAGE_URL } from 'config';
 
 const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
     return (
@@ -27,7 +28,12 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                     />
                 </Link>
             ) : (
-                <div className="image-container">
+                <a
+                    className="image-container"
+                    href={`${RAW_S3_STORAGE_URL}/${item.s3Key}`}
+                    title={item.name}
+                    target={item.type === DOCUMENT_LIBRARY_TYPES.FILE && '_blank'}
+                >
                     <FileTypeIcon
                         src={
                             item.type === DOCUMENT_LIBRARY_TYPES.FILE
@@ -38,7 +44,7 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                         width="auto"
                         height="160"
                     />
-                </div>
+                </a>
             )}
             {item.type === DOCUMENT_LIBRARY_TYPES.FOLDER ? (
                 <Link
