@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import searchAllLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/searchAllLibraryDocuments';
 import { convertArrToObj } from 'helpers/generic';
 import { useDebounce } from 'helpers/hooks';
+import { DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
 
 const useLibraryDocuments = prefix => {
+    console.log('useLibraryDocuments');
     const dispatch = useDispatch();
     const [selectedItems, setSelectedItems] = useState([]);
     const {
@@ -42,7 +44,7 @@ const useLibraryDocuments = prefix => {
         setSelectedItems([]);
     };
 
-    useEffect(searchAction, []); // Fetch on mount, regardless
+    useDebounce(searchAction, [], 100); // Fetch on mount, regardless
 
     useEffect(() => {
         if (libraryFilter !== prevProps.libraryFilter || libraryView !== prevProps.libraryView) {
@@ -84,7 +86,10 @@ const useLibraryDocuments = prefix => {
                 break;
         }
 
-        return convertArrToObj(filteredLibrary);
+        const folders = filteredLibrary.filter(item => item.type === DOCUMENT_LIBRARY_TYPES.FOLDER);
+        const files = filteredLibrary.filter(item => item.type === DOCUMENT_LIBRARY_TYPES.FILE);
+
+        return [...folders, ...files];
     };
 
     return {
