@@ -12,14 +12,13 @@ import switchDocumentLibraryView from 'actions/companyAdmin/documentLibrary/sync
 import useDeleteLibraryDocuments from './_hooks/useDeleteLibraryDocuments';
 import useDocumentLibraryPagination from './_hooks/useDocumentsLibraryPagination';
 import useOpenCreateDocumentModal from './_hooks/useOpenCreateDocumentModal';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import PageSelector from 'components/shared/pagination/presentational/pageSelector';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { CREATE_LIBRARY_FOLDER, EDIT_LIBRARY_ITEMS } from 'constants/shared/modalTypes';
 import useRestoreLibraryDocuments from './_hooks/useRestoreLibraryDocuments';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import { usePrevious } from 'helpers/hooks';
+
+import useWindowScroll from 'helpers/hooks/useWindowScroll';
 
 const DocumentLibrary = () => {
     const dispatch = useDispatch();
@@ -73,6 +72,8 @@ const DocumentLibrary = () => {
         dispatch(showModal(EDIT_LIBRARY_ITEMS, { ids: selectedItems }));
     };
 
+    const scroll = useWindowScroll();
+
     return (
         <>
             <PageHeading title="Document Library" withBackButton>
@@ -100,7 +101,7 @@ const DocumentLibrary = () => {
                     handleShowRestoreModal={handleShowRestoreModal}
                 />
             </BlockContainer>
-            <div ref={dropRef}>
+            <div ref={dropRef} className="table-wrapper">
                 {libraryView === 'list' ? (
                     <>
                         <DocumentsListTable
@@ -115,6 +116,17 @@ const DocumentLibrary = () => {
                             isFetching={isFetching}
                             fetchError={fetchError}
                         />
+                        {isActive && (
+                            <div className="dnd-overlay">
+                                <div
+                                    className="dnd-indicator"
+                                    style={{ top: scroll.y + window.innerHeight / 3 }}
+                                >
+                                    <h3>Drag and Drop</h3>
+                                    <p>Release to upload</p>
+                                </div>
+                            </div>
+                        )}
                     </>
                 ) : (
                     <>
