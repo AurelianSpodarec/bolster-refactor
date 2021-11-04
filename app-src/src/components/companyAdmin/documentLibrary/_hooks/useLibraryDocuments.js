@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import searchAllLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/searchAllLibraryDocuments';
 import { convertArrToObj } from 'helpers/generic';
 import { useDebounce } from 'helpers/hooks';
+import { DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
 
 const useLibraryDocuments = prefix => {
+    console.log('useLibraryDocuments');
     const dispatch = useDispatch();
     const [selectedItems, setSelectedItems] = useState([]);
     const {
@@ -16,8 +18,6 @@ const useLibraryDocuments = prefix => {
         postSuccess,
         isDeleting,
         deleteSuccess,
-        libraryPage: currentPage,
-        libraryPageSize: limit,
         libraryView,
         libraryFilter,
         librarySearchTerm,
@@ -25,7 +25,6 @@ const useLibraryDocuments = prefix => {
 
     const prevProps = usePrevious({
         prefix,
-        currentPage,
         postSuccess,
         isPosting,
         isDeleting,
@@ -38,8 +37,6 @@ const useLibraryDocuments = prefix => {
     const searchAction = () => {
         dispatch(
             searchAllLibraryDocuments(
-                currentPage,
-                limit,
                 prefix ? `${prefix}/${librarySearchTerm}` : librarySearchTerm,
                 libraryFilter === 'isArchived' ? true : false,
             ),
@@ -47,17 +44,13 @@ const useLibraryDocuments = prefix => {
         setSelectedItems([]);
     };
 
-    useEffect(searchAction, []); // Fetch on mount, regardless
+    useDebounce(searchAction, [], 100); // Fetch on mount, regardless
 
     useEffect(() => {
-        if (
-            currentPage !== prevProps.currentPage ||
-            libraryFilter !== prevProps.libraryFilter ||
-            libraryView !== prevProps.libraryView
-        ) {
+        if (libraryFilter !== prevProps.libraryFilter || libraryView !== prevProps.libraryView) {
             searchAction();
         }
-    }, [dispatch, prefix, currentPage, libraryFilter, libraryView, prevProps]); // Fetch on changes to page, filter & view
+    }, [dispatch, prefix, libraryFilter, libraryView, prevProps]); // Fetch on changes to page, filter & view
 
     useDebounce(
         () => {
@@ -93,16 +86,17 @@ const useLibraryDocuments = prefix => {
                 break;
         }
 
-        return convertArrToObj(filteredLibrary);
+        const folders = filteredLibrary.filter(item => item.type === DOCUMENT_LIBRARY_TYPES.FOLDER);
+        const files = filteredLibrary.filter(item => item.type === DOCUMENT_LIBRARY_TYPES.FILE);
+
+        return [...folders, ...files];
     };
 
     return {
         documentLibrary: filterDocuments(),
         isFetching,
         fetchError,
-        currentPage,
         prevProps,
-        limit,
         selectedItems,
         toggleItemSelect,
     };
@@ -118,8 +112,6 @@ const mapStateToProps = ({
             postSuccess,
             deleteSuccess,
             isDeleting,
-            libraryPage,
-            libraryPageSize,
             libraryView,
             libraryFilter,
             librarySearchTerm,
@@ -133,8 +125,6 @@ const mapStateToProps = ({
     postSuccess,
     isDeleting,
     deleteSuccess,
-    libraryPage,
-    libraryPageSize,
     libraryView,
     libraryFilter,
     librarySearchTerm,

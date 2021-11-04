@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import DocumentFilters from './DocumentFilters';
@@ -22,9 +22,11 @@ import useWindowScroll from 'helpers/hooks/useWindowScroll';
 
 const DocumentLibrary = () => {
     const dispatch = useDispatch();
-    const { libraryView, id } = useSelector(mapStateToProps);
+    const { libraryView, libraryFilter, id } = useSelector(mapStateToProps);
     const prefixQuery = new URLSearchParams(useLocation().search).get('prefix');
     const { canDrop, isOver, dropRef, showCreateModal } = useOpenCreateDocumentModal();
+    const history = useHistory();
+    const prevProps = usePrevious({ libraryFilter });
 
     const {
         documentLibrary,
@@ -53,6 +55,14 @@ const DocumentLibrary = () => {
     useEffect(() => {
         dispatch(fetchCompanyUsers(id));
     }, [dispatch, id]);
+
+    useEffect(() => {
+        if (
+            (libraryFilter === 'isArchived' && prevProps.libraryFilter !== 'isArchived') ||
+            (libraryFilter !== 'isArchived' && prevProps.libraryFilter === 'isArchived')
+        )
+            history.replace('/company/document-library');
+    }, [libraryFilter, prevProps.libraryFilter]); // Redirect to root when switching to/from deleted
 
     const { currentPage, setCurrentPage, setPageSize, limit } = useDocumentLibraryPagination();
 
@@ -95,11 +105,7 @@ const DocumentLibrary = () => {
                 {libraryView === 'list' ? (
                     <>
                         <DocumentsListTable
-                            items={Object.values(documentLibrary)}
-                            currentPage={currentPage}
-                            setCurrentPage={setCurrentPage}
-                            limit={limit}
-                            setPageSize={setPageSize}
+                            items={documentLibrary}
                             selectedItems={selectedItems}
                             toggleItemSelect={toggleItemSelect}
                             prefixQuery={prefixQuery}
@@ -121,11 +127,7 @@ const DocumentLibrary = () => {
                 ) : (
                     <>
                         <DocumentsGrid
-                            items={Object.values(documentLibrary)}
-                            currentPage={currentPage}
-                            setCurrentPage={setCurrentPage}
-                            limit={limit}
-                            setPageSize={setPageSize}
+                            items={documentLibrary}
                             selectedItems={selectedItems}
                             toggleItemSelect={toggleItemSelect}
                             prefixQuery={prefixQuery}
@@ -146,11 +148,11 @@ const DocumentLibrary = () => {
 
 const mapStateToProps = ({
     companyAdmin: {
-        documentLibraryReducer: { libraryView },
+        documentLibraryReducer: { libraryView, libraryFilter },
         companySettingsReducer: {
             companySettings: { id },
         },
     },
-}) => ({ libraryView, id });
+}) => ({ libraryView, id, libraryFilter });
 
 export default DocumentLibrary;

@@ -10,7 +10,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import createDocumentLibraryFolder from 'actions/companyAdmin/documentLibrary/async/fetchDocumentLibraryFilesForCompany';
+import createDocumentLibraryFolder from 'actions/companyAdmin/documentLibrary/async/createDocumentLibraryFolder';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 
 const CreateDocumentFolderModal = () => {

@@ -5,7 +5,6 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import DocumentsList from './DocumentsList';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import PageSelector from 'components/shared/pagination/presentational/pageSelector';
 import DocumentLibraryBreadcrumb from './DocumentLibraryBreadcrumb';
 import DocumentLibraryStats from './DocumentLibraryStats';
 
@@ -16,9 +15,6 @@ const DocumentsTable = ({
     forwardRef,
     isSorting = false,
     postItemsSort,
-    currentPage,
-    setCurrentPage = () => {},
-    limit = 50,
     prefixQuery,
     isFetching,
     fetchError,
@@ -33,13 +29,8 @@ const DocumentsTable = ({
         'Attachable to pins',
         'File size',
     ];
-    const maxPage = Math.ceil(items.length / limit);
 
     const { librarySearchTerm, libraryFilter } = useSelector(mapStateToProps);
-
-    useEffect(() => {
-        if (currentPage > maxPage) setCurrentPage(1);
-    }, [maxPage, currentPage]);
 
     return (
         <BlockContainer contentClass="no-overflow">
@@ -53,7 +44,6 @@ const DocumentsTable = ({
                     </span>
                 )}
                 <DocumentLibraryStats />
-                <PageSelector setPage={setCurrentPage} page={currentPage} maxPage={maxPage} />
             </BlockHeading>
 
             <Table

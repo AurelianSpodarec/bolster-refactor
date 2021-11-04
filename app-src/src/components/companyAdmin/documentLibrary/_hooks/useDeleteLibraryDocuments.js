@@ -23,9 +23,7 @@ const useDeleteLibraryDocuments = (ids = []) => {
         deleteSuccess,
         deleteError,
         documentLibrary,
-        // librarySearchTerm,
-        // libraryPage,
-        // libraryPageSize,
+        librarySearchTerm,
     } = useSelector(mapStateToProps);
 
     const prefixQuery = new URLSearchParams(useLocation().search).get('prefix');
@@ -39,6 +37,7 @@ const useDeleteLibraryDocuments = (ids = []) => {
     useEffect(() => {
         if (!prevProps.deleteSuccess && deleteSuccess) {
             dispatch(hideModal());
+            dispatch(searchAllLibraryDocuments(librarySearchTerm, true));
         }
     }, [prevProps.deleteSuccess, deleteSuccess]);
 

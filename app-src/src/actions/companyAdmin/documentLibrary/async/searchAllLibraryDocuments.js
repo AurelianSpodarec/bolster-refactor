@@ -22,10 +22,10 @@ export const searchAllLibraryDocumentsFailure = error => ({
     error,
 });
 
-export default (page = 1, limit = 50, searchTerm, isArchived) => dispatch => {
+export default (searchTerm, isArchived) => dispatch => {
     const queryString = `?${
         searchTerm ? `searchTerm=${searchTerm}` : ''
-    }&page=${page}&pageSize=${limit}&isArchived=${!!isArchived}`;
+    }&isArchived=${!!isArchived}`;
     dispatch(searchAllLibraryDocumentsRequest());
 
     return axios

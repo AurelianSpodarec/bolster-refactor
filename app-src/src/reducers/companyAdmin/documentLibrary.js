@@ -216,6 +216,7 @@ function restoreSuccessReducer(state = false, action) {
 function documentLibraryReducer(state = {}, action) {
     switch (action.type) {
         case SEARCH_ALL_LIBRARY_DOCUMENTS_SUCCESS:
+        case FETCH_DOCUMENT_LIBRARY_FILES_FOR_COMPANY_SUCCESS:
             return convertArrToObj(action.payload);
         case FETCH_SINGLE_LIBRARY_DOCUMENT_SUCCESS:
         case CREATE_LIBRARY_DOCUMENT_FOLDER_SUCCESS:

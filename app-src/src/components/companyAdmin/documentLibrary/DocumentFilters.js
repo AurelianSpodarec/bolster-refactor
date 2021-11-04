@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import Search from 'components/shared/generic/form/presentational/Search';
 import Select from 'components/shared/generic/form/presentational/Select';
-import UserPermissions from '_content/images/icons/user-permission.svg';
 import switchDocumentLibraryFilter from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryFilter';
 import switchDocumentLibrarySearchTerm from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibrarySearchTerm';
 import { usePrevious } from 'helpers/hooks';
@@ -87,14 +86,6 @@ const DocumentFilters = ({
                         <i className="fa fa-undo" />
                     </button>
                 )}
-                <button
-                    disabled={!selectedItems.length}
-                    className={`library-button button ${selectedItems.length && 'blue'}`}
-                    type="button"
-                    onClick={() => {}}
-                >
-                    <i className="fa fa-cloud-download" />
-                </button>
                 <button
                     disabled={!selectedItems.length}
                     className={`library-button button ${selectedItems.length && 'red'}`}
