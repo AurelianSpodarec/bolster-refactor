@@ -10,6 +10,8 @@ import { getAuthHeader } from 'helpers/api';
 import FileDropBox from './FileDropBox';
 import { fileUploadStart, fileUploadFinish } from 'actions/shared/fileUpload/sync/fileUpload';
 import { areArraysEqual } from 'helpers/generic';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { SELECT_DOCUMENT_LIBRARY_ITEM } from 'constants/shared/modalTypes';
 
 class FileUploadContainer extends Component {
     static defaultProps = {
@@ -45,6 +47,8 @@ class FileUploadContainer extends Component {
                     onDrop={this.handleFileDrop}
                     inputRef={this.inputRef}
                     onAddFileClick={this.handleAddFileClick}
+                    displayDocLib={this.props.displayDocLib}
+                    onSelectFromDocLibClick={this.handleSelectFromDocLib}
                 >
                     <FileUpload
                         fileS3Keys={fileS3Keys}
@@ -220,11 +224,17 @@ class FileUploadContainer extends Component {
             this._handleChange,
         );
     };
+
+    handleSelectFromDocLib = e => {
+        e.preventDefault();
+        showModal(SELECT_DOCUMENT_LIBRARY_ITEM);
+    };
 }
 
 const mapDispatchToProps = dispatch => ({
     fileUploadStart: () => dispatch(fileUploadStart()),
     fileUploadFinish: close => dispatch(fileUploadFinish(close)),
+    showModal: () => dispatch(showModal()),
 });
 
 const WithConnect = connect(null, mapDispatchToProps)(FileUploadContainer);

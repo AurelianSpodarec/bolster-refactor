@@ -4,15 +4,15 @@ import { useDrop } from 'react-dnd';
 
 const styles = {
     wrapper: {
-        margin: 0
+        margin: 0,
     },
     draggingWrapper: {
-        zIndex: 9999
-    }
+        zIndex: 9999,
+    },
 };
 
 const FileDropBox = props => {
-    const { onDrop, onAddFileClick } = props;
+    const { onDrop, onAddFileClick, displayDocLib, onSelectFromDocLibClick } = props;
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: [NativeTypes.FILE],
         drop(item, monitor) {
@@ -22,15 +22,15 @@ const FileDropBox = props => {
         },
         collect: monitor => ({
             isOver: monitor.isOver(),
-            canDrop: monitor.canDrop()
-        })
+            canDrop: monitor.canDrop(),
+        }),
     });
     const isActive = canDrop && isOver;
     let wrapperStyles = styles.wrapper;
     if (isActive) {
         wrapperStyles = {
             ...wrapperStyles,
-            ...styles.draggingWrapper
+            ...styles.draggingWrapper,
         };
     }
 
@@ -38,14 +38,27 @@ const FileDropBox = props => {
         <div
             ref={drop}
             style={wrapperStyles}
-            className={`file-drop-container ${canDrop && 'can-drop'} ${isOver &&
-                'file-over'} size-lg-12`}
+            className={`file-drop-container ${canDrop && 'can-drop'} ${
+                isOver && 'file-over'
+            } size-lg-12`}
         >
             <p className="size-lg-12">
-                Drag & Drop your files or{' '}
+                Drag & Drop your files{displayDocLib ? ',' : ' or '}
                 <button className="button upload blue" type="button" onClick={onAddFileClick}>
                     Browse
                 </button>
+                {displayDocLib && (
+                    <>
+                        {' or '}
+                        <button
+                            className="button upload blue"
+                            type="button"
+                            onClick={onSelectFromDocLibClick}
+                        >
+                            Select from Document Library
+                        </button>
+                    </>
+                )}
             </p>
 
             {props.children}
