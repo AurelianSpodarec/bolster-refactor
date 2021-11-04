@@ -35,15 +35,27 @@ let DocumentsListItem = ({
                 <td className="hover-anim">
                     {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
                     {item.type === DOCUMENT_LIBRARY_TYPES.FOLDER ? (
-                        <Link to={`/company/document-library?prefix=${item.searchTerm}`}>
-                            <FileTypeIcon
-                                src={
-                                    item.type === DOCUMENT_LIBRARY_TYPES.FILE
-                                        ? getIconFromExt(item.fileExtension)
-                                        : FolderIcon
-                                }
-                            />
-                        </Link>
+                        !item.isArchived ? (
+                            <Link to={`/company/document-library?prefix=${item.searchTerm}`}>
+                                <FileTypeIcon
+                                    src={
+                                        item.type === DOCUMENT_LIBRARY_TYPES.FILE
+                                            ? getIconFromExt(item.fileExtension)
+                                            : FolderIcon
+                                    }
+                                />
+                            </Link>
+                        ) : (
+                            <p>
+                                <FileTypeIcon
+                                    src={
+                                        item.type === DOCUMENT_LIBRARY_TYPES.FILE
+                                            ? getIconFromExt(item.fileExtension)
+                                            : FolderIcon
+                                    }
+                                />
+                            </p>
+                        )
                     ) : (
                         <a
                             href={`${RAW_S3_STORAGE_URL}/${item.s3Key}`}
@@ -63,9 +75,13 @@ let DocumentsListItem = ({
                 <td className="hover-anim">
                     {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                     {item.type === DOCUMENT_LIBRARY_TYPES.FOLDER ? (
-                        <Link to={`/company/document-library?prefix=${item.searchTerm}`}>
+                        !item.isArchived ? (
+                            <Link to={`/company/document-library?prefix=${item.searchTerm}`}>
+                                <p>{item.name}</p>
+                            </Link>
+                        ) : (
                             <p>{item.name}</p>
-                        </Link>
+                        )
                     ) : (
                         <a
                             href={`${RAW_S3_STORAGE_URL}/${item.s3Key}`}
