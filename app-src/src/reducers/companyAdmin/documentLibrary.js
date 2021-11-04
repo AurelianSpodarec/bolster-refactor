@@ -32,10 +32,14 @@ import {
     ADD_DOCUMENT_LIBRARY_ITEM,
     SWITCH_DOCUMENT_LIBRARY_FILTER,
     SWITCH_DOCUMENT_LIBRARY_SEARCH_TERM,
+    FETCH_STORAGE_INFORMATION_SUCCESS,
+    FETCH_STORAGE_INFORMATION_FAILURE,
+    FETCH_STORAGE_INFORMATION_REQUEST,
 } from 'constants/actionTypes/documentLibrary';
 
 export default combineReducers({
     documentLibrary: documentLibraryReducer,
+    storageInformation: storageInformationReducer,
     isFetching: isFetchingReducer,
     fetchError: fetchErrorReducer,
     isPosting: isPostingReducer,
@@ -67,6 +71,12 @@ function isFetchingReducer(state = false, action) {
         case FETCH_DOCUMENT_LIBRARY_FILES_FOR_COMPANY_SUCCESS:
         case FETCH_DOCUMENT_LIBRARY_FILES_FOR_COMPANY_FAILURE:
             return false;
+        case FETCH_STORAGE_INFORMATION_REQUEST:
+            return true;
+        case FETCH_STORAGE_INFORMATION_SUCCESS:
+            return false;
+        case FETCH_STORAGE_INFORMATION_FAILURE:
+            return false;
         default:
             return state;
     }
@@ -84,6 +94,10 @@ function fetchErrorReducer(state = null, action) {
         case SEARCH_ALL_LIBRARY_DOCUMENTS_FAILURE:
         case FETCH_SINGLE_LIBRARY_DOCUMENT_FAILURE:
         case FETCH_DOCUMENT_LIBRARY_FILES_FOR_COMPANY_FAILURE:
+            return action.error;
+        case FETCH_STORAGE_INFORMATION_REQUEST:
+            return null;
+        case FETCH_STORAGE_INFORMATION_FAILURE:
             return action.error;
         default:
             return state;
@@ -215,6 +229,15 @@ function documentLibraryReducer(state = {}, action) {
         case SOFT_DELETE_LIBRARY_DOCUMENT_SUCCESS:
         case RESTORE_LIBRARY_DOCUMENT_SUCCESS:
             return { ...state, ...convertArrToObj(action.payload) };
+        default:
+            return state;
+    }
+}
+
+function storageInformationReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_STORAGE_INFORMATION_SUCCESS:
+            return action.payload;
         default:
             return state;
     }

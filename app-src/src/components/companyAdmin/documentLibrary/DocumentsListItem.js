@@ -77,18 +77,18 @@ let DocumentsListItem = ({
                     {item.type === DOCUMENT_LIBRARY_TYPES.FOLDER ? (
                         !item.isArchived ? (
                             <Link to={`/company/document-library?prefix=${item.searchTerm}`}>
-                                <p>{item.name}</p>
+                                <p>{item.isArchived ? item.searchTerm : item.name}</p>
                             </Link>
                         ) : (
-                            <p>{item.name}</p>
+                            <p>{item.isArchived ? item.searchTerm : item.name}</p>
                         )
                     ) : (
                         <a
                             href={`${RAW_S3_STORAGE_URL}/${item.s3Key}`}
-                            title={item.name}
+                            title={item.isArchived ? item.searchTerm : item.name}
                             target={item.type === DOCUMENT_LIBRARY_TYPES.FILE && '_blank'}
                         >
-                            <p>{item.name}</p>
+                            <p>{item.isArchived ? item.searchTerm : item.name}</p>
                         </a>
                     )}
                 </td>

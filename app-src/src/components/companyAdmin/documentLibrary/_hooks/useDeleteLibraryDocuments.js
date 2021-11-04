@@ -12,7 +12,6 @@ import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
 import softDeleteLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/softDeleteLibraryDocuments';
 import hardDeleteLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/hardDeleteLibraryDocuments';
 import { usePrevious } from 'helpers/hooks';
-import { useLocation } from 'react-router-dom';
 import searchAllLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/searchAllLibraryDocuments';
 import { DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
 
@@ -24,22 +23,30 @@ const useDeleteLibraryDocuments = (ids = []) => {
         deleteError,
         documentLibrary,
         librarySearchTerm,
+        restoreSuccess,
+        libraryFilter,
     } = useSelector(mapStateToProps);
 
-    const prefixQuery = new URLSearchParams(useLocation().search).get('prefix');
-
-    const prevProps = usePrevious({ deleteSuccess, deleteError });
+    const prevProps = usePrevious({ deleteSuccess, deleteError, restoreSuccess });
 
     const areIDsArchived = documentLibrary[ids[0]]
         ? ids.some(id => !!documentLibrary[id].isArchived)
         : false;
 
     useEffect(() => {
-        if (!prevProps.deleteSuccess && deleteSuccess) {
+        if (
+            (!prevProps.deleteSuccess && deleteSuccess) ||
+            (!prevProps.restoreSuccess && restoreSuccess)
+        ) {
             dispatch(hideModal());
-            dispatch(searchAllLibraryDocuments(librarySearchTerm, true));
+            dispatch(
+                searchAllLibraryDocuments(
+                    librarySearchTerm,
+                    libraryFilter === 'isArchived' ? true : false,
+                ),
+            );
         }
-    }, [prevProps.deleteSuccess, deleteSuccess]);
+    }, [prevProps.deleteSuccess, deleteSuccess, prevProps.restoreSuccess, restoreSuccess]);
 
     const filenames = Object.values(documentLibrary).filter(item => ids.includes(item.id));
 
@@ -117,6 +124,8 @@ const mapStateToProps = ({
             librarySearchTerm,
             libraryPage,
             libraryPageSize,
+            restoreSuccess,
+            libraryFilter,
         },
     },
 }) => ({
@@ -127,6 +136,8 @@ const mapStateToProps = ({
     librarySearchTerm,
     libraryPage,
     libraryPageSize,
+    restoreSuccess,
+    libraryFilter,
 });
 
 export default useDeleteLibraryDocuments;
