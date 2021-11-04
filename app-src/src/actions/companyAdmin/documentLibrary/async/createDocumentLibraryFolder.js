@@ -3,30 +3,30 @@ import axios from 'axios';
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 import {
-    FETCH_DOCUMENT_LIBRARY_FILES_FOR_COMPANY_REQUEST,
-    FETCH_DOCUMENT_LIBRARY_FILES_FOR_COMPANY_SUCCESS,
-    FETCH_DOCUMENT_LIBRARY_FILES_FOR_COMPANY_FAILURE,
+    CREATE_LIBRARY_DOCUMENT_FOLDER_REQUEST,
+    CREATE_LIBRARY_DOCUMENT_FOLDER_SUCCESS,
+    CREATE_LIBRARY_DOCUMENT_FOLDER_FAILURE,
 } from 'constants/actionTypes/documentLibrary';
 
-export const fetchAllLibraryDocumentsByCompanyRequest = () => ({
-    type: FETCH_DOCUMENT_LIBRARY_FILES_FOR_COMPANY_REQUEST,
+export const createDocumentLibraryFolderRequest = () => ({
+    type: CREATE_LIBRARY_DOCUMENT_FOLDER_REQUEST,
 });
 
-export const fetchAllLibraryDocumentsByCompanySuccess = payload => ({
-    type: FETCH_DOCUMENT_LIBRARY_FILES_FOR_COMPANY_SUCCESS,
+export const createDocumentLibraryFolderSuccess = payload => ({
+    type: CREATE_LIBRARY_DOCUMENT_FOLDER_SUCCESS,
     payload,
 });
 
-export const fetchAllLibraryDocumentsByCompanyFailure = error => ({
-    type: FETCH_DOCUMENT_LIBRARY_FILES_FOR_COMPANY_FAILURE,
+export const createDocumentLibraryFolderFailure = error => ({
+    type: CREATE_LIBRARY_DOCUMENT_FOLDER_FAILURE,
     error,
 });
 
-export default companyID => dispatch => {
-    dispatch(fetchAllLibraryDocumentsByCompanyRequest());
+export default (postbody) => dispatch => {
+    dispatch(createDocumentLibraryFolderRequest());
 
     return axios
-        .get(`${API_URL}/document-library/${companyID}`, getHeaders())
-        .then(res => dispatch(fetchAllLibraryDocumentsByCompanySuccess(res.data)))
-        .catch(err => dispatch(fetchAllLibraryDocumentsByCompanyFailure(err.message)));
+        .post(`${API_URL}/document-library/folder`, postbody, getHeaders())
+        .then(res => dispatch(createDocumentLibraryFolderSuccess(res.data)))
+        .catch(err => dispatch(createDocumentLibraryFolderFailure(err.message)));
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { NativeTypes } from 'react-dnd-html5-backend';
 import { useDrop } from 'react-dnd';
+import { useDispatch } from 'react-redux';
 
 const styles = {
     wrapper: {
@@ -11,8 +12,16 @@ const styles = {
     },
 };
 
-const FileDropBox = props => {
-    const { onDrop, onAddFileClick, displayDocLib, onSelectFromDocLibClick } = props;
+const FileDropBox = ({ 
+    onDrop, 
+    onAddFileClick, 
+    displayDocLib, 
+    onSelectFromDocLibClick, 
+    children 
+}) => {
+    const dispatch = useDispatch();
+
+
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: [NativeTypes.FILE],
         drop(item, monitor) {
@@ -53,7 +62,9 @@ const FileDropBox = props => {
                         <button
                             className="button upload blue"
                             type="button"
-                            onClick={onSelectFromDocLibClick}
+                            onClick={(e) => {
+                                onSelectFromDocLibClick(e);
+                            }}
                         >
                             Select from Document Library
                         </button>
@@ -61,7 +72,7 @@ const FileDropBox = props => {
                 )}
             </p>
 
-            {props.children}
+            {children}
         </div>
     );
 };

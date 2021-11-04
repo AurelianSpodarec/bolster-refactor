@@ -227,14 +227,23 @@ class FileUploadContainer extends Component {
 
     handleSelectFromDocLib = e => {
         e.preventDefault();
-        showModal(SELECT_DOCUMENT_LIBRARY_ITEM);
+        this.props.showModal(SELECT_DOCUMENT_LIBRARY_ITEM, { handleChange: (newS3Key) => {
+            console.log({newS3Key});
+            this.setState(
+                prevState => ({
+                    fileS3Keys: prevState.fileS3Keys.concat(newS3Key),
+                    softError: null,
+                }),
+                this._handleChange,
+            );
+        } });
     };
 }
 
 const mapDispatchToProps = dispatch => ({
     fileUploadStart: () => dispatch(fileUploadStart()),
     fileUploadFinish: close => dispatch(fileUploadFinish(close)),
-    showModal: () => dispatch(showModal()),
+    showModal: (type, props) => dispatch(showModal(type, props)),
 });
 
 const WithConnect = connect(null, mapDispatchToProps)(FileUploadContainer);
