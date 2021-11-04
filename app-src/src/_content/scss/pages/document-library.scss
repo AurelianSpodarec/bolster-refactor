@@ -1,4 +1,3 @@
-
 .document-filters {
   justify-content: space-between;
   .generic-search {
@@ -9,6 +8,7 @@
     min-width: 160px;
   }
 }  
+
 .no-overflow {
   overflow: hidden;
 }
@@ -95,23 +95,40 @@
   }
 }
 
-.dnd-overlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0,0,0,0.5);
-  border-radius: 5px;
-  pointer-events: none;
+.table-wrapper {
+  position: relative;
+  display: inline-block;
 
+  width: 100%;
 
-  h3 {
-    color: #ffffff;
-    font-size: 24px;
+  .dnd-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 5px;
+  
+  
+    .dnd-indicator {
+      width: 100%;
+
+      transition: top 300ms ease;
+
+      h3, p {
+        color: #ffffff;
+        text-align: center;
+      }
+
+      h3 {
+        font-size: 24px;
+      }
+
+      p {
+        font-size: 14px;
+      }
+    }
   }
 }
 
@@ -214,4 +231,170 @@
 
 .dl-pin-attachment {
   margin-bottom: 15px;
+}
+
+.add-documents-modal {
+  .file-upload-container {
+
+    .error-message{
+      font-size: 12px;;
+      padding: 0;
+    }
+  
+    .file-previews {
+      li {
+        .file-item {
+          padding: 4px 8px;
+          margin: 0 -8px;
+          border-radius: 8px;
+    
+          display: flex;
+          align-items: center;
+
+          min-width: 0;
+
+          &:hover {
+            background-color: $light-grey;
+          }
+
+          transition: background-color 300ms ease, margin-bottom 300ms ease;
+    
+          .main-text {
+            display: flex;
+            align-items: center;
+
+            flex-grow: 1;
+            color: $blue;
+
+            min-width: 0;
+
+            transition: color 300ms ease;
+
+            strong {
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            .meta {
+              flex-grow: 1;
+
+              margin: 0 8px;
+              color: $dark-grey-alt;
+              font-size: 12px;
+
+              white-space: nowrap;
+              
+              transition: color 300ms ease;
+            }
+          }
+
+          .fa-check {
+            color: white;
+          }
+    
+          &.uploaded {
+            background-color: $green;
+          }
+    
+          &.error {
+            background-color: $red;
+          }
+
+          &.uploaded, &.error {
+            margin-bottom: 8px;
+
+            .main-text {
+              color: white;
+
+              .meta {
+                color: $light-grey;
+              }
+            }
+          }
+
+          button {
+            color: $dark-grey;
+            background-color: transparent;
+
+            transition: color 300ms ease;
+
+            &:hover {
+              color: $red;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .file-upload-options {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    margin-top: 30px;
+  }
+
+  .image-upload {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 26px;
+    cursor: pointer;
+    margin: 30px 0;
+    padding: 30px 0;
+
+    gap: 12px;
+
+    border: 2px dashed $light-grey-alt;
+  
+    position: relative;
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .fal {
+      font-size: 32px;
+      color: $text-grey;
+    }
+
+    h3 {
+      font-size: 18px;
+      color: $blue;
+
+      .contrast-color {
+        color: $text-grey;
+      }
+    }
+
+    p {
+      font-size: 18px;
+      color: $text-grey;
+      font-weight: 300;
+    }
+  
+    .progress-bar {
+      width: 98%;
+      height: 8px;
+      border-radius: 15px;
+      position: absolute;
+      bottom: 0;
+      margin: 5px 0px 5px 0px;
+  
+      .progress {
+        height: 100%;
+        background-color: $blue;
+        position: absolute;
+        border-radius: 15px;
+      }
+    }
+  
+    &.uploading {
+      .progress {
+        transition: width 0.5s ease-in;
+      }
+    }
+  }
 }

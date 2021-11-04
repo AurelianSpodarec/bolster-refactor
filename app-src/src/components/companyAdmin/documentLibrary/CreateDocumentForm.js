@@ -1,9 +1,7 @@
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 import React from 'react';
-import './CreateDocumentForm.scss';
 
 import useCreateDocument from './_hooks/useCreateDocument';
 
@@ -50,7 +48,7 @@ const CreateDocumentForm = ({ initialFiles }) => {
                 {!!error && <p className="error-message text-accent-4">{error}</p>}
                 {renderPreviews()}
             </div>
-            <div>
+            <div className="file-upload-options">
                 <p>Document Use:</p>
                 <div className="checkbox-items">
                     <CheckboxContainer
@@ -95,8 +93,10 @@ const CreateDocumentForm = ({ initialFiles }) => {
                         <li key={uuid}>
                             <div className={`file-item ${className}`}>
                                 <p className="main-text">
-                                    <strong>{escape(file.name)}</strong> ({file.type})
-                                    {formatBytes(file.size)}
+                                    <strong>{file.name}</strong>{' '}
+                                    <span className="meta">
+                                        {formatBytes(file.size)} ({file.type})
+                                    </span>
                                 </p>
                                 {uploaded ? (
                                     <i className="fa fa-check" />
@@ -125,9 +125,11 @@ const CreateDocumentForm = ({ initialFiles }) => {
     function renderPlaceholder() {
         return (
             <>
-                <span className="text">
-                    {isActive ? 'Release to drop' : 'Drag files here or click'}
-                </span>
+                <i className="fal fa-image" />
+                <h3>
+                    Upload a file<span className="contrast-color"> or drag and drop</span>
+                </h3>
+                <p>PNG, JPG, GIF, up to 5MB</p>
             </>
         );
     }

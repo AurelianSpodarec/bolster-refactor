@@ -1,5 +1,5 @@
-import { useRef, useState  } from 'react';
-import { useDispatch  } from 'react-redux';
+import { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useForm, useQueryParam } from 'helpers/hooks';
 import { useDrop } from 'react-dnd';
 import { NativeTypes } from 'react-dnd-html5-backend';
@@ -36,10 +36,10 @@ const useCreateDocument = (initialFiles = []) => {
 
     function handleCollect(monitor) {
         return {
-          isOver: monitor.isOver(),
-          canDrop: monitor.canDrop(),
+            isOver: monitor.isOver(),
+            canDrop: monitor.canDrop(),
         };
-      }
+    }
 
     async function handlePress(e) {
         e.preventDefault();
@@ -50,7 +50,7 @@ const useCreateDocument = (initialFiles = []) => {
         e.target.value = null;
     }
 
-    async function handleSubmit(e){
+    async function handleSubmit(e) {
         e.preventDefault();
 
         let isFullSuccess = true;
@@ -63,8 +63,8 @@ const useCreateDocument = (initialFiles = []) => {
                 }
             }
 
-            if (isFullSuccess){
-                dispatch(hideModal());
+            if (isFullSuccess) {
+                setTimeout(() => dispatch(hideModal()), 500);
             }
         } catch (error) {
             setError(error.message);
@@ -77,18 +77,17 @@ const useCreateDocument = (initialFiles = []) => {
         try {
             if (bytesToMB(file.size) > maxFileSizeMB) {
                 const errorMessage = `You cannot upload a file larger than ${maxFileSizeMB}MB.`;
-                setFiles(prev => prev.map(item => item.uuid === uuid 
-                    ? ({ ...item, errorMessage })
-                    : item));
+                setFiles(prev =>
+                    prev.map(item => (item.uuid === uuid ? { ...item, errorMessage } : item)),
+                );
 
                 return false;
-              }
-    
+            }
+
             const filePrefix = prefix ? `${prefix}/` : '';
 
-            
             const key = `${filePrefix}${file.name}`;
-            
+
             const postBody = {
                 key: key,
                 contentType: file.type,
@@ -97,27 +96,26 @@ const useCreateDocument = (initialFiles = []) => {
                 isAttachPins: form.isAttachPins,
             };
 
-            const { 
-                s3UploadURL, 
-                documentLibraryItem 
-            } = await postCreateItem(postBody);
-    
+            const { s3UploadURL, documentLibraryItem } = await postCreateItem(postBody);
+
             const options = {
                 onUploadProgress: handleUploadProgress,
-                headers: { 
-                    'Content-Type': file.type, 
-                    'x-amz-acl': 'public-read', 
+                headers: {
+                    'Content-Type': file.type,
+                    'x-amz-acl': 'public-read',
                 },
             };
-    
+
             await axios.put(s3UploadURL, file, options);
-    
+
             await setTimeoutAsync(600);
             setProgress(0);
-            
-            setFiles(prev => prev.map(item => item.uuid === uuid 
-                ? ({ ...item, uploaded: true, error: null }) 
-                : item));
+
+            setFiles(prev =>
+                prev.map(item =>
+                    item.uuid === uuid ? { ...item, uploaded: true, error: null } : item,
+                ),
+            );
 
             dispatch(addDocumentLibraryItem(documentLibraryItem));
 
@@ -126,13 +124,13 @@ const useCreateDocument = (initialFiles = []) => {
             let message = err.message;
             if (typeof err.response?.data === 'string') message = err.response?.data;
 
-            console.log({err});
+            console.log({ err });
             await setTimeoutAsync(600);
             setProgress(0);
-            
-            setFiles(prev => prev.map(item => item.uuid === uuid 
-                ? ({ ...item, errorMessage: message }) 
-                : item));
+
+            setFiles(prev =>
+                prev.map(item => (item.uuid === uuid ? { ...item, errorMessage: message } : item)),
+            );
 
             return false;
         }
@@ -144,8 +142,8 @@ const useCreateDocument = (initialFiles = []) => {
     }
 
     async function handleRemove(uuid) {
-        const newFiles = files.filter((item) => item.uuid !== uuid);
-       setFiles(newFiles);
+        const newFiles = files.filter(item => item.uuid !== uuid);
+        setFiles(newFiles);
     }
 
     function handleCancel() {
@@ -168,19 +166,19 @@ const useCreateDocument = (initialFiles = []) => {
     };
 };
 
-const postCreateItem = async (body) => {
+const postCreateItem = async body => {
     const url = `${API_URL}/document-library/file`;
     const { data } = await axios.post(url, body, getHeaders());
     return data;
 };
 
-const setTimeoutAsync = async (wait) => {
+const setTimeoutAsync = async wait => {
     return new Promise(resolve => {
-      setTimeout(resolve, wait);
+        setTimeout(resolve, wait);
     });
 };
 
-const addKeyToFileItem = (file) => {
+const addKeyToFileItem = file => {
     return {
         file,
         uuid: uuid(),
@@ -191,6 +189,5 @@ const addKeyToFileItem = (file) => {
 function bytesToMB(bytes) {
     return bytes / 1024 / 1024;
 }
-
 
 export default useCreateDocument;
