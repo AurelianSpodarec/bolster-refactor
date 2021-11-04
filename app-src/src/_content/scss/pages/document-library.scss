@@ -40,7 +40,7 @@
     text-decoration: none;
 
     &:hover {
-      transform: scale(105%) translateY(5px) 
+      transform: scale(103%)
     }
 
     .image-container {
@@ -48,6 +48,30 @@
       display: flex;
       justify-content: center;
       align-items: center;
+
+      img {
+        transition: all 200ms ease;
+      }
+
+      &.show-details {
+
+        img {
+          filter: blur(5px);
+          opacity: 0.25;
+        }
+      }
+
+      .info-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        transition: all 200ms ease;
+
+        p {
+          margin-bottom: 5px;
+        }
+      }
     }
 
     p {
@@ -84,6 +108,15 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow-x: hidden
+      }
+
+      .grid-burger {
+        background-color: transparent;
+        color: #212228;
+        padding: 10px;
+        position: absolute;
+        right: -5px;
+        bottom: 5px;
       }
     }
 
@@ -166,11 +199,20 @@
 
 .dl-row {
   padding: 8px 0;
-  transition: transform 200ms ease;
   cursor: default;
-  
+
+  .hover-anim p, .hover-anim img {
+    transition: transform 200ms ease;
+  }
+
   &:hover {
-    transform: scale(101%);
+
+    .hover-anim p {
+      transform: scale(102%);
+    }
+    .hover-anim img {
+      transform: scale(110%);
+    }
   }
   
   td {

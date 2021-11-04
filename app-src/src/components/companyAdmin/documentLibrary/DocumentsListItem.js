@@ -7,6 +7,7 @@ import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
 import FileTypeIcon from './FileTypeIcon';
 import { formatBytes } from './CreateDocumentForm';
 import { RAW_S3_STORAGE_URL } from 'config';
+import { useSelector } from 'react-redux';
 
 let DocumentsListItem = ({
     item,
@@ -21,6 +22,8 @@ let DocumentsListItem = ({
     let rowClass = 'draggable expandable dl-row';
     if (isDragging) rowClass += ' dragging';
 
+    const users = useSelector(mapStateToProps) || {};
+
     return (
         <tr ref={isSorting ? forwardRef : null} className={rowClass}>
             <>
@@ -29,7 +32,7 @@ let DocumentsListItem = ({
                         <div className="selection-dot" style={{ opacity: isSelected ? 1 : 0 }} />
                     </div>
                 </td>
-                <td>
+                <td className="hover-anim">
                     {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
                     {item.type === DOCUMENT_LIBRARY_TYPES.FOLDER ? (
                         <Link to={`/company/document-library?prefix=${item.searchTerm}`}>
@@ -57,7 +60,7 @@ let DocumentsListItem = ({
                         </a>
                     )}
                 </td>
-                <td>
+                <td className="hover-anim">
                     {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                     {item.type === DOCUMENT_LIBRARY_TYPES.FOLDER ? (
                         <Link to={`/company/document-library?prefix=${item.searchTerm}`}>
@@ -75,7 +78,13 @@ let DocumentsListItem = ({
                 </td>
                 <td>
                     {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-                    {item.uploadedBy}
+                    {`${
+                        users[item.createdByCompanyUserID]
+                            ? `${users[item.createdByCompanyUserID].userFirstName} ${
+                                  users[item.createdByCompanyUserID].userLastName
+                              }`
+                            : '-'
+                    }`}
                 </td>
                 <td>
                     {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
@@ -86,11 +95,21 @@ let DocumentsListItem = ({
                 </td>
                 <td>
                     {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
+                    {item.isViewApp ? 'Yes' : '-'}
+                </td>
+                <td>
+                    {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
+                    {item.isAttachPins ? 'Yes' : '-'}
+                </td>
+                <td>
+                    {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
                     {item.contentLength ? formatBytes(item.contentLength) : ' '}
                 </td>
             </>
         </tr>
     );
 };
+
+const mapStateToProps = state => state.companyAdmin.companyUsersReducer.users;
 
 export default DocumentsListItem;

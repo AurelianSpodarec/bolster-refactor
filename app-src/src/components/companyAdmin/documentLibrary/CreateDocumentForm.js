@@ -127,7 +127,13 @@ const CreateDocumentForm = ({ initialFiles }) => {
             <>
                 <i className="fal fa-image" />
                 <h3>
-                    Upload a file<span className="contrast-color"> or drag and drop</span>
+                    {isActive ? (
+                        <>Release to upload</>
+                    ) : (
+                        <>
+                            Upload a file<span className="contrast-color"> or drag and drop</span>
+                        </>
+                    )}
                 </h3>
                 <p>PNG, JPG, GIF, up to 5MB</p>
             </>
