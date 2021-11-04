@@ -7,6 +7,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import PageSelector from 'components/shared/pagination/presentational/pageSelector';
 import DocumentLibraryBreadcrumb from './DocumentLibraryBreadcrumb';
+import DocumentLibraryStats from './DocumentLibraryStats';
 
 const DocumentsTable = ({
     selectedItems = [],
@@ -42,6 +43,7 @@ const DocumentsTable = ({
                         } selected`}</span>
                     </span>
                 )}
+                <DocumentLibraryStats />
                 <PageSelector setPage={setCurrentPage} page={currentPage} maxPage={maxPage} />
             </BlockHeading>
 

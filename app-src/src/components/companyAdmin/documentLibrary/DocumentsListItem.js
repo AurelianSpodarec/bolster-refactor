@@ -6,6 +6,7 @@ import { getIconFromExt } from 'helpers/general';
 import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
 import FileTypeIcon from './FileTypeIcon';
 import { formatBytes } from './CreateDocumentForm';
+import { RAW_S3_STORAGE_URL } from 'config';
 
 let DocumentsListItem = ({
     item,
@@ -41,13 +42,19 @@ let DocumentsListItem = ({
                             />
                         </Link>
                     ) : (
-                        <FileTypeIcon
-                            src={
-                                item.type === DOCUMENT_LIBRARY_TYPES.FILE
-                                    ? getIconFromExt(item.fileExtension)
-                                    : FolderIcon
-                            }
-                        />
+                        <a
+                            href={`${RAW_S3_STORAGE_URL}/${item.s3Key}`}
+                            title={item.name}
+                            target={item.type === DOCUMENT_LIBRARY_TYPES.FILE && '_blank'}
+                        >
+                            <FileTypeIcon
+                                src={
+                                    item.type === DOCUMENT_LIBRARY_TYPES.FILE
+                                        ? getIconFromExt(item.fileExtension)
+                                        : FolderIcon
+                                }
+                            />
+                        </a>
                     )}
                 </td>
                 <td>
@@ -57,7 +64,13 @@ let DocumentsListItem = ({
                             <p>{item.name}</p>
                         </Link>
                     ) : (
-                        <p>{item.name}</p>
+                        <a
+                            href={`${RAW_S3_STORAGE_URL}/${item.s3Key}`}
+                            title={item.name}
+                            target={item.type === DOCUMENT_LIBRARY_TYPES.FILE && '_blank'}
+                        >
+                            <p>{item.name}</p>
+                        </a>
                     )}
                 </td>
                 <td>
