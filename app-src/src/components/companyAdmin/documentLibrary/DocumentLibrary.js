@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
@@ -18,10 +18,12 @@ import PageSelector from 'components/shared/pagination/presentational/pageSelect
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { CREATE_LIBRARY_FOLDER, EDIT_LIBRARY_ITEMS } from 'constants/shared/modalTypes';
 import useRestoreLibraryDocuments from './_hooks/useRestoreLibraryDocuments';
+import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import { usePrevious } from 'helpers/hooks';
 
 const DocumentLibrary = () => {
     const dispatch = useDispatch();
-    const { libraryView } = useSelector(mapStateToProps);
+    const { libraryView, id } = useSelector(mapStateToProps);
     const prefixQuery = new URLSearchParams(useLocation().search).get('prefix');
     const { canDrop, isOver, dropRef, showCreateModal } = useOpenCreateDocumentModal();
 
@@ -48,6 +50,10 @@ const DocumentLibrary = () => {
         restoreSuccess,
         restoreError,
     } = useRestoreLibraryDocuments(selectedItems);
+
+    useEffect(() => {
+        dispatch(fetchCompanyUsers(id));
+    }, [dispatch, id]);
 
     const { currentPage, setCurrentPage, setPageSize, limit } = useDocumentLibraryPagination();
 
@@ -134,7 +140,10 @@ const DocumentLibrary = () => {
 const mapStateToProps = ({
     companyAdmin: {
         documentLibraryReducer: { libraryView },
+        companySettingsReducer: {
+            companySettings: { id },
+        },
     },
-}) => ({ libraryView });
+}) => ({ libraryView, id });
 
 export default DocumentLibrary;
