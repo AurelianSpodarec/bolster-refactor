@@ -12,9 +12,9 @@ export const restoreLibraryDocumentsRequest = () => ({
     type: RESTORE_LIBRARY_DOCUMENT_REQUEST,
 });
 
-export const restoreLibraryDocumentsSuccess = ids => ({
+export const restoreLibraryDocumentsSuccess = payload => ({
     type: RESTORE_LIBRARY_DOCUMENT_SUCCESS,
-    ids,
+    payload,
 });
 
 export const restoreLibraryDocumentsFailure = error => ({

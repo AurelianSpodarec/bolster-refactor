@@ -105,11 +105,6 @@ const DocumentLibrary = () => {
                             isFetching={isFetching}
                             fetchError={fetchError}
                         />
-                        {isActive && (
-                            <div className="dnd-overlay">
-                                <h3>Release file to upload</h3>
-                            </div>
-                        )}
                     </>
                 ) : (
                     <>
@@ -125,14 +120,14 @@ const DocumentLibrary = () => {
                             isFetching={isFetching}
                             fetchError={fetchError}
                         />
-                        {isActive && (
-                            <div className="dnd-overlay">
-                                <h3>Release file to upload</h3>
-                            </div>
-                        )}
                     </>
                 )}
             </div>
+            {isActive && (
+                <div className="dnd-overlay">
+                    <h3>Release file to upload</h3>
+                </div>
+            )}
         </>
     );
 };

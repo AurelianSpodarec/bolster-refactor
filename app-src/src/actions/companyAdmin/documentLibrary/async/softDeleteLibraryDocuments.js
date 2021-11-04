@@ -12,9 +12,9 @@ export const softDeleteLibraryDocumentsRequest = () => ({
     type: SOFT_DELETE_LIBRARY_DOCUMENT_REQUEST,
 });
 
-export const softDeleteLibraryDocumentsSuccess = ids => ({
+export const softDeleteLibraryDocumentsSuccess = payload => ({
     type: SOFT_DELETE_LIBRARY_DOCUMENT_SUCCESS,
-    ids,
+    payload,
 });
 
 export const softDeleteLibraryDocumentsFailure = error => ({
