@@ -36,19 +36,11 @@ const useDeleteLibraryDocuments = (ids = []) => {
         ? ids.some(id => !!documentLibrary[id].isArchived)
         : false;
 
-    // useEffect(() => {
-    //     if (!prevProps.deleteSuccess && deleteSuccess) {
-    //         dispatch(hideModal());
-    //         dispatch(
-    //             searchAllLibraryDocuments(
-    //                 libraryPage,
-    //                 libraryPageSize,
-    //                 librarySearchTerm ? librarySearchTerm : prefixQuery,
-    //                 false,
-    //             ),
-    //         );
-    //     }
-    // }, [prevProps.deleteSuccess, deleteSuccess]);
+    useEffect(() => {
+        if (!prevProps.deleteSuccess && deleteSuccess) {
+            dispatch(hideModal());
+        }
+    }, [prevProps.deleteSuccess, deleteSuccess]);
 
     const filenames = Object.values(documentLibrary).filter(item => ids.includes(item.id));
 

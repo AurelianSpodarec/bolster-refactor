@@ -17,6 +17,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import PageSelector from 'components/shared/pagination/presentational/pageSelector';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { CREATE_LIBRARY_FOLDER, EDIT_LIBRARY_ITEMS } from 'constants/shared/modalTypes';
+import useRestoreLibraryDocuments from './_hooks/useRestoreLibraryDocuments';
 
 const DocumentLibrary = () => {
     const dispatch = useDispatch();
@@ -40,10 +41,18 @@ const DocumentLibrary = () => {
         deleteError,
     } = useDeleteLibraryDocuments(selectedItems);
 
+    const {
+        handleShowRestoreModal,
+        handleHideRestoreModal,
+        isRestoring,
+        restoreSuccess,
+        restoreError,
+    } = useRestoreLibraryDocuments(selectedItems);
+
     const { currentPage, setCurrentPage, setPageSize, limit } = useDocumentLibraryPagination();
 
     const isActive = canDrop && isOver;
-    
+
     const showEditModal = () => {
         dispatch(showModal(EDIT_LIBRARY_ITEMS, { ids: selectedItems }));
     };
@@ -71,7 +80,8 @@ const DocumentLibrary = () => {
                     setViewMode={switchDocumentLibraryView}
                     selectedItems={selectedItems}
                     showEditModal={showEditModal}
-                    // handleShowSoftDeleteModal={handleShowSoftDeleteModal}
+                    handleShowDeleteModal={handleShowDeleteModal}
+                    handleShowRestoreModal={handleShowRestoreModal}
                 />
             </BlockContainer>
             <div ref={dropRef}>

@@ -1,27 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import restoreLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/restoreLibraryDocuments';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { hideModal } from 'actions/shared/generic/modals/sync/showModal';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
 import { useDispatch, useSelector } from 'react-redux';
 import FileTypeIcon from '../FileTypeIcon';
 import { RESTORE_LIBRARY_DOCUMENTS } from 'constants/shared/modalTypes';
 import { getIconFromExt } from 'helpers/general';
 import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
+import { usePrevious } from 'helpers/hooks';
 
 const useRestoreLibraryDocuments = (ids = []) => {
     const dispatch = useDispatch();
     const {
         documentLibrary,
-        librarySearchTerm,
-        libraryPage,
-        libraryPageSize,
+        // librarySearchTerm,
+        // libraryPage,
+        // libraryPageSize,
         isRestoring,
         restoreSuccess,
         restoreError,
     } = useSelector(mapStateToProps);
 
     const filenames = Object.values(documentLibrary).filter(item => ids.includes(item.id));
+
+    const prevProps = usePrevious({ restoreSuccess, restoreError });
 
     const message = () => (
         <>
@@ -47,9 +50,17 @@ const useRestoreLibraryDocuments = (ids = []) => {
                 ))}
             </ul>
             <br />
-            {'The items will be restored'}
+            {
+                'The items will be restored to their original folders, or to the Library root if original folders are unavailable.'
+            }
         </>
     );
+
+    useEffect(() => {
+        if (!prevProps.restoreSuccess && restoreSuccess) {
+            dispatch(hideModal());
+        }
+    }, [prevProps.restoreSuccess, restoreSuccess]);
 
     const handleShowRestoreModal = () => {
         dispatch(

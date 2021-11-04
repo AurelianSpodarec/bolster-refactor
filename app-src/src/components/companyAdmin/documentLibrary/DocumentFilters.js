@@ -30,7 +30,8 @@ const DocumentFilters = ({
     selectedItems,
     libraryFilter,
     deleteSuccess,
-    handleShowSoftDeleteModal = () => {},
+    handleShowDeleteModal = () => {},
+    handleShowRestoreModal = () => {},
     showEditModal,
 }) => {
     const dispatch = useDispatch();
@@ -81,7 +82,7 @@ const DocumentFilters = ({
                         disabled={!selectedItems.length}
                         className={`library-button button ${selectedItems.length && 'green'}`}
                         type="button"
-                        onClick={() => {}}
+                        onClick={handleShowRestoreModal}
                     >
                         <i className="fa fa-undo" />
                     </button>
@@ -98,7 +99,7 @@ const DocumentFilters = ({
                     disabled={!selectedItems.length}
                     className={`library-button button ${selectedItems.length && 'red'}`}
                     type="button"
-                    onClick={handleShowSoftDeleteModal}
+                    onClick={handleShowDeleteModal}
                 >
                     <i className="fa fa-trash-alt" />
                 </button>

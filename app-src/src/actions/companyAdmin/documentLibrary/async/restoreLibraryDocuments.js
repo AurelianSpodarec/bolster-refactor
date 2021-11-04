@@ -26,7 +26,7 @@ export default (ids = []) => dispatch => {
     dispatch(restoreLibraryDocumentsRequest());
 
     return axios
-        .patch(`${API_URL}/document-library/archive`, { ids }, getHeaders())
-        .then(res => dispatch(restoreLibraryDocumentsSuccess(ids, true)))
+        .patch(`${API_URL}/document-library/archive`, { ids, undo: true }, getHeaders())
+        .then(({ data }) => dispatch(restoreLibraryDocumentsSuccess(data)))
         .catch(err => dispatch(restoreLibraryDocumentsFailure(err.message)));
 };

@@ -33,6 +33,7 @@ import {
     SWITCH_DOCUMENT_LIBRARY_FILTER,
     SWITCH_DOCUMENT_LIBRARY_SEARCH_TERM,
 } from 'constants/actionTypes/documentLibrary';
+import { RESTORE_LIBRARY_DOCUMENTS } from 'constants/shared/modalTypes';
 
 export default combineReducers({
     documentLibrary: documentLibraryReducer,
@@ -208,10 +209,12 @@ function documentLibraryReducer(state = {}, action) {
         case ADD_DOCUMENT_LIBRARY_ITEM:
             return updateObj(state, action.payload.id, action.payload);
         case EDIT_DOCUMENT_LIBRARY_ITEMS_SUCCESS:
-            return {...state, ...convertArrToObj(action.payload)};
-        case SOFT_DELETE_LIBRARY_DOCUMENT_SUCCESS:
+            return { ...state, ...convertArrToObj(action.payload) };
         case HARD_DELETE_LIBRARY_DOCUMENT_SUCCESS:
             return removeObjItems(state, action.ids);
+        case SOFT_DELETE_LIBRARY_DOCUMENT_SUCCESS:
+        case RESTORE_LIBRARY_DOCUMENTS:
+            return { ...state, ...convertArrToObj(action.payload) };
         default:
             return state;
     }

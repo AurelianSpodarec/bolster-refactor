@@ -26,7 +26,7 @@ export default (ids = []) => dispatch => {
     dispatch(softDeleteLibraryDocumentsRequest());
 
     return axios
-        .patch(`${API_URL}/document-library/archive`, { ids }, getHeaders())
-        .then(res => dispatch(softDeleteLibraryDocumentsSuccess(ids, false)))
+        .patch(`${API_URL}/document-library/archive`, { ids, undo: false }, getHeaders())
+        .then(({ data }) => dispatch(softDeleteLibraryDocumentsSuccess(data)))
         .catch(err => dispatch(softDeleteLibraryDocumentsFailure(err.message)));
 };
