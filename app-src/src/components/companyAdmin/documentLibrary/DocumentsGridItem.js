@@ -23,11 +23,7 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                     className={`image-container ${showDetails ? 'show-details' : ''}`}
                 >
                     <FileTypeIcon
-                        src={
-                            item.type === DOCUMENT_LIBRARY_TYPES.FILE
-                                ? getIconFromExt(item.fileExtension)
-                                : FolderIcon
-                        }
+                        src={FolderIcon}
                         alt={`${item.name} icon`}
                         width="auto"
                         height="160"
@@ -44,7 +40,6 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                                         : '-'
                                 }`}
                             </p>
-                            <p>Folder size: {formatBytes(item.contentLength)}</p>
                             <p>Viewable in app: {item.isViewApp ? 'Yes' : 'No'}</p>
                             <p>Attachable to pins: {item.isAttachPins ? 'Yes' : 'No'}</p>
                         </div>
@@ -58,11 +53,7 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                     target={item.type === DOCUMENT_LIBRARY_TYPES.FILE && '_blank'}
                 >
                     <FileTypeIcon
-                        src={
-                            item.type === DOCUMENT_LIBRARY_TYPES.FILE
-                                ? getIconFromExt(item.fileExtension)
-                                : FolderIcon
-                        }
+                        src={getIconFromExt(item.fileExtension)}
                         alt={`${item.name} icon`}
                         width="auto"
                         height="160"
