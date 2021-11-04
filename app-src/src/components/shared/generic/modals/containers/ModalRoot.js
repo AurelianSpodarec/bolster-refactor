@@ -127,6 +127,7 @@ import {
     EDIT_LIBRARY_ITEMS,
     HARD_DELETE_LIBRARY_DOCUMENT,
     RESTORE_LIBRARY_DOCUMENTS,
+    SELECT_DOCUMENT_LIBRARY_ITEM,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -253,6 +254,7 @@ import NewUserDocumentModal from 'components/companyAdmin/userManagement/documen
 import FileUploadModal from 'components/companyAdmin/documentLibrary/CreateDocumentModal';
 import CreateDocumentFolderModal from 'components/companyAdmin/documentLibrary/CreateDocumentFolderModal';
 import EditDocumentItemsModal from 'components/companyAdmin/documentLibrary/EditDocumentItemsModal';
+import SelectDocumentLibraryItemModal from 'components/companyAdmin/documentLibrary/SelectDocumentLibraryItemModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -380,6 +382,7 @@ const MODAL_COMPONENTS = {
     [CREATE_LIBRARY_FOLDER]: CreateDocumentFolderModal,
     [EDIT_LIBRARY_ITEMS]: EditDocumentItemsModal,
     [RESTORE_LIBRARY_DOCUMENTS]: ConfirmDeleteModal,
+    [SELECT_DOCUMENT_LIBRARY_ITEM]: SelectDocumentLibraryItemModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
