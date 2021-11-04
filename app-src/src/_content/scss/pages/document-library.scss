@@ -51,6 +51,7 @@
 
       img {
         transition: all 200ms ease;
+        min-width: 120px;
       }
 
       &.show-details {
