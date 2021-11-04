@@ -149,11 +149,20 @@
 
 .dl-row {
   padding: 8px 0;
-  transition: transform 200ms ease;
   cursor: default;
-  
+
+  .hover-anim p, .hover-anim img {
+    transition: transform 200ms ease;
+  }
+
   &:hover {
-    transform: scale(101%);
+
+    .hover-anim p {
+      transform: scale(102%);
+    }
+    .hover-anim img {
+      transform: scale(110%);
+    }
   }
   
   td {

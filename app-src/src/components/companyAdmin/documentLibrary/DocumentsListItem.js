@@ -29,7 +29,7 @@ let DocumentsListItem = ({
                         <div className="selection-dot" style={{ opacity: isSelected ? 1 : 0 }} />
                     </div>
                 </td>
-                <td>
+                <td className="hover-anim">
                     {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
                     {item.type === DOCUMENT_LIBRARY_TYPES.FOLDER ? (
                         <Link to={`/company/document-library?prefix=${item.searchTerm}`}>
@@ -57,7 +57,7 @@ let DocumentsListItem = ({
                         </a>
                     )}
                 </td>
-                <td>
+                <td className="hover-anim">
                     {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                     {item.type === DOCUMENT_LIBRARY_TYPES.FOLDER ? (
                         <Link to={`/company/document-library?prefix=${item.searchTerm}`}>
@@ -86,6 +86,14 @@ let DocumentsListItem = ({
                 </td>
                 <td>
                     {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
+                    {item.isViewApp ? 'Yes' : '-'}
+                </td>
+                <td>
+                    {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
+                    {item.isAttachPins ? 'Yes' : '-'}
+                </td>
+                <td>
+                    {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
                     {item.contentLength ? formatBytes(item.contentLength) : ' '}
                 </td>
             </>

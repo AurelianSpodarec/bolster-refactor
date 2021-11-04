@@ -23,7 +23,16 @@ const DocumentsTable = ({
     isFetching,
     fetchError,
 }) => {
-    const headers = ['', '', 'Name', 'Uploaded by', 'Uploaded', 'File size'];
+    const headers = [
+        '',
+        '',
+        'Name',
+        'Uploaded by',
+        'Uploaded',
+        'View in app',
+        'Attachable to pins',
+        'File size',
+    ];
     const maxPage = Math.ceil(items.length / limit);
 
     const { librarySearchTerm, libraryFilter } = useSelector(mapStateToProps);
