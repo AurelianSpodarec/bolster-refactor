@@ -17,7 +17,8 @@ const headers = [
     'Name',
     'Owner Info',
     'Date Created',
-    'Most Recent Resubscription',
+    'First Subscription',
+    'Most Recent Subscription',
     'Subscription Expiry',
     'Auto Renew',
     'Services',
@@ -109,6 +110,9 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
                                 </td>
                                 <td>
                                     <DateTimeContainer date={company.companyCreatedOn} />
+                                </td>
+                                <td>
+                                    <DateTimeContainer date={company.firstSubscriptionStartOn} />
                                 </td>
                                 <td>
                                     <DateTimeContainer date={company.latestSubscriptionStartOn} />
