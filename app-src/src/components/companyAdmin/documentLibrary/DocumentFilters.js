@@ -71,7 +71,7 @@ const DocumentFilters = ({
                 />
                 <button
                     disabled={!selectedItems.length}
-                    className={`library-button button ${selectedItems.length && 'orange'}`}
+                    className={'library-button button'}
                     type="button"
                     onClick={showEditModal}
                 >
