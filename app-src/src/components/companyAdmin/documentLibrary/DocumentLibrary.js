@@ -16,7 +16,7 @@ import Loading from 'components/shared/generic/misc/presentational/Loading';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import PageSelector from 'components/shared/pagination/presentational/pageSelector';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-import { CREATE_LIBRARY_FOLDER } from 'constants/shared/modalTypes';
+import { CREATE_LIBRARY_FOLDER, EDIT_LIBRARY_ITEMS } from 'constants/shared/modalTypes';
 
 const DocumentLibrary = () => {
     const dispatch = useDispatch();
@@ -43,6 +43,10 @@ const DocumentLibrary = () => {
     const { currentPage, setCurrentPage, setPageSize, limit } = useDocumentLibraryPagination();
 
     const isActive = canDrop && isOver;
+    
+    const showEditModal = () => {
+        dispatch(showModal(EDIT_LIBRARY_ITEMS, { ids: selectedItems }));
+    };
 
     return (
         <>
@@ -66,7 +70,8 @@ const DocumentLibrary = () => {
                     viewMode={libraryView}
                     setViewMode={switchDocumentLibraryView}
                     selectedItems={selectedItems}
-                    handleShowSoftDeleteModal={handleShowDeleteModal}
+                    showEditModal={showEditModal}
+                    // handleShowSoftDeleteModal={handleShowSoftDeleteModal}
                 />
             </BlockContainer>
             <div ref={dropRef}>
@@ -109,7 +114,6 @@ const DocumentLibrary = () => {
                                 <h3>Release file to upload</h3>
                             </div>
                         )}
-                        {/* </BlockContainer> */}
                     </>
                 )}
             </div>

@@ -31,15 +31,16 @@ const DocumentFilters = ({
     libraryFilter,
     deleteSuccess,
     handleShowSoftDeleteModal = () => {},
+    showEditModal,
 }) => {
     const dispatch = useDispatch();
 
     const prevProps = usePrevious({ deleteSuccess });
 
-    // useEffect(() => {
-    //     if (!prevProps.deleteSuccess && deleteSuccess && libraryFilter === 'isArchived')
-    //         dispatch(switchDocumentLibraryFilter(null));
-    // }, [dispatch, libraryFilter, deleteSuccess, prevProps.deleteSuccess]);
+    useEffect(() => {
+        if (!prevProps.deleteSuccess && deleteSuccess && libraryFilter === 'isArchived')
+            dispatch(switchDocumentLibraryFilter(null));
+    }, [dispatch, libraryFilter, deleteSuccess, prevProps.deleteSuccess]);
 
     return (
         <form className="table-search size-lg-12 flex-container document-filters">
@@ -69,18 +70,22 @@ const DocumentFilters = ({
                 />
                 <button
                     disabled={!selectedItems.length}
-                    className={`library-button button ${selectedItems.length && 'blue'}`}
+                    className={`library-button button ${selectedItems.length && 'orange'}`}
                     type="button"
-                    onClick={() => {}}
+                    onClick={showEditModal}
                 >
-                    <img
-                        src={UserPermissions}
-                        alt="Delete icon"
-                        title="Delete"
-                        // width="24"
-                        // height="24"
-                    />
+                    <i className="fa fa-pencil" />
                 </button>
+                {libraryFilter === 'isArchived' && (
+                    <button
+                        disabled={!selectedItems.length}
+                        className={`library-button button ${selectedItems.length && 'green'}`}
+                        type="button"
+                        onClick={() => {}}
+                    >
+                        <i className="fa fa-undo" />
+                    </button>
+                )}
                 <button
                     disabled={!selectedItems.length}
                     className={`library-button button ${selectedItems.length && 'blue'}`}

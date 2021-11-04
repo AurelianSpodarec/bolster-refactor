@@ -7,7 +7,7 @@ import CreateDocumentForm from './CreateDocumentForm';
 const CreateDocumentModal = ({ initialFiles }) => {
     return (
         <ModalOuterContainer>
-            <BlockHeading>Upload files</BlockHeading>
+            <BlockHeading title="Upload files" />
             <CreateDocumentForm initialFiles={initialFiles} />
         </ModalOuterContainer>
     );
