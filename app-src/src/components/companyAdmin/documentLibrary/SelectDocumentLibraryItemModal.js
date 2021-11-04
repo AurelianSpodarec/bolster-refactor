@@ -33,7 +33,6 @@ const SelectDocumentLibraryItemModal = ({ handleChange, hideModal }) => {
         dispatch(getDocumentsForAttachPin());
     }, []);
 
-    console.log('hihihi');
     if (fetching) return (
         <ModalOuterContainer>
             <BlockHeading title="Select document from library" />
@@ -48,9 +47,31 @@ const SelectDocumentLibraryItemModal = ({ handleChange, hideModal }) => {
         </ModalOuterContainer>
     );
 
+    const breadcrumbItems = getBreadcrumbItems(parentID);
+    console.log({breadcrumbItems});
+
+//     <span className="dl-breadcrumb">
+//     <Link to={'/company/document-library'}>Company files</Link>
+//     {prefixArr.map((item, i) => (
+//         <React.Fragment key={i}>
+//             {' / '}
+//             <Link to={`/company/document-library?prefix=${item}`}>{item}</Link>
+//         </React.Fragment>
+//     ))}
+// </span>
+
     return (
         <ModalOuterContainer>
             <BlockHeading title="Select document from library" />
+            <p className="select-document-library-items-breadcrumb-items">
+                <span className="item" onClick={() => { setParentID(null); }}>Company files</span>
+                {breadcrumbItems.map(({text, value}) => (
+                    <React.Fragment key={value}>
+                        <span> / </span>
+                        <span className="item"  onClick={() => { setParentID(value); }}>{text}</span>
+                    </React.Fragment>
+                    ))}
+            </p>
             <div className="select-document-library-items">
                 {filteredItems.map(item => (
                     <div key={item.id} className="select-document-library-item" onClick={(e) => {
@@ -78,7 +99,6 @@ const SelectDocumentLibraryItemModal = ({ handleChange, hideModal }) => {
             const res = await fetch(`${RAW_S3_STORAGE_URL}/${item.s3Key}`);
             console.log({res});
             const blob = await res.blob();
-            console.log({blob});
     
             const formData = new FormData();
             formData.append('file', blob, item.name);
@@ -101,6 +121,20 @@ const SelectDocumentLibraryItemModal = ({ handleChange, hideModal }) => {
             setChooseItemError(err.message);
             console.log({err});
         }
+    }
+
+    function getBreadcrumbItems() {
+        const breadcrumbs = [];
+        let parentFolderID = parentID;
+
+        while(parentFolderID) {
+            const parent = items.find(item => item.id === parentFolderID);
+            breadcrumbs.push({ text: parent.name, value: parent.id });
+
+            parentFolderID = parent.parentFolderID;
+        }
+
+        return breadcrumbs;
     }
 };
 
