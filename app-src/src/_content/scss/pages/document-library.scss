@@ -67,9 +67,12 @@
         left: 0;
         right: 0;
         transition: all 200ms ease;
-
+        
         p {
+          overflow-x: hidden;
           margin-bottom: 5px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
       }
     }

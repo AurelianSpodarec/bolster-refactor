@@ -40,6 +40,7 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                                         : '-'
                                 }`}
                             </p>
+                            <p>Location: {item.searchTerm}</p>
                             <p>Viewable in app: {item.isViewApp ? 'Yes' : 'No'}</p>
                             <p>Attachable to pins: {item.isAttachPins ? 'Yes' : 'No'}</p>
                         </div>
@@ -71,6 +72,7 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                                 }`}
                             </p>
                             <p>File size: {formatBytes(item.contentLength)}</p>
+                            <p>Location: {item.searchTerm}</p>
                             <p>Viewable in app: {item.isViewApp ? 'Yes' : 'No'}</p>
                             <p>Attachable to pins: {item.isAttachPins ? 'Yes' : 'No'}</p>
                         </div>
