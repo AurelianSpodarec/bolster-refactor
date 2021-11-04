@@ -126,6 +126,7 @@ import {
     CREATE_LIBRARY_FOLDER,
     EDIT_LIBRARY_ITEMS,
     HARD_DELETE_LIBRARY_DOCUMENT,
+    RESTORE_LIBRARY_DOCUMENT,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -378,6 +379,7 @@ const MODAL_COMPONENTS = {
     [HARD_DELETE_LIBRARY_DOCUMENT]: ConfirmDeleteModal,
     [CREATE_LIBRARY_FOLDER]: CreateDocumentFolderModal,
     [EDIT_LIBRARY_ITEMS]: EditDocumentItemsModal,
+    [RESTORE_LIBRARY_DOCUMENT]: ConfirmDeleteModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

@@ -14,6 +14,7 @@ import hardDeleteLibraryDocuments from 'actions/companyAdmin/documentLibrary/asy
 import { usePrevious } from 'helpers/hooks';
 import { useLocation } from 'react-router-dom';
 import searchAllLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/searchAllLibraryDocuments';
+import { DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
 
 const useDeleteLibraryDocuments = (ids = []) => {
     const dispatch = useDispatch();
@@ -22,9 +23,9 @@ const useDeleteLibraryDocuments = (ids = []) => {
         deleteSuccess,
         deleteError,
         documentLibrary,
-        librarySearchTerm,
-        libraryPage,
-        libraryPageSize,
+        // librarySearchTerm,
+        // libraryPage,
+        // libraryPageSize,
     } = useSelector(mapStateToProps);
 
     const prefixQuery = new URLSearchParams(useLocation().search).get('prefix');
@@ -35,19 +36,19 @@ const useDeleteLibraryDocuments = (ids = []) => {
         ? ids.some(id => !!documentLibrary[id].isArchived)
         : false;
 
-    useEffect(() => {
-        if (!prevProps.deleteSuccess && deleteSuccess) {
-            dispatch(hideModal());
-            dispatch(
-                searchAllLibraryDocuments(
-                    libraryPage,
-                    libraryPageSize,
-                    librarySearchTerm ? librarySearchTerm : prefixQuery,
-                    false,
-                ),
-            );
-        }
-    }, [prevProps.deleteSuccess, deleteSuccess]);
+    // useEffect(() => {
+    //     if (!prevProps.deleteSuccess && deleteSuccess) {
+    //         dispatch(hideModal());
+    //         dispatch(
+    //             searchAllLibraryDocuments(
+    //                 libraryPage,
+    //                 libraryPageSize,
+    //                 librarySearchTerm ? librarySearchTerm : prefixQuery,
+    //                 false,
+    //             ),
+    //         );
+    //     }
+    // }, [prevProps.deleteSuccess, deleteSuccess]);
 
     const filenames = Object.values(documentLibrary).filter(item => ids.includes(item.id));
 
@@ -60,13 +61,17 @@ const useDeleteLibraryDocuments = (ids = []) => {
                     <li key={i}>
                         <FileTypeIcon
                             src={
-                                item.type === 200 ? getIconFromExt(item.fileExtension) : FolderIcon
+                                item.type === DOCUMENT_LIBRARY_TYPES.FILE
+                                    ? getIconFromExt(item.fileExtension)
+                                    : FolderIcon
                             }
                             width="18"
                             height="18"
                             style={{ marginRight: '5px' }}
                         />
-                        {`${item.name}${item.type === 200 ? '' : ' (folder)'}`}
+                        {`${item.name}${
+                            item.type === DOCUMENT_LIBRARY_TYPES.FILE ? '' : ' (folder)'
+                        }`}
                     </li>
                 ))}
             </ul>
@@ -81,7 +86,7 @@ const useDeleteLibraryDocuments = (ids = []) => {
         if (!areIDsArchived)
             dispatch(
                 showModal(SOFT_DELETE_LIBRARY_DOCUMENT, {
-                    handleDelete: () => dispatch(softDeleteLibraryDocuments(ids, false)),
+                    handleDelete: () => dispatch(softDeleteLibraryDocuments(ids)),
                     handleCancel: () => dispatch(hideModal()),
                     message,
                     error: deleteError,

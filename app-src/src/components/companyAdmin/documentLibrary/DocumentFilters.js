@@ -70,18 +70,22 @@ const DocumentFilters = ({
                 />
                 <button
                     disabled={!selectedItems.length}
-                    className={`library-button button ${selectedItems.length && 'blue'}`}
+                    className={`library-button button ${selectedItems.length && 'orange'}`}
                     type="button"
                     onClick={showEditModal}
                 >
-                    <img
-                        src={UserPermissions}
-                        alt="user"
-                        title="user"
-                        // width="24"
-                        // height="24"
-                    />
+                    <i className="fa fa-pencil" />
                 </button>
+                {libraryFilter === 'isArchived' && (
+                    <button
+                        disabled={!selectedItems.length}
+                        className={`library-button button ${selectedItems.length && 'green'}`}
+                        type="button"
+                        onClick={() => {}}
+                    >
+                        <i className="fa fa-undo" />
+                    </button>
+                )}
                 <button
                     disabled={!selectedItems.length}
                     className={`library-button button ${selectedItems.length && 'blue'}`}

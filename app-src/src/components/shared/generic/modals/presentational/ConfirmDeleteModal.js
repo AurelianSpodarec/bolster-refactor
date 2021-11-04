@@ -2,6 +2,7 @@ import React from 'react';
 import ModalOuterContainer from '../containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import Error from '../../misc/presentational/Error';
 
 const ConfirmDeleteModal = ({
     handleDelete,
@@ -20,7 +21,7 @@ const ConfirmDeleteModal = ({
             <p className="generic-text intro-text size-lg-12">
                 {typeof message === 'string' ? message : message()}
             </p>
-            {error && <p className="error">{error}</p>}
+            {error && <Error>{error}</Error>}
             <BlockButtonWrapper>
                 <button className="button red" onClick={handleDelete}>
                     {isIncoming ? (

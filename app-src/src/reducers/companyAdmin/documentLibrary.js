@@ -17,6 +17,9 @@ import {
     HARD_DELETE_LIBRARY_DOCUMENT_REQUEST,
     HARD_DELETE_LIBRARY_DOCUMENT_SUCCESS,
     HARD_DELETE_LIBRARY_DOCUMENT_FAILURE,
+    RESTORE_LIBRARY_DOCUMENT_REQUEST,
+    RESTORE_LIBRARY_DOCUMENT_SUCCESS,
+    RESTORE_LIBRARY_DOCUMENT_FAILURE,
     CREATE_LIBRARY_DOCUMENT_FOLDER_REQUEST,
     CREATE_LIBRARY_DOCUMENT_FOLDER_SUCCESS,
     CREATE_LIBRARY_DOCUMENT_FOLDER_FAILURE,
@@ -46,17 +49,23 @@ export default combineReducers({
     libraryPageSize: libraryPageSizeReducer,
     libraryFilter: libraryFilterReducer,
     librarySearchTerm: librarySearchTermReducer,
+    isRestoring: isRestoringReducer,
+    restoreError: restoreErrorReducer,
+    restoreSuccess: restoreSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case SEARCH_ALL_LIBRARY_DOCUMENTS_REQUEST:
         case FETCH_SINGLE_LIBRARY_DOCUMENT_REQUEST:
+        case FETCH_DOCUMENT_LIBRARY_FILES_FOR_COMPANY_REQUEST:
             return true;
         case SEARCH_ALL_LIBRARY_DOCUMENTS_SUCCESS:
         case SEARCH_ALL_LIBRARY_DOCUMENTS_FAILURE:
         case FETCH_SINGLE_LIBRARY_DOCUMENT_SUCCESS:
         case FETCH_SINGLE_LIBRARY_DOCUMENT_FAILURE:
+        case FETCH_DOCUMENT_LIBRARY_FILES_FOR_COMPANY_SUCCESS:
+        case FETCH_DOCUMENT_LIBRARY_FILES_FOR_COMPANY_FAILURE:
             return false;
         default:
             return state;
@@ -69,9 +78,12 @@ function fetchErrorReducer(state = null, action) {
         case SEARCH_ALL_LIBRARY_DOCUMENTS_SUCCESS:
         case FETCH_SINGLE_LIBRARY_DOCUMENT_REQUEST:
         case FETCH_SINGLE_LIBRARY_DOCUMENT_SUCCESS:
+        case FETCH_DOCUMENT_LIBRARY_FILES_FOR_COMPANY_REQUEST:
+        case FETCH_DOCUMENT_LIBRARY_FILES_FOR_COMPANY_SUCCESS:
             return null;
         case SEARCH_ALL_LIBRARY_DOCUMENTS_FAILURE:
         case FETCH_SINGLE_LIBRARY_DOCUMENT_FAILURE:
+        case FETCH_DOCUMENT_LIBRARY_FILES_FOR_COMPANY_FAILURE:
             return action.error;
         default:
             return state;
@@ -145,6 +157,42 @@ function deleteSuccessReducer(state = false, action) {
             return false;
         case SOFT_DELETE_LIBRARY_DOCUMENT_SUCCESS:
         case HARD_DELETE_LIBRARY_DOCUMENT_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function isRestoringReducer(state = false, action) {
+    switch (action.type) {
+        case RESTORE_LIBRARY_DOCUMENT_REQUEST:
+            return true;
+        case RESTORE_LIBRARY_DOCUMENT_SUCCESS:
+        case RESTORE_LIBRARY_DOCUMENT_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function restoreErrorReducer(state = null, action) {
+    switch (action.type) {
+        case RESTORE_LIBRARY_DOCUMENT_REQUEST:
+        case RESTORE_LIBRARY_DOCUMENT_SUCCESS:
+            return null;
+        case RESTORE_LIBRARY_DOCUMENT_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
+function restoreSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case RESTORE_LIBRARY_DOCUMENT_REQUEST:
+        case RESTORE_LIBRARY_DOCUMENT_FAILURE:
+            return false;
+        case RESTORE_LIBRARY_DOCUMENT_SUCCESS:
             return true;
         default:
             return state;
