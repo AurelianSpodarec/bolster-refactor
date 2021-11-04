@@ -32,7 +32,7 @@ const DocumentsGrid = ({
                 error={fetchError}
                 contentClass="no-overflow"
             >
-                <BlockHeading title="Company Files" classes="w-table">
+                <BlockHeading classes="w-table">
                     <DocumentLibraryBreadcrumb prefix={prefixQuery} />
                     {!!selectedItems.length && (
                         <span className="selected-message">
