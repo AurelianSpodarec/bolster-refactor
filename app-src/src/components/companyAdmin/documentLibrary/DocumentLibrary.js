@@ -106,10 +106,6 @@ const DocumentLibrary = () => {
                     <>
                         <DocumentsListTable
                             items={Object.values(documentLibrary)}
-                            currentPage={currentPage}
-                            setCurrentPage={setCurrentPage}
-                            limit={limit}
-                            setPageSize={setPageSize}
                             selectedItems={selectedItems}
                             toggleItemSelect={toggleItemSelect}
                             prefixQuery={prefixQuery}
@@ -132,10 +128,6 @@ const DocumentLibrary = () => {
                     <>
                         <DocumentsGrid
                             items={Object.values(documentLibrary)}
-                            currentPage={currentPage}
-                            setCurrentPage={setCurrentPage}
-                            limit={limit}
-                            setPageSize={setPageSize}
                             selectedItems={selectedItems}
                             toggleItemSelect={toggleItemSelect}
                             prefixQuery={prefixQuery}

@@ -16,8 +16,6 @@ const useLibraryDocuments = prefix => {
         postSuccess,
         isDeleting,
         deleteSuccess,
-        libraryPage: currentPage,
-        libraryPageSize: limit,
         libraryView,
         libraryFilter,
         librarySearchTerm,
@@ -25,7 +23,6 @@ const useLibraryDocuments = prefix => {
 
     const prevProps = usePrevious({
         prefix,
-        currentPage,
         postSuccess,
         isPosting,
         isDeleting,
@@ -38,8 +35,6 @@ const useLibraryDocuments = prefix => {
     const searchAction = () => {
         dispatch(
             searchAllLibraryDocuments(
-                currentPage,
-                limit,
                 prefix ? `${prefix}/${librarySearchTerm}` : librarySearchTerm,
                 libraryFilter === 'isArchived' ? true : false,
             ),
@@ -50,14 +45,10 @@ const useLibraryDocuments = prefix => {
     useEffect(searchAction, []); // Fetch on mount, regardless
 
     useEffect(() => {
-        if (
-            currentPage !== prevProps.currentPage ||
-            libraryFilter !== prevProps.libraryFilter ||
-            libraryView !== prevProps.libraryView
-        ) {
+        if (libraryFilter !== prevProps.libraryFilter || libraryView !== prevProps.libraryView) {
             searchAction();
         }
-    }, [dispatch, prefix, currentPage, libraryFilter, libraryView, prevProps]); // Fetch on changes to page, filter & view
+    }, [dispatch, prefix, libraryFilter, libraryView, prevProps]); // Fetch on changes to page, filter & view
 
     useDebounce(
         () => {
@@ -100,9 +91,7 @@ const useLibraryDocuments = prefix => {
         documentLibrary: filterDocuments(),
         isFetching,
         fetchError,
-        currentPage,
         prevProps,
-        limit,
         selectedItems,
         toggleItemSelect,
     };
@@ -118,8 +107,6 @@ const mapStateToProps = ({
             postSuccess,
             deleteSuccess,
             isDeleting,
-            libraryPage,
-            libraryPageSize,
             libraryView,
             libraryFilter,
             librarySearchTerm,
@@ -133,8 +120,6 @@ const mapStateToProps = ({
     postSuccess,
     isDeleting,
     deleteSuccess,
-    libraryPage,
-    libraryPageSize,
     libraryView,
     libraryFilter,
     librarySearchTerm,
