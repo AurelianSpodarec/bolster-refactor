@@ -20,6 +20,7 @@ const OperativeTimesheet = () => {
         onToday,
         onDaySelect,
         onWeekSelect,
+        handlePDFReportGeneration,
     } = useOperativeTimesheet();
 
     return (
@@ -53,6 +54,7 @@ const OperativeTimesheet = () => {
                 isFetching={isFetching}
                 fetchError={fetchError}
                 timesheet={timesheet}
+                handlePDFReportGeneration={handlePDFReportGeneration}
             />
         </>
     );

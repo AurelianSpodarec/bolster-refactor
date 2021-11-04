@@ -15,11 +15,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import usePinFeed from '../../hooks/usePinFeed';
 import useReferences from '../../hooks/useReferences';
 
-const DayBreakdownOverview = ({
-    selectedDate,
-
-    timesheet,
-}) => {
+const DayBreakdownOverview = ({ selectedDate, timesheet }) => {
     const { id } = useParams();
     const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
         id,

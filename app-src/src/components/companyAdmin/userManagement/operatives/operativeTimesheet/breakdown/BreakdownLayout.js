@@ -10,6 +10,7 @@ const BreakdownLayout = ({
     isLoading = false,
     error = null,
     noData = false,
+    handlePDFReportGeneration,
 }) => {
     const { selectedTab, onTabChange } = useSelectedTab();
 
@@ -20,7 +21,12 @@ const BreakdownLayout = ({
             error={error}
             isEmpty={noData}
         >
-            <BlockHeading title={title} />
+            <BlockHeading title={title}>
+                <button className="button" onClick={handlePDFReportGeneration}>
+                    <i className="fas fa-file-pdf" />
+                    Generate Report
+                </button>
+            </BlockHeading>
             <BreakdownTabs tabs={tabs} selectedTab={selectedTab} onTabChange={onTabChange} />
             {tabs[selectedTab]?.component}
         </BlockContainer>

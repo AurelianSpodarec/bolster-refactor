@@ -8,7 +8,14 @@ import DayBreakdownLocation from './dayBreakdown/DayBreakdownLocation';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { isEmpty } from 'helpers/generic';
 
-const Breakdown = ({ selectedDate, timePeriod, isFetching, fetchError, timesheet }) => {
+const Breakdown = ({
+    selectedDate,
+    timePeriod,
+    isFetching,
+    fetchError,
+    timesheet,
+    handlePDFReportGeneration,
+}) => {
     switch (timePeriod) {
         case TIME_PERIOD.WEEK:
             return (
@@ -36,6 +43,7 @@ const Breakdown = ({ selectedDate, timePeriod, isFetching, fetchError, timesheet
                     isLoading={isFetching}
                     error={fetchError}
                     noData={isEmpty(timesheet)}
+                    handlePDFReportGeneration={handlePDFReportGeneration}
                 />
             );
         case TIME_PERIOD.DAY:
@@ -73,6 +81,7 @@ const Breakdown = ({ selectedDate, timePeriod, isFetching, fetchError, timesheet
                     isLoading={isFetching}
                     error={fetchError}
                     noData={isEmpty(timesheet)}
+                    handlePDFReportGeneration={handlePDFReportGeneration}
                 />
             );
         default:
