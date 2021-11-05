@@ -86,8 +86,21 @@ const useLibraryDocuments = prefix => {
                 break;
         }
 
-        const folders = filteredLibrary.filter(item => item.type === DOCUMENT_LIBRARY_TYPES.FOLDER);
-        const files = filteredLibrary.filter(item => item.type === DOCUMENT_LIBRARY_TYPES.FILE);
+        const folders = filteredLibrary
+            .filter(item => item.type === DOCUMENT_LIBRARY_TYPES.FOLDER)
+            .sort(alphabeticalSort);
+
+        const filesByType = {};
+        filteredLibrary
+            .filter(item => item.type === DOCUMENT_LIBRARY_TYPES.FILE)
+            .forEach(item => {
+                if (!filesByType[item.mimeType]) filesByType[item.mimeType] = [];
+                filesByType[item.mimeType].push(item);
+            });
+        const files = [].concat.apply(
+            [],
+            Object.values(filesByType).map(arr => arr.sort(alphabeticalSort)),
+        );
 
         return [...folders, ...files];
     };
@@ -100,6 +113,12 @@ const useLibraryDocuments = prefix => {
         selectedItems,
         toggleItemSelect,
     };
+};
+
+const alphabeticalSort = (a, b) => {
+    if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+    if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+    return 0;
 };
 
 const mapStateToProps = ({
