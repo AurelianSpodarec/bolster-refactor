@@ -634,6 +634,22 @@ input {
         font-size: 150%;
     }
 
+    .clear-button {
+        position: absolute;
+        right: 10px;
+        @include vertical-center;
+        color: $dark-grey;
+        background-color: transparent;
+        font-size: 150%;
+        cursor: pointer;
+
+        transition: color 300ms ease;
+
+        &:hover {
+            color: $red;
+        }
+    }
+
     input {
         width: 100%;
         padding: 6px 10px 6px 35px;

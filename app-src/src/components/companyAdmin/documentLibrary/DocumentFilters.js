@@ -5,6 +5,7 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import switchDocumentLibraryFilter from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryFilter';
 import switchDocumentLibrarySearchTerm from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibrarySearchTerm';
 import { usePrevious } from 'helpers/hooks';
+import Form from 'components/shared/generic/form/containers/Form';
 
 const viewModeOptions = [
     { value: 'list', label: 'List View' },
@@ -43,7 +44,7 @@ const DocumentFilters = ({
     }, [dispatch, libraryFilter, deleteSuccess, prevProps.deleteSuccess]);
 
     return (
-        <form className="table-search size-lg-12 flex-container document-filters">
+        <Form className="table-search size-lg-12 flex-container document-filters">
             <Search
                 value={searchTerm}
                 name="searchTerm"
@@ -95,7 +96,7 @@ const DocumentFilters = ({
                     <i className="fa fa-trash-alt" />
                 </button>
             </div>
-        </form>
+        </Form>
     );
 };
 
