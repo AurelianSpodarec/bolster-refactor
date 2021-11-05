@@ -12,12 +12,12 @@ const styles = {
     },
 };
 
-const FileDropBox = ({ 
-    onDrop, 
-    onAddFileClick, 
-    displayDocLib, 
-    onSelectFromDocLibClick, 
-    children 
+const FileDropBox = ({
+    onDrop,
+    onAddFileClick,
+    displayDocLib,
+    onSelectFromDocLibClick,
+    children,
 }) => {
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: [NativeTypes.FILE],
@@ -59,12 +59,13 @@ const FileDropBox = ({
                         <button
                             className="button upload blue"
                             type="button"
-                            onClick={(e) => {
+                            onClick={e => {
                                 onSelectFromDocLibClick(e);
                             }}
                         >
-                            Select from Document Library
+                            Select
                         </button>
+                        {' from Document Library'}
                     </>
                 )}
             </p>
