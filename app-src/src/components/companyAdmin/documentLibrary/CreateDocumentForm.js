@@ -17,6 +17,7 @@ const CreateDocumentForm = ({ initialFiles }) => {
         files,
         error,
         uploading,
+        fileUploading,
         form,
         handleChange,
     } = useCreateDocument(initialFiles);
@@ -88,6 +89,8 @@ const CreateDocumentForm = ({ initialFiles }) => {
                     let className = '';
                     if (errorMessage) className = 'error';
                     else if (uploaded) className = 'uploaded';
+
+                    if (fileUploading?.uuid === uuid && !uploaded) className += 'uploading';
 
                     return (
                         <li key={uuid}>

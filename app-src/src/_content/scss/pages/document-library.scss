@@ -363,6 +363,10 @@
           .fa-check {
             color: #fff;
           }
+
+          &.uploading {
+            background-color: $light-grey;
+          }
     
           &.uploaded {
             background-color: $green;

@@ -20,6 +20,7 @@ const useCreateDocument = (initialFiles = []) => {
 
     const prefix = useQueryParam('prefix') || '';
     const [files, setFiles] = useState(initialFiles.map(addKeyToFileItem));
+    const [fileUploading, setFileUploading] = useState(null);
 
     const [{ canDrop, isOver }, dropRef] = useDrop({
         accept: [NativeTypes.FILE],
@@ -86,8 +87,10 @@ const useCreateDocument = (initialFiles = []) => {
         }
     }
 
-    async function tryUploadFile({ file, uuid }) {
+    async function tryUploadFile(item) {
+        const { file, uuid } = item;
         try {
+            setFileUploading(item);
             if (!validateFileSize(file, uuid)) return false;
 
             const filePrefix = prefix ? `${prefix}/` : '';
@@ -175,6 +178,7 @@ const useCreateDocument = (initialFiles = []) => {
         error,
         progress,
         uploading: progress > 1,
+        fileUploading,
         form,
         handleChange,
     };
