@@ -2,6 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { NUMBER_OF_HISTORIES_WITH_DATE } from 'constants/companyAdmin/enums';
+import { NUMBER_OF_HISTORIES_OPTIONS } from '../../../../constants/companyAdmin/enums';
 
 const DrawingDataByOperativeListItem = ({ operative, history, onMobile, headers }) => {
     return (
@@ -56,6 +58,7 @@ const DrawingDataByOperativeListItem = ({ operative, history, onMobile, headers 
                 selectedStatus: localStorage.getItem('selectedStatus'),
                 selectedStartDate: localStorage.getItem('selectedStartDate'),
                 selectedEndDate: localStorage.getItem('selectedEndDate'),
+                reportHistories: NUMBER_OF_HISTORIES_OPTIONS.ALLWHERELATESTINDATERANGE,
             },
         });
     }

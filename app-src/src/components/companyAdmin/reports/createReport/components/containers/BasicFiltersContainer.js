@@ -119,6 +119,10 @@ class BasicFiltersContainer extends Component {
             // handleChange in operativesFilterContainer
             shouldPostFilters = true;
         }
+        if (locationState?.reportHistories) {
+            this.handleChange('reportHistories', locationState.reportHistories);
+            shouldPostFilters = true;
+        }
 
         if (shouldPostFilters) {
             postFilters();
