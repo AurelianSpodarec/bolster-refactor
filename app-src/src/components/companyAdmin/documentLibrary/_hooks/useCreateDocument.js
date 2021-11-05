@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useForm, useQueryParam } from 'helpers/hooks';
+import { useForm, usePrevious, useQueryParam } from 'helpers/hooks';
 import { useDrop } from 'react-dnd';
 import { NativeTypes } from 'react-dnd-html5-backend';
 import { API_URL } from 'config';
@@ -10,7 +10,7 @@ import uuid from 'uuid/v4';
 import addDocumentLibraryItem from 'actions/companyAdmin/documentLibrary/sync/addDocumentLibraryItem';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
-const maxFileSizeMB = 5;
+export const maxFileSizeMB = 5;
 
 const useCreateDocument = (initialFiles = []) => {
     const [progress, setProgress] = useState(0);
@@ -26,6 +26,17 @@ const useCreateDocument = (initialFiles = []) => {
         drop: handleDrop,
         collect: handleCollect,
     });
+
+    const validateFileSize = (file, uuid) => {
+        if (bytesToMB(file.size) > maxFileSizeMB) {
+            const errorMessage = `You cannot upload a file larger than ${maxFileSizeMB}MB.`;
+            setFiles(prev =>
+                prev.map(item => (item.uuid === uuid ? { ...item, errorMessage } : item)),
+            );
+            return false;
+        }
+        return true;
+    };
 
     function handleDrop(item, monitor) {
         if (monitor) {
@@ -53,6 +64,8 @@ const useCreateDocument = (initialFiles = []) => {
     async function handleSubmit(e) {
         e.preventDefault();
 
+        setFiles(files => files.map(file => ({ ...file, errorMessage: null })));
+
         let isFullSuccess = true;
 
         try {
@@ -75,14 +88,7 @@ const useCreateDocument = (initialFiles = []) => {
 
     async function tryUploadFile({ file, uuid }) {
         try {
-            if (bytesToMB(file.size) > maxFileSizeMB) {
-                const errorMessage = `You cannot upload a file larger than ${maxFileSizeMB}MB.`;
-                setFiles(prev =>
-                    prev.map(item => (item.uuid === uuid ? { ...item, errorMessage } : item)),
-                );
-
-                return false;
-            }
+            if (!validateFileSize(file, uuid)) return false;
 
             const filePrefix = prefix ? `${prefix}/` : '';
 
@@ -124,7 +130,6 @@ const useCreateDocument = (initialFiles = []) => {
             let message = err.message;
             if (typeof err.response?.data === 'string') message = err.response?.data;
 
-            console.log({ err });
             await setTimeoutAsync(600);
             setProgress(0);
 
@@ -149,6 +154,15 @@ const useCreateDocument = (initialFiles = []) => {
     function handleCancel() {
         dispatch(hideModal());
     }
+
+    const [initialCheckDone, setInitialCheckDone] = useState(false);
+    const prevFiles = usePrevious(files);
+    useEffect(() => {
+        if (prevFiles.length !== files.length || !initialCheckDone) {
+            for (const file of files) validateFileSize(file.file, file.uuid);
+            if (!initialCheckDone) setInitialCheckDone(true);
+        }
+    }, [files]);
 
     return {
         handlePress,

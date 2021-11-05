@@ -307,8 +307,9 @@
   .file-upload-container {
 
     .error-message{
-      font-size: 12px;;
+      font-size: 12px;
       padding: 0;
+      margin-bottom: 8px;
     }
   
     .file-previews {
@@ -360,7 +361,7 @@
           }
 
           .fa-check {
-            color: white;
+            color: #fff;
           }
     
           &.uploaded {
@@ -369,13 +370,21 @@
     
           &.error {
             background-color: $red;
+
+            button {
+              color: #fff;
+
+              &:hover {
+                color: #000
+              }
+            }
           }
 
           &.uploaded, &.error {
             margin-bottom: 8px;
 
             .main-text {
-              color: white;
+              color: #fff;
 
               .meta {
                 color: $light-grey;
@@ -384,6 +393,8 @@
           }
 
           button {
+            padding: 0;
+
             color: $dark-grey;
             background-color: transparent;
 
