@@ -12,11 +12,19 @@ const DocumentLibraryBreadcrumb = ({ prefix }) => {
 
     return (
         <span className="dl-breadcrumb">
-            <Link to={'/company/document-library'}>Company files</Link>
+            {prefixArr.length > 0 ? (
+                <Link to={'/company/document-library'}>Company files</Link>
+            ) : (
+                <span>Company files</span>
+            )}
             {prefixArr.map((item, i) => (
                 <React.Fragment key={i}>
                     {' / '}
-                    <Link to={`/company/document-library?prefix=${item}`}>{item}</Link>
+                    {i < prefixArr.length - 1 ? (
+                        <Link to={`/company/document-library?prefix=${item}`}>{item}</Link>
+                    ) : (
+                        <span>{item}</span>
+                    )}
                 </React.Fragment>
             ))}
         </span>

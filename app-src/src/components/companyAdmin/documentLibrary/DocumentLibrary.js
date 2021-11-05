@@ -101,7 +101,7 @@ const DocumentLibrary = () => {
                     handleShowRestoreModal={handleShowRestoreModal}
                 />
             </BlockContainer>
-            <div ref={dropRef} className="table-wrapper">
+            <div ref={dropRef} className={`table-wrapper ${libraryView}`}>
                 {libraryView === 'list' ? (
                     <>
                         <DocumentsListTable
