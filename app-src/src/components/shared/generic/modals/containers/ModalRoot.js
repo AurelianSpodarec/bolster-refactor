@@ -381,7 +381,7 @@ const MODAL_COMPONENTS = {
     [HARD_DELETE_LIBRARY_DOCUMENT]: ConfirmDeleteModal,
     [CREATE_LIBRARY_FOLDER]: CreateDocumentFolderModal,
     [EDIT_LIBRARY_ITEMS]: EditDocumentItemsModal,
-    [RESTORE_LIBRARY_DOCUMENTS]: ConfirmDeleteModal,
+    [RESTORE_LIBRARY_DOCUMENTS]: ConfirmSubmitModal,
     [SELECT_DOCUMENT_LIBRARY_ITEM]: SelectDocumentLibraryItemModal,
 };
 

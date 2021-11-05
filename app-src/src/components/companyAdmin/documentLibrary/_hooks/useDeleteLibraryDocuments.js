@@ -50,7 +50,7 @@ const useDeleteLibraryDocuments = (ids = [], prefix) => {
 
     const filenames = Object.values(documentLibrary).filter(item => ids.includes(item.id));
 
-    const message = () => (
+    const Message = () => (
         <>
             Are you sure you want to delete the following library documents? <br />
             <br />
@@ -86,7 +86,7 @@ const useDeleteLibraryDocuments = (ids = [], prefix) => {
                 showModal(SOFT_DELETE_LIBRARY_DOCUMENT, {
                     handleDelete: () => dispatch(softDeleteLibraryDocuments(ids)),
                     handleCancel: () => dispatch(hideModal()),
-                    message,
+                    message: <Message />,
                     error: deleteError,
                 }),
             );
@@ -95,7 +95,7 @@ const useDeleteLibraryDocuments = (ids = [], prefix) => {
                 showModal(HARD_DELETE_LIBRARY_DOCUMENT, {
                     handleDelete: () => dispatch(hardDeleteLibraryDocuments(ids)),
                     handleCancel: () => dispatch(hideModal()),
-                    message,
+                    message: <Message />,
                     error: deleteError,
                 }),
             );

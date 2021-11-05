@@ -26,7 +26,7 @@ const useRestoreLibraryDocuments = (ids = []) => {
 
     const prevProps = usePrevious({ restoreSuccess, restoreError });
 
-    const message = () => (
+    const Message = () => (
         <>
             Are you sure you want to restore the following library documents? <br />
             <br />
@@ -65,10 +65,11 @@ const useRestoreLibraryDocuments = (ids = []) => {
     const handleShowRestoreModal = () => {
         dispatch(
             showModal(RESTORE_LIBRARY_DOCUMENTS, {
-                handleDelete: () => dispatch(restoreLibraryDocuments(ids)),
-                handleCancel: () => dispatch(hideModal()),
-                message,
+                handleSubmit: () => dispatch(restoreLibraryDocuments(ids)),
+                title: 'Confirmation',
+                message: <Message />,
                 error: restoreError,
+                submitButtonText: 'Restore',
             }),
         );
     };

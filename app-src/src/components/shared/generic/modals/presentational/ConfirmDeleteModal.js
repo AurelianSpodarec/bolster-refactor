@@ -17,9 +17,7 @@ const ConfirmDeleteModal = ({
     return (
         <ModalOuterContainer>
             <BlockHeading title={'Confirmation'} />
-            <p className="generic-text intro-text size-lg-12">
-                {typeof message === 'string' ? message : message()}
-            </p>
+            <p className="generic-text intro-text size-lg-12">{message}</p>
             {error && <Error>{error}</Error>}
             <BlockButtonWrapper>
                 <button className="button red" onClick={handleDelete}>
