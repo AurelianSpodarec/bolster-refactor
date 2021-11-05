@@ -132,6 +132,14 @@
   }
 }
 
+.document-filters {
+  .option-selection {
+    .option-container {
+      max-height: 210px;
+    }
+  }
+}
+
 .table-wrapper {
   position: relative;
   display: inline-block;

@@ -14,7 +14,7 @@ const viewModeOptions = [
 
 const filterOptions = [
     // value is allFolders, allFiles, [fileExtension], isArchived, isViewApp, isAttachPins
-    { value: null, label: 'All' },
+    { value: 'all', label: 'All' },
     { value: 'allFolders', label: 'Folders only' },
     { value: 'allFiles', label: 'Files only' },
     { value: 'isArchived', label: 'Deleted' },
