@@ -93,7 +93,7 @@ const ExpiryToolFormContainer = ({
         <ExpiryToolForm
             companiesOptions={_getCompaniesOptionsList()}
             companiesError={companiesError}
-            drawings={drawings.filter(drawing => drawing.companyID === companyID)}
+            drawings={Object.values(drawings).filter(drawing => drawing.companyID === companyID)}
             drawingsOptions={_getDrawingsOptionsList()}
             drawingsError={drawingsError}
             fetchingCompanies={fetchingCompanies}
