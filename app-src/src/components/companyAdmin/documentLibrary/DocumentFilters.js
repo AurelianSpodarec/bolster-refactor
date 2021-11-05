@@ -44,7 +44,10 @@ const DocumentFilters = ({
     }, [dispatch, libraryFilter, deleteSuccess, prevProps.deleteSuccess]);
 
     return (
-        <Form className="table-search size-lg-12 flex-container document-filters">
+        <Form
+            className="table-search size-lg-12 flex-container document-filters"
+            onSubmit={() => null}
+        >
             <Search
                 value={searchTerm}
                 name="searchTerm"

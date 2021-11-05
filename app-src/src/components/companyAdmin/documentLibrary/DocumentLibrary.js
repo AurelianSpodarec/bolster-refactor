@@ -42,7 +42,7 @@ const DocumentLibrary = () => {
         isDeleting,
         deleteSuccess,
         deleteError,
-    } = useDeleteLibraryDocuments(selectedItems);
+    } = useDeleteLibraryDocuments(selectedItems, prefixQuery);
 
     const {
         handleShowRestoreModal,

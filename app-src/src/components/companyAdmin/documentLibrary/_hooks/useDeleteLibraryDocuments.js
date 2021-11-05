@@ -15,7 +15,7 @@ import { usePrevious } from 'helpers/hooks';
 import searchAllLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/searchAllLibraryDocuments';
 import { DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
 
-const useDeleteLibraryDocuments = (ids = []) => {
+const useDeleteLibraryDocuments = (ids = [], prefix) => {
     const dispatch = useDispatch();
     const {
         isDeleting,
@@ -41,7 +41,7 @@ const useDeleteLibraryDocuments = (ids = []) => {
             dispatch(hideModal());
             dispatch(
                 searchAllLibraryDocuments(
-                    librarySearchTerm,
+                    prefix ? `${prefix}/${librarySearchTerm}` : librarySearchTerm,
                     libraryFilter === 'isArchived' ? true : false,
                 ),
             );
