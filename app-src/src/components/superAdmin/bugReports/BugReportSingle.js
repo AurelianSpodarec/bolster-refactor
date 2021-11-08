@@ -1,22 +1,21 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import useFetchBugReport from './hooks/useFetchBugReport';
+import useDeleteBugReport from './hooks/useDeleteBugReport';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Block from 'components/shared/generic/block/presentational/Block';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import moment from 'moment';
 import { FILE_STORAGE_URL } from 'config';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const BugReportSingle = () => {
     const { id } = useParams();
 
     const { bugReport, isFetching, error } = useFetchBugReport(id);
-    console.log(bugReport);
+    const [handleDeleteBugReport] = useDeleteBugReport();
     return (
         <>
             <PageHeading title="Bug Report" withBackButton />
@@ -95,8 +94,11 @@ const BugReportSingle = () => {
                 </Block>
 
                 <BlockButtonWrapper>
-                    <button className="button red">
-                        <i className="fa fa-trash fa-fw" />
+                    <button
+                        className="button red"
+                        onClick={() => handleDeleteBugReport(bugReport.id)}
+                    >
+                        <i className="far fa-trash fa-fw" />
                         Delete
                     </button>
                 </BlockButtonWrapper>
