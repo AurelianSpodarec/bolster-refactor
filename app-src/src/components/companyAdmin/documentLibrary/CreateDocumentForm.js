@@ -90,8 +90,6 @@ const CreateDocumentForm = ({ initialFiles }) => {
                     if (errorMessage) className = 'error';
                     else if (uploaded) className = 'uploaded';
 
-                    console.log({ className });
-
                     if (fileUploading?.uuid === uuid && !uploaded) className += ' uploading';
 
                     return (
@@ -149,9 +147,9 @@ export function formatBytes(bytes) {
     const mb = kb / 1024;
     const gb = mb / 1024;
 
-    if (gb > 1) return `${gb.toFixed(2)} gb`;
-    if (mb > 1) return `${mb.toFixed(2)} mb`;
-    if (kb > 1) return `${kb.toFixed(2)} kb`;
+    if (gb > 1) return `${gb.toFixed(2)}GB`;
+    if (mb > 1) return `${mb.toFixed(2)}MB`;
+    if (kb > 1) return `${kb.toFixed(2)}KB`;
 
     return `${bytes} bytes`;
 }
