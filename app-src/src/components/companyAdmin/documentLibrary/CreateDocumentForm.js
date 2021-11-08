@@ -90,7 +90,9 @@ const CreateDocumentForm = ({ initialFiles }) => {
                     if (errorMessage) className = 'error';
                     else if (uploaded) className = 'uploaded';
 
-                    if (fileUploading?.uuid === uuid && !uploaded) className += 'uploading';
+                    console.log({ className });
+
+                    if (fileUploading?.uuid === uuid && !uploaded) className += ' uploading';
 
                     return (
                         <li key={uuid}>
