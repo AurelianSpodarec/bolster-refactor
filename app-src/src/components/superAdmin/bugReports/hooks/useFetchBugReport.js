@@ -5,13 +5,16 @@ import fetchBugReport from 'actions/superAdmin/bugReports/fetchBugReport.';
 
 const useBugReport = reportID => {
     const dispatch = useDispatch();
-    const bugReport = useSelector(state => state.superAdmin.bugReportsReducer.bugReports[reportID]);
 
     useEffect(() => {
         dispatch(fetchBugReport(reportID));
     }, []);
 
-    return { bugReport };
+    const bugReport = useSelector(state => state.superAdmin.bugReportsReducer.bugReports[reportID]);
+    const isFetching = useSelector(state => state.superAdmin.bugReportsReducer.isFetching);
+    const error = useSelector(state => state.superAdmin.bugReportsReducer.error);
+
+    return { bugReport, isFetching, error };
 };
 
 export default useBugReport;
