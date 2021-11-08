@@ -7,6 +7,7 @@ import DatePickerPresentational from 'components/shared/generic/form/presentatio
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { isEmpty } from 'helpers/generic';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import useDeleteBugReport from './hooks/useDeleteBugReport';
 
 const headers = [
     'Ticket Reference',
@@ -19,8 +20,10 @@ const headers = [
 ];
 
 const BugReportsTable = () => {
-    const { dates, setDates, bugReports, isFetching, error } = useBugReportsTable();
     const today = new Date();
+
+    const { dates, setDates, bugReports, isFetching, error } = useBugReportsTable();
+    const [handleDeleteBugReport] = useDeleteBugReport();
 
     return (
         <div className="bug-report-table-container">
@@ -85,7 +88,10 @@ const BugReportsTable = () => {
                                     >
                                         <i className="far fa-eye" /> View
                                     </a>
-                                    <button className="button red">
+                                    <button
+                                        className="button red"
+                                        onClick={() => handleDeleteBugReport(report.id)}
+                                    >
                                         <i className="far fa-trash" />
                                         Delete
                                     </button>

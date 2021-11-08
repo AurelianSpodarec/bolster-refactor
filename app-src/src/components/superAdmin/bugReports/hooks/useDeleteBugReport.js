@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 import deleteBugReport from 'actions/superAdmin/bugReports/deleteBugReport';
