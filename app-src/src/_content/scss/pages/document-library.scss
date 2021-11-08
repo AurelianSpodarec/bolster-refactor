@@ -252,6 +252,16 @@
       text-decoration: none;
     }
 
+    &.file-name, &.file-image {
+      padding: 0 15px;
+      p, img {
+        box-sizing: content-box;
+        padding: 15px 0;
+        min-width: 24px;
+        min-height: 24px;
+      }
+    } 
+
   }
 }
 
