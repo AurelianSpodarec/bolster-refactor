@@ -13,7 +13,7 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
                 <div className="wrapper">
                     <p className="title">
                         <strong>
-                            Time In -
+                            Time In -&nbsp;
                             <DateTimeContainer
                                 date={clockIn.timestamp}
                                 datetime={DATE_TIME_IDS.TIME}
@@ -33,7 +33,7 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
                     <div className="wrapper">
                         <p className="title">
                             <strong>
-                                On Break -
+                                On Break -&nbsp;
                                 <DateTimeContainer
                                     date={breakIn.timestamp}
                                     datetime={DATE_TIME_IDS.TIME}
@@ -56,7 +56,7 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
                     <div className="wrapper">
                         <p className="title">
                             <strong>
-                                Off Break -
+                                Off Break -&nbsp;
                                 <DateTimeContainer
                                     date={breakOut.timestamp}
                                     datetime={DATE_TIME_IDS.TIME}
@@ -78,7 +78,7 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
                 <div className="wrapper">
                     <p className="title">
                         <strong>
-                            Time Out -
+                            Time Out -&nbsp;
                             <DateTimeContainer
                                 date={clockOut.timestamp}
                                 datetime={DATE_TIME_IDS.TIME}
