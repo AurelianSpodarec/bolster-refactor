@@ -58,6 +58,7 @@ import userGuideReducer from './userGuide';
 import userDocumentsReducer from './userDocuments';
 import zonesReducer from './zones';
 import companySelectionReducer from './companySelection';
+import bugReportsReducer from './bugReports';
 
 export default combineReducers({
     activityLogReducer,
@@ -67,6 +68,7 @@ export default combineReducers({
     appReducer,
     approvedCompaniesReducer,
     buildingsReducer,
+    bugReportsReducer,
     cardsReducer,
     clientsReducer,
     companyAddressesGeocodeReducer,

@@ -42,6 +42,7 @@ import bugReportsReducer from './bugReports';
 export default combineReducers({
     adminServicesReducer,
     buildingsReducer,
+    bugReportsReducer,
     companiesReducer,
     companyReportsReducer,
     companySubscriptionReducer,
@@ -77,5 +78,4 @@ export default combineReducers({
     syncsReducer,
     bannerNotificationsReducer,
     demoAccessCodesReducer,
-    bugReportsReducer,
 });

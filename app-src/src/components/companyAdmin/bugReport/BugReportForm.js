@@ -10,9 +10,10 @@ import FieldOutput from 'components/shared/generic/fieldOutput/presentational/Fi
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 
 const BugReportForm = () => {
-    const { form, handleChange, handleSubmit } = useBugReport();
+    const { form, handleChange, handleSubmit, isPosting } = useBugReport();
     return (
         <Form className="generic-form" onSubmit={handleSubmit}>
             <div className="size-lg-12 margin-bottom">
@@ -118,9 +119,9 @@ const BugReportForm = () => {
 
                     <Field name="When did the issue occur?" sizeClasses="size-lg-6" required>
                         <DatePickerContainer
-                            name="dateIssueOccured"
-                            selected={form.dateIssueOccured}
-                            onChange={val => handleChange('dateIssueOccured', val)}
+                            name="dateIssueOccurred"
+                            selected={form.dateIssueOccurred}
+                            onChange={val => handleChange('dateIssueOccurred', val)}
                             placeholderText="Select Date"
                         />
                     </Field>
@@ -156,9 +157,15 @@ const BugReportForm = () => {
                 </div>
             </div>
             <BlockButtonWrapper>
-                <button className="button green" type="submit">
-                    <i className="fa fa-plus" />
-                    Submit
+                <button className="button green" type="submit" disabled={isPosting}>
+                    {isPosting ? (
+                        <LoadingIcon />
+                    ) : (
+                        <>
+                            <i className="fa fa-plus" />
+                            Submit
+                        </>
+                    )}
                 </button>
             </BlockButtonWrapper>
         </Form>

@@ -1,11 +1,17 @@
-import { useForm } from 'helpers/hooks';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useForm, usePrevious } from 'helpers/hooks';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
+import postBugReport from 'actions/companyAdmin/bugReports/postBugReport';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { CONFIRM_SUBMIT, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 
 const useBugReport = () => {
-    const { name } = useSelector(mapStateToProps);
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     const [form, handleChange] = useForm({
-        companyName: name,
         accessCredentials: '',
         affectedUserCount: null,
         deviceDetails: '',
@@ -13,26 +19,41 @@ const useBugReport = () => {
         aboutDeviceScreenshot: '',
         browserUsed: '',
         systemPage: '',
-        dateIssueOccured: '',
+        dateIssueOccurred: '',
         fullDescription: '',
         evidenceFile: '',
     });
+    const { postSuccess, isPosting } = useSelector(mapStateToProps);
+    const prevPostSuccess = usePrevious(postSuccess);
 
-    const handleSubmit = () => {
-        console.log(form);
+    useEffect(() => {
+        if (postSuccess && !prevPostSuccess) {
+            const message =
+                'Thank you for submitting the bug report. Our development team will investigate the issue shortly.';
+
+            dispatch(showModal(SUCCESS_MODAL, { title: 'Success!', message }));
+
+            history.push('/company');
+        }
+    }, [postSuccess, prevPostSuccess]);
+
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        dispatch(postBugReport(form));
     };
 
-    return { form, handleChange, handleSubmit };
+    return { form, handleChange, handleSubmit, isPosting };
 };
 
 const mapStateToProps = ({
     companyAdmin: {
-        companySettingsReducer: {
-            companySettings: { name },
-        },
+        bugReportsReducer: { isPosting, error, postSuccess },
     },
 }) => ({
-    name,
+    isPosting,
+    error,
+    postSuccess,
 });
 
 export default useBugReport;
