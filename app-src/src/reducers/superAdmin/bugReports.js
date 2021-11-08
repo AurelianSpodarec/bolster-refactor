@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { updateObj, convertArrToObj } from 'helpers/generic';
+import { convertArrToObj } from 'helpers/generic';
 
 import {
     FETCH_BUG_REPORTS_FAILURE,

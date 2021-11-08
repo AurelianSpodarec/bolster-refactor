@@ -74,10 +74,9 @@ const BugReportsTable = () => {
                             <td className="center">{report.affectedUserCount}</td>
                             <td className="center">{report.deviceDetails}</td>
                             <td className="center">
-                                <DateTimeContainer date={report.dateIssueOccured} />
+                                <DateTimeContainer date={report.dateIssueOccurred} />
                             </td>
                             <td className="center">{report.systemPage}</td>
-                            <td className="center">{report.status}</td>
                             <td>
                                 <BlockButtonWrapper>
                                     <a
