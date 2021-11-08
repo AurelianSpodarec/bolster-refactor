@@ -138,7 +138,7 @@ const CreateDocumentForm = ({ initialFiles }) => {
                         </>
                     )}
                 </h3>
-                <p>PNG, JPG, GIF, up to {maxFileSizeMB}MB</p>
+                <p>Maximum file size {maxFileSizeMB}MB per file</p>
             </>
         );
     }
