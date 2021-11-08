@@ -82,7 +82,7 @@ const InvoiceDetails = ({
             <FieldOutput
                 title="Invoice Type"
                 description={INVOICE_TYPES[invoiceType] || '-'}
-                sizeClass="size-lg-4"
+                sizeClass="size-lg-4 size-md-12"
             />
 
             {isPaid && (

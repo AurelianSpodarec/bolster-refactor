@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-import { PAYMENT_TYPES, DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+import { PAYMENT_TYPES, DATE_TIME_IDS, INVOICE_TYPES } from 'constants/companyAdmin/enums';
 import { PAY_INVOICE } from 'constants/shared/modalTypes';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { formatCurrency } from 'helpers/generic';
@@ -18,6 +18,7 @@ const InvoiceListItem = ({
         subTotal,
         total,
         id,
+        invoiceType,
         paymentType,
         userFirstName,
         userLastName,
@@ -58,11 +59,16 @@ const InvoiceListItem = ({
         <td>
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
-            {PAYMENT_TYPES[paymentType]}
+            {invoiceType > 0 ? INVOICE_TYPES[invoiceType] : '-'}
         </td>
         <td>
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[6]}</span>}
+            {PAYMENT_TYPES[paymentType]}
+        </td>
+        <td>
+            {' '}
+            {onMobile && <span className="mobile-table-heading">{headers[7]}</span>}
             {isFree ? 'Free' : isPaid ? 'Paid' : 'Awaiting Payment'}{' '}
             {onMobile && (
                 <StatusIcon classes="warning" iconClass="fa fa-exclamation-triangle far" />
@@ -78,12 +84,12 @@ const InvoiceListItem = ({
 
         <td>
             {' '}
-            {onMobile && <span className="mobile-table-heading">{headers[8]}</span>}
+            {onMobile && <span className="mobile-table-heading">{headers[9]}</span>}
             {`${userFirstName} ${userLastName}`}
         </td>
         <td>
             {' '}
-            {onMobile && <span className="mobile-table-heading">{headers[9]}</span>}
+            {onMobile && <span className="mobile-table-heading">{headers[10]}</span>}
             <BlockButtonWrapper>
                 {!isPaid && (
                     <button

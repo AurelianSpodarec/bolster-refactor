@@ -15,11 +15,12 @@ class InvoicesTableContainer extends Component {
                     'Total (exc VAT)',
                     'Total (inc VAT)',
                     'Left to pay',
-                    'Type',
+                    'Invoice Type',
+                    'Payment Type',
                     'Status',
                     '',
                     'Ordered By',
-                    'Action'
+                    'Action',
                 ]}
                 error={error}
                 isFetching={isFetching}
@@ -38,24 +39,21 @@ class InvoicesTableContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        invoicesReducer: { error, isFetching, postSuccess }
+        invoicesReducer: { error, isFetching, postSuccess },
     },
     shared: {
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => ({
     error,
     isFetching,
     postSuccess,
-    onMobile
+    onMobile,
 });
 
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => dispatch(showModal(type, props)),
-    fetchInvoices: () => dispatch(fetchAllInvoices())
+    fetchInvoices: () => dispatch(fetchAllInvoices()),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(InvoicesTableContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(InvoicesTableContainer);
