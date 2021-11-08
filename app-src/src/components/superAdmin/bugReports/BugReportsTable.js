@@ -19,13 +19,13 @@ const headers = [
 ];
 
 const BugReportsTable = () => {
-    const { dates, setDates, bugReports } = useBugReportsTable();
+    const { dates, setDates, bugReports, isFetching, error } = useBugReportsTable();
     const today = new Date();
 
     return (
         <div className="bug-report-table-container">
             <div className="bug-report-table-filters">
-                <div className="flex item ">
+                <div className="flex item">
                     <p className="">Start Date:</p>
                     <div className="flex">
                         <DatePickerPresentational
@@ -61,15 +61,15 @@ const BugReportsTable = () => {
             <Table
                 withActions
                 headers={headers}
-                // isFetching={isFetching}
-                // error={error}
+                isFetching={isFetching}
+                error={error}
                 noData={isEmpty(bugReports)}
                 noDataMessage="No bug reports to display"
             >
                 {bugReports.map((report, i) => {
                     return (
                         <tr key={i}>
-                            <td className="center">{report.ticketRef}</td>
+                            <td className="center">{report.ticketReference}</td>
                             <td className="center">{report.companyName}</td>
                             <td className="center">{report.affectedUserCount}</td>
                             <td className="center">{report.deviceDetails}</td>
@@ -80,9 +80,12 @@ const BugReportsTable = () => {
                             <td className="center">{report.status}</td>
                             <td>
                                 <BlockButtonWrapper>
-                                    <button className="button yellow">
-                                        <i className="far fa-pencil" /> Edit
-                                    </button>
+                                    <a
+                                        className="button green"
+                                        href={`/admin/bug-reports/${report.id}`}
+                                    >
+                                        <i className="far fa-eye" /> View
+                                    </a>
                                     <button className="button red">
                                         <i className="far fa-trash" />
                                         Delete

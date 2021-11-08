@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
+import fetchBugReportList from 'actions/superAdmin/bugReports/fetchBugReportList';
 
 const useBugReportsTable = () => {
     const dispatch = useDispatch();
@@ -10,59 +11,23 @@ const useBugReportsTable = () => {
         dateTo: moment().toDate(),
     });
 
-    const bugReports = [
-        {
-            ticketRef: '1',
-            companyName: 'Silverchip',
-            accessCredentials: 'Seb@ios-op.com  Password',
-            affectedUserCount: 1,
-            deviceDetails: 'iPhone 11',
-            appVersion: '12.0.5',
-            aboutDeviceScreenshot: '',
-            browserUsed: 'Firefox',
-            systemPage: 'Upsync',
-            dateIssueOccured: moment(),
-            fullDescription: 'Description',
-            evidenceFile: '',
-            status: 'Complete',
-        },
-        {
-            ticketRef: '2',
-            companyName: 'Silverchip',
-            accessCredentials: 'Seb@ios-op.com  Password',
-            affectedUserCount: 1,
-            deviceDetails: 'iPhone 11',
-            appVersion: '12.0.5',
-            aboutDeviceScreenshot: '',
-            browserUsed: 'Firefox',
-            systemPage: 'Upsync',
-            dateIssueOccured: moment(),
-            fullDescription: 'Description',
-            evidenceFile: '',
-            status: 'Complete',
-        },
-        {
-            ticketRef: '3',
-            companyName: 'Silverchip',
-            accessCredentials: 'Seb@ios-op.com  Password',
-            affectedUserCount: 1,
-            deviceDetails: 'iPhone 11',
-            appVersion: '12.0.5',
-            aboutDeviceScreenshot: '',
-            browserUsed: 'Firefox',
-            systemPage: 'Upsync',
-            dateIssueOccured: moment(),
-            fullDescription: 'Description',
-            evidenceFile: '',
-            status: 'Complete',
-        },
-    ];
+    const { bugReports, isFetching, error } = useSelector(mapStateToProps);
 
     useEffect(() => {
-        // Fetch bug reports filtered by date
+        dispatch(fetchBugReportList());
     }, [dates]);
 
-    return { dates, setDates, bugReports };
+    return { dates, setDates, bugReports, isFetching, error };
 };
+
+const mapStateToProps = ({
+    superAdmin: {
+        bugReportsReducer: { bugReports, isFetching, error },
+    },
+}) => ({
+    bugReports: Object.values(bugReports),
+    isFetching,
+    error,
+});
 
 export default useBugReportsTable;

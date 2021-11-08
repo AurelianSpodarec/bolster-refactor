@@ -37,6 +37,7 @@ import syncsReducer from './syncs';
 import bannerNotificationsReducer from './bannerNotifications';
 import demoAccessCodesReducer from './demoAccessCodes';
 import companyTrackingReducer from './companyTracking';
+import bugReportsReducer from './bugReports';
 
 export default combineReducers({
     adminServicesReducer,
@@ -76,4 +77,5 @@ export default combineReducers({
     syncsReducer,
     bannerNotificationsReducer,
     demoAccessCodesReducer,
+    bugReportsReducer,
 });
