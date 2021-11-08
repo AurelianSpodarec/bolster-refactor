@@ -85,7 +85,7 @@ const Breakdown = ({
                 />
             );
         default:
-            break;
+            return null;
     }
 };
 

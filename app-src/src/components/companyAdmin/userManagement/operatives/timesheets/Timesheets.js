@@ -3,10 +3,11 @@ import React from 'react';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 import Breakdown from './breakdown/Breakdown';
-import useOperativeTimesheet from './hooks/useOperativeTimesheet';
+import useTimesheets from './hooks/useTimesheets';
 import TimesheetCalender from './timesheetCalender/TimesheetCalender';
+import UserTables from './userTables/UserTables';
 
-const OperativeTimesheet = () => {
+const Timesheets = () => {
     const {
         startDate,
         selectedDate,
@@ -22,7 +23,7 @@ const OperativeTimesheet = () => {
         onDaySelect,
         onWeekSelect,
         handlePDFReportGeneration,
-    } = useOperativeTimesheet();
+    } = useTimesheets();
 
     return (
         <>
@@ -49,20 +50,26 @@ const OperativeTimesheet = () => {
                 onDaySelect={onDaySelect}
                 onWeekSelect={onWeekSelect}
             />
-            {
-                !isAllUsers ? (
-                    <Breakdown
-                        selectedDate={selectedDate}
-                        timePeriod={timePeriod}
-                        isFetching={isFetching}
-                        fetchError={fetchError}
-                        timesheet={timesheet}
-                        handlePDFReportGeneration={handlePDFReportGeneration}
-                    />
-                ) : null // All users table table here
-            }
+            {!isAllUsers ? (
+                <Breakdown
+                    selectedDate={selectedDate}
+                    timePeriod={timePeriod}
+                    isFetching={isFetching}
+                    fetchError={fetchError}
+                    timesheet={timesheet}
+                    handlePDFReportGeneration={handlePDFReportGeneration}
+                />
+            ) : (
+                <UserTables
+                    selectedDate={selectedDate}
+                    timePeriod={timePeriod}
+                    isFetching={isFetching}
+                    fetchError={fetchError}
+                    timesheet={timesheet}
+                />
+            )}
         </>
     );
 };
 
-export default OperativeTimesheet;
+export default Timesheets;

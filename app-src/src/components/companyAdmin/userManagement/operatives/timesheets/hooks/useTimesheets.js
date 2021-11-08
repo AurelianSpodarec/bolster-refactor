@@ -21,7 +21,7 @@ import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { usePrevious } from 'helpers/hooks';
 
-const useOperativeTimesheet = () => {
+const useTimesheets = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -100,8 +100,9 @@ const useOperativeTimesheet = () => {
     };
 
     useEffect(() => {
-        if (!isAllUsers) dispatch(fetchTimesheetWeek(id, startDate));
-        else console.log('fetch for all users here');
+        dispatch(fetchTimesheetWeek(8873, startDate));
+        // if (!isAllUsers) dispatch(fetchTimesheetWeek(id, startDate));
+        // else console.log('fetch for all users here');
     }, [dispatch, id, startDate]);
 
     useEffect(() => {
@@ -134,4 +135,4 @@ const useOperativeTimesheet = () => {
     };
 };
 
-export default useOperativeTimesheet;
+export default useTimesheets;
