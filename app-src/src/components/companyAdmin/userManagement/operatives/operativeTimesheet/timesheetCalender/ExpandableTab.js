@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const ExpandableTab = ({ icon, items, itemType = 'items' }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
-
+const ExpandableTab = ({ date, icon, items, itemType = 'items', isExpanded, onJobClick }) => {
     return (
-        <div className="tab expandable" onClick={() => items.length && setIsExpanded(!isExpanded)}>
+        <div className="tab expandable" onClick={() => items.length && onJobClick(date)}>
             <div className="content">
                 <div className="tab-title">
                     {icon}

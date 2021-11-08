@@ -13,12 +13,14 @@ import { TIME_PERIOD } from 'constants/companyAdmin/enums';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import timesheetPin from '_content/images/pins-examples/timesheet-pin.png';
 import { formatAsHrsMinsSecs } from 'helpers/generic';
+import useExpandableTab from '../hooks/useExpandableTab';
 
 const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, timesheet }) => {
     const { totalPins, formattedHours, clockerEntries = [] } = timesheet;
 
     const { timeZone } = useSelector(selectCompanySettings);
     const weeklyReferences = useWeeklyReferences(clockerEntries);
+    const { expandedDate, handleJobsClick } = useExpandableTab();
 
     return (
         <>
@@ -42,9 +44,12 @@ const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, t
                                     {totalPins} Pin Histories
                                 </Tab>
                                 <ExpandableTab
+                                    date={date}
                                     icon={<i className="fal fa-sticky-note" />}
                                     items={references}
-                                    itemType="Job References"
+                                    itemType={references.length > 1 ? 'Jobs' : 'Job'}
+                                    isExpanded={expandedDate === date}
+                                    onJobClick={handleJobsClick}
                                 />
                             </div>
                         )}
@@ -71,9 +76,12 @@ const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, t
                     </Tab>
                     <Tab icon={<img src={timesheetPin} />}>{totalPins} Pin Histories</Tab>
                     <ExpandableTab
+                        date="week"
                         icon={<i className="fal fa-sticky-note" />}
                         items={weeklyReferences}
-                        itemType="Job References"
+                        itemType={weeklyReferences.length > 1 ? 'Jobs' : 'Job'}
+                        isExpanded={expandedDate === 'week'}
+                        onJobClick={handleJobsClick}
                     />
                 </div>
                 {timePeriod === TIME_PERIOD.WEEK && <div className="film" />}
