@@ -28,6 +28,7 @@ const useOperativeTimesheet = () => {
     const { timeZone } = useSelector(selectCompanySettings);
 
     const { id } = useParams();
+    const isAllUsers = id == null;
 
     const timesheetsIsFetching = useSelector(selectTimesheetsIsFetching);
     const timesheetsFetchError = useSelector(selectTimesheetsFetchError);
@@ -99,7 +100,8 @@ const useOperativeTimesheet = () => {
     };
 
     useEffect(() => {
-        dispatch(fetchTimesheetWeek(id, startDate));
+        if (!isAllUsers) dispatch(fetchTimesheetWeek(id, startDate));
+        else console.log('fetch for all users here');
     }, [dispatch, id, startDate]);
 
     useEffect(() => {
@@ -122,6 +124,7 @@ const useOperativeTimesheet = () => {
         fetchError: companyUserFetchError || timesheetsFetchError,
         timesheet,
         companyUser,
+        isAllUsers,
         onPrev,
         onNext,
         onToday,

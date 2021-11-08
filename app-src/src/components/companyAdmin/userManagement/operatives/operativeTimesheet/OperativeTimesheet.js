@@ -15,6 +15,7 @@ const OperativeTimesheet = () => {
         fetchError,
         timesheet,
         companyUser,
+        isAllUsers,
         onPrev,
         onNext,
         onToday,
@@ -48,14 +49,18 @@ const OperativeTimesheet = () => {
                 onDaySelect={onDaySelect}
                 onWeekSelect={onWeekSelect}
             />
-            <Breakdown
-                selectedDate={selectedDate}
-                timePeriod={timePeriod}
-                isFetching={isFetching}
-                fetchError={fetchError}
-                timesheet={timesheet}
-                handlePDFReportGeneration={handlePDFReportGeneration}
-            />
+            {
+                !isAllUsers ? (
+                    <Breakdown
+                        selectedDate={selectedDate}
+                        timePeriod={timePeriod}
+                        isFetching={isFetching}
+                        fetchError={fetchError}
+                        timesheet={timesheet}
+                        handlePDFReportGeneration={handlePDFReportGeneration}
+                    />
+                ) : null // All users table table here
+            }
         </>
     );
 };

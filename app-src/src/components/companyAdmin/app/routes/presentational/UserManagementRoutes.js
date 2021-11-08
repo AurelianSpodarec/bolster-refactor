@@ -29,6 +29,7 @@ const UserManagementRoutes = ({ base = '/company/users-management' }) => (
         <Route exact path={`${base}/clients/:id`} component={SingleClientContainer} />
         <Route exact path={`${base}/clients/:id/edit`} component={EditClientContainer} />
         <Route exact path={`${base}/clients/:id/edit-email`} component={EditClientUserEmail} />
+        <Route exact path={`${base}/timesheets`} component={OperativeTimesheet} />
         <Route exact path={`${base}/company-admins/create`} component={CreateCompanyAdmin} />
         <Route exact path={`${base}/company-admins/:id/edit`} component={EditCompanyAdmin} />
         <Route exact path={`${base}/company-admins/:id/timesheet`} component={OperativeTimesheet} />
