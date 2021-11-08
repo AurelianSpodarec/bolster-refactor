@@ -97,9 +97,7 @@ const CreateDocumentForm = ({ initialFiles }) => {
                             <div className={`file-item ${className}`}>
                                 <p className="main-text">
                                     <strong>{file.name}</strong>{' '}
-                                    <span className="meta">
-                                        {formatBytes(file.size)} ({file.type})
-                                    </span>
+                                    <span className="meta">{formatBytes(file.size)}</span>
                                 </p>
                                 {uploaded ? (
                                     <i className="fa fa-check" />
