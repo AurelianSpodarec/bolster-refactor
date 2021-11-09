@@ -29,9 +29,11 @@ const UserTableContainer = ({
                     'Email Address',
                     'Phone Number',
                     'Role',
+                    'App version',
                     'Access granted by',
                     'Created On',
                     'Is e-mail confirmed?',
+                    'Is deleted?',
                     '',
                 ]}
                 isFetching={isFetching}
@@ -50,10 +52,13 @@ const UserTableContainer = ({
                 return u.roles && u.roles.find(({ type }) => String(type) === role);
             })
             .filter(u => {
-                if (u.email) return u.email.toLowerCase().includes(searchTerm.toLowerCase());
-                if (u.firstName)
-                    return u.firstName.toLowerCase().includes(searchTerm.toLowerCase());
-                if (u.lastName) return u.lastName.toLowerCase().includes(searchTerm.toLowerCase());
+                if (
+                    (u.email && u.email.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                    (u.firstName && u.firstName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                    (u.lastName && u.lastName.toLowerCase().includes(searchTerm.toLowerCase()))
+                )
+                    return true;
+                else return false;
             });
     }
 
