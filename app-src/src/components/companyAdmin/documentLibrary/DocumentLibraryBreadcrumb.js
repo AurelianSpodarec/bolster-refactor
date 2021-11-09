@@ -21,7 +21,7 @@ const DocumentLibraryBreadcrumb = ({ prefix }) => {
                 <React.Fragment key={i}>
                     {' / '}
                     {i < prefixArr.length - 1 ? (
-                        <Link to={`/company/document-library?prefix=${item}`}>{item}</Link>
+                        <Link to={`/company/document-library?prefix=${item}/`}>{item}</Link>
                     ) : (
                         <span>{item}</span>
                     )}
