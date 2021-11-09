@@ -8,14 +8,21 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Block from 'components/shared/generic/block/presentational/Block';
 import moment from 'moment';
-import { FILE_STORAGE_URL } from 'config';
+import { FILE_STORAGE_URL, VIDEO_STORAGE_URL } from 'config';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import { videoFormats } from 'constants/shared/media';
 
 const BugReportSingle = () => {
     const { id } = useParams();
 
     const { bugReport, isFetching, error } = useFetchBugReport(id);
     const [handleDeleteBugReport] = useDeleteBugReport();
+
+    const isVideo = s3Key => {
+        const fileExtension = s3Key.split('.').pop();
+
+        return videoFormats.includes(fileExtension.toLowerCase());
+    };
 
     return (
         <>
@@ -84,16 +91,17 @@ const BugReportSingle = () => {
                 <Block>
                     <div className="size-lg-6">
                         <BlockHeading title="Evidence File" />
-                        {bugReport?.evidenceFileS3Key?.includes('mp4') ? (
+                        {isVideo(bugReport.evidenceFileS3Key) ? (
                             <video
                                 controls
                                 preload="auto"
                                 width="100%"
                                 height="auto"
-                                poster={`${FILE_STORAGE_URL}/${bugReport?.evidenceFileS3Key}`}
+                                poster={`${VIDEO_STORAGE_URL}/${bugReport?.evidenceFileS3Key}`}
+                                className="size-lg-10"
                             >
                                 <source
-                                    src={`${FILE_STORAGE_URL}/${bugReport?.evidenceFileS3Key}`}
+                                    src={`${VIDEO_STORAGE_URL}/${bugReport?.evidenceFileS3Key}`}
                                     type="video/mp4"
                                 />
                             </video>
