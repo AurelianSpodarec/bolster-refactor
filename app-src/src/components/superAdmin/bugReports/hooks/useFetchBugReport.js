@@ -21,7 +21,7 @@ const useBugReport = reportID => {
 
     useEffect(() => {
         if (postSuccess && !prevPostSuccess) {
-            return history.replace('/admin/bug-reports');
+            history.replace('/admin/bug-reports');
         }
     }, [postSuccess, prevPostSuccess]);
 

@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 import deleteBugReport from 'actions/superAdmin/bugReports/deleteBugReport';
@@ -10,15 +9,15 @@ import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 const useDeleteBugReport = () => {
     const dispatch = useDispatch();
 
-    const handleDeleteBugReport = useCallback(id => {
+    const handleDeleteBugReport = id => {
         const handleSubmit = () => {
             dispatch(deleteBugReport(id));
-            hideModal();
+            dispatch(hideModal());
         };
 
         const message = 'Are you sure you want to delete this bug report?';
         dispatch(showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal }));
-    }, []);
+    };
 
     return [handleDeleteBugReport];
 };

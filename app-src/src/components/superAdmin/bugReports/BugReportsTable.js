@@ -3,7 +3,6 @@ import React from 'react';
 import useBugReportsTable from './hooks/useBugReportsTable';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
-import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { isEmpty } from 'helpers/generic';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
@@ -20,54 +19,11 @@ const headers = [
 ];
 
 const BugReportsTable = () => {
-    const today = new Date();
-
-    const {
-        dates,
-        setDates,
-        bugReports,
-        isFetching,
-        error,
-        handleViewBugReport,
-    } = useBugReportsTable();
+    const { bugReports, isFetching, error, handleViewBugReport } = useBugReportsTable();
     const [handleDeleteBugReport] = useDeleteBugReport();
 
     return (
         <div className="bug-report-table-container">
-            <div className="bug-report-table-filters">
-                <div className="flex item">
-                    <p className="">Start Date:</p>
-                    <div className="flex">
-                        <DatePickerPresentational
-                            selected={dates.dateFrom}
-                            onChange={date =>
-                                setDates({
-                                    ...dates,
-                                    dateFrom: date,
-                                })
-                            }
-                            placeholderText="Start Date"
-                            maxDate={today}
-                        />
-                    </div>
-                </div>
-                <div className="flex item ">
-                    <p className="">End Date:</p>
-                    <div className="flex">
-                        <DatePickerPresentational
-                            selected={dates.dateTo}
-                            onChange={date =>
-                                setDates({
-                                    ...dates,
-                                    dateTo: date,
-                                })
-                            }
-                            placeholderText="End Date"
-                            maxDate={today}
-                        />
-                    </div>
-                </div>
-            </div>
             <Table
                 withActions
                 headers={headers}

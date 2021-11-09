@@ -16,6 +16,7 @@ const BugReportSingle = () => {
 
     const { bugReport, isFetching, error } = useFetchBugReport(id);
     const [handleDeleteBugReport] = useDeleteBugReport();
+
     return (
         <>
             <PageHeading title="Bug Report" withBackButton />
@@ -32,7 +33,7 @@ const BugReportSingle = () => {
                     </div>
                     <div className="size-lg-4">
                         <BlockHeading title="Created by" />
-                        <p>{bugReport?.createdByCompanyUserName || 'No user'}</p>
+                        <p>{bugReport?.createdByCompanyUserFullname || 'No user'}</p>
                     </div>
                 </Block>
 
@@ -60,13 +61,6 @@ const BugReportSingle = () => {
                         <BlockHeading title="Device Details" />
                         <p>{bugReport?.deviceDetails || 'N/A'}</p>
                     </div>
-                    <div className="size-lg-4">
-                        <BlockHeading title="Device Details" />
-                        <img
-                            alt="About Device"
-                            src={`${FILE_STORAGE_URL}/${bugReport?.aboutDeviceScreenshotS3Key}`}
-                        />
-                    </div>
                 </Block>
 
                 <Block>
@@ -84,11 +78,35 @@ const BugReportSingle = () => {
                     </div>
                 </Block>
                 <Block>
-                    <div className="size-lg-4">
+                    <div className="size-lg-6">
                         <BlockHeading title="Evidence File" />
+                        {bugReport?.evidenceFileS3Key?.includes('mp4') ? (
+                            <video
+                                controls
+                                preload="auto"
+                                width="100%"
+                                height="auto"
+                                poster={`${FILE_STORAGE_URL}/${bugReport?.evidenceFileS3Key}`}
+                            >
+                                <source
+                                    src={`${FILE_STORAGE_URL}/${bugReport?.evidenceFileS3Key}`}
+                                    type="video/mp4"
+                                />
+                            </video>
+                        ) : (
+                            <img
+                                src={`${FILE_STORAGE_URL}/${bugReport?.evidenceFileS3Key}`}
+                                alt="Evidence Screenshot"
+                                className="size-lg-6"
+                            />
+                        )}
+                    </div>
+                    <div className="size-lg-6">
+                        <BlockHeading title="Device Details" />
                         <img
-                            alt="Evidence file"
-                            src={`${FILE_STORAGE_URL}/${bugReport?.evidenceFileS3Key}`}
+                            alt="About Device"
+                            src={`${FILE_STORAGE_URL}/${bugReport?.aboutDeviceScreenshotS3Key}`}
+                            className="size-lg-6"
                         />
                     </div>
                 </Block>

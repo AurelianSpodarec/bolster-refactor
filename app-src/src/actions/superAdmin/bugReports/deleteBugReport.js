@@ -27,6 +27,6 @@ export default reportID => dispatch => {
 
     return axios
         .delete(`${ADMIN_API_URL}/bugReports/${reportID}`, getHeaders())
-        .then(res => dispatch(deleteBugReportSuccess(res.data)))
+        .then(res => dispatch(deleteBugReportSuccess(reportID)))
         .catch(err => dispatch(deleteBugReportFailure(err.message)));
 };
