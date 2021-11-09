@@ -198,6 +198,7 @@ class OutputSettingsContainer extends Component {
         } = this.props;
 
         let availableDrawings = Object.values(drawings);
+
         // uses the url to figure out which hierarchy the report is being generated on
         // and find an appropriate drawing for the pin scale modal
         if (drawingID?.length) {
@@ -215,7 +216,8 @@ class OutputSettingsContainer extends Component {
                 siteID.includes(drawing.siteID),
             );
         }
-        return availableDrawings[0];
+
+        return availableDrawings.find(drawing => drawing.tilesetS3Key);
     };
 
     handleShowOandMModal = () => this.props.showOAndMTsAndCsModal('create report');
