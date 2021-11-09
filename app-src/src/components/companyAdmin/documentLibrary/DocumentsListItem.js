@@ -32,7 +32,7 @@ let DocumentsListItem = ({
                         <div className="selection-dot" style={{ opacity: isSelected ? 1 : 0 }} />
                     </div>
                 </td>
-                <td className="hover-anim">
+                <td className="hover-anim file-image">
                     {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
                     {item.type === DOCUMENT_LIBRARY_TYPES.FOLDER ? (
                         !item.isArchived ? (
@@ -72,7 +72,7 @@ let DocumentsListItem = ({
                         </a>
                     )}
                 </td>
-                <td className="hover-anim">
+                <td className="hover-anim file-name">
                     {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                     {item.type === DOCUMENT_LIBRARY_TYPES.FOLDER ? (
                         !item.isArchived ? (

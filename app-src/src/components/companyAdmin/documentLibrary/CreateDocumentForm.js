@@ -90,16 +90,14 @@ const CreateDocumentForm = ({ initialFiles }) => {
                     if (errorMessage) className = 'error';
                     else if (uploaded) className = 'uploaded';
 
-                    if (fileUploading?.uuid === uuid && !uploaded) className += 'uploading';
+                    if (fileUploading?.uuid === uuid && !uploaded) className += ' uploading';
 
                     return (
                         <li key={uuid}>
                             <div className={`file-item ${className}`}>
                                 <p className="main-text">
                                     <strong>{file.name}</strong>{' '}
-                                    <span className="meta">
-                                        {formatBytes(file.size)} ({file.type})
-                                    </span>
+                                    <span className="meta">{formatBytes(file.size)}</span>
                                 </p>
                                 {uploaded ? (
                                     <i className="fa fa-check" />
@@ -138,7 +136,7 @@ const CreateDocumentForm = ({ initialFiles }) => {
                         </>
                     )}
                 </h3>
-                <p>PNG, JPG, GIF, up to {maxFileSizeMB}MB</p>
+                <p>Maximum file size {maxFileSizeMB}MB per file</p>
             </>
         );
     }
@@ -149,9 +147,9 @@ export function formatBytes(bytes) {
     const mb = kb / 1024;
     const gb = mb / 1024;
 
-    if (gb > 1) return `${gb.toFixed(2)} gb`;
-    if (mb > 1) return `${mb.toFixed(2)} mb`;
-    if (kb > 1) return `${kb.toFixed(2)} kb`;
+    if (gb > 1) return `${gb.toFixed(2)}GB`;
+    if (mb > 1) return `${mb.toFixed(2)}MB`;
+    if (kb > 1) return `${kb.toFixed(2)}KB`;
 
     return `${bytes} bytes`;
 }
