@@ -27,7 +27,6 @@ const SelectDocumentLibraryItemModal = ({ handleChange, hideModal }) => {
     const [parentID, setParentID] = useState(null);
 
     const filteredItems = items.filter(item => item.parentFolderID === parentID); 
-    console.log();
 
     useEffect(() => {
         dispatch(getDocumentsForAttachPin());
