@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import postBugReport from 'actions/companyAdmin/bugReports/postBugReport';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-import { CONFIRM_SUBMIT, SUCCESS_MODAL } from 'constants/shared/modalTypes';
+import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 
 const useBugReport = () => {
     const dispatch = useDispatch();
@@ -22,7 +22,10 @@ const useBugReport = () => {
         dateIssueOccurred: '',
         fullDescription: '',
         evidenceFile: '',
+        isReplicable: false,
     });
+
+    console.log(form.isReplicable);
     const { postSuccess, isPosting } = useSelector(mapStateToProps);
     const prevPostSuccess = usePrevious(postSuccess);
 

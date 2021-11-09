@@ -11,6 +11,7 @@ import FileUploadContainer from 'components/shared/generic/form/containers/FileU
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
 const BugReportForm = () => {
     const { form, handleChange, handleSubmit, isPosting } = useBugReport();
@@ -137,14 +138,24 @@ const BugReportForm = () => {
                         />
                     </Field>
 
+                    <Field name="Could you replicate the issue?" sizeClasses="size-lg-6" required>
+                        <CheckboxContainer
+                            name="isReplicable"
+                            checked={form.isReplicable}
+                            handleChange={handleChange}
+                        />
+                    </Field>
+                </div>
+
+                <div className="size-lg-12 margin-bottom">
                     <Field
                         name="Screen recording/screenshot of issue and any error messages received"
                         sizeClasses="size-lg-6"
                         required
                     >
                         <p>
-                            Please upload a screenshot or screen recording in .pdf, .jpg, .png or
-                            mp4 format.
+                            Please upload a screenshot or screen recording in .jpg, .png or mp4
+                            format.
                         </p>
                         <br />
                         <FileUploadContainer

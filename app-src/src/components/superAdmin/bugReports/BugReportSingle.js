@@ -61,6 +61,10 @@ const BugReportSingle = () => {
                         <BlockHeading title="Device Details" />
                         <p>{bugReport?.deviceDetails || 'N/A'}</p>
                     </div>
+                    <div className="size-lg-4">
+                        <BlockHeading title="Issue is replicable" />
+                        <p>{bugReport?.isReplicable ? 'Yes' : 'No'}</p>
+                    </div>
                 </Block>
 
                 <Block>
@@ -96,7 +100,7 @@ const BugReportSingle = () => {
                         ) : (
                             <img
                                 src={`${FILE_STORAGE_URL}/${bugReport?.evidenceFileS3Key}`}
-                                alt="Evidence Screenshot"
+                                alt="Evidence"
                                 className="size-lg-6"
                             />
                         )}
