@@ -16,8 +16,8 @@ const formatQuestion = ({ type, dynamicFields, prereqUUIDs, ...otherFields }) =>
             text: opt,
         }));
 
-    if (dynamicFields && dynamicFields.OptionConfigurations)
-        question.OptionConfigurations = dynamicFields.OptionConfigurations.map(opt => opt);
+    if (dynamicFields && dynamicFields.optionConfigurations)
+        question.optionConfigurations = dynamicFields.optionConfigurations.map(opt => opt);
 
     return question;
 };
@@ -95,7 +95,7 @@ function setDynamicFieldsSingle({
     optionType,
     defaultValue,
     file,
-    OptionConfigurations,
+    optionConfigurations,
     ...otherFields
 }) {
     let dynamicFields = {};
@@ -116,24 +116,25 @@ function setDynamicFieldsSingle({
 
             dynamicFields = {
                 options: opts.map(opt => opt.text),
-                OptionConfigurations: opts.map(opt => {
+                optionConfigurations: opts.map(opt => {
                     const savedOptionConfiguration =
-                        OptionConfigurations &&
-                        OptionConfigurations.find(savedOpt => savedOpt.Name === opt.text);
+                        optionConfigurations &&
+                        optionConfigurations.find(savedOpt => savedOpt.name === opt.text);
 
                     return {
                         name: opt.text,
-                        CreatedBySuperAdmin: savedOptionConfiguration
-                            ? savedOptionConfiguration.CreatedBySuperAdmin
+                        createdBySuperAdmin: savedOptionConfiguration
+                            ? savedOptionConfiguration.createdBySuperAdmin
                             : true,
-                        IsDisabled: savedOptionConfiguration
-                            ? savedOptionConfiguration.IsDisabled
+                        isDisabled: savedOptionConfiguration
+                            ? savedOptionConfiguration.isDisabled
                             : false,
                     };
                 }),
                 canCompanyEdit,
                 defaultValue: defaultOpt ? defaultOpt.text : null,
             };
+
             break;
         }
         case VALS.MULTI_PHOTO:
