@@ -28,7 +28,11 @@ const useBugReportsTable = () => {
         }
     }, [postSuccess, prevPostSuccess]);
 
-    return { dates, setDates, bugReports, isFetching, error };
+    const handleViewBugReport = id => {
+        history.push(`/admin/bug-reports/${id}`);
+    };
+
+    return { dates, setDates, bugReports, isFetching, error, handleViewBugReport };
 };
 
 const mapStateToProps = ({

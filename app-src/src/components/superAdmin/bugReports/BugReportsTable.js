@@ -22,7 +22,14 @@ const headers = [
 const BugReportsTable = () => {
     const today = new Date();
 
-    const { dates, setDates, bugReports, isFetching, error } = useBugReportsTable();
+    const {
+        dates,
+        setDates,
+        bugReports,
+        isFetching,
+        error,
+        handleViewBugReport,
+    } = useBugReportsTable();
     const [handleDeleteBugReport] = useDeleteBugReport();
 
     return (
@@ -82,12 +89,12 @@ const BugReportsTable = () => {
                             <td className="center">{report.systemPage}</td>
                             <td>
                                 <BlockButtonWrapper>
-                                    <a
+                                    <button
                                         className="button green"
-                                        href={`/admin/bug-reports/${report.id}`}
+                                        onClick={() => handleViewBugReport(report.id)}
                                     >
                                         <i className="far fa-eye" /> View
-                                    </a>
+                                    </button>
                                     <button
                                         className="button red"
                                         onClick={() => handleDeleteBugReport(report.id)}
