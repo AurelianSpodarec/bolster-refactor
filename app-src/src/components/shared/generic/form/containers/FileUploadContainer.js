@@ -227,16 +227,19 @@ class FileUploadContainer extends Component {
 
     handleSelectFromDocLib = e => {
         e.preventDefault();
-        
-        this.props.showModal(SELECT_DOCUMENT_LIBRARY_ITEM, { handleChange: (newS3Key) => {
-            this.setState(
-                prevState => ({
-                    fileS3Keys: prevState.fileS3Keys.concat(newS3Key),
-                    softError: null,
-                }),
-                this._handleChange,
-            );
-        } });
+
+        this.props.showModal(SELECT_DOCUMENT_LIBRARY_ITEM, {
+            mimeTypes: ['application/pdf'],
+            handleChange: newS3Key => {
+                this.setState(
+                    prevState => ({
+                        fileS3Keys: prevState.fileS3Keys.concat(newS3Key),
+                        softError: null,
+                    }),
+                    this._handleChange,
+                );
+            },
+        });
     };
 }
 
