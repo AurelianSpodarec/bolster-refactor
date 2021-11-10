@@ -161,7 +161,7 @@ const BugReportForm = () => {
                         <FileUploadContainer
                             value={form.evidenceFile}
                             name="evidenceFile"
-                            acceptedTypes={['image/jpg', 'image/png', 'image/jpeg', , 'video/mp4']}
+                            acceptedTypes={['image/jpg', 'image/png', 'image/jpeg', 'video/mp4']}
                             handleChange={handleChange}
                         />
                     </Field>
