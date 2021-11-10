@@ -87,14 +87,14 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                 <div className="details-container">
                     {item.type === DOCUMENT_LIBRARY_TYPES.FILE && (
                         <Link
-                            to={`/company/document-library?prefix=${item.searchTerm}`}
+                            to={`/company/document-library?prefix=${prefix + item.name}`}
                             title={`Open ${item.name}`}
                         >
                             <FileTypeIcon src={getIconFromExt(item.fileExtension)} />
                         </Link>
                     )}
                     <Link
-                        to={`/company/document-library?prefix=${item.searchTerm}`}
+                        to={`/company/document-library?prefix=${prefix + item.name}`}
                         title={`Open ${item.name}`}
                     >
                         <p

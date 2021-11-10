@@ -87,7 +87,7 @@ let DocumentsListItem = ({
                     ) : (
                         <a
                             href={`${RAW_S3_STORAGE_URL}/${item.s3Key}`}
-                            title={item.isArchived ? item.searchTerm : item.name}
+                            title={item.name}
                             target={item.type === DOCUMENT_LIBRARY_TYPES.FILE && '_blank'}
                         >
                             <p>{item.name}</p>
