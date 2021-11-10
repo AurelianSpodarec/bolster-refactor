@@ -10,6 +10,7 @@ export default combineReducers({
     isPosting: isPostingReducer,
     postSuccess: postSuccessReducer,
     error: errorReducer,
+    ticketReference: ticketReferenceReducer,
 });
 
 function isPostingReducer(state = false, action) {
@@ -42,6 +43,15 @@ function errorReducer(state = null, action) {
             return action.payload;
         case CREATE_BUG_REPORT_REQUEST:
             return false;
+        default:
+            return state;
+    }
+}
+
+function ticketReferenceReducer(state = '', action) {
+    switch (action.type) {
+        case CREATE_BUG_REPORT_SUCCESS:
+            return action.payload.ticketReference;
         default:
             return state;
     }

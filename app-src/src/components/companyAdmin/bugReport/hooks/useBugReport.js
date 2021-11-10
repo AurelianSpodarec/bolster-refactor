@@ -25,20 +25,18 @@ const useBugReport = () => {
         isReplicable: false,
     });
 
-    console.log(form.isReplicable);
-    const { postSuccess, isPosting } = useSelector(mapStateToProps);
+    const { postSuccess, isPosting, ticketReference } = useSelector(mapStateToProps);
     const prevPostSuccess = usePrevious(postSuccess);
 
     useEffect(() => {
-        if (postSuccess && !prevPostSuccess) {
-            const message =
-                'Thank you for submitting the bug report. Our development team will investigate the issue shortly.';
+        if (postSuccess && !prevPostSuccess && ticketReference) {
+            const message = `Thank you for submitting the bug report. Your ticket reference number is ${ticketReference}.`;
 
             dispatch(showModal(SUCCESS_MODAL, { title: 'Success!', message }));
 
             history.push('/company');
         }
-    }, [postSuccess, prevPostSuccess]);
+    }, [postSuccess, prevPostSuccess, ticketReference]);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -51,12 +49,13 @@ const useBugReport = () => {
 
 const mapStateToProps = ({
     companyAdmin: {
-        bugReportsReducer: { isPosting, error, postSuccess },
+        bugReportsReducer: { isPosting, error, postSuccess, ticketReference },
     },
 }) => ({
     isPosting,
     error,
     postSuccess,
+    ticketReference,
 });
 
 export default useBugReport;
