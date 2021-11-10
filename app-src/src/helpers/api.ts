@@ -1,5 +1,6 @@
 import jwtDecode from 'jwt-decode';
 import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
+import { JWT, RawJWT } from 'types/shared/token';
 
 // getAuthHeader  returns an authorization header with jwt token.
 export function getAuthHeader() {
@@ -25,7 +26,7 @@ export function authenticate() {
         const token = localStorage.getItem('token');
 
         if (!(token && token.length)) reject();
-        const decoded = jwtDecode(token);
+        const decoded: RawJWT = jwtDecode(token);
         const isExpired = decoded.exp < new Date().valueOf() / 1000;
         if (isExpired) reject('Expired token.');
         resolve(formatJWTData(decoded));
@@ -33,14 +34,14 @@ export function authenticate() {
 }
 
 // returns a decoded jwt object or an error.
-export function getDecodedJWT() {
+export function getDecodedJWT(): Promise<JWT | null> {
     const token = localStorage.getItem('token') || '';
     return new Promise(resolve => {
         try {
             const decoded = jwtDecode(token);
             resolve(formatJWTData(decoded));
         } catch {
-            resolve({});
+            resolve(null);
         }
     });
 }
@@ -57,7 +58,7 @@ export function formatJWTData({
     HeadquartersCompanyUserType,
     HeadquartersCompanyID,
     ...rest
-}) {
+}: RawJWT): JWT {
     return {
         id: JSON.parse(ID),
         isSuperAdmin: JSON.parse(IsSuperAdmin),
