@@ -28,21 +28,11 @@ const DocumentLibrary = () => {
     const history = useHistory();
     const prevProps = usePrevious({ libraryFilter });
 
-    const {
-        documentLibrary,
-        isFetching,
-        fetchError,
-        selectedItems,
-        toggleItemSelect,
-    } = useLibraryDocuments(prefixQuery);
+    const { documentLibrary, isFetching, fetchError, selectedItems, toggleItemSelect } =
+        useLibraryDocuments(prefixQuery);
 
-    const {
-        handleShowDeleteModal,
-        handleHideDeleteModal,
-        isDeleting,
-        deleteSuccess,
-        deleteError,
-    } = useDeleteLibraryDocuments(selectedItems, prefixQuery);
+    const { handleShowDeleteModal, handleHideDeleteModal, isDeleting, deleteSuccess, deleteError } =
+        useDeleteLibraryDocuments(selectedItems, prefixQuery);
 
     const {
         handleShowRestoreModal,
@@ -134,14 +124,20 @@ const DocumentLibrary = () => {
                             isFetching={isFetching}
                             fetchError={fetchError}
                         />
+                        {isActive && (
+                            <div className="dnd-overlay">
+                                <div
+                                    className="dnd-indicator"
+                                    style={{ top: scroll.y + window.innerHeight / 3 }}
+                                >
+                                    <h3>Drag and Drop</h3>
+                                    <p>Release to upload</p>
+                                </div>
+                            </div>
+                        )}
                     </>
                 )}
             </div>
-            {isActive && (
-                <div className="dnd-overlay">
-                    <h3>Release file to upload</h3>
-                </div>
-            )}
         </>
     );
 };
