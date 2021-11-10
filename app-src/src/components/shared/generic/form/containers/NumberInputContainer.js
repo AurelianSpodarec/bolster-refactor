@@ -7,7 +7,7 @@ import TextInput from '../presentational/TextInput';
 
 class NumberInputContainer extends Component {
     state = {
-        showFieldError: false
+        showFieldError: false,
     };
 
     render() {
@@ -20,7 +20,7 @@ class NumberInputContainer extends Component {
             classes = '',
             error,
             errorsVisible,
-            maxNum
+            maxNum,
         } = this.props;
 
         const errorMessage = showFieldError || errorsVisible ? error : null;
@@ -52,28 +52,17 @@ class NumberInputContainer extends Component {
         if (error) removeFieldError(name);
     };
 
-    handleChange = ({ target: { name, value } }) =>
-        this.props.handleChange(name, value);
+    handleChange = ({ target: { name, value } }) => this.props.handleChange(name, value);
 
     handleBlur = () => this.setState({ showFieldError: true });
 
     _validate = value => {
-        const {
-            name,
-            error,
-            required,
-            addFieldError,
-            removeFieldError,
-            maxNum
-        } = this.props;
-
+        const { name, error, required, addFieldError, removeFieldError, maxNum } = this.props;
+        console.log(value);
         if (required && !value) {
-            addFieldError(name, 'This is a required field.');
+            addFieldError(name, 'This field is required and needs to be a number.');
         } else if (required && maxNum && value > maxNum) {
-            addFieldError(
-                name,
-                `The maximum value for this field is ${maxNum}`
-            );
+            addFieldError(name, `The maximum value for this field is ${maxNum}`);
         } else if (error) {
             removeFieldError(name);
         }
@@ -82,15 +71,12 @@ class NumberInputContainer extends Component {
 
 const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
     error: fieldErrorsReducer.fieldErrors[ownProps.name],
-    errorsVisible: fieldErrorsReducer.errorsVisible
+    errorsVisible: fieldErrorsReducer.errorsVisible,
 });
 
 const mapDispatchToProps = dispatch => ({
     addFieldError: (name, error) => dispatch(addFieldError(name, error)),
-    removeFieldError: name => dispatch(removeFieldError(name))
+    removeFieldError: name => dispatch(removeFieldError(name)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(NumberInputContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(NumberInputContainer);
