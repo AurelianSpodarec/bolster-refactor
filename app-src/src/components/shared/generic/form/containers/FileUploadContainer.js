@@ -134,6 +134,7 @@ class FileUploadContainer extends Component {
     handleUpload = async e => {
         e.persist();
         const files = e.target.files;
+
         this.props.fileUploadStart();
 
         const { maxFiles } = this.props;
@@ -165,6 +166,13 @@ class FileUploadContainer extends Component {
         }
         if (!this._validateFileType(file.type)) {
             this.setState({ softError: `The file type '${file.type}' is not permitted.` });
+            return;
+        }
+
+        if (!this.validateDimensions(file)) {
+            this.setState({
+                softError: `The image exceeds the maximum dimensions of ${this.props.maxHeight}x${this.props.maxWidth}`,
+            });
             return;
         }
 
@@ -220,6 +228,31 @@ class FileUploadContainer extends Component {
             this._handleChange,
         );
     };
+
+    validateDimensions(file) {
+        const { maxHeight, maxWidth } = this.props;
+
+        if (!maxHeight && !maxWidth) return true;
+
+        let reader = new FileReader();
+
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            let image = new Image();
+
+            image.src = reader.result;
+
+            image.onload = () => {
+                const height = image.height;
+                const width = image.width;
+
+                if (height > maxHeight && width > maxWidth) {
+                    return false;
+                }
+                return true;
+            };
+        };
+    }
 }
 
 const mapDispatchToProps = dispatch => ({
