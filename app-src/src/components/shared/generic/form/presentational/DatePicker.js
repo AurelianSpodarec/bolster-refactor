@@ -18,7 +18,6 @@ const DatePickerPresentational = ({
     isIE10,
     error,
 }) => {
-    console.log(error);
     return (
         //currently only works on drawing single page - ie10 fix
         isIE10 ? (
