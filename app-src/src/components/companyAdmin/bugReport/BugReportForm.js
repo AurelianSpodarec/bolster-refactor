@@ -60,6 +60,7 @@ const BugReportForm = () => {
                     <Field
                         name="Screenshot of the 'About device' page. This can be found through the devices settings."
                         sizeClasses="size-lg-6"
+                        required
                     >
                         <p>Please upload your screenshot in .jpg or .png format.</p>
                         <br />
@@ -68,6 +69,7 @@ const BugReportForm = () => {
                             name="aboutDeviceScreenshot"
                             acceptedTypes={['image/jpg', 'image/png', 'image/jpeg']}
                             handleChange={handleChange}
+                            required
                         />
                     </Field>
 
@@ -124,6 +126,7 @@ const BugReportForm = () => {
                             selected={form.dateIssueOccurred}
                             onChange={val => handleChange('dateIssueOccurred', val)}
                             placeholderText="Select Date"
+                            required
                         />
                     </Field>
                 </div>
@@ -138,7 +141,7 @@ const BugReportForm = () => {
                         />
                     </Field>
 
-                    <Field name="Could you replicate the issue?" sizeClasses="size-lg-6" required>
+                    <Field name="Could you replicate the issue?" sizeClasses="size-lg-6">
                         <CheckboxContainer
                             name="isReplicable"
                             checked={form.isReplicable}
@@ -163,6 +166,7 @@ const BugReportForm = () => {
                             name="evidenceFile"
                             acceptedTypes={['image/jpg', 'image/png', 'image/jpeg', 'video/mp4']}
                             handleChange={handleChange}
+                            required
                         />
                     </Field>
                 </div>
