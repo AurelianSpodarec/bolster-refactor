@@ -33,7 +33,6 @@ class LevelsFilterContainer extends Component {
         } = this.props;
 
         const sortedFloors = Object.values(floors).sort((a, b) => a.sort - b.sort); // Sort based on sort key
-
         const sitesOptions = formatArrForDropdown(sites);
         const buildingOptions = formatArrForDropdown(buildings);
         const floorOptions = formatArrForDropdown(sortedFloors);
