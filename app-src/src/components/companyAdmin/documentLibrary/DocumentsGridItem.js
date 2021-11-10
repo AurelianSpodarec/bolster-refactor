@@ -8,9 +8,11 @@ import FileTypeIcon from './FileTypeIcon';
 import { RAW_S3_STORAGE_URL } from 'config';
 import { useSelector } from 'react-redux';
 import { formatBytes } from './CreateDocumentForm';
+import { useQueryParam } from 'helpers/hooks';
 
 const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
     const [showDetails, setShowDetails] = useState(false);
+    const prefix = useQueryParam('prefix') || '';
 
     const users = useSelector(mapStateToProps) || {};
 
@@ -18,7 +20,7 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
         <div className="grid-item">
             {item.type === DOCUMENT_LIBRARY_TYPES.FOLDER ? (
                 <Link
-                    to={`/company/document-library?prefix=${item.searchTerm}`}
+                    to={`/company/document-library?prefix=${prefix + item.name}`}
                     title={`Open ${item.name}${item.fileExtension ? `.${item.fileExtension}` : ''}`}
                     className={`image-container ${showDetails ? 'show-details' : ''}`}
                 >
@@ -40,7 +42,6 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                                         : '-'
                                 }`}
                             </p>
-                            <p>Location: {item.searchTerm}</p>
                             {item.type === DOCUMENT_LIBRARY_TYPES.FILE && (
                                 <>
                                     <p>Viewable in app: {item.isViewApp ? 'Yes' : 'No'}</p>
@@ -76,7 +77,6 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                                 }`}
                             </p>
                             <p>File size: {formatBytes(item.contentLength)}</p>
-                            <p>Location: {item.searchTerm}</p>
                             <p>Viewable in app: {item.isViewApp ? 'Yes' : 'No'}</p>
                             <p>Attachable to pins: {item.isAttachPins ? 'Yes' : 'No'}</p>
                         </div>

@@ -8,6 +8,7 @@ import FileTypeIcon from './FileTypeIcon';
 import { formatBytes } from './CreateDocumentForm';
 import { RAW_S3_STORAGE_URL } from 'config';
 import { useSelector } from 'react-redux';
+import { useQueryParam } from 'helpers/hooks';
 
 let DocumentsListItem = ({
     item,
@@ -19,6 +20,7 @@ let DocumentsListItem = ({
     isSelected = false,
     toggleItemSelect,
 }) => {
+    const prefix = useQueryParam('prefix') || '';
     let rowClass = 'draggable expandable dl-row';
     if (isDragging) rowClass += ' dragging';
 
@@ -36,7 +38,7 @@ let DocumentsListItem = ({
                     {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
                     {item.type === DOCUMENT_LIBRARY_TYPES.FOLDER ? (
                         !item.isArchived ? (
-                            <Link to={`/company/document-library?prefix=${item.searchTerm}`}>
+                            <Link to={`/company/document-library?prefix=${prefix + item.name}`}>
                                 <FileTypeIcon
                                     src={
                                         item.type === DOCUMENT_LIBRARY_TYPES.FILE
@@ -76,11 +78,11 @@ let DocumentsListItem = ({
                     {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                     {item.type === DOCUMENT_LIBRARY_TYPES.FOLDER ? (
                         !item.isArchived ? (
-                            <Link to={`/company/document-library?prefix=${item.searchTerm}`}>
-                                <p>{item.isArchived ? item.searchTerm : item.name}</p>
+                            <Link to={`/company/document-library?prefix=${prefix + item.name}`}>
+                                <p>{item.name}</p>
                             </Link>
                         ) : (
-                            <p>{item.isArchived ? item.searchTerm : item.name}</p>
+                            <p>{item.name}</p>
                         )
                     ) : (
                         <a
@@ -88,7 +90,7 @@ let DocumentsListItem = ({
                             title={item.isArchived ? item.searchTerm : item.name}
                             target={item.type === DOCUMENT_LIBRARY_TYPES.FILE && '_blank'}
                         >
-                            <p>{item.isArchived ? item.searchTerm : item.name}</p>
+                            <p>{item.name}</p>
                         </a>
                     )}
                 </td>

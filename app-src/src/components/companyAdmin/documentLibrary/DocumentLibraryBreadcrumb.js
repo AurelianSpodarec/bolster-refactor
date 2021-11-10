@@ -1,14 +1,8 @@
-import { stripS3Key } from 'helpers/general';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 const DocumentLibraryBreadcrumb = ({ prefix }) => {
-    let prefixArr = [];
-    try {
-        prefixArr = stripS3Key(prefix).split('/');
-    } catch {
-        prefixArr = [];
-    }
+    let prefixArr = (prefix ? prefix : '').split('/');
 
     return (
         <span className="dl-breadcrumb">
@@ -21,7 +15,7 @@ const DocumentLibraryBreadcrumb = ({ prefix }) => {
                 <React.Fragment key={i}>
                     {' / '}
                     {i < prefixArr.length - 1 ? (
-                        <Link to={`/company/document-library?prefix=${item}/`}>{item}</Link>
+                        <Link to={`/company/document-library?prefix=${prefixArr.slice(0, i + 1).join('/')}/`}>{item}</Link>
                     ) : (
                         <span>{item}</span>
                     )}
