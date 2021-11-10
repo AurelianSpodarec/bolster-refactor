@@ -1,5 +1,4 @@
 import moment from 'moment';
-import numberNames from 'constants/shared/numberNames';
 
 export const reverseObject = obj => {
     return Object.entries(obj).reduce((ret, entry) => {
@@ -42,27 +41,4 @@ export const companyTrackingShowWarning = company => {
     }
 
     return { period: null, showWarning: false };
-};
-
-export const convertNameToNumber = name => {
-    // Find keywords in floor labels to sort in order
-    let acc = 0;
-    try {
-        if (name.match(/\d/)) {
-            // If any numbers exists, use those
-            let value = name
-                .split('')
-                .filter(c => c.match(/\d/))
-                .join('');
-            if (!Number.isNaN(+value)) acc += +value;
-        } else {
-            // Scan for keywords from lookup object
-            Object.keys(numberNames).forEach(key => {
-                if (name.toLowerCase().includes(key)) acc += numberNames[key];
-            });
-        }
-    } catch {
-        return acc;
-    }
-    return acc;
 };
