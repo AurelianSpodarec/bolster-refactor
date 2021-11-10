@@ -20,6 +20,7 @@ const BugReport = () => {
                         form has been completed.
                     </p>
                 </BlockHeading>
+
                 <BugReportForm />
             </BlockContainer>
         </>

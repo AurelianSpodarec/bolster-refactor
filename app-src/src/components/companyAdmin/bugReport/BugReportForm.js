@@ -61,12 +61,12 @@ const BugReportForm = () => {
                         name="Screenshot of the 'About device' page. This can be found through the devices settings."
                         sizeClasses="size-lg-6"
                     >
-                        <p>Please upload your screenshot in .pdf, .jpg or .png format.</p>
+                        <p>Please upload your screenshot in .jpg or .png format.</p>
                         <br />
                         <FileUploadContainer
                             value={form.aboutDeviceScreenshot}
                             name="aboutDeviceScreenshot"
-                            acceptedTypes={['application/pdf', 'image/*']}
+                            acceptedTypes={['image/jpg', 'image/png', 'image/jpeg']}
                             handleChange={handleChange}
                         />
                     </Field>
@@ -161,7 +161,7 @@ const BugReportForm = () => {
                         <FileUploadContainer
                             value={form.evidenceFile}
                             name="evidenceFile"
-                            acceptedTypes={['image/*', 'video/mp4']}
+                            acceptedTypes={['image/jpg', 'image/png', 'image/jpeg', , 'video/mp4']}
                             handleChange={handleChange}
                         />
                     </Field>
