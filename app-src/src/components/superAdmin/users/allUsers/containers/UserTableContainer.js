@@ -6,6 +6,7 @@ import PageSelector from 'components/shared/pagination/presentational/pageSelect
 import fetchUsersBySearch from 'actions/superAdmin/users/async/fetchUsersBySearch';
 import updateUsersFilters from 'actions/superAdmin/users/sync/updateUsersFilter';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import { getSearchMatch } from 'helpers/general';
 
 const UserTableContainer = ({
     isFetching,
@@ -51,15 +52,7 @@ const UserTableContainer = ({
                 if (role === deletedRole) return u.isDeleted;
                 return u.roles && u.roles.find(({ type }) => String(type) === role);
             })
-            .filter(u => {
-                if (
-                    (u.email && u.email.toLowerCase().includes(searchTerm.toLowerCase())) ||
-                    (u.firstName && u.firstName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-                    (u.lastName && u.lastName.toLowerCase().includes(searchTerm.toLowerCase()))
-                )
-                    return true;
-                else return false;
-            });
+            .filter(u => getSearchMatch(searchTerm, `${u.firstName} ${u.lastName} ${u.email}`));
     }
 
     function setPage(nextPage) {
