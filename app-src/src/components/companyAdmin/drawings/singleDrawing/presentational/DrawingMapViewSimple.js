@@ -171,6 +171,9 @@ const DrawingMapViewSimple = ({
                                                 />
                                             </>
                                         )}
+                                    <button className="button blue" onClick={() => {}}>
+                                        Pin icon view
+                                    </button>
                                 </>
                             )
                         )}
