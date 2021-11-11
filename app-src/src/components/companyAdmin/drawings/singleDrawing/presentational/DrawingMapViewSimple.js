@@ -61,6 +61,8 @@ const DrawingMapViewSimple = ({
     curZoom,
     shouldRestrictPayments,
     drawingNotStarted,
+    pinViewMode,
+    togglePinIconView,
 }) => {
     const mapRef = useRef();
 
@@ -171,8 +173,8 @@ const DrawingMapViewSimple = ({
                                                 />
                                             </>
                                         )}
-                                    <button className="button blue" onClick={() => {}}>
-                                        Pin icon view
+                                    <button className="button blue" onClick={togglePinIconView}>
+                                        Pin {pinViewMode === 'view' ? 'icon' : 'normal'} view
                                     </button>
                                 </>
                             )
@@ -213,6 +215,7 @@ const DrawingMapViewSimple = ({
                                         withLink={!shouldShowPinSelectorOptions && !addMode}
                                         withTooltip={!isExcluding}
                                         isExcluding={isExcluding}
+                                        pinViewMode={pinViewMode}
                                     />
                                 ))}
                                 {addMode && <Marker position={addPinPosition} icon={newPinIcon} />}

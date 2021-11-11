@@ -29,6 +29,7 @@ class MapPinContainer extends Component {
             excludedPinIDs,
             isClient,
             tooltipVisible,
+            pinViewMode,
         } = this.props;
         const { createdByCompanyUserID, latestServiceID } = pin;
         const user = users[createdByCompanyUserID];
@@ -51,6 +52,7 @@ class MapPinContainer extends Component {
                 updateIsPinExcluded={isClient ? clientUpdateIsPinExcluded : updateIsPinExcluded}
                 excludedPinIDs={excludedPinIDs}
                 showPinInfo={showPinInfo}
+                pinViewMode={pinViewMode}
             />
         );
     }
