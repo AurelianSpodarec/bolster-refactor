@@ -10,7 +10,6 @@ import useLibraryDocuments from './_hooks/useLibraryDocuments';
 import { useSelector } from 'react-redux';
 import switchDocumentLibraryView from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryView';
 import useDeleteLibraryDocuments from './_hooks/useDeleteLibraryDocuments';
-import useDocumentLibraryPagination from './_hooks/useDocumentsLibraryPagination';
 import useOpenCreateDocumentModal from './_hooks/useOpenCreateDocumentModal';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { CREATE_LIBRARY_FOLDER, EDIT_LIBRARY_ITEMS } from 'constants/shared/modalTypes';
@@ -28,19 +27,17 @@ const DocumentLibrary = () => {
     const history = useHistory();
     const prevProps = usePrevious({ libraryFilter });
 
-    const { documentLibrary, isFetching, fetchError, selectedItems, toggleItemSelect } =
-        useLibraryDocuments(prefixQuery);
-
-    const { handleShowDeleteModal, handleHideDeleteModal, isDeleting, deleteSuccess, deleteError } =
-        useDeleteLibraryDocuments(selectedItems, prefixQuery);
-
     const {
-        handleShowRestoreModal,
-        handleHideRestoreModal,
-        isRestoring,
-        restoreSuccess,
-        restoreError,
-    } = useRestoreLibraryDocuments(selectedItems);
+        documentLibrary,
+        isFetching,
+        fetchError,
+        selectedItems,
+        toggleItemSelect,
+    } = useLibraryDocuments(prefixQuery);
+
+    const { handleShowDeleteModal } = useDeleteLibraryDocuments(selectedItems, prefixQuery);
+
+    const { handleShowRestoreModal } = useRestoreLibraryDocuments(selectedItems);
 
     useEffect(() => {
         dispatch(fetchCompanyUsers(id));
@@ -53,8 +50,6 @@ const DocumentLibrary = () => {
         )
             history.replace('/company/document-library');
     }, [libraryFilter, prevProps.libraryFilter]); // Redirect to root when switching to/from deleted
-
-    const { currentPage, setCurrentPage, setPageSize, limit } = useDocumentLibraryPagination();
 
     const isActive = canDrop && isOver;
 
