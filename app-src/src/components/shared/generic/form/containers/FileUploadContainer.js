@@ -236,6 +236,8 @@ class FileUploadContainer extends Component {
 
         if (!maxHeight && !maxWidth) return true;
 
+        if (!file.type.includes('image')) return false;
+
         const reader = new FileReader();
 
         reader.readAsDataURL(file);
