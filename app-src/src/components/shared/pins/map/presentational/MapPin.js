@@ -16,7 +16,17 @@ import MapPinPhotoSlider from './MapPinPhotoSlider';
 import IconPin from './IconPin';
 
 const DrawingMapPin = ({
-    pin: { id, location = {}, pinCode, latestStatus = '', createdOn, latestCreatedOn, excluded },
+    pin: {
+        id,
+        location = {},
+        pinCode,
+        latestStatus = '',
+        createdOn,
+        latestCreatedOn,
+        excluded,
+        templateID,
+    },
+    pin,
     pinHistory = {},
     history,
     withLink,
@@ -32,12 +42,13 @@ const DrawingMapPin = ({
     excludedPinIDs,
     tooltipVisible,
     pinViewMode,
+    templates,
+    services,
 }) => {
     const { latY = 1, lngX = 1 } = location;
     const status = pinHistory.status || latestStatus;
     const pinColour = COLOURS[status] || 'red';
     const updated = formatDate(latestCreatedOn) !== formatDate(createdOn) ? latestCreatedOn : null;
-
     const renderPin = pinViewMode => {
         const props = {
             iconSize: [30, 50],
@@ -45,24 +56,26 @@ const DrawingMapPin = ({
             popupAnchor: [0, -50],
             className: '',
         };
-        if (pinViewMode === 'view')
+        if (pinViewMode === 'icon') {
+            const icon = undefined; // WIP - will come from service, template & pinhistory
             return L.divIcon({
                 ...props,
                 html: ReactDOMServer.renderToString(
-                    <CustomPin
+                    <IconPin
                         pinColour={pinColour}
                         pinCode={pinCode}
                         pinID={id}
                         history={pinHistory}
                         excluded={excluded}
+                        icon={icon}
                     />,
                 ),
             });
-        else
+        } else
             return L.divIcon({
                 ...props,
                 html: ReactDOMServer.renderToString(
-                    <IconPin
+                    <CustomPin
                         pinColour={pinColour}
                         pinCode={pinCode}
                         pinID={id}
