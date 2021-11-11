@@ -51,18 +51,9 @@ const SelectDocumentLibraryItemModal = ({ handleChange, hideModal, mimeTypes = [
         );
 
     const breadcrumbItems = getBreadcrumbItems(parentID);
-    console.log({ breadcrumbItems });
+    console.log({breadcrumbItems});
 
-    //     <span className="dl-breadcrumb">
-    //     <Link to={'/company/document-library'}>Company files</Link>
-    //     {prefixArr.map((item, i) => (
-    //         <React.Fragment key={i}>
-    //             {' / '}
-    //             <Link to={`/company/document-library?prefix=${item}`}>{item}</Link>
-    //         </React.Fragment>
-    //     ))}
     // </span>
-
     return (
         <ModalOuterContainer>
             <BlockHeading title="Select document from library" />

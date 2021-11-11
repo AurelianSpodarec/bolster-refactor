@@ -41,8 +41,12 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                                 }`}
                             </p>
                             <p>Location: {item.searchTerm}</p>
-                            <p>Viewable in app: {item.isViewApp ? 'Yes' : 'No'}</p>
-                            <p>Attachable to pins: {item.isAttachPins ? 'Yes' : 'No'}</p>
+                            {item.type === DOCUMENT_LIBRARY_TYPES.FILE && (
+                                <>
+                                    <p>Viewable in app: {item.isViewApp ? 'Yes' : 'No'}</p>
+                                    <p>Attachable to pins: {item.isAttachPins ? 'Yes' : 'No'}</p>
+                                </>
+                            )}
                         </div>
                     )}
                 </Link>
