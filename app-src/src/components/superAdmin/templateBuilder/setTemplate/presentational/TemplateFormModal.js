@@ -10,6 +10,7 @@ import DropdownContainer from 'components/shared/generic/form/containers/Dropdow
 import LabelTypeRadioButtonsContainer from '../containers/LabelTypeRadioButtonsContainer';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import Select from 'components/shared/generic/form/presentational/Select';
+import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 
 const TemplateformModal = ({
     action,
@@ -24,18 +25,13 @@ const TemplateformModal = ({
     reportLayoutOptions,
     handleChange,
     handleSubmit,
-    handleCancel
+    handleCancel,
 }) => (
     <ModalOuter hideModal={handleCancel}>
         <BlockHeading title={`${action} template`} />
         <Form className="generic-form" onSubmit={handleSubmit}>
             <Field name="name" required>
-                <TextInputContainer
-                    name="name"
-                    handleChange={handleChange}
-                    value={name}
-                    required
-                />
+                <TextInputContainer name="name" handleChange={handleChange} value={name} required />
             </Field>
             <Field name="Service" required>
                 <DropdownContainer
@@ -73,6 +69,20 @@ const TemplateformModal = ({
                     options={labelTypeOptions}
                     value={labelType}
                     handleChange={handleChange}
+                />
+            </Field>
+            <Field name="Pin Display Icon">
+                <p>Please upload your drawing in .png format with a maximum size of 128x128px.</p>
+                <br />
+                <FileUploadContainer
+                    //   value={iconS3Key}
+                    //   name={`iconS3Key`}
+                    acceptedTypes={['image/png']}
+                    //   handleChange={(name, value) => {
+                    //       handleChange(name, value);
+                    //   }}
+                    maxHeight={128}
+                    maxWidth={128}
                 />
             </Field>
             <BlockButtonWrapper>

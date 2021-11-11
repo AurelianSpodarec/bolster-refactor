@@ -169,7 +169,9 @@ class FileUploadContainer extends Component {
             return;
         }
 
-        if (!this.validateDimensions(file)) {
+        const isValid = await this.isImageValid(file);
+
+        if (!isValid) {
             this.setState({
                 softError: `The image exceeds the maximum dimensions of ${this.props.maxHeight}x${this.props.maxWidth}`,
             });
@@ -229,29 +231,34 @@ class FileUploadContainer extends Component {
         );
     };
 
-    validateDimensions(file) {
+    async isImageValid(file) {
         const { maxHeight, maxWidth } = this.props;
 
         if (!maxHeight && !maxWidth) return true;
 
-        let reader = new FileReader();
+        const reader = new FileReader();
 
         reader.readAsDataURL(file);
-        reader.onload = () => {
-            let image = new Image();
 
-            image.src = reader.result;
+        return new Promise(resolve => {
+            reader.onload = () => {
+                const image = new Image();
 
-            image.onload = () => {
-                const height = image.height;
-                const width = image.width;
+                image.src = reader.result;
 
-                if (height > maxHeight && width > maxWidth) {
-                    return false;
-                }
-                return true;
+                image.onload = () => {
+                    const height = image.height;
+                    const width = image.width;
+
+                    console.log(height, width);
+
+                    if (height > maxHeight && width > maxWidth) {
+                        resolve(false);
+                    }
+                    resolve(true);
+                };
             };
-        };
+        });
     }
 }
 
