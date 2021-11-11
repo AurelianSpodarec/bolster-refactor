@@ -35,6 +35,9 @@ import {
     FETCH_STORAGE_INFORMATION_SUCCESS,
     FETCH_STORAGE_INFORMATION_FAILURE,
     FETCH_STORAGE_INFORMATION_REQUEST,
+    EDIT_DOCUMENT_LIBRARY_ITEM_NAME_REQUEST,
+    EDIT_DOCUMENT_LIBRARY_ITEM_NAME_SUCCESS,
+    EDIT_DOCUMENT_LIBRARY_ITEM_NAME_FAILURE,
 } from 'constants/actionTypes/documentLibrary';
 
 export default combineReducers({
@@ -108,11 +111,14 @@ function isPostingReducer(state = false, action) {
     switch (action.type) {
         case CREATE_LIBRARY_DOCUMENT_FOLDER_REQUEST:
         case EDIT_DOCUMENT_LIBRARY_ITEMS_REQUEST:
+        case EDIT_DOCUMENT_LIBRARY_ITEM_NAME_REQUEST:
             return true;
         case CREATE_LIBRARY_DOCUMENT_FOLDER_SUCCESS:
         case CREATE_LIBRARY_DOCUMENT_FOLDER_FAILURE:
         case EDIT_DOCUMENT_LIBRARY_ITEMS_SUCCESS:
         case EDIT_DOCUMENT_LIBRARY_ITEMS_FAILURE:
+        case EDIT_DOCUMENT_LIBRARY_ITEM_NAME_SUCCESS:
+        case EDIT_DOCUMENT_LIBRARY_ITEM_NAME_FAILURE:
             return false;
         default:
             return state;
@@ -123,9 +129,11 @@ function postErrorReducer(state = null, action) {
     switch (action.type) {
         case CREATE_LIBRARY_DOCUMENT_FOLDER_REQUEST:
         case EDIT_DOCUMENT_LIBRARY_ITEMS_REQUEST:
+        case EDIT_DOCUMENT_LIBRARY_ITEM_NAME_REQUEST:
             return null;
         case CREATE_LIBRARY_DOCUMENT_FOLDER_FAILURE:
         case EDIT_DOCUMENT_LIBRARY_ITEMS_FAILURE:
+        case EDIT_DOCUMENT_LIBRARY_ITEM_NAME_FAILURE:
             return action.error;
         default:
             return state;
@@ -223,6 +231,7 @@ function documentLibraryReducer(state = {}, action) {
         case ADD_DOCUMENT_LIBRARY_ITEM:
             return updateObj(state, action.payload.id, action.payload);
         case EDIT_DOCUMENT_LIBRARY_ITEMS_SUCCESS:
+        case EDIT_DOCUMENT_LIBRARY_ITEM_NAME_SUCCESS:
             return { ...state, ...convertArrToObj(action.payload) };
         case HARD_DELETE_LIBRARY_DOCUMENT_SUCCESS:
             return removeObjItems(state, action.ids);
@@ -249,9 +258,12 @@ function postSuccessReducer(state = false, action) {
         case CREATE_LIBRARY_DOCUMENT_FOLDER_FAILURE:
         case EDIT_DOCUMENT_LIBRARY_ITEMS_REQUEST:
         case EDIT_DOCUMENT_LIBRARY_ITEMS_FAILURE:
+        case EDIT_DOCUMENT_LIBRARY_ITEM_NAME_REQUEST:
+        case EDIT_DOCUMENT_LIBRARY_ITEM_NAME_FAILURE:
             return false;
         case CREATE_LIBRARY_DOCUMENT_FOLDER_SUCCESS:
         case EDIT_DOCUMENT_LIBRARY_ITEMS_SUCCESS:
+        case EDIT_DOCUMENT_LIBRARY_ITEM_NAME_SUCCESS:
             return true;
         default:
             return state;

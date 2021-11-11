@@ -7,7 +7,6 @@ import { useDebounce } from 'helpers/hooks';
 import { DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
 
 const useLibraryDocuments = prefix => {
-    console.log('useLibraryDocuments');
     const dispatch = useDispatch();
     const [selectedItems, setSelectedItems] = useState([]);
     const {
