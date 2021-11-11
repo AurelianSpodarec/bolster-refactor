@@ -37,8 +37,8 @@ const EditDocumentItemsModal = ({ ids }) => {
         };
 
         if (ids.length <= 1 && name.length) {
-            dispatch(editDocumentLibraryItemName({ id: ids[0], name })).then(({ type }) => {
-                if (type === 'EDIT_DOCUMENT_LIBRARY_ITEM_NAME_SUCCESS') {
+            dispatch(editDocumentLibraryItemName({ id: ids[0], name })).then(response => {
+                if (response.type === 'EDIT_DOCUMENT_LIBRARY_ITEM_NAME_SUCCESS') {
                     dispatch(editDocumentLibraryFolder(postBody));
                 }
             });

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj, removeObjItem, removeObjItems } from 'helpers/generic';
+import { convertArrToObj, updateObj, removeObjItems } from 'helpers/generic';
 import {
     SEARCH_ALL_LIBRARY_DOCUMENTS_REQUEST,
     SEARCH_ALL_LIBRARY_DOCUMENTS_SUCCESS,
@@ -231,8 +231,9 @@ function documentLibraryReducer(state = {}, action) {
         case ADD_DOCUMENT_LIBRARY_ITEM:
             return updateObj(state, action.payload.id, action.payload);
         case EDIT_DOCUMENT_LIBRARY_ITEMS_SUCCESS:
-        case EDIT_DOCUMENT_LIBRARY_ITEM_NAME_SUCCESS:
             return { ...state, ...convertArrToObj(action.payload) };
+        case EDIT_DOCUMENT_LIBRARY_ITEM_NAME_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         case HARD_DELETE_LIBRARY_DOCUMENT_SUCCESS:
             return removeObjItems(state, action.ids);
         case SOFT_DELETE_LIBRARY_DOCUMENT_SUCCESS:
