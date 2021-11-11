@@ -215,6 +215,7 @@ const DrawingMapViewSimple = ({
                                         withLink={!shouldShowPinSelectorOptions && !addMode}
                                         withTooltip={!isExcluding}
                                         isExcluding={isExcluding}
+                                        pinViewMode={pinViewMode}
                                     />
                                 ))}
                                 {addMode && <Marker position={addPinPosition} icon={newPinIcon} />}
