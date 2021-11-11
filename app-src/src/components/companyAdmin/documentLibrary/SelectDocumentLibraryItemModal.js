@@ -15,7 +15,11 @@ import { getAuthHeader } from 'helpers/api';
 
 const { FILE, FOLDER } = DOCUMENT_LIBRARY_TYPES;
 
-const SelectDocumentLibraryItemModal = ({ handleChange, hideModal, mimeTypes = [] }) => {
+const SelectDocumentLibraryItemModal = ({
+    handleChange,
+    hideModal,
+    mimeTypes = ['application/pdf'],
+}) => {
     const dispatch = useDispatch();
 
     const error = useSelector(selectError);
@@ -27,6 +31,7 @@ const SelectDocumentLibraryItemModal = ({ handleChange, hideModal, mimeTypes = [
     const [parentID, setParentID] = useState(null);
 
     let filteredItems = items.filter(item => item.parentFolderID === parentID);
+
     if (mimeTypes.length > 0)
         filteredItems = filteredItems.filter(item => mimeTypes.includes(item.mimeType));
 
@@ -51,7 +56,7 @@ const SelectDocumentLibraryItemModal = ({ handleChange, hideModal, mimeTypes = [
         );
 
     const breadcrumbItems = getBreadcrumbItems(parentID);
-    console.log({breadcrumbItems});
+    console.log({ breadcrumbItems });
 
     // </span>
     return (
