@@ -169,9 +169,9 @@ class FileUploadContainer extends Component {
             return;
         }
 
-        const isValid = await this.isImageValid(file);
+        const isValidImage = await this.isImageValid(file);
 
-        if (!isValid) {
+        if (!isValidImage) {
             this.setState({
                 softError: `The image exceeds the maximum dimensions of ${this.props.maxHeight}x${this.props.maxWidth}`,
             });
@@ -251,8 +251,6 @@ class FileUploadContainer extends Component {
                 image.onload = () => {
                     const height = image.height;
                     const width = image.width;
-
-                    console.log(height, width);
 
                     if (height > maxHeight && width > maxWidth) {
                         resolve(false);
