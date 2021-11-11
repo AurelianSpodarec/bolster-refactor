@@ -3301,12 +3301,20 @@ input {
     margin-top: 10px;
 }
 
-.custom-pin {
+.custom-pin, .icon-pin {
     float: left;
 
     img {
         float: left;
         width: 100%;
+
+        &.icon {
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            width: calc(100% - 2px);
+            border-radius: 2px;
+        }
     }
 
     .code {

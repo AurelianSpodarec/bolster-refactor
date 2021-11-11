@@ -1,17 +1,13 @@
 import React from 'react';
 
-import { pin2xImgs } from '_content/images/map-markers';
+import { iconPinImgs } from '_content/images/map-markers';
+import placeholder from '_content/images/examples/jamie.png';
 
-const IconPin = ({ pinColour = 'red', pinCode = '', excluded = false }) => {
-    const topCode = pinCode.slice(0, 4);
-    const bottomCode = pinCode.slice(5);
+const IconPin = ({ pinColour = 'red', excluded = false, icon = placeholder }) => {
     return (
-        <div className="custom-pin" style={{ opacity: excluded ? 0.5 : 1 }}>
-            <img alt={`${pinColour} pin`} src={pin2xImgs[pinColour]} />
-            {/* <div className="code">
-                <p className="code-half">{topCode}</p>
-                <p className="code-half">:{bottomCode}</p>
-            </div> */}
+        <div className="icon-pin" style={{ opacity: excluded ? 0.5 : 1 }}>
+            <img className="icon" src={icon} alt={`${pinColour} icon`} />
+            <img alt={`${pinColour} pin`} src={iconPinImgs[pinColour]} />
         </div>
     );
 };
