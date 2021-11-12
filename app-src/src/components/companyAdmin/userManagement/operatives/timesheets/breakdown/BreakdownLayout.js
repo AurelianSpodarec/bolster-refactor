@@ -1,6 +1,6 @@
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import React from 'react';
+import React, { useEffect } from 'react';
 import BreakdownTabs from './BreakdownTabs';
 import useSelectedTab from './hooks/useSelectedTab';
 
@@ -13,6 +13,10 @@ const BreakdownLayout = ({
     handlePDFReportGeneration,
 }) => {
     const { selectedTab, onTabChange } = useSelectedTab();
+
+    useEffect(() => {
+        if (tabs.find(tab => tab.id === selectedTab)?.disabled) onTabChange(tabs[0].id);
+    }, [tabs, selectedTab]);
 
     return (
         <BlockContainer

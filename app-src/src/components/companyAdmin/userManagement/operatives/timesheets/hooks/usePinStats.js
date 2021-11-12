@@ -16,7 +16,7 @@ const usePinStats = (userID, startDate, endDate) => {
     const _stats = useSelector(selectTimesheetPinStats);
 
     useEffect(() => {
-        dispatch(fetchTimesheetPinStats(userID, startDate, endDate));
+        if (userID) dispatch(fetchTimesheetPinStats(userID, startDate, endDate));
     }, [dispatch, userID, startDate]);
 
     const stats = {

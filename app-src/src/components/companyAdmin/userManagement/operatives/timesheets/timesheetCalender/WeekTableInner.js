@@ -15,18 +15,33 @@ import timesheetPin from '_content/images/pins-examples/timesheet-pin.png';
 import { formatAsHrsMinsSecs } from 'helpers/generic';
 import useExpandableTab from '../hooks/useExpandableTab';
 
-const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, timesheet }) => {
-    const { totalPins, formattedHours, clockerEntries = [] } = timesheet;
-
+const WeekTableInner = ({
+    selectedDate,
+    timePeriod,
+    onDaySelect,
+    onWeekSelect,
+    timesheets,
+    totals,
+}) => {
     const { timeZone } = useSelector(selectCompanySettings);
-    const weeklyReferences = useWeeklyReferences(clockerEntries);
+    // const weeklyReferences = useWeeklyReferences(clockerEntries);
     const { expandedDate, handleJobsClick } = useExpandableTab();
+
+    const { totalPins, formattedHours, jobReferences } = totals.reduce(
+        (acc, { totalPins, formattedHours, jobReferences }) => {
+            acc.totalPins += totalPins;
+            acc.formattedHours += formattedHours;
+            acc.jobReferences = [...acc.jobReferences, ...jobReferences];
+            return acc;
+        },
+        { totalPins: 0, formattedHours: 0, jobReferences: [] },
+    );
 
     return (
         <>
-            {clockerEntries.map(({ date, totalPins, totalHours, formattedHours }, i) => {
-                const { clockerEntries: dayClockerEntries } = useDay(timesheet, date);
-                const references = useReferences(dayClockerEntries);
+            {totals.map(({ date, totalPins, formattedHours, jobReferences }, i) => {
+                //const { clockerEntries: dayClockerEntries } = useDay(timesheet, date);
+                //const references = useReferences(dayClockerEntries);
 
                 return (
                     <td key={i} onClick={() => onDaySelect(date)}>
@@ -35,7 +50,7 @@ const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, t
                             <p className="full">{moment(date).format('dddd DD')}</p>
                             <i className="fal fa-circle" />
                         </div>
-                        {totalHours !== 0 && (
+                        {formattedHours !== 0 && (
                             <div className="tabs">
                                 <Tab icon={<i className="fal fa-stopwatch" />}>
                                     {formatAsHrsMinsSecs(formattedHours)}
@@ -43,14 +58,16 @@ const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, t
                                 <Tab icon={<img src={timesheetPin} />}>
                                     {totalPins} Pin Histories
                                 </Tab>
-                                <ExpandableTab
-                                    date={date}
-                                    icon={<i className="fal fa-sticky-note" />}
-                                    items={references}
-                                    itemType={references.length > 1 ? 'Jobs' : 'Job'}
-                                    isExpanded={expandedDate === date}
-                                    onJobClick={handleJobsClick}
-                                />
+                                {timesheets.length > 0 && (
+                                    <ExpandableTab
+                                        date={date}
+                                        icon={<i className="fal fa-sticky-note" />}
+                                        items={jobReferences}
+                                        itemType={jobReferences.length > 1 ? 'Jobs' : 'Job'}
+                                        isExpanded={expandedDate === date}
+                                        onJobClick={handleJobsClick}
+                                    />
+                                )}
                             </div>
                         )}
                         {moment(selectedDate).isSame(date, 'day') &&
@@ -58,15 +75,15 @@ const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, t
                     </td>
                 );
             })}
-            <td key={-1} onClick={() => onWeekSelect(clockerEntries[0].date)}>
+            <td key={-1} onClick={() => onWeekSelect(totals[0].date)}>
                 <div className="date">
                     <p>
-                        {moment(clockerEntries[0].date).format('DD')} -{' '}
-                        {moment(clockerEntries[6].date).format('DD')}
+                        {moment(totals[0].date).format('DD')} -{' '}
+                        {moment(totals[6].date).format('DD')}
                     </p>
                     <p className="full">
-                        {moment(clockerEntries[0].date).format('dddd D')} -{' '}
-                        {moment(clockerEntries[6].date).format('dddd D')}
+                        {moment(totals[0].date).format('dddd D')} -{' '}
+                        {moment(totals[6].date).format('dddd D')}
                     </p>
                     <i className="fal fa-circle" />
                 </div>
@@ -75,14 +92,16 @@ const WeekTableInner = ({ selectedDate, timePeriod, onDaySelect, onWeekSelect, t
                         {formatAsHrsMinsSecs(formattedHours)}
                     </Tab>
                     <Tab icon={<img src={timesheetPin} />}>{totalPins} Pin Histories</Tab>
-                    <ExpandableTab
-                        date="week"
-                        icon={<i className="fal fa-sticky-note" />}
-                        items={weeklyReferences}
-                        itemType={weeklyReferences.length > 1 ? 'Jobs' : 'Job'}
-                        isExpanded={expandedDate === 'week'}
-                        onJobClick={handleJobsClick}
-                    />
+                    {timesheets.length > 0 && (
+                        <ExpandableTab
+                            date="week"
+                            icon={<i className="fal fa-sticky-note" />}
+                            items={jobReferences}
+                            itemType={jobReferences.length > 1 ? 'Jobs' : 'Job'}
+                            isExpanded={expandedDate === 'week'}
+                            onJobClick={handleJobsClick}
+                        />
+                    )}
                 </div>
                 {timePeriod === TIME_PERIOD.WEEK && <div className="film" />}
             </td>

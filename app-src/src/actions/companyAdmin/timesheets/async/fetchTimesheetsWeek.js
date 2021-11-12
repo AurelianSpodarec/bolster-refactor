@@ -8,30 +8,31 @@ import {
     FETCH_TIMESHEET_WEEK_SUCCESS,
 } from 'constants/actionTypes/timesheets';
 
-export const fetchTimesheetWeekRequest = () => ({
+export const fetchTimesheetsWeekRequest = () => ({
     type: FETCH_TIMESHEET_WEEK_REQUEST,
 });
 
-export const fetchTimesheetWeekSuccess = payload => ({
+export const fetchTimesheetsWeekSuccess = payload => ({
     type: FETCH_TIMESHEET_WEEK_SUCCESS,
     payload,
 });
 
-export const fetchTimesheetWeekFailure = error => ({
+export const fetchTimesheetsWeekFailure = error => ({
     type: FETCH_TIMESHEET_WEEK_FAILURE,
     error,
 });
 
-export default (userID, startDate) => dispatch => {
-    dispatch(fetchTimesheetWeekRequest());
+export default (userIDs, startDate) => dispatch => {
+    dispatch(fetchTimesheetsWeekRequest());
 
     axios
-        .get(`${API_URL}/clockerEntries/${userID}/week`, {
+        .get(`${API_URL}/clockerEntries/weekforusers?${userIDs.map(id => `ids=${id}`).join('&')}`, {
             ...getHeaders(),
             params: {
                 date: startDate,
+                ids: userIDs,
             },
         })
-        .then(res => dispatch(fetchTimesheetWeekSuccess(res.data)))
-        .catch(err => dispatch(fetchTimesheetWeekFailure(err.message)));
+        .then(res => dispatch(fetchTimesheetsWeekSuccess(res.data)))
+        .catch(err => dispatch(fetchTimesheetsWeekFailure(err.message)));
 };

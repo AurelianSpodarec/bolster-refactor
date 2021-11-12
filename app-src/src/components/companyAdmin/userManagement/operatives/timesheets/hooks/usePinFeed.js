@@ -8,7 +8,7 @@ import {
     selectUserPinFeedIsFetching,
 } from 'selectors/companyAdmin/userPinFeed';
 
-const usePinFeed = (userID, date, isWeek) => {
+const usePinFeed = (userIDs, date, isWeek) => {
     const dispatch = useDispatch();
 
     const isFetching = useSelector(selectUserPinFeedIsFetching);
@@ -16,8 +16,8 @@ const usePinFeed = (userID, date, isWeek) => {
     const feed = useSelector(selectUserPinFeed);
 
     useEffect(() => {
-        dispatch(fetchUserPinFeed(userID, date, isWeek));
-    }, [dispatch, userID, date, isWeek]);
+        if (userIDs) dispatch(fetchUserPinFeed(userIDs, date, isWeek));
+    }, [dispatch, userIDs, date, isWeek]);
 
     return { isFetching, fetchError, feed };
 };

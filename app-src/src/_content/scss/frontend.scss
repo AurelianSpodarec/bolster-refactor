@@ -3500,6 +3500,19 @@ $back-to-top-height: 35px;
     .block-heading {
         margin: 0;
         width: 100%;
+
+        .end {
+            flex-grow: 1;
+
+            .multi-multi-dropdown {
+                font-size: 60%;
+                margin: -16px 0;
+
+                .option-container {
+                    max-height: 200px;
+                }
+            }
+        }
     }
 
     .controls {
@@ -3795,10 +3808,12 @@ $back-to-top-height: 35px;
         .block-heading {
             margin: 0;
             float: none;
-
-            border-width: 1px;
-            border-color: #000;
-            border-style: none none solid none;
+            
+            &.with-underline {
+                border-width: 1px;
+                border-color: #000;
+                border-style: none none solid none;
+            }
         }
     }
 

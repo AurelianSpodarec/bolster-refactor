@@ -13,14 +13,15 @@ const WeekTable = ({
     onWeekSelect,
     isFetching,
     fetchError,
-    timesheet,
+    timesheets,
+    totals,
 }) => {
     return (
         <Table
             headers={[...days, 'Weekly']}
             isFetching={isFetching}
             error={fetchError}
-            noData={isEmpty(timesheet)}
+            noData={isEmpty(timesheets)}
         >
             <tr>
                 <WeekTableInner
@@ -29,7 +30,8 @@ const WeekTable = ({
                     timePeriod={timePeriod}
                     onDaySelect={onDaySelect}
                     onWeekSelect={onWeekSelect}
-                    timesheet={timesheet}
+                    timesheets={timesheets}
+                    totals={totals}
                 />
             </tr>
         </Table>

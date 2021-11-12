@@ -13,7 +13,7 @@ const Breakdown = ({
     timePeriod,
     isFetching,
     fetchError,
-    timesheet,
+    timesheets,
     handlePDFReportGeneration,
 }) => {
     switch (timePeriod) {
@@ -31,18 +31,21 @@ const Breakdown = ({
                     }
                     tabs={[
                         {
+                            id: 0,
                             title: 'Overview',
                             component: (
                                 <WeekBreakdownOverview
                                     selectedDate={selectedDate}
-                                    timesheet={timesheet}
+                                    timesheets={timesheets}
+                                    isFetching={isFetching}
+                                    fetchError={fetchError}
                                 />
                             ),
                         },
                     ]}
                     isLoading={isFetching}
                     error={fetchError}
-                    noData={isEmpty(timesheet)}
+                    noData={isEmpty(timesheets)}
                     handlePDFReportGeneration={handlePDFReportGeneration}
                 />
             );
@@ -60,27 +63,30 @@ const Breakdown = ({
                     }
                     tabs={[
                         {
+                            id: 0,
                             title: 'Overview',
                             component: (
                                 <DayBreakdownOverview
                                     selectedDate={selectedDate}
-                                    timesheet={timesheet}
+                                    timesheets={timesheets}
                                 />
                             ),
                         },
                         {
+                            id: 1,
                             title: 'Location',
                             component: (
                                 <DayBreakdownLocation
                                     selectedDate={selectedDate}
-                                    timesheet={timesheet}
+                                    timesheet={timesheets[0]}
                                 />
                             ),
+                            disabled: timesheets.length > 1,
                         },
                     ]}
                     isLoading={isFetching}
                     error={fetchError}
-                    noData={isEmpty(timesheet)}
+                    noData={isEmpty(timesheets)}
                     handlePDFReportGeneration={handlePDFReportGeneration}
                 />
             );

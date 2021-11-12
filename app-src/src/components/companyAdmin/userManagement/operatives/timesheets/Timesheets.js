@@ -5,18 +5,21 @@ import BackButtonContainer from 'components/shared/generic/backButton/containers
 import Breakdown from './breakdown/Breakdown';
 import useTimesheets from './hooks/useTimesheets';
 import TimesheetCalender from './timesheetCalender/TimesheetCalender';
-import UserTables from './userTables/UserTables';
 
 const Timesheets = () => {
     const {
         startDate,
         selectedDate,
         timePeriod,
+        companyUserIDs,
+        setCompanyUserIDs,
+        companyUserOptions,
+
         isFetching,
         fetchError,
-        timesheet,
+        timesheets,
+        totals,
         companyUser,
-        isAllUsers,
         onPrev,
         onNext,
         onToday,
@@ -41,33 +44,27 @@ const Timesheets = () => {
                 startDate={startDate}
                 selectedDate={selectedDate}
                 timePeriod={timePeriod}
+                companyUserIDs={companyUserIDs}
+                setCompanyUserIDs={setCompanyUserIDs}
+                companyUserOptions={companyUserOptions}
                 isFetching={isFetching}
                 fetchError={fetchError}
-                timesheet={timesheet}
+                timesheets={timesheets}
+                totals={totals}
                 onPrev={onPrev}
                 onNext={onNext}
                 onToday={onToday}
                 onDaySelect={onDaySelect}
                 onWeekSelect={onWeekSelect}
             />
-            {!isAllUsers ? (
-                <Breakdown
-                    selectedDate={selectedDate}
-                    timePeriod={timePeriod}
-                    isFetching={isFetching}
-                    fetchError={fetchError}
-                    timesheet={timesheet}
-                    handlePDFReportGeneration={handlePDFReportGeneration}
-                />
-            ) : (
-                <UserTables
-                    selectedDate={selectedDate}
-                    timePeriod={timePeriod}
-                    isFetching={isFetching}
-                    fetchError={fetchError}
-                    timesheet={timesheet}
-                />
-            )}
+            <Breakdown
+                selectedDate={selectedDate}
+                timePeriod={timePeriod}
+                isFetching={isFetching}
+                fetchError={fetchError}
+                timesheets={timesheets}
+                handlePDFReportGeneration={handlePDFReportGeneration}
+            />
         </>
     );
 };

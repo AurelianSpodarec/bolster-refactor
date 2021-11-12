@@ -5,19 +5,27 @@ import { formatAsHrsMinsSecs } from 'helpers/generic';
 
 import useTimeline from '../hooks/useTimeline';
 import useFormattedBreakTime from './hooks/useFormattedBreakTime';
-import moment from 'moment';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import useReferences from '../hooks/useReferences';
 
-const BreakdownDaySummary = ({ formattedHours, pins, references, clockerEntries }) => {
+const BreakdownDaySummary = ({ name, pins, clockerEntries }) => {
     const timeline = useTimeline(clockerEntries);
     const formattedBreakTime = useFormattedBreakTime(timeline);
+    const formattedHours = clockerEntries.reduce(
+        (acc, { formattedHours }) => acc + formattedHours,
+        0,
+    );
 
     const clockIn = timeline.find(({ clockIn }) => clockIn)?.clockIn;
     const clockOut = [...timeline].reverse().find(({ clockOut }) => clockOut)?.clockOut;
 
+    const references = useReferences(clockerEntries);
+
     return (
         <div className="breakdown-day-summary">
+            <BlockHeading title={name} classes="with-underline" />
             <div className="summary-row">
                 <FieldOutput title="Total Hours Worked" fieldClass="hours" sizeClass="size-lg-4">
                     {formatAsHrsMinsSecs(formattedHours)}

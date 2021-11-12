@@ -5,8 +5,18 @@ import moment from 'moment';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
-const Controls = ({ startDate, onPrev, onNext, onToday }) => {
+const Controls = ({
+    startDate,
+    onPrev,
+    onNext,
+    onToday,
+
+    companyUserIDs,
+    setCompanyUserIDs,
+    companyUserOptions,
+}) => {
     return (
         <BlockHeading
             headerClasses="controls"
@@ -38,6 +48,15 @@ const Controls = ({ startDate, onPrev, onNext, onToday }) => {
                     >
                         <i className="far fa-calendar-week"></i> Today
                     </ButtonContainer>
+
+                    <div className="end">
+                        <MultiSelect
+                            options={companyUserOptions}
+                            value={companyUserIDs}
+                            onChange={(_, value) => setCompanyUserIDs(value)}
+                            search
+                        />
+                    </div>
                 </>
             }
         />

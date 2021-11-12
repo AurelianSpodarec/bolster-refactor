@@ -41,7 +41,7 @@ function errorReducer(state = null, action) {
 function userPinFeedReducer(state = null, action) {
     switch (action.type) {
         case FETCH_USER_PIN_FEED_SUCCESS:
-            return action.payload.items;
+            return action.payload;
         default:
             return state;
     }

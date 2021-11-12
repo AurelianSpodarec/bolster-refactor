@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
-import fetchTimesheetWeek from 'actions/companyAdmin/timesheets/async/fetchTimesheetWeek';
+import fetchTimesheetsWeek from 'actions/companyAdmin/timesheets/async/fetchTimesheetsWeek';
 import { useParams } from 'react-router-dom';
 import {
-    selectTimesheet,
+    selectTimesheets,
     selectTimesheetsFetchError,
     selectTimesheetsIsFetching,
 } from 'selectors/companyAdmin/timesheets';
@@ -20,6 +20,12 @@ import { reportPostSuccess } from 'selectors/companyAdmin/timesheets';
 import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { usePrevious } from 'helpers/hooks';
+import {
+    selectCompanyUsers,
+    selectCompanyUsersFetchError,
+    selectCompanyUsersIsFetching,
+} from 'selectors/companyAdmin/companyUsers';
+import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
 const useTimesheets = () => {
     const dispatch = useDispatch();
@@ -28,11 +34,14 @@ const useTimesheets = () => {
     const { timeZone } = useSelector(selectCompanySettings);
 
     const { id } = useParams();
-    const isAllUsers = id == null;
+
+    const companyUsersIsFetching = useSelector(selectCompanyUsersIsFetching);
+    const companyUsersFetchError = useSelector(selectCompanyUsersFetchError);
+    const companyUsers = useSelector(selectCompanyUsers);
 
     const timesheetsIsFetching = useSelector(selectTimesheetsIsFetching);
     const timesheetsFetchError = useSelector(selectTimesheetsFetchError);
-    const timesheet = useSelector(selectTimesheet);
+    const timesheets = useSelector(selectTimesheets);
 
     const reportGenPins = useSelector(selectUserPinFeed);
     const serviceIDs = useSelector(selectServiceIDs);
@@ -52,6 +61,7 @@ const useTimesheets = () => {
     const [startDate, setStartDate] = useState(thisWeek);
     const [selectedDate, setSelectedDate] = useState(thisDay);
     const [timePeriod, setTimePeriod] = useState(TIME_PERIOD.DAY);
+    const [companyUserIDs, setCompanyUserIDs] = useState(id ? [parseInt(id)] : []);
 
     const onPrev = () => {
         const newStartDate = moment(startDate).subtract(7, 'days').format();
@@ -99,11 +109,38 @@ const useTimesheets = () => {
         dispatch(postReport(postBody));
     };
 
+    const dayTotal = {
+        formattedHours: 0,
+        formattedBreakHours: 0,
+        totalPins: 0,
+        jobReferences: [],
+    };
+    const totals = timesheets.reduce(
+        (acc, timesheet) => {
+            timesheet.clockerEntries.forEach((entry, i) => {
+                acc[i].formattedHours += entry.formattedHours;
+                acc[i].formattedBreakHours += entry.formattedBreakHours;
+                acc[i].totalPins += entry.totalPins;
+                acc[i].jobReferences = [...acc[i].jobReferences, ...entry.jobReferences];
+            });
+            return acc;
+        },
+
+        new Array(7).fill(dayTotal).map((day, i) => ({
+            ...day,
+            date: moment(startDate).add(i, 'days').format(),
+        })),
+    );
+
     useEffect(() => {
-        dispatch(fetchTimesheetWeek(8873, startDate));
-        // if (!isAllUsers) dispatch(fetchTimesheetWeek(id, startDate));
+        dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
+        // if (!isAllUsers) dispatch(fetchTimesheetsWeek(id, startDate));
         // else console.log('fetch for all users here');
-    }, [dispatch, id, startDate]);
+    }, [dispatch, companyUserIDs, startDate]);
+
+    useEffect(() => {
+        dispatch(fetchCompanyUsers());
+    }, [dispatch]);
 
     useEffect(() => {
         if (reportSuccess && !prevReportPostSuccess) {
@@ -117,15 +154,21 @@ const useTimesheets = () => {
         }
     }, [reportSuccess, prevReportPostSuccess]);
 
+    const companyUserOptions =
+        companyUsers != null ? Object.values(companyUsers).map(getCompanyUserOption) : [];
+
     return {
         startDate,
         selectedDate,
         timePeriod,
-        isFetching: companyUserIsFetching || timesheetsIsFetching,
-        fetchError: companyUserFetchError || timesheetsFetchError,
-        timesheet,
+        companyUserIDs,
+        setCompanyUserIDs,
+        companyUserOptions,
+        isFetching: companyUserIsFetching || timesheetsIsFetching || companyUsersIsFetching,
+        fetchError: companyUserFetchError || timesheetsFetchError || companyUsersFetchError,
+        timesheets,
+        totals,
         companyUser,
-        isAllUsers,
         onPrev,
         onNext,
         onToday,
@@ -134,5 +177,10 @@ const useTimesheets = () => {
         handlePDFReportGeneration,
     };
 };
+
+const getCompanyUserOption = companyUser => ({
+    value: companyUser.id,
+    label: `${companyUser.userFirstName} ${companyUser.userLastName}`,
+});
 
 export default useTimesheets;

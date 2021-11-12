@@ -378,10 +378,13 @@ export const isMinMemory = (bytes: number) => {
 
 export const totalArray = (array: number[]) => array.reduce((acc, val) => acc + val, 0);
 
-export const formatAsHrsMinsSecs = (date: MomentInput) => {
-    const diff = moment.duration(moment(date).diff('0001-01-01T00:00:00.00'));
-    const hours = Math.floor(diff.asHours()).toString().padStart(2, '0');
-    const mins = diff.minutes().toString().padStart(2, '0');
-    const secs = diff.seconds().toString().padStart(2, '0');
-    return `${hours}:${mins}:${secs}`;
+export const formatAsHrsMinsSecs = (ms: number) => {
+    const formatInt = (int: number) => int.toString().padStart(2, '0');
+
+    const secs = Math.floor(ms / 1000);
+    const hrs = Math.floor(secs / 3600);
+    const mins = Math.floor((secs - hrs * 3600) / 60);
+    const secsLeft = secs - hrs * 3600 - mins * 60;
+
+    return `${formatInt(hrs)}:${formatInt(mins)}:${formatInt(secsLeft)}`;
 };

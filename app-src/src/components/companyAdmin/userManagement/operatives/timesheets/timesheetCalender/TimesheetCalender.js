@@ -9,9 +9,14 @@ const TimesheetCalender = ({
     selectedDate,
     timePeriod,
 
+    companyUserIDs,
+    setCompanyUserIDs,
+    companyUserOptions,
+
     isFetching,
     fetchError,
-    timesheet,
+    timesheets,
+    totals,
 
     onPrev,
     onNext,
@@ -24,13 +29,12 @@ const TimesheetCalender = ({
             <div className="timesheet-calender">
                 <Controls
                     startDate={startDate}
-                    selectedDate={selectedDate}
-                    timePeriod={timePeriod}
                     onPrev={onPrev}
                     onNext={onNext}
                     onToday={onToday}
-                    onDaySelect={onDaySelect}
-                    onWeekSelect={onWeekSelect}
+                    companyUserIDs={companyUserIDs}
+                    setCompanyUserIDs={setCompanyUserIDs}
+                    companyUserOptions={companyUserOptions}
                 />
                 <WeekTable
                     startDate={startDate}
@@ -40,7 +44,8 @@ const TimesheetCalender = ({
                     onWeekSelect={onWeekSelect}
                     isFetching={isFetching}
                     fetchError={fetchError}
-                    timesheet={timesheet}
+                    timesheets={timesheets}
+                    totals={totals}
                 />
             </div>
         </BlockContainer>

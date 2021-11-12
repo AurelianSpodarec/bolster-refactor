@@ -13,7 +13,7 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
 
-    timesheet: timesheetReducer,
+    timesheets: timesheetReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -54,7 +54,7 @@ function errorReducer(state = null, action) {
     }
 }
 
-function timesheetReducer(state = {}, action) {
+function timesheetReducer(state = [], action) {
     switch (action.type) {
         case FETCH_TIMESHEET_WEEK_REQUEST:
             return state;

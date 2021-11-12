@@ -5,39 +5,50 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import moment from 'moment';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import BreakdownColumns from '../BreakdownColumns';
 import BreakdownDaySummary from '../BreakdownDaySummary';
 import { useParams } from 'react-router-dom';
 import usePinStats from '../../hooks/usePinStats';
 import usePinFeed from '../../hooks/usePinFeed';
 import { isEmpty } from 'lodash';
-import useReferences from '../../hooks/useReferences';
+import UserTables from '../../userTables/UserTables';
 
-const WeekBreakdownOverview = ({
-    selectedDate,
+const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchError }) => {
+    const isSingleUser = timesheets.length === 1;
 
-    timesheet,
-}) => {
-    const { id } = useParams();
-    const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
-        id,
-        selectedDate,
-        moment(selectedDate).endOf('week').format(),
-    );
+    const [userIDs, setUserIDs] = useState([]);
+    useEffect(() => {
+        setUserIDs(timesheets.map(({ companyUserID }) => companyUserID));
+    }, [timesheets]);
+    // const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
+    //     id,
+    //     selectedDate,
+    //     moment(selectedDate).endOf('week').format(),
+    // );
 
     const { isFetching: feedIsFetching, fetchError: feedFetchError, feed } = usePinFeed(
-        id,
+        userIDs,
         selectedDate,
         true,
     );
 
+    if (!isSingleUser) {
+        return (
+            <UserTables
+                selectedDate={selectedDate}
+                isFetching={isFetching}
+                fetchError={fetchError}
+                timesheets={timesheets}
+            />
+        );
+    }
+
     return (
         <BreakdownColumns
             className="week-breakdown-overview"
-            left={timesheet.clockerEntries.map(
-                ({ totalPins, formattedHours, clockerEntries = [], date }, i) => {
-                    const references = useReferences(clockerEntries);
+            left={timesheets[0].clockerEntries.map(
+                ({ firstName, lastName, totalPins, clockerEntries = [], date }, i) => {
                     return (
                         <div className="day" key={i}>
                             <BlockHeading
@@ -52,9 +63,8 @@ const WeekBreakdownOverview = ({
                                 }
                             />
                             <BreakdownDaySummary
-                                formattedHours={formattedHours}
+                                name={`${firstName} ${lastName}`}
                                 pins={totalPins}
-                                references={references}
                                 clockerEntries={clockerEntries}
                             />
                         </div>
@@ -64,7 +74,7 @@ const WeekBreakdownOverview = ({
             right={
                 <>
                     <div className="breakdown-piechart">
-                        <BlockContainer
+                        {/* <BlockContainer
                             isFetching={statsIsFetching}
                             error={statsFetchError}
                             isEmpty={isEmpty(stats) || statsIsFetching}
@@ -83,11 +93,11 @@ const WeekBreakdownOverview = ({
                                     </>
                                 }
                             />
-                        </BlockContainer>
+                        </BlockContainer> */}
                     </div>
                     <div className="breakdown-feed">
                         <DashboardPinFeed
-                            pins={feed ?? []}
+                            pins={feed?.items ?? []}
                             isFetching={feedIsFetching}
                             error={feedFetchError}
                         />
