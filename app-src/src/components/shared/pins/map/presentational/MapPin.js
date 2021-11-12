@@ -24,7 +24,8 @@ const DrawingMapPin = ({
         createdOn,
         latestCreatedOn,
         excluded,
-        templateID,
+        templatePinImageS3Key,
+        servicePinImageS3Key,
     },
     pin,
     pinHistory = {},
@@ -42,13 +43,13 @@ const DrawingMapPin = ({
     excludedPinIDs,
     tooltipVisible,
     pinViewMode,
-    templates,
-    services,
 }) => {
     const { latY = 1, lngX = 1 } = location;
     const status = pinHistory.status || latestStatus;
     const pinColour = COLOURS[status] || 'red';
     const updated = formatDate(latestCreatedOn) !== formatDate(createdOn) ? latestCreatedOn : null;
+    // console.log([templatePinImageS3Key, servicePinImageS3Key, pinCode]);
+
     const renderPin = pinViewMode => {
         const props = {
             iconSize: [30, 50],
@@ -56,8 +57,12 @@ const DrawingMapPin = ({
             popupAnchor: [0, -50],
             className: '',
         };
-        if (pinViewMode === 'icon') {
-            const icon = undefined; // WIP - will come from service, template & pinhistory
+        if (pinViewMode === 'icon' && (templatePinImageS3Key || servicePinImageS3Key)) {
+            const icon = templatePinImageS3Key
+                ? templatePinImageS3Key
+                : servicePinImageS3Key
+                ? servicePinImageS3Key
+                : null;
             return L.divIcon({
                 ...props,
                 html: ReactDOMServer.renderToString(
