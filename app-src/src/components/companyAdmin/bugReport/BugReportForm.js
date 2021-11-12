@@ -15,6 +15,7 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 
 const BugReportForm = () => {
     const { form, handleChange, handleSubmit, isPosting } = useBugReport();
+    console.log(form);
     return (
         <Form className="generic-form" onSubmit={handleSubmit}>
             <div className="size-lg-12 margin-bottom">
@@ -69,6 +70,7 @@ const BugReportForm = () => {
                             name="aboutDeviceScreenshot"
                             acceptedTypes={['image/jpg', 'image/png', 'image/jpeg']}
                             handleChange={handleChange}
+                            maxFiles={4}
                             required
                         />
                     </Field>
@@ -89,7 +91,7 @@ const BugReportForm = () => {
             <div className="size-lg-12 margin-bottom">
                 <FieldOutput
                     title="2. Desktop Only"
-                    description="Skip to section 3 your bug isn't on the Bolster Systems desktop app"
+                    description="Skip to section 3 if your bug isn't on the Bolster Systems desktop app"
                     fieldClass="form-padding"
                 />
                 <div className="size-lg-12 margin-bottom">
@@ -166,6 +168,7 @@ const BugReportForm = () => {
                             name="evidenceFile"
                             acceptedTypes={['image/jpg', 'image/png', 'image/jpeg', 'video/mp4']}
                             handleChange={handleChange}
+                            maxFiles={4}
                             required
                         />
                     </Field>

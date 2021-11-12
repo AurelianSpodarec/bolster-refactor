@@ -58,7 +58,7 @@ class NumberInputContainer extends Component {
 
     _validate = value => {
         const { name, error, required, addFieldError, removeFieldError, maxNum } = this.props;
-        console.log(value);
+
         if (required && !value) {
             addFieldError(name, 'This field is required and needs to be a number.');
         } else if (required && maxNum && value > maxNum) {
