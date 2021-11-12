@@ -1,18 +1,52 @@
 import React from 'react';
 import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
 import { FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
+import { isEmpty, isObjEmpty } from 'helpers/generic';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
 import { connect } from 'react-redux';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
-const PinAnswer = ({ trimmedAnswer, type, questions, answers, dispatch, question }) => {
-    const curAnswer = answers.find(item => +item.id === +trimmedAnswer.id);
+const PinAnswer = ({
+    trimmedAnswer,
+    type,
+    questions,
+    answers,
+    dispatch,
+    question,
+    optionValuesLookup,
+}) => {
+    const curAnswer = { ...answers.find(item => +item.id === +trimmedAnswer.id) };
 
     const notFoundResponse = null;
     let inner;
 
-    if ((!curAnswer || !curAnswer.answer) && type !== TYPES.STATUS) return notFoundResponse;
+    if (!isObjEmpty(optionValuesLookup) && !!curAnswer.answer) {
+        if (type === TYPES.DROPDOWN_OPTIONS && typeof curAnswer.answer === 'number') {
+            curAnswer.answer = optionValuesLookup[curAnswer.answer].name;
+        } else if (
+            type === TYPES.MULTI_DROPDOWN_OPTIONS ||
+            type === TYPES.MULTI_MULTI_DROPDOWN_OPTIONS
+        ) {
+            curAnswer.answer = curAnswer.answer.map(ans => {
+                if (!ans) {
+                    return null;
+                }
+                // handles manufacturer option
+                if (typeof ans === 'number' && optionValuesLookup[ans]) {
+                    return optionValuesLookup[ans].name;
+                }
+                // handle other
+                return ans;
+            });
+        }
+    }
+
+    if ((!curAnswer || isEmpty(curAnswer.answer)) && type !== TYPES.STATUS) {
+        return notFoundResponse;
+    }
+
     switch (type) {
         case TYPES.SINGLE_LINE:
         case TYPES.MULTI_LINE:
@@ -63,11 +97,32 @@ const PinAnswer = ({ trimmedAnswer, type, questions, answers, dispatch, question
         case TYPES.SIGNATURE:
             var answerString = curAnswer.answer;
 
-            if (!answerString.startsWith('data:')) {
-                answerString = `data: image/jpeg;base64${answerString}`;
+            if (
+                !answerString.startsWith('data:') &&
+                !answerString.endsWith('.png') &&
+                !answerString.endsWith('.jpg')
+            ) {
+                answerString = `data: image/jpeg;base64,${answerString}`;
             }
 
-            inner = <img className="signature" alt="signature" src={answerString} />;
+            if (answerString.endsWith('.png') || answerString.endsWith('.jpg')) {
+                answerString = `${FILE_STORAGE_URL}/${answerString}`;
+            }
+            if (
+                answerString.endsWith('.doc') ||
+                answerString.endsWith('.pdf') ||
+                answerString.endsWith('.docx')
+            ) {
+                var docURL = `${RAW_S3_STORAGE_URL}/${curAnswer.answer}`;
+                inner = (
+                    <ButtonContainer to={docURL} isAnchor className="btn blue" openNewTab>
+                        <i className="table-icon far fa-eye" />
+                        View pdf
+                    </ButtonContainer>
+                );
+            } else {
+                inner = <img className="signature" alt="signature" src={answerString} />;
+            }
 
             break;
         case TYPES.SINGLE_PHOTO:
@@ -87,9 +142,8 @@ const PinAnswer = ({ trimmedAnswer, type, questions, answers, dispatch, question
                 <p>
                     <a
                         href={docURL}
-                        rel="noopener norefferrer"
-                        // eslint-disable-next-line react/jsx-no-target-blank
                         target="_blank"
+                        rel="noopener noreferrer"
                         className="text-link"
                     >
                         <i className="table-icon far fa-file-alt" /> {curAnswer.answer}

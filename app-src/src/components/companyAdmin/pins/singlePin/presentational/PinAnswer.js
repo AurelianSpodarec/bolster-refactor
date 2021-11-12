@@ -12,11 +12,9 @@ const PinAnswer = ({
     trimmedAnswer,
     type,
     questions,
-    questionsObj,
     answers,
     dispatch,
     question,
-    pinHistory,
     optionValuesLookup,
 }) => {
     const curAnswer = { ...answers.find(item => +item.id === +trimmedAnswer.id) };
@@ -99,12 +97,32 @@ const PinAnswer = ({
             break;
         case TYPES.SIGNATURE:
             var answerString = curAnswer.answer;
-
-            if (!answerString.startsWith('data:')) {
+            if (
+                !answerString.startsWith('data:') &&
+                !answerString.endsWith('.png') &&
+                !answerString.endsWith('.jpg')
+            ) {
                 answerString = `data: image/jpeg;base64,${answerString}`;
             }
 
-            inner = <img className="signature" alt="signature" src={answerString} />;
+            if (answerString.endsWith('.png') || answerString.endsWith('.jpg')) {
+                answerString = `${FILE_STORAGE_URL}/${answerString}`;
+            }
+            if (
+                answerString.endsWith('.doc') ||
+                answerString.endsWith('.pdf') ||
+                answerString.endsWith('.docx')
+            ) {
+                var docURL = `${RAW_S3_STORAGE_URL}/${curAnswer.answer}`;
+                inner = (
+                    <ButtonContainer to={docURL} isAnchor className="btn blue" openNewTab>
+                        <i className="table-icon far fa-eye" />
+                        View file
+                    </ButtonContainer>
+                );
+            } else {
+                inner = <img className="signature" alt="signature" src={answerString} />;
+            }
 
             break;
         case TYPES.SINGLE_PHOTO:
@@ -119,20 +137,34 @@ const PinAnswer = ({
             );
             break;
         case TYPES.MULTI_PHOTO:
-            inner = curAnswer.answer.map((item, i) => {
-                var URL = `${FILE_STORAGE_URL}/${item}`;
-                return (
+            if (Array.isArray(curAnswer.answer)) {
+                inner = curAnswer.answer.map((item, i) => {
+                    const URL = `${FILE_STORAGE_URL}/${item}`;
+                    return (
+                        <img
+                            style={{ cursor: 'zoom-in' }}
+                            alt={`${i + 1} of ${curAnswer.answer.length}`}
+                            key={item}
+                            src={URL + '?width=100'}
+                            onClick={() =>
+                                dispatch(showModal(PIN_IMAGE, { image: URL + '?width=1500' }))
+                            }
+                        />
+                    );
+                });
+            } else {
+                const URL = `${FILE_STORAGE_URL}/${curAnswer.answer}`;
+                inner = (
                     <img
                         style={{ cursor: 'zoom-in' }}
-                        alt={`${i + 1} of ${curAnswer.answer.length}`}
-                        key={item}
+                        alt=""
                         src={URL + '?width=100'}
                         onClick={() =>
                             dispatch(showModal(PIN_IMAGE, { image: URL + '?width=1500' }))
                         }
                     />
                 );
-            });
+            }
             break;
         case TYPES.DOCUMENT_UPLOAD:
             var docURL = `${RAW_S3_STORAGE_URL}/${curAnswer.answer}`;

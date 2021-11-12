@@ -43,6 +43,13 @@ const EditDrawingModal = ({
     handleShowManufacturingOptions,
     showManufacturingOptions,
     manufacturingInheritedFrom,
+    showDropdownOptions,
+    setDropdownOptionsForHierarchy,
+    isDropdownOptionsInherited,
+    selectedDropdownOptions,
+    dropdownOptions,
+    isDropDownOptionsInheritedFrom,
+    handleShowDropdownOptions,
     drawingNotStarted,
 }) => {
     return (
@@ -88,11 +95,17 @@ const EditDrawingModal = ({
                         />
                     </Field>
                     <Field name="Change floorplan">
+                        <p>Please upload your drawing in .pdf, .jpg or .png format.</p> <br />
                         <FileUploadContainer
                             name="file"
                             value={file}
                             handleChange={handleChange}
-                            acceptedTypes={['application/pdf', 'image/*']}
+                            acceptedTypes={[
+                                'application/pdf',
+                                'image/jpg',
+                                'image/jpeg',
+                                'image/png',
+                            ]}
                         />
                     </Field>
                     {drawingNotStarted && (
@@ -106,7 +119,7 @@ const EditDrawingModal = ({
                         </Field>
                     )}
 
-                    <div className="size-lg-12">
+                    {/* <div className="size-lg-12">
                         <div className="size-lg-6 size-md-12">
                             <Field name="Send an alert?">
                                 <CheckboxContainer
@@ -117,8 +130,8 @@ const EditDrawingModal = ({
                                 />
                             </Field>
                         </div>
-                    </div>
-
+                    </div> */}
+                    {/* 
                     {isAlertShowing && (
                         <div className="size-lg-12">
                             <div
@@ -151,9 +164,8 @@ const EditDrawingModal = ({
                                 </Field>
                             </div>
                         </div>
-                    )}
+                    )} */}
                 </div>
-
                 {showManufacturingOptions ? (
                     <>
                         <div className="size-lg-12">
@@ -174,7 +186,7 @@ const EditDrawingModal = ({
                         </div>
                         {setManufacturersForHierarchy && (
                             <div className="size-lg-12">
-                                <Field labelClasses="no-capitalise" name="Manufacturer(s)">
+                                <Field labelClasses="no-capitalise" name="Manufacturer(s)" required>
                                     <CheckboxListContainer
                                         name="selectedManufacturerOptions"
                                         text=""
@@ -182,6 +194,7 @@ const EditDrawingModal = ({
                                         selectedOptions={selectedManufacturerOptions}
                                         options={manufacturerOptions}
                                         allOptionsDisabled={isManufacturingInherited}
+                                        required
                                     />
                                 </Field>
                             </div>
@@ -228,8 +241,60 @@ const EditDrawingModal = ({
                             </div>
                         </FieldOutput>
                     </>
+                )}{' '}
+                {showDropdownOptions ? (
+                    <>
+                        <div className="size-lg-12">
+                            <div className="size-lg-6 size-md-12">
+                                <Field
+                                    labelClasses="no-capitalise"
+                                    name="Set item types for drawing?"
+                                >
+                                    <CheckboxContainer
+                                        checked={setDropdownOptionsForHierarchy}
+                                        name="setDropdownOptionsForHierarchy"
+                                        text=""
+                                        handleChange={handleChange}
+                                        disabled={isDropdownOptionsInherited}
+                                    />
+                                </Field>
+                            </div>
+                        </div>
+                        {setDropdownOptionsForHierarchy && (
+                            <div className="size-lg-12">
+                                <Field labelClasses="no-capitalise" name="Item type(s)">
+                                    <CheckboxListContainer
+                                        name="selectedDropdownOptions"
+                                        text=""
+                                        handleChange={handleChange}
+                                        selectedOptions={selectedDropdownOptions}
+                                        options={dropdownOptions}
+                                        allOptionsDisabled={isDropdownOptionsInherited}
+                                    />
+                                </Field>
+                            </div>
+                        )}
+                    </>
+                ) : (
+                    <>
+                        <FieldOutput fieldClass="center-align">
+                            <div className="form-field size-lg-12">
+                                <p>
+                                    Item types already set at {isDropDownOptionsInheritedFrom}.
+                                    <br /> This cannot be overridden at this level, click{' '}
+                                    <span
+                                        onClick={() => {
+                                            handleShowDropdownOptions();
+                                        }}
+                                    >
+                                        here
+                                    </span>{' '}
+                                    to see the settings.
+                                </p>
+                            </div>
+                        </FieldOutput>
+                    </>
                 )}
-
                 <BlockButtonWrapper>
                     <button className="button green" type="submit">
                         {filesUploading ? (

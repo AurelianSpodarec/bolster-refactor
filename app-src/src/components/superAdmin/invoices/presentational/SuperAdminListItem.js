@@ -6,13 +6,22 @@ import { formatCurrency } from 'helpers/generic';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import LinkWithPropsContainer from 'components/shared/generic/button/containers/LinkWithPropsContainer.js';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const SuperAdminListItem = ({
-    invoice: { createdOn, isPaid, subTotal, id, paymentType, companyID, isFree },
+    invoice: { createdOn, isPaid, subTotal, id, paymentType, companyID, isFree, isDeleted },
     companies,
 }) => (
-    <tr>
-        <td>
+    <tr className={isDeleted ? 'deleted-invoice' : ''}>
+        <td style={{ display: 'flex' }}>
+            {isDeleted && (
+                <TooltipContainer
+                    htmlText={'This invoice has been deleted'}
+                    containerSide="tooltip-invoice"
+                >
+                    <i className="far fa-exclamation-triangle red-icon pull-right" />
+                </TooltipContainer>
+            )}
             <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATE} />
         </td>
         <td>{companies[companyID].name}</td>

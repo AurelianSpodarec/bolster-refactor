@@ -1,8 +1,8 @@
 import React from 'react';
 
-const RedX = () => {
-    const imageLocation = require('_content/images/icons/red-x.png');
+import imageLocation from '_content/images/icons/red-x.png';
 
+const RedX = () => {
     return (
         <div className="custom-pin">
             <img alt={'first corner location'} src={imageLocation} />

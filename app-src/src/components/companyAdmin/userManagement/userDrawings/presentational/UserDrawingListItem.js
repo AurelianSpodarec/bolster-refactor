@@ -1,4 +1,6 @@
+import moment from 'moment';
 import React from 'react';
+import ExpiredDateText from './ExpiredDateText';
 
 const UserDrawingListItem = ({
     drawing,
@@ -8,11 +10,16 @@ const UserDrawingListItem = ({
     buildingName,
     floorName,
     serviceNames,
-}) => (
+}) => {
+    const isExpired = moment(drawing.expiresOn).isBefore(moment.now());
+
+    return (
         <tr key={drawing.id}>
-            <td>{`${siteName} / ${buildingName} / ${floorName} / ${
-                drawing.name
-                } ${serviceNames ? `(${serviceNames})` : ''}`}
+            <td>
+                {`${siteName} / ${buildingName} / ${floorName} / ${drawing.name} ${
+                    serviceNames ? `(${serviceNames})` : ''
+                } - `}
+                <ExpiredDateText expiresOn={drawing.expiresOn} isExpired={isExpired} />
             </td>
             <td>
                 <input
@@ -25,5 +32,6 @@ const UserDrawingListItem = ({
             </td>
         </tr>
     );
+};
 
 export default UserDrawingListItem;

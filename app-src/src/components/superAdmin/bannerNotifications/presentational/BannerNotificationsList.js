@@ -24,7 +24,7 @@ const BannerNotificationList = ({ bannerNotifications, showDeleteModal, showEdit
                         date={moment.utc(bannerNotification.endDate).format('YYYY-MM-DDTHH:mm:ss')}
                     />
                 </td>
-                <td className="center-align">{bannerNotification.colour.text}</td>
+                <td className="center-align">{bannerNotification.colour?.text || '-'}</td>
 
                 <td>
                     <button

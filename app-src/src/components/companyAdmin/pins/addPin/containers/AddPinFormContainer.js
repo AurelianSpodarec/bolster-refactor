@@ -11,6 +11,7 @@ import AddPinForm from 'components/shared/pins/addPin/presentational/AddPinForm'
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import { QUESTION_TYPES } from 'constants/shared/templateBuilder';
 
 class AddPinFormContainer extends Component {
     state = {
@@ -227,8 +228,37 @@ class AddPinFormContainer extends Component {
             };
         }
 
+        this.toCacheAnswers(curTemplate.latestVersionID, formattedAnswers);
+
         if (hierarchyType === 'pin') postBody.pinID = pinID;
         if (!filesUploading) createPin(postBody);
+    };
+
+    toCacheAnswers = templateVersion => {
+        const { answers, questions } = this.props;
+
+        const prefillValues = Object.entries(answers)
+            .filter(([questionID]) => {
+                const question = questions[questionID];
+
+                if (!question) return false;
+                // if (!question.isPrefill) return false;
+
+                const { SIGNATURE, SINGLE_PHOTO, MULTI_PHOTO } = QUESTION_TYPES;
+                const noFillTypes = [SIGNATURE, SINGLE_PHOTO, MULTI_PHOTO];
+                return !noFillTypes.includes(question.type);
+            })
+            .reduce(
+                (acc, [questionID, answer]) => ({
+                    ...acc,
+                    [questionID]: answer,
+                }),
+                {},
+            );
+
+        if (prefillValues) {
+            localStorage.setItem(`answersCache#${templateVersion}`, JSON.stringify(prefillValues));
+        }
     };
 }
 
@@ -236,6 +266,7 @@ const mapStateToProps = (
     {
         companyAdmin: {
             templatesReducer: { templates, isFetching, error },
+            templateQuestionsReducer: { questions },
             addPinFormReducer: { answers, status },
             addPinCoordinatesReducer: { coordinates },
             pinsReducer: { postSuccess, pins, isFetching: fetchingPins },
@@ -257,6 +288,7 @@ const mapStateToProps = (
 ) => ({
     templates: Object.values(templates).filter(({ isDeleted }) => !isDeleted),
     answers,
+    questions,
     coordinates,
     isFetching: isFetching || isFetchingManufacturers || isFetchingOptionValues,
     error,

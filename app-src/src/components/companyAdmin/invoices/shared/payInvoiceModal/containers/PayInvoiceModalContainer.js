@@ -41,7 +41,7 @@ class PayInvoiceModalContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { isFetching, cards, postSuccess, postFailure, showModal } = this.props;
+        const { isFetching, cards, postSuccess, postFailure, showModal, error } = this.props;
 
         if (!isFetching && prevProps.isFetching && cards.length) {
             const primaryCard = cards.find(({ isPrimary }) => isPrimary);
@@ -58,7 +58,7 @@ class PayInvoiceModalContainer extends Component {
 
         if (postFailure && !prevProps.postFailure) {
             showModal(PAYMENT_ERROR, {
-                message: 'There was an error while paying this invoice, please try again.',
+                message: error || 'There was an error while paying this invoice, please try again.',
                 resubmit: this.handleSubmit,
             });
         }
@@ -80,7 +80,7 @@ class PayInvoiceModalContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         cardsReducer: { cards, isFetching },
-        invoicesReducer: { postSuccess, postFailure, isPosting },
+        invoicesReducer: { postSuccess, postFailure, isPosting, error },
     },
 }) => ({
     cards: Object.values(cards),
@@ -88,6 +88,7 @@ const mapStateToProps = ({
     postSuccess,
     postFailure,
     isPosting,
+    error,
 });
 
 const mapDispatchToProps = { fetchAllCards, payInvoice, hideModal, showModal };

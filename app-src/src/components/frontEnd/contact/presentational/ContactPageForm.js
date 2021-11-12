@@ -15,8 +15,8 @@ const ContactPageForm = ({ form, handleChange, handleSubmit, sent, isPosting }) 
         return (
             <div className="auth-form-wrapper contact">
                 <FrontEndFormHeading
-                    title="Success"
-                    subtitle="Thank you! We will be in touch shortly."
+                    title="Thank you!"
+                    subtitle="We have received your contact request and a member of the Bolster Systems team will be in touch."
                 />
             </div>
         );
@@ -31,10 +31,6 @@ const ContactPageForm = ({ form, handleChange, handleSubmit, sent, isPosting }) 
                     </heading>
                 </div>
                 <p>
-                    Bolster Systems offer a full demo exploring both the desktop and application
-                    platforms of the system, its functionality, ease of use and key benefits.
-                    <br />
-                    <div className="custom-line-break"></div>
                     If you would like any further information on our system or to arrange a demo,
                     please fill in the contact form and a member of the Bolster Systems team will
                     get back to you.

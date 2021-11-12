@@ -10,7 +10,6 @@ import postRegisterStepOne from 'actions/shared/register/async/postRegisterStepO
 import postRegisterStepTwo from 'actions/shared/register/async/postRegisterStepTwo';
 import fetchTimeZones from 'actions/shared/time/async/fetchTimezones';
 import fetchDateFormats from 'actions/shared/time/async/fetchDateFormats';
-import postLogin from 'actions/shared/auth/async/postLogin';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { vatOptions } from 'constants/shared/vatTypes';
@@ -29,7 +28,6 @@ const RegisterFormContainer = ({
     postStepValidationSuccess,
     loginSuccess,
     history,
-    postLogin,
     addFieldError,
     removeFieldError,
     dateFormats,
@@ -66,7 +64,13 @@ const RegisterFormContainer = ({
     });
     const [tickboxError, setTickboxError] = useState(false);
 
-    const prevProps = usePrevious({ postSuccess, postStepValidationSuccess, loginSuccess, fieldErrors, isPosting });
+    const prevProps = usePrevious({
+        postSuccess,
+        postStepValidationSuccess,
+        loginSuccess,
+        fieldErrors,
+        isPosting,
+    });
 
     useEffect(() => {
         fetchTimeZones();
@@ -74,18 +78,12 @@ const RegisterFormContainer = ({
     }, []);
 
     useEffect(() => {
-        const { 'User.email': email, 'User.password': password } = formData;
-
         if (postStepValidationSuccess && !prevProps.postStepValidationSuccess) {
             handlePaginationClick(page + 1);
         }
 
         if (postSuccess && !prevProps.postSuccess) {
-            postLogin(email, password);
-        }
-
-        if (loginSuccess && !prevProps.loginSuccess) {
-            history.push('/company');
+            history.push('/auth/register/success');
         }
 
         if (prevProps.isPosting && !isPosting && error) {
@@ -174,7 +172,7 @@ const RegisterFormContainer = ({
 
         if (page === 1) {
             postBody = {
-                user: {}
+                user: {},
             };
 
             stepOnePostBody.forEach(field => {
@@ -182,7 +180,7 @@ const RegisterFormContainer = ({
 
                 if (strippedField === 'confirmPassword') return;
 
-                return postBody.user[strippedField] = formData[field];
+                return (postBody.user[strippedField] = formData[field]);
             });
 
             postRegisterStepOne(postBody);
@@ -190,14 +188,18 @@ const RegisterFormContainer = ({
 
         if (page === 2) {
             postBody = {
-                company: {}
+                company: {},
             };
 
             stepTwoPostBody.forEach(field => {
                 const strippedField = field.replace('Company.', '');
 
-                return postBody.company[strippedField] = formData[field];
+                postBody.company[strippedField] = formData[field];
             });
+
+            if (postBody.company.vatCode) {
+                postBody.company.vatCode = postBody.company.vatCode.trim();
+            }
 
             postRegisterStepTwo(postBody);
         }
@@ -254,7 +256,7 @@ const RegisterFormContainer = ({
                 country,
                 phoneNumber: companyPhoneNumber,
                 vatType,
-                vatCode,
+                vatCode: vatCode.trim(),
                 dateFormatID,
                 timezone,
                 base64LogoFile: base64LogoFileStripped,
@@ -349,7 +351,6 @@ const mapDispatchToProps = {
     postRegister,
     postRegisterStepOne,
     postRegisterStepTwo,
-    postLogin,
     addFieldError,
     removeFieldError,
     showModal,

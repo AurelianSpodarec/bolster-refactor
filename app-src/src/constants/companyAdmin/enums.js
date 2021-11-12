@@ -223,10 +223,18 @@ export const NUMBER_OF_HISTORIES = {
     3: 'All',
 };
 
+export const NUMBER_OF_HISTORIES_WITH_DATE = {
+    1: 'Latest',
+    2: 'Earliest',
+    3: 'All',
+    4: 'All histories within set date range',
+};
+
 export const NUMBER_OF_HISTORIES_OPTIONS = {
     LATEST: 1,
     EARLIEST: 2,
     ALL: 3,
+    ALLWHERELATESTINDATERANGE: 4,
 };
 
 export const SORT_BY = {
@@ -351,6 +359,7 @@ export const INVOICE_STATUS_TYPES = {
     ALL: 0,
     PAID: 1,
     UNPAID: 2,
+    FREE: 3,
 };
 
 export const COMPANY_TYPES = {
@@ -405,6 +414,13 @@ export const HAS_PAID_QUERIES = {
     3: 'true',
 };
 
+export const HAS_PAID_VALUES = {
+    ALL: 0,
+    PAID: 1,
+    AWAITING_PAYMENT: 2,
+    FREE: 3,
+};
+
 export const DOCUMENT_TYPES = {
     VIEW_ONLY: '1',
     REQUIRES_AGREEMENT_ONCE: '2',
@@ -453,4 +469,11 @@ export const ACTIVITY_LOG_REFERENCE_VALUES = {
     2: 'Building',
     3: 'Floor',
     4: 'Drawing',
+};
+
+export const COMPANY_REPORTS_OUTPUT_TYPES = {
+    isCSVGeneration: 'CSV',
+    isPDFGeneration: 'PDF',
+    isFloorplanGeneration: 'Floor Plan',
+    isOEMManualGeneration: 'O&M Manual',
 };

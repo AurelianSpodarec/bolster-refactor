@@ -67,8 +67,6 @@ import {
     REMOVE_DRAWINGS_ACCESS,
     FORGOT_PASSWORD,
     GENERATE_SOS_CODE,
-    DELETE_DEMO_REQUEST,
-    ADD_DEMO_REQUEST_COMMENT,
     ADD_INVOICE_COMMENT,
     ADD_CONTACT_SUBMISSION_COMMENT,
     CONFIRM_MOVE_HIERARCHY_TO_COMPANY,
@@ -109,6 +107,21 @@ import {
     EDIT_BANNER_NOTIFICATION,
     ADD_NEW_BANNER_NOTIFICATION,
     UPDATE_REPORT_LAYOUT,
+    CONFIRM_TWO_FACTOR,
+    RECOVER_USER,
+    REACTIVATE_USER,
+    DISABLE_USER,
+    ENABLE_USER,
+    RESEND_INVITE,
+    ADD_DEMO_ACCESS_CODES,
+    EDIT_DEMO_ACCESS_CODES,
+    DELETE_DEMO_ACCESS_CODES,
+    ENTER_DEMO_ACCESS_CODES,
+    REQUEST_DELETE_INVOICE,
+    ADMIN_EDIT_COMPANY_OWNER,
+    CONFIRM_EMAIL,
+    USER_NEW_DOCUMENT,
+    UNCONFIRMED_EMAIL_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -218,6 +231,21 @@ import UserLatestSyncsModalContainer from 'components/superAdmin/companies/singl
 import EditBannerNotificationModal from 'components/superAdmin/bannerNotifications/editBannerNotificationModal/presentational/EditBannerNotificationModal';
 import AddBannerNotificationModal from 'components/superAdmin/bannerNotifications/addBannerNotifcationModel/presentational/AddBannerNotificationModal';
 import UpdateReportLayoutModal from '../presentational/UpdateReportLayoutModal';
+import ConfirmTwoFactorModal from '../presentational/ConfirmTwoFactorModal';
+import ConfirmEmailModal from '../presentational/ConfirmEmailModal';
+import RecoverUserModal from 'components/companyAdmin/userManagement/shared/modals/RecoverUserModal';
+import ReactivateUserModal from 'components/companyAdmin/userManagement/operatives/inactiveOperatives/modals/ReactivateUserModal';
+import DisableUserModal from 'components/companyAdmin/userManagement/shared/modals/DisableUserModal';
+import EnableUserModal from 'components/companyAdmin/userManagement/shared/modals/EnableUserModal';
+import ResendInviteModal from 'components/companyAdmin/userManagement/shared/modals/ResendInviteModal';
+import AddDemoAccessCodesModal from 'components/superAdmin/demoAccessCodes/presentational/AddDemoAccessCodesModal';
+import EditDemoAccessCodesModal from 'components/superAdmin/demoAccessCodes/presentational/EditDemoAccessCodesModal';
+import DeleteDemoAccessCodesModal from 'components/superAdmin/demoAccessCodes/presentational/DeleteDemoAccessCodesModal';
+import EnterDemoFullSiteModal from 'components/shared/demo-full-site/presentational/DemoFullSiteModal';
+import EditCompanyOwnerModalContainer from 'components/superAdmin/companies/singleCompany/containers/EditCompanyOwnerModalContainer';
+import RequestDeleteInvoiceModal from 'components/companyAdmin/invoices/requestDeleteInvoiceModal/RequestDeleteInvoiceModal';
+import NewUserDocumentModal from 'components/companyAdmin/userManagement/documentsUploader/presentational/NewUserDocumentModal';
+import UnconfirmedEmailModal from '../presentational/UnconfirmedEmailModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -289,6 +317,7 @@ const MODAL_COMPONENTS = {
     [ADMIN_CONFIRM_SET_IS_INVOICE_PAID]: ConfirmSetIsInvoicePaidModalContainer,
     [ADMIN_DELETE_INVOICE]: SuperAdminConfirmDeleteInvoiceModalContainer,
     [DELETE_INVOICE]: ConfirmDeleteInvoiceModalContainer,
+    [REQUEST_DELETE_INVOICE]: RequestDeleteInvoiceModal,
     [ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION]: AddMulitpleServicesToSubscriptionModalContainer,
     [GENERATE_QR_CODES]: GenerateQRCodesModalContainer,
     [ADMIN_ADD_MANUFACTURER]: AdminAddManufacturerModal,
@@ -325,6 +354,20 @@ const MODAL_COMPONENTS = {
     [ADD_NEW_BANNER_NOTIFICATION]: AddBannerNotificationModal,
     [EDIT_BANNER_NOTIFICATION]: EditBannerNotificationModal,
     [UPDATE_REPORT_LAYOUT]: UpdateReportLayoutModal,
+    [CONFIRM_TWO_FACTOR]: ConfirmTwoFactorModal,
+    [RECOVER_USER]: RecoverUserModal,
+    [REACTIVATE_USER]: ReactivateUserModal,
+    [DISABLE_USER]: DisableUserModal,
+    [ENABLE_USER]: EnableUserModal,
+    [RESEND_INVITE]: ResendInviteModal,
+    [ADD_DEMO_ACCESS_CODES]: AddDemoAccessCodesModal,
+    [EDIT_DEMO_ACCESS_CODES]: EditDemoAccessCodesModal,
+    [DELETE_DEMO_ACCESS_CODES]: DeleteDemoAccessCodesModal,
+    [ENTER_DEMO_ACCESS_CODES]: EnterDemoFullSiteModal,
+    [ADMIN_EDIT_COMPANY_OWNER]: EditCompanyOwnerModalContainer,
+    [CONFIRM_EMAIL]: ConfirmEmailModal,
+    [USER_NEW_DOCUMENT]: NewUserDocumentModal,
+    [UNCONFIRMED_EMAIL_MODAL]: UnconfirmedEmailModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

@@ -31,6 +31,13 @@ const FloorEditForm = ({
     handleShowManufacturingOptions,
     showManufacturingOptions,
     manufacturingInheritedFrom,
+    showDropdownOptions,
+    setDropdownOptionsForHierarchy,
+    isDropdownOptionsInherited,
+    selectedDropdownOptions,
+    dropdownOptions,
+    isDropDownOptionsInheritedFrom,
+    handleShowDropdownOptions,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -43,7 +50,7 @@ const FloorEditForm = ({
                         required
                     />
                 </Field>
-
+                {/* 
                 <div className="size-lg-12">
                     <div className="size-lg-6 size-md-12">
                         <Field name="Send an alert?">
@@ -55,8 +62,8 @@ const FloorEditForm = ({
                             />
                         </Field>
                     </div>
-                </div>
-
+                </div> */}
+                {/* 
                 {isAlertShowing && (
                     <div className="size-lg-12">
                         <div className={`size-lg-${isUsingBolsterLabels ? '12' : '6'}`}>
@@ -81,7 +88,7 @@ const FloorEditForm = ({
                             </Field>
                         </div>
                     </div>
-                )}
+                )} */}
             </div>
             {showManufacturingOptions ? (
                 <>
@@ -103,7 +110,7 @@ const FloorEditForm = ({
                     </div>
                     {setManufacturersForHierarchy && (
                         <div className="size-lg-12">
-                            <Field labelClasses="no-capitalise" name="Manufacturer(s)">
+                            <Field labelClasses="no-capitalise" name="Manufacturer(s)" required>
                                 <CheckboxListContainer
                                     name="selectedManufacturerOptions"
                                     text=""
@@ -111,6 +118,7 @@ const FloorEditForm = ({
                                     selectedOptions={selectedManufacturerOptions}
                                     options={manufacturerOptions}
                                     allOptionsDisabled={isManufacturingInherited}
+                                    required
                                 />
                             </Field>
                         </div>
@@ -165,6 +173,56 @@ const FloorEditForm = ({
                             </div>
                         </FieldOutput>
                     </>
+                </>
+            )}
+            {showDropdownOptions ? (
+                <>
+                    <div className="size-lg-12">
+                        <div className="size-lg-6 size-md-12">
+                            <Field labelClasses="no-capitalise" name="Set item types for floor?">
+                                <CheckboxContainer
+                                    checked={setDropdownOptionsForHierarchy}
+                                    name="setDropdownOptionsForHierarchy"
+                                    text=""
+                                    handleChange={handleInputChange}
+                                    disabled={isDropdownOptionsInherited}
+                                />
+                            </Field>
+                        </div>
+                    </div>
+                    {setDropdownOptionsForHierarchy && (
+                        <div className="size-lg-12">
+                            <Field labelClasses="no-capitalise" name="Item type(s)">
+                                <CheckboxListContainer
+                                    name="selectedDropdownOptions"
+                                    text=""
+                                    handleChange={handleInputChange}
+                                    selectedOptions={selectedDropdownOptions}
+                                    options={dropdownOptions}
+                                    allOptionsDisabled={isDropdownOptionsInherited}
+                                />
+                            </Field>
+                        </div>
+                    )}
+                </>
+            ) : (
+                <>
+                    <FieldOutput fieldClass="center-align">
+                        <div className="form-field size-lg-12">
+                            <p>
+                                Item types already set at {isDropDownOptionsInheritedFrom}.
+                                <br /> This cannot be overridden at this level, click{' '}
+                                <span
+                                    onClick={() => {
+                                        handleShowDropdownOptions();
+                                    }}
+                                >
+                                    here
+                                </span>{' '}
+                                to see the settings.
+                            </p>
+                        </div>
+                    </FieldOutput>
                 </>
             )}
         </div>

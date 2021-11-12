@@ -93,6 +93,12 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                                         sizeClass="size-lg-12"
                                     />
                                 )}
+                                <FieldOutput
+                                    title="Invoice Email"
+                                    description={company.invoiceEmail}
+                                    fieldClass="no-h-padding"
+                                    sizeClass="size-lg-12"
+                                />
                             </>
                         ) : (
                             <div className="field-group size-lg-12">
@@ -143,6 +149,12 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                                     <FieldOutput
                                         title="Short Code"
                                         description={company.shortCode}
+                                        fieldClass="no-h-padding"
+                                        sizeClass="size-lg-12"
+                                    />
+                                    <FieldOutput
+                                        title="Invoice Email"
+                                        description={company.invoiceEmail}
                                         fieldClass="no-h-padding"
                                         sizeClass="size-lg-12"
                                     />
@@ -237,6 +249,12 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                         <FieldOutput
                             title="QR Code Count"
                             description={company.qrCodeCount + ''}
+                            fieldClass="no-h-padding"
+                            sizeClass="size-lg-12"
+                        />
+                        <FieldOutput
+                            title="Is Two Factor Authentication Required?"
+                            description={company.isTwoFactorAuthRequired ? 'Yes' : 'No'}
                             fieldClass="no-h-padding"
                             sizeClass="size-lg-12"
                         />

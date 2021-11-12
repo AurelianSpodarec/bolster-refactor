@@ -1,14 +1,17 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import Dashboard from "../presentational/Dashboard";
-import moment from "moment";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Dashboard from '../presentational/Dashboard';
+import moment from 'moment';
 
-import { DASHBOARD_TABS } from "constants/shared/tabNames";
-import setTabs from "actions/shared/generic/tabs/sync/setTabs";
+import { DASHBOARD_TABS } from 'constants/shared/tabNames';
+import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
 
-import fetchPinStats from "actions/companyAdmin/dashboard/async/fetchPinStats";
-import updateDashboardFilters from "actions/companyAdmin/dashboard/sync/updateDashboardFilters";
-import fetchPinStatusStats from "actions/companyAdmin/dashboard/async/fetchPinStatusStats";
+import fetchPinStats from 'actions/companyAdmin/dashboard/async/fetchPinStats';
+import updateDashboardFilters from 'actions/companyAdmin/dashboard/sync/updateDashboardFilters';
+import fetchPinStatusStats from 'actions/companyAdmin/dashboard/async/fetchPinStatusStats';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { CONFIRM_EMAIL } from 'constants/shared/modalTypes';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 class DashboardContainer extends Component {
     render() {
@@ -22,34 +25,43 @@ class DashboardContainer extends Component {
             updateDashboardFilters,
             fetchPinStats,
             fetchPinStatusStats,
-            setTabs
+            setTabs,
+            showModal,
+            profile,
         } = this.props;
-        const startDate = moment()
-            .subtract(7, "days")
-            .toDate();
+        const startDate = moment().subtract(7, 'days').toDate();
 
         const startingFilters = {
-            serviceID: "",
-            status: "",
+            serviceID: '',
+            status: '',
             startDate: startDate,
-            endDate: moment().toDate()
+            endDate: moment().toDate(),
         };
 
         setTabs(Object.values(DASHBOARD_TABS), DASHBOARD_TABS.OPERATIVES);
 
-        updateDashboardFilters("serviceID", startingFilters.serviceID);
-        updateDashboardFilters("status", startingFilters.status);
-        updateDashboardFilters("startDate", startingFilters.startDate);
-        updateDashboardFilters("endDate", startingFilters.endDate);
+        updateDashboardFilters('serviceID', startingFilters.serviceID);
+        updateDashboardFilters('status', startingFilters.status);
+        updateDashboardFilters('startDate', startingFilters.startDate);
+        updateDashboardFilters('endDate', startingFilters.endDate);
 
         fetchPinStats(startingFilters);
         fetchPinStatusStats();
 
-        localStorage.setItem("selectedService", "");
-        localStorage.setItem("selectedStatus", "");
-        localStorage.setItem("selectedStartDate", "");
-        localStorage.setItem("selectedEndDate", "");
+        localStorage.setItem('selectedService', '');
+        localStorage.setItem('selectedStatus', '');
+        localStorage.setItem('selectedStartDate', '');
+        localStorage.setItem('selectedEndDate', '');
+
+        if (!profile.isEmailConfirmed) showModal(CONFIRM_EMAIL, { user: profile });
     };
+
+    componentDidUpdate(prevProps) {
+        const { profile, showModal, hideModal } = this.props;
+        if (!profile.isEmailConfirmed && prevProps.profile.isEmailConfirmed)
+            showModal(CONFIRM_EMAIL, { user: profile });
+        if (!prevProps.profile.isEmailConfirmed && profile.isEmailConfirmed) hideModal();
+    }
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -58,16 +70,19 @@ const mapDispatchToProps = dispatch => ({
     updateDashboardFilters: (fieldName, searchTerm) => {
         dispatch(updateDashboardFilters(fieldName, searchTerm));
     },
-    setTabs: (tabs, selectedTab) => dispatch(setTabs(tabs, selectedTab))
+    setTabs: (tabs, selectedTab) => dispatch(setTabs(tabs, selectedTab)),
+    showModal: (type, props) => dispatch(showModal(type, props)),
+    hideModal: () => dispatch(hideModal),
 });
 
-export default connect(
-    ({
-        shared: {
-            isIE10Reducer: { isIE10 }
-        }
-    }) => ({
-        isIE10
-    }),
-    mapDispatchToProps
-)(DashboardContainer);
+const mapStateToProps = ({
+    shared: {
+        isIE10Reducer: { isIE10 },
+        profileReducer: { profile },
+    },
+}) => ({
+    isIE10,
+    profile,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);

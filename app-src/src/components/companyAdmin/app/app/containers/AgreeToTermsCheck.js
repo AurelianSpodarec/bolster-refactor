@@ -28,7 +28,8 @@ const AgreeToTermsCheck = ({
     const [modalClose, setModalClose] = useState(false);
     const { pathname } = history.location;
     const prevProps = usePrevious({ pathname });
-    const isOwner = jwtData.companyUserType === 100;
+    const { companyID } = jwtData;
+    const isAdminOrAbove = jwtData.companyUserType >= 75;
 
     useEffect(() => {
         fetchTerms();
@@ -47,11 +48,13 @@ const AgreeToTermsCheck = ({
     };
 
     if (fetchError) return <ErrorBlock>{fetchError}</ErrorBlock>;
+    if (!companyID) return children;
+
     if (!fetchSuccess || !hasFetchedCompany) return null;
 
     var maxDate = getMaxDate([terms.publishedOn, eula.publishedOn, privacy.publishedOn]);
     if (
-        isOwner &&
+        isAdminOrAbove &&
         termsExists &&
         !modalClose &&
         (!termsAcceptedOn || new Date(maxDate) > new Date(termsAcceptedOn))

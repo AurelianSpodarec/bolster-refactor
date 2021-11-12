@@ -6,14 +6,15 @@ const FilterField = ({
     field: { selectedValues = [], questionValues = [], selectedQuestions, id },
     questions,
     handleShowCustomFieldModal,
-    removeCustomField
+    removeCustomField,
+    isQuestionFilterExact
 }) => {
-    // todo: styling here
+    const seperator = isQuestionFilterExact ? ' AND ' : ' OR ';
     const answers = selectedValues.length ? selectedValues : questionValues;
-    const joinedAnswers = answers.join(' OR ');
+    const joinedAnswers = answers.join(seperator);
     const chosenQuestions = selectedQuestions.map(id => questions[id].text);
-    const joinedQuestions = chosenQuestions.join(' OR ');
-
+    const joinedQuestions = chosenQuestions.join(seperator);
+    
     return (
         <FieldOutput fieldClass="filters">
             <div className="filters-calc">
@@ -26,17 +27,11 @@ const FilterField = ({
                 </p>
             </div>
             <BlockButtonWrapper sizeClasses="size-lg-5 size-md-12">
-                <button
-                    className="button yellow"
-                    onClick={() => handleShowCustomFieldModal(id)}
-                >
+                <button className="button yellow" onClick={() => handleShowCustomFieldModal(id)}>
                     <i className="far fa-edit fa-fw" />
                     Edit
                 </button>
-                <button
-                    className="button red"
-                    onClick={() => removeCustomField(id)}
-                >
+                <button className="button red" onClick={() => removeCustomField(id)}>
                     <i className="fa fa-times fa-fw" />
                     Remove
                 </button>

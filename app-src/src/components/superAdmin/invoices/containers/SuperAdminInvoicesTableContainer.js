@@ -5,10 +5,15 @@ import moment from 'moment';
 import SuperAdminInvoicesTable from '../presentational/SuperAdminInvoicesTable';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import { INVOICE_STATUS_TYPES, HAS_PAID_QUERIES } from 'constants/companyAdmin/enums';
+import {
+    INVOICE_STATUS_TYPES,
+    HAS_PAID_QUERIES,
+    HAS_PAID_VALUES,
+} from 'constants/companyAdmin/enums';
 import fetchInvoicesBySearch from 'actions/superAdmin/invoices/async/fetchInvoicesBySearch';
 import updateInvoiceFilter from 'actions/superAdmin/invoices/sync/updateInvoiceFilter';
 import PageSelector from 'components/shared/pagination/presentational/pageSelector';
+import { useEffect } from 'react';
 
 const SuperAdminInvoicesTableContainer = ({
     error,
@@ -23,6 +28,22 @@ const SuperAdminInvoicesTableContainer = ({
     const PAGE_SIZE = 50;
     const { searchTerm, hasPayed, page } = filters;
     const pageCount = Math.ceil(count / PAGE_SIZE);
+
+    useEffect(() => {
+        if (+hasPayed > 0) {
+            if (+hasPayed === HAS_PAID_VALUES.FREE) {
+                fetchInvoicesBySearch(page, searchTerm, false, HAS_PAID_QUERIES[hasPayed]);
+            } else {
+                fetchInvoicesBySearch(page, searchTerm, HAS_PAID_QUERIES[hasPayed]);
+            }
+        } else {
+            fetchInvoicesBySearch(page, searchTerm);
+        }
+
+        if (page > 1) {
+            setPage(page);
+        }
+    }, []);
 
     return (
         <BlockContainer>
@@ -66,9 +87,11 @@ const SuperAdminInvoicesTableContainer = ({
                 case INVOICE_STATUS_TYPES.ALL:
                     return true;
                 case INVOICE_STATUS_TYPES.PAID:
-                    return invoice.isPaid;
+                    return !invoice.isFree && invoice.isPaid;
                 case INVOICE_STATUS_TYPES.UNPAID:
-                    return !invoice.isPaid;
+                    return !invoice.isFree && !invoice.isPaid;
+                case INVOICE_STATUS_TYPES.FREE:
+                    return invoice.isFree;
                 default:
                     return true;
             }
@@ -87,7 +110,6 @@ const SuperAdminInvoicesTableContainer = ({
         updateInvoiceFilter('page', nextPage);
         const hasPaidQuery = HAS_PAID_QUERIES[hasPayed];
         const isFree = hasPayed === '3' ? true : null;
-        console.log({ hasPayed });
         fetchInvoicesBySearch(nextPage, searchTerm, hasPaidQuery, isFree, PAGE_SIZE);
     }
 };

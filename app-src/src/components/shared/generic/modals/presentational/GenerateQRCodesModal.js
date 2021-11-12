@@ -5,7 +5,6 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Loading from '../../misc/presentational/Loading';
 import Form from '../../form/containers/Form';
 import Field from '../../form/presentational/Field';
-import NumberInputContainer from '../../form/containers/NumberInputContainer';
 import Select from '../../form/presentational/Select';
 
 const GenerateQRCodesModal = ({

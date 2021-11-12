@@ -76,7 +76,7 @@ const TemplateQuestionFormModal = ({
                             search
                             name="prereqVal"
                             onChange={handleInputChange}
-                            value={prereqVal}
+                            value={prereqVal.map(str => (!isNaN(str) ? +str : str))}
                             options={prereqValueOptions}
                         />
                     </Field>
@@ -149,7 +149,7 @@ const TemplateQuestionFormModal = ({
                         </Field>
 
                         {prefillStatuses.length > 0 &&
-                            questionType == CHECKBOX &&
+                            +questionType === CHECKBOX &&
                             prefillStatuses.map((prefillStatus, index) => (
                                 <Field
                                     name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}
@@ -166,7 +166,7 @@ const TemplateQuestionFormModal = ({
                             ))}
 
                         {prefillStatuses.length > 0 &&
-                            questionType != CHECKBOX &&
+                            +questionType !== CHECKBOX &&
                             prefillStatuses.map((prefillStatus, index) => (
                                 <Field
                                     name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}

@@ -3,7 +3,6 @@ import React from 'react';
 import SectionListContiner from '../containers/SectionListContainer';
 import TemplateBuilderHeaderContainer from '../containers/TemplateBuilderHeaderContainer';
 import SaveTemplateButtonContainer from '../containers/SaveTemplateButtonContainer';
-// import TemplateLabelInfoContainer from '../containers/TemplateLabelInfoContainer';
 import PreviewSectionListContainer from '../../templatePreview/containers/PreviewSectionListContainer';
 import TemplateDetailsContainer from '../containers/TemplateDetailsContainer';
 

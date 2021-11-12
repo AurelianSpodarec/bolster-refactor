@@ -16,7 +16,8 @@ import {
     ADD_SERVICE_TO_SUBSCRIPTION_SUCCESS,
 } from 'constants/actionTypes/subscriptions';
 import { EDIT_SERVICE_RENEWAL_STATUS_REQUEST } from 'constants/actionTypes/services';
-import { LOGOUT } from 'constants/actionTypes/auth';
+import { LOGOUT, POST_SELECT_COMPANY_SUCCESS } from 'constants/actionTypes/auth';
+import { SET_API_FIELD_ERRORS } from 'constants/actionTypes/generic';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
@@ -35,6 +36,7 @@ function hasInitiallyFetchedReducer(state = false, action) {
         case FETCH_ALL_SUBSCRIPTIONS_FAILURE:
             return true;
         case LOGOUT:
+        case POST_SELECT_COMPANY_SUCCESS:
             return false;
         default:
             return state;
@@ -84,6 +86,7 @@ function isPostingReducer(state = false, action) {
         case EDIT_SERVICE_RENEWAL_STATUS_FAILURE:
         case EDIT_SUBSCRIPTION_RENEWAL_STATUS_FAILURE:
         case ADD_SERVICE_TO_SUBSCRIPTION_FAILURE:
+        case SET_API_FIELD_ERRORS:
             return false;
         default:
             return state;

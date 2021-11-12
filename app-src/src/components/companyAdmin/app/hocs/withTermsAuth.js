@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import fetchTerms from 'actions/shared/legalDocuments/fetchTerms';
 
 import Error from 'components/shared/generic/misc/presentational/Error';
-import { isEmpty } from 'lodash';
 import Block from 'components/shared/generic/block/presentational/Block';
 import AgreeToTermsModal from 'components/companyAdmin/agreeToTerms/AgreeToTermsModal';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';

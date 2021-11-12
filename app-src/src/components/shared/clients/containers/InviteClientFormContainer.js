@@ -6,8 +6,11 @@ import InviteClientForm from '../presentational/InviteClientForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import fetchCompaniesPermissions from 'actions/companyAdmin/companiesPermissions/async/fetchCompanyPermissions';
 import addClient from 'actions/companyAdmin/clients/async/addClient';
-import fetchClientUsers from 'actions/companyAdmin/userManagement/async/fetchClientUsers';
+import fetchClientUserPermissions from 'actions/companyAdmin/userManagement/async/fetchClientUserPermissions';
 import addManyClients from 'actions/companyAdmin/clients/async/addManyClients';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { inviteClientSuccessMessage } from 'constants/companyAdmin/successMessages';
+import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 
 class InviteClientFormContainer extends Component {
     state = {
@@ -50,15 +53,18 @@ class InviteClientFormContainer extends Component {
             fetchCompaniesPermissions,
             hierarchyType,
             hierarchyID,
-            fetchClientUsers,
+            fetchClientUserPermissions,
         } = this.props;
         fetchCompaniesPermissions(hierarchyType, hierarchyID);
-        fetchClientUsers();
+        fetchClientUserPermissions();
     };
     componentDidUpdate = prevProps => {
-        const { success, history, hierarchyType, hierarchyID } = this.props;
+        const { success, history, hierarchyType, hierarchyID, showModal } = this.props;
 
         if (!prevProps.success && success) {
+            showModal(SUCCESS_MODAL, {
+                message: inviteClientSuccessMessage(hierarchyType),
+            });
             history.replace(`/company/${hierarchyType}s/${hierarchyID}`);
         }
     };
@@ -172,7 +178,8 @@ const mapDispatchToProps = {
     addClient,
     fetchCompaniesPermissions,
     addManyClients,
-    fetchClientUsers,
+    fetchClientUserPermissions,
+    showModal,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InviteClientFormContainer));

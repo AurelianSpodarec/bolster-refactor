@@ -18,7 +18,8 @@ const HeaderProfileMobile = ({
     unreadMessageCount,
     totalCredits,
     totalRequests,
-    showModal
+    showModal,
+    isCompanyUserOrSelecting,
 }) => (
     <div className="profile" ref={updateNode}>
         <div className="user" onClick={handleClick}>
@@ -27,25 +28,25 @@ const HeaderProfileMobile = ({
             ) : (
                 <img src={NoProfilePic} alt="generic profile" />
             )}
-            {/* {todo: need to put FILE_STORAGE_URL on no profile pic and every image, when live. } */}
-
             <i className="arrow fas fa-chevron-right" />
         </div>
 
         <div className={`mobile-profile-menu ${popupVisible ? 'visible' : ''}`}>
-            <div className="mobile-notifications">
-                <AllNotificationsMobile
-                    company={company}
-                    unreadMessageCount={unreadMessageCount}
-                    totalCredits={totalCredits}
-                    totalRequests={totalRequests}
-                    showModal={showModal}
-                />
-            </div>
+            {!isCompanyUserOrSelecting && (
+                <div className="mobile-notifications">
+                    <AllNotificationsMobile
+                        company={company}
+                        unreadMessageCount={unreadMessageCount}
+                        totalCredits={totalCredits}
+                        totalRequests={totalRequests}
+                        showModal={showModal}
+                    />
+                </div>
+            )}
             <div className="text">
                 <p>{`${profile.firstName} ${profile.lastName}`}</p>
                 <span className="email">
-                    {profile.email} {/* todo: ##  impersonation needs stling ## */}
+                    {profile.email}
                     {isImpersonating ? `(impersonating ${companyName})` : ''}
                 </span>
             </div>
@@ -56,26 +57,30 @@ const HeaderProfileMobile = ({
 
                     <i className="icon fas fa-chevron-right right" />
                 </Link>
-                <Link to="/company/settings" className="item">
-                    <i className="far fa-cogs fa-fw icon" />
-                    <span className="item-text">Company Settings</span>
+                {!isCompanyUserOrSelecting && (
+                    <>
+                        <Link to="/company/settings" className="item">
+                            <i className="far fa-cogs fa-fw icon" />
+                            <span className="item-text">Company Settings</span>
 
-                    <i className="icon fas fa-chevron-right right" />
-                </Link>
-                <Link to="/company/subscription" className="item">
-                    <i className="far fa-money-check fa-fw fa-fw icon" />
-                    <span className="item-text">Subscription &amp; Credits</span>
+                            <i className="icon fas fa-chevron-right right" />
+                        </Link>
+                        <Link to="/company/subscription" className="item">
+                            <i className="far fa-money-check fa-fw fa-fw icon" />
+                            <span className="item-text">Subscription &amp; Credits</span>
 
-                    <i className="icon fas fa-chevron-right right" />
-                </Link>
-                <Link to="/company/invoices" className="item">
-                    <i className="far fa-receipt fa-fw fa-fw icon" />
-                    <span className="item-text">Orders</span>
+                            <i className="icon fas fa-chevron-right right" />
+                        </Link>
+                        <Link to="/company/invoices" className="item">
+                            <i className="far fa-receipt fa-fw fa-fw icon" />
+                            <span className="item-text">Orders</span>
 
-                    <i className="icon fas fa-chevron-right right" />
-                </Link>
+                            <i className="icon fas fa-chevron-right right" />
+                        </Link>
+                    </>
+                )}
 
-                {isSubscribed && (
+                {isSubscribed && !isCompanyUserOrSelecting && (
                     <>
                         <Link to="/company/tools/credit-logs" className="item">
                             <i className="far fa-scroll fa-fw icon" />
@@ -94,11 +99,19 @@ const HeaderProfileMobile = ({
                     </>
                 )}
 
-                <Link to="/company/recently-deleted" className="item">
-                    <i className="far fa-trash fa-fw icon" />
+                {!isCompanyUserOrSelecting && (
+                    <Link to="/company/recently-deleted" className="item">
+                        <i className="far fa-trash fa-fw icon" />
 
-                    <span className="item-text">Recently Deleted</span>
+                        <span className="item-text">Recently Deleted</span>
 
+                        <i className="icon fas fa-chevron-right right" />
+                    </Link>
+                )}
+
+                <Link to="/company/company-selection" className="item">
+                    <i className="icon far fa-exchange fa-fw" />
+                    <span className="item-text">Select Company</span>
                     <i className="icon fas fa-chevron-right right" />
                 </Link>
 
