@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
-const MultiDropdown = ({ isRequired, question: { id, options }, answers, handleChange }) => {
-    const opts = options.map(({ id, text }) => ({ value: id, label: text }));
+const MultiDropdown = ({
+    isRequired,
+    question: { id, options, optionConfigurations },
+    answers,
+    handleChange,
+}) => {
+    const opts = useMemo(() => {
+        const enabledOpts = optionConfigurations
+            .filter(opt => !opt.isDisabled)
+            .map(opt => opt.name);
+        const optsFiltered = options.filter(opt => enabledOpts.includes(opt.id));
+        const optsForDropdown = optsFiltered.map(({ id, text }) => ({ value: id, label: text }));
+        return optsForDropdown;
+    }, [options, optionConfigurations]);
+
     // handles if prefilled from a string instead of array
     const value = [].concat(answers[id] || []);
     const optsAnswers = opts.map(({ value }) => value);
@@ -14,10 +27,6 @@ const MultiDropdown = ({ isRequired, question: { id, options }, answers, handleC
             }
         })
         .filter(Boolean);
-
-    console.log('opts', opts);
-    console.log('value', value);
-    console.log('answers', answers);
 
     return (
         <MultiSelect

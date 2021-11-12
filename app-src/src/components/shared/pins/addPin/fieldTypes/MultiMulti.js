@@ -1,23 +1,25 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import BoundlessSelect from 'components/shared/generic/form/presentational/BoundlessSelect';
-
-
 
 const MultiMulti = ({
     isRequired,
-    question: { id, options },
+    question: { id, options, optionConfigurations },
     answers,
-    handleChange
+    handleChange,
 }) => {
-    const formattedOpts = options.map(({ id, text }) => ({
-        value: id,
-        label: text
-    }));
+    const opts = useMemo(() => {
+        const enabledOpts = optionConfigurations
+            .filter(opt => !opt.isDisabled)
+            .map(opt => opt.name);
+        const optsFiltered = options.filter(opt => enabledOpts.includes(opt.id));
+        const optsForDropdown = optsFiltered.map(({ id, text }) => ({ value: id, label: text }));
+        return optsForDropdown;
+    }, [options, optionConfigurations]);
 
     return (
         <BoundlessSelect
             required={isRequired}
-            options={formattedOpts}
+            options={opts}
             value={answers[id]}
             name={`answer-${id}`}
             onChange={handleChange}
