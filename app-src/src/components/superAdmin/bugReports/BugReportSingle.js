@@ -96,7 +96,7 @@ const BugReportSingle = () => {
                                 height="auto"
                                 poster={`${VIDEO_STORAGE_URL}/${bugReport?.evidenceFileS3Key}`}
                                 className="size-lg-10"
-                                style={{ cursor: 'zoom-in' }}
+                                style={{ cursor: 'zoom-in', maxHeight: '30vh' }}
                                 onClick={() =>
                                     dispatch(
                                         showModal(EXPANDED_MEDIA, {
@@ -115,7 +115,11 @@ const BugReportSingle = () => {
                                 src={`${FILE_STORAGE_URL}/${bugReport?.evidenceFileS3Key}`}
                                 alt="Evidence"
                                 className="size-lg-6"
-                                style={{ cursor: 'zoom-in' }}
+                                style={{
+                                    cursor: 'zoom-in',
+                                    maxHeight: '30vh',
+                                    objectFit: 'contain',
+                                }}
                                 onClick={() =>
                                     dispatch(
                                         showModal(EXPANDED_MEDIA, {
@@ -132,7 +136,7 @@ const BugReportSingle = () => {
                             alt="About Device"
                             src={`${FILE_STORAGE_URL}/${bugReport?.aboutDeviceScreenshotS3Key}`}
                             className="size-lg-6"
-                            style={{ cursor: 'zoom-in' }}
+                            style={{ cursor: 'zoom-in', maxHeight: '30vh', objectFit: 'contain' }}
                             onClick={() =>
                                 dispatch(
                                     showModal(EXPANDED_MEDIA, {
