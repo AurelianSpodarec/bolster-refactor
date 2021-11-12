@@ -5,7 +5,6 @@ import placeholder from '_content/images/layout/loading.gif';
 import { RAW_S3_STORAGE_URL } from 'config';
 
 const IconPin = ({ pinColour = 'red', excluded = false, icon }) => {
-    console.log({ uri: `${RAW_S3_STORAGE_URL}/${icon}` });
     return (
         <div className="icon-pin" style={{ opacity: excluded ? 0.5 : 1 }}>
             <img

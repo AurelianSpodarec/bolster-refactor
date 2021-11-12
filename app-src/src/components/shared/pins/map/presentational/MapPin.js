@@ -48,7 +48,6 @@ const DrawingMapPin = ({
     const status = pinHistory.status || latestStatus;
     const pinColour = COLOURS[status] || 'red';
     const updated = formatDate(latestCreatedOn) !== formatDate(createdOn) ? latestCreatedOn : null;
-    // console.log([templatePinImageS3Key, servicePinImageS3Key, pinCode]);
 
     const renderPin = pinViewMode => {
         const props = {
