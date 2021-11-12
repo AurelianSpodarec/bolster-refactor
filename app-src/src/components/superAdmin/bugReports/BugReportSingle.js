@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import useFetchBugReport from './hooks/useFetchBugReport';
 import useDeleteBugReport from './hooks/useDeleteBugReport';
@@ -10,19 +11,16 @@ import Block from 'components/shared/generic/block/presentational/Block';
 import moment from 'moment';
 import { FILE_STORAGE_URL, VIDEO_STORAGE_URL } from 'config';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import { videoFormats } from 'constants/shared/media';
+import { isVideo } from 'helpers/generic';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { EXPANDED_MEDIA } from 'constants/shared/modalTypes';
 
 const BugReportSingle = () => {
     const { id } = useParams();
+    const dispatch = useDispatch();
 
     const { bugReport, isFetching, error } = useFetchBugReport(id);
     const [handleDeleteBugReport] = useDeleteBugReport();
-
-    const isVideo = s3Key => {
-        const fileExtension = s3Key.split('.').pop();
-
-        return videoFormats.includes(fileExtension.toLowerCase());
-    };
 
     return (
         <>
@@ -91,14 +89,21 @@ const BugReportSingle = () => {
                 <Block>
                     <div className="size-lg-6">
                         <BlockHeading title="Evidence File" />
-                        {isVideo(bugReport.evidenceFileS3Key) ? (
+                        {isVideo(bugReport?.evidenceFileS3Key) ? (
                             <video
-                                controls
                                 preload="auto"
                                 width="100%"
                                 height="auto"
                                 poster={`${VIDEO_STORAGE_URL}/${bugReport?.evidenceFileS3Key}`}
                                 className="size-lg-10"
+                                style={{ cursor: 'zoom-in' }}
+                                onClick={() =>
+                                    dispatch(
+                                        showModal(EXPANDED_MEDIA, {
+                                            s3Key: bugReport.evidenceFileS3Key,
+                                        }),
+                                    )
+                                }
                             >
                                 <source
                                     src={`${VIDEO_STORAGE_URL}/${bugReport?.evidenceFileS3Key}`}
@@ -110,6 +115,14 @@ const BugReportSingle = () => {
                                 src={`${FILE_STORAGE_URL}/${bugReport?.evidenceFileS3Key}`}
                                 alt="Evidence"
                                 className="size-lg-6"
+                                style={{ cursor: 'zoom-in' }}
+                                onClick={() =>
+                                    dispatch(
+                                        showModal(EXPANDED_MEDIA, {
+                                            s3Key: bugReport.evidenceFileS3Key,
+                                        }),
+                                    )
+                                }
                             />
                         )}
                     </div>
@@ -119,6 +132,14 @@ const BugReportSingle = () => {
                             alt="About Device"
                             src={`${FILE_STORAGE_URL}/${bugReport?.aboutDeviceScreenshotS3Key}`}
                             className="size-lg-6"
+                            style={{ cursor: 'zoom-in' }}
+                            onClick={() =>
+                                dispatch(
+                                    showModal(EXPANDED_MEDIA, {
+                                        s3Key: bugReport.aboutDeviceScreenshotS3Key,
+                                    }),
+                                )
+                            }
                         />
                     </div>
                 </Block>
