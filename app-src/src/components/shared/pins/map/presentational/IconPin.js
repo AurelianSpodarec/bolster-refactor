@@ -6,7 +6,7 @@ import placeholder from '_content/images/examples/jamie.png';
 const IconPin = ({ pinColour = 'red', excluded = false, icon = placeholder }) => {
     return (
         <div className="icon-pin" style={{ opacity: excluded ? 0.5 : 1 }}>
-            <img className="icon" src={icon} alt={`${pinColour} icon`} />
+            <img className="icon" src={icon} alt={'icon'} />
             <img alt={`${pinColour} pin`} src={iconPinImgs[pinColour]} />
         </div>
     );

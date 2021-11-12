@@ -23,6 +23,7 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 import setZoneAddMode from 'actions/companyAdmin/zones/sync/setZoneAddMode';
 import setZonesOpacity from 'actions/companyAdmin/zones/sync/setZonesOpacity';
 import togglePinIconView from 'actions/companyAdmin/pins/sync/togglePinIconView';
+import fetchAllTemplates from 'actions/companyAdmin/templates/async/fetchAllTemplates';
 import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
 import DrawingDetailsContainer from './DrawingDetailsContainer';
 import FurtherFiltrationContainer from 'components/companyAdmin/reports/createReport/components/containers/FurtherFiltrationContainer';
@@ -174,6 +175,7 @@ class DrawingMapGeneralContainer extends Component {
             objectUsers,
             companyUserID,
             drawingID,
+            templates,
         } = this.props;
         if (objectUsers && objectUsers[companyUserID]) {
             this.setState({
@@ -196,6 +198,10 @@ class DrawingMapGeneralContainer extends Component {
             this._floorplanInterval = setInterval(() => {
                 fetchSingleDrawing(drawing.id);
             }, 5000);
+        }
+        if (Object.keys(templates).length === 0) {
+            console.log('fetchAllTemplates');
+            fetchAllTemplates();
         }
     };
 
@@ -447,6 +453,7 @@ const mapStateToProps = (
         companyAdmin: {
             pinsReducer: { pins, isFetching, error, pinViewMode },
             servicesReducer: { services },
+            templatesReducer: { templates },
             companyUsersReducer: { users },
             drawingsReducer: { drawings, postSuccess },
             addPinCoordinatesReducer: { coordinates },
@@ -491,6 +498,7 @@ const mapStateToProps = (
     isModified,
     zones,
     pinViewMode,
+    templates,
 });
 
 const mapDispatchToProps = {
@@ -507,6 +515,7 @@ const mapDispatchToProps = {
     setZoneAddMode,
     setZonesOpacity,
     togglePinIconView,
+    fetchAllTemplates,
 };
 
 export default withRouter(
