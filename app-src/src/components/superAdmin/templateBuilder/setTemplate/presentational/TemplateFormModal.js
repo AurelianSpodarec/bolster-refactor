@@ -26,6 +26,7 @@ const TemplateformModal = ({
     handleChange,
     handleSubmit,
     handleCancel,
+    pinImageS3Key,
 }) => (
     <ModalOuter hideModal={handleCancel}>
         <BlockHeading title={`${action} template`} />
@@ -72,15 +73,15 @@ const TemplateformModal = ({
                 />
             </Field>
             <Field name="Pin Display Icon">
-                <p>Please upload your drawing in .png format with a maximum size of 128x128px.</p>
+                <p>Please upload your icon in .png format with a maximum size of 128x128.</p>
                 <br />
                 <FileUploadContainer
-                    //   value={iconS3Key}
-                    //   name={`iconS3Key`}
+                    name="pinImageS3Key"
+                    value={pinImageS3Key}
                     acceptedTypes={['image/png']}
-                    //   handleChange={(name, value) => {
-                    //       handleChange(name, value);
-                    //   }}
+                    handleChange={(name, value) => {
+                        handleChange(name, value);
+                    }}
                     maxHeight={128}
                     maxWidth={128}
                 />

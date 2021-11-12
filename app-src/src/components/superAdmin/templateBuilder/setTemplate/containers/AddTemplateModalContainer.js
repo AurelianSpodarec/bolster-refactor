@@ -4,6 +4,7 @@ import generateUuid from 'uuid/v1';
 import TemplateFormModal from '../presentational/TemplateFormModal';
 import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
 import withTemplateFormLogic from '../hocs/withTemplateFormLogic';
+import setPinImageS3Key from 'actions/superAdmin/templateBuilder/sync/setPinImageS3Key';
 
 class TemplateFormModalContainer extends React.Component {
     render() {
@@ -18,7 +19,8 @@ class TemplateFormModalContainer extends React.Component {
             handleChange,
             statusDropdownOptions,
             statusOptions,
-            reportLayoutOptions
+            reportLayoutOptions,
+            pinImageS3Key,
         } = this.props;
 
         return (
@@ -36,6 +38,7 @@ class TemplateFormModalContainer extends React.Component {
                 handleChange={handleChange}
                 handleCancel={handleCancel}
                 handleSubmit={this.handleSubmit}
+                pinImageS3Key={pinImageS3Key}
             />
         );
     }
@@ -60,7 +63,9 @@ class TemplateFormModalContainer extends React.Component {
             serviceID,
             labelType,
             statusOptions,
-            reportLayout
+            reportLayout,
+            pinImageS3Key,
+            setPinImageS3Key,
         } = this.props;
 
         const template = {
@@ -70,7 +75,8 @@ class TemplateFormModalContainer extends React.Component {
             uuid: templateUUID,
             name,
             statusOptions,
-            reportLayout
+            reportLayout,
+            pinImageS3Key,
         };
         const sectionUUID = generateUuid();
         const section1 = {
@@ -78,7 +84,7 @@ class TemplateFormModalContainer extends React.Component {
             templateUUID,
             name: 'Section 1',
             sort: 1,
-            isAfterLabel: false
+            isAfterLabel: false,
         };
 
         const statusQuestion = {
@@ -89,7 +95,7 @@ class TemplateFormModalContainer extends React.Component {
             questionType: QUESTION_TYPE_NUMBERS.STATUS,
             sectionUUID,
             templateUUID,
-            sort: 1
+            sort: 1,
         };
 
         const labelFields = generateLabelFields(labelType, templateUUID);
@@ -98,6 +104,7 @@ class TemplateFormModalContainer extends React.Component {
         setSection(section1);
         setQuestion(statusQuestion);
         setLabelFields(labelFields, templateUUID);
+        setPinImageS3Key(pinImageS3Key);
         hideModal();
     };
 }
