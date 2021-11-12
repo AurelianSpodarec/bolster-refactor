@@ -5,7 +5,6 @@ import useBugReportsTable from './hooks/useBugReportsTable';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { isEmpty } from 'helpers/generic';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import useDeleteBugReport from './hooks/useDeleteBugReport';
 
 const headers = [
@@ -19,7 +18,13 @@ const headers = [
 ];
 
 const BugReportsTable = () => {
-    const { bugReports, isFetching, error, handleViewBugReport } = useBugReportsTable();
+    const {
+        bugReports,
+        isFetching,
+        error,
+        handleViewBugReport,
+        handleMarkRead,
+    } = useBugReportsTable();
     const [handleDeleteBugReport] = useDeleteBugReport();
 
     return (
@@ -44,21 +49,28 @@ const BugReportsTable = () => {
                             </td>
                             <td className="center">{report.systemPage}</td>
                             <td>
-                                <BlockButtonWrapper>
-                                    <button
-                                        className="button green"
-                                        onClick={() => handleViewBugReport(report.id)}
-                                    >
-                                        <i className="far fa-eye" /> View
-                                    </button>
-                                    <button
-                                        className="button red"
-                                        onClick={() => handleDeleteBugReport(report.id)}
-                                    >
-                                        <i className="far fa-trash" />
-                                        Delete
-                                    </button>
-                                </BlockButtonWrapper>
+                                <button
+                                    onClick={() => handleMarkRead(report.id)}
+                                    className="button icon-only"
+                                >
+                                    {report.contacted ? (
+                                        <i className="fa fa-bell-slash" />
+                                    ) : (
+                                        <i className="fa fa-bell" />
+                                    )}
+                                </button>
+                                <button
+                                    className="button green icon-only"
+                                    onClick={() => handleViewBugReport(report.id)}
+                                >
+                                    <i className="fa fa-eye" />
+                                </button>
+                                <button
+                                    className="button red icon-only"
+                                    onClick={() => handleDeleteBugReport(report.id)}
+                                >
+                                    <i className="far fa-trash-alt" />
+                                </button>
                             </td>
                         </tr>
                     );

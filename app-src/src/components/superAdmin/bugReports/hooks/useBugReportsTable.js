@@ -29,7 +29,12 @@ const useBugReportsTable = () => {
         history.push(`/admin/bug-reports/${id}`);
     };
 
-    return { bugReports, isFetching, error, handleViewBugReport };
+    const handleMarkRead = id => {
+        console.log('mark read', id);
+        // dispatch(handleMarkReportAsRead(id));
+    };
+
+    return { bugReports, isFetching, error, handleViewBugReport, handleMarkRead };
 };
 
 const mapStateToProps = ({
