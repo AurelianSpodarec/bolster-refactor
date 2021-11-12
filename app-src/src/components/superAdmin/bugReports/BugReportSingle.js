@@ -91,19 +91,13 @@ const BugReportSingle = () => {
                         <BlockHeading title="Evidence File" />
                         {isVideo(bugReport?.evidenceFileS3Key) ? (
                             <video
+                                controls
                                 preload="auto"
                                 width="100%"
                                 height="auto"
                                 poster={`${VIDEO_STORAGE_URL}/${bugReport?.evidenceFileS3Key}`}
                                 className="size-lg-10"
                                 style={{ cursor: 'zoom-in', maxHeight: '30vh' }}
-                                onClick={() =>
-                                    dispatch(
-                                        showModal(EXPANDED_MEDIA, {
-                                            s3Key: bugReport.evidenceFileS3Key,
-                                        }),
-                                    )
-                                }
                             >
                                 <source
                                     src={`${VIDEO_STORAGE_URL}/${bugReport?.evidenceFileS3Key}`}
