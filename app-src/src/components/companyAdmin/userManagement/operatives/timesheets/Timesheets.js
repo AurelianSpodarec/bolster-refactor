@@ -5,6 +5,8 @@ import BackButtonContainer from 'components/shared/generic/backButton/containers
 import Breakdown from './breakdown/Breakdown';
 import useTimesheets from './hooks/useTimesheets';
 import TimesheetCalender from './timesheetCalender/TimesheetCalender';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 
 const Timesheets = () => {
     const {
@@ -19,7 +21,6 @@ const Timesheets = () => {
         fetchError,
         timesheets,
         totals,
-        companyUser,
         onPrev,
         onNext,
         onToday,
@@ -32,11 +33,23 @@ const Timesheets = () => {
         <>
             <PageHeading
                 leftChildren={true}
-                title={`Timesheet - ${
-                    isFetching
-                        ? 'Loading...'
-                        : companyUser?.userFirstName + ' ' + companyUser?.userLastName
-                }`}
+                title={
+                    <>
+                        Timesheet -{' '}
+                        {isFetching ? (
+                            'Loading...'
+                        ) : (
+                            <>
+                                {companyUserIDs.length || 'All'} Users (
+                                <DateTimeContainer
+                                    datetime={DATE_TIME_IDS.DATE}
+                                    date={selectedDate}
+                                />
+                                - {timePeriod})
+                            </>
+                        )}
+                    </>
+                }
             >
                 <BackButtonContainer />
             </PageHeading>

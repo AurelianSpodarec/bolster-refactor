@@ -51,19 +51,16 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
                 ({ firstName, lastName, totalPins, clockerEntries = [], date }, i) => {
                     return (
                         <div className="day" key={i}>
-                            <BlockHeading
-                                title={
+                            <BreakdownDaySummary
+                                name={
                                     <>
-                                        Day Overview -{' '}
+                                        {firstName} {lastName} -{' '}
                                         <DateTimeContainer
                                             date={new Date(date)}
                                             datetime={DATE_TIME_IDS.DATE}
                                         />
                                     </>
                                 }
-                            />
-                            <BreakdownDaySummary
-                                name={`${firstName} ${lastName}`}
                                 pins={totalPins}
                                 clockerEntries={clockerEntries}
                             />

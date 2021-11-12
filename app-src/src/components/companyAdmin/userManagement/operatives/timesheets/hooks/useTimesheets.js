@@ -48,12 +48,6 @@ const useTimesheets = () => {
     const reportSuccess = useSelector(reportPostSuccess);
     const prevReportPostSuccess = usePrevious(reportSuccess);
 
-    const {
-        isFetching: companyUserIsFetching,
-        companyUserFetchError,
-        companyUser,
-    } = useFetchCompanyUser(id);
-
     const thisWeek = moment(new Date()).tz(timeZone.id).startOf('isoWeek').format();
 
     const thisDay = moment(new Date()).tz(timeZone.id).startOf('day').format();
@@ -164,11 +158,10 @@ const useTimesheets = () => {
         companyUserIDs,
         setCompanyUserIDs,
         companyUserOptions,
-        isFetching: companyUserIsFetching || timesheetsIsFetching || companyUsersIsFetching,
-        fetchError: companyUserFetchError || timesheetsFetchError || companyUsersFetchError,
+        isFetching: timesheetsIsFetching || companyUsersIsFetching,
+        fetchError: timesheetsFetchError || companyUsersFetchError,
         timesheets,
         totals,
-        companyUser,
         onPrev,
         onNext,
         onToday,
