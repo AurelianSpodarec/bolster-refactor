@@ -173,7 +173,7 @@ const useTimesheets = () => {
 
 const getCompanyUserOption = companyUser => ({
     value: companyUser.id,
-    label: `${companyUser.userFirstName} ${companyUser.userLastName}`,
+    label: `${companyUser.userFirstName} ${companyUser.userLastName} (${companyUser.userEmail})`,
 });
 
 export default useTimesheets;
