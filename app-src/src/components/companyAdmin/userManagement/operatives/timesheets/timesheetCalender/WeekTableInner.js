@@ -1,10 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-import useDay from '../hooks/useDay';
 import { useSelector } from 'react-redux';
-import useReferences from '../hooks/useReferences';
-import useWeeklyReferences from '../hooks/useWeeklyReferences';
 
 import Tab from './Tab';
 import ExpandableTab from './ExpandableTab';
@@ -24,14 +21,16 @@ const WeekTableInner = ({
     totals,
 }) => {
     const { timeZone } = useSelector(selectCompanySettings);
-    // const weeklyReferences = useWeeklyReferences(clockerEntries);
     const { expandedDate, handleJobsClick } = useExpandableTab();
 
     const { totalPins, formattedHours, jobReferences } = totals.reduce(
         (acc, { totalPins, formattedHours, jobReferences }) => {
             acc.totalPins += totalPins;
             acc.formattedHours += formattedHours;
-            acc.jobReferences = [...acc.jobReferences, ...jobReferences];
+            acc.jobReferences = [
+                ...acc.jobReferences,
+                ...jobReferences.filter(jobReference => jobReference),
+            ];
             return acc;
         },
         { totalPins: 0, formattedHours: 0, jobReferences: [] },
@@ -39,10 +38,8 @@ const WeekTableInner = ({
 
     return (
         <>
-            {totals.map(({ date, totalPins, formattedHours, jobReferences }, i) => {
-                //const { clockerEntries: dayClockerEntries } = useDay(timesheet, date);
-                //const references = useReferences(dayClockerEntries);
-
+            {totals.map(({ date, totalPins, formattedHours, jobReferences: _jobReferences }, i) => {
+                const jobReferences = _jobReferences.filter(jobReference => jobReference);
                 return (
                     <td key={i} onClick={() => onDaySelect(date)}>
                         <div className="date">
@@ -63,7 +60,11 @@ const WeekTableInner = ({
                                         date={date}
                                         icon={<i className="fal fa-sticky-note" />}
                                         items={jobReferences}
-                                        itemType={jobReferences.length > 1 ? 'Jobs' : 'Job'}
+                                        itemType={
+                                            jobReferences.length > 1 || jobReferences.length === 0
+                                                ? 'Jobs'
+                                                : 'Job'
+                                        }
                                         isExpanded={expandedDate === date}
                                         onJobClick={handleJobsClick}
                                     />
@@ -97,7 +98,11 @@ const WeekTableInner = ({
                             date="week"
                             icon={<i className="fal fa-sticky-note" />}
                             items={jobReferences}
-                            itemType={jobReferences.length > 1 ? 'Jobs' : 'Job'}
+                            itemType={
+                                jobReferences.length > 1 || jobReferences.length === 0
+                                    ? 'Jobs'
+                                    : 'Job'
+                            }
                             isExpanded={expandedDate === 'week'}
                             onJobClick={handleJobsClick}
                         />

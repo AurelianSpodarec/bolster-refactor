@@ -14,7 +14,7 @@ const BreakdownDaySummary = ({ name, pins, clockerEntries }) => {
     const timeline = useTimeline(clockerEntries);
     const formattedBreakTime = useFormattedBreakTime(timeline);
     const formattedHours = clockerEntries.reduce(
-        (acc, { formattedHours }) => acc + formattedHours,
+        (acc, { formattedHours }) => acc + (formattedHours ?? 0),
         0,
     );
 
