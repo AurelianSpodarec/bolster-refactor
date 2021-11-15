@@ -88,7 +88,7 @@ const InvoiceDetails = ({
             {isPaid && (
                 <FieldOutput
                     title="Payment Method"
-                    description={PAYMENT_TYPES[paymentType]}
+                    description={PAYMENT_TYPES[paymentType] || '-'}
                     sizeClass="size-lg-4 size-md-12"
                 />
             )}

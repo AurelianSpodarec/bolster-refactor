@@ -64,7 +64,7 @@ const InvoiceListItem = ({
         <td>
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[6]}</span>}
-            {PAYMENT_TYPES[paymentType]}
+            {PAYMENT_TYPES[paymentType] || '-'}
         </td>
         <td>
             {' '}
