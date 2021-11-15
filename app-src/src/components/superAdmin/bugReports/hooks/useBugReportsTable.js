@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import fetchBugReportList from 'actions/superAdmin/bugReports/fetchBugReportList';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import patchBugReportStatus from 'actions/superAdmin/bugReports/patchBugReportStatus';
 
 const useBugReportsTable = () => {
     const dispatch = useDispatch();
@@ -30,8 +31,7 @@ const useBugReportsTable = () => {
     };
 
     const handleMarkRead = id => {
-        console.log('mark read', id);
-        // dispatch(handleMarkReportAsRead(id));
+        dispatch(patchBugReportStatus(id));
     };
 
     return { bugReports, isFetching, error, handleViewBugReport, handleMarkRead };

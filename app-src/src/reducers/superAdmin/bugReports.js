@@ -11,6 +11,9 @@ import {
     FETCH_BUG_REPORT_FAILURE,
     FETCH_BUG_REPORT_REQUEST,
     FETCH_BUG_REPORT_SUCCESS,
+    MARK_BUG_REPORT_FAILURE,
+    MARK_BUG_REPORT_REQUEST,
+    MARK_BUG_REPORT_SUCCESS,
 } from 'constants/actionTypes/bugReports';
 
 export default combineReducers({
@@ -19,6 +22,9 @@ export default combineReducers({
     error: errorReducer,
     isPosting: isPostingReducer,
     postSuccess: postSuccessReducer,
+    isMarking: isMarkingReducer,
+    markingSuccess: markingSuccessReducer,
+    markingError: markingErrorReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -57,6 +63,8 @@ function bugReportsReducer(state = {}, action) {
             return updateObj(state, action.payload.id, action.payload);
         case DELETE_BUG_REPORT_SUCCESS:
             return removeObjItem(state, action.payload.id);
+        case MARK_BUG_REPORT_SUCCESS:
+            return updateObj(state, action.data.id, action.data);
         default:
             return state;
     }
@@ -80,6 +88,40 @@ function errorReducer(state = null, action) {
         case FETCH_BUG_REPORT_FAILURE:
         case DELETE_BUG_REPORT_FAILURE:
             return action.payload;
+        default:
+            return state;
+    }
+}
+
+function isMarkingReducer(state = false, action) {
+    switch (action.type) {
+        case MARK_BUG_REPORT_REQUEST:
+            return true;
+        case MARK_BUG_REPORT_SUCCESS:
+        case MARK_BUG_REPORT_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function markingSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case MARK_BUG_REPORT_REQUEST:
+            return false;
+        case MARK_BUG_REPORT_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function markingErrorReducer(state = null, action) {
+    switch (action.type) {
+        case MARK_BUG_REPORT_REQUEST:
+            return null;
+        case MARK_BUG_REPORT_FAILURE:
+            return action.error;
         default:
             return state;
     }

@@ -16,12 +16,12 @@ const useBugReport = () => {
         affectedUserCount: null,
         deviceDetails: '',
         appVersion: '',
-        aboutDeviceScreenshot: '',
+        aboutDeviceScreenshots: '',
         browserUsed: '',
         systemPage: '',
         dateIssueOccurred: '',
         fullDescription: '',
-        evidenceFile: '',
+        evidenceFiles: '',
         isReplicable: false,
     });
 

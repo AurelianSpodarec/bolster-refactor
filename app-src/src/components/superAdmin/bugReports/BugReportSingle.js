@@ -38,7 +38,10 @@ const BugReportSingle = () => {
                     </div>
                     <div className="size-lg-4">
                         <BlockHeading title="Created by" />
-                        <p>{bugReport?.createdByCompanyUserFullname || 'No user'}</p>
+                        <p>
+                            {`${bugReport?.createdByCompanyUserFullname} - (${bugReport?.createdByCompanyUserEmail})` ||
+                                'No user'}
+                        </p>
                     </div>
                 </Block>
 
@@ -89,56 +92,81 @@ const BugReportSingle = () => {
                 <Block>
                     <div className="size-lg-6">
                         <BlockHeading title="Evidence File" />
-                        {isVideo(bugReport?.evidenceFileS3Key) ? (
-                            <video
-                                controls
-                                preload="auto"
-                                width="100%"
-                                height="auto"
-                                poster={`${VIDEO_STORAGE_URL}/${bugReport?.evidenceFileS3Key}`}
-                                className="size-lg-10"
-                                style={{ cursor: 'zoom-in', maxHeight: '30vh' }}
-                            >
-                                <source
-                                    src={`${VIDEO_STORAGE_URL}/${bugReport?.evidenceFileS3Key}`}
-                                    type="video/mp4"
+                        {bugReport?.evidenceFiles?.map(s3Key =>
+                            isVideo(s3Key) ? (
+                                <video
+                                    controls
+                                    preload="auto"
+                                    width="100%"
+                                    height="auto"
+                                    poster={`${VIDEO_STORAGE_URL}/${s3Key}`}
+                                    className="size-lg-10"
+                                    style={{ maxHeight: '30vh' }}
+                                >
+                                    <source
+                                        src={`${VIDEO_STORAGE_URL}/${s3Key}`}
+                                        type="video/mp4"
+                                    />
+                                </video>
+                            ) : (
+                                <img
+                                    src={`${FILE_STORAGE_URL}/${s3Key}`}
+                                    alt="About device"
+                                    className="size-lg-6"
+                                    style={{
+                                        cursor: 'zoom-in',
+                                        maxHeight: '30vh',
+                                        objectFit: 'contain',
+                                    }}
+                                    onClick={() =>
+                                        dispatch(
+                                            showModal(EXPANDED_MEDIA, {
+                                                s3Key: s3Key,
+                                            }),
+                                        )
+                                    }
                                 />
-                            </video>
-                        ) : (
-                            <img
-                                src={`${FILE_STORAGE_URL}/${bugReport?.evidenceFileS3Key}`}
-                                alt="Evidence"
-                                className="size-lg-6"
-                                style={{
-                                    cursor: 'zoom-in',
-                                    maxHeight: '30vh',
-                                    objectFit: 'contain',
-                                }}
-                                onClick={() =>
-                                    dispatch(
-                                        showModal(EXPANDED_MEDIA, {
-                                            s3Key: bugReport.evidenceFileS3Key,
-                                        }),
-                                    )
-                                }
-                            />
+                            ),
                         )}
                     </div>
                     <div className="size-lg-6">
                         <BlockHeading title="Device Details" />
-                        <img
-                            alt="About Device"
-                            src={`${FILE_STORAGE_URL}/${bugReport?.aboutDeviceScreenshotS3Key}`}
-                            className="size-lg-6"
-                            style={{ cursor: 'zoom-in', maxHeight: '30vh', objectFit: 'contain' }}
-                            onClick={() =>
-                                dispatch(
-                                    showModal(EXPANDED_MEDIA, {
-                                        s3Key: bugReport.aboutDeviceScreenshotS3Key,
-                                    }),
-                                )
-                            }
-                        />
+                        {bugReport?.aboutDeviceScreenshots?.map(s3Key =>
+                            isVideo(s3Key) ? (
+                                <video
+                                    controls
+                                    preload="auto"
+                                    width="100%"
+                                    height="auto"
+                                    poster={`${VIDEO_STORAGE_URL}/${s3Key}`}
+                                    className="size-lg-10"
+                                    style={{ maxHeight: '30vh' }}
+                                >
+                                    <source
+                                        src={`${VIDEO_STORAGE_URL}/${s3Key}`}
+                                        type="video/mp4"
+                                    />
+                                </video>
+                            ) : (
+                                <img
+                                    src={`${FILE_STORAGE_URL}/${s3Key}`}
+                                    alt="Evidence"
+                                    className="size-lg-6"
+                                    style={{
+                                        cursor: 'zoom-in',
+                                        maxHeight: '30vh',
+                                        objectFit: 'contain',
+                                    }}
+                                    onClick={() =>
+                                        dispatch(
+                                            showModal(EXPANDED_MEDIA, {
+                                                s3Key: s3Key,
+                                            }),
+                                        )
+                                    }
+                                />
+                            ),
+                        )}
                     </div>
                 </Block>
 

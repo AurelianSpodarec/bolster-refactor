@@ -53,7 +53,7 @@ const BugReportsTable = () => {
                                     onClick={() => handleMarkRead(report.id)}
                                     className="button icon-only"
                                 >
-                                    {report.contacted ? (
+                                    {report.isRead ? (
                                         <i className="fa fa-bell-slash" />
                                     ) : (
                                         <i className="fa fa-bell" />

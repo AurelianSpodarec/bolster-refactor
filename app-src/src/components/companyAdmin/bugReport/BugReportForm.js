@@ -15,7 +15,7 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 
 const BugReportForm = () => {
     const { form, handleChange, handleSubmit, isPosting } = useBugReport();
-    console.log(form);
+
     return (
         <Form className="generic-form" onSubmit={handleSubmit}>
             <div className="size-lg-12 margin-bottom">
@@ -66,8 +66,8 @@ const BugReportForm = () => {
                         <p>Please upload your screenshot in .jpg or .png format.</p>
                         <br />
                         <FileUploadContainer
-                            value={form.aboutDeviceScreenshot}
-                            name="aboutDeviceScreenshot"
+                            value={form.aboutDeviceScreenshots}
+                            name="aboutDeviceScreenshots"
                             acceptedTypes={['image/jpg', 'image/png', 'image/jpeg']}
                             handleChange={handleChange}
                             maxFiles={4}
@@ -164,8 +164,8 @@ const BugReportForm = () => {
                         </p>
                         <br />
                         <FileUploadContainer
-                            value={form.evidenceFile}
-                            name="evidenceFile"
+                            value={form.evidenceFiles}
+                            name="evidenceFiles"
                             acceptedTypes={['image/jpg', 'image/png', 'image/jpeg', 'video/mp4']}
                             handleChange={handleChange}
                             maxFiles={4}
