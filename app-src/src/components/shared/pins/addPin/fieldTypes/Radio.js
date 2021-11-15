@@ -10,6 +10,8 @@ const Radio = ({
     edit,
 }) => {
     const opts = useMemo(() => {
+        if (!optionConfigurations) return options;
+
         const enabledOpts = optionConfigurations
             .filter(opt => !opt.isDisabled)
             .map(opt => opt.name);

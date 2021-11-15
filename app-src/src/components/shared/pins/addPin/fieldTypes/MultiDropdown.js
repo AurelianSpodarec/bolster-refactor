@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import { formatDropdownOptions } from 'helpers/general';
 
 const MultiDropdown = ({
     isRequired,
@@ -8,12 +9,13 @@ const MultiDropdown = ({
     handleChange,
 }) => {
     const opts = useMemo(() => {
+        if (!optionConfigurations) return formatDropdownOptions(options);
+
         const enabledOpts = optionConfigurations
             .filter(opt => !opt.isDisabled)
             .map(opt => opt.name);
         const optsFiltered = options.filter(opt => enabledOpts.includes(opt.id));
-        const optsForDropdown = optsFiltered.map(({ id, text }) => ({ value: id, label: text }));
-        return optsForDropdown;
+        return formatDropdownOptions(optsFiltered);
     }, [options, optionConfigurations]);
 
     // handles if prefilled from a string instead of array

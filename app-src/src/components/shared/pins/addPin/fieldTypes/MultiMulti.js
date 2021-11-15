@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import BoundlessSelect from 'components/shared/generic/form/presentational/BoundlessSelect';
+import { formatDropdownOptions } from 'helpers/general';
 
 const MultiMulti = ({
     isRequired,
@@ -8,12 +9,13 @@ const MultiMulti = ({
     handleChange,
 }) => {
     const opts = useMemo(() => {
+        if (!optionConfigurations) return formatDropdownOptions(options);
+
         const enabledOpts = optionConfigurations
             .filter(opt => !opt.isDisabled)
             .map(opt => opt.name);
         const optsFiltered = options.filter(opt => enabledOpts.includes(opt.id));
-        const optsForDropdown = optsFiltered.map(({ id, text }) => ({ value: id, label: text }));
-        return optsForDropdown;
+        return formatDropdownOptions(optsFiltered);
     }, [options, optionConfigurations]);
 
     return (
