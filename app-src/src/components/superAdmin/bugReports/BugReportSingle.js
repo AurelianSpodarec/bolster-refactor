@@ -1,4 +1,6 @@
 import React from 'react';
+import moment from 'moment';
+
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import useFetchBugReport from './hooks/useFetchBugReport';
@@ -8,12 +10,11 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Block from 'components/shared/generic/block/presentational/Block';
-import moment from 'moment';
 import { FILE_STORAGE_URL, VIDEO_STORAGE_URL } from 'config';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import { isVideo } from 'helpers/generic';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { EXPANDED_MEDIA } from 'constants/shared/modalTypes';
+import { isVideo } from 'helpers/generic';
 
 const BugReportSingle = () => {
     const { id } = useParams();
@@ -92,40 +93,45 @@ const BugReportSingle = () => {
                 <Block>
                     <div className="size-lg-6">
                         <BlockHeading title="Evidence File" />
+
                         {bugReport?.evidenceFiles?.map(s3Key =>
                             isVideo(s3Key) ? (
-                                <video
-                                    controls
-                                    preload="auto"
-                                    width="100%"
-                                    height="auto"
-                                    poster={`${VIDEO_STORAGE_URL}/${s3Key}`}
-                                    className="size-lg-10"
-                                    style={{ maxHeight: '30vh' }}
-                                >
-                                    <source
-                                        src={`${VIDEO_STORAGE_URL}/${s3Key}`}
-                                        type="video/mp4"
-                                    />
-                                </video>
+                                <div className="size-lg-12">
+                                    <video
+                                        controls
+                                        preload="auto"
+                                        width="100%"
+                                        height="auto"
+                                        poster={`${VIDEO_STORAGE_URL}/${s3Key}`}
+                                        className="size-lg-10"
+                                        style={{ maxHeight: '30vh' }}
+                                    >
+                                        <source
+                                            src={`${VIDEO_STORAGE_URL}/${s3Key}`}
+                                            type="video/mp4"
+                                        />
+                                    </video>
+                                </div>
                             ) : (
-                                <img
-                                    src={`${FILE_STORAGE_URL}/${s3Key}`}
-                                    alt="About device"
-                                    className="size-lg-6"
-                                    style={{
-                                        cursor: 'zoom-in',
-                                        maxHeight: '30vh',
-                                        objectFit: 'contain',
-                                    }}
-                                    onClick={() =>
-                                        dispatch(
-                                            showModal(EXPANDED_MEDIA, {
-                                                s3Key: s3Key,
-                                            }),
-                                        )
-                                    }
-                                />
+                                <div className="size-lg-12">
+                                    <img
+                                        src={`${FILE_STORAGE_URL}/${s3Key}`}
+                                        alt="About device"
+                                        className="size-lg-6"
+                                        style={{
+                                            cursor: 'zoom-in',
+                                            maxHeight: '30vh',
+                                            objectFit: 'contain',
+                                        }}
+                                        onClick={() =>
+                                            dispatch(
+                                                showModal(EXPANDED_MEDIA, {
+                                                    s3Key: s3Key,
+                                                }),
+                                            )
+                                        }
+                                    />
+                                </div>
                             ),
                         )}
                     </div>
@@ -133,38 +139,42 @@ const BugReportSingle = () => {
                         <BlockHeading title="Device Details" />
                         {bugReport?.aboutDeviceScreenshots?.map(s3Key =>
                             isVideo(s3Key) ? (
-                                <video
-                                    controls
-                                    preload="auto"
-                                    width="100%"
-                                    height="auto"
-                                    poster={`${VIDEO_STORAGE_URL}/${s3Key}`}
-                                    className="size-lg-10"
-                                    style={{ maxHeight: '30vh' }}
-                                >
-                                    <source
-                                        src={`${VIDEO_STORAGE_URL}/${s3Key}`}
-                                        type="video/mp4"
-                                    />
-                                </video>
+                                <div className="size-lg-12">
+                                    <video
+                                        controls
+                                        preload="auto"
+                                        width="100%"
+                                        height="auto"
+                                        poster={`${VIDEO_STORAGE_URL}/${s3Key}`}
+                                        className="size-lg-10"
+                                        style={{ maxHeight: '30vh' }}
+                                    >
+                                        <source
+                                            src={`${VIDEO_STORAGE_URL}/${s3Key}`}
+                                            type="video/mp4"
+                                        />
+                                    </video>
+                                </div>
                             ) : (
-                                <img
-                                    src={`${FILE_STORAGE_URL}/${s3Key}`}
-                                    alt="Evidence"
-                                    className="size-lg-6"
-                                    style={{
-                                        cursor: 'zoom-in',
-                                        maxHeight: '30vh',
-                                        objectFit: 'contain',
-                                    }}
-                                    onClick={() =>
-                                        dispatch(
-                                            showModal(EXPANDED_MEDIA, {
-                                                s3Key: s3Key,
-                                            }),
-                                        )
-                                    }
-                                />
+                                <div className="size-lg-12">
+                                    <img
+                                        src={`${FILE_STORAGE_URL}/${s3Key}`}
+                                        alt="Evidence"
+                                        className="size-lg-6"
+                                        style={{
+                                            cursor: 'zoom-in',
+                                            maxHeight: '30vh',
+                                            objectFit: 'contain',
+                                        }}
+                                        onClick={() =>
+                                            dispatch(
+                                                showModal(EXPANDED_MEDIA, {
+                                                    s3Key: s3Key,
+                                                }),
+                                            )
+                                        }
+                                    />
+                                </div>
                             ),
                         )}
                     </div>
