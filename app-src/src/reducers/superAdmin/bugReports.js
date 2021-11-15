@@ -64,7 +64,7 @@ function bugReportsReducer(state = {}, action) {
         case DELETE_BUG_REPORT_SUCCESS:
             return removeObjItem(state, action.payload.id);
         case MARK_BUG_REPORT_SUCCESS:
-            return updateObj(state, action.data.id, action.data);
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }
