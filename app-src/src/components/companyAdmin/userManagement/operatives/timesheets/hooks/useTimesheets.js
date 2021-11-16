@@ -11,9 +11,8 @@ import {
     selectTimesheetsFetchError,
     selectTimesheetsIsFetching,
 } from 'selectors/companyAdmin/timesheets';
-import useFetchCompanyUser from '../../../../hooks/useFetchCompanyUser';
 import postReport from 'actions/companyAdmin/reports/async/postReport';
-import { selectUserPinFeed } from 'selectors/companyAdmin/userPinFeed';
+import { selectUserPinFeeds } from 'selectors/companyAdmin/userPinFeeds';
 import { isEmpty } from 'lodash';
 import { selectServiceIDs } from 'selectors/companyAdmin/services';
 import { reportPostSuccess } from 'selectors/companyAdmin/timesheets';
@@ -43,7 +42,7 @@ const useTimesheets = () => {
     const timesheetsFetchError = useSelector(selectTimesheetsFetchError);
     const timesheets = useSelector(selectTimesheets);
 
-    const reportGenPins = useSelector(selectUserPinFeed);
+    const reportGenPins = useSelector(selectUserPinFeeds);
     const serviceIDs = useSelector(selectServiceIDs);
     const reportSuccess = useSelector(reportPostSuccess);
     const prevReportPostSuccess = usePrevious(reportSuccess);

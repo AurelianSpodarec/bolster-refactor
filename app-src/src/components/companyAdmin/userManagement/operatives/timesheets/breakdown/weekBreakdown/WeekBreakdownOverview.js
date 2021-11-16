@@ -1,18 +1,17 @@
 import DashboardPinFeed from 'components/companyAdmin/dashboard/presentational/DashboardPinFeed';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import PieChart from 'components/shared/stats/presentational/PieChart';
-import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
-import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import BreakdownColumns from '../BreakdownColumns';
-import BreakdownDaySummary from '../BreakdownDaySummary';
-import { useParams } from 'react-router-dom';
-import usePinStats from '../../hooks/usePinStats';
 import usePinFeed from '../../hooks/usePinFeed';
-import { isEmpty } from 'lodash';
 import UserTables from '../../userTables/UserTables';
+import BreakdownSummary from '../BreakdownSummary';
+import useWeekOverview from '../../hooks/useWeekOverview';
+import { DATE_TIME_IDS, TIME_PERIOD } from 'constants/companyAdmin/enums';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import PieChart from 'components/shared/stats/presentational/PieChart';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { isEmpty } from 'helpers/generic';
+import usePinStats from '../../hooks/usePinStats';
+import moment from 'moment';
 
 const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchError }) => {
     const isSingleUser = timesheets.length === 1;
@@ -21,11 +20,11 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
     useEffect(() => {
         setUserIDs(timesheets.map(({ companyUserID }) => companyUserID));
     }, [timesheets]);
-    // const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
-    //     id,
-    //     selectedDate,
-    //     moment(selectedDate).endOf('week').format(),
-    // );
+    const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
+        userIDs,
+        selectedDate,
+        moment(selectedDate).endOf('week').startOf('day').format(),
+    );
 
     const { isFetching: feedIsFetching, fetchError: feedFetchError, feed } = usePinFeed(
         userIDs,
@@ -43,35 +42,35 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
             />
         );
     }
+    const {
+        companyUserID,
+        firstName,
+        lastName,
+        formattedHours,
+        formattedBreakHours,
+        jobReferences,
+        totalPins,
+    } = useWeekOverview(timesheets[0]);
 
     return (
         <BreakdownColumns
             className="week-breakdown-overview"
-            left={timesheets[0].clockerEntries.map(
-                ({ firstName, lastName, totalPins, clockerEntries = [], date }, i) => {
-                    return (
-                        <div className="day" key={i}>
-                            <BreakdownDaySummary
-                                name={
-                                    <>
-                                        {firstName} {lastName} -{' '}
-                                        <DateTimeContainer
-                                            date={new Date(date)}
-                                            datetime={DATE_TIME_IDS.DATE}
-                                        />
-                                    </>
-                                }
-                                pins={totalPins}
-                                clockerEntries={clockerEntries}
-                            />
-                        </div>
-                    );
-                },
-            )}
+            left={
+                <div className="day" key={companyUserID}>
+                    <BreakdownSummary
+                        name={`${firstName} ${lastName}`}
+                        formattedHours={formattedHours}
+                        formattedBreakHours={formattedBreakHours}
+                        totalPins={totalPins}
+                        jobReferences={jobReferences}
+                        timePeriod={TIME_PERIOD.WEEK}
+                    />
+                </div>
+            }
             right={
                 <>
                     <div className="breakdown-piechart">
-                        {/* <BlockContainer
+                        <BlockContainer
                             isFetching={statsIsFetching}
                             error={statsFetchError}
                             isEmpty={isEmpty(stats) || statsIsFetching}
@@ -90,11 +89,11 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
                                     </>
                                 }
                             />
-                        </BlockContainer> */}
+                        </BlockContainer>
                     </div>
                     <div className="breakdown-feed">
                         <DashboardPinFeed
-                            pins={feed?.items ?? []}
+                            pins={feed.reduce((acc, userFeed) => [...acc, ...userFeed.items], [])}
                             isFetching={feedIsFetching}
                             error={feedFetchError}
                         />

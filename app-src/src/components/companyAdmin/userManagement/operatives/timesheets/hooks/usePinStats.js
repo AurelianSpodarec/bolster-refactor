@@ -8,7 +8,7 @@ import {
     selectTimesheetPinStatsIsFetching,
 } from 'selectors/companyAdmin/timesheetPinStats';
 
-const usePinStats = (userID, startDate, endDate) => {
+const usePinStats = (userIDs, startDate, endDate) => {
     const dispatch = useDispatch();
 
     const isFetching = useSelector(selectTimesheetPinStatsIsFetching);
@@ -16,8 +16,8 @@ const usePinStats = (userID, startDate, endDate) => {
     const _stats = useSelector(selectTimesheetPinStats);
 
     useEffect(() => {
-        if (userID) dispatch(fetchTimesheetPinStats(userID, startDate, endDate));
-    }, [dispatch, userID, startDate]);
+        if (userIDs) dispatch(fetchTimesheetPinStats(userIDs, startDate, endDate));
+    }, [dispatch, userIDs, startDate]);
 
     const stats = {
         statuses: {

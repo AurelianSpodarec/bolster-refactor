@@ -388,3 +388,7 @@ export const formatAsHrsMinsSecs = (ms: number) => {
 
     return `${formatInt(hrs)}:${formatInt(mins)}:${formatInt(secsLeft)}`;
 };
+
+export const arrayToQueryString = (array: string[], key: string) => {
+    return array.map(val => `${key}=${val}`).join('&');
+};

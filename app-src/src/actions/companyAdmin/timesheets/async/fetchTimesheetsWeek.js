@@ -7,6 +7,7 @@ import {
     FETCH_TIMESHEET_WEEK_FAILURE,
     FETCH_TIMESHEET_WEEK_SUCCESS,
 } from 'constants/actionTypes/timesheets';
+import { arrayToQueryString } from 'helpers/generic';
 
 export const fetchTimesheetsWeekRequest = () => ({
     type: FETCH_TIMESHEET_WEEK_REQUEST,
@@ -26,7 +27,7 @@ export default (userIDs, startDate) => dispatch => {
     dispatch(fetchTimesheetsWeekRequest());
 
     axios
-        .get(`${API_URL}/clockerEntries/weekforusers?${userIDs.map(id => `ids=${id}`).join('&')}`, {
+        .get(`${API_URL}/clockerEntries/weekforusers?${arrayToQueryString(userIDs, 'ids')}`, {
             ...getHeaders(),
             params: {
                 date: startDate,

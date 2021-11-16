@@ -3634,6 +3634,16 @@ $back-to-top-height: 35px;
                         }
                     }
 
+                    .loading-text {
+                        padding: 0;
+                        width: fit-content;
+
+                        .fa {
+                            font-size: 80%;
+                            color: $body-text;
+                        }
+                    }
+
                 }
             }
         }
@@ -3817,7 +3827,7 @@ $back-to-top-height: 35px;
         }
     }
 
-    .breakdown-day-summary {
+    .breakdown-summary {
         display: flex;
         flex-direction: column;
         gap: 16px;
@@ -3831,6 +3841,11 @@ $back-to-top-height: 35px;
             flex-grow: 1;
             background-color: $light-grey-bg;
             padding: 8px;
+            font-size: 120%;
+
+            .title {
+                font-size: 120%;
+            }
         }
 
         .hours, .pins {

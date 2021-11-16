@@ -7,6 +7,7 @@ import {
     FETCH_TIMESHEET_PIN_STATS_SUCCESS,
     FETCH_TIMESHEET_PIN_STATS_FAILURE,
 } from 'constants/actionTypes/timesheetPinStats';
+import { arrayToQueryString } from 'helpers/generic';
 
 export const fetchTimesheetPinStatsRequest = () => ({
     type: FETCH_TIMESHEET_PIN_STATS_REQUEST,
@@ -22,12 +23,12 @@ export const fetchTimesheetPinStatsFailure = error => ({
     error,
 });
 
-export default (userID, startDate, endDate) => dispatch => {
+export default (userIDs, startDate, endDate) => dispatch => {
     dispatch(fetchTimesheetPinStatsRequest());
 
     axios
         .post(
-            `${API_URL}/stats/user/${userID}`,
+            `${API_URL}/stats/user?${arrayToQueryString(userIDs, 'ids')}`,
             {
                 startDate,
                 endDate,

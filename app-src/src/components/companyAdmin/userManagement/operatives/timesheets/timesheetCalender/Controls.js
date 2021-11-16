@@ -37,7 +37,7 @@ const Controls = ({
                         />
                         -
                         <DateTimeContainer
-                            date={moment(startDate).add(7, 'days').toDate()}
+                            date={moment(startDate).add(6, 'days').toDate()}
                             datetime={DATE_TIME_IDS.DATE}
                         />
                     </div>

@@ -1,22 +1,22 @@
-import fetchUserPinFeed from 'actions/companyAdmin/pins/async/fetchUserPinFeed';
+import fetchUserPinFeeds from 'actions/companyAdmin/pins/async/fetchUserPinFeeds';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-    selectUserPinFeed,
-    selectUserPinFeedFetchError,
-    selectUserPinFeedIsFetching,
-} from 'selectors/companyAdmin/userPinFeed';
+    selectUserPinFeeds,
+    selectUserPinFeedsIsFetching,
+    selectUserPinFeedsFetchError,
+} from 'selectors/companyAdmin/userPinFeeds';
 
 const usePinFeed = (userIDs, date, isWeek) => {
     const dispatch = useDispatch();
 
-    const isFetching = useSelector(selectUserPinFeedIsFetching);
-    const fetchError = useSelector(selectUserPinFeedFetchError);
-    const feed = useSelector(selectUserPinFeed);
+    const isFetching = useSelector(selectUserPinFeedsIsFetching);
+    const fetchError = useSelector(selectUserPinFeedsFetchError);
+    const feed = useSelector(selectUserPinFeeds);
 
     useEffect(() => {
-        if (userIDs) dispatch(fetchUserPinFeed(userIDs, date, isWeek));
+        if (userIDs) dispatch(fetchUserPinFeeds(userIDs, date, isWeek));
     }, [dispatch, userIDs, date, isWeek]);
 
     return { isFetching, fetchError, feed };

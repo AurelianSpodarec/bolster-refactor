@@ -1,5 +1,6 @@
 import Table from 'components/shared/generic/tables/presentational/Table';
 import { days } from 'constants/companyAdmin/timesheets';
+import moment from 'moment';
 import React from 'react';
 import UserTable from '../userTable/UserTable';
 
@@ -18,7 +19,12 @@ const WeekUserTable = ({ date, timesheets }) => {
     return (
         <Table headers={headers} extraClasses="timesheet-user-table">
             {days.map((_, i) => (
-                <UserTable key={i} day={days[i]} date={date} timesheets={timesheets} />
+                <UserTable
+                    key={i}
+                    day={days[i]}
+                    date={moment(date).add(i, 'days').format()}
+                    timesheets={timesheets}
+                />
             ))}
         </Table>
     );
