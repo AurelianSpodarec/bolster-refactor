@@ -114,17 +114,6 @@ export function useDebounce(action, deps = [], timeout = 1000) {
     }, deps);
 }
 
-export function useForm(initialState = {}) {
-    const [formData, setFormData] = useState(initialState);
-
-    function handleChange(name, value) {
-        console.log('name', name, value);
-        setFormData(prev => ({ ...prev, [name]: value }));
-    }
-
-    return [formData, handleChange, setFormData];
-}
-
 export const useLocalStorage = (key, initialValue = 'placeholder') => {
     const [storedValue, setStoredValue] = useState(() => {
         try {
