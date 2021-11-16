@@ -7,6 +7,7 @@ import DayBreakdownOverview from './dayBreakdown/DayBreakdownOverview';
 import DayBreakdownLocation from './dayBreakdown/DayBreakdownLocation';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { isEmpty } from 'helpers/generic';
+import moment from 'moment';
 
 const Breakdown = ({
     selectedDate,
@@ -22,11 +23,17 @@ const Breakdown = ({
                 <BreakdownLayout
                     title={
                         <>
-                            Week Overview -{' '}
+                            Week Overview &nbsp;(
                             <DateTimeContainer
                                 date={new Date(selectedDate)}
                                 datetime={DATE_TIME_IDS.DATE}
+                            />{' '}
+                            -{' '}
+                            <DateTimeContainer
+                                date={moment(selectedDate).add(6, 'days').toDate()}
+                                datetime={DATE_TIME_IDS.DATE}
                             />
+                            )
                         </>
                     }
                     tabs={[
@@ -54,11 +61,12 @@ const Breakdown = ({
                 <BreakdownLayout
                     title={
                         <>
-                            Day Overview -{' '}
+                            Day Overview &nbsp;(
                             <DateTimeContainer
                                 date={new Date(selectedDate)}
                                 datetime={DATE_TIME_IDS.DATE}
                             />
+                            )
                         </>
                     }
                     tabs={[
