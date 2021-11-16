@@ -165,6 +165,7 @@ export const PAYMENT_TYPES = {
 export const INVOICE_TYPES = {
     1: 'Bank transfer',
     2: 'Card',
+    3: 'Free',
 };
 
 export const SUBSCRIPTION_RENEWAL_IDS = {

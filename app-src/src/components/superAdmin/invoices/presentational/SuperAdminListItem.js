@@ -37,7 +37,7 @@ const SuperAdminListItem = ({
         <td>{companies[companyID].name}</td>
         <td>{id}</td>
         <td>{`£${formatCurrency(subTotal)}`}</td>
-        <td>{INVOICE_TYPES[invoiceType] || isFree ? 'Free' : '-'}</td>
+        <td>{INVOICE_TYPES[invoiceType] || '-'}</td>
         <td>{PAYMENT_TYPES[paymentType] || '-'}</td>
         <td>{isFree ? 'Free' : isPaid ? 'Paid' : 'Awaiting Payment'}</td>
         <td>
