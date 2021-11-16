@@ -14,7 +14,6 @@ import usePinFeed from '../../hooks/usePinFeed';
 import { isEmpty } from 'lodash';
 import UserTables from '../../userTables/UserTables';
 
-<<<<<<< Updated upstream:app-src/src/components/companyAdmin/userManagement/operatives/timesheets/breakdown/weekBreakdown/WeekBreakdownOverview.js
 const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchError }) => {
     const isSingleUser = timesheets.length === 1;
 
@@ -27,15 +26,6 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
     //     selectedDate,
     //     moment(selectedDate).endOf('week').format(),
     // );
-=======
-const WeekBreakdownOverview = ({ selectedDate, timesheet }) => {
-    const { id } = useParams();
-    const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
-        id,
-        selectedDate,
-        moment(selectedDate).endOf('week').format(),
-    );
->>>>>>> Stashed changes:app-src/src/components/companyAdmin/userManagement/operatives/operativeTimesheet/breakdown/weekBreakdown/WeekBreakdownOverview.js
 
     const { isFetching: feedIsFetching, fetchError: feedFetchError, feed } = usePinFeed(
         userIDs,

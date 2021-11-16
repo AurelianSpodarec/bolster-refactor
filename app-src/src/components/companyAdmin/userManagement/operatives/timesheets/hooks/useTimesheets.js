@@ -17,7 +17,7 @@ import { selectUserPinFeed } from 'selectors/companyAdmin/userPinFeed';
 import { isEmpty } from 'lodash';
 import { selectServiceIDs } from 'selectors/companyAdmin/services';
 import { reportPostSuccess } from 'selectors/companyAdmin/timesheets';
-import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
+import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { usePrevious } from 'helpers/hooks';
 import {
@@ -83,10 +83,42 @@ const useTimesheets = () => {
     };
 
     const handlePDFReportGeneration = () => {
-        if (isEmpty(reportGenPins)) return;
+        if (isEmpty(reportGenPins)) {
+            dispatch(
+                showModal(ERROR_MODAL, {
+                    message: 'No pin histories created during selected timeframe.',
+                }),
+            );
+            return;
+        }
 
-        const hierarchyID = [...new Set(reportGenPins.map(({ drawingID }) => drawingID))];
-        const pinIDs = [...new Set(reportGenPins.map(({ pinID }) => pinID))];
+        const hierarchyID = [
+            ...new Set(
+                reportGenPins
+                    .map(({ items }) => {
+                        return items.map(({ drawingID }) => drawingID);
+                    })
+                    .flat(),
+            ),
+        ];
+        const pinIDs = [
+            ...new Set(
+                reportGenPins
+                    .map(({ items }) => {
+                        return items.map(({ pinID }) => pinID);
+                    })
+                    .flat(),
+            ),
+        ];
+
+        if (isEmpty(hierarchyID.filter(Boolean)) || isEmpty(pinIDs.filter(Boolean))) {
+            dispatch(
+                showModal(ERROR_MODAL, {
+                    message: 'No pin histories created during selected timeframe.',
+                }),
+            );
+            return;
+        }
 
         const postBody = {
             hierarchyType: 'drawing',
