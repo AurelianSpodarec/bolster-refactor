@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import SuperAdminMenu from '../presentational/SuperAdminMenu';
 import { logout } from 'actions/shared/auth/sync/logout';
+import fetchBugReportList from 'actions/superAdmin/bugReports/fetchBugReportList';
 
-const SuperAdminMenuContainer = ({ history, unreadRequests, unreadBugReports, logout }) => {
+const SuperAdminMenuContainer = ({
+    history,
+    unreadRequests,
+    unreadBugReports,
+    logout,
+    fetchBugReportList,
+}) => {
+    useEffect(() => {
+        fetchBugReportList();
+    }, []);
     return (
         <SuperAdminMenu
             unreadRequests={unreadRequests}
@@ -30,4 +40,6 @@ const mapStateToProps = ({ superAdmin: { contactSubmissionsReducer, bugReportsRe
     ),
 });
 
-export default withRouter(connect(mapStateToProps, { logout })(SuperAdminMenuContainer));
+export default withRouter(
+    connect(mapStateToProps, { logout, fetchBugReportList })(SuperAdminMenuContainer),
+);
