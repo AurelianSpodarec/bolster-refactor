@@ -17,7 +17,7 @@ import { selectUserPinFeed } from 'selectors/companyAdmin/userPinFeed';
 import { isEmpty } from 'lodash';
 import { selectServiceIDs } from 'selectors/companyAdmin/services';
 import { reportPostSuccess } from 'selectors/companyAdmin/timesheets';
-import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
+import { GENERATE_TIMESHEET_REPORT, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { usePrevious } from 'helpers/hooks';
 import {
@@ -26,6 +26,8 @@ import {
     selectCompanyUsersIsFetching,
 } from 'selectors/companyAdmin/companyUsers';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import { useForm, usePrevious } from 'helpers/hooks';
+import useGenerateTimesheetReport from 'components/companyAdmin/userManagement/operatives/operativeTimesheet/hooks/useGenerateTimesheetReport';
 
 const useTimesheets = () => {
     const dispatch = useDispatch();
@@ -47,6 +49,14 @@ const useTimesheets = () => {
     const serviceIDs = useSelector(selectServiceIDs);
     const reportSuccess = useSelector(reportPostSuccess);
     const prevReportPostSuccess = usePrevious(reportSuccess);
+
+    const {
+        isFetching: companyUserIsFetching,
+        companyUserFetchError,
+        companyUser,
+    } = useFetchCompanyUser(id);
+
+    const { formData, handleChange, handleSubmit } = useGenerateTimesheetReport(reportGenPins);
 
     const thisWeek = moment(new Date()).tz(timeZone.id).startOf('isoWeek').format();
 
@@ -85,22 +95,13 @@ const useTimesheets = () => {
     const handlePDFReportGeneration = () => {
         if (isEmpty(reportGenPins)) return;
 
-        const hierarchyID = [...new Set(reportGenPins.map(({ drawingID }) => drawingID))];
-        const pinIDs = [...new Set(reportGenPins.map(({ pinID }) => pinID))];
-
-        const postBody = {
-            hierarchyType: 'drawing',
-            hierarchyID,
-            pinIDs,
-            isPDFGeneration: true,
-            fromDateInclusive: startDate,
-            toDateInclusive: moment(selectedDate).endOf(timePeriod).format(),
-            sortBy: 3,
-            reportHistories: 1,
-            serviceID: serviceIDs,
-        };
-
-        dispatch(postReport(postBody));
+        dispatch(
+            showModal(GENERATE_TIMESHEET_REPORT, {
+                formData,
+                handleChange,
+                handleSubmit,
+            }),
+        );
     };
 
     const dayTotal = {

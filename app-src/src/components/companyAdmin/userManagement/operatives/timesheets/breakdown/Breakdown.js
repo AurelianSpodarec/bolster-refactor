@@ -46,6 +46,7 @@ const Breakdown = ({
                     isLoading={isFetching}
                     error={fetchError}
                     noData={isEmpty(timesheets)}
+                    showGenerateReport={timesheets && timesheets.totalPins !== 0}
                     handlePDFReportGeneration={handlePDFReportGeneration}
                 />
             );
@@ -87,6 +88,7 @@ const Breakdown = ({
                     isLoading={isFetching}
                     error={fetchError}
                     noData={isEmpty(timesheets)}
+                    showGenerateReport={timesheets && timesheets.totalPins !== 0}
                     handlePDFReportGeneration={handlePDFReportGeneration}
                 />
             );

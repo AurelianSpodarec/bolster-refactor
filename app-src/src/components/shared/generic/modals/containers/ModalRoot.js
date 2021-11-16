@@ -121,6 +121,7 @@ import {
     ADMIN_EDIT_COMPANY_OWNER,
     CONFIRM_EMAIL,
     USER_NEW_DOCUMENT,
+    GENERATE_TIMESHEET_REPORT,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -244,6 +245,7 @@ import EnterDemoFullSiteModal from 'components/shared/demo-full-site/presentatio
 import EditCompanyOwnerModalContainer from 'components/superAdmin/companies/singleCompany/containers/EditCompanyOwnerModalContainer';
 import RequestDeleteInvoiceModal from 'components/companyAdmin/invoices/requestDeleteInvoiceModal/RequestDeleteInvoiceModal';
 import NewUserDocumentModal from 'components/companyAdmin/userManagement/documentsUploader/presentational/NewUserDocumentModal';
+import GenerateReportSettingsModal from 'components/companyAdmin/userManagement/operatives/operativeTimesheet/modals/GenerateReportSettingsModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -364,7 +366,7 @@ const MODAL_COMPONENTS = {
     [ENTER_DEMO_ACCESS_CODES]: EnterDemoFullSiteModal,
     [ADMIN_EDIT_COMPANY_OWNER]: EditCompanyOwnerModalContainer,
     [CONFIRM_EMAIL]: ConfirmEmailModal,
-    [USER_NEW_DOCUMENT]: NewUserDocumentModal,
+    [GENERATE_TIMESHEET_REPORT]: GenerateReportSettingsModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
