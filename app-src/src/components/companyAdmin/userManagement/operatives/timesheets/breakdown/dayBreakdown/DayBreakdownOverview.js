@@ -20,13 +20,13 @@ const DayBreakdownOverview = ({ selectedDate, timesheets }) => {
 
     const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
         userIDs,
-        selectedDate,
-        moment(selectedDate).format(),
+        moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
+        moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
     );
 
     const { isFetching: feedIsFetching, fetchError: feedFetchError, feed } = usePinFeed(
         userIDs,
-        selectedDate,
+        moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
         false,
     );
 

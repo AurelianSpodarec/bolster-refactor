@@ -22,13 +22,13 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
     }, [timesheets]);
     const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
         userIDs,
-        selectedDate,
-        moment(selectedDate).endOf('week').startOf('day').format(),
+        moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
+        moment(selectedDate).endOf('week').format('YYYY-MM-DDTHH:mm:ss'),
     );
 
     const { isFetching: feedIsFetching, fetchError: feedFetchError, feed } = usePinFeed(
         userIDs,
-        selectedDate,
+        moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
         true,
     );
 
