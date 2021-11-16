@@ -59,7 +59,7 @@ const InvoiceListItem = ({
         <td>
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
-            {invoiceType > 0 ? INVOICE_TYPES[invoiceType] : '-'}
+            {invoiceType > 0 ? INVOICE_TYPES[invoiceType] : isFree ? 'Free' : '-'}
         </td>
         <td>
             {' '}
