@@ -183,8 +183,12 @@ class AddPinHistoryFormContainer extends Component {
 
     getOldAnswersByNameObj = () => {
         const { pinAnswers, questions } = this.props;
+
         const oldAnswersByNameObj = pinAnswers.reduce((acc, oldAnswer) => {
             const question = questions[oldAnswer.templateQuestionID];
+
+            if (!question || !question.name) return acc;
+
             const answerToSave = { ...oldAnswer, name: question.name, type: question.type };
             acc[question.name] = [answerToSave, ...(acc[question.name] || [])];
             return acc;
