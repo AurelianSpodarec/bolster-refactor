@@ -4,10 +4,10 @@ import useTimeline from './useTimeline';
 const useDayOverview = (timesheet, selectedDate) => {
     const { companyUserID, firstName, lastName } = timesheet;
     const {
-        formattedHours,
-        formattedBreakHours,
-        jobReferences,
-        totalPins,
+        formattedHours = 0,
+        formattedBreakHours = 0,
+        jobReferences = [],
+        totalPins = 0,
         clockerEntries,
     } = useDay(timesheet, selectedDate);
 
