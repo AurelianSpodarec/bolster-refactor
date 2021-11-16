@@ -231,3 +231,43 @@ export const useResend2FA = email => {
         dispatch(resendTwoFactor({ email }));
     }
 };
+<<<<<<< Updated upstream
+=======
+
+export const useUnconfirmedEmailBanner = () => {
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const isClient = location.pathname.includes('client');
+
+    const useUnconfirmedEmailText = `<p>Your email address is unconfirmed. Please click <strong>here</strong> and follow the steps on the email you will receive to complete this process. If your email address is incorrect, invalid or old, please update through <strong><a href="/${
+        isClient ? 'client' : 'company'
+    }/profile">My profile</a></strong>.</p>`;
+
+    useEffect(() => {
+        dispatch(addBanner(useUnconfirmedEmailText));
+        return () => {
+            dispatch(resetBanner());
+        };
+    }, []);
+};
+
+export function useQueryParam(paramName) {
+    const search = useLocation().search;
+    const params = new URLSearchParams(search);
+    return params.get(paramName);
+}
+
+export const useTimeout = () => {
+    const isMounted = useRef(true);
+
+    useEffect(() => {
+        return () => (isMounted.current = false);
+    }, []);
+
+    return useCallback((cb, timout) => {
+        setTimeout(() => {
+            if (isMounted.current) cb();
+        }, timout);
+    }, []);
+};
+>>>>>>> Stashed changes
