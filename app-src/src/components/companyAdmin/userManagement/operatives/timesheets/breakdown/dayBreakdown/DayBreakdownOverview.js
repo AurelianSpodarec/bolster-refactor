@@ -11,6 +11,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import moment from 'moment';
+import BreakdownNotes from '../BreakdownNotes';
 
 const DayBreakdownOverview = ({ selectedDate, timesheets }) => {
     const [userIDs, setUserIDs] = useState([]);
@@ -18,17 +19,21 @@ const DayBreakdownOverview = ({ selectedDate, timesheets }) => {
         setUserIDs(timesheets.map(({ companyUserID }) => companyUserID));
     }, [timesheets]);
 
-    const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
+    const {
+        isFetching: statsIsFetching,
+        fetchError: statsFetchError,
+        stats,
+    } = usePinStats(
         userIDs,
         moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
         moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
     );
 
-    const { isFetching: feedIsFetching, fetchError: feedFetchError, feed } = usePinFeed(
-        userIDs,
-        moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
-        false,
-    );
+    const {
+        isFetching: feedIsFetching,
+        fetchError: feedFetchError,
+        feed,
+    } = usePinFeed(userIDs, moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'), false);
 
     return (
         <BreakdownColumns
@@ -44,6 +49,7 @@ const DayBreakdownOverview = ({ selectedDate, timesheets }) => {
                     totalPins,
                     clockIn,
                     clockOut,
+                    clockerNotes,
                 } = useDayOverview(timesheet, selectedDate);
 
                 return (
@@ -57,6 +63,7 @@ const DayBreakdownOverview = ({ selectedDate, timesheets }) => {
                             clockOut={clockOut}
                             jobReferences={jobReferences}
                         />
+                        <BreakdownNotes notes={clockerNotes} />
                     </div>
                 );
             })}

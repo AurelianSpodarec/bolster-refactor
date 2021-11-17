@@ -12,6 +12,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { isEmpty } from 'helpers/generic';
 import usePinStats from '../../hooks/usePinStats';
 import moment from 'moment';
+import BreakdownNotes from '../BreakdownNotes';
 
 const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchError }) => {
     const isSingleUser = timesheets.length === 1;
@@ -20,17 +21,21 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
     useEffect(() => {
         setUserIDs(timesheets.map(({ companyUserID }) => companyUserID));
     }, [timesheets]);
-    const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
+    const {
+        isFetching: statsIsFetching,
+        fetchError: statsFetchError,
+        stats,
+    } = usePinStats(
         userIDs,
         moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
         moment(selectedDate).endOf('week').format('YYYY-MM-DDTHH:mm:ss'),
     );
 
-    const { isFetching: feedIsFetching, fetchError: feedFetchError, feed } = usePinFeed(
-        userIDs,
-        moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
-        true,
-    );
+    const {
+        isFetching: feedIsFetching,
+        fetchError: feedFetchError,
+        feed,
+    } = usePinFeed(userIDs, moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'), true);
 
     if (!isSingleUser) {
         return (
@@ -50,6 +55,7 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
         formattedBreakHours,
         jobReferences,
         totalPins,
+        clockerNotes,
     } = useWeekOverview(timesheets[0]);
 
     return (
@@ -65,6 +71,7 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
                         jobReferences={jobReferences}
                         timePeriod={TIME_PERIOD.WEEK}
                     />
+                    <BreakdownNotes notes={clockerNotes} />
                 </div>
             }
             right={
