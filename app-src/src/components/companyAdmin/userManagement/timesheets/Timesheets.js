@@ -30,7 +30,7 @@ const Timesheets = () => (
                 <p>
                     <img
                         className="image"
-                        style={{ maxWidth: '938px', marginTop: '10px' }}
+                        style={{ width: '100%', maxWidth: '938px', marginTop: '10px' }}
                         alt="Timesheets coming soon"
                         src={TimesheetsComingSoon}
                     />
