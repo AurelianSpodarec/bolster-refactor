@@ -4,18 +4,26 @@ const useTimeline = clockerEntries => {
     const timeline = [];
 
     let currBlock = { ...currBlockTemplate };
-    for (const entry of clockerEntries) {
+    for (const i in clockerEntries) {
+        const entry = clockerEntries[i];
+        const nextEntry = clockerEntries[parseInt(i) + 1];
+
         switch (entry.type) {
             case CLOCKER_ENTRY_TYPE.WORKING:
                 if (currBlock.clockIn) {
                     currBlock.clockOut = buildBlockEntry(entry, 'end');
 
                     // move to next block
-                    timeline.push(currBlock);
+                    timeline.push({ ...currBlock });
                     currBlock = { ...currBlockTemplate };
                 } else {
                     currBlock.clockIn = buildBlockEntry(entry, 'start');
                     currBlock.clockOut = buildBlockEntry(entry, 'end');
+
+                    if (nextEntry?.type === CLOCKER_ENTRY_TYPE.WORKING) {
+                        timeline.push({ ...currBlock });
+                        currBlock = { ...currBlockTemplate };
+                    }
                 }
                 break;
             case CLOCKER_ENTRY_TYPE.ON_BREAK:
