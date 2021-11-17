@@ -4130,14 +4130,10 @@ $back-to-top-height: 35px;
         }
     }
 
-
-    .day-breakdown-overview {
-    }
-
     .day-breakdown-location {
     }
 
-    .week-breakdown-overview {
+    .week-breakdown-overview, .day-breakdown-overview {
         .left {
             .day {
                 display: flex;

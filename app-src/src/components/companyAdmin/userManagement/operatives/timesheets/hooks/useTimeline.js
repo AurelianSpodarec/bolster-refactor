@@ -3,8 +3,6 @@ import { CLOCKER_ENTRY_TYPE } from 'constants/companyAdmin/enums';
 const useTimeline = clockerEntries => {
     const timeline = [];
 
-    let prevEntry = null;
-    let currIndex = 0;
     let currBlock = { ...currBlockTemplate };
     for (const entry of clockerEntries) {
         switch (entry.type) {
@@ -15,7 +13,6 @@ const useTimeline = clockerEntries => {
                     // move to next block
                     timeline.push(currBlock);
                     currBlock = { ...currBlockTemplate };
-                    currIndex++;
                 } else {
                     currBlock.clockIn = buildBlockEntry(entry, 'start');
                     currBlock.clockOut = buildBlockEntry(entry, 'end');
@@ -28,8 +25,6 @@ const useTimeline = clockerEntries => {
             default:
                 break;
         }
-
-        prevEntry = entry;
     }
 
     // push final block

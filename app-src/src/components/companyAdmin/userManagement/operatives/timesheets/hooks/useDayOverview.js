@@ -9,6 +9,7 @@ const useDayOverview = (timesheet, selectedDate) => {
         jobReferences = [],
         totalPins = 0,
         clockerEntries,
+        clockerNotes = [],
     } = useDay(timesheet, selectedDate);
 
     const timeline = useTimeline(clockerEntries ?? []);
@@ -25,6 +26,7 @@ const useDayOverview = (timesheet, selectedDate) => {
         totalPins,
         clockIn,
         clockOut,
+        clockerNotes,
     };
 };
 
