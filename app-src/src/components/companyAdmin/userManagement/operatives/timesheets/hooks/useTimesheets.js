@@ -16,7 +16,7 @@ import { selectUserPinFeeds } from 'selectors/companyAdmin/userPinFeeds';
 import { isEmpty } from 'lodash';
 import { selectServiceIDs } from 'selectors/companyAdmin/services';
 import { reportPostSuccess } from 'selectors/companyAdmin/timesheets';
-import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
+import { ERROR_MODAL, GENERATE_TIMESHEET_REPORT, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { usePrevious } from 'helpers/hooks';
 import {
@@ -44,8 +44,6 @@ const useTimesheets = () => {
 
     const reportGenPins = useSelector(selectUserPinFeeds);
     const serviceIDs = useSelector(selectServiceIDs);
-    const reportSuccess = useSelector(reportPostSuccess);
-    const prevReportPostSuccess = usePrevious(reportSuccess);
 
     const thisWeek = moment(new Date()).tz(timeZone.id).startOf('isoWeek').format();
 
@@ -119,19 +117,15 @@ const useTimesheets = () => {
             return;
         }
 
-        const postBody = {
-            hierarchyType: 'drawing',
-            hierarchyID,
-            pinIDs,
-            isPDFGeneration: true,
-            fromDateInclusive: startDate,
-            toDateInclusive: moment(selectedDate).endOf(timePeriod).format(),
-            sortBy: 3,
-            reportHistories: 1,
-            serviceID: serviceIDs,
-        };
-
-        dispatch(postReport(postBody));
+        dispatch(
+            showModal(GENERATE_TIMESHEET_REPORT, {
+                fromDateInclusive: startDate,
+                toDateInclusive: moment(selectedDate).endOf(timePeriod).format(),
+                serviceID: serviceIDs,
+                hierarchyID,
+                pinIDs,
+            }),
+        );
     };
 
     const dayTotal = {
@@ -166,18 +160,6 @@ const useTimesheets = () => {
     useEffect(() => {
         dispatch(fetchCompanyUsers());
     }, [dispatch]);
-
-    useEffect(() => {
-        if (reportSuccess && !prevReportPostSuccess) {
-            dispatch(
-                showModal(SUCCESS_MODAL, {
-                    message: 'Your report is now being generated',
-                }),
-            );
-
-            return history.push('/company/reports');
-        }
-    }, [reportSuccess, prevReportPostSuccess]);
 
     const companyUserOptions =
         companyUsers != null ? Object.values(companyUsers).map(getCompanyUserOption) : [];
