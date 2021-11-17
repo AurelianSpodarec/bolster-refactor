@@ -27,10 +27,7 @@ const WeekTableInner = ({
         (acc, { totalPins, formattedHours, jobReferences }) => {
             acc.totalPins += totalPins;
             acc.formattedHours += formattedHours;
-            acc.jobReferences = [
-                ...acc.jobReferences,
-                ...jobReferences.filter(jobReference => jobReference),
-            ];
+            acc.jobReferences = [...acc.jobReferences, ...jobReferences];
             return acc;
         },
         { totalPins: 0, formattedHours: 0, jobReferences: [] },
@@ -38,8 +35,7 @@ const WeekTableInner = ({
 
     return (
         <>
-            {totals.map(({ date, totalPins, formattedHours, jobReferences: _jobReferences }, i) => {
-                const jobReferences = _jobReferences.filter(jobReference => jobReference);
+            {totals.map(({ date, totalPins, formattedHours, jobReferences }, i) => {
                 return (
                     <td key={i} onClick={() => onDaySelect(date)}>
                         <div className="date">
@@ -47,7 +43,7 @@ const WeekTableInner = ({
                             <p className="full">{moment(date).format('dddd DD')}</p>
                             <i className="fal fa-circle" />
                         </div>
-                        {formattedHours !== 0 && (
+                        {jobReferences.length > 0 && (
                             <div className="tabs">
                                 <Tab icon={<i className="fal fa-stopwatch" />}>
                                     {formatAsHrsMinsSecs(formattedHours)}

@@ -14,11 +14,13 @@ const ExpandableTab = ({ date, icon, items, itemType = 'items', isExpanded, onJo
                     <div className="popup">
                         <div className="list-wrapper">
                             {items.length
-                                ? items.map((item, i) => (
-                                      <p key={i} className="border-bottom">
-                                          {item}
-                                      </p>
-                                  ))
+                                ? items
+                                      .filter(item => item)
+                                      .map((item, i) => (
+                                          <p key={i} className="border-bottom">
+                                              {item}
+                                          </p>
+                                      ))
                                 : 0}
                         </div>
                     </div>
