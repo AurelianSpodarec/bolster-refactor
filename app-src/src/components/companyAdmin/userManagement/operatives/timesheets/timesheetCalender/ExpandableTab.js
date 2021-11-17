@@ -1,7 +1,6 @@
 import React from 'react';
 
 const ExpandableTab = ({ date, icon, items, itemType = 'items', isExpanded, onJobClick }) => {
-    const filteredItems = items.filter(item => item);
     return (
         <div className="tab expandable" onClick={() => items.length && onJobClick(date)}>
             <div className="content">
@@ -11,10 +10,10 @@ const ExpandableTab = ({ date, icon, items, itemType = 'items', isExpanded, onJo
                     <p>{items.length}</p>
                     <p> {itemType}</p>
                 </div>
-                {isExpanded && filteredItems.length > 0 && (
+                {isExpanded && items.length > 0 && (
                     <div className="popup">
                         <div className="list-wrapper">
-                            {filteredItems.map((item, i) => (
+                            {items.map((item, i) => (
                                 <p key={i} className="border-bottom">
                                     {item}
                                 </p>
@@ -23,7 +22,7 @@ const ExpandableTab = ({ date, icon, items, itemType = 'items', isExpanded, onJo
                     </div>
                 )}
             </div>
-            {filteredItems.length > 0 ? (
+            {items.length > 0 ? (
                 <i className={`fal fa-${isExpanded ? 'minus' : 'plus'} expand-icon`} />
             ) : null}
         </div>

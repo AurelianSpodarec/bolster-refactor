@@ -84,7 +84,7 @@ const UserTable = ({ date, day, initialRows = 3, timesheets }) => {
                                 </td>
                                 <td>{formatAsHrsMinsSecs(formattedBreakHours)}</td>
                                 <td>{totalPins}</td>
-                                <td>{jobReferences.length}</td>
+                                <td>{jobReferences.filter(reference => reference).length}</td>
                                 <td>
                                     <Link
                                         to={`/company/users-management/operatives/${companyUserID}/timesheet`}

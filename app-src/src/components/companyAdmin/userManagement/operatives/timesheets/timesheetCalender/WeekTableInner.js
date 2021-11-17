@@ -33,9 +33,12 @@ const WeekTableInner = ({
         { totalPins: 0, formattedHours: 0, jobReferences: [] },
     );
 
+    const filteredJobReferences = jobReferences.filter(reference => reference);
+
     return (
         <>
             {totals.map(({ date, totalPins, formattedHours, jobReferences }, i) => {
+                const filteredJobReferences = jobReferences.filter(reference => reference);
                 return (
                     <td key={i} onClick={() => onDaySelect(date)}>
                         <div className="date">
@@ -55,9 +58,10 @@ const WeekTableInner = ({
                                     <ExpandableTab
                                         date={date}
                                         icon={<i className="fal fa-sticky-note" />}
-                                        items={jobReferences}
+                                        items={filteredJobReferences}
                                         itemType={
-                                            jobReferences.length > 1 || jobReferences.length === 0
+                                            filteredJobReferences.length > 1 ||
+                                            filteredJobReferences.length === 0
                                                 ? 'Jobs'
                                                 : 'Job'
                                         }
@@ -93,9 +97,10 @@ const WeekTableInner = ({
                         <ExpandableTab
                             date="week"
                             icon={<i className="fal fa-sticky-note" />}
-                            items={jobReferences}
+                            items={filteredJobReferences}
                             itemType={
-                                jobReferences.length > 1 || jobReferences.length === 0
+                                filteredJobReferences.length > 1 ||
+                                filteredJobReferences.length === 0
                                     ? 'Jobs'
                                     : 'Job'
                             }
