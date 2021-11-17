@@ -34,10 +34,7 @@ const AllOperativesListItem = ({
         : 'This operative has never upsynced.';
 
     return (
-        <tr
-            key={user.id}
-            className={`${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}
-        >
+        <tr key={user.id} className={`${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}>
             <td>
                 {isRowRed && (
                     <TooltipContainer
@@ -129,7 +126,10 @@ const AllOperativesListItem = ({
                             <i className="far fa-user" /> Make Admin
                         </ButtonContainer>
                     )}
-
+                    <Link className="button green " to="/company/users-management/timesheets">
+                        <i className="far fa-eye" />
+                        View Timesheet
+                    </Link>
                     <Link
                         className="button yellow"
                         to={`/company/users-management/operatives/${user.id}/edit`}
