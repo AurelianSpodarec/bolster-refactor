@@ -23,15 +23,17 @@ export const filterDirectionOptions = [
 ];
 
 export const timesheetSort = (filterType, filterDirection) => (a, b) => {
+    const nameA = `${a.firstName} ${a.lastName}`;
+    const nameB = `${b.firstName} ${b.lastName}`;
+
+    const hoursA = a.formattedHours;
+    const hoursB = b.formattedHours;
+
     switch (filterType) {
         case 'name':
-            const nameA = `${a.firstName} ${a.lastName}`;
-            const nameB = `${b.firstName} ${b.lastName}`;
             return filterDirection > 0 ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
 
         case 'hours':
-            const hoursA = a.formattedHours;
-            const hoursB = b.formattedHours;
             return filterDirection > 0 ? hoursA - hoursB : hoursB - hoursA;
         default:
             return 0;
