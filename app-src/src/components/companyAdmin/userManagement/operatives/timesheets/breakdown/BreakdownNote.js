@@ -8,25 +8,27 @@ import { useDispatch } from 'react-redux';
 
 const BreakdownNote = ({ note }) => {
     const dispatch = useDispatch();
-    const { comments, createdOn, imageS3Key } = note;
+    const { comments, createdOn, imageS3Keys } = note;
 
     return (
         <div className="breakdown-note">
             <DateTimeContainer date={new Date(createdOn)} datetime={DATE_TIME_IDS.TIME} />
             <p>{comments}</p>
-            {imageS3Key && (
-                <img
-                    alt="uploaded"
-                    src={`${FILE_STORAGE_URL}/${imageS3Key}?width=200`}
-                    onClick={() =>
-                        dispatch(
-                            showModal(PIN_IMAGE, {
-                                image: `${FILE_STORAGE_URL}/${imageS3Key}?width=1500`,
-                            }),
-                        )
-                    }
-                />
-            )}
+            {imageS3Keys &&
+                imageS3Keys.map((imageS3Key, i) => (
+                    <img
+                        key={i}
+                        alt="uploaded"
+                        src={`${FILE_STORAGE_URL}/${imageS3Key}?width=200`}
+                        onClick={() =>
+                            dispatch(
+                                showModal(PIN_IMAGE, {
+                                    image: `${FILE_STORAGE_URL}/${imageS3Key}?width=1500`,
+                                }),
+                            )
+                        }
+                    />
+                ))}
         </div>
     );
 };
