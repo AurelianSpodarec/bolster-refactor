@@ -20,6 +20,7 @@ import AddCreditsToDrawingButtonContainer from '../../addCreditsToDrawing/contai
 import DrawingMapAddZone from './DrawingMapAddZone';
 import DrawingMapViewZones from './DrawingMapViewZones';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import { doPinsHaveIcons } from 'helpers/general';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 
@@ -173,9 +174,11 @@ const DrawingMapViewSimple = ({
                                                 />
                                             </>
                                         )}
-                                    <button className="button blue" onClick={togglePinIconView}>
-                                        Pin {pinViewMode === 'view' ? 'icon' : 'normal'} view
-                                    </button>
+                                    {doPinsHaveIcons(pins) && (
+                                        <button className="button blue" onClick={togglePinIconView}>
+                                            Pin {pinViewMode === 'view' ? 'icon' : 'normal'} view
+                                        </button>
+                                    )}
                                 </>
                             )
                         )}

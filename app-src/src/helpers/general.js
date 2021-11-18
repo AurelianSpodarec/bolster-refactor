@@ -42,3 +42,6 @@ export const companyTrackingShowWarning = company => {
 
     return { period: null, showWarning: false };
 };
+
+export const doPinsHaveIcons = (pins = []) =>
+    pins.some(pin => pin.templatePinImageS3Key || pin.servicePinImageS3Key);
