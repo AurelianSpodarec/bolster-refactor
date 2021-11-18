@@ -50,7 +50,7 @@ const MultiSelect = ({
         const selectedElement = selectedRef.current;
         if (selectedElement && maxLines) {
             const optionElements = selectedElement.getElementsByClassName('option');
-            const maxWidth = selectedElement.clientWidth - 100;
+            const maxWidth = selectedElement.clientWidth - 115;
 
             let usedWidth = 0;
             let maxVisibleCount = 0;
