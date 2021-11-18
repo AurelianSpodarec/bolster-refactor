@@ -1,5 +1,5 @@
 const useWeekOverview = timesheet => {
-    const { companyUserID, firstName, lastName } = timesheet;
+    const { companyUserID, firstName, lastName, email } = timesheet;
     const {
         formattedHours = 0,
         formattedBreakHours = 0,
@@ -27,6 +27,7 @@ const useWeekOverview = timesheet => {
         companyUserID,
         firstName,
         lastName,
+        email,
         formattedHours,
         formattedBreakHours,
         jobReferences,

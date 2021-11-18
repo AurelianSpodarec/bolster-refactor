@@ -2,7 +2,7 @@ import useDay from './useDay';
 import useTimeline from './useTimeline';
 
 const useDayOverview = (timesheet, selectedDate) => {
-    const { companyUserID, firstName, lastName } = timesheet;
+    const { companyUserID, firstName, lastName, email } = timesheet;
     const {
         formattedHours = 0,
         formattedBreakHours = 0,
@@ -20,6 +20,7 @@ const useDayOverview = (timesheet, selectedDate) => {
         companyUserID,
         firstName,
         lastName,
+        email,
         formattedHours,
         formattedBreakHours,
         jobReferences,

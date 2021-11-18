@@ -1,4 +1,5 @@
 import { useForm } from 'helpers/hooks';
+import useDay from '../../../hooks/useDay';
 
 export const filterTypeOptions = [
     {
@@ -22,12 +23,15 @@ export const filterDirectionOptions = [
     },
 ];
 
-export const timesheetSort = (filterType, filterDirection) => (a, b) => {
+export const timesheetSort = (filterType, filterDirection, date) => (a, b) => {
     const nameA = `${a.firstName} ${a.lastName}`;
     const nameB = `${b.firstName} ${b.lastName}`;
 
-    const hoursA = a.formattedHours;
-    const hoursB = b.formattedHours;
+    const dayA = useDay(a, date);
+    const dayB = useDay(b, date);
+
+    const hoursA = dayA.formattedHours;
+    const hoursB = dayB.formattedHours;
 
     switch (filterType) {
         case 'name':

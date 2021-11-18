@@ -51,6 +51,7 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
         companyUserID,
         firstName,
         lastName,
+        email,
         formattedHours,
         formattedBreakHours,
         jobReferences,
@@ -64,7 +65,7 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
             left={
                 <div className="day" key={companyUserID}>
                     <BreakdownSummary
-                        name={`${firstName} ${lastName}`}
+                        name={`${firstName} ${lastName} (${email})`}
                         formattedHours={formattedHours}
                         formattedBreakHours={formattedBreakHours}
                         totalPins={totalPins}
