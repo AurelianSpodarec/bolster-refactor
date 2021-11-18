@@ -4537,7 +4537,7 @@ input {
         cursor: pointer;
         background-color: white;
         white-space: nowrap;
-        overflow: hidden;;
+        overflow: hidden;
         
         .placeholder {
             padding: 6px 5px;
@@ -4550,6 +4550,11 @@ input {
             margin: 5px;
             background-color: #f2f2f2;
             cursor: default;
+
+            &.option-hidden {
+                position: absolute;
+                visibility: hidden;
+            }
 
             p {
                 float: left;
@@ -4570,6 +4575,13 @@ input {
                 right: 6px;
                 transform: translateY(-50%);
             }
+        }
+
+        .more {
+            position: absolute;
+            @include vertical-center;
+            right: 30px;
+            font-size: 120%;
         }
 
         .arrow {

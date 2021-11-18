@@ -55,6 +55,8 @@ const Controls = ({
                             value={companyUserIDs}
                             onChange={(_, value) => setCompanyUserIDs(value)}
                             search
+                            maxSelectedVisible={4}
+                            maxLines={1}
                         />
                     </div>
                 </>

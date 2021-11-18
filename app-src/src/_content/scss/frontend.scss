@@ -3563,6 +3563,12 @@ $back-to-top-height: 35px;
                 font-size: 100%;
             }
         }
+
+        .end {
+            .multi-multi-dropdown {
+                margin: -20px 0;
+            }
+        }
     }
 
     .generic-table {
@@ -4127,6 +4133,40 @@ $back-to-top-height: 35px;
         .custom-pin {
             height: 15px;
             width: 15px;
+        }
+    }
+
+    .day-breakdown-overview {
+        .filters {
+            display: flex;
+            gap: 16px;
+            align-items: flex-end;
+
+            .form-field {
+                margin: 0;
+                padding: 0;
+            }
+
+            .button {
+                flex-shrink: 0;
+                margin: 0;
+                padding: 0;
+                height: 33px;
+                width: 33px;
+    
+                font-size: 150%;
+    
+                .desc {
+                    transform: rotate(180deg);
+                }
+    
+                .fas {
+                    margin: 0;
+                    font-size: 100%;
+    
+                    transition: transform 300ms ease;
+                }
+            }
         }
     }
 

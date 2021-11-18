@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import BreakdownColumns from '../BreakdownColumns';
 import DashboardPinFeed from '../../../../../dashboard/presentational/DashboardPinFeed';
 import usePinFeed from '../../hooks/usePinFeed';
-import BreakdownSummary from '../BreakdownSummary';
-import useDayOverview from '../../hooks/useDayOverview';
 import usePinStats from '../../hooks/usePinStats';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isEmpty } from 'helpers/generic';
@@ -11,10 +9,19 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import moment from 'moment';
-import BreakdownNotes from '../BreakdownNotes';
+import useOverviewFilters from './hooks/useOverviewFilters';
+import Select from 'components/shared/generic/form/presentational/Select';
+import Field from 'components/shared/generic/form/presentational/Field';
+import BreakdownOverviewFilters from './BreakdownOverviewFilters';
+import BreakdownOverviewList from './BreakdownOverviewList';
 
 const DayBreakdownOverview = ({ selectedDate, timesheets }) => {
     const [userIDs, setUserIDs] = useState([]);
+    const {
+        formState: { filterType, filterDirection },
+        handleChange,
+    } = useOverviewFilters();
+
     useEffect(() => {
         setUserIDs(timesheets.map(({ companyUserID }) => companyUserID));
     }, [timesheets]);
@@ -38,35 +45,21 @@ const DayBreakdownOverview = ({ selectedDate, timesheets }) => {
     return (
         <BreakdownColumns
             className="day-breakdown-overview"
-            left={timesheets.map(timesheet => {
-                const {
-                    companyUserID,
-                    firstName,
-                    lastName,
-                    formattedHours,
-                    formattedBreakHours,
-                    jobReferences,
-                    totalPins,
-                    clockIn,
-                    clockOut,
-                    clockerNotes,
-                } = useDayOverview(timesheet, selectedDate);
-
-                return (
-                    <div className="day" key={companyUserID}>
-                        <BreakdownSummary
-                            name={`${firstName} ${lastName}`}
-                            formattedHours={formattedHours}
-                            formattedBreakHours={formattedBreakHours}
-                            totalPins={totalPins}
-                            clockIn={clockIn}
-                            clockOut={clockOut}
-                            jobReferences={jobReferences}
-                        />
-                        <BreakdownNotes notes={clockerNotes} />
-                    </div>
-                );
-            })}
+            left={
+                <>
+                    <BreakdownOverviewFilters
+                        filterType={filterType}
+                        filterDirection={filterDirection}
+                        handleChange={handleChange}
+                    />
+                    <BreakdownOverviewList
+                        timesheets={timesheets}
+                        selectedDate={selectedDate}
+                        filterType={filterType}
+                        filterDirection={filterDirection}
+                    />
+                </>
+            }
             right={
                 <>
                     <div className="breakdown-piechart">
