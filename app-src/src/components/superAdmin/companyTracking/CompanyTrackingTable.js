@@ -16,7 +16,7 @@ import moment from 'moment';
 const headers = [
     'Name',
     'Owner Info',
-    'Date Created',
+    'Date Subscribed',
     'First Subscription',
     'Most Recent Subscription',
     'Subscription Expiry',
@@ -88,6 +88,10 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
                         cutOffDate,
                     );
 
+                    const isOlderThan11Months = moment(company.companyCreatedOn)
+                        .add(11, 'months')
+                        .isBefore(moment());
+
                     return (
                         <tr className={`${showWarning ? 'warning' : ''}`} key={company.companyID}>
                             <td className="center">
@@ -138,7 +142,9 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
                             <td>
                                 {showCheckboxes ? (
                                     <ContactContacted
-                                        contacted={company.contactedAfterMonth}
+                                        contacted={
+                                            company.contactedAfterMonth || isOlderThan11Months
+                                        }
                                         period={COMPANY_TRACKING_PERIOD_TYPE.ONE_MONTH}
                                         companyID={company.companyID}
                                     />
@@ -149,7 +155,9 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
                             <td>
                                 {showCheckboxes ? (
                                     <ContactContacted
-                                        contacted={company.contactedAfterThreeMonths}
+                                        contacted={
+                                            company.contactedAfterThreeMonths || isOlderThan11Months
+                                        }
                                         period={COMPANY_TRACKING_PERIOD_TYPE.THREE_MONTHS}
                                         companyID={company.companyID}
                                     />
@@ -160,7 +168,10 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
                             <td>
                                 {showCheckboxes ? (
                                     <ContactContacted
-                                        contacted={company.contactedAfterElevenMonths}
+                                        contacted={
+                                            company.contactedAfterElevenMonths ||
+                                            isOlderThan11Months
+                                        }
                                         period={COMPANY_TRACKING_PERIOD_TYPE.ELEVEN_MONTHS}
                                         companyID={company.companyID}
                                     />
