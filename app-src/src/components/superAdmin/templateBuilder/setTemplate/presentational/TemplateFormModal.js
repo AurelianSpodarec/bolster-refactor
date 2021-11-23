@@ -84,6 +84,7 @@ const TemplateformModal = ({
                     }}
                     maxHeight={128}
                     maxWidth={128}
+                    isSquare
                 />
             </Field>
             <BlockButtonWrapper>

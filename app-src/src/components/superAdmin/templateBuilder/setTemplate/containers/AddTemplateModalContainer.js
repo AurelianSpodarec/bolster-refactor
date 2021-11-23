@@ -4,7 +4,6 @@ import generateUuid from 'uuid/v1';
 import TemplateFormModal from '../presentational/TemplateFormModal';
 import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
 import withTemplateFormLogic from '../hocs/withTemplateFormLogic';
-import setPinImageS3Key from 'actions/superAdmin/templateBuilder/sync/setPinImageS3Key';
 
 class TemplateFormModalContainer extends React.Component {
     render() {
