@@ -1357,6 +1357,10 @@ input {
             }
         }
     }
+
+    .image {
+        max-width: 100%;
+    }
 }
 
 .page-heading {
@@ -6238,6 +6242,11 @@ input {
     margin-bottom: 10px;
     border-radius: 5px;
     align-items: center;
+
+    &.alerts {
+        height: auto;
+        padding: 6px 0;
+    }
 
     & > .banner-text {
         color: white;

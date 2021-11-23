@@ -140,20 +140,34 @@ const PinAnswer = ({
             );
             break;
         case TYPES.MULTI_PHOTO:
-            inner = curAnswer.answer.map((item, i) => {
-                var URL = `${FILE_STORAGE_URL}/${item}`;
-                return (
+            if (Array.isArray(curAnswer.answer)) {
+                inner = curAnswer.answer.map((item, i) => {
+                    const URL = `${FILE_STORAGE_URL}/${item}`;
+                    return (
+                        <img
+                            style={{ cursor: 'zoom-in' }}
+                            alt={`${i + 1} of ${curAnswer.answer.length}`}
+                            key={item}
+                            src={URL + '?width=100'}
+                            onClick={() =>
+                                dispatch(showModal(PIN_IMAGE, { image: URL + '?width=1500' }))
+                            }
+                        />
+                    );
+                });
+            } else {
+                const URL = `${FILE_STORAGE_URL}/${curAnswer.answer}`;
+                inner = (
                     <img
                         style={{ cursor: 'zoom-in' }}
-                        alt={`${i + 1} of ${curAnswer.answer.length}`}
-                        key={item}
+                        alt=""
                         src={URL + '?width=100'}
                         onClick={() =>
                             dispatch(showModal(PIN_IMAGE, { image: URL + '?width=1500' }))
                         }
                     />
                 );
-            });
+            }
             break;
         case TYPES.DOCUMENT_UPLOAD:
             var docURL = `${RAW_S3_STORAGE_URL}/${curAnswer.answer}`;

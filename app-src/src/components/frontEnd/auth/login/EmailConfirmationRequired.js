@@ -63,10 +63,10 @@ const EmailConfirmationRequired = () => {
 
                     <div className="auth-text-wrapper login-text">
                         <p style={{ marginBottom: 30 }}>
-                            Your email address is unconfirmed. Please confirm your email address by
-                            clicking the button below and following the steps on the email you will
-                            receive. If your email address is incorrect, invalid or old a company
-                            admin will need to update this for you through User management.
+                            Your email address is unconfirmed. Please click here and follow the
+                            steps on the email you will receive to complete this process. If your
+                            email address is incorrect, invalid or old, please update through My
+                            Profile.
                         </p>
                         <FrontEndButton
                             classes="gray left"

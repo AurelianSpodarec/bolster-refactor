@@ -37,10 +37,7 @@ const AllCompanyAdminsListItem = ({
         : 'This operative has never upsynced.';
 
     return (
-        <tr
-            key={user.id}
-            className={`${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}
-        >
+        <tr key={user.id} className={`${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}>
             <td>
                 {isRowRed && (
                     <TooltipContainer
@@ -136,6 +133,10 @@ const AllCompanyAdminsListItem = ({
                     <button className="button" onClick={generateReport}>
                         Generate Report
                     </button>
+                    <Link className="button green " to="/company/users-management/timesheets">
+                        <i className="far fa-eye" />
+                        View Timesheet
+                    </Link>
                     <Link
                         className="button yellow "
                         to={`/company/users-management/company-admins/${user.id}/edit`}

@@ -17,6 +17,7 @@ import AddClientContainer from 'components/companyAdmin/userManagement/clients/s
 import EditCompanyUserEmail from 'components/companyAdmin/userManagement/shared/editCompanyUserEmail/EditCompanyUserEmail';
 import EditClientUserEmail from 'components/companyAdmin/userManagement/clients/singleClient/EditClientUserEmail';
 import DocumentsUploaderContainer from 'components/companyAdmin/userManagement/documentsUploader/containers/DocumentsUploaderContainer';
+import Timesheets from 'components/companyAdmin/userManagement/timesheets/Timesheets';
 // import EditOperativePasswordContainer from 'components/companyAdmin/userManagement/operatives/editOperativePassword/containers/EditOperativePasswordContainer';
 
 const UserManagementRoutes = ({ base = '/company/users-management' }) => (
@@ -67,6 +68,7 @@ const UserManagementRoutes = ({ base = '/company/users-management' }) => (
             component={UserDrawingsContainer}
         />
         <Route exact path={`${base}/operative/:id/drawings`} component={UserDrawingsContainer} />
+        <Route exact path={`${base}/timesheets`} component={Timesheets} />
     </SwitchWith404>
 );
 
