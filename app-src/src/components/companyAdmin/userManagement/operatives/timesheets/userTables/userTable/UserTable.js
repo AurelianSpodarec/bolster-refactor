@@ -59,14 +59,14 @@ const UserTable = ({ date, day, initialRows = 3, timesheets }) => {
                         ) : (
                             <tr key={companyUserID}>
                                 <td>
-                                    {firstName} {lastName} - {companyUserID}
+                                    {firstName} {lastName}
                                 </td>
                                 <td>{formatAsHrsMinsSecs(formattedHours)}</td>
                                 <td>
                                     {clockIn ? (
                                         <DateTimeContainer
                                             date={clockIn}
-                                            datetime={DATE_TIME_IDS.DATE}
+                                            datetime={DATE_TIME_IDS.TIME}
                                         />
                                     ) : (
                                         'N/A'
@@ -76,7 +76,7 @@ const UserTable = ({ date, day, initialRows = 3, timesheets }) => {
                                     {clockOut ? (
                                         <DateTimeContainer
                                             date={clockOut}
-                                            datetime={DATE_TIME_IDS.DATE}
+                                            datetime={DATE_TIME_IDS.TIME}
                                         />
                                     ) : (
                                         'N/A'
