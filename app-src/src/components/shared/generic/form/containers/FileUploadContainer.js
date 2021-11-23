@@ -158,7 +158,7 @@ class FileUploadContainer extends Component {
             return;
         }
 
-        const { name, maxFiles, skipTemp = false } = this.props;
+        const { name, maxFiles, skipTemp = false, maxHeight, maxWidth, isSquare } = this.props;
         const { fileS3Keys } = this.state;
         if (fileS3Keys.length === maxFiles) {
             this.setState({ softError: `You can only upload a maximum of ${maxFiles} files.` });
@@ -169,11 +169,18 @@ class FileUploadContainer extends Component {
             return;
         }
 
-        const isValidImage = await this.isImageValid(file);
+        const { height, width } = await this.getImageDimensionsAsync(file);
 
-        if (!isValidImage) {
+        if (maxHeight && maxWidth && height > maxHeight && width > maxWidth) {
             this.setState({
                 softError: `The image exceeds the maximum dimensions of ${this.props.maxHeight}x${this.props.maxWidth}`,
+            });
+            return;
+        }
+
+        if (isSquare && height !== width) {
+            this.setState({
+                softError: 'The image needs to be a square',
             });
             return;
         }
@@ -231,11 +238,7 @@ class FileUploadContainer extends Component {
         );
     };
 
-    async isImageValid(file) {
-        const { maxHeight, maxWidth } = this.props;
-
-        if (!maxHeight && !maxWidth) return true;
-
+    async getImageDimensionsAsync(file) {
         if (!file.type.includes('image')) return false;
 
         const reader = new FileReader();
@@ -252,10 +255,7 @@ class FileUploadContainer extends Component {
                     const height = image.height;
                     const width = image.width;
 
-                    if (height > maxHeight && width > maxWidth) {
-                        resolve(false);
-                    }
-                    resolve(true);
+                    return resolve({ height, width });
                 };
             };
         });
