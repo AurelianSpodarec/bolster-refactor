@@ -16,14 +16,17 @@ const MultiMultiDropdownOptions = ({
 }) => {
     let isManufacturingEnabledForType = false;
     let formattedOpts = [];
+    const value = answers[id];
 
     useEffect(() => {
-        if (!answers[id] && !edit && defaultValue) {
+        if (!value && !edit && defaultValue) {
             handleChange(null, [defaultValue]);
         }
     }, []);
 
     const filteredOptions = dropdownOptions.filter(option => {
+        if (!value?.includes(option.value) && option.isDeleted) return false;
+
         if (option.type + '' === optionType + '') {
             // while filtering check whether manufacturing enabled for specific type
             if (
@@ -90,7 +93,7 @@ const MultiMultiDropdownOptions = ({
         <BoundlessSelect
             required={isRequired}
             options={options}
-            value={formatAnswers(answers[id], options)}
+            value={formatAnswers(value, options)}
             name={`answer-${id}`}
             onChange={handleChange}
             search

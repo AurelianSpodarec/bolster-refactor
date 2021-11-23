@@ -16,14 +16,16 @@ const MultiDropdownOptions = ({
 }) => {
     let isManufacturingEnabledForType = false;
     let formattedOpts = [];
+    const value = answers[id];
 
     useEffect(() => {
-        if (!answers[id] && !edit && defaultValue) {
+        if (!value && !edit && defaultValue) {
             handleChange(null, [defaultValue]);
         }
     }, []);
 
     const filteredOptions = dropdownOptions.filter(option => {
+        if (!value?.includes(option.value) && option.isDeleted) return false;
         if (option.type + '' === optionType + '') {
             // while filtering check whether manufacturing enabled for specific type
             if (
@@ -67,7 +69,7 @@ const MultiDropdownOptions = ({
         <MultiSelect
             required={isRequired}
             options={getSortedDropdownOptions(formattedOpts, defaultDropdownSorting)}
-            value={answers[id] || []}
+            value={value || []}
             name={`answer-${id}`}
             onChange={handleChange}
         />
