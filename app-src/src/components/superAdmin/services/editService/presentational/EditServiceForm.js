@@ -57,6 +57,7 @@ const EditServiceForm = ({
                         }}
                         maxHeight={128}
                         maxWidth={128}
+                        isSquare
                     />
                 </Field>
             </div>
