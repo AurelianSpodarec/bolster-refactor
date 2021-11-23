@@ -19,9 +19,8 @@ const PinAnswer = ({
     const curAnswer = { ...answers.find(item => +item.id === +trimmedAnswer.id) };
     const notFoundResponse = null;
     let inner;
-
     if (!isObjEmpty(optionValuesLookup) && !!curAnswer.answer) {
-        if (type === TYPES.DROPDOWN_OPTIONS && typeof curAnswer.answer === 'number') {
+        if (type === TYPES.DROPDOWN_OPTIONS && optionValuesLookup[curAnswer.answer]) {
             curAnswer.answer = optionValuesLookup[curAnswer.answer].name;
         } else if (
             type === TYPES.MULTI_DROPDOWN_OPTIONS ||
@@ -32,7 +31,7 @@ const PinAnswer = ({
                     return null;
                 }
                 // handles manufacturer option
-                if (typeof ans === 'number' && optionValuesLookup[ans]) {
+                if (+ans && optionValuesLookup[ans]) {
                     return optionValuesLookup[ans].name;
                 }
 
