@@ -31,7 +31,7 @@ export default filterBody => dispatch => {
         startDate: moment(filterBody.startDate).local().format('YYYY-MM-DD HH:mm'),
         endDate: moment(filterBody.endDate).local().format('YYYY-MM-DD HH:mm'),
     };
-    console.log({ convertedFilterBody });
+
     return axios
         .post(`${API_URL}/stats/dashboard`, convertedFilterBody, getHeaders())
         .then(res => dispatch(fetchDashStatsSuccess(res.data)))
