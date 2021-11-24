@@ -28,8 +28,8 @@ export default filterBody => dispatch => {
 
     const convertedFilterBody = {
         ...filterBody,
-        startDate: moment(filterBody.startDate).local().format('YYYY-MM-DD HH:mm'),
-        endDate: moment(filterBody.endDate).local().format('YYYY-MM-DD HH:mm'),
+        startDate: moment(filterBody.startDate).format(),
+        endDate: moment(filterBody.endDate).format(),
     };
 
     return axios
