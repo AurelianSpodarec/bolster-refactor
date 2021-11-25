@@ -6,7 +6,7 @@ import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useDayOverview from '../../hooks/useDayOverview';
 
-const UserTable = ({ date, day, initialRows = 3, timesheets }) => {
+const UserTable = ({ date, day, initialRows = 7, timesheets }) => {
     const [expanded, setExpanded] = useState(false);
 
     return (
