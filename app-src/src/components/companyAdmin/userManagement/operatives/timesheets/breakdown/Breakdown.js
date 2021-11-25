@@ -81,7 +81,7 @@ const Breakdown = ({
                                 />
                             ),
                         },
-                        {
+                        timesheets.length === 1 && {
                             id: 1,
                             title: 'Location',
                             component: (
