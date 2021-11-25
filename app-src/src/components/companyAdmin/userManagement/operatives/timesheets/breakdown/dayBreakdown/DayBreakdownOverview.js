@@ -26,32 +26,30 @@ const DayBreakdownOverview = ({ selectedDate, timesheets }) => {
         setUserIDs(timesheets.map(({ companyUserID }) => companyUserID));
     }, [timesheets]);
 
-    const {
-        isFetching: statsIsFetching,
-        fetchError: statsFetchError,
-        stats,
-    } = usePinStats(
+    const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
         userIDs,
         moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
         moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
     );
 
-    const {
-        isFetching: feedIsFetching,
-        fetchError: feedFetchError,
-        feed,
-    } = usePinFeed(userIDs, moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'), false);
+    const { isFetching: feedIsFetching, fetchError: feedFetchError, feed } = usePinFeed(
+        userIDs,
+        moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
+        false,
+    );
 
     return (
         <BreakdownColumns
             className="day-breakdown-overview"
             left={
                 <>
-                    <BreakdownOverviewFilters
-                        filterType={filterType}
-                        filterDirection={filterDirection}
-                        handleChange={handleChange}
-                    />
+                    {timesheets.length > 1 && (
+                        <BreakdownOverviewFilters
+                            filterType={filterType}
+                            filterDirection={filterDirection}
+                            handleChange={handleChange}
+                        />
+                    )}
                     <BreakdownOverviewList
                         timesheets={timesheets}
                         selectedDate={selectedDate}
