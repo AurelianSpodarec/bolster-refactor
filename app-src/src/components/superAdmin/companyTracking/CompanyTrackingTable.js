@@ -83,8 +83,6 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
             >
                 {sortedCompanies.map(company => {
                     const { period, showWarning } = companyTrackingShowWarning(company);
-                    const cutOffDate = moment('2021-09-16');
-                    const showCheckboxes = moment(company.companyCreatedOn).isBefore(cutOffDate);
 
                     const isOlderThan11Months = moment(company.companyCreatedOn)
                         .add(11, 'months')
@@ -138,44 +136,29 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
                                         .join(', ')}
                             </td>
                             <td>
-                                {showCheckboxes ? (
-                                    <ContactContacted
-                                        contacted={
-                                            company.contactedAfterMonth || isOlderThan11Months
-                                        }
-                                        period={COMPANY_TRACKING_PERIOD_TYPE.ONE_MONTH}
-                                        companyID={company.companyID}
-                                    />
-                                ) : (
-                                    'N/A'
-                                )}
+                                <ContactContacted
+                                    contacted={company.contactedAfterMonth || isOlderThan11Months}
+                                    period={COMPANY_TRACKING_PERIOD_TYPE.ONE_MONTH}
+                                    companyID={company.companyID}
+                                />
                             </td>
                             <td>
-                                {showCheckboxes ? (
-                                    <ContactContacted
-                                        contacted={
-                                            company.contactedAfterThreeMonths || isOlderThan11Months
-                                        }
-                                        period={COMPANY_TRACKING_PERIOD_TYPE.THREE_MONTHS}
-                                        companyID={company.companyID}
-                                    />
-                                ) : (
-                                    'N/A'
-                                )}
+                                <ContactContacted
+                                    contacted={
+                                        company.contactedAfterThreeMonths || isOlderThan11Months
+                                    }
+                                    period={COMPANY_TRACKING_PERIOD_TYPE.THREE_MONTHS}
+                                    companyID={company.companyID}
+                                />
                             </td>
                             <td>
-                                {showCheckboxes ? (
-                                    <ContactContacted
-                                        contacted={
-                                            company.contactedAfterElevenMonths ||
-                                            isOlderThan11Months
-                                        }
-                                        period={COMPANY_TRACKING_PERIOD_TYPE.ELEVEN_MONTHS}
-                                        companyID={company.companyID}
-                                    />
-                                ) : (
-                                    'N/A'
-                                )}
+                                <ContactContacted
+                                    contacted={
+                                        company.contactedAfterElevenMonths || isOlderThan11Months
+                                    }
+                                    period={COMPANY_TRACKING_PERIOD_TYPE.ELEVEN_MONTHS}
+                                    companyID={company.companyID}
+                                />
                             </td>
                         </tr>
                     );
