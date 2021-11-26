@@ -15,6 +15,7 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
                 email,
                 formattedHours,
                 formattedBreakHours,
+                formattedClockedInHours,
                 jobReferences,
                 totalPins,
                 clockIn,
@@ -28,6 +29,7 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
                         name={`${firstName} ${lastName} (${email})`}
                         formattedHours={formattedHours}
                         formattedBreakHours={formattedBreakHours}
+                        formattedClockedInHours={formattedClockedInHours}
                         totalPins={totalPins}
                         clockIn={clockIn}
                         clockOut={clockOut}

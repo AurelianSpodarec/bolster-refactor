@@ -6,6 +6,7 @@ const useDayOverview = (timesheet, selectedDate) => {
     const {
         formattedHours = 0,
         formattedBreakHours = 0,
+        formattedClockedInHours = 0,
         jobReferences = [],
         totalPins = 0,
         clockerEntries,
@@ -23,6 +24,7 @@ const useDayOverview = (timesheet, selectedDate) => {
         email,
         formattedHours,
         formattedBreakHours,
+        formattedClockedInHours,
         jobReferences,
         totalPins,
         clockIn,

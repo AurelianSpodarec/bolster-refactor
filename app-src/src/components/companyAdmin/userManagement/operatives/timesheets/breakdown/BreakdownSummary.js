@@ -11,6 +11,7 @@ const BreakdownSummary = ({
     name,
     formattedHours = 0,
     formattedBreakHours = 0,
+    formattedClockedInHours = 0,
     totalPins = 0,
     jobReferences = [],
     clockIn,
@@ -35,14 +36,18 @@ const BreakdownSummary = ({
             </div>
             {timePeriod === TIME_PERIOD.DAY && (
                 <div className="summary-row">
-                    <FieldOutput title="Clocked In" fieldClass="clockedIn" sizeClass="size-lg-6">
-                        {clockIn ? (
-                            <DateTimeContainer datetime={DATE_TIME_IDS.TIME} date={clockIn} />
-                        ) : (
-                            'N/A'
-                        )}
+                    <FieldOutput
+                        title="Total Hours Clocked In"
+                        fieldClass="clockedIn"
+                        sizeClass="size-lg-6"
+                    >
+                        {clockIn ? formatAsHrsMinsSecs(formattedClockedInHours) : 'N/A'}
                     </FieldOutput>
-                    <FieldOutput title="Clocked Out" fieldClass="clockedOut" sizeClass="size-lg-6">
+                    <FieldOutput
+                        title="Last Clocked Out"
+                        fieldClass="clockedOut"
+                        sizeClass="size-lg-6"
+                    >
                         {clockOut ? (
                             <DateTimeContainer datetime={DATE_TIME_IDS.TIME} date={clockOut} />
                         ) : (
