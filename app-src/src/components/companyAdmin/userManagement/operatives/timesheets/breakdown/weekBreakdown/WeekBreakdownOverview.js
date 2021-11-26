@@ -30,7 +30,7 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
     );
 
     const {
-        formState: { filterType, filterDirection, showOnly },
+        formState: { filterType, filterDirection },
         handleChange,
     } = useOverviewFilters();
 
@@ -49,7 +49,6 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
                     filterType={filterType}
                     filterDirection={filterDirection}
                     handleChange={handleChange}
-                    showOnly={showOnly}
                 />
                 <UserTables
                     selectedDate={selectedDate}
@@ -58,7 +57,6 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
                     timesheets={timesheets}
                     filterType={filterType}
                     filterDirection={filterDirection}
-                    showOnly={showOnly}
                 />
             </>
         );

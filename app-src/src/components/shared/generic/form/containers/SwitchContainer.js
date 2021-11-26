@@ -5,17 +5,16 @@ const SwitchContainer = ({
     checked,
     disabled = false,
     handleChange,
-    handleBlur = () => {},
     value,
     name,
-    text,
+    text
 }) => {
     return (
         <Switch
             checked={checked}
             disabled={disabled}
             handleChange={handleSwitchChange}
-            handleBlur={handleBlur}
+            handleBlur={this.handleBlur}
             name={name}
             text={text}
             value={value}

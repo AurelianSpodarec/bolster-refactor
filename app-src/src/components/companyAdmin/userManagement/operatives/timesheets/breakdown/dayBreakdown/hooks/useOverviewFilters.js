@@ -12,17 +12,6 @@ export const filterTypeOptions = [
     },
 ];
 
-export const showOnlyOptions = [
-    {
-        value: 'all',
-        label: 'All Users',
-    },
-    {
-        value: 'clockedIn',
-        label: 'Clocked-In Users',
-    },
-];
-
 export const filterDirectionOptions = [
     {
         value: 1,
@@ -34,15 +23,7 @@ export const filterDirectionOptions = [
     },
 ];
 
-export const filterShowOnly = (timesheet, value) => {
-    if (value === 'all') {
-        return true;
-    } else {
-        return true; // TODO - need BE data to implement this
-    }
-};
-
-export const timesheetSort = (filterType, filterDirection, date, showOnly) => (a, b) => {
+export const timesheetSort = (filterType, filterDirection, date) => (a, b) => {
     const nameA = `${a.firstName} ${a.lastName}`;
     const nameB = `${b.firstName} ${b.lastName}`;
 
@@ -66,7 +47,6 @@ export const timesheetSort = (filterType, filterDirection, date, showOnly) => (a
 const useOverviewFilters = () => {
     const [formState, handleChange] = useForm({
         filterType: 'name',
-        showOnly: 'all',
         filterDirection: 1,
     });
 
