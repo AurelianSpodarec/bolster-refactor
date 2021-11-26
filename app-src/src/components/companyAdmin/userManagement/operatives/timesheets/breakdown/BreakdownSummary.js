@@ -30,19 +30,16 @@ const BreakdownSummary = ({
                 <FieldOutput title="Total Break Time" fieldClass="breakHours" sizeClass="size-lg-4">
                     {formatAsHrsMinsSecs(formattedBreakHours)}
                 </FieldOutput>
-                <FieldOutput title="Total Pin Histories" fieldClass="pins" sizeClass="size-lg-4">
-                    {totalPins}
+                <FieldOutput
+                    title="Total Hours Clocked In"
+                    fieldClass="clockedIn"
+                    sizeClass="size-lg-4"
+                >
+                    {clockIn ? formatAsHrsMinsSecs(formattedClockedInHours) : 'N/A'}
                 </FieldOutput>
             </div>
             {timePeriod === TIME_PERIOD.DAY && (
                 <div className="summary-row">
-                    <FieldOutput
-                        title="Total Hours Clocked In"
-                        fieldClass="clockedIn"
-                        sizeClass="size-lg-6"
-                    >
-                        {clockIn ? formatAsHrsMinsSecs(formattedClockedInHours) : 'N/A'}
-                    </FieldOutput>
                     <FieldOutput
                         title="Last Clocked Out"
                         fieldClass="clockedOut"
@@ -53,6 +50,13 @@ const BreakdownSummary = ({
                         ) : (
                             'N/A'
                         )}
+                    </FieldOutput>
+                    <FieldOutput
+                        title="Total Pin Histories"
+                        fieldClass="pins"
+                        sizeClass="size-lg-6"
+                    >
+                        {totalPins}
                     </FieldOutput>
                 </div>
             )}
