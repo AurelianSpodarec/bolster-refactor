@@ -32,7 +32,7 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
     const today = new Date();
     const sortedCompanies = useMemo(() => {
         const sorted = Object.values(companies).sort(
-            (a, b) => new Date(b.latestSubscriptionStartOn) - new Date(a.latestSubscriptionStartOn),
+            (a, b) => new Date(a.latestSubscriptionStartOn) - new Date(b.latestSubscriptionStartOn),
         );
 
         return sorted;
@@ -84,9 +84,7 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
                 {sortedCompanies.map(company => {
                     const { period, showWarning } = companyTrackingShowWarning(company);
                     const cutOffDate = moment('2021-09-16');
-                    const showCheckboxes = moment(company.latestSubscriptionStartOn).isBefore(
-                        cutOffDate,
-                    );
+                    const showCheckboxes = moment(company.companyCreatedOn).isBefore(cutOffDate);
 
                     const isOlderThan11Months = moment(company.companyCreatedOn)
                         .add(11, 'months')
