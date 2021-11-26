@@ -2,10 +2,17 @@ import React from 'react';
 import useDayOverview from '../../hooks/useDayOverview';
 import BreakdownNotes from '../BreakdownNotes';
 import BreakdownSummary from '../BreakdownSummary';
-import { timesheetSort } from './hooks/useOverviewFilters';
+import { timesheetSort, filterShowOnly } from './hooks/useOverviewFilters';
 
-const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDirection }) => {
+const BreakdownOverviewList = ({
+    timesheets,
+    selectedDate,
+    filterType,
+    filterDirection,
+    showOnly,
+}) => {
     return timesheets
+        .filter(t => filterShowOnly(t, showOnly))
         .sort(timesheetSort(filterType, filterDirection, selectedDate))
         .map(timesheet => {
             const {

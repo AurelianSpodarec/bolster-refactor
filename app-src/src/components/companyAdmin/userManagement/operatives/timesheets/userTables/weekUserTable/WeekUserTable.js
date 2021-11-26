@@ -3,7 +3,10 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import { days } from 'constants/companyAdmin/timesheets';
 import moment from 'moment';
 import UserTable from '../userTable/UserTable';
-import { timesheetSort } from '../../breakdown/dayBreakdown/hooks/useOverviewFilters';
+import {
+    filterShowOnly,
+    timesheetSort,
+} from '../../breakdown/dayBreakdown/hooks/useOverviewFilters';
 
 const headers = [
     'Operative Name',
@@ -16,7 +19,14 @@ const headers = [
     '',
 ];
 
-const WeekUserTable = ({ date, timesheets, filterDirection, filterType, selectedDate }) => {
+const WeekUserTable = ({
+    date,
+    timesheets,
+    filterDirection,
+    filterType,
+    selectedDate,
+    showOnly,
+}) => {
     return (
         <Table headers={headers} extraClasses="timesheet-user-table">
             {days.map((_, i) => (
@@ -24,9 +34,9 @@ const WeekUserTable = ({ date, timesheets, filterDirection, filterType, selected
                     key={i}
                     day={days[i]}
                     date={moment(date).add(i, 'days').format()}
-                    timesheets={timesheets.sort(
-                        timesheetSort(filterType, filterDirection, selectedDate),
-                    )}
+                    timesheets={timesheets
+                        .filter(t => filterShowOnly(t, showOnly))
+                        .sort(timesheetSort(filterType, filterDirection, selectedDate, showOnly))}
                 />
             ))}
         </Table>

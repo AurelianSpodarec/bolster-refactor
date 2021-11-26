@@ -10,15 +10,13 @@ import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import moment from 'moment';
 import useOverviewFilters from './hooks/useOverviewFilters';
-import Select from 'components/shared/generic/form/presentational/Select';
-import Field from 'components/shared/generic/form/presentational/Field';
 import BreakdownOverviewFilters from './BreakdownOverviewFilters';
 import BreakdownOverviewList from './BreakdownOverviewList';
 
 const DayBreakdownOverview = ({ selectedDate, timesheets }) => {
     const [userIDs, setUserIDs] = useState([]);
     const {
-        formState: { filterType, filterDirection },
+        formState: { filterType, filterDirection, showOnly },
         handleChange,
     } = useOverviewFilters();
 
@@ -48,6 +46,7 @@ const DayBreakdownOverview = ({ selectedDate, timesheets }) => {
                             filterType={filterType}
                             filterDirection={filterDirection}
                             handleChange={handleChange}
+                            showOnly={showOnly}
                         />
                     )}
                     <BreakdownOverviewList
@@ -55,6 +54,7 @@ const DayBreakdownOverview = ({ selectedDate, timesheets }) => {
                         selectedDate={selectedDate}
                         filterType={filterType}
                         filterDirection={filterDirection}
+                        showOnly={showOnly}
                     />
                 </>
             }

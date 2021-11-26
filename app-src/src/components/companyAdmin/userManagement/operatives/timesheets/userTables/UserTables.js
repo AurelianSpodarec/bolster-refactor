@@ -10,6 +10,7 @@ const UserTables = ({
     timesheets,
     filterType,
     filterDirection,
+    showOnly,
 }) => {
     return (
         <BlockContainer isFetching={isFetching} error={fetchError} isEmpty={isEmpty(timesheets)}>
@@ -19,6 +20,7 @@ const UserTables = ({
                 filterType={filterType}
                 filterDirection={filterDirection}
                 selectedDate={selectedDate}
+                showOnly={showOnly}
             />
         </BlockContainer>
     );

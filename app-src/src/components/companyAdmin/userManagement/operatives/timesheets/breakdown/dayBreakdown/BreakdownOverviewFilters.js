@@ -1,9 +1,10 @@
+import Switch from 'components/shared/generic/form/presentational/Switch';
 import Field from 'components/shared/generic/form/presentational/Field';
 import Select from 'components/shared/generic/form/presentational/Select';
 import React from 'react';
-import { filterTypeOptions } from './hooks/useOverviewFilters';
+import { filterTypeOptions, showOnlyOptions } from './hooks/useOverviewFilters';
 
-const BreakdownOverviewFilters = ({ filterType, filterDirection, handleChange }) => {
+const BreakdownOverviewFilters = ({ filterType, filterDirection, handleChange, showOnly }) => {
     return (
         <div className="filters">
             <Field name="Filter By">
@@ -11,6 +12,15 @@ const BreakdownOverviewFilters = ({ filterType, filterDirection, handleChange })
                     name="filterType"
                     value={filterType}
                     options={filterTypeOptions}
+                    onChange={handleChange}
+                    omitPlaceholder
+                />
+            </Field>
+            <Field name="Show Only">
+                <Select
+                    name="showOnly"
+                    value={showOnly}
+                    options={showOnlyOptions}
                     onChange={handleChange}
                     omitPlaceholder
                 />
