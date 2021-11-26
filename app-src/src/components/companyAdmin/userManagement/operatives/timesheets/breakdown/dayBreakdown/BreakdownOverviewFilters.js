@@ -19,7 +19,7 @@ const BreakdownOverviewFilters = ({ filterType, filterDirection, handleChange })
                 className="button"
                 onClick={() => handleChange('filterDirection', filterDirection * -1)}
             >
-                <i className={`fas fa-arrow-up ${filterDirection < 0 ? 'desc' : ''}`} />
+                <i className={`fas fa-arrow-up ${filterDirection < 0 ? 'desc' : 'asc'}`} />
             </button>
         </div>
     );
