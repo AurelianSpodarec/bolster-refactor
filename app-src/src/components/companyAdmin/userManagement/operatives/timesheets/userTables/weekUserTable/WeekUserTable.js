@@ -1,8 +1,9 @@
+import React from 'react';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import { days } from 'constants/companyAdmin/timesheets';
 import moment from 'moment';
-import React from 'react';
 import UserTable from '../userTable/UserTable';
+import { timesheetSort } from '../../breakdown/dayBreakdown/hooks/useOverviewFilters';
 
 const headers = [
     'Operative Name',
@@ -15,7 +16,7 @@ const headers = [
     '',
 ];
 
-const WeekUserTable = ({ date, timesheets }) => {
+const WeekUserTable = ({ date, timesheets, filterDirection, filterType, selectedDate }) => {
     return (
         <Table headers={headers} extraClasses="timesheet-user-table">
             {days.map((_, i) => (
@@ -23,7 +24,9 @@ const WeekUserTable = ({ date, timesheets }) => {
                     key={i}
                     day={days[i]}
                     date={moment(date).add(i, 'days').format()}
-                    timesheets={timesheets}
+                    timesheets={timesheets.sort(
+                        timesheetSort(filterType, filterDirection, selectedDate),
+                    )}
                 />
             ))}
         </Table>

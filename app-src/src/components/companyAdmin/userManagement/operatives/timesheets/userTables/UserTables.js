@@ -3,10 +3,23 @@ import { isEmpty } from 'helpers/generic';
 import React from 'react';
 import WeekUserTable from './weekUserTable/WeekUserTable';
 
-const UserTables = ({ selectedDate, isFetching, fetchError, timesheets }) => {
+const UserTables = ({
+    selectedDate,
+    isFetching,
+    fetchError,
+    timesheets,
+    filterType,
+    filterDirection,
+}) => {
     return (
         <BlockContainer isFetching={isFetching} error={fetchError} isEmpty={isEmpty(timesheets)}>
-            <WeekUserTable date={selectedDate} timesheets={timesheets} />
+            <WeekUserTable
+                date={selectedDate}
+                timesheets={timesheets}
+                filterType={filterType}
+                filterDirection={filterDirection}
+                selectedDate={selectedDate}
+            />
         </BlockContainer>
     );
 };

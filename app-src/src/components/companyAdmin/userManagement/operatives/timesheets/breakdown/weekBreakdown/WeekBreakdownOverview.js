@@ -13,6 +13,8 @@ import { isEmpty } from 'helpers/generic';
 import usePinStats from '../../hooks/usePinStats';
 import moment from 'moment';
 import BreakdownNotes from '../BreakdownNotes';
+import BreakdownOverviewFilters from '../../breakdown/dayBreakdown/BreakdownOverviewFilters';
+import useOverviewFilters from '../../breakdown/dayBreakdown/hooks/useOverviewFilters';
 
 const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchError }) => {
     const isSingleUser = timesheets.length === 1;
@@ -21,30 +23,42 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
     useEffect(() => {
         setUserIDs(timesheets.map(({ companyUserID }) => companyUserID));
     }, [timesheets]);
-    const {
-        isFetching: statsIsFetching,
-        fetchError: statsFetchError,
-        stats,
-    } = usePinStats(
+    const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
         userIDs,
         moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
         moment(selectedDate).endOf('week').format('YYYY-MM-DDTHH:mm:ss'),
     );
 
     const {
-        isFetching: feedIsFetching,
-        fetchError: feedFetchError,
-        feed,
-    } = usePinFeed(userIDs, moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'), true);
+        formState: { filterType, filterDirection },
+        handleChange,
+    } = useOverviewFilters();
+
+    const { isFetching: feedIsFetching, fetchError: feedFetchError, feed } = usePinFeed(
+        userIDs,
+        moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
+        true,
+    );
 
     if (!isSingleUser) {
         return (
-            <UserTables
-                selectedDate={selectedDate}
-                isFetching={isFetching}
-                fetchError={fetchError}
-                timesheets={timesheets}
-            />
+            <>
+                {' '}
+                <div style={{ marginBottom: '1rem' }} />
+                <BreakdownOverviewFilters
+                    filterType={filterType}
+                    filterDirection={filterDirection}
+                    handleChange={handleChange}
+                />
+                <UserTables
+                    selectedDate={selectedDate}
+                    isFetching={isFetching}
+                    fetchError={fetchError}
+                    timesheets={timesheets}
+                    filterType={filterType}
+                    filterDirection={filterDirection}
+                />
+            </>
         );
     }
     const {
@@ -63,17 +77,19 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
         <BreakdownColumns
             className="week-breakdown-overview"
             left={
-                <div className="day" key={companyUserID}>
-                    <BreakdownSummary
-                        name={`${firstName} ${lastName} (${email})`}
-                        formattedHours={formattedHours}
-                        formattedBreakHours={formattedBreakHours}
-                        totalPins={totalPins}
-                        jobReferences={jobReferences}
-                        timePeriod={TIME_PERIOD.WEEK}
-                    />
-                    <BreakdownNotes notes={clockerNotes} />
-                </div>
+                <>
+                    <div className="day" key={companyUserID}>
+                        <BreakdownSummary
+                            name={`${firstName} ${lastName} (${email})`}
+                            formattedHours={formattedHours}
+                            formattedBreakHours={formattedBreakHours}
+                            totalPins={totalPins}
+                            jobReferences={jobReferences}
+                            timePeriod={TIME_PERIOD.WEEK}
+                        />
+                        <BreakdownNotes notes={clockerNotes} />
+                    </div>
+                </>
             }
             right={
                 <>
