@@ -10,11 +10,11 @@ const DashboardBarChart = ({ data, isDaily }) => {
                     scales: {
                         xAxes: [
                             {
-                                type: 'time',
                                 time: {
                                     unit: `${isDaily ? 'day' : 'week'}`,
                                     displayFormats: {
                                         week: 'MMM D',
+                                        day: 'MMM D',
                                     },
                                 },
                             },
