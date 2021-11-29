@@ -171,6 +171,10 @@ const DrawingMapViewSimple = ({
                                                 />
                                             </>
                                         )}
+                                    <button className="button green" type="button">
+                                        <i className="fa fa-plus" />
+                                        Create Alert
+                                    </button>
                                 </>
                             )
                         )}

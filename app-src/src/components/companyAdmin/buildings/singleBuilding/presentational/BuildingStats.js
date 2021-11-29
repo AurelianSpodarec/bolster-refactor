@@ -46,6 +46,11 @@ const BuildingStats = ({
                 <i className="fa fa-archive" />
                 {building.isArchived ? 'Un-Archive' : 'Archive'}
             </button>
+
+            <button className="button green" type="button">
+                <i className="fa fa-plus" />
+                Create Alert
+            </button>
         </div>
     </div>
 );

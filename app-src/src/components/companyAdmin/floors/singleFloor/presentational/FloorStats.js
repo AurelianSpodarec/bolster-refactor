@@ -43,6 +43,11 @@ const FloorStats = ({
                 <i className="fa fa-archive" />
                 {floor.isArchived ? 'Un-Archive' : 'Archive'}
             </button>
+
+            <button className="button green" type="button">
+                <i className="fa fa-plus" />
+                Create Alert
+            </button>
         </div>
     </div>
 );
