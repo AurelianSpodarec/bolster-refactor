@@ -60,7 +60,7 @@ const useOverviewFilters = () => {
         filterType: 'hours',
         filterDirection: 0,
     });
-    const [filterByHasClockedIn, setFilterByHasClockedIn] = useState(false);
+    const [filterByHasClockedIn, setFilterByHasClockedIn] = useState(true);
 
     return { formState, handleChange, filterByHasClockedIn, setFilterByHasClockedIn };
 };

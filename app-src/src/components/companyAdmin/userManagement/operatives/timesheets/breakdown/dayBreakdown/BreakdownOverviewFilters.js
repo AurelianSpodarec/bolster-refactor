@@ -29,18 +29,18 @@ const BreakdownOverviewFilters = ({
                     <RadioButton
                         name="filterByHasClockedIn"
                         value={filterByHasClockedIn}
-                        checked={!filterByHasClockedIn}
+                        checked={filterByHasClockedIn}
                         handleInputChange={(_, val) => setFilterByHasClockedIn(!val)}
-                        text="All Users"
+                        text="Has Clocked In"
                     />
                 </div>
                 <div className="size-lg-5">
                     <RadioButton
                         name="filterByHasClockedIn"
                         value={filterByHasClockedIn}
-                        checked={filterByHasClockedIn}
+                        checked={!filterByHasClockedIn}
                         handleInputChange={(_, val) => setFilterByHasClockedIn(!val)}
-                        text="Has Clocked In"
+                        text="All Users"
                     />
                 </div>
             </Field>
