@@ -40,11 +40,14 @@ const BreakdownSummary = ({
             </div>
             {timePeriod === TIME_PERIOD.DAY && (
                 <div className="summary-row">
-                    <FieldOutput
-                        title="Last Clocked Out"
-                        fieldClass="clockedOut"
-                        sizeClass="size-lg-6"
-                    >
+                    <FieldOutput title="First Clocked In" sizeClass="size-lg-6">
+                        {clockIn ? (
+                            <DateTimeContainer datetime={DATE_TIME_IDS.TIME} date={clockIn} />
+                        ) : (
+                            'N/A'
+                        )}
+                    </FieldOutput>
+                    <FieldOutput title="Last Clocked Out" sizeClass="size-lg-6">
                         {clockOut ? (
                             <DateTimeContainer datetime={DATE_TIME_IDS.TIME} date={clockOut} />
                         ) : (
