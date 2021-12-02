@@ -25,7 +25,7 @@ const BreakdownOverviewFilters = ({
                 />
             </Field>
             <Field name="Sort by">
-                <div className="size-lg-5">
+                <div className="size-lg-6">
                     <RadioButton
                         name="filterByHasClockedIn"
                         value={filterByHasClockedIn}
@@ -34,7 +34,7 @@ const BreakdownOverviewFilters = ({
                         text="Has Clocked In"
                     />
                 </div>
-                <div className="size-lg-5">
+                <div className="size-lg-6">
                     <RadioButton
                         name="filterByHasClockedIn"
                         value={filterByHasClockedIn}
