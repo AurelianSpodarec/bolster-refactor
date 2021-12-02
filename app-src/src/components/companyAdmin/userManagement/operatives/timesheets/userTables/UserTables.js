@@ -1,6 +1,6 @@
+import React from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isEmpty } from 'helpers/generic';
-import React from 'react';
 import WeekUserTable from './weekUserTable/WeekUserTable';
 
 const UserTables = ({
@@ -10,6 +10,7 @@ const UserTables = ({
     timesheets,
     filterType,
     filterDirection,
+    filterByHasClockedIn,
 }) => {
     return (
         <BlockContainer isFetching={isFetching} error={fetchError} isEmpty={isEmpty(timesheets)}>
@@ -18,7 +19,7 @@ const UserTables = ({
                 timesheets={timesheets}
                 filterType={filterType}
                 filterDirection={filterDirection}
-                selectedDate={selectedDate}
+                filterByHasClockedIn={filterByHasClockedIn}
             />
         </BlockContainer>
     );

@@ -32,6 +32,8 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
     const {
         formState: { filterType, filterDirection },
         handleChange,
+        filterByHasClockedIn,
+        setFilterByHasClockedIn,
     } = useOverviewFilters();
 
     const { isFetching: feedIsFetching, fetchError: feedFetchError, feed } = usePinFeed(
@@ -49,6 +51,8 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
                     filterType={filterType}
                     filterDirection={filterDirection}
                     handleChange={handleChange}
+                    filterByHasClockedIn={filterByHasClockedIn}
+                    setFilterByHasClockedIn={setFilterByHasClockedIn}
                 />
                 <UserTables
                     selectedDate={selectedDate}
@@ -57,6 +61,7 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
                     timesheets={timesheets}
                     filterType={filterType}
                     filterDirection={filterDirection}
+                    filterByHasClockedIn={filterByHasClockedIn}
                 />
             </>
         );

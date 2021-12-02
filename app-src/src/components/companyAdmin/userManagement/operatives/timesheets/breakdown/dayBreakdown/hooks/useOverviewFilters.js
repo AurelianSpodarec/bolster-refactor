@@ -1,4 +1,5 @@
 import { useForm } from 'helpers/hooks';
+import { useState } from 'react';
 import useDay from '../../../hooks/useDay';
 
 export const filterTypeOptions = [
@@ -36,7 +37,6 @@ export const timesheetSort = (filterType, filterDirection, date) => (a, b) => {
     switch (filterType) {
         case 'name':
             return filterDirection > 0 ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
-
         case 'hours':
             return filterDirection > 0 ? hoursA - hoursB : hoursB - hoursA;
         default:
@@ -44,13 +44,25 @@ export const timesheetSort = (filterType, filterDirection, date) => (a, b) => {
     }
 };
 
+export const timesheetFilter = (filterByHasClockedIn, date) => entry => {
+    const timesheetEntry = useDay(entry, date);
+
+    if (filterByHasClockedIn) {
+        if (timesheetEntry.hasClockedInToday) return true;
+        else return false;
+    } else {
+        return true;
+    }
+};
+
 const useOverviewFilters = () => {
     const [formState, handleChange] = useForm({
-        filterType: 'name',
-        filterDirection: 1,
+        filterType: 'hours',
+        filterDirection: 0,
     });
+    const [filterByHasClockedIn, setFilterByHasClockedIn] = useState(false);
 
-    return { formState, handleChange };
+    return { formState, handleChange, filterByHasClockedIn, setFilterByHasClockedIn };
 };
 
 export default useOverviewFilters;

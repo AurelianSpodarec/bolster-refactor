@@ -3,7 +3,10 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import { days } from 'constants/companyAdmin/timesheets';
 import moment from 'moment';
 import UserTable from '../userTable/UserTable';
-import { timesheetSort } from '../../breakdown/dayBreakdown/hooks/useOverviewFilters';
+import {
+    timesheetSort,
+    timesheetFilter,
+} from '../../breakdown/dayBreakdown/hooks/useOverviewFilters';
 
 const headers = [
     'Operative Name',
@@ -16,19 +19,23 @@ const headers = [
     '',
 ];
 
-const WeekUserTable = ({ date, timesheets, filterDirection, filterType, selectedDate }) => {
+const WeekUserTable = ({ date, timesheets, filterDirection, filterType, filterByHasClockedIn }) => {
     return (
         <Table headers={headers} extraClasses="timesheet-user-table">
-            {days.map((_, i) => (
-                <UserTable
-                    key={i}
-                    day={days[i]}
-                    date={moment(date).add(i, 'days').format()}
-                    timesheets={timesheets.sort(
-                        timesheetSort(filterType, filterDirection, selectedDate),
-                    )}
-                />
-            ))}
+            {days.map((_, i) => {
+                const currentDate = moment(date).add(i, 'days').format();
+
+                return (
+                    <UserTable
+                        key={i}
+                        day={days[i]}
+                        date={currentDate}
+                        timesheets={timesheets
+                            .filter(timesheetFilter(filterByHasClockedIn, currentDate))
+                            .sort(timesheetSort(filterType, filterDirection, currentDate))}
+                    />
+                );
+            })}
         </Table>
     );
 };
