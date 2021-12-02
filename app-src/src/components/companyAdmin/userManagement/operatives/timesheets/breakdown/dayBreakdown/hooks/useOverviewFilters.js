@@ -4,12 +4,12 @@ import useDay from '../../../hooks/useDay';
 
 export const filterTypeOptions = [
     {
-        value: 'name',
-        label: 'Name',
-    },
-    {
         value: 'hours',
         label: 'Hours Worked',
+    },
+    {
+        value: 'name',
+        label: 'Name',
     },
 ];
 
