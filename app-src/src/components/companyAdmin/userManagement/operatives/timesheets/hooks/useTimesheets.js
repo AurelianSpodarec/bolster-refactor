@@ -1,7 +1,6 @@
 import { TIME_PERIOD } from 'constants/companyAdmin/enums';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import fetchTimesheetsWeek from 'actions/companyAdmin/timesheets/async/fetchTimesheetsWeek';
@@ -11,14 +10,11 @@ import {
     selectTimesheetsFetchError,
     selectTimesheetsIsFetching,
 } from 'selectors/companyAdmin/timesheets';
-import postReport from 'actions/companyAdmin/reports/async/postReport';
 import { selectUserPinFeeds } from 'selectors/companyAdmin/userPinFeeds';
 import { isEmpty } from 'lodash';
 import { selectServiceIDs } from 'selectors/companyAdmin/services';
-import { reportPostSuccess } from 'selectors/companyAdmin/timesheets';
-import { ERROR_MODAL, GENERATE_TIMESHEET_REPORT, SUCCESS_MODAL } from 'constants/shared/modalTypes';
+import { ERROR_MODAL, GENERATE_TIMESHEET_REPORT } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-import { usePrevious } from 'helpers/hooks';
 import {
     selectCompanyUsers,
     selectCompanyUsersFetchError,
@@ -28,7 +24,6 @@ import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCo
 
 const useTimesheets = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
 
     const { timeZone } = useSelector(selectCompanySettings);
 

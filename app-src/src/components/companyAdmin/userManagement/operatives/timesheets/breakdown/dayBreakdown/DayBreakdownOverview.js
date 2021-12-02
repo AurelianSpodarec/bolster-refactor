@@ -10,8 +10,6 @@ import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import moment from 'moment';
 import useOverviewFilters from './hooks/useOverviewFilters';
-import Select from 'components/shared/generic/form/presentational/Select';
-import Field from 'components/shared/generic/form/presentational/Field';
 import BreakdownOverviewFilters from './BreakdownOverviewFilters';
 import BreakdownOverviewList from './BreakdownOverviewList';
 
