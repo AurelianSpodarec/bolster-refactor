@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import BreakdownColumns from '../BreakdownColumns';
-import DashboardPinFeed from '../../../../../dashboard/presentational/DashboardPinFeed';
+import moment from 'moment';
+
 import usePinFeed from '../../hooks/usePinFeed';
 import usePinStats from '../../hooks/usePinStats';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { isEmpty } from 'helpers/generic';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
-import PieChart from 'components/shared/stats/presentational/PieChart';
-import moment from 'moment';
 import useOverviewFilters from './hooks/useOverviewFilters';
+
+import BreakdownColumns from '../BreakdownColumns';
 import BreakdownOverviewFilters from './BreakdownOverviewFilters';
 import BreakdownOverviewList from './BreakdownOverviewList';
+import DashboardPinFeed from '../../../../../dashboard/presentational/DashboardPinFeed';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import PieChart from 'components/shared/stats/presentational/PieChart';
+
+import { isEmpty } from 'helpers/generic';
+import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 
 const DayBreakdownOverview = ({ selectedDate, timesheets }) => {
     const [userIDs, setUserIDs] = useState([]);
     const {
         formState: { filterType, filterDirection },
         handleChange,
+        filterByHasClockedIn,
+        setFilterByHasClockedIn,
     } = useOverviewFilters();
 
     useEffect(() => {
@@ -46,6 +51,8 @@ const DayBreakdownOverview = ({ selectedDate, timesheets }) => {
                             filterType={filterType}
                             filterDirection={filterDirection}
                             handleChange={handleChange}
+                            filterByHasClockedIn={filterByHasClockedIn}
+                            setFilterByHasClockedIn={setFilterByHasClockedIn}
                         />
                     )}
                     <BreakdownOverviewList
@@ -53,6 +60,7 @@ const DayBreakdownOverview = ({ selectedDate, timesheets }) => {
                         selectedDate={selectedDate}
                         filterType={filterType}
                         filterDirection={filterDirection}
+                        filterByHasClockedIn={filterByHasClockedIn}
                     />
                 </>
             }

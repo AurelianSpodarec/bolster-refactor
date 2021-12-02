@@ -1,8 +1,11 @@
 import React from 'react';
-import Table from 'components/shared/generic/tables/presentational/Table';
-import { days } from 'constants/companyAdmin/timesheets';
 import moment from 'moment';
+
+import { days } from 'constants/companyAdmin/timesheets';
+
+import Table from 'components/shared/generic/tables/presentational/Table';
 import UserTable from '../userTable/UserTable';
+
 import {
     timesheetSort,
     timesheetFilter,
