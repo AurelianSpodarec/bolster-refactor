@@ -35,6 +35,8 @@ class FloorDetailsContainer extends Component {
             serviceIDs,
             filteredStats,
             filteredStatsBool,
+            isOwner,
+            loggedInCompanyID,
         } = this.props;
 
         const { serviceID, companyID } = this.state;
@@ -48,14 +50,21 @@ class FloorDetailsContainer extends Component {
         const requestFilteredStats = !isEmpty(filteredStats) ? filteredStats : stats;
 
         const companiesForDropdown = !isEmpty(stats)
-            ? Object.entries(stats.statusesByCompany).map(([key]) => {
-                  const [name] = key.split('#');
-                  return {
-                      value: key,
-                      text: name,
-                  };
-              })
+            ? Object.keys(stats.statusesByCompany)
+                  .map(key => {
+                      const [name, id] = key.split('#');
+                      // invited company can only choose any or own company
+                      if (!isOwner && +id !== +loggedInCompanyID) {
+                          return null;
+                      }
+                      return {
+                          value: key,
+                          text: name,
+                      };
+                  })
+                  .filter(Boolean)
             : [];
+        console.log({ companiesForDropdown, isOwner });
 
         return (
             <BlockContainer
@@ -185,25 +194,33 @@ const mapStateToProps = (
             servicesReducer: { services },
         },
         shared: {
+            decodeJWTReducer: { jwtData },
             mobileReducer: { onMobile },
         },
     },
     { match },
-) => ({
-    floor: floors[match.params.id] || {},
-    isFetching: fetchingFloors || fetchingStats || isPostingFilters,
-    error,
-    stats,
-    postError,
-    deleteSuccess,
-    postSuccess,
-    onMobile,
-    id: match.params.id,
-    serviceIDs,
-    services: Object.values(services),
-    filteredStats,
-    filteredStatsBool,
-});
+) => {
+    const { companyID } = jwtData;
+    const floor = floors[match.params.id] ?? {};
+    const isOwner = +companyID === +floor.ownerCompanyID;
+    return {
+        floor,
+        isFetching: fetchingFloors || fetchingStats || isPostingFilters,
+        error,
+        stats,
+        postError,
+        deleteSuccess,
+        postSuccess,
+        onMobile,
+        id: match.params.id,
+        serviceIDs,
+        services: Object.values(services),
+        filteredStats,
+        filteredStatsBool,
+        loggedInCompanyID: companyID,
+        isOwner,
+    };
+};
 
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => dispatch(showModal(type, props)),
