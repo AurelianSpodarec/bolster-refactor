@@ -94,7 +94,7 @@ const CreateBuildingsFormContainer = ({
 
     const [initialDropdownOptions, setInititalDropdownOptions] = useState({
         isDropdownOptionsInherited: false,
-        setDropdownOptionsForHierarchy: null,
+        setDropdownOptionsForHierarchy: false,
         selectedDropdownOptions: [],
         dropdownOptions: {},
     });
@@ -142,7 +142,7 @@ const CreateBuildingsFormContainer = ({
 
             const initialDropdownOptions = {
                 isDropdownOptionsInherited,
-                setDropdownOptionsForHierarchy: null,
+                setDropdownOptionsForHierarchy: false,
                 selectedDropdownOptions: [],
                 dropdownOptions: {},
             };
@@ -174,7 +174,7 @@ const CreateBuildingsFormContainer = ({
                 initialOptions.selectedOptionValues = site.optionValueIDs.map(id => String(id));
 
                 initialOptions.manufacturerOptions = createManufacturerOptionList(manufacturers);
-                const selectedOptions =  createHierarchyPreselectedManufacturersList(
+                const selectedOptions = createHierarchyPreselectedManufacturersList(
                     initialOptions.manufacturerOptions,
                     optionValues,
                     initialOptions.selectedOptionValues,

@@ -35,14 +35,19 @@ const CompaniesFilterContainer = ({
     }, [companies]);
 
     // don't show if no site selected or sites / companies lists are empty
-    if (!siteID || isEmpty(sitesObj) || isEmpty(companies)) return null;
-
+    if (isEmpty(siteID) || isEmpty(sitesObj) || isEmpty(companies)) return null;
     // filter out all companies except your own if you don't own the selected site
-    if (companyID !== sitesObj[siteID].ownerCompanyID) {
-        companiesSelection = companies.filter(company => company.id === companyID);
+    else if (siteID.length > 1) {
+        for (let i = 0; i < siteID.length; i++) {
+            if (companyID !== sitesObj[siteID[i]].ownerCompanyID) {
+                companiesSelection = companies.filter(company => company.id === companyID);
+            }
+        }
+    } else {
+        if (companyID !== sitesObj[siteID[0]].ownerCompanyID) {
+            companiesSelection = companies.filter(company => company.id === companyID);
+        }
     }
-
-    console.log('createdByCompanyID', createdByCompanyID);
 
     return (
         <CompaniesFilter

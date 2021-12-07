@@ -7,6 +7,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 
 const FilterFieldsModal = ({
     showFreeForm,
@@ -45,7 +46,6 @@ const FilterFieldsModal = ({
                         </Field>
                         <div className="size-lg-6">
                             {showFreeForm ? (
-                                <>
                                     <Field
                                         name="Answer"
                                         classes="fields-inside"
@@ -53,17 +53,6 @@ const FilterFieldsModal = ({
                                     >
                                         {freeFormValues.map(renderOption)}
                                     </Field>
-                                    {/* <BlockButtonWrapper>
-                            <button
-                                className="button green"
-                                type="button"
-                                onClick={addFreeFormVal}
-                            >
-                                <i className="fa fa-plus fa-fw" />
-                                add option
-                            </button>
-                        </BlockButtonWrapper> */}
-                                </>
                             ) : (
                                     <Field
                                         sizeClasses="size-lg-12"
@@ -80,6 +69,9 @@ const FilterFieldsModal = ({
                                     </Field>
                                 )}
                         </div>
+                        <Field name="Question(s)" >
+                            <Checkbox name="isContains" value onChange={handleChange}/>
+                        </Field>
                         <BlockButtonWrapper>
                             <button className="button green" type="submit" onClick={handleSubmit}>
                                 <i className="fa fa-save fa-fw" />

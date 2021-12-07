@@ -1,10 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import BuildingClientAccess from '../presentational/BuildingClientAccess';
 
-class BuildingClientAccessContainer extends Component {
-    render() {
-        return <BuildingClientAccess />;
-    }
-}
+const BuildingClientAccessContainer = () => <BuildingClientAccess />;
 
 export default BuildingClientAccessContainer;

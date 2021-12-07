@@ -53,7 +53,7 @@ const MultiSelect = ({
                         <p>{opt.label}</p>
                         <i
                             className="close fal fa-times"
-                            onClick={e => handleDeselect(e, opt.value)}
+                            onClick={e => !disabled && handleDeselect(e, opt.value)}
                         />
                     </div>
                 ))}

@@ -10,16 +10,22 @@ import fetchServicePermissionsForDrawing from 'actions/companyAdmin/services/asy
 
 class UserDrawingsTableContainer extends Component {
     state = {
-        drawingIDs: []
+        drawingIDs: [],
     };
 
     render() {
         const { drawingIDs } = this.state;
         const { drawings, isFetching, showModal, id, drawingServices } = this.props;
 
+        const selectedLength = drawingIDs.length;
+        const totalLength = drawings.length;
+
         return (
             <UserDrawingsTable
-                headers={['Drawing', 'Remove access']}
+                headers={[
+                    'Drawing',
+                    `Remove access ${totalLength ? `(${selectedLength}/${totalLength})` : ''}`,
+                ]}
                 handleDrawingIDs={this.handleDrawingIDs}
                 selectAll={this._selectAll}
                 checkedDrawings={drawingIDs}
@@ -42,6 +48,7 @@ class UserDrawingsTableContainer extends Component {
     componentDidUpdate = prevProps => {
         const { removeSuccess, hideModal, fetchUserDrawings, id } = this.props;
         if (removeSuccess && !prevProps.removeSuccess) {
+            this.setState({ drawingIDs: [] });
             fetchUserDrawings(id);
             hideModal();
         }
@@ -52,7 +59,7 @@ class UserDrawingsTableContainer extends Component {
         this.setState({
             drawingIDs: drawingIDs.includes(e.target.value)
                 ? drawingIDs.filter(val => e.target.value !== val)
-                : [...drawingIDs, e.target.value]
+                : [...drawingIDs, e.target.value],
         });
     };
 
@@ -64,7 +71,7 @@ class UserDrawingsTableContainer extends Component {
             allDrawingIDs.push(String(drawing.id));
         });
         this.setState({
-            drawingIDs: [...allDrawingIDs]
+            drawingIDs: [...allDrawingIDs],
         });
     };
 }
@@ -73,14 +80,14 @@ const mapStateToProps = (
     {
         companyAdmin: {
             userDrawingsReducer: { userDrawings, error, isFetching, removeSuccess },
-            servicesReducer: { drawingServices, error: servicesError }
-        }
+            servicesReducer: { drawingServices, error: servicesError },
+        },
     },
     {
         match: {
-            params: { id }
-        }
-    }
+            params: { id },
+        },
+    },
 ) => ({
     drawings: Object.values(userDrawings) || [],
     error,
@@ -88,19 +95,14 @@ const mapStateToProps = (
     id,
     removeSuccess,
     drawingServices: Object.values(drawingServices) || [],
-    servicesError
+    servicesError,
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchUserDrawings: id => dispatch(fetchUserDrawings(id)),
     fetchServicePermissionsForDrawing: id => dispatch(fetchServicePermissionsForDrawing(id)),
     showModal: (type, modalProps) => dispatch(showModal(type, modalProps)),
-    hideModal: () => dispatch(hideModal())
+    hideModal: () => dispatch(hideModal()),
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(UserDrawingsTableContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserDrawingsTableContainer));

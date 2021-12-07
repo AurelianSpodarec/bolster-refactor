@@ -19,10 +19,10 @@ const EditDrawingOperative = ({
     serviceIDs,
     backUrl,
     isTemplateFilteringEnabled,
-    templateIDs,
     serviceAreas,
     getTemplatesForService,
     isFetching,
+    selectedTemplates,
 }) => {
     if (!isFetching) {
         const { userFirstName, userLastName } = operative;
@@ -58,24 +58,31 @@ const EditDrawingOperative = ({
 
                         {isTemplateFilteringEnabled && (
                             <>
-                                {[...serviceAreas].sort().map(service => (
-                                    <Field
-                                        key={service}
-                                        name={services[service].name}
-                                        sizeClasses="size-lg-12"
-                                    >
-                                        <CheckboxListContainer
-                                            required
-                                            name="templateIDs"
-                                            handleChange={handleMultiSelect}
-                                            options={getTemplatesForService(service).filter(
-                                                item => !item.isDeleted,
-                                            )}
-                                            hideDisabled
-                                            selectedOptions={templateIDs}
-                                        />
-                                    </Field>
-                                ))}
+                                {[...serviceAreas].sort().map(service => {
+                                    if (serviceIDs.includes(service + '')) {
+                                        const options = getTemplatesForService(service).filter(
+                                            item => !item.isDeleted,
+                                        );
+
+                                        return (
+                                            <Field
+                                                key={service}
+                                                name={services[service].name}
+                                                sizeClasses="size-lg-12"
+                                            >
+                                                <CheckboxListContainer
+                                                    required
+                                                    name="templateIDs"
+                                                    handleChange={handleMultiSelect}
+                                                    options={options}
+                                                    selectedOptions={selectedTemplates}
+                                                    hideDisabled
+                                                />
+                                            </Field>
+                                        );
+                                    }
+                                    return null;
+                                })}
                             </>
                         )}
                     </Form>

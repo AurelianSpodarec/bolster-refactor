@@ -4,11 +4,10 @@ import {
     PIN_STATUS_TYPES as TYPES
 } from 'constants/companyAdmin/enums';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import { pin2xImgs } from '_content/images/map-markers';
 
 const PinInspectionLogsListItem = ({ pin, onMobile, headers }) => {
     const pinColour = COLOURS[pin.latestStatus] || 'red';
-
-    const pinIcon = require(`_content/images/map-markers/${pinColour}-pin2x.png`);
 
     return (
         <tr key={pin.id}>
@@ -16,7 +15,7 @@ const PinInspectionLogsListItem = ({ pin, onMobile, headers }) => {
                 {onMobile && (
                     <span className="mobile-table-heading">{headers[0]}</span>
                 )}
-                <img className="pin" alt={`${pinColour} pin`} src={pinIcon} />{' '}
+                <img className="pin" alt={`${pinColour} pin`} src={pin2xImgs[pinColour]} />
                 {pin.pinCode}
             </td>
             <td>

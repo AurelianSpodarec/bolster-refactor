@@ -30,19 +30,21 @@ const SingleDrawingContainer = ({ drawingID, setTabs, fetchDrawingData }) => {
 const mapDispatchToProps = dispatch => ({
     setTabs: (tabs, selectedTab) => dispatch(setTabs(tabs, selectedTab)),
     fetchDrawingData: drawingID => {
-        dispatch(fetchSingleDrawing(drawingID));
-        dispatch(fetchDocuments('drawing', drawingID));
-        dispatch(fetchClientsForDrawing(drawingID));
-        dispatch(fetchOperativesForDrawing(drawingID));
-        dispatch(fetchPins('drawing', drawingID));
+        if (drawingID) {
+            dispatch(fetchSingleDrawing(drawingID));
+            dispatch(fetchDocuments('drawing', drawingID));
+            dispatch(fetchClientsForDrawing(drawingID));
+            dispatch(fetchOperativesForDrawing(drawingID));
+            dispatch(fetchPins('drawing', drawingID));
+            dispatch(fetchPinStatsForLevel(4, drawingID));
+            dispatch(fetchZonesByDrawingID(drawingID));
+        }
         dispatch(fetchCompanyUsers());
-        dispatch(fetchPinStatsForLevel(4, drawingID));
         dispatch(fetchHistoricServicesForCompany());
-        dispatch(fetchZonesByDrawingID(drawingID));
     },
 });
 
 export default connect(
     (_, { match }) => ({ drawingID: match.params.id }),
-    mapDispatchToProps
+    mapDispatchToProps,
 )(SingleDrawingContainer);

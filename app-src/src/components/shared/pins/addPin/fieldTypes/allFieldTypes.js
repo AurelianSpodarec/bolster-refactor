@@ -9,7 +9,6 @@ import Radio from '../fieldTypes/Radio';
 import SinglePhoto from '../fieldTypes/SinglePhoto';
 import DocumentUpload from '../fieldTypes/DocumentUpload';
 
-
 import MultiPhoto from '../fieldTypes/MultiPhoto';
 import Signature from '../fieldTypes/Signature';
 import Status from '../fieldTypes/Status';
@@ -18,8 +17,7 @@ import MultiDropdownOptions from '../fieldTypes/MultiDropdownOptions';
 import MultiMultiDropdownOptions from '../fieldTypes/MultiMultiDropdownOptions';
 import StaticImage from '../fieldTypes/StaticImage';
 
-
-import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
+import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
 const {
     SINGLE_LINE,
     MULTI_LINE,
@@ -37,8 +35,8 @@ const {
     MULTI_MULTI_DROPDOWN,
     MULTI_MULTI_DROPDOWN_OPTIONS,
     STATIC_IMAGE,
-    DOCUMENT_UPLOAD
-} = QUESTION_TYPE_VALUES;
+    DOCUMENT_UPLOAD,
+} = QUESTION_TYPE_NUMBERS;
 
 export const fieldTypes = {
     [SINGLE_LINE]: SingleLine,
@@ -61,22 +59,27 @@ export const fieldTypes = {
 };
 
 export const getDefaultValue = question => {
-    switch (question.type) {
+    switch (+question.type) {
         case SINGLE_LINE:
         case MULTI_LINE:
         case NUMBER:
-        case DROPDOWN:
         case SINGLE_PHOTO:
-        case DROPDOWN_OPTIONS:
             return '';
+        case DROPDOWN_OPTIONS: {
+            return question.defaultValue || [];
+        }
         case RADIO:
-            return question.configurationJSON.defaultValue || '';
-        case MULTI_PHOTO:
+            return [question.defaultValue] || [];
+        case DROPDOWN:
+            return question.defaultValue || '';
         case MULTI_DROPDOWN:
+            return [question.defaultValue] || [];
         case MULTI_MULTI_DROPDOWN:
+            return [...(question.defaultValue || '').split(',')] || [];
+        case MULTI_PHOTO:
         case MULTI_MULTI_DROPDOWN_OPTIONS:
         case MULTI_DROPDOWN_OPTIONS:
-            return [];
+            return question.defaultValue || [];
         case CHECKBOX:
             return false;
         default:

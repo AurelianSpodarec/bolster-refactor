@@ -8,6 +8,7 @@ import pinsReducer from './pins';
 import layoutReducer from './layout';
 import frontendTrustedByReducer from './frontendTrustedBy';
 import cookieReducer from './cookie';
+import demoFullSiteReducer from './demoFullSite';
 
 export default combineReducers({
     bannersReducer,
@@ -18,4 +19,5 @@ export default combineReducers({
     frontendTrustedByReducer,
     authReducer,
     cookieReducer,
+    demoFullSiteReducer,
 });

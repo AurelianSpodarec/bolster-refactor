@@ -6,8 +6,8 @@ const DrawingPinSelector = () => (
         <BlockHeading title="Individual Pins" />
 
         <p className="generic-text intro-text size-lg-12">
-            Using either of the boxes below or the pin map, select which pins
-            you would like to be included in your report.
+            Using either of the boxes below or the pin map, select which pins you would like to be
+            included in your report.
         </p>
 
         <div className="pin-selection-box">

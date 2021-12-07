@@ -9,6 +9,9 @@ import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
 import fetchPinStats from 'actions/companyAdmin/dashboard/async/fetchPinStats';
 import updateDashboardFilters from 'actions/companyAdmin/dashboard/sync/updateDashboardFilters';
 import fetchPinStatusStats from 'actions/companyAdmin/dashboard/async/fetchPinStatusStats';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { CONFIRM_EMAIL } from 'constants/shared/modalTypes';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 class DashboardContainer extends Component {
     render() {
@@ -18,7 +21,14 @@ class DashboardContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { updateDashboardFilters, fetchPinStats, fetchPinStatusStats, setTabs } = this.props;
+        const {
+            updateDashboardFilters,
+            fetchPinStats,
+            fetchPinStatusStats,
+            setTabs,
+            showModal,
+            profile,
+        } = this.props;
         const startDate = moment().subtract(7, 'days').toDate();
 
         const startingFilters = {
@@ -42,7 +52,16 @@ class DashboardContainer extends Component {
         localStorage.setItem('selectedStatus', '');
         localStorage.setItem('selectedStartDate', '');
         localStorage.setItem('selectedEndDate', '');
+
+        if (!profile.isEmailConfirmed) showModal(CONFIRM_EMAIL, { user: profile });
     };
+
+    componentDidUpdate(prevProps) {
+        const { profile, showModal, hideModal } = this.props;
+        if (!profile.isEmailConfirmed && prevProps.profile.isEmailConfirmed)
+            showModal(CONFIRM_EMAIL, { user: profile });
+        if (!prevProps.profile.isEmailConfirmed && profile.isEmailConfirmed) hideModal();
+    }
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -52,15 +71,18 @@ const mapDispatchToProps = dispatch => ({
         dispatch(updateDashboardFilters(fieldName, searchTerm));
     },
     setTabs: (tabs, selectedTab) => dispatch(setTabs(tabs, selectedTab)),
+    showModal: (type, props) => dispatch(showModal(type, props)),
+    hideModal: () => dispatch(hideModal),
 });
 
-export default connect(
-    ({
-        shared: {
-            isIE10Reducer: { isIE10 },
-        },
-    }) => ({
-        isIE10,
-    }),
-    mapDispatchToProps,
-)(DashboardContainer);
+const mapStateToProps = ({
+    shared: {
+        isIE10Reducer: { isIE10 },
+        profileReducer: { profile },
+    },
+}) => ({
+    isIE10,
+    profile,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);

@@ -6,7 +6,7 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-import { convertArrToObj, momentComparisonFormat } from 'helpers/generic';
+import { convertArrToObj, isEmpty, momentComparisonFormat } from 'helpers/generic';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { FURTHER_FILTRATION_OPTIONS, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import getOperativeOptions from 'actions/companyAdmin/reports/async/getOperativeOptions';
@@ -29,7 +29,6 @@ export default function (ProtectedComponent) {
                     fieldError={showError || errorsVisible ? fieldError : null}
                     postFilters={this.postFilters}
                     formatArrForDropdown={this.formatArrForDropdown}
-                    formatArrForDropdownOperative={this.formatArrForDropdownOperative}
                     validate={this.validate}
                     showFieldError={this.showFieldError}
                     getPostBody={this._getPostBody}
@@ -87,42 +86,32 @@ export default function (ProtectedComponent) {
                 return pins.filter(({ id }) => filters.pinIDs.includes(id));
             }
 
-            const {
-                fromDateInclusive: startDate,
-                toDateInclusive: endDate,
-                status,
-                serviceID,
-                templateID,
-                companyUserIDs,
-                createdByCompanyID,
-            } = filters;
+            const { status, serviceID, templateID, companyUserIDs, createdByCompanyID } = filters;
 
             const NO = false;
             const YES = true;
 
-            const fromDateInclusive = this.getFilterStartDate(startDate);
-            const toDateInclusive = this.getFilterEndDate(endDate);
+            const [from, to] = this._getDateTimeFilters();
 
             // simple
             return pins
                 .filter(pin => {
                     // 2066696
                     // start date
+                    // if (pin.id === 3233480) {
+                    //     console.log('{pin}');
+                    //     console.log(moment(pin.latestCreatedOn).utc(true).toISOString());
+                    //     console.log(from && moment(from).toISOString());
+                    //     console.log(to && moment(to).toISOString());
+                    //     console.log('{pin}');
+                    // }
 
-                    if (
-                        fromDateInclusive &&
-                        moment(pin.latestCreatedOn, momentComparisonFormat) <
-                            moment(fromDateInclusive, momentComparisonFormat)
-                    ) {
+                    if (from && moment(pin.latestCreatedOn).utc(true) < moment(from)) {
                         return NO;
                     }
 
                     // end date
-                    if (
-                        toDateInclusive &&
-                        moment(pin.latestCreatedOn, momentComparisonFormat) >
-                            moment(toDateInclusive, momentComparisonFormat)
-                    ) {
+                    if (to && moment(pin.latestCreatedOn).utc(true) > moment(to)) {
                         return NO;
                     }
 
@@ -170,6 +159,51 @@ export default function (ProtectedComponent) {
                 });
         };
 
+        _getDateTimeFilters = () => {
+            const {
+                filters: { fromDateInclusive, toDateInclusive, includeTime, startTime, endTime },
+                timeZone,
+            } = this.props;
+
+            let startDateTimeUTC = null;
+            let endDateTimeUTC = null;
+
+            if (includeTime && startTime && fromDateInclusive) {
+                const [hour, minute] = startTime.split(':');
+
+                startDateTimeUTC = moment
+                    .tz(fromDateInclusive, timeZone.name)
+                    .set({ hour, minute })
+                    .utc()
+                    .toISOString();
+            } else if (fromDateInclusive) {
+                startDateTimeUTC = moment
+                    .tz(fromDateInclusive, timeZone.name)
+                    .startOf('day')
+                    .utc()
+                    .toISOString();
+            }
+
+            if (includeTime && endTime && toDateInclusive) {
+                const [hour, minute] = endTime.split(':');
+                endDateTimeUTC = moment
+                    .tz(toDateInclusive, timeZone.name)
+                    .set({ hour, minute: parseInt(minute) + 1 })
+                    .utc()
+                    .toISOString();
+            } else if (toDateInclusive) {
+                // to date needs to be start of next day so that we get all pins from the previous day.
+                endDateTimeUTC = moment
+                    .tz(toDateInclusive, timeZone.name)
+                    .add(1, 'days')
+                    .startOf('day')
+                    .utc()
+                    .toISOString();
+            }
+
+            return [startDateTimeUTC, endDateTimeUTC];
+        };
+
         _getPostBody = () => {
             const {
                 filters: {
@@ -188,21 +222,20 @@ export default function (ProtectedComponent) {
                     isFloorplanGeneration,
                     includeFloorplan,
                     isOAndMManualGeneration,
-                    fromDateInclusive,
-                    toDateInclusive,
                     companyUserIDs,
                     floorplanPinScale,
                     createdByCompanyID,
                     zoneIDs,
                     zoneOpacity,
                     includeFloorplanZones,
+                    includeTime,
+                    isQuestionFilterExact,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
                 rectangles,
                 options: { showHidden, sortBy },
                 fields,
-                timeZone,
                 includedDrawingsIDs,
                 customFilters,
             } = this.props;
@@ -210,7 +243,7 @@ export default function (ProtectedComponent) {
             let hierarchyType;
             let hierarchyID;
 
-            if (siteID) {
+            if (!isEmpty(siteID)) {
                 hierarchyType = 'site';
                 hierarchyID = siteID;
             } else {
@@ -218,15 +251,15 @@ export default function (ProtectedComponent) {
                     hierarchyType = HIERARCHY_IDS.ALL_SITES;
                 }
             }
-            if (buildingID) {
+            if (!isEmpty(buildingID)) {
                 hierarchyType = 'building';
                 hierarchyID = buildingID;
             }
-            if (floorID) {
+            if (!isEmpty(floorID)) {
                 hierarchyType = 'floor';
                 hierarchyID = floorID;
             }
-            if (drawingID) {
+            if (!isEmpty(drawingID)) {
                 hierarchyType = 'drawing';
                 hierarchyID = drawingID;
             }
@@ -246,12 +279,17 @@ export default function (ProtectedComponent) {
                 }
                 case FILTERS: {
                     questionFilters = fields.map(
-                        ({ selectedQuestions, questionValues = [], selectedValues = [] }) => {
+                        ({ 
+                            selectedQuestions, 
+                            questionValues = [], 
+                            selectedValues = [] 
+                        }) => {
                             let values = questionValues.length ? questionValues : selectedValues;
 
                             return {
                                 questionGroupKeys: selectedQuestions,
                                 values,
+                                exactMatch: isQuestionFilterExact,
                             };
                         },
                     );
@@ -266,23 +304,12 @@ export default function (ProtectedComponent) {
                 return { latY, lngX };
             };
 
-            const pinBoundingBoxes = Object.values(rectangles).map(
-                ({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)],
-            );
+            const pinBoundingBoxes = Object.values(
+                rectangles,
+            ).map(({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]);
             // get the utc converted time for both from date and to date.
-            const startDate = fromDateInclusive
-                ? moment.tz(fromDateInclusive, timeZone.name).startOf('day').utc().toISOString()
-                : null;
 
-            // to date needs to be start of next day so that we get all pins from the previous day.
-            const endDate = toDateInclusive
-                ? moment
-                      .tz(toDateInclusive, timeZone.name)
-                      .add('days', 1)
-                      .startOf('day')
-                      .utc()
-                      .toISOString()
-                : null;
+            const [startDate, endDate] = this._getDateTimeFilters();
 
             const serviceIDs = serviceID
                 ? [+serviceID]
@@ -317,6 +344,8 @@ export default function (ProtectedComponent) {
                 zoneIDs,
                 zoneOpacity,
                 includeFloorplanZones,
+                includeTime,
+                isQuestionFilterExact,
             };
             return body;
         };
@@ -376,17 +405,6 @@ export default function (ProtectedComponent) {
             await getServiceOptions(body);
             await getCompanyOptions(body);
         };
-
-        getInitialServices = async () => {
-            const { getServiceOptions } = this.props;
-            const body = this._getPostBody();
-
-            await getServiceOptions(body);
-        };
-
-        componentDidMount = () => {
-            this.getInitialServices();
-        };
     }
 
     const mapStateToProps = (
@@ -416,7 +434,7 @@ export default function (ProtectedComponent) {
                     furtherFiltrationOption,
                     includedDrawingsIDs,
                 },
-                operativesReducer: { operatives },
+                operativesReducer: { operatives, isFetching: isFetchingOperatives },
                 companySettingsReducer: {
                     companySettings: { timeZone },
                 },
@@ -425,19 +443,40 @@ export default function (ProtectedComponent) {
         },
         { blockName },
     ) => {
-        const selectedSite = sites[filters.siteID] || {};
-        const buildingIDs = selectedSite.buildingIDs || [];
-        const buildings = buildingIDs.map(id => buildingsReducer.buildings[id]);
+        const buildingsFromReducer = buildingsReducer.buildings;
+        const floorsFromReducer = floorsReducer.floors;
+        const drawingsFromReducer = drawingsReducer.drawings;
 
-        const selectedBuilding = buildingsReducer.buildings[filters.buildingID] || {};
-        const floorIDs = selectedBuilding.floorIDs || [];
-        const floors = floorIDs.map(id => floorsReducer.floors[id]);
+        let buildingIDs = [];
+        if (!isEmpty(sites)) {
+            filters.siteID.forEach(site => {
+                const curSite = sites[site];
+                buildingIDs = buildingIDs.concat(curSite.buildingIDs);
+            });
+        }
+        const buildings = !isEmpty(buildingsFromReducer)
+            ? buildingIDs.map(id => buildingsFromReducer[id])
+            : [];
 
-        const selectedFloor = floorsReducer.floors[filters.floorID] || {};
-        const selectedDrawingIDs = selectedFloor.drawingIDs || [];
-        const drawings = selectedDrawingIDs.map(id => drawingsReducer.drawings[id]);
+        let floorIDs = [];
+        if (!isEmpty(buildings)) {
+            filters.buildingID.forEach(building => {
+                const curBuilding = convertArrToObj(buildings)[building];
+                floorIDs = floorIDs.concat(curBuilding.floorIDs);
+            });
+        }
+        const floors = !isEmpty(floorsFromReducer) ? floorIDs.map(id => floorsFromReducer[id]) : [];
 
-        const selectedDrawing = drawingsReducer.drawings[filters.drawingID] || {};
+        let drawingIDs = [];
+        if (!isEmpty(floors)) {
+            filters.floorID.forEach(floor => {
+                const curFloor = convertArrToObj(floors)[floor];
+                drawingIDs = drawingIDs.concat(curFloor.drawingIDs);
+            });
+        }
+        const drawings = !isEmpty(drawingsFromReducer)
+            ? drawingIDs.map(id => drawingsFromReducer[id])
+            : [];
 
         return {
             fieldErrors,
@@ -464,8 +503,7 @@ export default function (ProtectedComponent) {
             includedDrawingsIDs,
             zonesObj: zones,
             companyID,
-            drawingCompanyID: selectedDrawing.ownerCompanyID,
-            isDrawingOwner: companyID === selectedDrawing.ownerCompanyID,
+            isFetchingOperatives,
         };
     };
 

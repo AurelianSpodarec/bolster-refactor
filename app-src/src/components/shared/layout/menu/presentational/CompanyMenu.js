@@ -17,14 +17,16 @@ const CompanyMenu = ({
     handleGenerateQRCodesModal,
     shouldRestrictPayments,
     unreadReleaseNoteCount,
-}) => (
-    <>
+    isCompanySelection,
+    isCompanyUser,
+}) => {
+    const isCompanyUserOrSelecting = isCompanySelection || !isCompanyUser;
+    return (
         <div className="menu">
-            {isSubscribed && (
+            {isSubscribed && !isCompanyUserOrSelecting && (
                 <>
                     <CompanyMenuItemContainer link="/company" base>
                         <i className="far fa-home icon fa-fw" />
-
                         <span className="menu-text">Dashboard</span>
                     </CompanyMenuItemContainer>
 
@@ -67,11 +69,14 @@ const CompanyMenu = ({
                         Operatives
                     </CompanyMenuItemContainer>
                     <CompanyMenuItemContainer link="/company/users-management/clients">
-                        Client Access
+                        Clients
+                    </CompanyMenuItemContainer>
+                    <CompanyMenuItemContainer link="/company/users-management/timesheets">
+                        Timesheets
                     </CompanyMenuItemContainer>
                 </>
             )}
-            {!shouldRestrictPayments && (
+            {!shouldRestrictPayments && !isCompanyUserOrSelecting && (
                 <>
                     <MenuHeader title="Orders &amp; Subscriptions" />
                     <CompanyMenuItemContainer link="/company/invoices">
@@ -85,12 +90,10 @@ const CompanyMenu = ({
                 </>
             )}
 
-            {isSubscribed && (
+            {isSubscribed && !isCompanyUserOrSelecting && (
                 <>
                     <MenuHeader title="Reports" />
-
                     <CompanyMenuItemContainer onClick={dismissMessages} link="/company/reports">
-                        {/* <CompanyMenuItemContainer link="/company/reports"> */}
                         {!!unreadCount && <span className="number">{unreadCount}</span>}
                         <i className="far fa-file-chart-pie fa-fw icon" />
                         <span className={`menu-text ${unreadCount ? 'large' : ''}`}>
@@ -105,48 +108,52 @@ const CompanyMenu = ({
             )}
 
             <MenuHeader title="Settings" />
-
             <CompanyMenuItemContainer link="/company/profile">
                 <i className="far fa-user fa-fw icon" />
                 <span className="menu-text"> My Profile</span>
             </CompanyMenuItemContainer>
 
-            <CompanyMenuItemContainer link="/company/settings">
-                <i className="far fa-cogs fa-fw icon" />
-                <span className="menu-text"> Company Settings</span>
-            </CompanyMenuItemContainer>
+            {!isCompanyUserOrSelecting && (
+                <>
+                    <CompanyMenuItemContainer link="/company/settings">
+                        <i className="far fa-cogs fa-fw icon" />
+                        <span className="menu-text"> Company Settings</span>
+                    </CompanyMenuItemContainer>
 
-            <CompanyMenuItemContainer link="/company/tools/templates">
-                <i className="far fa-folders fa-fw icon" />
-                <span className="menu-text">My Templates</span>
-            </CompanyMenuItemContainer>
+                    <CompanyMenuItemContainer link="/company/tools/templates">
+                        <i className="far fa-folders fa-fw icon" />
+                        <span className="menu-text">My Templates</span>
+                    </CompanyMenuItemContainer>
+                </>
+            )}
+            {!isCompanyUserOrSelecting && (
+                <>
+                    <MenuHeader title="Tools" />
+                    <CompanyMenuItemContainer link="/company/release-notes">
+                        {!!unreadReleaseNoteCount && (
+                            <span className="number">{unreadReleaseNoteCount}</span>
+                        )}
+                        <i className="far fa-flag fa-fw icon" />
+                        <span className={`menu-text ${unreadReleaseNoteCount ? 'large' : ''}`}>
+                            Release Notes
+                        </span>
+                    </CompanyMenuItemContainer>
+                    <CompanyMenuItemContainer link="/company/activity-log">
+                        <i className="far fa-history fa-fw icon" />
+                        <span className="menu-text"> Activity Log</span>
+                    </CompanyMenuItemContainer>
 
-            <MenuHeader title="Tools" />
+                    <CompanyMenuItemContainer
+                        link="/company/generate-qr-codes"
+                        onClick={handleGenerateQRCodesModal}
+                    >
+                        <i className="far fa-qrcode fa-fw icon" />
+                        <span className="menu-text"> Generate QR Codes</span>
+                    </CompanyMenuItemContainer>
+                </>
+            )}
 
-            <CompanyMenuItemContainer link="/company/release-notes">
-                {!!unreadReleaseNoteCount && (
-                    <span className="number">{unreadReleaseNoteCount}</span>
-                )}
-                <i className="far fa-flag fa-fw icon" />
-                <span className={`menu-text ${unreadReleaseNoteCount ? 'large' : ''}`}>
-                    Release Notes
-                </span>
-            </CompanyMenuItemContainer>
-
-            <CompanyMenuItemContainer link="/company/activity-log">
-                <i className="far fa-history fa-fw icon" />
-                <span className="menu-text"> Activity Log</span>
-            </CompanyMenuItemContainer>
-
-            <CompanyMenuItemContainer
-                link="/company/generate-qr-codes"
-                onClick={handleGenerateQRCodesModal}
-            >
-                <i className="far fa-qrcode fa-fw icon" />
-                <span className="menu-text"> Generate QR Codes</span>
-            </CompanyMenuItemContainer>
-
-            {isSubscribed && (
+            {isSubscribed && !isCompanyUserOrSelecting && (
                 <>
                     <CompanyMenuItemContainer link="/company/message-centre">
                         {!!unreadMessageCount && (
@@ -163,12 +170,7 @@ const CompanyMenu = ({
                         <span className="menu-text">Bolster Approved Companies</span>
                     </CompanyMenuItemContainer>
 
-                    {/* OLD LINK <MenuItemContainer link="/company/tools/operative-alerts">
-                <i className="far fa-bells fa-fw icon" />
-                <span className="menu-text">Operative Alerts</span>
-            </MenuItemContainer> */}
                     <MenuHeader title="Support" />
-
                     <CompanyMenuItemContainer
                         link="/company/tools/support"
                         onClick={e => openHelpScout(e)}
@@ -187,12 +189,16 @@ const CompanyMenu = ({
                 </>
             )}
 
+            <CompanyMenuItemContainer link="/company/company-selection">
+                <i className="far fa-exchange fa-fw icon" />
+                <span className="menu-text">Select Company</span>
+            </CompanyMenuItemContainer>
             <CompanyMenuItemContainer link="#" logout={true}>
                 <i className="far fa-sign-out-alt fa-fw icon" />
                 <span className="menu-text">Logout</span>
             </CompanyMenuItemContainer>
         </div>
-    </>
-);
+    );
+};
 
 export default CompanyMenu;

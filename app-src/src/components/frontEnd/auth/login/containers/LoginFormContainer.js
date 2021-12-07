@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useForm, usePrevious } from 'helpers/hooks';
+import { useForm, usePrevious, useResend2FA } from 'helpers/hooks';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -15,6 +15,7 @@ import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 import fetchAuthAreaText from 'actions/frontEnd/auth/fetchAuthAreaText';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 const LoginFormContainer = ({
     showModal,
@@ -28,9 +29,19 @@ const LoginFormContainer = ({
     error,
     fetchAuthAreaText,
     auth,
+    showTwoFactor,
+    emailConfirmationRequired,
+    hideModal,
 }) => {
-    const [formData, handleChange] = useForm({ email: '', password: '' });
-    const prevProps = usePrevious({ postSuccess, isPosting });
+    const useQuery = () => new URLSearchParams(location.search);
+    const query = useQuery();
+    const showForgotPassword = query.get('showForgotPassword');
+    const [formData, handleChange] = useForm({ email: '', password: '', twoFactorCode: null });
+    const prevProps = usePrevious({
+        postSuccess,
+        isPosting,
+        emailConfirmationRequired,
+    });
 
     useEffect(() => {
         fetchAuthAreaText();
@@ -38,6 +49,11 @@ const LoginFormContainer = ({
         if (history.action.includes('REPLACE')) {
             window.location.reload();
         }
+        if (showForgotPassword) {
+            handleForgotPassword();
+        }
+
+        return () => hideModal();
     }, []);
 
     useEffect(() => {
@@ -52,6 +68,17 @@ const LoginFormContainer = ({
         }
     }, [postSuccess, prevProps.postSuccess, isPosting, prevProps.isPosting]);
 
+    useEffect(() => {
+        if (emailConfirmationRequired && !prevProps.emailConfirmationRequired) {
+            // take us to the confirm email page bro
+            history.push('/auth/email-confirmation-required');
+        }
+    }, [emailConfirmationRequired]);
+
+    const { canResend2FA, setCanResend2FA, lastResent, handleResendTwoFactor } = useResend2FA(
+        formData.email,
+    );
+
     return (
         <LoginForm
             formData={{ ...formData }}
@@ -60,13 +87,18 @@ const LoginFormContainer = ({
             handleForgotPassword={handleForgotPassword}
             isPosting={isPosting}
             loginText={auth.loginText}
+            showTwoFactor={showTwoFactor}
+            canResend2FA={canResend2FA}
+            setCanResend2FA={setCanResend2FA}
+            lastResent={lastResent}
+            handleResendTwoFactor={handleResendTwoFactor}
         />
     );
 
     function handleSubmit(e) {
         e.preventDefault();
-        const { email, password } = formData;
-        postLogin(email, password);
+        const { email, password, twoFactorCode } = formData;
+        postLogin(email, password, twoFactorCode);
     }
 
     function handleForgotPassword() {
@@ -74,7 +106,13 @@ const LoginFormContainer = ({
     }
 
     async function onSuccess() {
-        const { isSuperAdmin, companyUserType, companyID, isClientAccess } = await authenticate();
+        const {
+            isSuperAdmin,
+            isCompanyAdmin,
+            companyUserType,
+            companyID,
+            isClientAccess,
+        } = await authenticate();
 
         if (+companyUserType === ROLES.OPERATIVE) {
             localStorage.removeItem('token');
@@ -93,37 +131,45 @@ const LoginFormContainer = ({
             }
         }
 
-        let url = '/client/companies';
-
-        if (companyID) {
-            if (!isClientAccess) url = '/company';
+        if (isSuperAdmin) {
+            return history.push('/admin');
+        }
+        if (isCompanyAdmin) {
+            if (!companyID) return history.push('/company/company-selection');
             else {
                 const hasSub = await checkActive(companyID);
                 if (hasSub) {
-                    url = '/company';
-                } else {
-                    url = '/client/companies';
+                    return history.push('/company');
                 }
             }
         }
-        if (isSuperAdmin) url = '/admin';
-        history.push(url);
+        if (!isClientAccess) {
+            return history.push('/company');
+        }
+        return history.push('/client/companies');
     }
 };
 
 const mapStateToProps = ({
     shared: {
-        loginReducer: { postSuccess, isPosting },
+        loginReducer: { postSuccess, isPosting, showTwoFactor, emailConfirmationRequired },
     },
     frontEnd: {
         authReducer: { auth },
         error,
-        isFetching,
     },
-}) => ({ postSuccess, auth, error, isFetching, isPosting });
+}) => ({
+    postSuccess,
+    auth,
+    error,
+    isPosting,
+    showTwoFactor,
+    emailConfirmationRequired,
+});
 
 const mapDispatchToProps = {
     showModal,
+    hideModal,
     addFieldError,
     showFieldErrors,
     fetchCompanySettings,

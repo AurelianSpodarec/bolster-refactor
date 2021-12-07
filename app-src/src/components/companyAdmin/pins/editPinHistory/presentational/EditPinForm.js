@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Prompt } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
@@ -12,12 +12,20 @@ const EditPinForm = ({
     filesUploading,
     confirmLeave,
     selectedHistory
-}) => (
-    <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
+}) => {
+    const [showFixError, setShowFixError] = useState();
+
+    return (
+    <Form onSubmit={handleSubmit} onSubmitError={() => setShowFixError(true)} className="generic-form size-lg-12">
         <EditPinVersionsContainer
             templateVersionID={selectedHistory.templateVersionID}
         />
 
+        {showFixError && 
+            <div className="form-field" style={{float: 'right', minHeight: 0}}>
+                <p className="error red-text text-accent-4">Please correct the field errors and try again</p>
+            </div>
+        }
         <BlockButtonWrapper>
             <Prompt
                 when={confirmLeave}
@@ -45,6 +53,6 @@ const EditPinForm = ({
             </ButtonContainer>
         </BlockButtonWrapper>
     </Form>
-);
+);};
 
 export default EditPinForm;

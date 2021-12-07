@@ -1,12 +1,15 @@
 import React from 'react';
 
-import AllCompanyAdminsTableContainer from '../containers/AllCompanyAdminsTableContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import TabsContainer from 'components/shared/generic/tabs/containers/TabsContainer';
+import CompanyAdminsRoutes from './CompanyAdminsRoutes';
 
 const AllCompanyAdmins = () => (
     <>
-        <PageHeading title="All Admins" withBackButton />
-        <AllCompanyAdminsTableContainer />
+        <PageHeading title="All Admins" withBackButton>
+            <TabsContainer classes="no-breadcrumb" />
+        </PageHeading>
+        <CompanyAdminsRoutes />
     </>
 );
 
