@@ -35,6 +35,8 @@ class BuildingDetailsContainer extends Component {
             services,
             filteredStats,
             filteredStatsBool,
+            isOwner,
+            loggedInCompanyID,
         } = this.props;
         const { serviceID, companyID } = this.state;
         const filteredServices = services.filter(service => serviceIDs.includes(service.id));
@@ -47,13 +49,18 @@ class BuildingDetailsContainer extends Component {
         const requestFilteredStats = !isEmpty(filteredStats) ? filteredStats : stats;
 
         const companiesForDropdown = !isEmpty(stats)
-            ? Object.entries(stats.statusesByCompany).map(([key]) => {
-                  const [name] = key.split('#');
-                  return {
-                      value: key,
-                      text: name,
-                  };
-              })
+            ? Object.entries(stats.statusesByCompany)
+                  .map(([key]) => {
+                      const [name, id] = key.split('#');
+                      if (!isOwner && +id !== +loggedInCompanyID) {
+                          return null;
+                      }
+                      return {
+                          value: key,
+                          text: name,
+                      };
+                  })
+                  .filter(Boolean)
             : [];
         return (
             <BlockContainer
@@ -203,25 +210,33 @@ const mapStateToProps = (
         },
         shared: {
             mobileReducer: { onMobile },
+            decodeJWTReducer: { jwtData },
         },
     },
     { match },
-) => ({
-    updatedBuildingID,
-    building: buildings[match.params.id] || {},
-    isFetching: fetchingBuildings || fetchingStats || isPostingFilters,
-    error,
-    stats,
-    postSuccess,
-    id: match.params.id,
-    deleteSuccess,
-    onMobile,
-    postFailure,
-    serviceIDs,
-    services: Object.values(services),
-    filteredStats,
-    filteredStatsBool,
-});
+) => {
+    const { companyID } = jwtData;
+    const building = buildings[match.params.id] ?? {};
+    const isOwner = +companyID === +building.ownerCompanyID;
+    return {
+        updatedBuildingID,
+        building,
+        isFetching: fetchingBuildings || fetchingStats || isPostingFilters,
+        error,
+        stats,
+        postSuccess,
+        id: match.params.id,
+        deleteSuccess,
+        onMobile,
+        postFailure,
+        serviceIDs,
+        services: Object.values(services),
+        filteredStats,
+        filteredStatsBool,
+        loggedInCompanyID: companyID,
+        isOwner,
+    };
+};
 
 const mapDispatchToProps = {
     showModal,
