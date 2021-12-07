@@ -17,7 +17,7 @@ import deleteSite from 'actions/companyAdmin/sites/async/deleteSite';
 import archiveSite from 'actions/companyAdmin/sites/async/archiveSite';
 import { isEmpty } from 'helpers/generic';
 import filterPinStatsForLevel from 'actions/companyAdmin/stats/async/filterPinStatsForLevel';
-import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
+import { ACCESS_TYPES_VALUES, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 class SiteDetailsContainer extends Component {
     state = {
@@ -35,6 +35,7 @@ class SiteDetailsContainer extends Component {
             services,
             filteredStats,
             filteredStatsBool,
+            currentCompanyID,
         } = this.props;
         const { serviceID, companyID } = this.state;
         const filteredServices = services.filter(service => serviceIDs.includes(service.id));
@@ -47,13 +48,20 @@ class SiteDetailsContainer extends Component {
         const requestFilteredStats = !isEmpty(filteredStats) ? filteredStats : stats;
 
         const companiesForDropdown = !isEmpty(stats)
-            ? Object.entries(stats.statusesByCompany).map(([key]) => {
-                  const [name] = key.split('#');
-                  return {
-                      value: key,
-                      text: name,
-                  };
-              })
+            ? Object.entries(stats.statusesByCompany)
+                  .map(([key]) => {
+                      const isInvited = site.accessType !== ACCESS_TYPES_VALUES.OWNER;
+                      const [name, companyID] = key.split('#');
+                      if (isInvited && currentCompanyID !== +companyID) {
+                          return null;
+                      }
+
+                      return {
+                          value: key,
+                          text: name,
+                      };
+                  })
+                  .filter(Boolean)
             : [];
 
         return (
@@ -81,8 +89,15 @@ class SiteDetailsContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { error, deleteSuccess, postSuccess, postFailure, history, showModal, hideModal } =
-            this.props;
+        const {
+            error,
+            deleteSuccess,
+            postSuccess,
+            postFailure,
+            history,
+            showModal,
+            hideModal,
+        } = this.props;
         if (deleteSuccess && !prevProps.deleteSuccess) {
             hideModal();
             history.push('/company/sites');
@@ -172,6 +187,9 @@ const mapStateToProps = (
         },
         shared: {
             mobileReducer: { onMobile },
+            decodeJWTReducer: {
+                jwtData: { companyID },
+            },
         },
     },
     { match },
@@ -190,6 +208,7 @@ const mapStateToProps = (
     services: Object.values(services),
     filteredStats,
     filteredStatsBool,
+    currentCompanyID: companyID,
 });
 
 const mapDispatchToProps = dispatch => ({
