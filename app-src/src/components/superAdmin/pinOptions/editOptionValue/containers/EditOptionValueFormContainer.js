@@ -10,7 +10,7 @@ import EditOptionValueForm from '../presentational/EditOptionValueForm';
 class EditOptionValueFormContainer extends Component {
     state = {
         name: this.props.optionValue.name,
-        serviceIDs: this.props.optionValue.serviceIDs,
+        serviceIDs: this.props.optionValue.serviceIDs || [],
     };
 
     render() {
@@ -20,7 +20,7 @@ class EditOptionValueFormContainer extends Component {
             value: id,
             label: name,
         }));
-
+        console.log(serviceOptions, this.state.serviceIDs);
         return (
             <EditOptionValueForm
                 {...this.state}
