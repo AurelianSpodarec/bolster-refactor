@@ -21,6 +21,7 @@ import {
     selectCompanyUsersIsFetching,
 } from 'selectors/companyAdmin/companyUsers';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import { timesheetFilter } from '../breakdown/dayBreakdown/hooks/useOverviewFilters';
 
 const useTimesheets = () => {
     const dispatch = useDispatch();
@@ -48,6 +49,14 @@ const useTimesheets = () => {
     const [selectedDate, setSelectedDate] = useState(thisDay);
     const [timePeriod, setTimePeriod] = useState(TIME_PERIOD.DAY);
     const [companyUserIDs, setCompanyUserIDs] = useState(id ? [parseInt(id)] : []);
+
+    const timesheetCompanyUserIDs = [
+        ...new Set(
+            timesheets
+                .filter(timesheetFilter(true, selectedDate))
+                .map(({ companyUserID }) => companyUserID),
+        ),
+    ];
 
     const onPrev = () => {
         const newStartDate = moment(startDate).subtract(7, 'days').format();
@@ -157,7 +166,11 @@ const useTimesheets = () => {
     }, [dispatch]);
 
     const companyUserOptions =
-        companyUsers != null ? Object.values(companyUsers).map(getCompanyUserOption) : [];
+        companyUsers != null
+            ? Object.values(companyUsers)
+                  .filter(filterHasClockInData(timesheetCompanyUserIDs))
+                  .map(getCompanyUserOption)
+            : [];
 
     return {
         startDate,
@@ -179,9 +192,17 @@ const useTimesheets = () => {
     };
 };
 
-const getCompanyUserOption = companyUser => ({
-    value: companyUser.id,
-    label: `${companyUser.userFirstName} ${companyUser.userLastName} (${companyUser.userEmail})`,
-});
+const filterHasClockInData = timesheetCompanyUserIDs => companyUser => {
+    const { id } = companyUser;
+
+    return timesheetCompanyUserIDs.includes(id);
+};
+
+const getCompanyUserOption = companyUser => {
+    return {
+        value: companyUser.id,
+        label: `${companyUser.userFirstName} ${companyUser.userLastName} (${companyUser.userEmail})`,
+    };
+};
 
 export default useTimesheets;
