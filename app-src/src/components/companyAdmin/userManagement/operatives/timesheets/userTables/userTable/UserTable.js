@@ -51,7 +51,7 @@ const UserTable = ({ date, day, initialRows = 7, timesheets }) => {
                                             onClick={() => setExpanded(true)}
                                         >
                                             <i className="far fa-eye" />
-                                            View All
+                                            Show More
                                         </button>
                                     </td>
                                 </tr>
