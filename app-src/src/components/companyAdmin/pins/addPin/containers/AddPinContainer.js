@@ -109,6 +109,16 @@ class AddPinContainer extends Component {
                 }
             });
             updateDrawingDropdownOptions(filteredNewOptions);
+        } else {
+            const formattedOptionValues = Object.values(dropdownOptions).flat();
+
+            const filteredOptionValues = formattedOptionValues.filter(val => {
+                if (!serviceID) return true;
+                else {
+                    return val.serviceIDs?.includes(Number(serviceID)) || !val.serviceIDs;
+                }
+            });
+            updateDrawingDropdownOptions(filteredOptionValues);
         }
     };
 
