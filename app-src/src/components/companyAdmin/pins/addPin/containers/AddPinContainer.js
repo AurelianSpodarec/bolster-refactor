@@ -127,20 +127,16 @@ class AddPinContainer extends Component {
         const { drawing, manufacturers } = this.props;
         const drawingOptionValueIDs = drawing.optionValueIDs ?? [];
 
-        if (serviceID) {
-            if (drawingOptionValueIDs?.includes(option.id)) {
-                if (option.serviceIDs?.includes(Number(serviceID))) {
-                    return true;
-                } else if (option.serviceIDs === null) {
-                    const manufacturer = manufacturers[option.manufacturerID];
-                    if (manufacturer?.serviceIDs?.includes(Number(serviceID))) {
-                        return true;
-                    } else if (manufacturer?.serviceIDs === null) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
+        if (serviceID && drawingOptionValueIDs?.includes(option.id)) {
+            if (option.serviceIDs?.includes(Number(serviceID))) {
+                return true;
+            } else if (option.serviceIDs === null) {
+                const manufacturer = manufacturers[option.manufacturerID];
+
+                return (
+                    manufacturer?.serviceIDs?.includes(Number(serviceID)) ||
+                    manufacturer?.serviceIDs === null
+                );
             }
         } else {
             return drawingOptionValueIDs?.includes(option.id);
