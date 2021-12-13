@@ -108,6 +108,7 @@ class AddPinContainer extends Component {
                     else return false;
                 }
             });
+            console.log({ filteredNewOptions });
             updateDrawingDropdownOptions(filteredNewOptions);
         } else {
             const formattedOptionValues = Object.values(dropdownOptions).flat();
@@ -127,20 +128,18 @@ class AddPinContainer extends Component {
         const drawingOptionValueIDs = drawing.optionValueIDs ?? [];
 
         if (serviceID) {
-            if (
-                drawingOptionValueIDs?.includes(option.id) &&
-                option.serviceIDs?.includes(Number(serviceID))
-            ) {
-                return true;
-            } else if (option.serviceIDs === null) {
-                const manufacturer = manufacturers[option.manufacturerID];
-
-                if (manufacturer?.serviceIDs?.includes(Number(serviceID))) {
+            if (drawingOptionValueIDs?.includes(option.id)) {
+                if (option.serviceIDs?.includes(Number(serviceID))) {
                     return true;
-                } else if (manufacturer?.serviceIDs === null) {
-                    return true;
-                } else {
-                    return false;
+                } else if (option.serviceIDs === null) {
+                    const manufacturer = manufacturers[option.manufacturerID];
+                    if (manufacturer?.serviceIDs?.includes(Number(serviceID))) {
+                        return true;
+                    } else if (manufacturer?.serviceIDs === null) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
             }
         } else {
