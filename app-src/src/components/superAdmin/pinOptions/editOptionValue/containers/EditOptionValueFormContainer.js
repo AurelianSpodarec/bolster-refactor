@@ -20,7 +20,7 @@ class EditOptionValueFormContainer extends Component {
             value: id,
             label: name,
         }));
-        console.log(serviceOptions, this.state.serviceIDs);
+
         return (
             <EditOptionValueForm
                 {...this.state}
@@ -63,6 +63,7 @@ const mapStateToProps = (
     {
         superAdmin: {
             manufacturersOptionValuesReducer: { manufacturersOptionValues },
+            manufacturersReducer: { manufacturers },
         },
     },
     { optionValue },
@@ -71,6 +72,7 @@ const mapStateToProps = (
         optionValues: manufacturersOptionValues[optionValue.manufacturerID]
             ? Object.values(manufacturersOptionValues[optionValue.manufacturerID])
             : [],
+        manufacturers,
     };
 };
 

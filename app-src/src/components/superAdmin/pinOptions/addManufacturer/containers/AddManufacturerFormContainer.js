@@ -11,9 +11,16 @@ import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 class AddManufacturerFormContainer extends Component {
     state = {
         name: '',
+        serviceIDs: [],
     };
 
     render() {
+        const { services } = this.props;
+
+        const serviceOptions = services.map(({ id, name }) => ({
+            value: id,
+            label: name,
+        }));
         return (
             <AddManufacturerForm
                 {...this.state}
@@ -22,6 +29,7 @@ class AddManufacturerFormContainer extends Component {
                 hideModal={this.props.hideModal}
                 buttonText={this.props.buttonText}
                 validateName={this.validateName}
+                serviceOptions={serviceOptions}
             />
         );
     }
@@ -53,6 +61,7 @@ const mapStateToProps = (
     {
         superAdmin: {
             manufacturersReducer: { manufacturers },
+            adminServicesReducer: { adminServices },
         },
     },
     { type },
@@ -62,6 +71,7 @@ const mapStateToProps = (
         manufacturers: manufacturers[pinOptionType]
             ? Object.values(manufacturers[pinOptionType])
             : [],
+        services: Object.values(adminServices),
     };
 };
 

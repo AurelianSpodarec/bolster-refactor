@@ -5,6 +5,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
 const EditManufacturerForm = ({
     handleSubmit,
@@ -13,6 +14,8 @@ const EditManufacturerForm = ({
     buttonText,
     name,
     validateName,
+    serviceOptions,
+    serviceIDs,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -27,6 +30,19 @@ const EditManufacturerForm = ({
                     />
                 </Field>
             </div>
+        </div>
+
+        <div className="size-lg-12">
+            <Field name="Select services for this option value">
+                <MultiSelect
+                    name="serviceIDs"
+                    options={serviceOptions}
+                    value={serviceIDs}
+                    onChange={handleInputChange}
+                    placeholder="-- select services --"
+                    search
+                />
+            </Field>
         </div>
 
         <BlockButtonWrapper>
