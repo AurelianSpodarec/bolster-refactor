@@ -12,6 +12,7 @@ import {
     ERROR_MODAL,
     CONFIRM_ARCHIVE,
     EDIT_BUILDING,
+    DRAWING_EXPIRY_MODAL,
 } from 'constants/shared/modalTypes';
 import deleteBuilding from 'actions/companyAdmin/buildings/async/deleteBuilding';
 import archiveBuilding from 'actions/companyAdmin/buildings/async/archiveBuilding';
@@ -45,6 +46,7 @@ class BuildingDetailsContainer extends Component {
                     handleChange={this.handleChange}
                     serviceOptions={servicesForDropdown}
                     serviceID={serviceID}
+                    handleViewDrawingExpiryModal={this.handleViewDrawingExpiryModal}
                 />
             </BlockContainer>
         );
@@ -123,6 +125,15 @@ class BuildingDetailsContainer extends Component {
             handleArchive,
             message,
             archive: !building.isArchived,
+        });
+    };
+
+    handleViewDrawingExpiryModal = () => {
+        const { id, showModal, hideModal } = this.props;
+
+        showModal(DRAWING_EXPIRY_MODAL, {
+            hideModal,
+            id,
         });
     };
 

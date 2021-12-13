@@ -14,6 +14,7 @@ const BuildingStats = ({
     handleChange,
     serviceID,
     serviceOptions,
+    handleViewDrawingExpiryModal,
 }) => (
     <div className="stats size-lg-12">
         <div className="flex-item size-lg-12">
@@ -38,6 +39,9 @@ const BuildingStats = ({
                     </button>
                     <button className="button yellow" onClick={handleEditBuildingModal}>
                         <i className="far fa-pencil fa-fw" /> Edit
+                    </button>
+                    <button className="button yellow" onClick={handleViewDrawingExpiryModal}>
+                        <i className="far fa-clock fa-fw" /> Drawing Expiry
                     </button>
                 </>
             )}

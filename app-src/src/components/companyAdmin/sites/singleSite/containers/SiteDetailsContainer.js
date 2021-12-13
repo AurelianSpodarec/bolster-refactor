@@ -11,6 +11,7 @@ import {
     ERROR_MODAL,
     CONFIRM_ARCHIVE,
     EDIT_SITE,
+    DRAWING_EXPIRY_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import deleteSite from 'actions/companyAdmin/sites/async/deleteSite';
@@ -44,6 +45,7 @@ class SiteDetailsContainer extends Component {
                     handleChange={this.handleChange}
                     serviceOptions={servicesForDropdown}
                     serviceID={serviceID}
+                    handleViewDrawingExpiryModal={this.handleViewDrawingExpiryModal}
                 />
             </BlockContainer>
         );
@@ -108,6 +110,15 @@ class SiteDetailsContainer extends Component {
             handleArchive,
             message,
             archive: !site.isArchived,
+        });
+    };
+
+    handleViewDrawingExpiryModal = () => {
+        const { id, showModal, hideModal } = this.props;
+
+        showModal(DRAWING_EXPIRY_MODAL, {
+            hideModal,
+            id,
         });
     };
 

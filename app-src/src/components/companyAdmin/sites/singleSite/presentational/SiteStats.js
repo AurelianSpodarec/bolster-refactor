@@ -15,6 +15,7 @@ const SiteStats = ({
     handleChange,
     serviceID,
     serviceOptions,
+    handleViewDrawingExpiryModal,
 }) => (
     <div className="stats size-lg-12">
         <div className="flex-item size-lg-12">
@@ -50,6 +51,9 @@ const SiteStats = ({
                     <Link className="button" to={`/company/sites/${site.id}/change-ownership`}>
                         <i className="fa fa-exchange" /> Change Ownership
                     </Link>
+                    <button className="button yellow" onClick={handleViewDrawingExpiryModal}>
+                        <i className="far fa-clock fa-fw" /> Drawing Expiry
+                    </button>
                 </>
             )}
 

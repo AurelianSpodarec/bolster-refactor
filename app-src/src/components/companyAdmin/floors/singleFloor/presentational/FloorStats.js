@@ -14,6 +14,7 @@ const FloorStats = ({
     handleChange,
     serviceID,
     serviceOptions,
+    handleViewDrawingExpiryModal,
 }) => (
     <div className="stats size-lg-12">
         <FloorDetails stats={stats} floor={floor} />
@@ -35,6 +36,9 @@ const FloorStats = ({
                     </button>
                     <button className="button yellow" onClick={handleEditFloorModal}>
                         <i className="far fa-pencil fa-fw" /> Edit
+                    </button>
+                    <button className="button yellow" onClick={handleViewDrawingExpiryModal}>
+                        <i className="far fa-clock fa-fw" /> Drawing Expiry
                     </button>
                 </>
             )}
