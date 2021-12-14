@@ -127,7 +127,6 @@ class AddPinContainer extends Component {
                     return val.serviceIDs?.includes(Number(serviceID)) || !val.serviceIDs;
                 }
             });
-            console.log({ filteredOptionValues, serviceID });
             updateDrawingDropdownOptions(filteredOptionValues);
         }
     };
