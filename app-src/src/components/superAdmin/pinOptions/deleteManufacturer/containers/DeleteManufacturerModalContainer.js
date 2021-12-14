@@ -2,18 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import disableManufacturer from 'actions/superAdmin/manufacturers/async/disableManufacturer';
+import deleteManufacturer from 'actions/superAdmin/manufacturers/async/deleteManufacturer';
 import DeleteManufacturerModal from '../presentational/DeleteManufacturerModal';
 
-const DeleteManufacturerModalContainer = ({ manufacturer, hideModal, disableManufacturer }) => {
+const DeleteManufacturerModalContainer = ({ manufacturer, hideModal, deleteManufacturer }) => {
     const handleDisable = () => {
-        disableManufacturer(manufacturer);
+        deleteManufacturer(manufacturer);
         hideModal();
     };
 
     return (
         <DeleteManufacturerModal
-            disableManufacturer={handleDisable}
+            deleteManufacturer={handleDisable}
             hideModal={e => {
                 e.preventDefault();
                 hideModal();
@@ -27,7 +27,7 @@ const DeleteManufacturerModalContainer = ({ manufacturer, hideModal, disableManu
 
 const mapDispatchToProps = {
     hideModal,
-    disableManufacturer,
+    deleteManufacturer,
 };
 
 export default connect(null, mapDispatchToProps)(DeleteManufacturerModalContainer);

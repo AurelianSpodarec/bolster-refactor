@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-import { API_URL } from 'config/index';
 import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 import { getHeaders } from 'helpers/api';
 
@@ -32,7 +31,7 @@ export default manufacturer => dispatch => {
 
     axios
         .put(`${ADMIN_API_URL}/manufacturer/${manufacturer.id}/disable`, {}, getHeaders())
-        .then(({ data }) => dispatch(disableManufacturerSuccess(manufacturer.id, manufacturer)))
+        .then(() => dispatch(disableManufacturerSuccess(manufacturer.id, manufacturer)))
         .catch(error => {
             dispatch(disableManufacturerFailure(error));
             if (error.response.status === 400)

@@ -15,7 +15,7 @@ class ManufacturerTableContainer extends Component {
         return (
             <ManufacturerTable
                 headers={['Name', '']}
-                manufacturers={manufacturers}
+                manufacturers={manufacturers.filter(x => !x.isDeleted)}
                 isFetching={isFetching}
                 error={error}
                 title={title}
