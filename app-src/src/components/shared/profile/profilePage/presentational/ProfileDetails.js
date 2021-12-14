@@ -109,6 +109,10 @@ const ProfileDetails = ({
                     <i className="far fa-lock-alt fa-fw" />
                     Change Password
                 </Link>
+                <Link className="button green" to={`${pathName}/mailPreferences`}>
+                    <i className="far fa-pencil" />
+                    Edit Mail Preferences
+                </Link>
                 <Link className="button green" to={`${pathName}/twofactor/setup`}>
                     <i className="far fa-lock" />
                     {isTwoFactorAuthEnabled
