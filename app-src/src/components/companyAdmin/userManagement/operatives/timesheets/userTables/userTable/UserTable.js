@@ -2,6 +2,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import { formatAsHrsMinsSecs } from 'helpers/generic';
+import moment from 'moment';
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useDayOverview from '../../hooks/useDayOverview';
@@ -39,6 +40,8 @@ const UserTable = ({ date, day, initialRows = 7, timesheets }) => {
                     clockIn,
                     clockOut,
                 } = useDayOverview(timesheet, date);
+
+                const [initialDate] = date.split('T');
 
                 return (
                     <Fragment key={companyUserID}>
@@ -87,7 +90,10 @@ const UserTable = ({ date, day, initialRows = 7, timesheets }) => {
                                 <td>{jobReferences.filter(reference => reference).length}</td>
                                 <td>
                                     <Link
-                                        to={`/company/users-management/operatives/${companyUserID}/timesheet`}
+                                        to={{
+                                            pathname: `/company/users-management/operatives/${companyUserID}/timesheet`,
+                                            search: `?date=${initialDate}`,
+                                        }}
                                         className="button green"
                                     >
                                         <i className="far fa-eye" />

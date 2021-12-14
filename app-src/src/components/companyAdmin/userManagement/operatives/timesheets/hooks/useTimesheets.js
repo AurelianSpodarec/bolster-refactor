@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import fetchTimesheetsWeek from 'actions/companyAdmin/timesheets/async/fetchTimesheetsWeek';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import {
     selectTimesheets,
     selectTimesheetsFetchError,
@@ -22,6 +22,7 @@ import {
 } from 'selectors/companyAdmin/companyUsers';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import { timesheetFilter } from '../breakdown/dayBreakdown/hooks/useOverviewFilters';
+import { useQuery } from 'helpers/hooks';
 
 const useTimesheets = () => {
     const dispatch = useDispatch();
@@ -29,6 +30,10 @@ const useTimesheets = () => {
     const { timeZone } = useSelector(selectCompanySettings);
 
     const { id } = useParams();
+
+    const query = useQuery();
+
+    const initialDate = query.get('date');
 
     const companyUsersIsFetching = useSelector(selectCompanyUsersIsFetching);
     const companyUsersFetchError = useSelector(selectCompanyUsersFetchError);
@@ -41,9 +46,13 @@ const useTimesheets = () => {
     const reportGenPins = useSelector(selectUserPinFeeds);
     const serviceIDs = useSelector(selectServiceIDs);
 
-    const thisWeek = moment(new Date()).tz(timeZone.id).startOf('isoWeek').format();
+    const thisWeek = initialDate
+        ? moment(initialDate).tz(timeZone.id).startOf('isoWeek').format()
+        : moment(new Date()).tz(timeZone.id).startOf('isoWeek').format();
 
-    const thisDay = moment(new Date()).tz(timeZone.id).startOf('day').format();
+    const thisDay = initialDate
+        ? moment(initialDate).tz(timeZone.id).startOf('day').format()
+        : moment(new Date()).tz(timeZone.id).startOf('day').format();
 
     const [startDate, setStartDate] = useState(thisWeek);
     const [selectedDate, setSelectedDate] = useState(thisDay);

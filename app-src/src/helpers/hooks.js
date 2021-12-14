@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import uuid from 'uuid/v4';
 import moment from 'moment';
-
+import { useLocation } from 'react-router-dom';
 import { removeObjItem } from './generic';
 import { useDispatch, useSelector } from 'react-redux';
 import resendTwoFactor from 'actions/shared/auth/async/resendTwoFactor';
@@ -230,4 +230,10 @@ export const useResend2FA = email => {
         e.preventDefault();
         dispatch(resendTwoFactor({ email }));
     }
+};
+
+export const useQuery = () => {
+    const { search } = useLocation();
+
+    return useMemo(() => new URLSearchParams(search), [search]);
 };
