@@ -12,8 +12,8 @@ import updateDrawingDropdownOptions from 'actions/companyAdmin/drawings/sync/upd
 
 import AddPinFormContainer from './AddPinFormContainer';
 import { fetchManufacturerPinOptions } from 'helpers/redux';
-import { isObjEmpty } from 'helpers/generic';
 import { shouldOptionValueBeIncluded } from 'helpers/manufacturers';
+import { isObjEmpty } from 'helpers/generic';
 
 class AddPinContainer extends Component {
     render = () => (
@@ -24,40 +24,48 @@ class AddPinContainer extends Component {
         />
     );
 
-    componentDidMount = async () => {
-        const {
-            drawingID,
-            fetchDrawingTemplates,
-            fetchDrawingDropdownOptions,
-            fetchManufacturersByPinOptionType,
-            fetchAllOptionValues,
-        } = this.props;
+    componentDidMount = () => {
+        const { drawingID, fetchDrawingTemplates } = this.props;
 
         fetchDrawingTemplates(drawingID);
-        fetchDrawingDropdownOptions(drawingID)
-            .then(() => {
-                return fetchSingleDrawing(drawingID);
-            })
-            .then(async () => {
-                return fetchManufacturerPinOptions(
-                    fetchManufacturersByPinOptionType,
-                    fetchAllOptionValues,
-                );
-            });
 
         fetchPins('drawing', drawingID);
     };
 
     componentDidUpdate = prevProps => {
+        const { serviceID } = this.props;
+
+        if (prevProps.serviceID !== serviceID) {
+            this.fetchDropdownOptions();
+        }
+
         if (
             prevProps.isFetching &&
             !this.props.isFetching &&
             !isObjEmpty(this.props.optionValues)
         ) {
-            // replace add pin dropdown options with manufacturer enabled options if applicable
-
-            this.formatDropdownOptions();
+            this.formatDropdownOptions(serviceID);
         }
+    };
+
+    fetchDropdownOptions = () => {
+        const {
+            drawingID,
+            fetchDrawingDropdownOptions,
+            fetchManufacturersByPinOptionType,
+            fetchAllOptionValues,
+        } = this.props;
+
+        fetchDrawingDropdownOptions(drawingID)
+            .then(() => {
+                fetchSingleDrawing(drawingID);
+            })
+            .then(() => {
+                fetchManufacturerPinOptions(
+                    fetchManufacturersByPinOptionType,
+                    fetchAllOptionValues,
+                );
+            });
     };
 
     formatDropdownOptions = serviceID => {
@@ -108,7 +116,7 @@ class AddPinContainer extends Component {
                     else return false;
                 }
             });
-            console.log({ filteredNewOptions });
+
             updateDrawingDropdownOptions(filteredNewOptions);
         } else {
             const formattedOptionValues = Object.values(dropdownOptions).flat();
@@ -119,6 +127,7 @@ class AddPinContainer extends Component {
                     return val.serviceIDs?.includes(Number(serviceID)) || !val.serviceIDs;
                 }
             });
+            console.log({ filteredOptionValues, serviceID });
             updateDrawingDropdownOptions(filteredOptionValues);
         }
     };
@@ -147,7 +156,7 @@ class AddPinContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            addPinDropdownOptions: { dropdownOptions },
+            addPinDropdownOptions: { dropdownOptions, serviceID },
             manufacturersReducer: {
                 manufacturers: { installationTypes },
             },
@@ -167,6 +176,7 @@ const mapStateToProps = (
     dropdownOptions,
     subscriptionServiceIDs,
     manufacturers: installationTypes,
+    serviceID,
 });
 
 const mapDispatchToProps = {

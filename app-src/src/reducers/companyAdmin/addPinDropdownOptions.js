@@ -5,6 +5,7 @@ import {
     FETCH_DRAWING_DROPDOWN_OPTIONS_SUCCESS,
     FETCH_DRAWING_DROPDOWN_OPTIONS_FAILURE,
     UPDATE_DRAWING_DROPDOWN_OPTIONS,
+    SET_SERVICE_ID,
 } from 'constants/actionTypes/drawings';
 import { FETCH_ALL_OPTION_VALUES_REQUEST } from 'constants/actionTypes/companyAdminManufacturers';
 
@@ -13,6 +14,7 @@ export default combineReducers({
     areManufacturerOptionsIncluded: areManufacturerOptionsIncludedReducer,
     isFetching: isFetchingReducer,
     error: errorReducer,
+    serviceID: serviceIDReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -56,6 +58,15 @@ function areManufacturerOptionsIncludedReducer(state = [], action) {
             return false;
         case UPDATE_DRAWING_DROPDOWN_OPTIONS:
             return true;
+        default:
+            return state;
+    }
+}
+
+function serviceIDReducer(state = '', action) {
+    switch (action.type) {
+        case SET_SERVICE_ID:
+            return action.serviceID;
         default:
             return state;
     }
