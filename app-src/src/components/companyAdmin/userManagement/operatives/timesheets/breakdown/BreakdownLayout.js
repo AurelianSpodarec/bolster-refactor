@@ -10,8 +10,8 @@ const BreakdownLayout = ({
     isLoading = false,
     error = null,
     noData = false,
-    showGenerateReport,
     handlePDFReportGeneration,
+    disableReportGenPin,
 }) => {
     const { selectedTab, onTabChange } = useSelectedTab();
 
@@ -28,8 +28,9 @@ const BreakdownLayout = ({
         >
             <BlockHeading title={title}>
                 <button
-                    className={`button ${!showGenerateReport ? 'disabled' : ''}`}
+                    className={`button ${disableReportGenPin ? 'disabled' : ''}`}
                     onClick={handlePDFReportGeneration}
+                    disabled={disableReportGenPin}
                 >
                     <i className="fas fa-file-pdf" />
                     Generate Report

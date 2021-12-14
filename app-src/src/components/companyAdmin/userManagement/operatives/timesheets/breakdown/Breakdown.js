@@ -16,6 +16,7 @@ const Breakdown = ({
     fetchError,
     timesheets,
     handlePDFReportGeneration,
+    disableReportGenPin,
 }) => {
     switch (timePeriod) {
         case TIME_PERIOD.WEEK:
@@ -53,7 +54,7 @@ const Breakdown = ({
                     isLoading={isFetching}
                     error={fetchError}
                     noData={isEmpty(timesheets)}
-                    showGenerateReport={timesheets && timesheets.totalPins !== 0}
+                    disableReportGenPin={disableReportGenPin}
                     handlePDFReportGeneration={handlePDFReportGeneration}
                 />
             );
@@ -96,8 +97,8 @@ const Breakdown = ({
                     isLoading={isFetching}
                     error={fetchError}
                     noData={isEmpty(timesheets)}
-                    showGenerateReport={timesheets && timesheets.totalPins !== 0}
                     handlePDFReportGeneration={handlePDFReportGeneration}
+                    disableReportGenPin={disableReportGenPin}
                 />
             );
         default:

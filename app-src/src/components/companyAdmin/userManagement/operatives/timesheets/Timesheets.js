@@ -16,7 +16,7 @@ const Timesheets = () => {
         companyUserIDs,
         setCompanyUserIDs,
         companyUserOptions,
-
+        disableReportGenPin,
         isFetching,
         fetchError,
         timesheets,
@@ -77,6 +77,7 @@ const Timesheets = () => {
                 fetchError={fetchError}
                 timesheets={timesheets}
                 handlePDFReportGeneration={handlePDFReportGeneration}
+                disableReportGenPin={disableReportGenPin}
             />
         </>
     );

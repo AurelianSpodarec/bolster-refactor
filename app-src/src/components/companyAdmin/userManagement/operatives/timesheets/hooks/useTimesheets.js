@@ -10,7 +10,11 @@ import {
     selectTimesheetsFetchError,
     selectTimesheetsIsFetching,
 } from 'selectors/companyAdmin/timesheets';
-import { selectUserPinFeeds } from 'selectors/companyAdmin/userPinFeeds';
+import {
+    selectUserPinFeeds,
+    selectUserPinFeedsFetchError,
+    selectUserPinFeedsIsFetching,
+} from 'selectors/companyAdmin/userPinFeeds';
 import { isEmpty } from 'lodash';
 import { selectServiceIDs } from 'selectors/companyAdmin/services';
 import { ERROR_MODAL, GENERATE_TIMESHEET_REPORT } from 'constants/shared/modalTypes';
@@ -44,7 +48,12 @@ const useTimesheets = () => {
     const timesheets = useSelector(selectTimesheets);
 
     const reportGenPins = useSelector(selectUserPinFeeds);
+    const isFetchingReportGenPins = useSelector(selectUserPinFeedsIsFetching);
+    const errorReportGenPins = useSelector(selectUserPinFeedsFetchError);
     const serviceIDs = useSelector(selectServiceIDs);
+
+    console.log({ isFetchingReportGenPins });
+    console.log({ errorReportGenPins });
 
     const thisWeek = initialDate
         ? moment(initialDate).tz(timeZone.id).startOf('isoWeek').format()
@@ -104,21 +113,11 @@ const useTimesheets = () => {
 
         const hierarchyID = [
             ...new Set(
-                reportGenPins
-                    .map(({ items }) => {
-                        return items.map(({ drawingID }) => drawingID);
-                    })
-                    .flat(),
+                reportGenPins.map(({ items }) => items.map(({ drawingID }) => drawingID)).flat(),
             ),
         ];
         const pinIDs = [
-            ...new Set(
-                reportGenPins
-                    .map(({ items }) => {
-                        return items.map(({ pinID }) => pinID);
-                    })
-                    .flat(),
-            ),
+            ...new Set(reportGenPins.map(({ items }) => items.map(({ pinID }) => pinID)).flat()),
         ];
 
         if (isEmpty(hierarchyID.filter(Boolean)) || isEmpty(pinIDs.filter(Boolean))) {
@@ -192,6 +191,8 @@ const useTimesheets = () => {
         fetchError: timesheetsFetchError || companyUsersFetchError,
         timesheets,
         totals,
+        disableReportGenPin:
+            isFetchingReportGenPins || (!isFetchingReportGenPins && errorReportGenPins),
         onPrev,
         onNext,
         onToday,
