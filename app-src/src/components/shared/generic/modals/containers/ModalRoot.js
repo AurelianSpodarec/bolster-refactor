@@ -122,6 +122,7 @@ import {
     CONFIRM_EMAIL,
     USER_NEW_DOCUMENT,
     UNCONFIRMED_EMAIL_MODAL,
+    CREATE_HIERARCHY_ALERT_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -246,6 +247,7 @@ import EditCompanyOwnerModalContainer from 'components/superAdmin/companies/sing
 import RequestDeleteInvoiceModal from 'components/companyAdmin/invoices/requestDeleteInvoiceModal/RequestDeleteInvoiceModal';
 import NewUserDocumentModal from 'components/companyAdmin/userManagement/documentsUploader/presentational/NewUserDocumentModal';
 import UnconfirmedEmailModal from '../presentational/UnconfirmedEmailModal';
+import CreateHierarchyAlertModal from 'components/shared/hierarchyAlert/createHierarchyAlertModal/CreateHierarchyAlertModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -368,6 +370,7 @@ const MODAL_COMPONENTS = {
     [CONFIRM_EMAIL]: ConfirmEmailModal,
     [USER_NEW_DOCUMENT]: NewUserDocumentModal,
     [UNCONFIRMED_EMAIL_MODAL]: UnconfirmedEmailModal,
+    [CREATE_HIERARCHY_ALERT_MODAL]: CreateHierarchyAlertModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

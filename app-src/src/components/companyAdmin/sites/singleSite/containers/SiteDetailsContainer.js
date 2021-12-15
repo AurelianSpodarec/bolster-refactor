@@ -11,6 +11,7 @@ import {
     ERROR_MODAL,
     CONFIRM_ARCHIVE,
     EDIT_SITE,
+    CREATE_HIERARCHY_ALERT_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import deleteSite from 'actions/companyAdmin/sites/async/deleteSite';
@@ -28,6 +29,7 @@ class SiteDetailsContainer extends Component {
             value: service.id,
             text: service.name,
         }));
+
         return (
             <BlockContainer
                 error={error}
@@ -44,21 +46,15 @@ class SiteDetailsContainer extends Component {
                     handleChange={this.handleChange}
                     serviceOptions={servicesForDropdown}
                     serviceID={serviceID}
+                    handleCreateHierarchyAlertModal={this.handleCreateHierarchyAlertModal}
                 />
             </BlockContainer>
         );
     }
 
     componentDidUpdate = prevProps => {
-        const {
-            error,
-            deleteSuccess,
-            postSuccess,
-            postFailure,
-            history,
-            showModal,
-            hideModal,
-        } = this.props;
+        const { error, deleteSuccess, postSuccess, postFailure, history, showModal, hideModal } =
+            this.props;
         if (deleteSuccess && !prevProps.deleteSuccess) {
             hideModal();
             history.push('/company/sites');
@@ -80,6 +76,11 @@ class SiteDetailsContainer extends Component {
                     '##There was an error processing your request, please try again later.##',
             });
         }
+    };
+
+    handleCreateHierarchyAlertModal = () => {
+        const { showModal } = this.props;
+        showModal(CREATE_HIERARCHY_ALERT_MODAL, { hierarchy: 'Site' });
     };
 
     handleEditSiteModal = () => {

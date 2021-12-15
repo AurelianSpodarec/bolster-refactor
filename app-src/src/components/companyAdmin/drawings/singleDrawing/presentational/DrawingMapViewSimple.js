@@ -11,7 +11,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import { ACCESS_TYPES_VALUES, FLOORPLAN_STATES } from 'constants/companyAdmin/enums';
-import { EDIT_DRAWING } from 'constants/shared/modalTypes';
+import { CREATE_HIERARCHY_ALERT_MODAL, EDIT_DRAWING } from 'constants/shared/modalTypes';
 import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
 import RedX from 'components/shared/pins/map/presentational/RedX';
 import PinSelectorOptions from 'components/shared/pinSelector/presentational/PinSelectorOptions';
@@ -20,6 +20,7 @@ import AddCreditsToDrawingButtonContainer from '../../addCreditsToDrawing/contai
 import DrawingMapAddZone from './DrawingMapAddZone';
 import DrawingMapViewZones from './DrawingMapViewZones';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import { useDispatch } from 'react-redux';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 
@@ -62,6 +63,7 @@ const DrawingMapViewSimple = ({
     shouldRestrictPayments,
     drawingNotStarted,
 }) => {
+    const dispatch = useDispatch();
     const mapRef = useRef();
 
     const newPinIcon = L.divIcon({
@@ -80,6 +82,10 @@ const DrawingMapViewSimple = ({
         popupAnchor: [0, -50],
     });
     const shouldShowFloorplan = !!drawing.tilesetS3Key && !updating;
+
+    const handleCreateHierarchyAlertModal = () => {
+        dispatch(showModal(CREATE_HIERARCHY_ALERT_MODAL, { hierarchy: 'Drawing' }));
+    };
 
     return (
         <>
@@ -171,7 +177,11 @@ const DrawingMapViewSimple = ({
                                                 />
                                             </>
                                         )}
-                                    <button className="button green" type="button">
+                                    <button
+                                        className="button green"
+                                        type="button"
+                                        onClick={handleCreateHierarchyAlertModal}
+                                    >
                                         <i className="fa fa-plus" />
                                         Create Alert
                                     </button>

@@ -13,6 +13,7 @@ import {
     SUCCESS_MODAL,
     CONFIRM_ARCHIVE,
     EDIT_FLOOR,
+    CREATE_HIERARCHY_ALERT_MODAL,
 } from 'constants/shared/modalTypes';
 import archiveFloor from 'actions/companyAdmin/floors/async/archiveFloor';
 
@@ -45,6 +46,7 @@ class FloorDetailsContainer extends Component {
                     handleChange={this.handleChange}
                     serviceOptions={servicesForDropdown}
                     serviceID={serviceID}
+                    handleCreateHierarchyAlertModal={this.handleCreateHierarchyAlertModal}
                 />
             </BlockContainer>
         );
@@ -82,6 +84,11 @@ class FloorDetailsContainer extends Component {
                     '##There was an error processing your request, please try again later.##',
             });
         }
+    };
+
+    handleCreateHierarchyAlertModal = () => {
+        const { showModal } = this.props;
+        showModal(CREATE_HIERARCHY_ALERT_MODAL, { hierarchy: 'Floor' });
     };
 
     handleEditFloorModal = () => {

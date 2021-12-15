@@ -14,6 +14,7 @@ const BuildingStats = ({
     handleChange,
     serviceID,
     serviceOptions,
+    handleCreateHierarchyAlertModal,
 }) => (
     <div className="stats size-lg-12">
         <div className="flex-item size-lg-12">
@@ -47,7 +48,11 @@ const BuildingStats = ({
                 {building.isArchived ? 'Un-Archive' : 'Archive'}
             </button>
 
-            <button className="button green" type="button">
+            <button
+                className="button green"
+                type="button"
+                onClick={handleCreateHierarchyAlertModal}
+            >
                 <i className="fa fa-plus" />
                 Create Alert
             </button>

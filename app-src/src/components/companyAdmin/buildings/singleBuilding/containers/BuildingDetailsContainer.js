@@ -12,6 +12,7 @@ import {
     ERROR_MODAL,
     CONFIRM_ARCHIVE,
     EDIT_BUILDING,
+    CREATE_HIERARCHY_ALERT_MODAL,
 } from 'constants/shared/modalTypes';
 import deleteBuilding from 'actions/companyAdmin/buildings/async/deleteBuilding';
 import archiveBuilding from 'actions/companyAdmin/buildings/async/archiveBuilding';
@@ -45,6 +46,7 @@ class BuildingDetailsContainer extends Component {
                     handleChange={this.handleChange}
                     serviceOptions={servicesForDropdown}
                     serviceID={serviceID}
+                    handleCreateHierarchyAlertModal={this.handleCreateHierarchyAlertModal}
                 />
             </BlockContainer>
         );
@@ -95,6 +97,11 @@ class BuildingDetailsContainer extends Component {
                     'There was an error processing your request, please try again later.',
             });
         }
+    };
+
+    handleCreateHierarchyAlertModal = () => {
+        const { showModal } = this.props;
+        showModal(CREATE_HIERARCHY_ALERT_MODAL, { hierarchy: 'Building' });
     };
 
     handleEditBuildingModal = () => {
