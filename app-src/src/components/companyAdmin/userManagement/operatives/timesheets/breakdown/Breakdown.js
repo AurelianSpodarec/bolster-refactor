@@ -79,6 +79,8 @@ const Breakdown = ({
                                 <DayBreakdownOverview
                                     selectedDate={selectedDate}
                                     timesheets={timesheets}
+                                    handlePDFReportGeneration={handlePDFReportGeneration}
+                                    disableReportGenPin={disableReportGenPin}
                                 />
                             ),
                         },
@@ -97,8 +99,6 @@ const Breakdown = ({
                     isLoading={isFetching}
                     error={fetchError}
                     noData={isEmpty(timesheets)}
-                    handlePDFReportGeneration={handlePDFReportGeneration}
-                    disableReportGenPin={disableReportGenPin}
                 />
             );
         default:
