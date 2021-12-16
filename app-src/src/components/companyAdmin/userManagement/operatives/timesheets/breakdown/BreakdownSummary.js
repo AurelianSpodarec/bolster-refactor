@@ -54,7 +54,7 @@ const BreakdownSummary = ({
                         {clockOut ? (
                             <>
                                 <DateTimeContainer datetime={DATE_TIME_IDS.TIME} date={clockOut} />
-                                {dayDifference > 0 && '(+' + dayDifference + ' d)'}
+                                {dayDifference > 0 && '(+' + dayDifference + 'd)'}
                             </>
                         ) : (
                             'N/A'

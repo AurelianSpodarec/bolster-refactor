@@ -1,4 +1,5 @@
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import useDateTime from 'components/shared/dateTime/hooks/useDateTime';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import { formatAsHrsMinsSecs } from 'helpers/generic';
@@ -40,7 +41,9 @@ const UserTable = ({ date, day, initialRows = 7, timesheets }) => {
                     clockIn,
                     clockOut,
                 } = useDayOverview(timesheet, date);
-
+                const { moment: clockInMoment } = useDateTime(clockIn);
+                const { moment: clockOutMoment } = useDateTime(clockOut);
+                const dayDifference = clockOutMoment.diff(clockInMoment, 'days');
                 const [initialDate] = date.split('T');
 
                 return (
@@ -77,10 +80,13 @@ const UserTable = ({ date, day, initialRows = 7, timesheets }) => {
                                 </td>
                                 <td>
                                     {clockOut ? (
-                                        <DateTimeContainer
-                                            date={clockOut}
-                                            datetime={DATE_TIME_IDS.TIME}
-                                        />
+                                        <>
+                                            <DateTimeContainer
+                                                date={clockOut}
+                                                datetime={DATE_TIME_IDS.TIME}
+                                            />
+                                            {dayDifference > 0 && '(+' + dayDifference + 'd)'}
+                                        </>
                                     ) : (
                                         'N/A'
                                     )}
