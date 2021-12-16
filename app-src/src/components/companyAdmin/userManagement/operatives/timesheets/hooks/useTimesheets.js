@@ -27,6 +27,7 @@ import {
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import { timesheetFilter } from '../breakdown/dayBreakdown/hooks/useOverviewFilters';
 import { useQuery } from 'helpers/hooks';
+import { days } from 'constants/companyAdmin/timesheets';
 
 const useTimesheets = () => {
     const dispatch = useDispatch();
@@ -52,9 +53,6 @@ const useTimesheets = () => {
     const errorReportGenPins = useSelector(selectUserPinFeedsFetchError);
     const serviceIDs = useSelector(selectServiceIDs);
 
-    console.log({ isFetchingReportGenPins });
-    console.log({ errorReportGenPins });
-
     const thisWeek = initialDate
         ? moment(initialDate).tz(timeZone.id).startOf('isoWeek').format()
         : moment(new Date()).tz(timeZone.id).startOf('isoWeek').format();
@@ -63,18 +61,13 @@ const useTimesheets = () => {
         ? moment(initialDate).tz(timeZone.id).startOf('day').format()
         : moment(new Date()).tz(timeZone.id).startOf('day').format();
 
+    const [companyUserOptions, setCompanyUserOptions] = useState([]);
+    const [timesheetCompanyUserIDs, setTimesheetCompanyUserIDs] = useState([]);
     const [startDate, setStartDate] = useState(thisWeek);
     const [selectedDate, setSelectedDate] = useState(thisDay);
     const [timePeriod, setTimePeriod] = useState(TIME_PERIOD.DAY);
     const [companyUserIDs, setCompanyUserIDs] = useState(id ? [parseInt(id)] : []);
-
-    const timesheetCompanyUserIDs = [
-        ...new Set(
-            timesheets
-                .filter(timesheetFilter(true, selectedDate))
-                .map(({ companyUserID }) => companyUserID),
-        ),
-    ];
+    const [filterByHasClockedIn, setFilterByHasClockedIn] = useState(true);
 
     const onPrev = () => {
         const newStartDate = moment(startDate).subtract(7, 'days').format();
@@ -173,12 +166,49 @@ const useTimesheets = () => {
         dispatch(fetchCompanyUsers());
     }, [dispatch]);
 
-    const companyUserOptions =
-        companyUsers != null
-            ? Object.values(companyUsers)
-                  .filter(filterHasClockInData(timesheetCompanyUserIDs))
-                  .map(getCompanyUserOption)
-            : [];
+    useEffect(() => {
+        if (filterByHasClockedIn) {
+            if (timePeriod === TIME_PERIOD.DAY) {
+                setTimesheetCompanyUserIDs([
+                    ...new Set(
+                        timesheets
+                            .filter(timesheetFilter(true, selectedDate))
+                            .map(({ companyUserID }) => companyUserID),
+                    ),
+                ]);
+            } else {
+                const weekCompanyUserOptions = days.reduce((res, _, i) => {
+                    const currentDate = moment(selectedDate).add(i, 'days').format();
+                    res = [
+                        ...res,
+                        ...new Set(
+                            timesheets
+                                .filter(timesheetFilter(true, currentDate))
+                                .map(({ companyUserID }) => companyUserID),
+                        ),
+                    ];
+
+                    return res;
+                }, []);
+
+                setTimesheetCompanyUserIDs(weekCompanyUserOptions);
+            }
+        } else {
+            setTimesheetCompanyUserIDs([
+                ...new Set(timesheets.map(({ companyUserID }) => companyUserID)),
+            ]);
+        }
+    }, [selectedDate, filterByHasClockedIn]);
+
+    useEffect(() => {
+        setCompanyUserOptions(
+            companyUsers != null
+                ? Object.values(companyUsers)
+                      .filter(filterHasClockInData(timesheetCompanyUserIDs))
+                      .map(getCompanyUserOption)
+                : [],
+        );
+    }, [timesheetCompanyUserIDs]);
 
     return {
         startDate,
@@ -193,6 +223,8 @@ const useTimesheets = () => {
         totals,
         disableReportGenPin:
             isFetchingReportGenPins || (!isFetchingReportGenPins && errorReportGenPins),
+        filterByHasClockedIn,
+        setFilterByHasClockedIn,
         onPrev,
         onNext,
         onToday,

@@ -15,31 +15,41 @@ import PieChart from 'components/shared/stats/presentational/PieChart';
 
 import { isEmpty } from 'helpers/generic';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const DayBreakdownOverview = ({ selectedDate, timesheets }) => {
+const DayBreakdownOverview = ({
+    selectedDate,
+    timesheets,
+    handlePDFReportGeneration,
+    disableReportGenPin,
+    filterByHasClockedIn,
+    setFilterByHasClockedIn,
+}) => {
     const [userIDs, setUserIDs] = useState([]);
     const {
         formState: { filterType, filterDirection },
         handleChange,
-        filterByHasClockedIn,
-        setFilterByHasClockedIn,
     } = useOverviewFilters();
 
     useEffect(() => {
         setUserIDs(timesheets.map(({ companyUserID }) => companyUserID));
     }, [timesheets]);
 
-    const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
+    const {
+        isFetching: statsIsFetching,
+        fetchError: statsFetchError,
+        stats,
+    } = usePinStats(
         userIDs,
         moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
         moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
     );
 
-    const { isFetching: feedIsFetching, fetchError: feedFetchError, feed } = usePinFeed(
-        userIDs,
-        moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
-        false,
-    );
+    const {
+        isFetching: feedIsFetching,
+        fetchError: feedFetchError,
+        feed,
+    } = usePinFeed(userIDs, moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'), false);
 
     return (
         <BreakdownColumns
@@ -72,6 +82,16 @@ const DayBreakdownOverview = ({ selectedDate, timesheets }) => {
                             error={statsFetchError}
                             isEmpty={isEmpty(stats) || statsIsFetching}
                         >
+                            <BlockHeading title="" style={{ marginBottom: 48 }}>
+                                <button
+                                    className={`button ${disableReportGenPin ? 'disabled' : ''}`}
+                                    onClick={handlePDFReportGeneration}
+                                    disabled={disableReportGenPin}
+                                >
+                                    <i className="fas fa-file-pdf" />
+                                    Generate Report
+                                </button>
+                            </BlockHeading>
                             <PieChart
                                 stats={stats}
                                 noDataMessageOverride={
