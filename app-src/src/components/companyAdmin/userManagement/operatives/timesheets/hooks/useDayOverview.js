@@ -12,7 +12,6 @@ const useDayOverview = (timesheet, selectedDate) => {
         clockerEntries,
         clockerNotes = [],
     } = useDay(timesheet, selectedDate);
-
     const timeline = useTimeline(clockerEntries ?? []);
     const clockIn = timeline[0]?.clockIn?.timestamp;
     const clockOut = timeline[timeline.length - 1]?.clockOut?.timestamp;

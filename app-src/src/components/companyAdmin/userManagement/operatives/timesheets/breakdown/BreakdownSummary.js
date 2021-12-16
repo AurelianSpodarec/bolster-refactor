@@ -6,6 +6,7 @@ import { formatAsHrsMinsSecs } from 'helpers/generic';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS, TIME_PERIOD } from 'constants/companyAdmin/enums';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import useDateTime from 'components/shared/dateTime/hooks/useDateTime';
 
 const BreakdownSummary = ({
     name,
@@ -19,7 +20,9 @@ const BreakdownSummary = ({
     timePeriod = TIME_PERIOD.DAY,
 }) => {
     const filteredJobReferences = jobReferences.filter(jobReference => jobReference);
-
+    const { moment: clockInMoment } = useDateTime(clockIn);
+    const { moment: clockOutMoment } = useDateTime(clockOut);
+    const dayDifference = clockOutMoment.diff(clockInMoment, 'days');
     return (
         <div className="breakdown-summary">
             {name && <BlockHeading title={name} classes="with-underline" />}
@@ -49,7 +52,10 @@ const BreakdownSummary = ({
                     </FieldOutput>
                     <FieldOutput title="Last Clocked Out" sizeClass="size-lg-6">
                         {clockOut ? (
-                            <DateTimeContainer datetime={DATE_TIME_IDS.TIME} date={clockOut} />
+                            <>
+                                <DateTimeContainer datetime={DATE_TIME_IDS.TIME} date={clockOut} />
+                                {dayDifference > 0 && '(+' + dayDifference + 'd)'}
+                            </>
                         ) : (
                             'N/A'
                         )}
