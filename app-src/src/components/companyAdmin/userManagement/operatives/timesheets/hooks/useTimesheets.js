@@ -27,6 +27,7 @@ import {
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import { timesheetFilter } from '../breakdown/dayBreakdown/hooks/useOverviewFilters';
 import { useQuery } from 'helpers/hooks';
+import { days } from 'constants/companyAdmin/timesheets';
 
 const useTimesheets = () => {
     const dispatch = useDispatch();
@@ -167,13 +168,31 @@ const useTimesheets = () => {
 
     useEffect(() => {
         if (filterByHasClockedIn) {
-            setTimesheetCompanyUserIDs([
-                ...new Set(
-                    timesheets
-                        .filter(timesheetFilter(true, selectedDate))
-                        .map(({ companyUserID }) => companyUserID),
-                ),
-            ]);
+            if (timePeriod === TIME_PERIOD.DAY) {
+                setTimesheetCompanyUserIDs([
+                    ...new Set(
+                        timesheets
+                            .filter(timesheetFilter(true, selectedDate))
+                            .map(({ companyUserID }) => companyUserID),
+                    ),
+                ]);
+            } else {
+                const weekCompanyUserOptions = days.reduce((res, _, i) => {
+                    const currentDate = moment(selectedDate).add(i, 'days').format();
+                    res = [
+                        ...res,
+                        ...new Set(
+                            timesheets
+                                .filter(timesheetFilter(true, currentDate))
+                                .map(({ companyUserID }) => companyUserID),
+                        ),
+                    ];
+
+                    return res;
+                }, []);
+
+                setTimesheetCompanyUserIDs(weekCompanyUserOptions);
+            }
         } else {
             setTimesheetCompanyUserIDs([
                 ...new Set(timesheets.map(({ companyUserID }) => companyUserID)),
