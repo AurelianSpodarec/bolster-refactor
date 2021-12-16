@@ -16,14 +16,25 @@ import BreakdownNotes from '../BreakdownNotes';
 import BreakdownOverviewFilters from '../../breakdown/dayBreakdown/BreakdownOverviewFilters';
 import useOverviewFilters from '../../breakdown/dayBreakdown/hooks/useOverviewFilters';
 
-const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchError }) => {
+const WeekBreakdownOverview = ({
+    selectedDate,
+    timesheets,
+    isFetching,
+    fetchError,
+    filterByHasClockedIn,
+    setFilterByHasClockedIn,
+}) => {
     const isSingleUser = timesheets.length === 1;
 
     const [userIDs, setUserIDs] = useState([]);
     useEffect(() => {
         setUserIDs(timesheets.map(({ companyUserID }) => companyUserID));
     }, [timesheets]);
-    const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
+    const {
+        isFetching: statsIsFetching,
+        fetchError: statsFetchError,
+        stats,
+    } = usePinStats(
         userIDs,
         moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
         moment(selectedDate).endOf('week').format('YYYY-MM-DDTHH:mm:ss'),
@@ -32,15 +43,13 @@ const WeekBreakdownOverview = ({ selectedDate, timesheets, isFetching, fetchErro
     const {
         formState: { filterType, filterDirection },
         handleChange,
-        filterByHasClockedIn,
-        setFilterByHasClockedIn,
     } = useOverviewFilters();
 
-    const { isFetching: feedIsFetching, fetchError: feedFetchError, feed } = usePinFeed(
-        userIDs,
-        moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
-        true,
-    );
+    const {
+        isFetching: feedIsFetching,
+        fetchError: feedFetchError,
+        feed,
+    } = usePinFeed(userIDs, moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'), true);
 
     if (!isSingleUser) {
         return (

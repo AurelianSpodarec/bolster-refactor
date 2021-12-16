@@ -17,6 +17,8 @@ const Breakdown = ({
     timesheets,
     handlePDFReportGeneration,
     disableReportGenPin,
+    filterByHasClockedIn,
+    setFilterByHasClockedIn,
 }) => {
     switch (timePeriod) {
         case TIME_PERIOD.WEEK:
@@ -47,6 +49,8 @@ const Breakdown = ({
                                     timesheets={timesheets}
                                     isFetching={isFetching}
                                     fetchError={fetchError}
+                                    filterByHasClockedIn={filterByHasClockedIn}
+                                    setFilterByHasClockedIn={setFilterByHasClockedIn}
                                 />
                             ),
                         },
@@ -81,6 +85,8 @@ const Breakdown = ({
                                     timesheets={timesheets}
                                     handlePDFReportGeneration={handlePDFReportGeneration}
                                     disableReportGenPin={disableReportGenPin}
+                                    filterByHasClockedIn={filterByHasClockedIn}
+                                    setFilterByHasClockedIn={setFilterByHasClockedIn}
                                 />
                             ),
                         },

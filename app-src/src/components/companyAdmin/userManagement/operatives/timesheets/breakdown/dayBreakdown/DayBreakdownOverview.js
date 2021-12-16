@@ -22,13 +22,13 @@ const DayBreakdownOverview = ({
     timesheets,
     handlePDFReportGeneration,
     disableReportGenPin,
+    filterByHasClockedIn,
+    setFilterByHasClockedIn,
 }) => {
     const [userIDs, setUserIDs] = useState([]);
     const {
         formState: { filterType, filterDirection },
         handleChange,
-        filterByHasClockedIn,
-        setFilterByHasClockedIn,
     } = useOverviewFilters();
 
     useEffect(() => {

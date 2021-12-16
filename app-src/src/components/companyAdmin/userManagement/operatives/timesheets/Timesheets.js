@@ -27,6 +27,8 @@ const Timesheets = () => {
         onDaySelect,
         onWeekSelect,
         handlePDFReportGeneration,
+        filterByHasClockedIn,
+        setFilterByHasClockedIn,
     } = useTimesheets();
 
     return (
@@ -78,6 +80,8 @@ const Timesheets = () => {
                 timesheets={timesheets}
                 handlePDFReportGeneration={handlePDFReportGeneration}
                 disableReportGenPin={disableReportGenPin}
+                filterByHasClockedIn={filterByHasClockedIn}
+                setFilterByHasClockedIn={setFilterByHasClockedIn}
             />
         </>
     );
