@@ -198,7 +198,7 @@ const useTimesheets = () => {
                 ...new Set(timesheets.map(({ companyUserID }) => companyUserID)),
             ]);
         }
-    }, [selectedDate, companyUserIDs, filterByHasClockedIn]);
+    }, [timesheets, selectedDate, companyUserIDs, filterByHasClockedIn]);
 
     useEffect(() => {
         setCompanyUserOptions(
@@ -208,7 +208,7 @@ const useTimesheets = () => {
                       .map(getCompanyUserOption)
                 : [],
         );
-    }, [timesheetCompanyUserIDs]);
+    }, [companyUsers, timesheetCompanyUserIDs]);
 
     return {
         startDate,

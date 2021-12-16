@@ -49,6 +49,8 @@ const Controls = ({
                         <i className="far fa-calendar-week"></i> Today
                     </ButtonContainer>
 
+                    {console.log('companyUserOptions', companyUserOptions)}
+
                     <div className="end">
                         <MultiSelect
                             options={companyUserOptions}
