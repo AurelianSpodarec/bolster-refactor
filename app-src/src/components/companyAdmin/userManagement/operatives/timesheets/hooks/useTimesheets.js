@@ -67,7 +67,7 @@ const useTimesheets = () => {
     const [selectedDate, setSelectedDate] = useState(thisDay);
     const [timePeriod, setTimePeriod] = useState(TIME_PERIOD.DAY);
     const [companyUserIDs, setCompanyUserIDs] = useState(id ? [parseInt(id)] : []);
-    const [filterByHasClockedIn, setFilterByHasClockedIn] = useState(true);
+    const [filterByHasClockedIn, setFilterByHasClockedIn] = useState(!id);
 
     const onPrev = () => {
         const newStartDate = moment(startDate).subtract(7, 'days').format();
@@ -198,7 +198,7 @@ const useTimesheets = () => {
                 ...new Set(timesheets.map(({ companyUserID }) => companyUserID)),
             ]);
         }
-    }, [selectedDate, filterByHasClockedIn]);
+    }, [selectedDate, companyUserIDs, filterByHasClockedIn]);
 
     useEffect(() => {
         setCompanyUserOptions(
