@@ -15,7 +15,7 @@ const BreakdownOverviewFilters = ({
 }) => {
     return (
         <div className="filters">
-            <Field name="Filter By">
+            <Field name="Sort By">
                 <Select
                     name="filterType"
                     value={filterType}
@@ -24,7 +24,14 @@ const BreakdownOverviewFilters = ({
                     omitPlaceholder
                 />
             </Field>
-            <Field name="Sort by">
+            <button
+                className="button"
+                onClick={() => handleChange('filterDirection', filterDirection > 0 ? 0 : 1)}
+            >
+                <i className={`fas fa-arrow-up ${filterDirection > 0 ? 'asc' : 'desc'}`} />
+            </button>
+
+            <Field name="Filter by">
                 <div className="size-lg-6">
                     <RadioButton
                         name="filterByHasClockedIn"
@@ -44,12 +51,6 @@ const BreakdownOverviewFilters = ({
                     />
                 </div>
             </Field>
-            <button
-                className="button"
-                onClick={() => handleChange('filterDirection', filterDirection > 0 ? 0 : 1)}
-            >
-                <i className={`fas fa-arrow-up ${filterDirection > 0 ? 'asc' : 'desc'}`} />
-            </button>
         </div>
     );
 };
