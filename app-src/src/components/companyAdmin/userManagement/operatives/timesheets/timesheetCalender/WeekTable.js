@@ -22,6 +22,7 @@ const WeekTable = ({
             isFetching={isFetching}
             error={fetchError}
             noData={isEmpty(timesheets)}
+            showLoaderWhenFetching={true}
         >
             <tr>
                 <WeekTableInner
