@@ -62,7 +62,7 @@ const useTimesheets = () => {
     const [selectedDate, setSelectedDate] = useState(thisDay);
     const [timePeriod, setTimePeriod] = useState(TIME_PERIOD.DAY);
     const [companyUserIDs, setCompanyUserIDs] = useState(id ? [parseInt(id)] : []);
-    const [filterByHasClockedIn, setFilterByHasClockedIn] = useState(!id);
+    const [filterByHasClockedIn, setFilterByHasClockedIn] = useState(true);
 
     const onPrev = () => {
         const newStartDate = moment(startDate).subtract(7, 'days').format();
