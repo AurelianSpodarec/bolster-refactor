@@ -1,15 +1,22 @@
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import useDateTime from 'components/shared/dateTime/hooks/useDateTime';
+import { getDateTime } from 'components/shared/dateTime/hooks/useDateTime';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import { formatAsHrsMinsSecs } from 'helpers/generic';
-import moment from 'moment';
 import React, { Fragment, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import {
+    selectCompanyTimeZone,
+    selectCompanyDateFormat,
+} from 'selectors/companyAdmin/companySettings';
 import useDayOverview from '../../hooks/useDayOverview';
 
 const UserTable = ({ date, day, initialRows = 7, timesheets }) => {
     const [expanded, setExpanded] = useState(false);
+
+    const timeZone = useSelector(selectCompanyTimeZone);
+    const dateFormat = useSelector(selectCompanyDateFormat);
 
     return (
         <>
@@ -41,8 +48,8 @@ const UserTable = ({ date, day, initialRows = 7, timesheets }) => {
                     clockIn,
                     clockOut,
                 } = useDayOverview(timesheet, date);
-                const { moment: clockInMoment } = useDateTime(clockIn);
-                const { moment: clockOutMoment } = useDateTime(clockOut);
+                const { moment: clockInMoment } = getDateTime(clockIn, timeZone, dateFormat);
+                const { moment: clockOutMoment } = getDateTime(clockOut, timeZone, dateFormat);
                 const clockInDay = clockInMoment.startOf('day');
                 const clockOutDay = clockOutMoment.startOf('day');
                 const dayDifference = clockOutDay.diff(clockInDay, 'days');
