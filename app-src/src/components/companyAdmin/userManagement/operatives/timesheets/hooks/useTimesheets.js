@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import fetchTimesheetsWeek from 'actions/companyAdmin/timesheets/async/fetchTimesheetsWeek';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import {
     selectTimesheets,
     selectTimesheetsFetchError,
@@ -26,8 +26,9 @@ import {
 } from 'selectors/companyAdmin/companyUsers';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import { timesheetFilter } from '../breakdown/dayBreakdown/hooks/useOverviewFilters';
-import { useQuery } from 'helpers/hooks';
+import { usePrevious, useQuery } from 'helpers/hooks';
 import { days } from 'constants/companyAdmin/timesheets';
+import { areArraysEqual } from 'helpers/generic';
 
 const useTimesheets = () => {
     const dispatch = useDispatch();
@@ -37,8 +38,6 @@ const useTimesheets = () => {
     const { id } = useParams();
 
     const query = useQuery();
-
-    const initialDate = query.get('date');
 
     const companyUsersIsFetching = useSelector(selectCompanyUsersIsFetching);
     const companyUsersFetchError = useSelector(selectCompanyUsersFetchError);
@@ -53,13 +52,9 @@ const useTimesheets = () => {
     const errorReportGenPins = useSelector(selectUserPinFeedsFetchError);
     const serviceIDs = useSelector(selectServiceIDs);
 
-    const thisWeek = initialDate
-        ? moment(initialDate).tz(timeZone.id).startOf('isoWeek').format()
-        : moment(new Date()).tz(timeZone.id).startOf('isoWeek').format();
-
-    const thisDay = initialDate
-        ? moment(initialDate).tz(timeZone.id).startOf('day').format()
-        : moment(new Date()).tz(timeZone.id).startOf('day').format();
+    const initialDate = query.get('date') || new Date();
+    const thisWeek = moment(initialDate).tz(timeZone.id).startOf('isoWeek').format();
+    const thisDay = moment(initialDate).tz(timeZone.id).startOf('day').format();
 
     const [companyUserOptions, setCompanyUserOptions] = useState([]);
     const [timesheetCompanyUserIDs, setTimesheetCompanyUserIDs] = useState([]);
@@ -156,42 +151,57 @@ const useTimesheets = () => {
         })),
     );
 
+    const prevProps = usePrevious({ companyUserIDs, startDate });
+
     useEffect(() => {
-        dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
+        if (
+            !areArraysEqual(companyUserIDs, prevProps.companyUserIDs) ||
+            startDate !== prevProps.startDate
+        ) {
+            dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
+        }
         // if (!isAllUsers) dispatch(fetchTimesheetsWeek(id, startDate));
         // else console.log('fetch for all users here');
     }, [dispatch, companyUserIDs, startDate]);
 
     useEffect(() => {
+        // on first mount
+        dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
         dispatch(fetchCompanyUsers());
     }, [dispatch]);
 
     useEffect(() => {
-        if (filterByHasClockedIn) {
-            if (timePeriod === TIME_PERIOD.DAY) {
-                setTimesheetCompanyUserIDs([
-                    ...new Set(
-                        timesheets
-                            .filter(timesheetFilter(true, selectedDate))
-                            .map(({ companyUserID }) => companyUserID),
-                    ),
-                ]);
-            } else {
-                const weekCompanyUserOptions = days.reduce((res, _, i) => {
-                    const currentDate = moment(selectedDate).add(i, 'days').format();
-                    res = [
-                        ...res,
+        if (timesheets.length > 1) {
+            if (filterByHasClockedIn) {
+                if (timePeriod === TIME_PERIOD.DAY) {
+                    setTimesheetCompanyUserIDs([
                         ...new Set(
                             timesheets
-                                .filter(timesheetFilter(true, currentDate))
+                                .filter(timesheetFilter(true, selectedDate))
                                 .map(({ companyUserID }) => companyUserID),
                         ),
-                    ];
+                    ]);
+                } else {
+                    const weekCompanyUserOptions = days.reduce((res, _, i) => {
+                        const currentDate = moment(selectedDate).add(i, 'days').format();
+                        res = [
+                            ...res,
+                            ...new Set(
+                                timesheets
+                                    .filter(timesheetFilter(true, currentDate))
+                                    .map(({ companyUserID }) => companyUserID),
+                            ),
+                        ];
 
-                    return res;
-                }, []);
+                        return res;
+                    }, []);
 
-                setTimesheetCompanyUserIDs(weekCompanyUserOptions);
+                    setTimesheetCompanyUserIDs(weekCompanyUserOptions);
+                }
+            } else {
+                setTimesheetCompanyUserIDs([
+                    ...new Set(timesheets.map(({ companyUserID }) => companyUserID)),
+                ]);
             }
         } else {
             setTimesheetCompanyUserIDs([
@@ -201,14 +211,11 @@ const useTimesheets = () => {
     }, [timesheets, selectedDate, companyUserIDs, filterByHasClockedIn]);
 
     useEffect(() => {
-        setCompanyUserOptions(
-            companyUsers != null
-                ? Object.values(companyUsers)
-                      .filter(filterHasClockInData(timesheetCompanyUserIDs))
-                      .map(getCompanyUserOption)
-                : [],
-        );
-    }, [companyUsers, timesheetCompanyUserIDs]);
+        const companyUserOptions = Object.values(companyUsers ?? [])
+            .filter(filterHasClockInData(timesheetCompanyUserIDs))
+            .map(getCompanyUserOption);
+        setCompanyUserOptions(companyUserOptions);
+    }, [timesheetCompanyUserIDs]);
 
     return {
         startDate,

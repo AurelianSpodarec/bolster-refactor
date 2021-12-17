@@ -22,7 +22,10 @@ const BreakdownSummary = ({
     const filteredJobReferences = jobReferences.filter(jobReference => jobReference);
     const { moment: clockInMoment } = useDateTime(clockIn);
     const { moment: clockOutMoment } = useDateTime(clockOut);
-    const dayDifference = clockOutMoment.diff(clockInMoment, 'days');
+    const clockInDay = clockInMoment.startOf('day');
+    const clockOutDay = clockOutMoment.startOf('day');
+    const dayDifference = clockOutDay.diff(clockInDay, 'days');
+
     return (
         <div className="breakdown-summary">
             {name && <BlockHeading title={name} classes="with-underline" />}
