@@ -51,6 +51,8 @@ const Breakdown = ({
                                     fetchError={fetchError}
                                     filterByHasClockedIn={filterByHasClockedIn}
                                     setFilterByHasClockedIn={setFilterByHasClockedIn}
+                                    handlePDFReportGeneration={handlePDFReportGeneration}
+                                    disableReportGenPin={disableReportGenPin}
                                 />
                             ),
                         },

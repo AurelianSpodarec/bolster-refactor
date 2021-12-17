@@ -23,6 +23,8 @@ const WeekBreakdownOverview = ({
     fetchError,
     filterByHasClockedIn,
     setFilterByHasClockedIn,
+    disableReportGenPin,
+    handlePDFReportGeneration,
 }) => {
     const isSingleUser = timesheets.length === 1;
 
@@ -55,7 +57,16 @@ const WeekBreakdownOverview = ({
         return (
             <>
                 {' '}
-                <div style={{ marginBottom: '1rem' }} />
+                <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '1rem 0' }}>
+                    <button
+                        className={`button ${disableReportGenPin ? 'disabled' : ''}`}
+                        onClick={handlePDFReportGeneration}
+                        disabled={disableReportGenPin}
+                    >
+                        <i className="fas fa-file-pdf" />
+                        Generate Report
+                    </button>
+                </div>
                 <BreakdownOverviewFilters
                     filterType={filterType}
                     filterDirection={filterDirection}
