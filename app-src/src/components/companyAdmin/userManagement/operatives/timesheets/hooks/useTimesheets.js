@@ -38,8 +38,6 @@ const useTimesheets = () => {
 
     const query = useQuery();
 
-    const initialDate = query.get('date');
-
     const companyUsersIsFetching = useSelector(selectCompanyUsersIsFetching);
     const companyUsersFetchError = useSelector(selectCompanyUsersFetchError);
     const companyUsers = useSelector(selectCompanyUsers);
@@ -53,13 +51,9 @@ const useTimesheets = () => {
     const errorReportGenPins = useSelector(selectUserPinFeedsFetchError);
     const serviceIDs = useSelector(selectServiceIDs);
 
-    const thisWeek = initialDate
-        ? moment(initialDate).tz(timeZone.id).startOf('isoWeek').format()
-        : moment(new Date()).tz(timeZone.id).startOf('isoWeek').format();
-
-    const thisDay = initialDate
-        ? moment(initialDate).tz(timeZone.id).startOf('day').format()
-        : moment(new Date()).tz(timeZone.id).startOf('day').format();
+    const initialDate = query.get('date') || new Date();
+    const thisWeek = moment(initialDate).tz(timeZone.id).startOf('isoWeek').format();
+    const thisDay = moment(initialDate).tz(timeZone.id).startOf('day').format();
 
     const [companyUserOptions, setCompanyUserOptions] = useState([]);
     const [timesheetCompanyUserIDs, setTimesheetCompanyUserIDs] = useState([]);
