@@ -28,6 +28,7 @@ import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCo
 import { timesheetFilter } from '../breakdown/dayBreakdown/hooks/useOverviewFilters';
 import { useQuery } from 'helpers/hooks';
 import { days } from 'constants/companyAdmin/timesheets';
+import { areArraysEqual } from 'helpers/generic';
 
 const useTimesheets = () => {
     const dispatch = useDispatch();
@@ -150,8 +151,15 @@ const useTimesheets = () => {
         })),
     );
 
+    const prevProps = useEffect({ companyUserIDs, startDate });
+
     useEffect(() => {
-        dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
+        if (
+            !areArraysEqual(companyUserIDs, prevProps.companyUserIDs) ||
+            startDate !== prevProps.startDate
+        ) {
+            dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
+        }
         // if (!isAllUsers) dispatch(fetchTimesheetsWeek(id, startDate));
         // else console.log('fetch for all users here');
     }, [dispatch, companyUserIDs, startDate]);
