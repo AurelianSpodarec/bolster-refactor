@@ -38,7 +38,8 @@ const WeekTableInner = ({
     return (
         <>
             {totals.map(({ date, totalPins, formattedHours, jobReferences }, i) => {
-                const filteredJobReferences = jobReferences.filter(reference => reference);
+                const filteredJobReferences = jobReferences.filter(Boolean);
+
                 return (
                     <td key={i} onClick={() => onDaySelect(date)}>
                         <div className="date">
@@ -46,15 +47,20 @@ const WeekTableInner = ({
                             <p className="full">{moment(date).format('dddd DD')}</p>
                             <i className="fal fa-circle" />
                         </div>
-                        {jobReferences.length > 0 && (
-                            <div className="tabs">
-                                <Tab icon={<i className="fal fa-stopwatch" />}>
-                                    {formatAsHrsMinsSecs(formattedHours)}
-                                </Tab>
+
+                        <div className="tabs">
+                            {totalPins > 0 && (
                                 <Tab icon={<img src={timesheetPin} />}>
                                     {totalPins} Pin Histories
                                 </Tab>
-                                {timesheets.length > 0 && (
+                            )}
+
+                            {formattedHours > 0 && (
+                                <>
+                                    <Tab icon={<i className="fal fa-stopwatch" />}>
+                                        {formatAsHrsMinsSecs(formattedHours)}
+                                    </Tab>
+
                                     <ExpandableTab
                                         date={date}
                                         icon={<i className="fal fa-sticky-note" />}
@@ -68,9 +74,10 @@ const WeekTableInner = ({
                                         isExpanded={expandedDate === date}
                                         onJobClick={handleJobsClick}
                                     />
-                                )}
-                            </div>
-                        )}
+                                </>
+                            )}
+                        </div>
+
                         {moment(selectedDate).isSame(date, 'day') &&
                             timePeriod === TIME_PERIOD.DAY && <div className="film" />}
                     </td>
