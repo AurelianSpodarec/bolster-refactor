@@ -26,7 +26,7 @@ import {
 } from 'selectors/companyAdmin/companyUsers';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import { timesheetFilter } from '../breakdown/dayBreakdown/hooks/useOverviewFilters';
-import { useQuery } from 'helpers/hooks';
+import { usePrevious, useQuery } from 'helpers/hooks';
 import { days } from 'constants/companyAdmin/timesheets';
 import { areArraysEqual } from 'helpers/generic';
 
@@ -151,7 +151,7 @@ const useTimesheets = () => {
         })),
     );
 
-    const prevProps = useEffect({ companyUserIDs, startDate });
+    const prevProps = usePrevious({ companyUserIDs, startDate });
 
     useEffect(() => {
         if (
