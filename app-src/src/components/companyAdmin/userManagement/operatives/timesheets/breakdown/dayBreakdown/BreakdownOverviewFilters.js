@@ -32,7 +32,7 @@ const BreakdownOverviewFilters = ({
             </button>
 
             <Field name="Filter by">
-                <div className="size-lg-6">
+                <div className="size-lg-7">
                     <RadioButton
                         name="filterByHasClockedIn"
                         value={filterByHasClockedIn}
@@ -41,7 +41,7 @@ const BreakdownOverviewFilters = ({
                         text="Has Timesheet Data"
                     />
                 </div>
-                <div className="size-lg-6">
+                <div className="size-lg-5">
                     <RadioButton
                         name="filterByHasClockedIn"
                         value={filterByHasClockedIn}
