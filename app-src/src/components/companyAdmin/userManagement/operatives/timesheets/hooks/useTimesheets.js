@@ -161,31 +161,37 @@ const useTimesheets = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        if (filterByHasClockedIn) {
-            if (timePeriod === TIME_PERIOD.DAY) {
-                setTimesheetCompanyUserIDs([
-                    ...new Set(
-                        timesheets
-                            .filter(timesheetFilter(true, selectedDate))
-                            .map(({ companyUserID }) => companyUserID),
-                    ),
-                ]);
-            } else {
-                const weekCompanyUserOptions = days.reduce((res, _, i) => {
-                    const currentDate = moment(selectedDate).add(i, 'days').format();
-                    res = [
-                        ...res,
+        if (timesheets.length > 1) {
+            if (filterByHasClockedIn) {
+                if (timePeriod === TIME_PERIOD.DAY) {
+                    setTimesheetCompanyUserIDs([
                         ...new Set(
                             timesheets
-                                .filter(timesheetFilter(true, currentDate))
+                                .filter(timesheetFilter(true, selectedDate))
                                 .map(({ companyUserID }) => companyUserID),
                         ),
-                    ];
+                    ]);
+                } else {
+                    const weekCompanyUserOptions = days.reduce((res, _, i) => {
+                        const currentDate = moment(selectedDate).add(i, 'days').format();
+                        res = [
+                            ...res,
+                            ...new Set(
+                                timesheets
+                                    .filter(timesheetFilter(true, currentDate))
+                                    .map(({ companyUserID }) => companyUserID),
+                            ),
+                        ];
 
-                    return res;
-                }, []);
+                        return res;
+                    }, []);
 
-                setTimesheetCompanyUserIDs(weekCompanyUserOptions);
+                    setTimesheetCompanyUserIDs(weekCompanyUserOptions);
+                }
+            } else {
+                setTimesheetCompanyUserIDs([
+                    ...new Set(timesheets.map(({ companyUserID }) => companyUserID)),
+                ]);
             }
         } else {
             setTimesheetCompanyUserIDs([
@@ -202,7 +208,7 @@ const useTimesheets = () => {
                       .map(getCompanyUserOption)
                 : [],
         );
-    }, [companyUsers, timesheetCompanyUserIDs]);
+    }, [timesheetCompanyUserIDs]);
 
     return {
         startDate,
