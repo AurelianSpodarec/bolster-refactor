@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import fetchTimesheetsWeek from 'actions/companyAdmin/timesheets/async/fetchTimesheetsWeek';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import {
     selectTimesheets,
     selectTimesheetsFetchError,
@@ -165,6 +165,8 @@ const useTimesheets = () => {
     }, [dispatch, companyUserIDs, startDate]);
 
     useEffect(() => {
+        // on first mount
+        dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
         dispatch(fetchCompanyUsers());
     }, [dispatch]);
 

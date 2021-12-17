@@ -43,7 +43,10 @@ const UserTable = ({ date, day, initialRows = 7, timesheets }) => {
                 } = useDayOverview(timesheet, date);
                 const { moment: clockInMoment } = useDateTime(clockIn);
                 const { moment: clockOutMoment } = useDateTime(clockOut);
-                const dayDifference = clockOutMoment.diff(clockInMoment, 'days');
+                const clockInDay = clockInMoment.startOf('day');
+                const clockOutDay = clockOutMoment.startOf('day');
+                const dayDifference = clockOutDay.diff(clockInDay, 'days');
+
                 const [initialDate] = date.split('T');
 
                 return (
