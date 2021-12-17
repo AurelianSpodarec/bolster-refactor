@@ -36,7 +36,7 @@ export const timesheetSort = (filterType, filterDirection, date) => (a, b) => {
 
     switch (filterType) {
         case 'name':
-            return filterDirection > 0 ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+            return filterDirection > 0 ? nameB.localeCompare(nameA) : nameA.localeCompare(nameB);
         case 'hours':
             return filterDirection > 0 ? hoursA - hoursB : hoursB - hoursA;
         default:
