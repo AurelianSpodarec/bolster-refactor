@@ -153,6 +153,36 @@ const useTimesheets = () => {
 
     const prevProps = usePrevious({ companyUserIDs, startDate });
 
+    const timesheetsByDay = (filterClockedIn = true) => {
+        return [
+            ...new Set(
+                timesheets
+                    .filter(timesheetFilter(filterClockedIn, selectedDate))
+                    .map(({ companyUserID }) => companyUserID),
+            ),
+        ];
+    };
+
+    const timesheetsByWeek = (filterClockedIn = true) => {
+        return days.reduce((res, _, i) => {
+            const currentDate = moment(selectedDate).add(i, 'days').format();
+            res = [
+                ...res,
+                ...new Set(
+                    timesheets
+                        .filter(timesheetFilter(filterClockedIn, currentDate))
+                        .map(({ companyUserID }) => companyUserID),
+                ),
+            ];
+
+            return res;
+        }, []);
+    };
+
+    const timesheetsInitialFilter = () => {
+        return [...new Set(timesheets.map(({ companyUserID }) => companyUserID))];
+    };
+
     useEffect(() => {
         if (
             !areArraysEqual(companyUserIDs, prevProps.companyUserIDs) ||
@@ -172,41 +202,13 @@ const useTimesheets = () => {
 
     useEffect(() => {
         if (timesheets.length > 1) {
-            if (filterByHasClockedIn) {
-                if (timePeriod === TIME_PERIOD.DAY) {
-                    setTimesheetCompanyUserIDs([
-                        ...new Set(
-                            timesheets
-                                .filter(timesheetFilter(true, selectedDate))
-                                .map(({ companyUserID }) => companyUserID),
-                        ),
-                    ]);
-                } else {
-                    const weekCompanyUserOptions = days.reduce((res, _, i) => {
-                        const currentDate = moment(selectedDate).add(i, 'days').format();
-                        res = [
-                            ...res,
-                            ...new Set(
-                                timesheets
-                                    .filter(timesheetFilter(true, currentDate))
-                                    .map(({ companyUserID }) => companyUserID),
-                            ),
-                        ];
-
-                        return res;
-                    }, []);
-
-                    setTimesheetCompanyUserIDs(weekCompanyUserOptions);
-                }
+            if (timePeriod === TIME_PERIOD.DAY) {
+                setTimesheetCompanyUserIDs(timesheetsByDay(filterByHasClockedIn));
             } else {
-                setTimesheetCompanyUserIDs([
-                    ...new Set(timesheets.map(({ companyUserID }) => companyUserID)),
-                ]);
+                setTimesheetCompanyUserIDs(timesheetsByWeek(filterByHasClockedIn));
             }
         } else {
-            setTimesheetCompanyUserIDs([
-                ...new Set(timesheets.map(({ companyUserID }) => companyUserID)),
-            ]);
+            setTimesheetCompanyUserIDs(timesheetsInitialFilter());
         }
     }, [timesheets, selectedDate, companyUserIDs, filterByHasClockedIn]);
 
@@ -215,7 +217,7 @@ const useTimesheets = () => {
             .filter(filterHasClockInData(timesheetCompanyUserIDs))
             .map(getCompanyUserOption);
         setCompanyUserOptions(companyUserOptions);
-    }, [timesheetCompanyUserIDs]);
+    }, [companyUsers, timesheetCompanyUserIDs]);
 
     return {
         startDate,

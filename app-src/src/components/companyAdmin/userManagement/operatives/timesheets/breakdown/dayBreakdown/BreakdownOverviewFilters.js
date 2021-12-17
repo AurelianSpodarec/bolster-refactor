@@ -38,7 +38,7 @@ const BreakdownOverviewFilters = ({
                         value={filterByHasClockedIn}
                         checked={filterByHasClockedIn}
                         handleInputChange={(_, val) => setFilterByHasClockedIn(!val)}
-                        text="Has Clocked In"
+                        text="Has Timesheet Data"
                     />
                 </div>
                 <div className="size-lg-6">

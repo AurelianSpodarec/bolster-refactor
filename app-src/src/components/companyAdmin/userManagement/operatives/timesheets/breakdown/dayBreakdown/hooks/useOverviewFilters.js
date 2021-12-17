@@ -1,3 +1,4 @@
+import { isEmpty } from 'helpers/generic';
 import { useForm } from 'helpers/hooks';
 import { useState } from 'react';
 import useDay from '../../../hooks/useDay';
@@ -49,6 +50,7 @@ export const timesheetFilter = (filterByHasClockedIn, date) => entry => {
 
     if (filterByHasClockedIn) {
         if (timesheetEntry.hasClockedInToday) return true;
+        else if (timesheetEntry.clockerNotes && !isEmpty(timesheetEntry.clockerNotes)) return true;
         else return false;
     } else {
         return true;
