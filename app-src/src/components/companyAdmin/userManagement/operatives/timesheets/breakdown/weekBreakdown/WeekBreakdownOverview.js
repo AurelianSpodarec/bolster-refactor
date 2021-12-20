@@ -1,6 +1,5 @@
 import DashboardPinFeed from 'components/companyAdmin/dashboard/presentational/DashboardPinFeed';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import BreakdownColumns from '../BreakdownColumns';
 import usePinFeed from '../../hooks/usePinFeed';
 import UserTables from '../../userTables/UserTables';
