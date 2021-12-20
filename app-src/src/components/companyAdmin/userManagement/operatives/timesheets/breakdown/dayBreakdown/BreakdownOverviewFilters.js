@@ -5,12 +5,17 @@ import Select from 'components/shared/generic/form/presentational/Select';
 
 import { filterTypeOptions } from './hooks/useOverviewFilters';
 import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
-import { selectFilterByHasClockedIn } from 'selectors/companyAdmin/timesheets';
+import {
+    selectFilterByHasClockedIn,
+    timesheetSelectedCompanyIDs,
+} from 'selectors/companyAdmin/timesheets';
 import { toggleFilterByHasClockedIn } from 'actions/companyAdmin/timesheets/sync/toggleFilterByHasClockedIn';
 
 const BreakdownOverviewFilters = ({ filterType, filterDirection, handleChange }) => {
     const dispatch = useDispatch();
     const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
+    const selectedUserIDs = useSelector(timesheetSelectedCompanyIDs);
+
     return (
         <div className="filters">
             <Field name="Sort By">
@@ -28,27 +33,32 @@ const BreakdownOverviewFilters = ({ filterType, filterDirection, handleChange })
             >
                 <i className={`fas fa-arrow-up ${filterDirection > 0 ? 'asc' : 'desc'}`} />
             </button>
-
-            <Field name="Filter by">
-                <div className="size-lg-7">
-                    <RadioButton
-                        name="filterByHasClockedIn"
-                        value={filterByHasClockedIn}
-                        checked={filterByHasClockedIn}
-                        handleInputChange={(_, val) => dispatch(toggleFilterByHasClockedIn(!val))}
-                        text="Has Timesheet Data"
-                    />
-                </div>
-                <div className="size-lg-5">
-                    <RadioButton
-                        name="filterByHasClockedIn"
-                        value={filterByHasClockedIn}
-                        checked={!filterByHasClockedIn}
-                        handleInputChange={(_, val) => dispatch(toggleFilterByHasClockedIn(!val))}
-                        text="All Users"
-                    />
-                </div>
-            </Field>
+            {!selectedUserIDs.length && (
+                <Field name="Filter by">
+                    <div className="size-lg-7">
+                        <RadioButton
+                            name="filterByHasClockedIn"
+                            value={filterByHasClockedIn}
+                            checked={filterByHasClockedIn}
+                            handleInputChange={(_, val) =>
+                                dispatch(toggleFilterByHasClockedIn(!val))
+                            }
+                            text="Has Timesheet Data"
+                        />
+                    </div>
+                    <div className="size-lg-5">
+                        <RadioButton
+                            name="filterByHasClockedIn"
+                            value={filterByHasClockedIn}
+                            checked={!filterByHasClockedIn}
+                            handleInputChange={(_, val) =>
+                                dispatch(toggleFilterByHasClockedIn(!val))
+                            }
+                            text="All Users"
+                        />
+                    </div>
+                </Field>
+            )}
         </div>
     );
 };
