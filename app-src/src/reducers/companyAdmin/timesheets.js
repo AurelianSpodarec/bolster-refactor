@@ -7,13 +7,16 @@ import {
     FETCH_TIMESHEET_DAY_REQUEST,
     FETCH_TIMESHEET_DAY_FAILURE,
     FETCH_TIMESHEET_DAY_SUCCESS,
+    TOGGLE_FILTER_BY_HAS_CLOCKED_IN,
+    SET_SELECTED_COMPANY_ID,
 } from 'constants/actionTypes/timesheets';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
-
     timesheets: timesheetReducer,
+    filterByHasClockedIn: filterByHasClockedInReducer,
+    selectedCompanyUserIDs: selectedCompanyUserIDsReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -65,6 +68,24 @@ function timesheetReducer(state = [], action) {
         case FETCH_TIMESHEET_WEEK_SUCCESS:
             return action.payload;
         case FETCH_TIMESHEET_DAY_SUCCESS:
+        default:
+            return state;
+    }
+}
+
+function filterByHasClockedInReducer(state = true, action) {
+    switch (action.type) {
+        case TOGGLE_FILTER_BY_HAS_CLOCKED_IN:
+            return (state = !state);
+        default:
+            return state;
+    }
+}
+
+function selectedCompanyUserIDsReducer(state = [], action) {
+    switch (action.type) {
+        case SET_SELECTED_COMPANY_ID:
+            return [...state, action.payload];
         default:
             return state;
     }
