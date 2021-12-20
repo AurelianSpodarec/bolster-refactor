@@ -1,5 +1,6 @@
 import DashboardPinFeed from 'components/companyAdmin/dashboard/presentational/DashboardPinFeed';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import BreakdownColumns from '../BreakdownColumns';
 import usePinFeed from '../../hooks/usePinFeed';
 import UserTables from '../../userTables/UserTables';
@@ -21,8 +22,6 @@ const WeekBreakdownOverview = ({
     timesheets,
     isFetching,
     fetchError,
-    filterByHasClockedIn,
-    setFilterByHasClockedIn,
     disableReportGenPin,
     handlePDFReportGeneration,
 }) => {
@@ -67,8 +66,6 @@ const WeekBreakdownOverview = ({
                     filterType={filterType}
                     filterDirection={filterDirection}
                     handleChange={handleChange}
-                    filterByHasClockedIn={filterByHasClockedIn}
-                    setFilterByHasClockedIn={setFilterByHasClockedIn}
                 />
                 <UserTables
                     selectedDate={selectedDate}
@@ -77,7 +74,6 @@ const WeekBreakdownOverview = ({
                     timesheets={timesheets}
                     filterType={filterType}
                     filterDirection={filterDirection}
-                    filterByHasClockedIn={filterByHasClockedIn}
                 />
             </>
         );

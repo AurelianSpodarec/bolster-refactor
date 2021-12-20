@@ -76,7 +76,7 @@ function timesheetReducer(state = [], action) {
 function filterByHasClockedInReducer(state = true, action) {
     switch (action.type) {
         case TOGGLE_FILTER_BY_HAS_CLOCKED_IN:
-            return (state = !state);
+            return (state = action.payload);
         default:
             return state;
     }
