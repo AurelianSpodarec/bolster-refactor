@@ -1,5 +1,5 @@
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import React from 'react';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 import Controls from './Controls';
 import WeekTable from './WeekTable';
@@ -8,16 +8,13 @@ const TimesheetCalender = ({
     startDate,
     selectedDate,
     timePeriod,
-
     companyUserIDs,
     setCompanyUserIDs,
     companyUserOptions,
-
     isFetching,
     fetchError,
     timesheets,
     totals,
-
     onPrev,
     onNext,
     onToday,

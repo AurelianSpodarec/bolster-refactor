@@ -213,9 +213,8 @@ const useTimesheets = () => {
     }, [timesheets, selectedDate, companyUserIDs, filterByHasClockedIn]);
 
     useEffect(() => {
-        const companyUserOptions = Object.values(companyUsers ?? [])
-            .filter(filterHasClockInData(timesheetCompanyUserIDs))
-            .map(getCompanyUserOption);
+        const companyUserOptions = Object.values(companyUsers ?? []).map(getCompanyUserOption);
+
         setCompanyUserOptions(companyUserOptions);
     }, [companyUsers, timesheetCompanyUserIDs]);
 

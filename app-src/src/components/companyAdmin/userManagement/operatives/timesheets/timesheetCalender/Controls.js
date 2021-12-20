@@ -12,7 +12,6 @@ const Controls = ({
     onPrev,
     onNext,
     onToday,
-
     companyUserIDs,
     setCompanyUserIDs,
     companyUserOptions,
