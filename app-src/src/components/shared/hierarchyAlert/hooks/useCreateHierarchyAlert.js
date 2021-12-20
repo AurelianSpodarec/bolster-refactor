@@ -4,9 +4,10 @@ const useCreateHierarchyAlert = () => {
     const [fields, handleChange] = useForm({
         name: '',
         description: '',
-        deliveryMethod: 0,
+        deliveryMethod: [],
         date: '',
-        recurrence: 0,
+        recurrenceType: 0,
+        recurrenceFrequency: 0,
     });
 
     const handleSubmit = () => {
