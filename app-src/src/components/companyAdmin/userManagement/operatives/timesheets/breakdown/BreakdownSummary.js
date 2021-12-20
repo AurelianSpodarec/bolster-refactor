@@ -29,7 +29,7 @@ const BreakdownSummary = ({
     return (
         <div className="breakdown-summary">
             {name && <BlockHeading title={name} classes="with-underline" />}
-            {clockIn ? (
+            {clockIn || totalPins ? (
                 <>
                     <div className="summary-row">
                         <FieldOutput

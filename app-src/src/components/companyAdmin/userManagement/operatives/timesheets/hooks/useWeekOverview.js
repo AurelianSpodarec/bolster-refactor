@@ -7,12 +7,12 @@ const useWeekOverview = timesheet => {
         totalPins = 0,
         clockerNotes = [],
     } = timesheet.clockerEntries.reduce(
-        (acc, { formattedHours, formattedBreakHours, jobReferences, totalPins, notes }) => {
+        (acc, { formattedHours, formattedBreakHours, jobReferences, totalPins, clockerNotes }) => {
             acc.formattedHours += formattedHours;
             acc.formattedBreakHours += formattedBreakHours;
             acc.jobReferences = [...acc.jobReferences, ...jobReferences];
             acc.totalPins += totalPins;
-            acc.clockerNotes += clockerNotes;
+            acc.clockerNotes = [...acc.clockerNotes, ...clockerNotes];
             return acc;
         },
         {
@@ -20,6 +20,7 @@ const useWeekOverview = timesheet => {
             formattedBreakHours: 0,
             jobReferences: [],
             totalPins: 0,
+            clockerNotes: [],
         },
     );
 
