@@ -62,7 +62,6 @@ const DayBreakdownOverview = ({
                         selectedDate={selectedDate}
                         filterType={filterType}
                         filterDirection={filterDirection}
-                        userIDs={userIDs}
                     />
                 </>
             }

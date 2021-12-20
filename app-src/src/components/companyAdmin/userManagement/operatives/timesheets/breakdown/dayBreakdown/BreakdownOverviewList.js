@@ -8,25 +8,22 @@ import BreakdownNotes from '../BreakdownNotes';
 import BreakdownSummary from '../BreakdownSummary';
 
 import { timesheetFilter, timesheetSort } from './hooks/useOverviewFilters';
+import { timesheetSelectedCompanyIDs } from 'selectors/companyAdmin/timesheets';
 
-const BreakdownOverviewList = ({
-    timesheets,
-    selectedDate,
-    filterType,
-    filterDirection,
-    userIDs,
-}) => {
+const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDirection }) => {
+    const selectedUserIDs = useSelector(timesheetSelectedCompanyIDs);
+
     const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
 
     let formattedTimesheets = [];
 
-    if (filterByHasClockedIn && userIDs.length === 0) {
+    if (filterByHasClockedIn && selectedUserIDs.length === 0) {
         formattedTimesheets = timesheets
             .filter(timesheetFilter(filterByHasClockedIn, selectedDate))
             .sort(timesheetSort(filterType, filterDirection, selectedDate));
     }
 
-    if (userIDs.length) {
+    if (selectedUserIDs.length || (!filterByHasClockedIn && selectedUserIDs.length === 0)) {
         formattedTimesheets = timesheets.sort(
             timesheetSort(filterType, filterDirection, selectedDate),
         );
