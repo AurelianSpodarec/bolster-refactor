@@ -6,7 +6,7 @@ import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import fetchTimesheetsWeek from 'actions/companyAdmin/timesheets/async/fetchTimesheetsWeek';
 import { useParams } from 'react-router-dom';
 import {
-    selectFilterByHasClockedIn,
+    selectTimesheetOptions,
     selectTimesheets,
     selectTimesheetsFetchError,
     selectTimesheetsIsFetching,
@@ -22,16 +22,14 @@ import { selectServiceIDs } from 'selectors/companyAdmin/services';
 import { ERROR_MODAL, GENERATE_TIMESHEET_REPORT } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import {
-    selectCompanyUsers,
     selectCompanyUsersFetchError,
     selectCompanyUsersIsFetching,
 } from 'selectors/companyAdmin/companyUsers';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
-import { timesheetFilter } from '../breakdown/dayBreakdown/hooks/useOverviewFilters';
 import { usePrevious, useQuery } from 'helpers/hooks';
-import { days } from 'constants/companyAdmin/timesheets';
 import { areArraysEqual } from 'helpers/generic';
 import { setCompanyUserIDs } from 'actions/companyAdmin/timesheets/sync/setSelectedCompanyUserID';
+import fetchTimesheetsWeekDropdownOptions from 'actions/companyAdmin/timesheets/async/fetchTimesheetsWeekDropdownOptions';
 
 const useTimesheets = () => {
     const dispatch = useDispatch();
@@ -44,12 +42,11 @@ const useTimesheets = () => {
 
     const companyUsersIsFetching = useSelector(selectCompanyUsersIsFetching);
     const companyUsersFetchError = useSelector(selectCompanyUsersFetchError);
-    const companyUsers = useSelector(selectCompanyUsers);
-    const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
 
     const timesheetsIsFetching = useSelector(selectTimesheetsIsFetching);
     const timesheetsFetchError = useSelector(selectTimesheetsFetchError);
     const timesheets = useSelector(selectTimesheets);
+    const timesheetOptions = useSelector(selectTimesheetOptions);
 
     const reportGenPins = useSelector(selectUserPinFeeds);
     const isFetchingReportGenPins = useSelector(selectUserPinFeedsIsFetching);
@@ -63,7 +60,6 @@ const useTimesheets = () => {
     const thisDay = moment(initialDate).tz(timeZone.id).startOf('day').format();
 
     const [companyUserOptions, setCompanyUserOptions] = useState([]);
-    const [timesheetCompanyUserIDs, setTimesheetCompanyUserIDs] = useState([]);
     const [startDate, setStartDate] = useState(thisWeek);
     const [selectedDate, setSelectedDate] = useState(thisDay);
     const [timePeriod, setTimePeriod] = useState(TIME_PERIOD.DAY);
@@ -157,38 +153,9 @@ const useTimesheets = () => {
 
     const prevProps = usePrevious({ companyUserIDs, startDate });
 
-    const timesheetsByDay = (filterClockedIn = true) => {
-        return [
-            ...new Set(
-                timesheets
-                    .filter(timesheetFilter(filterClockedIn, selectedDate))
-                    .map(({ companyUserID }) => companyUserID),
-            ),
-        ];
-    };
-
-    const timesheetsByWeek = (filterClockedIn = true) => {
-        return days.reduce((res, _, i) => {
-            const currentDate = moment(selectedDate).add(i, 'days').format();
-            res = [
-                ...res,
-                ...new Set(
-                    timesheets
-                        .filter(timesheetFilter(filterClockedIn, currentDate))
-                        .map(({ companyUserID }) => companyUserID),
-                ),
-            ];
-
-            return res;
-        }, []);
-    };
-
-    const timesheetsInitialFilter = () => {
-        return [...new Set(timesheets.map(({ companyUserID }) => companyUserID))];
-    };
-
     useEffect(() => {
         // on first mount
+        // dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
         dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
         dispatch(fetchCompanyUsers());
 
@@ -203,28 +170,22 @@ const useTimesheets = () => {
             startDate !== prevProps.startDate
         ) {
             dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
+            dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
         }
         // if (!isAllUsers) dispatch(fetchTimesheetsWeek(id, startDate));
         // else console.log('fetch for all users here');
     }, [dispatch, companyUserIDs, startDate]);
 
     useEffect(() => {
-        if (timesheets.length > 1) {
-            if (timePeriod === TIME_PERIOD.DAY) {
-                setTimesheetCompanyUserIDs(timesheetsByDay(filterByHasClockedIn));
-            } else {
-                setTimesheetCompanyUserIDs(timesheetsByWeek(filterByHasClockedIn));
-            }
-        } else {
-            setTimesheetCompanyUserIDs(timesheetsInitialFilter());
-        }
-    }, [timesheets, selectedDate, companyUserIDs, filterByHasClockedIn]);
-
-    useEffect(() => {
-        const companyUserOptions = Object.values(companyUsers ?? []).map(getCompanyUserOption);
+        const companyUserOptions = timesheetOptions.map(options => {
+            return {
+                value: options.id,
+                label: `${options.userFirstName} ${options.userLastName} (${options.userEmail})`,
+            };
+        });
 
         setCompanyUserOptions(companyUserOptions);
-    }, [companyUsers, timesheetCompanyUserIDs]);
+    }, [timesheetOptions]);
 
     return {
         startDate,
@@ -245,13 +206,6 @@ const useTimesheets = () => {
         onDaySelect,
         onWeekSelect,
         handlePDFReportGeneration,
-    };
-};
-
-const getCompanyUserOption = companyUser => {
-    return {
-        value: companyUser.id,
-        label: `${companyUser.userFirstName} ${companyUser.userLastName} (${companyUser.userEmail})`,
     };
 };
 

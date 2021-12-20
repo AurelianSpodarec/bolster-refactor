@@ -1,6 +1,9 @@
 import { combineReducers } from 'redux';
 
 import {
+    FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_REQUEST,
+    FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_SUCCESS,
+    FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_FAILURE,
     FETCH_TIMESHEET_WEEK_REQUEST,
     FETCH_TIMESHEET_WEEK_FAILURE,
     FETCH_TIMESHEET_WEEK_SUCCESS,
@@ -15,6 +18,7 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
     timesheets: timesheetReducer,
+    timesheetOptions: timesheetOptionsReducer,
     filterByHasClockedIn: filterByHasClockedInReducer,
     selectedCompanyUserIDs: selectedCompanyUserIDsReducer,
 });
@@ -52,6 +56,19 @@ function errorReducer(state = null, action) {
             return null;
         case FETCH_TIMESHEET_DAY_SUCCESS:
             return null;
+        default:
+            return state;
+    }
+}
+
+function timesheetOptionsReducer(state = [], action) {
+    switch (action.type) {
+        case FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_REQUEST:
+            return state;
+        case FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_FAILURE:
+            return state;
+        case FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_SUCCESS:
+            return action.payload;
         default:
             return state;
     }
