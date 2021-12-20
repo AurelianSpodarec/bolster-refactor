@@ -23,7 +23,7 @@ const useWeekOverview = timesheet => {
             clockerNotes: [],
         },
     );
-    console.log({ clockerNotes });
+
     return {
         companyUserID,
         firstName,
