@@ -4,3 +4,5 @@ export const selectTimesheets = state => state.companyAdmin.timesheetsReducer.ti
 export const reportPostSuccess = state => state.companyAdmin.reportsReducer.postSuccess;
 export const timesheetSelectedCompanyIDs = state =>
     state.companyAdmin.timesheetsReducer.selectedCompanyUserIDs;
+export const selectFilterByHasClockedIn = state =>
+    state.companyAdmin.timesheetsReducer.filterByHasClockedIn;

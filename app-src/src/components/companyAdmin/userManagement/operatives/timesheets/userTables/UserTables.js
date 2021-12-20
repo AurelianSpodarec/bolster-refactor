@@ -1,7 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isEmpty } from 'helpers/generic';
 import WeekUserTable from './weekUserTable/WeekUserTable';
+import { selectFilterByHasClockedIn } from 'selectors/companyAdmin/timesheets';
 
 const UserTables = ({
     selectedDate,
@@ -10,8 +13,8 @@ const UserTables = ({
     timesheets,
     filterType,
     filterDirection,
-    filterByHasClockedIn,
 }) => {
+    const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
     return (
         <BlockContainer isFetching={isFetching} error={fetchError} isEmpty={isEmpty(timesheets)}>
             <WeekUserTable

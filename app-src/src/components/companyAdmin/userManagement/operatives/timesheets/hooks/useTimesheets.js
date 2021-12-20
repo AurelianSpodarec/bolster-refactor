@@ -6,6 +6,7 @@ import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import fetchTimesheetsWeek from 'actions/companyAdmin/timesheets/async/fetchTimesheetsWeek';
 import { useParams } from 'react-router-dom';
 import {
+    selectFilterByHasClockedIn,
     selectTimesheets,
     selectTimesheetsFetchError,
     selectTimesheetsIsFetching,
@@ -44,6 +45,7 @@ const useTimesheets = () => {
     const companyUsersIsFetching = useSelector(selectCompanyUsersIsFetching);
     const companyUsersFetchError = useSelector(selectCompanyUsersFetchError);
     const companyUsers = useSelector(selectCompanyUsers);
+    const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
 
     const timesheetsIsFetching = useSelector(selectTimesheetsIsFetching);
     const timesheetsFetchError = useSelector(selectTimesheetsFetchError);
@@ -65,8 +67,6 @@ const useTimesheets = () => {
     const [startDate, setStartDate] = useState(thisWeek);
     const [selectedDate, setSelectedDate] = useState(thisDay);
     const [timePeriod, setTimePeriod] = useState(TIME_PERIOD.DAY);
-    // const [companyUserIDs, setCompanyUserIDs] = useState(id ? [parseInt(id)] : []);
-    const [filterByHasClockedIn, setFilterByHasClockedIn] = useState(true);
 
     const onPrev = () => {
         const newStartDate = moment(startDate).subtract(7, 'days').format();
@@ -239,8 +239,6 @@ const useTimesheets = () => {
         totals,
         disableReportGenPin:
             isFetchingReportGenPins || (!isFetchingReportGenPins && errorReportGenPins),
-        filterByHasClockedIn,
-        setFilterByHasClockedIn,
         onPrev,
         onNext,
         onToday,

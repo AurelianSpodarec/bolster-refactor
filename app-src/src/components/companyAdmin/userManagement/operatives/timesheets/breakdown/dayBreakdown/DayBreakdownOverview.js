@@ -22,8 +22,6 @@ const DayBreakdownOverview = ({
     timesheets,
     handlePDFReportGeneration,
     disableReportGenPin,
-    filterByHasClockedIn,
-    setFilterByHasClockedIn,
 }) => {
     const [userIDs, setUserIDs] = useState([]);
     const {
@@ -35,21 +33,17 @@ const DayBreakdownOverview = ({
         setUserIDs(timesheets.map(({ companyUserID }) => companyUserID));
     }, [timesheets]);
 
-    const {
-        isFetching: statsIsFetching,
-        fetchError: statsFetchError,
-        stats,
-    } = usePinStats(
+    const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
         userIDs,
         moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
         moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
     );
 
-    const {
-        isFetching: feedIsFetching,
-        fetchError: feedFetchError,
-        feed,
-    } = usePinFeed(userIDs, moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'), false);
+    const { isFetching: feedIsFetching, fetchError: feedFetchError, feed } = usePinFeed(
+        userIDs,
+        moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
+        false,
+    );
 
     return (
         <BreakdownColumns
@@ -61,8 +55,6 @@ const DayBreakdownOverview = ({
                             filterType={filterType}
                             filterDirection={filterDirection}
                             handleChange={handleChange}
-                            filterByHasClockedIn={filterByHasClockedIn}
-                            setFilterByHasClockedIn={setFilterByHasClockedIn}
                         />
                     )}
                     <BreakdownOverviewList
@@ -70,7 +62,7 @@ const DayBreakdownOverview = ({
                         selectedDate={selectedDate}
                         filterType={filterType}
                         filterDirection={filterDirection}
-                        filterByHasClockedIn={filterByHasClockedIn}
+                        userIDs={userIDs}
                     />
                 </>
             }

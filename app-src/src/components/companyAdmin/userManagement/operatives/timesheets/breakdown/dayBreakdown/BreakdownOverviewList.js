@@ -1,4 +1,7 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
+import { selectFilterByHasClockedIn } from 'selectors/companyAdmin/timesheets';
 import useDayOverview from '../../hooks/useDayOverview';
 
 import BreakdownNotes from '../BreakdownNotes';
@@ -11,11 +14,23 @@ const BreakdownOverviewList = ({
     selectedDate,
     filterType,
     filterDirection,
-    filterByHasClockedIn,
+    userIDs,
 }) => {
-    const formattedTimesheets = timesheets
-        .filter(timesheetFilter(filterByHasClockedIn, selectedDate))
-        .sort(timesheetSort(filterType, filterDirection, selectedDate));
+    const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
+
+    let formattedTimesheets = [];
+
+    if (filterByHasClockedIn && userIDs.length === 0) {
+        formattedTimesheets = timesheets
+            .filter(timesheetFilter(filterByHasClockedIn, selectedDate))
+            .sort(timesheetSort(filterType, filterDirection, selectedDate));
+    }
+
+    if (userIDs.length) {
+        formattedTimesheets = timesheets.sort(
+            timesheetSort(filterType, filterDirection, selectedDate),
+        );
+    }
 
     if (formattedTimesheets.length === 0) return <p>No clock in data to display.</p>;
 
