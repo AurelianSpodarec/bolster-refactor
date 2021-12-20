@@ -6,6 +6,7 @@ import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import fetchTimesheetsWeek from 'actions/companyAdmin/timesheets/async/fetchTimesheetsWeek';
 import { useParams } from 'react-router-dom';
 import {
+    selectFilterByHasClockedIn,
     selectTimesheetOptions,
     selectTimesheets,
     selectTimesheetsFetchError,
@@ -52,6 +53,7 @@ const useTimesheets = () => {
     const isFetchingReportGenPins = useSelector(selectUserPinFeedsIsFetching);
     const errorReportGenPins = useSelector(selectUserPinFeedsFetchError);
     const serviceIDs = useSelector(selectServiceIDs);
+    const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
 
     const companyUserIDs = useSelector(timesheetSelectedCompanyIDs);
 
@@ -155,7 +157,7 @@ const useTimesheets = () => {
 
     useEffect(() => {
         // on first mount
-        // dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
+        dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
         dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
         dispatch(fetchCompanyUsers());
 
@@ -177,15 +179,16 @@ const useTimesheets = () => {
     }, [dispatch, companyUserIDs, startDate]);
 
     useEffect(() => {
-        const companyUserOptions = timesheetOptions.map(options => {
-            return {
-                value: options.id,
-                label: `${options.userFirstName} ${options.userLastName} (${options.userEmail})`,
-            };
-        });
+        let companyUserOptions = timesheetOptions.map(mapCompanyUsers);
+
+        if (filterByHasClockedIn) {
+            companyUserOptions = timesheetOptions
+                .filter(({ hasTimesheetData }) => hasTimesheetData)
+                .map(mapCompanyUsers);
+        }
 
         setCompanyUserOptions(companyUserOptions);
-    }, [timesheetOptions]);
+    }, [timesheetOptions, filterByHasClockedIn]);
 
     return {
         startDate,
@@ -206,6 +209,13 @@ const useTimesheets = () => {
         onDaySelect,
         onWeekSelect,
         handlePDFReportGeneration,
+    };
+};
+
+const mapCompanyUsers = options => {
+    return {
+        value: options.id,
+        label: `${options.firstName} ${options.lastName} (${options.email})`,
     };
 };
 
