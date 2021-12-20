@@ -2,3 +2,5 @@ export const selectTimesheetsIsFetching = state => state.companyAdmin.timesheets
 export const selectTimesheetsFetchError = state => state.companyAdmin.timesheetsReducer.error;
 export const selectTimesheets = state => state.companyAdmin.timesheetsReducer.timesheets;
 export const reportPostSuccess = state => state.companyAdmin.reportsReducer.postSuccess;
+export const timesheetSelectedCompanyIDs = state =>
+    state.companyAdmin.timesheetsReducer.selectedCompanyUserIDs;

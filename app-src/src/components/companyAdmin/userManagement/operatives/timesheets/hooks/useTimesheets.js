@@ -9,6 +9,7 @@ import {
     selectTimesheets,
     selectTimesheetsFetchError,
     selectTimesheetsIsFetching,
+    timesheetSelectedCompanyIDs,
 } from 'selectors/companyAdmin/timesheets';
 import {
     selectUserPinFeeds,
@@ -29,6 +30,7 @@ import { timesheetFilter } from '../breakdown/dayBreakdown/hooks/useOverviewFilt
 import { usePrevious, useQuery } from 'helpers/hooks';
 import { days } from 'constants/companyAdmin/timesheets';
 import { areArraysEqual } from 'helpers/generic';
+import { setCompanyUserIDs } from 'actions/companyAdmin/timesheets/sync/setSelectedCompanyUserID';
 
 const useTimesheets = () => {
     const dispatch = useDispatch();
@@ -52,6 +54,8 @@ const useTimesheets = () => {
     const errorReportGenPins = useSelector(selectUserPinFeedsFetchError);
     const serviceIDs = useSelector(selectServiceIDs);
 
+    const companyUserIDs = useSelector(timesheetSelectedCompanyIDs);
+
     const initialDate = query.get('date') || new Date();
     const thisWeek = moment(initialDate).tz(timeZone.id).startOf('isoWeek').format();
     const thisDay = moment(initialDate).tz(timeZone.id).startOf('day').format();
@@ -61,7 +65,7 @@ const useTimesheets = () => {
     const [startDate, setStartDate] = useState(thisWeek);
     const [selectedDate, setSelectedDate] = useState(thisDay);
     const [timePeriod, setTimePeriod] = useState(TIME_PERIOD.DAY);
-    const [companyUserIDs, setCompanyUserIDs] = useState(id ? [parseInt(id)] : []);
+    // const [companyUserIDs, setCompanyUserIDs] = useState(id ? [parseInt(id)] : []);
     const [filterByHasClockedIn, setFilterByHasClockedIn] = useState(true);
 
     const onPrev = () => {
@@ -184,6 +188,16 @@ const useTimesheets = () => {
     };
 
     useEffect(() => {
+        // on first mount
+        dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
+        dispatch(fetchCompanyUsers());
+
+        if (id) {
+            dispatch(setCompanyUserIDs([parseInt(id)]));
+        }
+    }, [dispatch]);
+
+    useEffect(() => {
         if (
             !areArraysEqual(companyUserIDs, prevProps.companyUserIDs) ||
             startDate !== prevProps.startDate
@@ -193,12 +207,6 @@ const useTimesheets = () => {
         // if (!isAllUsers) dispatch(fetchTimesheetsWeek(id, startDate));
         // else console.log('fetch for all users here');
     }, [dispatch, companyUserIDs, startDate]);
-
-    useEffect(() => {
-        // on first mount
-        dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
-        dispatch(fetchCompanyUsers());
-    }, [dispatch]);
 
     useEffect(() => {
         if (timesheets.length > 1) {
@@ -240,12 +248,6 @@ const useTimesheets = () => {
         onWeekSelect,
         handlePDFReportGeneration,
     };
-};
-
-const filterHasClockInData = timesheetCompanyUserIDs => companyUser => {
-    const { id } = companyUser;
-
-    return timesheetCompanyUserIDs.includes(id);
 };
 
 const getCompanyUserOption = companyUser => {

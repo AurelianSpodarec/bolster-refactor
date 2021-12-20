@@ -6,16 +6,12 @@ import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import { useDispatch } from 'react-redux';
+import { setCompanyUserIDs } from 'actions/companyAdmin/timesheets/sync/setSelectedCompanyUserID';
 
-const Controls = ({
-    startDate,
-    onPrev,
-    onNext,
-    onToday,
-    companyUserIDs,
-    setCompanyUserIDs,
-    companyUserOptions,
-}) => {
+const Controls = ({ startDate, onPrev, onNext, onToday, companyUserIDs, companyUserOptions }) => {
+    const dispatch = useDispatch();
+
     return (
         <BlockHeading
             headerClasses="controls"
@@ -52,7 +48,7 @@ const Controls = ({
                         <MultiSelect
                             options={companyUserOptions}
                             value={companyUserIDs}
-                            onChange={(_, value) => setCompanyUserIDs(value)}
+                            onChange={(_, value) => dispatch(setCompanyUserIDs(value))}
                             search
                             maxSelectedVisible={4}
                             maxLines={1}

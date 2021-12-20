@@ -85,7 +85,7 @@ function filterByHasClockedInReducer(state = true, action) {
 function selectedCompanyUserIDsReducer(state = [], action) {
     switch (action.type) {
         case SET_SELECTED_COMPANY_ID:
-            return [...state, action.payload];
+            return action.payload;
         default:
             return state;
     }
