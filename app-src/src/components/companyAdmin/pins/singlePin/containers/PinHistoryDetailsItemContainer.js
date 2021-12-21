@@ -21,7 +21,7 @@ class PinHistoryDetailsItemContainer extends Component {
             templates,
             isFetching,
             drawing,
-            loggedInCompanyID
+            loggedInCompanyID,
         } = this.props;
 
         const editedByUser = users[history.lastEditedByCompanyUserID];
@@ -32,11 +32,13 @@ class PinHistoryDetailsItemContainer extends Component {
         const template = pin ? templates[pin.templateID] : null;
         const templateName = template ? template.name : null;
 
-        const historyCreatedByCompanyID = users[history.createdByCompanyUserID]?.companyID;
+        const historyCreatedByCompanyID = history.createdByCompanyID;
+
         const drawingCompanyID = drawing?.ownerCompanyID;
 
-        const canDeleteHistory = drawingCompanyID === loggedInCompanyID 
-            || historyCreatedByCompanyID === loggedInCompanyID;
+        const canDeleteHistory =
+            drawingCompanyID === loggedInCompanyID ||
+            historyCreatedByCompanyID === loggedInCompanyID;
 
         return isLoading && isFetching ? (
             <Loading />
@@ -79,13 +81,13 @@ class PinHistoryDetailsItemContainer extends Component {
 const mapStateToProps = (
     {
         shared: {
-            decodeJWTReducer: { 
+            decodeJWTReducer: {
                 jwtData: { companyID: loggedInCompanyID },
-             }
+            },
         },
         companyAdmin: {
             servicesReducer: { services },
-            drawingsReducer: {drawings},
+            drawingsReducer: { drawings },
             pinHistoriesReducer: { histories },
             pinsReducer: { singlePin, isFetching: isFetchingPin },
             companyUsersReducer: { users, isFetching: isFetchingUsers },
