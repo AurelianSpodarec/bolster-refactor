@@ -60,6 +60,15 @@ const SiteStats = ({
             </button>
 
             <button
+                className="button yellow"
+                type="button"
+                onClick={handleCreateHierarchyAlertModal}
+            >
+                <i className="fa fa-eye" />
+                View Alerts
+            </button>
+
+            <button
                 className="button green"
                 type="button"
                 onClick={handleCreateHierarchyAlertModal}

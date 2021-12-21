@@ -28,6 +28,7 @@ import ApprovedCompaniesRoutes from './ApprovedCompaniesRoutes';
 import UserGuidesRoutes from './UserGuidesRoutes';
 import ReleaseNotesRoutes from './ReleaseNotesRoutes';
 import CompanySelection from 'components/companyAdmin/companySelection/CompanySelection';
+import UpcomingAlertsRoutes from './UpcomingAlertsRoutes';
 // import withTermsAuth from '../../hocs/withTermsAuth';
 
 const CompanyRoutes = ({ base = '/company' }) => (
@@ -52,6 +53,7 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route path={`${base}/terms`} component={withSubscriptionAuth(TermsRoutes)} />
         <Route path={`${base}/user-guides`} component={withSubscriptionAuth(UserGuidesRoutes)} />
         <Route path={`${base}/release-notes`} component={ReleaseNotesRoutes} />
+        <Route path={`${base}/upcoming-alerts`} component={UpcomingAlertsRoutes} />
         <Route
             path={`${base}/approved-companies`}
             component={withSubscriptionAuth(ApprovedCompaniesRoutes)}

@@ -165,6 +165,11 @@ const CompanyMenu = ({
                         </span>
                     </CompanyMenuItemContainer>
 
+                    <CompanyMenuItemContainer link="/company/upcoming-alerts">
+                        <i className="fas fa-bells fa-fw icon" />
+                        <span className="menu-text"> Upcoming Alerts</span>
+                    </CompanyMenuItemContainer>
+
                     <CompanyMenuItemContainer link="/company/approved-companies">
                         <i className="far fa-check-circle fa-fw icon" />
                         <span className="menu-text">Bolster Approved Companies</span>
