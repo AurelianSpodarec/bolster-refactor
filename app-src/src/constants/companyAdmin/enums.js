@@ -477,3 +477,15 @@ export const COMPANY_REPORTS_OUTPUT_TYPES = {
     isFloorplanGeneration: 'Floor Plan',
     isOEMManualGeneration: 'O&M Manual',
 };
+
+export const HIERARCHY_ALERT_RECURRENCE_TYPE = {
+    0: 'Day',
+    1: 'Week',
+    2: 'Month',
+};
+
+export const HIERARCHY_ALERT_RECURRENCE_VALUE = {
+    0: 7,
+    1: 4,
+    2: 12,
+};

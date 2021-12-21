@@ -11,6 +11,10 @@ import MultiSelect from 'components/shared/generic/form/presentational/MultiSele
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
 import Select from 'components/shared/generic/form/presentational/Select';
+import {
+    HIERARCHY_ALERT_RECURRENCE_TYPE,
+    HIERARCHY_ALERT_RECURRENCE_VALUE,
+} from 'constants/companyAdmin/enums';
 
 const CreateHierarchyAlertModal = ({ hierarchy, hideModal }) => {
     const {
@@ -59,7 +63,6 @@ const CreateHierarchyAlertModal = ({ hierarchy, hideModal }) => {
                             <TextInputContainer
                                 type="number"
                                 name="recurrenceFrequency"
-                                maxNum={7}
                                 value={recurrenceFrequency}
                                 handleChange={handleChange}
                             />
@@ -76,6 +79,10 @@ const CreateHierarchyAlertModal = ({ hierarchy, hideModal }) => {
                                 ]}
                             />
                         </div>
+                        <p className="size-lg-12 frequency-helper">
+                            Every {recurrenceFrequency}{' '}
+                            {HIERARCHY_ALERT_RECURRENCE_TYPE[recurrenceType]}
+                        </p>
                     </Field>
                 </div>
                 <BlockButtonWrapper>
