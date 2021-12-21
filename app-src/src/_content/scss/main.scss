@@ -6787,10 +6787,11 @@ input {
 }
 
 .message-wrapper {
-    background-color: $light-grey;
+    background-color: $background-grey;
     margin: 10px 0;
     padding: 10px;
-    
+    border-radius: 10px;
+
     .title-wrapper {
         display: flex;
         flex-direction: row;
