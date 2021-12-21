@@ -143,14 +143,10 @@ class FurtherFiltrationContainer extends Component {
             isFetching,
             showModal,
             hideModal,
-            postFilters,
         } = this.props;
         // reset filter fields if changing the filter
         if (prevProps.furtherFiltrationOption !== furtherFiltrationOption) {
             removeFilterQuestions();
-            if (+prevProps.furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.PIN_SELECTOR) {
-                postFilters();
-            }
         }
         // reset further filters if site info changes
         if (
@@ -198,10 +194,8 @@ class FurtherFiltrationContainer extends Component {
     };
 
     removeCustomField = async id => {
-        const { postFilters, removeFilterQuestion } = this.props;
+        const { removeFilterQuestion } = this.props;
         await removeFilterQuestion(id);
-
-        postFilters();
     };
 
     _getQuestionsOptions = () => {
@@ -218,9 +212,8 @@ class FurtherFiltrationContainer extends Component {
     };
 
     handleChange = async (_, value) => {
-        const { postFilters, updateFurtherFiltrationOption } = this.props;
+        const { updateFurtherFiltrationOption } = this.props;
         await updateFurtherFiltrationOption(value);
-        postFilters();
     };
 
     handleExactMatchChange = async (_, value) => {
@@ -229,17 +222,17 @@ class FurtherFiltrationContainer extends Component {
     };
 
     handleNumOfHistoriesChange = (name, value) => {
-        const { handleChange, postFilters, showModal, hideModal, shouldConfirm } = this.props;
+        const { handleChange, showModal, hideModal, shouldConfirm } = this.props;
 
         if (shouldConfirm) {
             const handleSubmit = () => {
                 hideModal();
-                handleChange(name, value).then(postFilters);
+                handleChange(name, value);
             };
             const message = 'Changing this will reset your advanced filters options, continue?';
             showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
         } else {
-            handleChange(name, value).then(postFilters);
+            handleChange(name, value);
         }
     };
 }
