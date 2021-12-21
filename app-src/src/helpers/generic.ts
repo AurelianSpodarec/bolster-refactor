@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import moment from 'moment';
+import moment, { MomentInput } from 'moment';
 import orderBy from 'lodash/orderBy';
 import find from 'lodash/find';
 import { DATE_TIME_DEFAULTS } from '../constants/companyAdmin/enums';
@@ -374,4 +374,21 @@ export const isMinMemory = (bytes: number) => {
     const mb = kb / 1024;
     const gb = mb / 1024;
     return gb >= 2.5 && gb < 3.5;
+};
+
+export const totalArray = (array: number[]) => array.reduce((acc, val) => acc + val, 0);
+
+export const formatAsHrsMinsSecs = (ms: number) => {
+    const formatInt = (int: number) => int.toString().padStart(2, '0');
+
+    const secs = Math.floor(ms / 1000);
+    const hrs = Math.floor(secs / 3600);
+    const mins = Math.floor((secs - hrs * 3600) / 60);
+    const secsLeft = secs - hrs * 3600 - mins * 60;
+
+    return `${formatInt(hrs)}:${formatInt(mins)}:${formatInt(secsLeft)}`;
+};
+
+export const arrayToQueryString = (array: string[], key: string) => {
+    return array.map(val => `${key}=${val}`).join('&');
 };

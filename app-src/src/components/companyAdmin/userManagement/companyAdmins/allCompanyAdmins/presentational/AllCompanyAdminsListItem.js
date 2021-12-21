@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import { getStorageString, isLowMemory, isLowStorage } from 'helpers/generic';
+import { getStorageString } from 'helpers/generic';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
@@ -136,6 +136,12 @@ const AllCompanyAdminsListItem = ({
                     <Link className="button green " to="/company/users-management/timesheets">
                         <i className="far fa-eye" />
                         View Timesheet
+                    </Link>
+                    <Link
+                        className="button green"
+                        to={`/company/users-management/company-admins/${user.id}/timesheet`}
+                    >
+                        <i className="far fa-eye" /> View Timesheet
                     </Link>
                     <Link
                         className="button yellow "

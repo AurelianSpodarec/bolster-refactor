@@ -477,3 +477,13 @@ export const COMPANY_REPORTS_OUTPUT_TYPES = {
     isFloorplanGeneration: 'Floor Plan',
     isOEMManualGeneration: 'O&M Manual',
 };
+
+export const TIME_PERIOD = {
+    DAY: 'day',
+    WEEK: 'week',
+};
+
+export const CLOCKER_ENTRY_TYPE = {
+    WORKING: 1,
+    ON_BREAK: 2,
+};
