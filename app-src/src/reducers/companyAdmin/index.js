@@ -61,6 +61,7 @@ import companySelectionReducer from './companySelection';
 import timesheetsReducer from './timesheets';
 import timesheetPinStatsReducer from './timesheetPinStats';
 import userPinFeedsReducer from './userPinFeeds';
+import bugReportsReducer from './bugReports';
 
 export default combineReducers({
     activityLogReducer,
@@ -70,6 +71,7 @@ export default combineReducers({
     appReducer,
     approvedCompaniesReducer,
     buildingsReducer,
+    bugReportsReducer,
     cardsReducer,
     clientsReducer,
     companyAddressesGeocodeReducer,

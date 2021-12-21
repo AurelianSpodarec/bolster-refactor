@@ -123,6 +123,7 @@ import {
     USER_NEW_DOCUMENT,
     UNCONFIRMED_EMAIL_MODAL,
     GENERATE_TIMESHEET_REPORT,
+    EXPANDED_MEDIA,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -196,7 +197,7 @@ import SuperAdminConfirmDeleteInvoiceModalContainer from 'components/superAdmin/
 import ConfirmDeleteInvoiceModalContainer from 'components/companyAdmin/invoices/confirmDeleteInvoiceModal/containers/ConfirmDeleteInvoiceModalContainer';
 import AddCompanyAdminModalContainer from 'components/superAdmin/companies/singleCompany/containers/AddCompanyAdminModalContainer';
 import GenerateQRCodesModalContainer from './GenerateQRCodesModalContainer';
-import RistrictPaymentsModalContainer from './RistrictPaymentsModalContainer';
+import RestrictPaymentsModalContainer from './RestrictPaymentsModalContainer';
 import AdminAddManufacturerModal from 'components/superAdmin/pinOptions/addManufacturer/presentational/AddManufacturerModal';
 import AdminEditManufacturerModal from 'components/superAdmin/pinOptions/editManufacturer/presentational/EditManufacturerModal';
 import AdminAddOptionValueModal from 'components/superAdmin/pinOptions/addOptionValue/presentational/AddOptionValueModal';
@@ -248,6 +249,7 @@ import RequestDeleteInvoiceModal from 'components/companyAdmin/invoices/requestD
 import NewUserDocumentModal from 'components/companyAdmin/userManagement/documentsUploader/presentational/NewUserDocumentModal';
 import UnconfirmedEmailModal from '../presentational/UnconfirmedEmailModal';
 import GenerateTimesheetReportModal from 'components/companyAdmin/userManagement/operatives/timesheets/modals/GenerateTimesheetReport';
+import ExpandedMediaModal from './ExpandedMediaModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -300,7 +302,7 @@ const MODAL_COMPONENTS = {
     [CREATE_OPERATIVE]: CreateOperativeModal,
     [LOADING_DATA]: LoadingDataModal,
     [UNLINK_DEVICE]: UnlinkDeviceModalContainer,
-    [RESTRICT_ADMIN_PAYMENTS]: RistrictPaymentsModalContainer,
+    [RESTRICT_ADMIN_PAYMENTS]: RestrictPaymentsModalContainer,
     [REVOKE_ADMIN_ACCESS]: RevokeAdminAccessModalContainer,
     [DOCUMENT_RESPONSE_AGREEANCE]: DocumentResponseAgreeanceModalContainer,
     [SINGLE_PIN_GENERATE_REPORT_SUCCESS]: SinglePinGenerateReportSuccessModalContainer,
@@ -371,6 +373,7 @@ const MODAL_COMPONENTS = {
     [USER_NEW_DOCUMENT]: NewUserDocumentModal,
     [UNCONFIRMED_EMAIL_MODAL]: UnconfirmedEmailModal,
     [GENERATE_TIMESHEET_REPORT]: GenerateTimesheetReportModal,
+    [EXPANDED_MEDIA]: ExpandedMediaModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

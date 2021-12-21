@@ -3,6 +3,7 @@ import moment, { MomentInput } from 'moment';
 import orderBy from 'lodash/orderBy';
 import find from 'lodash/find';
 import { DATE_TIME_DEFAULTS } from '../constants/companyAdmin/enums';
+import { videoFormats } from 'constants/shared/media';
 
 export function convertArrToObj(arr, field = 'id') {
     return arr.reduce((acc, item) => {
@@ -391,4 +392,11 @@ export const formatAsHrsMinsSecs = (ms: number) => {
 
 export const arrayToQueryString = (array: string[], key: string) => {
     return array.map(val => `${key}=${val}`).join('&');
+};
+
+
+export const isVideo = s3Key => {
+    const fileExtension = s3Key.split('.').pop();
+
+    return videoFormats.includes(fileExtension.toLowerCase());
 };
