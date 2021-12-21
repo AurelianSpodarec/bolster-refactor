@@ -133,10 +133,6 @@ const AllCompanyAdminsListItem = ({
                     <button className="button" onClick={generateReport}>
                         Generate Report
                     </button>
-                    <Link className="button green " to="/company/users-management/timesheets">
-                        <i className="far fa-eye" />
-                        View Timesheet
-                    </Link>
                     <Link
                         className="button green"
                         to={`/company/users-management/company-admins/${user.id}/timesheet`}
