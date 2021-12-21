@@ -1,6 +1,6 @@
 import React from 'react';
 
-const options = [
+const tabs = [
     { name: 'System Messages', value: 0 },
     { name: 'Company Alerts', value: 1 },
     { name: 'Operative Alerts', value: 2 },
@@ -10,13 +10,13 @@ const options = [
 const MessageCentreTabs = ({ selectedTab, setSelectedTab }) => {
     return (
         <div className="tab-wrapper size-lg-12">
-            {options.map((option, i) => (
+            {tabs.map((tab, i) => (
                 <button
                     key={i}
-                    className={`tab-item ${selectedTab === option.value ? 'active' : ''}`}
-                    onClick={() => setSelectedTab(option.value)}
+                    className={`tab-item ${selectedTab === tab.value ? 'active' : ''}`}
+                    onClick={() => setSelectedTab(tab.value)}
                 >
-                    {option.name}
+                    {tab.name}
                 </button>
             ))}
         </div>
