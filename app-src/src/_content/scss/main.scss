@@ -6755,3 +6755,26 @@ input {
 .tooltip-invoice {
     margin-top: 2px;
 }
+
+.tab-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 2px solid $text-grey;
+    padding-right: 25%;
+  
+
+    .tab-item {
+        padding-bottom: 5px;
+        background-color: transparent;
+        font-size: 140%;
+        font-weight: 500;
+        color: $text-grey;
+        border-bottom: 3px solid transparent;
+
+        &.active { 
+            border-color: $red-alt;
+            color: black;
+        }
+    }
+}
