@@ -11,4 +11,4 @@ const useUpcomingAlerts = () => {
     };
 };
 
-return useUpcomingAlerts;
+export default useUpcomingAlerts;
