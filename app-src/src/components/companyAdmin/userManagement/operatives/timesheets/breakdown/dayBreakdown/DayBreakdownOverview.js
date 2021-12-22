@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import moment from 'moment';
 
 import usePinFeed from '../../hooks/usePinFeed';
@@ -16,6 +17,7 @@ import PieChart from 'components/shared/stats/presentational/PieChart';
 import { isEmpty } from 'helpers/generic';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import { timesheetSelectedCompanyIDs } from 'selectors/companyAdmin/timesheets';
 
 const DayBreakdownOverview = ({
     selectedDate,
@@ -23,15 +25,12 @@ const DayBreakdownOverview = ({
     handlePDFReportGeneration,
     disableReportGenPin,
 }) => {
-    const [userIDs, setUserIDs] = useState([]);
+    const userIDs = useSelector(timesheetSelectedCompanyIDs);
+
     const {
         formState: { filterType, filterDirection },
         handleChange,
     } = useOverviewFilters();
-
-    useEffect(() => {
-        setUserIDs(timesheets.map(({ companyUserID }) => companyUserID));
-    }, [timesheets]);
 
     const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
         userIDs,
