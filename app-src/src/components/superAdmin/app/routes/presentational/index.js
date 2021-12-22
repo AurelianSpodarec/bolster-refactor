@@ -26,6 +26,7 @@ import BannersRoutes from './BannersRoutes';
 import DemoAccessCodesRoutes from './DemoAccessCodesRoutes';
 import UserCreationsRoutes from './UserCreationsRoutes';
 import CompanyTrackingRoutes from './CompanyTrackingRoutes';
+import BugReportsRoutes from './BugReportsRoutes';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
@@ -53,6 +54,7 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/new-features`} component={NewFeaturesRoutes} />
         <Route path={`${base}/recently-extended`} component={RecentlyExtendedRoutes} />
         <Route path={`${base}/banners`} component={BannersRoutes} />
+        <Route path={`${base}/bug-reports`} component={BugReportsRoutes} />
     </SwitchWith404>
 );
 

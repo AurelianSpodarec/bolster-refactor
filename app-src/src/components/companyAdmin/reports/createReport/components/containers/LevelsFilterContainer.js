@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import moment from 'moment-timezone';
 import _ from 'lodash';
 
-import { convertArrToObj, isObjEmpty } from 'helpers/generic';
+import { convertArrToObj, isDifferent, isObjEmpty } from 'helpers/generic';
 import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
@@ -126,8 +126,8 @@ class LevelsFilterContainer extends Component {
         return updatedFloorIDs;
     };
 
-    handleChange = (name, value, mount = false, shouldPostFilters = true) => {
-        const { postFilters, shouldConfirm, showModal, hideModal } = this.props;
+    handleChange = (name, value) => {
+        const { shouldConfirm, showModal, hideModal } = this.props;
         const updateMethods = {
             drawingID: this.updateDrawing,
             floorID: this.updateFloor,
@@ -135,18 +135,17 @@ class LevelsFilterContainer extends Component {
             siteID: this.updateSite,
         };
         const update = updateMethods[name];
-        const postFiltersIfNeeded = () => shouldPostFilters && postFilters();
 
-        if (shouldConfirm && !mount) {
+        if (shouldConfirm) {
             const handleSubmit = () => {
                 hideModal();
-                return update(value).then(postFiltersIfNeeded);
+                return update(value);
             };
             const message = 'Changing this will reset your advanced filters options, continue?';
             // * confirm and then do this:
             showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
         } else {
-            return update(value).then(postFiltersIfNeeded);
+            return update(value);
         }
     };
 
@@ -208,17 +207,17 @@ class LevelsFilterContainer extends Component {
             filters: { siteID, companyUserIDs = [], drawingID },
             handleChange,
             updateReportFilter,
-            postFilters,
             removeFieldError,
             fetchZonesForReportByDrawingID,
         } = this.props;
-        if (pins.length !== prevPins.length) {
-            handleChange(
-                'pinIDs',
-                pins.map(({ id }) => id),
-            );
+
+        const prevPinIDs = prevPins.map(pin => pin.id);
+        const pinIDs = pins.map(pin => pin.id);
+
+        if (isDifferent(pinIDs, prevPinIDs)) {
+            handleChange('pinIDs', pinIDs);
         }
-        if (siteID !== prevSiteID || companyUserIDs !== prevCompanyUserIDs) {
+        if (!_.isEqual(siteID, prevSiteID) || !_.isEqual(companyUserIDs, prevCompanyUserIDs)) {
             let value = null;
 
             if (!siteID && !companyUserIDs.length) {
@@ -231,8 +230,8 @@ class LevelsFilterContainer extends Component {
             this.setState({
                 initialLoad: false,
             });
-
-            updateReportFilter('hierarchyType', value).then(postFilters);
+            console.log({siteID, prevSiteID, companyUserIDs, prevCompanyUserIDs});
+            updateReportFilter('hierarchyType', value);
         }
 
         if (!_.isEqual(drawingID, prevDrawingID)) {

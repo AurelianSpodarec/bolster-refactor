@@ -13,18 +13,21 @@ const BannerNotificationContainer = ({
     postBannerNotificationClose,
     isPosting,
     postSuccess,
+    companyID,
 }) => {
     const [visible, setVisible] = useState(false);
     const prevProps = usePrevious({ isPosting, postSuccess });
 
     const getBannerNotification = useCallback(async () => {
-        await fetchBannerNotification();
-        setVisible(true);
-    }, []);
+        if (companyID) {
+            await fetchBannerNotification();
+            setVisible(true);
+        }
+    }, [companyID]);
 
     useEffect(() => {
         getBannerNotification();
-    }, []);
+    }, [companyID]);
 
     useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
@@ -59,6 +62,9 @@ const mapStateToProps = ({
             isPosting,
             postSuccess,
         },
+        decodeJWTReducer: {
+            jwtData: { companyID },
+        },
     },
 }) => ({
     isFetching,
@@ -66,6 +72,7 @@ const mapStateToProps = ({
     bannerNotification: bannerNotifications,
     isPosting,
     postSuccess,
+    companyID,
 });
 
 const mapDispatchToProps = { fetchBannerNotification, postBannerNotificationClose };

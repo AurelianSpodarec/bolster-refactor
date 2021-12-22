@@ -48,15 +48,15 @@ const SinglePinMap = ({
                 title={`Pin ${pin.pinCode}`}
                 classes={`${onMobile ? 'mobile-buttons' : ''}`}
             >
-                <button onClick={handleDeleteAllHistories} className="button red pull-right">
-                    <i className="fa fa-trash" /> Delete All Histories
-                </button>
-                <SinglePinGenerateReportContainer pinID={pin.id} />
                 {!!moment(Date.now()).isBefore(drawing?.expiresOn) && (
                     <Link className="button green" to={`/company/pins/${pin.id}/add-history`}>
                         <i className="fa fa-plus" /> Add Pin History
                     </Link>
                 )}
+                <button onClick={handleDeleteAllHistories} className="button red pull-right">
+                    <i className="fa fa-trash" /> Delete All Histories
+                </button>
+                <SinglePinGenerateReportContainer pinID={pin.id} />
                 {moveMode ? (
                     <>
                         <button onClick={handleEditPinLocation} className="button green pull-right">

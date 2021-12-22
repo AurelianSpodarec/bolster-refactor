@@ -4,9 +4,7 @@ import {
     FETCH_COMPANY_TRACKING_REQUEST,
     FETCH_COMPANY_TRACKING_SUCCESS,
     FETCH_COMPANY_TRACKING_FAILURE,
-    POST_COMPANY_TRACKING_REQUEST,
     POST_COMPANY_TRACKING_SUCCESS,
-    POST_COMPANY_TRACKING_FAILURE,
 } from 'constants/actionTypes/companies';
 
 import { convertArrToObj, updateObj } from 'helpers/generic';

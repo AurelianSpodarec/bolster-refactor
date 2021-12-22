@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useWindowDimensions } from 'helpers/hooks';
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import withFieldValidation from '../hocs/withFieldValidation';
 
 // MultiSelect is a multi select dropdown
@@ -20,6 +21,7 @@ const MultiSelect = ({
     showError,
     iconClass = '',
     placeholder = '-- select options --',
+    maxLines = null,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [hasOpened, setHasOpened] = useState(false);
@@ -40,14 +42,52 @@ const MultiSelect = ({
         else if (!isOpen && hasOpened) showError();
     }, [isOpen]);
 
+    const windowDimensions = useWindowDimensions();
+
+    const [visibleLimit, setVisibleLimit] = useState(options.length);
+    const selectedRef = useRef();
+    useEffect(() => {
+        const selectedElement = selectedRef.current;
+        if (selectedElement && maxLines) {
+            const optionElements = selectedElement.getElementsByClassName('option');
+            const maxWidth = selectedElement.clientWidth - 115;
+
+            let usedWidth = 0;
+            let maxVisibleCount = 0;
+            let linesLeft = maxLines;
+
+            for (const optionElement of optionElements) {
+                usedWidth += optionElement.clientWidth;
+
+                if (usedWidth < maxWidth) {
+                    maxVisibleCount++;
+                } else {
+                    linesLeft -= 1;
+                    if (linesLeft <= 0) break;
+                    maxVisibleCount++;
+                    usedWidth = optionElement.clientWidth;
+                }
+            }
+            setVisibleLimit(maxVisibleCount);
+        }
+    }, [selectedRef.current, value, maxLines, windowDimensions]);
+
+    useEffect(() => {
+        if (maxLines == null) setVisibleLimit(options.length);
+    }, [options]);
+
     return (
         <div className={`multi-multi-dropdown size-lg-12 ${disabled ? 'disabled' : ''}`} ref={node}>
-            <div className="selected-box" onClick={() => !disabled && setIsOpen(!isOpen)}>
+            <div
+                className="selected-box"
+                onClick={() => !disabled && setIsOpen(!isOpen)}
+                ref={selectedRef}
+            >
                 {!getSelected().length && <p className="placeholder">{placeholder}</p>}
-                {getSelected().map(opt => (
+                {getSelected().map((opt, i) => (
                     <div
                         key={opt.value}
-                        className="option"
+                        className={`option ${i + 1 > visibleLimit ? 'option-hidden' : ''}`}
                         onClick={() => isOpen && setIsOpen(false)}
                     >
                         <p>{opt.label}</p>
@@ -57,6 +97,9 @@ const MultiSelect = ({
                         />
                     </div>
                 ))}
+                {getSelected().length > visibleLimit && (
+                    <p className="more">+{getSelected().length - visibleLimit} More</p>
+                )}
 
                 <i className={`arrow ${iconClass.length ? iconClass : 'fal fa-angle-down'}`} />
             </div>

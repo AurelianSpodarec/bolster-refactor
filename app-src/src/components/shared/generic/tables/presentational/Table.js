@@ -6,6 +6,7 @@ const Table = ({
     headers,
     error,
     isFetching,
+    showLoaderWhenFetching,
     noData,
     noDataMessage = 'There is no data to display',
     withActions = false,
@@ -40,6 +41,7 @@ const Table = ({
                 noData={noData}
                 noDataMessage={noDataMessage}
                 withoutTBody={withoutTBody}
+                showLoaderWhenFetching={showLoaderWhenFetching}
             >
                 {children}
             </TableBody>
