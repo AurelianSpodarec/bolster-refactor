@@ -35,21 +35,21 @@ const BreakdownSummary = ({
                         <FieldOutput
                             title="Total Hours Worked"
                             fieldClass="hours"
-                            sizeClass="size-lg-4"
+                            sizeClass="size-lg-6"
                         >
                             {formatAsHrsMinsSecs(formattedHours)}
                         </FieldOutput>
                         <FieldOutput
                             title="Total Break Time"
                             fieldClass="breakHours"
-                            sizeClass="size-lg-4"
+                            sizeClass="size-lg-6"
                         >
                             {formatAsHrsMinsSecs(formattedBreakHours)}
                         </FieldOutput>
                         <FieldOutput
                             title="Total Hours Clocked In"
                             fieldClass="clockedIn"
-                            sizeClass="size-lg-4"
+                            sizeClass="size-lg-6"
                         >
                             {clockIn ? formatAsHrsMinsSecs(formattedClockedInHours) : 'N/A'}
                         </FieldOutput>
