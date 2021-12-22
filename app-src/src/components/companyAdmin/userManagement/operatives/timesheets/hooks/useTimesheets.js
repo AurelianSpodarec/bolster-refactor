@@ -58,8 +58,14 @@ const useTimesheets = () => {
     const companyUserIDs = useSelector(timesheetSelectedCompanyIDs);
 
     const initialDate = query.get('date') || new Date();
-    const thisWeek = moment(initialDate).tz(timeZone.id).startOf('isoWeek').format();
-    const thisDay = moment(initialDate).tz(timeZone.id).startOf('day').format();
+    const thisWeek = moment(initialDate)
+        .tz(timeZone?.id ?? 'Europe/London')
+        .startOf('isoWeek')
+        .format();
+    const thisDay = moment(initialDate)
+        .tz(timeZone?.id ?? 'Europe/London')
+        .startOf('day')
+        .format();
 
     const [companyUserOptions, setCompanyUserOptions] = useState([]);
     const [startDate, setStartDate] = useState(thisWeek);
