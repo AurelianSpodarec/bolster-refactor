@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import moment, { MomentInput } from 'moment';
+import moment from 'moment';
 import orderBy from 'lodash/orderBy';
 import find from 'lodash/find';
 import { DATE_TIME_DEFAULTS } from '../constants/companyAdmin/enums';

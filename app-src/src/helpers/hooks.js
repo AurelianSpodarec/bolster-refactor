@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import uuid from 'uuid/v4';
 import moment from 'moment';
 import { useLocation } from 'react-router-dom';
