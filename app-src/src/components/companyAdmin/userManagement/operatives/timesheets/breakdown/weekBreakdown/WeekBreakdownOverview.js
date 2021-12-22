@@ -26,9 +26,8 @@ const WeekBreakdownOverview = ({
     disableReportGenPin,
     handlePDFReportGeneration,
 }) => {
-    const isSingleUser = timesheets.length === 1;
-
     const userIDs = useSelector(timesheetSelectedCompanyIDs);
+    const isSingleUser = userIDs.length === 1;
 
     const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
         userIDs,
@@ -77,6 +76,11 @@ const WeekBreakdownOverview = ({
             </>
         );
     }
+
+    const singleUserTimesheet = timesheets.find(
+        timesheet => timesheet.companyUserID === userIDs[0],
+    );
+
     const {
         companyUserID,
         firstName,
@@ -87,7 +91,7 @@ const WeekBreakdownOverview = ({
         jobReferences,
         totalPins,
         clockerNotes,
-    } = useWeekOverview(timesheets[0]);
+    } = useWeekOverview(singleUserTimesheet);
 
     return (
         <BreakdownColumns
