@@ -43,33 +43,19 @@ export default combineReducers({
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_PIN_TASKS_REQUEST:
-            return true;
-        case FETCH_PIN_TASKS_FAILURE:
-            return false;
-        case FETCH_PIN_TASKS_SUCCESS:
-            return false;
-
         case FETCH_PIN_TASK_REQUEST:
-            return true;
-        case FETCH_PIN_TASK_FAILURE:
-            return false;
-        case FETCH_PIN_TASK_SUCCESS:
-            return false;
-
         case FETCH_PIN_TASK_SERIES_MULTIPLE_REQUEST:
-            return true;
-        case FETCH_PIN_TASK_SERIES_MULTIPLE_FAILURE:
-            return false;
-        case FETCH_PIN_TASK_SERIES_MULTIPLE_SUCCESS:
-            return false;
-
         case FETCH_PIN_TASK_SERIES_REQUEST:
             return true;
+        case FETCH_PIN_TASKS_FAILURE:
+        case FETCH_PIN_TASKS_SUCCESS:
+        case FETCH_PIN_TASK_FAILURE:
+        case FETCH_PIN_TASK_SUCCESS:
+        case FETCH_PIN_TASK_SERIES_MULTIPLE_FAILURE:
+        case FETCH_PIN_TASK_SERIES_MULTIPLE_SUCCESS:
         case FETCH_PIN_TASK_SERIES_FAILURE:
-            return false;
         case FETCH_PIN_TASK_SERIES_SUCCESS:
             return false;
-
         default:
             return state;
     }
@@ -78,40 +64,22 @@ function isFetchingReducer(state = false, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case CREATE_PIN_TASKS_REQUEST:
-            return true;
-        case CREATE_PIN_TASKS_FAILURE:
-            return false;
-        case CREATE_PIN_TASKS_SUCCESS:
-            return false;
-
         case EDIT_PIN_TASK_REQUEST:
-            return true;
-        case EDIT_PIN_TASK_FAILURE:
-            return false;
-        case EDIT_PIN_TASK_SUCCESS:
-            return false;
-
         case EDIT_PIN_TASK_SERIES_REQUEST:
-            return true;
-        case EDIT_PIN_TASK_SERIES_FAILURE:
-            return false;
-        case EDIT_PIN_TASK_SERIES_SUCCESS:
-            return false;
-
         case DELETE_PIN_TASK_REQUEST:
-            return true;
-        case DELETE_PIN_TASK_FAILURE:
-            return false;
-        case DELETE_PIN_TASK_SUCCESS:
-            return false;
-
         case DELETE_PIN_TASK_SERIES_REQUEST:
             return true;
+        case CREATE_PIN_TASKS_FAILURE:
+        case CREATE_PIN_TASKS_SUCCESS:
+        case EDIT_PIN_TASK_FAILURE:
+        case EDIT_PIN_TASK_SUCCESS:
+        case EDIT_PIN_TASK_SERIES_FAILURE:
+        case EDIT_PIN_TASK_SERIES_SUCCESS:
+        case DELETE_PIN_TASK_FAILURE:
+        case DELETE_PIN_TASK_SUCCESS:
         case DELETE_PIN_TASK_SERIES_FAILURE:
-            return false;
         case DELETE_PIN_TASK_SERIES_SUCCESS:
             return false;
-
         default:
             return state;
     }
@@ -120,50 +88,25 @@ function isPostingReducer(state = false, action) {
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_PIN_TASKS_FAILURE:
-            return action.error;
-        case FETCH_PIN_TASKS_REQUEST:
-            return null;
-
         case FETCH_PIN_TASK_FAILURE:
-            return action.error;
-        case FETCH_PIN_TASK_REQUEST:
-            return null;
-
         case CREATE_PIN_TASKS_FAILURE:
-            return action.error;
-        case CREATE_PIN_TASKS_REQUEST:
-            return null;
-
         case EDIT_PIN_TASK_FAILURE:
-            return action.error;
-        case EDIT_PIN_TASK_REQUEST:
-            return null;
-
         case DELETE_PIN_TASK_FAILURE:
-            return action.error;
-        case DELETE_PIN_TASK_REQUEST:
-            return null;
-
         case FETCH_PIN_TASK_SERIES_MULTIPLE_FAILURE:
-            return action.error;
-        case FETCH_PIN_TASK_SERIES_MULTIPLE_REQUEST:
-            return null;
-
         case FETCH_PIN_TASK_SERIES_FAILURE:
-            return action.error;
-        case FETCH_PIN_TASK_SERIES_REQUEST:
-            return null;
-
         case EDIT_PIN_TASK_SERIES_FAILURE:
-            return action.error;
-        case EDIT_PIN_TASK_SERIES_REQUEST:
-            return null;
-
         case DELETE_PIN_TASK_SERIES_FAILURE:
             return action.error;
+        case FETCH_PIN_TASKS_REQUEST:
+        case FETCH_PIN_TASK_REQUEST:
+        case CREATE_PIN_TASKS_REQUEST:
+        case EDIT_PIN_TASK_REQUEST:
+        case DELETE_PIN_TASK_REQUEST:
+        case FETCH_PIN_TASK_SERIES_MULTIPLE_REQUEST:
+        case FETCH_PIN_TASK_SERIES_REQUEST:
+        case EDIT_PIN_TASK_SERIES_REQUEST:
         case DELETE_PIN_TASK_SERIES_REQUEST:
             return null;
-
         default:
             return state;
     }
@@ -173,16 +116,11 @@ function pinTasksReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_PIN_TASKS_SUCCESS:
             return convertArrToObj(action.payload);
-
         case FETCH_PIN_TASK_SUCCESS:
-            return updateObj(state, action.payload.id, action.payload);
-
         case EDIT_PIN_TASK_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
-
         case DELETE_PIN_TASK_SUCCESS:
             return removeObjItem(state, action.payload);
-
         default:
             return state;
     }
@@ -192,17 +130,12 @@ function pinTaskSeriesReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_PIN_TASK_SERIES_MULTIPLE_SUCCESS:
             return convertArrToObj(action.payload);
-
         case FETCH_PIN_TASK_SERIES_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
-
         case EDIT_PIN_TASK_SERIES_SUCCESS:
-            //return updateObj(state, action.payload.id, action.payload);
             return state;
-
         case DELETE_PIN_TASK_SERIES_SUCCESS:
             return removeObjItem(state, action.payload);
-
         default:
             return state;
     }
@@ -211,30 +144,18 @@ function pinTaskSeriesReducer(state = {}, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_PIN_TASKS_SUCCESS:
-            return true;
-        case CREATE_PIN_TASKS_REQUEST:
-            return false;
-
         case EDIT_PIN_TASK_SUCCESS:
-            return true;
-        case EDIT_PIN_TASK_REQUEST:
-            return false;
-
         case EDIT_PIN_TASK_SERIES_SUCCESS:
-            return true;
-        case EDIT_PIN_TASK_SERIES_REQUEST:
-            return false;
-
+        case DELETE_PIN_TASK_SERIES_SUCCESS:
         case DELETE_PIN_TASK_SUCCESS:
             return true;
-        case DELETE_PIN_TASK_REQUEST:
-            return false;
-
-        case DELETE_PIN_TASK_SERIES_SUCCESS:
-            return true;
+        case CREATE_PIN_TASKS_REQUEST:
+        case EDIT_PIN_TASK_REQUEST:
+        case EDIT_PIN_TASK_SERIES_REQUEST:
         case DELETE_PIN_TASK_SERIES_REQUEST:
+        case DELETE_PIN_TASK_REQUEST:
+        case CREATE_PIN_TASKS_FAILURE:
             return false;
-
         default:
             return state;
     }
