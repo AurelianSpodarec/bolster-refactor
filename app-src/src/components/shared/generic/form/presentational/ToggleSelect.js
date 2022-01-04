@@ -34,17 +34,42 @@ const ToggleSelect = ({
         }
 
         handleChange(name, newSelected);
+        setChosen([]);
     };
 
-    const choose = (value, multiple = false) => {
-        if (!multiple) setChosen([]);
-        setChosen(chosen => {
-            const newChosen = [...chosen];
-            const index = newChosen.indexOf(value);
-            if (index >= 0) newChosen.splice(index, 1);
-            else newChosen.push(value);
-            return newChosen;
-        });
+    const choose = (e, value, type, index) => {
+        let shiftSelectedDrawings = [];
+        const drawingList = type === 'included' ? chosenOptions : idleOptions;
+
+        const newCheckedDrawings = chosen.includes(value)
+            ? chosen.filter(selectedDrawing => selectedDrawing !== value)
+            : [...chosen, value];
+
+        setChosen(newCheckedDrawings);
+
+        if (e.shiftKey && chosen.length) {
+            let firstSelectedDrawingId = chosen[0];
+            let firstSelectedDrawingIndex = null;
+
+            for (let i = 0; i < drawingList.length; i++) {
+                if (drawingList[i].value === firstSelectedDrawingId) {
+                    firstSelectedDrawingIndex = i;
+                }
+            }
+            let shiftSelectedDrawingIndex = index;
+
+            if (firstSelectedDrawingIndex < shiftSelectedDrawingIndex) {
+                for (let i = firstSelectedDrawingIndex; i <= shiftSelectedDrawingIndex; i++) {
+                    shiftSelectedDrawings.push(drawingList[i].value);
+                }
+            } else {
+                for (let i = firstSelectedDrawingIndex; i >= shiftSelectedDrawingIndex; i--) {
+                    shiftSelectedDrawings.push(drawingList[i].value);
+                }
+            }
+
+            setChosen(shiftSelectedDrawings);
+        }
     };
 
     const _validate = () => {
@@ -68,7 +93,14 @@ const ToggleSelect = ({
                 <div className="list">
                     {options.length === 0 && <p className="no-data">No options available</p>}
                     {idleOptions.map((option, i) => (
-                        <Option option={option} chosen={chosen} choose={choose} key={i} />
+                        <Option
+                            option={option}
+                            chosen={chosen}
+                            choose={choose}
+                            key={i}
+                            type="excluded"
+                            index={i}
+                        />
                     ))}
                 </div>
                 <div className="controls">
@@ -92,7 +124,14 @@ const ToggleSelect = ({
                 </div>
                 <div className="list">
                     {chosenOptions.map((option, i) => (
-                        <Option option={option} chosen={chosen} choose={choose} key={i} />
+                        <Option
+                            option={option}
+                            chosen={chosen}
+                            choose={choose}
+                            key={i}
+                            type="included"
+                            index={i}
+                        />
                     ))}
                 </div>
             </div>
@@ -100,12 +139,12 @@ const ToggleSelect = ({
     );
 };
 
-const Option = ({ option: { value, label }, chosen, choose }) => {
+const Option = ({ option: { value, label }, chosen, choose, type, index }) => {
     return (
         <button
             type="button"
             className={`option ${chosen.includes(value) ? 'chosen' : ''}`}
-            onClick={event => choose(value, event.shiftKey)}
+            onClick={e => choose(e, value, type, index)}
         >
             <p className="text">{label}</p>
         </button>
