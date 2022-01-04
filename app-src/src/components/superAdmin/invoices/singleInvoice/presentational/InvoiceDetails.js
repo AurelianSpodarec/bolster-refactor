@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
@@ -27,6 +27,11 @@ const InvoiceDetails = ({
     handleShowModal,
 }) => {
     const [commentValue, setCommentValue] = useState(comment || '');
+
+    useEffect(() => {
+        setCommentValue(comment);
+    }, [comment]);
+
     return (
         <BlockContainer
             containerClass="flex-row-item size-lg-12"
