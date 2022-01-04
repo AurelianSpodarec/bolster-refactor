@@ -9,8 +9,8 @@ import Select from 'components/shared/generic/form/presentational/Select';
 
 const viewOptions = [
     {
-        value: PIN_STATS_DASHBOARD_VIEW.CALENDER,
-        label: 'Calender',
+        value: PIN_STATS_DASHBOARD_VIEW.CALENDAR,
+        label: 'Calendar',
     },
     {
         value: PIN_STATS_DASHBOARD_VIEW.LIST,

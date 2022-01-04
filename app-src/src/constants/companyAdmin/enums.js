@@ -479,7 +479,7 @@ export const COMPANY_REPORTS_OUTPUT_TYPES = {
 };
 
 export const PIN_STATS_DASHBOARD_VIEW = {
-    CALENDER: 'calender',
+    CALENDAR: 'calendar',
     LIST: 'list',
     SERIES: 'series',
 };

@@ -26,7 +26,7 @@ const PinTasksDashboard = () => {
     } = usePinTasksDashboard();
 
     const views = {
-        [PIN_STATS_DASHBOARD_VIEW.CALENDER]: CalendarView,
+        [PIN_STATS_DASHBOARD_VIEW.CALENDAR]: CalendarView,
         [PIN_STATS_DASHBOARD_VIEW.LIST]: ListView,
         [PIN_STATS_DASHBOARD_VIEW.SERIES]: SeriesView,
     };

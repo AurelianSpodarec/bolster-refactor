@@ -1,10 +1,10 @@
+import React from 'react';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Form from 'components/shared/generic/form/containers/Form';
 import PickListContainer from 'components/shared/generic/form/containers/PickListContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import { DAY, RECURRING_TYPE } from 'constants/companyAdmin/enums';
-import React from 'react';
 import useCreatePinTask from './hooks/useCreatePinTask';
 import CreatePinTaskStep1 from './CreatePinTaskStep1';
 import CreatePinTaskStep2 from './CreatePinTaskStep2';
@@ -42,11 +42,9 @@ const CreatePinTaskModal = ({ initialDate, startDate }) => {
         formData,
         handleChange,
         step,
-        setStep,
         closeModal,
         isRecurring,
         isWeekly,
-        isMonthly,
         onNextStep,
         isPosting,
     } = useCreatePinTask(initialDate, startDate);

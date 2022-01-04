@@ -4,12 +4,16 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import { RECURRING_TYPE } from 'constants/companyAdmin/enums';
 import { CREATE_PIN_TASK } from 'constants/shared/modalTypes';
-import { useForm } from 'helpers/hooks';
+import { useForm, usePrevious } from 'helpers/hooks';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { DAYS_FLAGGED } from 'constants/companyAdmin/enums';
 import fetchPinTasks from 'actions/companyAdmin/pinTasks/async/fetchPinTasks';
+import {
+    selectPinTasksIsPosting,
+    selectPinTasksPostSuccess,
+} from 'selectors/companyAdmin/pinTasks';
 
 const useCreatePinTask = (initialDate, startDate) => {
     const dispatch = useDispatch();
@@ -35,6 +39,10 @@ const useCreatePinTask = (initialDate, startDate) => {
     const isWeekly = formData.recurring === RECURRING_TYPE.WEEKLY;
     const isMonthly = formData.recurring === RECURRING_TYPE.MONTHLY;
 
+    const isPosting = useSelector(selectPinTasksIsPosting);
+    const postSuccess = useSelector(selectPinTasksPostSuccess);
+    const prevPostSuccess = usePrevious(postSuccess);
+
     useEffect(() => {
         if (!isWeekly) {
             handleChange('days', []);
@@ -46,9 +54,14 @@ const useCreatePinTask = (initialDate, startDate) => {
         dispatch(clearFieldErrors());
     }, [dispatch, step]);
 
-    const closeModal = () => dispatch(hideModal(CREATE_PIN_TASK));
+    useEffect(() => {
+        if (postSuccess && !prevPostSuccess) {
+            dispatch(fetchPinTasks(startDate, moment(startDate).add(1, 'month').format()));
+            closeModal();
+        }
+    }, [postSuccess, prevPostSuccess]);
 
-    const [isPosting, setIsPosting] = useState(false);
+    const closeModal = () => dispatch(hideModal(CREATE_PIN_TASK));
 
     const handleDaysConversion = () => {
         const { days } = formData;
@@ -58,30 +71,17 @@ const useCreatePinTask = (initialDate, startDate) => {
 
     const onNextStep = () => {
         if (step < 1) return setStep(step + 1);
-        // handle submit here
-        setIsPosting(true);
 
-        const data = (({ operative, pins, date, recurring, endDate }) => ({
-            operative,
-            pins,
-            date,
-            recurring,
-            days: handleDaysConversion(),
-            endDate,
-        }))(formData);
+        formData.days = handleDaysConversion();
 
-        dispatch(createPinTasks(...Object.values(data)));
-        setTimeout(() => {
-            dispatch(fetchPinTasks(startDate, moment(startDate).add(1, 'month').format()));
-            setIsPosting(false);
-            closeModal();
-        }, 1500);
+        dispatch(createPinTasks(formData));
     };
 
-    const { date, endDate } = formData;
     useEffect(() => {
+        const { date, endDate } = formData;
+
         if (moment(date).isAfter(endDate, 'day')) handleChange('endDate', date);
-    }, [date]);
+    }, [formData.date, formData.endDate]);
 
     return {
         formData,

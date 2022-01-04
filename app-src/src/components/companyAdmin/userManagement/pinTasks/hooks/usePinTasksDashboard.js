@@ -12,13 +12,13 @@ const usePinTasksDashboard = () => {
     const dispatch = useDispatch();
     const { timeZone } = useSelector(selectCompanySettings);
 
-    const [view, setView] = useState(PIN_STATS_DASHBOARD_VIEW.CALENDER);
+    const [view, setView] = useState(PIN_STATS_DASHBOARD_VIEW.CALENDAR);
 
     const weekStart = moment(new Date()).tz(timeZone.id).startOf('isoWeek').format();
     const monthStart = moment(new Date()).tz(timeZone.id).startOf('month').format();
 
     const timePeriods = {
-        [PIN_STATS_DASHBOARD_VIEW.CALENDER]: TIME_PERIOD.MONTH,
+        [PIN_STATS_DASHBOARD_VIEW.CALENDAR]: TIME_PERIOD.MONTH,
         [PIN_STATS_DASHBOARD_VIEW.LIST]: TIME_PERIOD.WEEK,
         [PIN_STATS_DASHBOARD_VIEW.SERIES]: TIME_PERIOD.WEEK,
     };
