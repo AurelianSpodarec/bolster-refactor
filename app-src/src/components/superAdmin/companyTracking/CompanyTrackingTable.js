@@ -32,7 +32,7 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
     const today = new Date();
     const sortedCompanies = useMemo(() => {
         const sorted = Object.values(companies).sort(
-            (a, b) => new Date(a.latestSubscriptionStartOn) - new Date(b.latestSubscriptionStartOn),
+            (a, b) => new Date(b.latestSubscriptionStartOn) - new Date(a.latestSubscriptionStartOn),
         );
 
         return sorted;
