@@ -36,6 +36,7 @@ const CreatePinTaskStep1 = ({
                     name="date"
                     sizeClasses="size-lg-12"
                     label={!isRecurring ? 'Date' : 'Start Date'}
+                    required
                 >
                     <DatePickerContainer
                         name="date"
@@ -49,7 +50,7 @@ const CreatePinTaskStep1 = ({
                 </Field>
 
                 {isRecurring && (
-                    <Field name="endDate" sizeClasses="size-lg-12" label="End Date">
+                    <Field name="endDate" sizeClasses="size-lg-12" label="End Date" required>
                         <DatePickerContainer
                             name="endDate"
                             selected={new Date(endDate)}
@@ -60,7 +61,7 @@ const CreatePinTaskStep1 = ({
                     </Field>
                 )}
 
-                <Field name="operative" sizeClasses="size-lg-12">
+                <Field name="operative" sizeClasses="size-lg-12" required>
                     <Select
                         name="operative"
                         value={operative}
@@ -72,7 +73,7 @@ const CreatePinTaskStep1 = ({
                     />
                 </Field>
 
-                <Field name="site" sizeClasses="size-lg-12">
+                <Field name="site" sizeClasses="size-lg-12" required>
                     <Select
                         name="site"
                         value={site}
@@ -84,7 +85,7 @@ const CreatePinTaskStep1 = ({
                     />
                 </Field>
 
-                <Field name="building" sizeClasses="size-lg-12">
+                <Field name="building" sizeClasses="size-lg-12" required>
                     <Select
                         name="building"
                         value={building}
@@ -96,7 +97,7 @@ const CreatePinTaskStep1 = ({
                     />
                 </Field>
 
-                <Field name="floor" sizeClasses="size-lg-12">
+                <Field name="floor" sizeClasses="size-lg-12" required>
                     <Select
                         name="floor"
                         value={floor}
@@ -108,7 +109,7 @@ const CreatePinTaskStep1 = ({
                     />
                 </Field>
 
-                <Field name="drawing" sizeClasses="size-lg-12">
+                <Field name="drawing" sizeClasses="size-lg-12" required>
                     <Select
                         name="drawing"
                         value={drawing}
