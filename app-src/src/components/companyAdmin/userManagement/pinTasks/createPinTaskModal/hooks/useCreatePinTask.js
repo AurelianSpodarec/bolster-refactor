@@ -71,7 +71,7 @@ const useCreatePinTask = (initialDate, startDate) => {
 
     const handleDaysConversion = () => {
         const { days } = formData;
-
+        //API takes a bitmask of days of the week https://docs.microsoft.com/en-us/dotnet/api/System.FlagsAttribute?view=net-6.0
         return days.reduce((res, item) => res + DAYS_FLAGGED[item], 0);
     };
 
