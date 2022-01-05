@@ -18,7 +18,6 @@ import { selectCompanyUserID } from 'selectors/companyAdmin/companyUsers';
 import { RECURRING_TYPE } from 'constants/companyAdmin/enums';
 import { CREATE_PIN_TASK } from 'constants/shared/modalTypes';
 import { DAYS_FLAGGED } from 'constants/companyAdmin/enums';
-import pins from 'reducers/companyAdmin/pins';
 
 const useCreatePinTask = (initialDate, startDate) => {
     const dispatch = useDispatch();
