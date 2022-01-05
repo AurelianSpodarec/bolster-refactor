@@ -1,13 +1,8 @@
 import moment from 'moment';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    selectPinTasks,
-    selectPinTasksIsFetching,
-    selectPinTasksError,
-} from 'selectors/companyAdmin/pinTasks';
+import { selectPinTasks, selectPinTasksIsFetching } from 'selectors/companyAdmin/pinTasks';
 import fetchPinTasks from 'actions/companyAdmin/pinTasks/async/fetchPinTasks';
-import { isEmpty } from 'helpers/generic';
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
@@ -16,8 +11,6 @@ const useCalendar = startDate => {
 
     const pinTasks = useSelector(selectPinTasks);
     const isFetching = useSelector(selectPinTasksIsFetching);
-
-    const error = useSelector(selectPinTasksError);
 
     const weekday = moment(startDate).isoWeekday() - 1;
 
@@ -71,7 +64,7 @@ const useCalendar = startDate => {
         dispatch(fetchPinTasks(startDate, moment(startDate).add(1, 'month').format()));
     }, [dispatch, startDate]);
 
-    return { days, matrix, pinTasks, isFetching, error, types, statuses };
+    return { days, matrix, pinTasks, isFetching, types, statuses };
 };
 
 export default useCalendar;

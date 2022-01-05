@@ -10,6 +10,7 @@ import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import fetchPinTasks from 'actions/companyAdmin/pinTasks/async/fetchPinTasks';
 
 import {
+    selectPinTasksError,
     selectPinTasksIsPosting,
     selectPinTasksPostSuccess,
 } from 'selectors/companyAdmin/pinTasks';
@@ -46,6 +47,7 @@ const useCreatePinTask = (initialDate, startDate) => {
     const postSuccess = useSelector(selectPinTasksPostSuccess);
     const prevPostSuccess = usePrevious(postSuccess);
     const companyUserID = useSelector(selectCompanyUserID);
+    const error = useSelector(selectPinTasksError);
 
     useEffect(() => {
         if (!isWeekly) {
@@ -109,6 +111,7 @@ const useCreatePinTask = (initialDate, startDate) => {
         isMonthly,
         onNextStep,
         isPosting,
+        error,
     };
 };
 

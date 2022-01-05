@@ -4,7 +4,7 @@ import CalendarLegend from './CalendarLegend';
 import useCalendar from './hooks/useCalendar';
 
 const CalendarView = ({ startDate, startCreatePinTask }) => {
-    const { days, matrix, isFetching, error, types, statuses, pinTasks } = useCalendar(startDate);
+    const { days, matrix, isFetching, types, statuses, pinTasks } = useCalendar(startDate);
 
     return (
         <div className="calendar-view size-lg-12">
@@ -12,7 +12,7 @@ const CalendarView = ({ startDate, startCreatePinTask }) => {
             <Calendar
                 startDate={startDate}
                 startCreatePinTask={startCreatePinTask}
-                {...{ days, matrix, isFetching, error }}
+                {...{ days, matrix, isFetching }}
             />
         </div>
     );

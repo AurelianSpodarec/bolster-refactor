@@ -6,14 +6,9 @@ import moment from 'moment';
 import React from 'react';
 import CalendarPinTask from './CalendarPinTask';
 
-const Calendar = ({ startDate, startCreatePinTask, days, matrix, isFetching, error }) => {
+const Calendar = ({ startDate, startCreatePinTask, days, matrix, isFetching }) => {
     return (
-        <BlockContainer
-            contentClass="calendar"
-            isFetching={isFetching}
-            error={error}
-            isEmpty={isFetching}
-        >
+        <BlockContainer contentClass="calendar" isFetching={isFetching} isEmpty={isFetching}>
             <Table headers={days}>
                 {matrix.map((row, y) => (
                     <tr key={y}>

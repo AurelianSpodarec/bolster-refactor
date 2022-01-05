@@ -47,6 +47,7 @@ const CreatePinTaskModal = ({ initialDate, startDate }) => {
         isWeekly,
         onNextStep,
         isPosting,
+        error,
     } = useCreatePinTask(initialDate, startDate);
 
     const {
@@ -146,6 +147,7 @@ const CreatePinTaskModal = ({ initialDate, startDate }) => {
                 <BlockContainer>
                     {Step}
 
+                    {error && <p className="error">{error}</p>}
                     <BlockButtonWrapper>
                         {Button}
                         <button
