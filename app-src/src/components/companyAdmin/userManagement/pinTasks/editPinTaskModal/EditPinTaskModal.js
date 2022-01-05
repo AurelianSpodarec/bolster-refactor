@@ -28,7 +28,7 @@ const EditPinTaskModal = ({ id }) => {
         <ModalOuterContainer extraClasses="edit-pin-task-modal">
             <Form onSubmit={onSubmit}>
                 <BlockHeading title="Edit Task" />
-                <BlockContainer isFetching={isFetching} error={error} isEmpty={!pinTask}>
+                <BlockContainer isFetching={isFetching} isEmpty={!pinTask}>
                     <Field name="date" sizeClasses="size-lg-12" label="Date">
                         <DatePickerContainer
                             name="date"
@@ -38,6 +38,8 @@ const EditPinTaskModal = ({ id }) => {
                             maxDate={moment(new Date()).add(13, 'months').toDate()}
                         />
                     </Field>
+
+                    {error && <p className="error">{error}</p>}
                     <BlockButtonWrapper>
                         <button className="button green" key={3} disabled={isPosting}>
                             Submit

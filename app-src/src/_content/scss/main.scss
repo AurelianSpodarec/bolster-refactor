@@ -7208,6 +7208,7 @@ input {
     }
 }
 
+
 .create-pin-task-modal {
     .header {
         display: flex;
@@ -7335,7 +7336,6 @@ input {
         margin-top: 5px;
         color: #e20613;
     }
-
 }
 
 .edit-pin-task-modal {
@@ -7349,5 +7349,11 @@ input {
             font-size: 150%;
             margin-bottom: 4px;
         }
+    }
+
+    .error {
+        float: right;
+        margin-top: 5px;
+        color: #e20613;
     }
 }
