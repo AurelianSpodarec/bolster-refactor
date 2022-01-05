@@ -6,7 +6,6 @@ import updateDashboardFilters from 'actions/companyAdmin/dashboard/sync/updateDa
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import fetchPinStats from 'actions/companyAdmin/dashboard/async/fetchPinStats';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
-import _ from 'lodash';
 import moment from 'moment';
 import { isEmpty } from 'helpers/generic';
 
@@ -105,13 +104,12 @@ class DashboardStatsFiltersContainer extends Component {
         this.createMonthDropdown();
     };
 
-    componentDidUpdate = prevProps => {
+    componentDidUpdate = () => {
         const { filters, fetchPinStats } = this.props;
-        if (!_.isEqual(prevProps.filters, filters)) {
-            fetchPinStats(filters);
-            localStorage.setItem('selectedStartDate', filters.startDate);
-            localStorage.setItem('selectedEndDate', filters.endDate);
-        }
+
+        fetchPinStats(filters);
+        localStorage.setItem('selectedStartDate', filters.startDate);
+        localStorage.setItem('selectedEndDate', filters.endDate);
     };
 
     _getRelevantServices = () => {
