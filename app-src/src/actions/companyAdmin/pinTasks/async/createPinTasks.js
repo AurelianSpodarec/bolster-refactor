@@ -22,29 +22,11 @@ export const createPinTasksFailure = error => ({
     error,
 });
 
-export default (
-    companyUserID,
-    pinIDs,
-    startDate,
-    recurrenceType,
-    recurrenceDays,
-    endDate,
-) => dispatch => {
+export default postBody => dispatch => {
     dispatch(createPinTasksRequest());
 
     return axios
-        .post(
-            `${API_URL}/tasks/create`,
-            {
-                companyUserID,
-                pinIDs,
-                startDate,
-                recurrenceType,
-                recurrenceDays,
-                endDate,
-            },
-            getHeaders(),
-        )
+        .post(`${API_URL}/tasks/create`, postBody, getHeaders())
         .then(res => dispatch(createPinTasksSuccess(res.data)))
         .catch(err => dispatch(createPinTasksFailure(err.message)));
 };

@@ -1,23 +1,27 @@
+import { useForm, usePrevious } from 'helpers/hooks';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
+
 import createPinTasks from 'actions/companyAdmin/pinTasks/async/createPinTasks';
 import clearFieldErrors from 'actions/shared/generic/fieldErrors/sync/clearFieldErrors';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import { RECURRING_TYPE } from 'constants/companyAdmin/enums';
-import { CREATE_PIN_TASK } from 'constants/shared/modalTypes';
-import { useForm, usePrevious } from 'helpers/hooks';
-import moment from 'moment';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { DAYS_FLAGGED } from 'constants/companyAdmin/enums';
 import fetchPinTasks from 'actions/companyAdmin/pinTasks/async/fetchPinTasks';
+
 import {
     selectPinTasksIsPosting,
     selectPinTasksPostSuccess,
 } from 'selectors/companyAdmin/pinTasks';
+import { selectCompanyUserID } from 'selectors/companyAdmin/companyUsers';
+
+import { RECURRING_TYPE } from 'constants/companyAdmin/enums';
+import { CREATE_PIN_TASK } from 'constants/shared/modalTypes';
+import { DAYS_FLAGGED } from 'constants/companyAdmin/enums';
+import pins from 'reducers/companyAdmin/pins';
 
 const useCreatePinTask = (initialDate, startDate) => {
     const dispatch = useDispatch();
-
     const [step, setStep] = useState(0);
 
     const [formData, handleChange] = useForm({
@@ -42,6 +46,7 @@ const useCreatePinTask = (initialDate, startDate) => {
     const isPosting = useSelector(selectPinTasksIsPosting);
     const postSuccess = useSelector(selectPinTasksPostSuccess);
     const prevPostSuccess = usePrevious(postSuccess);
+    const companyUserID = useSelector(selectCompanyUserID);
 
     useEffect(() => {
         if (!isWeekly) {
@@ -72,9 +77,19 @@ const useCreatePinTask = (initialDate, startDate) => {
     const onNextStep = () => {
         if (step < 1) return setStep(step + 1);
 
-        formData.days = handleDaysConversion();
+        const { operative, pins, date, recurring, endDate } = formData;
 
-        dispatch(createPinTasks(formData));
+        const data = {
+            operative,
+            pinIDs: pins,
+            date,
+            recurring,
+            days: handleDaysConversion(),
+            endDate,
+            companyUserID,
+        };
+
+        dispatch(createPinTasks(data));
     };
 
     useEffect(() => {
