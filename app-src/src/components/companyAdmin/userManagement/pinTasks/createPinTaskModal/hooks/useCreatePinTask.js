@@ -85,6 +85,7 @@ const useCreatePinTask = (initialDate, startDate) => {
             date,
             recurring,
             days: handleDaysConversion(),
+            startDate: date,
             endDate,
             companyUserID,
         };
