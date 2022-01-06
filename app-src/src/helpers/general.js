@@ -42,3 +42,7 @@ export const companyTrackingShowWarning = company => {
 
     return { period: null, showWarning: false };
 };
+
+export function formatDropdownOptions(options) {
+    return options.map(({ id, text }) => ({ value: id, label: text }));
+}
