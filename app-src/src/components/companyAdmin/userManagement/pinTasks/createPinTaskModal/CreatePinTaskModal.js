@@ -85,6 +85,7 @@ const CreatePinTaskModal = ({ initialDate, startDate }) => {
             service={service}
             template={template}
             pins={pins}
+            operativeID={operative}
         />,
         // <CreatePinTaskStep3 key={3} formData={formData} isPosting={isPosting} />,
     ];

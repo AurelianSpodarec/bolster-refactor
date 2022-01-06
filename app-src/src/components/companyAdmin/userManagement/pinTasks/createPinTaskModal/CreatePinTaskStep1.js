@@ -25,7 +25,7 @@ const CreatePinTaskStep1 = ({
         buildingOptions,
         floorOptions,
         drawingOptions,
-    } = useStep1Options(handleChange, site, building, floor, drawing);
+    } = useStep1Options(handleChange, site, building, floor, drawing, operative);
 
     return (
         <>
@@ -79,7 +79,7 @@ const CreatePinTaskStep1 = ({
                         value={site}
                         onChange={handleChange}
                         options={siteOptions}
-                        disabled={isFetching || fetchError}
+                        disabled={isFetching || fetchError || !operative}
                         search
                         required
                     />

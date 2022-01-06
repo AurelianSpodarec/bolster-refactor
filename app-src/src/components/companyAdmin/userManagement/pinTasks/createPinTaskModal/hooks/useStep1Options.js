@@ -1,12 +1,10 @@
 import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuildings';
-import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
 import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import fetchUserDrawings from 'actions/companyAdmin/userManagement/async/fetchUserDrawings';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
-import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { useEffect } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import {
@@ -40,7 +38,7 @@ import {
     selectSitesFetchError,
 } from 'selectors/companyAdmin/sites';
 
-const useStep1Options = (handleChange, site, building, floor, drawing) => {
+const useStep1Options = (handleChange, site, building, floor, drawing, operativeID) => {
     const dispatch = useDispatch();
 
     const users = useSelector(selectCompanyUsers) ?? [];
@@ -59,7 +57,7 @@ const useStep1Options = (handleChange, site, building, floor, drawing) => {
     const floorsIsFetching = useSelector(selectFloorsIsFetching);
     const floorsFetchError = useSelector(selectFloorsFetchError);
 
-    const drawings = useSelector(selectDrawings) ?? [];
+    const drawings = Object.values(useSelector(selectDrawings) ?? []);
     const drawingsIsFetching = useSelector(selectDrawingsIsFetching);
     const drawingsFetchError = useSelector(selectDrawingsFetchError);
 
@@ -73,9 +71,14 @@ const useStep1Options = (handleChange, site, building, floor, drawing) => {
             dispatch(fetchAllSites());
             dispatch(fetchAllBuildings());
             dispatch(fetchAllFloors());
-            dispatch(fetchAllDrawings());
+            // dispatch(fetchAllDrawings());
         });
     }, [dispatch]);
+    useEffect(() => {
+        if (operativeID) {
+            dispatch(fetchUserDrawings(operativeID));
+        }
+    }, [operativeID]);
 
     useEffect(() => {
         if (drawing != null) dispatch(fetchPins('Drawing', drawing));
@@ -86,10 +89,12 @@ const useStep1Options = (handleChange, site, building, floor, drawing) => {
         label: `${userFirstName} ${userLastName}`,
     }));
 
-    const siteOptions = Object.values(sites).map(({ id, name }) => ({
-        value: id,
-        label: name,
-    }));
+    const siteOptions = Object.values(sites)
+        .filter(site => !!drawings.find(({ siteID }) => site.id === siteID))
+        .map(({ id, name }) => ({
+            value: id,
+            label: name,
+        }));
 
     const buildingOptions = Object.values(buildings)
         .filter(({ siteID }) => siteID == site)
@@ -104,8 +109,8 @@ const useStep1Options = (handleChange, site, building, floor, drawing) => {
             value: id,
             label: name,
         }));
-
-    const drawingOptions = Object.values(drawings)
+    console.log({ drawings });
+    const drawingOptions = drawings
         .filter(({ floorID }) => floorID == floor)
         .map(({ id, name }) => ({
             value: id,

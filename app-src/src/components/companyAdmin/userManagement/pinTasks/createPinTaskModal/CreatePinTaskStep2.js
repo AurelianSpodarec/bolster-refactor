@@ -5,7 +5,7 @@ import Loading from 'components/shared/generic/misc/presentational/Loading';
 import React from 'react';
 import useStep2Options from './hooks/useStep2Options';
 
-const CreatePinTaskStep2 = ({ handleChange, drawing, service, template, pins }) => {
+const CreatePinTaskStep2 = ({ handleChange, drawing, service, template, pins, operativeID }) => {
     const {
         isFetching,
         fetchError,
@@ -13,7 +13,7 @@ const CreatePinTaskStep2 = ({ handleChange, drawing, service, template, pins }) 
         templateOptions,
         pinOptions,
         pinOptionsFilter,
-    } = useStep2Options(handleChange, drawing, service, template);
+    } = useStep2Options(handleChange, drawing, service, template, operativeID);
 
     return (
         <>
