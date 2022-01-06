@@ -36,7 +36,7 @@ const ConfirmEmailAddress = () => {
                 {!!error && <p className="generic-text">Something went wrong. ({error})</p>}
                 {!!postSuccess && (
                     <p className="generic-text">
-                        {isFromRegister
+                        {!isFromRegister
                             ? 'Thank you for confirming your email address. You can now login to Bolster Systems.'
                             : `Thank you for confirming your email address. You can now login to complete
                         your registration by purchasing your required services and drawing credits.`}
