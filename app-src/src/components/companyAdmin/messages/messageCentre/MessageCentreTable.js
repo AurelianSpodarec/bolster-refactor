@@ -14,7 +14,7 @@ const MessageCentreTable = () => {
             <MessageCentreTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
             <div className="size-lg-12">
                 <div className="action-bar">
-                    <div className="size-lg-4">
+                    <div className="size-lg-7">
                         <SearchBar omitIcon />
                     </div>
                     <div className="button-wrapper">
