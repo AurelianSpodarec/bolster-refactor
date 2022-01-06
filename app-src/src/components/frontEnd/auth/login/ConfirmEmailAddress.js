@@ -10,6 +10,10 @@ import { useParams } from 'react-router';
 const ConfirmEmailAddress = () => {
     const { emailConfirmationCode } = useParams();
     const { isPosting, postSuccess, error } = useSelector(requestStateSelector);
+    const useQuery = () => new URLSearchParams(location.search);
+    const query = useQuery();
+    const fromRegisterQuery = query.get('fromRegister');
+    const isFromRegister = fromRegisterQuery === 'true';
 
     const dispatch = useDispatch();
     componentDidMount(() => {
@@ -32,8 +36,10 @@ const ConfirmEmailAddress = () => {
                 {!!error && <p className="generic-text">Something went wrong. ({error})</p>}
                 {!!postSuccess && (
                     <p className="generic-text">
-                        Thank you for confirming your email address. You can now login to complete
-                        your registration by purchasing your required services and drawing credits.
+                        {isFromRegister
+                            ? 'Thank you for confirming your email address. You can now login to Bolster Systems.'
+                            : `Thank you for confirming your email address. You can now login to complete
+                        your registration by purchasing your required services and drawing credits.`}
                     </p>
                 )}
             </Field>
