@@ -65,42 +65,37 @@ class OptionValuesListItemContainer extends Component {
 
     getSelectedServiceName = () => {
         const { services, optionValue, subscriptionServiceIDs, installationTypes } = this.props;
+        const allServices = '[All Services]';
 
-        const filteredSubscriptionServices = services.filter(({ id }) =>
+        const companySubscriptionServices = services.filter(({ id }) =>
             subscriptionServiceIDs.includes(id),
         );
 
-        const selectedServiceNames = filteredSubscriptionServices.reduce((acc, currService) => {
+        const optionServices = companySubscriptionServices.reduce((acc, currService) => {
             const { serviceIDs } = optionValue;
-            if (serviceIDs === null) {
-                return acc;
-            } else if (serviceIDs.includes(currService.id)) {
+            if (serviceIDs?.includes(currService.id)) {
                 acc.push(currService.name);
             }
             return acc;
         }, []);
 
-        if (selectedServiceNames.length) {
-            if (selectedServiceNames.length === subscriptionServiceIDs.length) {
-                return '[All Services]';
-            } else {
-                return selectedServiceNames.join(', ');
-            }
+        if (optionServices.length) {
+            return optionServices.length === subscriptionServiceIDs.length
+                ? allServices
+                : optionServices.join(', ');
         } else {
             const selectedOptionManufacturer = installationTypes[optionValue.manufacturerID];
 
-            if (selectedOptionManufacturer.serviceIDs?.length) {
-                return filteredSubscriptionServices
-                    .reduce((acc, currService) => {
-                        const { serviceIDs } = selectedOptionManufacturer;
-                        if (serviceIDs.includes(currService.id)) acc.push(currService.name);
+            return selectedOptionManufacturer.serviceIDs?.length
+                ? companySubscriptionServices
+                      .reduce((acc, currService) => {
+                          const { serviceIDs } = selectedOptionManufacturer;
+                          if (serviceIDs.includes(currService.id)) acc.push(currService.name);
 
-                        return acc;
-                    }, [])
-                    .join(', ');
-            } else {
-                return '[All Services]';
-            }
+                          return acc;
+                      }, [])
+                      .join(', ')
+                : allServices;
         }
     };
 }
