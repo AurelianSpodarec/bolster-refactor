@@ -19,7 +19,6 @@ import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleD
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import fetchZonesForReportByDrawingID from 'actions/companyAdmin/zones/async/fetchZonesForReportByDrawingID';
-
 class LevelsFilterContainer extends Component {
     render() {
         const {
@@ -33,9 +32,10 @@ class LevelsFilterContainer extends Component {
             formatArrForDropdown,
         } = this.props;
 
+        const sortedFloors = Object.values(floors).sort((a, b) => a.sort - b.sort); // Sort based on sort key
         const sitesOptions = formatArrForDropdown(sites);
         const buildingOptions = formatArrForDropdown(buildings);
-        const floorOptions = formatArrForDropdown(floors);
+        const floorOptions = formatArrForDropdown(sortedFloors);
         const drawingOptions = formatArrForDropdown(drawings);
 
         return (
@@ -45,7 +45,7 @@ class LevelsFilterContainer extends Component {
                 selectedSite={siteID}
                 buildingOptions={Object.values(buildingOptions)}
                 selectedBuilding={buildingID}
-                floorOptions={Object.values(floorOptions)}
+                floorOptions={floorOptions}
                 selectedFloor={floorID}
                 drawingOptions={Object.values(drawingOptions)}
                 selectedDrawing={drawingID}
@@ -266,10 +266,10 @@ class LevelsFilterContainer extends Component {
     handlePrefillDrawing = drawingID => {
         const { handleChange, fetchSingleDrawing } = this.props;
         if (drawingID) {
-        handleChange('drawingID', [+drawingID]);
-        fetchSingleDrawing(drawingID).then(({ payload: { floorID } }) =>
-            this.handlePrefillFloor(floorID),
-        );
+            handleChange('drawingID', [+drawingID]);
+            fetchSingleDrawing(drawingID).then(({ payload: { floorID } }) =>
+                this.handlePrefillFloor(floorID),
+            );
         }
     };
 
