@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { MESSAGE_CENTRE_TABS } from 'constants/companyAdmin/enums';
+
 const useMessageCentreTable = () => {
     const [selectedTab, setSelectedTab] = useState(0);
 
@@ -27,7 +29,11 @@ const useMessageCentreTable = () => {
         },
     ];
 
-    return { selectedTab, setSelectedTab, messages };
+    const showCreateNewButton =
+        selectedTab !== MESSAGE_CENTRE_TABS.SYSTEM_MESSAGES &&
+        selectedTab !== MESSAGE_CENTRE_TABS.DRAWING_EXPIRY;
+
+    return { selectedTab, setSelectedTab, messages, showCreateNewButton };
 };
 
 export default useMessageCentreTable;

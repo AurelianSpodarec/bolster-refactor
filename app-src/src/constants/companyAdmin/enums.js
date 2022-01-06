@@ -489,3 +489,10 @@ export const HIERARCHY_ALERT_RECURRENCE_VALUE = {
     1: 4,
     2: 12,
 };
+
+export const MESSAGE_CENTRE_TABS = {
+    SYSTEM_MESSAGES: 0,
+    COMPANY_ALERTS: 1,
+    OPERATIVE_ALERTS: 2,
+    DRAWING_EXPIRY: 3,
+};

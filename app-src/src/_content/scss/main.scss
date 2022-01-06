@@ -6829,11 +6829,15 @@ input {
     margin: 25px 0;
 
     .button-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        
         .button {
             padding: 7px 20px;
 
-            &:first-child {
-                margin-right: 15px;
+            &:last-child {
+                margin-left: 15px;
             }
 
             i {

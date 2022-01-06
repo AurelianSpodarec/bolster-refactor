@@ -7,7 +7,8 @@ import MessagesList from './MessagesList';
 import SearchBar from 'components/companyAdmin/layout/header/presentational/SearchBar';
 
 const MessageCentreTable = () => {
-    const { selectedTab, setSelectedTab, messages } = useMessageCentreTable();
+    const { selectedTab, setSelectedTab, messages, showCreateNewButton } = useMessageCentreTable();
+
     return (
         <BlockContainer>
             <MessageCentreTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
@@ -17,10 +18,12 @@ const MessageCentreTable = () => {
                         <SearchBar omitIcon />
                     </div>
                     <div className="button-wrapper">
-                        <button className="button rounded green">
-                            <i className="fas fa-envelope"></i>
-                            Create New
-                        </button>
+                        {showCreateNewButton && (
+                            <button className="button rounded green">
+                                <i className="fas fa-envelope"></i>
+                                Create New
+                            </button>
+                        )}
                         <button className="button rounded red">
                             <i className="fas fa-trash-alt"></i>
                             Dismiss All
