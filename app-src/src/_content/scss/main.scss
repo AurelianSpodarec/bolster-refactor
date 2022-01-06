@@ -4423,6 +4423,10 @@ input {
     position: absolute;
     right: 15px;
     top: -2px;
+
+    &.checking {
+        right: 8px;
+    }
 }
 //report page
 .levels-filter {
@@ -6577,6 +6581,17 @@ input {
         p {
             font-size: 100%;
         }
+    }
+}
+
+.template-options-inputs-container {
+    display: flex;
+    align-items: center;
+    
+    .buttons-box {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
     }
 }
 

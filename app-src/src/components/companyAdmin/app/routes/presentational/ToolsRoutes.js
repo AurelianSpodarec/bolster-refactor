@@ -13,39 +13,18 @@ import CreateReportContainer from 'components/companyAdmin/reports/createReport/
 
 const ToolsRoutes = ({ base = '/company/tools' }) => (
     <SwitchWith404>
-        <Route
-            exact
-            path={`${base}/credit-logs`}
-            component={AllCreditLogsContainer}
-        />
-        <Route
-            exact
-            path={`${base}/create-report`}
-            component={CreateReportContainer}
-        />
+        <Route exact path={`${base}/credit-logs`} component={AllCreditLogsContainer} />
+        <Route exact path={`${base}/create-report`} component={CreateReportContainer} />
         <Route exact path={`${base}/pin-options`} component={PinOptions} />
         <Route exact path={`${base}/support`} component={Support} />
-        <Route
-            exact
-            path={`${base}/company-reports`}
-            component={CompanyReportsContainer}
-        />
+        <Route exact path={`${base}/company-reports`} component={CompanyReportsContainer} />
 
-        <Route
-            exact
-            path={`${base}/templates`}
-            component={TemplatesContainer}
-        />
-        <Route
-            path={`${base}/templates/:id`}
-            component={SingleTemplateContainer}
-        />
+        <Route exact path={`${base}/templates`} component={TemplatesContainer} />
+        <Route path={`${base}/templates/:id`} component={SingleTemplateContainer} />
 
-        <Route
-            exact
-            path={`${base}/transfer-requests`}
-            component={TransferRequests}
-        />
+        <Route path={`${base}/templates/:id/edit`} component={SingleTemplateContainer} />
+
+        <Route exact path={`${base}/transfer-requests`} component={TransferRequests} />
     </SwitchWith404>
 );
 
