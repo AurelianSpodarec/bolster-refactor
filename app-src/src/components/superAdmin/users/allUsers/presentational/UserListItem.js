@@ -19,7 +19,7 @@ const UserListItem = ({
         <td>{user.email}</td>
         <td>{user.phoneNumber}</td>
         <Roles user={user} roles={user.roles} />
-
+        <td>{user.appVersion ? user.appVersion : '-'}</td>
         <td>
             {user.clientAccessCreatedByCompanies.length ? (
                 user.clientAccessCreatedByCompanies.map((company, i, arr) => {
