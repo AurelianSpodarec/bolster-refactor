@@ -46,3 +46,12 @@ export const companyTrackingShowWarning = company => {
 export function formatDropdownOptions(options) {
     return options.map(({ id, text }) => ({ value: id, label: text }));
 }
+
+export const getSearchMatch = (searchTerm, data) => {
+    if (!searchTerm) return true;
+    const searchArr = searchTerm.toLowerCase().split(/[\s-.]/);
+    const dataArr = data.toLowerCase().split(/[\s-.]/);
+    return searchArr.some(sWord =>
+        dataArr.some(dWord => dWord.includes(sWord) || sWord.includes(dWord)),
+    );
+};
