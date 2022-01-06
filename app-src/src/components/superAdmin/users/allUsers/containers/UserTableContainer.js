@@ -6,6 +6,7 @@ import PageSelector from 'components/shared/pagination/presentational/pageSelect
 import fetchUsersBySearch from 'actions/superAdmin/users/async/fetchUsersBySearch';
 import updateUsersFilters from 'actions/superAdmin/users/sync/updateUsersFilter';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import { getSearchMatch } from 'helpers/general';
 
 const UserTableContainer = ({
     isFetching,
@@ -13,7 +14,7 @@ const UserTableContainer = ({
     users,
     fetchUsersBySearch,
     updateUsersFilters,
-    filters: { role, email, page },
+    filters: { role, searchTerm, page },
     count,
 }) => {
     const PAGE_SIZE = 50;
@@ -29,9 +30,11 @@ const UserTableContainer = ({
                     'Email Address',
                     'Phone Number',
                     'Role',
+                    'App version',
                     'Access granted by',
                     'Created On',
                     'Is e-mail confirmed?',
+                    'Is deleted?',
                     '',
                 ]}
                 isFetching={isFetching}
@@ -49,11 +52,11 @@ const UserTableContainer = ({
                 if (role === deletedRole) return u.isDeleted;
                 return u.roles && u.roles.find(({ type }) => String(type) === role);
             })
-            .filter(u => u.email && u.email.toLowerCase().includes(email.toLowerCase()));
+            .filter(u => getSearchMatch(searchTerm, `${u.firstName} ${u.lastName} ${u.email}`));
     }
 
     function setPage(nextPage) {
-        fetchUsersBySearch(nextPage, email, role, PAGE_SIZE);
+        fetchUsersBySearch(nextPage, searchTerm, role, PAGE_SIZE);
         updateUsersFilters('page', nextPage);
     }
 };
