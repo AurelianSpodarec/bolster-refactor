@@ -5,13 +5,18 @@ import {
     FETCH_HIERARCHY_ALERTS_REQUEST,
     FETCH_HIERARCHY_ALERTS_SUCCESS,
     FETCH_HIERARCHY_ALERTS_FAILURE,
+    UPDATE_ALERT_REQUEST,
+    UPDATE_ALERT_SUCCESS,
+    UPDATE_ALERT_FAILURE,
 } from 'constants/actionTypes/alerts';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 import { combineReducers } from 'redux';
 
 export default combineReducers({
-    isFetching: isFetchingReducer,
     alerts: alertsReducer,
+    isFetching: isFetchingReducer,
+    isPosting: isPostingReducer,
+    postSucess: postSuccessReducer,
     error: errorReducer,
 });
 
@@ -37,7 +42,31 @@ function alertsReducer(state = {}, action) {
         case FETCH_ALL_ALERTS_SUCCESS:
             return convertArrToObj(action.payload);
         case FETCH_HIERARCHY_ALERTS_SUCCESS:
+        case UPDATE_ALERT_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+        default:
+            return state;
+    }
+}
+
+function isPostingReducer(state = false, action) {
+    switch (action.payload) {
+        case UPDATE_ALERT_REQUEST:
+            return true;
+        case UPDATE_ALERT_SUCCESS:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = false, action) {
+    switch (action.payload) {
+        case UPDATE_ALERT_REQUEST:
+        case UPDATE_ALERT_FAILURE:
+            return false;
+        case UPDATE_ALERT_SUCCESS:
+            return true;
         default:
             return state;
     }
@@ -50,6 +79,7 @@ function errorReducer(state = null, action) {
             return null;
         case FETCH_HIERARCHY_ALERTS_FAILURE:
         case FETCH_ALL_ALERTS_FAILURE:
+        case UPDATE_ALERT_FAILURE:
             return action.error;
         default:
             return state;
