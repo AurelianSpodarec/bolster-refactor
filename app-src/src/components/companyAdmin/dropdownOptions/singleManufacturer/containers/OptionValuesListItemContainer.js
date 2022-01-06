@@ -81,7 +81,11 @@ class OptionValuesListItemContainer extends Component {
         }, []);
 
         if (selectedServiceNames.length) {
-            return selectedServiceNames.join(', ');
+            if (selectedServiceNames.length === subscriptionServiceIDs.length) {
+                return '[All Services]';
+            } else {
+                return selectedServiceNames.join(', ');
+            }
         } else {
             const selectedOptionManufacturer = installationTypes[optionValue.manufacturerID];
 
