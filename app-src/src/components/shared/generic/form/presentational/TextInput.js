@@ -12,6 +12,7 @@ const TextInput = ({
     handleBlur,
     error,
     charLimit,
+    minNum,
     maxNum,
     disabled,
     includePasswordStrength,
@@ -26,6 +27,7 @@ const TextInput = ({
             onChange={handleChange}
             onBlur={handleBlur}
             maxLength={charLimit}
+            min={minNum}
             max={maxNum}
             disabled={disabled}
         />

@@ -1,27 +1,40 @@
 import React from 'react';
 
+import {
+    ALERT_FREQUENCY_SUFFIX_VALUES,
+    ALERT_FREQUENCY_TYPES,
+    ALERT_FREQUENCY_VALUES,
+    ALERT_METHOD_VALUES,
+} from 'constants/companyAdmin/enums';
+import { enumFormat } from 'helpers/generic';
+import { NUMBER_GREATER_THAN_ZERO } from 'helpers/regex';
+
+import useCreateHierarchyAlert from '../hooks/useCreateHierarchyAlert';
+
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import useCreateHierarchyAlert from '../hooks/useCreateHierarchyAlert';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
-import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
 import Select from 'components/shared/generic/form/presentational/Select';
-import {
-    HIERARCHY_ALERT_RECURRENCE_TYPE,
-    HIERARCHY_ALERT_RECURRENCE_VALUE,
-} from 'constants/companyAdmin/enums';
+import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 
 const CreateHierarchyAlertModal = ({ hierarchy, hideModal }) => {
     const {
-        fields: { name, description, deliveryMethod, date, recurrenceFrequency, recurrenceType },
+        form: { name, description, method, date, frequencyType, frequencyAmount },
         handleChange,
         handleSubmit,
     } = useCreateHierarchyAlert();
+
+    const methodOptions = enumFormat(ALERT_METHOD_VALUES);
+    const frequencyTypeOptions = enumFormat(ALERT_FREQUENCY_VALUES);
+
+    const frequencyAmountNum = parseInt(frequencyAmount);
+    const frequencySuffix = `${ALERT_FREQUENCY_SUFFIX_VALUES[frequencyType].toLowerCase()}${
+        frequencyAmountNum > 1 ? 's' : ''
+    }`;
 
     return (
         <ModalOuterContainer>
@@ -37,56 +50,82 @@ const CreateHierarchyAlertModal = ({ hierarchy, hideModal }) => {
                             required
                         />
                     </Field>
-                    <Field name="Description">
-                        <TextInputContainer
+
+                    <Field name="Description" required>
+                        <TextAreaContainer
                             handleChange={handleChange}
                             name="description"
                             value={description}
+                            required
                         />
                     </Field>
-                    <Field name="Delivery Operation(s)">
-                        <MultiSelect
-                            value={deliveryMethod}
-                            onChange={handleChange}
-                            name="deliveryMethod"
-                            options={[
-                                { value: 0, label: 'Email' },
-                                { value: 1, label: 'Message Centre' },
-                            ]}
-                        />
-                    </Field>
-                    <Field name="Date">
-                        <DatePickerContainer selected={date} onChange={handleChange} name="date" />
-                    </Field>
-                    <Field name="Recurrence">
-                        <div className="size-lg-6">
-                            <TextInputContainer
-                                type="number"
-                                name="recurrenceFrequency"
-                                value={recurrenceFrequency}
-                                handleChange={handleChange}
-                            />
-                        </div>
-                        <div className="size-lg-6">
+
+                    <div className="size-lg-6">
+                        <Field name="Alert Method" required>
                             <Select
-                                value={recurrenceType}
+                                value={method}
                                 onChange={handleChange}
-                                name="recurrenceType"
-                                options={[
-                                    { value: 0, label: 'Day' },
-                                    { value: 1, label: 'Week' },
-                                    { value: 2, label: 'Month' },
-                                ]}
+                                name="method"
+                                options={methodOptions}
+                                omitPlaceholder
+                                required
                             />
-                        </div>
-                        <p className="size-lg-12 frequency-helper">
-                            Every {recurrenceFrequency}{' '}
-                            {HIERARCHY_ALERT_RECURRENCE_TYPE[recurrenceType]}
-                        </p>
-                    </Field>
+                        </Field>
+                    </div>
+
+                    <div className="size-lg-6">
+                        <Field name="Date" required>
+                            <DatePickerContainer
+                                selected={date}
+                                onChange={val => handleChange('date', val)}
+                                name="date"
+                                required
+                            />
+                        </Field>
+                    </div>
+
+                    <div className="size-lg-6">
+                        <Field name="Frequency Type" required>
+                            <Select
+                                value={frequencyType}
+                                onChange={handleChange}
+                                name="frequencyType"
+                                options={Object.values(frequencyTypeOptions)}
+                                omitPlaceholder
+                                required
+                            />
+                        </Field>
+                    </div>
+
+                    {frequencyType !== ALERT_FREQUENCY_TYPES.ONCE && (
+                        <>
+                            <div className="size-lg-6">
+                                <Field name="Frequency Amount" required>
+                                    <TextInputContainer
+                                        type="number"
+                                        name="frequencyAmount"
+                                        value={frequencyAmount}
+                                        handleChange={handleChange}
+                                        minNum={1}
+                                        validationRegExp={NUMBER_GREATER_THAN_ZERO}
+                                        required
+                                    />
+                                </Field>
+                            </div>
+
+                            <Field styles={{ minHeight: 0 }}>
+                                <p className="size-lg-12 info-message">
+                                    Alert will be sent every{' '}
+                                    {`${
+                                        frequencyAmountNum > 1 ? `${frequencyAmount} ` : ''
+                                    }${frequencySuffix}`}
+                                </p>
+                            </Field>
+                        </>
+                    )}
                 </div>
                 <BlockButtonWrapper>
-                    <button className="button blue">
+                    <button className="button green">
                         <i className="fa fa-plus" /> Create Alert
                     </button>
                     <button className="button" onClick={hideModal}>

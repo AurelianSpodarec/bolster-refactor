@@ -478,16 +478,37 @@ export const COMPANY_REPORTS_OUTPUT_TYPES = {
     isOEMManualGeneration: 'O&M Manual',
 };
 
-export const HIERARCHY_ALERT_RECURRENCE_TYPE = {
-    0: 'Day',
-    1: 'Week',
-    2: 'Month',
+export const ALERT_FREQUENCY_TYPES = {
+    ONCE: 1,
+    DAILY: 2,
+    WEEKLY: 3,
+    MONTHLY: 4,
 };
 
-export const HIERARCHY_ALERT_RECURRENCE_VALUE = {
-    0: 7,
-    1: 4,
-    2: 12,
+export const ALERT_FREQUENCY_VALUES = {
+    1: 'Once',
+    2: 'Daily',
+    3: 'Weekly',
+    4: 'Monthly',
+};
+
+export const ALERT_FREQUENCY_SUFFIX_VALUES = {
+    1: '',
+    2: 'Day',
+    3: 'Week',
+    4: 'Month',
+};
+
+export const ALERT_METHOD_TYPES = {
+    MESSAGE_CENTRE: 1,
+    EMAIL: 2,
+    ALL: 3,
+};
+
+export const ALERT_METHOD_VALUES = {
+    1: 'Message Centre',
+    2: 'Email',
+    3: 'All',
 };
 
 export const MESSAGE_CENTRE_TABS = {

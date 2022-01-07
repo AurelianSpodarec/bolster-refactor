@@ -1,21 +1,32 @@
+import { ALERT_FREQUENCY_TYPES, ALERT_METHOD_TYPES } from 'constants/companyAdmin/enums';
 import { useForm } from 'helpers/hooks';
+import moment from 'moment';
 
 const useCreateHierarchyAlert = () => {
-    const [fields, handleChange] = useForm({
+    const [form, handleChange] = useForm({
         name: '',
         description: '',
-        deliveryMethod: [],
-        date: '',
-        recurrenceType: 0,
-        recurrenceFrequency: 0,
+        method: ALERT_METHOD_TYPES.ALL,
+        date: new Date(),
+        frequencyType: ALERT_FREQUENCY_TYPES.ONCE,
+        frequencyAmount: '1',
     });
 
     const handleSubmit = () => {
-        console.log('fields', fields);
+        const postBody = {
+            ...form,
+            date: moment(form.date).format(),
+            frequencyAmount:
+                form.frequencyType === ALERT_FREQUENCY_TYPES.ONCE
+                    ? 1
+                    : parseInt(form.frequencyAmount),
+        };
+
+        console.log(postBody);
     };
 
     return {
-        fields,
+        form,
         handleChange,
         handleSubmit,
     };
