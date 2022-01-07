@@ -3,6 +3,7 @@ import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
 export const formatOptions = options => {
     return options
+        .filter(({ isDeleted }) => !isDeleted)
         .map(option => {
             return {
                 ...option,
@@ -10,8 +11,7 @@ export const formatOptions = options => {
                 value: option.id,
                 isEnabled: option.isEnabled,
             };
-        })
-        .filter(({ isDeleted }) => !isDeleted);
+        });
 };
 
 // ===================== CREATING OPTION VALUES AND MANUFACTURER OPTIONS IF NOT SET ABOVE ===========
