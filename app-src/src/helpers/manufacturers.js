@@ -3,7 +3,7 @@ import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
 export const formatOptions = options => {
     return options
-        .filter(item => !item.isDisabled)
+        .filter(({ isDisabled, isDeleted }) => !isDisabled || !isDeleted)
         .map(option => {
             return {
                 ...option,
