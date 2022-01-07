@@ -87,7 +87,6 @@ const CreatePinTaskModal = ({ initialDate, startDate }) => {
             pins={pins}
             operativeID={operative}
         />,
-        // <CreatePinTaskStep3 key={3} formData={formData} isPosting={isPosting} />,
     ];
 
     const Step = steps[step];
@@ -99,9 +98,6 @@ const CreatePinTaskModal = ({ initialDate, startDate }) => {
         <button className="button blue" key={2} disabled={isPosting}>
             Submit
         </button>,
-        // <button className="button green" key={3} disabled={isPosting}>
-        //     Submit
-        // </button>,
     ];
 
     const Button = buttons[step];
