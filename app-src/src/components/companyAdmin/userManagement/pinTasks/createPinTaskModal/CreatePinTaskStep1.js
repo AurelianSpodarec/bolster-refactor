@@ -9,7 +9,7 @@ import moment from 'moment';
 const CreatePinTaskStep1 = ({
     date,
     endDate,
-    operative,
+    companyUserID,
     site,
     building,
     floor,
@@ -25,7 +25,7 @@ const CreatePinTaskStep1 = ({
         buildingOptions,
         floorOptions,
         drawingOptions,
-    } = useStep1Options(handleChange, site, building, floor, drawing, operative);
+    } = useStep1Options(handleChange, site, building, floor, drawing, companyUserID);
 
     return (
         <>
@@ -63,8 +63,8 @@ const CreatePinTaskStep1 = ({
 
                 <Field name="operative" sizeClasses="size-lg-12" required>
                     <Select
-                        name="operative"
-                        value={operative}
+                        name="companyUserID"
+                        value={companyUserID}
                         onChange={handleChange}
                         options={operativeOptions}
                         disabled={isFetching || fetchError}
@@ -79,7 +79,7 @@ const CreatePinTaskStep1 = ({
                         value={site}
                         onChange={handleChange}
                         options={siteOptions}
-                        disabled={isFetching || fetchError || !operative}
+                        disabled={isFetching || fetchError || !companyUserID}
                         search
                         required
                     />

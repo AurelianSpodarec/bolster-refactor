@@ -17,7 +17,7 @@ import {
 } from 'selectors/companyAdmin/reports';
 import { selectOperative } from 'selectors/companyAdmin/operatives';
 
-const useStep2Options = (handleChange, drawingID, service, template, operativeID) => {
+const useStep2Options = (handleChange, drawingID, service, template, companyUserID) => {
     const dispatch = useDispatch();
 
     const services = useSelector(selectReportServices) ?? [];
@@ -30,7 +30,7 @@ const useStep2Options = (handleChange, drawingID, service, template, operativeID
     const pinsFetchError = useSelector(selectPinsFetchError);
 
     const postBody = { hierarchyType: 'drawing', hierarchyID: [drawingID], reportHistories: 1 };
-    const op = useSelector(state => selectOperative(state, operativeID));
+    const op = useSelector(state => selectOperative(state, companyUserID));
     useEffect(() => {
         batch(() => {
             if (drawingID != null) {

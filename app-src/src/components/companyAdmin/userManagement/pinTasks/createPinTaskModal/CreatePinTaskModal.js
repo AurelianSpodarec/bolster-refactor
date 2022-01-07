@@ -55,7 +55,7 @@ const CreatePinTaskModal = ({ initialDate, startDate }) => {
         recurring,
         date,
         endDate,
-        operative,
+        companyUserID,
         site,
         building,
         floor,
@@ -71,7 +71,7 @@ const CreatePinTaskModal = ({ initialDate, startDate }) => {
             handleChange={handleChange}
             date={date}
             endDate={endDate}
-            operative={operative}
+            companyUserID={companyUserID}
             site={site}
             building={building}
             floor={floor}
@@ -85,7 +85,7 @@ const CreatePinTaskModal = ({ initialDate, startDate }) => {
             service={service}
             template={template}
             pins={pins}
-            operativeID={operative}
+            companyUserID={companyUserID}
         />,
     ];
 

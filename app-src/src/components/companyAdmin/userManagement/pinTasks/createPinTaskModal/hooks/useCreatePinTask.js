@@ -14,7 +14,6 @@ import {
     selectPinTasksIsPosting,
     selectPinTasksPostSuccess,
 } from 'selectors/companyAdmin/pinTasks';
-import { selectCompanyUserID } from 'selectors/companyAdmin/companyUsers';
 
 import { RECURRING_TYPE } from 'constants/companyAdmin/enums';
 import { CREATE_PIN_TASK } from 'constants/shared/modalTypes';
@@ -29,7 +28,7 @@ const useCreatePinTask = (initialDate, startDate) => {
         endDate: initialDate ?? new Date().toISOString(),
         recurring: RECURRING_TYPE.NONE,
         days: [],
-        operative: null,
+        companyUserID: null,
         site: null,
         building: null,
         floor: null,
@@ -46,7 +45,6 @@ const useCreatePinTask = (initialDate, startDate) => {
     const isPosting = useSelector(selectPinTasksIsPosting);
     const postSuccess = useSelector(selectPinTasksPostSuccess);
     const prevPostSuccess = usePrevious(postSuccess);
-    const companyUserID = useSelector(selectCompanyUserID);
     const error = useSelector(selectPinTasksError);
 
     useEffect(() => {
@@ -78,17 +76,16 @@ const useCreatePinTask = (initialDate, startDate) => {
     const onNextStep = () => {
         if (step < 1) return setStep(step + 1);
 
-        const { operative, pins, date, recurring, endDate } = formData;
+        const { companyUserID, pins, date, recurring, endDate } = formData;
 
         const data = {
-            operative,
+            companyUserID,
             pinIDs: pins,
             date,
             recurrenceType: recurring,
             recurrenceDays: handleDaysConversion(),
             startDate: date,
             endDate,
-            companyUserID,
         };
 
         dispatch(createPinTasks(data));

@@ -38,7 +38,7 @@ import {
     selectSitesFetchError,
 } from 'selectors/companyAdmin/sites';
 
-const useStep1Options = (handleChange, site, building, floor, drawing, operativeID) => {
+const useStep1Options = (handleChange, site, building, floor, drawing, companyUserID) => {
     const dispatch = useDispatch();
 
     const users = useSelector(selectCompanyUsers) ?? [];
@@ -75,10 +75,10 @@ const useStep1Options = (handleChange, site, building, floor, drawing, operative
         });
     }, [dispatch]);
     useEffect(() => {
-        if (operativeID) {
-            dispatch(fetchUserDrawings(operativeID));
+        if (companyUserID) {
+            dispatch(fetchUserDrawings(companyUserID));
         }
-    }, [operativeID]);
+    }, [companyUserID]);
 
     useEffect(() => {
         if (drawing != null) dispatch(fetchPins('Drawing', drawing));
