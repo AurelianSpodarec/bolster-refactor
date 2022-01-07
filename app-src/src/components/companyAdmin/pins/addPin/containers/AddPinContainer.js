@@ -85,7 +85,7 @@ class AddPinContainer extends Component {
             const drawingOptionValues = formattedManufacturerOptionValues.reduce((acc, option) => {
                 const isCorrectForDrawingAndServiceID = serviceID
                     ? drawingOptionValueIDs.includes(option.id) &&
-                      option.serviceIDs.includes(Number(serviceID))
+                      option.serviceIDs?.includes(Number(serviceID))
                     : drawingOptionValueIDs.includes(option.id);
 
                 if (isCorrectForDrawingAndServiceID) {
