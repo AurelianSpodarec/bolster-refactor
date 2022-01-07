@@ -23,6 +23,8 @@ const MultiMultiDropdownOptions = ({
                 isManufacturingEnabledForDrawing &&
                 DROPDOWN_OPTION_MANUFACTURER_ENABLED[optionType]
             ) {
+                if (option.isManufacturerDeleted) return false;
+
                 isManufacturingEnabledForType = true;
             }
             return true;
