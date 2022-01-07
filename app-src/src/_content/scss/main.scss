@@ -6768,7 +6768,13 @@ input {
     display: flex;
     flex-direction: row;
     margin: 5px 0;
-  }
+}
+
+.content-area {
+    .no-padding {
+        padding: 0;
+    }
+}
 
 @import './pages/document-library.scss';
 @import './pages/document-library-select-modal.scss';

@@ -24,9 +24,13 @@ export const fetchAllLibraryDocumentsByCompanyFailure = error => ({
 
 export default () => dispatch => {
     dispatch(fetchAllLibraryDocumentsByCompanyRequest());
-    console.log('joj');
+
     return axios
         .get(`${API_URL}/document-library/attach-to-pin-options`, getHeaders())
-        .then(res => console.log(res.data) || dispatch(fetchAllLibraryDocumentsByCompanySuccess(res.data)))
+        .then(
+            res =>
+                console.log(res.data) ||
+                dispatch(fetchAllLibraryDocumentsByCompanySuccess(res.data)),
+        )
         .catch(err => dispatch(fetchAllLibraryDocumentsByCompanyFailure(err.message)));
 };

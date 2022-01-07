@@ -93,7 +93,7 @@ class AddPinContainer extends Component {
                     if (!originalOptionTypesToRemove.includes(option.type)) {
                         originalOptionTypesToRemove.push(option.type);
                     }
-                    if (shouldOptionValueBeIncluded(option.serviceIDs, subscriptionServiceIDs)) {
+                    if (shouldOptionValueBeIncluded(option?.serviceIDs, subscriptionServiceIDs)) {
                         acc.push({ ...option });
                     }
                 }

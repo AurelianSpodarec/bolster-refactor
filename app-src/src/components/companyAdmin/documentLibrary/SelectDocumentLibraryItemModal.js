@@ -1,17 +1,19 @@
-import getDocumentsForAttachPin from 'actions/companyAdmin/documentLibrary/async/getDocumentsForAttachPin';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Error from 'components/shared/generic/misc/presentational/Error';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getIconFromExt } from 'helpers/general';
-import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
-import FileTypeIcon from './FileTypeIcon';
-import { DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
-import { FILE_API_URL, RAW_S3_STORAGE_URL } from 'config';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+
+import getDocumentsForAttachPin from 'actions/companyAdmin/documentLibrary/async/getDocumentsForAttachPin';
 import { getAuthHeader } from 'helpers/api';
+import { getIconFromExt } from 'helpers/general';
+import { FILE_API_URL, RAW_S3_STORAGE_URL } from 'config';
+import { DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
+
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
+import FileTypeIcon from './FileTypeIcon';
+import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
+import Error from 'components/shared/generic/misc/presentational/Error';
 
 const { FILE, FOLDER } = DOCUMENT_LIBRARY_TYPES;
 
@@ -39,74 +41,66 @@ const SelectDocumentLibraryItemModal = ({
         dispatch(getDocumentsForAttachPin());
     }, []);
 
-    if (fetching)
-        return (
-            <ModalOuterContainer>
-                <BlockHeading title="Select document from library" />
-                <Loading />
-            </ModalOuterContainer>
-        );
-
-    if (error || chooseItemError)
-        return (
-            <ModalOuterContainer>
-                <BlockHeading title="Select document from library" />
-                <Error>{error || chooseItemError}</Error>
-            </ModalOuterContainer>
-        );
-
     const breadcrumbItems = getBreadcrumbItems(parentID);
-    console.log({ breadcrumbItems });
 
-    // </span>
     return (
         <ModalOuterContainer>
             <BlockHeading title="Select document from library" />
-            <p className="select-document-library-items-breadcrumb-items">
-                <span
-                    className="item"
-                    onClick={() => {
-                        setParentID(null);
-                    }}
-                >
-                    Company files
-                </span>
-                {breadcrumbItems.map(({ text, value }) => (
-                    <React.Fragment key={value}>
-                        <span> / </span>
-                        <span
-                            className="item"
-                            onClick={() => {
-                                setParentID(value);
-                            }}
-                        >
-                            {text}
-                        </span>
-                    </React.Fragment>
-                ))}
-            </p>
-            <div className="select-document-library-items">
-                {filteredItems.map(item => (
-                    <div
-                        key={item.id}
-                        className="select-document-library-item"
-                        onClick={e => {
-                            e.preventDefault();
-
-                            if (item.type === FOLDER) setParentID(item.id);
-                            else downloadFile(item);
+            <BlockContainer
+                isEmpty={!filteredItems.length}
+                isFetching={fetching}
+                error={error}
+                contentClass="no-padding"
+            >
+                <p className="select-document-library-items-breadcrumb-items">
+                    <span
+                        className="item"
+                        onClick={() => {
+                            setParentID(null);
                         }}
                     >
-                        <FileTypeIcon
-                            className="icon"
-                            src={
-                                item.type === FILE ? getIconFromExt(item.fileExtension) : FolderIcon
-                            }
-                        />
-                        {item.name}
-                    </div>
-                ))}
-            </div>
+                        Company files
+                    </span>
+                    {breadcrumbItems.map(({ text, value }) => (
+                        <React.Fragment key={value}>
+                            <span> / </span>
+                            <span
+                                className="item"
+                                onClick={() => {
+                                    setParentID(value);
+                                }}
+                            >
+                                {text}
+                            </span>
+                        </React.Fragment>
+                    ))}
+                </p>
+                <div className="select-document-library-items">
+                    {filteredItems.map(item => (
+                        <div
+                            key={item.id}
+                            className="select-document-library-item"
+                            onClick={e => {
+                                e.preventDefault();
+
+                                if (item.type === FOLDER) setParentID(item.id);
+                                else downloadFile(item);
+                            }}
+                        >
+                            <FileTypeIcon
+                                className="icon"
+                                src={
+                                    item.type === FILE
+                                        ? getIconFromExt(item.fileExtension)
+                                        : FolderIcon
+                                }
+                            />
+                            {item.name}
+                            <Error>{chooseItemError}</Error>
+                        </div>
+                    ))}
+                </div>
+            </BlockContainer>
         </ModalOuterContainer>
     );
 
@@ -132,7 +126,6 @@ const SelectDocumentLibraryItemModal = ({
             hideModal();
         } catch (err) {
             setChooseItemError(err.message);
-            console.log({ err });
         }
     }
 
