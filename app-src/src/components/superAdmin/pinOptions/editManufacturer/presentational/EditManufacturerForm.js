@@ -33,7 +33,7 @@ const EditManufacturerForm = ({
         </div>
 
         <div className="size-lg-12">
-            <Field name="Select services for this option value">
+            <Field name="Select services for this Manufacturer">
                 <MultiSelect
                     name="serviceIDs"
                     options={serviceOptions}
