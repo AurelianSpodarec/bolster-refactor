@@ -22,7 +22,7 @@ export const fetchTimesheetPinStatsFailure = error => ({
     error,
 });
 
-export default (userIDs, startDate, endDate) => dispatch => {
+export default (companyUserIDs, startDate, endDate) => dispatch => {
     dispatch(fetchTimesheetPinStatsRequest());
 
     axios
@@ -31,7 +31,7 @@ export default (userIDs, startDate, endDate) => dispatch => {
             {
                 startDate,
                 endDate,
-                userIDs,
+                companyUserIDs,
             },
             getHeaders(),
         )
