@@ -16,7 +16,7 @@ export default combineReducers({
     alerts: alertsReducer,
     isFetching: isFetchingReducer,
     isPosting: isPostingReducer,
-    postSucess: postSuccessReducer,
+    postSuccess: postSuccessReducer,
     error: errorReducer,
 });
 
