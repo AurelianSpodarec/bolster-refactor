@@ -31,11 +31,13 @@ const SelectDocumentLibraryItemModal = ({
     const [chooseItemError, setChooseItemError] = useState(null);
 
     const [parentID, setParentID] = useState(null);
-
     let filteredItems = items.filter(item => item.parentFolderID === parentID);
 
-    if (mimeTypes.length > 0)
-        filteredItems = filteredItems.filter(item => mimeTypes.includes(item.mimeType));
+    if (mimeTypes.length > 0) {
+        filteredItems = filteredItems.filter(item =>
+            item.type === FOLDER ? item.areChildrenAttachPins : mimeTypes.includes(item.mimeType),
+        );
+    }
 
     useEffect(() => {
         dispatch(getDocumentsForAttachPin());
@@ -46,35 +48,35 @@ const SelectDocumentLibraryItemModal = ({
     return (
         <ModalOuterContainer>
             <BlockHeading title="Select document from library" />
+            <p className="select-document-library-items-breadcrumb-items">
+                <span
+                    className="item"
+                    onClick={() => {
+                        setParentID(null);
+                    }}
+                >
+                    Company files
+                </span>
+                {breadcrumbItems.map(({ text, value }) => (
+                    <React.Fragment key={value}>
+                        <span> / </span>
+                        <span
+                            className="item"
+                            onClick={() => {
+                                setParentID(value);
+                            }}
+                        >
+                            {text}
+                        </span>
+                    </React.Fragment>
+                ))}
+            </p>
             <BlockContainer
                 isEmpty={!filteredItems.length}
                 isFetching={fetching}
                 error={error}
                 contentClass="no-padding"
             >
-                <p className="select-document-library-items-breadcrumb-items">
-                    <span
-                        className="item"
-                        onClick={() => {
-                            setParentID(null);
-                        }}
-                    >
-                        Company files
-                    </span>
-                    {breadcrumbItems.map(({ text, value }) => (
-                        <React.Fragment key={value}>
-                            <span> / </span>
-                            <span
-                                className="item"
-                                onClick={() => {
-                                    setParentID(value);
-                                }}
-                            >
-                                {text}
-                            </span>
-                        </React.Fragment>
-                    ))}
-                </p>
                 <div className="select-document-library-items">
                     {filteredItems.map(item => (
                         <div
