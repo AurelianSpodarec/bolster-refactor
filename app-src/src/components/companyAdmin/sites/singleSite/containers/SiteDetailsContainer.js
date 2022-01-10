@@ -16,6 +16,7 @@ import {
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import deleteSite from 'actions/companyAdmin/sites/async/deleteSite';
 import archiveSite from 'actions/companyAdmin/sites/async/archiveSite';
+import { HIERARCHY_IDS, HIERARCHY_TYPES } from 'constants/companyAdmin/enums';
 
 class SiteDetailsContainer extends Component {
     state = {
@@ -53,8 +54,15 @@ class SiteDetailsContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { error, deleteSuccess, postSuccess, postFailure, history, showModal, hideModal } =
-            this.props;
+        const {
+            error,
+            deleteSuccess,
+            postSuccess,
+            postFailure,
+            history,
+            showModal,
+            hideModal,
+        } = this.props;
         if (deleteSuccess && !prevProps.deleteSuccess) {
             hideModal();
             history.push('/company/sites');
@@ -79,8 +87,11 @@ class SiteDetailsContainer extends Component {
     };
 
     handleCreateHierarchyAlertModal = () => {
-        const { showModal } = this.props;
-        showModal(CREATE_HIERARCHY_ALERT_MODAL, { hierarchy: 'Site' });
+        const { showModal, site } = this.props;
+        showModal(CREATE_HIERARCHY_ALERT_MODAL, {
+            hierarchyType: HIERARCHY_IDS.SITE,
+            hierarchyID: site.id,
+        });
     };
 
     handleEditSiteModal = () => {

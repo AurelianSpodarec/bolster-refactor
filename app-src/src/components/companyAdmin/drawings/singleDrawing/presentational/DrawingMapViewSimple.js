@@ -10,7 +10,7 @@ import { CRS } from 'leaflet';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
-import { ACCESS_TYPES_VALUES, FLOORPLAN_STATES } from 'constants/companyAdmin/enums';
+import { ACCESS_TYPES_VALUES, FLOORPLAN_STATES, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import { CREATE_HIERARCHY_ALERT_MODAL, EDIT_DRAWING } from 'constants/shared/modalTypes';
 import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
 import RedX from 'components/shared/pins/map/presentational/RedX';
@@ -84,7 +84,12 @@ const DrawingMapViewSimple = ({
     const shouldShowFloorplan = !!drawing.tilesetS3Key && !updating;
 
     const handleCreateHierarchyAlertModal = () => {
-        dispatch(showModal(CREATE_HIERARCHY_ALERT_MODAL, { hierarchy: 'Drawing' }));
+        dispatch(
+            showModal(CREATE_HIERARCHY_ALERT_MODAL, {
+                hierarchyType: HIERARCHY_IDS.DRAWING,
+                hierarchyID: drawing.id,
+            }),
+        );
     };
 
     return (

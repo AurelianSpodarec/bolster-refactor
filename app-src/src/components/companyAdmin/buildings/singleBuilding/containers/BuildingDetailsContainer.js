@@ -17,6 +17,7 @@ import {
 import deleteBuilding from 'actions/companyAdmin/buildings/async/deleteBuilding';
 import archiveBuilding from 'actions/companyAdmin/buildings/async/archiveBuilding';
 import { isObjEmpty } from 'helpers/generic';
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 class BuildingDetailsContainer extends Component {
     state = {
@@ -100,8 +101,11 @@ class BuildingDetailsContainer extends Component {
     };
 
     handleCreateHierarchyAlertModal = () => {
-        const { showModal } = this.props;
-        showModal(CREATE_HIERARCHY_ALERT_MODAL, { hierarchy: 'Building' });
+        const { showModal, building } = this.props;
+        showModal(CREATE_HIERARCHY_ALERT_MODAL, {
+            hierarchyType: HIERARCHY_IDS.BUILDING,
+            hierarchyID: building.id,
+        });
     };
 
     handleEditBuildingModal = () => {

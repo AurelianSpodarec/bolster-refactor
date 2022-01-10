@@ -16,6 +16,7 @@ import {
     CREATE_HIERARCHY_ALERT_MODAL,
 } from 'constants/shared/modalTypes';
 import archiveFloor from 'actions/companyAdmin/floors/async/archiveFloor';
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 class FloorDetailsContainer extends Component {
     state = {
@@ -87,8 +88,11 @@ class FloorDetailsContainer extends Component {
     };
 
     handleCreateHierarchyAlertModal = () => {
-        const { showModal } = this.props;
-        showModal(CREATE_HIERARCHY_ALERT_MODAL, { hierarchy: 'Floor' });
+        const { showModal, floor } = this.props;
+        showModal(CREATE_HIERARCHY_ALERT_MODAL, {
+            hierarchyType: HIERARCHY_IDS.FLOOR,
+            hierarchyID: floor.id,
+        });
     };
 
     handleEditFloorModal = () => {

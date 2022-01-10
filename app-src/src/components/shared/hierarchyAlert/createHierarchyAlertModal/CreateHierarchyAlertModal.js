@@ -1,13 +1,16 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import {
     ALERT_FREQUENCY_SUFFIX_VALUES,
     ALERT_FREQUENCY_TYPES,
     ALERT_FREQUENCY_VALUES,
     ALERT_METHOD_VALUES,
+    HIERARCHY_TYPES,
 } from 'constants/companyAdmin/enums';
 import { enumFormat } from 'helpers/generic';
 import { NUMBER_GREATER_THAN_ZERO } from 'helpers/regex';
+import { alertsIsPosting } from 'selectors/alerts';
 
 import useCreateHierarchyAlert from '../hooks/useCreateHierarchyAlert';
 
@@ -21,12 +24,14 @@ import DatePickerContainer from 'components/shared/generic/form/containers/DateP
 import Select from 'components/shared/generic/form/presentational/Select';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 
-const CreateHierarchyAlertModal = ({ hierarchy, hideModal }) => {
+const CreateHierarchyAlertModal = ({ hierarchyType, hierarchyID, hideModal }) => {
     const {
         form: { name, description, method, date, frequencyType, frequencyAmount },
         handleChange,
         handleSubmit,
-    } = useCreateHierarchyAlert();
+    } = useCreateHierarchyAlert(hierarchyType, hierarchyID);
+
+    const isPosting = useSelector(alertsIsPosting);
 
     const methodOptions = enumFormat(ALERT_METHOD_VALUES);
     const frequencyTypeOptions = enumFormat(ALERT_FREQUENCY_VALUES);
@@ -38,7 +43,7 @@ const CreateHierarchyAlertModal = ({ hierarchy, hideModal }) => {
 
     return (
         <ModalOuterContainer>
-            <BlockHeading title={`Create ${hierarchy} Alert`} />
+            <BlockHeading title={`Create ${HIERARCHY_TYPES[hierarchyType]} alert`} />
 
             <Form className="generic-form" onSubmit={handleSubmit}>
                 <div className="size-lg-12">
@@ -125,8 +130,12 @@ const CreateHierarchyAlertModal = ({ hierarchy, hideModal }) => {
                     )}
                 </div>
                 <BlockButtonWrapper>
-                    <button className="button green">
-                        <i className="fa fa-plus" /> Create Alert
+                    <button
+                        className={`button green ${isPosting ? 'disabled' : ''}`}
+                        disabled={isPosting}
+                    >
+                        <i className={`fa fa-${isPosting ? 'spinner fa-spin' : 'plus'}`} />{' '}
+                        {isPosting ? 'Creating...' : 'Create Alert'}
                     </button>
                     <button className="button" onClick={hideModal}>
                         Cancel

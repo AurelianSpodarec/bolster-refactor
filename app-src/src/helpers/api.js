@@ -79,7 +79,7 @@ export function handleErrors(func) {
         if (response?.status === 400) return setAPIFieldErrors(response.data.errors);
         // if (response && response.status === 401)
         // redirect to login
-        if (typeof response?.data === 'string') {
+        if (typeof response?.data === 'string' && response?.data) {
             return func(response.data);
         }
         return func(message);
