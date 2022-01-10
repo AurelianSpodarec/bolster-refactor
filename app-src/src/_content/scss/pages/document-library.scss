@@ -499,3 +499,12 @@
     }
   }
 }
+
+
+.document-library-table {
+  &.generic-table {
+      a {
+        color: black;
+      }
+  }
+}

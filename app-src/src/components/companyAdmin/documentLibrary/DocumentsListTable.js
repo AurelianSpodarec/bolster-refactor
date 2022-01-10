@@ -58,7 +58,7 @@ const DocumentsTable = ({
                         : 'No documents match search criteria'
                 }
                 withoutTBody
-                extraClasses={`${isSorting ? 'dragging' : ''}`}
+                extraClasses={`document-library-table ${isSorting ? 'dragging' : ''}`}
                 tableColumnWidths={['50px', '50px']}
             >
                 <DocumentsList
