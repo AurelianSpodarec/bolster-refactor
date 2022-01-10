@@ -58,12 +58,14 @@ import userGuideReducer from './userGuide';
 import userDocumentsReducer from './userDocuments';
 import zonesReducer from './zones';
 import companySelectionReducer from './companySelection';
+import alertsReducer from './alerts';
 
 export default combineReducers({
     activityLogReducer,
     addPinDropdownOptions,
     addPinCoordinatesReducer,
     addPinFormReducer,
+    alertsReducer,
     appReducer,
     approvedCompaniesReducer,
     buildingsReducer,
