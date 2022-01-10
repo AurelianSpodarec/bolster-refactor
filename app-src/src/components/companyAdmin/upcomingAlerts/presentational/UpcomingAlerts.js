@@ -1,11 +1,12 @@
+import React from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import React from 'react';
+import Table from 'components/shared/generic/tables/presentational/Table';
 import useUpcomingAlerts from '../hooks/useUpcomingAlerts';
 
-const UpcomingAlerts = () => {
+const UpcomingAlerts = ({ isFetching, alerts }) => {
     const { fields, handleChange } = useUpcomingAlerts();
 
     return (
@@ -15,19 +16,26 @@ const UpcomingAlerts = () => {
                 <form className="table-search size-lg-12">
                     <div className="table-filter">
                         <Dropdown
-                            placeholder="All roles"
-                            name="role"
+                            placeholder="All alerts"
+                            name="alerts"
                             options={[]}
                             selectedOption={fields.selectedRole}
                             handleChange={handleChange}
                         />
-                        <p>Filter by role:</p>
+                        <p>Filter:</p>
                     </div>
                 </form>
             </BlockContainer>
             <BlockContainer>
-                <BlockHeading title="Users" />
-                Table goes here
+                <BlockHeading title="Alerts" />
+                <Table
+                    headers={['Created On', 'Alert', 'Frequency']}
+                    withActions
+                    isFetching={isFetching}
+                    noData={!alerts.length}
+                    noDataMessage="There are no alerts to display."
+                    alerts={alerts}
+                ></Table>
             </BlockContainer>
         </>
     );
