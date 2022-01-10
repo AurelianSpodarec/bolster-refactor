@@ -117,17 +117,18 @@ const CreateHierarchyAlertModal = ({ hierarchyType, hierarchyID, hideModal }) =>
                                     />
                                 </Field>
                             </div>
-
-                            <Field styles={{ minHeight: 0 }}>
-                                <p className="size-lg-12 info-message">
-                                    Alert will be sent every{' '}
-                                    {`${
-                                        frequencyAmountNum > 1 ? `${frequencyAmount} ` : ''
-                                    }${frequencySuffix}`}
-                                </p>
-                            </Field>
                         </>
                     )}
+
+                    <Field styles={{ minHeight: 0 }}>
+                        <p className="size-lg-12 info-message">
+                            {+frequencyType === ALERT_FREQUENCY_TYPES.ONCE
+                                ? 'Alert will be sent once.'
+                                : `Alert will be sent every ${
+                                      frequencyAmountNum > 1 ? `${frequencyAmount} ` : ''
+                                  }${frequencySuffix}.`}
+                        </p>
+                    </Field>
                 </div>
                 <BlockButtonWrapper>
                     <button
