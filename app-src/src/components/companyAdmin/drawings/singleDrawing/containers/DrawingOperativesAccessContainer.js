@@ -11,15 +11,17 @@ import { isEmpty } from 'helpers/generic';
 class DrawingOperativesAccessContainer extends Component {
     render() {
         const { operatives, isFetching, error, users } = this.props;
-        const operativesWithCodes = operatives.map(operative => {
-            const user = users.find(({ id }) => id === operative.companyUserID) || {};
-            const canEditUser = !isEmpty(user);
+        const operativesWithCodes = operatives
+            .map(operative => {
+                const user = users.find(({ id }) => id === operative.companyUserID) || {};
+                const canEditUser = !isEmpty(user);
 
-            return {
-                ...operative,
-                canEditUser,
-            };
-        });
+                return {
+                    ...operative,
+                    canEditUser,
+                };
+            })
+            .filter(operative => operative.drawingID);
 
         return (
             <BlockContainer containerClass="always-scrollbar">
