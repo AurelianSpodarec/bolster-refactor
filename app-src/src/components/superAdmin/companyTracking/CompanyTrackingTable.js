@@ -1,9 +1,10 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { isEmpty } from 'helpers/generic';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
+import Select from 'components/shared/generic/form/presentational/Select';
 import ContactContacted from './CompanyContacted';
 import {
     COMPANY_TRACKING_PERIOD_KEY,
@@ -12,6 +13,9 @@ import {
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import { companyTrackingShowWarning } from 'helpers/general';
 import moment from 'moment';
+import { COMPANY_TYPES } from 'constants/companyAdmin/enums';
+const ACTIVE = COMPANY_TYPES['Company - Active Subscription'];
+const EXPIRED = COMPANY_TYPES['Company - Expired Subscription'];
 
 const headers = [
     'Name',
@@ -28,15 +32,34 @@ const headers = [
 ];
 
 const CompanyTrackingTable = ({ dates, setDates }) => {
+    const [subscriptionTypeFilter, setSubscriptionTypeFilter] = useState(COMPANY_TYPES.ALL);
+    const options = [
+        {
+            label: 'All',
+            value: COMPANY_TYPES.ALL,
+        },
+        {
+            label: 'Expired',
+            value: EXPIRED,
+        },
+        {
+            label: 'Active',
+            value: ACTIVE,
+        },
+    ];
     const { adminServices, companies, isFetching, error } = useSelector(mapStateToProps);
     const today = new Date();
     const sortedCompanies = useMemo(() => {
-        const sorted = Object.values(companies).sort(
+        const companiesArr = Object.values(companies);
+        const filtered = companiesArr.filter(comp => {
+            if (subscriptionTypeFilter === COMPANY_TYPES.ALL) return true;
+            else return subscriptionTypeFilter === comp.companyType;
+        });
+        const sorted = filtered.sort(
             (a, b) => new Date(b.latestSubscriptionStartOn) - new Date(a.latestSubscriptionStartOn),
         );
-
         return sorted;
-    }, [companies]);
+    }, [companies, subscriptionTypeFilter]);
 
     return (
         <div className="company-tracking-container">
@@ -70,6 +93,16 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
                             }
                             placeholderText="End Date"
                             maxDate={today}
+                        />
+                    </div>
+                </div>
+                <div className="flex item ">
+                    <p className="">Subscription Type</p>
+                    <div className="flex">
+                        <Select
+                            value={subscriptionTypeFilter}
+                            onChange={(_, value) => setSubscriptionTypeFilter(value)}
+                            options={options}
                         />
                     </div>
                 </div>
