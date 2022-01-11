@@ -5,8 +5,10 @@ import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import useUpcomingAlerts from '../hooks/useUpcomingAlerts';
+import AlertItem from './AlertItem';
+import { isEmpty } from 'lodash';
 
-const UpcomingAlerts = ({ isFetching, alerts }) => {
+const UpcomingAlerts = ({ error, isFetching, alerts }) => {
     const { fields, handleChange } = useUpcomingAlerts();
 
     return (
@@ -26,16 +28,28 @@ const UpcomingAlerts = ({ isFetching, alerts }) => {
                     </div>
                 </form>
             </BlockContainer>
-            <BlockContainer>
+            <BlockContainer isFetching={isFetching} error={error} isEmpty={isEmpty(alerts)}>
                 <BlockHeading title="Alerts" />
                 <Table
-                    headers={['Created On', 'Alert', 'Frequency']}
-                    withActions
+                    headers={[
+                        'Created On',
+                        'Last sent on',
+                        'Type',
+                        'Method',
+                        'Frequency Amount',
+                        'Message',
+                    ]}
                     isFetching={isFetching}
-                    noData={!alerts.length}
+                    error={error}
+                    noData={isEmpty(alerts)}
                     noDataMessage="There are no alerts to display."
-                    alerts={alerts}
-                ></Table>
+                >
+                    {Object.values(alerts)
+                        .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn))
+                        .map(alert => (
+                            <AlertItem key={alert.id} alert={alert} />
+                        ))}
+                </Table>
             </BlockContainer>
         </>
     );

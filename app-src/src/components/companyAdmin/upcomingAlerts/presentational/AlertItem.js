@@ -1,0 +1,47 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import {
+    ALERT_FREQUENCY_SUFFIX_VALUES,
+    ALERT_METHOD_VALUES,
+    HIERARCHY_IDS,
+    HIERARCHY_TYPES,
+} from 'constants/companyAdmin/enums';
+import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
+
+const AlertItem = ({
+    alert: {
+        name,
+        createdOn,
+        frequencyAmount,
+        frequencyType,
+        hierarchyType,
+        hierarchyID,
+        method,
+        lastSendOn,
+    },
+}) => {
+    console.log(HIERARCHY_IDS);
+
+    return (
+        <tr>
+            <td className="left-align">
+                <DateTimeContainer date={createdOn} />
+            </td>
+            <td>{lastSendOn ? <DateTimeContainer date={lastSendOn} /> : 'NA'}</td>
+            <td>
+                <Link to={`/company/${HIERARCHY_TYPES[hierarchyType]}s/${hierarchyID}`}>
+                    {`/company/${HIERARCHY_TYPES[hierarchyType]}s/${hierarchyID}`}
+                </Link>
+            </td>
+            <td>{ALERT_METHOD_VALUES[method]}</td>
+            <td>
+                {frequencyAmount} per {ALERT_FREQUENCY_SUFFIX_VALUES[frequencyType]}
+            </td>
+            <td className="left-align">{name}</td>
+        </tr>
+    );
+};
+
+export default AlertItem;
