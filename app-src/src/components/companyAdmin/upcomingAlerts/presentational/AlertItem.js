@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import Moment from 'react-moment';
 import 'moment-timezone';
 
@@ -7,9 +8,10 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import {
     ALERT_FREQUENCY_SUFFIX_VALUES,
     ALERT_METHOD_VALUES,
-    HIERARCHY_IDS,
     HIERARCHY_TYPES,
 } from 'constants/companyAdmin/enums';
+import { companyUser } from 'selectors/companyAdmin/companyUser';
+import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
 const AlertItem = ({
     alert: {
@@ -22,9 +24,16 @@ const AlertItem = ({
         method,
         lastSendOn,
         date,
+        createdByCompanyUserID,
     },
 }) => {
-    console.log(HIERARCHY_IDS);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchCompanyUsers());
+    }, []);
+
+    const user = useSelector(state => companyUser(state, createdByCompanyUserID));
 
     return (
         <tr>
@@ -42,6 +51,9 @@ const AlertItem = ({
                 </Link>
             </td>
             <td>{ALERT_METHOD_VALUES[method]}</td>
+            <td>
+                {user.userFirstName} {user.userLastName}/{user.companyName}
+            </td>
             <td>
                 {frequencyType === 1
                     ? 'Single'
