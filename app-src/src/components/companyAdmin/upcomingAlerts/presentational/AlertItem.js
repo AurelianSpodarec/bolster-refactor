@@ -30,7 +30,7 @@ const AlertItem = ({
         <tr>
             <td className="left-align">
                 {' '}
-                <Moment format={'L'} date={date} />
+                <Moment format={'DD/MM/YYYY'} date={date} />
             </td>
             <td className="left-align">
                 <DateTimeContainer date={createdOn} />
