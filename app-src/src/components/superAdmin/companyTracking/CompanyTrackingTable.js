@@ -13,17 +13,18 @@ import {
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import { companyTrackingShowWarning } from 'helpers/general';
 import moment from 'moment';
-import { COMPANY_TYPES } from 'constants/companyAdmin/enums';
+import { COMPANY_TYPES, COMPANY_TRACKING_TYPES_VALUES } from 'constants/companyAdmin/enums';
 const ACTIVE = COMPANY_TYPES['Company - Active Subscription'];
 const EXPIRED = COMPANY_TYPES['Company - Expired Subscription'];
 
 const headers = [
     'Name',
     'Owner Info',
-    'Date Subscribed',
-    'First Subscription',
-    'Most Recent Subscription',
-    'Subscription Expiry',
+    'Date Subbed',
+    'First Sub',
+    'Most Recent Sub',
+    'Sub Expiry',
+    'Sub status',
     'Auto Renew',
     'Services',
     'Contacted After 1 Month?',
@@ -103,6 +104,7 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
                             value={subscriptionTypeFilter}
                             onChange={(_, value) => setSubscriptionTypeFilter(value)}
                             options={options}
+                            omitPlaceholder
                         />
                     </div>
                 </div>
@@ -137,7 +139,8 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
                                 {company.companyName}
                             </td>
                             <td>
-                                {company.accountOwnerName} - {company.accountOwnerEmail}
+                                {company.accountOwnerName} - <br />
+                                {company.accountOwnerEmail}
                             </td>
                             <td>
                                 <DateTimeContainer date={company.companyCreatedOn} />
@@ -151,6 +154,7 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
                             <td>
                                 <DateTimeContainer date={company.latestSubscriptionEndOn} />
                             </td>
+                            <td>{COMPANY_TRACKING_TYPES_VALUES[company.companyType]}</td>
                             <td>
                                 {company.autoRenew ? (
                                     <i className="fa fa-check" />

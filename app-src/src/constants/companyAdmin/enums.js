@@ -369,6 +369,13 @@ export const COMPANY_TYPES = {
     'Client Access': 3,
 };
 
+export const COMPANY_TRACKING_TYPES_VALUES = {
+    0: 'All',
+    1: 'Active',
+    2: 'Expired',
+    3: 'Client Access',
+};
+
 export const DELETED_DATA_TYPE = {
     drawing: 'Drawing',
     floor: 'Floor',
