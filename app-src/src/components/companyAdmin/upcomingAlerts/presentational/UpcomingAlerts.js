@@ -14,20 +14,7 @@ const UpcomingAlerts = ({ error, isFetching, alerts }) => {
     return (
         <>
             <PageHeading title="Upcoming Alerts" withBackButton />
-            <BlockContainer>
-                <form className="table-search size-lg-12">
-                    <div className="table-filter">
-                        <Dropdown
-                            placeholder="All alerts"
-                            name="alerts"
-                            options={[]}
-                            selectedOption={fields.selectedRole}
-                            handleChange={handleChange}
-                        />
-                        <p>Filter:</p>
-                    </div>
-                </form>
-            </BlockContainer>
+
             <BlockContainer isFetching={isFetching} error={error} isEmpty={isEmpty(alerts)}>
                 <BlockHeading title="Alerts" />
                 <Table
