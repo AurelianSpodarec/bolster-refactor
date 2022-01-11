@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import {
@@ -8,7 +10,6 @@ import {
     HIERARCHY_IDS,
     HIERARCHY_TYPES,
 } from 'constants/companyAdmin/enums';
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 
 const AlertItem = ({
     alert: {
@@ -20,12 +21,17 @@ const AlertItem = ({
         hierarchyID,
         method,
         lastSendOn,
+        date,
     },
 }) => {
     console.log(HIERARCHY_IDS);
 
     return (
         <tr>
+            <td className="left-align">
+                {' '}
+                <Moment format={'L'} date={date} />
+            </td>
             <td className="left-align">
                 <DateTimeContainer date={createdOn} />
             </td>

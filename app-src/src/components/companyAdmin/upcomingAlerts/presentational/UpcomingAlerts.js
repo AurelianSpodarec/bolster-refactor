@@ -32,6 +32,7 @@ const UpcomingAlerts = ({ error, isFetching, alerts }) => {
                 <BlockHeading title="Alerts" />
                 <Table
                     headers={[
+                        'Date',
                         'Created On',
                         'Last sent on',
                         'Type',
