@@ -121,7 +121,6 @@ import {
     ADMIN_EDIT_COMPANY_OWNER,
     CONFIRM_EMAIL,
     USER_NEW_DOCUMENT,
-    UNCONFIRMED_EMAIL_MODAL,
     GENERATE_TIMESHEET_REPORT,
     EXPANDED_MEDIA,
 } from 'constants/shared/modalTypes';
@@ -247,7 +246,6 @@ import EnterDemoFullSiteModal from 'components/shared/demo-full-site/presentatio
 import EditCompanyOwnerModalContainer from 'components/superAdmin/companies/singleCompany/containers/EditCompanyOwnerModalContainer';
 import RequestDeleteInvoiceModal from 'components/companyAdmin/invoices/requestDeleteInvoiceModal/RequestDeleteInvoiceModal';
 import NewUserDocumentModal from 'components/companyAdmin/userManagement/documentsUploader/presentational/NewUserDocumentModal';
-import UnconfirmedEmailModal from '../presentational/UnconfirmedEmailModal';
 import GenerateTimesheetReportModal from 'components/companyAdmin/userManagement/operatives/timesheets/modals/GenerateTimesheetReport';
 import ExpandedMediaModal from './ExpandedMediaModal';
 
@@ -371,7 +369,6 @@ const MODAL_COMPONENTS = {
     [ADMIN_EDIT_COMPANY_OWNER]: EditCompanyOwnerModalContainer,
     [CONFIRM_EMAIL]: ConfirmEmailModal,
     [USER_NEW_DOCUMENT]: NewUserDocumentModal,
-    [UNCONFIRMED_EMAIL_MODAL]: UnconfirmedEmailModal,
     [GENERATE_TIMESHEET_REPORT]: GenerateTimesheetReportModal,
     [EXPANDED_MEDIA]: ExpandedMediaModal,
 };
