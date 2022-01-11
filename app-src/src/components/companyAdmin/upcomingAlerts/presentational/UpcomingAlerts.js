@@ -35,7 +35,7 @@ const UpcomingAlerts = ({ error, isFetching, alerts }) => {
                         'Date',
                         'Created On',
                         'Last sent on',
-                        'Type',
+                        'Hierarchy Link',
                         'Method',
                         'Frequency Amount',
                         'Message',
@@ -46,7 +46,7 @@ const UpcomingAlerts = ({ error, isFetching, alerts }) => {
                     noDataMessage="There are no alerts to display."
                 >
                     {Object.values(alerts)
-                        .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn))
+                        .sort((a, b) => new Date(b.date) - new Date(a.date))
                         .map(alert => (
                             <AlertItem key={alert.id} alert={alert} />
                         ))}

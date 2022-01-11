@@ -43,7 +43,9 @@ const AlertItem = ({
             </td>
             <td>{ALERT_METHOD_VALUES[method]}</td>
             <td>
-                {frequencyAmount} per {ALERT_FREQUENCY_SUFFIX_VALUES[frequencyType]}
+                {frequencyType === 1
+                    ? 'Single'
+                    : frequencyAmount + ' per ' + ALERT_FREQUENCY_SUFFIX_VALUES[frequencyType]}
             </td>
             <td className="left-align">{name}</td>
         </tr>
