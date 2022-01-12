@@ -36,7 +36,7 @@ const ManufacturerTable = ({
                             className="pull-right button green"
                             onClick={handleAddManufacturerModal}
                         >
-                            <i className="fa fa-plus" /> {'Add Manufacturer'}
+                            <i className="fa fa-plus" /> Add Manufacturer
                         </button>
                     </div>
                 </BlockHeading>
