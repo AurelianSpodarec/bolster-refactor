@@ -9,6 +9,12 @@ import SearchBar from 'components/companyAdmin/layout/header/presentational/Sear
 const MessageCentreTable = () => {
     const { selectedTab, setSelectedTab, messages, showCreateNewButton } = useMessageCentreTable();
 
+    const handleClick = () => {
+        if (selectedTab === 1) {
+            console.log('delete alerts');
+        }
+    };
+
     return (
         <BlockContainer>
             <MessageCentreTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
@@ -24,7 +30,7 @@ const MessageCentreTable = () => {
                                 Create New
                             </button>
                         )}
-                        <button className="button rounded red">
+                        <button className="button rounded red" onClick={handleClick}>
                             <i className="fas fa-trash-alt"></i>
                             Dismiss All
                         </button>
