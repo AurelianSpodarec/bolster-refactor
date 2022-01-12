@@ -38,7 +38,6 @@ const AlertItem = ({
     return (
         <tr>
             <td className="left-align">
-                {' '}
                 <Moment format={'DD/MM/YYYY'} date={date} />
             </td>
             <td className="left-align">
@@ -60,6 +59,11 @@ const AlertItem = ({
                     : frequencyAmount + ' per ' + ALERT_FREQUENCY_SUFFIX_VALUES[frequencyType]}
             </td>
             <td className="left-align">{name}</td>
+            <td>
+                <button className="no-background-btn" onClick={() => console.log('dismiss')}>
+                    <i className="fas fa-times-circle close-icon" />
+                </button>
+            </td>
         </tr>
     );
 };
