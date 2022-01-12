@@ -174,11 +174,6 @@ const DrawingMapViewSimple = ({
                                                 />
                                             </>
                                         )}
-                                    {doPinsHaveIcons(pins) && (
-                                        <button className="button blue" onClick={togglePinIconView}>
-                                            Pin {pinViewMode === 'view' ? 'icon' : 'normal'} view
-                                        </button>
-                                    )}
                                 </>
                             )
                         )}
@@ -258,6 +253,14 @@ const DrawingMapViewSimple = ({
                                     </>
                                 ) : (
                                     <>
+                                        {doPinsHaveIcons(pins) && (
+                                            <button
+                                                className="button blue"
+                                                onClick={togglePinIconView}
+                                            >
+                                                Pin icon view on/off
+                                            </button>
+                                        )}
                                         <button className="button blue" onClick={handleZoneAdd}>
                                             View Zones
                                         </button>
