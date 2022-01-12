@@ -35,6 +35,7 @@ class PinDetailsContainer extends Component {
 
         return sortedHistories.map((history, i) => {
             const isFirst = i === 0;
+            const isBeforeExpiry = !!moment(Date.now()).isBefore(drawings[drawingID]?.expiresOn);
             return (
                 <BlockContainer
                     key={history.id}
@@ -55,7 +56,7 @@ class PinDetailsContainer extends Component {
                                 : ''}
                             )
                         </h4>
-                        {isFirst && !!moment(Date.now()).isBefore(drawings[drawingID]?.expiresOn && canAddPin) && (
+                        {isFirst && isBeforeExpiry && canAddPin && (
                             <Link
                                 className="button green"
                                 style={{ marginBottom: '0.25em' }}
