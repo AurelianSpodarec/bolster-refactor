@@ -26,6 +26,7 @@ class PinDetailsContainer extends Component {
             drawing,
         } = this.props;
         const canAddPin = drawing?.accessType > ACCESS_TYPES_VALUES.VIEW_ONLY;
+        const isBeforeExpiry = !!moment(Date.now()).isBefore(drawings[drawingID]?.expiresOn);
 
         const { drawingID } = pin;
 
@@ -35,7 +36,6 @@ class PinDetailsContainer extends Component {
 
         return sortedHistories.map((history, i) => {
             const isFirst = i === 0;
-            const isBeforeExpiry = !!moment(Date.now()).isBefore(drawings[drawingID]?.expiresOn);
             return (
                 <BlockContainer
                     key={history.id}
