@@ -3310,10 +3310,12 @@ input {
 
         &.icon {
             position: absolute;
-            top: 1px;
-            left: 1px;
-            width: calc(100% - 2px);
+            top: 2px;
+            left: 2px;
+            width: 26px;
+            height: 26px;
             border-radius: 2px;
+            object-fit: contain;
         }
     }
 
