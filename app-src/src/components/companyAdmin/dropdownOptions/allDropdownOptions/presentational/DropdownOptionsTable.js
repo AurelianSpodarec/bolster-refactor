@@ -28,7 +28,7 @@ const DropdownOptionsTable = ({
                 <BlockHeading title={title} classes="w-table">
                     <div className="pin-option-filters">
                         <Dropdown
-                            placeholder="--select service option--"
+                            placeholder="All Services"
                             name="status"
                             options={serviceFilterOptions}
                             selectedOption={selectedService}
