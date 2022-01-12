@@ -20,15 +20,12 @@ class PinDetailsContainer extends Component {
             isFetching,
             pin,
             isLoading,
-            drawings,
             fetchingDrawings,
             drawingsError,
             drawing,
         } = this.props;
         const canAddPin = drawing?.accessType > ACCESS_TYPES_VALUES.VIEW_ONLY;
-        const isBeforeExpiry = !!moment(Date.now()).isBefore(drawings[drawingID]?.expiresOn);
-
-        const { drawingID } = pin;
+        const isBeforeExpiry = !!moment(Date.now()).isBefore(drawing.expiresOn);
 
         const sortedHistories = [...histories].sort(
             (a, b) => moment(b.createdOn) - moment(a.createdOn),
