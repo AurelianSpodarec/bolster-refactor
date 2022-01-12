@@ -27,18 +27,13 @@ const DropdownOptionsTable = ({
             <div className="size-lg-12">
                 <BlockHeading title={title} classes="w-table">
                     <div className="pin-option-filters">
-                        <div className="dropdown">
-                            <p>Filter By Service Option:</p>
-                            <div className="size-lg-6">
-                                <Dropdown
-                                    placeholder="--select service option--"
-                                    name="status"
-                                    options={serviceFilterOptions}
-                                    selectedOption={selectedService}
-                                    handleChange={handleChange}
-                                />
-                            </div>
-                        </div>
+                        <Dropdown
+                            placeholder="--select service option--"
+                            name="status"
+                            options={serviceFilterOptions}
+                            selectedOption={selectedService}
+                            handleChange={handleChange}
+                        />
 
                         <button className="button green" onClick={handleAddOptionModal}>
                             <i className="fa fa-plus" /> {`Add ${DROPDOWN_OPTIONS[type].singular}`}

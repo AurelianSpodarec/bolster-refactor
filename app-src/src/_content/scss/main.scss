@@ -6599,16 +6599,11 @@ input {
 
 .pin-option-filters {
     display: flex;
-    flex: 1;
     justify-content: flex-end;
     align-items: center;
 
-    .dropdown {
-        display: flex;
-        align-items: center;
-        
-        p {
-            margin-right: 10px;
-        }
+    .custom-dropdown {
+        max-width: 200px;
+        margin-right: 15px;
     }
 }
