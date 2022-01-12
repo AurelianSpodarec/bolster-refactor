@@ -6596,3 +6596,19 @@ input {
     margin-top: 5px;
     font-size: 120%;
 }
+
+.pin-option-filters {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    align-items: center;
+
+    .dropdown {
+        display: flex;
+        align-items: center;
+        
+        p {
+            margin-right: 10px;
+        }
+    }
+}
