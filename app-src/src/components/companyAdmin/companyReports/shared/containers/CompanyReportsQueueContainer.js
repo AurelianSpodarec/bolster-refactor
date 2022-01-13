@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import fetchCompanyReports from 'actions/companyAdmin/companyReports/async/fetchCompanyReports';
 import CompanyReports from '../presentational/CompanyReports';
 import fetchCompanyReportsFull from 'actions/companyAdmin/companyReports/async/fetchCompanyReportsFull';
-import fetchMessagesBasic from 'actions/companyAdmin/messages/async/fetchMessagesBasic';
+import fetchMessagesBasic from 'actions/companyAdmin/messageCentre/async/fetchMessagesBasic';
 
 class CompanyReportsQueueContainer extends Component {
     state = {

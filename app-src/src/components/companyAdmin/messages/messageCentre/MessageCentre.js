@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import fetchMessages from 'actions/companyAdmin/messages/async/fetchMessages';
+import fetchMessages from 'actions/companyAdmin/messageCentre/async/fetchMessages';
 import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import MessageCentreTable from './MessageCentreTable';

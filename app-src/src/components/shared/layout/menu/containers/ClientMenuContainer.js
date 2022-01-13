@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import ClientMenu from '../presentational/ClientMenu';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
-import dismissMessages from 'actions/companyAdmin/messages/async/dismissMessages';
+import dismissMessages from 'actions/companyAdmin/messageCentre/async/dismissMessages';
 
 const ClientMenuContainer = () => {
     const dispatch = useDispatch();
