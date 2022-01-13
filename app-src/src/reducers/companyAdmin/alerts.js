@@ -25,6 +25,7 @@ export default combineReducers({
     isPosting: isPostingReducer,
     postSuccess: postSuccessReducer,
     postError: postErrorReducer,
+    hierarchyAlerts: hierarchyAlertsReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -47,12 +48,23 @@ function alertsReducer(state = {}, action) {
         case FETCH_ALL_ALERTS_REQUEST:
             return {};
         case FETCH_ALL_ALERTS_SUCCESS:
-        case FETCH_HIERARCHY_ALERTS_SUCCESS:
             return convertArrToObj(action.payload);
         case DISMISS_ALERT_SUCCESS:
             return removeObjItem(state, action.payload);
         case CREATE_ALERT_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+        default:
+            return state;
+    }
+}
+function hierarchyAlertsReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_HIERARCHY_ALERTS_REQUEST:
+            return {};
+        case FETCH_HIERARCHY_ALERTS_SUCCESS:
+            return convertArrToObj(action.payload);
+        case DISMISS_ALERT_SUCCESS:
+            return removeObjItem(state, action.payload);
         default:
             return state;
     }

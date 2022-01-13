@@ -10,6 +10,7 @@ import { isEmpty } from 'lodash';
 
 const HierarchyAlerts = () => {
     const { alerts, isFetching, error } = useHierarchyAlerts();
+
     return (
         <>
             <PageHeading title="Upcoming Alerts" withBackButton />

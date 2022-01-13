@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 
 import { fetchHierarchyAlerts } from 'actions/companyAdmin/alerts/async/fetchAlertsForHierarchy';
-import { alertsError, alertsIsFetching, selectAlerts } from 'selectors/alerts';
+import { alertsError, alertsIsFetching, selectHierarchyAlerts } from 'selectors/alerts';
 
 import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
@@ -15,7 +15,7 @@ const useHierarchyAlerts = () => {
     const hierarchy = pathname.split('/')[2].slice(0, -1).toUpperCase();
     const hierarchyType = HIERARCHY_IDS[hierarchy];
 
-    const alerts = useSelector(selectAlerts);
+    const alerts = useSelector(selectHierarchyAlerts);
     const isFetching = useSelector(alertsIsFetching);
     const error = useSelector(alertsError);
 
