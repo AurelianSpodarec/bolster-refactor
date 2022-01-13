@@ -25,6 +25,8 @@ import RecentlyExtendedRoutes from './RecentlyExtendedRoutes';
 import BannersRoutes from './BannersRoutes';
 import DemoAccessCodesRoutes from './DemoAccessCodesRoutes';
 import UserCreationsRoutes from './UserCreationsRoutes';
+import CompanyTrackingRoutes from './CompanyTrackingRoutes';
+import BugReportsRoutes from './BugReportsRoutes';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
@@ -33,6 +35,7 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/companies`} component={CompaniesRoutes} />
         <Route path={`${base}/users`} component={UsersRoutes} />
         <Route path={`${base}/user-creations`} component={UserCreationsRoutes} />
+        <Route path={`${base}/company-tracking`} component={CompanyTrackingRoutes} />
         <Route path={`${base}/profile`} component={ProfilesRoutes} />
         <Route path={`${base}/company-reports`} component={CompanyReportsRoutes} />
         <Route path={`${base}/invoices`} component={InvoicesRoutes} />
@@ -51,6 +54,7 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/new-features`} component={NewFeaturesRoutes} />
         <Route path={`${base}/recently-extended`} component={RecentlyExtendedRoutes} />
         <Route path={`${base}/banners`} component={BannersRoutes} />
+        <Route path={`${base}/bug-reports`} component={BugReportsRoutes} />
     </SwitchWith404>
 );
 

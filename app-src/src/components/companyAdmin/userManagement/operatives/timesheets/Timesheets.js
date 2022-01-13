@@ -1,0 +1,86 @@
+import React from 'react';
+
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import Breakdown from './breakdown/Breakdown';
+import useTimesheets from './hooks/useTimesheets';
+import TimesheetCalender from './timesheetCalender/TimesheetCalender';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+
+const Timesheets = () => {
+    const {
+        startDate,
+        selectedDate,
+        timePeriod,
+        companyUserIDs,
+        setCompanyUserIDs,
+        companyUserOptions,
+        disableReportGenPin,
+        isFetching,
+        fetchError,
+        timesheets,
+        totals,
+        onPrev,
+        onNext,
+        onToday,
+        onDaySelect,
+        onWeekSelect,
+        handlePDFReportGeneration,
+    } = useTimesheets();
+
+    return (
+        <>
+            <PageHeading
+                leftChildren={true}
+                title={
+                    <>
+                        Timesheet -{' '}
+                        {isFetching ? (
+                            'Loading...'
+                        ) : (
+                            <>
+                                {companyUserIDs.length || 'All'} Users (
+                                <DateTimeContainer
+                                    datetime={DATE_TIME_IDS.DATE}
+                                    date={selectedDate}
+                                />
+                                - {timePeriod})
+                            </>
+                        )}
+                    </>
+                }
+            >
+                <BackButtonContainer />
+            </PageHeading>
+            <TimesheetCalender
+                startDate={startDate}
+                selectedDate={selectedDate}
+                timePeriod={timePeriod}
+                companyUserIDs={companyUserIDs}
+                setCompanyUserIDs={setCompanyUserIDs}
+                companyUserOptions={companyUserOptions}
+                isFetching={isFetching}
+                fetchError={fetchError}
+                timesheets={timesheets}
+                totals={totals}
+                onPrev={onPrev}
+                onNext={onNext}
+                onToday={onToday}
+                onDaySelect={onDaySelect}
+                onWeekSelect={onWeekSelect}
+            />
+            <Breakdown
+                selectedDate={selectedDate}
+                timePeriod={timePeriod}
+                isFetching={isFetching}
+                fetchError={fetchError}
+                timesheets={timesheets}
+                handlePDFReportGeneration={handlePDFReportGeneration}
+                disableReportGenPin={disableReportGenPin}
+            />
+        </>
+    );
+};
+
+export default Timesheets;

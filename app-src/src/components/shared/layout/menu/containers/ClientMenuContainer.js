@@ -4,8 +4,9 @@ import moment from 'moment';
 
 import ClientMenu from '../presentational/ClientMenu';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
+import dismissMessages from 'actions/companyAdmin/messages/async/dismissMessages';
 
-const ClientMenuContainer = ({ dismissMessages }) => {
+const ClientMenuContainer = () => {
     const dispatch = useDispatch();
     const { notifications, isCompanyAdmin } = useSelector(mapStateToProps);
     const unread = notifications.filter(({ isRead }) => !isRead);

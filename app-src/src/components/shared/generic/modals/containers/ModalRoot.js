@@ -117,7 +117,13 @@ import {
     EDIT_DEMO_ACCESS_CODES,
     DELETE_DEMO_ACCESS_CODES,
     ENTER_DEMO_ACCESS_CODES,
+    REQUEST_DELETE_INVOICE,
     ADMIN_EDIT_COMPANY_OWNER,
+    CONFIRM_EMAIL,
+    USER_NEW_DOCUMENT,
+    UNCONFIRMED_EMAIL_MODAL,
+    GENERATE_TIMESHEET_REPORT,
+    EXPANDED_MEDIA,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -191,7 +197,7 @@ import SuperAdminConfirmDeleteInvoiceModalContainer from 'components/superAdmin/
 import ConfirmDeleteInvoiceModalContainer from 'components/companyAdmin/invoices/confirmDeleteInvoiceModal/containers/ConfirmDeleteInvoiceModalContainer';
 import AddCompanyAdminModalContainer from 'components/superAdmin/companies/singleCompany/containers/AddCompanyAdminModalContainer';
 import GenerateQRCodesModalContainer from './GenerateQRCodesModalContainer';
-import RistrictPaymentsModalContainer from './RistrictPaymentsModalContainer';
+import RestrictPaymentsModalContainer from './RestrictPaymentsModalContainer';
 import AdminAddManufacturerModal from 'components/superAdmin/pinOptions/addManufacturer/presentational/AddManufacturerModal';
 import AdminEditManufacturerModal from 'components/superAdmin/pinOptions/editManufacturer/presentational/EditManufacturerModal';
 import AdminAddOptionValueModal from 'components/superAdmin/pinOptions/addOptionValue/presentational/AddOptionValueModal';
@@ -228,6 +234,7 @@ import EditBannerNotificationModal from 'components/superAdmin/bannerNotificatio
 import AddBannerNotificationModal from 'components/superAdmin/bannerNotifications/addBannerNotifcationModel/presentational/AddBannerNotificationModal';
 import UpdateReportLayoutModal from '../presentational/UpdateReportLayoutModal';
 import ConfirmTwoFactorModal from '../presentational/ConfirmTwoFactorModal';
+import ConfirmEmailModal from '../presentational/ConfirmEmailModal';
 import RecoverUserModal from 'components/companyAdmin/userManagement/shared/modals/RecoverUserModal';
 import ReactivateUserModal from 'components/companyAdmin/userManagement/operatives/inactiveOperatives/modals/ReactivateUserModal';
 import DisableUserModal from 'components/companyAdmin/userManagement/shared/modals/DisableUserModal';
@@ -238,6 +245,11 @@ import EditDemoAccessCodesModal from 'components/superAdmin/demoAccessCodes/pres
 import DeleteDemoAccessCodesModal from 'components/superAdmin/demoAccessCodes/presentational/DeleteDemoAccessCodesModal';
 import EnterDemoFullSiteModal from 'components/shared/demo-full-site/presentational/DemoFullSiteModal';
 import EditCompanyOwnerModalContainer from 'components/superAdmin/companies/singleCompany/containers/EditCompanyOwnerModalContainer';
+import RequestDeleteInvoiceModal from 'components/companyAdmin/invoices/requestDeleteInvoiceModal/RequestDeleteInvoiceModal';
+import NewUserDocumentModal from 'components/companyAdmin/userManagement/documentsUploader/presentational/NewUserDocumentModal';
+import UnconfirmedEmailModal from '../presentational/UnconfirmedEmailModal';
+import GenerateTimesheetReportModal from 'components/companyAdmin/userManagement/operatives/timesheets/modals/GenerateTimesheetReport';
+import ExpandedMediaModal from './ExpandedMediaModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -290,7 +302,7 @@ const MODAL_COMPONENTS = {
     [CREATE_OPERATIVE]: CreateOperativeModal,
     [LOADING_DATA]: LoadingDataModal,
     [UNLINK_DEVICE]: UnlinkDeviceModalContainer,
-    [RESTRICT_ADMIN_PAYMENTS]: RistrictPaymentsModalContainer,
+    [RESTRICT_ADMIN_PAYMENTS]: RestrictPaymentsModalContainer,
     [REVOKE_ADMIN_ACCESS]: RevokeAdminAccessModalContainer,
     [DOCUMENT_RESPONSE_AGREEANCE]: DocumentResponseAgreeanceModalContainer,
     [SINGLE_PIN_GENERATE_REPORT_SUCCESS]: SinglePinGenerateReportSuccessModalContainer,
@@ -309,6 +321,7 @@ const MODAL_COMPONENTS = {
     [ADMIN_CONFIRM_SET_IS_INVOICE_PAID]: ConfirmSetIsInvoicePaidModalContainer,
     [ADMIN_DELETE_INVOICE]: SuperAdminConfirmDeleteInvoiceModalContainer,
     [DELETE_INVOICE]: ConfirmDeleteInvoiceModalContainer,
+    [REQUEST_DELETE_INVOICE]: RequestDeleteInvoiceModal,
     [ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION]: AddMulitpleServicesToSubscriptionModalContainer,
     [GENERATE_QR_CODES]: GenerateQRCodesModalContainer,
     [ADMIN_ADD_MANUFACTURER]: AdminAddManufacturerModal,
@@ -356,6 +369,11 @@ const MODAL_COMPONENTS = {
     [DELETE_DEMO_ACCESS_CODES]: DeleteDemoAccessCodesModal,
     [ENTER_DEMO_ACCESS_CODES]: EnterDemoFullSiteModal,
     [ADMIN_EDIT_COMPANY_OWNER]: EditCompanyOwnerModalContainer,
+    [CONFIRM_EMAIL]: ConfirmEmailModal,
+    [USER_NEW_DOCUMENT]: NewUserDocumentModal,
+    [UNCONFIRMED_EMAIL_MODAL]: UnconfirmedEmailModal,
+    [GENERATE_TIMESHEET_REPORT]: GenerateTimesheetReportModal,
+    [EXPANDED_MEDIA]: ExpandedMediaModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

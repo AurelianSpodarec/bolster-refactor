@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import MenuItemContainer from '../containers/MenuItemContainer';
 import AdminPinOptionsMenuItems from './AdminPinOptionsMenuItems';
 
-const SuperAdminMenu = ({ logout, unreadRequests }) => (
+const SuperAdminMenu = ({ logout, unreadRequests, unreadBugReports }) => (
     <div className="menu">
         <MenuItemContainer link="/admin" base>
             <i className="fa fa-home icon" /> <span className="menu-text">Dashboard</span>
@@ -27,6 +27,14 @@ const SuperAdminMenu = ({ logout, unreadRequests }) => (
         </MenuItemContainer>
         <MenuItemContainer link="/admin/user-creations">
             <i className="fa fa-user-plus icon" /> <span className="menu-text">User Creations</span>
+        </MenuItemContainer>
+        <MenuItemContainer link="/admin/company-tracking">
+            <i className="fa fa-building icon" />{' '}
+            <span className="menu-text">Company Tracking</span>
+        </MenuItemContainer>
+        <MenuItemContainer link="/admin/bug-reports">
+            {!!unreadBugReports && <span className="number">{unreadBugReports}</span>}
+            <i className="fa fa-bug icon" /> <span className="menu-text">Bug Reports</span>
         </MenuItemContainer>
         <MenuItemContainer link="/admin/move-tool">
             <i className="fa fa-layer-group icon" /> <span className="menu-text">Move Tool</span>

@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
+import { getStorageString } from 'helpers/generic';
+import { getLowMemoryMessage } from 'constants/shared/messages';
+
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
@@ -23,23 +26,21 @@ const AllOperativesListItem = ({
     isDisabled,
 }) => {
     const history = useHistory();
-    const showRedWarning = showNotUpsyncedRecentlyWarning || drawingLimitMaxed;
+
+    const lowMemMessage = getLowMemoryMessage(user.deviceRAM, user.physicalStorageAvailable);
+    const isRowRed = !!lowMemMessage || showNotUpsyncedRecentlyWarning || drawingLimitMaxed;
+    const upsyncedMessage = tooltipDate
+        ? `This operative has not upsynced in ${tooltipDate} days`
+        : 'This operative has never upsynced.';
 
     return (
-        <tr
-            key={user.id}
-            className={`${isDisabled ? 'grey-row' : showRedWarning ? 'red-row' : ''}`}
-        >
+        <tr key={user.id} className={`${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}>
             <td>
-                {showRedWarning && (
+                {isRowRed && (
                     <TooltipContainer
                         htmlText={`${
-                            showNotUpsyncedRecentlyWarning
-                                ? tooltipDate
-                                    ? `<p>This operative has not upsynced in ${tooltipDate} days</p>`
-                                    : '<p>This operative has never upsynced<p>'
-                                : ''
-                        } ${
+                            showNotUpsyncedRecentlyWarning ? `<p>${upsyncedMessage}</p>` : ''
+                        } ${lowMemMessage ? `<p>${lowMemMessage}</p>` : ''} ${
                             drawingLimitColour === 'red'
                                 ? '<p>This operative has reached the maximum number of drawings.</p>'
                                 : ''
@@ -66,6 +67,17 @@ const AllOperativesListItem = ({
                 {user.linkedDeviceID ? 'Yes' : 'No'}{' '}
                 {user.linkedDeviceName && (
                     <span className="red-text">{`(${user.linkedDeviceName})`}</span>
+                )}
+                {user.deviceRAM && (
+                    <>
+                        <br />({getStorageString(user.deviceRAM)} RAM.)
+                    </>
+                )}
+                {user.physicalStorageTotal && (
+                    <>
+                        <br />({getStorageString(user.physicalStorageAvailable)} /{' '}
+                        {getStorageString(user.physicalStorageTotal)} storage free)
+                    </>
                 )}
             </td>
             <td>
@@ -114,7 +126,12 @@ const AllOperativesListItem = ({
                             <i className="far fa-user" /> Make Admin
                         </ButtonContainer>
                     )}
-
+                    <Link
+                        className="button green"
+                        to={`/company/users-management/operatives/${user.id}/timesheet`}
+                    >
+                        <i className="far fa-eye" /> View Timesheet
+                    </Link>
                     <Link
                         className="button yellow"
                         to={`/company/users-management/operatives/${user.id}/edit`}
@@ -126,6 +143,12 @@ const AllOperativesListItem = ({
                         to={`/company/users-management/operatives/${user.id}/edit-email`}
                     >
                         <i className="far fa-at" /> Edit Email
+                    </Link>
+                    <Link
+                        className="button yellow"
+                        to={`/company/users-management/operatives/${user.id}/documents`}
+                    >
+                        <i className="far fa-file-upload" /> User Documents
                     </Link>
                     <Link
                         className="button blue"

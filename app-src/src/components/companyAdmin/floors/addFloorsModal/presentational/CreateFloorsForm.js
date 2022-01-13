@@ -48,7 +48,7 @@ const CreateFloorsForm = ({
                             />
                         </Field>
 
-                        <div className="size-lg-12">
+                        {/* <div className="size-lg-12">
                             <div className="size-lg-6 size-md-12">
                                 <Field name="Send an alert?">
                                     <CheckboxContainer
@@ -61,9 +61,9 @@ const CreateFloorsForm = ({
                                     />
                                 </Field>
                             </div>
-                        </div>
+                        </div> */}
 
-                        {floor.isAlertShowing && (
+                        {/* {floor.isAlertShowing && (
                             <div className="size-lg-12">
                                 <div className="size-lg-12">
                                     <Field name="Alert Message">
@@ -95,7 +95,7 @@ const CreateFloorsForm = ({
                                     </Field>
                                 </div>
                             </div>
-                        )}
+                        )} */}
                     </div>
                     {showManufacturingOptions ? (
                         <>

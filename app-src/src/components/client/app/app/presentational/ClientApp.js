@@ -7,6 +7,8 @@ import FooterContainer from 'components/client/layout/footer/containers/FooterCo
 import MenuContainer from 'components/shared/layout/menu/containers/MenuContainer';
 import Routes from 'components/client/app/routes';
 import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
+import Banner from 'components/shared/generic/banner/Banner';
+import UnconfirmedEmailBanner from 'components/shared/generic/banner/UnconfirmedEmailBanner';
 
 const ClientApp = () => (
     <div className="dashboard-area">
@@ -15,6 +17,8 @@ const ClientApp = () => (
         <div className="full-container container">
             <MenuContainer />
             <div id="page-area">
+                <UnconfirmedEmailBanner />
+                <Banner />
                 <Routes />
             </div>
         </div>

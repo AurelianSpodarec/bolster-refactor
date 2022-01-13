@@ -29,6 +29,7 @@ export default function (WrappedComponent) {
                     handlePrefillStatusChange={this.handlePrefillStatusChange}
                     handlePrefillStatusValueChange={this.handlePrefillStatusValueChange}
                     showPrefillOptions={this._checkshowPrefillOptions()}
+                    dropdownOptions={this.props.companyDropdownOptions.dropdownOptions}
                 />
             );
         }
@@ -262,7 +263,7 @@ export default function (WrappedComponent) {
                 case VALS.DROPDOWN_OPTIONS:
                 case VALS.MULTI_DROPDOWN_OPTIONS:
                 case VALS.MULTI_MULTI_DROPDOWN_OPTIONS:
-                    return { optionType };
+                    return { optionType, defaultValue };
                 default:
                     return {};
             }

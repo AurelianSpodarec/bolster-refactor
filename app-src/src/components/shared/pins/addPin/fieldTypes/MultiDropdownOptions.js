@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
 import { getSortedDropdownOptions } from 'helpers/addPin';
 
 const MultiDropdownOptions = ({
     isRequired,
-    question: { id, optionType },
+    question: { id, optionType, defaultValue },
     dropdownOptions,
     answers,
+    edit,
     handleChange,
     originalDropdownMultiAns,
     isManufacturingEnabledForDrawing,
@@ -15,6 +16,13 @@ const MultiDropdownOptions = ({
 }) => {
     let isManufacturingEnabledForType = false;
     let formattedOpts = [];
+
+    useEffect(() => {
+        if (!answers[id] && !edit && defaultValue) {
+            handleChange(null, [defaultValue]);
+        }
+    }, []);
+
     const filteredOptions = dropdownOptions.filter(option => {
         if (option.type + '' === optionType + '') {
             // while filtering check whether manufacturing enabled for specific type

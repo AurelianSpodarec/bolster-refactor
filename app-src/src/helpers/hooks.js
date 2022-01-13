@@ -1,10 +1,12 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import uuid from 'uuid/v4';
 import moment from 'moment';
-
+import { useLocation } from 'react-router-dom';
 import { removeObjItem } from './generic';
 import { useDispatch, useSelector } from 'react-redux';
 import resendTwoFactor from 'actions/shared/auth/async/resendTwoFactor';
+import { addBanner } from 'actions/shared/banners/sync/addBanner';
+import { resetBanner } from 'actions/shared/banners/sync/resetBanner';
 
 export const useMultipleHierarchies = hierarchyShape => {
     // takes an empty version of the hierarchy shape / initial state for a blank hierarchy
@@ -230,4 +232,27 @@ export const useResend2FA = email => {
         e.preventDefault();
         dispatch(resendTwoFactor({ email }));
     }
+};
+
+export const useUnconfirmedEmailBanner = () => {
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const isClient = location.pathname.includes('client');
+
+    const useUnconfirmedEmailText = `<p>Your email address is unconfirmed. Please click <strong>here</strong> and follow the steps on the email you will receive to complete this process. If your email address is incorrect, invalid or old, please update through <strong><a href="/${
+        isClient ? 'client' : 'company'
+    }/profile">My profile</a></strong>.</p>`;
+
+    useEffect(() => {
+        dispatch(addBanner(useUnconfirmedEmailText));
+        return () => {
+            dispatch(resetBanner());
+        };
+    }, []);
+};
+
+export const useQuery = () => {
+    const { search } = useLocation();
+
+    return useMemo(() => new URLSearchParams(search), [search]);
 };

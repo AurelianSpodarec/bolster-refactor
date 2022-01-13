@@ -22,6 +22,7 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 import { POST_REPORT_SUCCESS } from 'constants/actionTypes/reports';
 import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOAndMTsAndCsModal';
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
+import CreateReportReloadOptions from './CreateReportReloadOptions';
 
 class OutputSettingsContainer extends Component {
     render() {
@@ -43,6 +44,7 @@ class OutputSettingsContainer extends Component {
         const sortByOptions = convertEnumToDropdownOptions(SORT_BY_OPTIONS_TEXT);
 
         return (
+            <>
             <OutputSettings
                 includePinLocation={includePinLocation}
                 isCSVGeneration={isCSVGeneration}
@@ -61,6 +63,8 @@ class OutputSettingsContainer extends Component {
                 includeFloorplanZones={includeFloorplanZones}
                 hasZones={hasZones}
             />
+            <CreateReportReloadOptions />
+            </>
         );
     }
 
@@ -124,8 +128,6 @@ class OutputSettingsContainer extends Component {
         this.props.updateFilterOption(name, value);
     };
 
-
-
     handleSubmit = () => {
         const {
             getPostBody,
@@ -139,11 +141,11 @@ class OutputSettingsContainer extends Component {
             },
             showModal,
             furtherFiltrationOption,
-            customFilters,
         } = this.props;
         if (!isEmpty(fieldErrors)) showFieldErrors();
         else if (isFloorplanGeneration || (isPDFGeneration && includeFloorplan)) {
             const drawingForPinScale = this._getDrawingForPinScale();
+            console.log(isFloorplanGeneration, drawingForPinScale);
 
             if (!drawingForPinScale) {
                 showModal(ERROR_MODAL, {
@@ -202,22 +204,23 @@ class OutputSettingsContainer extends Component {
 
         // uses the url to figure out which hierarchy the report is being generated on
         // and find an appropriate drawing for the pin scale modal
-        if (siteID) {
-            availableDrawings = availableDrawings.filter(drawing => +drawing.siteID === +siteID);
-        }
-        if (buildingID) {
-            availableDrawings = availableDrawings.filter(
-                drawing => +drawing.buildingID === +buildingID,
+        if (drawingID?.length) {
+            availableDrawings = availableDrawings.filter(drawing => drawingID.includes(drawing.id));
+        } else if (floorID?.length) {
+            availableDrawings = availableDrawings.filter(drawing =>
+                floorID.includes(drawing.floorID),
+            );
+        } else if (buildingID?.length) {
+            availableDrawings = availableDrawings.filter(drawing =>
+                buildingID.includes(drawing.buildingID),
+            );
+        } else if (siteID?.length) {
+            availableDrawings = availableDrawings.filter(drawing =>
+                siteID.includes(drawing.siteID),
             );
         }
-        if (floorID) {
-            availableDrawings = availableDrawings.filter(drawing => +drawing.floorID === +floorID);
-        }
-        if (drawingID) {
-            availableDrawings = availableDrawings.filter(drawing => +drawing.id === +drawingID);
-        }
 
-        return availableDrawings[0];
+        return availableDrawings.find(drawing => drawing.tilesetS3Key);
     };
 
     handleShowOandMModal = () => this.props.showOAndMTsAndCsModal('create report');

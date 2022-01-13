@@ -7,7 +7,7 @@ import ReactDOMServer from 'react-dom/server';
 import MapPin from 'components/shared/pins/map/presentational/MapPin';
 import { FILE_STORAGE_URL } from 'config';
 import { Link } from 'react-router-dom';
-import { PIN_STATUS_COLOURS as COLOURS } from 'constants/companyAdmin/enums';
+import { ACCESS_TYPES_VALUES, PIN_STATUS_COLOURS as COLOURS } from 'constants/companyAdmin/enums';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
@@ -26,11 +26,13 @@ const SinglePinMap = ({
     toggleMoveMode,
     editPinLocationPosition,
     handleEditPinLocation,
+    handleDeleteAllHistories,
     pinHistory,
     history,
     onMobile,
     zones,
 }) => {
+    const canAddPin = drawing.accessType > ACCESS_TYPES_VALUES.VIEW_ONLY;
     const status = pinHistory.status;
     const pinColour = COLOURS[status] || 'red';
     const newPinIcon = L.divIcon({
@@ -47,8 +49,16 @@ const SinglePinMap = ({
                 title={`Pin ${pin.pinCode}`}
                 classes={`${onMobile ? 'mobile-buttons' : ''}`}
             >
-                <SinglePinGenerateReportContainer pinID={pin.id} />
                 {!!moment(Date.now()).isBefore(drawing?.expiresOn) && (
+                    <Link className="button green" to={`/company/pins/${pin.id}/add-history`}>
+                        <i className="fa fa-plus" /> Add Pin History
+                    </Link>
+                )}
+                <button onClick={handleDeleteAllHistories} className="button red pull-right">
+                    <i className="fa fa-trash" /> Delete All Histories
+                </button>
+                <SinglePinGenerateReportContainer pinID={pin.id} />
+                {canAddPin && (
                     <Link className="button green" to={`/company/pins/${pin.id}/add-history`}>
                         <i className="fa fa-plus" /> Add Pin History
                     </Link>

@@ -6,7 +6,7 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, isEmpty, momentComparisonFormat } from 'helpers/generic';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { FURTHER_FILTRATION_OPTIONS, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import getOperativeOptions from 'actions/companyAdmin/reports/async/getOperativeOptions';
@@ -22,18 +22,20 @@ export default function (ProtectedComponent) {
         render() {
             const { showError } = this.state;
             const { errorsVisible, fieldError, ...props } = this.props;
+            const { hierarchyType, hierarchyID } = this._getHierarchyValues();
 
             return (
                 <ProtectedComponent
                     {...props}
                     fieldError={showError || errorsVisible ? fieldError : null}
-                    postFilters={this.postFilters}
                     formatArrForDropdown={this.formatArrForDropdown}
                     validate={this.validate}
                     showFieldError={this.showFieldError}
                     getPostBody={this._getPostBody}
                     getFilteredPins={this._getFilteredPins}
-                    getTemplateOptions={this.getTemplateOptions}
+                    getTemplateOptions={this.props.getTemplateOptions}
+                    hierarchyType={hierarchyType}
+                    hierarchyID={hierarchyID}
                 />
             );
         }
@@ -194,13 +196,41 @@ export default function (ProtectedComponent) {
             return [startDateTimeUTC, endDateTimeUTC];
         };
 
+        _getHierarchyValues = () => {
+            const {
+                filters: { siteID, buildingID, floorID, drawingID, companyUserIDs },
+            } = this.props;
+
+            let hierarchyType;
+            let hierarchyID;
+
+            if (!isEmpty(siteID)) {
+                hierarchyType = 'site';
+                hierarchyID = siteID;
+            } else {
+                if (!companyUserIDs.length) {
+                    hierarchyType = HIERARCHY_IDS.ALL_SITES;
+                }
+            }
+            if (!isEmpty(buildingID)) {
+                hierarchyType = 'building';
+                hierarchyID = buildingID;
+            }
+            if (!isEmpty(floorID)) {
+                hierarchyType = 'floor';
+                hierarchyID = floorID;
+            }
+            if (!isEmpty(drawingID)) {
+                hierarchyType = 'drawing';
+                hierarchyID = drawingID;
+            }
+
+            return { hierarchyType, hierarchyID };
+        };
+
         _getPostBody = () => {
             const {
                 filters: {
-                    siteID,
-                    buildingID,
-                    floorID,
-                    drawingID,
                     serviceID,
                     templateID,
                     status,
@@ -219,6 +249,7 @@ export default function (ProtectedComponent) {
                     zoneOpacity,
                     includeFloorplanZones,
                     includeTime,
+                    isQuestionFilterExact,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
@@ -229,29 +260,7 @@ export default function (ProtectedComponent) {
                 customFilters,
             } = this.props;
 
-            let hierarchyType;
-            let hierarchyID;
-
-            if (siteID) {
-                hierarchyType = 'site';
-                hierarchyID = siteID;
-            } else {
-                if (!companyUserIDs.length) {
-                    hierarchyType = HIERARCHY_IDS.ALL_SITES;
-                }
-            }
-            if (buildingID) {
-                hierarchyType = 'building';
-                hierarchyID = buildingID;
-            }
-            if (floorID) {
-                hierarchyType = 'floor';
-                hierarchyID = floorID;
-            }
-            if (drawingID) {
-                hierarchyType = 'drawing';
-                hierarchyID = drawingID;
-            }
+            const { hierarchyType, hierarchyID } = this._getHierarchyValues();
 
             let questionFilters = null;
             let selectedPinIDs = null;
@@ -274,6 +283,7 @@ export default function (ProtectedComponent) {
                             return {
                                 questionGroupKeys: selectedQuestions,
                                 values,
+                                exactMatch: isQuestionFilterExact,
                             };
                         },
                     );
@@ -314,7 +324,7 @@ export default function (ProtectedComponent) {
                 companyUserIDs,
                 serviceID: serviceIDs,
                 templateID: templateID || null,
-                status: status || null,
+                status: status ? [status] : null,
                 pinIDs: selectedPinIDs,
                 excludedPinIDs: Object.values(excludedPinIDs),
                 questionFilters: questionFilters,
@@ -329,44 +339,9 @@ export default function (ProtectedComponent) {
                 zoneOpacity,
                 includeFloorplanZones,
                 includeTime,
+                isQuestionFilterExact,
             };
             return body;
-        };
-
-        getFilterStartDate = date => {
-            const { timeZone } = this.props;
-            return date ? moment.tz(date, timeZone.name).utc().toISOString() : null;
-        };
-
-        getFilterEndDate = date => {
-            const { timeZone } = this.props;
-            const endDate = date ? moment.tz(date, timeZone.name).utc().toISOString() : null;
-            return endDate;
-        };
-
-        getDateOfPin = date => {
-            const { timeZone } = this.props;
-            return moment.tz(date, timeZone.name).utc().toISOString();
-        };
-
-        getTemplateOptions = () => {
-            const { getTemplateOptions } = this.props;
-            return getTemplateOptions(this._getPostBody());
-        };
-
-        getOperativeOptions = () => {
-            const { getOperativeOptions } = this.props;
-            return getOperativeOptions(this._getPostBody());
-        };
-
-        getServiceOptions = () => {
-            const { getServiceOptions } = this.props;
-            return getServiceOptions(this._getPostBody());
-        };
-
-        getCompanyOptions = () => {
-            const { getCompanyOptions } = this.props;
-            return getCompanyOptions(this._getPostBody());
         };
 
         postFilters = async () => {
@@ -387,6 +362,12 @@ export default function (ProtectedComponent) {
             await getTemplateOptions(body);
             await getServiceOptions(body);
             await getCompanyOptions(body);
+        };
+
+        getTemplateOptions = () => {
+            const { getTemplateOptions } = this.props;
+            const body = this._getPostBody();
+            getTemplateOptions(body);
         };
     }
 
@@ -426,17 +407,42 @@ export default function (ProtectedComponent) {
         },
         { blockName },
     ) => {
-        const selectedSite = sites[filters.siteID] || {};
-        const buildingIDs = selectedSite.buildingIDs || [];
-        const buildings = buildingIDs.map(id => buildingsReducer.buildings[id]);
+        const buildingsFromReducer = buildingsReducer.buildings;
+        const floorsFromReducer = floorsReducer.floors;
+        const drawingsFromReducer = drawingsReducer.drawings;
 
-        const selectedBuilding = buildingsReducer.buildings[filters.buildingID] || {};
-        const floorIDs = selectedBuilding.floorIDs || [];
-        const floors = floorIDs.map(id => floorsReducer.floors[id]);
+        let buildingIDs = [];
+        if (!isEmpty(sites)) {
+            filters.siteID.forEach(site => {
+                const curSite = sites[site];
+                buildingIDs = buildingIDs.concat(curSite.buildingIDs);
+            });
+        }
+        const buildings = !isEmpty(buildingsFromReducer)
+            ? buildingIDs.map(id => buildingsFromReducer[id]).filter(x => !!x)
+            : [];
 
-        const selectedFloor = floorsReducer.floors[filters.floorID] || {};
-        const selectedDrawingIDs = selectedFloor.drawingIDs || [];
-        const drawings = selectedDrawingIDs.map(id => drawingsReducer.drawings[id]);
+        let floorIDs = [];
+        if (!isEmpty(buildings)) {
+            filters.buildingID.forEach(building => {
+                const curBuilding = convertArrToObj(buildings)[building];
+                floorIDs = floorIDs.concat(curBuilding.floorIDs);
+            });
+        }
+        const floors = !isEmpty(floorsFromReducer)
+            ? floorIDs.map(id => floorsFromReducer[id]).filter(x => !!x)
+            : [];
+
+        let drawingIDs = [];
+        if (!isEmpty(floors)) {
+            filters.floorID.forEach(floor => {
+                const curFloor = convertArrToObj(floors)[floor];
+                drawingIDs = drawingIDs.concat(curFloor.drawingIDs);
+            });
+        }
+        const drawings = !isEmpty(drawingsFromReducer)
+            ? drawingIDs.map(id => drawingsFromReducer[id]).filter(x => !!x)
+            : [];
 
         return {
             fieldErrors,

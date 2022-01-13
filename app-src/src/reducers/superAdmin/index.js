@@ -36,13 +36,17 @@ import legalDocumentsReducer from './legalDocuments';
 import syncsReducer from './syncs';
 import bannerNotificationsReducer from './bannerNotifications';
 import demoAccessCodesReducer from './demoAccessCodes';
+import companyTrackingReducer from './companyTracking';
+import bugReportsReducer from './bugReports';
 
 export default combineReducers({
     adminServicesReducer,
     buildingsReducer,
+    bugReportsReducer,
     companiesReducer,
     companyReportsReducer,
     companySubscriptionReducer,
+    companyTrackingReducer,
     drawingsReducer,
     pinsReducer,
     contactSubmissionsReducer,

@@ -28,17 +28,19 @@ const PinAnswer = ({
             type === TYPES.MULTI_DROPDOWN_OPTIONS ||
             type === TYPES.MULTI_MULTI_DROPDOWN_OPTIONS
         ) {
-            curAnswer.answer = curAnswer.answer.map(ans => {
-                if (!ans) {
-                    return null;
-                }
-                // handles manufacturer option
-                if (typeof ans === 'number' && optionValuesLookup[ans]) {
-                    return optionValuesLookup[ans].name;
-                }
-                // handle other
-                return ans;
-            });
+            if (Array.isArray(curAnswer.answer)) {
+                curAnswer.answer = curAnswer.answer.map(ans => {
+                    if (!ans) {
+                        return null;
+                    }
+                    // handles manufacturer option
+                    if (typeof ans === 'number' && optionValuesLookup[ans]) {
+                        return optionValuesLookup[ans].name;
+                    }
+                    // handle other
+                    return ans;
+                });
+            }
         }
     }
 
@@ -56,7 +58,11 @@ const PinAnswer = ({
             inner = <p>{curAnswer.answer}</p>;
             break;
         case TYPES.MULTI_DROPDOWN_OPTIONS:
-            inner = <p>{curAnswer.answer.join(', ')}</p>;
+            if (Array.isArray(curAnswer.answer)) {
+                inner = <p>{curAnswer.answer.join(', ')}</p>;
+            } else {
+                inner = <p>{curAnswer.answer}</p>;
+            }
             break;
         case TYPES.MULTI_MULTI_DROPDOWN:
         case TYPES.MULTI_MULTI_DROPDOWN_OPTIONS:
@@ -137,20 +143,34 @@ const PinAnswer = ({
             );
             break;
         case TYPES.MULTI_PHOTO:
-            inner = curAnswer.answer.map((item, i) => {
-                var URL = `${FILE_STORAGE_URL}/${item}`;
-                return (
+            if (Array.isArray(curAnswer.answer)) {
+                inner = curAnswer.answer.map((item, i) => {
+                    const URL = `${FILE_STORAGE_URL}/${item}`;
+                    return (
+                        <img
+                            style={{ cursor: 'zoom-in' }}
+                            alt={`${i + 1} of ${curAnswer.answer.length}`}
+                            key={item}
+                            src={URL + '?width=100'}
+                            onClick={() =>
+                                dispatch(showModal(PIN_IMAGE, { image: URL + '?width=1500' }))
+                            }
+                        />
+                    );
+                });
+            } else {
+                const URL = `${FILE_STORAGE_URL}/${curAnswer.answer}`;
+                inner = (
                     <img
                         style={{ cursor: 'zoom-in' }}
-                        alt={`${i + 1} of ${curAnswer.answer.length}`}
-                        key={item}
+                        alt=""
                         src={URL + '?width=100'}
                         onClick={() =>
                             dispatch(showModal(PIN_IMAGE, { image: URL + '?width=1500' }))
                         }
                     />
                 );
-            });
+            }
             break;
         case TYPES.DOCUMENT_UPLOAD:
             var docURL = `${RAW_S3_STORAGE_URL}/${curAnswer.answer}`;

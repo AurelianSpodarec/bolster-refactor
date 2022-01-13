@@ -9,6 +9,8 @@ import updateFilterQuestionField from 'actions/companyAdmin/reports/sync/updateF
 import { convertArrToObj } from 'helpers/generic';
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
+import { QUESTION_TYPE_NUMBERS as QTN } from 'constants/shared/templateBuilder';
+
 
 const questionTypeOptions = [
     { label: 'Free Form', value: 1 },
@@ -21,10 +23,11 @@ class FilterFieldsModalContainer extends Component {
         selectedQuestions: [],
         freeFormValues: [],
         optionOrientedVals: [],
+        exactMatch: false,
     };
     render() {
         const { toggleAddFilter } = this.props;
-        const { freeFormValues, optionOrientedVals, selectedQuestions } = this.state;
+        const { freeFormValues, optionOrientedVals, selectedQuestions, exactMatch } = this.state;
 
         return (
             <FilterFieldsModal
@@ -43,6 +46,8 @@ class FilterFieldsModalContainer extends Component {
                 removeFreeFormVal={this.removeFreeFormVal}
                 toggleAddFilter={toggleAddFilter}
                 handleSubmit={this.handleSubmit}
+                exactMatch={exactMatch}
+                forceExactMatch={this._getShouldForceExactMatch()}
             />
         );
     }
@@ -51,12 +56,13 @@ class FilterFieldsModalContainer extends Component {
         const { field } = this.props;
         // add an option if none exist, makes modal reusable for edit
         if (field) {
-            const { selectedQuestions, questionValues, selectedValues } = field;
+            const { selectedQuestions, questionValues, selectedValues, exactMatch } = field;
             this.setState({
                 selectedQuestions,
                 freeFormValues: questionValues,
                 optionOrientedVals: selectedValues,
                 showFreeForm: !selectedValues.length,
+                exactMatch,
             });
         } else {
             this.addFreeFormVal();
@@ -110,14 +116,13 @@ class FilterFieldsModalContainer extends Component {
     };
 
     handleSubmit = async () => {
-        const { selectedQuestions, freeFormValues, optionOrientedVals } = this.state;
+        const { selectedQuestions, freeFormValues, optionOrientedVals, exactMatch } = this.state;
         const {
             field,
             updateFilterQuestionField,
             removeFilterQuestion,
             toggleAddFilter,
             customQuestions,
-            postFilters,
         } = this.props;
 
         const newID = uuid();
@@ -136,18 +141,36 @@ class FilterFieldsModalContainer extends Component {
             return;
         }
 
+        const forceExactMatch = this._getShouldForceExactMatch();
+
         let filterItem = {
             id,
             selectedQuestions: validQuestionIDs,
             questionValues: showFreeForm ? freeFormValues : [],
             selectedValues: showFreeForm ? [] : optionOrientedVals,
+            exactMatch: forceExactMatch || exactMatch,
         };
 
         await updateFilterQuestionField(id, filterItem);
         toggleAddFilter();
 
-        postFilters();
     };
+
+    _getShouldForceExactMatch = () => {
+        const { selectedQuestions } = this.state;
+        const { customQuestions } = this.props;
+        const questionsObj = convertArrToObj(customQuestions);
+
+        const forceTypes = [
+            QTN.CHECKBOX,
+            QTN.NUMBER,
+        ];
+        const shouldForce = selectedQuestions
+            .some(qID => forceTypes.includes(questionsObj[qID].type));
+
+        return shouldForce;
+
+    }
 
     _getValidValueOptions = () => {
         const { selectedQuestions } = this.state;

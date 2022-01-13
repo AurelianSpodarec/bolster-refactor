@@ -16,6 +16,9 @@ const formatQuestion = ({ type, dynamicFields, prereqUUIDs, ...otherFields }) =>
             text: opt,
         }));
 
+    if (dynamicFields && dynamicFields.optionConfigurations)
+        question.optionConfigurations = dynamicFields.optionConfigurations.map(opt => opt);
+
     return question;
 };
 
@@ -93,6 +96,7 @@ function setDynamicFieldsSingle({
     optionType,
     defaultValue,
     file,
+    optionConfigurations,
     ...otherFields
 }) {
     let dynamicFields = {};
@@ -113,10 +117,26 @@ function setDynamicFieldsSingle({
 
             dynamicFields = {
                 options: opts.map(opt => opt.text),
+                optionConfigurations: opts.map(opt => {
+                    const savedOptionConfiguration =
+                        optionConfigurations &&
+                        optionConfigurations.find(savedOpt => savedOpt.name === opt.text);
+
+                    return {
+                        name: opt.text,
+                        createdBySuperAdmin: savedOptionConfiguration
+                            ? savedOptionConfiguration.createdBySuperAdmin
+                            : true,
+                        isDisabled: savedOptionConfiguration
+                            ? savedOptionConfiguration.isDisabled
+                            : false,
+                    };
+                }),
                 canCompanyEdit,
                 optionColour,
                 defaultValue: defaultOpt ? defaultOpt.text : null,
             };
+
             break;
         }
         case VALS.MULTI_PHOTO:
@@ -125,7 +145,7 @@ function setDynamicFieldsSingle({
         case VALS.DROPDOWN_OPTIONS:
         case VALS.MULTI_DROPDOWN_OPTIONS:
         case VALS.MULTI_MULTI_DROPDOWN_OPTIONS:
-            dynamicFields = { optionType };
+            dynamicFields = { optionType, defaultValue };
             break;
         case VALS.STATIC_IMAGE:
             dynamicFields = { file };

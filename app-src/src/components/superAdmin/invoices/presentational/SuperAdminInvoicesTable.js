@@ -9,17 +9,24 @@ const SuperAdminInvoicesTable = ({
     showModal,
     headers,
     companies,
-}) => (
-    <Table
-        withActions
-        headers={headers}
-        isFetching={isFetching}
-        error={error}
-        noData={!invoices.length || !Object.values(companies).length}
-        noDataMessage="No invoices to display."
-    >
-        <SuperAdminInvoicesList invoices={invoices} showModal={showModal} companies={companies} />
-    </Table>
-);
+}) => {
+    return (
+        <Table
+            withActions
+            headers={headers}
+            isFetching={isFetching}
+            error={error}
+            noData={!invoices.length || !Object.values(companies).length}
+            noDataMessage="No invoices to display."
+            extraClasses="super-admin-invoices-table"
+        >
+            <SuperAdminInvoicesList
+                invoices={invoices}
+                showModal={showModal}
+                companies={companies}
+            />
+        </Table>
+    );
+};
 
 export default SuperAdminInvoicesTable;

@@ -161,14 +161,13 @@ class DrawingMapGeneralContainer extends Component {
         const {
             drawing = {},
             postFilters,
-            getTemplateOptions,
             updateReportFilter,
-            match,
             fetchSingleDrawing,
             pinsFromAPI = [],
             handleChange,
             objectUsers,
             companyUserID,
+            drawingID,
         } = this.props;
         if (objectUsers && objectUsers[companyUserID]) {
             this.setState({
@@ -178,15 +177,12 @@ class DrawingMapGeneralContainer extends Component {
         const pinIDs = pinsFromAPI.map(({ id }) => id);
         handleChange('pinIDs', pinIDs);
         if (drawing.siteID) {
-            handleChange('siteID', String(drawing.siteID));
-            handleChange('buildingID', String(drawing.buildingID));
-            handleChange('floorID', String(drawing.floorID));
+            handleChange('siteID', [drawing.siteID]);
+            handleChange('buildingID', [drawing.buildingID]);
+            handleChange('floorID', [drawing.floorID]);
         }
 
-        updateReportFilter('drawingID', match.params.id).then(() => {
-            postFilters();
-            getTemplateOptions();
-        });
+        updateReportFilter('drawingID', [+drawingID]);
         if (drawing.isFloorplanUpdating) {
             this._floorplanInterval = setInterval(() => {
                 fetchSingleDrawing(drawing.id);
@@ -242,18 +238,14 @@ class DrawingMapGeneralContainer extends Component {
             handleChange('pinIDs', pinIDs);
         }
 
-        // pin selector stuff
-        if (rectangles.length !== prevRectangles.length) {
-            postFilters();
-        }
         if (furtherFiltrationOption !== prevOption) {
             removeAllRectangles();
         }
 
         if (drawing.siteID && !prevDrawing.siteID) {
-            handleChange('siteID', String(drawing.siteID));
-            handleChange('buildingID', String(drawing.buildingID));
-            handleChange('floorID', String(drawing.floorID));
+            handleChange('siteID', [+drawing.siteID]);
+            handleChange('buildingID', [+drawing.buildingID]);
+            handleChange('floorID', [+drawing.floorID]);
         }
 
         if (objectUsers && objectUsers[companyUserID] && !prevUsers[companyUserID]) {
@@ -278,11 +270,6 @@ class DrawingMapGeneralContainer extends Component {
 
     updateCurTooltip = id => {
         this.setState({ currentTooltip: id });
-    };
-
-    handleChangeFilter = (name, val) => {
-        const { handleChange, postFilters } = this.props;
-        handleChange(name, val).then(postFilters);
     };
 
     componentWillUnmount = () => clearInterval(this._floorplanInterval);
@@ -319,7 +306,7 @@ class DrawingMapGeneralContainer extends Component {
 
     handleDateChange = (date, name) => {
         const { handleChange, postFilters } = this.props;
-        handleChange(name, date).then(postFilters);
+        handleChange(name, date);
     };
 
     toggleAddMode = () => {

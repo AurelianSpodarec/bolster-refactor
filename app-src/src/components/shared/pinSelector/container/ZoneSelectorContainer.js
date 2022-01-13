@@ -98,12 +98,14 @@ class ZoneSelectorContainer extends Component {
     };
 
     _setZoneOptions = () => {
-        const { zonesObj } = this.props;
-        const zoneOptions = Object.values(zonesObj).map(({ id, name, colorHex }) => ({
-            value: id,
-            text: name,
-            colorHex,
-        }));
+        const { zonesObj, drawingID } = this.props;
+        const zoneOptions = Object.values(zonesObj)
+            .filter(zone => drawingID.includes(zone.drawingID))
+            .map(({ id, name, colorHex }) => ({
+                value: id,
+                text: name,
+                colorHex,
+            }));
 
         this.setState({ zoneOptions }, this._handleChange);
     };
@@ -162,9 +164,13 @@ class ZoneSelectorContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         pinsReducer: { pins },
+        reportsReducer: {
+            filters: { drawingID },
+        },
     },
 }) => ({
     pinsObj: Object.values(pins),
+    drawingID,
 });
 
 export default withUpdateOnChange(connect(mapStateToProps, null)(ZoneSelectorContainer));

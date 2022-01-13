@@ -3,23 +3,23 @@ import axios from 'axios';
 import {
     DELETE_INVOICE_REQUEST,
     DELETE_INVOICE_SUCCESS,
-    DELETE_INVOICE_FAILURE
+    DELETE_INVOICE_FAILURE,
 } from 'constants/actionTypes/invoices';
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 export const deleteInvoiceRequest = () => ({
-    type: DELETE_INVOICE_REQUEST
+    type: DELETE_INVOICE_REQUEST,
 });
 
 export const deleteInvoiceSuccess = id => ({
     type: DELETE_INVOICE_SUCCESS,
-    id
+    id,
 });
 
 export const deleteInvoiceFailure = error => ({
     type: DELETE_INVOICE_FAILURE,
-    error
+    error,
 });
 
 export default id => dispatch => {

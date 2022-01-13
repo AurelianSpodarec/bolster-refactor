@@ -11,7 +11,8 @@ const Checkbox = ({
     disabled = false,
     fromList,
     hideDisabled = false,
-}) => (
+}) => {
+    return (
     <div
         className={`checkbox ${disabled ? 'left grey-out' : ''} ${
             hideDisabled && disabled ? 'hide' : ''
@@ -40,6 +41,6 @@ const Checkbox = ({
             <p className="error red-text text-accent-4">{error}</p>
         )}
     </div>
-);
+);};
 
 export default Checkbox;

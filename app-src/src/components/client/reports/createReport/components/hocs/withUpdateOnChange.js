@@ -205,7 +205,6 @@ export default function (ProtectedComponent) {
                     questionFilters = fields.map(
                         ({ selectedQuestions, questionValues = [], selectedValues = [] }) => {
                             let values = questionValues.length ? questionValues : selectedValues;
-
                             return {
                                 questionGroupKeys: selectedQuestions,
                                 values,
@@ -245,7 +244,7 @@ export default function (ProtectedComponent) {
                 pinIDs: selectedPinIDs,
                 serviceID: serviceID || null,
                 templateID: templateID || null,
-                status: status || null,
+                status: status ? [status] : null,
                 questionFilters,
                 showHidden,
                 sortBy,
