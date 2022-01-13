@@ -51,7 +51,7 @@ function alertsReducer(state = {}, action) {
         case FETCH_HIERARCHY_ALERTS_SUCCESS:
         case UPDATE_ALERT_SUCCESS:
         case DISMISS_ALERT_SUCCESS:
-            return removeObjItem(state, action.id);
+            return removeObjItem(state, action.payload);
         case CREATE_ALERT_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:

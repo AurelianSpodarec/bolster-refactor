@@ -27,9 +27,9 @@ export const dismissAlert = id => async dispatch => {
     dispatch(dismissAlertRequest());
 
     try {
-        const { data } = await axios.delete(`${API_URL}/alerts/${id}`, getHeaders());
+        await axios.delete(`${API_URL}/alerts/${id}`, getHeaders());
 
-        dispatch(dismissAlertSuccess(data));
+        dispatch(dismissAlertSuccess(id));
     } catch (error) {
         dispatch(handleErrors(dismissAlertFailure(error)));
     }
