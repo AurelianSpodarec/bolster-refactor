@@ -1,29 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Moment from 'react-moment';
 import 'moment-timezone';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import {
-    ALERT_FREQUENCY_SUFFIX_VALUES,
-    ALERT_METHOD_VALUES,
-    HIERARCHY_TYPES,
-} from 'constants/companyAdmin/enums';
+import { ALERT_FREQUENCY_SUFFIX_VALUES, ALERT_METHOD_VALUES } from 'constants/companyAdmin/enums';
 import { companyUser } from 'selectors/companyAdmin/companyUser';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import { dismissAlert } from 'actions/companyAdmin/alerts/sync/deleteAlert';
-import DismissAlertModal from './DismissAlertModal';
+import DismissAlertModal from '../presentational/DismissAlertModal';
 
-const AlertItem = ({
+const HierarchyAlertItem = ({
     alert: {
         id,
         name,
         createdOn,
         frequencyAmount,
         frequencyType,
-        hierarchyType,
-        hierarchyID,
         method,
         lastSendOn,
         date,
@@ -67,11 +60,6 @@ const AlertItem = ({
                     <DateTimeContainer date={createdOn} />
                 </td>
                 <td>{lastSendOn ? <DateTimeContainer date={lastSendOn} /> : 'NA'}</td>
-                <td>
-                    <Link to={`/company/${HIERARCHY_TYPES[hierarchyType]}s/${hierarchyID}`}>
-                        {`/company/${HIERARCHY_TYPES[hierarchyType]}s/${hierarchyID}`}
-                    </Link>
-                </td>
                 <td>{ALERT_METHOD_VALUES[method]}</td>
                 <td>{user && `${user.userFirstName} ${user.userLastName}/${user.companyName}`}</td>
                 <td>
@@ -81,6 +69,7 @@ const AlertItem = ({
                 </td>
                 <td className="left-align">{name}</td>
                 <td className="left-align">{description}</td>
+
                 <td>
                     <button
                         className="no-background-btn"
@@ -96,4 +85,4 @@ const AlertItem = ({
     );
 };
 
-export default AlertItem;
+export default HierarchyAlertItem;
