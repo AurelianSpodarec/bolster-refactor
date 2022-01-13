@@ -57,7 +57,7 @@ class HeaderNotificationsContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        messagesReducer: { messages },
+        messagesCentreReducer: { messages },
     },
 }) => ({
     notifications: Object.values(messages)

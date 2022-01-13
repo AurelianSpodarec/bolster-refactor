@@ -27,7 +27,7 @@ const ClientMenuContainer = () => {
 
 const mapStateToProps = ({
     client: {
-        messagesReducer: { messages },
+        messagesCentreReducer: { messages },
     },
     shared: {
         decodeJWTReducer: {

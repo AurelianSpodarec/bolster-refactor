@@ -97,7 +97,7 @@ const CompanyMenuContainer = ({
 };
 const mapStateToProps = ({
     companyAdmin: {
-        messagesReducer: { messages },
+        messagesCentreReducer: { messages },
         creditsReducer: { credits },
         transferRequestsReducer: { incomingTransferRequests },
         pendingInvitesReducer: { pendingInvites },

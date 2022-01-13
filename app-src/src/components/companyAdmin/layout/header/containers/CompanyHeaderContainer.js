@@ -93,7 +93,7 @@ class CompanyHeaderContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: { companySettings },
-        messagesReducer: { messages },
+        messagesCentreReducer: { messages },
         creditsReducer: { credits, isFetching, costOfCredits },
         transferRequestsReducer: { incomingTransferRequests },
         pendingInvitesReducer: { pendingInvites },

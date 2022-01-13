@@ -7,14 +7,14 @@ import {
     CLIENT_FETCH_MESSAGES_FAILURE,
     CLIENT_DISMISS_MESSAGES_REQUEST,
     CLIENT_DISMISS_MESSAGES_SUCCESS,
-    CLIENT_DISMISS_MESSAGES_FAILURE
+    CLIENT_DISMISS_MESSAGES_FAILURE,
 } from 'constants/client/actionTypes/clientMessages';
 
 export default combineReducers({
-    messages: messagesReducer,
+    messages: messagesCentreReducer,
     isFetching: isFetchingReducer,
     postSuccess: postSuccessReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -53,7 +53,7 @@ function errorReducer(state = null, action) {
     }
 }
 
-function messagesReducer(state = {}, action) {
+function messagesCentreReducer(state = {}, action) {
     switch (action.type) {
         case CLIENT_FETCH_MESSAGES_SUCCESS:
             return convertArrToObj(action.payload);
@@ -62,9 +62,9 @@ function messagesReducer(state = {}, action) {
                 message.type === action.messageType
                     ? {
                           ...message,
-                          isRead: true
+                          isRead: true,
                       }
-                    : message
+                    : message,
             );
             return convertArrToObj(dismissed);
         }
