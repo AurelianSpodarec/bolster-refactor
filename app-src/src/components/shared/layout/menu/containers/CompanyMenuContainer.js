@@ -5,7 +5,7 @@ import moment from 'moment';
 
 import CompanyMenu from '../presentational/CompanyMenu';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
-import dismissMessages from 'actions/companyAdmin/messageCentre/async/dismissMessages';
+import dismissMessages from 'actions/companyAdmin/messageCentre/async/dismissAlerts';
 import { isEmpty } from 'helpers/generic';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { GENERATE_QR_CODES } from 'constants/shared/modalTypes';

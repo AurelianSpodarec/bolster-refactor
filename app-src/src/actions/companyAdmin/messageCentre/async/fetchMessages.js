@@ -4,22 +4,22 @@ import { API_URL } from 'config';
 import {
     FETCH_MESSAGES_REQUEST,
     FETCH_MESSAGES_SUCCESS,
-    FETCH_MESSAGES_FAILURE
-} from 'constants/actionTypes/messages';
+    FETCH_MESSAGES_FAILURE,
+} from 'constants/actionTypes/messageCentre';
 import { getHeaders } from 'helpers/api';
 
 export const fetchMessagesRequest = () => ({
-    type: FETCH_MESSAGES_REQUEST
+    type: FETCH_MESSAGES_REQUEST,
 });
 
 export const fetchMessagesSuccess = payload => ({
     type: FETCH_MESSAGES_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchMessagesFailure = error => ({
     type: FETCH_MESSAGES_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {
