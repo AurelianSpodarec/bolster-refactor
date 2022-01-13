@@ -38,6 +38,7 @@ const TemplateQuestionFormModal = ({
     handlePrefillStatusChange,
     handlePrefillStatusValueChange,
     showPrefillOptions,
+    serviceID,
     ...otherFields
 }) => {
     return (
@@ -94,6 +95,7 @@ const TemplateQuestionFormModal = ({
                 <SpecificFieldsRoute
                     questionType={questionType}
                     handleInputChange={handleInputChange}
+                    serviceID={serviceID}
                     {...otherFields}
                 />
 

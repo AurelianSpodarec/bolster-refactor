@@ -8,10 +8,19 @@ import Select from 'components/shared/generic/form/presentational/Select';
 
 const options = convertEnumToDropdownOptions(DROPDOWN_OPTION_ENUM);
 
-const OptionTypeFrom = ({ handleInputChange, optionType, dropdownOptions = [], defaultValue }) => {
+const OptionTypeFrom = ({
+    handleInputChange,
+    optionType,
+    dropdownOptions = [],
+    defaultValue,
+    serviceID,
+}) => {
+    console.log(dropdownOptions);
     const getOptions = () => {
         const dropdownOptNames = dropdownOptions
-            .filter(opt => opt.type === +optionType)
+            .filter(opt =>
+                opt.type === +optionType && serviceID ? opt.serviceID === serviceID : true,
+            )
             .map(opt => opt.name);
 
         return [...new Set(dropdownOptNames)]
