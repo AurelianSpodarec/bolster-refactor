@@ -5,7 +5,6 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 
@@ -57,15 +56,18 @@ const AddOptionValueForm = ({
                 </div>
             </div>
             <div className="size-lg-12">
-                <Field name="Select services for this option value">
-                    <MultiSelect
-                        name="serviceIDs"
-                        options={serviceOptions}
-                        value={serviceIDs}
-                        onChange={handleInputChange}
-                        placeholder="-- select services --"
-                        search
-                    />
+                <Field name="Assign Services" required>
+                    <div className="checkbox-list size-lg-12">
+                        {serviceOptions.map((item, i) => (
+                            <CheckboxContainer
+                                key={i}
+                                checked={serviceIDs !== null ? serviceIDs.includes(item.id) : false}
+                                handleChange={() => handleServiceChange(item.id)}
+                                text={item.label}
+                                required
+                            />
+                        ))}
+                    </div>
                 </Field>
             </div>
             <div className="size-lg-12">
@@ -101,5 +103,14 @@ const AddOptionValueForm = ({
             </BlockButtonWrapper>
         </Form>
     );
+    function handleServiceChange(id) {
+        let newServiceIDs = serviceIDs !== null ? [...serviceIDs] : [];
+        if (serviceIDs.includes(id)) {
+            newServiceIDs = newServiceIDs.filter(sid => sid !== id);
+        } else {
+            newServiceIDs.push(id);
+        }
+        handleInputChange('serviceIDs', newServiceIDs);
+    }
 };
 export default AddOptionValueForm;

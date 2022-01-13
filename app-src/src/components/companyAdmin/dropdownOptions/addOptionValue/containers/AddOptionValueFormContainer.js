@@ -38,8 +38,9 @@ class AddOptionValueFormContainer extends Component {
 
     componentDidMount = () => {
         const serviceOptions = this.formatServicesWithSubscriptions();
+        const serviceIDs = serviceOptions.map(({ id }) => id);
         this.props.showOAndMTsAndCsModal('add option value');
-        this.setState({ serviceOptions });
+        this.setState({ serviceOptions, serviceIDs });
     };
     handleShowAddDocForm = () => {
         const { confirmNoDocument } = this.state;

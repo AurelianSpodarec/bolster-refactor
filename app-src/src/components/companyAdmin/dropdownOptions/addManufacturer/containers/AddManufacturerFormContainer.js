@@ -30,6 +30,10 @@ class AddManufacturerFormContainer extends Component {
     }
 
     componentDidMount() {
+        const subscribedServiceIDs = this.getServicesFromSubscriptions().map(({ id }) => id);
+
+        this.setState({ serviceIDs: subscribedServiceIDs });
+
         this.props.showOAndMTsAndCsModal('add manufacturer');
     }
 

@@ -29,7 +29,9 @@ class EditOptionValueFormContainer extends Component {
 
     componentDidMount = () => {
         const serviceOptions = this.formatServicesWithSubscriptions();
-        this.setState({ serviceOptions });
+        const serviceIDs = serviceOptions.map(({ id }) => id);
+
+        this.setState({ serviceOptions, serviceIDs });
     };
 
     handleInputChange = (name, value) => {
