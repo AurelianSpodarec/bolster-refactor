@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import HeaderNotifications from '../presentational/HeaderNotifications';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
-import dismissMessages from 'actions/companyAdmin/messageCentre/async/dismissMessages';
+import dismissMessages from 'actions/companyAdmin/messageCentre/async/dismissAlerts';
 import moment from 'moment';
 
 class HeaderNotificationsContainer extends Component {
