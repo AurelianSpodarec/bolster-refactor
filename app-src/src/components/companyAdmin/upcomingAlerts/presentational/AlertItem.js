@@ -12,7 +12,7 @@ import {
 } from 'constants/companyAdmin/enums';
 import { companyUser } from 'selectors/companyAdmin/companyUser';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
-import { dismissAlert } from 'actions/companyAdmin/alerts/sync/deleteAlerts';
+import { dismissAlert } from 'actions/companyAdmin/alerts/sync/deleteAlert';
 import DismissAlertModal from './DismissAlertModal';
 
 const AlertItem = ({
