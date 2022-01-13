@@ -23,7 +23,7 @@ import fetchOutgoingInvites from 'actions/companyAdmin/pendingInvites/fetchOutgo
 import fetchSingleCompanyUser from 'actions/companyAdmin/userManagement/async/fetchSingleCompanyUser';
 import withAuth from 'components/shared/auth/auth/hocs/withAuth';
 import { AUTH_TYPES } from 'constants/shared/auth';
-import fetchMessagesBasic from 'actions/companyAdmin/messages/async/fetchMessagesBasic';
+import fetchMessagesBasic from 'actions/companyAdmin/messageCentre/async/fetchMessagesBasic';
 import fetchRecentUpdates from 'actions/companyAdmin/recentUpdates/async/fetchRecentUpdates';
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 
