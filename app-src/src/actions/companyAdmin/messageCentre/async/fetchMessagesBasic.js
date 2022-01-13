@@ -5,7 +5,7 @@ import {
     FETCH_MESSAGES_BASIC_REQUEST,
     FETCH_MESSAGES_BASIC_SUCCESS,
     FETCH_MESSAGES_BASIC_FAILURE,
-} from 'constants/actionTypes/messages';
+} from 'constants/actionTypes/messageCentre';
 import { getHeaders } from 'helpers/api';
 
 export const fetchMessagesBasicRequest = () => ({
