@@ -20,14 +20,12 @@ class PinDetailsContainer extends Component {
             isFetching,
             pin,
             isLoading,
-            drawings,
             fetchingDrawings,
             drawingsError,
             drawing,
         } = this.props;
         const canAddPin = drawing?.accessType > ACCESS_TYPES_VALUES.VIEW_ONLY;
-
-        const { drawingID } = pin;
+        const isBeforeExpiry = !!moment(Date.now()).isBefore(drawing.expiresOn);
 
         const sortedHistories = [...histories].sort(
             (a, b) => moment(b.createdOn) - moment(a.createdOn),
@@ -55,7 +53,7 @@ class PinDetailsContainer extends Component {
                                 : ''}
                             )
                         </h4>
-                        {isFirst && !!moment(Date.now()).isBefore(drawings[drawingID]?.expiresOn && canAddPin) && (
+                        {isFirst && isBeforeExpiry && canAddPin && (
                             <Link
                                 className="button green"
                                 style={{ marginBottom: '0.25em' }}

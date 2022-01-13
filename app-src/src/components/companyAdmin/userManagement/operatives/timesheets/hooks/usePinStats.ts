@@ -8,15 +8,19 @@ import {
     selectTimesheetPinStatsIsFetching,
 } from 'selectors/companyAdmin/timesheetPinStats';
 
-const usePinStats = (userIDs, startDate, endDate) => {
+const usePinStats = (userIDs: number[], startDate: string, endDate: string) => {
     const dispatch = useDispatch();
 
-    const isFetching = useSelector(selectTimesheetPinStatsIsFetching);
-    const fetchError = useSelector(selectTimesheetPinStatsFetchError);
+    const isFetching: boolean = useSelector(selectTimesheetPinStatsIsFetching);
+    const fetchError: string | null = useSelector(selectTimesheetPinStatsFetchError);
     const _stats = useSelector(selectTimesheetPinStats);
 
     useEffect(() => {
-        if (userIDs.length) dispatch(fetchTimesheetPinStats(userIDs, startDate, endDate));
+        if (userIDs.length) {
+            dispatch(fetchTimesheetPinStats(userIDs, startDate, endDate));
+        } else {
+            dispatch(fetchTimesheetPinStats(null, startDate, endDate));
+        }
     }, [dispatch, userIDs, startDate]);
 
     const stats = {

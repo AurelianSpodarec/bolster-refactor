@@ -76,7 +76,6 @@ export function formatJWTData({
 
 export function handleErrors(func) {
     return function ({ response, message }) {
-        console.log({ response, message });
         if (response?.status === 400) return setAPIFieldErrors(response.data.errors);
         // if (response && response.status === 401)
         // redirect to login
