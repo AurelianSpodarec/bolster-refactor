@@ -7,7 +7,7 @@ import MessagesList from './MessagesList';
 import SearchBar from 'components/companyAdmin/layout/header/presentational/SearchBar';
 
 const MessageCentreTable = () => {
-    const { selectedTab, setSelectedTab, messages, showCreateNewButton } = useMessageCentreTable();
+    const { selectedTab, setSelectedTab, messages } = useMessageCentreTable();
 
     const handleClick = () => {
         if (selectedTab === 1) {
@@ -24,12 +24,6 @@ const MessageCentreTable = () => {
                         <SearchBar omitIcon />
                     </div>
                     <div className="button-wrapper">
-                        {showCreateNewButton && (
-                            <button className="button rounded green">
-                                <i className="fas fa-envelope"></i>
-                                Create New
-                            </button>
-                        )}
                         <button className="button rounded red" onClick={handleClick}>
                             <i className="fas fa-trash-alt"></i>
                             Dismiss All
