@@ -34,6 +34,11 @@ class AddManufacturerFormContainer extends Component {
         );
     }
 
+    componentDidMount = () => {
+        const serviceIDs = this.props.services.map(({ id }) => id);
+        this.setState({ serviceIDs });
+    };
+
     handleInputChange = (name, value) => {
         this.setState({ [name]: value });
     };
