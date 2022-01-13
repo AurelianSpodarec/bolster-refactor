@@ -48,6 +48,7 @@ class BuildingDetailsContainer extends Component {
                     serviceOptions={servicesForDropdown}
                     serviceID={serviceID}
                     handleCreateHierarchyAlertModal={this.handleCreateHierarchyAlertModal}
+                    handleViewHierarchyAlerts={this.handleViewHierarchyAlerts}
                 />
             </BlockContainer>
         );
@@ -138,6 +139,12 @@ class BuildingDetailsContainer extends Component {
     };
 
     handleChange = (name, value) => this.setState({ [name]: value });
+
+    handleViewHierarchyAlerts = () => {
+        const { building, history } = this.props;
+
+        history.push(`/company/buildings/${building.id}/upcoming-alerts`);
+    };
 }
 
 const mapStateToProps = (

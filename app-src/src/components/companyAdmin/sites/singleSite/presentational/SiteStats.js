@@ -16,6 +16,7 @@ const SiteStats = ({
     serviceID,
     serviceOptions,
     handleCreateHierarchyAlertModal,
+    handleViewHierarchyAlerts,
 }) => (
     <div className="stats size-lg-12">
         <div className="flex-item size-lg-12">
@@ -59,11 +60,7 @@ const SiteStats = ({
                 {site.isArchived ? 'Un-Archive' : 'Archive'}
             </button>
 
-            <button
-                className="button yellow"
-                type="button"
-                onClick={handleCreateHierarchyAlertModal}
-            >
+            <button className="button yellow" type="button" onClick={handleViewHierarchyAlerts}>
                 <i className="fa fa-eye" />
                 View Alerts
             </button>

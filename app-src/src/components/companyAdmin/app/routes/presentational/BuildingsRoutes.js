@@ -12,6 +12,7 @@ import EditBuildingDocument from 'components/companyAdmin/buildings/editBuilding
 import EditCompanyPermissionsOnBuildingContainer from 'components/companyAdmin/buildings/editCompanyOnBuilding/containers/EditCompanyPermissionsOnBuildingContainer';
 import AddCompanyPermissionsToBuilding from 'components/companyAdmin/buildings/addCompanyPermissionsToBuilding.js/presentational/AddCompanyPermissionsToBuilding';
 import DocumentResponsesContainer from 'components/shared/documents/containers/DocumentResponsesContainer';
+import HierarchyAlerts from 'components/companyAdmin/upcomingAlerts/hierarchys/HierarchyAlerts';
 
 const BuildingRoutes = ({ base = '/company/buildings' }) => (
     <SwitchWith404>
@@ -42,6 +43,7 @@ const BuildingRoutes = ({ base = '/company/buildings' }) => (
             path={`${base}/:id/edit-company/:companyID`}
             component={EditCompanyPermissionsOnBuildingContainer}
         />
+        <Route exact path={`${base}/:id/upcoming-alerts`} component={HierarchyAlerts} />
     </SwitchWith404>
 );
 
