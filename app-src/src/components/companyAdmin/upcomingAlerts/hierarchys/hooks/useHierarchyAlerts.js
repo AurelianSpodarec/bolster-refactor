@@ -1,25 +1,27 @@
-import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 
-import { alertsError, alertsIsFetching } from 'selectors/alerts';
+import { fetchHierarchyAlerts } from 'actions/companyAdmin/alerts/async/fetchAlertsForHierarchy';
+import { alertsError, alertsIsFetching, selectHierarchyAlerts } from 'selectors/alerts';
+
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 const useHierarchyAlerts = () => {
     const { id } = useParams();
+    const dispatch = useDispatch();
     const { pathname } = useLocation();
 
-    const getHierarchyType = () => {
-        const hierarchy = pathname.split('/')[2];
+    const hierarchy = pathname.split('/')[2].slice(0, -1).toUpperCase();
+    const hierarchyType = HIERARCHY_IDS[hierarchy];
 
-        return hierarchy.slice(0, -1).toUpperCase();
-    };
-
-    const hierarchyTypeID = HIERARCHY_IDS[getHierarchyType()];
-
-    console.log(hierarchyTypeID);
-    const alerts = [];
+    const alerts = useSelector(selectHierarchyAlerts);
     const isFetching = useSelector(alertsIsFetching);
     const error = useSelector(alertsError);
+
+    useEffect(() => {
+        dispatch(fetchHierarchyAlerts(hierarchyType, id));
+    }, []);
 
     return { alerts, isFetching, error };
 };

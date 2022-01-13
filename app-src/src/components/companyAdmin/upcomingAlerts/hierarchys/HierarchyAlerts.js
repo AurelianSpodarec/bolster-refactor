@@ -5,27 +5,33 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import Table from 'components/shared/generic/tables/presentational/Table';
-import AlertItem from '../presentational/AlertItem';
+import HierarchyAlertItem from './HierarchyAlertItem';
 import { isEmpty } from 'lodash';
 
 const HierarchyAlerts = () => {
     const { alerts, isFetching, error } = useHierarchyAlerts();
+
     return (
         <>
             <PageHeading title="Upcoming Alerts" withBackButton />
 
-            <BlockContainer isFetching={isFetching} error={error} isEmpty={isEmpty(alerts)}>
+            <BlockContainer
+                isFetching={isFetching}
+                error={error}
+                isEmpty={isEmpty(alerts)}
+                noDataMessage="There are no alerts to display "
+            >
                 <BlockHeading title="Alerts" />
                 <Table
                     headers={[
                         'Date',
                         'Created On',
                         'Last sent on',
-                        'Hierarchy Link',
                         'Method',
                         'Creted by user/company',
                         'Frequency Amount',
-                        'Message',
+                        'Name',
+                        'Description',
                     ]}
                     isFetching={isFetching}
                     error={error}
@@ -35,7 +41,7 @@ const HierarchyAlerts = () => {
                     {Object.values(alerts)
                         .sort((a, b) => new Date(b.date) - new Date(a.date))
                         .map(alert => (
-                            <AlertItem key={alert.id} alert={alert} />
+                            <HierarchyAlertItem key={alert.id} alert={alert} />
                         ))}
                 </Table>
             </BlockContainer>
