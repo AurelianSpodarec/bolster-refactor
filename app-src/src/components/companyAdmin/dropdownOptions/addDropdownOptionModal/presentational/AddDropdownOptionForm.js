@@ -42,6 +42,11 @@ const AddDropdownOptionForm = ({
                                 required
                             />
                         ))}
+                        <CheckboxContainer
+                            checked={serviceIDs.length === subscribedServices.length}
+                            handleChange={() => handleToggleAll()}
+                            text="Toggle All"
+                        />
                     </div>
                 </Field>
             </div>
@@ -61,6 +66,18 @@ const AddDropdownOptionForm = ({
         } else {
             newServiceIDs.push(id);
         }
+        handleInputChange('serviceIDs', newServiceIDs);
+    }
+
+    function handleToggleAll() {
+        let newServiceIDs = serviceIDs.length ? [...serviceIDs] : [];
+
+        if (serviceIDs.length === subscribedServices.length) {
+            newServiceIDs = [];
+        } else {
+            newServiceIDs = subscribedServices.map(({ id }) => id);
+        }
+
         handleInputChange('serviceIDs', newServiceIDs);
     }
 };

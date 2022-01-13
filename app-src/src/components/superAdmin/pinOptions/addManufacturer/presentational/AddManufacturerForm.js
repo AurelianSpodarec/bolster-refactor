@@ -44,6 +44,12 @@ const AddManufacturerForm = ({
                                 text={item.label}
                             />
                         ))}
+
+                        <CheckboxContainer
+                            checked={serviceIDs.length === serviceOptions.length}
+                            handleChange={() => handleToggleAll()}
+                            text="Toggle All"
+                        />
                     </div>
                 </Field>
             </div>
@@ -63,6 +69,18 @@ const AddManufacturerForm = ({
         } else {
             newServiceIDs.push(id);
         }
+        handleInputChange('serviceIDs', newServiceIDs);
+    }
+
+    function handleToggleAll() {
+        let newServiceIDs = serviceIDs.length ? [...serviceIDs] : [];
+
+        if (serviceIDs.length === serviceOptions.length) {
+            newServiceIDs = [];
+        } else {
+            newServiceIDs = serviceOptions.map(({ value }) => value);
+        }
+
         handleInputChange('serviceIDs', newServiceIDs);
     }
 };

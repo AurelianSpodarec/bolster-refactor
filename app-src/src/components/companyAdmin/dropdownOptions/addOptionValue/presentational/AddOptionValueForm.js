@@ -67,6 +67,12 @@ const AddOptionValueForm = ({
                                 required
                             />
                         ))}
+
+                        <CheckboxContainer
+                            checked={serviceIDs.length === serviceOptions.length}
+                            handleChange={() => handleToggleAll()}
+                            text="Toggle All"
+                        />
                     </div>
                 </Field>
             </div>
@@ -110,6 +116,18 @@ const AddOptionValueForm = ({
         } else {
             newServiceIDs.push(id);
         }
+        handleInputChange('serviceIDs', newServiceIDs);
+    }
+
+    function handleToggleAll() {
+        let newServiceIDs = serviceIDs.length ? [...serviceIDs] : [];
+
+        if (serviceIDs.length === serviceOptions.length) {
+            newServiceIDs = [];
+        } else {
+            newServiceIDs = serviceOptions.map(({ id }) => id);
+        }
+
         handleInputChange('serviceIDs', newServiceIDs);
     }
 };
