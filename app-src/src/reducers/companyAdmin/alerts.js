@@ -8,11 +8,14 @@ import {
     UPDATE_ALERT_REQUEST,
     UPDATE_ALERT_SUCCESS,
     UPDATE_ALERT_FAILURE,
+    DISMISS_ALERT_REQUEST,
+    DISMISS_ALERT_SUCCESS,
+    DISMISS_ALERT_FAILURE,
     CREATE_ALERT_REQUEST,
     CREATE_ALERT_SUCCESS,
     CREATE_ALERT_FAILURE,
 } from 'constants/actionTypes/alerts';
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
 import { combineReducers } from 'redux';
 
 export default combineReducers({
@@ -47,6 +50,8 @@ function alertsReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case FETCH_HIERARCHY_ALERTS_SUCCESS:
         case UPDATE_ALERT_SUCCESS:
+        case DISMISS_ALERT_SUCCESS:
+            return removeObjItem(state, action.id);
         case CREATE_ALERT_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:
@@ -57,10 +62,13 @@ function alertsReducer(state = {}, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case UPDATE_ALERT_REQUEST:
+        case DISMISS_ALERT_REQUEST:
         case CREATE_ALERT_REQUEST:
             return true;
         case UPDATE_ALERT_SUCCESS:
         case UPDATE_ALERT_FAILURE:
+        case DISMISS_ALERT_SUCCESS:
+        case DISMISS_ALERT_FAILURE:
         case CREATE_ALERT_SUCCESS:
         case CREATE_ALERT_FAILURE:
             return false;
@@ -73,10 +81,13 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case UPDATE_ALERT_REQUEST:
         case UPDATE_ALERT_FAILURE:
+        case DISMISS_ALERT_REQUEST:
+        case DISMISS_ALERT_FAILURE:
         case CREATE_ALERT_REQUEST:
         case CREATE_ALERT_FAILURE:
             return false;
         case UPDATE_ALERT_SUCCESS:
+        case DISMISS_ALERT_SUCCESS:
         case CREATE_ALERT_SUCCESS:
             return true;
         default:
@@ -87,8 +98,10 @@ function postSuccessReducer(state = false, action) {
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_HIERARCHY_ALERTS_REQUEST:
+        case DISMISS_ALERT_REQUEST:
         case FETCH_ALL_ALERTS_REQUEST:
             return null;
+        case DISMISS_ALERT_FAILURE:
         case FETCH_HIERARCHY_ALERTS_FAILURE:
         case FETCH_ALL_ALERTS_FAILURE:
             return action.error;
@@ -100,9 +113,11 @@ function errorReducer(state = null, action) {
 function postErrorReducer(state = null, action) {
     switch (action.type) {
         case UPDATE_ALERT_REQUEST:
+        case DISMISS_ALERT_REQUEST:
         case CREATE_ALERT_REQUEST:
             return null;
         case UPDATE_ALERT_FAILURE:
+        case DISMISS_ALERT_FAILURE:
         case CREATE_ALERT_FAILURE:
             return action.error;
         default:
