@@ -21,7 +21,6 @@ const HierarchyAlerts = () => {
                         'Date',
                         'Created On',
                         'Last sent on',
-                        'Hierarchy Link',
                         'Method',
                         'Creted by user/company',
                         'Frequency Amount',

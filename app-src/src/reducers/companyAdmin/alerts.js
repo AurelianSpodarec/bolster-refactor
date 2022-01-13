@@ -47,9 +47,8 @@ function alertsReducer(state = {}, action) {
         case FETCH_ALL_ALERTS_REQUEST:
             return {};
         case FETCH_ALL_ALERTS_SUCCESS:
-            return convertArrToObj(action.payload);
         case FETCH_HIERARCHY_ALERTS_SUCCESS:
-        case UPDATE_ALERT_SUCCESS:
+            return convertArrToObj(action.payload);
         case DISMISS_ALERT_SUCCESS:
             return removeObjItem(state, action.payload);
         case CREATE_ALERT_SUCCESS:
