@@ -36,7 +36,7 @@ const initialQuestionFields = {
     options: [{ text: '', id: uuid() }],
     maxPhotos: '',
     canCompanyEdit: false,
-    optionColour: [{ Name: '', HexValue: '#ffffff' }],
+    optionColour: [{ name: '', hexValue: '#ffffff' }],
     optionType: '',
     defaultValue: null,
     statusOptions: [],
