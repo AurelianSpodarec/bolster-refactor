@@ -42,6 +42,7 @@ const EditOptionValueForm = ({
                                 checked={serviceIDs.includes(item.value)}
                                 handleChange={() => handleServiceChange(item.value)}
                                 text={item.label}
+                                required
                             />
                         ))}
                     </div>

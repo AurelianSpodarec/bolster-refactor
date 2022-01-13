@@ -31,7 +31,7 @@ const AddDropdownOptionForm = ({
                         />
                     </Field>
                 </div>
-                <Field name="Assign Services">
+                <Field name="Assign Services" required>
                     <div className="checkbox-list size-lg-12">
                         {subscribedServices.map((item, i) => (
                             <CheckboxContainer
@@ -39,6 +39,7 @@ const AddDropdownOptionForm = ({
                                 checked={serviceIDs !== null ? serviceIDs.includes(item.id) : false}
                                 handleChange={() => handleServiceChange(item.id)}
                                 text={item.name}
+                                required
                             />
                         ))}
                     </div>

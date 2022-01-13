@@ -26,6 +26,12 @@ class AddDropdownOptionFormContainer extends Component {
         );
     }
 
+    componentDidMount = () => {
+        const subscribedServiceIDs = this.getServicesFromSubscriptions().map(({ id }) => id);
+
+        this.setState({ serviceIDs: [...subscribedServiceIDs] });
+    };
+
     handleInputChange = (name, value) => {
         this.setState({ [name]: value });
     };

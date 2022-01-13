@@ -29,9 +29,11 @@ class EditDropdownOptionContainer extends Component {
         const {
             option: { name, serviceIDs },
         } = this.props;
+        const subscribedServiceIDs = this.getServicesFromSubscriptions().map(({ id }) => id);
+        console.log(serviceIDs);
         this.setState({
             name: name,
-            serviceIDs: serviceIDs !== null ? serviceIDs : [],
+            serviceIDs: serviceIDs !== null ? serviceIDs : [...subscribedServiceIDs],
         });
     };
 

@@ -6,6 +6,7 @@ import createOptionValue from 'actions/superAdmin/manufacturers/async/createOpti
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import AddOptionValueForm from '../presentational/AddOptionValueForm';
+import services from 'reducers/companyAdmin/services';
 
 class AddOptionValueFormContainer extends Component {
     state = {
@@ -38,6 +39,14 @@ class AddOptionValueFormContainer extends Component {
             />
         );
     }
+
+    componentDidMount = () => {
+        const { services } = this.props;
+
+        const serviceIDs = services.map(({ id }) => id);
+
+        this.setState({ serviceIDs: [...serviceIDs] });
+    };
 
     handleInputChange = (name, value) => {
         const { confirmNoDocument } = this.state;
