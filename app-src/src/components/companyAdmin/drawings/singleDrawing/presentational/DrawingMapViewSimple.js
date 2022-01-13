@@ -185,7 +185,11 @@ const DrawingMapViewSimple = ({
                                     <button
                                         className="button yellow"
                                         type="button"
-                                        onClick={handleCreateHierarchyAlertModal}
+                                        onClick={() =>
+                                            history.push(
+                                                `/company/drawings/${drawing.id}/upcoming-alerts`,
+                                            )
+                                        }
                                     >
                                         <i className="fa fa-eye" />
                                         View Alerts

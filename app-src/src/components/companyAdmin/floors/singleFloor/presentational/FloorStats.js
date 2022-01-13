@@ -15,6 +15,7 @@ const FloorStats = ({
     serviceID,
     serviceOptions,
     handleCreateHierarchyAlertModal,
+    handleViewHierarchyAlerts,
 }) => (
     <div className="stats size-lg-12">
         <FloorDetails stats={stats} floor={floor} />
@@ -45,11 +46,7 @@ const FloorStats = ({
                 {floor.isArchived ? 'Un-Archive' : 'Archive'}
             </button>
 
-            <button
-                className="button yellow"
-                type="button"
-                onClick={handleCreateHierarchyAlertModal}
-            >
+            <button className="button yellow" type="button" onClick={handleViewHierarchyAlerts}>
                 <i className="fa fa-eye" />
                 View Alerts
             </button>

@@ -48,6 +48,7 @@ class FloorDetailsContainer extends Component {
                     serviceOptions={servicesForDropdown}
                     serviceID={serviceID}
                     handleCreateHierarchyAlertModal={this.handleCreateHierarchyAlertModal}
+                    handleViewHierarchyAlerts={this.handleViewHierarchyAlerts}
                 />
             </BlockContainer>
         );
@@ -124,6 +125,12 @@ class FloorDetailsContainer extends Component {
         });
     };
     handleChange = (name, value) => this.setState({ [name]: value });
+
+    handleViewHierarchyAlerts = () => {
+        const { floor, history } = this.props;
+
+        history.push(`/company/floors/${floor.id}/upcoming-alerts`);
+    };
 }
 
 const mapStateToProps = (

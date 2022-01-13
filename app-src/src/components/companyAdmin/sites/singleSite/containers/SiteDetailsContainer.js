@@ -48,6 +48,7 @@ class SiteDetailsContainer extends Component {
                     serviceOptions={servicesForDropdown}
                     serviceID={serviceID}
                     handleCreateHierarchyAlertModal={this.handleCreateHierarchyAlertModal}
+                    handleViewHierarchyAlerts={this.handleViewHierarchyAlerts}
                 />
             </BlockContainer>
         );
@@ -124,6 +125,12 @@ class SiteDetailsContainer extends Component {
     };
 
     handleChange = (name, value) => this.setState({ [name]: value });
+
+    handleViewHierarchyAlerts = () => {
+        const { site, history } = this.props;
+
+        history.push(`/company/sites/${site.id}/upcoming-alerts`);
+    };
 }
 
 const mapStateToProps = (
