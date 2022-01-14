@@ -7,6 +7,7 @@ import {
     selectSystemMessages,
     selectCompanyAlerts,
     selectOpertiveAlerts,
+    selectDrawingExpiryMessages,
 } from 'selectors/companyAdmin/messageCentre';
 
 const useMessageCentreTable = () => {
@@ -18,12 +19,13 @@ const useMessageCentreTable = () => {
     const systemMessages = Object.values(useSelector(selectSystemMessages));
     const companyAlerts = Object.values(useSelector(selectCompanyAlerts));
     const operativeAlerts = Object.values(useSelector(selectOpertiveAlerts));
+    const drawingExpiry = Object.values(useSelector(selectDrawingExpiryMessages));
 
     const messageLookup = {
         0: systemMessages,
         1: companyAlerts,
         2: operativeAlerts,
-        3: [],
+        3: drawingExpiry,
     };
 
     return { selectedTab, setSelectedTab, messages: messageLookup[selectedTab], isFetching, error };

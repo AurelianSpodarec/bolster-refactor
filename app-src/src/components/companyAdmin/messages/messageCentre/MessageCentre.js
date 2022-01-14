@@ -8,6 +8,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import MessageCentreTable from './MessageCentreTable';
 import fetchSystemMessages from 'actions/companyAdmin/messageCentre/async/fetchSystemMessages';
 import fetchOperativeAlerts from 'actions/companyAdmin/messageCentre/async/fetchOperativeAlerts';
+import fetchDrawingExpiryMessages from 'actions/companyAdmin/messageCentre/async/fetchDrawingExpiryMessages';
 
 const MessageCentre = () => {
     const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const MessageCentre = () => {
             dispatch(fetchSystemMessages());
             dispatch(fetchCompanyAlerts());
             dispatch(fetchOperativeAlerts());
+            dispatch(fetchDrawingExpiryMessages());
         });
     }, []);
 

@@ -18,13 +18,16 @@ import {
     FETCH_OPERATIVE_ALERTS_REQUEST,
     FETCH_OPERATIVE_ALERTS_SUCCESS,
     FETCH_OPERATIVE_ALERTS_FAILURE,
+    FETCH_DRAWING_EXPIRY_MESSAGES_SUCCESS,
+    FETCH_DRAWING_EXPIRY_MESSAGES_REQUEST,
+    FETCH_DRAWING_EXPIRY_MESSAGES_FAILURE,
 } from 'constants/actionTypes/messageCentre';
 
 export default combineReducers({
     systemMessages: systemMessagesReducer,
     companyAlerts: companyAlertsReducer,
     operativeAlerts: operativeAlertsReducer,
-    // drawingExpiry: drawingExpiryReducer,
+    drawingExpiry: drawingExpiryReducer,
     isFetching: isFetchingReducer,
     postSuccess: postSuccessReducer,
     error: errorReducer,
@@ -78,13 +81,21 @@ function operativeAlertsReducer(state = {}, action) {
     }
 }
 
-// function drawingExpiryReducer(state = {}, action) {}
+function drawingExpiryReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_DRAWING_EXPIRY_MESSAGES_SUCCESS:
+            return convertArrToObj(action.payload);
+        default:
+            return state;
+    }
+}
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_SYSTEM_MESSAGES_REQUEST:
         case FETCH_COMPANY_ALERTS_REQUEST:
         case FETCH_OPERATIVE_ALERTS_REQUEST:
+        case FETCH_DRAWING_EXPIRY_MESSAGES_REQUEST:
             return true;
         case FETCH_SYSTEM_MESSAGES_SUCCESS:
         case FETCH_SYSTEM_MESSAGES_FAILURE:
@@ -92,6 +103,8 @@ function isFetchingReducer(state = false, action) {
         case FETCH_COMPANY_ALERTS_FAILURE:
         case FETCH_OPERATIVE_ALERTS_SUCCESS:
         case FETCH_OPERATIVE_ALERTS_FAILURE:
+        case FETCH_DRAWING_EXPIRY_MESSAGES_SUCCESS:
+        case FETCH_DRAWING_EXPIRY_MESSAGES_FAILURE:
             return false;
         default:
             return state;
@@ -120,12 +133,14 @@ function errorReducer(state = null, action) {
         case DISMISS_COMPANY_ALERT_REQUEST:
         case DISMISS_COMPANY_ALERTS_REQUEST:
         case FETCH_OPERATIVE_ALERTS_REQUEST:
+        case FETCH_DRAWING_EXPIRY_MESSAGES_REQUEST:
             return null;
         case FETCH_SYSTEM_MESSAGES_FAILURE:
         case FETCH_COMPANY_ALERTS_FAILURE:
         case DISMISS_COMPANY_ALERT_FAILURE:
         case DISMISS_COMPANY_ALERTS_FAILURE:
         case FETCH_OPERATIVE_ALERTS_FAILURE:
+        case FETCH_DRAWING_EXPIRY_MESSAGES_FAILURE:
             return action.error;
         default:
             return state;
