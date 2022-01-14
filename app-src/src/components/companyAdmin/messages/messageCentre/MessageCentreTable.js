@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import useMessageCentreTable from './hooks/useMessageCentreTable';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import MessageCentreTabs from './MessageCentreTabs';
-import useMessageCentreTable from './hooks/useMessageCentreTable';
 import MessagesList from './MessagesList';
 import SearchBar from 'components/companyAdmin/layout/header/presentational/SearchBar';
 import { MESSAGE_CENTRE_TABS } from 'constants/companyAdmin/enums';

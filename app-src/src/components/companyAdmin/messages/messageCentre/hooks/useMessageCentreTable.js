@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import search from 'reducers/companyAdmin/search';
 
 import {
     selectMessageCentreIsFetching,
