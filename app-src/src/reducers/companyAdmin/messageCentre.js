@@ -196,7 +196,6 @@ function errorReducer(state = null, action) {
 }
 
 function selectedTabReducer(state = 0, action) {
-    console.log(action);
     switch (action.type) {
         case SELECT_MESSAGE_CENTRE_TAB:
             return action.payload;
