@@ -1,11 +1,26 @@
 import React from 'react';
-import moment from 'moment';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isEmpty } from 'helpers/generic';
-import { MESSAGE_CENTRE_NAMES } from 'constants/companyAdmin/enums';
+import { MESSAGE_CENTRE_NAMES, MESSAGE_CENTRE_TABS } from 'constants/companyAdmin/enums';
+
+import SystemMessagesListItem from './listItems/SystemMessagesListItem';
+import OperativeAlertsListItem from './listItems/OperativeAlertsListItem';
+import DrawingExpiryListItem from './listItems/DrawingExpiryListItem';
+import CompanyAlertsListItem from './listItems/CompanyAlertsListItem';
 
 const MessagesList = ({ messages, isFetching, error, selectedTab }) => {
+    const RenderItem = ({ message }) => {
+        if (selectedTab === MESSAGE_CENTRE_TABS.SYSTEM_MESSAGES) {
+            return <SystemMessagesListItem message={message} />;
+        } else if (selectedTab === MESSAGE_CENTRE_TABS.COMPANY_ALERTS) {
+            return <CompanyAlertsListItem message={message} />;
+        } else if (selectedTab === MESSAGE_CENTRE_TABS.OPERATIVE_ALERTS) {
+            return <OperativeAlertsListItem message={message} />;
+        } else if (selectedTab === MESSAGE_CENTRE_TABS.DRAWING_EXPIRY) {
+            return <DrawingExpiryListItem message={message} />;
+        }
+    };
     return (
         <BlockContainer
             containerClass="no-padding"
@@ -16,26 +31,9 @@ const MessagesList = ({ messages, isFetching, error, selectedTab }) => {
             noDataMessage={`No ${MESSAGE_CENTRE_NAMES[selectedTab]} To View`}
         >
             <div className="messages-container">
-                {messages.map(
-                    ({ id, message, createdOn, createdByUserFirstName, createdByUserLastName }) => (
-                        <div key={id} className="message-wrapper">
-                            <div className="title-wrapper">
-                                <h3 className="title">{`${createdByUserFirstName} ${createdByUserLastName}`}</h3>
-
-                                <div className="date-wrapper">
-                                    <span className="date">
-                                        {moment(createdOn).format('DD/MM/YY - hh:mm')}
-                                    </span>
-                                    <i className="fas fa-times-circle close-icon" />
-                                </div>
-                            </div>
-
-                            <div>
-                                <p>{message}</p>
-                            </div>
-                        </div>
-                    ),
-                )}
+                {messages.map((message, i) => (
+                    <RenderItem key={i} message={message} />
+                ))}
             </div>
         </BlockContainer>
     );
