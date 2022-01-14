@@ -11,14 +11,15 @@ import CompanyAlertsListItem from './listItems/CompanyAlertsListItem';
 
 const MessagesList = ({ messages, isFetching, error, selectedTab }) => {
     const RenderItem = ({ message }) => {
-        if (selectedTab === MESSAGE_CENTRE_TABS.SYSTEM_MESSAGES) {
-            return <SystemMessagesListItem message={message} />;
-        } else if (selectedTab === MESSAGE_CENTRE_TABS.COMPANY_ALERTS) {
-            return <CompanyAlertsListItem message={message} />;
-        } else if (selectedTab === MESSAGE_CENTRE_TABS.OPERATIVE_ALERTS) {
-            return <OperativeAlertsListItem message={message} />;
-        } else if (selectedTab === MESSAGE_CENTRE_TABS.DRAWING_EXPIRY) {
-            return <DrawingExpiryListItem message={message} />;
+        switch (selectedTab) {
+            case MESSAGE_CENTRE_TABS.SYSTEM_MESSAGES:
+                return <SystemMessagesListItem message={message} />;
+            case MESSAGE_CENTRE_TABS.COMPANY_ALERTS:
+                return <CompanyAlertsListItem message={message} />;
+            case MESSAGE_CENTRE_TABS.OPERATIVE_ALERTS:
+                return <OperativeAlertsListItem message={message} />;
+            case MESSAGE_CENTRE_TABS.DRAWING_EXPIRY:
+                return <DrawingExpiryListItem message={message} />;
         }
     };
     return (
