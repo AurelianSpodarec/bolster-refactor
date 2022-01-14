@@ -27,6 +27,7 @@ import {
     DISMISS_OPERATIVE_ALERT_FAILURE,
     DISMISS_OPERATIVE_ALERTS_FAILURE,
     DISMISS_OPERATIVE_ALERTS_SUCCESS,
+    SELECT_MESSAGE_CENTRE_TAB,
 } from 'constants/actionTypes/messageCentre';
 
 export default combineReducers({
@@ -37,6 +38,7 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     postSuccess: postSuccessReducer,
     error: errorReducer,
+    selectedTab: selectedTabReducer,
 });
 
 function systemMessagesReducer(state = {}, action) {
@@ -163,6 +165,16 @@ function errorReducer(state = null, action) {
         case DISMISS_OPERATIVE_ALERT_FAILURE:
         case DISMISS_OPERATIVE_ALERTS_FAILURE:
             return action.error;
+        default:
+            return state;
+    }
+}
+
+function selectedTabReducer(state = 0, action) {
+    console.log(action);
+    switch (action.type) {
+        case SELECT_MESSAGE_CENTRE_TAB:
+            return action.payload;
         default:
             return state;
     }

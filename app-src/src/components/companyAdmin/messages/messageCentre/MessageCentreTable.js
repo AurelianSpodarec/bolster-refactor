@@ -12,7 +12,7 @@ import dismissCompanyAlert from 'actions/companyAdmin/messageCentre/async/dismis
 
 const MessageCentreTable = () => {
     const dispatch = useDispatch();
-    const { selectedTab, setSelectedTab, messages, isFetching, error } = useMessageCentreTable();
+    const { selectedTab, messages, isFetching, error } = useMessageCentreTable();
 
     const handleDismiss = () => {
         switch (selectedTab) {
@@ -31,7 +31,7 @@ const MessageCentreTable = () => {
 
     return (
         <BlockContainer>
-            <MessageCentreTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+            <MessageCentreTabs selectedTab={selectedTab} />
             <div className="size-lg-12">
                 <div className="action-bar">
                     <div className="size-lg-7">

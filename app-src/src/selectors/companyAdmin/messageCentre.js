@@ -8,3 +8,5 @@ export const selectOpertiveAlerts = state =>
     state.companyAdmin.messageCentreReducer.operativeAlerts;
 export const selectDrawingExpiryMessages = state =>
     state.companyAdmin.messageCentreReducer.drawingExpiry;
+
+export const selectSelectedTab = state => state.companyAdmin.messageCentreReducer.selectedTab;

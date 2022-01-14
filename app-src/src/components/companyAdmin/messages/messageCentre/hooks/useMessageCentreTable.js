@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import {
@@ -8,10 +7,11 @@ import {
     selectCompanyAlerts,
     selectOpertiveAlerts,
     selectDrawingExpiryMessages,
+    selectSelectedTab,
 } from 'selectors/companyAdmin/messageCentre';
 
 const useMessageCentreTable = () => {
-    const [selectedTab, setSelectedTab] = useState(0);
+    const selectedTab = useSelector(selectSelectedTab);
 
     const isFetching = useSelector(selectMessageCentreIsFetching);
     const error = useSelector(selectMessageCentreError);
@@ -28,7 +28,7 @@ const useMessageCentreTable = () => {
         3: drawingExpiry,
     };
 
-    return { selectedTab, setSelectedTab, messages: messageLookup[selectedTab], isFetching, error };
+    return { selectedTab, messages: messageLookup[selectedTab], isFetching, error };
 };
 
 export default useMessageCentreTable;
