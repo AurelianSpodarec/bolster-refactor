@@ -27,6 +27,17 @@ import {
     DISMISS_OPERATIVE_ALERT_FAILURE,
     DISMISS_OPERATIVE_ALERTS_FAILURE,
     DISMISS_OPERATIVE_ALERTS_SUCCESS,
+    DISMISS_SYSTEM_MESSAGE_REQUEST,
+    DISMISS_SYSTEM_MESSAGES_REQUEST,
+    DISMISS_SYSTEM_MESSAGE_FAILURE,
+    DISMISS_SYSTEM_MESSAGES_FAILURE,
+    DISMISS_SYSTEM_MESSAGE_SUCCESS,
+    DISMISS_DRAWING_EXPIRY_MESSAGES_SUCCESS,
+    DISMISS_DRAWING_EXPIRY_MESSAGES_REQUEST,
+    DISMISS_DRAWING_EXPIRY_MESSAGE_REQUEST,
+    DISMISS_DRAWING_EXPIRY_MESSAGE_FAILURE,
+    DISMISS_DRAWING_EXPIRY_MESSAGES_FAILURE,
+    DISMISS_DRAWING_EXPIRY_MESSAGE_SUCCESS,
     SELECT_MESSAGE_CENTRE_TAB,
 } from 'constants/actionTypes/messageCentre';
 
@@ -45,22 +56,11 @@ function systemMessagesReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_SYSTEM_MESSAGES_SUCCESS:
             return convertArrToObj(action.payload);
-        // case DISMISS_SYSTEM_MESSAGES_SUCCESS:
-        //     return {
-        //         ...state,
-        //         [action.id]: { ...state[action.id], isRead: true },
-        //     };
-        case DISMISS_SYSTEM_MESSAGES_SUCCESS: {
-            const dismissed = Object.values(state).map(alert =>
-                alert.type === action.alertType
-                    ? {
-                          ...alert,
-                          isRead: true,
-                      }
-                    : alert,
-            );
-            return convertArrToObj(dismissed);
-        }
+        case DISMISS_SYSTEM_MESSAGES_SUCCESS:
+            return {
+                ...state,
+                [action.id]: { ...state[action.id], isRead: true },
+            };
         default:
             return state;
     }
@@ -98,6 +98,11 @@ function drawingExpiryReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_DRAWING_EXPIRY_MESSAGES_SUCCESS:
             return convertArrToObj(action.payload);
+        case DISMISS_DRAWING_EXPIRY_MESSAGES_SUCCESS:
+            return {
+                ...state,
+                [action.id]: { ...state[action.id], isRead: true },
+            };
         default:
             return state;
     }
@@ -126,19 +131,31 @@ function isFetchingReducer(state = false, action) {
 
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
+        case DISMISS_SYSTEM_MESSAGE_REQUEST:
+        case DISMISS_SYSTEM_MESSAGES_REQUEST:
         case DISMISS_COMPANY_ALERT_REQUEST:
         case DISMISS_COMPANY_ALERTS_REQUEST:
         case DISMISS_OPERATIVE_ALERT_REQUEST:
         case DISMISS_OPERATIVE_ALERTS_REQUEST:
+        case DISMISS_DRAWING_EXPIRY_MESSAGE_REQUEST:
+        case DISMISS_DRAWING_EXPIRY_MESSAGES_REQUEST:
+        case DISMISS_SYSTEM_MESSAGE_FAILURE:
+        case DISMISS_SYSTEM_MESSAGES_FAILURE:
         case DISMISS_COMPANY_ALERT_FAILURE:
         case DISMISS_COMPANY_ALERTS_FAILURE:
         case DISMISS_OPERATIVE_ALERT_FAILURE:
         case DISMISS_OPERATIVE_ALERTS_FAILURE:
+        case DISMISS_DRAWING_EXPIRY_MESSAGE_FAILURE:
+        case DISMISS_DRAWING_EXPIRY_MESSAGES_FAILURE:
             return false;
         case DISMISS_COMPANY_ALERT_SUCCESS:
         case DISMISS_COMPANY_ALERTS_SUCCESS:
         case DISMISS_OPERATIVE_ALERT_SUCCESS:
         case DISMISS_OPERATIVE_ALERTS_SUCCESS:
+        case DISMISS_SYSTEM_MESSAGE_SUCCESS:
+        case DISMISS_SYSTEM_MESSAGES_SUCCESS:
+        case DISMISS_DRAWING_EXPIRY_MESSAGE_SUCCESS:
+        case DISMISS_DRAWING_EXPIRY_MESSAGES_SUCCESS:
             return true;
         default:
             return state;
@@ -151,19 +168,27 @@ function errorReducer(state = null, action) {
         case FETCH_COMPANY_ALERTS_REQUEST:
         case FETCH_OPERATIVE_ALERTS_REQUEST:
         case FETCH_DRAWING_EXPIRY_MESSAGES_REQUEST:
+        case DISMISS_SYSTEM_MESSAGE_REQUEST:
+        case DISMISS_SYSTEM_MESSAGES_REQUEST:
         case DISMISS_COMPANY_ALERT_REQUEST:
         case DISMISS_COMPANY_ALERTS_REQUEST:
         case DISMISS_OPERATIVE_ALERT_REQUEST:
         case DISMISS_OPERATIVE_ALERTS_REQUEST:
+        case DISMISS_DRAWING_EXPIRY_MESSAGE_REQUEST:
+        case DISMISS_DRAWING_EXPIRY_MESSAGES_REQUEST:
             return null;
         case FETCH_SYSTEM_MESSAGES_FAILURE:
         case FETCH_COMPANY_ALERTS_FAILURE:
         case FETCH_OPERATIVE_ALERTS_FAILURE:
         case FETCH_DRAWING_EXPIRY_MESSAGES_FAILURE:
+        case DISMISS_SYSTEM_MESSAGE_FAILURE:
+        case DISMISS_SYSTEM_MESSAGES_FAILURE:
         case DISMISS_COMPANY_ALERT_FAILURE:
         case DISMISS_COMPANY_ALERTS_FAILURE:
         case DISMISS_OPERATIVE_ALERT_FAILURE:
         case DISMISS_OPERATIVE_ALERTS_FAILURE:
+        case DISMISS_DRAWING_EXPIRY_MESSAGE_FAILURE:
+        case DISMISS_DRAWING_EXPIRY_MESSAGES_FAILURE:
             return action.error;
         default:
             return state;
