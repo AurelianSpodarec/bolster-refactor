@@ -12,6 +12,12 @@ export const HIERARCHY_TYPES = {
     4: 'drawing',
     100: 'all sites',
 };
+export const HIERARCHY_LINK_VALUES = {
+    1: 'sites',
+    2: 'buildings',
+    3: 'floors',
+    4: 'drawings',
+};
 
 export const HIERARCHY_IDS = {
     SITE: '1',

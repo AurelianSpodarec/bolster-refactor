@@ -6800,7 +6800,7 @@ input {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
         
         .title {
             font-size: 160%;
@@ -6824,6 +6824,21 @@ input {
             font-size: 140%;
         }
 
+    }
+
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        
+        h4 {
+            font-size: 160%;
+        }
+
+        a {
+            color: $blue;
+            font-size: 140%;
+            margin: 10px 0;
+        }
     }
 }
 
