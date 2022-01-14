@@ -8,9 +8,8 @@ import {
     DISMISS_COMPANY_ALERTS_FAILURE,
 } from 'constants/actionTypes/messageCentre';
 
-export const dismissCompanyAlertsRequest = alertType => ({
+export const dismissCompanyAlertsRequest = () => ({
     type: DISMISS_COMPANY_ALERTS_REQUEST,
-    alertType,
 });
 
 export const dismissCompanyAlertsSuccess = () => ({
@@ -22,8 +21,8 @@ export const dismissCompanyAlertsFailure = error => ({
     error,
 });
 
-export default alertType => dispatch => {
-    dispatch(dismissCompanyAlertsRequest(alertType));
+export default () => dispatch => {
+    dispatch(dismissCompanyAlertsRequest());
 
     return axios
         .delete(`${API_URL}/alertMessages/all`, {}, getHeaders())
