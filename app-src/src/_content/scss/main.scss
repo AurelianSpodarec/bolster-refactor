@@ -6830,6 +6830,16 @@ input {
         display: flex;
         flex-direction: column;
         
+        .metrics-wrapper {
+            display: flex;
+            margin-bottom: 10px;
+
+            .button {
+                font-weight: 500;
+                margin-left: 10px;
+            }
+        }
+
         h4 {
             font-size: 160%;
         }

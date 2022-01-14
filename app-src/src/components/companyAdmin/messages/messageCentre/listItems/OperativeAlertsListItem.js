@@ -1,10 +1,12 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import moment from 'moment';
 
 const OperativeAlertsListItem = ({
-    message: { id, createdByUserFirstName, createdByUserLastName, createdOn, message },
+    message: { id, createdByUserFirstName, createdByUserLastName, createdOn, message, sentCount },
 }) => {
+    const history = useHistory();
     return (
         <div key={id} className="message-wrapper">
             <div className="title-wrapper">
@@ -16,7 +18,19 @@ const OperativeAlertsListItem = ({
                 </div>
             </div>
 
-            <div>
+            <div className="content-wrapper">
+                <div className="metrics-wrapper">
+                    <h4>Sent To: {sentCount}</h4>
+
+                    <button
+                        className="button rounded"
+                        onClick={() =>
+                            history.push(`/company/message-centre/operative-alerts/${id}/metrics`)
+                        }
+                    >
+                        Show Metrics
+                    </button>
+                </div>
                 <p>{message}</p>
             </div>
         </div>
