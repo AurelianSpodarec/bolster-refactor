@@ -8,7 +8,9 @@ import MessagesList from './MessagesList';
 import SearchBar from 'components/companyAdmin/layout/header/presentational/SearchBar';
 import { MESSAGE_CENTRE_TABS } from 'constants/companyAdmin/enums';
 import dismissSystemMessages from 'actions/companyAdmin/messageCentre/async/dismissSystemMessages';
-import dismissCompanyAlert from 'actions/companyAdmin/messageCentre/async/dismissCompanyAlert';
+import dismissOperativeAlerts from 'actions/companyAdmin/messageCentre/async/dismissOperativeAlerts';
+import dismissCompanyAlerts from 'actions/companyAdmin/messageCentre/async/dismissCompanyAlerts';
+import dismissDrawingExpiryMessages from 'actions/companyAdmin/messageCentre/async/dismissDrawingExpiryMessages';
 
 const MessageCentreTable = () => {
     const dispatch = useDispatch();
@@ -26,12 +28,11 @@ const MessageCentreTable = () => {
             case MESSAGE_CENTRE_TABS.SYSTEM_MESSAGES:
                 return dispatch(dismissSystemMessages());
             case MESSAGE_CENTRE_TABS.COMPANY_ALERTS:
-                return console.log('dismiss company alert');
-            // dispatch(dismissCompanyAlert);
+                return dispatch(dismissCompanyAlerts());
             case MESSAGE_CENTRE_TABS.OPERATIVE_ALERTS:
-                return console.log('dismiss operative alert');
+                return dispatch(dismissOperativeAlerts());
             case MESSAGE_CENTRE_TABS.DRAWING_EXPIRY:
-                return console.log('dismiss drawing expiry');
+                return dispatch(dismissDrawingExpiryMessages());
         }
     };
 
