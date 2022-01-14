@@ -8,9 +8,8 @@ import {
     DISMISS_SYSTEM_MESSAGES_FAILURE,
 } from 'constants/actionTypes/messageCentre';
 
-export const dismissSystemMessagesRequest = alertType => ({
+export const dismissSystemMessagesRequest = () => ({
     type: DISMISS_SYSTEM_MESSAGES_REQUEST,
-    alertType,
 });
 
 export const dismissSystemMessagesSuccess = () => ({
@@ -22,8 +21,8 @@ export const dismissSystemMessagesFailure = error => ({
     error,
 });
 
-export default alertType => dispatch => {
-    dispatch(dismissSystemMessagesRequest(alertType));
+export default () => dispatch => {
+    dispatch(dismissSystemMessagesRequest());
 
     return axios
         .delete(`${API_URL}/systemMessages/all`, {}, getHeaders())
