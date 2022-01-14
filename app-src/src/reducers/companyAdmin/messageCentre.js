@@ -71,6 +71,8 @@ function companyAlertsReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case DISMISS_COMPANY_ALERT_SUCCESS:
             return removeObjItem(state, action.payload);
+        case DISMISS_COMPANY_ALERTS_SUCCESS:
+            return removeObjItem(state, action.payload);
         default:
             return state;
     }
@@ -81,10 +83,9 @@ function operativeAlertsReducer(state = {}, action) {
         case FETCH_OPERATIVE_ALERTS_SUCCESS:
             return convertArrToObj(action.payload);
         case DISMISS_OPERATIVE_ALERT_SUCCESS:
-            return {
-                ...state,
-                [action.id]: { ...state[action.id], isRead: true },
-            };
+            return removeObjItem(state, action.payload);
+        case DISMISS_OPERATIVE_ALERTS_SUCCESS:
+            return removeObjItem(state, action.payload);
         default:
             return state;
     }
@@ -94,11 +95,10 @@ function drawingExpiryReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_DRAWING_EXPIRY_MESSAGES_SUCCESS:
             return convertArrToObj(action.payload);
+        case DISMISS_DRAWING_EXPIRY_MESSAGE_SUCCESS:
+            return removeObjItem(state, action.payload);
         case DISMISS_DRAWING_EXPIRY_MESSAGES_SUCCESS:
-            return {
-                ...state,
-                [action.id]: { ...state[action.id], isRead: true },
-            };
+            return removeObjItem(state, action.payload);
         default:
             return state;
     }
