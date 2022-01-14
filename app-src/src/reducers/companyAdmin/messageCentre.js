@@ -86,15 +86,6 @@ function operativeAlertsReducer(state = {}, action) {
     }
 }
 
-function operativeAlertsReducer(state = {}, action) {
-    switch (action.type) {
-        case FETCH_OPERATIVE_ALERTS_SUCCESS:
-            return convertArrToObj(action.payload);
-        default:
-            return state;
-    }
-}
-
 function drawingExpiryReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_DRAWING_EXPIRY_MESSAGES_SUCCESS:
