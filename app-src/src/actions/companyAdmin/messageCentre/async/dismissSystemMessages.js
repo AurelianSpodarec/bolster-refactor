@@ -25,7 +25,7 @@ export default () => dispatch => {
     dispatch(dismissSystemMessagesRequest());
 
     return axios
-        .delete(`${API_URL}/systemMessages/all`, {}, getHeaders())
+        .delete(`${API_URL}/systemMessages/all`, getHeaders())
         .then(() => dispatch(dismissSystemMessagesSuccess()))
         .catch(err => {
             dispatch(dismissSystemMessagesFailure(err));
