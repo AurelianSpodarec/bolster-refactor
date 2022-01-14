@@ -15,16 +15,17 @@ const MessageCentreTable = () => {
     const { selectedTab, setSelectedTab, messages, isFetching, error } = useMessageCentreTable();
 
     const handelDismiss = () => {
-        if (selectedTab === MESSAGE_CENTRE_TABS.SYSTEM_MESSAGES) {
-            console.log('dismiss messages');
+        switch (selectedTab) {
+            case MESSAGE_CENTRE_TABS.SYSTEM_MESSAGES:
+                return console.log('dismiss messages');
             // dispatch(dismissSystemMessages);
-        } else if (selectedTab === MESSAGE_CENTRE_TABS.COMPANY_ALERTS) {
-            console.log('dismiss company alert');
+            case MESSAGE_CENTRE_TABS.COMPANY_ALERTS:
+                return console.log('dismiss company alert');
             // dispatch(dismissCompanyAlert);
-        } else if (selectedTab === MESSAGE_CENTRE_TABS.OPERATIVE_ALERTS) {
-            console.log('dismiss operative alert');
-        } else {
-            console.log('dismiss drawing expiry');
+            case MESSAGE_CENTRE_TABS.OPERATIVE_ALERTS:
+                return console.log('dismiss operative alert');
+            case MESSAGE_CENTRE_TABS.DRAWING_EXPIRY:
+                return console.log('dismiss drawing expiry');
         }
     };
 
