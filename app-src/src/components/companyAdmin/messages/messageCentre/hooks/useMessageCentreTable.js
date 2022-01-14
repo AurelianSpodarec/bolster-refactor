@@ -1,4 +1,6 @@
+import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
+import search from 'reducers/companyAdmin/search';
 
 import {
     selectMessageCentreIsFetching,
@@ -21,6 +23,8 @@ const useMessageCentreTable = () => {
     const operativeAlerts = Object.values(useSelector(selectOpertiveAlerts));
     const drawingExpiry = Object.values(useSelector(selectDrawingExpiryMessages));
 
+    const [searchTerm, setSearchTerm] = useState('');
+
     const messageLookup = {
         0: systemMessages,
         1: companyAlerts,
@@ -28,7 +32,35 @@ const useMessageCentreTable = () => {
         3: drawingExpiry,
     };
 
-    return { selectedTab, messages: messageLookup[selectedTab], isFetching, error };
+    const handleSearch = (_, val) => {
+        setSearchTerm(val);
+    };
+
+    const messages = useMemo(() => {
+        if (searchTerm) {
+            return messageLookup[selectedTab].filter(message => {
+                for (let key in message) {
+                    if (
+                        typeof message[key] === 'string' &&
+                        message[key].toLowerCase().includes(searchTerm.toLowerCase())
+                    ) {
+                        return true;
+                    }
+                }
+            });
+        } else {
+            return messageLookup[selectedTab];
+        }
+    }, [searchTerm, selectedTab, messageLookup]);
+
+    return {
+        selectedTab,
+        messages,
+        isFetching,
+        error,
+        searchTerm,
+        handleSearch,
+    };
 };
 
 export default useMessageCentreTable;

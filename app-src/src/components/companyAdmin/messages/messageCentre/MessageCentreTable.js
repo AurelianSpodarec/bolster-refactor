@@ -12,7 +12,14 @@ import dismissCompanyAlert from 'actions/companyAdmin/messageCentre/async/dismis
 
 const MessageCentreTable = () => {
     const dispatch = useDispatch();
-    const { selectedTab, messages, isFetching, error } = useMessageCentreTable();
+    const {
+        selectedTab,
+        messages,
+        isFetching,
+        error,
+        searchTerm,
+        handleSearch,
+    } = useMessageCentreTable();
 
     const handleDismiss = () => {
         switch (selectedTab) {
@@ -35,7 +42,7 @@ const MessageCentreTable = () => {
             <div className="size-lg-12">
                 <div className="action-bar">
                     <div className="size-lg-7">
-                        <SearchBar omitIcon />
+                        <SearchBar omitIcon handleChange={handleSearch} searchTerm={searchTerm} />
                     </div>
                     <div className="button-wrapper">
                         <button className="button rounded red" onClick={() => handleDismiss()}>
