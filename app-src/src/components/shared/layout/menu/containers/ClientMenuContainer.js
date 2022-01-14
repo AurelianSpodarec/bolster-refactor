@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import ClientMenu from '../presentational/ClientMenu';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
-import dismissMessages from 'actions/companyAdmin/messageCentre/async/dismissAlerts';
+import dismissMessages from 'actions/companyAdmin/messageCentre/async/dismissCompanyAlerts';
 
 const ClientMenuContainer = () => {
     const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const ClientMenuContainer = () => {
 
 const mapStateToProps = ({
     client: {
-        messagesCentreReducer: { messages },
+        messageCentreReducer: { messages },
     },
     shared: {
         decodeJWTReducer: {

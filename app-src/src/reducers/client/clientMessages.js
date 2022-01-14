@@ -11,7 +11,7 @@ import {
 } from 'constants/client/actionTypes/clientMessages';
 
 export default combineReducers({
-    messages: messagesCentreReducer,
+    messages: messageCentreReducer,
     isFetching: isFetchingReducer,
     postSuccess: postSuccessReducer,
     error: errorReducer,
@@ -53,7 +53,7 @@ function errorReducer(state = null, action) {
     }
 }
 
-function messagesCentreReducer(state = {}, action) {
+function messageCentreReducer(state = {}, action) {
     switch (action.type) {
         case CLIENT_FETCH_MESSAGES_SUCCESS:
             return convertArrToObj(action.payload);

@@ -5,7 +5,7 @@ import moment from 'moment';
 
 import CompanyMenu from '../presentational/CompanyMenu';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
-import dismissMessages from 'actions/companyAdmin/messageCentre/async/dismissAlerts';
+import dismissMessages from 'actions/companyAdmin/messageCentre/async/dismissCompanyAlerts';
 import { isEmpty } from 'helpers/generic';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { GENERATE_QR_CODES } from 'constants/shared/modalTypes';
@@ -97,7 +97,7 @@ const CompanyMenuContainer = ({
 };
 const mapStateToProps = ({
     companyAdmin: {
-        messagesCentreReducer: { messages },
+        messageCentreReducer: { systemMessages },
         creditsReducer: { credits },
         transferRequestsReducer: { incomingTransferRequests },
         pendingInvitesReducer: { pendingInvites },
@@ -111,7 +111,7 @@ const mapStateToProps = ({
         },
     },
 }) => {
-    const unreadMessageCount = Object.values(messages).filter(
+    const unreadMessageCount = Object.values(systemMessages).filter(
         ({ type, isRead }) => type === MESSAGE_TYPES.SYSTEM && !isRead,
     ).length;
     const totalCredits = Object.values(credits).reduce((a, b) => a + b.quantity, 0);
@@ -127,7 +127,7 @@ const mapStateToProps = ({
         totalCredits,
         totalRequests,
         isFromHeadquarters: !!headquartersCompanyID,
-        notifications: Object.values(messages)
+        notifications: Object.values(systemMessages)
             .filter(({ type }) => type === MESSAGE_TYPES.NOTIFICATION)
             .sort((a, b) => moment(b.createdAt) - moment(a.createdAt)),
         isClientAccess,

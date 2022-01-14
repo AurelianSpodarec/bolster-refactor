@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import HeaderNotifications from '../presentational/HeaderNotifications';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
-import dismissMessages from 'actions/companyAdmin/messageCentre/async/dismissAlerts';
+import dismissMessages from 'actions/companyAdmin/messageCentre/async/dismissCompanyAlerts';
 import moment from 'moment';
 
 class HeaderNotificationsContainer extends Component {
@@ -57,10 +57,10 @@ class HeaderNotificationsContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        messagesCentreReducer: { messages },
+        messageCentreReducer: { systemMessages },
     },
 }) => ({
-    notifications: Object.values(messages)
+    notifications: Object.values(systemMessages)
         .filter(({ type }) => type === MESSAGE_TYPES.NOTIFICATION)
         .sort((a, b) => moment(b.createdAt) - moment(a.createdAt)),
 });

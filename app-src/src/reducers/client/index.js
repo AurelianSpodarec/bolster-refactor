@@ -21,7 +21,7 @@ import clientCompaniesPermissionsReducer from './clientCompaniesPermissions';
 import searchReducer from './clientSearch';
 import companyReportsReducer from './clientCompanyReports';
 import reportsReducer from './clientReports';
-import messagesCentreReducer from './clientMessages';
+import messageCentreReducer from './clientMessages';
 import generatePinReportReducer from './clientGeneratePinReport';
 import manufacturersOptionValuesReducer from './clientManufacturersOptionValues';
 
@@ -37,7 +37,7 @@ export default combineReducers({
     generatePinReportReducer,
     latestPinFeedReducer,
     manufacturersOptionValuesReducer,
-    messagesCentreReducer,
+    messageCentreReducer,
     pinHistoriesReducer,
     pinAnswersReducer,
     pinsReducer,

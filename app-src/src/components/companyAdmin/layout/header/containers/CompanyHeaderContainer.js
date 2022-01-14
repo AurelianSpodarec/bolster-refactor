@@ -93,7 +93,7 @@ class CompanyHeaderContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: { companySettings },
-        messagesCentreReducer: { messages },
+        messageCentreReducer: { systemMessages },
         creditsReducer: { credits, isFetching, costOfCredits },
         transferRequestsReducer: { incomingTransferRequests },
         pendingInvitesReducer: { pendingInvites },
@@ -108,7 +108,7 @@ const mapStateToProps = ({
     },
 }) => {
     const isImpersonating = headquartersCompanyID !== companyID;
-    const unreadMessageCount = Object.values(messages).filter(
+    const unreadMessageCount = Object.values(systemMessages).filter(
         ({ type, isRead }) => type === MESSAGE_TYPES.SYSTEM && !isRead,
     ).length;
     const totalCredits = Object.values(credits).reduce((a, b) => a + b.quantity, 0);
