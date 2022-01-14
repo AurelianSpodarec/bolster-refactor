@@ -76,6 +76,20 @@ function operativeAlertsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_OPERATIVE_ALERTS_SUCCESS:
             return convertArrToObj(action.payload);
+        case DISMISS_OPERATIVE_ALERT_SUCCESS:
+            return {
+                ...state,
+                [action.id]: { ...state[action.id], isRead: true },
+            };
+        default:
+            return state;
+    }
+}
+
+function operativeAlertsReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_OPERATIVE_ALERTS_SUCCESS:
+            return convertArrToObj(action.payload);
         default:
             return state;
     }
@@ -115,11 +129,17 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case DISMISS_COMPANY_ALERT_REQUEST:
         case DISMISS_COMPANY_ALERTS_REQUEST:
+        case DISMISS_OPERATIVE_ALERT_REQUEST:
+        case DISMISS_OPERATIVE_ALERTS_REQUEST:
         case DISMISS_COMPANY_ALERT_FAILURE:
         case DISMISS_COMPANY_ALERTS_FAILURE:
+        case DISMISS_OPERATIVE_ALERT_FAILURE:
+        case DISMISS_OPERATIVE_ALERTS_FAILURE:
             return false;
         case DISMISS_COMPANY_ALERT_SUCCESS:
         case DISMISS_COMPANY_ALERTS_SUCCESS:
+        case DISMISS_OPERATIVE_ALERT_SUCCESS:
+        case DISMISS_OPERATIVE_ALERTS_SUCCESS:
             return true;
         default:
             return state;
@@ -130,17 +150,21 @@ function errorReducer(state = null, action) {
     switch (action.ALERT) {
         case FETCH_SYSTEM_MESSAGES_REQUEST:
         case FETCH_COMPANY_ALERTS_REQUEST:
-        case DISMISS_COMPANY_ALERT_REQUEST:
-        case DISMISS_COMPANY_ALERTS_REQUEST:
         case FETCH_OPERATIVE_ALERTS_REQUEST:
         case FETCH_DRAWING_EXPIRY_MESSAGES_REQUEST:
+        case DISMISS_COMPANY_ALERT_REQUEST:
+        case DISMISS_COMPANY_ALERTS_REQUEST:
+        case DISMISS_OPERATIVE_ALERT_REQUEST:
+        case DISMISS_OPERATIVE_ALERTS_REQUEST:
             return null;
         case FETCH_SYSTEM_MESSAGES_FAILURE:
         case FETCH_COMPANY_ALERTS_FAILURE:
-        case DISMISS_COMPANY_ALERT_FAILURE:
-        case DISMISS_COMPANY_ALERTS_FAILURE:
         case FETCH_OPERATIVE_ALERTS_FAILURE:
         case FETCH_DRAWING_EXPIRY_MESSAGES_FAILURE:
+        case DISMISS_COMPANY_ALERT_FAILURE:
+        case DISMISS_COMPANY_ALERTS_FAILURE:
+        case DISMISS_OPERATIVE_ALERT_FAILURE:
+        case DISMISS_OPERATIVE_ALERTS_FAILURE:
             return action.error;
         default:
             return state;
