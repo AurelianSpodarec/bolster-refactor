@@ -24,8 +24,7 @@ const MessageCentreTable = () => {
     const handleDismiss = () => {
         switch (selectedTab) {
             case MESSAGE_CENTRE_TABS.SYSTEM_MESSAGES:
-                return console.log('dismiss messages');
-            // dispatch(dismissSystemMessages);
+                return dispatch(dismissSystemMessages());
             case MESSAGE_CENTRE_TABS.COMPANY_ALERTS:
                 return console.log('dismiss company alert');
             // dispatch(dismissCompanyAlert);

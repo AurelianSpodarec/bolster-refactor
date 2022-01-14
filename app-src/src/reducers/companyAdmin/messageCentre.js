@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, removeObjItem } from 'helpers/generic';
 import {
     DISMISS_COMPANY_ALERTS_REQUEST,
     DISMISS_COMPANY_ALERT_REQUEST,
@@ -57,10 +57,9 @@ function systemMessagesReducer(state = {}, action) {
         case FETCH_SYSTEM_MESSAGES_SUCCESS:
             return convertArrToObj(action.payload);
         case DISMISS_SYSTEM_MESSAGES_SUCCESS:
-            return {
-                ...state,
-                [action.id]: { ...state[action.id], isRead: true },
-            };
+            return removeObjItem(state, action.payload);
+        case DISMISS_SYSTEM_MESSAGE_SUCCESS:
+            return removeObjItem(state, action.payload);
         default:
             return state;
     }
@@ -71,10 +70,7 @@ function companyAlertsReducer(state = {}, action) {
         case FETCH_COMPANY_ALERTS_SUCCESS:
             return convertArrToObj(action.payload);
         case DISMISS_COMPANY_ALERT_SUCCESS:
-            return {
-                ...state,
-                [action.id]: { ...state[action.id], isRead: true },
-            };
+            return removeObjItem(state, action.payload);
         default:
             return state;
     }

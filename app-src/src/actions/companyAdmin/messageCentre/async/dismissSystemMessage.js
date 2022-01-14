@@ -1,33 +1,32 @@
 import axios from 'axios';
 
 import { API_URL } from 'config';
-import { getHeaders } from 'helpers/api';
+import { getHeaders, handleErrors } from 'helpers/api';
 import {
     DISMISS_SYSTEM_MESSAGE_REQUEST,
     DISMISS_SYSTEM_MESSAGE_SUCCESS,
     DISMISS_SYSTEM_MESSAGE_FAILURE,
 } from 'constants/actionTypes/messageCentre';
 
-export const dismissSystemMessageRequest = id => ({
+export const dismissSystemMessageRequest = () => ({
     type: DISMISS_SYSTEM_MESSAGE_REQUEST,
-    id,
 });
 
-export const dismissSystemMessageSuccess = () => ({
+export const dismissSystemMessageSuccess = payload => ({
     type: DISMISS_SYSTEM_MESSAGE_SUCCESS,
+    payload,
 });
 
-export const dismissSystemMessageFailure = (id, error) => ({
+export const dismissSystemMessageFailure = error => ({
     type: DISMISS_SYSTEM_MESSAGE_FAILURE,
-    id,
     error,
 });
 
 export default id => dispatch => {
-    dispatch(dismissSystemMessageRequest(id));
+    dispatch(dismissSystemMessageRequest());
 
     return axios
-        .delete(`${API_URL}/systemMessages/${id}`, null, getHeaders())
-        .then(() => dispatch(dismissSystemMessageSuccess()))
-        .catch(err => dispatch(dismissSystemMessageFailure(id, err.message)));
+        .delete(`${API_URL}/systemMessages/${id}`, getHeaders())
+        .then(() => dispatch(dismissSystemMessageSuccess(id)))
+        .catch(err => dispatch(handleErrors(err)));
 };
