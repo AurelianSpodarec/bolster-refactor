@@ -2,8 +2,9 @@ import React from 'react';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isEmpty } from 'helpers/generic';
+import { MESSAGE_CENTRE_NAMES } from 'constants/companyAdmin/enums';
 
-const MessagesList = ({ messages, isFetching, error }) => {
+const MessagesList = ({ messages, isFetching, error, selectedTab }) => {
     return (
         <BlockContainer
             containerClass="no-padding"
@@ -11,6 +12,7 @@ const MessagesList = ({ messages, isFetching, error }) => {
             isFetching={isFetching}
             isEmpty={isEmpty(messages)}
             error={error}
+            noDataMessage={`No ${MESSAGE_CENTRE_NAMES[selectedTab]} To View`}
         >
             <div className="messages-container">
                 {messages.map(message => (

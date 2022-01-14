@@ -517,3 +517,10 @@ export const MESSAGE_CENTRE_TABS = {
     OPERATIVE_ALERTS: 2,
     DRAWING_EXPIRY: 3,
 };
+
+export const MESSAGE_CENTRE_NAMES = {
+    0: 'System Messages',
+    1: 'Company Alerts',
+    2: 'Operative Alerts',
+    3: 'Drawing Expiry Messages',
+};

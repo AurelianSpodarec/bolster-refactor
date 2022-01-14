@@ -27,7 +27,12 @@ const MessageCentreTable = () => {
                         </button>
                     </div>
                 </div>
-                <MessagesList messages={messages} isFetching={isFetching} error={error} />
+                <MessagesList
+                    messages={messages}
+                    isFetching={isFetching}
+                    error={error}
+                    selectedTab={selectedTab}
+                />
             </div>
         </BlockContainer>
     );
