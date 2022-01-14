@@ -14,7 +14,7 @@ const MessageCentreTable = () => {
     const dispatch = useDispatch();
     const { selectedTab, setSelectedTab, messages, isFetching, error } = useMessageCentreTable();
 
-    const handelDismiss = () => {
+    const handleDismiss = () => {
         switch (selectedTab) {
             case MESSAGE_CENTRE_TABS.SYSTEM_MESSAGES:
                 return console.log('dismiss messages');
@@ -38,7 +38,7 @@ const MessageCentreTable = () => {
                         <SearchBar omitIcon />
                     </div>
                     <div className="button-wrapper">
-                        <button className="button rounded red" onClick={() => handelDismiss()}>
+                        <button className="button rounded red" onClick={() => handleDismiss()}>
                             <i className="fas fa-trash-alt"></i>
                             Dismiss All
                         </button>
