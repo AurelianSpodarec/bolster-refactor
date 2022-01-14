@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import HeaderNotifications from '../presentational/HeaderNotifications';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
-import dismissMessages from 'actions/companyAdmin/messageCentre/async/dismissCompanyAlerts';
+import dismissSystemMessages from 'actions/companyAdmin/messageCentre/async/dismissSystemMessages';
 import moment from 'moment';
 
 class HeaderNotificationsContainer extends Component {
@@ -34,8 +34,8 @@ class HeaderNotificationsContainer extends Component {
             // attach/remove event handler
             document.addEventListener('click', this.handleOutsideClick, false);
         } else {
-            const { dismissMessages } = this.props;
-            dismissMessages(MESSAGE_TYPES.NOTIFICATION);
+            const { dismissSystemMessages } = this.props;
+            dismissSystemMessages(MESSAGE_TYPES.NOTIFICATION);
 
             document.removeEventListener('click', this.handleOutsideClick, false);
         }
@@ -66,8 +66,8 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    dismissMessages: messageType => {
-        dispatch(dismissMessages(messageType));
+    dismissSystemMessages: messageType => {
+        dispatch(dismissSystemMessages(messageType));
     },
 });
 

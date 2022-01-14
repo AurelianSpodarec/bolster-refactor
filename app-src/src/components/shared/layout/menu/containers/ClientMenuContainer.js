@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import ClientMenu from '../presentational/ClientMenu';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
-import dismissMessages from 'actions/companyAdmin/messageCentre/async/dismissCompanyAlerts';
+import dismissSystemMessages from 'actions/companyAdmin/messageCentre/async/dismissSystemMessages';
 
 const ClientMenuContainer = () => {
     const dispatch = useDispatch();
@@ -13,13 +13,13 @@ const ClientMenuContainer = () => {
     const unreadCount = unread.length;
 
     const dismissNotifications = () => {
-        dispatch(dismissMessages(MESSAGE_TYPES.NOTIFICATION));
+        dispatch(dismissSystemMessages(MESSAGE_TYPES.NOTIFICATION));
     };
 
     return (
         <ClientMenu
             unreadCount={unreadCount}
-            dismissMessages={dismissNotifications}
+            dismissSystemMessages={dismissNotifications}
             isCompany={isCompanyAdmin}
         />
     );

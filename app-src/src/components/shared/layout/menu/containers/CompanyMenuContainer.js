@@ -5,7 +5,7 @@ import moment from 'moment';
 
 import CompanyMenu from '../presentational/CompanyMenu';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
-import dismissMessages from 'actions/companyAdmin/messageCentre/async/dismissCompanyAlerts';
+import dismissSystemMessages from 'actions/companyAdmin/messageCentre/async/dismissSystemMessages';
 import { isEmpty } from 'helpers/generic';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { GENERATE_QR_CODES } from 'constants/shared/modalTypes';
@@ -16,7 +16,7 @@ const CompanyMenuContainer = ({
     totalCredits,
     totalRequests,
     notifications,
-    dismissMessages,
+    dismissSystemMessages,
     subscriptions,
     subscriptions: { startOn },
     hasInitiallyFetched,
@@ -33,7 +33,7 @@ const CompanyMenuContainer = ({
     const unread = notifications.filter(({ isRead }) => !isRead);
     const unreadCount = unread.length;
     const dismissNotifications = () => {
-        dismissMessages(MESSAGE_TYPES.NOTIFICATION);
+        dismissSystemMessages(MESSAGE_TYPES.NOTIFICATION);
     };
     const [shouldRestrictPayments, setShouldRestrictPayments] = useState(false);
 
@@ -60,7 +60,7 @@ const CompanyMenuContainer = ({
             totalRequests={totalRequests}
             isFromHeadquarters={isFromHeadquarters}
             unreadCount={unreadCount}
-            dismissMessages={dismissNotifications}
+            dismissSystemMessages={dismissNotifications}
             openHelpScout={_openHelpScout}
             isClientAccess={isClientAccess}
             handleGenerateQRCodesModal={handleGenerateQRCodesModal}
@@ -138,8 +138,8 @@ const mapStateToProps = ({
 };
 
 const mapDispatchToProps = dispatch => ({
-    dismissMessages: messageType => {
-        dispatch(dismissMessages(messageType));
+    dismissSystemMessages: messageType => {
+        dispatch(dismissSystemMessages(messageType));
     },
     showModal: (type, props) => dispatch(showModal(type, props)),
 });

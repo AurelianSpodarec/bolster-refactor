@@ -3,7 +3,7 @@ import React from 'react';
 import MenuItemContainer from '../containers/MenuItemContainer';
 import MenuHeader from './MenuHeader';
 
-const ClientMenu = ({ dismissMessages, unreadCount, isCompany }) => (
+const ClientMenu = ({ dismissSystemMessages, unreadCount, isCompany }) => (
     <>
         <div className="menu">
             <MenuHeader title="My Access" />
@@ -13,7 +13,7 @@ const ClientMenu = ({ dismissMessages, unreadCount, isCompany }) => (
             </MenuItemContainer>
 
             <MenuHeader title="Reports" />
-            <MenuItemContainer onClick={dismissMessages} link="/client/reports">
+            <MenuItemContainer onClick={dismissSystemMessages} link="/client/reports">
                 {/* <MenuItemContainer link="/company/reports"> */}
                 {!!unreadCount && <span className="number">{unreadCount}</span>}
                 <i className="far fa-file-chart-pie fa-fw icon" />

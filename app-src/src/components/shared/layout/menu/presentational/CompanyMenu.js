@@ -10,7 +10,7 @@ const CompanyMenu = ({
     totalCredits,
     totalRequests,
     unreadCount,
-    dismissMessages,
+    dismissSystemMessages,
     isSubscribed,
     openHelpScout,
     isClientAccess,
@@ -93,7 +93,10 @@ const CompanyMenu = ({
             {isSubscribed && !isCompanyUserOrSelecting && (
                 <>
                     <MenuHeader title="Reports" />
-                    <CompanyMenuItemContainer onClick={dismissMessages} link="/company/reports">
+                    <CompanyMenuItemContainer
+                        onClick={dismissSystemMessages}
+                        link="/company/reports"
+                    >
                         {!!unreadCount && <span className="number">{unreadCount}</span>}
                         <i className="far fa-file-chart-pie fa-fw icon" />
                         <span className={`menu-text ${unreadCount ? 'large' : ''}`}>
