@@ -1,39 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { MESSAGE_CENTRE_TABS } from 'constants/companyAdmin/enums';
 
+import {
+    selectMessageCentreIsFetching,
+    selectMessageCentreError,
+    selectCompanyAlerts,
+} from 'selectors/companyAdmin/messageCentre';
+import fetchCompanyAlerts from 'actions/companyAdmin/messageCentre/async/fetchCompanyAlerts';
+
 const useMessageCentreTable = () => {
+    const dispatch = useDispatch();
+
     const [selectedTab, setSelectedTab] = useState(0);
+    const [messages, setMessages] = useState([]);
 
-    const messages = [
-        {
-            id: 1,
-            title: 'Message 1',
-            date: '01/01/2020',
-            message:
-                '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur tempor, nisl nunc ultrices eros, eu porttitor nunc nisl eget.</p>',
-        },
-        {
-            id: 2,
-            title: 'Message 2',
-            date: '01/01/2020',
-            message:
-                '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur tempor, nisl nunc ultrices eros, eu porttitor nunc nisl eget.</p>',
-        },
-        {
-            id: 3,
-            title: 'Message 3',
-            date: '01/01/2020',
-            message:
-                '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur tempor, nisl nunc ultrices eros, eu porttitor nunc nisl eget.</p>',
-        },
-    ];
+    const isFetching = useSelector(selectMessageCentreIsFetching);
+    const error = useSelector(selectMessageCentreError);
 
-    const showCreateNewButton =
-        selectedTab !== MESSAGE_CENTRE_TABS.SYSTEM_MESSAGES &&
-        selectedTab !== MESSAGE_CENTRE_TABS.DRAWING_EXPIRY;
+    const companyAlerts = useSelector(selectCompanyAlerts);
 
-    return { selectedTab, setSelectedTab, messages, showCreateNewButton };
+    useEffect(() => {
+        if (selectedTab === MESSAGE_CENTRE_TABS.COMPANY_ALERTS) {
+            dispatch(fetchCompanyAlerts());
+        }
+    }, [selectedTab]);
+
+    return { selectedTab, setSelectedTab, messages, isFetching, error };
 };
 
 export default useMessageCentreTable;

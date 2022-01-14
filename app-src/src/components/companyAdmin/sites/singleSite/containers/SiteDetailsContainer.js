@@ -16,7 +16,7 @@ import {
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import deleteSite from 'actions/companyAdmin/sites/async/deleteSite';
 import archiveSite from 'actions/companyAdmin/sites/async/archiveSite';
-import { HIERARCHY_IDS, HIERARCHY_TYPES } from 'constants/companyAdmin/enums';
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 class SiteDetailsContainer extends Component {
     state = {

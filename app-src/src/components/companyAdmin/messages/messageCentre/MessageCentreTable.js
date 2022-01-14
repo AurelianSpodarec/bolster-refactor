@@ -7,13 +7,7 @@ import MessagesList from './MessagesList';
 import SearchBar from 'components/companyAdmin/layout/header/presentational/SearchBar';
 
 const MessageCentreTable = () => {
-    const { selectedTab, setSelectedTab, messages } = useMessageCentreTable();
-
-    const handleClick = () => {
-        if (selectedTab === 1) {
-            console.log('delete alerts');
-        }
-    };
+    const { selectedTab, setSelectedTab, messages, isFetching, error } = useMessageCentreTable();
 
     return (
         <BlockContainer>
@@ -24,13 +18,16 @@ const MessageCentreTable = () => {
                         <SearchBar omitIcon />
                     </div>
                     <div className="button-wrapper">
-                        <button className="button rounded red" onClick={handleClick}>
+                        <button
+                            className="button rounded red"
+                            onClick={() => console.log('Dismiss')}
+                        >
                             <i className="fas fa-trash-alt"></i>
                             Dismiss All
                         </button>
                     </div>
                 </div>
-                <MessagesList messages={messages} />
+                <MessagesList messages={messages} isFetching={isFetching} error={error} />
             </div>
         </BlockContainer>
     );

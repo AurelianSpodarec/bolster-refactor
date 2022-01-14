@@ -5,7 +5,7 @@ import moment from 'moment';
 import { ALERT_FREQUENCY_TYPES, ALERT_METHOD_TYPES } from 'constants/companyAdmin/enums';
 import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import { useForm, usePrevious } from 'helpers/hooks';
-import { alertsPostSuccess, alertsPostError } from 'selectors/alerts';
+import { alertsPostSuccess, alertsPostError } from 'selectors/companyAdmin/alerts';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { createAlert } from 'actions/companyAdmin/alerts/async/createAlert';

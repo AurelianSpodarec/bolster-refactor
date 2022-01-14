@@ -3,7 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 
 import { fetchHierarchyAlerts } from 'actions/companyAdmin/alerts/async/fetchAlertsForHierarchy';
-import { alertsError, alertsIsFetching, selectHierarchyAlerts } from 'selectors/alerts';
+import {
+    alertsError,
+    alertsIsFetching,
+    selectHierarchyAlerts,
+} from 'selectors/companyAdmin/alerts';
 
 import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 

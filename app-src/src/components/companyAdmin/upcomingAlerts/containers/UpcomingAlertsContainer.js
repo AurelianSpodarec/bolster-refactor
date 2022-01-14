@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import UpcomingAlerts from '../presentational/UpcomingAlerts';
-import { alertsError, alertsIsFetching, selectAlerts } from 'selectors/alerts';
+import { alertsError, alertsIsFetching, selectAlerts } from 'selectors/companyAdmin/alerts';
 import { fetchAllAlerts } from 'actions/companyAdmin/alerts/async/fetchAllAlerts';
 
 const UpcomingAlertsContainer = () => {

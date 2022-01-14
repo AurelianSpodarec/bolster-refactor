@@ -10,7 +10,7 @@ import {
 } from 'constants/companyAdmin/enums';
 import { enumFormat } from 'helpers/generic';
 import { NUMBER_GREATER_THAN_ZERO } from 'helpers/regex';
-import { alertsIsPosting } from 'selectors/alerts';
+import { alertsIsPosting } from 'selectors/companyAdmin/alerts';
 
 import useCreateHierarchyAlert from '../hooks/useCreateHierarchyAlert';
 
