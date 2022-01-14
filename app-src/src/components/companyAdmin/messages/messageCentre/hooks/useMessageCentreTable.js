@@ -1,33 +1,32 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { MESSAGE_CENTRE_TABS } from 'constants/companyAdmin/enums';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import {
     selectMessageCentreIsFetching,
     selectMessageCentreError,
+    selectSystemMessages,
     selectCompanyAlerts,
+    selectOpertiveAlerts,
 } from 'selectors/companyAdmin/messageCentre';
-import fetchCompanyAlerts from 'actions/companyAdmin/messageCentre/async/fetchCompanyAlerts';
 
 const useMessageCentreTable = () => {
-    const dispatch = useDispatch();
-
     const [selectedTab, setSelectedTab] = useState(0);
-    const [messages, setMessages] = useState([]);
 
     const isFetching = useSelector(selectMessageCentreIsFetching);
     const error = useSelector(selectMessageCentreError);
 
-    const companyAlerts = useSelector(selectCompanyAlerts);
+    const systemMessages = Object.values(useSelector(selectSystemMessages));
+    const companyAlerts = Object.values(useSelector(selectCompanyAlerts));
+    const operativeAlerts = Object.values(useSelector(selectOpertiveAlerts));
 
-    useEffect(() => {
-        if (selectedTab === MESSAGE_CENTRE_TABS.COMPANY_ALERTS) {
-            dispatch(fetchCompanyAlerts());
-        }
-    }, [selectedTab]);
+    const messageLookup = {
+        0: systemMessages,
+        1: companyAlerts,
+        2: operativeAlerts,
+        3: [],
+    };
 
-    return { selectedTab, setSelectedTab, messages, isFetching, error };
+    return { selectedTab, setSelectedTab, messages: messageLookup[selectedTab], isFetching, error };
 };
 
 export default useMessageCentreTable;
