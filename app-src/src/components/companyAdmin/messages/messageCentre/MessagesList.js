@@ -16,10 +16,10 @@ const MessagesList = ({ messages, isFetching, error }) => {
                 {messages.map(message => (
                     <div key={message.id} className="message-wrapper">
                         <div className="title-wrapper">
-                            <h3 className="title">{message.title}</h3>
+                            <h3 className="title">{`${message.createdByUserFirstName} ${message.createdByUserLastName}`}</h3>
 
                             <div className="date-wrapper">
-                                <span className="date">{message.date}</span>
+                                <span className="date">{message.createdOn}</span>
                                 <i className="fas fa-times-circle close-icon" />
                             </div>
                         </div>
