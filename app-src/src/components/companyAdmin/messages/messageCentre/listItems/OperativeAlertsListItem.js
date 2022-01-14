@@ -1,11 +1,14 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import moment from 'moment';
+import dismissOperativeAlert from 'actions/companyAdmin/messageCentre/async/dismissOperativeAlert';
 
 const OperativeAlertsListItem = ({
     message: { id, createdByUserFirstName, createdByUserLastName, createdOn, message, sentCount },
 }) => {
+    const dispatch = useDispatch();
     const history = useHistory();
     return (
         <div key={id} className="message-wrapper">
@@ -14,7 +17,12 @@ const OperativeAlertsListItem = ({
 
                 <div className="date-wrapper">
                     <span className="date">{moment(createdOn).format('DD/MM/YY - hh:mm')}</span>
-                    <i className="fas fa-times-circle close-icon" />
+                    <button
+                        className="no-background-btn"
+                        onClick={() => dispatch(dismissOperativeAlert())}
+                    >
+                        <i className="fas fa-times-circle close-icon" />
+                    </button>
                 </div>
             </div>
 

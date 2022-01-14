@@ -1,8 +1,10 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import { HIERARCHY_LINK_VALUES } from 'constants/companyAdmin/enums';
+import dismissCompanyAlert from 'actions/companyAdmin/messageCentre/async/dismissCompanyAlert';
 
 const CompanyAlertsListItem = ({
     message: {
@@ -16,6 +18,7 @@ const CompanyAlertsListItem = ({
         createdByUserName,
     },
 }) => {
+    const dispatch = useDispatch();
     const hierarchyLink = `/company/${HIERARCHY_LINK_VALUES[hierarchyType]}/${hierarchyID}`;
 
     return (
@@ -25,7 +28,12 @@ const CompanyAlertsListItem = ({
 
                 <div className="date-wrapper">
                     <span className="date">{moment(createdOn).format('DD/MM/YY - hh:mm')}</span>
-                    <i className="fas fa-times-circle close-icon" />
+                    <button
+                        className="no-background-btn"
+                        onClick={() => dispatch(dismissCompanyAlert(id))}
+                    >
+                        <i className="fas fa-times-circle close-icon" />
+                    </button>
                 </div>
             </div>
 

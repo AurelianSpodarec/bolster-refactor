@@ -1,10 +1,13 @@
 import React from 'react';
-
+import { useDispatch } from 'react-redux';
 import moment from 'moment';
+
+import dismissDrawingExpiryMessage from 'actions/companyAdmin/messageCentre/async/dismissDrawingExpiryMessage';
 
 const DrawingExpiryListItem = ({
     message: { id, createdByUserFirstName, createdByUserLastName, createdOn, message },
 }) => {
+    const dispatch = useDispatch();
     return (
         <div key={id} className="message-wrapper">
             <div className="title-wrapper">
@@ -12,7 +15,12 @@ const DrawingExpiryListItem = ({
 
                 <div className="date-wrapper">
                     <span className="date">{moment(createdOn).format('DD/MM/YY - hh:mm')}</span>
-                    <i className="fas fa-times-circle close-icon" />
+                    <button
+                        className="no-background-btn"
+                        onClick={() => dispatch(dismissDrawingExpiryMessage())}
+                    >
+                        <i className="fas fa-times-circle close-icon" />
+                    </button>
                 </div>
             </div>
 
