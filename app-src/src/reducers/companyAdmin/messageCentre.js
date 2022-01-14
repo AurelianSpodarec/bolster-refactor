@@ -21,6 +21,12 @@ import {
     FETCH_DRAWING_EXPIRY_MESSAGES_SUCCESS,
     FETCH_DRAWING_EXPIRY_MESSAGES_REQUEST,
     FETCH_DRAWING_EXPIRY_MESSAGES_FAILURE,
+    DISMISS_OPERATIVE_ALERT_SUCCESS,
+    DISMISS_OPERATIVE_ALERT_REQUEST,
+    DISMISS_OPERATIVE_ALERTS_REQUEST,
+    DISMISS_OPERATIVE_ALERT_FAILURE,
+    DISMISS_OPERATIVE_ALERTS_FAILURE,
+    DISMISS_OPERATIVE_ALERTS_SUCCESS,
 } from 'constants/actionTypes/messageCentre';
 
 export default combineReducers({
@@ -81,15 +87,6 @@ function operativeAlertsReducer(state = {}, action) {
                 ...state,
                 [action.id]: { ...state[action.id], isRead: true },
             };
-        default:
-            return state;
-    }
-}
-
-function operativeAlertsReducer(state = {}, action) {
-    switch (action.type) {
-        case FETCH_OPERATIVE_ALERTS_SUCCESS:
-            return convertArrToObj(action.payload);
         default:
             return state;
     }
