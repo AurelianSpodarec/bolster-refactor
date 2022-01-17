@@ -8,26 +8,25 @@ import {
     DISMISS_OPERATIVE_ALERT_FAILURE,
 } from 'constants/actionTypes/messageCentre';
 
-export const dismissOperativeAlertRequest = id => ({
+export const dismissOperativeAlertRequest = () => ({
     type: DISMISS_OPERATIVE_ALERT_REQUEST,
-    id,
 });
 
-export const dismissOperativeAlertSuccess = () => ({
+export const dismissOperativeAlertSuccess = payload => ({
     type: DISMISS_OPERATIVE_ALERT_SUCCESS,
+    payload,
 });
 
-export const dismissOperativeAlertFailure = (id, error) => ({
+export const dismissOperativeAlertFailure = error => ({
     type: DISMISS_OPERATIVE_ALERT_FAILURE,
-    id,
     error,
 });
 
 export default id => dispatch => {
-    dispatch(dismissOperativeAlertRequest(id));
+    dispatch(dismissOperativeAlertRequest());
 
     return axios
-        .delete(`${API_URL}/alertMessages/${id}`, null, getHeaders())
-        .then(() => dispatch(dismissOperativeAlertSuccess()))
+        .delete(`${API_URL}/alertMessages/${id}`, getHeaders())
+        .then(() => dispatch(dismissOperativeAlertSuccess(id)))
         .catch(err => dispatch(dismissOperativeAlertFailure(id, err.message)));
 };
