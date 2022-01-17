@@ -39,7 +39,6 @@ const AddDropdownOptionForm = ({
                                 checked={serviceIDs !== null ? serviceIDs.includes(item.id) : false}
                                 handleChange={() => handleServiceChange(item.id)}
                                 text={item.name}
-                                required
                             />
                         ))}
                         <CheckboxContainer
