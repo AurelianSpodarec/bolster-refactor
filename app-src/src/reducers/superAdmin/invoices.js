@@ -140,7 +140,7 @@ function invoicesReducer(state = {}, action) {
         //     return removeObjItem(state, action.id);
         case SA_SET_IS_INVOICE_PAID_SUCCESS:
         case SA_MAKE_INVOICE_FREE_SUCCESS:
-            return updateObj(state, action.id, { isPaid: true });
+            return updateObj(state, action.payload.id, action.payload);
         case ADD_INVOICE_COMMENT_SUCCESS:
             return { ...state, [action.data.id]: action.data };
         default:
