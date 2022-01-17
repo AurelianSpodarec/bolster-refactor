@@ -26,8 +26,6 @@ const MultiMultiDropdownOptions = ({
 
     const filteredOptions = dropdownOptions.filter(option => {
         if (option.companyID !== companyID && option.companyID !== null) {
-            console.log(option);
-
             return false;
         }
 
