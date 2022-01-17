@@ -1,44 +1,55 @@
+import React, { useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { useForm, usePrevious } from 'helpers/hooks';
+import { useSelector, useDispatch } from 'react-redux';
+
+import changeProfileEmail from 'actions/shared/profile/async/changeProfileEmail';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Form from 'components/shared/generic/form/containers/Form';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import { useForm, usePrevious } from 'helpers/hooks';
-import { useSelector, useDispatch } from 'react-redux';
-import React, { useEffect } from 'react';
-import { Link, useLocation, useHistory } from 'react-router-dom';
-import changeProfileEmail from 'actions/shared/profile/async/changeProfileEmail';
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+
+import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 
 const EditMailPreferences = () => {
     const history = useHistory();
     const dispatch = useDispatch();
-    const { postSuccess, error } = useSelector(profileSelector);
+
+    const {
+        profile: { areAlertMessageEmailsEnabled, areDrawingExpirationEmailsEnabled },
+        postSuccess,
+        error,
+    } = useSelector(profileSelector);
+
     const prevProps = usePrevious({ postSuccess, error });
     const [{ alertMessages, drawingExpirations }, handleChange] = useForm({
-        alertMessages: true,
-        drawingExpirations: true,
+        alertMessages: areAlertMessageEmailsEnabled,
+        drawingExpirations: areDrawingExpirationEmailsEnabled,
     });
-    const handleSubmit = () => {
-        const postBody = { alertMessages, drawingExpirations };
-        dispatch(changeProfileEmail(postBody));
-    };
 
     useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
             dispatch(
                 showModal(SUCCESS_MODAL, {
-                    message:
-                        'An email has been sent to the provided address, please follow the instructions in this email to complete the process',
+                    message: 'Successfully changed mail preferences.',
                 }),
             );
             history.push(location.pathname.replace('/change-email', ''));
         }
     }, [postSuccess, error]);
+
+    const handleSubmit = () => {
+        const postBody = {
+            areAlertMessageEmailsEnabled: alertMessages,
+            areDrawingExpirationEmailsEnabled: drawingExpirations,
+        };
+        dispatch(changeProfileEmail(postBody));
+    };
 
     return (
         <>
@@ -88,8 +99,8 @@ const EditMailPreferences = () => {
 
 const profileSelector = ({
     shared: {
-        profileReducer: { postSuccess, error },
+        profileReducer: { profile, postSuccess, error },
     },
-}) => ({ postSuccess, error });
+}) => ({ profile, postSuccess, error });
 
 export default EditMailPreferences;

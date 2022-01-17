@@ -25,7 +25,7 @@ export const changeProfileEmailFailure = error => ({
 export default postBody => dispatch => {
     dispatch(changeProfileEmailRequest());
     return axios
-        .post(`${AUTH_API_URL}/profile/email`, postBody, getHeaders())
+        .patch(`${AUTH_API_URL}/profile/email-preferences`, postBody, getHeaders())
         .then(res => dispatch(changeProfileEmailSuccess(res.data)))
         .catch(err => {
             const errorAction = handleErrors(changeProfileEmailFailure);
