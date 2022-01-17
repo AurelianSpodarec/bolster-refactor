@@ -15,12 +15,19 @@ const OptionTypeFrom = ({
     defaultValue,
     serviceID,
 }) => {
-    console.log(dropdownOptions);
     const getOptions = () => {
         const dropdownOptNames = dropdownOptions
-            .filter(opt =>
-                opt.type === +optionType && serviceID ? opt.serviceID === serviceID : true,
-            )
+            .filter(opt => {
+                if (opt.type === +optionType) {
+                    if (serviceID && opt.serviceIDs?.length) {
+                        return opt.serviceIDs.includes(serviceID);
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
+            })
             .map(opt => opt.name);
 
         return [...new Set(dropdownOptNames)]
