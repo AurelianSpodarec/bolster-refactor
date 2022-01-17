@@ -8,26 +8,25 @@ import {
     DISMISS_COMPANY_ALERT_FAILURE,
 } from 'constants/actionTypes/messageCentre';
 
-export const dismissCompanyAlertRequest = id => ({
+export const dismissCompanyAlertRequest = () => ({
     type: DISMISS_COMPANY_ALERT_REQUEST,
-    id,
 });
 
-export const dismissCompanyAlertSuccess = () => ({
+export const dismissCompanyAlertSuccess = payload => ({
     type: DISMISS_COMPANY_ALERT_SUCCESS,
+    payload,
 });
 
-export const dismissCompanyAlertFailure = (id, error) => ({
+export const dismissCompanyAlertFailure = error => ({
     type: DISMISS_COMPANY_ALERT_FAILURE,
-    id,
     error,
 });
 
 export default id => dispatch => {
-    dispatch(dismissCompanyAlertRequest(id));
+    dispatch(dismissCompanyAlertRequest());
 
     return axios
-        .delete(`${API_URL}/alertMessages/${id}`, null, getHeaders())
-        .then(() => dispatch(dismissCompanyAlertSuccess()))
+        .delete(`${API_URL}/alertMessages/${id}`, getHeaders())
+        .then(() => dispatch(dismissCompanyAlertSuccess(id)))
         .catch(err => dispatch(dismissCompanyAlertFailure(id, err.message)));
 };
