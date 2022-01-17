@@ -57,7 +57,7 @@ function systemMessagesReducer(state = {}, action) {
         case FETCH_SYSTEM_MESSAGES_SUCCESS:
             return convertArrToObj(action.payload);
         case DISMISS_SYSTEM_MESSAGES_SUCCESS:
-            return removeObjItem(state, action.payload);
+            return {};
         case DISMISS_SYSTEM_MESSAGE_SUCCESS:
             return removeObjItem(state, action.payload);
         default:
@@ -72,7 +72,7 @@ function companyAlertsReducer(state = {}, action) {
         case DISMISS_COMPANY_ALERT_SUCCESS:
             return removeObjItem(state, action.payload);
         case DISMISS_COMPANY_ALERTS_SUCCESS:
-            return removeObjItem(state, action.payload);
+            return {};
         default:
             return state;
     }
@@ -85,7 +85,7 @@ function operativeAlertsReducer(state = {}, action) {
         case DISMISS_OPERATIVE_ALERT_SUCCESS:
             return removeObjItem(state, action.payload);
         case DISMISS_OPERATIVE_ALERTS_SUCCESS:
-            return removeObjItem(state, action.payload);
+            return {};
         default:
             return state;
     }
@@ -98,7 +98,7 @@ function drawingExpiryReducer(state = {}, action) {
         case DISMISS_DRAWING_EXPIRY_MESSAGE_SUCCESS:
             return removeObjItem(state, action.payload);
         case DISMISS_DRAWING_EXPIRY_MESSAGES_SUCCESS:
-            return removeObjItem(state, action.payload);
+            return {};
         default:
             return state;
     }
