@@ -11,7 +11,6 @@ class EditOptionValueFormContainer extends Component {
     state = {
         name: this.props.optionValue.name,
         serviceIDs: this.props.optionValue.serviceIDs || [],
-        serviceOptions: [],
     };
 
     render() {
@@ -23,15 +22,15 @@ class EditOptionValueFormContainer extends Component {
                 hideModal={this.props.hideModal}
                 buttonText={this.props.buttonText}
                 validateName={this.validateName}
+                serviceOptions={this.getServicesFromSubscriptions()}
             />
         );
     }
 
     componentDidMount = () => {
-        const serviceOptions = this.formatServicesWithSubscriptions();
-        const serviceIDs = serviceOptions.map(({ id }) => id);
+        const subscribedServiceIDs = this.getServicesFromSubscriptions();
 
-        this.setState({ serviceOptions, serviceIDs });
+        this.setState({ serviceIDs: [...subscribedServiceIDs] });
     };
 
     handleInputChange = (name, value) => {
@@ -61,18 +60,16 @@ class EditOptionValueFormContainer extends Component {
         editOptionValue(optionValue.manufacturerID, postBody);
     };
 
-    formatServicesWithSubscriptions = () => {
-        const { subscriptionServiceIDs, services } = this.props;
-
-        return services.reduce((acc, { id, name }) => {
-            if (subscriptionServiceIDs.includes(id)) {
-                acc.push({
-                    value: id,
-                    label: name,
-                });
-            }
-            return acc;
-        }, []);
+    getServicesFromSubscriptions = () => {
+        const { services, subscriptions } = this.props;
+        const subscribedServices = subscriptions.services.map(({ serviceID }) => {
+            return {
+                text: services[serviceID].name,
+                name: services[serviceID].name,
+                value: serviceID.toString(),
+            };
+        });
+        return subscribedServices;
     };
 }
 
@@ -80,9 +77,8 @@ const mapStateToProps = (
     {
         companyAdmin: {
             manufacturersOptionValuesReducer: { manufacturersOptionValues },
-            subscriptionsReducer: {
-                subscriptions: { serviceIDs: subscriptionServiceIDs },
-            },
+            servicesReducer: { services },
+            subscriptionsReducer: { subscriptions },
         },
     },
     { optionValue },
@@ -91,7 +87,8 @@ const mapStateToProps = (
         optionValues: manufacturersOptionValues[optionValue.manufacturerID]
             ? Object.values(manufacturersOptionValues[optionValue.manufacturerID])
             : [],
-        subscriptionServiceIDs,
+        services,
+        subscriptions,
     };
 };
 

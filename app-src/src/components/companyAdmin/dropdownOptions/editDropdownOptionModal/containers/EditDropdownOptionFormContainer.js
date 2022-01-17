@@ -29,8 +29,7 @@ class EditDropdownOptionContainer extends Component {
         const {
             option: { name, serviceIDs },
         } = this.props;
-        const subscribedServiceIDs = this.getServicesFromSubscriptions().map(({ id }) => id);
-        console.log(serviceIDs);
+        const subscribedServiceIDs = this.getServicesFromSubscriptions();
         this.setState({
             name: name,
             serviceIDs: serviceIDs !== null ? serviceIDs : [...subscribedServiceIDs],
@@ -66,9 +65,13 @@ class EditDropdownOptionContainer extends Component {
 
     getServicesFromSubscriptions = () => {
         const { services, subscriptions } = this.props;
-        const subscribedServices = subscriptions.services.map(
-            ({ serviceID }) => services[serviceID],
-        );
+        const subscribedServices = subscriptions.services.map(({ serviceID }) => {
+            return {
+                text: services[serviceID].name,
+                name: services[serviceID].name,
+                value: serviceID.toString(),
+            };
+        });
         return subscribedServices;
     };
 

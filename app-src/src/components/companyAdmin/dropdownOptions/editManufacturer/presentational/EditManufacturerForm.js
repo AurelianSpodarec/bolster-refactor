@@ -6,6 +6,7 @@ import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 
 const EditManufacturerForm = ({
     handleSubmit,
@@ -26,27 +27,26 @@ const EditManufacturerForm = ({
                             name="name"
                             value={name}
                             handleChange={handleInputChange}
-                            validate={undefined}
+                            validate={validateName}
                             required
                         />
                     </Field>
                 </div>
-                <Field name="Assign Services">
-                    <div className="checkbox-list size-lg-12">
-                        {subscribedServices.map((item, i) => (
-                            <CheckboxContainer
-                                key={i}
-                                checked={serviceIDs !== null ? serviceIDs.includes(item.id) : false}
-                                handleChange={() => handleServiceChange(item.id)}
-                                text={item.name}
-                            />
-                        ))}
-                        <CheckboxContainer
-                            checked={serviceIDs.length === subscribedServices.length}
-                            handleChange={() => handleToggleAll()}
-                            text="Toggle All"
-                        />
-                    </div>
+                <Field name="Assign Services" required>
+                    <CheckboxListContainer
+                        name="serviceIDs"
+                        handleChange={(name, value) => handleInputChange(name, value)}
+                        selectedOptions={serviceIDs}
+                        options={subscribedServices}
+                        required
+                    />
+
+                    <CheckboxContainer
+                        checked={serviceIDs.length === subscribedServices.length}
+                        handleChange={() => handleToggleAll()}
+                        text="Toggle All"
+                        classes="margin-top"
+                    />
                 </Field>
             </div>
 
@@ -58,15 +58,6 @@ const EditManufacturerForm = ({
             </BlockButtonWrapper>
         </Form>
     );
-    function handleServiceChange(id) {
-        let newServiceIDs = serviceIDs !== null ? [...serviceIDs] : [];
-        if (serviceIDs.includes(id)) {
-            newServiceIDs = newServiceIDs.filter(sid => sid !== id);
-        } else {
-            newServiceIDs.push(id);
-        }
-        handleInputChange('serviceIDs', newServiceIDs);
-    }
 
     function handleToggleAll() {
         let newServiceIDs = serviceIDs.length ? [...serviceIDs] : [];
@@ -74,7 +65,7 @@ const EditManufacturerForm = ({
         if (serviceIDs.length === subscribedServices.length) {
             newServiceIDs = [];
         } else {
-            newServiceIDs = subscribedServices.map(({ id }) => id);
+            newServiceIDs = subscribedServices.map(({ value }) => value.toString());
         }
 
         handleInputChange('serviceIDs', newServiceIDs);

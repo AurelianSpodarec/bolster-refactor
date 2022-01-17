@@ -34,7 +34,7 @@ class AddOptionValueFormContainer extends Component {
                 hideModal={this.props.hideModal}
                 buttonText={this.props.buttonText}
                 validateName={this.validateName}
-                serviceOptions={serviceOptions}
+                serviceOptions={this.formatServices()}
                 handleShowAddDocForm={this.handleShowAddDocForm}
             />
         );
@@ -56,6 +56,18 @@ class AddOptionValueFormContainer extends Component {
         }
 
         this.setState({ [name]: value });
+    };
+
+    formatServices = () => {
+        const { services } = this.props;
+        const serviceOptions = services.map(({ name, id }) => {
+            return {
+                text: name,
+                name: name,
+                value: id.toString(),
+            };
+        });
+        return serviceOptions;
     };
 
     validateName = value => {

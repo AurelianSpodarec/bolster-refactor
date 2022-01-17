@@ -14,13 +14,6 @@ class EditOptionValueFormContainer extends Component {
     };
 
     render() {
-        const { services } = this.props;
-
-        const serviceOptions = services.map(({ id, name }) => ({
-            value: id,
-            label: name,
-        }));
-
         return (
             <EditOptionValueForm
                 {...this.state}
@@ -29,13 +22,25 @@ class EditOptionValueFormContainer extends Component {
                 hideModal={this.props.hideModal}
                 buttonText={this.props.buttonText}
                 validateName={this.validateName}
-                serviceOptions={serviceOptions}
+                serviceOptions={this.formatServices()}
             />
         );
     }
 
     handleInputChange = (name, value) => {
         this.setState({ [name]: value });
+    };
+
+    formatServices = () => {
+        const { services } = this.props;
+        const serviceOptions = services.map(({ name, id }) => {
+            return {
+                text: name,
+                name: name,
+                value: id.toString(),
+            };
+        });
+        return serviceOptions;
     };
 
     validateName = value => {

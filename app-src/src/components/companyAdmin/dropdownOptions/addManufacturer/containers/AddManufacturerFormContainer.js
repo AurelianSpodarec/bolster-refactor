@@ -30,9 +30,9 @@ class AddManufacturerFormContainer extends Component {
     }
 
     componentDidMount() {
-        const subscribedServiceIDs = this.getServicesFromSubscriptions().map(({ id }) => id);
+        const subscribedServiceIDs = this.getServicesFromSubscriptions();
 
-        this.setState({ serviceIDs: subscribedServiceIDs });
+        this.setState({ serviceIDs: [...subscribedServiceIDs] });
 
         this.props.showOAndMTsAndCsModal('add manufacturer');
     }
@@ -49,9 +49,13 @@ class AddManufacturerFormContainer extends Component {
 
     getServicesFromSubscriptions = () => {
         const { services, subscriptions } = this.props;
-        const subscribedServices = subscriptions.services.map(
-            ({ serviceID }) => services[serviceID],
-        );
+        const subscribedServices = subscriptions.services.map(({ serviceID }) => {
+            return {
+                text: services[serviceID].name,
+                name: services[serviceID].name,
+                value: serviceID.toString(),
+            };
+        });
         return subscribedServices;
     };
 

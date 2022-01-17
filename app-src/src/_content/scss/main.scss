@@ -1553,6 +1553,7 @@ input {
     .checkbox {
         float: right;
         width: 35px;
+        
     }
     .generic-search {
         float: right;
@@ -1728,6 +1729,7 @@ input {
             &.label-example {
                 width: 50%;
             }
+
         }
         .error {
             left: 0;
@@ -1909,6 +1911,10 @@ input {
     &.with-subtext {
         width: 50px;
         padding-left: 10px;
+    }
+
+    &.margin-top{
+        margin-top: 12.5px;
     }
 }
 

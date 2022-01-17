@@ -7,6 +7,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
+import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 
 const AddOptionValueForm = ({
     handleSubmit,
@@ -57,22 +58,19 @@ const AddOptionValueForm = ({
             </div>
             <div className="size-lg-12">
                 <Field name="Assign Services" required>
-                    <div className="checkbox-list size-lg-12">
-                        {serviceOptions.map((item, i) => (
-                            <CheckboxContainer
-                                key={i}
-                                checked={serviceIDs !== null ? serviceIDs.includes(item.id) : false}
-                                handleChange={() => handleServiceChange(item.id)}
-                                text={item.label}
-                            />
-                        ))}
-
-                        <CheckboxContainer
-                            checked={serviceIDs.length === serviceOptions.length}
-                            handleChange={() => handleToggleAll()}
-                            text="Toggle All"
-                        />
-                    </div>
+                    <CheckboxListContainer
+                        name="serviceIDs"
+                        handleChange={(name, value) => handleInputChange(name, value)}
+                        selectedOptions={serviceIDs}
+                        options={serviceOptions}
+                        required
+                    />
+                    <CheckboxContainer
+                        checked={serviceIDs.length === serviceOptions.length}
+                        handleChange={() => handleToggleAll()}
+                        text="Toggle All"
+                        classes="margin-top"
+                    />
                 </Field>
             </div>
             <div className="size-lg-12">
@@ -108,15 +106,6 @@ const AddOptionValueForm = ({
             </BlockButtonWrapper>
         </Form>
     );
-    function handleServiceChange(id) {
-        let newServiceIDs = serviceIDs !== null ? [...serviceIDs] : [];
-        if (serviceIDs.includes(id)) {
-            newServiceIDs = newServiceIDs.filter(sid => sid !== id);
-        } else {
-            newServiceIDs.push(id);
-        }
-        handleInputChange('serviceIDs', newServiceIDs);
-    }
 
     function handleToggleAll() {
         let newServiceIDs = serviceIDs.length ? [...serviceIDs] : [];
@@ -124,7 +113,7 @@ const AddOptionValueForm = ({
         if (serviceIDs.length === serviceOptions.length) {
             newServiceIDs = [];
         } else {
-            newServiceIDs = serviceOptions.map(({ id }) => id);
+            newServiceIDs = serviceOptions.map(({ value }) => value.toString());
         }
 
         handleInputChange('serviceIDs', newServiceIDs);

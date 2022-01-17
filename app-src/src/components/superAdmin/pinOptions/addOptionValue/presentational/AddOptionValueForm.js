@@ -8,6 +8,7 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 
 const AddManufacturerForm = ({
     handleSubmit,
@@ -55,23 +56,21 @@ const AddManufacturerForm = ({
                 </div>
             </div>
             <div className="size-lg-12">
-                <Field name="Select services for this option value" required>
-                    <div className="checkbox-list size-lg-12">
-                        {serviceOptions.map((item, i) => (
-                            <CheckboxContainer
-                                key={i}
-                                checked={serviceIDs.includes(item.value)}
-                                handleChange={() => handleServiceChange(item.value)}
-                                text={item.label}
-                            />
-                        ))}
+                <Field name="Assign Services" required>
+                    <CheckboxListContainer
+                        name="serviceIDs"
+                        handleChange={(name, value) => handleInputChange(name, value)}
+                        selectedOptions={serviceIDs}
+                        options={serviceOptions}
+                        required
+                    />
 
-                        <CheckboxContainer
-                            checked={serviceIDs.length === serviceOptions.length}
-                            handleChange={() => handleToggleAll()}
-                            text="Toggle All"
-                        />
-                    </div>
+                    <CheckboxContainer
+                        checked={serviceIDs.length === serviceOptions.length}
+                        handleChange={() => handleToggleAll()}
+                        text="Toggle All"
+                        classes="margin-top"
+                    />
                 </Field>
             </div>
             <div className="size-lg-12">
@@ -108,23 +107,13 @@ const AddManufacturerForm = ({
         </Form>
     );
 
-    function handleServiceChange(id) {
-        let newServiceIDs = serviceIDs !== null ? [...serviceIDs] : [];
-        if (serviceIDs.includes(id)) {
-            newServiceIDs = newServiceIDs.filter(sid => sid !== id);
-        } else {
-            newServiceIDs.push(id);
-        }
-        handleInputChange('serviceIDs', newServiceIDs);
-    }
-
     function handleToggleAll() {
         let newServiceIDs = serviceIDs.length ? [...serviceIDs] : [];
 
         if (serviceIDs.length === serviceOptions.length) {
             newServiceIDs = [];
         } else {
-            newServiceIDs = serviceOptions.map(({ value }) => value);
+            newServiceIDs = serviceOptions.map(({ value }) => value.toString());
         }
 
         handleInputChange('serviceIDs', newServiceIDs);
