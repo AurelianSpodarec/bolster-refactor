@@ -13,6 +13,7 @@ const MultiDropdownOptions = ({
     originalDropdownMultiAns,
     isManufacturingEnabledForDrawing,
     defaultDropdownSorting,
+    companyID,
 }) => {
     let isManufacturingEnabledForType = false;
     let formattedOpts = [];
@@ -24,6 +25,9 @@ const MultiDropdownOptions = ({
     }, []);
 
     const filteredOptions = dropdownOptions.filter(option => {
+        if (option.companyID !== companyID && option.companyID !== null) {
+            return false;
+        }
         if (option.type + '' === optionType + '') {
             // while filtering check whether manufacturing enabled for specific type
             if (
