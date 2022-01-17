@@ -12,8 +12,9 @@ export const dismissCompanyAlertsRequest = () => ({
     type: DISMISS_COMPANY_ALERTS_REQUEST,
 });
 
-export const dismissCompanyAlertsSuccess = () => ({
+export const dismissCompanyAlertsSuccess = payload => ({
     type: DISMISS_COMPANY_ALERTS_SUCCESS,
+    payload,
 });
 
 export const dismissCompanyAlertsFailure = error => ({
@@ -25,7 +26,7 @@ export default () => dispatch => {
     dispatch(dismissCompanyAlertsRequest());
 
     return axios
-        .delete(`${API_URL}/alertMessages/all`, {}, getHeaders())
+        .delete(`${API_URL}/alertMessages/all`, getHeaders())
         .then(() => dispatch(dismissCompanyAlertsSuccess()))
         .catch(err => {
             dispatch(dismissCompanyAlertsFailure(err));
