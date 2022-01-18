@@ -8,7 +8,7 @@ import BlockContainer from '../../block/containers/BlockContainer';
 import ModalOuterContainer from '../containers/ModalOuterContainer';
 
 const DrawingExpiryModal = ({ hideModal, id, hierarchyID }) => {
-    const { hierarchyDrawings, isFetching } = useHierarchyDrawingExpiry(id, hierarchyID);
+    const { hierarchyDrawings, isFetching, error } = useHierarchyDrawingExpiry(id, hierarchyID);
 
     return (
         <ModalOuterContainer handleClose={hideModal}>
@@ -17,6 +17,7 @@ const DrawingExpiryModal = ({ hideModal, id, hierarchyID }) => {
             <BlockContainer
                 isFetching={isFetching}
                 isEmpty={!hierarchyDrawings.length}
+                error={error}
                 noDataMessage="There are no drawings on this hierarchy"
                 contentClass="no-padding"
             >
