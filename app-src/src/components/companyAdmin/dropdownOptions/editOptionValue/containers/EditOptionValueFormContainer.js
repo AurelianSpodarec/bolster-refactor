@@ -10,7 +10,7 @@ import EditOptionValueForm from '../presentational/EditOptionValueForm';
 class EditOptionValueFormContainer extends Component {
     state = {
         name: this.props.optionValue.name,
-        serviceIDs: this.props.optionValue.serviceIDs || [],
+        serviceIDs: [],
     };
 
     render() {
@@ -28,9 +28,16 @@ class EditOptionValueFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        const subscribedServiceIDs = this.getServicesFromSubscriptions();
+        const {
+            optionValue: { serviceIDs },
+        } = this.props;
 
-        this.setState({ serviceIDs: [...subscribedServiceIDs] });
+        const subscribedServiceIDs = this.getServicesFromSubscriptions();
+        const stringifiedServiceIDs = serviceIDs?.map(id => id.toString());
+
+        this.setState({
+            serviceIDs: serviceIDs !== null ? stringifiedServiceIDs : subscribedServiceIDs,
+        });
     };
 
     handleInputChange = (name, value) => {

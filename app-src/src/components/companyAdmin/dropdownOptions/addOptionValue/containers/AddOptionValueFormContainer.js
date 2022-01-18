@@ -37,8 +37,7 @@ class AddOptionValueFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        const serviceIDs = this.getServicesFromSubscriptions();
-
+        const serviceIDs = this.getServicesFromSubscriptions().map(({ value }) => value);
         this.props.showOAndMTsAndCsModal('add option value');
 
         this.setState({ serviceIDs });
@@ -66,14 +65,8 @@ class AddOptionValueFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
         const { createOptionValue, manufacturer, filesUploading } = this.props;
-        const {
-            name,
-            serviceIDs,
-            fileS3Key,
-            confirmNoDocument,
-            showConfirmNoDocument,
-            docName,
-        } = this.state;
+        const { name, serviceIDs, fileS3Key, confirmNoDocument, showConfirmNoDocument, docName } =
+            this.state;
 
         let postBody = { name, serviceIDs };
 

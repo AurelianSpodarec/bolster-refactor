@@ -41,11 +41,9 @@ class AddOptionValueFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { services } = this.props;
+        const serviceIDs = this.formatServices().map(({ value }) => value);
 
-        const serviceIDs = services.map(({ id }) => id);
-
-        this.setState({ serviceIDs: [...serviceIDs] });
+        this.setState({ serviceIDs: serviceIDs });
     };
 
     handleInputChange = (name, value) => {
@@ -86,14 +84,8 @@ class AddOptionValueFormContainer extends Component {
         e.preventDefault();
         const { createOptionValue, manufacturer, filesUploading } = this.props;
 
-        const {
-            name,
-            serviceIDs,
-            fileS3Key,
-            confirmNoDocument,
-            showConfirmNoDocument,
-            docName,
-        } = this.state;
+        const { name, serviceIDs, fileS3Key, confirmNoDocument, showConfirmNoDocument, docName } =
+            this.state;
 
         let postBody = {};
 

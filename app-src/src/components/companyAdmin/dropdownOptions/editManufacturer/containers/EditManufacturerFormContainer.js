@@ -11,7 +11,7 @@ import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 class EditManufacturerFormContainer extends Component {
     state = {
         name: this.props.manufacturer.name,
-        serviceIDs: this.props.manufacturer.serviceIDs || [],
+        serviceIDs: [],
     };
 
     render() {
@@ -29,9 +29,15 @@ class EditManufacturerFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        const subscribedServiceIDs = this.getServicesFromSubscriptions();
+        const {
+            manufacturer: { serviceIDs },
+        } = this.props;
+        const subscribedServiceIDs = this.getServicesFromSubscriptions().map(({ value }) => value);
+        const stringifiedServiceIDs = serviceIDs?.map(id => id.toString());
 
-        this.setState({ serviceIDs: subscribedServiceIDs });
+        this.setState({
+            serviceIDs: serviceIDs !== null ? stringifiedServiceIDs : subscribedServiceIDs,
+        });
     };
 
     handleInputChange = (name, value) => {
