@@ -4,7 +4,11 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import { ALERT_FREQUENCY_SUFFIX_VALUES, ALERT_METHOD_VALUES } from 'constants/companyAdmin/enums';
+import {
+    ALERT_FREQUENCY_SUFFIX_VALUES,
+    ALERT_FREQUENCY_TYPES,
+    ALERT_METHOD_VALUES,
+} from 'constants/companyAdmin/enums';
 import { companyUser } from 'selectors/companyAdmin/companyUser';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import { dismissAlert } from 'actions/companyAdmin/alerts/sync/deleteAlert';
@@ -24,7 +28,7 @@ const HierarchyAlertItem = ({
         description,
     },
 }) => {
-    const [showModal, setShowModal] = useState(false);
+    const [dismissAlertModal, setDismissAlertModal] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -33,24 +37,23 @@ const HierarchyAlertItem = ({
 
     const user = useSelector(state => companyUser(state, createdByCompanyUserID));
 
-    const handelClick = () => {
-        setShowModal(true);
+    const handleClick = () => {
+        setDismissAlertModal(true);
     };
 
-    const handelDismissAlert = id => {
-        setShowModal(false);
+    const handleDismissAlert = id => {
+        setDismissAlertModal(false);
         dispatch(dismissAlert(id));
     };
-
     return (
         <>
             <DismissAlertModal
                 id={id}
                 name={name}
                 date={date}
-                showModal={showModal}
-                setShowModal={setShowModal}
-                handelDismissAlert={handelDismissAlert}
+                dismissAlertModal={dismissAlertModal}
+                setDismissAlertModal={setDismissAlertModal}
+                handleDismissAlert={handleDismissAlert}
             />
             <tr>
                 <td className="left-align">
@@ -63,7 +66,7 @@ const HierarchyAlertItem = ({
                 <td>{ALERT_METHOD_VALUES[method]}</td>
                 <td>{user && `${user.userFirstName} ${user.userLastName}/${user.companyName}`}</td>
                 <td>
-                    {frequencyType === 1
+                    {frequencyType === ALERT_FREQUENCY_TYPES.ONCE
                         ? 'Single'
                         : frequencyAmount + ' per ' + ALERT_FREQUENCY_SUFFIX_VALUES[frequencyType]}
                 </td>
@@ -71,12 +74,7 @@ const HierarchyAlertItem = ({
                 <td className="left-align">{description}</td>
 
                 <td>
-                    <button
-                        className="no-background-btn"
-                        onClick={() => {
-                            handelClick();
-                        }}
-                    >
+                    <button className="no-background-btn" onClick={handleClick}>
                         <i className="fas fa-times-circle close-icon" />
                     </button>
                 </td>
