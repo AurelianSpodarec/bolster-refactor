@@ -10,7 +10,7 @@ const CompanyMenu = ({
     totalCredits,
     totalRequests,
     unreadCount,
-    dismissSystemMessages,
+    markSystemMessagesAsRead,
     isSubscribed,
     openHelpScout,
     isClientAccess,
@@ -21,6 +21,7 @@ const CompanyMenu = ({
     isCompanyUser,
 }) => {
     const isCompanyUserOrSelecting = isCompanySelection || !isCompanyUser;
+
     return (
         <div className="menu">
             {isSubscribed && !isCompanyUserOrSelecting && (
@@ -94,7 +95,7 @@ const CompanyMenu = ({
                 <>
                     <MenuHeader title="Reports" />
                     <CompanyMenuItemContainer
-                        onClick={dismissSystemMessages}
+                        onClick={markSystemMessagesAsRead}
                         link="/company/reports"
                     >
                         {!!unreadCount && <span className="number">{unreadCount}</span>}

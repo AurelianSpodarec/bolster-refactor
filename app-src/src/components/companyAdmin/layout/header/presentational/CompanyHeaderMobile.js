@@ -11,7 +11,6 @@ import { selectTotalMessagesCount } from 'selectors/companyAdmin/messageCentre';
 const CompanyHeaderMobile = ({
     company,
     companyColour,
-    unreadMessageCount,
     totalCredits,
     totalRequests,
     showModal,
@@ -57,7 +56,7 @@ const CompanyHeaderMobile = ({
                 {/*** profile ***/}
                 <HeaderProfileContainer
                     company={company}
-                    unreadMessageCount={unreadMessageCount}
+                    unreadMessageCount={totalMessagesCount}
                     totalCredits={totalCredits}
                     totalRequests={totalRequests}
                     showModal={showModal}

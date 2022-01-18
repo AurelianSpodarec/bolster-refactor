@@ -1,22 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import moment from 'moment';
 
 import CompanyMenu from '../presentational/CompanyMenu';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
-import dismissSystemMessages from 'actions/companyAdmin/messageCentre/async/dismissSystemMessages';
 import { isEmpty } from 'helpers/generic';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { GENERATE_QR_CODES } from 'constants/shared/modalTypes';
+import { selectTotalMessagesCount } from 'selectors/companyAdmin/messageCentre';
+import markSystemMessagesAsRead from 'actions/companyAdmin/messageCentre/async/markSystemMessagesAsRead';
 
 const CompanyMenuContainer = ({
     isFromHeadquarters,
-    unreadMessageCount,
     totalCredits,
     totalRequests,
     notifications,
-    dismissSystemMessages,
+    markSystemMessagesAsRead,
     subscriptions,
     subscriptions: { startOn },
     hasInitiallyFetched,
@@ -32,9 +32,8 @@ const CompanyMenuContainer = ({
 
     const unread = notifications.filter(({ isRead }) => !isRead);
     const unreadCount = unread.length;
-    const dismissNotifications = () => {
-        dismissSystemMessages(MESSAGE_TYPES.NOTIFICATION);
-    };
+    const unreadMessageCount = useSelector(selectTotalMessagesCount);
+
     const [shouldRestrictPayments, setShouldRestrictPayments] = useState(false);
 
     function usePrevious(value) {
@@ -60,7 +59,7 @@ const CompanyMenuContainer = ({
             totalRequests={totalRequests}
             isFromHeadquarters={isFromHeadquarters}
             unreadCount={unreadCount}
-            dismissSystemMessages={dismissNotifications}
+            markSystemMessagesAsRead={markSystemMessagesAsRead}
             openHelpScout={_openHelpScout}
             isClientAccess={isClientAccess}
             handleGenerateQRCodesModal={handleGenerateQRCodesModal}
@@ -111,9 +110,6 @@ const mapStateToProps = ({
         },
     },
 }) => {
-    const unreadMessageCount = Object.values(systemMessages).filter(
-        ({ type, isRead }) => type === MESSAGE_TYPES.SYSTEM && !isRead,
-    ).length;
     const totalCredits = Object.values(credits).reduce((a, b) => a + b.quantity, 0);
     const totalRequests =
         Object.values(incomingTransferRequests).length + Object.values(pendingInvites).length;
@@ -123,7 +119,6 @@ const mapStateToProps = ({
     return {
         hasInitiallyFetched,
         subscriptions,
-        unreadMessageCount,
         totalCredits,
         totalRequests,
         isFromHeadquarters: !!headquartersCompanyID,
@@ -138,9 +133,7 @@ const mapStateToProps = ({
 };
 
 const mapDispatchToProps = dispatch => ({
-    dismissSystemMessages: messageType => {
-        dispatch(dismissSystemMessages(messageType));
-    },
+    markSystemMessagesAsRead: () => dispatch(markSystemMessagesAsRead()),
     showModal: (type, props) => dispatch(showModal(type, props)),
 });
 
