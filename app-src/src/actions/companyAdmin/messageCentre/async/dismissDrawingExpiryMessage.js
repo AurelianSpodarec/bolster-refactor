@@ -8,26 +8,26 @@ import {
     DISMISS_DRAWING_EXPIRY_MESSAGE_FAILURE,
 } from 'constants/actionTypes/messageCentre';
 
-export const dismissDrawingExpiryMessageRequest = id => ({
+export const dismissDrawingExpiryMessageRequest = () => ({
     type: DISMISS_DRAWING_EXPIRY_MESSAGE_REQUEST,
-    id,
 });
 
-export const dismissDrawingExpiryMessageSuccess = () => ({
+export const dismissDrawingExpiryMessageSuccess = payload => ({
     type: DISMISS_DRAWING_EXPIRY_MESSAGE_SUCCESS,
+    payload,
 });
 
-export const dismissDrawingExpiryMessageFailure = (id, error) => ({
+export const dismissDrawingExpiryMessageFailure = error => ({
     type: DISMISS_DRAWING_EXPIRY_MESSAGE_FAILURE,
-    id,
+
     error,
 });
 
 export default id => dispatch => {
-    dispatch(dismissDrawingExpiryMessageRequest(id));
+    dispatch(dismissDrawingExpiryMessageRequest());
 
     return axios
-        .delete(`${API_URL}/drawingExpiryMessages/${id}`, null, getHeaders())
-        .then(() => dispatch(dismissDrawingExpiryMessageSuccess()))
+        .delete(`${API_URL}/drawingExpiryMessages/${id}`, getHeaders())
+        .then(() => dispatch(dismissDrawingExpiryMessageSuccess(id)))
         .catch(err => dispatch(dismissDrawingExpiryMessageFailure(id, err.message)));
 };
