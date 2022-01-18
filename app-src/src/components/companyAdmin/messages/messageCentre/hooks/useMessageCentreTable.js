@@ -73,7 +73,7 @@ const useMessageCentreTable = () => {
         }
     }, [searchTerm, selectedTab, messageLookup]);
 
-    const shouldShowSearch = searchTerm || !!messages.length;
+    const shouldShowSearch = !!searchTerm || !!messages.length;
 
     return {
         selectedTab,
