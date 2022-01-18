@@ -30,6 +30,7 @@ const ExpiryToolForm = ({
     );
     const earliestDrawing = sortedDrawings[0];
     const latestDrawing = sortedDrawings[sortedDrawings.length - 1];
+
     return (
         <BlockContainer
             isFetching={fetchingCompanies}
@@ -70,6 +71,19 @@ const ExpiryToolForm = ({
                             could be re-activating it from todays date.
                         </p>
                     )}
+                    <Field name="Upload Date(s)" classes>
+                        {currentDrawings.length === 1 && (
+                            <p className="size-lg-12">
+                                <DateTimeContainer date={currentDrawings[0].createdOn} />
+                            </p>
+                        )}
+                        {currentDrawings.length > 1 && (
+                            <p className="size-lg-12">
+                                <DateTimeContainer date={earliestDrawing.createdOn} /> -{' '}
+                                <DateTimeContainer date={latestDrawing.createdOn} />
+                            </p>
+                        )}
+                    </Field>
                     <Field name="Current Expiration Date(s)" classes>
                         {currentDrawings.length === 1 && (
                             <p className="size-lg-12">

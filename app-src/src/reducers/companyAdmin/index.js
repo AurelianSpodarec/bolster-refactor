@@ -59,6 +59,10 @@ import userDocumentsReducer from './userDocuments';
 import zonesReducer from './zones';
 import companySelectionReducer from './companySelection';
 import alertsReducer from './alerts';
+import timesheetsReducer from './timesheets';
+import timesheetPinStatsReducer from './timesheetPinStats';
+import userPinFeedsReducer from './userPinFeeds';
+import bugReportsReducer from './bugReports';
 
 export default combineReducers({
     activityLogReducer,
@@ -69,6 +73,7 @@ export default combineReducers({
     appReducer,
     approvedCompaniesReducer,
     buildingsReducer,
+    bugReportsReducer,
     cardsReducer,
     clientsReducer,
     companyAddressesGeocodeReducer,
@@ -120,4 +125,7 @@ export default combineReducers({
     userDocumentsReducer,
     userGuideReducer,
     zonesReducer,
+    timesheetsReducer,
+    timesheetPinStatsReducer,
+    userPinFeedsReducer,
 });

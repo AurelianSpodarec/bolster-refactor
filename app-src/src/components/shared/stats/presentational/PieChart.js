@@ -22,6 +22,7 @@ const PieChart = ({
     serviceID,
     serviceOptions,
     handleChange,
+    noDataMessageOverride,
     // style
 }) => {
     const statsToUse = serviceID ? stats.statusesByService[serviceID] || {} : stats.statuses;
@@ -66,7 +67,11 @@ const PieChart = ({
 
             {isStatsEmpty ? (
                 <p className="no-data size-lg-12">
-                    There are currently no pins on this {hierarchyType}.
+                    {noDataMessageOverride ? (
+                        noDataMessageOverride
+                    ) : (
+                        <>There are currently no pins on this {hierarchyType}.</>
+                    )}
                 </p>
             ) : (
                 <div className="size-lg-12">

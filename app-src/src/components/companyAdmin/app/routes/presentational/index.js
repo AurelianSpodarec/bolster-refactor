@@ -29,6 +29,7 @@ import UserGuidesRoutes from './UserGuidesRoutes';
 import ReleaseNotesRoutes from './ReleaseNotesRoutes';
 import CompanySelection from 'components/companyAdmin/companySelection/CompanySelection';
 import UpcomingAlertsRoutes from './UpcomingAlertsRoutes';
+import BugReportRoutes from './BugReportRoutes';
 // import withTermsAuth from '../../hocs/withTermsAuth';
 
 const CompanyRoutes = ({ base = '/company' }) => (
@@ -47,6 +48,7 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route path={`${base}/recently-deleted`} component={RecentlyDeletedRoutes} />
         <Route path={`${base}/settings`} component={SettingsRoutes} />
         <Route path={`${base}/activity-log`} component={ActivityLogRoutes} />
+        <Route path={`${base}/bug-report`} component={BugReportRoutes} />
         <Route path={`${base}/sites`} component={withSubscriptionAuth(SitesRoutes)} />
         <Route path={`${base}/subscription`} component={SubscriptionRoutes} />
         <Route path={`${base}/tools`} component={withSubscriptionAuth(ToolsRoutes)} />

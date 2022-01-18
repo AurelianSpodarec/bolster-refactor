@@ -40,6 +40,8 @@ class SinglePinContainer extends Component {
 
         let drawingID = null;
 
+        fetchAllOptionValues();
+
         fetchSinglePin(pinId)
             .then(({ payload }) => {
                 drawingID = payload.pin.drawingID;
@@ -54,7 +56,6 @@ class SinglePinContainer extends Component {
                 if (drawingID) {
                     fetchPinsForInspectionLog(drawingID, pinId);
                 }
-                fetchAllOptionValues();
             });
     };
 }

@@ -126,9 +126,11 @@ const AllOperativesListItem = ({
                             <i className="far fa-user" /> Make Admin
                         </ButtonContainer>
                     )}
-                    <Link className="button green " to="/company/users-management/timesheets">
-                        <i className="far fa-eye" />
-                        View Timesheet
+                    <Link
+                        className="button green"
+                        to={`/company/users-management/operatives/${user.id}/timesheet`}
+                    >
+                        <i className="far fa-eye" /> View Timesheet
                     </Link>
                     <Link
                         className="button yellow"

@@ -68,7 +68,7 @@ class EditPinFormContainer extends Component {
             hierarchyType,
             selectedHistory,
         } = this.props;
-        
+
         if (isEmpty(coordinates.lat) || isEmpty(coordinates.lng)) {
             if (hierarchyType === 'drawing') {
                 history.push(`/company/drawings/${drawingID}`);

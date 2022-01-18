@@ -29,7 +29,7 @@ import {
     ADD_INVOICE_COMMENT_REQUEST,
     ADD_INVOICE_COMMENT_SUCCESS,
 } from 'constants/actionTypes/superAdminInvoices';
-import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 import { HIDE_MODAL } from 'constants/actionTypes/generic';
 
 export default combineReducers({

@@ -9,7 +9,6 @@ import { DragDropContextProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
-import * as serviceWorker from 'helpers/serviceWorker';
 import reducer from 'reducers';
 import '_content/scss/font-awesome.css';
 import '_content/scss/main.scss';
@@ -34,5 +33,3 @@ ReactDOM.render(
     </Router>,
     document.getElementById('root'),
 );
-
-// serviceWorker.unregister();

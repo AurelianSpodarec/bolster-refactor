@@ -85,10 +85,9 @@ const EditTemplateQuestionModalContainerFN = ({
             !isEmpty(question.options)
         ) {
             formData.optionColour = formData.options.reduce((res, item) => {
-                return [...res, { Name: item.text, HexValue: '#ffffff' }];
+                return [...res, { name: item.text, hexValue: '#ffffff' }];
             }, []);
         }
-
         updateQuestionFields(formData);
     }
 };

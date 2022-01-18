@@ -25,7 +25,6 @@ const EditTextSettingsFormContainer = ({
 
     const [formData, handleChange] = useForm({
         loginText: loginText || '',
-        registerText: registerText || '',
     });
 
     const prevProps = usePrevious({ isFetching, postSuccess, error });

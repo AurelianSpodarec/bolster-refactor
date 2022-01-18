@@ -46,8 +46,11 @@ const OperativesRoutes = () => {
 
         const ret = arr.filter(user => {
             const name = `${user.userFirstName} ${user.userLastName}`.toLowerCase();
+            const isCorrectType =
+                user.type === COMPANY_USER_ROLE_TYPES.OPERATIVE ||
+                (!!user.endedOn && user.typeBeforeDeletion === COMPANY_USER_ROLE_TYPES.OPERATIVE);
             return (
-                user.type === COMPANY_USER_ROLE_TYPES.OPERATIVE &&
+                isCorrectType &&
                 (!searchTermLower ||
                     name.includes(searchTermLower) ||
                     user.userEmail.includes(searchTermLower))

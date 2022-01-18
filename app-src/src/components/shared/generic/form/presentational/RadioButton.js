@@ -7,12 +7,12 @@ const RadioButton = ({
     checked,
     handleInputChange,
     disabled = false,
-    extraDetails = ''
+    extraDetails = '',
 }) => (
     <div className={`radio-button ${disabled ? 'grey-out' : ''}`}>
         <input
             type="radio"
-            id={value}
+            id={name}
             name={name}
             value={value}
             checked={checked}
@@ -20,7 +20,7 @@ const RadioButton = ({
             disabled={disabled}
         />
         <div className={'holder'}>
-            <label className="text" htmlFor={value}>
+            <label className="text" htmlFor={name}>
                 {text}
             </label>
             <span className="outer">
