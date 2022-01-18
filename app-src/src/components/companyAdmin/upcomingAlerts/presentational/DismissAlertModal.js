@@ -1,6 +1,5 @@
 import React from 'react';
-import Moment from 'react-moment';
-import 'moment-timezone';
+import moment from 'moment';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -18,12 +17,11 @@ const DismissAlertModal = ({
         dismissAlertModal && (
             <ModalOuterContainer hideCloseButton>
                 <BlockHeading title={`Dismiss ${name}`} />
-                Are you sure you would like to dismiss this alert?
-                <br></br>
-                <br></br>
-                <Moment format={'DD/MM/YYYY'} date={date} />
-                <br></br>
-                {name}
+                <p>
+                    Are you sure you would like to dismiss{' '}
+                    <strong>{`${name} - ${moment(date).format('DD/MM/YYYY')} `}</strong>?
+                </p>
+
                 <BlockButtonWrapper>
                     <button
                         onClick={() => handleDismissAlert(id)}
