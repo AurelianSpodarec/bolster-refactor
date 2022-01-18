@@ -6809,6 +6809,7 @@ input {
     justify-content: space-between;
     border-bottom: 2px solid $text-grey;
     padding-right: 30%;
+    margin-bottom: 20px;
     
     .tab-item {
         padding-bottom: 5px;
@@ -6830,7 +6831,6 @@ input {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 10px 0;
 }
 
 .message-wrapper {
@@ -6899,8 +6899,8 @@ input {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 25px 0;
-
+    margin-bottom: 10px;
+    
     .button-wrapper {
         width: 100%;
         display: flex;
@@ -6978,4 +6978,40 @@ input {
             }
         }   
     }
+}
+
+
+.mc-drawing-expiry {
+    padding: 10px 0;
+    border-bottom: 1px solid $input-border-grey;
+
+    .red {
+        color: $red;
+    }
+ 
+    .green {
+        color: $green;
+    }
+
+
+    &:last-child{
+        border-bottom: none;
+    }
+
+    button {
+        background-color: transparent;
+        @include ubuntu;
+        font-size: 140%;
+        strong {
+            @include ubuntu-medium;
+        }
+
+        &:hover {
+         cursor: pointer;
+        }
+    }
+}
+
+.min-width-120 {
+    min-width: 120px;
 }

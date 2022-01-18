@@ -34,6 +34,6 @@ export const fetchHierarchyAlerts = (hierarchyType, hierarchyID) => async dispat
 
         dispatch(fetchHierarchyAlertsSuccess(data));
     } catch (error) {
-        dispatch(handleErrors(fetchHierarchyAlertsFailure(error)));
+        dispatch(handleErrors(fetchHierarchyAlertsFailure)(error));
     }
 };

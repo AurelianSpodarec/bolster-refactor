@@ -1,6 +1,10 @@
-import { useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useMemo, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
+import fetchCompanyAlerts from 'actions/companyAdmin/messageCentre/async/fetchCompanyAlerts';
+import fetchDrawingExpiryMessages from 'actions/companyAdmin/messageCentre/async/fetchDrawingExpiryMessages';
+import fetchOperativeAlerts from 'actions/companyAdmin/messageCentre/async/fetchOperativeAlerts';
+import fetchSystemMessages from 'actions/companyAdmin/messageCentre/async/fetchSystemMessages';
 import {
     selectMessageCentreIsFetching,
     selectMessageCentreError,
@@ -11,7 +15,11 @@ import {
     selectSelectedTab,
 } from 'selectors/companyAdmin/messageCentre';
 
+import { MESSAGE_CENTRE_TABS } from 'constants/companyAdmin/enums';
+
 const useMessageCentreTable = () => {
+    const dispatch = useDispatch();
+
     const selectedTab = useSelector(selectSelectedTab);
 
     const isFetching = useSelector(selectMessageCentreIsFetching);
@@ -23,6 +31,19 @@ const useMessageCentreTable = () => {
     const drawingExpiry = Object.values(useSelector(selectDrawingExpiryMessages));
 
     const [searchTerm, setSearchTerm] = useState('');
+
+    useEffect(() => {
+        switch (selectedTab) {
+            case MESSAGE_CENTRE_TABS.SYSTEM_MESSAGES:
+                return dispatch(fetchSystemMessages());
+            case MESSAGE_CENTRE_TABS.COMPANY_ALERTS:
+                return dispatch(fetchCompanyAlerts());
+            case MESSAGE_CENTRE_TABS.OPERATIVE_ALERTS:
+                return dispatch(fetchOperativeAlerts());
+            case MESSAGE_CENTRE_TABS.DRAWING_EXPIRY:
+                return dispatch(fetchDrawingExpiryMessages());
+        }
+    }, [selectedTab]);
 
     const messageLookup = {
         0: systemMessages,
@@ -52,6 +73,8 @@ const useMessageCentreTable = () => {
         }
     }, [searchTerm, selectedTab, messageLookup]);
 
+    const shouldShowSearch = !!searchTerm || !!messages.length;
+
     return {
         selectedTab,
         messages,
@@ -59,6 +82,7 @@ const useMessageCentreTable = () => {
         error,
         searchTerm,
         handleSearch,
+        shouldShowSearch,
     };
 };
 

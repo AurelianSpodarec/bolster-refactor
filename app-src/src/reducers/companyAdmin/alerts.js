@@ -53,6 +53,8 @@ function alertsReducer(state = {}, action) {
             return removeObjItem(state, action.payload);
         case CREATE_ALERT_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+        case UPDATE_ALERT_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }
@@ -64,6 +66,8 @@ function hierarchyAlertsReducer(state = {}, action) {
         case FETCH_HIERARCHY_ALERTS_SUCCESS:
             return convertArrToObj(action.payload);
         case DISMISS_ALERT_SUCCESS:
+            return removeObjItem(state, action.payload);
+        case UPDATE_ALERT_SUCCESS:
             return removeObjItem(state, action.payload);
         default:
             return state;
@@ -110,9 +114,11 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_HIERARCHY_ALERTS_REQUEST:
         case DISMISS_ALERT_REQUEST:
+        case UPDATE_ALERT_REQUEST:
         case FETCH_ALL_ALERTS_REQUEST:
             return null;
         case DISMISS_ALERT_FAILURE:
+        case UPDATE_ALERT_FAILURE:
         case FETCH_HIERARCHY_ALERTS_FAILURE:
         case FETCH_ALL_ALERTS_FAILURE:
             return action.error;

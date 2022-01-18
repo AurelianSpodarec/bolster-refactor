@@ -124,6 +124,7 @@ import {
     CREATE_HIERARCHY_ALERT_MODAL,
     GENERATE_TIMESHEET_REPORT,
     EXPANDED_MEDIA,
+    MESSAGE_CENTRE_DRAWING_EXPIRY,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -250,6 +251,7 @@ import NewUserDocumentModal from 'components/companyAdmin/userManagement/documen
 import CreateHierarchyAlertModal from 'components/shared/hierarchyAlert/createHierarchyAlertModal/CreateHierarchyAlertModal';
 import GenerateTimesheetReportModal from 'components/companyAdmin/userManagement/operatives/timesheets/modals/GenerateTimesheetReport';
 import ExpandedMediaModal from './ExpandedMediaModal';
+import ExpiringDrawingsModal from 'components/companyAdmin/messages/messageCentre/listItems/ExpiringDrawingsModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -374,6 +376,7 @@ const MODAL_COMPONENTS = {
     [CREATE_HIERARCHY_ALERT_MODAL]: CreateHierarchyAlertModal,
     [GENERATE_TIMESHEET_REPORT]: GenerateTimesheetReportModal,
     [EXPANDED_MEDIA]: ExpandedMediaModal,
+    [MESSAGE_CENTRE_DRAWING_EXPIRY]: ExpiringDrawingsModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

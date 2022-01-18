@@ -14,14 +14,8 @@ import dismissDrawingExpiryMessages from 'actions/companyAdmin/messageCentre/asy
 
 const MessageCentreTable = () => {
     const dispatch = useDispatch();
-    const {
-        selectedTab,
-        messages,
-        isFetching,
-        error,
-        searchTerm,
-        handleSearch,
-    } = useMessageCentreTable();
+    const { selectedTab, messages, isFetching, error, searchTerm, handleSearch, shouldShowSearch } =
+        useMessageCentreTable();
 
     const handleDismiss = () => {
         switch (selectedTab) {
@@ -40,17 +34,23 @@ const MessageCentreTable = () => {
         <BlockContainer>
             <MessageCentreTabs selectedTab={selectedTab} />
             <div className="size-lg-12">
-                <div className="action-bar">
-                    <div className="size-lg-7">
-                        <SearchBar omitIcon handleChange={handleSearch} searchTerm={searchTerm} />
+                {shouldShowSearch && (
+                    <div className="action-bar">
+                        <div className="size-lg-7">
+                            <SearchBar
+                                omitIcon
+                                handleChange={handleSearch}
+                                searchTerm={searchTerm}
+                            />
+                        </div>
+                        <div className="button-wrapper">
+                            <button className="button rounded red" onClick={() => handleDismiss()}>
+                                <i className="fas fa-trash-alt"></i>
+                                Dismiss All
+                            </button>
+                        </div>
                     </div>
-                    <div className="button-wrapper">
-                        <button className="button rounded red" onClick={() => handleDismiss()}>
-                            <i className="fas fa-trash-alt"></i>
-                            Dismiss All
-                        </button>
-                    </div>
-                </div>
+                )}
                 <MessagesList
                     messages={messages}
                     isFetching={isFetching}
