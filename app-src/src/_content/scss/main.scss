@@ -6766,6 +6766,7 @@ input {
     justify-content: space-between;
     border-bottom: 2px solid $text-grey;
     padding-right: 30%;
+    margin-bottom: 20px;
     
     .tab-item {
         padding-bottom: 5px;
@@ -6856,7 +6857,6 @@ input {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 25px 0;
 
     .button-wrapper {
         width: 100%;
