@@ -16,6 +16,7 @@ import { dismissAlert } from 'actions/companyAdmin/alerts/sync/deleteAlert';
 import DismissAlertModal from './DismissAlertModal';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import EditAlertModal from './EditAlertModal';
+import { updateAlert } from 'actions/companyAdmin/alerts/sync/updateAlert';
 
 const AlertItem = ({
     alert: {
@@ -50,7 +51,7 @@ const AlertItem = ({
 
     const handleEditAlert = id => {
         setEditAlertModal(false);
-        console.log(id + 'editing');
+        dispatch(updateAlert(id));
     };
 
     return (
