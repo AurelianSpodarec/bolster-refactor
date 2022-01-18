@@ -13,7 +13,6 @@ const DrawingExpiryListItem = ({ message: { id, drawings, createdOn } }) => {
 
     const handleViewDrawings = e => {
         e.preventDefault();
-
         dispatch(showModal(MESSAGE_CENTRE_DRAWING_EXPIRY, { drawings }));
     };
     return (
@@ -27,7 +26,7 @@ const DrawingExpiryListItem = ({ message: { id, drawings, createdOn } }) => {
                     </span>
                     <button
                         className="no-background-btn"
-                        onClick={() => dispatch(dismissDrawingExpiryMessage())}
+                        onClick={() => dispatch(dismissDrawingExpiryMessage(id))}
                     >
                         <i className="fas fa-times-circle close-icon" />
                     </button>

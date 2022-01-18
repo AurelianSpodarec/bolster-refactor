@@ -19,7 +19,6 @@ export const dismissDrawingExpiryMessageSuccess = payload => ({
 
 export const dismissDrawingExpiryMessageFailure = error => ({
     type: DISMISS_DRAWING_EXPIRY_MESSAGE_FAILURE,
-
     error,
 });
 
