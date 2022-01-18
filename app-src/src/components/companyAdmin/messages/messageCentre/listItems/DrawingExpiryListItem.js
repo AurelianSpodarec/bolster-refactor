@@ -4,14 +4,12 @@ import moment from 'moment';
 
 import dismissDrawingExpiryMessage from 'actions/companyAdmin/messageCentre/async/dismissDrawingExpiryMessage';
 
-const DrawingExpiryListItem = ({
-    message: { id, createdByUserFirstName, createdByUserLastName, createdOn, message },
-}) => {
+const DrawingExpiryListItem = ({ message: { id, drawings, createdOn } }) => {
     const dispatch = useDispatch();
     return (
         <div key={id} className="message-wrapper">
             <div className="title-wrapper">
-                <h3 className="title">{`${createdByUserFirstName} ${createdByUserLastName}`}</h3>
+                <h3 className="title">{`You have ${drawings.length} drawings expiring soon`}</h3>
 
                 <div className="date-wrapper">
                     <span className="date">{moment(createdOn).format('DD/MM/YY - hh:mm')}</span>
@@ -25,7 +23,7 @@ const DrawingExpiryListItem = ({
             </div>
 
             <div>
-                <p>{message}</p>
+                <button className="button rounded">View Drawings</button>
             </div>
         </div>
     );
