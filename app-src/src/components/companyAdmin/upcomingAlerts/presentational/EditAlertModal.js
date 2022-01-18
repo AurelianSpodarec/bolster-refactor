@@ -24,15 +24,7 @@ import TextAreaContainer from 'components/shared/generic/form/containers/TextAre
 import { enumFormat } from 'helpers/generic';
 import useEditHierarchyAlert from '../hierarchys/hooks/useEditHierarchysAlerts';
 
-const EditAlertModal = ({
-    id,
-    hierarchyType,
-    hierarchyID,
-    setEditAlertModal,
-    editAlertModal,
-    handleEditAlert,
-    hideModal,
-}) => {
+const EditAlertModal = ({ id, setEditAlertModal, editAlertModal, handleEditAlert, hideModal }) => {
     const { form, handleChange, handleSubmit } = useEditHierarchyAlert(id);
 
     const isPosting = useSelector(alertsIsPosting);
@@ -48,7 +40,7 @@ const EditAlertModal = ({
     return (
         editAlertModal && (
             <ModalOuterContainer>
-                <BlockHeading title={`Edit ${HIERARCHY_TYPES[hierarchyType]} alert`} />
+                <BlockHeading title={`Edit ${HIERARCHY_TYPES[form.hierarchyType]} alert`} />
 
                 <Form className="generic-form" onSubmit={handleSubmit}>
                     <div className="size-lg-12">
