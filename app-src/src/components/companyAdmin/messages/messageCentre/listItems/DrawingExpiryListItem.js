@@ -1,10 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import moment from 'moment';
+
+import { MESSAGE_CENTRE_DRAWING_EXPIRY } from 'constants/shared/modalTypes';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import dismissDrawingExpiryMessage from 'actions/companyAdmin/messageCentre/async/dismissDrawingExpiryMessage';
-import { MESSAGE_CENTRE_DRAWING_EXPIRY } from 'constants/shared/modalTypes';
+
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const DrawingExpiryListItem = ({ message: { id, drawings, createdOn } }) => {
     const dispatch = useDispatch();
@@ -20,7 +22,9 @@ const DrawingExpiryListItem = ({ message: { id, drawings, createdOn } }) => {
                 <h3 className="title">{`You have ${drawings.length} drawings set to expire in the next 2 weeks`}</h3>
 
                 <div className="date-wrapper">
-                    <span className="date">{moment(createdOn).format('DD/MM/YY - hh:mm')}</span>
+                    <span className="date">
+                        <DateTimeContainer date={createdOn} />
+                    </span>
                     <button
                         className="no-background-btn"
                         onClick={() => dispatch(dismissDrawingExpiryMessage())}

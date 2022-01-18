@@ -2,8 +2,9 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import moment from 'moment';
 import dismissOperativeAlert from 'actions/companyAdmin/messageCentre/async/dismissOperativeAlert';
+
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const OperativeAlertsListItem = ({
     message: { id, createdByUserFirstName, createdByUserLastName, createdOn, message, sentCount },
@@ -16,7 +17,9 @@ const OperativeAlertsListItem = ({
                 <h3 className="title">{`${createdByUserFirstName} ${createdByUserLastName}`}</h3>
 
                 <div className="date-wrapper">
-                    <span className="date">{moment(createdOn).format('DD/MM/YY - hh:mm')}</span>
+                    <span className="date">
+                        <DateTimeContainer date={createdOn} />
+                    </span>
                     <button
                         className="no-background-btn"
                         onClick={() => dispatch(dismissOperativeAlert())}

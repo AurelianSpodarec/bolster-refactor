@@ -1,10 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 
 import { HIERARCHY_LINK_VALUES } from 'constants/companyAdmin/enums';
+
 import dismissCompanyAlert from 'actions/companyAdmin/messageCentre/async/dismissCompanyAlert';
+
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const CompanyAlertsListItem = ({
     message: {
@@ -27,7 +29,9 @@ const CompanyAlertsListItem = ({
                 <h3 className="title">{createdByUserName}</h3>
 
                 <div className="date-wrapper">
-                    <span className="date">{moment(createdOn).format('DD/MM/YY - hh:mm')}</span>
+                    <span className="date">
+                        <DateTimeContainer date={createdOn} />
+                    </span>
                     <button
                         className="no-background-btn"
                         onClick={() => dispatch(dismissCompanyAlert(id))}

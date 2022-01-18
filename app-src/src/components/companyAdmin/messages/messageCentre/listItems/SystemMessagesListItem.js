@@ -1,8 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import moment from 'moment';
 
 import dismissSystemMessage from 'actions/companyAdmin/messageCentre/async/dismissSystemMessage';
+
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const SystemMessagesListItem = ({ message: { id, createdOn, message } }) => {
     const dispatch = useDispatch();
@@ -11,7 +12,9 @@ const SystemMessagesListItem = ({ message: { id, createdOn, message } }) => {
         <div key={id} className="message-wrapper">
             <div className="title-wrapper">
                 <div className="date-wrapper">
-                    <span className="date">{moment(createdOn).format('DD/MM/YY - HH:mm')}</span>
+                    <span className="date">
+                        <DateTimeContainer date={createdOn} />
+                    </span>
                 </div>
                 <button
                     className="no-background-btn"
