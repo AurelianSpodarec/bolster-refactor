@@ -31,6 +31,6 @@ export const dismissAlert = id => async dispatch => {
 
         dispatch(dismissAlertSuccess(id));
     } catch (error) {
-        dispatch(handleErrors(dismissAlertFailure(error)));
+        dispatch(handleErrors(dismissAlertFailure)(error));
     }
 };

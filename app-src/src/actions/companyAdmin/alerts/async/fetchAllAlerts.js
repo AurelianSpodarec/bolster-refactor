@@ -31,6 +31,6 @@ export const fetchAllAlerts = () => async dispatch => {
 
         dispatch(fetchAllAlertsSuccess(data));
     } catch (error) {
-        dispatch(handleErrors(fetchAllAlertsFailure(error)));
+        dispatch(handleErrors(fetchAllAlertsFailure)(error));
     }
 };
