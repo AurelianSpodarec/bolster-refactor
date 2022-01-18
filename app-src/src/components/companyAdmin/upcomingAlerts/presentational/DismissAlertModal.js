@@ -13,29 +13,24 @@ const DismissAlertModal = ({
     dismissAlertModal,
     handleDismissAlert,
 }) => {
+    if (!dismissAlertModal) return null;
     return (
-        dismissAlertModal && (
-            <ModalOuterContainer hideCloseButton>
-                <BlockHeading title={`Dismiss ${name}`} />
-                <p>
-                    Are you sure you would like to dismiss{' '}
-                    <strong>{`${name} - ${moment(date).format('DD/MM/YYYY')} `}</strong>?
-                </p>
+        <ModalOuterContainer hideCloseButton>
+            <BlockHeading title={`Dismiss ${name}`} />
+            <p>
+                Are you sure you would like to dismiss{' '}
+                <strong>{`${name} - ${moment(date).format('DD/MM/YYYY')} `}</strong>?
+            </p>
 
-                <BlockButtonWrapper>
-                    <button
-                        onClick={() => handleDismissAlert(id)}
-                        type="submit"
-                        className="button red"
-                    >
-                        Dismiss
-                    </button>
-                    <button className="button" onClick={() => setDismissAlertModal(false)}>
-                        Cancel
-                    </button>
-                </BlockButtonWrapper>
-            </ModalOuterContainer>
-        )
+            <BlockButtonWrapper>
+                <button onClick={() => handleDismissAlert(id)} type="submit" className="button red">
+                    Dismiss
+                </button>
+                <button className="button" onClick={() => setDismissAlertModal(false)}>
+                    Cancel
+                </button>
+            </BlockButtonWrapper>
+        </ModalOuterContainer>
     );
 };
 
