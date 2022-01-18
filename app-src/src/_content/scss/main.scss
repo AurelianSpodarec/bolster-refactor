@@ -6788,7 +6788,6 @@ input {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 10px 0;
 }
 
 .message-wrapper {
@@ -6857,7 +6856,8 @@ input {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    margin-bottom: 10px;
+    
     .button-wrapper {
         width: 100%;
         display: flex;

@@ -73,6 +73,8 @@ const useMessageCentreTable = () => {
         }
     }, [searchTerm, selectedTab, messageLookup]);
 
+    const shouldShowSearch = searchTerm || !!messages.length;
+
     return {
         selectedTab,
         messages,
@@ -80,6 +82,7 @@ const useMessageCentreTable = () => {
         error,
         searchTerm,
         handleSearch,
+        shouldShowSearch,
     };
 };
 

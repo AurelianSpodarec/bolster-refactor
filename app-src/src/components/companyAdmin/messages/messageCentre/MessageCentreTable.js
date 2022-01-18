@@ -14,7 +14,7 @@ import dismissDrawingExpiryMessages from 'actions/companyAdmin/messageCentre/asy
 
 const MessageCentreTable = () => {
     const dispatch = useDispatch();
-    const { selectedTab, messages, isFetching, error, searchTerm, handleSearch } =
+    const { selectedTab, messages, isFetching, error, searchTerm, handleSearch, shouldShowSearch } =
         useMessageCentreTable();
 
     const handleDismiss = () => {
@@ -34,7 +34,7 @@ const MessageCentreTable = () => {
         <BlockContainer>
             <MessageCentreTabs selectedTab={selectedTab} />
             <div className="size-lg-12">
-                {!!messages.length && (
+                {shouldShowSearch && (
                     <div className="action-bar">
                         <div className="size-lg-7">
                             <SearchBar
