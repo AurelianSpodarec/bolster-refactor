@@ -123,7 +123,6 @@ import {
     USER_NEW_DOCUMENT,
     GENERATE_TIMESHEET_REPORT,
     EXPANDED_MEDIA,
-    UNCONFIRMED_EMAIL_MODAL,
     DRAWING_EXPIRY_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
@@ -250,8 +249,7 @@ import RequestDeleteInvoiceModal from 'components/companyAdmin/invoices/requestD
 import NewUserDocumentModal from 'components/companyAdmin/userManagement/documentsUploader/presentational/NewUserDocumentModal';
 import GenerateTimesheetReportModal from 'components/companyAdmin/userManagement/operatives/timesheets/modals/GenerateTimesheetReport';
 import ExpandedMediaModal from './ExpandedMediaModal';
-import UnconfirmedEmailModal from '../presentational/UnconfirmedEmailModal';
-import DrawingExpiryModal from './DrawingExpiryModal';
+import DrawingExpiryModal from '../presentational/DrawingExpiryModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -375,7 +373,6 @@ const MODAL_COMPONENTS = {
     [USER_NEW_DOCUMENT]: NewUserDocumentModal,
     [GENERATE_TIMESHEET_REPORT]: GenerateTimesheetReportModal,
     [EXPANDED_MEDIA]: ExpandedMediaModal,
-    [UNCONFIRMED_EMAIL_MODAL]: UnconfirmedEmailModal,
     [DRAWING_EXPIRY_MODAL]: DrawingExpiryModal,
 };
 

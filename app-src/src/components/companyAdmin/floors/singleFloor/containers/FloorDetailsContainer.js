@@ -16,6 +16,7 @@ import {
     DRAWING_EXPIRY_MODAL,
 } from 'constants/shared/modalTypes';
 import archiveFloor from 'actions/companyAdmin/floors/async/archiveFloor';
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 class FloorDetailsContainer extends Component {
     state = {
@@ -121,7 +122,7 @@ class FloorDetailsContainer extends Component {
         showModal(DRAWING_EXPIRY_MODAL, {
             hideModal,
             id,
-            hierarchyType: 'floor',
+            hierarchyID: HIERARCHY_IDS.FLOOR,
         });
     };
 

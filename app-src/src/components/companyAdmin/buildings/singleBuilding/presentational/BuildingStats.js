@@ -40,7 +40,7 @@ const BuildingStats = ({
                     <button className="button yellow" onClick={handleEditBuildingModal}>
                         <i className="far fa-pencil fa-fw" /> Edit
                     </button>
-                    <button className="button yellow" onClick={handleViewDrawingExpiryModal}>
+                    <button className="button red" onClick={handleViewDrawingExpiryModal}>
                         <i className="far fa-clock fa-fw" /> Drawing Expiry
                     </button>
                 </>

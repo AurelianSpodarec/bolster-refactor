@@ -51,7 +51,7 @@ const SiteStats = ({
                     <Link className="button" to={`/company/sites/${site.id}/change-ownership`}>
                         <i className="fa fa-exchange" /> Change Ownership
                     </Link>
-                    <button className="button yellow" onClick={handleViewDrawingExpiryModal}>
+                    <button className="button red" onClick={handleViewDrawingExpiryModal}>
                         <i className="far fa-clock fa-fw" /> Drawing Expiry
                     </button>
                 </>

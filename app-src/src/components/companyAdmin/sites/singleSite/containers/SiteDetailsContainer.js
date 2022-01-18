@@ -16,6 +16,7 @@ import {
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import deleteSite from 'actions/companyAdmin/sites/async/deleteSite';
 import archiveSite from 'actions/companyAdmin/sites/async/archiveSite';
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 class SiteDetailsContainer extends Component {
     state = {
@@ -52,15 +53,8 @@ class SiteDetailsContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const {
-            error,
-            deleteSuccess,
-            postSuccess,
-            postFailure,
-            history,
-            showModal,
-            hideModal,
-        } = this.props;
+        const { error, deleteSuccess, postSuccess, postFailure, history, showModal, hideModal } =
+            this.props;
         if (deleteSuccess && !prevProps.deleteSuccess) {
             hideModal();
             history.push('/company/sites');
@@ -119,7 +113,7 @@ class SiteDetailsContainer extends Component {
         showModal(DRAWING_EXPIRY_MODAL, {
             hideModal,
             id,
-            hierarchyType: 'site',
+            hierarchyID: HIERARCHY_IDS.SITE,
         });
     };
 

@@ -17,6 +17,7 @@ import {
 import deleteBuilding from 'actions/companyAdmin/buildings/async/deleteBuilding';
 import archiveBuilding from 'actions/companyAdmin/buildings/async/archiveBuilding';
 import { isObjEmpty } from 'helpers/generic';
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 class BuildingDetailsContainer extends Component {
     state = {
@@ -134,7 +135,7 @@ class BuildingDetailsContainer extends Component {
         showModal(DRAWING_EXPIRY_MODAL, {
             hideModal,
             id,
-            hierarchyType: 'building',
+            hierarchyID: HIERARCHY_IDS.BUILDING,
         });
     };
 

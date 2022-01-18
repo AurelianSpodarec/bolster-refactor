@@ -6839,3 +6839,31 @@ input {
         }   
     }
 }
+
+.drawing-expiry-item {
+    padding: 10px 0;
+    border-bottom: 1px solid $input-border-grey;
+
+    .red {
+        color: $red;
+    }
+ 
+    .green {
+        color: $green;
+    }
+ 
+    .bold-text {
+        font-weight: 500
+    }
+
+
+    &:last-child{
+        border-bottom: none;
+    }
+}
+
+.content-area {
+    &.no-padding {
+        padding: 0;
+    }
+}
