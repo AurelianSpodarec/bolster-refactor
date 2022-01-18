@@ -50,9 +50,8 @@ const AlertItem = ({
         dispatch(dismissAlert(id));
     };
 
-    const handleEditAlert = id => {
+    const handleEditAlert = () => {
         setEditAlertModal(false);
-        dispatch(updateAlert(id));
     };
 
     const isPlural = frequencyAmount > 1;
@@ -66,7 +65,6 @@ const AlertItem = ({
                 dismissAlertModal={dismissAlertModal}
                 setDismissAlertModal={setDismissAlertModal}
                 handleDismissAlert={handleDismissAlert}
-                handleEditAlert={handleEditAlert}
             />
 
             <EditAlertModal
