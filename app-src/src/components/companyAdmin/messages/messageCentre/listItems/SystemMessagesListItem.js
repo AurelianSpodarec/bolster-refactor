@@ -11,7 +11,7 @@ const SystemMessagesListItem = ({ message: { id, createdOn, message } }) => {
         <div key={id} className="message-wrapper">
             <div className="title-wrapper">
                 <div className="date-wrapper">
-                    <span className="date">{moment(createdOn).format('DD/MM/YY - hh:mm')}</span>
+                    <span className="date">{moment(createdOn).format('DD/MM/YY - HH:mm')}</span>
                 </div>
                 <button
                     className="no-background-btn"

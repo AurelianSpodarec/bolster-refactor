@@ -27,6 +27,7 @@ import {
     selectCompanyAlertsCount,
     selectDrawingExpiryMessagesCount,
 } from 'selectors/companyAdmin/messageCentre';
+import { sortByDate } from 'helpers/sorts';
 
 const { SYSTEM_MESSAGES, COMPANY_ALERTS, OPERATIVE_ALERTS, DRAWING_EXPIRY } = MESSAGE_CENTRE_TABS;
 
@@ -93,18 +94,22 @@ const useMessageCentreTable = () => {
 
     const messages = useMemo(() => {
         if (searchTerm) {
-            return messageLookup[selectedTab].filter(message => {
-                for (let key in message) {
-                    if (
-                        typeof message[key] === 'string' &&
-                        message[key].toLowerCase().includes(searchTerm.toLowerCase())
-                    ) {
-                        return true;
+            return [...messageLookup[selectedTab]]
+                .filter(message => {
+                    for (let key in message) {
+                        if (
+                            typeof message[key] === 'string' &&
+                            message[key].toLowerCase().includes(searchTerm.toLowerCase())
+                        ) {
+                            return true;
+                        }
                     }
-                }
-            });
+                })
+                .sort((a, b) => sortByDate(a.createdOn, b.createdOn));
         } else {
-            return messageLookup[selectedTab];
+            return [...messageLookup[selectedTab]].sort((a, b) =>
+                sortByDate(a.createdOn, b.createdOn),
+            );
         }
     }, [searchTerm, selectedTab, messageLookup]);
 
