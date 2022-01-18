@@ -15,7 +15,6 @@ const PinHistoryDetailsItem = ({
     handleDeleteHistoryModal,
     editedByUserName,
     drawingID,
-    isDeleteHistory,
     pin,
     templateName,
     canDeleteHistory,

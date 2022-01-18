@@ -6,15 +6,13 @@ import ReactDOMServer from 'react-dom/server';
 
 import MapPin from 'components/shared/pins/map/presentational/MapPin';
 import { FILE_STORAGE_URL } from 'config';
-import { Link } from 'react-router-dom';
-import { ACCESS_TYPES_VALUES, PIN_STATUS_COLOURS as COLOURS } from 'constants/companyAdmin/enums';
+import { PIN_STATUS_COLOURS as COLOURS } from 'constants/companyAdmin/enums';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
 import SinglePinGenerateReportContainer from '../containers/SinglePinGenerateReportContainer';
 import DrawingMapViewZones from 'components/companyAdmin/drawings/singleDrawing/presentational/DrawingMapViewZones';
-import moment from 'moment';
 
 const SinglePinMap = ({
     pin,
@@ -32,7 +30,6 @@ const SinglePinMap = ({
     onMobile,
     zones,
 }) => {
-    const canAddPin = drawing.accessType > ACCESS_TYPES_VALUES.VIEW_ONLY;
     const status = pinHistory.status;
     const pinColour = COLOURS[status] || 'red';
     const newPinIcon = L.divIcon({

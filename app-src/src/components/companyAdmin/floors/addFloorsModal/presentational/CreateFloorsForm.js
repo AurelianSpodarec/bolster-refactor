@@ -5,8 +5,6 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
-import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
 import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
@@ -47,55 +45,6 @@ const CreateFloorsForm = ({
                                 required
                             />
                         </Field>
-
-                        {/* <div className="size-lg-12">
-                            <div className="size-lg-6 size-md-12">
-                                <Field name="Send an alert?">
-                                    <CheckboxContainer
-                                        checked={floor.isAlertShowing}
-                                        name={`${floor.id}.*.isAlertShowing`}
-                                        text=""
-                                        handleChange={(name, value) =>
-                                            updateFloor(name, value, floor.id)
-                                        }
-                                    />
-                                </Field>
-                            </div>
-                        </div> */}
-
-                        {/* {floor.isAlertShowing && (
-                            <div className="size-lg-12">
-                                <div className="size-lg-12">
-                                    <Field name="Alert Message">
-                                        <TextAreaContainer
-                                            value={floor.message}
-                                            name={`${floor.id}.*.message`}
-                                            handleChange={(name, value) =>
-                                                updateFloor(name, value, floor.id)
-                                            }
-                                        />
-                                    </Field>
-                                </div>
-
-                                <div className="size-lg-12">
-                                    <Field name="Date to send">
-                                        <DatePickerPresentational
-                                            name={`${floor.id}.*.dateToSend`}
-                                            selected={floor.dateToSend}
-                                            onChange={value =>
-                                                updateFloor(
-                                                    `${floor.id}.*.dateToSend`,
-                                                    value,
-                                                    floor.id,
-                                                )
-                                            }
-                                            placeholderText="Date"
-                                            showTimeSelect
-                                        />
-                                    </Field>
-                                </div>
-                            </div>
-                        )} */}
                     </div>
                     {showManufacturingOptions ? (
                         <>

@@ -46,7 +46,6 @@ class CompanyAppContainer extends React.PureComponent {
         const {
             companyID,
             fetchHomeData,
-            fetchLatestAppVersion,
             fetchCompanySettings,
             resetFilterOptions,
             fetchCompanyData,
@@ -89,7 +88,6 @@ const mapDispatchToProps = dispatch => ({
             dispatch(fetchOutgoingTransferRequests());
             dispatch(fetchPendingInvites());
             dispatch(fetchOutgoingInvites());
-            dispatch(fetchMessagesBasic());
             dispatch(fetchCompanyReports());
             dispatch(companyFetchAllServices());
             dispatch(fetchAllSubscriptions());

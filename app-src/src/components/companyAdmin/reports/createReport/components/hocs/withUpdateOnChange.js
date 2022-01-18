@@ -6,7 +6,7 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-import { convertArrToObj, isEmpty, momentComparisonFormat } from 'helpers/generic';
+import { convertArrToObj, isEmpty } from 'helpers/generic';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { FURTHER_FILTRATION_OPTIONS, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import getOperativeOptions from 'actions/companyAdmin/reports/async/getOperativeOptions';

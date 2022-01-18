@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import updateUsersFilters from 'actions/superAdmin/users/sync/updateUsersFilter';
 import { connect } from 'react-redux';
 import UsersFilters from '../presentational/UsersFilters';

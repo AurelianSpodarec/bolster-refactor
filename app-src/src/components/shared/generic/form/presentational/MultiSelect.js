@@ -1,5 +1,5 @@
 import { useWindowDimensions } from 'helpers/hooks';
-import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import withFieldValidation from '../hocs/withFieldValidation';
 
 // MultiSelect is a multi select dropdown

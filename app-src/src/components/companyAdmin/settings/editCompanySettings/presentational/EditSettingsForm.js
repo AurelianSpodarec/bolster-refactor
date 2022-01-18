@@ -37,8 +37,6 @@ const EditSettingsForm = ({
     isUsingBolsterLabels,
     telephone,
     fax,
-    labelTelNumber,
-    labelCompanyName,
     isEditButtonEnabled,
     selectedRule,
     timeZoneOptions,
