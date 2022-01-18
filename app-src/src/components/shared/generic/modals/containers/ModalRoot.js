@@ -123,6 +123,7 @@ import {
     USER_NEW_DOCUMENT,
     UNCONFIRMED_EMAIL_MODAL,
     CREATE_HIERARCHY_ALERT_MODAL,
+    MESSAGE_CENTRE_DRAWING_EXPIRY,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -248,6 +249,7 @@ import RequestDeleteInvoiceModal from 'components/companyAdmin/invoices/requestD
 import NewUserDocumentModal from 'components/companyAdmin/userManagement/documentsUploader/presentational/NewUserDocumentModal';
 import UnconfirmedEmailModal from '../presentational/UnconfirmedEmailModal';
 import CreateHierarchyAlertModal from 'components/shared/hierarchyAlert/createHierarchyAlertModal/CreateHierarchyAlertModal';
+import ExpiringDrawingsModal from 'components/companyAdmin/messages/messageCentre/listItems/ExpiringDrawingsModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -371,6 +373,7 @@ const MODAL_COMPONENTS = {
     [USER_NEW_DOCUMENT]: NewUserDocumentModal,
     [UNCONFIRMED_EMAIL_MODAL]: UnconfirmedEmailModal,
     [CREATE_HIERARCHY_ALERT_MODAL]: CreateHierarchyAlertModal,
+    [MESSAGE_CENTRE_DRAWING_EXPIRY]: ExpiringDrawingsModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

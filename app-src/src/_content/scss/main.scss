@@ -6895,3 +6895,35 @@ input {
 .no-padding {
     padding: 0;
 }
+
+
+.mc-drawing-expiry {
+    padding: 10px 0;
+    border-bottom: 1px solid $input-border-grey;
+
+    .red {
+        color: $red;
+    }
+ 
+    .green {
+        color: $green;
+    }
+
+
+    &:last-child{
+        border-bottom: none;
+    }
+
+    button {
+        background-color: transparent;
+        @include ubuntu;
+        font-size: 140%;
+        strong {
+            @include ubuntu-medium;
+        }
+
+        &:hover {
+         cursor: pointer;
+        }
+    }
+}
