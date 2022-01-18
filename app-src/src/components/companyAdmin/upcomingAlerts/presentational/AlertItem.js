@@ -102,15 +102,16 @@ const AlertItem = ({
                 </td>
                 <td className="left-align">{name}</td>
                 <td className="left-align">{description}</td>
-                <td>
-                    <BlockButtonWrapper>
+                <td className="min-width-120">
+                    <BlockButtonWrapper additionalClasses="stacked">
                         <button
                             className="button yellow"
                             onClick={() => {
                                 setEditAlertModal(true);
                             }}
                         >
-                            <i className="far fa-pencil" /> Edit
+                            <i className="far fa-pencil" />
+                            Edit
                         </button>
 
                         <button
@@ -119,7 +120,7 @@ const AlertItem = ({
                                 setDismissAlertModal(true);
                             }}
                         >
-                            <i className="fas fa-trash-alt"></i>
+                            <i className="fas fa-trash-alt" />
                             Delete
                         </button>
                     </BlockButtonWrapper>
