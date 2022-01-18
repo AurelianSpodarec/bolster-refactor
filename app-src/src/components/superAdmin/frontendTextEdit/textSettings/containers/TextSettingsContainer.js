@@ -11,7 +11,7 @@ const TextSettingsContainer = ({
     error,
     lastFetchedDate,
 }) => {
-    const { loginText, registerText } = frontendText;
+    const { loginText } = frontendText;
 
     useEffect(() => {
         if (!lastFetchedDate) {
@@ -25,14 +25,7 @@ const TextSettingsContainer = ({
         }
     }, []);
 
-    return (
-        <TextSettings
-            loginText={loginText}
-            registerText={registerText}
-            isFetching={isFetching}
-            error={error}
-        />
-    );
+    return <TextSettings loginText={loginText} isFetching={isFetching} error={error} />;
 };
 
 const mapStateToProps = ({

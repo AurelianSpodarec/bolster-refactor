@@ -22,6 +22,7 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 import { POST_REPORT_SUCCESS } from 'constants/actionTypes/reports';
 import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOAndMTsAndCsModal';
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
+import CreateReportReloadOptions from './CreateReportReloadOptions';
 
 class OutputSettingsContainer extends Component {
     render() {
@@ -43,6 +44,7 @@ class OutputSettingsContainer extends Component {
         const sortByOptions = convertEnumToDropdownOptions(SORT_BY_OPTIONS_TEXT);
 
         return (
+            <>
             <OutputSettings
                 includePinLocation={includePinLocation}
                 isCSVGeneration={isCSVGeneration}
@@ -61,6 +63,8 @@ class OutputSettingsContainer extends Component {
                 includeFloorplanZones={includeFloorplanZones}
                 hasZones={hasZones}
             />
+            <CreateReportReloadOptions />
+            </>
         );
     }
 
@@ -137,7 +141,6 @@ class OutputSettingsContainer extends Component {
             },
             showModal,
             furtherFiltrationOption,
-            customFilters,
         } = this.props;
         if (!isEmpty(fieldErrors)) showFieldErrors();
         else if (isFloorplanGeneration || (isPDFGeneration && includeFloorplan)) {
@@ -198,6 +201,7 @@ class OutputSettingsContainer extends Component {
         } = this.props;
 
         let availableDrawings = Object.values(drawings);
+
         // uses the url to figure out which hierarchy the report is being generated on
         // and find an appropriate drawing for the pin scale modal
         if (drawingID?.length) {
@@ -215,7 +219,8 @@ class OutputSettingsContainer extends Component {
                 siteID.includes(drawing.siteID),
             );
         }
-        return availableDrawings[0];
+
+        return availableDrawings.find(drawing => drawing.tilesetS3Key);
     };
 
     handleShowOandMModal = () => this.props.showOAndMTsAndCsModal('create report');

@@ -17,9 +17,6 @@ import {
     ADD_OPERATIVES_REQUEST,
     ADD_OPERATIVES_FAILURE,
     ADD_OPERATIVES_SUCCESS,
-    FETCH_COMPANY_OPERATIVES_REQUEST,
-    FETCH_COMPANY_OPERATIVES_SUCCESS,
-    FETCH_COMPANY_OPERATIVES_FAILURE,
     FETCH_OPERATIVES_FOR_FLOOR_SUCCESS,
     FETCH_OPERATIVES_FOR_FLOOR_REQUEST,
     FETCH_OPERATIVES_FOR_BUILDING_REQUEST,
@@ -32,6 +29,12 @@ import {
     FETCH_CLIENTS_FOR_FLOOR_SUCCESS,
     FETCH_CLIENTS_FOR_FLOOR_FAILURE,
 } from 'constants/actionTypes/clients';
+import {
+    FETCH_COMPANY_USERS_FAILURE,
+    FETCH_COMPANY_USERS_REQUEST,
+    FETCH_COMPANY_USERS_SUCCESS,
+} from 'constants/actionTypes/usersManagement';
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 
 export default combineReducers({
     operatives: operativesReducer,
@@ -47,15 +50,15 @@ export default combineReducers({
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
-        case FETCH_COMPANY_OPERATIVES_REQUEST:
+        case FETCH_COMPANY_USERS_REQUEST:
         case FETCH_OPERATIVES_REQUEST:
         case FETCH_CLIENTS_FOR_FLOOR_REQUEST:
         case FETCH_OPERATIVES_FOR_FLOOR_REQUEST:
         case FETCH_OPERATIVES_FOR_BUILDING_REQUEST:
         case FETCH_OPERATIVES_FOR_SITE_REQUEST:
             return true;
-        case FETCH_COMPANY_OPERATIVES_SUCCESS:
-        case FETCH_COMPANY_OPERATIVES_FAILURE:
+        case FETCH_COMPANY_USERS_SUCCESS:
+        case FETCH_COMPANY_USERS_FAILURE:
         case FETCH_CLIENTS_FOR_FLOOR_SUCCESS:
         case FETCH_CLIENTS_FOR_FLOOR_FAILURE:
         case FETCH_OPERATIVES_SUCCESS:
@@ -85,14 +88,14 @@ function isPostingReducer(state = false, action) {
 
 function errorReducer(state = null, action) {
     switch (action.type) {
-        case FETCH_COMPANY_OPERATIVES_REQUEST:
+        case FETCH_COMPANY_USERS_REQUEST:
         case FETCH_OPERATIVES_REQUEST:
         case ADD_OPERATIVE_REQUEST:
         case ADD_OPERATIVES_REQUEST:
         case EDIT_DRAWING_OPERATIVE_REQUEST:
         case FETCH_CLIENTS_FOR_FLOOR_REQUEST:
             return null;
-        case FETCH_COMPANY_OPERATIVES_FAILURE:
+        case FETCH_COMPANY_USERS_FAILURE:
         case FETCH_OPERATIVES_FAILURE:
         case ADD_OPERATIVE_FAILURE:
         case EDIT_DRAWING_OPERATIVE_FAILURE:
@@ -157,7 +160,10 @@ function deleteSuccessReducer(state = false, action) {
 
 function operativesReducer(state = {}, action) {
     switch (action.type) {
-        case FETCH_COMPANY_OPERATIVES_SUCCESS:
+        case FETCH_COMPANY_USERS_SUCCESS: {
+            const ops = action.payload.filter(op => op.type === COMPANY_USER_ROLE_TYPES.OPERATIVE);
+            return { ...state, ...ops };
+        }
         case FETCH_OPERATIVES_FOR_FLOOR_SUCCESS:
         case FETCH_OPERATIVES_FOR_BUILDING_SUCCESS:
         case FETCH_OPERATIVES_FOR_SITE_SUCCESS:

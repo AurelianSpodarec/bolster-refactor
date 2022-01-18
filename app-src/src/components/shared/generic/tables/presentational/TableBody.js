@@ -10,7 +10,8 @@ const TableBody = ({
     noData,
     noDataMessage,
     children,
-    withoutTBody = false
+    withoutTBody = false,
+    showLoaderWhenFetching = false,
 }) => {
     if (error && error.length)
         return (
@@ -23,7 +24,7 @@ const TableBody = ({
             </tbody>
         );
 
-    if (isFetching && noData)
+    if ((showLoaderWhenFetching && isFetching) || (isFetching && noData))
         return (
             <tbody>
                 <tr>
@@ -38,11 +39,7 @@ const TableBody = ({
         return (
             <tbody>
                 <tr>
-                    <td
-                        className="no-data-td"
-                        colSpan={colCount}
-                        style={{ textAlign: 'center' }}
-                    >
+                    <td className="no-data-td" colSpan={colCount} style={{ textAlign: 'center' }}>
                         <p>{noDataMessage}</p>
                     </td>
                 </tr>

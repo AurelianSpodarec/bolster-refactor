@@ -12,6 +12,7 @@
         "filepond": "^4.7.2",
         "filepond-plugin-file-validate-type": "^1.2.4",
         "filepond-plugin-image-preview": "^4.5.0",
+        "geolib": "^3.3.1",
         "google-map-react": "^2.1.9",
         "google-maps-react": "^2.0.6",
         "immutability-helper": "^3.0.1",
@@ -86,6 +87,7 @@
         "not op_mini all"
     ],
     "devDependencies": {
+        "@types/geolib": "^2.0.23",
         "@types/lodash": "^4.14.168",
         "babel-eslint": "^10.1.0",
         "eslint": "^7.21.0",

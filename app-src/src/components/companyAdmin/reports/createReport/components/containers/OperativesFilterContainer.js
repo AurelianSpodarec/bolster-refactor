@@ -68,8 +68,8 @@ class OperativesFilterContainer extends Component {
     };
 
     handleChange = (name, val) => {
-        const { handleChange, postFilters } = this.props;
-        return handleChange(name, val).then(postFilters);
+        const { handleChange } = this.props;
+        return handleChange(name, val);
     };
 }
 

@@ -11,7 +11,8 @@ import { removeObjItem, updateObj } from 'helpers/generic';
 
 class EditTemplateQuestionModalContainer extends Component {
     state = {
-        options: {}
+        options: {},
+        configuration: {},
     };
 
     render = () => (
@@ -23,16 +24,28 @@ class EditTemplateQuestionModalContainer extends Component {
             handleRemoveOption={this.handleRemoveOption}
             handleAddOption={this.handleAddOption}
             questionName={this.props.question.name}
+            optionConfigurations={this.state.configuration}
+            handleQuestionToggle={this.handleQuestionToggle}
         />
     );
 
     componentDidMount = () => {
         const { question } = this.props;
-        const options = question.options.reduce(
-            (acc, { id, text }) => ({ ...acc, [id]: text }),
-            {}
-        );
-        this.setState({ options });
+
+        if (question.optionConfigurations) {
+            const options = question.optionConfigurations.reduce((acc, { name }) => {
+                return { ...acc, [name]: name };
+            }, {});
+
+            const configuration = question.optionConfigurations.reduce(
+                (acc, { name, isDisabled }) => {
+                    return { ...acc, [name]: isDisabled };
+                },
+                {},
+            );
+
+            this.setState({ configuration, options });
+        }
     };
 
     componentDidUpdate = prevProps => {
@@ -43,6 +56,15 @@ class EditTemplateQuestionModalContainer extends Component {
 
     handleChange = (name, value) => {
         this.setState({ options: updateObj(this.state.options, name, value) });
+    };
+
+    handleQuestionToggle = id => {
+        const configuration = updateObj(
+            this.state.configuration,
+            id,
+            !this.state.configuration[id],
+        );
+        this.setState({ configuration });
     };
 
     handleRemoveOption = key => {
@@ -56,27 +78,47 @@ class EditTemplateQuestionModalContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
         const { editTemplateQuestion, question } = this.props;
+        const { options, configuration } = this.state;
 
-        const body = {
-            questionID: question.id,
-            options: Object.values(this.state.options)
-        };
+        const optionConfigurations = question.optionConfigurations
+            ? Object.keys(options).map(item => {
+                  if (item in configuration) {
+                      const prevObj = question.optionConfigurations.find(obj => obj.name === item);
+                      return {
+                          name: options[item],
+                          isDisabled: this.state.configuration[item],
+                          createdBySuperAdmin: prevObj.createdBySuperAdmin,
+                      };
+                  } else {
+                      return {
+                          name: options[item],
+                          isDisabled: false,
+                          createdBySuperAdmin: false,
+                      };
+                  }
+              })
+            : null;
+
+        const body = optionConfigurations
+            ? {
+                  questionID: question.id,
+                  options: Object.values(this.state.options),
+                  optionConfigurations,
+              }
+            : { questionID: question.id, options: Object.values(this.state.options) };
         editTemplateQuestion(question.id, body);
     };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        templatesReducer: { postSuccess, postFailure }
-    }
+        templatesReducer: { postSuccess, postFailure },
+    },
 }) => ({
     postSuccess,
-    postFailure
+    postFailure,
 });
 
 const mapDispatchToProps = { hideModal, showModal, editTemplateQuestion };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(EditTemplateQuestionModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(EditTemplateQuestionModalContainer);

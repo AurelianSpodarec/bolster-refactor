@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-import { PAYMENT_TYPES, DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+import { PAYMENT_TYPES, DATE_TIME_IDS, INVOICE_TYPES } from 'constants/companyAdmin/enums';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
@@ -20,7 +20,7 @@ const InvoiceDetails = ({
     isFetching,
     companyName,
     error,
-    invoice: { createdOn, id, isPaid, paymentType, total, isRenewal, guid, comment },
+    invoice: { createdOn, id, isPaid, paymentType, total, isRenewal, guid, comment, invoiceType },
     invoice,
     showModal,
     handleShowModal,
@@ -81,6 +81,11 @@ const InvoiceDetails = ({
                 sizeClass="size-lg-4"
             />
             <FieldOutput title="Company" description={companyName} sizeClass="size-lg-4" />
+            <FieldOutput
+                title="Invoice Type"
+                description={INVOICE_TYPES[invoiceType] || '-'}
+                sizeClass="size-lg-4"
+            />
 
             {isPaid && (
                 <FieldOutput

@@ -2,13 +2,13 @@ import { combineReducers } from 'redux';
 import {
     FETCH_PIN_STATS_REQUEST,
     FETCH_PIN_STATS_SUCCESS,
-    FETCH_PIN_STATS_FAILURE
+    FETCH_PIN_STATS_FAILURE,
 } from 'constants/actionTypes/stats';
 
 export default combineReducers({
     error: errorReducer,
     isFetching: isFetchingReducer,
-    stats: statsReducer
+    stats: statsReducer,
 });
 
 function isFetchingReducer(state = false, action) {
