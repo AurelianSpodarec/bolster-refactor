@@ -19,11 +19,11 @@ const useEditHierarchyAlert = id => {
     const alert = Object.values(alerts).find(alert => alert.id === id);
 
     const [form, handleChange] = useForm({
-        name: alert?.name ?? '',
-        description: alert?.description ?? '',
-        method: alert?.method ?? '',
+        name: alert?.name,
+        description: alert?.description,
+        method: alert?.method,
         date: new Date(alert.date),
-        frequencyType: alert?.frequencyType ?? '',
+        frequencyType: alert?.frequencyType,
         frequencyAmount: alert?.frequencyAmount ?? '1',
     });
 
