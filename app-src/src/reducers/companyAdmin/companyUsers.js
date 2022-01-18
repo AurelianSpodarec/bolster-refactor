@@ -165,6 +165,7 @@ function companyUsersReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case EDIT_COMPANY_USER_SUCCESS:
         case FETCH_SINGLE_COMPANY_USER_SUCCESS:
+        case TOGGLE_RESTRICT_USER_PAYMENTS_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case UNLINK_OPERATIVE_DEVICE_SUCCESS: {
             const operative = state[action.operativeID];

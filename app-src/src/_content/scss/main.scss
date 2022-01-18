@@ -2164,6 +2164,10 @@ input {
     &.center-align{
         text-align:center;
     }
+
+    &.form-padding {
+        padding-left: 7.5px;
+    }
 }
 
 .filter {
@@ -2605,6 +2609,18 @@ input {
     }
 
     &.with-actions {
+        a {
+            text-decoration: none;
+            color: white;
+
+            &.dark {
+                color: black;
+            }
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
         td {
             &:last-child {
                 text-align: right;
@@ -4423,6 +4439,10 @@ input {
     position: absolute;
     right: 15px;
     top: -2px;
+
+    &.checking {
+        right: 8px;
+    }
 }
 //report page
 .levels-filter {
@@ -4545,7 +4565,7 @@ input {
         cursor: pointer;
         background-color: white;
         white-space: nowrap;
-        overflow: hidden;;
+        overflow: hidden;
         
         .placeholder {
             padding: 6px 5px;
@@ -4558,6 +4578,11 @@ input {
             margin: 5px;
             background-color: #f2f2f2;
             cursor: default;
+
+            &.option-hidden {
+                position: absolute;
+                visibility: hidden;
+            }
 
             p {
                 float: left;
@@ -4578,6 +4603,13 @@ input {
                 right: 6px;
                 transform: translateY(-50%);
             }
+        }
+
+        .more {
+            position: absolute;
+            @include vertical-center;
+            right: 30px;
+            font-size: 120%;
         }
 
         .arrow {
@@ -6568,6 +6600,17 @@ input {
     }
 }
 
+.template-options-inputs-container {
+    display: flex;
+    align-items: center;
+    
+    .buttons-box {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+}
+
 .sun-editor-editable {
     strong {
         font-weight: bold;
@@ -6766,6 +6809,7 @@ input {
     justify-content: space-between;
     border-bottom: 2px solid $text-grey;
     padding-right: 30%;
+    margin-bottom: 20px;
     
     .tab-item {
         display: flex;
@@ -6802,7 +6846,6 @@ input {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 10px 0;
 }
 
 .message-wrapper {
@@ -6871,8 +6914,8 @@ input {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 25px 0;
-
+    margin-bottom: 10px;
+    
     .button-wrapper {
         width: 100%;
         display: flex;
@@ -6909,4 +6952,81 @@ input {
 
 .no-padding {
     padding: 0;
+}
+
+.bug-report-table-container {
+    .bug-report-table-filters {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-bottom: 32px;
+        
+        .flex {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+    
+        .item {
+            &:first-child {
+                p {
+                    padding-left: 0;
+                }
+            }
+        }
+    
+        p {
+            text-align: right;
+            padding-left: 20px;
+            padding-right: 10px;
+        }
+
+        .react-datepicker-wrapper {
+            width: 100%;
+            height: 100%;
+            input {
+                width: 100%;
+                height: 100%;
+                font-size: 140%;
+                padding: 7.5px 10px;
+                margin-right: 10px;
+            }
+        }   
+    }
+}
+
+
+.mc-drawing-expiry {
+    padding: 10px 0;
+    border-bottom: 1px solid $input-border-grey;
+
+    .red {
+        color: $red;
+    }
+ 
+    .green {
+        color: $green;
+    }
+
+
+    &:last-child{
+        border-bottom: none;
+    }
+
+    button {
+        background-color: transparent;
+        @include ubuntu;
+        font-size: 140%;
+        strong {
+            @include ubuntu-medium;
+        }
+
+        &:hover {
+         cursor: pointer;
+        }
+    }
+}
+
+.min-width-120 {
+    min-width: 120px;
 }

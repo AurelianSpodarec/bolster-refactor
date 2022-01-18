@@ -168,6 +168,12 @@ export const PAYMENT_TYPES = {
     2: 'By Invoice',
 };
 
+export const INVOICE_TYPES = {
+    1: 'Bank transfer',
+    2: 'Card',
+    3: 'Free',
+};
+
 export const SUBSCRIPTION_RENEWAL_IDS = {
     CARD: 10,
     INVOICE: 20,
@@ -529,4 +535,14 @@ export const MESSAGE_CENTRE_NAMES = {
     1: 'Company Alerts',
     2: 'Operative Alerts',
     3: 'Drawing Expiry Messages',
+};
+
+export const TIME_PERIOD = {
+    DAY: 'day',
+    WEEK: 'week',
+};
+
+export const CLOCKER_ENTRY_TYPE = {
+    WORKING: 1,
+    ON_BREAK: 2,
 };

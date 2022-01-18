@@ -1,31 +1,36 @@
 import React from 'react';
-import Moment from 'react-moment';
-import 'moment-timezone';
+import moment from 'moment';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const DismissAlertModal = ({ id, name, date, setShowModal, showModal, handelDismissAlert }) => {
+const DismissAlertModal = ({
+    id,
+    name,
+    date,
+    setDismissAlertModal,
+    dismissAlertModal,
+    handleDismissAlert,
+}) => {
     return (
-        showModal && (
+        dismissAlertModal && (
             <ModalOuterContainer hideCloseButton>
                 <BlockHeading title={`Dismiss ${name}`} />
-                Are you sure you would like to dismiss this alert?
-                <br></br>
-                <br></br>
-                <Moment format={'DD/MM/YYYY'} date={date} />
-                <br></br>
-                {name}
+                <p>
+                    Are you sure you would like to dismiss{' '}
+                    <strong>{`${name} - ${moment(date).format('DD/MM/YYYY')} `}</strong>?
+                </p>
+
                 <BlockButtonWrapper>
                     <button
-                        onClick={() => handelDismissAlert(id)}
+                        onClick={() => handleDismissAlert(id)}
                         type="submit"
                         className="button red"
                     >
                         Dismiss
                     </button>
-                    <button className="button" onClick={() => setShowModal(false)}>
+                    <button className="button" onClick={() => setDismissAlertModal(false)}>
                         Cancel
                     </button>
                 </BlockButtonWrapper>

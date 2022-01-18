@@ -78,58 +78,56 @@ class FurtherFiltrationContainer extends Component {
                         blockName="pinSelector"
                     />
                 ) : +furtherFiltrationOption === +FILTERS ? (
-                    
-                        <div className="custom-filters-block">
-                            <Field 
-                                name="Exact match?"
-                                classes="fields-inside"
-                                sizeClasses="size-lg-2 size-md-12"
-                            >
+                    <div className="custom-filters-block">
+                        <Field
+                            name="Exact match?"
+                            classes="fields-inside"
+                            sizeClasses="size-lg-2 size-md-12"
+                        >
+                            <CheckboxContainer
+                                checked={this.props.filters.isQuestionFilterExact}
+                                name="isQuestionFilterExact"
+                                text=""
+                                handleChange={this.handleExactMatchChange}
+                            />
+                        </Field>
 
-                                <CheckboxContainer
-                                    checked={this.props.filters.isQuestionFilterExact}
-                                    name="isQuestionFilterExact"
-                                    text=""
-                                    handleChange={this.handleExactMatchChange}
-                                />  
-                            </Field>
+                        {this.state.addFilter ? (
+                            <FilterFieldsModalContainer
+                                id={this.state.filterToEditID}
+                                toggleAddFilter={this.toggleAddFilter}
+                            />
+                        ) : (
+                            <>
+                                <div className="size-lg-12">
+                                    {fields.map(field => (
+                                        <FilterField
+                                            key={field.id}
+                                            field={field}
+                                            questions={this._getQuestionsOptions()}
+                                            handleShowCustomFieldModal={
+                                                this.handleShowCustomFieldModal
+                                            }
+                                            removeCustomField={this.removeCustomField}
+                                            isQuestionFilterExact={
+                                                this.props.filters.isQuestionFilterExact
+                                            }
+                                        />
+                                    ))}
+                                </div>
 
-                            {this.state.addFilter ? (
-                                <FilterFieldsModalContainer
-                                    id={this.state.filterToEditID}
-                                    toggleAddFilter={this.toggleAddFilter}
-                                />
-                            ) : (
-                                <>
-                                    <div className="size-lg-12">
-                                        {fields.map(field => (
-                                            <FilterField
-                                                key={field.id}
-                                                field={field}
-                                                questions={this._getQuestionsOptions()}
-                                                handleShowCustomFieldModal={this.handleShowCustomFieldModal}
-                                                removeCustomField={this.removeCustomField}
-                                                isQuestionFilterExact={this.props.filters.isQuestionFilterExact}
-                                                
-                                                />
-                                            ))}
-                                    </div>
-                                    
-
-                                    <BlockButtonWrapper>
-                                        <button
-                                            onClick={this.toggleAddFilter}
-                                            type="button"
-                                            className="button green"
-                                        >
-                                            <i className="fa fa-plus fa-fw" /> Add filter
-                                        </button>
-                                    </BlockButtonWrapper>
-                                </>
-                            )
-                            }
-                            
-                        </div>
+                                <BlockButtonWrapper>
+                                    <button
+                                        onClick={this.toggleAddFilter}
+                                        type="button"
+                                        className="button green"
+                                    >
+                                        <i className="fa fa-plus fa-fw" /> Add filter
+                                    </button>
+                                </BlockButtonWrapper>
+                            </>
+                        )}
+                    </div>
                 ) : null}
             </BlockContainer>
         );
@@ -143,14 +141,10 @@ class FurtherFiltrationContainer extends Component {
             isFetching,
             showModal,
             hideModal,
-            postFilters,
         } = this.props;
         // reset filter fields if changing the filter
         if (prevProps.furtherFiltrationOption !== furtherFiltrationOption) {
             removeFilterQuestions();
-            if (+prevProps.furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.PIN_SELECTOR) {
-                postFilters();
-            }
         }
         // reset further filters if site info changes
         if (
@@ -198,10 +192,8 @@ class FurtherFiltrationContainer extends Component {
     };
 
     removeCustomField = async id => {
-        const { postFilters, removeFilterQuestion } = this.props;
+        const { removeFilterQuestion } = this.props;
         await removeFilterQuestion(id);
-
-        postFilters();
     };
 
     _getQuestionsOptions = () => {
@@ -218,9 +210,8 @@ class FurtherFiltrationContainer extends Component {
     };
 
     handleChange = async (_, value) => {
-        const { postFilters, updateFurtherFiltrationOption } = this.props;
+        const { updateFurtherFiltrationOption } = this.props;
         await updateFurtherFiltrationOption(value);
-        postFilters();
     };
 
     handleExactMatchChange = async (_, value) => {
@@ -229,17 +220,17 @@ class FurtherFiltrationContainer extends Component {
     };
 
     handleNumOfHistoriesChange = (name, value) => {
-        const { handleChange, postFilters, showModal, hideModal, shouldConfirm } = this.props;
+        const { handleChange, showModal, hideModal, shouldConfirm } = this.props;
 
         if (shouldConfirm) {
             const handleSubmit = () => {
                 hideModal();
-                handleChange(name, value).then(postFilters);
+                handleChange(name, value);
             };
             const message = 'Changing this will reset your advanced filters options, continue?';
             showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
         } else {
-            handleChange(name, value).then(postFilters);
+            handleChange(name, value);
         }
     };
 }

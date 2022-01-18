@@ -31,6 +31,6 @@ export const updateAlert = (id, postBody) => async dispatch => {
 
         dispatch(updateAlertSuccess(data));
     } catch (error) {
-        dispatch(handleErrors(updateAlertFailure(error)));
+        dispatch(handleErrors(updateAlertFailure)(error));
     }
 };

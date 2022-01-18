@@ -12,7 +12,6 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import { RAW_S3_STORAGE_URL } from 'config';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
 import { FLOORPLAN_STATES, DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
@@ -24,15 +23,11 @@ const EditDrawingModal = ({
     file,
     filesUploading,
     handleChange,
-    handleDateChange,
     handleStartDateChange,
     hideModal,
     handleSubmit,
     drawing: { doesRequireCreditToReplaceFloorplan, tilesetS3KeyOrig, latestFloorplanState },
     isUsingBolsterLabels,
-    isAlertShowing,
-    message,
-    dateToSend,
     startDate,
     isManufacturingInherited,
     setManufacturersForHierarchy,

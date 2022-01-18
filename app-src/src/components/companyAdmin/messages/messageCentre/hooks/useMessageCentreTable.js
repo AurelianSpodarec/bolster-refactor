@@ -7,6 +7,11 @@ import markSystemMessagesAsRead from 'actions/companyAdmin/messageCentre/async/m
 import markCompanyAlertsAsRead from 'actions/companyAdmin/messageCentre/async/markCompanyAlertsAsRead';
 import markDrawingExpiryMessagesAsRead from 'actions/companyAdmin/messageCentre/async/markDrawingExpiryMessagesAsRead';
 
+import fetchSystemMessages from 'actions/companyAdmin/messageCentre/async/fetchSystemMessages';
+import fetchCompanyAlerts from 'actions/companyAdmin/messageCentre/async/fetchCompanyAlerts';
+import fetchOperativeAlerts from 'actions/companyAdmin/messageCentre/async/fetchOperativeAlerts';
+import fetchDrawingExpiryMessages from 'actions/companyAdmin/messageCentre/async/fetchDrawingExpiryMessages';
+
 import {
     selectMessageCentreError,
     selectSystemMessages,
@@ -56,6 +61,19 @@ const useMessageCentreTable = () => {
 
     const [searchTerm, setSearchTerm] = useState('');
 
+    useEffect(() => {
+        switch (selectedTab) {
+            case MESSAGE_CENTRE_TABS.SYSTEM_MESSAGES:
+                return dispatch(fetchSystemMessages());
+            case MESSAGE_CENTRE_TABS.COMPANY_ALERTS:
+                return dispatch(fetchCompanyAlerts());
+            case MESSAGE_CENTRE_TABS.OPERATIVE_ALERTS:
+                return dispatch(fetchOperativeAlerts());
+            case MESSAGE_CENTRE_TABS.DRAWING_EXPIRY:
+                return dispatch(fetchDrawingExpiryMessages());
+        }
+    }, [selectedTab]);
+
     const messageLookup = {
         0: systemMessages,
         1: companyAlerts,
@@ -83,6 +101,8 @@ const useMessageCentreTable = () => {
             return messageLookup[selectedTab];
         }
     }, [searchTerm, selectedTab, messageLookup]);
+
+    const shouldShowSearch = !!searchTerm || !!messages.length;
 
     const markMessagesAsRead = () => {
         switch (selectedTab) {
@@ -116,6 +136,7 @@ const useMessageCentreTable = () => {
         error,
         searchTerm,
         handleSearch,
+        shouldShowSearch,
     };
 };
 

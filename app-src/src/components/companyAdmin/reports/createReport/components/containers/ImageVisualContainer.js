@@ -5,7 +5,7 @@ import { filterOutput } from 'helpers/outputVisuals';
 
 import ImageVisual from '../presentational/ImageVisual';
 
-const ImageVisualContainer = () => {
+const ImageVisualContainer = ({ customFilters }) => {
     const filters = useSelector(
         ({
             companyAdmin: {
@@ -14,7 +14,7 @@ const ImageVisualContainer = () => {
         }) => filters,
     );
 
-    const filteredOutput = filterOutput(filters);
+    const filteredOutput = filterOutput(customFilters || filters);
 
     if (filteredOutput.length === 0) return null;
 

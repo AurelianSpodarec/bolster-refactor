@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { CONFIRM_DELETE, USER_NEW_DOCUMENT } from 'constants/shared/modalTypes';
 import DocumentsUploader from '../presentational/DocumentsUploader';
@@ -18,7 +18,6 @@ const DocumentsUploaderContainer = () => {
     );
     const { id: adminId } = useParams();
     const error = useSelector(({ companyAdmin }) => companyAdmin.userDocumentsReducer.error);
-    const location = useLocation();
 
     const handleUploadNewDocument = () => {
         dispatch(showModal(USER_NEW_DOCUMENT, { adminId }));

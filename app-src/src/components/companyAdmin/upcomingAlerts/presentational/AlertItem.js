@@ -14,6 +14,9 @@ import { companyUser } from 'selectors/companyAdmin/companyUser';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import { dismissAlert } from 'actions/companyAdmin/alerts/sync/deleteAlert';
 import DismissAlertModal from './DismissAlertModal';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import EditAlertModal from './EditAlertModal';
+import { updateAlert } from 'actions/companyAdmin/alerts/sync/updateAlert';
 
 const AlertItem = ({
     alert: {
@@ -31,7 +34,8 @@ const AlertItem = ({
         description,
     },
 }) => {
-    const [showModal, setShowModal] = useState(false);
+    const [dismissAlertModal, setDismissAlertModal] = useState(false);
+    const [editAlertModal, setEditAlertModal] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -40,13 +44,14 @@ const AlertItem = ({
 
     const user = useSelector(state => companyUser(state, createdByCompanyUserID));
 
-    const handelClick = () => {
-        setShowModal(true);
+    const handleDismissAlert = id => {
+        setDismissAlertModal(false);
+        dispatch(dismissAlert(id));
     };
 
-    const handelDismissAlert = id => {
-        setShowModal(false);
-        dispatch(dismissAlert(id));
+    const handleEditAlert = id => {
+        setEditAlertModal(false);
+        dispatch(updateAlert(id));
     };
 
     return (
@@ -55,10 +60,27 @@ const AlertItem = ({
                 id={id}
                 name={name}
                 date={date}
-                showModal={showModal}
-                setShowModal={setShowModal}
-                handelDismissAlert={handelDismissAlert}
+                dismissAlertModal={dismissAlertModal}
+                setDismissAlertModal={setDismissAlertModal}
+                handleDismissAlert={handleDismissAlert}
+                handleEditAlert={handleEditAlert}
             />
+
+            <EditAlertModal
+                id={id}
+                name={name}
+                date={date}
+                description={description}
+                method={method}
+                frequencyAmount={frequencyAmount}
+                frequencyType={frequencyType}
+                editAlertModal={editAlertModal}
+                setEditAlertModal={setEditAlertModal}
+                handleEditAlert={handleEditAlert}
+                hierarchyType={hierarchyType}
+                hierarchyID={hierarchyID}
+            />
+
             <tr>
                 <td className="left-align">
                     <Moment format={'DD/MM/YYYY'} date={date} />
@@ -81,15 +103,28 @@ const AlertItem = ({
                 </td>
                 <td className="left-align">{name}</td>
                 <td className="left-align">{description}</td>
-                <td>
-                    <button
-                        className="no-background-btn"
-                        onClick={() => {
-                            handelClick();
-                        }}
-                    >
-                        <i className="fas fa-times-circle close-icon" />
-                    </button>
+                <td className="min-width-120">
+                    <BlockButtonWrapper additionalClasses="stacked">
+                        <button
+                            className="button yellow"
+                            onClick={() => {
+                                setEditAlertModal(true);
+                            }}
+                        >
+                            <i className="far fa-pencil" />
+                            Edit
+                        </button>
+
+                        <button
+                            className="button red"
+                            onClick={() => {
+                                setDismissAlertModal(true);
+                            }}
+                        >
+                            <i className="fas fa-trash-alt" />
+                            Delete
+                        </button>
+                    </BlockButtonWrapper>
                 </td>
             </tr>
         </>

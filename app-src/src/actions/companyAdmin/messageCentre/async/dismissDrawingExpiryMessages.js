@@ -12,8 +12,9 @@ export const dismissDrawingExpiryMessagesRequest = () => ({
     type: DISMISS_DRAWING_EXPIRY_MESSAGES_REQUEST,
 });
 
-export const dismissDrawingExpiryMessagesSuccess = () => ({
+export const dismissDrawingExpiryMessagesSuccess = payload => ({
     type: DISMISS_DRAWING_EXPIRY_MESSAGES_SUCCESS,
+    payload,
 });
 
 export const dismissDrawingExpiryMessagesFailure = error => ({
@@ -25,7 +26,7 @@ export default () => dispatch => {
     dispatch(dismissDrawingExpiryMessagesRequest());
 
     return axios
-        .delete(`${API_URL}/DrawingExpiryMessages/all`, {}, getHeaders())
+        .delete(`${API_URL}/DrawingExpiryMessages/all`, getHeaders())
         .then(() => dispatch(dismissDrawingExpiryMessagesSuccess()))
         .catch(err => {
             dispatch(dismissDrawingExpiryMessagesFailure(err));

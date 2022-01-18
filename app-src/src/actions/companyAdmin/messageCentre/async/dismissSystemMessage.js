@@ -28,5 +28,5 @@ export default id => dispatch => {
     return axios
         .delete(`${API_URL}/systemMessages/${id}`, getHeaders())
         .then(() => dispatch(dismissSystemMessageSuccess(id)))
-        .catch(err => dispatch(handleErrors(err)));
+        .catch(err => dispatch(handleErrors)(err));
 };
