@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
 
 import {
-    selectAllDrawings,
-    selectDrawingsError,
+    selectDrawings,
+    selectDrawingsFetchError,
     selectDrawingsIsFetching,
 } from 'selectors/companyAdmin/drawings';
 
@@ -10,8 +10,8 @@ import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 const useHierarchyDrawingExpiry = (id, hierarchyID) => {
     const isFetching = useSelector(selectDrawingsIsFetching);
-    const allDrawings = Object.values(useSelector(selectAllDrawings));
-    const error = useSelector(selectDrawingsError);
+    const allDrawings = Object.values(useSelector(selectDrawings));
+    const error = useSelector(selectDrawingsFetchError);
 
     const hierarchyDrawings = allDrawings.reduce((acc, drawing) => {
         switch (hierarchyID) {
