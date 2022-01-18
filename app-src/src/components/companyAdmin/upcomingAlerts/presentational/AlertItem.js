@@ -7,6 +7,7 @@ import 'moment-timezone';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import {
     ALERT_FREQUENCY_SUFFIX_VALUES,
+    ALERT_FREQUENCY_TYPES,
     ALERT_METHOD_VALUES,
     HIERARCHY_TYPES,
 } from 'constants/companyAdmin/enums';
@@ -54,6 +55,8 @@ const AlertItem = ({
         dispatch(updateAlert(id));
     };
 
+    const isPlural = frequencyAmount > 1;
+
     return (
         <>
             <DismissAlertModal
@@ -97,9 +100,13 @@ const AlertItem = ({
                 <td>{ALERT_METHOD_VALUES[method]}</td>
                 <td>{user && `${user.userFirstName} ${user.userLastName}/${user.companyName}`}</td>
                 <td>
-                    {frequencyType === 1
-                        ? 'Single'
-                        : frequencyAmount + ' per ' + ALERT_FREQUENCY_SUFFIX_VALUES[frequencyType]}
+                    {frequencyType === ALERT_FREQUENCY_TYPES.ONCE
+                        ? 'Once'
+                        : 'Every ' +
+                          frequencyAmount +
+                          ' ' +
+                          ALERT_FREQUENCY_SUFFIX_VALUES[frequencyType] +
+                          (isPlural ? 's' : '')}
                 </td>
                 <td className="left-align">{name}</td>
                 <td className="left-align">{description}</td>

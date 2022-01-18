@@ -45,6 +45,8 @@ const HierarchyAlertItem = ({
         setDismissAlertModal(false);
         dispatch(dismissAlert(id));
     };
+
+    const isPlural = frequencyAmount > 1;
     return (
         <>
             <DismissAlertModal
@@ -67,8 +69,12 @@ const HierarchyAlertItem = ({
                 <td>{user && `${user.userFirstName} ${user.userLastName}/${user.companyName}`}</td>
                 <td>
                     {frequencyType === ALERT_FREQUENCY_TYPES.ONCE
-                        ? 'Single'
-                        : frequencyAmount + ' per ' + ALERT_FREQUENCY_SUFFIX_VALUES[frequencyType]}
+                        ? 'Once'
+                        : 'Every ' +
+                          frequencyAmount +
+                          ' ' +
+                          ALERT_FREQUENCY_SUFFIX_VALUES[frequencyType] +
+                          (isPlural ? 's' : '')}
                 </td>
                 <td className="left-align">{name}</td>
                 <td className="left-align">{description}</td>
