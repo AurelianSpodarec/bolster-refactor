@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import HeaderNotifications from '../presentational/HeaderNotifications';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
-import dismissSystemMessages from 'actions/companyAdmin/messageCentre/async/dismissSystemMessages';
 import moment from 'moment';
+import markSystemMessagesAsRead from 'actions/companyAdmin/messageCentre/async/markSystemMessagesAsRead';
 
 class HeaderNotificationsContainer extends Component {
     state = {
@@ -31,12 +31,15 @@ class HeaderNotificationsContainer extends Component {
 
     togglePopup = () => {
         if (!this.state.popupVisible) {
+            const { notifications, markSystemMessagesAsRead } = this.props;
+            const unread = notifications.filter(({ isRead }) => !isRead);
+            const unreadCount = unread.length;
+
+            if (unreadCount) markSystemMessagesAsRead();
+
             // attach/remove event handler
             document.addEventListener('click', this.handleOutsideClick, false);
         } else {
-            const { dismissSystemMessages } = this.props;
-            dismissSystemMessages(MESSAGE_TYPES.NOTIFICATION);
-
             document.removeEventListener('click', this.handleOutsideClick, false);
         }
 
@@ -66,9 +69,7 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    dismissSystemMessages: messageType => {
-        dispatch(dismissSystemMessages(messageType));
-    },
+    markSystemMessagesAsRead: () => dispatch(markSystemMessagesAsRead()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderNotificationsContainer);
