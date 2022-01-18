@@ -28,7 +28,7 @@ import {
     selectDrawingExpiryMessagesCount,
 } from 'selectors/companyAdmin/messageCentre';
 
-const { SYSTEM_MESSAGES, COMPANY_ALERTS, DRAWING_EXPIRY } = MESSAGE_CENTRE_TABS;
+const { SYSTEM_MESSAGES, COMPANY_ALERTS, OPERATIVE_ALERTS, DRAWING_EXPIRY } = MESSAGE_CENTRE_TABS;
 
 const useMessageCentreTable = () => {
     const dispatch = useDispatch();
@@ -63,14 +63,20 @@ const useMessageCentreTable = () => {
 
     useEffect(() => {
         switch (selectedTab) {
-            case MESSAGE_CENTRE_TABS.SYSTEM_MESSAGES:
-                return dispatch(fetchSystemMessages());
-            case MESSAGE_CENTRE_TABS.COMPANY_ALERTS:
-                return dispatch(fetchCompanyAlerts());
-            case MESSAGE_CENTRE_TABS.OPERATIVE_ALERTS:
-                return dispatch(fetchOperativeAlerts());
-            case MESSAGE_CENTRE_TABS.DRAWING_EXPIRY:
-                return dispatch(fetchDrawingExpiryMessages());
+            case SYSTEM_MESSAGES:
+                if (!isFetchingSystemMessages) dispatch(fetchSystemMessages());
+                return;
+            case COMPANY_ALERTS:
+                if (!isFetchingCompanyAlerts) dispatch(fetchCompanyAlerts());
+                return;
+            case OPERATIVE_ALERTS:
+                if (!isFetchingOperativeAlerts) dispatch(fetchOperativeAlerts());
+                return;
+            case DRAWING_EXPIRY:
+                if (!isFetchingDrawingExpiryMessages) dispatch(fetchDrawingExpiryMessages());
+                return;
+            default:
+                return;
         }
     }, [selectedTab]);
 
@@ -123,10 +129,11 @@ const useMessageCentreTable = () => {
     useEffect(() => {
         if (!hasFetched) return;
         markMessagesAsRead();
-    }, [hasFetched, selectedTab]);
+    }, [hasFetched]);
 
     useEffect(() => {
         if (!isFetching && prevProps.isFetching) setHasFetched(true);
+        if (isFetching && !prevProps.isFetching) setHasFetched(false);
     }, [isFetching, prevProps.isFetching]);
 
     return {
