@@ -121,6 +121,7 @@ class FloorDetailsContainer extends Component {
         showModal(DRAWING_EXPIRY_MODAL, {
             hideModal,
             id,
+            hierarchyType: 'floor',
         });
     };
 
