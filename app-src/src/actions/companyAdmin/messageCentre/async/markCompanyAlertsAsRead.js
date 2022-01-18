@@ -2,31 +2,16 @@ import axios from 'axios';
 
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
-import {
-    POST_COMPANY_ALERTS_REQUEST,
-    POST_COMPANY_ALERTS_SUCCESS,
-    POST_COMPANY_ALERTS_FAILURE,
-} from 'constants/actionTypes/messageCentre';
+import { POST_MARK_COMPANY_ALERTS_AS_READ_SUCCESS } from 'constants/actionTypes/messageCentre';
 
-export const markAlertsAsReadRequest = () => ({
-    type: POST_COMPANY_ALERTS_REQUEST,
-});
-
-export const markAlertsAsReadSuccess = payload => ({
-    type: POST_COMPANY_ALERTS_SUCCESS,
+export const markCompanyAlertsAsReadSuccess = payload => ({
+    type: POST_MARK_COMPANY_ALERTS_AS_READ_SUCCESS,
     payload,
 });
 
-export const markAlertsAsReadFailure = error => ({
-    type: POST_COMPANY_ALERTS_FAILURE,
-    error,
-});
-
-export default postBody => dispatch => {
-    dispatch(markAlertsAsReadRequest());
-
+export default () => dispatch => {
     return axios
-        .post(`${API_URL}/alertMessages/readall`, postBody, getHeaders())
-        .then(res => dispatch(markAlertsAsReadSuccess(res.data)))
-        .catch(err => dispatch(markAlertsAsReadFailure(err.message)));
+        .post(`${API_URL}/alertMessages/readall`, null, getHeaders())
+        .then(res => dispatch(markCompanyAlertsAsReadSuccess(res.data)))
+        .catch(err => console.log(err));
 };

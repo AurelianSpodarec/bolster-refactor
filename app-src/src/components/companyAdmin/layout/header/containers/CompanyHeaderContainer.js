@@ -10,7 +10,6 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { toggleMobileMenu } from 'actions/shared/mobile/sync/toggleMobileMenu';
 
 import { BUY_CREDITS } from 'constants/shared/modalTypes';
-import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
 
 class CompanyHeaderContainer extends Component {
     state = {
@@ -20,7 +19,6 @@ class CompanyHeaderContainer extends Component {
         const {
             profile,
             companySettings,
-            unreadMessageCount,
             totalCredits,
             totalRequests,
             isImpersonating,
@@ -39,7 +37,6 @@ class CompanyHeaderContainer extends Component {
                 shouldUsePayments={shouldUsePayments}
                 company={companySettings}
                 companyColour={companyColour}
-                unreadMessageCount={unreadMessageCount}
                 totalCredits={totalCredits}
                 totalRequests={totalRequests}
                 isImpersonating={isImpersonating}
@@ -56,7 +53,6 @@ class CompanyHeaderContainer extends Component {
                 profile={profile}
                 company={companySettings}
                 companyColour={companyColour}
-                unreadMessageCount={unreadMessageCount}
                 totalCredits={totalCredits}
                 totalRequests={totalRequests}
                 isImpersonating={isImpersonating}
@@ -93,7 +89,6 @@ class CompanyHeaderContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: { companySettings },
-        messageCentreReducer: { systemMessages },
         creditsReducer: { credits, isFetching, costOfCredits },
         transferRequestsReducer: { incomingTransferRequests },
         pendingInvitesReducer: { pendingInvites },
@@ -108,9 +103,6 @@ const mapStateToProps = ({
     },
 }) => {
     const isImpersonating = headquartersCompanyID !== companyID;
-    const unreadMessageCount = Object.values(systemMessages).filter(
-        ({ type, isRead }) => type === MESSAGE_TYPES.SYSTEM && !isRead,
-    ).length;
     const totalCredits = Object.values(credits).reduce((a, b) => a + b.quantity, 0);
     const totalRequests =
         Object.values(incomingTransferRequests).length + Object.values(pendingInvites).length;
@@ -119,7 +111,6 @@ const mapStateToProps = ({
         profile: profile,
         shouldUsePayments: profile.firstName,
         companySettings,
-        unreadMessageCount,
         totalCredits,
         totalRequests,
         isImpersonating,

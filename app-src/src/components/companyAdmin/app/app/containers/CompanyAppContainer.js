@@ -25,6 +25,10 @@ import withAuth from 'components/shared/auth/auth/hocs/withAuth';
 import { AUTH_TYPES } from 'constants/shared/auth';
 import fetchRecentUpdates from 'actions/companyAdmin/recentUpdates/async/fetchRecentUpdates';
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
+import fetchSystemMessages from 'actions/companyAdmin/messageCentre/async/fetchSystemMessages';
+import fetchCompanyAlerts from 'actions/companyAdmin/messageCentre/async/fetchCompanyAlerts';
+import fetchOperativeAlerts from 'actions/companyAdmin/messageCentre/async/fetchOperativeAlerts';
+import fetchDrawingExpiryMessages from 'actions/companyAdmin/messageCentre/async/fetchDrawingExpiryMessages';
 
 class CompanyAppContainer extends Component {
     render() {
@@ -101,6 +105,10 @@ const mapDispatchToProps = dispatch => ({
             dispatch(fetchPendingInvites());
             dispatch(fetchOutgoingInvites());
             dispatch(fetchRecentUpdates());
+            dispatch(fetchSystemMessages());
+            dispatch(fetchCompanyAlerts());
+            dispatch(fetchOperativeAlerts());
+            dispatch(fetchDrawingExpiryMessages());
         });
     },
     decodeJWT: () => dispatch(decodeJWT()),
