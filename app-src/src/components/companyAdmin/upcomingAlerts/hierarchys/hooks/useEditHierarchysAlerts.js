@@ -22,7 +22,7 @@ const useEditHierarchyAlert = id => {
         name: alert?.name ?? '',
         description: alert?.description ?? '',
         method: alert?.method ?? '',
-        date: '',
+        date: new Date(alert.date),
         frequencyType: alert?.frequencyType ?? '',
         frequencyAmount: alert?.frequencyAmount ?? '1',
     });
