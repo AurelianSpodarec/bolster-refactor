@@ -32,6 +32,7 @@ const HierarchyAlerts = () => {
                         'Frequency Amount',
                         'Name',
                         'Description',
+                        '',
                     ]}
                     isFetching={isFetching}
                     error={error}

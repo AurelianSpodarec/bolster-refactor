@@ -44,54 +44,52 @@ const AlertItem = ({
     const isPlural = frequencyAmount > 1;
 
     return (
-        <>
-            <tr>
-                <td className="left-align">
-                    <Moment format={'DD/MM/YYYY'} date={date} />
-                </td>
-                <td className="left-align">
-                    <DateTimeContainer date={createdOn} />
-                </td>
-                <td>{lastSendOn ? <DateTimeContainer date={lastSendOn} /> : 'NA'}</td>
-                <td>
-                    <Link to={`/company/${HIERARCHY_TYPES[hierarchyType]}s/${hierarchyID}`}>
-                        {`/company/${HIERARCHY_TYPES[hierarchyType]}s/${hierarchyID}`}
-                    </Link>
-                </td>
-                <td>{ALERT_METHOD_VALUES[method]}</td>
-                <td>{user && `${user.userFirstName} ${user.userLastName}/${user.companyName}`}</td>
-                <td>
-                    {frequencyType === ALERT_FREQUENCY_TYPES.ONCE
-                        ? 'Once'
-                        : 'Every ' +
-                          frequencyAmount +
-                          ' ' +
-                          ALERT_FREQUENCY_SUFFIX_VALUES[frequencyType] +
-                          (isPlural ? 's' : '')}
-                </td>
-                <td className="left-align">{name}</td>
-                <td className="left-align">{description}</td>
-                <td className="min-width-120">
-                    <BlockButtonWrapper additionalClasses="stacked">
-                        <button
-                            className="button yellow"
-                            onClick={() => dispatch(showModal(EDIT_ALERT_MODAL, { id }))}
-                        >
-                            <i className="far fa-pencil" />
-                            Edit
-                        </button>
+        <tr>
+            <td className="left-align">
+                <Moment format={'DD/MM/YYYY'} date={date} />
+            </td>
+            <td className="left-align">
+                <DateTimeContainer date={createdOn} />
+            </td>
+            <td>{lastSendOn ? <DateTimeContainer date={lastSendOn} /> : 'NA'}</td>
+            <td>
+                <Link to={`/company/${HIERARCHY_TYPES[hierarchyType]}s/${hierarchyID}`}>
+                    {`/company/${HIERARCHY_TYPES[hierarchyType]}s/${hierarchyID}`}
+                </Link>
+            </td>
+            <td>{ALERT_METHOD_VALUES[method]}</td>
+            <td>{user && `${user.userFirstName} ${user.userLastName}/${user.companyName}`}</td>
+            <td>
+                {frequencyType === ALERT_FREQUENCY_TYPES.ONCE
+                    ? 'Once'
+                    : 'Every ' +
+                      frequencyAmount +
+                      ' ' +
+                      ALERT_FREQUENCY_SUFFIX_VALUES[frequencyType] +
+                      (isPlural ? 's' : '')}
+            </td>
+            <td className="left-align">{name}</td>
+            <td className="left-align">{description}</td>
+            <td className="min-width-120">
+                <BlockButtonWrapper additionalClasses="stacked">
+                    <button
+                        className="button yellow"
+                        onClick={() => dispatch(showModal(EDIT_ALERT_MODAL, { id }))}
+                    >
+                        <i className="far fa-pencil" />
+                        Edit
+                    </button>
 
-                        <button
-                            className="button red"
-                            onClick={() => dispatch(showModal(DELETE_ALERT_MODAL, { id }))}
-                        >
-                            <i className="fas fa-trash-alt" />
-                            Delete
-                        </button>
-                    </BlockButtonWrapper>
-                </td>
-            </tr>
-        </>
+                    <button
+                        className="button red"
+                        onClick={() => dispatch(showModal(DELETE_ALERT_MODAL, { id }))}
+                    >
+                        <i className="fas fa-trash-alt" />
+                        Delete
+                    </button>
+                </BlockButtonWrapper>
+            </td>
+        </tr>
     );
 };
 

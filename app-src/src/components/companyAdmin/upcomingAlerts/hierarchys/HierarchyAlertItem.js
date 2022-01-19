@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Moment from 'react-moment';
 import 'moment-timezone';
@@ -11,8 +11,9 @@ import {
 } from 'constants/companyAdmin/enums';
 import { companyUser } from 'selectors/companyAdmin/companyUser';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
-import deleteAlert from 'actions/companyAdmin/alerts/async/deleteAlert';
-import DeleteAlertModal from '../presentational/DeleteAlertModal';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { DELETE_ALERT_MODAL, EDIT_ALERT_MODAL } from 'constants/shared/modalTypes';
 
 const HierarchyAlertItem = ({
     alert: {
@@ -28,7 +29,6 @@ const HierarchyAlertItem = ({
         description,
     },
 }) => {
-    const [dismissAlertModal, setDismissAlertModal] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -37,55 +37,50 @@ const HierarchyAlertItem = ({
 
     const user = useSelector(state => companyUser(state, createdByCompanyUserID));
 
-    const handleClick = () => {
-        setDismissAlertModal(true);
-    };
-
-    const handleDismissAlert = id => {
-        setDismissAlertModal(false);
-        dispatch(deleteAlert(id));
-    };
-
     const isPlural = frequencyAmount > 1;
     return (
-        <>
-            <DeleteAlertModal
-                id={id}
-                name={name}
-                date={date}
-                dismissAlertModal={dismissAlertModal}
-                setDismissAlertModal={setDismissAlertModal}
-                handleDismissAlert={handleDismissAlert}
-            />
-            <tr>
-                <td className="left-align">
-                    <Moment format={'DD/MM/YYYY'} date={date} />
-                </td>
-                <td className="left-align">
-                    <DateTimeContainer date={createdOn} />
-                </td>
-                <td>{lastSendOn ? <DateTimeContainer date={lastSendOn} /> : 'NA'}</td>
-                <td>{ALERT_METHOD_VALUES[method]}</td>
-                <td>{user && `${user.userFirstName} ${user.userLastName}/${user.companyName}`}</td>
-                <td>
-                    {frequencyType === ALERT_FREQUENCY_TYPES.ONCE
-                        ? 'Once'
-                        : 'Every ' +
-                          frequencyAmount +
-                          ' ' +
-                          ALERT_FREQUENCY_SUFFIX_VALUES[frequencyType] +
-                          (isPlural ? 's' : '')}
-                </td>
-                <td className="left-align">{name}</td>
-                <td className="left-align">{description}</td>
+        <tr>
+            <td className="left-align">
+                <Moment format={'DD/MM/YYYY'} date={date} />
+            </td>
+            <td className="left-align">
+                <DateTimeContainer date={createdOn} />
+            </td>
+            <td>{lastSendOn ? <DateTimeContainer date={lastSendOn} /> : 'NA'}</td>
+            <td>{ALERT_METHOD_VALUES[method]}</td>
+            <td>{user && `${user.userFirstName} ${user.userLastName}/${user.companyName}`}</td>
+            <td>
+                {frequencyType === ALERT_FREQUENCY_TYPES.ONCE
+                    ? 'Once'
+                    : 'Every ' +
+                      frequencyAmount +
+                      ' ' +
+                      ALERT_FREQUENCY_SUFFIX_VALUES[frequencyType] +
+                      (isPlural ? 's' : '')}
+            </td>
+            <td className="left-align">{name}</td>
+            <td className="left-align">{description}</td>
 
-                <td>
-                    <button className="no-background-btn" onClick={handleClick}>
-                        <i className="fas fa-times-circle close-icon" />
+            <td className="min-width-120">
+                <BlockButtonWrapper additionalClasses="stacked">
+                    <button
+                        className="button yellow"
+                        onClick={() => dispatch(showModal(EDIT_ALERT_MODAL, { id }))}
+                    >
+                        <i className="far fa-pencil" />
+                        Edit
                     </button>
-                </td>
-            </tr>
-        </>
+
+                    <button
+                        className="button red"
+                        onClick={() => dispatch(showModal(DELETE_ALERT_MODAL, { id }))}
+                    >
+                        <i className="fas fa-trash-alt" />
+                        Delete
+                    </button>
+                </BlockButtonWrapper>
+            </td>
+        </tr>
     );
 };
 

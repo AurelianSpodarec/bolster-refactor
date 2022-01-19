@@ -9,7 +9,7 @@ import {
 } from 'constants/companyAdmin/enums';
 
 import { NUMBER_GREATER_THAN_ZERO } from 'helpers/regex';
-import { alertsIsPosting, selectAlert, selectHierarchyAlert } from 'selectors/companyAdmin/alerts';
+import { alertsIsPosting, selectAlert } from 'selectors/companyAdmin/alerts';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import Form from 'components/shared/generic/form/containers/Form';
@@ -24,10 +24,7 @@ import { enumFormat } from 'helpers/generic';
 import useEditAlert from '../hierarchys/hooks/useEditAlert';
 
 const EditAlertModal = ({ id, hideModal }) => {
-    const mainAlert = useSelector(state => selectAlert(state, id));
-    const hierarchyAlert = useSelector(state => selectHierarchyAlert(state, id));
-
-    const alert = mainAlert || hierarchyAlert;
+    const alert = useSelector(state => selectAlert(state, id));
 
     const { form, handleChange, handleSubmit } = useEditAlert(id, alert);
 
