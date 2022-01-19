@@ -16,23 +16,23 @@ const OptionTypeFrom = ({
     serviceID,
 }) => {
     const getOptions = () => {
-        const dropdownOptNames = dropdownOptions
-            .filter(opt => {
+        const convertedOptions = dropdownOptions
+            .reduce((acc, opt) => {
                 if (opt.type === +optionType) {
                     if (serviceID && opt.serviceIDs?.length) {
-                        return opt.serviceIDs.includes(serviceID);
+                        if (opt.serviceIDs.includes(+serviceID)) {
+                            acc.push({ label: opt.name, value: opt.name });
+                        }
                     } else {
-                        return true;
+                        acc.push({ label: opt.name, value: opt.name });
                     }
-                } else {
-                    return false;
                 }
-            })
-            .map(opt => opt.name);
 
-        return [...new Set(dropdownOptNames)]
-            .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
-            .map(name => ({ label: name, value: name }));
+                return acc;
+            }, [])
+            .sort((a, b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()));
+
+        return convertedOptions;
     };
 
     return (
