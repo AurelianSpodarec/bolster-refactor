@@ -255,7 +255,7 @@ import GenerateTimesheetReportModal from 'components/companyAdmin/userManagement
 import ExpandedMediaModal from './ExpandedMediaModal';
 import ExpiringDrawingsModal from 'components/companyAdmin/messages/messageCentre/listItems/ExpiringDrawingsModal';
 import EditAlertModal from 'components/companyAdmin/upcomingAlerts/presentational/EditAlertModal';
-import DismissAlertModal from 'components/companyAdmin/upcomingAlerts/presentational/DismissAlertModal';
+import DeleteAlertModal from 'components/companyAdmin/upcomingAlerts/presentational/DeleteAlertModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -382,7 +382,7 @@ const MODAL_COMPONENTS = {
     [EXPANDED_MEDIA]: ExpandedMediaModal,
     [MESSAGE_CENTRE_DRAWING_EXPIRY]: ExpiringDrawingsModal,
     [EDIT_ALERT_MODAL]: EditAlertModal,
-    [DELETE_ALERT_MODAL]: DismissAlertModal,
+    [DELETE_ALERT_MODAL]: DeleteAlertModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

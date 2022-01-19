@@ -9,7 +9,7 @@ import updateAlert from 'actions/companyAdmin/alerts/async/updateAlert';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 
-const useEditHierarchyAlert = (id, alert) => {
+const useEditAlert = (id, alert) => {
     const dispatch = useDispatch();
     const postSuccess = useSelector(alertsPostSuccess);
     const postError = useSelector(alertsPostError);
@@ -53,4 +53,4 @@ const useEditHierarchyAlert = (id, alert) => {
     };
 };
 
-export default useEditHierarchyAlert;
+export default useEditAlert;

@@ -1,13 +1,13 @@
 import React from 'react';
 
-import useDeleteHierarchyAlert from 'components/companyAdmin/upcomingAlerts/hierarchys/hooks/useDeleteHierarchysAlerts';
+import useDeleteAlert from 'components/companyAdmin/upcomingAlerts/hierarchys/hooks/useDeleteAlert';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const DismissAlertModal = ({ id, hideModal }) => {
-    const { handleSubmit } = useDeleteHierarchyAlert(id);
+const DeleteAlertModal = ({ id, hideModal }) => {
+    const { handleSubmit } = useDeleteAlert(id);
 
     return (
         <ModalOuterContainer hideCloseButton>
@@ -26,4 +26,4 @@ const DismissAlertModal = ({ id, hideModal }) => {
     );
 };
 
-export default DismissAlertModal;
+export default DeleteAlertModal;

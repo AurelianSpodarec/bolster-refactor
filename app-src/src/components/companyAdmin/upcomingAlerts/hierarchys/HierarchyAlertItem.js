@@ -12,7 +12,7 @@ import {
 import { companyUser } from 'selectors/companyAdmin/companyUser';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import deleteAlert from 'actions/companyAdmin/alerts/async/deleteAlert';
-import DismissAlertModal from '../presentational/DismissAlertModal';
+import DeleteAlertModal from '../presentational/DeleteAlertModal';
 
 const HierarchyAlertItem = ({
     alert: {
@@ -49,7 +49,7 @@ const HierarchyAlertItem = ({
     const isPlural = frequencyAmount > 1;
     return (
         <>
-            <DismissAlertModal
+            <DeleteAlertModal
                 id={id}
                 name={name}
                 date={date}

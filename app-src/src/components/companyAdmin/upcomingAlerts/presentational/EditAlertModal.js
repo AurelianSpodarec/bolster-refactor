@@ -6,7 +6,6 @@ import {
     ALERT_FREQUENCY_TYPES,
     ALERT_FREQUENCY_VALUES,
     ALERT_METHOD_VALUES,
-    HIERARCHY_TYPES,
 } from 'constants/companyAdmin/enums';
 
 import { NUMBER_GREATER_THAN_ZERO } from 'helpers/regex';
@@ -22,7 +21,7 @@ import DatePickerContainer from 'components/shared/generic/form/containers/DateP
 import Select from 'components/shared/generic/form/presentational/Select';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import { enumFormat } from 'helpers/generic';
-import useEditHierarchyAlert from '../hierarchys/hooks/useEditHierarchysAlerts';
+import useEditAlert from '../hierarchys/hooks/useEditAlert';
 
 const EditAlertModal = ({ id, hideModal }) => {
     const mainAlert = useSelector(state => selectAlert(state, id));
@@ -30,7 +29,7 @@ const EditAlertModal = ({ id, hideModal }) => {
 
     const alert = mainAlert || hierarchyAlert;
 
-    const { form, handleChange, handleSubmit } = useEditHierarchyAlert(id, alert);
+    const { form, handleChange, handleSubmit } = useEditAlert(id, alert);
 
     const isPosting = useSelector(alertsIsPosting);
 

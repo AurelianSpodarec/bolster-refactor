@@ -7,7 +7,7 @@ import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import deleteAlert from 'actions/companyAdmin/alerts/async/deleteAlert';
 
-const useDeleteHierarchyAlert = id => {
+const useDeleteAlert = id => {
     const dispatch = useDispatch();
     const postSuccess = useSelector(alertsPostSuccess);
     const postError = useSelector(alertsPostError);
@@ -31,4 +31,4 @@ const useDeleteHierarchyAlert = id => {
     };
 };
 
-export default useDeleteHierarchyAlert;
+export default useDeleteAlert;
