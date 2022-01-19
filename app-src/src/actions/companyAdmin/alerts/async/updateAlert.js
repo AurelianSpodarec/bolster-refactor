@@ -23,7 +23,7 @@ export const updateAlertFailure = error => ({
     error,
 });
 
-export const updateAlert = (id, postBody) => async dispatch => {
+export default (id, postBody) => async dispatch => {
     dispatch(updateAlertRequest());
 
     try {

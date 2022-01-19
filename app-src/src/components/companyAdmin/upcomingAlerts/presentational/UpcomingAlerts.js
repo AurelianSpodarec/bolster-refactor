@@ -25,6 +25,7 @@ const UpcomingAlerts = ({ error, isFetching, alerts }) => {
                         'Frequency Amount',
                         'Name',
                         'Description',
+                        '',
                     ]}
                     isFetching={isFetching}
                     error={error}

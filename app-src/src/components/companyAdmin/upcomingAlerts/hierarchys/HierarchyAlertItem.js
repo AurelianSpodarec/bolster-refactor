@@ -11,7 +11,7 @@ import {
 } from 'constants/companyAdmin/enums';
 import { companyUser } from 'selectors/companyAdmin/companyUser';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
-import { dismissAlert } from 'actions/companyAdmin/alerts/sync/deleteAlert';
+import deleteAlert from 'actions/companyAdmin/alerts/async/deleteAlert';
 import DismissAlertModal from '../presentational/DismissAlertModal';
 
 const HierarchyAlertItem = ({
@@ -43,7 +43,7 @@ const HierarchyAlertItem = ({
 
     const handleDismissAlert = id => {
         setDismissAlertModal(false);
-        dispatch(dismissAlert(id));
+        dispatch(deleteAlert(id));
     };
 
     const isPlural = frequencyAmount > 1;

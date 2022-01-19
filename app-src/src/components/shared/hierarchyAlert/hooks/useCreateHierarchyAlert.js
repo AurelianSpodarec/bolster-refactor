@@ -8,7 +8,7 @@ import { useForm, usePrevious } from 'helpers/hooks';
 import { alertsPostSuccess, alertsPostError } from 'selectors/companyAdmin/alerts';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-import { createAlert } from 'actions/companyAdmin/alerts/async/createAlert';
+import createAlert from 'actions/companyAdmin/alerts/async/createAlert';
 
 const useCreateHierarchyAlert = (hierarchyType, hierarchyID) => {
     const dispatch = useDispatch();

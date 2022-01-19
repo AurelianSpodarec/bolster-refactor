@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Moment from 'react-moment';
@@ -13,11 +13,9 @@ import {
 } from 'constants/companyAdmin/enums';
 import { companyUser } from 'selectors/companyAdmin/companyUser';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
-import { dismissAlert } from 'actions/companyAdmin/alerts/sync/deleteAlert';
-import DismissAlertModal from './DismissAlertModal';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import EditAlertModal from './EditAlertModal';
-import { updateAlert } from 'actions/companyAdmin/alerts/sync/updateAlert';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { DELETE_ALERT_MODAL, EDIT_ALERT_MODAL } from 'constants/shared/modalTypes';
 
 const AlertItem = ({
     alert: {
@@ -35,8 +33,6 @@ const AlertItem = ({
         description,
     },
 }) => {
-    const [dismissAlertModal, setDismissAlertModal] = useState(false);
-    const [editAlertModal, setEditAlertModal] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -45,43 +41,10 @@ const AlertItem = ({
 
     const user = useSelector(state => companyUser(state, createdByCompanyUserID));
 
-    const handleDismissAlert = id => {
-        setDismissAlertModal(false);
-        dispatch(dismissAlert(id));
-    };
-
-    const handleEditAlert = () => {
-        setEditAlertModal(false);
-    };
-
     const isPlural = frequencyAmount > 1;
 
     return (
         <>
-            <DismissAlertModal
-                id={id}
-                name={name}
-                date={date}
-                dismissAlertModal={dismissAlertModal}
-                setDismissAlertModal={setDismissAlertModal}
-                handleDismissAlert={handleDismissAlert}
-            />
-
-            <EditAlertModal
-                id={id}
-                name={name}
-                date={date}
-                description={description}
-                method={method}
-                frequencyAmount={frequencyAmount}
-                frequencyType={frequencyType}
-                editAlertModal={editAlertModal}
-                setEditAlertModal={setEditAlertModal}
-                handleEditAlert={handleEditAlert}
-                hierarchyType={hierarchyType}
-                hierarchyID={hierarchyID}
-            />
-
             <tr>
                 <td className="left-align">
                     <Moment format={'DD/MM/YYYY'} date={date} />
@@ -112,9 +75,7 @@ const AlertItem = ({
                     <BlockButtonWrapper additionalClasses="stacked">
                         <button
                             className="button yellow"
-                            onClick={() => {
-                                setEditAlertModal(true);
-                            }}
+                            onClick={() => dispatch(showModal(EDIT_ALERT_MODAL, { id }))}
                         >
                             <i className="far fa-pencil" />
                             Edit
@@ -122,9 +83,7 @@ const AlertItem = ({
 
                         <button
                             className="button red"
-                            onClick={() => {
-                                setDismissAlertModal(true);
-                            }}
+                            onClick={() => dispatch(showModal(DELETE_ALERT_MODAL, { id }))}
                         >
                             <i className="fas fa-trash-alt" />
                             Delete

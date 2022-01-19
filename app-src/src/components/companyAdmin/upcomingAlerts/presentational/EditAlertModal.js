@@ -10,7 +10,7 @@ import {
 } from 'constants/companyAdmin/enums';
 
 import { NUMBER_GREATER_THAN_ZERO } from 'helpers/regex';
-import { alertsIsPosting } from 'selectors/companyAdmin/alerts';
+import { alertsIsPosting, selectAlert, selectHierarchyAlert } from 'selectors/companyAdmin/alerts';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import Form from 'components/shared/generic/form/containers/Form';
@@ -24,8 +24,13 @@ import TextAreaContainer from 'components/shared/generic/form/containers/TextAre
 import { enumFormat } from 'helpers/generic';
 import useEditHierarchyAlert from '../hierarchys/hooks/useEditHierarchysAlerts';
 
-const EditAlertModal = ({ id, setEditAlertModal, editAlertModal, handleEditAlert }) => {
-    const { form, handleChange, handleSubmit } = useEditHierarchyAlert(id);
+const EditAlertModal = ({ id, hideModal }) => {
+    const mainAlert = useSelector(state => selectAlert(state, id));
+    const hierarchyAlert = useSelector(state => selectHierarchyAlert(state, id));
+
+    const alert = mainAlert || hierarchyAlert;
+
+    const { form, handleChange, handleSubmit } = useEditHierarchyAlert(id, alert);
 
     const isPosting = useSelector(alertsIsPosting);
 
@@ -37,11 +42,9 @@ const EditAlertModal = ({ id, setEditAlertModal, editAlertModal, handleEditAlert
         frequencyAmountNum > 1 ? 's' : ''
     }`;
 
-    if (!editAlertModal) return null;
-
     return (
         <ModalOuterContainer>
-            <BlockHeading title={`Edit ${HIERARCHY_TYPES[form.hierarchyType]} alert`} />
+            <BlockHeading title="Edit alert" />
 
             <Form className="generic-form" onSubmit={handleSubmit}>
                 <div className="size-lg-12">
@@ -131,7 +134,7 @@ const EditAlertModal = ({ id, setEditAlertModal, editAlertModal, handleEditAlert
 
                 <BlockButtonWrapper>
                     <button
-                        onClick={() => handleEditAlert(id)}
+                        onClick={handleSubmit}
                         type="submit"
                         className={`button yellow ${isPosting ? 'disabled' : ''}`}
                         disabled={isPosting}
@@ -139,7 +142,7 @@ const EditAlertModal = ({ id, setEditAlertModal, editAlertModal, handleEditAlert
                         <i className={`${isPosting ? 'fa fa-spinner fa-spin' : null}`} />{' '}
                         {isPosting ? 'Editing...' : 'Edit Alert'}
                     </button>
-                    <button className="button" onClick={() => setEditAlertModal(false)}>
+                    <button className="button" onClick={hideModal}>
                         Cancel
                     </button>
                 </BlockButtonWrapper>

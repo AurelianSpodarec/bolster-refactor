@@ -23,7 +23,7 @@ export const createAlertFailure = error => ({
     error,
 });
 
-export const createAlert = (hierarchyType, hierarchyID, postBody) => async dispatch => {
+export default (hierarchyType, hierarchyID, postBody) => async dispatch => {
     dispatch(createAlertRequest());
 
     try {
