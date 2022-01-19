@@ -189,7 +189,13 @@ const useTimesheets = () => {
 
         if (filterByHasClockedIn) {
             companyUserOptions = timesheetOptions
-                .filter(({ hasTimesheetData }) => hasTimesheetData)
+                .filter(({ id, hasTimesheetData }) => {
+                    if (!companyUserIDs.length) {
+                        return hasTimesheetData;
+                    } else {
+                        return companyUserIDs.includes(id);
+                    }
+                })
                 .map(mapCompanyUsers);
         }
 
