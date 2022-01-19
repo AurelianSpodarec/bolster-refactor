@@ -187,11 +187,17 @@ const useTimesheets = () => {
     useEffect(() => {
         let companyUserOptions = timesheetOptions.map(mapCompanyUsers);
 
-        // if (filterByHasClockedIn) {
-        //     companyUserOptions = timesheetOptions
-        //         .filter(({ hasTimesheetData }) => hasTimesheetData)
-        //         .map(mapCompanyUsers);
-        // }
+        if (filterByHasClockedIn) {
+            companyUserOptions = timesheetOptions
+                .filter(({ id, hasTimesheetData }) => {
+                    if (!companyUserIDs.length) {
+                        return hasTimesheetData;
+                    } else {
+                        return companyUserIDs.includes(id);
+                    }
+                })
+                .map(mapCompanyUsers);
+        }
 
         setCompanyUserOptions(companyUserOptions);
     }, [timesheetOptions, filterByHasClockedIn]);
