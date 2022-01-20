@@ -25,7 +25,7 @@ const mapStateToProps = (
     isFetching,
     error,
     template: templates[ownProps.templateID],
-    service: services[templates[ownProps.templateID].serviceID],
+    service: services[templates[ownProps.templateID]?.serviceID],
 });
 
 export default connect(mapStateToProps)(TemplateDetailsContainer);
