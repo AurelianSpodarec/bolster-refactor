@@ -66,7 +66,7 @@ const CompanyRoutes = ({ base = '/company' }) => (
             component={withSubscriptionAuth(DropdownOptionsRoutes)}
         />
         <Route
-            path={`${base}/document-library`}
+            path={`${base}/company-documents`}
             component={withSubscriptionAuth(DocumentLibraryRoutes)}
         />
     </SwitchWith404>
