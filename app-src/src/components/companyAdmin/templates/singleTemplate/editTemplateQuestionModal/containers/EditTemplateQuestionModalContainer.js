@@ -33,8 +33,11 @@ class EditTemplateQuestionModalContainer extends Component {
         const { question } = this.props;
 
         if (question.optionConfigurations) {
+            let sort = 0;
+
             const options = question.optionConfigurations.reduce((acc, { name }) => {
-                return { ...acc, [name]: name };
+                sort = sort + 1;
+                return { ...acc, [name]: { value: name, sort } };
             }, {});
 
             const configuration = question.optionConfigurations.reduce(
@@ -45,6 +48,7 @@ class EditTemplateQuestionModalContainer extends Component {
             );
 
             this.setState({ configuration, options });
+            console.log(Object.values(options));
         }
     };
 
@@ -55,7 +59,8 @@ class EditTemplateQuestionModalContainer extends Component {
     };
 
     handleChange = (name, value) => {
-        this.setState({ options: updateObj(this.state.options, name, value) });
+        const sort = this.state.options[name].sort;
+        this.setState({ options: updateObj(this.state.options, name, { value, sort }) });
     };
 
     handleQuestionToggle = id => {
@@ -72,7 +77,9 @@ class EditTemplateQuestionModalContainer extends Component {
     };
 
     handleAddOption = () => {
-        this.setState({ options: updateObj(this.state.options, uuid(), '') });
+        const { options } = this.state;
+        const latestSort = Object.values(options).sort((a, b) => b.sort - a.sort)[0].sort;
+        this.setState({ options: updateObj(options, uuid(), { value: '', sort: latestSort + 1 }) });
     };
 
     handleSubmit = e => {
