@@ -65,7 +65,7 @@ const FileDropBox = ({
                         >
                             Select
                         </button>
-                        {' from Document Library'}
+                        {' from Company Documents'}
                     </>
                 )}
             </p>

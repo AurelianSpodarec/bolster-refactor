@@ -147,9 +147,9 @@ const CompanyMenu = ({
                         <i className="far fa-qrcode fa-fw icon" />
                         <span className="menu-text"> Generate QR Codes</span>
                     </CompanyMenuItemContainer>
-                    <CompanyMenuItemContainer link="/company/document-library">
+                    <CompanyMenuItemContainer link="/company/company-documents">
                         <i className="far fa-file-pdf fa-fw icon" />
-                        <span className="menu-text"> Document Library</span>
+                        <span className="menu-text"> Company Documents</span>
                     </CompanyMenuItemContainer>
                 </>
             )}

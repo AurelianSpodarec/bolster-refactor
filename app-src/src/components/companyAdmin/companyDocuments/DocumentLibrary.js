@@ -61,7 +61,7 @@ const DocumentLibrary = () => {
 
     return (
         <>
-            <PageHeading title="Document Library" withBackButton>
+            <PageHeading title="Company Documents" withBackButton>
                 <button className="button green" type="button" onClick={() => showCreateModal()}>
                     <i className="fa fa-file-medical" />
                     Upload File
