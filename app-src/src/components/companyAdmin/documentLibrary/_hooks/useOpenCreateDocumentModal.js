@@ -1,5 +1,5 @@
 import { useDrop } from 'react-dnd';
-import { useDispatch  } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { NativeTypes } from 'react-dnd-html5-backend';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { UPLOAD_LIBRARY_DOCUMENT } from 'constants/shared/modalTypes';
@@ -12,7 +12,7 @@ const useOpenCreateDocumentModal = () => {
         collect: handleCollect,
     });
 
-    function handleDrop(item, monitor) {
+    function handleDrop(_, monitor) {
         if (monitor) {
             const initialFiles = [...monitor.getItem().files];
             showCreateModal(initialFiles);
@@ -21,22 +21,21 @@ const useOpenCreateDocumentModal = () => {
 
     function handleCollect(monitor) {
         return {
-          isOver: monitor.isOver(),
-          canDrop: monitor.canDrop(),
+            isOver: monitor.isOver(),
+            canDrop: monitor.canDrop(),
         };
     }
 
-    function showCreateModal(initialFiles = []){
+    function showCreateModal(initialFiles = []) {
         dispatch(showModal(UPLOAD_LIBRARY_DOCUMENT, { initialFiles }));
     }
-    
-  return {
-      canDrop,
-      isOver,
-      dropRef,
-      showCreateModal,
-  };
+
+    return {
+        canDrop,
+        isOver,
+        dropRef,
+        showCreateModal,
+    };
 };
 
 export default useOpenCreateDocumentModal;
-

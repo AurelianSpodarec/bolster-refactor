@@ -2,7 +2,6 @@ import { usePrevious } from 'helpers/hooks';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import searchAllLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/searchAllLibraryDocuments';
-import { convertArrToObj } from 'helpers/generic';
 import { useDebounce } from 'helpers/hooks';
 import { DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
 

@@ -22,11 +22,12 @@ export const hardDeleteLibraryDocumentsFailure = error => ({
     error,
 });
 
-export default (ids = []) => dispatch => {
-    dispatch(hardDeleteLibraryDocumentsRequest());
+export default (ids = []) =>
+    dispatch => {
+        dispatch(hardDeleteLibraryDocumentsRequest());
 
-    return axios
-        .patch(`${API_URL}/document-library/delete`, { ids }, getHeaders())
-        .then(res => dispatch(hardDeleteLibraryDocumentsSuccess(ids)))
-        .catch(err => dispatch(hardDeleteLibraryDocumentsFailure(err.message)));
-};
+        return axios
+            .patch(`${API_URL}/document-library/delete`, { ids }, getHeaders())
+            .then(() => dispatch(hardDeleteLibraryDocumentsSuccess(ids)))
+            .catch(err => dispatch(hardDeleteLibraryDocumentsFailure(err.message)));
+    };

@@ -16,7 +16,6 @@ const CreateDocumentForm = ({ initialFiles }) => {
         progress,
         files,
         error,
-        uploading,
         fileUploading,
         form,
         handleChange,

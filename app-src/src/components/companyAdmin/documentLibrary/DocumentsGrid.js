@@ -2,6 +2,10 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import {
+    selectDocumentLibraryFilter,
+    selectDocumentLibrarySearchTerm,
+} from 'selectors/documentLibrary';
 import DocumentLibraryBreadcrumb from './DocumentLibraryBreadcrumb';
 import DocumentsGridItem from './DocumentsGridItem';
 
@@ -13,7 +17,8 @@ const DocumentsGrid = ({
     isFetching,
     fetchError,
 }) => {
-    const { librarySearchTerm, libraryFilter } = useSelector(mapStateToProps);
+    const librarySearchTerm = useSelector(selectDocumentLibrarySearchTerm);
+    const libraryFilter = useSelector(selectDocumentLibraryFilter);
     return (
         <>
             <BlockContainer
@@ -52,11 +57,5 @@ const DocumentsGrid = ({
         </>
     );
 };
-
-const mapStateToProps = ({
-    companyAdmin: {
-        documentLibraryReducer: { librarySearchTerm, libraryFilter },
-    },
-}) => ({ librarySearchTerm, libraryFilter });
 
 export default DocumentsGrid;

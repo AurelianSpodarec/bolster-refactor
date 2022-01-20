@@ -16,6 +16,11 @@ import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
+import {
+    selectDocumentLibraryIsPosting,
+    selectDocumentLibraryPostError,
+    selectDocumentLibraryPostSuccess,
+} from 'selectors/documentLibrary';
 
 const EditDocumentItemsModal = ({ ids }) => {
     const dispatch = useDispatch();
@@ -25,9 +30,9 @@ const EditDocumentItemsModal = ({ ids }) => {
     });
     const [{ name }, handleNameChange] = useForm({ name: '' });
 
-    const isPosting = useSelector(selectIsPosting);
-    const error = useSelector(selectError);
-    const success = useSelector(selectIsSuccess);
+    const isPosting = useSelector(selectDocumentLibraryIsPosting);
+    const error = useSelector(selectDocumentLibraryPostError);
+    const success = useSelector(selectDocumentLibraryPostSuccess);
 
     const handleSubmit = () => {
         const postBody = {
@@ -106,9 +111,5 @@ const EditDocumentItemsModal = ({ ids }) => {
         </ModalOuterContainer>
     );
 };
-
-const selectIsPosting = state => state.companyAdmin.documentLibraryReducer.isPosting;
-const selectError = state => state.companyAdmin.documentLibraryReducer.postError;
-const selectIsSuccess = state => state.companyAdmin.documentLibraryReducer.postSuccess;
 
 export default EditDocumentItemsModal;

@@ -14,6 +14,11 @@ import ModalOuterContainer from 'components/shared/generic/modals/containers/Mod
 import FileTypeIcon from './FileTypeIcon';
 import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
 import Error from 'components/shared/generic/misc/presentational/Error';
+import {
+    selectDocumentLibrary,
+    selectDocumentLibraryFetchError,
+    selectDocumentLibraryIsFetching,
+} from 'selectors/documentLibrary';
 
 const { FILE, FOLDER } = DOCUMENT_LIBRARY_TYPES;
 
@@ -24,9 +29,9 @@ const SelectDocumentLibraryItemModal = ({
 }) => {
     const dispatch = useDispatch();
 
-    const error = useSelector(selectError);
-    const fetching = useSelector(selectIsFetching);
-    const items = useSelector(selectItems);
+    const error = useSelector(selectDocumentLibraryFetchError);
+    const fetching = useSelector(selectDocumentLibraryIsFetching);
+    const items = Object.values(useSelector(selectDocumentLibrary));
 
     const [chooseItemError, setChooseItemError] = useState(null);
 
@@ -109,7 +114,6 @@ const SelectDocumentLibraryItemModal = ({
     async function downloadFile(item) {
         try {
             const res = await fetch(`${RAW_S3_STORAGE_URL}/${item.s3Key}`);
-            console.log({ res });
             const blob = await res.blob();
 
             const formData = new FormData();
@@ -145,11 +149,5 @@ const SelectDocumentLibraryItemModal = ({
         return breadcrumbs;
     }
 };
-
-const selectIsFetching = state => state.companyAdmin.documentLibraryReducer.isFetching;
-const selectError = state => state.companyAdmin.documentLibraryReducer.fetchError;
-// eslint-disable-next-line
-const selectItems = state =>
-    Object.values(state.companyAdmin.documentLibraryReducer.documentLibrary);
 
 export default SelectDocumentLibraryItemModal;

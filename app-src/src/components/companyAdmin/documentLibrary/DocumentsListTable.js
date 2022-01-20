@@ -7,6 +7,10 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import DocumentLibraryBreadcrumb from './DocumentLibraryBreadcrumb';
 import DocumentLibraryStats from './DocumentLibraryStats';
+import {
+    selectDocumentLibraryFilter,
+    selectDocumentLibrarySearchTerm,
+} from 'selectors/documentLibrary';
 
 const DocumentsTable = ({
     selectedItems = [],
@@ -30,7 +34,8 @@ const DocumentsTable = ({
         'File size',
     ];
 
-    const { librarySearchTerm, libraryFilter } = useSelector(mapStateToProps);
+    const librarySearchTerm = useSelector(selectDocumentLibrarySearchTerm);
+    const libraryFilter = useSelector(selectDocumentLibraryFilter);
 
     return (
         <BlockContainer contentClass="no-overflow">
@@ -75,11 +80,5 @@ const DocumentsTable = ({
         </BlockContainer>
     );
 };
-
-const mapStateToProps = ({
-    companyAdmin: {
-        documentLibraryReducer: { librarySearchTerm, libraryFilter },
-    },
-}) => ({ librarySearchTerm, libraryFilter });
 
 export default DocumentsTable;

@@ -24,7 +24,6 @@ const filterOptions = [
 
 const DocumentFilters = ({
     searchTerm,
-    onMobile,
     viewMode,
     setViewMode,
     selectedItems,

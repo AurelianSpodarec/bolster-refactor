@@ -12,15 +12,8 @@ import { usePrevious } from 'helpers/hooks';
 
 const useRestoreLibraryDocuments = (ids = []) => {
     const dispatch = useDispatch();
-    const {
-        documentLibrary,
-        // librarySearchTerm,
-        // libraryPage,
-        // libraryPageSize,
-        isRestoring,
-        restoreSuccess,
-        restoreError,
-    } = useSelector(mapStateToProps);
+    const { documentLibrary, isRestoring, restoreSuccess, restoreError } =
+        useSelector(mapStateToProps);
 
     const filenames = Object.values(documentLibrary).filter(item => ids.includes(item.id));
 
@@ -31,8 +24,8 @@ const useRestoreLibraryDocuments = (ids = []) => {
             Are you sure you want to restore the following library documents? <br />
             <br />
             <ul>
-                {filenames.map((item, i) => (
-                    <li key={i}>
+                {filenames.map(item => (
+                    <li key={item.id}>
                         <FileTypeIcon
                             src={
                                 item.type === DOCUMENT_LIBRARY_TYPES.FILE
@@ -89,21 +82,10 @@ const useRestoreLibraryDocuments = (ids = []) => {
 
 const mapStateToProps = ({
     companyAdmin: {
-        documentLibraryReducer: {
-            isRestoring,
-            restoreSuccess,
-            restoreError,
-            documentLibrary,
-            librarySearchTerm,
-            libraryPage,
-            libraryPageSize,
-        },
+        documentLibraryReducer: { isRestoring, restoreSuccess, restoreError, documentLibrary },
     },
 }) => ({
     documentLibrary,
-    librarySearchTerm,
-    libraryPage,
-    libraryPageSize,
     isRestoring,
     restoreSuccess,
     restoreError,

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm, usePrevious, useQueryParam } from 'helpers/hooks';
 import { useDrop } from 'react-dnd';

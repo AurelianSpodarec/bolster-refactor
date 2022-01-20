@@ -10,7 +10,7 @@ import { RAW_S3_STORAGE_URL } from 'config';
 import { useSelector } from 'react-redux';
 import { useQueryParam } from 'helpers/hooks';
 
-let DocumentsListItem = ({
+const DocumentsListItem = ({
     item,
     forwardRef,
     isDragging,
@@ -30,7 +30,7 @@ let DocumentsListItem = ({
     const users = useSelector(mapStateToProps) || {};
     const createdByUser = users[item.createdByCompanyUserID];
     const createdByUserName = createdByUser
-        ? `${createdByUser.firstName} ${createdByUser.lastName}`
+        ? `${createdByUser.userFirstName} ${createdByUser.userLastName}`
         : '';
 
     const folderName = item.name.replaceAll('/', '');
