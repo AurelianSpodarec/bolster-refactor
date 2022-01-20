@@ -48,7 +48,6 @@ class EditTemplateQuestionModalContainer extends Component {
             );
 
             this.setState({ configuration, options });
-            console.log(Object.values(options));
         }
     };
 
@@ -87,18 +86,20 @@ class EditTemplateQuestionModalContainer extends Component {
         const { editTemplateQuestion, question } = this.props;
         const { options, configuration } = this.state;
 
+        const sortedOptions = Object.values(options).sort((a, b) => a.sort - b.sort);
+
         const optionConfigurations = question.optionConfigurations
-            ? Object.keys(options).map(item => {
+            ? Object.keys(sortedOptions).map(item => {
                   if (item in configuration) {
                       const prevObj = question.optionConfigurations.find(obj => obj.name === item);
                       return {
-                          name: options[item],
+                          name: sortedOptions[item].value,
                           isDisabled: this.state.configuration[item],
                           createdBySuperAdmin: prevObj.createdBySuperAdmin,
                       };
                   } else {
                       return {
-                          name: options[item],
+                          name: sortedOptions[item].value,
                           isDisabled: false,
                           createdBySuperAdmin: false,
                       };
@@ -109,10 +110,11 @@ class EditTemplateQuestionModalContainer extends Component {
         const body = optionConfigurations
             ? {
                   questionID: question.id,
-                  options: Object.values(this.state.options),
+                  options: sortedOptions.map(opt => opt.value),
                   optionConfigurations,
               }
-            : { questionID: question.id, options: Object.values(this.state.options) };
+            : { questionID: question.id, options: sortedOptions.map(opt => opt.value) };
+
         editTemplateQuestion(question.id, body);
     };
 }
