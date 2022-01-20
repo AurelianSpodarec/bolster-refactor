@@ -28,6 +28,12 @@ let DocumentsListItem = ({
     const isViewApp = (isFile && item.isViewApp) || (isFolder && item.areChildrenViewApp);
     const isAttachPins = (isFile && item.isAttachPins) || (isFolder && item.areChildrenAttachPins);
     const users = useSelector(mapStateToProps) || {};
+    const createdByUser = users[item.createdByCompanyUserID];
+    const createdByUserName = createdByUser
+        ? `${createdByUser.firstName} ${createdByUser.lastName}`
+        : '';
+
+    const folderName = item.name.replaceAll('/', '');
 
     return (
         <tr ref={isSorting ? forwardRef : null} className={rowClass}>
@@ -45,23 +51,17 @@ let DocumentsListItem = ({
                         target="_blank"
                         rel="noreferrer"
                     >
-                        <FileTypeIcon
-                            src={isFile ? getIconFromExt(item.fileExtension) : FolderIcon}
-                        />
+                        <FileTypeIcon src={getIconFromExt(item.fileExtension)} />
                     </a>
                 )}
                 {isFolder &&
                     (item.isArchived ? (
                         <p>
-                            <FileTypeIcon
-                                src={isFile ? getIconFromExt(item.fileExtension) : FolderIcon}
-                            />
+                            <FileTypeIcon src={FolderIcon} />
                         </p>
                     ) : (
                         <Link to={`/company/document-library?prefix=${prefix + item.name}`}>
-                            <FileTypeIcon
-                                src={isFile ? getIconFromExt(item.fileExtension) : FolderIcon}
-                            />
+                            <FileTypeIcon src={FolderIcon} />
                         </Link>
                     ))}
             </td>
@@ -69,10 +69,10 @@ let DocumentsListItem = ({
                 {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                 {isFolder &&
                     (item.isArchived ? (
-                        <p>{item.name}</p>
+                        <p>{folderName}</p>
                     ) : (
                         <Link to={`/company/document-library?prefix=${prefix + item.name}`}>
-                            <p>{item.name}</p>
+                            <p>{folderName}</p>
                         </Link>
                     ))}
                 {isFile && (
@@ -88,13 +88,7 @@ let DocumentsListItem = ({
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-                {`${
-                    users[item.createdByCompanyUserID]
-                        ? `${users[item.createdByCompanyUserID].userFirstName} ${
-                              users[item.createdByCompanyUserID].userLastName
-                          }`
-                        : '-'
-                }`}
+                {createdByUserName}
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
