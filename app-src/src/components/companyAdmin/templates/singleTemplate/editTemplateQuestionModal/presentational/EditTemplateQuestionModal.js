@@ -23,7 +23,7 @@ const EditTemplateQuestionModal = ({
             <BlockHeading title={`Edit question options - ${questionName}`} />
             <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
                 <div className="dropdown-create size-lg-12">
-                    {options
+                    {[...options]
                         .sort((a, b) => {
                             const sortA = a[1].sort;
                             const sortB = b[1].sort;
