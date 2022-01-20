@@ -37,8 +37,9 @@ const DocumentFilters = ({
 
     const prevProps = usePrevious({ deleteSuccess });
 
+    const isDeletedFilter = libraryFilter === 'isArchived';
     useEffect(() => {
-        if (!prevProps.deleteSuccess && deleteSuccess && libraryFilter === 'isArchived')
+        if (!prevProps.deleteSuccess && deleteSuccess && isDeletedFilter)
             dispatch(switchDocumentLibraryFilter(null));
     }, [dispatch, libraryFilter, deleteSuccess, prevProps.deleteSuccess]);
 
@@ -71,15 +72,17 @@ const DocumentFilters = ({
                     onChange={(_, value) => dispatch(switchDocumentLibraryFilter(value))}
                     placeholder="-- Filter --"
                 />
-                <button
-                    disabled={!selectedItems.length}
-                    className={'library-button button'}
-                    type="button"
-                    onClick={showEditModal}
-                >
-                    <i className="fa fa-pencil" />
-                </button>
-                {libraryFilter === 'isArchived' && (
+                {!isDeletedFilter && (
+                    <button
+                        disabled={!selectedItems.length || libraryFilter === 'isArchived'}
+                        className={'library-button button'}
+                        type="button"
+                        onClick={showEditModal}
+                    >
+                        <i className="fa fa-pencil" />
+                    </button>
+                )}
+                {isDeletedFilter && (
                     <button
                         disabled={!selectedItems.length}
                         className={`library-button button ${selectedItems.length && 'green'}`}
