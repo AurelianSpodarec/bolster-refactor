@@ -113,11 +113,23 @@ let DocumentsListItem = ({
                 </td>
                 <td>
                     {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
-                    {item.isViewApp ? 'Yes' : 'No'}
+                    {item.type == DOCUMENT_LIBRARY_TYPES.FILE
+                        ? item.isViewApp
+                            ? 'Yes'
+                            : 'No'
+                        : item.areChildrenViewApp
+                        ? 'Yes'
+                        : 'No'}
                 </td>
                 <td>
                     {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
-                    {item.isAttachPins ? 'Yes' : 'No'}
+                    {item.type == DOCUMENT_LIBRARY_TYPES.FILE
+                        ? item.isAttachPins
+                            ? 'Yes'
+                            : 'No'
+                        : item.areChildrenAttachPins
+                        ? 'Yes'
+                        : 'No'}
                 </td>
                 <td>
                     {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
