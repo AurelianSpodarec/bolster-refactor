@@ -41,12 +41,8 @@ const EditDocumentItemsModal = ({ ids }) => {
             ids,
         };
 
-        if (ids.length <= 1 && name.length) {
-            dispatch(editDocumentLibraryItemName({ id: ids[0], name })).then(response => {
-                if (response.type === 'EDIT_DOCUMENT_LIBRARY_ITEM_NAME_SUCCESS') {
-                    dispatch(editDocumentLibraryFolder(postBody));
-                }
-            });
+        if (ids.length <= 1) {
+            dispatch(editDocumentLibraryItemName(ids[0], { name, isAttachPins, isViewApp }));
         } else {
             dispatch(editDocumentLibraryFolder(postBody));
         }

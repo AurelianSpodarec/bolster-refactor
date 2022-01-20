@@ -22,11 +22,11 @@ export const editDocumentLibraryItemNameFailure = error => ({
     error,
 });
 
-export default postBody => dispatch => {
+export default (id, postBody) => dispatch => {
     dispatch(editDocumentLibraryItemNameRequest());
 
     return axios
-        .patch(`${API_URL}/document-library/rename`, postBody, getHeaders())
+        .patch(`${API_URL}/document-library/${id}`, postBody, getHeaders())
         .then(res => dispatch(editDocumentLibraryItemNameSuccess(res.data)))
         .catch(err => dispatch(editDocumentLibraryItemNameFailure(err.message)));
 };
