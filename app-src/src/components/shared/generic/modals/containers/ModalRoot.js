@@ -251,10 +251,10 @@ import EnterDemoFullSiteModal from 'components/shared/demo-full-site/presentatio
 import EditCompanyOwnerModalContainer from 'components/superAdmin/companies/singleCompany/containers/EditCompanyOwnerModalContainer';
 import RequestDeleteInvoiceModal from 'components/companyAdmin/invoices/requestDeleteInvoiceModal/RequestDeleteInvoiceModal';
 import NewUserDocumentModal from 'components/companyAdmin/userManagement/documentsUploader/presentational/NewUserDocumentModal';
-import FileUploadModal from 'components/companyAdmin/documentLibrary/CreateDocumentModal';
-import CreateDocumentFolderModal from 'components/companyAdmin/documentLibrary/CreateDocumentFolderModal';
-import EditDocumentItemsModal from 'components/companyAdmin/documentLibrary/EditDocumentItemsModal';
-import SelectDocumentLibraryItemModal from 'components/companyAdmin/documentLibrary/SelectDocumentLibraryItemModal';
+import FileUploadModal from 'components/companyAdmin/companyDocuments/CreateDocumentModal';
+import CreateDocumentFolderModal from 'components/companyAdmin/companyDocuments/CreateDocumentFolderModal';
+import EditDocumentItemsModal from 'components/companyAdmin/companyDocuments/EditDocumentItemsModal';
+import SelectDocumentLibraryItemModal from 'components/companyAdmin/companyDocuments/SelectDocumentLibraryItemModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,

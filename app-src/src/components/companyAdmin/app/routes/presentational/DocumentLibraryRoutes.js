@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
-import DocumentLibrary from 'components/companyAdmin/documentLibrary/DocumentLibrary';
+import DocumentLibrary from 'components/companyAdmin/companyDocuments/DocumentLibrary';
 
 const DocumentLibraryRoutes = ({ base = '/company/company-documents' }) => (
     <SwitchWith404>

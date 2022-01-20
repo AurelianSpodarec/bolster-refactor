@@ -60,7 +60,7 @@ const DocumentsListItem = ({
                             <FileTypeIcon src={FolderIcon} />
                         </p>
                     ) : (
-                        <Link to={`/company/document-library?prefix=${prefix + item.name}`}>
+                        <Link to={`/company/company-documents?prefix=${prefix + item.name}`}>
                             <FileTypeIcon src={FolderIcon} />
                         </Link>
                     ))}
@@ -71,7 +71,7 @@ const DocumentsListItem = ({
                     (item.isArchived ? (
                         <p>{folderName}</p>
                     ) : (
-                        <Link to={`/company/document-library?prefix=${prefix + item.name}`}>
+                        <Link to={`/company/company-documents?prefix=${prefix + item.name}`}>
                             <p>{folderName}</p>
                         </Link>
                     ))}
