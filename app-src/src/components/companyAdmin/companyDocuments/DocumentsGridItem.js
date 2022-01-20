@@ -20,7 +20,7 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
         <div className="grid-item">
             {item.type === DOCUMENT_LIBRARY_TYPES.FOLDER ? (
                 <Link
-                    to={`/company/document-library?prefix=${prefix + item.name}`}
+                    to={`/company/company-documents?prefix=${prefix + item.name}`}
                     title={`Open ${item.name}${item.fileExtension ? `.${item.fileExtension}` : ''}`}
                     className={`image-container ${showDetails ? 'show-details' : ''}`}
                 >
@@ -87,14 +87,14 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                 <div className="details-container">
                     {item.type === DOCUMENT_LIBRARY_TYPES.FILE && (
                         <Link
-                            to={`/company/document-library?prefix=${prefix + item.name}`}
+                            to={`/company/company-documents?prefix=${prefix + item.name}`}
                             title={`Open ${item.name}`}
                         >
                             <FileTypeIcon src={getIconFromExt(item.fileExtension)} />
                         </Link>
                     )}
                     <Link
-                        to={`/company/document-library?prefix=${prefix + item.name}`}
+                        to={`/company/company-documents?prefix=${prefix + item.name}`}
                         title={`Open ${item.name}`}
                     >
                         <p

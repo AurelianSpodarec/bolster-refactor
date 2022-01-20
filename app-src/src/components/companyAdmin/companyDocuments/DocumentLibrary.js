@@ -48,7 +48,7 @@ const DocumentLibrary = () => {
             (libraryFilter === 'isArchived' && prevProps.libraryFilter !== 'isArchived') ||
             (libraryFilter !== 'isArchived' && prevProps.libraryFilter === 'isArchived')
         )
-            history.replace('/company/document-library');
+            history.replace('/company/company-documents');
     }, [libraryFilter, prevProps.libraryFilter]); // Redirect to root when switching to/from deleted
 
     const isActive = canDrop && isOver;
