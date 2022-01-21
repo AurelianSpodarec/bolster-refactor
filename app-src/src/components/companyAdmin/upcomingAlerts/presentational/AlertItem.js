@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Moment from 'react-moment';
@@ -9,10 +9,10 @@ import {
     ALERT_FREQUENCY_SUFFIX_VALUES,
     ALERT_FREQUENCY_TYPES,
     ALERT_METHOD_VALUES,
+    DATE_TIME_IDS,
     HIERARCHY_TYPES,
 } from 'constants/companyAdmin/enums';
 import { companyUser } from 'selectors/companyAdmin/companyUser';
-import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { DELETE_ALERT_MODAL, EDIT_ALERT_MODAL } from 'constants/shared/modalTypes';
@@ -27,7 +27,7 @@ const AlertItem = ({
         hierarchyType,
         hierarchyID,
         method,
-        lastSendOn,
+        lastSentOn,
         date,
         createdByCompanyUserID,
         description,
@@ -35,14 +35,9 @@ const AlertItem = ({
 }) => {
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(fetchCompanyUsers());
-    }, []);
-
     const user = useSelector(state => companyUser(state, createdByCompanyUserID));
 
     const isPlural = frequencyAmount > 1;
-
     return (
         <tr>
             <td className="left-align">
@@ -51,7 +46,13 @@ const AlertItem = ({
             <td className="left-align">
                 <DateTimeContainer date={createdOn} />
             </td>
-            <td>{lastSendOn ? <DateTimeContainer date={lastSendOn} /> : 'NA'}</td>
+            <td>
+                {lastSentOn ? (
+                    <DateTimeContainer date={lastSentOn} datetime={DATE_TIME_IDS.DATE} />
+                ) : (
+                    'N/A'
+                )}
+            </td>
             <td>
                 <Link to={`/company/${HIERARCHY_TYPES[hierarchyType]}s/${hierarchyID}`}>
                     {`/company/${HIERARCHY_TYPES[hierarchyType]}s/${hierarchyID}`}
