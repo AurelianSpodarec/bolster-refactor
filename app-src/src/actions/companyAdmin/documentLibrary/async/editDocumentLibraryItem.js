@@ -8,25 +8,25 @@ import {
     EDIT_DOCUMENT_LIBRARY_ITEM_NAME_FAILURE,
 } from 'constants/actionTypes/documentLibrary';
 
-export const editDocumentLibraryItemNameRequest = () => ({
+export const editDocumentLibraryItemRequest = () => ({
     type: EDIT_DOCUMENT_LIBRARY_ITEM_NAME_REQUEST,
 });
 
-export const editDocumentLibraryItemNameSuccess = payload => ({
+export const editDocumentLibraryItemSuccess = payload => ({
     type: EDIT_DOCUMENT_LIBRARY_ITEM_NAME_SUCCESS,
     payload,
 });
 
-export const editDocumentLibraryItemNameFailure = error => ({
+export const editDocumentLibraryItemFailure = error => ({
     type: EDIT_DOCUMENT_LIBRARY_ITEM_NAME_FAILURE,
     error,
 });
 
 export default (id, postBody) => dispatch => {
-    dispatch(editDocumentLibraryItemNameRequest());
+    dispatch(editDocumentLibraryItemRequest());
 
     return axios
         .patch(`${API_URL}/document-library/${id}`, postBody, getHeaders())
-        .then(res => dispatch(editDocumentLibraryItemNameSuccess(res.data)))
-        .catch(err => dispatch(editDocumentLibraryItemNameFailure(err.message)));
+        .then(res => dispatch(editDocumentLibraryItemSuccess(res.data)))
+        .catch(err => dispatch(editDocumentLibraryItemFailure(err.message)));
 };

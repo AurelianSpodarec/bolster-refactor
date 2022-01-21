@@ -11,7 +11,7 @@ import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import editDocumentLibraryFolder from 'actions/companyAdmin/documentLibrary/async/editDocumentLibraryFolder';
-import editDocumentLibraryItemName from 'actions/companyAdmin/documentLibrary/async/editDocumentLibraryItemName';
+import editDocumentLibraryItem from 'actions/companyAdmin/documentLibrary/async/editDocumentLibraryItem';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
@@ -49,7 +49,7 @@ const EditDocumentItemsModal = ({ ids }) => {
 
     const handleSubmit = () => {
         if (ids.length === 1) {
-            dispatch(editDocumentLibraryItemName(ids[0], postBody));
+            dispatch(editDocumentLibraryItem(ids[0], postBody));
         } else {
             const body = {
                 ids,
