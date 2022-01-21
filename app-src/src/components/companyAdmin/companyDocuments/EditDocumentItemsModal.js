@@ -17,6 +17,7 @@ import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import {
+    selectDocumentLibrary,
     selectDocumentLibraryIsPosting,
     selectDocumentLibraryPostError,
     selectDocumentLibraryPostSuccess,
@@ -24,27 +25,37 @@ import {
 
 const EditDocumentItemsModal = ({ ids }) => {
     const dispatch = useDispatch();
-    const [{ isAttachPins, isViewApp }, handleChange] = useForm({
+    const documentLibrary = useSelector(selectDocumentLibrary);
+
+    const initialFormData = {
         isAttachPins: false,
         isViewApp: false,
-    });
-    const [{ name }, handleNameChange] = useForm({ name: '' });
+    };
+
+    if (ids.length === 1) {
+        const { name } = documentLibrary[ids[0]];
+        initialFormData.name = name.replaceAll('/', '');
+    }
+
+    const [formData, handleChange] = useForm(initialFormData);
 
     const isPosting = useSelector(selectDocumentLibraryIsPosting);
     const error = useSelector(selectDocumentLibraryPostError);
     const success = useSelector(selectDocumentLibraryPostSuccess);
 
-    const handleSubmit = () => {
-        const postBody = {
-            isAttachPins,
-            isViewApp,
-            ids,
-        };
+    const postBody = {
+        ...formData,
+    };
 
-        if (ids.length <= 1) {
-            dispatch(editDocumentLibraryItemName(ids[0], { name, isAttachPins, isViewApp }));
+    const handleSubmit = () => {
+        if (ids.length === 1) {
+            dispatch(editDocumentLibraryItemName(ids[0], postBody));
         } else {
-            dispatch(editDocumentLibraryFolder(postBody));
+            const body = {
+                ids,
+                ...postBody,
+            };
+            dispatch(editDocumentLibraryFolder(body));
         }
     };
 
@@ -67,8 +78,8 @@ const EditDocumentItemsModal = ({ ids }) => {
                     <Field name="Change Folder/File Name" classes="full-length">
                         <TextInputContainer
                             name="name"
-                            handleChange={handleNameChange}
-                            value={name}
+                            handleChange={handleChange}
+                            value={formData.name}
                             placeholder="Enter new name"
                         />
                     </Field>
@@ -78,13 +89,13 @@ const EditDocumentItemsModal = ({ ids }) => {
                     <div className="checkbox-items">
                         <CheckboxContainer
                             name="isViewApp"
-                            checked={isViewApp}
+                            checked={formData.isViewApp}
                             text="View in app"
                             handleChange={handleChange}
                         />
                         <CheckboxContainer
                             name="isAttachPins"
-                            checked={isAttachPins}
+                            checked={formData.isAttachPins}
                             text="Attach to pins"
                             handleChange={handleChange}
                         />
