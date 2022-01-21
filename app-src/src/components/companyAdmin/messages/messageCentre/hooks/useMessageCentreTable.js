@@ -94,7 +94,7 @@ const useMessageCentreTable = () => {
 
     const messages = useMemo(() => {
         if (searchTerm) {
-            return [...messageLookup[selectedTab]]
+            return messageLookup[selectedTab]
                 .filter(message => {
                     for (let key in message) {
                         if (
@@ -104,6 +104,7 @@ const useMessageCentreTable = () => {
                             return true;
                         }
                     }
+                    return false;
                 })
                 .sort((a, b) => sortByDate(a.createdOn, b.createdOn));
         } else {

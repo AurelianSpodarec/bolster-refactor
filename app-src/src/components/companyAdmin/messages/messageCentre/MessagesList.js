@@ -32,8 +32,8 @@ const MessagesList = ({ messages, isFetching, error, selectedTab }) => {
             noDataMessage={`No ${MESSAGE_CENTRE_NAMES[selectedTab]} To View`}
         >
             <div className="messages-container">
-                {messages.map((message, i) => (
-                    <RenderItem key={i} message={message} />
+                {messages.map(message => (
+                    <RenderItem key={message.id} message={message} />
                 ))}
             </div>
         </BlockContainer>
