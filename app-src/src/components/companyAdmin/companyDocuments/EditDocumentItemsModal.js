@@ -10,7 +10,7 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import editDocumentLibraryFolder from 'actions/companyAdmin/documentLibrary/async/editDocumentLibraryFolder';
+import editDocumentLibraryItems from 'actions/companyAdmin/documentLibrary/async/editDocumentLibraryItems';
 import editDocumentLibraryItem from 'actions/companyAdmin/documentLibrary/async/editDocumentLibraryItem';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
@@ -55,7 +55,7 @@ const EditDocumentItemsModal = ({ ids }) => {
                 ids,
                 ...postBody,
             };
-            dispatch(editDocumentLibraryFolder(body));
+            dispatch(editDocumentLibraryItems(body));
         }
     };
 
