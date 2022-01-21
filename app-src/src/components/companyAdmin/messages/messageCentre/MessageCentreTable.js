@@ -14,28 +14,25 @@ import dismissDrawingExpiryMessages from 'actions/companyAdmin/messageCentre/asy
 
 const MessageCentreTable = () => {
     const dispatch = useDispatch();
-    const { selectedTab, messages, isFetching, error, searchTerm, handleSearch, shouldShowSearch } =
-        useMessageCentreTable();
-
-    const handleDismiss = () => {
-        switch (selectedTab) {
-            case MESSAGE_CENTRE_TABS.SYSTEM_MESSAGES:
-                return dispatch(dismissSystemMessages());
-            case MESSAGE_CENTRE_TABS.COMPANY_ALERTS:
-                return dispatch(dismissCompanyAlerts());
-            case MESSAGE_CENTRE_TABS.OPERATIVE_ALERTS:
-                return dispatch(dismissOperativeAlerts());
-            case MESSAGE_CENTRE_TABS.DRAWING_EXPIRY:
-                return dispatch(dismissDrawingExpiryMessages());
-        }
-    };
+    const {
+        selectedTab,
+        messages,
+        isFetching,
+        error,
+        searchTerm,
+        handleSearch,
+        shouldShowSearchAndDelete,
+        showCreateNewButton,
+        handleDismiss,
+        handleShowCreateNewModal,
+    } = useMessageCentreTable();
 
     return (
         <BlockContainer>
             <MessageCentreTabs selectedTab={selectedTab} />
             <div className="size-lg-12">
-                {shouldShowSearch && (
-                    <div className="action-bar">
+                <div className="action-bar">
+                    {shouldShowSearchAndDelete && (
                         <div className="size-lg-7">
                             <SearchBar
                                 omitIcon
@@ -43,14 +40,25 @@ const MessageCentreTable = () => {
                                 searchTerm={searchTerm}
                             />
                         </div>
-                        <div className="button-wrapper">
+                    )}
+                    <div className="button-wrapper">
+                        {showCreateNewButton && (
+                            <button
+                                className="button rounded green"
+                                onClick={() => handleShowCreateNewModal()}
+                            >
+                                <i className="fas fa-envelope"></i>
+                                Create New
+                            </button>
+                        )}
+                        {shouldShowSearchAndDelete && (
                             <button className="button rounded red" onClick={() => handleDismiss()}>
                                 <i className="fas fa-trash-alt"></i>
                                 Dismiss All
                             </button>
-                        </div>
+                        )}
                     </div>
-                )}
+                </div>
                 <MessagesList
                     messages={messages}
                     isFetching={isFetching}

@@ -127,6 +127,7 @@ import {
     MESSAGE_CENTRE_DRAWING_EXPIRY,
     EDIT_ALERT_MODAL,
     DELETE_ALERT_MODAL,
+    CREATE_NEW_OPERATIVE_ALERTS_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -256,6 +257,7 @@ import ExpandedMediaModal from './ExpandedMediaModal';
 import ExpiringDrawingsModal from 'components/companyAdmin/messages/messageCentre/listItems/ExpiringDrawingsModal';
 import EditAlertModal from 'components/companyAdmin/upcomingAlerts/presentational/EditAlertModal';
 import DeleteAlertModal from 'components/companyAdmin/upcomingAlerts/presentational/DeleteAlertModal';
+import CreateNewOperativeAlertsModal from 'components/companyAdmin/operativeAlerts/modals/CreateNewOperativeAlertsModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -383,6 +385,7 @@ const MODAL_COMPONENTS = {
     [MESSAGE_CENTRE_DRAWING_EXPIRY]: ExpiringDrawingsModal,
     [EDIT_ALERT_MODAL]: EditAlertModal,
     [DELETE_ALERT_MODAL]: DeleteAlertModal,
+    [CREATE_NEW_OPERATIVE_ALERTS_MODAL]: CreateNewOperativeAlertsModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

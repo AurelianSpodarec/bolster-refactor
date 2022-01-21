@@ -28,6 +28,12 @@ import {
     selectDrawingExpiryMessagesCount,
 } from 'selectors/companyAdmin/messageCentre';
 import { sortByDate } from 'helpers/sorts';
+import dismissSystemMessages from 'actions/companyAdmin/messageCentre/async/dismissSystemMessages';
+import dismissCompanyAlerts from 'actions/companyAdmin/messageCentre/async/dismissCompanyAlerts';
+import dismissOperativeAlerts from 'actions/companyAdmin/messageCentre/async/dismissOperativeAlerts';
+import dismissDrawingExpiryMessages from 'actions/companyAdmin/messageCentre/async/dismissDrawingExpiryMessages';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { CREATE_NEW_OPERATIVE_ALERTS_MODAL } from 'constants/shared/modalTypes';
 
 const { SYSTEM_MESSAGES, COMPANY_ALERTS, OPERATIVE_ALERTS, DRAWING_EXPIRY } = MESSAGE_CENTRE_TABS;
 
@@ -61,6 +67,8 @@ const useMessageCentreTable = () => {
     const drawingExpiryMessagesCount = useSelector(selectDrawingExpiryMessagesCount);
 
     const [searchTerm, setSearchTerm] = useState('');
+
+    const showCreateNewButton = selectedTab === OPERATIVE_ALERTS;
 
     useEffect(() => {
         switch (selectedTab) {
@@ -113,7 +121,7 @@ const useMessageCentreTable = () => {
         }
     }, [searchTerm, selectedTab, messageLookup]);
 
-    const shouldShowSearch = !!searchTerm || !!messages.length;
+    const shouldShowSearchAndDelete = !!searchTerm || !!messages.length;
 
     const markMessagesAsRead = () => {
         switch (selectedTab) {
@@ -141,6 +149,33 @@ const useMessageCentreTable = () => {
         if (isFetching && !prevProps.isFetching) setHasFetched(false);
     }, [isFetching, prevProps.isFetching]);
 
+    const handleDismiss = () => {
+        switch (selectedTab) {
+            case MESSAGE_CENTRE_TABS.SYSTEM_MESSAGES:
+                dispatch(dismissSystemMessages());
+                return;
+            case MESSAGE_CENTRE_TABS.COMPANY_ALERTS:
+                dispatch(dismissCompanyAlerts());
+                return;
+            case MESSAGE_CENTRE_TABS.OPERATIVE_ALERTS:
+                dispatch(dismissOperativeAlerts());
+                return;
+            case MESSAGE_CENTRE_TABS.DRAWING_EXPIRY:
+                dispatch(dismissDrawingExpiryMessages());
+                return;
+        }
+    };
+
+    const handleShowCreateNewModal = () => {
+        switch (selectedTab) {
+            case MESSAGE_CENTRE_TABS.OPERATIVE_ALERTS:
+                dispatch(showModal(CREATE_NEW_OPERATIVE_ALERTS_MODAL));
+                return;
+            default:
+                return;
+        }
+    };
+
     return {
         selectedTab,
         messages,
@@ -148,7 +183,10 @@ const useMessageCentreTable = () => {
         error,
         searchTerm,
         handleSearch,
-        shouldShowSearch,
+        shouldShowSearchAndDelete,
+        showCreateNewButton,
+        handleDismiss,
+        handleShowCreateNewModal,
     };
 };
 

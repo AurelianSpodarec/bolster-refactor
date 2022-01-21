@@ -546,3 +546,9 @@ export const CLOCKER_ENTRY_TYPE = {
     WORKING: 1,
     ON_BREAK: 2,
 };
+
+export const sendToEnum = {
+    ALL_OPERATIVES: 0,
+    OPERATIVES_WITHIN_SITE: 1,
+    SELECTED_OPERATIVES: 2,
+};
