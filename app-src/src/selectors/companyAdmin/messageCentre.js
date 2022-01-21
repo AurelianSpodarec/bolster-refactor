@@ -10,6 +10,13 @@ export const selectMessageCentreIsFetchingDrawingExpiryMessages = state =>
     state.companyAdmin.messageCentreReducer.isFetchingDrawingExpiryMessages;
 export const selectMessageCentreError = state => state.companyAdmin.messageCentreReducer.error;
 
+export const selectMessageCentreIsPosting = state =>
+    state.companyAdmin.messageCentreReducer.isPosting;
+export const selectMessageCentrePostSuccess = state =>
+    state.companyAdmin.messageCentreReducer.postSuccess;
+export const selectMessageCentrePostError = state =>
+    state.companyAdmin.messageCentreReducer.postError;
+
 export const selectSystemMessages = state => state.companyAdmin.messageCentreReducer.systemMessages;
 export const selectCompanyAlerts = state => state.companyAdmin.messageCentreReducer.companyAlerts;
 export const selectOperativeAlerts = state =>

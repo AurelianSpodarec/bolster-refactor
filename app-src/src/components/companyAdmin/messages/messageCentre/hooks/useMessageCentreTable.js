@@ -26,13 +26,15 @@ import {
     selectSystemMessagesCount,
     selectCompanyAlertsCount,
     selectDrawingExpiryMessagesCount,
+    selectMessageCentrePostSuccess,
+    selectMessageCentreIsPosting,
+    selectMessageCentrePostError,
 } from 'selectors/companyAdmin/messageCentre';
 import { sortByDate } from 'helpers/sorts';
 import dismissSystemMessages from 'actions/companyAdmin/messageCentre/async/dismissSystemMessages';
 import dismissCompanyAlerts from 'actions/companyAdmin/messageCentre/async/dismissCompanyAlerts';
 import dismissOperativeAlerts from 'actions/companyAdmin/messageCentre/async/dismissOperativeAlerts';
 import dismissDrawingExpiryMessages from 'actions/companyAdmin/messageCentre/async/dismissDrawingExpiryMessages';
-import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { CREATE_NEW_OPERATIVE_ALERTS_MODAL } from 'constants/shared/modalTypes';
 
 const { SYSTEM_MESSAGES, COMPANY_ALERTS, OPERATIVE_ALERTS, DRAWING_EXPIRY } = MESSAGE_CENTRE_TABS;
@@ -53,9 +55,12 @@ const useMessageCentreTable = () => {
         isFetchingOperativeAlerts ||
         isFetchingDrawingExpiryMessages;
     const error = useSelector(selectMessageCentreError);
+    const isPosting = useSelector(selectMessageCentreIsPosting);
+    const postSuccess = useSelector(selectMessageCentrePostSuccess);
+    const postError = useSelector(selectMessageCentrePostError);
     const [hasFetched, setHasFetched] = useState(false);
 
-    const prevProps = usePrevious({ isFetching });
+    const prevProps = usePrevious({ isFetching, postSuccess, postError });
 
     const systemMessages = Object.values(useSelector(selectSystemMessages));
     const companyAlerts = Object.values(useSelector(selectCompanyAlerts));
@@ -102,7 +107,7 @@ const useMessageCentreTable = () => {
 
     const messages = useMemo(() => {
         if (searchTerm) {
-            return [...messageLookup[selectedTab]]
+            return messageLookup[selectedTab]
                 .filter(message => {
                     for (let key in message) {
                         if (
@@ -112,6 +117,7 @@ const useMessageCentreTable = () => {
                             return true;
                         }
                     }
+                    return false;
                 })
                 .sort((a, b) => sortByDate(a.createdOn, b.createdOn));
         } else {
@@ -149,6 +155,14 @@ const useMessageCentreTable = () => {
         if (isFetching && !prevProps.isFetching) setHasFetched(false);
     }, [isFetching, prevProps.isFetching]);
 
+    useEffect(() => {
+        if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
+    }, [postSuccess, prevProps.postSuccess]);
+
+    useEffect(() => {
+        if (postError && !prevProps.postError) dispatch(showModal(ERROR_MODAL));
+    }, [postError, prevProps.postError]);
+
     const handleDismiss = () => {
         switch (selectedTab) {
             case MESSAGE_CENTRE_TABS.SYSTEM_MESSAGES:
@@ -180,6 +194,7 @@ const useMessageCentreTable = () => {
         selectedTab,
         messages,
         isFetching,
+        isPosting,
         error,
         searchTerm,
         handleSearch,

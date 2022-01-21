@@ -11,12 +11,17 @@ const ConfirmDeleteModal = ({
     isIncoming = false,
     deleteButtonText = 'Delete',
     icon = 'trash-alt',
+    isPosting = false,
 }) => (
     <ModalOuterContainer>
         <BlockHeading title={'Confirmation'} />
         <p className="generic-text intro-text size-lg-12">{message}</p>
         <BlockButtonWrapper>
-            <button className="button red" onClick={handleDelete}>
+            <button
+                className={`button red ${isPosting ? 'disabled' : ''}`}
+                onClick={handleDelete}
+                disabled={isPosting}
+            >
                 {isIncoming ? (
                     <>
                         <i className="far fa-ban fa-fw" />

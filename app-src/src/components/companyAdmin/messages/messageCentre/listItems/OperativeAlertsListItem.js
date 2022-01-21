@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import dismissOperativeAlert from 'actions/companyAdmin/messageCentre/async/dismissOperativeAlert';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 
 const OperativeAlertsListItem = ({
     message: { id, createdByUserFirstName, createdByUserLastName, createdOn, message, sentCount },
@@ -18,7 +19,7 @@ const OperativeAlertsListItem = ({
 
                 <div className="date-wrapper">
                     <span className="date">
-                        <DateTimeContainer date={createdOn} />
+                        <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATE} />
                     </span>
                     <button
                         className="no-background-btn"

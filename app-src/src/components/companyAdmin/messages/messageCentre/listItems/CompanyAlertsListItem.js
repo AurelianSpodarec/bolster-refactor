@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { HIERARCHY_LINK_VALUES } from 'constants/companyAdmin/enums';
+import { DATE_TIME_IDS, HIERARCHY_LINK_VALUES } from 'constants/companyAdmin/enums';
 
 import dismissCompanyAlert from 'actions/companyAdmin/messageCentre/async/dismissCompanyAlert';
 
@@ -30,7 +30,7 @@ const CompanyAlertsListItem = ({
 
                 <div className="date-wrapper">
                     <span className="date">
-                        <DateTimeContainer date={createdOn} />
+                        <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATE} />
                     </span>
                     <button
                         className="no-background-btn"

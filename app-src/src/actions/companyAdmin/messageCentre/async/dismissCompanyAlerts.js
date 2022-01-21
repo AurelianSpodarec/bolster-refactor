@@ -12,9 +12,8 @@ export const dismissCompanyAlertsRequest = () => ({
     type: DISMISS_COMPANY_ALERTS_REQUEST,
 });
 
-export const dismissCompanyAlertsSuccess = payload => ({
+export const dismissCompanyAlertsSuccess = () => ({
     type: DISMISS_COMPANY_ALERTS_SUCCESS,
-    payload,
 });
 
 export const dismissCompanyAlertsFailure = error => ({
