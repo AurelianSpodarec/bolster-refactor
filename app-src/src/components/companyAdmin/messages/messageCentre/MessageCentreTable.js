@@ -27,6 +27,7 @@ const MessageCentreTable = () => {
         showCreateNewButton,
         handleDismiss,
         handleShowCreateNewModal,
+        isPosting,
     } = useMessageCentreTable();
 
     return (
