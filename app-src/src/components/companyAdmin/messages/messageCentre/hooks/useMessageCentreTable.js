@@ -26,8 +26,14 @@ import {
     selectSystemMessagesCount,
     selectCompanyAlertsCount,
     selectDrawingExpiryMessagesCount,
+    selectMessageCentrePostSuccess,
+    selectMessageCentreIsPosting,
+    selectMessageCentrePostError,
 } from 'selectors/companyAdmin/messageCentre';
 import { sortByDate } from 'helpers/sorts';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
 const { SYSTEM_MESSAGES, COMPANY_ALERTS, OPERATIVE_ALERTS, DRAWING_EXPIRY } = MESSAGE_CENTRE_TABS;
 
@@ -47,9 +53,12 @@ const useMessageCentreTable = () => {
         isFetchingOperativeAlerts ||
         isFetchingDrawingExpiryMessages;
     const error = useSelector(selectMessageCentreError);
+    const isPosting = useSelector(selectMessageCentreIsPosting);
+    const postSuccess = useSelector(selectMessageCentrePostSuccess);
+    const postError = useSelector(selectMessageCentrePostError);
     const [hasFetched, setHasFetched] = useState(false);
 
-    const prevProps = usePrevious({ isFetching });
+    const prevProps = usePrevious({ isFetching, postSuccess, postError });
 
     const systemMessages = Object.values(useSelector(selectSystemMessages));
     const companyAlerts = Object.values(useSelector(selectCompanyAlerts));
@@ -142,10 +151,19 @@ const useMessageCentreTable = () => {
         if (isFetching && !prevProps.isFetching) setHasFetched(false);
     }, [isFetching, prevProps.isFetching]);
 
+    useEffect(() => {
+        if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
+    }, [postSuccess, prevProps.postSuccess]);
+
+    useEffect(() => {
+        if (postError && !prevProps.postError) dispatch(showModal(ERROR_MODAL));
+    }, [postError, prevProps.postError]);
+
     return {
         selectedTab,
         messages,
         isFetching,
+        isPosting,
         error,
         searchTerm,
         handleSearch,

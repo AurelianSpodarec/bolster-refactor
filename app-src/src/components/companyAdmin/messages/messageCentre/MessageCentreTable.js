@@ -11,11 +11,21 @@ import dismissSystemMessages from 'actions/companyAdmin/messageCentre/async/dism
 import dismissOperativeAlerts from 'actions/companyAdmin/messageCentre/async/dismissOperativeAlerts';
 import dismissCompanyAlerts from 'actions/companyAdmin/messageCentre/async/dismissCompanyAlerts';
 import dismissDrawingExpiryMessages from 'actions/companyAdmin/messageCentre/async/dismissDrawingExpiryMessages';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { CONFIRM_DELETE } from 'constants/shared/modalTypes';
 
 const MessageCentreTable = () => {
     const dispatch = useDispatch();
-    const { selectedTab, messages, isFetching, error, searchTerm, handleSearch, shouldShowSearch } =
-        useMessageCentreTable();
+    const {
+        selectedTab,
+        messages,
+        isFetching,
+        error,
+        searchTerm,
+        handleSearch,
+        shouldShowSearch,
+        isPosting,
+    } = useMessageCentreTable();
 
     const handleDismiss = () => {
         switch (selectedTab) {
@@ -44,7 +54,20 @@ const MessageCentreTable = () => {
                             />
                         </div>
                         <div className="button-wrapper">
-                            <button className="button rounded red" onClick={() => handleDismiss()}>
+                            <button
+                                className="button rounded red"
+                                onClick={() =>
+                                    dispatch(
+                                        showModal(CONFIRM_DELETE, {
+                                            message:
+                                                'Are you sure you would like to dismiss all the messages?',
+                                            deleteButtonText: 'Confirm',
+                                            handleDelete: handleDismiss,
+                                            isPosting,
+                                        }),
+                                    )
+                                }
+                            >
                                 <i className="fas fa-trash-alt"></i>
                                 Dismiss All
                             </button>

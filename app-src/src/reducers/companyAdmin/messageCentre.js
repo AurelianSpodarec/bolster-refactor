@@ -53,8 +53,10 @@ export default combineReducers({
     isFetchingCompanyAlerts: isFetchingCompanyAlertsReducer,
     isFetchingOperativeAlerts: isFetchingOperativeAlertsReducer,
     isFetchingDrawingExpiryMessages: isFetchingDrawingExpiryMessagesReducer,
+    isPosting: isPostingReducer,
     postSuccess: postSuccessReducer,
     error: errorReducer,
+    postError: postErrorReducer,
     selectedTab: selectedTabReducer,
 });
 
@@ -161,6 +163,39 @@ function isFetchingDrawingExpiryMessagesReducer(state = false, action) {
     }
 }
 
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case DISMISS_SYSTEM_MESSAGE_REQUEST:
+        case DISMISS_SYSTEM_MESSAGES_REQUEST:
+        case DISMISS_COMPANY_ALERT_REQUEST:
+        case DISMISS_COMPANY_ALERTS_REQUEST:
+        case DISMISS_OPERATIVE_ALERT_REQUEST:
+        case DISMISS_OPERATIVE_ALERTS_REQUEST:
+        case DISMISS_DRAWING_EXPIRY_MESSAGE_REQUEST:
+        case DISMISS_DRAWING_EXPIRY_MESSAGES_REQUEST:
+            return true;
+        case DISMISS_COMPANY_ALERT_SUCCESS:
+        case DISMISS_COMPANY_ALERTS_SUCCESS:
+        case DISMISS_OPERATIVE_ALERT_SUCCESS:
+        case DISMISS_OPERATIVE_ALERTS_SUCCESS:
+        case DISMISS_SYSTEM_MESSAGE_SUCCESS:
+        case DISMISS_SYSTEM_MESSAGES_SUCCESS:
+        case DISMISS_DRAWING_EXPIRY_MESSAGE_SUCCESS:
+        case DISMISS_DRAWING_EXPIRY_MESSAGES_SUCCESS:
+        case DISMISS_SYSTEM_MESSAGE_FAILURE:
+        case DISMISS_SYSTEM_MESSAGES_FAILURE:
+        case DISMISS_COMPANY_ALERT_FAILURE:
+        case DISMISS_COMPANY_ALERTS_FAILURE:
+        case DISMISS_OPERATIVE_ALERT_FAILURE:
+        case DISMISS_OPERATIVE_ALERTS_FAILURE:
+        case DISMISS_DRAWING_EXPIRY_MESSAGE_FAILURE:
+        case DISMISS_DRAWING_EXPIRY_MESSAGES_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case DISMISS_SYSTEM_MESSAGE_REQUEST:
@@ -171,14 +206,6 @@ function postSuccessReducer(state = false, action) {
         case DISMISS_OPERATIVE_ALERTS_REQUEST:
         case DISMISS_DRAWING_EXPIRY_MESSAGE_REQUEST:
         case DISMISS_DRAWING_EXPIRY_MESSAGES_REQUEST:
-        case DISMISS_SYSTEM_MESSAGE_FAILURE:
-        case DISMISS_SYSTEM_MESSAGES_FAILURE:
-        case DISMISS_COMPANY_ALERT_FAILURE:
-        case DISMISS_COMPANY_ALERTS_FAILURE:
-        case DISMISS_OPERATIVE_ALERT_FAILURE:
-        case DISMISS_OPERATIVE_ALERTS_FAILURE:
-        case DISMISS_DRAWING_EXPIRY_MESSAGE_FAILURE:
-        case DISMISS_DRAWING_EXPIRY_MESSAGES_FAILURE:
             return false;
         case DISMISS_COMPANY_ALERT_SUCCESS:
         case DISMISS_COMPANY_ALERTS_SUCCESS:
@@ -195,11 +222,24 @@ function postSuccessReducer(state = false, action) {
 }
 
 function errorReducer(state = null, action) {
-    switch (action.ALERT) {
+    switch (action.type) {
         case FETCH_SYSTEM_MESSAGES_REQUEST:
         case FETCH_COMPANY_ALERTS_REQUEST:
         case FETCH_OPERATIVE_ALERTS_REQUEST:
         case FETCH_DRAWING_EXPIRY_MESSAGES_REQUEST:
+            return null;
+        case FETCH_SYSTEM_MESSAGES_FAILURE:
+        case FETCH_COMPANY_ALERTS_FAILURE:
+        case FETCH_OPERATIVE_ALERTS_FAILURE:
+        case FETCH_DRAWING_EXPIRY_MESSAGES_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
+function postErrorReducer(state = null, action) {
+    switch (action.type) {
         case DISMISS_SYSTEM_MESSAGE_REQUEST:
         case DISMISS_SYSTEM_MESSAGES_REQUEST:
         case DISMISS_COMPANY_ALERT_REQUEST:
@@ -209,10 +249,6 @@ function errorReducer(state = null, action) {
         case DISMISS_DRAWING_EXPIRY_MESSAGE_REQUEST:
         case DISMISS_DRAWING_EXPIRY_MESSAGES_REQUEST:
             return null;
-        case FETCH_SYSTEM_MESSAGES_FAILURE:
-        case FETCH_COMPANY_ALERTS_FAILURE:
-        case FETCH_OPERATIVE_ALERTS_FAILURE:
-        case FETCH_DRAWING_EXPIRY_MESSAGES_FAILURE:
         case DISMISS_SYSTEM_MESSAGE_FAILURE:
         case DISMISS_SYSTEM_MESSAGES_FAILURE:
         case DISMISS_COMPANY_ALERT_FAILURE:
@@ -221,6 +257,7 @@ function errorReducer(state = null, action) {
         case DISMISS_OPERATIVE_ALERTS_FAILURE:
         case DISMISS_DRAWING_EXPIRY_MESSAGE_FAILURE:
         case DISMISS_DRAWING_EXPIRY_MESSAGES_FAILURE:
+            console.log(action.error);
             return action.error;
         default:
             return state;
