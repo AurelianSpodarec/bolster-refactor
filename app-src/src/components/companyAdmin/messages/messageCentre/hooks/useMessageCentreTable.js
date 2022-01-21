@@ -35,7 +35,9 @@ import dismissSystemMessages from 'actions/companyAdmin/messageCentre/async/dism
 import dismissCompanyAlerts from 'actions/companyAdmin/messageCentre/async/dismissCompanyAlerts';
 import dismissOperativeAlerts from 'actions/companyAdmin/messageCentre/async/dismissOperativeAlerts';
 import dismissDrawingExpiryMessages from 'actions/companyAdmin/messageCentre/async/dismissDrawingExpiryMessages';
-import { CREATE_NEW_OPERATIVE_ALERTS_MODAL } from 'constants/shared/modalTypes';
+import { CREATE_NEW_OPERATIVE_ALERTS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
 
 const { SYSTEM_MESSAGES, COMPANY_ALERTS, OPERATIVE_ALERTS, DRAWING_EXPIRY } = MESSAGE_CENTRE_TABS;
 
