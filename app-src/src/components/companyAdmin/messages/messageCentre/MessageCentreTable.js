@@ -6,7 +6,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import MessageCentreTabs from './MessageCentreTabs';
 import MessagesList from './MessagesList';
 import SearchBar from 'components/companyAdmin/layout/header/presentational/SearchBar';
-import { MESSAGE_CENTRE_TABS } from 'constants/companyAdmin/enums';
+import { MESSAGE_CENTRE_NAMES, MESSAGE_CENTRE_TABS } from 'constants/companyAdmin/enums';
 import dismissSystemMessages from 'actions/companyAdmin/messageCentre/async/dismissSystemMessages';
 import dismissOperativeAlerts from 'actions/companyAdmin/messageCentre/async/dismissOperativeAlerts';
 import dismissCompanyAlerts from 'actions/companyAdmin/messageCentre/async/dismissCompanyAlerts';
@@ -44,7 +44,7 @@ const MessageCentreTable = () => {
         <BlockContainer>
             <MessageCentreTabs selectedTab={selectedTab} />
             <div className="size-lg-12">
-                {shouldShowSearch && (
+                {!shouldShowSearch && (
                     <div className="action-bar">
                         <div className="size-lg-7">
                             <SearchBar
@@ -59,8 +59,7 @@ const MessageCentreTable = () => {
                                 onClick={() =>
                                     dispatch(
                                         showModal(CONFIRM_DELETE, {
-                                            message:
-                                                'Are you sure you would like to dismiss all the messages?',
+                                            message: `Are you sure you would like to dismiss all the ${MESSAGE_CENTRE_NAMES[selectedTab]}?`,
                                             deleteButtonText: 'Confirm',
                                             handleDelete: handleDismiss,
                                             isPosting,
