@@ -9,6 +9,7 @@ import {
     ALERT_FREQUENCY_SUFFIX_VALUES,
     ALERT_FREQUENCY_TYPES,
     ALERT_METHOD_VALUES,
+    DATE_TIME_IDS,
     HIERARCHY_TYPES,
 } from 'constants/companyAdmin/enums';
 import { companyUser } from 'selectors/companyAdmin/companyUser';
@@ -45,7 +46,13 @@ const AlertItem = ({
             <td className="left-align">
                 <DateTimeContainer date={createdOn} />
             </td>
-            <td>{lastSentOn ? <DateTimeContainer date={lastSentOn} /> : 'N/A'}</td>
+            <td>
+                {lastSentOn ? (
+                    <DateTimeContainer date={lastSentOn} datetime={DATE_TIME_IDS.DATE} />
+                ) : (
+                    'N/A'
+                )}
+            </td>
             <td>
                 <Link to={`/company/${HIERARCHY_TYPES[hierarchyType]}s/${hierarchyID}`}>
                     {`/company/${HIERARCHY_TYPES[hierarchyType]}s/${hierarchyID}`}

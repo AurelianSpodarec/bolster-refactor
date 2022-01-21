@@ -7,6 +7,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import dismissDrawingExpiryMessage from 'actions/companyAdmin/messageCentre/async/dismissDrawingExpiryMessage';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 
 const DrawingExpiryListItem = ({ message: { id, drawings, createdOn } }) => {
     const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const DrawingExpiryListItem = ({ message: { id, drawings, createdOn } }) => {
 
                 <div className="date-wrapper">
                     <span className="date">
-                        <DateTimeContainer date={createdOn} />
+                        <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATE} />
                     </span>
                     <button
                         className="no-background-btn"

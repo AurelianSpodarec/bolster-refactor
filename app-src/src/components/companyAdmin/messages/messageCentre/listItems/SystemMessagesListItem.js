@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import dismissSystemMessage from 'actions/companyAdmin/messageCentre/async/dismissSystemMessage';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 
 const SystemMessagesListItem = ({ message: { id, createdOn, message } }) => {
     const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const SystemMessagesListItem = ({ message: { id, createdOn, message } }) => {
             <div className="title-wrapper">
                 <div className="date-wrapper">
                     <span className="date">
-                        <DateTimeContainer date={createdOn} />
+                        <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATE} />
                     </span>
                 </div>
                 <button
