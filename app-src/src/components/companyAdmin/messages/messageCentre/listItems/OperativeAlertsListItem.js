@@ -23,7 +23,7 @@ const OperativeAlertsListItem = ({
                     </span>
                     <button
                         className="no-background-btn"
-                        onClick={() => dispatch(dismissOperativeAlert())}
+                        onClick={() => dispatch(dismissOperativeAlert(id))}
                     >
                         <i className="fas fa-times-circle close-icon" />
                     </button>
