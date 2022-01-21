@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, removeObjItem } from 'helpers/generic';
+import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
 import {
     DISMISS_COMPANY_ALERTS_REQUEST,
     DISMISS_COMPANY_ALERT_REQUEST,
@@ -43,6 +43,11 @@ import {
     POST_MARK_COMPANY_ALERTS_AS_READ_SUCCESS,
     POST_MARK_DRAWING_EXPIRY_MESSAGES_AS_READ_SUCCESS,
 } from 'constants/actionTypes/messageCentre';
+import {
+    CREATE_OPERATIVE_ALERT_FAILURE,
+    CREATE_OPERATIVE_ALERT_REQUEST,
+    CREATE_OPERATIVE_ALERT_SUCCESS,
+} from 'constants/actionTypes/operativeAlerts';
 
 export default combineReducers({
     systemMessages: systemMessagesReducer,
@@ -92,6 +97,8 @@ function operativeAlertsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_OPERATIVE_ALERTS_SUCCESS:
             return convertArrToObj(action.payload);
+        case CREATE_OPERATIVE_ALERT_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         case DISMISS_OPERATIVE_ALERT_SUCCESS:
             return removeObjItem(state, action.payload);
         case DISMISS_OPERATIVE_ALERTS_SUCCESS:
@@ -173,6 +180,7 @@ function isPostingReducer(state = false, action) {
         case DISMISS_OPERATIVE_ALERTS_REQUEST:
         case DISMISS_DRAWING_EXPIRY_MESSAGE_REQUEST:
         case DISMISS_DRAWING_EXPIRY_MESSAGES_REQUEST:
+        case CREATE_OPERATIVE_ALERT_REQUEST:
             return true;
         case DISMISS_COMPANY_ALERT_SUCCESS:
         case DISMISS_COMPANY_ALERTS_SUCCESS:
@@ -190,6 +198,8 @@ function isPostingReducer(state = false, action) {
         case DISMISS_OPERATIVE_ALERTS_FAILURE:
         case DISMISS_DRAWING_EXPIRY_MESSAGE_FAILURE:
         case DISMISS_DRAWING_EXPIRY_MESSAGES_FAILURE:
+        case CREATE_OPERATIVE_ALERT_SUCCESS:
+        case CREATE_OPERATIVE_ALERT_FAILURE:
             return false;
         default:
             return state;
@@ -206,6 +216,7 @@ function postSuccessReducer(state = false, action) {
         case DISMISS_OPERATIVE_ALERTS_REQUEST:
         case DISMISS_DRAWING_EXPIRY_MESSAGE_REQUEST:
         case DISMISS_DRAWING_EXPIRY_MESSAGES_REQUEST:
+        case CREATE_OPERATIVE_ALERT_REQUEST:
             return false;
         case DISMISS_COMPANY_ALERT_SUCCESS:
         case DISMISS_COMPANY_ALERTS_SUCCESS:
@@ -215,6 +226,7 @@ function postSuccessReducer(state = false, action) {
         case DISMISS_SYSTEM_MESSAGES_SUCCESS:
         case DISMISS_DRAWING_EXPIRY_MESSAGE_SUCCESS:
         case DISMISS_DRAWING_EXPIRY_MESSAGES_SUCCESS:
+        case CREATE_OPERATIVE_ALERT_SUCCESS:
             return true;
         default:
             return state;
@@ -248,6 +260,7 @@ function postErrorReducer(state = null, action) {
         case DISMISS_OPERATIVE_ALERTS_REQUEST:
         case DISMISS_DRAWING_EXPIRY_MESSAGE_REQUEST:
         case DISMISS_DRAWING_EXPIRY_MESSAGES_REQUEST:
+        case CREATE_OPERATIVE_ALERT_REQUEST:
             return null;
         case DISMISS_SYSTEM_MESSAGE_FAILURE:
         case DISMISS_SYSTEM_MESSAGES_FAILURE:
@@ -257,7 +270,7 @@ function postErrorReducer(state = null, action) {
         case DISMISS_OPERATIVE_ALERTS_FAILURE:
         case DISMISS_DRAWING_EXPIRY_MESSAGE_FAILURE:
         case DISMISS_DRAWING_EXPIRY_MESSAGES_FAILURE:
-            console.log(action.error);
+        case CREATE_OPERATIVE_ALERT_FAILURE:
             return action.error;
         default:
             return state;

@@ -15,11 +15,6 @@ import {
     CREATE_ALERT_SUCCESS,
     CREATE_ALERT_FAILURE,
 } from 'constants/actionTypes/alerts';
-import {
-    CREATE_OPERATIVE_ALERT_FAILURE,
-    CREATE_OPERATIVE_ALERT_REQUEST,
-    CREATE_OPERATIVE_ALERT_SUCCESS,
-} from 'constants/actionTypes/operativeAlerts';
 import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
 import { combineReducers } from 'redux';
 
@@ -70,7 +65,6 @@ function isPostingReducer(state = false, action) {
         case UPDATE_ALERT_REQUEST:
         case DELETE_ALERT_REQUEST:
         case CREATE_ALERT_REQUEST:
-        case CREATE_OPERATIVE_ALERT_REQUEST:
             return true;
         case UPDATE_ALERT_SUCCESS:
         case UPDATE_ALERT_FAILURE:
@@ -78,8 +72,6 @@ function isPostingReducer(state = false, action) {
         case DELETE_ALERT_FAILURE:
         case CREATE_ALERT_SUCCESS:
         case CREATE_ALERT_FAILURE:
-        case CREATE_OPERATIVE_ALERT_FAILURE:
-        case CREATE_OPERATIVE_ALERT_SUCCESS:
             return false;
         default:
             return state;
@@ -94,13 +86,10 @@ function postSuccessReducer(state = false, action) {
         case DELETE_ALERT_FAILURE:
         case CREATE_ALERT_REQUEST:
         case CREATE_ALERT_FAILURE:
-        case CREATE_OPERATIVE_ALERT_REQUEST:
-        case CREATE_OPERATIVE_ALERT_FAILURE:
             return false;
         case UPDATE_ALERT_SUCCESS:
         case DELETE_ALERT_SUCCESS:
         case CREATE_ALERT_SUCCESS:
-        case CREATE_OPERATIVE_ALERT_SUCCESS:
             return true;
         default:
             return state;
@@ -129,12 +118,10 @@ function postErrorReducer(state = null, action) {
         case UPDATE_ALERT_REQUEST:
         case DELETE_ALERT_REQUEST:
         case CREATE_ALERT_REQUEST:
-        case CREATE_OPERATIVE_ALERT_REQUEST:
             return null;
         case UPDATE_ALERT_FAILURE:
         case DELETE_ALERT_FAILURE:
         case CREATE_ALERT_FAILURE:
-        case CREATE_OPERATIVE_ALERT_FAILURE:
             return action.error;
         default:
             return state;

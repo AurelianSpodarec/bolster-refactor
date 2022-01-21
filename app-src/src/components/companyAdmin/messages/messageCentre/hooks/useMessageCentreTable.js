@@ -97,10 +97,10 @@ const useMessageCentreTable = () => {
     }, [selectedTab]);
 
     const messageLookup = {
-        0: systemMessages,
-        1: companyAlerts,
-        2: operativeAlerts,
-        3: drawingExpiry,
+        [SYSTEM_MESSAGES]: systemMessages,
+        [COMPANY_ALERTS]: companyAlerts,
+        [OPERATIVE_ALERTS]: operativeAlerts,
+        [DRAWING_EXPIRY]: drawingExpiry,
     };
 
     const handleSearch = (_, val) => {
