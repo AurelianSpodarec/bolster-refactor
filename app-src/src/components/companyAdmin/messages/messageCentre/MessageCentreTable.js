@@ -44,7 +44,7 @@ const MessageCentreTable = () => {
         <BlockContainer>
             <MessageCentreTabs selectedTab={selectedTab} />
             <div className="size-lg-12">
-                {!shouldShowSearch && (
+                {shouldShowSearch && (
                     <div className="action-bar">
                         <div className="size-lg-7">
                             <SearchBar
