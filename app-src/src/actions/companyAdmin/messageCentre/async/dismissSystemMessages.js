@@ -12,9 +12,8 @@ export const dismissSystemMessagesRequest = () => ({
     type: DISMISS_SYSTEM_MESSAGES_REQUEST,
 });
 
-export const dismissSystemMessagesSuccess = payload => ({
+export const dismissSystemMessagesSuccess = () => ({
     type: DISMISS_SYSTEM_MESSAGES_SUCCESS,
-    payload,
 });
 
 export const dismissSystemMessagesFailure = error => ({

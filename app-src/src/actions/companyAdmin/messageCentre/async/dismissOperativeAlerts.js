@@ -25,7 +25,7 @@ export default () => dispatch => {
     dispatch(dismissOperativeAlertsRequest());
 
     return axios
-        .delete(`${API_URL}/alertMessages/all`, {}, getHeaders())
+        .delete(`${API_URL}/operativeAlerts/all`, getHeaders())
         .then(() => dispatch(dismissOperativeAlertsSuccess()))
         .catch(err => {
             dispatch(dismissOperativeAlertsFailure(err));
