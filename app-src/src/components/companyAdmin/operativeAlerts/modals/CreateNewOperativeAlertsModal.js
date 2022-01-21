@@ -9,7 +9,6 @@ import TextAreaContainer from 'components/shared/generic/form/containers/TextAre
 import { sendToEnum } from 'constants/companyAdmin/enums';
 import Select from 'components/shared/generic/form/presentational/Select';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const CreateNewOperativeAlertsModal = () => {
