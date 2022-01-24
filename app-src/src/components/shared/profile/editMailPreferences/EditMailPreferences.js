@@ -19,7 +19,7 @@ import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 const EditMailPreferences = () => {
     const history = useHistory();
     const dispatch = useDispatch();
-    console.log(history);
+
     const {
         profile: { areAlertMessageEmailsEnabled, areDrawingExpirationEmailsEnabled },
         postSuccess,
