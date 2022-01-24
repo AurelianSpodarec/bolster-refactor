@@ -87,14 +87,8 @@ const EditMailPreferences = () => {
                     </div>
                     <BlockButtonWrapper>
                         <button type="submit" className="button green">
-                            Confirm
+                            Save
                         </button>
-                        <Link
-                            to={location.pathname.replace('/change-email', '')}
-                            className="button"
-                        >
-                            Cancel
-                        </Link>
                     </BlockButtonWrapper>
                 </Form>
             </BlockContainer>
