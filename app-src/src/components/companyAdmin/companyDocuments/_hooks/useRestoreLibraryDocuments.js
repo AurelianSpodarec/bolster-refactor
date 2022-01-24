@@ -10,10 +10,11 @@ import { getIconFromExt } from 'helpers/general';
 import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
 import { usePrevious } from 'helpers/hooks';
 
-const useRestoreLibraryDocuments = (ids = []) => {
+const useRestoreLibraryDocuments = (ids = [], setSelectedItems) => {
     const dispatch = useDispatch();
-    const { documentLibrary, isRestoring, restoreSuccess, restoreError } =
-        useSelector(mapStateToProps);
+    const { documentLibrary, isRestoring, restoreSuccess, restoreError } = useSelector(
+        mapStateToProps,
+    );
 
     const filenames = Object.values(documentLibrary).filter(item => ids.includes(item.id));
 
@@ -52,6 +53,7 @@ const useRestoreLibraryDocuments = (ids = []) => {
     useEffect(() => {
         if (!prevProps.restoreSuccess && restoreSuccess) {
             dispatch(hideModal());
+            setSelectedItems([]);
         }
     }, [prevProps.restoreSuccess, restoreSuccess]);
 

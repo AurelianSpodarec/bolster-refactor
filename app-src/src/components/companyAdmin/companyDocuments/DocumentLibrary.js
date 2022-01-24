@@ -32,12 +32,13 @@ const DocumentLibrary = () => {
         isFetching,
         fetchError,
         selectedItems,
+        setSelectedItems,
         toggleItemSelect,
     } = useLibraryDocuments(prefixQuery);
 
-    const { handleShowDeleteModal } = useDeleteLibraryDocuments(selectedItems);
+    const { handleShowDeleteModal } = useDeleteLibraryDocuments(selectedItems, setSelectedItems);
 
-    const { handleShowRestoreModal } = useRestoreLibraryDocuments(selectedItems);
+    const { handleShowRestoreModal } = useRestoreLibraryDocuments(selectedItems, setSelectedItems);
 
     useEffect(() => {
         dispatch(fetchCompanyUsers(id));

@@ -109,6 +109,7 @@ const useLibraryDocuments = prefix => {
         fetchError,
         prevProps,
         selectedItems,
+        setSelectedItems,
         toggleItemSelect,
     };
 };

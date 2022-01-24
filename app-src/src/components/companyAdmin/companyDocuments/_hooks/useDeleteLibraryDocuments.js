@@ -14,7 +14,7 @@ import hardDeleteLibraryDocuments from 'actions/companyAdmin/documentLibrary/asy
 import { usePrevious } from 'helpers/hooks';
 import { DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
 
-const useDeleteLibraryDocuments = (ids = []) => {
+const useDeleteLibraryDocuments = (ids = [], setSelectedItems) => {
     const dispatch = useDispatch();
     const { isDeleting, deleteSuccess, deleteError, documentLibrary, restoreSuccess } = useSelector(
         mapStateToProps,
@@ -31,6 +31,7 @@ const useDeleteLibraryDocuments = (ids = []) => {
             (!prevProps.deleteSuccess && deleteSuccess) ||
             (!prevProps.restoreSuccess && restoreSuccess)
         ) {
+            setSelectedItems([]);
             dispatch(hideModal());
         }
     }, [prevProps.deleteSuccess, deleteSuccess, prevProps.restoreSuccess, restoreSuccess]);
