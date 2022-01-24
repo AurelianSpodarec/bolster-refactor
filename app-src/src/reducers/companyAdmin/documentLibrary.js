@@ -235,10 +235,9 @@ function documentLibraryReducer(state = {}, action) {
         case EDIT_DOCUMENT_LIBRARY_ITEM_NAME_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case HARD_DELETE_LIBRARY_DOCUMENT_SUCCESS:
-            return removeObjItems(state, action.ids);
         case SOFT_DELETE_LIBRARY_DOCUMENT_SUCCESS:
         case RESTORE_LIBRARY_DOCUMENT_SUCCESS:
-            return { ...state, ...convertArrToObj(action.payload) };
+            return removeObjItems(state, action.ids);
         default:
             return state;
     }

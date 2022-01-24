@@ -12,20 +12,13 @@ import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
 import softDeleteLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/softDeleteLibraryDocuments';
 import hardDeleteLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/hardDeleteLibraryDocuments';
 import { usePrevious } from 'helpers/hooks';
-import searchAllLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/searchAllLibraryDocuments';
 import { DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
 
-const useDeleteLibraryDocuments = (ids = [], prefix) => {
+const useDeleteLibraryDocuments = (ids = []) => {
     const dispatch = useDispatch();
-    const {
-        isDeleting,
-        deleteSuccess,
-        deleteError,
-        documentLibrary,
-        librarySearchTerm,
-        restoreSuccess,
-        libraryFilter,
-    } = useSelector(mapStateToProps);
+    const { isDeleting, deleteSuccess, deleteError, documentLibrary, restoreSuccess } = useSelector(
+        mapStateToProps,
+    );
 
     const prevProps = usePrevious({ deleteSuccess, deleteError, restoreSuccess });
 
@@ -39,12 +32,6 @@ const useDeleteLibraryDocuments = (ids = [], prefix) => {
             (!prevProps.restoreSuccess && restoreSuccess)
         ) {
             dispatch(hideModal());
-            dispatch(
-                searchAllLibraryDocuments(
-                    prefix ? `${prefix}/${librarySearchTerm}` : librarySearchTerm,
-                    libraryFilter === 'isArchived' ? true : false,
-                ),
-            );
         }
     }, [prevProps.deleteSuccess, deleteSuccess, prevProps.restoreSuccess, restoreSuccess]);
 

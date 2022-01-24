@@ -12,9 +12,9 @@ export const restoreLibraryDocumentsRequest = () => ({
     type: RESTORE_LIBRARY_DOCUMENT_REQUEST,
 });
 
-export const restoreLibraryDocumentsSuccess = payload => ({
+export const restoreLibraryDocumentsSuccess = ids => ({
     type: RESTORE_LIBRARY_DOCUMENT_SUCCESS,
-    payload,
+    ids,
 });
 
 export const restoreLibraryDocumentsFailure = error => ({
@@ -27,6 +27,6 @@ export default (ids = []) => dispatch => {
 
     return axios
         .patch(`${API_URL}/document-library/archive`, { ids, undo: true }, getHeaders())
-        .then(({ data }) => dispatch(restoreLibraryDocumentsSuccess(data)))
+        .then(() => dispatch(restoreLibraryDocumentsSuccess(ids)))
         .catch(err => dispatch(restoreLibraryDocumentsFailure(err.message)));
 };

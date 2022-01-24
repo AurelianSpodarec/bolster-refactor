@@ -35,7 +35,7 @@ const DocumentLibrary = () => {
         toggleItemSelect,
     } = useLibraryDocuments(prefixQuery);
 
-    const { handleShowDeleteModal } = useDeleteLibraryDocuments(selectedItems, prefixQuery);
+    const { handleShowDeleteModal } = useDeleteLibraryDocuments(selectedItems);
 
     const { handleShowRestoreModal } = useRestoreLibraryDocuments(selectedItems);
 
