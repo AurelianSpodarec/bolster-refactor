@@ -1,6 +1,7 @@
 import useDay from './useDay';
 import useTimeline from './useTimeline';
 
+// todo refactor this to not incorrectly be named like a hook
 const useDayOverview = (timesheet, selectedDate) => {
     const { companyUserID, firstName, lastName, email } = timesheet;
     const {

@@ -1,3 +1,4 @@
+// todo refactor this to not incorrectly be named like a hook
 const useWeekOverview = timesheet => {
     const { companyUserID, firstName, lastName, email } = timesheet;
     const {

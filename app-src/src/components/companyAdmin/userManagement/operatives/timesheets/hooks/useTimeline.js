@@ -1,5 +1,6 @@
 import { CLOCKER_ENTRY_TYPE } from 'constants/companyAdmin/enums';
 
+// todo refactor this to not incorrectly be named like a hook
 const useTimeline = clockerEntries => {
     const timeline = [];
 
