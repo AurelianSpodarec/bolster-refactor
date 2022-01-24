@@ -10,7 +10,11 @@ export function getSortedDropdownOptions(options) {
 }
 
 export const formatAnswers = (answers, options) => {
-    if (!answers || !Array.isArray(answers) || !Array.isArray(options)) return answers;
+    if (!Array.isArray(answers)) {
+        return [answers];
+    }
+
+    if (!answers || !Array.isArray(options)) return answers;
 
     const formattedOptions = options.map(({ value }) => value).filter(Boolean);
 
