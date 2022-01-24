@@ -19,7 +19,7 @@ import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 const EditMailPreferences = () => {
     const history = useHistory();
     const dispatch = useDispatch();
-
+    console.log(history);
     const {
         profile: { areAlertMessageEmailsEnabled, areDrawingExpirationEmailsEnabled },
         postSuccess,
@@ -54,13 +54,18 @@ const EditMailPreferences = () => {
     return (
         <>
             <PageHeading leftChildren={true} title="Edit Mail Preferences">
-                <BackButtonContainer />
+                <BackButtonContainer
+                    backFromForm={{
+                        urlToReplace: '/company/profile/mailPreferences',
+                        with: '/company/profile',
+                    }}
+                />
             </PageHeading>
 
             <BlockContainer heading="Your Mail Preferences">
                 <Form onSubmit={handleSubmit}>
                     <p style={{ marginBottom: '24px' }}>
-                        Please check which alert types you would like to recieve emails for.
+                        Please check which alert types you would like to receive emails for.
                     </p>
                     <div className="size-lg-6 size-md-12">
                         <div className="" style={{ display: 'flex' }}>
