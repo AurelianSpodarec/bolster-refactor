@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect, useDispatch } from 'react-redux';
 import Search from 'components/shared/generic/form/presentational/Search';
 import Select from 'components/shared/generic/form/presentational/Select';
 import switchDocumentLibraryFilter from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryFilter';
 import switchDocumentLibrarySearchTerm from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibrarySearchTerm';
-import { usePrevious } from 'helpers/hooks';
 import Form from 'components/shared/generic/form/containers/Form';
 
 const viewModeOptions = [
@@ -28,20 +27,13 @@ const DocumentFilters = ({
     setViewMode,
     selectedItems,
     libraryFilter,
-    deleteSuccess,
     handleShowDeleteModal = () => {},
     handleShowRestoreModal = () => {},
     showEditModal,
 }) => {
     const dispatch = useDispatch();
 
-    const prevProps = usePrevious({ deleteSuccess });
-
     const isDeletedFilter = libraryFilter === 'isArchived';
-    useEffect(() => {
-        if (!prevProps.deleteSuccess && deleteSuccess && isDeletedFilter)
-            dispatch(switchDocumentLibraryFilter(null));
-    }, [dispatch, libraryFilter, deleteSuccess, prevProps.deleteSuccess]);
 
     return (
         <Form
