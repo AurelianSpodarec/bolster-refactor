@@ -84,10 +84,12 @@ const useStep1Options = (handleChange, site, building, floor, drawing, companyUs
         if (drawing != null) dispatch(fetchPins('Drawing', drawing));
     }, [dispatch, drawing]);
 
-    const operativeOptions = Object.values(users).map(({ id, userFirstName, userLastName }) => ({
-        value: id,
-        label: `${userFirstName} ${userLastName}`,
-    }));
+    const operativeOptions = Object.values(users).map(
+        ({ id, userFirstName, userLastName, userEmail }) => ({
+            value: id,
+            label: `${userFirstName} ${userLastName} - ${id} (${userEmail})`,
+        }),
+    );
 
     const siteOptions = Object.values(sites)
         .filter(site => !!drawings.find(({ siteID }) => site.id === siteID))
