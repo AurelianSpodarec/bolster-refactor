@@ -50,6 +50,16 @@ export default function (ProtectedComponent) {
             return asObj ? convertArrToObj(options, 'value') : options;
         };
 
+        formatArrForDropdownOperative = arr => {
+            const options = arr.map(({ id, name, companyName }) => ({
+                value: id,
+                label: `${name} ${companyName ? `(${companyName})` : ''}`,
+                text: `${name} ${companyName ? `(${companyName})` : ''}`,
+            }));
+
+            return options;
+        };
+
         validate = errorMessage => {
             const { addFieldError, removeFieldError, blockName, fieldError } = this.props;
 
