@@ -6938,63 +6938,6 @@ input {
     }
 
     .calendar-view {
-        .legend {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-
-            margin-bottom: 0;
-
-            border-radius: 5px 5px 0 0;
-            border-width: 1px;
-            border-color: $light-grey-alt;
-            border-bottom-style: solid;
-
-            .segment {
-                display: flex;
-                align-items: center;
-
-                gap: 16px;
-
-                .percent-bar {
-                    flex-basis: 40%;
-                    display: flex;
-
-                    height: 30px;
-
-                    background-color: $light-grey-alt;
-
-                    overflow: visible;
-
-                    .color-bar {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-
-                        transition: flex-basis 300ms ease;
-
-                        .percent {
-                            position: absolute;
-                            color: $body-text;
-
-                            z-index: 1;
-                        }
-                    }
-                }
-
-                .pills {
-                    flex-basis: 60%;
-                    display: flex;
-                    align-items: center;
-                    flex-wrap: wrap;
-
-                    gap: 8px 16px;
-
-                    
-                }
-            }
-        }
-
         .calendar {
             border-radius: 5px 0 5px 5px;
 
@@ -7155,6 +7098,57 @@ input {
 
     .series-view {
 
+    }
+
+    .legend {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        margin-bottom: 0;
+
+        border-radius: 5px 5px 0 0;
+        border-width: 1px;
+        border-color: $light-grey-alt;
+        border-bottom-style: solid;
+
+        .segment {
+            display: flex;
+            align-items: center;
+
+            gap: 16px;
+
+            .percent-bar {
+                flex-basis: 50%;
+                display: flex;
+                height: 30px;
+                background-color: $light-grey-alt;
+                overflow: visible;
+
+                .color-bar {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    transition: flex-basis 300ms ease;
+
+                    .percent {
+                        position: absolute;
+                        color: $body-text;
+
+                        z-index: 1;
+                    }
+                }
+            }
+
+            .pills {
+                display: flex;
+                flex-basis: 50%;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 8px 16px;
+            }
+        }
     }
 }
 

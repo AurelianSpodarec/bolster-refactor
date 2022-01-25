@@ -1,6 +1,6 @@
 import React from 'react';
 import Calendar from './Calendar';
-import CalendarLegend from './CalendarLegend';
+import TasksLegend from '../../TasksLegend';
 import useCalendar from './hooks/useCalendar';
 
 const CalendarView = ({ startDate, startCreatePinTask }) => {
@@ -8,7 +8,7 @@ const CalendarView = ({ startDate, startCreatePinTask }) => {
 
     return (
         <div className="calendar-view size-lg-12">
-            <CalendarLegend {...{ types, statuses, pinTasks }} />
+            <TasksLegend {...{ types, statuses, pinTasks }} />
             <Calendar
                 startDate={startDate}
                 startCreatePinTask={startCreatePinTask}

@@ -1,7 +1,8 @@
+import React from 'react';
+
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { PIN_TASK_RECURRING_NAMES, PIN_TASK_STATUS_NAMES } from 'constants/companyAdmin/enums';
-import React from 'react';
-import LegendSegment from './LegendSegment';
+import LegendSegment from './views/calendar/LegendSegment';
 
 const calculatePercentage = (obj, target) => {
     const titleEnum = {
@@ -49,15 +50,15 @@ const calculatePercentage = (obj, target) => {
     return formattedObj;
 };
 
-const CalendarLegend = ({ types, statuses, pinTasks }) => {
+const TasksLegend = ({ types, statuses, pinTasks }) => {
     const numberOfTasks = Object.values(pinTasks).length;
 
     return (
-        <BlockContainer contentClass="legend" containerClass="size-lg-8 pull-right">
+        <BlockContainer contentClass="legend" containerClass="size-lg-12">
             <LegendSegment stats={calculatePercentage(types, numberOfTasks)} />
             <LegendSegment stats={calculatePercentage(statuses, numberOfTasks)} />
         </BlockContainer>
     );
 };
 
-export default CalendarLegend;
+export default TasksLegend;
