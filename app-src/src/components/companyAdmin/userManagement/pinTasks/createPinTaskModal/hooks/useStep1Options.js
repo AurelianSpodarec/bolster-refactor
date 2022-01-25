@@ -5,6 +5,7 @@ import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import fetchUserDrawings from 'actions/companyAdmin/userManagement/async/fetchUserDrawings';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
+import { usePrevious } from 'helpers/hooks';
 import { useEffect } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import {
@@ -119,16 +120,26 @@ const useStep1Options = (handleChange, site, building, floor, drawing, companyUs
             label: name,
         }));
 
+    const prevSite = usePrevious(site);
+    const prevBuilding = usePrevious(building);
+    const prevFloor = usePrevious(floor);
+
     useEffect(() => {
-        handleChange('building', null);
+        if (prevSite !== site) {
+            handleChange('building', null);
+        }
     }, [site]);
 
     useEffect(() => {
-        handleChange('floor', null);
+        if (prevBuilding !== building) {
+            handleChange('floor', null);
+        }
     }, [building]);
 
     useEffect(() => {
-        handleChange('drawing', null);
+        if (prevFloor !== floor) {
+            handleChange('drawing', null);
+        }
     }, [floor]);
 
     useEffect(() => {
