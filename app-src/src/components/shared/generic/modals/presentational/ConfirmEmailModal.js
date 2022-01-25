@@ -7,7 +7,6 @@ import ModalOuterContainer from '../containers/ModalOuterContainer';
 import { connect } from 'react-redux';
 import postResendConfirmEmail from 'actions/shared/auth/async/postResendConfirmEmail';
 import Loading from '../../misc/presentational/Loading';
-import { usePrevious } from 'helpers/hooks';
 
 const ConfirmTwoFactorModal = ({ profile, isPosting, postSuccess, sendConfirmEmail }) => {
     const onSubmit = e => {
@@ -15,9 +14,6 @@ const ConfirmTwoFactorModal = ({ profile, isPosting, postSuccess, sendConfirmEma
         sendConfirmEmail(profile.email);
     };
 
-    const prevProps = usePrevious({ postSuccess, isPosting });
-
-    console.log({ postSuccess, isPosting });
     return (
         <ModalOuterContainer hideCloseButton>
             <BlockHeading title="Confirm" />
