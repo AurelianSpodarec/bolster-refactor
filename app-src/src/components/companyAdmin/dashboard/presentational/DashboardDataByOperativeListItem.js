@@ -1,20 +1,18 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import { NUMBER_OF_HISTORIES_WITH_DATE } from 'constants/companyAdmin/enums';
 import { NUMBER_OF_HISTORIES_OPTIONS } from '../../../../constants/companyAdmin/enums';
 
-const DrawingDataByOperativeListItem = ({ operative, history, onMobile, headers }) => {
+const DrawingDataByOperativeListItem = ({ operative, onMobile, headers }) => {
+    const history = useHistory();
     return (
         <tr>
             <td>
-                {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                 {operative.name}
             </td>
             <td>
-                {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
                 {operative.lastLogin ? (
                     <DateTimeContainer format="DD-MM-YYYY HH:mm" date={operative.lastLogin} />
@@ -31,12 +29,10 @@ const DrawingDataByOperativeListItem = ({ operative, history, onMobile, headers 
                 )}
             </td>
             <td>
-                {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
                 {operative.pinsUpdated}
             </td>
             <td>
-                {' '}
                 {onMobile && <span className="mobile-table-heading">Actions</span>}
                 <button
                     className={`button blue ${operative.isInvited ? 'disabled' : ''}`}
@@ -64,4 +60,4 @@ const DrawingDataByOperativeListItem = ({ operative, history, onMobile, headers 
     }
 };
 
-export default withRouter(DrawingDataByOperativeListItem);
+export default DrawingDataByOperativeListItem;

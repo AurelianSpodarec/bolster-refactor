@@ -133,8 +133,8 @@ class DashboardStatsFiltersContainer extends Component {
         const monthOptions = months.reduce((acc, _, index) => {
             const prevMonth = moment().subtract(index, 'months');
             const label = prevMonth.format('MMM YYYY');
-            const startDate = prevMonth.startOf('month').toDate();
-            const endDate = prevMonth.endOf('month').toDate();
+            const startDate = prevMonth.utc().startOf('month').toDate();
+            const endDate = prevMonth.utc().endOf('month').toDate();
 
             acc[label] = {
                 startDate,

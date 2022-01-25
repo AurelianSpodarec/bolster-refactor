@@ -63,16 +63,14 @@ class DashboardContainer extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    fetchPinStats: filterBody => dispatch(fetchPinStats(filterBody)),
-    fetchPinStatusStats: () => dispatch(fetchPinStatusStats()),
-    updateDashboardFilters: (fieldName, searchTerm) => {
-        dispatch(updateDashboardFilters(fieldName, searchTerm));
-    },
-    setTabs: (tabs, selectedTab) => dispatch(setTabs(tabs, selectedTab)),
-    showModal: (type, props) => dispatch(showModal(type, props)),
-    hideModal: () => dispatch(hideModal),
-});
+const mapDispatchToProps = {
+    fetchPinStats,
+    fetchPinStatusStats,
+    updateDashboardFilters,
+    setTabs,
+    showModal,
+    hideModal,
+};
 
 const mapStateToProps = ({
     shared: {

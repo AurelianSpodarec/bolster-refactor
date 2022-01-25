@@ -18,4 +18,4 @@ const DashboardPinFeedTable = ({ pins, isFetching, error, headers }) => (
     </div>
 );
 
-export default DashboardPinFeedTable;
+export default React.memo(DashboardPinFeedTable);
