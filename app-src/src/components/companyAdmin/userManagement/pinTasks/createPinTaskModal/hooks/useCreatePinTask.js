@@ -101,8 +101,6 @@ const useCreatePinTask = (initialDate, startDate) => {
         if (moment(date).isAfter(endDate, 'day')) handleChange('endDate', date);
     }, [formData.date, formData.endDate]);
 
-    console.log({ formData });
-
     return {
         formData,
         handleChange,
