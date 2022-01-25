@@ -230,7 +230,7 @@ class LevelsFilterContainer extends Component {
             this.setState({
                 initialLoad: false,
             });
-            console.log({ siteID, prevSiteID, companyUserIDs, prevCompanyUserIDs });
+
             updateReportFilter('hierarchyType', value);
         }
 
