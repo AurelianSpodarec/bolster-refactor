@@ -47,21 +47,20 @@ class BuildingDetailsContainer extends Component {
         }));
 
         const requestFilteredStats = !isEmpty(filteredStats) ? filteredStats : stats;
+        const companyStatsArr = Object.keys(stats?.statusesByCompany ?? []);
+        const companiesForDropdown = companyStatsArr
+            .map(companyKey => {
+                const [name, id] = companyKey.split('#');
+                if (!isOwner && +id !== +loggedInCompanyID) {
+                    return null;
+                }
+                return {
+                    value: companyKey,
+                    text: name,
+                };
+            })
+            .filter(Boolean);
 
-        const companiesForDropdown = !isEmpty(stats)
-            ? Object.entries(stats.statusesByCompany)
-                  .map(([key]) => {
-                      const [name, id] = key.split('#');
-                      if (!isOwner && +id !== +loggedInCompanyID) {
-                          return null;
-                      }
-                      return {
-                          value: key,
-                          text: name,
-                      };
-                  })
-                  .filter(Boolean)
-            : [];
         return (
             <BlockContainer
                 error={error}
