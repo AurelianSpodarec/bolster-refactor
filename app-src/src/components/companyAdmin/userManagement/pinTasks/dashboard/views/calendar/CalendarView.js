@@ -8,8 +8,14 @@ const CalendarView = ({ startDate, startCreatePinTask }) => {
 
     return (
         <div className="calendar-view size-lg-12">
-            <TasksLegend {...{ types, statuses, pinTasks }} />
-            <Calendar {...{ startCreatePinTask, startDate, days, matrix, isFetching }} />
+            <TasksLegend types={types} statuses={statuses} pinTasks={pinTasks} />
+            <Calendar
+                startCreatePinTask={startCreatePinTask}
+                startDate={startDate}
+                days={days}
+                matrix={matrix}
+                isFetching={isFetching}
+            />
         </div>
     );
 };

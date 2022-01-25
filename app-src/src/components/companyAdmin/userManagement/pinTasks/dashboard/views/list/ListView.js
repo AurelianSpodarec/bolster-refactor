@@ -9,8 +9,16 @@ const ListView = ({ startDate, startEditPinTask }) => {
 
     return (
         <div className="list-view size-lg-12">
-            <TasksLegend {...{ types, statuses, pinTasks }} />
-            <ListTable {...{ startEditPinTask, types, statuses, pinTasks, isFetching, error }} />
+            <TasksLegend types={types} statuses={statuses} pinTasks={pinTasks} />
+            <ListTable
+                startEditPinTask={startEditPinTask}
+                pinTasks={pinTasks}
+                startDate={startDate}
+                types={types}
+                statuses={statuses}
+                isFetching={isFetching}
+                error={error}
+            />
         </div>
     );
 };
