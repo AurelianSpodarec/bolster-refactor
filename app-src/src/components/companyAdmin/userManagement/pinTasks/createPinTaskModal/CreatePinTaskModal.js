@@ -48,6 +48,7 @@ const CreatePinTaskModal = ({ initialDate, startDate }) => {
         onNextStep,
         isPosting,
         error,
+        onBackStep,
     } = useCreatePinTask(initialDate, startDate);
 
     const {
@@ -100,7 +101,7 @@ const CreatePinTaskModal = ({ initialDate, startDate }) => {
         </button>,
     ];
 
-    const Button = buttons[step];
+    const NextButton = buttons[step];
 
     return (
         <ModalOuterContainer extraClasses="create-pin-task-modal">
@@ -146,15 +147,26 @@ const CreatePinTaskModal = ({ initialDate, startDate }) => {
 
                     {error && <p className="error">{error}</p>}
                     <BlockButtonWrapper>
-                        {Button}
-                        <button
-                            type="button"
-                            className="button"
-                            onClick={closeModal}
-                            disabled={isPosting}
-                        >
-                            Cancel
-                        </button>
+                        {NextButton}
+                        {step === 1 ? (
+                            <button
+                                type="button"
+                                className="button"
+                                onClick={onBackStep}
+                                disabled={isPosting}
+                            >
+                                Back
+                            </button>
+                        ) : (
+                            <button
+                                type="button"
+                                className="button"
+                                onClick={closeModal}
+                                disabled={isPosting}
+                            >
+                                Cancel
+                            </button>
+                        )}
                     </BlockButtonWrapper>
                 </BlockContainer>
             </Form>

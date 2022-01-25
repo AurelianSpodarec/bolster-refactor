@@ -91,6 +91,10 @@ const useCreatePinTask = (initialDate, startDate) => {
         dispatch(createPinTasks(data));
     };
 
+    const onBackStep = () => {
+        if (step >= 1) return setStep(step - 1);
+    };
+
     useEffect(() => {
         const { date, endDate } = formData;
 
@@ -109,6 +113,7 @@ const useCreatePinTask = (initialDate, startDate) => {
         onNextStep,
         isPosting,
         error,
+        onBackStep,
     };
 };
 
