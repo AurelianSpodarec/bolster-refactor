@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import DashboardBarChart from '../presentational/DashboardBarChart';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -7,31 +7,10 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import { isEmpty } from 'helpers/generic';
 import Block from 'components/shared/generic/block/presentational/Block';
 
-class DashboardBarContainer extends Component {
-    render() {
-        const { isFetching, error, datasets, labels } = this.props;
+const DashboardBarContainer = () => {
+    const { isFetching, error, datasets, labels } = useSelector(mapStateToProps);
 
-        return (
-            <>
-                <Block containerClass="flex-row-item size-lg-6 size-md-12">
-                    <BlockHeading title="Pins added by operatives" />
-                    <BlockContainer
-                        isFetching={isFetching}
-                        error={error}
-                        isEmpty={isEmpty(datasets) || isEmpty(labels)}
-                        containerClass="size-lg-12"
-                        noWhiteBackground
-                    >
-                        <DashboardBarChart data={this._data} isDaily={labels.length < 33} />
-                    </BlockContainer>
-                </Block>
-            </>
-        );
-    }
-
-    _data = () => {
-        const { datasets, labels } = this.props;
-
+    const data = useMemo(() => {
         return {
             labels: labels,
             datasets: [
@@ -67,8 +46,24 @@ class DashboardBarContainer extends Component {
                 },
             ],
         };
-    };
-}
+    }, [labels, datasets]);
+    return (
+        <>
+            <Block containerClass="flex-row-item size-lg-6 size-md-12">
+                <BlockHeading title="Pins added by operatives" />
+                <BlockContainer
+                    isFetching={isFetching}
+                    error={error}
+                    isEmpty={isEmpty(datasets) || isEmpty(labels)}
+                    containerClass="size-lg-12"
+                    noWhiteBackground
+                >
+                    <DashboardBarChart data={data} isDaily={labels.length < 33} />
+                </BlockContainer>
+            </Block>
+        </>
+    );
+};
 
 const mapStateToProps = ({
     companyAdmin: {
@@ -85,4 +80,4 @@ const mapStateToProps = ({
     error,
 });
 
-export default connect(mapStateToProps)(DashboardBarContainer);
+export default DashboardBarContainer;
