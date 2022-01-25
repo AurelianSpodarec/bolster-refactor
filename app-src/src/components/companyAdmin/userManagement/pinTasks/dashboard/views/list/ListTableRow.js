@@ -1,12 +1,14 @@
+import React from 'react';
+import useTypeAndStatus from '../hooks/useTypeAndStatus';
+import useDeletePinTask from '../hooks/useDeletePinTask';
+
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import {
     DATE_TIME_IDS,
     PIN_TASK_RECURRING_NAMES,
     PIN_TASK_STATUS_NAMES,
 } from 'constants/companyAdmin/enums';
-import React from 'react';
 import TaskPill from '../../TaskPill';
-import useTypeAndStatus from '../hooks/useTypeAndStatus';
 
 const ListTableRow = ({ pinTask, startEditPinTask }) => {
     const {
@@ -23,6 +25,7 @@ const ListTableRow = ({ pinTask, startEditPinTask }) => {
         dueOn,
     } = pinTask;
     const { type, status } = useTypeAndStatus(isRecurring, actionedOn, dueOn);
+    const { handleDeleteTask } = useDeletePinTask();
 
     return (
         <tr>
@@ -51,6 +54,10 @@ const ListTableRow = ({ pinTask, startEditPinTask }) => {
                 >
                     <i className="far fa-pencil" />
                     Edit Task
+                </button>
+                <button className="button red" type="button" onClick={() => handleDeleteTask(id)}>
+                    <i className="far fa-trash" />
+                    Delete
                 </button>
             </td>
         </tr>
