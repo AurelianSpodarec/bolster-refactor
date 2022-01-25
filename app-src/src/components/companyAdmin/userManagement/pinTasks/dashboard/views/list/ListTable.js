@@ -1,14 +1,12 @@
+import React from 'react';
+
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import { isEmpty } from 'helpers/generic';
-import React from 'react';
-import useList from './hooks/useList';
 import ListTableRow from './ListTableRow';
 
-const ListTable = ({ startDate, startEditPinTask }) => {
+const ListTable = ({ startEditPinTask, pinTasks, isFetching, error }) => {
     const headers = ['Operative', 'Drawing', 'Pin Number', 'Due Date', 'Action Date', 'Tags'];
-
-    const { pinTasks, isFetching, error } = useList(startDate);
 
     return (
         <BlockContainer
