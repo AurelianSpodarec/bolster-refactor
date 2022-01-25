@@ -3,37 +3,32 @@ import { connect } from 'react-redux';
 
 import PinSelector from '../presentational/PinSelector';
 import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
-import { sortArrayByKeyAndOrder } from 'helpers/generic';
+import { convertArrToObj, sortArrayByKeyAndOrder } from 'helpers/generic';
 
 class PinSelectorContainer extends Component {
     state = {
         pinOptions: {},
         selectedPinOptions: [],
         clicking: false,
-        shiftStartPin: ''
+        shiftStartPin: '',
+        searchTerm: '',
     };
 
     render() {
         const { fieldError, onMobile } = this.props;
         const includedPins = [];
         const excludedPins = [];
-        const { pinOptions } = this.state;
+        const { pinOptions, searchTerm } = this.state;
+
         for (const key in pinOptions) {
             if (pinOptions[key].included) includedPins.push(pinOptions[key]);
             else excludedPins.push(pinOptions[key]);
         }
+
         return (
             <PinSelector
-                excludedPins={sortArrayByKeyAndOrder(
-                    excludedPins,
-                    'text',
-                    true
-                )}
-                includedPins={sortArrayByKeyAndOrder(
-                    includedPins,
-                    'text',
-                    true
-                )}
+                excludedPins={sortArrayByKeyAndOrder(excludedPins, 'text', true)}
+                includedPins={sortArrayByKeyAndOrder(includedPins, 'text', true)}
                 handlePinClick={this.handlePinClick}
                 handleSubmit={this.handleSubmit}
                 selectedPinOptions={this.state.selectedPinOptions}
@@ -45,6 +40,8 @@ class PinSelectorContainer extends Component {
                 clicking={this.state.clicking}
                 error={fieldError}
                 onMobile={onMobile}
+                searchTerm={searchTerm}
+                handleSearchChange={this.handleSearchChange}
             />
         );
     }
@@ -65,7 +62,7 @@ class PinSelectorContainer extends Component {
                 // ** if no pin id in start position, then add it
                 this.setState(prevState => ({
                     shiftStartPin: pinID,
-                    selectedPinOptions: [...prevState.selectedPinOptions, pinID]
+                    selectedPinOptions: [...prevState.selectedPinOptions, pinID],
                 }));
             } else {
                 // ** if the shift and click occurs a second time, slice the array of pins between the shiftStartPin and the pinID you have just clicked on
@@ -83,23 +80,17 @@ class PinSelectorContainer extends Component {
                         ? { start: indexOfShiftStart, end: indexOfShiftEnd + 1 }
                         : {
                               start: indexOfShiftEnd,
-                              end: indexOfShiftStart + 1
+                              end: indexOfShiftStart + 1,
                           };
 
-                const pinsToProcess = pinsArr.slice(
-                    sliceIndices.start,
-                    sliceIndices.end
-                );
+                const pinsToProcess = pinsArr.slice(sliceIndices.start, sliceIndices.end);
 
                 this.setState(prevState => {
                     return {
                         shiftStartPin: '',
                         selectedPinOptions: Array.from(
-                            new Set([
-                                ...prevState.selectedPinOptions,
-                                ...pinsToProcess
-                            ])
-                        )
+                            new Set([...prevState.selectedPinOptions, ...pinsToProcess]),
+                        ),
                     };
                 });
             }
@@ -112,7 +103,7 @@ class PinSelectorContainer extends Component {
 
             this.setState({
                 selectedPinOptions: newCheckedPins,
-                shiftStartPin: pinID
+                shiftStartPin: pinID,
             });
         }
     };
@@ -132,14 +123,14 @@ class PinSelectorContainer extends Component {
     handleIncludeAll = () => {
         const pinOptions = this.state.pinOptions.map(pin => ({
             ...pin,
-            included: true
+            included: true,
         }));
         this.setState({ pinOptions });
     };
     handleExcludeAll = () => {
         const pinOptions = this.state.pinOptions.map(pin => ({
             ...pin,
-            included: false
+            included: false,
         }));
         this.setState({ pinOptions });
     };
@@ -151,8 +142,7 @@ class PinSelectorContainer extends Component {
         const { handleChange } = this.props;
         const pinOptions = Object.values(oldOptions).map(option => ({
             ...option,
-            included:
-                option.included || selectedPinOptions.includes(option.value)
+            included: option.included || selectedPinOptions.includes(option.value),
         }));
         const oldIDs = Object.values(oldOptions)
             .filter(({ included }) => included)
@@ -163,9 +153,7 @@ class PinSelectorContainer extends Component {
             .map(({ value }) => value);
         this.setState({
             pinOptions,
-            selectedPinOptions: selectedPinOptions.filter(id =>
-                oldIDs.includes(id)
-            )
+            selectedPinOptions: selectedPinOptions.filter(id => oldIDs.includes(id)),
         });
 
         handleChange('pinIDs', pinIDs);
@@ -178,38 +166,29 @@ class PinSelectorContainer extends Component {
         const { handleChange } = this.props;
         const pinOptions = Object.values(oldOptions).map(option => ({
             ...option,
-            included:
-                option.included && !selectedPinOptions.includes(option.value)
+            included: option.included && !selectedPinOptions.includes(option.value),
         }));
         const oldIDs = Object.values(oldOptions)
             .filter(({ included }) => included)
             .map(({ value }) => value);
 
-        const pinIDs = pinOptions
-            .filter(({ included }) => included)
-            .map(({ value }) => value);
+        const pinIDs = pinOptions.filter(({ included }) => included).map(({ value }) => value);
         this.setState({
             pinOptions,
-            selectedPinOptions: selectedPinOptions.filter(
-                id => !oldIDs.includes(id)
-            )
+            selectedPinOptions: selectedPinOptions.filter(id => !oldIDs.includes(id)),
         });
         handleChange('pinIDs', pinIDs);
     };
 
     handleSubmit = () => {
         const { selectedPinOptions, pinOptions } = this.state;
-        const setIncludes = Object.values(pinOptions).map(
-            ({ included, ...pin }) => ({
-                ...pin,
-                included: selectedPinOptions.includes(pin.value)
-                    ? !included
-                    : included
-            })
-        );
+        const setIncludes = Object.values(pinOptions).map(({ included, ...pin }) => ({
+            ...pin,
+            included: selectedPinOptions.includes(pin.value) ? !included : included,
+        }));
         const pinIDs = setIncludes.reduce(
             (acc, { included, value }) => (included ? [...acc, value] : acc),
-            []
+            [],
         );
 
         this.props.handleChange('pinIDs', pinIDs);
@@ -218,10 +197,7 @@ class PinSelectorContainer extends Component {
 
     componentDidMount = () => {
         const { addFieldError } = this.props;
-        addFieldError(
-            'pinSelector',
-            'You must include some pins in the report.'
-        );
+        addFieldError('pinSelector', 'You must include some pins in the report.');
         this._setPinOptions();
     };
 
@@ -229,7 +205,7 @@ class PinSelectorContainer extends Component {
         const {
             customFilters: { pins },
             handleChange,
-            removeFieldError
+            removeFieldError,
         } = this.props;
         const selectedPinIDs = pins.map(({ id }) => id);
         handleChange('pinIDs', selectedPinIDs);
@@ -238,13 +214,13 @@ class PinSelectorContainer extends Component {
 
     componentDidUpdate = (
         { customFilters: { pins: prevPins = [] } },
-        { pinOptions: prevPinOptions }
+        { pinOptions: prevPinOptions },
     ) => {
         const {
             customFilters: { pins = [] },
             addFieldError,
             removeFieldError,
-            fieldError
+            fieldError,
         } = this.props;
 
         const { pinOptions } = this.state;
@@ -252,19 +228,12 @@ class PinSelectorContainer extends Component {
         if (prevPins.length !== pins.length) {
             this._setPinOptions();
         }
-        const pinIDs = Object.values(pinOptions).filter(
-            ({ included }) => included
-        );
-        const prevPinIDs = Object.values(prevPinOptions).filter(
-            ({ included }) => included
-        );
+        const pinIDs = Object.values(pinOptions).filter(({ included }) => included);
+        const prevPinIDs = Object.values(prevPinOptions).filter(({ included }) => included);
 
         if (pinIDs.length !== prevPinIDs.length) {
             if (!pinIDs.length) {
-                addFieldError(
-                    'pinSelector',
-                    'You must include some pins in the report.'
-                );
+                addFieldError('pinSelector', 'You must include some pins in the report.');
             }
         }
         if (fieldError && pinIDs.length) {
@@ -277,9 +246,9 @@ class PinSelectorContainer extends Component {
         const pinOptions = pins.reduce(
             (acc, { id: value, pinCode: text, status }) => ({
                 ...acc,
-                [value]: { value, text, status, included: false }
+                [value]: { value, text, status, included: false },
             }),
-            {}
+            {},
         );
 
         const pinIDs = Object.values(pinOptions).map(({ value }) => value);
@@ -289,18 +258,34 @@ class PinSelectorContainer extends Component {
         this.setState({ pinOptions });
         this.props.handleChange('pinIDs', pinIDs);
     };
+
+    handleSearchChange = value => {
+        const pins = this.props.getFilteredPins(this.props.pins);
+        const pinOptions = pins.reduce(
+            (acc, { id: value, pinCode: text, status }) => ({
+                ...acc,
+                [value]: { value, text, status, included: false },
+            }),
+            {},
+        );
+        this.setState({ searchTerm: value });
+
+        const filteredOptions = Object.values(pinOptions).filter(opt =>
+            opt.text.includes(value.toLowerCase()),
+        );
+
+        this.setState({ pinOptions: convertArrToObj(filteredOptions, 'value') });
+    };
 }
 const mapStateToProps = ({
     shared: {
-        mobileReducer: { onMobile }
+        mobileReducer: { onMobile },
     },
     companyAdmin: {
-        pinsReducer: { pins }
-    }
+        pinsReducer: { pins },
+    },
 }) => ({
     onMobile,
-    pins: Object.values(pins)
+    pins: Object.values(pins),
 });
-export default withUpdateOnChange(
-    connect(mapStateToProps, null)(PinSelectorContainer)
-);
+export default withUpdateOnChange(connect(mapStateToProps, null)(PinSelectorContainer));
