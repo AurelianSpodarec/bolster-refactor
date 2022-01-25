@@ -889,8 +889,12 @@ input {
             }
         }
     }
+
 }
 
+.no-background-btn {
+    background-color: transparent;
+}
 .disabled-link {
     pointer-events: none;
 }
