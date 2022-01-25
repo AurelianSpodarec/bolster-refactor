@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import PinSelector from '../presentational/PinSelector';
 import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
-import { convertArrToObj, sortArrayByKeyAndOrder } from 'helpers/generic';
+import { sortArrayByKeyAndOrder } from 'helpers/generic';
 
 class PinSelectorContainer extends Component {
     state = {
@@ -22,7 +22,14 @@ class PinSelectorContainer extends Component {
 
         for (const key in pinOptions) {
             if (pinOptions[key].included) includedPins.push(pinOptions[key]);
-            else excludedPins.push(pinOptions[key]);
+            else {
+                if (searchTerm) {
+                    pinOptions[key].text.includes(searchTerm.toLowerCase()) &&
+                        excludedPins.push(pinOptions[key]);
+                } else {
+                    excludedPins.push(pinOptions[key]);
+                }
+            }
         }
 
         return (
@@ -260,21 +267,7 @@ class PinSelectorContainer extends Component {
     };
 
     handleSearchChange = value => {
-        const pins = this.props.getFilteredPins(this.props.pins);
-        const pinOptions = pins.reduce(
-            (acc, { id: value, pinCode: text, status }) => ({
-                ...acc,
-                [value]: { value, text, status, included: false },
-            }),
-            {},
-        );
         this.setState({ searchTerm: value });
-
-        const filteredOptions = Object.values(pinOptions).filter(opt =>
-            opt.text.includes(value.toLowerCase()),
-        );
-
-        this.setState({ pinOptions: convertArrToObj(filteredOptions, 'value') });
     };
 }
 const mapStateToProps = ({
