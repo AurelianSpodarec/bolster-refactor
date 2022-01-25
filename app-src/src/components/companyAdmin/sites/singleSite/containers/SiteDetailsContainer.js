@@ -46,23 +46,21 @@ class SiteDetailsContainer extends Component {
         }));
 
         const requestFilteredStats = !isEmpty(filteredStats) ? filteredStats : stats;
+        const companiesArr = Object.keys(stats?.statusesByCompany ?? []);
+        const companiesForDropdown = companiesArr
+            .map(companyKey => {
+                const isInvited = site.accessType !== ACCESS_TYPES_VALUES.OWNER;
+                const [name, companyID] = companyKey.split('#');
+                if (isInvited && currentCompanyID !== +companyID) {
+                    return null;
+                }
 
-        const companiesForDropdown = !isEmpty(stats)
-            ? Object.entries(stats.statusesByCompany)
-                  .map(([key]) => {
-                      const isInvited = site.accessType !== ACCESS_TYPES_VALUES.OWNER;
-                      const [name, companyID] = key.split('#');
-                      if (isInvited && currentCompanyID !== +companyID) {
-                          return null;
-                      }
-
-                      return {
-                          value: key,
-                          text: name,
-                      };
-                  })
-                  .filter(Boolean)
-            : [];
+                return {
+                    value: companyKey,
+                    text: name,
+                };
+            })
+            .filter(Boolean);
 
         return (
             <BlockContainer
@@ -89,15 +87,8 @@ class SiteDetailsContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const {
-            error,
-            deleteSuccess,
-            postSuccess,
-            postFailure,
-            history,
-            showModal,
-            hideModal,
-        } = this.props;
+        const { error, deleteSuccess, postSuccess, postFailure, history, showModal, hideModal } =
+            this.props;
         if (deleteSuccess && !prevProps.deleteSuccess) {
             hideModal();
             history.push('/company/sites');

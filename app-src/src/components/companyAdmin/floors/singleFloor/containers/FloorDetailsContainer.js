@@ -48,23 +48,19 @@ class FloorDetailsContainer extends Component {
         }));
 
         const requestFilteredStats = !isEmpty(filteredStats) ? filteredStats : stats;
-
-        const companiesForDropdown = !isEmpty(stats)
-            ? Object.keys(stats.statusesByCompany)
-                  .map(key => {
-                      const [name, id] = key.split('#');
-                      // invited company can only choose any or own company
-                      if (!isOwner && +id !== +loggedInCompanyID) {
-                          return null;
-                      }
-                      return {
-                          value: key,
-                          text: name,
-                      };
-                  })
-                  .filter(Boolean)
-            : [];
-        console.log({ companiesForDropdown, isOwner });
+        const companyStatsArr = Object.keys(stats?.statusesByCompany ?? []);
+        const companiesForDropdown = companyStatsArr
+            .map(companyKey => {
+                const [name, id] = companyKey.split('#');
+                if (!isOwner && +id !== +loggedInCompanyID) {
+                    return null;
+                }
+                return {
+                    value: companyKey,
+                    text: name,
+                };
+            })
+            .filter(Boolean);
 
         return (
             <BlockContainer
