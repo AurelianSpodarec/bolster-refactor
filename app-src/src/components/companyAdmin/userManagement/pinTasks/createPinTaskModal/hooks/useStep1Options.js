@@ -84,10 +84,11 @@ const useStep1Options = (handleChange, site, building, floor, drawing, companyUs
         if (drawing != null) dispatch(fetchPins('Drawing', drawing));
     }, [dispatch, drawing]);
 
+    console.log(users);
     const operativeOptions = Object.values(users).map(
-        ({ id, userFirstName, userLastName, userEmail }) => ({
+        ({ id, userFirstName, userLastName, userEmail, operativeCode }) => ({
             value: id,
-            label: `${userFirstName} ${userLastName} - ${id} (${userEmail})`,
+            label: `${userFirstName} ${userLastName} - ${operativeCode} (${userEmail})`,
         }),
     );
 
