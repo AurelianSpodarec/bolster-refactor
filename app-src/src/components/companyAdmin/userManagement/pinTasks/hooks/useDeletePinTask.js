@@ -26,7 +26,6 @@ const useDeletePinTask = () => {
                 message: 'Are you sure you want to delete this task.',
                 handleDelete: () => {
                     dispatch(deletePinTask(id));
-                    closeModal();
                 },
             }),
         );

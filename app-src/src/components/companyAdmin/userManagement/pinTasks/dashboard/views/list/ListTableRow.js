@@ -1,6 +1,6 @@
 import React from 'react';
+import useDeletePinTask from '../../../hooks/useDeletePinTask';
 import useTypeAndStatus from '../hooks/useTypeAndStatus';
-import useDeletePinTask from '../hooks/useDeletePinTask';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import {
