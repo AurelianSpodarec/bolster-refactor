@@ -15,19 +15,55 @@ import {
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import deleteSite from 'actions/companyAdmin/sites/async/deleteSite';
 import archiveSite from 'actions/companyAdmin/sites/async/archiveSite';
+import { isEmpty } from 'helpers/generic';
+import filterPinStatsForLevel from 'actions/companyAdmin/stats/async/filterPinStatsForLevel';
+import { ACCESS_TYPES_VALUES, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 class SiteDetailsContainer extends Component {
     state = {
         serviceID: null,
+        companyID: null,
     };
     render() {
-        const { site, error, isFetching, stats, onMobile, serviceIDs, services } = this.props;
-        const { serviceID } = this.state;
+        const {
+            site,
+            error,
+            isFetching,
+            stats,
+            onMobile,
+            serviceIDs,
+            services,
+            filteredStats,
+            filteredStatsBool,
+            currentCompanyID,
+        } = this.props;
+        const { serviceID, companyID } = this.state;
         const filteredServices = services.filter(service => serviceIDs.includes(service.id));
+
         const servicesForDropdown = filteredServices.map(service => ({
             value: service.id,
             text: service.name,
         }));
+
+        const requestFilteredStats = !isEmpty(filteredStats) ? filteredStats : stats;
+
+        const companiesForDropdown = !isEmpty(stats)
+            ? Object.entries(stats.statusesByCompany)
+                  .map(([key]) => {
+                      const isInvited = site.accessType !== ACCESS_TYPES_VALUES.OWNER;
+                      const [name, companyID] = key.split('#');
+                      if (isInvited && currentCompanyID !== +companyID) {
+                          return null;
+                      }
+
+                      return {
+                          value: key,
+                          text: name,
+                      };
+                  })
+                  .filter(Boolean)
+            : [];
+
         return (
             <BlockContainer
                 error={error}
@@ -36,7 +72,7 @@ class SiteDetailsContainer extends Component {
             >
                 <SiteStats
                     site={site}
-                    stats={stats}
+                    stats={requestFilteredStats}
                     handleDelete={this.handleDeleteModal}
                     handleArchive={this.handleArchiveModal}
                     handleEditSiteModal={this.handleEditSiteModal}
@@ -44,6 +80,9 @@ class SiteDetailsContainer extends Component {
                     handleChange={this.handleChange}
                     serviceOptions={servicesForDropdown}
                     serviceID={serviceID}
+                    companyID={companyID}
+                    companyOptions={companiesForDropdown}
+                    filteredStatsBool={filteredStatsBool}
                 />
             </BlockContainer>
         );
@@ -111,14 +150,36 @@ class SiteDetailsContainer extends Component {
         });
     };
 
-    handleChange = (name, value) => this.setState({ [name]: value });
+    handleChange = (name, value) => {
+        // const otherState = name === 'serviceID' ? 'companyID' : 'serviceID';
+        this.setState({ [name]: value });
+        const { serviceID, companyID } = this.state;
+        const { filterPinStats, site } = this.props;
+
+        const companyIDOption =
+            name === 'companyID'
+                ? value.split('#')[1]
+                : companyID
+                ? companyID.split('#')[1]
+                : companyID;
+        const serviceIDOption = name === 'serviceID' ? value : serviceID;
+
+        filterPinStats(site.id, HIERARCHY_IDS.SITE, companyIDOption, serviceIDOption);
+    };
 }
 
 const mapStateToProps = (
     {
         companyAdmin: {
+            // companiesReducer: { companies },
             sitesReducer: { sites, postSuccess, isFetching, error, deleteSuccess, postFailure },
-            statsReducer: { stats, isFetching: fetchingStats },
+            statsReducer: {
+                stats,
+                isFetching: fetchingStats,
+                filteredStats,
+                filteredStatsBool,
+                isPostingFilters,
+            },
             subscriptionsReducer: {
                 subscriptions: { serviceIDs },
             },
@@ -126,13 +187,17 @@ const mapStateToProps = (
         },
         shared: {
             mobileReducer: { onMobile },
+            decodeJWTReducer: {
+                jwtData: { companyID },
+            },
         },
     },
     { match },
 ) => ({
+    // companies: Object.values(companies),
     postSuccess,
     site: sites[match.params.id] || {},
-    isFetching: isFetching || fetchingStats,
+    isFetching: isFetching || fetchingStats || isPostingFilters,
     error,
     stats,
     id: match.params.id,
@@ -141,6 +206,9 @@ const mapStateToProps = (
     postFailure,
     serviceIDs,
     services: Object.values(services),
+    filteredStats,
+    filteredStatsBool,
+    currentCompanyID: companyID,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -148,6 +216,8 @@ const mapDispatchToProps = dispatch => ({
     hideModal: () => dispatch(hideModal()),
     deleteSite: id => dispatch(deleteSite(id)),
     archiveSite: (id, undo) => dispatch(archiveSite(id, undo)),
+    filterPinStats: (id, type, companyID, serviceID) =>
+        dispatch(filterPinStatsForLevel(id, type, companyID, serviceID)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SiteDetailsContainer));

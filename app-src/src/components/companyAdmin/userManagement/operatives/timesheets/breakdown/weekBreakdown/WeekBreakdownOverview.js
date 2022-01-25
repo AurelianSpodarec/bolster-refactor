@@ -1,5 +1,6 @@
+import React from 'react';
+import { useSelector } from 'react-redux';
 import DashboardPinFeed from 'components/companyAdmin/dashboard/presentational/DashboardPinFeed';
-import React, { useEffect, useState } from 'react';
 import BreakdownColumns from '../BreakdownColumns';
 import usePinFeed from '../../hooks/usePinFeed';
 import UserTables from '../../userTables/UserTables';
@@ -15,6 +16,7 @@ import moment from 'moment';
 import BreakdownNotes from '../BreakdownNotes';
 import BreakdownOverviewFilters from '../../breakdown/dayBreakdown/BreakdownOverviewFilters';
 import useOverviewFilters from '../../breakdown/dayBreakdown/hooks/useOverviewFilters';
+import { timesheetSelectedCompanyIDs } from 'selectors/companyAdmin/timesheets';
 
 const WeekBreakdownOverview = ({
     selectedDate,
@@ -24,12 +26,9 @@ const WeekBreakdownOverview = ({
     disableReportGenPin,
     handlePDFReportGeneration,
 }) => {
-    const isSingleUser = timesheets.length === 1;
+    const userIDs = useSelector(timesheetSelectedCompanyIDs);
+    const isSingleUser = userIDs.length === 1;
 
-    const [userIDs, setUserIDs] = useState([]);
-    useEffect(() => {
-        setUserIDs(timesheets.map(({ companyUserID }) => companyUserID));
-    }, [timesheets]);
     const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
         userIDs,
         moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
@@ -77,6 +76,11 @@ const WeekBreakdownOverview = ({
             </>
         );
     }
+
+    const singleUserTimesheet = timesheets.find(
+        timesheet => timesheet.companyUserID === userIDs[0],
+    );
+
     const {
         companyUserID,
         firstName,
@@ -87,7 +91,7 @@ const WeekBreakdownOverview = ({
         jobReferences,
         totalPins,
         clockerNotes,
-    } = useWeekOverview(timesheets[0]);
+    } = useWeekOverview(singleUserTimesheet);
 
     return (
         <BreakdownColumns
