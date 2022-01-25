@@ -10,10 +10,15 @@ import { getHeaders } from 'helpers/api';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import UserCreationsTable from './UserCreationsTable';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import PageSelector from 'components/shared/pagination/presentational/pageSelector';
 
 const UserCreations = () => {
     const dispatch = useDispatch();
 
+    const setPage = nextPage => {
+        dispatch(fetchUserCreations(nextPage));
+    };
     useEffect(() => {
         dispatch(fetchUserCreations());
     }, [dispatch]);
@@ -26,6 +31,11 @@ const UserCreations = () => {
                 </button>
             </PageHeading>
             <BlockContainer>
+                <div className="size-lg-6 size-md-12">
+                    <BlockHeading title="User Creations">
+                        <PageSelector setPage={setPage} page={1} maxPage={2} />
+                    </BlockHeading>
+                </div>
                 <UserCreationsTable />
             </BlockContainer>
         </>
