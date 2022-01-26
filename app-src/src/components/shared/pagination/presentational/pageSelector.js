@@ -48,14 +48,14 @@ const PageSelector = ({ page = 1, maxPage = 1, setPage }) => {
     );
 
     function skipPagesBack() {
-        if (page - 10 <= 1) {
+        if (page - 10 >= 1) {
             setPage(1);
         } else {
             setPage(page - 10);
         }
     }
     function skipPagesForward() {
-        if (page + 10 >= maxPage) {
+        if (page + 10 <= maxPage) {
             setPage(maxPage);
         } else {
             setPage(page + 10);

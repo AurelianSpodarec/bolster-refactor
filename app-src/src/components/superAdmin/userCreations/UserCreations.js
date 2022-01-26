@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import fileDownload from 'js-file-download';
 
 import fetchUserCreations from 'actions/superAdmin/users/async/fetchUserCreations';
@@ -15,12 +15,14 @@ import PageSelector from 'components/shared/pagination/presentational/pageSelect
 
 const UserCreations = () => {
     const dispatch = useDispatch();
+    const { users, isFetching, error, page, pageSize, totalPages } = useSelector(mapStateToProps);
 
     const setPage = nextPage => {
-        dispatch(fetchUserCreations(nextPage));
+        dispatch(fetchUserCreations(nextPage, pageSize));
     };
+
     useEffect(() => {
-        dispatch(fetchUserCreations());
+        dispatch(fetchUserCreations(page, pageSize));
     }, [dispatch]);
 
     return (
@@ -33,10 +35,10 @@ const UserCreations = () => {
             <BlockContainer>
                 <div className="size-lg-6 size-md-12">
                     <BlockHeading title="User Creations">
-                        <PageSelector setPage={setPage} page={1} maxPage={2} />
+                        <PageSelector setPage={setPage} page={page} maxPage={totalPages} />
                     </BlockHeading>
                 </div>
-                <UserCreationsTable />
+                <UserCreationsTable users={users} isFetching={isFetching} error={error} />
             </BlockContainer>
         </>
     );
@@ -47,5 +49,23 @@ const UserCreations = () => {
         });
     }
 };
+
+const mapStateToProps = ({
+    superAdmin: {
+        userCreationsReducer: {
+            users,
+            isFetching,
+            error,
+            pages: { page, totalPages, pageSize },
+        },
+    },
+}) => ({
+    users,
+    isFetching,
+    error,
+    page,
+    totalPages,
+    pageSize,
+});
 
 export default UserCreations;

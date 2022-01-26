@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 import { COMPANY_USER_ROLE_IDS } from 'constants/companyAdmin/enums';
 import { isEmpty } from 'helpers/generic';
@@ -17,9 +16,7 @@ const headers = [
     'User set up before?',
 ];
 
-const UserCreationsTable = () => {
-    const { users, isFetching, error } = useSelector(mapStateToProps);
-
+const UserCreationsTable = ({ users, isFetching, error }) => {
     return (
         <Table
             withActions
@@ -47,15 +44,5 @@ const UserCreationsTable = () => {
         </Table>
     );
 };
-
-const mapStateToProps = ({
-    superAdmin: {
-        userCreationsReducer: { users, isFetching, error },
-    },
-}) => ({
-    users,
-    isFetching,
-    error,
-});
 
 export default UserCreationsTable;
