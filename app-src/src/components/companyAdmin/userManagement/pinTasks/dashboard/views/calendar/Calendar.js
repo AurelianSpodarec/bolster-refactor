@@ -1,18 +1,24 @@
+import React from 'react';
+import { useSelector } from 'react-redux';
+import moment from 'moment';
+
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import Table from 'components/shared/generic/tables/presentational/Table';
-import { PIN_TASK_RECURRING } from 'constants/companyAdmin/enums';
+import { PIN_TASK_RECURRING, PIN_TASK_STATUS } from 'constants/companyAdmin/enums';
 import { isEmpty } from 'lodash';
-import moment from 'moment';
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectPinRecurrenceFilters } from 'selectors/companyAdmin/pinTasks';
+import {
+    selectPinRecurrenceFilters,
+    selectPinRStatusFilters,
+} from 'selectors/companyAdmin/pinTasks';
 import CalendarPinTask from './CalendarPinTask';
 
 const { RECURRING, NON_RECURRING } = PIN_TASK_RECURRING;
+const { COMPLETE_LATE, COMPLETE, INCOMPLETE, DUE_SOON } = PIN_TASK_STATUS;
 
 const Calendar = ({ startDate, startCreatePinTask, days, matrix, isFetching }) => {
     const selectedRecurrenceFilter = useSelector(selectPinRecurrenceFilters);
+    const selectedStatusFilter = useSelector(selectPinRStatusFilters);
 
     return (
         <BlockContainer contentClass="calendar" isFetching={isFetching} isEmpty={isFetching}>
@@ -35,10 +41,29 @@ const Calendar = ({ startDate, startCreatePinTask, days, matrix, isFetching }) =
                                                             ? RECURRING
                                                             : NON_RECURRING;
 
+                                                        const statusName = task.actionedOn
+                                                            ? moment(task.actionedOn).isAfter(
+                                                                  task.dueOn,
+                                                              )
+                                                                ? COMPLETE_LATE
+                                                                : COMPLETE
+                                                            : moment(task.dueOn).isBefore()
+                                                            ? INCOMPLETE
+                                                            : DUE_SOON;
+
                                                         if (
                                                             selectedRecurrenceFilter &&
                                                             selectedRecurrenceFilter !==
                                                                 recurringName
+                                                        ) {
+                                                            return false;
+                                                        }
+
+                                                        if (
+                                                            selectedStatusFilter.length &&
+                                                            !selectedStatusFilter.includes(
+                                                                statusName,
+                                                            )
                                                         ) {
                                                             return false;
                                                         }

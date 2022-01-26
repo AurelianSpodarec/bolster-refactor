@@ -1,6 +1,7 @@
-import setPinRecurrenceFilters from 'actions/companyAdmin/pinTasks/sync/setPinRecurrenceFilters';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import setPinRecurrenceFilters from 'actions/companyAdmin/pinTasks/sync/setPinRecurrenceFilters';
 import { selectPinRecurrenceFilters } from 'selectors/companyAdmin/pinTasks';
 
 const TaskRecurrencePill = ({ name, title }) => {
