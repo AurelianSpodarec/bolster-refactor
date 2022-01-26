@@ -43,11 +43,11 @@ const ListTableRow = ({ pinTask, startEditPinTask }) => {
             <td>{!actionedOn ? 'N/A' : <DateTimeContainer date={new Date(actionedOn)} />}</td>
             <td>
                 <div className="pills">
-                    <TaskStatusPill
+                    <TaskRecurrencePill
                         name={type}
                         title={PIN_TASK_RECURRING_NAMES[type.toUpperCase()]}
                     />
-                    <TaskRecurrencePill
+                    <TaskStatusPill
                         name={status}
                         title={PIN_TASK_STATUS_NAMES[status.toUpperCase()]}
                     />
