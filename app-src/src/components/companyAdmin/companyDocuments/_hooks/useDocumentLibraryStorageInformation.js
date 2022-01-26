@@ -11,11 +11,8 @@ const useDocumentLibraryStorageInformation = items => {
     const dispatch = useDispatch();
 
     const storageInformation = useSelector(selectDocumentLibraryStorageInformation);
-    const {
-        totalStorageRemaining,
-        totalStorageSizeForDownSync,
-        totalStorageUsed,
-    } = storageInformation;
+    const { totalStorageRemaining, totalStorageSizeForDownSync, totalStorageUsed } =
+        storageInformation;
     const isFetching = useSelector(selectDocumentLibraryIsFetching);
     const fetchError = useSelector(selectDocumentLibraryFetchError);
 

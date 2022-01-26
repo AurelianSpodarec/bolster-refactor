@@ -9,6 +9,7 @@ import axios from 'axios';
 import uuid from 'uuid/v4';
 import addDocumentLibraryItem from 'actions/companyAdmin/documentLibrary/sync/addDocumentLibraryItem';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import fetchDocumentLibraryStorageInfo from 'actions/companyAdmin/documentLibrary/async/fetchDocumentLibraryStorageInfo';
 
 export const maxFileSizeMB = 5;
 
@@ -78,7 +79,10 @@ const useCreateDocument = (initialFiles = []) => {
             }
 
             if (isFullSuccess) {
-                setTimeout(() => dispatch(hideModal()), 500);
+                setTimeout(() => {
+                    dispatch(hideModal());
+                    dispatch(fetchDocumentLibraryStorageInfo());
+                }, 500);
             }
         } catch (error) {
             setError(error.message);

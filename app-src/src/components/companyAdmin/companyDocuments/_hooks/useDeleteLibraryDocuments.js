@@ -13,12 +13,12 @@ import softDeleteLibraryDocuments from 'actions/companyAdmin/documentLibrary/asy
 import hardDeleteLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/hardDeleteLibraryDocuments';
 import { usePrevious } from 'helpers/hooks';
 import { DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
+import fetchDocumentLibraryStorageInfo from 'actions/companyAdmin/documentLibrary/async/fetchDocumentLibraryStorageInfo';
 
 const useDeleteLibraryDocuments = (ids = [], setSelectedItems) => {
     const dispatch = useDispatch();
-    const { isDeleting, deleteSuccess, deleteError, documentLibrary, restoreSuccess } = useSelector(
-        mapStateToProps,
-    );
+    const { isDeleting, deleteSuccess, deleteError, documentLibrary, restoreSuccess } =
+        useSelector(mapStateToProps);
 
     const prevProps = usePrevious({ deleteSuccess, deleteError, restoreSuccess });
 
@@ -32,6 +32,9 @@ const useDeleteLibraryDocuments = (ids = [], setSelectedItems) => {
             (!prevProps.restoreSuccess && restoreSuccess)
         ) {
             setSelectedItems([]);
+            setTimeout(() => {
+                dispatch(fetchDocumentLibraryStorageInfo());
+            }, 500);
             dispatch(hideModal());
         }
     }, [prevProps.deleteSuccess, deleteSuccess, prevProps.restoreSuccess, restoreSuccess]);

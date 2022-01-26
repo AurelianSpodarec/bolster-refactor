@@ -12,9 +12,8 @@ import { usePrevious } from 'helpers/hooks';
 
 const useRestoreLibraryDocuments = (ids = [], setSelectedItems) => {
     const dispatch = useDispatch();
-    const { documentLibrary, isRestoring, restoreSuccess, restoreError } = useSelector(
-        mapStateToProps,
-    );
+    const { documentLibrary, isRestoring, restoreSuccess, restoreError } =
+        useSelector(mapStateToProps);
 
     const filenames = Object.values(documentLibrary).filter(item => ids.includes(item.id));
 
