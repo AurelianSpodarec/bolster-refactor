@@ -5,3 +5,5 @@ export const selectOperative = (state, companyUserID) => {
     );
     return companyUserPermission;
 };
+
+export const getOperatives = state => state.companyAdmin.operativesReducer.operatives;
