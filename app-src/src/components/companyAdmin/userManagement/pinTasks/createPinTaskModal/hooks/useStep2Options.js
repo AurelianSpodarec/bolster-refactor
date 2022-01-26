@@ -49,24 +49,26 @@ const useStep2Options = (handleChange, drawingID, service, template, companyUser
         dispatch(getTemplateReportOptions(_postBody));
     }, [dispatch, drawingID, service]);
 
-    const serviceOptions = Object.values(services)
-        .filter(service => op?.serviceIDs.includes(service.id))
-        .map(({ id, name }) => ({
-            value: id,
-            label: name,
-        }));
+    const serviceOptions = Object.values(services).reduce((acc, service) => {
+        if (op?.serviceIDs.includes(service.id)) {
+            acc.push({ value: service.id, label: service.name });
+        }
+        return acc;
+    }, []);
 
-    const templateOptions = Object.values(templates).map(({ id, name }) => ({
-        value: id,
-        label: name,
-    }));
+    const templateOptions = Object.values(templates).reduce((acc, template) => {
+        if (op?.serviceIDs.includes(template.serviceID)) {
+            acc.push({ value: template.id, label: template.name });
+        }
+        return acc;
+    }, []);
 
-    const pinOptions = Object.values(pins)
-        .filter(({ latestServiceID }) => op?.serviceIDs.includes(latestServiceID))
-        .map(({ id, pinCode }) => ({
-            value: id,
-            label: pinCode,
-        }));
+    const pinOptions = Object.values(pins).reduce((acc, pin) => {
+        if (op?.serviceIDs.includes(pin.latestServiceID)) {
+            acc.push({ value: pin.id, label: pin.pinCode });
+        }
+        return acc;
+    }, []);
 
     const pinOptionsFilter = ({ value }) => {
         const { latestServiceID, templateID } = pins[value];
