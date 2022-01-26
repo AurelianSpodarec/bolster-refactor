@@ -30,6 +30,7 @@ import {
     DELETE_PIN_TASK_SERIES_SUCCESS,
     DELETE_PIN_TASK_SERIES_FAILURE,
     SET_PIN_RECURRENCE_FILTERS,
+    SET_PIN_STATUS_FILTERS,
 } from 'constants/actionTypes/pinTasks';
 
 export default combineReducers({
@@ -40,6 +41,7 @@ export default combineReducers({
     postSuccess: postSuccessReducer,
     error: errorReducer,
     pinRecurrenceFilters: pinRecurrenceFiltersReducer,
+    pinStatusFilters: pinStatusFiltersReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -167,6 +169,15 @@ function pinRecurrenceFiltersReducer(state = null, action) {
     switch (action.type) {
         case SET_PIN_RECURRENCE_FILTERS:
             return action.recurrenceType;
+        default:
+            return state;
+    }
+}
+
+function pinStatusFiltersReducer(state = [], action) {
+    switch (action.type) {
+        case SET_PIN_STATUS_FILTERS:
+            return action.statusType;
         default:
             return state;
     }
