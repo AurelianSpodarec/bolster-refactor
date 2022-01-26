@@ -8,7 +8,8 @@ import {
     PIN_TASK_RECURRING_NAMES,
     PIN_TASK_STATUS_NAMES,
 } from 'constants/companyAdmin/enums';
-import TaskPill from '../../TaskPill';
+import TaskStatusPill from '../../TaskStatusPill';
+import TaskRecurrencePill from '../../TaskRecurrencePill';
 
 const ListTableRow = ({ pinTask, startEditPinTask }) => {
     const {
@@ -42,8 +43,14 @@ const ListTableRow = ({ pinTask, startEditPinTask }) => {
             <td>{!actionedOn ? 'N/A' : <DateTimeContainer date={new Date(actionedOn)} />}</td>
             <td>
                 <div className="pills">
-                    <TaskPill name={type} title={PIN_TASK_RECURRING_NAMES[type.toUpperCase()]} />
-                    <TaskPill name={status} title={PIN_TASK_STATUS_NAMES[status.toUpperCase()]} />
+                    <TaskStatusPill
+                        name={type}
+                        title={PIN_TASK_RECURRING_NAMES[type.toUpperCase()]}
+                    />
+                    <TaskRecurrencePill
+                        name={status}
+                        title={PIN_TASK_STATUS_NAMES[status.toUpperCase()]}
+                    />
                 </div>
             </td>
             <td>

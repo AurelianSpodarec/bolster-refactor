@@ -55,8 +55,8 @@ const TasksLegend = ({ types, statuses, pinTasks }) => {
 
     return (
         <BlockContainer contentClass="legend" containerClass="size-lg-12">
-            <LegendSegment stats={calculatePercentage(types, numberOfTasks)} />
-            <LegendSegment stats={calculatePercentage(statuses, numberOfTasks)} />
+            <LegendSegment stats={calculatePercentage(types, numberOfTasks)} type="recurrence" />
+            <LegendSegment stats={calculatePercentage(statuses, numberOfTasks)} type="status" />
         </BlockContainer>
     );
 };

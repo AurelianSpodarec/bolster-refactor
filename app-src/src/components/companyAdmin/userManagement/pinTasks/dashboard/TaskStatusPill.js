@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TaskPill = ({ name, title }) => {
+const TaskStatusPill = ({ name, title }) => {
     return (
         <button
             className="no-background-btn"
@@ -16,4 +16,4 @@ const TaskPill = ({ name, title }) => {
     );
 };
 
-export default TaskPill;
+export default TaskStatusPill;
