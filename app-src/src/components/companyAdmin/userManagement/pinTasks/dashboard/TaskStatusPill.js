@@ -12,7 +12,7 @@ const TaskStatusPill = ({ name, title }) => {
 
     return (
         <button
-            className={`${isActive ? '' : 'no-background-btn'}`}
+            className="no-background-btn"
             onClick={() => {
                 if (isActive) {
                     const updatedList = selected.filter(status => status !== name);
@@ -23,7 +23,7 @@ const TaskStatusPill = ({ name, title }) => {
                 dispatch(setPinStatusFilters(updatedList));
             }}
         >
-            <div className="task-pill" key={name}>
+            <div className={`task-pill${isActive ? '' : ' active'}`} key={name}>
                 <div className={`square ${name}`} />
                 <div className="title">{title}</div>
             </div>

@@ -17,6 +17,7 @@ import setSiteFilters from 'actions/companyAdmin/sites/sync/setSiteFilters';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
 import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
+import Field from 'components/shared/generic/form/presentational/Field';
 
 const calculatePercentage = (obj, target) => {
     const titleEnum = {
@@ -114,27 +115,33 @@ const TasksLegend = ({ types, statuses, pinTasks }) => {
             <LegendSegment stats={calculatePercentage(types, numberOfTasks)} type="recurrence" />
             <LegendSegment stats={calculatePercentage(statuses, numberOfTasks)} type="status" />
             <Form>
-                <MultiSelect
-                    name="services"
-                    value={form.services}
-                    onChange={handleChange}
-                    options={serviceOptions}
-                    placeholder="-- filter by service --"
-                />
-                <MultiSelect
-                    name="operatives"
-                    value={form.operatives}
-                    onChange={handleChange}
-                    options={operativeOptions}
-                    placeholder="-- filter by operative --"
-                />
-                <MultiSelect
-                    name="sites"
-                    value={form.sites}
-                    onChange={handleChange}
-                    options={siteOptions}
-                    placeholder="-- filter by site --"
-                />
+                <Field name="Filter by service" sizeClasses="size-lg-12">
+                    <MultiSelect
+                        name="services"
+                        value={form.services}
+                        onChange={handleChange}
+                        options={serviceOptions}
+                        placeholder="-- select by service --"
+                    />
+                </Field>
+                <Field name="Filter by operative" sizeClasses="size-lg-12">
+                    <MultiSelect
+                        name="operatives"
+                        value={form.operatives}
+                        onChange={handleChange}
+                        options={operativeOptions}
+                        placeholder="-- select by operative --"
+                    />
+                </Field>
+                <Field name="Filter by site" sizeClasses="size-lg-12">
+                    <MultiSelect
+                        name="sites"
+                        value={form.sites}
+                        onChange={handleChange}
+                        options={siteOptions}
+                        placeholder="-- select by site --"
+                    />
+                </Field>
             </Form>
         </BlockContainer>
     );

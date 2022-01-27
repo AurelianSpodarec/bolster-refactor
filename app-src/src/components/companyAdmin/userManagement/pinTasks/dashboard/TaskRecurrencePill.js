@@ -12,10 +12,10 @@ const TaskRecurrencePill = ({ name, title }) => {
 
     return (
         <button
-            className={`${isActive ? '' : 'no-background-btn'}`}
+            className="no-background-btn"
             onClick={() => dispatch(setPinRecurrenceFilters(isActive ? null : name))}
         >
-            <div className="task-pill" key={name}>
+            <div className={`task-pill${isActive ? '' : ' active'}`} key={name}>
                 <div className={`square ${name}`} />
                 <div className="title">{title}</div>
             </div>

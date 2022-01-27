@@ -7160,7 +7160,7 @@ input {
     gap: 8px;
     padding: 6px;
 
-    box-shadow: 0 0 8px $input-border-grey;
+    box-shadow: 0 0 8px  $green;
     border-radius: 5px;
 
     .square {
@@ -7172,6 +7172,11 @@ input {
     .title {
         font-size: 120%;
         color: $body-text;
+    }
+
+    &.active {
+        border-radius: 5px;
+        box-shadow: 0 0 8px $light-grey-alt;
     }
 }
 
