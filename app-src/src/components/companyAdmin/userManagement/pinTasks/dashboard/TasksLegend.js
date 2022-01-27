@@ -10,6 +10,13 @@ import { useForm } from 'helpers/hooks';
 import Form from 'components/shared/generic/form/containers/Form';
 import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
 import setUserFilters from 'actions/companyAdmin/userManagement/async/setUserFilters';
+import { selectServices } from 'selectors/companyAdmin/services';
+import setServiceFilters from 'actions/companyAdmin/services/async/sync/setServiceFilters';
+import { selectSites } from 'selectors/companyAdmin/sites';
+import setSiteFilters from 'actions/companyAdmin/sites/sync/setSiteFilters';
+import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
+import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
 
 const calculatePercentage = (obj, target) => {
     const titleEnum = {
@@ -60,7 +67,16 @@ const calculatePercentage = (obj, target) => {
 const TasksLegend = ({ types, statuses, pinTasks }) => {
     const dispatch = useDispatch();
 
-    const operatives = useSelector(selectCompanyUsers);
+    const numberOfTasks = Object.values(pinTasks).length;
+
+    //filters
+
+    const [form, handleChange] = useForm({
+        operatives: [],
+        services: [],
+        sites: [],
+    });
+    const operatives = useSelector(selectCompanyUsers) ?? [];
     const operativeOptions = Object.values(operatives).map(
         ({ id, userFirstName, userLastName, companyName }) => ({
             value: id,
@@ -68,22 +84,30 @@ const TasksLegend = ({ types, statuses, pinTasks }) => {
         }),
     );
 
-    const numberOfTasks = Object.values(pinTasks).length;
+    const services = useSelector(selectServices) ?? [];
 
-    const [form, handleChange] = useForm({
-        operatives: [],
-    });
+    const serviceOptions = Object.values(services).map(({ id, name }) => ({
+        label: name,
+        value: id,
+    }));
+
+    const sites = useSelector(selectSites) ?? [];
+
+    const siteOptions = Object.values(sites).map(({ id, name, ownerCompanyName }) => ({
+        label: `${name}(${ownerCompanyName})`,
+        value: id,
+    }));
 
     useEffect(() => {
-        dispatch(fetchCompanyOperatives());
+        dispatch(fetchCompanyUsers());
+        dispatch(fetchAllServices());
+        dispatch(fetchAllSites());
         if (handleChange) {
+            dispatch(setServiceFilters(form.services));
             dispatch(setUserFilters(form.operatives));
+            dispatch(setSiteFilters(form.sites));
         }
-    }, [dispatch]);
-
-    useEffect(() => {
-        dispatch(setUserFilters(form.operatives));
-    }, [dispatch, form.operatives]);
+    }, [dispatch, form.operatives, form.services, form.sites]);
 
     return (
         <BlockContainer contentClass="legend" containerClass="size-lg-12">
@@ -91,11 +115,25 @@ const TasksLegend = ({ types, statuses, pinTasks }) => {
             <LegendSegment stats={calculatePercentage(statuses, numberOfTasks)} type="status" />
             <Form>
                 <MultiSelect
+                    name="services"
+                    value={form.services}
+                    onChange={handleChange}
+                    options={serviceOptions}
+                    placeholder="-- filter by service --"
+                />
+                <MultiSelect
                     name="operatives"
                     value={form.operatives}
                     onChange={handleChange}
                     options={operativeOptions}
                     placeholder="-- filter by operative --"
+                />
+                <MultiSelect
+                    name="sites"
+                    value={form.sites}
+                    onChange={handleChange}
+                    options={siteOptions}
+                    placeholder="-- filter by site --"
                 />
             </Form>
         </BlockContainer>

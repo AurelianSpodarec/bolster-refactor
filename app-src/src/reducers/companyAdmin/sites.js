@@ -24,7 +24,7 @@ import {
     CREATE_TRANSFER_SITE_SUCCESS,
     CREATE_TRANSFER_SITE_FAILURE,
     REORDER_SITE,
-    SET_SITES_FILTERS,
+    SET_SITE_FILTERS,
 } from 'constants/actionTypes/sites';
 import { CREATE_BUILDING_SUCCESS } from 'constants/actionTypes/buildings';
 
@@ -162,8 +162,8 @@ function sitesReducer(state = {}, action) {
 
 function siteFiltersReducer(state = [], action) {
     switch (action.type) {
-        case SET_SITES_FILTERS:
-            return action.sitesFilterType;
+        case SET_SITE_FILTERS:
+            return action.siteFilterType;
         default:
             return state;
     }

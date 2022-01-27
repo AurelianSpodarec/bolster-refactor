@@ -13,6 +13,8 @@ import {
 } from 'selectors/companyAdmin/pinTasks';
 import CalendarPinTask from './CalendarPinTask';
 import { selectUserFilters } from 'selectors/companyAdmin/companyUsers';
+import { selectServiceFilters } from 'selectors/companyAdmin/services';
+import { selectSiteFilters } from 'selectors/companyAdmin/sites';
 
 const { RECURRING, NON_RECURRING } = PIN_TASK_RECURRING;
 const { COMPLETE_LATE, COMPLETE, INCOMPLETE, DUE_SOON } = PIN_TASK_STATUS;
@@ -21,6 +23,8 @@ const Calendar = ({ startDate, startCreatePinTask, days, matrix, isFetching }) =
     const selectedRecurrenceFilter = useSelector(selectPinRecurrenceFilters);
     const selectedStatusFilter = useSelector(selectPinStatusFilters);
     const selectUserFilter = useSelector(selectUserFilters);
+    const selectServiceFilter = useSelector(selectServiceFilters);
+    const selectSiteFilter = useSelector(selectSiteFilters);
 
     return (
         <BlockContainer contentClass="calendar" isFetching={isFetching} isEmpty={isFetching}>
@@ -75,6 +79,22 @@ const Calendar = ({ startDate, startCreatePinTask, days, matrix, isFetching }) =
                                                             !selectUserFilter.includes(
                                                                 task.companyUserID,
                                                             )
+                                                        ) {
+                                                            return false;
+                                                        }
+
+                                                        if (
+                                                            selectServiceFilter.length &&
+                                                            !selectServiceFilter.includes(
+                                                                task.serviceID,
+                                                            )
+                                                        ) {
+                                                            return false;
+                                                        }
+
+                                                        if (
+                                                            selectSiteFilter.length &&
+                                                            !selectSiteFilter.includes(task.siteID)
                                                         ) {
                                                             return false;
                                                         }
