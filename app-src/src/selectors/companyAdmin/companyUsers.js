@@ -4,3 +4,4 @@ export const selectCompanyUsersFetchError = state => state.companyAdmin.companyU
 export const selectCompanyUsers = state => state.companyAdmin.companyUsersReducer.users;
 export const selectCompanyUser = (state, id) => state.companyAdmin.companyUsersReducer.users[id];
 export const selectCompanyUserID = state => state.shared.decodeJWTReducer.jwtData.companyUserID;
+export const selectUserFilters = state => state.companyAdmin.companyUsersReducer.userFilters;
