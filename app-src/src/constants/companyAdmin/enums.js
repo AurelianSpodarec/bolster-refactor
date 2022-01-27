@@ -494,6 +494,7 @@ export const RECURRING_TYPE = {
     NONE: 0,
     WEEKLY: 1,
     MONTHLY: 2,
+    DAILY: 3,
 };
 
 export const DAY = {

@@ -18,6 +18,10 @@ const recurringOptions = [
         label: 'None',
     },
     {
+        value: RECURRING_TYPE.DAILY,
+        label: 'Daily',
+    },
+    {
         value: RECURRING_TYPE.WEEKLY,
         label: 'Weekly',
     },
