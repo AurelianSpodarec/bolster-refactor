@@ -15,4 +15,4 @@ export const selectPinTaskSeries = (state, id) =>
 export const selectPinRecurrenceFilters = state =>
     state.companyAdmin.pinTasksReducer.pinRecurrenceFilters;
 
-export const selectPinRStatusFilters = state => state.companyAdmin.pinTasksReducer.pinStatusFilters;
+export const selectPinStatusFilters = state => state.companyAdmin.pinTasksReducer.pinStatusFilters;
