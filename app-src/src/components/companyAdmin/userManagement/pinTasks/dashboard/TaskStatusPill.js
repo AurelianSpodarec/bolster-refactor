@@ -2,11 +2,11 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import setPinStatusFilters from 'actions/companyAdmin/pinTasks/sync/setPinStatusFilters';
-import { selectPinRStatusFilters } from 'selectors/companyAdmin/pinTasks';
+import { selectPinStatusFilters } from 'selectors/companyAdmin/pinTasks';
 
 const TaskStatusPill = ({ name, title }) => {
     const dispatch = useDispatch();
-    const selected = useSelector(selectPinRStatusFilters);
+    const selected = useSelector(selectPinStatusFilters);
 
     const isActive = selected.includes(name);
 

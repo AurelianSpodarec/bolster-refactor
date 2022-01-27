@@ -9,16 +9,18 @@ import { PIN_TASK_RECURRING, PIN_TASK_STATUS } from 'constants/companyAdmin/enum
 import { isEmpty } from 'lodash';
 import {
     selectPinRecurrenceFilters,
-    selectPinRStatusFilters,
+    selectPinStatusFilters,
 } from 'selectors/companyAdmin/pinTasks';
 import CalendarPinTask from './CalendarPinTask';
+import { selectUserFilters } from 'selectors/companyAdmin/companyUsers';
 
 const { RECURRING, NON_RECURRING } = PIN_TASK_RECURRING;
 const { COMPLETE_LATE, COMPLETE, INCOMPLETE, DUE_SOON } = PIN_TASK_STATUS;
 
 const Calendar = ({ startDate, startCreatePinTask, days, matrix, isFetching }) => {
     const selectedRecurrenceFilter = useSelector(selectPinRecurrenceFilters);
-    const selectedStatusFilter = useSelector(selectPinRStatusFilters);
+    const selectedStatusFilter = useSelector(selectPinStatusFilters);
+    const selectUserFilter = useSelector(selectUserFilters);
 
     return (
         <BlockContainer contentClass="calendar" isFetching={isFetching} isEmpty={isFetching}>
@@ -63,6 +65,15 @@ const Calendar = ({ startDate, startCreatePinTask, days, matrix, isFetching }) =
                                                             selectedStatusFilter.length &&
                                                             !selectedStatusFilter.includes(
                                                                 statusName,
+                                                            )
+                                                        ) {
+                                                            return false;
+                                                        }
+
+                                                        if (
+                                                            selectUserFilter.length &&
+                                                            !selectUserFilter.includes(
+                                                                task.companyUserID,
                                                             )
                                                         ) {
                                                             return false;
