@@ -55,7 +55,7 @@ const PageSelector = ({ page = 1, maxPage = 1, setPage }) => {
         }
     }
     function skipPagesForward() {
-        if (page + 10 <= maxPage) {
+        if (page + 10 >= maxPage) {
             setPage(maxPage);
         } else {
             setPage(page + 10);
