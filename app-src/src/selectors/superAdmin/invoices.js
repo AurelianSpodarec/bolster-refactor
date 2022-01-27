@@ -1,3 +1,5 @@
+import { convertArrToObj } from 'helpers/generic';
+
 // all invoices
 export const selectSuperAdminInvoices = state => state.superAdmin.invoicesReducer.invoices;
 export const selectSuperAdminInvoicesArr = state =>
@@ -9,7 +11,12 @@ export const selectSuperAdminInvoicesError = state => state.superAdmin.invoicesR
 // company invoices
 export const selectSuperAdminInvoicesForCompany = (state, id) => {
     const invoicesArr = selectSuperAdminInvoicesArr(state);
-    return invoicesArr.filter(invoice => +invoice.companyID === +id);
+    const companyInvoices = invoicesArr.filter(invoice => +invoice.companyID === +id);
+    return convertArrToObj(companyInvoices);
+};
+export const selectSuperAdminInvoicesForCompanyArr = (state, id) => {
+    const companyInvoices = selectSuperAdminInvoicesForCompany(state, id);
+    return Object.values(companyInvoices);
 };
 
 // pagination

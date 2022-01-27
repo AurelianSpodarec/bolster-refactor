@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import fetchCompanyInvoices from 'actions/superAdmin/invoices/async/fetchCompanyInvoices';
 import {
     selectSuperAdminInvoicesError,
-    selectSuperAdminInvoicesForCompany,
+    selectSuperAdminInvoicesForCompanyArr,
     selectSuperAdminInvoicesIsFetching,
     selectSuperAdminInvoicesPaginationTotalPages,
 } from 'selectors/superAdmin/invoices';
@@ -20,7 +20,7 @@ const InvoicesTableContainer = () => {
     const headers = ['Created', 'Total', 'Payment Type', 'Paid', ''];
 
     const { id } = useParams();
-    const invoices = useSelector(state => selectSuperAdminInvoicesForCompany(state, id));
+    const invoices = useSelector(state => selectSuperAdminInvoicesForCompanyArr(state, id));
     const isFetching = useSelector(selectSuperAdminInvoicesIsFetching);
     const error = useSelector(selectSuperAdminInvoicesError);
     const totalPages = useSelector(selectSuperAdminInvoicesPaginationTotalPages);
@@ -30,6 +30,8 @@ const InvoicesTableContainer = () => {
     useEffect(() => {
         dispatch(fetchCompanyInvoices(id, curPage));
     }, [dispatch, curPage]);
+
+    const sortedInvoices = invoices.sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn));
 
     return (
         <BlockContainer>
@@ -44,7 +46,7 @@ const InvoicesTableContainer = () => {
             </div>
             <InvoicesTable
                 headers={headers}
-                invoices={invoices}
+                invoices={sortedInvoices}
                 isFetching={isFetching}
                 error={error}
             />
