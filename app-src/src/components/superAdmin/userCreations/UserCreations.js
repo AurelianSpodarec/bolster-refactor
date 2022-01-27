@@ -35,7 +35,12 @@ const UserCreations = () => {
             <BlockContainer>
                 <div className="size-lg-6 size-md-12">
                     <BlockHeading title="User Creations">
-                        <PageSelector setPage={setPage} page={page} maxPage={totalPages} />
+                        <PageSelector
+                            setPage={setPage}
+                            page={page}
+                            maxPage={totalPages}
+                            forceToFirstOrLast
+                        />
                     </BlockHeading>
                 </div>
                 <UserCreationsTable users={users} isFetching={isFetching} error={error} />
