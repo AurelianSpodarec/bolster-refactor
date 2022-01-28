@@ -103,11 +103,12 @@ const TasksLegend = ({ types, statuses, pinTasks }) => {
         dispatch(fetchCompanyUsers());
         dispatch(fetchAllServices());
         dispatch(fetchAllSites());
-        if (handleChange) {
-            dispatch(setServiceFilters(form.services));
-            dispatch(setUserFilters(form.operatives));
-            dispatch(setSiteFilters(form.sites));
-        }
+    }, [dispatch]);
+
+    useEffect(() => {
+        dispatch(setServiceFilters(form.services));
+        dispatch(setUserFilters(form.operatives));
+        dispatch(setSiteFilters(form.sites));
     }, [dispatch, form.operatives, form.services, form.sites]);
 
     return (
