@@ -34,6 +34,7 @@ const DocumentLibrary = () => {
         selectedItems,
         setSelectedItems,
         toggleItemSelect,
+        isRoot,
     } = useLibraryDocuments(prefixQuery);
 
     const { handleShowDeleteModal } = useDeleteLibraryDocuments(selectedItems, setSelectedItems);
@@ -85,6 +86,7 @@ const DocumentLibrary = () => {
                     showEditModal={showEditModal}
                     handleShowDeleteModal={handleShowDeleteModal}
                     handleShowRestoreModal={handleShowRestoreModal}
+                    isRoot={isRoot}
                 />
             </BlockContainer>
             <div ref={dropRef} className={`table-wrapper ${libraryView}`}>

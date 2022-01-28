@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
@@ -27,16 +27,27 @@ const EditDocumentItemsModal = ({ ids }) => {
     const dispatch = useDispatch();
     const documentLibrary = useSelector(selectDocumentLibrary);
 
+    const companyDocuments = useMemo(() => {
+        if (ids.length === 1) {
+            return documentLibrary[ids[0]];
+        } else if (!ids.length) {
+            return Object.values(documentLibrary).find(folder => folder.isCurrentFolder);
+        } else {
+            return documentLibrary;
+        }
+    }, [companyDocuments, ids]);
+
     const initialFormData = {
+        name: '',
         isAttachPins: false,
         isViewApp: false,
     };
 
-    if (ids.length === 1) {
-        const { name } = documentLibrary[ids[0]];
+    if (ids.length <= 1) {
+        const { name, isAttachPins, isViewApp } = companyDocuments;
         initialFormData.name = name.replaceAll('/', '');
-        initialFormData.isAttachPins = documentLibrary[ids[0]].isAttachPins;
-        initialFormData.isViewApp = documentLibrary[ids[0]].isViewApp;
+        initialFormData.isAttachPins = isAttachPins;
+        initialFormData.isViewApp = isViewApp;
     }
 
     const [formData, handleChange] = useForm(initialFormData);
@@ -50,8 +61,9 @@ const EditDocumentItemsModal = ({ ids }) => {
     };
 
     const handleSubmit = () => {
-        if (ids.length === 1) {
-            dispatch(editDocumentLibraryItem(ids[0], postBody));
+        if (ids.length <= 1) {
+            const { id } = companyDocuments;
+            dispatch(editDocumentLibraryItem(id, postBody));
         } else {
             const body = {
                 ids,

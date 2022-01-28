@@ -30,6 +30,7 @@ const DocumentFilters = ({
     handleShowDeleteModal = () => {},
     handleShowRestoreModal = () => {},
     showEditModal,
+    isRoot,
 }) => {
     const dispatch = useDispatch();
 
@@ -66,7 +67,7 @@ const DocumentFilters = ({
                 />
                 {!isDeletedFilter && (
                     <button
-                        disabled={libraryFilter === 'isArchived'}
+                        disabled={isRoot || libraryFilter === 'isArchived'}
                         className={'library-button button'}
                         type="button"
                         onClick={showEditModal}

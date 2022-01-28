@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import searchAllLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/searchAllLibraryDocuments';
 import { useDebounce } from 'helpers/hooks';
 import { DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
+import { isEmpty } from 'helpers/generic';
 
 const useLibraryDocuments = prefix => {
     const dispatch = useDispatch();
@@ -20,6 +21,8 @@ const useLibraryDocuments = prefix => {
         libraryFilter,
         librarySearchTerm,
     } = useSelector(mapStateToProps);
+
+    const isRoot = isEmpty(Object.values(documentLibrary).find(doc => doc.isCurrentFolder));
 
     const prevProps = usePrevious({
         prefix,
@@ -111,6 +114,7 @@ const useLibraryDocuments = prefix => {
         selectedItems,
         setSelectedItems,
         toggleItemSelect,
+        isRoot,
     };
 };
 
