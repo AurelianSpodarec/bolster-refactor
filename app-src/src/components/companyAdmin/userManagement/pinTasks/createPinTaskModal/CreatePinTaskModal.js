@@ -15,7 +15,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 const recurringOptions = [
     {
         value: RECURRING_TYPE.NONE,
-        label: 'None',
+        label: 'Non-recurring',
     },
     {
         value: RECURRING_TYPE.DAILY,
@@ -113,6 +113,18 @@ const CreatePinTaskModal = ({ initialDate, startDate }) => {
                 <BlockHeading title="Create Task" />
                 <BlockContainer contentClass="header">
                     <div className="size-lg-6">
+                        <Field name="Task type" sizeClasses="size-lg-12">
+                            <Select
+                                name="recurring"
+                                value={recurring}
+                                onChange={handleChange}
+                                options={recurringOptions}
+                                omitPlaceholder
+                                disabled={step === 2}
+                            />
+                        </Field>
+                    </div>
+                    <div className="size-lg-6">
                         <Field
                             sizeClasses={`size-lg-12 ${!isWeekly || step === 2 ? 'd-none' : ''}`}
                         >
@@ -123,18 +135,6 @@ const CreatePinTaskModal = ({ initialDate, startDate }) => {
                                 options={dayOptions}
                                 required={isWeekly}
                                 disabled={!isWeekly || step === 2}
-                            />
-                        </Field>
-                    </div>
-                    <div className="size-lg-6">
-                        <Field name="recurring" sizeClasses="size-lg-12">
-                            <Select
-                                name="recurring"
-                                value={recurring}
-                                onChange={handleChange}
-                                options={recurringOptions}
-                                omitPlaceholder
-                                disabled={step === 2}
                             />
                         </Field>
                     </div>
