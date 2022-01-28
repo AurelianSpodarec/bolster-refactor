@@ -66,7 +66,7 @@ const DocumentFilters = ({
                 />
                 {!isDeletedFilter && (
                     <button
-                        disabled={!selectedItems.length || libraryFilter === 'isArchived'}
+                        disabled={libraryFilter === 'isArchived'}
                         className={'library-button button'}
                         type="button"
                         onClick={showEditModal}

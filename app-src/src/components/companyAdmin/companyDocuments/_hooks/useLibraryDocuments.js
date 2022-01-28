@@ -85,7 +85,7 @@ const useLibraryDocuments = prefix => {
         }
 
         const folders = filteredLibrary
-            .filter(item => item.type === DOCUMENT_LIBRARY_TYPES.FOLDER)
+            .filter(item => !item.isCurrentFolder && item.type === DOCUMENT_LIBRARY_TYPES.FOLDER)
             .sort(alphabeticalSort);
 
         const filesByType = {};

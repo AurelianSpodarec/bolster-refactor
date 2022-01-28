@@ -35,6 +35,8 @@ const EditDocumentItemsModal = ({ ids }) => {
     if (ids.length === 1) {
         const { name } = documentLibrary[ids[0]];
         initialFormData.name = name.replaceAll('/', '');
+        initialFormData.isAttachPins = documentLibrary[ids[0]].isAttachPins;
+        initialFormData.isViewApp = documentLibrary[ids[0]].isViewApp;
     }
 
     const [formData, handleChange] = useForm(initialFormData);
