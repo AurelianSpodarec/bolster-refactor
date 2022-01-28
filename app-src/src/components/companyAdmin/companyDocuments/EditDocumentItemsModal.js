@@ -84,7 +84,7 @@ const EditDocumentItemsModal = ({ ids }) => {
     useEffect(() => {
         if (!prevSuccess && success) {
             if (companyDocuments.isCurrentFolder) {
-                history.replace(`/company/company-documents?prefix=${formData.name}`);
+                history.replace(`/company/company-documents?prefix=${formData.name}/`);
             }
             dispatch(showModal(SUCCESS_MODAL, { message: 'Successfully updated library items' }));
         }
