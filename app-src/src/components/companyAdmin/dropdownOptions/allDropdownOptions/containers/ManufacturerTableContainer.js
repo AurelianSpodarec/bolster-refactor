@@ -87,14 +87,21 @@ class ManufacturerTableContainer extends Component {
 
     filterManufacturers = dropdownOptions => {
         const { selectedService } = this.state;
+        const { subscribedServices } = this.props;
 
-        return dropdownOptions.filter(({ serviceIDs }) =>
-            selectedService
-                ? serviceIDs === null
-                    ? true
-                    : serviceIDs.includes(+selectedService)
-                : true,
-        );
+        return dropdownOptions.filter(({ serviceIDs }) => {
+            if (selectedService) {
+                if (serviceIDs === null) {
+                    return true;
+                } else {
+                    return serviceIDs.includes(+selectedService);
+                }
+            } else {
+                return subscribedServices.some(({ id }) =>
+                    serviceIDs?.length ? serviceIDs.includes(+id) : true,
+                );
+            }
+        });
     };
 }
 
