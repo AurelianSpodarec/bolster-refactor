@@ -22,11 +22,12 @@ export const editDocumentLibraryItemFailure = error => ({
     error,
 });
 
-export default (id, postBody) => dispatch => {
-    dispatch(editDocumentLibraryItemRequest());
+export default (id, postBody, isCurrentFolder = false) =>
+    dispatch => {
+        dispatch(editDocumentLibraryItemRequest());
 
-    return axios
-        .patch(`${API_URL}/document-library/${id}`, postBody, getHeaders())
-        .then(res => dispatch(editDocumentLibraryItemSuccess(res.data)))
-        .catch(err => dispatch(editDocumentLibraryItemFailure(err.message)));
-};
+        return axios
+            .patch(`${API_URL}/document-library/${id}`, postBody, getHeaders())
+            .then(res => dispatch(editDocumentLibraryItemSuccess({ ...res.data, isCurrentFolder })))
+            .catch(err => dispatch(editDocumentLibraryItemFailure(err.message)));
+    };

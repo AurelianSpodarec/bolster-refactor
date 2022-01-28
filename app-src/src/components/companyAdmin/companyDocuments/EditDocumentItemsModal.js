@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -25,6 +26,7 @@ import {
 
 const EditDocumentItemsModal = ({ ids }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const documentLibrary = useSelector(selectDocumentLibrary);
 
     const companyDocuments = useMemo(() => {
@@ -62,8 +64,8 @@ const EditDocumentItemsModal = ({ ids }) => {
 
     const handleSubmit = () => {
         if (ids.length <= 1) {
-            const { id } = companyDocuments;
-            dispatch(editDocumentLibraryItem(id, postBody));
+            const { id, isCurrentFolder } = companyDocuments;
+            dispatch(editDocumentLibraryItem(id, postBody, isCurrentFolder));
         } else {
             const body = {
                 ids,
@@ -80,8 +82,12 @@ const EditDocumentItemsModal = ({ ids }) => {
     const prevSuccess = usePrevious(success);
 
     useEffect(() => {
-        if (!prevSuccess && success)
+        if (!prevSuccess && success) {
+            if (companyDocuments.isCurrentFolder) {
+                history.replace(`/company/company-documents?prefix=${formData.name}`);
+            }
             dispatch(showModal(SUCCESS_MODAL, { message: 'Successfully updated library items' }));
+        }
     }, [success, prevSuccess]);
 
     return (

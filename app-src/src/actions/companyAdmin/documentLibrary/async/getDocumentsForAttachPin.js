@@ -27,10 +27,6 @@ export default () => dispatch => {
 
     return axios
         .get(`${API_URL}/document-library/attach-to-pin-options`, getHeaders())
-        .then(
-            res =>
-                console.log(res.data) ||
-                dispatch(fetchAllLibraryDocumentsByCompanySuccess(res.data)),
-        )
+        .then(res => dispatch(fetchAllLibraryDocumentsByCompanySuccess(res.data)))
         .catch(err => dispatch(fetchAllLibraryDocumentsByCompanyFailure(err.message)));
 };
