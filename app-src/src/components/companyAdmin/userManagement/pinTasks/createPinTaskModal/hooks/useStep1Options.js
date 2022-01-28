@@ -72,7 +72,6 @@ const useStep1Options = (handleChange, site, building, floor, drawing, companyUs
             dispatch(fetchAllSites());
             dispatch(fetchAllBuildings());
             dispatch(fetchAllFloors());
-            // dispatch(fetchAllDrawings());
         });
     }, [dispatch]);
     useEffect(() => {
@@ -92,8 +91,18 @@ const useStep1Options = (handleChange, site, building, floor, drawing, companyUs
         }),
     );
 
+    const operativeHierarchyIDs = drawings.reduce(
+        (acc, curDrawing) => {
+            acc.sites = acc.sites.concat(curDrawing.siteID);
+            acc.buildings = acc.buildings.concat(curDrawing.buildingID);
+            acc.floors = acc.floors.concat(curDrawing.floorID);
+            return acc;
+        },
+        { floors: [], buildings: [], sites: [] },
+    );
+
     const siteOptions = Object.values(sites)
-        .filter(site => !!drawings.find(({ siteID }) => site.id === siteID))
+        .filter(site => operativeHierarchyIDs.sites.includes(site.id))
         .map(({ id, name }) => ({
             value: id,
             label: name,
@@ -101,6 +110,7 @@ const useStep1Options = (handleChange, site, building, floor, drawing, companyUs
 
     const buildingOptions = Object.values(buildings)
         .filter(({ siteID }) => siteID == site)
+        .filter(building => operativeHierarchyIDs.buildings.includes(building.id))
         .map(({ id, name }) => ({
             value: id,
             label: name,
@@ -108,6 +118,7 @@ const useStep1Options = (handleChange, site, building, floor, drawing, companyUs
 
     const floorOptions = Object.values(floors)
         .filter(({ buildingID }) => buildingID == building)
+        .filter(floor => operativeHierarchyIDs.floors.includes(floor.id))
         .map(({ id, name }) => ({
             value: id,
             label: name,

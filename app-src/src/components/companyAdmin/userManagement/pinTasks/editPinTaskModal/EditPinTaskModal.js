@@ -10,16 +10,8 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import moment from 'moment';
 
 const EditPinTaskModal = ({ id }) => {
-    const {
-        formData,
-        handleChange,
-        closeModal,
-        isFetching,
-        isPosting,
-        error,
-        onSubmit,
-        pinTask,
-    } = useEditPinTask(id);
+    const { formData, handleChange, closeModal, isFetching, isPosting, error, onSubmit, pinTask } =
+        useEditPinTask(id);
 
     const { date } = formData;
 
