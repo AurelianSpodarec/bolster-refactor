@@ -18,6 +18,7 @@ import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCo
 import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
 import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
 import Field from 'components/shared/generic/form/presentational/Field';
+import { selectSubscriptions } from 'selectors/superAdmin/companySubscription';
 
 const calculatePercentage = (obj, target) => {
     const titleEnum = {
@@ -86,10 +87,21 @@ const TasksLegend = ({ types, statuses, pinTasks }) => {
     );
 
     const services = useSelector(selectServices) ?? [];
+    const subscriptions = useSelector(selectSubscriptions) ?? [];
+    const serviceIDs = subscriptions.serviceIDs;
+    const getRelevantServices = () => {
+        const arrServices = Object.values(services);
 
-    const serviceOptions = Object.values(services).map(({ id, name }) => ({
-        label: name,
-        value: id,
+        return arrServices
+            .filter(({ id }) => serviceIDs.includes(id))
+            .reduce((acc, { id, name }) => {
+                return { ...acc, [id]: { value: id, text: name } };
+            }, {});
+    };
+
+    const serviceOptions = Object.values(getRelevantServices(services)).map(({ value, text }) => ({
+        value: value,
+        label: text,
     }));
 
     const sites = useSelector(selectSites) ?? [];
