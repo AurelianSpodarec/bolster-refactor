@@ -1795,6 +1795,10 @@ input {
     &.small-height {
         min-height: 10px;
     }
+
+    &.no-padding {
+        padding: 0;
+    }
 }
 
 .checkbox {

@@ -3,6 +3,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import ExcludedBox from './ExcludedBox';
 import IncludedBox from './IncludedBox';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import Search from 'components/shared/generic/form/presentational/Search';
 
 const PinSelector = ({
     excludedPins,
@@ -16,18 +17,29 @@ const PinSelector = ({
     handleMouseOut,
     clicking,
     error,
+    searchTerm,
+    handleSearchChange,
 }) => (
     <>
         <BlockHeading title="Individual Pins" />
 
-        <p className="generic-text intro-text size-lg-12">
+        <p className="generic-text size-lg-12">
             Using either of the boxes below, select which pins you would like to be included in your
             report.
         </p>
-        <p className="generic-text intro-text size-lg-12">
+        <p className="generic-text size-lg-12">
             Hold ‘SHIFT’ + ‘CLICK’ to select multiple pins at once.
         </p>
-        <div className="form-field size-lg-12">
+        <div className="size-lg-5 margin-bottom">
+            <Search
+                name="pinSearch"
+                value={searchTerm}
+                placeholder="Search using Pin ID"
+                handleChange={(_, value) => handleSearchChange(value)}
+            />
+        </div>
+
+        <div className="form-field no-padding size-lg-12">
             <div className="pin-selector size-lg-12">
                 <div className="pin-selection-box">
                     <h3>Excluded</h3>

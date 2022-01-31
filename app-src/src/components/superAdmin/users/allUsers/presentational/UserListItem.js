@@ -45,6 +45,7 @@ const UserListItem = ({
             <DateTimeContainer date={user.createdOn} datetime={DATE_TIME_IDS.DATE} />
         </td>
         <td>{boolToYesNo(user.isEmailConfirmed)}</td>
+        <td>{boolToYesNo(user.isDeleted)}</td>
         <td>
             <BlockButtonWrapper>
                 <button className="button yellow" onClick={() => handleShowEditUserModal(user)}>
