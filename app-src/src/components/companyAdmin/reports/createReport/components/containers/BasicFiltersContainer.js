@@ -110,18 +110,6 @@ class BasicFiltersContainer extends Component {
                 moment(locationState.selectedEndDate).toDate(),
             );
         }
-        if (locationState?.operativeID) {
-            // handleChange in operativesFilterContainer
-            shouldPostFilters = true;
-        }
-        if (locationState?.reportHistories) {
-            this.handleChange('reportHistories', locationState.reportHistories);
-            shouldPostFilters = true;
-        }
-
-        if (shouldPostFilters) {
-            postFilters();
-        }
     };
 
     handleDateBlur = isStart => {
