@@ -15,7 +15,7 @@ import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices
 
 const CompanyTracking = () => {
     const [dates, setDates] = useState({
-        dateFrom: moment().subtract(1, 'years').toDate(),
+        dateFrom: moment('2016-01-01').toDate(),
         dateTo: moment().toDate(),
     });
     const dispatch = useDispatch();

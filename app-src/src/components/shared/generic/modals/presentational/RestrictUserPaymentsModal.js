@@ -3,12 +3,12 @@ import ModalOuterContainer from '../containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const RistrictUserPaymentsModal = ({ handleRistrict, hideModal, message }) => (
+const RestrictUserPaymentsModal = ({ handleRestrict, hideModal, message }) => (
     <ModalOuterContainer>
         <BlockHeading title={'Confirmation'} />
         <p className="generic-text intro-text size-lg-12">{message}</p>
         <BlockButtonWrapper>
-            <button className="button green" onClick={handleRistrict}>
+            <button className="button green" onClick={handleRestrict}>
                 <i className="far fa-check fa-faw" />
                 Confirm
             </button>
@@ -19,4 +19,4 @@ const RistrictUserPaymentsModal = ({ handleRistrict, hideModal, message }) => (
     </ModalOuterContainer>
 );
 
-export default RistrictUserPaymentsModal;
+export default RestrictUserPaymentsModal;

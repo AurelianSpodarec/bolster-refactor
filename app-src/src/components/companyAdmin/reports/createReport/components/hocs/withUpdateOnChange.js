@@ -22,18 +22,20 @@ export default function (ProtectedComponent) {
         render() {
             const { showError } = this.state;
             const { errorsVisible, fieldError, ...props } = this.props;
+            const { hierarchyType, hierarchyID } = this._getHierarchyValues();
 
             return (
                 <ProtectedComponent
                     {...props}
                     fieldError={showError || errorsVisible ? fieldError : null}
-                    postFilters={this.postFilters}
                     formatArrForDropdown={this.formatArrForDropdown}
                     validate={this.validate}
                     showFieldError={this.showFieldError}
                     getPostBody={this._getPostBody}
                     getFilteredPins={this._getFilteredPins}
-                    getTemplateOptions={this.getTemplateOptions}
+                    getTemplateOptions={this.props.getTemplateOptions}
+                    hierarchyType={hierarchyType}
+                    hierarchyID={hierarchyID}
                 />
             );
         }
@@ -46,6 +48,16 @@ export default function (ProtectedComponent) {
             }));
 
             return asObj ? convertArrToObj(options, 'value') : options;
+        };
+
+        formatArrForDropdownOperative = arr => {
+            const options = arr.map(({ id, name, companyName }) => ({
+                value: id,
+                label: `${name} ${companyName ? `(${companyName})` : ''}`,
+                text: `${name} ${companyName ? `(${companyName})` : ''}`,
+            }));
+
+            return options;
         };
 
         validate = errorMessage => {
@@ -194,13 +206,41 @@ export default function (ProtectedComponent) {
             return [startDateTimeUTC, endDateTimeUTC];
         };
 
+        _getHierarchyValues = () => {
+            const {
+                filters: { siteID, buildingID, floorID, drawingID, companyUserIDs },
+            } = this.props;
+
+            let hierarchyType;
+            let hierarchyID;
+
+            if (!isEmpty(siteID)) {
+                hierarchyType = 'site';
+                hierarchyID = siteID;
+            } else {
+                if (!companyUserIDs.length) {
+                    hierarchyType = HIERARCHY_IDS.ALL_SITES;
+                }
+            }
+            if (!isEmpty(buildingID)) {
+                hierarchyType = 'building';
+                hierarchyID = buildingID;
+            }
+            if (!isEmpty(floorID)) {
+                hierarchyType = 'floor';
+                hierarchyID = floorID;
+            }
+            if (!isEmpty(drawingID)) {
+                hierarchyType = 'drawing';
+                hierarchyID = drawingID;
+            }
+
+            return { hierarchyType, hierarchyID };
+        };
+
         _getPostBody = () => {
             const {
                 filters: {
-                    siteID,
-                    buildingID,
-                    floorID,
-                    drawingID,
                     serviceID,
                     templateID,
                     status,
@@ -230,29 +270,7 @@ export default function (ProtectedComponent) {
                 customFilters,
             } = this.props;
 
-            let hierarchyType;
-            let hierarchyID;
-
-            if (!isEmpty(siteID)) {
-                hierarchyType = 'site';
-                hierarchyID = siteID;
-            } else {
-                if (!companyUserIDs.length) {
-                    hierarchyType = HIERARCHY_IDS.ALL_SITES;
-                }
-            }
-            if (!isEmpty(buildingID)) {
-                hierarchyType = 'building';
-                hierarchyID = buildingID;
-            }
-            if (!isEmpty(floorID)) {
-                hierarchyType = 'floor';
-                hierarchyID = floorID;
-            }
-            if (!isEmpty(drawingID)) {
-                hierarchyType = 'drawing';
-                hierarchyID = drawingID;
-            }
+            const { hierarchyType, hierarchyID } = this._getHierarchyValues();
 
             let questionFilters = null;
             let selectedPinIDs = null;
@@ -269,11 +287,7 @@ export default function (ProtectedComponent) {
                 }
                 case FILTERS: {
                     questionFilters = fields.map(
-                        ({ 
-                            selectedQuestions, 
-                            questionValues = [], 
-                            selectedValues = [] 
-                        }) => {
+                        ({ selectedQuestions, questionValues = [], selectedValues = [] }) => {
                             let values = questionValues.length ? questionValues : selectedValues;
 
                             return {
@@ -320,7 +334,7 @@ export default function (ProtectedComponent) {
                 companyUserIDs,
                 serviceID: serviceIDs,
                 templateID: templateID || null,
-                status: status || null,
+                status: status ? [status] : null,
                 pinIDs: selectedPinIDs,
                 excludedPinIDs: Object.values(excludedPinIDs),
                 questionFilters: questionFilters,
@@ -338,42 +352,6 @@ export default function (ProtectedComponent) {
                 isQuestionFilterExact,
             };
             return body;
-        };
-
-        getFilterStartDate = date => {
-            const { timeZone } = this.props;
-            return date ? moment.tz(date, timeZone.name).utc().toISOString() : null;
-        };
-
-        getFilterEndDate = date => {
-            const { timeZone } = this.props;
-            const endDate = date ? moment.tz(date, timeZone.name).utc().toISOString() : null;
-            return endDate;
-        };
-
-        getDateOfPin = date => {
-            const { timeZone } = this.props;
-            return moment.tz(date, timeZone.name).utc().toISOString();
-        };
-
-        getTemplateOptions = () => {
-            const { getTemplateOptions } = this.props;
-            return getTemplateOptions(this._getPostBody());
-        };
-
-        getOperativeOptions = () => {
-            const { getOperativeOptions } = this.props;
-            return getOperativeOptions(this._getPostBody());
-        };
-
-        getServiceOptions = () => {
-            const { getServiceOptions } = this.props;
-            return getServiceOptions(this._getPostBody());
-        };
-
-        getCompanyOptions = () => {
-            const { getCompanyOptions } = this.props;
-            return getCompanyOptions(this._getPostBody());
         };
 
         postFilters = async () => {
@@ -394,6 +372,12 @@ export default function (ProtectedComponent) {
             await getTemplateOptions(body);
             await getServiceOptions(body);
             await getCompanyOptions(body);
+        };
+
+        getTemplateOptions = () => {
+            const { getTemplateOptions } = this.props;
+            const body = this._getPostBody();
+            getTemplateOptions(body);
         };
     }
 
@@ -445,7 +429,7 @@ export default function (ProtectedComponent) {
             });
         }
         const buildings = !isEmpty(buildingsFromReducer)
-            ? buildingIDs.map(id => buildingsFromReducer[id])
+            ? buildingIDs.map(id => buildingsFromReducer[id]).filter(x => !!x)
             : [];
 
         let floorIDs = [];
@@ -455,7 +439,9 @@ export default function (ProtectedComponent) {
                 floorIDs = floorIDs.concat(curBuilding.floorIDs);
             });
         }
-        const floors = !isEmpty(floorsFromReducer) ? floorIDs.map(id => floorsFromReducer[id]) : [];
+        const floors = !isEmpty(floorsFromReducer)
+            ? floorIDs.map(id => floorsFromReducer[id]).filter(x => !!x)
+            : [];
 
         let drawingIDs = [];
         if (!isEmpty(floors)) {
@@ -465,7 +451,7 @@ export default function (ProtectedComponent) {
             });
         }
         const drawings = !isEmpty(drawingsFromReducer)
-            ? drawingIDs.map(id => drawingsFromReducer[id])
+            ? drawingIDs.map(id => drawingsFromReducer[id]).filter(x => !!x)
             : [];
 
         return {

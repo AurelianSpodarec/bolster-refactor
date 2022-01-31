@@ -8,6 +8,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
+import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 
 class PinDetailsContainer extends Component {
     render() {
@@ -19,12 +20,12 @@ class PinDetailsContainer extends Component {
             isFetching,
             pin,
             isLoading,
-            drawings,
             fetchingDrawings,
             drawingsError,
+            drawing,
         } = this.props;
-
-        const { drawingID } = pin;
+        const canAddPin = drawing?.accessType > ACCESS_TYPES_VALUES.VIEW_ONLY;
+        const isBeforeExpiry = !!moment(Date.now()).isBefore(drawing.expiresOn);
 
         const sortedHistories = [...histories].sort(
             (a, b) => moment(b.createdOn) - moment(a.createdOn),
@@ -52,7 +53,7 @@ class PinDetailsContainer extends Component {
                                 : ''}
                             )
                         </h4>
-                        {isFirst && !!moment(Date.now()).isBefore(drawings[drawingID]?.expiresOn) && (
+                        {isFirst && isBeforeExpiry && canAddPin && (
                             <Link
                                 className="button green"
                                 style={{ marginBottom: '0.25em' }}
@@ -133,6 +134,7 @@ const mapStateToProps = (
         drawings,
         fetchingDrawings,
         drawingsError,
+        drawing: drawings[pin?.drawingID] || {},
     };
 };
 

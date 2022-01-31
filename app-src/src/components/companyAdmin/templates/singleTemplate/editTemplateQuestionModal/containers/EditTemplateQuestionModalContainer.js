@@ -11,7 +11,8 @@ import { removeObjItem, updateObj } from 'helpers/generic';
 
 class EditTemplateQuestionModalContainer extends Component {
     state = {
-        options: {}
+        options: {},
+        configuration: {},
     };
 
     render = () => (
@@ -23,16 +24,31 @@ class EditTemplateQuestionModalContainer extends Component {
             handleRemoveOption={this.handleRemoveOption}
             handleAddOption={this.handleAddOption}
             questionName={this.props.question.name}
+            optionConfigurations={this.state.configuration}
+            handleQuestionToggle={this.handleQuestionToggle}
         />
     );
 
     componentDidMount = () => {
         const { question } = this.props;
-        const options = question.options.reduce(
-            (acc, { id, text }) => ({ ...acc, [id]: text }),
-            {}
-        );
-        this.setState({ options });
+
+        if (question.optionConfigurations) {
+            let sort = 0;
+
+            const options = question.optionConfigurations.reduce((acc, { name }) => {
+                sort = sort + 1;
+                return { ...acc, [name]: { value: name, sort } };
+            }, {});
+
+            const configuration = question.optionConfigurations.reduce(
+                (acc, { name, isDisabled }) => {
+                    return { ...acc, [name]: isDisabled };
+                },
+                {},
+            );
+
+            this.setState({ configuration, options });
+        }
     };
 
     componentDidUpdate = prevProps => {
@@ -42,7 +58,17 @@ class EditTemplateQuestionModalContainer extends Component {
     };
 
     handleChange = (name, value) => {
-        this.setState({ options: updateObj(this.state.options, name, value) });
+        const sort = this.state.options[name].sort;
+        this.setState({ options: updateObj(this.state.options, name, { value, sort }) });
+    };
+
+    handleQuestionToggle = id => {
+        const configuration = updateObj(
+            this.state.configuration,
+            id,
+            !this.state.configuration[id],
+        );
+        this.setState({ configuration });
     };
 
     handleRemoveOption = key => {
@@ -50,33 +76,63 @@ class EditTemplateQuestionModalContainer extends Component {
     };
 
     handleAddOption = () => {
-        this.setState({ options: updateObj(this.state.options, uuid(), '') });
+        const { options } = this.state;
+        const latestSort = Object.values(options).sort((a, b) => b.sort - a.sort)[0].sort;
+        this.setState({ options: updateObj(options, uuid(), { value: '', sort: latestSort + 1 }) });
     };
 
     handleSubmit = e => {
         e.preventDefault();
         const { editTemplateQuestion, question } = this.props;
+        const { options, configuration } = this.state;
 
-        const body = {
-            questionID: question.id,
-            options: Object.values(this.state.options)
-        };
+        const sortedOptions = Object.values(options).sort((a, b) => a.sort - b.sort);
+
+        const optionConfigurations = question.optionConfigurations
+            ? Object.keys(options).map(item => {
+                  if (item in configuration) {
+                      const prevObj = question.optionConfigurations.find(obj => obj.name === item);
+                      return {
+                          name: options[item].value,
+                          isDisabled: this.state.configuration[item],
+                          createdBySuperAdmin: prevObj.createdBySuperAdmin,
+                          sort: options[item].sort,
+                      };
+                  } else {
+                      return {
+                          name: options[item].value,
+                          isDisabled: false,
+                          createdBySuperAdmin: false,
+                          sort: options[item].sort,
+                      };
+                  }
+              })
+            : null;
+
+        const body = optionConfigurations
+            ? {
+                  questionID: question.id,
+                  options: sortedOptions.map(opt => opt.value),
+                  optionConfigurations: [...optionConfigurations]
+                      .sort((a, b) => a.sort - b.sort)
+                      .map(({ name, isDisabled, createdBySuperAdmin }) => {
+                          return { name, isDisabled, createdBySuperAdmin };
+                      }),
+              }
+            : { questionID: question.id, options: sortedOptions.map(opt => opt.value) };
         editTemplateQuestion(question.id, body);
     };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        templatesReducer: { postSuccess, postFailure }
-    }
+        templatesReducer: { postSuccess, postFailure },
+    },
 }) => ({
     postSuccess,
-    postFailure
+    postFailure,
 });
 
 const mapDispatchToProps = { hideModal, showModal, editTemplateQuestion };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(EditTemplateQuestionModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(EditTemplateQuestionModalContainer);

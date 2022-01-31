@@ -55,6 +55,14 @@ export const COMPANY_USER_ROLE_IDS = {
     1000: 'Deleted',
 };
 
+export const COMPANY_USER_ROLE_STATUS_VALUES = {
+    1: 'Invited',
+    2: 'Active',
+    3: 'Inactive',
+    4: 'Disabled',
+    5: 'Deleted',
+};
+
 export const CREDIT_LOG_TYPES = {
     1: 'Purchased',
     2: 'Free credits from purchase',
@@ -160,6 +168,12 @@ export const PAYMENT_IDS = {
 export const PAYMENT_TYPES = {
     1: 'By Card',
     2: 'By Invoice',
+};
+
+export const INVOICE_TYPES = {
+    1: 'Bank transfer',
+    2: 'Card',
+    3: 'Free',
 };
 
 export const SUBSCRIPTION_RENEWAL_IDS = {
@@ -369,6 +383,13 @@ export const COMPANY_TYPES = {
     'Client Access': 3,
 };
 
+export const COMPANY_TRACKING_TYPES_VALUES = {
+    0: 'All',
+    1: 'Active',
+    2: 'Expired',
+    3: 'Client Access',
+};
+
 export const DELETED_DATA_TYPE = {
     drawing: 'Drawing',
     floor: 'Floor',
@@ -476,4 +497,14 @@ export const COMPANY_REPORTS_OUTPUT_TYPES = {
     isPDFGeneration: 'PDF',
     isFloorplanGeneration: 'Floor Plan',
     isOEMManualGeneration: 'O&M Manual',
+};
+
+export const TIME_PERIOD = {
+    DAY: 'day',
+    WEEK: 'week',
+};
+
+export const CLOCKER_ENTRY_TYPE = {
+    WORKING: 1,
+    ON_BREAK: 2,
 };

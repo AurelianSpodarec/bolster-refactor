@@ -1357,6 +1357,10 @@ input {
             }
         }
     }
+
+    .image {
+        max-width: 100%;
+    }
 }
 
 .page-heading {
@@ -1791,6 +1795,10 @@ input {
     &.small-height {
         min-height: 10px;
     }
+
+    &.no-padding {
+        padding: 0;
+    }
 }
 
 .checkbox {
@@ -2155,6 +2163,10 @@ input {
     }
     &.center-align{
         text-align:center;
+    }
+
+    &.form-padding {
+        padding-left: 7.5px;
     }
 }
 
@@ -2597,6 +2609,18 @@ input {
     }
 
     &.with-actions {
+        a {
+            text-decoration: none;
+            color: white;
+
+            &.dark {
+                color: black;
+            }
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
         td {
             &:last-child {
                 text-align: right;
@@ -2782,9 +2806,6 @@ input {
 
     td {
         font-size: 12px;
-        &:last-child {
-            text-align: right;
-        }
 
         &.left-align {
             text-align: left;
@@ -4415,6 +4436,10 @@ input {
     position: absolute;
     right: 15px;
     top: -2px;
+
+    &.checking {
+        right: 8px;
+    }
 }
 //report page
 .levels-filter {
@@ -4537,7 +4562,7 @@ input {
         cursor: pointer;
         background-color: white;
         white-space: nowrap;
-        overflow: hidden;;
+        overflow: hidden;
         
         .placeholder {
             padding: 6px 5px;
@@ -4550,6 +4575,11 @@ input {
             margin: 5px;
             background-color: #f2f2f2;
             cursor: default;
+
+            &.option-hidden {
+                position: absolute;
+                visibility: hidden;
+            }
 
             p {
                 float: left;
@@ -4570,6 +4600,13 @@ input {
                 right: 6px;
                 transform: translateY(-50%);
             }
+        }
+
+        .more {
+            position: absolute;
+            @include vertical-center;
+            right: 30px;
+            font-size: 120%;
         }
 
         .arrow {
@@ -6239,6 +6276,11 @@ input {
     border-radius: 5px;
     align-items: center;
 
+    &.alerts {
+        height: auto;
+        padding: 6px 0;
+    }
+
     & > .banner-text {
         color: white;
         font-size: 140%;
@@ -6555,6 +6597,17 @@ input {
     }
 }
 
+.template-options-inputs-container {
+    display: flex;
+    align-items: center;
+    
+    .buttons-box {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+}
+
 .sun-editor-editable {
     strong {
         font-weight: bold;
@@ -6750,4 +6803,45 @@ input {
 
 .tooltip-invoice {
     margin-top: 2px;
+}
+
+.bug-report-table-container {
+    .bug-report-table-filters {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-bottom: 32px;
+        
+        .flex {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+    
+        .item {
+            &:first-child {
+                p {
+                    padding-left: 0;
+                }
+            }
+        }
+    
+        p {
+            text-align: right;
+            padding-left: 20px;
+            padding-right: 10px;
+        }
+
+        .react-datepicker-wrapper {
+            width: 100%;
+            height: 100%;
+            input {
+                width: 100%;
+                height: 100%;
+                font-size: 140%;
+                padding: 7.5px 10px;
+                margin-right: 10px;
+            }
+        }   
+    }
 }
