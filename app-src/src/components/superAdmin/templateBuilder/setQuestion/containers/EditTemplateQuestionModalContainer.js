@@ -22,7 +22,10 @@ const EditTemplateQuestionModalContainerFN = ({
     question,
     updateQuestionFields,
     dropdownOptions,
+    template,
 }) => {
+    const { serviceID } = template;
+
     useEffect(handleMount, []);
 
     return (
@@ -43,6 +46,7 @@ const EditTemplateQuestionModalContainerFN = ({
             showPrefillOptions={showPrefillOptions}
             handlePrereqOptionsChange={handlePrereqOptionsChange}
             dropdownOptions={dropdownOptions}
+            serviceID={serviceID}
         />
     );
 
