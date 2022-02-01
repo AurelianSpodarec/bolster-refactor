@@ -10,8 +10,16 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import moment from 'moment';
 
 const EditPinTaskModal = ({ id }) => {
-    const { formData, handleChange, closeModal, isFetching, isPosting, error, onSubmit, pinTask } =
-        useEditPinTask(id);
+    const {
+        formData,
+        handleChange,
+        closeModal,
+        isFetching,
+        isPosting,
+        error,
+        onSubmit,
+        pinTask,
+    } = useEditPinTask(id);
 
     const { date } = formData;
 
@@ -19,7 +27,11 @@ const EditPinTaskModal = ({ id }) => {
         <ModalOuterContainer extraClasses="edit-pin-task-modal">
             <Form onSubmit={onSubmit}>
                 <BlockHeading title="Edit Task" />
-                <BlockContainer isFetching={isFetching} isEmpty={!pinTask}>
+                <BlockContainer
+                    isFetching={isFetching}
+                    isEmpty={!pinTask}
+                    contentClass="no-padding"
+                >
                     <Field name="date" sizeClasses="size-lg-12" label="Date">
                         <DatePickerContainer
                             name="date"
