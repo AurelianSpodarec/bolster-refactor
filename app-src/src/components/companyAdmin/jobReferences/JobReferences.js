@@ -1,18 +1,43 @@
 import React from 'react';
 
+import { isEmpty } from 'helpers/generic';
+
+import useFetchJobReferences from './hooks/useFetchJobReferences';
+
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import Block from 'components/shared/generic/block/presentational/Block';
+import Table from 'components/shared/generic/tables/presentational/Table';
+import JobReferenceTableItem from './JobReferenceTableItem';
+
+const headers = ['Name', 'Description', ''];
 
 const JobReferences = () => {
+    const { jobReferences, isFetching, fetchError } = useFetchJobReferences();
+
+    const sortedJobReferences = Object.values(jobReferences).sort((a, b) =>
+        a.name.localeCompare(b.name),
+    );
+
     return (
         <>
             <PageHeading title="Job References" withBackButton />
-            <BlockContainer>
+            <Block>
                 <BlockHeading title="Job References" />
-                {/* <TemplatesTableContainer /> */}
-            </BlockContainer>
-            {/* <PinOptionsTableContainer /> */}
+
+                <Table
+                    noData={isEmpty(jobReferences)}
+                    isFetching={isFetching}
+                    error={fetchError}
+                    headers={headers}
+                    noDataMessage="There is no job references to display"
+                    withActions
+                >
+                    {sortedJobReferences.map(jobReference => (
+                        <JobReferenceTableItem key={jobReference.id} jobReference={jobReference} />
+                    ))}
+                </Table>
+            </Block>
         </>
     );
 };
