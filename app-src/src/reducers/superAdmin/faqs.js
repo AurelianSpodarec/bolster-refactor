@@ -46,12 +46,12 @@ function isPostingReducer(state = false, action) {
     }
 }
 
-function postSuccessReducer(state = [], action) {
+function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case UPDATE_FAQS_SUCCESS:
         case DELETE_FAQS_SUCCESS:
         case CREATE_FAQS_SUCCESS:
-            return action.payload;
+            return true;
         default:
             return state;
     }

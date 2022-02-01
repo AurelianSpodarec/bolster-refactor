@@ -78,7 +78,6 @@ function organizeS3KeysByType(s3KEys) {
     return s3KEys.flat().reduce(
         (acc, s3Key = '') => {
             if (Array.isArray(s3Key));
-            console.log({ s3Key });
             const fileTypeSuffix = s3Key.slice(s3Key.lastIndexOf('.') + 1).toLowerCase();
 
             if (imageTypes.includes(fileTypeSuffix)) {

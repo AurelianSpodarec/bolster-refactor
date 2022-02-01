@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactQuill from 'react-quill';
+
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
@@ -7,36 +7,35 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import { FAQS_PAGES } from 'constants/superAdmin/faqs';
+import SunEditorSimpleWysiwyg from 'components/shared/generic/form/presentational/SunEditorSimpleWysiwyg';
+import BlockEditor from 'components/shared/generic/block/presentational/BlockEditor';
+import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 
-const modules = {
-    toolbar: [
-        [{ header: [1, 2, 3, 4, 5, false] }],
-        ['bold', 'italic', 'underline'],
-        [{ list: 'bullet' }],
-        ['link'],
-    ],
-};
+const buttonOptions = [['formatBlock'], ['bold', 'italic', 'underline'], ['list']];
 
-const formats = ['header', 'bold', 'italic', 'underline', 'bullet', 'link'];
-
-const CreateFaqs = ({ handleSave, faqText, setFaqText, handleFormChange, faqTitle, faqType }) => {
+const CreateFaqs = ({
+    handleSave,
+    handleFormChange,
+    form: { title, type, content, imageS3Key, videoS3Key },
+}) => {
+    console.log(content);
     return (
         <>
-            <PageHeading title={faqTitle} withBackButton />
+            <PageHeading title={title} withBackButton />
             <BlockContainer>
-                <Field name="FAQs Title" required>
+                <Field name="FAQ Title" required>
                     <TextInputContainer
-                        name="faqTitle"
-                        value={faqTitle}
+                        name="title"
+                        value={title}
                         handleChange={handleFormChange}
                         required
                     />
                 </Field>
-                <Field name="FAQs Type" required>
+                <Field name="FAQ Type" required>
                     <DropdownContainer
                         handleChange={handleFormChange}
-                        name="faqType"
-                        value={faqType}
+                        name="type"
+                        value={type}
                         options={Object.keys(FAQS_PAGES).map(item => {
                             return {
                                 text: FAQS_PAGES[item],
@@ -46,20 +45,39 @@ const CreateFaqs = ({ handleSave, faqText, setFaqText, handleFormChange, faqTitl
                         withoutPlaceholder
                     />
                 </Field>
-            </BlockContainer>
 
-            <BlockContainer>
-                <ReactQuill
-                    theme="snow"
-                    value={faqText}
-                    onChange={setFaqText}
-                    modules={modules}
-                    formats={formats}
-                />
+                <Field name="FAQ Content" required>
+                    <BlockEditor containerClass="no-padding" contentClass="no-padding">
+                        <SunEditorSimpleWysiwyg
+                            value={content}
+                            onChange={value => handleFormChange('content', value)}
+                            name="content"
+                            buttonOptions={buttonOptions}
+                        />
+                    </BlockEditor>
+                </Field>
+
+                <Field name="Upload image" sizeClasses="size-lg-6">
+                    <FileUploadContainer
+                        value={imageS3Key}
+                        name="imageS3Key"
+                        acceptedTypes={['image/jpg', 'image/png', 'image/jpeg']}
+                        handleChange={handleFormChange}
+                    />
+                </Field>
+                <Field name="Upload video" sizeClasses="size-lg-6">
+                    <FileUploadContainer
+                        value={videoS3Key}
+                        name="videoS3Key"
+                        acceptedTypes={['video/x-flv', 'video/quicktime', 'video/mp4']}
+                        handleChange={handleFormChange}
+                    />
+                </Field>
 
                 <BlockButtonWrapper>
                     <button className="button green" onClick={handleSave}>
-                        Save New FAQs
+                        <i className="fa fa-save" />
+                        Save FAQ
                     </button>
                 </BlockButtonWrapper>
             </BlockContainer>

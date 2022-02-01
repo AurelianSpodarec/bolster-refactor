@@ -12,17 +12,22 @@ import CreateFaqs from '../presentational/CreateFaqs';
 
 const CreateFaqsContainer = () => {
     const dispatch = useDispatch();
-    const [faqText, setFaqText] = useState('');
+
     const [form, setFormChange] = useState({
-        faqTitle: 'FAQs Name',
-        faqType: { text: FAQS_PAGES[1], value: FAQS_PAGES[1] },
+        type: { text: FAQS_PAGES[1], value: FAQS_PAGES[1] },
+        title: 'FAQ Name',
+        content: '',
+        imageS3Key: '',
+        videoS3Key: '',
     });
+
     const isPosting = useSelector(selectFaqsIsPosting);
     const postSuccess = useSelector(selectFaqsPostSuccess);
+
     useAddItem(isPosting, postSuccess, 'Success', '/admin/faqs', 'Go back to FAQs');
 
     const handleFormChange = (name, value) => {
-        if (name === 'faqType') {
+        if (name === 'type') {
             setFormChange({
                 ...form,
                 [name]: { text: value, value: value },
@@ -36,26 +41,10 @@ const CreateFaqsContainer = () => {
     };
 
     const handleSave = () => {
-        const { faqTitle, faqType } = form;
-
-        const postBody = {
-            Title: faqTitle,
-            Content: faqText,
-            Type: Number(getKeyByValue(FAQS_PAGES, faqType.value)),
-        };
-
-        dispatch(postFaqs(postBody));
+        dispatch(postFaqs({ ...form, type: Number(getKeyByValue(FAQS_PAGES, form.type.value)) }));
     };
 
-    return (
-        <CreateFaqs
-            {...form}
-            handleSave={handleSave}
-            faqText={faqText}
-            setFaqText={setFaqText}
-            handleFormChange={handleFormChange}
-        />
-    );
+    return <CreateFaqs form={form} handleSave={handleSave} handleFormChange={handleFormChange} />;
 };
 
 export default CreateFaqsContainer;
