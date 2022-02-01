@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { isEmpty } from 'helpers/generic';
-import { useUpdateItem } from 'helpers/hooks';
+import { useForm, useUpdateItem } from 'helpers/hooks';
+
 import fetchSingleFaqs from 'actions/superAdmin/faqs/async/fetchSingleFaqs';
 import UpdateFaqs from '../presentational/UpdateFaqs';
 import updateFaqs from 'actions/superAdmin/faqs/async/updateFaqs';
@@ -16,61 +16,35 @@ import {
 const UpdateFaqsContainer = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
-    const [faqText, setFaqText] = useState('');
-    const [form, setFormChange] = useState({
-        faqTitle: 'FAQs Name',
-    });
+
     const isPosting = useSelector(selectFaqsIsPosting);
     const postSuccess = useSelector(selectFaqsPostSuccess);
     const isFetching = useSelector(selectFaqsIsFetching);
     const faqsSingle = useSelector(state => selectFaqsSingle(state, id));
 
+    const [form, handleChange] = useForm({
+        type: faqsSingle.type,
+        title: faqsSingle.title,
+        content: faqsSingle.content,
+        imageS3Key: faqsSingle.imageS3Key,
+        videoS3Key: faqsSingle.videoS3Key,
+    });
+
     useUpdateItem(isPosting, postSuccess, 'Successfully Updated', '/admin/faqs', 'Go back to FAQs');
 
-    const handleFormChange = (name, value) => {
-        if (name === 'faqType') {
-            setFormChange({
-                ...form,
-                [name]: { text: value, value: value },
-            });
-        } else {
-            setFormChange({
-                ...form,
-                [name]: value,
-            });
-        }
-    };
-
-    const handleUpdate = () => {
-        const { faqTitle } = form;
-
-        const postBody = {
-            ID: faqsSingle.id,
-            Title: faqTitle,
-            Content: faqText,
-        };
-
-        dispatch(updateFaqs(postBody));
+    const handleSave = () => {
+        dispatch(updateFaqs(form));
     };
 
     useEffect(() => {
         dispatch(fetchSingleFaqs(id));
     }, []);
 
-    useEffect(() => {
-        if (faqsSingle && !isEmpty(faqsSingle)) {
-            handleFormChange('faqTitle', faqsSingle.title);
-            setFaqText(faqsSingle.content);
-        }
-    }, [faqsSingle]);
-
     return (
         <UpdateFaqs
-            {...form}
-            handleUpdate={handleUpdate}
-            faqText={faqText}
-            setFaqText={setFaqText}
-            handleFormChange={handleFormChange}
+            form={form}
+            handleSave={handleSave}
+            handleFormChange={handleChange}
             isFetching={isFetching}
             faqsSingle={faqsSingle}
         />

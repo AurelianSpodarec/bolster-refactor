@@ -18,7 +18,6 @@ const CreateFaqs = ({
     handleFormChange,
     form: { title, type, content, imageS3Key, videoS3Key },
 }) => {
-    console.log(content);
     return (
         <>
             <PageHeading title={title} withBackButton />

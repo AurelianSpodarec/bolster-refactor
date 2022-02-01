@@ -26,7 +26,7 @@ export default postBody => dispatch => {
     dispatch(updateFaqsRequest());
 
     axios
-        .put(`${ADMIN_API_URL}/appHelp/`, postBody, getHeaders())
+        .patch(`${ADMIN_API_URL}/appHelp`, postBody, getHeaders())
         .then(res => dispatch(updateFaqsSuccess(res.data)))
         .catch(err => dispatch(updateFaqsFailure(err.message)));
 };
