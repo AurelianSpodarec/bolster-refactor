@@ -11,6 +11,7 @@ import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 class EditManufacturerFormContainer extends Component {
     state = {
         name: this.props.manufacturer.name,
+        serviceIDs: [],
     };
 
     render() {
@@ -22,12 +23,35 @@ class EditManufacturerFormContainer extends Component {
                 hideModal={this.props.hideModal}
                 buttonText={this.props.buttonText}
                 validateName={this.validateName}
+                serviceOptions={this.formatServices()}
             />
         );
     }
 
+    componentDidMount = () => {
+        const {
+            manufacturer: { serviceIDs },
+        } = this.props;
+        const allServiceIDs = this.formatServices().map(({ value }) => value);
+        const stringifiedServiceIDs = serviceIDs?.map(id => id.toString());
+
+        this.setState({ serviceIDs: serviceIDs !== null ? stringifiedServiceIDs : allServiceIDs });
+    };
+
     handleInputChange = (name, value) => {
         this.setState({ [name]: value });
+    };
+
+    formatServices = () => {
+        const { services } = this.props;
+        const serviceOptions = services.map(({ name, id }) => {
+            return {
+                text: name,
+                name: name,
+                value: id.toString(),
+            };
+        });
+        return serviceOptions;
     };
 
     validateName = value => {
@@ -46,6 +70,7 @@ class EditManufacturerFormContainer extends Component {
         const postBody = {
             ...manufacturer,
             name: this.state.name,
+            serviceIDs: this.state.serviceIDs,
         };
 
         editManufacturer(type, postBody);
@@ -56,6 +81,7 @@ const mapStateToProps = (
     {
         superAdmin: {
             manufacturersReducer: { manufacturers },
+            adminServicesReducer: { adminServices },
         },
     },
     { type },
@@ -65,6 +91,7 @@ const mapStateToProps = (
         manufacturers: manufacturers[pinOptionType]
             ? Object.values(manufacturers[pinOptionType])
             : [],
+        services: Object.values(adminServices),
     };
 };
 

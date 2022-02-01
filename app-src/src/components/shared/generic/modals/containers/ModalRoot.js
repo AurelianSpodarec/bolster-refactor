@@ -124,6 +124,7 @@ import {
     USER_NEW_DOCUMENT,
     GENERATE_TIMESHEET_REPORT,
     EXPANDED_MEDIA,
+    EDIT_FREE_CREDIT,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -250,6 +251,7 @@ import RequestDeleteInvoiceModal from 'components/companyAdmin/invoices/requestD
 import NewUserDocumentModal from 'components/companyAdmin/userManagement/documentsUploader/presentational/NewUserDocumentModal';
 import GenerateTimesheetReportModal from 'components/companyAdmin/userManagement/operatives/timesheets/modals/GenerateTimesheetReport';
 import ExpandedMediaModal from './ExpandedMediaModal';
+import EditFreeCreditModal from './EditFreeCreditModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -374,6 +376,7 @@ const MODAL_COMPONENTS = {
     [USER_NEW_DOCUMENT]: NewUserDocumentModal,
     [GENERATE_TIMESHEET_REPORT]: GenerateTimesheetReportModal,
     [EXPANDED_MEDIA]: ExpandedMediaModal,
+    [EDIT_FREE_CREDIT]: EditFreeCreditModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

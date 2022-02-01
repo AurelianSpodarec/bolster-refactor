@@ -8,15 +8,31 @@ import Select from 'components/shared/generic/form/presentational/Select';
 
 const options = convertEnumToDropdownOptions(DROPDOWN_OPTION_ENUM);
 
-const OptionTypeFrom = ({ handleInputChange, optionType, dropdownOptions = [], defaultValue }) => {
+const OptionTypeFrom = ({
+    handleInputChange,
+    optionType,
+    dropdownOptions = [],
+    defaultValue,
+    serviceID,
+}) => {
     const getOptions = () => {
-        const dropdownOptNames = dropdownOptions
-            .filter(opt => opt.type === +optionType)
-            .map(opt => opt.name);
+        const convertedOptions = dropdownOptions
+            .reduce((acc, opt) => {
+                if (opt.type === +optionType) {
+                    if (serviceID && opt.serviceIDs?.length) {
+                        if (opt.serviceIDs.includes(+serviceID)) {
+                            acc.push({ label: opt.name, value: opt.name });
+                        }
+                    } else {
+                        acc.push({ label: opt.name, value: opt.name });
+                    }
+                }
 
-        return [...new Set(dropdownOptNames)]
-            .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
-            .map(name => ({ label: name, value: name }));
+                return acc;
+            }, [])
+            .sort((a, b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()));
+
+        return convertedOptions;
     };
 
     return (

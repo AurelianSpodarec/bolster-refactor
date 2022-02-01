@@ -10,17 +10,10 @@ import EditOptionValueForm from '../presentational/EditOptionValueForm';
 class EditOptionValueFormContainer extends Component {
     state = {
         name: this.props.optionValue.name,
-        serviceIDs: this.props.optionValue.serviceIDs,
+        serviceIDs: [],
     };
 
     render() {
-        const { services } = this.props;
-
-        const serviceOptions = services.map(({ id, name }) => ({
-            value: id,
-            label: name,
-        }));
-
         return (
             <EditOptionValueForm
                 {...this.state}
@@ -29,13 +22,35 @@ class EditOptionValueFormContainer extends Component {
                 hideModal={this.props.hideModal}
                 buttonText={this.props.buttonText}
                 validateName={this.validateName}
-                serviceOptions={serviceOptions}
+                serviceOptions={this.formatServices()}
             />
         );
     }
 
+    componentDidMount = () => {
+        const {
+            optionValue: { serviceIDs },
+        } = this.props;
+        const allServiceIDs = this.formatServices().map(({ value }) => value);
+        const stringifiedServiceIDs = serviceIDs?.map(id => id.toString());
+
+        this.setState({ serviceIDs: serviceIDs !== null ? stringifiedServiceIDs : allServiceIDs });
+    };
+
     handleInputChange = (name, value) => {
         this.setState({ [name]: value });
+    };
+
+    formatServices = () => {
+        const { services } = this.props;
+        const serviceOptions = services.map(({ name, id }) => {
+            return {
+                text: name,
+                name: name,
+                value: id.toString(),
+            };
+        });
+        return serviceOptions;
     };
 
     validateName = value => {
@@ -63,6 +78,7 @@ const mapStateToProps = (
     {
         superAdmin: {
             manufacturersOptionValuesReducer: { manufacturersOptionValues },
+            manufacturersReducer: { manufacturers },
         },
     },
     { optionValue },
@@ -71,6 +87,7 @@ const mapStateToProps = (
         optionValues: manufacturersOptionValues[optionValue.manufacturerID]
             ? Object.values(manufacturersOptionValues[optionValue.manufacturerID])
             : [],
+        manufacturers,
     };
 };
 
