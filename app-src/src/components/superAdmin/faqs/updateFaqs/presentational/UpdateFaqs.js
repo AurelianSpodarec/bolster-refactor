@@ -5,8 +5,6 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
-import { FAQS_PAGES } from 'constants/superAdmin/faqs';
 import { isEmpty } from 'helpers/generic';
 
 const modules = {
@@ -26,7 +24,6 @@ const UpdateFaqs = ({
     setFaqText,
     handleFormChange,
     faqTitle,
-    faqType,
     isFetching,
     faqsSingle,
 }) => {
@@ -42,20 +39,6 @@ const UpdateFaqs = ({
                         required
                     />
                 </Field>
-                {/* <Field name="FAQs Type" required>
-                    <DropdownContainer
-                        handleChange={handleFormChange}
-                        name="faqType"
-                        value={faqType}
-                        options={Object.keys(FAQS_PAGES).map(item => {
-                            return {
-                                text: FAQS_PAGES[item],
-                                value: FAQS_PAGES[item],
-                            };
-                        })}
-                        withoutPlaceholder
-                    />
-                </Field> */}
             </BlockContainer>
 
             <BlockContainer>

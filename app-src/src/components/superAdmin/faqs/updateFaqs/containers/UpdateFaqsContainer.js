@@ -6,6 +6,12 @@ import { useUpdateItem } from 'helpers/hooks';
 import fetchSingleFaqs from 'actions/superAdmin/faqs/async/fetchSingleFaqs';
 import UpdateFaqs from '../presentational/UpdateFaqs';
 import updateFaqs from 'actions/superAdmin/faqs/async/updateFaqs';
+import {
+    selectFaqsIsFetching,
+    selectFaqsIsPosting,
+    selectFaqsPostSuccess,
+    selectFaqsSingle,
+} from 'selectors/superAdmin/faqs';
 
 const UpdateFaqsContainer = () => {
     const dispatch = useDispatch();
@@ -13,12 +19,12 @@ const UpdateFaqsContainer = () => {
     const [faqText, setFaqText] = useState('');
     const [form, setFormChange] = useState({
         faqTitle: 'FAQs Name',
-        // faqType: { text: FAQS_PAGES[1], value: FAQS_PAGES[1] },
     });
-    const isPosting = useSelector(state => state.superAdmin.faqsReducer.isPosting);
-    const postSuccess = useSelector(state => state.superAdmin.faqsReducer.postSuccess);
-    const isFetching = useSelector(state => state.superAdmin.faqsReducer.isFetching);
-    const faqsSingle = useSelector(state => state.superAdmin.faqsReducer.faqsSingle);
+    const isPosting = useSelector(selectFaqsIsPosting);
+    const postSuccess = useSelector(selectFaqsPostSuccess);
+    const isFetching = useSelector(selectFaqsIsFetching);
+    const faqsSingle = useSelector(state => selectFaqsSingle(state, id));
+
     useUpdateItem(isPosting, postSuccess, 'Successfully Updated', '/admin/faqs', 'Go back to FAQs');
 
     const handleFormChange = (name, value) => {

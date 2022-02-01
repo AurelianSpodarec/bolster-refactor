@@ -17,13 +17,12 @@ import {
     UPDATE_FAQS_SUCCESS,
     UPDATE_FAQS_FAILURE,
 } from 'constants/actionTypes/faqs';
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
     faqs: faqsReducer,
-    faqsSingle: faqsSingleReducer,
     isPosting: isPostingReducer,
     postSuccess: postSuccessReducer,
     postError: postErrorReducer,
@@ -103,17 +102,10 @@ function faqsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_ALL_FAQS_SUCCESS:
             return convertArrToObj(action.payload);
+        case FETCH_SINGLE_FAQS_SUCCESS:
+            return updateObj(state, 'id', action.payload);
         case DELETE_FAQS_SUCCESS:
             return omit(state, action.id);
-        default:
-            return state;
-    }
-}
-
-function faqsSingleReducer(state = {}, action) {
-    switch (action.type) {
-        case FETCH_SINGLE_FAQS_SUCCESS:
-            return action.payload;
         default:
             return state;
     }

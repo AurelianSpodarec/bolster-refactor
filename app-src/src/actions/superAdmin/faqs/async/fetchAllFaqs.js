@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_URL } from 'config';
+import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 import {
@@ -26,7 +26,7 @@ export default () => dispatch => {
     dispatch(fetchAllFaqsRequest());
 
     axios
-        .get(`${API_URL}/faq/`, getHeaders())
+        .get(`${ADMIN_API_URL}/faq`, getHeaders())
         .then(res => dispatch(fetchAllFaqsSuccess(res.data)))
         .catch(err => dispatch(fetchAllFaqsFailure(err.message)));
 };
