@@ -7141,12 +7141,22 @@ input {
                 }
             }
 
-            .pills {
+            .pills-wrapper {
                 display: flex;
-                flex-basis: 50%;
                 align-items: center;
-                flex-wrap: wrap;
-                gap: 8px 16px;
+                flex-basis: 50%;
+                
+                span {
+                    font-size: 160%;
+                    margin-right: 8px;
+                }
+                
+                .pills {
+                    display: flex;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 8px;
+                }
             }
         }
     }
