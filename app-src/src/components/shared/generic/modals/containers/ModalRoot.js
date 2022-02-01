@@ -127,6 +127,7 @@ import {
     EDIT_FREE_CREDIT,
     CREATE_JOB_REFERENCE,
     EDIT_JOB_REFERENCE,
+    DELETE_JOB_REFERENCE,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -256,6 +257,7 @@ import ExpandedMediaModal from './ExpandedMediaModal';
 import EditFreeCreditModal from './EditFreeCreditModalContainer';
 import CreateJobReferenceModal from 'components/companyAdmin/jobReferences/CreateJobReferenceModal';
 import EditJobReferenceModal from 'components/companyAdmin/jobReferences/EditJobReferenceModal';
+import DeleteJobReferenceModal from 'components/companyAdmin/jobReferences/DeleteJobReferenceModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -383,6 +385,7 @@ const MODAL_COMPONENTS = {
     [EDIT_FREE_CREDIT]: EditFreeCreditModal,
     [CREATE_JOB_REFERENCE]: CreateJobReferenceModal,
     [EDIT_JOB_REFERENCE]: EditJobReferenceModal,
+    [DELETE_JOB_REFERENCE]: DeleteJobReferenceModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

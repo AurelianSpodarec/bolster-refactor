@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { EDIT_JOB_REFERENCE } from 'constants/shared/modalTypes';
+import { DELETE_JOB_REFERENCE, EDIT_JOB_REFERENCE } from 'constants/shared/modalTypes';
 
 const JobReferenceTableItem = ({ jobReference }) => {
     const dispatch = useDispatch();
@@ -18,6 +18,16 @@ const JobReferenceTableItem = ({ jobReference }) => {
                 >
                     <i className="far fa-pencil" />
                     Edit
+                </button>
+
+                <button
+                    className="button red"
+                    onClick={() =>
+                        dispatch(showModal(DELETE_JOB_REFERENCE, { id: jobReference.id }))
+                    }
+                >
+                    <i className="far fa-times" />
+                    Delete
                 </button>
             </td>
         </tr>
