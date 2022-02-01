@@ -27,7 +27,7 @@ export default id => dispatch => {
     dispatch(deleteFaqsRequest());
 
     axios
-        .delete(`${ADMIN_API_URL}/faq/${id}`, getHeaders())
+        .delete(`${ADMIN_API_URL}/apphelp/${id}`, getHeaders())
         .then(res => dispatch(deleteFaqsSuccess(id, res.data)))
         .catch(err => dispatch(deleteFaqsFailure(err.message)));
 };

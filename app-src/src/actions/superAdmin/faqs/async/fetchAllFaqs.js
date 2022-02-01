@@ -26,7 +26,7 @@ export default () => dispatch => {
     dispatch(fetchAllFaqsRequest());
 
     axios
-        .get(`${ADMIN_API_URL}/faq`, getHeaders())
+        .get(`${ADMIN_API_URL}/appHelp`, getHeaders())
         .then(res => dispatch(fetchAllFaqsSuccess(res.data)))
         .catch(err => dispatch(fetchAllFaqsFailure(err.message)));
 };
