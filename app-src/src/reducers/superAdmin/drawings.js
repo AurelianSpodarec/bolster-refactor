@@ -43,7 +43,7 @@ function errorReducer(state = null, action) {
 function drawingsReducer(state = {}, action) {
     switch (action.type) {
         case ADMIN_FETCH_DRAWINGS_FOR_COMPANY_SUCCESS:
-            return convertArrToObj(action.payload);
+            return { ...state, ...convertArrToObj(action.payload) };
         case ADMIN_MOVE_DRAWING_SUCCESS:
             return removeObjItem(state, action.drawingID);
         case ADMIN_EDIT_DRAWING_EXIPIRATION_DATE_SUCCESS:

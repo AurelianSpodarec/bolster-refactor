@@ -71,6 +71,9 @@ const CompanyMenu = ({
                     <CompanyMenuItemContainer link="/company/users-management/clients">
                         Clients
                     </CompanyMenuItemContainer>
+                    <CompanyMenuItemContainer link="/company/users-management/timesheets">
+                        Timesheets
+                    </CompanyMenuItemContainer>
                     <CompanyMenuItemContainer link="/company/users-management/pin-tasks">
                         Pin Tasks
                     </CompanyMenuItemContainer>
@@ -149,6 +152,11 @@ const CompanyMenu = ({
                     >
                         <i className="far fa-qrcode fa-fw icon" />
                         <span className="menu-text"> Generate QR Codes</span>
+                    </CompanyMenuItemContainer>
+
+                    <CompanyMenuItemContainer link="/company/bug-report">
+                        <i className="far fa-bug fa-fw icon" />
+                        <span className="menu-text"> Bug Report</span>
                     </CompanyMenuItemContainer>
                 </>
             )}

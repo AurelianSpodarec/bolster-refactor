@@ -7,7 +7,7 @@ import {
 } from 'constants/actionTypes/usersManagement';
 
 import { API_URL } from 'config';
-import { getHeaders } from 'helpers/api';
+import { getDecodedJWT, getHeaders } from 'helpers/api';
 
 export const deleteCompanyUserRequest = () => ({
     type: DELETE_COMPANY_USER_REQUEST,
@@ -23,10 +23,19 @@ export const deleteCompanyUserFailure = error => ({
     error,
 });
 
-export default (id, user) => dispatch => {
-    dispatch(deleteCompanyUserRequest());
+export default (id, user) => async dispatch => {
+    const token = await getDecodedJWT();
+
     axios
         .delete(`${API_URL}/users/${id}`, getHeaders())
-        .then(() => dispatch(deleteCompanyUserSuccess(user)))
+        .then(() =>
+            dispatch(
+                deleteCompanyUserSuccess({
+                    ...user,
+                    endedOn: new Date(),
+                    endedByCompanyUserID: token?.companyUserID,
+                }),
+            ),
+        )
         .catch(err => dispatch(deleteCompanyUserFailure(err.message)));
 };

@@ -167,7 +167,6 @@ class DrawingMapGeneralContainer extends Component {
         const {
             drawing = {},
             postFilters,
-            getTemplateOptions,
             updateReportFilter,
             fetchSingleDrawing,
             pinsFromAPI = [],
@@ -189,10 +188,7 @@ class DrawingMapGeneralContainer extends Component {
             handleChange('floorID', [drawing.floorID]);
         }
 
-        updateReportFilter('drawingID', [+drawingID]).then(() => {
-            postFilters();
-            getTemplateOptions();
-        });
+        updateReportFilter('drawingID', [+drawingID]);
         if (drawing.isFloorplanUpdating) {
             this._floorplanInterval = setInterval(() => {
                 fetchSingleDrawing(drawing.id);
@@ -248,10 +244,6 @@ class DrawingMapGeneralContainer extends Component {
             handleChange('pinIDs', pinIDs);
         }
 
-        // pin selector stuff
-        if (rectangles.length !== prevRectangles.length) {
-            postFilters();
-        }
         if (furtherFiltrationOption !== prevOption) {
             removeAllRectangles();
         }
@@ -284,11 +276,6 @@ class DrawingMapGeneralContainer extends Component {
 
     updateCurTooltip = id => {
         this.setState({ currentTooltip: id });
-    };
-
-    handleChangeFilter = (name, val) => {
-        const { handleChange, postFilters } = this.props;
-        handleChange(name, val).then(postFilters);
     };
 
     componentWillUnmount = () => clearInterval(this._floorplanInterval);
@@ -325,7 +312,7 @@ class DrawingMapGeneralContainer extends Component {
 
     handleDateChange = (date, name) => {
         const { handleChange, postFilters } = this.props;
-        handleChange(name, date).then(postFilters);
+        handleChange(name, date);
     };
 
     toggleAddMode = () => {

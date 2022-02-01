@@ -2,7 +2,7 @@ import React from 'react';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { useEffect } from 'react';
 
-const PageSelector = ({ page = 1, maxPage = 1, setPage }) => {
+const PageSelector = ({ page = 1, maxPage = 1, setPage, forceToFirstOrLast = false }) => {
     const isEmpty = maxPage === 0;
 
     useEffect(() => {
@@ -48,14 +48,14 @@ const PageSelector = ({ page = 1, maxPage = 1, setPage }) => {
     );
 
     function skipPagesBack() {
-        if (page - 10 <= 1) {
+        if (page - 10 <= 1 || forceToFirstOrLast) {
             setPage(1);
         } else {
             setPage(page - 10);
         }
     }
     function skipPagesForward() {
-        if (page + 10 >= maxPage) {
+        if (page + 10 >= maxPage || forceToFirstOrLast) {
             setPage(maxPage);
         } else {
             setPage(page + 10);

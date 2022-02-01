@@ -11,15 +11,17 @@ class OperativesFilterContainer extends Component {
         const {
             formatArrForDropdown,
             customFilters: { operatives },
-            filters: { companyUserIDs },
+            filters: { companyUserIDs, createdByCompanyID },
             sizeClasses,
             isDrawingPage,
             isFetchingOperatives,
         } = this.props;
-
+        const operativeOptions = formatArrForDropdown(
+            operatives.filter(op => !createdByCompanyID || op.companyID === createdByCompanyID),
+        );
         return (
             <OperativesFilter
-                operativeOptions={formatArrForDropdown(operatives)}
+                operativeOptions={operativeOptions}
                 selectedOperatives={companyUserIDs}
                 handleChange={this.handleChange}
                 sizeClasses={sizeClasses}
@@ -68,8 +70,8 @@ class OperativesFilterContainer extends Component {
     };
 
     handleChange = (name, val) => {
-        const { handleChange, postFilters } = this.props;
-        return handleChange(name, val).then(postFilters);
+        const { handleChange } = this.props;
+        return handleChange(name, val);
     };
 }
 

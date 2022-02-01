@@ -8,12 +8,7 @@ import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fet
 
 class HeadquartersCompanyListItemContainer extends Component {
     render() {
-        const {
-            company,
-            impersonatedCompanyID,
-            headers,
-            onMobile
-        } = this.props;
+        const { company, impersonatedCompanyID, headers, onMobile } = this.props;
         return (
             <HeadquartersCompanyListItem
                 company={company}
@@ -28,7 +23,7 @@ class HeadquartersCompanyListItemContainer extends Component {
     handleImpersonate = () => {
         const {
             company: { id },
-            reissueToken
+            reissueToken,
         } = this.props;
         reissueToken(id);
     };
@@ -37,24 +32,21 @@ class HeadquartersCompanyListItemContainer extends Component {
 const mapStateToProps = ({
     shared: {
         decodeJWTReducer: {
-            jwtData: { companyID, headquartersCompanyID }
+            jwtData: { companyID, headquartersCompanyID },
         },
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => ({
     impersonatedCompanyID: companyID,
     headquartersCompanyID,
-    onMobile
+    onMobile,
 });
 
 const mapDispatchToProps = dispatch => ({
     reissueToken: companyID =>
         dispatch(reissueToken(companyID))
             .then(() => dispatch(decodeJWT()))
-            .then(() => dispatch(fetchCompanySettings()))
+            .then(() => dispatch(fetchCompanySettings())),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(HeadquartersCompanyListItemContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(HeadquartersCompanyListItemContainer);

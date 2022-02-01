@@ -16,9 +16,11 @@ const UserDrawingListItem = ({
     return (
         <tr key={drawing.id}>
             <td>
-                {`${siteName} / ${buildingName} / ${floorName} / ${drawing.name} ${
-                    serviceNames ? `(${serviceNames})` : ''
-                } - `}
+                <a href={`/company/drawings/${drawing.id}`} className="dark">
+                    {`${siteName} / ${buildingName} / ${floorName} / ${drawing.name} ${
+                        serviceNames ? `(${serviceNames})` : ''
+                    } - `}
+                </a>{' '}
                 <ExpiredDateText expiresOn={drawing.expiresOn} isExpired={isExpired} />
             </td>
             <td>

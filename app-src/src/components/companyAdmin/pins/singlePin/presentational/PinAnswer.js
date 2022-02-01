@@ -28,17 +28,19 @@ const PinAnswer = ({
             type === TYPES.MULTI_DROPDOWN_OPTIONS ||
             type === TYPES.MULTI_MULTI_DROPDOWN_OPTIONS
         ) {
-            curAnswer.answer = curAnswer.answer.map(ans => {
-                if (!ans) {
-                    return null;
-                }
-                // handles manufacturer option
-                if (typeof ans === 'number' && optionValuesLookup[ans]) {
-                    return optionValuesLookup[ans].name;
-                }
-                // handle other
-                return ans;
-            });
+            if (Array.isArray(curAnswer.answer)) {
+                curAnswer.answer = curAnswer.answer.map(ans => {
+                    if (!ans) {
+                        return null;
+                    }
+                    // handles manufacturer option
+                    if (typeof ans === 'number' && optionValuesLookup[ans]) {
+                        return optionValuesLookup[ans].name;
+                    }
+                    // handle other
+                    return ans;
+                });
+            }
         }
     }
 
@@ -56,7 +58,11 @@ const PinAnswer = ({
             inner = <p>{curAnswer.answer}</p>;
             break;
         case TYPES.MULTI_DROPDOWN_OPTIONS:
-            inner = <p>{curAnswer.answer.join(', ')}</p>;
+            if (Array.isArray(curAnswer.answer)) {
+                inner = <p>{curAnswer.answer.join(', ')}</p>;
+            } else {
+                inner = <p>{curAnswer.answer}</p>;
+            }
             break;
         case TYPES.MULTI_MULTI_DROPDOWN:
         case TYPES.MULTI_MULTI_DROPDOWN_OPTIONS:

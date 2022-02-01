@@ -4,21 +4,19 @@ import { connect } from 'react-redux';
 import fetchAuthAreaText from 'actions/frontEnd/auth/fetchAuthAreaText';
 import Register from '../presentational/Register';
 
-const RegisterContainer = ({ fetchAuthAreaText, auth, isFetching, error }) => {
-    const { registerText } = auth;
+const RegisterContainer = ({ fetchAuthAreaText, isFetching, error }) => {
     useEffect(() => {
         fetchAuthAreaText();
     }, []);
 
-    return <Register registerText={registerText} isFetching={isFetching} error={error} />;
+    return <Register isFetching={isFetching} error={error} />;
 };
 
 const mapStateToProps = ({
     frontEnd: {
-        authReducer: { auth, error, isFetching },
+        authReducer: { error, isFetching },
     },
 }) => ({
-    auth,
     isFetching,
     error,
 });

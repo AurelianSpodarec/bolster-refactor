@@ -87,17 +87,14 @@ class BasicFiltersContainer extends Component {
         const {
             handleChange,
             location: { state: locationState },
-            postFilters,
         } = this.props;
-        let shouldPostFilters = false;
+
         if (locationState?.selectedService) {
             handleChange('serviceID', locationState.selectedService);
-            shouldPostFilters = true;
         }
 
         if (locationState?.selectedStatus) {
             handleChange('status', locationState.selectedStatus);
-            shouldPostFilters = true;
         }
 
         if (locationState?.selectedStartDate) {
@@ -105,7 +102,6 @@ class BasicFiltersContainer extends Component {
                 'fromDateInclusive',
                 moment(locationState.selectedStartDate).toDate(),
             );
-            shouldPostFilters = true;
         }
 
         if (locationState?.selectedEndDate) {
@@ -113,15 +109,6 @@ class BasicFiltersContainer extends Component {
                 'toDateInclusive',
                 moment(locationState.selectedEndDate).toDate(),
             );
-            shouldPostFilters = true;
-        }
-        if (locationState?.operativeID) {
-            // handleChange in operativesFilterContainer
-            shouldPostFilters = true;
-        }
-
-        if (shouldPostFilters) {
-            postFilters();
         }
     };
 
@@ -130,15 +117,9 @@ class BasicFiltersContainer extends Component {
     };
 
     handleDateChange = (name, value) => {
-        const { handleChange, postFilters } = this.props;
+        const { handleChange } = this.props;
 
-        handleChange(name, value)
-            .then(this.validateDates)
-            .then(result => {
-                if (result.type !== 'ADD_FIELD_ERROR') {
-                    postFilters();
-                }
-            });
+        handleChange(name, value).then(this.validateDates);
     };
 
     validateDates = () => {
@@ -171,12 +152,12 @@ class BasicFiltersContainer extends Component {
     };
 
     handleChange = (name, value) => {
-        const { handleChange, postFilters, showModal, hideModal, shouldConfirm } = this.props;
+        const { handleChange, showModal, hideModal, shouldConfirm } = this.props;
 
         if (shouldConfirm) {
             const handleSubmit = () => {
                 hideModal();
-                handleChange(name, value).then(postFilters);
+                handleChange(name, value);
             };
             const message = 'Changing this will reset your advanced filters options, continue?';
             showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
@@ -186,7 +167,7 @@ class BasicFiltersContainer extends Component {
                 handleChange('endTime', null);
             }
 
-            handleChange(name, value).then(postFilters);
+            handleChange(name, value);
         }
     };
 

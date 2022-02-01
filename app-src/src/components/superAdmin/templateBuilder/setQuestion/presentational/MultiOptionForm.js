@@ -34,7 +34,7 @@ const MultiOptionForm = ({
                         )}
                         <div className="template-color-question">
                             <ColorPicker
-                                color={optionColour[i] ? optionColour[i].HexValue : '#ffffff'}
+                                color={optionColour[i] ? optionColour[i].hexValue : '#ffffff'}
                                 onChange={({ color }) => updateColorOption(i, color)}
                             />
                         </div>

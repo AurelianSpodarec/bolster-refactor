@@ -14,51 +14,88 @@ const EditTemplateQuestionModal = ({
     hideModal,
     handleSubmit,
     handleAddOption,
-    questionName
-}) => (
-    <ModalOuterContainer>
-        <BlockHeading title={`Edit question options - ${questionName}`} />
-        <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
-            <div className="dropdown-create size-lg-12">
-                {options.map(([id, text], i) => (
-                    <Field key={id} name={`Option ${i + 1}`} required>
-                        <TextInputContainer
-                            name={id}
-                            value={text}
-                            handleChange={handleChange}
-                            required
-                        />
+    questionName,
+    optionConfigurations,
+    handleQuestionToggle,
+}) => {
+    return (
+        <ModalOuterContainer>
+            <BlockHeading title={`Edit question options - ${questionName}`} />
+            <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
+                <div className="dropdown-create size-lg-12">
+                    {[...options]
+                        .sort((a, b) => {
+                            const sortA = a[1].sort;
+                            const sortB = b[1].sort;
+                            return sortA - sortB;
+                        })
+                        .map(([id, { value }], i) => (
+                            <Field key={id} name={`Option ${i + 1}`} required>
+                                <div className="size-lg-12 template-options-inputs-container">
+                                    <div className="size-lg-10">
+                                        <TextInputContainer
+                                            name={id}
+                                            value={value}
+                                            handleChange={handleChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="size-lg-2 buttons-box">
+                                        {id in optionConfigurations ? (
+                                            <div className="container-button checking">
+                                                {optionConfigurations[id] ? (
+                                                    <button
+                                                        onClick={() => handleQuestionToggle(id)}
+                                                        className="button red"
+                                                        type="button"
+                                                    >
+                                                        <i className="fa fa-minus" /> Disabled
+                                                    </button>
+                                                ) : (
+                                                    <button
+                                                        onClick={() => handleQuestionToggle(id)}
+                                                        className="button green"
+                                                        type="button"
+                                                    >
+                                                        <i className="fa fa-plus" /> Enabled
+                                                    </button>
+                                                )}
+                                            </div>
+                                        ) : (
+                                            <button
+                                                className="button red"
+                                                onClick={() => handleRemoveOption(id)}
+                                                type="button"
+                                            >
+                                                <i className="far fa-trash-alt" /> Delete
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            </Field>
+                        ))}
+                    <div className="size-lg-12">
                         <button
-                            className="button red delete-question icon-only"
-                            onClick={() => handleRemoveOption(id)}
+                            className="button add-option green"
+                            type="button"
+                            onClick={handleAddOption}
                         >
-                            <i className="far fa-trash-alt" />
+                            <i className="fa fa-plus" />
+                            Add Option
                         </button>
-                    </Field>
-                ))}
-                <div className="size-lg-12">
-                    <button
-                        className="button add-option green"
-                        type="button"
-                        onClick={handleAddOption}
-                    >
-                        <i className="fa fa-plus" />
-                        Add Option
-                    </button>
+                    </div>
                 </div>
-            </div>
 
-            <BlockButtonWrapper>
-                <button type="submit" className="button green">
-                    <i className="fa fa-save" />
-                    Save
-                </button>
-                <ButtonContainer handleClick={hideModal}>
-                    Cancel
-                </ButtonContainer>
-            </BlockButtonWrapper>
-        </Form>
-    </ModalOuterContainer>
-);
+                <BlockButtonWrapper>
+                    <button type="submit" className="button green">
+                        <i className="fa fa-save" />
+                        Save
+                    </button>
+                    <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
+                </BlockButtonWrapper>
+            </Form>
+        </ModalOuterContainer>
+    );
+};
 
 export default EditTemplateQuestionModal;
