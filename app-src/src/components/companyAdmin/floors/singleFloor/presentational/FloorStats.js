@@ -15,6 +15,9 @@ const FloorStats = ({
     serviceID,
     serviceOptions,
     handleViewDrawingExpiryModal,
+    companyID,
+    companyOptions,
+    filteredStatsBool,
 }) => (
     <div className="stats size-lg-12">
         <FloorDetails stats={stats} floor={floor} />
@@ -26,6 +29,9 @@ const FloorStats = ({
             handleChange={handleChange}
             serviceOptions={serviceOptions}
             serviceID={serviceID}
+            companyID={companyID}
+            companyOptions={companyOptions}
+            filteredStatsBool={filteredStatsBool}
         />
 
         <div className="button-container relative-position">

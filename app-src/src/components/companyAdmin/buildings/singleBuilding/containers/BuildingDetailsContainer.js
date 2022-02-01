@@ -16,21 +16,52 @@ import {
 } from 'constants/shared/modalTypes';
 import deleteBuilding from 'actions/companyAdmin/buildings/async/deleteBuilding';
 import archiveBuilding from 'actions/companyAdmin/buildings/async/archiveBuilding';
-import { isObjEmpty } from 'helpers/generic';
+import { isEmpty, isObjEmpty } from 'helpers/generic';
 import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
+import filterPinStatsForLevel from 'actions/companyAdmin/stats/async/filterPinStatsForLevel';
 
 class BuildingDetailsContainer extends Component {
     state = {
         serviceID: null,
+        companyID: null,
     };
     render() {
-        const { building, stats, isFetching, error, onMobile, serviceIDs, services } = this.props;
-        const { serviceID } = this.state;
+        const {
+            building,
+            stats,
+            isFetching,
+            error,
+            onMobile,
+            serviceIDs,
+            services,
+            filteredStats,
+            filteredStatsBool,
+            isOwner,
+            loggedInCompanyID,
+        } = this.props;
+        const { serviceID, companyID } = this.state;
         const filteredServices = services.filter(service => serviceIDs.includes(service.id));
+
         const servicesForDropdown = filteredServices.map(service => ({
             value: service.id,
             text: service.name,
         }));
+
+        const requestFilteredStats = !isEmpty(filteredStats) ? filteredStats : stats;
+        const companyStatsArr = Object.keys(stats?.statusesByCompany ?? []);
+        const companiesForDropdown = companyStatsArr
+            .map(companyKey => {
+                const [name, id] = companyKey.split('#');
+                if (!isOwner && +id !== +loggedInCompanyID) {
+                    return null;
+                }
+                return {
+                    value: companyKey,
+                    text: name,
+                };
+            })
+            .filter(Boolean);
+
         return (
             <BlockContainer
                 error={error}
@@ -39,7 +70,7 @@ class BuildingDetailsContainer extends Component {
             >
                 <BuildingStats
                     building={building}
-                    stats={stats}
+                    stats={requestFilteredStats}
                     handleDelete={this.handleDeleteModal}
                     handleArchive={this.handleArchiveModal}
                     handleEditBuildingModal={this.handleEditBuildingModal}
@@ -48,6 +79,9 @@ class BuildingDetailsContainer extends Component {
                     serviceOptions={servicesForDropdown}
                     serviceID={serviceID}
                     handleViewDrawingExpiryModal={this.handleViewDrawingExpiryModal}
+                    companyID={companyID}
+                    companyOptions={companiesForDropdown}
+                    filteredStatsBool={filteredStatsBool}
                 />
             </BlockContainer>
         );
@@ -140,6 +174,26 @@ class BuildingDetailsContainer extends Component {
     };
 
     handleChange = (name, value) => this.setState({ [name]: value });
+    handleChange = (name, value) => {
+        this.setState({ [name]: value });
+        const { serviceID, companyID } = this.state;
+        const { filterPinStatsForLevel, building } = this.props;
+
+        const companyIDOption =
+            name === 'companyID'
+                ? value.split('#')[1]
+                : companyID
+                ? companyID.split('#')[1]
+                : companyID;
+        const serviceIDOption = name === 'serviceID' ? value : serviceID;
+
+        filterPinStatsForLevel(
+            building.id,
+            HIERARCHY_IDS.BUILDING,
+            companyIDOption,
+            serviceIDOption,
+        );
+    };
 }
 
 const mapStateToProps = (
@@ -154,7 +208,13 @@ const mapStateToProps = (
                 isFetching: fetchingBuildings,
                 postFailure,
             },
-            statsReducer: { stats, isFetching: fetchingStats },
+            statsReducer: {
+                stats,
+                isFetching: fetchingStats,
+                filteredStats,
+                filteredStatsBool,
+                isPostingFilters,
+            },
             subscriptionsReducer: {
                 subscriptions: { serviceIDs },
             },
@@ -162,29 +222,40 @@ const mapStateToProps = (
         },
         shared: {
             mobileReducer: { onMobile },
+            decodeJWTReducer: { jwtData },
         },
     },
     { match },
-) => ({
-    updatedBuildingID,
-    building: buildings[match.params.id] || {},
-    isFetching: fetchingBuildings || fetchingStats,
-    error,
-    stats,
-    postSuccess,
-    id: match.params.id,
-    deleteSuccess,
-    onMobile,
-    postFailure,
-    serviceIDs,
-    services: Object.values(services),
-});
+) => {
+    const { companyID } = jwtData;
+    const building = buildings[match.params.id] ?? {};
+    const isOwner = +companyID === +building.ownerCompanyID;
+    return {
+        updatedBuildingID,
+        building,
+        isFetching: fetchingBuildings || fetchingStats || isPostingFilters,
+        error,
+        stats,
+        postSuccess,
+        id: match.params.id,
+        deleteSuccess,
+        onMobile,
+        postFailure,
+        serviceIDs,
+        services: Object.values(services),
+        filteredStats,
+        filteredStatsBool,
+        loggedInCompanyID: companyID,
+        isOwner,
+    };
+};
 
 const mapDispatchToProps = {
     showModal,
     hideModal,
     deleteBuilding,
     archiveBuilding,
+    filterPinStatsForLevel,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BuildingDetailsContainer));

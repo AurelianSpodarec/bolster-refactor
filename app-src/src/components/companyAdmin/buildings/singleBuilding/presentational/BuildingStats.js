@@ -1,5 +1,4 @@
 import React from 'react';
-
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import BuildingDetails from './BuildingDetails';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
@@ -15,21 +14,28 @@ const BuildingStats = ({
     serviceID,
     serviceOptions,
     handleViewDrawingExpiryModal,
-}) => (
-    <div className="stats size-lg-12">
-        <div className="flex-item size-lg-12">
-            <BuildingDetails stats={stats} building={building} />
-            <PieChart
-                stats={stats}
-                hierarchyType="building"
-                onMobile={onMobile}
-                sizeClasses="size-lg-6 size-md-12"
-                isFiltered={!!serviceID}
-                handleChange={handleChange}
-                serviceOptions={serviceOptions}
-                serviceID={serviceID}
-            />
-        </div>
+    companyID,
+    companyOptions,
+    filteredStatsBool,
+}) => {
+    return (
+        <div className="stats size-lg-12">
+            <div className="flex-item size-lg-12">
+                <BuildingDetails stats={stats} building={building} />
+                <PieChart
+                    stats={stats}
+                    hierarchyType="building"
+                    onMobile={onMobile}
+                    sizeClasses="size-lg-6 size-md-12"
+                    isFiltered={!!serviceID}
+                    handleChange={handleChange}
+                    serviceOptions={serviceOptions}
+                    serviceID={serviceID}
+                    companyID={companyID}
+                    companyOptions={companyOptions}
+                    filteredStatsBool={filteredStatsBool}
+                />
+            </div>
 
         <div className="button-container relative-position">
             {building.accessType === ACCESS_TYPES_VALUES.OWNER && (
@@ -46,12 +52,13 @@ const BuildingStats = ({
                 </>
             )}
 
-            <button className="button blue" onClick={handleArchive} type="button">
-                <i className="fa fa-archive" />
-                {building.isArchived ? 'Un-Archive' : 'Archive'}
-            </button>
+                <button className="button blue" onClick={handleArchive} type="button">
+                    <i className="fa fa-archive" />
+                    {building.isArchived ? 'Un-Archive' : 'Archive'}
+                </button>
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 export default BuildingStats;

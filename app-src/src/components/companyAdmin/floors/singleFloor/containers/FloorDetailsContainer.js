@@ -16,21 +16,53 @@ import {
     DRAWING_EXPIRY_MODAL,
 } from 'constants/shared/modalTypes';
 import archiveFloor from 'actions/companyAdmin/floors/async/archiveFloor';
+import { isEmpty } from 'helpers/generic';
+import filterPinStatsForLevel from 'actions/companyAdmin/stats/async/filterPinStatsForLevel';
 import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 class FloorDetailsContainer extends Component {
     state = {
         serviceID: null,
+        companyID: null,
     };
     render() {
-        const { floor, stats, error, isFetching, onMobile, services, serviceIDs } = this.props;
+        const {
+            floor,
+            stats,
+            error,
+            isFetching,
+            onMobile,
+            services,
+            serviceIDs,
+            filteredStats,
+            filteredStatsBool,
+            isOwner,
+            loggedInCompanyID,
+        } = this.props;
 
-        const { serviceID } = this.state;
+        const { serviceID, companyID } = this.state;
         const filteredServices = services.filter(service => serviceIDs.includes(service.id));
+
         const servicesForDropdown = filteredServices.map(service => ({
             value: service.id,
             text: service.name,
         }));
+
+        const requestFilteredStats = !isEmpty(filteredStats) ? filteredStats : stats;
+        const companyStatsArr = Object.keys(stats?.statusesByCompany ?? []);
+        const companiesForDropdown = companyStatsArr
+            .map(companyKey => {
+                const [name, id] = companyKey.split('#');
+                if (!isOwner && +id !== +loggedInCompanyID) {
+                    return null;
+                }
+                return {
+                    value: companyKey,
+                    text: name,
+                };
+            })
+            .filter(Boolean);
+
         return (
             <BlockContainer
                 error={error}
@@ -39,7 +71,7 @@ class FloorDetailsContainer extends Component {
             >
                 <FloorStats
                     floor={floor}
-                    stats={stats}
+                    stats={requestFilteredStats}
                     handleDelete={this.handleDeleteModal}
                     handleArchive={this.handleArchiveModal}
                     handleEditFloorModal={this.handleEditFloorModal}
@@ -48,6 +80,9 @@ class FloorDetailsContainer extends Component {
                     serviceOptions={servicesForDropdown}
                     serviceID={serviceID}
                     handleViewDrawingExpiryModal={this.handleViewDrawingExpiryModal}
+                    companyID={companyID}
+                    companyOptions={companiesForDropdown}
+                    filteredStatsBool={filteredStatsBool}
                 />
             </BlockContainer>
         );
@@ -127,6 +162,22 @@ class FloorDetailsContainer extends Component {
     };
 
     handleChange = (name, value) => this.setState({ [name]: value });
+    handleChange = (name, value) => {
+        this.setState({ [name]: value });
+
+        const { serviceID, companyID } = this.state;
+        const { filterPinStats, floor } = this.props;
+
+        const companyIDOption =
+            name === 'companyID'
+                ? value.split('#')[1]
+                : companyID
+                ? companyID.split('#')[1]
+                : companyID;
+        const serviceIDOption = name === 'serviceID' ? value : serviceID;
+
+        filterPinStats(floor.id, HIERARCHY_IDS.FLOOR, companyIDOption, serviceIDOption);
+    };
 }
 
 const mapStateToProps = (
@@ -140,36 +191,54 @@ const mapStateToProps = (
                 deleteSuccess,
                 postSuccess,
             },
-            statsReducer: { stats, isFetching: fetchingStats },
+            statsReducer: {
+                stats,
+                isFetching: fetchingStats,
+                filteredStats,
+                filteredStatsBool,
+                isPostingFilters,
+            },
             subscriptionsReducer: {
                 subscriptions: { serviceIDs },
             },
             servicesReducer: { services },
         },
         shared: {
+            decodeJWTReducer: { jwtData },
             mobileReducer: { onMobile },
         },
     },
     { match },
-) => ({
-    floor: floors[match.params.id] || {},
-    isFetching: fetchingFloors || fetchingStats,
-    error,
-    stats,
-    postError,
-    deleteSuccess,
-    postSuccess,
-    onMobile,
-    id: match.params.id,
-    serviceIDs,
-    services: Object.values(services),
-});
+) => {
+    const { companyID } = jwtData;
+    const floor = floors[match.params.id] ?? {};
+    const isOwner = +companyID === +floor.ownerCompanyID;
+    return {
+        floor,
+        isFetching: fetchingFloors || fetchingStats || isPostingFilters,
+        error,
+        stats,
+        postError,
+        deleteSuccess,
+        postSuccess,
+        onMobile,
+        id: match.params.id,
+        serviceIDs,
+        services: Object.values(services),
+        filteredStats,
+        filteredStatsBool,
+        loggedInCompanyID: companyID,
+        isOwner,
+    };
+};
 
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => dispatch(showModal(type, props)),
     hideModal: () => dispatch(hideModal()),
     deleteFloor: id => dispatch(deleteFloor(id)),
     archiveFloor: (id, undo) => dispatch(archiveFloor(id, undo)),
+    filterPinStats: (id, type, companyID, serviceID) =>
+        dispatch(filterPinStatsForLevel(id, type, companyID, serviceID)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FloorDetailsContainer));

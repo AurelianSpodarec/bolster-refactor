@@ -3879,18 +3879,6 @@ $back-to-top-height: 35px;
                 font-size: 120%;
             }
         }
-
-        .hours {
-            flex-basis: 25%;
-        }
-
-        .references {
-            flex-basis: 50%;
-        }
-
-        .description {
-            flex-basis: 100%;
-        }
     }
 
     .breakdown-notes {
@@ -3928,9 +3916,16 @@ $back-to-top-height: 35px;
                     font-size: 120%;
                 }
 
-                img {
-                    width: fit-content;
-                    cursor: zoom-in;
+                .image-wrapper {
+                    flex: 1;
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 8px;
+                    
+                    img {
+                        width: fit-content;
+                        cursor: zoom-in;
+                    }
                 }
             }
         }

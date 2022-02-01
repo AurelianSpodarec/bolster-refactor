@@ -1377,6 +1377,11 @@ input {
             margin-left: 0;
             margin-right: 10px;
             margin-top: 0;
+
+            &.right {
+                float: right;
+                margin-right: 0;
+            }
         }
     }
 
@@ -1794,6 +1799,10 @@ input {
 
     &.small-height {
         min-height: 10px;
+    }
+
+    &.no-padding {
+        padding: 0;
     }
 }
 
@@ -2802,9 +2811,6 @@ input {
 
     td {
         font-size: 12px;
-        &:last-child {
-            text-align: right;
-        }
 
         &.left-align {
             text-align: left;
