@@ -125,6 +125,7 @@ import {
     GENERATE_TIMESHEET_REPORT,
     EXPANDED_MEDIA,
     EDIT_FREE_CREDIT,
+    CREATE_JOB_REFERENCE,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -252,6 +253,7 @@ import NewUserDocumentModal from 'components/companyAdmin/userManagement/documen
 import GenerateTimesheetReportModal from 'components/companyAdmin/userManagement/operatives/timesheets/modals/GenerateTimesheetReport';
 import ExpandedMediaModal from './ExpandedMediaModal';
 import EditFreeCreditModal from './EditFreeCreditModalContainer';
+import CreateJobReferenceModal from 'components/companyAdmin/jobReferences/CreateJobReferenceModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -377,6 +379,7 @@ const MODAL_COMPONENTS = {
     [GENERATE_TIMESHEET_REPORT]: GenerateTimesheetReportModal,
     [EXPANDED_MEDIA]: ExpandedMediaModal,
     [EDIT_FREE_CREDIT]: EditFreeCreditModal,
+    [CREATE_JOB_REFERENCE]: CreateJobReferenceModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
