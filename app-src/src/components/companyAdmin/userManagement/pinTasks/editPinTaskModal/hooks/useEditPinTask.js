@@ -13,7 +13,6 @@ import {
 import editPinTask from 'actions/companyAdmin/pinTasks/async/editPinTask';
 import fetchPinTask from 'actions/companyAdmin/pinTasks/async/fetchPinTask';
 import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
-import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 
 const useEditPinTask = id => {
     const dispatch = useDispatch();
@@ -30,9 +29,7 @@ const useEditPinTask = id => {
 
     const operatives = useMemo(() => {
         const formattedOperatives = Object.values(allUsers).reduce((acc, op) => {
-            if (op.type === COMPANY_USER_ROLE_TYPES.OPERATIVE) {
-                acc.push({ value: op.id, label: op.userFirstName + ' ' + op.userLastName });
-            }
+            acc.push({ value: op.id, label: op.userFirstName + ' ' + op.userLastName });
 
             return acc;
         }, []);

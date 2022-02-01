@@ -23,7 +23,7 @@ const EditPinTaskModal = ({ id }) => {
         operatives,
     } = useEditPinTask(id);
 
-    const { date } = formData;
+    const { date, companyUserID } = formData;
 
     return (
         <ModalOuterContainer extraClasses="edit-pin-task-modal">
@@ -48,7 +48,7 @@ const EditPinTaskModal = ({ id }) => {
                         <Select
                             name="companyUserID"
                             options={operatives}
-                            value={formData.companyUserID}
+                            value={companyUserID}
                             onChange={handleChange}
                             placeholder="-- select operative --"
                             search
