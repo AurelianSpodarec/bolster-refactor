@@ -17,6 +17,9 @@ import {
     ADMIN_EDIT_COMPANY_ADDRESS_REQUEST,
     ADMIN_EDIT_COMPANY_ADDRESS_SUCCESS,
     ADMIN_EDIT_COMPANY_ADDRESS_FAILURE,
+    ADMIN_EDIT_COMPANY_FREE_CREDIT_REQUEST,
+    ADMIN_EDIT_COMPANY_FREE_CREDIT_SUCCESS,
+    ADMIN_EDIT_COMPANY_FREE_CREDIT_FAILURE,
 } from 'constants/actionTypes/companies';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
@@ -67,8 +70,10 @@ function isFetchingReducer(state = false, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case ADMIN_EDIT_COMPANY_ADDRESS_REQUEST:
+        case ADMIN_EDIT_COMPANY_FREE_CREDIT_REQUEST:
             return false;
         case ADMIN_EDIT_COMPANY_ADDRESS_SUCCESS:
+        case ADMIN_EDIT_COMPANY_FREE_CREDIT_SUCCESS:
             return true;
         default:
             return state;
@@ -79,11 +84,14 @@ function isPostingReducer(state = false, action) {
     switch (action.type) {
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_REQUEST:
         case ADMIN_EDIT_COMPANY_ADDRESS_REQUEST:
+        case ADMIN_EDIT_COMPANY_FREE_CREDIT_REQUEST:
             return true;
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_SUCCESS:
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_FAILURE:
         case ADMIN_EDIT_COMPANY_ADDRESS_SUCCESS:
         case ADMIN_EDIT_COMPANY_ADDRESS_FAILURE:
+        case ADMIN_EDIT_COMPANY_FREE_CREDIT_SUCCESS:
+        case ADMIN_EDIT_COMPANY_FREE_CREDIT_FAILURE:
             return false;
         default:
             return state;
@@ -110,6 +118,7 @@ function errorReducer(state = null, action) {
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_REQUEST:
         case ADMIN_EDIT_COMPANY_ADDRESS_REQUEST:
         case FETCH_COMPANY_MANUFACTURING_OPTIONS_REQUEST:
+        case ADMIN_EDIT_COMPANY_FREE_CREDIT_REQUEST:
             return null;
         case FETCH_ALL_COMPANIES_FAILURE:
         case FETCH_SINGLE_COMPANY_FAILURE:
@@ -117,6 +126,7 @@ function errorReducer(state = null, action) {
         case FETCH_COMPANY_DROPDOWN_OPTIONS_FAILURE:
         case ADMIN_EDIT_COMPANY_ADDRESS_FAILURE:
         case FETCH_SINGLE_COMPANY_FOR_INVOICE_FAILURE:
+        case ADMIN_EDIT_COMPANY_FREE_CREDIT_FAILURE:
             return action.error;
         default:
             return state;
@@ -130,6 +140,7 @@ function companiesReducer(state = {}, action) {
         case FETCH_SINGLE_COMPANY_SUCCESS:
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_SUCCESS:
         case ADMIN_EDIT_COMPANY_ADDRESS_SUCCESS:
+        case ADMIN_EDIT_COMPANY_FREE_CREDIT_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
