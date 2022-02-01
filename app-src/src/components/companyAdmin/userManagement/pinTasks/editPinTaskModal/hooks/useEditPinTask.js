@@ -1,7 +1,7 @@
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import { EDIT_PIN_TASK } from 'constants/shared/modalTypes';
 import { useForm, usePrevious } from 'helpers/hooks';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     selectPinTask,
@@ -12,6 +12,8 @@ import {
 } from 'selectors/companyAdmin/pinTasks';
 import editPinTask from 'actions/companyAdmin/pinTasks/async/editPinTask';
 import fetchPinTask from 'actions/companyAdmin/pinTasks/async/fetchPinTask';
+import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 
 const useEditPinTask = id => {
     const dispatch = useDispatch();
@@ -24,11 +26,28 @@ const useEditPinTask = id => {
 
     const pinTasksError = useSelector(selectPinTasksError);
 
+    const allUsers = useSelector(selectCompanyUsers);
+
+    const operatives = useMemo(() => {
+        const formattedOperatives = Object.values(allUsers).reduce((acc, op) => {
+            if (op.type === COMPANY_USER_ROLE_TYPES.OPERATIVE) {
+                acc.push({ value: op.id, label: op.userFirstName + ' ' + op.userLastName });
+            }
+
+            return acc;
+        }, []);
+
+        return formattedOperatives;
+    }, [allUsers]);
+
     useEffect(() => {
         dispatch(fetchPinTask(id));
     }, [dispatch]);
 
-    const [formData, handleChange] = useForm({ date: pinTask?.dueOn });
+    const [formData, handleChange] = useForm({
+        date: pinTask?.dueOn,
+        companyUserID: pinTask?.companyUserID,
+    });
 
     const closeModal = () => dispatch(hideModal(EDIT_PIN_TASK));
 
@@ -52,6 +71,7 @@ const useEditPinTask = id => {
         error: pinTasksError,
         onSubmit,
         pinTask,
+        operatives,
     };
 };
 

@@ -8,6 +8,7 @@ import useEditPinTask from './hooks/useEditPinTask';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import moment from 'moment';
+import Select from 'components/shared/generic/form/presentational/Select';
 
 const EditPinTaskModal = ({ id }) => {
     const {
@@ -19,6 +20,7 @@ const EditPinTaskModal = ({ id }) => {
         error,
         onSubmit,
         pinTask,
+        operatives,
     } = useEditPinTask(id);
 
     const { date } = formData;
@@ -32,13 +34,24 @@ const EditPinTaskModal = ({ id }) => {
                     isEmpty={!pinTask}
                     contentClass="no-padding"
                 >
-                    <Field name="date" sizeClasses="size-lg-12" label="Date">
+                    <Field name="date" sizeClasses="size-lg-12" label="Due Date">
                         <DatePickerContainer
                             name="date"
                             selected={new Date(date)}
                             onChange={value => handleChange('date', value)}
                             required
                             maxDate={moment(new Date()).add(13, 'months').toDate()}
+                        />
+                    </Field>
+
+                    <Field name="operative" sizeClasses="size-lg-12" label="Select Operative">
+                        <Select
+                            name="companyUserID"
+                            options={operatives}
+                            value={formData.companyUserID}
+                            onChange={handleChange}
+                            placeholder="-- select operative --"
+                            search
                         />
                     </Field>
 
