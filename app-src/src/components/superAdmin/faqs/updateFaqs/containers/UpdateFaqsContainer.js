@@ -20,14 +20,14 @@ const UpdateFaqsContainer = () => {
     const isPosting = useSelector(selectFaqsIsPosting);
     const postSuccess = useSelector(selectFaqsPostSuccess);
     const isFetching = useSelector(selectFaqsIsFetching);
-    const faqsSingle = useSelector(state => selectFaqsSingle(state, id));
+    const faqSingle = useSelector(state => selectFaqsSingle(state, id));
 
     const [form, handleChange] = useForm({
-        type: faqsSingle.type,
-        title: faqsSingle.title,
-        content: faqsSingle.content,
-        imageS3Key: faqsSingle.imageS3Key,
-        videoS3Key: faqsSingle.videoS3Key,
+        type: faqSingle.type,
+        title: faqSingle.title,
+        content: faqSingle.content,
+        imageS3Key: faqSingle.imageS3Key,
+        videoS3Key: faqSingle.videoS3Key,
     });
 
     useUpdateItem(isPosting, postSuccess, 'Successfully Updated', '/admin/faqs', 'Go back to FAQs');
@@ -46,7 +46,7 @@ const UpdateFaqsContainer = () => {
             handleSave={handleSave}
             handleFormChange={handleChange}
             isFetching={isFetching}
-            faqsSingle={faqsSingle}
+            faqSingle={faqSingle}
         />
     );
 };

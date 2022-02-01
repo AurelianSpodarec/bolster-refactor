@@ -7,6 +7,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockEditor from 'components/shared/generic/block/presentational/BlockEditor';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import SunEditorSimpleWysiwyg from 'components/shared/generic/form/presentational/SunEditorSimpleWysiwyg';
+import { isObjEmpty } from 'helpers/generic';
 
 const buttonOptions = [['formatBlock'], ['bold', 'italic', 'underline'], ['list']];
 
@@ -14,11 +15,13 @@ const UpdateFaqs = ({
     handleSave,
     handleFormChange,
     form: { title, content, imageS3Key, videoS3Key },
+    isFetching,
+    faqSingle,
 }) => {
     return (
         <>
             <PageHeading title={title} withBackButton />
-            <BlockContainer>
+            <BlockContainer isFetching={isFetching} isEmpty={isObjEmpty(faqSingle)}>
                 <Field name="FAQ Title" required>
                     <TextInputContainer
                         name="title"
