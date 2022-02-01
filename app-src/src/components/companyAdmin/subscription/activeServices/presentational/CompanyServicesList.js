@@ -6,6 +6,7 @@ const CompanyServicesList = ({ subscriptions, handleChange, isAutoRenew, childre
         {subscriptions.map(subscription => (
             <SubscribedServicesItem
                 key={subscription.id}
+                index={subscription.id}
                 subscription={subscription}
                 handleChange={handleChange}
                 isAutoRenew={isAutoRenew}

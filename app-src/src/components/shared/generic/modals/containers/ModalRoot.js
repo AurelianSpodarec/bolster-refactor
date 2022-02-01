@@ -124,6 +124,7 @@ import {
     CREATE_PIN_TASK,
     EDIT_PIN_TASK,
     EDIT_PIN_TASK_SERIES,
+    UNCONFIRMED_EMAIL_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -250,6 +251,7 @@ import NewUserDocumentModal from 'components/companyAdmin/userManagement/documen
 import CreatePinTaskModal from 'components/companyAdmin/userManagement/pinTasks/createPinTaskModal/CreatePinTaskModal';
 import EditPinTaskModal from 'components/companyAdmin/userManagement/pinTasks/editPinTaskModal/EditPinTaskModal';
 import EditPinTaskSeriesModal from 'components/companyAdmin/userManagement/pinTasks/editPinTaskSeriesModal/EditPinTaskSeriesModal';
+import UnconfirmedEmailModal from '../presentational/UnconfirmedEmailModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -374,6 +376,7 @@ const MODAL_COMPONENTS = {
     [CREATE_PIN_TASK]: CreatePinTaskModal,
     [EDIT_PIN_TASK]: EditPinTaskModal,
     [EDIT_PIN_TASK_SERIES]: EditPinTaskSeriesModal,
+    [UNCONFIRMED_EMAIL_MODAL]: UnconfirmedEmailModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

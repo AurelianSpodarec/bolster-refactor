@@ -134,6 +134,7 @@ class FileUploadContainer extends Component {
     handleUpload = async e => {
         e.persist();
         const files = e.target.files;
+
         this.props.fileUploadStart();
 
         const { maxFiles } = this.props;
@@ -157,7 +158,7 @@ class FileUploadContainer extends Component {
             return;
         }
 
-        const { name, maxFiles, skipTemp = false } = this.props;
+        const { name, maxFiles, skipTemp = false, maxHeight, maxWidth, isSquare } = this.props;
         const { fileS3Keys } = this.state;
         if (fileS3Keys.length === maxFiles) {
             this.setState({ softError: `You can only upload a maximum of ${maxFiles} files.` });
@@ -165,6 +166,22 @@ class FileUploadContainer extends Component {
         }
         if (!this._validateFileType(file.type)) {
             this.setState({ softError: `The file type '${file.type}' is not permitted.` });
+            return;
+        }
+
+        const { height, width } = await this.getImageDimensionsAsync(file);
+
+        if (maxHeight && maxWidth && height > maxHeight && width > maxWidth) {
+            this.setState({
+                softError: `The image exceeds the maximum dimensions of ${this.props.maxHeight}x${this.props.maxWidth}`,
+            });
+            return;
+        }
+
+        if (isSquare && height !== width) {
+            this.setState({
+                softError: 'The image needs to be a square',
+            });
             return;
         }
 
@@ -220,6 +237,29 @@ class FileUploadContainer extends Component {
             this._handleChange,
         );
     };
+
+    async getImageDimensionsAsync(file) {
+        if (!file.type.includes('image')) return false;
+
+        const reader = new FileReader();
+
+        reader.readAsDataURL(file);
+
+        return new Promise(resolve => {
+            reader.onload = () => {
+                const image = new Image();
+
+                image.src = reader.result;
+
+                image.onload = () => {
+                    const height = image.height;
+                    const width = image.width;
+
+                    return resolve({ height, width });
+                };
+            };
+        });
+    }
 }
 
 const mapDispatchToProps = dispatch => ({

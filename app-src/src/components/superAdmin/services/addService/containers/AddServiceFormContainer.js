@@ -15,7 +15,8 @@ class AddServiceFormContainer extends Component {
     state = {
         name: '',
         templateUUIDs: [],
-        showOnCompanySite: true
+        showOnCompanySite: true,
+        pinImageS3Key: '',
     };
 
     render() {
@@ -56,15 +57,15 @@ class AddServiceFormContainer extends Component {
         e.preventDefault();
 
         const { createService, postTemplatesForService } = this.props;
-        const { name, templateUUIDs, showOnCompanySite } = this.state;
+        const { name, templateUUIDs, showOnCompanySite, pinImageS3Key } = this.state;
 
-        createService({ name, showOnCompanySite }).then(action => {
+        createService({ name, showOnCompanySite, pinImageS3Key }).then(action => {
             if (action.type === ADMIN_CREATE_SERVICE_SUCCESS) {
                 const service = action.payload;
 
                 if (templateUUIDs.length) {
                     postTemplatesForService(service.id, {
-                        templateIDs: templateUUIDs
+                        templateIDs: templateUUIDs,
                     });
                 }
             }
@@ -79,7 +80,7 @@ class AddServiceFormContainer extends Component {
                 return {
                     label: `${companyName} - ${name}`,
                     text: `${companyName} - ${name}`,
-                    value: uuid
+                    value: uuid,
                 };
             })
             .sort((a, b) => a.label.localeCompare(b.label));
@@ -91,24 +92,19 @@ class AddServiceFormContainer extends Component {
 const mapStateToProps = ({
     superAdmin: {
         adminServicesReducer: { postSuccess },
-        templatesReducer: { templates, isFetching, error }
-    }
+        templatesReducer: { templates, isFetching, error },
+    },
 }) => ({
     postSuccess,
     templates: Object.values(templates).filter(({ isDeleted }) => !isDeleted),
     isFetching,
-    error
+    error,
 });
 
 const mapDispatchToProps = {
     createService,
     postTemplatesForService,
-    fetchTemplatesSimple
+    fetchTemplatesSimple,
 };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(AddServiceFormContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddServiceFormContainer));

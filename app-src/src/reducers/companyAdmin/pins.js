@@ -26,6 +26,7 @@ import {
     FETCH_ALL_PINS_FOR_DRAWING_REQUEST,
     FETCH_ALL_PINS_FOR_DRAWING_SUCCESS,
     FETCH_ALL_PINS_FOR_DRAWING_FAILURE,
+    TOGGLE_PIN_VIEW_MODE,
 } from 'constants/actionTypes/pins';
 
 export default combineReducers({
@@ -35,6 +36,7 @@ export default combineReducers({
     isFetchingForInspection: isFetchingForInspectionReducer,
     error: errorReducer,
     postSuccess: postSuccessReducer,
+    pinViewMode: pinViewModeReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -141,6 +143,15 @@ function postSuccessReducer(state = false, action) {
         case EDIT_PIN_HISTORY_SUCCESS:
         case DELETE_PIN_HISTORY_SUCCESS:
             return true;
+        default:
+            return state;
+    }
+}
+
+function pinViewModeReducer(state = 'view', action) {
+    switch (action.type) {
+        case TOGGLE_PIN_VIEW_MODE:
+            return state === 'view' ? 'icon' : 'view';
         default:
             return state;
     }

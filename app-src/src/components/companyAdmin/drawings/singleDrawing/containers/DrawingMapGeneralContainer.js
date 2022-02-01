@@ -22,6 +22,8 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import setZoneAddMode from 'actions/companyAdmin/zones/sync/setZoneAddMode';
 import setZonesOpacity from 'actions/companyAdmin/zones/sync/setZonesOpacity';
+import togglePinIconView from 'actions/companyAdmin/pins/sync/togglePinIconView';
+import fetchAllTemplates from 'actions/companyAdmin/templates/async/fetchAllTemplates';
 import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
 import DrawingDetailsContainer from './DrawingDetailsContainer';
 import FurtherFiltrationContainer from 'components/companyAdmin/reports/createReport/components/containers/FurtherFiltrationContainer';
@@ -77,6 +79,8 @@ class DrawingMapGeneralContainer extends Component {
             isAddingZone,
             zonesOpacity,
             zones,
+            pinViewMode,
+            togglePinIconView,
         } = this.props;
         const position = [centerLat, centerLng];
         const addPinPosition = [addPinLat, addPinLng];
@@ -144,6 +148,8 @@ class DrawingMapGeneralContainer extends Component {
                         handleZoomChange={this.handleZoomChange}
                         curZoom={curZoom}
                         drawingNotStarted={drawingNotStarted}
+                        pinViewMode={pinViewMode}
+                        togglePinIconView={togglePinIconView}
                     />
                 </BlockContainer>
                 {!drawingNotStarted && (
@@ -440,7 +446,7 @@ class DrawingMapGeneralContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            pinsReducer: { pins, isFetching, error },
+            pinsReducer: { pins, isFetching, error, pinViewMode },
             servicesReducer: { services },
             companyUsersReducer: { users },
             drawingsReducer: { drawings, postSuccess },
@@ -485,6 +491,7 @@ const mapStateToProps = (
     zoneFormCoordinates,
     isModified,
     zones,
+    pinViewMode,
 });
 
 const mapDispatchToProps = {
@@ -500,6 +507,8 @@ const mapDispatchToProps = {
     updateFurtherFiltrationOption,
     setZoneAddMode,
     setZonesOpacity,
+    togglePinIconView,
+    fetchAllTemplates,
 };
 
 export default withRouter(

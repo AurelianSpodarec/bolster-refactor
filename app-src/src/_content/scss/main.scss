@@ -3402,12 +3402,22 @@ input {
     margin-top: 10px;
 }
 
-.custom-pin {
+.custom-pin, .icon-pin {
     float: left;
 
     img {
         float: left;
         width: 100%;
+
+        &.icon {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 26px;
+            height: 26px;
+            border-radius: 2px;
+            object-fit: contain;
+        }
     }
 
     .code {
@@ -6339,6 +6349,11 @@ input {
     margin-bottom: 10px;
     border-radius: 5px;
     align-items: center;
+
+    &.alerts {
+        height: auto;
+        padding: 6px 0;
+    }
 
     & > .banner-text {
         color: white;
