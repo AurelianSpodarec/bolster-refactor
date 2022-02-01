@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import resendTwoFactor from 'actions/shared/auth/async/resendTwoFactor';
 import { addBanner } from 'actions/shared/banners/sync/addBanner';
 import { resetBanner } from 'actions/shared/banners/sync/resetBanner';
-import showFAQsButton from 'actions/companyAdmin/faqs/sync/showFAQsButton';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
@@ -259,29 +258,6 @@ export const useQuery = () => {
     const { search } = useLocation();
 
     return useMemo(() => new URLSearchParams(search), [search]);
-};
-
-export const useFAQs = () => {
-    const history = useHistory();
-    const location = useLocation();
-    const dispatch = useDispatch();
-    const pages = useSelector(state => state.companyAdmin.faqsReducer.pages);
-
-    const handleShowFAQsButton = location => {
-        const isShowButton = Object.values(pages).reduce((res, item) => {
-            return location.pathname.includes(item) ? true : res;
-        }, false);
-
-        dispatch(showFAQsButton(isShowButton));
-    };
-
-    useEffect(() => {
-        handleShowFAQsButton(location);
-
-        return history.listen(location => {
-            handleShowFAQsButton(location);
-        });
-    }, []);
 };
 
 export const useAddItem = (isPosting, postSuccess, message = 'Success', link, linkMessage) => {
