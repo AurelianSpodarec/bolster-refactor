@@ -13,18 +13,17 @@ const BlockTable = ({ faqs, isFetching, title, headers, handleDelete }) => {
                 {faqs.map((faq, index) => (
                     <tr key={faq.id + index}>
                         <td>{faq.title}</td>
-                        <td>
-                            <BlockButtonWrapper>
-                                <Link className="button yellow" to={`/admin/faqs/update/${faq.id}`}>
-                                    <i className="fa fa-pencil" />
-                                    Edit
-                                </Link>
-                                <button className="button red" onClick={() => handleDelete(faq.id)}>
-                                    <i className="fa fa-trash" />
-                                    Delete
-                                </button>
-                            </BlockButtonWrapper>
-                        </td>
+
+                        <BlockButtonWrapper>
+                            <button className="button red" onClick={() => handleDelete(faq.id)}>
+                                <i className="fa fa-trash" />
+                                Delete
+                            </button>
+                            <Link className="button yellow" to={`/admin/faqs/update/${faq.id}`}>
+                                <i className="fa fa-pencil" />
+                                Edit
+                            </Link>
+                        </BlockButtonWrapper>
                     </tr>
                 ))}
             </Table>
