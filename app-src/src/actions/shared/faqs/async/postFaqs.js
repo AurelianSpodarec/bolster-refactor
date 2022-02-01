@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_URL } from 'config';
+import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 import {
@@ -26,7 +26,7 @@ export default postBody => dispatch => {
     dispatch(createFaqsRequest());
 
     axios
-        .post(`${API_URL}/faq/`, { ...postBody }, getHeaders())
+        .post(`${ADMIN_API_URL}/faq/`, { ...postBody }, getHeaders())
         .then(res => dispatch(createFaqsSuccess(res.data)))
         .catch(err => dispatch(createFaqsFailure(err.message)));
 };

@@ -22,11 +22,11 @@ export const fetchSingleFaqsFailure = error => ({
     error,
 });
 
-export default () => dispatch => {
+export default id => dispatch => {
     dispatch(fetchSingleFaqsRequest());
 
     axios
-        .get(`${API_URL}/faq/`, getHeaders())
+        .get(`${API_URL}/faq/${id}`, getHeaders())
         .then(res => dispatch(fetchSingleFaqsSuccess(res.data)))
         .catch(err => dispatch(fetchSingleFaqsFailure(err.message)));
 };

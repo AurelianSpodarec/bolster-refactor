@@ -5,7 +5,7 @@ import { FAQS_PAGES } from 'constants/superAdmin/faqs';
 import { reverseObj } from 'helpers/generic';
 import { Link } from 'react-router-dom';
 
-const AllFaqs = ({ faqs, isFetching }) => {
+const AllFaqs = ({ faqs, isFetching, handleDelete }) => {
     const PAGES = reverseObj(FAQS_PAGES);
 
     return (
@@ -22,6 +22,7 @@ const AllFaqs = ({ faqs, isFetching }) => {
                         faqs={faqs.filter(({ type }) => type === +PAGES[item])}
                         isFetching={isFetching}
                         title={item}
+                        handleDelete={handleDelete}
                     />
                 );
             })}

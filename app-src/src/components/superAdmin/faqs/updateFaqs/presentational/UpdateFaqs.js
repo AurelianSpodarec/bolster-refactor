@@ -7,6 +7,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import { FAQS_PAGES } from 'constants/superAdmin/faqs';
+import { isEmpty } from 'helpers/generic';
 
 const modules = {
     toolbar: [
@@ -19,11 +20,20 @@ const modules = {
 
 const formats = ['header', 'bold', 'italic', 'underline', 'bullet', 'link'];
 
-const CreateFaqs = ({ handleSave, faqText, setFaqText, handleFormChange, faqTitle, faqType }) => {
+const UpdateFaqs = ({
+    handleUpdate,
+    faqText,
+    setFaqText,
+    handleFormChange,
+    faqTitle,
+    faqType,
+    isFetching,
+    faqsSingle,
+}) => {
     return (
         <>
             <PageHeading title={faqTitle} withBackButton />
-            <BlockContainer>
+            <BlockContainer isFetching={isFetching} isEmpty={isEmpty(faqsSingle)}>
                 <Field name="FAQs Title" required>
                     <TextInputContainer
                         name="faqTitle"
@@ -32,7 +42,7 @@ const CreateFaqs = ({ handleSave, faqText, setFaqText, handleFormChange, faqTitl
                         required
                     />
                 </Field>
-                <Field name="FAQs Type" required>
+                {/* <Field name="FAQs Type" required>
                     <DropdownContainer
                         handleChange={handleFormChange}
                         name="faqType"
@@ -45,7 +55,7 @@ const CreateFaqs = ({ handleSave, faqText, setFaqText, handleFormChange, faqTitl
                         })}
                         withoutPlaceholder
                     />
-                </Field>
+                </Field> */}
             </BlockContainer>
 
             <BlockContainer>
@@ -58,8 +68,8 @@ const CreateFaqs = ({ handleSave, faqText, setFaqText, handleFormChange, faqTitl
                 />
 
                 <BlockButtonWrapper>
-                    <button className="button green" onClick={handleSave}>
-                        Save New FAQs
+                    <button className="button green" onClick={handleUpdate}>
+                        Update FAQs
                     </button>
                 </BlockButtonWrapper>
             </BlockContainer>
@@ -67,4 +77,4 @@ const CreateFaqs = ({ handleSave, faqText, setFaqText, handleFormChange, faqTitl
     );
 };
 
-export default CreateFaqs;
+export default UpdateFaqs;

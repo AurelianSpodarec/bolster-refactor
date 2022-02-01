@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getKeyByValue } from 'helpers/generic';
-import CreateFaqs from '../presentational/CreateFaqs';
 import { FAQS_PAGES } from 'constants/superAdmin/faqs';
 import postFaqs from 'actions/shared/faqs/async/postFaqs';
+import { useAddItem } from 'helpers/hooks';
+import CreateFaqs from '../presentational/CreateFaqs';
 
 const CreateFaqsContainer = () => {
     const dispatch = useDispatch();
@@ -12,6 +13,9 @@ const CreateFaqsContainer = () => {
         faqTitle: 'FAQs Name',
         faqType: { text: FAQS_PAGES[1], value: FAQS_PAGES[1] },
     });
+    const isPosting = useSelector(state => state.shared.faqsReducer.isPosting);
+    const postSuccess = useSelector(state => state.shared.faqsReducer.postSuccess);
+    useAddItem(isPosting, postSuccess, 'Success', '/admin/faqs', 'Go back to FAQs');
 
     const handleFormChange = (name, value) => {
         if (name === 'faqType') {

@@ -7,32 +7,26 @@ import { Link } from 'react-router-dom';
 
 const BlockTable = ({ faqs, isFetching, title, headers, handleDelete }) => {
     return (
-        <BlockContainer>
+        <BlockContainer noDataMessage="There are no FAQs to display">
             <BlockHeading title={title} classes="w-table" />
             <Table headers={headers} noData={!faqs.length} isFetching={isFetching}>
-                {faqs
-                    .filter(item => !item.isDeleted)
-                    .map((faq, index) => (
-                        <tr key={faq.id + index}>
-                            <td>{faq.title}</td>
-                            <td>
-                                <BlockButtonWrapper>
-                                    <Link
-                                        className="button yellow"
-                                        to={`/admin/legal-documents/edit/${faq.id}`}
-                                    >
-                                        Edit
-                                    </Link>
-                                    <button
-                                        className="button red"
-                                        onClick={() => handleDelete(faq.id)}
-                                    >
-                                        Delete
-                                    </button>
-                                </BlockButtonWrapper>
-                            </td>
-                        </tr>
-                    ))}
+                {faqs.map((faq, index) => (
+                    <tr key={faq.id + index}>
+                        <td>{faq.title}</td>
+                        <td>
+                            <BlockButtonWrapper>
+                                <Link className="button yellow" to={`/admin/faqs/update/${faq.id}`}>
+                                    <i className="fa fa-pencil" />
+                                    Edit
+                                </Link>
+                                <button className="button red" onClick={() => handleDelete(faq.id)}>
+                                    <i className="fa fa-trash" />
+                                    Delete
+                                </button>
+                            </BlockButtonWrapper>
+                        </td>
+                    </tr>
+                ))}
             </Table>
         </BlockContainer>
     );
