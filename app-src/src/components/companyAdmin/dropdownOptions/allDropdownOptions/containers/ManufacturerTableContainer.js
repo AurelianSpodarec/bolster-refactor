@@ -10,13 +10,20 @@ import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 import reorderManufacturers from 'actions/companyAdmin/dropdownOptions/sync/reorderManufacturers';
 
 class ManufacturerTableContainer extends Component {
+    state = {
+        serviceFilterOptions: {},
+        selectedService: '',
+    };
+
     render() {
+        const { serviceFilterOptions, selectedService } = this.state;
+
         const { isFetching, error, title, type, isSorting, manufacturers } = this.props;
 
         return (
             <ManufacturerTable
                 headers={['Name', '']}
-                manufacturers={manufacturers}
+                manufacturers={this.filterManufacturers(manufacturers)}
                 isFetching={isFetching}
                 error={error}
                 title={title}
@@ -24,9 +31,22 @@ class ManufacturerTableContainer extends Component {
                 type={type}
                 moveItem={this.moveItem}
                 isSorting={isSorting}
+                serviceFilterOptions={Object.values(serviceFilterOptions)}
+                selectedService={serviceFilterOptions[selectedService]}
+                handleChange={this.handleChange}
             />
         );
     }
+
+    componentDidMount = () => {
+        const { subscribedServices } = this.props;
+
+        const serviceFilterOptions = subscribedServices.reduce((acc, { id, name }) => {
+            return { ...acc, [id]: { value: id, text: name } };
+        }, {});
+
+        this.setState({ serviceFilterOptions });
+    };
 
     componentDidUpdate = prevProps => {
         const { postSuccess, showModal, hideModal, postError, fieldErrors } = this.props;
@@ -52,6 +72,10 @@ class ManufacturerTableContainer extends Component {
         showModal(COMPANY_ADD_MANUFACTURER, { type });
     };
 
+    handleChange = (_, value) => {
+        this.setState({ selectedService: value });
+    };
+
     moveItem = (overindex, fromIndex) => {
         const { manufacturers, reorderManufacturers, type } = this.props;
         const items = [...manufacturers].sort((a, b) => a.sort - b.sort);
@@ -60,12 +84,35 @@ class ManufacturerTableContainer extends Component {
         const sorted = items.map((x, i) => ({ ...x, sort: i + 1, manufacturerID: x.ID }));
         reorderManufacturers(sorted, type);
     };
+
+    filterManufacturers = dropdownOptions => {
+        const { selectedService } = this.state;
+        const { subscribedServices } = this.props;
+
+        return dropdownOptions.filter(({ serviceIDs }) => {
+            if (selectedService) {
+                if (serviceIDs === null) {
+                    return true;
+                } else {
+                    return serviceIDs.includes(+selectedService);
+                }
+            } else {
+                return subscribedServices.some(({ id }) =>
+                    serviceIDs?.length ? serviceIDs.includes(+id) : true,
+                );
+            }
+        });
+    };
 }
 
 const mapStateToProps = (
     {
         companyAdmin: {
             manufacturersReducer: { manufacturers, isFetching, error, postSuccess, postError },
+            subscriptionsReducer: {
+                subscriptions: { serviceIDs },
+            },
+            servicesReducer: { services, isFetchingServices },
         },
         shared: {
             fieldErrorsReducer: { fieldErrors },
@@ -78,13 +125,16 @@ const mapStateToProps = (
     return {
         postError,
         postSuccess,
-        isFetching,
+        isFetching: isFetchingServices || isFetching,
         error,
         manufacturers: manufacturers[pinOptionKey]
             ? Object.values(manufacturers[pinOptionKey]).sort((a, b) => a.sort - b.sort)
             : [],
         fieldErrors,
         isSorting,
+        subscribedServices: Object.values(services).filter(service =>
+            serviceIDs.includes(service.id),
+        ),
     };
 };
 
