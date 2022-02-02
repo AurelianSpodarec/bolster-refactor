@@ -26,7 +26,7 @@ export default postBody => dispatch => {
     dispatch(createPinTasksRequest());
 
     return axios
-        .post(`${API_URL}/tasks/create`, postBody, getHeaders())
+        .post(`${API_URL}/tasks`, postBody, getHeaders())
         .then(res => dispatch(createPinTasksSuccess(res.data)))
         .catch(err => dispatch(createPinTasksFailure(err.message)));
 };

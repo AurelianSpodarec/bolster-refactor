@@ -26,7 +26,7 @@ export default (from, to) => dispatch => {
     dispatch(fetchPinTasksRequest());
 
     return axios
-        .post(`${API_URL}/tasks`, { from, to }, getHeaders())
+        .get(`${API_URL}/tasks?from=${from}&to=${to}`, getHeaders())
         .then(res => dispatch(fetchPinTasksSuccess(res.data)))
         .catch(err => dispatch(fetchPinTasksFailure(err.message)));
 };

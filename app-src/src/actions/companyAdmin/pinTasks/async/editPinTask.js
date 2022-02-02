@@ -26,7 +26,7 @@ export default (id, dueDate) => dispatch => {
     dispatch(editPinTaskRequest());
 
     return axios
-        .post(
+        .patch(
             `${API_URL}/tasks/${id}`,
             {
                 dueDate,
