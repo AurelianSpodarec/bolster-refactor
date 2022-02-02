@@ -4,7 +4,7 @@ import useList from './hooks/useList';
 import TasksLegend from '../../TasksLegend';
 import ListTable from './ListTable';
 
-const ListView = ({ startDate, startEditPinTask }) => {
+const ListView = ({ startDate, startEditPinTask, viewTaskNote }) => {
     const { pinTasks, isFetching, error, statuses, types } = useList(startDate);
 
     return (
@@ -12,6 +12,7 @@ const ListView = ({ startDate, startEditPinTask }) => {
             <TasksLegend types={types} statuses={statuses} pinTasks={pinTasks} />
             <ListTable
                 startEditPinTask={startEditPinTask}
+                viewTaskNote={viewTaskNote}
                 pinTasks={pinTasks}
                 startDate={startDate}
                 types={types}
