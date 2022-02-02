@@ -19,6 +19,21 @@ export const recurringOptions = [
     },
 ];
 
+export const seriesRecurringOptions = [
+    {
+        value: RECURRING_TYPE.DAILY,
+        label: 'Daily',
+    },
+    {
+        value: RECURRING_TYPE.WEEKLY,
+        label: 'Weekly',
+    },
+    {
+        value: RECURRING_TYPE.MONTHLY,
+        label: 'Monthly',
+    },
+];
+
 export const dayOptions = [
     { value: DAY.MONDAY, text: 'M' },
     { value: DAY.TUESDAY, text: 'T' },

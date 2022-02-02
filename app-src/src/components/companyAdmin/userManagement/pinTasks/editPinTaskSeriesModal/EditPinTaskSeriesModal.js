@@ -12,7 +12,7 @@ import useEditPinTaskSeries from './hooks/useEditPinTaskSeries';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isEmpty } from 'helpers/generic';
 import usePinOptions from '../hooks/usePinOptions';
-import { dayOptions, recurringOptions } from 'constants/companyAdmin/pinTasks';
+import { dayOptions, seriesRecurringOptions } from 'constants/companyAdmin/pinTasks';
 import PickListContainer from 'components/shared/generic/form/containers/PickListContainer';
 
 const EditPinTaskSeriesModal = ({ id }) => {
@@ -65,7 +65,7 @@ const EditPinTaskSeriesModal = ({ id }) => {
                                     name="recurrenceType"
                                     value={recurrenceType}
                                     onChange={handleChange}
-                                    options={recurringOptions}
+                                    options={seriesRecurringOptions}
                                     omitPlaceholder
                                 />
                             </Field>
