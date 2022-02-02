@@ -39,7 +39,7 @@ const useEditPinTaskSeries = id => {
     const operativesIsFetching = useSelector(getOperativesIsFetching);
 
     const recurrenceDays = useMemo(() => {
-        return pinTaskSeries?.recurrenceWeeklyDays.map(day => DAYS_FLAGGED_LOOKUP[day]);
+        return pinTaskSeries?.recurrenceWeeklyDays?.map(day => DAYS_FLAGGED_LOOKUP[day]);
     }, [pinTaskSeries]);
 
     const [formData, handleChange] = useForm({
@@ -77,7 +77,8 @@ const useEditPinTaskSeries = id => {
 
     const handleDaysConversion = () => {
         const { recurrenceDays } = formData;
-        return recurrenceDays.reduce((res, item) => res + DAYS_FLAGGED[item], 0);
+
+        return recurrenceDays?.reduce((res, item) => res + DAYS_FLAGGED[item], 0);
     };
 
     const operatives = useMemo(() => {
