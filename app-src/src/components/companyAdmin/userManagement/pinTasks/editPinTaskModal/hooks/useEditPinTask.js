@@ -27,11 +27,31 @@ const useEditPinTask = id => {
 
     const pinTasksIsPosting = useSelector(selectPinTasksIsPosting);
     const pinTasksPostSuccess = useSelector(selectPinTasksPostSuccess);
+    const prevPinTasksPostSuccess = usePrevious(pinTasksPostSuccess);
 
     const pinTasksError = useSelector(selectPinTasksError);
 
     const operativesObj = useSelector(getOperatives);
     const operativesIsFetching = useSelector(getOperativesIsFetching);
+
+    const [formData, handleChange] = useForm({
+        date: pinTask?.dueOn,
+        companyUserID: pinTask?.companyUserID,
+    });
+
+    useEffect(() => {
+        dispatch(fetchPinTask(id));
+    }, [id]);
+
+    useEffect(() => {
+        if (!isObjEmpty(pinTask) && pinTask.drawingID) {
+            dispatch(fetchOperativesForDrawing(pinTask.drawingID));
+        }
+    }, [pinTask]);
+
+    useEffect(() => {
+        if (!prevPinTasksPostSuccess && pinTasksPostSuccess) closeModal();
+    }, [dispatch, pinTasksPostSuccess, prevPinTasksPostSuccess]);
 
     const operatives = useMemo(() => {
         if (!isObjEmpty(operativesObj)) {
@@ -48,32 +68,11 @@ const useEditPinTask = id => {
         return [];
     }, [operativesObj, pinTask]);
 
-    useEffect(() => {
-        dispatch(fetchPinTask(id));
-    }, [id]);
-
-    useEffect(() => {
-        if (!isObjEmpty(pinTask) && pinTask.drawingID) {
-            dispatch(fetchOperativesForDrawing(pinTask.drawingID));
-        }
-    }, [pinTask]);
-
-    const [formData, handleChange] = useForm({
-        date: pinTask?.dueOn,
-        companyUserID: pinTask?.companyUserID,
-    });
-
     const closeModal = () => dispatch(hideModal(EDIT_PIN_TASK));
 
     const onSubmit = () => {
         dispatch(editPinTask(id, formData));
     };
-
-    const prevPinTasksPostSuccess = usePrevious(pinTasksPostSuccess);
-
-    useEffect(() => {
-        if (!prevPinTasksPostSuccess && pinTasksPostSuccess) closeModal();
-    }, [dispatch, pinTasksPostSuccess, prevPinTasksPostSuccess]);
 
     return {
         formData,

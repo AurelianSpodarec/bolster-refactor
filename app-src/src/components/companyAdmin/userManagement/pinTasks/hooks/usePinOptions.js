@@ -1,8 +1,9 @@
-import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectOperative } from 'selectors/companyAdmin/operatives';
 
+import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
+
+import { selectOperative } from 'selectors/companyAdmin/operatives';
 import {
     selectPins,
     selectPinsFetchError,

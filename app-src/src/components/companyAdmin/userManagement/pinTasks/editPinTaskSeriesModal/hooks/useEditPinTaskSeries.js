@@ -8,6 +8,7 @@ import editPinTaskSeries from 'actions/companyAdmin/pinTasks/async/editPinTaskSe
 import fetchPinTaskSeries from 'actions/companyAdmin/pinTasks/async/fetchPinTaskSeries';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 import {
     selectPinTaskSeries,
@@ -21,7 +22,6 @@ import { getOperatives, getOperativesIsFetching } from 'selectors/companyAdmin/o
 import { CONFIRM_DELETE, EDIT_PIN_TASK_SERIES } from 'constants/shared/modalTypes';
 import { isObjEmpty } from 'helpers/generic';
 import { DAYS_FLAGGED, DAYS_FLAGGED_LOOKUP, RECURRING_TYPE } from 'constants/companyAdmin/enums';
-import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 const useEditPinTaskSeries = id => {
     const dispatch = useDispatch();
@@ -31,11 +31,54 @@ const useEditPinTaskSeries = id => {
 
     const pinTasksIsPosting = useSelector(selectPinTasksIsPosting);
     const pinTasksPostSuccess = useSelector(selectPinTasksPostSuccess);
+    const prevPinTasksPostSuccess = usePrevious(pinTasksPostSuccess);
 
     const pinTasksError = useSelector(selectPinTasksError);
 
     const operativesObj = useSelector(getOperatives);
     const operativesIsFetching = useSelector(getOperativesIsFetching);
+
+    const recurrenceDays = useMemo(() => {
+        return pinTaskSeries?.recurrenceWeeklyDays.map(day => DAYS_FLAGGED_LOOKUP[day]);
+    }, [pinTaskSeries]);
+
+    const [formData, handleChange] = useForm({
+        companyUserID: pinTaskSeries.companyUserID,
+        pinIDs: pinTaskSeries?.pinIDs,
+        startOn: pinTaskSeries?.recurrenceStartsOn,
+        endOn: pinTaskSeries?.recurrenceEndsOn,
+        recurrenceType: pinTaskSeries?.recurrenceType,
+        recurrenceDays,
+    });
+
+    useEffect(() => {
+        dispatch(fetchPinTaskSeries(id));
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (!isObjEmpty(pinTaskSeries) && pinTaskSeries.drawingID) {
+            dispatch(fetchOperativesForDrawing(pinTaskSeries.drawingID));
+        }
+    }, [pinTaskSeries]);
+
+    useEffect(() => {
+        if (!isWeekly) {
+            handleChange('days', []);
+            dispatch(removeFieldError('days'));
+        }
+    }, [isWeekly]);
+
+    useEffect(() => {
+        if (!prevPinTasksPostSuccess && pinTasksPostSuccess) {
+            closeModal();
+            dispatch(fetchPinTaskSeries(id));
+        }
+    }, [pinTasksPostSuccess, prevPinTasksPostSuccess]);
+
+    const handleDaysConversion = () => {
+        const { recurrenceDays } = formData;
+        return recurrenceDays.reduce((res, item) => res + DAYS_FLAGGED[item], 0);
+    };
 
     const operatives = useMemo(() => {
         if (!isObjEmpty(operativesObj)) {
@@ -52,46 +95,7 @@ const useEditPinTaskSeries = id => {
         return [];
     }, [operativesObj]);
 
-    useEffect(() => {
-        dispatch(fetchPinTaskSeries(id));
-    }, [dispatch]);
-
-    useEffect(() => {
-        if (!isObjEmpty(pinTaskSeries) && pinTaskSeries.drawingID) {
-            dispatch(fetchOperativesForDrawing(pinTaskSeries.drawingID));
-        }
-    }, [pinTaskSeries]);
-
-    const handleConvertDaysToString = () => {
-        const { recurrenceWeeklyDays } = pinTaskSeries;
-        return recurrenceWeeklyDays.map(day => DAYS_FLAGGED_LOOKUP[day]);
-    };
-
-    const handleDaysConversion = () => {
-        const { recurrenceDays } = formData;
-        //API takes a bitmask of days of the week https://docs.microsoft.com/en-us/dotnet/api/System.FlagsAttribute?view=net-6.0
-        return recurrenceDays.reduce((res, item) => res + DAYS_FLAGGED[item], 0);
-    };
-
-    const [formData, handleChange] = useForm({
-        companyUserID: pinTaskSeries.companyUserID,
-        pinIDs: pinTaskSeries?.pinIDs,
-        startOn: pinTaskSeries?.recurrenceStartsOn,
-        endOn: pinTaskSeries?.recurrenceEndsOn,
-        recurrenceType: pinTaskSeries?.recurrenceType,
-        recurrenceDays: handleConvertDaysToString(),
-    });
-
     const isWeekly = formData.recurrenceType === RECURRING_TYPE.WEEKLY;
-
-    useEffect(() => {
-        if (!isWeekly) {
-            handleChange('days', []);
-            dispatch(removeFieldError('days'));
-        }
-    }, [isWeekly]);
-
-    const closeModal = () => dispatch(hideModal(EDIT_PIN_TASK_SERIES));
 
     const onSubmit = () => {
         const postBody = { ...formData, recurrenceDays: handleDaysConversion() };
@@ -111,14 +115,7 @@ const useEditPinTaskSeries = id => {
         );
     };
 
-    const prevPinTasksPostSuccess = usePrevious(pinTasksPostSuccess);
-
-    useEffect(() => {
-        if (!prevPinTasksPostSuccess && pinTasksPostSuccess) {
-            closeModal();
-            dispatch(fetchPinTaskSeries(id));
-        }
-    }, [dispatch, pinTasksPostSuccess, prevPinTasksPostSuccess]);
+    const closeModal = () => dispatch(hideModal(EDIT_PIN_TASK_SERIES));
 
     return {
         formData,
