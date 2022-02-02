@@ -107,6 +107,7 @@ export default combineReducers({
     pinAnswersReducer,
     pinHistoriesReducer,
     pinsReducer,
+    pinTasksReducer,
     qrCodesReducer,
     recentUpdatesReducer,
     reportsReducer,
@@ -127,5 +128,4 @@ export default combineReducers({
     timesheetsReducer,
     timesheetPinStatsReducer,
     userPinFeedsReducer,
-    pinTasksReducer,
 });
