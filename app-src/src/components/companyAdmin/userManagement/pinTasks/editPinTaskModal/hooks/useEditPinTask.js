@@ -36,8 +36,8 @@ const useEditPinTask = id => {
     const operatives = useMemo(() => {
         if (!isObjEmpty(operativesObj)) {
             return Object.values(operativesObj).reduce(
-                (acc, { id, userFirstName, userLastName }) => {
-                    acc.push({ value: id, label: `${userFirstName} ${userLastName}` });
+                (acc, { companyUserID, userFirstName, userLastName }) => {
+                    acc.push({ value: companyUserID, label: `${userFirstName} ${userLastName}` });
 
                     return acc;
                 },
@@ -46,7 +46,7 @@ const useEditPinTask = id => {
         }
 
         return [];
-    }, [operativesObj]);
+    }, [operativesObj, pinTask]);
 
     useEffect(() => {
         dispatch(fetchPinTask(id));
@@ -66,8 +66,7 @@ const useEditPinTask = id => {
     const closeModal = () => dispatch(hideModal(EDIT_PIN_TASK));
 
     const onSubmit = () => {
-        const { date } = formData;
-        dispatch(editPinTask(id, date));
+        dispatch(editPinTask(id, formData));
     };
 
     const prevPinTasksPostSuccess = usePrevious(pinTasksPostSuccess);

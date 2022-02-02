@@ -7,7 +7,6 @@ import PinTaskNoteIcon from '../../../../../../../_content/images/icons/pinTaskN
 
 const CalendarPinTask = ({ isRecurring, actionedOn, dueOn, pinCode, viewTaskNote, id, note }) => {
     const { type, status } = useTypeAndStatus(isRecurring, actionedOn, dueOn);
-    console.log(note);
 
     return (
         <div className="task">
