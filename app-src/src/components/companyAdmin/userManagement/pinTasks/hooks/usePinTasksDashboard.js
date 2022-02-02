@@ -5,7 +5,12 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import { PIN_STATS_DASHBOARD_VIEW, TIME_PERIOD } from 'constants/companyAdmin/enums';
-import { CREATE_PIN_TASK, EDIT_PIN_TASK, EDIT_PIN_TASK_SERIES } from 'constants/shared/modalTypes';
+import {
+    CREATE_PIN_TASK,
+    EDIT_PIN_TASK,
+    EDIT_PIN_TASK_SERIES,
+    FETCH_PIN_TASK,
+} from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 
 const usePinTasksDashboard = () => {
@@ -67,6 +72,10 @@ const usePinTasksDashboard = () => {
         dispatch(showModal(CREATE_PIN_TASK, { initialDate: sanitisedDate, startDate }));
     };
 
+    const viewTaskNote = id => {
+        dispatch(showModal(FETCH_PIN_TASK, { id }));
+    };
+
     const startEditPinTask = id => {
         dispatch(showModal(EDIT_PIN_TASK, { id }));
     };
@@ -91,6 +100,7 @@ const usePinTasksDashboard = () => {
         startCreatePinTask,
         startEditPinTask,
         startEditPinTaskSeries,
+        viewTaskNote,
     };
 };
 
