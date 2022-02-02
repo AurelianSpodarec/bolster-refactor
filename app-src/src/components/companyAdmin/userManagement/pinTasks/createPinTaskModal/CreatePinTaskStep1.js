@@ -70,6 +70,8 @@ const CreatePinTaskStep1 = ({
                         disabled={isFetching || fetchError}
                         search
                         required
+                        classes="x-large"
+                        omitPlaceholder
                     />
                 </Field>
 
@@ -82,6 +84,8 @@ const CreatePinTaskStep1 = ({
                         disabled={isFetching || fetchError || !companyUserID}
                         search
                         required
+                        classes="x-large"
+                        omitPlaceholder
                     />
                 </Field>
 
@@ -94,6 +98,8 @@ const CreatePinTaskStep1 = ({
                         disabled={isFetching || fetchError || site == null}
                         search
                         required
+                        classes="x-large"
+                        omitPlaceholder
                     />
                 </Field>
 
@@ -106,6 +112,8 @@ const CreatePinTaskStep1 = ({
                         disabled={isFetching || fetchError || building == null}
                         search
                         required
+                        classes="x-large"
+                        omitPlaceholder
                     />
                 </Field>
 
@@ -118,6 +126,8 @@ const CreatePinTaskStep1 = ({
                         disabled={isFetching || fetchError || floor == null}
                         search
                         required
+                        classes="x-large"
+                        omitPlaceholder
                     />
                 </Field>
             </div>

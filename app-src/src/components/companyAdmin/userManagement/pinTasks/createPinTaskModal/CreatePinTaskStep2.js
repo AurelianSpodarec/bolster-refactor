@@ -33,6 +33,8 @@ const CreatePinTaskStep2 = ({ handleChange, drawing, service, template, pins, co
                         options={serviceOptions}
                         disabled={isFetching || fetchError || isFetchingPinOptions}
                         search
+                        classes="x-large"
+                        omitPlaceholder
                     />
                 </Field>
                 <Field name="template" sizeClasses="size-lg-12">
@@ -43,6 +45,8 @@ const CreatePinTaskStep2 = ({ handleChange, drawing, service, template, pins, co
                         options={templateOptions}
                         disabled={isFetching || fetchError || isFetchingPinOptions}
                         search
+                        classes="x-large"
+                        omitPlaceholder
                     />
                 </Field>
                 <Field name="pins" sizeClasses="size-lg-12">

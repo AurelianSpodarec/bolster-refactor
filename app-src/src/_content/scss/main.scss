@@ -4813,6 +4813,14 @@ input {
         }
     }
 
+    &.x-large {
+        .option-selection{
+            .option-container{
+                max-height: 200px;
+            }
+        }
+    }
+
     &.disabled {
         opacity: 0.5;
         
