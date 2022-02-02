@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment';
 
 import { API_URL } from 'config';
 import {
@@ -24,9 +25,10 @@ export const fetchPinTasksFailure = error => ({
 
 export default (from, to) => dispatch => {
     dispatch(fetchPinTasksRequest());
-
+    const formattedFrom = moment(from).format('YYYY-MM-DD');
+    const formattedTo = moment(to).format('YYYY-MM-DD');
     return axios
-        .get(`${API_URL}/tasks?from=${from}&to=${to}`, getHeaders())
+        .get(`${API_URL}/tasks?from=${formattedFrom}&to=${formattedTo}`, getHeaders())
         .then(res => dispatch(fetchPinTasksSuccess(res.data)))
         .catch(err => dispatch(fetchPinTasksFailure(err.message)));
 };
