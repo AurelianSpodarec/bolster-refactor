@@ -10,11 +10,11 @@ import Select from 'components/shared/generic/form/presentational/Select';
 const viewOptions = [
     {
         value: PIN_STATS_DASHBOARD_VIEW.CALENDAR,
-        label: 'Calendar',
+        label: 'Calendar - Monthly',
     },
     {
         value: PIN_STATS_DASHBOARD_VIEW.LIST,
-        label: 'List',
+        label: 'List - Weekly',
     },
     {
         value: PIN_STATS_DASHBOARD_VIEW.SERIES,
@@ -24,6 +24,7 @@ const viewOptions = [
 
 const Controls = ({ startDate, view, onViewChange, onPrev, onNext, onToday, endDate }) => {
     const disabled = view === PIN_STATS_DASHBOARD_VIEW.SERIES;
+    const buttonText = view === PIN_STATS_DASHBOARD_VIEW.LIST ? 'Week' : 'Month';
 
     return (
         <BlockHeading
@@ -55,14 +56,16 @@ const Controls = ({ startDate, view, onViewChange, onPrev, onNext, onToday, endD
                             </>
                         )}
                     </div>
-                    <ButtonContainer
-                        className="today-button"
-                        setColour="transparent"
-                        handleClick={onToday}
-                        disabled={disabled}
-                    >
-                        <i className="far fa-calendar-week"></i> Today
-                    </ButtonContainer>
+                    {!disabled && (
+                        <ButtonContainer
+                            className="today-button"
+                            setColour="transparent"
+                            handleClick={onToday}
+                            disabled={disabled}
+                        >
+                            <i className="far fa-calendar-week"></i> This {buttonText}
+                        </ButtonContainer>
+                    )}
                     <Select
                         name="view"
                         value={view}
