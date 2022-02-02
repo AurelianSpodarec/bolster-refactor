@@ -4,21 +4,26 @@ import ToggleSelect from 'components/shared/generic/form/presentational/ToggleSe
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import React from 'react';
 import useStep2Options from './hooks/useStep2Options';
+import usePinOptions from '../hooks/usePinOptions';
 
 const CreatePinTaskStep2 = ({ handleChange, drawing, service, template, pins, companyUserID }) => {
+    const { isFetching, fetchError, serviceOptions, templateOptions } = useStep2Options(
+        handleChange,
+        drawing,
+        service,
+        companyUserID,
+    );
     const {
-        isFetching,
-        fetchError,
-        serviceOptions,
-        templateOptions,
         pinOptions,
         pinOptionsFilter,
-    } = useStep2Options(handleChange, drawing, service, template, companyUserID);
+        isFetching: isFetchingPinOptions,
+    } = usePinOptions(service, template, companyUserID, drawing);
 
     return (
         <>
-            {isFetching && <Loading />}
-            {fetchError && !isFetching && <p className="fetch-error">{fetchError}</p>}
+            {isFetching || (isFetchingPinOptions && <Loading />)}
+            {(fetchError && !isFetching) ||
+                (!isFetchingPinOptions && <p className="fetch-error">{fetchError}</p>)}
             <div className="size-lg-12 step-block">
                 <Field name="service" sizeClasses="size-lg-12">
                     <Select
@@ -26,7 +31,7 @@ const CreatePinTaskStep2 = ({ handleChange, drawing, service, template, pins, co
                         value={service}
                         onChange={handleChange}
                         options={serviceOptions}
-                        disabled={isFetching || fetchError}
+                        disabled={isFetching || fetchError || isFetchingPinOptions}
                         search
                     />
                 </Field>
@@ -36,7 +41,7 @@ const CreatePinTaskStep2 = ({ handleChange, drawing, service, template, pins, co
                         value={template}
                         onChange={handleChange}
                         options={templateOptions}
-                        disabled={isFetching || fetchError}
+                        disabled={isFetching || fetchError || isFetchingPinOptions}
                         search
                     />
                 </Field>

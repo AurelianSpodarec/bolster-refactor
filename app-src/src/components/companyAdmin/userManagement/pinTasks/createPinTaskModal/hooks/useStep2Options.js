@@ -1,14 +1,8 @@
-import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
 import getServiceReportOptions from 'actions/companyAdmin/reports/async/getServiceReportOptions';
 import getTemplateReportOptions from 'actions/companyAdmin/reports/async/getTemplateReportOptions';
 import { useEffect } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
-import {
-    selectPins,
-    selectPinsFetchError,
-    selectPinsIsFetching,
-} from 'selectors/companyAdmin/pins';
 import {
     selectReportServices,
     selectReportTemplates,
@@ -17,7 +11,7 @@ import {
 } from 'selectors/companyAdmin/reports';
 import { selectOperative } from 'selectors/companyAdmin/operatives';
 
-const useStep2Options = (handleChange, drawingID, service, template, companyUserID) => {
+const useStep2Options = (handleChange, drawingID, service, companyUserID) => {
     const dispatch = useDispatch();
 
     const services = useSelector(selectReportServices) ?? [];
@@ -25,16 +19,12 @@ const useStep2Options = (handleChange, drawingID, service, template, companyUser
     const reportsIsFetching = useSelector(selectReportsIsFetching);
     const reportsFetchError = useSelector(selectReportsError);
 
-    const pins = useSelector(selectPins) ?? [];
-    const pinsIsFetching = useSelector(selectPinsIsFetching);
-    const pinsFetchError = useSelector(selectPinsFetchError);
-
     const postBody = { hierarchyType: 'drawing', hierarchyID: [drawingID], reportHistories: 1 };
     const op = useSelector(state => selectOperative(state, companyUserID));
+
     useEffect(() => {
         batch(() => {
             if (drawingID != null) {
-                dispatch(fetchPins('Drawing', drawingID));
                 dispatch(fetchOperativesForDrawing(drawingID));
             }
 
@@ -63,35 +53,18 @@ const useStep2Options = (handleChange, drawingID, service, template, companyUser
         return acc;
     }, []);
 
-    const pinOptions = Object.values(pins).reduce((acc, pin) => {
-        if (op?.serviceIDs.includes(pin.latestServiceID)) {
-            acc.push({ value: pin.id, label: pin.pinCode });
-        }
-        return acc;
-    }, []);
-
-    const pinOptionsFilter = ({ value }) => {
-        const { latestServiceID, templateID } = pins[value];
-        let valid = true;
-        if (service != null) valid = latestServiceID == service;
-        if (template != null) valid = templateID == template;
-        return valid;
-    };
-
     useEffect(() => {
         handleChange('template', null);
     }, [service]);
 
-    const isFetching = reportsIsFetching || pinsIsFetching;
-    const fetchError = reportsFetchError || pinsFetchError;
+    const isFetching = reportsIsFetching;
+    const fetchError = reportsFetchError;
 
     return {
         isFetching,
         fetchError,
         serviceOptions,
         templateOptions,
-        pinOptions,
-        pinOptionsFilter,
     };
 };
 
