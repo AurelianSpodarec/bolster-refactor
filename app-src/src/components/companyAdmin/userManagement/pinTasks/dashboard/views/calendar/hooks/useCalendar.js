@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectPinTasks, selectPinTasksIsFetching } from 'selectors/companyAdmin/pinTasks';
 import fetchPinTasks from 'actions/companyAdmin/pinTasks/async/fetchPinTasks';
@@ -14,32 +14,41 @@ const useCalendar = startDate => {
 
     const weekday = moment(startDate).isoWeekday() - 1;
 
-    const matrix = [[], [], [], [], []];
-
+    // set cur date to start of week (mon)
     const currDate = moment(startDate).subtract(weekday, 'days');
 
-    for (let i = 0; i < 7 * 5; i++) {
-        const x = Math.floor(i / 7);
-        const y = i % 7;
+    // create array of weeks, each week is an array of days
+    const numberOfWeeksToShow = 6;
+    const daysInWeek = 7;
+    const matrix = useMemo(() => {
+        const weekMatrix = new Array(numberOfWeeksToShow).fill().map(() => new Array());
 
-        const relevantPinTasks = [];
+        for (let i = 0; i < daysInWeek * numberOfWeeksToShow; i++, currDate.add(1, 'day')) {
+            const week = Math.floor(i / daysInWeek);
+            const day = i % daysInWeek;
 
-        Object.values(pinTasks).forEach(pinTask => {
-            if (moment(currDate).isSame(pinTask.dueOn, 'day')) relevantPinTasks.push(pinTask);
+            const relevantPinTasks = Object.values(pinTasks).filter(({ dueOn }) => {
+                return currDate.isSame(dueOn, 'day');
+            });
+
+            weekMatrix[week][day] = {
+                date: currDate.format(),
+                pinTasks: relevantPinTasks,
+            };
+
+            // currDate.add(1, 'day');
+        }
+        // only show weeks if they have day overlap with start date's month
+        const weeksToShow = weekMatrix.filter(week => {
+            return week.some(day => moment(day.date).isSame(startDate, 'month'));
         });
-
-        matrix[x][y] = {
-            date: currDate.format(),
-            pinTasks: relevantPinTasks,
-        };
-
-        currDate.add(1, 'day');
-    }
+        return weeksToShow;
+    }, [pinTasks, startDate]);
 
     const types = Object.values(pinTasks).reduce(
         (res, { isRecurring }) => {
-            if (isRecurring) res.recurring = res.recurring + 1;
-            else res.non_recurring = res.non_recurring + 1;
+            if (isRecurring) res.recurring++;
+            else res.non_recurring++;
 
             return res;
         },
@@ -49,11 +58,11 @@ const useCalendar = startDate => {
     const statuses = Object.values(pinTasks).reduce(
         (res, { dueOn, actionedOn }) => {
             if (actionedOn) {
-                if (moment(actionedOn).isAfter(dueOn)) res.complete_late = res.complete_late + 1;
-                else res.complete = res.complete + 1;
+                if (moment(actionedOn).isAfter(dueOn)) res.complete_late++;
+                else res.complete++;
             } else {
-                if (moment(dueOn).isBefore()) res.incomplete = res.incomplete + 1;
-                else res.due_soon = res.due_soon + 1;
+                if (moment(dueOn).isBefore()) res.incomplete++;
+                else res.due_soon++;
             }
             return res;
         },
@@ -61,7 +70,7 @@ const useCalendar = startDate => {
     );
 
     useEffect(() => {
-        dispatch(fetchPinTasks(startDate, moment(startDate).add(1, 'month').format()));
+        dispatch(fetchPinTasks(startDate, moment(startDate).endOf('month')));
     }, [dispatch, startDate]);
 
     return { days, matrix, pinTasks, isFetching, types, statuses };
