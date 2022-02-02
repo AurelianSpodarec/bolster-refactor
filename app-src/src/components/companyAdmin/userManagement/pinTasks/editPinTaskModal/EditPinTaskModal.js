@@ -1,13 +1,14 @@
+import React from 'react';
+import moment from 'moment';
+
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import React from 'react';
 import useEditPinTask from './hooks/useEditPinTask';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import moment from 'moment';
 import Select from 'components/shared/generic/form/presentational/Select';
 
 const EditPinTaskModal = ({ id }) => {

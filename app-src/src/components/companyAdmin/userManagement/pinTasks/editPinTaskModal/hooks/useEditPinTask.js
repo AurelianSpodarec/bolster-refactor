@@ -1,8 +1,12 @@
-import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import { EDIT_PIN_TASK } from 'constants/shared/modalTypes';
 import { useForm, usePrevious } from 'helpers/hooks';
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
+import editPinTask from 'actions/companyAdmin/pinTasks/async/editPinTask';
+import fetchPinTask from 'actions/companyAdmin/pinTasks/async/fetchPinTask';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+
 import {
     selectPinTask,
     selectPinTasksIsFetching,
@@ -10,9 +14,10 @@ import {
     selectPinTasksPostSuccess,
     selectPinTasksError,
 } from 'selectors/companyAdmin/pinTasks';
-import editPinTask from 'actions/companyAdmin/pinTasks/async/editPinTask';
-import fetchPinTask from 'actions/companyAdmin/pinTasks/async/fetchPinTask';
-import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
+import { getOperatives, getOperativesIsFetching } from 'selectors/companyAdmin/operatives';
+
+import { isObjEmpty } from 'helpers/generic';
+import { EDIT_PIN_TASK } from 'constants/shared/modalTypes';
 
 const useEditPinTask = id => {
     const dispatch = useDispatch();
@@ -25,21 +30,33 @@ const useEditPinTask = id => {
 
     const pinTasksError = useSelector(selectPinTasksError);
 
-    const allUsers = useSelector(selectCompanyUsers);
+    const operativesObj = useSelector(getOperatives);
+    const operativesIsFetching = useSelector(getOperativesIsFetching);
 
     const operatives = useMemo(() => {
-        const formattedOperatives = Object.values(allUsers).reduce((acc, op) => {
-            acc.push({ value: op.id, label: op.userFirstName + ' ' + op.userLastName });
+        if (!isObjEmpty(operativesObj)) {
+            return Object.values(operativesObj).reduce(
+                (acc, { id, userFirstName, userLastName }) => {
+                    acc.push({ value: id, label: `${userFirstName} ${userLastName}` });
 
-            return acc;
-        }, []);
+                    return acc;
+                },
+                [],
+            );
+        }
 
-        return formattedOperatives;
-    }, [allUsers]);
+        return [];
+    }, [operativesObj]);
 
     useEffect(() => {
         dispatch(fetchPinTask(id));
-    }, [dispatch]);
+    }, [id]);
+
+    useEffect(() => {
+        if (!isObjEmpty(pinTask) && pinTask.drawingID) {
+            dispatch(fetchOperativesForDrawing(pinTask.drawingID));
+        }
+    }, [pinTask]);
 
     const [formData, handleChange] = useForm({
         date: pinTask?.dueOn,
@@ -63,7 +80,7 @@ const useEditPinTask = id => {
         formData,
         handleChange,
         closeModal,
-        isFetching: pinTasksIsFetching,
+        isFetching: pinTasksIsFetching || operativesIsFetching,
         isPosting: pinTasksIsPosting,
         error: pinTasksError,
         onSubmit,
