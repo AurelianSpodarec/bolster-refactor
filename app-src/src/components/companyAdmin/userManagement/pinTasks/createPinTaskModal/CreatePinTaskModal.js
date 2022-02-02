@@ -4,42 +4,14 @@ import Form from 'components/shared/generic/form/containers/Form';
 import PickListContainer from 'components/shared/generic/form/containers/PickListContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import { DAY, RECURRING_TYPE } from 'constants/companyAdmin/enums';
+
 import useCreatePinTask from './hooks/useCreatePinTask';
 import CreatePinTaskStep1 from './CreatePinTaskStep1';
 import CreatePinTaskStep2 from './CreatePinTaskStep2';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Select from 'components/shared/generic/form/presentational/Select';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-
-const recurringOptions = [
-    {
-        value: RECURRING_TYPE.NONE,
-        label: 'Non-recurring',
-    },
-    {
-        value: RECURRING_TYPE.DAILY,
-        label: 'Daily',
-    },
-    {
-        value: RECURRING_TYPE.WEEKLY,
-        label: 'Weekly',
-    },
-    {
-        value: RECURRING_TYPE.MONTHLY,
-        label: 'Monthly',
-    },
-];
-
-const dayOptions = [
-    { value: DAY.MONDAY, text: 'M' },
-    { value: DAY.TUESDAY, text: 'T' },
-    { value: DAY.WEDNESDAY, text: 'W' },
-    { value: DAY.THURSDAY, text: 'T' },
-    { value: DAY.FRIDAY, text: 'F' },
-    { value: DAY.SATURDAY, text: 'S' },
-    { value: DAY.SUNDAY, text: 'S' },
-];
+import { dayOptions, recurringOptions } from 'constants/companyAdmin/pinTasks';
 
 const CreatePinTaskModal = ({ initialDate, startDate }) => {
     const {

@@ -22,18 +22,11 @@ export const editPinTaskSeriesFailure = error => ({
     error,
 });
 
-export default (id, endOn, pinIDs) => dispatch => {
+export default (id, postBody) => dispatch => {
     dispatch(editPinTaskSeriesRequest());
 
     return axios
-        .post(
-            `${API_URL}/tasks/series/${id}`,
-            {
-                endOn,
-                pinIDs,
-            },
-            getHeaders(),
-        )
+        .patch(`${API_URL}/tasks/series/${id}`, postBody, getHeaders())
         .then(res => dispatch(editPinTaskSeriesSuccess(res.data)))
         .catch(err => dispatch(editPinTaskSeriesFailure(err.message)));
 };

@@ -542,6 +542,15 @@ export const DAYS_FLAGGED = {
     SATURDAY: 32,
     SUNDAY: 64,
 };
+export const DAYS_FLAGGED_LOOKUP = {
+    1: 'MONDAY',
+    2: 'TUESDAY',
+    4: 'WEDNESDAY',
+    8: 'THURSDAY',
+    16: 'FRIDAY',
+    32: 'SATURDAY',
+    64: 'SUNDAY',
+};
 
 export const PIN_TASK_STATUS = {
     COMPLETE: 'complete',

@@ -7352,19 +7352,6 @@ input {
                 text-align: center;
             }
         }
-
-        .pick-list {
-            .options {
-                justify-content: space-evenly;
-                
-                .option {
-                    width: 30px;
-                    height: 30px;
-    
-                    border-radius: 100%;
-                }
-            }
-        }
     }
 
     .step-tabs {
@@ -7441,9 +7428,46 @@ input {
         justify-content: flex-end;
         gap: 16px;
     }
+}
 
+.edit-pin-task-modal {
+    overflow: visible !important;
+
+    .loading-text {
+        position: absolute;
+
+        p {
+            font-size: 150%;
+            margin-bottom: 4px;
+        }
+    }
+    
+    .pick-list-wrapper {
+        flex: 1;
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            margin-bottom: 0;
+        }
+    }
+}
+
+.create-pin-task-modal, .edit-pin-task-modal {
     @include reactDatePickerStyles();
 
+    .pick-list {
+        .options {
+            justify-content: space-evenly;
+            
+            .option {
+                width: 30px;
+                height: 30px;
+
+                border-radius: 100%;
+            }
+        }
+    }
     .d-none {
         display: none !important;
     }
@@ -7455,25 +7479,6 @@ input {
     }
 }
 
-.edit-pin-task-modal {
-    overflow: visible !important;
-    @include reactDatePickerStyles();
-
-    .loading-text {
-        position: absolute;
-
-        p {
-            font-size: 150%;
-            margin-bottom: 4px;
-        }
-    }
-
-    .error {
-        float: right;
-        margin-top: 5px;
-        color: #e20613;
-    }
-}
 
 .content-container {
     &.no-padding {

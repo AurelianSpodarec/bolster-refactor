@@ -1,12 +1,14 @@
+import { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm, usePrevious } from 'helpers/hooks';
+
+import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
 import deletePinTaskSeries from 'actions/companyAdmin/pinTasks/async/deletePinTaskSeries';
 import editPinTaskSeries from 'actions/companyAdmin/pinTasks/async/editPinTaskSeries';
 import fetchPinTaskSeries from 'actions/companyAdmin/pinTasks/async/fetchPinTaskSeries';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-import { CONFIRM_DELETE, EDIT_PIN_TASK_SERIES } from 'constants/shared/modalTypes';
-import { useForm, usePrevious } from 'helpers/hooks';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+
 import {
     selectPinTaskSeries,
     selectPinTasksError,
@@ -14,6 +16,12 @@ import {
     selectPinTasksIsPosting,
     selectPinTasksPostSuccess,
 } from 'selectors/companyAdmin/pinTasks';
+import { getOperatives, getOperativesIsFetching } from 'selectors/companyAdmin/operatives';
+
+import { CONFIRM_DELETE, EDIT_PIN_TASK_SERIES } from 'constants/shared/modalTypes';
+import { isObjEmpty } from 'helpers/generic';
+import { DAYS_FLAGGED, DAYS_FLAGGED_LOOKUP, RECURRING_TYPE } from 'constants/companyAdmin/enums';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 const useEditPinTaskSeries = id => {
     const dispatch = useDispatch();
@@ -26,22 +34,69 @@ const useEditPinTaskSeries = id => {
 
     const pinTasksError = useSelector(selectPinTasksError);
 
+    const operativesObj = useSelector(getOperatives);
+    const operativesIsFetching = useSelector(getOperativesIsFetching);
+
+    const operatives = useMemo(() => {
+        if (!isObjEmpty(operativesObj)) {
+            return Object.values(operativesObj).reduce(
+                (acc, { companyUserID, userFirstName, userLastName }) => {
+                    acc.push({ value: companyUserID, label: `${userFirstName} ${userLastName}` });
+
+                    return acc;
+                },
+                [],
+            );
+        }
+
+        return [];
+    }, [operativesObj]);
+
     useEffect(() => {
         dispatch(fetchPinTaskSeries(id));
     }, [dispatch]);
 
+    useEffect(() => {
+        if (!isObjEmpty(pinTaskSeries) && pinTaskSeries.drawingID) {
+            dispatch(fetchOperativesForDrawing(pinTaskSeries.drawingID));
+        }
+    }, [pinTaskSeries]);
+
+    const handleConvertDaysToString = () => {
+        const { recurrenceWeeklyDays } = pinTaskSeries;
+        return recurrenceWeeklyDays.map(day => DAYS_FLAGGED_LOOKUP[day]);
+    };
+
+    const handleDaysConversion = () => {
+        const { recurrenceDays } = formData;
+        //API takes a bitmask of days of the week https://docs.microsoft.com/en-us/dotnet/api/System.FlagsAttribute?view=net-6.0
+        return recurrenceDays.reduce((res, item) => res + DAYS_FLAGGED[item], 0);
+    };
+
     const [formData, handleChange] = useForm({
-        pins: pinTaskSeries?.pinIDs,
-        endDate: pinTaskSeries?.recurrenceEndsOn,
-        service: null,
-        template: null,
+        companyUserID: pinTaskSeries.companyUserID,
+        pinIDs: pinTaskSeries?.pinIDs,
+        startOn: pinTaskSeries?.recurrenceStartsOn,
+        endOn: pinTaskSeries?.recurrenceEndsOn,
+        recurrenceType: pinTaskSeries?.recurrenceType,
+        recurrenceDays: handleConvertDaysToString(),
     });
+
+    const isWeekly = formData.recurrenceType === RECURRING_TYPE.WEEKLY;
+
+    useEffect(() => {
+        if (!isWeekly) {
+            handleChange('days', []);
+            dispatch(removeFieldError('days'));
+        }
+    }, [isWeekly]);
 
     const closeModal = () => dispatch(hideModal(EDIT_PIN_TASK_SERIES));
 
     const onSubmit = () => {
-        const { endDate, pins } = formData;
-        dispatch(editPinTaskSeries(id, endDate, pins));
+        const postBody = { ...formData, recurrenceDays: handleDaysConversion() };
+
+        dispatch(editPinTaskSeries(id, postBody));
     };
 
     const handleDeleteSeries = () => {
@@ -69,12 +124,14 @@ const useEditPinTaskSeries = id => {
         formData,
         handleChange,
         closeModal,
-        isFetching: pinTasksIsFetching,
+        isFetching: pinTasksIsFetching || operativesIsFetching,
         isPosting: pinTasksIsPosting,
         error: pinTasksError,
         onSubmit,
         pinTaskSeries,
         handleDeleteSeries,
+        operatives,
+        isWeekly,
     };
 };
 
