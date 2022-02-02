@@ -35,6 +35,7 @@ const DocumentFilters = ({
     const dispatch = useDispatch();
 
     const isDeletedFilter = libraryFilter === 'isArchived';
+    const isEditDisabled = isDeletedFilter || (isRoot && selectedItems.length === 0);
 
     return (
         <Form
@@ -67,7 +68,7 @@ const DocumentFilters = ({
                 />
                 {!isDeletedFilter && (
                     <button
-                        disabled={isRoot || libraryFilter === 'isArchived'}
+                        disabled={isEditDisabled}
                         className={'library-button button'}
                         type="button"
                         onClick={showEditModal}
