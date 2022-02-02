@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -15,11 +15,13 @@ import CalendarPinTask from './CalendarPinTask';
 import { selectUserFilters } from 'selectors/companyAdmin/companyUsers';
 import { selectServiceFilters } from 'selectors/companyAdmin/services';
 import { selectSiteFilters } from 'selectors/companyAdmin/sites';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const { RECURRING, NON_RECURRING } = PIN_TASK_RECURRING;
 const { COMPLETE_LATE, COMPLETE, INCOMPLETE, DUE_SOON } = PIN_TASK_STATUS;
 
-const Calendar = ({ startDate, startCreatePinTask, days, matrix, isFetching }) => {
+const Calendar = ({ startDate, startCreatePinTask, viewTaskNote, days, matrix, isFetching }) => {
+    const dispatch = useDispatch();
     const selectedRecurrenceFilter = useSelector(selectPinRecurrenceFilters);
     const selectedStatusFilter = useSelector(selectPinStatusFilters);
     const selectUserFilter = useSelector(selectUserFilters);
@@ -102,12 +104,17 @@ const Calendar = ({ startDate, startCreatePinTask, days, matrix, isFetching }) =
                                                         return true;
                                                     })
                                                     .map((pinTask, i) => (
-                                                        <CalendarPinTask {...pinTask} key={i} />
+                                                        <CalendarPinTask
+                                                            {...pinTask}
+                                                            key={i}
+                                                            viewTaskNote={viewTaskNote}
+                                                        />
                                                     ))}
                                             </div>
                                         ) : (
                                             <p className="no-tasks">{!disabled && 'No Tasks'}</p>
                                         )}
+
                                         <ButtonContainer
                                             setColour="transparent"
                                             setColourHoverCode="#e6e6e6"
@@ -116,6 +123,7 @@ const Calendar = ({ startDate, startCreatePinTask, days, matrix, isFetching }) =
                                         >
                                             <i className="fas fa-plus" />
                                         </ButtonContainer>
+
                                         {isToday && <div className="film" />}
                                     </div>
                                 </td>

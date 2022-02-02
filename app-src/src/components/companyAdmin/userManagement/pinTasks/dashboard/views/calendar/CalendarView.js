@@ -3,7 +3,7 @@ import Calendar from './Calendar';
 import TasksLegend from '../../TasksLegend';
 import useCalendar from './hooks/useCalendar';
 
-const CalendarView = ({ startDate, startCreatePinTask }) => {
+const CalendarView = ({ startDate, startCreatePinTask, viewTaskNote }) => {
     const { days, matrix, isFetching, types, statuses, pinTasks } = useCalendar(startDate);
 
     return (
@@ -11,6 +11,7 @@ const CalendarView = ({ startDate, startCreatePinTask }) => {
             <TasksLegend types={types} statuses={statuses} pinTasks={pinTasks} />
             <Calendar
                 startCreatePinTask={startCreatePinTask}
+                viewTaskNote={viewTaskNote}
                 startDate={startDate}
                 days={days}
                 matrix={matrix}

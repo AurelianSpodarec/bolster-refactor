@@ -21,6 +21,7 @@ const PinTasksDashboard = () => {
         onNext,
         onToday,
         startCreatePinTask,
+        viewTaskNote,
         startEditPinTask,
         startEditPinTaskSeries,
     } = usePinTasksDashboard();
@@ -40,6 +41,7 @@ const PinTasksDashboard = () => {
                 <ButtonContainer handleClick={() => startCreatePinTask()}>
                     Create Task
                 </ButtonContainer>
+                <ButtonContainer handleClick={() => viewTaskNote()}>View Task Note</ButtonContainer>
             </PageHeading>
             <BlockContainer contentClass="pin-tasks-dashboard-header">
                 <Controls
@@ -58,6 +60,7 @@ const PinTasksDashboard = () => {
                     startDate={startDate}
                     startCreatePinTask={startCreatePinTask}
                     startEditPinTask={startEditPinTask}
+                    viewTaskNote={viewTaskNote}
                     startEditPinTaskSeries={startEditPinTaskSeries}
                 />
             </div>

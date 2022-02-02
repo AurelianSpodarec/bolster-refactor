@@ -450,10 +450,23 @@ em {
 .center-align {
     text-align: center;
 }
+
+
 //for button under content blocks/areas
 .button-block-container {
     padding: 0 5px;
     margin-top: 15px;
+    
+    &.center-right-align-items {
+        display: flex;
+        align-items: center;
+        justify-content: right;
+    }
+
+    &.min-height-20 {
+        min-height: 20px;
+
+    }
 
     &.center-align {
         text-align: center;
@@ -7152,6 +7165,7 @@ input {
                                             width: 22px;
                                             height: 22px;
                                         }
+                                        
                                     }
 
                                     .name {
@@ -7173,11 +7187,16 @@ input {
                                 padding: 5px;
                                 margin: 0;
 
+                                &.smaller-padding {
+                                    padding: 3px;
+                                }
+
                                 .fas, .far {
                                     font-size: 110%;
                                     color: $body-text;
                                 }
                             }
+                           
                         }
                     }
                 }
@@ -7455,7 +7474,7 @@ input {
     }
 }
 
-.edit-pin-task-modal {
+.edit-pin-task-modal, .view-pin-task-modal {
     overflow: visible !important;
     @include reactDatePickerStyles();
 
