@@ -2966,6 +2966,12 @@ input {
                 float: none;
                 margin-left: 2.5px;
                 margin-bottom: 2px;
+
+                .note-icon {
+                    position: relative;
+                    left: -5px;
+                    bottom: -5px;
+                }
             }
         }
 

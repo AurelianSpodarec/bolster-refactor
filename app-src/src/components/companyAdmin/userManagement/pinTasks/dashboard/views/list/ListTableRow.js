@@ -11,7 +11,10 @@ import {
 import TaskStatusPill from '../../TaskStatusPill';
 import TaskRecurrencePill from '../../TaskRecurrencePill';
 
-const ListTableRow = ({ pinTask, startEditPinTask }) => {
+import PinTaskNoteIcon from '../../../../../../../_content/images/icons/pinTaskNote.png';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+
+const ListTableRow = ({ pinTask, startEditPinTask, viewTaskNote }) => {
     const {
         id,
         operativeFirstName,
@@ -54,18 +57,34 @@ const ListTableRow = ({ pinTask, startEditPinTask }) => {
                 </div>
             </td>
             <td>
-                <button
-                    className="button yellow"
-                    type="button"
-                    onClick={() => startEditPinTask(id)}
-                >
-                    <i className="far fa-pencil" />
-                    Edit Task
-                </button>
-                <button className="button red" type="button" onClick={() => handleDeleteTask(id)}>
-                    <i className="far fa-trash" />
-                    Delete
-                </button>
+                <BlockButtonWrapper additionalClasses="stacked">
+                    <button
+                        className="button yellow"
+                        type="button"
+                        onClick={() => startEditPinTask(id)}
+                    >
+                        <i className="far fa-pencil" />
+                        Edit Task
+                    </button>
+                    {pinTask.note && (
+                        <button
+                            className="button green"
+                            type="button"
+                            onClick={() => viewTaskNote(id)}
+                        >
+                            <img className="note-icon" src={PinTaskNoteIcon} alt="Pin Task icon" />
+                            Note
+                        </button>
+                    )}
+                    <button
+                        className="button red"
+                        type="button"
+                        onClick={() => handleDeleteTask(id)}
+                    >
+                        <i className="far fa-trash" />
+                        Delete
+                    </button>
+                </BlockButtonWrapper>
             </td>
         </tr>
     );
