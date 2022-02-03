@@ -1,1 +1,1 @@
-export const selectOperativesIsFetching = state => state.companyAdmin.operativesReducer.isFetching;
+export const getOperativesIsFetching = state => state.companyAdmin.operativesReducer.isFetching;

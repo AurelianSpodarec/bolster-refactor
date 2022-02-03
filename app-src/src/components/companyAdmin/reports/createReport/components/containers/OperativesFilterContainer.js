@@ -7,7 +7,7 @@ import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
-import { selectOperativesIsFetching } from 'selectors/companyAdmin/operatives';
+import { getOperativesIsFetching } from 'selectors/companyAdmin/operatives';
 
 import OperativesFilter from '../presentational/OperativesFilter';
 import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
@@ -111,7 +111,7 @@ class OperativesFilterContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    isFetching: selectOperativesIsFetching(state),
+    isFetching: getOperativesIsFetching(state),
 });
 
 const mapDispatchToProps = dispatch => ({
