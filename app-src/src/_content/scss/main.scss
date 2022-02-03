@@ -2969,7 +2969,9 @@ input {
                 .note-icon {
                     position: relative;
                     left: -5px;
-                    bottom: -5px;
+                    bottom: -3px;
+                    width: 14px;
+                    height: 18px;
                 }
             }
         }
@@ -7204,7 +7206,12 @@ input {
                                 margin: 0;
 
                                 &.no-padding {
-                                    padding: 0px;
+                                    padding: 0px;                         
+                                }
+
+                                img {
+                                    width: 14px;
+                                    height: 18px;
                                 }
 
                                 .fas, .far {
