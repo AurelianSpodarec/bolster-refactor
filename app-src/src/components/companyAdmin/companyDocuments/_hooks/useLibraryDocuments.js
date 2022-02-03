@@ -45,7 +45,9 @@ const useLibraryDocuments = prefix => {
         setSelectedItems([]);
     };
 
-    useDebounce(searchAction, [], 100); // Fetch on mount, regardless
+    useEffect(() => {
+        searchAction();
+    }, []);
 
     useEffect(() => {
         if (libraryFilter !== prevProps.libraryFilter || libraryView !== prevProps.libraryView) {

@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Form from 'components/shared/generic/form/containers/Form';
-import { useForm, usePrevious } from 'helpers/hooks';
+import { useForm, usePrevious, useQueryParam } from 'helpers/hooks';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
@@ -28,6 +28,8 @@ const EditDocumentItemsModal = ({ ids }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const documentLibrary = useSelector(selectDocumentLibrary);
+    const prefix = useQueryParam('prefix');
+    const prevPrefix = prefix.split('/').slice(0, -2).join('/');
 
     const companyDocuments = useMemo(() => {
         if (ids.length === 1) {
@@ -37,7 +39,7 @@ const EditDocumentItemsModal = ({ ids }) => {
         } else {
             return documentLibrary;
         }
-    }, [companyDocuments, ids]);
+    }, [documentLibrary, ids]);
 
     const initialFormData = {
         name: '',
@@ -84,7 +86,11 @@ const EditDocumentItemsModal = ({ ids }) => {
     useEffect(() => {
         if (!prevSuccess && success) {
             if (companyDocuments.isCurrentFolder) {
-                history.replace(`/company/company-documents?prefix=${formData.name}/`);
+                setTimeout(() => {
+                    history.push(
+                        `/company/company-documents?prefix=${prevPrefix}/${formData.name}/`,
+                    );
+                }, 1000);
             }
             dispatch(showModal(SUCCESS_MODAL, { message: 'Successfully updated library items' }));
         }
