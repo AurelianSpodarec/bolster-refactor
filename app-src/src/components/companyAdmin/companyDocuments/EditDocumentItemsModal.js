@@ -28,8 +28,10 @@ const EditDocumentItemsModal = ({ ids }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const documentLibrary = useSelector(selectDocumentLibrary);
+
     const prefix = useQueryParam('prefix');
-    const prevPrefix = prefix.split('/').slice(0, -2).join('/');
+    const splitArray = prefix.split('/');
+    const prevPrefix = splitArray.length > 2 ? prefix.split('/').slice(0, -2).join('/') : null;
 
     const companyDocuments = useMemo(() => {
         if (ids.length === 1) {
@@ -87,9 +89,9 @@ const EditDocumentItemsModal = ({ ids }) => {
         if (!prevSuccess && success) {
             if (companyDocuments.isCurrentFolder) {
                 setTimeout(() => {
-                    history.push(
-                        `/company/company-documents?prefix=${prevPrefix}/${formData.name}/`,
-                    );
+                    const newPrefix = prevPrefix ? `${prevPrefix}/${formData.name}` : formData.name;
+
+                    history.push(`/company/company-documents?prefix=${newPrefix}/`);
                 }, 1000);
             }
             dispatch(showModal(SUCCESS_MODAL, { message: 'Successfully updated library items' }));
