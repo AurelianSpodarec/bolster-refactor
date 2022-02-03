@@ -7177,6 +7177,9 @@ input {
                                             padding: 5px;
                                             width: 22px;
                                             height: 22px;
+                                            &.no-padding {
+                                                padding: 0px;
+                                            }
                                         }
                                         
                                     }
@@ -7200,8 +7203,8 @@ input {
                                 padding: 5px;
                                 margin: 0;
 
-                                &.smaller-padding {
-                                    padding: 3px;
+                                &.no-padding {
+                                    padding: 0px;
                                 }
 
                                 .fas, .far {

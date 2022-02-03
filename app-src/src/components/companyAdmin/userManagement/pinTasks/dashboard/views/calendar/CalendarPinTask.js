@@ -10,19 +10,19 @@ const CalendarPinTask = ({ isRecurring, actionedOn, dueOn, pinCode, viewTaskNote
 
     return (
         <div className="task">
-            {note && (
-                <ButtonContainer
-                    setColour="transparent"
-                    setColourHoverCode="#e6e6e6"
-                    handleClick={() => viewTaskNote(id)}
-                    className="smaller-padding"
-                >
-                    <img src={PinTaskNoteIcon} alt="Pin Task icon" />
-                </ButtonContainer>
-            )}
             <div className="group">
                 <div className={`circle ${type}`} />
                 <div className={`circle ${status}`} />
+                {note && (
+                    <ButtonContainer
+                        setColour="transparent"
+                        setColourHoverCode="#e6e6e6"
+                        handleClick={() => viewTaskNote(id)}
+                        className="no-padding"
+                    >
+                        <img src={PinTaskNoteIcon} alt="Pin Task icon" />
+                    </ButtonContainer>
+                )}
             </div>
             <div className="group">
                 <p className="name">{pinCode}</p>
