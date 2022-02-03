@@ -22,7 +22,7 @@ export const createDocumentLibraryFolderFailure = error => ({
     error,
 });
 
-export default (postbody) => dispatch => {
+export default postbody => dispatch => {
     dispatch(createDocumentLibraryFolderRequest());
 
     return axios
