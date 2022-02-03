@@ -95,8 +95,8 @@ class OperativesFilterContainer extends Component {
                 !hasModalShown
             ) {
                 showModal(SUCCESS_MODAL, {
-                    title: 'Invalid operative',
-                    message: 'The operative you selected has not placed a pin on any sites.',
+                    title: 'No pin data',
+                    message: 'The selected user has not created any pin data.',
                 });
 
                 this.setState({ hasModalShown: true });
