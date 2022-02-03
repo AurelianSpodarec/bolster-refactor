@@ -7,11 +7,13 @@ import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
+import { selectOperativesIsFetching } from 'selectors/companyAdmin/operatives';
+
 import OperativesFilter from '../presentational/OperativesFilter';
 import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 
 class OperativesFilterContainer extends Component {
-    state = { hasSetOp: false };
+    state = { hasSetOp: false, hasModalShown: false };
 
     render() {
         const {
@@ -50,20 +52,27 @@ class OperativesFilterContainer extends Component {
         }
     };
 
-    componentDidUpdate = ({ customFilters: { operatives: prevOps } }) => {
+    componentDidUpdate = ({
+        customFilters: { operatives: prevOps },
+        isFetching: prevIsFetching,
+    }) => {
         const {
             handleChange,
             customFilters: { operatives },
             filters: { companyUserIDs },
             location: { state: locationState },
             showModal,
+            isFetching,
         } = this.props;
+
+        const { hasSetOp, hasModalShown } = this.state;
+
         if (operatives.length !== prevOps.length) {
             // remove operative if they're no longer available after filter update
             const opIDs = companyUserIDs.filter(opID => operatives.some(op => opID === op.id));
 
             if (
-                !this.state.hasSetOp &&
+                !hasSetOp &&
                 locationState?.operativeID &&
                 operatives.some(({ id }) => id === locationState.operativeID)
             ) {
@@ -74,14 +83,24 @@ class OperativesFilterContainer extends Component {
                 this.setState({ hasSetOp: true });
             }
 
-            if (locationState?.operativeID && !opIDs.includes(locationState?.operativeID)) {
+            handleChange('companyUserIDs', opIDs);
+        }
+
+        if (!isFetching && prevIsFetching) {
+            const opIDs = operatives.map(operative => operative.id);
+
+            if (
+                locationState?.operativeID &&
+                !opIDs.includes(locationState?.operativeID) &&
+                !hasModalShown
+            ) {
                 showModal(SUCCESS_MODAL, {
                     title: 'Invalid operative',
                     message: 'The operative you selected has not placed a pin on any sites.',
                 });
-            }
 
-            handleChange('companyUserIDs', opIDs);
+                this.setState({ hasModalShown: true });
+            }
         }
     };
 
@@ -91,11 +110,15 @@ class OperativesFilterContainer extends Component {
     };
 }
 
+const mapStateToProps = state => ({
+    isFetching: selectOperativesIsFetching(state),
+});
+
 const mapDispatchToProps = dispatch => ({
     showModal: (type, modalProps) => dispatch(showModal(type, modalProps)),
     hideModal: () => dispatch(hideModal()),
 });
 
 export default withRouter(
-    connect(null, mapDispatchToProps)(withUpdateOnChange(OperativesFilterContainer)),
+    connect(mapStateToProps, mapDispatchToProps)(withUpdateOnChange(OperativesFilterContainer)),
 );
