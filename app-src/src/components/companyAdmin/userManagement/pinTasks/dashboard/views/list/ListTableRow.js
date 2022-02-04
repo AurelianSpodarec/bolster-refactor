@@ -56,7 +56,7 @@ const ListTableRow = ({ pinTask, startEditPinTask, viewTaskNote }) => {
                     />
                 </div>
             </td>
-            <td>
+            <td className="min-width-120">
                 <BlockButtonWrapper additionalClasses="stacked">
                     <button
                         className="button yellow"
@@ -64,7 +64,7 @@ const ListTableRow = ({ pinTask, startEditPinTask, viewTaskNote }) => {
                         onClick={() => startEditPinTask(id)}
                     >
                         <i className="far fa-pencil" />
-                        Edit Task
+                        Edit
                     </button>
                     {pinTask.note && (
                         <button
