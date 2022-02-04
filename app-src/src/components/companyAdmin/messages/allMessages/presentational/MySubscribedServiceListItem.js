@@ -3,7 +3,7 @@ import StatusIcon from 'components/shared/generic/statusIcon/presentationl/Statu
 
 const SubscribedServiceListItem = ({ key, serviceName }) => (
     <div
-        key={`subscription-${key}`}
+        // key={`subscription-${key}`}
         className="subscription-item size-lg-6 size-md-12"
     >
         <div className="field-name size-lg-12">

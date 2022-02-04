@@ -13,6 +13,7 @@ const MultiDropdownOptions = ({
     originalDropdownMultiAns,
     isManufacturingEnabledForDrawing,
     defaultDropdownSorting,
+    companyID,
 }) => {
     let isManufacturingEnabledForType = false;
     let formattedOpts = [];
@@ -24,12 +25,17 @@ const MultiDropdownOptions = ({
     }, []);
 
     const filteredOptions = dropdownOptions.filter(option => {
+        if (option.companyID !== companyID && option.companyID !== null) {
+            return false;
+        }
         if (option.type + '' === optionType + '') {
             // while filtering check whether manufacturing enabled for specific type
             if (
                 isManufacturingEnabledForDrawing &&
                 DROPDOWN_OPTION_MANUFACTURER_ENABLED[optionType]
             ) {
+                if (option.isManufacturerDeleted) return false;
+
                 isManufacturingEnabledForType = true;
             }
             return true;

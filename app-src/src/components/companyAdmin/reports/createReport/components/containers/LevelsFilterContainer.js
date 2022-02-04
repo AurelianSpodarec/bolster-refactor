@@ -32,11 +32,16 @@ class LevelsFilterContainer extends Component {
             formatArrForDropdown,
         } = this.props;
 
-        const sortedFloors = Object.values(floors).sort((a, b) => a.sort - b.sort); // Sort based on sort key
-        const sitesOptions = formatArrForDropdown(sites);
-        const buildingOptions = formatArrForDropdown(buildings);
+        // Sort based on sort key
+        const sortedSites = Object.values(sites).sort((a, b) => a.sort - b.sort);
+        const sortedBuildings = Object.values(buildings).sort((a, b) => a.sort - b.sort);
+        const sortedFloors = Object.values(floors).sort((a, b) => a.sort - b.sort);
+        const sortedDrawings = Object.values(drawings).sort((a, b) => a.sort - b.sort);
+
+        const sitesOptions = formatArrForDropdown(sortedSites);
+        const buildingOptions = formatArrForDropdown(sortedBuildings);
         const floorOptions = formatArrForDropdown(sortedFloors);
-        const drawingOptions = formatArrForDropdown(drawings);
+        const drawingOptions = formatArrForDropdown(sortedDrawings);
 
         return (
             <LevelFilters
@@ -230,7 +235,6 @@ class LevelsFilterContainer extends Component {
             this.setState({
                 initialLoad: false,
             });
-            console.log({siteID, prevSiteID, companyUserIDs, prevCompanyUserIDs});
             updateReportFilter('hierarchyType', value);
         }
 

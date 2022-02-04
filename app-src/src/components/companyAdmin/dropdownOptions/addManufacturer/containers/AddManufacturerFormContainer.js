@@ -12,6 +12,7 @@ import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOA
 class AddManufacturerFormContainer extends Component {
     state = {
         name: '',
+        serviceIDs: [],
     };
 
     render() {
@@ -23,11 +24,16 @@ class AddManufacturerFormContainer extends Component {
                 hideModal={this.props.hideModal}
                 buttonText={this.props.buttonText}
                 validateName={this.validateName}
+                subscribedServices={this.getServicesFromSubscriptions()}
             />
         );
     }
 
     componentDidMount() {
+        const subscribedServiceIDs = this.getServicesFromSubscriptions().map(({ value }) => value);
+
+        this.setState({ serviceIDs: subscribedServiceIDs });
+
         this.props.showOAndMTsAndCsModal('add manufacturer');
     }
 
@@ -39,6 +45,18 @@ class AddManufacturerFormContainer extends Component {
         const { manufacturers } = this.props;
         const nameTaken = manufacturers.some(manufacturer => manufacturer.name === value);
         if (nameTaken) return 'Please choose a unique name.';
+    };
+
+    getServicesFromSubscriptions = () => {
+        const { services, subscriptions } = this.props;
+        const subscribedServices = subscriptions.services.map(({ serviceID }) => {
+            return {
+                text: services[serviceID].name,
+                name: services[serviceID].name,
+                value: serviceID.toString(),
+            };
+        });
+        return subscribedServices;
     };
 
     handleSubmit = e => {
@@ -58,6 +76,8 @@ const mapStateToProps = (
     {
         companyAdmin: {
             manufacturersReducer: { manufacturers },
+            subscriptionsReducer: { subscriptions },
+            servicesReducer: { services },
         },
     },
     { type },
@@ -67,6 +87,8 @@ const mapStateToProps = (
         manufacturers: manufacturers[pinOptionType]
             ? Object.values(manufacturers[pinOptionType])
             : [],
+        subscriptions,
+        services,
     };
 };
 
