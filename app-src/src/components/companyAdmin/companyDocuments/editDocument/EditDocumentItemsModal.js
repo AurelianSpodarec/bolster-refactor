@@ -29,7 +29,7 @@ const EditDocumentItemsModal = ({ ids }) => {
     const history = useHistory();
     const documentLibrary = useSelector(selectDocumentLibrary);
 
-    const prefix = useQueryParam('prefix');
+    const prefix = useQueryParam('prefix') ?? '';
     const splitArray = prefix.split('/');
     const prevPrefix = splitArray.length > 2 ? prefix.split('/').slice(0, -2).join('/') : null;
 
