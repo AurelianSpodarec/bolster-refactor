@@ -80,9 +80,9 @@ const TasksLegend = ({ types, statuses, pinTasks }) => {
     });
     const operatives = useSelector(selectCompanyUsers) ?? [];
     const operativeOptions = Object.values(operatives).map(
-        ({ id, userFirstName, userLastName, companyName }) => ({
+        ({ id, userFirstName, userLastName, userEmail, operativeCode }) => ({
             value: id,
-            label: `${userFirstName} ${userLastName} (${companyName})`,
+            label: `${userFirstName} ${userLastName} - ${operativeCode} (${userEmail})`,
         }),
     );
 
