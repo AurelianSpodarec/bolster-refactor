@@ -4,14 +4,14 @@ const LegendPercentBar = ({ stats }) => {
     return (
         <div className="percent-bar">
             {stats.map(({ name, percent }) => {
-                const percentString = `${Math.floor(percent)}%`;
+                const percentString = `${percent < 1 ? '<1%' : `${Math.floor(percent)}%`}`;
                 return (
                     <div
                         className={`color-bar ${name}`}
-                        style={{ flexBasis: percentString }}
+                        style={{ minWidth: '30px', width: `${percent}%` }}
                         key={name}
                     >
-                        {percent > 0 && <p className="percent">{percentString}</p>}
+                        <p className="percent">{percentString}</p>
                     </div>
                 );
             })}
