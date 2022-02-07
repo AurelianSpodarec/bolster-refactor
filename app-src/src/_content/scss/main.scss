@@ -7058,9 +7058,21 @@ input {
             }
         }
 
-        .multi-multi-dropdown {
-            width: fit-content;
-            font-size: 60%;
+        
+        .filters-wrapper {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            
+            .multi-multi-dropdown {
+                margin-right: 15px;
+                width: fit-content;
+                font-size: 60%;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
         }
     }
     

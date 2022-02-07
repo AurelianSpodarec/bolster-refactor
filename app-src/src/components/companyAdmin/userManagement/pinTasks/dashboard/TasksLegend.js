@@ -1,23 +1,11 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'helpers/hooks';
+import { useDispatch } from 'react-redux';
 
-import setServiceFilters from 'actions/companyAdmin/services/async/sync/setServiceFilters';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
-import setUserFilters from 'actions/companyAdmin/userManagement/async/setUserFilters';
 import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
-import setSiteFilters from 'actions/companyAdmin/sites/sync/setSiteFilters';
 import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
 
-import { selectSubscriptions } from 'selectors/superAdmin/companySubscription';
-import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
-import { selectServices } from 'selectors/companyAdmin/services';
-import { selectSites } from 'selectors/companyAdmin/sites';
-
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
-import Field from 'components/shared/generic/form/presentational/Field';
-import Form from 'components/shared/generic/form/containers/Form';
 import LegendSegment from './views/calendar/LegendSegment';
 
 import { PIN_TASK_RECURRING_NAMES, PIN_TASK_STATUS_NAMES } from 'constants/companyAdmin/enums';

@@ -1,14 +1,17 @@
+import React from 'react';
+import usePinTasksDashboard from '../hooks/usePinTasksDashboard';
+
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import { PIN_STATS_DASHBOARD_VIEW } from 'constants/companyAdmin/enums';
-import React from 'react';
-import usePinTasksDashboard from '../hooks/usePinTasksDashboard';
+
 import TasksControls from './TasksControls';
 import CalendarView from './views/calendar/CalendarView';
 import ListView from './views/list/ListView';
 import SeriesView from './views/series/SeriesView';
+
+import { PIN_STATS_DASHBOARD_VIEW } from 'constants/companyAdmin/enums';
 
 const PinTasksDashboard = () => {
     const {

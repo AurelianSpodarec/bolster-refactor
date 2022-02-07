@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useForm } from 'helpers/hooks';
 import { batch, useDispatch, useSelector } from 'react-redux';
 
 import setServiceFilters from 'actions/companyAdmin/services/async/sync/setServiceFilters';
 import setUserFilters from 'actions/companyAdmin/userManagement/async/setUserFilters';
 import setSiteFilters from 'actions/companyAdmin/sites/sync/setSiteFilters';
+
 import { selectServices } from 'selectors/companyAdmin/services';
 import { selectSubscriptions } from 'selectors/superAdmin/companySubscription';
 import { selectSites } from 'selectors/companyAdmin/sites';
@@ -54,28 +55,37 @@ const useTasksFilters = () => {
     };
 
     const serviceOptions = getRelevantServices();
-    const siteOptions = Object.values(sites).reduce((acc, { id, name, ownerCompanyName }) => {
-        if (taskSiteIDs.length && taskSiteIDs.includes(id)) {
-            acc.push({
-                label: `${name}(${ownerCompanyName})`,
-                value: id,
-            });
-        }
 
-        return acc;
-    }, []);
+    const siteOptions = useMemo(
+        () =>
+            Object.values(sites).reduce((acc, { id, name, ownerCompanyName }) => {
+                if (taskSiteIDs.length && taskSiteIDs.includes(id)) {
+                    acc.push({
+                        label: `${name}(${ownerCompanyName})`,
+                        value: id,
+                    });
+                }
 
-    const operativeOptions = Object.values(operatives).reduce(
-        (acc, { id, userFirstName, userLastName, userEmail, operativeCode }) => {
-            if (taskOperativeIDs.includes(id) || !taskOperativeIDs) {
-                acc.push({
-                    value: id,
-                    label: `${userFirstName} ${userLastName} - ${operativeCode} (${userEmail})`,
-                });
-            }
-            return acc;
-        },
-        [],
+                return acc;
+            }, []),
+        [sites, taskSiteIDs],
+    );
+
+    const operativeOptions = useMemo(
+        () =>
+            Object.values(operatives).reduce(
+                (acc, { id, userFirstName, userLastName, userEmail, operativeCode }) => {
+                    if (taskOperativeIDs.includes(id) || !taskOperativeIDs) {
+                        acc.push({
+                            value: id,
+                            label: `${userFirstName} ${userLastName} - ${operativeCode} (${userEmail})`,
+                        });
+                    }
+                    return acc;
+                },
+                [],
+            ),
+        [operatives, taskOperativeIDs],
     );
 
     return {
