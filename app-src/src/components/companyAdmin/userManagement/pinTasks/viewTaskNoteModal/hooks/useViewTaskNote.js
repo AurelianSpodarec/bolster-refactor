@@ -14,7 +14,7 @@ import fetchPinTask from 'actions/companyAdmin/pinTasks/async/fetchPinTask';
 
 const useViewPinTask = id => {
     const dispatch = useDispatch();
-
+    console.log(id);
     const pinTask = useSelector(state => selectPinTask(state, id));
     const pinTasksIsFetching = useSelector(selectPinTasksIsFetching);
 
@@ -33,7 +33,6 @@ const useViewPinTask = id => {
         isFetching: pinTasksIsFetching,
         isPosting: pinTasksIsPosting,
         error: pinTasksError,
-
         pinTask,
     };
 };

@@ -44,7 +44,6 @@ const PinTasksDashboard = () => {
                 <ButtonContainer handleClick={() => startCreatePinTask()}>
                     Create Task
                 </ButtonContainer>
-                <ButtonContainer handleClick={() => viewTaskNote()}>View Task Note</ButtonContainer>
             </PageHeading>
             <BlockContainer contentClass="pin-tasks-dashboard-header">
                 <TasksControls
