@@ -23,8 +23,16 @@ const useTasksFilters = () => {
 
     const tasks = Object.values(useSelector(selectPinTasks));
 
-    const taskOperativeIDs = [...new Set(tasks.map(task => task.companyUserID))];
-    const taskSiteIDs = [...new Set(tasks.map(task => task.siteID))];
+    const filteredTasks = useMemo(() => {
+        if (!form.services.length) {
+            return tasks;
+        } else {
+            return tasks.filter(task => form.services.includes(task.serviceID));
+        }
+    }, [tasks, form.services]);
+
+    const taskOperativeIDs = [...new Set(filteredTasks.map(task => task.companyUserID))];
+    const taskSiteIDs = [...new Set(filteredTasks.map(task => task.siteID))];
 
     const services = useSelector(selectServices);
     const subscriptions = useSelector(selectSubscriptions);
