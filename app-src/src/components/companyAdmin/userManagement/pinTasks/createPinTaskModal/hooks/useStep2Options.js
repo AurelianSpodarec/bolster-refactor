@@ -10,11 +10,15 @@ import {
     selectReportsError,
 } from 'selectors/companyAdmin/reports';
 import { selectOperative } from 'selectors/companyAdmin/operatives';
+import { selectSubscriptions } from 'selectors/superAdmin/companySubscription';
 
 const useStep2Options = (handleChange, drawingID, service, companyUserID) => {
     const dispatch = useDispatch();
 
-    const services = useSelector(selectReportServices) ?? [];
+    const { serviceIDs } = useSelector(selectSubscriptions);
+    const services = useSelector(selectReportServices).filter(service =>
+        serviceIDs.includes(service.id),
+    );
     const templates = useSelector(selectReportTemplates) ?? [];
     const reportsIsFetching = useSelector(selectReportsIsFetching);
     const reportsFetchError = useSelector(selectReportsError);
