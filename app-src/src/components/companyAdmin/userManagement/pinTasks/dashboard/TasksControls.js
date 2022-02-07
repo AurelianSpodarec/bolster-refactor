@@ -6,6 +6,8 @@ import { DATE_TIME_IDS, PIN_STATS_DASHBOARD_VIEW } from 'constants/companyAdmin/
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Select from 'components/shared/generic/form/presentational/Select';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import useTasksFilters from './_hooks/useTasksFilters';
 
 const viewOptions = [
     {
@@ -22,9 +24,11 @@ const viewOptions = [
     },
 ];
 
-const Controls = ({ startDate, view, onViewChange, onPrev, onNext, onToday, endDate }) => {
+const TasksControls = ({ startDate, view, onViewChange, onPrev, onNext, onToday, endDate }) => {
     const disabled = view === PIN_STATS_DASHBOARD_VIEW.SERIES;
     const buttonText = view === PIN_STATS_DASHBOARD_VIEW.LIST ? 'Week' : 'Month';
+
+    const { form, handleChange, serviceOptions, siteOptions, operativeOptions } = useTasksFilters();
 
     return (
         <BlockHeading
@@ -66,6 +70,7 @@ const Controls = ({ startDate, view, onViewChange, onPrev, onNext, onToday, endD
                             <i className="far fa-calendar-week"></i> This {buttonText}
                         </ButtonContainer>
                     )}
+
                     <Select
                         name="view"
                         value={view}
@@ -73,10 +78,40 @@ const Controls = ({ startDate, view, onViewChange, onPrev, onNext, onToday, endD
                         options={viewOptions}
                         omitPlaceholder
                     />
+
+                    <MultiSelect
+                        name="services"
+                        value={form.services}
+                        onChange={handleChange}
+                        options={serviceOptions}
+                        placeholder="service"
+                        classes="x-large"
+                        search
+                    />
+
+                    <MultiSelect
+                        name="operatives"
+                        value={form.operatives}
+                        onChange={handleChange}
+                        options={operativeOptions}
+                        placeholder="operative"
+                        classes="x-large"
+                        search
+                    />
+
+                    <MultiSelect
+                        name="sites"
+                        value={form.sites}
+                        onChange={handleChange}
+                        options={siteOptions}
+                        placeholder="site"
+                        classes="x-large"
+                        search
+                    />
                 </>
             }
         />
     );
 };
 
-export default Controls;
+export default TasksControls;

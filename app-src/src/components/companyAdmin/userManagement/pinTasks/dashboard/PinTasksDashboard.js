@@ -5,7 +5,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import { PIN_STATS_DASHBOARD_VIEW } from 'constants/companyAdmin/enums';
 import React from 'react';
 import usePinTasksDashboard from '../hooks/usePinTasksDashboard';
-import Controls from './Controls';
+import TasksControls from './TasksControls';
 import CalendarView from './views/calendar/CalendarView';
 import ListView from './views/list/ListView';
 import SeriesView from './views/series/SeriesView';
@@ -44,7 +44,7 @@ const PinTasksDashboard = () => {
                 <ButtonContainer handleClick={() => viewTaskNote()}>View Task Note</ButtonContainer>
             </PageHeading>
             <BlockContainer contentClass="pin-tasks-dashboard-header">
-                <Controls
+                <TasksControls
                     startDate={startDate}
                     view={view}
                     timePeriod={timePeriod}
