@@ -57,7 +57,7 @@ const useTasksFilters = () => {
                 value: id,
             });
         }
-        console.log(acc);
+
         return acc;
     }, []);
 
