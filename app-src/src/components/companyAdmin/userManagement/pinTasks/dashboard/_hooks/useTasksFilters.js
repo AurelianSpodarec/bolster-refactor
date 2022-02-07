@@ -11,7 +11,6 @@ import { selectSubscriptions } from 'selectors/superAdmin/companySubscription';
 import { selectSites } from 'selectors/companyAdmin/sites';
 import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
 import { selectPinTasks } from 'selectors/companyAdmin/pinTasks';
-import useFilteredPinTasks from '../../hooks/useFilteredPinTasks';
 
 const useTasksFilters = () => {
     const dispatch = useDispatch();
@@ -22,10 +21,10 @@ const useTasksFilters = () => {
         sites: [],
     });
 
-    const tasks = useFilteredPinTasks(useSelector(selectPinTasks));
+    const pinTasks = Object.values(useSelector(selectPinTasks));
 
-    const taskOperativeIDs = [...new Set(tasks.map(task => task.companyUserID))];
-    const taskSiteIDs = [...new Set(tasks.map(task => task.siteID))];
+    const taskOperativeIDs = [...new Set(pinTasks.map(task => task.companyUserID))];
+    const taskSiteIDs = [...new Set(pinTasks.map(task => task.siteID))];
 
     const subscriptions = useSelector(selectSubscriptions);
     const services = useSelector(selectServices);
@@ -52,13 +51,13 @@ const useTasksFilters = () => {
         }, []);
 
     const siteOptions = Object.values(sites).reduce((acc, { id, name, ownerCompanyName }) => {
-        if (taskSiteIDs.length && taskSiteIDs.includes(id)) {
+        if (!taskSiteIDs || (taskSiteIDs.length && taskSiteIDs.includes(id))) {
             acc.push({
                 label: `${name}(${ownerCompanyName})`,
                 value: id,
             });
         }
-
+        console.log(acc);
         return acc;
     }, []);
 
