@@ -9,6 +9,7 @@ import { selectServices } from 'selectors/companyAdmin/services';
 import { selectSubscriptions } from 'selectors/superAdmin/companySubscription';
 import { selectSites } from 'selectors/companyAdmin/sites';
 import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
+import { selectPinTasks } from 'selectors/companyAdmin/pinTasks';
 
 const useTasksFilters = () => {
     const dispatch = useDispatch();
@@ -19,13 +20,18 @@ const useTasksFilters = () => {
         sites: [],
     });
 
-    const services = useSelector(selectServices) ?? [];
-    const subscriptions = useSelector(selectSubscriptions) ?? [];
+    const tasks = Object.values(useSelector(selectPinTasks));
+
+    const taskOperativeIDs = [...new Set(tasks.map(task => task.companyUserID))];
+    const taskSiteIDs = [...new Set(tasks.map(task => task.siteID))];
+
+    const services = useSelector(selectServices);
+    const subscriptions = useSelector(selectSubscriptions);
     const serviceIDs = subscriptions.serviceIDs;
 
-    const sites = useSelector(selectSites) ?? [];
+    const sites = useSelector(selectSites);
 
-    const operatives = useSelector(selectCompanyUsers) ?? [];
+    const operatives = useSelector(selectCompanyUsers);
 
     useEffect(() => {
         batch(() => {
@@ -48,17 +54,28 @@ const useTasksFilters = () => {
     };
 
     const serviceOptions = getRelevantServices();
+    const siteOptions = Object.values(sites).reduce((acc, { id, name, ownerCompanyName }) => {
+        if (taskSiteIDs.length && taskSiteIDs.includes(id)) {
+            acc.push({
+                label: `${name}(${ownerCompanyName})`,
+                value: id,
+            });
+        }
 
-    const siteOptions = Object.values(sites).map(({ id, name, ownerCompanyName }) => ({
-        label: `${name}(${ownerCompanyName})`,
-        value: id,
-    }));
+        return acc;
+    }, []);
 
-    const operativeOptions = Object.values(operatives).map(
-        ({ id, userFirstName, userLastName, userEmail, operativeCode }) => ({
-            value: id,
-            label: `${userFirstName} ${userLastName} - ${operativeCode} (${userEmail})`,
-        }),
+    const operativeOptions = Object.values(operatives).reduce(
+        (acc, { id, userFirstName, userLastName, userEmail, operativeCode }) => {
+            if (taskOperativeIDs.includes(id) || !taskOperativeIDs) {
+                acc.push({
+                    value: id,
+                    label: `${userFirstName} ${userLastName} - ${operativeCode} (${userEmail})`,
+                });
+            }
+            return acc;
+        },
+        [],
     );
 
     return {
