@@ -2,36 +2,22 @@ import fetchPinTasks from 'actions/companyAdmin/pinTasks/async/fetchPinTasks';
 import moment from 'moment';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUserFilters } from 'selectors/companyAdmin/companyUsers';
+import useFilteredPinTasks from '../../../../hooks/useFilteredPinTasks';
+
 import {
     selectPinTasks,
     selectPinTasksError,
     selectPinTasksIsFetching,
 } from 'selectors/companyAdmin/pinTasks';
-import { selectServiceFilters } from 'selectors/companyAdmin/services';
-import { selectSiteFilters } from 'selectors/companyAdmin/sites';
 
 const useList = startDate => {
     const dispatch = useDispatch();
 
     const isFetching = useSelector(selectPinTasksIsFetching);
     const error = useSelector(selectPinTasksError);
+    const tasks = useSelector(selectPinTasks);
 
-    const selectUserFilter = useSelector(selectUserFilters);
-    const selectServiceFilter = useSelector(selectServiceFilters);
-    const selectSiteFilter = useSelector(selectSiteFilters);
-
-    const pinTasks = Object.values(useSelector(selectPinTasks)).filter(task => {
-        if (selectServiceFilter.length) {
-            return selectServiceFilter.includes(task.serviceID);
-        } else if (selectUserFilter.length) {
-            return selectUserFilter.includes(task.companyUserID);
-        } else if (selectSiteFilter.length) {
-            return selectSiteFilter.includes(task.siteID);
-        }
-
-        return true;
-    });
+    const pinTasks = useFilteredPinTasks(tasks);
 
     useEffect(() => {
         dispatch(fetchPinTasks(startDate, moment(startDate).add(1, 'week').format()));

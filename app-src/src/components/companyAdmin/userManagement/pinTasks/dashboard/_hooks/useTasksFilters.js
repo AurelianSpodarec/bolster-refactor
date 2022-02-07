@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'helpers/hooks';
 import { batch, useDispatch, useSelector } from 'react-redux';
 
@@ -11,6 +11,7 @@ import { selectSubscriptions } from 'selectors/superAdmin/companySubscription';
 import { selectSites } from 'selectors/companyAdmin/sites';
 import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
 import { selectPinTasks } from 'selectors/companyAdmin/pinTasks';
+import useFilteredPinTasks from '../../hooks/useFilteredPinTasks';
 
 const useTasksFilters = () => {
     const dispatch = useDispatch();
@@ -21,21 +22,13 @@ const useTasksFilters = () => {
         sites: [],
     });
 
-    const tasks = Object.values(useSelector(selectPinTasks));
+    const tasks = useFilteredPinTasks(useSelector(selectPinTasks));
 
-    const filteredTasks = useMemo(() => {
-        if (!form.services.length) {
-            return tasks;
-        } else {
-            return tasks.filter(task => form.services.includes(task.serviceID));
-        }
-    }, [tasks, form.services]);
+    const taskOperativeIDs = [...new Set(tasks.map(task => task.companyUserID))];
+    const taskSiteIDs = [...new Set(tasks.map(task => task.siteID))];
 
-    const taskOperativeIDs = [...new Set(filteredTasks.map(task => task.companyUserID))];
-    const taskSiteIDs = [...new Set(filteredTasks.map(task => task.siteID))];
-
-    const services = useSelector(selectServices);
     const subscriptions = useSelector(selectSubscriptions);
+    const services = useSelector(selectServices);
     const serviceIDs = subscriptions.serviceIDs;
 
     const sites = useSelector(selectSites);
@@ -48,52 +41,38 @@ const useTasksFilters = () => {
             dispatch(setUserFilters(form.operatives));
             dispatch(setSiteFilters(form.sites));
         });
-    }, [dispatch, form.operatives, form.services, form.sites]);
+    }, [dispatch, form]);
 
-    const getRelevantServices = () => {
-        const arrServices = Object.values(services);
+    const serviceOptions = Object.values(services)
+        .filter(({ id }) => serviceIDs.includes(id))
+        .reduce((acc, { id, name }) => {
+            acc.push({ value: id, label: name });
 
-        return arrServices
-            .filter(({ id }) => serviceIDs.includes(id))
-            .reduce((acc, { id, name }) => {
-                acc.push({ value: id, label: name });
+            return acc;
+        }, []);
 
-                return acc;
-            }, []);
-    };
+    const siteOptions = Object.values(sites).reduce((acc, { id, name, ownerCompanyName }) => {
+        if (taskSiteIDs.length && taskSiteIDs.includes(id)) {
+            acc.push({
+                label: `${name}(${ownerCompanyName})`,
+                value: id,
+            });
+        }
 
-    const serviceOptions = getRelevantServices();
+        return acc;
+    }, []);
 
-    const siteOptions = useMemo(
-        () =>
-            Object.values(sites).reduce((acc, { id, name, ownerCompanyName }) => {
-                if (taskSiteIDs.length && taskSiteIDs.includes(id)) {
-                    acc.push({
-                        label: `${name}(${ownerCompanyName})`,
-                        value: id,
-                    });
-                }
-
-                return acc;
-            }, []),
-        [sites, taskSiteIDs],
-    );
-
-    const operativeOptions = useMemo(
-        () =>
-            Object.values(operatives).reduce(
-                (acc, { id, userFirstName, userLastName, userEmail, operativeCode }) => {
-                    if (taskOperativeIDs.includes(id) || !taskOperativeIDs) {
-                        acc.push({
-                            value: id,
-                            label: `${userFirstName} ${userLastName} - ${operativeCode} (${userEmail})`,
-                        });
-                    }
-                    return acc;
-                },
-                [],
-            ),
-        [operatives, taskOperativeIDs],
+    const operativeOptions = Object.values(operatives).reduce(
+        (acc, { id, userFirstName, userLastName, userEmail, operativeCode }) => {
+            if (taskOperativeIDs.includes(id) || !taskOperativeIDs) {
+                acc.push({
+                    value: id,
+                    label: `${userFirstName} ${userLastName} - ${operativeCode} (${userEmail})`,
+                });
+            }
+            return acc;
+        },
+        [],
     );
 
     return {

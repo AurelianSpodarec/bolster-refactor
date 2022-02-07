@@ -1,5 +1,5 @@
 import fetchPinTaskSeriesMultiple from 'actions/companyAdmin/pinTasks/async/fetchPinTaskSeriesMultiple';
-import moment from 'moment';
+import useFilteredPinTasks from 'components/companyAdmin/userManagement/pinTasks/hooks/useFilteredPinTasks';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -14,13 +14,15 @@ const useSeries = () => {
     const pinTaskSeriesMultiple = useSelector(selectPinTaskSeriesMultiple);
     const isFetching = useSelector(selectPinTasksIsFetching);
 
+    const pinTasks = useFilteredPinTasks(pinTaskSeriesMultiple);
+
     const error = useSelector(selectPinTasksError);
 
     useEffect(() => {
         dispatch(fetchPinTaskSeriesMultiple());
     }, [dispatch]);
 
-    return { pinTaskSeriesMultiple: Object.values(pinTaskSeriesMultiple), isFetching, error };
+    return { pinTaskSeriesMultiple: pinTasks, isFetching, error };
 };
 
 export default useSeries;
