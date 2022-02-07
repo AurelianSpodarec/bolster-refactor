@@ -7306,8 +7306,8 @@ input {
                     .percent {
                         position: absolute;
                         color: $body-text;
-
                         z-index: 1;
+                        font-size: 120%; 
                     }
                 }
             }
