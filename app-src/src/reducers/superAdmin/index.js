@@ -38,6 +38,7 @@ import bannerNotificationsReducer from './bannerNotifications';
 import demoAccessCodesReducer from './demoAccessCodes';
 import companyTrackingReducer from './companyTracking';
 import bugReportsReducer from './bugReports';
+import drawingsLogsReducer from './drawingUploadLogs';
 
 export default combineReducers({
     adminServicesReducer,
@@ -47,7 +48,7 @@ export default combineReducers({
     companyReportsReducer,
     companySubscriptionReducer,
     companyTrackingReducer,
-    drawingsReducer,
+    drawingsLogsReducer,
     pinsReducer,
     contactSubmissionsReducer,
     floorsReducer,
@@ -78,4 +79,5 @@ export default combineReducers({
     syncsReducer,
     bannerNotificationsReducer,
     demoAccessCodesReducer,
+    drawingsReducer,
 });
