@@ -21,8 +21,6 @@ const useGenerateTimesheetReport = (
         isCSVGeneration: false,
         isFloorplanGeneration: false,
         isOAndMManualGeneration: false,
-        // selectSortBy: '3',
-        // showHidden: false,
     });
     const reportSuccess = useSelector(reportPostSuccess);
     const prevReportPostSuccess = usePrevious(reportSuccess);
@@ -38,6 +36,7 @@ const useGenerateTimesheetReport = (
             sortBy: 3,
             reportHistories: 1,
             serviceID,
+            isTimesheet: true,
         };
 
         dispatch(postReport(postBody));
@@ -45,13 +44,9 @@ const useGenerateTimesheetReport = (
 
     useEffect(() => {
         if (reportSuccess && !prevReportPostSuccess) {
-            dispatch(
-                showModal(SUCCESS_MODAL, {
-                    message: 'Your report is now being generated',
-                }),
-            );
-
-            return history.push('/company/reports');
+            const message = 'Your report is now being generated';
+            dispatch(showModal(SUCCESS_MODAL, { message }));
+            history.push('/company/reports');
         }
     }, [reportSuccess, prevReportPostSuccess]);
 
