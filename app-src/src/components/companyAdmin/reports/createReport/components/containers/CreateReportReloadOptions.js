@@ -4,7 +4,6 @@ import getServiceReportOptions from 'actions/companyAdmin/reports/async/getServi
 import getTemplateReportOptions from 'actions/companyAdmin/reports/async/getTemplateReportOptions';
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import { isDifferent } from 'helpers/generic';
-import _ from 'lodash';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';

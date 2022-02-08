@@ -74,6 +74,17 @@ export function areArraysEqual(arr1, arr2) {
         arr2.every(item => arr1.includes(item))
     );
 }
+export function areObjectsEqual(obj1, obj2) {
+    console.log({ obj1, obj2 });
+    if (!obj1 || !obj2) return obj1 === obj2;
+    const keys = Object.keys(obj1);
+    return keys.every(key => {
+        if (typeof obj1[key] === 'object') {
+            return areObjectsEqual(obj1[key], obj2[key]);
+        }
+        return obj1[key] === obj2[key];
+    });
+}
 
 export function removeArrItem(arr, index) {
     return [[...arr.slice(0, index), ...arr.slice(index + 1)]];
