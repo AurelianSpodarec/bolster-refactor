@@ -1,6 +1,8 @@
 import moment from 'moment';
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import useFilteredPinTasks from '../../../../hooks/useFilteredPinTasks';
+
 import { selectPinTasks, selectPinTasksIsFetching } from 'selectors/companyAdmin/pinTasks';
 import fetchPinTasks from 'actions/companyAdmin/pinTasks/async/fetchPinTasks';
 
@@ -9,7 +11,9 @@ const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
 const useCalendar = startDate => {
     const dispatch = useDispatch();
 
-    const pinTasks = useSelector(selectPinTasks);
+    const tasks = useSelector(selectPinTasks);
+    const pinTasks = useFilteredPinTasks(tasks);
+
     const isFetching = useSelector(selectPinTasksIsFetching);
 
     const weekday = moment(startDate).isoWeekday() - 1;

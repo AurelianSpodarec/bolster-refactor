@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { batch, useDispatch } from 'react-redux';
 
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
@@ -62,9 +62,11 @@ const TasksLegend = ({ types, statuses, pinTasks }) => {
     const numberOfTasks = Object.values(pinTasks).length;
 
     useEffect(() => {
-        dispatch(fetchCompanyUsers());
-        dispatch(fetchAllServices());
-        dispatch(fetchAllSites());
+        batch(() => {
+            dispatch(fetchCompanyUsers());
+            dispatch(fetchAllServices());
+            dispatch(fetchAllSites());
+        });
     }, [dispatch]);
 
     return (
