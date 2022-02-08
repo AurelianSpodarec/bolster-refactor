@@ -32,12 +32,12 @@ const useFilteredPinTasks = tasks => {
             ? INCOMPLETE
             : DUE_SOON;
 
-        if (selectedRecurrenceFilter && selectedRecurrenceFilter !== recurringName) {
-            return false;
+        if (selectedRecurrenceFilter) {
+            return selectedRecurrenceFilter === recurringName;
         }
 
-        if (selectedStatusFilter.length && !selectedStatusFilter.includes(statusName)) {
-            return false;
+        if (selectedStatusFilter.length) {
+            return selectedStatusFilter.includes(statusName);
         }
 
         if (selectSiteFilter.length) {
