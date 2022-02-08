@@ -251,10 +251,10 @@ import EnterDemoFullSiteModal from 'components/shared/demo-full-site/presentatio
 import EditCompanyOwnerModalContainer from 'components/superAdmin/companies/singleCompany/containers/EditCompanyOwnerModalContainer';
 import RequestDeleteInvoiceModal from 'components/companyAdmin/invoices/requestDeleteInvoiceModal/RequestDeleteInvoiceModal';
 import NewUserDocumentModal from 'components/companyAdmin/userManagement/documentsUploader/presentational/NewUserDocumentModal';
-import FileUploadModal from 'components/companyAdmin/companyDocuments/CreateDocumentModal';
-import CreateDocumentFolderModal from 'components/companyAdmin/companyDocuments/CreateDocumentFolderModal';
-import EditDocumentItemsModal from 'components/companyAdmin/companyDocuments/EditDocumentItemsModal';
 import SelectDocumentLibraryItemModal from 'components/companyAdmin/companyDocuments/SelectDocumentLibraryItemModal';
+import CreateDocumentFolderModal from 'components/companyAdmin/companyDocuments/createDocument/CreateDocumentFolderModal';
+import CreateDocumentModal from 'components/companyAdmin/companyDocuments/createDocument/CreateDocumentModal';
+import EditDocumentItemsModal from 'components/companyAdmin/companyDocuments/editDocument/EditDocumentItemsModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -376,7 +376,7 @@ const MODAL_COMPONENTS = {
     [ADMIN_EDIT_COMPANY_OWNER]: EditCompanyOwnerModalContainer,
     [CONFIRM_EMAIL]: ConfirmEmailModal,
     [USER_NEW_DOCUMENT]: NewUserDocumentModal,
-    [UPLOAD_LIBRARY_DOCUMENT]: FileUploadModal,
+    [UPLOAD_LIBRARY_DOCUMENT]: CreateDocumentModal,
     [SOFT_DELETE_LIBRARY_DOCUMENT]: ConfirmDeleteModal,
     [HARD_DELETE_LIBRARY_DOCUMENT]: ConfirmDeleteModal,
     [CREATE_LIBRARY_FOLDER]: CreateDocumentFolderModal,
