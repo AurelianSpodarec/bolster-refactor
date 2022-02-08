@@ -634,6 +634,22 @@ input {
         font-size: 150%;
     }
 
+    .clear-button {
+        position: absolute;
+        right: 10px;
+        @include vertical-center;
+        color: $dark-grey;
+        background-color: transparent;
+        font-size: 150%;
+        cursor: pointer;
+
+        transition: color 300ms ease;
+
+        &:hover {
+            color: $red;
+        }
+    }
+
     input {
         width: 100%;
         padding: 6px 10px 6px 35px;
@@ -6862,3 +6878,19 @@ input {
         margin-right: 15px;
     }
 }
+
+.checkbox-items {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin: 5px 0;
+}
+
+.content-area {
+    .no-padding {
+        padding: 0;
+    }
+}
+
+@import './pages/document-library.scss';
+@import './pages/document-library-select-modal.scss';

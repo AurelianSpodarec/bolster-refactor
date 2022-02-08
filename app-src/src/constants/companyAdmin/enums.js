@@ -508,3 +508,8 @@ export const CLOCKER_ENTRY_TYPE = {
     WORKING: 1,
     ON_BREAK: 2,
 };
+
+export const DOCUMENT_LIBRARY_TYPES = {
+    FOLDER: 100,
+    FILE: 200,
+};

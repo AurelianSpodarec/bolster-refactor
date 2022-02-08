@@ -125,6 +125,13 @@ import {
     GENERATE_TIMESHEET_REPORT,
     EXPANDED_MEDIA,
     EDIT_FREE_CREDIT,
+    UPLOAD_LIBRARY_DOCUMENT,
+    SOFT_DELETE_LIBRARY_DOCUMENT,
+    CREATE_LIBRARY_FOLDER,
+    EDIT_LIBRARY_ITEMS,
+    HARD_DELETE_LIBRARY_DOCUMENT,
+    RESTORE_LIBRARY_DOCUMENTS,
+    SELECT_DOCUMENT_LIBRARY_ITEM,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -252,6 +259,10 @@ import NewUserDocumentModal from 'components/companyAdmin/userManagement/documen
 import GenerateTimesheetReportModal from 'components/companyAdmin/userManagement/operatives/timesheets/modals/GenerateTimesheetReport';
 import ExpandedMediaModal from './ExpandedMediaModal';
 import EditFreeCreditModal from './EditFreeCreditModalContainer';
+import SelectDocumentLibraryItemModal from 'components/companyAdmin/companyDocuments/SelectDocumentLibraryItemModal';
+import CreateDocumentFolderModal from 'components/companyAdmin/companyDocuments/createDocument/CreateDocumentFolderModal';
+import CreateDocumentModal from 'components/companyAdmin/companyDocuments/createDocument/CreateDocumentModal';
+import EditDocumentItemsModal from 'components/companyAdmin/companyDocuments/editDocument/EditDocumentItemsModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -377,6 +388,13 @@ const MODAL_COMPONENTS = {
     [GENERATE_TIMESHEET_REPORT]: GenerateTimesheetReportModal,
     [EXPANDED_MEDIA]: ExpandedMediaModal,
     [EDIT_FREE_CREDIT]: EditFreeCreditModal,
+    [UPLOAD_LIBRARY_DOCUMENT]: CreateDocumentModal,
+    [SOFT_DELETE_LIBRARY_DOCUMENT]: ConfirmDeleteModal,
+    [HARD_DELETE_LIBRARY_DOCUMENT]: ConfirmDeleteModal,
+    [CREATE_LIBRARY_FOLDER]: CreateDocumentFolderModal,
+    [EDIT_LIBRARY_ITEMS]: EditDocumentItemsModal,
+    [RESTORE_LIBRARY_DOCUMENTS]: ConfirmSubmitModal,
+    [SELECT_DOCUMENT_LIBRARY_ITEM]: SelectDocumentLibraryItemModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

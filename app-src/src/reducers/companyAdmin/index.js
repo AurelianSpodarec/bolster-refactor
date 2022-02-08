@@ -62,6 +62,7 @@ import timesheetsReducer from './timesheets';
 import timesheetPinStatsReducer from './timesheetPinStats';
 import userPinFeedsReducer from './userPinFeeds';
 import bugReportsReducer from './bugReports';
+import documentLibraryReducer from './documentLibrary';
 
 export default combineReducers({
     activityLogReducer,
@@ -83,6 +84,7 @@ export default combineReducers({
     creditLogsReducer,
     dashboardReducer,
     deletedDataReducer,
+    documentLibraryReducer,
     documentsReducer,
     drawingsReducer,
     dropdownOptionsReducer,
