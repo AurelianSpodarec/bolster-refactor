@@ -21,39 +21,43 @@ const useFilteredPinTasks = tasks => {
     const selectServiceFilter = useSelector(selectServiceFilters);
     const selectSiteFilter = useSelector(selectSiteFilters);
 
-    const pinTasks = Object.values(tasks).filter(task => {
-        const recurringName = task.isRecurring ? RECURRING : NON_RECURRING;
+    const pinTasks = Object.values(tasks)
+        .filter(task => {
+            if (selectSiteFilter.length) {
+                return selectSiteFilter.includes(task.siteID);
+            }
 
-        const statusName = task.actionedOn
-            ? moment(task.actionedOn).isAfter(task.dueOn)
-                ? COMPLETE_LATE
-                : COMPLETE
-            : moment(task.dueOn).isBefore()
-            ? INCOMPLETE
-            : DUE_SOON;
+            if (selectUserFilter.length) {
+                return selectUserFilter.includes(task.companyUserID);
+            }
 
-        if (selectedRecurrenceFilter) {
-            return selectedRecurrenceFilter === recurringName;
-        }
+            if (selectServiceFilter.length) {
+                return selectServiceFilter.includes(task.serviceID);
+            }
 
-        if (selectedStatusFilter.length) {
-            return selectedStatusFilter.includes(statusName);
-        }
+            return true;
+        })
+        .filter(task => {
+            const recurringName = task.isRecurring ? RECURRING : NON_RECURRING;
 
-        if (selectSiteFilter.length) {
-            return selectSiteFilter.includes(task.siteID);
-        }
+            const statusName = task.actionedOn
+                ? moment(task.actionedOn).isAfter(task.dueOn)
+                    ? COMPLETE_LATE
+                    : COMPLETE
+                : moment(task.dueOn).isBefore()
+                ? INCOMPLETE
+                : DUE_SOON;
 
-        if (selectUserFilter.length) {
-            return selectUserFilter.includes(task.companyUserID);
-        }
+            if (selectedStatusFilter.length) {
+                return selectedStatusFilter.includes(statusName);
+            }
 
-        if (selectServiceFilter.length) {
-            return selectServiceFilter.includes(task.serviceID);
-        }
+            if (selectedRecurrenceFilter) {
+                return selectedRecurrenceFilter === recurringName;
+            }
 
-        return true;
-    });
+            return true;
+        });
 
     return pinTasks;
 };
