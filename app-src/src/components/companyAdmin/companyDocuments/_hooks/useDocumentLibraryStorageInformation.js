@@ -7,10 +7,15 @@ import {
     selectDocumentLibraryStorageInformation,
 } from 'selectors/documentLibrary';
 
-const useDocumentLibraryStorageInformation = () => {
+const useDocumentLibraryStorageInformation = items => {
     const dispatch = useDispatch();
 
     const storageInformation = useSelector(selectDocumentLibraryStorageInformation);
+    const {
+        totalStorageRemaining,
+        totalStorageSizeForDownSync,
+        totalStorageUsed,
+    } = storageInformation;
     const isFetching = useSelector(selectDocumentLibraryIsFetching);
     const fetchError = useSelector(selectDocumentLibraryFetchError);
 
@@ -18,7 +23,15 @@ const useDocumentLibraryStorageInformation = () => {
         dispatch(fetchDocumentLibraryStorageInfo());
     }, [dispatch]);
 
-    return { isFetching, fetchError, storageInformation };
+    const folderSize = items?.reduce((acc, { contentLength }) => acc + contentLength, 0);
+    return {
+        isFetching,
+        fetchError,
+        totalStorageRemaining,
+        totalStorageSizeForDownSync,
+        totalStorageUsed,
+        folderSize,
+    };
 };
 
 export default useDocumentLibraryStorageInformation;

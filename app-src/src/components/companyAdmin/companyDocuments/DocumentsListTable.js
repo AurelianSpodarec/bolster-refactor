@@ -36,7 +36,6 @@ const DocumentsTable = ({
 
     const librarySearchTerm = useSelector(selectDocumentLibrarySearchTerm);
     const libraryFilter = useSelector(selectDocumentLibraryFilter);
-
     return (
         <BlockContainer contentClass="no-overflow">
             <BlockHeading classes="w-table">
@@ -48,7 +47,7 @@ const DocumentsTable = ({
                         } selected`}</span>
                     </span>
                 )}
-                <DocumentLibraryStats />
+                <DocumentLibraryStats items={items} isRoot={!prefixQuery} />
             </BlockHeading>
 
             <Table

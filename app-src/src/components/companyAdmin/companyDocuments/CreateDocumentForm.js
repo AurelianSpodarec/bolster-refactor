@@ -142,6 +142,7 @@ const CreateDocumentForm = ({ initialFiles }) => {
 };
 
 export function formatBytes(bytes) {
+    bytes = bytes ?? 0;
     const kb = bytes / 1024;
     const mb = kb / 1024;
     const gb = mb / 1024;
@@ -154,5 +155,3 @@ export function formatBytes(bytes) {
 }
 
 export default CreateDocumentForm;
-
-// /documentlibrary/:companyid/
