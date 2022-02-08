@@ -61,10 +61,6 @@ const SuperAdminMenu = ({ logout, unreadRequests, unreadBugReports }) => (
                 Contact Submissions
             </span>
         </MenuItemContainer>
-        <MenuItemContainer link="/admin/sos-management">
-            <i className="fas fa-hands-helping icon" />
-            <span className="menu-text">SOS Management</span>
-        </MenuItemContainer>
         <MenuItemContainer link="/admin/operative-alerts">
             <i className="fas fa-envelope icon" />
             <span className="menu-text">Operative Alerts</span>

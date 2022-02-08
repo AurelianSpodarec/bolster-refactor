@@ -66,7 +66,6 @@ import {
     ADMIN_DELETE_PAYMENT,
     REMOVE_DRAWINGS_ACCESS,
     FORGOT_PASSWORD,
-    GENERATE_SOS_CODE,
     ADD_INVOICE_COMMENT,
     ADD_CONTACT_SUBMISSION_COMMENT,
     CONFIRM_MOVE_HIERARCHY_TO_COMPANY,
@@ -202,7 +201,6 @@ import DeletePaymentModalContainer from 'components/superAdmin/invoices/confirmD
 import RemoveUserDrawingsAccessModalContainer from 'components/companyAdmin/userManagement/userDrawings/containers/RemoveUserDrawingsAccessModalContainer';
 import ForgotPasswordModalContainer from 'components/frontEnd/auth/forgotPasswordModal/containers/ForgotPasswordModalContainer';
 import AddCreditsToDrawingModal from 'components/companyAdmin/drawings/addCreditsToDrawing/presentational/AddCreditsToDrawingModal';
-import SOSGenerationModal from 'components/superAdmin/sosManagement/sosGenerationModal/presentational/SOSGenerationModal';
 import SiteManagementConfirmMoveModalContainer from 'components/superAdmin/siteManagement/moveTool/containers/MoveToolConfirmMoveModalContainer';
 import ConfirmSetIsInvoicePaidModalContainer from 'components/superAdmin/invoices/confirmSetIsInvoicePaidModal/containers/ConfirmSetIsInvoicePaidModalContainer';
 import SuperAdminConfirmDeleteInvoiceModalContainer from 'components/superAdmin/invoices/superAdminConfirmDeleteInvoiceModal/containers/SuperAdminConfirmDeleteInvoiceModalContainer';
@@ -337,7 +335,6 @@ const MODAL_COMPONENTS = {
     [REMOVE_DRAWINGS_ACCESS]: RemoveUserDrawingsAccessModalContainer,
     [FORGOT_PASSWORD]: ForgotPasswordModalContainer,
     [ADD_CREDITS_TO_DRAWING]: AddCreditsToDrawingModal,
-    [GENERATE_SOS_CODE]: SOSGenerationModal,
     [CONFIRM_MOVE_HIERARCHY_TO_COMPANY]: SiteManagementConfirmMoveModalContainer,
     [ADMIN_CONFIRM_SET_IS_INVOICE_PAID]: ConfirmSetIsInvoicePaidModalContainer,
     [ADMIN_DELETE_INVOICE]: SuperAdminConfirmDeleteInvoiceModalContainer,
