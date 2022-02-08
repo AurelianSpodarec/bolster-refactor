@@ -1,7 +1,7 @@
 import {
     ADMIN_EDIT_SERVICE_REQUEST,
     ADMIN_EDIT_SERVICE_SUCCESS,
-    ADMIN_EDIT_SERVICE_FAILURE
+    ADMIN_EDIT_SERVICE_FAILURE,
 } from 'constants/actionTypes/services';
 import axios from 'axios';
 import { ADMIN_API_URL } from 'config';
@@ -11,20 +11,20 @@ import { getHeaders } from 'helpers/api';
 export const editServiceRequest = (id, name) => ({
     type: ADMIN_EDIT_SERVICE_REQUEST,
     id: id.toString(),
-    name
+    name,
 });
 
 export const editServiceSuccess = payload => ({
     type: ADMIN_EDIT_SERVICE_SUCCESS,
-    payload
+    payload,
 });
 export const editServiceFailure = error => ({
     type: ADMIN_EDIT_SERVICE_FAILURE,
-    error
+    error,
 });
 
 //will need showOnCompanySite here
-export default (id, name, showOnCompanySite) => dispatch => {
+export default (id, name, showOnCompanySite, pinImageS3Key) => dispatch => {
     dispatch(editServiceRequest(id, name));
     // ?
     return axios
@@ -33,9 +33,10 @@ export default (id, name, showOnCompanySite) => dispatch => {
             {
                 id,
                 name,
-                showOnCompanySite
+                showOnCompanySite,
+                pinImageS3Key,
             },
-            getHeaders()
+            getHeaders(),
         )
         .then(({ data }) => {
             dispatch(editServiceSuccess(data));

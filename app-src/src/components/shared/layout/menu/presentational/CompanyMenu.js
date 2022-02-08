@@ -74,6 +74,9 @@ const CompanyMenu = ({
                     <CompanyMenuItemContainer link="/company/users-management/timesheets">
                         Timesheets
                     </CompanyMenuItemContainer>
+                    <CompanyMenuItemContainer link="/company/users-management/pin-tasks">
+                        Pin Tasks
+                    </CompanyMenuItemContainer>
                 </>
             )}
             {!shouldRestrictPayments && !isCompanyUserOrSelecting && (

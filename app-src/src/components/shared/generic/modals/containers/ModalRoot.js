@@ -132,6 +132,10 @@ import {
     HARD_DELETE_LIBRARY_DOCUMENT,
     RESTORE_LIBRARY_DOCUMENTS,
     SELECT_DOCUMENT_LIBRARY_ITEM,
+    CREATE_PIN_TASK,
+    EDIT_PIN_TASK,
+    FETCH_PIN_TASK,
+    EDIT_PIN_TASK_SERIES,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -263,6 +267,10 @@ import SelectDocumentLibraryItemModal from 'components/companyAdmin/companyDocum
 import CreateDocumentFolderModal from 'components/companyAdmin/companyDocuments/createDocument/CreateDocumentFolderModal';
 import CreateDocumentModal from 'components/companyAdmin/companyDocuments/createDocument/CreateDocumentModal';
 import EditDocumentItemsModal from 'components/companyAdmin/companyDocuments/editDocument/EditDocumentItemsModal';
+import CreatePinTaskModal from 'components/companyAdmin/userManagement/pinTasks/createPinTaskModal/CreatePinTaskModal';
+import EditPinTaskModal from 'components/companyAdmin/userManagement/pinTasks/editPinTaskModal/EditPinTaskModal';
+import EditPinTaskSeriesModal from 'components/companyAdmin/userManagement/pinTasks/editPinTaskSeriesModal/EditPinTaskSeriesModal';
+import ViewPinTaskModal from 'components/companyAdmin/userManagement/pinTasks/viewTaskNoteModal/ViewTaskNoteModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -395,6 +403,10 @@ const MODAL_COMPONENTS = {
     [EDIT_LIBRARY_ITEMS]: EditDocumentItemsModal,
     [RESTORE_LIBRARY_DOCUMENTS]: ConfirmSubmitModal,
     [SELECT_DOCUMENT_LIBRARY_ITEM]: SelectDocumentLibraryItemModal,
+    [CREATE_PIN_TASK]: CreatePinTaskModal,
+    [EDIT_PIN_TASK]: EditPinTaskModal,
+    [EDIT_PIN_TASK_SERIES]: EditPinTaskSeriesModal,
+    [FETCH_PIN_TASK]: ViewPinTaskModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

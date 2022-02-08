@@ -499,14 +499,81 @@ export const COMPANY_REPORTS_OUTPUT_TYPES = {
     isOEMManualGeneration: 'O&M Manual',
 };
 
-export const TIME_PERIOD = {
-    DAY: 'day',
-    WEEK: 'week',
-};
-
 export const CLOCKER_ENTRY_TYPE = {
     WORKING: 1,
     ON_BREAK: 2,
+};
+
+export const PIN_STATS_DASHBOARD_VIEW = {
+    CALENDAR: 'calendar',
+    LIST: 'list',
+    SERIES: 'series',
+};
+
+export const TIME_PERIOD = {
+    DAY: 'day',
+    WEEK: 'week',
+    MONTH: 'month',
+};
+
+export const RECURRING_TYPE = {
+    NONE: 0,
+    WEEKLY: 1,
+    MONTHLY: 2,
+    DAILY: 3,
+};
+
+export const DAY = {
+    MONDAY: 'MONDAY',
+    TUESDAY: 'TUESDAY',
+    WEDNESDAY: 'WEDNESDAY',
+    THURSDAY: 'THURSDAY',
+    FRIDAY: 'FRIDAY',
+    SATURDAY: 'SATURDAY',
+    SUNDAY: 'SUNDAY',
+};
+
+export const DAYS_FLAGGED = {
+    MONDAY: 1,
+    TUESDAY: 2,
+    WEDNESDAY: 4,
+    THURSDAY: 8,
+    FRIDAY: 16,
+    SATURDAY: 32,
+    SUNDAY: 64,
+};
+export const DAYS_FLAGGED_LOOKUP = {
+    1: 'MONDAY',
+    2: 'TUESDAY',
+    4: 'WEDNESDAY',
+    8: 'THURSDAY',
+    16: 'FRIDAY',
+    32: 'SATURDAY',
+    64: 'SUNDAY',
+};
+
+export const PIN_TASK_STATUS = {
+    COMPLETE: 'complete',
+    COMPLETE_LATE: 'complete_late',
+    DUE_SOON: 'due_soon',
+    INCOMPLETE: 'incomplete',
+};
+
+export const PIN_TASK_STATUS_NAMES = {
+    COMPLETE: 'Complete',
+    COMPLETE_LATE: 'Complete (Late)',
+    DUE_SOON: 'Due Soon',
+    INCOMPLETE: 'Incomplete',
+};
+
+export const PIN_TASK_RECURRING = {
+    RECURRING: 'recurring',
+    NON_RECURRING: 'non_recurring',
+};
+
+export const PIN_TASK_RECURRING_NAMES = {
+    RECURRING: 'Recurring',
+    NON_RECURRING: 'Non-Recurring',
 };
 
 export const DOCUMENT_LIBRARY_TYPES = {
