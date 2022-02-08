@@ -7,7 +7,7 @@ import { getIconFromExt } from 'helpers/general';
 import FileTypeIcon from './FileTypeIcon';
 import { RAW_S3_STORAGE_URL } from 'config';
 import { useSelector } from 'react-redux';
-import { formatBytes } from './CreateDocumentForm';
+import { formatBytes } from './createDocument/CreateDocumentForm';
 import { useQueryParam } from 'helpers/hooks';
 
 const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {

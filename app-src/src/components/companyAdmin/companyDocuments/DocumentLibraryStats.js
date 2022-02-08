@@ -1,14 +1,10 @@
 import React from 'react';
-import { formatBytes } from './CreateDocumentForm';
+import { formatBytes } from './createDocument/CreateDocumentForm';
 import useDocumentLibraryStorageInformation from './_hooks/useDocumentLibraryStorageInformation';
 
 const DocumentLibraryStats = ({ items, isRoot }) => {
-    const {
-        totalStorageRemaining,
-        totalStorageSizeForDownSync,
-        totalStorageUsed,
-        folderSize,
-    } = useDocumentLibraryStorageInformation(items);
+    const { totalStorageRemaining, totalStorageSizeForDownSync, totalStorageUsed, folderSize } =
+        useDocumentLibraryStorageInformation(items);
 
     const folderUsed = `${formatBytes(folderSize)} used (folder)`;
     const totalUsed = `${formatBytes(totalStorageUsed)} used (total)`;

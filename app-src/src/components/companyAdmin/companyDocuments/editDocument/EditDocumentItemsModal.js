@@ -91,7 +91,7 @@ const EditDocumentItemsModal = ({ ids }) => {
                 setTimeout(() => {
                     const newPrefix = prevPrefix ? `${prevPrefix}/${formData.name}` : formData.name;
 
-                    history.push(`/company/company-documents?prefix=${newPrefix}/`);
+                    history.replace(`/company/company-documents?prefix=${newPrefix}/`);
                 }, 1000);
             }
             dispatch(showModal(SUCCESS_MODAL, { message: 'Successfully updated library items' }));

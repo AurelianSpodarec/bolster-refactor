@@ -3,7 +3,7 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import React from 'react';
 
-import useCreateDocument, { maxFileSizeMB } from './_hooks/useCreateDocument';
+import useCreateDocument, { maxFileSizeMB } from '../_hooks/useCreateDocument';
 
 const CreateDocumentForm = ({ initialFiles }) => {
     const {

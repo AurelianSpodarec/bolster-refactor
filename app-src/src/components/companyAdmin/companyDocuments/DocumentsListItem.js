@@ -5,7 +5,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { getIconFromExt } from 'helpers/general';
 import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
 import FileTypeIcon from './FileTypeIcon';
-import { formatBytes } from './CreateDocumentForm';
+import { formatBytes } from './createDocument/CreateDocumentForm';
 import { RAW_S3_STORAGE_URL } from 'config';
 import { useSelector } from 'react-redux';
 import { useQueryParam } from 'helpers/hooks';
