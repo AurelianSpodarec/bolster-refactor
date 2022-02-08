@@ -42,9 +42,13 @@ const useFilteredPinTasks = tasks => {
 
         if (selectSiteFilter.length) {
             return selectSiteFilter.includes(task.siteID);
-        } else if (selectUserFilter.length) {
+        }
+
+        if (selectUserFilter.length) {
             return selectUserFilter.includes(task.companyUserID);
-        } else if (selectServiceFilter.length) {
+        }
+
+        if (selectServiceFilter.length) {
             return selectServiceFilter.includes(task.serviceID);
         }
 

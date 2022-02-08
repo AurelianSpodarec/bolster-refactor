@@ -5,12 +5,35 @@ import { selectServices } from 'selectors/companyAdmin/services';
 import { selectSubscriptions } from 'selectors/superAdmin/companySubscription';
 import { selectSites } from 'selectors/companyAdmin/sites';
 import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
+import { selectServiceFilters } from 'selectors/companyAdmin/services';
+import { selectUserFilters } from 'selectors/companyAdmin/companyUsers';
 
 const useFilterOptions = () => {
     const pinTasks = Object.values(useSelector(selectPinTasks));
 
-    const operativeIDs = [...new Set(pinTasks.map(task => task.companyUserID))];
-    const siteIDs = [...new Set(pinTasks.map(task => task.siteID))];
+    const selectServiceFilter = useSelector(selectServiceFilters);
+    const selectUserFilter = useSelector(selectUserFilters);
+
+    const operativeIDs = pinTasks
+        .filter(task => {
+            if (selectServiceFilter.length) {
+                return selectServiceFilter.includes(task.serviceID);
+            }
+            return true;
+        })
+        .map(task => task.companyUserID);
+
+    const siteIDs = pinTasks
+        .filter(task => {
+            if (selectUserFilter.length) {
+                return selectUserFilter.includes(task.companyUserID);
+            }
+            if (selectServiceFilter.length) {
+                return selectServiceFilter.includes(task.serviceID);
+            }
+            return true;
+        })
+        .map(task => task.siteID);
 
     const sites = useSelector(selectSites);
     const operatives = useSelector(selectCompanyUsers);
@@ -18,10 +41,6 @@ const useFilterOptions = () => {
     const subscriptions = useSelector(selectSubscriptions);
     const services = useSelector(selectServices);
     const serviceIDs = subscriptions.serviceIDs;
-
-    // Dynamically change options based on one before
-    // e.g only show operatives that have the service selected
-    // only show sites that selected operative are attached to
 
     const serviceOptions = Object.values(services)
         .filter(({ id }) => serviceIDs.includes(id))
