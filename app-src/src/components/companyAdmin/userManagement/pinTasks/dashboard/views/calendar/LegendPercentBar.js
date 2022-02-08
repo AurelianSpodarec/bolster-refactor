@@ -4,7 +4,8 @@ const LegendPercentBar = ({ stats }) => {
     return (
         <div className="percent-bar">
             {stats.map(({ name, percent }) => {
-                const percentString = `${percent < 1 ? '<1%' : `${Math.floor(percent)}%`}`;
+                const percentString = `${Math.floor(percent)}%`;
+                if (!percent) return null;
                 return (
                     <div
                         className={`color-bar ${name}`}
