@@ -7100,9 +7100,10 @@ input {
             flex: 1;
             display: flex;
             flex-wrap: wrap;
-            
+            align-items: center;
+
             .multi-multi-dropdown {
-                margin-right: 15px;
+                margin: 5px 15px 5px 0;
                 width: fit-content;
                 font-size: 60%;
 
