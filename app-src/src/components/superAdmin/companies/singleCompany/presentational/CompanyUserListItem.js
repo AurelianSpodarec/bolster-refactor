@@ -59,9 +59,12 @@ const CompanyUserListItem = ({ user, handleModalClick, tableColumnWidths }) => {
                     </>
                 )}
             </td>
+            <td style={{ width: tableColumnWidths[8] }} className="left-align">
+                {user.shouldRestrictPayments ? 'Yes' : 'No'}
+            </td>
             <td
                 className={isRowRed ? 'red-column' : ''}
-                style={{ width: tableColumnWidths[7], height: rowHeight ? rowHeight : 'auto' }}
+                style={{ width: tableColumnWidths[9], height: rowHeight ? rowHeight : 'auto' }}
             >
                 <ButtonContainer handleClick={() => handleModalClick()} className="button">
                     View Latest Syncs
