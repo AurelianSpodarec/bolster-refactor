@@ -3,14 +3,14 @@ import LegendPercentBar from './LegendPercentBar';
 import LegendRecurrencePills from './LegendRecurrencePills';
 import LegendStatusPills from './LegendStatusPills';
 
-const LegendSegment = ({ stats, type }) => {
+const LegendSegment = ({ stats, type, labelOptions }) => {
     return (
         <div className="segment">
             <LegendPercentBar stats={stats} />
             {type === 'recurrence' ? (
-                <LegendRecurrencePills stats={stats} />
+                <LegendRecurrencePills labelOptions={labelOptions} />
             ) : (
-                <LegendStatusPills stats={stats} />
+                <LegendStatusPills labelOptions={labelOptions} />
             )}
         </div>
     );

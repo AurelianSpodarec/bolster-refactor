@@ -10,16 +10,16 @@ import LegendSegment from './views/calendar/LegendSegment';
 
 import { PIN_TASK_RECURRING_NAMES, PIN_TASK_STATUS_NAMES } from 'constants/companyAdmin/enums';
 
-const calculatePercentage = (obj, target) => {
-    const titleEnum = {
-        recurring: PIN_TASK_RECURRING_NAMES.RECURRING,
-        non_recurring: PIN_TASK_RECURRING_NAMES.NON_RECURRING,
-        complete: PIN_TASK_STATUS_NAMES.COMPLETE,
-        complete_late: PIN_TASK_STATUS_NAMES.COMPLETE_LATE,
-        due_soon: PIN_TASK_STATUS_NAMES.DUE_SOON,
-        incomplete: PIN_TASK_STATUS_NAMES.INCOMPLETE,
-    };
+const titleEnum = {
+    recurring: PIN_TASK_RECURRING_NAMES.RECURRING,
+    non_recurring: PIN_TASK_RECURRING_NAMES.NON_RECURRING,
+    complete: PIN_TASK_STATUS_NAMES.COMPLETE,
+    complete_late: PIN_TASK_STATUS_NAMES.COMPLETE_LATE,
+    due_soon: PIN_TASK_STATUS_NAMES.DUE_SOON,
+    incomplete: PIN_TASK_STATUS_NAMES.INCOMPLETE,
+};
 
+const calculatePercentage = (obj, target) => {
     const percentageObj = Object.keys(obj).reduce(
         (res, item) => ({ ...res, [item]: (obj[item] / target) * 100 }),
         {},
@@ -61,6 +61,12 @@ const TasksLegend = ({ types, statuses, pinTasks }) => {
 
     const numberOfTasks = Object.values(pinTasks).length;
 
+    const typeOptions = Object.keys(types).map(item => ({ name: item, title: titleEnum[item] }));
+    const statusOptions = Object.keys(statuses).map(item => ({
+        name: item,
+        title: titleEnum[item],
+    }));
+
     useEffect(() => {
         batch(() => {
             dispatch(fetchCompanyUsers());
@@ -71,8 +77,16 @@ const TasksLegend = ({ types, statuses, pinTasks }) => {
 
     return (
         <BlockContainer contentClass="legend" containerClass="size-lg-12">
-            <LegendSegment stats={calculatePercentage(types, numberOfTasks)} type="recurrence" />
-            <LegendSegment stats={calculatePercentage(statuses, numberOfTasks)} type="status" />
+            <LegendSegment
+                stats={calculatePercentage(types, numberOfTasks)}
+                labelOptions={typeOptions}
+                type="recurrence"
+            />
+            <LegendSegment
+                stats={calculatePercentage(statuses, numberOfTasks)}
+                labelOptions={statusOptions}
+                type="status"
+            />
         </BlockContainer>
     );
 };

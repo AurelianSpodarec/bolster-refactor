@@ -1,12 +1,12 @@
 import React from 'react';
 import TaskRecurrencePill from '../../TaskRecurrencePill';
 
-const LegendRecurrencePills = ({ stats }) => {
+const LegendRecurrencePills = ({ labelOptions }) => {
     return (
         <div className="pills-wrapper">
             <span>Task type:</span>
             <div className="pills">
-                {stats.map((data, i) => (
+                {labelOptions.map((data, i) => (
                     <TaskRecurrencePill key={i} {...data} />
                 ))}
             </div>
