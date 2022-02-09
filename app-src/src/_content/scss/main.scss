@@ -2966,6 +2966,14 @@ input {
             width: auto;
             margin-left: 10px;
         }
+
+        &.status-filter {
+           width: 30%;
+            margin-right: 10px;
+            bottom: 5px;
+            justify-content: center;
+        }
+
         p {
             float: right;
             padding-right: 10px;
