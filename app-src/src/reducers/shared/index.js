@@ -13,6 +13,7 @@ import filesUploadingReducer from './fileUpload';
 import passwordRegexReducer from './passwordRegex';
 import timeReducer from './time';
 import sitesFilterReducer from './sitesFilter';
+import buildingsFilterReducer from './buildingsFilter';
 import selectedHistoryReducer from './selectedHistory';
 import mobileReducer from './mobile';
 import forgotPasswordReducer from './forgotPassword';
@@ -46,4 +47,5 @@ export default combineReducers({
     bannerNotificationReducer,
     twoFactorReducer,
     bannerReducer,
+    buildingsFilterReducer,
 });
