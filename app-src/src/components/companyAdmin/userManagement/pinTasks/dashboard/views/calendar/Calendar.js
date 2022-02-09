@@ -13,22 +13,22 @@ const Calendar = ({ startDate, startCreatePinTask, viewTaskNote, days, matrix, i
     return (
         <BlockContainer contentClass="calendar" isFetching={isFetching} isEmpty={isFetching}>
             <Table headers={days}>
-                {matrix.map((row, y) => (
+                {matrix.map((weekDays, y) => (
                     <tr key={y}>
-                        {row.map(({ date, pinTasks }, x) => {
+                        {weekDays.map(({ date, pinTasks }, x) => {
                             const disabled = !moment(startDate).isSame(date, 'month');
                             const isToday = moment(date).isSame(new Date(), 'day');
 
                             return (
-                                <td key={x} className={disabled ? 'disabled' : ''}>
+                                <td key={`${y}:${x}`} className={disabled ? 'disabled' : ''}>
                                     <div className="cell">
                                         <time>{moment(date).format('DD')}</time>
-                                        {!pinTasks || !isEmpty(pinTasks) ? (
+                                        {!isEmpty(pinTasks) ? (
                                             <div className="tasks">
-                                                {pinTasks.map((pinTask, i) => (
+                                                {pinTasks.map(pinTask => (
                                                     <CalendarPinTask
                                                         {...pinTask}
-                                                        key={i}
+                                                        key={pinTask.id}
                                                         viewTaskNote={viewTaskNote}
                                                     />
                                                 ))}

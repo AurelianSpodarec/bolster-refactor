@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import { PIN_STATS_DASHBOARD_VIEW, TIME_PERIOD } from 'constants/companyAdmin/enums';
+const { CALENDAR, LIST, SERIES } = PIN_STATS_DASHBOARD_VIEW;
 import {
     CREATE_PIN_TASK,
     EDIT_PIN_TASK,
@@ -17,15 +18,15 @@ const usePinTasksDashboard = () => {
     const dispatch = useDispatch();
     const { timeZone } = useSelector(selectCompanySettings);
 
-    const [view, setView] = useState(PIN_STATS_DASHBOARD_VIEW.CALENDAR);
+    const [view, setView] = useState(CALENDAR);
 
     const weekStart = moment(new Date()).tz(timeZone.id).startOf('isoWeek').format();
     const monthStart = moment(new Date()).tz(timeZone.id).startOf('month').format();
 
     const timePeriods = {
-        [PIN_STATS_DASHBOARD_VIEW.CALENDAR]: TIME_PERIOD.MONTH,
-        [PIN_STATS_DASHBOARD_VIEW.LIST]: TIME_PERIOD.WEEK,
-        [PIN_STATS_DASHBOARD_VIEW.SERIES]: TIME_PERIOD.WEEK,
+        [CALENDAR]: TIME_PERIOD.MONTH,
+        [LIST]: TIME_PERIOD.WEEK,
+        [SERIES]: TIME_PERIOD.WEEK,
     };
 
     const starts = {
