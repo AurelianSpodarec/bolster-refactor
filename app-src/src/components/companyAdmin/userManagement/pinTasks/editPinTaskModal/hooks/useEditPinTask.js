@@ -35,7 +35,7 @@ const useEditPinTask = id => {
     const operativesIsFetching = useSelector(getOperativesIsFetching);
 
     const [formData, handleChange] = useForm({
-        date: pinTask?.dueOn,
+        dueDate: pinTask?.dueOn,
         companyUserID: pinTask?.companyUserID,
     });
 

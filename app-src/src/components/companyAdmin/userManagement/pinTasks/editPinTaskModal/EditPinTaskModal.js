@@ -24,7 +24,7 @@ const EditPinTaskModal = ({ id }) => {
         operatives,
     } = useEditPinTask(id);
 
-    const { date, companyUserID } = formData;
+    const { dueDate, companyUserID } = formData;
 
     return (
         <ModalOuterContainer extraClasses="edit-pin-task-modal">
@@ -35,11 +35,11 @@ const EditPinTaskModal = ({ id }) => {
                     isEmpty={!pinTask}
                     contentClass="no-padding"
                 >
-                    <Field name="date" sizeClasses="size-lg-12" label="Due Date">
+                    <Field name="dueDate" sizeClasses="size-lg-12" label="Due Date">
                         <DatePickerContainer
-                            name="date"
-                            selected={new Date(date)}
-                            onChange={value => handleChange('date', value)}
+                            name="dueDate"
+                            selected={new Date(dueDate)}
+                            onChange={value => handleChange('dueDate', value)}
                             required
                             maxDate={moment(new Date()).add(13, 'months').toDate()}
                         />
