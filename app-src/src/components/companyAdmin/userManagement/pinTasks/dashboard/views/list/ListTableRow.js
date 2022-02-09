@@ -11,7 +11,7 @@ import {
 import TaskStatusPill from '../../TaskStatusPill';
 import TaskRecurrencePill from '../../TaskRecurrencePill';
 
-import PinTaskNoteIcon from '../../../../../../../_content/images/icons/pinTaskNote.png';
+import PinTaskNoteIcon from '../../../../../../../_content/images/icons/pinTaskNoteWhite.png';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const ListTableRow = ({ pinTask, startEditPinTask, viewTaskNote }) => {
@@ -68,7 +68,7 @@ const ListTableRow = ({ pinTask, startEditPinTask, viewTaskNote }) => {
                     </button>
                     {pinTask.note && (
                         <button
-                            className="button green"
+                            className="button green image-icon"
                             type="button"
                             onClick={() => viewTaskNote(id)}
                         >

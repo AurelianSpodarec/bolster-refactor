@@ -2988,12 +2988,16 @@ input {
                 margin-left: 2.5px;
                 margin-bottom: 2px;
 
-                .note-icon {
-                    position: relative;
-                    left: -5px;
-                    bottom: -3px;
-                    width: 14px;
-                    height: 18px;
+                &.image-icon {
+                    display: flex; 
+                    align-items: center;
+                    justify-content: center;
+
+                    .note-icon {
+                        max-width: 10px;
+                        max-height: 15px;
+                        margin-right: 5px;
+                    }
                 }
             }
         }
