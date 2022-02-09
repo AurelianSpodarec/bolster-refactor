@@ -7107,13 +7107,23 @@ input {
             align-items: center;
 
             .multi-multi-dropdown {
+                width: 200px;
                 margin: 5px 15px 5px 0;
-                width: fit-content;
                 font-size: 60%;
 
                 &:last-child {
                     margin-right: 0;
                 }
+
+                .option {
+                    max-width: 100%;
+
+                    p {
+                        word-wrap: break-word;
+                        white-space: normal;
+                    }
+                }
+
             }
         }
     }
