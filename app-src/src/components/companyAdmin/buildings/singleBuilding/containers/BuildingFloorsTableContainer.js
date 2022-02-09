@@ -14,6 +14,7 @@ import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
 import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
 import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierarchyIsSorting';
+import FloorFiltersContainer from 'components/companyAdmin/floors/singleFloor/containers/FloorFiltersContainer';
 
 class BuildingsFloorsTableContainer extends Component {
     render() {
@@ -36,6 +37,7 @@ class BuildingsFloorsTableContainer extends Component {
                             <i className="far fa-sort" /> Sort Mode
                         </button>
                     )}
+                    <FloorFiltersContainer />
                 </BlockHeading>
                 <FloorTableContainer ids={building.floorIDs || []} />
             </BlockContainer>

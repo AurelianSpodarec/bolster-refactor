@@ -15,6 +15,7 @@ import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierarchyIsSorting';
+import FloorFiltersContainer from './FloorFiltersContainer';
 
 class FloorDrawingsTableContainer extends Component {
     state = { shouldRestrictPayments: false };
