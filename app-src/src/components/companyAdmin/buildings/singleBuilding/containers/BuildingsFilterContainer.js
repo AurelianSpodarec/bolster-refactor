@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import BuildingFilters from '../presentational/BuildingFilters';
+import BuildingFilters from './BuildingFilters';
 import { companyAdminHierarchySort } from 'constants/shared/sortAndFilterOptions';
 
 const BuildingFiltersContainer = () => {
