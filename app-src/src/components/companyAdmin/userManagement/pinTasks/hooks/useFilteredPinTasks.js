@@ -21,43 +21,39 @@ const useFilteredPinTasks = tasks => {
     const selectServiceFilter = useSelector(selectServiceFilters);
     const selectSiteFilter = useSelector(selectSiteFilters);
 
-    const pinTasks = Object.values(tasks)
-        .filter(task => {
-            if (selectSiteFilter.length) {
-                return selectSiteFilter.includes(task.siteID);
-            }
+    const pinTasks = Object.values(tasks).filter(task => {
+        const recurringName = task.isRecurring ? RECURRING : NON_RECURRING;
 
-            if (selectUserFilter.length) {
-                return selectUserFilter.includes(task.companyUserID);
-            }
+        const statusName = task.actionedOn
+            ? moment(task.actionedOn).isAfter(task.dueOn)
+                ? COMPLETE_LATE
+                : COMPLETE
+            : moment(task.dueOn).isBefore()
+            ? INCOMPLETE
+            : DUE_SOON;
 
-            if (selectServiceFilter.length) {
-                return selectServiceFilter.includes(task.serviceID);
-            }
+        if (selectedRecurrenceFilter && selectedRecurrenceFilter !== recurringName) {
+            return false;
+        }
 
-            return true;
-        })
-        .filter(task => {
-            const recurringName = task.isRecurring ? RECURRING : NON_RECURRING;
+        if (selectedStatusFilter.length && !selectedStatusFilter.includes(statusName)) {
+            return false;
+        }
 
-            const statusName = task.actionedOn
-                ? moment(task.actionedOn).isAfter(task.dueOn)
-                    ? COMPLETE_LATE
-                    : COMPLETE
-                : moment(task.dueOn).isBefore()
-                ? INCOMPLETE
-                : DUE_SOON;
+        if (selectServiceFilter.length && !selectServiceFilter.includes(task.serviceID)) {
+            return false;
+        }
 
-            if (selectedStatusFilter.length) {
-                return selectedStatusFilter.includes(statusName);
-            }
+        if (selectSiteFilter.length && !selectSiteFilter.includes(task.siteID)) {
+            return false;
+        }
 
-            if (selectedRecurrenceFilter) {
-                return selectedRecurrenceFilter === recurringName;
-            }
+        if (selectUserFilter.length && !selectUserFilter.includes(task.companyUserID)) {
+            return false;
+        }
 
-            return true;
-        });
+        return true;
+    });
 
     return pinTasks;
 };
