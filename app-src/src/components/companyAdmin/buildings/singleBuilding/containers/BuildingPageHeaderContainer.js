@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import BuildingPageHeader from '../presentational/BuildingPageHeader';
 import BuildingBreadcrumbContainer from './BuildingBreadcrumbContainer';
 import TabsContainer from 'components/shared/generic/tabs/containers/TabsContainer';
+import BuildingFilters from '../presentational/BuildingFilters';
 
 class BuildingPageHeaderContainer extends Component {
     render() {
@@ -20,6 +21,6 @@ class BuildingPageHeaderContainer extends Component {
 
 export default withRouter(
     connect(({ companyAdmin: { buildingsReducer } }, ownProps) => ({
-        building: buildingsReducer.buildings[ownProps.match.params.id] || {}
-    }))(BuildingPageHeaderContainer)
+        building: buildingsReducer.buildings[ownProps.match.params.id] || {},
+    }))(BuildingPageHeaderContainer),
 );
