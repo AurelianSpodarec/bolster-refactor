@@ -10,7 +10,7 @@ import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 const FloorTableContainer = ({ isFetching, error, floors, colSpanFirst = false, isSorting }) => {
     const filters = useSelector(selectFloorsFilterStatus);
 
-    const getFilteredBuildings = () => {
+    const getFilteredFloors = () => {
         const { status } = filters;
 
         if (status === 'active') {
@@ -32,7 +32,7 @@ const FloorTableContainer = ({ isFetching, error, floors, colSpanFirst = false, 
             headers={['Floor name', 'Created on', 'Permissions', 'Action']}
             isFetching={isFetching}
             error={error}
-            floors={getFilteredBuildings(floors)}
+            floors={getFilteredFloors(floors)}
             colSpanFirst={colSpanFirst}
             isSorting={isSorting}
         />

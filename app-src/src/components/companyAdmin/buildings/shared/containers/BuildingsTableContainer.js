@@ -20,15 +20,17 @@ const BuildingsTableContainer = ({
         const { status } = filters;
 
         if (status === 'active') {
-            return buildings.filter(site => !site.isArchived);
+            return buildings.filter(building => !building.isArchived);
         }
 
         if (status === 'read only') {
-            return buildings.filter(site => site.accessType === ACCESS_TYPES_VALUES.READONLY);
+            return buildings.filter(
+                building => building.accessType === ACCESS_TYPES_VALUES.READONLY,
+            );
         }
 
         if (status === 'archived') {
-            return buildings.filter(site => site.isArchived);
+            return buildings.filter(building => building.isArchived);
         }
 
         return buildings;
