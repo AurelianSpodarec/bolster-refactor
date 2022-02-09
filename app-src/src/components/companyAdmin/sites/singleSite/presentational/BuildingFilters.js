@@ -2,37 +2,29 @@ import React from 'react';
 
 import Select from 'components/shared/generic/form/presentational/Select';
 
-const BuildingFilters = ({
-    name,
-    statusOptions,
-    selectedStatus,
-    handleChange,
-    onMobile,
-    sortOptions,
-    selectedSort,
-}) => (
-    <form className="table-search size-lg-12">
+const BuildingFilters = ({ statusOptions, filterStatus, handleChange, onMobile }) => (
+    <form className="table-search">
         {onMobile ? (
             <>
-                <div className="table-filter">
+                <div className="table-filter status-filter">
                     <p>Filter by status:</p>
                     <Select
-                        placeholder="All sites"
+                        placeholder="All buildings"
                         name="status"
                         options={statusOptions}
-                        value={selectedStatus}
+                        value={filterStatus}
                         onChange={handleChange}
                     />
                 </div>
             </>
         ) : (
             <>
-                <div className="table-filter">
+                <div className="table-filter status-filter">
                     <Select
-                        placeholder="All sites"
+                        placeholder="All buildings"
                         name="status"
                         options={statusOptions}
-                        value={selectedStatus}
+                        value={filterStatus}
                         onChange={handleChange}
                     />
                     <p>Filter by status:</p>

@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import BuildingPageHeader from '../presentational/BuildingPageHeader';
 import BuildingBreadcrumbContainer from './BuildingBreadcrumbContainer';
 import TabsContainer from 'components/shared/generic/tabs/containers/TabsContainer';
-import BuildingFilters from './BuildingFilters';
-
 class BuildingPageHeaderContainer extends Component {
     render() {
         return (
