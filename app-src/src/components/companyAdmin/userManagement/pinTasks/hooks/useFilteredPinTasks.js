@@ -23,14 +23,21 @@ const useFilteredPinTasks = tasks => {
 
     const pinTasks = Object.values(tasks).filter(task => {
         const recurringName = task.isRecurring ? RECURRING : NON_RECURRING;
+        let statusName = '';
 
-        const statusName = task.actionedOn
-            ? moment(task.actionedOn).isAfter(task.dueOn)
-                ? COMPLETE_LATE
-                : COMPLETE
-            : moment(task.dueOn).isBefore()
-            ? INCOMPLETE
-            : DUE_SOON;
+        if (task.actionedOn) {
+            if (moment(task.actionedOn).isAfter(task.dueOn)) {
+                statusName = COMPLETE_LATE;
+            } else {
+                statusName = COMPLETE;
+            }
+        } else {
+            if (moment(task.dueOn).isBefore()) {
+                statusName = INCOMPLETE;
+            } else {
+                statusName = DUE_SOON;
+            }
+        }
 
         if (selectedRecurrenceFilter && selectedRecurrenceFilter !== recurringName) {
             return false;
