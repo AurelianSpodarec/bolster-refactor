@@ -38,9 +38,8 @@ const useFilterOptions = () => {
     const sites = useSelector(selectSites);
     const operatives = useSelector(selectCompanyUsers);
 
-    const subscriptions = useSelector(selectSubscriptions);
     const services = useSelector(selectServices);
-    const serviceIDs = subscriptions.serviceIDs;
+    const serviceIDs = [...new Set(pinTasks.map(({ serviceID }) => serviceID))];
 
     const serviceOptions = Object.values(services)
         .filter(({ id }) => serviceIDs.includes(id))
