@@ -15,6 +15,7 @@ import timeReducer from './time';
 import sitesFilterReducer from './sitesFilter';
 import buildingsFilterReducer from './buildingsFilter';
 import floorsFilterReducer from './floorsFilter';
+import drawingsFilterReducer from './drawingsFilter';
 import selectedHistoryReducer from './selectedHistory';
 import mobileReducer from './mobile';
 import forgotPasswordReducer from './forgotPassword';
@@ -50,4 +51,5 @@ export default combineReducers({
     bannerReducer,
     buildingsFilterReducer,
     floorsFilterReducer,
+    drawingsFilterReducer,
 });
