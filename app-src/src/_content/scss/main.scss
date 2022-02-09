@@ -2579,6 +2579,7 @@ input {
         }
 
         tr {
+            position: static;
             border-bottom: none;
 
             &:first-child {
