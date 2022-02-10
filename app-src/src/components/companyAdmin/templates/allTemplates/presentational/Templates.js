@@ -26,7 +26,8 @@ const Templates = () => {
                         here.
                     </a>
                 </p>
-
+            </BlockContainer>
+            <BlockContainer>
                 <TemplatesTableContainer />
             </BlockContainer>
             <PinOptionsTableContainer />
