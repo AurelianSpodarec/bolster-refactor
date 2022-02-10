@@ -25,9 +25,28 @@ const CompanyTimesheetsTable = () => {
             noData={isEmpty(timesheets)}
             noDataMessage="No bug timesheets to display"
         >
-            {/* {timesheets.map((timesheet, i) => {
-                return <tr key={i}></tr>;
-            })} */}
+            {timesheets.map(
+                (
+                    {
+                        companyName,
+                        numberOfClockedInUsers,
+                        numberOfHoursClockedIn,
+                        numberOfImages,
+                        numberOfNotes,
+                    },
+                    i,
+                ) => {
+                    return (
+                        <tr key={i}>
+                            <td className="center">{companyName}</td>
+                            <td className="center">{numberOfClockedInUsers}</td>
+                            <td className="center">{numberOfHoursClockedIn}</td>
+                            <td className="center">{numberOfImages}</td>
+                            <td className="center">{numberOfNotes}</td>
+                        </tr>
+                    );
+                },
+            )}
         </Table>
     );
 };

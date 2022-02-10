@@ -28,7 +28,7 @@ function isFetchingReducer(state = false, action) {
 function timesheetsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_SUPER_ADMIN_TIMESHEETS_SUCCESS:
-            return convertArrToObj(action.payload);
+            return convertArrToObj(action.payload, 'companyID');
         default:
             return state;
     }

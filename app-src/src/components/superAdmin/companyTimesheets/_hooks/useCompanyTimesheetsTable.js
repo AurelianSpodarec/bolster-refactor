@@ -12,7 +12,7 @@ const useCompanyTimesheetsTable = () => {
     const dispatch = useDispatch();
 
     const isFetching = useSelector(selectSuperAdminTimesheetsIsFetching);
-    const timesheets = useSelector(selectSuperAdminTimesheets);
+    const timesheets = Object.values(useSelector(selectSuperAdminTimesheets));
     const error = useSelector(selectSuperAdminTimesheetsError);
 
     useEffect(() => {
