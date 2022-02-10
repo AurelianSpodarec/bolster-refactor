@@ -34,6 +34,11 @@ import {
     ADD_CREDITS_TO_DRAWING_REQUEST,
     ADD_CREDITS_TO_DRAWING_SUCCESS,
 } from 'constants/actionTypes/credits';
+import {
+    FETCH_USER_DRAWINGS_REQUEST,
+    FETCH_USER_DRAWINGS_SUCCESS,
+    FETCH_USER_DRAWINGS_FAILURE,
+} from 'constants/actionTypes/usersManagement';
 
 export default combineReducers({
     drawings: drawingsReducer,
@@ -52,6 +57,7 @@ function isFetchingReducer(state = false, action) {
         case FETCH_ALL_DRAWINGS_REQUEST:
         case FETCH_SINGLE_DRAWING_REQUEST:
         case FETCH_DRAWING_SHARE_LINKS_REQUEST:
+        case FETCH_USER_DRAWINGS_REQUEST:
             return true;
         case FETCH_ALL_DRAWINGS_SUCCESS:
         case FETCH_ALL_DRAWINGS_FAILURE:
@@ -59,6 +65,8 @@ function isFetchingReducer(state = false, action) {
         case FETCH_SINGLE_DRAWING_FAILURE:
         case FETCH_DRAWING_SHARE_LINKS_SUCCESS:
         case FETCH_DRAWING_SHARE_LINKS_FAILURE:
+        case FETCH_USER_DRAWINGS_SUCCESS:
+        case FETCH_USER_DRAWINGS_FAILURE:
             return false;
         default:
             return state;
@@ -87,6 +95,7 @@ function errorReducer(state = null, action) {
         case ARCHIVE_DRAWING_REQUEST:
         case EDIT_DRAWING_REQUEST:
         case FETCH_DRAWING_SHARE_LINKS_REQUEST:
+        case FETCH_USER_DRAWINGS_REQUEST:
             return null;
         case FETCH_ALL_DRAWINGS_FAILURE:
         case FETCH_SINGLE_DRAWING_FAILURE:
@@ -96,6 +105,7 @@ function errorReducer(state = null, action) {
         case ARCHIVE_DRAWING_FAILURE:
         case EDIT_DRAWING_FAILURE:
         case FETCH_DRAWING_SHARE_LINKS_FAILURE:
+        case FETCH_USER_DRAWINGS_FAILURE:
             return action.error;
         default:
             return state;
@@ -148,8 +158,10 @@ function deleteSuccessReducer(state = false, action) {
 function drawingsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_ALL_DRAWINGS_REQUEST:
+        case FETCH_USER_DRAWINGS_REQUEST:
             return {};
         case FETCH_ALL_DRAWINGS_SUCCESS:
+        case FETCH_USER_DRAWINGS_SUCCESS:
             return convertArrToObj(action.payload);
         case FETCH_SINGLE_DRAWING_SUCCESS:
         case CREATE_DRAWING_SUCCESS:

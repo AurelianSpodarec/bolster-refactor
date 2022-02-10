@@ -8,7 +8,8 @@ import {
     COMPANY_ADMIN_FETCH_HISTORIC_SERVICES_FAILURE,
     FETCH_SERVICE_PERMISSIONS_FOR_DRAWING_REQUEST,
     FETCH_SERVICE_PERMISSIONS_FOR_DRAWING_SUCCESS,
-    FETCH_SERVICE_PERMISSIONS_FOR_DRAWING_FAILURE
+    FETCH_SERVICE_PERMISSIONS_FOR_DRAWING_FAILURE,
+    SET_SERVICE_FILTERS,
 } from 'constants/actionTypes/services';
 import { convertArrToObj } from 'helpers/generic';
 
@@ -18,6 +19,7 @@ export default combineReducers({
     services: servicesReducer,
     historicServices: companyHistoricServicesReducer,
     drawingServices: drawingServicesReducer,
+    serviceFilters: serviceFiltersReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -74,6 +76,15 @@ function drawingServicesReducer(state = {}, action) {
             return {};
         case FETCH_SERVICE_PERMISSIONS_FOR_DRAWING_SUCCESS:
             return convertArrToObj(action.payload);
+        default:
+            return state;
+    }
+}
+
+function serviceFiltersReducer(state = [], action) {
+    switch (action.type) {
+        case SET_SERVICE_FILTERS:
+            return action.serviceFilterType;
         default:
             return state;
     }

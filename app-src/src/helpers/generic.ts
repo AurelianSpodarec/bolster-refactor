@@ -66,6 +66,12 @@ export function removeObjItem(obj, key) {
     return rest;
 }
 
+export function removeObjItems(obj, keys) {
+    const objCopy = { ...obj };
+    keys.forEach(key => delete objCopy[key]);
+    return objCopy;
+}
+
 export function areArraysEqual(arr1, arr2) {
     if (!arr1 || !arr2) return arr1 === arr2;
     return (
