@@ -22,6 +22,12 @@ const SuperAdminMenu = ({ logout, unreadRequests, unreadBugReports }) => (
         <MenuItemContainer link="/admin/companies">
             <i className="fa fa-users icon" /> <span className="menu-text">Companies</span>
         </MenuItemContainer>
+
+        <MenuItemContainer link="/admin/company-timesheets">
+            <i className="fa fa-calendar-alt icon" />{' '}
+            <span className="menu-text">Company Timesheets</span>
+        </MenuItemContainer>
+
         <MenuItemContainer link="/admin/users">
             <i className="fa fa-user icon" /> <span className="menu-text">Users</span>
         </MenuItemContainer>

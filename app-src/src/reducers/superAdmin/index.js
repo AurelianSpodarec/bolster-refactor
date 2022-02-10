@@ -38,6 +38,7 @@ import bannerNotificationsReducer from './bannerNotifications';
 import demoAccessCodesReducer from './demoAccessCodes';
 import companyTrackingReducer from './companyTracking';
 import bugReportsReducer from './bugReports';
+import timesheetsReducer from './timesheets';
 
 export default combineReducers({
     adminServicesReducer,
@@ -68,6 +69,7 @@ export default combineReducers({
     templateSectionsReducer,
     templateQuestionsReducer,
     templateQuestionFormReducer,
+    timesheetsReducer,
     usersReducer,
     userCreationsReducer,
     userGuideReducer,
