@@ -37,7 +37,7 @@ function timesheetsReducer(state = {}, action) {
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_SUPER_ADMIN_TIMESHEETS_FAILURE:
-            return action.payload;
+            return action.error;
         case FETCH_SUPER_ADMIN_TIMESHEETS_REQUEST:
             return null;
         default:
