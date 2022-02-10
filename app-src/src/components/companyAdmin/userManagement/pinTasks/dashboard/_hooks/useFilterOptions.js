@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 
 import { selectPinTasks } from 'selectors/companyAdmin/pinTasks';
 import { selectServices } from 'selectors/companyAdmin/services';
-import { selectSubscriptions } from 'selectors/superAdmin/companySubscription';
 import { selectSites } from 'selectors/companyAdmin/sites';
 import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
 import { selectServiceFilters } from 'selectors/companyAdmin/services';
@@ -72,7 +71,7 @@ const useFilterOptions = () => {
 
         return acc;
     }, []);
-
+    console.log({ services, sites, operatives });
     return { serviceOptions, operativeOptions, siteOptions };
 };
 
