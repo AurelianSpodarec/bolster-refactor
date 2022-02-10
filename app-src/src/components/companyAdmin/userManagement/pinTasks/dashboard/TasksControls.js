@@ -30,16 +30,7 @@ const TasksControls = ({ startDate, view, onViewChange, onPrev, onNext, onToday,
     const disabled = view === PIN_STATS_DASHBOARD_VIEW.SERIES;
     const buttonText = view === PIN_STATS_DASHBOARD_VIEW.LIST ? 'Week' : 'Month';
 
-    const {
-        form,
-        handleChange,
-        serviceOptions,
-        siteOptions,
-        operativeOptions,
-        handlePrev,
-        handleNext,
-        handleViewChange,
-    } = useTasksFilters(onPrev, onNext, onViewChange);
+    const { form, handleChange, serviceOptions, siteOptions, operativeOptions } = useTasksFilters();
 
     return (
         <BlockHeading
@@ -47,10 +38,10 @@ const TasksControls = ({ startDate, view, onViewChange, onPrev, onNext, onToday,
             title={
                 <>
                     <div className="nav-buttons">
-                        <button onClick={handlePrev} disabled={disabled}>
+                        <button onClick={onPrev} disabled={disabled}>
                             <i className="far fa-chevron-left" />
                         </button>
-                        <button onClick={handleNext} disabled={disabled}>
+                        <button onClick={onNext} disabled={disabled}>
                             <i className="far fa-chevron-right" />
                         </button>
                     </div>
@@ -85,7 +76,7 @@ const TasksControls = ({ startDate, view, onViewChange, onPrev, onNext, onToday,
                         <Select
                             name="view"
                             value={view}
-                            onChange={(_, value) => handleViewChange(value)}
+                            onChange={(_, value) => onViewChange(value)}
                             options={viewOptions}
                             omitPlaceholder
                         />
