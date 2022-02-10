@@ -7,7 +7,7 @@ import setServiceFilters from 'actions/companyAdmin/services/async/sync/setServi
 import setUserFilters from 'actions/companyAdmin/userManagement/async/setUserFilters';
 import setSiteFilters from 'actions/companyAdmin/sites/sync/setSiteFilters';
 
-const useTasksFilters = (onPrev, onNext) => {
+const useTasksFilters = (onPrev, onNext, onViewChange) => {
     const dispatch = useDispatch();
 
     const [form, handleChange] = useForm({
@@ -42,6 +42,11 @@ const useTasksFilters = (onPrev, onNext) => {
         onNext();
     };
 
+    const handleViewChange = value => {
+        clearFilters();
+        onViewChange(value);
+    };
+
     return {
         form,
         handleChange,
@@ -50,6 +55,7 @@ const useTasksFilters = (onPrev, onNext) => {
         operativeOptions,
         handlePrev,
         handleNext,
+        handleViewChange,
     };
 };
 

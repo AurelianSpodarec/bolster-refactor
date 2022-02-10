@@ -38,7 +38,8 @@ const TasksControls = ({ startDate, view, onViewChange, onPrev, onNext, onToday,
         operativeOptions,
         handlePrev,
         handleNext,
-    } = useTasksFilters(onPrev, onNext);
+        handleViewChange,
+    } = useTasksFilters(onPrev, onNext, onViewChange);
 
     return (
         <BlockHeading
@@ -84,7 +85,7 @@ const TasksControls = ({ startDate, view, onViewChange, onPrev, onNext, onToday,
                         <Select
                             name="view"
                             value={view}
-                            onChange={(_, value) => onViewChange(value)}
+                            onChange={(_, value) => handleViewChange(value)}
                             options={viewOptions}
                             omitPlaceholder
                         />
