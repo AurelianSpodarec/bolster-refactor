@@ -7,6 +7,8 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { DATE_TIME_IDS, TIME_PERIOD } from 'constants/companyAdmin/enums';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import useDateTime from 'components/shared/dateTime/hooks/useDateTime';
+import { useSelector } from 'react-redux';
+import { selectJobReferences } from 'selectors/companyAdmin/jobReferences';
 
 const BreakdownSummary = ({
     name,
@@ -19,12 +21,17 @@ const BreakdownSummary = ({
     clockOut,
     timePeriod = TIME_PERIOD.DAY,
 }) => {
+    const jobReferences = useSelector(selectJobReferences);
     const filteredJobReferenceIDs = jobReferenceIDs.filter(jobReference => jobReference);
     const { moment: clockInMoment } = useDateTime(clockIn);
     const { moment: clockOutMoment } = useDateTime(clockOut);
     const clockInDay = clockInMoment.startOf('day');
     const clockOutDay = clockOutMoment.startOf('day');
     const dayDifference = clockOutDay.diff(clockInDay, 'days');
+
+    const jobReferenceNames = filteredJobReferenceIDs.map(
+        referenceID => jobReferences[referenceID].name,
+    );
 
     return (
         <div className="breakdown-summary">
@@ -90,9 +97,9 @@ const BreakdownSummary = ({
                     )}
                     <div className="summary-row">
                         <FieldOutput title="Job References" fieldClass="references">
-                            {filteredJobReferenceIDs.length === 0
+                            {jobReferenceNames.length === 0
                                 ? 'N/A'
-                                : filteredJobReferenceIDs.map((reference, i) => (
+                                : jobReferenceNames.map((reference, i) => (
                                       <Fragment key={i}>
                                           {reference}
                                           <br />

@@ -31,6 +31,7 @@ import { usePrevious, useQuery } from 'helpers/hooks';
 import { areArraysEqual } from 'helpers/generic';
 import { setCompanyUserIDs } from 'actions/companyAdmin/timesheets/sync/setSelectedCompanyUserID';
 import fetchTimesheetsWeekDropdownOptions from 'actions/companyAdmin/timesheets/async/fetchTimesheetsWeekDropdownOptions';
+import fetchJobReferences from 'actions/companyAdmin/jobReferences/async/fetchJobReferences';
 
 const useTimesheets = () => {
     const dispatch = useDispatch();
@@ -166,6 +167,7 @@ const useTimesheets = () => {
         dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
         dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
         dispatch(fetchCompanyUsers());
+        dispatch(fetchJobReferences());
 
         if (id) {
             dispatch(setCompanyUserIDs([parseInt(id)]));

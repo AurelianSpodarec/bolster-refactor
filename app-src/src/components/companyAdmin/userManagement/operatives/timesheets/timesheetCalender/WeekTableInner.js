@@ -11,6 +11,7 @@ import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import timesheetPin from '_content/images/pins-examples/timesheet-pin.png';
 import { formatAsHrsMinsSecs } from 'helpers/generic';
 import useExpandableTab from '../hooks/useExpandableTab';
+import { selectJobReferences } from 'selectors/companyAdmin/jobReferences';
 
 const WeekTableInner = ({
     selectedDate,
@@ -20,6 +21,7 @@ const WeekTableInner = ({
     timesheets,
     totals,
 }) => {
+    const jobReferences = useSelector(selectJobReferences);
     const { timeZone } = useSelector(selectCompanySettings);
     const { expandedDate, handleJobsClick } = useExpandableTab();
 
@@ -33,12 +35,20 @@ const WeekTableInner = ({
         { totalPins: 0, formattedHours: 0, jobReferenceIDs: [] },
     );
 
+    const getJobReferenceNames = ids => {
+        return ids.map(id => jobReferences[id].name);
+    };
+
     const filteredJobReferenceIDs = jobReferenceIDs.filter(reference => reference);
+    const filteredJobReferenceNames = getJobReferenceNames(filteredJobReferenceIDs);
 
     return (
         <>
             {totals.map(({ date, totalPins, formattedHours, jobReferenceIDs }, i) => {
-                const filteredJobReferenceIDs = jobReferenceIDs.filter(Boolean);
+                const totalsFilteredJobReferenceIDs = jobReferenceIDs.filter(Boolean);
+                const totalsFilteredJobReferenceNames = getJobReferenceNames(
+                    totalsFilteredJobReferenceIDs,
+                );
 
                 return (
                     <td key={i} onClick={() => onDaySelect(date)}>
@@ -65,10 +75,10 @@ const WeekTableInner = ({
                                 <ExpandableTab
                                     date={date}
                                     icon={<i className="fal fa-sticky-note" />}
-                                    items={filteredJobReferenceIDs}
+                                    items={totalsFilteredJobReferenceNames}
                                     itemType={
-                                        filteredJobReferenceIDs.length > 1 ||
-                                        filteredJobReferenceIDs.length === 0
+                                        totalsFilteredJobReferenceNames.length > 1 ||
+                                        totalsFilteredJobReferenceNames.length === 0
                                             ? 'Jobs'
                                             : 'Job'
                                     }
@@ -104,10 +114,10 @@ const WeekTableInner = ({
                         <ExpandableTab
                             date="week"
                             icon={<i className="fal fa-sticky-note" />}
-                            items={filteredJobReferenceIDs}
+                            items={filteredJobReferenceNames}
                             itemType={
-                                filteredJobReferenceIDs.length > 1 ||
-                                filteredJobReferenceIDs.length === 0
+                                filteredJobReferenceNames.length > 1 ||
+                                filteredJobReferenceNames.length === 0
                                     ? 'Jobs'
                                     : 'Job'
                             }
