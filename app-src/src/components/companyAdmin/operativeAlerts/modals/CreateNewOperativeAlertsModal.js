@@ -42,6 +42,7 @@ const CreateNewOperativeAlertsModal = () => {
                             value={siteID}
                             options={siteOptions}
                             onChange={handleChange}
+                            search
                         />
                     </Field>
                 )}
@@ -52,6 +53,7 @@ const CreateNewOperativeAlertsModal = () => {
                             value={operativeIDs}
                             options={operativeOptions}
                             onChange={handleChange}
+                            search
                         />
                     </Field>
                 )}
