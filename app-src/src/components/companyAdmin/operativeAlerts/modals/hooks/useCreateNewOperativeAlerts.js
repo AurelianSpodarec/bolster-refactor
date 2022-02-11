@@ -3,7 +3,7 @@ import { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
 
 import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
-import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import fetchCompanyUsers from 'actions/companyAdmin/operatives/async/fetchCompanyOperatives';
 
 import { selectSites } from 'selectors/companyAdmin/sites';
 import { selectCompanyOperatives } from 'selectors/companyAdmin/operatives';
