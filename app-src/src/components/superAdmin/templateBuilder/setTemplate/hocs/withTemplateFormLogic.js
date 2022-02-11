@@ -11,7 +11,7 @@ import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import {
     STANDARD_LABEL_FIELDS,
     TRIM_LABEL_FIELDS,
-    LABEL_STATIC_FIELDS_NUMS
+    LABEL_STATIC_FIELDS_NUMS,
 } from 'constants/shared/templateBuilder';
 import { convertArrToObj } from 'helpers/generic';
 import {
@@ -19,40 +19,38 @@ import {
     LABEL_TYPES_NUMS,
     LABEL_QUES_TYPES_NUMS,
     PIN_STATUS_TYPES,
-    LAYOUT_OPTIONS_TEXT
+    LAYOUT_OPTIONS_TEXT,
 } from 'constants/companyAdmin/enums';
 import setSection from 'actions/superAdmin/templateBuilder/sync/setSection';
 import fetchCompanySubscription from 'actions/superAdmin/companies/async/fetchCompanySubscription';
 import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 import setLabelFields from 'actions/superAdmin/templateBuilder/sync/setLabelFields';
+import setPinImageS3Key from 'actions/superAdmin/templateBuilder/sync/setPinImageS3Key';
 
-const statusDropdownOptions = Object.entries(PIN_STATUS_TYPES).map(
-    ([value, label]) => ({
-        value: +value,
-        label
-    })
-);
+const statusDropdownOptions = Object.entries(PIN_STATUS_TYPES).map(([value, label]) => ({
+    value: +value,
+    label,
+}));
 
 const labelTypeOptions = Object.entries(LABEL_TYPES).map(([value, label]) => ({
     value: +value,
-    label
+    label,
 }));
 
-const reportLayoutOptions = Object.entries(LAYOUT_OPTIONS_TEXT).map(
-    ([value, label]) => ({
-        value: +value,
-        label
-    })
-);
+const reportLayoutOptions = Object.entries(LAYOUT_OPTIONS_TEXT).map(([value, label]) => ({
+    value: +value,
+    label,
+}));
 
-export default function(WrappedComponent) {
+export default function (WrappedComponent) {
     class WithTemplateFromLogic extends React.Component {
         state = {
             name: '',
             serviceID: '',
             labelType: '',
             statusOptions: [],
-            reportLayout: false
+            reportLayout: false,
+            pinImageS3Key: '',
         };
 
         render() {
@@ -97,7 +95,7 @@ export default function(WrappedComponent) {
             const { services } = this.props;
             const options = services.map(({ id, name }) => ({
                 value: id,
-                text: name
+                text: name,
             }));
 
             return convertArrToObj(options, 'value');
@@ -122,14 +120,11 @@ export default function(WrappedComponent) {
                     title: '',
                     source: STATIC,
                     staticField: LOCATION_OWNER_COMPANY_NAME,
-                    questionUUID: ''
-                }
+                    questionUUID: '',
+                },
             };
             const otherFieldsArr = Object.values({ ...otherFields });
-            return [
-                prefilledFieldOne,
-                ...this._generateLabelFields(otherFieldsArr, templateUUID)
-            ];
+            return [prefilledFieldOne, ...this._generateLabelFields(otherFieldsArr, templateUUID)];
         };
 
         _getTrimLabelFields = templateUUID => {
@@ -145,14 +140,11 @@ export default function(WrappedComponent) {
                     title: '',
                     source: STATIC,
                     staticField: LOCATION_OWNER_COMPANY_NAME,
-                    questionUUID: ''
-                }
+                    questionUUID: '',
+                },
             };
             const otherFieldsArr = Object.values({ ...otherFields });
-            return [
-                prefilledFieldOne,
-                ...this._generateLabelFields(otherFieldsArr, templateUUID)
-            ];
+            return [prefilledFieldOne, ...this._generateLabelFields(otherFieldsArr, templateUUID)];
         };
 
         _generateLabelFields = (fields, templateUUID) => {
@@ -164,8 +156,8 @@ export default function(WrappedComponent) {
                     title: '',
                     source: '',
                     staticField: '',
-                    questionUUID: ''
-                }
+                    questionUUID: '',
+                },
             }));
         };
     }
@@ -175,20 +167,18 @@ export default function(WrappedComponent) {
             superAdmin: {
                 adminServicesReducer: { adminServices: services },
                 companySubscriptionReducer: { subscriptions },
-                companiesReducer: { companies }
-            }
+                companiesReducer: { companies },
+            },
         },
-        { companyID }
+        { companyID },
     ) => {
         const subscription = subscriptions[companyID] || {};
         const { serviceIDs = [] } = subscription;
 
         return {
-            services: Object.values(services).filter(({ id }) =>
-                serviceIDs.includes(id)
-            ),
+            services: Object.values(services).filter(({ id }) => serviceIDs.includes(id)),
             subscription: subscriptions[companyID] || {},
-            company: companies[companyID] || {}
+            company: companies[companyID] || {},
         };
     };
 
@@ -208,16 +198,16 @@ export default function(WrappedComponent) {
         setLabelFields: (labelFields, templateUUID) => {
             dispatch(setLabelFields(labelFields, templateUUID));
         },
+        setPinImageS3Key: pinImageS3Key => {
+            dispatch(setPinImageS3Key(pinImageS3Key));
+        },
         fetchData: () => {
             dispatch(fetchAllServices());
             dispatch(fetchCompanySubscription(companyID));
-        }
+        },
     });
 
-    const WithConnect = connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(WithTemplateFromLogic);
+    const WithConnect = connect(mapStateToProps, mapDispatchToProps)(WithTemplateFromLogic);
 
     return withRouter(WithConnect);
 }

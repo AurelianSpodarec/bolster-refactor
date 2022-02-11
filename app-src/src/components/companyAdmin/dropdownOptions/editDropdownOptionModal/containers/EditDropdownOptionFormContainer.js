@@ -8,7 +8,8 @@ import EditDropdownOptionForm from '../presentational/EditDropdownOptionForm';
 
 class EditDropdownOptionContainer extends Component {
     state = {
-        name: ''
+        name: '',
+        serviceIDs: [],
     };
 
     render() {
@@ -19,27 +20,32 @@ class EditDropdownOptionContainer extends Component {
                 handleSubmit={this.handleSubmit}
                 hideModal={this.props.hideModal}
                 validateName={this.validateName}
+                subscribedServices={this.getServicesFromSubscriptions()}
             />
         );
     }
 
     componentDidMount = () => {
         const {
-            option: { name }
+            option: { name, serviceIDs },
         } = this.props;
+        const subscribedServiceIDs = this.getServicesFromSubscriptions().map(({ value }) => value);
+        const stringifiedServiceIDs = serviceIDs?.map(id => id.toString());
+
         this.setState({
-            name
+            name: name,
+            serviceIDs: serviceIDs !== null ? stringifiedServiceIDs : subscribedServiceIDs,
         });
     };
 
     componentDidUpdate = prevProps => {
         const {
-            option: { name, id }
+            option: { name, id },
         } = this.props;
 
         if (!prevProps.option.id && !!id) {
             this.setState({
-                name
+                name,
             });
         }
     };
@@ -51,26 +57,37 @@ class EditDropdownOptionContainer extends Component {
     validateName = value => {
         const {
             dropdownOptions,
-            option: { id }
+            option: { id },
         } = this.props;
 
-        const existingNames = dropdownOptions
-            .filter(op => op.id !== id)
-            .map(({ name }) => name);
+        const existingNames = dropdownOptions.filter(op => op.id !== id).map(({ name }) => name);
 
-        if (existingNames.includes(value))
-            return 'Please choose a unique name.';
+        if (existingNames.includes(value)) return 'Please choose a unique name.';
+    };
+
+    getServicesFromSubscriptions = () => {
+        const { services, subscriptions } = this.props;
+        const subscribedServices = subscriptions.services.map(({ serviceID }) => {
+            return {
+                text: services[serviceID].name,
+                name: services[serviceID].name,
+                value: serviceID.toString(),
+            };
+        });
+        return subscribedServices;
     };
 
     handleSubmit = e => {
         e.preventDefault();
         const {
             editDropdownOption,
-            option: { id, type }
+            option: { id, type },
         } = this.props;
+        const { serviceIDs } = this.state;
 
         const postBody = {
-            ...this.state
+            ...this.state,
+            serviceIDs: serviceIDs.length ? serviceIDs : null,
         };
 
         editDropdownOption(id, type, postBody);
@@ -80,14 +97,16 @@ class EditDropdownOptionContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            dropdownOptionsReducer: { dropdownOptions }
-        }
+            dropdownOptionsReducer: { dropdownOptions },
+            servicesReducer: { services },
+            subscriptionsReducer: { subscriptions },
+        },
     },
-    { option: { type } }
+    { option: { type } },
 ) => ({
-    dropdownOptions: Object.values(dropdownOptions).filter(
-        op => op.type === type
-    )
+    dropdownOptions: Object.values(dropdownOptions).filter(op => op.type === type),
+    services,
+    subscriptions,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -96,12 +115,9 @@ const mapDispatchToProps = dispatch => ({
     },
     hideModal: () => {
         dispatch(hideModal());
-    }
+    },
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(EditDropdownOptionContainer)
+    connect(mapStateToProps, mapDispatchToProps)(EditDropdownOptionContainer),
 );

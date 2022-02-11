@@ -56,6 +56,7 @@ class AddPinQuestionRoute extends Component {
             isHistory,
             drawing,
             companySettings,
+            companyID,
         } = this.props;
 
         const showPreReq = this.checkIfShouldShowByPreReq();
@@ -101,6 +102,7 @@ class AddPinQuestionRoute extends Component {
                         originalDropdownMultiAns={this.state.originalDropdownMultiAns}
                         isManufacturingEnabledForDrawing={isManufacturingEnabledForDrawing}
                         defaultDropdownSorting={companySettings.defaultDropdownSorting}
+                        companyID={companyID}
                     />
                 </Field>
             );
@@ -412,8 +414,13 @@ class AddPinQuestionRoute extends Component {
     };
 
     handlePrefillDifferentTemplateQuestion = () => {
-        const { oldAnswersByNameObj, question, questions, sectionIDs, updateAddPinAnswer } =
-            this.props;
+        const {
+            oldAnswersByNameObj,
+            question,
+            questions,
+            sectionIDs,
+            updateAddPinAnswer,
+        } = this.props;
 
         const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
         const oldAnswersMatchingName = oldAnswersByNameObj[question.name] || [];
@@ -541,6 +548,9 @@ const mapStateToProps = (
         },
         shared: {
             fieldErrorsReducer: { fieldErrors },
+            decodeJWTReducer: {
+                jwtData: { companyID },
+            },
         },
     },
     { match: { params, url } },
@@ -564,6 +574,7 @@ const mapStateToProps = (
     history: histories[params.historyID] || {},
     historyID: params.historyID,
     companySettings,
+    companyID,
 });
 
 const mapDispatchToProps = {

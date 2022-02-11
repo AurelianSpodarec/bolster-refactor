@@ -3,11 +3,8 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import { SORT_BY_OPTIONS_TEXT } from 'constants/companyAdmin/enums';
-import { convertEnumToDropdownOptions } from 'helpers/generic';
 import React from 'react';
 import useGenerateTimesheetReport from '../hooks/useGenerateTimesheetReport';
 
@@ -26,16 +23,8 @@ const GenerateTimesheetReportModal = ({
         pinIDs,
     );
 
-    const {
-        isPDFGeneration,
-        isCSVGeneration,
-        isFloorplanGeneration,
-        isOAndMManualGeneration,
-        // selectSortBy,
-        // showHidden,
-    } = formData;
-
-    // const sortByOptions = Object.values(convertEnumToDropdownOptions(SORT_BY_OPTIONS_TEXT));
+    const { isPDFGeneration, isCSVGeneration, isFloorplanGeneration, isOAndMManualGeneration } =
+        formData;
 
     return (
         <ModalOuterContainer>
@@ -76,31 +65,6 @@ const GenerateTimesheetReportModal = ({
                                         />
                                     </div>
                                 </Field>
-
-                                {/* <Field name="Sort by">
-                                    <DropdownContainer
-                                        name="sortBy"
-                                        options={sortByOptions}
-                                        singleSelect={true}
-                                        handleChange={handleChange}
-                                        value={selectSortBy}
-                                        selectedOption={selectSortBy}
-                                        withoutPlaceholder
-                                    />
-                                </Field>
-
-                                <Field name="Show hidden?">
-                                    <CheckboxContainer
-                                        classes="with-subtext"
-                                        checked={showHidden}
-                                        handleChange={handleChange}
-                                        name="showHidden"
-                                    />
-                                    <p className="sub-text">
-                                        - Check to include questions that are hidden on the
-                                        templates?
-                                    </p>
-                                </Field> */}
                             </div>
                             <div className="size-lg-6 size-md-12">
                                 <ImageVisualContainer

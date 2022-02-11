@@ -9,7 +9,6 @@ const UserSyncDataTable = ({ headers, syncData, isFetching, companyTimezone }) =
             {Object.values(syncData)
                 .sort((a, b) => moment(b.startDate) - moment(a.startDate))
                 .map(syncData => {
-                    console.log(syncData.startDate);
                     return (
                         <tr key={syncData.id}>
                             <td>{syncData.id}</td>

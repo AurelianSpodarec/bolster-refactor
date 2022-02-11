@@ -12,7 +12,6 @@ class AddOptionValueFormContainer extends Component {
     state = {
         name: '',
         serviceIDs: [],
-        serviceOptions: [],
         confirmNoDocument: false,
         fileS3Key: '',
         showConfirmNoDocument: false,
@@ -32,14 +31,16 @@ class AddOptionValueFormContainer extends Component {
                 buttonText={this.props.buttonText}
                 validateName={this.validateName}
                 filesUploading={filesUploading}
+                serviceOptions={this.getServicesFromSubscriptions()}
             />
         );
     }
 
     componentDidMount = () => {
-        const serviceOptions = this.formatServicesWithSubscriptions();
+        const serviceIDs = this.getServicesFromSubscriptions().map(({ value }) => value);
         this.props.showOAndMTsAndCsModal('add option value');
-        this.setState({ serviceOptions });
+
+        this.setState({ serviceIDs });
     };
     handleShowAddDocForm = () => {
         const { confirmNoDocument } = this.state;
@@ -64,16 +65,12 @@ class AddOptionValueFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
         const { createOptionValue, manufacturer, filesUploading } = this.props;
-        const {
-            name,
-            serviceIDs,
-            fileS3Key,
-            confirmNoDocument,
-            showConfirmNoDocument,
-            docName,
-        } = this.state;
+        const { name, serviceIDs, fileS3Key, confirmNoDocument, showConfirmNoDocument, docName } =
+            this.state;
 
-        let postBody = {};
+        let postBody = { name, serviceIDs };
+
+        // if (serviceIDs.length) postBody = { ...postBody, serviceIDs };
 
         if (!filesUploading) {
             if (!fileS3Key.length && !confirmNoDocument && !showConfirmNoDocument) {
@@ -85,32 +82,24 @@ class AddOptionValueFormContainer extends Component {
 
             if (fileS3Key.length && !confirmNoDocument) {
                 postBody = {
-                    name,
-                    serviceIDs,
+                    ...postBody,
                     document: { fileS3Key, name: docName },
-                };
-            } else {
-                postBody = {
-                    name,
-                    serviceIDs,
                 };
             }
             createOptionValue(manufacturer.id, postBody);
         }
     };
 
-    formatServicesWithSubscriptions = () => {
-        const { subscriptionServiceIDs, services } = this.props;
-
-        return services.reduce((acc, { id, name }) => {
-            if (subscriptionServiceIDs.includes(id)) {
-                acc.push({
-                    value: id,
-                    label: name,
-                });
-            }
-            return acc;
-        }, []);
+    getServicesFromSubscriptions = () => {
+        const { services, subscriptions } = this.props;
+        const subscribedServices = subscriptions.services.map(({ serviceID }) => {
+            return {
+                text: services[serviceID].name,
+                name: services[serviceID].name,
+                value: serviceID.toString(),
+            };
+        });
+        return subscribedServices;
     };
 }
 
@@ -118,9 +107,8 @@ const mapStateToProps = (
     {
         companyAdmin: {
             manufacturersOptionValuesReducer: { manufacturersOptionValues },
-            subscriptionsReducer: {
-                subscriptions: { serviceIDs: subscriptionServiceIDs },
-            },
+            subscriptionsReducer: { subscriptions },
+            servicesReducer: { services },
         },
         shared: {
             filesUploadingReducer: { filesUploading },
@@ -133,7 +121,8 @@ const mapStateToProps = (
         optionValues: manufacturersOptionValues[manufacturer.id]
             ? Object.values(manufacturersOptionValues[manufacturer.id])
             : [],
-        subscriptionServiceIDs,
+        services,
+        subscriptions,
     };
 };
 

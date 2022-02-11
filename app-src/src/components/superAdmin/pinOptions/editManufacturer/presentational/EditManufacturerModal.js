@@ -5,7 +5,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import EditManufacturerFormContainer from '../containers/EditManufacturerFormContainer';
 
 const EditManufacturerModal = ({ manufacturer }) => (
-    <ModalOuterContainer>
+    <ModalOuterContainer extraClasses="no-scroll">
         <BlockHeading title={`Edit ${manufacturer.name}`} />
         <EditManufacturerFormContainer
             manufacturer={manufacturer}

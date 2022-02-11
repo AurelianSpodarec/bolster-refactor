@@ -1,3 +1,9 @@
+import React, { useEffect, useState } from 'react';
+import { componentDidMount } from 'helpers/generic';
+import { usePrevious } from 'helpers/hooks';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+
 import fetchAvailableCompanies from 'actions/companyAdmin/companySelection/fetchAvailableCompanies';
 import postCompanyLogin from 'actions/companyAdmin/companySelection/postCompanyLogin';
 import postCompanyReset from 'actions/companyAdmin/companySelection/postCompanyReset';
@@ -6,15 +12,11 @@ import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import Block from 'components/shared/generic/block/presentational/Block';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import Search from 'components/shared/generic/form/presentational/Search';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import { FILE_STORAGE_URL } from 'config';
 import { COMPANY_USER_ROLE_IDS, COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
-import { componentDidMount } from 'helpers/generic';
-import { usePrevious } from 'helpers/hooks';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
 
 const CompanySelection = () => {
     const {
@@ -43,6 +45,8 @@ const CompanySelection = () => {
         // fetch companies
         dispatch(fetchAvailableCompanies());
     });
+
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
@@ -82,6 +86,16 @@ const CompanySelection = () => {
                     </p>
                 </div>
             </PageHeading>
+
+            <BlockContainer>
+                <Search
+                    value={searchTerm}
+                    name="searchTerm"
+                    placeholder="Search by company name..."
+                    handleChange={handleChange}
+                />
+            </BlockContainer>
+
             <BlockContainer
                 isFetching={isFetching}
                 isEmpty={!companies.length}
@@ -89,7 +103,7 @@ const CompanySelection = () => {
                 noWhiteBackground
             >
                 <div className="flex-row size-lg-12">
-                    {companies.map(company => (
+                    {filteredCompanies(companies).map(company => (
                         <Block containerClass="flex-row-item size-lg-6" key={company.companyID}>
                             <BlockHeading classes="heading heading-2 underline-full half-margin">
                                 {company.companyName} ({COMPANY_USER_ROLE_IDS[company.type]})
@@ -146,7 +160,24 @@ const CompanySelection = () => {
     function handleSelectCompany(companyID) {
         dispatch(postCompanyLogin({ companyID }));
     }
+
+    function filteredCompanies(arr) {
+        const searchTermLower = searchTerm.toLowerCase();
+
+        const selectedCompanies = arr.filter(item => {
+            const company = item.companyName.toLowerCase();
+
+            return company.includes(searchTermLower);
+        });
+
+        return selectedCompanies;
+    }
+
+    function handleChange(_, value) {
+        setSearchTerm(value);
+    }
 };
+
 const companySelector = ({
     companyAdmin: {
         companySelectionReducer: {

@@ -7,6 +7,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 
 const EditServiceForm = ({
     handleSubmit,
@@ -14,7 +15,8 @@ const EditServiceForm = ({
     name,
     templateOptions,
     templateUUIDs,
-    showOnCompanySite
+    showOnCompanySite,
+    pinImageS3Key,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -41,14 +43,33 @@ const EditServiceForm = ({
                 </Field>
             </div>{' '}
         </div>
-        <div className="size-lg-6 size-md-12">
-            <Field name="Available to companies?">
-                <CheckboxContainer
-                    checked={showOnCompanySite}
-                    handleChange={handleInputChange}
-                    name="showOnCompanySite"
-                />
-            </Field>
+        <div className="size-lg-12 size-md-12">
+            <div className="size-lg-6 size-md-12">
+                <Field name="Pin Display Icon">
+                    <p>Please upload your icon in .png format with a maximum size of 128x128.</p>
+                    <br />
+                    <FileUploadContainer
+                        name="pinImageS3Key"
+                        value={pinImageS3Key}
+                        acceptedTypes={['image/png']}
+                        handleChange={(name, value) => {
+                            handleInputChange(name, value);
+                        }}
+                        maxHeight={128}
+                        maxWidth={128}
+                        isSquare
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-6 size-md-12">
+                <Field name="Available to companies?">
+                    <CheckboxContainer
+                        checked={showOnCompanySite}
+                        handleChange={handleInputChange}
+                        name="showOnCompanySite"
+                    />
+                </Field>
+            </div>
         </div>
         <BlockButtonWrapper>
             <button className="button green">

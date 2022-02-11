@@ -6,6 +6,7 @@ import { convertArrToObj } from 'helpers/generic';
 import createPin from 'actions/companyAdmin/pins/async/createPin';
 import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
 import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
+import setServiceID from 'actions/companyAdmin/drawings/sync/setServiceID';
 
 import AddPinForm from 'components/shared/pins/addPin/presentational/AddPinForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -15,13 +16,12 @@ import { QUESTION_TYPES } from 'constants/shared/templateBuilder';
 
 class AddPinFormContainer extends Component {
     state = {
-        serviceID: '',
         templateID: '',
         pinTitle: '',
     };
 
     render() {
-        const { templateID, serviceID, pinTitle } = this.state;
+        const { templateID, pinTitle } = this.state;
         const {
             location,
             isFetching,
@@ -30,6 +30,7 @@ class AddPinFormContainer extends Component {
             filesUploading,
             confirmLeave,
             isHistory,
+            serviceID,
         } = this.props;
 
         const serviceOptions = convertArrToObj(this._relevantServiceOptions(), 'value');
@@ -178,12 +179,18 @@ class AddPinFormContainer extends Component {
         }));
     };
 
-    handleChange = (name, value) => {
-        const { resetPinAnswers, updateAddPinStatus, formatDropdownOptions } = this.props;
+    handleChange = async (name, value) => {
+        const {
+            resetPinAnswers,
+            updateAddPinStatus,
+            formatDropdownOptions,
+            setServiceID,
+        } = this.props;
         resetPinAnswers();
         updateAddPinStatus('');
 
         if (name === 'serviceID') {
+            setServiceID(value);
             formatDropdownOptions(value);
         }
 
@@ -242,7 +249,6 @@ class AddPinFormContainer extends Component {
                 const question = questions[questionID];
 
                 if (!question) return false;
-                // if (!question.isPrefill) return false;
 
                 const { SIGNATURE, SINGLE_PHOTO, MULTI_PHOTO } = QUESTION_TYPES;
                 const noFillTypes = [SIGNATURE, SINGLE_PHOTO, MULTI_PHOTO];
@@ -269,6 +275,7 @@ const mapStateToProps = (
             templateQuestionsReducer: { questions },
             addPinFormReducer: { answers, status },
             addPinCoordinatesReducer: { coordinates },
+            addPinDropdownOptions: { serviceID },
             pinsReducer: { postSuccess, pins, isFetching: fetchingPins },
             manufacturersOptionValuesReducer: { isFetching: isFetchingOptionValues },
             manufacturersReducer: { isFetching: isFetchingManufacturers },
@@ -303,12 +310,14 @@ const mapStateToProps = (
     services: Object.values(services),
     subscriptions,
     CompanyUserOperativeCode,
+    serviceID,
 });
 
 const mapDispatchToProps = {
     createPin,
     resetPinAnswers,
     updateAddPinStatus,
+    setServiceID,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPinFormContainer));

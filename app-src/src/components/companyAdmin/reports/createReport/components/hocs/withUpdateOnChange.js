@@ -6,7 +6,7 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-import { convertArrToObj, isEmpty, momentComparisonFormat } from 'helpers/generic';
+import { convertArrToObj, isEmpty } from 'helpers/generic';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { FURTHER_FILTRATION_OPTIONS, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import getOperativeOptions from 'actions/companyAdmin/reports/async/getOperativeOptions';
@@ -308,9 +308,9 @@ export default function (ProtectedComponent) {
                 return { latY, lngX };
             };
 
-            const pinBoundingBoxes = Object.values(
-                rectangles,
-            ).map(({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]);
+            const pinBoundingBoxes = Object.values(rectangles).map(
+                ({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)],
+            );
             // get the utc converted time for both from date and to date.
 
             const [startDate, endDate] = this._getDateTimeFilters();
@@ -408,7 +408,10 @@ export default function (ProtectedComponent) {
                     furtherFiltrationOption,
                     includedDrawingsIDs,
                 },
-                operativesReducer: { operatives, isFetching: isFetchingOperatives },
+                operativesReducer: {
+                    operativeOptions: operatives,
+                    isFetching: isFetchingOperatives,
+                },
                 companySettingsReducer: {
                     companySettings: { timeZone },
                 },
