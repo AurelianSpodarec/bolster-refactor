@@ -1,4 +1,7 @@
 import moment from 'moment';
+import FileIcon from '_content/images/icons/dl-file-icon.svg';
+import PDFIcon from '_content/images/icons/dl-pdf-icon.svg';
+import ImageIcon from '_content/images/icons/dl-image-icon.svg';
 
 export const reverseObject = obj => {
     return Object.entries(obj).reduce((ret, entry) => {
@@ -50,3 +53,32 @@ export const getSearchMatch = (searchTerm, data) => {
         dataArr.some(dWord => dWord.includes(sWord) || sWord.includes(dWord)),
     );
 };
+
+export const getIconFromExt = ext => {
+    switch (ext) {
+        case 'pdf':
+        case '.pdf':
+            return PDFIcon;
+        case 'png':
+        case '.png':
+        case 'jpg':
+        case '.jpg':
+        case 'jpeg':
+        case '.jpeg':
+        case 'bmp':
+        case '.bmp':
+        case 'gif':
+        case '.gif':
+            return ImageIcon;
+        default:
+            return FileIcon;
+    }
+};
+
+export const stripS3Key = (s3Key, companyID) => {
+    const keyArr = s3Key.split('/');
+    return keyArr.slice(keyArr.indexOf('' + companyID) + 1, keyArr.length).join('/');
+};
+
+export const doPinsHaveIcons = (pins = []) =>
+    pins.some(pin => pin.templatePinImageS3Key || pin.servicePinImageS3Key);

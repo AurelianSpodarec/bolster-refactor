@@ -4,6 +4,7 @@ import { toTitleCase } from 'helpers/generic';
 const Field = ({
     children,
     name = '',
+    label,
     smallDesc = null,
     sizeClasses = 'size-lg-12',
     classes = '',
@@ -17,7 +18,8 @@ const Field = ({
         <div className={`form-field ${sizeClasses} ${classes} `} style={{ ...styles }}>
             {name && name.length && (
                 <label className={`title ${labelClasses}`} htmlFor={htmlFor}>
-                    {titleCaseName} <span className="small">{smallDesc ? smallDesc : ''}</span>{' '}
+                    {label ?? titleCaseName}{' '}
+                    <span className="small">{smallDesc ? smallDesc : ''}</span>{' '}
                     {required && <sub>*</sub>}
                 </label>
             )}
