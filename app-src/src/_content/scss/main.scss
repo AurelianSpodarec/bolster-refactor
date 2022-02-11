@@ -7614,3 +7614,14 @@ input {
 .min-width-120 {
     min-width: 120px;
 }
+
+.clocked-hours-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .select-list {
+        width: 100px;
+        font-size: 10px;
+    }
+}

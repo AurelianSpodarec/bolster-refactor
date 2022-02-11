@@ -27,7 +27,7 @@ export default (page = 1, pageSize = 50, order = 'desc') =>
 
         return axios
             .get(
-                `${ADMIN_API_URL}/timesheets?page=${page}&pageSize=${pageSize}&order=${order}`,
+                `${ADMIN_API_URL}/timesheets?page=${page}&pageSize=${pageSize}&sortOrder=${order}`,
                 getHeaders(),
             )
             .then(({ data }) => dispatch(fetchSuperAdminTimesheetsSuccess(data)))

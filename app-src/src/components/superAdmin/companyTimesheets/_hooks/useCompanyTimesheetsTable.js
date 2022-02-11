@@ -1,11 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import fetchSuperAdminTimesheets from 'actions/superAdmin/timesheets/fetchSuperAdminTimesheets';
+
 import {
     selectSuperAdminTimesheetsIsFetching,
     selectSuperAdminTimesheets,
     selectSuperAdminTimesheetsError,
+    selectSuperAdminTimesheetsPage,
+    selectSuperAdminTimesheetsTotalPage,
+    selectSuperAdminTimesheetsPageSize,
 } from 'selectors/superAdmin/timesheets';
 
 const useCompanyTimesheetsTable = () => {
@@ -15,11 +19,44 @@ const useCompanyTimesheetsTable = () => {
     const timesheets = Object.values(useSelector(selectSuperAdminTimesheets));
     const error = useSelector(selectSuperAdminTimesheetsError);
 
-    useEffect(() => {
-        dispatch(fetchSuperAdminTimesheets());
-    }, []);
+    const page = useSelector(selectSuperAdminTimesheetsPage);
+    const totalPages = useSelector(selectSuperAdminTimesheetsTotalPage);
+    const pageSize = useSelector(selectSuperAdminTimesheetsPageSize);
 
-    return { isFetching, timesheets, error };
+    const [order, setOrder] = useState('desc');
+    const [curPage, setCurPage] = useState(page);
+
+    const sortOptions = [
+        {
+            label: 'Desc',
+            value: 'desc',
+        },
+        {
+            label: 'Asc',
+            value: 'asc',
+        },
+    ];
+
+    useEffect(() => {
+        dispatch(fetchSuperAdminTimesheets(curPage, pageSize, order));
+    }, [order, curPage, pageSize, dispatch]);
+
+    const setPage = nextPage => {
+        setCurPage(nextPage);
+    };
+
+    return {
+        isFetching,
+        timesheets,
+        error,
+        page,
+        totalPages,
+        pageSize,
+        setPage,
+        order,
+        setOrder,
+        sortOptions,
+    };
 };
 
 export default useCompanyTimesheetsTable;
