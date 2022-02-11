@@ -140,7 +140,7 @@ const useTimesheets = () => {
         formattedHours: 0,
         formattedBreakHours: 0,
         totalPins: 0,
-        jobReferences: [],
+        jobReferenceIDs: [],
     };
     const totals = timesheets.reduce(
         (acc, timesheet) => {
@@ -148,7 +148,7 @@ const useTimesheets = () => {
                 acc[i].formattedHours += entry.formattedHours;
                 acc[i].formattedBreakHours += entry.formattedBreakHours;
                 acc[i].totalPins += entry.totalPins;
-                acc[i].jobReferences = [...acc[i].jobReferences, ...entry.jobReferences];
+                acc[i].jobReferenceIDs = [...acc[i].jobReferenceIDs, ...entry.jobReferenceIDs];
             });
             return acc;
         },

@@ -46,7 +46,7 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
             formattedHours,
             formattedBreakHours,
             formattedClockedInHours,
-            jobReferences,
+            jobReferenceIDs,
             totalPins,
             clockIn,
             clockOut,
@@ -63,7 +63,7 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
                     totalPins={totalPins}
                     clockIn={clockIn}
                     clockOut={clockOut}
-                    jobReferences={jobReferences}
+                    jobReferenceIDs={jobReferenceIDs}
                 />
                 <BreakdownNotes notes={clockerNotes} />
             </div>

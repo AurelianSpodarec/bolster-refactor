@@ -14,12 +14,12 @@ const BreakdownSummary = ({
     formattedBreakHours = 0,
     formattedClockedInHours = 0,
     totalPins = 0,
-    jobReferences = [],
+    jobReferenceIDs = [],
     clockIn,
     clockOut,
     timePeriod = TIME_PERIOD.DAY,
 }) => {
-    const filteredJobReferences = jobReferences.filter(jobReference => jobReference);
+    const filteredJobReferenceIDs = jobReferenceIDs.filter(jobReference => jobReference);
     const { moment: clockInMoment } = useDateTime(clockIn);
     const { moment: clockOutMoment } = useDateTime(clockOut);
     const clockInDay = clockInMoment.startOf('day');
@@ -90,9 +90,9 @@ const BreakdownSummary = ({
                     )}
                     <div className="summary-row">
                         <FieldOutput title="Job References" fieldClass="references">
-                            {filteredJobReferences.length === 0
+                            {filteredJobReferenceIDs.length === 0
                                 ? 'N/A'
-                                : filteredJobReferences.map((reference, i) => (
+                                : filteredJobReferenceIDs.map((reference, i) => (
                                       <Fragment key={i}>
                                           {reference}
                                           <br />
