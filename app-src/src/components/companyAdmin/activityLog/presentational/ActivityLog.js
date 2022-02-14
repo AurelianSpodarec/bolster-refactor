@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { isEmpty, titleCaseString } from 'helpers/generic';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import Block from 'components/shared/generic/block/presentational/Block';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ActivityLogItem from './ActivityLogItem';
@@ -39,7 +39,7 @@ const ActivityLog = ({ logs, users, isOwner, isFetching, error, headers }) => {
                 )}
             </PageHeading>
 
-            <BlockContainer isFetching={isFetching} error={error} isEmpty={isEmpty(logs)}>
+            <Block>
                 <BlockHeading title="Activity Log">
                     <div
                         style={{
@@ -71,7 +71,7 @@ const ActivityLog = ({ logs, users, isOwner, isFetching, error, headers }) => {
                             <ActivityLogItem key={log.id} log={log} users={users} />
                         ))}
                 </Table>
-            </BlockContainer>
+            </Block>
         </>
     );
 };
