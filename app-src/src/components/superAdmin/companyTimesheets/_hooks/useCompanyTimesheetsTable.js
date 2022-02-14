@@ -28,11 +28,11 @@ const useCompanyTimesheetsTable = () => {
 
     const sortOptions = [
         {
-            label: 'Desc',
+            label: 'Sort Descending',
             value: 'desc',
         },
         {
-            label: 'Asc',
+            label: 'Sort Ascending',
             value: 'asc',
         },
     ];

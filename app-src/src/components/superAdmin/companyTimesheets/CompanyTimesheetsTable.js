@@ -45,7 +45,7 @@ const CompanyTimesheetsTable = () => {
 
     return (
         <>
-            <BlockHeading title="Users">
+            <BlockHeading title="Company Timesheets">
                 <div className="size-lg-6">
                     <PageSelector setPage={setPage} page={page} maxPage={totalPages} />
                 </div>
