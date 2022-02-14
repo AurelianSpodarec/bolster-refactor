@@ -1,22 +1,33 @@
-import React from 'react';
-import { connect}  from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { ADMIN_EDIT_OPTION_VALUE, CONFIRM_DELETE } from 'constants/shared/modalTypes';
-import { hideModal, showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import OptionValuesListItem from '../presentational/OptionValuesListItem';
+import { selectIsMobile } from '../../../../../selectors/shared/mobile';
+import { selectManufacturerOptionValueDeleteSuccess } from '../../../../../selectors/superAdmin/manufacturerOptionValues';
+import { usePrevious } from '../../../../../helpers/hooks';
+import deleteManufacturerOptionValue from '../../../../../actions/superAdmin/manufacturers/async/deleteManufacturerOptionValue';
 
-const OptionValuesListItemContainer = ({ optionValue, colCount, headers, onMobile, services, showModal, hideModal}) => {
+const OptionValuesListItemContainer = ({ optionValue, colCount, headers, services }) => {
+    const onMobile = useSelector(selectIsMobile);
+    const deleteSuccess = useSelector(selectManufacturerOptionValueDeleteSuccess);
+    const prevDeleteSuccess = usePrevious(deleteSuccess);
+    const dispatch = useDispatch();
 
-        const selectedServiceNames = services
-            .reduce((acc, currService) => {
-                const { serviceIDs } = optionValue;
-                if (serviceIDs === null || serviceIDs.includes(currService.id)) {
-                    acc.push(currService.name);
-                }
-                return acc;
-            }, [])
-            .join(', ');
+    const { serviceIDs } = optionValue;
+    const selectedServiceNames = services
+        .filter(service => serviceIDs === null || serviceIDs.includes(service.id))
+        .map(service => service.name)
+        .join(', ');
+
+    useEffect(() => {
+        if (deleteSuccess && !prevDeleteSuccess) {
+            dispatch(hideModal());
+        }
+    }, [deleteSuccess, prevDeleteSuccess, dispatch]);
 
     return (
         <OptionValuesListItem
@@ -31,32 +42,16 @@ const OptionValuesListItemContainer = ({ optionValue, colCount, headers, onMobil
     );
 
     function handleDeleteOptionValueModal(optionValue) {
-        const { showModal, hideModal } = this.props;
         const handleDelete = () => {
-            // todo
+            dispatch(deleteManufacturerOptionValue(optionValue));
         };
         const message = 'Are you sure you want to delete this option value?';
-        showModal(CONFIRM_DELETE, {message, handleDelete, hideModal });
+        dispatch(showModal(CONFIRM_DELETE, { message, handleDelete, hideModal }));
     }
 
     function handleEditOptionValueModal(optionValue) {
-        const { showModal, services } = this.props;
-        showModal(ADMIN_EDIT_OPTION_VALUE, { optionValue, services });
+        dispatch(showModal(ADMIN_EDIT_OPTION_VALUE, { optionValue, services }));
     }
 };
 
-const mapDispatchToProps = {
-    showModal,
-    hideModal,
-};
-
-export default connect(
-    ({
-        shared: {
-            mobileReducer: { onMobile },
-        },
-    }) => ({
-        onMobile,
-    }),
-    mapDispatchToProps,
-)(OptionValuesListItemContainer);
+export default OptionValuesListItemContainer;

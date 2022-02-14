@@ -56,7 +56,7 @@ const DocumentVersionsList = ({
                                                 type: DOCUMENT_VIEW_TYPES.PDF,
                                             })
                                         }
-                                    ></div>
+                                    />
                                 </div>
                             ) : (
                                 <img
@@ -89,23 +89,5 @@ const DocumentVersionsList = ({
             })}
     </div>
 );
-
-                            <div className={'flex-row-item size-lg-2'}>
-                                {!version.hasBeenUsed && !isReadOnly && (
-                                    <button
-                                        className={'button red'}
-                                        onClick={() => handleDeleteDocumentVersionModal(version)}
-                                    >
-                                        <i className={'far fa-trash'} />
-                                        {'Delete Version'}
-                                    </button>
-                                )}
-                            </div>
-                        </div>
-                    );
-                })}
-        </div>
-    );
-};
 
 export default DocumentVersionsList;
