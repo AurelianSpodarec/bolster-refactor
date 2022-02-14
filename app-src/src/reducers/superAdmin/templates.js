@@ -34,6 +34,7 @@ import {
     SET_SECTIONS,
     UPDATE_REPORT_LAYOUT_ALL_VERSIONS_REQUEST,
     UPDATE_REPORT_LAYOUT_ALL_VERSIONS_FAILURE,
+    SET_PIN_IMAGE_S3_KEY,
 } from 'constants/actionTypes/templateBuilder';
 import {
     FETCH_COMPANY_TEMPLATES_REQUEST,
@@ -198,6 +199,7 @@ function saveRequiredReducer(state = false, action) {
         case CHANGE_QUESTION_SECTION:
         case SWAP_QUESTION_SORTS:
         case SET_LABEL_FIELDS:
+        case SET_PIN_IMAGE_S3_KEY:
             return true;
         case RESET_SAVE_REQUIRED:
         case POST_TEMPLATE_SUCCESS:

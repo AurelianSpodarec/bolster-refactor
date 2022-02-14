@@ -9,6 +9,7 @@ const CompanyInfo = ({
     isPosting,
     handleToggleClientList,
     handleShowEditAddressModal,
+    handleShowEditFreeCreditModal,
 }) => (
     <div className="size-lg-12">
         <FieldOutput title="Company Code" description={company.code} fieldClass="no-h-padding" />
@@ -29,6 +30,12 @@ const CompanyInfo = ({
         <FieldOutput
             title="Credits"
             description={company.creditValue || 0}
+            fieldClass="no-h-padding"
+        />
+
+        <FieldOutput
+            title="Receives 1 free credit per 10 purchased"
+            description={company.shouldReceiveFreeCredit ? 'Yes' : 'No'}
             fieldClass="no-h-padding"
         />
 
@@ -60,6 +67,9 @@ const CompanyInfo = ({
             </button>
             <button className="button blue" onClick={() => handleShowEditAddressModal()}>
                 Edit Address
+            </button>
+            <button className="button green" onClick={() => handleShowEditFreeCreditModal()}>
+                Edit Free Credit
             </button>
         </div>
     </div>

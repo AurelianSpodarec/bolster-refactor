@@ -59,6 +59,7 @@ function isFetchingReducer(state = false, action) {
         case FETCH_OPERATIVES_FOR_FLOOR_REQUEST:
         case FETCH_OPERATIVES_FOR_BUILDING_REQUEST:
         case FETCH_OPERATIVES_FOR_SITE_REQUEST:
+        case GET_OPERATIVE_OPTIONS_REQUEST:
         case FETCH_COMPANY_OPERATIVES_REQUEST:
         case GET_OPERATIVE_OPTIONS_REQUEST:
             return true;

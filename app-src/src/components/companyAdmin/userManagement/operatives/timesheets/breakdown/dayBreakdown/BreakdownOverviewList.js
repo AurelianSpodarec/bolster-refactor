@@ -23,10 +23,16 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
             .sort(timesheetSort(filterType, filterDirection, selectedDate));
     }
 
-    if (selectedUserIDs.length || (!filterByHasClockedIn && selectedUserIDs.length === 0)) {
+    if (!filterByHasClockedIn && selectedUserIDs.length === 0) {
         formattedTimesheets = timesheets.sort(
             timesheetSort(filterType, filterDirection, selectedDate),
         );
+    }
+
+    if (selectedUserIDs.length) {
+        formattedTimesheets = timesheets
+            .filter(({ companyUserID }) => selectedUserIDs.includes(companyUserID))
+            .sort(timesheetSort(filterType, filterDirection, selectedDate));
     }
 
     if (formattedTimesheets.length === 0) return <p>No clock in data to display.</p>;

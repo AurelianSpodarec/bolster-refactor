@@ -6,6 +6,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import DropdownOptionsList from './DropdownOptionsList';
+import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
 
 const DropdownOptionsTable = ({
     handleAddOptionModal,
@@ -17,14 +18,27 @@ const DropdownOptionsTable = ({
     type,
     moveItem,
     isSorting,
+    serviceFilterOptions,
+    selectedService,
+    handleChange,
 }) => {
     return (
         <BlockContainer>
             <div className="size-lg-12">
                 <BlockHeading title={title} classes="w-table">
-                    <button className="pull-right button green" onClick={handleAddOptionModal}>
-                        <i className="fa fa-plus" /> {`Add ${DROPDOWN_OPTIONS[type].singular}`}
-                    </button>
+                    <div className="pin-option-filters">
+                        <Dropdown
+                            placeholder="All Services"
+                            name="status"
+                            options={serviceFilterOptions}
+                            selectedOption={selectedService}
+                            handleChange={handleChange}
+                        />
+
+                        <button className="button green" onClick={handleAddOptionModal}>
+                            <i className="fa fa-plus" /> {`Add ${DROPDOWN_OPTIONS[type].singular}`}
+                        </button>
+                    </div>
                 </BlockHeading>
 
                 <div className="size-lg-12">

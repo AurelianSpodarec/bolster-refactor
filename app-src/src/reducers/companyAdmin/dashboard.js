@@ -11,7 +11,7 @@ import {
     FETCH_DASH_STATS_SUCCESS,
     FETCH_DASH_STATS_FAILURE,
     UPDATE_DASH_STATS_FILTERS,
-    FETCH_DASH_PIN_STATUS_STATS_SUCCESS
+    FETCH_DASH_PIN_STATUS_STATS_SUCCESS,
 } from 'constants/actionTypes/dashboard';
 import { updateObj } from 'helpers/generic';
 import moment from 'moment';
@@ -28,7 +28,7 @@ export default combineReducers({
     filters: filtersReducer,
     statusStats: statusStatsReducer,
     operativeData: operativeDataReducer,
-    drawingData: drawingDataReducer
+    drawingData: drawingDataReducer,
 });
 
 function isFetchingDashPinsStatsReducer(state = false, action) {
@@ -86,6 +86,8 @@ function dashRecentPinsStatsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_DASH_STATS_SUCCESS:
             return action.payload.historyTimeline;
+        case UPDATE_DASH_STATS_FILTERS:
+            return {};
         default:
             return state;
     }
@@ -95,6 +97,8 @@ function operativeDataReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_DASH_STATS_SUCCESS:
             return action.payload.operativeData;
+        case UPDATE_DASH_STATS_FILTERS:
+            return {};
         default:
             return state;
     }
@@ -122,13 +126,13 @@ function liveHistoriesReducer(state = {}, action) {
         case FETCH_HISTORY_FEED_SUCCESS:
             return {
                 updatedOn: action.payload.updatedOn,
-                items: { ...state.items }
+                items: { ...state.items },
             };
         case FETCH_LIVE_HISTORIES_SUCCESS:
             //update state with new pins
             return {
                 updatedOn: action.payload.updatedOn,
-                items: { ...state.items }
+                items: { ...state.items },
             };
         default:
             return state;
@@ -140,9 +144,9 @@ function settingsReducer(
         serviceType: [],
         liveTimePeriod: 0,
         startDate: new Date(),
-        endDate: new Date()
+        endDate: new Date(),
     },
-    action
+    action,
 ) {
     switch (action.type) {
         case UPDATE_DASHBOARD_SETTING:
@@ -156,6 +160,8 @@ function statusStatsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_DASH_PIN_STATUS_STATS_SUCCESS:
             return action.payload;
+        case UPDATE_DASH_STATS_FILTERS:
+            return {};
         default:
             return state;
     }
@@ -165,12 +171,10 @@ function filtersReducer(
     state = {
         serviceID: '',
         status: '',
-        startDate: moment()
-            .subtract(7, 'days')
-            .toDate(),
-        endDate: moment().toDate()
+        startDate: moment().subtract(7, 'days').toDate(),
+        endDate: moment().toDate(),
     },
-    action
+    action,
 ) {
     switch (action.type) {
         case UPDATE_DASH_STATS_FILTERS:

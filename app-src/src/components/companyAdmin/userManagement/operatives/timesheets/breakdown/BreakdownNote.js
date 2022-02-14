@@ -14,21 +14,24 @@ const BreakdownNote = ({ note }) => {
         <div className="breakdown-note">
             <DateTimeContainer date={new Date(createdOn)} datetime={DATE_TIME_IDS.TIME} />
             <p>{comments}</p>
-            {imageS3Keys &&
-                imageS3Keys.map((imageS3Key, i) => (
-                    <img
-                        key={i}
-                        alt="uploaded"
-                        src={`${FILE_STORAGE_URL}/${imageS3Key}?width=200`}
-                        onClick={() =>
-                            dispatch(
-                                showModal(PIN_IMAGE, {
-                                    image: `${FILE_STORAGE_URL}/${imageS3Key}?width=1500`,
-                                }),
-                            )
-                        }
-                    />
-                ))}
+            {imageS3Keys && (
+                <div className="image-wrapper">
+                    {imageS3Keys.map((imageS3Key, i) => (
+                        <img
+                            key={i}
+                            alt="uploaded"
+                            src={`${FILE_STORAGE_URL}/${imageS3Key}?width=200`}
+                            onClick={() =>
+                                dispatch(
+                                    showModal(PIN_IMAGE, {
+                                        image: `${FILE_STORAGE_URL}/${imageS3Key}?width=1500`,
+                                    }),
+                                )
+                            }
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     );
 };

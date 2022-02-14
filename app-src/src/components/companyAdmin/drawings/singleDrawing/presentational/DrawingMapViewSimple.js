@@ -20,6 +20,7 @@ import AddCreditsToDrawingButtonContainer from '../../addCreditsToDrawing/contai
 import DrawingMapAddZone from './DrawingMapAddZone';
 import DrawingMapViewZones from './DrawingMapViewZones';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import { doPinsHaveIcons } from 'helpers/general';
 import { useDispatch } from 'react-redux';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
@@ -62,6 +63,8 @@ const DrawingMapViewSimple = ({
     curZoom,
     shouldRestrictPayments,
     drawingNotStarted,
+    pinViewMode,
+    togglePinIconView,
 }) => {
     const dispatch = useDispatch();
     const mapRef = useRef();
@@ -242,6 +245,7 @@ const DrawingMapViewSimple = ({
                                         withLink={!shouldShowPinSelectorOptions && !addMode}
                                         withTooltip={!isExcluding}
                                         isExcluding={isExcluding}
+                                        pinViewMode={pinViewMode}
                                     />
                                 ))}
                                 {addMode && <Marker position={addPinPosition} icon={newPinIcon} />}
@@ -281,6 +285,14 @@ const DrawingMapViewSimple = ({
                                     </>
                                 ) : (
                                     <>
+                                        {doPinsHaveIcons(pins) && (
+                                            <button
+                                                className="button blue"
+                                                onClick={togglePinIconView}
+                                            >
+                                                Pin icon view on/off
+                                            </button>
+                                        )}
                                         <button className="button blue" onClick={handleZoneAdd}>
                                             View Zones
                                         </button>

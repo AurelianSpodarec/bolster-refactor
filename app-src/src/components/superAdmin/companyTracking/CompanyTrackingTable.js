@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { isEmpty } from 'helpers/generic';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
+import Select from 'components/shared/generic/form/presentational/Select';
 import ContactContacted from './CompanyContacted';
 import {
     COMPANY_TRACKING_PERIOD_KEY,
@@ -11,13 +12,19 @@ import {
 } from 'constants/superAdmin/enums';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import { companyTrackingShowWarning } from 'helpers/general';
+import moment from 'moment';
+import { COMPANY_TYPES, COMPANY_TRACKING_TYPES_VALUES } from 'constants/companyAdmin/enums';
+const ACTIVE = COMPANY_TYPES['Company - Active Subscription'];
+const EXPIRED = COMPANY_TYPES['Company - Expired Subscription'];
 
 const headers = [
     'Name',
     'Owner Info',
-    'Date Created',
-    'Most Recent Resubscription',
-    'Subscription Expiry',
+    'Date Subbed',
+    'First Sub',
+    'Most Recent Sub',
+    'Sub Expiry',
+    'Sub status',
     'Auto Renew',
     'Services',
     'Contacted After 1 Month?',
@@ -26,8 +33,34 @@ const headers = [
 ];
 
 const CompanyTrackingTable = ({ dates, setDates }) => {
+    const [subscriptionTypeFilter, setSubscriptionTypeFilter] = useState(COMPANY_TYPES.ALL);
+    const options = [
+        {
+            label: 'All',
+            value: COMPANY_TYPES.ALL,
+        },
+        {
+            label: 'Expired',
+            value: EXPIRED,
+        },
+        {
+            label: 'Active',
+            value: ACTIVE,
+        },
+    ];
     const { adminServices, companies, isFetching, error } = useSelector(mapStateToProps);
     const today = new Date();
+    const sortedCompanies = useMemo(() => {
+        const companiesArr = Object.values(companies);
+        const filtered = companiesArr.filter(comp => {
+            if (subscriptionTypeFilter === COMPANY_TYPES.ALL) return true;
+            else return subscriptionTypeFilter === comp.companyType;
+        });
+        const sorted = filtered.sort(
+            (a, b) => new Date(b.latestSubscriptionStartOn) - new Date(a.latestSubscriptionStartOn),
+        );
+        return sorted;
+    }, [companies, subscriptionTypeFilter]);
 
     return (
         <div className="company-tracking-container">
@@ -64,93 +97,109 @@ const CompanyTrackingTable = ({ dates, setDates }) => {
                         />
                     </div>
                 </div>
+                <div className="flex item ">
+                    <p className="">Subscription Type</p>
+                    <div className="flex">
+                        <Select
+                            value={subscriptionTypeFilter}
+                            onChange={(_, value) => setSubscriptionTypeFilter(value)}
+                            options={options}
+                            omitPlaceholder
+                        />
+                    </div>
+                </div>
             </div>
             <Table
-                withActions
                 headers={headers}
                 isFetching={isFetching}
                 error={error}
                 noData={isEmpty(companies)}
                 noDataMessage="No companies to display"
             >
-                {Object.values(companies)
-                    .sort((a, b) => new Date(b.companyCreatedOn) - new Date(a.companyCreatedOn))
-                    .map(company => {
-                        const { period, showWarning } = companyTrackingShowWarning(company);
+                {sortedCompanies.map(company => {
+                    const { period, showWarning } = companyTrackingShowWarning(company);
 
-                        return (
-                            <tr
-                                className={`${showWarning ? 'warning' : ''}`}
-                                key={company.companyID}
-                            >
-                                <td className="center">
-                                    {showWarning && (
-                                        <TooltipContainer
-                                            htmlText={`This company has yet to be contacted within a ${COMPANY_TRACKING_PERIOD_KEY[
-                                                period
-                                            ].toLowerCase()} period`}
-                                            containerSide="left"
-                                        >
-                                            <i className="far fa-exclamation-triangle red-icon" />
-                                        </TooltipContainer>
-                                    )}
-                                    {company.companyName}
-                                </td>
-                                <td>
-                                    {company.accountOwnerName} - {company.accountOwnerEmail}
-                                </td>
-                                <td>
-                                    <DateTimeContainer date={company.companyCreatedOn} />
-                                </td>
-                                <td>
-                                    <DateTimeContainer date={company.latestSubscriptionStartOn} />
-                                </td>
-                                <td>
-                                    <DateTimeContainer date={company.latestSubscriptionEndOn} />
-                                </td>
-                                <td>
-                                    {company.autoRenew ? (
-                                        <i className="fa fa-check" />
-                                    ) : (
-                                        <i className="fa fa-times" />
-                                    )}
-                                </td>
-                                <td>
-                                    {company.serviceIDs &&
-                                        adminServices &&
-                                        company.serviceIDs
-                                            .split(',')
-                                            .map(item =>
-                                                adminServices[item]
-                                                    ? adminServices[item].name
-                                                    : item,
-                                            )
-                                            .join(', ')}
-                                </td>
-                                <td>
-                                    <ContactContacted
-                                        contacted={company.contactedAfterMonth}
-                                        period={COMPANY_TRACKING_PERIOD_TYPE.ONE_MONTH}
-                                        companyID={company.companyID}
-                                    />
-                                </td>
-                                <td>
-                                    <ContactContacted
-                                        contacted={company.contactedAfterThreeMonths}
-                                        period={COMPANY_TRACKING_PERIOD_TYPE.THREE_MONTHS}
-                                        companyID={company.companyID}
-                                    />
-                                </td>
-                                <td>
-                                    <ContactContacted
-                                        contacted={company.contactedAfterElevenMonths}
-                                        period={COMPANY_TRACKING_PERIOD_TYPE.ELEVEN_MONTHS}
-                                        companyID={company.companyID}
-                                    />
-                                </td>
-                            </tr>
-                        );
-                    })}
+                    const isOlderThan11Months = moment(company.companyCreatedOn)
+                        .add(11, 'months')
+                        .isBefore(moment());
+
+                    return (
+                        <tr className={`${showWarning ? 'warning' : ''}`} key={company.companyID}>
+                            <td className="center">
+                                {showWarning && (
+                                    <TooltipContainer
+                                        htmlText={`This company has yet to be contacted within a ${COMPANY_TRACKING_PERIOD_KEY[
+                                            period
+                                        ].toLowerCase()} period`}
+                                        containerSide="left"
+                                    >
+                                        <i className="far fa-exclamation-triangle red-icon" />
+                                    </TooltipContainer>
+                                )}
+                                {company.companyName}
+                            </td>
+                            <td>
+                                {company.accountOwnerName} - <br />
+                                {company.accountOwnerEmail}
+                            </td>
+                            <td>
+                                <DateTimeContainer date={company.companyCreatedOn} />
+                            </td>
+                            <td>
+                                <DateTimeContainer date={company.firstSubscriptionStartOn} />
+                            </td>
+                            <td>
+                                <DateTimeContainer date={company.latestSubscriptionStartOn} />
+                            </td>
+                            <td>
+                                <DateTimeContainer date={company.latestSubscriptionEndOn} />
+                            </td>
+                            <td>{COMPANY_TRACKING_TYPES_VALUES[company.companyType]}</td>
+                            <td>
+                                {company.autoRenew ? (
+                                    <i className="fa fa-check" />
+                                ) : (
+                                    <i className="fa fa-times" />
+                                )}
+                            </td>
+                            <td>
+                                {company.serviceIDs &&
+                                    adminServices &&
+                                    company.serviceIDs
+                                        .split(',')
+                                        .map(item =>
+                                            adminServices[item] ? adminServices[item].name : item,
+                                        )
+                                        .join(', ')}
+                            </td>
+                            <td>
+                                <ContactContacted
+                                    contacted={company.contactedAfterMonth || isOlderThan11Months}
+                                    period={COMPANY_TRACKING_PERIOD_TYPE.ONE_MONTH}
+                                    companyID={company.companyID}
+                                />
+                            </td>
+                            <td>
+                                <ContactContacted
+                                    contacted={
+                                        company.contactedAfterThreeMonths || isOlderThan11Months
+                                    }
+                                    period={COMPANY_TRACKING_PERIOD_TYPE.THREE_MONTHS}
+                                    companyID={company.companyID}
+                                />
+                            </td>
+                            <td>
+                                <ContactContacted
+                                    contacted={
+                                        company.contactedAfterElevenMonths || isOlderThan11Months
+                                    }
+                                    period={COMPANY_TRACKING_PERIOD_TYPE.ELEVEN_MONTHS}
+                                    companyID={company.companyID}
+                                />
+                            </td>
+                        </tr>
+                    );
+                })}
             </Table>
         </div>
     );

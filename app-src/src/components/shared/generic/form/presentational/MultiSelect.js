@@ -22,6 +22,7 @@ const MultiSelect = ({
     iconClass = '',
     placeholder = '-- select options --',
     maxLines = null,
+    classes = '',
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [hasOpened, setHasOpened] = useState(false);
@@ -77,7 +78,12 @@ const MultiSelect = ({
     }, [options]);
 
     return (
-        <div className={`multi-multi-dropdown size-lg-12 ${disabled ? 'disabled' : ''}`} ref={node}>
+        <div
+            className={`multi-multi-dropdown size-lg-12 ${classes && classes} ${
+                disabled ? 'disabled' : ''
+            }`}
+            ref={node}
+        >
             <div
                 className="selected-box"
                 onClick={() => !disabled && setIsOpen(!isOpen)}

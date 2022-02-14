@@ -10,18 +10,8 @@ const DocumentUpload = ({ isRequired, question: { id }, answers, handleChange })
             maxFiles={1}
             handleChange={handleChange}
             value={answers[id]}
+            displayDocLib
         />
     );
 };
 export default DocumentUpload;
-//edit ? (
-//     <img
-//     alt=""
-//     src={`${RAW_S3_STORAGE_URL}/${answers[id]}`}
-//     onClick={() =>
-//         handleImageClick({
-//             image: `${RAW_S3_STORAGE_URL}/${answers[id]}`
-//         })
-//     }
-// />
-// ) : (  );

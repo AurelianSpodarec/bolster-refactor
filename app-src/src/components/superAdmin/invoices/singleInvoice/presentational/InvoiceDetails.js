@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
@@ -12,6 +12,7 @@ import {
     ADMIN_CONFIRM_FREE_INVOICE,
     ADMIN_CONFIRM_SET_IS_INVOICE_PAID,
     ADMIN_DELETE_INVOICE,
+    ADMIN_RESTORE_INVOICE,
 } from 'constants/shared/modalTypes';
 import { INVOICE_GEN_URL } from 'config';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
@@ -20,12 +21,17 @@ const InvoiceDetails = ({
     isFetching,
     companyName,
     error,
-    invoice: { createdOn, id, isPaid, paymentType, total, isRenewal, guid, comment, invoiceType },
+    invoice: { createdOn, id, isPaid, paymentType, total, isRenewal, guid, comment, invoiceType, isDeleted },
     invoice,
     showModal,
     handleShowModal,
 }) => {
     const [commentValue, setCommentValue] = useState(comment || '');
+
+    useEffect(() => {
+        setCommentValue(comment);
+    }, [comment]);
+
     return (
         <BlockContainer
             containerClass="flex-row-item size-lg-12"
@@ -42,26 +48,41 @@ const InvoiceDetails = ({
                 >
                     <i className="fa fa-download fa-fw" /> Download Invoice
                 </a>
-                {!isPaid && (
+                {isDeleted && (
                     <button
-                        onClick={() => showModal(ADMIN_CONFIRM_FREE_INVOICE, { id })}
-                        className="button red"
+                        onClick={() => showModal(ADMIN_RESTORE_INVOICE, { invoice, id })}
+                        className="button green"
                     >
-                        <i className="far fa-money-bill-alt fa-fw" /> Make Free
+                        <i className="fa fa-recycle fa-fw" /> Restore Invoice
                     </button>
                 )}
-                <button
-                    onClick={() => showModal(ADMIN_CONFIRM_SET_IS_INVOICE_PAID, { isPaid, id })}
-                    className="button green"
-                >
-                    <i className="fa fa-plus fa-fw" /> Mark invoice as {isPaid ? 'Unpaid' : 'Paid'}
-                </button>
-                <button
-                    onClick={() => showModal(ADMIN_DELETE_INVOICE, { invoice, id })}
-                    className="button red"
-                >
-                    <i className="fa fa-trash fa-fw" /> Delete Invoice
-                </button>
+                {!isDeleted && (
+                    <>
+                        {!isPaid && (
+                            <button
+                                onClick={() => showModal(ADMIN_CONFIRM_FREE_INVOICE, { id })}
+                                className="button red"
+                            >
+                                <i className="far fa-money-bill-alt fa-fw" /> Make Free
+                            </button>
+                        )}
+                        <button
+                            onClick={() =>
+                                showModal(ADMIN_CONFIRM_SET_IS_INVOICE_PAID, { isPaid, id })
+                            }
+                            className="button green"
+                        >
+                            <i className="fa fa-plus fa-fw" /> Mark invoice as{' '}
+                            {isPaid ? 'Unpaid' : 'Paid'}
+                        </button>
+                        <button
+                            onClick={() => showModal(ADMIN_DELETE_INVOICE, { invoice, id })}
+                            className="button red"
+                        >
+                            <i className="fa fa-trash fa-fw" /> Delete Invoice
+                        </button>
+                    </>
+                )}
             </BlockHeading>
 
             <FieldOutput title="Invoice no" description={`${id}`} sizeClass="size-lg-4" />

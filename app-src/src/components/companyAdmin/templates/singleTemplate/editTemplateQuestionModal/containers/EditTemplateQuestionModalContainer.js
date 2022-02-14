@@ -33,8 +33,11 @@ class EditTemplateQuestionModalContainer extends Component {
         const { question } = this.props;
 
         if (question.optionConfigurations) {
+            let sort = 0;
+
             const options = question.optionConfigurations.reduce((acc, { name }) => {
-                return { ...acc, [name]: name };
+                sort = sort + 1;
+                return { ...acc, [name]: { value: name, sort } };
             }, {});
 
             const configuration = question.optionConfigurations.reduce(
@@ -55,7 +58,8 @@ class EditTemplateQuestionModalContainer extends Component {
     };
 
     handleChange = (name, value) => {
-        this.setState({ options: updateObj(this.state.options, name, value) });
+        const sort = this.state.options[name].sort;
+        this.setState({ options: updateObj(this.state.options, name, { value, sort }) });
     };
 
     handleQuestionToggle = id => {
@@ -72,7 +76,9 @@ class EditTemplateQuestionModalContainer extends Component {
     };
 
     handleAddOption = () => {
-        this.setState({ options: updateObj(this.state.options, uuid(), '') });
+        const { options } = this.state;
+        const latestSort = Object.values(options).sort((a, b) => b.sort - a.sort)[0].sort;
+        this.setState({ options: updateObj(options, uuid(), { value: '', sort: latestSort + 1 }) });
     };
 
     handleSubmit = e => {
@@ -80,20 +86,24 @@ class EditTemplateQuestionModalContainer extends Component {
         const { editTemplateQuestion, question } = this.props;
         const { options, configuration } = this.state;
 
+        const sortedOptions = Object.values(options).sort((a, b) => a.sort - b.sort);
+
         const optionConfigurations = question.optionConfigurations
             ? Object.keys(options).map(item => {
                   if (item in configuration) {
                       const prevObj = question.optionConfigurations.find(obj => obj.name === item);
                       return {
-                          name: options[item],
+                          name: options[item].value,
                           isDisabled: this.state.configuration[item],
                           createdBySuperAdmin: prevObj.createdBySuperAdmin,
+                          sort: options[item].sort,
                       };
                   } else {
                       return {
-                          name: options[item],
+                          name: options[item].value,
                           isDisabled: false,
                           createdBySuperAdmin: false,
+                          sort: options[item].sort,
                       };
                   }
               })
@@ -102,10 +112,14 @@ class EditTemplateQuestionModalContainer extends Component {
         const body = optionConfigurations
             ? {
                   questionID: question.id,
-                  options: Object.values(this.state.options),
-                  optionConfigurations,
+                  options: sortedOptions.map(opt => opt.value),
+                  optionConfigurations: [...optionConfigurations]
+                      .sort((a, b) => a.sort - b.sort)
+                      .map(({ name, isDisabled, createdBySuperAdmin }) => {
+                          return { name, isDisabled, createdBySuperAdmin };
+                      }),
               }
-            : { questionID: question.id, options: Object.values(this.state.options) };
+            : { questionID: question.id, options: sortedOptions.map(opt => opt.value) };
         editTemplateQuestion(question.id, body);
     };
 }

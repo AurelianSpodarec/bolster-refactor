@@ -50,6 +50,16 @@ export default function (ProtectedComponent) {
             return asObj ? convertArrToObj(options, 'value') : options;
         };
 
+        formatArrForDropdownOperative = arr => {
+            const options = arr.map(({ id, name, companyName }) => ({
+                value: id,
+                label: `${name} ${companyName ? `(${companyName})` : ''}`,
+                text: `${name} ${companyName ? `(${companyName})` : ''}`,
+            }));
+
+            return options;
+        };
+
         validate = errorMessage => {
             const { addFieldError, removeFieldError, blockName, fieldError } = this.props;
 
@@ -298,9 +308,9 @@ export default function (ProtectedComponent) {
                 return { latY, lngX };
             };
 
-            const pinBoundingBoxes = Object.values(
-                rectangles,
-            ).map(({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]);
+            const pinBoundingBoxes = Object.values(rectangles).map(
+                ({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)],
+            );
             // get the utc converted time for both from date and to date.
 
             const [startDate, endDate] = this._getDateTimeFilters();
@@ -398,7 +408,10 @@ export default function (ProtectedComponent) {
                     furtherFiltrationOption,
                     includedDrawingsIDs,
                 },
-                operativesReducer: { operatives, isFetching: isFetchingOperatives },
+                operativesReducer: {
+                    operativeOptions: operatives,
+                    isFetching: isFetchingOperatives,
+                },
                 companySettingsReducer: {
                     companySettings: { timeZone },
                 },

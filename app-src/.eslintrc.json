@@ -4,7 +4,11 @@
         "node": true,
         "es6": true
     },
-    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:prettier/recommended"
+    ],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -12,7 +16,7 @@
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "plugins": ["react"],
+    "plugins": ["react", "prettier"],
     "rules": {
         "quotes": ["warn", "single", { "avoidEscape": true}],
         "semi": ["warn", "always"],
@@ -34,7 +38,8 @@
                 "ignoreTemplateLiterals": true,
                 "ignoreComments": true
             }
-        ]
+        ],
+        "prettier/prettier": "error"
     },
     "parser": "babel-eslint"
 }

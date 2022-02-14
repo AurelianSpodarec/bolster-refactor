@@ -17,6 +17,9 @@ const SiteStats = ({
     serviceOptions,
     handleCreateHierarchyAlertModal,
     handleViewHierarchyAlerts,
+    companyID,
+    companyOptions,
+    filteredStatsBool,
 }) => (
     <div className="stats size-lg-12">
         <div className="flex-item size-lg-12">
@@ -37,6 +40,9 @@ const SiteStats = ({
                 isFiltered={!!serviceID}
                 handleChange={handleChange}
                 serviceOptions={serviceOptions}
+                companyID={companyID}
+                companyOptions={companyOptions}
+                filteredStatsBool={filteredStatsBool}
             />
         </div>
 

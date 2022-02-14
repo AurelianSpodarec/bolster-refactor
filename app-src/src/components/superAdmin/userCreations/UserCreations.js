@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import fileDownload from 'js-file-download';
 
 import fetchUserCreations from 'actions/superAdmin/users/async/fetchUserCreations';
@@ -10,12 +10,19 @@ import { getHeaders } from 'helpers/api';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import UserCreationsTable from './UserCreationsTable';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import PageSelector from 'components/shared/pagination/presentational/pageSelector';
 
 const UserCreations = () => {
     const dispatch = useDispatch();
+    const { users, isFetching, error, page, pageSize, totalPages } = useSelector(mapStateToProps);
+
+    const setPage = nextPage => {
+        dispatch(fetchUserCreations(nextPage, pageSize));
+    };
 
     useEffect(() => {
-        dispatch(fetchUserCreations());
+        dispatch(fetchUserCreations(page, pageSize));
     }, [dispatch]);
 
     return (
@@ -26,7 +33,17 @@ const UserCreations = () => {
                 </button>
             </PageHeading>
             <BlockContainer>
-                <UserCreationsTable />
+                <div className="size-lg-6 size-md-12">
+                    <BlockHeading title="User Creations">
+                        <PageSelector
+                            setPage={setPage}
+                            page={page}
+                            maxPage={totalPages}
+                            forceToFirstOrLast
+                        />
+                    </BlockHeading>
+                </div>
+                <UserCreationsTable users={users} isFetching={isFetching} error={error} />
             </BlockContainer>
         </>
     );
@@ -37,5 +54,23 @@ const UserCreations = () => {
         });
     }
 };
+
+const mapStateToProps = ({
+    superAdmin: {
+        userCreationsReducer: {
+            users,
+            isFetching,
+            error,
+            pages: { page, totalPages, pageSize },
+        },
+    },
+}) => ({
+    users,
+    isFetching,
+    error,
+    page,
+    totalPages,
+    pageSize,
+});
 
 export default UserCreations;

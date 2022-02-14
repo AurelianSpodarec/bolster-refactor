@@ -14,6 +14,9 @@ const FloorStats = ({
     handleChange,
     serviceID,
     serviceOptions,
+    companyID,
+    companyOptions,
+    filteredStatsBool,
     handleCreateHierarchyAlertModal,
     handleViewHierarchyAlerts,
 }) => (
@@ -27,6 +30,9 @@ const FloorStats = ({
             handleChange={handleChange}
             serviceOptions={serviceOptions}
             serviceID={serviceID}
+            companyID={companyID}
+            companyOptions={companyOptions}
+            filteredStatsBool={filteredStatsBool}
         />
 
         <div className="button-container relative-position">
