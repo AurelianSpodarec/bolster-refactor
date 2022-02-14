@@ -229,6 +229,7 @@ class AddSiteFormContainer extends Component {
 
         return Object.entries(optionValues).reduce((acc, [manufacturerID, options]) => {
             const formattedOptionValues = formatOptions(Object.values(options));
+            console.log(formattedOptionValues);
             const filteredOptionValues = formattedOptionValues.filter(option =>
                 this.shouldOptionValueBeIncluded(option.serviceIDs),
             );
@@ -240,6 +241,10 @@ class AddSiteFormContainer extends Component {
     shouldOptionValueBeIncluded = serviceIDs => {
         if (!serviceIDs) return false;
         const { subscriptionServiceIDs } = this.props;
+
+        if (!serviceIDs) {
+            return true;
+        }
         return serviceIDs.some(id => subscriptionServiceIDs.includes(id));
     };
 

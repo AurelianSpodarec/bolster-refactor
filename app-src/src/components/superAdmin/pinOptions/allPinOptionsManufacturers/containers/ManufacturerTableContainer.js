@@ -8,6 +8,8 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { isObjEmpty } from 'helpers/generic';
 import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
+import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
+
 class ManufacturerTableContainer extends Component {
     render() {
         const { isFetching, error, manufacturers, title, type } = this.props;
@@ -24,6 +26,11 @@ class ManufacturerTableContainer extends Component {
             />
         );
     }
+
+    componentDidMount = () => {
+        const { fetchAllServices } = this.props;
+        fetchAllServices();
+    };
 
     componentDidUpdate = prevProps => {
         const { postSuccess, showModal, hideModal, postError, fieldErrors } = this.props;
@@ -77,6 +84,9 @@ const mapStateToProps = (
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => {
         dispatch(showModal(type, props));
+    },
+    fetchAllServices: () => {
+        dispatch(fetchAllServices());
     },
 });
 

@@ -3,6 +3,8 @@ import moment from 'moment';
 import orderBy from 'lodash/orderBy';
 import find from 'lodash/find';
 import { DATE_TIME_DEFAULTS } from '../constants/companyAdmin/enums';
+import { videoFormats } from 'constants/shared/media';
+import _ from 'lodash';
 
 export function convertArrToObj(arr, field = 'id') {
     return arr.reduce((acc, item) => {
@@ -64,6 +66,12 @@ export function removeObjItem(obj, key) {
     return rest;
 }
 
+export function removeObjItems(obj, keys) {
+    const objCopy = { ...obj };
+    keys.forEach(key => delete objCopy[key]);
+    return objCopy;
+}
+
 export function areArraysEqual(arr1, arr2) {
     if (!arr1 || !arr2) return arr1 === arr2;
     return (
@@ -71,6 +79,17 @@ export function areArraysEqual(arr1, arr2) {
         arr1.every(item => arr2.includes(item)) &&
         arr2.every(item => arr1.includes(item))
     );
+}
+export function areObjectsEqual(obj1, obj2) {
+    console.log({ obj1, obj2 });
+    if (!obj1 || !obj2) return obj1 === obj2;
+    const keys = Object.keys(obj1);
+    return keys.every(key => {
+        if (typeof obj1[key] === 'object') {
+            return areObjectsEqual(obj1[key], obj2[key]);
+        }
+        return obj1[key] === obj2[key];
+    });
 }
 
 export function removeArrItem(arr, index) {
@@ -344,6 +363,30 @@ export const reverseEnum = obj =>
 
 export const boolToYesNo = bool => (bool ? 'Yes' : 'No');
 
+export const isDifferent = (value1, value2) => {
+    return !_.isEqual(value1, value2);
+};
+
+export const formatAsHrsMinsSecs = (ms: number) => {
+    const formatInt = (int: number) => int.toString().padStart(2, '0');
+
+    const secs = Math.floor(ms / 1000);
+    const hrs = Math.floor(secs / 3600);
+    const mins = Math.floor((secs - hrs * 3600) / 60);
+    const secsLeft = secs - hrs * 3600 - mins * 60;
+
+    return `${formatInt(hrs)}:${formatInt(mins)}:${formatInt(secsLeft)}`;
+};
+
+export const arrayToQueryString = (array: string[], key: string) => {
+    return array.map(val => `${key}=${val}`).join('&');
+};
+
+export const isVideo = s3Key => {
+    const fileExtension = s3Key.split('.').pop();
+
+    return videoFormats.includes(fileExtension.toLowerCase());
+};
 export const getStorageString = (bytes = 0) => {
     const kb = bytes / 1024;
     const mb = kb / 1024;
@@ -353,7 +396,6 @@ export const getStorageString = (bytes = 0) => {
     }
     return `${mb.toFixed(1)}MB`;
 };
-
 export const isLowMemory = bytes => {
     const gbLowerLimit = 3;
     const kb = bytes / 1024;
@@ -375,3 +417,4 @@ export const isMinMemory = (bytes: number) => {
     const gb = mb / 1024;
     return gb >= 2.5 && gb < 3.5;
 };
+export const totalArray = (array: number[]) => array.reduce((acc, val) => acc + val, 0);

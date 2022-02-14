@@ -22,7 +22,10 @@ const EditTemplateQuestionModalContainerFN = ({
     question,
     updateQuestionFields,
     dropdownOptions,
+    template,
 }) => {
+    const { serviceID } = template;
+
     useEffect(handleMount, []);
 
     return (
@@ -43,6 +46,7 @@ const EditTemplateQuestionModalContainerFN = ({
             showPrefillOptions={showPrefillOptions}
             handlePrereqOptionsChange={handlePrereqOptionsChange}
             dropdownOptions={dropdownOptions}
+            serviceID={serviceID}
         />
     );
 
@@ -85,10 +89,9 @@ const EditTemplateQuestionModalContainerFN = ({
             !isEmpty(question.options)
         ) {
             formData.optionColour = formData.options.reduce((res, item) => {
-                return [...res, { Name: item.text, HexValue: '#ffffff' }];
+                return [...res, { name: item.text, hexValue: '#ffffff' }];
             }, []);
         }
-
         updateQuestionFields(formData);
     }
 };

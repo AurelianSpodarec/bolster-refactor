@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
-import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
+import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 
 const DashboardStatsFilters = ({
     serviceOptions,
@@ -11,10 +11,14 @@ const DashboardStatsFilters = ({
     selectedStartDate,
     selectedEndDate,
     handleDateChange,
+    handleMonthChange,
+    monthOptions,
+    selectedMonth,
     handleChange,
-    today
-}) => (
-    <>
+}) => {
+    const start = new Date(selectedStartDate).toUTCString().replace('GMT', '');
+    const end = new Date(selectedEndDate).toUTCString().replace('GMT', '');
+    return (
         <form className="multi-filters size-lg-12">
             <div className="flex item ">
                 <p className="">Selected Service:</p>
@@ -41,33 +45,31 @@ const DashboardStatsFilters = ({
                 </div>
             </div>
             <div className="flex item ">
-                <p className="">Start Date:</p>
+                <p className="">Dates</p>
                 <div className="flex">
-                    <DatePickerPresentational
-                        name="startDate"
-                        selected={selectedStartDate}
-                        onChange={date => handleDateChange('startDate', date)}
-                        placeholderText="Date"
-                        sizeClasses=""
-                        maxDate={today}
+                    <DateRangePicker
+                        onChange={date => handleDateChange('dates', date)}
+                        value={[start, end]}
+                        showDoubleView
+                        calendarIcon={null}
+                        clearIcon={null}
                     />
                 </div>
             </div>
             <div className="flex item ">
-                <p className="">End Date:</p>
-                <div className="flex">
-                    <DatePickerPresentational
-                        name="endDate"
-                        selected={selectedEndDate}
-                        onChange={date => handleDateChange('endDate', date)}
-                        placeholderText="Date"
-                        sizeClasses=""
-                        maxDate={today}
+                <p className="">Month:</p>
+                <div className="flex size-lg-7">
+                    <Dropdown
+                        placeholder="--select status--"
+                        name="month"
+                        options={monthOptions}
+                        selectedOption={selectedMonth}
+                        handleChange={handleMonthChange}
                     />
                 </div>
             </div>
         </form>
-    </>
-);
+    );
+};
 
 export default DashboardStatsFilters;

@@ -56,7 +56,9 @@ class OptionValuesTableContainer extends Component {
 
     shouldOptionValueBeIncluded = serviceIDs => {
         const { subscriptionServiceIDs } = this.props;
-        return serviceIDs.some(id => subscriptionServiceIDs.includes(id));
+        if (Array.isArray(serviceIDs))
+            return serviceIDs.some(id => subscriptionServiceIDs.includes(id));
+        return true;
     };
 
     getSortedOptionValues = () => {

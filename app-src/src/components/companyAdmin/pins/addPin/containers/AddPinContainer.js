@@ -12,8 +12,8 @@ import updateDrawingDropdownOptions from 'actions/companyAdmin/drawings/sync/upd
 
 import AddPinFormContainer from './AddPinFormContainer';
 import { fetchManufacturerPinOptions } from 'helpers/redux';
-import { isObjEmpty } from 'helpers/generic';
 import { shouldOptionValueBeIncluded } from 'helpers/manufacturers';
+import { isObjEmpty } from 'helpers/generic';
 
 class AddPinContainer extends Component {
     render = () => (
@@ -24,40 +24,48 @@ class AddPinContainer extends Component {
         />
     );
 
-    componentDidMount = async () => {
-        const {
-            drawingID,
-            fetchDrawingTemplates,
-            fetchDrawingDropdownOptions,
-            fetchManufacturersByPinOptionType,
-            fetchAllOptionValues,
-        } = this.props;
+    componentDidMount = () => {
+        const { drawingID, fetchDrawingTemplates } = this.props;
 
         fetchDrawingTemplates(drawingID);
-        fetchDrawingDropdownOptions(drawingID)
-            .then(() => {
-                return fetchSingleDrawing(drawingID);
-            })
-            .then(async () => {
-                return fetchManufacturerPinOptions(
-                    fetchManufacturersByPinOptionType,
-                    fetchAllOptionValues,
-                );
-            });
 
         fetchPins('drawing', drawingID);
     };
 
     componentDidUpdate = prevProps => {
+        const { serviceID } = this.props;
+
+        if (prevProps.serviceID !== serviceID) {
+            this.fetchDropdownOptions();
+        }
+
         if (
             prevProps.isFetching &&
             !this.props.isFetching &&
             !isObjEmpty(this.props.optionValues)
         ) {
-            // replace add pin dropdown options with manufacturer enabled options if applicable
-
-            this.formatDropdownOptions();
+            this.formatDropdownOptions(serviceID);
         }
+    };
+
+    fetchDropdownOptions = () => {
+        const {
+            drawingID,
+            fetchDrawingDropdownOptions,
+            fetchManufacturersByPinOptionType,
+            fetchAllOptionValues,
+        } = this.props;
+
+        fetchDrawingDropdownOptions(drawingID)
+            .then(() => {
+                fetchSingleDrawing(drawingID);
+            })
+            .then(() => {
+                fetchManufacturerPinOptions(
+                    fetchManufacturersByPinOptionType,
+                    fetchAllOptionValues,
+                );
+            });
     };
 
     formatDropdownOptions = serviceID => {
@@ -69,12 +77,9 @@ class AddPinContainer extends Component {
             subscriptionServiceIDs,
         } = this.props;
 
-        // check to see if we should be using manufacturing pin options instead of the original dropdown options
         if (drawing.isManufacturingEnabled) {
-            const drawingOptionValueIDs = drawing.optionValueIDs;
             const originalOptionTypesToRemove = [];
 
-            // get manufacturer option values in an array ready to be reduced into the options that may replace certain fields.
             const formattedManufacturerOptionValues = Object.values(optionValues).reduce(
                 (acc, options) => {
                     return [...acc, ...Object.values(options)];
@@ -83,16 +88,11 @@ class AddPinContainer extends Component {
             );
 
             const drawingOptionValues = formattedManufacturerOptionValues.reduce((acc, option) => {
-                const isCorrectForDrawingAndServiceID = serviceID
-                    ? drawingOptionValueIDs.includes(option.id) &&
-                      option.serviceIDs.includes(Number(serviceID))
-                    : drawingOptionValueIDs.includes(option.id);
-
-                if (isCorrectForDrawingAndServiceID) {
-                    // mark the types that need to be removed from the dropdown options
+                if (this.isCorrectForDrawingAndServiceID(serviceID, option)) {
                     if (!originalOptionTypesToRemove.includes(option.type)) {
                         originalOptionTypesToRemove.push(option.type);
                     }
+
                     if (shouldOptionValueBeIncluded(option.serviceIDs, subscriptionServiceIDs)) {
                         acc.push({ ...option });
                     }
@@ -109,7 +109,45 @@ class AddPinContainer extends Component {
 
             const newOptions = [...dropdownOptionsFilteredArray, ...drawingOptionValues];
 
-            updateDrawingDropdownOptions(newOptions);
+            const filteredNewOptions = newOptions.filter(val => {
+                if (!serviceID) return true;
+                else {
+                    if (val.serviceIDs?.includes(Number(serviceID)) || !val.serviceIDs) return true;
+                    else return false;
+                }
+            });
+
+            updateDrawingDropdownOptions(filteredNewOptions);
+        } else {
+            const formattedOptionValues = Object.values(dropdownOptions).flat();
+
+            const filteredOptionValues = formattedOptionValues.filter(val => {
+                if (!serviceID) return true;
+                else {
+                    return val.serviceIDs?.includes(Number(serviceID)) || !val.serviceIDs;
+                }
+            });
+            updateDrawingDropdownOptions(filteredOptionValues);
+        }
+    };
+
+    isCorrectForDrawingAndServiceID = (serviceID, option) => {
+        const { drawing, manufacturers } = this.props;
+        const drawingOptionValueIDs = drawing.optionValueIDs ?? [];
+
+        if (serviceID && drawingOptionValueIDs?.includes(option.id)) {
+            if (option.serviceIDs?.includes(Number(serviceID))) {
+                return true;
+            } else if (option.serviceIDs === null) {
+                const manufacturer = manufacturers[option.manufacturerID];
+
+                return (
+                    manufacturer?.serviceIDs?.includes(Number(serviceID)) ||
+                    manufacturer?.serviceIDs === null
+                );
+            }
+        } else {
+            return drawingOptionValueIDs?.includes(option.id);
         }
     };
 }
@@ -117,7 +155,10 @@ class AddPinContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            addPinDropdownOptions: { dropdownOptions },
+            addPinDropdownOptions: { dropdownOptions, serviceID },
+            manufacturersReducer: {
+                manufacturers: { installationTypes },
+            },
             manufacturersOptionValuesReducer: { manufacturersOptionValues, isFetching },
             drawingsReducer: { drawings },
             subscriptionsReducer: {
@@ -133,6 +174,8 @@ const mapStateToProps = (
     isFetching: isFetching,
     dropdownOptions,
     subscriptionServiceIDs,
+    manufacturers: installationTypes,
+    serviceID,
 });
 
 const mapDispatchToProps = {

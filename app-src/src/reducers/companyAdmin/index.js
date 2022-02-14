@@ -58,6 +58,12 @@ import userGuideReducer from './userGuide';
 import userDocumentsReducer from './userDocuments';
 import zonesReducer from './zones';
 import companySelectionReducer from './companySelection';
+import timesheetsReducer from './timesheets';
+import timesheetPinStatsReducer from './timesheetPinStats';
+import userPinFeedsReducer from './userPinFeeds';
+import bugReportsReducer from './bugReports';
+import documentLibraryReducer from './documentLibrary';
+import pinTasksReducer from './pinTasks';
 
 export default combineReducers({
     activityLogReducer,
@@ -67,6 +73,7 @@ export default combineReducers({
     appReducer,
     approvedCompaniesReducer,
     buildingsReducer,
+    bugReportsReducer,
     cardsReducer,
     clientsReducer,
     companyAddressesGeocodeReducer,
@@ -78,6 +85,7 @@ export default combineReducers({
     creditLogsReducer,
     dashboardReducer,
     deletedDataReducer,
+    documentLibraryReducer,
     documentsReducer,
     drawingsReducer,
     dropdownOptionsReducer,
@@ -101,6 +109,7 @@ export default combineReducers({
     pinAnswersReducer,
     pinHistoriesReducer,
     pinsReducer,
+    pinTasksReducer,
     qrCodesReducer,
     recentUpdatesReducer,
     reportsReducer,
@@ -118,4 +127,7 @@ export default combineReducers({
     userDocumentsReducer,
     userGuideReducer,
     zonesReducer,
+    timesheetsReducer,
+    timesheetPinStatsReducer,
+    userPinFeedsReducer,
 });

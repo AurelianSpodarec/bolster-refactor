@@ -35,6 +35,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
             vatCostOfCredits,
             credits,
             isPosting,
+            shouldReceiveFreeCredit,
         } = this.props;
 
         const {
@@ -86,6 +87,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
                 termsAgreed={termsAgreed}
                 addCardVisible={this.state.addCardVisible}
                 isPosting={isPosting}
+                shouldReceiveFreeCredit={shouldReceiveFreeCredit}
             />
         );
     }
@@ -211,6 +213,9 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         cardsReducer: { cards, isFetching: fetchingCards },
+        companySettingsReducer: {
+            companySettings: { shouldReceiveFreeCredit },
+        },
         creditsReducer: {
             postSuccess: creditsPostSuccess,
             postError,
@@ -245,6 +250,7 @@ const mapStateToProps = ({
     fetchingServices,
     error,
     isPosting,
+    shouldReceiveFreeCredit,
 });
 
 const mapDispatchToProps = {

@@ -6,6 +6,7 @@ const Table = ({
     headers,
     error,
     isFetching,
+    showLoaderWhenFetching,
     noData,
     noDataMessage = 'There is no data to display',
     withActions = false,
@@ -24,10 +25,10 @@ const Table = ({
                     {headers.map((header, i) => (
                         <th
                             colSpan={colSpanFirst && i === 0 ? '2' : ''}
-                            key={header + i}
+                            key={i}
                             style={tableColumnWidths.length ? { width: tableColumnWidths[i] } : {}}
                         >
-                            {header}
+                            {typeof header === 'string' ? header : header()}
                         </th>
                     ))}
                 </tr>
@@ -40,6 +41,7 @@ const Table = ({
                 noData={noData}
                 noDataMessage={noDataMessage}
                 withoutTBody={withoutTBody}
+                showLoaderWhenFetching={showLoaderWhenFetching}
             >
                 {children}
             </TableBody>

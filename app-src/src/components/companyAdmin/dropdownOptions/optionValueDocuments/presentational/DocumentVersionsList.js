@@ -17,62 +17,78 @@ const DocumentVersionsList = ({
     showModal,
     handleDeleteDocumentVersionModal,
     isReadOnly,
-}) => {
-    return (
-        <div>
-            {versions
-                .sort((a, b) => b.createdAt - a.createdAt)
-                .map((version, i) => {
-                    const [_, filename] = version.fileS3Key.split('/');
-                    return (
-                        <div key={version.id} className="flex-row size-lg-12">
-                            <FieldOutput
-                                title={'Filename'}
-                                description={filename}
-                                sizeClass={'flex-row-item size-lg-3'}
-                            />
-                            <FieldOutput
-                                title={'Date Created'}
-                                description={moment(version.createdAt).format(
-                                    DATE_TIME_DEFAULTS[DATE_TIME_IDS.DATETIME],
-                                )}
-                                sizeClass={'flex-row-item size-lg-3'}
-                            />
-                            <FieldOutput
-                                title={'Document Preview'}
-                                sizeClass={'flex-row-item size-lg-4'}
-                            >
-                                {version.fileS3Key.endsWith('.pdf') ? (
-                                    <div className="preview-wrapper">
-                                        <embed
-                                            src={`${RAW_S3_STORAGE_URL}/${version.fileS3Key}#toolbar=0&navpanes=0&scrollbar=0`}
-                                            type="application/pdf"
-                                            className="document-version-preview pdf-preview"
-                                        />{' '}
-                                        <div
-                                            className={'preview-click-div'}
-                                            onClick={() =>
-                                                showModal(DOCUMENT_VIEW, {
-                                                    image: `${RAW_S3_STORAGE_URL}/${version.fileS3Key}#toolbar=0&navpanes=0&scrollbar=0`,
-                                                    type: DOCUMENT_VIEW_TYPES.PDF,
-                                                })
-                                            }
-                                        ></div>
-                                    </div>
-                                ) : (
-                                    <img
-                                        src={`${FILE_STORAGE_URL}/${version.fileS3Key}?width=500`}
-                                        alt="preview of the upload"
+}) => (
+    <div>
+        {versions
+            .sort((a, b) => b.createdAt - a.createdAt)
+            .map(version => {
+                const [, filename] = version.fileName.split('/');
+                return (
+                    <div key={version.id} className="flex-row size-lg-12">
+                        <FieldOutput
+                            title={'Filename'}
+                            description={filename}
+                            sizeClass={'flex-row-item size-lg-3'}
+                        />
+                        <FieldOutput
+                            title={'Date Created'}
+                            description={moment(version.createdAt).format(
+                                DATE_TIME_DEFAULTS[DATE_TIME_IDS.DATETIME],
+                            )}
+                            sizeClass={'flex-row-item size-lg-4'}
+                        />
+                        <FieldOutput
+                            title={'Document Preview'}
+                            sizeClass={'flex-row-item size-lg-6'}
+                        >
+                            {version.fileS3Key.endsWith('.pdf') ? (
+                                <div className="preview-wrapper">
+                                    <embed
+                                        src={`${RAW_S3_STORAGE_URL}/${version.fileS3Key}#toolbar=0&navpanes=0&scrollbar=0`}
+                                        type="application/pdf"
+                                        className="document-version-preview pdf-preview"
+                                    />{' '}
+                                    <div
+                                        className={'preview-click-div'}
                                         onClick={() =>
                                             showModal(DOCUMENT_VIEW, {
-                                                image: `${FILE_STORAGE_URL}/${version.fileS3Key}?width=1500`,
-                                                type: DOCUMENT_VIEW_TYPES.IMAGE,
+                                                image: `${RAW_S3_STORAGE_URL}/${version.fileS3Key}#toolbar=0&navpanes=0&scrollbar=0`,
+                                                type: DOCUMENT_VIEW_TYPES.PDF,
                                             })
                                         }
-                                        className="document-version-preview image-preview"
-                                    />
-                                )}
-                            </FieldOutput>
+                                    ></div>
+                                </div>
+                            ) : (
+                                <img
+                                    src={`${FILE_STORAGE_URL}/${version.fileS3Key}?width=500`}
+                                    alt="preview of the upload"
+                                    onClick={() =>
+                                        showModal(DOCUMENT_VIEW, {
+                                            image: `${FILE_STORAGE_URL}/${version.fileS3Key}?width=1500`,
+                                            type: DOCUMENT_VIEW_TYPES.IMAGE,
+                                        })
+                                    }
+                                    className="document-version-preview image-preview"
+                                />
+                            )}
+                        </FieldOutput>
+
+                        <div className={'flex-row-item size-lg-2'}>
+                            {!version.hasBeenUsed && !isReadOnly && (
+                                <button
+                                    className={'button red'}
+                                    onClick={() => handleDeleteDocumentVersionModal(version)}
+                                >
+                                    <i className={'far fa-trash'} />
+                                    {'Delete Version'}
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                );
+            })}
+    </div>
+);
 
                             <div className={'flex-row-item size-lg-2'}>
                                 {!version.hasBeenUsed && !isReadOnly && (

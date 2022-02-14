@@ -1,10 +1,9 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 import uuid from 'uuid/v4';
 import moment from 'moment';
-
 import { removeObjItem } from './generic';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import resendTwoFactor from 'actions/shared/auth/async/resendTwoFactor';
 import { addBanner } from 'actions/shared/banners/sync/addBanner';
 import { resetBanner } from 'actions/shared/banners/sync/resetBanner';
@@ -249,5 +248,31 @@ export const useUnconfirmedEmailBanner = () => {
         return () => {
             dispatch(resetBanner());
         };
+    }, []);
+};
+
+export const useQuery = () => {
+    const { search } = useLocation();
+
+    return useMemo(() => new URLSearchParams(search), [search]);
+};
+
+export function useQueryParam(paramName) {
+    const search = useLocation().search;
+    const params = new URLSearchParams(search);
+    return params.get(paramName);
+}
+
+export const useTimeout = () => {
+    const isMounted = useRef(true);
+
+    useEffect(() => {
+        return () => (isMounted.current = false);
+    }, []);
+
+    return useCallback((cb, timout) => {
+        setTimeout(() => {
+            if (isMounted.current) cb();
+        }, timout);
     }, []);
 };

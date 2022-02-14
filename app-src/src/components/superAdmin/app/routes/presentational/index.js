@@ -10,7 +10,6 @@ import CompanyReportsRoutes from './CompanyReportsRoutes';
 import ProfilesRoutes from './ProfilesRoutes';
 import InvoicesRoutes from './InvoicesRoutes';
 import MoveToolRoutes from './MoveToolRoutes';
-import SOSManagementRoutes from './SOSManagementRoutes';
 import DashboardContainer from 'components/superAdmin/dashboard/containers/DashboardContainer';
 import OperativeAlertsRoutes from './OperativeAlertsRoutes';
 import MergeToolRoutes from './MergeToolRoutes';
@@ -26,6 +25,7 @@ import BannersRoutes from './BannersRoutes';
 import DemoAccessCodesRoutes from './DemoAccessCodesRoutes';
 import UserCreationsRoutes from './UserCreationsRoutes';
 import CompanyTrackingRoutes from './CompanyTrackingRoutes';
+import BugReportsRoutes from './BugReportsRoutes';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
@@ -42,7 +42,6 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/move-tool`} component={MoveToolRoutes} />
         <Route path={`${base}/merge-tool`} component={MergeToolRoutes} />
         <Route path={`${base}/expiry-tool`} component={ExpiryToolRoutes} />
-        <Route path={`${base}/sos-management`} component={SOSManagementRoutes} />
         <Route path={`${base}/operative-alerts`} component={OperativeAlertsRoutes} />
         <Route path={`${base}/user-guides`} component={UserGuidesRoutes} />
         <Route path={`${base}/pin-options`} component={PinOptionsManufacturersRoutes} />
@@ -53,6 +52,7 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/new-features`} component={NewFeaturesRoutes} />
         <Route path={`${base}/recently-extended`} component={RecentlyExtendedRoutes} />
         <Route path={`${base}/banners`} component={BannersRoutes} />
+        <Route path={`${base}/bug-reports`} component={BugReportsRoutes} />
     </SwitchWith404>
 );
 

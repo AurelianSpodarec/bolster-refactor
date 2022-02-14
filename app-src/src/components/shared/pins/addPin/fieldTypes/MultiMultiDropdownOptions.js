@@ -13,6 +13,7 @@ const MultiMultiDropdownOptions = ({
     originalDropdownMultiAns,
     isManufacturingEnabledForDrawing,
     defaultDropdownSorting,
+    companyID,
 }) => {
     let isManufacturingEnabledForType = false;
     let formattedOpts = [];
@@ -26,6 +27,9 @@ const MultiMultiDropdownOptions = ({
 
     const filteredOptions = dropdownOptions.filter(option => {
         if (!value?.includes(option.value) && option.isDeleted) return false;
+        if (option.companyID !== companyID && option.companyID !== null) {
+            return false;
+        }
 
         if (option.type + '' === optionType + '') {
             // while filtering check whether manufacturing enabled for specific type
@@ -33,6 +37,8 @@ const MultiMultiDropdownOptions = ({
                 isManufacturingEnabledForDrawing &&
                 DROPDOWN_OPTION_MANUFACTURER_ENABLED[optionType]
             ) {
+                if (option.isManufacturerDeleted) return false;
+
                 isManufacturingEnabledForType = true;
             }
             return true;

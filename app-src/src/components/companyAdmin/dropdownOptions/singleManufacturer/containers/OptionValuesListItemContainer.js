@@ -19,21 +19,13 @@ class OptionValuesListItemContainer extends Component {
             colCount,
             headers,
             onMobile,
-            services,
             index,
             moveItem,
             match: { url },
             isSorting,
         } = this.props;
-        const selectedServiceNames = services
-            .reduce((acc, currService) => {
-                if (optionValue.serviceIDs.includes(currService.id)) {
-                    acc.push(currService.name);
-                }
-                return acc;
-            }, [])
-            .join(', ');
 
+        const selectedServiceNamesToShow = this.getSelectedServiceName();
         return (
             <OptionValuesListItem
                 optionValue={optionValue}
@@ -43,7 +35,7 @@ class OptionValuesListItemContainer extends Component {
                 handleToggleEnable={this.handleToggleEnable}
                 headers={headers}
                 onMobile={onMobile}
-                selectedServiceNames={selectedServiceNames}
+                selectedServiceNames={selectedServiceNamesToShow}
                 index={index}
                 onMove={moveItem}
                 onDrop={this.handlePostOptionValuesSort}
@@ -77,10 +69,54 @@ class OptionValuesListItemContainer extends Component {
 
         postManufacturerOptionValuesSort(manufacturerID, optionValues);
     };
+
+    getSelectedServiceName = () => {
+        const { services, optionValue, subscriptionServiceIDs, installationTypes } = this.props;
+        const allServices = '[All Services]';
+
+        const companySubscriptionServices = services.filter(({ id }) =>
+            subscriptionServiceIDs.includes(id),
+        );
+
+        const optionServices = companySubscriptionServices.reduce((acc, currService) => {
+            const { serviceIDs } = optionValue;
+            if (serviceIDs?.includes(currService.id)) {
+                acc.push(currService.name);
+            }
+            return acc;
+        }, []);
+
+        if (optionServices.length) {
+            return optionServices.length === subscriptionServiceIDs.length
+                ? allServices
+                : optionServices.join(', ');
+        } else {
+            const selectedOptionManufacturer = installationTypes[optionValue.manufacturerID];
+
+            return selectedOptionManufacturer.serviceIDs?.length
+                ? companySubscriptionServices
+                      .reduce((acc, currService) => {
+                          const { serviceIDs } = selectedOptionManufacturer;
+                          if (serviceIDs.includes(currService.id)) acc.push(currService.name);
+
+                          return acc;
+                      }, [])
+                      .join(', ')
+                : allServices;
+        }
+    };
 }
 
 const mapState = (
     {
+        companyAdmin: {
+            subscriptionsReducer: {
+                subscriptions: { serviceIDs },
+            },
+            manufacturersReducer: {
+                manufacturers: { installationTypes },
+            },
+        },
         shared: {
             mobileReducer: { onMobile },
             sortReducer: { isSorting },
@@ -91,6 +127,8 @@ const mapState = (
     onMobile,
     params,
     isSorting,
+    subscriptionServiceIDs: serviceIDs,
+    installationTypes,
 });
 const mapDispatchToProps = {
     showModal,

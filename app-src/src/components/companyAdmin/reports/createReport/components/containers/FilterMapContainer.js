@@ -55,21 +55,15 @@ class FilterMapContainer extends Component {
     };
 
     componentDidUpdate = ({
-        rectangles: prevRectangles,
         furtherFiltrationOption: prevOption,
         mapDrawingID: prevMapDrawingID,
     }) => {
         const {
-            rectangles,
-            postFilters,
             furtherFiltrationOption,
             removeAllRectangles,
             mapDrawingID,
             fetchPinsForReport,
         } = this.props;
-        if (rectangles.length !== prevRectangles.length) {
-            postFilters();
-        }
         if (furtherFiltrationOption !== prevOption) {
             removeAllRectangles();
         }

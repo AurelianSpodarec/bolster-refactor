@@ -13,6 +13,7 @@ const DropdownOptions = ({
     originalDropdownAns,
     isManufacturingEnabledForDrawing,
     defaultDropdownSorting,
+    companyID,
 }) => {
     let isManufacturingEnabledForType = false;
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
@@ -29,12 +30,17 @@ const DropdownOptions = ({
     const filteredOptions = dropdownOptions.filter(option => {
         // remove deleted option if not already selected
         if (value !== option.value && option.isDeleted) return false;
+        if (option.companyID !== companyID && option.companyID !== null) {
+            return false;
+        }
         if (option.type + '' === optionType + '') {
             // while filtering check whether manufacturing enabled for specific type
             if (
                 isManufacturingEnabledForDrawing &&
                 DROPDOWN_OPTION_MANUFACTURER_ENABLED[optionType]
             ) {
+                if (option.isManufacturerDeleted) return false;
+
                 isManufacturingEnabledForType = true;
             }
             return true;

@@ -136,8 +136,8 @@ const PinAnswer = ({
                 />
             );
             break;
-        case TYPES.DOCUMENT_UPLOAD:
-            var docURL = `${FILE_STORAGE_URL}/${curAnswer.answer}`;
+        case TYPES.DOCUMENT_UPLOAD: {
+            const docURL = `${FILE_STORAGE_URL}/${curAnswer.answer}`;
             inner = (
                 <p>
                     <a
@@ -151,6 +151,7 @@ const PinAnswer = ({
                 </p>
             );
             break;
+        }
         case TYPES.MULTI_PHOTO:
             inner = curAnswer.answer.map((item, i) => {
                 var URL = `${FILE_STORAGE_URL}/${item}`;

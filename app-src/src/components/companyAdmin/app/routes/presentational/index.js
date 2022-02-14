@@ -28,6 +28,8 @@ import ApprovedCompaniesRoutes from './ApprovedCompaniesRoutes';
 import UserGuidesRoutes from './UserGuidesRoutes';
 import ReleaseNotesRoutes from './ReleaseNotesRoutes';
 import CompanySelection from 'components/companyAdmin/companySelection/CompanySelection';
+import BugReportRoutes from './BugReportRoutes';
+import DocumentLibraryRoutes from './DocumentLibraryRoutes';
 // import withTermsAuth from '../../hocs/withTermsAuth';
 
 const CompanyRoutes = ({ base = '/company' }) => (
@@ -46,6 +48,7 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route path={`${base}/recently-deleted`} component={RecentlyDeletedRoutes} />
         <Route path={`${base}/settings`} component={SettingsRoutes} />
         <Route path={`${base}/activity-log`} component={ActivityLogRoutes} />
+        <Route path={`${base}/bug-report`} component={BugReportRoutes} />
         <Route path={`${base}/sites`} component={withSubscriptionAuth(SitesRoutes)} />
         <Route path={`${base}/subscription`} component={SubscriptionRoutes} />
         <Route path={`${base}/tools`} component={withSubscriptionAuth(ToolsRoutes)} />
@@ -63,6 +66,10 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route
             path={`${base}/dropdown-options`}
             component={withSubscriptionAuth(DropdownOptionsRoutes)}
+        />
+        <Route
+            path={`${base}/company-documents`}
+            component={withSubscriptionAuth(DocumentLibraryRoutes)}
         />
     </SwitchWith404>
 );

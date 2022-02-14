@@ -38,6 +38,7 @@ import {
     RECOVER_COMPANY_USER_SUCCESS,
     DISABLE_COMPANY_USER_SUCCESS,
     ENABLE_COMPANY_USER_SUCCESS,
+    SET_USER_FILTERS,
 } from 'constants/actionTypes/usersManagement';
 
 export default combineReducers({
@@ -47,6 +48,7 @@ export default combineReducers({
     isPosting: isPostingReducer,
     postSuccess: postSuccessReducer,
     updatedCompanyUserID: updatedCompanyUserIDReducer,
+    userFilters: userFiltersReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -165,6 +167,7 @@ function companyUsersReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case EDIT_COMPANY_USER_SUCCESS:
         case FETCH_SINGLE_COMPANY_USER_SUCCESS:
+        case TOGGLE_RESTRICT_USER_PAYMENTS_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case UNLINK_OPERATIVE_DEVICE_SUCCESS: {
             const operative = state[action.operativeID];
@@ -186,6 +189,15 @@ function companyUsersReducer(state = {}, action) {
             return removeObjItem(state, action.user.id);
         case DELETE_COMPANY_USER_SUCCESS:
             return removeObjItem(state, action.user.id);
+        default:
+            return state;
+    }
+}
+
+function userFiltersReducer(state = [], action) {
+    switch (action.type) {
+        case SET_USER_FILTERS:
+            return action.userFilterType;
         default:
             return state;
     }

@@ -8,7 +8,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import CompanyInfo from '../presentational/CompanyInfo';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { ADMIN_EDIT_COMPANY_ADDRESS } from 'constants/shared/modalTypes';
+import { ADMIN_EDIT_COMPANY_ADDRESS, EDIT_FREE_CREDIT } from 'constants/shared/modalTypes';
 
 const CompanyInfoContainer = ({
     company,
@@ -28,6 +28,7 @@ const CompanyInfoContainer = ({
                 isPosting={isPosting}
                 handleToggleClientList={handleToggleClientList}
                 handleShowEditAddressModal={handleShowEditAddressModal}
+                handleShowEditFreeCreditModal={handleShowEditFreeCreditModal}
             />
         </BlockContainer>
     );
@@ -42,6 +43,9 @@ const CompanyInfoContainer = ({
     }
     function handleShowEditAddressModal() {
         showModal(ADMIN_EDIT_COMPANY_ADDRESS, { company });
+    }
+    function handleShowEditFreeCreditModal() {
+        showModal(EDIT_FREE_CREDIT, { company });
     }
 };
 

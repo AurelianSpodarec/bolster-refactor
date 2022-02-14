@@ -56,7 +56,8 @@ const SuperAdminInvoicesTableContainer = ({
                     'Company Name',
                     'Order ID',
                     'Sub Total (Ex Vat)',
-                    'Type',
+                    'Invoice Type',
+                    'Payment Type',
                     'Status',
                     '',
                 ]}

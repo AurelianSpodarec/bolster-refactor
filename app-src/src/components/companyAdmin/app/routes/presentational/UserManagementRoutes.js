@@ -17,7 +17,8 @@ import AddClientContainer from 'components/companyAdmin/userManagement/clients/s
 import EditCompanyUserEmail from 'components/companyAdmin/userManagement/shared/editCompanyUserEmail/EditCompanyUserEmail';
 import EditClientUserEmail from 'components/companyAdmin/userManagement/clients/singleClient/EditClientUserEmail';
 import DocumentsUploaderContainer from 'components/companyAdmin/userManagement/documentsUploader/containers/DocumentsUploaderContainer';
-import Timesheets from 'components/companyAdmin/userManagement/timesheets/Timesheets';
+import Timesheets from 'components/companyAdmin/userManagement/operatives/timesheets/Timesheets';
+import PinTasksDashboard from 'components/companyAdmin/userManagement/pinTasks/dashboard/PinTasksDashboard';
 // import EditOperativePasswordContainer from 'components/companyAdmin/userManagement/operatives/editOperativePassword/containers/EditOperativePasswordContainer';
 
 const UserManagementRoutes = ({ base = '/company/users-management' }) => (
@@ -29,14 +30,17 @@ const UserManagementRoutes = ({ base = '/company/users-management' }) => (
         <Route exact path={`${base}/clients/:id`} component={SingleClientContainer} />
         <Route exact path={`${base}/clients/:id/edit`} component={EditClientContainer} />
         <Route exact path={`${base}/clients/:id/edit-email`} component={EditClientUserEmail} />
+        <Route exact path={`${base}/timesheets`} component={Timesheets} />
         <Route exact path={`${base}/company-admins/create`} component={CreateCompanyAdmin} />
         <Route exact path={`${base}/company-admins/:id/edit`} component={EditCompanyAdmin} />
+        <Route exact path={`${base}/company-admins/:id/timesheet`} component={Timesheets} />
         <Route
             exact
             path={`${base}/company-admins/:id/edit-email`}
             component={EditCompanyUserEmail}
         />
         <Route exact path={`${base}/operatives/create`} component={CreateOperative} />
+        <Route exact path={`${base}/operatives/:id/timesheet`} component={Timesheets} />
         <Route exact path={`${base}/operatives/:id/edit`} component={EditOperativeContainer} />
         <Route exact path={`${base}/operatives/:id/edit-email`} component={EditCompanyUserEmail} />
         <Route exact path={`${base}/operative/:id/drawings`} component={UserDrawingsContainer} />
@@ -69,6 +73,7 @@ const UserManagementRoutes = ({ base = '/company/users-management' }) => (
         />
         <Route exact path={`${base}/operative/:id/drawings`} component={UserDrawingsContainer} />
         <Route exact path={`${base}/timesheets`} component={Timesheets} />
+        <Route exact path={`${base}/pin-tasks`} component={PinTasksDashboard} />
     </SwitchWith404>
 );
 

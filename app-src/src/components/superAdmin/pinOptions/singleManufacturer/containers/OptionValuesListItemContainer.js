@@ -8,14 +8,15 @@ import OptionValuesListItem from '../presentational/OptionValuesListItem';
 
 const OptionValuesListItemContainer = ({ optionValue, colCount, headers, onMobile, services, showModal, hideModal}) => {
 
-    const selectedServiceNames = services
-        .reduce((acc, currService) => {
-            if (optionValue.serviceIDs.includes(currService.id)) {
-                acc.push(currService.name);
-            }
-            return acc;
-        }, [])
-        .join(', ');
+        const selectedServiceNames = services
+            .reduce((acc, currService) => {
+                const { serviceIDs } = optionValue;
+                if (serviceIDs === null || serviceIDs.includes(currService.id)) {
+                    acc.push(currService.name);
+                }
+                return acc;
+            }, [])
+            .join(', ');
 
     return (
         <OptionValuesListItem
