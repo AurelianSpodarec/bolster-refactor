@@ -85,5 +85,24 @@ export default function (apiSettings) {
         setSelected(value);
     }
 
-    return [selected, handleChange, options, checkIsSelected];
+    function selectAll() {
+        const selectedOptions = options.reduce((acc, curOption) => {
+            const referenceType = curOption.value;
+            const arrToAdd = [];
+
+            curOption.actionOptions.forEach(action =>
+                arrToAdd.push({ referenceType, actionType: action.value }),
+            );
+
+            return [...acc, ...arrToAdd];
+        }, []);
+
+        setSelected(selectedOptions);
+    }
+
+    function deselectAll() {
+        setSelected([]);
+    }
+
+    return [selected, handleChange, options, checkIsSelected, selectAll, deselectAll];
 }

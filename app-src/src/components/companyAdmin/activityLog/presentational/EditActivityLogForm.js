@@ -13,47 +13,60 @@ const EditActivityLogForm = ({
     checkIsSelected,
     handleSubmit,
     isPosting,
+    selectAll,
+    deselectAll,
 }) => {
     return (
-        <Form onSubmit={handleSubmit}>
-            {options.map(({ label, value, actionOptions }) => (
-                <div key={value}>
-                    <BlockHeading title={label} />
-                    {actionOptions.map(action => {
-                        return (
-                            <Field
-                                key={`${value}-${action.value}`}
-                                name={action.label}
-                                sizeClasses="size-lg-4"
-                            >
-                                <CheckboxContainer
-                                    checked={checkIsSelected(value, action.value)}
-                                    handleChange={() => handleChange(value, action.value)}
-                                />
-                            </Field>
-                        );
-                    })}
-                </div>
-            ))}
-
-            <BlockButtonWrapper>
-                <button
-                    className={`button green ${isPosting ? 'disabled' : ''}`}
-                    type="submit"
-                    disabled={isPosting}
-                >
-                    {isPosting ? (
-                        <i className="fa fa-spinner fa-spin" />
-                    ) : (
-                        <i className="fa fa-check" />
-                    )}{' '}
-                    Submit
+        <>
+            <BlockButtonWrapper additionalClasses="no-margin">
+                <button className="button green" type="button" onClick={selectAll}>
+                    Select all
                 </button>
-                <Link to="/company/activity-log" className="button">
-                    Cancel
-                </Link>
+                <button className="button red" type="button" onClick={deselectAll}>
+                    Deselect all
+                </button>
             </BlockButtonWrapper>
-        </Form>
+
+            <Form onSubmit={handleSubmit}>
+                {options.map(({ label, value, actionOptions }) => (
+                    <div key={value}>
+                        <BlockHeading title={label} />
+                        {actionOptions.map(action => {
+                            return (
+                                <Field
+                                    key={`${value}-${action.value}`}
+                                    name={action.label}
+                                    sizeClasses="size-lg-4"
+                                >
+                                    <CheckboxContainer
+                                        checked={checkIsSelected(value, action.value)}
+                                        handleChange={() => handleChange(value, action.value)}
+                                    />
+                                </Field>
+                            );
+                        })}
+                    </div>
+                ))}
+
+                <BlockButtonWrapper>
+                    <button
+                        className={`button green ${isPosting ? 'disabled' : ''}`}
+                        type="submit"
+                        disabled={isPosting}
+                    >
+                        {isPosting ? (
+                            <i className="fa fa-spinner fa-spin" />
+                        ) : (
+                            <i className="fa fa-check" />
+                        )}{' '}
+                        Submit
+                    </button>
+                    <Link to="/company/activity-log" className="button">
+                        Cancel
+                    </Link>
+                </BlockButtonWrapper>
+            </Form>
+        </>
     );
 };
 
