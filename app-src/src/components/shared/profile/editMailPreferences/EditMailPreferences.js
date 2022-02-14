@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useForm, usePrevious } from 'helpers/hooks';
 import { useSelector, useDispatch } from 'react-redux';
 
-import changeProfileEmail from 'actions/shared/profile/async/changeProfileEmail';
+import changeProfileEmailPreferences from 'actions/shared/profile/async/changeProfileEmailPreferences';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
@@ -48,7 +48,7 @@ const EditMailPreferences = () => {
             areAlertMessageEmailsEnabled: alertMessages,
             areDrawingExpirationEmailsEnabled: drawingExpirations,
         };
-        dispatch(changeProfileEmail(postBody));
+        dispatch(changeProfileEmailPreferences(postBody));
     };
 
     return (
