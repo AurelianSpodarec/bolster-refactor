@@ -1,13 +1,16 @@
 export const FAQS_PAGES = {
-    1: 'Sites',
-    2: 'Building',
-    3: 'Floor',
-    4: 'Drawings',
-    5: 'Single Pins',
-    6: 'Templates',
-    7: 'Sites Generate Report',
-    8: 'Building Generate Report',
-    9: 'Floor Generate Report',
+    1: 'Dashboard',
+    2: 'Sync',
+    3: 'Tasks',
+    4: 'Messages',
+    5: 'All Drawings',
+    6: 'Drawings',
+    7: 'Drawing Single',
+    8: 'Sites',
+    9: 'Buildings',
+    10: 'Floors',
+    11: 'AddPin',
+    12: 'Pin Single',
 };
 
 // export const FAQS_PAGES = {

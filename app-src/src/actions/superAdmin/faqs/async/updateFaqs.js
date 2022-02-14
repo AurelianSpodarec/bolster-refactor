@@ -22,11 +22,11 @@ export const updateFaqsFailure = error => ({
     error,
 });
 
-export default postBody => dispatch => {
+export default (id, postBody) => dispatch => {
     dispatch(updateFaqsRequest());
 
     axios
-        .patch(`${ADMIN_API_URL}/appHelp`, postBody, getHeaders())
+        .patch(`${ADMIN_API_URL}/appHelp/${id}`, postBody, getHeaders())
         .then(res => dispatch(updateFaqsSuccess(res.data)))
         .catch(err => dispatch(updateFaqsFailure(err.message)));
 };

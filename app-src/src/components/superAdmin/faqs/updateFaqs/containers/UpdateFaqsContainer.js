@@ -33,7 +33,7 @@ const UpdateFaqsContainer = () => {
     useUpdateItem(isPosting, postSuccess, 'Successfully Updated', '/admin/faqs', 'Go back to FAQs');
 
     const handleSave = () => {
-        dispatch(updateFaqs(form));
+        dispatch(updateFaqs(id, form));
     };
 
     useEffect(() => {
