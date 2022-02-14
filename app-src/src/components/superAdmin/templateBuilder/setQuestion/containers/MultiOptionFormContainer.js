@@ -26,7 +26,7 @@ const MultiOptionFormContainer = ({ options, updateQuestionField, optionColour, 
     function addOption() {
         const id = uuid();
         const newOption = { text: '', id };
-        const newColor = { Name: '', HexValue: '#ffffff' };
+        const newColor = { name: '', hexValue: '#ffffff' };
         updateQuestionField('options', [...options, newOption]);
         updateQuestionField('optionColour', [...optionColour, newColor]);
     }
@@ -56,9 +56,9 @@ const MultiOptionFormContainer = ({ options, updateQuestionField, optionColour, 
         updateQuestionField('optionColour', updatedTextColor);
     }
 
-    function updateColorOption(colorIndex, HexValue) {
+    function updateColorOption(colorIndex, hexValue) {
         const updated = optionColour.map((opt, index) =>
-            index === colorIndex ? { ...opt, HexValue } : opt,
+            index === colorIndex ? { ...opt, hexValue } : opt,
         );
 
         updateQuestionField('optionColour', updated);

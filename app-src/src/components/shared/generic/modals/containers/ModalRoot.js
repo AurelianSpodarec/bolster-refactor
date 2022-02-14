@@ -66,12 +66,12 @@ import {
     ADMIN_DELETE_PAYMENT,
     REMOVE_DRAWINGS_ACCESS,
     FORGOT_PASSWORD,
-    GENERATE_SOS_CODE,
     ADD_INVOICE_COMMENT,
     ADD_CONTACT_SUBMISSION_COMMENT,
     CONFIRM_MOVE_HIERARCHY_TO_COMPANY,
     ADMIN_CONFIRM_SET_IS_INVOICE_PAID,
     ADMIN_DELETE_INVOICE,
+    ADMIN_RESTORE_INVOICE,
     DELETE_INVOICE,
     ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION,
     GENERATE_QR_CODES,
@@ -121,9 +121,20 @@ import {
     ADMIN_EDIT_COMPANY_OWNER,
     CONFIRM_EMAIL,
     USER_NEW_DOCUMENT,
-    UNCONFIRMED_EMAIL_MODAL,
     GENERATE_TIMESHEET_REPORT,
     EXPANDED_MEDIA,
+    EDIT_FREE_CREDIT,
+    UPLOAD_LIBRARY_DOCUMENT,
+    SOFT_DELETE_LIBRARY_DOCUMENT,
+    CREATE_LIBRARY_FOLDER,
+    EDIT_LIBRARY_ITEMS,
+    HARD_DELETE_LIBRARY_DOCUMENT,
+    RESTORE_LIBRARY_DOCUMENTS,
+    SELECT_DOCUMENT_LIBRARY_ITEM,
+    CREATE_PIN_TASK,
+    EDIT_PIN_TASK,
+    FETCH_PIN_TASK,
+    EDIT_PIN_TASK_SERIES,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -190,10 +201,10 @@ import DeletePaymentModalContainer from 'components/superAdmin/invoices/confirmD
 import RemoveUserDrawingsAccessModalContainer from 'components/companyAdmin/userManagement/userDrawings/containers/RemoveUserDrawingsAccessModalContainer';
 import ForgotPasswordModalContainer from 'components/frontEnd/auth/forgotPasswordModal/containers/ForgotPasswordModalContainer';
 import AddCreditsToDrawingModal from 'components/companyAdmin/drawings/addCreditsToDrawing/presentational/AddCreditsToDrawingModal';
-import SOSGenerationModal from 'components/superAdmin/sosManagement/sosGenerationModal/presentational/SOSGenerationModal';
 import SiteManagementConfirmMoveModalContainer from 'components/superAdmin/siteManagement/moveTool/containers/MoveToolConfirmMoveModalContainer';
 import ConfirmSetIsInvoicePaidModalContainer from 'components/superAdmin/invoices/confirmSetIsInvoicePaidModal/containers/ConfirmSetIsInvoicePaidModalContainer';
 import SuperAdminConfirmDeleteInvoiceModalContainer from 'components/superAdmin/invoices/superAdminConfirmDeleteInvoiceModal/containers/SuperAdminConfirmDeleteInvoiceModalContainer';
+import SuperAdminConfirmRestoreInvoiceModalContainer from 'components/superAdmin/invoices/superAdminConfirmRestoreInvoiceModal/containers/SuperAdminConfirmRestoreInvoiceModalContainer';
 import ConfirmDeleteInvoiceModalContainer from 'components/companyAdmin/invoices/confirmDeleteInvoiceModal/containers/ConfirmDeleteInvoiceModalContainer';
 import AddCompanyAdminModalContainer from 'components/superAdmin/companies/singleCompany/containers/AddCompanyAdminModalContainer';
 import GenerateQRCodesModalContainer from './GenerateQRCodesModalContainer';
@@ -247,9 +258,17 @@ import EnterDemoFullSiteModal from 'components/shared/demo-full-site/presentatio
 import EditCompanyOwnerModalContainer from 'components/superAdmin/companies/singleCompany/containers/EditCompanyOwnerModalContainer';
 import RequestDeleteInvoiceModal from 'components/companyAdmin/invoices/requestDeleteInvoiceModal/RequestDeleteInvoiceModal';
 import NewUserDocumentModal from 'components/companyAdmin/userManagement/documentsUploader/presentational/NewUserDocumentModal';
-import UnconfirmedEmailModal from '../presentational/UnconfirmedEmailModal';
 import GenerateTimesheetReportModal from 'components/companyAdmin/userManagement/operatives/timesheets/modals/GenerateTimesheetReport';
 import ExpandedMediaModal from './ExpandedMediaModal';
+import EditFreeCreditModal from './EditFreeCreditModalContainer';
+import SelectDocumentLibraryItemModal from 'components/companyAdmin/companyDocuments/SelectDocumentLibraryItemModal';
+import CreateDocumentFolderModal from 'components/companyAdmin/companyDocuments/createDocument/CreateDocumentFolderModal';
+import CreateDocumentModal from 'components/companyAdmin/companyDocuments/createDocument/CreateDocumentModal';
+import EditDocumentItemsModal from 'components/companyAdmin/companyDocuments/editDocument/EditDocumentItemsModal';
+import CreatePinTaskModal from 'components/companyAdmin/userManagement/pinTasks/createPinTaskModal/CreatePinTaskModal';
+import EditPinTaskModal from 'components/companyAdmin/userManagement/pinTasks/editPinTaskModal/EditPinTaskModal';
+import EditPinTaskSeriesModal from 'components/companyAdmin/userManagement/pinTasks/editPinTaskSeriesModal/EditPinTaskSeriesModal';
+import ViewPinTaskModal from 'components/companyAdmin/userManagement/pinTasks/viewTaskNoteModal/ViewTaskNoteModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -316,10 +335,10 @@ const MODAL_COMPONENTS = {
     [REMOVE_DRAWINGS_ACCESS]: RemoveUserDrawingsAccessModalContainer,
     [FORGOT_PASSWORD]: ForgotPasswordModalContainer,
     [ADD_CREDITS_TO_DRAWING]: AddCreditsToDrawingModal,
-    [GENERATE_SOS_CODE]: SOSGenerationModal,
     [CONFIRM_MOVE_HIERARCHY_TO_COMPANY]: SiteManagementConfirmMoveModalContainer,
     [ADMIN_CONFIRM_SET_IS_INVOICE_PAID]: ConfirmSetIsInvoicePaidModalContainer,
     [ADMIN_DELETE_INVOICE]: SuperAdminConfirmDeleteInvoiceModalContainer,
+    [ADMIN_RESTORE_INVOICE]: SuperAdminConfirmRestoreInvoiceModalContainer,
     [DELETE_INVOICE]: ConfirmDeleteInvoiceModalContainer,
     [REQUEST_DELETE_INVOICE]: RequestDeleteInvoiceModal,
     [ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION]: AddMulitpleServicesToSubscriptionModalContainer,
@@ -371,9 +390,20 @@ const MODAL_COMPONENTS = {
     [ADMIN_EDIT_COMPANY_OWNER]: EditCompanyOwnerModalContainer,
     [CONFIRM_EMAIL]: ConfirmEmailModal,
     [USER_NEW_DOCUMENT]: NewUserDocumentModal,
-    [UNCONFIRMED_EMAIL_MODAL]: UnconfirmedEmailModal,
     [GENERATE_TIMESHEET_REPORT]: GenerateTimesheetReportModal,
     [EXPANDED_MEDIA]: ExpandedMediaModal,
+    [EDIT_FREE_CREDIT]: EditFreeCreditModal,
+    [UPLOAD_LIBRARY_DOCUMENT]: CreateDocumentModal,
+    [SOFT_DELETE_LIBRARY_DOCUMENT]: ConfirmDeleteModal,
+    [HARD_DELETE_LIBRARY_DOCUMENT]: ConfirmDeleteModal,
+    [CREATE_LIBRARY_FOLDER]: CreateDocumentFolderModal,
+    [EDIT_LIBRARY_ITEMS]: EditDocumentItemsModal,
+    [RESTORE_LIBRARY_DOCUMENTS]: ConfirmSubmitModal,
+    [SELECT_DOCUMENT_LIBRARY_ITEM]: SelectDocumentLibraryItemModal,
+    [CREATE_PIN_TASK]: CreatePinTaskModal,
+    [EDIT_PIN_TASK]: EditPinTaskModal,
+    [EDIT_PIN_TASK_SERIES]: EditPinTaskSeriesModal,
+    [FETCH_PIN_TASK]: ViewPinTaskModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

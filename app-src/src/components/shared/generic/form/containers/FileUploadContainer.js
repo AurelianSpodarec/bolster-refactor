@@ -10,6 +10,8 @@ import { getAuthHeader } from 'helpers/api';
 import FileDropBox from './FileDropBox';
 import { fileUploadStart, fileUploadFinish } from 'actions/shared/fileUpload/sync/fileUpload';
 import { areArraysEqual } from 'helpers/generic';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { SELECT_DOCUMENT_LIBRARY_ITEM } from 'constants/shared/modalTypes';
 
 class FileUploadContainer extends Component {
     static defaultProps = {
@@ -45,6 +47,8 @@ class FileUploadContainer extends Component {
                     onDrop={this.handleFileDrop}
                     inputRef={this.inputRef}
                     onAddFileClick={this.handleAddFileClick}
+                    displayDocLib={this.props.displayDocLib}
+                    onSelectFromDocLibClick={this.handleSelectFromDocLib}
                 >
                     <FileUpload
                         fileS3Keys={fileS3Keys}
@@ -134,6 +138,7 @@ class FileUploadContainer extends Component {
     handleUpload = async e => {
         e.persist();
         const files = e.target.files;
+
         this.props.fileUploadStart();
 
         const { maxFiles } = this.props;
@@ -157,7 +162,7 @@ class FileUploadContainer extends Component {
             return;
         }
 
-        const { name, maxFiles, skipTemp = false } = this.props;
+        const { name, maxFiles, skipTemp = false, maxHeight, maxWidth, isSquare } = this.props;
         const { fileS3Keys } = this.state;
         if (fileS3Keys.length === maxFiles) {
             this.setState({ softError: `You can only upload a maximum of ${maxFiles} files.` });
@@ -165,6 +170,22 @@ class FileUploadContainer extends Component {
         }
         if (!this._validateFileType(file.type)) {
             this.setState({ softError: `The file type '${file.type}' is not permitted.` });
+            return;
+        }
+
+        const { height, width } = await this.getImageDimensionsAsync(file);
+
+        if (maxHeight && maxWidth && height > maxHeight && width > maxWidth) {
+            this.setState({
+                softError: `The image exceeds the maximum dimensions of ${this.props.maxHeight}x${this.props.maxWidth}`,
+            });
+            return;
+        }
+
+        if (isSquare && height !== width) {
+            this.setState({
+                softError: 'The image needs to be a square',
+            });
             return;
         }
 
@@ -220,11 +241,52 @@ class FileUploadContainer extends Component {
             this._handleChange,
         );
     };
+
+    handleSelectFromDocLib = e => {
+        e.preventDefault();
+
+        this.props.showModal(SELECT_DOCUMENT_LIBRARY_ITEM, {
+            mimeTypes: ['application/pdf'],
+            handleChange: newS3Key => {
+                this.setState(
+                    prevState => ({
+                        fileS3Keys: prevState.fileS3Keys.concat(newS3Key),
+                        softError: null,
+                    }),
+                    this._handleChange,
+                );
+            },
+        });
+    };
+
+    async getImageDimensionsAsync(file) {
+        if (!file.type.includes('image')) return false;
+
+        const reader = new FileReader();
+
+        reader.readAsDataURL(file);
+
+        return new Promise(resolve => {
+            reader.onload = () => {
+                const image = new Image();
+
+                image.src = reader.result;
+
+                image.onload = () => {
+                    const height = image.height;
+                    const width = image.width;
+
+                    return resolve({ height, width });
+                };
+            };
+        });
+    }
 }
 
 const mapDispatchToProps = dispatch => ({
     fileUploadStart: () => dispatch(fileUploadStart()),
     fileUploadFinish: close => dispatch(fileUploadFinish(close)),
+    showModal: (type, props) => dispatch(showModal(type, props)),
 });
 
 const WithConnect = connect(null, mapDispatchToProps)(FileUploadContainer);

@@ -1,10 +1,9 @@
 import React from 'react';
 
 import Field from 'components/shared/generic/form/presentational/Field';
-import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
-import { isEmpty } from 'helpers/generic';
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 const LevelFilters = ({
     handleChange,
@@ -32,52 +31,46 @@ const LevelFilters = ({
                             options={siteOptions}
                             value={selectedSite}
                             onChange={handleChange}
-                            disabled={!!hierarchy}
+                            disabled={hierarchy >= HIERARCHY_IDS.SITE}
                             search
                         />
                     </Field>
-                    {isEmpty(selectedSite) || hierarchy > HIERARCHY_IDS.SITE ? (
-                        ''
-                    ) : (
-                        <Field name="Buildings" classes={selectedSite ? 'active' : ''}>
-                            <MultiSelect
-                                placeholder="All Buildings"
-                                name="buildingID"
-                                options={buildingOptions}
-                                value={selectedBuilding}
-                                onChange={handleChange}
-                                search
-                            />
-                        </Field>
-                    )}
-                    {isEmpty(selectedBuilding) || hierarchy > HIERARCHY_IDS.BUILDING ? (
-                        ''
-                    ) : (
-                        <Field name="Floors" classes={selectedBuilding ? 'active' : ''}>
-                            <MultiSelect
-                                placeholder="All Floors"
-                                name="floorID"
-                                options={floorOptions}
-                                value={selectedFloor}
-                                onChange={handleChange}
-                                search
-                            />
-                        </Field>
-                    )}
-                    {isEmpty(selectedFloor) || hierarchy > HIERARCHY_IDS.FLOOR ? (
-                        ''
-                    ) : (
-                        <Field name="Drawings" classes={selectedFloor ? 'active' : ''}>
-                            <MultiSelect
-                                placeholder="All Drawings"
-                                name="drawingID"
-                                options={drawingOptions}
-                                value={selectedDrawing}
-                                onChange={handleChange}
-                                search
-                            />
-                        </Field>
-                    )}
+
+                    <Field name="Buildings" classes={selectedSite ? 'active' : ''}>
+                        <MultiSelect
+                            placeholder="All Buildings"
+                            name="buildingID"
+                            options={buildingOptions}
+                            value={selectedBuilding}
+                            onChange={handleChange}
+                            disabled={hierarchy >= HIERARCHY_IDS.BUILDING}
+                            search
+                        />
+                    </Field>
+
+                    <Field name="Floors" classes={selectedBuilding ? 'active' : ''}>
+                        <MultiSelect
+                            placeholder="All Floors"
+                            name="floorID"
+                            options={floorOptions}
+                            value={selectedFloor}
+                            disabled={hierarchy >= HIERARCHY_IDS.FLOOR}
+                            onChange={handleChange}
+                            search
+                        />
+                    </Field>
+
+                    <Field name="Drawings" classes={selectedFloor ? 'active' : ''}>
+                        <MultiSelect
+                            placeholder="All Drawings"
+                            name="drawingID"
+                            options={drawingOptions}
+                            value={selectedDrawing}
+                            disabled={hierarchy === HIERARCHY_IDS.DRAWING}
+                            onChange={handleChange}
+                            search
+                        />
+                    </Field>
                 </>
             )}
         </div>

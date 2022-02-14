@@ -39,6 +39,7 @@ const AddMulitpleServicesToSubscriptionModal = ({
     hideAddCard,
     handleAddCardSuccess,
     isPosting,
+    shouldReceiveFreeCredit,
 }) =>
     addCardVisible ? (
         <AddCardFormContainer close={hideAddCard} onSuccess={handleAddCardSuccess} />
@@ -76,9 +77,11 @@ const AddMulitpleServicesToSubscriptionModal = ({
                     />
                 </Field>
                 <Field name="Credits to buy" sizeClasses="size-lg-12">
-                    <p className="field-info">
-                        If you buy credits in blocks of 10 you will receive 1 free credit.
-                    </p>
+                    {shouldReceiveFreeCredit && (
+                        <p className="field-info">
+                            If you buy credits in blocks of 10 you will receive 1 free credit.
+                        </p>
+                    )}
                     <TextInputContainer
                         name="creditsToBuy"
                         value={creditsToBuy}

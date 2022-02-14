@@ -16,7 +16,8 @@ class EditServiceFormContainer extends Component {
     state = {
         name: '',
         templateUUIDs: [],
-        showOnCompanySite: true
+        showOnCompanySite: true,
+        pinImageS3Key: '',
     };
 
     render() {
@@ -45,7 +46,7 @@ class EditServiceFormContainer extends Component {
             fetchSingleService,
             fetchTemplateForService,
             fetchTemplatesSimple,
-            id
+            id,
         } = this.props;
         fetchTemplatesSimple();
         fetchSingleService(id);
@@ -59,7 +60,7 @@ class EditServiceFormContainer extends Component {
             isFetching,
             service,
             serviceTemplate,
-            isFetchingTemplateForService
+            isFetchingTemplateForService,
         } = this.props;
         if (!prevProps.postSuccess && postSuccess) {
             return history.push('/admin/services');
@@ -67,7 +68,8 @@ class EditServiceFormContainer extends Component {
         if (!isFetching && prevProps.isFetching) {
             this.setState({
                 name: service.name,
-                showOnCompanySite: service.showOnCompanySite
+                showOnCompanySite: service.showOnCompanySite,
+                pinImageS3Key: service.pinImageS3Key,
             });
         }
         if (
@@ -89,17 +91,17 @@ class EditServiceFormContainer extends Component {
             id,
             postTemplatesForService,
             removeTemplatesFromService,
-            serviceTemplate
+            serviceTemplate,
         } = this.props;
-        const { name, showOnCompanySite, templateUUIDs } = this.state;
-        editService(id, name, showOnCompanySite);
+        const { name, showOnCompanySite, templateUUIDs, pinImageS3Key } = this.state;
+        editService(id, name, showOnCompanySite, pinImageS3Key);
 
         const templatesToAdd = templateUUIDs.filter(
-            uuid => !serviceTemplate.templateIDs.includes(+uuid)
+            uuid => !serviceTemplate.templateIDs.includes(+uuid),
         );
 
         const templatesToRemove = serviceTemplate.templateIDs.filter(
-            tempID => !templateUUIDs.includes(String(tempID))
+            tempID => !templateUUIDs.includes(String(tempID)),
         );
 
         if (templatesToAdd.length) {
@@ -118,7 +120,7 @@ class EditServiceFormContainer extends Component {
                 return {
                     label: `${companyName} - ${name}`,
                     text: `${companyName} - ${name}`,
-                    value: uuid
+                    value: uuid,
                 };
             })
             .sort((a, b) => a.label.localeCompare(b.label));
@@ -135,16 +137,16 @@ const mapStateToProps = (
                 postSuccess,
                 adminServices,
                 adminServiceTemplates,
-                isFetchingTemplateForService
+                isFetchingTemplateForService,
             },
-            templatesReducer: { templates, isFetching: isFetchingTemplates, error: templatesError }
-        }
+            templatesReducer: { templates, isFetching: isFetchingTemplates, error: templatesError },
+        },
     },
     {
         match: {
-            params: { id }
-        }
-    }
+            params: { id },
+        },
+    },
 ) => ({
     isFetching,
     isFetchingTemplateForService,
@@ -154,7 +156,7 @@ const mapStateToProps = (
     id,
     service: adminServices[id],
     serviceTemplate: adminServiceTemplates,
-    templates: Object.values(templates).filter(({ isDeleted }) => !isDeleted)
+    templates: Object.values(templates).filter(({ isDeleted }) => !isDeleted),
 });
 
 const mapDispatchToProps = {
@@ -163,12 +165,7 @@ const mapDispatchToProps = {
     removeTemplatesFromService,
     fetchTemplatesSimple,
     fetchTemplateForService,
-    editService
+    editService,
 };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(EditServiceFormContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditServiceFormContainer));

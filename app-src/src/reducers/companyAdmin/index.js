@@ -62,6 +62,8 @@ import timesheetsReducer from './timesheets';
 import timesheetPinStatsReducer from './timesheetPinStats';
 import userPinFeedsReducer from './userPinFeeds';
 import bugReportsReducer from './bugReports';
+import documentLibraryReducer from './documentLibrary';
+import pinTasksReducer from './pinTasks';
 
 export default combineReducers({
     activityLogReducer,
@@ -83,6 +85,7 @@ export default combineReducers({
     creditLogsReducer,
     dashboardReducer,
     deletedDataReducer,
+    documentLibraryReducer,
     documentsReducer,
     drawingsReducer,
     dropdownOptionsReducer,
@@ -106,6 +109,7 @@ export default combineReducers({
     pinAnswersReducer,
     pinHistoriesReducer,
     pinsReducer,
+    pinTasksReducer,
     qrCodesReducer,
     recentUpdatesReducer,
     reportsReducer,

@@ -7,7 +7,6 @@ import ModalOuterContainer from '../containers/ModalOuterContainer';
 import { connect, useDispatch } from 'react-redux';
 import postResendConfirmEmail from 'actions/shared/auth/async/postResendConfirmEmail';
 import Loading from '../../misc/presentational/Loading';
-import { usePrevious } from 'helpers/hooks';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 const ConfirmEmailModal = ({
@@ -22,8 +21,6 @@ const ConfirmEmailModal = ({
         e.preventDefault();
         sendConfirmEmail(profile.email);
     };
-
-    const prevProps = usePrevious({ postSuccess, isPosting });
 
     return (
         <ModalOuterContainer hideCloseButton>

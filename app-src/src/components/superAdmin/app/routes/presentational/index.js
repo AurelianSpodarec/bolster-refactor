@@ -10,7 +10,6 @@ import CompanyReportsRoutes from './CompanyReportsRoutes';
 import ProfilesRoutes from './ProfilesRoutes';
 import InvoicesRoutes from './InvoicesRoutes';
 import MoveToolRoutes from './MoveToolRoutes';
-import SOSManagementRoutes from './SOSManagementRoutes';
 import DashboardContainer from 'components/superAdmin/dashboard/containers/DashboardContainer';
 import OperativeAlertsRoutes from './OperativeAlertsRoutes';
 import MergeToolRoutes from './MergeToolRoutes';
@@ -43,7 +42,6 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/move-tool`} component={MoveToolRoutes} />
         <Route path={`${base}/merge-tool`} component={MergeToolRoutes} />
         <Route path={`${base}/expiry-tool`} component={ExpiryToolRoutes} />
-        <Route path={`${base}/sos-management`} component={SOSManagementRoutes} />
         <Route path={`${base}/operative-alerts`} component={OperativeAlertsRoutes} />
         <Route path={`${base}/user-guides`} component={UserGuidesRoutes} />
         <Route path={`${base}/pin-options`} component={PinOptionsManufacturersRoutes} />

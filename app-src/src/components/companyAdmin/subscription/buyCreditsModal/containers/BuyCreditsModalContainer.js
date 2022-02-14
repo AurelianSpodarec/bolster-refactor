@@ -31,6 +31,7 @@ class BuyCreditsModalContainer extends Component {
             vatCostOfCredits,
             credits,
             isPosting,
+            shouldReceiveFreeCredit,
         } = this.props;
         const { creditsToBuy } = this.state;
 
@@ -64,6 +65,7 @@ class BuyCreditsModalContainer extends Component {
                 hideAddCard={this.hideAddCard}
                 handleAddCardSuccess={this.handleAddCardSuccess}
                 isPosting={isPosting}
+                shouldReceiveFreeCredit={shouldReceiveFreeCredit}
             />
         );
     };
@@ -157,6 +159,9 @@ const mapStateToProps = ({
             isPosting,
         },
         cardsReducer: { cards, isFetching },
+        companySettingsReducer: {
+            companySettings: { shouldReceiveFreeCredit },
+        },
     },
 }) => ({
     cards: Object.values(cards || {}),
@@ -168,6 +173,7 @@ const mapStateToProps = ({
     isFetching,
     error,
     isPosting,
+    shouldReceiveFreeCredit,
 });
 
 const mapDispatchToProps = {

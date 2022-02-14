@@ -19,7 +19,9 @@ import AppContainer from 'components/appRoute/app/containers/AppContainer';
 import ScrollToTop from 'components/appRoute/app/containers/ScrollToTop';
 
 const middleware = [thunk];
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(...middleware)));
+const composeEnhancers = composeWithDevTools({ trace: true, traceLimit: 10 });
+
+const store = createStore(reducer, composeEnhancers(applyMiddleware(...middleware)));
 
 ReactDOM.render(
     <Router>

@@ -7,7 +7,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import AddManufacturerFormContainer from '../containers/AddManufacturerFormContainer';
 
 const AddManufacturerModal = ({ type }) => (
-    <ModalOuterContainer>
+    <ModalOuterContainer extraClasses="no-scroll">
         <BlockHeading title={`Add ${DROPDOWN_OPTIONS[type].singular} Manufacturer`} />
         <AddManufacturerFormContainer type={type} buttonText={'Add Manufacturer'} />
     </ModalOuterContainer>

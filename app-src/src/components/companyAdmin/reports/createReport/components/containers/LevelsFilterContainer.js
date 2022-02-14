@@ -19,7 +19,6 @@ import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleD
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import fetchZonesForReportByDrawingID from 'actions/companyAdmin/zones/async/fetchZonesForReportByDrawingID';
-
 class LevelsFilterContainer extends Component {
     render() {
         const {
@@ -33,10 +32,16 @@ class LevelsFilterContainer extends Component {
             formatArrForDropdown,
         } = this.props;
 
-        const sitesOptions = formatArrForDropdown(sites);
-        const buildingOptions = formatArrForDropdown(buildings);
-        const floorOptions = formatArrForDropdown(floors);
-        const drawingOptions = formatArrForDropdown(drawings);
+        // Sort based on sort key
+        const sortedSites = Object.values(sites).sort((a, b) => a.sort - b.sort);
+        const sortedBuildings = Object.values(buildings).sort((a, b) => a.sort - b.sort);
+        const sortedFloors = Object.values(floors).sort((a, b) => a.sort - b.sort);
+        const sortedDrawings = Object.values(drawings).sort((a, b) => a.sort - b.sort);
+
+        const sitesOptions = formatArrForDropdown(sortedSites);
+        const buildingOptions = formatArrForDropdown(sortedBuildings);
+        const floorOptions = formatArrForDropdown(sortedFloors);
+        const drawingOptions = formatArrForDropdown(sortedDrawings);
 
         return (
             <LevelFilters
@@ -45,7 +50,7 @@ class LevelsFilterContainer extends Component {
                 selectedSite={siteID}
                 buildingOptions={Object.values(buildingOptions)}
                 selectedBuilding={buildingID}
-                floorOptions={Object.values(floorOptions)}
+                floorOptions={floorOptions}
                 selectedFloor={floorID}
                 drawingOptions={Object.values(drawingOptions)}
                 selectedDrawing={drawingID}
@@ -230,7 +235,6 @@ class LevelsFilterContainer extends Component {
             this.setState({
                 initialLoad: false,
             });
-            console.log({siteID, prevSiteID, companyUserIDs, prevCompanyUserIDs});
             updateReportFilter('hierarchyType', value);
         }
 
@@ -266,10 +270,10 @@ class LevelsFilterContainer extends Component {
     handlePrefillDrawing = drawingID => {
         const { handleChange, fetchSingleDrawing } = this.props;
         if (drawingID) {
-        handleChange('drawingID', [+drawingID]);
-        fetchSingleDrawing(drawingID).then(({ payload: { floorID } }) =>
-            this.handlePrefillFloor(floorID),
-        );
+            handleChange('drawingID', [+drawingID]);
+            fetchSingleDrawing(drawingID).then(({ payload: { floorID } }) =>
+                this.handlePrefillFloor(floorID),
+            );
         }
     };
 

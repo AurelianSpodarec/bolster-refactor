@@ -49,6 +49,12 @@ const WeekTableInner = ({
                         </div>
 
                         <div className="tabs">
+                            {formattedHours > 0 && (
+                                <Tab icon={<i className="fal fa-stopwatch" />}>
+                                    {formatAsHrsMinsSecs(formattedHours)}
+                                </Tab>
+                            )}
+
                             {totalPins > 0 && (
                                 <Tab icon={<img src={timesheetPin} />}>
                                     {totalPins} Pin Histories
@@ -56,25 +62,19 @@ const WeekTableInner = ({
                             )}
 
                             {formattedHours > 0 && (
-                                <>
-                                    <Tab icon={<i className="fal fa-stopwatch" />}>
-                                        {formatAsHrsMinsSecs(formattedHours)}
-                                    </Tab>
-
-                                    <ExpandableTab
-                                        date={date}
-                                        icon={<i className="fal fa-sticky-note" />}
-                                        items={filteredJobReferences}
-                                        itemType={
-                                            filteredJobReferences.length > 1 ||
-                                            filteredJobReferences.length === 0
-                                                ? 'Jobs'
-                                                : 'Job'
-                                        }
-                                        isExpanded={expandedDate === date}
-                                        onJobClick={handleJobsClick}
-                                    />
-                                </>
+                                <ExpandableTab
+                                    date={date}
+                                    icon={<i className="fal fa-sticky-note" />}
+                                    items={filteredJobReferences}
+                                    itemType={
+                                        filteredJobReferences.length > 1 ||
+                                        filteredJobReferences.length === 0
+                                            ? 'Jobs'
+                                            : 'Job'
+                                    }
+                                    isExpanded={expandedDate === date}
+                                    onJobClick={handleJobsClick}
+                                />
                             )}
                         </div>
 

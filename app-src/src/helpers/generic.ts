@@ -66,6 +66,12 @@ export function removeObjItem(obj, key) {
     return rest;
 }
 
+export function removeObjItems(obj, keys) {
+    const objCopy = { ...obj };
+    keys.forEach(key => delete objCopy[key]);
+    return objCopy;
+}
+
 export function areArraysEqual(arr1, arr2) {
     if (!arr1 || !arr2) return arr1 === arr2;
     return (
@@ -73,6 +79,17 @@ export function areArraysEqual(arr1, arr2) {
         arr1.every(item => arr2.includes(item)) &&
         arr2.every(item => arr1.includes(item))
     );
+}
+export function areObjectsEqual(obj1, obj2) {
+    console.log({ obj1, obj2 });
+    if (!obj1 || !obj2) return obj1 === obj2;
+    const keys = Object.keys(obj1);
+    return keys.every(key => {
+        if (typeof obj1[key] === 'object') {
+            return areObjectsEqual(obj1[key], obj2[key]);
+        }
+        return obj1[key] === obj2[key];
+    });
 }
 
 export function removeArrItem(arr, index) {

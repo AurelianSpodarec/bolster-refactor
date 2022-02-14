@@ -9,13 +9,18 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { isObjEmpty } from 'helpers/generic';
 
 class DropdownListTableContainer extends Component {
+    state = {
+        serviceFilterOptions: {},
+        selectedService: '',
+    };
     render() {
-        const { isFetching, error, title, type, dropdownOptions, isSorting } = this.props;
+        const { serviceFilterOptions, selectedService } = this.state;
+        const { isFetching, error, title, type, isSorting, dropdownOptions } = this.props;
 
         return (
             <DropdownOptionsTable
                 headers={['Name', '']}
-                dropdownOptions={dropdownOptions}
+                dropdownOptions={this.filterDropdownOptions(dropdownOptions)}
                 isFetching={isFetching}
                 error={error}
                 title={title}
@@ -23,9 +28,22 @@ class DropdownListTableContainer extends Component {
                 type={type}
                 moveItem={this.moveItem}
                 isSorting={isSorting}
+                serviceFilterOptions={Object.values(serviceFilterOptions)}
+                selectedService={serviceFilterOptions[selectedService]}
+                handleChange={this.handleChange}
             />
         );
     }
+
+    componentDidMount = () => {
+        const { subscribedServices } = this.props;
+
+        const serviceFilterOptions = subscribedServices.reduce((acc, { id, name }) => {
+            return { ...acc, [id]: { value: id, text: name } };
+        }, {});
+
+        this.setState({ serviceFilterOptions });
+    };
 
     componentDidUpdate = prevProps => {
         const { postSuccess, showModal, hideModal, postError, fieldErrors } = this.props;
@@ -46,13 +64,17 @@ class DropdownListTableContainer extends Component {
         }
     };
 
+    handleChange = (_, value) => {
+        this.setState({ selectedService: value });
+    };
+
     handleAddOptionModal = () => {
         const { showModal, type } = this.props;
         showModal(ADD_DROPDOWN_OPTION, { type });
     };
 
     moveItem = (overindex, fromIndex) => {
-        const { dropdownOptions, reorderDropdownOptions } = this.props;
+        const { reorderDropdownOptions, dropdownOptions } = this.props;
 
         const items = [...dropdownOptions].sort((a, b) => a.sort - b.sort);
         const [item] = items.splice(fromIndex, 1);
@@ -60,11 +82,27 @@ class DropdownListTableContainer extends Component {
         const sorted = items.map((x, i) => ({ ...x, sort: i + 1 }));
         reorderDropdownOptions(sorted);
     };
+
+    filterDropdownOptions = dropdownOptions => {
+        const { selectedService } = this.state;
+
+        return dropdownOptions.filter(({ serviceIDs }) =>
+            selectedService
+                ? serviceIDs === null
+                    ? true
+                    : serviceIDs.includes(+selectedService)
+                : true,
+        );
+    };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
         dropdownOptionsReducer: { dropdownOptions, isFetching, error, postSuccess, postError },
+        subscriptionsReducer: {
+            subscriptions: { serviceIDs },
+        },
+        servicesReducer: { services, isFetchingServices },
     },
     shared: {
         fieldErrorsReducer: { fieldErrors },
@@ -73,11 +111,12 @@ const mapStateToProps = ({
 }) => ({
     postError,
     postSuccess,
-    isFetching,
+    isFetching: isFetchingServices || isFetching,
     error,
     dropdownOptions: Object.values(dropdownOptions).sort((a, b) => a.sort - b.sort),
     fieldErrors,
     isSorting,
+    subscribedServices: Object.values(services).filter(service => serviceIDs.includes(service.id)),
 });
 
 const mapDispatchToProps = {

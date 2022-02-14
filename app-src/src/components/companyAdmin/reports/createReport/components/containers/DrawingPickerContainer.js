@@ -226,11 +226,11 @@ const DrawingPickerContainer = ({
                         included: false,
                     })),
             ]);
-            updateDrawingIDsIncluded([
+            updateDrawingIDsIncluded(
                 includedDrawings
                     .filter(drawing => !selectedDrawings.includes(drawing.id))
                     .map(drawing => drawing.id),
-            ]);
+            );
             setIncludeDrawings(
                 includedDrawings
                     .filter(drawing => !selectedDrawings.includes(drawing.id))

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import ReactPieChart from 'react-minimal-pie-chart';
 import { isIE } from 'react-device-detect';
 
@@ -11,6 +12,7 @@ import purplePin from '_content/images/map-markers/purple-pin2x.png';
 import statsPieChartColours from 'constants/companyAdmin/statsPieColours';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
+import changeFilterBool from 'actions/companyAdmin/stats/async/changeFilterBool';
 
 const PieChart = ({
     stats,
@@ -21,11 +23,28 @@ const PieChart = ({
     isFiltered,
     serviceID,
     serviceOptions,
+    companyID,
+    companyOptions,
     handleChange,
     noDataMessageOverride,
+    filteredStatsBool,
     // style
 }) => {
-    const statsToUse = serviceID ? stats.statusesByService[serviceID] || {} : stats.statuses;
+    const dispatch = useDispatch();
+    useEffect(() => {
+        return () => {
+            dispatch(changeFilterBool(false));
+        };
+    }, []);
+
+    const statsToUse = filteredStatsBool
+        ? stats.statuses
+        : serviceID
+        ? stats.statusesByService[serviceID] || {}
+        : companyID
+        ? stats.statusesByCompany[companyID] || {}
+        : stats.statuses;
+
     const isStatsEmpty = !statsToUse || Object.values(statsToUse).every(stat => stat === 0);
 
     const total = Object.values(statsToUse).reduce((acc, val) => {
@@ -61,6 +80,18 @@ const PieChart = ({
                         value={serviceOptions.find(opt => opt.value === +serviceID)}
                         options={serviceOptions}
                         placeholder="All Services"
+                    />
+                </Field>
+            )}
+
+            {!!serviceOptions && (
+                <Field name="Filter histories by companies">
+                    <DropdownContainer
+                        handleChange={handleChange}
+                        name="companyID"
+                        value={companyOptions.find(opt => opt.value === companyID)}
+                        options={companyOptions}
+                        placeholder="All Companies"
                     />
                 </Field>
             )}

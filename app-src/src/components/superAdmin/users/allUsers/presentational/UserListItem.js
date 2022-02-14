@@ -19,7 +19,7 @@ const UserListItem = ({
         <td>{user.email}</td>
         <td>{user.phoneNumber}</td>
         <Roles user={user} roles={user.roles} />
-
+        <td>{user.appVersion ? user.appVersion : '-'}</td>
         <td>
             {user.clientAccessCreatedByCompanies.length ? (
                 user.clientAccessCreatedByCompanies.map((company, i, arr) => {
@@ -45,6 +45,7 @@ const UserListItem = ({
             <DateTimeContainer date={user.createdOn} datetime={DATE_TIME_IDS.DATE} />
         </td>
         <td>{boolToYesNo(user.isEmailConfirmed)}</td>
+        <td>{boolToYesNo(user.isDeleted)}</td>
         <td>
             <BlockButtonWrapper>
                 <button className="button yellow" onClick={() => handleShowEditUserModal(user)}>
