@@ -23,6 +23,10 @@ const OptionValuesListItem = ({
         <td>
             {onMobile && <span className="mobile-table-heading">Actions</span>}
             <BlockButtonWrapper>
+                <button className="button red">
+                    <i className="far fa-trash" />
+                    Delete
+                </button>
                 <button
                     onClick={() => handleEditOptionValueModal(optionValue)}
                     className="button yellow"
@@ -31,7 +35,7 @@ const OptionValuesListItem = ({
                     Edit
                 </button>
                 <Link to={`${url}/${optionValue.id}/documents`} className="button">
-                    <i className="fa fa-eye fa-fw" />
+                    <i className="far fa-eye fa-fw" />
                     Documents
                 </Link>
             </BlockButtonWrapper>

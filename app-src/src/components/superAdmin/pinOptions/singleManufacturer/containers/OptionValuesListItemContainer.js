@@ -1,44 +1,53 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { connect}  from 'react-redux';
 
-import { ADMIN_EDIT_OPTION_VALUE } from 'constants/shared/modalTypes';
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { ADMIN_EDIT_OPTION_VALUE, CONFIRM_DELETE } from 'constants/shared/modalTypes';
+import { hideModal, showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 import OptionValuesListItem from '../presentational/OptionValuesListItem';
 
-class OptionValuesListItemContainer extends Component {
-    render() {
-        const { optionValue, colCount, headers, onMobile, services } = this.props;
+const OptionValuesListItemContainer = ({ optionValue, colCount, headers, onMobile, services, showModal, hideModal}) => {
 
-        const selectedServiceNames = services
-            .reduce((acc, currService) => {
-                if (optionValue.serviceIDs.includes(currService.id)) {
-                    acc.push(currService.name);
-                }
-                return acc;
-            }, [])
-            .join(', ');
+    const selectedServiceNames = services
+        .reduce((acc, currService) => {
+            if (optionValue.serviceIDs.includes(currService.id)) {
+                acc.push(currService.name);
+            }
+            return acc;
+        }, [])
+        .join(', ');
 
-        return (
-            <OptionValuesListItem
-                optionValue={optionValue}
-                colCount={colCount}
-                handleEditOptionValueModal={this.handleEditOptionValueModal}
-                headers={headers}
-                onMobile={onMobile}
-                selectedServiceNames={selectedServiceNames}
-            />
-        );
+    return (
+        <OptionValuesListItem
+            optionValue={optionValue}
+            colCount={colCount}
+            handleEditOptionValueModal={handleEditOptionValueModal}
+            handleDeleteOptionValueModal={handleDeleteOptionValueModal}
+            headers={headers}
+            onMobile={onMobile}
+            selectedServiceNames={selectedServiceNames}
+        />
+    );
+
+    function handleDeleteOptionValueModal(optionValue) {
+        const { showModal, hideModal } = this.props;
+        const handleDelete = () => {
+            // todo
+        };
+        const message = 'Are you sure you want to delete this option value?';
+        showModal(CONFIRM_DELETE, {message, handleDelete, hideModal });
     }
-    handleEditOptionValueModal = optionValue => {
+
+    function handleEditOptionValueModal(optionValue) {
         const { showModal, services } = this.props;
         showModal(ADMIN_EDIT_OPTION_VALUE, { optionValue, services });
-    };
-}
+    }
+};
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => dispatch(showModal(type, props)),
-});
+const mapDispatchToProps = {
+    showModal,
+    hideModal,
+};
 
 export default connect(
     ({
