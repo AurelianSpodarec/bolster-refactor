@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { COMPANY_USER_ROLE_IDS } from 'constants/companyAdmin/enums';
+import {
+    COMPANY_USER_ROLE_IDS,
+    COMPANY_USER_ROLE_STATUS_VALUES,
+} from 'constants/companyAdmin/enums';
 
 const Roles = ({
     user: { isDeleted, deletedByUserEmail, deletedByCompanyName, deletedByCompanyID },
@@ -29,16 +32,20 @@ const Roles = ({
             return (
                 <>
                     <span key={i}>
-                        {COMPANY_USER_ROLE_IDS[role.type]}&nbsp;
+                        {COMPANY_USER_ROLE_IDS[role.type]} -{' '}
                         <span>
-                            (
                             <Link className="link" to={`/admin/companies/${role.companyID}`}>
                                 {role.companyName}
-                            </Link>
-                            )
+                            </Link>{' '}
+                            ({COMPANY_USER_ROLE_STATUS_VALUES[role.status]})
                         </span>
                     </span>
-                    {!isTheLastCompany && <span>, </span>}
+                    {!isTheLastCompany && (
+                        <>
+                            <br />
+                            <br />
+                        </>
+                    )}
                 </>
             );
         })

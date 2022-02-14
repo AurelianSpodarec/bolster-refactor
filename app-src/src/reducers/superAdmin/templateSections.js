@@ -26,7 +26,7 @@ function sectionsReducer(state = {}, action) {
         case DELETE_SECTION:
             return removeObjItem(state, action.uuid);
         case SET_SECTIONS:
-            return action.sections;
+            return convertArrToObj(action.sections, 'uuid');
         case POST_TEMPLATE_SUCCESS: {
             const filteredSections = Object.values(state).filter(
                 sec => sec.templateUUID !== action.oldUUID,

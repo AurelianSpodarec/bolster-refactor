@@ -16,7 +16,8 @@ class EditTemplateModalContainer extends React.Component {
             statusDropdownOptions,
             statusOptions,
             reportLayout,
-            reportLayoutOptions
+            reportLayoutOptions,
+            pinImageS3Key,
         } = this.props;
 
         return (
@@ -34,6 +35,7 @@ class EditTemplateModalContainer extends React.Component {
                 handleChange={handleChange}
                 handleCancel={hideModal}
                 handleSubmit={this.handleSubmit}
+                pinImageS3Key={pinImageS3Key}
             />
         );
     }
@@ -41,22 +43,18 @@ class EditTemplateModalContainer extends React.Component {
     componentDidMount = () => {
         const {
             updateState,
-            template: {
-                name,
-                serviceID,
-                labelType,
-                statusOptions,
-                reportLayout
-            },
-            fetchData
+            template: { name, serviceID, labelType, statusOptions, reportLayout, pinImageS3Key },
+            fetchData,
         } = this.props;
         fetchData();
+
         updateState({
             name,
             serviceID,
             labelType,
             statusOptions,
-            reportLayout
+            reportLayout,
+            pinImageS3Key,
         });
     };
 
@@ -72,7 +70,8 @@ class EditTemplateModalContainer extends React.Component {
             serviceID,
             labelType,
             statusOptions,
-            reportLayout
+            reportLayout,
+            pinImageS3Key,
         } = this.props;
 
         const updatedTemplate = {
@@ -81,16 +80,14 @@ class EditTemplateModalContainer extends React.Component {
             serviceID,
             labelType,
             statusOptions,
-            reportLayout
+            reportLayout,
+            pinImageS3Key,
         };
 
         setTemplate(updatedTemplate);
 
         if (labelType !== template.labelType) {
-            const newLabelFields = generateLabelFields(
-                labelType,
-                updatedTemplate.uuid
-            );
+            const newLabelFields = generateLabelFields(labelType, updatedTemplate.uuid);
             setLabelFields(newLabelFields, updatedTemplate.uuid);
         }
 

@@ -29,6 +29,7 @@ export default function (WrappedComponent) {
                     handlePrefillStatusChange={this.handlePrefillStatusChange}
                     handlePrefillStatusValueChange={this.handlePrefillStatusValueChange}
                     showPrefillOptions={this._checkshowPrefillOptions()}
+                    dropdownOptions={this.props.companyDropdownOptions.dropdownOptions}
                 />
             );
         }
@@ -109,31 +110,42 @@ export default function (WrappedComponent) {
             let prereqValueOptions = [];
 
             prereqs.forEach(prereq => {
-                const { questionType, optionType, options } = prereq;
+                const { questionType, optionType, options, name, uuid } = prereq;
+
+                let curPrereqOptions = [];
+
                 if (questionType === STATUS) {
-                    prereqValueOptions = prereqValueOptions.concat(this._getStatusOptions());
+                    curPrereqOptions = this._getStatusOptions();
                 } else if (questionType === CHECKBOX) {
-                    prereqValueOptions = prereqValueOptions.concat([
+                    curPrereqOptions = [
                         { label: 'True', value: 'true' },
                         { label: 'False', value: 'false' },
-                    ]);
+                    ];
                 } else if (optionType) {
-                    prereqValueOptions = prereqValueOptions.concat(
-                        this._getDropownOptionsByType(optionType),
-                    );
+                    curPrereqOptions = this._getDropownOptionsByType(optionType);
                 } else if (options) {
-                    prereqValueOptions = prereqValueOptions.concat(
-                        options.map(opt => ({
-                            label: opt.text,
-                            value: opt.id,
-                        })),
-                    );
+                    curPrereqOptions = options.map(opt => ({
+                        label: opt.text,
+                        value: opt.id,
+                    }));
                 }
+
+                if (questionType === STATUS) {
+                    curPrereqOptions = curPrereqOptions.map(({ label, value }) => ({
+                        label: `${label} (${name})`,
+                        value,
+                    }));
+                } else {
+                    curPrereqOptions = curPrereqOptions.map(({ label, value }) => ({
+                        label: `${label} (${name})`,
+                        value: `${value}#PREREQ_ID_${uuid}`,
+                    }));
+                }
+
+                prereqValueOptions = prereqValueOptions.concat(curPrereqOptions);
             });
-            const prereqValueOptionsDuplicatesRemoved = prereqValueOptions.filter(
-                (opt, i) => prereqValueOptions.findIndex(({ value }) => value === opt.value) === i,
-            );
-            return prereqValueOptionsDuplicatesRemoved;
+
+            return prereqValueOptions;
         };
 
         _getStatusOptions = () => {
@@ -227,6 +239,7 @@ export default function (WrappedComponent) {
                 canCompanyEdit,
                 defaultValue,
                 optionType,
+                optionColour,
             } = this.props.fields;
 
             switch (questionType) {
@@ -241,6 +254,7 @@ export default function (WrappedComponent) {
                 case VALS.RADIO:
                     return {
                         options: options.map(({ text }) => ({ text, id: text })),
+                        optionColour,
                         canCompanyEdit,
                         defaultValue,
                     };
@@ -249,7 +263,7 @@ export default function (WrappedComponent) {
                 case VALS.DROPDOWN_OPTIONS:
                 case VALS.MULTI_DROPDOWN_OPTIONS:
                 case VALS.MULTI_MULTI_DROPDOWN_OPTIONS:
-                    return { optionType };
+                    return { optionType, defaultValue };
                 default:
                     return {};
             }

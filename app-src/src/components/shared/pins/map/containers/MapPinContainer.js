@@ -29,6 +29,8 @@ class MapPinContainer extends Component {
             excludedPinIDs,
             isClient,
             tooltipVisible,
+            pinViewMode,
+            templates,
         } = this.props;
         const { createdByCompanyUserID, latestServiceID } = pin;
         const user = users[createdByCompanyUserID];
@@ -51,6 +53,9 @@ class MapPinContainer extends Component {
                 updateIsPinExcluded={isClient ? clientUpdateIsPinExcluded : updateIsPinExcluded}
                 excludedPinIDs={excludedPinIDs}
                 showPinInfo={showPinInfo}
+                pinViewMode={pinViewMode}
+                templates={templates}
+                services={services}
             />
         );
     }
@@ -110,6 +115,7 @@ const mapStateToProps = (
             companyUsersReducer: { users },
             pinsReducer: { isFetching },
             servicesReducer: { services },
+            templatesReducer: { templates },
         },
         companyAdmin,
         client,
@@ -124,6 +130,7 @@ const mapStateToProps = (
         historyIDs: Object.keys(reducer.pinHistoriesReducer.histories),
         answers: Object.values(reducer.pinAnswersReducer.answers),
         excludedPinIDs: Object.values(reducer.reportsReducer.excludedPinIDs),
+        templates,
     };
 };
 

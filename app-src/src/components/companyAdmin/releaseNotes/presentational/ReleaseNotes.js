@@ -39,7 +39,7 @@ const ReleaseNotes = ({ releaseNotes }) => {
                                         subTitleClasses="small"
                                     />
                                     <div
-                                        className="generic-text"
+                                        className="wysiwyg"
                                         dangerouslySetInnerHTML={{ __html: fullDescription }}
                                     />
                                 </div>
@@ -48,6 +48,7 @@ const ReleaseNotes = ({ releaseNotes }) => {
                                         <img
                                             className="size-lg-12"
                                             src={`${RAW_S3_STORAGE_URL}/${image}`}
+                                            alt=""
                                         />
                                     </div>
                                 )}
@@ -60,6 +61,7 @@ const ReleaseNotes = ({ releaseNotes }) => {
                                             allow="autoplay; fullscreen"
                                             allowFullScreen
                                             className="size-lg-12"
+                                            title="yt-iframe"
                                         ></iframe>
                                     </div>
                                 ) : (
@@ -72,6 +74,7 @@ const ReleaseNotes = ({ releaseNotes }) => {
                                                 allow="autoplay; fullscreen"
                                                 allowFullScreen
                                                 className="size-lg-12"
+                                                title="vimeo-iframe"
                                             ></iframe>
                                         </div>
                                     )

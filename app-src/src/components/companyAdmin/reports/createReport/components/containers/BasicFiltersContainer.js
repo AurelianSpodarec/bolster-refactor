@@ -32,6 +32,9 @@ class BasicFiltersContainer extends Component {
                 fromDateInclusive,
                 toDateInclusive,
                 reportHistories,
+                includeTime,
+                startTime,
+                endTime,
             },
             templates,
             services,
@@ -41,7 +44,6 @@ class BasicFiltersContainer extends Component {
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
         const historyNumsOptions = convertEnumToDropdownOptions(NUMBER_OF_HISTORIES);
         const templateOptions = this.formatTemplateArrForDropdown(templates);
-
         return (
             <div className={`flex-item size-lg-${isDrawingPage ? 12 : 6} size-md-12`}>
                 <BlockContainer>
@@ -62,47 +64,51 @@ class BasicFiltersContainer extends Component {
                         selectedHistoryNum={historyNumsOptions[reportHistories]}
                         fieldError={fieldError}
                         handleDateBlur={this.handleDateBlur}
+                        includeTime={includeTime}
+                        startTime={startTime}
+                        endTime={endTime}
                     />
                 </BlockContainer>
             </div>
         );
     }
 
+    getInitialServices = async () => {
+        const { getServiceOptions, getOperativeOptions, getPostBody } = this.props;
+        const body = getPostBody();
+
+        await getServiceOptions(body);
+        await getOperativeOptions(body);
+    };
+
     componentDidMount = () => {
+        this.getInitialServices();
+
         const {
             handleChange,
             location: { state: locationState },
-            postFilters,
         } = this.props;
-        let shouldPostFilters = false;
-        if (locationState && locationState.selectedService) {
+
+        if (locationState?.selectedService) {
             handleChange('serviceID', locationState.selectedService);
-            shouldPostFilters = true;
         }
 
-        if (locationState && locationState.selectedStatus) {
+        if (locationState?.selectedStatus) {
             handleChange('status', locationState.selectedStatus);
-            shouldPostFilters = true;
         }
 
-        if (locationState && locationState.selectedStartDate) {
+        if (locationState?.selectedStartDate) {
             this.handleDateChange(
                 'fromDateInclusive',
                 moment(locationState.selectedStartDate).toDate(),
             );
-            shouldPostFilters = true;
         }
 
-        if (locationState && locationState.selectedEndDate) {
+        if (locationState?.selectedEndDate) {
             this.handleDateChange(
                 'toDateInclusive',
                 moment(locationState.selectedEndDate).toDate(),
             );
-            shouldPostFilters = true;
-        }
-
-        if (shouldPostFilters) {
-            postFilters();
         }
     };
 
@@ -111,15 +117,9 @@ class BasicFiltersContainer extends Component {
     };
 
     handleDateChange = (name, value) => {
-        const { handleChange, postFilters } = this.props;
+        const { handleChange } = this.props;
 
-        handleChange(name, value)
-            .then(this.validateDates)
-            .then(result => {
-                if (result.type !== 'ADD_FIELD_ERROR') {
-                    postFilters();
-                }
-            });
+        handleChange(name, value).then(this.validateDates);
     };
 
     validateDates = () => {
@@ -152,17 +152,22 @@ class BasicFiltersContainer extends Component {
     };
 
     handleChange = (name, value) => {
-        const { handleChange, postFilters, showModal, hideModal, shouldConfirm } = this.props;
+        const { handleChange, showModal, hideModal, shouldConfirm } = this.props;
 
         if (shouldConfirm) {
             const handleSubmit = () => {
                 hideModal();
-                handleChange(name, value).then(postFilters);
+                handleChange(name, value);
             };
             const message = 'Changing this will reset your advanced filters options, continue?';
             showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
         } else {
-            handleChange(name, value).then(postFilters);
+            if (name === 'includeTime') {
+                handleChange('startTime', null);
+                handleChange('endTime', null);
+            }
+
+            handleChange(name, value);
         }
     };
 

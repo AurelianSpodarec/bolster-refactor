@@ -19,12 +19,9 @@ class CreateOperativeAlertContainer extends Component {
     );
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, error, history } = this.props;
+        const { postSuccess, history } = this.props;
         if (postSuccess && !prevProps.postSuccess) {
             history.push('/admin/operative-alerts');
-        }
-        if (error && !prevProps.error) {
-            //  todo handle error
         }
     };
 
@@ -45,18 +42,15 @@ class CreateOperativeAlertContainer extends Component {
 
 const mapStateToProps = ({
     superAdmin: {
-        operativeAlertsReducer: { postSuccess, error }
-    }
+        operativeAlertsReducer: { postSuccess, error },
+    },
 }) => ({
     postSuccess,
-    error
+    error,
 });
 
 const mapDispatchToProps = { adminCreateOperativeAlert, showModal };
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(CreateOperativeAlertContainer)
+    connect(mapStateToProps, mapDispatchToProps)(CreateOperativeAlertContainer),
 );

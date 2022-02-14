@@ -39,7 +39,6 @@ const RegisterForm = ({
     'Company.vatCode': vatCode,
     'Company.vatType': vatType,
     'Company.base64LogoFile': base64LogoFile,
-    'Company.base64LogoFileName': base64LogoFileName,
     vatOptions,
     dateFormats,
     'Company.dateFormatID': dateFormatID,
@@ -117,6 +116,7 @@ const RegisterForm = ({
                             handleChange={handleChange}
                             validate={validatePassword}
                             classes="auth-text-input-container"
+                            includePasswordStrength
                         />
                     </Field>
                     <Field required name="Confirm Password" classes="auth-form-field wide">

@@ -3,54 +3,68 @@ import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
 import MultiOptionForm from '../presentational/MultiOptionForm';
 import updateQuestionField from 'actions/superAdmin/templateBuilder/sync/updateQuestionField';
-import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
 
-const MultiOptionFormContainer = ({
-    options,
-    updateQuestionField,
-    questionType,
-    ...props
-}) => {
-    const radio = questionType === QUESTION_TYPE_VALUES.RADIO;
+const MultiOptionFormContainer = ({ options, updateQuestionField, optionColour, ...props }) => {
     return (
         <MultiOptionForm
             {...props}
             options={options}
+            optionColour={optionColour}
             optionsForSelect={optionsForSelect()}
             updateQuestionField={updateQuestionField}
             addOption={addOption}
             removeOption={removeOption}
             updateOption={updateOption}
-            radio={radio}
+            updateColorOption={updateColorOption}
         />
     );
 
     function optionsForSelect() {
-        return options.map(opt => ({ label: opt.text, value: opt.id }));
+        return options.map(({ text }) => ({ label: text, value: text }));
     }
 
     function addOption() {
         const id = uuid();
         const newOption = { text: '', id };
+        const newColor = { name: '', hexValue: '#ffffff' };
         updateQuestionField('options', [...options, newOption]);
+        updateQuestionField('optionColour', [...optionColour, newColor]);
     }
 
     function removeOption(id) {
-        updateQuestionField('options', options.filter(op => op.id !== id));
+        const index = options.findIndex(item => item.id === id);
+        updateQuestionField(
+            'options',
+            options.filter(op => op.id !== id),
+        );
+        updateQuestionField(
+            'optionColour',
+            optionColour.reduce((res, item, i) => {
+                return index === i ? res : [...res, item];
+            }, []),
+        );
     }
 
     function updateOption(name, text) {
-        const updated = options.map(opt =>
-            opt.id === name ? { ...opt, text } : opt
+        const index = options.findIndex(item => item.id === name);
+        const updated = options.map(opt => (opt.id === name ? { ...opt, text } : opt));
+        const updatedTextColor = optionColour.map((opt, i) =>
+            index === i ? { ...opt, Name: text } : opt,
         );
 
         updateQuestionField('options', updated);
+        updateQuestionField('optionColour', updatedTextColor);
+    }
+
+    function updateColorOption(colorIndex, hexValue) {
+        const updated = optionColour.map((opt, index) =>
+            index === colorIndex ? { ...opt, hexValue } : opt,
+        );
+
+        updateQuestionField('optionColour', updated);
     }
 };
 
 const mapDispatchToProps = { updateQuestionField };
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(MultiOptionFormContainer);
+export default connect(null, mapDispatchToProps)(MultiOptionFormContainer);

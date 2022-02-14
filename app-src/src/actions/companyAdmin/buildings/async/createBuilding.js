@@ -6,21 +6,21 @@ import { getHeaders } from 'helpers/api';
 import {
     CREATE_BUILDING_REQUEST,
     CREATE_BUILDING_SUCCESS,
-    CREATE_BUILDING_FAILURE
+    CREATE_BUILDING_FAILURE,
 } from 'constants/actionTypes/buildings';
 
 export const createBuildingRequest = () => ({
-    type: CREATE_BUILDING_REQUEST
+    type: CREATE_BUILDING_REQUEST,
 });
 
 export const createBuildingSuccess = payload => ({
     type: CREATE_BUILDING_SUCCESS,
-    payload
+    payload,
 });
 
 export const createBuildingFailure = error => ({
     type: CREATE_BUILDING_FAILURE,
-    error
+    error,
 });
 
 export default postBody => dispatch => {

@@ -7,6 +7,7 @@ $light-grey: #f5f5f5;
 $dark-grey: #4e4e4e;
 $text-grey: #8f8f8f;
 $blue: #16a6e2;
+$light-blue: #d9f4ff;
 $yellow: #e89901;
 $green: #2eac58;
 $input-border-grey: #cccccc;
@@ -23,6 +24,19 @@ $new-grey-alt: #808080;
 $very-dark-grey-alt: #444444;
 $light-grey-bg: #F8F8F8;
 $darker-grey-alt: #707070;
+
+//timeline colours
+$timeline-green: #2EAC58;
+$timeline-yellow: #EFC206;
+$timeline-red: #E20612;
+
+//pin-tasks-colors
+$recurring-blue: #42C8FF;
+$non-recurring-purple: #7B61FF;
+$complete-green: #34C759;
+$complete-late-yellow: #FFE27A;
+$due-soon-orange: #FF9500;
+$incomplete-red: #FF3B30;
 
 //fonts
 @mixin ubuntu() {

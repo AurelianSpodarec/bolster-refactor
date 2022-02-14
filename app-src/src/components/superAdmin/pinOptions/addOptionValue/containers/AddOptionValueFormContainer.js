@@ -6,6 +6,7 @@ import createOptionValue from 'actions/superAdmin/manufacturers/async/createOpti
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import AddOptionValueForm from '../presentational/AddOptionValueForm';
+import services from 'reducers/companyAdmin/services';
 
 class AddOptionValueFormContainer extends Component {
     state = {
@@ -33,11 +34,17 @@ class AddOptionValueFormContainer extends Component {
                 hideModal={this.props.hideModal}
                 buttonText={this.props.buttonText}
                 validateName={this.validateName}
-                serviceOptions={serviceOptions}
+                serviceOptions={this.formatServices()}
                 handleShowAddDocForm={this.handleShowAddDocForm}
             />
         );
     }
+
+    componentDidMount = () => {
+        const serviceIDs = this.formatServices().map(({ value }) => value);
+
+        this.setState({ serviceIDs: serviceIDs });
+    };
 
     handleInputChange = (name, value) => {
         const { confirmNoDocument } = this.state;
@@ -47,6 +54,18 @@ class AddOptionValueFormContainer extends Component {
         }
 
         this.setState({ [name]: value });
+    };
+
+    formatServices = () => {
+        const { services } = this.props;
+        const serviceOptions = services.map(({ name, id }) => {
+            return {
+                text: name,
+                name: name,
+                value: id.toString(),
+            };
+        });
+        return serviceOptions;
     };
 
     validateName = value => {
@@ -65,14 +84,8 @@ class AddOptionValueFormContainer extends Component {
         e.preventDefault();
         const { createOptionValue, manufacturer, filesUploading } = this.props;
 
-        const {
-            name,
-            serviceIDs,
-            fileS3Key,
-            confirmNoDocument,
-            showConfirmNoDocument,
-            docName,
-        } = this.state;
+        const { name, serviceIDs, fileS3Key, confirmNoDocument, showConfirmNoDocument, docName } =
+            this.state;
 
         let postBody = {};
 

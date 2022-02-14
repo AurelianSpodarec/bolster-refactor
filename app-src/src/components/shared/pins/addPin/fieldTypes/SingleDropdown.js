@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Select from 'components/shared/generic/form/presentational/Select';
-
+import { formatDropdownOptions } from 'helpers/general';
 
 const SingleDropdown = ({
     isRequired,
-    question: { id, options },
+    question: { id, options, optionConfigurations },
     answers,
-    handleChange
+    handleChange,
 }) => {
-    const opts = options.map(({ id, text }) => ({ value: id, label: text }));
+    const opts = useMemo(() => {
+        if (!optionConfigurations) return formatDropdownOptions(options);
+
+        const enabledOpts = optionConfigurations
+            .filter(opt => !opt.isDisabled)
+            .map(opt => opt.name);
+        const optsFiltered = options.filter(opt => enabledOpts.includes(opt.id));
+        return formatDropdownOptions(optsFiltered);
+    }, [options, optionConfigurations]);
 
     return (
         <Select

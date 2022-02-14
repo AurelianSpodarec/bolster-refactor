@@ -18,23 +18,14 @@ class TemplateSectionQuestionDetailsContainer extends React.Component {
                 <TemplateSectionQuestionDetails
                     question={question}
                     details={question && getQuestionDetails(question, options)}
-                    showModal={() =>
-                        showModal(COMPANY_EDIT_TEMPLATE_QUESTION, { question })
-                    }
+                    showModal={() => showModal(COMPANY_EDIT_TEMPLATE_QUESTION, { question })}
                 />
             </BlockContainer>
         );
     };
     componentDidUpdate = prevProps => {
-        const {
-            shouldFetchOptions,
-            fetchAllDropdownOptions,
-            question
-        } = this.props;
-        if (
-            shouldFetchOptions &&
-            question.optionType !== prevProps.question.optionType
-        ) {
+        const { shouldFetchOptions, fetchAllDropdownOptions, question } = this.props;
+        if (shouldFetchOptions && question.optionType !== prevProps.question.optionType) {
             fetchAllDropdownOptions(question.optionType);
         }
     };
@@ -43,26 +34,24 @@ class TemplateSectionQuestionDetailsContainer extends React.Component {
 const mapStateToProps = ({
     companyAdmin: {
         templateQuestionsReducer: { selectedQuestionID, questions },
-        dropdownOptionsReducer: { dropdownOptions }
-    }
+        dropdownOptionsReducer: { dropdownOptions },
+    },
 }) => {
     const question =
-        formatQuestions(Object.values(questions)).find(
-            ({ id }) => id === selectedQuestionID
-        ) || {};
+        formatQuestions(Object.values(questions)).find(({ id }) => id === selectedQuestionID) || {};
     const optionsTypes = [
         TYPES.DROPDOWN_OPTIONS,
         TYPES.MULTI_DROPDOWN_OPTIONS,
-        TYPES.MULTI_MULTI_DROPDOWN_OPTIONS
+        TYPES.MULTI_MULTI_DROPDOWN_OPTIONS,
     ];
     const shouldFetchOptions = question && optionsTypes.includes(question.type);
     const options = Object.values(dropdownOptions).filter(
-        ({ type }) => type === question.optionType
+        ({ type }) => type === question.optionType,
     );
     return {
         question,
         options,
-        shouldFetchOptions
+        shouldFetchOptions,
     };
 };
 
@@ -70,5 +59,5 @@ const mapDispatchToProps = { showModal, fetchAllDropdownOptions };
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(TemplateSectionQuestionDetailsContainer);

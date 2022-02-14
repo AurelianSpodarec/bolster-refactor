@@ -1,9 +1,10 @@
 import { ADD_RECTANGLE } from 'constants/actionTypes/reports';
 
-export default (id, topLeft, bottomRight) => dispatch =>
+export default (id, topLeft, bottomRight, drawingID) => dispatch =>
     dispatch({
         type: ADD_RECTANGLE,
         id,
         topLeft,
-        bottomRight
+        bottomRight,
+        drawingID,
     });

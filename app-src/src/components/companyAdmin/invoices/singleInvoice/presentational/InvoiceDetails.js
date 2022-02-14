@@ -2,7 +2,7 @@ import React from 'react';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-import { PAYMENT_TYPES, DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+import { PAYMENT_TYPES, DATE_TIME_IDS, INVOICE_TYPES } from 'constants/companyAdmin/enums';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
@@ -21,66 +21,85 @@ const InvoiceDetails = ({
         isRenewal,
         userFirstName,
         userLastName,
-        guid
+        guid,
+        isRequestedForDelete,
+        invoiceType,
     },
     toggleConfirmDeleteModal,
-    showDeleteButton
-}) => (
-    <BlockContainer error={error} isEmpty={!id} isFetching={isFetching}>
-        <BlockHeading title="Invoice Details">
-            <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href={`${INVOICE_GEN_URL}/${guid}/invoice-${id}`}
-                className="button blue"
-                download={`invoice-${id}.pdf`}
-            >
-                <i className="fa fa-download fa-fw" /> Download Invoice
-            </a>
-            {showDeleteButton && (
-                <button onClick={toggleConfirmDeleteModal} className="button red">
-                    <i className="far fa-trash-alt fa-fw" />
-                    Delete Invoice
-                </button>
-            )}
-        </BlockHeading>
+    showDeleteButton,
+}) => {
+    return (
+        <BlockContainer error={error} isEmpty={!id} isFetching={isFetching}>
+            <BlockHeading title="Invoice Details">
+                <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={`${INVOICE_GEN_URL}/${guid}/invoice-${id}`}
+                    className="button blue"
+                    download={`invoice-${id}.pdf`}
+                >
+                    <i className="fa fa-download fa-fw" /> Download Invoice
+                </a>
+                {showDeleteButton &&
+                    (!isRequestedForDelete ? (
+                        <button onClick={toggleConfirmDeleteModal} className="button blue">
+                            <i className="far fa-envelope fa-fw" />
+                            Request Delete Invoice
+                        </button>
+                    ) : (
+                        <button className="button red">
+                            <i className="far fa-trash fa-fw" />
+                            Delete invoice requested
+                        </button>
+                    ))}
+            </BlockHeading>
 
-        <FieldOutput title="Invoice no" description={`${id}`} sizeClass="size-lg-4 size-md-12" />
-        <FieldOutput title="Date" sizeClass="size-lg-4 size-md-12">
-            <p>
-                <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATE} />
-            </p>
-        </FieldOutput>
-        <FieldOutput
-            title="Type"
-            description={isRenewal ? 'Renewal' : 'New Purchase'}
-            sizeClass="size-lg-4 size-md-12"
-        />
-        <FieldOutput
-            title="Status"
-            description={isPaid ? 'Paid' : 'Not Paid'}
-            sizeClass="size-lg-4 size-md-12"
-        />
-        <FieldOutput
-            title="Ordered By"
-            description={`${userFirstName} ${userLastName}`}
-            sizeClass="size-lg-4 size-md-12"
-        />
-
-        {isPaid && (
             <FieldOutput
-                title="Payment Method"
-                description={PAYMENT_TYPES[paymentType]}
+                title="Invoice no"
+                description={`${id}`}
                 sizeClass="size-lg-4 size-md-12"
             />
-        )}
+            <FieldOutput title="Date" sizeClass="size-lg-4 size-md-12">
+                <p>
+                    <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATE} />
+                </p>
+            </FieldOutput>
+            <FieldOutput
+                title="Type"
+                description={isRenewal ? 'Renewal' : 'New Purchase'}
+                sizeClass="size-lg-4 size-md-12"
+            />
+            <FieldOutput
+                title="Status"
+                description={isPaid ? 'Paid' : 'Not Paid'}
+                sizeClass="size-lg-4 size-md-12"
+            />
+            <FieldOutput
+                title="Ordered By"
+                description={`${userFirstName} ${userLastName}`}
+                sizeClass="size-lg-4 size-md-12"
+            />
+            <FieldOutput
+                title="Invoice Type"
+                description={INVOICE_TYPES[invoiceType] || '-'}
+                sizeClass="size-lg-4 size-md-12"
+            />
 
-        <FieldOutput
-            title="Total"
-            description={`${total && formatCurrency(total)} GBP (inc. VAT)`}
-            sizeClass="size-lg-6 size-md-12"
-        />
-    </BlockContainer>
-);
+            {isPaid && (
+                <FieldOutput
+                    title="Payment Method"
+                    description={PAYMENT_TYPES[paymentType] || '-'}
+                    sizeClass="size-lg-4 size-md-12"
+                />
+            )}
+
+            <FieldOutput
+                title="Total"
+                description={`${total && formatCurrency(total)} GBP (inc. VAT)`}
+                sizeClass="size-lg-6 size-md-12"
+            />
+        </BlockContainer>
+    );
+};
 
 export default InvoiceDetails;

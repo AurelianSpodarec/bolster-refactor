@@ -3,11 +3,16 @@ import { connect } from 'react-redux';
 
 import SubscriptionStatus from '../presentational/SubscriptionStatus';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import { isEmpty } from 'helpers/generic';
 
 class SubscriptionStatusContainer extends Component {
     render = () => {
         const { subscriptions, isFetching, cards, shouldRestrictPayments, invoices } = this.props;
         const noCards = !Object.values(cards).length;
+        const noSub = isEmpty(subscriptions);
+        const noInvoices = isEmpty(invoices);
+        const isFirst = noCards && noSub && noInvoices;
+
         const hadPendingProforma = invoices.some(({ isPaid, isRenewal }) => !isPaid && isRenewal);
 
         return (
@@ -22,6 +27,7 @@ class SubscriptionStatusContainer extends Component {
                     shouldRestrictPayments={shouldRestrictPayments}
                     hadPendingProforma={hadPendingProforma}
                     isLatest={subscriptions.isLatest}
+                    isFirst={isFirst}
                 />
             </BlockContainer>
         );

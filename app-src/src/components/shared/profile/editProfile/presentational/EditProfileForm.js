@@ -9,15 +9,13 @@ import FileUploadContainer from 'components/shared/generic/form/containers/FileU
 
 const EditProfileForm = ({
     handleInputChange,
-    handleImageChange,
     handleSubmit,
     filesUploading,
     firstName,
     lastName,
-    email,
     phoneNumber,
     profileImageS3Key,
-    location
+    location,
 }) => {
     const backURL = location.pathname.includes('admin')
         ? '/admin/profile'
@@ -38,20 +36,6 @@ const EditProfileForm = ({
                     </Field>
                 </div>
                 <div className="size-lg-6 size-md-12">
-                    <Field name="Email" required>
-                        <TextInputContainer
-                            value={email}
-                            name="email"
-                            type="email"
-                            handleChange={handleInputChange}
-                            required
-                        />
-                    </Field>
-                </div>
-            </div>
-
-            <div className="size-lg-12">
-                <div className="size-lg-6 size-md-12">
                     <Field name="Last Name" required>
                         <TextInputContainer
                             value={lastName}
@@ -61,7 +45,9 @@ const EditProfileForm = ({
                         />
                     </Field>
                 </div>
+            </div>
 
+            <div className="size-lg-12">
                 <div className="size-lg-6 size-md-12">
                     <Field name="Phone Number" required>
                         <TextInputContainer

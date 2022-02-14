@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import fetchFrontendTrustedBy from 'actions/superAdmin/frontendSite/trustedBySettings/async/fetchAllTrustedBy';
-import { orderTrustedByArr } from 'helpers/generic';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import Block from 'components/shared/generic/block/presentational/Block';

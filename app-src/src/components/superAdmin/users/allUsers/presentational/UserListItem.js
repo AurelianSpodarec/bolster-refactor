@@ -5,14 +5,21 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { Link } from 'react-router-dom';
+import { boolToYesNo } from 'helpers/generic';
 
-const UserListItem = ({ user, handleShowEditUserModal, handleShowEditUserPasswordModal }) => (
+const UserListItem = ({
+    user,
+    handleShowEditUserModal,
+    handleShowEditUserPasswordModal,
+    handleShowConfirmEmailModal,
+    handleShowRemoveLockoutModal,
+}) => (
     <tr>
         <td>{`${user.firstName} ${user.lastName}`}</td>
         <td>{user.email}</td>
         <td>{user.phoneNumber}</td>
         <Roles user={user} roles={user.roles} />
-
+        <td>{user.appVersion ? user.appVersion : '-'}</td>
         <td>
             {user.clientAccessCreatedByCompanies.length ? (
                 user.clientAccessCreatedByCompanies.map((company, i, arr) => {
@@ -37,11 +44,26 @@ const UserListItem = ({ user, handleShowEditUserModal, handleShowEditUserPasswor
         <td>
             <DateTimeContainer date={user.createdOn} datetime={DATE_TIME_IDS.DATE} />
         </td>
+        <td>{boolToYesNo(user.isEmailConfirmed)}</td>
+        <td>{boolToYesNo(user.isDeleted)}</td>
         <td>
             <BlockButtonWrapper>
                 <button className="button yellow" onClick={() => handleShowEditUserModal(user)}>
                     <i className="far fa-pencil" /> Edit
                 </button>
+                {!user.isEmailConfirmed && (
+                    <button
+                        className="button blue"
+                        onClick={() => handleShowConfirmEmailModal(user)}
+                    >
+                        <i className="far fa-pencil" /> Confirm e-mail
+                    </button>
+                )}
+                {user.isLockoutEnabled && (
+                    <button className="button blue" onClick={handleShowRemoveLockoutModal}>
+                        <i className="far fa-lock" /> Remove lockout
+                    </button>
+                )}
                 <button onClick={() => handleShowEditUserPasswordModal(user)} className="button">
                     Change password
                 </button>

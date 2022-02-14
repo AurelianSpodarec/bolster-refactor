@@ -31,6 +31,9 @@ const EditSiteForm = ({
     selectedManufacturerOptions,
     selectedOptionValues,
     optionValuesOptions,
+    setDropdownOptions,
+    selectedDropdownOptions,
+    dropdownOptions,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -93,7 +96,7 @@ const EditSiteForm = ({
         </div>
         {isUsingBolsterLabels && <BolsterLabelExample name={name} hierarchy="Site" />}
 
-        <div className="size-lg-12">
+        {/* <div className="size-lg-12">
             <div className="size-lg-6 size-md-12">
                 <Field name="Send an alert?">
                     <CheckboxContainer
@@ -104,9 +107,9 @@ const EditSiteForm = ({
                     />
                 </Field>
             </div>
-        </div>
+        </div> */}
 
-        {isAlertShowing && (
+        {/* {isAlertShowing && (
             <div className="size-lg-12">
                 <div className="size-lg-6 size-md-12">
                     <Field name="Alert Message">
@@ -130,7 +133,7 @@ const EditSiteForm = ({
                     </Field>
                 </div>
             </div>
-        )}
+        )} */}
 
         <div className="size-lg-12">
             <div className="size-lg-6 size-md-12">
@@ -146,13 +149,14 @@ const EditSiteForm = ({
         </div>
         {setManufacturersForHierarchy && (
             <div className="size-lg-12">
-                <Field labelClasses="no-capitalise" name="Manufacturer(s)">
+                <Field labelClasses="no-capitalise" name="Manufacturer(s)" required>
                     <CheckboxListContainer
                         name="selectedManufacturerOptions"
                         text=""
                         handleChange={handleInputChange}
                         selectedOptions={selectedManufacturerOptions}
                         options={manufacturerOptions}
+                        required
                     />
                 </Field>
             </div>
@@ -186,6 +190,32 @@ const EditSiteForm = ({
                     );
                 } else return null;
             })}
+
+        <div className="size-lg-12">
+            <div className="size-lg-6 size-md-12">
+                <Field labelClasses="no-capitalise" name="Set item types for site?">
+                    <CheckboxContainer
+                        checked={setDropdownOptions}
+                        name="setDropdownOptions"
+                        text=""
+                        handleChange={handleInputChange}
+                    />
+                </Field>
+            </div>
+        </div>
+        {setDropdownOptions && (
+            <div className="size-lg-12">
+                <Field labelClasses="no-capitalise" name="Item Types" required={setDropdownOptions}>
+                    <CheckboxListContainer
+                        name="selectedDropdownOptions"
+                        text=""
+                        handleChange={handleInputChange}
+                        selectedOptions={selectedDropdownOptions}
+                        options={dropdownOptions}
+                    />
+                </Field>
+            </div>
+        )}
 
         <BlockButtonWrapper>
             <button className="button green">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import _ from 'lodash';
 
 import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
@@ -38,46 +39,39 @@ const DrawingPickerContainer = ({
         // check which hierarchy has changed and set availableDrawings with the correct hierarchy ID and type
 
         if (Object.values(drawings).length && prevHierarchyID) {
-            if (siteID && prevHierarchyID.siteID !== siteID.toString() && !buildingID && !floorID) {
+            if (
+                siteID.length &&
+                !_.isEqual(siteID, prevHierarchyID.siteID) &&
+                !buildingID.length &&
+                !floorID.length
+            ) {
                 setExcludeDrawings(availableDrawings(siteID, HIERARCHY_IDS.SITE));
                 setIncludeDrawings([]);
             }
 
-            if (buildingID && prevHierarchyID.buildingID !== buildingID.toString() && !floorID) {
+            if (
+                buildingID.length &&
+                !_.isEqual(buildingID, prevHierarchyID.buildingID) &&
+                !floorID.length
+            ) {
                 setExcludeDrawings(availableDrawings(buildingID, HIERARCHY_IDS.BUILDING));
                 setIncludeDrawings([]);
-            } else if (
-                buildingID != null &&
-                prevHierarchyID.buildingID !== buildingID.toString() &&
-                !floorID
-            ) {
-                //if user selects all buildings
-                setExcludeDrawings(availableDrawings(siteID, HIERARCHY_IDS.SITE));
-                setIncludeDrawings([]);
             }
 
-            if (floorID && prevHierarchyID.floorID !== floorID.toString()) {
+            if (floorID.length && !_.isEqual(floorID, prevHierarchyID.floorID)) {
                 setExcludeDrawings(availableDrawings(floorID, HIERARCHY_IDS.FLOOR));
-                setIncludeDrawings([]);
-            } else if (
-                floorID !== null &&
-                prevHierarchyID.floorID !== floorID.toString() &&
-                !floorID
-            ) {
-                //if user selects all floors
-                setExcludeDrawings(availableDrawings(buildingID, HIERARCHY_IDS.BUILDING));
                 setIncludeDrawings([]);
             }
 
             if (excludedDrawings.length <= 0) {
                 //if nothing is set, check which id has the value and set them
-                if (floorID) {
+                if (floorID.length) {
                     setExcludeDrawings(availableDrawings(floorID, HIERARCHY_IDS.FLOOR));
                     setIncludeDrawings([]);
-                } else if (buildingID) {
+                } else if (buildingID.length) {
                     setExcludeDrawings(availableDrawings(buildingID, HIERARCHY_IDS.BUILDING));
                     setIncludeDrawings([]);
-                } else if (siteID) {
+                } else if (siteID.length) {
                     setExcludeDrawings(availableDrawings(siteID, HIERARCHY_IDS.SITE));
                     setIncludeDrawings([]);
                 }
@@ -89,19 +83,19 @@ const DrawingPickerContainer = ({
 
     //component did mount
     useEffect(() => {
-        if (siteID && !buildingID) {
+        if (siteID.length && !buildingID.length) {
             setExcludeDrawings(availableDrawings(siteID, HIERARCHY_IDS.SITE));
             setIncludeDrawings([]);
-        } else if (buildingID && !floorID) {
+        } else if (buildingID.length && !floorID.length) {
             setExcludeDrawings(availableDrawings(buildingID, HIERARCHY_IDS.BUILDING));
             setIncludeDrawings([]);
-        } else if (floorID) {
+        } else if (floorID.length) {
             setExcludeDrawings(availableDrawings(floorID, HIERARCHY_IDS.FLOOR));
             setIncludeDrawings([]);
         }
     }, []);
     //if drawing is selected don't render component
-    if (!siteID || drawingID) {
+    if (!siteID.length || drawingID.length) {
         return false;
     }
 
@@ -134,17 +128,17 @@ const DrawingPickerContainer = ({
 
         if (hierarchyTypeID === HIERARCHY_IDS.SITE) {
             return allDrawings
-                .filter(drawing => drawing.siteID.toString() === hierarchyID)
+                .filter(drawing => hierarchyID.includes(drawing.siteID))
                 .map(drawingMapFunc);
         }
         if (hierarchyTypeID === HIERARCHY_IDS.BUILDING) {
             return allDrawings
-                .filter(drawing => drawing.buildingID.toString() === hierarchyID)
+                .filter(drawing => hierarchyID.includes(drawing.buildingID))
                 .map(drawingMapFunc);
         }
         if (hierarchyTypeID === HIERARCHY_IDS.FLOOR) {
             return allDrawings
-                .filter(drawing => drawing.floorID.toString() === hierarchyID)
+                .filter(drawing => hierarchyID.includes(drawing.floorID))
                 .map(drawingMapFunc);
         }
 
@@ -232,11 +226,11 @@ const DrawingPickerContainer = ({
                         included: false,
                     })),
             ]);
-            updateDrawingIDsIncluded([
+            updateDrawingIDsIncluded(
                 includedDrawings
                     .filter(drawing => !selectedDrawings.includes(drawing.id))
                     .map(drawing => drawing.id),
-            ]);
+            );
             setIncludeDrawings(
                 includedDrawings
                     .filter(drawing => !selectedDrawings.includes(drawing.id))

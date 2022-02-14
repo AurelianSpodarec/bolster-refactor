@@ -19,6 +19,8 @@ import Rectangle from 'components/shared/pinSelector/presentational/Rectangle';
 import AddCreditsToDrawingButtonContainer from '../../addCreditsToDrawing/containers/AddCreditsToDrawingButtonContainer';
 import DrawingMapAddZone from './DrawingMapAddZone';
 import DrawingMapViewZones from './DrawingMapViewZones';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import { doPinsHaveIcons } from 'helpers/general';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 
@@ -60,6 +62,8 @@ const DrawingMapViewSimple = ({
     curZoom,
     shouldRestrictPayments,
     drawingNotStarted,
+    pinViewMode,
+    togglePinIconView,
 }) => {
     const mapRef = useRef();
 
@@ -109,6 +113,16 @@ const DrawingMapViewSimple = ({
                                     <button onClick={() => {}} className="button red pull-right">
                                         <i className="far fa-times" /> Drawing expired
                                     </button>
+                                    <TooltipContainer
+                                        htmlText={`${`<p>This drawing expired on ${moment(
+                                            drawing.expiresOn,
+                                        ).format(
+                                            'DD/MM/YYYY',
+                                        )}. A credit will need adding to record further pin data</p>`} `}
+                                        containerSide="drawing-expired"
+                                    >
+                                        <i className="far fa-exclamation-triangle red-icon pull-right" />
+                                    </TooltipContainer>
                                 </>
                             )
                         ) : (
@@ -199,6 +213,7 @@ const DrawingMapViewSimple = ({
                                         withLink={!shouldShowPinSelectorOptions && !addMode}
                                         withTooltip={!isExcluding}
                                         isExcluding={isExcluding}
+                                        pinViewMode={pinViewMode}
                                     />
                                 ))}
                                 {addMode && <Marker position={addPinPosition} icon={newPinIcon} />}
@@ -238,6 +253,14 @@ const DrawingMapViewSimple = ({
                                     </>
                                 ) : (
                                     <>
+                                        {doPinsHaveIcons(pins) && (
+                                            <button
+                                                className="button blue"
+                                                onClick={togglePinIconView}
+                                            >
+                                                Pin icon view on/off
+                                            </button>
+                                        )}
                                         <button className="button blue" onClick={handleZoneAdd}>
                                             View Zones
                                         </button>

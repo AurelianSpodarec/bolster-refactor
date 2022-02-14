@@ -1,21 +1,17 @@
 import { getDecodedJWT } from 'helpers/api';
 
-import {
-    DECODE_JWT_REQUEST,
-    DECODE_JWT_SUCCESS
-} from 'constants/actionTypes/decodeJWT';
+import { DECODE_JWT_REQUEST, DECODE_JWT_SUCCESS } from 'constants/actionTypes/decodeJWT';
 
 export const decodeJWTRequest = () => ({
-    type: DECODE_JWT_REQUEST
+    type: DECODE_JWT_REQUEST,
 });
 
 export const decodeJWTSuccess = payload => ({
     type: DECODE_JWT_SUCCESS,
-    payload
+    payload,
 });
 
 export default () => dispatch => {
     dispatch(decodeJWTRequest());
-
-    return getDecodedJWT().then(data => dispatch(decodeJWTSuccess(data)));
+    return getDecodedJWT().then(data => dispatch(decodeJWTSuccess(data ?? {})));
 };

@@ -2,14 +2,16 @@ import { isObjEmpty } from './generic';
 import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
 export const formatOptions = options => {
-    return options.map(option => {
-        return {
-            ...option,
-            text: option.name,
-            value: option.id,
-            isEnabled: option.isEnabled,
-        };
-    });
+    return options
+        .filter(({ isDeleted }) => !isDeleted)
+        .map(option => {
+            return {
+                ...option,
+                text: option.name,
+                value: option.id,
+                isEnabled: option.isEnabled,
+            };
+        });
 };
 
 // ===================== CREATING OPTION VALUES AND MANUFACTURER OPTIONS IF NOT SET ABOVE ===========
@@ -45,9 +47,11 @@ export const createPreselectedManufacturersList = manufacturerList => {
 export const createOptionValuesList = (optionValues, subscriptionServiceIDs) => {
     return Object.entries(optionValues).reduce((acc, [manufacturerID, options]) => {
         const formattedOptionValues = formatOptions(Object.values(options));
-        const filteredOptionValues = formattedOptionValues.filter(option =>
-            shouldOptionValueBeIncluded(option.serviceIDs, subscriptionServiceIDs),
-        );
+        const filteredOptionValues = formattedOptionValues
+            .filter(option => option.isEnabled)
+            .filter(option =>
+                shouldOptionValueBeIncluded(option.serviceIDs, subscriptionServiceIDs),
+            );
         acc = { ...acc, [manufacturerID]: filteredOptionValues };
         return acc;
     }, {});
@@ -69,7 +73,7 @@ export const createPreselectedOptionValuesList = optionValuesList => {
 };
 
 export const shouldOptionValueBeIncluded = (serviceIDs, subscriptionServiceIDs) => {
-    return serviceIDs.some(id => subscriptionServiceIDs.includes(id));
+    return serviceIDs === null || serviceIDs.some(id => subscriptionServiceIDs.includes(id));
 };
 
 // ======================== CREATING OPTION VALUES AND MANUFACTURING OPTIONS IF DEFINED IN HIERARCHY ABOVE ========
@@ -89,7 +93,6 @@ export const createHierarchyPreselectedManufacturersList = (
                 acc.push(String(manufacturer.id));
             }
         }
-
         return acc;
     }, []);
 };

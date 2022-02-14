@@ -6,6 +6,7 @@ const Table = ({
     headers,
     error,
     isFetching,
+    showLoaderWhenFetching,
     noData,
     noDataMessage = 'There is no data to display',
     withActions = false,
@@ -15,14 +16,19 @@ const Table = ({
     //colspan first th, sometimes have spacing issues
     //needs colspan on table item also, if true
     colSpanFirst = false,
+    tableColumnWidths = [],
 }) => {
     return (
         <table className={`generic-table ${withActions ? 'with-actions' : ''} ${extraClasses}`}>
             <thead>
                 <tr>
                     {headers.map((header, i) => (
-                        <th colSpan={colSpanFirst && i === 0 ? '2' : ''} key={header + i}>
-                            {header}
+                        <th
+                            colSpan={colSpanFirst && i === 0 ? '2' : ''}
+                            key={i}
+                            style={tableColumnWidths.length ? { width: tableColumnWidths[i] } : {}}
+                        >
+                            {typeof header === 'string' ? header : header()}
                         </th>
                     ))}
                 </tr>
@@ -35,6 +41,7 @@ const Table = ({
                 noData={noData}
                 noDataMessage={noDataMessage}
                 withoutTBody={withoutTBody}
+                showLoaderWhenFetching={showLoaderWhenFetching}
             >
                 {children}
             </TableBody>

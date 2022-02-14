@@ -3,30 +3,28 @@ import React from 'react';
 import AddPinQuestionRoute from '../containers/AddPinQuestionRoute';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const AddPinQuestions = ({ 
-    sections, 
-    questions, 
-    selectedVersion, 
-    isHistory, 
-    sectionIDs, 
-    isSameTemplate, 
-    pinAnswersByGroupKey, 
-    dropdownOptionsByType, 
-    oldAnswersByNameObj, 
+const AddPinQuestions = ({
+    sections,
+    questions,
+    selectedVersion,
+    isHistory,
+    sectionIDs,
+    isSameTemplate,
+    pinAnswersByGroupKey,
+    dropdownOptionsByType,
+    oldAnswersByNameObj,
     template,
-    latestPinHistory
-}) =>
-    [...sections]
+    latestPinHistory,
+}) => {
+    const answersCacheKey = `answersCache#${selectedVersion.id}`;
+    return [...sections]
         .sort((a, b) => a.sort - b.sort)
         .map(section => (
             <div key={section.value} className="size-lg-12">
                 <BlockHeading classes="sub-heading" title={section.text} />
                 <div className="flex-row">
                     {[...questions]
-                        .filter(
-                            question =>
-                                question.templateSectionID === section.value
-                        )
+                        .filter(question => question.templateSectionID === section.value)
                         .sort((a, b) => a.sort - b.sort)
                         .map(question => (
                             <AddPinQuestionRoute
@@ -41,10 +39,14 @@ const AddPinQuestions = ({
                                 oldAnswersByNameObj={oldAnswersByNameObj}
                                 template={template}
                                 latestPinHistory={latestPinHistory}
+                                cachedAnswers={
+                                    JSON.parse(localStorage.getItem(answersCacheKey)) || null
+                                }
                             />
                         ))}
                 </div>
             </div>
         ));
+};
 
 export default AddPinQuestions;

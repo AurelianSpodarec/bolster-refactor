@@ -251,7 +251,9 @@ export const useVideoShouldPlay = () => {
             observer.observe(videoRef.current);
         }
         return () => {
-            observer.unobserve(videoRef.current);
+            if (videoRef.current) {
+                observer.unobserve(videoRef.current);
+            }
         };
     }, []);
 
@@ -292,7 +294,6 @@ export const useLocalStorage = (key, initialValue) => {
             const item = window.localStorage.getItem(key);
             return item ? JSON.parse(item) : initialValue;
         } catch (error) {
-            console.log(error);
             return initialValue;
         }
     });
@@ -303,7 +304,7 @@ export const useLocalStorage = (key, initialValue) => {
             setStoredValue(valueToStore);
             window.localStorage.setItem(key, JSON.stringify(valueToStore));
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     };
 

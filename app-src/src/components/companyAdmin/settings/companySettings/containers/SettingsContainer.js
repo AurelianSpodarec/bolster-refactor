@@ -16,19 +16,16 @@ class SettingsContainer extends Component {
 
 const mapStateToProps = ({
     shared: {
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => ({
-    onMobile
+    onMobile,
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchCompanySettings: () => {
         dispatch(fetchCompanySettings());
-    }
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SettingsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsContainer);

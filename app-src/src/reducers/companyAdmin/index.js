@@ -20,6 +20,7 @@ import drawingsReducer from './drawings';
 import floorsReducer from './floors';
 import companyReportsReducer from './companyReports';
 import headquartersReducer from './headquarters';
+import inactiveCompanyUsersReducer from './inactiveCompanyUsers';
 import inspectionLogsReducer from './inspectionLogs';
 import invoiceItemsReducer from './invoiceItems';
 import invoicesReducer from './invoices';
@@ -54,7 +55,15 @@ import manufacturersReducer from './manufacturers';
 import manufacturersOptionValuesReducer from './manufacturersOptionValues';
 import optionValueDocumentsReducer from './optionValueDocuments';
 import userGuideReducer from './userGuide';
+import userDocumentsReducer from './userDocuments';
 import zonesReducer from './zones';
+import companySelectionReducer from './companySelection';
+import timesheetsReducer from './timesheets';
+import timesheetPinStatsReducer from './timesheetPinStats';
+import userPinFeedsReducer from './userPinFeeds';
+import bugReportsReducer from './bugReports';
+import documentLibraryReducer from './documentLibrary';
+import pinTasksReducer from './pinTasks';
 
 export default combineReducers({
     activityLogReducer,
@@ -64,16 +73,19 @@ export default combineReducers({
     appReducer,
     approvedCompaniesReducer,
     buildingsReducer,
+    bugReportsReducer,
     cardsReducer,
     clientsReducer,
     companyAddressesGeocodeReducer,
     companiesPermissionsReducer,
+    companySelectionReducer,
     companySettingsReducer,
     companyUsersReducer,
     creditsReducer,
     creditLogsReducer,
     dashboardReducer,
     deletedDataReducer,
+    documentLibraryReducer,
     documentsReducer,
     drawingsReducer,
     dropdownOptionsReducer,
@@ -81,6 +93,7 @@ export default combineReducers({
     generatePinReportReducer,
     headquartersReducer,
     hierarchyReducer,
+    inactiveCompanyUsersReducer,
     inspectionLogsReducer,
     invoicesReducer,
     invoiceItemsReducer,
@@ -96,6 +109,7 @@ export default combineReducers({
     pinAnswersReducer,
     pinHistoriesReducer,
     pinsReducer,
+    pinTasksReducer,
     qrCodesReducer,
     recentUpdatesReducer,
     reportsReducer,
@@ -110,6 +124,10 @@ export default combineReducers({
     templateVersionsReducer,
     transferRequestsReducer,
     userDrawingsReducer,
+    userDocumentsReducer,
     userGuideReducer,
     zonesReducer,
+    timesheetsReducer,
+    timesheetPinStatsReducer,
+    userPinFeedsReducer,
 });

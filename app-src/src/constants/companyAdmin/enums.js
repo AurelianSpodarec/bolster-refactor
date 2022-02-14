@@ -55,6 +55,14 @@ export const COMPANY_USER_ROLE_IDS = {
     1000: 'Deleted',
 };
 
+export const COMPANY_USER_ROLE_STATUS_VALUES = {
+    1: 'Invited',
+    2: 'Active',
+    3: 'Inactive',
+    4: 'Disabled',
+    5: 'Deleted',
+};
+
 export const CREDIT_LOG_TYPES = {
     1: 'Purchased',
     2: 'Free credits from purchase',
@@ -160,6 +168,12 @@ export const PAYMENT_IDS = {
 export const PAYMENT_TYPES = {
     1: 'By Card',
     2: 'By Invoice',
+};
+
+export const INVOICE_TYPES = {
+    1: 'Bank transfer',
+    2: 'Card',
+    3: 'Free',
 };
 
 export const SUBSCRIPTION_RENEWAL_IDS = {
@@ -359,6 +373,7 @@ export const INVOICE_STATUS_TYPES = {
     ALL: 0,
     PAID: 1,
     UNPAID: 2,
+    FREE: 3,
 };
 
 export const COMPANY_TYPES = {
@@ -366,6 +381,13 @@ export const COMPANY_TYPES = {
     'Company - Active Subscription': 1,
     'Company - Expired Subscription': 2,
     'Client Access': 3,
+};
+
+export const COMPANY_TRACKING_TYPES_VALUES = {
+    0: 'All',
+    1: 'Active',
+    2: 'Expired',
+    3: 'Client Access',
 };
 
 export const DELETED_DATA_TYPE = {
@@ -411,6 +433,13 @@ export const HAS_PAID_QUERIES = {
     1: 'true',
     2: 'false',
     3: 'true',
+};
+
+export const HAS_PAID_VALUES = {
+    ALL: 0,
+    PAID: 1,
+    AWAITING_PAYMENT: 2,
+    FREE: 3,
 };
 
 export const DOCUMENT_TYPES = {
@@ -537,4 +566,93 @@ export const ACTIVITY_LOG_REFERENCE_VALUES = {
     24: 'Operative Permissions',
     25: 'User Enquiry',
     26: 'User Type',
+};
+
+export const COMPANY_REPORTS_OUTPUT_TYPES = {
+    isCSVGeneration: 'CSV',
+    isPDFGeneration: 'PDF',
+    isFloorplanGeneration: 'Floor Plan',
+    isOEMManualGeneration: 'O&M Manual',
+};
+
+export const CLOCKER_ENTRY_TYPE = {
+    WORKING: 1,
+    ON_BREAK: 2,
+};
+
+export const PIN_STATS_DASHBOARD_VIEW = {
+    CALENDAR: 'calendar',
+    LIST: 'list',
+    SERIES: 'series',
+};
+
+export const TIME_PERIOD = {
+    DAY: 'day',
+    WEEK: 'week',
+    MONTH: 'month',
+};
+
+export const RECURRING_TYPE = {
+    NONE: 0,
+    WEEKLY: 1,
+    MONTHLY: 2,
+    DAILY: 3,
+};
+
+export const DAY = {
+    MONDAY: 'MONDAY',
+    TUESDAY: 'TUESDAY',
+    WEDNESDAY: 'WEDNESDAY',
+    THURSDAY: 'THURSDAY',
+    FRIDAY: 'FRIDAY',
+    SATURDAY: 'SATURDAY',
+    SUNDAY: 'SUNDAY',
+};
+
+export const DAYS_FLAGGED = {
+    MONDAY: 1,
+    TUESDAY: 2,
+    WEDNESDAY: 4,
+    THURSDAY: 8,
+    FRIDAY: 16,
+    SATURDAY: 32,
+    SUNDAY: 64,
+};
+export const DAYS_FLAGGED_LOOKUP = {
+    1: 'MONDAY',
+    2: 'TUESDAY',
+    4: 'WEDNESDAY',
+    8: 'THURSDAY',
+    16: 'FRIDAY',
+    32: 'SATURDAY',
+    64: 'SUNDAY',
+};
+
+export const PIN_TASK_STATUS = {
+    COMPLETE: 'complete',
+    COMPLETE_LATE: 'complete_late',
+    DUE_SOON: 'due_soon',
+    INCOMPLETE: 'incomplete',
+};
+
+export const PIN_TASK_STATUS_NAMES = {
+    COMPLETE: 'Complete',
+    COMPLETE_LATE: 'Complete (Late)',
+    DUE_SOON: 'Due Soon',
+    INCOMPLETE: 'Incomplete',
+};
+
+export const PIN_TASK_RECURRING = {
+    RECURRING: 'recurring',
+    NON_RECURRING: 'non_recurring',
+};
+
+export const PIN_TASK_RECURRING_NAMES = {
+    RECURRING: 'Recurring',
+    NON_RECURRING: 'Non-Recurring',
+};
+
+export const DOCUMENT_LIBRARY_TYPES = {
+    FOLDER: 100,
+    FILE: 200,
 };

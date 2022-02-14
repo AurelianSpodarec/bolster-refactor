@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import ReactPieChart from 'react-minimal-pie-chart';
 import { isIE } from 'react-device-detect';
 
@@ -7,12 +8,11 @@ import redPin from '_content/images/map-markers/red-pin2x.png';
 import bluePin from '_content/images/map-markers/blue-pin2x.png';
 import yellowPin from '_content/images/map-markers/yellow-pin2x.png';
 import purplePin from '_content/images/map-markers/purple-pin2x.png';
-// import { FILE_STORAGE_URL } from 'config';
-//todo: reference images with FILE_STORAGE_URL
 
 import statsPieChartColours from 'constants/companyAdmin/statsPieColours';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
+import changeFilterBool from 'actions/companyAdmin/stats/async/changeFilterBool';
 
 const PieChart = ({
     stats,
@@ -23,10 +23,28 @@ const PieChart = ({
     isFiltered,
     serviceID,
     serviceOptions,
+    companyID,
+    companyOptions,
     handleChange,
+    noDataMessageOverride,
+    filteredStatsBool,
     // style
 }) => {
-    const statsToUse = serviceID ? stats.statusesByService[serviceID] || {} : stats.statuses;
+    const dispatch = useDispatch();
+    useEffect(() => {
+        return () => {
+            dispatch(changeFilterBool(false));
+        };
+    }, []);
+
+    const statsToUse = filteredStatsBool
+        ? stats.statuses
+        : serviceID
+        ? stats.statusesByService[serviceID] || {}
+        : companyID
+        ? stats.statusesByCompany[companyID] || {}
+        : stats.statuses;
+
     const isStatsEmpty = !statsToUse || Object.values(statsToUse).every(stat => stat === 0);
 
     const total = Object.values(statsToUse).reduce((acc, val) => {
@@ -66,9 +84,25 @@ const PieChart = ({
                 </Field>
             )}
 
+            {!!serviceOptions && (
+                <Field name="Filter histories by companies">
+                    <DropdownContainer
+                        handleChange={handleChange}
+                        name="companyID"
+                        value={companyOptions.find(opt => opt.value === companyID)}
+                        options={companyOptions}
+                        placeholder="All Companies"
+                    />
+                </Field>
+            )}
+
             {isStatsEmpty ? (
                 <p className="no-data size-lg-12">
-                    There are currently no pins on this {hierarchyType}.
+                    {noDataMessageOverride ? (
+                        noDataMessageOverride
+                    ) : (
+                        <>There are currently no pins on this {hierarchyType}.</>
+                    )}
                 </p>
             ) : (
                 <div className="size-lg-12">

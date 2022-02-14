@@ -7,8 +7,7 @@ import {
 } from 'constants/actionTypes/usersManagement';
 
 import { ADMIN_API_URL } from 'config';
-import { getHeaders } from 'helpers/api';
-import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
+import { getHeaders, handleErrors } from 'helpers/api';
 
 export const adminCreateCompanyAdminRequest = () => ({
     type: ADMIN_CREATE_COMPANY_USER_REQUEST,
@@ -27,10 +26,5 @@ export default postBody => dispatch => {
     return axios
         .post(`${ADMIN_API_URL}/users/company`, postBody, getHeaders())
         .then(({ data }) => dispatch(adminCreateCompanyAdminSuccess(data)))
-        .catch(err => {
-            dispatch(adminCreateCompanyAdminFailure(err.message));
-            if (err.response.status === 400) {
-                dispatch(setAPIFieldErrors(err.response.data.errors));
-            }
-        });
+        .catch(err => dispatch(handleErrors(adminCreateCompanyAdminFailure)(err)));
 };

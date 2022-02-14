@@ -5,26 +5,29 @@ import BannerNotification from '../presentational/BannerNotification';
 import fetchBannerNotification from 'actions/shared/banners/async/fetchBannerNotification';
 import postBannerNotificationClose from 'actions/shared/banners/async/postBannerNotificationClose';
 import { usePrevious } from 'helpers/hooks';
+import { isEmpty } from 'helpers/generic';
 
 const BannerNotificationContainer = ({
     fetchBannerNotification,
-    isFetching,
     bannerNotification,
     postBannerNotificationClose,
     isPosting,
     postSuccess,
+    companyID,
 }) => {
     const [visible, setVisible] = useState(false);
     const prevProps = usePrevious({ isPosting, postSuccess });
 
     const getBannerNotification = useCallback(async () => {
-        await fetchBannerNotification();
-        setVisible(true);
-    }, []);
+        if (companyID) {
+            await fetchBannerNotification();
+            setVisible(true);
+        }
+    }, [companyID]);
 
     useEffect(() => {
         getBannerNotification();
-    }, []);
+    }, [companyID]);
 
     useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
@@ -32,11 +35,11 @@ const BannerNotificationContainer = ({
         }
     }, [postSuccess, isPosting, prevProps.postSuccess, prevProps.isPosting]);
 
-    if (bannerNotification && visible) {
+    if (!isEmpty(bannerNotification) && visible) {
         return (
             <BannerNotification
                 content={bannerNotification.content}
-                colour={bannerNotification.colour.value}
+                colour={bannerNotification?.colour?.value ?? 'red'}
                 handleBannerClose={handleBannerClose}
             />
         );
@@ -59,6 +62,9 @@ const mapStateToProps = ({
             isPosting,
             postSuccess,
         },
+        decodeJWTReducer: {
+            jwtData: { companyID },
+        },
     },
 }) => ({
     isFetching,
@@ -66,6 +72,7 @@ const mapStateToProps = ({
     bannerNotification: bannerNotifications,
     isPosting,
     postSuccess,
+    companyID,
 });
 
 const mapDispatchToProps = { fetchBannerNotification, postBannerNotificationClose };

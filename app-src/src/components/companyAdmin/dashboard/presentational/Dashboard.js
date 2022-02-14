@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
-import PageHeading from "components/shared/generic/pageHeading/presentational/PageHeading";
-import DashboardPinFeedContainer from "../containers/DashboardPinFeedContainer";
-import DashboardStatsFiltersContainer from "../containers/DashboardStatsFiltersContainer";
-import DashboardPieChartContainer from "../containers/DashboardPieChartContainer";
-import DashboardBarChartContainer from "../containers/DashboardBarChartContainer";
-import DashboardDataByContainer from "../containers/DashboardDataByContainer";
-import BlockContainer from "components/shared/generic/block/containers/BlockContainer";
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import DashboardPinFeedContainer from '../containers/DashboardPinFeedContainer';
+import DashboardStatsFiltersContainer from '../containers/DashboardStatsFiltersContainer';
+import DashboardPieChartContainer from '../containers/DashboardPieChartContainer';
+import DashboardBarChartContainer from '../containers/DashboardBarChartContainer';
+import DashboardDataByContainer from '../containers/DashboardDataByContainer';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const Dashboard = ({ isIE10 }) => (
     <>

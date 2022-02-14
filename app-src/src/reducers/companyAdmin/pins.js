@@ -8,6 +8,9 @@ import {
     FETCH_PINS_REQUEST,
     FETCH_PINS_SUCCESS,
     FETCH_PINS_FAILURE,
+    FETCH_PINS_FOR_REPORT_REQUEST,
+    FETCH_PINS_FOR_REPORT_SUCCESS,
+    FETCH_PINS_FOR_REPORT_FAILURE,
     CREATE_PIN_REQUEST,
     CREATE_PIN_SUCCESS,
     CREATE_PIN_FAILURE,
@@ -22,7 +25,8 @@ import {
     DELETE_PIN_HISTORY_SUCCESS,
     FETCH_ALL_PINS_FOR_DRAWING_REQUEST,
     FETCH_ALL_PINS_FOR_DRAWING_SUCCESS,
-    FETCH_ALL_PINS_FOR_DRAWING_FAILURE
+    FETCH_ALL_PINS_FOR_DRAWING_FAILURE,
+    TOGGLE_PIN_VIEW_MODE,
 } from 'constants/actionTypes/pins';
 
 export default combineReducers({
@@ -31,18 +35,22 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     isFetchingForInspection: isFetchingForInspectionReducer,
     error: errorReducer,
-    postSuccess: postSuccessReducer
+    postSuccess: postSuccessReducer,
+    pinViewMode: pinViewModeReducer,
 });
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_SINGLE_PIN_REQUEST:
         case FETCH_PINS_REQUEST:
+        case FETCH_PINS_FOR_REPORT_REQUEST:
             return true;
         case FETCH_SINGLE_PIN_SUCCESS:
         case FETCH_SINGLE_PIN_FAILURE:
         case FETCH_PINS_SUCCESS:
         case FETCH_PINS_FAILURE:
+        case FETCH_PINS_FOR_REPORT_SUCCESS:
+        case FETCH_PINS_FOR_REPORT_FAILURE:
             return false;
         default:
             return state;
@@ -53,6 +61,7 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_SINGLE_PIN_REQUEST:
         case FETCH_PINS_REQUEST:
+        case FETCH_PINS_FOR_REPORT_REQUEST:
         case CREATE_PIN_REQUEST:
         case EDIT_PIN_LOCATION_REQUEST:
         case EDIT_PIN_HISTORY_REQUEST:
@@ -62,6 +71,7 @@ function errorReducer(state = null, action) {
         case FETCH_SINGLE_PIN_FAILURE:
         case FETCH_ALL_PINS_FOR_DRAWING_FAILURE:
         case FETCH_PINS_FAILURE:
+        case FETCH_PINS_FOR_REPORT_FAILURE:
         case CREATE_PIN_FAILURE:
         case EDIT_PIN_LOCATION_FAILURE:
         case EDIT_PIN_HISTORY_FAILURE:
@@ -89,6 +99,8 @@ function pinsReducer(state = {}, action) {
         case FETCH_PINS_SUCCESS:
         case FETCH_ALL_PINS_FOR_DRAWING_SUCCESS:
             return convertArrToObj(action.payload);
+        case FETCH_PINS_FOR_REPORT_SUCCESS:
+            return { ...state, ...convertArrToObj(action.payload) };
         default:
             return state;
     }
@@ -131,6 +143,15 @@ function postSuccessReducer(state = false, action) {
         case EDIT_PIN_HISTORY_SUCCESS:
         case DELETE_PIN_HISTORY_SUCCESS:
             return true;
+        default:
+            return state;
+    }
+}
+
+function pinViewModeReducer(state = 'view', action) {
+    switch (action.type) {
+        case TOGGLE_PIN_VIEW_MODE:
+            return state === 'view' ? 'icon' : 'view';
         default:
             return state;
     }

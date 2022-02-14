@@ -1,7 +1,8 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-const DrawingDataByDrawingListItem = ({ drawing, history }) => {
+const DrawingDataByDrawingListItem = ({ drawing }) => {
+    const history = useHistory();
     return (
         <tr>
             <td>{drawing.name}</td>
@@ -25,10 +26,10 @@ const DrawingDataByDrawingListItem = ({ drawing, history }) => {
                 selectedService: localStorage.getItem('selectedService'),
                 selectedStatus: localStorage.getItem('selectedStatus'),
                 selectedStartDate: localStorage.getItem('selectedStartDate'),
-                selectedEndDate: localStorage.getItem('selectedEndDate')
-            }
+                selectedEndDate: localStorage.getItem('selectedEndDate'),
+            },
         });
     }
 };
 
-export default withRouter(DrawingDataByDrawingListItem);
+export default DrawingDataByDrawingListItem;

@@ -7,8 +7,8 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { DragDropContextProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
-import * as serviceWorker from 'helpers/serviceWorker';
 import reducer from 'reducers';
 import '_content/scss/font-awesome.css';
 import '_content/scss/main.scss';
@@ -18,13 +18,10 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css
 import AppContainer from 'components/appRoute/app/containers/AppContainer';
 import ScrollToTop from 'components/appRoute/app/containers/ScrollToTop';
 
-let middleWare = [thunk];
+const middleware = [thunk];
+const composeEnhancers = composeWithDevTools({ trace: true, traceLimit: 10 });
 
-if (process.env.NODE_ENV !== 'production') {
-    middleWare = [...middleWare];
-}
-
-const store = createStore(reducer, applyMiddleware(...middleWare));
+const store = createStore(reducer, composeEnhancers(applyMiddleware(...middleware)));
 
 ReactDOM.render(
     <Router>
@@ -38,5 +35,3 @@ ReactDOM.render(
     </Router>,
     document.getElementById('root'),
 );
-
-serviceWorker.unregister();

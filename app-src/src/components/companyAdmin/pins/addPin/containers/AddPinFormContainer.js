@@ -6,21 +6,22 @@ import { convertArrToObj } from 'helpers/generic';
 import createPin from 'actions/companyAdmin/pins/async/createPin';
 import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
 import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
+import setServiceID from 'actions/companyAdmin/drawings/sync/setServiceID';
 
 import AddPinForm from 'components/shared/pins/addPin/presentational/AddPinForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import { QUESTION_TYPES } from 'constants/shared/templateBuilder';
 
 class AddPinFormContainer extends Component {
     state = {
-        serviceID: '',
         templateID: '',
         pinTitle: '',
     };
 
     render() {
-        const { templateID, serviceID, pinTitle } = this.state;
+        const { templateID, pinTitle } = this.state;
         const {
             location,
             isFetching,
@@ -29,6 +30,7 @@ class AddPinFormContainer extends Component {
             filesUploading,
             confirmLeave,
             isHistory,
+            serviceID,
         } = this.props;
 
         const serviceOptions = convertArrToObj(this._relevantServiceOptions(), 'value');
@@ -177,12 +179,18 @@ class AddPinFormContainer extends Component {
         }));
     };
 
-    handleChange = (name, value) => {
-        const { resetPinAnswers, updateAddPinStatus, formatDropdownOptions } = this.props;
+    handleChange = async (name, value) => {
+        const {
+            resetPinAnswers,
+            updateAddPinStatus,
+            formatDropdownOptions,
+            setServiceID,
+        } = this.props;
         resetPinAnswers();
         updateAddPinStatus('');
 
         if (name === 'serviceID') {
+            setServiceID(value);
             formatDropdownOptions(value);
         }
 
@@ -227,8 +235,36 @@ class AddPinFormContainer extends Component {
             };
         }
 
+        this.toCacheAnswers(curTemplate.latestVersionID, formattedAnswers);
+
         if (hierarchyType === 'pin') postBody.pinID = pinID;
         if (!filesUploading) createPin(postBody);
+    };
+
+    toCacheAnswers = templateVersion => {
+        const { answers, questions } = this.props;
+
+        const prefillValues = Object.entries(answers)
+            .filter(([questionID]) => {
+                const question = questions[questionID];
+
+                if (!question) return false;
+
+                const { SIGNATURE, SINGLE_PHOTO, MULTI_PHOTO } = QUESTION_TYPES;
+                const noFillTypes = [SIGNATURE, SINGLE_PHOTO, MULTI_PHOTO];
+                return !noFillTypes.includes(question.type);
+            })
+            .reduce(
+                (acc, [questionID, answer]) => ({
+                    ...acc,
+                    [questionID]: answer,
+                }),
+                {},
+            );
+
+        if (prefillValues) {
+            localStorage.setItem(`answersCache#${templateVersion}`, JSON.stringify(prefillValues));
+        }
     };
 }
 
@@ -236,8 +272,10 @@ const mapStateToProps = (
     {
         companyAdmin: {
             templatesReducer: { templates, isFetching, error },
+            templateQuestionsReducer: { questions },
             addPinFormReducer: { answers, status },
             addPinCoordinatesReducer: { coordinates },
+            addPinDropdownOptions: { serviceID },
             pinsReducer: { postSuccess, pins, isFetching: fetchingPins },
             manufacturersOptionValuesReducer: { isFetching: isFetchingOptionValues },
             manufacturersReducer: { isFetching: isFetchingManufacturers },
@@ -257,6 +295,7 @@ const mapStateToProps = (
 ) => ({
     templates: Object.values(templates).filter(({ isDeleted }) => !isDeleted),
     answers,
+    questions,
     coordinates,
     isFetching: isFetching || isFetchingManufacturers || isFetchingOptionValues,
     error,
@@ -271,12 +310,14 @@ const mapStateToProps = (
     services: Object.values(services),
     subscriptions,
     CompanyUserOperativeCode,
+    serviceID,
 });
 
 const mapDispatchToProps = {
     createPin,
     resetPinAnswers,
     updateAddPinStatus,
+    setServiceID,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPinFormContainer));

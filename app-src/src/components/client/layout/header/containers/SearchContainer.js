@@ -8,7 +8,7 @@ import { getSelectedCompanyForClient } from 'helpers/generic';
 class SearchContainer extends Component {
     state = {
         resultsVisible: false,
-        searchTerm: ''
+        searchTerm: '',
     };
 
     render() {
@@ -40,29 +40,23 @@ class SearchContainer extends Component {
             // get type and ID
             const typeData = {
                 type: 'drawings',
-                hierarchyID: result.drawingID
+                hierarchyID: result.drawingID,
             };
             // split search terms to highlight multiple words split by / or space
-            const multiSearchTerms = searchTerm
-                .split(/\/|\s/gi)
-                .map(term => term.toLowerCase());
-            const splitRegex = new RegExp(
-                `(${multiSearchTerms.join('|')})`,
-                'ig'
-            );
+            const multiSearchTerms = searchTerm.split(/\/|\s/gi).map(term => term.toLowerCase());
+            const splitRegex = new RegExp(`(${multiSearchTerms.join('|')})`, 'ig');
             // highlight searchterm
             const searchText = result.searchText.split(splitRegex);
             const searchTextComponent = (
                 <span>
                     {searchText.map((text, i) =>
                         multiSearchTerms.includes(text.toLowerCase()) ? (
-                            // TODO: ## needs styling ##
                             <span key={i} style={{ backgroundColor: 'yellow' }}>
                                 {text}
                             </span>
                         ) : (
                             text
-                        )
+                        ),
                     )}
                 </span>
             );
@@ -81,11 +75,7 @@ class SearchContainer extends Component {
             document.addEventListener('click', this.handleOutsideClick, false);
             fetchClientSearchResults(selectedCompanyID, value);
         } else {
-            document.removeEventListener(
-                'click',
-                this.handleOutsideClick,
-                false
-            );
+            document.removeEventListener('click', this.handleOutsideClick, false);
         }
     };
 
@@ -107,21 +97,18 @@ class SearchContainer extends Component {
 
 const mapStateToProps = ({
     client: {
-        searchReducer: { results, isFetching, error }
-    }
+        searchReducer: { results, isFetching, error },
+    },
 }) => ({
     results: Object.values(results),
     isFetching,
-    error
+    error,
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchClientSearchResults: (companyID, searchTerm) => {
         dispatch(fetchClientSearchResults(companyID, searchTerm));
-    }
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SearchContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer);

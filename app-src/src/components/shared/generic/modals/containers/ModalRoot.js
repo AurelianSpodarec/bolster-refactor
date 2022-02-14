@@ -66,14 +66,12 @@ import {
     ADMIN_DELETE_PAYMENT,
     REMOVE_DRAWINGS_ACCESS,
     FORGOT_PASSWORD,
-    GENERATE_SOS_CODE,
-    DELETE_DEMO_REQUEST,
-    ADD_DEMO_REQUEST_COMMENT,
     ADD_INVOICE_COMMENT,
     ADD_CONTACT_SUBMISSION_COMMENT,
     CONFIRM_MOVE_HIERARCHY_TO_COMPANY,
     ADMIN_CONFIRM_SET_IS_INVOICE_PAID,
     ADMIN_DELETE_INVOICE,
+    ADMIN_RESTORE_INVOICE,
     DELETE_INVOICE,
     ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION,
     GENERATE_QR_CODES,
@@ -109,6 +107,34 @@ import {
     EDIT_BANNER_NOTIFICATION,
     ADD_NEW_BANNER_NOTIFICATION,
     UPDATE_REPORT_LAYOUT,
+    CONFIRM_TWO_FACTOR,
+    RECOVER_USER,
+    REACTIVATE_USER,
+    DISABLE_USER,
+    ENABLE_USER,
+    RESEND_INVITE,
+    ADD_DEMO_ACCESS_CODES,
+    EDIT_DEMO_ACCESS_CODES,
+    DELETE_DEMO_ACCESS_CODES,
+    ENTER_DEMO_ACCESS_CODES,
+    REQUEST_DELETE_INVOICE,
+    ADMIN_EDIT_COMPANY_OWNER,
+    CONFIRM_EMAIL,
+    USER_NEW_DOCUMENT,
+    GENERATE_TIMESHEET_REPORT,
+    EXPANDED_MEDIA,
+    EDIT_FREE_CREDIT,
+    UPLOAD_LIBRARY_DOCUMENT,
+    SOFT_DELETE_LIBRARY_DOCUMENT,
+    CREATE_LIBRARY_FOLDER,
+    EDIT_LIBRARY_ITEMS,
+    HARD_DELETE_LIBRARY_DOCUMENT,
+    RESTORE_LIBRARY_DOCUMENTS,
+    SELECT_DOCUMENT_LIBRARY_ITEM,
+    CREATE_PIN_TASK,
+    EDIT_PIN_TASK,
+    FETCH_PIN_TASK,
+    EDIT_PIN_TASK_SERIES,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -175,14 +201,14 @@ import DeletePaymentModalContainer from 'components/superAdmin/invoices/confirmD
 import RemoveUserDrawingsAccessModalContainer from 'components/companyAdmin/userManagement/userDrawings/containers/RemoveUserDrawingsAccessModalContainer';
 import ForgotPasswordModalContainer from 'components/frontEnd/auth/forgotPasswordModal/containers/ForgotPasswordModalContainer';
 import AddCreditsToDrawingModal from 'components/companyAdmin/drawings/addCreditsToDrawing/presentational/AddCreditsToDrawingModal';
-import SOSGenerationModal from 'components/superAdmin/sosManagement/sosGenerationModal/presentational/SOSGenerationModal';
 import SiteManagementConfirmMoveModalContainer from 'components/superAdmin/siteManagement/moveTool/containers/MoveToolConfirmMoveModalContainer';
 import ConfirmSetIsInvoicePaidModalContainer from 'components/superAdmin/invoices/confirmSetIsInvoicePaidModal/containers/ConfirmSetIsInvoicePaidModalContainer';
 import SuperAdminConfirmDeleteInvoiceModalContainer from 'components/superAdmin/invoices/superAdminConfirmDeleteInvoiceModal/containers/SuperAdminConfirmDeleteInvoiceModalContainer';
+import SuperAdminConfirmRestoreInvoiceModalContainer from 'components/superAdmin/invoices/superAdminConfirmRestoreInvoiceModal/containers/SuperAdminConfirmRestoreInvoiceModalContainer';
 import ConfirmDeleteInvoiceModalContainer from 'components/companyAdmin/invoices/confirmDeleteInvoiceModal/containers/ConfirmDeleteInvoiceModalContainer';
 import AddCompanyAdminModalContainer from 'components/superAdmin/companies/singleCompany/containers/AddCompanyAdminModalContainer';
 import GenerateQRCodesModalContainer from './GenerateQRCodesModalContainer';
-import RistrictPaymentsModalContainer from './RistrictPaymentsModalContainer';
+import RestrictPaymentsModalContainer from './RestrictPaymentsModalContainer';
 import AdminAddManufacturerModal from 'components/superAdmin/pinOptions/addManufacturer/presentational/AddManufacturerModal';
 import AdminEditManufacturerModal from 'components/superAdmin/pinOptions/editManufacturer/presentational/EditManufacturerModal';
 import AdminAddOptionValueModal from 'components/superAdmin/pinOptions/addOptionValue/presentational/AddOptionValueModal';
@@ -218,6 +244,31 @@ import UserLatestSyncsModalContainer from 'components/superAdmin/companies/singl
 import EditBannerNotificationModal from 'components/superAdmin/bannerNotifications/editBannerNotificationModal/presentational/EditBannerNotificationModal';
 import AddBannerNotificationModal from 'components/superAdmin/bannerNotifications/addBannerNotifcationModel/presentational/AddBannerNotificationModal';
 import UpdateReportLayoutModal from '../presentational/UpdateReportLayoutModal';
+import ConfirmTwoFactorModal from '../presentational/ConfirmTwoFactorModal';
+import ConfirmEmailModal from '../presentational/ConfirmEmailModal';
+import RecoverUserModal from 'components/companyAdmin/userManagement/shared/modals/RecoverUserModal';
+import ReactivateUserModal from 'components/companyAdmin/userManagement/operatives/inactiveOperatives/modals/ReactivateUserModal';
+import DisableUserModal from 'components/companyAdmin/userManagement/shared/modals/DisableUserModal';
+import EnableUserModal from 'components/companyAdmin/userManagement/shared/modals/EnableUserModal';
+import ResendInviteModal from 'components/companyAdmin/userManagement/shared/modals/ResendInviteModal';
+import AddDemoAccessCodesModal from 'components/superAdmin/demoAccessCodes/presentational/AddDemoAccessCodesModal';
+import EditDemoAccessCodesModal from 'components/superAdmin/demoAccessCodes/presentational/EditDemoAccessCodesModal';
+import DeleteDemoAccessCodesModal from 'components/superAdmin/demoAccessCodes/presentational/DeleteDemoAccessCodesModal';
+import EnterDemoFullSiteModal from 'components/shared/demo-full-site/presentational/DemoFullSiteModal';
+import EditCompanyOwnerModalContainer from 'components/superAdmin/companies/singleCompany/containers/EditCompanyOwnerModalContainer';
+import RequestDeleteInvoiceModal from 'components/companyAdmin/invoices/requestDeleteInvoiceModal/RequestDeleteInvoiceModal';
+import NewUserDocumentModal from 'components/companyAdmin/userManagement/documentsUploader/presentational/NewUserDocumentModal';
+import GenerateTimesheetReportModal from 'components/companyAdmin/userManagement/operatives/timesheets/modals/GenerateTimesheetReport';
+import ExpandedMediaModal from './ExpandedMediaModal';
+import EditFreeCreditModal from './EditFreeCreditModalContainer';
+import SelectDocumentLibraryItemModal from 'components/companyAdmin/companyDocuments/SelectDocumentLibraryItemModal';
+import CreateDocumentFolderModal from 'components/companyAdmin/companyDocuments/createDocument/CreateDocumentFolderModal';
+import CreateDocumentModal from 'components/companyAdmin/companyDocuments/createDocument/CreateDocumentModal';
+import EditDocumentItemsModal from 'components/companyAdmin/companyDocuments/editDocument/EditDocumentItemsModal';
+import CreatePinTaskModal from 'components/companyAdmin/userManagement/pinTasks/createPinTaskModal/CreatePinTaskModal';
+import EditPinTaskModal from 'components/companyAdmin/userManagement/pinTasks/editPinTaskModal/EditPinTaskModal';
+import EditPinTaskSeriesModal from 'components/companyAdmin/userManagement/pinTasks/editPinTaskSeriesModal/EditPinTaskSeriesModal';
+import ViewPinTaskModal from 'components/companyAdmin/userManagement/pinTasks/viewTaskNoteModal/ViewTaskNoteModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -270,7 +321,7 @@ const MODAL_COMPONENTS = {
     [CREATE_OPERATIVE]: CreateOperativeModal,
     [LOADING_DATA]: LoadingDataModal,
     [UNLINK_DEVICE]: UnlinkDeviceModalContainer,
-    [RESTRICT_ADMIN_PAYMENTS]: RistrictPaymentsModalContainer,
+    [RESTRICT_ADMIN_PAYMENTS]: RestrictPaymentsModalContainer,
     [REVOKE_ADMIN_ACCESS]: RevokeAdminAccessModalContainer,
     [DOCUMENT_RESPONSE_AGREEANCE]: DocumentResponseAgreeanceModalContainer,
     [SINGLE_PIN_GENERATE_REPORT_SUCCESS]: SinglePinGenerateReportSuccessModalContainer,
@@ -284,11 +335,12 @@ const MODAL_COMPONENTS = {
     [REMOVE_DRAWINGS_ACCESS]: RemoveUserDrawingsAccessModalContainer,
     [FORGOT_PASSWORD]: ForgotPasswordModalContainer,
     [ADD_CREDITS_TO_DRAWING]: AddCreditsToDrawingModal,
-    [GENERATE_SOS_CODE]: SOSGenerationModal,
     [CONFIRM_MOVE_HIERARCHY_TO_COMPANY]: SiteManagementConfirmMoveModalContainer,
     [ADMIN_CONFIRM_SET_IS_INVOICE_PAID]: ConfirmSetIsInvoicePaidModalContainer,
     [ADMIN_DELETE_INVOICE]: SuperAdminConfirmDeleteInvoiceModalContainer,
+    [ADMIN_RESTORE_INVOICE]: SuperAdminConfirmRestoreInvoiceModalContainer,
     [DELETE_INVOICE]: ConfirmDeleteInvoiceModalContainer,
+    [REQUEST_DELETE_INVOICE]: RequestDeleteInvoiceModal,
     [ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION]: AddMulitpleServicesToSubscriptionModalContainer,
     [GENERATE_QR_CODES]: GenerateQRCodesModalContainer,
     [ADMIN_ADD_MANUFACTURER]: AdminAddManufacturerModal,
@@ -325,6 +377,33 @@ const MODAL_COMPONENTS = {
     [ADD_NEW_BANNER_NOTIFICATION]: AddBannerNotificationModal,
     [EDIT_BANNER_NOTIFICATION]: EditBannerNotificationModal,
     [UPDATE_REPORT_LAYOUT]: UpdateReportLayoutModal,
+    [CONFIRM_TWO_FACTOR]: ConfirmTwoFactorModal,
+    [RECOVER_USER]: RecoverUserModal,
+    [REACTIVATE_USER]: ReactivateUserModal,
+    [DISABLE_USER]: DisableUserModal,
+    [ENABLE_USER]: EnableUserModal,
+    [RESEND_INVITE]: ResendInviteModal,
+    [ADD_DEMO_ACCESS_CODES]: AddDemoAccessCodesModal,
+    [EDIT_DEMO_ACCESS_CODES]: EditDemoAccessCodesModal,
+    [DELETE_DEMO_ACCESS_CODES]: DeleteDemoAccessCodesModal,
+    [ENTER_DEMO_ACCESS_CODES]: EnterDemoFullSiteModal,
+    [ADMIN_EDIT_COMPANY_OWNER]: EditCompanyOwnerModalContainer,
+    [CONFIRM_EMAIL]: ConfirmEmailModal,
+    [USER_NEW_DOCUMENT]: NewUserDocumentModal,
+    [GENERATE_TIMESHEET_REPORT]: GenerateTimesheetReportModal,
+    [EXPANDED_MEDIA]: ExpandedMediaModal,
+    [EDIT_FREE_CREDIT]: EditFreeCreditModal,
+    [UPLOAD_LIBRARY_DOCUMENT]: CreateDocumentModal,
+    [SOFT_DELETE_LIBRARY_DOCUMENT]: ConfirmDeleteModal,
+    [HARD_DELETE_LIBRARY_DOCUMENT]: ConfirmDeleteModal,
+    [CREATE_LIBRARY_FOLDER]: CreateDocumentFolderModal,
+    [EDIT_LIBRARY_ITEMS]: EditDocumentItemsModal,
+    [RESTORE_LIBRARY_DOCUMENTS]: ConfirmSubmitModal,
+    [SELECT_DOCUMENT_LIBRARY_ITEM]: SelectDocumentLibraryItemModal,
+    [CREATE_PIN_TASK]: CreatePinTaskModal,
+    [EDIT_PIN_TASK]: EditPinTaskModal,
+    [EDIT_PIN_TASK_SERIES]: EditPinTaskSeriesModal,
+    [FETCH_PIN_TASK]: ViewPinTaskModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

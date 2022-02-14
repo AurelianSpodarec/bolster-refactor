@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
+import _ from 'lodash';
 
-import { convertArrToObj, isObjEmpty } from 'helpers/generic';
+import { convertArrToObj, isDifferent, isObjEmpty } from 'helpers/generic';
 import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
@@ -17,7 +18,7 @@ import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-
+import fetchZonesForReportByDrawingID from 'actions/companyAdmin/zones/async/fetchZonesForReportByDrawingID';
 class LevelsFilterContainer extends Component {
     render() {
         const {
@@ -28,55 +29,110 @@ class LevelsFilterContainer extends Component {
             drawings,
             hierarchy,
             isFetching,
+            formatArrForDropdown,
         } = this.props;
 
-        const sitesOptions = this._formatArrForDropdown(sites);
-        const buildingOptions = this._formatArrForDropdown(buildings);
-        const floorOptions = this._formatArrForDropdown(floors);
-        const drawingOptions = this._formatArrForDropdown(drawings);
+        // Sort based on sort key
+        const sortedSites = Object.values(sites).sort((a, b) => a.sort - b.sort);
+        const sortedBuildings = Object.values(buildings).sort((a, b) => a.sort - b.sort);
+        const sortedFloors = Object.values(floors).sort((a, b) => a.sort - b.sort);
+        const sortedDrawings = Object.values(drawings).sort((a, b) => a.sort - b.sort);
+
+        const sitesOptions = formatArrForDropdown(sortedSites);
+        const buildingOptions = formatArrForDropdown(sortedBuildings);
+        const floorOptions = formatArrForDropdown(sortedFloors);
+        const drawingOptions = formatArrForDropdown(sortedDrawings);
+
         return (
             <LevelFilters
                 handleChange={this.handleChange}
                 siteOptions={Object.values(sitesOptions)}
-                selectedSite={sitesOptions[siteID]}
+                selectedSite={siteID}
                 buildingOptions={Object.values(buildingOptions)}
-                selectedBuilding={buildingOptions[buildingID]}
-                floorOptions={Object.values(floorOptions)}
-                selectedFloor={floorOptions[floorID]}
+                selectedBuilding={buildingID}
+                floorOptions={floorOptions}
+                selectedFloor={floorID}
                 drawingOptions={Object.values(drawingOptions)}
-                selectedDrawing={drawingOptions[drawingID]}
+                selectedDrawing={drawingID}
                 hierarchy={hierarchy}
                 isFetching={isFetching}
             />
         );
     }
 
-    updateDrawing = (value = null) => {
+    updateDrawing = (value = []) => {
         const { handleChange } = this.props;
 
         return handleChange('drawingID', value);
     };
 
-    updateFloor = (value = null) => {
-        const { handleChange } = this.props;
+    updateFloor = (value = []) => {
+        const {
+            handleChange,
+            filters: { drawingID },
+            drawings,
+        } = this.props;
+        let updatedDrawingIDs = [];
 
-        return this.updateDrawing().then(() => handleChange('floorID', value));
+        if (drawingID) {
+            updatedDrawingIDs = this.getUpdatedIDs(value, drawingID, drawings, 'floorID');
+        }
+
+        return this.updateDrawing(updatedDrawingIDs).then(() => handleChange('floorID', value));
     };
 
-    updateBuilding = (value = null) => {
-        const { handleChange } = this.props;
+    updateBuilding = (value = []) => {
+        const {
+            handleChange,
+            filters: { floorID },
+            floors,
+        } = this.props;
+        let updatedFloorIDs = [];
 
-        return this.updateFloor().then(() => handleChange('buildingID', value));
+        if (floorID.length) {
+            updatedFloorIDs = this.getUpdatedIDs(value, floorID, floors, 'buildingID');
+        }
+
+        return this.updateFloor(updatedFloorIDs).then(() => handleChange('buildingID', value));
     };
 
-    updateSite = (value = null) => {
-        const { handleChange } = this.props;
+    updateSite = (value = []) => {
+        const {
+            handleChange,
+            filters: { buildingID },
+            buildings,
+        } = this.props;
+        let updatedBuildingIDs = [];
 
-        return this.updateBuilding().then(() => handleChange('siteID', value));
+        if (buildingID.length) {
+            updatedBuildingIDs = this.getUpdatedIDs(value, buildingID, buildings, 'siteID');
+        }
+
+        return this.updateBuilding(updatedBuildingIDs).then(() => handleChange('siteID', value));
     };
 
-    handleChange = (name, value, mount = false, shouldPostFilters = true) => {
-        const { postFilters, shouldConfirm, showModal, hideModal } = this.props;
+    getUpdatedIDs = (value, unfilteredIDs, hierarchyArray, keyToCheck) => {
+        const convertedHierarchyObj = convertArrToObj(hierarchyArray);
+
+        const filteredFloors = unfilteredIDs.reduce((acc, id) => {
+            acc.push(convertedHierarchyObj[id]);
+
+            return acc;
+        }, []);
+
+        const updatedFloorIDs = filteredFloors.reduce((acc, floor) => {
+            value.forEach(id => {
+                if (+id === +floor[keyToCheck]) acc.push(floor.id);
+            });
+
+            return acc;
+        }, []);
+
+        return updatedFloorIDs;
+    };
+
+    handleChange = (name, value) => {
+        const { shouldConfirm, showModal, hideModal } = this.props;
         const updateMethods = {
             drawingID: this.updateDrawing,
             floorID: this.updateFloor,
@@ -84,30 +140,18 @@ class LevelsFilterContainer extends Component {
             siteID: this.updateSite,
         };
         const update = updateMethods[name];
-        const postFiltersIfNeeded = () => shouldPostFilters && postFilters();
 
-        if (shouldConfirm && !mount) {
+        if (shouldConfirm) {
             const handleSubmit = () => {
                 hideModal();
-                return update(value).then(postFiltersIfNeeded);
+                return update(value);
             };
             const message = 'Changing this will reset your advanced filters options, continue?';
             // * confirm and then do this:
             showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
         } else {
-            return update(value).then(postFiltersIfNeeded);
+            return update(value);
         }
-    };
-
-    _formatArrForDropdown = arr => {
-        const options = arr
-            .filter(val => val)
-            .map(({ name, id }) => ({
-                value: id,
-                text: name,
-            }));
-
-        return convertArrToObj(options, 'value');
     };
 
     componentDidMount = () => {
@@ -121,16 +165,16 @@ class LevelsFilterContainer extends Component {
 
         // prefill on hierarchy single page advanced reports
         if (hierarchy === HIERARCHY_IDS.SITE) {
-            this.handleChange('siteID', hierarchyID, true);
+            this.handleChange('siteID', [+hierarchyID], true);
             this.handlePrefillSite(hierarchyID);
         } else if (hierarchy === HIERARCHY_IDS.BUILDING) {
-            this.handleChange('buildingID', hierarchyID, true);
+            this.handleChange('buildingID', [+hierarchyID], true);
             this.handlePrefillBuilding(hierarchyID);
         } else if (hierarchy === HIERARCHY_IDS.FLOOR) {
-            this.handleChange('floorID', hierarchyID, true);
+            this.handleChange('floorID', [+hierarchyID], true);
             this.handlePrefillFloor(hierarchyID);
         } else if (hierarchy === HIERARCHY_IDS.DRAWING) {
-            this.handleChange('drawingID', hierarchyID, true);
+            this.handleChange('drawingID', [+hierarchyID], true);
             this.handlePrefillDrawing(hierarchyID);
         }
 
@@ -143,10 +187,10 @@ class LevelsFilterContainer extends Component {
         if (locationState && locationState.drawingID) {
             const { siteID, buildingID, floorID, drawingID } = locationState;
 
-            this.handleChange('siteID', siteID, true, false);
-            this.handleChange('buildingID', buildingID, true, false);
-            this.handleChange('floorID', floorID, true, false);
-            this.handleChange('drawingID', drawingID, true);
+            this.handleChange('siteID', [+siteID], true, false);
+            this.handleChange('buildingID', [+buildingID], true, false);
+            this.handleChange('floorID', [+floorID], true, false);
+            this.handleChange('drawingID', [+drawingID], true);
 
             this.handlePrefillSite(siteID);
             this.handlePrefillBuilding(buildingID);
@@ -157,23 +201,28 @@ class LevelsFilterContainer extends Component {
 
     componentDidUpdate = ({
         customFilters: { pins: prevPins = [] },
-        filters: { siteID: prevSiteID, companyUserIDs: prevCompanyUserIDs = [] },
+        filters: {
+            siteID: prevSiteID,
+            companyUserIDs: prevCompanyUserIDs = [],
+            drawingID: prevDrawingID,
+        },
     }) => {
         const {
             customFilters: { pins = [] },
-            filters: { siteID, companyUserIDs = [] },
+            filters: { siteID, companyUserIDs = [], drawingID },
             handleChange,
             updateReportFilter,
-            postFilters,
             removeFieldError,
+            fetchZonesForReportByDrawingID,
         } = this.props;
-        if (pins.length !== prevPins.length) {
-            handleChange(
-                'pinIDs',
-                pins.map(({ id }) => id),
-            );
+
+        const prevPinIDs = prevPins.map(pin => pin.id);
+        const pinIDs = pins.map(pin => pin.id);
+
+        if (isDifferent(pinIDs, prevPinIDs)) {
+            handleChange('pinIDs', pinIDs);
         }
-        if (siteID !== prevSiteID || companyUserIDs !== prevCompanyUserIDs) {
+        if (!_.isEqual(siteID, prevSiteID) || !_.isEqual(companyUserIDs, prevCompanyUserIDs)) {
             let value = null;
 
             if (!siteID && !companyUserIDs.length) {
@@ -186,8 +235,14 @@ class LevelsFilterContainer extends Component {
             this.setState({
                 initialLoad: false,
             });
+            updateReportFilter('hierarchyType', value);
+        }
 
-            updateReportFilter('hierarchyType', value).then(postFilters);
+        if (!_.isEqual(drawingID, prevDrawingID)) {
+            if (drawingID.length > prevDrawingID.length) {
+                const diffID = drawingID.filter(id => !prevDrawingID.includes(id))[0];
+                fetchZonesForReportByDrawingID(diffID);
+            }
         }
     };
 
@@ -195,29 +250,31 @@ class LevelsFilterContainer extends Component {
 
     handlePrefillSite = siteID => {
         const { handleChange } = this.props;
-        handleChange('siteID', siteID);
+        handleChange('siteID', [+siteID]);
         fetchSingleSite(siteID);
     };
     handlePrefillBuilding = buildingID => {
         const { handleChange, fetchSingleBuilding } = this.props;
-        handleChange('buildingID', buildingID);
+        handleChange('buildingID', [+buildingID]);
         fetchSingleBuilding(buildingID).then(({ payload: { siteID } }) =>
             this.handlePrefillSite(siteID),
         );
     };
     handlePrefillFloor = floorID => {
         const { handleChange, fetchSingleFloor } = this.props;
-        handleChange('floorID', floorID);
+        handleChange('floorID', [+floorID]);
         fetchSingleFloor(floorID).then(({ payload: { buildingID } }) =>
             this.handlePrefillBuilding(buildingID),
         );
     };
     handlePrefillDrawing = drawingID => {
         const { handleChange, fetchSingleDrawing } = this.props;
-        handleChange('drawingID', drawingID);
-        fetchSingleDrawing(drawingID).then(({ payload: { floorID } }) =>
-            this.handlePrefillFloor(floorID),
-        );
+        if (drawingID) {
+            handleChange('drawingID', [+drawingID]);
+            fetchSingleDrawing(drawingID).then(({ payload: { floorID } }) =>
+                this.handlePrefillFloor(floorID),
+            );
+        }
     };
 
     validateDates = () => {
@@ -291,6 +348,7 @@ const mapDispatchToProps = {
     showModal,
     hideModal,
     removeFieldError,
+    fetchZonesForReportByDrawingID,
 };
 
 export default withUpdateOnChange(

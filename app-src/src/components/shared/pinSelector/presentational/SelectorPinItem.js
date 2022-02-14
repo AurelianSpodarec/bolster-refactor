@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PinSelectionText from './PinSelectionText';
+
 const SelectorPinItem = ({
     pin,
     handlePinClick,
@@ -7,7 +9,7 @@ const SelectorPinItem = ({
     handleMouseDown,
     handleMouseUp,
     clicking,
-    pinsList
+    pinsList,
 }) => (
     <div
         // onClick={e => handlePinClick(e, pin.value)}
@@ -19,7 +21,7 @@ const SelectorPinItem = ({
         onMouseUp={handleMouseUp}
         onMouseOver={clicking ? e => handlePinClick(e, pin.value) : null}
     >
-        {pin.text}
+        <PinSelectionText pinID={pin.value} pinCode={pin.text} />
     </div>
 );
 

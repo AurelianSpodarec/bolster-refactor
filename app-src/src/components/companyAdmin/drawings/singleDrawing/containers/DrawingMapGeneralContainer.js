@@ -22,6 +22,8 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import setZoneAddMode from 'actions/companyAdmin/zones/sync/setZoneAddMode';
 import setZonesOpacity from 'actions/companyAdmin/zones/sync/setZonesOpacity';
+import togglePinIconView from 'actions/companyAdmin/pins/sync/togglePinIconView';
+import fetchAllTemplates from 'actions/companyAdmin/templates/async/fetchAllTemplates';
 import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
 import DrawingDetailsContainer from './DrawingDetailsContainer';
 import FurtherFiltrationContainer from 'components/companyAdmin/reports/createReport/components/containers/FurtherFiltrationContainer';
@@ -37,7 +39,6 @@ const { ADD, DELETE, EXCLUDE } = RECTANGLE_MODES;
 const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 
 // ! The pin selector code is repeated in the filtermapcontainer component
-// todo tidy this and maybe make them use the same component or
 // use smaller generic components within
 
 class DrawingMapGeneralContainer extends Component {
@@ -78,6 +79,8 @@ class DrawingMapGeneralContainer extends Component {
             isAddingZone,
             zonesOpacity,
             zones,
+            pinViewMode,
+            togglePinIconView,
         } = this.props;
         const position = [centerLat, centerLng];
         const addPinPosition = [addPinLat, addPinLng];
@@ -145,6 +148,8 @@ class DrawingMapGeneralContainer extends Component {
                         handleZoomChange={this.handleZoomChange}
                         curZoom={curZoom}
                         drawingNotStarted={drawingNotStarted}
+                        pinViewMode={pinViewMode}
+                        togglePinIconView={togglePinIconView}
                     />
                 </BlockContainer>
                 {!drawingNotStarted && (
@@ -162,14 +167,13 @@ class DrawingMapGeneralContainer extends Component {
         const {
             drawing = {},
             postFilters,
-            getTemplateOptions,
             updateReportFilter,
-            match,
             fetchSingleDrawing,
             pinsFromAPI = [],
             handleChange,
             objectUsers,
             companyUserID,
+            drawingID,
         } = this.props;
         if (objectUsers && objectUsers[companyUserID]) {
             this.setState({
@@ -179,15 +183,12 @@ class DrawingMapGeneralContainer extends Component {
         const pinIDs = pinsFromAPI.map(({ id }) => id);
         handleChange('pinIDs', pinIDs);
         if (drawing.siteID) {
-            handleChange('siteID', String(drawing.siteID));
-            handleChange('buildingID', String(drawing.buildingID));
-            handleChange('floorID', String(drawing.floorID));
+            handleChange('siteID', [drawing.siteID]);
+            handleChange('buildingID', [drawing.buildingID]);
+            handleChange('floorID', [drawing.floorID]);
         }
 
-        updateReportFilter('drawingID', match.params.id).then(() => {
-            postFilters();
-            getTemplateOptions();
-        });
+        updateReportFilter('drawingID', [+drawingID]);
         if (drawing.isFloorplanUpdating) {
             this._floorplanInterval = setInterval(() => {
                 fetchSingleDrawing(drawing.id);
@@ -243,18 +244,14 @@ class DrawingMapGeneralContainer extends Component {
             handleChange('pinIDs', pinIDs);
         }
 
-        // pin selector stuff
-        if (rectangles.length !== prevRectangles.length) {
-            postFilters();
-        }
         if (furtherFiltrationOption !== prevOption) {
             removeAllRectangles();
         }
 
         if (drawing.siteID && !prevDrawing.siteID) {
-            handleChange('siteID', String(drawing.siteID));
-            handleChange('buildingID', String(drawing.buildingID));
-            handleChange('floorID', String(drawing.floorID));
+            handleChange('siteID', [+drawing.siteID]);
+            handleChange('buildingID', [+drawing.buildingID]);
+            handleChange('floorID', [+drawing.floorID]);
         }
 
         if (objectUsers && objectUsers[companyUserID] && !prevUsers[companyUserID]) {
@@ -279,11 +276,6 @@ class DrawingMapGeneralContainer extends Component {
 
     updateCurTooltip = id => {
         this.setState({ currentTooltip: id });
-    };
-
-    handleChangeFilter = (name, val) => {
-        const { handleChange, postFilters } = this.props;
-        handleChange(name, val).then(postFilters);
     };
 
     componentWillUnmount = () => clearInterval(this._floorplanInterval);
@@ -320,7 +312,7 @@ class DrawingMapGeneralContainer extends Component {
 
     handleDateChange = (date, name) => {
         const { handleChange, postFilters } = this.props;
-        handleChange(name, date).then(postFilters);
+        handleChange(name, date);
     };
 
     toggleAddMode = () => {
@@ -441,7 +433,7 @@ class DrawingMapGeneralContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            pinsReducer: { pins, isFetching, error },
+            pinsReducer: { pins, isFetching, error, pinViewMode },
             servicesReducer: { services },
             companyUsersReducer: { users },
             drawingsReducer: { drawings, postSuccess },
@@ -486,6 +478,7 @@ const mapStateToProps = (
     zoneFormCoordinates,
     isModified,
     zones,
+    pinViewMode,
 });
 
 const mapDispatchToProps = {
@@ -501,6 +494,8 @@ const mapDispatchToProps = {
     updateFurtherFiltrationOption,
     setZoneAddMode,
     setZonesOpacity,
+    togglePinIconView,
+    fetchAllTemplates,
 };
 
 export default withRouter(

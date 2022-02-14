@@ -6,6 +6,9 @@ import {
     FETCH_DRAWING_ZONES_REQUEST,
     FETCH_DRAWING_ZONES_SUCCESS,
     FETCH_DRAWING_ZONES_FAILURE,
+    FETCH_DRAWING_ZONES_FOR_REPORT_REQUEST,
+    FETCH_DRAWING_ZONES_FOR_REPORT_SUCCESS,
+    FETCH_DRAWING_ZONES_FOR_REPORT_FAILURE,
     SET_ZONE_ADD_MODE,
     SET_ZONE_FORM_COORDINATES,
     SET_ZONES_OPACITY,
@@ -58,9 +61,12 @@ function isAddModeReducer(state = false, action) {
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_DRAWING_ZONES_REQUEST:
+        case FETCH_DRAWING_ZONES_FOR_REPORT_REQUEST:
             return true;
         case FETCH_DRAWING_ZONES_SUCCESS:
         case FETCH_DRAWING_ZONES_FAILURE:
+        case FETCH_DRAWING_ZONES_FOR_REPORT_SUCCESS:
+        case FETCH_DRAWING_ZONES_FOR_REPORT_FAILURE:
             return false;
         default:
             return state;
@@ -71,12 +77,15 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case CREATE_DRAWING_ZONE_REQUEST:
         case FETCH_DRAWING_ZONES_REQUEST:
+        case FETCH_DRAWING_ZONES_FOR_REPORT_REQUEST:
         case DELETE_DRAWING_ZONE_REQUEST:
         case EDIT_DRAWING_ZONE_REQUEST:
             return null;
         case CREATE_DRAWING_ZONE_FAILURE:
         case FETCH_ALL_APPROVED_COMPANIES_FAILURE:
         case DELETE_BUILDING_FAILURE:
+        case FETCH_DRAWING_ZONES_FAILURE:
+        case FETCH_DRAWING_ZONES_FOR_REPORT_FAILURE:
             return action.error;
         default:
             return state;
@@ -101,6 +110,8 @@ function zonesReducer(state = {}, action) {
         case FETCH_DRAWING_ZONES_SUCCESS: {
             return convertArrToObj(action.payload.map(formatZone));
         }
+        case FETCH_DRAWING_ZONES_FOR_REPORT_SUCCESS:
+            return { ...state, ...convertArrToObj(action.payload.map(formatZone)) };
         case CREATE_DRAWING_ZONE_SUCCESS:
         case EDIT_DRAWING_ZONE_SUCCESS:
             return {

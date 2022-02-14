@@ -20,6 +20,9 @@ import {
     SA_DELETE_INVOICE_FAILURE,
     SA_DELETE_INVOICE_SUCCESS,
     SA_DELETE_INVOICE_REQUEST,
+    SA_RESTORE_INVOICE_FAILURE,
+    SA_RESTORE_INVOICE_SUCCESS,
+    SA_RESTORE_INVOICE_REQUEST,
     SA_FETCH_INVOICES_COUNT_SUCCESS,
     SA_FETCH_INVOICES_BY_SEARCH_SUCCESS,
     SA_FETCH_INVOICES_BY_SEARCH_FAILURE,
@@ -29,7 +32,7 @@ import {
     ADD_INVOICE_COMMENT_REQUEST,
     ADD_INVOICE_COMMENT_SUCCESS,
 } from 'constants/actionTypes/superAdminInvoices';
-import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 import { HIDE_MODAL } from 'constants/actionTypes/generic';
 
 export default combineReducers({
@@ -37,7 +40,9 @@ export default combineReducers({
     invoiceItems: invoiceItemsReducer,
     isFetching: isFetchingReducer,
     isDeleting: isDeletingReducer,
+    isRestoring: isRestoringReducer,
     deleteSuccess: deleteSuccessReducer,
+    restoreSuccess: restoreSuccessReducer,
     error: errorReducer,
     postSuccess: postSuccessReducer,
     filters: filtersReducer,
@@ -78,6 +83,18 @@ function isDeletingReducer(state = false, action) {
     }
 }
 
+function isRestoringReducer(state = false, action) {
+    switch (action.type) {
+        case SA_RESTORE_INVOICE_REQUEST:
+            return true;
+        case SA_RESTORE_INVOICE_SUCCESS:
+        case SA_RESTORE_INVOICE_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
 function errorReducer(state = null, action) {
     switch (action.type) {
         case SA_FETCH_ALL_INVOICES_REQUEST:
@@ -86,6 +103,7 @@ function errorReducer(state = null, action) {
         case SA_MAKE_INVOICE_FREE_REQUEST:
         case SA_SET_IS_INVOICE_PAID_REQUEST:
         case SA_DELETE_INVOICE_REQUEST:
+        case SA_RESTORE_INVOICE_REQUEST:
             return null;
 
         case SA_FETCH_ALL_INVOICES_FAILURE:
@@ -94,6 +112,7 @@ function errorReducer(state = null, action) {
         case ADMIN_FETCH_COMPANY_INVOICE_ITEMS_FAILURE:
         case SA_SET_IS_INVOICE_PAID_FAILURE:
         case SA_DELETE_INVOICE_FAILURE:
+        case SA_RESTORE_INVOICE_FAILURE:
         case SA_FETCH_INVOICES_BY_SEARCH_FAILURE:
             return action.error;
         default:
@@ -126,6 +145,18 @@ function deleteSuccessReducer(state = false, action) {
     }
 }
 
+function restoreSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case SA_RESTORE_INVOICE_REQUEST:
+        case HIDE_MODAL:
+            return false;
+        case SA_RESTORE_INVOICE_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
 function invoicesReducer(state = {}, action) {
     switch (action.type) {
         case SA_RESET_INVOICES:
@@ -136,8 +167,13 @@ function invoicesReducer(state = {}, action) {
             return { ...state, ...convertArrToObj(action.payload) };
         case SA_FETCH_INVOICES_BY_SEARCH_SUCCESS:
             return convertArrToObj(action.payload.invoices);
-        case SA_DELETE_INVOICE_SUCCESS:
-            return removeObjItem(state, action.id);
+        // case SA_DELETE_INVOICE_SUCCESS:
+        //     return removeObjItem(state, action.id);
+        case SA_SET_IS_INVOICE_PAID_SUCCESS:
+        case SA_MAKE_INVOICE_FREE_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
+        case SA_RESTORE_INVOICE_SUCCESS:
+            return { ...state, [action.invoice.id]: action.invoice };
         case ADD_INVOICE_COMMENT_SUCCESS:
             return { ...state, [action.data.id]: action.data };
         default:

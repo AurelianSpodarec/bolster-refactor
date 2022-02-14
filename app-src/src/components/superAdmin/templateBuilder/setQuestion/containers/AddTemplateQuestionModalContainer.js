@@ -20,7 +20,11 @@ const AddTemplateQuestionModalContainer = ({
     prereqOptions,
     prereqValueOptions,
     showPrefillOptions,
+    dropdownOptions,
+    template,
 }) => {
+    const { serviceID } = template;
+
     return (
         <TemplateQuestionFormModal
             action="Add"
@@ -38,6 +42,8 @@ const AddTemplateQuestionModalContainer = ({
             handlePrefillStatusValueChange={handlePrefillStatusValueChange}
             showPrefillOptions={showPrefillOptions}
             handlePrereqOptionsChange={handlePrereqOptionsChange}
+            dropdownOptions={dropdownOptions}
+            serviceID={serviceID}
         />
     );
 

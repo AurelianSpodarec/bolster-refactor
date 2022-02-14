@@ -4,13 +4,13 @@ import {
     FETCH_TEMPLATE_FOR_COMPANY_REQUEST,
     FETCH_TEMPLATE_FOR_COMPANY_SUCCESS,
     FETCH_TEMPLATE_FOR_COMPANY_FAILURE,
-    FETCH_TEMPLATE_FOR_COMPANY_NOT_FOUND
+    FETCH_TEMPLATE_FOR_COMPANY_NOT_FOUND,
 } from 'constants/actionTypes/templateBuilder';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 export const fetchTemplateRequest = () => ({
-    type: FETCH_TEMPLATE_FOR_COMPANY_REQUEST
+    type: FETCH_TEMPLATE_FOR_COMPANY_REQUEST,
 });
 
 export const fetchTemplateSuccess = ({
@@ -18,23 +18,23 @@ export const fetchTemplateSuccess = ({
     sections,
     questions,
     labelFields,
-    statusOptions
+    statusOptions,
 }) => ({
     type: FETCH_TEMPLATE_FOR_COMPANY_SUCCESS,
     template,
     sections,
     questions,
     labelFields,
-    statusOptions
+    statusOptions,
 });
 
 export const fetchTemplateFailure = error => ({
     type: FETCH_TEMPLATE_FOR_COMPANY_FAILURE,
-    error
+    error,
 });
 
 export const fetchTemplateNotFound = () => ({
-    type: FETCH_TEMPLATE_FOR_COMPANY_NOT_FOUND
+    type: FETCH_TEMPLATE_FOR_COMPANY_NOT_FOUND,
 });
 
 export default (companyID, uuid) => dispatch => {

@@ -9,14 +9,14 @@ import { withRouter } from 'react-router-dom';
 
 import Field from 'components/shared/generic/form/presentational/Field';
 import resetPinAnswer from 'actions/companyAdmin/drawings/sync/resetPinAnswer';
-import { isEmpty } from 'helpers/generic';
+import { deepEquals, isEmpty } from 'helpers/generic';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
 import { fieldTypes, getDefaultValue } from '../fieldTypes/allFieldTypes';
 import { QUESTION_TYPE_VALUES, QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
-import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
+
 const {
     SINGLE_LINE,
     SINGLE_PHOTO,
@@ -56,6 +56,7 @@ class AddPinQuestionRoute extends Component {
             isHistory,
             drawing,
             companySettings,
+            companyID,
         } = this.props;
 
         const showPreReq = this.checkIfShouldShowByPreReq();
@@ -101,6 +102,7 @@ class AddPinQuestionRoute extends Component {
                         originalDropdownMultiAns={this.state.originalDropdownMultiAns}
                         isManufacturingEnabledForDrawing={isManufacturingEnabledForDrawing}
                         defaultDropdownSorting={companySettings.defaultDropdownSorting}
+                        companyID={companyID}
                     />
                 </Field>
             );
@@ -138,10 +140,10 @@ class AddPinQuestionRoute extends Component {
         if (!preReqQuestions.length) {
             return true;
         }
-        for (let i = 0; i < preReqQuestions.length; i++) {
-            const preReqQuestion = preReqQuestions[i];
+
+        return preReqQuestions.every(preReqQuestion => {
             const preReqType = `${preReqQuestion.type}`;
-            const prereqVals = question.prerequisiteQuestionValue.toLowerCase().split(',');
+            const prereqVals = question.prerequisiteQuestionValue.split(',');
             let preReqAnswer = answers[preReqQuestion.id];
 
             if (preReqType === STATUS && prereqVals.includes(`${status}`)) {
@@ -149,7 +151,7 @@ class AddPinQuestionRoute extends Component {
             }
 
             if (!preReqAnswer) {
-                continue;
+                return false;
             }
 
             if ([DROPDOWN, RADIO].includes(preReqType)) {
@@ -161,17 +163,19 @@ class AddPinQuestionRoute extends Component {
                 if (selectedOption !== undefined) {
                     preReqAnswer = selectedOption.text;
                 } else {
-                    continue;
+                    return false;
                 }
             }
 
             if (preReqType === MULTI_DROPDOWN) {
                 if (!preReqAnswer) {
-                    continue;
+                    return false;
                 }
 
                 const retArray = [];
-
+                if (!Array.isArray(preReqAnswer)) {
+                    preReqAnswer = preReqAnswer.toString().split(',');
+                }
                 preReqAnswer.forEach(curAnswer => {
                     const selectedOption = preReqQuestion.options.find(
                         option => option.id === curAnswer,
@@ -192,7 +196,7 @@ class AddPinQuestionRoute extends Component {
                 if (selectedOption !== undefined) {
                     preReqAnswer = selectedOption.name;
                 } else {
-                    continue;
+                    return false;
                 }
             }
 
@@ -206,20 +210,36 @@ class AddPinQuestionRoute extends Component {
                 if (selectedOptions.length > 0) {
                     preReqAnswer = selectedOptions;
                 } else {
-                    continue;
+                    return false;
                 }
             }
 
             if (Array.isArray(preReqAnswer)) {
-                if (preReqAnswer.some(answer => prereqVals.includes(`${answer}`.toLowerCase()))) {
-                    return true;
-                }
+                return preReqAnswer.some(answer =>
+                    prereqVals.some(val => {
+                        if (!val.includes('#PREREQ_ID_')) {
+                            return val.toLowerCase() === `${answer}`.toLowerCase();
+                        }
+
+                        return (
+                            val.toLowerCase() ===
+                            `${answer}#PREREQ_ID_${preReqQuestion.id}`.toLowerCase()
+                        );
+                    }),
+                );
+            } else {
+                return prereqVals.some(val => {
+                    if (!val.includes('#PREREQ_ID_')) {
+                        return val.toLowerCase() === `${preReqAnswer}`.toLowerCase();
+                    }
+
+                    return (
+                        val.toLowerCase() ===
+                        `${preReqAnswer}#PREREQ_ID_${preReqQuestion.id}`.toLowerCase()
+                    );
+                });
             }
-            if (prereqVals.includes(`${preReqAnswer}`.toLowerCase())) {
-                return true;
-            }
-        }
-        return false;
+        });
     };
 
     componentDidMount = () => {
@@ -246,14 +266,17 @@ class AddPinQuestionRoute extends Component {
             template,
             areManufacturerOptionsIncluded,
             optionValues,
-            drawing,
         } = this.props;
 
         const isShowingFromPrereq = this.checkIfShouldShowByPreReq();
         const answer = answers[question.id];
         const answerName = `answer-${question.id}`;
 
-        if (!isShowingFromPrereq && answer) {
+        if (
+            !isShowingFromPrereq &&
+            !isEmpty(answer) &&
+            !deepEquals(answer, getDefaultValue(question))
+        ) {
             resetPinAnswer(question.id, getDefaultValue(question));
         }
 
@@ -350,13 +373,22 @@ class AddPinQuestionRoute extends Component {
     };
 
     handlePrefillOrReset = () => {
-        const { isSameTemplate, pinAnswersByGroupKey } = this.props;
+        const {
+            isSameTemplate,
+            pinAnswersByGroupKey,
+            cachedAnswers = {},
+            updateAddPinAnswer,
+            question,
+        } = this.props;
+        const cachedAnswer = cachedAnswers?.[question.id];
         const isAddPinHistory = !!pinAnswersByGroupKey;
 
         if (isSameTemplate && isAddPinHistory) {
             this.handlePrefillSameTemplateQuestion();
         } else if (isAddPinHistory) {
             this.handlePrefillDifferentTemplateQuestion();
+        } else if (!!cachedAnswer && question.isPrefill) {
+            updateAddPinAnswer(question.id, cachedAnswer);
         } else {
             this.handleResetAnswer();
         }
@@ -516,6 +548,9 @@ const mapStateToProps = (
         },
         shared: {
             fieldErrorsReducer: { fieldErrors },
+            decodeJWTReducer: {
+                jwtData: { companyID },
+            },
         },
     },
     { match: { params, url } },
@@ -539,6 +574,7 @@ const mapStateToProps = (
     history: histories[params.historyID] || {},
     historyID: params.historyID,
     companySettings,
+    companyID,
 });
 
 const mapDispatchToProps = {

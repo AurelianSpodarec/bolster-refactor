@@ -21,8 +21,7 @@ const DocumentsList = ({
                 {onMobile && <span className="mobile-table-heading">{headers[0]} / Link</span>}
                 <a
                     href={`${RAW_S3_STORAGE_URL}/${document.fileS3Key}`}
-                    rel="noopener norefferrer"
-                    // eslint-disable-next-line react/jsx-no-target-blank
+                    rel="noopener noreferrer"
                     target="_blank"
                     className="text-link"
                 >
@@ -58,7 +57,6 @@ const DocumentsList = ({
                             )}
                     </>
                 )}
-                {/* {clientControls && <a href={`${fileURL}`} target="_blank" className="button blue"></a>} */}
             </td>
         </tr>
     ));

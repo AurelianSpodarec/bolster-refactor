@@ -18,6 +18,7 @@ import {
 } from 'constants/companyAdmin/enums';
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
+import fetchAllCredits from 'actions/companyAdmin/credits/fetchAllCredits';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import editDrawing from 'actions/companyAdmin/drawings/async/editDrawing';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
@@ -25,6 +26,12 @@ import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldEr
 
 import EditDrawingModal from '../presentational/EditDrawingModal';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import {
+    createPreselectedItemOptionValuesList,
+    formatDropdownOptions,
+    getPreselectedItemTypes,
+} from 'helpers/itemTypes';
+import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
 
 class EditDrawingModalContainer extends Component {
     state = {
@@ -43,13 +50,17 @@ class EditDrawingModalContainer extends Component {
         areOptionsLoaded: false,
         showManufacturingOptions: true,
         manufacturingInheritedFrom: '',
+        showDropdownOptions: true,
+        isDropdownOptionsInherited: false,
+        setDropdownOptionsForHierarchy: false,
+        selectedDropdownOptions: [],
+        dropdownOptions: [],
         startDate: null,
     };
 
     render() {
-        const { drawing, filesUploading, hideModal, error } = this.props;
+        const { drawing, filesUploading, hideModal, error, drawingNotStarted } = this.props;
         const { areOptionsLoaded } = this.state;
-        const drawingNotStarted = moment(Date.now()).isBefore(drawing.startDate);
         return (
             <BlockContainer
                 isEmpty={!areOptionsLoaded}
@@ -67,6 +78,7 @@ class EditDrawingModalContainer extends Component {
                     handleSubmit={this.handleSubmit}
                     filesUploading={filesUploading}
                     handleShowManufacturingOptions={this.handleShowManufacturingOptions}
+                    handleShowDropdownOptions={this.handleShowDropdownOptions}
                     drawingNotStarted={drawingNotStarted}
                 />
             </BlockContainer>
@@ -74,7 +86,12 @@ class EditDrawingModalContainer extends Component {
     }
 
     componentDidMount = async () => {
-        const { drawing, fetchManufacturersByPinOptionType, fetchAllOptionValues } = this.props;
+        const {
+            drawing,
+            fetchManufacturersByPinOptionType,
+            fetchAllOptionValues,
+            fetchAllDropdownOptions,
+        } = this.props;
 
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before editing a floor
         const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
@@ -84,6 +101,7 @@ class EditDrawingModalContainer extends Component {
         const fn = function fetchManufacturers(pinOptionType) {
             return fetchManufacturersByPinOptionType(pinOptionType);
         };
+        await fetchAllDropdownOptions(2);
 
         const actions = pinOptionTypes.map(fn);
 
@@ -108,6 +126,8 @@ class EditDrawingModalContainer extends Component {
             optionValues,
             subscriptionServiceIDs,
             manufacturers,
+            dropdownOptions,
+            fetchAllCredits,
         } = this.props;
 
         if (prevProps.isFetching && !isFetching) {
@@ -122,6 +142,14 @@ class EditDrawingModalContainer extends Component {
                 manufacturingInheritedFrom: drawing.manufacturingInheritedFrom,
             };
 
+            const initialDropdownOptions = {
+                isDropdownOptionsInherited: drawing.isDropDownOptionsInherited,
+                setDropdownOptionsForHierarchy: drawing.isDropDownOptionsEnabled,
+                selectedDropdownOptions: [],
+                dropdownOptions: [],
+                isDropDownOptionsInheritedFrom: drawing.isDropDownOptionsInheritedFrom,
+            };
+
             initialOptions.optionValuesOptions = createOptionValuesList(
                 optionValues,
                 subscriptionServiceIDs,
@@ -131,12 +159,12 @@ class EditDrawingModalContainer extends Component {
             if (drawing.isManufacturingEnabled) {
                 // prefill options from drawing already saved
                 initialOptions.selectedOptionValues = drawing.optionValueIDs.map(id => String(id));
-
-                initialOptions.selectedManufacturerOptions = createHierarchyPreselectedManufacturersList(
+                const selectedOptions = createHierarchyPreselectedManufacturersList(
                     initialOptions.manufacturerOptions,
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
+                initialOptions.selectedManufacturerOptions = selectedOptions;
                 if (drawing.manufacturingInheritedFrom) {
                     this.setState({ showManufacturingOptions: false });
                 }
@@ -149,8 +177,18 @@ class EditDrawingModalContainer extends Component {
                     initialOptions.manufacturerOptions,
                 );
             }
+            //dropdown options
+            initialDropdownOptions.selectedDropdownOptions = drawing.dropDownOptionIDs
+                ? createPreselectedItemOptionValuesList(drawing.dropDownOptionIDs)
+                : getPreselectedItemTypes(dropdownOptions);
 
+            initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
+
+            if (drawing.isDropDownOptionsInheritedFrom) {
+                this.setState({ showDropdownOptions: false });
+            }
             this.setState(initialOptions);
+            this.setState(initialDropdownOptions);
         }
 
         if (!prevProps.postSuccess && postSuccess && filesUploaded) {
@@ -158,12 +196,14 @@ class EditDrawingModalContainer extends Component {
                 message:
                     'New floor plan successfully changed. It may take a few minutes before the updated floor plan is available to view, please check back later',
             });
+            fetchAllCredits();
         } else if (!prevProps.error && error) {
             showModal(ERROR_MODAL);
         } else if (!prevProps.postSuccess && postSuccess && !filesUploaded) {
             showModal(SUCCESS_MODAL, {
                 message: 'Drawing name successfully changed',
             });
+            fetchAllCredits();
         }
     };
 
@@ -185,6 +225,11 @@ class EditDrawingModalContainer extends Component {
     handleShowManufacturingOptions = () => {
         this.setState({ showManufacturingOptions: true });
     };
+
+    handleShowDropdownOptions = () => {
+        this.setState({ showDropdownOptions: true });
+    };
+
     handleSubmit = e => {
         e.preventDefault();
 
@@ -196,6 +241,9 @@ class EditDrawingModalContainer extends Component {
             dateToSend,
             setManufacturersForHierarchy,
             isManufacturingInherited,
+            isDropdownOptionsInherited,
+            setDropdownOptionsForHierarchy,
+            selectedDropdownOptions,
             startDate,
         } = this.state;
 
@@ -207,6 +255,7 @@ class EditDrawingModalContainer extends Component {
             totalCredits,
             addFieldError,
             showFieldErrors,
+            drawingNotStarted,
         } = this.props;
 
         const manufacturingEnabledOptions = isManufacturingInherited
@@ -216,24 +265,35 @@ class EditDrawingModalContainer extends Component {
                   optionValueIDs: removeUnusedManufacturerDefaults(this.state),
               };
 
-        let postBody = {};
+        const dropdownEnabledOptions = isDropdownOptionsInherited
+            ? {}
+            : {
+                  isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
+                  dropDownOptionIDs: selectedDropdownOptions,
+              };
+
+        let postBody = {
+            name,
+            file,
+            ...manufacturingEnabledOptions,
+            ...dropdownEnabledOptions,
+        };
 
         if (isAlertShowing) {
             postBody = {
-                name,
-                file,
+                ...postBody,
                 message,
                 dateToSend: moment(dateToSend).format(),
-                ...manufacturingEnabledOptions,
-            };
-        } else {
-            postBody = {
-                name,
-                file,
-                startDate: moment(startDate).format(),
-                ...manufacturingEnabledOptions,
             };
         }
+
+        if (drawingNotStarted) {
+            postBody = {
+                ...postBody,
+                startDate: startDate ? moment(startDate).format() : null,
+            };
+        }
+
         const hasFileUploaded = !filesUploading && filesUploaded;
         const hasNoCredits = totalCredits < 1;
         if (
@@ -250,31 +310,36 @@ class EditDrawingModalContainer extends Component {
     showErrorModal = () => this.props.showModal(ERROR_MODAL);
 }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        drawingsReducer: { drawingError, postSuccess },
-        creditsReducer: { credits },
-        companySettingsReducer: {
-            companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            buildingsReducer: { error: floorError, buildings },
+            drawingsReducer: { drawingError, postSuccess },
+            creditsReducer: { credits },
+            companySettingsReducer: {
+                companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
+            },
+            dropdownOptionsReducer: { dropdownOptions, isFetching: isFetchingDropdownOptions },
+            manufacturersReducer: {
+                manufacturers,
+                isFetching: isFetchingManufacturers,
+                error: manufacturersError,
+            },
+            manufacturersOptionValuesReducer: {
+                manufacturersOptionValues,
+                isFetching: isFetchingOptionValues,
+                error: optionValuesError,
+            },
+            subscriptionsReducer: {
+                subscriptions: { serviceIDs: subscriptionServiceIDs },
+            },
         },
-        manufacturersReducer: {
-            manufacturers,
-            isFetching: isFetchingManufacturers,
-            error: manufacturersError,
-        },
-        manufacturersOptionValuesReducer: {
-            manufacturersOptionValues,
-            isFetching: isFetchingOptionValues,
-            error: optionValuesError,
-        },
-        subscriptionsReducer: {
-            subscriptions: { serviceIDs: subscriptionServiceIDs },
+        shared: {
+            filesUploadingReducer: { filesUploading, filesUploaded },
         },
     },
-    shared: {
-        filesUploadingReducer: { filesUploading, filesUploaded },
-    },
-}) => {
+    { drawing },
+) => {
     const totalCredits = Object.values(credits).reduce((a, b) => a + b.quantity, 0);
 
     return {
@@ -283,12 +348,15 @@ const mapStateToProps = ({
         filesUploaded,
         totalCredits,
         isUsingBolsterLabels,
-        error: drawingError || manufacturersError || optionValuesError,
+        error: drawingError || manufacturersError || optionValuesError || floorError,
         manufacturers,
         optionValues: manufacturersOptionValues,
-        isFetching: isFetchingManufacturers || isFetchingOptionValues,
+        isFetching: isFetchingManufacturers || isFetchingOptionValues || isFetchingDropdownOptions,
         useManufacturingByDefault,
         subscriptionServiceIDs,
+        building: Object.values(buildings),
+        dropdownOptions: Object.values(dropdownOptions),
+        drawingNotStarted: moment(Date.now()).isBefore(drawing.startDate),
     };
 };
 
@@ -300,6 +368,8 @@ const mapDispatchToProps = {
     showFieldErrors,
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
+    fetchAllDropdownOptions,
+    fetchAllCredits,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditDrawingModalContainer);

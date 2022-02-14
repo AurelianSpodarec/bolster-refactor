@@ -38,6 +38,7 @@ const TemplateQuestionFormModal = ({
     handlePrefillStatusChange,
     handlePrefillStatusValueChange,
     showPrefillOptions,
+    serviceID,
     ...otherFields
 }) => {
     return (
@@ -94,6 +95,7 @@ const TemplateQuestionFormModal = ({
                 <SpecificFieldsRoute
                     questionType={questionType}
                     handleInputChange={handleInputChange}
+                    serviceID={serviceID}
                     {...otherFields}
                 />
 
@@ -149,7 +151,7 @@ const TemplateQuestionFormModal = ({
                         </Field>
 
                         {prefillStatuses.length > 0 &&
-                            questionType == CHECKBOX &&
+                            +questionType === CHECKBOX &&
                             prefillStatuses.map((prefillStatus, index) => (
                                 <Field
                                     name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}
@@ -166,7 +168,7 @@ const TemplateQuestionFormModal = ({
                             ))}
 
                         {prefillStatuses.length > 0 &&
-                            questionType != CHECKBOX &&
+                            +questionType !== CHECKBOX &&
                             prefillStatuses.map((prefillStatus, index) => (
                                 <Field
                                     name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}

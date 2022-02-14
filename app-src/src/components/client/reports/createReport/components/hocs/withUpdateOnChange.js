@@ -160,6 +160,8 @@ export default function (ProtectedComponent) {
                     companyUserIDs,
                     pinIDs,
                     floorplanPinScale,
+                    zoneIDs,
+                    zoneOpacity,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
@@ -190,7 +192,6 @@ export default function (ProtectedComponent) {
 
             let questionFilters = null;
             let selectedPinIDs = null;
-
             const { INDIVIDUAL_PINS, FILTERS } = FURTHER_FILTRATION_OPTIONS;
 
             switch (+furtherFiltrationOption) {
@@ -204,7 +205,6 @@ export default function (ProtectedComponent) {
                     questionFilters = fields.map(
                         ({ selectedQuestions, questionValues = [], selectedValues = [] }) => {
                             let values = questionValues.length ? questionValues : selectedValues;
-
                             return {
                                 questionGroupKeys: selectedQuestions,
                                 values,
@@ -244,12 +244,14 @@ export default function (ProtectedComponent) {
                 pinIDs: selectedPinIDs,
                 serviceID: serviceID || null,
                 templateID: templateID || null,
-                status: status || null,
+                status: status ? [status] : null,
                 questionFilters,
                 showHidden,
                 sortBy,
                 pinBoundingBoxes,
                 floorplanPinScale,
+                zoneIDs,
+                zoneOpacity,
             };
 
             return body;

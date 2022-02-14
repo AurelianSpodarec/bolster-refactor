@@ -8,8 +8,12 @@ const BlockHeading = ({
     children,
     headerClasses = '',
     subTitleClasses = '',
+    style = {},
 }) => (
-    <div className={`block-heading ${classes} size-lg-12 ${subTitle ? 'w-subtitle' : ''}`}>
+    <div
+        style={style}
+        className={`block-heading ${classes} size-lg-12 ${subTitle ? 'w-subtitle' : ''}`}
+    >
         {leftIcon && children}
         <h3 className={`heading heading-3 ${headerClasses}`}>{title}</h3>
         {!leftIcon && children}

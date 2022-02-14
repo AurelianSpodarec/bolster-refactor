@@ -12,6 +12,8 @@ const UserSyncDataTableContainer = ({
     isFetching,
     error,
     syncData,
+    companyID,
+    companies,
 }) => {
     const headers = [
         'Sync ID',
@@ -23,13 +25,16 @@ const UserSyncDataTableContainer = ({
         '# Pins Synced',
         '# Pin Histories Synced',
     ];
+
+    const { timeZone = {} } = companies[companyID];
+
     const prevProps = usePrevious({ error });
 
     const getLatestSyncs = useCallback(async () => {
         try {
             await fetchUserLatestSyncData({ id });
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }, []);
 
@@ -43,7 +48,14 @@ const UserSyncDataTableContainer = ({
         }
     }, [error, prevProps.error]);
 
-    return <UserSyncDataTable headers={headers} syncData={syncData} isFetching={isFetching} />;
+    return (
+        <UserSyncDataTable
+            headers={headers}
+            syncData={syncData}
+            isFetching={isFetching}
+            companyTimezone={timeZone}
+        />
+    );
 };
 
 const mapDispatchToProps = { fetchUserLatestSyncData };
@@ -51,10 +63,12 @@ const mapDispatchToProps = { fetchUserLatestSyncData };
 const mapStateToProps = ({
     superAdmin: {
         syncsReducer: { isFetching, error, syncData },
+        companiesReducer: { companies },
     },
 }) => ({
     isFetching,
     error,
     syncData,
+    companies,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(UserSyncDataTableContainer);

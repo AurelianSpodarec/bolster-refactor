@@ -4,6 +4,7 @@ const Tooltip = ({
     children,
     side = 'right',
     text,
+    htmlText,
     show,
     handleMouseOver,
     handleMouseOut,
@@ -18,7 +19,14 @@ const Tooltip = ({
         {show && (
             <div className={`tooltip ${side}`}>
                 <div className="tooltip-arrow" />
-                <div className="tooltip-label">{text}</div>
+                {htmlText ? (
+                    <div
+                        className="tooltip-label"
+                        dangerouslySetInnerHTML={{ __html: `${htmlText}` }}
+                    />
+                ) : (
+                    <div className="tooltip-label">{text}</div>
+                )}
             </div>
         )}
     </div>

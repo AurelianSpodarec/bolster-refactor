@@ -33,6 +33,7 @@ const BuyCreditsModal = ({
     handleAddCardSuccess,
     termsAgreed,
     isPosting,
+    shouldReceiveFreeCredit,
 }) => {
     if (addCardVisible)
         return <AddCardFormContainer close={hideAddCard} onSuccess={handleAddCardSuccess} />;
@@ -86,9 +87,11 @@ const BuyCreditsModal = ({
                     </>
                 )}
                 <Field name="Credits to buy" sizeClasses="size-lg-12" required>
-                    <p className="field-info">
-                        If you buy credits in blocks of 10 you will receive 1 free credit.
-                    </p>
+                    {shouldReceiveFreeCredit && (
+                        <p className="field-info">
+                            If you buy credits in blocks of 10 you will receive 1 free credit.
+                        </p>
+                    )}
                     <TextInputContainer
                         name="creditsToBuy"
                         value={creditsToBuy}

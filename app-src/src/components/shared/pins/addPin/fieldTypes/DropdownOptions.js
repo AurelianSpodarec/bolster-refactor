@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Select from 'components/shared/generic/form/presentational/Select';
 import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
 import { getSortedDropdownOptions } from 'helpers/addPin';
 
 const DropdownOptions = ({
     isRequired,
-    question: { id, optionType },
+    question: { id, optionType, defaultValue },
     dropdownOptions,
     answers,
     handleChange,
@@ -13,19 +13,31 @@ const DropdownOptions = ({
     originalDropdownAns,
     isManufacturingEnabledForDrawing,
     defaultDropdownSorting,
+    companyID,
 }) => {
     let isManufacturingEnabledForType = false;
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
     // ! this needs to be kept as an option.
     let formattedOpts = [];
 
+    useEffect(() => {
+        if (!answers[id] && !edit && defaultValue) {
+            handleChange(null, defaultValue);
+        }
+    }, []);
+
     const filteredOptions = dropdownOptions.filter(option => {
+        if (option.companyID !== companyID && option.companyID !== null) {
+            return false;
+        }
         if (option.type + '' === optionType + '') {
             // while filtering check whether manufacturing enabled for specific type
             if (
                 isManufacturingEnabledForDrawing &&
                 DROPDOWN_OPTION_MANUFACTURER_ENABLED[optionType]
             ) {
+                if (option.isManufacturerDeleted) return false;
+
                 isManufacturingEnabledForType = true;
             }
             return true;
@@ -34,7 +46,6 @@ const DropdownOptions = ({
     });
 
     if (edit) {
-        // todo change the edit so that it can handle manufacturer pin options
         const curOptions = filteredOptions.map(opt =>
             isManufacturingEnabledForType ? opt.id : opt.name,
         );

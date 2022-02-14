@@ -11,6 +11,7 @@ import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 class EditManufacturerFormContainer extends Component {
     state = {
         name: this.props.manufacturer.name,
+        serviceIDs: [],
     };
 
     render() {
@@ -22,9 +23,22 @@ class EditManufacturerFormContainer extends Component {
                 hideModal={this.props.hideModal}
                 buttonText={this.props.buttonText}
                 validateName={this.validateName}
+                subscribedServices={this.getServicesFromSubscriptions()}
             />
         );
     }
+
+    componentDidMount = () => {
+        const {
+            manufacturer: { serviceIDs },
+        } = this.props;
+        const subscribedServiceIDs = this.getServicesFromSubscriptions().map(({ value }) => value);
+        const stringifiedServiceIDs = serviceIDs?.map(id => id.toString());
+
+        this.setState({
+            serviceIDs: serviceIDs !== null ? stringifiedServiceIDs : subscribedServiceIDs,
+        });
+    };
 
     handleInputChange = (name, value) => {
         this.setState({ [name]: value });
@@ -39,6 +53,18 @@ class EditManufacturerFormContainer extends Component {
         if (nameTaken) return 'Please choose a unique name.';
     };
 
+    getServicesFromSubscriptions = () => {
+        const { services, subscriptions } = this.props;
+        const subscribedServices = subscriptions.services.map(({ serviceID }) => {
+            return {
+                text: services[serviceID].name,
+                name: services[serviceID].name,
+                value: serviceID.toString(),
+            };
+        });
+        return subscribedServices;
+    };
+
     handleSubmit = e => {
         e.preventDefault();
         const { editManufacturer, type, manufacturer } = this.props;
@@ -46,6 +72,7 @@ class EditManufacturerFormContainer extends Component {
         const postBody = {
             ...manufacturer,
             name: this.state.name,
+            serviceIDs: this.state.serviceIDs,
         };
 
         editManufacturer(type, postBody);
@@ -56,6 +83,8 @@ const mapStateToProps = (
     {
         companyAdmin: {
             manufacturersReducer: { manufacturers },
+            servicesReducer: { services },
+            subscriptionsReducer: { subscriptions },
         },
     },
     { type },
@@ -65,13 +94,15 @@ const mapStateToProps = (
         manufacturers: manufacturers[pinOptionType]
             ? Object.values(manufacturers[pinOptionType])
             : [],
+        services,
+        subscriptions,
     };
 };
 
-const mapDispatchToProps = {
-    editManufacturer,
-    hideModal,
-};
+const mapDispatchToProps = dispatch => ({
+    editManufacturer: (type, postBody) => dispatch(editManufacturer(type, postBody)),
+    hideModal: () => dispatch(hideModal()),
+});
 
 export default withRouter(
     connect(mapStateToProps, mapDispatchToProps)(EditManufacturerFormContainer),

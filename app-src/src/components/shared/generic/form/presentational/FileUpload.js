@@ -9,13 +9,12 @@ const FileUpload = ({
     onChange,
     onDelete,
     onCancel,
-    onAddFileClick,
     name,
     fileS3Keys = [],
     progress,
     uploadingFileName,
     inputRef,
-    maxFiles
+    maxFiles,
 }) => {
     const { images, other } = organizeS3KeysByType(fileS3Keys);
 
@@ -76,8 +75,10 @@ const FileUpload = ({
 const imageTypes = ['gif', 'jpeg', 'jpg', 'png'];
 
 function organizeS3KeysByType(s3KEys) {
-    return s3KEys.reduce(
+    return s3KEys.flat().reduce(
         (acc, s3Key = '') => {
+            if (Array.isArray(s3Key));
+
             const fileTypeSuffix = s3Key.slice(s3Key.lastIndexOf('.') + 1).toLowerCase();
 
             if (imageTypes.includes(fileTypeSuffix)) {
@@ -88,7 +89,7 @@ function organizeS3KeysByType(s3KEys) {
 
             return acc;
         },
-        { images: [], other: [] }
+        { images: [], other: [] },
     );
 }
 

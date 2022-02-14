@@ -3,6 +3,8 @@ import MergeDrawingMap from './MergeDrawingMap';
 import Field from 'components/shared/generic/form/presentational/Field';
 import Select from 'components/shared/generic/form/presentational/Select';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
+import BlockContainerFetch from 'components/shared/generic/block/containers/BlockContainerFetch';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
 const MergeToolBoxes = ({
     drawingsOptions,
@@ -15,11 +17,16 @@ const MergeToolBoxes = ({
     setDestDrawingID,
     destDrawingPoints,
     setDestDrawingPoints,
-    fetchingDrawings
-}) => 
-    fetchingDrawings ? 
-        <Loading message="Fetching drawings..." /> :
-    (
+    fetchingDrawings,
+    pinsOptions,
+    selectedPins,
+    setSelectedPins,
+    isFetchingPins,
+    pinsError,
+}) =>
+    fetchingDrawings ? (
+        <Loading message="Fetching drawings..." />
+    ) : (
         <>
             <div className="size-lg-6 size-md-12">
                 <Field name="Select source drawing">
@@ -32,13 +39,6 @@ const MergeToolBoxes = ({
                         omitPlaceholder
                     />
                 </Field>
-                {!!sourceDrawingID && 
-                    <MergeDrawingMap 
-                        drawing={drawings[sourceDrawingID]} 
-                        points={sourceDrawingPoints}
-                        setPoints={setSourceDrawingPoints}
-                    />
-                }
             </div>
             <div className="size-lg-6 size-md-12">
                 <Field name="Select destination drawing">
@@ -51,13 +51,46 @@ const MergeToolBoxes = ({
                         omitPlaceholder
                     />
                 </Field>
-                {!!destDrawingID && 
+            </div>
+
+            <div className="size-lg-12">
+                {!!sourceDrawingID && (
+                    <Field name="Select pins">
+                        <BlockContainerFetch
+                            isFetching={isFetchingPins}
+                            error={pinsError}
+                            noWhiteBackground
+                        >
+                            <MultiSelect
+                                search
+                                options={pinsOptions}
+                                value={selectedPins}
+                                name="selectedPins"
+                                onChange={(_, value) => setSelectedPins(value)}
+                                placeholder="All pins"
+                            />
+                        </BlockContainerFetch>
+                    </Field>
+                )}
+            </div>
+
+            <div className="size-lg-6 size-md-12">
+                {!!sourceDrawingID && (
+                    <MergeDrawingMap
+                        drawing={drawings[sourceDrawingID]}
+                        points={sourceDrawingPoints}
+                        setPoints={setSourceDrawingPoints}
+                    />
+                )}
+            </div>
+            <div className="size-lg-6 size-md-12">
+                {!!destDrawingID && (
                     <MergeDrawingMap
                         drawing={drawings[destDrawingID]}
                         points={destDrawingPoints}
                         setPoints={setDestDrawingPoints}
                     />
-                }
+                )}
             </div>
         </>
     );

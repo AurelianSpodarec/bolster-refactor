@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PasswordStrengh from 'components/shared/passwordStrength/PasswordStrength';
+
 const TextInput = ({
     type,
     name,
@@ -11,7 +13,8 @@ const TextInput = ({
     error,
     charLimit,
     maxNum,
-    disabled
+    disabled,
+    includePasswordStrength,
 }) => (
     <>
         <input
@@ -26,9 +29,8 @@ const TextInput = ({
             max={maxNum}
             disabled={disabled}
         />
-        {!!(error && error.length) && (
-            <p className="error red-text text-accent-4">{error}</p>
-        )}
+        {!!(error && error.length) && <p className="error red-text text-accent-4">{error}</p>}
+        {includePasswordStrength && <PasswordStrengh password={value} />}
     </>
 );
 

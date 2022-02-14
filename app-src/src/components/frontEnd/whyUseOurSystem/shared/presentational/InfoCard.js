@@ -8,10 +8,10 @@ const InfoCard = ({ title = '', icon, hidePlusIcon = false, handleClick = () => 
             <div className="info-card-background"></div>
             {icon && (
                 <div className="icon-wrapper">
-                    <img src={icon} className="icon" />
+                    <img src={icon} className="icon" alt="" />
                 </div>
             )}
-            {!hidePlusIcon && <img src={PlusIcon} className="plus-icon" />}
+            {!hidePlusIcon && <img src={PlusIcon} className="plus-icon" alt="" />}
             <div className="title-wrapper">
                 <h2>{title}</h2>
                 <div className="divider"></div>

@@ -32,7 +32,6 @@ const EditDrawingsZoneModalContainer = ({
 
     async function handleSubmit() {
         const { success } = await editDrawingZone(drawingID, id, formData);
-        console.log({ success });
         if (success) showModal(VIEW_ZONES);
         else showModal(ERROR_MODAL);
     }
@@ -42,12 +41,9 @@ const EditDrawingsZoneModalContainer = ({
     }
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     coordinates: state.companyAdmin.zonesReducer.zoneFormCoordinates,
 });
 const mapDispatchToProps = { editDrawingZone, showModal };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(EditDrawingsZoneModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(EditDrawingsZoneModalContainer);

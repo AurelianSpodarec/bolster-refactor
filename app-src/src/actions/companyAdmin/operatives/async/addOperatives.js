@@ -1,26 +1,25 @@
 import Axios from 'axios';
 
 import { API_URL } from 'config';
-import { getHeaders } from 'helpers/api';
-import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
+import { getHeaders, handleErrors } from 'helpers/api';
 import {
     ADD_OPERATIVES_REQUEST,
     ADD_OPERATIVES_SUCCESS,
-    ADD_OPERATIVES_FAILURE
+    ADD_OPERATIVES_FAILURE,
 } from 'constants/actionTypes/operatives';
 
 export const addOperativesRequest = () => ({
-    type: ADD_OPERATIVES_REQUEST
+    type: ADD_OPERATIVES_REQUEST,
 });
 
 export const addOperativesSuccess = payload => ({
     type: ADD_OPERATIVES_SUCCESS,
-    payload
+    payload,
 });
 
 export const addOperativesFailure = error => ({
     type: ADD_OPERATIVES_FAILURE,
-    error
+    error,
 });
 
 export default (HierarchyType, HierarchyID, postBody) => dispatch => {
@@ -28,12 +27,8 @@ export default (HierarchyType, HierarchyID, postBody) => dispatch => {
     return Axios.post(
         `${API_URL}/operativepermissions/${HierarchyType}/${HierarchyID}/multiple`,
         postBody,
-        getHeaders()
+        getHeaders(),
     )
         .then(({ data }) => dispatch(addOperativesSuccess(data)))
-        .catch(({ response, message }) => {
-            response && response.status === 400
-                ? dispatch(setAPIFieldErrors(response.data.error))
-                : dispatch(addOperativesFailure(message));
-        });
+        .catch(err => dispatch(handleErrors(addOperativesFailure)(err)));
 };

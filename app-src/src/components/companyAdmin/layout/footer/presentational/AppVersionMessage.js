@@ -8,4 +8,3 @@ const AppVersionMessage = ({ version, isFetching, error }) => {
 };
 
 export default AppVersionMessage;
-

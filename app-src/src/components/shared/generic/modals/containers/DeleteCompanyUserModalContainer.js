@@ -5,10 +5,10 @@ import ConfirmDeleteModal from '../presentational/ConfirmDeleteModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import deleteCompanyUser from 'actions/companyAdmin/userManagement/async/deleteCompanyUser';
 
-const DeleteCompanyUserModalContainer = ({ id, handleDelete, hideModal }) => {
+const DeleteCompanyUserModalContainer = ({ id, user, handleDelete, hideModal }) => {
     return (
         <ConfirmDeleteModal
-            handleDelete={() => handleDelete(id)}
+            handleDelete={() => handleDelete(id, user)}
             hideModal={e => {
                 e.preventDefault();
                 hideModal();
@@ -22,13 +22,10 @@ const mapDispatchToProps = dispatch => ({
     hideModal: () => {
         dispatch(hideModal());
     },
-    handleDelete: id => {
-        dispatch(deleteCompanyUser(id));
+    handleDelete: (id, user) => {
+        dispatch(deleteCompanyUser(id, user));
         dispatch(hideModal());
-    }
+    },
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(DeleteCompanyUserModalContainer);
+export default connect(null, mapDispatchToProps)(DeleteCompanyUserModalContainer);
