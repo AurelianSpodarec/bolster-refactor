@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import { isEmpty, titleCaseString } from 'helpers/generic';
+import { formatUnderscoreToTitleCase } from 'helpers/generic';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import Block from 'components/shared/generic/block/presentational/Block';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ActivityLogItem from './ActivityLogItem';
@@ -14,7 +14,7 @@ import { ACTIVITY_LOG_REFERENCE_TYPES } from 'constants/companyAdmin/enums';
 
 const typeOptions = Object.keys(ACTIVITY_LOG_REFERENCE_TYPES).map(item => {
     return {
-        label: titleCaseString(item),
+        label: formatUnderscoreToTitleCase(item),
         value: ACTIVITY_LOG_REFERENCE_TYPES[item],
     };
 });
@@ -31,7 +31,7 @@ const ActivityLog = ({ logs, isFetching, error, headers }) => {
         <>
             <PageHeading title="Activity Log" withBackButton />
 
-            <BlockContainer isFetching={isFetching} error={error} isEmpty={isEmpty(logs)}>
+            <Block>
                 <BlockHeading title="Activity Log">
                     <div
                         style={{
@@ -63,7 +63,7 @@ const ActivityLog = ({ logs, isFetching, error, headers }) => {
                             <ActivityLogItem key={log.id} log={log} />
                         ))}
                 </Table>
-            </BlockContainer>
+            </Block>
         </>
     );
 };

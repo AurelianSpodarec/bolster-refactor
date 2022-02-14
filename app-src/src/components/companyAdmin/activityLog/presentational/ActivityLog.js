@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { isEmpty, titleCaseString } from 'helpers/generic';
+import { formatUnderscoreToTitleCase } from 'helpers/generic';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import Block from 'components/shared/generic/block/presentational/Block';
@@ -15,7 +15,7 @@ import { ACTIVITY_LOG_REFERENCE_TYPES } from 'constants/companyAdmin/enums';
 
 const typeOptions = Object.keys(ACTIVITY_LOG_REFERENCE_TYPES).map(item => {
     return {
-        label: titleCaseString(item),
+        label: formatUnderscoreToTitleCase(item),
         value: ACTIVITY_LOG_REFERENCE_TYPES[item],
     };
 });
