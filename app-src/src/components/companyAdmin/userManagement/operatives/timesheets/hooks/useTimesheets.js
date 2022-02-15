@@ -18,6 +18,7 @@ import {
     selectUserPinFeedsFetchError,
     selectUserPinFeedsIsFetching,
 } from 'selectors/companyAdmin/userPinFeeds';
+import { selectJobReferencesIsFetching } from 'selectors/companyAdmin/jobReferences';
 import { isEmpty } from 'lodash';
 import { selectServiceIDs } from 'selectors/companyAdmin/services';
 import { ERROR_MODAL, GENERATE_TIMESHEET_REPORT } from 'constants/shared/modalTypes';
@@ -49,6 +50,8 @@ const useTimesheets = () => {
     const timesheetsFetchError = useSelector(selectTimesheetsFetchError);
     const timesheets = useSelector(selectTimesheets);
     const timesheetOptions = useSelector(selectTimesheetOptions);
+
+    const jobReferencesIsFetching = useSelector(selectJobReferencesIsFetching);
 
     const reportGenPins = useSelector(selectUserPinFeeds);
     const isFetchingReportGenPins = useSelector(selectUserPinFeedsIsFetching);
@@ -211,7 +214,7 @@ const useTimesheets = () => {
         companyUserIDs,
         setCompanyUserIDs,
         companyUserOptions,
-        isFetching: timesheetsIsFetching || companyUsersIsFetching,
+        isFetching: timesheetsIsFetching || companyUsersIsFetching || jobReferencesIsFetching,
         fetchError: timesheetsFetchError || companyUsersFetchError,
         timesheets,
         totals,

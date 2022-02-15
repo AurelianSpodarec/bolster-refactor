@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
-import { formatAsHrsMinsSecs } from 'helpers/generic';
+import { formatAsHrsMinsSecs, isEmpty } from 'helpers/generic';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS, TIME_PERIOD } from 'constants/companyAdmin/enums';
@@ -29,9 +29,9 @@ const BreakdownSummary = ({
     const clockOutDay = clockOutMoment.startOf('day');
     const dayDifference = clockOutDay.diff(clockInDay, 'days');
 
-    const jobReferenceNames = filteredJobReferenceIDs.map(
-        referenceID => jobReferences[referenceID].name,
-    );
+    const jobReferenceNames = isEmpty(jobReferences)
+        ? []
+        : filteredJobReferenceIDs.map(referenceID => jobReferences[referenceID]?.name);
 
     return (
         <div className="breakdown-summary">

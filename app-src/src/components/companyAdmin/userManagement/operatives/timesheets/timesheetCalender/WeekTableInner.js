@@ -9,7 +9,7 @@ import ExpandableTab from './ExpandableTab';
 import { TIME_PERIOD } from 'constants/companyAdmin/enums';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import timesheetPin from '_content/images/pins-examples/timesheet-pin.png';
-import { formatAsHrsMinsSecs } from 'helpers/generic';
+import { formatAsHrsMinsSecs, isEmpty } from 'helpers/generic';
 import useExpandableTab from '../hooks/useExpandableTab';
 import { selectJobReferences } from 'selectors/companyAdmin/jobReferences';
 
@@ -36,7 +36,8 @@ const WeekTableInner = ({
     );
 
     const getJobReferenceNames = ids => {
-        return ids.map(id => jobReferences[id].name);
+        if (isEmpty(jobReferences)) return [];
+        return ids.map(id => jobReferences[id]?.name);
     };
 
     const filteredJobReferenceIDs = jobReferenceIDs.filter(reference => reference);
