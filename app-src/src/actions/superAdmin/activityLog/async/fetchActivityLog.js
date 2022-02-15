@@ -7,6 +7,7 @@ import {
 } from 'constants/actionTypes/activityLog';
 import { getHeaders } from 'helpers/api';
 import { ADMIN_API_URL } from 'config';
+import { ACTIVITY_LOG_REFERENCE_TYPES } from 'constants/companyAdmin/enums';
 
 export const fetchAdminActivityLogRequest = () => ({
     type: ADMIN_FETCH_ACTIVITY_LOG_REQUEST,
@@ -22,7 +23,7 @@ export const fetchAdminActivityLogFailure = error => ({
     error,
 });
 
-export default (type = 100, page = 1, pageSize = 50) =>
+export default (type = ACTIVITY_LOG_REFERENCE_TYPES.ALL, page = 1, pageSize = 50) =>
     async dispatch => {
         dispatch(fetchAdminActivityLogRequest());
 

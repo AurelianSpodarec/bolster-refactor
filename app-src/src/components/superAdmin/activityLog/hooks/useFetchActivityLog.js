@@ -8,26 +8,26 @@ import {
     selectActivityLogArr,
     selectActivityLogIsFetching,
     selectActivityLogError,
-    selectActivityLogPageNumber,
-    selectActivityLogPageSize,
+    selectActivityLogTotalPages,
 } from 'selectors/superAdmin/activityLog';
 
 const useFetchActivityLog = () => {
     const dispatch = useDispatch();
     const [type, setType] = useState(ACTIVITY_LOG_REFERENCE_TYPES.ALL);
 
+    const [curPage, setCurPage] = useState(1);
+
     const logs = useSelector(selectActivityLogArr);
     const isFetching = useSelector(selectActivityLogIsFetching);
     const error = useSelector(selectActivityLogError);
 
-    const page = useSelector(selectActivityLogPageNumber);
-    const pageSize = useSelector(selectActivityLogPageSize);
+    const totalPages = useSelector(selectActivityLogTotalPages);
 
     useEffect(() => {
-        dispatch(fetchActivityLog(type, page, pageSize));
-    }, [type, page, pageSize]);
+        dispatch(fetchActivityLog(type, curPage));
+    }, [type, curPage]);
 
-    return { logs, isFetching, error, type, setType };
+    return { logs, isFetching, error, type, setType, curPage, setCurPage, totalPages };
 };
 
 export default useFetchActivityLog;

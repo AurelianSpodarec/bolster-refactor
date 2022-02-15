@@ -11,6 +11,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ActivityLogItem from './ActivityLogItem';
 import Select from 'components/shared/generic/form/presentational/Select';
+import PageSelector from 'components/shared/pagination/presentational/pageSelector';
 
 const headers = ['Name', 'Reference Type', 'Action Type', 'Action By', 'Date'];
 
@@ -22,7 +23,8 @@ const typeOptions = Object.keys(ACTIVITY_LOG_REFERENCE_TYPES).map(item => {
 });
 
 const ActivityLog = () => {
-    const { logs, isFetching, error, type, setType } = useFetchActivityLog();
+    const { logs, isFetching, error, type, setType, curPage, setCurPage, totalPages } =
+        useFetchActivityLog();
 
     return (
         <>
@@ -30,6 +32,11 @@ const ActivityLog = () => {
 
             <Block>
                 <BlockHeading title="Activity Log">
+                    <PageSelector
+                        setPage={page => setCurPage(page)}
+                        page={curPage}
+                        maxPage={totalPages}
+                    />
                     <div
                         style={{
                             display: 'flex',
