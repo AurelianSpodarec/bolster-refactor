@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+import activityLogReducer from './activityLog';
 import companiesReducer from './companies';
 import contactSubmissionsReducer from './contactSubmissions';
 import companyReportsReducer from './companyReports';
@@ -41,6 +42,7 @@ import companyTrackingReducer from './companyTracking';
 import bugReportsReducer from './bugReports';
 
 export default combineReducers({
+    activityLogReducer,
     adminServicesReducer,
     buildingsReducer,
     bugReportsReducer,

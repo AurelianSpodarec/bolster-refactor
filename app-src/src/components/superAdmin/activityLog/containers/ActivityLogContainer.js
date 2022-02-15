@@ -21,7 +21,7 @@ const ActivityLogContainer = ({ fetchActivityLog, logs, isFetching, error }) => 
 };
 
 const mapStateToProps = ({
-    companyAdmin: {
+    superAdmin: {
         activityLogReducer: {
             activityLog,
             isFetching: isFetchingActivityLogs,
