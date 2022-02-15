@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ACTIVITY_LOG_REFERENCE_TYPES } from 'constants/companyAdmin/enums';
+import { usePrevious } from 'helpers/hooks';
 
 import fetchActivityLog from 'actions/superAdmin/activityLog/async/fetchActivityLog';
 import {
@@ -23,9 +24,16 @@ const useFetchActivityLog = () => {
 
     const totalPages = useSelector(selectActivityLogTotalPages);
 
+    const prevProps = usePrevious({ type });
+
     useEffect(() => {
-        dispatch(fetchActivityLog(type, curPage));
-    }, [type, curPage]);
+        if (type !== prevProps.type) {
+            dispatch(fetchActivityLog(type, 1));
+            setCurPage(1);
+        } else {
+            dispatch(fetchActivityLog(type, curPage));
+        }
+    }, [dispatch, type, prevProps.type, curPage]);
 
     return { logs, isFetching, error, type, setType, curPage, setCurPage, totalPages };
 };

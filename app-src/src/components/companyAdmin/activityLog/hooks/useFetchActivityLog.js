@@ -5,6 +5,7 @@ import {
     ACTIVITY_LOG_REFERENCE_TYPES,
     COMPANY_USER_ROLE_TYPES,
 } from 'constants/companyAdmin/enums';
+import { usePrevious } from 'helpers/hooks';
 
 import fetchActivityLog from 'actions/companyAdmin/activityLog/async/fetchActivityLog';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
@@ -44,13 +45,20 @@ const useFetchActivityLog = () => {
 
     const totalPages = useSelector(selectActivityLogTotalPages);
 
+    const prevProps = usePrevious({ type, curPage });
+
     useEffect(() => {
         dispatch(fetchCompanyUsers());
     }, [dispatch]);
 
     useEffect(() => {
-        dispatch(fetchActivityLog(type, curPage));
-    }, [dispatch, type, curPage]);
+        if (type !== prevProps.type) {
+            dispatch(fetchActivityLog(type, 1));
+            setCurPage(1);
+        } else {
+            dispatch(fetchActivityLog(type, curPage));
+        }
+    }, [dispatch, type, prevProps.type, curPage]);
 
     return {
         logs,
