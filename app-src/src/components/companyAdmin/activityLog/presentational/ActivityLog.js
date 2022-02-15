@@ -10,8 +10,25 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import ActivityLogItem from './ActivityLogItem';
 import Select from 'components/shared/generic/form/presentational/Select';
 import fetchActivityLog from 'actions/companyAdmin/activityLog/async/fetchActivityLog';
-import { useDispatch } from 'react-redux';
-import { ACTIVITY_LOG_REFERENCE_TYPES } from 'constants/companyAdmin/enums';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    ACTIVITY_LOG_REFERENCE_TYPES,
+    COMPANY_USER_ROLE_TYPES,
+} from 'constants/companyAdmin/enums';
+import {
+    selectActivityLogArr,
+    selectActivityLogIsFetching,
+    selectActivityLogError,
+} from 'selectors/companyAdmin/activityLog';
+import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import {
+    selectCompanyUsers,
+    selectCompanyUsersFetchError,
+    selectCompanyUsersIsFetching,
+} from 'selectors/companyAdmin/companyUsers';
+import { selectJWTData } from 'selectors/shared/decodeJWT';
+
+const headers = ['Name', 'Reference Type', 'Action Type', 'Action By', 'Date'];
 
 const typeOptions = Object.keys(ACTIVITY_LOG_REFERENCE_TYPES).map(item => {
     return {
@@ -20,13 +37,32 @@ const typeOptions = Object.keys(ACTIVITY_LOG_REFERENCE_TYPES).map(item => {
     };
 });
 
-const ActivityLog = ({ logs, users, isOwner, isFetching, error, headers }) => {
+const ActivityLog = () => {
     const dispatch = useDispatch();
     const [type, setType] = useState(null);
 
+    const logs = useSelector(selectActivityLogArr);
+    const isFetchingActivityLog = useSelector(selectActivityLogIsFetching);
+    const activityLogError = useSelector(selectActivityLogError);
+
+    const users = useSelector(selectCompanyUsers);
+    const isFetchingCompanyUsers = useSelector(selectCompanyUsersIsFetching);
+    const activityCompanyUsersError = useSelector(selectCompanyUsersFetchError);
+
+    const { companyUserType } = useSelector(selectJWTData);
+
+    const isFetching = isFetchingActivityLog || isFetchingCompanyUsers;
+    const error = activityLogError || activityCompanyUsersError;
+
+    const isOwner = companyUserType === COMPANY_USER_ROLE_TYPES.OWNER;
+
+    useEffect(() => {
+        dispatch(fetchCompanyUsers());
+    }, [dispatch]);
+
     useEffect(() => {
         dispatch(fetchActivityLog(type));
-    }, [type]);
+    }, [dispatch, type]);
 
     return (
         <>

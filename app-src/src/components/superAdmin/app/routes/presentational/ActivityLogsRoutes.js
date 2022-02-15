@@ -2,11 +2,11 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
-import ActivityLogContainer from 'components/superAdmin/activityLog/containers/ActivityLogContainer';
+import ActivityLog from 'components/superAdmin/activityLog/ActivityLog';
 
 const ActivityLogsRoutes = ({ base = '/admin/activity-logs' }) => (
     <SwitchWith404>
-        <Route exact path={base} component={ActivityLogContainer} />
+        <Route exact path={base} component={ActivityLog} />
     </SwitchWith404>
 );
 
