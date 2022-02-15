@@ -6,7 +6,7 @@ import CompanyTimesheetsTable from './CompanyTimesheetsTable';
 const CompanyTimesheets = () => {
     return (
         <>
-            <PageHeading title="Timesheets" />
+            <PageHeading title="Company Timesheets" />
             <BlockContainer>
                 <CompanyTimesheetsTable />
             </BlockContainer>

@@ -21,15 +21,18 @@ export const fetchSuperAdminTimesheetsFailure = error => ({
     error,
 });
 
-export default (page = 1, pageSize = 50, order = 'desc') =>
-    dispatch => {
-        dispatch(fetchSuperAdminTimesheetsRequest());
+const fetchSuperAdminTimesheets = queryParams => dispatch => {
+    const { page, pageSize, order, startDate } = queryParams;
 
-        return axios
-            .get(
-                `${ADMIN_API_URL}/timesheets?page=${page}&pageSize=${pageSize}&sortOrder=${order}`,
-                getHeaders(),
-            )
-            .then(({ data }) => dispatch(fetchSuperAdminTimesheetsSuccess(data)))
-            .catch(err => dispatch(fetchSuperAdminTimesheetsFailure(err.message)));
-    };
+    dispatch(fetchSuperAdminTimesheetsRequest());
+
+    return axios
+        .get(
+            `${ADMIN_API_URL}/timesheets?page=${page}&pageSize=${pageSize}&sortOrder=${order}&startDate=${startDate}`,
+            getHeaders(),
+        )
+        .then(({ data }) => dispatch(fetchSuperAdminTimesheetsSuccess(data)))
+        .catch(err => dispatch(fetchSuperAdminTimesheetsFailure(err.message)));
+};
+
+export default fetchSuperAdminTimesheets;

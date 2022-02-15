@@ -11,20 +11,29 @@ import {
     selectSuperAdminTimesheetsTotalPage,
     selectSuperAdminTimesheetsPageSize,
 } from 'selectors/superAdmin/timesheets';
+import moment from 'moment';
 
 const useCompanyTimesheetsTable = () => {
     const dispatch = useDispatch();
 
     const isFetching = useSelector(selectSuperAdminTimesheetsIsFetching);
-    const timesheets = Object.values(useSelector(selectSuperAdminTimesheets));
     const error = useSelector(selectSuperAdminTimesheetsError);
 
     const page = useSelector(selectSuperAdminTimesheetsPage);
     const totalPages = useSelector(selectSuperAdminTimesheetsTotalPage);
     const pageSize = useSelector(selectSuperAdminTimesheetsPageSize);
 
+    const startDateOfCurrentWeek = moment(new Date()).startOf('isoWeek').format('YYYY-MM-DD');
+
     const [order, setOrder] = useState('desc');
     const [curPage, setCurPage] = useState(page);
+    const [startDate, setStartDate] = useState(startDateOfCurrentWeek);
+
+    const timesheets = Object.values(useSelector(selectSuperAdminTimesheets)).sort((a, b) =>
+        order === 'desc'
+            ? b.numberOfHoursClockedIn - a.numberOfHoursClockedIn
+            : a.numberOfHoursClockedIn - b.numberOfHoursClockedIn,
+    );
 
     const sortOptions = [
         {
@@ -38,11 +47,31 @@ const useCompanyTimesheetsTable = () => {
     ];
 
     useEffect(() => {
-        dispatch(fetchSuperAdminTimesheets(curPage, pageSize, order));
-    }, [order, curPage, pageSize, dispatch]);
+        const queryParams = {
+            page: curPage,
+            pageSize,
+            order,
+            startDate,
+        };
+        dispatch(fetchSuperAdminTimesheets(queryParams));
+    }, [order, curPage, pageSize, dispatch, startDate]);
 
     const setPage = nextPage => {
         setCurPage(nextPage);
+    };
+
+    const onPrev = () => {
+        const newStartDate = moment(startDate).subtract(1, 'week').format('YYYY-MM-DD');
+        setStartDate(newStartDate);
+    };
+
+    const onNext = () => {
+        const newStartDate = moment(startDate).add(1, 'week').format('YYYY-MM-DD');
+        setStartDate(newStartDate);
+    };
+
+    const onToday = () => {
+        setStartDate(startDateOfCurrentWeek);
     };
 
     return {
@@ -56,6 +85,10 @@ const useCompanyTimesheetsTable = () => {
         order,
         setOrder,
         sortOptions,
+        startDate,
+        onPrev,
+        onNext,
+        onToday,
     };
 };
 
