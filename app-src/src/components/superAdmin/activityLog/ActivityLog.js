@@ -36,6 +36,7 @@ const ActivityLog = () => {
                         setPage={page => setCurPage(page)}
                         page={curPage}
                         maxPage={totalPages}
+                        topMargin={8}
                     />
                     <div
                         style={{
