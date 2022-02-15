@@ -11,6 +11,7 @@ const AddCompanyAdminModalContainer = ({
     hideModal,
     showModal,
     adminCreateCompanyAdmin,
+    isPosting,
     postSuccess,
     error,
 }) => {
@@ -34,6 +35,7 @@ const AddCompanyAdminModalContainer = ({
         <AddCompanyAdminModal
             handleChange={handleChange}
             handleSubmit={handleSubmit}
+            isPosting={isPosting}
             form={form}
             hideModal={hideModal}
         />
@@ -46,6 +48,7 @@ const AddCompanyAdminModalContainer = ({
         });
     }
     function handleSubmit() {
+        if (isPosting) return;
         const postBody = {
             companyID,
             ...form,
@@ -64,9 +67,9 @@ const AddCompanyAdminModalContainer = ({
 
 const mapStateToProps = ({
     superAdmin: {
-        usersReducer: { postSuccess, error },
+        usersReducer: { isPosting, postSuccess, error },
     },
-}) => ({ postSuccess, error });
+}) => ({ isPosting, postSuccess, error });
 
 const mapDispatchToProps = { adminCreateCompanyAdmin };
 
