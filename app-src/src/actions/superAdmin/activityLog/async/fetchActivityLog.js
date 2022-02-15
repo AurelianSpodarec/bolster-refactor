@@ -22,12 +22,15 @@ export const fetchAdminActivityLogFailure = error => ({
     error,
 });
 
-export default (type = '') =>
-    dispatch => {
+export default (type = 100, page = 1, pageSize = 50) =>
+    async dispatch => {
         dispatch(fetchAdminActivityLogRequest());
 
         return axios
-            .post(`${ADMIN_API_URL}/settings/activity`, { ReferenceType: type }, getHeaders())
+            .get(
+                `${ADMIN_API_URL}/activity?type=${type}&page=${page}&pageSize=${pageSize}`,
+                getHeaders(),
+            )
             .then(res => dispatch(fetchAdminActivityLogSuccess(res.data)))
             .catch(err => dispatch(fetchAdminActivityLogFailure(err.message)));
     };

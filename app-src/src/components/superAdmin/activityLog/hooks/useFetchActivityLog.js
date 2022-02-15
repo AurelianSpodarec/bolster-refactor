@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { ACTIVITY_LOG_REFERENCE_TYPES } from 'constants/companyAdmin/enums';
+
 import fetchActivityLog from 'actions/superAdmin/activityLog/async/fetchActivityLog';
 import {
     selectActivityLogArr,
@@ -10,7 +12,7 @@ import {
 
 const useFetchActivityLog = () => {
     const dispatch = useDispatch();
-    const [type, setType] = useState(null);
+    const [type, setType] = useState(ACTIVITY_LOG_REFERENCE_TYPES.ALL);
 
     const logs = useSelector(selectActivityLogArr);
     const isFetching = useSelector(selectActivityLogIsFetching);

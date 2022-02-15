@@ -44,6 +44,7 @@ const ActivityLog = () => {
                             onChange={(_, value) => setType(value)}
                             placeholder="Filter by Type..."
                             options={typeOptions}
+                            omitPlaceholder
                         />
                     </div>
                 </BlockHeading>

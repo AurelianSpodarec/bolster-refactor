@@ -511,6 +511,7 @@ export const ACTIVITY_LOG_ACTION_VALUES = {
 };
 
 export const ACTIVITY_LOG_REFERENCE_TYPES = {
+    ALL: 100,
     SITE: 1,
     BUILDING: 2,
     FLOOR: 3,
