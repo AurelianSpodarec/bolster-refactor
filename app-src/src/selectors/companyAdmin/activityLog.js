@@ -8,3 +8,11 @@ export const selectActivityLogIsPosting = state => state.companyAdmin.activityLo
 export const selectActivityLogError = state => state.companyAdmin.activityLogReducer.error;
 export const selectActivityLogPostError = state => state.companyAdmin.activityLogReducer.postError;
 export const selectActivityLogSuccess = state => state.companyAdmin.activityLogReducer.success;
+
+export const selectActivityLogPageNumber = state =>
+    state.companyAdmin.activityLogReducer.pageNumber;
+export const selectActivityLogPageSize = state => state.companyAdmin.activityLogReducer.pageSize;
+export const selectActivityLogTotalCount = state =>
+    state.companyAdmin.activityLogReducer.totalCount;
+export const selectActivityLogTotalPages = state =>
+    state.companyAdmin.activityLogReducer.totalPages;
