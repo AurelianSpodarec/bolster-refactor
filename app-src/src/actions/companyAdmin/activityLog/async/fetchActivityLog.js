@@ -23,7 +23,7 @@ export const fetchActivityLogFailure = error => ({
     error,
 });
 
-export default (type = ACTIVITY_LOG_REFERENCE_TYPES.ALL, page = 1, pageSize = 50) =>
+export default (type = ACTIVITY_LOG_REFERENCE_TYPES.ALL_TYPES, page = 1, pageSize = 50) =>
     async dispatch => {
         dispatch(fetchActivityLogRequest());
 

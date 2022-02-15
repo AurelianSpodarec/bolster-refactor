@@ -14,7 +14,7 @@ import {
 
 const useFetchActivityLog = () => {
     const dispatch = useDispatch();
-    const [type, setType] = useState(ACTIVITY_LOG_REFERENCE_TYPES.ALL);
+    const [type, setType] = useState(ACTIVITY_LOG_REFERENCE_TYPES.ALL_TYPES);
 
     const [curPage, setCurPage] = useState(1);
 
