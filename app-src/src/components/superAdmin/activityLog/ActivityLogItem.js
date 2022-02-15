@@ -12,8 +12,9 @@ const ActivityLogItem = ({
         actionReferenceName,
         actionReferenceType,
         actionType,
-        actionTakenByString,
         actionTakenDate,
+        actionTakeByUserFirstName,
+        actionTakeByUserLastName,
     },
 }) => {
     return (
@@ -21,7 +22,7 @@ const ActivityLogItem = ({
             <td>{actionReferenceName ? actionReferenceName : 'Unknown'}</td>
             <td>{ACTIVITY_LOG_REFERENCE_VALUES[actionReferenceType]}</td>
             <td>{ACTIVITY_LOG_ACTION_VALUES[actionType]}</td>
-            <td>{actionTakenByString}</td>
+            <td>{`${actionTakeByUserFirstName} ${actionTakeByUserLastName}`}</td>
             <td className="left-align">
                 <DateTimeContainer date={actionTakenDate} />
             </td>
