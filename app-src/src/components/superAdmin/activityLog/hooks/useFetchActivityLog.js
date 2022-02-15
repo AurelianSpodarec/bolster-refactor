@@ -8,6 +8,8 @@ import {
     selectActivityLogArr,
     selectActivityLogIsFetching,
     selectActivityLogError,
+    selectActivityLogPageNumber,
+    selectActivityLogPageSize,
 } from 'selectors/superAdmin/activityLog';
 
 const useFetchActivityLog = () => {
@@ -18,9 +20,12 @@ const useFetchActivityLog = () => {
     const isFetching = useSelector(selectActivityLogIsFetching);
     const error = useSelector(selectActivityLogError);
 
+    const page = useSelector(selectActivityLogPageNumber);
+    const pageSize = useSelector(selectActivityLogPageSize);
+
     useEffect(() => {
-        dispatch(fetchActivityLog(type));
-    }, [type]);
+        dispatch(fetchActivityLog(type, page, pageSize));
+    }, [type, page, pageSize]);
 
     return { logs, isFetching, error, type, setType };
 };
