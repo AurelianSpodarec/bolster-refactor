@@ -3,7 +3,7 @@ import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
 export const formatOptions = options => {
     return options
-        .filter(({ isDeleted }) => !isDeleted)
+        .filter(({ isDisabled, isDeleted }) => !isDisabled || !isDeleted)
         .map(option => {
             return {
                 ...option,
@@ -29,6 +29,7 @@ export const createManufacturerOptionList = manufacturers => {
 
                 return acc;
             }, [])
+            .filter(({ isDeleted }) => !isDeleted)
             .sort((a, b) => a.sort - b.sort);
     }
     return [];

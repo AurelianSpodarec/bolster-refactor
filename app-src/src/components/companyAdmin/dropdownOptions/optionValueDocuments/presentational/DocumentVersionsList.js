@@ -56,7 +56,7 @@ const DocumentVersionsList = ({
                                                 type: DOCUMENT_VIEW_TYPES.PDF,
                                             })
                                         }
-                                    ></div>
+                                    />
                                 </div>
                             ) : (
                                 <img

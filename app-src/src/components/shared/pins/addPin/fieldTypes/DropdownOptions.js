@@ -19,14 +19,17 @@ const DropdownOptions = ({
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
     // ! this needs to be kept as an option.
     let formattedOpts = [];
+    const value = answers[id];
 
     useEffect(() => {
-        if (!answers[id] && !edit && defaultValue) {
+        if (!value && !edit && defaultValue) {
             handleChange(null, defaultValue);
         }
     }, []);
 
     const filteredOptions = dropdownOptions.filter(option => {
+        // remove deleted option if not already selected
+        if (value !== option.value && option.isDeleted) return false;
         if (option.companyID !== companyID && option.companyID !== null) {
             return false;
         }
@@ -82,7 +85,7 @@ const DropdownOptions = ({
             placeholder="-- select --"
             name={`answer-${id}`}
             options={getSortedDropdownOptions(formattedOpts, defaultDropdownSorting)}
-            value={answers[id]}
+            value={value}
             onChange={handleChange}
             required={isRequired}
         />

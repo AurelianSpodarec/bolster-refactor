@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
-import { getSortedDropdownOptions } from 'helpers/addPin';
+import { formatAnswers, getSortedDropdownOptions } from 'helpers/addPin';
 
 const MultiDropdownOptions = ({
     isRequired,
@@ -17,14 +17,16 @@ const MultiDropdownOptions = ({
 }) => {
     let isManufacturingEnabledForType = false;
     let formattedOpts = [];
+    const value = answers[id];
 
     useEffect(() => {
-        if (!answers[id] && !edit && defaultValue) {
+        if (!value && !edit && defaultValue) {
             handleChange(null, [defaultValue]);
         }
     }, []);
 
     const filteredOptions = dropdownOptions.filter(option => {
+        if (!value?.includes(option.value) && option.isDeleted) return false;
         if (option.companyID !== companyID && option.companyID !== null) {
             return false;
         }
@@ -68,12 +70,12 @@ const MultiDropdownOptions = ({
         manufacturerSort: option.manufacturerSort,
         manufacturerID: option.manufacturerID,
     }));
-
+    const options = getSortedDropdownOptions(formattedOpts, defaultDropdownSorting);
     return (
         <MultiSelect
             required={isRequired}
-            options={getSortedDropdownOptions(formattedOpts, defaultDropdownSorting)}
-            value={answers[id] || []}
+            options={options}
+            value={formatAnswers(value, options)}
             name={`answer-${id}`}
             onChange={handleChange}
         />

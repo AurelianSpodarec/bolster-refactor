@@ -5,6 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 const OptionValuesListItem = ({
     optionValue,
     handleEditOptionValueModal,
+    handleDeleteOptionValueModal,
     onMobile,
     headers,
     match: { url },
@@ -24,6 +25,13 @@ const OptionValuesListItem = ({
             {onMobile && <span className="mobile-table-heading">Actions</span>}
             <BlockButtonWrapper>
                 <button
+                    className="button red"
+                    onClick={() => handleDeleteOptionValueModal(optionValue)}
+                >
+                    <i className="far fa-trash" />
+                    Delete
+                </button>
+                <button
                     onClick={() => handleEditOptionValueModal(optionValue)}
                     className="button yellow"
                 >
@@ -31,7 +39,7 @@ const OptionValuesListItem = ({
                     Edit
                 </button>
                 <Link to={`${url}/${optionValue.id}/documents`} className="button">
-                    <i className="fa fa-eye fa-fw" />
+                    <i className="far fa-eye fa-fw" />
                     Documents
                 </Link>
             </BlockButtonWrapper>

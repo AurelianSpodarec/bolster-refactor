@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
 import { FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
-import { connect } from 'react-redux';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import { isEmpty, isObjEmpty } from 'helpers/generic';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
@@ -20,9 +19,8 @@ const PinAnswer = ({
     const curAnswer = { ...answers.find(item => +item.id === +trimmedAnswer.id) };
     const notFoundResponse = null;
     let inner;
-
     if (!isObjEmpty(optionValuesLookup) && !!curAnswer.answer) {
-        if (type === TYPES.DROPDOWN_OPTIONS && typeof curAnswer.answer === 'number') {
+        if (type === TYPES.DROPDOWN_OPTIONS && optionValuesLookup[curAnswer.answer]) {
             curAnswer.answer = optionValuesLookup[curAnswer.answer].name;
         } else if (
             type === TYPES.MULTI_DROPDOWN_OPTIONS ||
@@ -195,7 +193,7 @@ const PinAnswer = ({
     );
 };
 
-export default connect()(PinAnswer);
+export default memo(PinAnswer);
 
 function formatMultiMulti(answer) {
     if (!Array.isArray(answer)) return answer;

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
 import {
     SA_FETCH_OPTION_VALUES_BY_MANUFACTURER_REQUEST,
     SA_FETCH_OPTION_VALUES_BY_MANUFACTURER_SUCCESS,
@@ -11,6 +11,8 @@ import {
     SA_EDIT_OPTION_VALUE_REQUEST,
     SA_EDIT_OPTION_VALUE_SUCCESS,
     SA_EDIT_OPTION_VALUE_FAILURE,
+    SA_DELETE_MANUFACTURER_OPTION_VALUE_REQUEST,
+    SA_DELETE_MANUFACTURER_OPTION_VALUE_SUCCESS,
 } from 'constants/actionTypes/superAdminManufacturers';
 
 export default combineReducers({
@@ -19,6 +21,7 @@ export default combineReducers({
     error: errorReducer,
     postSuccess: postSuccessReducer,
     postError: postErrorReducer,
+    deleteSuccess: deleteSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -84,6 +87,24 @@ function manufacturersOptionValuesReducer(state = {}, action) {
                     action.payload,
                 ),
             };
+        case SA_DELETE_MANUFACTURER_OPTION_VALUE_SUCCESS: {
+            const updatedManufacturerItems = removeObjItem(
+                state[action.manufacturerID],
+                action.optionValueID,
+            );
+            return updateObj(state, action.manufacturerID, updatedManufacturerItems);
+        }
+        default:
+            return state;
+    }
+}
+
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case SA_DELETE_MANUFACTURER_OPTION_VALUE_REQUEST:
+            return false;
+        case SA_DELETE_MANUFACTURER_OPTION_VALUE_SUCCESS:
+            return true;
         default:
             return state;
     }

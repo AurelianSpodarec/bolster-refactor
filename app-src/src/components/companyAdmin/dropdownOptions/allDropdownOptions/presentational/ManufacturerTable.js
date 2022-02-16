@@ -53,7 +53,7 @@ const ManufacturerTable = ({
                     >
                         <ManufacturerList
                             colCount={headers.length}
-                            manufacturers={manufacturers}
+                            manufacturers={manufacturers.filter(({ isDeleted }) => !isDeleted)}
                             headers={headers}
                             moveItem={moveItem}
                             type={type}
