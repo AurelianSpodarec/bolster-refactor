@@ -27,6 +27,8 @@ const ListTableRow = ({ pinTask, startEditPinTask, viewTaskNote }) => {
         isRecurring,
         actionedOn,
         dueOn,
+        pinID,
+        drawingID,
     } = pinTask;
     const { type, status } = useTypeAndStatus(isRecurring, actionedOn, dueOn);
     const { handleDeleteTask } = useDeletePinTask();
@@ -37,9 +39,13 @@ const ListTableRow = ({ pinTask, startEditPinTask, viewTaskNote }) => {
                 {operativeFirstName} {operativeLastName}
             </td>
             <td>
-                {siteName} / {buildingName} / {floorName} / {drawingName}
+                <a href={`/company/drawings/${drawingID}`}>
+                    {siteName}/{buildingName}/{floorName}/{drawingName}
+                </a>
             </td>
-            <td>{pinCode}</td>
+            <td>
+                <a href={`/company/pins/${pinID}`}>{pinCode}</a>
+            </td>
             <td>
                 <DateTimeContainer datetime={DATE_TIME_IDS.DATE} date={new Date(dueOn)} />
             </td>
