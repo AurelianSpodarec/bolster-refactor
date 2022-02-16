@@ -275,9 +275,10 @@ export default function (ProtectedComponent) {
             let questionFilters = null;
             let selectedPinIDs = null;
 
-            const { INDIVIDUAL_PINS, ZONES, FILTERS } = FURTHER_FILTRATION_OPTIONS;
+            const { INDIVIDUAL_PINS, ZONES, FILTERS, PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 
             switch (+furtherFiltrationOption) {
+                case PIN_SELECTOR:
                 case ZONES:
                 case INDIVIDUAL_PINS: {
                     selectedPinIDs = pinIDs.filter(
