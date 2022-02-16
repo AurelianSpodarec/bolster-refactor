@@ -2,7 +2,13 @@ import React from 'react';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { useEffect } from 'react';
 
-const PageSelector = ({ page = 1, maxPage = 1, setPage, forceToFirstOrLast = false }) => {
+const PageSelector = ({
+    page = 1,
+    maxPage = 1,
+    setPage,
+    forceToFirstOrLast = false,
+    topMargin = 0,
+}) => {
     const isEmpty = maxPage === 0;
 
     useEffect(() => {
@@ -17,6 +23,7 @@ const PageSelector = ({ page = 1, maxPage = 1, setPage, forceToFirstOrLast = fal
                 alignItems: 'center',
                 justifyItems: 'center',
                 float: 'right',
+                marginTop: topMargin,
             }}
         >
             {page > 2 && (

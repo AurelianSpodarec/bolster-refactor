@@ -22,6 +22,10 @@ export default combineReducers({
     error: errorReducer,
     postError: postErrorReducer,
     success: successReducer,
+    pageNumber: pageNumberReducer,
+    pageSize: pageSizeReducer,
+    totalCount: totalCountReducer,
+    totalPages: totalPagesReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -93,7 +97,7 @@ function successReducer(state = false, action) {
 function activityLogReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_ACTIVITY_LOG_SUCCESS:
-            return convertArrToObj(action.payload);
+            return convertArrToObj(action.payload.activityLogs);
         default:
             return state;
     }
@@ -105,6 +109,42 @@ function settingsReducer(state = [], action) {
             return [];
         case FETCH_ACTIVITY_LOG_SETTINGS_SUCCESS:
             return action.payload;
+        default:
+            return state;
+    }
+}
+
+function pageNumberReducer(state = 1, action) {
+    switch (action.type) {
+        case FETCH_ACTIVITY_LOG_SUCCESS:
+            return action.payload.pageNumber;
+        default:
+            return state;
+    }
+}
+
+function pageSizeReducer(state = 50, action) {
+    switch (action.type) {
+        case FETCH_ACTIVITY_LOG_SUCCESS:
+            return action.payload.pageSize;
+        default:
+            return state;
+    }
+}
+
+function totalCountReducer(state = 0, action) {
+    switch (action.type) {
+        case FETCH_ACTIVITY_LOG_SUCCESS:
+            return action.payload.totalCount;
+        default:
+            return state;
+    }
+}
+
+function totalPagesReducer(state = 1, action) {
+    switch (action.type) {
+        case FETCH_ACTIVITY_LOG_SUCCESS:
+            return action.payload.totalPages;
         default:
             return state;
     }

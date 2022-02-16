@@ -21,6 +21,8 @@ import TextSettingRoutes from './TextSettingRoutes';
 import TrustedBySettingRoutes from './TrustedBySettingRoutes';
 import LegalDocumentsRoutes from './LegalDocumentsRoutes';
 import RecentlyExtendedRoutes from './RecentlyExtendedRoutes';
+import RecentlyDeletedRoutes from './RecentlyDeletedRoutes';
+import ActivityLogsRoutes from './ActivityLogsRoutes';
 import BannersRoutes from './BannersRoutes';
 import DemoAccessCodesRoutes from './DemoAccessCodesRoutes';
 import UserCreationsRoutes from './UserCreationsRoutes';
@@ -51,6 +53,8 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/demo-access-codes`} component={DemoAccessCodesRoutes} />
         <Route path={`${base}/new-features`} component={NewFeaturesRoutes} />
         <Route path={`${base}/recently-extended`} component={RecentlyExtendedRoutes} />
+        <Route path={`${base}/recently-deleted`} component={RecentlyDeletedRoutes} />
+        <Route path={`${base}/activity-logs`} component={ActivityLogsRoutes} />
         <Route path={`${base}/banners`} component={BannersRoutes} />
         <Route path={`${base}/bug-reports`} component={BugReportsRoutes} />
     </SwitchWith404>

@@ -20,9 +20,8 @@ const EditActivityLogFormContainer = ({
     error,
     history,
 }) => {
-    const [selectedItems, handleChange, options, checkIsSelected] = useEditActivitySettings(
-        settings,
-    );
+    const [selectedItems, handleChange, options, checkIsSelected, selectAll, deselectAll] =
+        useEditActivitySettings(settings);
     const prevProps = usePrevious({ isPosting });
 
     useEffect(() => {
@@ -42,6 +41,8 @@ const EditActivityLogFormContainer = ({
             checkIsSelected={checkIsSelected}
             handleSubmit={handleSubmit}
             isPosting={isPosting}
+            selectAll={selectAll}
+            deselectAll={deselectAll}
         />
     );
 

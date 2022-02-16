@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import { ACTIVITY_LOG_REFERENCE_TYPES } from 'constants/companyAdmin/enums';
 import { formatUnderscoreToTitleCase } from 'helpers/generic';
 
-import useFetchActivityLog from '../hooks/useFetchActivityLog';
+import useFetchActivityLog from './hooks/useFetchActivityLog';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import Block from 'components/shared/generic/block/presentational/Block';
@@ -24,29 +23,12 @@ const typeOptions = Object.keys(ACTIVITY_LOG_REFERENCE_TYPES).map(item => {
 });
 
 const ActivityLog = () => {
-    const {
-        logs,
-        users,
-        isFetching,
-        error,
-        isOwner,
-        type,
-        setType,
-        curPage,
-        setCurPage,
-        totalPages,
-    } = useFetchActivityLog();
+    const { logs, isFetching, error, type, setType, curPage, setCurPage, totalPages } =
+        useFetchActivityLog();
 
     return (
         <>
-            <PageHeading title="Activity Log" withBackButton>
-                {isOwner && (
-                    <Link className="button yellow" to="/company/activity-log/edit-settings">
-                        <i className="far fa-pencil" />
-                        Edit Settings
-                    </Link>
-                )}
-            </PageHeading>
+            <PageHeading title="Activity Log" withBackButton />
 
             <Block>
                 <BlockHeading title="Activity Log">
@@ -68,6 +50,7 @@ const ActivityLog = () => {
                         <Select
                             value={type}
                             onChange={(_, value) => setType(value)}
+                            placeholder="Filter by Type..."
                             options={typeOptions}
                             omitPlaceholder
                         />
@@ -83,7 +66,7 @@ const ActivityLog = () => {
                     {[...logs]
                         .sort((a, b) => new Date(b.actionTakenDate) - new Date(a.actionTakenDate))
                         .map(log => (
-                            <ActivityLogItem key={log.id} log={log} users={users} />
+                            <ActivityLogItem key={log.id} log={log} />
                         ))}
                 </Table>
             </Block>
