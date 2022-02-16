@@ -7615,3 +7615,64 @@ input {
 .min-width-120 {
     min-width: 120px;
 }
+
+.clocked-hours-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .select-list {
+        width: 200px;
+        font-size: 10px;
+    }
+}
+
+.date-selector {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    .nav-buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        margin-right: 16px;
+        button {
+            background-color: transparent;
+
+            &:not(:disabled) {
+                &:hover > .far {
+                    color: $button-grey;
+                }
+            }
+
+            .far {
+                font-size: 100%;
+            }
+        }
+    }
+
+    .date-range {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+
+        time {
+            font-size: 140%;
+            font-weight: 500;
+        }
+    }
+
+    .today-button {
+        color: inherit;
+        font-size: 130%;
+
+        &:hover {
+            background-color: $light-grey-alt;
+        }
+
+        .far {
+            font-size: 100%;
+        }
+    }
+}

@@ -26,6 +26,7 @@ import DemoAccessCodesRoutes from './DemoAccessCodesRoutes';
 import UserCreationsRoutes from './UserCreationsRoutes';
 import CompanyTrackingRoutes from './CompanyTrackingRoutes';
 import BugReportsRoutes from './BugReportsRoutes';
+import CompanyTimesheetsRoutes from './CompanyTimesheetsRoutes';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
@@ -53,6 +54,7 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/recently-extended`} component={RecentlyExtendedRoutes} />
         <Route path={`${base}/banners`} component={BannersRoutes} />
         <Route path={`${base}/bug-reports`} component={BugReportsRoutes} />
+        <Route path={`${base}/company-timesheets`} component={CompanyTimesheetsRoutes} />
     </SwitchWith404>
 );
 
