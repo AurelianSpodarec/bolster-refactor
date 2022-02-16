@@ -115,25 +115,30 @@ const PasswordReset = () => {
                                             {!isPosting ? 'Submit' : <LoadingIcon />}
                                         </FrontEndButton>
                                     </Field>
+                                    {!!error && (
+                                        <p
+                                            className="auth-form-field generic-text field-validation-error"
+                                            style={{ marginBottom: '10px', color: 'red' }}
+                                        >
+                                            {!isExpired ? (
+                                                <span>
+                                                    Something went wrong. Please try submitting the
+                                                    password reset request again. If this issue
+                                                    persists, please contact Bolster Systems.
+                                                </span>
+                                            ) : (
+                                                <span>
+                                                    This reset password link has expired, please
+                                                    re-submit{' '}
+                                                    <a href="/auth/login?showForgotPassword=true">
+                                                        here
+                                                    </a>
+                                                </span>
+                                            )}
+                                        </p>
+                                    )}
                                 </Form>
                             )
-                        )}
-
-                        {!!error && (
-                            <p
-                                className="generic-text field-validation-error"
-                                style={{ marginBottom: '10px', color: 'red' }}
-                            >
-                                {!isExpired ? (
-                                    `Something went wrong. Please again. If this persists, contact
-                                Bolster support. (${error})`
-                                ) : (
-                                    <span>
-                                        This reset password link has expired, please re-submit{' '}
-                                        <a href="/auth/login?showForgotPassword=true">here</a>
-                                    </span>
-                                )}
-                            </p>
                         )}
                     </div>
                 </div>
@@ -161,6 +166,7 @@ const PasswordReset = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
+
         if (!isPosting) {
             dispatch(postPasswordReset({ token, password: form.password }));
         }
