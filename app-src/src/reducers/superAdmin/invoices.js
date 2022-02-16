@@ -50,6 +50,7 @@ export default combineReducers({
     isCommenting: isCommentingReducer,
     commentingError: commentingErrorReducer,
     commentingSuccess: commentingSuccessReducer,
+    pagination: paginationReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -163,9 +164,8 @@ function invoicesReducer(state = {}, action) {
             return {};
         case SA_FETCH_ALL_INVOICES_SUCCESS:
             return convertArrToObj(action.payload);
-        case ADMIN_FETCH_COMPANY_INVOICES_SUCCESS:
-            return { ...state, ...convertArrToObj(action.payload) };
         case SA_FETCH_INVOICES_BY_SEARCH_SUCCESS:
+        case ADMIN_FETCH_COMPANY_INVOICES_SUCCESS:
             return convertArrToObj(action.payload.invoices);
         // case SA_DELETE_INVOICE_SUCCESS:
         //     return removeObjItem(state, action.id);
@@ -243,6 +243,24 @@ function commentingErrorReducer(state = null, action) {
             return null;
         case ADD_INVOICE_COMMENT_FAILURE:
             return action.error;
+        default:
+            return state;
+    }
+}
+
+function paginationReducer(
+    state = {
+        page: 1,
+        pageSize: 10,
+        totalPages: 1,
+        totalCount: 0,
+    },
+    action,
+) {
+    switch (action.type) {
+        case ADMIN_FETCH_COMPANY_INVOICES_SUCCESS:
+            var { page, pageSize, totalPages, totalCount } = action.payload;
+            return { page, pageSize, totalPages, totalCount };
         default:
             return state;
     }
