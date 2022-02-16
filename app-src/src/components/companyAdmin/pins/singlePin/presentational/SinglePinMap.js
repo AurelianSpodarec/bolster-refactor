@@ -89,6 +89,7 @@ const SinglePinMap = ({
                 maxZoom={8}
                 onClick={handleClick}
                 crs={CRS.Simple}
+                tap={false}
             >
                 <TileLayer
                     attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'

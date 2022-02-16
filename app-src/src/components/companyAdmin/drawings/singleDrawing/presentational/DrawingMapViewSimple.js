@@ -188,6 +188,7 @@ const DrawingMapViewSimple = ({
                         crs={CRS.Simple}
                         onzoomend={() => handleZoomChange(mapRef.current.leafletElement.getZoom())}
                         className={!showZones ? 'hide-tooltips' : ''}
+                        tap={false}
                     >
                         <TileLayer
                             attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
