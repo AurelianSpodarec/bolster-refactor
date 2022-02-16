@@ -13,7 +13,7 @@ import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 
 const CreateCompanyAdminFormContainer = () => {
     const dispatch = useDispatch();
-    const { postSuccess, error, companyUserID, users } = useSelector(mapStateToProps);
+    const { isPosting, postSuccess, error, companyUserID, users } = useSelector(mapStateToProps);
     const prevProps = usePrevious({ postSuccess, error, users });
     const [state, setState] = useState({
         firstName: '',
@@ -68,6 +68,7 @@ const CreateCompanyAdminFormContainer = () => {
             hideModal={() => dispatch(hideModal())}
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}
+            isPosting={isPosting}
         />
     );
 
@@ -77,6 +78,7 @@ const CreateCompanyAdminFormContainer = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
+        if (isPosting) return;
         const { confirmPassword, shouldRestrictPaymentsAccess, ...rest } = state;
 
         const postBody = {
@@ -89,7 +91,7 @@ const CreateCompanyAdminFormContainer = () => {
 
 const mapStateToProps = ({
     companyAdmin: {
-        companyUsersReducer: { postSuccess, error, users },
+        companyUsersReducer: { isPosting, postSuccess, error, users },
     },
     shared: {
         decodeJWTReducer: {
@@ -97,6 +99,7 @@ const mapStateToProps = ({
         },
     },
 }) => ({
+    isPosting,
     postSuccess,
     error,
     companyUserID,
