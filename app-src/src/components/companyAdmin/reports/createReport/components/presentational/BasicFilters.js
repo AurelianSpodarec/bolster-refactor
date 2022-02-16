@@ -8,6 +8,7 @@ import DatePickerContainer from 'components/shared/generic/form/containers/DateP
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import TimePickerContainer from 'components/shared/generic/form/containers/TimePickerContainer';
 import CompaniesFilterContainer from '../containers/CompaniesFilterContainer';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
 const BasicFilters = ({
     dateError,
@@ -27,6 +28,7 @@ const BasicFilters = ({
     includeTime,
     startTime,
     endTime,
+    handleStatusChange,
 }) => (
     <>
         <div className="size-lg-12">
@@ -58,13 +60,13 @@ const BasicFilters = ({
                 />
             </Field>
             <Field name="Status">
-                <DropdownContainer
+                <MultiSelect
                     placeholder="All Statuses"
                     name="status"
                     options={statusOptions}
                     value={selectedStatus}
                     selectedOption={selectedStatus}
-                    handleChange={handleChange}
+                    onChange={handleStatusChange}
                 />
             </Field>
 

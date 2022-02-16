@@ -118,7 +118,11 @@ export default function (ProtectedComponent) {
                     }
 
                     // status
-                    if (status && +pin.latestStatus !== +status) {
+                    if (
+                        status &&
+                        !isEmpty(status) &&
+                        !status.some(item => +item === +pin.latestStatus)
+                    ) {
                         return NO;
                     }
                     // services
@@ -335,7 +339,7 @@ export default function (ProtectedComponent) {
                 companyUserIDs,
                 serviceID: serviceIDs,
                 templateID: templateID || null,
-                status: status ? [status] : null,
+                status: status ? status.map(item => +item) : null,
                 pinIDs: selectedPinIDs,
                 excludedPinIDs: Object.values(excludedPinIDs),
                 questionFilters: questionFilters,
