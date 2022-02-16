@@ -54,7 +54,7 @@ const UserTable = ({ date, day, initialRows = 7, timesheets }) => {
                     lastName,
                     formattedHours,
                     formattedBreakHours,
-                    jobReferences,
+                    jobReferenceIDs,
                     totalPins,
                     clockIn,
                     clockOut,
@@ -114,7 +114,7 @@ const UserTable = ({ date, day, initialRows = 7, timesheets }) => {
                                 </td>
                                 <td>{formatAsHrsMinsSecs(formattedBreakHours)}</td>
                                 <td>{totalPins}</td>
-                                <td>{jobReferences.filter(reference => reference).length}</td>
+                                <td>{jobReferenceIDs.filter(reference => reference).length}</td>
                                 <td>
                                     <Link
                                         to={{
