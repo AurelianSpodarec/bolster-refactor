@@ -18,7 +18,7 @@ const CompanyMenuContainer = ({
     notifications,
     dismissMessages,
     subscriptions,
-    subscriptions: { startOn },
+    subscriptions: { startOn, hasUnpaidServiceInvoice },
     hasInitiallyFetched,
     isClientAccess,
     showModal,
@@ -74,7 +74,7 @@ const CompanyMenuContainer = ({
     function _isSubscribed() {
         if (isEmpty(subscriptions)) return false;
 
-        return !!startOn;
+        return !hasUnpaidServiceInvoice && !!startOn;
     }
 
     function _openHelpScout(e) {
