@@ -22,14 +22,15 @@ export const fetchCompanyInvoicesFailure = error => ({
     error,
 });
 
-export default (companyID, page = 1, pageSize = 10) => dispatch => {
-    dispatch(fetchCompanyInvoicesRequest());
+export default (companyID, page = 1, pageSize = 10) =>
+    async dispatch => {
+        dispatch(fetchCompanyInvoicesRequest());
 
-    return axios
-        .get(
-            `${ADMIN_API_URL}/companies/${companyID}/invoices?page=${page}&pageSize=${pageSize}`,
-            getHeaders(),
-        )
-        .then(res => dispatch(fetchCompanyInvoicesSuccess(res.data)))
-        .catch(err => dispatch(fetchCompanyInvoicesFailure(err.message)));
-};
+        return axios
+            .get(
+                `${ADMIN_API_URL}/companies/${companyID}/invoices?page=${page}&pageSize=${pageSize}`,
+                getHeaders(),
+            )
+            .then(res => dispatch(fetchCompanyInvoicesSuccess(res.data)))
+            .catch(err => dispatch(fetchCompanyInvoicesFailure(err.message)));
+    };
