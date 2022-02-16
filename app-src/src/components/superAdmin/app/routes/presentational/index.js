@@ -27,6 +27,7 @@ import UserCreationsRoutes from './UserCreationsRoutes';
 import CompanyTrackingRoutes from './CompanyTrackingRoutes';
 import BugReportsRoutes from './BugReportsRoutes';
 import CompanyTimesheetsRoutes from './CompanyTimesheetsRoutes';
+import FaqsRoutes from './FaqsRoutes';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
@@ -50,6 +51,7 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/text-settings`} component={TextSettingRoutes} />
         <Route path={`${base}/legal-documents`} component={LegalDocumentsRoutes} />
         <Route path={`${base}/demo-access-codes`} component={DemoAccessCodesRoutes} />
+        <Route path={`${base}/faqs`} component={FaqsRoutes} />
         <Route path={`${base}/new-features`} component={NewFeaturesRoutes} />
         <Route path={`${base}/recently-extended`} component={RecentlyExtendedRoutes} />
         <Route path={`${base}/banners`} component={BannersRoutes} />

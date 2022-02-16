@@ -141,6 +141,7 @@ import {
     CREATE_JOB_REFERENCE,
     EDIT_JOB_REFERENCE,
     DELETE_JOB_REFERENCE,
+    DRAWING_EXPIRY_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -281,6 +282,7 @@ import ViewPinTaskModal from 'components/companyAdmin/userManagement/pinTasks/vi
 import CreateJobReferenceModal from 'components/companyAdmin/jobReferences/CreateJobReferenceModal';
 import EditJobReferenceModal from 'components/companyAdmin/jobReferences/EditJobReferenceModal';
 import DeleteJobReferenceModal from 'components/companyAdmin/jobReferences/DeleteJobReferenceModal';
+import DrawingExpiryModal from '../presentational/DrawingExpiryModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -422,6 +424,7 @@ const MODAL_COMPONENTS = {
     [CREATE_JOB_REFERENCE]: CreateJobReferenceModal,
     [EDIT_JOB_REFERENCE]: EditJobReferenceModal,
     [DELETE_JOB_REFERENCE]: DeleteJobReferenceModal,
+    [DRAWING_EXPIRY_MODAL]: DrawingExpiryModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

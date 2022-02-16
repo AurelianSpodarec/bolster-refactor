@@ -39,6 +39,7 @@ import demoAccessCodesReducer from './demoAccessCodes';
 import companyTrackingReducer from './companyTracking';
 import bugReportsReducer from './bugReports';
 import timesheetsReducer from './timesheets';
+import faqsReducer from './faqs';
 
 export default combineReducers({
     adminServicesReducer,
@@ -80,4 +81,5 @@ export default combineReducers({
     syncsReducer,
     bannerNotificationsReducer,
     demoAccessCodesReducer,
+    faqsReducer,
 });

@@ -13,6 +13,7 @@ import {
     SUCCESS_MODAL,
     CONFIRM_ARCHIVE,
     EDIT_FLOOR,
+    DRAWING_EXPIRY_MODAL,
 } from 'constants/shared/modalTypes';
 import archiveFloor from 'actions/companyAdmin/floors/async/archiveFloor';
 import { isEmpty } from 'helpers/generic';
@@ -78,6 +79,7 @@ class FloorDetailsContainer extends Component {
                     handleChange={this.handleChange}
                     serviceOptions={servicesForDropdown}
                     serviceID={serviceID}
+                    handleViewDrawingExpiryModal={this.handleViewDrawingExpiryModal}
                     companyID={companyID}
                     companyOptions={companiesForDropdown}
                     filteredStatsBool={filteredStatsBool}
@@ -148,6 +150,18 @@ class FloorDetailsContainer extends Component {
             archive: !floor.isArchived,
         });
     };
+
+    handleViewDrawingExpiryModal = () => {
+        const { id, showModal, hideModal } = this.props;
+
+        showModal(DRAWING_EXPIRY_MODAL, {
+            hideModal,
+            id,
+            hierarchyID: HIERARCHY_IDS.FLOOR,
+        });
+    };
+
+    handleChange = (name, value) => this.setState({ [name]: value });
     handleChange = (name, value) => {
         this.setState({ [name]: value });
 
