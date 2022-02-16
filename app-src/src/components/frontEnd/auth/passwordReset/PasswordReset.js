@@ -131,7 +131,7 @@ const PasswordReset = () => {
                             </Form>
                         ) : (
                             <p
-                                className="auth-form-field generic-text field-validation-error"
+                                className="generic-text"
                                 style={{ marginBottom: '10px', color: 'red' }}
                             >
                                 This reset password link has expired, please re-submit{' '}
