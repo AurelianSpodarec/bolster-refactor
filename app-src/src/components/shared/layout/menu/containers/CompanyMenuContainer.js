@@ -61,7 +61,6 @@ const CompanyMenuContainer = ({
             isFromHeadquarters={isFromHeadquarters}
             unreadCount={unreadCount}
             dismissMessages={dismissNotifications}
-            openHelpScout={_openHelpScout}
             isClientAccess={isClientAccess}
             handleGenerateQRCodesModal={handleGenerateQRCodesModal}
             shouldRestrictPayments={shouldRestrictPayments}
@@ -75,18 +74,6 @@ const CompanyMenuContainer = ({
         if (isEmpty(subscriptions)) return false;
 
         return !!startOn;
-    }
-
-    function _openHelpScout(e) {
-        const helpscoutClass = 'helpscout-visible';
-        e.preventDefault();
-
-        if (document.body.classList.contains('helpscout-visible')) {
-            document.body.classList.remove('helpscout-visible');
-        } else {
-            document.body.classList.add(helpscoutClass);
-        }
-        window.Beacon('toggle');
     }
 
     function handleGenerateQRCodesModal(e) {

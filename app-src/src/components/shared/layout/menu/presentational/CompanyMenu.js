@@ -12,7 +12,6 @@ const CompanyMenu = ({
     unreadCount,
     dismissMessages,
     isSubscribed,
-    openHelpScout,
     isClientAccess,
     handleGenerateQRCodesModal,
     shouldRestrictPayments,
@@ -183,13 +182,6 @@ const CompanyMenu = ({
                     </CompanyMenuItemContainer>
 
                     <MenuHeader title="Support" />
-                    <CompanyMenuItemContainer
-                        link="/company/tools/support"
-                        onClick={e => openHelpScout(e)}
-                    >
-                        <i className="far fa-info-circle fa-fw icon" />
-                        <span className="menu-text">Help</span>
-                    </CompanyMenuItemContainer>
                     <CompanyMenuItemContainer link="/company/user-guides">
                         <i className="far fa-video fa-fw icon" />
                         <span className="menu-text">User Guides</span>
