@@ -36,6 +36,17 @@ const UserTable = ({ date, day, initialRows = 7, timesheets }) => {
                 </td>
             </tr>
 
+            {expanded && (
+                <tr>
+                    <td className="view-more-row" colSpan={8}>
+                        <button className="button" onClick={() => setExpanded(false)}>
+                            <i className="far fa-eye-slash" />
+                            Hide
+                        </button>
+                    </td>
+                </tr>
+            )}
+
             {timesheets.map((timesheet, i) => {
                 const {
                     companyUserID,
@@ -121,16 +132,6 @@ const UserTable = ({ date, day, initialRows = 7, timesheets }) => {
                     </Fragment>
                 );
             })}
-            {expanded && (
-                <tr>
-                    <td className="view-more-row" colSpan={8}>
-                        <button className="button" onClick={() => setExpanded(false)}>
-                            <i className="far fa-eye-slash" />
-                            Hide
-                        </button>
-                    </td>
-                </tr>
-            )}
         </>
     );
 };
