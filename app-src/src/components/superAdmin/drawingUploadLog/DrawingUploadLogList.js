@@ -4,7 +4,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { RAW_S3_STORAGE_URL } from 'config';
 
 const DrawingUploadLogList = ({ drawingsLogs }) =>
-    drawingsLogs.map(drawingsLog => (
+    drawingsLogs.reverse().map(drawingsLog => (
         <tr key={drawingsLog.id}>
             <td>{drawingsLog.companyName}</td>
             <td>{drawingsLog.fullHierarchyName}</td>
