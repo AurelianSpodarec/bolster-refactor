@@ -145,6 +145,10 @@ export default function (ProtectedComponent) {
                     ) {
                         return NO;
                     }
+                    // pin tasks
+                    if (filterByTasks && !pin.hasPinTask) {
+                        return NO;
+                    }
 
                     return YES;
                 })
