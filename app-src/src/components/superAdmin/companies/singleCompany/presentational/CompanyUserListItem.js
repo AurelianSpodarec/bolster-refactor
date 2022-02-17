@@ -19,6 +19,8 @@ const CompanyUserListItem = ({ user, handleModalClick, tableColumnWidths }) => {
         }
     }, []);
 
+    console.log(COMPANY_USER_ROLE_IDS[String(user.type)]);
+
     return (
         <tr ref={row} className={`${isRowRed ? 'red-row' : ''}`}>
             <td style={{ width: tableColumnWidths[0] }} className="cell-break-all">
@@ -63,7 +65,11 @@ const CompanyUserListItem = ({ user, handleModalClick, tableColumnWidths }) => {
                 {user.userIsEmailConfirmed ? 'Yes' : 'No'}
             </td>
             <td style={{ width: tableColumnWidths[8] }} className="left-align">
-                {user.shouldRestrictPayments ? 'Yes' : 'No'}
+                {COMPANY_USER_ROLE_IDS[String(user.type)] === 'Operative'
+                    ? 'N/A'
+                    : user.shouldRestrictPayments
+                    ? 'Yes'
+                    : 'No'}
             </td>
             <td
                 className={isRowRed ? 'red-column' : ''}
