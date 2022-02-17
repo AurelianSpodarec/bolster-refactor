@@ -544,6 +544,7 @@ export const ACTIVITY_LOG_REFERENCE_TYPES = {
     OPERATIVE_PERMISSIONS: 24,
     USER_ENQUIRY: 25,
     USER_TYPE: 26,
+    ALERT_MESSAGE: 27,
 };
 
 export const ACTIVITY_LOG_REFERENCE_VALUES = {
@@ -573,6 +574,7 @@ export const ACTIVITY_LOG_REFERENCE_VALUES = {
     24: 'Operative Permissions',
     25: 'User Enquiry',
     26: 'User Type',
+    27: 'Alert Message',
 };
 
 export const COMPANY_REPORTS_OUTPUT_TYPES = {
