@@ -9,14 +9,7 @@ import deleteCompanyPermissions from 'actions/companyAdmin/companiesPermissions/
 
 class CompaniesAccessListContainer extends Component {
     render() {
-        const {
-            handleShowModal,
-            parentId,
-            accessType,
-            smallList = false,
-            headers,
-            onMobile,
-        } = this.props;
+        const { handleShowModal, parentId, accessType, headers, onMobile } = this.props;
         const formattedCompanies = this.formatCompanies();
 
         return (
@@ -25,7 +18,6 @@ class CompaniesAccessListContainer extends Component {
                 handleShowModal={handleShowModal}
                 companies={formattedCompanies}
                 parentId={parentId}
-                scrollLimit={smallList && formattedCompanies.length > 3 ? true : false}
                 handleRemovePermission={this.handleRemovePermissionModal}
                 headers={headers}
                 onMobile={onMobile}
