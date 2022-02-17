@@ -2308,6 +2308,22 @@ input {
     &.form-padding {
         padding-left: 7.5px;
     }
+
+    &.row {
+        display: flex;
+        flex-direction: row;
+
+        .title {
+            width: auto;
+            white-space: nowrap;
+        }
+
+        p {
+            width: auto;
+            white-space: nowrap;
+            left: 5px;
+        }
+    }
 }
 
 .filter {
@@ -4919,6 +4935,11 @@ input {
             min-height: calc(100% - 10px);
         }
     }
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
 }
 
 .flex-tooltip-images {

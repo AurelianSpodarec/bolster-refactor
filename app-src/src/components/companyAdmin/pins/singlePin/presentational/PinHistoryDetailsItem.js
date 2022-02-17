@@ -73,6 +73,15 @@ const PinHistoryDetailsItem = ({
                 />
             </>
         )}
+
+        {!!history.pinTask && (
+            <FieldOutput
+                title="Pin task"
+                description="WIP DISPLAY TYPE AND STATUS"
+                sizeClass="size-lg-3 size-md-12"
+            />
+        )}
+
         <PinSectionsContainer pinHistory={history} drawingID={drawingID} />
 
         <BlockButtonWrapper additionalClasses="item-button-container" sizeClasses="size-lg-12">
