@@ -78,7 +78,7 @@ export default function (ProtectedComponent) {
             }
         };
 
-        _getFilteredPins = pins => {
+        _getFilteredPins = (pins, filterByTasks = false) => {
             const { filters, furtherFiltrationOption } = this.props;
             const { PIN_SELECTOR, INDIVIDUAL_PINS, ZONES } = FURTHER_FILTRATION_OPTIONS;
 

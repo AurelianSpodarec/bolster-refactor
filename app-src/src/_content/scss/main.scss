@@ -818,7 +818,7 @@ input {
     &.red {
         background-color: $red;
 
-        &:hover {
+        &:hover, &.active {
             background-color: #b51313;
         }
     }
@@ -826,7 +826,7 @@ input {
     &.yellow {
         background-color: $yellow;
 
-        &:hover {
+        &:hover, &.active {
             background-color: #da9001;
         }
     }
@@ -834,14 +834,14 @@ input {
     &.blue {
         background-color: $blue;
 
-        &:hover {
+        &:hover, &.active {
             background-color: #1083b3;
         }
     }
 
     &.green {
         background-color: $green;
-        &:hover {
+        &:hover, &.active {
             background-color: #258e48;
         }
     }
