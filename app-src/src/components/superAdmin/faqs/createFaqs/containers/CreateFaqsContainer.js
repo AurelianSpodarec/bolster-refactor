@@ -18,7 +18,7 @@ const CreateFaqsContainer = () => {
         title: 'FAQ Name',
         content: '',
         imageS3Key: '',
-        videoS3Key: '',
+        videoLink: '',
     });
 
     const isPosting = useSelector(selectFaqsIsPosting);

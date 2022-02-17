@@ -16,7 +16,7 @@ const buttonOptions = [['formatBlock'], ['bold', 'italic', 'underline'], ['list'
 const CreateFaqs = ({
     handleSave,
     handleFormChange,
-    form: { title, type, content, imageS3Key, videoS3Key },
+    form: { title, type, content, imageS3Key, videoLink },
 }) => {
     return (
         <>
@@ -56,19 +56,19 @@ const CreateFaqs = ({
                     </BlockEditor>
                 </Field>
 
+                <Field name="Upload video" sizeClasses="size-lg-6">
+                    <TextInputContainer
+                        name="videoLink"
+                        value={videoLink}
+                        handleChange={handleFormChange}
+                        placeholder="Paste Youtube or Vimeo link"
+                    />
+                </Field>
                 <Field name="Upload image" sizeClasses="size-lg-6">
                     <FileUploadContainer
                         value={imageS3Key}
                         name="imageS3Key"
                         acceptedTypes={['image/jpg', 'image/png', 'image/jpeg']}
-                        handleChange={handleFormChange}
-                    />
-                </Field>
-                <Field name="Upload video" sizeClasses="size-lg-6">
-                    <FileUploadContainer
-                        value={videoS3Key}
-                        name="videoS3Key"
-                        acceptedTypes={['video/x-flv', 'video/quicktime', 'video/mp4']}
                         handleChange={handleFormChange}
                     />
                 </Field>
