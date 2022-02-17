@@ -66,11 +66,33 @@ function getOptions() {
 }
 
 export default function (apiSettings) {
-    const [selected, setSelected] = useState(formatInitialState());
     const options = useMemo(getOptions, []);
 
+    const optionsFormatted = useMemo(() => {
+        return options.reduce((acc, curOption) => {
+            const referenceType = curOption.value;
+            const arrToAdd = [];
+
+            curOption.actionOptions.forEach(action =>
+                arrToAdd.push({ referenceType, actionType: action.value }),
+            );
+
+            return [...acc, ...arrToAdd];
+        }, []);
+    });
+    const [selected, setSelected] = useState(formatInitialState());
+
     function formatInitialState() {
-        return apiSettings.map(({ referenceType, actionType }) => ({ referenceType, actionType }));
+        return optionsFormatted
+            .filter(option => {
+                return !apiSettings.some(setting => {
+                    return (
+                        setting.referenceType === option.referenceType &&
+                        setting.actionType === option.actionType
+                    );
+                });
+            })
+            .map(({ referenceType, actionType }) => ({ referenceType, actionType }));
     }
 
     function checkIsSelected(ref, action) {
@@ -86,23 +108,21 @@ export default function (apiSettings) {
     }
 
     function selectAll() {
-        const selectedOptions = options.reduce((acc, curOption) => {
-            const referenceType = curOption.value;
-            const arrToAdd = [];
-
-            curOption.actionOptions.forEach(action =>
-                arrToAdd.push({ referenceType, actionType: action.value }),
-            );
-
-            return [...acc, ...arrToAdd];
-        }, []);
-
-        setSelected(selectedOptions);
+        setSelected(optionsFormatted);
     }
 
     function deselectAll() {
         setSelected([]);
     }
 
-    return [selected, handleChange, options, checkIsSelected, selectAll, deselectAll];
+    const selectionToSubmit = optionsFormatted.filter(option => {
+        return !selected.some(selected => {
+            return (
+                selected.referenceType === option.referenceType &&
+                selected.actionType === option.actionType
+            );
+        });
+    });
+
+    return [selectionToSubmit, handleChange, options, checkIsSelected, selectAll, deselectAll];
 }

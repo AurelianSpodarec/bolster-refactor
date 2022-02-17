@@ -20,7 +20,7 @@ const EditActivityLogFormContainer = ({
     error,
     history,
 }) => {
-    const [selectedItems, handleChange, options, checkIsSelected, selectAll, deselectAll] =
+    const [selectionToSubmit, handleChange, options, checkIsSelected, selectAll, deselectAll] =
         useEditActivitySettings(settings);
     const prevProps = usePrevious({ isPosting });
 
@@ -47,7 +47,7 @@ const EditActivityLogFormContainer = ({
     );
 
     function handleSubmit() {
-        postActivityLogSettings({ items: selectedItems });
+        postActivityLogSettings({ items: selectionToSubmit });
     }
 };
 
