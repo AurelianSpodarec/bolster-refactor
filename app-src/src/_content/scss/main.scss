@@ -7164,26 +7164,27 @@ input {
     }
     
 }
+.recurring {
+    background-color: $recurring-blue;
+}
+.non_recurring {
+    background-color: $non-recurring-purple;
+}
+.complete {
+    background-color: $complete-green;
+}
+.complete_late {
+    background-color: $complete-late-yellow;
+}
+.due_soon {
+    background-color: $due-soon-orange;
+}
+.incomplete {
+    background-color: $incomplete-red;
+}
+
 
 .pin-tasks-dashboard {
-    .recurring {
-        background-color: $recurring-blue;
-    }
-    .non_recurring {
-        background-color: $non-recurring-purple;
-    }
-    .complete {
-        background-color: $complete-green;
-    }
-    .complete_late {
-        background-color: $complete-late-yellow;
-    }
-    .due_soon {
-        background-color: $due-soon-orange;
-    }
-    .incomplete {
-        background-color: $incomplete-red;
-    }
 
     .calendar-view {
         .calendar {
@@ -7742,5 +7743,25 @@ input {
 .content-area-editor {
     &.no-padding {
         padding: 0;
+    }
+}
+
+.history-pill-wrapper {
+    display: flex;
+
+    .task-pill {
+        .pill-title {
+            font-size: 100%;
+            color: $body-text;
+        }
+
+        .square {
+            height: 15px;
+            width: 15px;
+        }
+
+        &:first-child {
+            margin-right: 5px;
+        }
     }
 }

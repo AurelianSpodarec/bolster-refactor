@@ -7,6 +7,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import PinSectionsContainer from '../containers/PinSectionsContainer';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import moment from 'moment';
 
 const PinHistoryDetailsItem = ({
     history,
@@ -19,6 +20,7 @@ const PinHistoryDetailsItem = ({
     pin,
     templateName,
     canDeleteHistory,
+    historyPinTask,
 }) => (
     <div className="item">
         <FieldOutput
@@ -74,10 +76,45 @@ const PinHistoryDetailsItem = ({
             </>
         )}
 
-        {!!history.pinTask && (
+        {!!historyPinTask && (
             <FieldOutput
                 title="Pin task"
-                description="WIP DISPLAY TYPE AND STATUS"
+                description={
+                    <div className="history-pill-wrapper">
+                        <div className="task-pill active">
+                            <div
+                                className={`square ${
+                                    historyPinTask.actionedOn
+                                        ? moment(historyPinTask.actionedOn).isAfter(
+                                              historyPinTask.dueOn,
+                                          )
+                                            ? 'complete_late'
+                                            : 'complete'
+                                        : 'incomplete'
+                                }`}
+                            />
+                            <div className="pill-title">
+                                {historyPinTask.actionedOn
+                                    ? moment(historyPinTask.actionedOn).isAfter(
+                                          historyPinTask.dueOn,
+                                      )
+                                        ? 'Complete late'
+                                        : 'Complete'
+                                    : 'Incomplete'}
+                            </div>
+                        </div>
+                        <div className="task-pill active">
+                            <div
+                                className={`square ${
+                                    historyPinTask.isRecurring ? 'recurring' : 'non_recurring'
+                                }`}
+                            />
+                            <div className="pill-title">
+                                {historyPinTask.isRecurring ? 'Recurring' : 'Non-recurring'}
+                            </div>
+                        </div>
+                    </div>
+                }
                 sizeClass="size-lg-3 size-md-12"
             />
         )}

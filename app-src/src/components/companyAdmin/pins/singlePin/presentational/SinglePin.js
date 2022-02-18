@@ -15,7 +15,7 @@ const SinglePin = ({ isLoading, pin }) => (
 
             {!isEmpty(pin) && <PinQRCode pin={pin} />}
 
-            <SinglePinsTaskContainer />
+            {pin?.hasPinTask && <SinglePinsTaskContainer />}
 
             <PinDetailsContainer isLoading={isLoading} />
         </div>
