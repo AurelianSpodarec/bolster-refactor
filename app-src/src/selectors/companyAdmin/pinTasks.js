@@ -16,3 +16,5 @@ export const selectPinRecurrenceFilters = state =>
     state.companyAdmin.pinTasksReducer.pinRecurrenceFilters;
 
 export const selectPinStatusFilters = state => state.companyAdmin.pinTasksReducer.pinStatusFilters;
+
+export const selectSinglePinTasks = state => state.companyAdmin.pinTasksReducer.singlePinTasks;
