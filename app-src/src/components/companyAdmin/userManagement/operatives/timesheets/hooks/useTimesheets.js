@@ -193,7 +193,7 @@ const useTimesheets = () => {
             companyUserOptions = timesheetOptions
                 .filter(({ id, hasTimesheetData }) => {
                     if (companyUserIDs.length) {
-                        return companyUserIDs.includes(id) ? true : hasTimesheetData;
+                        return companyUserIDs.includes(id) || hasTimesheetData;
                     }
                     return hasTimesheetData;
                 })
