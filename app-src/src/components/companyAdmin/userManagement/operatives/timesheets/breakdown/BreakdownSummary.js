@@ -19,9 +19,7 @@ const BreakdownSummary = ({
     clockOut,
     timePeriod = TIME_PERIOD.DAY,
 }) => {
-    const filteredJobReferences = jobReferences
-        ? jobReferences.filter(jobReference => jobReference)
-        : [];
+    const filteredJobReferences = jobReferences.filter(jobReference => jobReference);
     const { moment: clockInMoment } = useDateTime(clockIn);
     const { moment: clockOutMoment } = useDateTime(clockOut);
     const clockInDay = clockInMoment.startOf('day');

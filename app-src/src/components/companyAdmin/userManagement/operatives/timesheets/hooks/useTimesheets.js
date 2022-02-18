@@ -150,9 +150,7 @@ const useTimesheets = () => {
                 acc[i].formattedHours += entry.formattedHours;
                 acc[i].formattedBreakHours += entry.formattedBreakHours;
                 acc[i].totalPins += entry.totalPins;
-                acc[i].jobReferences = acc.jobReferences
-                    ? [...acc[i].jobReferences, ...entry.jobReferences]
-                    : [];
+                acc[i].jobReferences = [...acc[i].jobReferences, ...entry.jobReferences];
             });
             return acc;
         },
