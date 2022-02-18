@@ -492,6 +492,10 @@ export const ACTIVITY_LOG_ACTION_TYPES = {
     READ: 17,
     UNREAD: 18,
     UNLINK: 19,
+    CONFIRM_EMAIL: 20,
+    END_LOCKOUT: 21,
+    UNDELETE: 22,
+    REQUEST_DELETION: 23,
 };
 
 export const ACTIVITY_LOG_ACTION_VALUES = {
@@ -514,6 +518,10 @@ export const ACTIVITY_LOG_ACTION_VALUES = {
     17: 'Read',
     18: 'Unread',
     19: 'Unlink',
+    20: 'Confirm Email',
+    21: 'End Lockout',
+    22: 'Undelete',
+    23: 'Request Deletion',
 };
 
 export const ACTIVITY_LOG_REFERENCE_TYPES = {
@@ -545,6 +553,15 @@ export const ACTIVITY_LOG_REFERENCE_TYPES = {
     USER_ENQUIRY: 25,
     USER_TYPE: 26,
     ALERT_MESSAGE: 27,
+    RECENT_UPDATE: 28,
+    FRONT_END_TEXT: 29,
+    LEGAL_DOCUMENT: 30,
+    BANNER: 31,
+    BUG_REPORT: 32,
+    DRAWING_EXPIRY_MESSAGE: 33,
+    ALERT: 34,
+    OWNERSHIP_TRANSFER_REQUEST: 35,
+    TWO_FACTOR_AUTH: 36,
 };
 
 export const ACTIVITY_LOG_REFERENCE_VALUES = {
@@ -575,6 +592,15 @@ export const ACTIVITY_LOG_REFERENCE_VALUES = {
     25: 'User Enquiry',
     26: 'User Type',
     27: 'Alert Message',
+    28: 'Recent Update',
+    29: 'Front End Text',
+    30: 'Legal Document',
+    31: 'Banner',
+    32: 'Bug Report',
+    33: 'Drawing Expiry Message',
+    34: 'Alert',
+    35: 'Ownership Transfer Request',
+    36: 'Two Factor Auth',
 };
 
 export const COMPANY_REPORTS_OUTPUT_TYPES = {
