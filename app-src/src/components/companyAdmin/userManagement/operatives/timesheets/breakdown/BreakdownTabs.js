@@ -5,9 +5,9 @@ const BreakdownTabs = ({ tabs = [], selectedTab = 0, onTabChange = () => {} }) =
 
     return (
         <div className="breakdown-tabs">
-            {tabs.map(tab => (
+            {tabs.map((tab, i) => (
                 <button
-                    key={tab.id}
+                    key={tab.id + i}
                     className={`breakdown-tab ${selectedTab === tab.id ? 'selected' : ''}`}
                     onClick={() => onTabChange(tab.id)}
                     disabled={tab.disabled}

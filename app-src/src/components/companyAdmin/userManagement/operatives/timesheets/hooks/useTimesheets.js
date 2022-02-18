@@ -23,6 +23,7 @@ import { selectServiceIDs } from 'selectors/companyAdmin/services';
 import { ERROR_MODAL, GENERATE_TIMESHEET_REPORT } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import {
+    selectCompanyUsers,
     selectCompanyUsersFetchError,
     selectCompanyUsersIsFetching,
 } from 'selectors/companyAdmin/companyUsers';
@@ -43,6 +44,7 @@ const useTimesheets = () => {
 
     const companyUsersIsFetching = useSelector(selectCompanyUsersIsFetching);
     const companyUsersFetchError = useSelector(selectCompanyUsersFetchError);
+    const companyUsers = useSelector(selectCompanyUsers);
 
     const timesheetsIsFetching = useSelector(selectTimesheetsIsFetching);
     const timesheetsFetchError = useSelector(selectTimesheetsFetchError);
@@ -148,7 +150,9 @@ const useTimesheets = () => {
                 acc[i].formattedHours += entry.formattedHours;
                 acc[i].formattedBreakHours += entry.formattedBreakHours;
                 acc[i].totalPins += entry.totalPins;
-                acc[i].jobReferences = [...acc[i].jobReferences, ...entry.jobReferences];
+                acc[i].jobReferences = acc.jobReferences
+                    ? [...acc[i].jobReferences, ...entry.jobReferences]
+                    : [];
             });
             return acc;
         },
@@ -180,8 +184,6 @@ const useTimesheets = () => {
             dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
             dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
         }
-        // if (!isAllUsers) dispatch(fetchTimesheetsWeek(id, startDate));
-        // else console.log('fetch for all users here');
     }, [dispatch, companyUserIDs, startDate]);
 
     useEffect(() => {
@@ -190,17 +192,16 @@ const useTimesheets = () => {
         if (filterByHasClockedIn) {
             companyUserOptions = timesheetOptions
                 .filter(({ id, hasTimesheetData }) => {
-                    if (!companyUserIDs.length) {
-                        return hasTimesheetData;
-                    } else {
-                        return companyUserIDs.includes(id);
+                    if (companyUserIDs.length) {
+                        return companyUserIDs.includes(id) ? true : hasTimesheetData;
                     }
+                    return hasTimesheetData;
                 })
                 .map(mapCompanyUsers);
         }
 
         setCompanyUserOptions(companyUserOptions);
-    }, [timesheetOptions, filterByHasClockedIn]);
+    }, [timesheetOptions, filterByHasClockedIn, companyUserIDs]);
 
     return {
         startDate,
