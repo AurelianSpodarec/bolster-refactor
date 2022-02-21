@@ -26,12 +26,9 @@ import DemoAccessCodesRoutes from './DemoAccessCodesRoutes';
 import UserCreationsRoutes from './UserCreationsRoutes';
 import CompanyTrackingRoutes from './CompanyTrackingRoutes';
 import BugReportsRoutes from './BugReportsRoutes';
-<<<<<<< HEAD
 import CompanyTimesheetsRoutes from './CompanyTimesheetsRoutes';
 import FaqsRoutes from './FaqsRoutes';
-=======
 import DrawingUploadLog from 'components/superAdmin/drawingUploadLog/DrawingUploadLog';
->>>>>>> BOLSTER-742
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
