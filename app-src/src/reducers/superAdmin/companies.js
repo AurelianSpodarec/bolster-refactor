@@ -20,6 +20,9 @@ import {
     ADMIN_EDIT_COMPANY_FREE_CREDIT_REQUEST,
     ADMIN_EDIT_COMPANY_FREE_CREDIT_SUCCESS,
     ADMIN_EDIT_COMPANY_FREE_CREDIT_FAILURE,
+    ADMIN_EDIT_COMPANY_JOB_REF_DROPDOWN_FAILURE,
+    ADMIN_EDIT_COMPANY_JOB_REF_DROPDOWN_REQUEST,
+    ADMIN_EDIT_COMPANY_JOB_REF_DROPDOWN_SUCCESS,
 } from 'constants/actionTypes/companies';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
@@ -71,9 +74,11 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case ADMIN_EDIT_COMPANY_ADDRESS_REQUEST:
         case ADMIN_EDIT_COMPANY_FREE_CREDIT_REQUEST:
+        case ADMIN_EDIT_COMPANY_JOB_REF_DROPDOWN_REQUEST:
             return false;
         case ADMIN_EDIT_COMPANY_ADDRESS_SUCCESS:
         case ADMIN_EDIT_COMPANY_FREE_CREDIT_SUCCESS:
+        case ADMIN_EDIT_COMPANY_JOB_REF_DROPDOWN_SUCCESS:
             return true;
         default:
             return state;
@@ -85,6 +90,7 @@ function isPostingReducer(state = false, action) {
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_REQUEST:
         case ADMIN_EDIT_COMPANY_ADDRESS_REQUEST:
         case ADMIN_EDIT_COMPANY_FREE_CREDIT_REQUEST:
+        case ADMIN_EDIT_COMPANY_JOB_REF_DROPDOWN_REQUEST:
             return true;
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_SUCCESS:
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_FAILURE:
@@ -92,6 +98,8 @@ function isPostingReducer(state = false, action) {
         case ADMIN_EDIT_COMPANY_ADDRESS_FAILURE:
         case ADMIN_EDIT_COMPANY_FREE_CREDIT_SUCCESS:
         case ADMIN_EDIT_COMPANY_FREE_CREDIT_FAILURE:
+        case ADMIN_EDIT_COMPANY_JOB_REF_DROPDOWN_SUCCESS:
+        case ADMIN_EDIT_COMPANY_JOB_REF_DROPDOWN_FAILURE:
             return false;
         default:
             return state;
@@ -119,6 +127,7 @@ function errorReducer(state = null, action) {
         case ADMIN_EDIT_COMPANY_ADDRESS_REQUEST:
         case FETCH_COMPANY_MANUFACTURING_OPTIONS_REQUEST:
         case ADMIN_EDIT_COMPANY_FREE_CREDIT_REQUEST:
+        case ADMIN_EDIT_COMPANY_JOB_REF_DROPDOWN_REQUEST:
             return null;
         case FETCH_ALL_COMPANIES_FAILURE:
         case FETCH_SINGLE_COMPANY_FAILURE:
@@ -127,6 +136,7 @@ function errorReducer(state = null, action) {
         case ADMIN_EDIT_COMPANY_ADDRESS_FAILURE:
         case FETCH_SINGLE_COMPANY_FOR_INVOICE_FAILURE:
         case ADMIN_EDIT_COMPANY_FREE_CREDIT_FAILURE:
+        case ADMIN_EDIT_COMPANY_JOB_REF_DROPDOWN_FAILURE:
             return action.error;
         default:
             return state;
@@ -141,6 +151,7 @@ function companiesReducer(state = {}, action) {
         case SA_TOGGLE_COMPANY_ON_CLIENT_LIST_SUCCESS:
         case ADMIN_EDIT_COMPANY_ADDRESS_SUCCESS:
         case ADMIN_EDIT_COMPANY_FREE_CREDIT_SUCCESS:
+        case ADMIN_EDIT_COMPANY_JOB_REF_DROPDOWN_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
