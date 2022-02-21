@@ -8,7 +8,11 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import CompanyInfo from '../presentational/CompanyInfo';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { ADMIN_EDIT_COMPANY_ADDRESS, EDIT_FREE_CREDIT } from 'constants/shared/modalTypes';
+import {
+    ADMIN_EDIT_COMPANY_ADDRESS,
+    EDIT_FREE_CREDIT,
+    EDIT_JOB_REF_DROPDOWN,
+} from 'constants/shared/modalTypes';
 
 const CompanyInfoContainer = ({
     company,
@@ -29,6 +33,7 @@ const CompanyInfoContainer = ({
                 handleToggleClientList={handleToggleClientList}
                 handleShowEditAddressModal={handleShowEditAddressModal}
                 handleShowEditFreeCreditModal={handleShowEditFreeCreditModal}
+                handleShowEditJobRefDropdownModal={handleShowEditJobRefDropdownModal}
             />
         </BlockContainer>
     );
@@ -46,6 +51,9 @@ const CompanyInfoContainer = ({
     }
     function handleShowEditFreeCreditModal() {
         showModal(EDIT_FREE_CREDIT, { company });
+    }
+    function handleShowEditJobRefDropdownModal() {
+        showModal(EDIT_JOB_REF_DROPDOWN, { company });
     }
 };
 

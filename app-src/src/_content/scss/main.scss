@@ -919,6 +919,14 @@ input {
         }
     }
 
+    &.vertical-spacing {
+        .button {
+            margin: {
+                top: 2.5px;
+                bottom: 2.5px;
+            };
+        }
+    }
 }
 
 .no-background-btn {
