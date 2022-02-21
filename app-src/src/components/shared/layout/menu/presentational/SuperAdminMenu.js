@@ -58,6 +58,9 @@ const SuperAdminMenu = ({ logout, unreadRequests, unreadBugReports }) => (
         <MenuItemContainer link="/admin/services">
             <i className="fa fa-folder-open icon" /> <span className="menu-text">Services</span>
         </MenuItemContainer>
+        <MenuItemContainer link="/admin/drawing-upload-log">
+            <i className="fa fa-list icon" /> <span className="menu-text">Drawing Upload Log</span>
+        </MenuItemContainer>
 
         <AdminPinOptionsMenuItems />
         <MenuItemContainer link="/admin/contact-submissions">

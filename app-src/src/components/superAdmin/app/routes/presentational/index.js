@@ -28,11 +28,13 @@ import CompanyTrackingRoutes from './CompanyTrackingRoutes';
 import BugReportsRoutes from './BugReportsRoutes';
 import CompanyTimesheetsRoutes from './CompanyTimesheetsRoutes';
 import FaqsRoutes from './FaqsRoutes';
+import DrawingUploadLog from 'components/superAdmin/drawingUploadLog/DrawingUploadLog';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
         <Route exact path={`${base}`} component={DashboardContainer} />
         <Route path={`${base}/services`} component={ServicesRoutes} />
+        <Route path={`${base}/drawing-upload-log`} component={DrawingUploadLog} />
         <Route path={`${base}/companies`} component={CompaniesRoutes} />
         <Route path={`${base}/users`} component={UsersRoutes} />
         <Route path={`${base}/user-creations`} component={UserCreationsRoutes} />
