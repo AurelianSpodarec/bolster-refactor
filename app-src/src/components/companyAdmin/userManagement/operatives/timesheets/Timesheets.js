@@ -53,10 +53,10 @@ const Timesheets = () => {
                 withBackButton
             >
                 <Link
-                    className="button blue"
+                    className="button yellow"
                     to="/company/users-management/timesheets/job-references"
                 >
-                    <i className="far fa-file-alt" />
+                    <i className="far fa-pencil" />
                     Set Job References
                 </Link>
             </PageHeading>
