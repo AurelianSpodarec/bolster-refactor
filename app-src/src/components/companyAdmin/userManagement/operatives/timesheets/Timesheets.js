@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
@@ -33,6 +32,7 @@ const Timesheets = () => {
     return (
         <>
             <PageHeading
+                leftChildren={true}
                 title={
                     <>
                         Timesheet -{' '}
@@ -50,15 +50,8 @@ const Timesheets = () => {
                         )}
                     </>
                 }
-                withBackButton
             >
-                <Link
-                    className="button yellow"
-                    to="/company/users-management/timesheets/job-references"
-                >
-                    <i className="far fa-pencil" />
-                    Set Job References
-                </Link>
+                <BackButtonContainer />
             </PageHeading>
             <TimesheetCalender
                 startDate={startDate}

@@ -127,6 +127,10 @@ const CompanyMenu = ({
                         <i className="far fa-folders fa-fw icon" />
                         <span className="menu-text">My Templates</span>
                     </CompanyMenuItemContainer>
+                    <CompanyMenuItemContainer link="/company/job-references">
+                        <i className="far fa-file-alt fa-fw icon" />
+                        <span className="menu-text">Job References</span>
+                    </CompanyMenuItemContainer>
                 </>
             )}
             {!isCompanyUserOrSelecting && (

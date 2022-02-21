@@ -19,7 +19,6 @@ import EditClientUserEmail from 'components/companyAdmin/userManagement/clients/
 import DocumentsUploaderContainer from 'components/companyAdmin/userManagement/documentsUploader/containers/DocumentsUploaderContainer';
 import Timesheets from 'components/companyAdmin/userManagement/operatives/timesheets/Timesheets';
 import PinTasksDashboard from 'components/companyAdmin/userManagement/pinTasks/dashboard/PinTasksDashboard';
-import JobReferences from 'components/companyAdmin/jobReferences/JobReferences';
 // import EditOperativePasswordContainer from 'components/companyAdmin/userManagement/operatives/editOperativePassword/containers/EditOperativePasswordContainer';
 
 const UserManagementRoutes = ({ base = '/company/users-management' }) => (
@@ -73,8 +72,8 @@ const UserManagementRoutes = ({ base = '/company/users-management' }) => (
             component={UserDrawingsContainer}
         />
         <Route exact path={`${base}/operative/:id/drawings`} component={UserDrawingsContainer} />
+        <Route exact path={`${base}/timesheets`} component={Timesheets} />
         <Route exact path={`${base}/pin-tasks`} component={PinTasksDashboard} />
-        <Route exact path={`${base}/timesheets/job-references`} component={JobReferences} />
     </SwitchWith404>
 );
 
