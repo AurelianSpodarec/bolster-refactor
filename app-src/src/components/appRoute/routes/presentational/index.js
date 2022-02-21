@@ -27,6 +27,11 @@ const Routes = () => {
         if (location.pathname !== prevProps.location.pathname) {
             ReactGA.set({ page: location.pathname });
             ReactGA.pageview(location.pathname + location.search);
+            try {
+                window.HubSpotConversations.widget.refresh();
+            } catch (e) {
+                console.log(e);
+            }
         }
     }, [location.pathname, prevProps.location]);
 
