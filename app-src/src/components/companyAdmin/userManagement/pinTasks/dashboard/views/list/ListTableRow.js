@@ -39,12 +39,14 @@ const ListTableRow = ({ pinTask, startEditPinTask, viewTaskNote }) => {
                 {operativeFirstName} {operativeLastName}
             </td>
             <td>
-                <a href={`/company/drawings/${drawingID}`}>
+                <a className="link-without-decoration" href={`/company/drawings/${drawingID}`}>
                     {siteName}/{buildingName}/{floorName}/{drawingName}
                 </a>
             </td>
             <td>
-                <a href={`/company/pins/${pinID}`}>{pinCode}</a>
+                <a className="link-without-decoration" href={`/company/pins/${pinID}`}>
+                    {pinCode}
+                </a>
             </td>
             <td>
                 <DateTimeContainer datetime={DATE_TIME_IDS.DATE} date={new Date(dueOn)} />

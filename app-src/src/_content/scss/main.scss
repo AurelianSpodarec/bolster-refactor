@@ -451,6 +451,13 @@ em {
     text-align: center;
 }
 
+.link-without-decoration {
+    text-decoration: none;
+    color: $body-text;
+    &:hover {
+        text-decoration: none;
+    }
+}
 
 //for button under content blocks/areas
 .button-block-container {

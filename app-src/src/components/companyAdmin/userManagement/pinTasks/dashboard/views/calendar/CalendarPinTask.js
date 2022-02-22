@@ -18,7 +18,7 @@ const CalendarPinTask = ({
     const { type, status } = useTypeAndStatus(isRecurring, actionedOn, dueOn);
 
     return (
-        <a href={`/company/pins/${pinID}`} className="task">
+        <a href={`/company/pins/${pinID}`} className="task link-without-decoration">
             <div className="group">
                 <div className={`circle ${type}`} />
                 <div className={`circle ${status}`} />

@@ -11,7 +11,12 @@ const SeriesTableRowPins = ({ pinCount, pins }) => {
         );
 
     return pins.map(pin => (
-        <a href={`/company/pins/${pin.id}`} key={pin.pinCode} onClick={() => setExpanded(false)}>
+        <a
+            className="link-without-decoration"
+            href={`/company/pins/${pin.id}`}
+            key={pin.pinCode}
+            onClick={() => setExpanded(false)}
+        >
             {pin.pinCode}
             <br />
         </a>

@@ -25,7 +25,7 @@ const SeriesListRow = ({ pinTaskSeries, startEditPinTaskSeries }) => {
                 {operativeFirstName} {operativeLastName}
             </td>
             <td>
-                <a href={`/company/drawings/${drawingID}`}>
+                <a className="link-without-decoration" href={`/company/drawings/${drawingID}`}>
                     {siteName}/{buildingName}/{floorName}/{drawingName}
                 </a>
             </td>
