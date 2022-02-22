@@ -14,6 +14,7 @@ const DrawingUploadLogTable = ({ isFetching, fetchError, drawingsLogs }) => {
                 withActions
                 headers={[
                     'Company name',
+                    "Drawing's status",
                     'Hierarchy',
                     'Uploaded on',
                     'Uploaded by',

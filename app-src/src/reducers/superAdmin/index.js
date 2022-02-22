@@ -82,6 +82,6 @@ export default combineReducers({
     syncsReducer,
     bannerNotificationsReducer,
     demoAccessCodesReducer,
-    faqsReducer,
     drawingsReducer,
+    faqsReducer,
 });

@@ -2,11 +2,14 @@ import React from 'react';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { RAW_S3_STORAGE_URL } from 'config';
+import { DRAWINGS_STATE_MESSAGES } from 'constants/companyAdmin/enums';
 
 const DrawingUploadLogList = ({ drawingsLogs }) =>
     drawingsLogs.reverse().map(drawingsLog => (
         <tr key={drawingsLog.id}>
+            {console.log(drawingsLog.state)}
             <td>{drawingsLog.companyName}</td>
+            <td>{DRAWINGS_STATE_MESSAGES[drawingsLog.state]}</td>
             <td>{drawingsLog.fullHierarchyName}</td>
             <td>
                 {' '}
