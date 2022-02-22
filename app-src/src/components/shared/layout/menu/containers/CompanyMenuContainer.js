@@ -25,6 +25,7 @@ const CompanyMenuContainer = ({
     users,
     companyUserID,
     unreadReleaseNoteCount,
+    companySettings,
 }) => {
     if (!hasInitiallyFetched) return null;
 
@@ -67,6 +68,7 @@ const CompanyMenuContainer = ({
             unreadReleaseNoteCount={unreadReleaseNoteCount}
             isCompanySelection={isCompanySelection}
             isCompanyUser={isCompanyUser}
+            companySettings={companySettings}
         />
     );
 
@@ -84,6 +86,7 @@ const CompanyMenuContainer = ({
 };
 const mapStateToProps = ({
     companyAdmin: {
+        companySettingsReducer: { companySettings },
         messagesReducer: { messages },
         creditsReducer: { credits },
         transferRequestsReducer: { incomingTransferRequests },
@@ -121,6 +124,7 @@ const mapStateToProps = ({
         companyUserID,
         users,
         unreadReleaseNoteCount,
+        companySettings,
     };
 };
 
