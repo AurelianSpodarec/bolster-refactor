@@ -2,11 +2,9 @@ import { isObjEmpty } from './generic';
 import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
 export const formatOptions = options => {
-    console.log({ options });
     return options
         .filter(({ isDisabled, isDeleted }) => !isDisabled || !isDeleted)
         .map(option => {
-            console.log({ option });
             return {
                 ...option,
                 text: option.name,
