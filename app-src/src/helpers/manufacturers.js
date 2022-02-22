@@ -2,9 +2,11 @@ import { isObjEmpty } from './generic';
 import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
 export const formatOptions = options => {
+    console.log({ options });
     return options
         .filter(({ isDisabled, isDeleted }) => !isDisabled || !isDeleted)
         .map(option => {
+            console.log({ option });
             return {
                 ...option,
                 text: option.name,
@@ -49,7 +51,7 @@ export const createOptionValuesList = (optionValues, subscriptionServiceIDs) => 
     return Object.entries(optionValues).reduce((acc, [manufacturerID, options]) => {
         const formattedOptionValues = formatOptions(Object.values(options));
         const filteredOptionValues = formattedOptionValues
-            .filter(option => option.isEnabled)
+            .filter(option => option.isEnabled && !option.isDeleted)
             .filter(option =>
                 shouldOptionValueBeIncluded(option.serviceIDs, subscriptionServiceIDs),
             );
