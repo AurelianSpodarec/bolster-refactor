@@ -11,7 +11,7 @@ export function getSortedDropdownOptions(options) {
 
 export const formatAnswers = (answers, options) => {
     if (!Array.isArray(answers)) {
-        return [answers];
+        answers = [answers];
     }
 
     if (!answers || !Array.isArray(options)) return answers;

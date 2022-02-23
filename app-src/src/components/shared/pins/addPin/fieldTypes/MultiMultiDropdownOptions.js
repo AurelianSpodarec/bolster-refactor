@@ -14,6 +14,7 @@ const MultiMultiDropdownOptions = ({
     isManufacturingEnabledForDrawing,
     defaultDropdownSorting,
     companyID,
+    optionValues,
 }) => {
     let isManufacturingEnabledForType = false;
     let formattedOpts = [];
@@ -54,13 +55,23 @@ const MultiMultiDropdownOptions = ({
         );
 
         const extraOptions = originalDropdownMultiAns
+            .filter(opt => !curOptions.includes(opt))
             .reduce((acc, opt) => {
-                if (!curOptions.includes(opt) && !acc.includes(opt)) {
-                    acc.push(opt);
+                if (acc.find(option => option.id === opt)) return acc;
+                if (typeof opt === 'number') {
+                    const manOption = Object.values(optionValues).find(
+                        manufacturerOptions => manufacturerOptions[opt],
+                    )?.[opt];
+                    if (manOption) {
+                        acc.push({ id: manOption.id, name: manOption.name });
+                    }
+                    return acc;
+                }
+                if (!acc.find(opt => opt.id === opt)) {
+                    acc.push({ id: opt, name: opt });
                 }
                 return acc;
-            }, [])
-            .map(opt => ({ name: opt, id: opt }));
+            }, []);
 
         formattedOpts = [...filteredOptions, ...extraOptions].map(option => ({
             value: isManufacturingEnabledForType ? option.id : option.name,

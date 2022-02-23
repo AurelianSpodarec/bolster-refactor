@@ -49,6 +49,7 @@ class AddPinQuestionRoute extends Component {
             question,
             answers,
             dropdownOptions,
+            optionValues,
             status,
             selectedVersion,
             edit,
@@ -90,6 +91,7 @@ class AddPinQuestionRoute extends Component {
                         answers={answers}
                         status={status}
                         dropdownOptions={dropdownOptions}
+                        optionValues={optionValues}
                         handleChange={this.handleChange}
                         handleStatusChange={this.handleStatusChange}
                         handleImageClick={this.handleImageClick}

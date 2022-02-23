@@ -14,6 +14,7 @@ const DropdownOptions = ({
     isManufacturingEnabledForDrawing,
     defaultDropdownSorting,
     companyID,
+    optionValues,
 }) => {
     let isManufacturingEnabledForType = false;
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
@@ -64,7 +65,16 @@ const DropdownOptions = ({
         }));
 
         if (!curOptions.includes(originalDropdownAns)) {
-            formattedOpts.push({ value: originalDropdownAns, label: originalDropdownAns });
+            if (typeof originalDropdownAns === 'number') {
+                const manOption = Object.values(optionValues).find(
+                    manufacturerOptions => manufacturerOptions[originalDropdownAns],
+                )?.[originalDropdownAns];
+                if (manOption) {
+                    formattedOpts.push({ value: originalDropdownAns, label: manOption.name });
+                }
+            } else {
+                formattedOpts.push({ value: originalDropdownAns, label: originalDropdownAns });
+            }
         }
     } else {
         formattedOpts = dropdownOptions
