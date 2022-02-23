@@ -28,8 +28,8 @@ class SinglePinContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { pinId, fetchSinglePinTasks } = this.props;
-        if (pinId) {
+        const { pinId, fetchSinglePinTasks, isFetchingTasks } = this.props;
+        if (!isFetchingTasks && pinId) {
             fetchSinglePinTasks(pinId);
         }
         if (prevProps.pinId !== pinId && pinId) {
@@ -86,7 +86,7 @@ const mapStateToProps = (
     {
         companyAdmin: {
             pinsReducer: { pins },
-            pinTasksReducer: { singlePinTasks },
+            pinTasksReducer: { isFetchingTasks },
         },
     },
     { match: { params } },
