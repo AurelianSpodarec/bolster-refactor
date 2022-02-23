@@ -45,7 +45,7 @@ const PinTaskListContainer = () => {
 
                 const nextTask = futureTasks[0];
                 const companyUser = companyUsers[series.companyUserID];
-                const formattedUserName = `${companyUser?.userFirstName} ${companyUser?.userLastName} - ${companyUser?.formattedOperativeCode} (${companyUser.companyName})`;
+                const formattedUserName = `${companyUser?.userFirstName} ${companyUser?.userLastName} - ${companyUser?.formattedOperativeCode} (${companyUser?.companyName})`;
 
                 return {
                     ...series,
@@ -60,7 +60,7 @@ const PinTaskListContainer = () => {
         () =>
             pinTasks.reduce((acc, task) => {
                 const companyUser = companyUsers[task.companyUserID];
-                const formattedUserName = `${companyUser?.userFirstName} ${companyUser?.userLastName} - ${companyUser?.formattedOperativeCode} (${companyUser.companyName})`;
+                const formattedUserName = `${companyUser?.userFirstName} ${companyUser?.userLastName} - ${companyUser?.formattedOperativeCode} (${companyUser?.companyName})`;
 
                 if (!task.actionedByHistoryID && !task.isRecurring) {
                     acc.push({
