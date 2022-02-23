@@ -414,13 +414,8 @@ class AddPinQuestionRoute extends Component {
     };
 
     handlePrefillDifferentTemplateQuestion = () => {
-        const {
-            oldAnswersByNameObj,
-            question,
-            questions,
-            sectionIDs,
-            updateAddPinAnswer,
-        } = this.props;
+        const { oldAnswersByNameObj, question, questions, sectionIDs, updateAddPinAnswer } =
+            this.props;
 
         const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
         const oldAnswersMatchingName = oldAnswersByNameObj[question.name] || [];
