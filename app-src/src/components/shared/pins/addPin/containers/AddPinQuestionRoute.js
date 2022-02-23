@@ -478,6 +478,7 @@ class AddPinQuestionRoute extends Component {
                 return answer;
             }
         } else if (!isEmpty(answer)) {
+            if (!Array.isArray(answer)) answer = [answer];
             const filteredAnswers = answer.filter(option => relevantOptions.includes(option));
             return filteredAnswers;
         }
