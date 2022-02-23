@@ -26,7 +26,10 @@ const CalendarPinTask = ({
                     <ButtonContainer
                         setColour="transparent"
                         setColourHoverCode="#e6e6e6"
-                        handleClick={() => viewTaskNote(id)}
+                        handleClick={e => {
+                            e.preventDefault();
+                            viewTaskNote(id);
+                        }}
                         className="no-padding"
                     >
                         <img src={PinTaskNoteIcon} alt="Pin Task icon" />
