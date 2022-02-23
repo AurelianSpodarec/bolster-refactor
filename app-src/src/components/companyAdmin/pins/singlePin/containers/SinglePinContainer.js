@@ -11,7 +11,6 @@ import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fet
 import fetchAllPinsForDrawing from 'actions/companyAdmin/pins/async/fetchAllPinsForDrawing';
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import fetchZonesByDrawingID from 'actions/companyAdmin/zones/async/fetchZonesByDrawingID';
-import fetchSinglePinTasks from 'actions/companyAdmin/pinTasks/async/fetchSinglePinTasks';
 
 class SinglePinContainer extends Component {
     state = { isLoading: true };
@@ -28,10 +27,8 @@ class SinglePinContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { pinId, fetchSinglePinTasks, isFetchingTasks } = this.props;
-        if (!isFetchingTasks && pinId) {
-            fetchSinglePinTasks(pinId);
-        }
+        const { pinId } = this.props;
+
         if (prevProps.pinId !== pinId && pinId) {
             this.fetchPin();
         }
@@ -86,7 +83,6 @@ const mapStateToProps = (
     {
         companyAdmin: {
             pinsReducer: { pins },
-            pinTasksReducer: { isFetchingTasks },
         },
     },
     { match: { params } },
@@ -110,7 +106,6 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchAllPinsForDrawing(id, pinIDToKeep)),
     fetchAllOptionValues: () => dispatch(fetchAllOptionValues()),
     fetchZonesByDrawingID: drawingID => fetchZonesByDrawingID(drawingID),
-    fetchSinglePinTasks: id => dispatch(fetchSinglePinTasks(id)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SinglePinContainer));

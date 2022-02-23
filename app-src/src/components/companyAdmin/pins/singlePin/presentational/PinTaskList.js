@@ -3,22 +3,28 @@ import React from 'react';
 import BlockHeading from '../../../../shared/generic/blockHeading/presentational/BlockHeading';
 import Loading from '../../../../shared/generic/misc/presentational/Loading';
 
-const PinTaskList = ({ isFetching, pinSeries, pinTasks }) => {
+import PinSeriesItem from './PinSeriesItem';
+import PinTaskItem from './PinTaskItem';
+
+const PinTaskList = ({ isFetching, pinSeries, nonRecurringPinTasks }) => {
     if (isFetching) return <Loading />;
+
     return (
-        <div className="size-lg-12">
-            <BlockHeading title="Pin tasks" />
+        <div className="size-lg-12 single-pin-tasks-wrapper">
+            <h3 className="heading heading-3">Pin series</h3>
 
             {pinSeries.length ? (
-                pinSeries.map(series => <p key={series.id}>{series.companyUserID}</p>)
+                pinSeries.map(task => <PinSeriesItem key={task.id} task={task} />)
             ) : (
                 <p>No pin series</p>
             )}
 
-            {pinTasks.length ? (
-                pinTasks.map(task => <p key={task.id}>{task.companyUserID}</p>)
+            <h3 className="heading heading-3">Pin tasks</h3>
+
+            {nonRecurringPinTasks.length ? (
+                nonRecurringPinTasks.map(task => <PinTaskItem key={task.id} task={task} />)
             ) : (
-                <p>No pin series</p>
+                <p>No pin tasks</p>
             )}
         </div>
     );

@@ -7780,3 +7780,27 @@ input {
         }
     }
 }
+
+
+.single-pin-tasks-wrapper {
+    .heading {
+        margin: 10px 0;
+    }
+
+    .task-item {
+        margin: 10px 0;
+        border-bottom: 2px solid #f5f5f5;
+
+        div {
+            margin: 5px 0;
+        }
+        strong {
+            font-weight: 500;
+            margin-right: 5px;
+        }
+
+        strong, p {
+            font-size: 120%;
+        }
+    }
+}

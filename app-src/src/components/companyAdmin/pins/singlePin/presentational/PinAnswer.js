@@ -21,7 +21,6 @@ const PinAnswer = ({
     let inner;
     if (!isObjEmpty(optionValuesLookup) && !!curAnswer.answer) {
         if (type === TYPES.DROPDOWN_OPTIONS && optionValuesLookup[curAnswer.answer]) {
-            console.log({ optionValuesLookup, curAnswer });
             if (typeof curAnswer.answer === 'number' && optionValuesLookup[curAnswer.answer]) {
                 curAnswer.answer = optionValuesLookup[curAnswer.answer].name;
             }
