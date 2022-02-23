@@ -16,7 +16,7 @@ class EditPinSectionsContainer extends Component {
     _getSections = () => {
         const { sections, selectedVersionID } = this.props;
 
-        const relevantSections = sections
+        const relevantSections = Object.values(sections)
             .filter(section => section.templateVersionID === selectedVersionID)
             .map(({ id, name, sort }) => ({
                 value: id,

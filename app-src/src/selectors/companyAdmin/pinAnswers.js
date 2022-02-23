@@ -1,1 +1,1 @@
-export const selectPinAnswers = state => state.pinAnswersReducer.answers;
+export const selectPinAnswers = state => state.companyAdmin.pinAnswersReducer.answers;

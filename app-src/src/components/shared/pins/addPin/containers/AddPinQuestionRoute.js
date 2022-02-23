@@ -496,29 +496,6 @@ class AddPinQuestionRoute extends Component {
         const { updateAddPinStatus } = this.props;
         updateAddPinStatus(val);
     };
-
-    handleFileChange = (_, s3Key) => {
-        const { updateAddPinAnswer, question, answers } = this.props;
-        if (+question.type === +QUESTION_TYPE_VALUES.MULTI_PHOTO) {
-            const curAnswer = answers[question.id] || [];
-            //Multi File
-            const existing = curAnswer.includes(s3Key);
-            if (existing) {
-                //Delete
-                updateAddPinAnswer(
-                    question.id,
-                    curAnswer.filter(item => item !== s3Key),
-                );
-            } else {
-                //Add
-                updateAddPinAnswer(question.id, [...curAnswer, s3Key]);
-            }
-        } else {
-            const shouldDeleteFile = answers[question.id] === s3Key;
-            updateAddPinAnswer(question.id, shouldDeleteFile ? '' : s3Key);
-        }
-    };
-
     handleImageClick = imgURL => {
         const { showModal } = this.props;
         showModal(PIN_IMAGE, imgURL);
