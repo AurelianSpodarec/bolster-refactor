@@ -26,51 +26,56 @@ const PinTaskListContainer = () => {
 
     const pinSeriesToShow = useMemo(
         () =>
-            pinSeries.map(series => {
-                const futureTasks = pinTasks
-                    .reduce((acc, task) => {
-                        if (
-                            task.pinTaskSeriesID &&
-                            task.pinTaskSeriesID === series.id &&
-                            moment(task.dueOn).isAfter(moment())
-                        ) {
-                            acc.push(task);
-                        }
+            pinSeries
+                .map(series => {
+                    const futureTasks = pinTasks
+                        .reduce((acc, task) => {
+                            if (
+                                task.pinTaskSeriesID &&
+                                task.pinTaskSeriesID === series.id &&
+                                moment(task.dueOn).isAfter(moment())
+                            ) {
+                                acc.push(task);
+                            }
 
-                        return acc;
-                    }, [])
-                    .sort((a, b) => {
-                        return moment(a.dueOn) - moment(b.dueOn);
-                    });
+                            return acc;
+                        }, [])
+                        .sort((a, b) => {
+                            return moment(a.dueOn) - moment(b.dueOn);
+                        });
 
-                const nextTask = futureTasks[0];
-                const companyUser = companyUsers[series.companyUserID];
-                const formattedUserName = `${companyUser?.userFirstName} ${companyUser?.userLastName} - ${companyUser?.formattedOperativeCode} (${companyUser?.companyName})`;
+                    const nextTask = futureTasks[0];
+                    const companyUser = companyUsers[series.companyUserID];
+                    const formattedUserName = `${companyUser?.userFirstName} ${companyUser?.userLastName} - ${companyUser?.formattedOperativeCode} (${companyUser?.companyName})`;
 
-                return {
-                    ...series,
-                    nextTaskDate: nextTask?.dueOn,
-                    companyUserName: formattedUserName,
-                };
-            }),
+                    return {
+                        ...series,
+                        nextTaskDate: nextTask?.dueOn,
+                        companyUserName: formattedUserName,
+                    };
+                })
+                .sort((a, b) => moment(a.recurrenceStartsOn) - moment(b.recurrenceStartsOn)),
+
         [pinTasks, pinSeries, companyUsers],
     );
 
     const nonRecurringPinTasksToShow = useMemo(
         () =>
-            pinTasks.reduce((acc, task) => {
-                const companyUser = companyUsers[task.companyUserID];
-                const formattedUserName = `${companyUser?.userFirstName} ${companyUser?.userLastName} - ${companyUser?.formattedOperativeCode} (${companyUser?.companyName})`;
+            pinTasks
+                .reduce((acc, task) => {
+                    const companyUser = companyUsers[task.companyUserID];
+                    const formattedUserName = `${companyUser?.userFirstName} ${companyUser?.userLastName} - ${companyUser?.formattedOperativeCode} (${companyUser?.companyName})`;
 
-                if (!task.actionedByHistoryID && !task.isRecurring) {
-                    acc.push({
-                        ...task,
-                        companyUserName: formattedUserName,
-                    });
-                }
+                    if (!task.actionedByHistoryID && !task.isRecurring) {
+                        acc.push({
+                            ...task,
+                            companyUserName: formattedUserName,
+                        });
+                    }
 
-                return acc;
-            }, []),
+                    return acc;
+                }, [])
+                .sort((a, b) => moment(a.dueOn) - moment(b.dueOn)),
         [pinTasks, companyUsers],
     );
 
