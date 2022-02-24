@@ -44,7 +44,6 @@ class SinglePinMapContainer extends Component {
                     isEmpty={!pin.id || !drawing.id || isEmpty(histories)}
                     isFetching={isFetching}
                     error={error}
-                    contentClass="single-pin-max-height"
                 >
                     <SinglePinMap
                         zoom={3}

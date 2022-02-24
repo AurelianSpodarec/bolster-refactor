@@ -7784,13 +7784,16 @@ input {
 
 .single-pin-tasks-wrapper {
     height: 55%;
+    position: absolute;
+    top: 39%;
+
     .heading {
         margin: 10px 0;
     }
 
     .list-wrapper {
         margin: 10px 0;
-        max-height: 50%;
+        max-height: 48%;
         overflow: auto;
 
 
@@ -7816,8 +7819,4 @@ input {
             }
         }
     }
-}
-
-.single-pin-max-height {
-    height: 1250px;
 }
