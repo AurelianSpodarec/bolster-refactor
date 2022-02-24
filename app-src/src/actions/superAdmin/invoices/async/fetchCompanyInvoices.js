@@ -3,30 +3,34 @@ import axios from 'axios';
 import {
     ADMIN_FETCH_COMPANY_INVOICES_REQUEST,
     ADMIN_FETCH_COMPANY_INVOICES_SUCCESS,
-    ADMIN_FETCH_COMPANY_INVOICES_FAILURE
+    ADMIN_FETCH_COMPANY_INVOICES_FAILURE,
 } from 'constants/actionTypes/superAdminInvoices';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 export const fetchCompanyInvoicesRequest = () => ({
-    type: ADMIN_FETCH_COMPANY_INVOICES_REQUEST
+    type: ADMIN_FETCH_COMPANY_INVOICES_REQUEST,
 });
 
 export const fetchCompanyInvoicesSuccess = payload => ({
     type: ADMIN_FETCH_COMPANY_INVOICES_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchCompanyInvoicesFailure = error => ({
     type: ADMIN_FETCH_COMPANY_INVOICES_FAILURE,
-    error
+    error,
 });
 
-export default companyID => dispatch => {
-    dispatch(fetchCompanyInvoicesRequest());
+export default (companyID, page = 1, pageSize = 10) =>
+    async dispatch => {
+        dispatch(fetchCompanyInvoicesRequest());
 
-    return axios
-        .get(`${ADMIN_API_URL}/companies/${companyID}/invoices`, getHeaders())
-        .then(res => dispatch(fetchCompanyInvoicesSuccess(res.data)))
-        .catch(err => dispatch(fetchCompanyInvoicesFailure(err.message)));
-};
+        return axios
+            .get(
+                `${ADMIN_API_URL}/companies/${companyID}/invoices?page=${page}&pageSize=${pageSize}`,
+                getHeaders(),
+            )
+            .then(res => dispatch(fetchCompanyInvoicesSuccess(res.data)))
+            .catch(err => dispatch(fetchCompanyInvoicesFailure(err.message)));
+    };

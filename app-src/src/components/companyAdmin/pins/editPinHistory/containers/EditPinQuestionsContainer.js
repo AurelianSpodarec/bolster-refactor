@@ -1,30 +1,21 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import EditPinQuestions from '../presentational/EditPinQuestions';
+import { selectTemplateQuestions } from '../../../../../selectors/companyAdmin/templateQuestions';
+import { selectPinAnswers } from '../../../../../selectors/companyAdmin/pinAnswers';
 
-const EditPinQuestionsContainer = ({
-    sections,
-    questions,
-    answers,
-    selectedVersion
-}) => (
-    <EditPinQuestions
-        sections={Object.values(sections)}
-        questions={questions}
-        answers={answers}
-        selectedVersion={selectedVersion}
-    />
-);
+const EditPinQuestionsContainer = ({ sections, selectedVersion }) => {
+    const questions = useSelector(selectTemplateQuestions);
+    const answers = useSelector(selectPinAnswers);
+    return (
+        <EditPinQuestions
+            sections={Object.values(sections)}
+            questions={Object.values(questions)}
+            answers={answers}
+            selectedVersion={selectedVersion}
+        />
+    );
+};
 
-const mapStateToProps = ({
-    companyAdmin: {
-        templateQuestionsReducer: { questions },
-        pinAnswersReducer: { answers }
-    }
-}) => ({
-    questions: Object.values(questions),
-    answers
-});
-
-export default connect(mapStateToProps)(EditPinQuestionsContainer);
+export default EditPinQuestionsContainer;

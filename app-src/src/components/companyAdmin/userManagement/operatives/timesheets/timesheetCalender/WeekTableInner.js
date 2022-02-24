@@ -9,8 +9,9 @@ import ExpandableTab from './ExpandableTab';
 import { TIME_PERIOD } from 'constants/companyAdmin/enums';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import timesheetPin from '_content/images/pins-examples/timesheet-pin.png';
-import { formatAsHrsMinsSecs } from 'helpers/generic';
+import { formatAsHrsMinsSecs, isEmpty } from 'helpers/generic';
 import useExpandableTab from '../hooks/useExpandableTab';
+import { selectJobReferences } from 'selectors/companyAdmin/jobReferences';
 
 const WeekTableInner = ({
     selectedDate,
@@ -20,25 +21,35 @@ const WeekTableInner = ({
     timesheets,
     totals,
 }) => {
+    const jobReferences = useSelector(selectJobReferences);
     const { timeZone } = useSelector(selectCompanySettings);
     const { expandedDate, handleJobsClick } = useExpandableTab();
 
-    const { totalPins, formattedHours, jobReferences } = totals.reduce(
-        (acc, { totalPins, formattedHours, jobReferences }) => {
+    const { totalPins, formattedHours, jobReferenceIDs } = totals.reduce(
+        (acc, { totalPins, formattedHours, jobReferenceIDs }) => {
             acc.totalPins += totalPins;
             acc.formattedHours += formattedHours;
-            acc.jobReferences = [...acc.jobReferences, ...jobReferences];
+            acc.jobReferenceIDs = [...acc.jobReferenceIDs, ...jobReferenceIDs];
             return acc;
         },
-        { totalPins: 0, formattedHours: 0, jobReferences: [] },
+        { totalPins: 0, formattedHours: 0, jobReferenceIDs: [] },
     );
 
-    const filteredJobReferences = jobReferences.filter(reference => reference);
+    const getJobReferenceNames = ids => {
+        if (isEmpty(jobReferences)) return [];
+        return ids.map(id => jobReferences[id]?.name);
+    };
+
+    const filteredJobReferenceIDs = jobReferenceIDs.filter(reference => reference);
+    const filteredJobReferenceNames = getJobReferenceNames(filteredJobReferenceIDs);
 
     return (
         <>
-            {totals.map(({ date, totalPins, formattedHours, jobReferences }, i) => {
-                const filteredJobReferences = jobReferences.filter(Boolean);
+            {totals.map(({ date, totalPins, formattedHours, jobReferenceIDs }, i) => {
+                const totalsFilteredJobReferenceIDs = jobReferenceIDs.filter(Boolean);
+                const totalsFilteredJobReferenceNames = getJobReferenceNames(
+                    totalsFilteredJobReferenceIDs,
+                );
 
                 return (
                     <td key={i} onClick={() => onDaySelect(date)}>
@@ -65,10 +76,10 @@ const WeekTableInner = ({
                                 <ExpandableTab
                                     date={date}
                                     icon={<i className="fal fa-sticky-note" />}
-                                    items={filteredJobReferences}
+                                    items={totalsFilteredJobReferenceNames}
                                     itemType={
-                                        filteredJobReferences.length > 1 ||
-                                        filteredJobReferences.length === 0
+                                        totalsFilteredJobReferenceNames.length > 1 ||
+                                        totalsFilteredJobReferenceNames.length === 0
                                             ? 'Jobs'
                                             : 'Job'
                                     }
@@ -104,10 +115,10 @@ const WeekTableInner = ({
                         <ExpandableTab
                             date="week"
                             icon={<i className="fal fa-sticky-note" />}
-                            items={filteredJobReferences}
+                            items={filteredJobReferenceNames}
                             itemType={
-                                filteredJobReferences.length > 1 ||
-                                filteredJobReferences.length === 0
+                                filteredJobReferenceNames.length > 1 ||
+                                filteredJobReferenceNames.length === 0
                                     ? 'Jobs'
                                     : 'Job'
                             }

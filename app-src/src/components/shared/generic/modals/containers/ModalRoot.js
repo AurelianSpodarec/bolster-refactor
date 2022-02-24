@@ -86,10 +86,12 @@ import {
     ADMIN_DELETE_OPTION_VALUE_DOCUMENT_VERSION,
     COMPANY_ADD_MANUFACTURER,
     COMPANY_EDIT_MANUFACTURER,
+    COMPANY_DELETE_MANUFACTURER,
     COMPANY_TOGGLE_MANUFACTURER,
     COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE,
     COMPANY_ADD_OPTION_VALUE,
     COMPANY_EDIT_OPTION_VALUE,
+    COMPANY_DELETE_OPTION_VALUE,
     COMPANY_ADD_DOCUMENT_TO_OPTION_VALUE,
     COMPANY_EDIT_OPTION_VALUE_DOCUMENT,
     COMPANY_ADD_OPTION_VALUE_DOCUMENT_VERSION,
@@ -107,6 +109,7 @@ import {
     EDIT_BANNER_NOTIFICATION,
     ADD_NEW_BANNER_NOTIFICATION,
     UPDATE_REPORT_LAYOUT,
+    ADMIN_DELETE_MANUFACTURER,
     CONFIRM_TWO_FACTOR,
     RECOVER_USER,
     REACTIVATE_USER,
@@ -135,6 +138,11 @@ import {
     EDIT_PIN_TASK,
     FETCH_PIN_TASK,
     EDIT_PIN_TASK_SERIES,
+    CREATE_JOB_REFERENCE,
+    EDIT_JOB_REFERENCE,
+    DELETE_JOB_REFERENCE,
+    DRAWING_EXPIRY_MODAL,
+    EDIT_JOB_REF_DROPDOWN,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -211,6 +219,7 @@ import GenerateQRCodesModalContainer from './GenerateQRCodesModalContainer';
 import RestrictPaymentsModalContainer from './RestrictPaymentsModalContainer';
 import AdminAddManufacturerModal from 'components/superAdmin/pinOptions/addManufacturer/presentational/AddManufacturerModal';
 import AdminEditManufacturerModal from 'components/superAdmin/pinOptions/editManufacturer/presentational/EditManufacturerModal';
+import AdminDeleteManufacturerModal from 'components/superAdmin/pinOptions/deleteManufacturer/containers/DeleteManufacturerModalContainer';
 import AdminAddOptionValueModal from 'components/superAdmin/pinOptions/addOptionValue/presentational/AddOptionValueModal';
 import AdminEditOptionValueModal from 'components/superAdmin/pinOptions/editOptionValue/presentational/EditOptionValueModal';
 import AdminAddDocumentToOptionValueModal from 'components/superAdmin/pinOptions/addDocumentToOptionValue/presentational/AddDocumentToOptionValueModal';
@@ -244,6 +253,8 @@ import UserLatestSyncsModalContainer from 'components/superAdmin/companies/singl
 import EditBannerNotificationModal from 'components/superAdmin/bannerNotifications/editBannerNotificationModal/presentational/EditBannerNotificationModal';
 import AddBannerNotificationModal from 'components/superAdmin/bannerNotifications/addBannerNotifcationModel/presentational/AddBannerNotificationModal';
 import UpdateReportLayoutModal from '../presentational/UpdateReportLayoutModal';
+import DeleteManufacturerModalContainer from 'components/companyAdmin/dropdownOptions/deleteManufacturer/containers/DeleteManufacturerModalContainer';
+import DeleteOptionValueModalContainer from 'components/companyAdmin/dropdownOptions/deleteOptionValue/containers/DeleteOptionValueModalContainer';
 import ConfirmTwoFactorModal from '../presentational/ConfirmTwoFactorModal';
 import ConfirmEmailModal from '../presentational/ConfirmEmailModal';
 import RecoverUserModal from 'components/companyAdmin/userManagement/shared/modals/RecoverUserModal';
@@ -269,6 +280,11 @@ import CreatePinTaskModal from 'components/companyAdmin/userManagement/pinTasks/
 import EditPinTaskModal from 'components/companyAdmin/userManagement/pinTasks/editPinTaskModal/EditPinTaskModal';
 import EditPinTaskSeriesModal from 'components/companyAdmin/userManagement/pinTasks/editPinTaskSeriesModal/EditPinTaskSeriesModal';
 import ViewPinTaskModal from 'components/companyAdmin/userManagement/pinTasks/viewTaskNoteModal/ViewTaskNoteModal';
+import CreateJobReferenceModal from 'components/companyAdmin/jobReferences/CreateJobReferenceModal';
+import EditJobReferenceModal from 'components/companyAdmin/jobReferences/EditJobReferenceModal';
+import DeleteJobReferenceModal from 'components/companyAdmin/jobReferences/DeleteJobReferenceModal';
+import DrawingExpiryModal from '../presentational/DrawingExpiryModal';
+import EditJobRefDropdownModal from './EditJobRefDropdownModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -345,6 +361,7 @@ const MODAL_COMPONENTS = {
     [GENERATE_QR_CODES]: GenerateQRCodesModalContainer,
     [ADMIN_ADD_MANUFACTURER]: AdminAddManufacturerModal,
     [ADMIN_EDIT_MANUFACTURER]: AdminEditManufacturerModal,
+    [ADMIN_DELETE_MANUFACTURER]: AdminDeleteManufacturerModal,
     [ADMIN_ADD_OPTION_VALUE]: AdminAddOptionValueModal,
     [ADMIN_EDIT_OPTION_VALUE]: AdminEditOptionValueModal,
     [ADMIN_ADD_DOCUMENT_TO_OPTION_VALUE]: AdminAddDocumentToOptionValueModal,
@@ -354,6 +371,7 @@ const MODAL_COMPONENTS = {
     [ADMIN_DELETE_OPTION_VALUE_DOCUMENT_VERSION]: AdminConfirmDeleteDocumentVersionModalContainer,
     [COMPANY_ADD_MANUFACTURER]: AddManufacturerModal,
     [COMPANY_EDIT_MANUFACTURER]: EditManufacturerModal,
+    [COMPANY_DELETE_MANUFACTURER]: DeleteManufacturerModalContainer,
     [COMPANY_TOGGLE_MANUFACTURER]: ToggleManufacturerModalContainer,
     [COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE]: ToggleManufacturerOptionValueModalContainer,
     [COMPANY_ADD_OPTION_VALUE]: AddOptionValueModal,
@@ -377,6 +395,7 @@ const MODAL_COMPONENTS = {
     [ADD_NEW_BANNER_NOTIFICATION]: AddBannerNotificationModal,
     [EDIT_BANNER_NOTIFICATION]: EditBannerNotificationModal,
     [UPDATE_REPORT_LAYOUT]: UpdateReportLayoutModal,
+    [COMPANY_DELETE_OPTION_VALUE]: DeleteOptionValueModalContainer,
     [CONFIRM_TWO_FACTOR]: ConfirmTwoFactorModal,
     [RECOVER_USER]: RecoverUserModal,
     [REACTIVATE_USER]: ReactivateUserModal,
@@ -404,6 +423,11 @@ const MODAL_COMPONENTS = {
     [EDIT_PIN_TASK]: EditPinTaskModal,
     [EDIT_PIN_TASK_SERIES]: EditPinTaskSeriesModal,
     [FETCH_PIN_TASK]: ViewPinTaskModal,
+    [CREATE_JOB_REFERENCE]: CreateJobReferenceModal,
+    [EDIT_JOB_REFERENCE]: EditJobReferenceModal,
+    [DELETE_JOB_REFERENCE]: DeleteJobReferenceModal,
+    [DRAWING_EXPIRY_MODAL]: DrawingExpiryModal,
+    [EDIT_JOB_REF_DROPDOWN]: EditJobRefDropdownModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
@@ -411,6 +435,7 @@ const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
     const SpecificModel = MODAL_COMPONENTS[modalType];
     return <SpecificModel {...modalProps} {...otherProps} />;
 };
+
 const mapStateToProps = ({ shared: { modalReducer } }) => modalReducer;
 
 const mapDispatchToProps = { hideModal, showModal };

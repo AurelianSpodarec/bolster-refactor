@@ -32,7 +32,7 @@ const Timesheets = () => {
     return (
         <>
             <PageHeading
-                leftChildren={true}
+                withBackButton
                 title={
                     <>
                         Timesheet -{' '}
@@ -50,9 +50,7 @@ const Timesheets = () => {
                         )}
                     </>
                 }
-            >
-                <BackButtonContainer />
-            </PageHeading>
+            />
             <TimesheetCalender
                 startDate={startDate}
                 selectedDate={selectedDate}

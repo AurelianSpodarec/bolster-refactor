@@ -115,8 +115,9 @@ class LevelsFilterContainer extends Component {
         const convertedHierarchyObj = convertArrToObj(hierarchyArray);
 
         const filteredFloors = unfilteredIDs.reduce((acc, id) => {
-            acc.push(convertedHierarchyObj[id]);
+            const convertedObj = convertedHierarchyObj[id];
 
+            if (convertedObj) acc.push(convertedObj);
             return acc;
         }, []);
 

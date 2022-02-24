@@ -36,6 +36,17 @@ const UserTable = ({ date, day, initialRows = 7, timesheets }) => {
                 </td>
             </tr>
 
+            {expanded && (
+                <tr>
+                    <td className="view-more-row" colSpan={8}>
+                        <button className="button" onClick={() => setExpanded(false)}>
+                            <i className="far fa-eye-slash" />
+                            Hide
+                        </button>
+                    </td>
+                </tr>
+            )}
+
             {timesheets.map((timesheet, i) => {
                 const {
                     companyUserID,
@@ -43,7 +54,7 @@ const UserTable = ({ date, day, initialRows = 7, timesheets }) => {
                     lastName,
                     formattedHours,
                     formattedBreakHours,
-                    jobReferences,
+                    jobReferenceIDs,
                     totalPins,
                     clockIn,
                     clockOut,
@@ -103,8 +114,8 @@ const UserTable = ({ date, day, initialRows = 7, timesheets }) => {
                                 </td>
                                 <td>{formatAsHrsMinsSecs(formattedBreakHours)}</td>
                                 <td>{totalPins}</td>
-                                <td>{jobReferences.filter(reference => reference).length}</td>
-                                <td>
+                                <td>{jobReferenceIDs.filter(reference => reference).length}</td>
+                                <td className="align-right">
                                     <Link
                                         to={{
                                             pathname: `/company/users-management/operatives/${companyUserID}/timesheet`,

@@ -6,7 +6,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
-const AddCompanyAdminModal = ({ handleChange, handleSubmit, hideModal, form }) => {
+const AddCompanyAdminModal = ({ handleChange, handleSubmit, hideModal, form, isPosting }) => {
     return (
         <ModalOuterContainer>
             <Form onSubmit={handleSubmit}>
@@ -62,7 +62,7 @@ const AddCompanyAdminModal = ({ handleChange, handleSubmit, hideModal, form }) =
                 </Field>
 
                 <BlockButtonWrapper>
-                    <button type="submit" className="button green">
+                    <button type="submit" disabled={isPosting} className="button green">
                         <i className="fa fa-plus" />
                         Submit
                     </button>

@@ -12,7 +12,7 @@ import { usePrevious } from 'helpers/hooks';
 const CreateOperativeFormContainer = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { postSuccess } = useSelector(mapStateToProps);
+    const { postSuccess, isPosting } = useSelector(mapStateToProps);
     const prevProps = usePrevious({ postSuccess });
 
     const [state, setState] = useState({
@@ -43,6 +43,7 @@ const CreateOperativeFormContainer = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
+        if (isPosting) return;
         const { phoneNumber, ...rest } = state;
         const postBody = {
             ...rest,
@@ -56,9 +57,10 @@ const CreateOperativeFormContainer = () => {
 
 const mapStateToProps = ({
     companyAdmin: {
-        companyUsersReducer: { postSuccess },
+        companyUsersReducer: { postSuccess, isPosting },
     },
 }) => ({
+    isPosting,
     postSuccess,
 });
 

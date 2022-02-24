@@ -10,8 +10,18 @@ import withUpdateOnChange from 'components/companyAdmin/reports/createReport/com
 
 class DrawingDetailsContainer extends Component {
     render() {
-        const { drawing, stats, error, isFetching, onMobile, pins, getFilteredPins } = this.props;
+        const {
+            drawing,
+            stats,
+            error,
+            isFetching,
+            onMobile,
+            pins,
+            getFilteredPins,
+            pinTasksMode,
+        } = this.props;
         // Drawing uses filtered pins to display stats.
+
         const filteredStats = {
             // stats endpoint used
             lastUpdatedOn: stats.lastUpdatedOn,
@@ -28,7 +38,7 @@ class DrawingDetailsContainer extends Component {
             : 0;
         let filteredPinCount = 0;
 
-        getFilteredPins(pins).forEach(pin => {
+        getFilteredPins(pins, pinTasksMode).forEach(pin => {
             filteredStats.statuses[STATUS_TO_STATS[pin.latestStatus]]++;
             filteredPinCount++;
         });
@@ -57,7 +67,7 @@ const mapStateToProps = (
         companyAdmin: {
             drawingsReducer: { drawings, isFetching: fetchingDrawings, error: drawingsError },
             statsReducer: { stats, isFetching: fetchingStats, error: statsError },
-            pinsReducer: { pins, isFetching: fetchingPins, error: pinsError },
+            pinsReducer: { pins, isFetching: fetchingPins, error: pinsError, pinTasksMode },
         },
         shared: {
             mobileReducer: { onMobile },
@@ -72,6 +82,7 @@ const mapStateToProps = (
     onMobile,
     id: match.params.id,
     pins: Object.values(pins),
+    pinTasksMode,
     // operatives: Object.values(users),
 });
 

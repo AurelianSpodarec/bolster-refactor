@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import {
+    COMPANY_DELETE_MANUFACTURER,
     COMPANY_EDIT_MANUFACTURER,
     COMPANY_TOGGLE_MANUFACTURER,
 } from 'constants/shared/modalTypes';
@@ -27,6 +28,7 @@ class ManufacturerListItemContainer extends Component {
             <ManufacturerListItem
                 manufacturer={manufacturer}
                 colCount={colCount}
+                handleDeleteManufacturerModal={this.handleDeleteManufacturerModal}
                 handleEditManufacturerModal={this.handleEditManufacturerModal}
                 onMove={moveItem}
                 onDrop={() => this.handlePostManufacturerSort()}
@@ -39,6 +41,12 @@ class ManufacturerListItemContainer extends Component {
             />
         );
     }
+
+    handleDeleteManufacturerModal = manufacturer => {
+        const { showModal } = this.props;
+        showModal(COMPANY_DELETE_MANUFACTURER, { manufacturer });
+    };
+
     handleEditManufacturerModal = manufacturer => {
         const { showModal } = this.props;
         showModal(COMPANY_EDIT_MANUFACTURER, { manufacturer });

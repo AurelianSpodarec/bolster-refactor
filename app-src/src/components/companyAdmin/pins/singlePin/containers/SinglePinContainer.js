@@ -14,7 +14,13 @@ import fetchZonesByDrawingID from 'actions/companyAdmin/zones/async/fetchZonesBy
 
 class SinglePinContainer extends Component {
     state = { isLoading: true };
-    render = () => <SinglePin isLoading={this.state.isLoading} pin={this.props.pin} />;
+    render = () => (
+        <SinglePin
+            isLoading={this.state.isLoading}
+            pin={this.props.pin}
+            pinTasks={this.formatPinTasks}
+        />
+    );
 
     componentDidMount = () => {
         this.fetchPin();
@@ -57,6 +63,19 @@ class SinglePinContainer extends Component {
                     fetchPinsForInspectionLog(drawingID, pinId);
                 }
             });
+    };
+
+    formatPinTasks = () => {
+        const { singlePinTasks } = this.props;
+        if (singlePinTasks) {
+            return singlePinTasks.map(task => {
+                return {
+                    ...task,
+                    taskType: task.taskType.replace('_', ' '),
+                    taskStatus: task.taskStatus.replace('_', ' '),
+                };
+            });
+        }
     };
 }
 

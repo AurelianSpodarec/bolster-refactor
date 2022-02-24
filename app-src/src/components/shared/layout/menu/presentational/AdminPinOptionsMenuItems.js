@@ -12,9 +12,12 @@ import MenuItemContainer from '../containers/MenuItemContainer';
 const AdminPinOptionsMenuItems = () => {
     const DropdownVals = Object.values(DROPDOWN_OPTION_VALS);
 
-    return DropdownVals.map(option => {
+    return DropdownVals.map((option, index) => {
         return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option] ? (
-            <MenuItemContainer link={`/admin/pin-options/${DROPDOWN_OPTIONS[option].link}`}>
+            <MenuItemContainer
+                key={index}
+                link={`/admin/pin-options/${DROPDOWN_OPTIONS[option].link}`}
+            >
                 <i className="fa fa-wrench icon" />{' '}
                 <span className="menu-text">{DROPDOWN_OPTION_ENUM[option]}</span>
             </MenuItemContainer>

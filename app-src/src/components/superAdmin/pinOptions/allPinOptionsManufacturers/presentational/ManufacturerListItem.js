@@ -5,6 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 const ManufacturerListItem = ({
     manufacturer,
     handleEditManufacturerModal,
+    handleDeleteManufacturerModal,
     onMobile,
     headers,
     match: { url },
@@ -17,6 +18,13 @@ const ManufacturerListItem = ({
         <td>
             {onMobile && <span className="mobile-table-heading">Actions</span>}
             <BlockButtonWrapper>
+                <button
+                    onClick={() => handleDeleteManufacturerModal(manufacturer)}
+                    className="button red"
+                >
+                    <i className="far fa-trash" />
+                    Delete
+                </button>
                 <button
                     onClick={() => handleEditManufacturerModal(manufacturer)}
                     className="button yellow"
