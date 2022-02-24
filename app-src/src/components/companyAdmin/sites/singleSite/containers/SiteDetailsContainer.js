@@ -11,6 +11,7 @@ import {
     ERROR_MODAL,
     CONFIRM_ARCHIVE,
     EDIT_SITE,
+    DRAWING_EXPIRY_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import deleteSite from 'actions/companyAdmin/sites/async/deleteSite';
@@ -78,6 +79,7 @@ class SiteDetailsContainer extends Component {
                     handleChange={this.handleChange}
                     serviceOptions={servicesForDropdown}
                     serviceID={serviceID}
+                    handleViewDrawingExpiryModal={this.handleViewDrawingExpiryModal}
                     companyID={companyID}
                     companyOptions={companiesForDropdown}
                     filteredStatsBool={filteredStatsBool}
@@ -141,6 +143,17 @@ class SiteDetailsContainer extends Component {
         });
     };
 
+    handleViewDrawingExpiryModal = () => {
+        const { id, showModal, hideModal } = this.props;
+
+        showModal(DRAWING_EXPIRY_MODAL, {
+            hideModal,
+            id,
+            hierarchyID: HIERARCHY_IDS.SITE,
+        });
+    };
+
+    handleChange = (name, value) => this.setState({ [name]: value });
     handleChange = (name, value) => {
         // const otherState = name === 'serviceID' ? 'companyID' : 'serviceID';
         this.setState({ [name]: value });

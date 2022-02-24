@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
 import {
     FETCH_OPTION_VALUES_BY_MANUFACTURER_REQUEST,
     FETCH_OPTION_VALUES_BY_MANUFACTURER_SUCCESS,
@@ -11,6 +11,9 @@ import {
     EDIT_OPTION_VALUE_REQUEST,
     EDIT_OPTION_VALUE_SUCCESS,
     EDIT_OPTION_VALUE_FAILURE,
+    DELETE_OPTION_VALUE_REQUEST,
+    DELETE_OPTION_VALUE_SUCCESS,
+    DELETE_OPTION_VALUE_FAILURE,
     TOGGLE_MANUFACTURER_OPTION_VALUE_REQUEST,
     TOGGLE_MANUFACTURER_OPTION_VALUE_SUCCESS,
     TOGGLE_MANUFACTURER_OPTION_VALUE_FAILURE,
@@ -61,10 +64,12 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_OPTION_VALUE_REQUEST:
         case EDIT_OPTION_VALUE_REQUEST:
+        case DELETE_OPTION_VALUE_REQUEST:
         case TOGGLE_MANUFACTURER_OPTION_VALUE_REQUEST:
             return false;
         case CREATE_OPTION_VALUE_SUCCESS:
         case EDIT_OPTION_VALUE_SUCCESS:
+        case DELETE_OPTION_VALUE_SUCCESS:
         case TOGGLE_MANUFACTURER_OPTION_VALUE_SUCCESS:
             return true;
         default:
@@ -76,10 +81,12 @@ function postErrorReducer(state = false, action) {
     switch (action.type) {
         case CREATE_OPTION_VALUE_REQUEST:
         case EDIT_OPTION_VALUE_REQUEST:
+        case DELETE_OPTION_VALUE_REQUEST:
         case TOGGLE_MANUFACTURER_OPTION_VALUE_REQUEST:
             return false;
         case CREATE_OPTION_VALUE_FAILURE:
         case EDIT_OPTION_VALUE_FAILURE:
+        case DELETE_OPTION_VALUE_FAILURE:
         case TOGGLE_MANUFACTURER_OPTION_VALUE_FAILURE:
             return true;
         default:
@@ -105,6 +112,10 @@ function manufacturersOptionValuesReducer(state = {}, action) {
                     action.payload,
                 ),
             };
+        case DELETE_OPTION_VALUE_SUCCESS: {
+            const newObj = removeObjItem(state[action.id], action.payload.id);
+            return updateObj(state, action.id, newObj);
+        }
         case FETCH_ALL_OPTION_VALUES_SUCCESS:
             return formatAllOptionValuesByManufacturer(action.payload);
         default:

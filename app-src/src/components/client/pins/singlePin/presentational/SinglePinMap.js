@@ -33,6 +33,7 @@ const SinglePinMap = ({ pin, zoom, user, drawing = {}, pinHistory }) => {
                 minZoom={0}
                 maxZoom={6}
                 crs={CRS.Simple}
+                tap={false}
             >
                 <TileLayer
                     attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'

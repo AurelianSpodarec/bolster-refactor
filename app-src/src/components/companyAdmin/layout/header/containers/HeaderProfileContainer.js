@@ -94,11 +94,15 @@ class HeaderProfileContainer extends Component {
     _isSubscribed = () => {
         const {
             subscriptions,
-            subscriptions: { startOn, endOn },
+            subscriptions: { startOn, endOn, hasUnpaidServiceInvoice },
         } = this.props;
         if (isEmpty(subscriptions)) return false;
 
-        return moment(startOn).isBefore(Date.now()) && moment(endOn).isAfter(Date.now());
+        return (
+            !hasUnpaidServiceInvoice &&
+            moment(startOn).isBefore(Date.now()) &&
+            moment(endOn).isAfter(Date.now())
+        );
     };
 
     handleClick = () => {

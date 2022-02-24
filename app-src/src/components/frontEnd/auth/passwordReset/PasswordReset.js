@@ -68,71 +68,74 @@ const PasswordReset = () => {
                             </p>
                         ) : isFetching ? (
                             <LoadingIcon />
+                        ) : !isExpired ? (
+                            <Form onSubmit={handleSubmit}>
+                                <Field
+                                    name="Enter new password"
+                                    sizeClasses="size-lg-6"
+                                    classes="auth-form-field"
+                                    required
+                                >
+                                    <TextInputContainer
+                                        name="password"
+                                        value={form.password}
+                                        handleChange={handleChange}
+                                        placeholder="Password..."
+                                        required
+                                        type="password"
+                                        validate={validatePassword}
+                                        classes="auth-text-input-container"
+                                        includePasswordStrength
+                                    />
+                                </Field>
+                                <Field
+                                    name="Confirm password"
+                                    sizeClasses="size-lg-6"
+                                    classes="auth-form-field"
+                                    required
+                                >
+                                    <TextInputContainer
+                                        name="confirmPassword"
+                                        value={form.confirmPassword}
+                                        handleChange={handleChange}
+                                        placeholder="Confirm password..."
+                                        required
+                                        validate={validateConfirmPassword}
+                                        classes="auth-text-input-container"
+                                        type="password"
+                                    />
+                                </Field>
+                                <Field classes="auth-form-field row right">
+                                    <FrontEndButton
+                                        classes={`gray right ${!isPosting ? '' : 'disabled'}`}
+                                        type="submit"
+                                        disabled={isPosting}
+                                    >
+                                        {!isPosting ? 'Submit' : <LoadingIcon />}
+                                    </FrontEndButton>
+                                </Field>
+                                {!!error && (
+                                    <p
+                                        className="auth-form-field generic-text field-validation-error"
+                                        style={{ marginBottom: '10px', color: 'red' }}
+                                    >
+                                        {!isExpired && (
+                                            <span>
+                                                Something went wrong. Please try submitting the
+                                                password reset request again. If this issue
+                                                persists, please contact Bolster Systems.
+                                            </span>
+                                        )}
+                                    </p>
+                                )}
+                            </Form>
                         ) : (
-                            !isExpired && (
-                                <Form onSubmit={handleSubmit}>
-                                    <Field
-                                        name="Enter new password"
-                                        sizeClasses="size-lg-6"
-                                        classes="auth-form-field"
-                                        required
-                                    >
-                                        <TextInputContainer
-                                            name="password"
-                                            value={form.password}
-                                            handleChange={handleChange}
-                                            placeholder="Password..."
-                                            required
-                                            type="password"
-                                            validate={validatePassword}
-                                            classes="auth-text-input-container"
-                                            includePasswordStrength
-                                        />
-                                    </Field>
-                                    <Field
-                                        name="Confirm password"
-                                        sizeClasses="size-lg-6"
-                                        classes="auth-form-field"
-                                        required
-                                    >
-                                        <TextInputContainer
-                                            name="confirmPassword"
-                                            value={form.confirmPassword}
-                                            handleChange={handleChange}
-                                            placeholder="Confirm password..."
-                                            required
-                                            validate={validateConfirmPassword}
-                                            classes="auth-text-input-container"
-                                            type="password"
-                                        />
-                                    </Field>
-                                    <Field classes="auth-form-field row right">
-                                        <FrontEndButton
-                                            classes={`gray right ${!isPosting ? '' : 'disabled'}`}
-                                            type="submit"
-                                            disabled={isPosting}
-                                        >
-                                            {!isPosting ? 'Submit' : <LoadingIcon />}
-                                        </FrontEndButton>
-                                    </Field>
-                                </Form>
-                            )
-                        )}
-
-                        {!!error && (
                             <p
-                                className="generic-text field-validation-error"
+                                className="generic-text"
                                 style={{ marginBottom: '10px', color: 'red' }}
                             >
-                                {!isExpired ? (
-                                    `Something went wrong. Please again. If this persists, contact
-                                Bolster support. (${error})`
-                                ) : (
-                                    <span>
-                                        This reset password link has expired, please re-submit{' '}
-                                        <a href="/auth/login?showForgotPassword=true">here</a>
-                                    </span>
-                                )}
+                                This reset password link has expired, please re-submit{' '}
+                                <a href="/auth/login?showForgotPassword=true">here</a>
                             </p>
                         )}
                     </div>
@@ -161,6 +164,7 @@ const PasswordReset = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
+
         if (!isPosting) {
             dispatch(postPasswordReset({ token, password: form.password }));
         }

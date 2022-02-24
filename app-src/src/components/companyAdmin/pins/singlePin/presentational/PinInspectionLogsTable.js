@@ -4,14 +4,9 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import PinInspectionLogsListItem from './PinInspectionLogsListItem';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import PinTaskListContainer from '../containers/PinTaskListContainer';
 
-const PinInspectionLogsTable = ({
-    isFetching,
-    error,
-    pins,
-    handleFilterChange,
-    onMobile
-}) => (
+const PinInspectionLogsTable = ({ isFetching, error, pins, handleFilterChange, onMobile }) => (
     <BlockContainer containerClass="inspection-log flex-item size-lg-4 size-md-12">
         <div className="size-lg-12">
             <BlockHeading title="Inspection Log">
@@ -34,17 +29,18 @@ const PinInspectionLogsTable = ({
                     noDataMessage="No inspection logs to display."
                     withActions
                 >
-                    {[...pins]
-                        .map(pin => (
-                            <PinInspectionLogsListItem
-                                key={pin.id}
-                                pin={pin}
-                                headers={['Pin ID', 'Status', 'Actions']}
-                                onMobile={onMobile}
-                            />
-                        ))}
+                    {[...pins].map(pin => (
+                        <PinInspectionLogsListItem
+                            key={pin.id}
+                            pin={pin}
+                            headers={['Pin ID', 'Status', 'Actions']}
+                            onMobile={onMobile}
+                        />
+                    ))}
                 </Table>
             </div>
+
+            <PinTaskListContainer />
         </div>
     </BlockContainer>
 );

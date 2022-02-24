@@ -10,6 +10,7 @@ const CompanyInfo = ({
     handleToggleClientList,
     handleShowEditAddressModal,
     handleShowEditFreeCreditModal,
+    handleShowEditJobRefDropdownModal,
 }) => (
     <div className="size-lg-12">
         <FieldOutput title="Company Code" description={company.code} fieldClass="no-h-padding" />
@@ -56,20 +57,23 @@ const CompanyInfo = ({
             </p>
         </FieldOutput>
 
-        <div className="button-container left size-lg-12">
+        <div className="button-container vertical-spacing left size-lg-12">
             <button
-                className={`button yellow ${isPosting ? 'disabled' : ''}`}
+                className={`button blue ${isPosting ? 'disabled' : ''}`}
                 onClick={handleToggleClientList}
                 disabled={isPosting}
             >
                 {isPosting && <i className="fa fa-spinner fa-spin" />}
                 {`${company.hideOnClientList ? 'Show' : 'Hide'} on client list`}
             </button>
-            <button className="button blue" onClick={() => handleShowEditAddressModal()}>
+            <button className="button yellow" onClick={() => handleShowEditAddressModal()}>
                 Edit Address
             </button>
-            <button className="button green" onClick={() => handleShowEditFreeCreditModal()}>
+            <button className="button yellow" onClick={() => handleShowEditFreeCreditModal()}>
                 Edit Free Credit
+            </button>
+            <button className="button yellow" onClick={() => handleShowEditJobRefDropdownModal()}>
+                Edit Job Reference Dropdown
             </button>
         </div>
     </div>

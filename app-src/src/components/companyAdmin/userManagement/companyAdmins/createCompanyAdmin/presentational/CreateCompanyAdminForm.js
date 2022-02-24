@@ -16,6 +16,7 @@ const CreateCompanyAdminForm = ({
     phoneNumber,
     shouldRestrictPayments,
     shouldRestrictPaymentsAccess,
+    isPosting,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -79,7 +80,7 @@ const CreateCompanyAdminForm = ({
         </div>
 
         <BlockButtonWrapper>
-            <button className="button green">
+            <button className="button green" disabled={isPosting}>
                 <i className="fa fa-plus" /> Create Admin
             </button>
             <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>

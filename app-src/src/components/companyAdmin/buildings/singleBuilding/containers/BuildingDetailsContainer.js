@@ -12,6 +12,7 @@ import {
     ERROR_MODAL,
     CONFIRM_ARCHIVE,
     EDIT_BUILDING,
+    DRAWING_EXPIRY_MODAL,
 } from 'constants/shared/modalTypes';
 import deleteBuilding from 'actions/companyAdmin/buildings/async/deleteBuilding';
 import archiveBuilding from 'actions/companyAdmin/buildings/async/archiveBuilding';
@@ -77,6 +78,7 @@ class BuildingDetailsContainer extends Component {
                     handleChange={this.handleChange}
                     serviceOptions={servicesForDropdown}
                     serviceID={serviceID}
+                    handleViewDrawingExpiryModal={this.handleViewDrawingExpiryModal}
                     companyID={companyID}
                     companyOptions={companiesForDropdown}
                     filteredStatsBool={filteredStatsBool}
@@ -161,6 +163,17 @@ class BuildingDetailsContainer extends Component {
         });
     };
 
+    handleViewDrawingExpiryModal = () => {
+        const { id, showModal, hideModal } = this.props;
+
+        showModal(DRAWING_EXPIRY_MODAL, {
+            hideModal,
+            id,
+            hierarchyID: HIERARCHY_IDS.BUILDING,
+        });
+    };
+
+    handleChange = (name, value) => this.setState({ [name]: value });
     handleChange = (name, value) => {
         this.setState({ [name]: value });
         const { serviceID, companyID } = this.state;

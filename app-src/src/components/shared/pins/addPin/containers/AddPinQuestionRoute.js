@@ -49,6 +49,7 @@ class AddPinQuestionRoute extends Component {
             question,
             answers,
             dropdownOptions,
+            optionValues,
             status,
             selectedVersion,
             edit,
@@ -90,6 +91,7 @@ class AddPinQuestionRoute extends Component {
                         answers={answers}
                         status={status}
                         dropdownOptions={dropdownOptions}
+                        optionValues={optionValues}
                         handleChange={this.handleChange}
                         handleStatusChange={this.handleStatusChange}
                         handleImageClick={this.handleImageClick}
@@ -414,13 +416,8 @@ class AddPinQuestionRoute extends Component {
     };
 
     handlePrefillDifferentTemplateQuestion = () => {
-        const {
-            oldAnswersByNameObj,
-            question,
-            questions,
-            sectionIDs,
-            updateAddPinAnswer,
-        } = this.props;
+        const { oldAnswersByNameObj, question, questions, sectionIDs, updateAddPinAnswer } =
+            this.props;
 
         const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
         const oldAnswersMatchingName = oldAnswersByNameObj[question.name] || [];
@@ -481,6 +478,7 @@ class AddPinQuestionRoute extends Component {
                 return answer;
             }
         } else if (!isEmpty(answer)) {
+            if (!Array.isArray(answer)) answer = [answer];
             const filteredAnswers = answer.filter(option => relevantOptions.includes(option));
             return filteredAnswers;
         }
@@ -501,29 +499,6 @@ class AddPinQuestionRoute extends Component {
         const { updateAddPinStatus } = this.props;
         updateAddPinStatus(val);
     };
-
-    handleFileChange = (_, s3Key) => {
-        const { updateAddPinAnswer, question, answers } = this.props;
-        if (+question.type === +QUESTION_TYPE_VALUES.MULTI_PHOTO) {
-            const curAnswer = answers[question.id] || [];
-            //Multi File
-            const existing = curAnswer.includes(s3Key);
-            if (existing) {
-                //Delete
-                updateAddPinAnswer(
-                    question.id,
-                    curAnswer.filter(item => item !== s3Key),
-                );
-            } else {
-                //Add
-                updateAddPinAnswer(question.id, [...curAnswer, s3Key]);
-            }
-        } else {
-            const shouldDeleteFile = answers[question.id] === s3Key;
-            updateAddPinAnswer(question.id, shouldDeleteFile ? '' : s3Key);
-        }
-    };
-
     handleImageClick = imgURL => {
         const { showModal } = this.props;
         showModal(PIN_IMAGE, imgURL);

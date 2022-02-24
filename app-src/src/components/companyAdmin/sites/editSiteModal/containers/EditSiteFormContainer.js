@@ -105,13 +105,8 @@ class EditSiteFormContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const {
-            site,
-            isFetching,
-            optionValues,
-            subscriptionServiceIDs,
-            manufacturers,
-        } = this.props;
+        const { site, isFetching, optionValues, subscriptionServiceIDs, manufacturers } =
+            this.props;
 
         if (prevProps.isFetching && !isFetching) {
             const initialOptions = {

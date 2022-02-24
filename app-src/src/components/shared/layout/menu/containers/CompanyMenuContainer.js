@@ -18,13 +18,14 @@ const CompanyMenuContainer = ({
     notifications,
     dismissMessages,
     subscriptions,
-    subscriptions: { startOn },
+    subscriptions: { startOn, hasUnpaidServiceInvoice },
     hasInitiallyFetched,
     isClientAccess,
     showModal,
     users,
     companyUserID,
     unreadReleaseNoteCount,
+    companySettings,
 }) => {
     if (!hasInitiallyFetched) return null;
 
@@ -67,13 +68,14 @@ const CompanyMenuContainer = ({
             unreadReleaseNoteCount={unreadReleaseNoteCount}
             isCompanySelection={isCompanySelection}
             isCompanyUser={isCompanyUser}
+            companySettings={companySettings}
         />
     );
 
     function _isSubscribed() {
         if (isEmpty(subscriptions)) return false;
 
-        return !!startOn;
+        return !hasUnpaidServiceInvoice && !!startOn;
     }
 
     function handleGenerateQRCodesModal(e) {
@@ -84,6 +86,7 @@ const CompanyMenuContainer = ({
 };
 const mapStateToProps = ({
     companyAdmin: {
+        companySettingsReducer: { companySettings },
         messagesReducer: { messages },
         creditsReducer: { credits },
         transferRequestsReducer: { incomingTransferRequests },
@@ -121,6 +124,7 @@ const mapStateToProps = ({
         companyUserID,
         users,
         unreadReleaseNoteCount,
+        companySettings,
     };
 };
 

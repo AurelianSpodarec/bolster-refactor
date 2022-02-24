@@ -78,7 +78,7 @@ export default function (ProtectedComponent) {
             }
         };
 
-        _getFilteredPins = pins => {
+        _getFilteredPins = (pins, filterByTasks = false) => {
             const { filters, furtherFiltrationOption } = this.props;
             const { PIN_SELECTOR, INDIVIDUAL_PINS, ZONES } = FURTHER_FILTRATION_OPTIONS;
 
@@ -118,7 +118,11 @@ export default function (ProtectedComponent) {
                     }
 
                     // status
-                    if (status && +pin.latestStatus !== +status) {
+                    if (
+                        status &&
+                        !isEmpty(status) &&
+                        !status.some(item => +item === +pin.latestStatus)
+                    ) {
                         return NO;
                     }
                     // services
@@ -139,6 +143,10 @@ export default function (ProtectedComponent) {
                         companyUserIDs.length &&
                         !companyUserIDs.includes(pin.latestCreatedByCompanyUserID)
                     ) {
+                        return NO;
+                    }
+                    // pin tasks
+                    if (filterByTasks && !pin.hasPinTask) {
                         return NO;
                     }
 
@@ -275,9 +283,10 @@ export default function (ProtectedComponent) {
             let questionFilters = null;
             let selectedPinIDs = null;
 
-            const { INDIVIDUAL_PINS, ZONES, FILTERS } = FURTHER_FILTRATION_OPTIONS;
+            const { INDIVIDUAL_PINS, ZONES, FILTERS, PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 
             switch (+furtherFiltrationOption) {
+                case PIN_SELECTOR:
                 case ZONES:
                 case INDIVIDUAL_PINS: {
                     selectedPinIDs = pinIDs.filter(
@@ -334,7 +343,7 @@ export default function (ProtectedComponent) {
                 companyUserIDs,
                 serviceID: serviceIDs,
                 templateID: templateID || null,
-                status: status ? [status] : null,
+                status: status ? status.map(item => +item) : null,
                 pinIDs: selectedPinIDs,
                 excludedPinIDs: Object.values(excludedPinIDs),
                 questionFilters: questionFilters,

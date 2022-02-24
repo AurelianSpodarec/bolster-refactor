@@ -13,8 +13,7 @@ const CompaniesAccessTable = ({
     parentId,
     handleShowModal,
     isFetching,
-    smallList,
-    accessType
+    accessType,
 }) => (
     <div className="size-lg-12">
         <BlockHeading title="Company Permissions">
@@ -27,11 +26,7 @@ const CompaniesAccessTable = ({
                 </ButtonContainer>
             )}
         </BlockHeading>
-        <div
-            className={`size-lg-12 ignore-padding ${
-                smallList && companies.length > 3 ? 'scrollbar-y' : ''
-            }`}
-        >
+        <div className={`size-lg-12 ignore-padding ${companies.length > 3 ? 'scrollbar-y' : ''}`}>
             <Table
                 headers={['Name', '', 'Actions']}
                 isFetching={isFetching}
@@ -45,7 +40,6 @@ const CompaniesAccessTable = ({
                     handleShowModal={handleShowModal}
                     companies={companies}
                     parentId={parentId}
-                    smallList={smallList}
                     headers={['Name', '', 'Actions']}
                 />
             </Table>

@@ -15,6 +15,7 @@ import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierarchyIsSorting';
+import DrawingFiltersContainer from '../../../../companyAdmin/drawings/singleDrawing/containers/DrawingFiltersContainer';
 
 class FloorDrawingsTableContainer extends Component {
     state = { shouldRestrictPayments: false };
@@ -38,6 +39,7 @@ class FloorDrawingsTableContainer extends Component {
                             <i className="far fa-sort" /> Sort Mode
                         </button>
                     )}
+                    <DrawingFiltersContainer />
                 </BlockHeading>
                 <DrawingTableContainer ids={floor.drawingIDs || []} />
             </BlockContainer>

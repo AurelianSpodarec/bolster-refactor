@@ -14,6 +14,7 @@ const CreateOperativeForm = ({
     lastName,
     email,
     phoneNumber,
+    isPosting,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -64,7 +65,9 @@ const CreateOperativeForm = ({
         </div>
 
         <BlockButtonWrapper>
-            <button className="button green">Submit</button>
+            <button className="button green" disabled={isPosting}>
+                Submit
+            </button>
             <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>

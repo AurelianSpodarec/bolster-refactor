@@ -15,7 +15,7 @@ const MapPinSelectorContainer = ({
     handleClick,
     removeAllExcludedPins,
     removeAllRectangles,
-    isClient
+    isClient,
 }) => {
     componentWillUnmount(() => {
         removeAllRectangles();
@@ -24,14 +24,10 @@ const MapPinSelectorContainer = ({
 
     const filteredPins = !isObjEmpty(rectangles)
         ? pins.filter(({ id }) => !excludedPinIDs.includes(id))
+        : isObjEmpty(rectangles)
+        ? pins.filter(({ id }) => !excludedPinIDs.includes(id))
         : [];
-    return (
-        <MapPinSelector
-            handleClick={handleClick}
-            pins={filteredPins}
-            isClient={isClient}
-        />
-    );
+    return <MapPinSelector handleClick={handleClick} pins={filteredPins} isClient={isClient} />;
 };
 
 const mapStateToProps = (state, { isClient }) => {
@@ -40,19 +36,14 @@ const mapStateToProps = (state, { isClient }) => {
     return {
         pins: reportsReducer.customFilters.pins,
         rectangles: reportsReducer.rectangles,
-        excludedPinIDs: Object.values(reportsReducer.excludedPinIDs)
+        excludedPinIDs: Object.values(reportsReducer.excludedPinIDs),
     };
 };
 
 const mapDispatchToProps = (dispatch, { isClient }) => ({
     removeAllExcludedPins: () =>
-        dispatch(
-            isClient ? clientRemoveAllExcludedPins() : removeAllExcludedPins()
-        ),
+        dispatch(isClient ? clientRemoveAllExcludedPins() : removeAllExcludedPins()),
     removeAllRectangles: () =>
-        dispatch(isClient ? clientRemoveAllRectangles() : removeAllRectangles())
+        dispatch(isClient ? clientRemoveAllRectangles() : removeAllRectangles()),
 });
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(MapPinSelectorContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MapPinSelectorContainer);
