@@ -10,7 +10,9 @@ const PinTaskItem = ({ task: { companyUserName, dueOn } }) => {
             </div>
             <div className="flex-row">
                 <strong>Due on:</strong>
-                <p>{moment(dueOn).format(DATE_TIME_DEFAULTS[1])}</p>
+                <p className={moment(dueOn).isBefore(moment()) ? 'red-text' : ''}>
+                    {moment(dueOn).format(DATE_TIME_DEFAULTS[1])}
+                </p>
             </div>
         </div>
     );

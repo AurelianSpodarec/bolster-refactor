@@ -7810,6 +7810,10 @@ input {
             strong, p {
                 font-size: 120%;
             }
+
+            .red-text {
+                color: $red;
+            }
         }
     }
 }

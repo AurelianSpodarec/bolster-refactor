@@ -21,7 +21,9 @@ const PinSeriesItem = ({
             </div>
             <div className="flex-row">
                 <strong>Next task date:</strong>
-                <p>{moment(nextTaskDate).format(DATE_TIME_DEFAULTS[1])}</p>
+                <p className={moment(nextTaskDate).isBefore(moment()) ? 'red-text' : ''}>
+                    {moment(nextTaskDate).format(DATE_TIME_DEFAULTS[1])}
+                </p>
             </div>
         </div>
     );
