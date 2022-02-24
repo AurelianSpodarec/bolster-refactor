@@ -12,7 +12,10 @@ import {
 
 import fetchSinglePinTasks from 'actions/companyAdmin/pinTasks/async/fetchSinglePinTasks';
 import moment from 'moment';
-import { selectCompanyUsers } from '../../../../../selectors/companyAdmin/companyUsers';
+import {
+    selectCompanyUsers,
+    selectCompanyUsersIsFetching,
+} from '../../../../../selectors/companyAdmin/companyUsers';
 
 const PinTaskListContainer = () => {
     const dispatch = useDispatch();
@@ -23,6 +26,7 @@ const PinTaskListContainer = () => {
     const pinTasks = Object.values(useSelector(selectSinglePinTasks));
 
     const isFetching = useSelector(selectPinTasksIsFetching);
+    const isFetchingUsers = useSelector(selectCompanyUsersIsFetching);
 
     const pinSeriesToShow = useMemo(
         () =>
@@ -66,7 +70,7 @@ const PinTaskListContainer = () => {
                     const companyUser = companyUsers[task.companyUserID];
                     const formattedUserName = `${companyUser?.userFirstName} ${companyUser?.userLastName} - ${companyUser?.formattedOperativeCode} (${companyUser?.companyName})`;
 
-                    if (!task.actionedByHistoryID && !task.isRecurring) {
+                    if (!task.actionedByPinHistoryID && !task.isRecurring) {
                         acc.push({
                             ...task,
                             companyUserName: formattedUserName,
@@ -87,7 +91,7 @@ const PinTaskListContainer = () => {
         <PinTaskList
             pinSeries={pinSeriesToShow}
             nonRecurringPinTasks={nonRecurringPinTasksToShow}
-            isFetching={isFetching}
+            isFetching={isFetching || isFetchingUsers}
         />
     );
 };
