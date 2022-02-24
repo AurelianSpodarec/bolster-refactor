@@ -4735,7 +4735,7 @@ input {
     overflow: auto;
 
     &.for-pin-single {
-        max-height: 475px;
+        max-height: 35%;
     }
 
     .generic-table {
@@ -7783,24 +7783,36 @@ input {
 
 
 .single-pin-tasks-wrapper {
+    height: 50%;
     .heading {
         margin: 10px 0;
     }
 
-    .task-item {
-        margin: 10px 0;
-        border-bottom: 2px solid #f5f5f5;
+    .list-wrapper {
+        height: 50%;
+        overflow: auto;
 
-        div {
-            margin: 5px 0;
-        }
-        strong {
-            font-weight: 500;
-            margin-right: 5px;
-        }
 
-        strong, p {
-            font-size: 120%;
+        .task-item {
+            margin: 10px 0;
+            border-bottom: 2px solid #f5f5f5;
+
+            div {
+                margin: 5px 0;
+            }
+
+            strong {
+                font-weight: 500;
+                margin-right: 5px;
+            }
+
+            strong, p {
+                font-size: 120%;
+            }
         }
     }
+}
+
+.single-pin-max-height {
+    height: 1250px;
 }

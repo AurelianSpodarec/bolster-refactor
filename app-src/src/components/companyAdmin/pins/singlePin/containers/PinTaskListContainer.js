@@ -49,7 +49,7 @@ const PinTaskListContainer = () => {
 
                 return {
                     ...series,
-                    nextTaskDate: nextTask.dueOn,
+                    nextTaskDate: nextTask?.dueOn,
                     companyUserName: formattedUserName,
                 };
             }),

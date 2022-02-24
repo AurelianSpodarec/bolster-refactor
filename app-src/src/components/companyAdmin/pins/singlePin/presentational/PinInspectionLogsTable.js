@@ -7,7 +7,10 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import PinTaskListContainer from '../containers/PinTaskListContainer';
 
 const PinInspectionLogsTable = ({ isFetching, error, pins, handleFilterChange, onMobile }) => (
-    <BlockContainer containerClass="inspection-log flex-item size-lg-4 size-md-12">
+    <BlockContainer
+        containerClass="inspection-log flex-item size-lg-4 size-md-12"
+        contentClass="single-pin-max-height"
+    >
         <div className="size-lg-12">
             <BlockHeading title="Inspection Log">
                 <div className="area-filter">

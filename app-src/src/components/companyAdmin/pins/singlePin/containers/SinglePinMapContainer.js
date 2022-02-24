@@ -25,15 +25,8 @@ class SinglePinMapContainer extends Component {
     };
 
     render() {
-        const {
-            pin,
-            error,
-            isFetching,
-            drawing,
-            selectedHistory,
-            onMobile,
-            histories,
-        } = this.props;
+        const { pin, error, isFetching, drawing, selectedHistory, onMobile, histories } =
+            this.props;
 
         const editPinLocationPosition = [
             this.state.editPinLocationLat,
@@ -51,6 +44,7 @@ class SinglePinMapContainer extends Component {
                     isEmpty={!pin.id || !drawing.id || isEmpty(histories)}
                     isFetching={isFetching}
                     error={error}
+                    contentClass="single-pin-max-height"
                 >
                     <SinglePinMap
                         zoom={3}
