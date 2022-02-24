@@ -1,4 +1,6 @@
 import React, { memo } from 'react';
+import { connect } from 'react-redux';
+
 import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
 import { FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -205,7 +207,7 @@ const PinAnswer = ({
     );
 };
 
-export default memo(PinAnswer);
+export default memo(connect()(PinAnswer));
 
 function formatMultiMulti(answer) {
     if (!Array.isArray(answer)) return answer;
