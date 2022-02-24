@@ -4735,7 +4735,7 @@ input {
     overflow: auto;
 
     &.for-pin-single {
-        max-height: 35%;
+        max-height: 425px;
     }
 
     .generic-table {
@@ -7785,7 +7785,7 @@ input {
 .single-pin-tasks-wrapper {
     height: 55%;
     position: absolute;
-    top: 39%;
+    top: 475px;
 
     .heading {
         margin: 10px 0;
