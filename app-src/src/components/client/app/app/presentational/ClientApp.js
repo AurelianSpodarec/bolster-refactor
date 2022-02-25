@@ -14,11 +14,13 @@ const ClientApp = () => (
         <PageMeta meta={pageMeta.clientApp} />
         <div className="body-grid">
             <ClientHeaderContainer />
-            <MenuContainer />
-            <div id="page-area">
-                <UnconfirmedEmailBanner />
-                <Banner />
-                <Routes />
+            <div id="page-container" className="page-grid">
+                <MenuContainer />
+                <div id="page-area">
+                    <UnconfirmedEmailBanner />
+                    <Banner />
+                    <Routes />
+                </div>
             </div>
         </div>
     </>

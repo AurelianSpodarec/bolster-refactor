@@ -12,9 +12,11 @@ const AdminApp = () => (
         <PageMeta meta={pageMeta.adminApp} />
         <div className="body-grid">
             <AdminHeader />
-            <MenuContainer />
-            <div id="page-area">
-                <AdminRoutes />
+            <div id="page-container" className="page-grid">
+                <MenuContainer />
+                <div id="page-area">
+                    <AdminRoutes />
+                </div>
             </div>
         </div>
     </>

@@ -17,14 +17,16 @@ const CompanyApp = () => (
 
         <div className="body-grid">
             <CompanyHeaderContainer />
-            <MenuContainer />
-            <div id="page-area">
-                <AgreeToTermsCheck>
-                    <BannerNotificationContainer />
-                    <UnconfirmedEmailBanner />
-                    <Banner />
-                    <Routes />
-                </AgreeToTermsCheck>
+            <div id="page-container" className="page-grid">
+                <MenuContainer />
+                <div id="page-area">
+                    <AgreeToTermsCheck>
+                        <BannerNotificationContainer />
+                        <UnconfirmedEmailBanner />
+                        <Banner />
+                        <Routes />
+                    </AgreeToTermsCheck>
+                </div>
             </div>
         </div>
     </>

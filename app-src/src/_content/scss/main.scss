@@ -68,8 +68,12 @@ em {
     padding-bottom: 60px;
 }
 
+#page-container {
+    grid-area: page-container;
+}
+
 #page-area {
-    grid-area: main-content;
+    grid-area: page-area;
     float: right;
     padding: 10px 5px;
     height: 100%;
