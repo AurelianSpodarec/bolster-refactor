@@ -157,6 +157,56 @@ $leaflet-z-index: 400;
 //box-shadows
 $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
 
+// media queries
+@mixin screenSize($size) {
+    @if $size == lgDesktop {
+        // large desktop
+        @media only screen and (max-width: 1599px) {
+            @content;
+        }
+    } @else if $size == mdDesktop {
+        // medium desktop
+        @media only screen and (max-width: 1279px) {
+            @content;
+        }
+    } @else if $size == smDesktop {
+        // small desktop
+        @media only screen and (max-width: 1099px) {
+            @content;
+        }
+    } @else if $size == lsTablet {
+        // landscape tablet
+        @media only screen and (max-width: 1023px) {
+            @content;
+        }
+    } @else if $size == ptTablet {
+        // portrait tablet
+        @media only screen and (max-width: 800px) {
+            @content;
+        }
+    } @else if $size == lgMobile {
+        // large mobile
+        @media only screen and (max-width: 767px) {
+            @content;
+        }
+    } @else if $size == mdMobile {
+        // medium mobile
+        @media only screen and (max-width: 479px) {
+            @content;
+        }
+    } @else if $size == smMobile {
+        // small mobile
+        @media only screen and (max-width: 413px) {
+            @content;
+        }
+    } @else {
+        // custom size
+        @media only screen and (max-width: $size) {
+            @content;
+        }
+    }
+}
+
 // css variables
 :root {
     --background-color: #212228;
