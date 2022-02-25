@@ -3,7 +3,6 @@ import React from 'react';
 import { pageMeta } from 'constants/frontEnd/meta';
 
 import CompanyHeaderContainer from 'components/companyAdmin/layout/header/containers/CompanyHeaderContainer';
-import FooterContainer from 'components/companyAdmin/layout/footer/containers/FooterContainer';
 import MenuContainer from 'components/shared/layout/menu/containers/MenuContainer';
 import Routes from 'components/companyAdmin/app/routes/presentational';
 import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
@@ -13,12 +12,13 @@ import Banner from 'components/shared/generic/banner/Banner';
 import UnconfirmedEmailBanner from 'components/shared/generic/banner/UnconfirmedEmailBanner';
 
 const CompanyApp = () => (
-    <div className="dashboard-area">
+    <>
         <PageMeta meta={pageMeta.companyApp} />
-        <CompanyHeaderContainer />
-        <div className="full-container container">
+
+        <div className="body-grid">
+            <CompanyHeaderContainer />
             <MenuContainer />
-            <div id="page-area" className="obvious-class-name">
+            <div id="page-area">
                 <AgreeToTermsCheck>
                     <BannerNotificationContainer />
                     <UnconfirmedEmailBanner />
@@ -27,8 +27,7 @@ const CompanyApp = () => (
                 </AgreeToTermsCheck>
             </div>
         </div>
-        <FooterContainer />
-    </div>
+    </>
 );
 
 export default CompanyApp;

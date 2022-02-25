@@ -1,0 +1,6 @@
+.body-grid {
+    display: grid;
+    grid-template-areas: 
+        'header header'
+        'navigation main-content';
+}
