@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import { getCompanyColour } from 'helpers/generic';
 import { toggleMobileMenu } from 'actions/shared/mobile/sync/toggleMobileMenu';
 import defaultStyles from 'constants/defaultStyles';
+import {
+    selectCompanyColourCode,
+    selectIsBolsterLogoDark,
+} from '../../../../../selectors/companyAdmin/companySettings';
+import { selectIsMobile } from '../../../../../selectors/shared/mobile';
+import { selectCompanyUserID } from '../../../../../selectors/companyAdmin/companyUsers';
 
 const MenuItemContainer = ({
     location,
@@ -15,13 +21,14 @@ const MenuItemContainer = ({
     logout = false,
     onClick = () => {},
     base = false,
-    colourCode,
-    isBolsterLogoDark,
-    companyUserID,
-    onMobile,
-    toggleMobileMenu,
     history,
 }) => {
+    const dispatch = useDispatch();
+    const colourCode = useSelector(selectCompanyColourCode) || '';
+    const isBolsterLogoDark = useSelector(selectIsBolsterLogoDark);
+    const onMobile = useSelector(selectIsMobile);
+    const companyUserID = useSelector(selectCompanyUserID);
+
     const [hover, setHover] = useState(false);
 
     const route = location.pathname.toLowerCase();
@@ -30,7 +37,7 @@ const MenuItemContainer = ({
         ? link.toLowerCase() === route
         : route.toLowerCase().includes(link.toLowerCase());
 
-    let textColor = 'white';
+    const textColor = isBolsterLogoDark && !!companyUserID ? 'black' : 'white';
 
     const companyColour = !companyUserID ? defaultStyles.colourCode : getCompanyColour(colourCode);
 
@@ -43,13 +50,12 @@ const MenuItemContainer = ({
         }
     };
 
-    const _toggleMobileMenu = () => {
+    const handleToggleMobileMenu = e => {
+        e.preventDefault();
         if (onMobile) {
-            toggleMobileMenu();
+            dispatch(toggleMobileMenu());
         }
     };
-
-    if (isBolsterLogoDark && !!companyUserID) textColor = 'black';
 
     return (
         <div
@@ -69,7 +75,7 @@ const MenuItemContainer = ({
                       }
                     : {}
             }
-            onClick={() => _toggleMobileMenu()}
+            onClick={handleToggleMobileMenu}
         >
             {external ? (
                 <a href={link}>{children}</a>
@@ -86,27 +92,4 @@ const MenuItemContainer = ({
     );
 };
 
-const mapStateToProps = ({
-    companyAdmin: {
-        companySettingsReducer: {
-            companySettings: { colourCode, isBolsterLogoDark },
-        },
-    },
-    shared: {
-        mobileReducer: { onMobile },
-        decodeJWTReducer: {
-            jwtData: { companyUserID },
-        },
-    },
-}) => ({
-    colourCode: colourCode || '',
-    isBolsterLogoDark,
-    onMobile,
-    companyUserID,
-});
-
-const mapDispatchToProps = dispatch => ({
-    toggleMobileMenu: () => dispatch(toggleMobileMenu()),
-});
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MenuItemContainer));
+export default withRouter(MenuItemContainer);
