@@ -4,11 +4,7 @@ import MenuTabsContainer from 'components/shared/generic/tabs/containers/MenuTab
 
 const MenusWrapper = ({ showTabs, menuOpen }) => (
     <div className={`menu-wrapper ${menuOpen && 'mobile-open'} size-lg-12`}>
-        {showTabs && (
-            <div className="size-lg-12" style={{ zIndex: 1 }}>
-                <MenuTabsContainer />
-            </div>
-        )}
+        {showTabs && <MenuTabsContainer />}
         <MenusRouteContainer />
     </div>
 );
