@@ -13,9 +13,10 @@ const SeriesListRow = ({ pinTaskSeries, startEditPinTaskSeries }) => {
         floorName,
         drawingName,
         pinCount,
-        pinCodes,
         recurrenceStartsOn,
         recurrenceEndsOn,
+        drawingID,
+        pins,
     } = pinTaskSeries;
 
     return (
@@ -24,10 +25,12 @@ const SeriesListRow = ({ pinTaskSeries, startEditPinTaskSeries }) => {
                 {operativeFirstName} {operativeLastName}
             </td>
             <td>
-                {siteName} / {buildingName} / {floorName} / {drawingName}
+                <a className="link-without-decoration" href={`/company/drawings/${drawingID}`}>
+                    {siteName}/{buildingName}/{floorName}/{drawingName}
+                </a>
             </td>
             <td>
-                <SeriesTableRowPins pinCount={pinCount} pinCodes={pinCodes} />
+                <SeriesTableRowPins pinCount={pinCount} pins={pins} />
             </td>
             <td>
                 <DateTimeContainer

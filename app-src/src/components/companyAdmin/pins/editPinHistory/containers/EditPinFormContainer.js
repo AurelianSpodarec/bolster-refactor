@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { convertArrToObj, isObjEmpty } from 'helpers/generic';
+import { isObjEmpty } from 'helpers/generic';
 
 import editPinHistory from 'actions/companyAdmin/pins/async/editPinHistory';
 import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
@@ -59,15 +59,8 @@ class EditPinFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            pins,
-            drawingID,
-            pinID,
-            coordinates,
-            history,
-            hierarchyType,
-            selectedHistory,
-        } = this.props;
+        const { pins, drawingID, pinID, coordinates, history, hierarchyType, selectedHistory } =
+            this.props;
 
         if (isEmpty(coordinates.lat) || isEmpty(coordinates.lng)) {
             if (hierarchyType === 'drawing') {
@@ -89,6 +82,7 @@ class EditPinFormContainer extends Component {
     };
 
     componentWillUnmount() {
+        this.props.resetPinAnswers();
         window.removeEventListener('beforeunload', this.handleBeforeUnload);
     }
 
@@ -126,21 +120,6 @@ class EditPinFormContainer extends Component {
             }
         }
     };
-
-    componentWillUnmount = () => {
-        this.props.resetPinAnswers();
-    };
-
-    _getTemplates = () => {
-        const { templates } = this.props;
-        const templateOptions = templates.map(({ id, name }) => ({
-            value: id,
-            text: name,
-        }));
-
-        return convertArrToObj(templateOptions, 'value');
-    };
-
     handleChange = (name, value) => {
         this.setState({ [name]: value });
     };

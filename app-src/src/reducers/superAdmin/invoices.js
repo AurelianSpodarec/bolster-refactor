@@ -31,6 +31,9 @@ import {
     ADD_INVOICE_COMMENT_FAILURE,
     ADD_INVOICE_COMMENT_REQUEST,
     ADD_INVOICE_COMMENT_SUCCESS,
+    SA_FETCH_SINGLE_INVOICE_REQUEST,
+    SA_FETCH_SINGLE_INVOICE_SUCCESS,
+    SA_FETCH_SINGLE_INVOICE_FAILURE,
 } from 'constants/actionTypes/superAdminInvoices';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 import { HIDE_MODAL } from 'constants/actionTypes/generic';
@@ -50,6 +53,7 @@ export default combineReducers({
     isCommenting: isCommentingReducer,
     commentingError: commentingErrorReducer,
     commentingSuccess: commentingSuccessReducer,
+    pagination: paginationReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -57,6 +61,7 @@ function isFetchingReducer(state = false, action) {
         case SA_FETCH_ALL_INVOICES_REQUEST:
         case ADMIN_FETCH_COMPANY_INVOICES_REQUEST:
         case SA_FETCH_INVOICES_BY_SEARCH_REQUEST:
+        case SA_FETCH_SINGLE_INVOICE_REQUEST:
             return true;
         case SA_FETCH_ALL_INVOICES_SUCCESS:
         case ADMIN_FETCH_COMPANY_INVOICES_SUCCESS:
@@ -65,6 +70,8 @@ function isFetchingReducer(state = false, action) {
         case ADMIN_FETCH_COMPANY_INVOICE_ITEMS_SUCCESS:
         case SA_FETCH_INVOICES_BY_SEARCH_FAILURE:
         case SA_FETCH_INVOICES_BY_SEARCH_SUCCESS:
+        case SA_FETCH_SINGLE_INVOICE_SUCCESS:
+        case SA_FETCH_SINGLE_INVOICE_FAILURE:
             return false;
         default:
             return state;
@@ -104,6 +111,7 @@ function errorReducer(state = null, action) {
         case SA_SET_IS_INVOICE_PAID_REQUEST:
         case SA_DELETE_INVOICE_REQUEST:
         case SA_RESTORE_INVOICE_REQUEST:
+        case SA_FETCH_SINGLE_INVOICE_REQUEST:
             return null;
 
         case SA_FETCH_ALL_INVOICES_FAILURE:
@@ -114,6 +122,7 @@ function errorReducer(state = null, action) {
         case SA_DELETE_INVOICE_FAILURE:
         case SA_RESTORE_INVOICE_FAILURE:
         case SA_FETCH_INVOICES_BY_SEARCH_FAILURE:
+        case SA_FETCH_SINGLE_INVOICE_FAILURE:
             return action.error;
         default:
             return state;
@@ -163,14 +172,14 @@ function invoicesReducer(state = {}, action) {
             return {};
         case SA_FETCH_ALL_INVOICES_SUCCESS:
             return convertArrToObj(action.payload);
-        case ADMIN_FETCH_COMPANY_INVOICES_SUCCESS:
-            return { ...state, ...convertArrToObj(action.payload) };
         case SA_FETCH_INVOICES_BY_SEARCH_SUCCESS:
+        case ADMIN_FETCH_COMPANY_INVOICES_SUCCESS:
             return convertArrToObj(action.payload.invoices);
         // case SA_DELETE_INVOICE_SUCCESS:
         //     return removeObjItem(state, action.id);
         case SA_SET_IS_INVOICE_PAID_SUCCESS:
         case SA_MAKE_INVOICE_FREE_SUCCESS:
+        case SA_FETCH_SINGLE_INVOICE_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case SA_RESTORE_INVOICE_SUCCESS:
             return { ...state, [action.invoice.id]: action.invoice };
@@ -243,6 +252,24 @@ function commentingErrorReducer(state = null, action) {
             return null;
         case ADD_INVOICE_COMMENT_FAILURE:
             return action.error;
+        default:
+            return state;
+    }
+}
+
+function paginationReducer(
+    state = {
+        page: 1,
+        pageSize: 10,
+        totalPages: 1,
+        totalCount: 0,
+    },
+    action,
+) {
+    switch (action.type) {
+        case ADMIN_FETCH_COMPANY_INVOICES_SUCCESS:
+            var { page, pageSize, totalPages, totalCount } = action.payload;
+            return { page, pageSize, totalPages, totalCount };
         default:
             return state;
     }

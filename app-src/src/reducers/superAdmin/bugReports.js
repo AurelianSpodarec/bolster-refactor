@@ -85,9 +85,9 @@ function postSuccessReducer(state = false, action) {
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_BUG_REPORTS_FAILURE:
-        case FETCH_BUG_REPORT_FAILURE:
         case DELETE_BUG_REPORT_FAILURE:
-            return action.payload;
+        case FETCH_BUG_REPORT_FAILURE:
+            return action.error;
         default:
             return state;
     }

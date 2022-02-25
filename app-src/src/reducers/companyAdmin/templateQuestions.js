@@ -5,14 +5,14 @@ import { FETCH_DRAWING_TEMPLATES_SUCCESS } from 'constants/actionTypes/drawings'
 import {
     FETCH_ALL_TEMPLATES_SUCCESS,
     SELECT_QUESTION,
-    EDIT_TEMPLATE_QUESTION_SUCCESS
+    EDIT_TEMPLATE_QUESTION_SUCCESS,
 } from 'constants/actionTypes/templates';
 import { convertArrToObj } from 'helpers/generic';
 import { formatQuestions } from 'helpers/templates';
 
 export default combineReducers({
     questions: questionsReducer,
-    selectedQuestionID: selectedQuestionIDReducer
+    selectedQuestionID: selectedQuestionIDReducer,
 });
 
 function questionsReducer(state = {}, action) {
@@ -23,7 +23,7 @@ function questionsReducer(state = {}, action) {
         case EDIT_TEMPLATE_QUESTION_SUCCESS:
             return {
                 ...state,
-                ...convertArrToObj(formatQuestions(action.payload.questions))
+                ...convertArrToObj(formatQuestions(action.payload.questions)),
             };
         default:
             return state;

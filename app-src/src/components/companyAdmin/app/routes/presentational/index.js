@@ -30,6 +30,7 @@ import ReleaseNotesRoutes from './ReleaseNotesRoutes';
 import CompanySelection from 'components/companyAdmin/companySelection/CompanySelection';
 import BugReportRoutes from './BugReportRoutes';
 import DocumentLibraryRoutes from './DocumentLibraryRoutes';
+import JobReferencesRoutes from './JobReferencesRoutes';
 // import withTermsAuth from '../../hocs/withTermsAuth';
 
 const CompanyRoutes = ({ base = '/company' }) => (
@@ -70,6 +71,10 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route
             path={`${base}/company-documents`}
             component={withSubscriptionAuth(DocumentLibraryRoutes)}
+        />
+        <Route
+            path={`${base}/job-references`}
+            component={withSubscriptionAuth(JobReferencesRoutes)}
         />
     </SwitchWith404>
 );

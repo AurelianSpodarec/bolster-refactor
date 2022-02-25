@@ -38,6 +38,9 @@ import bannerNotificationsReducer from './bannerNotifications';
 import demoAccessCodesReducer from './demoAccessCodes';
 import companyTrackingReducer from './companyTracking';
 import bugReportsReducer from './bugReports';
+import timesheetsReducer from './timesheets';
+import faqsReducer from './faqs';
+import drawingsLogsReducer from './drawingUploadLogs';
 
 export default combineReducers({
     adminServicesReducer,
@@ -47,7 +50,7 @@ export default combineReducers({
     companyReportsReducer,
     companySubscriptionReducer,
     companyTrackingReducer,
-    drawingsReducer,
+    drawingsLogsReducer,
     pinsReducer,
     contactSubmissionsReducer,
     floorsReducer,
@@ -68,6 +71,7 @@ export default combineReducers({
     templateSectionsReducer,
     templateQuestionsReducer,
     templateQuestionFormReducer,
+    timesheetsReducer,
     usersReducer,
     userCreationsReducer,
     userGuideReducer,
@@ -78,4 +82,6 @@ export default combineReducers({
     syncsReducer,
     bannerNotificationsReducer,
     demoAccessCodesReducer,
+    drawingsReducer,
+    faqsReducer,
 });

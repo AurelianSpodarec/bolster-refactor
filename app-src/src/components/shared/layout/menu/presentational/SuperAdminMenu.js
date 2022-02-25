@@ -22,6 +22,12 @@ const SuperAdminMenu = ({ logout, unreadRequests, unreadBugReports }) => (
         <MenuItemContainer link="/admin/companies">
             <i className="fa fa-users icon" /> <span className="menu-text">Companies</span>
         </MenuItemContainer>
+
+        <MenuItemContainer link="/admin/company-timesheets">
+            <i className="fa fa-calendar-alt icon" />{' '}
+            <span className="menu-text">Company Timesheets</span>
+        </MenuItemContainer>
+
         <MenuItemContainer link="/admin/users">
             <i className="fa fa-user icon" /> <span className="menu-text">Users</span>
         </MenuItemContainer>
@@ -51,6 +57,9 @@ const SuperAdminMenu = ({ logout, unreadRequests, unreadBugReports }) => (
         </MenuItemContainer>
         <MenuItemContainer link="/admin/services">
             <i className="fa fa-folder-open icon" /> <span className="menu-text">Services</span>
+        </MenuItemContainer>
+        <MenuItemContainer link="/admin/drawing-upload-log">
+            <i className="fa fa-list icon" /> <span className="menu-text">Drawing Upload Log</span>
         </MenuItemContainer>
 
         <AdminPinOptionsMenuItems />
@@ -89,6 +98,10 @@ const SuperAdminMenu = ({ logout, unreadRequests, unreadBugReports }) => (
             <i className="far fa-key fa-fw icon" />
             <span className="menu-text">Demo Access Codes</span>
         </MenuItemContainer>
+            <MenuItemContainer link="/admin/faqs">
+                <i className="far fa-info fa-fw icon" />
+                <span className="menu-text">FAQs</span>
+            </MenuItemContainer>
         <MenuItemContainer link="/admin/banners">
             <i className="fas fa-pennant icon" />
             <span className="menu-text">Banner Notifications</span>

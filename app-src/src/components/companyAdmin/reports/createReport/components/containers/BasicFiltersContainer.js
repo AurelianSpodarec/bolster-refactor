@@ -41,7 +41,7 @@ class BasicFiltersContainer extends Component {
         } = this.props;
 
         const serviceOptions = this.formatServicesArrForDropdown(services);
-        const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
+        const statusOptions = this.formatStatusesForDropdown(PIN_STATUS_TYPES);
         const historyNumsOptions = convertEnumToDropdownOptions(NUMBER_OF_HISTORIES);
         const templateOptions = this.formatTemplateArrForDropdown(templates);
         return (
@@ -57,7 +57,7 @@ class BasicFiltersContainer extends Component {
                         templateOptions={Object.values(templateOptions)}
                         selectedTemplate={templateOptions[templateID]}
                         statusOptions={Object.values(statusOptions)}
-                        selectedStatus={statusOptions[status]}
+                        selectedStatus={status ? status : []}
                         fromDateInclusive={fromDateInclusive}
                         toDateInclusive={toDateInclusive}
                         historyNumsOptions={Object.values(historyNumsOptions)}
@@ -67,6 +67,7 @@ class BasicFiltersContainer extends Component {
                         includeTime={includeTime}
                         startTime={startTime}
                         endTime={endTime}
+                        handleStatusChange={this.handleStatusChange}
                     />
                 </BlockContainer>
             </div>
@@ -189,6 +190,18 @@ class BasicFiltersContainer extends Component {
         }));
 
         return convertArrToObj(options, 'value');
+    };
+
+    formatStatusesForDropdown = statusObj => {
+        const formattedStatuses = Object.keys(statusObj).map(status => {
+            return { value: status, text: statusObj[status], label: statusObj[status] };
+        });
+
+        return convertArrToObj(formattedStatuses, 'value');
+    };
+
+    handleStatusChange = (name, value) => {
+        this.handleChange(name, value);
     };
 }
 

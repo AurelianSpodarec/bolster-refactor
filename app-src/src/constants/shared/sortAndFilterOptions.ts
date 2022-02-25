@@ -22,3 +22,11 @@ export const clientSitesSort = {
         descending: { value: 'descending', text: 'Date Added (desc)' },
     },
 };
+
+export const companyAdminHierarchySort = {
+    statusOptions: {
+        active: { value: 'active', label: 'Active' },
+        'read only': { value: 'read only', label: 'Read only' },
+        archived: { value: 'archived', label: 'Archived' },
+    },
+};

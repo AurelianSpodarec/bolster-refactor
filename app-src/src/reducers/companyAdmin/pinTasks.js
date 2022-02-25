@@ -31,6 +31,9 @@ import {
     DELETE_PIN_TASK_SERIES_FAILURE,
     SET_PIN_RECURRENCE_FILTERS,
     SET_PIN_STATUS_FILTERS,
+    FETCH_SINGLE_PIN_TASKS_FAILURE,
+    FETCH_SINGLE_PIN_TASKS_REQUEST,
+    FETCH_SINGLE_PIN_TASKS_SUCCESS,
 } from 'constants/actionTypes/pinTasks';
 
 export default combineReducers({
@@ -42,6 +45,8 @@ export default combineReducers({
     error: errorReducer,
     pinRecurrenceFilters: pinRecurrenceFiltersReducer,
     pinStatusFilters: pinStatusFiltersReducer,
+    singlePinTaskSeries: singlePinTaskSeriesReducer,
+    singlePinTasks: singlePinTasksReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -50,6 +55,7 @@ function isFetchingReducer(state = false, action) {
         case FETCH_PIN_TASK_REQUEST:
         case FETCH_PIN_TASK_SERIES_MULTIPLE_REQUEST:
         case FETCH_PIN_TASK_SERIES_REQUEST:
+        case FETCH_SINGLE_PIN_TASKS_REQUEST:
             return true;
         case FETCH_PIN_TASKS_FAILURE:
         case FETCH_PIN_TASKS_SUCCESS:
@@ -59,6 +65,8 @@ function isFetchingReducer(state = false, action) {
         case FETCH_PIN_TASK_SERIES_MULTIPLE_SUCCESS:
         case FETCH_PIN_TASK_SERIES_FAILURE:
         case FETCH_PIN_TASK_SERIES_SUCCESS:
+        case FETCH_SINGLE_PIN_TASKS_SUCCESS:
+        case FETCH_SINGLE_PIN_TASKS_FAILURE:
             return false;
         default:
             return state;
@@ -100,6 +108,7 @@ function errorReducer(state = null, action) {
         case FETCH_PIN_TASK_SERIES_FAILURE:
         case EDIT_PIN_TASK_SERIES_FAILURE:
         case DELETE_PIN_TASK_SERIES_FAILURE:
+        case FETCH_SINGLE_PIN_TASKS_FAILURE:
             return action.error;
         case FETCH_PIN_TASKS_REQUEST:
         case FETCH_PIN_TASK_REQUEST:
@@ -110,6 +119,7 @@ function errorReducer(state = null, action) {
         case FETCH_PIN_TASK_SERIES_REQUEST:
         case EDIT_PIN_TASK_SERIES_REQUEST:
         case DELETE_PIN_TASK_SERIES_REQUEST:
+        case FETCH_SINGLE_PIN_TASKS_REQUEST:
             return null;
         default:
             return state;
@@ -178,6 +188,24 @@ function pinStatusFiltersReducer(state = [], action) {
     switch (action.type) {
         case SET_PIN_STATUS_FILTERS:
             return action.statusType;
+        default:
+            return state;
+    }
+}
+
+function singlePinTaskSeriesReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_SINGLE_PIN_TASKS_SUCCESS:
+            return convertArrToObj(action.payload.series);
+        default:
+            return state;
+    }
+}
+
+function singlePinTasksReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_SINGLE_PIN_TASKS_SUCCESS:
+            return convertArrToObj(action.payload.tasks);
         default:
             return state;
     }

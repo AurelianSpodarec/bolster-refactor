@@ -207,7 +207,7 @@ const RegisterFormContainer = ({
 
     function handleSubmit(e) {
         e.preventDefault();
-
+        if (isPosting) return;
         const {
             'User.email': email,
             'User.password': password,

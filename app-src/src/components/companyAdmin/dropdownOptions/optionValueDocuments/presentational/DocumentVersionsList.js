@@ -22,7 +22,7 @@ const DocumentVersionsList = ({
         {versions
             .sort((a, b) => b.createdAt - a.createdAt)
             .map(version => {
-                const [, filename] = version.fileName.split('/');
+                const [, filename] = version.fileS3Key.split('/');
                 return (
                     <div key={version.id} className="flex-row size-lg-12">
                         <FieldOutput
@@ -56,7 +56,7 @@ const DocumentVersionsList = ({
                                                 type: DOCUMENT_VIEW_TYPES.PDF,
                                             })
                                         }
-                                    ></div>
+                                    />
                                 </div>
                             ) : (
                                 <img
