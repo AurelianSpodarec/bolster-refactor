@@ -53,6 +53,7 @@ const CompanyMenuContainer = ({
         }
     }, [users]);
     const isCompanyUser = !!companyUserID;
+
     return (
         <CompanyMenu
             isSubscribed={_isSubscribed()}

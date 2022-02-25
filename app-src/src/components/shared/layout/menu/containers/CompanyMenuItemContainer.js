@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -7,73 +7,34 @@ import { getCompanyColour } from 'helpers/generic';
 import { toggleMobileMenu } from 'actions/shared/mobile/sync/toggleMobileMenu';
 import defaultStyles from 'constants/defaultStyles';
 
-class MenuItemContainer extends Component {
-    state = {
-        hover: false,
-    };
+const MenuItemContainer = ({
+    location,
+    link,
+    children,
+    external = false,
+    logout = false,
+    onClick = () => {},
+    base = false,
+    colourCode,
+    isBolsterLogoDark,
+    companyUserID,
+    onMobile,
+    toggleMobileMenu,
+    history,
+}) => {
+    const [hover, setHover] = useState(false);
 
-    render() {
-        const { hover } = this.state;
-        const {
-            location,
-            link,
-            children,
-            external = false,
-            logout = false,
-            onClick = () => {},
-            base = false,
-            colourCode,
-            isBolsterLogoDark,
-            companyUserID,
-        } = this.props;
-        const route = location.pathname.toLowerCase();
-        const isActive = base
-            ? link.toLowerCase() === route
-            : route.toLowerCase().includes(link.toLowerCase());
+    const route = location.pathname.toLowerCase();
 
-        let textColor = 'white';
-        const companyColour = !companyUserID
-            ? defaultStyles.colourCode
-            : getCompanyColour(colourCode);
-        if (isBolsterLogoDark && !!companyUserID) textColor = 'black';
+    const isActive = base
+        ? link.toLowerCase() === route
+        : route.toLowerCase().includes(link.toLowerCase());
 
-        return (
-            <div
-                onMouseEnter={this.handleMouseEnter}
-                onMouseLeave={this.handleMouseLeave}
-                className={`item ${isActive ? 'active' : ''} custom-hover`}
-                style={
-                    isActive
-                        ? {
-                              backgroundColor: companyColour,
-                              color: isBolsterLogoDark ? 'white' : textColor,
-                          }
-                        : hover
-                        ? {
-                              backgroundColor: companyColour,
-                              color: isBolsterLogoDark ? 'white' : textColor,
-                          }
-                        : {}
-                }
-                onClick={() => this._toggleMobileMenu()}
-            >
-                {external ? (
-                    <a href={link}>{children}</a>
-                ) : logout ? (
-                    <Link onClick={this.logout} to={link}>
-                        {children}
-                    </Link>
-                ) : (
-                    <Link onClick={onClick} to={link}>
-                        {children}
-                    </Link>
-                )}
-            </div>
-        );
-    }
+    let textColor = 'white';
 
-    logout = e => {
-        const { history, logout = false } = this.props;
+    const companyColour = !companyUserID ? defaultStyles.colourCode : getCompanyColour(colourCode);
+
+    const handleLogout = e => {
         e.preventDefault();
         if (logout) {
             localStorage.setItem('token', '');
@@ -82,19 +43,48 @@ class MenuItemContainer extends Component {
         }
     };
 
-    handleMouseEnter = () => this.setState({ hover: true });
-
-    handleMouseLeave = () => this.setState({ hover: false });
-
-    _toggleMobileMenu = () => {
-        const { onMobile, toggleMobileMenu } = this.props;
+    const _toggleMobileMenu = () => {
         if (onMobile) {
             toggleMobileMenu();
-        } else {
-            return;
         }
     };
-}
+
+    if (isBolsterLogoDark && !!companyUserID) textColor = 'black';
+
+    return (
+        <div
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+            className={`item ${isActive ? 'active' : ''} custom-hover`}
+            style={
+                isActive
+                    ? {
+                          backgroundColor: companyColour,
+                          color: isBolsterLogoDark ? 'white' : textColor,
+                      }
+                    : hover
+                    ? {
+                          backgroundColor: companyColour,
+                          color: isBolsterLogoDark ? 'white' : textColor,
+                      }
+                    : {}
+            }
+            onClick={() => _toggleMobileMenu()}
+        >
+            {external ? (
+                <a href={link}>{children}</a>
+            ) : logout ? (
+                <Link onClick={handleLogout} to={link}>
+                    {children}
+                </Link>
+            ) : (
+                <Link onClick={onClick} to={link}>
+                    {children}
+                </Link>
+            )}
+        </div>
+    );
+};
 
 const mapStateToProps = ({
     companyAdmin: {
@@ -118,4 +108,5 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     toggleMobileMenu: () => dispatch(toggleMobileMenu()),
 });
+
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MenuItemContainer));
