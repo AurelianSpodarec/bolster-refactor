@@ -7,6 +7,9 @@
 
 // components
 @import './components/button.scss';
+@import './components/heading.scss';
+@import './components/text.scss';
+@import './components/wysiwyg.scss';
 
 @mixin dropdown-popup() {
     z-index: -1;
@@ -1112,158 +1115,6 @@ input {
                 text-align: center;
             }
         }
-    }
-}
-
-.heading {
-    @include ubuntu-medium;
-    color: white;
-
-    &.heading-1 {
-        font-size: 220%;
-    }
-    &.heading-2 {
-        font-size: 200%;
-    }
-    &.heading-3 {
-        font-size: 160%;
-    }
-}
-
-.generic-text {
-    margin-bottom: 15px;
-    font-size: 140%;
-    line-height: 1.5;
-
-    &.intro-text {
-        margin-bottom: 30px;
-        margin-top: -10px;
-    }
-
-    &.total-text {
-        padding: 0 10px;
-        margin-bottom: 0;
-    }
-
-    a {
-        @include ubuntu-medium;
-        color: $body-text;
-        text-decoration: underline;
-
-        &:hover {
-            text-decoration: none;
-        }
-    }
-
-    &:last-child {
-        margin-bottom: 0;
-    }
-
-    &.small {
-        font-size: 120%;
-    }
-
-    &.no-data {
-        padding: 10px 15px;
-        background-color: $background-grey;
-        text-align: center;
-    }
-
-    &.error {
-        color: $red;
-    }
-
-    &.success {
-        color: green;
-    }
-
-    &.in-form {
-        padding-left: 7.5px;
-        padding-right: 7.5px;
-    }
-}
-
-.wysiwyg {
-    * {
-        margin-bottom: 10px;
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
-    ol {
-        width: 100%;
-        @include ubuntu;
-        list-style: decimal outside;
-        padding-left: 19px;
-        @include ubuntu-medium;
-        font-size: 14px;
-        
-        ol {
-            list-style: lower-alpha outside;
-            font-size: 12px;
-            @include ubuntu;
-        }
-    }
-
-    ul {
-        width: 100%;
-        @include ubuntu;
-        list-style: disc outside;
-        padding-left: 19px;
-        @include ubuntu-medium;
-        font-size: 14px;
-        
-        ul {
-            list-style: circle outside;
-            font-size: 12px;
-            @include ubuntu;
-        }
-    }
-    h4 {
-        font-size: 14px;
-        width: 100%;
-        @include ubuntu-medium;
-        margin-bottom: 10px;
-    }
-
-    p {
-        width: 100%;
-        @include ubuntu;
-
-        font-size: 12px;
-        strong {
-            @include ubuntu-medium;
-        }
-    }
-    a {
-        color: $red !important;
-        text-decoration: underline;
-        &:hover {
-            text-decoration: none;
-        }
-    }
-
-    .generic-table {
-        border: 1px solid #f5f5f5;
-        th {
-            padding-top: 10px;
-            border-bottom: 1px solid #f5f5f5;
-            border-right: 1px solid #f5f5f5;
-            &:last-child {
-                text-align: right;
-                border-right: none;
-            }
-        }
-        td {
-            border-right: 1px solid #f5f5f5;
-            &:last-child {
-                border-right: none;
-            }
-        }
-    }
-
-    .image {
-        max-width: 100%;
     }
 }
 

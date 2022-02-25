@@ -1,0 +1,53 @@
+// generic bits of copy
+.generic-text {
+    margin-bottom: 15px;
+    font-size: 140%;
+    line-height: 1.5;
+
+    &.intro-text {
+        margin-bottom: 30px;
+        margin-top: -10px;
+    }
+
+    &.total-text {
+        padding: 0 10px;
+        margin-bottom: 0;
+    }
+
+    a {
+        @include ubuntu-medium;
+        color: $body-text;
+        text-decoration: underline;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &.small {
+        font-size: 120%;
+    }
+
+    &.no-data {
+        padding: 10px 15px;
+        background-color: $background-grey;
+        text-align: center;
+    }
+
+    &.error {
+        color: $red;
+    }
+
+    &.success {
+        color: green;
+    }
+
+    &.in-form {
+        padding-left: 7.5px;
+        padding-right: 7.5px;
+    }
+}
