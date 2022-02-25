@@ -28,7 +28,7 @@ body {
     font-size: 10px;
     -webkit-font-smoothing: antialiased;
     @include ubuntu;
-    background-color: $background-color;
+    background-color: var(--background-color);
     color: $body-text;
     line-height: 1.35;
 }

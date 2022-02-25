@@ -156,3 +156,26 @@ $leaflet-z-index: 400;
 
 //box-shadows
 $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+
+// css variables
+:root {
+    --background-color: #212228;
+    --primary-default: #3364DD;
+    --primary-hover: #0047FF;
+    --primary-pressed: #2147A8;
+    --primary-disabled: #27438D;
+    --positive-default: #2DAC57;
+    --positive-hover: #36C967;
+    --positive-pressed: #268D48;
+    --positive-disabled: #36C967;
+    --background-default: #FAFAFA;
+    --background-container: #FFFFFF;
+    --background-stroke: #F2F2F2;
+}
+
+.dark-theme {
+    --background-color: #212228;
+    --background-default: #212227;
+    --background-container: #2F3037;
+    --background-stroke: #494C5B;
+}
