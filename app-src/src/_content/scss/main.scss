@@ -650,7 +650,7 @@ input {
 .generic-search {
     float: left;
     width: 100%;
-    background-color: $input-grey-low-opacity;    
+    background-color: var(--input-secondary);    
     @include rounded-all(16px);
 
     .search-icon {
@@ -819,6 +819,7 @@ input {
         border-color: $red;
     }
     .container {
+        
         height: 100%;
     }
 
@@ -893,12 +894,6 @@ input {
                     @include content-center;
                 }
                 
-                &:hover,
-                &.active {
-                    background-color: #f4f3f3;
-                }
-                
-                
                 &.credit {
                     display: flex;
                     flex-direction: row;
@@ -906,14 +901,14 @@ input {
                     font-size: 16px;
                     z-index: 1;
                     @include SF-Pro-Text-bold;
-                    color: $input-green;
+                    color: var(--positive-default);
                     text-align: center;
                     float: left;
 
                     .balance {
                         width: 70px;
                         height: 35px;
-                        background-color: $input-grey;
+                        background-color: var(input-default);
                         @include content-center;
                         border-top-left-radius: 50px;
                         border-bottom-left-radius: 50px;
@@ -927,10 +922,14 @@ input {
                         border-top-right-radius: 50px;
                         border-bottom-right-radius: 50px;      
                         @include content-center;
-                        // change
                         color: white;
-                        background-color: green;   
+                        background-color: var(--positive-default);   
                         float: left;    
+
+                        &:hover,
+                        &.active {
+                            background-color: var(--positive-hover);
+                        }
                     }
                     
                 }
