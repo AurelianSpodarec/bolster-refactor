@@ -6,6 +6,7 @@
 }
 
 .menu-wrapper {
+  grid-area: navigation;
   display: flex;
   flex-direction: column;
   width: 220px;
