@@ -36,13 +36,8 @@ const PinAnswer = ({
                         return null;
                     }
                     // handles manufacturer option
-                    if (typeof ans === 'number' && optionValuesLookup[ans]) {
-                        console.log({
-                            ans,
-                            optionValuesLookup,
-                            optionValue: optionValuesLookup[ans],
-                        });
-                        return optionValuesLookup[ans].name;
+                    if (optionValuesLookup[+ans]) {
+                        return optionValuesLookup[+ans].name;
                     }
                     // handle other
                     return ans;
