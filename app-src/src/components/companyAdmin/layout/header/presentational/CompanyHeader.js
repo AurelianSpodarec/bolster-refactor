@@ -58,14 +58,18 @@ const Header = ({
             <div className="account-area">
                 {!isCompanySelection && (
                     <div className="notifications">
-                        {!shouldRestrictPayments && (
+                        <div className="item main credit">
+                            <div className="balance">{totalCredits}</div>
+                            <div className="credit-btn">Buy credits</div>
+                        </div>
+                        {/* {!shouldRestrictPayments && (
                             <button className="item main" onClick={showModal}>
                                 {company.parentalType === PARENTAL_TYPES.NONE && (
                                     <span className="number green">{totalCredits}</span>
                                 )}
                                 <i className="far fa-money-bill-alt fa-fw" />
                             </button>
-                        )}
+                        )} */}
                         <HeaderNotificationsContainer />
                         <Link to="/company/message-centre" className="item main">
                             {!!unreadMessageCount && (
@@ -80,7 +84,7 @@ const Header = ({
                     </div>
                 )}
 
-                <HeaderProfileContainer isCompanySelection={isCompanySelection} />
+                {/* <HeaderProfileContainer isCompanySelection={isCompanySelection} /> */}
             </div>
             <div className="clear" />
         </div>

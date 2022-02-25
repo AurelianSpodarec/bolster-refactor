@@ -1,6 +1,7 @@
 @import "./reset.scss";
 @import "./variables.scss";
 @import "./sizing.scss";
+@import './structure.scss';
 @import "./media.scss";
 @import "~react-quill/dist/quill.snow.css";
 // @import "~@progress/kendo-theme-default/dist/all.css";
@@ -53,7 +54,6 @@ em {
 
 .container {
     width: 100%;
-    max-width: 1700px;
     padding: 0 30px;
     margin: 0 auto;
     height: calc(100% - 69px);
@@ -645,9 +645,8 @@ input {
 .generic-search {
     float: left;
     width: 100%;
-    background-color: white;
-    border: 1px solid $input-border-grey;
-    @include rounded-all(3px);
+    background-color: $input-grey-low-opacity;    
+    @include rounded-all(16px);
 
     .search-icon {
         position: absolute;
@@ -801,6 +800,7 @@ input {
 
 //header
 #page-header {
+    margin: 10px;
     height: 69px;
     border: 4px solid white;
     border: {
@@ -843,9 +843,12 @@ input {
 
     //search
     .search-area {
+        margin-left: 50px;
         float: left;
-        width: 255px;
+        width: 30%;
+        min-width: 255px;
         margin-top: 15px;
+        line-height: 33px;
     }
 
     //account area
@@ -861,30 +864,69 @@ input {
 
         .item-container {
             float: left;
-            width: 60px;
+            min-width: 60px;
             height: 100%;
             position: static;
         }
 
         .item {
+            width: 40p;
+            height: 40px;
+            
             &.main {
                 float: left;
-                width: 60px;
                 height: 100%;
                 cursor: pointer;
                 color: $body-text;
                 transition: 0.2s background-color;
                 background-color: rgba(0, 0, 0, 0);
-
+                
                 > i {
                     position: absolute;
                     font-size: 240%;
                     @include content-center;
                 }
-
+                
                 &:hover,
                 &.active {
                     background-color: #f4f3f3;
+                }
+                
+                
+                &.credit {
+                    display: flex;
+                    flex-direction: row;
+                    line-height: 33px;
+                    font-size: 16px;
+                    z-index: 1;
+                    @include SF-Pro-Text-bold;
+                    color: $input-green;
+                    text-align: center;
+                    float: left;
+
+                    .balance {
+                        width: 70px;
+                        height: 35px;
+                        background-color: $input-grey;
+                        @include content-center;
+                        border-top-left-radius: 50px;
+                        border-bottom-left-radius: 50px;
+                        float: left;
+                     
+                    }
+                    
+                    .credit-btn {
+                        width: 150px;
+                        height: 35px;
+                        border-top-right-radius: 50px;
+                        border-bottom-right-radius: 50px;      
+                        @include content-center;
+                        // change
+                        color: white;
+                        background-color: green;   
+                        float: left;    
+                    }
+                    
                 }
 
                 .number {
