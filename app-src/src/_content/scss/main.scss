@@ -388,13 +388,15 @@ input {
 
 .generic-search {
     display: flex;
+    align-items: center;
     width: 100%;
     background-color: var(--input-secondary);    
     @include rounded-all(16px);
 
     .search-icon {
+        margin-right: 10px;
+        align-items: center;
         justify-content: flex-end;
-        @include vertical-center;
         color: $dark-grey;
         font-size: 150%;
     }
