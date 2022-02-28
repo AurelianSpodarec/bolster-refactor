@@ -1,0 +1,159 @@
+//leaflet map
+.leaflet-container {
+    width: 100%;
+    height: calc(100vh - 200px);
+    z-index: 10;
+
+    .zone-tooltip {
+        font-size: 12px;
+        border: none;
+        background-color: transparent;
+        box-shadow: none;
+
+        &.small-zoom {
+            font-size: 8px;
+        }
+
+        &.large-zoom {
+            font-size: 16px;
+        }
+    }
+
+    .leaflet-pane {
+        .leaflet-tooltip-pane {
+            z-index: 400;
+        }
+    }
+
+    &.hide-tooltips {
+        .leaflet-pane {
+            .leaflet-tooltip-pane {
+                opacity: 0;
+            }
+        }
+    }
+}
+
+// buttons below map
+.map-bottom-buttons {
+    margin-top: 20px;
+
+    .button {
+        float: right;
+        margin-left: 2.5px;
+    }
+}
+
+// map opacity slider
+.map-opacity {
+    padding-top: 2px;
+    margin: 0 10px;
+
+    p {
+        float: left;
+        margin-right: 10px;
+    }
+
+    input {
+        float: left;
+        width: 150px;
+    }
+}
+
+// zones list
+.zones-list {
+    max-height: 410px;
+    overflow: auto;
+
+    .headings,
+    .zone {
+        border-bottom: 1px solid #eee;
+    }
+
+    .item {
+        padding: 10px;
+    }
+
+    .colour-box {
+        display: inline-block;
+        width: 80px;
+        height: 20px;
+    }
+
+    .button {
+        margin-right: 5px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+// pin tooltip
+.pin-tooltip {
+    width: 250px;
+    padding: 10px;
+    background-color: white;
+    @include rounded-all;
+    @include ubuntu;
+    .holder {
+        width: 100%;
+    }
+    strong {
+        @include ubuntu-medium;
+    }
+
+    img {
+        float: left;
+        width: 100%;
+    }
+
+    .photo-slider {
+        float: left;
+        width: 100%;
+    }
+}
+
+// map details
+.map-details {
+    margin-top: 10px;
+}
+
+// pins
+.custom-pin, .icon-pin {
+    float: left;
+
+    img {
+        float: left;
+        width: 100%;
+
+        &.icon {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 26px;
+            height: 26px;
+            border-radius: 2px;
+            object-fit: contain;
+        }
+    }
+
+    .code {
+        position: absolute;
+        top: 9px;
+        left: 3px;
+        width: 24px;
+    }
+    .code-half {
+        font-size: 8px !important;
+        word-break: break-all;
+        line-height: 1;
+        text-align: center;
+    }
+    .code-full {
+        font-size: 16px !important;
+        line-height: 1;
+        text-align: center;
+        word-break: break-all;
+    }
+}

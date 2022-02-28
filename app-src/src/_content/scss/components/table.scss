@@ -482,3 +482,32 @@
         }
     }
 }
+
+// small text table
+.small-text-table {
+    .block-heading {
+        .heading {
+            font-size: 150%;
+        }
+    }
+    .generic-table {
+        tr {
+            td {
+                font-size: 11px;
+                padding: 6px 15px;
+                vertical-align: top;
+            }
+        }
+    }
+    &.two-line {
+        .generic-table {
+            tr {
+                td {
+                    font-size: 11px;
+                    padding: 3px 15px;
+                    vertical-align: top;
+                }
+            }
+        }
+    }
+}
