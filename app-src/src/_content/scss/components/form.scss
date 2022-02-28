@@ -1,0 +1,437 @@
+// generic form
+.generic-form {
+    width: calc(100% + 15px);
+    margin-left: -7.5px;
+
+    .block-heading {
+        padding-left: 7.5px;
+        padding-right: 7.5px;
+    }
+
+    &.no-min-heights {
+        .form-field {
+            min-height: auto;
+        }
+    }
+
+    .multi-select {
+        .dropdown-content {
+            z-index: 1;
+        }
+        input[type='checkbox'] {
+            display: none;
+        }
+    }
+    p.padded {
+        padding-left: 7.5px;
+        padding-right: 7.5px;
+    }
+}
+
+// multi select
+.multi-select {
+    float: left;
+    width: 100%;
+    font-size: 12px;
+    @include ubuntu;
+    .dropdown-heading {
+        height: 29px !important;
+        border-radius: 2.5px !important;
+        border: 1px solid #e1e1e1 !important;
+    }
+    .dropdown-heading-value {
+        line-height: 26px !important;
+        span {
+            color: $body-text !important;
+            font-family: 'Ubuntu', sans-serif !important;
+            font-size: 14px;
+            font-weight: 400 !important;
+        }
+    }
+    .dropdown-heading-dropdown-arrow {
+        span {
+            top: 2px;
+        }
+    }
+    .dropdown-content {
+        z-index: 1;
+    }
+    input[type='checkbox'] {
+        display: none;
+    }
+}
+
+// form field
+.form-field {
+    padding: {
+        left: 7.5px;
+        right: 7.5px;
+    }
+    margin-bottom: 15px;
+    min-height: 56px;
+
+    &.full-length {
+        padding: 0;
+    }
+
+    &.basic {
+        min-height: 0;
+    }
+
+    &.w-dates {
+        p {
+            text-align: center;
+            line-height: 26px;
+        }
+        .error {
+            text-align: left;
+            line-height: 1;
+        }
+        i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 8px;
+            color: #767676;
+        }
+    }
+    &.photo-view {
+        img {
+            max-width: 150px;
+            margin: 0 5px;
+            border: 1px solid black;
+            cursor: zoom-in;
+        }
+    }
+
+    &.no-caps {
+        .title {
+            text-transform: none;
+        }
+    }
+
+    .title {
+        float: left;
+        width: 100%;
+        font-size: 140%;
+        margin-bottom: 12.5px;
+        @include ubuntu-medium;
+        sub {
+            color: $red;
+        }
+
+        &.no-float {
+            float: none;
+            margin-bottom: 5px;
+        }
+        .small {
+            font-size: 90%;
+            text-transform: none;
+        }
+    }
+
+    .error {
+        float: left;
+        width: 100%;
+        color: red;
+        margin-top: 5px;
+        font-size: 120%;
+    }
+
+    .checkbox-list {
+        margin-top: -17px;
+        padding-bottom: 2.5px;
+
+        .checkbox,
+        .radio-button {
+            width: 33.33%;
+            margin-top: 20px;
+            margin-bottom: 0;
+
+            &.label-example {
+                width: 50%;
+            }
+
+        }
+        .error {
+            left: 0;
+            bottom: -5px;
+        }
+        .full-width {
+            width: 100%;
+        }
+    }
+
+    textarea {
+        min-height: 100px;
+        max-width: 100%;
+
+        &.set-height {
+            min-height: 110px;
+        }
+    }
+    .react-datepicker-wrapper {
+        float: left;
+        width: 100%;
+        .react-datepicker__input-container {
+            float: left;
+            width: 100%;
+        }
+        input {
+            float: left;
+            width: 100%;
+            padding: 5px 10px;
+            font-size: 140%;
+            @include ubuntu;
+            border-radius: 2.5px;
+            border: 1px solid #e1e1e1;
+        }
+    }
+
+    .sigCanvas {
+        background-color: $background-grey;
+        max-width: 100%;
+        border-radius: 5px;
+    }
+
+    .filepond--drop-label {
+        background-color: $background-grey;
+        border-radius: 5px;
+    }
+
+    .field-info {
+        float: left;
+        width: 100%;
+        margin: -5px 0 12.5px;
+        color: #666;
+    }
+
+    &.fields-inside {
+        .form-field {
+            padding: 0;
+        }
+    }
+
+    .description {
+        padding-bottom: 10px;
+    }
+
+    &.small-height {
+        min-height: 10px;
+    }
+
+    &.no-padding {
+        padding: 0;
+    }
+}
+
+// checkbox
+.checkbox {
+    float: left;
+    cursor: pointer;
+    width: 100%;
+
+    input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        margin: 0;
+        z-index: 1;
+        border: none;
+        padding: 0;
+        &:checked {
+            + label,
+            + input + label {
+                .outer {
+                    background-color: $green;
+                }
+
+                .inner {
+                    left: calc(100% - 18px);
+                }
+            }
+        }
+    }
+    label {
+        float: left;
+        width: 100%;
+        font-size: 140%;
+        @include ubuntu;
+    }
+
+    .outer {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        width: 35px;
+        height: 20px;
+        border-radius: 20px;
+        background-color: $button-grey;
+        transition: background-color 0.2s;
+    }
+
+    .text {
+        width: 100%;
+        padding-left: 45px;
+        padding-right: 10px;
+        box-decoration-break: clone;
+    }
+
+    .inner {
+        position: absolute;
+        left: 3px;
+        top: 2.25px;
+        width: 15px;
+        height: 15px;
+        background-color: white;
+        border-radius: 50%;
+        transition: left 0.2s;
+    }
+
+    &.left {
+        .outer {
+            left: 0;
+            right: auto;
+        }
+    }
+    &.grey-out {
+        opacity: 0.3;
+    }
+
+    &.hide{
+        display:none;
+    }
+
+    &.small-text {
+        width: 45px;
+
+        label {
+            float: left;
+            width: 100%;
+        }
+        .text {
+            float: left;
+            width: 100%;
+            font-size: 12px;
+            line-height: 0.75;
+            margin-bottom: 5px;
+            padding: {
+                left: 0;
+                right: 0;
+            }
+        }
+        .outer {
+            float: left;
+            margin-left: 3px;
+            position: relative;
+            top: 0;
+            transform: none;
+        }
+    }
+    .field-validation-error {
+        border-top: 2px solid #9d9d9e;
+    }
+    &.with-subtext {
+        width: 50px;
+        padding-left: 10px;
+    }
+
+    &.margin-top{
+        margin-top: 12.5px;
+    }
+}
+
+// radio button
+.radio-button {
+    float: left;
+    padding-right: 30px;
+    cursor: pointer;
+    input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        margin: 0;
+        z-index: 1;
+        border: none;
+        padding: 0;
+        &:checked {
+            + .holder,
+            + input + .holder {
+                .inner {
+                    background-color: $blue;
+                }
+            }
+        }
+    }
+    &.grey-out {
+        opacity: 0.5;
+        cursor: default;
+    }
+    .holder {
+        float: left;
+        font-size: 140%;
+        @include ubuntu;
+    }
+    .outer {
+        position: absolute;
+        top: 3px;
+        left: 0;
+        width: 12px;
+        height: 12px;
+        border: 1px solid $text-grey;
+        border-radius: 20px;
+        background-color: $button-grey;
+        transition: background-color 0.2s;
+    }
+
+    .text {
+        width: 100%;
+        padding-left: 20px;
+        padding-right: 10px;
+    }
+
+    .inner {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 10px;
+        height: 10px;
+        background-color: white;
+        border: 1px solid white;
+        border-radius: 50%;
+        transition: background-color 0.2s ease-in-out;
+    }
+    .details {
+        float: left;
+        width: 100%;
+        margin-top: 10px;
+        font-size: 12px;
+        line-height: 1.5;
+        @include ubuntu;
+        strong {
+            @include ubuntu-medium;
+        }
+    }
+    &.label-example {
+        input {
+            cursor: pointer;
+        }
+
+        .radio-image {
+            float: left;
+            width: 100%;
+            margin-top: 10px;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+}

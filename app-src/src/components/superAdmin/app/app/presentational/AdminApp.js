@@ -7,16 +7,16 @@ import MenuContainer from 'components/shared/layout/menu/containers/MenuContaine
 import AdminRoutes from '../../routes/presentational';
 import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 
+import '_content/scss/dashboard.scss';
+
 const AdminApp = () => (
     <>
         <PageMeta meta={pageMeta.adminApp} />
-        <div className="body-grid">
-            <AdminHeader />
-            <div id="page-container" className="page-grid">
-                <MenuContainer />
-                <div id="page-area">
-                    <AdminRoutes />
-                </div>
+        <AdminHeader />
+        <div id="page-container">
+            <MenuContainer />
+            <div id="page-area">
+                <AdminRoutes />
             </div>
         </div>
     </>
