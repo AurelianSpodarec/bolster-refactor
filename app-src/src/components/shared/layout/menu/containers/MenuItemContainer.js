@@ -78,4 +78,3 @@ const MenuItemContainer = ({
 };
 
 export default withRouter(MenuItemContainer);
-('');
