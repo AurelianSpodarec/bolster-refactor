@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -9,6 +9,7 @@ import dismissMessages from 'actions/companyAdmin/messages/async/dismissMessages
 import { isEmpty } from 'helpers/generic';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { GENERATE_QR_CODES } from 'constants/shared/modalTypes';
+import { companyNavMenuItems } from '../../../../../constants/companyAdmin/menuItems';
 
 const CompanyMenuContainer = ({
     isFromHeadquarters,
@@ -36,6 +37,9 @@ const CompanyMenuContainer = ({
     const dismissNotifications = () => {
         dismissMessages(MESSAGE_TYPES.NOTIFICATION);
     };
+    const isCompanyUser = !!companyUserID;
+    const isSubscribed = _isSubscribed();
+
     const [shouldRestrictPayments, setShouldRestrictPayments] = useState(false);
 
     function usePrevious(value) {
@@ -52,26 +56,28 @@ const CompanyMenuContainer = ({
             setShouldRestrictPayments(users[companyUserID].shouldRestrictPayments);
         }
     }, [users]);
-    const isCompanyUser = !!companyUserID;
 
-    return (
-        <CompanyMenu
-            isSubscribed={_isSubscribed()}
-            unreadMessageCount={unreadMessageCount}
-            totalCredits={totalCredits}
-            totalRequests={totalRequests}
-            isFromHeadquarters={isFromHeadquarters}
-            unreadCount={unreadCount}
-            dismissMessages={dismissNotifications}
-            isClientAccess={isClientAccess}
-            handleGenerateQRCodesModal={handleGenerateQRCodesModal}
-            shouldRestrictPayments={shouldRestrictPayments}
-            unreadReleaseNoteCount={unreadReleaseNoteCount}
-            isCompanySelection={isCompanySelection}
-            isCompanyUser={isCompanyUser}
-            companySettings={companySettings}
-        />
-    );
+    const filteredCompanyNavMenuItems = useMemo(() => {
+        const isCompanyUserOrSelecting = isCompanySelection || !isCompanyUser;
+        return companyNavMenuItems.filter(item => {
+            if (isSubscribed) {
+                if (isCompanyUserOrSelecting && item.userSelectRestriction) {
+                    return false;
+                }
+                if (shouldRestrictPayments && item.paymentRestriction) {
+                    return false;
+                }
+            } else {
+                if (item.subscriptionRestriction) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
+    }, [companyNavMenuItems, isCompanySelection, isCompanyUser]);
+
+    return <CompanyMenu companyNavMenuItems={filteredCompanyNavMenuItems} />;
 
     function _isSubscribed() {
         if (isEmpty(subscriptions)) return false;

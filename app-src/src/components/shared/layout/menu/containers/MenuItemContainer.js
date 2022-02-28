@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
@@ -13,11 +13,11 @@ import {
 } from '../../../../../selectors/companyAdmin/companySettings';
 import { selectIsMobile } from '../../../../../selectors/shared/mobile';
 import { selectCompanyUserID } from '../../../../../selectors/companyAdmin/companyUsers';
+import SubNavMenuLink from './SubNavMenuLink';
 
 const MenuItemContainer = ({
     item: { name, link, icon, subNavItems },
     location,
-    children,
     external = false,
     onClick = () => {},
     base = false,
@@ -34,9 +34,9 @@ const MenuItemContainer = ({
 
     const isActive = base
         ? link?.toLowerCase() === route
-        : route.toLowerCase().includes(link?.toLowerCase())
-        ? route.toLowerCase().includes(link?.toLowerCase())
-        : subNavItems?.find(item => item.link.toLowerCase().includes(link?.toLowerCase()));
+        : subNavItems?.length
+        ? subNavItems.find(item => item.link.toLowerCase() === route)
+        : route.split('/').length <= 2;
 
     const textColor = isBolsterLogoDark && !!companyUserID ? 'black' : 'white';
 
@@ -63,16 +63,6 @@ const MenuItemContainer = ({
             }
             onClick={handleToggleMobileMenu}
         >
-            <div
-                className={`active-background  ${isActive ? 'active' : ''}`}
-                style={
-                    isActive
-                        ? {
-                              backgroundColor: companyColour,
-                          }
-                        : {}
-                }
-            />
             {external ? (
                 <a href={link}>{name}</a>
             ) : link ? (
@@ -84,14 +74,23 @@ const MenuItemContainer = ({
             )}
 
             {hover && !!subNavItems?.length ? (
-                <div className="sub-nav">
-                    {subNavItems.map(({ name, link }, i) => (
-                        <Link key={i} to={link}>
-                            {name}
-                        </Link>
+                <div className="sub-nav fade-in">
+                    {subNavItems.map((item, i) => (
+                        <SubNavMenuLink key={i} item={item} companyColour={companyColour} />
                     ))}
                 </div>
             ) : null}
+
+            <div
+                className={`active-background  ${isActive ? 'active' : ''}`}
+                style={
+                    isActive
+                        ? {
+                              backgroundColor: companyColour,
+                          }
+                        : {}
+                }
+            />
         </div>
     );
 };
