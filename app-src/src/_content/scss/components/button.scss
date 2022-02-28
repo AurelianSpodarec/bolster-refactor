@@ -151,3 +151,79 @@ button {
 .disabled-link {
     pointer-events: none;
 }
+
+
+//for button under content blocks/areas
+.button-block-container {
+    padding: 0 5px;
+    margin-top: 15px;
+    
+    &.center-right-align-items {
+        display: flex;
+        align-items: center;
+        justify-content: right;
+    }
+
+    &.min-height-20 {
+        min-height: 20px;
+
+    }
+
+    &.center-align {
+        text-align: center;
+
+        .button {
+            display: inline-block;
+        }
+    }
+    &.no-margin {
+        margin: 0;
+        button {
+            margin-bottom: 3px;
+        }
+    }
+
+    &.card-buttons {
+        width: 120px;
+    }
+    &.stacked {
+        display: flex;
+        flex-direction: column;
+    }
+    &.margin-top-lg {
+        margin-top: 80px;
+    }
+    
+    a {
+        &.button {
+            text-align: center;
+        }
+    }
+
+    $blockButtonSpacing: 7.5px;
+
+    .button,
+    button,
+    .link-holder {
+        float: right;
+        margin-left: $blockButtonSpacing;
+
+        &.left {
+            float: left;
+            margin: {
+                left: 0;
+                right: $blockButtonSpacing;
+            }
+        }
+    }
+
+    &.left-align {
+        .button,
+        button,
+        .link-holder {
+            float: left;
+            margin-left: 0;
+            margin-right: $blockButtonSpacing;
+        }
+    }
+}

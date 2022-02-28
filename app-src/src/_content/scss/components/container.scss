@@ -1,12 +1,72 @@
-// .body-grid {
-//     display: grid;
-//     grid-template-rows: 69px 1fr;
-//     grid-template-columns: 1fr;
-//     height: 100vh;
-// }
+.content-area-editor {
+    float: left;
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 15px;
+}
 
-// .page-grid {
-//     display: grid;
-//     grid-template-areas:
-//         'navigation page-area';
-// }
+.content-area {
+    float: left;
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 15px;
+
+    .heading {
+        color: black;
+    }
+
+    p {
+        @include ubuntu;
+        font-size: 140%;
+        strong {
+            @include ubuntu-medium;
+        }
+
+        &.map-details {
+            font-size: 120%;
+        }
+    }
+
+    &.small-padding {
+        padding: {
+            top: 10px;
+            bottom: 10px;
+        }
+    }
+
+    &.no-horizontal-padding {
+        padding: {
+            left: 0;
+            right: 0;
+        }
+    }
+
+    &.disabled {
+        background-color: grey;
+    }
+
+    .twitter {
+        width: calc(100% + 30px);
+        margin-left: -15px;
+        margin-top: -9px;
+
+        // .SandboxRoot {
+        //     &.env-bp-min {
+        //         .timeline-Tweet {
+        //             padding: 0 10px !important;
+        //         }
+        //     }
+        // }
+    }
+
+    .tab-container {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        margin-top: 0;
+    }
+}
