@@ -65,3 +65,54 @@
         @include rounded-all(3px);
     }
 }
+
+// filter
+.filter {
+    float: left;
+    width: 100%;
+    padding-right: 10px;
+
+    .title {
+        width: 95px;
+        padding-top: 5px;
+    }
+
+    .custom-dropdown {
+        width: calc(100% - 100px);
+    }
+}
+
+// map filters
+.map-filters {
+    .block-heading {
+        margin-bottom: 15px;
+    }
+    //pin amounts
+    .pin-amounts {
+        float: right;
+        .pin {
+            float: right;
+            width: 65px;
+
+            img,
+            p {
+                float: right;
+            }
+
+            img {
+                width: 22px;
+
+                &.all-pins {
+                    width: auto;
+                    height: 36px;
+                }
+            }
+
+            p {
+                padding: 5px 7px 0 0;
+                font-size: 140%;
+                @include ubuntu-medium;
+            }
+        }
+    }
+}
