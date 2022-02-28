@@ -9,18 +9,18 @@ import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 import Banner from 'components/shared/generic/banner/Banner';
 import UnconfirmedEmailBanner from 'components/shared/generic/banner/UnconfirmedEmailBanner';
 
+import '_content/scss/dashboard.scss';
+
 const ClientApp = () => (
     <>
         <PageMeta meta={pageMeta.clientApp} />
-        <div className="body-grid">
-            <ClientHeaderContainer />
-            <div id="page-container" className="page-grid">
-                <MenuContainer />
-                <div id="page-area">
-                    <UnconfirmedEmailBanner />
-                    <Banner />
-                    <Routes />
-                </div>
+        <ClientHeaderContainer />
+        <div id="page-container">
+            <MenuContainer />
+            <div id="page-area">
+                <UnconfirmedEmailBanner />
+                <Banner />
+                <Routes />
             </div>
         </div>
     </>

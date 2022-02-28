@@ -1,12 +1,12 @@
-.body-grid {
-    display: grid;
-    grid-template-areas: 
-        'header'
-        'page-container';
-}
+// .body-grid {
+//     display: grid;
+//     grid-template-rows: 69px 1fr;
+//     grid-template-columns: 1fr;
+//     height: 100vh;
+// }
 
-.page-grid {
-    display: grid;
-    grid-template-areas: 
-        'navigation page-area';
-}
+// .page-grid {
+//     display: grid;
+//     grid-template-areas:
+//         'navigation page-area';
+// }

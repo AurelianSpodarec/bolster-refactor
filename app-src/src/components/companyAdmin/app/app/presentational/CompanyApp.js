@@ -11,22 +11,22 @@ import BannerNotificationContainer from 'components/shared/banners/containers/Ba
 import Banner from 'components/shared/generic/banner/Banner';
 import UnconfirmedEmailBanner from 'components/shared/generic/banner/UnconfirmedEmailBanner';
 
+import '_content/scss/dashboard.scss';
+
 const CompanyApp = () => (
     <>
         <PageMeta meta={pageMeta.companyApp} />
 
-        <div className="body-grid">
-            <CompanyHeaderContainer />
-            <div id="page-container" className="page-grid">
-                <MenuContainer />
-                <div id="page-area">
-                    <AgreeToTermsCheck>
-                        <BannerNotificationContainer />
-                        <UnconfirmedEmailBanner />
-                        <Banner />
-                        <Routes />
-                    </AgreeToTermsCheck>
-                </div>
+        <CompanyHeaderContainer />
+        <div id="page-container">
+            <MenuContainer />
+            <div id="page-area">
+                <AgreeToTermsCheck>
+                    <BannerNotificationContainer />
+                    <UnconfirmedEmailBanner />
+                    <Banner />
+                    <Routes />
+                </AgreeToTermsCheck>
             </div>
         </div>
     </>
