@@ -16,7 +16,7 @@ function renderIcon(isActive, hadPendingProforma) {
 }
 
 const SubscriptionStatus = ({
-    subscriptions: { isAutoRenew, renewalPrice, renewalType, hasUnpaidServiceInvoice },
+    subscriptions: { isAutoRenew, renewalPrice, renewalType, isAccessDisabled },
     active,
     endOn,
     latestStartOn,
@@ -29,7 +29,7 @@ const SubscriptionStatus = ({
 }) => {
     const topMessage = isFirst
         ? 'To complete the registration process, please select the services and drawing credits you require. If you are paying by card you will also need to add a card below. '
-        : hasUnpaidServiceInvoice
+        : isAccessDisabled
         ? 'You have no subscription due to an unpaid service invoice, please pay the outstanding invoices to gain access to the site.'
         : 'You have no subscription, please add a service to subscribe and gain access to the site.';
 

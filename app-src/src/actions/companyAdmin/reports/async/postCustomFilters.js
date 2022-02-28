@@ -5,26 +5,26 @@ import { getHeaders, handleErrors } from 'helpers/api';
 import {
     POST_CUSTOM_FILTERS_REQUEST,
     POST_CUSTOM_FILTERS_SUCCESS,
-    POST_CUSTOM_FILTERS_FAILURE
+    POST_CUSTOM_FILTERS_FAILURE,
 } from 'constants/actionTypes/reports';
 
 export const postCustomFiltersRequest = () => ({
-    type: POST_CUSTOM_FILTERS_REQUEST
+    type: POST_CUSTOM_FILTERS_REQUEST,
 });
 
 export const postCustomFiltersSuccess = payload => ({
     type: POST_CUSTOM_FILTERS_SUCCESS,
-    payload
+    payload,
 });
 
 export const postCustomFiltersFailure = error => ({
     type: POST_CUSTOM_FILTERS_FAILURE,
-    error
+    error,
 });
 
 export default postBody => dispatch => {
     dispatch(postCustomFiltersRequest());
-
+    console.log(postBody);
     return axios
         .post(`${API_URL}/reports/filters`, postBody, getHeaders())
         .then(res => dispatch(postCustomFiltersSuccess(res.data)))
