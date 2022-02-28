@@ -116,3 +116,13 @@
         }
     }
 }
+
+// levels filter
+.levels-filter {
+    .form-field {
+        opacity: 0.2;
+        &.active {
+            opacity: 1;
+        }
+    }
+}
