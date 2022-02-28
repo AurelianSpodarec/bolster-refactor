@@ -82,6 +82,7 @@
 
   .item {
     display: flex;
+
     .active-background {
         z-index: 0.5;
         visibility: hidden;
@@ -90,7 +91,7 @@
         position: absolute;
         top: 0;
         border-radius: 0 8px 8px 0;
-        background-color: var(--nav-active);
+        background-color: var(--bolster-primary);
 
           &.active {
            visibility: visible;
@@ -116,7 +117,7 @@
         white-space: nowrap;
 
         &:hover {
-          color: $red;
+          color: var(--bolster-primary)
         }
       }
     }
