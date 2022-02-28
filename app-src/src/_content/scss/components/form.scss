@@ -550,6 +550,15 @@
     }
 }
 
+.filepond--wrapper {
+    float: left;
+    width: 100%;
+}
+
+.filepond--root {
+    margin-bottom: 0 !important;
+}
+
 // uploaded file on edit doc
 .file-view {
     img {
