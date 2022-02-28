@@ -34,9 +34,9 @@ const MenuItemContainer = ({
 
     const isActive = base
         ? link?.toLowerCase() === route
-        : route.toLowerCase().includes(link?.toLowerCase())
-        ? route.toLowerCase().includes(link?.toLowerCase())
-        : subNavItems?.find(item => item.link.toLowerCase() === route);
+        : subNavItems?.length
+        ? subNavItems.find(item => item.link.toLowerCase() === route)
+        : route.split('/').length <= 2;
 
     const textColor = isBolsterLogoDark && !!companyUserID ? 'black' : 'white';
 
