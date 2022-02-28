@@ -25,9 +25,9 @@ const CompanyMenu = ({
         <div className="menu">
             {isSubscribed &&
                 !isCompanyUserOrSelecting &&
-                companyNavMenuItems.map((navItem, index) => {
-                    return <MenuItemContainer key={index} item={navItem} />;
-                })}
+                companyNavMenuItems.map((navItem, index) => (
+                    <MenuItemContainer key={index} item={navItem} />
+                ))}
         </div>
     );
 };

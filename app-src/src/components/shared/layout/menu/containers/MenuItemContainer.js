@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
@@ -17,7 +17,6 @@ import { selectCompanyUserID } from '../../../../../selectors/companyAdmin/compa
 const MenuItemContainer = ({
     item: { name, link, icon, subNavItems },
     location,
-    children,
     external = false,
     onClick = () => {},
     base = false,
@@ -84,7 +83,7 @@ const MenuItemContainer = ({
             )}
 
             {hover && !!subNavItems?.length ? (
-                <div className="sub-nav">
+                <div className="sub-nav fade-in">
                     {subNavItems.map(({ name, link }, i) => (
                         <Link key={i} to={link}>
                             {name}
