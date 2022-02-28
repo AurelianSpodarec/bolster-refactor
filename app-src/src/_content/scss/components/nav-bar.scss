@@ -114,6 +114,10 @@
       a {
         font-size: 100%;
         white-space: nowrap;
+
+        &:hover {
+          color: $red;
+        }
       }
     }
 
@@ -158,6 +162,7 @@
             background-color: var(--nav-active);
           }
         }
+
         &:last-child {
           border-bottom: none;
         }

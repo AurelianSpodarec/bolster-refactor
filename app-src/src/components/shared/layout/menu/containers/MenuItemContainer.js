@@ -13,6 +13,7 @@ import {
 } from '../../../../../selectors/companyAdmin/companySettings';
 import { selectIsMobile } from '../../../../../selectors/shared/mobile';
 import { selectCompanyUserID } from '../../../../../selectors/companyAdmin/companyUsers';
+import SubNavMenuLink from './SubNavMenuLink';
 
 const MenuItemContainer = ({
     item: { name, link, icon, subNavItems },
@@ -35,7 +36,7 @@ const MenuItemContainer = ({
         ? link?.toLowerCase() === route
         : route.toLowerCase().includes(link?.toLowerCase())
         ? route.toLowerCase().includes(link?.toLowerCase())
-        : subNavItems?.find(item => item.link.toLowerCase().includes(link?.toLowerCase()));
+        : subNavItems?.find(item => item.link.toLowerCase() === route);
 
     const textColor = isBolsterLogoDark && !!companyUserID ? 'black' : 'white';
 
@@ -84,10 +85,8 @@ const MenuItemContainer = ({
 
             {hover && !!subNavItems?.length ? (
                 <div className="sub-nav fade-in">
-                    {subNavItems.map(({ name, link }, i) => (
-                        <Link key={i} to={link}>
-                            {name}
-                        </Link>
+                    {subNavItems.map((item, i) => (
+                        <SubNavMenuLink key={i} item={item} companyColour={companyColour} />
                     ))}
                 </div>
             ) : null}
