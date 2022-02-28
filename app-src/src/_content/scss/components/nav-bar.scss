@@ -84,6 +84,7 @@
     padding: 10px 15px 10px 0;
 
     .active-background {
+        z-index: 0.5;
         visibility: hidden;
         height: 100%;
         width: 90%;
@@ -194,6 +195,7 @@
     }
 
     a, span {
+      z-index: 1;
       width: 100%;
       line-height: 16px;
       padding: 7.5px;

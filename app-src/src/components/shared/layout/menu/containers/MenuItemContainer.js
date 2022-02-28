@@ -63,16 +63,6 @@ const MenuItemContainer = ({
             }
             onClick={handleToggleMobileMenu}
         >
-            <div
-                className={`active-background  ${isActive ? 'active' : ''}`}
-                style={
-                    isActive
-                        ? {
-                              backgroundColor: companyColour,
-                          }
-                        : {}
-                }
-            />
             {external ? (
                 <a href={link}>{name}</a>
             ) : link ? (
@@ -90,6 +80,17 @@ const MenuItemContainer = ({
                     ))}
                 </div>
             ) : null}
+
+            <div
+                className={`active-background  ${isActive ? 'active' : ''}`}
+                style={
+                    isActive
+                        ? {
+                              backgroundColor: companyColour,
+                          }
+                        : {}
+                }
+            />
         </div>
     );
 };
