@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import NoProfilePic from '_content/images/layout/blank-profile.png';
 import { FILE_STORAGE_URL } from 'config';
 
 const HeaderProfile = ({
@@ -9,30 +8,28 @@ const HeaderProfile = ({
     popupVisible,
     handleClick,
     logout,
-    updateNode,
     isImpersonating,
     companyName,
     isSubscribed,
     shouldRestrictPayments,
     isCompanyUserOrSelecting,
 }) => (
-    <div className="profile" ref={updateNode}>
+    <div className="item">
         <div className="user" onClick={handleClick}>
             {profile.profileImageS3Key ? (
                 <img alt="profile" src={`${FILE_STORAGE_URL}/${profile.profileImageS3Key}`} />
             ) : (
-                <img src={NoProfilePic} alt="generic profile" />
+                <div>{profile.firstName[0] + profile.lastName[0]}</div>
             )}
-            <div className="text">
+            {/* <div className="text">
                 <p>{`${profile.firstName} ${profile.lastName}`}</p>
                 <span className="email">
                     {profile.email} {isImpersonating ? `(impersonating ${companyName})` : ''}
                 </span>
-            </div>
-            <i className="arrow fas fa-chevron-right" />
+            </div> */}
         </div>
 
-        <div className={`options ${popupVisible ? 'visible' : ''}`}>
+        {/* <div className={`options ${popupVisible ? 'visible' : ''}`}>
             <Link to="/company/profile" className="item">
                 <i className="far fa-user fa-fw icon" />
                 <span className="item-text">My Profile</span>
@@ -102,7 +99,7 @@ const HeaderProfile = ({
                 <span className="item-text">Logout</span>
                 <i className="icon fas fa-chevron-right right" />
             </Link>
-        </div>
+        </div> */}
     </div>
 );
 

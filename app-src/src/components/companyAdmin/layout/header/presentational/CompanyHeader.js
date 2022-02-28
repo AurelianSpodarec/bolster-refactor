@@ -6,9 +6,11 @@ import defaultStyles from 'constants/defaultStyles';
 
 import SearchContainer from '../containers/SearchContainer';
 import HeaderProfileContainer from '../containers/HeaderProfileContainer';
-import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
 import { PARENTAL_TYPES } from 'constants/companyAdmin/enums';
-// import RecentUpdatesContainer from '../containers/RecentUpdatesContainer';
+import RecentUpdatesContainer from '../containers/RecentUpdatesContainer';
+import PaymentIcon from '../../../../../_content/images/icons/paymentIcon.png';
+import ExchangeIcon from '../../../../../_content/images/icons/exchange.png';
+import EnvelopeIcon from '../../../../../_content/images/icons/envelope.png';
 
 const Header = ({
     company,
@@ -26,67 +28,66 @@ const Header = ({
         style={{ borderColor: companyUserID ? companyColour : defaultStyles.colourCode }}
     >
         <div className="container">
-            {/*** company logo ***/}
-            <div className="logo">
-                {!companyUserID ? (
-                    <Link to="/company">
-                        <img alt="logo of Bolster Systems" src={defaultStyles.logoFile} />
-                    </Link>
-                ) : (
-                    <>
-                        {!!company.id && (
-                            <Link to="/company">
-                                <img
-                                    alt={`logo of ${company.name}`}
-                                    src={
-                                        company.logoFile
-                                            ? `${FILE_STORAGE_URL}/${company.logoFile}`
-                                            : defaultStyles.logoFile
-                                    }
-                                />
-                            </Link>
-                        )}
-                    </>
+            <div className="flex-row">
+                {/*** company logo ***/}
+                <div className="logo">
+                    {!companyUserID ? (
+                        <Link to="/company">
+                            <img alt="logo of Bolster Systems" src={defaultStyles.logoFile} />
+                        </Link>
+                    ) : (
+                        <>
+                            {!!company.id && (
+                                <Link to="/company">
+                                    <img
+                                        alt={`logo of ${company.name}`}
+                                        src={
+                                            company.logoFile
+                                                ? `${FILE_STORAGE_URL}/${company.logoFile}`
+                                                : defaultStyles.logoFile
+                                        }
+                                    />
+                                </Link>
+                            )}
+                        </>
+                    )}
+                </div>
+                {!isCompanySelection && (
+                    <div className="search-area">
+                        <SearchContainer placeholder="Search Sites, Drawings, Operatives" />
+                    </div>
                 )}
             </div>
-            {!isCompanySelection && (
-                <div className="search-area">
-                    <SearchContainer />
-                </div>
-            )}
 
             <div className="account-area">
                 {!isCompanySelection && (
                     <div className="notifications">
-                        <div className="item main credit">
-                            <div className="balance">{totalCredits}</div>
-                            <div className="credit-btn">Buy credits</div>
-                        </div>
-                        {/* {!shouldRestrictPayments && (
-                            <button className="item main" onClick={showModal}>
+                        {!shouldRestrictPayments && (
+                            <div className="credit-container">
                                 {company.parentalType === PARENTAL_TYPES.NONE && (
-                                    <span className="number green">{totalCredits}</span>
+                                    <div className="balance">{totalCredits}</div>
                                 )}
-                                <i className="far fa-money-bill-alt fa-fw" />
-                            </button>
-                        )} */}
-                        <HeaderNotificationsContainer />
-                        <Link to="/company/message-centre" className="item main">
-                            {!!unreadMessageCount && (
-                                <span className="number">{unreadMessageCount}</span>
-                            )}
-                            <i className="far fa-envelope fa-fw" />
+                                <div className="credit-btn">
+                                    <img alt="bank card" className="tools-icon" src={PaymentIcon} />
+                                    Buy Credits
+                                </div>
+                            </div>
+                        )}
+
+                        <Link to="/company/tools/transfer-requests" className="item">
+                            {!!totalRequests && <span className="notification-dot" />}
+                            <img alt="exchange icon" className="tools-icon" src={ExchangeIcon} />
                         </Link>
-                        <Link to="/company/tools/transfer-requests" className="item main">
-                            {!!totalRequests && <span className="number">{totalRequests}</span>}
-                            <i className="far fa-exchange-alt fa-fw" />
+
+                        <Link to="/company/message-centre" className="item">
+                            {!!unreadMessageCount && <span className="notification-dot" />}
+                            <img alt="envelope" className="tools-icon" src={EnvelopeIcon} />
                         </Link>
+                        <div className="break-line" />
+                        <HeaderProfileContainer isCompanySelection={isCompanySelection} />
                     </div>
                 )}
-
-                {/* <HeaderProfileContainer isCompanySelection={isCompanySelection} /> */}
             </div>
-            <div className="clear" />
         </div>
     </header>
 );

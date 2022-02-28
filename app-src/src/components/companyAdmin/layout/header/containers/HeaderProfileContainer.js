@@ -35,9 +35,6 @@ class HeaderProfileContainer extends Component {
         const isCompanyUserOrSelecting = !companyUserID || isCompanySelection;
         return !onMobile ? (
             <HeaderProfile
-                updateNode={node => {
-                    this.node = node;
-                }}
                 logout={this.logout}
                 profile={profile}
                 companyReportsLength={companyReportsLength}
