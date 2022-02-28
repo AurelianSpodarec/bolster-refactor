@@ -94,12 +94,12 @@ class HeaderProfileContainer extends Component {
     _isSubscribed = () => {
         const {
             subscriptions,
-            subscriptions: { startOn, endOn, hasUnpaidServiceInvoice },
+            subscriptions: { startOn, endOn, isAccessDisabled },
         } = this.props;
         if (isEmpty(subscriptions)) return false;
 
         return (
-            !hasUnpaidServiceInvoice &&
+            !isAccessDisabled &&
             moment(startOn).isBefore(Date.now()) &&
             moment(endOn).isAfter(Date.now())
         );

@@ -18,7 +18,7 @@ const CompanyMenuContainer = ({
     notifications,
     dismissMessages,
     subscriptions,
-    subscriptions: { startOn, hasUnpaidServiceInvoice },
+    subscriptions: { startOn, isAccessDisabled },
     hasInitiallyFetched,
     isClientAccess,
     showModal,
@@ -75,7 +75,7 @@ const CompanyMenuContainer = ({
     function _isSubscribed() {
         if (isEmpty(subscriptions)) return false;
 
-        return !hasUnpaidServiceInvoice && !!startOn;
+        return !isAccessDisabled && !!startOn;
     }
 
     function handleGenerateQRCodesModal(e) {
