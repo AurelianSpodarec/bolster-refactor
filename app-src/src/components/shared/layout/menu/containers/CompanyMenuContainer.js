@@ -31,14 +31,15 @@ const CompanyMenuContainer = ({
     if (!hasInitiallyFetched) return null;
 
     const isCompanySelection = location.pathname.includes('company/company-selection');
+    const isCompanyUser = !!companyUserID;
+    const isSubscribed = !isEmpty(subscriptions) || (!hasUnpaidServiceInvoice && !!startOn);
+    const isCompanyUserOrSelecting = isCompanySelection || !isCompanyUser;
 
     const unread = notifications.filter(({ isRead }) => !isRead);
     const unreadCount = unread.length;
     const dismissNotifications = () => {
         dismissMessages(MESSAGE_TYPES.NOTIFICATION);
     };
-    const isCompanyUser = !!companyUserID;
-    const isSubscribed = _isSubscribed();
 
     const [shouldRestrictPayments, setShouldRestrictPayments] = useState(false);
 
@@ -57,33 +58,45 @@ const CompanyMenuContainer = ({
         }
     }, [users]);
 
-    const filteredCompanyNavMenuItems = useMemo(() => {
-        const isCompanyUserOrSelecting = isCompanySelection || !isCompanyUser;
-        return companyNavMenuItems.filter(item => {
-            if (isSubscribed) {
-                if (isCompanyUserOrSelecting && item.userSelectRestriction) {
-                    return false;
+    const filteredCompanyNavMenuItems = useMemo(
+        () =>
+            companyNavMenuItems.filter(item => {
+                if (isSubscribed) {
+                    if (isCompanyUserOrSelecting && item.userSelectRestriction) {
+                        return false;
+                    }
+                    if (shouldRestrictPayments && item.paymentRestriction) {
+                        return false;
+                    }
+                    if (!isClientAccess && item.clientAccessRestriction) {
+                        return false;
+                    }
+                } else {
+                    if (item.subscriptionRestriction) {
+                        return false;
+                    }
                 }
-                if (shouldRestrictPayments && item.paymentRestriction) {
-                    return false;
-                }
-            } else {
-                if (item.subscriptionRestriction) {
-                    return false;
-                }
-            }
 
-            return true;
-        });
-    }, [companyNavMenuItems, isCompanySelection, isCompanyUser]);
+                return true;
+            }),
+        [
+            companyNavMenuItems,
+            isCompanyUserOrSelecting,
+            isSubscribed,
+            shouldRestrictPayments,
+            isClientAccess,
+        ],
+    );
 
-    return <CompanyMenu companyNavMenuItems={filteredCompanyNavMenuItems} />;
-
-    function _isSubscribed() {
-        if (isEmpty(subscriptions)) return false;
-
-        return !hasUnpaidServiceInvoice && !!startOn;
-    }
+    return (
+        <CompanyMenu
+            companyNavMenuItems={filteredCompanyNavMenuItems}
+            isSubscribed={isSubscribed}
+            isCompanyUserOrSelecting={isCompanyUserOrSelecting}
+            isClientAccess={isClientAccess}
+            shouldRestrictPayments={shouldRestrictPayments}
+        />
+    );
 
     function handleGenerateQRCodesModal(e) {
         e.preventDefault();

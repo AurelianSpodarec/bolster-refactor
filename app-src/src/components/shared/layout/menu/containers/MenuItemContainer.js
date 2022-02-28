@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -21,6 +21,10 @@ const MenuItemContainer = ({
     external = false,
     onClick = () => {},
     base = false,
+    isSubscribed,
+    isCompanyUserOrSelecting,
+    isClientAccess,
+    shouldRestrictPayments,
 }) => {
     const dispatch = useDispatch();
     const colourCode = useSelector(selectCompanyColourCode) || '';
@@ -49,6 +53,37 @@ const MenuItemContainer = ({
         }
     };
 
+    const filteredSubNav = useMemo(
+        () =>
+            subNavItems?.length &&
+            subNavItems.filter(item => {
+                if (isSubscribed) {
+                    if (isCompanyUserOrSelecting && item.userSelectRestriction) {
+                        return false;
+                    }
+                    if (shouldRestrictPayments && item.paymentRestriction) {
+                        return false;
+                    }
+                    if (!isClientAccess && item.clientAccessRestriction) {
+                        return false;
+                    }
+                } else {
+                    if (item.subscriptionRestriction) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }),
+        [
+            subNavItems,
+            isCompanyUserOrSelecting,
+            isSubscribed,
+            shouldRestrictPayments,
+            isClientAccess,
+        ],
+    );
+
     return (
         <div
             onMouseEnter={() => setHover(true)}
@@ -75,7 +110,7 @@ const MenuItemContainer = ({
 
             {hover && !!subNavItems?.length ? (
                 <div className="sub-nav fade-in">
-                    {subNavItems.map((item, i) => (
+                    {filteredSubNav.map((item, i) => (
                         <SubNavMenuLink key={i} item={item} companyColour={companyColour} />
                     ))}
                 </div>

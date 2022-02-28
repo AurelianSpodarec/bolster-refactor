@@ -6,6 +6,7 @@ export const companyNavMenuItems = [
         subscriptionRestriction: true,
         paymentRestriction: false,
         userSelectRestriction: true,
+        clientAccessRestriction: false,
     },
     {
         name: 'Sites',
@@ -14,6 +15,7 @@ export const companyNavMenuItems = [
         subscriptionRestriction: true,
         paymentRestriction: false,
         userSelectRestriction: true,
+        clientAccessRestriction: false,
         subNavItems: [
             {
                 name: 'Sites',
@@ -21,6 +23,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
             {
                 name: 'Requests & Invites',
@@ -28,6 +31,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
             {
                 name: 'Invited Access',
@@ -35,6 +39,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: true,
             },
         ],
     },
@@ -45,6 +50,7 @@ export const companyNavMenuItems = [
         subscriptionRestriction: true,
         paymentRestriction: false,
         userSelectRestriction: true,
+        clientAccessRestriction: false,
         subNavItems: [
             {
                 name: 'Admins',
@@ -52,6 +58,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
             {
                 name: 'Operatives',
@@ -59,6 +66,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
             {
                 name: 'Clients',
@@ -66,6 +74,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
             {
                 name: 'Timesheets',
@@ -73,6 +82,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
             {
                 name: 'Pin Tasks',
@@ -80,6 +90,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
         ],
     },
@@ -90,6 +101,7 @@ export const companyNavMenuItems = [
         subscriptionRestriction: false,
         paymentRestriction: true,
         userSelectRestriction: true,
+        clientAccessRestriction: false,
         subNavItems: [
             {
                 name: 'Orders',
@@ -97,6 +109,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: false,
                 paymentRestriction: true,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
             {
                 name: 'Subscriptions & Credits',
@@ -104,6 +117,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: false,
                 paymentRestriction: true,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
         ],
     },
@@ -114,6 +128,7 @@ export const companyNavMenuItems = [
         subscriptionRestriction: true,
         paymentRestriction: false,
         userSelectRestriction: true,
+        clientAccessRestriction: false,
         subNavItems: [
             {
                 name: 'My Company Reports',
@@ -121,6 +136,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
             {
                 name: 'Create Report',
@@ -128,6 +144,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
         ],
     },
@@ -138,6 +155,7 @@ export const companyNavMenuItems = [
         subscriptionRestriction: false,
         paymentRestriction: false,
         userSelectRestriction: false,
+        clientAccessRestriction: false,
         subNavItems: [
             {
                 name: 'My Profile',
@@ -145,6 +163,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: false,
                 paymentRestriction: false,
                 userSelectRestriction: false,
+                clientAccessRestriction: false,
             },
             {
                 name: 'Company Settings',
@@ -152,6 +171,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
             {
                 name: 'My Templates',
@@ -159,6 +179,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
             {
                 name: 'Job References',
@@ -166,6 +187,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
         ],
     },
@@ -176,6 +198,7 @@ export const companyNavMenuItems = [
         subscriptionRestriction: false,
         paymentRestriction: false,
         userSelectRestriction: true,
+        clientAccessRestriction: false,
         subNavItems: [
             {
                 name: 'Release Notes',
@@ -183,6 +206,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: false,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
             {
                 name: 'Activity Log',
@@ -190,6 +214,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: false,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
             {
                 name: 'Generate QR Codes',
@@ -197,6 +222,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: false,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
             {
                 name: 'Company Documents',
@@ -204,6 +230,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: false,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
             {
                 name: 'Bug Report',
@@ -211,6 +238,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: false,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
             {
                 name: 'Bolster Approved Companies',
@@ -218,6 +246,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
             {
                 name: 'Message Centre',
@@ -225,6 +254,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
         ],
     },
@@ -235,6 +265,7 @@ export const companyNavMenuItems = [
         subscriptionRestriction: false,
         paymentRestriction: false,
         userSelectRestriction: false,
+        clientAccessRestriction: false,
         subNavItems: [
             {
                 name: 'User Guides',
@@ -242,6 +273,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
             {
                 name: 'Terms & Conditions',
@@ -249,6 +281,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,
+                clientAccessRestriction: false,
             },
             {
                 name: 'Select Company',
@@ -256,6 +289,7 @@ export const companyNavMenuItems = [
                 subscriptionRestriction: false,
                 paymentRestriction: false,
                 userSelectRestriction: false,
+                clientAccessRestriction: false,
             },
         ],
     },
