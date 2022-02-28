@@ -60,11 +60,6 @@ const MenuItemContainer = ({
                           backgroundColor: companyColour,
                           color: isBolsterLogoDark ? 'white' : textColor,
                       }
-                    : hover
-                    ? {
-                          backgroundColor: companyColour,
-                          color: isBolsterLogoDark ? 'white' : textColor,
-                      }
                     : {}
             }
             onClick={handleToggleMobileMenu}
