@@ -81,8 +81,7 @@
   background-color: var(--nav-background);
 
   .item {
-    padding: 10px 15px 10px 0;
-
+    display: flex;
     .active-background {
         z-index: 0.5;
         visibility: hidden;
@@ -141,7 +140,7 @@
         display: block;
       }
 
-      a, p {
+      a, span {
         background-color: #5a5b62;
         .arrow {
           display: none;
@@ -196,9 +195,10 @@
 
     a, span {
       z-index: 1;
+      flex: 1;
+      padding: 10px 15px 10px 0;
       width: 100%;
       line-height: 16px;
-      padding: 7.5px;
       text-align: left;
       font-size: 150%;
       color: white;
