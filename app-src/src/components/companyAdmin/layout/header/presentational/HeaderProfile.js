@@ -19,7 +19,11 @@ const HeaderProfile = ({
             {profile.profileImageS3Key ? (
                 <img alt="profile" src={`${FILE_STORAGE_URL}/${profile.profileImageS3Key}`} />
             ) : (
-                <div>{profile.firstName[0] + profile.lastName[0]}</div>
+                <div>
+                    {profile.firstName &&
+                        profile.firstName[0] + profile.lastName &&
+                        profile?.lastName[0]}
+                </div>
             )}
             {/* <div className="text">
                 <p>{`${profile.firstName} ${profile.lastName}`}</p>
