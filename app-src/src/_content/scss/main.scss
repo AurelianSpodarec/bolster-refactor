@@ -387,14 +387,13 @@ input {
 }
 
 .generic-search {
-    float: left;
+    display: flex;
     width: 100%;
     background-color: var(--input-secondary);    
     @include rounded-all(16px);
 
     .search-icon {
-        position: absolute;
-        left: 10px;
+        justify-content: flex-end;
         @include vertical-center;
         color: $dark-grey;
         font-size: 150%;
