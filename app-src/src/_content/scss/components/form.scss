@@ -708,3 +708,91 @@
         }
     }
 }
+
+// dropdown sort container
+.dropdown-sort-container {
+    margin: -10px 0 20px;
+
+    .sort-text {
+        padding: 7px 5px 0 0;
+    }
+
+    .sort-input-container {
+        width: 200px;
+    }
+}
+
+// generic input / stripe element
+.generic-input,
+.StripeElement {
+    float: left;
+    width: 100%;
+    padding: 8.5px 10px;
+    font-size: 140%;
+    background-color: white;
+    border: $input-border-grey 1px solid;
+    border-radius: 2.5px;
+    @include ubuntu;
+    color: black;
+
+    &::placeholder {
+        color: $dark-grey;
+    }
+
+    &.large {
+        font-size: 160%;
+        padding: 8px 15px;
+        margin-top: 5px;
+    }
+    &.currency {
+        width: 90%;
+    }
+
+    &.colour-picker-input {
+        width: calc(100% - 45px);
+    }
+}
+
+// custom dropdown
+.custom-dropdown {
+    float: left;
+    width: 100%;
+
+    input {
+        width: 100%;
+        padding: 7.5px 10px;
+        @include ubuntu;
+        font-size: 140%;
+        border: 1px solid $input-border-grey;
+        outline: none;
+        @include rounded-all(2.5px);
+    }
+
+    .arrow {
+        position: absolute;
+        right: 10px;
+        @include vertical-center;
+        color: #999;
+        font-size: 150%;
+    }
+
+    select {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        -webkit-appearance: none;
+        cursor: pointer;
+    }
+
+    &.disabled {
+        opacity: 0.5;
+    }
+
+    &.w-radio {
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+}

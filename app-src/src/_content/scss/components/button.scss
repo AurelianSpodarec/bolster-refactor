@@ -227,3 +227,12 @@ button {
         }
     }
 }
+
+// button area
+.button-area {
+    .button,
+    button {
+        float: right;
+        margin-left: 5px;
+    }
+}
