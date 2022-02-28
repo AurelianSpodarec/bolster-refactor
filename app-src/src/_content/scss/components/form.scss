@@ -805,3 +805,200 @@
         margin-top: 20px;
     }
 }
+
+//datepicker
+.react-datepicker-popper {
+    z-index: 10000!important;
+}
+
+.react-datepicker {
+    font-size: 10px !important;
+}
+
+.react-datepicker__month-container {
+    font-size: 11px;
+}
+
+.react-datepicker__time-list-item {
+    padding: 2px 10px !important;
+}
+
+.react-datepicker {
+    font-size: 120%;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+    margin: 4px;
+    padding: 2px 4px;
+    box-sizing: content-box;
+}
+
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header {
+    font-size: 100%;
+}
+
+.date-picker {
+    i {
+        position: absolute;
+        right: 7px;
+        top: 8px;
+    }
+}
+
+//multi multi dropdown
+.multi-multi-dropdown {
+    .selected-box {
+        float: left;
+        width: 100%;
+        min-height: 33px;
+        padding: 0 40px 0 5px;
+        border: 1px solid #e1e1e1;
+        border-radius: 3px;
+        cursor: pointer;
+        background-color: white;
+        white-space: nowrap;
+        overflow: hidden;
+        
+        .placeholder {
+            padding: 6px 5px;
+        }
+
+        .option {
+            float: left;
+            min-width: 60px;
+            padding: 2.5px 5px;
+            margin: 5px;
+            background-color: #f2f2f2;
+            cursor: default;
+
+            &.option-hidden {
+                position: absolute;
+                visibility: hidden;
+            }
+
+            p {
+                float: left;
+                font-size: 120%;
+                width: 100%;
+                text-align: center;
+                line-height: 15px;
+                padding: 0px 8px;
+                padding-right: 20px;
+            }
+
+            .close {
+                font-size: 120%;
+                color: #d71a1a;
+                cursor: pointer;
+                position: absolute;
+                top: 50%;
+                right: 6px;
+                transform: translateY(-50%);
+            }
+        }
+
+        .more {
+            position: absolute;
+            @include vertical-center;
+            right: 30px;
+            font-size: 120%;
+        }
+
+        .arrow {
+            position: absolute;
+            @include vertical-center;
+            right: 10px;
+            font-size: 240%;
+            color: $text-grey;
+            cursor: pointer;
+        }
+    }
+
+    .option-selection {
+        position: absolute;
+        top: 100%;
+        margin-top: -1px;
+        left: 0;
+        width: auto;
+        min-width: 100%;
+        background-color: white;
+        z-index: 100;
+        border: 1px solid #e1e1e1;
+        @include rounded-bottom(3px);
+        white-space: nowrap;
+
+        .search-box {
+            float: left;
+            width: 100%;
+            padding: 5px 10px;
+            white-space: nowrap;
+
+            input {
+                width: 100%;
+                padding: 3px 5px;
+                @include ubuntu;
+                font-size: 140%;
+                color: $text-grey;
+            }
+        }
+
+        .option-container {
+            float: left;
+            min-width: 100%;
+            max-height: 87px;
+            overflow: auto;
+            &.large {
+                max-height: 145px;
+            }
+            p {
+                padding: 5px 10px;
+            }
+
+            .option {
+                cursor: pointer;
+                white-space: nowrap;
+                &:hover,
+                &.active {
+                    background-color: #f2f2f2;
+                }
+            }
+
+            &.large-list {
+                max-height: 125px;
+            }
+        }
+    }
+
+    &.large{
+        .option-selection{
+            .option-container{
+                max-height: 147px;
+
+            }
+        }
+    }
+
+    &.x-large {
+        .option-selection{
+            .option-container{
+                max-height: 200px;
+            }
+        }
+    }
+
+    &.disabled {
+        opacity: 0.5;
+        
+        .selected-box {
+            cursor: not-allowed;
+
+            .option, .close {
+                cursor: not-allowed;
+            }
+        }
+    }
+}

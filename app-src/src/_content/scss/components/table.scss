@@ -511,3 +511,21 @@
         }
     }
 }
+
+// inspection log table
+.inspection-log-table {
+    float: left;
+    width: calc(100% + 30px);
+    margin-left: -15px;
+    max-height: 385px;
+    overflow: auto;
+
+    &.for-pin-single {
+        max-height: 425px;
+    }
+
+    .generic-table {
+        width: 100%;
+        margin-left: 0;
+    }
+}
