@@ -53,17 +53,26 @@ const MenuItemContainer = ({
         <div
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            className={`item ${isActive ? 'active' : ''} custom-hover`}
+            className="item custom-hover"
             style={
                 isActive
                     ? {
-                          backgroundColor: companyColour,
                           color: isBolsterLogoDark ? 'white' : textColor,
                       }
                     : {}
             }
             onClick={handleToggleMobileMenu}
         >
+            <div
+                className={`active-background  ${isActive ? 'active' : ''}`}
+                style={
+                    isActive
+                        ? {
+                              backgroundColor: companyColour,
+                          }
+                        : {}
+                }
+            />
             {external ? (
                 <a href={link}>{name}</a>
             ) : link ? (
@@ -73,6 +82,16 @@ const MenuItemContainer = ({
             ) : (
                 <span>{name}</span>
             )}
+
+            {hover && !!subNavItems?.length ? (
+                <div className="sub-nav">
+                    {subNavItems.map(({ name, link }, i) => (
+                        <Link key={i} to={link}>
+                            {name}
+                        </Link>
+                    ))}
+                </div>
+            ) : null}
         </div>
     );
 };
