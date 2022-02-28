@@ -1,82 +1,80 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { getCompanyColour } from 'helpers/generic';
 import { toggleMobileMenu } from 'actions/shared/mobile/sync/toggleMobileMenu';
+import defaultStyles from 'constants/defaultStyles';
 
-class MenuItemContainer extends Component {
-    render() {
-        const {
-            location,
-            link,
-            children,
-            external = false,
-            logout = false,
-            onClick = () => {},
-            base = false
-        } = this.props;
-        const route = location.pathname.toLowerCase();
-        const isActive = base
-            ? link.toLowerCase() === route
-            : route.toLowerCase().includes(link.toLowerCase());
+import {
+    selectCompanyColourCode,
+    selectIsBolsterLogoDark,
+} from '../../../../../selectors/companyAdmin/companySettings';
+import { selectIsMobile } from '../../../../../selectors/shared/mobile';
+import { selectCompanyUserID } from '../../../../../selectors/companyAdmin/companyUsers';
 
-        return (
-            <div
-                className={`item ${isActive ? 'active' : ''}`}
-                onClick={() => this._toggleMobileMenu()}
-            >
-                {external ? (
-                    <a href={link}>{children}</a>
-                ) : logout ? (
-                    <Link onClick={this.logout} to={link}>
-                        {children}
-                    </Link>
-                ) : (
-                    <Link onClick={onClick} to={link}>
-                        {children}
-                    </Link>
-                )}
-            </div>
-        );
-    }
+const MenuItemContainer = ({
+    item: { name, link, icon, subNavItems },
+    location,
+    children,
+    external = false,
+    onClick = () => {},
+    base = false,
+}) => {
+    const dispatch = useDispatch();
+    const colourCode = useSelector(selectCompanyColourCode) || '';
+    const isBolsterLogoDark = useSelector(selectIsBolsterLogoDark);
+    const onMobile = useSelector(selectIsMobile);
+    const companyUserID = useSelector(selectCompanyUserID);
 
-    logout = e => {
-        const { history, logout = false } = this.props;
+    const [hover, setHover] = useState(false);
+
+    const route = location.pathname.toLowerCase();
+
+    const isActive = base
+        ? link?.toLowerCase() === route
+        : route.toLowerCase().includes(link?.toLowerCase())
+        ? route.toLowerCase().includes(link?.toLowerCase())
+        : subNavItems?.find(item => item.link.toLowerCase().includes(link?.toLowerCase()));
+
+    const textColor = isBolsterLogoDark && !!companyUserID ? 'black' : 'white';
+
+    const companyColour = !companyUserID ? defaultStyles.colourCode : getCompanyColour(colourCode);
+
+    const handleToggleMobileMenu = e => {
         e.preventDefault();
-        if (logout) {
-            localStorage.setItem('selectedCompany', '');
-
-            localStorage.setItem('token', '');
-            history.replace('/auth/login');
-        }
-    };
-
-    _toggleMobileMenu = () => {
-        const { onMobile, toggleMobileMenu } = this.props;
         if (onMobile) {
-            toggleMobileMenu();
-        } else {
-            return;
+            dispatch(toggleMobileMenu());
         }
     };
-}
 
-const mapDispatchToProps = dispatch => ({
-    toggleMobileMenu: () => dispatch(toggleMobileMenu())
-});
+    return (
+        <div
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+            className={`item ${isActive ? 'active' : ''} custom-hover`}
+            style={
+                isActive
+                    ? {
+                          backgroundColor: companyColour,
+                          color: isBolsterLogoDark ? 'white' : textColor,
+                      }
+                    : {}
+            }
+            onClick={handleToggleMobileMenu}
+        >
+            {external ? (
+                <a href={link}>{name}</a>
+            ) : link ? (
+                <Link onClick={onClick} to={link}>
+                    {name}
+                </Link>
+            ) : (
+                <span>{name}</span>
+            )}
+        </div>
+    );
+};
 
-const mapStateToProps = ({
-    shared: {
-        mobileReducer: { onMobile }
-    }
-}) => ({
-    onMobile
-});
-
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(MenuItemContainer)
-);
+export default withRouter(MenuItemContainer);

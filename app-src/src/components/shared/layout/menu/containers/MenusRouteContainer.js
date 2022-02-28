@@ -11,7 +11,7 @@ import ClientMenuContainer from './ClientMenuContainer';
 const contentOptions = {
     [MENU_TABS.COMPANY_USER]: CompanyMenuContainer,
     [MENU_TABS.SUPER_ADMIN]: SuperAdminMenuContainer,
-    [MENU_TABS.CLIENT]: ClientMenuContainer
+    [MENU_TABS.CLIENT]: ClientMenuContainer,
 };
 
 const MenusRouteContainer = ({ selectedMenuTab }) => {
@@ -21,5 +21,5 @@ const MenusRouteContainer = ({ selectedMenuTab }) => {
 };
 
 export default connect(({ shared: { tabsReducer } }) => ({
-    selectedMenuTab: tabsReducer.selectedMenuTab
+    selectedMenuTab: tabsReducer.selectedMenuTab,
 }))(MenusRouteContainer);
