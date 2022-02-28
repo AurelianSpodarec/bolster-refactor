@@ -18,6 +18,8 @@
 @import './components/map.scss';
 @import './components/modal.scss';
 @import './components/nav-bar.scss';
+@import './components/notification.scss';
+@import './components/pin.scss';
 @import './components/slider.scss';
 @import './components/status.scss';
 @import './components/tab.scss';
@@ -1729,77 +1731,6 @@ input {
     }
 }
 
-.frontend-menu {
-    float: left;
-    width: 100%;
-    background-color: #e20613;
-    line-height: 1.25;
-
-    &.mobile-menu {
-        display: none;
-    }
-
-    ul {
-        float: left;
-        width: 100%;
-        li {
-            float: left;
-            border-right: 3px solid #eb515a;
-
-            &.home {
-                width: 10%;
-                a {
-                    padding: 12px 0;
-                }
-            }
-            &.active,
-            &:hover {
-                a {
-                    background: $black-alt;
-                }
-            }
-            a {
-                float: left;
-                width: 100%;
-                padding: 20px;
-                @include neosans-medium;
-                font-size: 180%;
-                color: white !important;
-                text-align: center;
-                background-color: #e20613;
-                text-decoration: none;
-                transition: background-color ease-in-out 0.25s;
-                &:hover {
-                    text-transform: none !important;
-                }
-            }
-        }
-    }
-}
-
-.pins-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    .pin {
-        position: absolute;
-        width: 18px;
-        height: 30px;
-        img {
-            position: absolute;
-            height: 100%;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            float: none;
-            max-width: none;
-            max-height: none;
-        }
-    }
-}
-
 //company logo
 .company-logo {
     // border: 1px solid $grey-alt;
@@ -1857,57 +1788,6 @@ input {
             width: 100%;
         }
     }
-}
-//REQUEST PAGE
-#request-page {
-    float: left;
-    width: 100%;
-
-    .intro-banner {
-        p {
-            width: 55%;
-        }
-    }
-}
-#footer-alt {
-    float: left;
-    width: 100%;
-    text-align: center;
-    background-color: $red;
-    padding-bottom: 10px;
-    padding-top: 7px;
-    //logo
-    .logo {
-        float: none;
-        width: 93px;
-        margin: 0 auto;
-
-        span {
-            float: left;
-            color: white;
-            font-size: 90%;
-            width: 100%;
-            top: 9px;
-            text-align: right;
-            font-style: italic;
-            @include neosans;
-        }
-
-        img {
-            float: left;
-            width: 100%;
-        }
-
-        &.dark {
-            span {
-                color: black;
-            }
-        }
-    }
-}
-
-#footer-alt {
-    margin-top: 20px;
 }
 
 //intro banner
@@ -2174,36 +2054,6 @@ input {
     }
 }
 
-// helpscout-beacon
-.BeaconFabButtonFrame {
-    position: fixed !important;
-    bottom: 9px !important;
-    right: 40px !important;
-    z-index: 1000 !important;
-    box-shadow: none !important;
-    width: 60px !important;
-    display: none;
-    iframe {
-        -ms-transform: scale(0.75) translate(+25%, +25%);
-        -moz-transform: scale(0.75) translate(+25%, +25%);
-        -o-transform: scale(0.75) translate(+25%, +25%);
-        -webkit-transform: scale(0.75) translate(+25%, +25%);
-        transform: scale(0.75) translate(+25%, +25%);
-    }
-}
-.helpscout-visible {
-    .BeaconFabButtonFrame {
-        display: block;
-    }
-}
-.BeaconContainer {
-    position: fixed !important;
-    bottom: 55px !important;
-    right: 40px !important;
-}
-.css-k7cd9d {
-    display: block;
-}
 // force scrollbar visible on chrome
 .always-scrollbar {
     overflow-y: auto;
@@ -2217,38 +2067,6 @@ input {
         background-color: rgba(0, 0, 0, 0.5);
         box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
         -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
-    }
-}
-
-.google-maps-marker {
-    width:75px;
-    text-align: center;
-    .holder {
-        float: left;
-        width: 100%;
-        margin-left: -20px;
-        margin-top: -25px;
-    }
-    span {
-        float: left;
-        width: 200%;
-        left: -50%;
-        text-emphasis: center;
-        @include ubuntu;
-        @include rounded-all;
-        background-color: white;
-        padding: 2.5px 2.5px 3.5px 2.5px;
-
-        strong{
-            @include ubuntu-medium;
-        }
-        .company-logo{
-            width:auto;
-            max-width:65px;
-            margin:0 auto;
-            margin-bottom:-10px;
-            display: block;
-        }
     }
 }
 
@@ -2359,128 +2177,8 @@ input {
     }
 }
 
-//selection options
-.select-option {
-    padding: 5px 10px;
-    margin-bottom: 5px;
-    border: 1px solid $input-border-grey;
-    border-radius: 3px;
-    cursor: pointer;
-
-    &:hover {
-        background-color: #f2f2f2;
-    }
-
-    &.active {
-        background-color: #c7f3d6;
-        border-color: #a5deb9;
-    }
-
-    &:last-child {
-        margin-bottom: 0;
-    }
-}
-
-//not available message
-.not-available {
-    float: left;
-    width: 100%;
-    text-align: center;
-    margin: 10px 0;
-    &.w-img {
-        p {
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-            position: absolute;
-        }
-    }
-    p {
-        width: 100%;
-        font-size: 180%;
-    }
-
-    img {
-        opacity: 0;
-    }
-}
-
 .share-link {
     padding: 10px 0;
-}
-
-.file-drop-container {
-    border-radius: 2.5px;
-    padding: 10px;
-    border: 1px solid $input-border-grey;
-    transition: 0.25s background-color ease-in-out, 0.25s box-shadow ease-in-out, 0.25s border ease-in-out;
-
-    &.can-drop {
-        -webkit-box-shadow: inset 0px 0px 12px 0px #a5a5a5;
-        -moz-box-shadow: inset 0px 0px 12px 0px #a5a5a5;
-        box-shadow: inset 0px 0px 12px 0px #a5a5a5;
-        &.file-over {
-            background-color: $light-grey-alt;
-        }
-    }
-    p {
-        text-align: center;
-        .button {
-            font-size: 12px;
-            margin-left: 2.5px;
-        }
-    }
-}
-.file-uploader {
-    .button {
-        &.delete {
-            position: absolute;
-            right: 5px;
-            top: 5px;
-        }
-    }
-    .file-item,
-    .image-item {
-        border-radius: 2.5px;
-        margin: 2.5px 0;
-        padding: 5px 7.5px;
-        text-align: center;
-        background-color: black;
-
-        img {
-            float: none;
-            display: inline-block;
-            margin-bottom: 20px;
-            margin-bottom: 15px;
-        }
-
-        &:first-of-type {
-            margin-top: 10px;
-        }
-    }
-    .file-name {
-        text-align: left;
-        color: white;
-        margin-top: 2.5px;
-        margin-bottom: 2px;
-    }
-
-    .progress {
-        text-align: center;
-        padding: 5px;
-        background-color: black;
-        margin-top: 10px;
-        border-radius: 2.5px;
-
-        p {
-            color: white;
-            line-height: 1.6;
-        }
-
-        .button {
-            margin-bottom: 5px;
-        }
-    }
 }
 
 .qr-container {
@@ -2491,35 +2189,6 @@ input {
 
     p {
         padding-left: 15px;
-    }
-}
-
-.field-output {
-    .preview-wrapper {
-        width: 100px;
-        height: auto;
-        z-index: 1;
-        .preview-click-div {
-            position: absolute;
-            top: 20px;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 5;
-        }
-        .document-version-preview {
-            z-index: 2;
-            &.pdf-preview {
-                width: 100px;
-                height: auto;
-            }
-        }
-    }
-    .document-version-preview {
-        &.image-preview {
-            max-width: 100px;
-            height: auto;
-        }
     }
 }
 
@@ -2735,89 +2404,7 @@ input {
          } 
     } 
 }
-// banner notification stylings
 
-.banner-notification-wrapper {
-    display: flex;
-    height: 40px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    align-items: center;
-
-    &.alerts {
-        height: auto;
-        padding: 6px 0;
-    }
-
-    & > .banner-text {
-        color: white;
-        font-size: 140%;
-        margin-left: 5px;
-        display: inline-flex;
-
-        & > i {
-            margin-top: 1px;
-        }
-
-        & > .banner-wysiwyg-text {
-            margin-left: 5px;
-
-            p, a, div, strong, em, u, span {
-                font-size: 100%;
-            }
-            strong {
-                font-weight: 500;
-            }
-            a {
-                color: white;
-
-            }
-        }
-    }
-
-    & > .banner-dismiss {
-        @include ubuntu;
-        background: none;
-        color: white;
-        font-size: 140%;
-        margin-left: auto;
-    }
-  
-}
-
-.quill {
-
-    &.margin-top{
-        margin-top: 12.5px;
-    }
-    .ql-tooltip {
-        white-space: nowrap;
-        top: -50px !important;
-        left: 350px !important;
-    }
-    .ql-toolbar {
-
-    &.ql-snow {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    }
-    }
-    .ql-container {
-    
-    &.ql-snow {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    }
-    }
-
-    &.small {
-        & .ql-editor {
-            height: 50px !important;
-        }
-    }
- }
-
- 
 
 //service area when viewing zone pins
 .service-area {

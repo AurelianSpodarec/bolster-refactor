@@ -571,6 +571,83 @@
     }
 }
 
+// file drop container
+.file-drop-container {
+    border-radius: 2.5px;
+    padding: 10px;
+    border: 1px solid $input-border-grey;
+    transition: 0.25s background-color ease-in-out, 0.25s box-shadow ease-in-out, 0.25s border ease-in-out;
+
+    &.can-drop {
+        -webkit-box-shadow: inset 0px 0px 12px 0px #a5a5a5;
+        -moz-box-shadow: inset 0px 0px 12px 0px #a5a5a5;
+        box-shadow: inset 0px 0px 12px 0px #a5a5a5;
+        &.file-over {
+            background-color: $light-grey-alt;
+        }
+    }
+    p {
+        text-align: center;
+        .button {
+            font-size: 12px;
+            margin-left: 2.5px;
+        }
+    }
+}
+
+// file uploader
+.file-uploader {
+    .button {
+        &.delete {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+        }
+    }
+    .file-item,
+    .image-item {
+        border-radius: 2.5px;
+        margin: 2.5px 0;
+        padding: 5px 7.5px;
+        text-align: center;
+        background-color: black;
+
+        img {
+            float: none;
+            display: inline-block;
+            margin-bottom: 20px;
+            margin-bottom: 15px;
+        }
+
+        &:first-of-type {
+            margin-top: 10px;
+        }
+    }
+    .file-name {
+        text-align: left;
+        color: white;
+        margin-top: 2.5px;
+        margin-bottom: 2px;
+    }
+
+    .progress {
+        text-align: center;
+        padding: 5px;
+        background-color: black;
+        margin-top: 10px;
+        border-radius: 2.5px;
+
+        p {
+            color: white;
+            line-height: 1.6;
+        }
+
+        .button {
+            margin-bottom: 5px;
+        }
+    }
+}
+
 // field outputs
 .field-output {
     padding: {
@@ -1002,3 +1079,87 @@
         }
     }
 }
+
+//selection options
+.select-option {
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    border: 1px solid $input-border-grey;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #f2f2f2;
+    }
+
+    &.active {
+        background-color: #c7f3d6;
+        border-color: #a5deb9;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+// field output
+.field-output {
+    .preview-wrapper {
+        width: 100px;
+        height: auto;
+        z-index: 1;
+        .preview-click-div {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 5;
+        }
+        .document-version-preview {
+            z-index: 2;
+            &.pdf-preview {
+                width: 100px;
+                height: auto;
+            }
+        }
+    }
+    .document-version-preview {
+        &.image-preview {
+            max-width: 100px;
+            height: auto;
+        }
+    }
+}
+
+// quill (text editor)
+.quill {
+    &.margin-top{
+        margin-top: 12.5px;
+    }
+    .ql-tooltip {
+        white-space: nowrap;
+        top: -50px !important;
+        left: 350px !important;
+    }
+    .ql-toolbar {
+
+    &.ql-snow {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    }
+    }
+    .ql-container {
+    
+    &.ql-snow {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    }
+    }
+
+    &.small {
+        & .ql-editor {
+            height: 50px !important;
+        }
+    }
+ }
