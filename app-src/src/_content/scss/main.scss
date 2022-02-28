@@ -552,10 +552,9 @@ input {
             font-size: 16px;
             z-index: 1;
             @include SF-Pro-Text-bold;
-            color: var(--positive-default);
+            color: #AAACB1;
             text-align: center;
     
-
             .balance {
                 display: flex;
                 align-items: center;
@@ -565,6 +564,14 @@ input {
                 background-color: var(--input-default);
                 border-top-left-radius: 50px;
                 border-bottom-left-radius: 50px;    
+
+                &.positive-balance{
+                    color: var(--positive-default);      
+                }
+    
+                &.negative-balance{
+                    color: var(--bolster-primary);      
+                }
             }
             
             .credit-btn {
@@ -576,7 +583,15 @@ input {
                 border-top-right-radius: 50px;
                 border-bottom-right-radius: 50px;      
                 color: white;
-                background-color: var(--positive-default);   
+                background-color: #AAACB1;  
+
+                &.positive-balance{
+                    background-color: var(--positive-default);      
+                }
+    
+                &.negative-balance{
+                    background-color: var(--bolster-primary);      
+                }
             
 
                 &:hover,
