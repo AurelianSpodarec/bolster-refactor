@@ -1,9 +1,26 @@
 // tooltip container
 .tooltip-container {
     float: right;
+    margin-top: 4px;
 
     &.left {
         float: left;
+    }
+
+    &.drawing-expired {
+        margin-right: 10px;
+
+        i {
+            font-size: 140%;
+        }
+
+        .red-icon {
+            color: red;
+        }
+    }
+
+    .tooltip {
+        z-index: 9999;
     }
 }
 
