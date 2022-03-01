@@ -1,31 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { PARENTAL_TYPES } from 'constants/companyAdmin/enums';
 import { BUY_CREDITS } from 'constants/shared/modalTypes';
 import PaymentIcon from '../../../../_content/images/icons/paymentIcon.png';
 
+import useShouldRestrictPayments from 'hooks/useShouldRestrictPayments';
+
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
-import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
 import { selectTotalCredits } from 'selectors/companyAdmin/credits';
-import { selectJwtData } from 'selectors/shared/jwt';
 
 const CreditsButton = () => {
     const dispatch = useDispatch();
 
     const { parentalType } = useSelector(selectCompanySettings);
-    const companyUsers = useSelector(selectCompanyUsers);
-    const { companyUserID } = useSelector(selectJwtData);
     const totalCredits = useSelector(selectTotalCredits);
 
-    const [shouldRestrictPayments, setShouldRestricPayments] = useState(false);
-
-    useEffect(() => {
-        if (companyUsers && companyUsers[companyUserID]) {
-            setShouldRestricPayments(companyUsers[companyUserID].shouldRestrictPayments);
-        }
-    }, [companyUsers, companyUserID]);
+    const shouldRestrictPayments = useShouldRestrictPayments();
 
     return (
         <button

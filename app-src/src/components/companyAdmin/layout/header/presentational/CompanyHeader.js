@@ -62,7 +62,7 @@ const Header = () => {
             </div>
             <div className="account-area flex-row">
                 {!isCompanySelection && (
-                    <div className="notifications">
+                    <div className="notifications flex-row align-center">
                         <CreditsButton />
                         <CircleButton
                             href="/company/tools/transfer-requests"
