@@ -14,12 +14,13 @@ import {
 import { selectIsMobile } from '../../../../../selectors/shared/mobile';
 import { selectCompanyUserID } from '../../../../../selectors/companyAdmin/companyUsers';
 import SubNavMenuLink from './SubNavMenuLink';
+import { GENERATE_QR_CODES } from '../../../../../constants/shared/modalTypes';
+import { showModal } from '../../../../../actions/shared/generic/modals/sync/showModal';
 
 const MenuItemContainer = ({
     item: { name, link, icon, subNavItems },
     location,
     external = false,
-    onClick = () => {},
     isSubscribed,
     isCompanyUserOrSelecting,
     isClientAccess,
@@ -34,6 +35,12 @@ const MenuItemContainer = ({
     const [hover, setHover] = useState(false);
 
     const route = location.pathname.toLowerCase();
+
+    function handleGenerateQRCodesModal(e) {
+        e.preventDefault();
+
+        dispatch(showModal(GENERATE_QR_CODES));
+    }
 
     const checkIfActive = () => {
         if (link?.toLowerCase() === route) {
@@ -65,25 +72,35 @@ const MenuItemContainer = ({
     const filteredSubNav = useMemo(
         () =>
             subNavItems?.length &&
-            subNavItems.filter(item => {
-                if (isSubscribed) {
-                    if (isCompanyUserOrSelecting && item.userSelectRestriction) {
-                        return false;
+            subNavItems
+                .filter(item => {
+                    if (isSubscribed) {
+                        if (isCompanyUserOrSelecting && item.userSelectRestriction) {
+                            return false;
+                        }
+                        if (shouldRestrictPayments && item.paymentRestriction) {
+                            return false;
+                        }
+                        if (!isClientAccess && item.clientAccessRestriction) {
+                            return false;
+                        }
+                    } else {
+                        if (item.subscriptionRestriction) {
+                            return false;
+                        }
                     }
-                    if (shouldRestrictPayments && item.paymentRestriction) {
-                        return false;
-                    }
-                    if (!isClientAccess && item.clientAccessRestriction) {
-                        return false;
-                    }
-                } else {
-                    if (item.subscriptionRestriction) {
-                        return false;
-                    }
-                }
 
-                return true;
-            }),
+                    return true;
+                })
+                .map(item => {
+                    if (item.link === '/company/generate-qr-codes') {
+                        return {
+                            ...item,
+                            onClick: handleGenerateQRCodesModal,
+                        };
+                    }
+                    return item;
+                }),
         [
             subNavItems,
             isCompanyUserOrSelecting,
@@ -110,9 +127,7 @@ const MenuItemContainer = ({
             {external ? (
                 <a href={link}>{name}</a>
             ) : link ? (
-                <Link onClick={onClick} to={link}>
-                    {name}
-                </Link>
+                <Link to={link}>{name}</Link>
             ) : (
                 <span>{name}</span>
             )}

@@ -8,7 +8,6 @@ import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
 import dismissMessages from 'actions/companyAdmin/messages/async/dismissMessages';
 import { isEmpty } from 'helpers/generic';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { GENERATE_QR_CODES } from 'constants/shared/modalTypes';
 import { companyNavMenuItems } from '../../../../../constants/companyAdmin/menuItems';
 
 const CompanyMenuContainer = ({
@@ -97,12 +96,6 @@ const CompanyMenuContainer = ({
             shouldRestrictPayments={shouldRestrictPayments}
         />
     );
-
-    function handleGenerateQRCodesModal(e) {
-        e.preventDefault();
-
-        showModal(GENERATE_QR_CODES);
-    }
 };
 const mapStateToProps = ({
     companyAdmin: {
