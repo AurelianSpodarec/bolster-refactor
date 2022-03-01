@@ -33,8 +33,14 @@ const MenuItemContainer = ({
     const dispatch = useDispatch();
     const { height } = useWindowDimensions();
 
-    const { unreadCount, totalRequests, unreadMessageCount, unreadReleaseNoteCount } =
-        useGetNotifications();
+    const {
+        unreadCount,
+        totalRequests,
+        unreadMessageCount,
+        unreadReleaseNoteCount,
+        unreadSuperAdminBugReports,
+        unreadSuperAdminContactSubmissions,
+    } = useGetNotifications();
 
     const colourCode = useSelector(selectCompanyColourCode) || '';
     const isBolsterLogoDark = useSelector(selectIsBolsterLogoDark);
@@ -119,11 +125,21 @@ const MenuItemContainer = ({
                     if (item.link === '/company/tools/transfer-requests') {
                         return { ...item, notificationCount: totalRequests };
                     }
+
                     if (item.link === '/company/message-centre') {
                         return { ...item, notificationCount: unreadMessageCount };
                     }
+
                     if (item.link === '/company/release-notes') {
                         return { ...item, notificationCount: unreadReleaseNoteCount };
+                    }
+
+                    if (item.link === '/admin/bug-reports') {
+                        return { ...item, notificationCount: unreadSuperAdminBugReports };
+                    }
+
+                    if (item.link === '/admin/contact-submissions') {
+                        return { ...item, notificationCount: unreadSuperAdminContactSubmissions };
                     }
 
                     return item;
@@ -134,6 +150,12 @@ const MenuItemContainer = ({
             isSubscribed,
             shouldRestrictPayments,
             isClientAccess,
+            unreadCount,
+            totalRequests,
+            unreadMessageCount,
+            unreadReleaseNoteCount,
+            unreadSuperAdminBugReports,
+            unreadSuperAdminContactSubmissions,
         ],
     );
 

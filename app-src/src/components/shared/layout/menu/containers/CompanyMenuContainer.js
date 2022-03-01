@@ -87,6 +87,10 @@ const CompanyMenuContainer = ({
             isSubscribed,
             shouldRestrictPayments,
             isClientAccess,
+            unreadMessageCount,
+            unreadReleaseNoteCount,
+            totalRequests,
+            unreadCount,
         ],
     );
 
