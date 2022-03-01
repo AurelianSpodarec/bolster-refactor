@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { FILE_STORAGE_URL } from 'config';
@@ -7,14 +7,15 @@ import ExchangeIcon from '../../../../../_content/images/icons/exchange-in-user-
 import LogoutIcon from '../../../../../_content/images/icons/logout.png';
 import defaultStyles from 'constants/defaultStyles';
 
-const HeaderProfile = ({ profile, handleClick, logout, companyUserID, companyColour }) => {
-    const ref = useRef(null);
+import useHeaderProfile from '../hooks/useHeaderProfile';
+
+const HeaderProfile = () => {
+    const { companyColour, companyUserID, profile, handleLogout } = useHeaderProfile();
+
     return (
         <div className="item profile-container">
             <div
-                ref={ref}
                 className="user"
-                onClick={handleClick}
                 style={{
                     backgroundColor: companyUserID ? companyColour : defaultStyles.colourCode,
                 }}
@@ -32,12 +33,7 @@ const HeaderProfile = ({ profile, handleClick, logout, companyUserID, companyCol
             </div>
 
             <div className="profile-menu">
-                <div
-                    className="profile-options"
-                    // style={{
-                    //     backgroundColor: companyUserID ? companyColour : defaultStyles.colourCode,
-                    // }}
-                >
+                <div className="profile-options">
                     <Link to="/company/profile" className="dropdown-item">
                         <img alt="profile icon" src={ProfileIcon} />
                         <span className="item-text">My Profile</span>
@@ -46,7 +42,7 @@ const HeaderProfile = ({ profile, handleClick, logout, companyUserID, companyCol
                         <img alt="exchange icon" src={ExchangeIcon} />
                         <span className="item-text">Select Company</span>
                     </Link>
-                    <Link onClick={logout} to="#" className="dropdown-item">
+                    <Link onClick={handleLogout} to="#" className="dropdown-item">
                         <img alt="logout icon" src={LogoutIcon} />
                         <span className="item-text">Logout</span>
                     </Link>
