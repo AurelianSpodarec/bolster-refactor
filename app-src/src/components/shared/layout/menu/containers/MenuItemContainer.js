@@ -158,7 +158,7 @@ const MenuItemContainer = ({
                 {showNotificationBadge && <div className="notification-badge" />}
             </div>
 
-            {hover && !!subNavItems?.length ? (
+            {hover ? (
                 <>
                     <div
                         className="hover-indicator fade-in"
@@ -166,14 +166,17 @@ const MenuItemContainer = ({
                             backgroundColor: companyColour,
                         }}
                     />
-                    <div
-                        ref={subNavRef}
-                        className={`sub-nav fade-in ${isSubNavOverflowing ? 'bottom' : ''}`}
-                    >
-                        {filteredSubNav.map((item, i) => (
-                            <SubNavMenuLink key={i} item={item} companyColour={companyColour} />
-                        ))}
-                    </div>
+
+                    {!!subNavItems?.length && (
+                        <div
+                            ref={subNavRef}
+                            className={`sub-nav fade-in ${isSubNavOverflowing ? 'bottom' : ''}`}
+                        >
+                            {filteredSubNav.map((item, i) => (
+                                <SubNavMenuLink key={i} item={item} companyColour={companyColour} />
+                            ))}
+                        </div>
+                    )}
                 </>
             ) : null}
 
