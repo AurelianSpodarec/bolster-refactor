@@ -5,7 +5,6 @@ import { GENERATION_STATE_VAL } from 'constants/companyAdmin/enums';
 import moment from 'moment';
 
 import HeaderProfile from '../presentational/HeaderProfile';
-import HeaderProfileMobile from '../presentational/HeaderProfileMobile';
 
 import { toggleMobileMenu } from 'actions/shared/mobile/sync/toggleMobileMenu';
 import { logout } from 'actions/shared/auth/sync/logout';
@@ -33,7 +32,7 @@ class HeaderProfileContainer extends Component {
             companyUserID,
         } = this.props;
         const isCompanyUserOrSelecting = !companyUserID || isCompanySelection;
-        return !onMobile ? (
+        return (
             <HeaderProfile
                 logout={this.logout}
                 profile={profile}
@@ -43,27 +42,6 @@ class HeaderProfileContainer extends Component {
                 isImpersonating={isImpersonating}
                 companyName={companyName}
                 isSubscribed={this._isSubscribed()}
-                shouldRestrictPayments={this.state.shouldRestrictPayments}
-                isCompanyUserOrSelecting={isCompanyUserOrSelecting}
-            />
-        ) : (
-            <HeaderProfileMobile
-                updateNode={node => {
-                    this.node = node;
-                }}
-                logout={this.logout}
-                profile={profile}
-                companyReportsLength={companyReportsLength}
-                popupVisible={this.state.popupVisible}
-                handleClick={this.handleClick}
-                isImpersonating={isImpersonating}
-                companyName={companyName}
-                isSubscribed={this._isSubscribed()}
-                company={company}
-                unreadMessageCount={unreadMessageCount}
-                totalCredits={totalCredits}
-                totalRequests={totalRequests}
-                showModal={showModal}
                 shouldRestrictPayments={this.state.shouldRestrictPayments}
                 isCompanyUserOrSelecting={isCompanyUserOrSelecting}
             />

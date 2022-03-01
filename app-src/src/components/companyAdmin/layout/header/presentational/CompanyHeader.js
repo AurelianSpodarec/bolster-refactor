@@ -6,20 +6,15 @@ import defaultStyles from 'constants/defaultStyles';
 
 import SearchContainer from '../containers/SearchContainer';
 import HeaderProfileContainer from '../containers/HeaderProfileContainer';
-import { PARENTAL_TYPES } from 'constants/companyAdmin/enums';
-import RecentUpdatesContainer from '../containers/RecentUpdatesContainer';
-import PaymentIcon from '../../../../../_content/images/icons/paymentIcon.png';
 import ExchangeIcon from '../../../../../_content/images/icons/exchange.png';
 import EnvelopeIcon from '../../../../../_content/images/icons/envelope.png';
+import CreditsButton from 'components/shared/generic/button/presentational/CreditsButton';
 
 const Header = ({
     company,
     companyColour,
     unreadMessageCount,
-    totalCredits,
     totalRequests,
-    showModal,
-    shouldRestrictPayments,
     isCompanySelection,
     companyUserID,
 }) => {
@@ -63,38 +58,7 @@ const Header = ({
                 <div className="account-area">
                     {!isCompanySelection && (
                         <div className="notifications">
-                            <div className="credit-container">
-                                {company.parentalType === PARENTAL_TYPES.NONE && (
-                                    <div
-                                        className={`${
-                                            shouldRestrictPayments
-                                                ? 'balance'
-                                                : totalCredits > 0
-                                                ? 'balance positive-balance'
-                                                : 'balance negative-balance'
-                                        }`}
-                                    >
-                                        {shouldRestrictPayments
-                                            ? '-'
-                                            : totalCredits > 999999
-                                            ? '<999999'
-                                            : totalCredits}
-                                    </div>
-                                )}
-                                <div
-                                    onClick={showModal}
-                                    className={`${
-                                        shouldRestrictPayments
-                                            ? 'credit-btn'
-                                            : totalCredits > 0
-                                            ? 'credit-btn positive-balance'
-                                            : 'credit-btn negative-balance'
-                                    }`}
-                                >
-                                    <img alt="bank card" className="tools-icon" src={PaymentIcon} />
-                                    Buy Credits
-                                </div>
-                            </div>
+                            <CreditsButton />
 
                             <Link to="/company/tools/transfer-requests" className="item">
                                 {!!totalRequests && <span className="notification-dot" />}
