@@ -5,50 +5,68 @@ import { FILE_STORAGE_URL } from 'config';
 import defaultStyles from 'constants/defaultStyles';
 
 import SearchContainer from '../containers/SearchContainer';
-import HeaderProfileContainer from '../containers/HeaderProfileContainer';
-import { getBolsterColour } from 'helpers/generic';
-// import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
-// import { PARENTAL_TYPES } from 'constants/companyAdmin/enums';
+import HeaderProfile from 'components/companyAdmin/layout/header/presentational/HeaderProfile';
+import useCompanyHeader from 'components/companyAdmin/layout/header/hooks/useCompanyHeader';
+import CreditsButton from 'components/companyAdmin/generic/button/CreditsButton';
+import CircleButton from 'components/shared/generic/button/presentational/CircleButton';
+import ExchangeIcon from '../../../../../_content/images/icons/exchange.png';
+import EnvelopeIcon from '../../../../../_content/images/icons/envelope.png';
 
-const ClientHeader = ({ company, isCompanySelected }) => (
-    <header
-        id="page-header"
-        style={{ borderColor: company.colourCode || getBolsterColour() }}
-    >
-        <div className="container">
-            <div className="logo">
-                <Link to="/company">
-                    <img
-                        alt={
-                            isCompanySelected
-                                ? `logo of ${company.name}`
-                                : 'logo of Bolster Systems'
-                        }
-                        src={
-                            isCompanySelected && company.logoFile
-                                ? `${FILE_STORAGE_URL}/${company.logoFile}`
-                                : defaultStyles.logoFile
-                        }
-                    />
-                </Link>
-            </div>
+const ClientHeader = ({ company, isCompanySelected }) => {
+    const { companyColour, companyUserID, totalRequests, unreadMessageCount } = useCompanyHeader();
 
-            <div className="search-area">
-                <SearchContainer />
-            </div>
-
-            <div className="account-area">
-                <div className="notifications">
-                    {/* <button className="item main large">
-                        ##Current Company: Silverchip## ##Change Company##
-                    </button> */}
+    return (
+        <header
+            id="page-header"
+            className="flex-row justify-between align-stretch"
+            style={{ borderColor: companyUserID ? companyColour : defaultStyles.colourCode }}
+        >
+            <div className="flex flex-row align-stretch">
+                <div className="logo flex-row justify-center align-center">
+                    <Link to="/company">
+                        <img
+                            alt={
+                                isCompanySelected
+                                    ? `logo of ${company.name}`
+                                    : 'logo of Bolster Systems'
+                            }
+                            src={
+                                isCompanySelected && company.logoFile
+                                    ? `${FILE_STORAGE_URL}/${company.logoFile}`
+                                    : defaultStyles.logoFile
+                            }
+                        />
+                    </Link>
                 </div>
 
-                <HeaderProfileContainer />
+                <div className="flex flex-row align-center">
+                    <div className="search-area">
+                        <SearchContainer />
+                    </div>
+                </div>
+
+                <div className="account-area flex-row">
+                    <div className="notifications flex-row align-center">
+                        <CreditsButton />
+                        <CircleButton
+                            href="/company/tools/transfer-requests"
+                            icon={ExchangeIcon}
+                            showNotification={!!totalRequests}
+                        />
+                        <CircleButton
+                            href="/company/message-centre"
+                            icon={EnvelopeIcon}
+                            showNotification={!!unreadMessageCount}
+                        />
+
+                        <div className="break-line" />
+                        <HeaderProfile />
+                    </div>
+                </div>
+                <div className="clear" />
             </div>
-            <div className="clear" />
-        </div>
-    </header>
-);
+        </header>
+    );
+};
 
 export default ClientHeader;
