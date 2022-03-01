@@ -7,17 +7,12 @@ const SectionForm = ({ section, questions }) => (
     <div key={section.value} className="size-lg-12">
         <BlockHeading classes="sub-heading" title={section.text} />
 
-        <div className="flex-row">
+        <div className="flex-row width-12">
             {[...questions]
-                .filter(
-                    question => question.templateSectionID === section.value
-                )
+                .filter(question => question.templateSectionID === section.value)
                 .sort((a, b) => a.sort - b.sort)
                 .map(question => (
-                    <AddPinQuestionRoute
-                        key={question.id}
-                        question={question}
-                    />
+                    <AddPinQuestionRoute key={question.id} question={question} />
                 ))}
         </div>
     </div>

@@ -544,66 +544,6 @@ input {
         height: 100%;
         width: 100%;
 
-
-        .credit-container {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            line-height: 33px;
-            font-size: 16px;
-            z-index: 1;
-            @include SF-Pro-Text-bold;
-            color: #AAACB1;
-            text-align: center;
-    
-            .balance {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 70px;
-                height: 50px;
-                background-color: var(--input-default);
-                border-top-left-radius: 50px;
-                border-bottom-left-radius: 50px;    
-
-                &.positive-balance{
-                    color: var(--positive-default);      
-                }
-    
-                &.negative-balance{
-                    color: var(--bolster-primary);      
-                }
-            }
-            
-            .credit-btn {
-                display: flex;
-                align-items: center;
-                justify-content: space-around;
-                width: 140px;
-                height: 50px;
-                border-top-right-radius: 50px;
-                border-bottom-right-radius: 50px;      
-                color: white;
-                background-color: #AAACB1;  
-                cursor: pointer;
-
-                &.positive-balance{
-                    background-color: var(--positive-default);      
-                }
-    
-                &.negative-balance{
-                    background-color: var(--bolster-primary);      
-                }
-            
-
-                &:hover,
-                &.active {
-                    background-color: var(--positive-hover);
-                }
-            }
-            
-        }
-
         .item {
             display: flex;
             justify-content: center;
@@ -1466,10 +1406,6 @@ input {
 
 //flex row
 .flex-row {
-    display: flex;
-    width: 100%;
-    flex-wrap: wrap;
-
     .flex-row-item {
         float: none;
 

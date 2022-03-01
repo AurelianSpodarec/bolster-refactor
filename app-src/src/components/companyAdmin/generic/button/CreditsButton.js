@@ -28,38 +28,22 @@ const CreditsButton = () => {
     }, [companyUsers, companyUserID]);
 
     return (
-        <div className="credit-container">
+        <button
+            className={`credits-button flex-row align-stretch ${
+                totalCredits ? 'positive' : 'negative'
+            }`}
+            onClick={() => dispatch(showModal(BUY_CREDITS))}
+        >
             {parentalType === PARENTAL_TYPES.NONE && (
-                <div
-                    className={`${
-                        shouldRestrictPayments
-                            ? 'balance'
-                            : totalCredits > 0
-                            ? 'balance positive-balance'
-                            : 'balance negative-balance'
-                    }`}
-                >
-                    {shouldRestrictPayments
-                        ? '-'
-                        : totalCredits > 999999
-                        ? '<999999'
-                        : totalCredits}
+                <div className="balance flex-row align-center justify-center">
+                    {shouldRestrictPayments ? '-' : totalCredits}
                 </div>
             )}
-            <div
-                onClick={() => dispatch(showModal(BUY_CREDITS))}
-                className={`${
-                    shouldRestrictPayments
-                        ? 'credit-btn'
-                        : totalCredits > 0
-                        ? 'credit-btn positive-balance'
-                        : 'credit-btn negative-balance'
-                }`}
-            >
-                <img alt="bank card" className="tools-icon" src={PaymentIcon} />
+            <div className="buy flex-row align-center">
+                <img alt="bank card" className="icon" src={PaymentIcon} />
                 Buy Credits
             </div>
-        </div>
+        </button>
     );
 };
 

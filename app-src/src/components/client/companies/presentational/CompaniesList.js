@@ -6,7 +6,7 @@ import { FILE_STORAGE_URL } from 'config/index';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const CompaniesList = ({ companies, selectCompany }) => (
-    <div className="flex-row size-lg-12">
+    <div className="flex-row width-12 size-lg-12">
         {companies.map((company, index) => (
             <Block
                 containerClass="flex-row-item size-lg-6"
