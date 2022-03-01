@@ -150,14 +150,22 @@ const MenuItemContainer = ({
                 <span>{name}</span>
             )}
             {hover && !!subNavItems?.length ? (
-                <div
-                    className={`sub-nav fade-in ${isSubNavOverflowing ? 'bottom' : ''}`}
-                    ref={subNavRef}
-                >
-                    {filteredSubNav.map((item, i) => (
-                        <SubNavMenuLink key={i} item={item} companyColour={companyColour} />
-                    ))}
-                </div>
+                <>
+                    <div
+                        className="hover-indicator"
+                        style={{
+                            backgroundColor: companyColour,
+                        }}
+                    />
+                    <div
+                        ref={subNavRef}
+                        className={`sub-nav fade-in ${isSubNavOverflowing ? 'bottom' : ''}`}
+                    >
+                        {filteredSubNav.map((item, i) => (
+                            <SubNavMenuLink key={i} item={item} companyColour={companyColour} />
+                        ))}
+                    </div>
+                </>
             ) : null}
 
             <div

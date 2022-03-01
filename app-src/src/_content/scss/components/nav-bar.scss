@@ -93,7 +93,7 @@
 
       img {
         z-index: 2;
-        margin: 0 10px;
+        margin: 0 20px;
       }
 
       .active-background {
@@ -287,6 +287,17 @@
             top: -5px;
           }
         }
+      }
+
+      .hover-indicator {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background-color: var(--bolster-primary);
+        transition: background-color 0.25s ease-in-out;
+        border-radius: 0 8px 8px 0;
       }
     }
   }
