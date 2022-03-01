@@ -150,6 +150,12 @@ const MenuItemContainer = ({
             isSubscribed,
             shouldRestrictPayments,
             isClientAccess,
+            unreadCount,
+            totalRequests,
+            unreadMessageCount,
+            unreadReleaseNoteCount,
+            unreadSuperAdminBugReports,
+            unreadSuperAdminContactSubmissions,
         ],
     );
 
