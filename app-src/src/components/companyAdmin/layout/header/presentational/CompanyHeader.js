@@ -1,8 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import { FILE_STORAGE_URL } from 'config';
 import defaultStyles from 'constants/defaultStyles';
+
+import useCompanyHeader from '../hooks/useCompanyHeader';
 
 import SearchContainer from '../containers/SearchContainer';
 import HeaderProfileContainer from '../containers/HeaderProfileContainer';
@@ -10,10 +12,16 @@ import ExchangeIcon from '../../../../../_content/images/icons/exchange.png';
 import EnvelopeIcon from '../../../../../_content/images/icons/envelope.png';
 import CreditsButton from 'components/shared/generic/button/presentational/CreditsButton';
 import CircleButton from 'components/shared/generic/button/presentational/CircleButton';
-import useGetNotifications from 'hooks/useGetNotifications';
 
-const Header = ({ company, companyColour, isCompanySelection, companyUserID }) => {
-    const { totalRequests, unreadMessageCount } = useGetNotifications();
+const Header = () => {
+    const {
+        company,
+        companyColour,
+        companyUserID,
+        isCompanySelection,
+        totalRequests,
+        unreadMessageCount,
+    } = useCompanyHeader();
 
     return (
         <header
@@ -30,13 +38,13 @@ const Header = ({ company, companyColour, isCompanySelection, companyUserID }) =
                             </Link>
                         ) : (
                             <>
-                                {!!company.id && (
+                                {!!company?.id && (
                                     <Link to="/company">
                                         <img
-                                            alt={`logo of ${company.name}`}
+                                            alt={`logo of ${company?.name}`}
                                             src={
-                                                company.logoFile
-                                                    ? `${FILE_STORAGE_URL}/${company.logoFile}`
+                                                company?.logoFile
+                                                    ? `${FILE_STORAGE_URL}/${company?.logoFile}`
                                                     : defaultStyles.logoFile
                                             }
                                         />
@@ -72,4 +80,4 @@ const Header = ({ company, companyColour, isCompanySelection, companyUserID }) =
     );
 };
 
-export default Header;
+export default withRouter(Header);
