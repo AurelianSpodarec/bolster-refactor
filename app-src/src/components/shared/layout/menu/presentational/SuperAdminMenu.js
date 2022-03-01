@@ -6,9 +6,11 @@ import MenuItemContainer from '../containers/MenuItemContainer';
 const SuperAdminMenu = ({ unreadRequests, unreadBugReports }) => {
     return (
         <div className="menu">
-            {superAdminNavMenuItems.map((navItem, index) => {
-                return <MenuItemContainer key={index} item={navItem} />;
-            })}
+            <div className="nav-wrapper">
+                {superAdminNavMenuItems.map((navItem, index) => (
+                    <MenuItemContainer key={index} item={navItem} />
+                ))}
+            </div>
         </div>
     );
 };
