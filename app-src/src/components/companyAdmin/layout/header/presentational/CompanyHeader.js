@@ -82,6 +82,7 @@ const Header = ({
                                     </div>
                                 )}
                                 <div
+                                    onClick={showModal}
                                     className={`${
                                         shouldRestrictPayments
                                             ? 'credit-btn'
