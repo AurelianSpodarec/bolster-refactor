@@ -82,6 +82,12 @@
 
   .item {
     display: flex;
+    align-items: center;
+
+    img {
+      z-index: 2;
+      margin: 0 10px;
+    }
 
     .active-background {
         z-index: 0.5;

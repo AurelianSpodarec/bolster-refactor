@@ -98,6 +98,7 @@ const MenuItemContainer = ({
             }
             onClick={handleToggleMobileMenu}
         >
+            <img src={icon} alt={name} />
             {external ? (
                 <a href={link}>{name}</a>
             ) : link ? (
@@ -107,7 +108,6 @@ const MenuItemContainer = ({
             ) : (
                 <span>{name}</span>
             )}
-
             {hover && !!subNavItems?.length ? (
                 <div className="sub-nav fade-in">
                     {filteredSubNav.map((item, i) => (
