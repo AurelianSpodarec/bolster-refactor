@@ -19,7 +19,7 @@ import { showModal } from '../../../../../actions/shared/generic/modals/sync/sho
 import { useWindowDimensions } from '../../../../../helpers/hooks';
 
 const MenuItemContainer = ({
-    item: { name, link, icon, subNavItems },
+    item: { name, link, icon, subNavItems, showNotificationBadge },
     location,
     external = false,
     isSubscribed,
@@ -126,7 +126,7 @@ const MenuItemContainer = ({
             }
         }
     }, [subNavRef.current, height, hover]);
-
+    console.log(showNotificationBadge);
     return (
         <div
             onMouseEnter={() => setHover(true)}
@@ -141,18 +141,24 @@ const MenuItemContainer = ({
             }
             onClick={handleToggleMobileMenu}
         >
-            <img src={icon} alt={name} />
-            {external ? (
-                <a href={link}>{name}</a>
-            ) : link ? (
-                <Link to={link}>{name}</Link>
-            ) : (
-                <span>{name}</span>
-            )}
+            <div className="link-wrapper">
+                <img src={icon} alt={name} />
+
+                {external ? (
+                    <a href={link}>{name}</a>
+                ) : link ? (
+                    <Link to={link}>{name}</Link>
+                ) : (
+                    <span>{name}</span>
+                )}
+
+                {showNotificationBadge && <div className="notification-badge" />}
+            </div>
+
             {hover && !!subNavItems?.length ? (
                 <>
                     <div
-                        className="hover-indicator"
+                        className="hover-indicator fade-in"
                         style={{
                             backgroundColor: companyColour,
                         }}

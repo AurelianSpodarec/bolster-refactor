@@ -12,7 +12,6 @@ import { companyNavMenuItems } from '../../../../../constants/companyAdmin/menuI
 const CompanyMenuContainer = ({
     isFromHeadquarters,
     unreadMessageCount,
-    totalCredits,
     totalRequests,
     notifications,
     dismissMessages,
@@ -57,25 +56,40 @@ const CompanyMenuContainer = ({
 
     const filteredCompanyNavMenuItems = useMemo(
         () =>
-            companyNavMenuItems.filter(item => {
-                if (isSubscribed) {
-                    if (isCompanyUserOrSelecting && item.userSelectRestriction) {
-                        return false;
+            companyNavMenuItems
+                .filter(item => {
+                    if (isSubscribed) {
+                        if (isCompanyUserOrSelecting && item.userSelectRestriction) {
+                            return false;
+                        }
+                        if (shouldRestrictPayments && item.paymentRestriction) {
+                            return false;
+                        }
+                        if (!isClientAccess && item.clientAccessRestriction) {
+                            return false;
+                        }
+                    } else {
+                        if (item.subscriptionRestriction) {
+                            return false;
+                        }
                     }
-                    if (shouldRestrictPayments && item.paymentRestriction) {
-                        return false;
-                    }
-                    if (!isClientAccess && item.clientAccessRestriction) {
-                        return false;
-                    }
-                } else {
-                    if (item.subscriptionRestriction) {
-                        return false;
-                    }
-                }
 
-                return true;
-            }),
+                    return true;
+                })
+                .map(item => {
+                    if (
+                        (item.name === 'Tools' && !!unreadMessageCount) ||
+                        (item.name === 'Tools' && !!unreadReleaseNoteCount)
+                    ) {
+                        return { ...item, showNotificationBadge: true };
+                    }
+
+                    if (item.name === 'Sites' && !!totalRequests) {
+                        return { ...item, showNotificationBadge: true };
+                    }
+
+                    return { ...item, showNotificationBadge: false };
+                }),
         [
             companyNavMenuItems,
             isCompanyUserOrSelecting,
