@@ -177,18 +177,40 @@
         -webkit-box-shadow: 4px 3px 5px -4px #000000;
         box-shadow: 4px 3px 5px -4px #000000;
 
-        a {
-          font-size: 100%;
-          white-space: nowrap;
-          width: 100%;
-          line-height: 16px;
-          color: white;
-          text-decoration: none;
-          @include ubuntu-medium;
-          transition: background-color 0.25s ease-in-out;
-          margin: 10px 0;
-          &:hover {
-            color: var(--bolster-primary)
+        .sub-nav-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .notification-badge {
+            flex: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            background: var(--bolster-primary);
+
+            p {
+              font-size: 11px;
+              @include ubuntu;
+            }
+          }
+
+          a {
+            font-size: 100%;
+            white-space: nowrap;
+            width: 100%;
+            line-height: 16px;
+            color: white;
+            text-decoration: none;
+            @include ubuntu-medium;
+            transition: background-color 0.25s ease-in-out;
+            margin: 10px 0;
+
+            &:hover {
+              color: var(--bolster-primary)
+            }
           }
         }
 

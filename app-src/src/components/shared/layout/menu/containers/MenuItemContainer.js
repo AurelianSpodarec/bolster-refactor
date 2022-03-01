@@ -19,6 +19,7 @@ import { selectCompanyUserID } from '../../../../../selectors/companyAdmin/compa
 import SubNavMenuLink from './SubNavMenuLink';
 import { GENERATE_QR_CODES } from '../../../../../constants/shared/modalTypes';
 import { showModal } from '../../../../../actions/shared/generic/modals/sync/showModal';
+import useGetNotifications from '../../../../../hooks/useGetNotifications';
 
 const MenuItemContainer = ({
     item: { name, link, icon, subNavItems, showNotificationBadge },
@@ -31,6 +32,9 @@ const MenuItemContainer = ({
 }) => {
     const dispatch = useDispatch();
     const { height } = useWindowDimensions();
+
+    const { unreadCount, totalRequests, unreadMessageCount, unreadReleaseNoteCount } =
+        useGetNotifications();
 
     const colourCode = useSelector(selectCompanyColourCode) || '';
     const isBolsterLogoDark = useSelector(selectIsBolsterLogoDark);
@@ -77,7 +81,7 @@ const MenuItemContainer = ({
         }
     };
 
-    const filteredSubNav = useMemo(
+    const formattedSubNavItems = useMemo(
         () =>
             subNavItems?.length &&
             subNavItems
@@ -106,6 +110,20 @@ const MenuItemContainer = ({
                             ...item,
                             onClick: handleGenerateQRCodesModal,
                         };
+                    }
+
+                    if (item.link === '/company/reports') {
+                        return { ...item, notificationCount: unreadCount };
+                    }
+
+                    if (item.link === '/company/tools/transfer-requests') {
+                        return { ...item, notificationCount: totalRequests };
+                    }
+                    if (item.link === '/company/message-centre') {
+                        return { ...item, notificationCount: unreadMessageCount };
+                    }
+                    if (item.link === '/company/release-notes') {
+                        return { ...item, notificationCount: unreadReleaseNoteCount };
                     }
 
                     return item;
@@ -172,7 +190,7 @@ const MenuItemContainer = ({
                             ref={subNavRef}
                             className={`sub-nav fade-in ${isSubNavOverflowing ? 'bottom' : ''}`}
                         >
-                            {filteredSubNav.map((item, i) => (
+                            {formattedSubNavItems.map((item, i) => (
                                 <SubNavMenuLink key={i} item={item} companyColour={companyColour} />
                             ))}
                         </div>

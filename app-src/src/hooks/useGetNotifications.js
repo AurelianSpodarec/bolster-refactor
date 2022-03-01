@@ -45,6 +45,8 @@ const useGetNotifications = () => {
         notifications,
         totalRequests,
         unreadReleaseNoteCount,
+        unreadCount,
+        dismissNotifications,
     };
 };
 

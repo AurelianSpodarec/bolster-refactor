@@ -24,7 +24,8 @@ const CompanyMenuContainer = ({
 
     const [shouldRestrictPayments, setShouldRestrictPayments] = useState(false);
 
-    const { unreadMessageCount, unreadReleaseNoteCount, totalRequests } = useGetNotifications();
+    const { unreadMessageCount, unreadReleaseNoteCount, totalRequests, unreadCount } =
+        useGetNotifications();
 
     function usePrevious(value) {
         const ref = useRef(value);
@@ -41,7 +42,7 @@ const CompanyMenuContainer = ({
         }
     }, [users]);
 
-    const filteredCompanyNavMenuItems = useMemo(
+    const formattedCompanyNavMenuItems = useMemo(
         () =>
             companyNavMenuItems
                 .filter(item => {
@@ -74,6 +75,9 @@ const CompanyMenuContainer = ({
                     if (item.name === 'Sites' && !!totalRequests) {
                         return { ...item, showNotificationBadge: true };
                     }
+                    if (item.name === 'Reports' && !!unreadCount) {
+                        return { ...item, showNotificationBadge: true };
+                    }
 
                     return { ...item, showNotificationBadge: false };
                 }),
@@ -88,7 +92,7 @@ const CompanyMenuContainer = ({
 
     return (
         <CompanyMenu
-            companyNavMenuItems={filteredCompanyNavMenuItems}
+            companyNavMenuItems={formattedCompanyNavMenuItems}
             isSubscribed={isSubscribed}
             isCompanyUserOrSelecting={isCompanyUserOrSelecting}
             isClientAccess={isClientAccess}
