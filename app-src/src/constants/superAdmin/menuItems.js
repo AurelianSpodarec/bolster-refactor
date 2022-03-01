@@ -1,7 +1,14 @@
+import informationIcon from '../../_content/images/icons/nav/Information.svg';
+import companyIcon from '../../_content/images/icons/nav/Company.svg';
+import toolsIcon from '../../_content/images/icons/nav/Tools.svg';
+import supportIcon from '../../_content/images/icons/nav/support-SuperAdmin.svg';
+import systemIcon from '../../_content/images/icons/nav/System.svg';
+import contactIcon from '../../_content/images/icons/nav/Contact.svg';
+
 export const superAdminNavMenuItems = [
     {
         name: 'Information',
-        icon: '',
+        icon: informationIcon,
         link: null,
         subNavItems: [
             { name: 'Company Reports', link: '/admin/company-reports' },
@@ -12,7 +19,7 @@ export const superAdminNavMenuItems = [
     },
     {
         name: 'Company',
-        icon: '',
+        icon: companyIcon,
         link: null,
         subNavItems: [
             { name: 'Users', link: '/admin/users' },
@@ -23,7 +30,7 @@ export const superAdminNavMenuItems = [
     },
     {
         name: 'Tools',
-        icon: '',
+        icon: toolsIcon,
         link: null,
         subNavItems: [
             { name: 'Move Tool', link: '/admin/move-tool' },
@@ -34,7 +41,7 @@ export const superAdminNavMenuItems = [
     },
     {
         name: 'Support',
-        icon: '',
+        icon: supportIcon,
         link: null,
         subNavItems: [
             { name: 'Bug Reports', link: '/admin/bug-reports' },
@@ -47,7 +54,7 @@ export const superAdminNavMenuItems = [
     },
     {
         name: 'System',
-        icon: '',
+        icon: systemIcon,
         link: null,
         subNavItems: [
             { name: 'Services', link: '/admin/services' },
@@ -56,7 +63,7 @@ export const superAdminNavMenuItems = [
     },
     {
         name: 'Contact',
-        icon: '',
+        icon: contactIcon,
         link: null,
         subNavItems: [
             { name: 'Contact Submissions', link: '/admin/contact-submissions' },

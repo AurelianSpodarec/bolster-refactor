@@ -1,32 +1,19 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
 import CompanyMenu from '../presentational/CompanyMenu';
-import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
-import dismissMessages from 'actions/companyAdmin/messages/async/dismissMessages';
 import { isEmpty } from 'helpers/generic';
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { GENERATE_QR_CODES } from 'constants/shared/modalTypes';
 import { companyNavMenuItems } from '../../../../../constants/companyAdmin/menuItems';
+import useGetNotifications from '../../../../../hooks/useGetNotifications';
 
 const CompanyMenuContainer = ({
-    isFromHeadquarters,
-    unreadMessageCount,
-    totalCredits,
-    totalRequests,
-    notifications,
-    dismissMessages,
     subscriptions,
     subscriptions: { startOn, hasUnpaidServiceInvoice },
     hasInitiallyFetched,
     isClientAccess,
-    showModal,
     users,
     companyUserID,
-    unreadReleaseNoteCount,
-    companySettings,
 }) => {
     if (!hasInitiallyFetched) return null;
 
@@ -35,13 +22,9 @@ const CompanyMenuContainer = ({
     const isSubscribed = !isEmpty(subscriptions) || (!hasUnpaidServiceInvoice && !!startOn);
     const isCompanyUserOrSelecting = isCompanySelection || !isCompanyUser;
 
-    const unread = notifications.filter(({ isRead }) => !isRead);
-    const unreadCount = unread.length;
-    const dismissNotifications = () => {
-        dismissMessages(MESSAGE_TYPES.NOTIFICATION);
-    };
-
     const [shouldRestrictPayments, setShouldRestrictPayments] = useState(false);
+
+    const { unreadMessageCount, unreadReleaseNoteCount, totalRequests } = useGetNotifications();
 
     function usePrevious(value) {
         const ref = useRef(value);
@@ -60,25 +43,40 @@ const CompanyMenuContainer = ({
 
     const filteredCompanyNavMenuItems = useMemo(
         () =>
-            companyNavMenuItems.filter(item => {
-                if (isSubscribed) {
-                    if (isCompanyUserOrSelecting && item.userSelectRestriction) {
-                        return false;
+            companyNavMenuItems
+                .filter(item => {
+                    if (isSubscribed) {
+                        if (isCompanyUserOrSelecting && item.userSelectRestriction) {
+                            return false;
+                        }
+                        if (shouldRestrictPayments && item.paymentRestriction) {
+                            return false;
+                        }
+                        if (!isClientAccess && item.clientAccessRestriction) {
+                            return false;
+                        }
+                    } else {
+                        if (item.subscriptionRestriction) {
+                            return false;
+                        }
                     }
-                    if (shouldRestrictPayments && item.paymentRestriction) {
-                        return false;
-                    }
-                    if (!isClientAccess && item.clientAccessRestriction) {
-                        return false;
-                    }
-                } else {
-                    if (item.subscriptionRestriction) {
-                        return false;
-                    }
-                }
 
-                return true;
-            }),
+                    return true;
+                })
+                .map(item => {
+                    if (
+                        (item.name === 'Tools' && !!unreadMessageCount) ||
+                        (item.name === 'Tools' && !!unreadReleaseNoteCount)
+                    ) {
+                        return { ...item, showNotificationBadge: true };
+                    }
+
+                    if (item.name === 'Sites' && !!totalRequests) {
+                        return { ...item, showNotificationBadge: true };
+                    }
+
+                    return { ...item, showNotificationBadge: false };
+                }),
         [
             companyNavMenuItems,
             isCompanyUserOrSelecting,
@@ -97,23 +95,13 @@ const CompanyMenuContainer = ({
             shouldRestrictPayments={shouldRestrictPayments}
         />
     );
-
-    function handleGenerateQRCodesModal(e) {
-        e.preventDefault();
-
-        showModal(GENERATE_QR_CODES);
-    }
 };
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: { companySettings },
-        messagesReducer: { messages },
         creditsReducer: { credits },
-        transferRequestsReducer: { incomingTransferRequests },
-        pendingInvitesReducer: { pendingInvites },
         subscriptionsReducer: { hasInitiallyFetched, subscriptions },
         companyUsersReducer: { users },
-        recentUpdatesReducer: { updates },
     },
     shared: {
         decodeJWTReducer: {
@@ -121,38 +109,18 @@ const mapStateToProps = ({
         },
     },
 }) => {
-    const unreadMessageCount = Object.values(messages).filter(
-        ({ type, isRead }) => type === MESSAGE_TYPES.SYSTEM && !isRead,
-    ).length;
     const totalCredits = Object.values(credits).reduce((a, b) => a + b.quantity, 0);
-    const totalRequests =
-        Object.values(incomingTransferRequests).length + Object.values(pendingInvites).length;
-
-    const unreadReleaseNoteCount = Object.values(updates).filter(({ isRead }) => !isRead).length;
 
     return {
         hasInitiallyFetched,
         subscriptions,
-        unreadMessageCount,
         totalCredits,
-        totalRequests,
         isFromHeadquarters: !!headquartersCompanyID,
-        notifications: Object.values(messages)
-            .filter(({ type }) => type === MESSAGE_TYPES.NOTIFICATION)
-            .sort((a, b) => moment(b.createdAt) - moment(a.createdAt)),
         isClientAccess,
         companyUserID,
         users,
-        unreadReleaseNoteCount,
         companySettings,
     };
 };
 
-const mapDispatchToProps = dispatch => ({
-    dismissMessages: messageType => {
-        dispatch(dismissMessages(messageType));
-    },
-    showModal: (type, props) => dispatch(showModal(type, props)),
-});
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CompanyMenuContainer));
+export default withRouter(connect(mapStateToProps, null)(CompanyMenuContainer));

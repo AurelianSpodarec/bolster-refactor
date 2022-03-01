@@ -1,7 +1,16 @@
+import dashboardIcon from '../../_content/images/icons/nav/Dashboard.svg';
+import sitesIcon from '../../_content/images/icons/nav/Sites.svg';
+import usersIcon from '../../_content/images/icons/nav/Users.svg';
+import ordersIcon from '../../_content/images/icons/nav/Orders.svg';
+import reportsIcon from '../../_content/images/icons/nav/Reports.svg';
+import settingsIcon from '../../_content/images/icons/nav/Settings.svg';
+import toolsIcon from '../../_content/images/icons/nav/Tools.svg';
+import supportIcon from '../../_content/images/icons/nav/Support-CompanyAdmin.svg';
+
 export const companyNavMenuItems = [
     {
         name: 'Dashboard',
-        icon: '',
+        icon: dashboardIcon,
         link: '/company',
         subscriptionRestriction: true,
         paymentRestriction: false,
@@ -10,7 +19,7 @@ export const companyNavMenuItems = [
     },
     {
         name: 'Sites',
-        icon: '',
+        icon: sitesIcon,
         link: null,
         subscriptionRestriction: true,
         paymentRestriction: false,
@@ -45,7 +54,7 @@ export const companyNavMenuItems = [
     },
     {
         name: 'Users',
-        icon: '',
+        icon: usersIcon,
         link: null,
         subscriptionRestriction: true,
         paymentRestriction: false,
@@ -96,7 +105,7 @@ export const companyNavMenuItems = [
     },
     {
         name: 'Orders',
-        icon: '',
+        icon: ordersIcon,
         link: null,
         subscriptionRestriction: false,
         paymentRestriction: true,
@@ -123,7 +132,7 @@ export const companyNavMenuItems = [
     },
     {
         name: 'Reports',
-        icon: '',
+        icon: reportsIcon,
         link: null,
         subscriptionRestriction: true,
         paymentRestriction: false,
@@ -150,7 +159,7 @@ export const companyNavMenuItems = [
     },
     {
         name: 'Settings',
-        icon: '',
+        icon: settingsIcon,
         link: null,
         subscriptionRestriction: false,
         paymentRestriction: false,
@@ -193,7 +202,7 @@ export const companyNavMenuItems = [
     },
     {
         name: 'Tools',
-        icon: '',
+        icon: toolsIcon,
         link: null,
         subscriptionRestriction: false,
         paymentRestriction: false,
@@ -260,7 +269,7 @@ export const companyNavMenuItems = [
     },
     {
         name: 'Support',
-        icon: '',
+        icon: supportIcon,
         link: null,
         subscriptionRestriction: false,
         paymentRestriction: false,

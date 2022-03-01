@@ -1,6 +1,8 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { useWindowDimensions } from '../../../../../helpers/hooks';
+
 import { Link } from 'react-router-dom';
 
 import { getCompanyColour } from 'helpers/generic';
@@ -13,20 +15,23 @@ import {
 } from '../../../../../selectors/companyAdmin/companySettings';
 import { selectIsMobile } from '../../../../../selectors/shared/mobile';
 import { selectCompanyUserID } from '../../../../../selectors/companyAdmin/companyUsers';
+
 import SubNavMenuLink from './SubNavMenuLink';
+import { GENERATE_QR_CODES } from '../../../../../constants/shared/modalTypes';
+import { showModal } from '../../../../../actions/shared/generic/modals/sync/showModal';
 
 const MenuItemContainer = ({
-    item: { name, link, icon, subNavItems },
+    item: { name, link, icon, subNavItems, showNotificationBadge },
     location,
     external = false,
-    onClick = () => {},
-    base = false,
     isSubscribed,
     isCompanyUserOrSelecting,
     isClientAccess,
     shouldRestrictPayments,
 }) => {
     const dispatch = useDispatch();
+    const { height } = useWindowDimensions();
+
     const colourCode = useSelector(selectCompanyColourCode) || '';
     const isBolsterLogoDark = useSelector(selectIsBolsterLogoDark);
     const onMobile = useSelector(selectIsMobile);
@@ -34,13 +39,32 @@ const MenuItemContainer = ({
 
     const [hover, setHover] = useState(false);
 
+    const subNavRef = useRef(null);
+    const [isSubNavOverflowing, setIsSubNavOverflowing] = useState(false);
+
     const route = location.pathname.toLowerCase();
 
-    const isActive = base
-        ? link?.toLowerCase() === route
-        : subNavItems?.length
-        ? subNavItems.find(item => item.link.toLowerCase() === route)
-        : route.split('/').length <= 2;
+    const handleGenerateQRCodesModal = e => {
+        e.preventDefault();
+
+        dispatch(showModal(GENERATE_QR_CODES));
+    };
+
+    const checkIfActive = () => {
+        if (link?.toLowerCase() === route) {
+            return true;
+        }
+        if (subNavItems?.length) {
+            return subNavItems.find(item => item.link.toLowerCase() === route);
+        }
+        if (route.split('/')[1] === link.split('/')[1]) {
+            return route.split('/').length <= 2;
+        }
+
+        return false;
+    };
+
+    const isActive = checkIfActive();
 
     const textColor = isBolsterLogoDark && !!companyUserID ? 'black' : 'white';
 
@@ -56,25 +80,36 @@ const MenuItemContainer = ({
     const filteredSubNav = useMemo(
         () =>
             subNavItems?.length &&
-            subNavItems.filter(item => {
-                if (isSubscribed) {
-                    if (isCompanyUserOrSelecting && item.userSelectRestriction) {
-                        return false;
+            subNavItems
+                .filter(item => {
+                    if (isSubscribed) {
+                        if (isCompanyUserOrSelecting && item.userSelectRestriction) {
+                            return false;
+                        }
+                        if (shouldRestrictPayments && item.paymentRestriction) {
+                            return false;
+                        }
+                        if (!isClientAccess && item.clientAccessRestriction) {
+                            return false;
+                        }
+                    } else {
+                        if (item.subscriptionRestriction) {
+                            return false;
+                        }
                     }
-                    if (shouldRestrictPayments && item.paymentRestriction) {
-                        return false;
-                    }
-                    if (!isClientAccess && item.clientAccessRestriction) {
-                        return false;
-                    }
-                } else {
-                    if (item.subscriptionRestriction) {
-                        return false;
-                    }
-                }
 
-                return true;
-            }),
+                    return true;
+                })
+                .map(item => {
+                    if (item.link === '/company/generate-qr-codes') {
+                        return {
+                            ...item,
+                            onClick: handleGenerateQRCodesModal,
+                        };
+                    }
+
+                    return item;
+                }),
         [
             subNavItems,
             isCompanyUserOrSelecting,
@@ -83,6 +118,17 @@ const MenuItemContainer = ({
             isClientAccess,
         ],
     );
+
+    useEffect(() => {
+        if (subNavRef.current) {
+            const rect = subNavRef.current.getBoundingClientRect();
+            if (rect.bottom + rect.height > height) {
+                setIsSubNavOverflowing(true);
+            } else {
+                setIsSubNavOverflowing(false);
+            }
+        }
+    }, [subNavRef.current, height, hover]);
 
     return (
         <div
@@ -98,22 +144,40 @@ const MenuItemContainer = ({
             }
             onClick={handleToggleMobileMenu}
         >
-            {external ? (
-                <a href={link}>{name}</a>
-            ) : link ? (
-                <Link onClick={onClick} to={link}>
-                    {name}
-                </Link>
-            ) : (
-                <span>{name}</span>
-            )}
+            <div className="link-wrapper">
+                <img src={icon} alt={name} />
 
-            {hover && !!subNavItems?.length ? (
-                <div className="sub-nav fade-in">
-                    {filteredSubNav.map((item, i) => (
-                        <SubNavMenuLink key={i} item={item} companyColour={companyColour} />
-                    ))}
-                </div>
+                {external ? (
+                    <a href={link}>{name}</a>
+                ) : link ? (
+                    <Link to={link}>{name}</Link>
+                ) : (
+                    <span>{name}</span>
+                )}
+
+                {showNotificationBadge && <div className="notification-badge" />}
+            </div>
+
+            {hover ? (
+                <>
+                    <div
+                        className="hover-indicator fade-in"
+                        style={{
+                            backgroundColor: companyColour,
+                        }}
+                    />
+
+                    {!!subNavItems?.length && (
+                        <div
+                            ref={subNavRef}
+                            className={`sub-nav fade-in ${isSubNavOverflowing ? 'bottom' : ''}`}
+                        >
+                            {filteredSubNav.map((item, i) => (
+                                <SubNavMenuLink key={i} item={item} companyColour={companyColour} />
+                            ))}
+                        </div>
+                    )}
+                </>
             ) : null}
 
             <div
