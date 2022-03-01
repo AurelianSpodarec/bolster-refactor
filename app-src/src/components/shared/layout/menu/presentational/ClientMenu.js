@@ -5,9 +5,11 @@ import MenuItemContainer from '../containers/MenuItemContainer';
 
 const ClientMenu = ({ dismissMessages, unreadCount, isCompany }) => (
     <div className="menu">
-        {clientNavMenuItems.map((navItem, index) => (
-            <MenuItemContainer key={index} item={navItem} />
-        ))}
+        <div className="nav-wrapper">
+            {clientNavMenuItems.map((navItem, index) => (
+                <MenuItemContainer key={index} item={navItem} />
+            ))}
+        </div>
     </div>
 );
 
