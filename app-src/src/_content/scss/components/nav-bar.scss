@@ -174,8 +174,8 @@
         @include ubuntu-medium;
         display: flex;
         flex-direction: column;
-        -webkit-box-shadow: 2px 3px 5px -1px #000000;
-        box-shadow: 2px 3px 5px -1px #000000;
+        -webkit-box-shadow: 4px 3px 5px -4px #000000;
+        box-shadow: 4px 3px 5px -4px #000000;
 
         a {
           font-size: 100%;
