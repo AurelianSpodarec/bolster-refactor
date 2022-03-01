@@ -10,15 +10,11 @@ import ExchangeIcon from '../../../../../_content/images/icons/exchange.png';
 import EnvelopeIcon from '../../../../../_content/images/icons/envelope.png';
 import CreditsButton from 'components/shared/generic/button/presentational/CreditsButton';
 import CircleButton from 'components/shared/generic/button/presentational/CircleButton';
+import useGetNotifications from 'hooks/useGetNotifications';
 
-const Header = ({
-    company,
-    companyColour,
-    unreadMessageCount,
-    totalRequests,
-    isCompanySelection,
-    companyUserID,
-}) => {
+const Header = ({ company, companyColour, isCompanySelection, companyUserID }) => {
+    const { totalRequests, unreadMessageCount } = useGetNotifications();
+
     return (
         <header
             id="page-header"
