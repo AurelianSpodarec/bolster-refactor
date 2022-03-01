@@ -494,12 +494,7 @@ input {
 
     //logo
     .logo {
-        display: flex;
-        flex-flow: column;
-        width: 194px;
-        height: 100%;
-        align-items: flex-start;
-        justify-content: center;
+        width: 220px;
 
         a {
             width: 100%;
@@ -518,21 +513,14 @@ input {
 
     //search
     .search-area {
-        margin-left: 50px;
+        margin-left: 20px;
         float: left;
-        width: 40%;
-        min-width: 255px;
-        margin-top: 15px;
-        line-height: 33px;
+        width: 572px;
     }
 
     //account area
     .account-area {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        height: 100%;
-        width: 600px;
+        padding-right: 20px;
     }
 
     //notifications
@@ -543,6 +531,10 @@ input {
         justify-content: space-between;
         height: 100%;
         width: 100%;
+
+        > * {
+            margin-left: 20px;
+        }
 
         .item {
             display: flex;
