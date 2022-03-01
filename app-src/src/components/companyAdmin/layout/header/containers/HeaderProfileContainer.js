@@ -8,7 +8,8 @@ import HeaderProfile from '../presentational/HeaderProfile';
 
 import { toggleMobileMenu } from 'actions/shared/mobile/sync/toggleMobileMenu';
 import { logout } from 'actions/shared/auth/sync/logout';
-import { isEmpty } from 'helpers/generic';
+import { getCompanyColour, isEmpty } from 'helpers/generic';
+import companySettings from 'reducers/companyAdmin/companySettings';
 
 class HeaderProfileContainer extends Component {
     state = {
@@ -22,16 +23,11 @@ class HeaderProfileContainer extends Component {
             companyName,
             profile,
             companyReportsLength,
-            onMobile,
-            company,
-            unreadMessageCount,
-            totalCredits,
-            totalRequests,
-            showModal,
-            isCompanySelection,
+            isCompanyUserOrSelecting,
             companyUserID,
         } = this.props;
-        const isCompanyUserOrSelecting = !companyUserID || isCompanySelection;
+        const companyColour = getCompanyColour(companySettings.companyColour);
+
         return (
             <HeaderProfile
                 logout={this.logout}
@@ -44,6 +40,8 @@ class HeaderProfileContainer extends Component {
                 isSubscribed={this._isSubscribed()}
                 shouldRestrictPayments={this.state.shouldRestrictPayments}
                 isCompanyUserOrSelecting={isCompanyUserOrSelecting}
+                companyUserID={companyUserID}
+                companyColour={companyColour}
             />
         );
     }
