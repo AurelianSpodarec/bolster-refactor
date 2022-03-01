@@ -29,19 +29,6 @@
 @import './components/tooltip.scss';
 @import './components/wysiwyg.scss';
 
-@mixin dropdown-popup() {
-    z-index: -1;
-    opacity: 0;
-    top: 0;
-    transition: 0.2s opacity, 0.2s top;
-
-    &.visible {
-        z-index: 1000;
-        opacity: 1;
-        top: 100%;
-    }
-}
-
 //layouts
 html,
 body {

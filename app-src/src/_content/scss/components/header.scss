@@ -173,18 +173,6 @@
 
                 }
             }
-
-            .notification-dot {
-                position: absolute;
-                width: 15px;
-                height: 15px;
-                margin-top: -30px;
-                margin-left: 35px;
-                background-color: var(--bolster-primary);
-                @include rounded-all(50%);
-                z-index: 1;
-                @include ubuntu-medium;
-            }
         }
     }
 
