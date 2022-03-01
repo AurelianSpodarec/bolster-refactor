@@ -547,6 +547,22 @@ input {
             transition: 0.2s background-color;
             border-radius: 50px;
             background-color: var(--tools-background);
+
+            &.profile-container  {
+                background-color: transparent;
+            }
+       
+             &.profile-container:hover  {
+                    .user-icon-menu-wrapper {
+                        background-color: var(--bolster-primary);
+                        border-radius: 90px 90px 0px 0px;
+                    
+                    }
+
+                    .profile-menu {
+                        visibility: visible;
+                    }
+                }
             
             .tools-icon {
                 transform: scale(0.45);
@@ -566,26 +582,24 @@ input {
                 border-radius: 50px;
                 transition: 0.2s;
 
-                &:hover {
-                    height: 60px;
-                    width: 60px;
-                    background-color: var(--bolster-primary);
-                    border-radius: 90px 90px 0px 0px;
-                }
-    
                 img {
                     width: 50px;
                     height: 50px;
                     overflow: hidden;
                     @include rounded-all(50%);
+                    z-index: 1;
+                }
+
+                .user-icon-menu-wrapper {
+                    position: absolute;
+                    top: -4px;
+                    right: -5px;
+                    width: 60px;
+                    height: 65px;
+                    background-color: transparent;
                 }
             }
 
-            .user:hover + .profile-menu {
-                visibility: visible;
-            }
-
-            
             //profile options
 
             .profile-menu {
@@ -594,8 +608,7 @@ input {
                 right: -5px;
                 width: 210px;
                 z-index: 1;
-                visibility: hidden; 
-           
+                visibility: hidden;       
             }
 
             .profile-options {
@@ -603,34 +616,32 @@ input {
                 display: flex;
                 flex-direction: column;
                 width: 100%;
-                background-color: var(--bolster-primary);
                 border-radius: 8px 0px 8px 8px;
+                background-color: var(--bolster-primary);
           
          
                 a {
-                    color: #757575;
                     text-decoration: none;
                     transition: 0.2s background-color;
         
                     &.active,
                     &:hover {
-                        background-color: #ececec;
+                        
                     }
                 }
         
                 .dropdown-item {
                     display: flex;
-                    margin: 10px auto 10px auto;
-                    justify-content: center;
+                    margin: 10px auto 10px 10px;
+                    justify-content: flex-start;
                     width: 100%;
                     @include ubuntu-medium;
                     font-size: 140%;
             
         
                     .item-text {
+                        margin-left: 10px;
                         color: var(--dropdown-text);
-                        text-align: center;
-                        margin-left: 5px;
                         font-weight: 500;
                         font-size: 15px;
                     }
@@ -644,14 +655,10 @@ input {
                 height: 15px;
                 margin-top: -30px;
                 margin-left: 35px;
-                background-color: red;
+                background-color: var(--bolster-primary);
                 @include rounded-all(50%);
                 z-index: 1;
                 @include ubuntu-medium;
-
-                &.green {
-                    background-color: #2eac58;
-                }
             }
         }
     }
