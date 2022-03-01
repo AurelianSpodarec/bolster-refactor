@@ -231,16 +231,18 @@ export default function (ProtectedComponent) {
                 }
             }
             if (!isEmpty(buildingID)) {
-                hierarchyType = 'building';
+                hierarchyType = +HIERARCHY_IDS.BUILDING;
                 hierarchyID = buildingID;
             }
             if (!isEmpty(floorID)) {
-                hierarchyType = 'floor';
+                hierarchyType = +HIERARCHY_IDS.FLOOR;
                 hierarchyID = floorID;
             }
             if (!isEmpty(drawingID)) {
-                hierarchyType = 'drawing';
+                hierarchyType = +HIERARCHY_IDS.DRAWING;
                 hierarchyID = drawingID;
+            } else {
+                hierarchyType = +hierarchyType;
             }
 
             return { hierarchyType, hierarchyID };
@@ -348,7 +350,7 @@ export default function (ProtectedComponent) {
                 excludedPinIDs: Object.values(excludedPinIDs),
                 questionFilters: questionFilters,
                 showHidden,
-                sortBy,
+                sortBy: +sortBy,
                 pinBoundingBoxes,
                 floorplanPinScale,
                 hasQuestions: +furtherFiltrationOption > +INDIVIDUAL_PINS,
