@@ -9,7 +9,7 @@ export const FILE_STORAGE_URL = 'httmps://dizelaxol0ewg.cloudfront.net';
 export const VIDEO_STORAGE_URL = 'https://d2codv1iut532h.cloudfront.net';
 export const RAW_S3_STORAGE_URL = 'https://s3-eu-west-1.amazonaws.com/bolster-media';
 export const REPORT_VIEWER_URL =
-    'http://bolster-staging-report-viewer.ri4mfjbhpe.eu-west-1.elasticbeanstalk.com//1';
+    'http://bolster-staging-report-viewer.ri4mfjbhpe.eu-west-1.elasticbeanstalk.com/1';
 export const STRIPE_PUBLIC_KEY = 'pk_test_QUrrYsRQKFyb1Os4ler16ke1';
 export const INVOICE_GEN_URL =
     'https://6eixv6n0wf.execute-api.eu-west-1.amazonaws.com/staging/bolster-invoice-gen-staging';
