@@ -9,6 +9,7 @@ import HeaderProfileContainer from '../containers/HeaderProfileContainer';
 import ExchangeIcon from '../../../../../_content/images/icons/exchange.png';
 import EnvelopeIcon from '../../../../../_content/images/icons/envelope.png';
 import CreditsButton from 'components/shared/generic/button/presentational/CreditsButton';
+import CircleButton from 'components/shared/generic/button/presentational/CircleButton';
 
 const Header = ({
     company,
@@ -59,20 +60,12 @@ const Header = ({
                     {!isCompanySelection && (
                         <div className="notifications">
                             <CreditsButton />
+                            <CircleButton icon={ExchangeIcon} showNotification={!!totalRequests} />
+                            <CircleButton
+                                icon={EnvelopeIcon}
+                                showNotification={!!unreadMessageCount}
+                            />
 
-                            <Link to="/company/tools/transfer-requests" className="item">
-                                {!!totalRequests && <span className="notification-dot" />}
-                                <img
-                                    alt="exchange icon"
-                                    className="tools-icon"
-                                    src={ExchangeIcon}
-                                />
-                            </Link>
-
-                            <Link to="/company/message-centre" className="item">
-                                {!!unreadMessageCount && <span className="notification-dot" />}
-                                <img alt="envelope" className="tools-icon" src={EnvelopeIcon} />
-                            </Link>
                             <div className="break-line" />
                             <HeaderProfileContainer isCompanySelection={isCompanySelection} />
                         </div>
