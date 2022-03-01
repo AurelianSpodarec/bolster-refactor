@@ -312,6 +312,7 @@ button {
 // circle button
 .circle-button {
     width: 40px;
+    min-width: 40px;
     height: 40px;
     cursor: pointer;
     color: $body-text;

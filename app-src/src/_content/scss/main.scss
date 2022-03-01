@@ -514,8 +514,8 @@ input {
     //search
     .search-area {
         margin-left: 20px;
-        float: left;
-        width: 572px;
+        max-width: 572px;
+        width: 100%;
     }
 
     //account area

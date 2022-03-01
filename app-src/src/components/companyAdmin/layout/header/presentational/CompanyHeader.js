@@ -29,7 +29,7 @@ const Header = () => {
             className="flex-row justify-between align-stretch"
             style={{ borderColor: companyUserID ? companyColour : defaultStyles.colourCode }}
         >
-            <div className="logo-search-area flex-row align-center">
+            <div className="flex flex-row align-stretch">
                 <div className="logo flex-row justify-center align-center">
                     {!companyUserID ? (
                         <Link to="/company">
@@ -53,12 +53,13 @@ const Header = () => {
                     )}
                 </div>
                 {!isCompanySelection && (
-                    <div className="search-area">
-                        <SearchContainer placeholder="Search Sites, Drawings, Operatives" />
+                    <div className="flex flex-row align-center">
+                        <div className="search-area">
+                            <SearchContainer placeholder="Search Sites, Drawings, Operatives" />
+                        </div>
                     </div>
                 )}
             </div>
-
             <div className="account-area flex-row">
                 {!isCompanySelection && (
                     <div className="notifications">
