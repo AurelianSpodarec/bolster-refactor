@@ -7,7 +7,6 @@ import CompanyMenu from '../presentational/CompanyMenu';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
 import dismissMessages from 'actions/companyAdmin/messages/async/dismissMessages';
 import { isEmpty } from 'helpers/generic';
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { companyNavMenuItems } from '../../../../../constants/companyAdmin/menuItems';
 
 const CompanyMenuContainer = ({
@@ -21,7 +20,6 @@ const CompanyMenuContainer = ({
     subscriptions: { startOn, hasUnpaidServiceInvoice },
     hasInitiallyFetched,
     isClientAccess,
-    showModal,
     users,
     companyUserID,
     unreadReleaseNoteCount,
@@ -145,7 +143,6 @@ const mapDispatchToProps = dispatch => ({
     dismissMessages: messageType => {
         dispatch(dismissMessages(messageType));
     },
-    showModal: (type, props) => dispatch(showModal(type, props)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CompanyMenuContainer));
