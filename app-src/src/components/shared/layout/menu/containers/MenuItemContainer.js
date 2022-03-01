@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { useWindowDimensions } from '../../../../../helpers/hooks';
+
 import { Link } from 'react-router-dom';
 
 import { getCompanyColour } from 'helpers/generic';
@@ -13,10 +15,10 @@ import {
 } from '../../../../../selectors/companyAdmin/companySettings';
 import { selectIsMobile } from '../../../../../selectors/shared/mobile';
 import { selectCompanyUserID } from '../../../../../selectors/companyAdmin/companyUsers';
+
 import SubNavMenuLink from './SubNavMenuLink';
 import { GENERATE_QR_CODES } from '../../../../../constants/shared/modalTypes';
 import { showModal } from '../../../../../actions/shared/generic/modals/sync/showModal';
-import { useWindowDimensions } from '../../../../../helpers/hooks';
 
 const MenuItemContainer = ({
     item: { name, link, icon, subNavItems, showNotificationBadge },
@@ -42,11 +44,11 @@ const MenuItemContainer = ({
 
     const route = location.pathname.toLowerCase();
 
-    function handleGenerateQRCodesModal(e) {
+    const handleGenerateQRCodesModal = e => {
         e.preventDefault();
 
         dispatch(showModal(GENERATE_QR_CODES));
-    }
+    };
 
     const checkIfActive = () => {
         if (link?.toLowerCase() === route) {
@@ -105,6 +107,7 @@ const MenuItemContainer = ({
                             onClick: handleGenerateQRCodesModal,
                         };
                     }
+
                     return item;
                 }),
         [
@@ -126,7 +129,7 @@ const MenuItemContainer = ({
             }
         }
     }, [subNavRef.current, height, hover]);
-    console.log(showNotificationBadge);
+
     return (
         <div
             onMouseEnter={() => setHover(true)}
