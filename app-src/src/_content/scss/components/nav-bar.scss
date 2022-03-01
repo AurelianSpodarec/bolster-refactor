@@ -192,7 +192,8 @@
             background: var(--bolster-primary);
 
             p {
-              font-size: 80%;
+              font-size: 11px;
+              @include ubuntu;
             }
           }
 

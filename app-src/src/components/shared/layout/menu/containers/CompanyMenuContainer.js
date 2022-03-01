@@ -24,7 +24,8 @@ const CompanyMenuContainer = ({
 
     const [shouldRestrictPayments, setShouldRestrictPayments] = useState(false);
 
-    const { unreadMessageCount, unreadReleaseNoteCount, totalRequests } = useGetNotifications();
+    const { unreadMessageCount, unreadReleaseNoteCount, totalRequests, unreadCount } =
+        useGetNotifications();
 
     function usePrevious(value) {
         const ref = useRef(value);
@@ -72,6 +73,9 @@ const CompanyMenuContainer = ({
                     }
 
                     if (item.name === 'Sites' && !!totalRequests) {
+                        return { ...item, showNotificationBadge: true };
+                    }
+                    if (item.name === 'Reports' && !!unreadCount) {
                         return { ...item, showNotificationBadge: true };
                     }
 

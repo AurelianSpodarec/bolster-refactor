@@ -33,7 +33,8 @@ const MenuItemContainer = ({
     const dispatch = useDispatch();
     const { height } = useWindowDimensions();
 
-    const { unreadMessageCount, unreadReleaseNoteCount, totalRequests } = useGetNotifications();
+    const { unreadCount, totalRequests, unreadMessageCount, unreadReleaseNoteCount } =
+        useGetNotifications();
 
     const colourCode = useSelector(selectCompanyColourCode) || '';
     const isBolsterLogoDark = useSelector(selectIsBolsterLogoDark);
@@ -109,6 +110,20 @@ const MenuItemContainer = ({
                             ...item,
                             onClick: handleGenerateQRCodesModal,
                         };
+                    }
+
+                    if (item.link === '/company/reports') {
+                        return { ...item, notificationCount: unreadCount };
+                    }
+
+                    if (item.link === '/company/tools/transfer-requests') {
+                        return { ...item, notificationCount: totalRequests };
+                    }
+                    if (item.link === '/company/message-centre') {
+                        return { ...item, notificationCount: unreadMessageCount };
+                    }
+                    if (item.link === '/company/release-notes') {
+                        return { ...item, notificationCount: unreadReleaseNoteCount };
                     }
 
                     return item;

@@ -10,7 +10,7 @@ const SubNavMenuLink = ({ item: { name, link, onClick, notificationCount }, comp
 
     return (
         <div className="sub-nav-item">
-            {notificationCount && (
+            {!!notificationCount && (
                 <div className="notification-badge">
                     <p>{notificationCount}</p>
                 </div>
