@@ -20,7 +20,6 @@ const MenuItemContainer = ({
     location,
     external = false,
     onClick = () => {},
-    base = false,
     isSubscribed,
     isCompanyUserOrSelecting,
     isClientAccess,
@@ -36,11 +35,21 @@ const MenuItemContainer = ({
 
     const route = location.pathname.toLowerCase();
 
-    const isActive = base
-        ? link?.toLowerCase() === route
-        : subNavItems?.length
-        ? subNavItems.find(item => item.link.toLowerCase() === route)
-        : route.split('/').length <= 2;
+    const checkIfActive = () => {
+        if (link?.toLowerCase() === route) {
+            return true;
+        }
+        if (subNavItems?.length) {
+            return subNavItems.find(item => item.link.toLowerCase() === route);
+        }
+        if (route.split('/')[1] === link.split('/')[1]) {
+            return route.split('/').length <= 2;
+        }
+
+        return false;
+    };
+
+    const isActive = checkIfActive();
 
     const textColor = isBolsterLogoDark && !!companyUserID ? 'black' : 'white';
 
@@ -83,7 +92,6 @@ const MenuItemContainer = ({
             isClientAccess,
         ],
     );
-
     return (
         <div
             onMouseEnter={() => setHover(true)}
