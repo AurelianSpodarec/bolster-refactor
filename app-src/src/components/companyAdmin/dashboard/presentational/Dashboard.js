@@ -12,7 +12,7 @@ const Dashboard = ({ isIE10 }) => (
     <>
         <PageHeading title="Dashboard" />
         {isIE10 ? (
-            <div className="flex-row size-lg-12">
+            <div className="flex-row width-12 size-lg-12">
                 <BlockContainer
                     error="Dashboard not available on Internet Explorer 10"
                     containerClass="flex-row-item size-lg-12 size-md-12"
@@ -21,11 +21,11 @@ const Dashboard = ({ isIE10 }) => (
         ) : (
             <>
                 <DashboardStatsFiltersContainer />
-                <div className="flex-row size-lg-12">
+                <div className="flex-row width-12 size-lg-12">
                     <DashboardBarChartContainer />
                     <DashboardDataByContainer />
                 </div>
-                <div className="flex-row size-lg-12">
+                <div className="flex-row width-12 size-lg-12">
                     <DashboardPieChartContainer />
                     <DashboardPinFeedContainer />
                 </div>

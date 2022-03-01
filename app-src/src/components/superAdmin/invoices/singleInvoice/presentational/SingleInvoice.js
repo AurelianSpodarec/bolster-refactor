@@ -11,7 +11,7 @@ import InvoiceItemsTableContainer from '../containers/InvoiceItemsTableContainer
 const SingleInvoice = ({ id }) => (
     <>
         <PageHeading leftChildren title={`Invoice #${id}`} withBackButton />
-        <div className="flex-row size-lg-12">
+        <div className="flex-row width-12 size-lg-12">
             <InvoiceDetailsContainer />
         </div>
 

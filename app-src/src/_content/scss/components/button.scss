@@ -236,3 +236,74 @@ button {
         margin-left: 5px;
     }
 }
+
+// credits button
+.credits-button {
+    background-color: transparent;
+    height: 40px;
+    font-size: 15px;
+    @include ubuntu-medium;
+
+    .balance {
+        min-width: 50px;
+        background-color: var(--input-default);
+        border-top-left-radius: 50px;
+        border-bottom-left-radius: 50px;
+    }
+    
+    .buy {
+        padding: 0 15px;
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 50px;      
+        color: white;
+        background-color: #AAACB1;
+
+        .icon {
+            margin-right: 10px;
+        }
+    }
+    
+    &.positive {
+        .balance {
+            color: var(--positive-default);
+        }
+
+        .buy {
+            background-color: var(--positive-default); 
+        }
+
+        &:hover {
+            .buy {
+                background-color: var(--positive-hover);
+            }
+        }
+        
+        &:active {
+            .buy {
+                background-color: var(--positive-pressed);
+            }
+        }
+    }
+
+    &.negative {
+        .balance {
+            color: var(--bolster-primary);
+        }
+
+        .buy {
+            background-color: var(--negative-default); 
+        }
+
+        &:hover {
+            .buy {
+                background-color: var(--negative-hover);
+            }
+        }
+
+        &:active {
+            .buy {
+                background-color: var(--negative-pressed);
+            }
+        }
+    }
+}
