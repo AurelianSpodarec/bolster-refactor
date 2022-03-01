@@ -10,8 +10,8 @@ import SearchContainer from '../containers/SearchContainer';
 import HeaderProfileContainer from '../containers/HeaderProfileContainer';
 import ExchangeIcon from '../../../../../_content/images/icons/exchange.png';
 import EnvelopeIcon from '../../../../../_content/images/icons/envelope.png';
-import CreditsButton from 'components/shared/generic/button/presentational/CreditsButton';
 import CircleButton from 'components/shared/generic/button/presentational/CircleButton';
+import CreditsButton from 'components/companyAdmin/generic/button/CreditsButton';
 
 const Header = () => {
     const {
