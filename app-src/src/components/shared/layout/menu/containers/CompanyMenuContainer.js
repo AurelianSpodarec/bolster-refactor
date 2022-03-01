@@ -40,7 +40,6 @@ const CompanyMenuContainer = ({
         () =>
             companyNavMenuItems
                 .filter(item => {
-                    console.log(isSubscribed);
                     if (isSubscribed) {
                         if (isCompanyUserOrSelecting && item.userSelectRestriction) {
                             return false;

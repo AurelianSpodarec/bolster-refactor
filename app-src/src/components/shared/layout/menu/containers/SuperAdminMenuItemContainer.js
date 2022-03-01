@@ -24,7 +24,7 @@ const SuperAdminMenuItemContainer = ({ item }) => {
         [item.subNavItems, unreadSuperAdminBugReports, unreadSuperAdminContactSubmissions],
     );
 
-    return <MenuItem item={item} subNavItems={formattedSubNavItems} />;
+    return <MenuItem item={item} formattedSubNavItems={formattedSubNavItems} />;
 };
 
 export default SuperAdminMenuItemContainer;

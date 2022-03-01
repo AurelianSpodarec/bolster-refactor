@@ -86,7 +86,7 @@ const CompanyMenuItemContainer = ({
         ],
     );
 
-    return <MenuItem item={item} subNavItems={formattedSubNavItems} />;
+    return <MenuItem item={item} formattedSubNavItems={formattedSubNavItems} />;
 };
 
 export default CompanyMenuItemContainer;
