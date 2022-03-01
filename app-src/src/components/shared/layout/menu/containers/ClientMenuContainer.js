@@ -1,43 +1,40 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import useGetClientNotifications from '../../../../../hooks/useGetClientNotifications';
 
 import ClientMenu from '../presentational/ClientMenu';
-import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
-import dismissMessages from 'actions/companyAdmin/messages/async/dismissMessages';
+import { clientNavMenuItems } from '../../../../../constants/client/menuItems';
 
 const ClientMenuContainer = () => {
-    const dispatch = useDispatch();
-    const { notifications, isCompanyAdmin } = useSelector(mapStateToProps);
-    const unread = notifications.filter(({ isRead }) => !isRead);
-    const unreadCount = unread.length;
+    const { isCompanyAdmin } = useSelector(mapStateToProps);
+    const { unreadCount } = useGetClientNotifications();
 
-    const dismissNotifications = () => {
-        dispatch(dismissMessages(MESSAGE_TYPES.NOTIFICATION));
-    };
+    const formattedClientNavMenuItems = useMemo(
+        () =>
+            clientNavMenuItems.map(item => {
+                if (item.link === '/client/reports') {
+                    return {
+                        ...item,
+                        showNotificationBadge: !!unreadCount,
+                    };
+                }
 
+                return item;
+            }),
+        [clientNavMenuItems, unreadCount],
+    );
     return (
-        <ClientMenu
-            unreadCount={unreadCount}
-            dismissMessages={dismissNotifications}
-            isCompany={isCompanyAdmin}
-        />
+        <ClientMenu isCompany={isCompanyAdmin} clientNavMenuItems={formattedClientNavMenuItems} />
     );
 };
 
 const mapStateToProps = ({
-    client: {
-        messagesReducer: { messages },
-    },
     shared: {
         decodeJWTReducer: {
             jwtData: { isCompanyAdmin },
         },
     },
 }) => ({
-    notifications: Object.values(messages)
-        .filter(({ type }) => type === MESSAGE_TYPES.NOTIFICATION)
-        .sort((a, b) => moment(b.createdAt) - moment(a.createdAt)),
     isCompanyAdmin: isCompanyAdmin,
 });
 

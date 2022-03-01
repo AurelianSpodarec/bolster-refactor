@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { clientNavMenuItems } from '../../../../../constants/client/menuItems';
-import MenuItemContainer from '../containers/MenuItemContainer';
 import bolsterLogo from '../../../../../_content/images/icons/Bolsterlogo.svg';
+import ClientMenuItemContainer from '../containers/ClientMenuItemContainer';
 
-const ClientMenu = ({ dismissMessages, unreadCount, isCompany }) => (
+const ClientMenu = ({ clientNavMenuItems }) => (
     <div className="menu">
         <div className="nav-wrapper">
             {clientNavMenuItems.map((navItem, index) => (
-                <MenuItemContainer key={index} item={navItem} />
+                <ClientMenuItemContainer key={index} item={navItem} />
             ))}
         </div>
 
