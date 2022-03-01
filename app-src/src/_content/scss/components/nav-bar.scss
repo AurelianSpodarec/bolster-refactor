@@ -114,8 +114,8 @@
       .sub-nav {
         transition: opacity 4s ease-in-out;
         position: absolute;
-        top: 0;
         left: 100%;
+        top: 0;
         background-color: var(--nav-active);
         padding: 15px;
         z-index: 100;
@@ -132,6 +132,11 @@
           &:hover {
             color: var(--bolster-primary)
           }
+        }
+
+        &.bottom {
+          top: unset;
+          bottom: 0;
         }
       }
 

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -16,6 +16,7 @@ import { selectCompanyUserID } from '../../../../../selectors/companyAdmin/compa
 import SubNavMenuLink from './SubNavMenuLink';
 import { GENERATE_QR_CODES } from '../../../../../constants/shared/modalTypes';
 import { showModal } from '../../../../../actions/shared/generic/modals/sync/showModal';
+import { useWindowDimensions } from '../../../../../helpers/hooks';
 
 const MenuItemContainer = ({
     item: { name, link, icon, subNavItems },
@@ -27,12 +28,17 @@ const MenuItemContainer = ({
     shouldRestrictPayments,
 }) => {
     const dispatch = useDispatch();
+    const { height } = useWindowDimensions();
+
     const colourCode = useSelector(selectCompanyColourCode) || '';
     const isBolsterLogoDark = useSelector(selectIsBolsterLogoDark);
     const onMobile = useSelector(selectIsMobile);
     const companyUserID = useSelector(selectCompanyUserID);
 
     const [hover, setHover] = useState(false);
+
+    const subNavRef = useRef(null);
+    const [isSubNavOverflowing, setIsSubNavOverflowing] = useState(false);
 
     const route = location.pathname.toLowerCase();
 
@@ -109,6 +115,18 @@ const MenuItemContainer = ({
             isClientAccess,
         ],
     );
+
+    useEffect(() => {
+        if (subNavRef.current) {
+            const rect = subNavRef.current.getBoundingClientRect();
+            if (rect.bottom + rect.height > height) {
+                setIsSubNavOverflowing(true);
+            } else {
+                setIsSubNavOverflowing(false);
+            }
+        }
+    }, [subNavRef.current, height, hover]);
+
     return (
         <div
             onMouseEnter={() => setHover(true)}
@@ -132,7 +150,10 @@ const MenuItemContainer = ({
                 <span>{name}</span>
             )}
             {hover && !!subNavItems?.length ? (
-                <div className="sub-nav fade-in">
+                <div
+                    className={`sub-nav fade-in ${isSubNavOverflowing ? 'bottom' : ''}`}
+                    ref={subNavRef}
+                >
                     {filteredSubNav.map((item, i) => (
                         <SubNavMenuLink key={i} item={item} companyColour={companyColour} />
                     ))}
