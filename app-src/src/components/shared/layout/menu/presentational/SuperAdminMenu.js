@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { superAdminNavMenuItems } from '../../../../../constants/superAdmin/menuItems';
 import MenuItemContainer from '../containers/MenuItemContainer';
+import bolsterLogo from '../../../../../_content/images/icons/Bolsterlogo.svg';
 
-const SuperAdminMenu = ({ unreadRequests, unreadBugReports }) => {
+const SuperAdminMenu = ({ superAdminNavMenuItems }) => {
     return (
         <div className="menu">
             <div className="nav-wrapper">
@@ -11,6 +11,8 @@ const SuperAdminMenu = ({ unreadRequests, unreadBugReports }) => {
                     <MenuItemContainer key={index} item={navItem} />
                 ))}
             </div>
+
+            <img src={bolsterLogo} alt="Bolster Logo" className="logo" />
         </div>
     );
 };
