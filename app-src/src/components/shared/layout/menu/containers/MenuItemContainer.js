@@ -19,6 +19,7 @@ import { selectCompanyUserID } from '../../../../../selectors/companyAdmin/compa
 import SubNavMenuLink from './SubNavMenuLink';
 import { GENERATE_QR_CODES } from '../../../../../constants/shared/modalTypes';
 import { showModal } from '../../../../../actions/shared/generic/modals/sync/showModal';
+import useGetNotifications from '../../../../../hooks/useGetNotifications';
 
 const MenuItemContainer = ({
     item: { name, link, icon, subNavItems, showNotificationBadge },
@@ -31,6 +32,8 @@ const MenuItemContainer = ({
 }) => {
     const dispatch = useDispatch();
     const { height } = useWindowDimensions();
+
+    const { unreadMessageCount, unreadReleaseNoteCount, totalRequests } = useGetNotifications();
 
     const colourCode = useSelector(selectCompanyColourCode) || '';
     const isBolsterLogoDark = useSelector(selectIsBolsterLogoDark);
@@ -77,7 +80,7 @@ const MenuItemContainer = ({
         }
     };
 
-    const filteredSubNav = useMemo(
+    const formattedSubNavItems = useMemo(
         () =>
             subNavItems?.length &&
             subNavItems
@@ -172,7 +175,7 @@ const MenuItemContainer = ({
                             ref={subNavRef}
                             className={`sub-nav fade-in ${isSubNavOverflowing ? 'bottom' : ''}`}
                         >
-                            {filteredSubNav.map((item, i) => (
+                            {formattedSubNavItems.map((item, i) => (
                                 <SubNavMenuLink key={i} item={item} companyColour={companyColour} />
                             ))}
                         </div>

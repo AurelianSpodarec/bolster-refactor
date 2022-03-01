@@ -41,7 +41,7 @@ const CompanyMenuContainer = ({
         }
     }, [users]);
 
-    const filteredCompanyNavMenuItems = useMemo(
+    const formattedCompanyNavMenuItems = useMemo(
         () =>
             companyNavMenuItems
                 .filter(item => {
@@ -88,7 +88,7 @@ const CompanyMenuContainer = ({
 
     return (
         <CompanyMenu
-            companyNavMenuItems={filteredCompanyNavMenuItems}
+            companyNavMenuItems={formattedCompanyNavMenuItems}
             isSubscribed={isSubscribed}
             isCompanyUserOrSelecting={isCompanyUserOrSelecting}
             isClientAccess={isClientAccess}
