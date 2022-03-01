@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { getCompanyColour } from 'helpers/generic';
+import defaultStyles from 'constants/defaultStyles';
 
 import { logout } from 'actions/shared/auth/sync/logout';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
@@ -17,6 +18,7 @@ export const useHeaderProfile = () => {
     const { companyUserID } = useSelector(selectJwtData);
 
     const companyColour = getCompanyColour(company.companyColour);
+    const backgroundColor = companyUserID ? companyColour : defaultStyles.colourCode;
 
     const handleLogout = e => {
         e.preventDefault();
@@ -28,6 +30,7 @@ export const useHeaderProfile = () => {
         companyColour,
         companyUserID,
         profile,
+        backgroundColor,
         handleLogout,
     };
 };

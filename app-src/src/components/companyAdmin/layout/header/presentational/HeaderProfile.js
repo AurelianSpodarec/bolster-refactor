@@ -10,14 +10,15 @@ import defaultStyles from 'constants/defaultStyles';
 import useHeaderProfile from '../hooks/useHeaderProfile';
 
 const HeaderProfile = () => {
-    const { companyColour, companyUserID, profile, handleLogout } = useHeaderProfile();
+    const { companyColour, companyUserID, profile, backgroundColor, handleLogout } =
+        useHeaderProfile();
 
     return (
-        <div className="item profile-container">
+        <div className="profile-container">
             <div
                 className="user"
                 style={{
-                    backgroundColor: companyUserID ? companyColour : defaultStyles.colourCode,
+                    backgroundColor,
                 }}
             >
                 {profile.profileImageS3Key ? (
@@ -29,11 +30,10 @@ const HeaderProfile = () => {
                             profile?.lastName[0]}
                     </div>
                 )}
-                <div className="user-icon-menu-wrapper"></div>
             </div>
 
             <div className="profile-menu">
-                <div className="profile-options">
+                <div className="profile-options" style={{ backgroundColor }}>
                     <Link to="/company/profile" className="dropdown-item">
                         <img alt="profile icon" src={ProfileIcon} />
                         <span className="item-text">My Profile</span>
@@ -48,6 +48,13 @@ const HeaderProfile = () => {
                     </Link>
                 </div>
             </div>
+
+            <div
+                className="bottom-hover-colour"
+                style={{
+                    backgroundColor,
+                }}
+            />
         </div>
     );
 };
