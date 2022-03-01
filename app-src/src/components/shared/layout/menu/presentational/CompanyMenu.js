@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MenuItemContainer from '../containers/MenuItemContainer';
+import CompanyMenuItemContainer from '../containers/CompanyMenuItemContainer';
 import bolsterLogo from '../../../../../_content/images/icons/Bolsterlogo.svg';
 
 const CompanyMenu = ({
@@ -14,7 +14,7 @@ const CompanyMenu = ({
         <div className="menu">
             <div className="nav-wrapper">
                 {companyNavMenuItems.map((navItem, index) => (
-                    <MenuItemContainer
+                    <CompanyMenuItemContainer
                         key={index}
                         item={navItem}
                         isSubscribed={isSubscribed}

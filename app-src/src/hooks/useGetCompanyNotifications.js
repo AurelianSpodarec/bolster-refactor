@@ -9,26 +9,9 @@ import { selectPendingInvites } from '../selectors/companyAdmin/pendingInvites';
 
 import { MESSAGE_TYPES } from '../constants/companyAdmin/enums';
 import dismissMessages from '../actions/companyAdmin/messages/async/dismissMessages';
-import { selectSuperAdminBuReports } from '../selectors/superAdmin/buReports';
-import { selectSuperAdminContactSubmissions } from '../selectors/superAdmin/contactSubmissions';
 
-const useGetNotifications = () => {
+const useGetCompanyNotifications = () => {
     const dispatch = useDispatch();
-
-    // Super admin
-    const superAdminBugReports = useSelector(selectSuperAdminBuReports) || {};
-    const superAdminContactSubmissions = useSelector(selectSuperAdminContactSubmissions) || {};
-
-    const unreadSuperAdminBugReports = Object.values(superAdminBugReports).reduce(
-        (result, { isRead }) => result + (!isRead ? 1 : 0),
-        0,
-    );
-
-    const unreadSuperAdminContactSubmissions = Object.values(superAdminContactSubmissions).reduce(
-        (result, { contacted }) => result + (!contacted ? 1 : 0),
-        0,
-    );
-
     // Company
     const messages = useSelector(selectMessages);
     const transferRequests = useSelector(selectTransferRequests) || {};
@@ -63,10 +46,9 @@ const useGetNotifications = () => {
         totalRequests,
         unreadReleaseNoteCount,
         unreadCount,
-        unreadSuperAdminBugReports,
-        unreadSuperAdminContactSubmissions,
+
         dismissNotifications,
     };
 };
 
-export default useGetNotifications;
+export default useGetCompanyNotifications;

@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { usePrevious } from '../../../../../helpers/hooks';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import CompanyMenu from '../presentational/CompanyMenu';
 import { isEmpty } from 'helpers/generic';
 import { companyNavMenuItems } from '../../../../../constants/companyAdmin/menuItems';
-import useGetNotifications from '../../../../../hooks/useGetNotifications';
+import useGetNotifications from '../../../../../hooks/useGetCompanyNotifications';
 
 const CompanyMenuContainer = ({
     subscriptions,
@@ -27,13 +28,6 @@ const CompanyMenuContainer = ({
     const { unreadMessageCount, unreadReleaseNoteCount, totalRequests, unreadCount } =
         useGetNotifications();
 
-    function usePrevious(value) {
-        const ref = useRef(value);
-        useEffect(() => {
-            ref.current = value;
-        });
-        return ref.current;
-    }
     const prevUsers = usePrevious({ users });
 
     useEffect(() => {
@@ -46,6 +40,7 @@ const CompanyMenuContainer = ({
         () =>
             companyNavMenuItems
                 .filter(item => {
+                    console.log(isSubscribed);
                     if (isSubscribed) {
                         if (isCompanyUserOrSelecting && item.userSelectRestriction) {
                             return false;

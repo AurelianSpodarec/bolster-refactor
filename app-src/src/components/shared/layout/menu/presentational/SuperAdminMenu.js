@@ -1,14 +1,14 @@
 import React from 'react';
 
-import MenuItemContainer from '../containers/MenuItemContainer';
 import bolsterLogo from '../../../../../_content/images/icons/Bolsterlogo.svg';
+import SuperAdminMenuItemContainer from '../containers/SuperAdminMenuItemContainer';
 
 const SuperAdminMenu = ({ superAdminNavMenuItems }) => {
     return (
         <div className="menu">
             <div className="nav-wrapper">
                 {superAdminNavMenuItems.map((navItem, index) => (
-                    <MenuItemContainer key={index} item={navItem} />
+                    <SuperAdminMenuItemContainer key={index} item={navItem} />
                 ))}
             </div>
 

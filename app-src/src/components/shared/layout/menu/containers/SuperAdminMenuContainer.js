@@ -1,14 +1,15 @@
 import React, { useEffect, useMemo } from 'react';
+import useGetSuperAdminNotifications from '../../../../../hooks/useGetSuperAdminNotifications';
+
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import SuperAdminMenu from '../presentational/SuperAdminMenu';
 import fetchBugReportList from 'actions/superAdmin/bugReports/fetchBugReportList';
 import { superAdminNavMenuItems } from '../../../../../constants/superAdmin/menuItems';
-import useGetNotifications from '../../../../../hooks/useGetNotifications';
 
 const SuperAdminMenuContainer = ({ fetchBugReportList }) => {
     const { unreadSuperAdminBugReports, unreadSuperAdminContactSubmissions } =
-        useGetNotifications();
+        useGetSuperAdminNotifications();
 
     useEffect(() => {
         fetchBugReportList();

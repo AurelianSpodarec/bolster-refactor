@@ -19,7 +19,7 @@ import { selectCompanyUserID } from '../../../../../selectors/companyAdmin/compa
 import SubNavMenuLink from './SubNavMenuLink';
 import { GENERATE_QR_CODES } from '../../../../../constants/shared/modalTypes';
 import { showModal } from '../../../../../actions/shared/generic/modals/sync/showModal';
-import useGetNotifications from '../../../../../hooks/useGetNotifications';
+import useGetCompanyNotifications from '../../../../../hooks/useGetCompanyNotifications';
 
 const MenuItemContainer = ({
     item: { name, link, icon, subNavItems, showNotificationBadge },
@@ -40,7 +40,7 @@ const MenuItemContainer = ({
         unreadReleaseNoteCount,
         unreadSuperAdminBugReports,
         unreadSuperAdminContactSubmissions,
-    } = useGetNotifications();
+    } = useGetCompanyNotifications();
 
     const colourCode = useSelector(selectCompanyColourCode) || '';
     const isBolsterLogoDark = useSelector(selectIsBolsterLogoDark);
