@@ -394,7 +394,7 @@ input {
     @include rounded-all(16px);
 
     .search-icon {
-        margin-right: 10px;
+        margin-right: 20px;
         align-items: center;
         justify-content: flex-end;
         color: $dark-grey;
@@ -419,7 +419,7 @@ input {
 
     input {
         width: 100%;
-        padding: 6px 10px 6px 35px;
+        padding: 6px 20px;
         background-color: transparent;
         border: none;
         outline: none;
