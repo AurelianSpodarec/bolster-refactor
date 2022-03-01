@@ -144,27 +144,6 @@
         }
     }
 
-    .menu-wrapper {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        z-index: 1;
-        transition: transform ease-in-out 0.5s;
-        transform: translateX(-100%);
-        &.mobile-open {
-            transform: translateX(0);
-            z-index: 500;
-        }
-    }
-
-    .menu {
-        width: 100%;
-        a {
-            padding: 10px 7.5px;
-        }
-    }
-
     //inside page area
     .breadcrumb {
         width: 100%;
