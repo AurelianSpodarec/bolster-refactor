@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const CircleButton = ({ icon, showNotification }) => (
-    <Link to="/company/tools/transfer-requests" className="item">
+const CircleButton = ({ href = '', icon, showNotification }) => (
+    <Link to={href} className="circle-button flex-row justify-center align-center">
         {showNotification && <span className="notification-dot" />}
-        <img alt="exchange icon" className="tools-icon" src={icon} />
+        <img alt="icon" className="icon" src={icon} />
     </Link>
 );
 

@@ -64,8 +64,13 @@ const Header = () => {
                     {!isCompanySelection && (
                         <div className="notifications">
                             <CreditsButton />
-                            <CircleButton icon={ExchangeIcon} showNotification={!!totalRequests} />
                             <CircleButton
+                                href="/company/tools/transfer-requests"
+                                icon={ExchangeIcon}
+                                showNotification={!!totalRequests}
+                            />
+                            <CircleButton
+                                href="/company/message-centre"
                                 icon={EnvelopeIcon}
                                 showNotification={!!unreadMessageCount}
                             />
