@@ -177,7 +177,7 @@
           &:last-child {
             margin-bottom: 15px;
           }
-          
+
           .notification-badge {
             flex: none;
             display: flex;
@@ -188,7 +188,7 @@
             background: var(--bolster-primary);
 
             p {
-              font-size: 11px;
+              font-size: 9px;
               @include ubuntu;
             }
           }
