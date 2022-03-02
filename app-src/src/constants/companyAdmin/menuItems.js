@@ -270,7 +270,7 @@ export const companyNavMenuItems = [
     {
         name: 'Support',
         icon: supportIcon,
-        link: '/company/activity-log',
+        link: '/company/user-guides',
         subscriptionRestriction: false,
         paymentRestriction: false,
         userSelectRestriction: false,
