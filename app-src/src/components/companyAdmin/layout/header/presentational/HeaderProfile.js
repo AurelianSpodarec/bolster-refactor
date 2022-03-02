@@ -5,13 +5,14 @@ import { FILE_STORAGE_URL } from 'config';
 import ProfileIcon from '../../../../../_content/images/icons/profile.png';
 import ExchangeIcon from '../../../../../_content/images/icons/exchange-in-user-profile.png';
 import LogoutIcon from '../../../../../_content/images/icons/logout.png';
-import defaultStyles from 'constants/defaultStyles';
 
 import useHeaderProfile from '../hooks/useHeaderProfile';
+import useGetUserInitials from 'hooks/useGetUserInitials';
 
 const HeaderProfile = () => {
-    const { companyColour, companyUserID, profile, backgroundColor, handleLogout } =
-        useHeaderProfile();
+    const { profile, backgroundColor, handleLogout } = useHeaderProfile();
+
+    const initials = useGetUserInitials();
 
     return (
         <div className="profile-container">
@@ -24,10 +25,8 @@ const HeaderProfile = () => {
                 {profile.profileImageS3Key ? (
                     <img alt="profile" src={`${FILE_STORAGE_URL}/${profile.profileImageS3Key}`} />
                 ) : (
-                    <div>
-                        {profile.firstName &&
-                            profile.firstName[0] + profile.lastName &&
-                            profile?.lastName[0]}
+                    <div className="initials flex-row justify-center align-center">
+                        {initials ? initials : ''}
                     </div>
                 )}
             </div>

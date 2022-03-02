@@ -27,8 +27,6 @@ export const useHeaderProfile = () => {
     };
 
     return {
-        companyColour,
-        companyUserID,
         profile,
         backgroundColor,
         handleLogout,
