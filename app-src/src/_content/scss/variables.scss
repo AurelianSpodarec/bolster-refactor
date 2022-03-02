@@ -231,7 +231,10 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
 
 // css variables
 :root {
+    // originals (to be removed after light/dark theme work)
     --background-color: #212228;
+
+    // from palette (designs)
     --primary-default: #3364DD;
     --primary-hover: #0047FF;
     --primary-pressed: #2147A8;
@@ -247,23 +250,38 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
     --background-default: #FAFAFA;
     --background-container: #FFFFFF;
     --background-stroke: #F2F2F2;
+    --navigation-primary: #3A3C45;
+    --navigation-secondary: #525461;
+    --typography-default: #212227;
+    --typography-greyed-out: #AAACB1;
+    --pin-installed: #2DAC57;
+    --pin-action-required: #B22724;
+    --pin-inspected: #3364DD;
+    --pin-no-action: #EFC206;
+    --pin-other: #990099;
+
+    // others not in palette (designs)
     --input-default:  #E5E5E5;
     --input-secondary:  rgba(229, 229, 229, 0.25);
     --tools-background: #0000001A;
-    --nav-background: #3A3C45;
-    --nav-active: #696C7C;
     --bolster-primary: #ED1C24;
+
     // text 
     --dropdown-text: #F9FAFA;
 }
 
-
-
-
-// dark theme overrides
+// dark theme variable overrides
 [data-theme="dark"] {
+    // originals (to be removed after light/dark theme work)
     --background-color: #212228;
+
+    // from palette (designs)
     --background-default: #212227;
     --background-container: #2F3037;
     --background-stroke: #494C5B;
+    --navigation-primary: #3A3C45;
+    --navigation-secondary: #525461;
+    --typography-default: #F9FAFA;
+
+    // others not in palette (designs)
 }
