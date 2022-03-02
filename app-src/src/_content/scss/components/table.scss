@@ -400,7 +400,15 @@
 // table search
 .table-search {
     .generic-search {
+        float: left;
         width: 27%;
+        
+        input {
+            padding: {
+                top: 8px;
+                bottom: 8px;
+            }
+        }
     }
 
     &.larger-search {
