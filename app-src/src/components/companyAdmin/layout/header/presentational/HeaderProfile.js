@@ -18,7 +18,7 @@ import useGetUserInitials from 'hooks/useGetUserInitials';
 const HeaderProfile = () => {
     const { profile, backgroundColor, handleLogout } = useHeaderProfile();
 
-    const initials = useGetUserInitials();
+    const initials = useGetUserInitials()?.toUpperCase();
     const isDarkLogoEnabled = useSelector(selectIsBolsterLogoDark);
 
     return (
