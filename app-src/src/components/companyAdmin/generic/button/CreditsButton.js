@@ -19,19 +19,29 @@ const CreditsButton = () => {
 
     const shouldRestrictPayments = useShouldRestrictPayments();
 
+    const isParentalTypeNone = parentalType === PARENTAL_TYPES.NONE;
+
+    const handleClick = () => {
+        if (!shouldRestrictPayments) dispatch(showModal(BUY_CREDITS));
+    };
+
+    const statusClass = shouldRestrictPayments ? '' : totalCredits ? 'positive' : 'negative';
+
     return (
         <button
-            className={`credits-button flex-row align-stretch ${
-                totalCredits ? 'positive' : 'negative'
-            }`}
-            onClick={() => dispatch(showModal(BUY_CREDITS))}
+            className={`credits-button flex-row align-stretch ${statusClass}`}
+            onClick={handleClick}
         >
-            {parentalType === PARENTAL_TYPES.NONE && (
+            {isParentalTypeNone && (
                 <div className="balance flex-row align-center justify-center">
                     {shouldRestrictPayments ? '-' : totalCredits}
                 </div>
             )}
-            <div className="buy flex-row align-center">
+            <div
+                className={`buy flex-row align-center ${
+                    !isParentalTypeNone ? 'fully-rounded' : ''
+                }`}
+            >
                 <img alt="bank card" className="icon" src={PaymentIcon} />
                 Buy Credits
             </div>

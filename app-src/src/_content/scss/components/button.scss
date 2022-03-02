@@ -244,24 +244,36 @@ button {
     padding: 0;
     font-size: 15px;
     @include ubuntu-medium;
+    cursor: not-allowed;
+
+    $creditButtonRadius: 50px;
 
     .balance {
         min-width: 50px;
         background-color: var(--input-default);
-        border-top-left-radius: 50px;
-        border-bottom-left-radius: 50px;
+        border-top-left-radius: $creditButtonRadius;
+        border-bottom-left-radius: $creditButtonRadius;
     }
     
     .buy {
         padding: 0 15px;
-        border-top-right-radius: 50px;
-        border-bottom-right-radius: 50px;      
+        border-top-right-radius: $creditButtonRadius;
+        border-bottom-right-radius: $creditButtonRadius;      
         color: white;
         background-color: #AAACB1;
 
         .icon {
             margin-right: 10px;
         }
+
+        &.fully-rounded {
+            border-top-left-radius: $creditButtonRadius;
+            border-bottom-left-radius: $creditButtonRadius;
+        }
+    }
+
+    &.positive, &.negative {
+        cursor: pointer;
     }
     
     &.positive {
