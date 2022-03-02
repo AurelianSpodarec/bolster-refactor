@@ -89,19 +89,20 @@
 
     .item {
       display: flex;
+      text-decoration: none;
 
       .link-wrapper {
         flex: 1;
         display: flex;
         align-items: center;
-        padding: 10px 15px 10px 0;
 
         img {
           z-index: 2;
           margin: 0 15px 0 25px;
         }
 
-        a, span {
+        span {
+          padding: 10px 15px 10px 0;
           display: flex;
           justify-content: flex-start;
           align-items: center;
@@ -110,7 +111,6 @@
           width: 100%;
           font-size: 150%;
           color: white;
-          text-decoration: none;
           @include ubuntu-medium;
           transition: background-color 0.25s ease-in-out;
         }

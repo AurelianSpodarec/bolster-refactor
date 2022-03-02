@@ -9,7 +9,7 @@ export const superAdminNavMenuItems = [
     {
         name: 'Information',
         icon: informationIcon,
-        link: null,
+        link: '/admin/company-reports',
         subNavItems: [
             { name: 'Company Reports', link: '/admin/company-reports' },
             { name: 'Company Tracking', link: '/admin/company-tracking' },
@@ -20,7 +20,7 @@ export const superAdminNavMenuItems = [
     {
         name: 'Company',
         icon: companyIcon,
-        link: null,
+        link: '/admin/users',
         subNavItems: [
             { name: 'Users', link: '/admin/users' },
             { name: 'User Creations', link: '/admin/user-creations' },
@@ -31,7 +31,7 @@ export const superAdminNavMenuItems = [
     {
         name: 'Tools',
         icon: toolsIcon,
-        link: null,
+        link: '/admin/move-tool',
         subNavItems: [
             { name: 'Move Tool', link: '/admin/move-tool' },
             { name: 'Merge Tool', link: '/admin/merge-tool' },
@@ -42,7 +42,7 @@ export const superAdminNavMenuItems = [
     {
         name: 'Support',
         icon: supportIcon,
-        link: null,
+        link: '/admin/bug-reports',
         subNavItems: [
             { name: 'Bug Reports', link: '/admin/bug-reports' },
             { name: 'Operative Alerts', link: '/admin/operative-alerts' },
@@ -55,7 +55,7 @@ export const superAdminNavMenuItems = [
     {
         name: 'System',
         icon: systemIcon,
-        link: null,
+        link: '/admin/services',
         subNavItems: [
             { name: 'Services', link: '/admin/services' },
             { name: 'Installation types', link: '/admin/pin-options/installation-types' },
@@ -64,7 +64,7 @@ export const superAdminNavMenuItems = [
     {
         name: 'Contact',
         icon: contactIcon,
-        link: null,
+        link: '/admin/contact-submissions',
         subNavItems: [
             { name: 'Contact Submissions', link: '/admin/contact-submissions' },
             { name: 'New Features', link: '/admin/new-features' },
