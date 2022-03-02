@@ -46,7 +46,6 @@ const useGetCompanyNotifications = () => {
         totalRequests,
         unreadReleaseNoteCount,
         unreadCount,
-
         dismissNotifications,
     };
 };
