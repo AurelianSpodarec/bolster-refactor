@@ -149,7 +149,7 @@ export const companyNavMenuItems = [
             },
             {
                 name: 'Create Report',
-                link: '/company/create-report',
+                link: '/company/tools/create-report',
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,
@@ -184,7 +184,7 @@ export const companyNavMenuItems = [
             },
             {
                 name: 'My Templates',
-                link: '/company/templates',
+                link: '/company/tools/templates',
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,

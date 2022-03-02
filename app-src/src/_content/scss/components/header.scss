@@ -142,6 +142,7 @@
                     display: flex;
                     padding: 10px;
                     justify-content: flex-start;
+                    align-items: center;
                     width: 100%;
                     @include ubuntu-medium;
                     font-size: 140%;
@@ -158,6 +159,10 @@
                         }
 
                     }
+
+                    img {
+                        transform: scale(0.5);
+                    }
         
                     .item-text {
                         padding-left: 10px;
@@ -166,6 +171,14 @@
                         font-size: 15px;
                     }
 
+                }
+
+                &.dark {
+                    .dropdown-item {
+                        .item-text {
+                            color: black;
+                        }
+                    }
                 }
             }
 
