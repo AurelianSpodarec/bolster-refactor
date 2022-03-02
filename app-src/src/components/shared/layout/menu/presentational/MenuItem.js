@@ -16,7 +16,7 @@ const MenuItem = ({
     const { isActive, textColour, companyColour, isBolsterLogoDark } = useNav(subNavItems, link);
 
     return (
-        <div
+        <Link
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
             className="item custom-hover"
@@ -27,11 +27,12 @@ const MenuItem = ({
                       }
                     : {}
             }
+            to={link}
         >
             <div className="link-wrapper">
                 <img src={icon} alt={name} />
 
-                {link ? <Link to={link}>{name}</Link> : <span>{name}</span>}
+                <span>{name}</span>
 
                 {showNotificationBadge && <div className="notification-badge" />}
             </div>
@@ -68,7 +69,7 @@ const MenuItem = ({
                         : {}
                 }
             />
-        </div>
+        </Link>
     );
 };
 

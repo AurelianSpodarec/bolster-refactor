@@ -20,7 +20,7 @@ export const companyNavMenuItems = [
     {
         name: 'Sites',
         icon: sitesIcon,
-        link: null,
+        link: '/company/sites',
         subscriptionRestriction: true,
         paymentRestriction: false,
         userSelectRestriction: true,
@@ -55,7 +55,7 @@ export const companyNavMenuItems = [
     {
         name: 'Users',
         icon: usersIcon,
-        link: null,
+        link: '/company/users-management/company-admins',
         subscriptionRestriction: true,
         paymentRestriction: false,
         userSelectRestriction: true,
@@ -106,7 +106,7 @@ export const companyNavMenuItems = [
     {
         name: 'Orders',
         icon: ordersIcon,
-        link: null,
+        link: '/company/invoices',
         subscriptionRestriction: false,
         paymentRestriction: true,
         userSelectRestriction: true,
@@ -133,7 +133,7 @@ export const companyNavMenuItems = [
     {
         name: 'Reports',
         icon: reportsIcon,
-        link: null,
+        link: '/company/reports',
         subscriptionRestriction: true,
         paymentRestriction: false,
         userSelectRestriction: true,
@@ -160,7 +160,7 @@ export const companyNavMenuItems = [
     {
         name: 'Settings',
         icon: settingsIcon,
-        link: null,
+        link: '/company/profile',
         subscriptionRestriction: false,
         paymentRestriction: false,
         userSelectRestriction: false,
@@ -203,7 +203,7 @@ export const companyNavMenuItems = [
     {
         name: 'Tools',
         icon: toolsIcon,
-        link: null,
+        link: '/company/release-notes',
         subscriptionRestriction: false,
         paymentRestriction: false,
         userSelectRestriction: true,
@@ -270,7 +270,7 @@ export const companyNavMenuItems = [
     {
         name: 'Support',
         icon: supportIcon,
-        link: null,
+        link: '/company/activity-log',
         subscriptionRestriction: false,
         paymentRestriction: false,
         userSelectRestriction: false,
