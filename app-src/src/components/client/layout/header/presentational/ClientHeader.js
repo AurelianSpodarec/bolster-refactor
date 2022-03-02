@@ -8,10 +8,6 @@ import SearchContainer from '../containers/SearchContainer';
 
 import HeaderProfile from 'components/companyAdmin/layout/header/presentational/HeaderProfile';
 import useCompanyHeader from 'components/companyAdmin/layout/header/hooks/useCompanyHeader';
-import CreditsButton from 'components/companyAdmin/generic/button/CreditsButton';
-import CircleButton from 'components/shared/generic/button/presentational/CircleButton';
-import ExchangeIcon from '../../../../../_content/images/icons/exchange.png';
-import EnvelopeIcon from '../../../../../_content/images/icons/envelope.png';
 
 const ClientHeader = ({ company, isCompanySelected }) => {
     const { companyColour, companyUserID } = useCompanyHeader();

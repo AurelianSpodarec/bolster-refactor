@@ -36,14 +36,17 @@ const HeaderProfile = () => {
                     <Link to="/company/profile" className="dropdown-item">
                         <img alt="profile icon" src={ProfileIcon} />
                         <span className="item-text">My Profile</span>
+                        <div className="dark-hover"></div>
                     </Link>
                     <Link to="/company/company-selection" className="dropdown-item">
                         <img alt="exchange icon" src={ExchangeIcon} />
                         <span className="item-text">Select Company</span>
+                        <div className="dark-hover"></div>
                     </Link>
                     <Link onClick={handleLogout} to="#" className="dropdown-item">
                         <img alt="logout icon" src={LogoutIcon} />
                         <span className="item-text">Logout</span>
+                        <div className="dark-hover"></div>
                     </Link>
                 </div>
             </div>
