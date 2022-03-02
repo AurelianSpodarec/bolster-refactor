@@ -167,6 +167,14 @@
                     }
 
                 }
+
+                &.dark {
+                    .dropdown-item {
+                        .item-text {
+                            color: black;
+                        }
+                    }
+                }
             }
 
             // bottom hover effect
