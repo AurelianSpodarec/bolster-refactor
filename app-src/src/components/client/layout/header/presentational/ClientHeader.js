@@ -5,6 +5,7 @@ import { FILE_STORAGE_URL } from 'config';
 import defaultStyles from 'constants/defaultStyles';
 
 import SearchContainer from '../containers/SearchContainer';
+
 import HeaderProfile from 'components/companyAdmin/layout/header/presentational/HeaderProfile';
 import useCompanyHeader from 'components/companyAdmin/layout/header/hooks/useCompanyHeader';
 import CreditsButton from 'components/companyAdmin/generic/button/CreditsButton';
@@ -13,7 +14,7 @@ import ExchangeIcon from '../../../../../_content/images/icons/exchange.png';
 import EnvelopeIcon from '../../../../../_content/images/icons/envelope.png';
 
 const ClientHeader = ({ company, isCompanySelected }) => {
-    const { companyColour, companyUserID, totalRequests, unreadMessageCount } = useCompanyHeader();
+    const { companyColour, companyUserID } = useCompanyHeader();
 
     return (
         <header
@@ -47,19 +48,6 @@ const ClientHeader = ({ company, isCompanySelected }) => {
 
                 <div className="account-area flex-row">
                     <div className="notifications flex-row align-center">
-                        <CreditsButton />
-                        <CircleButton
-                            href="/company/tools/transfer-requests"
-                            icon={ExchangeIcon}
-                            showNotification={!!totalRequests}
-                        />
-                        <CircleButton
-                            href="/company/message-centre"
-                            icon={EnvelopeIcon}
-                            showNotification={!!unreadMessageCount}
-                        />
-
-                        <div className="break-line" />
                         <HeaderProfile />
                     </div>
                 </div>
