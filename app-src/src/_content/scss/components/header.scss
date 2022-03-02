@@ -100,12 +100,17 @@
                 border-radius: 50px;
                 transition: 0.2s;
 
-                img {
+                img, .initials {
                     width: 100%;
                     height: 100%;
                     overflow: hidden;
                     @include rounded-all(50%);
                     z-index: 1;
+                }
+
+                .initials {
+                    @include ubuntu-medium;
+                    background-color: var(--nav-active);
                 }
             }
 
