@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import CompanyMenu from '../presentational/CompanyMenu';
 import { isEmpty } from 'helpers/generic';
 import { companyNavMenuItems } from '../../../../../constants/companyAdmin/menuItems';
-import useGetNotifications from '../../../../../hooks/useGetCompanyNotifications';
+import useGetCompanyNotifications from '../../../../../hooks/useGetCompanyNotifications';
 
 const CompanyMenuContainer = ({
     subscriptions,
@@ -26,7 +26,7 @@ const CompanyMenuContainer = ({
     const [shouldRestrictPayments, setShouldRestrictPayments] = useState(false);
 
     const { unreadMessageCount, unreadReleaseNoteCount, totalRequests, unreadCount } =
-        useGetNotifications();
+        useGetCompanyNotifications();
 
     const prevUsers = usePrevious({ users });
 

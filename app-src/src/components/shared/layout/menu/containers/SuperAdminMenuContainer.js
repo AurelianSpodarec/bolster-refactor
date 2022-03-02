@@ -1,18 +1,24 @@
 import React, { useEffect, useMemo } from 'react';
 import useGetSuperAdminNotifications from '../../../../../hooks/useGetSuperAdminNotifications';
 
-import { connect } from 'react-redux';
+import { batch, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import SuperAdminMenu from '../presentational/SuperAdminMenu';
-import fetchBugReportList from 'actions/superAdmin/bugReports/fetchBugReportList';
 import { superAdminNavMenuItems } from '../../../../../constants/superAdmin/menuItems';
+import fetchAllContactSubmissions from '../../../../../actions/superAdmin/contactSubmissions/async/fetchAllContactSubmissions';
+import fetchBugReportList from 'actions/superAdmin/bugReports/fetchBugReportList';
 
-const SuperAdminMenuContainer = ({ fetchBugReportList }) => {
+const SuperAdminMenuContainer = () => {
+    const dispatch = useDispatch();
+
     const { unreadSuperAdminBugReports, unreadSuperAdminContactSubmissions } =
         useGetSuperAdminNotifications();
 
     useEffect(() => {
-        fetchBugReportList();
+        batch(() => {
+            dispatch(fetchBugReportList());
+            dispatch(fetchAllContactSubmissions());
+        });
     }, []);
 
     const formattedNavItems = useMemo(
@@ -37,4 +43,4 @@ const SuperAdminMenuContainer = ({ fetchBugReportList }) => {
     return <SuperAdminMenu superAdminNavMenuItems={formattedNavItems} />;
 };
 
-export default withRouter(connect(null, { fetchBugReportList })(SuperAdminMenuContainer));
+export default withRouter(SuperAdminMenuContainer);
