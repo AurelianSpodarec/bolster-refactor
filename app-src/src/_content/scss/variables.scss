@@ -235,6 +235,7 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
     --background-color: #212228;
 
     // from palette (designs)
+    --bolster-primary: #ED1C24;
     --primary-default: #3364DD;
     --primary-hover: #0047FF;
     --primary-pressed: #2147A8;
@@ -264,10 +265,12 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
     --input-default:  #E5E5E5;
     --input-secondary:  rgba(229, 229, 229, 0.25);
     --tools-background: #0000001A;
-    --bolster-primary: #ED1C24;
 
     // text 
     --dropdown-text: #F9FAFA;
+
+    // fixed colours (not to be changed with dark theme)
+    --fixed-input-button-light: #AAACB1;
 }
 
 // dark theme variable overrides

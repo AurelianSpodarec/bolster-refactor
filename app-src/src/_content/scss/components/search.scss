@@ -39,7 +39,7 @@
         font-size: 160%;
         color: black;
         &::placeholder {
-            color: #AAACB1;
+            color: var(--fixed-input-button-light);
         }
     }
 }
