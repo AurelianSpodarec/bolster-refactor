@@ -23,14 +23,26 @@ const MenuItem = ({
             style={
                 isActive
                     ? {
-                          color: isBolsterLogoDark ? 'white' : textColour,
+                          color: isBolsterLogoDark ? 'black' : textColour,
                       }
                     : {}
             }
             to={link}
         >
             <div className="link-wrapper">
-                <img src={icon} alt={name} />
+                <img
+                    src={icon}
+                    alt={name}
+                    className="image"
+                    style={
+                        isActive && isBolsterLogoDark
+                            ? {
+                                  webkitFilter: 'invert(100%)',
+                                  filter: 'invert(100%)',
+                              }
+                            : {}
+                    }
+                />
 
                 <span>{name}</span>
 
