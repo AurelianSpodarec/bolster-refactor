@@ -25,32 +25,7 @@ export const companyNavMenuItems = [
         paymentRestriction: false,
         userSelectRestriction: true,
         clientAccessRestriction: false,
-        subNavItems: [
-            // {
-            //     name: 'Sites',
-            //     link: '/company/sites',
-            //     subscriptionRestriction: true,
-            //     paymentRestriction: false,
-            //     userSelectRestriction: true,
-            //     clientAccessRestriction: false,
-            // },
-            // {
-            //     name: 'Requests & Invites',
-            //     link: '/company/tools/transfer-requests',
-            //     subscriptionRestriction: true,
-            //     paymentRestriction: false,
-            //     userSelectRestriction: true,
-            //     clientAccessRestriction: false,
-            // },
-            // {
-            //     name: 'Invited Access',
-            //     link: '/client/companies',
-            //     subscriptionRestriction: true,
-            //     paymentRestriction: false,
-            //     userSelectRestriction: true,
-            //     clientAccessRestriction: true,
-            // },
-        ],
+        subNavItems: [],
     },
     {
         name: 'Users',
