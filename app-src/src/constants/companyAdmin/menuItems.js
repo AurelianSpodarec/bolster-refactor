@@ -234,14 +234,6 @@ export const companyNavMenuItems = [
                 userSelectRestriction: true,
                 clientAccessRestriction: false,
             },
-            {
-                name: 'Message Centre',
-                link: '/company/message-centre',
-                subscriptionRestriction: true,
-                paymentRestriction: false,
-                userSelectRestriction: true,
-                clientAccessRestriction: false,
-            },
         ],
     },
     {
