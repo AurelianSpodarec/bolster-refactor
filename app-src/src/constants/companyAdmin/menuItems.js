@@ -235,8 +235,8 @@ export const companyNavMenuItems = [
                 clientAccessRestriction: false,
             },
             {
-                name: 'Upcoming Alerts',
-                link: '/company/upcoming-alerts',
+                name: 'Message Centre',
+                link: '/company/message-centre',
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 userSelectRestriction: true,
