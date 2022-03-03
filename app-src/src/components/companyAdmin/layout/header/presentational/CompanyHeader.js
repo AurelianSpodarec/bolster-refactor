@@ -21,6 +21,8 @@ const Header = () => {
         isCompanySelection,
         totalRequests,
         unreadMessageCount,
+        isMobile,
+        toggleMobileMenu,
     } = useCompanyHeader();
 
     return (
@@ -31,6 +33,11 @@ const Header = () => {
         >
             <div className="flex flex-row align-stretch">
                 <div className="logo flex-row justify-center align-center">
+                    {isMobile && (
+                        <div className="mobile-menu" onClick={() => toggleMobileMenu()}>
+                            <i className="far fa-bars" />
+                        </div>
+                    )}
                     {!companyUserID ? (
                         <Link to="/company">
                             <img alt="logo of Bolster Systems" src={defaultStyles.logoFile} />
@@ -52,7 +59,7 @@ const Header = () => {
                         </>
                     )}
                 </div>
-                {!isCompanySelection && (
+                {!isCompanySelection && !isMobile && (
                     <div className="flex flex-row align-center">
                         <div className="search-area">
                             <SearchContainer placeholder="Search Sites, Drawings, Operatives" />
@@ -63,19 +70,22 @@ const Header = () => {
             <div className="account-area flex-row">
                 {!isCompanySelection && (
                     <div className="notifications flex-row align-center">
-                        <CreditsButton />
-                        <CircleButton
-                            href="/company/tools/transfer-requests"
-                            icon={ExchangeIcon}
-                            showNotification={!!totalRequests}
-                        />
-                        <CircleButton
-                            href="/company/message-centre"
-                            icon={EnvelopeIcon}
-                            showNotification={!!unreadMessageCount}
-                        />
-
-                        <div className="break-line" />
+                        {!isMobile && (
+                            <>
+                                <CreditsButton />
+                                <CircleButton
+                                    href="/company/tools/transfer-requests"
+                                    icon={ExchangeIcon}
+                                    showNotification={!!totalRequests}
+                                />
+                                <CircleButton
+                                    href="/company/message-centre"
+                                    icon={EnvelopeIcon}
+                                    showNotification={!!unreadMessageCount}
+                                />
+                                <div className="break-line" />
+                            </>
+                        )}
                         <HeaderProfile />
                     </div>
                 )}

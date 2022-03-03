@@ -10,6 +10,7 @@
     }
     #page-area {
         width: 100%;
+        padding: 20px;
     }
 
     //company admin header
@@ -51,7 +52,7 @@
             right: 0;
             background-color: $background-grey;
             width: 250px;
-            z-index: 5000;
+
             &.visible {
                 display: block;
                 z-index: 1001;
@@ -61,7 +62,6 @@
                 float: left;
                 width: 100%;
                 padding: 5px 15px;
-                float: left;
 
                 p {
                     @include ubuntu-medium;
@@ -141,6 +141,25 @@
             .notification-list {
                 width: 120%;
             }
+        }
+    }
+
+
+    .menu-wrapper {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+        transition: transform ease-in-out 0.5s;
+        transform: translateX(-100%);
+
+        &.mobile-open {
+            transform: translateX(0);
+        }
+
+        .logo {
+            max-width: 100px;
         }
     }
 
@@ -353,7 +372,6 @@
         }
         &.in-table {
             .table-filter {
-                width: auto;
                 width: 52%;
 
                 .custom-dropdown {
@@ -606,8 +624,7 @@
                 tr {
                     td {
                         font-size: 12px;
-                        padding: 5px 15px;
-                        padding-left: 30%;
+                        padding: 5px 15px 0 30%;
                         .mobile-table-heading {
                             top: 5px;
                         }
