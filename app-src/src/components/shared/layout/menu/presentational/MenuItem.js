@@ -8,6 +8,7 @@ import SubNavMenuLink from '../containers/SubNavMenuLink';
 const MenuItem = ({
     item: { name, link, showNotificationBadge, icon, subNavItems },
     formattedSubNavItems,
+    shouldUseCompanyColours,
 }) => {
     const [hover, setHover] = useState(false);
 
@@ -53,9 +54,12 @@ const MenuItem = ({
                 <>
                     <div
                         className="hover-indicator fade-in"
-                        style={{
-                            backgroundColor: companyColour,
-                        }}
+                        style={
+                            (isActive && shouldUseCompanyColours) ||
+                            (hover && shouldUseCompanyColours)
+                                ? { backgroundColor: companyColour }
+                                : {}
+                        }
                     />
 
                     {!!formattedSubNavItems?.length && (
@@ -64,7 +68,12 @@ const MenuItem = ({
                             className={`sub-nav fade-in ${isSubNavOverflowing ? 'bottom' : ''}`}
                         >
                             {formattedSubNavItems.map((item, i) => (
-                                <SubNavMenuLink key={i} item={item} companyColour={companyColour} />
+                                <SubNavMenuLink
+                                    key={i}
+                                    item={item}
+                                    companyColour={companyColour}
+                                    shouldUseCompanyColours={shouldUseCompanyColours}
+                                />
                             ))}
                         </div>
                     )}
@@ -74,10 +83,8 @@ const MenuItem = ({
             <div
                 className={`active-background  ${isActive ? 'active' : ''}`}
                 style={
-                    isActive
-                        ? {
-                              backgroundColor: companyColour,
-                          }
+                    (isActive && shouldUseCompanyColours) || (hover && shouldUseCompanyColours)
+                        ? { backgroundColor: companyColour }
                         : {}
                 }
             />
