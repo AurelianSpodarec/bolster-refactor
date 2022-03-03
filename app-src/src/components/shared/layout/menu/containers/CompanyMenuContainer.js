@@ -77,10 +77,6 @@ const CompanyMenuContainer = ({
                     if (item.subscriptionRestriction) {
                         return false;
                     }
-
-                    if (isCompanyUserOrSelecting && item.userSelectRestriction) {
-                        return false;
-                    }
                 }
 
                 return true;

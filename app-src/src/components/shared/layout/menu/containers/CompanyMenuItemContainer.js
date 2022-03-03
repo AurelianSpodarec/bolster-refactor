@@ -30,9 +30,6 @@ const CompanyMenuItemContainer = ({
             item.subNavItems
                 .filter(item => {
                     if (isSubscribed) {
-                        if (isCompanyUserOrSelecting && item.userSelectRestriction) {
-                            return false;
-                        }
                         if (shouldRestrictPayments && item.paymentRestriction) {
                             return false;
                         }
