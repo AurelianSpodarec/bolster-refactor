@@ -13,7 +13,7 @@ const ApprovedCompaniesListContainer = ({
 }) => {
     const filteredCompanies = _getFilteredCompanies();
     return filteredCompanies.length ? (
-        <div className="flex-row width-12 size-lg-12">
+        <div className="flex-row flex-wrap width-12 size-lg-12">
             {filteredCompanies.map(company => (
                 <BlockContainer
                     containerClass="flex-row-item size-lg-6 size-md-12"
