@@ -143,6 +143,14 @@ export const companyNavMenuItems = [
         userSelectRestriction: false,
         clientAccessRestriction: false,
         subNavItems: [
+            // {
+            //     name: 'My Profile',
+            //     link: '/company/profile',
+            //     subscriptionRestriction: false,
+            //     paymentRestriction: false,
+            //     userSelectRestriction: false,
+            //     clientAccessRestriction: false,
+            // },
             {
                 name: 'Company Settings',
                 link: '/company/settings',
