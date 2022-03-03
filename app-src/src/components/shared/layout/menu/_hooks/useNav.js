@@ -27,7 +27,7 @@ const useNav = (subNavItems, link) => {
         if (subNavItems?.length) {
             return subNavItems.find(item => item.link.toLowerCase() === route);
         }
-        if (route?.split('/')[1] === link.split('/')[1]) {
+        if (route?.split('/')[1] === link?.split('/')[1]) {
             return route.split('/').length <= 2;
         }
 

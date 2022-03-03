@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { usePrevious } from '../../../../../helpers/hooks';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useHistory, withRouter } from 'react-router-dom';
+import { connect, useDispatch } from 'react-redux';
 
 import CompanyMenu from '../presentational/CompanyMenu';
 import { isEmpty } from 'helpers/generic';
 import { companyNavMenuItems } from '../../../../../constants/companyAdmin/menuItems';
 import useGetCompanyNotifications from '../../../../../hooks/useGetCompanyNotifications';
+import { logout } from 'actions/shared/auth/sync/logout';
 
 const CompanyMenuContainer = ({
     subscriptions,
@@ -16,6 +17,9 @@ const CompanyMenuContainer = ({
     users,
     companyUserID,
 }) => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
     if (!hasInitiallyFetched) return null;
 
     const isCompanySelection = location.pathname.includes('company/company-selection');
@@ -36,12 +40,20 @@ const CompanyMenuContainer = ({
         }
     }, [users]);
 
+    const handleLogout = e => {
+        e.preventDefault();
+
+        dispatch(logout());
+
+        history.replace('/auth/login');
+    };
+
     const formattedCompanyNavMenuItems = useMemo(
         () =>
             companyNavMenuItems
                 .filter(item => {
                     if (isSubscribed) {
-                        if (isCompanyUserOrSelecting && item.userSelectRestriction) {
+                        if (!isCompanyUserOrSelecting && item.name === 'Logout') {
                             return false;
                         }
                         if (shouldRestrictPayments && item.paymentRestriction) {
@@ -52,6 +64,10 @@ const CompanyMenuContainer = ({
                         }
                     } else {
                         if (item.subscriptionRestriction) {
+                            return false;
+                        }
+
+                        if (isCompanyUserOrSelecting && item.userSelectRestriction) {
                             return false;
                         }
                     }
@@ -71,6 +87,12 @@ const CompanyMenuContainer = ({
                     }
                     if (item.name === 'Reports' && !!unreadCount) {
                         return { ...item, showNotificationBadge: true };
+                    }
+                    if (item.name === 'Logout') {
+                        return {
+                            ...item,
+                            onClick: handleLogout,
+                        };
                     }
 
                     return { ...item, showNotificationBadge: false };

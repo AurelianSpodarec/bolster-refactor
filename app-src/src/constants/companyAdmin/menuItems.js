@@ -6,6 +6,7 @@ import reportsIcon from '../../_content/images/icons/nav/Reports.svg';
 import settingsIcon from '../../_content/images/icons/nav/Settings.svg';
 import toolsIcon from '../../_content/images/icons/nav/Tools.svg';
 import supportIcon from '../../_content/images/icons/nav/Support-CompanyAdmin.svg';
+import logoutIcon from '../../_content/images/icons/logout.png';
 
 export const companyNavMenuItems = [
     {
@@ -276,5 +277,15 @@ export const companyNavMenuItems = [
                 clientAccessRestriction: false,
             },
         ],
+    },
+    {
+        name: 'Logout',
+        icon: logoutIcon,
+        link: null,
+        subscriptionRestriction: false,
+        paymentRestriction: false,
+        userSelectRestriction: false,
+        clientAccessRestriction: false,
+        subNavItems: [],
     },
 ];

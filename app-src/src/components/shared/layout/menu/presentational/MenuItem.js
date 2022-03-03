@@ -8,7 +8,7 @@ import { selectIsMobile } from '../../../../../selectors/shared/mobile';
 import { useSelector } from 'react-redux';
 
 const MenuItem = ({
-    item: { name, link, showNotificationBadge, icon, subNavItems },
+    item: { name, link, showNotificationBadge, icon, subNavItems, onClick },
     formattedSubNavItems,
     shouldUseCompanyColours,
 }) => {
@@ -32,6 +32,7 @@ const MenuItem = ({
                     : {}
             }
             to={link}
+            onClick={onClick}
         >
             <div className="link-wrapper">
                 <img
