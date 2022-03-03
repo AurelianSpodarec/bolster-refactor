@@ -28,7 +28,7 @@ const CompanyMenu = ({
 
             <div className="footer">
                 <img src={bolsterLogo} alt="Powered by Bolster" />
-                <p>{latestAppVersion}</p>
+                <p>App version: {latestAppVersion}</p>
             </div>
         </div>
     );
