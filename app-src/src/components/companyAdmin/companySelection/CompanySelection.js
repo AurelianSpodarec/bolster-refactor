@@ -104,7 +104,10 @@ const CompanySelection = () => {
             >
                 <div className="flex-row flex-wrap width-12 size-lg-12">
                     {filteredCompanies(companies).map(company => (
-                        <Block containerClass="flex-row-item size-lg-6" key={company.companyID}>
+                        <Block
+                            containerClass="flex-row-item size-lg-4 size-md-6"
+                            key={company.companyID}
+                        >
                             <BlockHeading classes="heading heading-2 underline-full half-margin">
                                 {company.companyName} ({COMPANY_USER_ROLE_IDS[company.type]})
                             </BlockHeading>
