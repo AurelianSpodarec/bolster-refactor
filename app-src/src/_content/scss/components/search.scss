@@ -51,8 +51,13 @@
     left: 0;
     width: 100%;
     min-width: 405px;
+    max-height: 500px;
     background-color: white;
     @include dropdown-popup();
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-box-shadow: 0 6px 9px -1px #000000;
+    box-shadow: 0 6px 9px -1px #000000;
 
     &.visible {
         z-index: 10001;
