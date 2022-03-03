@@ -1,9 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 import CompanyMenuItemContainer from '../containers/CompanyMenuItemContainer';
 import bolsterLogo from '../../../../../_content/images/footer/powered-by-bolster-white.svg';
-import { selectLatestAppVersion } from '../../../../../selectors/companyAdmin/app';
 
 const CompanyMenu = ({
     companyNavMenuItems,
@@ -11,8 +9,8 @@ const CompanyMenu = ({
     isCompanyUserOrSelecting,
     isClientAccess,
     shouldRestrictPayments,
+    latestAppVersion,
 }) => {
-    const latestAppVersion = useSelector(selectLatestAppVersion);
     return (
         <div className="menu">
             <div className="nav-wrapper">
@@ -29,8 +27,8 @@ const CompanyMenu = ({
             </div>
 
             <div className="footer">
-                <p>{latestAppVersion}</p>
                 <img src={bolsterLogo} alt="Powered by Bolster" />
+                <p>{latestAppVersion}</p>
             </div>
         </div>
     );

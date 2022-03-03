@@ -3,7 +3,7 @@ import React from 'react';
 import bolsterLogo from '../../../../../_content/images/footer/powered-by-bolster-white.svg';
 import ClientMenuItemContainer from '../containers/ClientMenuItemContainer';
 
-const ClientMenu = ({ clientNavMenuItems }) => (
+const ClientMenu = ({ clientNavMenuItems, latestAppVersion }) => (
     <div className="menu">
         <div className="nav-wrapper">
             {clientNavMenuItems.map((navItem, index) => (
@@ -11,7 +11,10 @@ const ClientMenu = ({ clientNavMenuItems }) => (
             ))}
         </div>
 
-        <img src={bolsterLogo} alt="Bolster Logo" className="logo" />
+        <div className="footer">
+            <img src={bolsterLogo} alt="Powered by Bolster" />
+            <p>{latestAppVersion}</p>
+        </div>
     </div>
 );
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { usePrevious } from '../../../../../helpers/hooks';
 import { useHistory, withRouter } from 'react-router-dom';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 
 import CompanyMenu from '../presentational/CompanyMenu';
 import { isEmpty } from 'helpers/generic';
@@ -11,6 +11,7 @@ import {
 } from '../../../../../constants/companyAdmin/menuItems';
 import useGetCompanyNotifications from '../../../../../hooks/useGetCompanyNotifications';
 import { logout } from 'actions/shared/auth/sync/logout';
+import { selectLatestAppVersion } from 'selectors/companyAdmin/app';
 
 const CompanyMenuContainer = ({
     subscriptions,
@@ -29,6 +30,7 @@ const CompanyMenuContainer = ({
     const isCompanyUser = !!companyUserID;
     const isSubscribed = !isEmpty(subscriptions) || (!hasUnpaidServiceInvoice && !!startOn);
     const isCompanyUserOrSelecting = isCompanySelection || !isCompanyUser;
+    const latestAppVersion = useSelector(selectLatestAppVersion);
 
     const [shouldRestrictPayments, setShouldRestrictPayments] = useState(false);
 
@@ -117,6 +119,7 @@ const CompanyMenuContainer = ({
             isCompanyUserOrSelecting={isCompanyUserOrSelecting}
             isClientAccess={isClientAccess}
             shouldRestrictPayments={shouldRestrictPayments}
+            latestAppVersion={latestAppVersion}
         />
     );
 };

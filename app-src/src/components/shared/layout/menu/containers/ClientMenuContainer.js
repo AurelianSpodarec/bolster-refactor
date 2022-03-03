@@ -4,10 +4,12 @@ import useGetClientNotifications from '../../../../../hooks/useGetClientNotifica
 
 import ClientMenu from '../presentational/ClientMenu';
 import { clientNavMenuItems } from '../../../../../constants/client/menuItems';
+import { selectLatestAppVersion } from 'selectors/companyAdmin/app';
 
 const ClientMenuContainer = () => {
     const { isCompanyAdmin } = useSelector(mapStateToProps);
     const { unreadCount } = useGetClientNotifications();
+    const latestAppVersion = useSelector(selectLatestAppVersion);
 
     const formattedClientNavMenuItems = useMemo(
         () =>
@@ -24,7 +26,11 @@ const ClientMenuContainer = () => {
         [clientNavMenuItems, unreadCount],
     );
     return (
-        <ClientMenu isCompany={isCompanyAdmin} clientNavMenuItems={formattedClientNavMenuItems} />
+        <ClientMenu
+            isCompany={isCompanyAdmin}
+            clientNavMenuItems={formattedClientNavMenuItems}
+            latestAppVersion={latestAppVersion}
+        />
     );
 };
 

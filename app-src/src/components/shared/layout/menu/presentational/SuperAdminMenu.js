@@ -3,7 +3,7 @@ import React from 'react';
 import bolsterLogo from '../../../../../_content/images/footer/powered-by-bolster-white.svg';
 import SuperAdminMenuItemContainer from '../containers/SuperAdminMenuItemContainer';
 
-const SuperAdminMenu = ({ superAdminNavMenuItems }) => {
+const SuperAdminMenu = ({ superAdminNavMenuItems, latestAppVersion }) => {
     return (
         <div className="menu">
             <div className="nav-wrapper">
@@ -12,7 +12,10 @@ const SuperAdminMenu = ({ superAdminNavMenuItems }) => {
                 ))}
             </div>
 
-            <img src={bolsterLogo} alt="Bolster Logo" className="logo" />
+            <div className="footer">
+                <img src={bolsterLogo} alt="Powered by Bolster" />
+                <p>{latestAppVersion}</p>
+            </div>
         </div>
     );
 };
