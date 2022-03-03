@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { PARENTAL_TYPES } from 'constants/companyAdmin/enums';
 import { BUY_CREDITS } from 'constants/shared/modalTypes';
-import PaymentIcon from '../../../../_content/images/icons/paymentIcon.png';
+import PaymentIcon from '../../../../_content/images/icons/paymentIcon.svg';
 
 import useShouldRestrictPayments from 'hooks/useShouldRestrictPayments';
 
