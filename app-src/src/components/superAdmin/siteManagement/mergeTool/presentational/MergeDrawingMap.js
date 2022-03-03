@@ -9,15 +9,20 @@ import MergeMapPin from './MergeMapPin';
 const MergeDrawingMap = ({ drawing = {}, points, setPoints }) => {
     // alternates between A/B
     const [currentPoint, setCurrentPoint] = useState('A');
+    const [shouldScroll, setShouldScroll] = useState(false);
 
     const onClick = ({ latlng }) => {
-        const { lat, lng } = latlng;
-        setPoints({ ...points, [currentPoint]: { latY: lat, lngX: lng } });
+        if (shouldScroll) {
+            const { lat, lng } = latlng;
+            setPoints({ ...points, [currentPoint]: { latY: lat, lngX: lng } });
 
-        if (currentPoint === 'A') {
-            setCurrentPoint('B');
+            if (currentPoint === 'A') {
+                setCurrentPoint('B');
+            } else {
+                setCurrentPoint('A');
+            }
         } else {
-            setCurrentPoint('A');
+            setShouldScroll(true);
         }
     };
 
@@ -31,6 +36,7 @@ const MergeDrawingMap = ({ drawing = {}, points, setPoints }) => {
                 onClick={onClick}
                 crs={CRS.Simple}
                 tap={false}
+                scrollWheelZoom={shouldScroll}
             >
                 <TileLayer
                     attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
