@@ -4,6 +4,8 @@ import useNavOverflow from '../_hooks/useNavOverflow';
 import { Link } from 'react-router-dom';
 
 import SubNavMenuLink from '../containers/SubNavMenuLink';
+import { selectIsMobile } from '../../../../../selectors/shared/mobile';
+import { useSelector } from 'react-redux';
 
 const MenuItem = ({
     item: { name, link, showNotificationBadge, icon, subNavItems },
@@ -11,6 +13,7 @@ const MenuItem = ({
     shouldUseCompanyColours,
 }) => {
     const [hover, setHover] = useState(false);
+    const isMobile = useSelector(selectIsMobile);
 
     const { subNavRef, isSubNavOverflowing } = useNavOverflow(hover);
 
@@ -50,7 +53,7 @@ const MenuItem = ({
                 {showNotificationBadge && <div className="notification-badge" />}
             </div>
 
-            {hover ? (
+            {hover || (isMobile && isActive) ? (
                 <>
                     <div
                         className="hover-indicator fade-in"

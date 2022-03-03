@@ -158,6 +158,22 @@
             transform: translateX(0);
         }
 
+        .menu {
+            .item {
+                flex-direction: column;
+
+                .sub-nav {
+                    position: relative;
+                    top: 0;
+                    left: 0;
+                }
+
+                .active-background {
+                    width: 100%;
+                }
+            }
+        }
+
         .logo {
             max-width: 100px;
         }
