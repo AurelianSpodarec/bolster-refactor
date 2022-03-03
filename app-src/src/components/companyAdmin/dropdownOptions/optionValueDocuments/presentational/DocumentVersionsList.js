@@ -24,7 +24,7 @@ const DocumentVersionsList = ({
             .map(version => {
                 const [, filename] = version.fileName.split('/');
                 return (
-                    <div key={version.id} className="flex-row width-12 size-lg-12">
+                    <div key={version.id} className="flex-row flex-wrap width-12 size-lg-12">
                         <FieldOutput
                             title={'Filename'}
                             description={filename}
