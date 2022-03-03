@@ -7,6 +7,7 @@ import settingsIcon from '../../_content/images/icons/nav/Settings.svg';
 import toolsIcon from '../../_content/images/icons/nav/Tools.svg';
 import supportIcon from '../../_content/images/icons/nav/Support-CompanyAdmin.svg';
 import logoutIcon from '../../_content/images/icons/logout.png';
+import companyIcon from '../../_content/images/icons/nav/Company.svg';
 
 export const companyNavMenuItems = [
     {
@@ -143,14 +144,6 @@ export const companyNavMenuItems = [
         clientAccessRestriction: false,
         subNavItems: [
             {
-                name: 'My Profile',
-                link: '/company/profile',
-                subscriptionRestriction: false,
-                paymentRestriction: false,
-                userSelectRestriction: false,
-                clientAccessRestriction: false,
-            },
-            {
                 name: 'Company Settings',
                 link: '/company/settings',
                 subscriptionRestriction: true,
@@ -268,24 +261,24 @@ export const companyNavMenuItems = [
                 userSelectRestriction: true,
                 clientAccessRestriction: false,
             },
-            {
-                name: 'Select Company',
-                link: '/company/company-selection',
-                subscriptionRestriction: false,
-                paymentRestriction: false,
-                userSelectRestriction: false,
-                clientAccessRestriction: false,
-            },
         ],
+    },
+];
+
+export const companySelectList = [
+    {
+        name: 'My Profile',
+        icon: companyIcon,
+        link: '/company/profile',
+    },
+    {
+        name: 'Select Company',
+        icon: companyIcon,
+        link: '/company/company-selection',
     },
     {
         name: 'Logout',
         icon: logoutIcon,
         link: null,
-        subscriptionRestriction: false,
-        paymentRestriction: false,
-        userSelectRestriction: false,
-        clientAccessRestriction: false,
-        subNavItems: [],
     },
 ];

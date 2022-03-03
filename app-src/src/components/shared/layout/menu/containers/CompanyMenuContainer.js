@@ -5,7 +5,10 @@ import { connect, useDispatch } from 'react-redux';
 
 import CompanyMenu from '../presentational/CompanyMenu';
 import { isEmpty } from 'helpers/generic';
-import { companyNavMenuItems } from '../../../../../constants/companyAdmin/menuItems';
+import {
+    companyNavMenuItems,
+    companySelectList,
+} from '../../../../../constants/companyAdmin/menuItems';
 import useGetCompanyNotifications from '../../../../../hooks/useGetCompanyNotifications';
 import { logout } from 'actions/shared/auth/sync/logout';
 
@@ -48,67 +51,68 @@ const CompanyMenuContainer = ({
         history.replace('/auth/login');
     };
 
-    const formattedCompanyNavMenuItems = useMemo(
-        () =>
-            companyNavMenuItems
-                .filter(item => {
-                    if (isSubscribed) {
-                        if (!isCompanyUserOrSelecting && item.name === 'Logout') {
-                            return false;
-                        }
-                        if (shouldRestrictPayments && item.paymentRestriction) {
-                            return false;
-                        }
-                        if (!isClientAccess && item.clientAccessRestriction) {
-                            return false;
-                        }
-                    } else {
-                        if (item.subscriptionRestriction) {
-                            return false;
-                        }
+    const formattedCompanyNavMenuItems = useMemo(() => {
+        if (isCompanyUserOrSelecting) {
+            return companySelectList.map(item => {
+                if (item.name === 'Logout') {
+                    return {
+                        ...item,
+                        onClick: handleLogout,
+                    };
+                }
 
-                        if (isCompanyUserOrSelecting && item.userSelectRestriction) {
-                            return false;
-                        }
+                return item;
+            });
+        }
+        return companyNavMenuItems
+            .filter(item => {
+                if (isSubscribed) {
+                    if (shouldRestrictPayments && item.paymentRestriction) {
+                        return false;
                     }
-
-                    return true;
-                })
-                .map(item => {
-                    if (
-                        (item.name === 'Tools' && !!unreadMessageCount) ||
-                        (item.name === 'Tools' && !!unreadReleaseNoteCount)
-                    ) {
-                        return { ...item, showNotificationBadge: true };
+                    if (!isClientAccess && item.clientAccessRestriction) {
+                        return false;
+                    }
+                } else {
+                    if (item.subscriptionRestriction) {
+                        return false;
                     }
 
-                    if (item.name === 'Sites' && !!totalRequests) {
-                        return { ...item, showNotificationBadge: true };
+                    if (isCompanyUserOrSelecting && item.userSelectRestriction) {
+                        return false;
                     }
-                    if (item.name === 'Reports' && !!unreadCount) {
-                        return { ...item, showNotificationBadge: true };
-                    }
-                    if (item.name === 'Logout') {
-                        return {
-                            ...item,
-                            onClick: handleLogout,
-                        };
-                    }
+                }
 
-                    return { ...item, showNotificationBadge: false };
-                }),
-        [
-            companyNavMenuItems,
-            isCompanyUserOrSelecting,
-            isSubscribed,
-            shouldRestrictPayments,
-            isClientAccess,
-            unreadMessageCount,
-            unreadReleaseNoteCount,
-            totalRequests,
-            unreadCount,
-        ],
-    );
+                return true;
+            })
+            .map(item => {
+                if (
+                    (item.name === 'Tools' && !!unreadMessageCount) ||
+                    (item.name === 'Tools' && !!unreadReleaseNoteCount)
+                ) {
+                    return { ...item, showNotificationBadge: true };
+                }
+
+                if (item.name === 'Sites' && !!totalRequests) {
+                    return { ...item, showNotificationBadge: true };
+                }
+                if (item.name === 'Reports' && !!unreadCount) {
+                    return { ...item, showNotificationBadge: true };
+                }
+
+                return { ...item, showNotificationBadge: false };
+            });
+    }, [
+        companyNavMenuItems,
+        isCompanyUserOrSelecting,
+        isSubscribed,
+        shouldRestrictPayments,
+        isClientAccess,
+        unreadMessageCount,
+        unreadReleaseNoteCount,
+        totalRequests,
+        unreadCount,
+    ]);
 
     return (
         <CompanyMenu
