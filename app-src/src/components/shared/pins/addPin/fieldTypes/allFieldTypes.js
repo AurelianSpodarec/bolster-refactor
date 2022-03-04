@@ -17,7 +17,7 @@ import MultiDropdownOptions from '../fieldTypes/MultiDropdownOptions';
 import MultiMultiDropdownOptions from '../fieldTypes/MultiMultiDropdownOptions';
 import StaticImage from '../fieldTypes/StaticImage';
 
-import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
+import { QUESTION_TYPE_NUMBERS, QUESTION_TYPES } from 'constants/shared/templateBuilder';
 const {
     SINGLE_LINE,
     MULTI_LINE,
@@ -59,6 +59,7 @@ export const fieldTypes = {
 };
 
 export const getDefaultValue = question => {
+    console.log('question:', QUESTION_TYPES[+question.type]);
     switch (+question.type) {
         case SINGLE_LINE:
         case MULTI_LINE:
@@ -66,7 +67,7 @@ export const getDefaultValue = question => {
         case SINGLE_PHOTO:
             return '';
         case DROPDOWN_OPTIONS: {
-            return question.defaultValue || [];
+            return [question.defaultValue] || [];
         }
         case RADIO:
             return [question.defaultValue] || [];
@@ -79,7 +80,10 @@ export const getDefaultValue = question => {
         case MULTI_PHOTO:
         case MULTI_MULTI_DROPDOWN_OPTIONS:
         case MULTI_DROPDOWN_OPTIONS:
-            return question.defaultValue || [];
+            if (!question.defaultValue) return [];
+            return Array.isArray(question.defaultValue)
+                ? question.defaultValue
+                : [question.defaultValue];
         case CHECKBOX:
             return false;
         default:
