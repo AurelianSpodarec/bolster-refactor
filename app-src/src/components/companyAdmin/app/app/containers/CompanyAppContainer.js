@@ -9,7 +9,6 @@ import companyFetchAllServices from 'actions/companyAdmin/services/async/fetchAl
 import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 import selectMenuTab from 'actions/shared/generic/tabs/sync/selectMenuTab';
 import fetchAllCredits from 'actions/companyAdmin/credits/fetchAllCredits';
-import fetchLatestAppVersion from 'actions/companyAdmin/app/async/fetchLatestAppVersion';
 
 import CompanyApp from '../presentational/CompanyApp';
 
@@ -47,7 +46,6 @@ class CompanyAppContainer extends React.PureComponent {
         const {
             companyID,
             fetchHomeData,
-            fetchLatestAppVersion,
             fetchCompanySettings,
             resetFilterOptions,
             fetchCompanyData,
@@ -101,7 +99,6 @@ const mapDispatchToProps = dispatch => ({
     fetchCompanySettings: () => dispatch(fetchCompanySettings()),
     selectCompanyMenuTab: () => dispatch(selectMenuTab(MENU_TABS.COMPANY_USER)),
     fetchSingleCompanyUser: companyUserID => dispatch(fetchSingleCompanyUser(companyUserID)),
-    fetchLatestAppVersion: () => dispatch(fetchLatestAppVersion()),
     resetFilterOptions: () => dispatch(resetFilterOptions()),
 });
 
