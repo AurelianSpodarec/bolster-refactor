@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import CompanyHeader from '../presentational/CompanyHeader';
@@ -66,6 +66,7 @@ class CompanyHeaderContainer extends Component {
             />
         );
     }
+
     componentDidMount = () => {
         const { users, companyUserID } = this.props;
 
@@ -75,6 +76,7 @@ class CompanyHeaderContainer extends Component {
             });
         }
     };
+
     componentDidUpdate = prevProps => {
         const { users, companyUserID } = this.props;
 

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 
 import HeaderNotifications from '../presentational/HeaderNotifications';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
 import moment from 'moment';
 import markSystemMessagesAsRead from 'actions/companyAdmin/messageCentre/async/markSystemMessagesAsRead';
+import fetchSystemMessages from '../../../../../actions/companyAdmin/messageCentre/async/fetchSystemMessages';
 
 class HeaderNotificationsContainer extends Component {
     state = {
@@ -56,6 +57,16 @@ class HeaderNotificationsContainer extends Component {
 
         this.togglePopup();
     };
+
+    componentDidMount = () => {
+        const { fetchSystemMessages } = this.props;
+
+        this.interval = setInterval(() => fetchSystemMessages(), 6000);
+    };
+
+    componentWillUnmount = () => {
+        clearInterval(this.interval);
+    };
 }
 
 const mapStateToProps = ({
@@ -70,6 +81,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
     markSystemMessagesAsRead: () => dispatch(markSystemMessagesAsRead()),
+    fetchSystemMessages: () => dispatch(fetchSystemMessages()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderNotificationsContainer);
