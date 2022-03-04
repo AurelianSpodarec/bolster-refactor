@@ -223,7 +223,7 @@ export default function (ProtectedComponent) {
             let hierarchyID;
 
             if (!isEmpty(siteID)) {
-                hierarchyType = 'site';
+                hierarchyType = +HIERARCHY_IDS.SITE;
                 hierarchyID = siteID;
             } else {
                 if (!companyUserIDs.length) {
