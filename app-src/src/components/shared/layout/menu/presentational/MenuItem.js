@@ -19,8 +19,16 @@ const MenuItem = ({
 
     const { isActive, textColour, companyColour, isBolsterLogoDark } = useNav(subNavItems, link);
 
+    const ElementToRender = ({ ...props }) => {
+        if (link) {
+            return <Link {...props} />;
+        } else {
+            return <span {...props} />;
+        }
+    };
+
     return (
-        <Link
+        <ElementToRender
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
             className="item custom-hover"
@@ -92,7 +100,7 @@ const MenuItem = ({
                         : {}
                 }
             />
-        </Link>
+        </ElementToRender>
     );
 };
 
