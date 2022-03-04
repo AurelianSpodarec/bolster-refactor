@@ -34,8 +34,7 @@ const CompanyMenuContainer = ({
 
     const [shouldRestrictPayments, setShouldRestrictPayments] = useState(false);
 
-    const { unreadMessageCount, unreadReleaseNoteCount, totalRequests, unreadCount } =
-        useGetCompanyNotifications();
+    const { unreadReleaseNoteCount, totalRequests, unreadCount } = useGetCompanyNotifications();
 
     const prevUsers = usePrevious({ users });
 
@@ -85,8 +84,8 @@ const CompanyMenuContainer = ({
             })
             .map(item => {
                 if (
-                    (item.name === 'Tools' && !!unreadMessageCount) ||
-                    (item.name === 'Tools' && !!unreadReleaseNoteCount)
+                    item.subNavItems?.find(item => item.link === '/company/release-notes') &&
+                    !!unreadReleaseNoteCount
                 ) {
                     return { ...item, showNotificationBadge: true };
                 }
@@ -94,7 +93,10 @@ const CompanyMenuContainer = ({
                 if (item.name === 'Sites' && !!totalRequests) {
                     return { ...item, showNotificationBadge: true };
                 }
-                if (item.name === 'Reports' && !!unreadCount) {
+                if (
+                    item.subNavItems?.find(item => item.link === '/company/reports') &&
+                    !!unreadCount
+                ) {
                     return { ...item, showNotificationBadge: true };
                 }
 
@@ -106,7 +108,6 @@ const CompanyMenuContainer = ({
         isSubscribed,
         shouldRestrictPayments,
         isClientAccess,
-        unreadMessageCount,
         unreadReleaseNoteCount,
         totalRequests,
         unreadCount,
