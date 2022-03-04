@@ -1,7 +1,7 @@
 import { TIME_PERIOD } from 'constants/companyAdmin/enums';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, batch } from 'react-redux';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import fetchTimesheetsWeek from 'actions/companyAdmin/timesheets/async/fetchTimesheetsWeek';
 import { useParams } from 'react-router-dom';
@@ -24,7 +24,6 @@ import { selectServiceIDs } from 'selectors/companyAdmin/services';
 import { ERROR_MODAL, GENERATE_TIMESHEET_REPORT } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import {
-    selectCompanyUsers,
     selectCompanyUsersFetchError,
     selectCompanyUsersIsFetching,
 } from 'selectors/companyAdmin/companyUsers';
@@ -46,7 +45,6 @@ const useTimesheets = () => {
 
     const companyUsersIsFetching = useSelector(selectCompanyUsersIsFetching);
     const companyUsersFetchError = useSelector(selectCompanyUsersFetchError);
-    const companyUsers = useSelector(selectCompanyUsers);
 
     const timesheetsIsFetching = useSelector(selectTimesheetsIsFetching);
     const timesheetsFetchError = useSelector(selectTimesheetsFetchError);
@@ -169,13 +167,20 @@ const useTimesheets = () => {
 
     useEffect(() => {
         // on first mount
-        dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
-        dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
-        dispatch(fetchCompanyUsers());
-        dispatch(fetchJobReferences());
 
         if (id) {
-            dispatch(setCompanyUserIDs([parseInt(id)]));
+            const postBody = [parseInt(id)];
+            batch(() => {
+                dispatch(setCompanyUserIDs(postBody));
+                dispatch(fetchTimesheetsWeek(postBody, startDate));
+            });
+        } else {
+            batch(() => {
+                dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
+                dispatch(fetchTimesheetsWeek([], startDate));
+                dispatch(fetchCompanyUsers());
+                dispatch(fetchJobReferences());
+            });
         }
     }, [dispatch]);
 
