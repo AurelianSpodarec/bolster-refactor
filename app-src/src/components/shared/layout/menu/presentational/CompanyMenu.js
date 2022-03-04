@@ -26,7 +26,7 @@ const CompanyMenu = ({
                 ))}
             </div>
 
-            <div className="footer">
+            <div className="nav-footer">
                 <img src={bolsterLogo} alt="Powered by Bolster" />
                 <p>App version: {latestAppVersion}</p>
             </div>
