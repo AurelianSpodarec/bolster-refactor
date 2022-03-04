@@ -8,6 +8,7 @@ import toolsIcon from '../../_content/images/icons/nav/Tools.svg';
 import supportIcon from '../../_content/images/icons/nav/Support-CompanyAdmin.svg';
 import logoutIcon from '../../_content/images/icons/logout.png';
 import companyIcon from '../../_content/images/icons/nav/Company.svg';
+import selectCompanyIcon from '../../_content/images/icons/nav/SelectCompany.svg';
 
 export const companyNavMenuItems = [
     {
@@ -238,7 +239,7 @@ export const companySelectList = [
     },
     {
         name: 'Select Company',
-        icon: companyIcon,
+        icon: selectCompanyIcon,
         link: '/company/company-selection',
     },
     {
