@@ -77,6 +77,10 @@ em {
     }
 }
 
+#page-content {
+    min-height: 100%;
+}
+
 .flex-container {
     display: flex;
     flex-direction: row;

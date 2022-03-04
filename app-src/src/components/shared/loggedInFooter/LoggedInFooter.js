@@ -6,7 +6,7 @@ import vimeoIcon from '_content/images/icons/socials/vimeo.svg';
 import instagramIcon from '_content/images/icons/socials/instagram.svg';
 import twitterIcon from '_content/images/icons/socials/twitter.svg';
 
-const Footer = () => {
+const LoggedInFooter = () => {
     return (
         <footer className="footer">
             <div className="link-wrapper">
@@ -14,7 +14,7 @@ const Footer = () => {
 
                 <div className="divider" />
 
-                <Link to="/auth/terms">Terms & Conditions</Link>
+                <Link to="/auth/terms">Terms &amp; Conditions</Link>
 
                 <div className="divider" />
 
@@ -45,4 +45,4 @@ const Footer = () => {
     );
 };
 
-export default Footer;
+export default LoggedInFooter;
