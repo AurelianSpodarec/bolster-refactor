@@ -23,6 +23,7 @@ import { AUTH_TYPES } from 'constants/shared/auth';
 import fetchMessagesBasic from 'actions/companyAdmin/messages/async/fetchMessagesBasic';
 import fetchRecentUpdates from 'actions/companyAdmin/recentUpdates/async/fetchRecentUpdates';
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
+import fetchLatestAppVersion from '../../../../../actions/companyAdmin/app/async/fetchLatestAppVersion';
 
 class CompanyAppContainer extends React.PureComponent {
     render() {
