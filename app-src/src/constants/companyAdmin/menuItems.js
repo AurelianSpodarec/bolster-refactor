@@ -81,15 +81,15 @@ export const companyNavMenuItems = [
         clientAccessRestriction: false,
         subNavItems: [
             {
-                name: 'Orders',
-                link: '/company/invoices',
+                name: 'Subscriptions & Credits',
+                link: '/company/subscription',
                 subscriptionRestriction: false,
                 paymentRestriction: true,
                 clientAccessRestriction: false,
             },
             {
-                name: 'Subscriptions & Credits',
-                link: '/company/subscription',
+                name: 'Orders',
+                link: '/company/invoices',
                 subscriptionRestriction: false,
                 paymentRestriction: true,
                 clientAccessRestriction: false,
@@ -135,13 +135,6 @@ export const companyNavMenuItems = [
         paymentRestriction: false,
         clientAccessRestriction: false,
         subNavItems: [
-            // {
-            //     name: 'My Profile',
-            //     link: '/company/profile',
-            //     subscriptionRestriction: false,
-            //     paymentRestriction: false,
-            //     clientAccessRestriction: false,
-            // },
             {
                 name: 'Company Settings',
                 link: '/company/settings',
@@ -152,13 +145,6 @@ export const companyNavMenuItems = [
             {
                 name: 'My Templates',
                 link: '/company/tools/templates',
-                subscriptionRestriction: true,
-                paymentRestriction: false,
-                clientAccessRestriction: false,
-            },
-            {
-                name: 'Job References',
-                link: '/company/job-references',
                 subscriptionRestriction: true,
                 paymentRestriction: false,
                 clientAccessRestriction: false,
@@ -174,12 +160,20 @@ export const companyNavMenuItems = [
         clientAccessRestriction: false,
         subNavItems: [
             {
-                name: 'Release Notes',
-                link: '/company/release-notes',
+                name: 'Bolster Approved Companies',
+                link: '/company/approved-companies',
+                subscriptionRestriction: true,
+                paymentRestriction: false,
+                clientAccessRestriction: false,
+            },
+            {
+                name: 'Company Documents',
+                link: '/company/company-documents',
                 subscriptionRestriction: false,
                 paymentRestriction: false,
                 clientAccessRestriction: false,
             },
+
             {
                 name: 'Activity Log',
                 link: '/company/activity-log',
@@ -191,27 +185,6 @@ export const companyNavMenuItems = [
                 name: 'Generate QR Codes',
                 link: '/company/generate-qr-codes',
                 subscriptionRestriction: false,
-                paymentRestriction: false,
-                clientAccessRestriction: false,
-            },
-            {
-                name: 'Company Documents',
-                link: '/company/company-documents',
-                subscriptionRestriction: false,
-                paymentRestriction: false,
-                clientAccessRestriction: false,
-            },
-            {
-                name: 'Bug Report',
-                link: '/company/bug-report',
-                subscriptionRestriction: false,
-                paymentRestriction: false,
-                clientAccessRestriction: false,
-            },
-            {
-                name: 'Bolster Approved Companies',
-                link: '/company/approved-companies',
-                subscriptionRestriction: true,
                 paymentRestriction: false,
                 clientAccessRestriction: false,
             },
@@ -240,9 +213,16 @@ export const companyNavMenuItems = [
                 clientAccessRestriction: false,
             },
             {
-                name: 'Terms & Conditions',
-                link: '/auth/terms',
-                subscriptionRestriction: true,
+                name: 'Release Notes',
+                link: '/company/release-notes',
+                subscriptionRestriction: false,
+                paymentRestriction: false,
+                clientAccessRestriction: false,
+            },
+            {
+                name: 'Bug Report',
+                link: '/company/bug-report',
+                subscriptionRestriction: false,
                 paymentRestriction: false,
                 clientAccessRestriction: false,
             },
