@@ -11,7 +11,7 @@ const Field = ({
     required = false,
     htmlFor,
     styles = {},
-    labelClasses,
+    labelClasses = '',
 }) => {
     const titleCaseName = toTitleCase(name);
     return (

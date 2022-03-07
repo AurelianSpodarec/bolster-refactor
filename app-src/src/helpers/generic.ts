@@ -436,3 +436,11 @@ export const formatUnderscoreToTitleCase = (string: string): string => {
 
     return sentence.join(' ');
 };
+
+export const reverseObj = (obj: any) => {
+    return Object.entries(obj).reduce((ret, entry: any) => {
+        const [key, value] = entry;
+        ret[value] = key;
+        return ret;
+    }, {});
+};

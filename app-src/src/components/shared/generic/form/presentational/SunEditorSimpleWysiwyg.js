@@ -7,7 +7,7 @@ const SunEditorSimpleWysiwyg = ({
     name,
     value,
     onChange,
-    buttonOptions = [['formatBlock'], ['bold', 'italic', 'underline'], ['link']],
+    buttonOptions = [['formatBlock'], ['bold', 'italic', 'underline'], ['link', 'list']],
     formatOptions = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote'],
 }) => {
     return (

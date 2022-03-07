@@ -18,11 +18,13 @@ import {
     selectUserPinFeedsFetchError,
     selectUserPinFeedsIsFetching,
 } from 'selectors/companyAdmin/userPinFeeds';
+import { selectJobReferencesIsFetching } from 'selectors/companyAdmin/jobReferences';
 import { isEmpty } from 'lodash';
 import { selectServiceIDs } from 'selectors/companyAdmin/services';
 import { ERROR_MODAL, GENERATE_TIMESHEET_REPORT } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import {
+    selectCompanyUsers,
     selectCompanyUsersFetchError,
     selectCompanyUsersIsFetching,
 } from 'selectors/companyAdmin/companyUsers';
@@ -31,6 +33,7 @@ import { usePrevious, useQuery } from 'helpers/hooks';
 import { areArraysEqual } from 'helpers/generic';
 import { setCompanyUserIDs } from 'actions/companyAdmin/timesheets/sync/setSelectedCompanyUserID';
 import fetchTimesheetsWeekDropdownOptions from 'actions/companyAdmin/timesheets/async/fetchTimesheetsWeekDropdownOptions';
+import fetchJobReferences from 'actions/companyAdmin/jobReferences/async/fetchJobReferences';
 
 const useTimesheets = () => {
     const dispatch = useDispatch();
@@ -43,11 +46,14 @@ const useTimesheets = () => {
 
     const companyUsersIsFetching = useSelector(selectCompanyUsersIsFetching);
     const companyUsersFetchError = useSelector(selectCompanyUsersFetchError);
+    const companyUsers = useSelector(selectCompanyUsers);
 
     const timesheetsIsFetching = useSelector(selectTimesheetsIsFetching);
     const timesheetsFetchError = useSelector(selectTimesheetsFetchError);
     const timesheets = useSelector(selectTimesheets);
     const timesheetOptions = useSelector(selectTimesheetOptions);
+
+    const jobReferencesIsFetching = useSelector(selectJobReferencesIsFetching);
 
     const reportGenPins = useSelector(selectUserPinFeeds);
     const isFetchingReportGenPins = useSelector(selectUserPinFeedsIsFetching);
@@ -140,7 +146,7 @@ const useTimesheets = () => {
         formattedHours: 0,
         formattedBreakHours: 0,
         totalPins: 0,
-        jobReferences: [],
+        jobReferenceIDs: [],
     };
     const totals = timesheets.reduce(
         (acc, timesheet) => {
@@ -148,7 +154,7 @@ const useTimesheets = () => {
                 acc[i].formattedHours += entry.formattedHours;
                 acc[i].formattedBreakHours += entry.formattedBreakHours;
                 acc[i].totalPins += entry.totalPins;
-                acc[i].jobReferences = [...acc[i].jobReferences, ...entry.jobReferences];
+                acc[i].jobReferenceIDs = [...acc[i].jobReferenceIDs, ...entry.jobReferenceIDs];
             });
             return acc;
         },
@@ -166,6 +172,7 @@ const useTimesheets = () => {
         dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
         dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
         dispatch(fetchCompanyUsers());
+        dispatch(fetchJobReferences());
 
         if (id) {
             dispatch(setCompanyUserIDs([parseInt(id)]));
@@ -180,8 +187,6 @@ const useTimesheets = () => {
             dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
             dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
         }
-        // if (!isAllUsers) dispatch(fetchTimesheetsWeek(id, startDate));
-        // else console.log('fetch for all users here');
     }, [dispatch, companyUserIDs, startDate]);
 
     useEffect(() => {
@@ -190,17 +195,16 @@ const useTimesheets = () => {
         if (filterByHasClockedIn) {
             companyUserOptions = timesheetOptions
                 .filter(({ id, hasTimesheetData }) => {
-                    if (!companyUserIDs.length) {
-                        return hasTimesheetData;
-                    } else {
-                        return companyUserIDs.includes(id);
+                    if (companyUserIDs.length) {
+                        return companyUserIDs.includes(id) || hasTimesheetData;
                     }
+                    return hasTimesheetData;
                 })
                 .map(mapCompanyUsers);
         }
 
         setCompanyUserOptions(companyUserOptions);
-    }, [timesheetOptions, filterByHasClockedIn]);
+    }, [timesheetOptions, filterByHasClockedIn, companyUserIDs]);
 
     return {
         startDate,
@@ -209,7 +213,7 @@ const useTimesheets = () => {
         companyUserIDs,
         setCompanyUserIDs,
         companyUserOptions,
-        isFetching: timesheetsIsFetching || companyUsersIsFetching,
+        isFetching: timesheetsIsFetching || companyUsersIsFetching || jobReferencesIsFetching,
         fetchError: timesheetsFetchError || companyUsersFetchError,
         timesheets,
         totals,

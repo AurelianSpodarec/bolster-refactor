@@ -96,6 +96,7 @@ const mapStateToProps = ({
         'App Version',
         'Device Type',
         'Is e-mail confirmed?',
+        'Is payment restricted?',
         '',
     ],
 });

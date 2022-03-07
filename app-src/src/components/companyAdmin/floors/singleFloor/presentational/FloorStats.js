@@ -14,6 +14,7 @@ const FloorStats = ({
     handleChange,
     serviceID,
     serviceOptions,
+    handleViewDrawingExpiryModal,
     companyID,
     companyOptions,
     filteredStatsBool,
@@ -43,6 +44,9 @@ const FloorStats = ({
                     </button>
                     <button className="button yellow" onClick={handleEditFloorModal}>
                         <i className="far fa-pencil fa-fw" /> Edit
+                    </button>
+                    <button className="button red" onClick={handleViewDrawingExpiryModal}>
+                        <i className="far fa-clock fa-fw" /> Drawing Expiry
                     </button>
                 </>
             )}

@@ -14,6 +14,12 @@ import {
     SA_FETCH_SINGLE_MANUFACTURER_REQUEST,
     SA_FETCH_SINGLE_MANUFACTURER_SUCCESS,
     SA_FETCH_SINGLE_MANUFACTURER_FAILURE,
+    SA_DISABLE_MANUFACTURER_REQUEST,
+    SA_DISABLE_MANUFACTURER_SUCCESS,
+    SA_DISABLE_MANUFACTURER_FAILURE,
+    SA_DELETE_MANUFACTURER_SUCCESS,
+    SA_DELETE_MANUFACTURER_FAILURE,
+    SA_DELETE_MANUFACTURER_REQUEST,
 } from 'constants/actionTypes/superAdminManufacturers';
 import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
@@ -29,11 +35,17 @@ function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case SA_FETCH_PIN_OPTION_MANUFACTURERS_REQUEST:
         case SA_FETCH_SINGLE_MANUFACTURER_REQUEST:
+        case SA_DISABLE_MANUFACTURER_REQUEST:
+        case SA_DELETE_MANUFACTURER_REQUEST:
             return true;
         case SA_FETCH_PIN_OPTION_MANUFACTURERS_SUCCESS:
         case SA_FETCH_PIN_OPTION_MANUFACTURERS_FAILURE:
         case SA_FETCH_SINGLE_MANUFACTURER_SUCCESS:
         case SA_FETCH_SINGLE_MANUFACTURER_FAILURE:
+        case SA_DISABLE_MANUFACTURER_SUCCESS:
+        case SA_DISABLE_MANUFACTURER_FAILURE:
+        case SA_DELETE_MANUFACTURER_SUCCESS:
+        case SA_DELETE_MANUFACTURER_FAILURE:
             return false;
         default:
             return state;
@@ -55,9 +67,12 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case SA_CREATE_MANUFACTURER_REQUEST:
         case SA_EDIT_MANUFACTURER_REQUEST:
+        case SA_DISABLE_MANUFACTURER_REQUEST:
+        case SA_DELETE_MANUFACTURER_REQUEST:
             return false;
         case SA_CREATE_MANUFACTURER_SUCCESS:
         case SA_EDIT_MANUFACTURER_SUCCESS:
+        case SA_DELETE_MANUFACTURER_SUCCESS:
             return true;
         default:
             return state;
@@ -68,9 +83,13 @@ function postErrorReducer(state = false, action) {
     switch (action.type) {
         case SA_CREATE_MANUFACTURER_REQUEST:
         case SA_EDIT_MANUFACTURER_REQUEST:
+        case SA_DISABLE_MANUFACTURER_REQUEST:
+        case SA_DELETE_MANUFACTURER_REQUEST:
             return false;
         case SA_CREATE_MANUFACTURER_FAILURE:
         case SA_EDIT_MANUFACTURER_FAILURE:
+        case SA_DISABLE_MANUFACTURER_FAILURE:
+        case SA_DELETE_MANUFACTURER_FAILURE:
             return true;
         default:
             return state;
@@ -94,6 +113,30 @@ function manufacturersReducer(state = {}, action) {
                     state[DROPDOWN_OPTIONS[action.pinOptionType].reduxKey],
                     action.payload.id,
                     action.payload,
+                ),
+            };
+        case SA_DISABLE_MANUFACTURER_SUCCESS:
+            return {
+                ...state,
+                [DROPDOWN_OPTIONS[action.pinOptionType].reduxKey]: updateObj(
+                    state[DROPDOWN_OPTIONS[action.pinOptionType].reduxKey],
+                    action.id,
+                    {
+                        ...action.payload,
+                        isDisabled: true,
+                    },
+                ),
+            };
+        case SA_DELETE_MANUFACTURER_SUCCESS:
+            return {
+                ...state,
+                [DROPDOWN_OPTIONS[action.pinOptionType].reduxKey]: updateObj(
+                    state[DROPDOWN_OPTIONS[action.pinOptionType].reduxKey],
+                    action.id,
+                    {
+                        ...action.payload,
+                        isDeleted: true,
+                    },
                 ),
             };
         default:

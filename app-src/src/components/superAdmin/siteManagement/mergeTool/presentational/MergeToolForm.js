@@ -33,6 +33,8 @@ const MergeToolForm = ({
     fetchingDrawings,
     isFetchingPins,
     pinsError,
+    handleCSVUpload,
+    csvError,
 }) => (
     <BlockContainer
         isFetching={fetchingCompanies}
@@ -67,6 +69,8 @@ const MergeToolForm = ({
                 setSelectedPins={setSelectedPins}
                 isFetchingPins={isFetchingPins}
                 pinsError={pinsError}
+                handleCSVUpload={handleCSVUpload}
+                csvError={csvError}
             />
         )}
 

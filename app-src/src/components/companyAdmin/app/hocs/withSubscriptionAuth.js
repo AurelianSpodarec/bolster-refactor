@@ -17,11 +17,11 @@ export default function (ProtectedComponent) {
         _isSubscribed = () => {
             const {
                 subscriptions,
-                subscriptions: { startOn },
+                subscriptions: { startOn, isAccessDisabled },
             } = this.props;
             if (isEmpty(subscriptions)) return false;
             // only fetching
-            return !!startOn;
+            return !isAccessDisabled && !!startOn;
         };
     }
 

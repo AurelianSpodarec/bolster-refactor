@@ -10,7 +10,7 @@ class EditUserModalContainer extends Component {
         firstName: this.props.firstName,
         lastName: this.props.lastName,
         email: this.props.email,
-        phoneNumber: this.props.phoneNumber
+        phoneNumber: this.props.phoneNumber,
     };
     render() {
         return (
@@ -34,19 +34,23 @@ class EditUserModalContainer extends Component {
         const { id, editUser } = this.props;
         editUser(id, { firstName, lastName, email, phoneNumber });
     };
+
+    componentDidUpdate = prevProps => {
+        const { postSuccess, hideModal } = this.props;
+        if (!prevProps.postSuccess && postSuccess) {
+            hideModal();
+        }
+    };
 }
 
-const mapDispatchToProps = dispatch => ({
-    hideModal: () => {
-        dispatch(hideModal());
+const mapStateToProps = ({
+    superAdmin: {
+        usersReducer: { postSuccess },
     },
-    editUser: (id, user) => {
-        dispatch(editUser(id, user));
-        dispatch(hideModal());
-    }
-});
+}) => ({ postSuccess });
+const mapDispatchToProps = {
+    hideModal,
+    editUser,
+};
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(EditUserModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(EditUserModalContainer);

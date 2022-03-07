@@ -12,13 +12,13 @@ const CompanyMenu = ({
     unreadCount,
     markSystemMessagesAsRead,
     isSubscribed,
-    openHelpScout,
     isClientAccess,
     handleGenerateQRCodesModal,
     shouldRestrictPayments,
     unreadReleaseNoteCount,
     isCompanySelection,
     isCompanyUser,
+    companySettings,
 }) => {
     const isCompanyUserOrSelecting = isCompanySelection || !isCompanyUser;
 
@@ -131,6 +131,12 @@ const CompanyMenu = ({
                         <i className="far fa-folders fa-fw icon" />
                         <span className="menu-text">My Templates</span>
                     </CompanyMenuItemContainer>
+                    {!!companySettings?.isJobReferenceDropdownEnabled && (
+                        <CompanyMenuItemContainer link="/company/job-references">
+                            <i className="far fa-file-alt fa-fw icon" />
+                            <span className="menu-text">Job References</span>
+                        </CompanyMenuItemContainer>
+                    )}
                 </>
             )}
             {!isCompanyUserOrSelecting && (
@@ -192,13 +198,6 @@ const CompanyMenu = ({
                     </CompanyMenuItemContainer>
 
                     <MenuHeader title="Support" />
-                    <CompanyMenuItemContainer
-                        link="/company/tools/support"
-                        onClick={e => openHelpScout(e)}
-                    >
-                        <i className="far fa-info-circle fa-fw icon" />
-                        <span className="menu-text">Help</span>
-                    </CompanyMenuItemContainer>
                     <CompanyMenuItemContainer link="/company/user-guides">
                         <i className="far fa-video fa-fw icon" />
                         <span className="menu-text">User Guides</span>

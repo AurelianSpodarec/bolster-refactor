@@ -13,6 +13,12 @@ import {
     EDIT_MANUFACTURER_REQUEST,
     EDIT_MANUFACTURER_SUCCESS,
     EDIT_MANUFACTURER_FAILURE,
+    DELETE_MANUFACTURER_REQUEST,
+    DELETE_MANUFACTURER_SUCCESS,
+    DELETE_MANUFACTURER_FAILURE,
+    UNDO_MANUFACTURER_REQUEST,
+    UNDO_MANUFACTURER_SUCCESS,
+    UNDO_MANUFACTURER_FAILURE,
     FETCH_SINGLE_MANUFACTURER_REQUEST,
     FETCH_SINGLE_MANUFACTURER_SUCCESS,
     FETCH_SINGLE_MANUFACTURER_FAILURE,
@@ -60,10 +66,14 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_MANUFACTURER_REQUEST:
         case EDIT_MANUFACTURER_REQUEST:
+        case DELETE_MANUFACTURER_REQUEST:
+        case UNDO_MANUFACTURER_REQUEST:
         case TOGGLE_MANUFACTURER_REQUEST:
             return false;
         case CREATE_MANUFACTURER_SUCCESS:
         case EDIT_MANUFACTURER_SUCCESS:
+        case DELETE_MANUFACTURER_SUCCESS:
+        case UNDO_MANUFACTURER_SUCCESS:
         case TOGGLE_MANUFACTURER_SUCCESS:
             return true;
         default:
@@ -75,10 +85,14 @@ function postErrorReducer(state = false, action) {
     switch (action.type) {
         case CREATE_MANUFACTURER_REQUEST:
         case EDIT_MANUFACTURER_REQUEST:
+        case DELETE_MANUFACTURER_REQUEST:
+        case UNDO_MANUFACTURER_REQUEST:
         case TOGGLE_MANUFACTURER_REQUEST:
             return false;
         case CREATE_MANUFACTURER_FAILURE:
         case EDIT_MANUFACTURER_FAILURE:
+        case DELETE_MANUFACTURER_FAILURE:
+        case UNDO_MANUFACTURER_FAILURE:
         case TOGGLE_MANUFACTURER_FAILURE:
             return true;
         default:
@@ -104,6 +118,18 @@ function manufacturersReducer(state = {}, action) {
                     state[DROPDOWN_OPTIONS[action.pinOptionType].reduxKey],
                     action.payload.id,
                     action.payload,
+                ),
+            };
+        case DELETE_MANUFACTURER_SUCCESS:
+            return {
+                ...state,
+                [DROPDOWN_OPTIONS[action.pinOptionType].reduxKey]: updateObj(
+                    state[DROPDOWN_OPTIONS[action.pinOptionType].reduxKey],
+                    action.id,
+                    {
+                        ...action.payload,
+                        isDeleted: true,
+                    },
                 ),
             };
         case REORDER_MANUFACTURERS:

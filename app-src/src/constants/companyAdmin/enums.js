@@ -368,6 +368,14 @@ export const FLOORPLAN_STATE_MESSAGES = {
     100: '',
 };
 
+export const DRAWINGS_STATE_MESSAGES = {
+    '-100': 'Failed',
+    '-1': 'Failed',
+    0: 'Uploading',
+    1: 'Uploading',
+    100: 'Successfully uploaded',
+};
+
 export const RECTANGLE_MODES = {
     NONE: 0,
     ADD: 1,

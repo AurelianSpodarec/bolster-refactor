@@ -5,11 +5,20 @@ import useTypeAndStatus from '../hooks/useTypeAndStatus';
 
 import PinTaskNoteIcon from '../../../../../../../_content/images/icons/pinTaskNote.png';
 
-const CalendarPinTask = ({ isRecurring, actionedOn, dueOn, pinCode, viewTaskNote, id, note }) => {
+const CalendarPinTask = ({
+    isRecurring,
+    actionedOn,
+    dueOn,
+    pinCode,
+    viewTaskNote,
+    id,
+    note,
+    pinID,
+}) => {
     const { type, status } = useTypeAndStatus(isRecurring, actionedOn, dueOn);
 
     return (
-        <div className="task">
+        <a href={`/company/pins/${pinID}`} className="task link-without-decoration">
             <div className="group">
                 <div className={`circle ${type}`} />
                 <div className={`circle ${status}`} />
@@ -17,7 +26,10 @@ const CalendarPinTask = ({ isRecurring, actionedOn, dueOn, pinCode, viewTaskNote
                     <ButtonContainer
                         setColour="transparent"
                         setColourHoverCode="#e6e6e6"
-                        handleClick={() => viewTaskNote(id)}
+                        handleClick={e => {
+                            e.preventDefault();
+                            viewTaskNote(id);
+                        }}
                         className="no-padding"
                     >
                         <img src={PinTaskNoteIcon} alt="Pin Task icon" />
@@ -27,7 +39,7 @@ const CalendarPinTask = ({ isRecurring, actionedOn, dueOn, pinCode, viewTaskNote
             <div className="group">
                 <p className="name">{pinCode}</p>
             </div>
-        </div>
+        </a>
     );
 };
 

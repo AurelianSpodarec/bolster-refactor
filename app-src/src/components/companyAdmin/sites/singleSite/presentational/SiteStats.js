@@ -17,6 +17,7 @@ const SiteStats = ({
     serviceOptions,
     handleCreateHierarchyAlertModal,
     handleViewHierarchyAlerts,
+    handleViewDrawingExpiryModal,
     companyID,
     companyOptions,
     filteredStatsBool,
@@ -58,6 +59,9 @@ const SiteStats = ({
                     <Link className="button" to={`/company/sites/${site.id}/change-ownership`}>
                         <i className="fa fa-exchange" /> Change Ownership
                     </Link>
+                    <button className="button red" onClick={handleViewDrawingExpiryModal}>
+                        <i className="far fa-clock fa-fw" /> Drawing Expiry
+                    </button>
                 </>
             )}
 

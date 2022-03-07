@@ -206,9 +206,12 @@ function companyAdminUsersReducer(state = { companyAdmins: {} }, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case ADMIN_EDIT_COMPANY_OWNER_REQUEST:
+        case ADMIN_CREATE_COMPANY_USER_REQUEST:
             return true;
         case ADMIN_EDIT_COMPANY_OWNER_FAILURE:
         case ADMIN_EDIT_COMPANY_OWNER_SUCCESS:
+        case ADMIN_CREATE_COMPANY_USER_SUCCESS:
+        case ADMIN_CREATE_COMPANY_USER_FAILURE:
             return false;
         default:
             return state;

@@ -15,6 +15,7 @@ const BuildingStats = ({
     serviceOptions,
     handleCreateHierarchyAlertModal,
     handleViewHierarchyAlerts,
+    handleViewDrawingExpiryModal,
     companyID,
     companyOptions,
     filteredStatsBool,
@@ -38,17 +39,20 @@ const BuildingStats = ({
                 />
             </div>
 
-            <div className="button-container relative-position">
-                {building.accessType === ACCESS_TYPES_VALUES.OWNER && (
-                    <>
-                        <button className="button red" type="button" onClick={handleDelete}>
-                            <i className="far fa-trash-alt fa-fw" /> Delete
-                        </button>
-                        <button className="button yellow" onClick={handleEditBuildingModal}>
-                            <i className="far fa-pencil fa-fw" /> Edit
-                        </button>
-                    </>
-                )}
+        <div className="button-container relative-position">
+            {building.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                <>
+                    <button className="button red" type="button" onClick={handleDelete}>
+                        <i className="far fa-trash-alt fa-fw" /> Delete
+                    </button>
+                    <button className="button yellow" onClick={handleEditBuildingModal}>
+                        <i className="far fa-pencil fa-fw" /> Edit
+                    </button>
+                    <button className="button red" onClick={handleViewDrawingExpiryModal}>
+                        <i className="far fa-clock fa-fw" /> Drawing Expiry
+                    </button>
+                </>
+            )}
 
             <button className="button blue" onClick={handleArchive} type="button">
                 <i className="fa fa-archive" />

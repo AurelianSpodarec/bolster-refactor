@@ -137,7 +137,7 @@ const EditSiteForm = ({
                                     text=""
                                     handleChange={handleInputChange}
                                     selectedOptions={selectedOptionValues}
-                                    options={Object.values(optionValues)}
+                                    options={Object.values(optionValues).filter(({isEnabled}) => isEnabled)}
                                 />
                             </Field>
                         </div>

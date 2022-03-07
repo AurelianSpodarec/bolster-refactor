@@ -51,6 +51,7 @@ const FilterMap = ({
                 maxZoom={6}
                 onClick={handleClick}
                 crs={CRS.Simple}
+                tap={false}
             >
                 <TileLayer
                     attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'

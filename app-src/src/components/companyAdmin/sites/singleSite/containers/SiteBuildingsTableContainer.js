@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -14,7 +15,7 @@ import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuildings';
 import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
 import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierarchyIsSorting';
-
+import BuildingFiltersContainer from './BuildingsFiltersContainer';
 class SiteBuildingsTableContainer extends Component {
     render() {
         const { site, isSorting } = this.props;
@@ -35,6 +36,7 @@ class SiteBuildingsTableContainer extends Component {
                             <i className="far fa-sort" /> Sort Mode
                         </button>
                     )}
+                    <BuildingFiltersContainer />
                 </BlockHeading>
                 <BuildingsTableContainer ids={site.buildingIDs || []} />
             </BlockContainer>

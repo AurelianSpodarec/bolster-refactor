@@ -64,6 +64,7 @@ class OptionValuesTableContainer extends Component {
     getSortedOptionValues = () => {
         return this.props.optionValues
             .filter(optionValue => this.shouldOptionValueBeIncluded(optionValue.serviceIDs))
+            .filter(({ isDeleted }) => !isDeleted)
             .sort((a, b) => a.sort - b.sort);
     };
 

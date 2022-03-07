@@ -6,6 +6,7 @@ import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 const OptionValuesListItem = ({
     optionValue,
     handleEditOptionValueModal,
+    handleDeleteOptionValueModal,
     onMobile,
     headers,
     url,
@@ -58,6 +59,15 @@ const OptionValuesListItem = ({
                             </>
                         )}
                     </button>
+                    {!optionValue.isDefault && (
+                        <button
+                            onClick={() => handleDeleteOptionValueModal(optionValue)}
+                            className="button red"
+                        >
+                            <i className="far fa-trash" />
+                            Delete
+                        </button>
+                    )}
                     <Link to={`${url}/${optionValue.id}/documents`} className="button">
                         <i className="fa fa-eye fa-fw" />
                         Documents

@@ -18,6 +18,8 @@ const CompanyUserListItem = ({ user, handleModalClick, tableColumnWidths }) => {
         }
     }, []);
 
+    console.log(COMPANY_USER_ROLE_IDS[String(user.type)]);
+
     return (
         <tr ref={row} className={`${isRowRed ? 'red-row' : ''}`}>
             <td style={{ width: tableColumnWidths[0] }} className="cell-break-all">
@@ -58,9 +60,19 @@ const CompanyUserListItem = ({ user, handleModalClick, tableColumnWidths }) => {
                     </>
                 )}
             </td>
+            <td style={{ width: tableColumnWidths[7] }}>
+                {user.userIsEmailConfirmed ? 'Yes' : 'No'}
+            </td>
+            <td style={{ width: tableColumnWidths[8] }} className="left-align">
+                {COMPANY_USER_ROLE_IDS[String(user.type)] === 'Operative'
+                    ? 'N/A'
+                    : user.shouldRestrictPayments
+                    ? 'Yes'
+                    : 'No'}
+            </td>
             <td
                 className={isRowRed ? 'red-column' : ''}
-                style={{ width: tableColumnWidths[7], height: rowHeight ? rowHeight : 'auto' }}
+                style={{ width: tableColumnWidths[9], height: rowHeight ? rowHeight : 'auto' }}
             >
                 <ButtonContainer handleClick={() => handleModalClick()} className="button">
                     View Latest Syncs

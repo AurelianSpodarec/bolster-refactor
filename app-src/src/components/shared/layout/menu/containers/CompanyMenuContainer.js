@@ -18,13 +18,14 @@ const CompanyMenuContainer = ({
     notifications,
     markSystemMessagesAsRead,
     subscriptions,
-    subscriptions: { startOn },
+    subscriptions: { startOn, isAccessDisabled },
     hasInitiallyFetched,
     isClientAccess,
     showModal,
     users,
     companyUserID,
     unreadReleaseNoteCount,
+    companySettings,
 }) => {
     if (!hasInitiallyFetched) return null;
 
@@ -60,32 +61,20 @@ const CompanyMenuContainer = ({
             isFromHeadquarters={isFromHeadquarters}
             unreadCount={unreadCount}
             markSystemMessagesAsRead={markSystemMessagesAsRead}
-            openHelpScout={_openHelpScout}
             isClientAccess={isClientAccess}
             handleGenerateQRCodesModal={handleGenerateQRCodesModal}
             shouldRestrictPayments={shouldRestrictPayments}
             unreadReleaseNoteCount={unreadReleaseNoteCount}
             isCompanySelection={isCompanySelection}
             isCompanyUser={isCompanyUser}
+            companySettings={companySettings}
         />
     );
 
     function _isSubscribed() {
         if (isEmpty(subscriptions)) return false;
 
-        return !!startOn;
-    }
-
-    function _openHelpScout(e) {
-        const helpscoutClass = 'helpscout-visible';
-        e.preventDefault();
-
-        if (document.body.classList.contains('helpscout-visible')) {
-            document.body.classList.remove('helpscout-visible');
-        } else {
-            document.body.classList.add(helpscoutClass);
-        }
-        window.Beacon('toggle');
+        return !isAccessDisabled && !!startOn;
     }
 
     function handleGenerateQRCodesModal(e) {
@@ -97,6 +86,7 @@ const CompanyMenuContainer = ({
 const mapStateToProps = ({
     companyAdmin: {
         messageCentreReducer: { systemMessages },
+        companySettingsReducer: { companySettings },
         creditsReducer: { credits },
         transferRequestsReducer: { incomingTransferRequests },
         pendingInvitesReducer: { pendingInvites },
@@ -129,6 +119,7 @@ const mapStateToProps = ({
         companyUserID,
         users,
         unreadReleaseNoteCount,
+        companySettings,
     };
 };
 

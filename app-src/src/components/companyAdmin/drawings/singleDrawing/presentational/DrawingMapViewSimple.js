@@ -64,7 +64,9 @@ const DrawingMapViewSimple = ({
     shouldRestrictPayments,
     drawingNotStarted,
     pinViewMode,
+    pinTasksMode,
     togglePinIconView,
+    togglePinTasksView,
 }) => {
     const dispatch = useDispatch();
     const mapRef = useRef();
@@ -220,6 +222,7 @@ const DrawingMapViewSimple = ({
                         crs={CRS.Simple}
                         onzoomend={() => handleZoomChange(mapRef.current.leafletElement.getZoom())}
                         className={!showZones ? 'hide-tooltips' : ''}
+                        tap={false}
                     >
                         <TileLayer
                             attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
@@ -285,9 +288,19 @@ const DrawingMapViewSimple = ({
                                     </>
                                 ) : (
                                     <>
+                                        <button
+                                            className={`button blue ${
+                                                pinTasksMode ? 'active' : ''
+                                            }`}
+                                            onClick={togglePinTasksView}
+                                        >
+                                            Pin tasks on/off
+                                        </button>
                                         {doPinsHaveIcons(pins) && (
                                             <button
-                                                className="button blue"
+                                                className={`button blue ${
+                                                    pinViewMode === 'icon' ? 'active' : ''
+                                                }`}
                                                 onClick={togglePinIconView}
                                             >
                                                 Pin icon view on/off
@@ -296,7 +309,10 @@ const DrawingMapViewSimple = ({
                                         <button className="button blue" onClick={handleZoneAdd}>
                                             View Zones
                                         </button>
-                                        <button className="button blue" onClick={toggleZones}>
+                                        <button
+                                            className={`button blue ${showZones ? 'active' : ''}`}
+                                            onClick={toggleZones}
+                                        >
                                             Toggle zones on/off
                                         </button>
                                         {showZones && (

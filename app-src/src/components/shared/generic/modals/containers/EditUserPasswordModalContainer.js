@@ -9,7 +9,7 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 class EditUserPasswordModalContainer extends Component {
     state = {
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
     };
     render() {
         return (
@@ -38,6 +38,13 @@ class EditUserPasswordModalContainer extends Component {
         editPassword(id, { password });
     };
 
+    componentDidUpdate = prevProps => {
+        const { hideModal, postSuccess } = this.props;
+        if (postSuccess && !prevProps.postSuccess) {
+            hideModal();
+        }
+    };
+
     validatePassword = password => {
         const { confirmPassword } = this.state;
         const { addFieldError, removeFieldError } = this.props;
@@ -57,19 +64,12 @@ class EditUserPasswordModalContainer extends Component {
     };
 }
 
-const mapDispatchToProps = dispatch => ({
-    hideModal: () => {
-        dispatch(hideModal());
+const mapStateToProps = ({
+    superAdmin: {
+        usersReducer: { postSuccess },
     },
-    editPassword: (id, password) => {
-        dispatch(editPassword(id, password));
-        dispatch(hideModal());
-    },
-    addFieldError: (field, err) => dispatch(addFieldError(field, err)),
-    removeFieldError: field => dispatch(removeFieldError(field))
-});
+}) => ({ postSuccess });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(EditUserPasswordModalContainer);
+const mapDispatchToProps = { hideModal, editPassword, addFieldError, removeFieldError };
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditUserPasswordModalContainer);

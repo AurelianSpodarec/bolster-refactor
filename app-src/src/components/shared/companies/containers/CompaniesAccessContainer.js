@@ -12,14 +12,7 @@ import fetchCompaniesPermissions from 'actions/companyAdmin/companiesPermissions
 
 class CompaniesAccessContainer extends Component {
     render() {
-        const {
-            companiesWithPermissions,
-            hierarchyID,
-            isFetching,
-            error,
-            smallList = false,
-            accessType
-        } = this.props;
+        const { companiesWithPermissions, hierarchyID, isFetching, error, accessType } = this.props;
 
         return (
             <BlockContainer error={error} containerClass="always-scrollbar">
@@ -28,7 +21,6 @@ class CompaniesAccessContainer extends Component {
                     parentId={hierarchyID}
                     isFetching={isFetching}
                     handleShowModal={this.handleShowModal}
-                    smallList={smallList}
                     accessType={accessType}
                 />
             </BlockContainer>
@@ -36,11 +28,7 @@ class CompaniesAccessContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            fetchCompaniesPermissions,
-            hierarchyType,
-            hierarchyID
-        } = this.props;
+        const { fetchCompaniesPermissions, hierarchyType, hierarchyID } = this.props;
 
         fetchCompaniesPermissions(hierarchyType, hierarchyID);
     };
@@ -51,23 +39,13 @@ class CompaniesAccessContainer extends Component {
     };
 }
 
-const mapStateToProps = (
-    { companyAdmin: { companiesPermissionsReducer } },
-    { match }
-) => ({
+const mapStateToProps = ({ companyAdmin: { companiesPermissionsReducer } }, { match }) => ({
     hierarchyID: match.params.id,
     isFetching: companiesPermissionsReducer.isFetching,
     error: companiesPermissionsReducer.error,
-    companiesWithPermissions: Object.values(
-        companiesPermissionsReducer.companiesPermissions
-    )
+    companiesWithPermissions: Object.values(companiesPermissionsReducer.companiesPermissions),
 });
 
 const mapDispatchToProps = { fetchCompaniesPermissions, showModal };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(CompaniesAccessContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CompaniesAccessContainer));

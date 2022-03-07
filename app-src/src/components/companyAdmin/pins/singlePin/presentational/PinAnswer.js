@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
+import { connect } from 'react-redux';
+
 import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
 import { FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
-import { connect } from 'react-redux';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import { isEmpty, isObjEmpty } from 'helpers/generic';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
@@ -20,10 +21,11 @@ const PinAnswer = ({
     const curAnswer = { ...answers.find(item => +item.id === +trimmedAnswer.id) };
     const notFoundResponse = null;
     let inner;
-
     if (!isObjEmpty(optionValuesLookup) && !!curAnswer.answer) {
-        if (type === TYPES.DROPDOWN_OPTIONS && typeof curAnswer.answer === 'number') {
-            curAnswer.answer = optionValuesLookup[curAnswer.answer].name;
+        if (type === TYPES.DROPDOWN_OPTIONS && optionValuesLookup[curAnswer.answer]) {
+            if (typeof curAnswer.answer === 'number' && optionValuesLookup[curAnswer.answer]) {
+                curAnswer.answer = optionValuesLookup[curAnswer.answer].name;
+            }
         } else if (
             type === TYPES.MULTI_DROPDOWN_OPTIONS ||
             type === TYPES.MULTI_MULTI_DROPDOWN_OPTIONS
@@ -34,8 +36,8 @@ const PinAnswer = ({
                         return null;
                     }
                     // handles manufacturer option
-                    if (typeof ans === 'number' && optionValuesLookup[ans]) {
-                        return optionValuesLookup[ans].name;
+                    if (optionValuesLookup[+ans]) {
+                        return optionValuesLookup[+ans].name;
                     }
                     // handle other
                     return ans;
@@ -69,14 +71,14 @@ const PinAnswer = ({
             inner = <p>{formatMultiMulti(curAnswer.answer)}</p>;
             break;
         case TYPES.DROPDOWN:
-        case TYPES.RADIO:
-            var relevantQuestion = questions.find(
+        case TYPES.RADIO: {
+            const relevantQuestion = questions.find(
                 ({ id }) => +id === +curAnswer.templateQuestionID,
             );
 
             if (!relevantQuestion) return notFoundResponse;
 
-            var relevantOption = relevantQuestion.options.find(({ id }) => {
+            const relevantOption = relevantQuestion.options.find(({ id }) => {
                 if (id === curAnswer.answer) return true;
                 // radio button answers are used as their ID,
                 // but when going into db the answer has special quote chars replaced
@@ -93,16 +95,18 @@ const PinAnswer = ({
             if (!relevantOption) return notFoundResponse;
             inner = <p>{relevantOption.text}</p>;
             break;
-        case TYPES.MULTI_DROPDOWN:
-            var { options } = questions.find(item => +item.id === curAnswer.templateQuestionID);
-            var relevantOptions = options.filter(({ id }) => curAnswer.answer.includes(id));
+        }
+        case TYPES.MULTI_DROPDOWN: {
+            const { options } = questions.find(item => +item.id === curAnswer.templateQuestionID);
+            const relevantOptions = options.filter(({ id }) => curAnswer.answer.includes(id));
             inner = <p>{relevantOptions.map(({ text }) => text).join(', ')}</p>;
             break;
+        }
         case TYPES.CHECKBOX:
             inner = <p>{curAnswer.answer ? 'Yes' : 'No'}</p>;
             break;
-        case TYPES.SIGNATURE:
-            var answerString = curAnswer.answer;
+        case TYPES.SIGNATURE: {
+            let answerString = curAnswer.answer;
             if (
                 !answerString.startsWith('data:') &&
                 !answerString.endsWith('.png') &&
@@ -119,7 +123,7 @@ const PinAnswer = ({
                 answerString.endsWith('.pdf') ||
                 answerString.endsWith('.docx')
             ) {
-                var docURL = `${RAW_S3_STORAGE_URL}/${curAnswer.answer}`;
+                const docURL = `${RAW_S3_STORAGE_URL}/${curAnswer.answer}`;
                 inner = (
                     <ButtonContainer to={docURL} isAnchor className="btn blue" openNewTab>
                         <i className="table-icon far fa-eye" />
@@ -131,8 +135,9 @@ const PinAnswer = ({
             }
 
             break;
-        case TYPES.SINGLE_PHOTO:
-            var URL = `${FILE_STORAGE_URL}/${curAnswer.answer}`;
+        }
+        case TYPES.SINGLE_PHOTO: {
+            const URL = `${FILE_STORAGE_URL}/${curAnswer.answer}`;
             inner = (
                 <img
                     style={{ cursor: 'zoom-in' }}
@@ -142,6 +147,7 @@ const PinAnswer = ({
                 />
             );
             break;
+        }
         case TYPES.MULTI_PHOTO:
             if (Array.isArray(curAnswer.answer)) {
                 inner = curAnswer.answer.map((item, i) => {
@@ -172,8 +178,8 @@ const PinAnswer = ({
                 );
             }
             break;
-        case TYPES.DOCUMENT_UPLOAD:
-            var docURL = `${RAW_S3_STORAGE_URL}/${curAnswer.answer}`;
+        case TYPES.DOCUMENT_UPLOAD: {
+            const docURL = `${RAW_S3_STORAGE_URL}/${curAnswer.answer}`;
             inner = (
                 <ButtonContainer to={docURL} isAnchor className="btn blue" openNewTab>
                     <i className="table-icon far fa-eye" />
@@ -181,6 +187,7 @@ const PinAnswer = ({
                 </ButtonContainer>
             );
             break;
+        }
         default:
             return notFoundResponse;
     }
@@ -195,7 +202,7 @@ const PinAnswer = ({
     );
 };
 
-export default connect()(PinAnswer);
+export default memo(connect()(PinAnswer));
 
 function formatMultiMulti(answer) {
     if (!Array.isArray(answer)) return answer;

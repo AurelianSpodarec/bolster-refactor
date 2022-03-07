@@ -29,7 +29,11 @@ const WeekBreakdownOverview = ({
     const userIDs = useSelector(timesheetSelectedCompanyIDs);
     const isSingleUser = userIDs.length === 1;
 
-    const { isFetching: statsIsFetching, fetchError: statsFetchError, stats } = usePinStats(
+    const {
+        isFetching: statsIsFetching,
+        fetchError: statsFetchError,
+        stats,
+    } = usePinStats(
         userIDs,
         moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
         moment(selectedDate).endOf('week').format('YYYY-MM-DDTHH:mm:ss'),
@@ -40,11 +44,11 @@ const WeekBreakdownOverview = ({
         handleChange,
     } = useOverviewFilters();
 
-    const { isFetching: feedIsFetching, fetchError: feedFetchError, feed } = usePinFeed(
-        userIDs,
-        moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
-        true,
-    );
+    const {
+        isFetching: feedIsFetching,
+        fetchError: feedFetchError,
+        feed,
+    } = usePinFeed(userIDs, moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'), true);
 
     if (!isSingleUser) {
         return (
@@ -88,7 +92,7 @@ const WeekBreakdownOverview = ({
         email,
         formattedHours,
         formattedBreakHours,
-        jobReferences,
+        jobReferenceIDs,
         totalPins,
         clockerNotes,
     } = useWeekOverview(singleUserTimesheet);
@@ -103,7 +107,7 @@ const WeekBreakdownOverview = ({
                         formattedHours={formattedHours}
                         formattedBreakHours={formattedBreakHours}
                         totalPins={totalPins}
-                        jobReferences={jobReferences}
+                        jobReferenceIDs={jobReferenceIDs}
                         timePeriod={TIME_PERIOD.WEEK}
                     />
                     <BreakdownNotes notes={clockerNotes} />

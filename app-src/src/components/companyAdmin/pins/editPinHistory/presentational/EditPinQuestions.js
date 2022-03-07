@@ -11,11 +11,8 @@ const EditPinQuestions = ({ sections, questions, selectedVersion }) =>
                 <BlockHeading classes="sub-heading" title={section.text} />
 
                 <div className="flex-row">
-                    {[...questions]
-                        .filter(
-                            question =>
-                                question.templateSectionID === section.value
-                        )
+                    {questions
+                        .filter(question => question.templateSectionID === section.value)
                         .sort((a, b) => a.sort - b.sort)
                         .map(question => (
                             <AddPinQuestionRoute
@@ -30,4 +27,4 @@ const EditPinQuestions = ({ sections, questions, selectedVersion }) =>
             </div>
         ));
 
-export default EditPinQuestions;
+export default React.memo(EditPinQuestions);

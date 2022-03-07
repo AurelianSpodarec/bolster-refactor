@@ -1,20 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import EditPinVersions from '../presentational/EditPinVersions';
+import { selectTemplateVersion } from '../../../../../selectors/companyAdmin/templateVersions';
 
-const EditPinVersionsContainer = ({ selectedVersion }) => (
-    <EditPinVersions selectedVersion={selectedVersion} />
-);
+const EditPinVersionsContainer = ({ templateVersionID }) => {
+    const selectedVersion = useSelector(state => selectTemplateVersion(state, templateVersionID));
+    return <EditPinVersions selectedVersion={selectedVersion} />;
+};
 
-const mapStateToProps = (
-    {
-        companyAdmin: {
-            templateVersionsReducer: { versions }
-        }
-    },
-    ownProps
-) => ({
-    selectedVersion: versions[ownProps.templateVersionID]
-});
-
-export default connect(mapStateToProps)(EditPinVersionsContainer);
+export default EditPinVersionsContainer;

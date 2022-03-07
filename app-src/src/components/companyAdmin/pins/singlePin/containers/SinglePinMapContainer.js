@@ -25,15 +25,8 @@ class SinglePinMapContainer extends Component {
     };
 
     render() {
-        const {
-            pin,
-            error,
-            isFetching,
-            drawing,
-            selectedHistory,
-            onMobile,
-            histories,
-        } = this.props;
+        const { pin, error, isFetching, drawing, selectedHistory, onMobile, histories } =
+            this.props;
 
         const editPinLocationPosition = [
             this.state.editPinLocationLat,

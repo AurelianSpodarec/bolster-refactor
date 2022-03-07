@@ -112,7 +112,7 @@ em {
 
         .scrollbar-y {
             min-height: 130px;
-            max-height: 130px;
+            max-height: 250px;
             overflow-y: scroll;
             &.large {
                 max-height: 300px;
@@ -451,6 +451,13 @@ em {
     text-align: center;
 }
 
+.link-without-decoration {
+    text-decoration: none;
+    color: $body-text;
+    &:hover {
+        text-decoration: none;
+    }
+}
 
 //for button under content blocks/areas
 .button-block-container {
@@ -818,7 +825,7 @@ input {
     &.red {
         background-color: $red;
 
-        &:hover {
+        &:hover, &.active {
             background-color: #b51313;
         }
     }
@@ -826,7 +833,7 @@ input {
     &.yellow {
         background-color: $yellow;
 
-        &:hover {
+        &:hover, &.active {
             background-color: #da9001;
         }
     }
@@ -834,14 +841,14 @@ input {
     &.blue {
         background-color: $blue;
 
-        &:hover {
+        &:hover, &.active {
             background-color: #1083b3;
         }
     }
 
     &.green {
         background-color: $green;
-        &:hover {
+        &:hover, &.active {
             background-color: #258e48;
         }
     }
@@ -919,6 +926,14 @@ input {
         }
     }
 
+    &.vertical-spacing {
+        .button {
+            margin: {
+                top: 2.5px;
+                bottom: 2.5px;
+            };
+        }
+    }
 }
 
 .no-background-btn {
@@ -1414,6 +1429,11 @@ input {
             margin-left: 0;
             margin-right: 10px;
             margin-top: 0;
+
+            &.right {
+                float: right;
+                margin-right: 0;
+            }
         }
     }
 
@@ -2303,6 +2323,22 @@ input {
     &.form-padding {
         padding-left: 7.5px;
     }
+
+    &.row {
+        display: flex;
+        flex-direction: row;
+
+        .title {
+            width: auto;
+            white-space: nowrap;
+        }
+
+        p {
+            width: auto;
+            white-space: nowrap;
+            left: 5px;
+        }
+    }
 }
 
 .filter {
@@ -2708,6 +2744,7 @@ input {
         }
 
         tr {
+            position: static;
             border-bottom: none;
 
             &:first-child {
@@ -3117,6 +3154,14 @@ input {
             width: auto;
             margin-left: 10px;
         }
+
+        &.status-filter {
+           width: 30%;
+            margin-right: 10px;
+            bottom: 5px;
+            justify-content: center;
+        }
+
         p {
             float: right;
             padding-right: 10px;
@@ -4690,7 +4735,7 @@ input {
     overflow: auto;
 
     &.for-pin-single {
-        max-height: 475px;
+        max-height: 425px;
     }
 
     .generic-table {
@@ -4905,6 +4950,11 @@ input {
             min-height: calc(100% - 10px);
         }
     }
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
 }
 
 .flex-tooltip-images {
@@ -7322,26 +7372,27 @@ input {
     }
     
 }
+.recurring {
+    background-color: $recurring-blue;
+}
+.non_recurring {
+    background-color: $non-recurring-purple;
+}
+.complete {
+    background-color: $complete-green;
+}
+.complete_late {
+    background-color: $complete-late-yellow;
+}
+.due_soon {
+    background-color: $due-soon-orange;
+}
+.incomplete {
+    background-color: $incomplete-red;
+}
+
 
 .pin-tasks-dashboard {
-    .recurring {
-        background-color: $recurring-blue;
-    }
-    .non_recurring {
-        background-color: $non-recurring-purple;
-    }
-    .complete {
-        background-color: $complete-green;
-    }
-    .complete_late {
-        background-color: $complete-late-yellow;
-    }
-    .due_soon {
-        background-color: $due-soon-orange;
-    }
-    .incomplete {
-        background-color: $incomplete-red;
-    }
 
     .calendar-view {
         .calendar {
@@ -7806,4 +7857,159 @@ input {
 
 .min-width-120 {
     min-width: 120px;
+}
+
+.clocked-hours-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .select-list {
+        width: 200px;
+        font-size: 10px;
+    }
+}
+
+.date-selector {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    .nav-buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        margin-right: 16px;
+        button {
+            background-color: transparent;
+
+            &:not(:disabled) {
+                &:hover > .far {
+                    color: $button-grey;
+                }
+            }
+
+            .far {
+                font-size: 100%;
+            }
+        }
+    }
+
+    .date-range {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+
+        time {
+            font-size: 140%;
+            font-weight: 500;
+        }
+    }
+
+    .today-button {
+        color: inherit;
+        font-size: 130%;
+
+        &:hover {
+            background-color: $light-grey-alt;
+        }
+
+        .far {
+            font-size: 100%;
+        }
+    }
+}
+
+.drawing-expiry-item {
+    padding: 10px 0;
+    border-bottom: 1px solid $input-border-grey;
+
+    .red {
+        color: $red;
+    }
+ 
+    .green {
+        color: $green;
+    }
+ 
+    .bold-text {
+        font-weight: 500
+    }
+
+
+    &:last-child{
+        border-bottom: none;
+    }
+}
+
+.content-area {
+    &.no-padding {
+        padding: 0;
+    }
+}
+
+.content-area-editor {
+    &.no-padding {
+        padding: 0;
+    }
+}
+
+.history-pill-wrapper {
+    display: flex;
+
+    .task-pill {
+        .pill-title {
+            font-size: 100%;
+            color: $body-text;
+        }
+
+        .square {
+            height: 15px;
+            width: 15px;
+        }
+
+        &:first-child {
+            margin-right: 5px;
+        }
+    }
+}
+
+
+.single-pin-tasks-wrapper {
+    height: 55%;
+    position: absolute;
+    top: 475px;
+
+    .heading {
+        margin: 10px 0;
+    }
+
+    .list-wrapper {
+        margin: 10px 0;
+        max-height: 48%;
+        overflow: auto;
+
+
+        .task-item {
+            margin: 10px 0;
+            border-bottom: 2px solid #f5f5f5;
+
+            div {
+                margin: 5px 0;
+            }
+
+            strong {
+                font-weight: 500;
+                margin-right: 5px;
+            }
+
+            strong, p {
+                font-size: 120%;
+            }
+
+            .red-text {
+                color: $red;
+            }
+        }
+    }
 }

@@ -23,7 +23,7 @@ class SubscriptionStatusContainer extends Component {
                     latestStartOn={subscriptions.nextSubscriptionStartOn}
                     endOn={subscriptions.endOn}
                     latestEndOn={subscriptions.nextSubscriptionEndOn}
-                    active={!!subscriptions.startOn}
+                    active={!subscriptions.isAccessDisabled && !!subscriptions.startOn}
                     shouldRestrictPayments={shouldRestrictPayments}
                     hadPendingProforma={hadPendingProforma}
                     isLatest={subscriptions.isLatest}

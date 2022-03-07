@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import resendTwoFactor from 'actions/shared/auth/async/resendTwoFactor';
 import { addBanner } from 'actions/shared/banners/sync/addBanner';
 import { resetBanner } from 'actions/shared/banners/sync/resetBanner';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 
 export const useMultipleHierarchies = hierarchyShape => {
     // takes an empty version of the hierarchy shape / initial state for a blank hierarchy
@@ -275,4 +278,40 @@ export const useTimeout = () => {
             if (isMounted.current) cb();
         }, timout);
     }, []);
+};
+
+export const useAddItem = (isPosting, postSuccess, message = 'Success', link, linkMessage) => {
+    const dispatch = useDispatch();
+    const prevProps = usePrevious({ isPosting });
+
+    useEffect(() => {
+        if (prevProps.isPosting && !isPosting && postSuccess) {
+            dispatch(
+                showModal(SUCCESS_MODAL, {
+                    hideModal,
+                    message,
+                    link,
+                    linkMessage,
+                }),
+            );
+        }
+    }, [isPosting]);
+};
+
+export const useUpdateItem = (isPosting, postSuccess, message = 'Success', link, linkMessage) => {
+    const dispatch = useDispatch();
+    const prevProps = usePrevious({ isPosting });
+
+    useEffect(() => {
+        if (prevProps.isPosting && !isPosting && postSuccess) {
+            dispatch(
+                showModal(SUCCESS_MODAL, {
+                    hideModal,
+                    message,
+                    link,
+                    linkMessage,
+                }),
+            );
+        }
+    }, [isPosting]);
 };

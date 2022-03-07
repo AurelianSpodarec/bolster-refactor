@@ -22,6 +22,7 @@ class PinHistoryDetailsItemContainer extends Component {
             isFetching,
             drawing,
             loggedInCompanyID,
+            historyPinTask,
         } = this.props;
 
         const editedByUser = users[history.lastEditedByCompanyUserID];
@@ -39,7 +40,6 @@ class PinHistoryDetailsItemContainer extends Component {
         const canDeleteHistory =
             drawingCompanyID === loggedInCompanyID ||
             historyCreatedByCompanyID === loggedInCompanyID;
-
         return isLoading && isFetching ? (
             <Loading />
         ) : (
@@ -54,6 +54,7 @@ class PinHistoryDetailsItemContainer extends Component {
                 pin={pin}
                 templateName={templateName}
                 canDeleteHistory={canDeleteHistory}
+                historyPinTask={historyPinTask}
             />
         );
     }
@@ -92,6 +93,7 @@ const mapStateToProps = (
             pinsReducer: { singlePin, isFetching: isFetchingPin },
             companyUsersReducer: { users, isFetching: isFetchingUsers },
             templatesReducer: { pinTemplates, isFetching: isFetchingTemplate },
+            pinTasksReducer: { singlePinTasks },
         },
     },
     ownProps,
@@ -104,6 +106,10 @@ const mapStateToProps = (
     templates: pinTemplates,
     drawing: drawings[ownProps.drawingID],
     loggedInCompanyID,
+    historyPinTask:
+        Object.values(singlePinTasks).find(
+            pinTask => pinTask.actionedByPinHistoryID === ownProps.history.id,
+        ) || null,
 });
 
 const mapDispatchToProps = {

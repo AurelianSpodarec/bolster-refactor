@@ -23,6 +23,7 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 import setZoneAddMode from 'actions/companyAdmin/zones/sync/setZoneAddMode';
 import setZonesOpacity from 'actions/companyAdmin/zones/sync/setZonesOpacity';
 import togglePinIconView from 'actions/companyAdmin/pins/sync/togglePinIconView';
+import togglePinTasksView from 'actions/companyAdmin/pins/sync/togglePinTasksView';
 import fetchAllTemplates from 'actions/companyAdmin/templates/async/fetchAllTemplates';
 import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
 import DrawingDetailsContainer from './DrawingDetailsContainer';
@@ -80,7 +81,9 @@ class DrawingMapGeneralContainer extends Component {
             zonesOpacity,
             zones,
             pinViewMode,
+            pinTasksMode,
             togglePinIconView,
+            togglePinTasksView,
         } = this.props;
         const position = [centerLat, centerLng];
         const addPinPosition = [addPinLat, addPinLng];
@@ -117,7 +120,7 @@ class DrawingMapGeneralContainer extends Component {
                         position={position}
                         addPinPosition={addPinPosition}
                         zoom={mapZoom}
-                        pins={this.props.getFilteredPins(this.props.pins)}
+                        pins={this.props.getFilteredPins(this.props.pins, pinTasksMode)}
                         handleClick={this.handleClick}
                         cornerClicked={cornerClicked}
                         drawing={drawing}
@@ -149,7 +152,9 @@ class DrawingMapGeneralContainer extends Component {
                         curZoom={curZoom}
                         drawingNotStarted={drawingNotStarted}
                         pinViewMode={pinViewMode}
+                        pinTasksMode={pinTasksMode}
                         togglePinIconView={togglePinIconView}
+                        togglePinTasksView={togglePinTasksView}
                     />
                 </BlockContainer>
                 {!drawingNotStarted && (
@@ -429,7 +434,7 @@ class DrawingMapGeneralContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            pinsReducer: { pins, isFetching, error, pinViewMode },
+            pinsReducer: { pins, isFetching, error, pinViewMode, pinTasksMode },
             servicesReducer: { services },
             companyUsersReducer: { users },
             drawingsReducer: { drawings, postSuccess },
@@ -475,6 +480,7 @@ const mapStateToProps = (
     isModified,
     zones,
     pinViewMode,
+    pinTasksMode,
 });
 
 const mapDispatchToProps = {
@@ -491,6 +497,7 @@ const mapDispatchToProps = {
     setZoneAddMode,
     setZonesOpacity,
     togglePinIconView,
+    togglePinTasksView,
     fetchAllTemplates,
 };
 

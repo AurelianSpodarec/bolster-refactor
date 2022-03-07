@@ -28,11 +28,15 @@ import DemoAccessCodesRoutes from './DemoAccessCodesRoutes';
 import UserCreationsRoutes from './UserCreationsRoutes';
 import CompanyTrackingRoutes from './CompanyTrackingRoutes';
 import BugReportsRoutes from './BugReportsRoutes';
+import CompanyTimesheetsRoutes from './CompanyTimesheetsRoutes';
+import FaqsRoutes from './FaqsRoutes';
+import DrawingUploadLog from 'components/superAdmin/drawingUploadLog/DrawingUploadLog';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
         <Route exact path={`${base}`} component={DashboardContainer} />
         <Route path={`${base}/services`} component={ServicesRoutes} />
+        <Route path={`${base}/drawing-upload-log`} component={DrawingUploadLog} />
         <Route path={`${base}/companies`} component={CompaniesRoutes} />
         <Route path={`${base}/users`} component={UsersRoutes} />
         <Route path={`${base}/user-creations`} component={UserCreationsRoutes} />
@@ -51,12 +55,14 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/text-settings`} component={TextSettingRoutes} />
         <Route path={`${base}/legal-documents`} component={LegalDocumentsRoutes} />
         <Route path={`${base}/demo-access-codes`} component={DemoAccessCodesRoutes} />
+        <Route path={`${base}/faqs`} component={FaqsRoutes} />
         <Route path={`${base}/new-features`} component={NewFeaturesRoutes} />
         <Route path={`${base}/recently-extended`} component={RecentlyExtendedRoutes} />
         <Route path={`${base}/recently-deleted`} component={RecentlyDeletedRoutes} />
         <Route path={`${base}/activity-logs`} component={ActivityLogsRoutes} />
         <Route path={`${base}/banners`} component={BannersRoutes} />
         <Route path={`${base}/bug-reports`} component={BugReportsRoutes} />
+        <Route path={`${base}/company-timesheets`} component={CompanyTimesheetsRoutes} />
     </SwitchWith404>
 );
 
