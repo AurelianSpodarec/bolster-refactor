@@ -61,7 +61,7 @@ class HeaderNotificationsContainer extends Component {
     componentDidMount = () => {
         const { fetchSystemMessages } = this.props;
 
-        this.interval = setInterval(() => fetchSystemMessages(), 6000);
+        this.interval = setInterval(() => fetchSystemMessages(), 60 * 1000);
     };
 
     componentWillUnmount = () => {
