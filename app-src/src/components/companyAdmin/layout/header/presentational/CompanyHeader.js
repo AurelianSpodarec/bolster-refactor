@@ -18,7 +18,7 @@ const Header = () => {
         company,
         companyColour,
         companyUserID,
-        isCompanySelection,
+        isCompanySelected,
         totalRequests,
         unreadMessageCount,
         isMobile,
@@ -59,7 +59,7 @@ const Header = () => {
                         </>
                     )}
                 </div>
-                {!isCompanySelection && !isMobile && (
+                {isCompanySelected && !isMobile && (
                     <div className="flex flex-row align-center">
                         <div className="search-area">
                             <SearchContainer placeholder="Search by site, building, floor or drawings" />
@@ -68,9 +68,9 @@ const Header = () => {
                 )}
             </div>
             <div className="account-area flex-row">
-                {!isCompanySelection && (
+                {isCompanySelected && (
                     <div className="notifications flex-row align-center">
-                        {!isMobile && (
+                        {(!isMobile || isCompanySelected) && (
                             <>
                                 <CreditsButton />
                                 <CircleButton
@@ -86,7 +86,7 @@ const Header = () => {
                                 <div className="break-line" />
                             </>
                         )}
-                        <HeaderProfile />
+                        {isCompanySelected && <HeaderProfile />}
                     </div>
                 )}
             </div>

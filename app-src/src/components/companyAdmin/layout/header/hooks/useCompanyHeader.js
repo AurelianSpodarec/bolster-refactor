@@ -13,13 +13,13 @@ export const useCompanyHeader = () => {
     const dispatch = useDispatch();
 
     const company = useSelector(selectCompanySettings);
-    const { companyUserID } = useSelector(selectJwtData);
+    const { companyUserID, companyID } = useSelector(selectJwtData);
     const { totalRequests, unreadMessageCount } = useGetCompanyNotifications();
 
     const isMobile = useSelector(selectIsMobile);
 
     const companyColour = getCompanyColour(company.companyColour);
-    const isCompanySelection = location.pathname.includes('company/company-selection');
+    const isCompanySelected = !!companyID;
 
     const toggleMobileMenu = () => {
         dispatch(toggleMobileMenuAction());
@@ -29,7 +29,7 @@ export const useCompanyHeader = () => {
         company,
         companyColour,
         companyUserID,
-        isCompanySelection,
+        isCompanySelected,
         totalRequests,
         unreadMessageCount,
         isMobile,
