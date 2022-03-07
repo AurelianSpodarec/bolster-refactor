@@ -90,9 +90,6 @@ const CompanyMenuContainer = ({
                     return { ...item, showNotificationBadge: true };
                 }
 
-                if (item.name === 'Sites' && !!totalRequests) {
-                    return { ...item, showNotificationBadge: true };
-                }
                 if (
                     item.subNavItems?.find(item => item.link === '/company/reports') &&
                     !!unreadCount
