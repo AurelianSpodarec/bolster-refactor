@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import bolsterLogo from '../../../../../_content/images/footer/powered-by-bolster-white.svg';
+import bolsterLogo from '../../../../../_content/images/footer/powered–by-bolster-white.svg';
 import SuperAdminMenuItemContainer from '../containers/SuperAdminMenuItemContainer';
 
 const SuperAdminMenu = ({ superAdminNavMenuItems, latestAppVersion }) => {
+    const [hoveredItem, setHoveredItem] = useState(null);
+
     return (
         <div className="menu">
             <div className="nav-wrapper">
                 {superAdminNavMenuItems.map((navItem, index) => (
-                    <SuperAdminMenuItemContainer key={index} item={navItem} />
+                    <SuperAdminMenuItemContainer
+                        key={index}
+                        item={navItem}
+                        hover={hoveredItem === navItem.name}
+                        setHoveredItem={setHoveredItem}
+                    />
                 ))}
             </div>
 
