@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import useGetCompanyNotifications from '../../../../../hooks/useGetCompanyNotifications';
 
@@ -12,6 +12,8 @@ const CompanyMenuItemContainer = ({
     isCompanyUserOrSelecting,
     isClientAccess,
     shouldRestrictPayments,
+    hover,
+    setHoveredItem,
 }) => {
     const dispatch = useDispatch();
 
@@ -84,7 +86,13 @@ const CompanyMenuItemContainer = ({
     );
 
     return (
-        <MenuItem item={item} formattedSubNavItems={formattedSubNavItems} shouldUseCompanyColours />
+        <MenuItem
+            item={item}
+            formattedSubNavItems={formattedSubNavItems}
+            shouldUseCompanyColours
+            hover={hover}
+            setHoveredItem={setHoveredItem}
+        />
     );
 };
 

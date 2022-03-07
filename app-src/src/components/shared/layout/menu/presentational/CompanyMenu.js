@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import CompanyMenuItemContainer from '../containers/CompanyMenuItemContainer';
 import bolsterLogo from '../../../../../_content/images/footer/powered-by-bolster-white.svg';
@@ -11,6 +11,8 @@ const CompanyMenu = ({
     shouldRestrictPayments,
     latestAppVersion,
 }) => {
+    const [hoveredItem, setHoveredItem] = useState(null);
+
     return (
         <div className="menu">
             <div className="nav-wrapper">
@@ -22,6 +24,8 @@ const CompanyMenu = ({
                         isCompanyUserOrSelecting={isCompanyUserOrSelecting}
                         isClientAccess={isClientAccess}
                         shouldRestrictPayments={shouldRestrictPayments}
+                        hover={hoveredItem === navItem.name}
+                        setHoveredItem={setHoveredItem}
                     />
                 ))}
             </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const SubNavMenuLink = ({
@@ -6,16 +6,11 @@ const SubNavMenuLink = ({
     companyColour,
     shouldUseCompanyColours,
 }) => {
-    const divRef = useRef();
     const [hover, setHover] = useState(false);
 
     const route = location.pathname.toLowerCase();
 
     const isActive = route === link.toLowerCase();
-
-    useEffect(() => {
-        if (hover && divRef.current && divRef.current.matches(':hover') === false) setHover(false);
-    }, [hover, divRef]);
 
     return (
         <div className="sub-nav-item">

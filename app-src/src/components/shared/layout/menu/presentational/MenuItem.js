@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import useNav from '../_hooks/useNav';
 import useNavOverflow from '../_hooks/useNavOverflow';
 import { Link } from 'react-router-dom';
@@ -11,8 +11,9 @@ const MenuItem = ({
     item: { name, link, showNotificationBadge, icon, subNavItems, onClick },
     formattedSubNavItems,
     shouldUseCompanyColours,
+    hover,
+    setHoveredItem,
 }) => {
-    const [hover, setHover] = useState(false);
     const isMobile = useSelector(selectIsMobile);
 
     const { subNavRef, isSubNavOverflowing } = useNavOverflow(hover);
@@ -29,8 +30,8 @@ const MenuItem = ({
 
     return (
         <ElementToRender
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
+            onMouseEnter={() => setHoveredItem(name)}
+            onMouseLeave={() => setHoveredItem(null)}
             className="item custom-hover"
             style={
                 isActive
