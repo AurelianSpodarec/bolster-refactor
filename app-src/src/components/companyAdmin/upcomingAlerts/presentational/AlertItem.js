@@ -59,7 +59,14 @@ const AlertItem = ({
                 </Link>
             </td>
             <td>{ALERT_METHOD_VALUES[method]}</td>
-            <td>{user && `${user.userFirstName} ${user.userLastName}/${user.companyName}`}</td>
+            {user ? (
+                <td>
+                    {user &&
+                        `${user.userFirstName} ${user.userLastName} - ${user.formattedOperativeCode}`}
+                    <br />
+                    {user && user.userEmail}
+                </td>
+            ) : null}
             <td>
                 {frequencyType === ALERT_FREQUENCY_TYPES.ONCE
                     ? 'Once'

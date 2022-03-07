@@ -30,7 +30,7 @@ const UpcomingAlerts = ({ error, isFetching, alerts }) => {
                         'Last sent on',
                         'Hierarchy Link',
                         'Method',
-                        'Created by user/company',
+                        'Created by',
                         'Frequency',
                         'Name',
                         'Description',
