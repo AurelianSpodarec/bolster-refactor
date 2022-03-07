@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import useNav from '../_hooks/useNav';
 import useNavOverflow from '../_hooks/useNavOverflow';
 import { Link } from 'react-router-dom';
