@@ -10,7 +10,6 @@ import {
     ALERT_FREQUENCY_TYPES,
     ALERT_METHOD_VALUES,
     DATE_TIME_IDS,
-    HIERARCHY_TYPES,
 } from 'constants/companyAdmin/enums';
 import { companyUser } from 'selectors/companyAdmin/companyUser';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
@@ -24,13 +23,19 @@ const AlertItem = ({
         createdOn,
         frequencyAmount,
         frequencyType,
-        hierarchyType,
-        hierarchyID,
         method,
         lastSentOn,
         date,
         createdByCompanyUserID,
         description,
+        drawingID,
+        drawingName,
+        floorID,
+        floorName,
+        buildingID,
+        buildingName,
+        siteID,
+        siteName,
     },
 }) => {
     const dispatch = useDispatch();
@@ -54,17 +59,32 @@ const AlertItem = ({
                 )}
             </td>
             <td>
-                <Link to={`/company/${HIERARCHY_TYPES[hierarchyType]}s/${hierarchyID}`}>
-                    {`/company/${HIERARCHY_TYPES[hierarchyType]}s/${hierarchyID}`}
-                </Link>
+                {!!siteID && <Link to={`/company/sites/${siteID}`}>{siteName} </Link>}
+                {!!buildingID && (
+                    <Link to={`/company/buildings/${buildingID}`}>
+                        {' '}
+                        / <br /> {buildingName}
+                    </Link>
+                )}
+                {!!floorID && (
+                    <Link to={`/company/floors/${floorID}`}>
+                        {' '}
+                        / <br /> {floorName}
+                    </Link>
+                )}
+                {!!drawingID && (
+                    <Link to={`/company/drawings/${drawingID}`}>
+                        {' '}
+                        / <br /> {drawingName}
+                    </Link>
+                )}
             </td>
             <td>{ALERT_METHOD_VALUES[method]}</td>
             {user ? (
                 <td>
-                    {user &&
-                        `${user.userFirstName} ${user.userLastName} - ${user.formattedOperativeCode}`}
+                    {user.userFirstName} {user.userLastName} - {user.formattedOperativeCode}
                     <br />
-                    {user && user.userEmail}
+                    {user.userEmail}
                 </td>
             ) : null}
             <td>
