@@ -24,12 +24,6 @@
             background: $green;
             color: white;
         }
-        &:first-child {
-            border-radius: 0 5px 5px 0;
-        }
-        &:last-child {
-            border-radius: 5px 0px 0px 5px;
-        }
     }
 
     &.no-breadcrumb {

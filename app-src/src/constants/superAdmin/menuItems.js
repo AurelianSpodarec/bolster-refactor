@@ -22,10 +22,10 @@ export const superAdminNavMenuItems = [
         icon: companyIcon,
         link: '/admin/users',
         subNavItems: [
-            { name: 'Users', link: '/admin/users' },
-            { name: 'User Creations', link: '/admin/user-creations' },
             { name: 'Companies', link: '/admin/companies' },
             { name: 'Invoices', link: '/admin/invoices' },
+            { name: 'Users', link: '/admin/users' },
+            { name: 'User Creations', link: '/admin/user-creations' },
         ],
     },
     {
@@ -49,7 +49,6 @@ export const superAdminNavMenuItems = [
             { name: 'User Guides', link: '/admin/user-guides' },
             { name: 'Legal Documents', link: '/admin/legal-documents' },
             { name: 'FAQs', link: '/admin/faqs' },
-            { name: 'Banner Notifications', link: '/admin/banners' },
         ],
     },
     {
@@ -71,6 +70,7 @@ export const superAdminNavMenuItems = [
             { name: 'Front End Text Settings', link: '/admin/text-settings' },
             { name: 'Front End Trusted By Settings', link: '/admin/trusted-by-settings' },
             { name: 'Demo Access Codes', link: '/admin/demo-access-codes' },
+            { name: 'Banner Notifications', link: '/admin/banners' },
         ],
     },
 ];
