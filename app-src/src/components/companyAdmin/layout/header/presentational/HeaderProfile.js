@@ -14,9 +14,11 @@ import { selectIsBolsterLogoDark } from 'selectors/companyAdmin/companySettings'
 
 import useHeaderProfile from '../hooks/useHeaderProfile';
 import useGetUserInitials from 'hooks/useGetUserInitials';
+import defaultStyles from 'constants/defaultStyles';
+import superAdminIcon from '../../../../../_content/images/icons/super-admin.png';
 
-const HeaderProfile = () => {
-    const { profile, backgroundColor, handleLogout } = useHeaderProfile();
+const HeaderProfile = ({ isAdmin }) => {
+    const { profile, backgroundColor, handleLogout } = useHeaderProfile(isAdmin);
 
     const initials = useGetUserInitials()?.toUpperCase();
     const isDarkLogoEnabled = useSelector(selectIsBolsterLogoDark);
@@ -25,12 +27,16 @@ const HeaderProfile = () => {
         <div className="profile-container">
             <div
                 className="user"
-                style={{
-                    backgroundColor,
-                }}
+                style={
+                    isAdmin
+                        ? { backgroundColor: defaultStyles.colourCode }
+                        : { backgroundColor: backgroundColor }
+                }
             >
                 {profile.profileImageS3Key ? (
                     <img alt="profile" src={`${FILE_STORAGE_URL}/${profile.profileImageS3Key}`} />
+                ) : isAdmin ? (
+                    <img alt="profile" src={superAdminIcon} />
                 ) : (
                     <div className="initials flex-row justify-center align-center">
                         {initials ? initials : ''}
@@ -41,24 +47,32 @@ const HeaderProfile = () => {
             <div className="profile-menu">
                 <div
                     className={`profile-options ${isDarkLogoEnabled ? 'dark' : ''}`}
-                    style={{ backgroundColor }}
+                    style={
+                        isAdmin
+                            ? { backgroundColor: defaultStyles.colourCode }
+                            : { backgroundColor: backgroundColor }
+                    }
                 >
-                    <Link to="/company/profile" className="dropdown-item">
-                        <img
-                            alt="profile icon"
-                            src={isDarkLogoEnabled ? ProfileIconDark : ProfileIcon}
-                        />
-                        <span className="item-text">My Profile</span>
-                        <div className="dark-hover"></div>
-                    </Link>
-                    <Link to="/company/company-selection" className="dropdown-item">
-                        <img
-                            alt="exchange icon"
-                            src={isDarkLogoEnabled ? ExchangeIconDark : ExchangeIcon}
-                        />
-                        <span className="item-text">Select Company</span>
-                        <div className="dark-hover"></div>
-                    </Link>
+                    {!isAdmin && (
+                        <>
+                            <Link to="/company/profile" className="dropdown-item">
+                                <img
+                                    alt="profile icon"
+                                    src={isDarkLogoEnabled ? ProfileIconDark : ProfileIcon}
+                                />
+                                <span className="item-text">My Profile</span>
+                                <div className="dark-hover"></div>
+                            </Link>
+                            <Link to="/company/company-selection" className="dropdown-item">
+                                <img
+                                    alt="exchange icon"
+                                    src={isDarkLogoEnabled ? ExchangeIconDark : ExchangeIcon}
+                                />
+                                <span className="item-text">Select Company</span>
+                                <div className="dark-hover"></div>
+                            </Link>
+                        </>
+                    )}
                     <Link onClick={handleLogout} to="#" className="dropdown-item">
                         <img
                             alt="logout icon"
@@ -72,9 +86,11 @@ const HeaderProfile = () => {
 
             <div
                 className="bottom-hover-colour"
-                style={{
-                    backgroundColor,
-                }}
+                style={
+                    isAdmin
+                        ? { backgroundColor: defaultStyles.colourCode }
+                        : { backgroundColor: backgroundColor }
+                }
             />
         </div>
     );
