@@ -6,7 +6,7 @@ import ClientAccessIcon from '_content/images/icons/nav/ClientAccess.svg';
 
 const Tabs = ({ tabs, selectedTab, selectTab, classes = '' }) => {
     return (
-        <div className={`nav-tab-container ${classes}`}>
+        <div className={`tab-container ${classes}`}>
             {tabs.map(tab => (
                 <button
                     key={tab}
