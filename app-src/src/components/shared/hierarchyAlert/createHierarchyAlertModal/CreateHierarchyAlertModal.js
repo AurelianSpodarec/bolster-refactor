@@ -105,7 +105,7 @@ const CreateHierarchyAlertModal = ({ hierarchyType, hierarchyID, hideModal }) =>
                     {frequencyType !== ALERT_FREQUENCY_TYPES.ONCE && (
                         <>
                             <div className="size-lg-6">
-                                <Field name="Frequency Amount" required>
+                                <Field name="Frequency" required>
                                     <TextInputContainer
                                         type="number"
                                         name="frequencyAmount"
