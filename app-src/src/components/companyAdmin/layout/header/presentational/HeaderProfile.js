@@ -33,10 +33,10 @@ const HeaderProfile = ({ isAdmin }) => {
                         : { backgroundColor: backgroundColor }
                 }
             >
-                {profile.profileImageS3Key ? (
-                    <img alt="profile" src={`${FILE_STORAGE_URL}/${profile.profileImageS3Key}`} />
-                ) : isAdmin ? (
+                {isAdmin ? (
                     <img alt="profile" src={superAdminIcon} />
+                ) : profile.profileImageS3Key ? (
+                    <img alt="profile" src={`${FILE_STORAGE_URL}/${profile.profileImageS3Key}`} />
                 ) : (
                     <div className="initials flex-row justify-center align-center">
                         {initials ? initials : ''}
