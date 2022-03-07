@@ -1,3 +1,4 @@
+import HeaderProfile from 'components/companyAdmin/layout/header/presentational/HeaderProfile';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import bolsterLogo from '_content/images/bolster_logo.png';
@@ -21,8 +22,11 @@ const AdminHeader = () => {
                     </Link>
                 </div>
             </div>
-
-            <div className="clear" />
+            <div className="account-area flex-row">
+                <div className="notifications flex-row align-center">
+                    <HeaderProfile />
+                </div>
+            </div>
         </header>
     );
 };
