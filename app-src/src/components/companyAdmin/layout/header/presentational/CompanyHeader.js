@@ -70,7 +70,7 @@ const Header = () => {
             <div className="account-area flex-row">
                 {isCompanySelected && (
                     <div className="notifications flex-row align-center">
-                        {(!isMobile || isCompanySelected) && (
+                        {!isMobile && isCompanySelected && (
                             <>
                                 <CreditsButton />
                                 <CircleButton
