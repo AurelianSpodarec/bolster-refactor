@@ -245,7 +245,7 @@ export default function (ProtectedComponent) {
                 pinIDs: selectedPinIDs,
                 serviceID: serviceID || null,
                 templateID: templateID || null,
-                status: status ? [status] : null,
+                status: status ? status.map(item => +item) : null,
                 questionFilters,
                 showHidden,
                 sortBy,
@@ -260,8 +260,13 @@ export default function (ProtectedComponent) {
 
         postFilters = () => {
             const { postCustomFilters, furtherFiltrationOption } = this.props;
-            if (furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS) {
-                const selectedCompanyID = getSelectedCompanyForClient();
+            const selectedCompanyID = getSelectedCompanyForClient();
+
+            if (furtherFiltrationOption) {
+                if (+furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS) {
+                    return postCustomFilters(selectedCompanyID, this._getPostBody());
+                }
+            } else {
                 return postCustomFilters(selectedCompanyID, this._getPostBody());
             }
         };
