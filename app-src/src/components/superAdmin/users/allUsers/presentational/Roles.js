@@ -7,7 +7,7 @@ import {
 
 const Roles = ({
     user: { isDeleted, deletedByUserEmail, deletedByCompanyName, deletedByCompanyID },
-    roles,
+    roles = [],
 }) => {
     if (isDeleted)
         return (
