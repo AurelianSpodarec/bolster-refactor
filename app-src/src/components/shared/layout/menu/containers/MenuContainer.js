@@ -25,7 +25,7 @@ const MenuContainer = ({
     const prevPath = usePrevious(pathname);
 
     useEffect(() => {
-        if (prevPath !== pathname) {
+        if (menuOpen && prevPath !== pathname) {
             toggleMobileMenu();
         }
     }, [pathname, prevPath]);
