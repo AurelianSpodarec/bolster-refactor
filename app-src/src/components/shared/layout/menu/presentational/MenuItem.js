@@ -2,6 +2,7 @@ import React from 'react';
 import useNav from '../_hooks/useNav';
 import useNavOverflow from '../_hooks/useNavOverflow';
 import { Link } from 'react-router-dom';
+import { isIOS } from 'react-device-detect';
 
 import SubNavMenuLink from '../containers/SubNavMenuLink';
 
@@ -24,10 +25,17 @@ const MenuItem = ({
         }
     };
 
+    const handleSetHovered = value => {
+        if (isIOS && !subNavItems.length) {
+            return;
+        }
+        setHoveredItem(value);
+    };
+
     return (
         <ElementToRender
-            onMouseEnter={() => setHoveredItem(name)}
-            onMouseLeave={() => setHoveredItem(null)}
+            onMouseEnter={() => handleSetHovered(name)}
+            onMouseLeave={() => handleSetHovered(null)}
             className="item custom-hover"
             style={
                 isActive
