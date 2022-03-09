@@ -19,6 +19,7 @@ export default function (ProtectedComponent) {
         state = {
             showError: false,
         };
+
         render() {
             const { showError } = this.state;
             const { errorsVisible, fieldError, ...props } = this.props;
@@ -222,9 +223,9 @@ export default function (ProtectedComponent) {
                 return { latY, lngX };
             };
 
-            const pinBoundingBoxes = Object.values(
-                rectangles,
-            ).map(({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]);
+            const pinBoundingBoxes = Object.values(rectangles).map(
+                ({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)],
+            );
 
             const endDate = toDateInclusive ? moment(toDateInclusive).endOf('day').toDate() : null;
 
@@ -244,7 +245,7 @@ export default function (ProtectedComponent) {
                 pinIDs: selectedPinIDs,
                 serviceID: serviceID || null,
                 templateID: templateID || null,
-                status: status ? [status] : null,
+                status: status ? status.map(item => +item) : null,
                 questionFilters,
                 showHidden,
                 sortBy,
@@ -259,8 +260,13 @@ export default function (ProtectedComponent) {
 
         postFilters = () => {
             const { postCustomFilters, furtherFiltrationOption } = this.props;
-            if (furtherFiltrationOption > FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS) {
-                const selectedCompanyID = getSelectedCompanyForClient();
+            const selectedCompanyID = getSelectedCompanyForClient();
+
+            if (furtherFiltrationOption) {
+                if (+furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS) {
+                    return postCustomFilters(selectedCompanyID, this._getPostBody());
+                }
+            } else {
                 return postCustomFilters(selectedCompanyID, this._getPostBody());
             }
         };
