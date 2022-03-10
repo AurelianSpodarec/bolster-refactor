@@ -19,7 +19,7 @@ const DocumentVersionsList = ({ versions, dispatch, handleDeleteDocumentVersionM
         {versions
             .sort((a, b) => b.createdAt - a.createdAt)
             .map((version, i) => (
-                <div key={version.id} className="flex-row size-lg-12">
+                <div key={version.id} className="flex-row flex-wrap width-12 size-lg-12">
                     <FieldOutput
                         title={'Date Created'}
                         description={moment(version.createdAt).format(

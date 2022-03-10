@@ -5,50 +5,68 @@ import { FILE_STORAGE_URL } from 'config';
 import defaultStyles from 'constants/defaultStyles';
 
 import SearchContainer from '../containers/SearchContainer';
-import HeaderProfileContainer from '../containers/HeaderProfileContainer';
-import { getBolsterColour } from 'helpers/generic';
-// import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
-// import { PARENTAL_TYPES } from 'constants/companyAdmin/enums';
 
-const ClientHeader = ({ company, isCompanySelected }) => (
-    <header
-        id="page-header"
-        style={{ borderColor: company.colourCode || getBolsterColour() }}
-    >
-        <div className="container">
-            <div className="logo">
-                <Link to="/company">
-                    <img
-                        alt={
-                            isCompanySelected
-                                ? `logo of ${company.name}`
-                                : 'logo of Bolster Systems'
-                        }
-                        src={
-                            isCompanySelected && company.logoFile
-                                ? `${FILE_STORAGE_URL}/${company.logoFile}`
-                                : defaultStyles.logoFile
-                        }
-                    />
-                </Link>
-            </div>
+import HeaderProfile from 'components/companyAdmin/layout/header/presentational/HeaderProfile';
+import useCompanyHeader from 'components/companyAdmin/layout/header/hooks/useCompanyHeader';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsMobile } from 'selectors/shared/mobile';
+import { toggleMobileMenu as toggleMobileMenuAction } from 'actions/shared/mobile/sync/toggleMobileMenu';
 
-            <div className="search-area">
-                <SearchContainer />
-            </div>
+const ClientHeader = ({ company, isCompanySelected }) => {
+    const dispatch = useDispatch();
+    const { companyColour, companyUserID } = useCompanyHeader();
+    const isMobile = useSelector(selectIsMobile);
 
-            <div className="account-area">
-                <div className="notifications">
-                    {/* <button className="item main large">
-                        ##Current Company: Silverchip## ##Change Company##
-                    </button> */}
+    const toggleMobileMenu = () => {
+        dispatch(toggleMobileMenuAction());
+    };
+
+    return (
+        <header
+            id="page-header"
+            className="flex-row justify-between align-stretch"
+            style={{ borderColor: companyUserID ? companyColour : defaultStyles.colourCode }}
+        >
+            <div className="flex flex-row align-stretch">
+                <div className="logo flex-row justify-center align-center">
+                    {isMobile && (
+                        <div className="mobile-menu" onClick={() => toggleMobileMenu()}>
+                            <i className="far fa-bars" />
+                        </div>
+                    )}
+                    <Link to="/company">
+                        <img
+                            alt={
+                                isCompanySelected
+                                    ? `logo of ${company.name}`
+                                    : 'logo of Bolster Systems'
+                            }
+                            src={
+                                isCompanySelected && company.logoFile
+                                    ? `${FILE_STORAGE_URL}/${company.logoFile}`
+                                    : defaultStyles.logoFile
+                            }
+                        />
+                    </Link>
                 </div>
 
-                <HeaderProfileContainer />
+                {!isMobile && (
+                    <div className="flex flex-row align-center">
+                        <div className="search-area">
+                            <SearchContainer />
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            <div className="account-area flex-row">
+                <div className="notifications flex-row align-center">
+                    <HeaderProfile />
+                </div>
             </div>
             <div className="clear" />
-        </div>
-    </header>
-);
+        </header>
+    );
+};
 
 export default ClientHeader;

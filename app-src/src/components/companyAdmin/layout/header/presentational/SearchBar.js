@@ -12,10 +12,11 @@ const SearchBar = ({
     ref,
     handleLinkClick,
     isLoading,
+    placeholder = 'Search...',
 }) => (
     <div className="size-lg-12" ref={ref}>
         <Search
-            placeholder="Search..."
+            placeholder={placeholder}
             handleChange={handleChange}
             value={searchTerm}
             name="searchTerm"

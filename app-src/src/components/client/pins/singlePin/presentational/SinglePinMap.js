@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Map, TileLayer } from 'react-leaflet';
 import { CRS } from 'leaflet';
 
@@ -10,6 +10,8 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import SinglePinGenerateReportContainer from '../containers/SinglePinGenerateReportContainer';
 
 const SinglePinMap = ({ pin, zoom, user, drawing = {}, pinHistory }) => {
+    const [shouldScroll, setShouldScroll] = useState(false);
+
     return (
         <>
             <BlockHeading title={`Pin ${pin.pinCode}`}>
@@ -34,6 +36,8 @@ const SinglePinMap = ({ pin, zoom, user, drawing = {}, pinHistory }) => {
                 maxZoom={6}
                 crs={CRS.Simple}
                 tap={false}
+                onClick={() => setShouldScroll(true)}
+                scrollWheelZoom={shouldScroll}
             >
                 <TileLayer
                     attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'

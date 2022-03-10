@@ -1,8 +1,8 @@
 import React from 'react';
 
-import SuperAdminIcon from '_content/images/icons/super-admin.png';
-import CompanyAdminIcon from '_content/images/icons/company-admin.png';
-import ClientAccessIcon from '_content/images/icons/client-access.png';
+import SuperAdminIcon from '_content/images/icons/nav/SuperAdmin.svg';
+import CompanyAdminIcon from '_content/images/icons/nav/CompanyAdmin.svg';
+import ClientAccessIcon from '_content/images/icons/nav/ClientAccess.svg';
 
 const Tabs = ({ tabs, selectedTab, selectTab, classes = '' }) => {
     return (

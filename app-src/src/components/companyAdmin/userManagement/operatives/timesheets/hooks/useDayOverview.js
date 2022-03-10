@@ -1,7 +1,6 @@
-import useDay from './useDay';
+import getTimesheetDay from '../helpers/getTimesheetDay';
 import useTimeline from './useTimeline';
 
-// todo refactor this to not incorrectly be named like a hook
 const useDayOverview = (timesheet, selectedDate) => {
     const { companyUserID, firstName, lastName, email } = timesheet;
     const {
@@ -12,7 +11,8 @@ const useDayOverview = (timesheet, selectedDate) => {
         totalPins = 0,
         clockerEntries,
         clockerNotes = [],
-    } = useDay(timesheet, selectedDate);
+    } = getTimesheetDay(timesheet, selectedDate);
+
     const timeline = useTimeline(clockerEntries ?? []);
     const clockIn = timeline[0]?.clockIn?.timestamp;
     const clockOut = timeline[timeline.length - 1]?.clockOut?.timestamp;

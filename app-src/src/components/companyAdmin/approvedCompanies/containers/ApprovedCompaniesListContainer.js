@@ -9,14 +9,14 @@ const ApprovedCompaniesListContainer = ({
     error,
     filters,
     sort,
-    services
+    services,
 }) => {
     const filteredCompanies = _getFilteredCompanies();
     return filteredCompanies.length ? (
-        <div className="flex-row size-lg-12">
+        <div className="flex-row flex-wrap width-12 size-lg-12">
             {filteredCompanies.map(company => (
                 <BlockContainer
-                    containerClass="flex-row-item size-lg-6 size-md-12"
+                    containerClass="flex-row-item size-lg-4 size-md-6"
                     isFetching={isFetching}
                     error={error}
                     noData={!companies.length}
@@ -51,40 +51,30 @@ const ApprovedCompaniesListContainer = ({
         return companies
             .filter(
                 company =>
-                    company.name.toLowerCase().includes(name) ||
-                    company.code.includes(+name)
+                    company.name.toLowerCase().includes(name) || company.code.includes(+name),
             )
             .filter(
                 company =>
-                    !serviceIDs.length ||
-                    serviceIDs.every(id => company.serviceIDs.includes(id))
+                    !serviceIDs.length || serviceIDs.every(id => company.serviceIDs.includes(id)),
             )
             .sort((a, b) =>
-                sort === 'A - Z'
-                    ? a.name.localeCompare(b.name)
-                    : b.name.localeCompare(a.name)
+                sort === 'A - Z' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
             );
     }
 };
 
 const mapStateToProps = ({
     companyAdmin: {
-        approvedCompaniesReducer: {
-            isFetching,
-            error,
-            approvedCompanies,
-            filters,
-            sort
-        },
-        servicesReducer: { services }
-    }
+        approvedCompaniesReducer: { isFetching, error, approvedCompanies, filters, sort },
+        servicesReducer: { services },
+    },
 }) => ({
     companies: Object.values(approvedCompanies),
     isFetching,
     error,
     filters,
     sort,
-    services
+    services,
 });
 
 export default connect(mapStateToProps)(ApprovedCompaniesListContainer);
