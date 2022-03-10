@@ -25,7 +25,7 @@ export const fetchTimesheetsWeekFailure = error => ({
 
 export default (userIDs, startDate) => dispatch => {
     dispatch(fetchTimesheetsWeekRequest());
-
+    console.log(userIDs);
     axios
         .get(`${API_URL}/clockerEntries/weekforusers?${arrayToQueryString(userIDs, 'ids')}`, {
             ...getHeaders(),
