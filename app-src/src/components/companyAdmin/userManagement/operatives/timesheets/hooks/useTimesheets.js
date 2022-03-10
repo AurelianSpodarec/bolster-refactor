@@ -93,12 +93,22 @@ const useTimesheets = () => {
     };
 
     const onDaySelect = timestamp => {
+        const timezoneDate = moment(timestamp)
+            .tz(timeZone?.id ?? 'Europe/London')
+            .startOf('day')
+            .format();
+
         setTimePeriod(TIME_PERIOD.DAY);
-        setSelectedDate(timestamp);
+        setSelectedDate(timezoneDate);
     };
     const onWeekSelect = timestamp => {
+        const timezoneDate = moment(timestamp)
+            .tz(timeZone?.id ?? 'Europe/London')
+            .startOf('isoWeek')
+            .format();
+
         setTimePeriod(TIME_PERIOD.WEEK);
-        setSelectedDate(timestamp);
+        setSelectedDate(timezoneDate);
     };
 
     const handlePDFReportGeneration = () => {
@@ -153,21 +163,42 @@ const useTimesheets = () => {
                 acc[i].formattedBreakHours += entry.formattedBreakHours;
                 acc[i].totalPins += entry.totalPins;
                 acc[i].jobReferenceIDs = [...acc[i].jobReferenceIDs, ...entry.jobReferenceIDs];
+                acc[i].date = moment(entry.date)
+                    .tz(timeZone?.id ?? 'Europe/London')
+                    .startOf('day')
+                    .format();
             });
             return acc;
         },
 
         new Array(7).fill(dayTotal).map((day, i) => ({
             ...day,
-            date: moment(startDate).add(i, 'days').format(),
+            date: moment(startDate)
+                .tz(timeZone?.id ?? 'Europe/London')
+                .startOf('day')
+                .add(i, 'days')
+                .format(),
         })),
     );
+
+    const formattedTimesheets = timesheets.map(timesheet => {
+        return {
+            ...timesheet,
+            clockerEntries: timesheet.clockerEntries.map(entry => {
+                return {
+                    ...entry,
+                    date: moment(entry.date)
+                        .tz(timeZone?.id ?? 'Europe/London')
+                        .startOf('day')
+                        .format(),
+                };
+            }),
+        };
+    });
 
     const prevProps = usePrevious({ companyUserIDs, startDate });
 
     useEffect(() => {
-        // on first mount
-
         if (id) {
             const postBody = [parseInt(id)];
             batch(() => {
@@ -220,7 +251,7 @@ const useTimesheets = () => {
         companyUserOptions,
         isFetching: timesheetsIsFetching || companyUsersIsFetching || jobReferencesIsFetching,
         fetchError: timesheetsFetchError || companyUsersFetchError,
-        timesheets,
+        timesheets: formattedTimesheets,
         totals,
         disableReportGenPin:
             isFetchingReportGenPins || (!isFetchingReportGenPins && errorReportGenPins),
