@@ -22,6 +22,7 @@ const EditProfileEmail = () => {
     const prevProps = usePrevious({ postSuccess, error, shouldShowMergeModal });
     const [{ email, password }, handleChange] = useForm({ email: '', password: '' });
     const handleSubmit = (confirmMerge = false) => {
+        console.log('hello');
         const postBody = { email, password, confirmMerge };
         dispatch(changeProfileEmail(postBody));
     };
@@ -55,7 +56,7 @@ const EditProfileEmail = () => {
             </PageHeading>
 
             <BlockContainer>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={() => handleSubmit(false)}>
                     <div className="size-lg-6 size-md-12">
                         <Field name="Enter new E-mail address" required>
                             <TextInputContainer

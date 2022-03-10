@@ -143,6 +143,7 @@ import {
     DELETE_JOB_REFERENCE,
     DRAWING_EXPIRY_MODAL,
     EDIT_JOB_REF_DROPDOWN,
+    EDIT_USER_EMAIL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -285,6 +286,7 @@ import EditJobReferenceModal from 'components/companyAdmin/jobReferences/EditJob
 import DeleteJobReferenceModal from 'components/companyAdmin/jobReferences/DeleteJobReferenceModal';
 import DrawingExpiryModal from '../presentational/DrawingExpiryModal';
 import EditJobRefDropdownModal from './EditJobRefDropdownModalContainer';
+import EditUserEmailModal from '../../../../superAdmin/users/editUsers/EditUserEmailModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -428,6 +430,7 @@ const MODAL_COMPONENTS = {
     [DELETE_JOB_REFERENCE]: DeleteJobReferenceModal,
     [DRAWING_EXPIRY_MODAL]: DrawingExpiryModal,
     [EDIT_JOB_REF_DROPDOWN]: EditJobRefDropdownModal,
+    [EDIT_USER_EMAIL]: EditUserEmailModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

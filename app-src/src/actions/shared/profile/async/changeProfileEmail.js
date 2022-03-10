@@ -30,6 +30,7 @@ export const changeProfileEmailModal = payload => ({
 
 export default postBody => dispatch => {
     dispatch(changeProfileEmailRequest());
+    console.log({ postBody });
     return axios
         .post(`${AUTH_API_URL}/profile/email`, postBody, getHeaders())
         .then(res => {
