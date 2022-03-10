@@ -1,50 +1,41 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import moment from 'moment';
+import React, { useState, useEffect, useMemo } from 'react';
+import { usePrevious } from '../../../../../helpers/hooks';
+import { useHistory, withRouter } from 'react-router-dom';
+import { connect, useDispatch, useSelector } from 'react-redux';
 
 import CompanyMenu from '../presentational/CompanyMenu';
-import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
-import dismissMessages from 'actions/companyAdmin/messages/async/dismissMessages';
 import { isEmpty } from 'helpers/generic';
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { GENERATE_QR_CODES } from 'constants/shared/modalTypes';
+import {
+    companyNavMenuItems,
+    companySelectList,
+} from '../../../../../constants/companyAdmin/menuItems';
+import useGetCompanyNotifications from '../../../../../hooks/useGetCompanyNotifications';
+import { logout } from 'actions/shared/auth/sync/logout';
+import { selectLatestAppVersion } from 'selectors/companyAdmin/app';
 
 const CompanyMenuContainer = ({
-    isFromHeadquarters,
-    unreadMessageCount,
-    totalCredits,
-    totalRequests,
-    notifications,
-    dismissMessages,
     subscriptions,
-    subscriptions: { startOn, isAccessDisabled },
+    subscriptions: { startOn, hasUnpaidServiceInvoice },
     hasInitiallyFetched,
     isClientAccess,
-    showModal,
     users,
     companyUserID,
-    unreadReleaseNoteCount,
-    companySettings,
 }) => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
     if (!hasInitiallyFetched) return null;
 
     const isCompanySelection = location.pathname.includes('company/company-selection');
+    const isCompanyUser = !!companyUserID;
+    const isSubscribed = !isEmpty(subscriptions) || (!hasUnpaidServiceInvoice && !!startOn);
+    const isCompanyUserOrSelecting = isCompanySelection || !isCompanyUser;
+    const latestAppVersion = useSelector(selectLatestAppVersion);
 
-    const unread = notifications.filter(({ isRead }) => !isRead);
-    const unreadCount = unread.length;
-    const dismissNotifications = () => {
-        dismissMessages(MESSAGE_TYPES.NOTIFICATION);
-    };
     const [shouldRestrictPayments, setShouldRestrictPayments] = useState(false);
 
-    function usePrevious(value) {
-        const ref = useRef(value);
-        useEffect(() => {
-            ref.current = value;
-        });
-        return ref.current;
-    }
+    const { unreadReleaseNoteCount, totalRequests, unreadCount } = useGetCompanyNotifications();
+
     const prevUsers = usePrevious({ users });
 
     useEffect(() => {
@@ -52,48 +43,90 @@ const CompanyMenuContainer = ({
             setShouldRestrictPayments(users[companyUserID].shouldRestrictPayments);
         }
     }, [users]);
-    const isCompanyUser = !!companyUserID;
-    return (
-        <CompanyMenu
-            isSubscribed={_isSubscribed()}
-            unreadMessageCount={unreadMessageCount}
-            totalCredits={totalCredits}
-            totalRequests={totalRequests}
-            isFromHeadquarters={isFromHeadquarters}
-            unreadCount={unreadCount}
-            dismissMessages={dismissNotifications}
-            isClientAccess={isClientAccess}
-            handleGenerateQRCodesModal={handleGenerateQRCodesModal}
-            shouldRestrictPayments={shouldRestrictPayments}
-            unreadReleaseNoteCount={unreadReleaseNoteCount}
-            isCompanySelection={isCompanySelection}
-            isCompanyUser={isCompanyUser}
-            companySettings={companySettings}
-        />
-    );
 
-    function _isSubscribed() {
-        if (isEmpty(subscriptions)) return false;
-
-        return !isAccessDisabled && !!startOn;
-    }
-
-    function handleGenerateQRCodesModal(e) {
+    const handleLogout = e => {
         e.preventDefault();
 
-        showModal(GENERATE_QR_CODES);
-    }
+        dispatch(logout());
+
+        history.replace('/auth/login');
+    };
+
+    const formattedCompanyNavMenuItems = useMemo(() => {
+        if (isCompanyUserOrSelecting) {
+            return companySelectList.map(item => {
+                if (item.name === 'Logout') {
+                    return {
+                        ...item,
+                        onClick: handleLogout,
+                    };
+                }
+
+                return item;
+            });
+        }
+        return companyNavMenuItems
+            .filter(item => {
+                if (isSubscribed) {
+                    if (shouldRestrictPayments && item.paymentRestriction) {
+                        return false;
+                    }
+                    if (!isClientAccess && item.clientAccessRestriction) {
+                        return false;
+                    }
+                } else {
+                    if (item.subscriptionRestriction) {
+                        return false;
+                    }
+                }
+
+                return true;
+            })
+            .map(item => {
+                if (
+                    item.subNavItems?.find(item => item.link === '/company/release-notes') &&
+                    !!unreadReleaseNoteCount
+                ) {
+                    return { ...item, showNotificationBadge: true };
+                }
+
+                if (
+                    item.subNavItems?.find(item => item.link === '/company/reports') &&
+                    !!unreadCount
+                ) {
+                    return { ...item, showNotificationBadge: true };
+                }
+
+                return { ...item, showNotificationBadge: false };
+            });
+    }, [
+        companyNavMenuItems,
+        isCompanyUserOrSelecting,
+        isSubscribed,
+        shouldRestrictPayments,
+        isClientAccess,
+        unreadReleaseNoteCount,
+        totalRequests,
+        unreadCount,
+    ]);
+
+    return (
+        <CompanyMenu
+            companyNavMenuItems={formattedCompanyNavMenuItems}
+            isSubscribed={isSubscribed}
+            isCompanyUserOrSelecting={isCompanyUserOrSelecting}
+            isClientAccess={isClientAccess}
+            shouldRestrictPayments={shouldRestrictPayments}
+            latestAppVersion={latestAppVersion}
+        />
+    );
 };
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: { companySettings },
-        messagesReducer: { messages },
         creditsReducer: { credits },
-        transferRequestsReducer: { incomingTransferRequests },
-        pendingInvitesReducer: { pendingInvites },
         subscriptionsReducer: { hasInitiallyFetched, subscriptions },
         companyUsersReducer: { users },
-        recentUpdatesReducer: { updates },
     },
     shared: {
         decodeJWTReducer: {
@@ -101,38 +134,18 @@ const mapStateToProps = ({
         },
     },
 }) => {
-    const unreadMessageCount = Object.values(messages).filter(
-        ({ type, isRead }) => type === MESSAGE_TYPES.SYSTEM && !isRead,
-    ).length;
     const totalCredits = Object.values(credits).reduce((a, b) => a + b.quantity, 0);
-    const totalRequests =
-        Object.values(incomingTransferRequests).length + Object.values(pendingInvites).length;
-
-    const unreadReleaseNoteCount = Object.values(updates).filter(({ isRead }) => !isRead).length;
 
     return {
         hasInitiallyFetched,
         subscriptions,
-        unreadMessageCount,
         totalCredits,
-        totalRequests,
         isFromHeadquarters: !!headquartersCompanyID,
-        notifications: Object.values(messages)
-            .filter(({ type }) => type === MESSAGE_TYPES.NOTIFICATION)
-            .sort((a, b) => moment(b.createdAt) - moment(a.createdAt)),
         isClientAccess,
         companyUserID,
         users,
-        unreadReleaseNoteCount,
         companySettings,
     };
 };
 
-const mapDispatchToProps = dispatch => ({
-    dismissMessages: messageType => {
-        dispatch(dismissMessages(messageType));
-    },
-    showModal: (type, props) => dispatch(showModal(type, props)),
-});
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CompanyMenuContainer));
+export default withRouter(connect(mapStateToProps, null)(CompanyMenuContainer));

@@ -3,27 +3,33 @@ import React from 'react';
 import { pageMeta } from 'constants/frontEnd/meta';
 
 import ClientHeaderContainer from 'components/client/layout/header/containers/ClientHeaderContainer';
-import FooterContainer from 'components/client/layout/footer/containers/FooterContainer';
 import MenuContainer from 'components/shared/layout/menu/containers/MenuContainer';
 import Routes from 'components/client/app/routes';
 import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
 import Banner from 'components/shared/generic/banner/Banner';
 import UnconfirmedEmailBanner from 'components/shared/generic/banner/UnconfirmedEmailBanner';
+import LoggedInFooter from 'components/shared/loggedInFooter/LoggedInFooter';
+
+import '_content/scss/dashboard.scss';
 
 const ClientApp = () => (
-    <div className="dashboard-area">
+    <>
         <PageMeta meta={pageMeta.clientApp} />
         <ClientHeaderContainer />
-        <div className="full-container container">
+        <div id="page-container">
             <MenuContainer />
             <div id="page-area">
-                <UnconfirmedEmailBanner />
-                <Banner />
-                <Routes />
+                <div id="page-content" className="flex-column justify-between">
+                    <div id="bulk-content">
+                        <UnconfirmedEmailBanner />
+                        <Banner />
+                        <Routes />
+                    </div>
+                    <LoggedInFooter />
+                </div>
             </div>
         </div>
-        <FooterContainer />
-    </div>
+    </>
 );
 
 export default ClientApp;

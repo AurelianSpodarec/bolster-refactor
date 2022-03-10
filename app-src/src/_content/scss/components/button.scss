@@ -1,0 +1,373 @@
+// overall button styles
+button {
+    margin: 0;
+
+    &:disabled {
+        cursor: default;
+    }
+}
+
+// buttons
+.button {
+    display: inline-block;
+    padding: 5px 15px;
+    background-color: $button-grey;
+    color: white;
+    text-decoration: none;
+    text-transform: capitalize;
+    font-size: 120%;
+    transition: 0.2s background-color;
+    border-radius: 2.5px;
+    @include ubuntu;
+    line-height: 1;
+
+    &:hover,
+    &.active {
+        background-color: #737373;
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &.red {
+        background-color: $red;
+
+        &:hover, &.active {
+            background-color: #b51313;
+        }
+    }
+
+    &.yellow {
+        background-color: $yellow;
+
+        &:hover, &.active {
+            background-color: #da9001;
+        }
+    }
+
+    &.blue {
+        background-color: $blue;
+
+        &:hover, &.active {
+            background-color: #1083b3;
+        }
+    }
+
+    &.green {
+        background-color: $green;
+        &:hover, &.active {
+            background-color: #258e48;
+        }
+    }
+
+    &.icon-only {
+        padding: {
+            left: 4px;
+            right: 4px;
+        }
+        i {
+            margin-right: 0;
+        }
+    }
+
+    i {
+        margin-right: 5px;
+    }
+
+    &.disabled, &:disabled {
+        opacity: 0.5;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+
+    &.centered {
+        display: flex;
+        align-items: center;
+    }
+}
+
+// button containers
+.button-container {
+    float: left;
+    width: calc(100% + 10px);
+    margin-left: -5px;
+
+    .button {
+        float: right;
+        margin: 0 5px;
+        &:first-child {
+            margin-right: 0;
+        }
+    }
+
+    &.position-bottom {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+
+    &.table {
+        width: calc(100% + 30px);
+        padding: 15px 10px 0;
+        margin-left: -15px;
+        border-top: 2px solid #f5f5f5;
+    }
+
+    &.outside-block {
+        width: 100%;
+        margin-left: 0;
+    }
+    &.under-component{
+        width: 100%;
+        margin-left: 0;
+        margin-top:5px;
+    }
+
+    &.left {
+        .button {
+            float: left;
+            margin: 0 5px;
+
+            &:first-child {
+                margin-right: 5px;
+            }
+        }
+    }
+
+    &.vertical-spacing {
+        .button {
+            margin: {
+                top: 2.5px;
+                bottom: 2.5px;
+            };
+        }
+    }
+}
+
+.no-background-btn {
+    background-color: transparent;
+}
+.disabled-link {
+    pointer-events: none;
+}
+
+
+//for button under content blocks/areas
+.button-block-container {
+    padding: 0 5px;
+    margin-top: 15px;
+    
+    &.center-right-align-items {
+        display: flex;
+        align-items: center;
+        justify-content: right;
+    }
+
+    &.min-height-20 {
+        min-height: 20px;
+
+    }
+
+    &.center-align {
+        text-align: center;
+
+        .button {
+            display: inline-block;
+        }
+    }
+    &.no-margin {
+        margin: 0;
+        button {
+            margin-bottom: 3px;
+        }
+    }
+
+    &.card-buttons {
+        width: 120px;
+    }
+    &.stacked {
+        display: flex;
+        flex-direction: column;
+    }
+    &.margin-top-lg {
+        margin-top: 80px;
+    }
+    
+    a {
+        &.button {
+            text-align: center;
+        }
+    }
+
+    $blockButtonSpacing: 7.5px;
+
+    .button,
+    button,
+    .link-holder {
+        float: right;
+        margin-left: $blockButtonSpacing;
+
+        &.left {
+            float: left;
+            margin: {
+                left: 0;
+                right: $blockButtonSpacing;
+            }
+        }
+    }
+
+    &.left-align {
+        .button,
+        button,
+        .link-holder {
+            float: left;
+            margin-left: 0;
+            margin-right: $blockButtonSpacing;
+        }
+    }
+}
+
+// button area
+.button-area {
+    .button,
+    button {
+        float: right;
+        margin-left: 5px;
+    }
+}
+
+// credits button
+.credits-button {
+    background-color: transparent;
+    height: 40px;
+    padding: 0;
+    font-size: 15px;
+    @include ubuntu-medium;
+    cursor: not-allowed;
+
+    $creditButtonRadius: 50px;
+
+    .balance {
+        min-width: 50px;
+        background-color: var(--input-default);
+        border-top-left-radius: $creditButtonRadius;
+        border-bottom-left-radius: $creditButtonRadius;
+    }
+    
+    .buy {
+        padding: 0 15px;
+        border-top-right-radius: $creditButtonRadius;
+        border-bottom-right-radius: $creditButtonRadius;      
+        color: white;
+        background-color: var(--fixed-input-button-light);
+
+        .icon {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        &.fully-rounded {
+            border-top-left-radius: $creditButtonRadius;
+            border-bottom-left-radius: $creditButtonRadius;
+        }
+    }
+
+    &.positive, &.negative {
+        cursor: pointer;
+    }
+    
+    &.positive {
+        .balance {
+            color: var(--positive-default);
+        }
+
+        .buy {
+            background-color: var(--positive-default); 
+        }
+
+        &:hover {
+            .buy {
+                background-color: var(--positive-hover);
+            }
+        }
+        
+        &:active {
+            .buy {
+                background-color: var(--positive-pressed);
+            }
+        }
+    }
+
+    &.negative {
+        .balance {
+            color: var(--bolster-primary);
+        }
+
+        .buy {
+            background-color: var(--negative-default); 
+        }
+
+        &:hover {
+            .buy {
+                background-color: var(--negative-hover);
+            }
+        }
+
+        &:active {
+            .buy {
+                background-color: var(--negative-pressed);
+            }
+        }
+    }
+}
+
+// circle button
+.circle-button {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    cursor: pointer;
+    color: $body-text;
+    transition: 0.2s background-color;
+    border-radius: 50px;
+    background-color: var(--tools-background);
+
+    .icon {
+        width: 19px;
+    }
+
+    .dark-hover {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 50px;
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+            transition: background-color 0.5s;
+        }
+
+    }
+
+
+}
+
+.circle-button-container {
+    display: flex;
+    justify-items: flex-end;
+    height: 40px;
+    width: 40px;
+    .notification-dot {
+        position: absolute;
+        left: 27px;
+        width: 12px;
+        height: 12px;
+        margin-top: 0;
+        margin-right: 0;
+        background-color: red;
+        z-index: 1;
+        @include rounded-all(50%);
+    }
+}

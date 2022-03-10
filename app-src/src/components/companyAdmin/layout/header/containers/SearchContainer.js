@@ -14,7 +14,7 @@ class SearchContainer extends Component {
 
     render() {
         const { searchTerm, resultsVisible, isLoading } = this.state;
-        const { isFetching, error } = this.props;
+        const { isFetching, error, placeholder } = this.props;
         return (
             <div
                 ref={node => {
@@ -30,6 +30,7 @@ class SearchContainer extends Component {
                     results={this.formatSearchResults()}
                     handleLinkClick={() => this._closeResults()}
                     isLoading={isLoading}
+                    placeholder={placeholder}
                 />
             </div>
         );

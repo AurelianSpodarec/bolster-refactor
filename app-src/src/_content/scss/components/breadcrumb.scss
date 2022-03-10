@@ -1,0 +1,25 @@
+.breadcrumb, .content-container .breadcrumb {
+    float: left;
+    width: calc(100% - 310px);
+
+    p {
+        @include ubuntu-medium;
+        font-size: 130%;
+        color: white;
+
+        a {
+            color: white;
+            text-decoration: none;
+
+            &:hover {
+                sub {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    &:last-child {
+        width: 100%;
+    }
+}

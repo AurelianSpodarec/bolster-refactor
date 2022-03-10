@@ -1,7 +1,7 @@
 import { TIME_PERIOD } from 'constants/companyAdmin/enums';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, batch } from 'react-redux';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import fetchTimesheetsWeek from 'actions/companyAdmin/timesheets/async/fetchTimesheetsWeek';
 import { useParams } from 'react-router-dom';
@@ -24,7 +24,6 @@ import { selectServiceIDs } from 'selectors/companyAdmin/services';
 import { ERROR_MODAL, GENERATE_TIMESHEET_REPORT } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import {
-    selectCompanyUsers,
     selectCompanyUsersFetchError,
     selectCompanyUsersIsFetching,
 } from 'selectors/companyAdmin/companyUsers';
@@ -46,7 +45,6 @@ const useTimesheets = () => {
 
     const companyUsersIsFetching = useSelector(selectCompanyUsersIsFetching);
     const companyUsersFetchError = useSelector(selectCompanyUsersFetchError);
-    const companyUsers = useSelector(selectCompanyUsers);
 
     const timesheetsIsFetching = useSelector(selectTimesheetsIsFetching);
     const timesheetsFetchError = useSelector(selectTimesheetsFetchError);
@@ -95,12 +93,22 @@ const useTimesheets = () => {
     };
 
     const onDaySelect = timestamp => {
+        const timezoneDate = moment(timestamp)
+            .tz(timeZone?.id ?? 'Europe/London')
+            .startOf('day')
+            .format();
+
         setTimePeriod(TIME_PERIOD.DAY);
-        setSelectedDate(timestamp);
+        setSelectedDate(timezoneDate);
     };
     const onWeekSelect = timestamp => {
+        const timezoneDate = moment(timestamp)
+            .tz(timeZone?.id ?? 'Europe/London')
+            .startOf('isoWeek')
+            .format();
+
         setTimePeriod(TIME_PERIOD.WEEK);
-        setSelectedDate(timestamp);
+        setSelectedDate(timezoneDate);
     };
 
     const handlePDFReportGeneration = () => {
@@ -155,27 +163,55 @@ const useTimesheets = () => {
                 acc[i].formattedBreakHours += entry.formattedBreakHours;
                 acc[i].totalPins += entry.totalPins;
                 acc[i].jobReferenceIDs = [...acc[i].jobReferenceIDs, ...entry.jobReferenceIDs];
+                acc[i].date = moment(entry.date)
+                    .tz(timeZone?.id ?? 'Europe/London')
+                    .startOf('day')
+                    .format();
             });
             return acc;
         },
 
         new Array(7).fill(dayTotal).map((day, i) => ({
             ...day,
-            date: moment(startDate).add(i, 'days').format(),
+            date: moment(startDate)
+                .tz(timeZone?.id ?? 'Europe/London')
+                .startOf('day')
+                .add(i, 'days')
+                .format(),
         })),
     );
+
+    const formattedTimesheets = timesheets.map(timesheet => {
+        return {
+            ...timesheet,
+            clockerEntries: timesheet.clockerEntries.map(entry => {
+                return {
+                    ...entry,
+                    date: moment(entry.date)
+                        .tz(timeZone?.id ?? 'Europe/London')
+                        .startOf('day')
+                        .format(),
+                };
+            }),
+        };
+    });
 
     const prevProps = usePrevious({ companyUserIDs, startDate });
 
     useEffect(() => {
-        // on first mount
-        dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
-        dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
-        dispatch(fetchCompanyUsers());
-        dispatch(fetchJobReferences());
-
         if (id) {
-            dispatch(setCompanyUserIDs([parseInt(id)]));
+            const postBody = [parseInt(id)];
+            batch(() => {
+                dispatch(setCompanyUserIDs(postBody));
+                dispatch(fetchTimesheetsWeek(postBody, startDate));
+            });
+        } else {
+            batch(() => {
+                dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
+                dispatch(fetchTimesheetsWeek([], startDate));
+                dispatch(fetchCompanyUsers());
+                dispatch(fetchJobReferences());
+            });
         }
     }, [dispatch]);
 
@@ -215,7 +251,7 @@ const useTimesheets = () => {
         companyUserOptions,
         isFetching: timesheetsIsFetching || companyUsersIsFetching || jobReferencesIsFetching,
         fetchError: timesheetsFetchError || companyUsersFetchError,
-        timesheets,
+        timesheets: formattedTimesheets,
         totals,
         disableReportGenPin:
             isFetchingReportGenPins || (!isFetchingReportGenPins && errorReportGenPins),

@@ -1,0 +1,128 @@
+// multi filters
+.multi-filters {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .flex {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .item {
+        &:first-child {
+            p {
+                padding-left: 0;
+            }
+        }
+    }
+
+    p {
+        text-align: right;
+        padding-left: 20px;
+        padding-right: 10px;
+    }
+    .react-datepicker-wrapper {
+        width: 100%;
+        height: 100%;
+        input {
+            width: 100%;
+            height: 100%;
+            font-size: 140%;
+            padding: 7.5px 10px;
+            margin-right: 10px;
+        }
+    }
+    i {
+        font-size: 140%;
+    }
+}
+
+//area filter
+.area-filter {
+    position: absolute;
+    top: -1px;
+    right: 0;
+    width: 120px;
+
+    .icon {
+        position: absolute;
+        @include vertical-center;
+        z-index: 1;
+        left: 5px;
+        font-size: 120%;
+        color: #999;
+    }
+
+    input {
+        width: 100%;
+        padding: 3px 5px 3px 25px;
+        font-size: 140%;
+        @include ubuntu;
+        background-color: $background-grey;
+        border: none;
+        @include rounded-all(3px);
+    }
+}
+
+// filter
+.filter {
+    float: left;
+    width: 100%;
+    padding-right: 10px;
+
+    .title {
+        width: 95px;
+        padding-top: 5px;
+    }
+
+    .custom-dropdown {
+        width: calc(100% - 100px);
+    }
+}
+
+// map filters
+.map-filters {
+    .block-heading {
+        margin-bottom: 15px;
+    }
+    //pin amounts
+    .pin-amounts {
+        float: right;
+        .pin {
+            float: right;
+            width: 65px;
+
+            img,
+            p {
+                float: right;
+            }
+
+            img {
+                width: 22px;
+
+                &.all-pins {
+                    width: auto;
+                    height: 36px;
+                }
+            }
+
+            p {
+                padding: 5px 7px 0 0;
+                font-size: 140%;
+                @include ubuntu-medium;
+            }
+        }
+    }
+}
+
+// levels filter
+.levels-filter {
+    .form-field {
+        opacity: 0.2;
+        &.active {
+            opacity: 1;
+        }
+    }
+}
