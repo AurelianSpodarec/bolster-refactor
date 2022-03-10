@@ -1,45 +1,53 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useMemo } from 'react';
+import useGetSuperAdminNotifications from '../../../../../hooks/useGetSuperAdminNotifications';
+
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import SuperAdminMenu from '../presentational/SuperAdminMenu';
-import { logout } from 'actions/shared/auth/sync/logout';
+import { superAdminNavMenuItems } from '../../../../../constants/superAdmin/menuItems';
+import fetchAllContactSubmissions from '../../../../../actions/superAdmin/contactSubmissions/async/fetchAllContactSubmissions';
 import fetchBugReportList from 'actions/superAdmin/bugReports/fetchBugReportList';
+import { selectLatestAppVersion } from 'selectors/companyAdmin/app';
 
-const SuperAdminMenuContainer = ({
-    history,
-    unreadRequests,
-    unreadBugReports,
-    logout,
-    fetchBugReportList,
-}) => {
+const SuperAdminMenuContainer = () => {
+    const dispatch = useDispatch();
+
+    const { unreadSuperAdminBugReports, unreadSuperAdminContactSubmissions } =
+        useGetSuperAdminNotifications();
+    const latestAppVersion = useSelector(selectLatestAppVersion);
+
     useEffect(() => {
-        fetchBugReportList();
+        batch(() => {
+            dispatch(fetchBugReportList());
+            dispatch(fetchAllContactSubmissions());
+        });
     }, []);
+
+    const formattedNavItems = useMemo(
+        () =>
+            superAdminNavMenuItems.map(item => {
+                if (item.name === 'Support') {
+                    return {
+                        ...item,
+                        showNotificationBadge: !!unreadSuperAdminBugReports,
+                    };
+                }
+                if (item.name === 'Contact') {
+                    return {
+                        ...item,
+                        showNotificationBadge: !!unreadSuperAdminContactSubmissions,
+                    };
+                }
+                return item;
+            }),
+        [superAdminNavMenuItems, unreadSuperAdminContactSubmissions, unreadSuperAdminBugReports],
+    );
     return (
         <SuperAdminMenu
-            unreadRequests={unreadRequests}
-            unreadBugReports={unreadBugReports}
-            logout={handleLogout}
+            superAdminNavMenuItems={formattedNavItems}
+            latestAppVersion={latestAppVersion}
         />
     );
-    function handleLogout(e) {
-        e.preventDefault();
-        logout();
-        history.replace('/auth/login');
-    }
 };
 
-const mapStateToProps = ({ superAdmin: { contactSubmissionsReducer, bugReportsReducer } }) => ({
-    unreadRequests: Object.values(contactSubmissionsReducer.contactSubmissions).reduce(
-        (result, { contacted }) => result + (!contacted ? 1 : 0),
-        0,
-    ),
-    unreadBugReports: Object.values(bugReportsReducer.bugReports).reduce(
-        (result, { isRead }) => result + (!isRead ? 1 : 0),
-        0,
-    ),
-});
-
-export default withRouter(
-    connect(mapStateToProps, { logout, fetchBugReportList })(SuperAdminMenuContainer),
-);
+export default withRouter(SuperAdminMenuContainer);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import L from 'leaflet';
 import { CRS } from 'leaflet';
@@ -36,6 +36,8 @@ const DrawingMapViewSimple = ({
     currentTooltip,
     drawingNotStarted,
 }) => {
+    const [shouldScroll, setShouldScroll] = useState(false);
+
     const cornerClickedIcon = L.divIcon({
         className: '',
         html: ReactDOMServer.renderToString(<RedX />),
@@ -43,6 +45,14 @@ const DrawingMapViewSimple = ({
         iconAnchor: [15, 50],
         popupAnchor: [0, -50],
     });
+
+    const handleMapClick = e => {
+        if (shouldScroll) {
+            handleClick(e);
+        } else {
+            setShouldScroll(true);
+        }
+    };
 
     return drawing.tilesetS3Key ? (
         <>
@@ -73,9 +83,10 @@ const DrawingMapViewSimple = ({
                 zoom={zoom}
                 minZoom={0}
                 maxZoom={6}
-                onClick={handleClick}
+                onClick={handleMapClick}
                 crs={CRS.Simple}
                 tap={false}
+                scrollWheelZoom={shouldScroll}
             >
                 <TileLayer
                     attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'

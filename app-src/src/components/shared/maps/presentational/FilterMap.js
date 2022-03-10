@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Map, TileLayer, Marker } from 'react-leaflet';
 import ReactDOMServer from 'react-dom/server';
 import L from 'leaflet';
@@ -26,6 +26,8 @@ const FilterMap = ({
     isExcluding,
     isClient,
 }) => {
+    const [shouldScroll, setShouldScroll] = useState(false);
+
     const cornerClickedIcon = L.divIcon({
         className: '',
         html: ReactDOMServer.renderToString(<RedX />),
@@ -33,6 +35,15 @@ const FilterMap = ({
         iconAnchor: [15, 50],
         popupAnchor: [0, -50],
     });
+
+    const handleMapClick = e => {
+        if (shouldScroll) {
+            handleClick(e);
+        } else {
+            setShouldScroll(true);
+        }
+    };
+
     return (
         <Block>
             {shouldShowMapOptions && (
@@ -49,9 +60,10 @@ const FilterMap = ({
                 zoom={3}
                 minZoom={0}
                 maxZoom={6}
-                onClick={handleClick}
+                onClick={handleMapClick}
                 crs={CRS.Simple}
                 tap={false}
+                scrollWheelZoom={shouldScroll}
             >
                 <TileLayer
                     attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'

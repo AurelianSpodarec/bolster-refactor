@@ -1,13 +1,10 @@
-import {
-    DECODE_JWT_REQUEST,
-    DECODE_JWT_SUCCESS
-} from 'constants/actionTypes/decodeJWT';
+import { DECODE_JWT_REQUEST, DECODE_JWT_SUCCESS } from 'constants/actionTypes/decodeJWT';
 import { LOGOUT } from 'constants/actionTypes/auth';
 
 import { combineReducers } from 'redux';
 
 export default combineReducers({
-    jwtData: jwtDataReducer
+    jwtData: jwtDataReducer,
 });
 
 function jwtDataReducer(state = {}, action) {
