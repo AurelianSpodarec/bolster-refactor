@@ -815,11 +815,11 @@
     width: 100%;
     padding: 8.5px 10px;
     font-size: 140%;
-    background-color: white;
+    background-color: var( --background-default);
     border: $input-border-grey 1px solid;
     border-radius: 2.5px;
     @include ubuntu;
-    color: black;
+    color: var(--typography-default);
 
     &::placeholder {
         color: $dark-grey;
@@ -843,6 +843,7 @@
 .custom-dropdown {
     float: left;
     width: 100%;
+ 
 
     input {
         width: 100%;
