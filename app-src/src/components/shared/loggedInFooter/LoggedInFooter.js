@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import linkedInIcon from '_content/images/icons/socials/linked-in.svg';
-import vimeoIcon from '_content/images/icons/socials/vimeo.svg';
-import instagramIcon from '_content/images/icons/socials/instagram.svg';
-import twitterIcon from '_content/images/icons/socials/twitter.svg';
+import linkedInIcon from '_content/images/icons/socials/linked-in-lightmode.svg';
+import vimeoIcon from '_content/images/icons/socials/vimeo-lightmode.svg';
+import instagramIcon from '_content/images/icons/socials/instagram-lightmode.svg';
+import twitterIcon from '_content/images/icons/socials/twitter-lightmode.svg';
 
 const LoggedInFooter = () => {
     return (
