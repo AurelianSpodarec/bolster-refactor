@@ -6,6 +6,7 @@ import fetchProfile from 'actions/shared/profile/async/fetchProfile';
 import editProfile from 'actions/shared/profile/async/editProfile';
 
 import EditProfileForm from '../presentational/EditProfileForm';
+import { setIsDarkModeEnabled } from '../../../../../actions/shared/colourTheme/setIsDarkModeEnabled';
 
 class EditProfileFormContainer extends Component {
     state = {
@@ -55,9 +56,11 @@ class EditProfileFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { filesUploading } = this.props;
+        const { filesUploading, setIsDarkModeEnabled } = this.props;
+        const { isDarkModeEnabled } = this.state;
 
-        localStorage.setItem('isDarkModeEnabled', this.state.isDarkModeEnabled);
+        window.localStorage.setItem('isDarkModeEnabled', isDarkModeEnabled);
+        setIsDarkModeEnabled(isDarkModeEnabled);
 
         if (!filesUploading) {
             const { profileImageS3Key, currentProfileImage, ...restForm } = this.state;
@@ -90,6 +93,6 @@ const mapStateToProps = ({
     filesUploading,
 });
 
-const mapDispatchToProps = { fetchProfile, editProfile };
+const mapDispatchToProps = { fetchProfile, editProfile, setIsDarkModeEnabled };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditProfileFormContainer));

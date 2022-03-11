@@ -25,6 +25,7 @@ import legalDocumentsReducer from './legalDocuments';
 import bannerNotificationReducer from './bannerNotifications';
 import twoFactorReducer from './twoFactor';
 import bannerReducer from './banner';
+import colourThemeReducer from './colourTheme';
 
 export default combineReducers({
     confirmLeaveReducer,
@@ -52,4 +53,5 @@ export default combineReducers({
     buildingsFilterReducer,
     floorsFilterReducer,
     drawingsFilterReducer,
+    colourThemeReducer,
 });
