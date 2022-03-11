@@ -14,6 +14,7 @@ class EditProfileFormContainer extends Component {
         phoneNumber: '',
         profileImageS3Key: '',
         currentProfileImage: '',
+        isDarkModeEnabled: true,
     };
 
     render() {
@@ -55,6 +56,9 @@ class EditProfileFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
         const { filesUploading } = this.props;
+
+        localStorage.setItem('isDarkModeEnabled', this.state.isDarkModeEnabled);
+
         if (!filesUploading) {
             const { profileImageS3Key, currentProfileImage, ...restForm } = this.state;
             // check if image should stay the same or be changed to a new value
