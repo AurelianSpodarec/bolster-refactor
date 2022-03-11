@@ -345,7 +345,7 @@ em {
 
         a {
             text-decoration: none;
-            color: $body-text;
+            color: var(--typography-default);
             @include ubuntu-medium;
 
             &:hover {
@@ -702,7 +702,7 @@ input {
 
 //inspection log
 .inspection-log {
-    background-color: $body-text;
+    background-color: var(--background-default);;
     // always show scroll bar (chrome / webkit browsers)
     overflow-y: auto;
     ::-webkit-scrollbar {
