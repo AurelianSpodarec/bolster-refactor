@@ -42,7 +42,7 @@
     .dropdown-heading-value {
         line-height: 26px !important;
         span {
-            color: $body-text !important;
+            color: var(----typography-default) !important;
             font-family: 'Ubuntu', sans-serif !important;
             font-size: 14px;
             font-weight: 400 !important;
@@ -92,7 +92,7 @@
             top: 50%;
             transform: translateY(-50%);
             right: 8px;
-            color: #767676;
+            color: var(--typography-greyed-out);
         }
     }
     &.photo-view {
@@ -189,13 +189,13 @@
     }
 
     .sigCanvas {
-        background-color: $background-grey;
+        background-color: var(--background-container);
         max-width: 100%;
         border-radius: 5px;
     }
 
     .filepond--drop-label {
-        background-color: $background-grey;
+        background-color: var(--background-container);
         border-radius: 5px;
     }
 
@@ -203,7 +203,7 @@
         float: left;
         width: 100%;
         margin: -5px 0 12.5px;
-        color: #666;
+        color: var(--typography-greyed-out);
     }
 
     &.fields-inside {
@@ -287,7 +287,7 @@
         top: 2.25px;
         width: 15px;
         height: 15px;
-        background-color: white;
+        background-color: var(--background-default);
         border-radius: 50%;
         transition: left 0.2s;
     }
@@ -385,9 +385,9 @@
         left: 0;
         width: 12px;
         height: 12px;
-        border: 1px solid $text-grey;
+        border: 1px solid var(--background-stroke);
         border-radius: 20px;
-        background-color: $button-grey;
+        background-color: var(--background-container);
         transition: background-color 0.2s;
     }
 
@@ -403,8 +403,8 @@
         top: 0;
         width: 10px;
         height: 10px;
-        background-color: white;
-        border: 1px solid white;
+        background-color: var(--background-default);
+        border: 1px solid var(--background-default);
         border-radius: 50%;
         transition: background-color 0.2s ease-in-out;
     }
@@ -448,12 +448,12 @@
         .option {
             padding: 4px 8px;
     
-            color: $dark-grey;
+            color: var(--typography-greyed-out);
             font-size: 140%;
     
             &.selected {
                 background-color: $blue;
-                color: #fff;
+                color: var(--typography-greyed-out);
             }
         }
     }
@@ -625,7 +625,7 @@
     }
     .file-name {
         text-align: left;
-        color: white;
+        color: var(--typography-greyed-out);
         margin-top: 2.5px;
         margin-bottom: 2px;
     }
@@ -718,9 +718,9 @@
         width: 100%;
         @include ubuntu;
         font-size: 140%;
-        color: $text-grey;
+        color: var(--typography-greyed-out);
         span{
-            color:$body-text;
+            color: var(----typography-default);
             cursor:pointer;
         }
     }
