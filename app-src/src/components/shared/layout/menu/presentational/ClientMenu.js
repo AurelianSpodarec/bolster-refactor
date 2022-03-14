@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 
 import bolsterLogo from '../../../../../_content/images/footer/powered-by-bolster-red.svg';
+import bolsterLogoDarkMode from '../../../../../_content/images/footer/powered–by-bolster-white.svg';
 import ClientMenuItemContainer from '../containers/ClientMenuItemContainer';
+import useColourTheme from '../../../../../hooks/useColourTheme';
 
 const ClientMenu = ({ clientNavMenuItems, latestAppVersion }) => {
     const [hoveredItem, setHoveredItem] = useState(null);
+    const colourTheme = useColourTheme();
 
     return (
         <div className="menu">
@@ -20,7 +23,10 @@ const ClientMenu = ({ clientNavMenuItems, latestAppVersion }) => {
             </div>
 
             <div className="nav-footer">
-                <img src={bolsterLogo} alt="Powered by Bolster" />
+                <img
+                    src={colourTheme === 'dark' ? bolsterLogoDarkMode : bolsterLogo}
+                    alt="Powered by Bolster"
+                />
                 <p>App version: {latestAppVersion}</p>
             </div>
         </div>
