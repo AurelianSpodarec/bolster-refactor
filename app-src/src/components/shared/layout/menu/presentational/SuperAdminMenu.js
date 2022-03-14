@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import bolsterLogo from '../../../../../_content/images/footer/powered–by-bolster-white.svg';
+import bolsterLogo from '../../../../../_content/images/footer/powered-by-bolster-red.svg';
 import SuperAdminMenuItemContainer from '../containers/SuperAdminMenuItemContainer';
 
 const SuperAdminMenu = ({ superAdminNavMenuItems, latestAppVersion }) => {

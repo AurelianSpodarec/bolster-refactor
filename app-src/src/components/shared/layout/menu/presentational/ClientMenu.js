@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import bolsterLogo from '../../../../../_content/images/footer/powered–by-bolster-white.svg';
+import bolsterLogo from '../../../../../_content/images/footer/powered-by-bolster-red.svg';
 import ClientMenuItemContainer from '../containers/ClientMenuItemContainer';
 
 const ClientMenu = ({ clientNavMenuItems, latestAppVersion }) => {
