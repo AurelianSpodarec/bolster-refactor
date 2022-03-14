@@ -2080,6 +2080,19 @@ input {
     }
 }
 
+.react-calendar {
+    background: rgb(187, 180, 180) !important;
+    border: 1px solid var(--background-stroke) !important;
+    color: black !important;
+    border-radius: 2.5px;
+    font-family: Arial, Helvetica, sans-serif;
+
+    
+}
+.react-calendar__month-view__days__day--weekend {
+    color: var(--negative-default);
+}
+
 .react-daterange-picker__wrapper {
     padding: 8px 4px;
     font-size: 12px;
@@ -2091,7 +2104,11 @@ input {
 }
 
 .react-daterange-picker__inputGroup__input {
-    color: var(--typography-default);
+    color: var(--typography-default) !important;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+    color: #757575 !important;
 }
 
 .demo-full-site-container {
