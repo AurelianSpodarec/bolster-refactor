@@ -184,7 +184,9 @@
             font-size: 140%;
             @include ubuntu;
             border-radius: 2.5px;
-            border: 1px solid #e1e1e1;
+            border: 1px solid  var(--background-stroke);;
+            background-color: var(--input-default);
+            color: var(--typography-default);
         }
     }
 
@@ -850,7 +852,9 @@
         padding: 7.5px 10px;
         @include ubuntu;
         font-size: 140%;
-        border: 1px solid $input-border-grey;
+        border: 1px solid var(--background-stroke);
+        background-color: var(--input-default);
+        color: var(--dropdown-text);
         outline: none;
         @include rounded-all(2.5px);
     }
@@ -934,10 +938,10 @@
         width: 100%;
         min-height: 33px;
         padding: 0 40px 0 5px;
-        border: 1px solid #e1e1e1;
+        border: 1px solid var(--background-stroke);
+        background-color: var(--input-default);
         border-radius: 3px;
         cursor: pointer;
-        background-color: white;
         white-space: nowrap;
         overflow: hidden;
         
@@ -950,7 +954,7 @@
             min-width: 60px;
             padding: 2.5px 5px;
             margin: 5px;
-            background-color: #f2f2f2;
+            background-color: var(--input-default);
             cursor: default;
 
             &.option-hidden {
@@ -991,7 +995,7 @@
             @include vertical-center;
             right: 10px;
             font-size: 240%;
-            color: $text-grey;
+            color: var(--dropdown-text);
             cursor: pointer;
         }
     }
@@ -1003,9 +1007,9 @@
         left: 0;
         width: auto;
         min-width: 100%;
-        background-color: white;
+        background-color:  var(--input-default);
         z-index: 100;
-        border: 1px solid #e1e1e1;
+        border: 1px solid var(--background-stroke);
         @include rounded-bottom(3px);
         white-space: nowrap;
 
@@ -1020,7 +1024,7 @@
                 padding: 3px 5px;
                 @include ubuntu;
                 font-size: 140%;
-                color: $text-grey;
+                color: var(--dropdown-text);
             }
         }
 
@@ -1041,7 +1045,7 @@
                 white-space: nowrap;
                 &:hover,
                 &.active {
-                    background-color: #f2f2f2;
+                    background-color: var( --input-secondary);
                 }
             }
 

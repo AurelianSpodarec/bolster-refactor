@@ -2083,9 +2083,15 @@ input {
 .react-daterange-picker__wrapper {
     padding: 8px 4px;
     font-size: 12px;
-    border: 1px solid #cccccc !important;
+    border: 1px solid var(--background-stroke) !important;
+    background-color: var(--input-default);
     border-radius: 2.5px;
     outline: none;
+    color: var(--typography-default);
+}
+
+.react-daterange-picker__inputGroup__input {
+    color: var(--typography-default);
 }
 
 .demo-full-site-container {
@@ -2174,7 +2180,7 @@ input {
                 height: 100%;
                 font-size: 140%;
                 padding: 7.5px 10px;
-                margin-right: 10px;
+                margin-right: 10px;         
             }
         }   
     }

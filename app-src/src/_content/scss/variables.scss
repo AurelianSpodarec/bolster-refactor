@@ -278,15 +278,13 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
 
 // dark theme variable overrides
 [data-theme="dark"] {
-    // originals (to be removed after light/dark theme work)
-    --background-color: #212228;
-
     // from palette (designs)
     --background-default: #212227;
     --background-container: #2F3037;
     --background-stroke: #494C5B;
     --navigation-primary: #3A3C45;
     --navigation-secondary: #525461;
+    --input-default: #525461;
     --typography-default: #F9FAFA;
 
     // others not in palette (designs)
