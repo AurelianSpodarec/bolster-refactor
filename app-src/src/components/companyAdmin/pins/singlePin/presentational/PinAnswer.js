@@ -110,12 +110,17 @@ const PinAnswer = ({
             if (
                 !answerString.startsWith('data:') &&
                 !answerString.endsWith('.png') &&
-                !answerString.endsWith('.jpg')
+                !answerString.endsWith('.jpg') &&
+                !answerString.endsWith('.jpeg')
             ) {
                 answerString = `data: image/jpeg;base64,${answerString}`;
             }
 
-            if (answerString.endsWith('.png') || answerString.endsWith('.jpg')) {
+            if (
+                answerString.endsWith('.png') ||
+                answerString.endsWith('.jpg') ||
+                answerString.endsWith('.jpeg')
+            ) {
                 answerString = `${FILE_STORAGE_URL}/${answerString}`;
             }
             if (
