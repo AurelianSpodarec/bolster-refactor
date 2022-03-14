@@ -177,4 +177,4 @@ const requestStateSelector = ({
     },
 }) => ({ isPosting, isFetching, postSuccess, error });
 
-export default PasswordReset;
+export default React.memo(PasswordReset);
