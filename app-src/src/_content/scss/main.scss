@@ -789,8 +789,8 @@ input {
 //subscriptions page
 .subscriptions-list {
   border: {
-    top: 1px solid $light-grey;
-    bottom: 1px solid $light-grey;
+    top: 1px solid var(--background-stroke);
+    bottom: 1px solid var(--background-stroke);
   }
   margin: {
     top: -10px;
@@ -822,7 +822,7 @@ input {
 }
 
 .subscription-item {
-  border: 1px solid $light-grey;
+  border: 1px solid var(--background-stroke);
   padding: 10px 25px;
 
   .field-name {
@@ -1881,7 +1881,7 @@ input {
   .sub-title {
     &.small {
       font-size: 90%;
-      color: black;
+      color: var(----typography-default);
     }
   }
 

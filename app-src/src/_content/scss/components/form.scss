@@ -864,7 +864,7 @@
   padding: 8.5px 10px;
   font-size: 140%;
   background-color: var(--input-default);
-  border: $input-border-grey 1px solid;
+  border: var(--background-stroke) 1px solid;
   border-radius: 2.5px;
   @include ubuntu;
   color: var(--typography-default);
