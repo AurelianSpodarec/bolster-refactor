@@ -255,6 +255,7 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
     --navigation-secondary: #525461;
     --typography-default: #212227;
     --typography-greyed-out: #AAACB1;
+    --input-default: #FFFFFF;
     --pin-installed: #2DAC57;
     --pin-action-required: #B22724;
     --pin-inspected: #3364DD;
@@ -274,6 +275,10 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
 
     //sizings
     --nav-width: 170px;
+
+    //calendar
+    --calendar-negative: #d10000;
+    --calendar-greyed-out: #757575;
 }
 
 // dark theme variable overrides
@@ -286,7 +291,8 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
     --navigation-secondary: #525461;
     --input-default: #525461;
     --typography-default: #F9FAFA;
-    --negative-default: #f91f2a75;
-
-    // others not in palette (designs)
+       
+    //calendar
+    --calendar-negative: #fc5c64;
+    --calendar-greyed-out: #969696;
 }
