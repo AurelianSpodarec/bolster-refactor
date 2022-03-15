@@ -45,11 +45,7 @@ body {
 .App {
   color: var(--typography-default);
 }
-
-// body {
-//     padding-bottom: 60px;
-// }
-
+  
 em {
   font-style: italic;
 }
@@ -2594,6 +2590,7 @@ input {
 
       button {
         background-color: transparent;
+        
 
         &:not(:disabled) {
           &:hover > .far {
@@ -2624,7 +2621,7 @@ input {
       font-size: 90%;
 
       &:hover {
-        background-color: $light-grey-alt;
+        background-color: var(--hover-primary);;
       }
 
       .far {
@@ -2699,12 +2696,12 @@ input {
         width: calc(100% + 16px);
 
         tr {
-          border-color: $light-grey-alt;
+          border-color: var(--background-stroke);
           border-width: 1px;
           border-style: none none solid none;
 
           th, td {
-            border-color: $light-grey-alt;
+            border-color: var(--background-stroke);
             border-width: 1px;
             border-style: none solid none none;
             width: 12.5%;
@@ -2738,7 +2735,7 @@ input {
 
           td {
             &.disabled {
-              background-color: $light-grey;
+              background-color: var(--hover-primary);
             }
 
             .film {
@@ -2754,11 +2751,10 @@ input {
               display: flex;
               flex-direction: column;
               justify-content: space-between;
-
               min-height: 170px;
               max-height: 170px;
-
               padding: 6px 8px;
+       
 
               .tasks {
                 flex-grow: 1;
@@ -2778,8 +2774,9 @@ input {
                   gap: 6px;
                   border-radius: 5px;
                   padding-right: 4px;
+                  background-color: var(--input-default);
+                  color: var(--typography-default);
 
-                  background-color: $light-grey-alt;
 
                   .group {
                     display: flex;
@@ -2873,7 +2870,7 @@ input {
 
     border-radius: 5px 5px 0 0;
     border-width: 1px;
-    border-color: $light-grey-alt;
+    border-color: var(--background-stroke);
     border-bottom-style: solid;
 
     .segment {
@@ -2933,7 +2930,6 @@ input {
   height: fit-content;
   gap: 8px;
   padding: 6px;
-
   box-shadow: 0 0 8px $green;
   border-radius: 5px;
 
@@ -2945,7 +2941,7 @@ input {
 
   .title {
     font-size: 120%;
-    color: $body-text;
+    color: var(--typography-default);
   }
 
   &.active {
