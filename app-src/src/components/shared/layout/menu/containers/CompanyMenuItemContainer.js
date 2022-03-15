@@ -39,12 +39,8 @@ const CompanyMenuItemContainer = ({
                             return false;
                         }
                     } else {
-                        if (item.subscriptionRestriction) {
-                            return false;
-                        }
+                        return item.showWhenNotSubscribed;
                     }
-
-                    return true;
                 })
                 .map(item => {
                     if (item.link === '/company/generate-qr-codes') {

@@ -28,8 +28,11 @@ const CompanyMenuContainer = ({
 
     const isCompanySelection = location.pathname.includes('company/company-selection');
     const isCompanyUser = !!companyUserID;
+
     const isSubscribed = !isEmpty(subscriptions) || (!hasUnpaidServiceInvoice && !!startOn);
+
     const isCompanyUserOrSelecting = isCompanySelection || !isCompanyUser;
+
     const latestAppVersion = useSelector(selectLatestAppVersion);
 
     const [shouldRestrictPayments, setShouldRestrictPayments] = useState(false);
@@ -75,12 +78,8 @@ const CompanyMenuContainer = ({
                         return false;
                     }
                 } else {
-                    if (item.subscriptionRestriction) {
-                        return false;
-                    }
+                    return item.showWhenNotSubscribed;
                 }
-
-                return true;
             })
             .map(item => {
                 if (
