@@ -2276,6 +2276,9 @@ input {
 .comments {
   textarea {
     margin-top: 8px;
+    background-color: var(--input-default);
+    color: var(--typography-default);
+    border: 1px solid var(--background-stroke);
   }
 
   .error-text {

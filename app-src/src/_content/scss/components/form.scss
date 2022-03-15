@@ -267,7 +267,7 @@
       + label,
       + input + label {
         .outer {
-          background-color: $green;
+          background-color: var(--positive-default);
         }
 
         .inner {
@@ -1259,8 +1259,16 @@
 }
 
 .quill {
-  .ql-toolbar {
+  & * {
+    background-color: var(--input-default);
+    color: var(--typography-default)
+  }
 
+  .ql-stroke, .ql-fill {
+    stroke: var(--typography-default);
+  }
+
+  .ql-toolbar {
     &.ql-snow {
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
