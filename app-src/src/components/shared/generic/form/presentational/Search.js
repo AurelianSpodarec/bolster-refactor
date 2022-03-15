@@ -13,7 +13,6 @@ const Search = ({
 
     return (
         <div className={`generic-search ${className}`}>
-            <i className="search-icon far fa-search" />
             <input
                 autoComplete={autoComplete}
                 type="text"
@@ -23,16 +22,7 @@ const Search = ({
                 onChange={({ target: { name, value } }) => handleChange(name, value)}
                 ref={inputRef}
             />
-            <button
-                className="clear-button"
-                type="button"
-                onClick={() => {
-                    inputRef.current.value = '';
-                    handleChange(name, '');
-                }}
-            >
-                <i className="far fa-times" />
-            </button>
+            <i className="search-icon far fa-search" />
         </div>
     );
 };

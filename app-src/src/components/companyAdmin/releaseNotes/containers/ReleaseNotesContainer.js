@@ -15,10 +15,11 @@ const ReleaseNotesContainer = ({
     isFetching,
     error,
     success,
+    postSuccess,
 }) => {
     const [releaseNotes, setReleaseNotes] = useState([]);
 
-    const prevProps = usePrevious({ isFetching, success, error });
+    const prevProps = usePrevious({ isFetching, success, error, postSuccess });
 
     useEffect(() => {
         fetchRecentUpdates();
@@ -33,20 +34,33 @@ const ReleaseNotesContainer = ({
         if (error && !prevProps.error) {
             return showModal(ERROR_MODAL, { message: error });
         }
-    }, [isFetching, prevProps.isFetching, success, error, prevProps.error]);
+
+        if (postSuccess && !prevProps.postSuccess) {
+            return fetchRecentUpdates();
+        }
+    }, [
+        isFetching,
+        prevProps.isFetching,
+        success,
+        error,
+        prevProps.error,
+        postSuccess,
+        prevProps.postSuccess,
+    ]);
 
     return <ReleaseNotes releaseNotes={releaseNotes} />;
 };
 
 const mapStateToProps = ({
     companyAdmin: {
-        recentUpdatesReducer: { updates, isFetching, error, success },
+        recentUpdatesReducer: { updates, isFetching, error, success, postSuccess },
     },
 }) => ({
     updates,
     isFetching,
     error,
     success,
+    postSuccess,
 });
 
 const mapDispatchToProps = { fetchRecentUpdates, postRecentUpdates };

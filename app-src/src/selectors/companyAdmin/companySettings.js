@@ -8,3 +8,7 @@ export const selectCompanyTimeZone = state =>
     state.companyAdmin.companySettingsReducer.companySettings.timeZone.id || 'Europe/London';
 export const selectCompanyDateFormat = state =>
     state.companyAdmin.companySettingsReducer.companySettings.dateFormat;
+export const selectCompanyColourCode = state =>
+    state.companyAdmin.companySettingsReducer.companySettings.colourCode;
+export const selectIsBolsterLogoDark = state =>
+    state.companyAdmin.companySettingsReducer.companySettings.isBolsterLogoDark;

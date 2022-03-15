@@ -1,0 +1,76 @@
+// link holder
+.link-holder {
+    display: inline-block;
+    text-decoration: none;
+    text-transform: capitalize;
+
+    transition: 0.2s background-color;
+    border-radius: 2.5px;
+    @include ubuntu;
+    line-height: 1;
+
+    // overwrite default colouring for ButtonNoClickContainer
+    &:hover,
+    &.active {
+        background-color: #737373;
+    }
+
+    &.red {
+        background-color: $red !important;
+
+        &:hover {
+            background-color: #b51313 !important;
+        }
+    }
+
+    &.yellow {
+        background-color: $yellow !important;
+
+        &:hover {
+            background-color: #da9001 !important;
+        }
+    }
+
+    &.blue {
+        background-color: $blue !important;
+
+        &:hover {
+            background-color: #1083b3 !important;
+        }
+    }
+
+    &.green {
+        background-color: $green !important;
+        &:hover {
+            background-color: #258e48 !important;
+        }
+    }
+
+    a {
+        display: inline-block;
+        padding: 5px 15px;
+        font-size: 12px;
+        text-decoration: none;
+        color: white;
+        line-height: 1;
+    }
+
+    &.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+    &.icon-only {
+        padding: {
+            left: 4px;
+            right: 4px;
+        }
+        i {
+            margin-right: 0;
+        }
+    }
+
+    i {
+        margin-right: 5px;
+    }
+}

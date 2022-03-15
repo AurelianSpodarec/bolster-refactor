@@ -27,6 +27,8 @@ class CompanyReportsQueueContainer extends Component {
     componentDidMount = () => {
         const { fetchCompanyReports } = this.props;
         fetchCompanyReports();
+        dismissMessages(MESSAGE_TYPES.NOTIFICATION);
+
         this._interval = setInterval(() => {
             fetchCompanyReports();
         }, 5000);

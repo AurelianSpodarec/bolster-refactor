@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import L from 'leaflet';
 import { CRS } from 'leaflet';
@@ -39,6 +39,16 @@ const SinglePinMap = ({
         iconAnchor: [15, 50],
         popupAnchor: [0, -50],
     });
+
+    const [shouldScroll, setShouldScroll] = useState(false);
+
+    const handleMapClick = e => {
+        if (shouldScroll) {
+            handleClick(e);
+        } else {
+            setShouldScroll(true);
+        }
+    };
 
     return (
         <>
@@ -84,9 +94,10 @@ const SinglePinMap = ({
                 zoom={zoom}
                 minZoom={0}
                 maxZoom={8}
-                onClick={handleClick}
+                onClick={handleMapClick}
                 crs={CRS.Simple}
                 tap={false}
+                scrollWheelZoom={shouldScroll}
             >
                 <TileLayer
                     attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'

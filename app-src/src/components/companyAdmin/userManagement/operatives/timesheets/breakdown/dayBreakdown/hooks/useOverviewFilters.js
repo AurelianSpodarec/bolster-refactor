@@ -1,6 +1,7 @@
 import { isEmpty } from 'helpers/generic';
 import { useForm } from 'helpers/hooks';
-import useDay from '../../../hooks/useDay';
+import { useState } from 'react';
+import getTimesheetDay from '../../../helpers/getTimesheetDay';
 
 export const filterTypeOptions = [
     {
@@ -28,8 +29,8 @@ export const timesheetSort = (filterType, filterDirection, date) => (a, b) => {
     const nameA = `${a.firstName} ${a.lastName}`;
     const nameB = `${b.firstName} ${b.lastName}`;
 
-    const dayA = useDay(a, date);
-    const dayB = useDay(b, date);
+    const dayA = getTimesheetDay(a, date);
+    const dayB = getTimesheetDay(b, date);
 
     const hoursA = dayA.formattedHours;
     const hoursB = dayB.formattedHours;
@@ -45,7 +46,7 @@ export const timesheetSort = (filterType, filterDirection, date) => (a, b) => {
 };
 
 export const timesheetFilter = (filterByHasClockedIn, date) => entry => {
-    const timesheetEntry = useDay(entry, date);
+    const timesheetEntry = getTimesheetDay(entry, date);
 
     if (filterByHasClockedIn) {
         if (timesheetEntry.hasClockedInToday) return true;

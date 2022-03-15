@@ -9,7 +9,6 @@ import companyFetchAllServices from 'actions/companyAdmin/services/async/fetchAl
 import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 import selectMenuTab from 'actions/shared/generic/tabs/sync/selectMenuTab';
 import fetchAllCredits from 'actions/companyAdmin/credits/fetchAllCredits';
-import fetchLatestAppVersion from 'actions/companyAdmin/app/async/fetchLatestAppVersion';
 
 import CompanyApp from '../presentational/CompanyApp';
 
@@ -25,9 +24,7 @@ import fetchRecentUpdates from 'actions/companyAdmin/recentUpdates/async/fetchRe
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 import fetchSystemMessages from 'actions/companyAdmin/messageCentre/async/fetchSystemMessages';
 import fetchCompanyAlerts from 'actions/companyAdmin/messageCentre/async/fetchCompanyAlerts';
-import fetchOperativeAlerts from 'actions/companyAdmin/messageCentre/async/fetchOperativeAlerts';
-import fetchDrawingExpiryMessages from 'actions/companyAdmin/messageCentre/async/fetchDrawingExpiryMessages';
-
+import fetchLatestAppVersion from 'actions/companyAdmin/app/async/fetchLatestAppVersion';
 class CompanyAppContainer extends React.PureComponent {
     render() {
         return <CompanyApp />;
@@ -107,7 +104,6 @@ const mapDispatchToProps = dispatch => ({
     fetchCompanySettings: () => dispatch(fetchCompanySettings()),
     selectCompanyMenuTab: () => dispatch(selectMenuTab(MENU_TABS.COMPANY_USER)),
     fetchSingleCompanyUser: companyUserID => dispatch(fetchSingleCompanyUser(companyUserID)),
-    fetchLatestAppVersion: () => dispatch(fetchLatestAppVersion()),
     resetFilterOptions: () => dispatch(resetFilterOptions()),
 });
 

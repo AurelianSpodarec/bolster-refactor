@@ -5,7 +5,7 @@ import { companyAdminHierarchySort } from 'constants/shared/sortAndFilterOptions
 import updateBuildingsFilters from 'actions/companyAdmin/buildings/sync/updateBuildingsFilters';
 import { selectBuildingFilterStatus } from 'selectors/shared/buildings';
 import BuildingFilters from '../presentational/BuildingFilters';
-import { selectOnMobile } from 'selectors/shared/mobile';
+import { selectIsMobile } from 'selectors/shared/mobile';
 
 const BuildingFiltersContainer = () => {
     useEffect(() => {
@@ -15,7 +15,7 @@ const BuildingFiltersContainer = () => {
     const { statusOptions } = companyAdminHierarchySort;
     const filters = useSelector(selectBuildingFilterStatus);
     const filterStatus = filters.status;
-    const onMobile = useSelector(selectOnMobile);
+    const onMobile = useSelector(selectIsMobile);
 
     const handleChange = (name, value) => {
         dispatch(updateBuildingsFilters(name, value));

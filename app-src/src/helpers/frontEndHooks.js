@@ -281,7 +281,9 @@ export const useCloudShouldAnimate = () => {
             observer.observe(cloudRef.current);
         }
         return () => {
-            observer.unobserve(cloudRef.current);
+            if (cloudRef.current) {
+                observer.unobserve(cloudRef.current);
+            }
         };
     }, []);
 

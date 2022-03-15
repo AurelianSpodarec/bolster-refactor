@@ -1,0 +1,48 @@
+.tab-container {
+    float: right;
+    margin-top: -7px;
+
+    button {
+        float: right;
+        padding: 5px 10px 6px;
+        @include ubuntu-medium;
+        font-size: 120%;
+        outline: none;
+        margin-top: 0;
+        margin-left: 0;
+        color: #3c3c3c;
+        opacity: 1;
+        transition: opacity 0.25s ease-in-out;
+        background: white;
+        border: 1px solid #c3c3c4;
+
+        &.active {
+            background-color: #c3c3c4;
+        }
+
+        &.green {
+            background: $green;
+            color: white;
+        }
+    }
+
+    &.no-breadcrumb {
+        margin-top: 0;
+    }
+
+    &.left {
+        float: left;
+
+        .button {
+            float: left;
+        }
+    }
+
+    &.report-drawings-tabs {
+        button {
+            margin-top: 5px;
+            margin-left: 5px;
+            border-radius: 5px;
+        }
+    }
+}

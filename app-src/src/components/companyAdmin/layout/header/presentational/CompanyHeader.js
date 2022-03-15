@@ -1,50 +1,57 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 
 import { FILE_STORAGE_URL } from 'config';
 import defaultStyles from 'constants/defaultStyles';
 
-import SearchContainer from '../containers/SearchContainer';
-import HeaderProfileContainer from '../containers/HeaderProfileContainer';
-import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
-import { PARENTAL_TYPES } from 'constants/companyAdmin/enums';
-import { selectTotalMessagesCount } from 'selectors/companyAdmin/messageCentre';
-// import RecentUpdatesContainer from '../containers/RecentUpdatesContainer';
+import useCompanyHeader from '../hooks/useCompanyHeader';
 
-const Header = ({
-    company,
-    companyColour,
-    totalCredits,
-    totalRequests,
-    showModal,
-    shouldRestrictPayments,
-    isCompanySelection,
-    companyUserID,
-}) => {
-    const totalMessagesCount = useSelector(selectTotalMessagesCount);
+import SearchContainer from '../containers/SearchContainer';
+import ExchangeIcon from '../../../../../_content/images/icons/exchange.png';
+import EnvelopeIcon from '../../../../../_content/images/icons/envelope.png';
+import CircleButton from 'components/shared/generic/button/presentational/CircleButton';
+import CreditsButton from 'components/companyAdmin/generic/button/CreditsButton';
+import HeaderProfile from './HeaderProfile';
+
+const Header = () => {
+    const {
+        company,
+        companyColour,
+        companyUserID,
+        isCompanySelected,
+        totalRequests,
+        unreadMessageCount,
+        isMobile,
+        toggleMobileMenu,
+        isSubscribed,
+    } = useCompanyHeader();
 
     return (
         <header
             id="page-header"
+            className="flex-row justify-between align-stretch"
             style={{ borderColor: companyUserID ? companyColour : defaultStyles.colourCode }}
         >
-            <div className="container">
-                {/*** company logo ***/}
-                <div className="logo">
+            <div className="flex flex-row align-stretch">
+                <div className="logo flex-row justify-center align-center">
+                    {isMobile && (
+                        <div className="mobile-menu" onClick={() => toggleMobileMenu()}>
+                            <i className="far fa-bars" />
+                        </div>
+                    )}
                     {!companyUserID ? (
                         <Link to="/company">
                             <img alt="logo of Bolster Systems" src={defaultStyles.logoFile} />
                         </Link>
                     ) : (
                         <>
-                            {!!company.id && (
+                            {!!company?.id && (
                                 <Link to="/company">
                                     <img
-                                        alt={`logo of ${company.name}`}
+                                        alt={`logo of ${company?.name}`}
                                         src={
-                                            company.logoFile
-                                                ? `${FILE_STORAGE_URL}/${company.logoFile}`
+                                            company?.logoFile
+                                                ? `${FILE_STORAGE_URL}/${company?.logoFile}`
                                                 : defaultStyles.logoFile
                                         }
                                     />
@@ -53,43 +60,39 @@ const Header = ({
                         </>
                     )}
                 </div>
-                {!isCompanySelection && (
-                    <div className="search-area">
-                        <SearchContainer />
+                {isCompanySelected && !isMobile && isSubscribed && (
+                    <div className="flex flex-row align-center">
+                        <div className="search-area">
+                            <SearchContainer placeholder="Search by site, building, floor or drawings" />
+                        </div>
                     </div>
                 )}
-
-                <div className="account-area">
-                    {!isCompanySelection && (
-                        <div className="notifications">
-                            {!shouldRestrictPayments && (
-                                <button className="item main" onClick={showModal}>
-                                    {company.parentalType === PARENTAL_TYPES.NONE && (
-                                        <span className="number green">{totalCredits}</span>
-                                    )}
-                                    <i className="far fa-money-bill-alt fa-fw" />
-                                </button>
-                            )}
-                            <HeaderNotificationsContainer />
-                            <Link to="/company/message-centre" className="item main">
-                                {!!totalMessagesCount && (
-                                    <span className="number">{totalMessagesCount}</span>
-                                )}
-                                <i className="far fa-envelope fa-fw" />
-                            </Link>
-                            <Link to="/company/tools/transfer-requests" className="item main">
-                                {!!totalRequests && <span className="number">{totalRequests}</span>}
-                                <i className="far fa-exchange-alt fa-fw" />
-                            </Link>
-                        </div>
-                    )}
-
-                    <HeaderProfileContainer isCompanySelection={isCompanySelection} />
-                </div>
-                <div className="clear" />
+            </div>
+            <div className="account-area flex-row">
+                {isCompanySelected && (
+                    <div className="notifications flex-row align-center">
+                        {!isMobile && isCompanySelected && isSubscribed && (
+                            <>
+                                <CreditsButton />
+                                <CircleButton
+                                    href="/company/tools/transfer-requests"
+                                    icon={ExchangeIcon}
+                                    showNotification={!!totalRequests}
+                                />
+                                <CircleButton
+                                    href="/company/message-centre"
+                                    icon={EnvelopeIcon}
+                                    showNotification={!!unreadMessageCount}
+                                />
+                                <div className="break-line" />
+                            </>
+                        )}
+                        {isCompanySelected && <HeaderProfile />}
+                    </div>
+                )}
             </div>
         </header>
     );
 };
 
-export default Header;
+export default withRouter(Header);

@@ -1,52 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import MenuItemContainer from '../containers/MenuItemContainer';
-import MenuHeader from './MenuHeader';
+import bolsterLogo from '../../../../../_content/images/footer/powered–by-bolster-white.svg';
+import ClientMenuItemContainer from '../containers/ClientMenuItemContainer';
 
-const ClientMenu = ({ dismissSystemMessages, unreadCount, isCompany }) => (
-    <>
+const ClientMenu = ({ clientNavMenuItems, latestAppVersion }) => {
+    const [hoveredItem, setHoveredItem] = useState(null);
+
+    return (
         <div className="menu">
-            <MenuHeader title="My Access" />
-            <MenuItemContainer link="/client/sites">
-                <i className="far fa-building icon fa-fw" />{' '}
-                <span className="menu-text">Sites</span>
-            </MenuItemContainer>
+            <div className="nav-wrapper">
+                {clientNavMenuItems.map((navItem, index) => (
+                    <ClientMenuItemContainer
+                        key={index}
+                        item={navItem}
+                        hover={hoveredItem === navItem.name}
+                        setHoveredItem={setHoveredItem}
+                    />
+                ))}
+            </div>
 
-            <MenuHeader title="Reports" />
-            <MenuItemContainer onClick={dismissSystemMessages} link="/client/reports">
-                {/* <MenuItemContainer link="/company/reports"> */}
-                {!!unreadCount && <span className="number">{unreadCount}</span>}
-                <i className="far fa-file-chart-pie fa-fw icon" />
-                <span className={`menu-text ${unreadCount ? 'large' : ''}`}>
-                    My Company Reports
-                </span>
-            </MenuItemContainer>
-            {/* <MenuItemContainer link="/client/reports/create">
-                <i className="far fa-file-edit fa-fw icon" />
-                <span className="menu-text">Create Report</span>
-            </MenuItemContainer> */}
-
-            <MenuHeader title="Settings &amp; Tools" />
-            <MenuItemContainer link="/client/profile">
-                <i className="far fa-user icon fa-fw" />{' '}
-                <span className="menu-text">My Profile</span>
-            </MenuItemContainer>
-            <MenuItemContainer link="/client/companies">
-                <i className="far fa-briefcase icon fa-fw" />{' '}
-                <span className="menu-text">Switch Company</span>
-            </MenuItemContainer>
-            {isCompany && (
-                <MenuItemContainer link="/company">
-                    <i className="fal fa-user-crown icon fa-fw" />{' '}
-                    <span className="menu-text">Company Admin</span>
-                </MenuItemContainer>
-            )}
-            <MenuItemContainer link="#" logout={true}>
-                <i className="far fa-sign-out-alt icon fa-fw" />{' '}
-                <span className="menu-text">Logout</span>
-            </MenuItemContainer>
+            <div className="nav-footer">
+                <img src={bolsterLogo} alt="Powered by Bolster" />
+                <p>App version: {latestAppVersion}</p>
+            </div>
         </div>
-    </>
-);
+    );
+};
 
 export default ClientMenu;

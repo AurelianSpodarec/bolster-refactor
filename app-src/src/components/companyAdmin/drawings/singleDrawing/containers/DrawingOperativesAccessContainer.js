@@ -24,7 +24,7 @@ class DrawingOperativesAccessContainer extends Component {
             .filter(operative => operative.drawingID);
 
         return (
-            <BlockContainer containerClass="always-scrollbar">
+            <BlockContainer containerClass="always-scrollbar flex">
                 <OperativesTable
                     operatives={operativesWithCodes}
                     handleDeleteOperativeModal={this.handleDeleteOperativeModal}

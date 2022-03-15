@@ -46,6 +46,7 @@ $incomplete-red: #FF3B30;
     }
 }
 
+
 @mixin ubuntu-medium() {
     font: {
         family: "Ubuntu", sans-serif;
@@ -54,6 +55,13 @@ $incomplete-red: #FF3B30;
 }
 
 //frontend fonts
+@mixin SF-Pro-Text-bold() {
+    font: {
+        family: "SF Pro Text", sans-serif;
+        weight: 700;
+    }
+}
+
 @mixin neosans-medium() {
     font: {
         family: "Neo Sans W01 Medium", sans-serif;
@@ -151,8 +159,135 @@ $incomplete-red: #FF3B30;
     border-radius: 0 0 $radius $radius;
 }
 
+// dropdown popup
+@mixin dropdown-popup() {
+    z-index: -1;
+    opacity: 0;
+    top: 0;
+    transition: 0.2s opacity, 0.2s top;
+
+    &.visible {
+        z-index: 1000;
+        opacity: 1;
+        top: 100%;
+    }
+}
+
 // z-indexes
 $leaflet-z-index: 400;
 
 //box-shadows
 $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+
+// media queries
+@mixin screenSize($size) {
+    @if $size == lgDesktop {
+        // large desktop
+        @media only screen and (max-width: 1599px) {
+            @content;
+        }
+    } @else if $size == mdDesktop {
+        // medium desktop
+        @media only screen and (max-width: 1279px) {
+            @content;
+        }
+    } @else if $size == smDesktop {
+        // small desktop
+        @media only screen and (max-width: 1099px) {
+            @content;
+        }
+    } @else if $size == lsTablet {
+        // landscape tablet
+        @media only screen and (max-width: 1023px) {
+            @content;
+        }
+    } @else if $size == ptTablet {
+        // portrait tablet
+        @media only screen and (max-width: 800px) {
+            @content;
+        }
+    } @else if $size == lgMobile {
+        // large mobile
+        @media only screen and (max-width: 767px) {
+            @content;
+        }
+    } @else if $size == mdMobile {
+        // medium mobile
+        @media only screen and (max-width: 479px) {
+            @content;
+        }
+    } @else if $size == smMobile {
+        // small mobile
+        @media only screen and (max-width: 413px) {
+            @content;
+        }
+    } @else {
+        // custom size
+        @media only screen and (max-width: $size) {
+            @content;
+        }
+    }
+}
+
+// css variables
+:root {
+    // originals (to be removed after light/dark theme work)
+    --background-color: #212228;
+
+    // from palette (designs)
+    --bolster-primary: #ED1C24;
+    --primary-default: #3364DD;
+    --primary-hover: #0047FF;
+    --primary-pressed: #2147A8;
+    --primary-disabled: #27438D;
+    --positive-default: #2DAC57;
+    --positive-hover: #36C967;
+    --positive-pressed: #268D48;
+    --positive-disabled: #36C967;
+    --negative-default: #F91F2B;
+    --negative-hover: #B22724;
+    --negative-pressed: #B22724;
+    --negative-disabled: #B22724;
+    --background-default: #FAFAFA;
+    --background-container: #FFFFFF;
+    --background-stroke: #F2F2F2;
+    --navigation-primary: #3A3C45;
+    --navigation-secondary: #525461;
+    --typography-default: #212227;
+    --typography-greyed-out: #AAACB1;
+    --pin-installed: #2DAC57;
+    --pin-action-required: #B22724;
+    --pin-inspected: #3364DD;
+    --pin-no-action: #EFC206;
+    --pin-other: #990099;
+
+    // others not in palette (designs)
+    --input-default:  #E5E5E5;
+    --input-secondary:  rgba(229, 229, 229, 0.25);
+    --tools-background: #0000001A;
+
+    // text 
+    --dropdown-text: #F9FAFA;
+
+    // fixed colours (not to be changed with dark theme)
+    --fixed-input-button-light: #AAACB1;
+
+    //sizings
+    --nav-width: 170px;
+}
+
+// dark theme variable overrides
+[data-theme="dark"] {
+    // originals (to be removed after light/dark theme work)
+    --background-color: #212228;
+
+    // from palette (designs)
+    --background-default: #212227;
+    --background-container: #2F3037;
+    --background-stroke: #494C5B;
+    --navigation-primary: #3A3C45;
+    --navigation-secondary: #525461;
+    --typography-default: #F9FAFA;
+
+    // others not in palette (designs)
+}

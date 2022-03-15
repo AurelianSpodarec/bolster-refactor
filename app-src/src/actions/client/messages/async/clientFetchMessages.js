@@ -1,12 +1,13 @@
 import axios from 'axios';
 
 import { CLIENT_API_URL } from 'config/index';
+
+import { getHeaders } from 'helpers/api';
 import {
     CLIENT_FETCH_MESSAGES_REQUEST,
-    CLIENT_FETCH_MESSAGES_SUCCESS,
     CLIENT_FETCH_MESSAGES_FAILURE,
-} from 'constants/actionTypes/messageCentre';
-import { getHeaders } from 'helpers/api';
+    CLIENT_FETCH_MESSAGES_SUCCESS,
+} from '../../../../constants/client/actionTypes/clientMessages';
 
 export const clientFetchMessagesRequest = () => ({
     type: CLIENT_FETCH_MESSAGES_REQUEST,
