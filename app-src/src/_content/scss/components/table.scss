@@ -149,13 +149,13 @@
         }
         &.expandable {
             &:hover {
-                background-color: $light-grey;
+                background-color: var(--hover-primary);
                 // cursor: pointer;
             }
         }
 
         &.open {
-            background-color: $light-grey;
+            background-color: var(--hover-primary);
         }
 
         &.buildings-row {
