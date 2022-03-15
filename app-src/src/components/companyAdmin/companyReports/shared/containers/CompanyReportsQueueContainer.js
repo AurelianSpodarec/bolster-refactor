@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import fetchCompanyReports from 'actions/companyAdmin/companyReports/async/fetchCompanyReports';
 import CompanyReports from '../presentational/CompanyReports';
 import fetchCompanyReportsFull from 'actions/companyAdmin/companyReports/async/fetchCompanyReportsFull';
+import dismissSystemMessages from '../../../../../actions/companyAdmin/messageCentre/async/dismissSystemMessages';
 
 class CompanyReportsQueueContainer extends Component {
     state = {
@@ -25,9 +26,9 @@ class CompanyReportsQueueContainer extends Component {
         }
     };
     componentDidMount = () => {
-        const { fetchCompanyReports } = this.props;
+        const { fetchCompanyReports, dismissSystemMessages } = this.props;
         fetchCompanyReports();
-        dismissMessages(MESSAGE_TYPES.NOTIFICATION);
+        dismissSystemMessages();
 
         this._interval = setInterval(() => {
             fetchCompanyReports();
@@ -45,6 +46,6 @@ const mapStateToProps = ({
     fetchingFullReports,
 });
 
-const mapDispatchToProps = { fetchCompanyReports, fetchCompanyReportsFull };
+const mapDispatchToProps = { fetchCompanyReports, fetchCompanyReportsFull, dismissSystemMessages };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompanyReportsQueueContainer);

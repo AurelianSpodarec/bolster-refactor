@@ -2,12 +2,12 @@ import React from 'react';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
-const OperativeAlertMetricsTable = ({ alerts, isFetching, error }) => (
+const OperativeAlertMetricsTable = ({ alertMetrics, isFetching, error }) => (
     <Table headers={['Operative name', 'Delivered', 'Read']} isFetching={isFetching} error={error}>
-        {alerts.map(alert => (
+        {alertMetrics.map(alert => (
             <tr key={alert.id}>
                 <td>
-                    {alert.firstName} ${alert.lastName} - {alert.operativeCode} ({alert.email})
+                    {alert.firstName} {alert.lastName} - {alert.operativeCode} ({alert.email})
                 </td>
                 <td>
                     {!alert.deliveredOn ? (
