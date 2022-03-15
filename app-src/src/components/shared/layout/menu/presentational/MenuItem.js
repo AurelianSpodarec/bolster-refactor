@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { isIOS } from 'react-device-detect';
 
 import SubNavMenuLink from '../containers/SubNavMenuLink';
+import useColourTheme from '../../../../../hooks/useColourTheme';
 
 const MenuItem = ({
     item: { name, link, showNotificationBadge, icon, subNavItems, onClick },
@@ -16,6 +17,8 @@ const MenuItem = ({
     const { subNavRef, isSubNavOverflowing } = useNavOverflow(hover);
 
     const { isActive, textColour, companyColour, isBolsterLogoDark } = useNav(subNavItems, link);
+
+    const colourTheme = useColourTheme();
 
     const ElementToRender = ({ ...props }) => {
         if (link) {
@@ -48,7 +51,19 @@ const MenuItem = ({
             onClick={onClick}
         >
             <div className="link-wrapper">
-                <img src={icon} alt={name} className="image" />
+                <img
+                    src={icon}
+                    alt={name}
+                    className="image"
+                    style={
+                        colourTheme === 'dark'
+                            ? {
+                                  webkitFilter: 'invert(0)',
+                                  filter: 'invert(0)',
+                              }
+                            : {}
+                    }
+                />
 
                 <span>{name}</span>
 
