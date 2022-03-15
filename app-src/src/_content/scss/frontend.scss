@@ -3664,6 +3664,7 @@ $back-to-top-height: 35px;
             padding: 6px 16px;
 
             background-color: $light-blue;
+            color: $body-text;
             border-radius: 4px;
 
             @include devices(smDesktop) {
