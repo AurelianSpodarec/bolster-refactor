@@ -2603,6 +2603,7 @@ input {
 
         .far {
           font-size: 110%;
+          color: var(--typography-default) !important;
         }
       }
     }
@@ -3267,6 +3268,7 @@ input {
       }
 
       .far {
+        color: var(--typography-default) !important;
         font-size: 100%;
       }
     }
