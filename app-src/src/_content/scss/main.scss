@@ -1094,7 +1094,7 @@ input {
 
 .sub-text {
     display: inline-block;
-    color: $dark-grey;
+    color: var( --typography-greyed-out);
     padding-left: 5px;
     font-size: 8px;
 }
@@ -2096,6 +2096,18 @@ input {
     color: var(--calendar-negative) !important;
 }
 
+.react-calendar__tile--now {
+    color: black !important;
+}
+
+.react-calendar--selectRange .react-calendar__tile--hover{
+    background-color: var(--hover-primary) !important;
+}
+
+.react-calendar__tile:enabled:hover {
+    background-color: var(--hover-primary) !important;
+}
+
 .react-daterange-picker__wrapper {
     padding: 8px 4px;
     font-size: 12px;
@@ -2113,7 +2125,6 @@ input {
 .react-calendar__month-view__days__day--neighboringMonth {
     color: var( --calendar-greyed-out) !important;
 }
-
 
 .demo-full-site-container {
     display: flex;
