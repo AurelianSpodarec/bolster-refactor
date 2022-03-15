@@ -1099,6 +1099,13 @@
         @include ubuntu;
         font-size: 140%;
         color: var(--dropdown-text);
+        background-color: var(--input-secondary);
+        border: 1px solid var(--background-stroke);
+        border-radius: 3px;
+
+        &::placeholder {
+          color: var(--fixed-input-button-light);
+        }
       }
     }
 
@@ -1171,11 +1178,11 @@
   cursor: pointer;
 
   &:hover {
-    background-color: #f2f2f2;
+    background-color: var(--hover-primary)
   }
 
   &.active {
-    background-color: #c7f3d6;
+    background-color: var(--positive-pressed);
     border-color: #a5deb9;
   }
 
