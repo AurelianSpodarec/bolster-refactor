@@ -267,7 +267,7 @@
       + label,
       + input + label {
         .outer {
-          background-color: $green;
+          background-color: var(--positive-default);
         }
 
         .inner {
