@@ -48,19 +48,7 @@ const MenuItem = ({
             onClick={onClick}
         >
             <div className="link-wrapper">
-                <img
-                    src={icon}
-                    alt={name}
-                    className="image"
-                    style={
-                        isActive && isBolsterLogoDark
-                            ? {
-                                  webkitFilter: 'invert(100%)',
-                                  filter: 'invert(100%)',
-                              }
-                            : {}
-                    }
-                />
+                <img src={icon} alt={name} className="image" />
 
                 <span>{name}</span>
 

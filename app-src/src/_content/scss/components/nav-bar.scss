@@ -13,8 +13,8 @@
   width: var(--nav-width);
   height: 100%;
   z-index: 1000;
-  box-shadow: 4px 0px 16px rgba(33,34,39, 0.5); 
- 
+  box-shadow: 4px 0px 16px rgba(33, 34, 39, 0.5);
+
 
   .tab-container {
     width: 100%;
@@ -106,10 +106,8 @@
           margin: 0 15px 0 25px;
           height: 21px;
           width: 21px;
-
-          &.dark {
-
-          }
+          -webkit-filter: invert(100%);
+          filter: invert(100%);
         }
 
         span {
