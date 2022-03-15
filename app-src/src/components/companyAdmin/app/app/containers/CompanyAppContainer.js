@@ -92,8 +92,6 @@ const mapDispatchToProps = dispatch => ({
             dispatch(fetchRecentUpdates());
             dispatch(fetchSystemMessages());
             dispatch(fetchCompanyAlerts());
-            dispatch(fetchOperativeAlerts());
-            dispatch(fetchDrawingExpiryMessages());
             dispatch(fetchCompanyReports());
             dispatch(companyFetchAllServices());
             dispatch(fetchAllSubscriptions());
