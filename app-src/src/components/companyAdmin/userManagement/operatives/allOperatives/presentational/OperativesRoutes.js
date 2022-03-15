@@ -48,7 +48,7 @@ const OperativesRoutes = () => {
             const name = `${user.userFirstName} ${user.userLastName}`.toLowerCase();
             const isCorrectType =
                 user.type === COMPANY_USER_ROLE_TYPES.OPERATIVE ||
-                (!!user.endedOn && user.typeBeforeDeletion === COMPANY_USER_ROLE_TYPES.OPERATIVE);
+                (!!user.endOn && user.typeBeforeDeletion === COMPANY_USER_ROLE_TYPES.OPERATIVE);
             return (
                 isCorrectType &&
                 (!searchTermLower ||

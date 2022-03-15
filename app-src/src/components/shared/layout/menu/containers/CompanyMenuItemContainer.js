@@ -35,16 +35,10 @@ const CompanyMenuItemContainer = ({
                         if (shouldRestrictPayments && item.paymentRestriction) {
                             return false;
                         }
-                        if (!isClientAccess && item.clientAccessRestriction) {
-                            return false;
-                        }
+                        return !(!isClientAccess && item.clientAccessRestriction);
                     } else {
-                        if (item.subscriptionRestriction) {
-                            return false;
-                        }
+                        return item.showWhenNotSubscribed;
                     }
-
-                    return true;
                 })
                 .map(item => {
                     if (item.link === '/company/generate-qr-codes') {

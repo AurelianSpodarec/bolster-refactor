@@ -23,6 +23,7 @@ const Header = () => {
         unreadMessageCount,
         isMobile,
         toggleMobileMenu,
+        isSubscribed,
     } = useCompanyHeader();
 
     return (
@@ -59,7 +60,7 @@ const Header = () => {
                         </>
                     )}
                 </div>
-                {isCompanySelected && !isMobile && (
+                {isCompanySelected && !isMobile && isSubscribed && (
                     <div className="flex flex-row align-center">
                         <div className="search-area">
                             <SearchContainer placeholder="Search by site, building, floor or drawings" />
@@ -70,7 +71,7 @@ const Header = () => {
             <div className="account-area flex-row">
                 {isCompanySelected && (
                     <div className="notifications flex-row align-center">
-                        {!isMobile && isCompanySelected && (
+                        {!isMobile && isCompanySelected && isSubscribed && (
                             <>
                                 <CreditsButton />
                                 <CircleButton
