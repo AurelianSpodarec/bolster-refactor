@@ -35,9 +35,7 @@ const CompanyMenuItemContainer = ({
                         if (shouldRestrictPayments && item.paymentRestriction) {
                             return false;
                         }
-                        if (!isClientAccess && item.clientAccessRestriction) {
-                            return false;
-                        }
+                        return !(!isClientAccess && item.clientAccessRestriction);
                     } else {
                         return item.showWhenNotSubscribed;
                     }
