@@ -863,7 +863,7 @@
   width: 100%;
   padding: 8.5px 10px;
   font-size: 140%;
-  background-color: var(--background-default);
+  background-color: var(--input-default);
   border: $input-border-grey 1px solid;
   border-radius: 2.5px;
   @include ubuntu;
@@ -1327,6 +1327,14 @@
   padding: 4px;
   border: 4px solid $red !important;
   border-radius: 8px;
+  background-color: var(--input-default) !important;
+  color: var(--typography-default) !important;
+
+
+  .se-container * {
+    background-color: var(--input-default) !important;
+    color: var(--typography-default) !important;
+  }
 
   .se-toolbar {
     padding: 0;
