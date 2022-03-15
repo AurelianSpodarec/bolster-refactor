@@ -3,14 +3,12 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const OperativeAlertMetricsTable = ({ alerts, isFetching, error }) => (
-    <Table
-        headers={['Operative name', 'Delivered', 'Read']}
-        isFetching={isFetching}
-        error={error}
-    >
+    <Table headers={['Operative name', 'Delivered', 'Read']} isFetching={isFetching} error={error}>
         {alerts.map(alert => (
             <tr key={alert.id}>
-                <td>{`${alert.firstName} ${alert.lastName}`}</td>
+                <td>
+                    {alert.firstName} ${alert.lastName} - {alert.operativeCode} ({alert.email})
+                </td>
                 <td>
                     {!alert.deliveredOn ? (
                         'Not yet delivered'
@@ -19,11 +17,7 @@ const OperativeAlertMetricsTable = ({ alerts, isFetching, error }) => (
                     )}
                 </td>
                 <td>
-                    {!alert.readOn ? (
-                        'Not yet read'
-                    ) : (
-                        <DateTimeContainer date={alert.readOn} />
-                    )}
+                    {!alert.readOn ? 'Not yet read' : <DateTimeContainer date={alert.readOn} />}
                 </td>
                 <td />
             </tr>
