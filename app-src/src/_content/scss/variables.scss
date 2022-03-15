@@ -267,6 +267,8 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
     --input-secondary:  rgba(229, 229, 229, 0.25);
     --tools-background: #0000001A;
     --hover-primary: #F1F1F3;
+    --scroll: #F1F1F3;
+    --scroll-thumb:#FFFFFF;
 
     // text 
     --dropdown-text: #F9FAFA;
@@ -299,4 +301,6 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
 
     //others
     --hover-primary: #3A3C45;
+    --scroll: #3A3C45;
+    --scroll-thumb: #212227;
 }
