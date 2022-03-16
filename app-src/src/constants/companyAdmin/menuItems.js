@@ -174,7 +174,13 @@ export const companyNavMenuItems = [
                 paymentRestriction: false,
                 clientAccessRestriction: false,
             },
-
+            {
+                name: 'Upcoming Alerts',
+                link: '/company/message-centre',
+                showWhenNotSubscribed: false,
+                paymentRestriction: false,
+                clientAccessRestriction: false,
+            },
             {
                 name: 'Activity Log',
                 link: '/company/activity-log',
