@@ -56,7 +56,8 @@ const MenuItem = ({
                     alt={name}
                     className="image"
                     style={
-                        (!isActive && colourTheme === 'dark') || !isBolsterLogoDark
+                        (!isActive && colourTheme === 'dark') ||
+                        (colourTheme === 'dark' && !isBolsterLogoDark)
                             ? {
                                   webkitFilter: 'invert(0)',
                                   filter: 'invert(0)',

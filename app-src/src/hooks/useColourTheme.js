@@ -6,10 +6,11 @@ import { selectIsDarkModeEnabled } from '../selectors/shared/colourTheme';
 import usePrevious from './usePrevious';
 
 const useColourTheme = () => {
-    const [isDarkMode] = useLocalStorage('isDarkModeEnabled');
+    const isDarkModeEnabled = useSelector(selectIsDarkModeEnabled);
+
+    const [isDarkMode] = useLocalStorage('isDarkModeEnabled', isDarkModeEnabled);
     const [colourTheme, setColourTheme] = useState(isDarkMode ? 'dark' : 'light');
 
-    const isDarkModeEnabled = useSelector(selectIsDarkModeEnabled);
     const prevDarkMode = usePrevious(isDarkModeEnabled);
 
     useEffect(() => {
