@@ -56,7 +56,7 @@ const MenuItem = ({
                     alt={name}
                     className="image"
                     style={
-                        colourTheme === 'dark'
+                        !isActive && colourTheme === 'dark'
                             ? {
                                   webkitFilter: 'invert(0)',
                                   filter: 'invert(0)',
