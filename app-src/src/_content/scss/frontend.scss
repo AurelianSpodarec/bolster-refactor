@@ -3916,7 +3916,7 @@ $back-to-top-height: 35px;
 
     .field-output {
       flex-grow: 1;
-      background-color: $light-grey-bg;
+      background-color: var(--background-stroke);
       padding: 8px;
       font-size: 120%;
 
