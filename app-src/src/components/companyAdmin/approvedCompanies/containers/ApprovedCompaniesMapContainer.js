@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FILE_STORAGE_URL } from 'config';
+import { FILE_STORAGE_URL, MAPS_API_KEY } from 'config';
 
 import GoogleMapReact from 'google-map-react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -80,7 +80,7 @@ class ApprovedCompaniesMapContainer extends Component {
                         defaultZoom={zoom}
                         google={google}
                         bootstrapURLKeys={{
-                            key: 'AIzaSyAPCib6iO1b_MTcuzMmb2wx_CyvgGfqmgo',
+                            key: MAPS_API_KEY,
                         }}
                         options={maps => ({
                             zoomControl: true,
