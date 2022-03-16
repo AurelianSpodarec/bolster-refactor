@@ -2853,7 +2853,7 @@ input {
                 margin: 0;
 
                 &.no-padding {
-                  padding: 0px;
+                  padding: 0;
                 }
 
                 img {
@@ -2863,7 +2863,7 @@ input {
 
                 .fas, .far {
                   font-size: 110%;
-                  color: $body-text;
+                  color: var(--typography-default);
                 }
               }
 
