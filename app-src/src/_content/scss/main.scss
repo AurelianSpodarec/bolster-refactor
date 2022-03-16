@@ -958,14 +958,14 @@ input {
   }
 
   .question-item {
-    border-top: 1px solid $light-grey;
+    border-top: 1px solid var(--background-stroke);
     padding: 10px 15px;
     cursor: move;
-    background-color: white;
+    background-color: var(--background-container);
     transition: background-color 0.25s ease-in-out;
 
     &:hover {
-      background-color: $light-grey;
+      background-color: var(--background-stroke);
     }
 
     .button {
@@ -975,6 +975,7 @@ input {
 
     p {
       font-size: 120%;
+      color: var(--typography-default)
     }
 
     input[type='checkbox'] {
@@ -1005,9 +1006,9 @@ input {
   }
 
   .label-field-item {
-    border-top: 1px solid $light-grey;
+    border-top: 1px solid var(--background-stroke);
     padding: 0 5px;
-    background-color: white;
+    background-color: var(--background-container);
     transition: background-color 0.25s ease-in-out;
 
     p {
@@ -1678,12 +1679,12 @@ input {
 
 .template-phone-example {
   padding: 15px;
-  background-color: #e8e8e8;
+  background-color: var(--background-stroke);
   margin-bottom: -15px;
   border-radius: 0 0 5px 5px;
 
   .block-heading {
-    background-color: $background-color;
+    background-color: var(--background-default);
     border-radius: 5px 5px 0 0;
     padding: 10px 15px;
 
@@ -1693,7 +1694,7 @@ input {
   }
 
   .phone-section {
-    background-color: white;
+    background-color: var(--background-container);
     border-radius: 0 0 5px 5px;
     margin-bottom: 10px;
 
@@ -1792,7 +1793,7 @@ input {
       display: inline-block;
       padding: 10px 20px;
       border: 2px solid $mobile-grey;
-      color: black;
+      color: var(--typography-default);
       border-radius: 5px;
       font-size: 150%;
       margin: 0 5px 5px 5px;
