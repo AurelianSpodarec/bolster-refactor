@@ -204,7 +204,7 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                             )}
                         </FieldOutput>
                         <FieldOutput
-                            title="Dark Mode"
+                            title="Dark Text"
                             description={company.isBolsterLogoDark ? 'On' : 'Off'}
                             fieldClass="no-h-padding"
                             sizeClass="size-lg-4 size-md-12"
