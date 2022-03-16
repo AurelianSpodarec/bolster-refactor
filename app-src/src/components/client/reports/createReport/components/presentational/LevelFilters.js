@@ -16,7 +16,7 @@ const LevelFilters = ({
     drawingOptions,
     selectedDrawing,
     hierarchy,
-    isFetching
+    isFetching,
 }) => (
     <div className="levels-filter size-lg-12">
         <div className="generic-form">
@@ -35,13 +35,10 @@ const LevelFilters = ({
                             disabled={!!hierarchy}
                         />
                     </Field>
-                    {!selectedSite || hierarchy > HIERARCHY_IDS.SITE ? (
+                    {!selectedSite || +hierarchy > HIERARCHY_IDS.SITE ? (
                         ''
                     ) : (
-                        <Field
-                            name="Buildings"
-                            classes={selectedSite ? 'active' : ''}
-                        >
+                        <Field name="Buildings" classes={selectedSite ? 'active' : ''}>
                             <DropdownContainer
                                 placeholder="All Buildings"
                                 name="buildingID"
@@ -52,13 +49,10 @@ const LevelFilters = ({
                             />
                         </Field>
                     )}
-                    {!selectedBuilding || hierarchy > HIERARCHY_IDS.BUILDING ? (
+                    {!selectedBuilding || +hierarchy > HIERARCHY_IDS.BUILDING ? (
                         ''
                     ) : (
-                        <Field
-                            name="Floors"
-                            classes={selectedBuilding ? 'active' : ''}
-                        >
+                        <Field name="Floors" classes={selectedBuilding ? 'active' : ''}>
                             <DropdownContainer
                                 placeholder="All Floors"
                                 name="floorID"
@@ -69,13 +63,10 @@ const LevelFilters = ({
                             />
                         </Field>
                     )}
-                    {!selectedFloor || hierarchy > HIERARCHY_IDS.FLOOR ? (
+                    {!selectedFloor || +hierarchy > HIERARCHY_IDS.FLOOR ? (
                         ''
                     ) : (
-                        <Field
-                            name="Drawings"
-                            classes={selectedFloor ? 'active' : ''}
-                        >
+                        <Field name="Drawings" classes={selectedFloor ? 'active' : ''}>
                             <DropdownContainer
                                 placeholder="All Drawings"
                                 name="drawingID"

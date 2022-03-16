@@ -126,17 +126,17 @@ const DrawingPickerContainer = ({
             };
         };
 
-        if (hierarchyTypeID === HIERARCHY_IDS.SITE) {
+        if (+hierarchyTypeID === HIERARCHY_IDS.SITE) {
             return allDrawings
                 .filter(drawing => hierarchyID.includes(drawing.siteID))
                 .map(drawingMapFunc);
         }
-        if (hierarchyTypeID === HIERARCHY_IDS.BUILDING) {
+        if (+hierarchyTypeID === HIERARCHY_IDS.BUILDING) {
             return allDrawings
                 .filter(drawing => hierarchyID.includes(drawing.buildingID))
                 .map(drawingMapFunc);
         }
-        if (hierarchyTypeID === HIERARCHY_IDS.FLOOR) {
+        if (+hierarchyTypeID === HIERARCHY_IDS.FLOOR) {
             return allDrawings
                 .filter(drawing => hierarchyID.includes(drawing.floorID))
                 .map(drawingMapFunc);

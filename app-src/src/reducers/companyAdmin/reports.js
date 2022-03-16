@@ -72,7 +72,7 @@ function filtersReducer(
         drawingID: [],
         serviceID: null,
         templateID: null,
-        hierarchyType: HIERARCHY_IDS.ALL_SITES,
+        hierarchyType: +HIERARCHY_IDS.ALL_SITES,
         hierarchyID: [],
         status: null,
         reportHistories: 1,
