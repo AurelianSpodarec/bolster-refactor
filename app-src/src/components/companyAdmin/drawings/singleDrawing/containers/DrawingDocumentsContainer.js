@@ -10,7 +10,7 @@ class DrawingDocumentsTableContainer extends Component {
         const { error, isFetching, parent, drawingExpired } = this.props;
 
         return (
-            <BlockContainer error={error} containerClass="always-scrollbar">
+            <BlockContainer error={error} containerClass="always-scrollbar flex">
                 <DocumentsTable
                     accessType={parent.accessType}
                     documents={this._getFilteredDocuments()}
@@ -24,24 +24,17 @@ class DrawingDocumentsTableContainer extends Component {
 
     _getFilteredDocuments = () => {
         const { documents, parent } = this.props;
-        return documents.filter(document =>
-            parent.documentIDs.includes(document.id)
-        );
+        return documents.filter(document => parent.documentIDs.includes(document.id));
     };
 }
 
-const mapStateToProps = (
-    { companyAdmin: { documentsReducer, drawingsReducer } },
-    { match }
-) => ({
+const mapStateToProps = ({ companyAdmin: { documentsReducer, drawingsReducer } }, { match }) => ({
     parent: drawingsReducer.drawings[match.params.id] || {
-        documentIDs: []
+        documentIDs: [],
     },
     documents: Object.values(documentsReducer.documents),
     isFetching: documentsReducer.isFetching,
-    error: documentsReducer.error
+    error: documentsReducer.error,
 });
 
-export default withRouter(
-    connect(mapStateToProps)(DrawingDocumentsTableContainer)
-);
+export default withRouter(connect(mapStateToProps)(DrawingDocumentsTableContainer));

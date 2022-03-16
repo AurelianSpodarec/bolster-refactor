@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { companyAdminHierarchySort } from 'constants/shared/sortAndFilterOptions';
-import { selectOnMobile } from 'selectors/shared/mobile';
+import { selectIsMobile } from 'selectors/shared/mobile';
 import { selectFloorsFilterStatus } from 'selectors/shared/floors';
 import updateFloorsFilters from '../../../../../actions/companyAdmin/floors/sync/updateFloorsFilters';
 import FloorFilters from '../presentational/FloorFilters';
@@ -15,7 +15,7 @@ const FloorFiltersContainer = () => {
     const { statusOptions } = companyAdminHierarchySort;
     const filters = useSelector(selectFloorsFilterStatus);
     const filterStatus = filters.status;
-    const onMobile = useSelector(selectOnMobile);
+    const onMobile = useSelector(selectIsMobile);
 
     const handleChange = (name, value) => {
         dispatch(updateFloorsFilters(name, value));

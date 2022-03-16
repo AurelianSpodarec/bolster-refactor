@@ -15,7 +15,7 @@ const AgreeToTerms = ({ agreeToTerms, handleClick }) => {
     return (
         <>
             <TsCsContainer />
-            <div className="flex-row size-lg-12">
+            <div className="flex-row flex-wrap width-12 size-lg-12">
                 <Block>
                     <Form onSubmit={agreeToTerms}>
                         <Field required styles={{ minHeight: 0 }}>

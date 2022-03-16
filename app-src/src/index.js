@@ -12,7 +12,6 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import reducer from 'reducers';
 import '_content/scss/font-awesome.css';
 import '_content/scss/main.scss';
-import '_content/scss/dashboard-mobile.scss';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import AppContainer from 'components/appRoute/app/containers/AppContainer';

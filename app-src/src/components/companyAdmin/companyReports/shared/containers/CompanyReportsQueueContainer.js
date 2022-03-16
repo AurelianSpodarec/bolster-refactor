@@ -4,6 +4,8 @@ import fetchCompanyReports from 'actions/companyAdmin/companyReports/async/fetch
 import CompanyReports from '../presentational/CompanyReports';
 import fetchCompanyReportsFull from 'actions/companyAdmin/companyReports/async/fetchCompanyReportsFull';
 import fetchMessagesBasic from 'actions/companyAdmin/messages/async/fetchMessagesBasic';
+import { MESSAGE_TYPES } from '../../../../../constants/companyAdmin/enums';
+import dismissMessages from '../../../../../actions/companyAdmin/messages/async/dismissMessages';
 
 class CompanyReportsQueueContainer extends Component {
     state = {
@@ -27,8 +29,10 @@ class CompanyReportsQueueContainer extends Component {
         }
     };
     componentDidMount = () => {
-        const { fetchCompanyReports, fetchMessagesBasic } = this.props;
+        const { fetchCompanyReports, fetchMessagesBasic, dismissMessages } = this.props;
         fetchCompanyReports();
+        dismissMessages(MESSAGE_TYPES.NOTIFICATION);
+
         this._interval = setInterval(() => {
             fetchCompanyReports();
             fetchMessagesBasic();
@@ -46,6 +50,11 @@ const mapStateToProps = ({
     fetchingFullReports,
 });
 
-const mapDispatchToProps = { fetchCompanyReports, fetchCompanyReportsFull, fetchMessagesBasic };
+const mapDispatchToProps = {
+    fetchCompanyReports,
+    fetchCompanyReportsFull,
+    fetchMessagesBasic,
+    dismissMessages,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompanyReportsQueueContainer);

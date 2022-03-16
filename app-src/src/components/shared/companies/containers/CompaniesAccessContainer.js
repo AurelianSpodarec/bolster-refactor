@@ -15,7 +15,7 @@ class CompaniesAccessContainer extends Component {
         const { companiesWithPermissions, hierarchyID, isFetching, error, accessType } = this.props;
 
         return (
-            <BlockContainer error={error} containerClass="always-scrollbar">
+            <BlockContainer error={error} containerClass="always-scrollbar flex">
                 <CompaniesAccessTable
                     companies={companiesWithPermissions}
                     parentId={hierarchyID}

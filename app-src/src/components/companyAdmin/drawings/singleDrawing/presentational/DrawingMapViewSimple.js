@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Map, TileLayer, Marker } from 'react-leaflet';
 import moment from 'moment';
 
@@ -68,6 +68,7 @@ const DrawingMapViewSimple = ({
     togglePinTasksView,
 }) => {
     const mapRef = useRef();
+    const [shouldScroll, setShouldScroll] = useState(false);
 
     const newPinIcon = L.divIcon({
         className: '',
@@ -85,6 +86,14 @@ const DrawingMapViewSimple = ({
         popupAnchor: [0, -50],
     });
     const shouldShowFloorplan = !!drawing.tilesetS3Key && !updating;
+
+    const handleMapClick = e => {
+        if (shouldScroll) {
+            handleClick(e);
+        } else {
+            setShouldScroll(true);
+        }
+    };
 
     return (
         <>
@@ -186,11 +195,12 @@ const DrawingMapViewSimple = ({
                         zoom={zoom}
                         minZoom={0}
                         maxZoom={8}
-                        onClick={e => handleClick(e)}
                         crs={CRS.Simple}
                         onzoomend={() => handleZoomChange(mapRef.current.leafletElement.getZoom())}
                         className={!showZones ? 'hide-tooltips' : ''}
                         tap={false}
+                        onClick={e => handleMapClick(e)}
+                        scrollWheelZoom={shouldScroll}
                     >
                         <TileLayer
                             attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'

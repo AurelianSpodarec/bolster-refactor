@@ -2,10 +2,10 @@ import React from 'react';
 import BreakdownColumns from '../BreakdownColumns';
 import BreakdownDetailedTimeline from '../BreakdownDetailedTimeline';
 import BreakdownBasicTimeline from '../BreakdownBasicTimeline';
-import useDay from '../../hooks/useDay';
+import getTimesheetDay from '../../helpers/getTimesheetDay';
 
 const DayBreakdownLocation = ({ selectedDate, timesheet }) => {
-    const { clockerEntries = [] } = useDay(timesheet, selectedDate);
+    const { clockerEntries = [] } = getTimesheetDay(timesheet, selectedDate);
 
     return (
         <BreakdownColumns

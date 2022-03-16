@@ -1,121 +1,93 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import { useDispatch } from 'react-redux';
+import useGetCompanyNotifications from '../../../../../hooks/useGetCompanyNotifications';
 
-import { getCompanyColour } from 'helpers/generic';
-import { toggleMobileMenu } from 'actions/shared/mobile/sync/toggleMobileMenu';
-import defaultStyles from 'constants/defaultStyles';
+import { showModal } from '../../../../../actions/shared/generic/modals/sync/showModal';
+import { GENERATE_QR_CODES } from '../../../../../constants/shared/modalTypes';
+import MenuItem from '../presentational/MenuItem';
 
-class MenuItemContainer extends Component {
-    state = {
-        hover: false,
-    };
+const CompanyMenuItemContainer = ({
+    item,
+    isSubscribed,
+    isCompanyUserOrSelecting,
+    isClientAccess,
+    shouldRestrictPayments,
+    hover,
+    setHoveredItem,
+}) => {
+    const dispatch = useDispatch();
 
-    render() {
-        const { hover } = this.state;
-        const {
-            location,
-            link,
-            children,
-            external = false,
-            logout = false,
-            onClick = () => {},
-            base = false,
-            colourCode,
-            isBolsterLogoDark,
-            companyUserID,
-        } = this.props;
-        const route = location.pathname.toLowerCase();
-        const isActive = base
-            ? link.toLowerCase() === route
-            : route.toLowerCase().includes(link.toLowerCase());
+    const { unreadCount, totalRequests, unreadMessageCount, unreadReleaseNoteCount } =
+        useGetCompanyNotifications();
 
-        let textColor = 'white';
-        const companyColour = !companyUserID
-            ? defaultStyles.colourCode
-            : getCompanyColour(colourCode);
-        if (isBolsterLogoDark && !!companyUserID) textColor = 'black';
-
-        return (
-            <div
-                onMouseEnter={this.handleMouseEnter}
-                onMouseLeave={this.handleMouseLeave}
-                className={`item ${isActive ? 'active' : ''} custom-hover`}
-                style={
-                    isActive
-                        ? {
-                              backgroundColor: companyColour,
-                              color: isBolsterLogoDark ? 'white' : textColor,
-                          }
-                        : hover
-                        ? {
-                              backgroundColor: companyColour,
-                              color: isBolsterLogoDark ? 'white' : textColor,
-                          }
-                        : {}
-                }
-                onClick={() => this._toggleMobileMenu()}
-            >
-                {external ? (
-                    <a href={link}>{children}</a>
-                ) : logout ? (
-                    <Link onClick={this.logout} to={link}>
-                        {children}
-                    </Link>
-                ) : (
-                    <Link onClick={onClick} to={link}>
-                        {children}
-                    </Link>
-                )}
-            </div>
-        );
-    }
-
-    logout = e => {
-        const { history, logout = false } = this.props;
+    const handleGenerateQRCodesModal = e => {
         e.preventDefault();
-        if (logout) {
-            localStorage.setItem('token', '');
 
-            history.replace('/auth/login');
-        }
+        dispatch(showModal(GENERATE_QR_CODES));
     };
 
-    handleMouseEnter = () => this.setState({ hover: true });
+    const formattedSubNavItems = useMemo(
+        () =>
+            item.subNavItems?.length &&
+            item.subNavItems
+                .filter(item => {
+                    if (isSubscribed) {
+                        if (shouldRestrictPayments && item.paymentRestriction) {
+                            return false;
+                        }
+                        return !(!isClientAccess && item.clientAccessRestriction);
+                    } else {
+                        return item.showWhenNotSubscribed;
+                    }
+                })
+                .map(item => {
+                    if (item.link === '/company/generate-qr-codes') {
+                        return {
+                            ...item,
+                            onClick: handleGenerateQRCodesModal,
+                        };
+                    }
 
-    handleMouseLeave = () => this.setState({ hover: false });
+                    if (item.link === '/company/reports') {
+                        return { ...item, notificationCount: unreadCount };
+                    }
 
-    _toggleMobileMenu = () => {
-        const { onMobile, toggleMobileMenu } = this.props;
-        if (onMobile) {
-            toggleMobileMenu();
-        } else {
-            return;
-        }
-    };
-}
+                    if (item.link === '/company/tools/transfer-requests') {
+                        return { ...item, notificationCount: totalRequests };
+                    }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        companySettingsReducer: {
-            companySettings: { colourCode, isBolsterLogoDark },
-        },
-    },
-    shared: {
-        mobileReducer: { onMobile },
-        decodeJWTReducer: {
-            jwtData: { companyUserID },
-        },
-    },
-}) => ({
-    colourCode: colourCode || '',
-    isBolsterLogoDark,
-    onMobile,
-    companyUserID,
-});
+                    if (item.link === '/company/message-centre') {
+                        return { ...item, notificationCount: unreadMessageCount };
+                    }
 
-const mapDispatchToProps = dispatch => ({
-    toggleMobileMenu: () => dispatch(toggleMobileMenu()),
-});
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MenuItemContainer));
+                    if (item.link === '/company/release-notes') {
+                        return { ...item, notificationCount: unreadReleaseNoteCount };
+                    }
+
+                    return item;
+                }),
+        [
+            item.subNavItems,
+            isCompanyUserOrSelecting,
+            isSubscribed,
+            shouldRestrictPayments,
+            isClientAccess,
+            unreadCount,
+            totalRequests,
+            unreadMessageCount,
+            unreadReleaseNoteCount,
+        ],
+    );
+
+    return (
+        <MenuItem
+            item={item}
+            formattedSubNavItems={formattedSubNavItems}
+            shouldUseCompanyColours
+            hover={hover}
+            setHoveredItem={setHoveredItem}
+        />
+    );
+};
+
+export default CompanyMenuItemContainer;

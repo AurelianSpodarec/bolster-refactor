@@ -10,7 +10,7 @@ const EditPinQuestions = ({ sections, questions, selectedVersion }) =>
             <div key={section.value} className="size-lg-12">
                 <BlockHeading classes="sub-heading" title={section.text} />
 
-                <div className="flex-row">
+                <div className="flex-row flex-wrap width-12">
                     {questions
                         .filter(question => question.templateSectionID === section.value)
                         .sort((a, b) => a.sort - b.sort)
