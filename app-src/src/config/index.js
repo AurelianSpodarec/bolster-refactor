@@ -14,7 +14,6 @@ export const STRIPE_PUBLIC_KEY = 'pk_test_QUrrYsRQKFyb1Os4ler16ke1';
 export const INVOICE_GEN_URL =
     'https://6eixv6n0wf.execute-api.eu-west-1.amazonaws.com/staging/bolster-invoice-gen-staging';
 export const GOOGLE_SITE_KEY = '6LeV28wZAAAAAOyyOGzeQiiqtCr_F6WIQGKqXA0a';
-export const MAPS_API_KEY = 'AIzaSyDmRlprVgYa5lar9MmcJIYm4v4ADtAl6dE';
 export const DOCUMENT_LIBRARY_S3_ROOT = 'DocumentLibraryItemsStaging';
 
 // - Staging
