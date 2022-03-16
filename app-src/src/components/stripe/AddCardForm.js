@@ -78,7 +78,25 @@ class CheckoutForm extends Component {
 
     render() {
         const { name, errorMessage, nameProvided } = this.state;
+        const isDarkMode = localStorage.getItem('isDarkModeEnabled');
 
+        const createOptions = () => {
+            return {
+                style: {
+                    base: {
+                        fontSize: '14px',
+                        color: isDarkMode ? '#F9FAFA' : '#212227',
+                        fontFamily: 'Ubuntu, sans-serif',
+                        '::placeholder': {
+                            color: '#AAACB1',
+                        },
+                    },
+                    invalid: {
+                        color: '#c23d4b',
+                    },
+                },
+            };
+        };
         return (
             <form onSubmit={this.submit}>
                 <div className="checkout">
@@ -92,13 +110,25 @@ class CheckoutForm extends Component {
                         />
                     </Field>
                     <div className="size-lg-12">
-                        <Field name="Card number" sizeClasses="size-lg-4 size-md-12" required>
+                        <Field
+                            name="Card number"
+                            sizeClasses="size-lg-4 size-md-12 stripe-text-input"
+                            required
+                        >
                             <CardNumberElement {...createOptions()} onChange={this.handleChange} />
                         </Field>
-                        <Field name="Expiration date" sizeClasses="size-lg-4 size-md-12" required>
+                        <Field
+                            name="Expiration date"
+                            sizeClasses="size-lg-4 size-md-12 stripe-text-input"
+                            required
+                        >
                             <CardExpiryElement {...createOptions()} onChange={this.handleChange} />
                         </Field>
-                        <Field name="CVC" sizeClasses="size-lg-4 size-md-12" required>
+                        <Field
+                            name="CVC"
+                            sizeClasses="size-lg-4 size-md-12 stripe-text-input"
+                            required
+                        >
                             <CardCVCElement {...createOptions()} onChange={this.handleChange} />
                         </Field>
                         {errorMessage && nameProvided ? (
@@ -147,24 +177,6 @@ class CheckoutForm extends Component {
         }
     };
 }
-
-const createOptions = () => {
-    return {
-        style: {
-            base: {
-                fontSize: '14px',
-                color: 'black',
-                fontFamily: 'Ubuntu, sans-serif',
-                '::placeholder': {
-                    color: '#4e4e4e',
-                },
-            },
-            invalid: {
-                color: '#c23d4b',
-            },
-        },
-    };
-};
 
 const mapStateToProps = ({
     companyAdmin: {

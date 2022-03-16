@@ -870,7 +870,7 @@
   color: var(--typography-default);
 
   &::placeholder {
-    color: $dark-grey;
+    color: var(--typography-greyed-out);
   }
 
   &.large {
