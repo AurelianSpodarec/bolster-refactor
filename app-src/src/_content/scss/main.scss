@@ -40,12 +40,26 @@ body {
   background-color: var(--background-color);
   color: var(--typography-default);
   line-height: 1.35;
+
+  * {
+    &::-webkit-scrollbar {
+      width: 12px;
+      background-color: var(--navigation-primary);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+      background-color: var(--navigation-secondary);
+      max-height: 2px;
+    }
+  }
 }
 
 .App {
   color: var(--typography-default);
 }
-  
+
 em {
   font-style: italic;
 }
@@ -2593,7 +2607,7 @@ input {
 
       button {
         background-color: transparent;
-        
+
 
         &:not(:disabled) {
           &:hover > .far {
@@ -2757,7 +2771,7 @@ input {
               min-height: 170px;
               max-height: 170px;
               padding: 6px 8px;
-       
+
 
               .tasks {
                 flex-grow: 1;
@@ -2813,19 +2827,17 @@ input {
                 }
               }
 
-              .tasks::-webkit-scrollbar
-              {
-                  width: 12px;
-                  background-color: var(--scroll);
+              .tasks::-webkit-scrollbar {
+                width: 12px;
+                background-color: var(--scroll);
               }
 
-              .tasks::-webkit-scrollbar-thumb
-                {
-                    border-radius: 10px;
-                    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-                    background-color: var(--scroll-thumb);
-                    max-height: 2px;
-                }
+              .tasks::-webkit-scrollbar-thumb {
+                border-radius: 10px;
+                -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+                background-color: var(--scroll-thumb);
+                max-height: 2px;
+              }
 
               .no-tasks {
                 font-size: 100%;
