@@ -1,26 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
+import useSeriesPinTaskModal from './seriesPinTaskModal/hooks/useSeriesPinTaskModal';
 
-const SeriesTableRowPins = ({ pinCount, pins }) => {
-    const [expanded, setExpanded] = useState(false);
-
-    if (!expanded)
-        return (
-            <button className="button blue" onClick={() => setExpanded(true)}>
-                Click to view ({pinCount})
-            </button>
-        );
-
-    return pins.map(pin => (
-        <a
-            className="link-without-decoration"
-            href={`/company/pins/${pin.id}`}
-            key={pin.pinCode}
-            onClick={() => setExpanded(false)}
-        >
-            {pin.pinCode}
-            <br />
-        </a>
-    ));
+const SeriesTableRowPins = ({ pinCount, pins, isFetching, error }) => {
+    const { handleShowSeriesPinTaskModal } = useSeriesPinTaskModal(pins, isFetching, error);
+    return (
+        <button className="button blue" onClick={handleShowSeriesPinTaskModal}>
+            Click to view ({pinCount})
+        </button>
+    );
 };
 
 export default SeriesTableRowPins;
