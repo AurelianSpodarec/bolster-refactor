@@ -413,7 +413,7 @@ em {
 
 .link-without-decoration {
   text-decoration: none;
-  color: $body-text;
+  color: var(--typography-default);
 
   &:hover {
     text-decoration: none;
