@@ -16,7 +16,16 @@ export const useCompanyHeader = () => {
 
     const company = useSelector(selectCompanySettings);
     const { companyUserID, companyID } = useSelector(selectJwtData);
-    const { totalRequests, unreadMessageCount, unreadCount } = useGetCompanyNotifications();
+    const {
+        totalRequests,
+        unreadMessageCount,
+        unreadCount,
+        companyAlertsCount,
+        drawingExpiryMessagesCount,
+    } = useGetCompanyNotifications();
+
+    const notificationCount =
+        companyAlertsCount + unreadCount + unreadMessageCount + drawingExpiryMessagesCount;
 
     const isMobile = useSelector(selectIsMobile);
     const companyColour = getCompanyColour(company.companyColour);
@@ -38,7 +47,7 @@ export const useCompanyHeader = () => {
         companyUserID,
         isCompanySelected,
         totalRequests,
-        notificationCount: unreadMessageCount + unreadCount,
+        notificationCount,
         isMobile,
         toggleMobileMenu,
         isSubscribed,

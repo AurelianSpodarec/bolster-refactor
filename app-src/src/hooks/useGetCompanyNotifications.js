@@ -9,6 +9,10 @@ import { selectPendingInvites } from '../selectors/companyAdmin/pendingInvites';
 
 import { MESSAGE_TYPES } from '../constants/companyAdmin/enums';
 import dismissSystemMessages from '../actions/companyAdmin/messageCentre/async/dismissSystemMessages';
+import {
+    selectCompanyAlertsCount,
+    selectDrawingExpiryMessagesCount,
+} from '../selectors/companyAdmin/messageCentre';
 
 const useGetCompanyNotifications = () => {
     const dispatch = useDispatch();
@@ -17,6 +21,8 @@ const useGetCompanyNotifications = () => {
     const transferRequests = useSelector(selectTransferRequests) || {};
     const pendingInvites = useSelector(selectPendingInvites) || {};
     const recentUpdates = useSelector(selectRecentUpdates) || {};
+    const companyAlertsCount = useSelector(selectCompanyAlertsCount);
+    const drawingExpiryMessagesCount = useSelector(selectDrawingExpiryMessagesCount);
 
     const unreadMessageCount = Object.values(messages).filter(
         ({ type, isRead }) => type === MESSAGE_TYPES.SYSTEM && !isRead,
@@ -47,6 +53,8 @@ const useGetCompanyNotifications = () => {
         unreadReleaseNoteCount,
         unreadCount,
         dismissNotifications,
+        companyAlertsCount,
+        drawingExpiryMessagesCount,
     };
 };
 
