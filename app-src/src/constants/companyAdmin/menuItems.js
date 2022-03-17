@@ -176,7 +176,7 @@ export const companyNavMenuItems = [
             },
             {
                 name: 'Upcoming Alerts',
-                link: '/company/message-centre',
+                link: '/company/upcoming-alerts',
                 showWhenNotSubscribed: false,
                 paymentRestriction: false,
                 clientAccessRestriction: false,
