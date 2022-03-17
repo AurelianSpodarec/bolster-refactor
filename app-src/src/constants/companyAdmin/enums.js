@@ -14,11 +14,11 @@ export const HIERARCHY_TYPES = {
 };
 
 export const HIERARCHY_IDS = {
-    SITE: '1',
-    BUILDING: '2',
-    FLOOR: '3',
-    DRAWING: '4',
-    ALL_SITES: '100',
+    SITE: 1,
+    BUILDING: 2,
+    FLOOR: 3,
+    DRAWING: 4,
+    ALL_SITES: 100,
 };
 
 export const TEMPLATE_USAGE_RULES = {

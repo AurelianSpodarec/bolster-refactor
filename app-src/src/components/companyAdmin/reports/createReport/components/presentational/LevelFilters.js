@@ -31,7 +31,7 @@ const LevelFilters = ({
                             options={siteOptions}
                             value={selectedSite}
                             onChange={handleChange}
-                            disabled={hierarchy >= HIERARCHY_IDS.SITE}
+                            disabled={+hierarchy >= HIERARCHY_IDS.SITE}
                             search
                         />
                     </Field>
@@ -43,7 +43,7 @@ const LevelFilters = ({
                             options={buildingOptions}
                             value={selectedBuilding}
                             onChange={handleChange}
-                            disabled={hierarchy >= HIERARCHY_IDS.BUILDING}
+                            disabled={+hierarchy >= HIERARCHY_IDS.BUILDING}
                             search
                         />
                     </Field>
@@ -54,7 +54,7 @@ const LevelFilters = ({
                             name="floorID"
                             options={floorOptions}
                             value={selectedFloor}
-                            disabled={hierarchy >= HIERARCHY_IDS.FLOOR}
+                            disabled={+hierarchy >= HIERARCHY_IDS.FLOOR}
                             onChange={handleChange}
                             search
                         />
@@ -66,7 +66,7 @@ const LevelFilters = ({
                             name="drawingID"
                             options={drawingOptions}
                             value={selectedDrawing}
-                            disabled={hierarchy === HIERARCHY_IDS.DRAWING}
+                            disabled={+hierarchy === HIERARCHY_IDS.DRAWING}
                             onChange={handleChange}
                             search
                         />

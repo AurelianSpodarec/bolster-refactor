@@ -93,4 +93,4 @@ const emailConfirmSelector = ({
     },
 }) => emailConfirmationRequired;
 
-export default EmailConfirmationRequired;
+export default React.memo(EmailConfirmationRequired);
