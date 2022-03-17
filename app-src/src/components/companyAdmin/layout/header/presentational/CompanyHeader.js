@@ -20,7 +20,7 @@ const Header = () => {
         companyUserID,
         isCompanySelected,
         totalRequests,
-        unreadMessageCount,
+        notificationCount,
         isMobile,
         toggleMobileMenu,
         isSubscribed,
@@ -82,7 +82,7 @@ const Header = () => {
                                 <CircleButton
                                     href="/company/message-centre"
                                     icon={EnvelopeIcon}
-                                    showNotification={!!unreadMessageCount}
+                                    showNotification={!!notificationCount}
                                 />
                                 <div className="break-line" />
                             </>
