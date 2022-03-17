@@ -5,7 +5,7 @@ class ScrollToTop extends Component {
     componentDidUpdate(prevProps) {
         if (this.props.location.pathname !== prevProps.location.pathname) {
             const pageArea = document.getElementById('page-area');
-            console.log(pageArea);
+
             if (pageArea) {
                 pageArea.scrollTo(0, 0);
             } else {
