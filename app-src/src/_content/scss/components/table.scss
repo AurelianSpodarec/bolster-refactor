@@ -93,7 +93,8 @@
   }
 
   .red-row, .red-column {
-    background-color: #ffdcdb;
+    background-color: var(--negative-highlight);
+    color: #212227;
   }
 
   .grey-row {
