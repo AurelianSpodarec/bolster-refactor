@@ -209,7 +209,8 @@
   }
 
   .sigCanvas {
-    background-color: var(--background-container);
+    border: 1px solid var(--background-stroke);
+    background-color: var(--input-default);
     max-width: 100%;
     border-radius: 5px;
   }
