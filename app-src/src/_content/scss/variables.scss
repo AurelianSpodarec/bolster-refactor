@@ -246,6 +246,7 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   --positive-hover: #36C967;
   --positive-pressed: #268D48;
   --positive-disabled: #36C967;
+  --warning-default: #EFC206;
   --negative-default: #F91F2B;
   --negative-light: rgb(182, 45, 55);
   --negative-hover: #B22724;
@@ -258,6 +259,7 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   --navigation-primary: #FFFFFF;
   --navigation-secondary: #F1F1F3;
   --typography-default: #212227;
+  --typography-switched: #F9FAFA;
   --typography-greyed-out: #AAACB1;
   --input-default: #FFFFFF;
   --pin-installed: #2DAC57;
@@ -296,7 +298,7 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   --navigation-secondary: #525461;
   --input-default: #525461;
   --typography-default: #F9FAFA;
-
+  --typography-switched: #212227;
   //calendar
   --calendar-negative: #fc5c64;
   --calendar-greyed-out: #969696;

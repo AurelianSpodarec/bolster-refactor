@@ -403,11 +403,11 @@
   }
 
   .limit-yellow {
-    color: #c5c503;
+    color: var(--warning-default);
   }
 
   .limit-green {
-    color: green;
+    color: var(--positive-default);
   }
 }
 
