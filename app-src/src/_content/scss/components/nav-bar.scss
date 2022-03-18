@@ -13,7 +13,7 @@
   width: var(--nav-width);
   height: 100%;
   z-index: 1000;
-  box-shadow: 4px 0px 16px rgba(200, 198, 198, 0.3);
+  box-shadow: 4px 0px 16px var(--navigation-shadow);
 
 
   .tab-container {
