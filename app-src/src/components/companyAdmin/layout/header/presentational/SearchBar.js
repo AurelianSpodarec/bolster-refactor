@@ -20,6 +20,7 @@ const SearchBar = ({
             handleChange={handleChange}
             value={searchTerm}
             name="searchTerm"
+            className="header-nav"
         />
         {resultsVisible && (
             <div className="dropdown-search-results visible">
