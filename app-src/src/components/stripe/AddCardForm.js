@@ -78,7 +78,7 @@ class CheckoutForm extends Component {
 
     render() {
         const { name, errorMessage, nameProvided } = this.state;
-        const isDarkMode = localStorage.getItem('isDarkModeEnabled');
+        const isDarkMode = JSON.parse(localStorage.getItem('isDarkModeEnabled'));
 
         const createOptions = () => {
             return {
@@ -97,6 +97,7 @@ class CheckoutForm extends Component {
                 },
             };
         };
+
         return (
             <form onSubmit={this.submit}>
                 <div className="checkout">
