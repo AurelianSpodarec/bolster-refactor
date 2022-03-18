@@ -7,7 +7,7 @@ export default combineReducers({
     isDarkModeEnabled: colourThemeReducer,
 });
 
-function colourThemeReducer(state = true, action) {
+function colourThemeReducer(state = null, action) {
     switch (action.type) {
         case TOGGLE_COLOUR_THEME:
             return action.value;
