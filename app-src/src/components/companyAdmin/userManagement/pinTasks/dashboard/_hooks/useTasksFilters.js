@@ -14,13 +14,15 @@ const useTasksFilters = () => {
         operatives: [],
         services: [],
         sites: [],
+        templates: [],
     });
 
-    const { serviceOptions, operativeOptions, siteOptions } = useFilterOptions();
+    const { serviceOptions, operativeOptions, siteOptions, templateOptions } = useFilterOptions();
 
     useEffect(() => {
         batch(() => {
             dispatch(setServiceFilters(form.services));
+            dispatch(setServiceFilters(form.templates));
             dispatch(setUserFilters(form.operatives));
             dispatch(setSiteFilters(form.sites));
         });
@@ -32,6 +34,7 @@ const useTasksFilters = () => {
         serviceOptions,
         siteOptions,
         operativeOptions,
+        templateOptions,
     };
 };
 

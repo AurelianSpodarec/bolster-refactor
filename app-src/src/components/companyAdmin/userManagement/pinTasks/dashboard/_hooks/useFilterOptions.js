@@ -6,11 +6,13 @@ import { selectSiteFilters, selectSites } from 'selectors/companyAdmin/sites';
 import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
 import { selectServiceFilters } from 'selectors/companyAdmin/services';
 import { selectUserFilters } from 'selectors/companyAdmin/companyUsers';
+import { selectTemplateFilters, selectTemplates } from 'selectors/companyAdmin/templates';
 
 const useFilterOptions = () => {
     const pinTasks = Object.values(useSelector(selectPinTasks));
 
     const selectServiceFilter = useSelector(selectServiceFilters);
+    const selectTemplateFilter = useSelector(selectTemplateFilters);
     const selectUserFilter = useSelector(selectUserFilters);
     const selectSitesFilter = useSelector(selectSiteFilters);
 
@@ -49,6 +51,17 @@ const useFilterOptions = () => {
             return acc;
         }, []);
 
+    const templates = useSelector(selectTemplates);
+    const templateIDs = [...new Set(pinTasks.map(({ templateID }) => templateID))];
+
+    const templateOptions = Object.values(templates)
+        .filter(({ id }) => templateIDs.includes(id) || selectTemplateFilter.includes(id))
+        .reduce((acc, { id, name }) => {
+            acc.push({ value: id, label: name });
+
+            return acc;
+        }, []);
+
     const operativeOptions = Object.values(operatives).reduce(
         (acc, { id, userFirstName, userLastName, userEmail, operativeCode }) => {
             if (
@@ -75,8 +88,8 @@ const useFilterOptions = () => {
 
         return acc;
     }, []);
-    console.log({ services, sites, operatives });
-    return { serviceOptions, operativeOptions, siteOptions };
+
+    return { serviceOptions, templateOptions, operativeOptions, siteOptions };
 };
 
 export default useFilterOptions;
