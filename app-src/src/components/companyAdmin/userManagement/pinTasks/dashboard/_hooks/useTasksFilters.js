@@ -6,6 +6,7 @@ import useFilterOptions from '../_hooks/useFilterOptions';
 import setServiceFilters from 'actions/companyAdmin/services/async/sync/setServiceFilters';
 import setUserFilters from 'actions/companyAdmin/userManagement/async/setUserFilters';
 import setSiteFilters from 'actions/companyAdmin/sites/sync/setSiteFilters';
+import setTemplateFilters from 'actions/companyAdmin/templates/sync/setTemplateFilters';
 
 const useTasksFilters = () => {
     const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const useTasksFilters = () => {
     useEffect(() => {
         batch(() => {
             dispatch(setServiceFilters(form.services));
-            dispatch(setServiceFilters(form.templates));
+            dispatch(setTemplateFilters(form.templates));
             dispatch(setUserFilters(form.operatives));
             dispatch(setSiteFilters(form.sites));
         });

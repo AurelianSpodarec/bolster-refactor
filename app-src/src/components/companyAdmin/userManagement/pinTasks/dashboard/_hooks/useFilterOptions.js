@@ -52,15 +52,15 @@ const useFilterOptions = () => {
         }, []);
 
     const templates = useSelector(selectTemplates);
-    const templateIDs = [...new Set(pinTasks.map(({ templateID }) => templateID))];
+    const filteredTemplates = Object.values(templates).filter(template =>
+        serviceIDs.includes(template.serviceID),
+    );
 
-    const templateOptions = Object.values(templates)
-        .filter(({ id }) => templateIDs.includes(id) || selectTemplateFilter.includes(id))
-        .reduce((acc, { id, name }) => {
-            acc.push({ value: id, label: name });
+    const templateOptions = Object.values(filteredTemplates).reduce((acc, { id, name }) => {
+        acc.push({ value: id, label: name });
 
-            return acc;
-        }, []);
+        return acc;
+    }, []);
 
     const operativeOptions = Object.values(operatives).reduce(
         (acc, { id, userFirstName, userLastName, userEmail, operativeCode }) => {
