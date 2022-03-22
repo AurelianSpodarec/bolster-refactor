@@ -50,14 +50,24 @@ const MenuItem = ({
             to={link}
             onClick={onClick}
         >
-            <div className="link-wrapper">
+            <div
+                className="link-wrapper"
+                style={
+                    isActive
+                        ? {
+                              color: colourTheme === 'dark' ? textColour : 'white',
+                          }
+                        : {}
+                }
+            >
                 <img
                     src={icon}
                     alt={name}
                     className="image"
                     style={
                         (!isActive && colourTheme === 'dark') ||
-                        (colourTheme === 'dark' && !isBolsterLogoDark)
+                        (colourTheme === 'dark' && !isBolsterLogoDark) ||
+                        (isActive && colourTheme === 'light')
                             ? {
                                   webkitFilter: 'invert(0)',
                                   filter: 'invert(0)',
