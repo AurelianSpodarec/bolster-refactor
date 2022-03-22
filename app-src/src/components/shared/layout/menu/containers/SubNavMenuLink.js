@@ -7,22 +7,30 @@ const SubNavMenuLink = ({
     shouldUseCompanyColours,
 }) => {
     const [hover, setHover] = useState(false);
+    const [clicked, setClicked] = useState('');
 
     const route = location.pathname.toLowerCase();
 
     const isActive = route === link.toLowerCase();
 
     return (
-        <div className="sub-nav-item">
+        <div className={`sub-nav-item ${clicked}`}>
             {!!notificationCount && (
                 <div className="notification-badge">
                     <p>{notificationCount}</p>
                 </div>
             )}
             <Link
-                onClick={onClick}
+                onClick={() => {
+                    console.log(clicked);
+                    setClicked('clicked');
+                    console.log(clicked);
+                    onClick;
+                }}
                 to={link}
-                onMouseEnter={() => setHover(true)}
+                onMouseEnter={() => {
+                    setHover(true);
+                }}
                 onMouseLeave={() => {
                     setHover(false);
                 }}

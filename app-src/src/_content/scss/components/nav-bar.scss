@@ -186,6 +186,10 @@
             margin-bottom: 15px;
           }
 
+          &.clicked {
+            display: none;
+          }
+
           .notification-badge {
             flex: none;
             display: flex;
