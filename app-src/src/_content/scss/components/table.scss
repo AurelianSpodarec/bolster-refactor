@@ -281,6 +281,10 @@
       text-decoration: none;
       color: $body-text;
 
+      &.link-without-background {
+        color: var(--typography-primary);
+      }
+
       &:hover {
         text-decoration: underline;
       }
