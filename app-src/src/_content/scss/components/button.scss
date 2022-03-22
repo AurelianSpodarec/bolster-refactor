@@ -384,6 +384,7 @@ button {
     border-radius: 8px;
     border: 1px solid transparent;
     transition: background-color 0.1s ease-in-out;
+    text-decoration: none;
 
     .text {
         + .icon {
@@ -395,6 +396,10 @@ button {
         + .text {
             margin-left: 8px;
         }
+    }
+
+    &:active {
+        color: #F9FAFA;
     }
 
     &:disabled {
