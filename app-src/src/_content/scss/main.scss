@@ -2182,7 +2182,13 @@ input {
 }
 
 .timepicker {
+  background-color: var(--navigation-primary);
+  border-radius: 3px;
   font-size: 160%;
+
+  .react-time-picker__wrapper {
+    border: 1px solid var(--background-stroke) !important;
+  }
 }
 
 .template-color-question {
