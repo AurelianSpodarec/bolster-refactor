@@ -255,7 +255,8 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
     --navigation-secondary: #525461;
     --typography-default: #212227;
     --typography-greyed-out: #AAACB1;
-    --typography-button: #F9FAFA;
+    --background-button-hover: #F2F2F2;
+    --background-button-stroke: #F2F2F2;
     --pin-installed: #2DAC57;
     --pin-action-required: #B22724;
     --pin-inspected: #3364DD;
@@ -289,6 +290,8 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
     --navigation-primary: #3A3C45;
     --navigation-secondary: #525461;
     --typography-default: #F9FAFA;
+    --background-button-hover: #59595F;
+    --background-button-stroke: #59595F;
 
     // others not in palette (designs)
 }
