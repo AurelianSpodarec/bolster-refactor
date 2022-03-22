@@ -504,3 +504,27 @@ button {
         }
     }
 }
+
+// button wrapper
+.button-wrapper {
+    &.left {
+        .custom-button {
+            margin-right: 5px;
+        }
+    }
+
+    &.center {
+        .custom-button {
+            margin: {
+                left: 2.5px;
+                right: 2.5px;
+            };
+        }
+    }
+
+    &.right {
+        .custom-button {
+            margin-left: 5px;
+        }
+    }
+}
