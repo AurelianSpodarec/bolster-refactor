@@ -6,13 +6,13 @@ import { selectSiteFilters, selectSites } from 'selectors/companyAdmin/sites';
 import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
 import { selectServiceFilters } from 'selectors/companyAdmin/services';
 import { selectUserFilters } from 'selectors/companyAdmin/companyUsers';
-import { selectTemplateFilters, selectTemplates } from 'selectors/companyAdmin/templates';
+import { selectTemplates } from 'selectors/companyAdmin/templates';
+import { selectTemplateVersions } from 'selectors/companyAdmin/templateVersions';
 
 const useFilterOptions = () => {
     const pinTasks = Object.values(useSelector(selectPinTasks));
 
     const selectServiceFilter = useSelector(selectServiceFilters);
-    const selectTemplateFilter = useSelector(selectTemplateFilters);
     const selectUserFilter = useSelector(selectUserFilters);
     const selectSitesFilter = useSelector(selectSiteFilters);
 
@@ -52,8 +52,13 @@ const useFilterOptions = () => {
         }, []);
 
     const templates = useSelector(selectTemplates);
+    const templateVersions = useSelector(selectTemplateVersions);
+    const taskTemplateVersions = pinTasks.map(task => task.templateVersionID);
+    const pinTasksTemplates = Object.values(templateVersions).filter(item =>
+        taskTemplateVersions.includes(item.id),
+    );
     const filteredTemplates = Object.values(templates).filter(template =>
-        serviceIDs.includes(template.serviceID),
+        pinTasksTemplates.map(item => item.templateID).includes(template.id),
     );
 
     const templateOptions = Object.values(filteredTemplates).reduce((acc, { id, name }) => {
