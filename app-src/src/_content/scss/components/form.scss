@@ -901,7 +901,7 @@
     @include ubuntu;
     font-size: 140%;
     border: 1px solid var(--background-stroke);
-    background-color: var(--input-default);
+    background-color: var(---navigation-primary);
     color: var(--typography-default);
     outline: none;
     @include rounded-all(2.5px);
@@ -1014,7 +1014,7 @@
     min-height: 33px;
     padding: 0 40px 0 5px;
     border: 1px solid var(--background-stroke);
-    background-color: var(--input-default);
+    background-color:  var(---navigation-primary);
     border-radius: 3px;
     cursor: pointer;
     white-space: nowrap;

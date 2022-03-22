@@ -2210,7 +2210,7 @@ input {
 }
 
 .react-calendar {
-  background: var(--input-default) !important;
+  background-color:  var(--navigation-primary) !important;
   border: 1px solid var(--background-stroke) !important;
   color: var(--typography-default);
   border-radius: 2.5px;
@@ -2230,18 +2230,18 @@ input {
 }
 
 .react-calendar--selectRange .react-calendar__tile--hover {
-  background-color: var(--hover-primary) !important;
+  background-color:  var(---navigation-primary) !important;
 }
 
 .react-calendar__tile:enabled:hover {
-  background-color: var(--hover-primary) !important;
+  background-color:  var(---navigation-primary) !important;
 }
 
 .react-daterange-picker__wrapper {
   padding: 8px 4px;
   font-size: 12px;
   border: 1px solid var(--background-stroke) !important;
-  background-color: var(--input-default);
+  background-color:  var(---navigation-primary);
   border-radius: 2.5px;
   outline: none;
   color: var(--typography-default);
