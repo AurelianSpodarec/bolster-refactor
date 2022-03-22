@@ -7,6 +7,7 @@ const ActionButton = ({
     icon = '',
     iconRight = false,
     iconSpin = false,
+    iconOnly = false,
     disabled = false,
     source = 'primary', // primary, secondary, list
     ambient = 'primary', // primary, positive, negative
@@ -14,7 +15,7 @@ const ActionButton = ({
 }) => {
     const dynamicButtonClass = `custom-button flex-row align-center justify-${
         iconRight ? 'end' : 'start'
-    } source-${source} ambient-${ambient} size-${size}`;
+    } source-${source} ambient-${ambient} size-${size} ${iconOnly ? 'icon-only' : ''}`;
 
     const dynamicIconClass = `icon fa fa-${icon} ${iconSpin ? 'fa-spin' : ''}`;
 
@@ -26,7 +27,7 @@ const ActionButton = ({
             disabled={disabled}
         >
             {icon && !iconRight && <i className={dynamicIconClass}></i>}
-            {text && <span className="text">{text}</span>}
+            {text && !iconOnly && <span className="text">{text}</span>}
             {icon && iconRight && <i className={dynamicIconClass}></i>}
         </button>
     );
