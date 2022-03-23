@@ -235,6 +235,7 @@ export const NUMBER_OF_HISTORIES = {
     1: 'Latest',
     2: 'Earliest',
     3: 'All',
+    5: 'All set with status',
 };
 
 export const NUMBER_OF_HISTORIES_WITH_DATE = {
@@ -242,6 +243,7 @@ export const NUMBER_OF_HISTORIES_WITH_DATE = {
     2: 'Earliest',
     3: 'All',
     4: 'All histories within set date range',
+    5: 'All set with status',
 };
 
 export const NUMBER_OF_HISTORIES_OPTIONS = {
@@ -249,6 +251,7 @@ export const NUMBER_OF_HISTORIES_OPTIONS = {
     EARLIEST: 2,
     ALL: 3,
     ALLWHERELATESTINDATERANGE: 4,
+    ALLSETWITHSTATUS: 5,
 };
 
 export const SORT_BY = {
