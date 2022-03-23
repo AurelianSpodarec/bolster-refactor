@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import useNav from '../_hooks/useNav';
 import useNavOverflow from '../_hooks/useNavOverflow';
 import { Link } from 'react-router-dom';
@@ -10,9 +10,11 @@ const MenuItem = ({
     item: { name, link, showNotificationBadge, icon, subNavItems, onClick },
     formattedSubNavItems,
     shouldUseCompanyColours,
-    hover,
+    hoveredItem,
     setHoveredItem,
 }) => {
+    const hover = useMemo(() => hoveredItem === name, [hoveredItem, name]);
+
     const { subNavRef, isSubNavOverflowing } = useNavOverflow(hover);
 
     const { isActive, textColour, companyColour, isBolsterLogoDark } = useNav(subNavItems, link);
