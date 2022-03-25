@@ -483,13 +483,13 @@
 
     .option {
       padding: 4px 8px;
-
-      color: var(--typography-greyed-out);
+      color: var(--typography-default);
+      background-color: var(--input-default);
       font-size: 140%;
+      border: 1px solid var(--background-stroke);
 
       &.selected {
         background-color: $blue;
-        color: var(--typography-greyed-out);
       }
     }
   }
