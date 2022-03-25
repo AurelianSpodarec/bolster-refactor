@@ -9,6 +9,8 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { formatCurrency } from 'helpers/generic';
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
 import LinkWithPropsContainer from 'components/shared/generic/button/containers/LinkWithPropsContainer';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 
 const InvoiceListItem = ({
     invoice: {
@@ -92,21 +94,23 @@ const InvoiceListItem = ({
             {onMobile && <span className="mobile-table-heading">{headers[10]}</span>}
             <BlockButtonWrapper>
                 {!isPaid && (
-                    <button
-                        className="button green"
+                    <ActionButton
                         onClick={() => showModal(PAY_INVOICE, { invoiceID: id })}
-                    >
-                        Pay
-                    </button>
+                        text="Pay"
+                        size="small"
+                    />
                 )}
-                <LinkWithPropsContainer
-                    to={{
+
+                <LinkButton
+                    href={{
                         pathname: `/company/invoices/${id}`,
                         state: { fromURL: location.pathname },
                     }}
-                >
-                    View
-                </LinkWithPropsContainer>
+                    text="View"
+                    size="small"
+                    source="secondary"
+                    ambient="positive"
+                />
             </BlockButtonWrapper>
         </td>
     </tr>
