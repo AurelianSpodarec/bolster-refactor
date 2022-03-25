@@ -7,7 +7,6 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import { formatNumber } from 'helpers/generic';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 
 const MySubscription = ({ services, daysleft, subscriptions, endOn }) => (
     <div className="size-lg-12">
@@ -40,16 +39,9 @@ const MySubscription = ({ services, daysleft, subscriptions, endOn }) => (
             </p>
         )}
         <BlockButtonWrapper>
-            {/* <ButtonContainer className="pull-right" to="/company/subscription">
+            <ButtonContainer className="pull-right" to="/company/subscription">
                 Manage My Subscription
-            </ButtonContainer> */}
-            <LinkButton
-                href="/company/subscription"
-                text="Manage My Subscription"
-                size="small"
-                source="secondary"
-                ambient="positive"
-            />
+            </ButtonContainer>
         </BlockButtonWrapper>
     </div>
 );
