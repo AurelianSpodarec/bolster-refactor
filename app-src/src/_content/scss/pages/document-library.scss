@@ -32,7 +32,7 @@
   }
 
   .grid-item {
-    background-color: #ffffff;
+    background-color: var(--background-container);
     border-radius: 5px;
     padding: 15px;
     display: flex;
@@ -109,6 +109,7 @@
       justify-content: flex-start;
       align-self: stretch;
       min-height: 34px;
+      color: var(--typography-default);
 
       img {
         width: 24px;
@@ -136,7 +137,7 @@
     .meta {
       align-self: stretch;
       font-size: 12px;
-      color: $button-grey;
+      color: var(--typography-greyed-out);
     }
   }
 }
