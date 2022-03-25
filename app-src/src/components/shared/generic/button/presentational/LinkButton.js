@@ -12,6 +12,7 @@ const LinkButton = ({
     source = 'primary', // primary, secondary
     ambient = 'primary', // primary, positive, negative
     size = 'medium', // medium, small
+    extraClasses = '',
 }) => {
     const dynamicButtonClass = `custom-button flex-row align-center justify-${
         iconRight ? 'end' : 'start'
@@ -22,7 +23,7 @@ const LinkButton = ({
     return (
         <Link
             to={href}
-            className={`custom-button flex-row align-center ${dynamicButtonClass}`}
+            className={`custom-button flex-row align-center ${extraClasses} ${dynamicButtonClass}`}
             disabled={disabled}
         >
             {icon && !iconRight && <i className={dynamicIconClass}></i>}
