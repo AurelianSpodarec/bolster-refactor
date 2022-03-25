@@ -24,7 +24,8 @@ const DashboardBarChart = ({ data, isDaily }) => {
                             },
 
                             gridLines: {
-                                color: colourTheme === 'dark' ? '#494c5b' : 'F2F2F2',
+                                color: colourTheme === 'dark' ? '#494c5b' : '#F2F2F2',
+                                zeroLineColor: colourTheme === 'dark' ? '#494c5b' : '#F2F2F2',
                             },
                         },
                     ],
@@ -38,7 +39,8 @@ const DashboardBarChart = ({ data, isDaily }) => {
                             },
 
                             gridLines: {
-                                color: colourTheme === 'dark' ? '#494c5b' : 'F2F2F2',
+                                color: colourTheme === 'dark' ? '#494c5b' : '#F2F2F2',
+                                zeroLineColor: colourTheme === 'dark' ? '#494c5b' : '#F2F2F2',
                             },
                         },
                     ],
