@@ -3,7 +3,7 @@ import useGetSuperAdminNotifications from '../../../../../hooks/useGetSuperAdmin
 
 import MenuItem from '../presentational/MenuItem';
 
-const SuperAdminMenuItemContainer = ({ item, hover, setHoveredItem }) => {
+const SuperAdminMenuItemContainer = ({ item, hoveredItem, setHoveredItem }) => {
     const { unreadSuperAdminBugReports, unreadSuperAdminContactSubmissions } =
         useGetSuperAdminNotifications();
 
@@ -28,7 +28,7 @@ const SuperAdminMenuItemContainer = ({ item, hover, setHoveredItem }) => {
         <MenuItem
             item={item}
             formattedSubNavItems={formattedSubNavItems}
-            hover={hover}
+            hoveredItem={hoveredItem}
             setHoveredItem={setHoveredItem}
         />
     );
