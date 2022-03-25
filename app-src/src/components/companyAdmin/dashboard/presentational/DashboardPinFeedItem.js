@@ -5,6 +5,7 @@ import { PIN_STATUS_IDS as STATUS } from 'constants/companyAdmin/enums';
 import { pin2xImgs } from '_content/images/map-markers';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 
 const DashboardPinFeedItem = ({ pin }) => {
     let pinColour;
@@ -55,7 +56,13 @@ const DashboardPinFeedItem = ({ pin }) => {
                 <DateTimeContainer date={pin.syncedOn} format="DD-MM-YYYY HH:mm" />
             </td>
             <td>
-                <ButtonContainer to={`/company/pins/${pin.pinID}`}>View</ButtonContainer>
+                <LinkButton
+                    href={`/company/pins/${pin.pinID}`}
+                    text="View"
+                    size="small"
+                    source="secondary"
+                    ambient="positive"
+                />
             </td>
         </tr>
     );

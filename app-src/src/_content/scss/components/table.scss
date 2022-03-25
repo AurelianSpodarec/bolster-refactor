@@ -56,7 +56,7 @@
     }
 
     &.with-actions {
-        a {
+        a:not(.custom-button) {
             text-decoration: none;
             color: white;
 
