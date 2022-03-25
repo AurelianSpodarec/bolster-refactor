@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { NUMBER_OF_HISTORIES_OPTIONS } from '../../../../constants/companyAdmin/enums';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const DrawingDataByOperativeListItem = ({ operative, onMobile, headers }) => {
     const history = useHistory();
@@ -34,13 +35,13 @@ const DrawingDataByOperativeListItem = ({ operative, onMobile, headers }) => {
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">Actions</span>}
-                <button
-                    className={`button blue ${operative.isInvited ? 'disabled' : ''}`}
+                <ActionButton
+                    // className={`button blue ${operative.isInvited ? 'disabled' : ''}`}
                     onClick={generateReport}
                     disabled={operative.isInvited}
-                >
-                    Generate Report
-                </button>
+                    text="Generate Report"
+                    size="small"
+                />
             </td>
         </tr>
     );
