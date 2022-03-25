@@ -12,6 +12,7 @@ const ActionButton = ({
     source = 'primary', // primary, secondary
     ambient = 'primary', // primary, positive, negative
     size = 'medium', // medium, small
+    extraClasses = '',
 }) => {
     const dynamicButtonClass = `custom-button flex-row align-center justify-${
         iconRight ? 'end' : 'start'
@@ -21,7 +22,7 @@ const ActionButton = ({
 
     return (
         <button
-            className={`custom-button flex-row align-center ${dynamicButtonClass}`}
+            className={`custom-button flex-row align-center ${extraClasses} ${dynamicButtonClass}`}
             type={type}
             onClick={onClick}
             disabled={disabled}
