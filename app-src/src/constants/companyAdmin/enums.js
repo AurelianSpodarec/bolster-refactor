@@ -234,24 +234,24 @@ export const FURTHER_FILTRATION_OPTIONS = {
 export const NUMBER_OF_HISTORIES = {
     1: 'Latest',
     2: 'Earliest',
-    3: 'All',
-    5: 'All set with status',
+    3: 'All set with status',
+    5: 'All',
 };
 
 export const NUMBER_OF_HISTORIES_WITH_DATE = {
     1: 'Latest',
     2: 'Earliest',
-    3: 'All',
+    3: 'All set with status',
     4: 'All histories within set date range',
-    5: 'All set with status',
+    5: 'All',
 };
 
 export const NUMBER_OF_HISTORIES_OPTIONS = {
     LATEST: 1,
     EARLIEST: 2,
-    ALL: 3,
+    ALLSETWITHSTATUS: 3,
     ALLWHERELATESTINDATERANGE: 4,
-    ALLSETWITHSTATUS: 5,
+    ALL: 5,
 };
 
 export const SORT_BY = {
