@@ -168,6 +168,7 @@
         width: 100%;
         margin-left: -20px;
         margin-top: -25px;
+        color: var(--typography-default);
     }
     span {
         float: left;
@@ -176,7 +177,7 @@
         text-emphasis: center;
         @include ubuntu;
         @include rounded-all;
-        background-color: white;
+        background-color: var(--background-container);
         padding: 2.5px 2.5px 3.5px 2.5px;
 
         strong{
