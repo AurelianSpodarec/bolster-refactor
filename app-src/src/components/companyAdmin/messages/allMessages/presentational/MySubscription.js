@@ -49,6 +49,7 @@ const MySubscription = ({ services, daysleft, subscriptions, endOn }) => (
                 size="small"
                 source="secondary"
                 ambient="positive"
+                extraClasses="pull-right"
             />
         </BlockButtonWrapper>
     </div>
