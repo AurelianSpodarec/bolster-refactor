@@ -5,6 +5,7 @@ import SitesList from './SitesList';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const SitesTable = ({
     headers,
@@ -20,17 +21,27 @@ const SitesTable = ({
     return (
         <BlockContainer>
             <BlockHeading title="Sites" classes="w-table">
-                <button onClick={handleAddSite} className="button green">
-                    <i className="fa fa-plus" /> Add site
-                </button>
+                <ActionButton
+                    onClick={handleAddSite}
+                    icon="fa fa-plus"
+                    text="Add site"
+                    ambient="positive"
+                />
                 {isSorting ? (
-                    <button className="button green" onClick={toggleIsSortingSites}>
-                        <i className="far fa-check" /> Finish Sort
-                    </button>
+                    <ActionButton
+                        onClick={toggleIsSortingSites}
+                        icon="far fa-check"
+                        text="Finish Sort"
+                        ambient="positive"
+                    />
                 ) : (
-                    <button className="button" onClick={toggleIsSortingSites}>
-                        <i className="far fa-sort" /> Sort Mode
-                    </button>
+                    <ActionButton
+                        onClick={toggleIsSortingSites}
+                        icon="far fa-sort"
+                        text="Sort Mode"
+                        source="secondary"
+                        ambient="positive"
+                    />
                 )}
             </BlockHeading>
 
