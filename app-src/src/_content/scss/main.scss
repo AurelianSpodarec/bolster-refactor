@@ -2952,5 +2952,13 @@ input {
     }
 }
 
+.user-table {
+    height: 56px !important;
+
+    .email {
+        margin-top: 16px;
+        color: var(--positive-hover)
+    }
+}
 // mobile
 @import './dashboard-mobile.scss';

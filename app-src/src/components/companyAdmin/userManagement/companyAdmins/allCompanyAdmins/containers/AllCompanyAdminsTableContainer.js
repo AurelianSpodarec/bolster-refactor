@@ -19,15 +19,11 @@ const AllCompanyAdminTableContainer = ({ filteredUsers }) => {
             <AllCompanyAdminsTable
                 headers={[
                     'Name',
-                    'Email',
-                    'Phone Number',
-                    'Has linked device?',
-                    'Operative Code',
+                    'Phone number',
+                    'Device name',
                     'Last upsynced date',
-                    'Last detected unsynced data',
-                    'App Version',
-                    'Number of attached drawings',
-                    'Is e-mail confirmed?',
+                    'App version',
+                    'Drawing count',
                     '',
                 ]}
                 users={filteredUsers(mergedUsers)}
