@@ -19,6 +19,10 @@
     color: $body-text;
     text-decoration: underline;
 
+    &.switched {
+      color: var(--typography-default);
+    }
+
     &:hover {
       text-decoration: none;
     }

@@ -393,9 +393,16 @@ em {
 .content-container {
   padding: 0 5px;
 
+  &.dark {
+    p {
+    color:  $body-text;
+    }
+  }
+
   p {
     line-height: 1.4;
-    color: $body-text;
+    color: var(--typography-default);
+
 
     &.switched {
       color: var(--typography-default);
@@ -409,7 +416,6 @@ em {
 
     a {
       text-decoration: none;
-      color: $body-text;
       @include ubuntu-medium;
 
       &:hover {
