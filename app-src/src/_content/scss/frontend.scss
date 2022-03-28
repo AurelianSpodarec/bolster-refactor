@@ -3717,7 +3717,7 @@ $back-to-top-height: 35px;
 
       p {
         font-size: 90%;
-
+        color: $body-text;
         @include devices(smDesktop) {
           font-size: 70%;
         }
