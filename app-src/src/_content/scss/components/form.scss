@@ -996,12 +996,21 @@
     top: 8px;
   }
 
+
+  input::placeholder {
+    color: var(--typography-default);
+  }
+
   .react-datepicker__input-container {
     input {
       background-color: var(--navigation-primary);
       color: var(--typography-default);
       border: 1px solid var(--background-stroke);
       border-radius: 3px;
+    }
+
+    input::placeholder {
+      color: var(--typography-default);
     }
   }
 }
