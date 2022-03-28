@@ -44,7 +44,7 @@ const AlertItem = ({
 
     const isPlural = frequencyAmount > 1;
     return (
-        <tr>
+        <tr className="upcoming-alert-item">
             <td className="left-align">
                 <Moment format={'DD/MM/YYYY'} date={date} />
             </td>
@@ -58,7 +58,7 @@ const AlertItem = ({
                     'N/A'
                 )}
             </td>
-            <td>
+            <td className="hierarchy-link">
                 {!!siteID && <Link to={`/company/sites/${siteID}`}>{siteName} </Link>}
                 {!!buildingID && (
                     <Link to={`/company/buildings/${buildingID}`}>
