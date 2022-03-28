@@ -1,13 +1,15 @@
 .document-filters {
   justify-content: space-between;
+
   .generic-search {
     min-width: 49%;
   }
+
   .select-list {
     margin-left: 10px;
     min-width: 160px;
   }
-}  
+}
 
 .no-overflow {
   overflow: hidden;
@@ -30,7 +32,7 @@
   }
 
   .grid-item {
-    background-color: #ffffff;
+    background-color: var(--background-container);
     border-radius: 5px;
     padding: 15px;
     display: flex;
@@ -75,7 +77,7 @@
         left: 0;
         right: 0;
         transition: all 200ms ease;
-        
+
         p {
           overflow-x: hidden;
           margin-bottom: 5px;
@@ -107,6 +109,7 @@
       justify-content: flex-start;
       align-self: stretch;
       min-height: 34px;
+      color: var(--typography-default);
 
       img {
         width: 24px;
@@ -134,7 +137,7 @@
     .meta {
       align-self: stretch;
       font-size: 12px;
-      color: $button-grey;
+      color: var(--typography-greyed-out);
     }
   }
 }
@@ -156,6 +159,7 @@
   &.grid {
     .content-area {
       margin-bottom: 0;
+
       .block-heading {
         margin-bottom: 0;
       }
@@ -173,10 +177,10 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 5px;
-  
-  
+
+
     .dnd-indicator {
       width: 100%;
 
@@ -243,11 +247,12 @@
     .hover-anim p {
       transform: scale(102%);
     }
+
     .hover-anim img {
       transform: scale(110%);
     }
   }
-  
+
   td {
     vertical-align: middle;
     cursor: default;
@@ -260,13 +265,14 @@
     &.file-name, &.file-image {
       color: black;
       padding: 0 15px;
+
       p, img {
         box-sizing: content-box;
         padding: 15px 0;
         min-width: 24px;
         min-height: 24px;
       }
-    } 
+    }
 
   }
 }
@@ -279,6 +285,7 @@
   margin-top: 5px;
 
 }
+
 .dl-selection {
   display: inline-flex;
   justify-content: center;
@@ -322,19 +329,19 @@
 .add-documents-modal {
   .file-upload-container {
 
-    .error-message{
+    .error-message {
       font-size: 12px;
       padding: 0;
       margin-bottom: 8px;
     }
-  
+
     .file-previews {
       li {
         .file-item {
           padding: 4px 8px;
           margin: 0 -8px;
           border-radius: 8px;
-    
+
           display: flex;
           align-items: center;
 
@@ -345,7 +352,7 @@
           }
 
           transition: background-color 300ms ease, margin-bottom 300ms ease;
-    
+
           .main-text {
             display: flex;
             align-items: center;
@@ -371,7 +378,7 @@
               font-size: 12px;
 
               white-space: nowrap;
-              
+
               transition: color 300ms ease;
             }
           }
@@ -383,11 +390,11 @@
           &.uploading {
             background-color: $light-grey;
           }
-    
+
           &.uploaded {
             background-color: $green;
           }
-    
+
           &.error {
             background-color: $red;
 
@@ -448,9 +455,9 @@
     gap: 12px;
 
     border: 2px dashed $light-grey-alt;
-  
+
     position: relative;
-  
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -475,7 +482,7 @@
       color: $text-grey;
       font-weight: 300;
     }
-  
+
     .progress-bar {
       width: 98%;
       height: 8px;
@@ -483,7 +490,7 @@
       position: absolute;
       bottom: 0;
       margin: 5px 0px 5px 0px;
-  
+
       .progress {
         height: 100%;
         background-color: $blue;
@@ -491,7 +498,7 @@
         border-radius: 15px;
       }
     }
-  
+
     &.uploading {
       .progress {
         transition: width 0.5s ease-in;
@@ -503,8 +510,8 @@
 
 .document-library-table {
   &.generic-table {
-      a {
-        color: black;
-      }
+    a {
+      color: var(--typography-default);
+    }
   }
 }

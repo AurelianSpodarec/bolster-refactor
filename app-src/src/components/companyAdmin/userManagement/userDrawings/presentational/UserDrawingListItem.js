@@ -16,7 +16,7 @@ const UserDrawingListItem = ({
     return (
         <tr key={drawing.id}>
             <td>
-                <a href={`/company/drawings/${drawing.id}`} className="dark">
+                <a href={`/company/drawings/${drawing.id}`}>
                     {`${siteName} / ${buildingName} / ${floorName} / ${drawing.name} ${
                         serviceNames ? `(${serviceNames})` : ''
                     } - `}

@@ -1,1267 +1,1381 @@
 // generic form
 .generic-form {
-    width: calc(100% + 15px);
-    margin-left: -7.5px;
+  width: calc(100% + 15px);
+  margin-left: -7.5px;
 
-    .block-heading {
-        padding-left: 7.5px;
-        padding-right: 7.5px;
+  .block-heading {
+    padding-left: 7.5px;
+    padding-right: 7.5px;
+  }
+
+  &.no-min-heights {
+    .form-field {
+      min-height: auto;
+    }
+  }
+
+  .multi-select {
+    .dropdown-content {
+      z-index: 1;
     }
 
-    &.no-min-heights {
-        .form-field {
-            min-height: auto;
-        }
+    input[type='checkbox'] {
+      display: none;
     }
+  }
 
-    .multi-select {
-        .dropdown-content {
-            z-index: 1;
-        }
-        input[type='checkbox'] {
-            display: none;
-        }
-    }
-    p.padded {
-        padding-left: 7.5px;
-        padding-right: 7.5px;
-    }
+  p.padded {
+    padding-left: 7.5px;
+    padding-right: 7.5px;
+  }
 }
 
 // multi select
 .multi-select {
-    float: left;
-    width: 100%;
-    font-size: 12px;
-    @include ubuntu;
-    .dropdown-heading {
-        height: 29px !important;
-        border-radius: 2.5px !important;
-        border: 1px solid #e1e1e1 !important;
+  float: left;
+  width: 100%;
+  font-size: 12px;
+  @include ubuntu;
+
+  .dropdown-heading {
+    height: 29px !important;
+    border-radius: 2.5px !important;
+    border: 1px solid #e1e1e1 !important;
+  }
+
+  .dropdown-heading-value {
+    line-height: 26px !important;
+
+    span {
+      color: var(----typography-default) !important;
+      font-family: 'Ubuntu', sans-serif !important;
+      font-size: 14px;
+      font-weight: 400 !important;
     }
-    .dropdown-heading-value {
-        line-height: 26px !important;
-        span {
-            color: $body-text !important;
-            font-family: 'Ubuntu', sans-serif !important;
-            font-size: 14px;
-            font-weight: 400 !important;
-        }
+  }
+
+  .dropdown-heading-dropdown-arrow {
+    span {
+      top: 2px;
     }
-    .dropdown-heading-dropdown-arrow {
-        span {
-            top: 2px;
-        }
-    }
-    .dropdown-content {
-        z-index: 1;
-    }
-    input[type='checkbox'] {
-        display: none;
-    }
+  }
+
+  .dropdown-content {
+    z-index: 1;
+  }
+
+  input[type='checkbox'] {
+    display: none;
+  }
 }
 
 // form field
 .form-field {
-    padding: {
-        left: 7.5px;
-        right: 7.5px;
-    }
-    margin-bottom: 15px;
-    min-height: 56px;
+  padding: {
+    left: 7.5px;
+    right: 7.5px;
+  }
+  margin-bottom: 15px;
+  min-height: 56px;
 
-    &.full-length {
-        padding: 0;
-    }
+  &.full-length {
+    padding: 0;
+  }
 
-    &.basic {
-        min-height: 0;
-    }
+  &.basic {
+    min-height: 0;
+  }
 
-    &.w-dates {
-        p {
-            text-align: center;
-            line-height: 26px;
-        }
-        .error {
-            text-align: left;
-            line-height: 1;
-        }
-        i {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            right: 8px;
-            color: #767676;
-        }
-    }
-    &.photo-view {
-        img {
-            max-width: 150px;
-            margin: 0 5px;
-            border: 1px solid black;
-            cursor: zoom-in;
-        }
-    }
-
-    &.no-caps {
-        .title {
-            text-transform: none;
-        }
-    }
-
-    .title {
-        float: left;
-        width: 100%;
-        font-size: 140%;
-        margin-bottom: 12.5px;
-        @include ubuntu-medium;
-        sub {
-            color: $red;
-        }
-
-        &.no-float {
-            float: none;
-            margin-bottom: 5px;
-        }
-        .small {
-            font-size: 90%;
-            text-transform: none;
-        }
+  &.w-dates {
+    p {
+      text-align: center;
+      line-height: 26px;
     }
 
     .error {
-        float: left;
-        width: 100%;
-        color: red;
-        margin-top: 5px;
-        font-size: 120%;
+      text-align: left;
+      line-height: 1;
     }
 
-    .checkbox-list {
-        margin-top: -17px;
-        padding-bottom: 2.5px;
+    i {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 8px;
+      color: var(--typography-greyed-out);
+    }
+  }
 
-        .checkbox,
-        .radio-button {
-            width: 33.33%;
-            margin-top: 20px;
-            margin-bottom: 0;
+  &.photo-view {
+    img {
+      max-width: 150px;
+      margin: 0 5px;
+      border: 1px solid black;
+      cursor: zoom-in;
+    }
+  }
 
-            &.label-example {
-                width: 50%;
-            }
+  &.no-caps {
+    .title {
+      text-transform: none;
+    }
+  }
 
-        }
-        .error {
-            left: 0;
-            bottom: -5px;
-        }
-        .full-width {
-            width: 100%;
-        }
+  .title {
+    float: left;
+    width: 100%;
+    font-size: 140%;
+    margin-bottom: 12.5px;
+    @include ubuntu-medium;
+
+    sub {
+      color: $red;
     }
 
-    textarea {
-        min-height: 100px;
-        max-width: 100%;
-
-        &.set-height {
-            min-height: 110px;
-        }
-    }
-    .react-datepicker-wrapper {
-        float: left;
-        width: 100%;
-        .react-datepicker__input-container {
-            float: left;
-            width: 100%;
-        }
-        input {
-            float: left;
-            width: 100%;
-            padding: 5px 10px;
-            font-size: 140%;
-            @include ubuntu;
-            border-radius: 2.5px;
-            border: 1px solid #e1e1e1;
-        }
+    &.no-float {
+      float: none;
+      margin-bottom: 5px;
     }
 
-    .sigCanvas {
-        background-color: $background-grey;
-        max-width: 100%;
-        border-radius: 5px;
+    .small {
+      font-size: 90%;
+      text-transform: none;
+    }
+  }
+
+  .error {
+    float: left;
+    width: 100%;
+    color: red;
+    margin-top: 5px;
+    font-size: 120%;
+  }
+
+  .checkbox-list {
+    margin-top: -17px;
+    padding-bottom: 2.5px;
+
+    .checkbox,
+    .radio-button {
+      width: 33.33%;
+      margin-top: 20px;
+      margin-bottom: 0;
+
+      &.label-example {
+        width: 50%;
+      }
+
     }
 
-    .filepond--drop-label {
-        background-color: $background-grey;
-        border-radius: 5px;
+    .error {
+      left: 0;
+      bottom: -5px;
     }
 
-    .field-info {
-        float: left;
-        width: 100%;
-        margin: -5px 0 12.5px;
-        color: #666;
+    .full-width {
+      width: 100%;
+    }
+  }
+
+  textarea {
+    min-height: 100px;
+    max-width: 100%;
+
+    &.set-height {
+      min-height: 110px;
+    }
+  }
+
+  .react-datepicker-wrapper {
+    float: left;
+    width: 100%;
+
+    .react-datepicker__input-container {
+      float: left;
+      width: 100%;
     }
 
-    &.fields-inside {
-        .form-field {
-            padding: 0;
-        }
+    input {
+      float: left;
+      width: 100%;
+      padding: 5px 10px;
+      font-size: 140%;
+      @include ubuntu;
+      border-radius: 2.5px;
+      border: 1px solid var(--background-stroke);;
+      background-color: var(--input-default);
+      color: var(--typography-default);
     }
+  }
 
-    .description {
-        padding-bottom: 10px;
-    }
+  .sigCanvas {
+    border: 1px solid var(--background-stroke);
+    background-color: var(--input-default);
+    max-width: 100%;
+    border-radius: 5px;
+  }
 
-    &.small-height {
-        min-height: 10px;
-    }
+  .filepond--drop-label {
+    background-color: var(--background-container);
+    border-radius: 5px;
+  }
 
-    &.no-padding {
-        padding: 0;
+  .field-info {
+    float: left;
+    width: 100%;
+    margin: -5px 0 12.5px;
+    color: var(--typography-greyed-out);
+  }
+
+  &.fields-inside {
+    .form-field {
+      padding: 0;
     }
+  }
+
+  .description {
+    padding-bottom: 10px;
+  }
+
+  &.small-height {
+    min-height: 10px;
+  }
+
+  &.no-padding {
+    padding: 0;
+  }
 }
 
 // checkbox
 .checkbox {
-    float: left;
-    cursor: pointer;
+  float: left;
+  cursor: pointer;
+  width: 100%;
+
+  input {
+    position: absolute;
+    left: 0;
+    top: 0;
     width: 100%;
+    height: 100%;
+    opacity: 0;
+    margin: 0;
+    z-index: 1;
+    border: none;
+    padding: 0;
 
-    input {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        margin: 0;
-        z-index: 1;
-        border: none;
-        padding: 0;
-        &:checked {
-            + label,
-            + input + label {
-                .outer {
-                    background-color: $green;
-                }
-
-                .inner {
-                    left: calc(100% - 18px);
-                }
-            }
+    &:checked {
+      + label,
+      + input + label {
+        .outer {
+          background-color: var(--positive-default);
         }
-    }
-    label {
-        float: left;
-        width: 100%;
-        font-size: 140%;
-        @include ubuntu;
-    }
 
+        .inner {
+          left: calc(100% - 18px);
+        }
+      }
+    }
+  }
+
+  label {
+    float: left;
+    width: 100%;
+    font-size: 140%;
+    @include ubuntu;
+  }
+
+  .outer {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 35px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: $button-grey;
+    transition: background-color 0.2s;
+  }
+
+  .text {
+    width: 100%;
+    padding-left: 45px;
+    padding-right: 10px;
+    box-decoration-break: clone;
+  }
+
+  .inner {
+    position: absolute;
+    left: 3px;
+    top: 2.25px;
+    width: 15px;
+    height: 15px;
+    background-color: var(--background-default);
+    border-radius: 50%;
+    transition: left 0.2s;
+  }
+
+  &.left {
     .outer {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%);
-        width: 35px;
-        height: 20px;
-        border-radius: 20px;
-        background-color: $button-grey;
-        transition: background-color 0.2s;
+      left: 0;
+      right: auto;
+    }
+  }
+
+  &.grey-out {
+    opacity: 0.3;
+  }
+
+  &.hide {
+    display: none;
+  }
+
+  &.small-text {
+    width: 45px;
+
+    label {
+      float: left;
+      width: 100%;
     }
 
     .text {
-        width: 100%;
-        padding-left: 45px;
-        padding-right: 10px;
-        box-decoration-break: clone;
+      float: left;
+      width: 100%;
+      font-size: 12px;
+      line-height: 0.75;
+      margin-bottom: 5px;
+      padding: {
+        left: 0;
+        right: 0;
+      }
     }
 
-    .inner {
-        position: absolute;
-        left: 3px;
-        top: 2.25px;
-        width: 15px;
-        height: 15px;
-        background-color: white;
-        border-radius: 50%;
-        transition: left 0.2s;
+    .outer {
+      float: left;
+      margin-left: 3px;
+      position: relative;
+      top: 0;
+      transform: none;
     }
+  }
 
-    &.left {
-        .outer {
-            left: 0;
-            right: auto;
-        }
-    }
-    &.grey-out {
-        opacity: 0.3;
-    }
+  .field-validation-error {
+    border-top: 2px solid #9d9d9e;
+  }
 
-    &.hide{
-        display:none;
-    }
+  &.with-subtext {
+    width: 50px;
+    padding-left: 10px;
+  }
 
-    &.small-text {
-        width: 45px;
-
-        label {
-            float: left;
-            width: 100%;
-        }
-        .text {
-            float: left;
-            width: 100%;
-            font-size: 12px;
-            line-height: 0.75;
-            margin-bottom: 5px;
-            padding: {
-                left: 0;
-                right: 0;
-            }
-        }
-        .outer {
-            float: left;
-            margin-left: 3px;
-            position: relative;
-            top: 0;
-            transform: none;
-        }
-    }
-    .field-validation-error {
-        border-top: 2px solid #9d9d9e;
-    }
-    &.with-subtext {
-        width: 50px;
-        padding-left: 10px;
-    }
-
-    &.margin-top{
-        margin-top: 12.5px;
-    }
+  &.margin-top {
+    margin-top: 12.5px;
+  }
 }
 
 // radio button
 .radio-button {
+  float: left;
+  padding-right: 30px;
+  cursor: pointer;
+
+  input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    margin: 0;
+    z-index: 1;
+    border: none;
+    padding: 0;
+
+    &:checked {
+      + .holder,
+      + input + .holder {
+        .inner {
+          background-color: $blue;
+        }
+      }
+    }
+  }
+
+  &.grey-out {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .holder {
     float: left;
-    padding-right: 30px;
-    cursor: pointer;
+    font-size: 140%;
+    @include ubuntu;
+  }
+
+  .outer {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    border: 1px solid var(--background-stroke);
+    border-radius: 20px;
+    background-color: var(--background-container);
+    transition: background-color 0.2s;
+  }
+
+  .text {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 10px;
+  }
+
+  .inner {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    background-color: var(--background-default);
+    border: 1px solid var(--background-default);
+    border-radius: 50%;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .details {
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    @include ubuntu;
+
+    strong {
+      @include ubuntu-medium;
+    }
+  }
+
+  &.label-example {
     input {
-        position: absolute;
-        left: 0;
-        top: 0;
+      cursor: pointer;
+    }
+
+    .radio-image {
+      float: left;
+      width: 100%;
+      margin-top: 10px;
+
+      img {
         width: 100%;
-        height: 100%;
-        opacity: 0;
-        margin: 0;
-        z-index: 1;
-        border: none;
-        padding: 0;
-        &:checked {
-            + .holder,
-            + input + .holder {
-                .inner {
-                    background-color: $blue;
-                }
-            }
-        }
+      }
     }
-    &.grey-out {
-        opacity: 0.5;
-        cursor: default;
-    }
-    .holder {
-        float: left;
-        font-size: 140%;
-        @include ubuntu;
-    }
-    .outer {
-        position: absolute;
-        top: 3px;
-        left: 0;
-        width: 12px;
-        height: 12px;
-        border: 1px solid $text-grey;
-        border-radius: 20px;
-        background-color: $button-grey;
-        transition: background-color 0.2s;
-    }
-
-    .text {
-        width: 100%;
-        padding-left: 20px;
-        padding-right: 10px;
-    }
-
-    .inner {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 10px;
-        height: 10px;
-        background-color: white;
-        border: 1px solid white;
-        border-radius: 50%;
-        transition: background-color 0.2s ease-in-out;
-    }
-    .details {
-        float: left;
-        width: 100%;
-        margin-top: 10px;
-        font-size: 12px;
-        line-height: 1.5;
-        @include ubuntu;
-        strong {
-            @include ubuntu-medium;
-        }
-    }
-    &.label-example {
-        input {
-            cursor: pointer;
-        }
-
-        .radio-image {
-            float: left;
-            width: 100%;
-            margin-top: 10px;
-
-            img {
-                width: 100%;
-            }
-        }
-    }
+  }
 }
 
 // pick list
 .pick-list {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    .options {
-        display: flex;
-        gap: 8px;
-        
-        .option {
-            padding: 4px 8px;
-    
-            color: $dark-grey;
-            font-size: 140%;
-    
-            &.selected {
-                background-color: $blue;
-                color: #fff;
-            }
-        }
+  .options {
+    display: flex;
+    gap: 8px;
+
+    .option {
+      padding: 4px 8px;
+      color: var(--typography-default);
+      background-color: var(--input-default);
+      font-size: 140%;
+      border: 1px solid var(--background-stroke);
+
+      &.selected {
+        background-color: $blue;
+      }
     }
+  }
 }
 
 // toggle select
 .toggle-select {
+  display: flex;
+  justify-content: space-between;
+
+  .controls {
+    flex-basis: 20%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 
-    .controls {
-        flex-basis: 20%;
-        display: flex;
-        flex-direction: column;
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
 
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-
-            .button {
-                width: 22px;
-            }
-        }
-
-        .error {
-            margin-top: 16px;
-
-            text-align: center;
-        }
+      .button {
+        width: 22px;
+      }
     }
 
-    .list {
-        flex-basis: 40%;
-        display: flex;
-        flex-direction: column;
+    .error {
+      margin-top: 16px;
 
-        border: 1px solid $dark-grey;
-        height: 200px;
-        overflow: auto;
-
-        .no-data {
-            padding: 4px 8px;
-            text-align: center;
-        }
-
-        .option {
-            padding: 4px 8px;
-
-            background-color: transparent;
-
-            cursor: pointer;
-
-            .text {
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                font-size: 110%;
-            }
-
-            &:hover {
-                background-color: $light-grey-alt;
-            }
-
-            &.chosen {
-                background-color: $light-grey;
-                
-                &:hover {
-                    background-color: $light-grey-alt;
-                }
-            }
-        }
+      text-align: center;
     }
+  }
+
+  .list {
+    flex-basis: 40%;
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid $dark-grey;
+    height: 200px;
+    overflow: auto;
+
+    .no-data {
+      padding: 4px 8px;
+      text-align: center;
+    }
+
+    .option {
+      padding: 4px 8px;
+
+      background-color: transparent;
+
+      cursor: pointer;
+
+      .text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 110%;
+      }
+
+      &:hover {
+        background-color: $light-grey-alt;
+      }
+
+      &.chosen {
+        background-color: $light-grey;
+
+        &:hover {
+          background-color: $light-grey-alt;
+        }
+      }
+    }
+  }
 }
 
 // file upload
 .filepond--drop-label {
-    label {
-        top: 1px;
-        font-size: 120% !important;
-    }
+  label {
+    top: 1px;
+    font-size: 120% !important;
+  }
 }
 
 .filepond--root {
-    font-size: 1.25rem;
+  font-size: 1.25rem;
 }
 
 .filepond--file-info {
-    .filepond--file-info-main {
-        font-size: 140% !important;
-    }
-    .filepond--file-info-sub {
-        font-size: 120% !important;
-    }
+  .filepond--file-info-main {
+    font-size: 140% !important;
+  }
+
+  .filepond--file-info-sub {
+    font-size: 120% !important;
+  }
 }
 
 .filepond--wrapper {
-    float: left;
-    width: 100%;
+  float: left;
+  width: 100%;
 }
 
 .filepond--root {
-    margin-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 // uploaded file on edit doc
 .file-view {
-    img {
-        max-width: 100%;
-    }
-    .button {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-    }
+  img {
+    max-width: 100%;
+  }
+
+  .button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
 }
 
 // file drop container
 .file-drop-container {
-    border-radius: 2.5px;
-    padding: 10px;
-    border: 1px solid $input-border-grey;
-    transition: 0.25s background-color ease-in-out, 0.25s box-shadow ease-in-out, 0.25s border ease-in-out;
+  border-radius: 2.5px;
+  padding: 10px;
+  border: 1px solid $input-border-grey;
+  transition: 0.25s background-color ease-in-out, 0.25s box-shadow ease-in-out, 0.25s border ease-in-out;
 
-    &.can-drop {
-        -webkit-box-shadow: inset 0px 0px 12px 0px #a5a5a5;
-        -moz-box-shadow: inset 0px 0px 12px 0px #a5a5a5;
-        box-shadow: inset 0px 0px 12px 0px #a5a5a5;
-        &.file-over {
-            background-color: $light-grey-alt;
-        }
+  &.can-drop {
+    -webkit-box-shadow: inset 0px 0px 12px 0px #a5a5a5;
+    -moz-box-shadow: inset 0px 0px 12px 0px #a5a5a5;
+    box-shadow: inset 0px 0px 12px 0px #a5a5a5;
+
+    &.file-over {
+      background-color: $light-grey-alt;
     }
-    p {
-        text-align: center;
-        .button {
-            font-size: 12px;
-            margin-left: 2.5px;
-        }
+  }
+
+  p {
+    text-align: center;
+
+    .button {
+      font-size: 12px;
+      margin-left: 2.5px;
     }
+  }
 }
 
 // file uploader
 .file-uploader {
+  .button {
+    &.delete {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+    }
+  }
+
+  .file-item,
+  .image-item {
+    border-radius: 2.5px;
+    margin: 2.5px 0;
+    padding: 5px 7.5px;
+    text-align: center;
+    background-color: black;
+
+    img {
+      float: none;
+      display: inline-block;
+      margin-bottom: 20px;
+      margin-bottom: 15px;
+    }
+
+    &:first-of-type {
+      margin-top: 10px;
+    }
+  }
+
+  .file-name {
+    text-align: left;
+    color: var(--typography-greyed-out);
+    margin-top: 2.5px;
+    margin-bottom: 2px;
+  }
+
+  .progress {
+    text-align: center;
+    padding: 5px;
+    background-color: black;
+    margin-top: 10px;
+    border-radius: 2.5px;
+
+    p {
+      color: white;
+      line-height: 1.6;
+    }
+
     .button {
-        &.delete {
-            position: absolute;
-            right: 5px;
-            top: 5px;
-        }
+      margin-bottom: 5px;
     }
-    .file-item,
-    .image-item {
-        border-radius: 2.5px;
-        margin: 2.5px 0;
-        padding: 5px 7.5px;
-        text-align: center;
-        background-color: black;
-
-        img {
-            float: none;
-            display: inline-block;
-            margin-bottom: 20px;
-            margin-bottom: 15px;
-        }
-
-        &:first-of-type {
-            margin-top: 10px;
-        }
-    }
-    .file-name {
-        text-align: left;
-        color: white;
-        margin-top: 2.5px;
-        margin-bottom: 2px;
-    }
-
-    .progress {
-        text-align: center;
-        padding: 5px;
-        background-color: black;
-        margin-top: 10px;
-        border-radius: 2.5px;
-
-        p {
-            color: white;
-            line-height: 1.6;
-        }
-
-        .button {
-            margin-bottom: 5px;
-        }
-    }
+  }
 }
 
 // field outputs
 .field-output {
-    padding: {
-        left: 0;
-        right: 0;
-        bottom: 15px;
-    }
-    &.filters {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        padding: 5px 7.5px;
-        margin-bottom: 15px;
-        border-bottom: 1px solid $input-border-grey;
-        &:last-child {
-            padding-bottom: 5px;
-        }
-        .filters-calc {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            justify-content: space-between;
+  padding: {
+    left: 0;
+    right: 0;
+    bottom: 15px;
+  }
 
-            .centered {
-                width: auto;
-                margin-right: 15px;
-
-                 &:last-child {
-                     margin-right: 0;
-                 }
-            }
-        }
-    }
-
-    //no horizontal padding
-    &.no-h-padding {
-        padding: {
-            left: 0;
-            right: 0;
-        }
-    }
-
-    &.comments {
-        padding-top: 10px;
-    }
-
-    &.address {
-        p {
-            &:last-child {
-                margin-bottom: 15px;
-            }
-        }
-    }
+  &.filters {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 5px 7.5px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid $input-border-grey;
 
     &:last-child {
-        padding-bottom: 0;
+      padding-bottom: 5px;
     }
+
+    .filters-calc {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+
+      .centered {
+        width: auto;
+        margin-right: 15px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  //no horizontal padding
+  &.no-h-padding {
+    padding: {
+      left: 0;
+      right: 0;
+    }
+  }
+
+  &.comments {
+    padding-top: 10px;
+  }
+
+  &.address {
+    p {
+      &:last-child {
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+
+  .title {
+    float: left;
+    width: 100%;
+    padding-bottom: 2.5px;
+    font-size: 140%;
+    @include ubuntu-medium;
+  }
+
+  p {
+    float: left;
+    width: 100%;
+    @include ubuntu;
+    font-size: 140%;
+    color: var(--typography-greyed-out);
+
+    span {
+      color: var(----typography-default);
+      cursor: pointer;
+    }
+  }
+
+  img {
+    max-width: 75px;
+    margin: 0 5px;
+
+    &.signature {
+      width: 25em;
+      height: 15em;
+      max-width: 500px;
+      margin: 1em 0;
+      padding: 0.5em;
+      border-radius: 0.5em;
+    }
+
+    &.settings-logo {
+      width: 100%;
+      max-width: 90%;
+      margin: 0;
+    }
+  }
+
+  &.w-colour-box {
+    p {
+      padding-left: 25px;
+    }
+  }
+
+  .colour-box {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #bbb;
+  }
+
+  .profile-pic-field {
+    img {
+      width: 75px;
+      height: 75px;
+      overflow: hidden;
+      border-radius: 50%;
+      width: 10em;
+      margin-top: 5px;
+    }
+  }
+
+  &.center-align {
+    text-align: center;
+  }
+
+  &.form-padding {
+    padding-left: 7.5px;
+  }
+
+  &.row {
+    display: flex;
+    flex-direction: row;
+
     .title {
-        float: left;
-        width: 100%;
-        padding-bottom: 2.5px;
-        font-size: 140%;
-        @include ubuntu-medium;
+      width: auto;
+      white-space: nowrap;
     }
 
     p {
-        float: left;
-        width: 100%;
-        @include ubuntu;
-        font-size: 140%;
-        color: $text-grey;
-        span{
-            color:$body-text;
-            cursor:pointer;
-        }
+      width: auto;
+      white-space: nowrap;
+      left: 5px;
     }
-
-    img {
-        max-width: 75px;
-        margin: 0 5px;
-
-        &.signature {
-            width: 25em;
-            height: 15em;
-            max-width: 500px;
-            margin: 1em 0;
-            padding: 0.5em;
-            border-radius: 0.5em;
-        }
-
-        &.settings-logo {
-            width: 100%;
-            max-width: 90%;
-            margin: 0;
-        }
-    }
-
-    &.w-colour-box {
-        p {
-            padding-left: 25px;
-        }
-    }
-
-    .colour-box {
-        position: absolute;
-        bottom: 15px;
-        left: 0;
-        width: 20px;
-        height: 20px;
-        border: 1px solid #bbb;
-    }
-
-    .profile-pic-field {
-        img {
-            width: 75px;
-            height: 75px;
-            overflow: hidden;
-            border-radius: 50%;
-            width: 10em;
-            margin-top: 5px;
-        }
-    }
-    &.center-align{
-        text-align:center;
-    }
-
-    &.form-padding {
-        padding-left: 7.5px;
-    }
-
-    &.row {
-        display: flex;
-        flex-direction: row;
-
-        .title {
-            width: auto;
-            white-space: nowrap;
-        }
-
-        p {
-            width: auto;
-            white-space: nowrap;
-            left: 5px;
-        }
-    }
+  }
 }
 
 // dropdown sort container
 .dropdown-sort-container {
-    margin: -10px 0 20px;
+  margin: -10px 0 20px;
 
-    .sort-text {
-        padding: 7px 5px 0 0;
-    }
+  .sort-text {
+    padding: 7px 5px 0 0;
+  }
 
-    .sort-input-container {
-        width: 200px;
-    }
+  .sort-input-container {
+    width: 200px;
+  }
 }
 
 // generic input / stripe element
 .generic-input,
 .StripeElement {
-    float: left;
-    width: 100%;
-    padding: 8.5px 10px;
-    font-size: 140%;
-    background-color: white;
-    border: $input-border-grey 1px solid;
-    border-radius: 2.5px;
-    @include ubuntu;
-    color: black;
+  float: left;
+  width: 100%;
+  padding: 8.5px 10px;
+  font-size: 140%;
+  background-color: var(--input-default);
+  border: var(--background-stroke) 1px solid;
+  border-radius: 2.5px;
+  @include ubuntu;
+  color: var(--typography-default);
 
-    &::placeholder {
-        color: $dark-grey;
-    }
+  &::placeholder {
+    color: var(--typography-greyed-out);
+  }
 
-    &.large {
-        font-size: 160%;
-        padding: 8px 15px;
-        margin-top: 5px;
-    }
-    &.currency {
-        width: 90%;
-    }
+  &.large {
+    font-size: 160%;
+    padding: 8px 15px;
+    margin-top: 5px;
+  }
 
-    &.colour-picker-input {
-        width: calc(100% - 45px);
-    }
+  &.currency {
+    width: 90%;
+  }
+
+  &.colour-picker-input {
+    width: calc(100% - 45px);
+  }
 }
 
 // custom dropdown
 .custom-dropdown {
-    float: left;
+  float: left;
+  width: 100%;
+
+
+  input {
     width: 100%;
+    padding: 7.5px 10px;
+    @include ubuntu;
+    font-size: 140%;
+    border: 1px solid var(--background-stroke);
+    background-color: var(---navigation-primary);
+    color: var(--typography-default);
+    outline: none;
+    @include rounded-all(2.5px);
+  }
 
-    input {
-        width: 100%;
-        padding: 7.5px 10px;
-        @include ubuntu;
-        font-size: 140%;
-        border: 1px solid $input-border-grey;
-        outline: none;
-        @include rounded-all(2.5px);
-    }
+  .arrow {
+    position: absolute;
+    right: 10px;
+    @include vertical-center;
+    color: #999;
+    font-size: 150%;
+  }
 
-    .arrow {
-        position: absolute;
-        right: 10px;
-        @include vertical-center;
-        color: #999;
-        font-size: 150%;
-    }
+  select {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
 
-    select {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        -webkit-appearance: none;
-        cursor: pointer;
-    }
+  &.disabled {
+    opacity: 0.5;
+  }
 
-    &.disabled {
-        opacity: 0.5;
-    }
-
-    &.w-radio {
-        margin-left: 20px;
-        margin-top: 20px;
-    }
+  &.w-radio {
+    margin-left: 20px;
+    margin-top: 20px;
+  }
 }
 
 //datepicker
 .react-datepicker-popper {
-    z-index: 10000!important;
+  z-index: 10000 !important;
 }
 
 .react-datepicker {
-    font-size: 10px !important;
+  font-size: 10px !important;
 }
 
 .react-datepicker__month-container {
-    font-size: 11px;
+  background-color: var(--input-default);
+  border: 1px solid var(--background-stroke);
+  font-size: 11px;
+}
+
+.react-datepicker__day-name, .react-datepicker__day, .react-datepicker__current-month {
+  color: var(--typography-default) !important;
+}
+
+.react-datepicker__header {
+  background-color: var(--input-default) !important;
+}
+
+.react-datepicker__triangle {
+  border-bottom-color: var(--input-default) !important;
 }
 
 .react-datepicker__time-list-item {
-    padding: 2px 10px !important;
+  padding: 2px 10px !important;
 }
 
 .react-datepicker {
-    font-size: 120%;
+  font-size: 120%;
 }
 
 .react-datepicker__day-name,
 .react-datepicker__day,
 .react-datepicker__time-name {
-    margin: 4px;
-    padding: 2px 4px;
-    box-sizing: content-box;
+  margin: 4px;
+  padding: 2px 4px;
+  box-sizing: content-box;
+}
+
+.react-datepicker__day:hover {
+  background-color: var(--hover-primary) !important;
 }
 
 .react-datepicker__current-month,
 .react-datepicker-time__header,
 .react-datepicker-year-header {
-    font-size: 100%;
+  font-size: 100%;
 }
 
 .date-picker {
-    i {
-        position: absolute;
-        right: 7px;
-        top: 8px;
+  i {
+    position: absolute;
+    right: 7px;
+    top: 8px;
+  }
+
+  .react-datepicker__input-container {
+    input {
+      background-color: var(--input-default);
+      color: var(--typography-default);
+      border: 1px solid var(--background-stroke);
+      border-radius: 3px;
     }
+  }
 }
 
 //multi multi dropdown
 .multi-multi-dropdown {
-    .selected-box {
-        float: left;
-        width: 100%;
-        min-height: 33px;
-        padding: 0 40px 0 5px;
-        border: 1px solid #e1e1e1;
-        border-radius: 3px;
-        cursor: pointer;
-        background-color: white;
-        white-space: nowrap;
-        overflow: hidden;
-        
-        .placeholder {
-            padding: 6px 5px;
-        }
+  .selected-box {
+    float: left;
+    width: 100%;
+    min-height: 33px;
+    padding: 0 40px 0 5px;
+    border: 1px solid var(--background-stroke);
+    background-color:  var(---navigation-primary);
+    border-radius: 3px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
 
-        .option {
-            float: left;
-            min-width: 60px;
-            padding: 2.5px 5px;
-            margin: 5px;
-            background-color: #f2f2f2;
-            cursor: default;
-
-            &.option-hidden {
-                position: absolute;
-                visibility: hidden;
-            }
-
-            p {
-                float: left;
-                font-size: 120%;
-                width: 100%;
-                text-align: center;
-                line-height: 15px;
-                padding: 0px 8px;
-                padding-right: 20px;
-            }
-
-            .close {
-                font-size: 120%;
-                color: #d71a1a;
-                cursor: pointer;
-                position: absolute;
-                top: 50%;
-                right: 6px;
-                transform: translateY(-50%);
-            }
-        }
-
-        .more {
-            position: absolute;
-            @include vertical-center;
-            right: 30px;
-            font-size: 120%;
-        }
-
-        .arrow {
-            position: absolute;
-            @include vertical-center;
-            right: 10px;
-            font-size: 240%;
-            color: $text-grey;
-            cursor: pointer;
-        }
+    .placeholder {
+      padding: 6px 5px;
     }
 
-    .option-selection {
+    .option {
+      float: left;
+      min-width: 60px;
+      padding: 2.5px 5px;
+      margin: 5px;
+      background-color: var(--input-secondary);
+      cursor: default;
+
+      &.option-hidden {
         position: absolute;
-        top: 100%;
-        margin-top: -1px;
-        left: 0;
-        width: auto;
-        min-width: 100%;
-        background-color: white;
-        z-index: 100;
-        border: 1px solid #e1e1e1;
-        @include rounded-bottom(3px);
+        visibility: hidden;
+      }
+
+      p {
+        float: left;
+        font-size: 120%;
+        width: 100%;
+        text-align: center;
+        line-height: 15px;
+        padding: 0px 8px;
+        padding-right: 20px;
+      }
+
+      .close {
+        font-size: 120%;
+        color: #d71a1a;
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        right: 6px;
+        transform: translateY(-50%);
+      }
+    }
+
+    .more {
+      position: absolute;
+      @include vertical-center;
+      right: 30px;
+      font-size: 120%;
+    }
+
+    .arrow {
+      position: absolute;
+      @include vertical-center;
+      right: 10px;
+      font-size: 240%;
+      color: var(--dropdown-text);
+      cursor: pointer;
+    }
+  }
+
+  .option-selection {
+    position: absolute;
+    top: 100%;
+    margin-top: -1px;
+    left: 0;
+    width: auto;
+    min-width: 100%;
+    background-color: var(--input-default);
+    z-index: 100;
+    border: 1px solid var(--background-stroke);
+    @include rounded-bottom(3px);
+    white-space: nowrap;
+
+    .search-box {
+      float: left;
+      width: 100%;
+      padding: 5px 10px;
+      white-space: nowrap;
+
+      input {
+        width: 100%;
+        padding: 3px 5px;
+        @include ubuntu;
+        font-size: 140%;
+        color: var(--dropdown-text);
+        background-color: var(--input-secondary);
+        border: 1px solid var(--background-stroke);
+        border-radius: 3px;
+
+        &::placeholder {
+          color: var(--fixed-input-button-light);
+        }
+      }
+    }
+
+    .option-container {
+      float: left;
+      min-width: 100%;
+      max-height: 87px;
+      overflow: auto;
+
+      &.large {
+        max-height: 145px;
+      }
+
+      p {
+        padding: 5px 10px;
+      }
+
+      .option {
+        cursor: pointer;
         white-space: nowrap;
 
-        .search-box {
-            float: left;
-            width: 100%;
-            padding: 5px 10px;
-            white-space: nowrap;
-
-            input {
-                width: 100%;
-                padding: 3px 5px;
-                @include ubuntu;
-                font-size: 140%;
-                color: $text-grey;
-            }
+        &:hover,
+        &.active {
+          background-color: var(--input-secondary);
         }
+      }
 
-        .option-container {
-            float: left;
-            min-width: 100%;
-            max-height: 87px;
-            overflow: auto;
-            &.large {
-                max-height: 145px;
-            }
-            p {
-                padding: 5px 10px;
-            }
-
-            .option {
-                cursor: pointer;
-                white-space: nowrap;
-                &:hover,
-                &.active {
-                    background-color: #f2f2f2;
-                }
-            }
-
-            &.large-list {
-                max-height: 125px;
-            }
-        }
+      &.large-list {
+        max-height: 125px;
+      }
     }
+  }
 
-    &.large{
-        .option-selection{
-            .option-container{
-                max-height: 147px;
+  &.large {
+    .option-selection {
+      .option-container {
+        max-height: 147px;
 
-            }
-        }
+      }
     }
+  }
 
-    &.x-large {
-        .option-selection{
-            .option-container{
-                max-height: 200px;
-            }
-        }
+  &.x-large {
+    .option-selection {
+      .option-container {
+        max-height: 200px;
+      }
     }
+  }
 
-    &.disabled {
-        opacity: 0.5;
-        
-        .selected-box {
-            cursor: not-allowed;
+  &.disabled {
+    opacity: 0.5;
 
-            .option, .close {
-                cursor: not-allowed;
-            }
-        }
+    .selected-box {
+      cursor: not-allowed;
+
+      .option, .close {
+        cursor: not-allowed;
+      }
     }
+  }
 }
 
 //selection options
 .select-option {
-    padding: 5px 10px;
-    margin-bottom: 5px;
-    border: 1px solid $input-border-grey;
-    border-radius: 3px;
-    cursor: pointer;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  border: 1px solid $input-border-grey;
+  border-radius: 3px;
+  cursor: pointer;
 
-    &:hover {
-        background-color: #f2f2f2;
-    }
+  &:hover {
+    background-color: var(--hover-primary)
+  }
 
-    &.active {
-        background-color: #c7f3d6;
-        border-color: #a5deb9;
-    }
+  &.active {
+    background-color: var(--positive-pressed);
+    border-color: #a5deb9;
+  }
 
-    &:last-child {
-        margin-bottom: 0;
-    }
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 // field output
 .field-output {
-    .preview-wrapper {
+  .preview-wrapper {
+    width: 100px;
+    height: auto;
+    z-index: 1;
+
+    .preview-click-div {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 5;
+    }
+
+    .document-version-preview {
+      z-index: 2;
+
+      &.pdf-preview {
         width: 100px;
         height: auto;
-        z-index: 1;
-        .preview-click-div {
-            position: absolute;
-            top: 20px;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 5;
-        }
-        .document-version-preview {
-            z-index: 2;
-            &.pdf-preview {
-                width: 100px;
-                height: auto;
-            }
-        }
+      }
     }
-    .document-version-preview {
-        &.image-preview {
-            max-width: 100px;
-            height: auto;
-        }
+  }
+
+  .document-version-preview {
+    &.image-preview {
+      max-width: 100px;
+      height: auto;
     }
+  }
 }
 
 // quill (text editor)
 .quill {
-    &.margin-top{
-        margin-top: 12.5px;
-    }
-    .ql-tooltip {
-        white-space: nowrap;
-        top: -50px !important;
-        left: 350px !important;
-    }
-    .ql-toolbar {
-        &.ql-snow {
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-        }
-    }
-    .ql-container {
-        &.ql-snow {
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-        }
-    }
+  &.margin-top {
+    margin-top: 12.5px;
+  }
 
-    &.small {
-        & .ql-editor {
-            height: 50px !important;
-        }
+  .ql-tooltip {
+    white-space: nowrap;
+    top: -50px !important;
+    left: 350px !important;
+  }
+
+  .ql-toolbar {
+    &.ql-snow {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
     }
+  }
+
+  .ql-container {
+    &.ql-snow {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+  }
+
+  &.small {
+    & .ql-editor {
+      height: 50px !important;
+    }
+  }
 }
 
- .quill {
-    .ql-toolbar {
+.quill {
+  & * {
+    background-color: var(--input-default);
+    color: var(--typography-default)
+  }
 
-        &.ql-snow {
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-            border: 4px solid $red;
-        }
-    }
-    
-    .ql-container {
+  .ql-stroke, .ql-fill {
+    stroke: var(--typography-default);
+  }
 
-        &.ql-snow {
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-            border: 4px solid $red;
-        }
+  .ql-toolbar {
+    &.ql-snow {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      border: 4px solid $red;
     }
+  }
+
+  .ql-container {
+
+    &.ql-snow {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border: 4px solid $red;
+    }
+  }
 
 }
+
 .new-feature-quill {
-    padding-top: 25px;
+  padding-top: 25px;
 }
 
 .ql-editor {
-    height: 45vh;
+  height: 45vh;
 }
 
- // password strength
+// password strength
 .loading-password-strength {
-    margin-top: 10px;
-    text-align: center;
-    font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
 }
 
 .password-strength {
-    margin-top: 10px;
+  margin-top: 10px;
 
-    .bar {
-        display: flex;
-        justify-content: space-between;
+  .bar {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .indicator {
+    width: calc(100% / 3 - 2px);
+    height: 8px;
+    border-radius: 2px;
+    background-color: $light-grey;
+  }
+
+  p {
+    margin-top: 3px;
+    text-align: right;
+    font-size: 12px;
+    color: $text-grey;
+    text-shadow: 0 0 0 black;
+
+    i {
+      margin-left: 5px;
     }
-
-    .indicator {
-        width: calc(100% / 3 - 2px);
-        height: 8px;
-        border-radius: 2px;
-        background-color: $light-grey;
-    }
-
-    p {
-        margin-top: 3px;
-        text-align: right;
-        font-size: 12px;
-        color: $text-grey;
-        text-shadow: 0 0 0 black;
-
-        i {
-            margin-left: 5px;
-        }
-    }
+  }
 }
 
 // sun editor (text editor)
 .sun-editor {
-    padding: 4px;
-    border: 4px solid $red !important;
-    border-radius: 8px;
+  padding: 4px;
+  border: 4px solid $red !important;
+  border-radius: 8px;
+  background-color: var(--input-default) !important;
+  color: var(--typography-default) !important;
 
-    .se-toolbar {
-        padding: 0;
-        outline: none;
+
+  .se-container * {
+    background-color: var(--input-default) !important;
+    color: var(--typography-default) !important;
+  }
+
+  .se-toolbar {
+    padding: 0;
+    outline: none;
+  }
+
+  .se-wrapper-wysiwyg {
+
+    p {
+      font-size: 100%;
     }
-
-    .se-wrapper-wysiwyg {
-
-        p {
-            font-size: 100%;
-        }
-    }
+  }
 }
 
 .sun-editor-editable {
-    strong {
-        font-weight: bold;
-    }
+  strong {
+    font-weight: bold;
+  }
 }
 
 // form error
 .form-error {
-    width: 100%;
-    color: red;
-    margin-top: 5px;
-    font-size: 120%;
+  width: 100%;
+  color: red;
+  margin-top: 5px;
+  font-size: 120%;
 }
 
 // checkbox items
 .checkbox-items {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    margin: 5px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: 5px 0;
 }

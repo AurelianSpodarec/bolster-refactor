@@ -1,7 +1,7 @@
 // main block headings
 .heading {
     @include ubuntu-medium;
-    color: white;
+    color: var(--typography-default);
 
     &.heading-1 {
         font-size: 220%;

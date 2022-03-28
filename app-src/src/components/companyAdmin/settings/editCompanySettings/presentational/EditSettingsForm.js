@@ -210,7 +210,9 @@ const EditSettingsForm = ({
                         />
                     </Field>
                 </div>
-                <Field name="Dark Mode">
+                <Field name="Dark Text">
+                    <p>Affects text on company colours</p>
+                    <br />
                     <CheckboxContainer
                         checked={isBolsterLogoDark}
                         handleChange={handleInputChange}

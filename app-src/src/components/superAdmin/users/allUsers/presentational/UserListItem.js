@@ -14,7 +14,6 @@ const UserListItem = ({
     handleShowConfirmEmailModal,
     handleShowRemoveLockoutModal,
 }) => {
-    console.log(user);
     return (
         <tr>
             <td>{`${user.firstName} ${user.lastName}`}</td>

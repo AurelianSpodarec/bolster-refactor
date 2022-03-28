@@ -62,7 +62,7 @@ const Header = () => {
                 </div>
                 {isCompanySelected && !isMobile && isSubscribed && (
                     <div className="flex flex-row align-center">
-                        <div className="search-area">
+                        <div className="search-area header-nav">
                             <SearchContainer placeholder="Search by site, building, floor or drawings" />
                         </div>
                     </div>

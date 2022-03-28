@@ -43,13 +43,27 @@ body {
   -webkit-font-smoothing: antialiased;
   @include ubuntu;
   background-color: var(--background-color);
-  color: $body-text;
+  color: var(--typography-default);
   line-height: 1.35;
+
+  * {
+    &::-webkit-scrollbar {
+      width: 12px;
+      background-color: var(--navigation-primary);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+      background-color: var(--navigation-secondary);
+      max-height: 2px;
+    }
+  }
 }
 
-// body {
-//     padding-bottom: 60px;
-// }
+.App {
+  color: var(--typography-default);
+}
 
 em {
   font-style: italic;
@@ -74,7 +88,7 @@ em {
   padding: 20px;
   padding-left: 186px;
   height: 100%;
-  background-color: $background-color;
+  background-color: var(--background-default);
   overflow: auto;
 
   &.full {
@@ -384,7 +398,7 @@ em {
 
     a {
       text-decoration: none;
-      color: $body-text;
+      color: var(--typography-default);
       @include ubuntu-medium;
 
       &:hover {
@@ -404,7 +418,7 @@ em {
 
 .link-without-decoration {
   text-decoration: none;
-  color: $body-text;
+  color: var(--typography-default);
 
   &:hover {
     text-decoration: none;
@@ -757,7 +771,7 @@ input {
 
 //inspection log
 .inspection-log {
-  background-color: $body-text;
+  background-color: var(--background-default);;
   // always show scroll bar (chrome / webkit browsers)
   overflow-y: auto;
 
@@ -794,8 +808,8 @@ input {
 //subscriptions page
 .subscriptions-list {
   border: {
-    top: 1px solid $light-grey;
-    bottom: 1px solid $light-grey;
+    top: 1px solid var(--background-stroke);
+    bottom: 1px solid var(--background-stroke);
   }
   margin: {
     top: -10px;
@@ -827,7 +841,7 @@ input {
 }
 
 .subscription-item {
-  border: 1px solid $light-grey;
+  border: 1px solid var(--background-stroke);
   padding: 10px 25px;
 
   .field-name {
@@ -949,14 +963,14 @@ input {
   }
 
   .question-item {
-    border-top: 1px solid $light-grey;
+    border-top: 1px solid var(--background-stroke);
     padding: 10px 15px;
     cursor: move;
-    background-color: white;
+    background-color: var(--background-container);
     transition: background-color 0.25s ease-in-out;
 
     &:hover {
-      background-color: $light-grey;
+      background-color: var(--background-stroke);
     }
 
     .button {
@@ -966,6 +980,7 @@ input {
 
     p {
       font-size: 120%;
+      color: var(--typography-default)
     }
 
     input[type='checkbox'] {
@@ -996,9 +1011,9 @@ input {
   }
 
   .label-field-item {
-    border-top: 1px solid $light-grey;
+    border-top: 1px solid var(--background-stroke);
     padding: 0 5px;
-    background-color: white;
+    background-color: var(--background-container);
     transition: background-color 0.25s ease-in-out;
 
     p {
@@ -1162,7 +1177,7 @@ input {
 
 .sub-text {
   display: inline-block;
-  color: $dark-grey;
+  color: var(--typography-greyed-out);
   padding-left: 5px;
   font-size: 8px;
 }
@@ -1669,12 +1684,12 @@ input {
 
 .template-phone-example {
   padding: 15px;
-  background-color: #e8e8e8;
+  background-color: var(--background-stroke);
   margin-bottom: -15px;
   border-radius: 0 0 5px 5px;
 
   .block-heading {
-    background-color: $background-color;
+    background-color: var(--background-default);
     border-radius: 5px 5px 0 0;
     padding: 10px 15px;
 
@@ -1684,7 +1699,7 @@ input {
   }
 
   .phone-section {
-    background-color: white;
+    background-color: var(--background-container);
     border-radius: 0 0 5px 5px;
     margin-bottom: 10px;
 
@@ -1783,7 +1798,7 @@ input {
       display: inline-block;
       padding: 10px 20px;
       border: 2px solid $mobile-grey;
-      color: black;
+      color: var(--typography-default);
       border-radius: 5px;
       font-size: 150%;
       margin: 0 5px 5px 5px;
@@ -1886,7 +1901,7 @@ input {
   .sub-title {
     &.small {
       font-size: 90%;
-      color: black;
+      color: var(----typography-default);
     }
   }
 
@@ -2172,7 +2187,13 @@ input {
 }
 
 .timepicker {
+  background-color: var(--navigation-primary);
+  border-radius: 3px;
   font-size: 160%;
+
+  .react-time-picker__wrapper {
+    border: 1px solid var(--background-stroke) !important;
+  }
 }
 
 .template-color-question {
@@ -2193,9 +2214,50 @@ input {
   }
 }
 
+.react-calendar {
+  background-color:  var(--navigation-primary) !important;
+  border: 1px solid var(--background-stroke) !important;
+  color: var(--typography-default);
+  border-radius: 2.5px;
+  font-family: Arial, Helvetica, sans-serif;
+
+  button {
+    color: var(--typography-default);
+  }
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: var(--calendar-negative) !important;
+}
+
+.react-calendar__tile--now {
+  color: black !important;
+}
+
+.react-calendar--selectRange .react-calendar__tile--hover {
+  background-color:  var(---navigation-primary) !important;
+}
+
+.react-calendar__tile:enabled:hover {
+  background-color:  var(---navigation-primary) !important;
+}
+
 .react-daterange-picker__wrapper {
   padding: 8px 4px;
   font-size: 12px;
+  border: 1px solid var(--background-stroke) !important;
+  background-color:  var(---navigation-primary);
+  border-radius: 2.5px;
+  outline: none;
+  color: var(--typography-default);
+}
+
+.react-daterange-picker__inputGroup__input {
+  color: var(--typography-default) !important;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: var(--calendar-greyed-out) !important;
 }
 
 .demo-full-site-container {
@@ -2240,6 +2302,9 @@ input {
 .comments {
   textarea {
     margin-top: 8px;
+    background-color: var(--input-default);
+    color: var(--typography-default);
+    border: 1px solid var(--background-stroke);
   }
 
   .error-text {
@@ -2308,13 +2373,206 @@ input {
     }
 
     .warning {
-      background-color: #ffdcdb;
+      background-color: var(--negative-default);
     }
   }
 }
 
 .tooltip-invoice {
   margin-top: 2px;
+}
+
+.tab-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 2px solid $text-grey;
+  padding-right: 30%;
+  margin-bottom: 20px;
+
+  .tab-item {
+    display: flex;
+    padding-bottom: 5px;
+    margin-bottom: -2px;
+    background-color: transparent;
+    font-size: 140%;
+    font-weight: 500;
+    color: $text-grey;
+    border-bottom: 3px solid transparent;
+
+    &.active {
+      border-color: $red-alt;
+      color: black;
+    }
+
+    .notification {
+      background-color: $red;
+      color: white;
+      font-size: 11px;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      border-radius: 50%;
+      margin: {
+        top: -2px;
+        left: 5px;
+      };
+    }
+  }
+}
+
+.messages-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-wrapper {
+  background-color: $background-grey;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 10px;
+
+  .title-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    .title {
+      font-size: 160%;
+      font-weight: 500;
+    }
+
+    .date-wrapper {
+      display: flex;
+      align-items: center;
+
+      .date {
+        color: $dark-grey;
+        font-size: 160%;
+        margin-right: 25px;
+      }
+
+    }
+
+    .close-icon {
+      color: $button-grey;
+      font-size: 140%;
+    }
+
+  }
+
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    .metrics-wrapper {
+      display: flex;
+      margin-bottom: 10px;
+
+      .button {
+        font-weight: 500;
+        margin-left: 10px;
+      }
+    }
+
+    h4 {
+      font-size: 160%;
+    }
+
+    a {
+      color: $blue;
+      font-size: 140%;
+      margin: 10px 0;
+    }
+  }
+}
+
+.action-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+
+  .button-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
+    .button {
+      padding: 7px 20px;
+
+      &:last-child {
+        margin-left: 15px;
+      }
+
+      i {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .generic-search {
+    border-radius: 10px;
+
+    input {
+      padding-left: 15px;
+    }
+  }
+}
+
+.button {
+  &.rounded {
+    border-radius: 5px;
+    font-size: 120%;
+  }
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.bug-report-table-container {
+  .bug-report-table-filters {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 32px;
+
+    .flex {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .item {
+      &:first-child {
+        p {
+          padding-left: 0;
+        }
+      }
+    }
+
+    p {
+      text-align: right;
+      padding-left: 20px;
+      padding-right: 10px;
+    }
+
+    .react-datepicker-wrapper {
+      width: 100%;
+      height: 100%;
+
+      input {
+        width: 100%;
+        height: 100%;
+        font-size: 140%;
+        padding: 7.5px 10px;
+        margin-right: 10px;
+      }
+    }
+  }
 }
 
 .pin-option-filters {
@@ -2362,14 +2620,18 @@ input {
       button {
         background-color: transparent;
 
+
         &:not(:disabled) {
           &:hover > .far {
             color: $button-grey;
           }
         }
+      }
+    }
 
         .far {
           font-size: 110%;
+          color: var(--typography-default);
         }
       }
     }
@@ -2390,7 +2652,7 @@ input {
       font-size: 90%;
 
       &:hover {
-        background-color: $light-grey-alt;
+        background-color: var(--hover-primary);;
       }
 
       .far {
@@ -2465,12 +2727,12 @@ input {
         width: calc(100% + 16px);
 
         tr {
-          border-color: $light-grey-alt;
+          border-color: var(--background-stroke);
           border-width: 1px;
           border-style: none none solid none;
 
           th, td {
-            border-color: $light-grey-alt;
+            border-color: var(--background-stroke);
             border-width: 1px;
             border-style: none solid none none;
             width: 12.5%;
@@ -2504,7 +2766,7 @@ input {
 
           td {
             &.disabled {
-              background-color: $light-grey;
+              background-color: var(--hover-primary);
             }
 
             .film {
@@ -2520,21 +2782,18 @@ input {
               display: flex;
               flex-direction: column;
               justify-content: space-between;
-
               min-height: 170px;
               max-height: 170px;
-
               padding: 6px 8px;
+
 
               .tasks {
                 flex-grow: 1;
                 display: flex;
                 flex-direction: column;
                 gap: 8px;
-
                 padding: 4px 0;
                 margin: 4px 0;
-
                 overflow: auto;
 
                 .task {
@@ -2544,8 +2803,11 @@ input {
                   gap: 6px;
                   border-radius: 5px;
                   padding-right: 4px;
+                  margin-right: 5px;
+                  border: 1px solid var(--background-stroke);
+                  background-color: var(--input-default);
+                  color: var(--typography-default);
 
-                  background-color: $light-grey-alt;
 
                   .group {
                     display: flex;
@@ -2580,6 +2842,18 @@ input {
                 }
               }
 
+              .tasks::-webkit-scrollbar {
+                width: 12px;
+                background-color: var(--scroll);
+              }
+
+              .tasks::-webkit-scrollbar-thumb {
+                border-radius: 10px;
+                -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+                background-color: var(--scroll-thumb);
+                max-height: 2px;
+              }
+
               .no-tasks {
                 font-size: 100%;
                 align-self: center;
@@ -2594,7 +2868,7 @@ input {
                 margin: 0;
 
                 &.no-padding {
-                  padding: 0px;
+                  padding: 0;
                 }
 
                 img {
@@ -2604,7 +2878,7 @@ input {
 
                 .fas, .far {
                   font-size: 110%;
-                  color: $body-text;
+                  color: var(--typography-default);
                 }
               }
 
@@ -2639,7 +2913,7 @@ input {
 
     border-radius: 5px 5px 0 0;
     border-width: 1px;
-    border-color: $light-grey-alt;
+    border-color: var(--background-stroke);
     border-bottom-style: solid;
 
     .segment {
@@ -2699,7 +2973,6 @@ input {
   height: fit-content;
   gap: 8px;
   padding: 6px;
-
   box-shadow: 0 0 8px $green;
   border-radius: 5px;
 
@@ -2711,7 +2984,7 @@ input {
 
   .title {
     font-size: 120%;
-    color: $body-text;
+    color: var(--typography-default);
   }
 
   &.active {
@@ -2920,8 +3193,81 @@ input {
   }
 }
 
+.drawing-expiry-item {
+  padding: 10px 0;
+  border-bottom: 1px solid $input-border-grey;
+
+  .red {
+    color: $red;
+  }
+
+  .green {
+    color: $green;
+  }
+
+  .bold-text {
+    font-weight: 500
+  }
+
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.content-area {
+  &.no-padding {
+    padding: 0;
+  }
+}
+
+.content-area-editor {
+  &.no-padding {
+    padding: 0;
+  }
+}
+
+
+.mc-drawing-expiry {
+  padding: 10px 0;
+  border-bottom: 1px solid $input-border-grey;
+
+  .red {
+    color: $red;
+  }
+
+  .green {
+    color: $green;
+  }
+
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  button {
+    background-color: transparent;
+    @include ubuntu;
+    font-size: 140%;
+
+    strong {
+      @include ubuntu-medium;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
 .min-width-120 {
   min-width: 120px;
+}
+
+.stats {
+  .button {
+    margin-bottom: 2.5px
+  }
 }
 
 .clocked-hours-wrapper {
@@ -2957,6 +3303,7 @@ input {
       }
 
       .far {
+        color: var(--typography-default);
         font-size: 100%;
       }
     }

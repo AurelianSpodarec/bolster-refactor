@@ -23,6 +23,7 @@ const ProfileDetails = ({
         phoneNumber,
         isTwoFactorAuthEnabled,
         twoFactorPhoneNumber,
+        isDarkModeEnabled,
     } = profile;
     const pathName = location.pathname.endsWith('/')
         ? location.pathname.slice(0, -1)
@@ -77,6 +78,13 @@ const ProfileDetails = ({
                             fieldClass="no-h-padding"
                             title="Phone number"
                             description={phoneNumber}
+                        />
+                    </div>
+                    <div className="size-lg-4 size-md-12">
+                        <FieldOutput
+                            fieldClass="no-h-padding"
+                            title="Colour Theme"
+                            description={`${isDarkModeEnabled ? 'Dark' : 'Light'}`}
                         />
                     </div>
                 </>

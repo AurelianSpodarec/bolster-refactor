@@ -61,7 +61,7 @@ const ClientHeader = ({ company, isCompanySelected }) => {
 
             <div className="account-area flex-row">
                 <div className="notifications flex-row align-center">
-                    <HeaderProfile />
+                    <HeaderProfile isClient />
                 </div>
             </div>
             <div className="clear" />
