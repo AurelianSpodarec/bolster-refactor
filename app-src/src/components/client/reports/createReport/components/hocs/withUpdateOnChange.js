@@ -90,7 +90,6 @@ export default function (ProtectedComponent) {
             const fromDateInclusive = this.getFilterStartDate(startDate);
             const toDateInclusive = this.getFilterEndDate(endDate);
 
-            // simple
             return pins
                 .filter(pin => {
                     // start date
@@ -110,7 +109,10 @@ export default function (ProtectedComponent) {
                         return NO;
                     }
                     // status
-                    if (status && +pin.latestStatus !== +status) {
+                    if (
+                        (typeof status === 'string' && status && +pin.latestStatus !== +status) ||
+                        (status.length && !status.includes(pin.latestStatus.toString()))
+                    ) {
                         return NO;
                     }
                     // services
