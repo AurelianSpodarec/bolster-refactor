@@ -10,6 +10,8 @@ import { selectSubscriptions } from '../../../../../selectors/superAdmin/company
 
 import { toggleMobileMenu as toggleMobileMenuAction } from 'actions/shared/mobile/sync/toggleMobileMenu';
 import { isEmpty } from 'helpers/generic';
+import { useEffect } from 'react';
+import fetchSystemMessages from '../../../../../actions/companyAdmin/messageCentre/async/fetchSystemMessages';
 
 export const useCompanyHeader = () => {
     const dispatch = useDispatch();
@@ -23,6 +25,12 @@ export const useCompanyHeader = () => {
         companyAlertsCount,
         drawingExpiryMessagesCount,
     } = useGetCompanyNotifications();
+
+    useEffect(() => {
+        const interval = setInterval(() => dispatch(fetchSystemMessages()), 60 * 1000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     const notificationCount =
         companyAlertsCount + unreadCount + unreadMessageCount + drawingExpiryMessagesCount;
