@@ -110,8 +110,8 @@ export default function (ProtectedComponent) {
                     }
                     // status
                     if (
-                        (typeof status === 'string' && status && +pin.latestStatus !== +status) ||
-                        (status.length && !status.includes(pin.latestStatus.toString()))
+                        (typeof status === 'string' && status && pin.latestStatus !== status) ||
+                        (status?.length && !status.includes(pin.latestStatus.toString()))
                     ) {
                         return NO;
                     }
