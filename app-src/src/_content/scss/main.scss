@@ -395,10 +395,21 @@ em {
 
   p {
     line-height: 1.4;
+    color: $body-text;
+
+    &.switched {
+      color: var(--typography-default);
+      }
+
+    &.no-data {
+      &.switched {
+      color: var(--typography-default);
+      }
+    }
 
     a {
       text-decoration: none;
-      color: var(--typography-default);
+      color: $body-text;
       @include ubuntu-medium;
 
       &:hover {
@@ -2402,7 +2413,7 @@ input {
 
     &.active {
       border-color: $red-alt;
-      color: black;
+      color: var(--typography-default);
     }
 
     .notification {
@@ -3178,8 +3189,14 @@ input {
 
 
 .content-container {
+  color: var(--typography-default);
   &.no-padding {
     padding: 0;
+
+  }
+
+  &.dark {
+    color: $body-text;
   }
 }
 

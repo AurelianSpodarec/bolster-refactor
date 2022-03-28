@@ -24,7 +24,7 @@ const MessagesList = ({ messages, isFetching, error, selectedTab }) => {
     };
     return (
         <BlockContainer
-            containerClass="no-padding"
+            containerClass="no-padding dark"
             contentClass="no-padding"
             isFetching={isFetching}
             isEmpty={isEmpty(messages)}
