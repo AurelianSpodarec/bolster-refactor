@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import {
-    convertArrToObj,
-    isObjEmpty,
-    getSelectedCompanyForClient
-} from 'helpers/generic';
+import { convertArrToObj, isObjEmpty, getSelectedCompanyForClient } from 'helpers/generic';
 import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
@@ -28,7 +24,7 @@ class LevelsFilterContainer extends Component {
             floors,
             drawings,
             hierarchy,
-            isFetching
+            isFetching,
         } = this.props;
 
         const sitesOptions = this._formatArrForDropdown(sites);
@@ -82,7 +78,7 @@ class LevelsFilterContainer extends Component {
             drawingID: this.updateDrawing,
             floorID: this.updateFloor,
             buildingID: this.updateBuilding,
-            siteID: this.updateSite
+            siteID: this.updateSite,
         };
         const update = updateMethods[name];
         if (shouldConfirm && !mount) {
@@ -90,8 +86,7 @@ class LevelsFilterContainer extends Component {
                 hideModal();
                 return update(value).then(postFilters);
             };
-            const message =
-                'Changing this will reset your advanced filters options, continue?';
+            const message = 'Changing this will reset your advanced filters options, continue?';
             // * confirm and then do this:
             showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
         } else {
@@ -104,7 +99,7 @@ class LevelsFilterContainer extends Component {
             .filter(val => val)
             .map(({ name, id }) => ({
                 value: id,
-                text: name
+                text: name,
             }));
 
         return convertArrToObj(options, 'value');
@@ -115,34 +110,41 @@ class LevelsFilterContainer extends Component {
             customFilters: { pins = [] },
             handleChange,
             hierarchy,
-            hierarchyID
+            hierarchyID,
         } = this.props;
 
         // prefill on hierarchy single page advanced reports
-        if (hierarchy === HIERARCHY_IDS.SITE) {
+        if (+hierarchy === HIERARCHY_IDS.SITE) {
             this.handleChange('siteID', hierarchyID, true);
             this.handlePrefillSite(hierarchyID);
-        } else if (hierarchy === HIERARCHY_IDS.BUILDING) {
+        } else if (+hierarchy === HIERARCHY_IDS.BUILDING) {
             this.handleChange('buildingID', hierarchyID, true);
             this.handlePrefillBuilding(hierarchyID);
-        } else if (hierarchy === HIERARCHY_IDS.FLOOR) {
+        } else if (+hierarchy === HIERARCHY_IDS.FLOOR) {
             this.handleChange('floorID', hierarchyID, true);
             this.handlePrefillFloor(hierarchyID);
-        } else if (hierarchy === HIERARCHY_IDS.DRAWING) {
+        } else if (+hierarchy === HIERARCHY_IDS.DRAWING) {
             this.handleChange('drawingID', hierarchyID, true);
             this.handlePrefillDrawing(hierarchyID);
         }
 
-        if (pins.length) handleChange('pinIDs', pins.map(({ id }) => id));
+        if (pins.length)
+            handleChange(
+                'pinIDs',
+                pins.map(({ id }) => id),
+            );
     };
 
     componentDidUpdate = ({ customFilters: { pins: prevPins = [] } }) => {
         const {
             customFilters: { pins = [] },
-            handleChange
+            handleChange,
         } = this.props;
         if (pins.length !== prevPins.length) {
-            handleChange('pinIDs', pins.map(({ id }) => id));
+            handleChange(
+                'pinIDs',
+                pins.map(({ id }) => id),
+            );
         }
     };
 
@@ -160,8 +162,8 @@ class LevelsFilterContainer extends Component {
         const selectedCompanyID = getSelectedCompanyForClient();
 
         handleChange('buildingID', buildingID);
-        fetchSingleBuilding(selectedCompanyID, buildingID).then(
-            ({ payload: { siteID } }) => this.handlePrefillSite(siteID)
+        fetchSingleBuilding(selectedCompanyID, buildingID).then(({ payload: { siteID } }) =>
+            this.handlePrefillSite(siteID),
         );
     };
     handlePrefillFloor = floorID => {
@@ -169,9 +171,8 @@ class LevelsFilterContainer extends Component {
         const selectedCompanyID = getSelectedCompanyForClient();
 
         handleChange('floorID', floorID);
-        fetchSingleFloor(selectedCompanyID, floorID).then(
-            ({ payload: { buildingID } }) =>
-                this.handlePrefillBuilding(buildingID)
+        fetchSingleFloor(selectedCompanyID, floorID).then(({ payload: { buildingID } }) =>
+            this.handlePrefillBuilding(buildingID),
         );
     };
     handlePrefillDrawing = drawingID => {
@@ -179,8 +180,8 @@ class LevelsFilterContainer extends Component {
         const selectedCompanyID = getSelectedCompanyForClient();
 
         handleChange('drawingID', drawingID);
-        fetchSingleDrawing(selectedCompanyID, drawingID).then(
-            ({ payload: { floorID } }) => this.handlePrefillFloor(floorID)
+        fetchSingleDrawing(selectedCompanyID, drawingID).then(({ payload: { floorID } }) =>
+            this.handlePrefillFloor(floorID),
         );
     };
 }
@@ -195,11 +196,11 @@ const mapStateToProps = (
             reportsReducer: {
                 fields,
                 filters: { pinIDs = [] },
-                customFilters: { pins = [] }
-            }
-        }
+                customFilters: { pins = [] },
+            },
+        },
     },
-    { match: { params, path } }
+    { match: { params, path } },
 ) => {
     const hierarchy = path.includes('drawing')
         ? HIERARCHY_IDS.DRAWING
@@ -219,7 +220,7 @@ const mapStateToProps = (
             buildingsReducer.isFetching ||
             floorsReducer.isFetching ||
             drawingsReducer.isFetching,
-        shouldConfirm: !isObjEmpty(fields) || pins.length !== pinIDs.length
+        shouldConfirm: !isObjEmpty(fields) || pins.length !== pinIDs.length,
     };
 };
 
@@ -229,14 +230,9 @@ const mapDispatchToProps = {
     fetchSingleBuilding,
     fetchSingleSite,
     showModal,
-    hideModal
+    hideModal,
 };
 
 export default withUpdateOnChange(
-    withRouter(
-        connect(
-            mapStateToProps,
-            mapDispatchToProps
-        )(LevelsFilterContainer)
-    )
+    withRouter(connect(mapStateToProps, mapDispatchToProps)(LevelsFilterContainer)),
 );

@@ -80,7 +80,7 @@ class ApprovedCompaniesMapContainer extends Component {
                         defaultZoom={zoom}
                         google={google}
                         bootstrapURLKeys={{
-                            key: 'AIzaSyAPCib6iO1b_MTcuzMmb2wx_CyvgGfqmgo',
+                            key: 'AIzaSyDmRlprVgYa5lar9MmcJIYm4v4ADtAl6dE',
                         }}
                         options={maps => ({
                             zoomControl: true,

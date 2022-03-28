@@ -47,4 +47,4 @@ const requestStateSelector = ({
     },
 }) => ({ isPosting, postSuccess, error });
 
-export default ConfirmChangeEmail;
+export default React.memo(ConfirmChangeEmail);

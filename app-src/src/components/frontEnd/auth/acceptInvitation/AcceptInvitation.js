@@ -94,4 +94,4 @@ const requestStateSelector = ({
     },
 }) => ({ isPosting, postSuccess, error });
 
-export default AcceptInvitation;
+export default React.memo(AcceptInvitation);

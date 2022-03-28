@@ -36,8 +36,8 @@ function getDropdownOptionsByType(dropdownOptions, drawing) {
 
 class AddPinHistoryFormContainer extends Component {
     state = {
-        templateID: '',
-        serviceID: '',
+        templateID: null,
+        serviceID: null,
     };
 
     render() {
@@ -198,14 +198,8 @@ class AddPinHistoryFormContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const {
-            postSuccess,
-            history,
-            drawingID,
-            pinID,
-            resetPinAnswers,
-            hierarchyType,
-        } = this.props;
+        const { postSuccess, history, drawingID, pinID, resetPinAnswers, hierarchyType } =
+            this.props;
 
         if (!prevProps.postSuccess && postSuccess) {
             resetPinAnswers();

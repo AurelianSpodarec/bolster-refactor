@@ -169,8 +169,8 @@ function statusStatsReducer(state = {}, action) {
 
 function filtersReducer(
     state = {
-        serviceID: '',
-        status: '',
+        serviceID: null,
+        status: null,
         startDate: moment().subtract(7, 'days').toDate(),
         endDate: moment().toDate(),
     },

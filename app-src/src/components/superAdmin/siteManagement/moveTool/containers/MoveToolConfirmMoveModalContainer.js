@@ -23,13 +23,7 @@ class MoveToolConfirmMoveModalContainer extends Component {
     }
 
     _getMoveFromName = () => {
-        const {
-            selectedHierarchy,
-            selectedOption,
-            buildings,
-            floors,
-            drawings
-        } = this.props;
+        const { selectedHierarchy, selectedOption, buildings, floors, drawings } = this.props;
 
         let name = '';
 
@@ -37,23 +31,17 @@ class MoveToolConfirmMoveModalContainer extends Component {
             case HIERARCHY_IDS.BUILDING:
                 var selectedBuilding = buildings[selectedOption];
 
-                name = `${selectedBuilding.siteName} / ${
-                    selectedBuilding.name
-                }`;
+                name = `${selectedBuilding.siteName} / ${selectedBuilding.name}`;
                 break;
             case HIERARCHY_IDS.FLOOR:
                 var selectedFloor = floors[selectedOption];
 
-                name = `${selectedFloor.siteName} / ${
-                    selectedFloor.buildingName
-                } / ${selectedFloor.name}`;
+                name = `${selectedFloor.siteName} / ${selectedFloor.buildingName} / ${selectedFloor.name}`;
                 break;
             case HIERARCHY_IDS.DRAWING:
                 var selectedDrawing = drawings[selectedOption];
 
-                name = `${selectedDrawing.siteName} / ${
-                    selectedDrawing.buildingName
-                } / ${selectedDrawing.floorName} / ${selectedDrawing.name}`;
+                name = `${selectedDrawing.siteName} / ${selectedDrawing.buildingName} / ${selectedDrawing.floorName} / ${selectedDrawing.name}`;
                 break;
             default:
                 name = '';
@@ -74,12 +62,12 @@ class MoveToolConfirmMoveModalContainer extends Component {
             moveBuilding,
             moveFloor,
             moveDrawing,
-            hideModal
+            hideModal,
         } = this.props;
 
         hideModal();
 
-        switch (selectedHierarchy + '') {
+        switch (+selectedHierarchy) {
             case HIERARCHY_IDS.BUILDING:
                 moveBuilding(selectedOption, moveToValue, null);
                 break;
@@ -106,9 +94,9 @@ const mapStateToProps = ({
             selectedOption,
             isPosting,
             postSuccess,
-            error: postError
-        }
-    }
+            error: postError,
+        },
+    },
 }) => ({
     sites,
     buildings,
@@ -118,7 +106,7 @@ const mapStateToProps = ({
     selectedOption,
     isPosting,
     postSuccess,
-    postError
+    postError,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -133,10 +121,7 @@ const mapDispatchToProps = dispatch => ({
     },
     moveDrawing: (drawingID, floorID, postBody) => {
         dispatch(moveDrawing(drawingID, floorID, postBody));
-    }
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(MoveToolConfirmMoveModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MoveToolConfirmMoveModalContainer);

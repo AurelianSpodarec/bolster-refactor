@@ -14,7 +14,7 @@ const useHierarchyDrawingExpiry = (id, hierarchyID) => {
     const error = useSelector(selectDrawingsFetchError);
 
     const hierarchyDrawings = allDrawings.reduce((acc, drawing) => {
-        switch (hierarchyID) {
+        switch (+hierarchyID) {
             case HIERARCHY_IDS.SITE:
                 if (drawing.siteID === +id) {
                     acc.push(drawing);
