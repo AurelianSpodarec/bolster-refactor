@@ -337,7 +337,11 @@
     }
 
     .red-text {
-        color: $red;
+        color: var(--negative-default);
+    }
+
+    .warning-text {
+        color: var(--warning-default);
     }
 
     .table-icon {

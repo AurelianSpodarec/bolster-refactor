@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import { getStorageString } from 'helpers/generic';
+import { isLowMemory, isLowStorage, isMinMemory } from 'helpers/generic';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import { boolToYesNo } from 'helpers/generic';
 import { getLowMemoryMessage } from 'constants/shared/messages';
+import UserActionsMenu from '../../../shared/menus/UserActionsMenu';
+import LinkButton from '../../../../../shared/generic/button/presentational/LinkButton';
 
 const AllCompanyAdminsListItem = ({
     user,
@@ -28,6 +28,7 @@ const AllCompanyAdminsListItem = ({
     drawingLimitMaxed,
 }) => {
     const history = useHistory();
+    const [showUserActions, setShowUserActions] = useState(false);
 
     const lowMemMessage = getLowMemoryMessage(user.deviceRAM, user.physicalStorageAvailable);
 
@@ -40,31 +41,37 @@ const AllCompanyAdminsListItem = ({
         user.type === COMPANY_USER_ROLE_TYPES.OWNER ? '(OWNER)' : isDisabled ? '(DISABLED)' : '';
     const nameString = `${user.userFirstName} ${user.userLastName} ${userStatus} - ${user.formattedOperativeCode}`;
 
+    const getDeviceNameColour = () => {
+        const memory = user.deviceRAM;
+        const storage = user.physicalStorageAvailable;
+        const isRamLow = !!memory && isLowMemory(memory);
+        const isRamMin = !!memory && isMinMemory(memory);
+        const isStorageLow = !!storage && isLowStorage(storage);
+
+        if (isRamLow || isStorageLow) {
+            return 'red-text';
+        } else if (isRamMin) {
+            return 'warning-text';
+        } else {
+            return '';
+        }
+    };
+
+    const deviceNameColor = getDeviceNameColour();
+
     return (
         <tr
             key={user.id}
             className={`user-table ${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}
         >
             <td>
-                {isRowRed && (
-                    <TooltipContainer
-                        htmlText={`${
-                            showNotUpsyncedRecentlyWarning ? `<p>${upsyncedMessage}</p>` : ''
-                        } ${lowMemMessage ? `<p>${lowMemMessage}</p>` : ''} 
-                        ${
-                            drawingLimitColour === 'red'
-                                ? '<p>This operative has reached the maximum number of drawings.</p>'
-                                : ''
-                        }`}
-                        containerSide="left"
-                    >
-                        <i className="far fa-exclamation-triangle red-icon" />
-                    </TooltipContainer>
-                )}
                 {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                 <span>{nameString}</span>
                 <br />
-                <div className="email">{user.userEmail}</div>
+                <div className="email">
+                    {user.userEmail}{' '}
+                    {user.isEmailConfirmed ? <i className="fas fa-check-circle" /> : ''}
+                </div>
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
@@ -73,19 +80,9 @@ const AllCompanyAdminsListItem = ({
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
 
-                <span className="red-text">{`${user.linkedDeviceName || 'No Device Name'}`}</span>
-
-                {user.deviceRAM && (
-                    <>
-                        <br />({getStorageString(user.deviceRAM)} RAM.)
-                    </>
-                )}
-                {user.physicalStorageTotal && (
-                    <>
-                        <br />({getStorageString(user.physicalStorageAvailable)} /{' '}
-                        {getStorageString(user.physicalStorageTotal)} storage free)
-                    </>
-                )}
+                <span className={deviceNameColor}>{`${
+                    user.linkedDeviceName || 'No Device Name'
+                }`}</span>
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
@@ -100,119 +97,123 @@ const AllCompanyAdminsListItem = ({
                 <span className={`limit-${drawingLimitColour}`}>{user.drawingCount}</span>
             </td>
             <td>
-                <i className="fa fa-ellipsis-v" />
+                <LinkButton
+                    text="Drawing Access"
+                    size="small"
+                    icon="key"
+                    href={`/company/users-management/company-admins/${user.id}/drawings`}
+                />
+                <div onClick={() => setShowUserActions(!showUserActions)}>
+                    <i className="fa fa-ellipsis-v" />
+                </div>
             </td>
-            {/*<td>*/}
-            {/*    {' '}*/}
-            {/*    {onMobile && <span className="mobile-table-heading">{headers[10]}</span>}*/}
-            {/*    <BlockButtonWrapper additionalClasses="stacked">*/}
-            {/*        {user.linkedDeviceID && !isDisabled && (*/}
-            {/*            <button className="button blue" onClick={showUnlinkModal}>*/}
-            {/*                <i className="far fa-unlink" />*/}
-            {/*                Unlink Device*/}
-            {/*            </button>*/}
-            {/*        )}*/}
-            {/*        <button className="button" onClick={generateReport}>*/}
-            {/*            Generate Report*/}
-            {/*        </button>*/}
-            {/*        <Link*/}
-            {/*            className="button green"*/}
-            {/*            to={`/company/users-management/company-admins/${user.id}/timesheet`}*/}
-            {/*        >*/}
-            {/*            <i className="far fa-eye" /> View Timesheet*/}
-            {/*        </Link>*/}
-            {/*        <Link*/}
-            {/*            className="button yellow "*/}
-            {/*            to={`/company/users-management/company-admins/${user.id}/edit`}*/}
-            {/*        >*/}
-            {/*            <i className="far fa-pencil" />*/}
-            {/*            Edit*/}
-            {/*        </Link>*/}
-            {/*        <Link*/}
-            {/*            className="button yellow "*/}
-            {/*            to={`/company/users-management/company-admins/${user.id}/edit-email`}*/}
-            {/*        >*/}
-            {/*            <i className="far fa-at" />*/}
-            {/*            Edit Email*/}
-            {/*        </Link>*/}
-            {/*        <Link*/}
-            {/*            className="button yellow "*/}
-            {/*            to={`/company/users-management/company-admins/${user.id}/documents`}*/}
-            {/*        >*/}
-            {/*            <i className="far fa-file-upload" />*/}
-            {/*            User Documents*/}
-            {/*        </Link>*/}
-            {/*        <Link*/}
-            {/*            className="button blue"*/}
-            {/*            to={`/company/users-management/company-admins/${user.id}/drawings`}*/}
-            {/*        >*/}
-            {/*            <i className="far fa-key" /> Drawings Access*/}
-            {/*        </Link>*/}
-            {/*        {loggedInUser.type === +COMPANY_USER_ROLE_TYPES.OWNER &&*/}
-            {/*            +user.type !== +COMPANY_USER_ROLE_TYPES.OWNER &&*/}
-            {/*            !isDisabled && (*/}
-            {/*                <button*/}
-            {/*                    className="button red"*/}
-            {/*                    onClick={() => showRevokeAdminAccessModal(user.id)}*/}
-            {/*                >*/}
-            {/*                    <i className="far fa-ban" />*/}
-            {/*                    Revoke Admin*/}
-            {/*                </button>*/}
-            {/*            )}*/}
-            {/*        {loggedInUser.type === +COMPANY_USER_ROLE_TYPES.OWNER &&*/}
-            {/*            +user.type !== +COMPANY_USER_ROLE_TYPES.OWNER &&*/}
-            {/*            (user.shouldRestrictPayments ? (*/}
-            {/*                <button*/}
-            {/*                    className="button green"*/}
-            {/*                    onClick={() => showRestrictUserPaymentsModal(user.id)}*/}
-            {/*                >*/}
-            {/*                    <i className="far fa-money-bill-alt" />*/}
-            {/*                    Enable Payments*/}
-            {/*                </button>*/}
-            {/*            ) : isDisabled ? (*/}
-            {/*                <></>*/}
-            {/*            ) : (*/}
-            {/*                <button*/}
-            {/*                    className="button red"*/}
-            {/*                    onClick={() => showRestrictUserPaymentsModal(user.id)}*/}
-            {/*                >*/}
-            {/*                    <i className="far fa-money-bill-alt" />*/}
-            {/*                    Restrict Payments*/}
-            {/*                </button>*/}
-            {/*            ))}*/}
 
-            {/*        {+user.type !== +COMPANY_USER_ROLE_TYPES.OWNER && (*/}
-            {/*            <>*/}
-            {/*                {isDisabled ? (*/}
-            {/*                    <button*/}
-            {/*                        className="button green"*/}
-            {/*                        onClick={() => showEnableModal(user.id)}*/}
-            {/*                    >*/}
-            {/*                        <i className="far fa-check" />*/}
-            {/*                        Enable*/}
-            {/*                    </button>*/}
-            {/*                ) : (*/}
-            {/*                    <>*/}
-            {/*                        <button*/}
-            {/*                            className="button red"*/}
-            {/*                            onClick={() => showDisableModal(user.id)}*/}
-            {/*                        >*/}
-            {/*                            <i className="far fa-ban" />*/}
-            {/*                            Disable*/}
-            {/*                        </button>*/}
-            {/*                        <button*/}
-            {/*                            className="button red"*/}
-            {/*                            onClick={() => showDeleteModal(user.id)}*/}
-            {/*                        >*/}
-            {/*                            <i className="far fa-trash-alt" />*/}
-            {/*                            Delete*/}
-            {/*                        </button>*/}
-            {/*                    </>*/}
-            {/*                )}*/}
-            {/*            </>*/}
-            {/*        )}*/}
-            {/*    </BlockButtonWrapper>*/}
-            {/*</td>*/}
+            {showUserActions && (
+                <UserActionsMenu>
+                    {onMobile && <span className="mobile-table-heading">{headers[10]}</span>}
+                    <BlockButtonWrapper additionalClasses="stacked">
+                        {user.linkedDeviceID && !isDisabled && (
+                            <button className="button blue" onClick={showUnlinkModal}>
+                                <i className="far fa-unlink" />
+                                Unlink Device
+                            </button>
+                        )}
+                        <button className="button" onClick={generateReport}>
+                            Generate Report
+                        </button>
+                        <Link
+                            className="button green"
+                            to={`/company/users-management/company-admins/${user.id}/timesheet`}
+                        >
+                            <i className="far fa-eye" /> View Timesheet
+                        </Link>
+                        <Link
+                            className="button yellow "
+                            to={`/company/users-management/company-admins/${user.id}/edit`}
+                        >
+                            <i className="far fa-pencil" />
+                            Edit
+                        </Link>
+                        <Link
+                            className="button yellow "
+                            to={`/company/users-management/company-admins/${user.id}/edit-email`}
+                        >
+                            <i className="far fa-at" />
+                            Edit Email
+                        </Link>
+                        <Link
+                            className="button yellow "
+                            to={`/company/users-management/company-admins/${user.id}/documents`}
+                        >
+                            <i className="far fa-file-upload" />
+                            User Documents
+                        </Link>
+                        {loggedInUser.type === +COMPANY_USER_ROLE_TYPES.OWNER &&
+                            +user.type !== +COMPANY_USER_ROLE_TYPES.OWNER &&
+                            !isDisabled && (
+                                <button
+                                    className="button red"
+                                    onClick={() => showRevokeAdminAccessModal(user.id)}
+                                >
+                                    <i className="far fa-ban" />
+                                    Revoke Admin
+                                </button>
+                            )}
+                        {loggedInUser.type === +COMPANY_USER_ROLE_TYPES.OWNER &&
+                            +user.type !== +COMPANY_USER_ROLE_TYPES.OWNER &&
+                            (user.shouldRestrictPayments ? (
+                                <button
+                                    className="button green"
+                                    onClick={() => showRestrictUserPaymentsModal(user.id)}
+                                >
+                                    <i className="far fa-money-bill-alt" />
+                                    Enable Payments
+                                </button>
+                            ) : isDisabled ? (
+                                <></>
+                            ) : (
+                                <button
+                                    className="button red"
+                                    onClick={() => showRestrictUserPaymentsModal(user.id)}
+                                >
+                                    <i className="far fa-money-bill-alt" />
+                                    Restrict Payments
+                                </button>
+                            ))}
+
+                        {+user.type !== +COMPANY_USER_ROLE_TYPES.OWNER && (
+                            <>
+                                {isDisabled ? (
+                                    <button
+                                        className="button green"
+                                        onClick={() => showEnableModal(user.id)}
+                                    >
+                                        <i className="far fa-check" />
+                                        Enable
+                                    </button>
+                                ) : (
+                                    <>
+                                        <button
+                                            className="button red"
+                                            onClick={() => showDisableModal(user.id)}
+                                        >
+                                            <i className="far fa-ban" />
+                                            Disable
+                                        </button>
+                                        <button
+                                            className="button red"
+                                            onClick={() => showDeleteModal(user.id)}
+                                        >
+                                            <i className="far fa-trash-alt" />
+                                            Delete
+                                        </button>
+                                    </>
+                                )}
+                            </>
+                        )}
+                    </BlockButtonWrapper>
+                </UserActionsMenu>
+            )}
         </tr>
     );
 

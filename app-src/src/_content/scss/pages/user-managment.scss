@@ -1,0 +1,29 @@
+.user-table {
+  height: 56px !important;
+
+  .email {
+    margin-top: 16px;
+
+    i {
+      font-size: 100%;
+      color: var(--typography-default);
+    }
+  }
+
+  td {
+    i {
+      font-size: 120%;
+      color: var(--typography-default);
+    }
+  }
+}
+
+.user-actions-wrapper {
+  position: absolute;
+  top: 25px;
+  right: 0;
+  //background-color: var(--background-container);
+  background-color: black;
+  z-index: 1;
+  padding: 25px;
+}

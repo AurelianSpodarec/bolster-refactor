@@ -417,6 +417,7 @@ export const isMinMemory = (bytes: number) => {
     const gb = mb / 1024;
     return gb >= 2.5 && gb < 3.5;
 };
+
 export const totalArray = (array: number[]) => array.reduce((acc, val) => acc + val, 0);
 
 export const reverseObj = (obj: any) => {
