@@ -13,7 +13,7 @@ const SuperAdminMenu = ({ superAdminNavMenuItems, latestAppVersion }) => {
                     <SuperAdminMenuItemContainer
                         key={index}
                         item={navItem}
-                        hover={hoveredItem === navItem.name}
+                        hoveredItem={hoveredItem}
                         setHoveredItem={setHoveredItem}
                     />
                 ))}

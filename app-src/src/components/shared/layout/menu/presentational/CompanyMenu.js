@@ -24,7 +24,7 @@ const CompanyMenu = ({
                         isCompanyUserOrSelecting={isCompanyUserOrSelecting}
                         isClientAccess={isClientAccess}
                         shouldRestrictPayments={shouldRestrictPayments}
-                        hover={hoveredItem === navItem.name}
+                        hoveredItem={hoveredItem}
                         setHoveredItem={setHoveredItem}
                     />
                 ))}

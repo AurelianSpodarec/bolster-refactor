@@ -13,7 +13,7 @@ const ClientMenu = ({ clientNavMenuItems, latestAppVersion }) => {
                     <ClientMenuItemContainer
                         key={index}
                         item={navItem}
-                        hover={hoveredItem === navItem.name}
+                        hoveredItem={hoveredItem}
                         setHoveredItem={setHoveredItem}
                     />
                 ))}
