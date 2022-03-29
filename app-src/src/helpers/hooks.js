@@ -9,7 +9,9 @@ import { addBanner } from 'actions/shared/banners/sync/addBanner';
 import { resetBanner } from 'actions/shared/banners/sync/resetBanner';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
+import { CONFIRM_DARK_THEME, SUCCESS_MODAL } from 'constants/shared/modalTypes';
+import { selectIsDarkModeEnabled, selectIsDarkThemeConfirmed } from 'selectors/shared/colourTheme';
+import { setConfirmDarkTheme } from 'actions/shared/colourTheme/setConfirmDarkTheme';
 
 export const useMultipleHierarchies = hierarchyShape => {
     // takes an empty version of the hierarchy shape / initial state for a blank hierarchy
@@ -314,4 +316,48 @@ export const useUpdateItem = (isPosting, postSuccess, message = 'Success', link,
             );
         }
     }, [isPosting]);
+};
+
+export const useConfirmDarkTheme = (profileLink = '/profile') => {
+    const dispatch = useDispatch();
+
+    const isDarkModeEnabled = useSelector(selectIsDarkModeEnabled);
+    const isDarkThemeConfirmed = useSelector(selectIsDarkThemeConfirmed); // Redux flag
+    const [isDarkThemeConfirmCookieStored, setConfirmDarkThemeCookie] = useLocalStorage(
+        'isDarkThemeConfirmed',
+        false,
+    ); // Cookie flag
+
+    const prevProps = usePrevious({
+        isDarkModeEnabled,
+        isDarkThemeConfirmed,
+        isDarkThemeConfirmCookieStored,
+    });
+
+    const handleConfirmDarkTheme = () => {
+        setConfirmDarkThemeCookie(true); // Update Cookie flag
+        dispatch(setConfirmDarkTheme()); // Update Redux flag
+    };
+
+    const showConfirmDarkThemeModal = () => {
+        dispatch(
+            showModal(CONFIRM_DARK_THEME, {
+                handleClose: handleConfirmDarkTheme,
+                profileLink,
+            }),
+        );
+    };
+
+    useEffect(() => {
+        if (
+            isDarkModeEnabled !== prevProps.isDarkModeEnabled ||
+            isDarkThemeConfirmCookieStored !== prevProps.isDarkThemeConfirmCookieStored ||
+            isDarkThemeConfirmed !== prevProps.isDarkThemeConfirmed
+        )
+            handleConfirmDarkTheme();
+    }, [isDarkModeEnabled, isDarkThemeConfirmed, isDarkThemeConfirmCookieStored, prevProps]); // Confirm dark theme if any values change
+
+    useEffect(() => {
+        if (!isDarkThemeConfirmCookieStored || !isDarkThemeConfirmed) showConfirmDarkThemeModal();
+    }, []); // show if user hasn't confirmed
 };
