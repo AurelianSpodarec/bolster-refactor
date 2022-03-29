@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -15,9 +15,10 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import AllCompanyAdminsListItem from '../presentational/AllCompanyAdminsListItem';
 
 const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
-    const { loggedInUser, onMobile, disabledUsers, maxDrawingsPerOperative } = useSelector(
-        mapStateToProps,
-    );
+    const { loggedInUser, onMobile, disabledUsers, maxDrawingsPerOperative } =
+        useSelector(mapStateToProps);
+    const [showUserActions, setShowUserActions] = useState(false);
+
     const dispatch = useDispatch();
 
     const drawingLimitColour = getCompanyAdminDrawingLimitColour(user.drawingCount);
@@ -41,6 +42,8 @@ const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
             isDisabled={!!disabledUsers[user.id]}
             drawingLimitColour={drawingLimitColour}
             drawingLimitMaxed={drawingLimitMaxed}
+            showUserActions={showUserActions}
+            setShowUserActions={setShowUserActions}
         />
     );
 

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import { isLowMemory, isLowStorage, isMinMemory } from 'helpers/generic';
+import { getStorageString, isLowMemory, isLowStorage, isMinMemory } from 'helpers/generic';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
@@ -9,6 +9,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { getLowMemoryMessage } from 'constants/shared/messages';
 import UserActionsMenu from '../../../shared/menus/UserActionsMenu';
 import LinkButton from '../../../../../shared/generic/button/presentational/LinkButton';
+import TooltipContainer from '../../../../../shared/generic/tooltip/containers/TooltipContainer';
 
 const AllCompanyAdminsListItem = ({
     user,
@@ -26,9 +27,10 @@ const AllCompanyAdminsListItem = ({
     isDisabled,
     drawingLimitColour,
     drawingLimitMaxed,
+    showUserActions,
+    setShowUserActions,
 }) => {
     const history = useHistory();
-    const [showUserActions, setShowUserActions] = useState(false);
 
     const lowMemMessage = getLowMemoryMessage(user.deviceRAM, user.physicalStorageAvailable);
 
@@ -41,13 +43,13 @@ const AllCompanyAdminsListItem = ({
         user.type === COMPANY_USER_ROLE_TYPES.OWNER ? '(OWNER)' : isDisabled ? '(DISABLED)' : '';
     const nameString = `${user.userFirstName} ${user.userLastName} ${userStatus} - ${user.formattedOperativeCode}`;
 
-    const getDeviceNameColour = () => {
-        const memory = user.deviceRAM;
-        const storage = user.physicalStorageAvailable;
-        const isRamLow = !!memory && isLowMemory(memory);
-        const isRamMin = !!memory && isMinMemory(memory);
-        const isStorageLow = !!storage && isLowStorage(storage);
+    const memory = user.deviceRAM;
+    const storage = user.physicalStorageAvailable;
+    const isRamLow = !!memory && isLowMemory(memory);
+    const isRamMin = !!memory && isMinMemory(memory);
+    const isStorageLow = !!storage && isLowStorage(storage);
 
+    const getDeviceNameColour = () => {
         if (isRamLow || isStorageLow) {
             return 'red-text';
         } else if (isRamMin) {
@@ -57,7 +59,26 @@ const AllCompanyAdminsListItem = ({
         }
     };
 
+    const getTooltipRamText = () => {
+        if (isRamLow || isStorageLow) {
+            return 'This Device does not meet the minimum specification required to run our mobile app.';
+        } else if (isRamMin) {
+            return 'This device may experience performance issues.';
+        } else {
+            return `${getStorageString(memory)} RAM`;
+        }
+    };
+
     const deviceNameColor = getDeviceNameColour();
+
+    const tooltipText = user.linkedDeviceName ? (
+        <>
+            <p>{getTooltipRamText()}</p>
+            <p>{getStorageString(storage)} Storage Free</p>
+        </>
+    ) : (
+        <p>No linked device</p>
+    );
 
     return (
         <tr
@@ -79,10 +100,11 @@ const AllCompanyAdminsListItem = ({
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
-
-                <span className={deviceNameColor}>{`${
-                    user.linkedDeviceName || 'No Device Name'
-                }`}</span>
+                <TooltipContainer text={tooltipText} containerSide="left" side="bottom">
+                    <span className={deviceNameColor}>{`${
+                        user.linkedDeviceName || 'No Device Name'
+                    }`}</span>
+                </TooltipContainer>
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}

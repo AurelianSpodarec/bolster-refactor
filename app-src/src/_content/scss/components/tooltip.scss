@@ -1,5 +1,6 @@
 // tooltip container
 .tooltip-container {
+    position: static;
     float: right;
     margin-top: 4px;
 
@@ -36,7 +37,6 @@
     letter-spacing: normal;
     line-height: 1.42857143;
     text-align: left;
-    text-align: start;
     text-shadow: none;
     text-transform: none;
     white-space: normal;
@@ -89,14 +89,13 @@
     }
 
     &.bottom {
-        margin-top: 5px;
-
+        bottom: 125%;
         .tooltip-arrow {
             top: 0;
-            left: 50%;
-            margin-left: -5px;
+            left: 45%;
             border-width: 0 5px 5px;
             border-bottom-color: $button-grey;
+            border-right-color: transparent;
         }
     }
 
