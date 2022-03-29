@@ -1,4 +1,5 @@
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -9,7 +10,9 @@ const DrawingDataByDrawingListItem = ({ drawing }) => {
             <td>{drawing.name}</td>
             <td>{drawing.pinsUpdated}</td>
             <td>
-                <ActionButton onClick={generateReport} text="Generate Report" size="small" />
+                <ButtonWrapper alignment="right">
+                    <ActionButton onClick={generateReport} text="Generate Report" size="small" />
+                </ButtonWrapper>
             </td>
         </tr>
     );

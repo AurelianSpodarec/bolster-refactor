@@ -6,6 +6,7 @@ import { pin2xImgs } from '_content/images/map-markers';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const DashboardPinFeedItem = ({ pin }) => {
     let pinColour;
@@ -56,13 +57,15 @@ const DashboardPinFeedItem = ({ pin }) => {
                 <DateTimeContainer date={pin.syncedOn} format="DD-MM-YYYY HH:mm" />
             </td>
             <td>
-                <LinkButton
-                    href={`/company/pins/${pin.pinID}`}
-                    text="View"
-                    size="small"
-                    source="secondary"
-                    ambient="positive"
-                />
+                <ButtonWrapper alignment="right">
+                    <LinkButton
+                        href={`/company/pins/${pin.pinID}`}
+                        text="View"
+                        size="small"
+                        source="secondary"
+                        ambient="positive"
+                    />
+                </ButtonWrapper>
             </td>
         </tr>
     );
