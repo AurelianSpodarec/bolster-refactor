@@ -570,9 +570,11 @@ export const ACTIVITY_LOG_REFERENCE_TYPES = {
     ALERT: 34,
     OWNERSHIP_TRANSFER_REQUEST: 35,
     TWO_FACTOR_AUTH: 36,
+    COMPANY_DOCUMENT: 37,
 };
 
 export const ACTIVITY_LOG_REFERENCE_VALUES = {
+    100: 'All Types',
     1: 'Site',
     2: 'Building',
     3: 'Floor',
@@ -609,6 +611,7 @@ export const ACTIVITY_LOG_REFERENCE_VALUES = {
     34: 'Alert',
     35: 'Ownership Transfer Request',
     36: 'Two Factor Auth',
+    37: 'Company Document',
 };
 
 export const COMPANY_REPORTS_OUTPUT_TYPES = {
