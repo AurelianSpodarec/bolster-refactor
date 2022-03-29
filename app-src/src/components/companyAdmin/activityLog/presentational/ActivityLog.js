@@ -69,6 +69,7 @@ const ActivityLog = () => {
                             value={type}
                             onChange={(_, value) => setType(value)}
                             options={typeOptions}
+                            classes="x-large"
                             omitPlaceholder
                         />
                     </div>

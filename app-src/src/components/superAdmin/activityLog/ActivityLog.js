@@ -52,6 +52,7 @@ const ActivityLog = () => {
                             onChange={(_, value) => setType(value)}
                             placeholder="Filter by Type..."
                             options={typeOptions}
+                            classes="x-large"
                             omitPlaceholder
                         />
                     </div>

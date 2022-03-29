@@ -38,6 +38,7 @@ const RecentlyDeletedTable = ({
                     onChange={(_, value) => setType(value)}
                     placeholder="Filter by Type..."
                     options={typeOptions}
+                    classes="x-large"
                 />
                 <TextInputContainer
                     value={searchTerm}
