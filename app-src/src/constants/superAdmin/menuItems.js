@@ -37,6 +37,8 @@ export const superAdminNavMenuItems = [
             { name: 'Merge Tool', link: '/admin/merge-tool' },
             { name: 'Expiry Tool', link: '/admin/expiry-tool' },
             { name: 'Recently Extended Drawings', link: '/admin/recently-extended' },
+            { name: 'Recently Deleted', link: '/admin/recently-deleted' },
+            { name: 'Activity Log', link: '/admin/activity-logs' },
         ],
     },
     {
