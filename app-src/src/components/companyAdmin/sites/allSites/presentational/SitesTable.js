@@ -6,6 +6,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const SitesTable = ({
     headers,
@@ -21,28 +22,30 @@ const SitesTable = ({
     return (
         <BlockContainer>
             <BlockHeading title="Sites" classes="w-table">
-                <ActionButton
-                    onClick={handleAddSite}
-                    icon="fa fa-plus"
-                    text="Add site"
-                    ambient="positive"
-                />
-                {isSorting ? (
+                <ButtonWrapper alignment="right">
+                    {isSorting ? (
+                        <ActionButton
+                            onClick={toggleIsSortingSites}
+                            icon="far fa-check"
+                            text="Finish Sort"
+                            ambient="positive"
+                        />
+                    ) : (
+                        <ActionButton
+                            onClick={toggleIsSortingSites}
+                            icon="far fa-sort"
+                            text="Sort Mode"
+                            source="secondary"
+                            ambient="positive"
+                        />
+                    )}
                     <ActionButton
-                        onClick={toggleIsSortingSites}
-                        icon="far fa-check"
-                        text="Finish Sort"
+                        onClick={handleAddSite}
+                        icon="fa fa-plus"
+                        text="Add site"
                         ambient="positive"
                     />
-                ) : (
-                    <ActionButton
-                        onClick={toggleIsSortingSites}
-                        icon="far fa-sort"
-                        text="Sort Mode"
-                        source="secondary"
-                        ambient="positive"
-                    />
-                )}
+                </ButtonWrapper>
             </BlockHeading>
 
             <Table
