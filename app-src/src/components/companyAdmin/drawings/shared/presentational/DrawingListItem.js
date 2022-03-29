@@ -4,6 +4,8 @@ import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import withDrag from 'components/shared/dragDrop/hocs/withDrag';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 
 const DrawingListItem = ({
     drawing,
@@ -45,7 +47,16 @@ const DrawingListItem = ({
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
-                <ButtonContainer to={`/company/drawings/${drawing.id}`}>View</ButtonContainer>
+                <ButtonWrapper alignment="right">
+                    <LinkButton
+                        href={`/company/drawings/${drawing.id}`}
+                        text="View"
+                        size="small"
+                        source="secondary"
+                        ambient="positive"
+                        handleClick={e => e.stopPropagation()}
+                    />
+                </ButtonWrapper>
             </td>
         </tr>,
     );

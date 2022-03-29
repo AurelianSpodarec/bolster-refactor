@@ -7,6 +7,7 @@ import BuildingsTableContainer from 'components/companyAdmin/buildings/shared/co
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 let SitesListItem = ({
     toggleExpanded,
@@ -62,14 +63,16 @@ let SitesListItem = ({
                             {permissions}
                         </td>
                         <td>
-                            <LinkButton
-                                href={`/company/sites/${site.id}`}
-                                text="View"
-                                size="small"
-                                source="secondary"
-                                ambient="positive"
-                                handleClick={e => e.stopPropagation()}
-                            />
+                            <ButtonWrapper alignment="right">
+                                <LinkButton
+                                    href={`/company/sites/${site.id}`}
+                                    text="View"
+                                    size="small"
+                                    source="secondary"
+                                    ambient="positive"
+                                    handleClick={e => e.stopPropagation()}
+                                />
+                            </ButtonWrapper>
                         </td>
                     </>
                 </tr>,
