@@ -354,6 +354,10 @@ export const useConfirmDarkTheme = (profileLink = '/profile') => {
     };
 
     useEffect(() => {
+        if (!isDarkThemeConfirmed && isDarkThemeConfirmCookieStored) handleConfirmDarkTheme();
+    }, []);
+
+    useEffect(() => {
         if (
             isDarkModeEnabled !== prevProps.isDarkModeEnabled ||
             isDarkThemeConfirmCookieStored !== prevProps.isDarkThemeConfirmCookieStored ||
