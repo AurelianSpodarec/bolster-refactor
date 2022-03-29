@@ -17,7 +17,7 @@ import MultiDropdownOptions from '../fieldTypes/MultiDropdownOptions';
 import MultiMultiDropdownOptions from '../fieldTypes/MultiMultiDropdownOptions';
 import StaticImage from '../fieldTypes/StaticImage';
 
-import { QUESTION_TYPE_NUMBERS, QUESTION_TYPES } from 'constants/shared/templateBuilder';
+import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
 const {
     SINGLE_LINE,
     MULTI_LINE,
@@ -59,7 +59,6 @@ export const fieldTypes = {
 };
 
 export const getDefaultValue = question => {
-    console.log('question:', QUESTION_TYPES[+question.type]);
     switch (+question.type) {
         case SINGLE_LINE:
         case MULTI_LINE:

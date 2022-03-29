@@ -13,8 +13,8 @@ const UserListItem = ({
     handleShowEditUserPasswordModal,
     handleShowConfirmEmailModal,
     handleShowRemoveLockoutModal,
+    handleShowEditUserEmailModal,
 }) => {
-    console.log(user);
     return (
         <tr>
             <td>{`${user.firstName} ${user.lastName}`}</td>
@@ -66,6 +66,10 @@ const UserListItem = ({
                             <i className="far fa-lock" /> Remove lockout
                         </button>
                     )}
+
+                    <button onClick={() => handleShowEditUserEmailModal(user)} className="button">
+                        Change e-mail
+                    </button>
                     <button
                         onClick={() => handleShowEditUserPasswordModal(user)}
                         className="button"
@@ -78,4 +82,4 @@ const UserListItem = ({
     );
 };
 
-export default UserListItem;
+export default React.memo(UserListItem);

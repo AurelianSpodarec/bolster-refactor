@@ -12,7 +12,7 @@ const CompanyMenuItemContainer = ({
     isCompanyUserOrSelecting,
     isClientAccess,
     shouldRestrictPayments,
-    hover,
+    hoveredItem,
     setHoveredItem,
 }) => {
     const dispatch = useDispatch();
@@ -84,7 +84,7 @@ const CompanyMenuItemContainer = ({
             item={item}
             formattedSubNavItems={formattedSubNavItems}
             shouldUseCompanyColours
-            hover={hover}
+            hoveredItem={hoveredItem}
             setHoveredItem={setHoveredItem}
         />
     );

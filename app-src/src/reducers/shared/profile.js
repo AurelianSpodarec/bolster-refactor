@@ -13,6 +13,7 @@ import {
     CHANGE_PROFILE_EMAIL_REQUEST,
     CHANGE_PROFILE_EMAIL_FAILURE,
     CHANGE_PROFILE_EMAIL_SUCCESS,
+    CHANGE_PROFILE_EMAIL_MODAL,
 } from 'constants/actionTypes/profile';
 import { POST_RECENT_UPDATES_SUCCESS } from 'constants/actionTypes/recentUpdates';
 import { updateObj } from 'helpers/generic';
@@ -37,6 +38,7 @@ export default combineReducers({
     error: errorReducer,
     isPosting: isPostingReducer,
     postSuccess: postSuccessReducer,
+    shouldShowMergeModal: shouldShowMergeModalReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -93,6 +95,7 @@ function isPostingReducer(state = false, action) {
         case POST_CONFIRM_DISABLE_TWO_FACTOR_SUCCESS:
         case CHANGE_PROFILE_EMAIL_FAILURE:
         case CHANGE_PROFILE_EMAIL_SUCCESS:
+        case CHANGE_PROFILE_EMAIL_MODAL:
             return false;
         default:
             return state;
@@ -118,6 +121,18 @@ function postSuccessReducer(state = false, action) {
         case CHANGE_PROFILE_EMAIL_SUCCESS:
         case POST_RESEND_EMAIL_CONFIRMATION_SUCCESS:
             return true;
+        default:
+            return state;
+    }
+}
+
+function shouldShowMergeModalReducer(state = false, action) {
+    switch (action.type) {
+        case CHANGE_PROFILE_EMAIL_REQUEST:
+            return false;
+        case CHANGE_PROFILE_EMAIL_MODAL:
+            return true;
+
         default:
             return state;
     }

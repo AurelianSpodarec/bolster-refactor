@@ -8,7 +8,6 @@ import {
 
 import { ADMIN_API_URL } from 'config';
 import { getHeaders, handleErrors } from 'helpers/api';
-import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 
 export const editUserRequest = () => ({
     type: EDIT_USER_REQUEST,

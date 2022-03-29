@@ -110,6 +110,15 @@ class AddPinContainer extends Component {
             const newOptions = [...dropdownOptionsFilteredArray, ...drawingOptionValues];
 
             const filteredNewOptions = newOptions.filter(val => {
+                if (val.isDisabled) return false;
+
+                if (
+                    drawing.dropDownOptionIDs?.length &&
+                    !drawing.dropDownOptionIDs.includes(val.id)
+                ) {
+                    return false;
+                }
+
                 if (!serviceID) return true;
                 else {
                     if (val.serviceIDs?.includes(Number(serviceID)) || !val.serviceIDs) return true;
@@ -122,6 +131,15 @@ class AddPinContainer extends Component {
             const formattedOptionValues = Object.values(dropdownOptions).flat();
 
             const filteredOptionValues = formattedOptionValues.filter(val => {
+                if (val.isDisabled) return false;
+
+                if (
+                    drawing.dropDownOptionIDs?.length &&
+                    !drawing.dropDownOptionIDs.includes(val.id)
+                ) {
+                    return false;
+                }
+
                 if (!serviceID) return true;
                 else {
                     return val.serviceIDs?.includes(Number(serviceID)) || !val.serviceIDs;
