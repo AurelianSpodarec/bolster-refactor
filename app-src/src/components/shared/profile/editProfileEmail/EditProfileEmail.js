@@ -11,30 +11,44 @@ import React, { useEffect } from 'react';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 import changeProfileEmail from 'actions/shared/profile/async/changeProfileEmail';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
+import { CONFIRM_SUBMIT, SUCCESS_MODAL } from 'constants/shared/modalTypes';
+import { hideModal } from '../../../../actions/shared/generic/modals/sync/hideModal';
 
 const EditProfileEmail = () => {
     const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch();
-    const { postSuccess, error } = useSelector(profileSelector);
-    const prevProps = usePrevious({ postSuccess, error });
+    const { postSuccess, error, shouldShowMergeModal } = useSelector(profileSelector);
+    const prevProps = usePrevious({ postSuccess, error, shouldShowMergeModal });
     const [{ email, password }, handleChange] = useForm({ email: '', password: '' });
-    const handleSubmit = () => {
-        const postBody = { email, password };
+    const handleSubmit = (confirmMerge = false) => {
+        console.log('hello');
+        const postBody = { email, password, confirmMerge };
         dispatch(changeProfileEmail(postBody));
     };
     useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
-            dispatch(
-                showModal(SUCCESS_MODAL, {
-                    message:
-                        'An email has been sent to the provided address, please follow the instructions in this email to complete the process',
-                }),
-            );
+            const message =
+                'An email has been sent to the provided address, please follow the instructions in this email to complete the process';
+            dispatch(showModal(SUCCESS_MODAL, { message }));
             history.push(location.pathname.replace('/change-email', ''));
         }
-    }, [postSuccess, error]);
+    }, [postSuccess, prevProps.postSuccess, dispatch, history, location.pathname]);
+
+    useEffect(() => {
+        if (shouldShowMergeModal && !prevProps.shouldShowMergeModal) {
+            const mergeMessage = `That email address is already in use. You can still change your email to this address, and this account will be merged with the existing user with email address: ${email}`;
+            dispatch(
+                showModal(CONFIRM_SUBMIT, {
+                    title: 'Merge users',
+                    message: mergeMessage,
+                    handleSubmit: () => handleSubmit(true),
+                    hideModal: () => dispatch(hideModal()),
+                    submitButtonText: 'Confirm',
+                }),
+            );
+        }
+    }, [shouldShowMergeModal, prevProps.shouldShowMergeModal, dispatch]);
     return (
         <>
             <PageHeading leftChildren={true} title="Change Email">
@@ -42,7 +56,7 @@ const EditProfileEmail = () => {
             </PageHeading>
 
             <BlockContainer>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={() => handleSubmit(false)}>
                     <div className="size-lg-6 size-md-12">
                         <Field name="Enter new E-mail address" required>
                             <TextInputContainer
@@ -82,8 +96,8 @@ const EditProfileEmail = () => {
 
 const profileSelector = ({
     shared: {
-        profileReducer: { postSuccess, error },
+        profileReducer: { postSuccess, error, shouldShowMergeModal },
     },
-}) => ({ postSuccess, error });
+}) => ({ postSuccess, error, shouldShowMergeModal });
 
 export default EditProfileEmail;

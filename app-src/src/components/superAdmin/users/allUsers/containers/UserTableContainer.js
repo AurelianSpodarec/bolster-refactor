@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import UserTable from '../presentational/UserTable';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -7,11 +7,13 @@ import fetchUsersBySearch from 'actions/superAdmin/users/async/fetchUsersBySearc
 import updateUsersFilters from 'actions/superAdmin/users/sync/updateUsersFilter';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import { getSearchMatch } from 'helpers/general';
+import { usePrevious } from '../../../../../helpers/hooks';
 
 const UserTableContainer = ({
     isFetching,
     error,
     users,
+    postSuccess,
     fetchUsersBySearch,
     updateUsersFilters,
     filters: { role, searchTerm, page },
@@ -19,6 +21,12 @@ const UserTableContainer = ({
 }) => {
     const PAGE_SIZE = 50;
     const maxPage = Math.ceil(count / PAGE_SIZE);
+    const prevProps = usePrevious({ postSuccess });
+    useEffect(() => {
+        if (postSuccess && !prevProps.postSuccess) {
+            fetchUsersBySearch(page, searchTerm, role);
+        }
+    }, [postSuccess]);
     return (
         <>
             <BlockHeading title="Users">
@@ -63,13 +71,14 @@ const UserTableContainer = ({
 
 const mapStateToProps = ({
     superAdmin: {
-        usersReducer: { isFetching, error, users, filters, count },
+        usersReducer: { isFetching, error, users, filters, postSuccess, count },
     },
 }) => ({
     isFetching,
     error,
     users: Object.values(users),
     filters,
+    postSuccess,
     count,
 });
 

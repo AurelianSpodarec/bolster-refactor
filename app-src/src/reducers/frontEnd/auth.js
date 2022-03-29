@@ -39,12 +39,14 @@ function errorReducer(state = null, action) {
         case POST_ACCEPT_INVITATION_REQUEST:
         case POST_PASSWORD_RESET_REQUEST:
         case CHECK_PASSWORD_RESET_VALID_REQUEST:
+        case POST_CHANGE_EMAIL_CONFIRMATION_REQUEST:
             return false;
         case FETCH_AUTH_AREA_TEXT_FAILURE:
         case POST_EMAIL_CONFIRMATION_FAILURE:
         case POST_PASSWORD_RESET_FAILURE:
         case POST_ACCEPT_INVITATION_FAILURE:
         case CHECK_PASSWORD_RESET_VALID_FAILURE:
+        case POST_CHANGE_EMAIL_CONFIRMATION_FAILURE:
             return action.error;
         default:
             return state;

@@ -1,7 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { EDIT_USER_PASSWORD, EDIT_USER, CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
+import {
+    EDIT_USER_PASSWORD,
+    EDIT_USER,
+    CONFIRM_SUBMIT,
+    EDIT_USER_EMAIL,
+} from 'constants/shared/modalTypes';
 import UserListItem from '../presentational/UserListItem';
 import forceConfirmUserEmail from 'actions/superAdmin/users/async/forceConfirmUserEmail';
 import removeUserLockout from 'actions/superAdmin/users/async/removeUserLockout.js';
@@ -38,6 +43,7 @@ const UserListItemContainer = ({ user }) => {
 
     const showEditUserModal = user => dispatch(showModal(EDIT_USER, user));
     const showEditPasswordModal = user => dispatch(showModal(EDIT_USER_PASSWORD, user));
+    const showEditUserEmailModal = user => dispatch(showModal(EDIT_USER_EMAIL, { user }));
 
     return (
         <UserListItem
@@ -46,8 +52,9 @@ const UserListItemContainer = ({ user }) => {
             handleShowEditUserPasswordModal={showEditPasswordModal}
             handleShowConfirmEmailModal={showConfirmEmailModal}
             handleShowRemoveLockoutModal={showRemoveLockoutModal}
+            handleShowEditUserEmailModal={showEditUserEmailModal}
         />
     );
 };
 
-export default UserListItemContainer;
+export default React.memo(UserListItemContainer);
