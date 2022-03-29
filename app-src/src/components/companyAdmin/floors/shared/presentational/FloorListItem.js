@@ -3,7 +3,6 @@ import React from 'react';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import DrawingTableContainer from 'components/companyAdmin/drawings/shared/containers/DrawingTableContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
