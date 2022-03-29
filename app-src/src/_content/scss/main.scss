@@ -395,7 +395,7 @@ em {
 
   &.dark {
     p {
-    color:  $body-text;
+    color:  var(--typography-default);
     }
   }
 

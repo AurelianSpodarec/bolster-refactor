@@ -12,6 +12,7 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { CONFIRM_DARK_THEME, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import { selectIsDarkModeEnabled, selectIsDarkThemeConfirmed } from 'selectors/shared/colourTheme';
 import { setConfirmDarkTheme } from 'actions/shared/colourTheme/setConfirmDarkTheme';
+import { useHistory } from 'react-router-dom';
 
 export const useMultipleHierarchies = hierarchyShape => {
     // takes an empty version of the hierarchy shape / initial state for a blank hierarchy
@@ -320,6 +321,8 @@ export const useUpdateItem = (isPosting, postSuccess, message = 'Success', link,
 
 export const useConfirmDarkTheme = (profileLink = '/profile') => {
     const dispatch = useDispatch();
+    const history = useHistory();
+    console.log(history);
 
     const isDarkModeEnabled = useSelector(selectIsDarkModeEnabled);
     const isDarkThemeConfirmed = useSelector(selectIsDarkThemeConfirmed); // Redux flag
@@ -332,6 +335,7 @@ export const useConfirmDarkTheme = (profileLink = '/profile') => {
         isDarkModeEnabled,
         isDarkThemeConfirmed,
         isDarkThemeConfirmCookieStored,
+        history,
     });
 
     const handleConfirmDarkTheme = () => {
@@ -342,8 +346,9 @@ export const useConfirmDarkTheme = (profileLink = '/profile') => {
     const showConfirmDarkThemeModal = () => {
         dispatch(
             showModal(CONFIRM_DARK_THEME, {
-                handleClose: handleConfirmDarkTheme,
+                handleConfirm: handleConfirmDarkTheme,
                 profileLink,
+                hideModal: dispatch(hideModal()),
             }),
         );
     };
@@ -360,4 +365,15 @@ export const useConfirmDarkTheme = (profileLink = '/profile') => {
     useEffect(() => {
         if (!isDarkThemeConfirmCookieStored || !isDarkThemeConfirmed) showConfirmDarkThemeModal();
     }, []); // show if user hasn't confirmed
+
+    useEffect(() => {
+        if (
+            (isDarkThemeConfirmed && !prevProps.isDarkThemeConfirmed) ||
+            (history.location.pathname === profileLink &&
+                prevProps.history.location.pathName !== profileLink)
+        ) {
+            console.log('should be huiding modal');
+            dispatch(hideModal());
+        }
+    }, [isDarkThemeConfirmed, prevProps, history]); // hide modal when usrer confirms
 };
