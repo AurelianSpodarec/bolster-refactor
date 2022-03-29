@@ -44,7 +44,7 @@
 }
 
 .message-wrapper {
-  background-color: $background-grey;
+  background-color: var(--background-stroke);
   margin: 10px 0;
   padding: 10px;
   border-radius: 10px;
@@ -58,6 +58,7 @@
     .title {
       font-size: 160%;
       font-weight: 500;
+      color: var(--typography-default)
     }
 
     .date-wrapper {
@@ -65,7 +66,7 @@
       align-items: center;
 
       .date {
-        color: $dark-grey;
+        color: var(--typography-greyed-out);
         font-size: 160%;
         margin-right: 25px;
       }
@@ -82,6 +83,7 @@
   .content-wrapper {
     display: flex;
     flex-direction: column;
+    color: var(--typography-default);
 
     .metrics-wrapper {
       display: flex;
@@ -101,6 +103,10 @@
       color: $blue;
       font-size: 140%;
       margin: 10px 0;
+    }
+
+    p {
+      color: var(--typography-default) !important;
     }
   }
 }
