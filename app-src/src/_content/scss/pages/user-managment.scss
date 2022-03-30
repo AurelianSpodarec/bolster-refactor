@@ -20,10 +20,30 @@
 
 .user-actions-wrapper {
   position: absolute;
-  top: 25px;
-  right: 0;
-  //background-color: var(--background-container);
-  background-color: black;
+  top: 40px;
+  right: 55px;
+  background-color: var(--background-container);
   z-index: 1;
-  padding: 25px;
+  padding: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.09);
+  border-radius: 8px;
+
+  .action-link {
+    background-color: transparent;
+    font-size: 120%;
+    font-weight: 500 !important;
+    color: var(--typography-default) !important;
+    text-align: left;
+    padding: 0;
+    margin: 4px 0;
+
+    &.red {
+      color: var(--negative-default)!important;
+    }
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
 }
