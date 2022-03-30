@@ -5,7 +5,9 @@ const ButtonWrapper = ({ children, alignment = 'left' }) => {
         alignment === 'right' ? 'end' : alignment === 'center' ? 'center' : 'start';
 
     return (
-        <div className={`button-wrapper flex-row justify-${justifyPosition} ${alignment}`}>
+        <div
+            className={`button-wrapper flex-row align-center justify-${justifyPosition} ${alignment}`}
+        >
             {children}
         </div>
     );

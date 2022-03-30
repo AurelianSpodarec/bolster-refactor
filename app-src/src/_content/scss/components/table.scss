@@ -56,7 +56,7 @@
     }
 
     &.with-actions {
-        a {
+        a:not(.custom-button) {
             text-decoration: none;
             color: white;
 
@@ -253,6 +253,7 @@
 
     td {
         font-size: 12px;
+        vertical-align: middle;
 
         &.left-align {
             text-align: left;
