@@ -14,6 +14,7 @@ import AddPinFormContainer from './AddPinFormContainer';
 import { fetchManufacturerPinOptions } from 'helpers/redux';
 import { shouldOptionValueBeIncluded } from 'helpers/manufacturers';
 import { isObjEmpty } from 'helpers/generic';
+import { DROPDOWN_OPTION_VALS } from '../../../../../constants/companyAdmin/enums';
 
 class AddPinContainer extends Component {
     render = () => (
@@ -113,6 +114,7 @@ class AddPinContainer extends Component {
                 if (val.isDisabled) return false;
 
                 if (
+                    val.type === DROPDOWN_OPTION_VALS.itemTypes &&
                     drawing.dropDownOptionIDs?.length &&
                     !drawing.dropDownOptionIDs.includes(val.id)
                 ) {
@@ -134,6 +136,7 @@ class AddPinContainer extends Component {
                 if (val.isDisabled) return false;
 
                 if (
+                    val.type === DROPDOWN_OPTION_VALS.itemTypes &&
                     drawing.dropDownOptionIDs?.length &&
                     !drawing.dropDownOptionIDs.includes(val.id)
                 ) {
