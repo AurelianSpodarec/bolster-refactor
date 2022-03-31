@@ -1,17 +1,13 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { getStorageString } from 'helpers/generic';
 import { getLowMemoryMessage } from 'constants/shared/messages';
 
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import { boolToYesNo } from 'helpers/generic';
 import { getDeviceNameColour, getTooltipRamText } from '../../../shared/utils';
 import LinkButton from '../../../../../shared/generic/button/presentational/LinkButton';
-import CompanyAdminUserActionsMenu from '../../../companyAdmins/allCompanyAdmins/presentational/CompanyAdminUserActionsMenu';
 import OperativeUserActionsMenu from './OperativeUserActionsMenu';
 
 const AllOperativesListItem = ({
@@ -116,7 +112,7 @@ const AllOperativesListItem = ({
                     text="Drawing Access"
                     size="small"
                     icon="key"
-                    href={`/company/users-management/company-admins/${user.id}/drawings`}
+                    href={`/company/users-management/operative/${user.id}/drawings`}
                 />
                 <div>
                     <div

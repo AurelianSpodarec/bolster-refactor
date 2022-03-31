@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { getStorageString, isLowMemory, isLowStorage, isMinMemory } from 'helpers/generic';
+import { getStorageString } from 'helpers/generic';
 
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
