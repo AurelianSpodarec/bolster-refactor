@@ -1,12 +1,12 @@
 import React from 'react';
 
 import Field from 'components/shared/generic/form/presentational/Field';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
+import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
 
 const EditManufacturerForm = ({
     handleSubmit,
@@ -50,12 +50,17 @@ const EditManufacturerForm = ({
                 </Field>
             </div>
 
-            <BlockButtonWrapper>
-                <button className="button green">
-                    <i className="fa fa-check" /> {buttonText}
-                </button>
-                <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
-            </BlockButtonWrapper>
+            <div className="size-lg-12">
+                <ButtonWrapper alignment="right">
+                    <ActionButton
+                        text="Cancel"
+                        onClick={hideModal}
+                        source="secondary"
+                        size="small"
+                    />
+                    <ActionButton text={buttonText} type="submit" icon="check" size="small" />
+                </ButtonWrapper>
+            </div>
         </Form>
     );
 
