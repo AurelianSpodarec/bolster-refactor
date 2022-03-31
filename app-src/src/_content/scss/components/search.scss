@@ -8,11 +8,11 @@
 
   &.header-nav {
     input {
-      color: var(--typography-search);
+      color: var(--typography-search-header);
     }
 
     input::placeholder {
-      color: var(--typography-search);
+      color: var(--typography-greyed-out);
     }
   }
 
