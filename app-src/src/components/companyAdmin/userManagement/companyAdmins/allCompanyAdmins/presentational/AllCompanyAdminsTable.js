@@ -5,6 +5,7 @@ import AllCompanyAdminsList from './AllCompanyAdminsList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { GREEN, GREEN_HOVER } from 'constants/shared/colorCodes';
+import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
 
 const AllCompanyAdminsTable = ({
     headers,
@@ -17,18 +18,12 @@ const AllCompanyAdminsTable = ({
     return (
         <>
             <BlockHeading title="Active Admins">
-                <ButtonContainer
-                    handleClick={handleCreateCompanyAdmin}
-                    setColour={GREEN}
-                    setColourHoverCode={GREEN_HOVER}
-                >
-                    <i className="fa fa-plus" /> Create Admin
-                </ButtonContainer>
-                {/* <Link
-                    className="button green"
-                    to="/company/users-management/company-admins/create"
-                    >
-                </Link> */}
+                <ActionButton
+                    onClick={handleCreateCompanyAdmin}
+                    extraClasses="ambient-positive"
+                    text="Create Admin"
+                    icon="user-plus"
+                />
             </BlockHeading>
             <Table
                 withActions

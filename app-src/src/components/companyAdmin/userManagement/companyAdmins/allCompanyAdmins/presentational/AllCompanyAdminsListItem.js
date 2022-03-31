@@ -124,30 +124,33 @@ const AllCompanyAdminsListItem = ({
                     icon="key"
                     href={`/company/users-management/company-admins/${user.id}/drawings`}
                 />
-                <div
-                    onClick={() => setShowUserActions(!showUserActions)}
-                    className="flex flex-row justify-center align-center"
-                >
-                    <i className="fa fa-ellipsis-v" />
+                <div>
+                    <div
+                        onClick={() => setShowUserActions(!showUserActions)}
+                        className="flex flex-row justify-center align-center ellipsis"
+                    >
+                        <i className="fa fa-ellipsis-v" />
+                    </div>
+                    <div className="flex flex-row justify-center align-center">
+                        {showUserActions && (
+                            <CompanyAdminUserActionsMenu
+                                user={user}
+                                onMobile={onMobile}
+                                headers={headers}
+                                generateReport={generateReport}
+                                isDisabled={isDisabled}
+                                showUnlinkModal={showUnlinkModal}
+                                loggedInUser={loggedInUser}
+                                showRestrictUserPaymentsModal={showRestrictUserPaymentsModal}
+                                showRevokeAdminAccessModal={showRevokeAdminAccessModal}
+                                showEnableModal={showEnableModal}
+                                showDisableModal={showDisableModal}
+                                showDeleteModal={showDeleteModal}
+                            />
+                        )}
+                    </div>
                 </div>
             </td>
-
-            {showUserActions && (
-                <CompanyAdminUserActionsMenu
-                    user={user}
-                    onMobile={onMobile}
-                    headers={headers}
-                    generateReport={generateReport}
-                    isDisabled={isDisabled}
-                    showUnlinkModal={showUnlinkModal}
-                    loggedInUser={loggedInUser}
-                    showRestrictUserPaymentsModal={showRestrictUserPaymentsModal}
-                    showRevokeAdminAccessModal={showRevokeAdminAccessModal}
-                    showEnableModal={showEnableModal}
-                    showDisableModal={showDisableModal}
-                    showDeleteModal={showDeleteModal}
-                />
-            )}
         </tr>
     );
 

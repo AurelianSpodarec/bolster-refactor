@@ -20,8 +20,8 @@
 
 .user-actions-wrapper {
   position: absolute;
-  top: 40px;
-  right: 55px;
+  top: 16px;
+  right: 50%;
   background-color: var(--background-container);
   z-index: 1;
   padding: 12px;
@@ -36,6 +36,7 @@
     text-align: left;
     padding: 0;
     margin: 4px 0;
+    white-space: nowrap;
 
     &.red {
       color: var(--negative-default)!important;
@@ -44,6 +45,14 @@
     &:hover {
       cursor: pointer;
       text-decoration: underline;
+    }
+  }
+}
+
+.ellipsis {
+  i {
+    &:hover {
+      cursor: pointer;
     }
   }
 }
