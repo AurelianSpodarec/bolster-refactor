@@ -3,9 +3,10 @@ import React from 'react';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import { formatNumber } from 'helpers/generic';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const SubscriptionCredits = ({
     creditsToBuy,
@@ -13,13 +14,12 @@ const SubscriptionCredits = ({
     showModal,
     costWithoutVAT,
     costWithVAT,
-    handleCreditsChange
+    handleCreditsChange,
 }) => (
     <div className="credits size-lg-12">
         <BlockHeading title="Credits" />
         <p className="size-lg-12">
-            You currently have <strong>{totalCredits}</strong> credits available
-            to use.
+            You currently have <strong>{totalCredits}</strong> credits available to use.
         </p>
         <Form className="generic-form">
             <Field name="Add Credits" htmlFor="add-credits">
@@ -38,17 +38,19 @@ const SubscriptionCredits = ({
         {!!creditsToBuy && (
             <p className="generic-text align-right total-text size-lg-12">
                 Total: £{formatNumber(costWithoutVAT)}
-                {costWithVAT > costWithoutVAT && (
-                    <> (£{formatNumber(costWithVAT)} inc. VAT) </>
-                )}
+                {costWithVAT > costWithoutVAT && <> (£{formatNumber(costWithVAT)} inc. VAT) </>}
             </p>
         )}
-
-        <BlockButtonWrapper>
-            <button className="button green" onClick={showModal}>
-                Buy
-            </button>
-        </BlockButtonWrapper>
+        <div>
+            <ButtonWrapper alignment="right">
+                <ActionButton
+                    onClick={showModal}
+                    text="Buy credits"
+                    size="small"
+                    ambient="positive"
+                />
+            </ButtonWrapper>
+        </div>
     </div>
 );
 
