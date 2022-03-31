@@ -13,20 +13,20 @@ const BlockContainer = ({
     noDataMessage = 'There is no data to display',
     heading,
     noWhiteBackground = false,
-    children
+    children,
 }) => {
     if (error && error.length)
         return (
             <Block containerClass={containerClass} contentClass={contentClass}>
                 {!!heading && <h3 className="heading heading-3">{heading}</h3>}
-                <Error>{error}</Error>
+                <Error extraClasses="switched">{error}</Error>
             </Block>
         );
     if (isFetching && isEmpty)
         return (
             <Block containerClass={containerClass} contentClass={contentClass}>
                 {!!heading && <h3 className="heading heading-3">{heading}</h3>}
-                <Loading />
+                <Loading extraTextClasses="switched" />
             </Block>
         );
 
@@ -34,7 +34,7 @@ const BlockContainer = ({
         return (
             <Block containerClass={containerClass} contentClass={contentClass}>
                 {!!heading && <h3 className="heading heading-3">{heading}</h3>}
-                <p className="no-data">{noDataMessage}</p>
+                <p className="no-data switched">{noDataMessage}</p>
             </Block>
         );
 

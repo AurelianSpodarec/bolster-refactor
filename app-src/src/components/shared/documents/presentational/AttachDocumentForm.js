@@ -18,11 +18,8 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 import SubmitContainer from 'components/shared/generic/form/containers/SubmitContainer';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
-const {
-    VISIBLE_TO_ALL,
-    VISIBLE_TO_OWN_COMPANY,
-    VISIBLE_TO_SELECT_OPERATIVES,
-} = DOCUMENT_VISIBILITY;
+const { VISIBLE_TO_ALL, VISIBLE_TO_OWN_COMPANY, VISIBLE_TO_SELECT_OPERATIVES } =
+    DOCUMENT_VISIBILITY;
 
 const AttachDocumentForm = ({
     handleInputChange,
@@ -225,7 +222,10 @@ const AttachDocumentForm = ({
                 {showMoreServicesMesssage && (
                     <p className="generic-text size-lg-12">
                         Looking for more service types? Check your{' '}
-                        <Link to="/company/subscription">subscriptions</Link> to add more!
+                        <Link to="/company/subscription" className="switched">
+                            subscriptions
+                        </Link>{' '}
+                        to add more!
                     </p>
                 )}
 

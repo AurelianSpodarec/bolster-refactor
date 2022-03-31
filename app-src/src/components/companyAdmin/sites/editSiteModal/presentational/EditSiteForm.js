@@ -7,15 +7,12 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
-import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
 import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 
 const EditSiteForm = ({
     handleSubmit,
     handleInputChange,
-    handleDateChange,
     hideModal,
     name,
     client,
@@ -23,9 +20,6 @@ const EditSiteForm = ({
     addressLine2,
     postcode,
     isUsingBolsterLabels,
-    isAlertShowing,
-    message,
-    dateToSend,
     setManufacturersForHierarchy,
     manufacturerOptions,
     selectedManufacturerOptions,
@@ -95,46 +89,6 @@ const EditSiteForm = ({
             </div>
         </div>
         {isUsingBolsterLabels && <BolsterLabelExample name={name} hierarchy="Site" />}
-
-        {/* <div className="size-lg-12">
-            <div className="size-lg-6 size-md-12">
-                <Field name="Send an alert?">
-                    <CheckboxContainer
-                        checked={isAlertShowing}
-                        name="isAlertShowing"
-                        text=""
-                        handleChange={handleInputChange}
-                    />
-                </Field>
-            </div>
-        </div> */}
-
-        {/* {isAlertShowing && (
-            <div className="size-lg-12">
-                <div className="size-lg-6 size-md-12">
-                    <Field name="Alert Message">
-                        <TextAreaContainer
-                            value={message}
-                            name="message"
-                            handleChange={handleInputChange}
-                        />
-                    </Field>
-                </div>
-
-                <div className="size-lg-6 size-md-12">
-                    <Field name="Date to send">
-                        <DatePickerPresentational
-                            name="dateToSend"
-                            selected={dateToSend}
-                            onChange={handleDateChange}
-                            placeholderText="Date"
-                            showTimeSelect
-                        />
-                    </Field>
-                </div>
-            </div>
-        )} */}
-
         <div className="size-lg-12">
             <div className="size-lg-6 size-md-12">
                 <Field labelClasses="no-capitalise" name="Set manufacturer(s) for site?">

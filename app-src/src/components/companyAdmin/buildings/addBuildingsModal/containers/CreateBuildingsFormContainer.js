@@ -159,9 +159,8 @@ const CreateBuildingsFormContainer = ({
             if (!isDropdownOptionsInherited) {
                 initialDropdownOptions.setDropdownOptionsForHierarchy = false;
                 initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
-                initialDropdownOptions.selectedDropdownOptions = getPreselectedItemTypes(
-                    dropdownOptions,
-                );
+                initialDropdownOptions.selectedDropdownOptions =
+                    getPreselectedItemTypes(dropdownOptions);
             }
             if (isManufacturingInherited) {
                 // prefill options from hierarchy above
@@ -223,7 +222,7 @@ const CreateBuildingsFormContainer = ({
             }
             isFetching={isFetching || !areOptionsLoaded}
             error={error}
-            contentClass="no-padding"
+            contentClass="no-padding no-border"
         >
             <CreateBuildingsForm
                 buildings={Object.values(buildings)}

@@ -12,6 +12,7 @@ import EditFloorDocument from 'components/companyAdmin/floors/editFloorDocument/
 import EditCompanyPermissionsOnFloorContainer from 'components/companyAdmin/floors/editCompanyOnFloor/containers/EditCompanyPermissionsOnFloorContainer';
 import AddCompanyPermissionsToFloor from 'components/companyAdmin/floors/addCompanyPermissionsToFloor/presentational/AddCompanyPermissionsToFloor';
 import DocumentResponsesContainer from 'components/shared/documents/containers/DocumentResponsesContainer';
+import HierarchyAlerts from 'components/companyAdmin/upcomingAlerts/hierarchys/HierarchyAlerts';
 
 const FloorRoutes = ({ base = '/company/floors' }) => (
     <SwitchWith404>
@@ -37,6 +38,7 @@ const FloorRoutes = ({ base = '/company/floors' }) => (
             path={`${base}/:id/edit-company/:companyID`}
             component={EditCompanyPermissionsOnFloorContainer}
         />
+        <Route exact path={`${base}/:id/upcoming-alerts`} component={HierarchyAlerts} />
     </SwitchWith404>
 );
 

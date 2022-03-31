@@ -12,6 +12,12 @@ export const HIERARCHY_TYPES = {
     4: 'drawing',
     100: 'all sites',
 };
+export const HIERARCHY_LINK_VALUES = {
+    1: 'sites',
+    2: 'buildings',
+    3: 'floors',
+    4: 'drawings',
+};
 
 export const HIERARCHY_IDS = {
     SITE: 1,
@@ -478,26 +484,136 @@ export const ACTIVITY_LOG_ACTION_TYPES = {
     CREATE: 1,
     UPDATE: 2,
     DELETE: 3,
+    MOVED: 4,
+    MERGE: 5,
+    PAID: 6,
+    UNPAID: 7,
+    FREE: 8,
+    CLONE: 9,
+    VIEW: 10,
+    ENABLE: 11,
+    DISABLE: 12,
+    ACCEPT: 13,
+    DECLINE: 14,
+    ARCHIVE: 15,
+    UNARCHIVE: 16,
+    READ: 17,
+    UNREAD: 18,
+    UNLINK: 19,
+    CONFIRM_EMAIL: 20,
+    END_LOCKOUT: 21,
+    UNDELETE: 22,
+    REQUEST_DELETION: 23,
 };
 
 export const ACTIVITY_LOG_ACTION_VALUES = {
     1: 'Create',
     2: 'Update',
     3: 'Delete',
+    4: 'Moved',
+    5: 'Merge',
+    6: 'Paid',
+    7: 'Unpaid',
+    8: 'Free',
+    9: 'Clone',
+    10: 'View',
+    11: 'Enable',
+    12: 'Disable',
+    13: 'Accept',
+    14: 'Decline',
+    15: 'Archive',
+    16: 'Unarchive',
+    17: 'Read',
+    18: 'Unread',
+    19: 'Unlink',
+    20: 'Confirm Email',
+    21: 'End Lockout',
+    22: 'Undelete',
+    23: 'Request Deletion',
 };
 
 export const ACTIVITY_LOG_REFERENCE_TYPES = {
+    ALL_TYPES: 100,
     SITE: 1,
     BUILDING: 2,
     FLOOR: 3,
     DRAWING: 4,
+    USER_DEMO: 5,
+    USER: 6,
+    USER_PASSWORD: 7,
+    INVOICE: 8,
+    TEMPLATE: 9,
+    SERVICE: 10,
+    OPERATIVE_ALERT: 11,
+    COMPANY_ADMIN: 12,
+    CLIENT_ACCESS: 13,
+    COMPANY_PERMISSIONS: 14,
+    DOCUMENT: 15,
+    PIN_OPTION: 16,
+    TEMPLATE_QUESTION: 17,
+    USER_DRAWINGS: 18,
+    COMPANY_SETTINGS: 19,
+    ACTIVITY_SETTINGS: 20,
+    QR_CODE: 21,
+    SUBSCRIPTION: 22,
+    MESSAGE: 23,
+    OPERATIVE_PERMISSIONS: 24,
+    USER_ENQUIRY: 25,
+    USER_TYPE: 26,
+    ALERT_MESSAGE: 27,
+    RECENT_UPDATE: 28,
+    FRONT_END_TEXT: 29,
+    LEGAL_DOCUMENT: 30,
+    BANNER: 31,
+    BUG_REPORT: 32,
+    DRAWING_EXPIRY_MESSAGE: 33,
+    ALERT: 34,
+    OWNERSHIP_TRANSFER_REQUEST: 35,
+    TWO_FACTOR_AUTH: 36,
+    COMPANY_DOCUMENT: 37,
+    COMPANY_DOCUMENT_FOLDER: 38,
 };
 
 export const ACTIVITY_LOG_REFERENCE_VALUES = {
+    100: 'All Types',
     1: 'Site',
     2: 'Building',
     3: 'Floor',
     4: 'Drawing',
+    5: 'User Demo',
+    6: 'User',
+    7: 'User Password',
+    8: 'Invoice',
+    9: 'Template',
+    10: 'Service',
+    11: 'Operative Alert',
+    12: 'Company Admin',
+    13: 'Client Access',
+    14: 'Company Permissions',
+    15: 'Document',
+    16: 'Pin Option',
+    17: 'Template Question',
+    18: 'User Drawings',
+    19: 'Company Settings',
+    20: 'Activity Settings',
+    21: 'QR Code',
+    22: 'Subscription',
+    23: 'Message',
+    24: 'Operative Permissions',
+    25: 'User Enquiry',
+    26: 'User Type',
+    27: 'Alert Message',
+    28: 'Recent Update',
+    29: 'Front End Text',
+    30: 'Legal Document',
+    31: 'Banner',
+    32: 'Bug Report',
+    33: 'Drawing Expiry Message',
+    34: 'Alert',
+    35: 'Ownership Transfer Request',
+    36: 'Two Factor Auth',
+    37: 'Company Document',
+    38: 'Company Document Folder',
 };
 
 export const COMPANY_REPORTS_OUTPUT_TYPES = {
@@ -516,6 +632,53 @@ export const PIN_STATS_DASHBOARD_VIEW = {
     CALENDAR: 'calendar',
     LIST: 'list',
     SERIES: 'series',
+};
+
+export const ALERT_FREQUENCY_TYPES = {
+    ONCE: 1,
+    DAILY: 2,
+    WEEKLY: 3,
+    MONTHLY: 4,
+};
+
+export const ALERT_FREQUENCY_VALUES = {
+    1: 'Once',
+    2: 'Daily',
+    3: 'Weekly',
+    4: 'Monthly',
+};
+
+export const ALERT_FREQUENCY_SUFFIX_VALUES = {
+    1: '',
+    2: 'Day',
+    3: 'Week',
+    4: 'Month',
+};
+
+export const ALERT_METHOD_TYPES = {
+    MESSAGE_CENTRE: 1,
+    EMAIL: 2,
+    ALL: 3,
+};
+
+export const ALERT_METHOD_VALUES = {
+    1: 'Message Centre',
+    2: 'Email',
+    3: 'All',
+};
+
+export const MESSAGE_CENTRE_TABS = {
+    SYSTEM_MESSAGES: 0,
+    COMPANY_ALERTS: 1,
+    OPERATIVE_ALERTS: 2,
+    DRAWING_EXPIRY: 3,
+};
+
+export const MESSAGE_CENTRE_NAMES = {
+    0: 'System Messages',
+    1: 'Company Alerts',
+    2: 'Operative Alerts',
+    3: 'Drawing Expiry Messages',
 };
 
 export const TIME_PERIOD = {
@@ -587,4 +750,9 @@ export const PIN_TASK_RECURRING_NAMES = {
 export const DOCUMENT_LIBRARY_TYPES = {
     FOLDER: 100,
     FILE: 200,
+};
+export const sendToEnum = {
+    ALL_OPERATIVES: 0,
+    OPERATIVES_WITHIN_SITE: 1,
+    SELECTED_OPERATIVES: 2,
 };

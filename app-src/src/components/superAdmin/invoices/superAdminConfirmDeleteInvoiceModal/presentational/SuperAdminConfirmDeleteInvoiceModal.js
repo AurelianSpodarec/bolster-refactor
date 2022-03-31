@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
-import { set } from 'lodash';
 
 const SuperAdminConfirmDeleteInvoiceModal = ({
     handleDelete,
@@ -19,7 +17,6 @@ const SuperAdminConfirmDeleteInvoiceModal = ({
 }) => {
     const [commentValue, setCommentValue] = useState('');
     const [error, setError] = useState(null);
-    const location = useLocation();
     return (
         <ModalOuterContainer>
             <BlockHeading title={'Confirm Delete Invoice'} />

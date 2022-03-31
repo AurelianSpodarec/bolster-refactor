@@ -19,11 +19,11 @@ const CompaniesFilters = ({
             handleChange={handleChange}
         />
         <div className="table-filter">
-            <div className="size-lg-12">
-                <div className="size-lg-4">
+            <div className="size-lg-10">
+                <div className="size-lg-2">
                     <p>Type:</p>
                 </div>
-                <div className="size-lg-8">
+                <div className="size-lg-10">
                     <Select
                         value={companyType}
                         name="companyType"
@@ -33,11 +33,11 @@ const CompaniesFilters = ({
                     />
                 </div>
             </div>
-            <div>
-                <div className="size-lg-4">
+            <div className="size-lg-10">
+                <div className="size-lg-2">
                     <p>Services</p>
                 </div>
-                <div className="size-lg-8">
+                <div className="size-lg-10">
                     <MultiSelect
                         value={serviceIDs}
                         options={serviceOptions}

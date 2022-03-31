@@ -28,9 +28,12 @@ const EditClientForm = ({
 
         <BlockButtonWrapper>
             {showMoreServicesMesssage && (
-                <p className="generic-text size-lg-12">
+                <p className="generic-text size-lg-12 switched">
                     Looking for more service types? Check your{' '}
-                    <Link to="/company/subscription">subscriptions</Link> to add more!
+                    <Link to="/company/subscription" className="switched">
+                        subscriptions
+                    </Link>{' '}
+                    to add more!
                 </p>
             )}
 

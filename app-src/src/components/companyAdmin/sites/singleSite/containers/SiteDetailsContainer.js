@@ -11,6 +11,7 @@ import {
     ERROR_MODAL,
     CONFIRM_ARCHIVE,
     EDIT_SITE,
+    CREATE_HIERARCHY_ALERT_MODAL,
     DRAWING_EXPIRY_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
@@ -79,6 +80,8 @@ class SiteDetailsContainer extends Component {
                     handleChange={this.handleChange}
                     serviceOptions={servicesForDropdown}
                     serviceID={serviceID}
+                    handleCreateHierarchyAlertModal={this.handleCreateHierarchyAlertModal}
+                    handleViewHierarchyAlerts={this.handleViewHierarchyAlerts}
                     handleViewDrawingExpiryModal={this.handleViewDrawingExpiryModal}
                     companyID={companyID}
                     companyOptions={companiesForDropdown}
@@ -112,6 +115,14 @@ class SiteDetailsContainer extends Component {
                     '##There was an error processing your request, please try again later.##',
             });
         }
+    };
+
+    handleCreateHierarchyAlertModal = () => {
+        const { showModal, site } = this.props;
+        showModal(CREATE_HIERARCHY_ALERT_MODAL, {
+            hierarchyType: HIERARCHY_IDS.SITE,
+            hierarchyID: site.id,
+        });
     };
 
     handleEditSiteModal = () => {
@@ -169,6 +180,11 @@ class SiteDetailsContainer extends Component {
         const serviceIDOption = name === 'serviceID' ? value : serviceID;
 
         filterPinStats(site.id, HIERARCHY_IDS.SITE, companyIDOption, serviceIDOption);
+    };
+    handleViewHierarchyAlerts = () => {
+        const { site, history } = this.props;
+
+        history.push(`/company/sites/${site.id}/upcoming-alerts`);
     };
 }
 

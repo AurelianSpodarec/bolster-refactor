@@ -124,8 +124,13 @@ import {
     ADMIN_EDIT_COMPANY_OWNER,
     CONFIRM_EMAIL,
     USER_NEW_DOCUMENT,
+    CREATE_HIERARCHY_ALERT_MODAL,
     GENERATE_TIMESHEET_REPORT,
     EXPANDED_MEDIA,
+    MESSAGE_CENTRE_DRAWING_EXPIRY,
+    EDIT_ALERT_MODAL,
+    DELETE_ALERT_MODAL,
+    CREATE_NEW_OPERATIVE_ALERTS_MODAL,
     EDIT_FREE_CREDIT,
     UPLOAD_LIBRARY_DOCUMENT,
     SOFT_DELETE_LIBRARY_DOCUMENT,
@@ -144,6 +149,7 @@ import {
     DRAWING_EXPIRY_MODAL,
     EDIT_JOB_REF_DROPDOWN,
     EDIT_USER_EMAIL,
+    CONFIRM_DARK_THEME,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -270,8 +276,13 @@ import EnterDemoFullSiteModal from 'components/shared/demo-full-site/presentatio
 import EditCompanyOwnerModalContainer from 'components/superAdmin/companies/singleCompany/containers/EditCompanyOwnerModalContainer';
 import RequestDeleteInvoiceModal from 'components/companyAdmin/invoices/requestDeleteInvoiceModal/RequestDeleteInvoiceModal';
 import NewUserDocumentModal from 'components/companyAdmin/userManagement/documentsUploader/presentational/NewUserDocumentModal';
+import CreateHierarchyAlertModal from 'components/shared/hierarchyAlert/createHierarchyAlertModal/CreateHierarchyAlertModal';
 import GenerateTimesheetReportModal from 'components/companyAdmin/userManagement/operatives/timesheets/modals/GenerateTimesheetReport';
 import ExpandedMediaModal from './ExpandedMediaModal';
+import ExpiringDrawingsModal from 'components/companyAdmin/messages/messageCentre/listItems/ExpiringDrawingsModal';
+import EditAlertModal from 'components/companyAdmin/upcomingAlerts/presentational/EditAlertModal';
+import DeleteAlertModal from 'components/companyAdmin/upcomingAlerts/presentational/DeleteAlertModal';
+import CreateNewOperativeAlertsModal from 'components/companyAdmin/operativeAlerts/modals/CreateNewOperativeAlertsModal';
 import EditFreeCreditModal from './EditFreeCreditModalContainer';
 import SelectDocumentLibraryItemModal from 'components/companyAdmin/companyDocuments/SelectDocumentLibraryItemModal';
 import CreateDocumentFolderModal from 'components/companyAdmin/companyDocuments/createDocument/CreateDocumentFolderModal';
@@ -287,6 +298,7 @@ import DeleteJobReferenceModal from 'components/companyAdmin/jobReferences/Delet
 import DrawingExpiryModal from '../presentational/DrawingExpiryModal';
 import EditJobRefDropdownModal from './EditJobRefDropdownModalContainer';
 import EditUserEmailModal from '../../../../superAdmin/users/editUsers/EditUserEmailModal';
+import ConfirmDarkThemeModal from '../presentational/ConfirmDarkThemeModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -411,8 +423,13 @@ const MODAL_COMPONENTS = {
     [ADMIN_EDIT_COMPANY_OWNER]: EditCompanyOwnerModalContainer,
     [CONFIRM_EMAIL]: ConfirmEmailModal,
     [USER_NEW_DOCUMENT]: NewUserDocumentModal,
+    [CREATE_HIERARCHY_ALERT_MODAL]: CreateHierarchyAlertModal,
     [GENERATE_TIMESHEET_REPORT]: GenerateTimesheetReportModal,
     [EXPANDED_MEDIA]: ExpandedMediaModal,
+    [MESSAGE_CENTRE_DRAWING_EXPIRY]: ExpiringDrawingsModal,
+    [EDIT_ALERT_MODAL]: EditAlertModal,
+    [DELETE_ALERT_MODAL]: DeleteAlertModal,
+    [CREATE_NEW_OPERATIVE_ALERTS_MODAL]: CreateNewOperativeAlertsModal,
     [EDIT_FREE_CREDIT]: EditFreeCreditModal,
     [UPLOAD_LIBRARY_DOCUMENT]: CreateDocumentModal,
     [SOFT_DELETE_LIBRARY_DOCUMENT]: ConfirmDeleteModal,
@@ -431,6 +448,7 @@ const MODAL_COMPONENTS = {
     [DRAWING_EXPIRY_MODAL]: DrawingExpiryModal,
     [EDIT_JOB_REF_DROPDOWN]: EditJobRefDropdownModal,
     [EDIT_USER_EMAIL]: EditUserEmailModal,
+    [CONFIRM_DARK_THEME]: ConfirmDarkThemeModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

@@ -22,10 +22,11 @@ export const postActivityLogSettingsFailure = error => ({
     error,
 });
 
-export default postBody => dispatch => {
+// the items that are sent up should be the items that are to be disabled
+export default postBody => async dispatch => {
     dispatch(postActivityLogSettingsRequest());
 
-    axios
+    return axios
         .post(`${API_URL}/settings/activitysettings`, postBody, getHeaders())
         .then(res => dispatch(postActivityLogSettingsSuccess(res.data)))
         .catch(err => dispatch(handleErrors(postActivityLogSettingsFailure)(err)));
