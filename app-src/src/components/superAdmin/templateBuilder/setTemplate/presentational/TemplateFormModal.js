@@ -5,12 +5,13 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import LabelTypeRadioButtonsContainer from '../containers/LabelTypeRadioButtonsContainer';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import Select from 'components/shared/generic/form/presentational/Select';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
+import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
 
 const TemplateformModal = ({
     action,
@@ -87,15 +88,17 @@ const TemplateformModal = ({
                     isSquare
                 />
             </Field>
-            <BlockButtonWrapper>
-                <button className="button green">
-                    <i className="fa fa-plus" />
-                    Set
-                </button>
-                <button className="button" onClick={handleCancel}>
-                    Cancel
-                </button>
-            </BlockButtonWrapper>
+            <div className="size-lg-12">
+                <ButtonWrapper alignment="right">
+                    <ActionButton
+                        text="Cancel"
+                        onClick={handleCancel}
+                        source="secondary"
+                        size="small"
+                    />
+                    <ActionButton text="Confirm" type="submit" icon="check" size="small" />
+                </ButtonWrapper>
+            </div>
         </Form>
     </ModalOuter>
 );
