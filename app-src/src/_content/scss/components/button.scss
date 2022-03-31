@@ -521,6 +521,11 @@ button {
 // button wrapper
 .button-wrapper {
     width: 100%;
+
+    &.inline {
+        display: inline-flex;
+        width: auto;
+    }
     
     &.left {
         .custom-button {
