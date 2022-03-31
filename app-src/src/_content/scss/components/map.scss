@@ -96,6 +96,8 @@
     background-color: white;
     @include rounded-all;
     @include ubuntu;
+    color: black;
+
     .holder {
         width: 100%;
     }
