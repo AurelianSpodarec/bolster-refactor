@@ -9,6 +9,10 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { boolToYesNo } from 'helpers/generic';
+import { getDeviceNameColour, getTooltipRamText } from '../../../shared/utils';
+import LinkButton from '../../../../../shared/generic/button/presentational/LinkButton';
+import CompanyAdminUserActionsMenu from '../../../companyAdmins/allCompanyAdmins/presentational/CompanyAdminUserActionsMenu';
+import OperativeUserActionsMenu from './OperativeUserActionsMenu';
 
 const AllOperativesListItem = ({
     user,
@@ -24,6 +28,8 @@ const AllOperativesListItem = ({
     drawingLimitColour,
     drawingLimitMaxed,
     isDisabled,
+    showUserActions,
+    setShowUserActions,
 }) => {
     const history = useHistory();
 
@@ -32,6 +38,19 @@ const AllOperativesListItem = ({
     const upsyncedMessage = tooltipDate
         ? `This operative has not upsynced in ${tooltipDate} days`
         : 'This operative has never upsynced.';
+
+    const nameString = `${user.userFirstName} ${user.userLastName} ${
+        isDisabled ? '(DISABLED)' : ''
+    } - ${user.formattedOperativeCode}`;
+
+    const tooltipText = user.linkedDeviceName ? (
+        <>
+            <p>{getTooltipRamText(user.deviceRAM, user.physicalStorageAvailable)}</p>
+            <p>{getStorageString(user.physicalStorageAvailable)} Storage Free</p>
+        </>
+    ) : (
+        <p>No linked device</p>
+    );
 
     return (
         <tr key={user.id} className={`${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}>
@@ -50,131 +69,80 @@ const AllOperativesListItem = ({
                         <i className="far fa-exclamation-triangle red-icon" />
                     </TooltipContainer>
                 )}
+
                 {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
-                {`${user.userFirstName} ${user.userLastName}`}{' '}
-                {isDisabled && <span>(DISABLED)</span>}
+                <span>{nameString}</span>
+                <br />
+                <div className="email">
+                    {user.userEmail}{' '}
+                    {user.isEmailConfirmed ? <i className="fas fa-check-circle" /> : ''}
+                </div>
             </td>
-            <td>
-                {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-                {user.userEmail}
-            </td>
+
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
-                {user.userPhoneNumber}
+                {user.userPhoneNumber || '-'}
             </td>
+
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
-                {user.linkedDeviceID ? 'Yes' : 'No'}{' '}
-                {user.linkedDeviceName && (
-                    <span className="red-text">{`(${user.linkedDeviceName})`}</span>
-                )}
-                {user.deviceRAM && (
-                    <>
-                        <br />({getStorageString(user.deviceRAM)} RAM.)
-                    </>
-                )}
-                {user.physicalStorageTotal && (
-                    <>
-                        <br />({getStorageString(user.physicalStorageAvailable)} /{' '}
-                        {getStorageString(user.physicalStorageTotal)} storage free)
-                    </>
-                )}
+                <TooltipContainer text={tooltipText} containerSide="left" side="bottom">
+                    <span
+                        className={getDeviceNameColour(
+                            user.deviceRAM,
+                            user.physicalStorageAvailable,
+                        )}
+                    >{`${user.linkedDeviceName || 'No Device Name'}`}</span>
+                </TooltipContainer>
             </td>
-            <td>
-                {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
-                {user.formattedOperativeCode}
-            </td>
+
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
                 {user.lastUpSynced ? <DateTimeContainer date={user.lastUpSynced} /> : '-'}
             </td>
-            <td>
-                {onMobile && <span className="mobile-table-heading">{headers[6]}</span>}
-                {user.lastDetectedUnsyncedData ? (
-                    <DateTimeContainer date={user.lastDetectedUnsyncedData} />
-                ) : (
-                    '-'
-                )}
-            </td>
+
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[7]}</span>}
-                {user.appVersion ? user.appVersion : '-'}
+                {user.appVersion ? `${user.appVersion}` : '-'}
             </td>
+
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[8]}</span>}
                 <span className={`limit-${drawingLimitColour}`}>{user.drawingCount}</span>
             </td>
-            <td>
-                {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
-                {boolToYesNo(user.isEmailConfirmed)}
-            </td>
-            <td>
-                {onMobile && <span className="mobile-table-heading">{headers[10]}</span>}
-                <BlockButtonWrapper additionalClasses="stacked">
-                    {user.linkedDeviceID && !isDisabled && (
-                        <button className="button blue" onClick={showUnlinkModal}>
-                            <i className="far fa-unlink" />
-                            Unlink Device
-                        </button>
-                    )}
-                    <button className="button" onClick={generateReport}>
-                        Generate Report
-                    </button>
 
-                    {!isDisabled && (
-                        <ButtonContainer className="button yellow" handleClick={showMakeAdminModal}>
-                            <i className="far fa-user" /> Make Admin
-                        </ButtonContainer>
-                    )}
-                    <Link
-                        className="button green"
-                        to={`/company/users-management/operatives/${user.id}/timesheet`}
+            <td>
+                <LinkButton
+                    text="Drawing Access"
+                    size="small"
+                    icon="key"
+                    href={`/company/users-management/company-admins/${user.id}/drawings`}
+                />
+                <div>
+                    <div
+                        onClick={() => setShowUserActions(!showUserActions)}
+                        className="flex flex-row justify-center align-center ellipsis"
                     >
-                        <i className="far fa-eye" /> View Timesheet
-                    </Link>
-                    <Link
-                        className="button yellow"
-                        to={`/company/users-management/operatives/${user.id}/edit`}
-                    >
-                        <i className="far fa-pencil" /> Edit
-                    </Link>
-                    <Link
-                        className="button yellow"
-                        to={`/company/users-management/operatives/${user.id}/edit-email`}
-                    >
-                        <i className="far fa-at" /> Edit Email
-                    </Link>
-                    <Link
-                        className="button yellow"
-                        to={`/company/users-management/operatives/${user.id}/documents`}
-                    >
-                        <i className="far fa-file-upload" /> User Documents
-                    </Link>
-                    <Link
-                        className="button blue"
-                        to={`/company/users-management/operative/${user.id}/drawings`}
-                    >
-                        <i className="far fa-key" /> Drawings Access
-                    </Link>
-
-                    {isDisabled ? (
-                        <button className="button green" onClick={showEnableModal}>
-                            <i className="far fa-check" />
-                            Enable
-                        </button>
-                    ) : (
-                        <>
-                            <button className="button red" onClick={showDisableModal}>
-                                <i className="far fa-ban" />
-                                Disable
-                            </button>
-                            <button className="button red" onClick={showDeleteModal}>
-                                <i className="far fa-trash-alt" />
-                                Delete
-                            </button>
-                        </>
-                    )}
-                </BlockButtonWrapper>
+                        <i className="fa fa-ellipsis-v" />
+                    </div>
+                    <div className="flex flex-row justify-center align-center">
+                        {showUserActions && (
+                            <OperativeUserActionsMenu
+                                user={user}
+                                onMobile={onMobile}
+                                headers={headers}
+                                generateReport={generateReport}
+                                isDisabled={isDisabled}
+                                showUnlinkModal={showUnlinkModal}
+                                showEnableModal={showEnableModal}
+                                showDisableModal={showDisableModal}
+                                showDeleteModal={showDeleteModal}
+                                setShowUserActions={setShowUserActions}
+                                showMakeAdminModal={showMakeAdminModal}
+                            />
+                        )}
+                    </div>
+                </div>
             </td>
         </tr>
     );
