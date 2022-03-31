@@ -3,13 +3,17 @@ import React from 'react';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import AllOperativesListItemContainer from '../containers/AllOperativesListItemContainer';
+import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
 
 const AllOperativesTable = ({ headers, users, isFetching, error, handleShowModal }) => (
     <>
         <BlockHeading title="Active Operatives">
-            <button className="button green" onClick={handleShowModal}>
-                <i className="fa fa-plus" /> Create Operative
-            </button>
+            <ActionButton
+                onClick={handleShowModal}
+                extraClasses="ambient-positive"
+                text="Create Admin"
+                icon="user-plus"
+            />
         </BlockHeading>
         <Table
             withActions

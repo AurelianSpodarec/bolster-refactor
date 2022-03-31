@@ -30,19 +30,20 @@ const CompanyAdminUserActionsMenu = ({
         <UserActionsMenu>
             {onMobile && <span className="mobile-table-heading">{headers[10]}</span>}
             <div ref={ref} className="flex-column">
+                <div onClick={generateReport} className="action-link">
+                    Generate Report
+                </div>
+
                 {user.linkedDeviceID && !isDisabled && (
                     <div onClick={showUnlinkModal} className="action-link">
                         Unlink Device
                     </div>
                 )}
-                <div onClick={generateReport} className="action-link">
-                    Generate Report
-                </div>
                 <Link
                     to={`/company/users-management/company-admins/${user.id}/timesheet`}
                     className="action-link"
                 >
-                    View Timesheet
+                    Timesheet
                 </Link>
                 <Link
                     to={`/company/users-management/company-admins/${user.id}/edit`}
@@ -60,18 +61,9 @@ const CompanyAdminUserActionsMenu = ({
                     to={`/company/users-management/company-admins/${user.id}/documents`}
                     className="action-link"
                 >
-                    User Documents
+                    Documents
                 </Link>
-                {loggedInUser.type === +COMPANY_USER_ROLE_TYPES.OWNER &&
-                    +user.type !== +COMPANY_USER_ROLE_TYPES.OWNER &&
-                    !isDisabled && (
-                        <div
-                            onClick={() => showRevokeAdminAccessModal(user.id)}
-                            className="action-link"
-                        >
-                            Revoke Admin
-                        </div>
-                    )}
+
                 {loggedInUser.type === +COMPANY_USER_ROLE_TYPES.OWNER &&
                     +user.type !== +COMPANY_USER_ROLE_TYPES.OWNER &&
                     (user.shouldRestrictPayments ? (
@@ -81,15 +73,23 @@ const CompanyAdminUserActionsMenu = ({
                         >
                             Enable Payments
                         </div>
-                    ) : isDisabled ? (
-                        <></>
+                    ) : !isDisabled ? (
+                        <>
+                            <div
+                                onClick={() => showRevokeAdminAccessModal(user.id)}
+                                className="action-link"
+                            >
+                                Revoke Admin
+                            </div>
+                            <div
+                                onClick={() => showRestrictUserPaymentsModal(user.id)}
+                                className="action-link"
+                            >
+                                Restrict Payments
+                            </div>
+                        </>
                     ) : (
-                        <div
-                            onClick={() => showRestrictUserPaymentsModal(user.id)}
-                            className="action-link"
-                        >
-                            Restrict Payments
-                        </div>
+                        <></>
                     ))}
 
                 {+user.type !== +COMPANY_USER_ROLE_TYPES.OWNER && (

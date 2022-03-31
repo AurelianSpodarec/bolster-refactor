@@ -27,26 +27,21 @@ const CompanyAdminUserActionsMenu = ({
         <UserActionsMenu>
             {onMobile && <span className="mobile-table-heading">{headers[10]}</span>}
             <div ref={ref} className="flex-column">
+                <div className="action-link" onClick={generateReport}>
+                    Generate Report
+                </div>
+
                 {user.linkedDeviceID && !isDisabled && (
                     <div className="action-link" onClick={showUnlinkModal}>
                         Unlink Device
                     </div>
                 )}
-                <div className="action-link" onClick={generateReport}>
-                    Generate Report
-                </div>
 
-                {!isDisabled && (
-                    <div className="action-link" onClick={showMakeAdminModal}>
-                        {' '}
-                        Make Admin
-                    </div>
-                )}
                 <Link
                     className="action-link"
                     to={`/company/users-management/operatives/${user.id}/timesheet`}
                 >
-                    View Timesheet
+                    Timesheet
                 </Link>
                 <Link
                     className="action-link"
@@ -64,13 +59,7 @@ const CompanyAdminUserActionsMenu = ({
                     className="action-link"
                     to={`/company/users-management/operatives/${user.id}/documents`}
                 >
-                    User Documents
-                </Link>
-                <Link
-                    className="action-link"
-                    to={`/company/users-management/operative/${user.id}/drawings`}
-                >
-                    Drawings Access
+                    Documents
                 </Link>
 
                 {isDisabled ? (
@@ -79,6 +68,9 @@ const CompanyAdminUserActionsMenu = ({
                     </div>
                 ) : (
                     <>
+                        <div className="action-link" onClick={showMakeAdminModal}>
+                            Make Admin
+                        </div>
                         <div className="action-link" onClick={showDisableModal}>
                             Disable
                         </div>
