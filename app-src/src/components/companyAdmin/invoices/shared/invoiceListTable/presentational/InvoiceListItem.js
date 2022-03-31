@@ -1,14 +1,14 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+
 import { PAYMENT_TYPES, DATE_TIME_IDS, INVOICE_TYPES } from 'constants/companyAdmin/enums';
 import { PAY_INVOICE } from 'constants/shared/modalTypes';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { formatCurrency } from 'helpers/generic';
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import LinkWithPropsContainer from 'components/shared/generic/button/containers/LinkWithPropsContainer';
 
 const InvoiceListItem = ({
     invoice: {
@@ -90,26 +90,24 @@ const InvoiceListItem = ({
         <td>
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[10]}</span>}
-            <ButtonWrapper alignment="right">
-                <LinkButton
-                    href={{
+            <BlockButtonWrapper>
+                {!isPaid && (
+                    <button
+                        className="button green"
+                        onClick={() => showModal(PAY_INVOICE, { invoiceID: id })}
+                    >
+                        Pay
+                    </button>
+                )}
+                <LinkWithPropsContainer
+                    to={{
                         pathname: `/company/invoices/${id}`,
                         state: { fromURL: location.pathname },
                     }}
-                    text="View"
-                    size="small"
-                    ambient="positive"
-                    source="secondary"
-                />
-                {!isPaid && (
-                    <ActionButton
-                        onClick={() => showModal(PAY_INVOICE, { invoiceID: id })}
-                        text="Pay"
-                        size="small"
-                        ambient="primary"
-                    />
-                )}
-            </ButtonWrapper>
+                >
+                    View
+                </LinkWithPropsContainer>
+            </BlockButtonWrapper>
         </td>
     </tr>
 );
