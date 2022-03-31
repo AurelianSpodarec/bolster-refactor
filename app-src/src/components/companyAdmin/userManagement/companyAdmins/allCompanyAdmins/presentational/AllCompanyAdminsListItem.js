@@ -85,6 +85,21 @@ const AllCompanyAdminsListItem = ({
             className={`user-table ${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}
         >
             <td>
+                {isRowRed && (
+                    <TooltipContainer
+                        htmlText={`${
+                            showNotUpsyncedRecentlyWarning ? `<p>${upsyncedMessage}</p>` : ''
+                        } ${lowMemMessage ? `<p>${lowMemMessage}</p>` : ''} 
+                        ${
+                            drawingLimitColour === 'red'
+                                ? '<p>This operative has reached the maximum number of drawings.</p>'
+                                : ''
+                        }`}
+                        containerSide="left"
+                    >
+                        <i className="far fa-exclamation-triangle red-icon" />
+                    </TooltipContainer>
+                )}
                 {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                 <span>{nameString}</span>
                 <br />
@@ -93,10 +108,12 @@ const AllCompanyAdminsListItem = ({
                     {user.isEmailConfirmed ? <i className="fas fa-check-circle" /> : ''}
                 </div>
             </td>
+
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
                 {user.userPhoneNumber || '-'}
             </td>
+
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
                 <TooltipContainer text={tooltipText} containerSide="left" side="bottom">
@@ -105,18 +122,22 @@ const AllCompanyAdminsListItem = ({
                     }`}</span>
                 </TooltipContainer>
             </td>
+
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
                 {user.lastUpSynced ? <DateTimeContainer date={user.lastUpSynced} /> : '-'}
             </td>
+
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[7]}</span>}
                 {user.appVersion ? `${user.appVersion}` : '-'}
             </td>
+
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[8]}</span>}
                 <span className={`limit-${drawingLimitColour}`}>{user.drawingCount}</span>
             </td>
+
             <td>
                 <LinkButton
                     text="Drawing Access"
