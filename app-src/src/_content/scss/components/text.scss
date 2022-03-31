@@ -50,6 +50,14 @@
     color: green;
   }
 
+  &.black-text {
+    color: black !important;
+
+    * {
+      color: black !important;
+    }
+  }
+
   &.in-form {
     padding-left: 7.5px;
     padding-right: 7.5px;
