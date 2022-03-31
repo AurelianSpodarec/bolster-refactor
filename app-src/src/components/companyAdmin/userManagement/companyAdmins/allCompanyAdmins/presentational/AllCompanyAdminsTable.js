@@ -3,8 +3,6 @@ import React from 'react';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import AllCompanyAdminsList from './AllCompanyAdminsList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import { GREEN, GREEN_HOVER } from 'constants/shared/colorCodes';
 import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
 
 const AllCompanyAdminsTable = ({

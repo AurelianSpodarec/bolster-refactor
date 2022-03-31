@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { getStorageString, isLowMemory, isLowStorage, isMinMemory } from 'helpers/generic';
 
@@ -146,6 +146,7 @@ const AllCompanyAdminsListItem = ({
                                 showEnableModal={showEnableModal}
                                 showDisableModal={showDisableModal}
                                 showDeleteModal={showDeleteModal}
+                                setShowUserActions={setShowUserActions}
                             />
                         )}
                     </div>

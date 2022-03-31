@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import UserActionsMenu from '../../../shared/menus/UserActionsMenu';
 import { Link } from 'react-router-dom';
@@ -17,11 +17,27 @@ const CompanyAdminUserActionsMenu = ({
     showEnableModal,
     showDisableModal,
     showDeleteModal,
+    setShowUserActions,
 }) => {
+    const menuRef = useRef(null);
+
+    const handleClickOutside = event => {
+        if (menuRef.current && !menuRef.current.contains(event.target)) {
+            setShowUserActions(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [handleClickOutside]);
+
     return (
         <UserActionsMenu>
             {onMobile && <span className="mobile-table-heading">{headers[10]}</span>}
-            <div className="flex-column">
+            <div ref={menuRef} className="flex-column">
                 {user.linkedDeviceID && !isDisabled && (
                     <div onClick={showUnlinkModal} className="action-link">
                         Unlink Device
