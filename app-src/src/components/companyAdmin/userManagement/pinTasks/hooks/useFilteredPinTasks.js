@@ -10,6 +10,8 @@ import { selectServiceFilters } from 'selectors/companyAdmin/services';
 import { selectSiteFilters } from 'selectors/companyAdmin/sites';
 
 import { PIN_TASK_RECURRING, PIN_TASK_STATUS } from 'constants/companyAdmin/enums';
+import { selectTemplateFilters } from 'selectors/companyAdmin/templates';
+import { selectTemplateVersions } from 'selectors/companyAdmin/templateVersions';
 
 const { RECURRING, NON_RECURRING } = PIN_TASK_RECURRING;
 const { COMPLETE_LATE, COMPLETE, INCOMPLETE, DUE_SOON } = PIN_TASK_STATUS;
@@ -19,7 +21,9 @@ const useFilteredPinTasks = tasks => {
     const selectedStatusFilter = useSelector(selectPinStatusFilters);
     const selectUserFilter = useSelector(selectUserFilters);
     const selectServiceFilter = useSelector(selectServiceFilters);
+    const selectTemplateFilter = useSelector(selectTemplateFilters);
     const selectSiteFilter = useSelector(selectSiteFilters);
+    const templateVersions = useSelector(selectTemplateVersions);
 
     const pinTasks = Object.values(tasks).filter(task => {
         const recurringName = task.isRecurring ? RECURRING : NON_RECURRING;
@@ -49,6 +53,18 @@ const useFilteredPinTasks = tasks => {
 
         if (selectServiceFilter.length && !selectServiceFilter.includes(task.serviceID)) {
             return false;
+        }
+
+        if (selectTemplateFilter.length && !selectTemplateFilter.includes(task.templateVersionID)) {
+            const templateVersion = templateVersions[task.templateVersionID];
+            if (!templateVersion) {
+                return false;
+            }
+
+            const { templateID } = templateVersion && templateVersion;
+            if (!selectTemplateFilter.includes(templateID)) {
+                return false;
+            }
         }
 
         if (selectSiteFilter.length && !selectSiteFilter.includes(task.siteID)) {
