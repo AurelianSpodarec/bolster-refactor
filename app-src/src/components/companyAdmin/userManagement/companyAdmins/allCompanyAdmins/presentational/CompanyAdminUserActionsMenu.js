@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
+import useClickOutside from '../../../../../../hooks/useClickOutside';
 
 import UserActionsMenu from '../../../shared/menus/UserActionsMenu';
 import { Link } from 'react-router-dom';
@@ -19,25 +20,16 @@ const CompanyAdminUserActionsMenu = ({
     showDeleteModal,
     setShowUserActions,
 }) => {
-    const menuRef = useRef(null);
-
-    const handleClickOutside = event => {
-        if (menuRef.current && !menuRef.current.contains(event.target)) {
-            setShowUserActions(false);
-        }
+    const closeMenu = () => {
+        setShowUserActions(false);
     };
 
-    useEffect(() => {
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [handleClickOutside]);
+    const ref = useClickOutside(closeMenu);
 
     return (
         <UserActionsMenu>
             {onMobile && <span className="mobile-table-heading">{headers[10]}</span>}
-            <div ref={menuRef} className="flex-column">
+            <div ref={ref} className="flex-column">
                 {user.linkedDeviceID && !isDisabled && (
                     <div onClick={showUnlinkModal} className="action-link">
                         Unlink Device
