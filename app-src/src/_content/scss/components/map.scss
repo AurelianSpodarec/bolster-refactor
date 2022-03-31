@@ -122,7 +122,6 @@
 // pins
 .custom-pin, .icon-pin {
     float: left;
-    color: $body-text;
 
     img {
         float: left;
@@ -144,6 +143,9 @@
         top: 9px;
         left: 3px;
         width: 24px;
+        p {
+          color: black;
+        }
     }
     .code-half {
         font-size: 8px !important;
