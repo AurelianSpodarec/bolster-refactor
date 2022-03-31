@@ -3,49 +3,56 @@ import React from 'react';
 import { ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION } from 'constants/shared/modalTypes';
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const AddServiceItem = ({ service, showModal, canEdit }) => {
     if (canEdit)
         return (
             <div className="subscription-item add-service size-lg-6 size-md-12">
-                <div className="field-name size-lg-6 size-md-8">
+                <div className="field-name size-lg-12 flex-row justify-space-between">
                     <StatusIcon classes="add" iconClass="fa fa-plus" />
-                    <label>{service.name}</label>
+                    <label style={{ flex: 1 }}>{service.name}</label>
+                    <ButtonWrapper alignment="right" inline>
+                        <ActionButton
+                            onClick={e => {
+                                e.preventDefault();
+                                showModal(ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION, {
+                                    serviceID: service.id,
+                                });
+                            }}
+                            text="Add"
+                            size="small"
+                            ambient="positive"
+                        />
+                    </ButtonWrapper>
                 </div>
-
-                <button
-                    className="button green"
-                    onClick={e => {
-                        e.preventDefault();
-                        showModal(ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION, { serviceID: service.id });
-                    }}
-                >
-                    Add
-                </button>
             </div>
         );
 
     return (
         <div className="subscription-item add-service size-lg-6 size-md-12">
-            <div className="field-name size-lg-6 size-md-8">
+            <div className="field-name size-lg-12 flex-row justify-space-between">
                 <StatusIcon classes="add" iconClass="fa fa-plus" />
-                <label>{service.name}</label>
-            </div>
-            <TooltipContainer
-                side="top"
-                text="You can add new services when your new subsciption begins."
-            >
-                <button
-                    type="button"
-                    style={{ opacity: 0.5, cursor: 'default' }}
-                    className="button green"
-                    onClick={e => {
-                        e.preventDefault();
-                    }}
+                <label style={{ flex: 1 }}>{service.name}</label>
+                <TooltipContainer
+                    side="top"
+                    text="You can add new services when your new subsciption begins."
                 >
-                    Add
-                </button>
-            </TooltipContainer>
+                    <ButtonWrapper alignment="right" inline>
+                        <ActionButton
+                            onClick={e => {
+                                e.preventDefault();
+                            }}
+                            text="Add"
+                            size="small"
+                            ambient="positive"
+                            disabled
+                            extraClasses=""
+                        />
+                    </ButtonWrapper>
+                </TooltipContainer>
+            </div>
         </div>
     );
 };
