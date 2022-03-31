@@ -387,10 +387,6 @@ button {
     text-decoration: none;
     white-space: nowrap;
 
-    i, .icon {
-        color: inherit;
-    }
-
     .text {
         + .icon {
             margin-left: 8px;
@@ -414,9 +410,6 @@ button {
 
     &.icon-only {
         padding: 12px;
-        i {
-            margin: 0
-        }
     }
 
     // small
@@ -520,8 +513,6 @@ button {
 
 // button wrapper
 .button-wrapper {
-    width: 100%;
-    
     &.left {
         .custom-button {
             margin-right: 5px;
