@@ -29,14 +29,10 @@ const AllCompanyAdminTableContainer = ({ filteredUsers }) => {
                 users={filteredUsers(mergedUsers)}
                 isFetching={isFetching}
                 error={error}
-                handleCreateCompanyAdmin={handleCreateCompanyAdmin}
+                handleShowModal={() => dispatch(showModal(CREATE_COMPANY_ADMIN))}
             />
         </BlockContainer>
     );
-
-    function handleCreateCompanyAdmin() {
-        dispatch(showModal(CREATE_COMPANY_ADMIN));
-    }
 };
 
 const mapStateToProps = ({

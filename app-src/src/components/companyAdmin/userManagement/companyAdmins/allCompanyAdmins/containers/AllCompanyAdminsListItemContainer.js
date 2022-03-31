@@ -14,7 +14,7 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import AllCompanyAdminsListItem from '../presentational/AllCompanyAdminsListItem';
 
-const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
+const AllCompanyAdminsListItemContainer = ({ user, headers }) => {
     const { loggedInUser, onMobile, disabledUsers, maxDrawingsPerOperative } =
         useSelector(mapStateToProps);
     const [showUserActions, setShowUserActions] = useState(false);
@@ -27,7 +27,7 @@ const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
     return (
         <AllCompanyAdminsListItem
             user={user}
-            colCount={colCount}
+            colCount={headers.length}
             showDeleteModal={deleteModal}
             showDisableModal={showDisableUserModal}
             showEnableModal={showEnableUserModal}

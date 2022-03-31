@@ -1,23 +1,16 @@
 import React from 'react';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
-import AllCompanyAdminsList from './AllCompanyAdminsList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
+import AllCompanyAdminsListItemContainer from '../containers/AllCompanyAdminsListItemContainer';
 
-const AllCompanyAdminsTable = ({
-    headers,
-    users,
-    isFetching,
-    error,
-    showDeleteModal,
-    handleCreateCompanyAdmin,
-}) => {
+const AllCompanyAdminsTable = ({ headers, users, isFetching, error, handleShowModal }) => {
     return (
         <>
             <BlockHeading title="Active Admins">
                 <ActionButton
-                    onClick={handleCreateCompanyAdmin}
+                    onClick={handleShowModal}
                     extraClasses="ambient-positive"
                     text="Create Admin"
                     icon="user-plus"
@@ -30,14 +23,14 @@ const AllCompanyAdminsTable = ({
                 error={error}
                 noData={!users.length}
                 noDataMessage="No admins to display."
-                extraClasses="large"
             >
-                <AllCompanyAdminsList
-                    colCount={headers.length}
-                    users={users}
-                    headers={headers}
-                    showDeleteModal={showDeleteModal}
-                />
+                {users.map(user => (
+                    <AllCompanyAdminsListItemContainer
+                        key={user.id}
+                        user={user}
+                        headers={headers}
+                    />
+                ))}
             </Table>
         </>
     );

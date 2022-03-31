@@ -1,12 +1,11 @@
 import React from 'react';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import AllOperativesListItemContainer from '../containers/AllOperativesListItemContainer';
 
-const AllOperativesTable = ({ headers, users, isFetching, error, handleShowModal, onMobile }) => (
-    <BlockContainer>
+const AllOperativesTable = ({ headers, users, isFetching, error, handleShowModal }) => (
+    <>
         <BlockHeading title="Active Operatives">
             <button className="button green" onClick={handleShowModal}>
                 <i className="fa fa-plus" /> Create Operative
@@ -21,15 +20,10 @@ const AllOperativesTable = ({ headers, users, isFetching, error, handleShowModal
             noDataMessage="No operatives to display."
         >
             {users.map(user => (
-                <AllOperativesListItemContainer
-                    headers={headers}
-                    key={user.id}
-                    user={user}
-                    onMobile={onMobile}
-                />
+                <AllOperativesListItemContainer key={user.id} headers={headers} user={user} />
             ))}
         </Table>
-    </BlockContainer>
+    </>
 );
 
 export default AllOperativesTable;
