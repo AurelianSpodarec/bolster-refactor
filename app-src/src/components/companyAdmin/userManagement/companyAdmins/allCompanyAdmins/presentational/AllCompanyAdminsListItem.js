@@ -9,6 +9,7 @@ import { getLowMemoryMessage } from 'constants/shared/messages';
 import LinkButton from '../../../../../shared/generic/button/presentational/LinkButton';
 import TooltipContainer from '../../../../../shared/generic/tooltip/containers/TooltipContainer';
 import CompanyAdminUserActionsMenu from './CompanyAdminUserActionsMenu';
+import { getDeviceNameColour, getTooltipRamText } from '../../../shared/utils';
 
 const AllCompanyAdminsListItem = ({
     user,
@@ -35,45 +36,18 @@ const AllCompanyAdminsListItem = ({
 
     const isRowRed = lowMemMessage !== null || showNotUpsyncedRecentlyWarning || drawingLimitMaxed;
     const upsyncedMessage = tooltipDate
-        ? `This operative has not upsynced in ${tooltipDate} days`
-        : 'This operative has never upsynced.';
+        ? `This admin has not upsynced in ${tooltipDate} days`
+        : 'This admin has never upsynced.';
 
     const userStatus =
         user.type === COMPANY_USER_ROLE_TYPES.OWNER ? '(OWNER)' : isDisabled ? '(DISABLED)' : '';
+
     const nameString = `${user.userFirstName} ${user.userLastName} ${userStatus} - ${user.formattedOperativeCode}`;
-
-    const memory = user.deviceRAM;
-    const storage = user.physicalStorageAvailable;
-    const isRamLow = !!memory && isLowMemory(memory);
-    const isRamMin = !!memory && isMinMemory(memory);
-    const isStorageLow = !!storage && isLowStorage(storage);
-
-    const getDeviceNameColour = () => {
-        if (isRamLow || isStorageLow) {
-            return 'red-text';
-        } else if (isRamMin) {
-            return 'warning-text';
-        } else {
-            return '';
-        }
-    };
-
-    const getTooltipRamText = () => {
-        if (isRamLow || isStorageLow) {
-            return 'This Device does not meet the minimum specification required to run our mobile app.';
-        } else if (isRamMin) {
-            return 'This device may experience performance issues.';
-        } else {
-            return `${getStorageString(memory)} RAM`;
-        }
-    };
-
-    const deviceNameColor = getDeviceNameColour();
 
     const tooltipText = user.linkedDeviceName ? (
         <>
-            <p>{getTooltipRamText()}</p>
-            <p>{getStorageString(storage)} Storage Free</p>
+            <p>{getTooltipRamText(user.deviceRAM, user.physicalStorageAvailable)}</p>
+            <p>{getStorageString(user.physicalStorageAvailable)} Storage Free</p>
         </>
     ) : (
         <p>No linked device</p>
@@ -117,9 +91,12 @@ const AllCompanyAdminsListItem = ({
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
                 <TooltipContainer text={tooltipText} containerSide="left" side="bottom">
-                    <span className={deviceNameColor}>{`${
-                        user.linkedDeviceName || 'No Device Name'
-                    }`}</span>
+                    <span
+                        className={getDeviceNameColour(
+                            user.deviceRAM,
+                            user.physicalStorageAvailable,
+                        )}
+                    >{`${user.linkedDeviceName || 'No Device Name'}`}</span>
                 </TooltipContainer>
             </td>
 
