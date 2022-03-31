@@ -1,112 +1,120 @@
 // generic bits of copy
 .generic-text {
-    margin-bottom: 15px;
-    font-size: 140%;
-    line-height: 1.5;
+  margin-bottom: 15px;
+  font-size: 140%;
+  line-height: 1.5;
 
-    &.intro-text {
-        margin-bottom: 30px;
-        margin-top: -10px;
+  &.intro-text {
+    margin-bottom: 30px;
+    margin-top: -10px;
+  }
+
+  &.total-text {
+    padding: 0 10px;
+    margin-bottom: 0;
+  }
+
+  a {
+    @include ubuntu-medium;
+    color: var(--typography-default);
+    text-decoration: underline;
+
+    &.switched {
+      color: var(--typography-default);
     }
 
-    &.total-text {
-        padding: 0 10px;
-        margin-bottom: 0;
+    &:hover {
+      text-decoration: none;
     }
+  }
 
-    a {
-        @include ubuntu-medium;
-        color: $body-text;
-        text-decoration: underline;
+  &:last-child {
+    margin-bottom: 0;
+  }
 
-        &:hover {
-            text-decoration: none;
-        }
-    }
+  &.small {
+    font-size: 120%;
+  }
 
-    &:last-child {
-        margin-bottom: 0;
-    }
+  &.no-data {
+    padding: 10px 15px;
+    background-color: var(--background-default);
+    text-align: center;
+  }
 
-    &.small {
-        font-size: 120%;
-    }
+  &.error {
+    color: $red;
+  }
 
-    &.no-data {
-        padding: 10px 15px;
-        background-color: $background-grey;
-        text-align: center;
-    }
+  &.success {
+    color: green;
+  }
 
-    &.error {
-        color: $red;
-    }
-
-    &.success {
-        color: green;
-    }
-
-    &.in-form {
-        padding-left: 7.5px;
-        padding-right: 7.5px;
-    }
+  &.in-form {
+    padding-left: 7.5px;
+    padding-right: 7.5px;
+  }
 }
 
 // no data
 .no-data {
-    @include ubuntu-medium;
-    font-size: 120%;
+  @include ubuntu-medium;
+  font-size: 120%;
 
-    &.centered {
-        text-align: center;
-        padding: {
-            top: 17px;
-            bottom: 17px;
-        }
+  &.centered {
+    text-align: center;
+    padding: {
+      top: 17px;
+      bottom: 17px;
     }
+  }
 }
 
 // loading text
 .loading-text {
-    @include ubuntu;
-    text-align: center;
-    padding: 10px;
-    p {
-        font-size: 160%;
-        margin-bottom: 10px;
-    }
-    i {
-        font-size: 180%;
-    }
+  @include ubuntu;
+  text-align: center;
+  padding: 10px;
+
+  p {
+    font-size: 160%;
+    margin-bottom: 10px;
+  }
+
+  i {
+    font-size: 180%;
+  }
 }
 
 //not available message
 .not-available {
-    float: left;
-    width: 100%;
-    text-align: center;
-    margin: 10px 0;
-    &.w-img {
-        p {
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-            position: absolute;
-        }
-    }
-    p {
-        width: 100%;
-        font-size: 180%;
-    }
+  float: left;
+  width: 100%;
+  text-align: center;
+  margin: 10px 0;
 
-    img {
-        opacity: 0;
+  &.w-img {
+    p {
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      position: absolute;
     }
+  }
+
+  p {
+    width: 100%;
+    font-size: 180%;
+  }
+
+  img {
+    opacity: 0;
+  }
 }
 
 // error message
 .error-message {
-    color: red;
-    padding-left: 8px;
-    pointer-events: none;
+  color: red;
+  padding-left: 8px;
+  pointer-events: none;
 }

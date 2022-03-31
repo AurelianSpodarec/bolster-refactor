@@ -17,7 +17,7 @@ import useGetUserInitials from 'hooks/useGetUserInitials';
 import defaultStyles from 'constants/defaultStyles';
 import superAdminIcon from '../../../../../_content/images/icons/super-admin.png';
 
-const HeaderProfile = ({ isAdmin }) => {
+const HeaderProfile = ({ isAdmin, isClient }) => {
     const { profile, backgroundColor, handleLogout } = useHeaderProfile(isAdmin);
 
     const initials = useGetUserInitials()?.toUpperCase();
@@ -55,7 +55,10 @@ const HeaderProfile = ({ isAdmin }) => {
                 >
                     {!isAdmin && (
                         <>
-                            <Link to="/company/profile" className="dropdown-item">
+                            <Link
+                                to={isClient ? '/client/profile' : '/company/profile'}
+                                className="dropdown-item"
+                            >
                                 <img
                                     alt="profile icon"
                                     src={isDarkLogoEnabled ? ProfileIconDark : ProfileIcon}

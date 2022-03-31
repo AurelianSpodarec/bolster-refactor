@@ -12,6 +12,7 @@ import {
     ERROR_MODAL,
     CONFIRM_ARCHIVE,
     EDIT_BUILDING,
+    CREATE_HIERARCHY_ALERT_MODAL,
     DRAWING_EXPIRY_MODAL,
 } from 'constants/shared/modalTypes';
 import deleteBuilding from 'actions/companyAdmin/buildings/async/deleteBuilding';
@@ -82,6 +83,8 @@ class BuildingDetailsContainer extends Component {
                     companyID={companyID}
                     companyOptions={companiesForDropdown}
                     filteredStatsBool={filteredStatsBool}
+                    handleCreateHierarchyAlertModal={this.handleCreateHierarchyAlertModal}
+                    handleViewHierarchyAlerts={this.handleViewHierarchyAlerts}
                 />
             </BlockContainer>
         );
@@ -132,6 +135,14 @@ class BuildingDetailsContainer extends Component {
                     'There was an error processing your request, please try again later.',
             });
         }
+    };
+
+    handleCreateHierarchyAlertModal = () => {
+        const { showModal, building } = this.props;
+        showModal(CREATE_HIERARCHY_ALERT_MODAL, {
+            hierarchyType: HIERARCHY_IDS.BUILDING,
+            hierarchyID: building.id,
+        });
     };
 
     handleEditBuildingModal = () => {
@@ -193,6 +204,11 @@ class BuildingDetailsContainer extends Component {
             companyIDOption,
             serviceIDOption,
         );
+    };
+    handleViewHierarchyAlerts = () => {
+        const { building, history } = this.props;
+
+        history.push(`/company/buildings/${building.id}/upcoming-alerts`);
     };
 }
 

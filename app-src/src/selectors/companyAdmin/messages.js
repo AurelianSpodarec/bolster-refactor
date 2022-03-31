@@ -1,1 +1,1 @@
-export const selectMessages = state => state.companyAdmin.messagesReducer.messages;
+export const selectMessages = state => state.companyAdmin.messageCentreReducer.systemMessages;

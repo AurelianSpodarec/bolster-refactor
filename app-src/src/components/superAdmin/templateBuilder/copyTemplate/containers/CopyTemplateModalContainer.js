@@ -34,7 +34,7 @@ class CopyTemplateModalContainer extends Component {
     componentDidUpdate = (_, prevState) => {
         const { companyID } = this.state;
         const { fetchCompanyTemplates } = this.props;
-        if (prevState.companyID !== companyID) {
+        if (!!companyID && prevState.companyID !== companyID) {
             fetchCompanyTemplates(companyID);
         }
     };
@@ -78,15 +78,8 @@ class CopyTemplateModalContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
         const { templateUUID } = this.state;
-        const {
-            fetchTemplate,
-            templates,
-            postTemplate,
-            hideModal,
-            showModal,
-            history,
-            companyID,
-        } = this.props;
+        const { fetchTemplate, templates, postTemplate, hideModal, showModal, history, companyID } =
+            this.props;
 
         fetchTemplate(templateUUID).then(action => {
             const { template, sections, questions, labelFields } = action;
@@ -169,6 +162,7 @@ class CopyTemplateModalContainer extends Component {
                 labelFields: newLabelFields,
                 sections: newSections,
                 questions: newQuestions,
+                isClone: true,
             };
             postTemplate(templateData)
                 .then(({ template: newTemp }) => {

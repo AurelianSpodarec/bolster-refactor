@@ -26,7 +26,7 @@ import invoiceItemsReducer from './invoiceItems';
 import invoicesReducer from './invoices';
 import jobReferencesReducer from './jobReferences';
 import latestPinFeedReducer from './latestPinFeed';
-import messagesReducer from './messages';
+import messageCentreReducer from './messageCentre';
 import operativeAlertsReducer from './operativeAlerts';
 import operativesReducer from './operatives';
 import pendingInvitesReducer from './pendingInvites';
@@ -59,6 +59,7 @@ import userGuideReducer from './userGuide';
 import userDocumentsReducer from './userDocuments';
 import zonesReducer from './zones';
 import companySelectionReducer from './companySelection';
+import alertsReducer from './alerts';
 import timesheetsReducer from './timesheets';
 import timesheetPinStatsReducer from './timesheetPinStats';
 import userPinFeedsReducer from './userPinFeeds';
@@ -71,6 +72,7 @@ export default combineReducers({
     addPinDropdownOptions,
     addPinCoordinatesReducer,
     addPinFormReducer,
+    alertsReducer,
     appReducer,
     approvedCompaniesReducer,
     buildingsReducer,
@@ -101,7 +103,7 @@ export default combineReducers({
     jobReferencesReducer,
     latestPinFeedReducer,
     companyReportsReducer,
-    messagesReducer,
+    messageCentreReducer,
     manufacturersReducer,
     manufacturersOptionValuesReducer,
     operativeAlertsReducer,

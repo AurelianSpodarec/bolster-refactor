@@ -14,6 +14,7 @@ class DashboardDataByDrawingTableContainer extends Component {
                 error={error}
                 isEmpty={isEmpty(drawings)}
                 containerClass="always-scrollbar dashboard-operatives"
+                contentClass="no-border"
             >
                 <DashboardDataByDrawingTable
                     headers={['Name', 'Pins updated', '']}
@@ -29,16 +30,12 @@ class DashboardDataByDrawingTableContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        dashboardReducer: {
-            drawingData,
-            isFetchingDashPinsStats: isFetching,
-            error
-        }
-    }
+        dashboardReducer: { drawingData, isFetchingDashPinsStats: isFetching, error },
+    },
 }) => ({
     drawings: drawingData,
     isFetching,
-    error
+    error,
 });
 
 export default connect(mapStateToProps)(DashboardDataByDrawingTableContainer);

@@ -1,12 +1,12 @@
 .footer {
   height: 64px;
   width: calc(100% + 40px);
-  background: var(--navigation-primary);
+  background: var(--background-container);
   display: flex;
   margin: 16px 0 -20px -20px;
-  -webkit-box-shadow: inset 9px 0 14px -4px rgba(0,0,0,0.84);
-  -moz-box-shadow: inset 9px 0 14px -4px rgba(0,0,0,0.84);
-  box-shadow: inset 9px 0 14px -4px rgba(0,0,0,0.84);
+  // -webkit-box-shadow: inset 9px 0 14px -4px rgba(0,0,0,0.84);
+  // -moz-box-shadow: inset 9px 0 14px -4px rgba(0,0,0,0.84);
+  // box-shadow: inset 9px 0 14px -4px rgba(0,0,0,0.84);
 
   .link-wrapper {
     display:flex;
@@ -14,7 +14,7 @@
     height: 100%;
 
     a, p {
-      color: white;
+      color: var(--typography-default);
       font-size: 120%;
       margin: 0 32px;
    }
@@ -30,7 +30,7 @@
     .divider {
       width: 1px;
       height: 16px;
-      background: white;
+      background: var(--typography-default);
     }
   }
 

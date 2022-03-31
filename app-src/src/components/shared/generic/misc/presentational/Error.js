@@ -1,5 +1,5 @@
 import React from 'react';
 
-const Error = ({ children }) => <p>{children}</p>;
+const Error = ({ children, extraClasses }) => <p className={extraClasses}>{children}</p>;
 
 export default Error;

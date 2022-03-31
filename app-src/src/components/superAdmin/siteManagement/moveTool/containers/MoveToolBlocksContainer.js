@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { batch, connect } from 'react-redux';
 
 import MoveToolBlocks from '../presentational/MoveToolBlocks';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -14,7 +14,8 @@ import fetchFloorsForCompany from 'actions/superAdmin/moveTool/async/fetchFloors
 import fetchDrawingsForCompany from 'actions/superAdmin/moveTool/async/fetchDrawingsForCompany';
 import selectHierarchy from 'actions/superAdmin/moveTool/sync/selectHierarchy';
 import selectOption from 'actions/superAdmin/moveTool/sync/selectOption';
-
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
+const { BUILDING, FLOOR, DRAWING } = HIERARCHY_IDS;
 class MoveToolBlocksContainer extends Component {
     state = {
         moveFromCompany: null,
@@ -22,16 +23,16 @@ class MoveToolBlocksContainer extends Component {
     };
 
     hierarchyOptions = {
-        2: {
-            id: 2,
+        [BUILDING]: {
+            id: +BUILDING,
             name: 'Buildings',
         },
-        3: {
-            id: 3,
+        [FLOOR]: {
+            id: +FLOOR,
             name: 'Floors',
         },
-        4: {
-            id: 4,
+        [DRAWING]: {
+            id: +DRAWING,
             name: 'Drawings',
         },
     };
@@ -72,21 +73,29 @@ class MoveToolBlocksContainer extends Component {
             postError,
             showModal,
             hideModal,
+            selectOption,
         } = this.props;
 
-        if (prevState.moveFromCompany !== moveFromCompany)
+        if (moveFromCompany && prevState.moveFromCompany !== moveFromCompany) {
             fetchHierarchiesForCompany(moveFromCompany);
+        }
 
-        if (prevState.moveToCompany !== moveToCompany) fetchHierarchiesForCompany(moveToCompany);
+        if (moveToCompany && prevState.moveToCompany !== moveToCompany) {
+            fetchHierarchiesForCompany(moveToCompany);
+        }
 
         if (prevProps.isPosting && !isPosting && postSuccess) {
             hideModal();
             showModal(SUCCESS_MODAL, {
                 message: 'The move was successful!',
             });
-            fetchHierarchiesForCompany(moveFromCompany);
-            fetchHierarchiesForCompany(moveToCompany);
-            this.props.selectOption(null);
+            if (moveFromCompany) {
+                fetchHierarchiesForCompany(moveFromCompany);
+            }
+            if (moveToCompany) {
+                fetchHierarchiesForCompany(moveToCompany);
+            }
+            selectOption(null);
         }
 
         if (prevProps.isPosting && !isPosting && postError) {
@@ -156,23 +165,17 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => dispatch(showModal(type, props)),
-    hideModal: () => {
-        dispatch(hideModal());
-    },
-    fetchAllCompanies: () => {
-        dispatch(fetchAllCompanies());
-    },
+    hideModal: () => dispatch(hideModal()),
+    fetchAllCompanies: () => dispatch(fetchAllCompanies()),
+    selectHierarchy: value => dispatch(selectHierarchy(value)),
+    selectOption: value => dispatch(selectOption(value)),
     fetchHierarchiesForCompany: companyID => {
-        dispatch(fetchSitesForCompany(companyID));
-        dispatch(fetchBuildingsForCompany(companyID));
-        dispatch(fetchFloorsForCompany(companyID));
-        dispatch(fetchDrawingsForCompany(companyID));
-    },
-    selectHierarchy: value => {
-        dispatch(selectHierarchy(value));
-    },
-    selectOption: value => {
-        dispatch(selectOption(value));
+        batch(() => {
+            dispatch(fetchSitesForCompany(companyID));
+            dispatch(fetchBuildingsForCompany(companyID));
+            dispatch(fetchFloorsForCompany(companyID));
+            dispatch(fetchDrawingsForCompany(companyID));
+        });
     },
 });
 

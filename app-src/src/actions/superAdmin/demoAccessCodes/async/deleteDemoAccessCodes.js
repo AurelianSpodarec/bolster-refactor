@@ -16,6 +16,7 @@ export const deleteDemoAccessCodesRequest = () => ({
 export const deleteDemoAccessCodesSuccess = (id, payload) => ({
     type: DELETE_DEMO_ACCESS_CODES_SUCCESS,
     id,
+    payload,
 });
 
 export const deleteDemoAccessCodesFailure = error => ({

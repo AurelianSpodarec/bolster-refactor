@@ -1,1 +1,1 @@
-export const selectClientMessages = state => state.client.messagesReducer.messages;
+export const selectClientMessages = state => state.client.messageCentreReducer.messages;

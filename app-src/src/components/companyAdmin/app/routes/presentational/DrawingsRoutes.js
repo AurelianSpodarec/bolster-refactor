@@ -16,6 +16,7 @@ import EditCompanyPermissionsOnDrawingContainer from 'components/companyAdmin/dr
 import AddPin from 'components/companyAdmin/pins/addPin/presentational/AddPin';
 import AddCompanyPermissionsToDrawing from 'components/companyAdmin/drawings/addCompanyPermissionsToDrawing/presentational/AddCompanyPermissionsToDrawing';
 import DocumentResponsesContainer from 'components/shared/documents/containers/DocumentResponsesContainer';
+import HierarchyAlerts from 'components/companyAdmin/upcomingAlerts/hierarchys/HierarchyAlerts';
 
 const DrawingsRoutes = ({ base = '/company/drawings' }) => (
     <SwitchWith404>
@@ -51,6 +52,7 @@ const DrawingsRoutes = ({ base = '/company/drawings' }) => (
             component={EditCompanyPermissionsOnDrawingContainer}
         />
         <Route exact path={`${base}/:id/add-pin`} component={AddPin} />
+        <Route exact path={`${base}/:id/upcoming-alerts`} component={HierarchyAlerts} />
     </SwitchWith404>
 );
 
