@@ -399,6 +399,14 @@ button {
         }
     }
 
+    .custom-icon {
+        width: 15px;
+        height: 15px;
+        + .text {
+            margin-left: 8px;
+        }
+    }
+
     &:active {
         color: #F9FAFA;
     }
