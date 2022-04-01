@@ -2952,6 +2952,11 @@ input {
     }
 }
 
+
+.margin-top {
+    margin-top: 16px;
+}
+
 @import './pages/user-managment';
 // mobile
 @import './dashboard-mobile.scss';

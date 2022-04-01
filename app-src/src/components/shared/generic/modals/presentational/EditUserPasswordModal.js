@@ -5,6 +5,8 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonWrapper from '../../button/presentational/ButtonWrapper';
+import ActionButton from '../../button/presentational/ActionButton';
 
 const EditUserPasswordModal = ({
     password,
@@ -43,14 +45,17 @@ const EditUserPasswordModal = ({
                     />
                 </Field>
             </div>
-            <BlockButtonWrapper>
-                <button className="button green" type="submit">
-                    Submit
-                </button>
-                <button className="button" onClick={hideModal}>
-                    Cancel
-                </button>
-            </BlockButtonWrapper>
+            <div className="size-lg-12">
+                <ButtonWrapper alignment="right">
+                    <ActionButton
+                        text="Cancel"
+                        onClick={hideModal}
+                        source="secondary"
+                        size="small"
+                    />
+                    <ActionButton text="Confirm" type="submit" icon="check" size="small" />
+                </ButtonWrapper>
+            </div>
         </Form>
     </ModalOuterContainer>
 );
