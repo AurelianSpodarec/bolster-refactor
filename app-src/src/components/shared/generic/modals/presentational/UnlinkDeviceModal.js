@@ -1,10 +1,7 @@
 import React from 'react';
 import ModalOuterContainer from '../containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ActionButton from '../../button/presentational/ActionButton';
-import SelectAllIcon from '../../../../../_content/images/icons/sync.svg';
-import { REMOVE_DRAWINGS_ACCESS } from '../../../../../constants/shared/modalTypes';
 import ButtonWrapper from '../../button/presentational/ButtonWrapper';
 
 const UnlinkDeviceModal = ({

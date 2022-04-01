@@ -5,7 +5,6 @@ import UserDrawingListItemContainer from '../containers/UserDrawingListItemConta
 import { REMOVE_DRAWINGS_ACCESS } from 'constants/shared/modalTypes';
 import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
 import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
-import SelectAllIcon from '_content/images/icons/sync.svg';
 
 const UserDrawingsTable = ({
     headers,
@@ -18,8 +17,33 @@ const UserDrawingsTable = ({
     showModal,
     selectAll,
     drawingServices,
+    isAllSelected,
 }) => (
     <>
+        <ButtonWrapper alignment="right">
+            <ActionButton
+                text={isAllSelected ? 'Deselect All' : 'Select All'}
+                onClick={() => selectAll()}
+                size="small"
+                icon={isAllSelected ? 'times' : 'check'}
+                source="secondary"
+                ambient="positive"
+            />
+
+            {!!checkedDrawings.length && (
+                <ActionButton
+                    text="Remove"
+                    onClick={() =>
+                        showModal(REMOVE_DRAWINGS_ACCESS, {
+                            checkedDrawings: checkedDrawings,
+                            userID: userID,
+                        })
+                    }
+                    size="small"
+                    icon="trash"
+                />
+            )}
+        </ButtonWrapper>
         <Table
             withActions
             headers={headers}
@@ -41,10 +65,10 @@ const UserDrawingsTable = ({
         <div className="button-container">
             <ButtonWrapper alignment="right">
                 <ActionButton
-                    text="Select All"
+                    text={isAllSelected ? 'Deselect All' : 'Select All'}
                     onClick={() => selectAll()}
                     size="small"
-                    customIcon={SelectAllIcon}
+                    icon={isAllSelected ? 'times' : 'check'}
                     source="secondary"
                     ambient="positive"
                 />
