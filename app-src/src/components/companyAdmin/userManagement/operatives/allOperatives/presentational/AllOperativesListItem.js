@@ -112,6 +112,7 @@ const AllOperativesListItem = ({
                     text="Drawing Access"
                     size="small"
                     icon="key"
+                    iconWeight="regular"
                     href={`/company/users-management/operative/${user.id}/drawings`}
                 />
                 <div>
