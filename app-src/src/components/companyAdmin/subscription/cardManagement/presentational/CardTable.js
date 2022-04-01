@@ -2,6 +2,8 @@ import React from 'react';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import CardsList from './CardsList';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const CardTable = ({
     headers,
@@ -11,7 +13,7 @@ const CardTable = ({
     showModal,
     setPrimaryCard,
     deleteCard,
-    onMobile
+    onMobile,
 }) => (
     <>
         <Table
@@ -31,10 +33,9 @@ const CardTable = ({
             />
         </Table>
         <BlockButtonWrapper>
-            <button className="button green" onClick={showModal}>
-                <i className="fa fa-plus" />
-                Add Card
-            </button>
+            <ButtonWrapper alignment="right">
+                <ActionButton text="Add Card" icon="plus" ambient="positive" onClick={showModal} />
+            </ButtonWrapper>
         </BlockButtonWrapper>
     </>
 );

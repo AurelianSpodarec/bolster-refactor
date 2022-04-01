@@ -418,6 +418,11 @@ button {
 
     &.icon-only {
         padding: 12px;
+
+        .icon {
+            margin-left: 0;
+            margin-right: 0;
+        }
     }
 
     // small
