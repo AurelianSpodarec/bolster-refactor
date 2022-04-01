@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 
-import bolsterLogo from '../../../../../_content/images/footer/powered–by-bolster-white.svg';
+import bolsterLogo from '../../../../../_content/images/footer/powered-by-bolster-red.svg';
+import bolsterLogoDarkMode from '../../../../../_content/images/footer/powered–by-bolster-white.svg';
 import SuperAdminMenuItemContainer from '../containers/SuperAdminMenuItemContainer';
+import useColourTheme from '../../../../../hooks/useColourTheme';
 
 const SuperAdminMenu = ({ superAdminNavMenuItems, latestAppVersion }) => {
     const [hoveredItem, setHoveredItem] = useState(null);
+    const colourTheme = useColourTheme();
 
     return (
         <div className="menu">
@@ -13,14 +16,17 @@ const SuperAdminMenu = ({ superAdminNavMenuItems, latestAppVersion }) => {
                     <SuperAdminMenuItemContainer
                         key={index}
                         item={navItem}
-                        hover={hoveredItem === navItem.name}
+                        hoveredItem={hoveredItem}
                         setHoveredItem={setHoveredItem}
                     />
                 ))}
             </div>
 
             <div className="nav-footer">
-                <img src={bolsterLogo} alt="Powered by Bolster" />
+                <img
+                    src={colourTheme === 'dark' ? bolsterLogoDarkMode : bolsterLogo}
+                    alt="Powered by Bolster"
+                />
                 <p>App version: {latestAppVersion}</p>
             </div>
         </div>

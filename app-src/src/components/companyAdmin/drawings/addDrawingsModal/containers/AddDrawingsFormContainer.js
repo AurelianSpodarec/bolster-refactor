@@ -249,7 +249,7 @@ const AddDrawingsFormContainer = ({
             isEmpty={isFetching || !areOptionsLoaded}
             isFetching={isFetching || !areOptionsLoaded}
             error={error}
-            contentClass="no-padding"
+            contentClass="no-padding no-border"
         >
             <AddDrawingsForm
                 drawings={Object.values(drawings)}

@@ -13,6 +13,7 @@ import {
     SUCCESS_MODAL,
     CONFIRM_ARCHIVE,
     EDIT_FLOOR,
+    CREATE_HIERARCHY_ALERT_MODAL,
     DRAWING_EXPIRY_MODAL,
 } from 'constants/shared/modalTypes';
 import archiveFloor from 'actions/companyAdmin/floors/async/archiveFloor';
@@ -79,6 +80,8 @@ class FloorDetailsContainer extends Component {
                     handleChange={this.handleChange}
                     serviceOptions={servicesForDropdown}
                     serviceID={serviceID}
+                    handleCreateHierarchyAlertModal={this.handleCreateHierarchyAlertModal}
+                    handleViewHierarchyAlerts={this.handleViewHierarchyAlerts}
                     handleViewDrawingExpiryModal={this.handleViewDrawingExpiryModal}
                     companyID={companyID}
                     companyOptions={companiesForDropdown}
@@ -120,6 +123,14 @@ class FloorDetailsContainer extends Component {
                     '##There was an error processing your request, please try again later.##',
             });
         }
+    };
+
+    handleCreateHierarchyAlertModal = () => {
+        const { showModal, floor } = this.props;
+        showModal(CREATE_HIERARCHY_ALERT_MODAL, {
+            hierarchyType: HIERARCHY_IDS.FLOOR,
+            hierarchyID: floor.id,
+        });
     };
 
     handleEditFloorModal = () => {
@@ -177,6 +188,11 @@ class FloorDetailsContainer extends Component {
         const serviceIDOption = name === 'serviceID' ? value : serviceID;
 
         filterPinStats(floor.id, HIERARCHY_IDS.FLOOR, companyIDOption, serviceIDOption);
+    };
+    handleViewHierarchyAlerts = () => {
+        const { floor, history } = this.props;
+
+        history.push(`/company/floors/${floor.id}/upcoming-alerts`);
     };
 }
 

@@ -7,31 +7,36 @@ import DashboardPieChartContainer from '../containers/DashboardPieChartContainer
 import DashboardBarChartContainer from '../containers/DashboardBarChartContainer';
 import DashboardDataByContainer from '../containers/DashboardDataByContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import { useConfirmDarkTheme } from 'helpers/hooks';
 
-const Dashboard = ({ isIE10 }) => (
-    <>
-        <PageHeading title="Dashboard" />
-        {isIE10 ? (
-            <div className="flex-row flex-wrap width-12 size-lg-12">
-                <BlockContainer
-                    error="Dashboard not available on Internet Explorer 10"
-                    containerClass="flex-row-item size-lg-12 size-md-12"
-                ></BlockContainer>
-            </div>
-        ) : (
-            <>
-                <DashboardStatsFiltersContainer />
+const Dashboard = ({ isIE10 }) => {
+    useConfirmDarkTheme('/company/profile');
+
+    return (
+        <>
+            <PageHeading title="Dashboard" />
+            {isIE10 ? (
                 <div className="flex-row flex-wrap width-12 size-lg-12">
-                    <DashboardBarChartContainer />
-                    <DashboardDataByContainer />
+                    <BlockContainer
+                        error="Dashboard not available on Internet Explorer 10"
+                        containerClass="flex-row-item size-lg-12 size-md-12"
+                    ></BlockContainer>
                 </div>
-                <div className="flex-row flex-wrap width-12 size-lg-12">
-                    <DashboardPieChartContainer />
-                    <DashboardPinFeedContainer />
-                </div>
-            </>
-        )}
-    </>
-);
+            ) : (
+                <>
+                    <DashboardStatsFiltersContainer />
+                    <div className="flex-row flex-wrap width-12 size-lg-12">
+                        <DashboardBarChartContainer />
+                        <DashboardDataByContainer />
+                    </div>
+                    <div className="flex-row flex-wrap width-12 size-lg-12">
+                        <DashboardPieChartContainer />
+                        <DashboardPinFeedContainer />
+                    </div>
+                </>
+            )}
+        </>
+    );
+};
 
 export default Dashboard;

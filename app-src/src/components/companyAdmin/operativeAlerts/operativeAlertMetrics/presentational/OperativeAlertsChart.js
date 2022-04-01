@@ -2,7 +2,7 @@ import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 
 const OperativeAlertsChart = ({ alert }) => {
-    const { sentCount, deliveredCount, readCount } = alert;
+    const { sentCount, deliveredCount, readCount } = alert ?? {};
     const sent = sentCount - deliveredCount;
     const delivered = deliveredCount - readCount;
     const data = {

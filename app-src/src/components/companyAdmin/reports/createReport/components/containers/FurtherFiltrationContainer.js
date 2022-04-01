@@ -78,58 +78,56 @@ class FurtherFiltrationContainer extends Component {
                         blockName="pinSelector"
                     />
                 ) : +furtherFiltrationOption === +FILTERS ? (
-                    
-                        <div className="custom-filters-block">
-                            <Field 
-                                name="Exact match?"
-                                classes="fields-inside"
-                                sizeClasses="size-lg-2 size-md-12"
-                            >
+                    <div className="custom-filters-block">
+                        <Field
+                            name="Exact match?"
+                            classes="fields-inside"
+                            sizeClasses="size-lg-2 size-md-12"
+                        >
+                            <CheckboxContainer
+                                checked={this.props.filters.isQuestionFilterExact}
+                                name="isQuestionFilterExact"
+                                text=""
+                                handleChange={this.handleExactMatchChange}
+                            />
+                        </Field>
 
-                                <CheckboxContainer
-                                    checked={this.props.filters.isQuestionFilterExact}
-                                    name="isQuestionFilterExact"
-                                    text=""
-                                    handleChange={this.handleExactMatchChange}
-                                />  
-                            </Field>
+                        {this.state.addFilter ? (
+                            <FilterFieldsModalContainer
+                                id={this.state.filterToEditID}
+                                toggleAddFilter={this.toggleAddFilter}
+                            />
+                        ) : (
+                            <>
+                                <div className="size-lg-12">
+                                    {fields.map(field => (
+                                        <FilterField
+                                            key={field.id}
+                                            field={field}
+                                            questions={this._getQuestionsOptions()}
+                                            handleShowCustomFieldModal={
+                                                this.handleShowCustomFieldModal
+                                            }
+                                            removeCustomField={this.removeCustomField}
+                                            isQuestionFilterExact={
+                                                this.props.filters.isQuestionFilterExact
+                                            }
+                                        />
+                                    ))}
+                                </div>
 
-                            {this.state.addFilter ? (
-                                <FilterFieldsModalContainer
-                                    id={this.state.filterToEditID}
-                                    toggleAddFilter={this.toggleAddFilter}
-                                />
-                            ) : (
-                                <>
-                                    <div className="size-lg-12">
-                                        {fields.map(field => (
-                                            <FilterField
-                                                key={field.id}
-                                                field={field}
-                                                questions={this._getQuestionsOptions()}
-                                                handleShowCustomFieldModal={this.handleShowCustomFieldModal}
-                                                removeCustomField={this.removeCustomField}
-                                                isQuestionFilterExact={this.props.filters.isQuestionFilterExact}
-                                                
-                                                />
-                                            ))}
-                                    </div>
-                                    
-
-                                    <BlockButtonWrapper>
-                                        <button
-                                            onClick={this.toggleAddFilter}
-                                            type="button"
-                                            className="button green"
-                                        >
-                                            <i className="fa fa-plus fa-fw" /> Add filter
-                                        </button>
-                                    </BlockButtonWrapper>
-                                </>
-                            )
-                            }
-                            
-                        </div>
+                                <BlockButtonWrapper>
+                                    <button
+                                        onClick={this.toggleAddFilter}
+                                        type="button"
+                                        className="button green"
+                                    >
+                                        <i className="fa fa-plus fa-fw" /> Add filter
+                                    </button>
+                                </BlockButtonWrapper>
+                            </>
+                        )}
+                    </div>
                 ) : null}
             </BlockContainer>
         );

@@ -26,6 +26,10 @@ import {
     FETCH_COMPANY_ADMIN_USERS_REQUEST,
     FETCH_COMPANY_ADMIN_USERS_SUCCESS,
     FETCH_COMPANY_ADMIN_USERS_FAILURE,
+    ADMIN_EDIT_USER_EMAIL_REQUEST,
+    ADMIN_EDIT_USER_EMAIL_SUCCESS,
+    ADMIN_EDIT_USER_EMAIL_FAILURE,
+    ADMIN_EDIT_USER_EMAIL_SHOW_MODAL,
 } from 'constants/actionTypes/users';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
@@ -51,6 +55,7 @@ export default combineReducers({
     companyUsersInfo: companyUsersInfoReducer,
     companyAdmins: companyAdminUsersReducer,
     isPosting: isPostingReducer,
+    shouldShowMergeModal: shouldShowMergeModalReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -82,6 +87,7 @@ function postSuccessReducer(state = false, action) {
         case FORCE_CONFIRM_USER_EMAIL_REQUEST:
         case REMOVE_USER_LOCKOUT_REQUEST:
         case ADMIN_EDIT_COMPANY_OWNER_REQUEST:
+        case ADMIN_EDIT_USER_EMAIL_REQUEST:
             return false;
         case EDIT_USER_SUCCESS:
         case EDIT_USER_PASSWORD_SUCCESS:
@@ -89,6 +95,7 @@ function postSuccessReducer(state = false, action) {
         case FORCE_CONFIRM_USER_EMAIL_SUCCESS:
         case REMOVE_USER_LOCKOUT_SUCCESS:
         case ADMIN_EDIT_COMPANY_OWNER_SUCCESS:
+        case ADMIN_EDIT_USER_EMAIL_SUCCESS:
             return true;
         default:
             return state;
@@ -107,6 +114,7 @@ function errorReducer(state = null, action) {
         case REMOVE_USER_LOCKOUT_REQUEST:
         case FETCH_COMPANY_ADMIN_USERS_REQUEST:
         case ADMIN_EDIT_COMPANY_OWNER_REQUEST:
+        case ADMIN_EDIT_USER_EMAIL_REQUEST:
             return null;
         case FETCH_ALL_USERS_FAILURE:
         case EDIT_USER_FAILURE:
@@ -118,6 +126,7 @@ function errorReducer(state = null, action) {
         case REMOVE_USER_LOCKOUT_FAILURE:
         case FETCH_COMPANY_ADMIN_USERS_FAILURE:
         case ADMIN_EDIT_COMPANY_OWNER_FAILURE:
+        case ADMIN_EDIT_USER_EMAIL_FAILURE:
             return action.error;
         default:
             return state;
@@ -134,6 +143,7 @@ function usersReducer(state = {}, action) {
         case ADMIN_CREATE_COMPANY_USER_SUCCESS:
         case FORCE_CONFIRM_USER_EMAIL_SUCCESS:
         case REMOVE_USER_LOCKOUT_SUCCESS:
+        case ADMIN_EDIT_USER_EMAIL_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case ADMIN_FETCH_COMPANY_USERS_SUCCESS:
             return convertArrToObj(action.payload);
@@ -207,12 +217,27 @@ function isPostingReducer(state = false, action) {
     switch (action.type) {
         case ADMIN_EDIT_COMPANY_OWNER_REQUEST:
         case ADMIN_CREATE_COMPANY_USER_REQUEST:
+        case ADMIN_EDIT_USER_EMAIL_REQUEST:
             return true;
         case ADMIN_EDIT_COMPANY_OWNER_FAILURE:
         case ADMIN_EDIT_COMPANY_OWNER_SUCCESS:
         case ADMIN_CREATE_COMPANY_USER_SUCCESS:
         case ADMIN_CREATE_COMPANY_USER_FAILURE:
+        case ADMIN_EDIT_USER_EMAIL_SUCCESS:
+        case ADMIN_EDIT_USER_EMAIL_FAILURE:
+        case ADMIN_EDIT_USER_EMAIL_SHOW_MODAL:
             return false;
+        default:
+            return state;
+    }
+}
+
+function shouldShowMergeModalReducer(state = false, action) {
+    switch (action.type) {
+        case ADMIN_EDIT_USER_EMAIL_REQUEST:
+            return false;
+        case ADMIN_EDIT_USER_EMAIL_SHOW_MODAL:
+            return true;
         default:
             return state;
     }

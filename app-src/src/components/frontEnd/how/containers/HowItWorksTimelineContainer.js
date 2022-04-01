@@ -25,7 +25,7 @@ const HowItWorksTimelineContainer = () => {
 
         const topValues = items.map((item, index) => {
             const itemElement = document.querySelector(`.item-container.item-${index}`);
-            const { top } = itemElement.getBoundingClientRect();
+            const { top } = itemElement?.getBoundingClientRect();
 
             return top;
         });

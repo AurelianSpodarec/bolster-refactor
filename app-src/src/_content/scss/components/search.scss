@@ -1,89 +1,101 @@
 // generic search
 .generic-search {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    background-color: var(--input-secondary);    
-    @include rounded-all(21px);
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: var(--input-secondary);
+  @include rounded-all(21px);
 
-    .search-icon {
-        margin-right: 20px;
-        align-items: center;
-        justify-content: flex-end;
-        color: $dark-grey;
-        font-size: 150%;
-    }
-
-    .clear-button {
-        position: absolute;
-        right: 10px;
-        @include vertical-center;
-        color: $dark-grey;
-        background-color: transparent;
-        font-size: 150%;
-        cursor: pointer;
-
-        transition: color 300ms ease;
-
-        &:hover {
-            color: $red;
-        }
-    }
-
+  &.header-nav {
     input {
-        width: 100%;
-        padding: 11px 20px;
-        background-color: transparent;
-        border: none;
-        outline: none;
-        font-size: 160%;
-        color: black;
-        &::placeholder {
-            color: var(--fixed-input-button-light);
-        }
+      color: var(--typography-search-header);
     }
+
+    input::placeholder {
+      color: var(--typography-greyed-out);
+    }
+  }
+
+  .search-icon {
+    margin-right: 20px;
+    align-items: center;
+    justify-content: flex-end;
+    color: var(--fixed-input-button-light);
+    font-size: 150%;
+  }
+
+  .clear-button {
+    position: absolute;
+    right: 10px;
+    @include vertical-center;
+    color: $dark-grey;
+    background-color: transparent;
+    font-size: 150%;
+    cursor: pointer;
+
+    transition: color 300ms ease;
+
+    &:hover {
+      color: $red;
+    }
+  }
+
+  input {
+    width: 100%;
+    padding: 11px 20px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 160%;
+    color: var(--typography-search);
+
+    &::placeholder {
+      color: var(--typography-search);
+    }
+
+  }
 }
 
 // generic search results
 .dropdown-search-results {
-    position: absolute;
-    top: 100%;
-    left: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  min-width: 405px;
+  max-height: 500px;
+  background-color: white;
+  @include dropdown-popup();
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-box-shadow: 0 6px 9px -1px #000000;
+  box-shadow: 0 6px 9px -1px #000000;
+
+  &.visible {
+    z-index: 10001;
+  }
+
+  a {
+    float: left;
     width: 100%;
-    min-width: 405px;
-    max-height: 500px;
-    background-color: white;
-    @include dropdown-popup();
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-box-shadow: 0 6px 9px -1px #000000;
-    box-shadow: 0 6px 9px -1px #000000;
+    padding: 10px 15px;
+    font-size: 140%;
+    color: #303030;
+    text-decoration: none;
+    border-bottom: 2px solid #f5f5f5;
 
-    &.visible {
-        z-index: 10001;
+    i {
+      margin-right: 5px;
+      font-size: 130%;
+      top: 1px;
     }
 
-    a {
-        float: left;
-        width: 100%;
-        padding: 10px 15px;
-        font-size: 140%;
-        color: #303030;
-        text-decoration: none;
-        border-bottom: 2px solid #f5f5f5;
-
-        i {
-            margin-right: 5px;
-            font-size: 130%;
-            top: 1px;
-        }
-
-        &:hover {
-            opacity: 0.8;
-        }
-
-        &:last-child {
-            border-bottom: none;
-        }
+    &:hover {
+      opacity: 0.8;
     }
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
 }

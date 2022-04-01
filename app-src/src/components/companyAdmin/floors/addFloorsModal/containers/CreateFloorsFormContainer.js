@@ -161,9 +161,8 @@ const CreateFloorsFormContainer = ({
             }
             if (!isDropdownOptionsInherited) {
                 initialDropdownOptions.dropdownOptions = formatDropdownOptions(dropdownOptions);
-                initialDropdownOptions.selectedDropdownOptions = getPreselectedItemTypes(
-                    dropdownOptions,
-                );
+                initialDropdownOptions.selectedDropdownOptions =
+                    getPreselectedItemTypes(dropdownOptions);
             }
 
             if (isManufacturingInherited) {
@@ -228,7 +227,7 @@ const CreateFloorsFormContainer = ({
             }
             isFetching={isFetching || !areOptionsLoaded}
             error={error}
-            contentClass="no-padding"
+            contentClass="no-padding no-border"
         >
             <CreateFloorsForm
                 floors={Object.values(floors)}

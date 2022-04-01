@@ -171,7 +171,6 @@ class DrawingMapGeneralContainer extends Component {
         this._resetCoordinates();
         const {
             drawing = {},
-            postFilters,
             updateReportFilter,
             fetchSingleDrawing,
             pinsFromAPI = [],
@@ -208,7 +207,6 @@ class DrawingMapGeneralContainer extends Component {
         fromDateInclusive,
         toDateInclusive,
         fieldErrors,
-        rectangles: prevRectangles,
         furtherFiltrationOption: prevOption,
         objectUsers: prevUsers,
         isModified: prevIsModified,
@@ -222,8 +220,6 @@ class DrawingMapGeneralContainer extends Component {
             postSuccess,
             pinsFromAPI = [],
             removeFieldError,
-            rectangles,
-            postFilters,
             furtherFiltrationOption,
             removeAllRectangles,
             objectUsers,
@@ -316,7 +312,7 @@ class DrawingMapGeneralContainer extends Component {
     };
 
     handleDateChange = (date, name) => {
-        const { handleChange, postFilters } = this.props;
+        const { handleChange } = this.props;
         handleChange(name, date);
     };
 

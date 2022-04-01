@@ -10,8 +10,8 @@ import { CRS } from 'leaflet';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
-import { ACCESS_TYPES_VALUES, FLOORPLAN_STATES } from 'constants/companyAdmin/enums';
-import { EDIT_DRAWING } from 'constants/shared/modalTypes';
+import { ACCESS_TYPES_VALUES, FLOORPLAN_STATES, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
+import { CREATE_HIERARCHY_ALERT_MODAL, EDIT_DRAWING } from 'constants/shared/modalTypes';
 import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
 import RedX from 'components/shared/pins/map/presentational/RedX';
 import PinSelectorOptions from 'components/shared/pinSelector/presentational/PinSelectorOptions';
@@ -21,6 +21,7 @@ import DrawingMapAddZone from './DrawingMapAddZone';
 import DrawingMapViewZones from './DrawingMapViewZones';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import { doPinsHaveIcons } from 'helpers/general';
+import { useDispatch } from 'react-redux';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 
@@ -67,6 +68,7 @@ const DrawingMapViewSimple = ({
     togglePinIconView,
     togglePinTasksView,
 }) => {
+    const dispatch = useDispatch();
     const mapRef = useRef();
     const [shouldScroll, setShouldScroll] = useState(false);
 
@@ -86,6 +88,15 @@ const DrawingMapViewSimple = ({
         popupAnchor: [0, -50],
     });
     const shouldShowFloorplan = !!drawing.tilesetS3Key && !updating;
+
+    const handleCreateHierarchyAlertModal = () => {
+        dispatch(
+            showModal(CREATE_HIERARCHY_ALERT_MODAL, {
+                hierarchyType: HIERARCHY_IDS.DRAWING,
+                hierarchyID: drawing.id,
+            }),
+        );
+    };
 
     const handleMapClick = e => {
         if (shouldScroll) {
@@ -185,6 +196,27 @@ const DrawingMapViewSimple = ({
                                                 />
                                             </>
                                         )}
+                                    <button
+                                        className="button yellow"
+                                        type="button"
+                                        onClick={() =>
+                                            history.push(
+                                                `/company/drawings/${drawing.id}/upcoming-alerts`,
+                                            )
+                                        }
+                                    >
+                                        <i className="fa fa-eye" />
+                                        View Alerts
+                                    </button>
+
+                                    <button
+                                        className="button green"
+                                        type="button"
+                                        onClick={handleCreateHierarchyAlertModal}
+                                    >
+                                        <i className="fa fa-plus" />
+                                        Create Alert
+                                    </button>
                                 </>
                             )
                         )}

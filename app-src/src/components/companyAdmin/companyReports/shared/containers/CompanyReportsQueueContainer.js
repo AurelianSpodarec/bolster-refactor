@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import fetchCompanyReports from 'actions/companyAdmin/companyReports/async/fetchCompanyReports';
 import CompanyReports from '../presentational/CompanyReports';
 import fetchCompanyReportsFull from 'actions/companyAdmin/companyReports/async/fetchCompanyReportsFull';
-import fetchMessagesBasic from 'actions/companyAdmin/messages/async/fetchMessagesBasic';
-import { MESSAGE_TYPES } from '../../../../../constants/companyAdmin/enums';
-import dismissMessages from '../../../../../actions/companyAdmin/messages/async/dismissMessages';
+import dismissSystemMessages from '../../../../../actions/companyAdmin/messageCentre/async/dismissSystemMessages';
 
 class CompanyReportsQueueContainer extends Component {
     state = {
@@ -15,7 +13,7 @@ class CompanyReportsQueueContainer extends Component {
     render = () => <CompanyReports />;
 
     componentDidUpdate = prevProps => {
-        const { fetchingFullReports, fetchCompanyReportsFull, fetchMessagesBasic } = this.props;
+        const { fetchingFullReports, fetchCompanyReportsFull } = this.props;
 
         if (fetchingFullReports && !prevProps.fetchingFullReports) {
             this.setState({
@@ -24,18 +22,16 @@ class CompanyReportsQueueContainer extends Component {
             clearInterval(this._interval);
             this._interval = setInterval(() => {
                 fetchCompanyReportsFull();
-                fetchMessagesBasic();
             }, 5000);
         }
     };
     componentDidMount = () => {
-        const { fetchCompanyReports, fetchMessagesBasic, dismissMessages } = this.props;
+        const { fetchCompanyReports, dismissSystemMessages } = this.props;
         fetchCompanyReports();
-        dismissMessages(MESSAGE_TYPES.NOTIFICATION);
+        dismissSystemMessages();
 
         this._interval = setInterval(() => {
             fetchCompanyReports();
-            fetchMessagesBasic();
         }, 5000);
     };
 
@@ -50,11 +46,6 @@ const mapStateToProps = ({
     fetchingFullReports,
 });
 
-const mapDispatchToProps = {
-    fetchCompanyReports,
-    fetchCompanyReportsFull,
-    fetchMessagesBasic,
-    dismissMessages,
-};
+const mapDispatchToProps = { fetchCompanyReports, fetchCompanyReportsFull, dismissSystemMessages };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompanyReportsQueueContainer);

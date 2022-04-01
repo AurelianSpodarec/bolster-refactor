@@ -1,0 +1,46 @@
+import React from 'react';
+import { useDispatch } from 'react-redux';
+
+import { MESSAGE_CENTRE_DRAWING_EXPIRY } from 'constants/shared/modalTypes';
+
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import dismissDrawingExpiryMessage from 'actions/companyAdmin/messageCentre/async/dismissDrawingExpiryMessage';
+
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+
+const DrawingExpiryListItem = ({ message: { id, drawings, createdOn } }) => {
+    const dispatch = useDispatch();
+
+    const handleViewDrawings = e => {
+        e.preventDefault();
+        dispatch(showModal(MESSAGE_CENTRE_DRAWING_EXPIRY, { drawings }));
+    };
+    return (
+        <div key={id} className="message-wrapper">
+            <div className="title-wrapper">
+                <h3 className="title">{`You have ${drawings.length} drawings set to expire in the next 2 weeks`}</h3>
+
+                <div className="date-wrapper">
+                    <span className="date">
+                        <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATE} />
+                    </span>
+                    <button
+                        className="no-background-btn"
+                        onClick={() => dispatch(dismissDrawingExpiryMessage(id))}
+                    >
+                        <i className="fas fa-times-circle close-icon" />
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <button className="button rounded" onClick={handleViewDrawings}>
+                    View Drawings
+                </button>
+            </div>
+        </div>
+    );
+};
+
+export default DrawingExpiryListItem;

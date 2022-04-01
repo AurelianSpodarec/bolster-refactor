@@ -10,7 +10,8 @@ const SearchBar = ({
     handleChange,
     results,
     ref,
-    handleLinkClick
+    handleLinkClick,
+    className,
 }) => (
     <div className="size-lg-12" ref={ref}>
         <Search
@@ -18,6 +19,7 @@ const SearchBar = ({
             handleChange={handleChange}
             value={searchTerm}
             name="searchTerm"
+            className={className}
         />
         {resultsVisible && (
             <div className="dropdown-search-results visible">

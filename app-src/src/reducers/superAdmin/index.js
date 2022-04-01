@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 
+import activityLogReducer from './activityLog';
 import companiesReducer from './companies';
 import contactSubmissionsReducer from './contactSubmissions';
 import companyReportsReducer from './companyReports';
+import deletedDataReducer from './deletedData';
 import invoicesReducer from './invoices';
 import invoicePaymentsReducer from './invoicePayments';
 import adminServicesReducer from './adminServices';
@@ -43,6 +45,7 @@ import faqsReducer from './faqs';
 import drawingsLogsReducer from './drawingUploadLogs';
 
 export default combineReducers({
+    activityLogReducer,
     adminServicesReducer,
     buildingsReducer,
     bugReportsReducer,
@@ -50,6 +53,8 @@ export default combineReducers({
     companyReportsReducer,
     companySubscriptionReducer,
     companyTrackingReducer,
+    deletedDataReducer,
+    drawingsReducer,
     drawingsLogsReducer,
     pinsReducer,
     contactSubmissionsReducer,

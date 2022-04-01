@@ -23,7 +23,7 @@ class EditDrawingOperativeFormContainer extends Component {
 
     render() {
         const { match, operative, isFetching, error, services } = this.props;
-        const { serviceIDs, isTemplateFilteringEnabled, templateIDs } = this.state;
+        const { serviceIDs, isTemplateFilteringEnabled } = this.state;
         const { id } = match.params;
         const backUrl = `/company/drawings/${id}`;
 
@@ -138,7 +138,6 @@ class EditDrawingOperativeFormContainer extends Component {
 
     getTemplatesForService = serviceID => {
         const { templates } = this.props;
-
         const filteredTemplates = templates
             .filter(template => template.serviceID === serviceID)
             .map(({ id, name, isDeleted }) => {

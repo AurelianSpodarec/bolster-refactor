@@ -1,61 +1,52 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { batch, useDispatch, useSelector } from 'react-redux';
 
 import OperativeAlertMetrics from '../presentational/OperativeAlertMetrics';
 import fetchOperativeAlertDeliveries from 'actions/companyAdmin/operativeAlerts/async/fetchOperativeAlertDeliveries';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import fetchAllOperativeAlerts from 'actions/companyAdmin/operativeAlerts/async/fetchAllOperativeAlerts';
+import { componentDidMount } from '../../../../../helpers/generic';
+import { useParams } from 'react-router-dom';
 
-class OperativeAlertMetricsContainer extends Component {
-    render = () => {
-        const { alertMetrics, isFetching, error, users, alert } = this.props;
-        return (
-            <OperativeAlertMetrics
-                alert={alert}
-                alerts={alertMetrics}
-                isFetching={isFetching}
-                error={error}
-                users={users}
-            />
-        );
-    };
+const OperativeAlertMetricsContainer = () => {
+    const params = useParams();
+    const dispatch = useDispatch();
+    const { operativeAlertMetrics, isFetching, error, operativeAlerts, users } =
+        useSelector(mapStateToProps);
+    const alert = operativeAlerts[params.id];
+    const alertMetrics = Object.values(operativeAlertMetrics).filter(
+        ({ operativeAlertID }) => +operativeAlertID === +params.id,
+    );
+    componentDidMount(() => {
+        batch(() => {
+            dispatch(fetchAllOperativeAlerts());
+            dispatch(fetchCompanyUsers());
+            dispatch(fetchOperativeAlertDeliveries(params.id));
+        });
+    });
 
-    componentDidMount = () => this.props.fetchMetricData();
-}
+    return (
+        <OperativeAlertMetrics
+            alert={alert}
+            alertMetrics={alertMetrics}
+            isFetching={isFetching}
+            error={error}
+            users={users}
+        />
+    );
+};
 
-const mapStateToProps = (
-    {
-        companyAdmin: {
-            operativeAlertsReducer: {
-                operativeAlertMetrics,
-                operativeAlerts,
-                isFetching,
-                error
-            },
-            companyUsersReducer: { users }
-        }
+const mapStateToProps = ({
+    companyAdmin: {
+        operativeAlertsReducer: { operativeAlertMetrics, operativeAlerts, isFetching, error },
+        companyUsersReducer: { users },
     },
-    { match: { params } }
-) => ({
-    alertMetrics:
-        Object.values(operativeAlertMetrics).filter(
-            ({ operativeAlertID }) => +operativeAlertID === +params.id
-        ) || {},
+}) => ({
+    operativeAlertMetrics,
     isFetching,
     error,
     users,
-    alert: operativeAlerts[params.id] || {}
+    operativeAlerts,
 });
 
-const mapDispatchToProps = (dispatch, { match: { params } }) => ({
-    fetchMetricData: () => {
-        dispatch(fetchAllOperativeAlerts());
-        dispatch(fetchOperativeAlertDeliveries(params.id));
-        dispatch(fetchCompanyUsers());
-    }
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(OperativeAlertMetricsContainer);
+export default OperativeAlertMetricsContainer;

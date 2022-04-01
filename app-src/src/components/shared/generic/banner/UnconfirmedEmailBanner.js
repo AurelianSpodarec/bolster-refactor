@@ -1,6 +1,5 @@
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { CONFIRM_EMAIL } from 'constants/shared/modalTypes';
-import { isEmpty } from 'lodash';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';

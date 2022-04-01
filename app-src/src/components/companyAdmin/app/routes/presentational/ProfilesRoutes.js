@@ -7,6 +7,7 @@ import EditProfileContainer from 'components/shared/profile/editProfile/containe
 import SetupTwoFactorContainer from 'components/shared/profile/twoFactor/setupTwoFactor/SetupTwoFactorContainer';
 import EditProfilePassword from 'components/shared/profile/editProfilePassword/presentational/EditProfilePassword';
 import EditProfileEmail from 'components/shared/profile/editProfileEmail/EditProfileEmail';
+import EditMailPreferences from 'components/shared/profile/editMailPreferences/EditMailPreferences';
 
 const ProfilesRoutes = ({ base = '/company/profile' }) => (
     <SwitchWith404>
@@ -15,6 +16,7 @@ const ProfilesRoutes = ({ base = '/company/profile' }) => (
         <Route exact path={`${base}/change-password`} component={EditProfilePassword} />
         <Route exact path={`${base}/change-email`} component={EditProfileEmail} />
         <Route exact path={`${base}/twofactor/setup`} component={SetupTwoFactorContainer} />
+        <Route exact path={`${base}/mailPreferences`} component={EditMailPreferences} />
     </SwitchWith404>
 );
 

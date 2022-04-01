@@ -12,6 +12,7 @@ const ConfirmDeleteModal = ({
     isIncoming = false,
     deleteButtonText = 'Delete',
     icon = 'trash-alt',
+    isPosting = false,
     error = null,
 }) => {
     return (
@@ -19,26 +20,29 @@ const ConfirmDeleteModal = ({
             <BlockHeading title={'Confirmation'} />
             <p className="generic-text intro-text size-lg-12">{message}</p>
             {error && <Error>{error}</Error>}
-            <BlockButtonWrapper>
-                <button className="button red" onClick={handleDelete}>
-                    {isIncoming ? (
-                        <>
-                            <i className="far fa-ban fa-fw" />
-                            Decline
-                        </>
-                    ) : (
-                        <>
-                            <i className={`far fa-${icon} fa-fw`} />
-                            {deleteButtonText}
-                        </>
-                    )}
-                </button>
-                <button className="button" onClick={handleCancel}>
-                    Cancel
-                </button>
-            </BlockButtonWrapper>
-        </ModalOuterContainer>
-    );
-};
+        <BlockButtonWrapper>
+            <button
+                className={`button red ${isPosting ? 'disabled' : ''}`}
+                onClick={handleDelete}
+                disabled={isPosting}
+            >
+                {isIncoming ? (
+                    <>
+                        <i className="far fa-ban fa-fw" />
+                        Decline
+                    </>
+                ) : (
+                    <>
+                        <i className={`far fa-${icon} fa-fw`} />
+                        {deleteButtonText}
+                    </>
+                )}
+            </button>
+            <button className="button" onClick={handleCancel}>
+                Cancel
+            </button>
+        </BlockButtonWrapper>
+    </ModalOuterContainer>
+)};
 
 export default ConfirmDeleteModal;
