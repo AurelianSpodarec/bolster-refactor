@@ -120,6 +120,7 @@ const AllCompanyAdminsListItem = ({
                     text="Drawing Access"
                     size="small"
                     icon="key"
+                    iconWeight="regular"
                     href={`/company/users-management/company-admins/${user.id}/drawings`}
                 />
                 <div>
