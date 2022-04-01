@@ -5,6 +5,7 @@ import UserDrawingListItemContainer from '../containers/UserDrawingListItemConta
 import { REMOVE_DRAWINGS_ACCESS } from 'constants/shared/modalTypes';
 import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
 import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
+import SelectAllIcon from '_content/images/icons/sync.svg';
 
 const UserDrawingsTable = ({
     headers,
@@ -43,7 +44,7 @@ const UserDrawingsTable = ({
                     text="Select All"
                     onClick={() => selectAll()}
                     size="small"
-                    icon="arrows-rotate"
+                    customIcon={SelectAllIcon}
                     source="secondary"
                     ambient="positive"
                 />
