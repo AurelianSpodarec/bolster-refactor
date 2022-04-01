@@ -1,14 +1,14 @@
 import React from 'react';
 
 import Field from 'components/shared/generic/form/presentational/Field';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
 
 const FloorEditForm = ({
     handleSubmit,
@@ -181,11 +181,12 @@ const FloorEditForm = ({
                 </>
             )}
         </div>
-
-        <BlockButtonWrapper>
-            <button className="button green">Confirm</button>
-            <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
-        </BlockButtonWrapper>
+        <div className="size-lg-12">
+            <ButtonWrapper alignment="right">
+                <ActionButton text="Cancel" onClick={hideModal} source="secondary" size="small" />
+                <ActionButton text="Confirm" type="submit" icon="check" size="small" />
+            </ButtonWrapper>
+        </div>
     </Form>
 );
 

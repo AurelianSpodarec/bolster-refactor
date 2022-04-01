@@ -4,8 +4,8 @@ import ModalOuterContainer from 'components/shared/generic/modals/containers/Mod
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import Select from 'components/shared/generic/form/presentational/Select';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
+import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
 
 const EditCompanyOwnerModal = ({
     handleChange,
@@ -27,19 +27,20 @@ const EditCompanyOwnerModal = ({
                         onChange={handleChange}
                         omitPlaceholder
                         required
-                        optionListClasses='large-list'
+                        optionListClasses="large-list"
                     />
                 </Field>
-                <BlockButtonWrapper additionalClasses="margin-top-lg">
-                    <button type="submit" className="button green" disabled={isPosting}>
-                        <i className="fa fa-plus" />
-                        {isPosting ? <LoadingIcon /> : 'Submit'}
-                    </button>
-                    <button type="button" className="button red" onClick={hideModal}>
-                        <i className="fa fa-times" />
-                        Cancel
-                    </button>
-                </BlockButtonWrapper>
+                <div className="size-lg-12">
+                    <ButtonWrapper alignment="right">
+                        <ActionButton
+                            text="Cancel"
+                            onClick={hideModal}
+                            source="secondary"
+                            size="small"
+                        />
+                        <ActionButton text="Confirm" type="submit" icon="check" size="small" />
+                    </ButtonWrapper>
+                </div>
             </Form>
         </ModalOuterContainer>
     );

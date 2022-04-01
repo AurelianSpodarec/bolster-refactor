@@ -5,6 +5,8 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
 
 const EditOptionValueDocumentForm = ({
     handleSubmit,
@@ -29,12 +31,12 @@ const EditOptionValueDocumentForm = ({
             </div>
         </div>
 
-        <BlockButtonWrapper>
-            <button className="button green">
-                <i className="fa fa-check" /> {buttonText}
-            </button>
-            <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
-        </BlockButtonWrapper>
+        <div className="size-lg-12">
+            <ButtonWrapper alignment="right">
+                <ActionButton text="Cancel" onClick={hideModal} source="secondary" size="small" />
+                <ActionButton text={buttonText} type="submit" icon="check" size="small" />
+            </ButtonWrapper>
+        </div>
     </Form>
 );
 export default EditOptionValueDocumentForm;

@@ -14,6 +14,8 @@ import { isEmpty } from 'helpers/generic';
 import usePinOptions from '../hooks/usePinOptions';
 import { dayOptions, seriesRecurringOptions } from 'constants/companyAdmin/pinTasks';
 import PickListContainer from 'components/shared/generic/form/containers/PickListContainer';
+import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
 
 const EditPinTaskSeriesModal = ({ id }) => {
     const {
@@ -125,27 +127,27 @@ const EditPinTaskSeriesModal = ({ id }) => {
                             required
                         />
                     </Field>
-                    <BlockButtonWrapper>
-                        <button className="button green" key={3} disabled={isPosting}>
-                            Submit
-                        </button>
-                        <button
-                            type="button"
-                            className="button red"
-                            onClick={handleDeleteSeries}
-                            disabled={isPosting}
-                        >
-                            Delete
-                        </button>
-                        <button
-                            type="button"
-                            className="button"
-                            onClick={closeModal}
-                            disabled={isPosting}
-                        >
-                            Cancel
-                        </button>
-                    </BlockButtonWrapper>
+
+                    <div className="size-lg-12">
+                        <ButtonWrapper alignment="right">
+                            <ActionButton
+                                text="Delete"
+                                onClick={handleDeleteSeries}
+                                ambient="negative"
+                                icon="trash"
+                                size="small"
+                            />
+
+                            <ActionButton
+                                text="Cancel"
+                                onClick={closeModal}
+                                source="secondary"
+                                size="small"
+                            />
+
+                            <ActionButton text="Confirm" type="submit" icon="check" size="small" />
+                        </ButtonWrapper>
+                    </div>
                 </BlockContainer>
             </Form>
         </ModalOuterContainer>

@@ -2,10 +2,10 @@ import React from 'react';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Form from 'components/shared/generic/form/containers/Form';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ButtonWrapper from '../../../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
 
 const EditTemplateQuestionModal = ({
     options,
@@ -42,57 +42,60 @@ const EditTemplateQuestionModal = ({
                                     </div>
                                     <div className="size-lg-2 buttons-box">
                                         {id in optionConfigurations ? (
-                                            <div className="container-button checking">
-                                                {optionConfigurations[id] ? (
-                                                    <button
-                                                        onClick={() => handleQuestionToggle(id)}
-                                                        className="button red"
-                                                        type="button"
-                                                    >
-                                                        <i className="fa fa-minus" /> Disabled
-                                                    </button>
-                                                ) : (
-                                                    <button
-                                                        onClick={() => handleQuestionToggle(id)}
-                                                        className="button green"
-                                                        type="button"
-                                                    >
-                                                        <i className="fa fa-plus" /> Enabled
-                                                    </button>
-                                                )}
-                                            </div>
+                                            optionConfigurations[id] ? (
+                                                <ActionButton
+                                                    text="Disabled"
+                                                    onClick={() => handleQuestionToggle(id)}
+                                                    icon="minus"
+                                                    size="small"
+                                                    ambient="negative"
+                                                />
+                                            ) : (
+                                                <ActionButton
+                                                    text="Enabled"
+                                                    onClick={() => handleQuestionToggle(id)}
+                                                    icon="plus"
+                                                    size="small"
+                                                    ambient="positive"
+                                                />
+                                            )
                                         ) : (
-                                            <button
-                                                className="button red"
+                                            <ActionButton
+                                                text="Delete"
                                                 onClick={() => handleRemoveOption(id)}
-                                                type="button"
-                                            >
-                                                <i className="far fa-trash-alt" /> Delete
-                                            </button>
+                                                icon="trash"
+                                                size="small"
+                                                ambient="negative"
+                                            />
                                         )}
                                     </div>
                                 </div>
                             </Field>
                         ))}
                     <div className="size-lg-12">
-                        <button
-                            className="button add-option green"
-                            type="button"
-                            onClick={handleAddOption}
-                        >
-                            <i className="fa fa-plus" />
-                            Add Option
-                        </button>
+                        <ButtonWrapper alignment="right">
+                            <ActionButton
+                                text="Add Option"
+                                onClick={handleAddOption}
+                                icon="plus"
+                                size="small"
+                                ambient="positive"
+                            />
+                        </ButtonWrapper>
                     </div>
                 </div>
 
-                <BlockButtonWrapper>
-                    <button type="submit" className="button green">
-                        <i className="fa fa-save" />
-                        Save
-                    </button>
-                    <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
-                </BlockButtonWrapper>
+                <div className="size-lg-12 margin-top">
+                    <ButtonWrapper alignment="right">
+                        <ActionButton
+                            text="Cancel"
+                            onClick={hideModal}
+                            source="secondary"
+                            size="small"
+                        />
+                        <ActionButton text="Confirm" type="submit" icon="check" size="small" />
+                    </ButtonWrapper>
+                </div>
             </Form>
         </ModalOuterContainer>
     );

@@ -10,6 +10,8 @@ import useEditPinTask from './hooks/useEditPinTask';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
+import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
 
 const EditPinTaskModal = ({ id }) => {
     const {
@@ -57,19 +59,25 @@ const EditPinTaskModal = ({ id }) => {
                     </Field>
 
                     {error && <p className="error">{error}</p>}
-                    <BlockButtonWrapper>
-                        <button className="button green" key={3} disabled={isPosting}>
-                            Submit
-                        </button>
-                        <button
-                            type="button"
-                            className="button"
-                            onClick={closeModal}
-                            disabled={isPosting}
-                        >
-                            Cancel
-                        </button>
-                    </BlockButtonWrapper>
+
+                    <div className="size-lg-12">
+                        <ButtonWrapper alignment="right">
+                            <ActionButton
+                                text="Cancel"
+                                onClick={closeModal}
+                                source="secondary"
+                                size="small"
+                                disabled={isPosting}
+                            />
+                            <ActionButton
+                                text="Confirm"
+                                type="submit"
+                                icon="check"
+                                size="small"
+                                disabled={isPosting}
+                            />
+                        </ButtonWrapper>
+                    </div>
                 </BlockContainer>
             </Form>
         </ModalOuterContainer>

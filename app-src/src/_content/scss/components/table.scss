@@ -55,17 +55,20 @@
   &.dragging {
     table-layout: fixed;
   }
-
+  
   &.with-actions {
-    a {
+    a:not(.custom-button) {
       text-decoration: none;
       color: white;
+
+      &.dark {
+        color: black;
+      }
 
       &:hover {
         text-decoration: underline;
       }
     }
-
     td {
       &:last-child {
         text-align: right;
@@ -75,7 +78,6 @@
         }
       }
     }
-
     th {
       &:last-child {
         text-align: right;
@@ -98,8 +100,8 @@
   }
 
   .grey-row {
-    background-color: $light-grey-alt;
-    color: $body-text;
+    background-color: var(--container-greyed-out);
+    color: var(--typography-default);
   }
 
   tbody {
@@ -413,6 +415,12 @@
 
   .limit-green {
     color: var(--positive-default);
+  }
+
+  .custom-button {
+    i {
+      color: #F9FAFA
+    }
   }
 }
 

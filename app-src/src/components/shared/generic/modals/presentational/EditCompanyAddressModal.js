@@ -6,6 +6,8 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import CountriesSelectList from '../../form/presentational/CountriesSelectList';
+import ButtonWrapper from '../../button/presentational/ButtonWrapper';
+import ActionButton from '../../button/presentational/ActionButton';
 
 const EditCompanyAddressModal = ({
     company: { name },
@@ -82,14 +84,18 @@ const EditCompanyAddressModal = ({
                         />
                     </Field>
                 </div>
-                <BlockButtonWrapper>
-                    <button className="button green" type="submit">
-                        Submit
-                    </button>
-                    <button className="button" onClick={hideModal}>
-                        Cancel
-                    </button>
-                </BlockButtonWrapper>
+
+                <div className="size-lg-12">
+                    <ButtonWrapper alignment="right">
+                        <ActionButton
+                            text="Cancel"
+                            onClick={hideModal}
+                            source="secondary"
+                            size="small"
+                        />
+                        <ActionButton text="Confirm" type="submit" icon="check" size="small" />
+                    </ButtonWrapper>
+                </div>
             </Form>
         </ModalOuterContainer>
     );

@@ -6,10 +6,7 @@ import ModalOuterContainer from 'components/shared/generic/modals/containers/Mod
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Form from 'components/shared/generic/form/containers/Form';
 import { useForm, usePrevious, useQueryParam } from 'helpers/hooks';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import editDocumentLibraryItems from 'actions/companyAdmin/documentLibrary/async/editDocumentLibraryItems';
 import editDocumentLibraryItem from 'actions/companyAdmin/documentLibrary/async/editDocumentLibraryItem';
@@ -23,6 +20,8 @@ import {
     selectDocumentLibraryPostError,
     selectDocumentLibraryPostSuccess,
 } from 'selectors/documentLibrary';
+import ButtonWrapper from '../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../shared/generic/button/presentational/ActionButton';
 
 const EditDocumentItemsModal = ({ ids }) => {
     const dispatch = useDispatch();
@@ -130,17 +129,18 @@ const EditDocumentItemsModal = ({ ids }) => {
                     </div>
                     <p>(if none selected, document is only viewable on desktop)</p>
                 </Field>
-                <BlockButtonWrapper>
-                    <button
-                        onClick={handleSubmit}
-                        className={`button green ${isPosting ? 'disabled' : ''}`}
-                        type={isPosting ? 'button' : 'submit'}
-                        disabled={isPosting}
-                    >
-                        {isPosting ? <LoadingIcon /> : 'Submit'}
-                    </button>
-                    <ButtonContainer handleClick={handleCancel}>Cancel</ButtonContainer>
-                </BlockButtonWrapper>
+
+                <div className="size-lg-12">
+                    <ButtonWrapper alignment="right">
+                        <ActionButton
+                            text="Cancel"
+                            onClick={handleCancel}
+                            source="secondary"
+                            size="small"
+                        />
+                        <ActionButton text="Confirm" type="submit" icon="check" size="small" />
+                    </ButtonWrapper>
+                </div>
                 {!!error && <p className="error">{error}</p>}
             </Form>
         </ModalOuterContainer>

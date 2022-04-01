@@ -19,28 +19,20 @@ const AllCompanyAdminTableContainer = ({ filteredUsers }) => {
             <AllCompanyAdminsTable
                 headers={[
                     'Name',
-                    'Email',
-                    'Phone Number',
-                    'Has linked device?',
-                    'Operative Code',
+                    'Phone number',
+                    'Device name',
                     'Last upsynced date',
-                    'Last detected unsynced data',
-                    'App Version',
-                    'Number of attached drawings',
-                    'Is e-mail confirmed?',
+                    'App version',
+                    'Drawing count',
                     '',
                 ]}
                 users={filteredUsers(mergedUsers)}
                 isFetching={isFetching}
                 error={error}
-                handleCreateCompanyAdmin={handleCreateCompanyAdmin}
+                handleShowModal={() => dispatch(showModal(CREATE_COMPANY_ADMIN))}
             />
         </BlockContainer>
     );
-
-    function handleCreateCompanyAdmin() {
-        dispatch(showModal(CREATE_COMPANY_ADMIN));
-    }
 };
 
 const mapStateToProps = ({

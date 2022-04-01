@@ -2,8 +2,9 @@ import React from 'react';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
+import LinkButton from '../../../../../shared/generic/button/presentational/LinkButton';
+import ButtonWrapper from '../../../../../shared/generic/button/presentational/ButtonWrapper';
 
 const EditCompanyUserForm = ({
     handleSubmit,
@@ -51,12 +52,17 @@ const EditCompanyUserForm = ({
             </div>
         </div>
 
-        <BlockButtonWrapper>
-            <button className="button green">Confirm</button>
-            <ButtonContainer to={location.pathname.replace(`/${userID}/edit`, '')}>
-                Cancel
-            </ButtonContainer>
-        </BlockButtonWrapper>
+        <div className="size-lg-12">
+            <ButtonWrapper alignment="right">
+                <LinkButton
+                    text="Cancel"
+                    href={location.pathname.replace(`/${userID}/edit`, '')}
+                    size="small"
+                    source="secondary"
+                />
+                <ActionButton type="submit" text="Confirm" icon="check" size="small" />
+            </ButtonWrapper>
+        </div>
     </Form>
 );
 

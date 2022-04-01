@@ -2,8 +2,6 @@ import editCompanyUserEmail from 'actions/companyAdmin/userManagement/async/edit
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
@@ -14,6 +12,8 @@ import { usePrevious } from 'helpers/hooks';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
+import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
 
 const EditCompanyUserEmail = () => {
     const dispatch = useDispatch();
@@ -58,12 +58,17 @@ const EditCompanyUserEmail = () => {
                         </div>
                     </div>
 
-                    <BlockButtonWrapper>
-                        <button type="submit" className="button green">
-                            Confirm
-                        </button>
-                        <ButtonContainer onClick={() => history.goBack()}>Cancel</ButtonContainer>
-                    </BlockButtonWrapper>
+                    <div className="size-lg-12">
+                        <ButtonWrapper alignment="right">
+                            <ActionButton
+                                text="Cancel"
+                                onClick={() => history.goBack()}
+                                size="small"
+                                source="secondary"
+                            />
+                            <ActionButton type="submit" text="Confirm" icon="check" size="small" />
+                        </ButtonWrapper>
+                    </div>
                 </Form>
             </BlockContainer>
         </>

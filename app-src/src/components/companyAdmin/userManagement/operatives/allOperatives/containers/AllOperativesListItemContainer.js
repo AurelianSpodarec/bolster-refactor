@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AllOperativesListItem from '../presentational/AllOperativesListItem';
@@ -13,9 +13,11 @@ import {
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import editCompanyUserType from 'actions/companyAdmin/userManagement/async/editCompanyUserType';
 
-const AllOperativesListItemContainer = ({ user, headers, onMobile }) => {
+const AllOperativesListItemContainer = ({ user, headers }) => {
     const dispatch = useDispatch();
-    const { disabledUsers, maxDrawingsPerOperative } = useSelector(mapStateToProps);
+    const { disabledUsers, maxDrawingsPerOperative, onMobile } = useSelector(mapStateToProps);
+
+    const [showUserActions, setShowUserActions] = useState(false);
 
     const drawingLimitColour = getOperativeDrawingLimitColour(user.drawingCount);
     const drawingLimitMaxed = user.drawingCount >= maxDrawingsPerOperative;
@@ -35,6 +37,8 @@ const AllOperativesListItemContainer = ({ user, headers, onMobile }) => {
             showNotUpsyncedRecentlyWarning={user.notUpsyncedRecently}
             tooltipDate={user.notUpSyncedInXDays}
             isDisabled={!!disabledUsers[user.id]}
+            showUserActions={showUserActions}
+            setShowUserActions={setShowUserActions}
         />
     );
 
@@ -89,9 +93,13 @@ const mapStateToProps = ({
         },
         inactiveCompanyUsersReducer: { disabled },
     },
+    shared: {
+        mobileReducer: { onMobile },
+    },
 }) => ({
     disabledUsers: disabled,
     maxDrawingsPerOperative,
+    onMobile,
 });
 
 export default AllOperativesListItemContainer;
