@@ -5,6 +5,8 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { RECOVER_USER } from 'constants/shared/modalTypes';
 import moment from 'moment';
 import fetchCompanyUsers from 'actions/superAdmin/users/async/fetchCompanyUsers';
+import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from '../../../../../shared/generic/button/presentational/ButtonWrapper';
 
 const DeletedOperativesListItem = ({
     user,
@@ -60,9 +62,10 @@ const DeletedOperativesListItem = ({
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[6]}</span>}
-                <button className="button blue" onClick={handleRecover}>
-                    Recover
-                </button>
+
+                <ButtonWrapper alignment="right">
+                    <ActionButton text="Recover" onClick={handleRecover} size="small" />
+                </ButtonWrapper>
             </td>
         </tr>
     );

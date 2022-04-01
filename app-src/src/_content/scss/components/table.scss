@@ -416,6 +416,12 @@
   .limit-green {
     color: var(--positive-default);
   }
+
+  .custom-button {
+    i {
+      color: var(--typography-switched);
+    }
+  }
 }
 
 //pin feed
