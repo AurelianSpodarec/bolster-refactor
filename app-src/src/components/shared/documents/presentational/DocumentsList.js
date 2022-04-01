@@ -23,7 +23,7 @@ const DocumentsList = ({
                     href={`${RAW_S3_STORAGE_URL}/${document.fileS3Key}`}
                     rel="noopener noreferrer"
                     target="_blank"
-                    className="text-link"
+                    className="text-link link-without-background"
                 >
                     <i className="table-icon far fa-file-alt" /> {document.name}
                 </a>

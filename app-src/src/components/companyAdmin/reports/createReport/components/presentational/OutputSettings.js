@@ -6,6 +6,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import ImageVisualContainer from '../containers/ImageVisualContainer';
+import useColourTheme from 'hooks/useColourTheme';
 
 const OutputSettings = ({
     handleSubmit,
@@ -22,8 +23,9 @@ const OutputSettings = ({
     showHidden,
     handleShowOandMModal,
     includeFloorplanZones,
-    hasZones = false
+    hasZones = false,
 }) => {
+    const colourTheme = useColourTheme();
     return (
         <div className="size-lg-12">
             <BlockContainer>
@@ -70,7 +72,17 @@ const OutputSettings = ({
                             {isPDFGeneration && (
                                 <>
                                     <div className="size-lg-12 " style={{ marginBottom: '10px' }}>
-                                        <div className="size-lg-10 size-md-12 options-container">
+                                        <div
+                                            className="size-lg-10 size-md-12 options-container"
+                                            style={
+                                                colourTheme === 'dark'
+                                                    ? {
+                                                          backgroundColor: 'transparent',
+                                                          border: '1px solid var(--positive-stroke)',
+                                                      }
+                                                    : {}
+                                            }
+                                        >
                                             <BlockHeading title="Additional PDF Settings" />
                                             <Field
                                                 sizeClasses="size-lg-6 size-md-12"
@@ -116,7 +128,17 @@ const OutputSettings = ({
                                             className="size-lg-12 "
                                             style={{ marginBottom: '10px' }}
                                         >
-                                            <div className="size-lg-10 size-md-12 options-container">
+                                            <div
+                                                className="size-lg-10 size-md-12 options-container"
+                                                style={
+                                                    colourTheme === 'dark'
+                                                        ? {
+                                                              backgroundColor: 'transparent',
+                                                              border: '1px solid var(--positive-stroke)',
+                                                          }
+                                                        : {}
+                                                }
+                                            >
                                                 <BlockHeading title="Additional floor plan Settings" />
                                                 <Field
                                                     sizeClasses="size-lg-6 size-md-12"

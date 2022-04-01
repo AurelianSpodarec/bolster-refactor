@@ -53,7 +53,7 @@ const ClientHeader = ({ company, isCompanySelected }) => {
                 {!isMobile && (
                     <div className="flex flex-row align-center">
                         <div className="search-area">
-                            <SearchContainer />
+                            <SearchContainer className="header-nav" />
                         </div>
                     </div>
                 )}
@@ -61,7 +61,7 @@ const ClientHeader = ({ company, isCompanySelected }) => {
 
             <div className="account-area flex-row">
                 <div className="notifications flex-row align-center">
-                    <HeaderProfile />
+                    <HeaderProfile isClient />
                 </div>
             </div>
             <div className="clear" />

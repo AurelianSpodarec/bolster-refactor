@@ -23,6 +23,7 @@ const ProfileDetails = ({
         phoneNumber,
         isTwoFactorAuthEnabled,
         twoFactorPhoneNumber,
+        isDarkModeEnabled,
     } = profile;
     const pathName = location.pathname.endsWith('/')
         ? location.pathname.slice(0, -1)
@@ -79,6 +80,13 @@ const ProfileDetails = ({
                             description={phoneNumber}
                         />
                     </div>
+                    <div className="size-lg-4 size-md-12">
+                        <FieldOutput
+                            fieldClass="no-h-padding"
+                            title="Colour Theme"
+                            description={`${isDarkModeEnabled ? 'Dark' : 'Light'}`}
+                        />
+                    </div>
                 </>
             )}
 
@@ -108,6 +116,10 @@ const ProfileDetails = ({
                 <Link className="button green" to={`${pathName}/change-password`}>
                     <i className="far fa-lock-alt fa-fw" />
                     Change Password
+                </Link>
+                <Link className="button green" to={`${pathName}/mailPreferences`}>
+                    <i className="far fa-pencil" />
+                    Edit Mail Preferences
                 </Link>
                 <Link className="button green" to={`${pathName}/twofactor/setup`}>
                     <i className="far fa-lock" />

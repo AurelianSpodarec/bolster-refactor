@@ -6,6 +6,7 @@ import {
     CHANGE_PROFILE_EMAIL_REQUEST,
     CHANGE_PROFILE_EMAIL_SUCCESS,
     CHANGE_PROFILE_EMAIL_FAILURE,
+    CHANGE_PROFILE_EMAIL_MODAL,
 } from 'constants/actionTypes/profile';
 
 export const changeProfileEmailRequest = () => ({
@@ -22,11 +23,23 @@ export const changeProfileEmailFailure = error => ({
     error,
 });
 
+export const changeProfileEmailModal = payload => ({
+    type: CHANGE_PROFILE_EMAIL_MODAL,
+    payload,
+});
+
 export default postBody => dispatch => {
     dispatch(changeProfileEmailRequest());
+    console.log({ postBody });
     return axios
         .post(`${AUTH_API_URL}/profile/email`, postBody, getHeaders())
-        .then(res => dispatch(changeProfileEmailSuccess(res.data)))
+        .then(res => {
+            if (res.status === 202) {
+                dispatch(changeProfileEmailModal(res.data));
+            } else {
+                dispatch(changeProfileEmailSuccess(res.data));
+            }
+        })
         .catch(err => {
             const errorAction = handleErrors(changeProfileEmailFailure);
             dispatch(errorAction(err));

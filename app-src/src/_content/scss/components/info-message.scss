@@ -1,15 +1,16 @@
 .info-message {
-    float: left;
-    width: 100%;
-    padding: 5px 10px;
-    background-color: #d0e5fb;
-    border-radius: 5px;
+  float: left;
+  width: 100%;
+  padding: 5px 10px;
+  background-color: var(--background-default);
+  color: var(--typography-default);
+  border-radius: 5px;
 
-    &.warning {
-        background-color: #fbf0d0;
-    }
+  &.warning {
+    background-color: var(--negative-default);
+  }
 
-    &.error {
-        background-color: #fbd0d0;
-    }
+  &.error {
+    background-color: var(--negative-default);
+  }
 }

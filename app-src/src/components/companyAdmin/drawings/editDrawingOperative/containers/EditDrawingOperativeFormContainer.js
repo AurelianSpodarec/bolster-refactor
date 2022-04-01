@@ -18,12 +18,11 @@ class EditDrawingOperativeFormContainer extends Component {
     state = {
         serviceIDs: [],
         isTemplateFilteringEnabled: false,
-        templateIDs: [],
     };
 
     render() {
         const { match, operative, isFetching, error, services } = this.props;
-        const { serviceIDs, isTemplateFilteringEnabled, templateIDs } = this.state;
+        const { serviceIDs, isTemplateFilteringEnabled } = this.state;
         const { id } = match.params;
         const backUrl = `/company/drawings/${id}`;
 
@@ -53,8 +52,12 @@ class EditDrawingOperativeFormContainer extends Component {
         );
     }
     componentDidMount() {
-        const { fetchOperativesForDrawing, match, fetchCompanyPermissions, fetchAllTemplates } =
-            this.props;
+        const {
+            fetchOperativesForDrawing,
+            match,
+            fetchCompanyPermissions,
+            fetchAllTemplates,
+        } = this.props;
         const { id } = match.params;
         fetchOperativesForDrawing(id);
         fetchAllTemplates();

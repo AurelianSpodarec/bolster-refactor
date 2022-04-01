@@ -4,8 +4,8 @@ import { CLIENT_API_URL } from 'config/index';
 
 import { getHeaders } from 'helpers/api';
 import {
-    CLIENT_FETCH_MESSAGES_FAILURE,
     CLIENT_FETCH_MESSAGES_REQUEST,
+    CLIENT_FETCH_MESSAGES_FAILURE,
     CLIENT_FETCH_MESSAGES_SUCCESS,
 } from '../../../../constants/client/actionTypes/clientMessages';
 

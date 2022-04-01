@@ -12,6 +12,7 @@ const SearchBar = ({
     ref,
     handleLinkClick,
     isLoading,
+    omitIcon,
     placeholder = 'Search...',
 }) => (
     <div className="size-lg-12" ref={ref}>
@@ -20,6 +21,8 @@ const SearchBar = ({
             handleChange={handleChange}
             value={searchTerm}
             name="searchTerm"
+            omitIcon={omitIcon}
+            className="header-nav"
         />
         {resultsVisible && (
             <div className="dropdown-search-results visible">

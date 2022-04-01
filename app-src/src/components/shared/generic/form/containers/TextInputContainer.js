@@ -23,6 +23,7 @@ class TextInputContainer extends Component {
             errorsVisible,
             charLimit,
             disabled = false,
+            minNum,
             maxNum,
             includePasswordStrength,
         } = this.props;
@@ -40,6 +41,7 @@ class TextInputContainer extends Component {
                 handleBlur={this.handleBlur}
                 error={errorMessage}
                 charLimit={charLimit}
+                minNum={minNum}
                 maxNum={maxNum}
                 disabled={disabled}
                 includePasswordStrength={includePasswordStrength}
@@ -72,6 +74,7 @@ class TextInputContainer extends Component {
             validate = () => {},
             addFieldError,
             removeFieldError,
+            validationRegExp,
         } = this.props;
         const validateError = validate(value);
         const isNumber = typeof value === 'number';
@@ -82,6 +85,8 @@ class TextInputContainer extends Component {
             addFieldError(name, 'This is not a valid email.');
         } else if (validateError && validateError.length) {
             addFieldError(name, validateError);
+        } else if (validationRegExp && !RegExp(validationRegExp).test(value)) {
+            addFieldError(name, 'Invalid value provided.');
         } else if (error) {
             removeFieldError(name);
         }

@@ -120,6 +120,7 @@ const CompanyMenuContainer = ({
 };
 const mapStateToProps = ({
     companyAdmin: {
+        messageCentreReducer: { systemMessages },
         companySettingsReducer: { companySettings },
         creditsReducer: { credits },
         subscriptionsReducer: { hasInitiallyFetched, subscriptions },

@@ -8,3 +8,5 @@ export const selectOperative = (state, companyUserID) => {
 
 export const getOperatives = state => state.companyAdmin.operativesReducer.operatives;
 export const getOperativesIsFetching = state => state.companyAdmin.operativesReducer.isFetching;
+
+export const selectCompanyOperatives = state => state.companyAdmin.operativesReducer.operatives;

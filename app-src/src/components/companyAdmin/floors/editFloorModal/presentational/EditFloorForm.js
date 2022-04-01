@@ -13,13 +13,9 @@ import ActionButton from '../../../../shared/generic/button/presentational/Actio
 const FloorEditForm = ({
     handleSubmit,
     handleInputChange,
-    handleDateChange,
     hideModal,
     name,
     isUsingBolsterLabels,
-    isAlertShowing,
-    message,
-    dateToSend,
     isManufacturingInherited,
     setManufacturersForHierarchy,
     manufacturerOptions,
@@ -48,45 +44,6 @@ const FloorEditForm = ({
                         required
                     />
                 </Field>
-                {/* 
-                <div className="size-lg-12">
-                    <div className="size-lg-6 size-md-12">
-                        <Field name="Send an alert?">
-                            <CheckboxContainer
-                                checked={isAlertShowing}
-                                name="isAlertShowing"
-                                text=""
-                                handleChange={handleInputChange}
-                            />
-                        </Field>
-                    </div>
-                </div> */}
-                {/* 
-                {isAlertShowing && (
-                    <div className="size-lg-12">
-                        <div className={`size-lg-${isUsingBolsterLabels ? '12' : '6'}`}>
-                            <Field name="Alert Message">
-                                <TextAreaContainer
-                                    value={message}
-                                    name="message"
-                                    handleChange={handleInputChange}
-                                />
-                            </Field>
-                        </div>
-
-                        <div className={`size-lg-${isUsingBolsterLabels ? '12' : '6'}`}>
-                            <Field name="Date to send">
-                                <DatePickerPresentational
-                                    name="dateToSend"
-                                    selected={dateToSend}
-                                    onChange={handleDateChange}
-                                    placeholderText="Date"
-                                    showTimeSelect
-                                />
-                            </Field>
-                        </div>
-                    </div>
-                )} */}
             </div>
             {showManufacturingOptions ? (
                 <>

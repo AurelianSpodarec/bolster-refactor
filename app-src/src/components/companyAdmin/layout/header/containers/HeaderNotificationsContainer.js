@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 
 import HeaderNotifications from '../presentational/HeaderNotifications';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
-import dismissMessages from 'actions/companyAdmin/messages/async/dismissMessages';
 import moment from 'moment';
+import markSystemMessagesAsRead from 'actions/companyAdmin/messageCentre/async/markSystemMessagesAsRead';
+import fetchSystemMessages from '../../../../../actions/companyAdmin/messageCentre/async/fetchSystemMessages';
 
 class HeaderNotificationsContainer extends Component {
     state = {
-        popupVisible: false
+        popupVisible: false,
     };
 
     render() {
@@ -19,9 +20,7 @@ class HeaderNotificationsContainer extends Component {
         return (
             <HeaderNotifications
                 {...this.state}
-                notifications={
-                    unreadCount > 10 ? unread : notifications.slice(0, 10)
-                }
+                notifications={unreadCount > 10 ? unread : notifications.slice(0, 10)}
                 unreadCount={unreadCount}
                 togglePopup={this.togglePopup}
                 updateNode={node => {
@@ -33,21 +32,20 @@ class HeaderNotificationsContainer extends Component {
 
     togglePopup = () => {
         if (!this.state.popupVisible) {
+            const { notifications, markSystemMessagesAsRead } = this.props;
+            const unread = notifications.filter(({ isRead }) => !isRead);
+            const unreadCount = unread.length;
+
+            if (unreadCount) markSystemMessagesAsRead();
+
             // attach/remove event handler
             document.addEventListener('click', this.handleOutsideClick, false);
         } else {
-            const { dismissMessages } = this.props;
-            dismissMessages(MESSAGE_TYPES.NOTIFICATION);
-
-            document.removeEventListener(
-                'click',
-                this.handleOutsideClick,
-                false
-            );
+            document.removeEventListener('click', this.handleOutsideClick, false);
         }
 
         this.setState(prevState => ({
-            popupVisible: !prevState.popupVisible
+            popupVisible: !prevState.popupVisible,
         }));
     };
 
@@ -59,25 +57,31 @@ class HeaderNotificationsContainer extends Component {
 
         this.togglePopup();
     };
+
+    componentDidMount = () => {
+        const { fetchSystemMessages } = this.props;
+
+        this.interval = setInterval(() => fetchSystemMessages(), 60 * 1000);
+    };
+
+    componentWillUnmount = () => {
+        clearInterval(this.interval);
+    };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        messagesReducer: { messages }
-    }
+        messageCentreReducer: { systemMessages },
+    },
 }) => ({
-    notifications: Object.values(messages)
+    notifications: Object.values(systemMessages)
         .filter(({ type }) => type === MESSAGE_TYPES.NOTIFICATION)
-        .sort((a, b) => moment(b.createdAt) - moment(a.createdAt))
+        .sort((a, b) => moment(b.createdAt) - moment(a.createdAt)),
 });
 
 const mapDispatchToProps = dispatch => ({
-    dismissMessages: messageType => {
-        dispatch(dismissMessages(messageType));
-    }
+    markSystemMessagesAsRead: () => dispatch(markSystemMessagesAsRead()),
+    fetchSystemMessages: () => dispatch(fetchSystemMessages()),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(HeaderNotificationsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderNotificationsContainer);

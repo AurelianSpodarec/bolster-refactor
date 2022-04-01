@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 
+import useColourTheme from '../../../../hooks/useColourTheme';
+
 const TwitterFeed = () => {
     // Browsers with content blocking will crash when trying to access window.twttr.widgets
     // as they have blocked window.twttr, added this conditional check to prevent a crash
@@ -8,11 +10,14 @@ const TwitterFeed = () => {
         if (window.twttr) window.twttr.widgets.load();
     }, [window.twttr]);
 
+    const colourTheme = useColourTheme();
+
     return (
         <div className="twitter size-lg-12">
             <a
                 className="twitter-timeline"
                 data-height="421"
+                data-theme={colourTheme === 'dark' ? 'dark' : 'light'}
                 href="https://twitter.com/bolstersystems?ref_src=twsrc%5Etfw"
             >
                 Tweets by bolstersystems

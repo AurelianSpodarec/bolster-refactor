@@ -5,10 +5,10 @@
     p {
         @include ubuntu-medium;
         font-size: 130%;
-        color: white;
+        color: var(--typography-default);
 
         a {
-            color: white;
+            color: var(--typography-default);
             text-decoration: none;
 
             &:hover {

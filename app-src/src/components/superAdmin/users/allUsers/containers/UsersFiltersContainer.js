@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import updateUsersFilters from 'actions/superAdmin/users/sync/updateUsersFilter';
 import { connect } from 'react-redux';
 import UsersFilters from '../presentational/UsersFilters';
@@ -37,9 +37,9 @@ const UsersFiltersContainer = ({
 };
 const mapStateToProps = ({
     superAdmin: {
-        usersReducer: { filters },
+        usersReducer: { filters, postSuccess },
     },
-}) => ({ filters });
+}) => ({ filters, postSuccess });
 
 const mapDispatchToProps = { updateUsersFilters, fetchUsersBySearch };
 

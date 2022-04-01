@@ -388,3 +388,28 @@
         }
     }
 }
+
+.dark-mode-previews {
+    width: 100%;
+    height: fit-content;
+    margin-bottom: 4em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    img {
+        width: 48%;
+        height: auto;
+    }
+
+    
+}
+@include devices(mdMobile) {
+    .dark-mode-previews {
+        flex-direction:column;
+
+        img {
+            width: 100%;
+        }
+    }
+}

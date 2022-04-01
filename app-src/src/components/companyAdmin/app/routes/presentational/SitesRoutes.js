@@ -13,6 +13,7 @@ import EditSiteDocument from 'components/companyAdmin/sites/editSiteDocument/pre
 import EditCompanyPermissionsOnSiteContainer from 'components/companyAdmin/sites/editCompanyOnSite/containers/EditCompanyPermissionsOnSiteContainer';
 import AddCompanyPermissionsToSite from 'components/companyAdmin/sites/addCompanyPermissionsToSite/presentational/AddCompanyPermissionsToSite';
 import DocumentResponsesContainer from 'components/shared/documents/containers/DocumentResponsesContainer';
+import HierarchyAlerts from 'components/companyAdmin/upcomingAlerts/hierarchys/HierarchyAlerts';
 
 const SitesRoutes = ({ base = '/company/sites' }) => (
     <SwitchWith404>
@@ -43,6 +44,7 @@ const SitesRoutes = ({ base = '/company/sites' }) => (
             path={`${base}/:id/edit-company/:companyID`}
             component={EditCompanyPermissionsOnSiteContainer}
         />
+        <Route exact path={`${base}/:id/upcoming-alerts`} component={HierarchyAlerts} />
     </SwitchWith404>
 );
 
