@@ -9,17 +9,25 @@ const LinkButton = ({
     iconRight = false,
     iconSpin = false,
     iconOnly = false,
+    iconWeight = 'solid',
     disabled = false,
     source = 'primary', // primary, secondary
     ambient = 'primary', // primary, positive, negative
     size = 'medium', // medium, small
     extraClasses = '',
 }) => {
+    const iconWeightLookup = {
+        solid: 'fa',
+        regular: 'far',
+        light: 'fal',
+    };
     const dynamicButtonClass = `custom-button flex-row align-center justify-${
         iconRight ? 'end' : 'start'
     } source-${source} ambient-${ambient} size-${size} ${iconOnly ? 'icon-only' : ''}`;
 
-    const dynamicIconClass = `icon fa fa-${icon} ${iconSpin ? 'fa-spin' : ''}`;
+    const dynamicIconClass = `icon ${iconWeightLookup[iconWeight] || 'fa'} fa-${icon} ${
+        iconSpin ? 'fa-spin' : ''
+    }`;
 
     return (
         <Link
