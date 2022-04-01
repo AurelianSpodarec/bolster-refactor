@@ -91,15 +91,6 @@ const InvoiceListItem = ({
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[10]}</span>}
             <ButtonWrapper alignment="right">
-                {!isPaid && (
-                    <ActionButton
-                        text="Pay"
-                        ambient="positive"
-                        size="small"
-                        onClick={() => showModal(PAY_INVOICE, { invoiceID: id })}
-                    />
-                )}
-
                 <LinkButton
                     text="View"
                     source="secondary"
@@ -110,6 +101,14 @@ const InvoiceListItem = ({
                         state: { fromURL: location.pathname },
                     }}
                 />
+
+                {!isPaid && (
+                    <ActionButton
+                        text="Pay"
+                        size="small"
+                        onClick={() => showModal(PAY_INVOICE, { invoiceID: id })}
+                    />
+                )}
             </ButtonWrapper>
         </td>
     </tr>
