@@ -11,7 +11,7 @@ const AllOperativesTable = ({ headers, users, isFetching, error, handleShowModal
             <ActionButton
                 onClick={handleShowModal}
                 extraClasses="ambient-positive"
-                text="Create Admin"
+                text="Create Operative"
                 icon="user-plus"
             />
         </BlockHeading>
