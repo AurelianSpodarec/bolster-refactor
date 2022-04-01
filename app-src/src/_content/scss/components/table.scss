@@ -100,8 +100,8 @@
   }
 
   .grey-row {
-    background-color: $light-grey-alt;
-    color: $body-text;
+    background-color: var(--container-greyed-out);
+    color: var(--typography-default);
   }
 
   tbody {
