@@ -55,7 +55,7 @@
   &.dragging {
     table-layout: fixed;
   }
-  
+
   &.with-actions {
     a:not(.custom-button) {
       text-decoration: none;
@@ -270,6 +270,7 @@
 
   td {
     font-size: 12px;
+    vertical-align: middle;
 
     &.left-align {
       text-align: left;

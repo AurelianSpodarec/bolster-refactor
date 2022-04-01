@@ -3,8 +3,9 @@ import React from 'react';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import FloorTableContainer from 'components/companyAdmin/floors/shared/containers/FloorTableContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import withDrag from 'components/shared/dragDrop/hocs/withDrag';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 
 const BuldingsListItem = ({
     building,
@@ -55,12 +56,16 @@ const BuldingsListItem = ({
                     </td>
                     <td>
                         {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
-                        <ButtonContainer
-                            to={`/company/buildings/${building.id}`}
-                            handleClick={e => e.stopPropagation()}
-                        >
-                            View
-                        </ButtonContainer>
+                        <ButtonWrapper alignment="right">
+                            <LinkButton
+                                href={`/company/buildings/${building.id}`}
+                                text="View"
+                                size="small"
+                                source="secondary"
+                                ambient="positive"
+                                handleClick={e => e.stopPropagation()}
+                            />
+                        </ButtonWrapper>
                     </td>
                 </tr>,
             )}

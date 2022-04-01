@@ -5,6 +5,8 @@ import SitesList from './SitesList';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const SitesTable = ({
     headers,
@@ -20,18 +22,33 @@ const SitesTable = ({
     return (
         <BlockContainer>
             <BlockHeading title="Sites" classes="w-table">
-                <button onClick={handleAddSite} className="button green">
-                    <i className="fa fa-plus" /> Add site
-                </button>
-                {isSorting ? (
-                    <button className="button green" onClick={toggleIsSortingSites}>
-                        <i className="far fa-check" /> Finish Sort
-                    </button>
-                ) : (
-                    <button className="button" onClick={toggleIsSortingSites}>
-                        <i className="far fa-sort" /> Sort Mode
-                    </button>
-                )}
+                <ButtonWrapper alignment="right">
+                    {isSorting ? (
+                        <ActionButton
+                            onClick={toggleIsSortingSites}
+                            icon="far fa-check"
+                            text="Finish Sort"
+                            ambient="positive"
+                            size="small"
+                        />
+                    ) : (
+                        <ActionButton
+                            onClick={toggleIsSortingSites}
+                            icon="far fa-sort"
+                            text="Sort Mode"
+                            source="secondary"
+                            ambient="positive"
+                            size="small"
+                        />
+                    )}
+                    <ActionButton
+                        onClick={handleAddSite}
+                        icon="fa fa-plus"
+                        text="Add site"
+                        ambient="positive"
+                        size="small"
+                    />
+                </ButtonWrapper>
             </BlockHeading>
 
             <Table
