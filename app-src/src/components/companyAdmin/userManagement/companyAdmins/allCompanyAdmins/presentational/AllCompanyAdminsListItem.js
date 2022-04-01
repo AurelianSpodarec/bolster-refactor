@@ -122,11 +122,8 @@ const AllCompanyAdminsListItem = ({
                     icon="key"
                     href={`/company/users-management/company-admins/${user.id}/drawings`}
                 />
-                <div>
-                    <div
-                        onClick={() => setShowUserActions(!showUserActions)}
-                        className="flex flex-row justify-center align-center ellipsis"
-                    >
+                <div onClick={() => setShowUserActions(!showUserActions)}>
+                    <div className="flex flex-row justify-center align-center ellipsis">
                         <i className="fa fa-ellipsis-v" />
                     </div>
                     <div className="flex flex-row justify-center align-center">

@@ -21,12 +21,17 @@
 .user-actions-wrapper {
   position: absolute;
   top: 16px;
-  right: 50%;
+  right: 52%;
   background-color: var(--background-container);
   z-index: 1;
   padding: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.09);
   border-radius: 8px;
+
+  &.bottom {
+    top: auto;
+    bottom: 16px;
+  }
 
   .action-link {
     background-color: transparent;
@@ -50,9 +55,7 @@
 }
 
 .ellipsis {
-  i {
     &:hover {
       cursor: pointer;
     }
-  }
 }
