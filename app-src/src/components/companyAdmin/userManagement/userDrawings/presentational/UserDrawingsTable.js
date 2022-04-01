@@ -61,33 +61,6 @@ const UserDrawingsTable = ({
                 />
             ))}
         </Table>
-
-        <div className="button-container">
-            <ButtonWrapper alignment="right">
-                <ActionButton
-                    text={isAllSelected ? 'Deselect All' : 'Select All'}
-                    onClick={() => selectAll()}
-                    size="small"
-                    icon={isAllSelected ? 'times' : 'check'}
-                    source="secondary"
-                    ambient="positive"
-                />
-
-                {!!checkedDrawings.length && (
-                    <ActionButton
-                        text="Remove"
-                        onClick={() =>
-                            showModal(REMOVE_DRAWINGS_ACCESS, {
-                                checkedDrawings: checkedDrawings,
-                                userID: userID,
-                            })
-                        }
-                        size="small"
-                        icon="trash"
-                    />
-                )}
-            </ButtonWrapper>
-        </div>
     </>
 );
 
