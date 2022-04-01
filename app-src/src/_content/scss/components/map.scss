@@ -96,6 +96,8 @@
     background-color: white;
     @include rounded-all;
     @include ubuntu;
+    color: black;
+
     .holder {
         width: 100%;
     }
@@ -143,6 +145,9 @@
         top: 9px;
         left: 3px;
         width: 24px;
+        p {
+          color: black;
+        }
     }
     .code-half {
         font-size: 8px !important;
@@ -167,6 +172,7 @@
         width: 100%;
         margin-left: -20px;
         margin-top: -25px;
+        color: var(--typography-default);
     }
     span {
         float: left;
@@ -175,7 +181,7 @@
         text-emphasis: center;
         @include ubuntu;
         @include rounded-all;
-        background-color: white;
+        background-color: var(--background-container);
         padding: 2.5px 2.5px 3.5px 2.5px;
 
         strong{

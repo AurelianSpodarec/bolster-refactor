@@ -62,7 +62,7 @@ const PasswordReset = () => {
                         <FrontEndFormHeading title="Reset Password" classes="smaller" />
 
                         {postSuccess ? (
-                            <p className="generic-text">
+                            <p className="generic-text black-text">
                                 Password successfully reset. You may now{' '}
                                 <Link to="/auth/login">log in</Link>.
                             </p>

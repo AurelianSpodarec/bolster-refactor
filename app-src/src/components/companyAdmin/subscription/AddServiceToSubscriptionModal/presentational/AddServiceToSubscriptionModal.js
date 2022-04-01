@@ -85,7 +85,7 @@ const AddServiceToSubscriptionModal = ({
                 <Field name="Agree to terms" required>
                     <p className="generic-text size-lg-12">
                         Please check that you agree with the{' '}
-                        <Link to="/auth/terms" target="_blank">
+                        <Link to="/auth/terms" target="_blank" className="switched">
                             sales terms
                         </Link>{' '}
                         to proceed with payment.

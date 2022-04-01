@@ -14,15 +14,10 @@ class DashboardDataByOperativeTableContainer extends Component {
                 error={error}
                 isEmpty={isEmpty(operatives)}
                 containerClass="always-scrollbar dashboard-operatives"
+                contentClass="no-border"
             >
                 <DashboardDataByOperativeTable
-                    headers={[
-                        'Name',
-                        'Last login',
-                        'Last sync',
-                        'Pins updated',
-                        ''
-                    ]}
+                    headers={['Name', 'Last login', 'Last sync', 'Pins updated', '']}
                     operatives={operatives}
                     isFetching={isFetching}
                     error={error}
@@ -35,20 +30,16 @@ class DashboardDataByOperativeTableContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        dashboardReducer: {
-            operativeData,
-            isFetchingDashPinsStats: isFetching,
-            error
-        }
+        dashboardReducer: { operativeData, isFetchingDashPinsStats: isFetching, error },
     },
     shared: {
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => ({
     operatives: operativeData,
     isFetching,
     error,
-    onMobile
+    onMobile,
 });
 
 export default connect(mapStateToProps)(DashboardDataByOperativeTableContainer);

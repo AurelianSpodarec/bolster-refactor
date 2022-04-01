@@ -34,7 +34,10 @@ const AddCompanyPermissionsForm = ({
                 {showMoreServicesMesssage && (
                     <p className="generic-text size-lg-12">
                         Looking for more service types? Check your{' '}
-                        <Link to="/company/subscription">subscriptions</Link> to add more!
+                        <Link to="/company/subscription" className="switched">
+                            subscriptions
+                        </Link>{' '}
+                        to add more!
                     </p>
                 )}
 

@@ -1,272 +1,275 @@
 //header
 #page-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 69px;
+  border: 4px solid white;
+  border: {
+    left: none;
+    right: none;
+  }
+  background-color: white;
+
+  &.basic {
+    border-color: $red;
+  }
+
+  .container {
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+  }
+
+  //logo
+  .logo {
+    width: 166px;
+
+    a {
+      width: 100%;
+      height: 49px;
+      padding: 5px 10px;
+      text-align: center;
+    }
+
+    img {
+      max-height: 49px;
+      max-width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  //search
+  .search-area {
+    margin-left: 20px;
+    max-width: 572px;
     width: 100%;
-    height: 69px;
-    border: 4px solid white;
-    border: {
-        left: none;
-        right: none;
-    }
-    background-color: white;
+  }
 
-    &.basic {
-        border-color: $red;
+  //account area
+  .account-area {
+    padding-right: 20px;
+  }
+
+  //notifications
+  .notifications {
+    > * {
+      margin-left: 20px;
     }
-    .container {
-        height: 100%;
+
+    .profile-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 44px;
+      min-width: 48px;
+      cursor: pointer;
+      transition: 0.2s background-color;
+      border-radius: 50px;
+
+      &:hover {
+        .profile-menu {
+          visibility: visible;
+        }
+
+        .bottom-hover-colour {
+          opacity: 1;
+        }
+      }
+
+      &:not(:hover) {
+        .user {
+          border: 4px solid white;
+        }
+      }
+
+      .user {
+        position: absolute;
+        cursor: pointer;
+        text-align: center;
+        font-size: 200%;
+        font-weight: 500;
+        color: white;
+        background-color: var(--navigation-secondary);
+        height: 48px;
         width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
+        border: 4px solid transparent;
+        border-radius: 50px;
+        transition: 0.2s;
 
-    //logo
-    .logo {
-        width: 166px;
+        img, .initials {
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          @include rounded-all(50%);
+          z-index: 1;
+        }
+
+        .initials {
+          @include ubuntu-medium;
+          background-color: var(--navigation-secondary);
+          color: var(--typography-default);
+        }
+      }
+
+      //profile options
+      .profile-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 210px;
+        z-index: 11;
+        visibility: hidden;
+      }
+
+      .profile-options {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        border-radius: 8px 0px 8px 8px;
+        background-color: var(--bolster-primary);
+
 
         a {
+          text-decoration: none;
+          transition: 0.2s background-color;
+        }
+
+        .dropdown-item {
+          display: flex;
+          padding: 10px;
+          justify-content: flex-start;
+          align-items: center;
+          width: 100%;
+          @include ubuntu-medium;
+          font-size: 140%;
+
+          .dark-hover {
             width: 100%;
-            height: 49px;
-            padding: 5px 10px;
-            text-align: center;
-        }
-
-        img {
-            max-height: 49px;
-            max-width: 100%;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-    }
-
-    //search
-    .search-area {
-        margin-left: 20px;
-        max-width: 572px;
-        width: 100%;
-    }
-
-    //account area
-    .account-area {
-        padding-right: 20px;
-    }
-
-    //notifications
-    .notifications {
-        > * {
-            margin-left: 20px;
-        }
-
-        .profile-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
             height: 100%;
-            width: 44px;
-            min-width: 48px;
-            cursor: pointer;
-            transition: 0.2s background-color;
-            border-radius: 50px;
+            position: absolute;
+            top: 0;
+            left: 0;
 
             &:hover {
-                .profile-menu {
-                    visibility: visible;
-                }
-
-                .bottom-hover-colour {
-                    opacity: 1;
-                }
+              background-color: rgba(0, 0, 0, 0.1);
+              transition: background-color 0.5s;
             }
 
-            &:not(:hover) {
-                .user {
-                    border: 4px solid white;
-                }
-            }
+          }
 
-            .user {
-                position: absolute;
-                cursor: pointer;
-                text-align: center;
-                font-size: 200%;
-                font-weight: 500;
-                color: white;
-                background-color: var(--navigation-secondary);
-                height: 48px;
-                width: 100%;
-                border: 4px solid transparent;
-                border-radius: 50px;
-                transition: 0.2s;
+          img {
+            transform: scale(0.5);
+          }
 
-                img, .initials {
-                    width: 100%;
-                    height: 100%;
-                    overflow: hidden;
-                    @include rounded-all(50%);
-                    z-index: 1;
-                }
+          .item-text {
+            padding-left: 10px;
+            color: var(--dropdown-text);
+            font-weight: 500;
+            font-size: 15px;
+          }
 
-                .initials {
-                    @include ubuntu-medium;
-                    background-color: var(--navigation-secondary);
-                }
-            }
-
-            //profile options
-            .profile-menu {
-                position: absolute;
-                top: 100%;
-                right: 0;
-                width: 210px;
-                z-index: 11;
-                visibility: hidden;       
-            }
-
-            .profile-options {
-                position: absolute;
-                display: flex;
-                flex-direction: column;
-                width: 100%;
-                border-radius: 8px 0px 8px 8px;
-                background-color: var(--bolster-primary);
-          
-         
-                a {
-                    text-decoration: none;
-                    transition: 0.2s background-color;
-                }
-        
-                .dropdown-item {
-                    display: flex;
-                    padding: 10px;
-                    justify-content: flex-start;
-                    align-items: center;
-                    width: 100%;
-                    @include ubuntu-medium;
-                    font-size: 140%;
-                    
-                    .dark-hover {
-                        width: 100%;
-                        height: 100%;
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        &:hover {
-                            background-color: rgba(0, 0, 0, 0.1);
-                            transition: background-color 0.5s;
-                        }
-
-                    }
-
-                    img {
-                        transform: scale(0.5);
-                    }
-        
-                    .item-text {
-                        padding-left: 10px;
-                        color: var(--dropdown-text);
-                        font-weight: 500;
-                        font-size: 15px;
-                    }
-
-                }
-
-                &.dark {
-                    .dropdown-item {
-                        .item-text {
-                            color: black;
-                        }
-                    }
-                }
-            }
-
-            // bottom hover effect
-            .bottom-hover-colour {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 50%;
-                opacity: 0;
-                transition: 0.2s opacity;
-            }
-        }
-    }
-
-
-    .recent-updates {
-        display: flex;
-        float: left;
-        height: 100%;
-        margin-left: 15px;
-        justify-content: center;
-        align-items: center;
-
-        .icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: $background-grey;
-            cursor: pointer;
-            outline: none;
-
-            &.unread {
-                background-color: $red;
-            }
-
-            i {
-                color: white;
-                font-size: 160%;
-            }
         }
 
-        .list {
-            position: absolute;
-            right: 0;
-            width: 300px;
-            max-height: 295px;
-            overflow: auto;
-            box-shadow: 0px 1px 3px -2px black;
-            background-color: #fefefe;
-            @include dropdown-popup();
-
-            .item {
-                display: block;
-                padding: 10px;
-                background-color: #fefefe;
-                cursor: pointer;
-
-                &:nth-child(even) {
-                    background-color: $background-grey;
-                }
+        &.dark {
+          .dropdown-item {
+            .item-text {
+              color: black;
             }
-
-            h2, p {
-                line-height: 1.5;
-            }
-
-            h2 {
-                font-size: 140%;
-            }
-
-            p {
-                font-size: 120%;
-                color: $text-grey;
-            }
-
-            .info {
-                padding: 20px 15px;
-                font-size: 140%;
-                text-align: center;
-            }
+          }
         }
+      }
+
+      // bottom hover effect
+      .bottom-hover-colour {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50%;
+        opacity: 0;
+        transition: 0.2s opacity;
+      }
+    }
+  }
+
+
+  .recent-updates {
+    display: flex;
+    float: left;
+    height: 100%;
+    margin-left: 15px;
+    justify-content: center;
+    align-items: center;
+
+    .icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: $background-grey;
+      cursor: pointer;
+      outline: none;
+
+      &.unread {
+        background-color: $red;
+      }
+
+      i {
+        color: white;
+        font-size: 160%;
+      }
     }
 
-    .break-line {
-        height: 40px;
-        width: 2px;
-        background-color: #8D8D8D;
+    .list {
+      position: absolute;
+      right: 0;
+      width: 300px;
+      max-height: 295px;
+      overflow: auto;
+      box-shadow: 0px 1px 3px -2px black;
+      background-color: #fefefe;
+      @include dropdown-popup();
+
+      .item {
+        display: block;
+        padding: 10px;
+        background-color: #fefefe;
+        cursor: pointer;
+
+        &:nth-child(even) {
+          background-color: $background-grey;
+        }
+      }
+
+      h2, p {
+        line-height: 1.5;
+      }
+
+      h2 {
+        font-size: 140%;
+      }
+
+      p {
+        font-size: 120%;
+        color: $text-grey;
+      }
+
+      .info {
+        padding: 20px 15px;
+        font-size: 140%;
+        text-align: center;
+      }
     }
+  }
+
+  .break-line {
+    height: 40px;
+    width: 2px;
+    background-color: #8D8D8D;
+  }
 }

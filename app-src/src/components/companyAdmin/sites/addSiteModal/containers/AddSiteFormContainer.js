@@ -41,20 +41,15 @@ class AddSiteFormContainer extends Component {
     };
 
     render() {
-        const {
-            isUsingBolsterLabels,
-            isFetching,
-            error,
-            manufacturers,
-            isFetchingHierarchies,
-        } = this.props;
+        const { isUsingBolsterLabels, isFetching, error, manufacturers, isFetchingHierarchies } =
+            this.props;
 
         return (
             <BlockContainer
                 isEmpty={isFetching}
                 isFetching={isFetching}
                 error={error}
-                contentClass="no-padding"
+                contentClass="no-padding no-border"
             >
                 <AddSiteForm
                     {...this.state}

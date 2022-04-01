@@ -10,13 +10,18 @@ const useNavOverflow = hover => {
     useEffect(() => {
         if (subNavRef.current) {
             const rect = subNavRef.current.getBoundingClientRect();
+
             if (rect.bottom + rect.height > height) {
                 setIsSubNavOverflowing(true);
             } else {
                 setIsSubNavOverflowing(false);
             }
         }
-    }, [subNavRef.current, height, hover]);
+
+        return () => {
+            setIsSubNavOverflowing(false);
+        };
+    }, [subNavRef, height, hover]);
 
     return { subNavRef, isSubNavOverflowing };
 };

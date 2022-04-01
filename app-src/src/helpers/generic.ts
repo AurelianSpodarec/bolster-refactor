@@ -419,6 +419,24 @@ export const isMinMemory = (bytes: number) => {
 };
 export const totalArray = (array: number[]) => array.reduce((acc, val) => acc + val, 0);
 
+export const titleCaseString = (string: string): string => {
+    const sentence = string.toLowerCase().split('_');
+    for (let i = 0; i < sentence.length; i++) {
+        sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+    }
+
+    return sentence.join(' ');
+};
+
+export const formatUnderscoreToTitleCase = (string: string): string => {
+    const sentence = string.toLowerCase().split('_');
+    for (let i = 0; i < sentence.length; i++) {
+        sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+    }
+
+    return sentence.join(' ');
+};
+
 export const reverseObj = (obj: any) => {
     return Object.entries(obj).reduce((ret, entry: any) => {
         const [key, value] = entry;

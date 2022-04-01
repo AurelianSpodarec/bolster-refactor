@@ -22,7 +22,9 @@ const SubNavMenuLink = ({
             <Link
                 onClick={onClick}
                 to={link}
-                onMouseEnter={() => setHover(true)}
+                onMouseEnter={() => {
+                    setHover(true);
+                }}
                 onMouseLeave={() => {
                     setHover(false);
                 }}

@@ -5,7 +5,6 @@ import { getLowMemoryMessage } from '../../../../../constants/shared/messages';
 import { getStorageString } from 'helpers/generic';
 
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import { boolToYesNo } from 'helpers/generic';
 import TooltipContainer from '../../../../shared/generic/tooltip/containers/TooltipContainer';
 
 const CompanyUserListItem = ({ user, handleModalClick, tableColumnWidths }) => {

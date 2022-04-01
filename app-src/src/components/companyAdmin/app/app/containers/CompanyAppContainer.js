@@ -20,9 +20,10 @@ import fetchOutgoingInvites from 'actions/companyAdmin/pendingInvites/fetchOutgo
 import fetchSingleCompanyUser from 'actions/companyAdmin/userManagement/async/fetchSingleCompanyUser';
 import withAuth from 'components/shared/auth/auth/hocs/withAuth';
 import { AUTH_TYPES } from 'constants/shared/auth';
-import fetchMessagesBasic from 'actions/companyAdmin/messages/async/fetchMessagesBasic';
 import fetchRecentUpdates from 'actions/companyAdmin/recentUpdates/async/fetchRecentUpdates';
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
+import fetchSystemMessages from 'actions/companyAdmin/messageCentre/async/fetchSystemMessages';
+import fetchCompanyAlerts from 'actions/companyAdmin/messageCentre/async/fetchCompanyAlerts';
 import fetchLatestAppVersion from 'actions/companyAdmin/app/async/fetchLatestAppVersion';
 class CompanyAppContainer extends React.PureComponent {
     render() {
@@ -88,7 +89,9 @@ const mapDispatchToProps = dispatch => ({
             dispatch(fetchOutgoingTransferRequests());
             dispatch(fetchPendingInvites());
             dispatch(fetchOutgoingInvites());
-            dispatch(fetchMessagesBasic());
+            dispatch(fetchRecentUpdates());
+            dispatch(fetchSystemMessages());
+            dispatch(fetchCompanyAlerts());
             dispatch(fetchCompanyReports());
             dispatch(companyFetchAllServices());
             dispatch(fetchAllSubscriptions());

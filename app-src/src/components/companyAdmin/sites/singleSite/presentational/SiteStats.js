@@ -15,6 +15,8 @@ const SiteStats = ({
     handleChange,
     serviceID,
     serviceOptions,
+    handleCreateHierarchyAlertModal,
+    handleViewHierarchyAlerts,
     handleViewDrawingExpiryModal,
     companyID,
     companyOptions,
@@ -66,6 +68,20 @@ const SiteStats = ({
             <button className="button blue" onClick={handleArchive} type="button">
                 <i className="fa fa-archive" />
                 {site.isArchived ? 'Un-Archive' : 'Archive'}
+            </button>
+
+            <button className="button yellow" type="button" onClick={handleViewHierarchyAlerts}>
+                <i className="fa fa-eye" />
+                View Alerts
+            </button>
+
+            <button
+                className="button green"
+                type="button"
+                onClick={handleCreateHierarchyAlertModal}
+            >
+                <i className="fa fa-plus" />
+                Create Alert
             </button>
         </div>
     </div>

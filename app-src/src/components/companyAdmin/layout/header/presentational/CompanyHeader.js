@@ -20,7 +20,7 @@ const Header = () => {
         companyUserID,
         isCompanySelected,
         totalRequests,
-        unreadMessageCount,
+        notificationCount,
         isMobile,
         toggleMobileMenu,
         isSubscribed,
@@ -62,7 +62,7 @@ const Header = () => {
                 </div>
                 {isCompanySelected && !isMobile && isSubscribed && (
                     <div className="flex flex-row align-center">
-                        <div className="search-area">
+                        <div className="search-area header-nav">
                             <SearchContainer placeholder="Search by site, building, floor or drawings" />
                         </div>
                     </div>
@@ -82,7 +82,7 @@ const Header = () => {
                                 <CircleButton
                                     href="/company/message-centre"
                                     icon={EnvelopeIcon}
-                                    showNotification={!!unreadMessageCount}
+                                    showNotification={!!notificationCount}
                                 />
                                 <div className="break-line" />
                             </>

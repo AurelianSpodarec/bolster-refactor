@@ -9,7 +9,7 @@ import {
     CREATE_OPERATIVE_ALERT_FAILURE,
     FETCH_OPERATIVE_ALERT_DELIVERIES_SUCCESS,
     FETCH_OPERATIVE_ALERT_DELIVERIES_REQUEST,
-    FETCH_OPERATIVE_ALERT_DELIVERIES_FAILURE
+    FETCH_OPERATIVE_ALERT_DELIVERIES_FAILURE,
 } from 'constants/actionTypes/operativeAlerts';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 
@@ -18,7 +18,7 @@ export default combineReducers({
     postSuccess: postSuccessReducer,
     operativeAlerts: operativeAlertsReducer,
     operativeAlertMetrics: operativeAlertMetricsReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function isFetchingReducer(state = false, action) {
