@@ -27,6 +27,7 @@ const UpdateFaqsContainer = () => {
         title: faqSingle.title,
         content: faqSingle.content,
         imageS3Key: faqSingle.imageS3Key,
+        pdfS3Key: faqSingle.pdfS3Key,
         videoLink: faqSingle.videoLink,
     });
 

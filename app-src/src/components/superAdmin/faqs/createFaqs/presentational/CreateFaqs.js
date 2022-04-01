@@ -16,7 +16,7 @@ const buttonOptions = [['formatBlock'], ['bold', 'italic', 'underline'], ['list'
 const CreateFaqs = ({
     handleSave,
     handleFormChange,
-    form: { title, type, content, imageS3Key, videoLink },
+    form: { title, type, content, imageS3Key, pdfS3Key, videoLink },
 }) => {
     return (
         <>
@@ -69,6 +69,14 @@ const CreateFaqs = ({
                         value={imageS3Key}
                         name="imageS3Key"
                         acceptedTypes={['image/jpg', 'image/png', 'image/jpeg']}
+                        handleChange={handleFormChange}
+                    />
+                </Field>
+                <Field name="Upload PDF" sizeClasses="size-lg-6">
+                    <FileUploadContainer
+                        value={pdfS3Key}
+                        name="pdfS3Key"
+                        acceptedTypes={['application/pdf']}
                         handleChange={handleFormChange}
                     />
                 </Field>
