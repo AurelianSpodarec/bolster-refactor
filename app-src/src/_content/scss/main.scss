@@ -3371,5 +3371,11 @@ input {
   }
 }
 
+.drawing-access-item {
+  a {
+    color: var(--typography-default) !important;
+  }
+}
+
 // mobile
 @import './dashboard-mobile.scss';
