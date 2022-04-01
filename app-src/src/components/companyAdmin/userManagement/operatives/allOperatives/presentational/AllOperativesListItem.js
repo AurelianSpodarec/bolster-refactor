@@ -114,8 +114,11 @@ const AllOperativesListItem = ({
                     icon="key"
                     href={`/company/users-management/operative/${user.id}/drawings`}
                 />
-                <div onClick={() => setShowUserActions(!showUserActions)}>
-                    <div className="flex flex-row justify-center align-center ellipsis">
+                <div>
+                    <div
+                        className="flex flex-row justify-center align-center ellipsis"
+                        onClick={() => setShowUserActions(!showUserActions)}
+                    >
                         <i className="fa fa-ellipsis-v" />
                     </div>
                     <div className="flex flex-row justify-center align-center">
