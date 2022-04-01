@@ -14,7 +14,7 @@ const UserDrawingListItem = ({
     const isExpired = moment(drawing.expiresOn).isBefore(moment.now());
 
     return (
-        <tr key={drawing.id}>
+        <tr key={drawing.id} className="drawing-access-item">
             <td>
                 <a href={`/company/drawings/${drawing.id}`}>
                     {`${siteName} / ${buildingName} / ${floorName} / ${drawing.name} ${

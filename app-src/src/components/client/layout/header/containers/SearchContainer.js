@@ -13,7 +13,7 @@ class SearchContainer extends Component {
 
     render() {
         const { searchTerm, resultsVisible } = this.state;
-        const { isFetching, error } = this.props;
+        const { isFetching, error, className } = this.props;
         return (
             <div
                 ref={node => {
@@ -28,6 +28,7 @@ class SearchContainer extends Component {
                     handleChange={this.handleChange}
                     results={this.formatSearchResults()}
                     handleLinkClick={() => this._closeResults()}
+                    className={className}
                 />
             </div>
         );
