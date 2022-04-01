@@ -18,6 +18,7 @@ class EditDrawingOperativeFormContainer extends Component {
     state = {
         serviceIDs: [],
         isTemplateFilteringEnabled: false,
+        templateIDs: [],
     };
 
     render() {
@@ -52,12 +53,8 @@ class EditDrawingOperativeFormContainer extends Component {
         );
     }
     componentDidMount() {
-        const {
-            fetchOperativesForDrawing,
-            match,
-            fetchCompanyPermissions,
-            fetchAllTemplates,
-        } = this.props;
+        const { fetchOperativesForDrawing, match, fetchCompanyPermissions, fetchAllTemplates } =
+            this.props;
         const { id } = match.params;
         fetchOperativesForDrawing(id);
         fetchAllTemplates();
@@ -141,7 +138,6 @@ class EditDrawingOperativeFormContainer extends Component {
 
     getTemplatesForService = serviceID => {
         const { templates } = this.props;
-
         const filteredTemplates = templates
             .filter(template => template.serviceID === serviceID)
             .map(({ id, name, isDeleted }) => {
