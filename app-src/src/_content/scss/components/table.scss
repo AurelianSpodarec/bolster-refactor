@@ -55,21 +55,20 @@
   &.dragging {
     table-layout: fixed;
   }
-    &.with-actions {
-        a:not(.custom-button) {
-            text-decoration: none;
-            color: white;
-
+  
   &.with-actions {
-    a {
+    a:not(.custom-button) {
       text-decoration: none;
       color: white;
+
+      &.dark {
+        color: black;
+      }
 
       &:hover {
         text-decoration: underline;
       }
     }
-
     td {
       &:last-child {
         text-align: right;
@@ -79,7 +78,6 @@
         }
       }
     }
-
     th {
       &:last-child {
         text-align: right;
