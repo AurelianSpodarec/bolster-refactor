@@ -5,6 +5,7 @@ const LinkButton = ({
     href = '',
     text = '',
     icon = '',
+    customIcon = '', // SVG path
     iconRight = false,
     iconSpin = false,
     iconOnly = false,
@@ -27,6 +28,7 @@ const LinkButton = ({
             disabled={disabled}
         >
             {icon && !iconRight && <i className={dynamicIconClass}></i>}
+            {!icon && customIcon && <img className="custom-icon" src={customIcon} />}
             {text && !iconOnly && <span className="text">{text}</span>}
             {icon && iconRight && <i className={dynamicIconClass}></i>}
         </Link>
