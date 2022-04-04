@@ -10,6 +10,7 @@ import LinkButton from '../../../../../shared/generic/button/presentational/Link
 import TooltipContainer from '../../../../../shared/generic/tooltip/containers/TooltipContainer';
 import CompanyAdminUserActionsMenu from './CompanyAdminUserActionsMenu';
 import { getDeviceNameColour, getTooltipRamText } from '../../../shared/utils';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const AllCompanyAdminsListItem = ({
     user,
@@ -114,29 +115,27 @@ const AllCompanyAdminsListItem = ({
             </td>
 
             <td>
-                <LinkButton
-                    text="Drawing Access"
-                    size="small"
-                    icon="key"
-                    iconWeight="regular"
-                    href={`/company/users-management/company-admins/${user.id}/drawings`}
-                />
-                <div>
-                    <div className="flex flex-row justify-center align-center">
-                        <CompanyAdminUserActionsMenu
-                            user={user}
-                            generateReport={generateReport}
-                            isDisabled={isDisabled}
-                            showUnlinkModal={showUnlinkModal}
-                            loggedInUser={loggedInUser}
-                            showRestrictUserPaymentsModal={showRestrictUserPaymentsModal}
-                            showRevokeAdminAccessModal={showRevokeAdminAccessModal}
-                            showEnableModal={showEnableModal}
-                            showDisableModal={showDisableModal}
-                            showDeleteModal={showDeleteModal}
-                        />
-                    </div>
-                </div>
+                <ButtonWrapper alignment="right">
+                    <LinkButton
+                        text="Drawing Access"
+                        size="small"
+                        icon="key"
+                        iconWeight="regular"
+                        href={`/company/users-management/company-admins/${user.id}/drawings`}
+                    />
+                    <CompanyAdminUserActionsMenu
+                        user={user}
+                        generateReport={generateReport}
+                        isDisabled={isDisabled}
+                        showUnlinkModal={showUnlinkModal}
+                        loggedInUser={loggedInUser}
+                        showRestrictUserPaymentsModal={showRestrictUserPaymentsModal}
+                        showRevokeAdminAccessModal={showRevokeAdminAccessModal}
+                        showEnableModal={showEnableModal}
+                        showDisableModal={showDisableModal}
+                        showDeleteModal={showDeleteModal}
+                    />
+                </ButtonWrapper>
             </td>
         </tr>
     );
