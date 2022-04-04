@@ -53,10 +53,7 @@ const AllCompanyAdminsListItem = ({
     );
 
     return (
-        <tr
-            key={user.id}
-            className={`user-table ${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}
-        >
+        <tr key={user.id} className={`${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}>
             <td>
                 {isRowRed && (
                     <TooltipContainer
