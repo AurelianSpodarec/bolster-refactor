@@ -32,26 +32,28 @@ export const postLoginTwoFactorRequired = () => ({
     type: POST_LOGIN_TWO_FACTOR_REQUIRED,
 });
 
-export default (email, password, twoFactorCode = null) => dispatch => {
-    dispatch(postLoginRequest());
-    // * Password is trimmed to remove whitespace from end at client request
-    const trimmedPassword = password.trim();
-    return axios
-        .post(
-            `${AUTH_API_URL}/auth/login`,
-            { email, password: trimmedPassword, twoFactorCode },
-            getHeaders(),
-        )
-        .then(({ data }) => {
-            if (data.isEmailConfirmationRequired) {
-                return dispatch(postLoginEmailConirmationRequired(email));
-            }
-            if (data.isTwoFactorRequired) {
-                return dispatch(postLoginTwoFactorRequired(email));
-            }
-            // todo figure out if company was received in response, this tells us where to go next!
-            localStorage.setItem('token', data.token);
-            return dispatch(postLoginSuccess(data));
-        })
-        .catch(err => dispatch(handleErrors(postLoginFailure)(err)));
-};
+export default (email, password, twoFactorCode = null) =>
+    dispatch => {
+        dispatch(postLoginRequest());
+        // * Password is trimmed to remove whitespace from end at client request
+        const trimmedPassword = password.trim();
+        return axios
+            .post(
+                `${AUTH_API_URL}/auth/login`,
+                { email, password: trimmedPassword, twoFactorCode },
+                getHeaders(),
+            )
+            .then(({ data }) => {
+                if (data.isEmailConfirmationRequired) {
+                    return dispatch(postLoginEmailConirmationRequired(email));
+                }
+                if (data.isTwoFactorRequired) {
+                    return dispatch(postLoginTwoFactorRequired(email));
+                }
+                // todo figure out if company was received in response, this tells us where to go next!
+                localStorage.setItem('selectedCompany', '');
+                localStorage.setItem('token', data.token);
+                return dispatch(postLoginSuccess(data));
+            })
+            .catch(err => dispatch(handleErrors(postLoginFailure)(err)));
+    };
