@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import { COMPANY_USER_ROLE_TYPES } from '../../../../../../constants/companyAdmin/enums';
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
