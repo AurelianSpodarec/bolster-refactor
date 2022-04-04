@@ -11,6 +11,8 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Form from 'components/shared/generic/form/containers/Form';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const DisableUserModal = ({ user }) => {
     const dispatch = useDispatch();
@@ -36,13 +38,22 @@ const DisableUserModal = ({ user }) => {
                     {`${user.userFirstName} ${user.userLastName}`}'?
                 </p>
                 <BlockButtonWrapper>
-                    <button
-                        className={`button green ${isPosting ? 'disabled' : ''}`}
-                        disabled={isPosting}
-                    >
-                        {isPosting && <i className="fa fa-spinner fa-spin"></i>}
-                        Confirm
-                    </button>
+                    <ButtonWrapper alignment="right">
+                        <ActionButton
+                            text="Cancel"
+                            size="small"
+                            source="secondary"
+                            onClick={() => dispatch(hideModal())}
+                        />
+                        <ActionButton
+                            text="Confirm"
+                            size="small"
+                            icon={isPosting ? 'spinner' : 'check'}
+                            iconSpin={isPosting}
+                            type="submit"
+                            disabled={isPosting}
+                        />
+                    </ButtonWrapper>
                 </BlockButtonWrapper>
             </Form>
         </ModalOuterContainer>

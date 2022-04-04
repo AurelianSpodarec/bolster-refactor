@@ -5,7 +5,14 @@ import ConfirmDeleteModal from '../presentational/ConfirmDeleteModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import deleteCompanyUser from 'actions/companyAdmin/userManagement/async/deleteCompanyUser';
 
-const DeleteCompanyUserModalContainer = ({ id, user, handleDelete, hideModal }) => {
+const DeleteCompanyUserModalContainer = ({
+    id,
+    user,
+    deleteButtonText,
+    icon,
+    handleDelete,
+    hideModal,
+}) => {
     return (
         <ConfirmDeleteModal
             handleDelete={() => handleDelete(id, user)}
@@ -14,6 +21,8 @@ const DeleteCompanyUserModalContainer = ({ id, user, handleDelete, hideModal }) 
                 hideModal();
             }}
             message="Are you sure you want to delete this user?"
+            deleteButtonText={deleteButtonText}
+            icon={icon}
         />
     );
 };
