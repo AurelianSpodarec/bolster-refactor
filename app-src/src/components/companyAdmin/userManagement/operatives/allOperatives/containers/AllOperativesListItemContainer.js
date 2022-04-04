@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AllOperativesListItem from '../presentational/AllOperativesListItem';
@@ -16,8 +16,6 @@ import editCompanyUserType from 'actions/companyAdmin/userManagement/async/editC
 const AllOperativesListItemContainer = ({ user, headers }) => {
     const dispatch = useDispatch();
     const { disabledUsers, maxDrawingsPerOperative, onMobile } = useSelector(mapStateToProps);
-
-    const [showUserActions, setShowUserActions] = useState(false);
 
     const drawingLimitColour = getOperativeDrawingLimitColour(user.drawingCount);
     const drawingLimitMaxed = user.drawingCount >= maxDrawingsPerOperative;
@@ -37,8 +35,6 @@ const AllOperativesListItemContainer = ({ user, headers }) => {
             showNotUpsyncedRecentlyWarning={user.notUpsyncedRecently}
             tooltipDate={user.notUpSyncedInXDays}
             isDisabled={!!disabledUsers[user.id]}
-            showUserActions={showUserActions}
-            setShowUserActions={setShowUserActions}
         />
     );
 

@@ -9,6 +9,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { getDeviceNameColour, getTooltipRamText } from '../../../shared/utils';
 import LinkButton from '../../../../../shared/generic/button/presentational/LinkButton';
 import OperativeUserActionsMenu from './OperativeUserActionsMenu';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const AllOperativesListItem = ({
     user,
@@ -24,8 +25,6 @@ const AllOperativesListItem = ({
     drawingLimitColour,
     drawingLimitMaxed,
     isDisabled,
-    showUserActions,
-    setShowUserActions,
 }) => {
     const history = useHistory();
 
@@ -48,11 +47,10 @@ const AllOperativesListItem = ({
         <p>No linked device</p>
     );
 
+    const deviceNameColour = getDeviceNameColour(user.deviceRAM, user.physicalStorageAvailable);
+
     return (
-        <tr
-            key={user.id}
-            className={`user-table ${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}
-        >
+        <tr key={user.id} className={`${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}>
             <td>
                 {isRowRed && (
                     <TooltipContainer
@@ -72,10 +70,10 @@ const AllOperativesListItem = ({
                 {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                 <span>{nameString}</span>
                 <br />
-                <div className="email">
+                <span className="email">
                     {user.userEmail}{' '}
                     {user.isEmailConfirmed ? <i className="fas fa-check-circle" /> : ''}
-                </div>
+                </span>
             </td>
 
             <td>
@@ -86,12 +84,14 @@ const AllOperativesListItem = ({
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
                 <TooltipContainer text={tooltipText} containerSide="left" side="bottom">
-                    <span
-                        className={getDeviceNameColour(
-                            user.deviceRAM,
-                            user.physicalStorageAvailable,
-                        )}
-                    >{`${user.linkedDeviceName || 'No Device Name'}`}</span>
+                    <span className={deviceNameColour}>
+                        {deviceNameColour ? (
+                            <i className={`fal fa-exclamation-triangle ${deviceNameColour}`}></i>
+                        ) : (
+                            ''
+                        )}{' '}
+                        {`${user.linkedDeviceName || 'No Device Name'}`}
+                    </span>
                 </TooltipContainer>
             </td>
 
@@ -111,38 +111,25 @@ const AllOperativesListItem = ({
             </td>
 
             <td>
-                <LinkButton
-                    text="Drawing Access"
-                    size="small"
-                    icon="key"
-                    iconWeight="regular"
-                    href={`/company/users-management/operative/${user.id}/drawings`}
-                />
-                <div>
-                    <div
-                        className="flex flex-row justify-center align-center ellipsis"
-                        onClick={() => setShowUserActions(!showUserActions)}
-                    >
-                        <i className="fa fa-ellipsis-v" />
-                    </div>
-                    <div className="flex flex-row justify-center align-center">
-                        {showUserActions && (
-                            <OperativeUserActionsMenu
-                                user={user}
-                                onMobile={onMobile}
-                                headers={headers}
-                                generateReport={generateReport}
-                                isDisabled={isDisabled}
-                                showUnlinkModal={showUnlinkModal}
-                                showEnableModal={showEnableModal}
-                                showDisableModal={showDisableModal}
-                                showDeleteModal={showDeleteModal}
-                                setShowUserActions={setShowUserActions}
-                                showMakeAdminModal={showMakeAdminModal}
-                            />
-                        )}
-                    </div>
-                </div>
+                <ButtonWrapper alignment="right">
+                    <LinkButton
+                        text="Drawing Access"
+                        size="small"
+                        icon="key"
+                        iconWeight="regular"
+                        href={`/company/users-management/operative/${user.id}/drawings`}
+                    />
+                    <OperativeUserActionsMenu
+                        user={user}
+                        generateReport={generateReport}
+                        isDisabled={isDisabled}
+                        showUnlinkModal={showUnlinkModal}
+                        showEnableModal={showEnableModal}
+                        showDisableModal={showDisableModal}
+                        showDeleteModal={showDeleteModal}
+                        showMakeAdminModal={showMakeAdminModal}
+                    />
+                </ButtonWrapper>
             </td>
         </tr>
     );

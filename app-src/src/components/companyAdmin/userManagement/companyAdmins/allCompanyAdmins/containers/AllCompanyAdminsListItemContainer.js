@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -17,7 +17,6 @@ import AllCompanyAdminsListItem from '../presentational/AllCompanyAdminsListItem
 const AllCompanyAdminsListItemContainer = ({ user, headers }) => {
     const { loggedInUser, onMobile, disabledUsers, maxDrawingsPerOperative } =
         useSelector(mapStateToProps);
-    const [showUserActions, setShowUserActions] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -42,8 +41,6 @@ const AllCompanyAdminsListItemContainer = ({ user, headers }) => {
             isDisabled={!!disabledUsers[user.id]}
             drawingLimitColour={drawingLimitColour}
             drawingLimitMaxed={drawingLimitMaxed}
-            showUserActions={showUserActions}
-            setShowUserActions={setShowUserActions}
         />
     );
 

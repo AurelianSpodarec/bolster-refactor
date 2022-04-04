@@ -1,6 +1,5 @@
 // tooltip container
 .tooltip-container {
-    position: static;
     float: right;
     margin-top: 4px;
 
@@ -48,33 +47,35 @@
     display: inline-block;
 
     &.right {
-        left: 30px;
+        left: 100%;
+        margin-left: 15px;
 
         .tooltip-arrow {
             top: 50%;
             left: -5px;
             border-width: 5px 5px 5px 0;
-            border-right-color: $button-grey;
+            border-right-color: var(--background-stroke);
         }
     }
 
     &.left {
         left: auto;
-        right: 30px;
+        right: 100%;
+        margin-right: 15px;
 
         .tooltip-arrow {
             top: 50%;
             margin-top: -5px;
             border-width: 5px 0 5px 5px;
-            border-left-color: $button-grey;
+            border-left-color: var(--background-stroke);
             right: -5px;
             left: auto;
         }
     }
 
     &.top {
-        margin-top: -5px;
-        top: -5px;
+        margin-top: -10px;
+        top: 0;
         transform: translateY(-100%) translateX(-50%);
         left: 50%;
 
@@ -84,17 +85,21 @@
             left: 50%;
             margin-left: -5px;
             border-width: 5px 5px 0 5px;
-            border-color: $button-grey transparent transparent transparent;
+            border-color: var(--background-stroke) transparent transparent transparent;
         }
     }
 
     &.bottom {
-        bottom: 125%;
+        top: 100%;
+        left: 50%;
+        margin-top: 10px;
+        transform: translateY(0) translateX(-50%);
+
         .tooltip-arrow {
             top: 0;
             left: 45%;
             border-width: 0 5px 5px;
-            border-bottom-color: $button-grey;
+            border-bottom-color: var(--background-stroke);
             border-right-color: transparent;
         }
     }
@@ -110,7 +115,7 @@
         left: 0;
         margin-top: -5px;
         border-width: 5px 5px 5px 0;
-        border-right-color: $button-grey;
+        border-right-color: var(--background-stroke);
     }
 
     .tooltip-label {
@@ -118,17 +123,17 @@
         min-width: 150px;
         padding: 10px;
         color: #000;
-        text-align: center;
-        border: 2px solid $button-grey;
-        background-color: #fff;
+        text-align: left;
+        border: 2px solid var(--background-stroke);
+        background-color: var(--background-container);
         border-radius: 5px;
         @include ubuntu;
-        font-size: 13px;
+        font-size: 12px;
     }
 
     p {
         font-size: 100%;
-        margin-bottom: 10px;
+        margin-bottom: 2px;
 
         &:last-child {
             margin-bottom: 0;

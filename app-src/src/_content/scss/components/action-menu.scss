@@ -1,0 +1,28 @@
+// menu
+.action-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--navigation-primary);
+    z-index: 1;
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.09);
+    border-radius: 8px;
+  
+    &.bottom {
+        top: auto;
+        bottom: 100%;
+    }
+}
+
+// button
+.ellipsis-button {
+    font-size: 13px;
+    padding: 5px 20px;
+    background-color: transparent;
+
+    i {
+        font-size: inherit!important;
+        margin: 0!important;
+    }
+}

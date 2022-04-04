@@ -1,12 +1,10 @@
 import React from 'react';
-import useClickOutside from '../../../../../../hooks/useClickOutside';
 
-import UserActionsMenu from '../../../shared/menus/UserActionsMenu';
-import { Link } from 'react-router-dom';
+import ActionMenu from 'components/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
+import ActionMenuLinkButton from 'components/shared/actionMenu/ActionMenuLinkButton';
 
 const CompanyAdminUserActionsMenu = ({
-    onMobile,
-    headers,
     user,
     isDisabled,
     showUnlinkModal,
@@ -14,74 +12,45 @@ const CompanyAdminUserActionsMenu = ({
     showEnableModal,
     showDisableModal,
     showDeleteModal,
-    setShowUserActions,
     showMakeAdminModal,
-}) => {
-    const closeMenu = () => {
-        setShowUserActions(false);
-    };
+}) => (
+    <ActionMenu>
+        <ActionMenuActionButton text="Generate Report" onClick={generateReport} />
 
-    const ref = useClickOutside(closeMenu);
+        {user.linkedDeviceID && !isDisabled && (
+            <ActionMenuActionButton text="Unlink Device" onClick={showUnlinkModal} />
+        )}
 
-    return (
-        <UserActionsMenu>
-            {onMobile && <span className="mobile-table-heading">{headers[10]}</span>}
-            <div ref={ref} className="flex-column">
-                <div className="action-link" onClick={generateReport}>
-                    Generate Report
-                </div>
+        <ActionMenuLinkButton
+            text="Timesheet"
+            href={`/company/users-management/operatives/${user.id}/timesheet`}
+        />
 
-                {user.linkedDeviceID && !isDisabled && (
-                    <div className="action-link" onClick={showUnlinkModal}>
-                        Unlink Device
-                    </div>
-                )}
+        <ActionMenuLinkButton
+            text="Edit"
+            href={`/company/users-management/operatives/${user.id}/edit`}
+        />
 
-                <Link
-                    className="action-link"
-                    to={`/company/users-management/operatives/${user.id}/timesheet`}
-                >
-                    Timesheet
-                </Link>
-                <Link
-                    className="action-link"
-                    to={`/company/users-management/operatives/${user.id}/edit`}
-                >
-                    Edit
-                </Link>
-                <Link
-                    className="action-link"
-                    to={`/company/users-management/operatives/${user.id}/edit-email`}
-                >
-                    Edit Email
-                </Link>
-                <Link
-                    className="action-link"
-                    to={`/company/users-management/operatives/${user.id}/documents`}
-                >
-                    Documents
-                </Link>
+        <ActionMenuLinkButton
+            text="Edit Email"
+            href={`/company/users-management/operatives/${user.id}/edit-email`}
+        />
 
-                {isDisabled ? (
-                    <div className="action-link" onClick={showEnableModal}>
-                        Enable
-                    </div>
-                ) : (
-                    <>
-                        <div className="action-link" onClick={showMakeAdminModal}>
-                            Make Admin
-                        </div>
-                        <div className="action-link" onClick={showDisableModal}>
-                            Disable
-                        </div>
-                        <div className="action-link red" onClick={showDeleteModal}>
-                            Delete
-                        </div>
-                    </>
-                )}
-            </div>
-        </UserActionsMenu>
-    );
-};
+        <ActionMenuLinkButton
+            text="Documents"
+            href={`/company/users-management/operatives/${user.id}/documents`}
+        />
+
+        {isDisabled ? (
+            <ActionMenuActionButton text="Enable" onClick={showEnableModal} />
+        ) : (
+            <>
+                <ActionMenuActionButton text="Make Admin" onClick={showMakeAdminModal} />
+                <ActionMenuActionButton text="Disable" onClick={showDisableModal} />
+                <ActionMenuActionButton text="Delete" onClick={showDeleteModal} isNegative />
+            </>
+        )}
+    </ActionMenu>
+);
 
 export default CompanyAdminUserActionsMenu;

@@ -1,0 +1,26 @@
+import React, { useState } from 'react';
+
+import useClickOutside from 'hooks/useClickOutside';
+import ActionMenuContent from './ActionMenuContent';
+
+const ActionMenu = ({ children }) => {
+    const [showMenu, setShowMenu] = useState(false);
+
+    const closeMenu = () => {
+        setShowMenu(false);
+    };
+
+    const ref = useClickOutside(closeMenu);
+
+    return (
+        <div className="action-menu-wrapper flex-row">
+            <button className="ellipsis-button" onClick={() => setShowMenu(true)}>
+                <i className="fa fa-ellipsis-v" />
+            </button>
+
+            <div ref={ref}>{showMenu && <ActionMenuContent>{children}</ActionMenuContent>}</div>
+        </div>
+    );
+};
+
+export default ActionMenu;

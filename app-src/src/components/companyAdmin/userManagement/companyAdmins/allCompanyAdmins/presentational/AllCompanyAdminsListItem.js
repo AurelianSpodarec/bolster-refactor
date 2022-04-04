@@ -10,6 +10,7 @@ import LinkButton from '../../../../../shared/generic/button/presentational/Link
 import TooltipContainer from '../../../../../shared/generic/tooltip/containers/TooltipContainer';
 import CompanyAdminUserActionsMenu from './CompanyAdminUserActionsMenu';
 import { getDeviceNameColour, getTooltipRamText } from '../../../shared/utils';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const AllCompanyAdminsListItem = ({
     user,
@@ -27,8 +28,6 @@ const AllCompanyAdminsListItem = ({
     isDisabled,
     drawingLimitColour,
     drawingLimitMaxed,
-    showUserActions,
-    setShowUserActions,
 }) => {
     const history = useHistory();
 
@@ -53,11 +52,10 @@ const AllCompanyAdminsListItem = ({
         <p>No linked device</p>
     );
 
+    const deviceNameColour = getDeviceNameColour(user.deviceRAM, user.physicalStorageAvailable);
+
     return (
-        <tr
-            key={user.id}
-            className={`user-table ${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}
-        >
+        <tr key={user.id} className={`${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}>
             <td>
                 {isRowRed && (
                     <TooltipContainer
@@ -77,10 +75,10 @@ const AllCompanyAdminsListItem = ({
                 {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                 <span>{nameString}</span>
                 <br />
-                <div className="email">
+                <span className="email">
                     {user.userEmail}{' '}
                     {user.isEmailConfirmed ? <i className="fas fa-check-circle" /> : ''}
-                </div>
+                </span>
             </td>
 
             <td>
@@ -91,12 +89,14 @@ const AllCompanyAdminsListItem = ({
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
                 <TooltipContainer text={tooltipText} containerSide="left" side="bottom">
-                    <span
-                        className={getDeviceNameColour(
-                            user.deviceRAM,
-                            user.physicalStorageAvailable,
-                        )}
-                    >{`${user.linkedDeviceName || 'No Device Name'}`}</span>
+                    <span className={deviceNameColour}>
+                        {deviceNameColour ? (
+                            <i className={`fal fa-exclamation-triangle ${deviceNameColour}`}></i>
+                        ) : (
+                            ''
+                        )}{' '}
+                        {`${user.linkedDeviceName || 'No Device Name'}`}
+                    </span>
                 </TooltipContainer>
             </td>
 
@@ -116,40 +116,27 @@ const AllCompanyAdminsListItem = ({
             </td>
 
             <td>
-                <LinkButton
-                    text="Drawing Access"
-                    size="small"
-                    icon="key"
-                    iconWeight="regular"
-                    href={`/company/users-management/company-admins/${user.id}/drawings`}
-                />
-                <div>
-                    <div
-                        className="flex flex-row justify-center align-center ellipsis"
-                        onClick={() => setShowUserActions(!showUserActions)}
-                    >
-                        <i className="fa fa-ellipsis-v" />
-                    </div>
-                    <div className="flex flex-row justify-center align-center">
-                        {showUserActions && (
-                            <CompanyAdminUserActionsMenu
-                                user={user}
-                                onMobile={onMobile}
-                                headers={headers}
-                                generateReport={generateReport}
-                                isDisabled={isDisabled}
-                                showUnlinkModal={showUnlinkModal}
-                                loggedInUser={loggedInUser}
-                                showRestrictUserPaymentsModal={showRestrictUserPaymentsModal}
-                                showRevokeAdminAccessModal={showRevokeAdminAccessModal}
-                                showEnableModal={showEnableModal}
-                                showDisableModal={showDisableModal}
-                                showDeleteModal={showDeleteModal}
-                                setShowUserActions={setShowUserActions}
-                            />
-                        )}
-                    </div>
-                </div>
+                <ButtonWrapper alignment="right">
+                    <LinkButton
+                        text="Drawing Access"
+                        size="small"
+                        icon="key"
+                        iconWeight="regular"
+                        href={`/company/users-management/company-admins/${user.id}/drawings`}
+                    />
+                    <CompanyAdminUserActionsMenu
+                        user={user}
+                        generateReport={generateReport}
+                        isDisabled={isDisabled}
+                        showUnlinkModal={showUnlinkModal}
+                        loggedInUser={loggedInUser}
+                        showRestrictUserPaymentsModal={showRestrictUserPaymentsModal}
+                        showRevokeAdminAccessModal={showRevokeAdminAccessModal}
+                        showEnableModal={showEnableModal}
+                        showDisableModal={showDisableModal}
+                        showDeleteModal={showDeleteModal}
+                    />
+                </ButtonWrapper>
             </td>
         </tr>
     );
