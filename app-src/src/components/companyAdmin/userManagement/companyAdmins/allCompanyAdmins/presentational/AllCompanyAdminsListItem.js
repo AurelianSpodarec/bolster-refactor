@@ -52,6 +52,8 @@ const AllCompanyAdminsListItem = ({
         <p>No linked device</p>
     );
 
+    const deviceNameColour = getDeviceNameColour(user.deviceRAM, user.physicalStorageAvailable);
+
     return (
         <tr key={user.id} className={`${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}>
             <td>
@@ -73,10 +75,10 @@ const AllCompanyAdminsListItem = ({
                 {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                 <span>{nameString}</span>
                 <br />
-                <div className="email">
+                <span className="email">
                     {user.userEmail}{' '}
                     {user.isEmailConfirmed ? <i className="fas fa-check-circle" /> : ''}
-                </div>
+                </span>
             </td>
 
             <td>
@@ -87,12 +89,14 @@ const AllCompanyAdminsListItem = ({
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
                 <TooltipContainer text={tooltipText} containerSide="left" side="bottom">
-                    <span
-                        className={getDeviceNameColour(
-                            user.deviceRAM,
-                            user.physicalStorageAvailable,
-                        )}
-                    >{`${user.linkedDeviceName || 'No Device Name'}`}</span>
+                    <span className={deviceNameColour}>
+                        {deviceNameColour ? (
+                            <i className={`fal fa-exclamation-triangle ${deviceNameColour}`}></i>
+                        ) : (
+                            ''
+                        )}{' '}
+                        {`${user.linkedDeviceName || 'No Device Name'}`}
+                    </span>
                 </TooltipContainer>
             </td>
 
