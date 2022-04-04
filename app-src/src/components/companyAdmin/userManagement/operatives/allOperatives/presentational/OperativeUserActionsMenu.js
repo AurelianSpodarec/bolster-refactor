@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
+import ActionMenuLinkButton from 'components/shared/actionMenu/ActionMenuLinkButton';
 
 const CompanyAdminUserActionsMenu = ({
     user,
@@ -14,53 +15,39 @@ const CompanyAdminUserActionsMenu = ({
     showMakeAdminModal,
 }) => (
     <ActionMenu>
-        <div className="action-link" onClick={generateReport}>
-            Generate Report
-        </div>
+        <ActionMenuActionButton text="Generate Report" onClick={generateReport} />
 
         {user.linkedDeviceID && !isDisabled && (
-            <div className="action-link" onClick={showUnlinkModal}>
-                Unlink Device
-            </div>
+            <ActionMenuActionButton text="Unlink Device" onClick={showUnlinkModal} />
         )}
 
-        <Link
-            className="action-link"
-            to={`/company/users-management/operatives/${user.id}/timesheet`}
-        >
-            Timesheet
-        </Link>
-        <Link className="action-link" to={`/company/users-management/operatives/${user.id}/edit`}>
-            Edit
-        </Link>
-        <Link
-            className="action-link"
-            to={`/company/users-management/operatives/${user.id}/edit-email`}
-        >
-            Edit Email
-        </Link>
-        <Link
-            className="action-link"
-            to={`/company/users-management/operatives/${user.id}/documents`}
-        >
-            Documents
-        </Link>
+        <ActionMenuLinkButton
+            text="Timesheet"
+            href={`/company/users-management/operatives/${user.id}/timesheet`}
+        />
+
+        <ActionMenuLinkButton
+            text="Edit"
+            href={`/company/users-management/operatives/${user.id}/edit`}
+        />
+
+        <ActionMenuLinkButton
+            text="Edit Email"
+            href={`/company/users-management/operatives/${user.id}/edit-email`}
+        />
+
+        <ActionMenuLinkButton
+            text="Documents"
+            href={`/company/users-management/operatives/${user.id}/documents`}
+        />
 
         {isDisabled ? (
-            <div className="action-link" onClick={showEnableModal}>
-                Enable
-            </div>
+            <ActionMenuActionButton text="Enable" onClick={showEnableModal} />
         ) : (
             <>
-                <div className="action-link" onClick={showMakeAdminModal}>
-                    Make Admin
-                </div>
-                <div className="action-link" onClick={showDisableModal}>
-                    Disable
-                </div>
-                <div className="action-link red" onClick={showDeleteModal}>
-                    Delete
-                </div>
+                <ActionMenuActionButton text="Make Admin" onClick={showMakeAdminModal} />
+                <ActionMenuActionButton text="Disable" onClick={showDisableModal} />
+                <ActionMenuActionButton text="Delete" onClick={showDeleteModal} isNegative />
             </>
         )}
     </ActionMenu>

@@ -4,38 +4,18 @@
     right: 52%;
     background-color: var(--navigation-primary);
     z-index: 1;
-    padding: 12px 24px;
+    padding: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.09);
     border-radius: 8px;
   
     &.bottom {
-      top: auto;
-      bottom: 16px;
+        top: auto;
+        bottom: 16px;
     }
+}
   
-    .action-link {
-      background-color: transparent;
-      font-size: 120%;
-      font-weight: 500 !important;
-      color: var(--typography-default) !important;
-      text-align: left;
-      padding: 0;
-      margin: 4px 0;
-      white-space: nowrap;
-  
-      &.red {
-        color: var(--negative-default)!important;
-      }
-  
-      &:hover {
+.ellipsis {
+    &:hover {
         cursor: pointer;
-        text-decoration: underline;
-      }
     }
-  }
-  
-  .ellipsis {
-      &:hover {
-        cursor: pointer;
-      }
-  }
+}

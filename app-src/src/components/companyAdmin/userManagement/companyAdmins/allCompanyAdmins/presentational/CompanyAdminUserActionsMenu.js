@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { COMPANY_USER_ROLE_TYPES } from '../../../../../../constants/companyAdmin/enums';
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
+import ActionMenuLinkButton from 'components/shared/actionMenu/ActionMenuLinkButton';
 
 const CompanyAdminUserActionsMenu = ({
     user,
@@ -17,60 +19,50 @@ const CompanyAdminUserActionsMenu = ({
     showDeleteModal,
 }) => (
     <ActionMenu>
-        <div onClick={generateReport} className="action-link">
-            Generate Report
-        </div>
+        <ActionMenuActionButton text="Generate Report" onClick={generateReport} />
 
         {user.linkedDeviceID && !isDisabled && (
-            <div onClick={showUnlinkModal} className="action-link">
-                Unlink Device
-            </div>
+            <ActionMenuActionButton text="Unlink Device" onClick={showUnlinkModal} />
         )}
-        <Link
-            to={`/company/users-management/company-admins/${user.id}/timesheet`}
-            className="action-link"
-        >
-            Timesheet
-        </Link>
-        <Link
-            to={`/company/users-management/company-admins/${user.id}/edit`}
-            className="action-link"
-        >
-            Edit
-        </Link>
-        <Link
-            to={`/company/users-management/company-admins/${user.id}/edit-email`}
-            className="action-link"
-        >
-            Edit Email
-        </Link>
-        <Link
-            to={`/company/users-management/company-admins/${user.id}/documents`}
-            className="action-link"
-        >
-            Documents
-        </Link>
+
+        <ActionMenuLinkButton
+            text="Timesheet"
+            href={`/company/users-management/company-admins/${user.id}/timesheet`}
+        />
+
+        <ActionMenuLinkButton
+            text="Edit"
+            href={`/company/users-management/company-admins/${user.id}/edit`}
+        />
+
+        <ActionMenuLinkButton
+            text="Edit Email"
+            href={`/company/users-management/company-admins/${user.id}/edit-email`}
+        />
+
+        <ActionMenuLinkButton
+            text="Documents"
+            href={`/company/users-management/company-admins/${user.id}/documents`}
+        />
 
         {loggedInUser.type === +COMPANY_USER_ROLE_TYPES.OWNER &&
             +user.type !== +COMPANY_USER_ROLE_TYPES.OWNER &&
             (user.shouldRestrictPayments ? (
-                <div onClick={() => showRestrictUserPaymentsModal(user.id)} className="action-link">
-                    Enable Payments
-                </div>
+                <ActionMenuActionButton
+                    text="Enable Payments"
+                    onClick={() => showRestrictUserPaymentsModal(user.id)}
+                />
             ) : !isDisabled ? (
                 <>
-                    <div
+                    <ActionMenuActionButton
+                        text="Revoke Admin"
                         onClick={() => showRevokeAdminAccessModal(user.id)}
-                        className="action-link"
-                    >
-                        Revoke Admin
-                    </div>
-                    <div
+                    />
+
+                    <ActionMenuActionButton
+                        text="Restrict Payments"
                         onClick={() => showRestrictUserPaymentsModal(user.id)}
-                        className="action-link"
-                    >
-                        Restrict Payments
-                    </div>
+                    />
                 </>
             ) : (
                 <></>
@@ -79,17 +71,22 @@ const CompanyAdminUserActionsMenu = ({
         {+user.type !== +COMPANY_USER_ROLE_TYPES.OWNER && (
             <>
                 {isDisabled ? (
-                    <div onClick={() => showEnableModal(user.id)} className="action-link">
-                        Enable
-                    </div>
+                    <ActionMenuActionButton
+                        text="Enable"
+                        onClick={() => showEnableModal(user.id)}
+                    />
                 ) : (
                     <>
-                        <div onClick={() => showDisableModal(user.id)} className="action-link">
-                            Disable
-                        </div>
-                        <div onClick={() => showDeleteModal(user.id)} className="action-link red">
-                            Delete
-                        </div>
+                        <ActionMenuActionButton
+                            text="Disable"
+                            onClick={() => showDisableModal(user.id)}
+                        />
+
+                        <ActionMenuActionButton
+                            text="Delete"
+                            onClick={() => showDeleteModal(user.id)}
+                            isNegative
+                        />
                     </>
                 )}
             </>
