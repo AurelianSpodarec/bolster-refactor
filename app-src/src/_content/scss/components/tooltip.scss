@@ -1,6 +1,5 @@
 // tooltip container
 .tooltip-container {
-    position: static;
     float: right;
     margin-top: 4px;
 
@@ -48,7 +47,8 @@
     display: inline-block;
 
     &.right {
-        left: 30px;
+        left: 100%;
+        margin-left: 15px;
 
         .tooltip-arrow {
             top: 50%;
@@ -60,7 +60,8 @@
 
     &.left {
         left: auto;
-        right: 30px;
+        right: 100%;
+        margin-right: 15px;
 
         .tooltip-arrow {
             top: 50%;
@@ -73,8 +74,8 @@
     }
 
     &.top {
-        margin-top: -5px;
-        top: -5px;
+        margin-top: -10px;
+        top: 0;
         transform: translateY(-100%) translateX(-50%);
         left: 50%;
 
@@ -89,7 +90,11 @@
     }
 
     &.bottom {
-        bottom: 125%;
+        top: 100%;
+        left: 50%;
+        margin-top: 10px;
+        transform: translateY(0) translateX(-50%);
+
         .tooltip-arrow {
             top: 0;
             left: 45%;
