@@ -322,7 +322,6 @@ export const useUpdateItem = (isPosting, postSuccess, message = 'Success', link,
 export const useConfirmDarkTheme = (profileLink = '/profile') => {
     const dispatch = useDispatch();
     const history = useHistory();
-    console.log(history);
 
     const isDarkModeEnabled = useSelector(selectIsDarkModeEnabled);
     const isDarkThemeConfirmed = useSelector(selectIsDarkThemeConfirmed); // Redux flag
