@@ -1,7 +1,8 @@
+// menu
 .action-menu {
     position: absolute;
-    top: 16px;
-    right: 52%;
+    top: 100%;
+    right: 0;
     background-color: var(--navigation-primary);
     z-index: 1;
     padding: 10px;
@@ -10,12 +11,18 @@
   
     &.bottom {
         top: auto;
-        bottom: 16px;
+        bottom: 100%;
     }
 }
-  
-.ellipsis {
-    &:hover {
-        cursor: pointer;
+
+// button
+.ellipsis-button {
+    font-size: 13px;
+    padding: 5px 20px;
+    background-color: transparent;
+
+    i {
+        font-size: inherit!important;
+        margin: 0!important;
     }
 }

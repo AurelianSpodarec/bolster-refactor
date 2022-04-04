@@ -13,18 +13,13 @@ const ActionMenu = ({ children }) => {
     const ref = useClickOutside(closeMenu);
 
     return (
-        <>
-            <div
-                className="flex flex-row justify-center align-center ellipsis"
-                onClick={() => setShowMenu(true)}
-            >
+        <div className="action-menu-wrapper flex-row">
+            <button className="ellipsis-button" onClick={() => setShowMenu(true)}>
                 <i className="fa fa-ellipsis-v" />
-            </div>
+            </button>
 
-            <div ref={ref} className="action-menu-wrapper">
-                {showMenu && <ActionMenuContent>{children}</ActionMenuContent>}
-            </div>
-        </>
+            <div ref={ref}>{showMenu && <ActionMenuContent>{children}</ActionMenuContent>}</div>
+        </div>
     );
 };
 

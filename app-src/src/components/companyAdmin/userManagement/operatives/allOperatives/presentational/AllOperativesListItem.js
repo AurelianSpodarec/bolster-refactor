@@ -9,6 +9,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { getDeviceNameColour, getTooltipRamText } from '../../../shared/utils';
 import LinkButton from '../../../../../shared/generic/button/presentational/LinkButton';
 import OperativeUserActionsMenu from './OperativeUserActionsMenu';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const AllOperativesListItem = ({
     user,
@@ -106,27 +107,25 @@ const AllOperativesListItem = ({
             </td>
 
             <td>
-                <LinkButton
-                    text="Drawing Access"
-                    size="small"
-                    icon="key"
-                    iconWeight="regular"
-                    href={`/company/users-management/operative/${user.id}/drawings`}
-                />
-                <div>
-                    <div className="flex flex-row justify-center align-center">
-                        <OperativeUserActionsMenu
-                            user={user}
-                            generateReport={generateReport}
-                            isDisabled={isDisabled}
-                            showUnlinkModal={showUnlinkModal}
-                            showEnableModal={showEnableModal}
-                            showDisableModal={showDisableModal}
-                            showDeleteModal={showDeleteModal}
-                            showMakeAdminModal={showMakeAdminModal}
-                        />
-                    </div>
-                </div>
+                <ButtonWrapper alignment="right">
+                    <LinkButton
+                        text="Drawing Access"
+                        size="small"
+                        icon="key"
+                        iconWeight="regular"
+                        href={`/company/users-management/operative/${user.id}/drawings`}
+                    />
+                    <OperativeUserActionsMenu
+                        user={user}
+                        generateReport={generateReport}
+                        isDisabled={isDisabled}
+                        showUnlinkModal={showUnlinkModal}
+                        showEnableModal={showEnableModal}
+                        showDisableModal={showDisableModal}
+                        showDeleteModal={showDeleteModal}
+                        showMakeAdminModal={showMakeAdminModal}
+                    />
+                </ButtonWrapper>
             </td>
         </tr>
     );
