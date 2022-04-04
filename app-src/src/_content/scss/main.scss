@@ -3192,6 +3192,7 @@ input {
     background-color: transparent;
     @include ubuntu;
     font-size: 140%;
+    color: var(--typography-default);
 
     strong {
       @include ubuntu-medium;
