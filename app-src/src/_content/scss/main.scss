@@ -7,6 +7,7 @@
 // @import "~@progress/kendo-theme-default/dist/all.css";
 
 // components
+@import './components/action-menu.scss';
 @import './components/breadcrumb.scss';
 @import './components/button.scss';
 @import './components/container.scss';
@@ -3382,6 +3383,5 @@ input {
     margin-top: 16px;
 }
 
-@import './pages/user-managment';
 // mobile
 @import './dashboard-mobile.scss';

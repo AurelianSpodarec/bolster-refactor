@@ -1,7 +1,8 @@
-import { useWindowDimensions } from '../../../../../helpers/hooks';
 import { useEffect, useRef, useState } from 'react';
 
-const useMenuActionsOverflow = () => {
+import { useWindowDimensions } from 'helpers/hooks';
+
+const useActionMenuOverflow = () => {
     const ref = useRef(null);
     const { height } = useWindowDimensions();
 
@@ -21,4 +22,4 @@ const useMenuActionsOverflow = () => {
     return { ref, isOverflowing };
 };
 
-export default useMenuActionsOverflow;
+export default useActionMenuOverflow;

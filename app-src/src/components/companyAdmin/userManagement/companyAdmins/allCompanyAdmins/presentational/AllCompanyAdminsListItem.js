@@ -27,8 +27,6 @@ const AllCompanyAdminsListItem = ({
     isDisabled,
     drawingLimitColour,
     drawingLimitMaxed,
-    showUserActions,
-    setShowUserActions,
 }) => {
     const history = useHistory();
 
@@ -124,30 +122,19 @@ const AllCompanyAdminsListItem = ({
                     href={`/company/users-management/company-admins/${user.id}/drawings`}
                 />
                 <div>
-                    <div
-                        className="flex flex-row justify-center align-center ellipsis"
-                        onClick={() => setShowUserActions(!showUserActions)}
-                    >
-                        <i className="fa fa-ellipsis-v" />
-                    </div>
                     <div className="flex flex-row justify-center align-center">
-                        {showUserActions && (
-                            <CompanyAdminUserActionsMenu
-                                user={user}
-                                onMobile={onMobile}
-                                headers={headers}
-                                generateReport={generateReport}
-                                isDisabled={isDisabled}
-                                showUnlinkModal={showUnlinkModal}
-                                loggedInUser={loggedInUser}
-                                showRestrictUserPaymentsModal={showRestrictUserPaymentsModal}
-                                showRevokeAdminAccessModal={showRevokeAdminAccessModal}
-                                showEnableModal={showEnableModal}
-                                showDisableModal={showDisableModal}
-                                showDeleteModal={showDeleteModal}
-                                setShowUserActions={setShowUserActions}
-                            />
-                        )}
+                        <CompanyAdminUserActionsMenu
+                            user={user}
+                            generateReport={generateReport}
+                            isDisabled={isDisabled}
+                            showUnlinkModal={showUnlinkModal}
+                            loggedInUser={loggedInUser}
+                            showRestrictUserPaymentsModal={showRestrictUserPaymentsModal}
+                            showRevokeAdminAccessModal={showRevokeAdminAccessModal}
+                            showEnableModal={showEnableModal}
+                            showDisableModal={showDisableModal}
+                            showDeleteModal={showDeleteModal}
+                        />
                     </div>
                 </div>
             </td>

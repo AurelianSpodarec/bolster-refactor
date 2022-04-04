@@ -24,8 +24,6 @@ const AllOperativesListItem = ({
     drawingLimitColour,
     drawingLimitMaxed,
     isDisabled,
-    showUserActions,
-    setShowUserActions,
 }) => {
     const history = useHistory();
 
@@ -49,10 +47,7 @@ const AllOperativesListItem = ({
     );
 
     return (
-        <tr
-            key={user.id}
-            className={`user-table ${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}
-        >
+        <tr key={user.id} className={`${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}>
             <td>
                 {isRowRed && (
                     <TooltipContainer
@@ -119,28 +114,17 @@ const AllOperativesListItem = ({
                     href={`/company/users-management/operative/${user.id}/drawings`}
                 />
                 <div>
-                    <div
-                        className="flex flex-row justify-center align-center ellipsis"
-                        onClick={() => setShowUserActions(!showUserActions)}
-                    >
-                        <i className="fa fa-ellipsis-v" />
-                    </div>
                     <div className="flex flex-row justify-center align-center">
-                        {showUserActions && (
-                            <OperativeUserActionsMenu
-                                user={user}
-                                onMobile={onMobile}
-                                headers={headers}
-                                generateReport={generateReport}
-                                isDisabled={isDisabled}
-                                showUnlinkModal={showUnlinkModal}
-                                showEnableModal={showEnableModal}
-                                showDisableModal={showDisableModal}
-                                showDeleteModal={showDeleteModal}
-                                setShowUserActions={setShowUserActions}
-                                showMakeAdminModal={showMakeAdminModal}
-                            />
-                        )}
+                        <OperativeUserActionsMenu
+                            user={user}
+                            generateReport={generateReport}
+                            isDisabled={isDisabled}
+                            showUnlinkModal={showUnlinkModal}
+                            showEnableModal={showEnableModal}
+                            showDisableModal={showDisableModal}
+                            showDeleteModal={showDeleteModal}
+                            showMakeAdminModal={showMakeAdminModal}
+                        />
                     </div>
                 </div>
             </td>
