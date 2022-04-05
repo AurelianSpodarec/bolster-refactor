@@ -44,35 +44,31 @@ const AlertItem = ({
 
     const isPlural = frequencyAmount > 1;
 
-    const link = () => {
+    const getLinkAndLinkText = () => {
         if (drawingID) {
-            return `/company/drawings/${drawingID}`;
+            return {
+                link: `/company/drawings/${drawingID}`,
+                linkText: `${siteName} / ${buildingName} / ${floorName} / ${drawingName}`,
+            };
         }
         if (floorID) {
-            return `/company/floors/${floorID}`;
+            return {
+                link: `/company/floors/${floorID}`,
+                linkText: `${siteName} / ${buildingName} / ${floorName}`,
+            };
         }
         if (buildingID) {
-            return `/company/buildings/${buildingID}`;
+            return {
+                link: `/company/buildings/${buildingID}`,
+                linkText: `${siteName} / ${buildingName}`,
+            };
         }
         if (siteID) {
-            return `/company/sites/${siteID}`;
+            return { link: `/company/sites/${siteID}`, linkText: `${siteName}` };
         }
     };
 
-    const linkText = () => {
-        if (drawingID) {
-            return `${siteName} / ${buildingName} / ${floorName} / ${drawingName}`;
-        }
-        if (floorID) {
-            return `${siteName} / ${buildingName} / ${floorName}`;
-        }
-        if (buildingID) {
-            return `${siteName} / ${buildingName}`;
-        }
-        if (siteID) {
-            return siteName;
-        }
-    };
+    const { link, linkText } = getLinkAndLinkText();
 
     return (
         <tr className="upcoming-alert-item">
@@ -90,7 +86,7 @@ const AlertItem = ({
                 )}
             </td>
             <td className="hierarchy-link">
-                <Link to={link()}>{linkText()}</Link>
+                <Link to={link}>{linkText}</Link>
             </td>
             <td>{ALERT_METHOD_VALUES[method]}</td>
             {user ? (
