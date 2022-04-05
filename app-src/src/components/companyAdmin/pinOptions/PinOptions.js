@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { PIN_OPTIONS_TABS } from 'constants/shared/blockTabs';
+import { isEmpty } from 'helpers/generic';
 
 import useBlockTabs from 'components/shared/tabs/hooks/useBlockTabs';
 import useFetchServices from 'components/companyAdmin/hooks/useFetchServices';
@@ -12,14 +13,14 @@ import BlockTabs from 'components/shared/tabs/BlockTabs';
 const PinOptions = () => {
     const { selectedTabID, setSelectedTabID, SpecificComponent } = useBlockTabs(PIN_OPTIONS_TABS);
 
-    const { isFetchingServices, servicesError } = useFetchServices();
+    const { services, isFetchingServices, servicesError } = useFetchServices();
 
     return (
         <>
             <PageHeading title="Pin Options" />
 
             <BlockContainer
-                isEmpty={isFetchingServices}
+                isEmpty={isEmpty(services) && isFetchingServices}
                 isFetching={isFetchingServices}
                 error={servicesError}
             >
