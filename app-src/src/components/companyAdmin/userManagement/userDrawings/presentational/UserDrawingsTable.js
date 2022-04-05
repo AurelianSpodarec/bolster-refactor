@@ -25,7 +25,7 @@ const UserDrawingsTable = ({
                 text={isAllSelected ? 'Deselect All' : 'Select All'}
                 onClick={() => selectAll()}
                 size="small"
-                icon={isAllSelected ? 'times' : 'check'}
+                icon="sync"
                 source="secondary"
                 ambient="positive"
             />
@@ -40,7 +40,8 @@ const UserDrawingsTable = ({
                         })
                     }
                     size="small"
-                    icon="trash"
+                    icon="trash-alt"
+                    iconWeight="light"
                 />
             )}
         </ButtonWrapper>
