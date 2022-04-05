@@ -1,12 +1,13 @@
 import React from 'react';
 
+import { isEmpty } from 'helpers/generic';
+
 import useSearch from 'hooks/useSearch';
 import useFilterPrelims from '../hooks/useFilterPrelims';
 
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import FilterRow from 'components/shared/filters/FilterRow';
 import Table from 'components/shared/generic/tables/presentational/Table';
-import { isEmpty } from 'helpers/generic';
 
 const data = [
     {

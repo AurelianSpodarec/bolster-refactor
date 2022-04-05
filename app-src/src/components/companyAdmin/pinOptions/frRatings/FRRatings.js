@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { isEmpty } from 'helpers/generic';
+
 import useSearch from 'hooks/useSearch';
 import useFilterOptions from '../hooks/useFilterOptions';
 import useFetchFRRatings from './hooks/useFetchFRRatings';
@@ -7,7 +9,6 @@ import useFetchFRRatings from './hooks/useFetchFRRatings';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import FilterRow from 'components/shared/filters/FilterRow';
 import Table from 'components/shared/generic/tables/presentational/Table';
-import { isEmpty } from 'helpers/generic';
 
 const data = [
     {

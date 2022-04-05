@@ -339,6 +339,22 @@
     &.cell-break-all {
       word-break: break-all;
     }
+
+    &.row-link {
+      padding: 0;
+
+      a {
+        display: block;
+        width: 100%;
+        padding: 10px 15px;
+        color: var(--typography-default);
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
   }
 
   .button {
