@@ -439,7 +439,9 @@ export default function (ProtectedComponent) {
         if (!isEmpty(sites)) {
             filters.siteID.forEach(site => {
                 const curSite = sites[site];
-                buildingIDs = buildingIDs.concat(curSite.buildingIDs);
+                if (curSite) {
+                    buildingIDs = buildingIDs.concat(curSite.buildingIDs);
+                }
             });
         }
         const buildings = !isEmpty(buildingsFromReducer)
