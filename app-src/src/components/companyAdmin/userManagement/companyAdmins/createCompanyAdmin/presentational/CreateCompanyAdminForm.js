@@ -5,6 +5,8 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const CreateCompanyAdminForm = ({
     email,
@@ -80,10 +82,17 @@ const CreateCompanyAdminForm = ({
         </div>
 
         <BlockButtonWrapper>
-            <button className="button green" disabled={isPosting}>
-                <i className="fa fa-plus" /> Create Admin
-            </button>
-            <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
+            <ButtonWrapper alignment="right">
+                <ActionButton text="Cancel" source="secondary" size="small" onClick={hideModal} />
+                <ActionButton
+                    text="Confirm"
+                    size="small"
+                    type="submit"
+                    icon={isPosting ? 'spinner' : 'check'}
+                    iconSpin={isPosting}
+                    disabled={isPosting}
+                />
+            </ButtonWrapper>
         </BlockButtonWrapper>
     </Form>
 );
