@@ -1,6 +1,6 @@
 import FRRatings from 'components/companyAdmin/pinOptions/frRatings/FRRatings';
-import InstallationTypeSets from 'components/companyAdmin/pinOptions/installationTypes/InstallationTypeSets';
-import ItemTypeSets from 'components/companyAdmin/pinOptions/itemTypes/ItemTypeSets';
+import InstallationTypeSets from 'components/companyAdmin/pinOptions/installationTypeSets/InstallationTypeSets';
+import ItemTypeSets from 'components/companyAdmin/pinOptions/itemTypeSets/ItemTypeSets';
 import Prelims from 'components/companyAdmin/pinOptions/prelims/Prelims';
 
 export const PIN_OPTIONS_TABS = [
