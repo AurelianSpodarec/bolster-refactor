@@ -1,11 +1,14 @@
 import React from 'react';
 
 import useSearch from 'hooks/useSearch';
+import useFetchFRRatings from './hooks/useFetchFRRatings';
 
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 
 const FRRatings = () => {
     const { searchTerm, handleUpdateSearch } = useSearch();
+
+    useFetchFRRatings();
 
     return (
         <>
