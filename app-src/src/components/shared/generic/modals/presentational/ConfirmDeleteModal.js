@@ -3,6 +3,8 @@ import ModalOuterContainer from '../containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Error from '../../misc/presentational/Error';
+import ButtonWrapper from '../../button/presentational/ButtonWrapper';
+import ActionButton from '../../button/presentational/ActionButton';
 
 const ConfirmDeleteModal = ({
     handleDelete,
@@ -20,29 +22,25 @@ const ConfirmDeleteModal = ({
             <BlockHeading title={'Confirmation'} />
             <p className="generic-text intro-text size-lg-12">{message}</p>
             {error && <Error>{error}</Error>}
-        <BlockButtonWrapper>
-            <button
-                className={`button red ${isPosting ? 'disabled' : ''}`}
-                onClick={handleDelete}
-                disabled={isPosting}
-            >
-                {isIncoming ? (
-                    <>
-                        <i className="far fa-ban fa-fw" />
-                        Decline
-                    </>
-                ) : (
-                    <>
-                        <i className={`far fa-${icon} fa-fw`} />
-                        {deleteButtonText}
-                    </>
-                )}
-            </button>
-            <button className="button" onClick={handleCancel}>
-                Cancel
-            </button>
-        </BlockButtonWrapper>
-    </ModalOuterContainer>
-)};
+            <BlockButtonWrapper>
+                <ButtonWrapper alignment="right">
+                    <ActionButton
+                        text="Cancel"
+                        size="small"
+                        source="secondary"
+                        onClick={handleCancel}
+                    />
+                    <ActionButton
+                        text={isIncoming ? 'Decline' : deleteButtonText}
+                        size="small"
+                        icon={isIncoming ? 'ban' : icon}
+                        onClick={handleDelete}
+                        disabled={isPosting}
+                    />
+                </ButtonWrapper>
+            </BlockButtonWrapper>
+        </ModalOuterContainer>
+    );
+};
 
 export default ConfirmDeleteModal;

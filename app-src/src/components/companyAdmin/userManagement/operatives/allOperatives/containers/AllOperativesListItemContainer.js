@@ -25,7 +25,16 @@ const AllOperativesListItemContainer = ({ user, headers }) => {
             user={user}
             drawingLimitColour={drawingLimitColour}
             drawingLimitMaxed={drawingLimitMaxed}
-            showDeleteModal={() => dispatch(showModal(DELETE_COMPANY_USER, { id: user.id, user }))}
+            showDeleteModal={() =>
+                dispatch(
+                    showModal(DELETE_COMPANY_USER, {
+                        id: user.id,
+                        user,
+                        deleteButtonText: 'Confirm',
+                        icon: 'check',
+                    }),
+                )
+            }
             showDisableModal={showDisableUserModal}
             showEnableModal={showEnableUserModal}
             showUnlinkModal={unlinkModal}
@@ -59,6 +68,8 @@ const AllOperativesListItemContainer = ({ user, headers }) => {
                 user,
                 message: `Are you sure you want to make ${user.userFirstName} ${user.userLastName} an admin?`,
                 handleSubmit,
+                submitButtonText: 'Confirm',
+                submitButtonIcon: 'check',
             }),
         );
     }

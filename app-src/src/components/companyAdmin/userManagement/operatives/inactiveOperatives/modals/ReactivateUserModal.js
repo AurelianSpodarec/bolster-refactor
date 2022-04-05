@@ -11,6 +11,8 @@ import Form from 'components/shared/generic/form/containers/Form';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { usePrevious } from 'helpers/hooks';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const ReactivateUserModal = ({ user: { id, userFirstName, userLastName } }) => {
     const dispatch = useDispatch();
@@ -36,13 +38,22 @@ const ReactivateUserModal = ({ user: { id, userFirstName, userLastName } }) => {
                     {`${userFirstName} ${userLastName}`}'?
                 </p>
                 <BlockButtonWrapper>
-                    <button
-                        className={`button green ${isPosting ? 'disabled' : ''}`}
-                        disabled={isPosting}
-                    >
-                        {isPosting && <i className="fa fa-spinner fa-spin"></i>}
-                        Confirm
-                    </button>
+                    <ButtonWrapper alignment="right">
+                        <ActionButton
+                            text="Cancel"
+                            size="small"
+                            source="secondary"
+                            onClick={() => dispatch(hideModal())}
+                        />
+                        <ActionButton
+                            text="Confirm"
+                            size="small"
+                            icon={isPosting ? 'spinner' : 'check'}
+                            iconSpin={isPosting}
+                            disabled={isPosting}
+                            type="submit"
+                        />
+                    </ButtonWrapper>
                 </BlockButtonWrapper>
             </Form>
         </ModalOuterContainer>
