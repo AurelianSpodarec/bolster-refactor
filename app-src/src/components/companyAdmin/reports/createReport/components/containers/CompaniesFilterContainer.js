@@ -43,7 +43,7 @@ const CompaniesFilterContainer = ({
             }
         }
     } else {
-        if (companyID !== sitesObj[siteID[0]].ownerCompanyID) {
+        if (companyID !== sitesObj[siteID[0]]?.ownerCompanyID) {
             companiesSelection = companies.filter(company => company.id === companyID);
         }
     }
