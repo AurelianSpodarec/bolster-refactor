@@ -1,15 +1,35 @@
 import React from 'react';
 
 import useSearch from 'hooks/useSearch';
+import useFilterPrelims from '../hooks/useFilterPrelims';
 
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import FilterRow from 'components/shared/filters/FilterRow';
+import Table from 'components/shared/generic/tables/presentational/Table';
+import { isEmpty } from 'helpers/generic';
+
+const data = [
+    {
+        id: 1,
+        name: 'Prelim 1',
+    },
+    {
+        id: 2,
+        name: 'Prelim 2',
+    },
+    {
+        id: 3,
+        name: 'Prelim 3',
+    },
+];
 
 const Prelims = () => {
     const { searchTerm, handleUpdateSearch } = useSearch();
+    const filteredPrelims = useFilterPrelims(data, searchTerm);
 
     return (
         <>
-            <div className="flex-row align-center width-12">
+            <FilterRow>
                 <TextInputContainer
                     name="search"
                     value={searchTerm}
@@ -18,7 +38,22 @@ const Prelims = () => {
                 />
 
                 <button className="button green">Add</button>
-            </div>
+            </FilterRow>
+
+            <Table
+                headers={['Name', '']}
+                noData={isEmpty(filteredPrelims)}
+                noDataMessage="There are no prelims to display."
+                isFetching={false}
+                error={null}
+            >
+                {filteredPrelims.map(set => (
+                    <tr key={set.id}>
+                        <td>{set.name}</td>
+                        <td></td>
+                    </tr>
+                ))}
+            </Table>
         </>
     );
 };

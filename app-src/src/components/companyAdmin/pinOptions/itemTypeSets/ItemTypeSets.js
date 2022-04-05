@@ -44,7 +44,7 @@ const ItemTypeSets = () => {
             <Table
                 headers={['Name', '']}
                 noData={isEmpty(filteredSets)}
-                noDataMessage="There are no installation sets to display."
+                noDataMessage="There are no item type sets to display."
                 isFetching={false}
                 error={null}
             >
