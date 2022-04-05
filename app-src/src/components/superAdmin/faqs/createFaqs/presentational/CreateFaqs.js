@@ -16,7 +16,7 @@ const buttonOptions = [['formatBlock'], ['bold', 'italic', 'underline'], ['list'
 const CreateFaqs = ({
     handleSave,
     handleFormChange,
-    form: { title, type, content, imageS3Key, videoLink, pdfS3Key },
+    form: { title, type, content, imageS3Key, videoLink, pdfS3Key, videoThumbnail },
 }) => {
     return (
         <>
@@ -62,6 +62,15 @@ const CreateFaqs = ({
                         value={videoLink}
                         handleChange={handleFormChange}
                         placeholder="Paste Youtube or Vimeo link"
+                    />
+                </Field>
+
+                <Field name="Upload video thumbnail" sizeClasses="size-lg-6">
+                    <FileUploadContainer
+                        value={videoThumbnail}
+                        name="videoThumbnail"
+                        acceptedTypes={['image/jpg', 'image/png', 'image/jpeg']}
+                        handleChange={handleFormChange}
                     />
                 </Field>
 
