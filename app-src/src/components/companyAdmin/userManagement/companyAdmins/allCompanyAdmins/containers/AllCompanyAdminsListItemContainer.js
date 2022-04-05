@@ -45,7 +45,14 @@ const AllCompanyAdminsListItemContainer = ({ user, headers }) => {
     );
 
     function deleteModal() {
-        dispatch(showModal(DELETE_COMPANY_USER, { id: user.id, user }));
+        dispatch(
+            showModal(DELETE_COMPANY_USER, {
+                id: user.id,
+                user,
+                deleteButtonText: 'Confirm',
+                icon: 'check',
+            }),
+        );
     }
 
     function unlinkModal() {
