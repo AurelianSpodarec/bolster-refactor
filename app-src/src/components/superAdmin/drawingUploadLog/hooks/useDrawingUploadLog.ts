@@ -3,23 +3,33 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import fetchAllDrawingUploadLogs from 'actions/superAdmin/drawingUploadLog/fetchAllDrawingUploadLogs';
 import {
+    selectDrawingUploadLogCount,
+    selectDrawingUploadLogPage,
     selectDrawingUploadLogs,
     selectDrawingUploadLogsError,
     selectDrawingUploadLogsIsFetching,
 } from 'selectors/superAdmin/drawingUploadLogs';
 
-const useDrawingUploadLog = (page: number, pageSize: number) => {
+const useDrawingUploadLog = () => {
     const dispatch = useDispatch();
 
+    const pageSize = 50;
+    const page = useSelector(selectDrawingUploadLogPage);
+    const totalPages = Math.ceil(useSelector(selectDrawingUploadLogCount) / pageSize);
+
     useEffect(() => {
-        dispatch(fetchAllDrawingUploadLogs(page, pageSize));
-    }, [dispatch, page, pageSize]);
+        dispatch(fetchAllDrawingUploadLogs(1, pageSize));
+    }, [dispatch]);
 
     const isFetching: boolean = useSelector(selectDrawingUploadLogsIsFetching);
     const fetchError: string | null = useSelector(selectDrawingUploadLogsError);
     const drawingsLogs = Object.values(useSelector(selectDrawingUploadLogs));
 
-    return { isFetching, fetchError, drawingsLogs };
+    const setPage = (nextPage: number) => {
+        dispatch(fetchAllDrawingUploadLogs(nextPage, pageSize));
+    };
+
+    return { isFetching, fetchError, drawingsLogs, page, setPage, totalPages };
 };
 
 export default useDrawingUploadLog;

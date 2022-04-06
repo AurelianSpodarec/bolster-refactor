@@ -43,6 +43,33 @@ const AlertItem = ({
     const user = useSelector(state => companyUser(state, createdByCompanyUserID));
 
     const isPlural = frequencyAmount > 1;
+
+    const getLinkAndLinkText = () => {
+        if (drawingID) {
+            return {
+                link: `/company/drawings/${drawingID}`,
+                linkText: `${siteName} / ${buildingName} / ${floorName} / ${drawingName}`,
+            };
+        }
+        if (floorID) {
+            return {
+                link: `/company/floors/${floorID}`,
+                linkText: `${siteName} / ${buildingName} / ${floorName}`,
+            };
+        }
+        if (buildingID) {
+            return {
+                link: `/company/buildings/${buildingID}`,
+                linkText: `${siteName} / ${buildingName}`,
+            };
+        }
+        if (siteID) {
+            return { link: `/company/sites/${siteID}`, linkText: `${siteName}` };
+        }
+    };
+
+    const { link, linkText } = getLinkAndLinkText();
+
     return (
         <tr className="upcoming-alert-item">
             <td className="left-align">
@@ -59,25 +86,7 @@ const AlertItem = ({
                 )}
             </td>
             <td className="hierarchy-link">
-                {!!siteID && <Link to={`/company/sites/${siteID}`}>{siteName} </Link>}
-                {!!buildingID && (
-                    <Link to={`/company/buildings/${buildingID}`}>
-                        {' '}
-                        / <br /> {buildingName}
-                    </Link>
-                )}
-                {!!floorID && (
-                    <Link to={`/company/floors/${floorID}`}>
-                        {' '}
-                        / <br /> {floorName}
-                    </Link>
-                )}
-                {!!drawingID && (
-                    <Link to={`/company/drawings/${drawingID}`}>
-                        {' '}
-                        / <br /> {drawingName}
-                    </Link>
-                )}
+                <Link to={link}>{linkText}</Link>
             </td>
             <td>{ALERT_METHOD_VALUES[method]}</td>
             {user ? (
