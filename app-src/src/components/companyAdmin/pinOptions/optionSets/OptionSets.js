@@ -18,7 +18,7 @@ const OptionSets = ({ selectedTypeID }) => {
 
     const setsArray = Object.values(pinOptionSets);
 
-    const filteredSets = useFilterOptionSets(setsArray, searchTerm);
+    const filteredSets = useFilterOptionSets(setsArray, searchTerm, selectedTypeID);
 
     return (
         <>

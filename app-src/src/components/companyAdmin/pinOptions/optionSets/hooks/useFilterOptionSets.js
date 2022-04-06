@@ -1,8 +1,12 @@
 import React from 'react';
 
-const useFilterSets = (sets, searchTerm) => {
+const useFilterSets = (sets, searchTerm, selectedTypeID) => {
     const getFilteredSets = () => {
-        return sets.filter(set => set.name.toLowerCase().includes(searchTerm.toLowerCase()));
+        return sets.filter(set => {
+            if (!set.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+            if (set.pinOptionTypeID !== selectedTypeID) return false;
+            return true;
+        });
     };
 
     const filteredSets = getFilteredSets();
