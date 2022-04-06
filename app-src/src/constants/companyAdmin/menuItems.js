@@ -150,6 +150,13 @@ export const companyNavMenuItems = [
                 paymentRestriction: false,
                 clientAccessRestriction: false,
             },
+            {
+                name: 'Pin Options',
+                link: '/company/pin-options',
+                showWhenNotSubscribed: false,
+                paymentRestriction: false,
+                clientAccessRestriction: false,
+            },
         ],
     },
     {
