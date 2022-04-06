@@ -11,7 +11,7 @@ const OptionValues = () => {
 
     return (
         <>
-            <PageHeading title="Pin Options" />
+            <PageHeading title="Pin Options" withBackButton />
 
             <BlockContainer isEmpty={isAnyEmpty} isFetching={isAnyFetching} error={isAnyErrored}>
                 <OptionValuesList />
