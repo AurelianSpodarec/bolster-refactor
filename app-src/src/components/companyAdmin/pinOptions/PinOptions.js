@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { PIN_OPTIONS_TABS } from 'constants/companyAdmin/blockTabs';
 import { isEmpty } from 'helpers/generic';
+
+import setPinOptionsTypesSelectedTabID from 'actions/companyAdmin/pinOptions/sync/setPinOptionsTypesSelectedTabID';
+import { selectPinOptionTypesSelectedTabID } from 'selectors/companyAdmin/pinOptionTypes';
 
 import useBlockTabs from 'components/shared/tabs/hooks/useBlockTabs';
 import useFetchServices from 'components/companyAdmin/hooks/useFetchServices';
@@ -12,11 +16,22 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockTabs from 'components/shared/tabs/BlockTabs';
 
 const PinOptions = () => {
-    const { selectedTabID, setSelectedTabID, SpecificComponent } = useBlockTabs(PIN_OPTIONS_TABS);
+    const dispatch = useDispatch();
+
+    const optionTypesSelectedTabID = useSelector(selectPinOptionTypesSelectedTabID);
+
+    const { selectedTabID, setSelectedTabID, SpecificComponent } = useBlockTabs(
+        PIN_OPTIONS_TABS,
+        optionTypesSelectedTabID,
+    );
 
     const { services, isFetchingServices, servicesError } = useFetchServices();
     const { pinOptionTypes, isFetchingPinOptionTypes, pinOptionTypesFetchError } =
         useFetchPinOptionTypes();
+
+    useEffect(() => {
+        dispatch(setPinOptionsTypesSelectedTabID(selectedTabID));
+    }, [selectedTabID]);
 
     return (
         <>

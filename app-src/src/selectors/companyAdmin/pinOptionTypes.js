@@ -4,3 +4,6 @@ export const selectPinOptionTypesIsFetching = state =>
     state.companyAdmin.pinOptionTypesReducer.isFetching;
 export const selectPinOptionTypesFetchError = state =>
     state.companyAdmin.pinOptionTypesReducer.fetchError;
+
+export const selectPinOptionTypesSelectedTabID = state =>
+    state.companyAdmin.pinOptionTypesReducer.selectedTabID;
