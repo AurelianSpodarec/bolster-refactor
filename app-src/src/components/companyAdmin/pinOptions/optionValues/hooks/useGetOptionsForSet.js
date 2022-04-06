@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { getVersionNameForPinOption } from 'helpers/pinOptions';
@@ -10,17 +10,19 @@ const useGetOptionsForSet = (typeID, setID) => {
     const pinOptions = useSelector(selectPinOptionsArr);
     const pinOptionVersions = useSelector(selectPinOptionVersionsArr);
 
-    const getPinOptionsForSet = () => {
-        return pinOptions.filter(option => {
+    const pinOptionsForSet = useMemo(() => {
+        const filterOptions = pinOptions.filter(option => {
             if (option.pinOptionTypeID !== typeID) return false;
             if (option.pinOptionSetID !== setID) return false;
             return true;
         });
-    };
 
-    const pinOptionsForSet = getPinOptionsForSet();
+        const sortOptions = filterOptions.sort((a, b) => a.sort - b.sort);
 
-    const getPinOptionsWithName = () => {
+        return sortOptions;
+    }, [pinOptions]);
+
+    const pinOptionsWithName = useMemo(() => {
         return pinOptionsForSet.map(option => {
             const name = getVersionNameForPinOption(option.id, pinOptionVersions);
 
@@ -29,9 +31,7 @@ const useGetOptionsForSet = (typeID, setID) => {
                 ...option,
             };
         });
-    };
-
-    const pinOptionsWithName = getPinOptionsWithName();
+    }, [pinOptionsForSet]);
 
     return pinOptionsWithName;
 };
