@@ -30,7 +30,7 @@ const PinOptions = () => {
                     setSelectedTabID={setSelectedTabID}
                 />
 
-                {SpecificComponent && <SpecificComponent />}
+                {SpecificComponent && <SpecificComponent selectedTypeID={selectedTabID} />}
             </BlockContainer>
         </>
     );

@@ -1,9 +1,7 @@
 import { DROPDOWN_OPTION_VALS } from './enums';
 
-import FRRatings from 'components/companyAdmin/pinOptions/frRatings/FRRatings';
-import InstallationTypeSets from 'components/companyAdmin/pinOptions/installationTypeSets/InstallationTypeSets';
-import ItemTypeSets from 'components/companyAdmin/pinOptions/itemTypeSets/ItemTypeSets';
 import Prelims from 'components/companyAdmin/pinOptions/prelims/Prelims';
+import OptionSets from 'components/companyAdmin/pinOptions/optionSets/OptionSets';
 
 const { installationTypes, itemTypes, frRatings } = DROPDOWN_OPTION_VALS;
 
@@ -11,17 +9,17 @@ export const PIN_OPTIONS_TABS = [
     {
         id: installationTypes,
         name: 'Installation Types',
-        component: InstallationTypeSets,
+        component: OptionSets,
     },
     {
         id: itemTypes,
         name: 'Item Types',
-        component: ItemTypeSets,
+        component: OptionSets,
     },
     {
         id: frRatings,
         name: 'FR Ratings',
-        component: FRRatings,
+        component: OptionSets,
     },
     {
         id: 4,

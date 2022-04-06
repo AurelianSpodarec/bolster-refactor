@@ -3,11 +3,11 @@ import React from 'react';
 import { isEmpty } from 'helpers/generic';
 
 import useSearch from 'hooks/useSearch';
-import useFilterSets from '../hooks/useFilterSets';
+import useFilterSets from './hooks/useFilterSets';
 
+import FilterRow from 'components/shared/filters/FilterRow';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Table from 'components/shared/generic/tables/presentational/Table';
-import FilterRow from 'components/shared/filters/FilterRow';
 
 const data = [
     {
@@ -24,7 +24,7 @@ const data = [
     },
 ];
 
-const ItemTypeSets = () => {
+const OptionSets = ({ selectedTypeID }) => {
     const { searchTerm, handleUpdateSearch } = useSearch();
     const filteredSets = useFilterSets(data, searchTerm);
 
@@ -44,7 +44,7 @@ const ItemTypeSets = () => {
             <Table
                 headers={['Name', '']}
                 noData={isEmpty(filteredSets)}
-                noDataMessage="There are no item type sets to display."
+                noDataMessage="There are no data to display."
                 isFetching={false}
                 error={null}
             >
@@ -59,4 +59,4 @@ const ItemTypeSets = () => {
     );
 };
 
-export default ItemTypeSets;
+export default OptionSets;
