@@ -10,6 +10,7 @@ import FilterRow from 'components/shared/filters/FilterRow';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import OptionSetsListItem from './OptionSetsListItem';
+import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 
 const OptionSets = ({ selectedTypeID }) => {
     const { searchTerm, handleUpdateSearch } = useSearch();
@@ -18,6 +19,8 @@ const OptionSets = ({ selectedTypeID }) => {
         useFetchPinOptionSets();
 
     const filteredSets = useFilterOptionSets(pinOptionSetsArr, searchTerm, selectedTypeID);
+
+    const setLink = PIN_OPTION_TYPES[selectedTypeID].link;
 
     return (
         <>
@@ -41,7 +44,7 @@ const OptionSets = ({ selectedTypeID }) => {
                 error={pinOptionSetsFetchError}
             >
                 {filteredSets.map(set => (
-                    <OptionSetsListItem key={set.id} set={set} />
+                    <OptionSetsListItem key={set.id} set={set} setLink={setLink} />
                 ))}
             </Table>
         </>

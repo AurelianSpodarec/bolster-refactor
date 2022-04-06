@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const OptionSetsListItem = ({ set: { name } }) => (
+const OptionSetsListItem = ({ set: { id, name }, setLink }) => (
     <tr>
         <td className="row-link">
-            <Link to="/company/pin-options/tobedone/1">{name}</Link>
+            <Link to={`/company/pin-options/${setLink}/${id}`}>{name}</Link>
         </td>
         <td></td>
     </tr>
