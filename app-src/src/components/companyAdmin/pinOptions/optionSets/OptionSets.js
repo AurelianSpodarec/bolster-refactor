@@ -3,7 +3,7 @@ import React from 'react';
 import { isEmpty } from 'helpers/generic';
 
 import useSearch from 'hooks/useSearch';
-import useFilterSets from './hooks/useFilterSets';
+import useFilterOptionSets from './hooks/useFilterOptionSets';
 
 import FilterRow from 'components/shared/filters/FilterRow';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
@@ -26,7 +26,7 @@ const data = [
 
 const OptionSets = ({ selectedTypeID }) => {
     const { searchTerm, handleUpdateSearch } = useSearch();
-    const filteredSets = useFilterSets(data, searchTerm);
+    const filteredSets = useFilterOptionSets(data, searchTerm);
 
     return (
         <>
@@ -44,7 +44,7 @@ const OptionSets = ({ selectedTypeID }) => {
             <Table
                 headers={['Name', '']}
                 noData={isEmpty(filteredSets)}
-                noDataMessage="There are no data to display."
+                noDataMessage="There is no data to display."
                 isFetching={false}
                 error={null}
             >

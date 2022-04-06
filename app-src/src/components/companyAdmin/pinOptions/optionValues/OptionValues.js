@@ -3,30 +3,30 @@ import React from 'react';
 import { isEmpty } from 'helpers/generic';
 
 import useSearch from 'hooks/useSearch';
-import useFilterPrelims from './hooks/useFilterPrelims';
+import useFilterOptionValues from './hooks/useFilterOptionsValues';
 
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import FilterRow from 'components/shared/filters/FilterRow';
+import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Table from 'components/shared/generic/tables/presentational/Table';
 
 const data = [
     {
         id: 1,
-        name: 'Prelim 1',
+        name: 'Value 1',
     },
     {
         id: 2,
-        name: 'Prelim 2',
+        name: 'Value 2',
     },
     {
         id: 3,
-        name: 'Prelim 3',
+        name: 'Value 3',
     },
 ];
 
-const Prelims = () => {
+const OptionSets = () => {
     const { searchTerm, handleUpdateSearch } = useSearch();
-    const filteredPrelims = useFilterPrelims(data, searchTerm);
+    const filteredValues = useFilterOptionValues(data, searchTerm);
 
     return (
         <>
@@ -43,12 +43,12 @@ const Prelims = () => {
 
             <Table
                 headers={['Name', '']}
-                noData={isEmpty(filteredPrelims)}
-                noDataMessage="There are no prelims to display."
+                noData={isEmpty(filteredValues)}
+                noDataMessage="There is no data to display."
                 isFetching={false}
                 error={null}
             >
-                {filteredPrelims.map(set => (
+                {filteredValues.map(set => (
                     <tr key={set.id}>
                         <td>{set.name}</td>
                         <td></td>
@@ -59,4 +59,4 @@ const Prelims = () => {
     );
 };
 
-export default Prelims;
+export default OptionSets;
