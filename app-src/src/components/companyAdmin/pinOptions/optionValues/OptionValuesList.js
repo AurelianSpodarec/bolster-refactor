@@ -1,35 +1,26 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
+import { PIN_OPTION_TYPES_LOOKUP } from 'constants/companyAdmin/enums';
 import { isEmpty } from 'helpers/generic';
 
 import useSearch from 'hooks/useSearch';
 import useFilterOptionValues from './hooks/useFilterOptionsValues';
+import useGetOptionsForSet from './hooks/useGetOptionsForSet';
 
 import FilterRow from 'components/shared/filters/FilterRow';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Table from 'components/shared/generic/tables/presentational/Table';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import OptionValuesListItem from './OptionValuesListItem';
 
-const data = [
-    {
-        id: 1,
-        name: 'Value 1',
-    },
-    {
-        id: 2,
-        name: 'Value 2',
-    },
-    {
-        id: 3,
-        name: 'Value 3',
-    },
-];
-
 const OptionValuesList = () => {
+    const { setID, type } = useParams();
+    const typeID = PIN_OPTION_TYPES_LOOKUP[type];
+
+    const pinOptionsForSet = useGetOptionsForSet(typeID, parseInt(setID));
+
     const { searchTerm, handleUpdateSearch } = useSearch();
-    const filteredValues = useFilterOptionValues(data, searchTerm);
+    const filteredValues = useFilterOptionValues(pinOptionsForSet, searchTerm);
 
     return (
         <>
