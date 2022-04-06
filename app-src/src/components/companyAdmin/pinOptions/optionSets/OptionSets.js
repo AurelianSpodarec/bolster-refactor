@@ -13,12 +13,10 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 const OptionSets = ({ selectedTypeID }) => {
     const { searchTerm, handleUpdateSearch } = useSearch();
 
-    const { pinOptionSets, isFetchingPinOptionSets, pinOptionSetsFetchError } =
+    const { pinOptionSetsArr, isFetchingPinOptionSets, pinOptionSetsFetchError } =
         useFetchPinOptionSets();
 
-    const setsArray = Object.values(pinOptionSets);
-
-    const filteredSets = useFilterOptionSets(setsArray, searchTerm, selectedTypeID);
+    const filteredSets = useFilterOptionSets(pinOptionSetsArr, searchTerm, selectedTypeID);
 
     return (
         <>
