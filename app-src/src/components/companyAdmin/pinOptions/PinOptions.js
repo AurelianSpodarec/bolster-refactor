@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PIN_OPTIONS_TABS } from 'constants/shared/blockTabs';
+import { PIN_OPTIONS_TABS } from 'constants/companyAdmin/blockTabs';
 import { isEmpty } from 'helpers/generic';
 
 import useBlockTabs from 'components/shared/tabs/hooks/useBlockTabs';
