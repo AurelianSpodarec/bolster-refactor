@@ -38,8 +38,6 @@ function errorReducer(state = null, action) {
 
 function setsReducer(state = {}, action) {
     switch (action.type) {
-        case FETCH_PIN_OPTION_SETS_REQUEST:
-            return {};
         case FETCH_PIN_OPTION_SETS_SUCCESS:
             return convertArrToObj(action.payload);
         default:
