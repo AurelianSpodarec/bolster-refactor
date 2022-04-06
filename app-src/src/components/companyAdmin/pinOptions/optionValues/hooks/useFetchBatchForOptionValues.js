@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { isEmpty } from 'helpers/generic';
 
 import useFetchPinOptionsBatch from 'components/companyAdmin/hooks/useFetchPinOptionsBatch';
 import useFetchServices from 'components/companyAdmin/hooks/useFetchServices';
+import { usePrevious } from 'helpers/hooks';
 
 const useFetchBatchForOptionValues = () => {
+    const [hasFetched, setHasFetched] = useState(false);
     const { services, isFetchingServices, servicesError } = useFetchServices();
 
     const {
@@ -44,7 +46,14 @@ const useFetchBatchForOptionValues = () => {
         pinOptionsFetchError ||
         pinOptionVersionsFetchError;
 
-    return { isAnyEmpty, isAnyFetching, isAnyErrored };
+    const prevProps = usePrevious({ isAnyFetching });
+
+    useEffect(() => {
+        if (isAnyFetching && !prevProps.isAnyFetching) setHasFetched(false);
+        if (!isAnyFetching && prevProps.isAnyFetching) setHasFetched(true);
+    }, [isAnyFetching, prevProps.isAnyFetching]);
+
+    return { isAnyEmpty, isAnyFetching, isAnyErrored, hasFetched };
 };
 
 export default useFetchBatchForOptionValues;
