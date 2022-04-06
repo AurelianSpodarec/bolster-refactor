@@ -9,6 +9,7 @@ import useFilterOptionSets from './hooks/useFilterOptionSets';
 import FilterRow from 'components/shared/filters/FilterRow';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Table from 'components/shared/generic/tables/presentational/Table';
+import OptionSetsListItem from './OptionSetsListItem';
 
 const OptionSets = ({ selectedTypeID }) => {
     const { searchTerm, handleUpdateSearch } = useSearch();
@@ -40,10 +41,7 @@ const OptionSets = ({ selectedTypeID }) => {
                 error={pinOptionSetsFetchError}
             >
                 {filteredSets.map(set => (
-                    <tr key={set.id}>
-                        <td>{set.name}</td>
-                        <td></td>
-                    </tr>
+                    <OptionSetsListItem key={set.id} set={set} />
                 ))}
             </Table>
         </>

@@ -10,6 +10,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import Table from 'components/shared/generic/tables/presentational/Table';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import OptionValuesListItem from './OptionValuesListItem';
 
 const data = [
     {
@@ -54,11 +55,8 @@ const OptionValues = () => {
                     isFetching={false}
                     error={null}
                 >
-                    {filteredValues.map(set => (
-                        <tr key={set.id}>
-                            <td>{set.name}</td>
-                            <td></td>
-                        </tr>
+                    {filteredValues.map(option => (
+                        <OptionValuesListItem key={option.id} option={option} />
                     ))}
                 </Table>
             </BlockContainer>
