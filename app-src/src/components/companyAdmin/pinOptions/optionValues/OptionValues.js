@@ -24,7 +24,7 @@ const data = [
     },
 ];
 
-const OptionSets = () => {
+const OptionValues = () => {
     const { searchTerm, handleUpdateSearch } = useSearch();
     const filteredValues = useFilterOptionValues(data, searchTerm);
 
@@ -59,4 +59,4 @@ const OptionSets = () => {
     );
 };
 
-export default OptionSets;
+export default OptionValues;
