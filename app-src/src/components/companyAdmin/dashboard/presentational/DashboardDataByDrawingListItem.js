@@ -26,7 +26,7 @@ const DrawingDataByDrawingListItem = ({ drawing }) => {
                 floorID: drawing.floorID,
                 drawingID: drawing.id,
                 selectedService: localStorage.getItem('selectedService'),
-                selectedStatus: localStorage.getItem('selectedStatus'),
+                selectedStatus: [localStorage.getItem('selectedStatus')],
                 selectedStartDate: localStorage.getItem('selectedStartDate'),
                 selectedEndDate: localStorage.getItem('selectedEndDate'),
             },

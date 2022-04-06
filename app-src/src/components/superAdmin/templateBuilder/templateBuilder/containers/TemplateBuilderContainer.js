@@ -18,14 +18,8 @@ import fetchCompanyManufacturingOptions from 'actions/superAdmin/templateBuilder
 
 class TemplateBuilderContainer extends Component {
     render() {
-        const {
-            showAddSectionModal,
-            uuid,
-            saveRequired,
-            isExisting,
-            templateUUID,
-            companyID,
-        } = this.props;
+        const { showAddSectionModal, uuid, saveRequired, isExisting, templateUUID, companyID } =
+            this.props;
         return (
             <TemplateBuilder
                 isExisting={isExisting}
@@ -71,10 +65,12 @@ class TemplateBuilderContainer extends Component {
             template,
             companyID,
             deleteUnavailable,
+            fetchPageData,
         } = this.props;
         if (!prevPostSuccess && postSuccess) {
             const message = 'Template saved successfully.';
             showModal(SUCCESS_MODAL, { message, hideModal });
+            fetchPageData(templateUUID);
 
             if (templateUUID !== updatedTemplateUUID) {
                 const redirectUrl = curUrl.replace(templateUUID, updatedTemplateUUID);
