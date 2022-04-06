@@ -43,6 +43,7 @@ const Prelims = () => {
 
             <Table
                 headers={['Name', '']}
+                hideHeaders
                 noData={isEmpty(filteredPrelims)}
                 noDataMessage="There are no prelims to display."
                 isFetching={false}

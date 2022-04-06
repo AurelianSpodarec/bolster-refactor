@@ -35,6 +35,7 @@ const OptionSets = ({ selectedTypeID }) => {
 
             <Table
                 headers={['Name', '']}
+                hideHeaders
                 noData={isEmpty(filteredSets)}
                 noDataMessage="There is no data to display."
                 isFetching={isFetchingPinOptionSets}
