@@ -1,9 +1,9 @@
-import { DROPDOWN_OPTION_VALS } from './enums';
+import { PIN_OPTION_TYPES_VALS } from './enums';
 
 import Prelims from 'components/companyAdmin/pinOptions/prelims/Prelims';
 import OptionSets from 'components/companyAdmin/pinOptions/optionSets/OptionSets';
 
-const { installationTypes, itemTypes, frRatings } = DROPDOWN_OPTION_VALS;
+const { installationTypes, itemTypes, frRatings } = PIN_OPTION_TYPES_VALS;
 
 export const PIN_OPTIONS_TABS = [
     {

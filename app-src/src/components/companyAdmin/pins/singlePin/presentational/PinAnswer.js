@@ -22,13 +22,13 @@ const PinAnswer = ({
     const notFoundResponse = null;
     let inner;
     if (!isObjEmpty(optionValuesLookup) && !!curAnswer.answer) {
-        if (type === TYPES.DROPDOWN_OPTIONS && optionValuesLookup[curAnswer.answer]) {
+        if (type === TYPES.PIN_OPTION_TYPES && optionValuesLookup[curAnswer.answer]) {
             if (typeof curAnswer.answer === 'number' && optionValuesLookup[curAnswer.answer]) {
                 curAnswer.answer = optionValuesLookup[curAnswer.answer].name;
             }
         } else if (
-            type === TYPES.MULTI_DROPDOWN_OPTIONS ||
-            type === TYPES.MULTI_MULTI_DROPDOWN_OPTIONS
+            type === TYPES.MULTI_PIN_OPTION_TYPES ||
+            type === TYPES.MULTI_MULTI_PIN_OPTION_TYPES
         ) {
             if (Array.isArray(curAnswer.answer)) {
                 curAnswer.answer = curAnswer.answer.map(ans => {
@@ -56,10 +56,10 @@ const PinAnswer = ({
         case TYPES.NUMBER:
             inner = <p>{curAnswer.answer}</p>;
             break;
-        case TYPES.DROPDOWN_OPTIONS:
+        case TYPES.PIN_OPTION_TYPES:
             inner = <p>{curAnswer.answer}</p>;
             break;
-        case TYPES.MULTI_DROPDOWN_OPTIONS:
+        case TYPES.MULTI_PIN_OPTION_TYPES:
             if (Array.isArray(curAnswer.answer)) {
                 inner = <p>{curAnswer.answer.join(', ')}</p>;
             } else {
@@ -67,7 +67,7 @@ const PinAnswer = ({
             }
             break;
         case TYPES.MULTI_MULTI_DROPDOWN:
-        case TYPES.MULTI_MULTI_DROPDOWN_OPTIONS:
+        case TYPES.MULTI_MULTI_PIN_OPTION_TYPES:
             inner = <p>{formatMultiMulti(curAnswer.answer)}</p>;
             break;
         case TYPES.DROPDOWN:

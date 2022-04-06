@@ -3,22 +3,22 @@ import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 import {
-    FETCH_SINGLE_SITE_DROPDOWN_OPTIONS_REQUEST,
-    FETCH_SINGLE_SITE_DROPDOWN_OPTIONS_SUCCESS,
-    FETCH_SINGLE_SITE_DROPDOWN_OPTIONS_FAILURE,
+    FETCH_SINGLE_SITE_PIN_OPTION_TYPES_REQUEST,
+    FETCH_SINGLE_SITE_PIN_OPTION_TYPES_SUCCESS,
+    FETCH_SINGLE_SITE_PIN_OPTION_TYPES_FAILURE,
 } from 'constants/actionTypes/dropdownOptions';
 
 export const fetchSingleSiteDropdownOptionsRequest = () => ({
-    type: FETCH_SINGLE_SITE_DROPDOWN_OPTIONS_REQUEST,
+    type: FETCH_SINGLE_SITE_PIN_OPTION_TYPES_REQUEST,
 });
 
 export const fetchSingleSiteDropdownOptionsSuccess = payload => ({
-    type: FETCH_SINGLE_SITE_DROPDOWN_OPTIONS_SUCCESS,
+    type: FETCH_SINGLE_SITE_PIN_OPTION_TYPES_SUCCESS,
     payload,
 });
 
 export const fetchSingleSiteDropdownOptionsFailure = error => ({
-    type: FETCH_SINGLE_SITE_DROPDOWN_OPTIONS_FAILURE,
+    type: FETCH_SINGLE_SITE_PIN_OPTION_TYPES_FAILURE,
     error,
 });
 

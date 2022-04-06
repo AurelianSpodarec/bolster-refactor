@@ -13,7 +13,7 @@ import {
 } from 'helpers/manufacturers';
 import editSite from 'actions/companyAdmin/sites/async/editSite';
 import {
-    DROPDOWN_OPTIONS,
+    PIN_OPTION_TYPES,
     DROPDOWN_OPTION_MANUFACTURER_ENABLED,
 } from 'constants/companyAdmin/enums';
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
@@ -83,7 +83,7 @@ class EditSiteFormContainer extends Component {
         } = this.props;
 
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before editing a site.
-        const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
+        const pinOptionTypes = Object.keys(PIN_OPTION_TYPES).filter(option => {
             return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option];
         });
 

@@ -3,22 +3,22 @@ import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 import {
-    FETCH_ALL_DROPDOWN_OPTIONS_REQUEST,
-    FETCH_ALL_DROPDOWN_OPTIONS_SUCCESS,
-    FETCH_ALL_DROPDOWN_OPTIONS_FAILURE,
+    FETCH_ALL_PIN_OPTION_TYPES_REQUEST,
+    FETCH_ALL_PIN_OPTION_TYPES_SUCCESS,
+    FETCH_ALL_PIN_OPTION_TYPES_FAILURE,
 } from 'constants/actionTypes/dropdownOptions';
 
 export const fetchAllDropdownOptionsRequest = () => ({
-    type: FETCH_ALL_DROPDOWN_OPTIONS_REQUEST,
+    type: FETCH_ALL_PIN_OPTION_TYPES_REQUEST,
 });
 
 export const fetchAllDropdownOptionsSuccess = payload => ({
-    type: FETCH_ALL_DROPDOWN_OPTIONS_SUCCESS,
+    type: FETCH_ALL_PIN_OPTION_TYPES_SUCCESS,
     payload,
 });
 
 export const fetchAllDropdownOptionsFailure = error => ({
-    type: FETCH_ALL_DROPDOWN_OPTIONS_FAILURE,
+    type: FETCH_ALL_PIN_OPTION_TYPES_FAILURE,
     error,
 });
 

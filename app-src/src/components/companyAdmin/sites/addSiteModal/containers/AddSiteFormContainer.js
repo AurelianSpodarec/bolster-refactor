@@ -11,7 +11,7 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
 import {
     DROPDOWN_OPTION_MANUFACTURER_ENABLED,
-    DROPDOWN_OPTIONS,
+    PIN_OPTION_TYPES,
 } from 'constants/companyAdmin/enums';
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -79,7 +79,7 @@ class AddSiteFormContainer extends Component {
             showOAndMTsAndCsModal('add site');
         }
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before adding a site.
-        const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
+        const pinOptionTypes = Object.keys(PIN_OPTION_TYPES).filter(option => {
             return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option];
         });
 
@@ -204,7 +204,7 @@ class AddSiteFormContainer extends Component {
     createManufacturerOptionList = () => {
         const { manufacturers } = this.props;
         if (!isObjEmpty(manufacturers)) {
-            return Object.values(DROPDOWN_OPTIONS).reduce((acc, { reduxKey }) => {
+            return Object.values(PIN_OPTION_TYPES).reduce((acc, { reduxKey }) => {
                 if (manufacturers[reduxKey]) {
                     const manufacturerOptions = formatOptions(
                         Object.values(manufacturers[reduxKey]),

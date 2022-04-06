@@ -2,9 +2,9 @@ import { combineReducers } from 'redux';
 
 import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
-    FETCH_ALL_DROPDOWN_OPTIONS_REQUEST,
-    FETCH_ALL_DROPDOWN_OPTIONS_SUCCESS,
-    FETCH_ALL_DROPDOWN_OPTIONS_FAILURE,
+    FETCH_ALL_PIN_OPTION_TYPES_REQUEST,
+    FETCH_ALL_PIN_OPTION_TYPES_SUCCESS,
+    FETCH_ALL_PIN_OPTION_TYPES_FAILURE,
     CREATE_DROPDOWN_OPTION_REQUEST,
     CREATE_DROPDOWN_OPTION_SUCCESS,
     CREATE_DROPDOWN_OPTION_FAILURE,
@@ -14,10 +14,10 @@ import {
     TOGGLE_DROPDOWN_OPTION_REQUEST,
     TOGGLE_DROPDOWN_OPTION_SUCCESS,
     TOGGLE_DROPDOWN_OPTION_FAILURE,
-    REORDER_DROPDOWN_OPTIONS,
-    FETCH_SINGLE_SITE_DROPDOWN_OPTIONS_REQUEST,
-    FETCH_SINGLE_SITE_DROPDOWN_OPTIONS_SUCCESS,
-    FETCH_SINGLE_SITE_DROPDOWN_OPTIONS_FAILURE,
+    REORDER_PIN_OPTION_TYPES,
+    FETCH_SINGLE_SITE_PIN_OPTION_TYPES_REQUEST,
+    FETCH_SINGLE_SITE_PIN_OPTION_TYPES_SUCCESS,
+    FETCH_SINGLE_SITE_PIN_OPTION_TYPES_FAILURE,
 } from 'constants/actionTypes/dropdownOptions';
 
 export default combineReducers({
@@ -31,13 +31,13 @@ export default combineReducers({
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
-        case FETCH_ALL_DROPDOWN_OPTIONS_REQUEST:
-        case FETCH_SINGLE_SITE_DROPDOWN_OPTIONS_REQUEST:
+        case FETCH_ALL_PIN_OPTION_TYPES_REQUEST:
+        case FETCH_SINGLE_SITE_PIN_OPTION_TYPES_REQUEST:
             return true;
-        case FETCH_ALL_DROPDOWN_OPTIONS_SUCCESS:
-        case FETCH_ALL_DROPDOWN_OPTIONS_FAILURE:
-        case FETCH_SINGLE_SITE_DROPDOWN_OPTIONS_SUCCESS:
-        case FETCH_SINGLE_SITE_DROPDOWN_OPTIONS_FAILURE:
+        case FETCH_ALL_PIN_OPTION_TYPES_SUCCESS:
+        case FETCH_ALL_PIN_OPTION_TYPES_FAILURE:
+        case FETCH_SINGLE_SITE_PIN_OPTION_TYPES_SUCCESS:
+        case FETCH_SINGLE_SITE_PIN_OPTION_TYPES_FAILURE:
             return false;
         default:
             return state;
@@ -76,11 +76,11 @@ function postErrorReducer(state = null, action) {
 
 function errorReducer(state = null, action) {
     switch (action.type) {
-        case FETCH_ALL_DROPDOWN_OPTIONS_REQUEST:
-        case FETCH_SINGLE_SITE_DROPDOWN_OPTIONS_REQUEST:
+        case FETCH_ALL_PIN_OPTION_TYPES_REQUEST:
+        case FETCH_SINGLE_SITE_PIN_OPTION_TYPES_REQUEST:
             return null;
-        case FETCH_ALL_DROPDOWN_OPTIONS_FAILURE:
-        case FETCH_SINGLE_SITE_DROPDOWN_OPTIONS_FAILURE:
+        case FETCH_ALL_PIN_OPTION_TYPES_FAILURE:
+        case FETCH_SINGLE_SITE_PIN_OPTION_TYPES_FAILURE:
             return action.error;
         default:
             return state;
@@ -89,14 +89,14 @@ function errorReducer(state = null, action) {
 
 function dropdownOptionsReducer(state = {}, action) {
     switch (action.type) {
-        case FETCH_ALL_DROPDOWN_OPTIONS_SUCCESS:
+        case FETCH_ALL_PIN_OPTION_TYPES_SUCCESS:
             return convertArrToObj(action.payload);
         case CREATE_DROPDOWN_OPTION_SUCCESS:
         case EDIT_DROPDOWN_OPTION_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case TOGGLE_DROPDOWN_OPTION_SUCCESS:
             return updateObj(state, action.id, action.payload);
-        case REORDER_DROPDOWN_OPTIONS:
+        case REORDER_PIN_OPTION_TYPES:
             return { ...state, ...convertArrToObj(action.payload) };
         default:
             return state;
@@ -105,7 +105,7 @@ function dropdownOptionsReducer(state = {}, action) {
 
 function singleSiteDropdownOptionReducer(state = {}, action) {
     switch (action.type) {
-        case FETCH_SINGLE_SITE_DROPDOWN_OPTIONS_SUCCESS:
+        case FETCH_SINGLE_SITE_PIN_OPTION_TYPES_SUCCESS:
             return action.payload;
         default:
             return state;

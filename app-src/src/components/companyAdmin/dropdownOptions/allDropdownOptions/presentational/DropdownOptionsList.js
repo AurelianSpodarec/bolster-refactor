@@ -26,4 +26,4 @@ const DropdownOptionsList = ({
         ))}
     </tbody>
 );
-export default withDropZone(DropdownOptionsList, 'DROPDOWN_OPTIONS');
+export default withDropZone(DropdownOptionsList, 'PIN_OPTION_TYPES');

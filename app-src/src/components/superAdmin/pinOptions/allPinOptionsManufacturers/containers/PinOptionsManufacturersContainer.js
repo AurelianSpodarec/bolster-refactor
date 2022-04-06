@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { DROPDOWN_OPTION_LOOKUP, DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import { PIN_OPTION_TYPES_LOOKUP, PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 import fetchManufacturersByPinOptionType from 'actions/superAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
 
 import PinOptionsManufacturers from '../presentational/PinOptionsManufacturers';
@@ -9,14 +9,14 @@ import PinOptionsManufacturers from '../presentational/PinOptionsManufacturers';
 class PinOptionsManufacturersContainer extends Component {
     render() {
         const { type } = this.props;
-        const { name } = DROPDOWN_OPTIONS[DROPDOWN_OPTION_LOOKUP[type]];
+        const { name } = PIN_OPTION_TYPES[PIN_OPTION_TYPES_LOOKUP[type]];
 
-        return <PinOptionsManufacturers name={name} type={DROPDOWN_OPTION_LOOKUP[type]} />;
+        return <PinOptionsManufacturers name={name} type={PIN_OPTION_TYPES_LOOKUP[type]} />;
     }
 
     componentDidMount = () => {
         const { fetchManufacturersByPinOptionType, type } = this.props;
-        fetchManufacturersByPinOptionType(DROPDOWN_OPTION_LOOKUP[type]);
+        fetchManufacturersByPinOptionType(PIN_OPTION_TYPES_LOOKUP[type]);
     };
 }
 

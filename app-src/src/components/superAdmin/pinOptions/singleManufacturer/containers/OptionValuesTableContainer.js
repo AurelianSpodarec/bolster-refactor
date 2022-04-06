@@ -7,7 +7,7 @@ import { SUCCESS_MODAL, ERROR_MODAL, ADMIN_ADD_OPTION_VALUE } from 'constants/sh
 import OptionValuesTable from '../presentational/OptionValuesTable';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { isObjEmpty } from 'helpers/generic';
-import { DROPDOWN_OPTIONS, DROPDOWN_OPTION_LOOKUP } from 'constants/companyAdmin/enums';
+import { PIN_OPTION_TYPES, PIN_OPTION_TYPES_LOOKUP } from 'constants/companyAdmin/enums';
 
 class OptionValuesTableContainer extends Component {
     render() {
@@ -84,7 +84,7 @@ const mapStateToProps = (
         },
     },
 ) => {
-    const pinOptionKey = DROPDOWN_OPTIONS[DROPDOWN_OPTION_LOOKUP[type]].reduxKey;
+    const pinOptionKey = PIN_OPTION_TYPES[PIN_OPTION_TYPES_LOOKUP[type]].reduxKey;
 
     return {
         manufacturer: manufacturers[pinOptionKey][id],

@@ -8,7 +8,7 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
-import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 
 const AddSiteForm = ({
     handleSubmit,
@@ -133,7 +133,7 @@ const AddSiteForm = ({
                             <Field
                                 labelClasses="no-capitalise"
                                 name={`${manufacturerInfo.name} ${
-                                    DROPDOWN_OPTIONS[manufacturerInfo.pinOptionType].name
+                                    PIN_OPTION_TYPES[manufacturerInfo.pinOptionType].name
                                 }
                               `}
                                 required

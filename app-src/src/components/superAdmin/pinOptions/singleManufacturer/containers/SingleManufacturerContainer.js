@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { DROPDOWN_OPTION_LOOKUP, DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import { PIN_OPTION_TYPES_LOOKUP, PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 
 import fetchOptionValuesByManufacturer from 'actions/superAdmin/manufacturers/async/fetchOptionValuesByManufacturer';
 import fetchSingleManufacturer from 'actions/superAdmin/manufacturers/async/fetchSingleManufacturer';
@@ -32,7 +32,7 @@ class SingleManufacturerContainer extends Component {
             manufacturerID,
             type,
         } = this.props;
-        fetchSingleManufacturer(manufacturerID, DROPDOWN_OPTION_LOOKUP[type]);
+        fetchSingleManufacturer(manufacturerID, PIN_OPTION_TYPES_LOOKUP[type]);
         fetchOptionValuesByManufacturer(manufacturerID);
         fetchAllServices();
     };
@@ -50,7 +50,7 @@ const mapStateToProps = (
         },
     },
 ) => {
-    const pinOptionKey = DROPDOWN_OPTIONS[DROPDOWN_OPTION_LOOKUP[type]].reduxKey;
+    const pinOptionKey = PIN_OPTION_TYPES[PIN_OPTION_TYPES_LOOKUP[type]].reduxKey;
 
     return {
         type,

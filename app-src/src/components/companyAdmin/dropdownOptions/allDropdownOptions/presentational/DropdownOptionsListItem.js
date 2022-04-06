@@ -52,4 +52,4 @@ const DropdownOptionsListItem = ({
     );
 };
 
-export default withDrag(DropdownOptionsListItem, 'DROPDOWN_OPTIONS');
+export default withDrag(DropdownOptionsListItem, 'PIN_OPTION_TYPES');

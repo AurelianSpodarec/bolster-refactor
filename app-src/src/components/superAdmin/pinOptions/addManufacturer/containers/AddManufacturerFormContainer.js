@@ -6,7 +6,7 @@ import createManufacturer from 'actions/superAdmin/manufacturers/async/createMan
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import AddManufacturerForm from '../presentational/AddManufacturerForm';
-import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 
 class AddManufacturerFormContainer extends Component {
     state = {
@@ -78,7 +78,7 @@ const mapStateToProps = (
     },
     { type },
 ) => {
-    const pinOptionType = DROPDOWN_OPTIONS[type].reduxKey;
+    const pinOptionType = PIN_OPTION_TYPES[type].reduxKey;
     return {
         manufacturers: manufacturers[pinOptionType]
             ? Object.values(manufacturers[pinOptionType])

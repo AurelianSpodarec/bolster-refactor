@@ -22,7 +22,7 @@ import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateH
 import { useMultipleHierarchies, usePrevious } from 'helpers/hooks';
 import createDrawing from 'actions/companyAdmin/drawings/async/createDrawing';
 import {
-    DROPDOWN_OPTIONS,
+    PIN_OPTION_TYPES,
     DROPDOWN_OPTION_MANUFACTURER_ENABLED,
 } from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -130,7 +130,7 @@ const AddDrawingsFormContainer = ({
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled.
         // ** Wait for them to resolve before adding a drawing.
         async function getPinOptions() {
-            const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
+            const pinOptionTypes = Object.keys(PIN_OPTION_TYPES).filter(option => {
                 return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option];
             });
 

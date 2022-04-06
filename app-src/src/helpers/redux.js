@@ -1,5 +1,5 @@
 import {
-    DROPDOWN_OPTIONS,
+    PIN_OPTION_TYPES,
     DROPDOWN_OPTION_MANUFACTURER_ENABLED,
 } from 'constants/companyAdmin/enums';
 
@@ -32,7 +32,7 @@ export function fetchManufacturerPinOptions(
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
 ) {
-    const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
+    const pinOptionTypes = Object.keys(PIN_OPTION_TYPES).filter(option => {
         return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option];
     });
 

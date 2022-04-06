@@ -1,5 +1,5 @@
 import { isObjEmpty } from './generic';
-import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 
 export const formatOptions = options => {
     return options
@@ -17,7 +17,7 @@ export const formatOptions = options => {
 // ===================== CREATING OPTION VALUES AND MANUFACTURER OPTIONS IF NOT SET ABOVE ===========
 export const createManufacturerOptionList = manufacturers => {
     if (!isObjEmpty(manufacturers)) {
-        return Object.values(DROPDOWN_OPTIONS)
+        return Object.values(PIN_OPTION_TYPES)
             .reduce((acc, { reduxKey }) => {
                 if (manufacturers[reduxKey]) {
                     const manufacturerOptions = formatOptions(

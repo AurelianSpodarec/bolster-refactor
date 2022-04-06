@@ -26,7 +26,7 @@ import {
     TOGGLE_MANUFACTURER_SUCCESS,
     TOGGLE_MANUFACTURER_FAILURE,
 } from 'constants/actionTypes/companyAdminManufacturers';
-import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 
 export default combineReducers({
     manufacturers: manufacturersReducer,
@@ -105,7 +105,7 @@ function manufacturersReducer(state = {}, action) {
         case FETCH_PIN_OPTION_MANUFACTURERS_SUCCESS:
             return updateObj(
                 state,
-                DROPDOWN_OPTIONS[action.pinOptionType].reduxKey,
+                PIN_OPTION_TYPES[action.pinOptionType].reduxKey,
                 convertArrToObj(action.payload),
             );
         case CREATE_MANUFACTURER_SUCCESS:
@@ -114,8 +114,8 @@ function manufacturersReducer(state = {}, action) {
         case TOGGLE_MANUFACTURER_SUCCESS:
             return {
                 ...state,
-                [DROPDOWN_OPTIONS[action.pinOptionType].reduxKey]: updateObj(
-                    state[DROPDOWN_OPTIONS[action.pinOptionType].reduxKey],
+                [PIN_OPTION_TYPES[action.pinOptionType].reduxKey]: updateObj(
+                    state[PIN_OPTION_TYPES[action.pinOptionType].reduxKey],
                     action.payload.id,
                     action.payload,
                 ),
@@ -123,8 +123,8 @@ function manufacturersReducer(state = {}, action) {
         case DELETE_MANUFACTURER_SUCCESS:
             return {
                 ...state,
-                [DROPDOWN_OPTIONS[action.pinOptionType].reduxKey]: updateObj(
-                    state[DROPDOWN_OPTIONS[action.pinOptionType].reduxKey],
+                [PIN_OPTION_TYPES[action.pinOptionType].reduxKey]: updateObj(
+                    state[PIN_OPTION_TYPES[action.pinOptionType].reduxKey],
                     action.id,
                     {
                         ...action.payload,
@@ -135,7 +135,7 @@ function manufacturersReducer(state = {}, action) {
         case REORDER_MANUFACTURERS:
             return updateObj(
                 state,
-                DROPDOWN_OPTIONS[action.pinOptionType].reduxKey,
+                PIN_OPTION_TYPES[action.pinOptionType].reduxKey,
                 convertArrToObj(action.payload),
             );
         default:

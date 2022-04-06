@@ -2,23 +2,23 @@ import axios from 'axios';
 import { API_URL } from 'config';
 
 import {
-    FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_REQUEST,
-    FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_FAILURE,
-    FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_SUCCESS,
+    FETCH_TIMESHEET_WEEK_PIN_OPTION_TYPES_REQUEST,
+    FETCH_TIMESHEET_WEEK_PIN_OPTION_TYPES_FAILURE,
+    FETCH_TIMESHEET_WEEK_PIN_OPTION_TYPES_SUCCESS,
 } from 'constants/actionTypes/timesheets';
 import { getHeaders } from 'helpers/api';
 
 export const fetchTimesheetsWeekDropdownOptionsRequest = () => ({
-    type: FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_REQUEST,
+    type: FETCH_TIMESHEET_WEEK_PIN_OPTION_TYPES_REQUEST,
 });
 
 export const fetchTimesheetsWeekDropdownOptionsSuccess = payload => ({
-    type: FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_SUCCESS,
+    type: FETCH_TIMESHEET_WEEK_PIN_OPTION_TYPES_SUCCESS,
     payload,
 });
 
 export const fetchTimesheetsWeekDropdownOptionsFailure = error => ({
-    type: FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_FAILURE,
+    type: FETCH_TIMESHEET_WEEK_PIN_OPTION_TYPES_FAILURE,
     error,
 });
 

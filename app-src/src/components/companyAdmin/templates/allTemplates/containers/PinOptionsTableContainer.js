@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -9,7 +9,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const PinOptionsTableContainer = ({ onMobile }) => {
-    const pinOptionsTypes = Object.values(DROPDOWN_OPTIONS);
+    const pinOptionsTypes = Object.values(PIN_OPTION_TYPES);
     const headers = onMobile ? ['Name', ''] : ['', ''];
 
     return (

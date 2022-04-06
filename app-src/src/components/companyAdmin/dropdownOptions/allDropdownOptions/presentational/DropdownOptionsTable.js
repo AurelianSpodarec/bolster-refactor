@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -36,7 +36,7 @@ const DropdownOptionsTable = ({
                         />
 
                         <button className="button green" onClick={handleAddOptionModal}>
-                            <i className="fa fa-plus" /> {`Add ${DROPDOWN_OPTIONS[type].singular}`}
+                            <i className="fa fa-plus" /> {`Add ${PIN_OPTION_TYPES[type].singular}`}
                         </button>
                     </div>
                 </BlockHeading>
@@ -48,7 +48,7 @@ const DropdownOptionsTable = ({
                         isFetching={isFetching}
                         error={error}
                         noData={!dropdownOptions.length}
-                        noDataMessage={`There are no ${DROPDOWN_OPTIONS[type].name} to display.`}
+                        noDataMessage={`There are no ${PIN_OPTION_TYPES[type].name} to display.`}
                         extraClasses="large"
                         withoutTBody
                     >

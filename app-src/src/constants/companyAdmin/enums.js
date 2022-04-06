@@ -318,7 +318,7 @@ export const PARENTAL_TYPES = {
 
 /*  adding new dropdown options to these two enum objects
     will dynamically add a new page for that option. */
-export const DROPDOWN_OPTIONS = {
+export const PIN_OPTION_TYPES = {
     1: { name: 'FR Ratings', link: 'fr-ratings', singular: 'FR Rating', reduxKey: 'frRatings' },
     2: { name: 'Item Types', link: 'item-types', singular: 'Item Type', reduxKey: 'itemTypes' },
     3: {
@@ -329,18 +329,18 @@ export const DROPDOWN_OPTIONS = {
     },
 };
 
-export const DROPDOWN_OPTION_LOOKUP = {
+export const PIN_OPTION_TYPES_LOOKUP = {
     'fr-ratings': 1,
     'item-types': 2,
     'installation-types': 3,
 };
 
-export const DROPDOWN_OPTION_ENUM = {
+export const PIN_OPTION_TYPES_ENUM = {
     1: 'FR Ratings',
     2: 'Item Types',
     3: 'Installation Types',
 };
-export const DROPDOWN_OPTION_VALS = {
+export const PIN_OPTION_TYPES_VALS = {
     frRatings: 1,
     itemTypes: 2,
     installationTypes: 3,

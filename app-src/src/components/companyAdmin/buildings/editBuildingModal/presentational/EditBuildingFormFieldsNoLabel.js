@@ -4,7 +4,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
-import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
@@ -98,7 +98,7 @@ const BuildingFormFieldsNoLabel = ({
                                     <Field
                                         labelClasses="no-capitalise"
                                         name={`${manufacturerInfo.name} ${
-                                            DROPDOWN_OPTIONS[manufacturerInfo.pinOptionType].name
+                                            PIN_OPTION_TYPES[manufacturerInfo.pinOptionType].name
                                         }
                                   `}
                                     >

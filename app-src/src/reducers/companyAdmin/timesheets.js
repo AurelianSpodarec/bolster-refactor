@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
 import {
-    FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_REQUEST,
-    FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_SUCCESS,
-    FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_FAILURE,
+    FETCH_TIMESHEET_WEEK_PIN_OPTION_TYPES_REQUEST,
+    FETCH_TIMESHEET_WEEK_PIN_OPTION_TYPES_SUCCESS,
+    FETCH_TIMESHEET_WEEK_PIN_OPTION_TYPES_FAILURE,
     FETCH_TIMESHEET_WEEK_REQUEST,
     FETCH_TIMESHEET_WEEK_FAILURE,
     FETCH_TIMESHEET_WEEK_SUCCESS,
@@ -63,11 +63,11 @@ function errorReducer(state = null, action) {
 
 function timesheetOptionsReducer(state = [], action) {
     switch (action.type) {
-        case FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_REQUEST:
+        case FETCH_TIMESHEET_WEEK_PIN_OPTION_TYPES_REQUEST:
             return state;
-        case FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_FAILURE:
+        case FETCH_TIMESHEET_WEEK_PIN_OPTION_TYPES_FAILURE:
             return state;
-        case FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_SUCCESS:
+        case FETCH_TIMESHEET_WEEK_PIN_OPTION_TYPES_SUCCESS:
             return action.payload;
         default:
             return state;

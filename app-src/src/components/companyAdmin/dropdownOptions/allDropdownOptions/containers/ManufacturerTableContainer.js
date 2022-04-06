@@ -6,7 +6,7 @@ import { SUCCESS_MODAL, ERROR_MODAL, COMPANY_ADD_MANUFACTURER } from 'constants/
 import ManufacturerTable from '../presentational/ManufacturerTable';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { isObjEmpty } from 'helpers/generic';
-import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 import reorderManufacturers from 'actions/companyAdmin/dropdownOptions/sync/reorderManufacturers';
 
 class ManufacturerTableContainer extends Component {
@@ -121,7 +121,7 @@ const mapStateToProps = (
     },
     ownProps,
 ) => {
-    const pinOptionKey = DROPDOWN_OPTIONS[ownProps.type].reduxKey;
+    const pinOptionKey = PIN_OPTION_TYPES[ownProps.type].reduxKey;
     return {
         postError,
         postSuccess,
