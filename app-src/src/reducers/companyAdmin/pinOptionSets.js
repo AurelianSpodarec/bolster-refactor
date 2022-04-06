@@ -10,7 +10,7 @@ import {
 export default combineReducers({
     sets: setsReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer,
+    fetchError: fetchErrorReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -25,7 +25,7 @@ function isFetchingReducer(state = false, action) {
     }
 }
 
-function errorReducer(state = null, action) {
+function fetchErrorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_PIN_OPTION_SETS_REQUEST:
             return null;

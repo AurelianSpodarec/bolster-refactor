@@ -13,8 +13,8 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 const OptionSets = ({ selectedTypeID }) => {
     const { searchTerm, handleUpdateSearch } = useSearch();
 
-    const { pinOptionSets, isFetchingPinOptionSets, pinOptionSetsError } =
-        useFetchPinOptionSets(selectedTypeID);
+    const { pinOptionSets, isFetchingPinOptionSets, pinOptionSetsFetchError } =
+        useFetchPinOptionSets();
 
     const setsArray = Object.values(pinOptionSets);
 
@@ -39,7 +39,7 @@ const OptionSets = ({ selectedTypeID }) => {
                 noData={isEmpty(filteredSets)}
                 noDataMessage="There is no data to display."
                 isFetching={isFetchingPinOptionSets}
-                error={pinOptionSetsError}
+                error={pinOptionSetsFetchError}
             >
                 {filteredSets.map(set => (
                     <tr key={set.id}>

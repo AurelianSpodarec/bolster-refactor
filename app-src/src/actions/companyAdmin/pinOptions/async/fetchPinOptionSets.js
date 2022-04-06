@@ -22,11 +22,11 @@ export const fetchPinOptionSetsFailure = error => ({
     error,
 });
 
-export default typeID => async dispatch => {
+export default () => async dispatch => {
     dispatch(fetchPinOptionSetsRequest());
 
     return axios
-        .get(`${API_URL}/pinoptions/types/${typeID}/sets`, getHeaders())
+        .get(`${API_URL}/pinoptions/sets`, getHeaders())
         .then(res => dispatch(fetchPinOptionSetsSuccess(res.data)))
         .catch(err => dispatch(fetchPinOptionSetsFailure(err.message)));
 };

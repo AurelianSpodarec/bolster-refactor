@@ -32,8 +32,10 @@ import operativesReducer from './operatives';
 import pendingInvitesReducer from './pendingInvites';
 import pinAnswersReducer from './pinAnswers';
 import pinHistoriesReducer from './pinHistories';
+import pinOptionsReducer from './pinOptions';
 import pinOptionSetsReducer from './pinOptionSets';
 import pinOptionTypesReducer from './pinOptionTypes';
+import pinOptionVersionsReducer from './pinOptionVersions';
 import pinsReducer from './pins';
 import searchReducer from './search';
 import servicesReducer from './services';
@@ -114,8 +116,10 @@ export default combineReducers({
     pendingInvitesReducer,
     pinAnswersReducer,
     pinHistoriesReducer,
+    pinOptionsReducer,
     pinOptionSetsReducer,
     pinOptionTypesReducer,
+    pinOptionVersionsReducer,
     pinsReducer,
     pinTasksReducer,
     qrCodesReducer,

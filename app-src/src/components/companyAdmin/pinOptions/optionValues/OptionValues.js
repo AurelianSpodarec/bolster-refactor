@@ -8,6 +8,8 @@ import useFilterOptionValues from './hooks/useFilterOptionsValues';
 import FilterRow from 'components/shared/filters/FilterRow';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Table from 'components/shared/generic/tables/presentational/Table';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const data = [
     {
@@ -30,31 +32,36 @@ const OptionValues = () => {
 
     return (
         <>
-            <FilterRow>
-                <TextInputContainer
-                    name="search"
-                    value={searchTerm}
-                    handleChange={handleUpdateSearch}
-                    placeholder="Search"
-                />
+            <PageHeading title="Pin Options" />
 
-                <button className="button green">Add</button>
-            </FilterRow>
+            <BlockContainer>
+                <FilterRow>
+                    <TextInputContainer
+                        name="search"
+                        value={searchTerm}
+                        handleChange={handleUpdateSearch}
+                        placeholder="Search"
+                    />
 
-            <Table
-                headers={['Name', '']}
-                noData={isEmpty(filteredValues)}
-                noDataMessage="There is no data to display."
-                isFetching={false}
-                error={null}
-            >
-                {filteredValues.map(set => (
-                    <tr key={set.id}>
-                        <td>{set.name}</td>
-                        <td></td>
-                    </tr>
-                ))}
-            </Table>
+                    <button className="button green">Add</button>
+                </FilterRow>
+
+                <Table
+                    headers={['Name', '']}
+                    hideHeaders
+                    noData={isEmpty(filteredValues)}
+                    noDataMessage="There is no data to display."
+                    isFetching={false}
+                    error={null}
+                >
+                    {filteredValues.map(set => (
+                        <tr key={set.id}>
+                            <td>{set.name}</td>
+                            <td></td>
+                        </tr>
+                    ))}
+                </Table>
+            </BlockContainer>
         </>
     );
 };

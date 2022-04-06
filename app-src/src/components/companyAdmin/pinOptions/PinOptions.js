@@ -15,7 +15,7 @@ const PinOptions = () => {
     const { selectedTabID, setSelectedTabID, SpecificComponent } = useBlockTabs(PIN_OPTIONS_TABS);
 
     const { services, isFetchingServices, servicesError } = useFetchServices();
-    const { pinOptionTypes, isFetchingPinOptionTypes, pinOptionTypesError } =
+    const { pinOptionTypes, isFetchingPinOptionTypes, pinOptionTypesFetchError } =
         useFetchPinOptionTypes();
 
     return (
@@ -28,7 +28,7 @@ const PinOptions = () => {
                     (isEmpty(pinOptionTypes) && isFetchingPinOptionTypes)
                 }
                 isFetching={isFetchingServices || isFetchingPinOptionTypes}
-                error={servicesError || pinOptionTypesError}
+                error={servicesError || pinOptionTypesFetchError}
             >
                 <BlockTabs
                     tabs={PIN_OPTIONS_TABS}

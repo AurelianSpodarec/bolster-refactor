@@ -2,23 +2,23 @@ import { combineReducers } from 'redux';
 
 import { convertArrToObj } from 'helpers/generic';
 import {
-    FETCH_PIN_OPTION_TYPES_REQUEST,
-    FETCH_PIN_OPTION_TYPES_SUCCESS,
-    FETCH_PIN_OPTION_TYPES_FAILURE,
+    FETCH_PIN_OPTION_VERSIONS_REQUEST,
+    FETCH_PIN_OPTION_VERSIONS_SUCCESS,
+    FETCH_PIN_OPTION_VERSIONS_FAILURE,
 } from 'constants/actionTypes/pinOptions';
 
 export default combineReducers({
-    types: typesReducer,
+    versions: versionsReducer,
     isFetching: isFetchingReducer,
     fetchError: fetchErrorReducer,
 });
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
-        case FETCH_PIN_OPTION_TYPES_REQUEST:
+        case FETCH_PIN_OPTION_VERSIONS_REQUEST:
             return true;
-        case FETCH_PIN_OPTION_TYPES_SUCCESS:
-        case FETCH_PIN_OPTION_TYPES_FAILURE:
+        case FETCH_PIN_OPTION_VERSIONS_SUCCESS:
+        case FETCH_PIN_OPTION_VERSIONS_FAILURE:
             return false;
         default:
             return state;
@@ -27,18 +27,18 @@ function isFetchingReducer(state = false, action) {
 
 function fetchErrorReducer(state = null, action) {
     switch (action.type) {
-        case FETCH_PIN_OPTION_TYPES_REQUEST:
+        case FETCH_PIN_OPTION_VERSIONS_REQUEST:
             return null;
-        case FETCH_PIN_OPTION_TYPES_FAILURE:
+        case FETCH_PIN_OPTION_VERSIONS_FAILURE:
             return action.error;
         default:
             return state;
     }
 }
 
-function typesReducer(state = {}, action) {
+function versionsReducer(state = {}, action) {
     switch (action.type) {
-        case FETCH_PIN_OPTION_TYPES_SUCCESS:
+        case FETCH_PIN_OPTION_VERSIONS_SUCCESS:
             return convertArrToObj(action.payload);
         default:
             return state;
