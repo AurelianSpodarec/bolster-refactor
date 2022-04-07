@@ -65,7 +65,7 @@ function postErrorReducer(state = null, action) {
     }
 }
 
-function postSuccessReducer(state = null, action) {
+function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_PIN_OPTION_SET_REQUEST:
             return false;
