@@ -8,6 +8,7 @@ import useFilterPrelims from './hooks/useFilterPrelims';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import FilterRow from 'components/shared/filters/FilterRow';
 import Table from 'components/shared/generic/tables/presentational/Table';
+import useFetchPrelims from './hooks/useFetchPrelims';
 
 const data = [
     {
@@ -26,7 +27,8 @@ const data = [
 
 const Prelims = () => {
     const { searchTerm, handleUpdateSearch } = useSearch();
-    const filteredPrelims = useFilterPrelims(data, searchTerm);
+    const { allPrelims, isFetchingPrelims, prelimsError } = useFetchPrelims();
+    const filteredPrelims = useFilterPrelims(allPrelims, searchTerm);
 
     return (
         <>
@@ -46,8 +48,8 @@ const Prelims = () => {
                 hideHeaders
                 noData={isEmpty(filteredPrelims)}
                 noDataMessage="There are no prelims to display."
-                isFetching={false}
-                error={null}
+                isFetching={isFetchingPrelims}
+                error={prelimsError}
             >
                 {filteredPrelims.map(set => (
                     <tr key={set.id}>

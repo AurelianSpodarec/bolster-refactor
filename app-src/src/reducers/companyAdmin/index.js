@@ -37,6 +37,8 @@ import pinOptionSetsReducer from './pinOptionSets';
 import pinOptionTypesReducer from './pinOptionTypes';
 import pinOptionVersionsReducer from './pinOptionVersions';
 import pinsReducer from './pins';
+import prelimsReducer from './prelims';
+
 import searchReducer from './search';
 import servicesReducer from './services';
 import recentUpdatesReducer from './recentUpdates';
@@ -122,6 +124,7 @@ export default combineReducers({
     pinOptionVersionsReducer,
     pinsReducer,
     pinTasksReducer,
+    prelimsReducer,
     qrCodesReducer,
     recentUpdatesReducer,
     reportsReducer,
