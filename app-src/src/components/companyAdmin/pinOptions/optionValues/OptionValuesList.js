@@ -52,7 +52,12 @@ const OptionValuesList = () => {
                 error={null}
             >
                 {filteredValues.map(option => (
-                    <OptionValuesListItem key={option.id} option={option} />
+                    <OptionValuesListItem
+                        key={option.id}
+                        option={option}
+                        setID={setID}
+                        typeID={typeID}
+                    />
                 ))}
             </Table>
         </>
