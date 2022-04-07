@@ -4,3 +4,7 @@ export const selectPinOptionSetsIsFetching = state =>
     state.companyAdmin.pinOptionSetsReducer.isFetching;
 export const selectPinOptionSetsFetchError = state =>
     state.companyAdmin.pinOptionSetsReducer.fetchError;
+export const selectPinOptionSetsIsPosting = state =>
+    state.companyAdmin.pinOptionSetsReducer.isPosting;
+export const selectPinOptionSetsPostError = state =>
+    state.companyAdmin.pinOptionSetsReducer.postError;
