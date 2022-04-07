@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
+import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 import { useForm, usePrevious } from 'helpers/hooks';
 
 import createPinOptionSet from 'actions/companyAdmin/pinOptions/async/createPinOptionSet';
@@ -10,16 +12,18 @@ import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import {
     selectPinOptionSetsIsPosting,
     selectPinOptionSetsPostError,
-    selectPinOptionSetsPostSuccess,
 } from 'selectors/companyAdmin/pinOptionSets';
 
 const useCreateOptionSet = pinOptionTypeID => {
+    const [newSetID, setNewSetID] = useState(null);
+    const link = PIN_OPTION_TYPES[pinOptionTypeID].link;
+
     const dispatch = useDispatch();
+    const history = useHistory();
     const isPosting = useSelector(selectPinOptionSetsIsPosting);
     const postError = useSelector(selectPinOptionSetsPostError);
-    const postSuccess = useSelector(selectPinOptionSetsPostSuccess);
 
-    const prevProps = usePrevious({ postError, postSuccess });
+    const prevProps = usePrevious({ postError, newSetID });
 
     const [form, handleChange] = useForm({
         name: '',
@@ -31,7 +35,9 @@ const useCreateOptionSet = pinOptionTypeID => {
             pinOptionTypeID,
         };
 
-        dispatch(createPinOptionSet(postBody));
+        dispatch(createPinOptionSet(postBody)).then(({ payload }) => {
+            if (payload) setNewSetID(payload.id);
+        });
     };
 
     useEffect(() => {
@@ -39,8 +45,11 @@ const useCreateOptionSet = pinOptionTypeID => {
     }, [postError, prevProps.postError]);
 
     useEffect(() => {
-        if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
-    }, [postSuccess, prevProps.postSuccess]);
+        if (newSetID && !prevProps.newSetID) {
+            dispatch(hideModal());
+            history.push(`/company/pin-options/${link}/${newSetID}`);
+        }
+    }, [newSetID, prevProps.newSetID]);
 
     return { form, handleChange, handleSubmit, isPosting };
 };
