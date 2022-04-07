@@ -15,7 +15,7 @@ const CreateOptionSetModal = ({ pinOptionTypeID }) => {
     const typeName = PIN_OPTION_TYPES_ENUM[pinOptionTypeID];
     const setName = PIN_OPTION_SETS_ENUM[pinOptionTypeID];
 
-    const { form, handleChange, handleSubmit } = useCreateOptionSet();
+    const { form, handleChange, handleSubmit, isPosting } = useCreateOptionSet();
 
     return (
         <ModalOuterContainer>
@@ -42,8 +42,11 @@ const CreateOptionSetModal = ({ pinOptionTypeID }) => {
                 </Field>
 
                 <BlockButtonWrapper>
-                    <button className="button green">
-                        <i className="fa fa-save"></i> Save
+                    <button
+                        className={`button green ${isPosting ? 'disabled' : ''}`}
+                        disabled={isPosting}
+                    >
+                        <i className={`fa fa-${isPosting ? 'spinner fa-spin' : 'save'}`}></i> Save
                     </button>
                 </BlockButtonWrapper>
             </Form>
