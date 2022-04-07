@@ -8,7 +8,7 @@ const TemplateSectionQuestion = ({
     onMobile,
     headers,
 }) => {
-    const required = +type === +QUESTION_TYPE_VALUES.STATUS ? true : isRequired;
+    const required = +type === +QUESTION_TYPE_VALUES.STATUS || isRequired;
     return (
         <tr key={id}>
             <td>
