@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { ERROR_MODAL } from 'constants/shared/modalTypes';
+import { CREATE_PIN_OPTIONS_VALUE_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
 import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 import { useForm, usePrevious } from 'helpers/hooks';
 
 import createPinOptionSet from 'actions/companyAdmin/pinOptions/async/createPinOptionSet';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import {
     selectPinOptionSetsIsPosting,
     selectPinOptionSetsPostError,
@@ -46,7 +45,8 @@ const useCreateOptionSet = pinOptionTypeID => {
 
     useEffect(() => {
         if (newSetID && !prevProps.newSetID) {
-            dispatch(hideModal());
+            // go to new newly created set and open create option modal
+            dispatch(showModal(CREATE_PIN_OPTIONS_VALUE_MODAL, { pinOptionTypeID }));
             history.push(`/company/pin-options/${link}/${newSetID}`);
         }
     }, [newSetID, prevProps.newSetID]);
