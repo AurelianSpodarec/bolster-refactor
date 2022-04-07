@@ -38,10 +38,7 @@ const useCreateOptionValue = () => {
     }, [postError, prevProps.postError]);
 
     useEffect(() => {
-        if (postSuccess && !prevProps.postSuccess) {
-            // go to new newly created set and open create option modal
-            dispatch(hideModal());
-        }
+        if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
     }, [postSuccess, prevProps.postSuccess]);
 
     return { form, handleChange, handleSubmit, isPosting };

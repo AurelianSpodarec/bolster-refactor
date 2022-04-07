@@ -5,11 +5,17 @@ import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith4
 
 import PinOptions from 'components/companyAdmin/pinOptions/PinOptions';
 import OptionValues from 'components/companyAdmin/pinOptions/optionValues/OptionValues';
+import OptionDocuments from 'components/companyAdmin/pinOptions/optionDocuments/OptionDocuments';
 
 const PinOptionsRoutes = ({ base = '/company/pin-options' }) => (
     <SwitchWith404>
         <Route exact path={`${base}`} component={PinOptions} />
         <Route exact path={`${base}/:type/:setID`} component={OptionValues} />
+        <Route
+            exact
+            path={`${base}/:type/:setID/:optionID/documents`}
+            component={OptionDocuments}
+        />
     </SwitchWith404>
 );
 
