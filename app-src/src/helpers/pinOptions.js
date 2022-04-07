@@ -9,5 +9,5 @@ export const getVersionForPinOption = (pinOptionID, pinVersions) => {
 export const getVersionNameForPinOption = (pinOptionID, pinVersions) => {
     const latestVersion = getVersionForPinOption(pinOptionID, pinVersions);
 
-    return latestVersion.name;
+    return latestVersion ? latestVersion.name : '';
 };
