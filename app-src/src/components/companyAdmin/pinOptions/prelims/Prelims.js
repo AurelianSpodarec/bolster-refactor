@@ -10,21 +10,6 @@ import FilterRow from 'components/shared/filters/FilterRow';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import useFetchPrelims from './hooks/useFetchPrelims';
 
-const data = [
-    {
-        id: 1,
-        name: 'Prelim 1',
-    },
-    {
-        id: 2,
-        name: 'Prelim 2',
-    },
-    {
-        id: 3,
-        name: 'Prelim 3',
-    },
-];
-
 const Prelims = () => {
     const { searchTerm, handleUpdateSearch } = useSearch();
     const { allPrelims, isFetchingPrelims, prelimsError } = useFetchPrelims();
