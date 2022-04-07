@@ -15,7 +15,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID }) => {
     const typeNameSingular = PIN_OPTION_TYPES[pinOptionTypeID].singular;
     const typeNameSmallSingular = PIN_OPTION_TYPES_CREATE_VALUE_ENUM[pinOptionTypeID];
 
-    const { form, handleChange, handleSubmit } = useCreateOptionValue();
+    const { form, handleChange, handleSubmit, isPosting } = useCreateOptionValue();
 
     return (
         <ModalOuterContainer>
@@ -44,12 +44,12 @@ const CreateOptionValueModal = ({ pinOptionTypeID }) => {
                 </Field>
 
                 <BlockButtonWrapper>
-                    {/* <button
+                    <button
                         className={`button green ${isPosting ? 'disabled' : ''}`}
                         disabled={isPosting}
                     >
                         <i className={`fa fa-${isPosting ? 'spinner fa-spin' : 'save'}`}></i> Save
-                    </button> */}
+                    </button>
                 </BlockButtonWrapper>
             </Form>
         </ModalOuterContainer>
