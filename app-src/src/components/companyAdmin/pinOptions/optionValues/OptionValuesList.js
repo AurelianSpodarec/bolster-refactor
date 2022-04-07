@@ -64,7 +64,12 @@ const OptionValuesList = () => {
     );
 
     function showAddModal() {
-        dispatch(showModal(CREATE_PIN_OPTIONS_VALUE_MODAL, { pinOptionTypeID: typeID }));
+        dispatch(
+            showModal(CREATE_PIN_OPTIONS_VALUE_MODAL, {
+                pinOptionTypeID: typeID,
+                pinOptionSetID: parseInt(setID),
+            }),
+        );
     }
 };
 

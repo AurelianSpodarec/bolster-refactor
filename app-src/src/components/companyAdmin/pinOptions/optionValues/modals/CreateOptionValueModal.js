@@ -11,11 +11,14 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const CreateOptionValueModal = ({ pinOptionTypeID }) => {
+const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const typeNameSingular = PIN_OPTION_TYPES[pinOptionTypeID].singular;
     const typeNameSmallSingular = PIN_OPTION_TYPES_CREATE_VALUE_ENUM[pinOptionTypeID];
 
-    const { form, handleChange, handleSubmit, isPosting } = useCreateOptionValue();
+    const { form, handleChange, handleSubmit, isPosting } = useCreateOptionValue(
+        pinOptionTypeID,
+        pinOptionSetID,
+    );
 
     return (
         <ModalOuterContainer>
@@ -39,6 +42,16 @@ const CreateOptionValueModal = ({ pinOptionTypeID }) => {
                         value={form.name}
                         handleChange={handleChange}
                         placeholder="Type name"
+                        required
+                    />
+                </Field>
+
+                <Field name="Short Name" required>
+                    <TextInputContainer
+                        name="shortName"
+                        value={form.shortName}
+                        handleChange={handleChange}
+                        placeholder="Type short name"
                         required
                     />
                 </Field>

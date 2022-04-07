@@ -13,7 +13,7 @@ import {
     selectPinOptionsPostSuccess,
 } from 'selectors/companyAdmin/pinOptions';
 
-const useCreateOptionValue = () => {
+const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPinOptionsIsPosting);
     const postError = useSelector(selectPinOptionsPostError);
@@ -23,11 +23,14 @@ const useCreateOptionValue = () => {
 
     const [form, handleChange] = useForm({
         name: '',
+        shortName: '',
     });
 
     const handleSubmit = () => {
         const postBody = {
             ...form,
+            pinOptionTypeID,
+            pinOptionSetID,
         };
 
         dispatch(createPinOptionValue(postBody));
