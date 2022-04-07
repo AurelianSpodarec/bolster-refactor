@@ -14,7 +14,7 @@ const buttonOptions = [['formatBlock'], ['bold', 'italic', 'underline'], ['list'
 const UpdateFaqs = ({
     handleSave,
     handleFormChange,
-    form: { title, content, imageS3Key, pdfS3Key, videoLink },
+    form: { title, content, imageS3Key, videoLink, pdfS3Key, videoThumbnail },
     isFetching,
     faqSingle,
 }) => {
@@ -50,6 +50,16 @@ const UpdateFaqs = ({
                         placeholder="Paste Youtube or Vimeo link"
                     />
                 </Field>
+
+                <Field name="Upload video thumbnail" sizeClasses="size-lg-6">
+                    <FileUploadContainer
+                        value={videoThumbnail}
+                        name="videoThumbnail"
+                        acceptedTypes={['image/jpg', 'image/png', 'image/jpeg']}
+                        handleChange={handleFormChange}
+                    />
+                </Field>
+
                 <Field name="Upload image" sizeClasses="size-lg-6">
                     <FileUploadContainer
                         value={imageS3Key}
@@ -58,6 +68,15 @@ const UpdateFaqs = ({
                         handleChange={handleFormChange}
                     />
                 </Field>
+                <Field name="Upload PDF" sizeClasses="size-lg-6">
+                    <FileUploadContainer
+                        value={pdfS3Key}
+                        name="pdfS3Key"
+                        acceptedTypes={['application/pdf']}
+                        handleChange={handleFormChange}
+                    />
+                </Field>
+
                 <Field name="Upload PDF" sizeClasses="size-lg-6">
                     <FileUploadContainer
                         value={pdfS3Key}
