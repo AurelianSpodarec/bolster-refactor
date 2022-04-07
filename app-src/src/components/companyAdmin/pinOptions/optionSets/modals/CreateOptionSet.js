@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { PIN_OPTION_SETS_ENUM, PIN_OPTION_TYPES_ENUM } from 'constants/companyAdmin/enums';
 import { useForm } from 'helpers/hooks';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
@@ -10,6 +11,9 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const CreateOptionSet = ({ pinOptionTypeID }) => {
+    const typeName = PIN_OPTION_TYPES_ENUM[pinOptionTypeID];
+    const setName = PIN_OPTION_SETS_ENUM[pinOptionTypeID];
+
     const [form, handleChange] = useForm({
         name: '',
     });
@@ -25,13 +29,15 @@ const CreateOptionSet = ({ pinOptionTypeID }) => {
 
     return (
         <ModalOuterContainer>
-            <BlockHeading title="Create Set" />
-
-            <p className="generic-text size-lg-12">Create an 'set' for your sites.</p>
+            <BlockHeading title={`Create ${setName}`} />
 
             <p className="generic-text size-lg-12">
-                You will be able to set prices for your installation types and choose which options
-                are available to your operatives through the app.
+                Create an '{setName.toLowerCase()}' for your sites.
+            </p>
+
+            <p className="generic-text size-lg-12">
+                You will be able to set prices for your {typeName.toLowerCase()} and choose which
+                options are available to your operatives through the app.
             </p>
 
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">

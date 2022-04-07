@@ -340,6 +340,13 @@ export const PIN_OPTION_TYPES_ENUM = {
     2: 'Item Types',
     3: 'Installation Types',
 };
+
+export const PIN_OPTION_SETS_ENUM = {
+    1: 'FR Set',
+    2: 'Item Set',
+    3: 'Installation Set',
+};
+
 export const PIN_OPTION_TYPES_VALS = {
     frRatings: 1,
     itemTypes: 2,
