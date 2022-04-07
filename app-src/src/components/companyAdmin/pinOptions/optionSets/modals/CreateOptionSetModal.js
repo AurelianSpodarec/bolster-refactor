@@ -15,7 +15,7 @@ const CreateOptionSetModal = ({ pinOptionTypeID }) => {
     const typeName = PIN_OPTION_TYPES_ENUM[pinOptionTypeID];
     const setName = PIN_OPTION_SETS_ENUM[pinOptionTypeID];
 
-    const { form, handleChange, handleSubmit, isPosting } = useCreateOptionSet();
+    const { form, handleChange, handleSubmit, isPosting } = useCreateOptionSet(pinOptionTypeID);
 
     return (
         <ModalOuterContainer>
