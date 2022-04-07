@@ -7,6 +7,7 @@ import { PIN_OPTION_TYPES_LOOKUP } from 'constants/companyAdmin/enums';
 import { selectPinOptionSets } from 'selectors/companyAdmin/pinOptionSets';
 
 import useFetchBatchForOptionValues from './hooks/useFetchBatchForOptionValues';
+import useShouldRedirectFromOptionValues from './hooks/useShouldRedirectFromOptionValues';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -20,7 +21,11 @@ const OptionValues = () => {
     const typeLink = PIN_OPTION_TYPES_LOOKUP[type];
     const specificSet = pinOptionSets[setID];
 
-    if (!typeLink || (hasFetched && !specificSet)) return <Redirect to="/company/pin-options" />;
+    const shouldRedirect = useShouldRedirectFromOptionValues(typeLink, hasFetched, specificSet);
+
+    if (shouldRedirect) {
+        return <Redirect to="/company/pin-options" />;
+    }
 
     const name = specificSet ? specificSet.name : 'Loading...';
 
