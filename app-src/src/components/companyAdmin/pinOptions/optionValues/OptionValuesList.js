@@ -1,8 +1,12 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { PIN_OPTION_TYPES_LOOKUP } from 'constants/companyAdmin/enums';
+import { CREATE_PIN_OPTIONS_VALUE_MODAL } from 'constants/shared/modalTypes';
 import { isEmpty } from 'helpers/generic';
+
+import showModal from 'actions/shared/generic/modals/sync/showModal';
 
 import useSearch from 'hooks/useSearch';
 import useFilterOptionValues from './hooks/useFilterOptionsValues';
@@ -14,6 +18,8 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import OptionValuesListItem from './OptionValuesListItem';
 
 const OptionValuesList = () => {
+    const dispatch = useDispatch();
+
     const { setID, type } = useParams();
     const typeID = PIN_OPTION_TYPES_LOOKUP[type];
 
@@ -32,7 +38,9 @@ const OptionValuesList = () => {
                     placeholder="Search"
                 />
 
-                <button className="button green">Add</button>
+                <button className="button green" onClick={showAddModal}>
+                    Add
+                </button>
             </FilterRow>
 
             <Table
@@ -49,6 +57,10 @@ const OptionValuesList = () => {
             </Table>
         </>
     );
+
+    function showAddModal() {
+        dispatch(showModal(CREATE_PIN_OPTIONS_VALUE_MODAL));
+    }
 };
 
 export default OptionValuesList;
