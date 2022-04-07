@@ -152,6 +152,7 @@ import {
     CONFIRM_DARK_THEME,
     CREATE_PIN_OPTIONS_SET_MODAL,
     CREATE_PIN_OPTIONS_VALUE_MODAL,
+    CREATE_PRELIM_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -303,6 +304,7 @@ import EditUserEmailModal from '../../../../superAdmin/users/editUsers/EditUserE
 import ConfirmDarkThemeModal from '../presentational/ConfirmDarkThemeModal';
 import CreateOptionSetModal from 'components/companyAdmin/pinOptions/optionSets/modals/CreateOptionSetModal';
 import CreateOptionValueModal from 'components/companyAdmin/pinOptions/optionValues/modals/CreateOptionValueModal';
+import CreatePrelimModal from 'components/companyAdmin/pinOptions/prelims/modals/CreatePrelimModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -455,6 +457,7 @@ const MODAL_COMPONENTS = {
     [CONFIRM_DARK_THEME]: ConfirmDarkThemeModal,
     [CREATE_PIN_OPTIONS_SET_MODAL]: CreateOptionSetModal,
     [CREATE_PIN_OPTIONS_VALUE_MODAL]: CreateOptionValueModal,
+    [CREATE_PRELIM_MODAL]: CreatePrelimModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
