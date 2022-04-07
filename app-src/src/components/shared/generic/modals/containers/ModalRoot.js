@@ -150,6 +150,7 @@ import {
     EDIT_JOB_REF_DROPDOWN,
     EDIT_USER_EMAIL,
     CONFIRM_DARK_THEME,
+    CREATE_PIN_OPTIONS_SET_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -299,6 +300,7 @@ import DrawingExpiryModal from '../presentational/DrawingExpiryModal';
 import EditJobRefDropdownModal from './EditJobRefDropdownModalContainer';
 import EditUserEmailModal from '../../../../superAdmin/users/editUsers/EditUserEmailModal';
 import ConfirmDarkThemeModal from '../presentational/ConfirmDarkThemeModal';
+import CreateOptionSet from 'components/companyAdmin/pinOptions/optionSets/modals/CreateOptionSet';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -449,6 +451,7 @@ const MODAL_COMPONENTS = {
     [EDIT_JOB_REF_DROPDOWN]: EditJobRefDropdownModal,
     [EDIT_USER_EMAIL]: EditUserEmailModal,
     [CONFIRM_DARK_THEME]: ConfirmDarkThemeModal,
+    [CREATE_PIN_OPTIONS_SET_MODAL]: CreateOptionSet,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

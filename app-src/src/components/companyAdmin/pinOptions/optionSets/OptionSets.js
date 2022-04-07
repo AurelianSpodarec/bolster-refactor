@@ -1,6 +1,11 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import { isEmpty } from 'helpers/generic';
+import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
+import { CREATE_PIN_OPTIONS_SET_MODAL } from 'constants/shared/modalTypes';
+
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 import useSearch from 'hooks/useSearch';
 import useFetchPinOptionSets from 'components/companyAdmin/hooks/useFetchPinOptionSets';
@@ -10,9 +15,10 @@ import FilterRow from 'components/shared/filters/FilterRow';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import OptionSetsListItem from './OptionSetsListItem';
-import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 
 const OptionSets = ({ selectedTypeID }) => {
+    const dispatch = useDispatch();
+
     const { searchTerm, handleUpdateSearch } = useSearch();
 
     const { pinOptionSetsArr, isFetchingPinOptionSets, pinOptionSetsFetchError } =
@@ -32,7 +38,9 @@ const OptionSets = ({ selectedTypeID }) => {
                     placeholder="Search"
                 />
 
-                <button className="button green">Add</button>
+                <button className="button green" onClick={showAddModal}>
+                    Add
+                </button>
             </FilterRow>
 
             <Table
@@ -49,6 +57,14 @@ const OptionSets = ({ selectedTypeID }) => {
             </Table>
         </>
     );
+
+    function showAddModal() {
+        dispatch(
+            showModal(CREATE_PIN_OPTIONS_SET_MODAL, {
+                pinOptionTypeID: selectedTypeID,
+            }),
+        );
+    }
 };
 
 export default OptionSets;
