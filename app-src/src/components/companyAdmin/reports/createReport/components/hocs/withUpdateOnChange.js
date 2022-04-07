@@ -439,7 +439,9 @@ export default function (ProtectedComponent) {
         if (!isEmpty(sites)) {
             filters.siteID.forEach(site => {
                 const curSite = sites[site];
-                buildingIDs = buildingIDs.concat(curSite.buildingIDs);
+                if (curSite) {
+                    buildingIDs = buildingIDs.concat(curSite.buildingIDs);
+                }
             });
         }
         const buildings = !isEmpty(buildingsFromReducer)
@@ -450,7 +452,9 @@ export default function (ProtectedComponent) {
         if (!isEmpty(buildings)) {
             filters.buildingID.forEach(building => {
                 const curBuilding = convertArrToObj(buildings)[building];
-                floorIDs = floorIDs.concat(curBuilding.floorIDs);
+                if (curBuilding) {
+                    floorIDs = floorIDs.concat(curBuilding.floorIDs);
+                }
             });
         }
         const floors = !isEmpty(floorsFromReducer)
@@ -461,7 +465,9 @@ export default function (ProtectedComponent) {
         if (!isEmpty(floors)) {
             filters.floorID.forEach(floor => {
                 const curFloor = convertArrToObj(floors)[floor];
-                drawingIDs = drawingIDs.concat(curFloor.drawingIDs);
+                if (curFloor) {
+                    drawingIDs = drawingIDs.concat(curFloor.drawingIDs);
+                }
             });
         }
         const drawings = !isEmpty(drawingsFromReducer)
