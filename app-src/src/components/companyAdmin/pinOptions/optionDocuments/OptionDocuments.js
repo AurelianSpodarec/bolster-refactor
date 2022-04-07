@@ -10,6 +10,7 @@ import { selectPinOptionSets } from 'selectors/companyAdmin/pinOptionSets';
 import { selectPinOptionVersionsArr } from 'selectors/companyAdmin/pinOptionVersions';
 
 import useFetchBatchForOptionDocuments from './hooks/useFetchBatchForOptionDocuments';
+import useShouldRedirectFromOptionDocuments from './hooks/useShouldRedirectFromOptionDocuments';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
@@ -28,7 +29,15 @@ const OptionDocuments = () => {
     const specificSet = pinOptionSets[setID];
     const specificOption = pinOptions[optionID];
 
-    if (!typeLink || (hasFetched && !specificSet)) {
+    const shouldRedirect = useShouldRedirectFromOptionDocuments(
+        typeLink,
+        setID,
+        hasFetched,
+        specificSet,
+        specificOption,
+    );
+
+    if (shouldRedirect) {
         return <Redirect to="/company/pin-options" />;
     }
 
