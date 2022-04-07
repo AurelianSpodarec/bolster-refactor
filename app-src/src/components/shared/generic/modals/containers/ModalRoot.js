@@ -300,7 +300,7 @@ import DrawingExpiryModal from '../presentational/DrawingExpiryModal';
 import EditJobRefDropdownModal from './EditJobRefDropdownModalContainer';
 import EditUserEmailModal from '../../../../superAdmin/users/editUsers/EditUserEmailModal';
 import ConfirmDarkThemeModal from '../presentational/ConfirmDarkThemeModal';
-import CreateOptionSet from 'components/companyAdmin/pinOptions/optionSets/modals/CreateOptionSet';
+import CreateOptionSetModal from 'components/companyAdmin/pinOptions/optionSets/modals/CreateOptionSetModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -451,7 +451,7 @@ const MODAL_COMPONENTS = {
     [EDIT_JOB_REF_DROPDOWN]: EditJobRefDropdownModal,
     [EDIT_USER_EMAIL]: EditUserEmailModal,
     [CONFIRM_DARK_THEME]: ConfirmDarkThemeModal,
-    [CREATE_PIN_OPTIONS_SET_MODAL]: CreateOptionSet,
+    [CREATE_PIN_OPTIONS_SET_MODAL]: CreateOptionSetModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

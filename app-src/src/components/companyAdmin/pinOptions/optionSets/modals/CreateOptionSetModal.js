@@ -10,7 +10,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const CreateOptionSet = ({ pinOptionTypeID }) => {
+const CreateOptionSetModal = ({ pinOptionTypeID }) => {
     const typeName = PIN_OPTION_TYPES_ENUM[pinOptionTypeID];
     const setName = PIN_OPTION_SETS_ENUM[pinOptionTypeID];
 
@@ -61,4 +61,4 @@ const CreateOptionSet = ({ pinOptionTypeID }) => {
     );
 };
 
-export default CreateOptionSet;
+export default CreateOptionSetModal;
