@@ -8,3 +8,5 @@ export const selectPinOptionSetsIsPosting = state =>
     state.companyAdmin.pinOptionSetsReducer.isPosting;
 export const selectPinOptionSetsPostError = state =>
     state.companyAdmin.pinOptionSetsReducer.postError;
+export const selectPinOptionSetsPostSuccess = state =>
+    state.companyAdmin.pinOptionSetsReducer.postSuccess;

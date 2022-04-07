@@ -16,6 +16,7 @@ export default combineReducers({
     fetchError: fetchErrorReducer,
     isPosting: isPostingReducer,
     postError: postErrorReducer,
+    postSuccess: postSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -59,6 +60,17 @@ function postErrorReducer(state = null, action) {
             return null;
         case CREATE_PIN_OPTION_SET_FAILURE:
             return action.error;
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = null, action) {
+    switch (action.type) {
+        case CREATE_PIN_OPTION_SET_REQUEST:
+            return false;
+        case CREATE_PIN_OPTION_SET_SUCCESS:
+            return true;
         default:
             return state;
     }
