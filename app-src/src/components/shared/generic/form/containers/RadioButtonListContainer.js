@@ -8,17 +8,11 @@ import RadioButtonList from '../presentational/RadioButtonList';
 
 class RadioButtonListContainer extends Component {
     state = {
-        showFieldError: false
+        showFieldError: false,
     };
     render() {
         const { showFieldError } = this.state;
-        const {
-            options,
-            error,
-            errorsVisible,
-            selectedOption,
-            name
-        } = this.props;
+        const { options, error, errorsVisible, selectedOption, name } = this.props;
         let errorMessage;
 
         if (showFieldError || errorsVisible) errorMessage = error;
@@ -38,9 +32,17 @@ class RadioButtonListContainer extends Component {
     componentDidMount = () => this._validate();
 
     componentDidUpdate = ({ selectedOption: prevCheckedValue }) => {
-        const { selectedOption } = this.props;
+        const { selectedOption, error } = this.props;
         const { showFieldError } = this.state;
-        if (!prevCheckedValue && selectedOption) {
+
+        const prevCheckedValueExists = Array.isArray(prevCheckedValue)
+            ? !prevCheckedValue.length
+            : !prevCheckedValue;
+        const selectedOptionExists = Array.isArray(selectedOption)
+            ? !!selectedOption.length
+            : !!selectedOption;
+
+        if ((!prevCheckedValueExists && selectedOptionExists) || (error && selectedOptionExists)) {
             this._validate();
 
             if (!showFieldError) this.setState({ showFieldError: true });
@@ -48,19 +50,13 @@ class RadioButtonListContainer extends Component {
     };
 
     componentWillUnmount = () => {
-        const {name, removeFieldError} = this.props;
+        const { name, removeFieldError } = this.props;
         removeFieldError(name);
-    }
+    };
 
     _validate = () => {
-        const {
-            name,
-            error,
-            addFieldError,
-            removeFieldError,
-            selectedOption,
-            required
-        } = this.props;
+        const { name, error, addFieldError, removeFieldError, selectedOption, required } =
+            this.props;
 
         if (!selectedOption && required) {
             addFieldError(name, 'This is a required field.');
@@ -73,21 +69,18 @@ class RadioButtonListContainer extends Component {
 const mapStateToProps = (
     {
         shared: {
-            fieldErrorsReducer: { fieldErrors, errorsVisible }
-        }
+            fieldErrorsReducer: { fieldErrors, errorsVisible },
+        },
     },
-    { name }
+    { name },
 ) => ({
     error: fieldErrors[name],
-    errorsVisible: errorsVisible
+    errorsVisible: errorsVisible,
 });
 
 const mapDispatchToProps = dispatch => ({
     addFieldError: (name, error) => dispatch(addFieldError(name, error)),
-    removeFieldError: name => dispatch(removeFieldError(name))
+    removeFieldError: name => dispatch(removeFieldError(name)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(RadioButtonListContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(RadioButtonListContainer);
