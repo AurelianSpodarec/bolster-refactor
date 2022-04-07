@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { PIN_OPTION_SETS_ENUM, PIN_OPTION_TYPES_ENUM } from 'constants/companyAdmin/enums';
-import { useForm } from 'helpers/hooks';
+
+import useCreateOptionSet from '../hooks/useCreateOptionSet';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -14,18 +15,7 @@ const CreateOptionSetModal = ({ pinOptionTypeID }) => {
     const typeName = PIN_OPTION_TYPES_ENUM[pinOptionTypeID];
     const setName = PIN_OPTION_SETS_ENUM[pinOptionTypeID];
 
-    const [form, handleChange] = useForm({
-        name: '',
-    });
-
-    const handleSubmit = () => {
-        const postBody = {
-            ...form,
-            pinOptionTypeID,
-        };
-
-        console.log(postBody);
-    };
+    const { form, handleChange, handleSubmit } = useCreateOptionSet();
 
     return (
         <ModalOuterContainer>
