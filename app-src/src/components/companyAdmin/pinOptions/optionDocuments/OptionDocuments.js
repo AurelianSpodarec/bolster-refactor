@@ -36,10 +36,9 @@ const OptionDocuments = () => {
         return <Redirect to={`/company/pin-options/${type}/${setID}`} />;
     }
 
-    const name =
-        !isAnyFetching && !isAnyErrored && specificOption
-            ? getVersionNameForPinOption(specificOption.id, pinOptionVersionsArr)
-            : 'Loading...';
+    const name = specificOption
+        ? getVersionNameForPinOption(specificOption.id, pinOptionVersionsArr)
+        : 'Loading...';
 
     return (
         <>
