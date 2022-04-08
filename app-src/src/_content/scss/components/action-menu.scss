@@ -18,11 +18,23 @@
 // button
 .ellipsis-button {
     font-size: 13px;
-    padding: 5px 20px;
+    padding: 5px;
     background-color: transparent;
 
     i {
         font-size: inherit!important;
         margin: 0!important;
+    }
+
+    &[data-position="right"] {
+        margin-left: 15px;
+    }
+
+    &[data-position="left"] {
+        margin-right: 15px;
+    }
+
+    &[data-position="center"] {
+        margin: 0 15px;
     }
 }
