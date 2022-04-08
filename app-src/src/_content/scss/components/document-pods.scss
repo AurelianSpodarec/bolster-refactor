@@ -1,0 +1,31 @@
+.document-pod {
+    border: 1px solid var(--background-stroke);
+    color: var(--typography-default);
+    background-color: var(--background-container);
+    border-radius: 5px;
+    text-decoration: none;
+
+    .image-wrapper {
+        img {
+            display: block;
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+    }
+
+    .info-wrapper {
+        padding: 10px;
+
+        .title {
+            @include ubuntu-medium;
+            font-size: 120%;
+        }
+
+        .last-updated {
+            font-size: 110%;
+        }
+    }
+}
