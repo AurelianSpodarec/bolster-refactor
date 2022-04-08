@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 
-const OptionValuesListItem = ({ option: { id, name }, setID, typeID }) => {
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+
+const OptionValuesListItem = ({ option: { id, name, isDisabled }, setID, typeID }) => {
+    const [isOptionDisabled, setIsOptionDisabled] = useState(isDisabled);
     const typeLink = PIN_OPTION_TYPES[typeID].link;
 
     return (
         <tr>
-            <td>{name}</td>
+            <td>
+                <CheckboxContainer
+                    text={name}
+                    name={`pin-option-checkbox-${id}`}
+                    checked={!isOptionDisabled}
+                    handleChange={(_, value) => setIsOptionDisabled(!value)}
+                />
+            </td>
             <td>
                 <Link
                     className="button blue"

@@ -430,6 +430,13 @@
   .limit-green {
     color: var(--positive-default);
   }
+
+  // switch / checkbox
+  .checkbox {
+    label {
+      font-size: 100%;
+    }
+  }
 }
 
 //pin feed
