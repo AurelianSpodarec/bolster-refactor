@@ -14,7 +14,6 @@ import DashboardContainer from 'components/superAdmin/dashboard/containers/Dashb
 import OperativeAlertsRoutes from './OperativeAlertsRoutes';
 import MergeToolRoutes from './MergeToolRoutes';
 import ExpiryToolRoutes from './ExpiryToolRoutes';
-import PinOptionsManufacturersRoutes from './PinOptionsManufacturersRoutes';
 import UserGuidesRoutes from './UserGuidesRoutes';
 import NewFeaturesRoutes from './NewFeaturesRoutes';
 import TextSettingRoutes from './TextSettingRoutes';
@@ -50,7 +49,6 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/expiry-tool`} component={ExpiryToolRoutes} />
         <Route path={`${base}/operative-alerts`} component={OperativeAlertsRoutes} />
         <Route path={`${base}/user-guides`} component={UserGuidesRoutes} />
-        <Route path={`${base}/pin-options`} component={PinOptionsManufacturersRoutes} />
         <Route path={`${base}/trusted-by-settings`} component={TrustedBySettingRoutes} />
         <Route path={`${base}/text-settings`} component={TextSettingRoutes} />
         <Route path={`${base}/legal-documents`} component={LegalDocumentsRoutes} />
