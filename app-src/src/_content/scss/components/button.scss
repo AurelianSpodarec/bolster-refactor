@@ -426,7 +426,7 @@ button {
     }
 
     // small
-    &.size-small {
+    &[data-size="small"] {
         padding: 5px 16px;
         font-size: 12px;
         line-height: 12px;
@@ -438,9 +438,9 @@ button {
     }
 
     // primary source
-    &.source-primary {
+    &[data-source="primary"] {
         // primary ambient
-        &.ambient-primary {
+        &[data-ambient="primary"] {
             background-color: var(--primary-default);
 
             &:not(:disabled) {
@@ -459,7 +459,7 @@ button {
         }
 
         // positive ambient
-        &.ambient-positive {
+        &[data-ambient="positive"] {
             background-color: var(--positive-default);
 
             &:not(:disabled) {
@@ -478,7 +478,7 @@ button {
         }
 
         // negative ambient
-        &.ambient-negative {
+        &[data-ambient="negative"] {
             background-color: var(--negative-default);
 
             &:not(:disabled) {
@@ -498,7 +498,7 @@ button {
     }
 
     // secondary source
-    &.source-secondary {
+    &[data-source="secondary"] {
         color: var(--typography-default);
 
         // all ambients
@@ -513,12 +513,12 @@ button {
         }
 
         // positive ambient
-        &.ambient-positive {
+        &[data-ambient="positive"] {
             border-color: var(--background-button-hover);
         }
 
         // negative ambient
-        &.ambient-negative {
+        &[data-ambient="negative"] {
             color: var(--negative-default);
         }
     }
