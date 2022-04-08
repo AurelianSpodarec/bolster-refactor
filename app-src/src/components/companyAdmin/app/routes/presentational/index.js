@@ -22,7 +22,6 @@ import SettingsRoutes from './SettingsRoutes';
 import ActivityLogRoutes from './ActivityLogRoutes';
 // import TransferRequestsRoutes from './TransferRequestsRoutes';
 import TermsRoutes from './TermsRoutes';
-import DropdownOptionsRoutes from './DropdownOptionsRoutes';
 import HeadquartersRoutes from './HeadquartersRoutes';
 import ApprovedCompaniesRoutes from './ApprovedCompaniesRoutes';
 import UserGuidesRoutes from './UserGuidesRoutes';
@@ -66,10 +65,6 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route
             path={`${base}/users-management`}
             component={withSubscriptionAuth(UserManagementRoutes)}
-        />
-        <Route
-            path={`${base}/dropdown-options`}
-            component={withSubscriptionAuth(DropdownOptionsRoutes)}
         />
         <Route
             path={`${base}/company-documents`}
