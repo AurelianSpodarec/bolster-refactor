@@ -12,6 +12,12 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import useFetchPrelims from './hooks/useFetchPrelims';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { CREATE_PRELIM_MODAL } from 'constants/shared/modalTypes';
+import { PRELIMS_TYPES } from 'constants/companyAdmin/enums';
+import percentSvg from '../../../../_content/images/frontend/percentIcon.svg';
+import fixPriceSvg from '../../../../_content/images/frontend/fixPriceIcon.svg';
+import fixPriceSvgForLightMode from '../../../../_content/images/frontend/fixPriceIconForLightMode.svg';
+import percentSvgForLightMode from '../../../../_content/images/frontend/percentIconForLightMode.svg';
+import useColourTheme from 'hooks/useColourTheme';
 
 const Prelims = () => {
     const dispatch = useDispatch();
@@ -19,6 +25,7 @@ const Prelims = () => {
     const { searchTerm, handleUpdateSearch } = useSearch();
     const { allPrelims, isFetchingPrelims, prelimsError } = useFetchPrelims();
     const filteredPrelims = useFilterPrelims(allPrelims, searchTerm);
+    const colourTheme = useColourTheme();
 
     return (
         <>
@@ -45,7 +52,21 @@ const Prelims = () => {
                 {filteredPrelims.map(set => (
                     <tr key={set.id}>
                         <td>{set.name}</td>
-                        <td>{set.type}</td>
+                        <td>
+                            <img
+                                src={
+                                    colourTheme === 'dark'
+                                        ? set.type === PRELIMS_TYPES.PERCENT
+                                            ? percentSvg
+                                            : fixPriceSvg
+                                        : set.type === PRELIMS_TYPES.PERCENT
+                                        ? percentSvgForLightMode
+                                        : fixPriceSvgForLightMode
+                                }
+                                alt="Type of payment"
+                            />
+                        </td>
+
                         <td>{set.value}</td>
                     </tr>
                 ))}

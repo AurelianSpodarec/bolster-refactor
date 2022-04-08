@@ -772,8 +772,8 @@ export const sendToEnum = {
 };
 
 export const PRELIMS_SVG = {
-    1: 'percent-svg',
-    2: 'fix-price-svg',
+    1: 'percentSvg',
+    2: 'fixPriceSvg',
 };
 
 export const PRELIMS_TYPES = {
