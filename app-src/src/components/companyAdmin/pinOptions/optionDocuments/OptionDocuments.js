@@ -14,6 +14,7 @@ import useShouldRedirectFromOptionDocuments from './hooks/useShouldRedirectFromO
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import OptionDocumentsList from './OptionDocumentsList';
 
 const OptionDocuments = () => {
     const { isAnyEmpty, isAnyFetching, isAnyErrored, hasFetched } =
@@ -53,8 +54,13 @@ const OptionDocuments = () => {
         <>
             <PageHeading title={name} withBackButton />
 
-            <BlockContainer isEmpty={isAnyEmpty} isFetching={isAnyFetching} error={isAnyErrored}>
-                <p>Documents here...</p>
+            <BlockContainer
+                isEmpty={isAnyEmpty}
+                isFetching={isAnyFetching}
+                error={isAnyErrored}
+                noWhiteBackground
+            >
+                <OptionDocumentsList />
             </BlockContainer>
         </>
     );
