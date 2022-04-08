@@ -7,9 +7,11 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
 const CreatePrelimModal = () => {
     const { form, handleChange, handleSubmit, isPosting } = useCreatePrelim();
+    console.log(form.type);
     return (
         <ModalOuterContainer>
             <BlockHeading title="Add prelim" />
@@ -26,11 +28,13 @@ const CreatePrelimModal = () => {
                 </Field>
 
                 <Field name="Type" required>
-                    <TextInputContainer
+                    <DropdownContainer
+                        placeholder="Choose prelim type"
                         name="type"
+                        options={[{ value: 1, text: 'percent' }]}
                         value={form.type}
+                        selectedOption={form.type}
                         handleChange={handleChange}
-                        placeholder="Prelim type"
                         required
                     />
                 </Field>
