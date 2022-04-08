@@ -36,8 +36,7 @@ const Prelims = () => {
             </FilterRow>
 
             <Table
-                headers={['Name', '']}
-                hideHeaders
+                headers={['Name', 'Type', 'Value', '']}
                 noData={isEmpty(filteredPrelims)}
                 noDataMessage="There are no prelims to display."
                 isFetching={isFetchingPrelims}
@@ -46,7 +45,8 @@ const Prelims = () => {
                 {filteredPrelims.map(set => (
                     <tr key={set.id}>
                         <td>{set.name}</td>
-                        <td></td>
+                        <td>{set.type}</td>
+                        <td>{set.value}</td>
                     </tr>
                 ))}
             </Table>
