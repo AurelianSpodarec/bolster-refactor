@@ -25,6 +25,26 @@ const CreatePrelimModal = () => {
                     />
                 </Field>
 
+                <Field name="Type" required>
+                    <TextInputContainer
+                        name="type"
+                        value={form.type}
+                        handleChange={handleChange}
+                        placeholder="Prelim type"
+                        required
+                    />
+                </Field>
+
+                <Field name="Value" required>
+                    <TextInputContainer
+                        name="value"
+                        value={form.value}
+                        handleChange={handleChange}
+                        placeholder="Prelim value"
+                        required
+                    />
+                </Field>
+
                 <BlockButtonWrapper>
                     <button
                         className={`button green ${isPosting ? 'disabled' : ''}`}
