@@ -764,8 +764,19 @@ export const DOCUMENT_LIBRARY_TYPES = {
     FOLDER: 100,
     FILE: 200,
 };
+
 export const sendToEnum = {
     ALL_OPERATIVES: 0,
     OPERATIVES_WITHIN_SITE: 1,
     SELECTED_OPERATIVES: 2,
+};
+
+export const PRELIMS_SVG = {
+    1: 'percent-svg',
+    2: 'fix-price-svg',
+};
+
+export const PRELIMS_TYPES = {
+    PERCENT: 1,
+    FIX_PRICE: 2,
 };
