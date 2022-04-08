@@ -18,6 +18,9 @@ import fixPriceSvg from '../../../../_content/images/frontend/fixPriceIcon.svg';
 import fixPriceSvgForLightMode from '../../../../_content/images/frontend/fixPriceIconForLightMode.svg';
 import percentSvgForLightMode from '../../../../_content/images/frontend/percentIconForLightMode.svg';
 import useColourTheme from 'hooks/useColourTheme';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionMenu from 'components/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 
 const Prelims = () => {
     const dispatch = useDispatch();
@@ -66,8 +69,23 @@ const Prelims = () => {
                                 alt="Type of payment"
                             />
                         </td>
-
                         <td>{set.value}</td>
+
+                        <td>
+                            <ButtonWrapper alignment="right">
+                                <ActionMenu>
+                                    <ActionMenuActionButton
+                                        text="Edit"
+                                        onClick={() => console.log('edit')}
+                                    />
+                                    <ActionMenuActionButton
+                                        text="Delete"
+                                        onClick={() => console.log('delete')}
+                                        isNegative
+                                    />
+                                </ActionMenu>
+                            </ButtonWrapper>
+                        </td>
                     </tr>
                 ))}
             </Table>
