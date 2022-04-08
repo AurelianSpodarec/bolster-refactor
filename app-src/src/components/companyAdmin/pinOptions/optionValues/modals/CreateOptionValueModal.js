@@ -10,6 +10,8 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const typeNameSingular = PIN_OPTION_TYPES[pinOptionTypeID].singular;
@@ -57,12 +59,17 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                 </Field>
 
                 <BlockButtonWrapper>
-                    <button
-                        className={`button green ${isPosting ? 'disabled' : ''}`}
-                        disabled={isPosting}
-                    >
-                        <i className={`fa fa-${isPosting ? 'spinner fa-spin' : 'save'}`}></i> Save
-                    </button>
+                    <ButtonWrapper alignment="right">
+                        <ActionButton
+                            text="Save"
+                            icon={isPosting ? 'spinner' : 'save'}
+                            iconSpin={isPosting}
+                            ambient="positive"
+                            size="medium"
+                            disabled={isPosting}
+                            type="submit"
+                        />
+                    </ButtonWrapper>
                 </BlockButtonWrapper>
             </Form>
         </ModalOuterContainer>
