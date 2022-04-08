@@ -9,11 +9,11 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 import AllOperativesTable from '../presentational/AllOperativesTable';
 import { CREATE_OPERATIVE } from 'constants/shared/modalTypes';
+import { isEmpty } from '../../../../../../helpers/generic';
+import BlockContainer from '../../../../../shared/generic/block/containers/BlockContainer';
 
 const AllOperativesTableContainer = ({ filteredUsers }) => {
-    const { users, disabledUsers, isFetching, error, onMobile, postSuccess } = useSelector(
-        mapStateToProps,
-    );
+    const { users, disabledUsers, isFetching, error, postSuccess } = useSelector(mapStateToProps);
     const dispatch = useDispatch();
     const prevProps = usePrevious({ postSuccess });
 
@@ -27,26 +27,23 @@ const AllOperativesTableContainer = ({ filteredUsers }) => {
     }, [dispatch, postSuccess]);
 
     return (
-        <AllOperativesTable
-            headers={[
-                'Name',
-                'Email',
-                'Phone Number',
-                'Has linked device?',
-                'Operative Code',
-                'Last upsynced date',
-                'Last detected unsynced data',
-                'App Version',
-                'Number of attached drawings',
-                'Is e-mail confirmed?',
-                '',
-            ]}
-            users={filteredUsers(mergedUsers)}
-            isFetching={isFetching}
-            error={error}
-            handleShowModal={() => dispatch(showModal(CREATE_OPERATIVE))}
-            onMobile={onMobile}
-        />
+        <BlockContainer isFetching={isFetching} error={error} isEmpty={isEmpty(mergedUsers)}>
+            <AllOperativesTable
+                headers={[
+                    'Name',
+                    'Phone number',
+                    'Device name',
+                    'Last upsynced date',
+                    'App version',
+                    'Drawing count',
+                    '',
+                ]}
+                users={filteredUsers(mergedUsers)}
+                isFetching={isFetching}
+                error={error}
+                handleShowModal={() => dispatch(showModal(CREATE_OPERATIVE))}
+            />
+        </BlockContainer>
     );
 };
 

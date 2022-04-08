@@ -7,6 +7,8 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import ReactQuill from 'react-quill';
+import ButtonWrapper from '../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../shared/generic/button/presentational/ActionButton';
 
 const modules = {
     toolbar: [
@@ -71,12 +73,12 @@ const BannerNotificationForm = ({
                     handleChange={handleColourChange}
                 />
             </Field>
-            <BlockButtonWrapper>
-                <button type="submit" className="button green">
-                    <i className="fa fa-check" />
-                    Submit Banner
-                </button>
-            </BlockButtonWrapper>
+
+            <div className="size-lg-12">
+                <ButtonWrapper alignment="right">
+                    <ActionButton text="Confirm" type="submit" icon="check" size="small" />
+                </ButtonWrapper>
+            </div>
         </Form>
     );
 };

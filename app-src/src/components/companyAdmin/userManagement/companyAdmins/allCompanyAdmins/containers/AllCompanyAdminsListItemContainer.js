@@ -14,10 +14,10 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import AllCompanyAdminsListItem from '../presentational/AllCompanyAdminsListItem';
 
-const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
-    const { loggedInUser, onMobile, disabledUsers, maxDrawingsPerOperative } = useSelector(
-        mapStateToProps,
-    );
+const AllCompanyAdminsListItemContainer = ({ user, headers }) => {
+    const { loggedInUser, onMobile, disabledUsers, maxDrawingsPerOperative } =
+        useSelector(mapStateToProps);
+
     const dispatch = useDispatch();
 
     const drawingLimitColour = getCompanyAdminDrawingLimitColour(user.drawingCount);
@@ -26,7 +26,7 @@ const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
     return (
         <AllCompanyAdminsListItem
             user={user}
-            colCount={colCount}
+            colCount={headers.length}
             showDeleteModal={deleteModal}
             showDisableModal={showDisableUserModal}
             showEnableModal={showEnableUserModal}
@@ -45,7 +45,14 @@ const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
     );
 
     function deleteModal() {
-        dispatch(showModal(DELETE_COMPANY_USER, { id: user.id, user }));
+        dispatch(
+            showModal(DELETE_COMPANY_USER, {
+                id: user.id,
+                user,
+                deleteButtonText: 'Confirm',
+                icon: 'check',
+            }),
+        );
     }
 
     function unlinkModal() {

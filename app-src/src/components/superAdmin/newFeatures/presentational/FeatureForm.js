@@ -4,10 +4,11 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ReactQuill from 'react-quill';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import ButtonWrapper from '../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../shared/generic/button/presentational/ActionButton';
 
 const modules = {
     toolbar: [
@@ -129,9 +130,12 @@ const AddNewFeatureForm = ({
                 />
             </Field>
         )}
-        <BlockButtonWrapper>
-            <button className="button green">Submit</button>
-        </BlockButtonWrapper>
+
+        <div className="size-lg-12">
+            <ButtonWrapper alignment="right">
+                <ActionButton text="Confirm" type="submit" icon="check" size="small" />
+            </ButtonWrapper>
+        </div>
     </Form>
 );
 

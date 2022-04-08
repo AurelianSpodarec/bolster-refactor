@@ -61,11 +61,14 @@
       text-decoration: none;
       color: white;
 
+      &.dark {
+        color: black;
+      }
+
       &:hover {
         text-decoration: underline;
       }
     }
-
     td {
       &:last-child {
         text-align: right;
@@ -75,7 +78,6 @@
         }
       }
     }
-
     th {
       &:last-child {
         text-align: right;
@@ -94,12 +96,12 @@
 
   .red-row, .red-column {
     background-color: var(--negative-highlight);
-    color: #212227;
+    color: var(--typography-default);
   }
 
   .grey-row {
-    background-color: $light-grey-alt;
-    color: $body-text;
+    background-color: var(--container-greyed-out);
+    color: var(--typography-default);
   }
 
   tbody {
@@ -380,6 +382,10 @@
     color: $red;
   }
 
+  .warning-text {
+    color: $yellow;
+  }
+
   .table-icon {
     margin-right: 5px;
   }
@@ -430,6 +436,12 @@
 
   .limit-green {
     color: var(--positive-default);
+  }
+
+  .custom-button {
+    i {
+      color: #F9FAFA
+    }
   }
 
   // switch / checkbox

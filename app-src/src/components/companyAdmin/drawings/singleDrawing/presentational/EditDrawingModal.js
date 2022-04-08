@@ -16,6 +16,8 @@ import DatePickerPresentational from 'components/shared/generic/form/presentatio
 import { FLOORPLAN_STATES, PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
 
 const getFileName = src => src.match('[^/]*$')[0];
 const EditDrawingModal = ({
@@ -51,8 +53,8 @@ const EditDrawingModal = ({
         <ModalOuterContainer extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}>
             <BlockHeading title="Edit drawing">
                 {latestFloorplanState === FLOORPLAN_STATES.COMPLETE && (
-                    <button
-                        className="button r-margin"
+                    <ActionButton
+                        text="Download current floorplan"
                         onClick={() =>
                             fetch(`${RAW_S3_STORAGE_URL}/${tilesetS3KeyOrig}`).then(res => {
                                 res.blob().then(blob =>
@@ -60,9 +62,11 @@ const EditDrawingModal = ({
                                 );
                             })
                         }
-                    >
-                        <i className="fa fa-download" /> Download current floorplan
-                    </button>
+                        size="small"
+                        icon="download"
+                        source="secondary"
+                        ambient="positive"
+                    />
                 )}
             </BlockHeading>
             {doesRequireCreditToReplaceFloorplan ? (
@@ -113,53 +117,6 @@ const EditDrawingModal = ({
                             />
                         </Field>
                     )}
-
-                    {/* <div className="size-lg-12">
-                        <div className="size-lg-6 size-md-12">
-                            <Field name="Send an alert?">
-                                <CheckboxContainer
-                                    checked={isAlertShowing}
-                                    name="isAlertShowing"
-                                    text=""
-                                    handleChange={handleChange}
-                                />
-                            </Field>
-                        </div>
-                    </div> */}
-                    {/* 
-                    {isAlertShowing && (
-                        <div className="size-lg-12">
-                            <div
-                                className={
-                                    isUsingBolsterLabels ? 'size-lg-12' : 'size-lg-6 size-md-12'
-                                }
-                            >
-                                <Field name="Alert Message">
-                                    <TextAreaContainer
-                                        value={message}
-                                        name="message"
-                                        handleChange={handleChange}
-                                    />
-                                </Field>
-                            </div>
-
-                            <div
-                                className={
-                                    isUsingBolsterLabels ? 'size-lg-12' : 'size-lg-6 size-md-12'
-                                }
-                            >
-                                <Field name="Date to send">
-                                    <DatePickerPresentational
-                                        name="dateToSend"
-                                        selected={dateToSend}
-                                        onChange={handleDateChange}
-                                        placeholderText="Date"
-                                        showTimeSelect
-                                    />
-                                </Field>
-                            </div>
-                        </div>
-                    )} */}
                 </div>
                 {showManufacturingOptions ? (
                     <>
@@ -290,19 +247,22 @@ const EditDrawingModal = ({
                         </FieldOutput>
                     </>
                 )}
-                <BlockButtonWrapper>
-                    <button className="button green" type="submit">
-                        {filesUploading ? (
-                            'Please wait...'
-                        ) : (
-                            <>
-                                <i className="fa fa-plus" />
-                                Update
-                            </>
-                        )}
-                    </button>
-                    <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
-                </BlockButtonWrapper>
+                <div className="size-lg-12">
+                    <ButtonWrapper alignment="right">
+                        <ActionButton
+                            text="Cancel"
+                            onClick={hideModal}
+                            source="secondary"
+                            size="small"
+                        />
+                        <ActionButton
+                            text={filesUploading ? 'Please wait...' : 'Update'}
+                            type="submit"
+                            icon="check"
+                            size="small"
+                        />
+                    </ButtonWrapper>
+                </div>
             </Form>
         </ModalOuterContainer>
     );
