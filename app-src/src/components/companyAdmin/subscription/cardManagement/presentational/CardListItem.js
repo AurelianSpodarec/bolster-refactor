@@ -3,13 +3,15 @@ import { withRouter } from 'react-router-dom';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const CardListItem = ({
     card: { expMonth, expYear, isPrimary, lastFour, name, id },
     setPrimaryCard,
     onMobile,
     headers,
-    deleteCard
+    deleteCard,
 }) => {
     const expMonthString = expMonth + '';
 
@@ -51,19 +53,23 @@ const CardListItem = ({
 
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
-                <BlockButtonWrapper additionalClasses="card-buttons">
+                <ButtonWrapper alignment="right">
                     {!isPrimary && (
-                        <ButtonContainer handleClick={setPrimaryCard}>Set Primary</ButtonContainer>
+                        <ActionButton text="Set Primary" size="small" onClick={setPrimaryCard} />
                     )}
-                    <button
-                        className="button icon-only red"
+
+                    <ActionButton
+                        source="secondary"
+                        ambient="positive"
+                        iconOnly
+                        icon="trash-alt"
+                        iconWeight="light"
+                        size="small"
                         onClick={() => {
                             deleteCard(id);
                         }}
-                    >
-                        <i className="far fa-trash-alt" />
-                    </button>
-                </BlockButtonWrapper>
+                    />
+                </ButtonWrapper>
             </td>
         </tr>
     );

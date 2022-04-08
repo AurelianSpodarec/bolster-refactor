@@ -245,14 +245,13 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   --positive-default: #2DAC57;
   --positive-hover: #36C967;
   --positive-pressed: #268D48;
-  --positive-disabled: #36C967;
+    --positive-disabled: #1B6533;
   --warning-default: #EFC206;
   --negative-default: #F91F2B;
   --negative-light: rgb(182, 45, 55);
-  --negative-hover: #B22724;
-  --negative-pressed: #B22724;
-  --negative-disabled: #B22724;
-  --negative-highlight: #ffdcdb;
+    --negative-hover: #E20612;
+    --negative-pressed: #B22724;
+    --negative-disabled: #B22724;
   --background-default: #FAFAFA;
   --background-container: #FFFFFF;
   --background-stroke: #F2F2F2;
@@ -265,6 +264,8 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   --typography-greyed-out: #AAACB1;
   --typography-search-header: #AAACB1;
   --typography-search: #AAACB1;
+    --background-button-hover: #F2F2F2;
+    --background-button-stroke: #F2F2F2;
   --input-default: #FFFFFF;
   --pin-installed: #2DAC57;
   --pin-action-required: #B22724;
@@ -276,7 +277,7 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   // --input-default:  #E5E5E5;
   --input-secondary: rgba(229, 229, 229, 0.25);
   --tools-background: #0000001A;
-  --hover-primary: #F1F1F3;
+  --hover-primary: #FAFAFA;
 
   // text
   --dropdown-text: #F9FAFA;
@@ -309,6 +310,8 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   --typography-search-header: #494C5B;
   --typography-search: #F9FAFA;
 
+    --background-button-hover: #59595F;
+    --background-button-stroke: #59595F;
   //calendar
   --calendar-negative: #fc5c64;
   --calendar-greyed-out: #969696;
