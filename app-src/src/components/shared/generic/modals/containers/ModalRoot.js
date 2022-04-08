@@ -129,6 +129,8 @@ import {
     CREATE_PIN_OPTIONS_SET_MODAL,
     CREATE_PIN_OPTIONS_VALUE_MODAL,
     CREATE_PRELIM_MODAL,
+    DELETE_PRELIM_MODAL,
+    EDIT_PRELIM_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -257,6 +259,8 @@ import ConfirmDarkThemeModal from '../presentational/ConfirmDarkThemeModal';
 import CreateOptionSetModal from 'components/companyAdmin/pinOptions/optionSets/modals/CreateOptionSetModal';
 import CreateOptionValueModal from 'components/companyAdmin/pinOptions/optionValues/modals/CreateOptionValueModal';
 import CreatePrelimModal from 'components/companyAdmin/pinOptions/prelims/modals/CreatePrelimModal';
+import DeletePrelimModal from 'components/companyAdmin/pinOptions/prelims/modals/DeletePrelimModal';
+import EditPrelimModal from 'components/companyAdmin/pinOptions/prelims/modals/EditPrelimModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -386,6 +390,8 @@ const MODAL_COMPONENTS = {
     [CREATE_PIN_OPTIONS_SET_MODAL]: CreateOptionSetModal,
     [CREATE_PIN_OPTIONS_VALUE_MODAL]: CreateOptionValueModal,
     [CREATE_PRELIM_MODAL]: CreatePrelimModal,
+    [DELETE_PRELIM_MODAL]: DeletePrelimModal,
+    [EDIT_PRELIM_MODAL]: EditPrelimModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

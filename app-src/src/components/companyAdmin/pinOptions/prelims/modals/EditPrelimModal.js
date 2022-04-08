@@ -9,7 +9,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
-const CreatePrelimModal = () => {
+const EditPrelimModal = () => {
     const { form, handleChange, handleSubmit, isPosting } = useCreatePrelim();
 
     return (
@@ -62,4 +62,4 @@ const CreatePrelimModal = () => {
     );
 };
 
-export default CreatePrelimModal;
+export default EditPrelimModal;
