@@ -16,6 +16,8 @@ import FilterRow from 'components/shared/filters/FilterRow';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import OptionValuesListItem from './OptionValuesListItem';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const OptionValuesList = () => {
     const dispatch = useDispatch();
@@ -38,9 +40,15 @@ const OptionValuesList = () => {
                     placeholder="Search"
                 />
 
-                <button className="button green" onClick={showAddModal}>
-                    Add
-                </button>
+                <ButtonWrapper alignment="right">
+                    <ActionButton
+                        text="Add"
+                        icon="plus"
+                        ambient="positive"
+                        size="medium"
+                        onClick={showAddModal}
+                    />
+                </ButtonWrapper>
             </FilterRow>
 
             <Table
