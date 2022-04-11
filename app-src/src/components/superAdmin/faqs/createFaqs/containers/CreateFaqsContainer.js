@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAddItem, useForm } from 'helpers/hooks';
 
@@ -21,6 +21,8 @@ const CreateFaqsContainer = () => {
             imageS3Key: '',
             pdfS3Key: '',
             videoLink: '',
+            pdfS3Key: '',
+            videoThumbnail: '',
         };
     }, []);
 
