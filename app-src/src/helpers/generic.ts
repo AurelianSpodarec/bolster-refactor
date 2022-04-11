@@ -445,3 +445,20 @@ export const reverseObj = (obj: any) => {
         return ret;
     }, {});
 };
+
+export const formatCheckboxListOptions = (
+    options,
+    valueKey = 'id',
+    nameKey = 'name',
+    isDisabledKey = 'isDisabled',
+) => {
+    const formattedOptions = options.map(opt => {
+        return {
+            text: opt[nameKey] || '',
+            value: opt[valueKey] || '',
+            isDisabled: opt[isDisabledKey] || false,
+        };
+    });
+
+    return formattedOptions;
+};

@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { CREATE_PIN_OPTIONS_VALUE_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
 import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 import { useForm, usePrevious } from 'helpers/hooks';
+import { formatCheckboxListOptions } from 'helpers/generic';
 
 import createPinOptionSet from 'actions/companyAdmin/pinOptions/async/createPinOptionSet';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
@@ -12,6 +13,7 @@ import {
     selectPinOptionSetsIsPosting,
     selectPinOptionSetsPostError,
 } from 'selectors/companyAdmin/pinOptionSets';
+import { selectServicesArr } from 'selectors/companyAdmin/services';
 
 const useCreateOptionSet = pinOptionTypeID => {
     const [newSetID, setNewSetID] = useState(null);
@@ -22,10 +24,14 @@ const useCreateOptionSet = pinOptionTypeID => {
     const isPosting = useSelector(selectPinOptionSetsIsPosting);
     const postError = useSelector(selectPinOptionSetsPostError);
 
+    const services = useSelector(selectServicesArr);
+    const serviceOptions = formatCheckboxListOptions(services);
+
     const prevProps = usePrevious({ postError, newSetID });
 
     const [form, handleChange] = useForm({
         name: '',
+        serviceIDs: [],
     });
 
     const handleSubmit = () => {
@@ -51,7 +57,7 @@ const useCreateOptionSet = pinOptionTypeID => {
         }
     }, [newSetID, prevProps.newSetID]);
 
-    return { form, handleChange, handleSubmit, isPosting };
+    return { form, handleChange, handleSubmit, isPosting, serviceOptions };
 };
 
 export default useCreateOptionSet;

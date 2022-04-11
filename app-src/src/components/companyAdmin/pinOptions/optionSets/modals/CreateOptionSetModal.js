@@ -12,12 +12,14 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 
 const CreateOptionSetModal = ({ pinOptionTypeID }) => {
     const typeName = PIN_OPTION_TYPES_ENUM[pinOptionTypeID];
     const setName = PIN_OPTION_SETS_ENUM[pinOptionTypeID];
 
-    const { form, handleChange, handleSubmit, isPosting } = useCreateOptionSet(pinOptionTypeID);
+    const { form, handleChange, handleSubmit, isPosting, serviceOptions } =
+        useCreateOptionSet(pinOptionTypeID);
 
     return (
         <ModalOuterContainer>
@@ -40,6 +42,17 @@ const CreateOptionSetModal = ({ pinOptionTypeID }) => {
                         handleChange={handleChange}
                         placeholder="Type name"
                         required
+                    />
+                </Field>
+
+                <Field name="Services">
+                    <CheckboxListContainer
+                        name="serviceIDs"
+                        text=""
+                        handleChange={handleChange}
+                        selectedOptions={form.serviceIDs}
+                        options={serviceOptions}
+                        isNumberValues
                     />
                 </Field>
 
