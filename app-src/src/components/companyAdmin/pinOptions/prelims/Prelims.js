@@ -77,7 +77,7 @@ const Prelims = () => {
                                 <ActionMenu>
                                     <ActionMenuActionButton
                                         text="Edit"
-                                        onClick={showDeleteModal(set.id)}
+                                        onClick={() => showDeleteModal(set.id)}
                                     />
                                     <ActionMenuActionButton
                                         text="Delete"
