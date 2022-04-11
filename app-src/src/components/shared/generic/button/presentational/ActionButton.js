@@ -10,6 +10,7 @@ const ActionButton = ({
     iconSpin = false,
     iconOnly = false,
     iconWeight = 'solid',
+    iconEqualSize = false,
     disabled = false,
     source = 'primary', // primary, secondary
     ambient = 'primary', // primary, positive, negative
@@ -27,7 +28,7 @@ const ActionButton = ({
 
     const dynamicIconClass = `icon ${iconWeightLookup[iconWeight] || 'fa'} fa-${icon} ${
         iconSpin ? 'fa-spin' : ''
-    }`;
+    } ${iconEqualSize ? 'fa-fw' : ''}`;
 
     return (
         <button
