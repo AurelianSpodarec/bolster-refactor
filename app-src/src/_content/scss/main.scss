@@ -3384,5 +3384,16 @@ input {
     margin-top: 16px;
 }
 
+.pin-link {
+    color: var(--typography-default);
+    font-size: 160%;
+    margin: 5px 0;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
 // mobile
 @import './dashboard-mobile.scss';

@@ -5,7 +5,6 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 
 const SeriesPinTaskModal = ({ pins, isFetching, error }) => {
-    console.log(pins);
     return (
         <ModalOuterContainer>
             <BlockHeading title={'Pins'} />
@@ -16,18 +15,19 @@ const SeriesPinTaskModal = ({ pins, isFetching, error }) => {
                 noDataMessage="There are no pins on this hierarchy"
                 contentClass="no-padding"
             >
-                {pins.map(({ id }) => (
-                    <div className="content-area" key={id}>
-                        <div className="flex-row justify-between align-center width-5">
-                            <p>Pin ID: {id}</p>
-                            <a className="link-without-decoration" href={`/company/pins/${id}`}>
-                                <button className="button" type="button">
-                                    View pin
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-                ))}
+                <div className="flex-column">
+                    {pins.map(({ id, pinCode }) => (
+                        <a
+                            key={id}
+                            className="pin-link"
+                            href={`/company/pins/${id}`}
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            {pinCode}
+                        </a>
+                    ))}
+                </div>
             </BlockContainer>
         </ModalOuterContainer>
     );
