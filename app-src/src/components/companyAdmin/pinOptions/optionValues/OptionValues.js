@@ -9,9 +9,9 @@ import { selectPinOptionSets } from 'selectors/companyAdmin/pinOptionSets';
 import useFetchBatchForOptionValues from './hooks/useFetchBatchForOptionValues';
 import useShouldRedirectFromOptionValues from './hooks/useShouldRedirectFromOptionValues';
 
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import OptionValuesList from './OptionValuesList';
+import FlexHeading from 'components/shared/generic/pageHeading/presentational/FlexHeading';
 
 const OptionValues = () => {
     const { isAnyEmpty, isAnyFetching, isAnyErrored, hasFetched } = useFetchBatchForOptionValues();
@@ -31,7 +31,7 @@ const OptionValues = () => {
 
     return (
         <>
-            <PageHeading title={name} withBackButton />
+            <FlexHeading title={name} withBackButton />
 
             <BlockContainer isEmpty={isAnyEmpty} isFetching={isAnyFetching} error={isAnyErrored}>
                 <OptionValuesList />

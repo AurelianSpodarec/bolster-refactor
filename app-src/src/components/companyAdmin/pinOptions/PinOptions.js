@@ -11,9 +11,9 @@ import useBlockTabs from 'components/shared/tabs/hooks/useBlockTabs';
 import useFetchServices from 'components/companyAdmin/hooks/useFetchServices';
 import useFetchPinOptionTypes from '../hooks/useFetchPinOptionTypes';
 
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockTabs from 'components/shared/tabs/BlockTabs';
+import FlexHeading from 'components/shared/generic/pageHeading/presentational/FlexHeading';
 
 const PinOptions = () => {
     const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const PinOptions = () => {
 
     return (
         <>
-            <PageHeading title="Pin Options" />
+            <FlexHeading title="Pin Options" />
 
             <BlockContainer
                 isEmpty={

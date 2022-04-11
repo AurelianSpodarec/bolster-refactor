@@ -13,8 +13,10 @@ import useFetchBatchForOptionDocuments from './hooks/useFetchBatchForOptionDocum
 import useShouldRedirectFromOptionDocuments from './hooks/useShouldRedirectFromOptionDocuments';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import OptionDocumentsList from './OptionDocumentsList';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import FlexHeading from 'components/shared/generic/pageHeading/presentational/FlexHeading';
 
 const OptionDocuments = () => {
     const { isAnyEmpty, isAnyFetching, isAnyErrored, hasFetched } =
@@ -52,7 +54,16 @@ const OptionDocuments = () => {
 
     return (
         <>
-            <PageHeading title={name} withBackButton />
+            <FlexHeading title={name} withBackButton>
+                <ButtonWrapper alignment="right">
+                    <ActionButton
+                        text="Upload"
+                        icon="file-plus"
+                        size="medium"
+                        onClick={() => console.log('Upload new...')}
+                    />
+                </ButtonWrapper>
+            </FlexHeading>
 
             <BlockContainer
                 isEmpty={isAnyEmpty}
