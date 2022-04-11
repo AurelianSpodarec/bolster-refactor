@@ -29,6 +29,8 @@ const UpdateFaqsContainer = () => {
         imageS3Key: faqSingle.imageS3Key,
         pdfS3Key: faqSingle.pdfS3Key,
         videoLink: faqSingle.videoLink,
+        pdfS3Key: faqSingle?.pdfS3Key,
+        videoThumbnail: faqSingle?.videoThumbnail,
     });
 
     useUpdateItem(isPosting, postSuccess, 'Successfully Updated', '/admin/faqs', 'Go back to FAQs');
