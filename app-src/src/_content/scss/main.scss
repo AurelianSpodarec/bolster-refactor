@@ -2955,8 +2955,16 @@ input {
 .pin-link {
     color: var(--typography-default);
     font-size: 160%;
-    margin: 5px 0;
+    margin: 8px 0;
     text-decoration: none;
+
+    &:first-child {
+        margin-top: 0;
+    }
+    
+    &:last-child {
+        margin-bottom: 0;
+    }
 
     &:hover {
         text-decoration: underline;
