@@ -81,7 +81,7 @@ function prelimsReducer(state = {}, action) {
         case FETCH_ALL_PRELIMS_SUCCESS:
             return convertArrToObj(action.payload);
         case EDIT_PRELIM_SUCCESS:
-            return updateObj(state, action.payload.prelim.id, action.payload.prelim);
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }
