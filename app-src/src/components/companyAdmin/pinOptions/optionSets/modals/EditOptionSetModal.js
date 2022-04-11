@@ -10,9 +10,10 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 
 const EditOptionSetModal = ({ set }) => {
-    const { form, handleChange, handleSubmit, isPosting } = useEditOptionSet(set);
+    const { form, handleChange, handleSubmit, isPosting, serviceOptions } = useEditOptionSet(set);
 
     return (
         <ModalOuterContainer>
@@ -26,6 +27,17 @@ const EditOptionSetModal = ({ set }) => {
                         handleChange={handleChange}
                         placeholder="Type name"
                         required
+                    />
+                </Field>
+
+                <Field name="Services">
+                    <CheckboxListContainer
+                        name="serviceIDs"
+                        text=""
+                        handleChange={handleChange}
+                        selectedOptions={form.serviceIDs}
+                        options={serviceOptions}
+                        isNumberValues
                     />
                 </Field>
 

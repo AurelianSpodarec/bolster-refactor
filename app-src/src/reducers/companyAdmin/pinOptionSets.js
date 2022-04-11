@@ -8,6 +8,9 @@ import {
     CREATE_PIN_OPTION_SET_REQUEST,
     CREATE_PIN_OPTION_SET_SUCCESS,
     CREATE_PIN_OPTION_SET_FAILURE,
+    EDIT_PIN_OPTION_SET_REQUEST,
+    EDIT_PIN_OPTION_SET_SUCCESS,
+    EDIT_PIN_OPTION_SET_FAILURE,
 } from 'constants/actionTypes/pinOptions';
 
 export default combineReducers({
@@ -45,9 +48,12 @@ function fetchErrorReducer(state = null, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case CREATE_PIN_OPTION_SET_REQUEST:
+        case EDIT_PIN_OPTION_SET_REQUEST:
             return true;
         case CREATE_PIN_OPTION_SET_SUCCESS:
         case CREATE_PIN_OPTION_SET_FAILURE:
+        case EDIT_PIN_OPTION_SET_SUCCESS:
+        case EDIT_PIN_OPTION_SET_FAILURE:
             return false;
         default:
             return state;
@@ -57,8 +63,10 @@ function isPostingReducer(state = false, action) {
 function postErrorReducer(state = null, action) {
     switch (action.type) {
         case CREATE_PIN_OPTION_SET_REQUEST:
+        case EDIT_PIN_OPTION_SET_REQUEST:
             return null;
         case CREATE_PIN_OPTION_SET_FAILURE:
+        case EDIT_PIN_OPTION_SET_FAILURE:
             return action.error;
         default:
             return state;
@@ -68,8 +76,10 @@ function postErrorReducer(state = null, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_PIN_OPTION_SET_REQUEST:
+        case EDIT_PIN_OPTION_SET_REQUEST:
             return false;
         case CREATE_PIN_OPTION_SET_SUCCESS:
+        case EDIT_PIN_OPTION_SET_SUCCESS:
             return true;
         default:
             return state;
@@ -81,6 +91,7 @@ function setsReducer(state = {}, action) {
         case FETCH_PIN_OPTION_SETS_SUCCESS:
             return convertArrToObj(action.payload);
         case CREATE_PIN_OPTION_SET_SUCCESS:
+        case EDIT_PIN_OPTION_SET_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:
             return state;

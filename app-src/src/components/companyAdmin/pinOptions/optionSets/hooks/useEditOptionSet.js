@@ -3,15 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 import { useForm, usePrevious } from 'helpers/hooks';
+import { formatCheckboxListOptions } from 'helpers/generic';
 
-import createPinOptionSet from 'actions/companyAdmin/pinOptions/async/createPinOptionSet';
+import editPinOptionSet from 'actions/companyAdmin/pinOptions/async/editPinOptionSet';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import {
     selectPinOptionSetsIsPosting,
     selectPinOptionSetsPostError,
     selectPinOptionSetsPostSuccess,
 } from 'selectors/companyAdmin/pinOptionSets';
-import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import { selectServicesArr } from 'selectors/companyAdmin/services';
 
 const useEditOptionSet = set => {
     const dispatch = useDispatch();
@@ -19,20 +21,18 @@ const useEditOptionSet = set => {
     const postError = useSelector(selectPinOptionSetsPostError);
     const postSuccess = useSelector(selectPinOptionSetsPostSuccess);
 
+    const services = useSelector(selectServicesArr);
+    const serviceOptions = formatCheckboxListOptions(services);
+
     const prevProps = usePrevious({ postError, postSuccess });
 
     const [form, handleChange] = useForm({
         name: set.name,
+        serviceIDs: set.serviceIDs || [],
     });
 
     const handleSubmit = () => {
-        console.log('submit...');
-        // const postBody = {
-        //     ...form,
-        //     pinOptionTypeID,
-        // };
-
-        // dispatch(createPinOptionSet(postBody));
+        dispatch(editPinOptionSet(set.id, form));
     };
 
     useEffect(() => {
@@ -43,7 +43,7 @@ const useEditOptionSet = set => {
         if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
     }, [postSuccess, prevProps.postSuccess]);
 
-    return { form, handleChange, handleSubmit, isPosting };
+    return { form, handleChange, handleSubmit, isPosting, serviceOptions };
 };
 
 export default useEditOptionSet;
