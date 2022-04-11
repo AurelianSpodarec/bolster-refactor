@@ -17,11 +17,12 @@ const UpdateFaqs = ({
     form: { title, content, imageS3Key, videoLink, pdfS3Key, videoThumbnail },
     isFetching,
     faqSingle,
+    error,
 }) => {
     return (
         <>
             <PageHeading title={title} withBackButton />
-            <BlockContainer isFetching={isFetching} isEmpty={isObjEmpty(faqSingle)}>
+            <BlockContainer isFetching={isFetching} isEmpty={isObjEmpty(faqSingle)} error={error}>
                 <Field name="FAQ Title" required>
                     <TextInputContainer
                         name="title"
