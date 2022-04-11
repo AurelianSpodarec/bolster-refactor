@@ -90,8 +90,10 @@ function isFetchingReducer(state = false, action) {
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_ALL_FAQS_REQUEST:
+        case FETCH_SINGLE_FAQS_REQUEST:
             return null;
         case FETCH_ALL_FAQS_FAILURE:
+        case FETCH_SINGLE_FAQS_FAILURE:
             return action.error;
         default:
             return state;

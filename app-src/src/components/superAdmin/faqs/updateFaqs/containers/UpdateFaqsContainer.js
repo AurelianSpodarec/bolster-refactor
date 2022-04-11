@@ -7,6 +7,7 @@ import fetchSingleFaqs from 'actions/superAdmin/faqs/async/fetchSingleFaqs';
 import UpdateFaqs from '../presentational/UpdateFaqs';
 import updateFaqs from 'actions/superAdmin/faqs/async/updateFaqs';
 import {
+    selectFaqsError,
     selectFaqsIsFetching,
     selectFaqsIsPosting,
     selectFaqsPostSuccess,
@@ -20,7 +21,12 @@ const UpdateFaqsContainer = () => {
     const isPosting = useSelector(selectFaqsIsPosting);
     const postSuccess = useSelector(selectFaqsPostSuccess);
     const isFetching = useSelector(selectFaqsIsFetching);
+    const error = useSelector(selectFaqsError);
     const faqSingle = useSelector(state => selectFaqsSingle(state, id));
+
+    useEffect(() => {
+        dispatch(fetchSingleFaqs(id));
+    }, []);
 
     const [form, handleChange] = useForm({
         type: faqSingle.type,
@@ -38,10 +44,6 @@ const UpdateFaqsContainer = () => {
         dispatch(updateFaqs(id, form));
     };
 
-    useEffect(() => {
-        dispatch(fetchSingleFaqs(id));
-    }, []);
-
     return (
         <UpdateFaqs
             form={form}
@@ -49,6 +51,7 @@ const UpdateFaqsContainer = () => {
             handleFormChange={handleChange}
             isFetching={isFetching}
             faqSingle={faqSingle}
+            error={error}
         />
     );
 };
