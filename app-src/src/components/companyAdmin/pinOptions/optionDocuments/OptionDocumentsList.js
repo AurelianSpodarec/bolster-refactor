@@ -7,7 +7,7 @@ import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActio
 const documents = [
     {
         id: 1,
-        name: 'Document 1 Document 1 Document 1 Document 1 Document 1 Document 1 Document 1 Document 1 Document 1 Document 1 Document 1 Document 1',
+        name: 'Document 1',
         lastUpdated: Date.now(),
     },
     {
@@ -26,8 +26,12 @@ const OptionDocumentsList = () => {
     const ActionMenuItems = ({ id }) => (
         <>
             <ActionMenuActionButton
-                text="Edit"
+                text="Edit Name"
                 onClick={() => console.log(`Edit document ID ${id}`)}
+            />
+            <ActionMenuActionButton
+                text="Add New Version"
+                onClick={() => console.log(`Add version for document ID ${id}`)}
             />
             <ActionMenuActionButton
                 text="Delete"
