@@ -82,6 +82,14 @@ const CreateFaqs = ({
                         handleChange={handleFormChange}
                     />
                 </Field>
+                <Field name="Upload PDF" sizeClasses="size-lg-6">
+                    <FileUploadContainer
+                        value={pdfS3Key}
+                        name="pdfS3Key"
+                        acceptedTypes={['application/pdf']}
+                        handleChange={handleFormChange}
+                    />
+                </Field>
 
                 <Field name="Upload PDF" sizeClasses="size-lg-6">
                     <FileUploadContainer

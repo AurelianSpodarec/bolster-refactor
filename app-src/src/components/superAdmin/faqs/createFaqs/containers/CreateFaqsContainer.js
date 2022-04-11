@@ -19,6 +19,7 @@ const CreateFaqsContainer = () => {
             title: 'FAQ Name',
             content: '',
             imageS3Key: '',
+            pdfS3Key: '',
             videoLink: '',
             pdfS3Key: '',
             videoThumbnail: '',
