@@ -49,13 +49,13 @@ function isPostingReducer(state = false, action) {
 
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
-        case CREATE_PRELIM_SUCCESS:
-        case DELETE_PRELIM_REQUEST:
-            return true;
         case CREATE_PRELIM_REQUEST:
         case CREATE_PRELIM_FAILURE:
         case DELETE_PRELIM_SUCCESS:
             return false;
+        case CREATE_PRELIM_SUCCESS:
+        case DELETE_PRELIM_REQUEST:
+            return true;
         default:
             return state;
     }
@@ -81,7 +81,8 @@ function prelimsReducer(state = {}, action) {
         case FETCH_ALL_PRELIMS_SUCCESS:
             return convertArrToObj(action.payload);
         case EDIT_PRELIM_SUCCESS:
-            return updateObj(state, action.payload.prelim.id, action.payload.prelim);
+        case CREATE_PRELIM_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }

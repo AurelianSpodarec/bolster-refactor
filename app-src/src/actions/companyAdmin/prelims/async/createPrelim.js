@@ -22,7 +22,7 @@ export const createPrelimFailure = error => ({
     error,
 });
 
-export default postBody => dispatch => {
+export default postBody => async dispatch => {
     dispatch(createPrelimRequest());
 
     return axios
