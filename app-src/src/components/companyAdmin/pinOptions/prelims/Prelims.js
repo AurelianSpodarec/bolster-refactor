@@ -22,6 +22,7 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import editPrelim from 'actions/companyAdmin/prelims/async/editPrelim';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const Prelims = () => {
     const dispatch = useDispatch();
@@ -41,9 +42,15 @@ const Prelims = () => {
                     placeholder="Search"
                 />
 
-                <button className="button green" onClick={showAddModal}>
-                    Add
-                </button>
+                <ButtonWrapper alignment="right">
+                    <ActionButton
+                        text="Add"
+                        icon="plus"
+                        ambient="positive"
+                        size="medium"
+                        onClick={showAddModal}
+                    />
+                </ButtonWrapper>
             </FilterRow>
 
             <Table
