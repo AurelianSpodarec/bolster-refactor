@@ -9,7 +9,13 @@ import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 
-const OptionValuesListItem = ({ option: { id, name, isDisabled }, setID, typeID }) => {
+const OptionValuesListItem = ({
+    option,
+    option: { id, name, isDisabled },
+    setID,
+    typeID,
+    showEditModal,
+}) => {
     const [isOptionDisabled, setIsOptionDisabled] = useState(isDisabled);
     const typeLink = PIN_OPTION_TYPES[typeID].link;
 
@@ -31,7 +37,7 @@ const OptionValuesListItem = ({ option: { id, name, isDisabled }, setID, typeID 
                     />
 
                     <ActionMenu>
-                        <ActionMenuActionButton text="Edit" onClick={() => console.log('edit')} />
+                        <ActionMenuActionButton text="Edit" onClick={() => showEditModal(option)} />
                         <ActionMenuActionButton
                             text="Delete"
                             onClick={() => console.log('delete')}

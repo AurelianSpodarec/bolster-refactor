@@ -3,7 +3,10 @@ import { useDispatch } from 'react-redux';
 
 import { isEmpty } from 'helpers/generic';
 import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
-import { CREATE_PIN_OPTIONS_SET_MODAL } from 'constants/shared/modalTypes';
+import {
+    CREATE_PIN_OPTIONS_SET_MODAL,
+    EDIT_PIN_OPTIONS_SET_MODAL,
+} from 'constants/shared/modalTypes';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
@@ -60,7 +63,12 @@ const OptionSets = ({ selectedTypeID }) => {
                 error={pinOptionSetsFetchError}
             >
                 {filteredSets.map(set => (
-                    <OptionSetsListItem key={set.id} set={set} setLink={setLink} />
+                    <OptionSetsListItem
+                        key={set.id}
+                        set={set}
+                        setLink={setLink}
+                        showEditModal={showEditModal}
+                    />
                 ))}
             </Table>
         </>
@@ -72,6 +80,10 @@ const OptionSets = ({ selectedTypeID }) => {
                 pinOptionTypeID: selectedTypeID,
             }),
         );
+    }
+
+    function showEditModal(set) {
+        dispatch(showModal(EDIT_PIN_OPTIONS_SET_MODAL, { set }));
     }
 };
 

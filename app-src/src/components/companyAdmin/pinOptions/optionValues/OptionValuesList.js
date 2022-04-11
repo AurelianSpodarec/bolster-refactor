@@ -3,7 +3,10 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { PIN_OPTION_TYPES_LOOKUP } from 'constants/companyAdmin/enums';
-import { CREATE_PIN_OPTIONS_VALUE_MODAL } from 'constants/shared/modalTypes';
+import {
+    CREATE_PIN_OPTIONS_VALUE_MODAL,
+    EDIT_PIN_OPTIONS_VALUE_MODAL,
+} from 'constants/shared/modalTypes';
 import { isEmpty } from 'helpers/generic';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
@@ -65,6 +68,7 @@ const OptionValuesList = () => {
                         option={option}
                         setID={setID}
                         typeID={typeID}
+                        showEditModal={showEditModal}
                     />
                 ))}
             </Table>
@@ -78,6 +82,10 @@ const OptionValuesList = () => {
                 pinOptionSetID: parseInt(setID),
             }),
         );
+    }
+
+    function showEditModal(option) {
+        dispatch(showModal(EDIT_PIN_OPTIONS_VALUE_MODAL, { option }));
     }
 };
 

@@ -5,7 +5,7 @@ import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
-const OptionSetsListItem = ({ set: { id, name }, setLink }) => (
+const OptionSetsListItem = ({ set, set: { id, name }, setLink, showEditModal }) => (
     <tr>
         <td className="row-link">
             <Link to={`/company/pin-options/${setLink}/${id}`}>{name}</Link>
@@ -13,7 +13,7 @@ const OptionSetsListItem = ({ set: { id, name }, setLink }) => (
         <td>
             <ButtonWrapper alignment="right">
                 <ActionMenu>
-                    <ActionMenuActionButton text="Edit" onClick={() => console.log('edit')} />
+                    <ActionMenuActionButton text="Edit" onClick={() => showEditModal(set)} />
                     <ActionMenuActionButton
                         text="Delete"
                         onClick={() => console.log('delete')}
