@@ -7,7 +7,7 @@ import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActio
 const documents = [
     {
         id: 1,
-        name: 'Document 1',
+        name: 'Document 1 Document 1 Document 1 Document 1 Document 1 Document 1 Document 1 Document 1 Document 1 Document 1 Document 1 Document 1',
         lastUpdated: Date.now(),
     },
     {

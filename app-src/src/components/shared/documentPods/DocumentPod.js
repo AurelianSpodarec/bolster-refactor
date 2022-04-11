@@ -6,6 +6,7 @@ import MockImage from '_content/images/previews/light-theme-preview.jpg';
 import { DATE_TIME } from 'constants/shared/dateFormats';
 
 import ActionMenu from '../actionMenu/ActionMenu';
+import FlexWrapper from '../generic/flexWrapper/FlexWrapper';
 
 const DocumentPod = ({ name, lastUpdated, actionMenuItems }) => (
     <a className="document-pod" href="#">
@@ -13,14 +14,14 @@ const DocumentPod = ({ name, lastUpdated, actionMenuItems }) => (
             <img alt="Document preview" src={MockImage} />
         </div>
 
-        <div className="info-wrapper flex-row justify-between">
+        <FlexWrapper direction="row" justify="between" extraClasses="info-wrapper">
             <div className="text">
                 <p className="title">{name}</p>
                 <p className="last-updated">Updated {moment(lastUpdated).format(DATE_TIME)}</p>
             </div>
 
             {!!actionMenuItems && <ActionMenu>{actionMenuItems}</ActionMenu>}
-        </div>
+        </FlexWrapper>
     </a>
 );
 

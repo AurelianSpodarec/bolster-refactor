@@ -4,6 +4,7 @@
     background-color: var(--background-container);
     border-radius: 5px;
     text-decoration: none;
+    min-width: 0;
 
     .image-wrapper {
         img {
@@ -19,13 +20,23 @@
     .info-wrapper {
         padding: 10px;
 
+        .text {
+            overflow: hidden;
+        }
+
         .title {
             @include ubuntu-medium;
             font-size: 120%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .last-updated {
             font-size: 110%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
     }
 }
