@@ -105,7 +105,7 @@ function faqsReducer(state = {}, action) {
         case FETCH_ALL_FAQS_SUCCESS:
             return convertArrToObj(action.payload);
         case FETCH_SINGLE_FAQS_SUCCESS:
-            return updateObj(state, 'id', action.payload);
+            return updateObj(state, action.payload.id, action.payload);
         case DELETE_FAQS_SUCCESS:
             return omit(state, action.id);
         default:
