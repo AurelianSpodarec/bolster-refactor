@@ -16,6 +16,8 @@ const OptionValuesListItem = ({
     typeID,
     showEditModal,
     showDeleteModal,
+    enableOptionValue,
+    disableOptionValue,
 }) => {
     const [isOptionDisabled, setIsOptionDisabled] = useState(isDisabled);
     const typeLink = PIN_OPTION_TYPES[typeID].link;
