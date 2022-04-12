@@ -13,6 +13,9 @@ import {
     FETCH_ALL_PRELIMS_FAILURE,
     FETCH_ALL_PRELIMS_REQUEST,
     FETCH_ALL_PRELIMS_SUCCESS,
+    FETCH_PRELIM_FAILURE,
+    FETCH_PRELIM_REQUEST,
+    FETCH_PRELIM_SUCCESS,
 } from 'constants/actionTypes/prelims';
 
 export default combineReducers({
@@ -26,9 +29,12 @@ export default combineReducers({
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_ALL_PRELIMS_REQUEST:
+        case FETCH_PRELIM_REQUEST:
             return true;
         case FETCH_ALL_PRELIMS_SUCCESS:
         case FETCH_ALL_PRELIMS_FAILURE:
+        case FETCH_PRELIM_SUCCESS:
+        case FETCH_PRELIM_FAILURE:
             return false;
         default:
             return state;
@@ -66,10 +72,12 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_PRELIMS_REQUEST:
         case EDIT_PRELIM_REQUEST:
         case DELETE_PRELIM_REQUEST:
+        case FETCH_PRELIM_REQUEST:
             return null;
         case FETCH_ALL_PRELIMS_FAILURE:
         case EDIT_PRELIM_FAILURE:
         case DELETE_PRELIM_FAILURE:
+        case FETCH_PRELIM_FAILURE:
             return action.error;
         default:
             return state;
@@ -80,6 +88,7 @@ function prelimsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_ALL_PRELIMS_SUCCESS:
             return convertArrToObj(action.payload);
+        case FETCH_PRELIM_SUCCESS:
         case EDIT_PRELIM_SUCCESS:
         case CREATE_PRELIM_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
