@@ -33,10 +33,13 @@ const LinkButton = ({
         <Link
             to={href}
             className={`custom-button flex-row align-center ${extraClasses} ${dynamicButtonClass}`}
-            disabled={disabled}
             data-source={source}
             data-ambient={ambient}
             data-size={size}
+            data-disabled={disabled}
+            onClick={e => {
+                if (disabled) e.preventDefault();
+            }}
         >
             {icon && !iconRight && <i className={dynamicIconClass}></i>}
             {!icon && customIcon && <img className="custom-icon" src={customIcon} />}
