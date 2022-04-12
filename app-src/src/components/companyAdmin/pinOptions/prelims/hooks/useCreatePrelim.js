@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
-import { useForm } from 'helpers/hooks';
+import { useForm, usePrevious } from 'helpers/hooks';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import {
@@ -21,6 +21,8 @@ const useCreatePrelim = () => {
     const postError = useSelector(selectPrelimPostError);
     const postSuccess = useSelector(selectPrelimPostSuccess);
     const prelimsOptions = convertEnumToDropdownOptions(PRELIMS_ENUM);
+    const prevPostSuccess = usePrevious(postSuccess);
+    const prevPropsError = usePrevious(postError);
 
     const [form, handleChange] = useForm({
         name: '',
@@ -37,12 +39,12 @@ const useCreatePrelim = () => {
     };
 
     useEffect(() => {
-        if (postError) dispatch(showModal(ERROR_MODAL));
-    }, [postError]);
+        if (postError && !prevPropsError) dispatch(showModal(ERROR_MODAL));
+    }, [postError, prevPropsError]);
 
     useEffect(() => {
-        if (postSuccess) dispatch(hideModal());
-    }, [postSuccess]);
+        if (postSuccess && !prevPostSuccess) dispatch(hideModal());
+    }, [postSuccess, prevPostSuccess]);
 
     return { form, handleChange, handleSubmit, isPosting, prelimsOptions };
 };
