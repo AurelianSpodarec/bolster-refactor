@@ -23,7 +23,8 @@ const OptionSets = ({ selectedTypeID }) => {
         selectedTypeID,
     );
 
-    const { showAddModal, showEditModal, showDeleteModal } = useOptionSetActions(selectedTypeID);
+    const { showAddModal, showEditModal, showDeleteModal, enableOptionSet, disableOptionSet } =
+        useOptionSetActions(selectedTypeID);
 
     const setLink = PIN_OPTION_TYPES[selectedTypeID].link;
 
@@ -72,6 +73,8 @@ const OptionSets = ({ selectedTypeID }) => {
                         setLink={setLink}
                         showEditModal={showEditModal}
                         showDeleteModal={showDeleteModal}
+                        enableOptionSet={enableOptionSet}
+                        disableOptionSet={disableOptionSet}
                     />
                 ))}
             </Table>
