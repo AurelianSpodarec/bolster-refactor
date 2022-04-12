@@ -1,32 +1,22 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
 import { isEmpty } from 'helpers/generic';
-
 import useSearch from 'hooks/useSearch';
 import useFilterPrelims from './hooks/useFilterPrelims';
-
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import FilterRow from 'components/shared/filters/FilterRow';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import useFetchPrelims from './hooks/useFetchPrelims';
-import showModal from 'actions/shared/generic/modals/sync/showModal';
-import {
-    CONFIRM_SUBMIT,
-    CREATE_PRELIM_MODAL,
-    EDIT_PRELIM_MODAL,
-} from 'constants/shared/modalTypes';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import PrelimsListItem from './PrelimsListItem';
-import deletePrelim from 'actions/companyAdmin/prelims/async/deletePrelim';
+import usePrelimsSetActions from './hooks/usePrelimsSetActions';
 
 const Prelims = () => {
-    const dispatch = useDispatch();
-
     const { searchTerm, handleUpdateSearch } = useSearch();
     const { allPrelims, isFetchingPrelims, prelimsError } = useFetchPrelims();
     const filteredPrelims = useFilterPrelims(allPrelims, searchTerm);
+    const { showAddModal, showEditModal, showDeleteModal } = usePrelimsSetActions();
 
     return (
         <>
@@ -67,26 +57,6 @@ const Prelims = () => {
             </Table>
         </>
     );
-
-    function showAddModal() {
-        dispatch(showModal(CREATE_PRELIM_MODAL));
-    }
-
-    function showEditModal(set) {
-        dispatch(showModal(EDIT_PRELIM_MODAL, { set }));
-    }
-
-    function showDeleteModal(set) {
-        dispatch(
-            showModal(CONFIRM_SUBMIT, {
-                handleSubmit: () => dispatch(deletePrelim(set.id)),
-                title: `Delete ${set.name}?`,
-                message: 'Are you sure you would like to delete this set?',
-                submitButtonText: 'Delete',
-                submitButtonIcon: 'trash-alt',
-            }),
-        );
-    }
 };
 
 export default Prelims;
