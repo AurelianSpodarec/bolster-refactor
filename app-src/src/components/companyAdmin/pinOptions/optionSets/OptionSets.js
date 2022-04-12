@@ -11,7 +11,6 @@ import {
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
-import useSearch from 'hooks/useSearch';
 import useFetchPinOptionSets from 'components/companyAdmin/hooks/useFetchPinOptionSets';
 import useFilterOptionSets from './hooks/useFilterOptionSets';
 
@@ -25,12 +24,13 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 const OptionSets = ({ selectedTypeID }) => {
     const dispatch = useDispatch();
 
-    const { searchTerm, handleUpdateSearch } = useSearch();
-
     const { pinOptionSetsArr, isFetchingPinOptionSets, pinOptionSetsFetchError } =
         useFetchPinOptionSets();
 
-    const filteredSets = useFilterOptionSets(pinOptionSetsArr, searchTerm, selectedTypeID);
+    const { filteredSets, searchTerm, handleUpdateSearch } = useFilterOptionSets(
+        pinOptionSetsArr,
+        selectedTypeID,
+    );
 
     const setLink = PIN_OPTION_TYPES[selectedTypeID].link;
 
@@ -52,15 +52,6 @@ const OptionSets = ({ selectedTypeID }) => {
                         size="medium"
                         iconEqualSize
                         onClick={() => console.log('open filters')}
-                    />
-
-                    <ActionButton
-                        icon="sort"
-                        iconOnly
-                        source="secondary"
-                        size="medium"
-                        iconEqualSize
-                        onClick={() => console.log('sort')}
                     />
 
                     <ActionButton

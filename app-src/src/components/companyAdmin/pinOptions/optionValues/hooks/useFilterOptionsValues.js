@@ -1,13 +1,17 @@
 import React from 'react';
 
-const useFilterOptionValues = (options, searchTerm) => {
+import useSearch from 'hooks/useSearch';
+
+const useFilterOptionValues = options => {
+    const { searchTerm, handleUpdateSearch } = useSearch();
+
     const getFilteredOptionValues = () => {
         return options.filter(opt => opt.name.toLowerCase().includes(searchTerm.toLowerCase()));
     };
 
     const filteredOptionValues = getFilteredOptionValues();
 
-    return filteredOptionValues;
+    return { filteredOptionValues, searchTerm, handleUpdateSearch };
 };
 
 export default useFilterOptionValues;
