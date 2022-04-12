@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import useClickOutside from 'hooks/useClickOutside';
 import ActionMenuContent from './ActionMenuContent';
 
-const ActionMenu = ({ children, ellipsisPosition = 'right' }) => {
+const ActionMenu = ({ children, ellipsisPosition = 'right', disabled = false }) => {
     const [showMenu, setShowMenu] = useState(false);
 
     const closeMenu = () => {
@@ -19,7 +19,7 @@ const ActionMenu = ({ children, ellipsisPosition = 'right' }) => {
                 data-position={ellipsisPosition}
                 onClick={e => {
                     e.preventDefault();
-                    setShowMenu(true);
+                    if (!disabled) setShowMenu(true);
                 }}
             >
                 <i className="fa fa-ellipsis-v" />

@@ -7,6 +7,7 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 
 const OptionValuesListItem = ({
     option,
@@ -17,44 +18,61 @@ const OptionValuesListItem = ({
     showDeleteModal,
     enableOptionValue,
     disableOptionValue,
+    isSorting,
+    isDragging,
+    connectDropTarget,
+    forwardRef,
 }) => {
     const typeLink = PIN_OPTION_TYPES[typeID].link;
 
-    return (
-        <tr>
-            <td>
-                <CheckboxContainer
-                    text={name}
-                    name={`pin-option-checkbox-${id}`}
-                    checked={!isDisabled}
-                    handleChange={(_, value) => {
-                        if (value) {
-                            enableOptionValue(option);
-                        } else {
-                            disableOptionValue(option);
-                        }
-                    }}
-                />
-            </td>
-            <td>
-                <ButtonWrapper alignment="right">
-                    <LinkButton
-                        text="Documents"
-                        href={`/company/pin-options/${typeLink}/${setID}/${id}/documents`}
-                    />
+    let rowClass = 'draggable expandable';
+    if (isDragging) rowClass += ' dragging';
 
-                    <ActionMenu>
-                        <ActionMenuActionButton text="Edit" onClick={() => showEditModal(option)} />
-                        <ActionMenuActionButton
-                            text="Delete"
-                            onClick={() => showDeleteModal(option)}
-                            isNegative
+    return (
+        <>
+            {connectDropTarget(
+                <tr className={rowClass} ref={isSorting ? forwardRef : null}>
+                    <td>
+                        <CheckboxContainer
+                            text={name}
+                            name={`pin-option-checkbox-${id}`}
+                            checked={!isDisabled}
+                            handleChange={(_, value) => {
+                                if (value) {
+                                    enableOptionValue(option);
+                                } else {
+                                    disableOptionValue(option);
+                                }
+                            }}
+                            disabled={isSorting}
+                            keepTextColorOnDisable
                         />
-                    </ActionMenu>
-                </ButtonWrapper>
-            </td>
-        </tr>
+                    </td>
+                    <td>
+                        <ButtonWrapper alignment="right">
+                            <LinkButton
+                                text="Documents"
+                                href={`/company/pin-options/${typeLink}/${setID}/${id}/documents`}
+                                disabled={isSorting}
+                            />
+
+                            <ActionMenu disabled={isSorting}>
+                                <ActionMenuActionButton
+                                    text="Edit"
+                                    onClick={() => showEditModal(option)}
+                                />
+                                <ActionMenuActionButton
+                                    text="Delete"
+                                    onClick={() => showDeleteModal(option)}
+                                    isNegative
+                                />
+                            </ActionMenu>
+                        </ButtonWrapper>
+                    </td>
+                </tr>,
+            )}
+        </>
     );
 };
 
-export default OptionValuesListItem;
+export default withDrag(OptionValuesListItem);
