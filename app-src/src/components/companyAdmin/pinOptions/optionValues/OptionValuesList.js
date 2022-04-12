@@ -31,7 +31,7 @@ const OptionValuesList = ({ forwardRef }) => {
     const { showAddModal, showEditModal, showDeleteModal, enableOptionValue, disableOptionValue } =
         useOptionValueActions(typeID, setID);
 
-    const { isSorting, handleToggleSort, handleUpdateSort } =
+    const { isSorting, handleToggleSort, handleUpdateSort, moveItem } =
         useUpdateOptionValueSort(pinOptionsForSet);
 
     return (
@@ -84,6 +84,7 @@ const OptionValuesList = ({ forwardRef }) => {
                             enableOptionValue={enableOptionValue}
                             disableOptionValue={disableOptionValue}
                             isSorting={isSorting}
+                            onMove={moveItem}
                             onDrop={handleUpdateSort}
                         />
                     ))}
@@ -93,4 +94,4 @@ const OptionValuesList = ({ forwardRef }) => {
     );
 };
 
-export default withDropZone(OptionValuesList);
+export default withDropZone(OptionValuesList, 'PIN_OPTION_VALUES');

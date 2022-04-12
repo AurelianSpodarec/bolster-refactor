@@ -14,6 +14,7 @@ import {
     DISABLE_PIN_OPTION_VALUE_REQUEST,
     DISABLE_PIN_OPTION_VALUE_SUCCESS,
     DISABLE_PIN_OPTION_VALUE_FAILURE,
+    REORDER_PIN_OPTION_VALUES,
 } from 'constants/actionTypes/pinOptions';
 
 export default combineReducers({
@@ -99,6 +100,7 @@ function postSuccessReducer(state = false, action) {
 function optionsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_PIN_OPTIONS_SUCCESS:
+        case REORDER_PIN_OPTION_VALUES:
             return convertArrToObj(action.payload);
         case ENABLE_PIN_OPTION_VALUE_SUCCESS:
         case DISABLE_PIN_OPTION_VALUE_SUCCESS:

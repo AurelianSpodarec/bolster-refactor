@@ -214,6 +214,9 @@ export const caseInsensitiveIncludes = (str1: string, str2: string): boolean =>
 // call this as the argument to a .sort() on an array
 export const hierarchySort = (a, b) => a.sort - b.sort;
 
+// sort by sort value
+export const sortBySortValue = (a, b) => a.sort - b.sort;
+
 // lifecycle hook tests
 
 // ? pass in a function to call on mount

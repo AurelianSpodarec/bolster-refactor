@@ -125,6 +125,10 @@
 
         td {
           overflow: hidden;
+
+          * {
+            pointer-events: none;
+          }
         }
       }
     }

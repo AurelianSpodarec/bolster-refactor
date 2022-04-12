@@ -75,4 +75,4 @@ const OptionValuesListItem = ({
     );
 };
 
-export default withDrag(OptionValuesListItem);
+export default withDrag(OptionValuesListItem, 'PIN_OPTION_VALUES');
