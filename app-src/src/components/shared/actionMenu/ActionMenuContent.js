@@ -2,6 +2,8 @@ import React from 'react';
 
 import useMenuActionsOverflow from './hooks/useActionMenuOverflow';
 
+const actionMenuClassName = 'action-menu';
+
 const ActionMenuContent = ({ children, closeMenu }) => {
     const { ref, isOverflowing, isOverflowChecked } = useMenuActionsOverflow();
 
@@ -11,8 +13,11 @@ const ActionMenuContent = ({ children, closeMenu }) => {
     return (
         <div
             ref={ref}
-            onClick={closeMenu}
-            className={`action-menu ${displayClass} ${overflowClass}`}
+            onClick={e => {
+                const isButtonClicked = !e.target.className.includes(actionMenuClassName);
+                if (isButtonClicked) closeMenu();
+            }}
+            className={`${actionMenuClassName} ${displayClass} ${overflowClass}`}
         >
             {children}
         </div>
