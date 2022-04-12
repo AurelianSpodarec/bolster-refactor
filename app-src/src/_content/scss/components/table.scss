@@ -346,6 +346,10 @@
     &.row-link {
       padding: 0;
 
+      .checkbox {
+        width: 38px;
+      }
+
       a {
         display: block;
         width: 100%;
@@ -355,6 +359,14 @@
 
         &:hover {
           text-decoration: underline;
+        }
+      }
+
+      &.w-checkbox {
+        padding: 0 15px;
+
+        a {
+          padding-left: 8px;
         }
       }
     }
