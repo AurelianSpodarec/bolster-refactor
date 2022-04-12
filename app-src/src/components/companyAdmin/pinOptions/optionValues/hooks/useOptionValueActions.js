@@ -49,12 +49,12 @@ const useOptionValueActions = (typeID, setID) => {
         );
     }
 
-    const enableOptionValue = id => {
-        if (!isPosting) dispatch(enablePinOptionValue(id));
+    const enableOptionValue = option => {
+        if (!isPosting) dispatch(enablePinOptionValue(option));
     };
 
-    const disableOptionValue = id => {
-        if (!isPosting) dispatch(disablePinOptionValue(id));
+    const disableOptionValue = option => {
+        if (!isPosting) dispatch(disablePinOptionValue(option));
     };
 
     useEffect(() => {

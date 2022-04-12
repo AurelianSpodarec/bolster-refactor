@@ -8,8 +8,9 @@ import {
     DISABLE_PIN_OPTION_SET_FAILURE,
 } from 'constants/actionTypes/pinOptions';
 
-export const disablePinOptionSetRequest = () => ({
+export const disablePinOptionSetRequest = payload => ({
     type: DISABLE_PIN_OPTION_SET_REQUEST,
+    payload,
 });
 
 export const disablePinOptionSetSuccess = payload => ({
@@ -17,16 +18,17 @@ export const disablePinOptionSetSuccess = payload => ({
     payload,
 });
 
-export const disablePinOptionSetFailure = error => ({
+export const disablePinOptionSetFailure = (error, payload) => ({
     type: DISABLE_PIN_OPTION_SET_FAILURE,
     error,
+    payload,
 });
 
-export default id => async dispatch => {
-    dispatch(disablePinOptionSetRequest());
+export default set => async dispatch => {
+    dispatch(disablePinOptionSetRequest(set));
 
     return axios
-        .patch(`${API_URL}/pinoptions/sets/${id}/disable`, null, getHeaders())
+        .patch(`${API_URL}/pinoptions/sets/${set.id}/disable`, null, getHeaders())
         .then(res => dispatch(disablePinOptionSetSuccess(res.data)))
-        .catch(err => dispatch(disablePinOptionSetFailure(err.message)));
+        .catch(err => dispatch(disablePinOptionSetFailure(err.message, set)));
 };

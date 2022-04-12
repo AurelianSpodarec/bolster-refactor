@@ -114,7 +114,15 @@ function setsReducer(state = {}, action) {
         case EDIT_PIN_OPTION_SET_SUCCESS:
         case ENABLE_PIN_OPTION_SET_SUCCESS:
         case DISABLE_PIN_OPTION_SET_SUCCESS:
+        case ENABLE_PIN_OPTION_SET_FAILURE:
+        case DISABLE_PIN_OPTION_SET_FAILURE:
             return updateObj(state, action.payload.id, action.payload);
+        case ENABLE_PIN_OPTION_SET_REQUEST:
+        case DISABLE_PIN_OPTION_SET_REQUEST:
+            return updateObj(state, action.payload.id, {
+                ...action.payload,
+                isDisabled: !action.payload.isDisabled,
+            });
         default:
             return state;
     }
