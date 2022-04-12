@@ -29,9 +29,9 @@ const OptionValuesListItem = ({
                     checked={!isDisabled}
                     handleChange={(_, value) => {
                         if (value) {
-                            enableOptionValue(id);
+                            enableOptionValue(option);
                         } else {
-                            disableOptionValue(id);
+                            disableOptionValue(option);
                         }
                     }}
                 />

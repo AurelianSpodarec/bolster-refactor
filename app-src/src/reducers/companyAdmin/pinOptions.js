@@ -102,7 +102,15 @@ function optionsReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case ENABLE_PIN_OPTION_VALUE_SUCCESS:
         case DISABLE_PIN_OPTION_VALUE_SUCCESS:
+        case ENABLE_PIN_OPTION_VALUE_FAILURE:
+        case DISABLE_PIN_OPTION_VALUE_FAILURE:
             return updateObj(state, action.payload.id, action.payload);
+        case ENABLE_PIN_OPTION_VALUE_REQUEST:
+        case DISABLE_PIN_OPTION_VALUE_REQUEST:
+            return updateObj(state, action.payload.id, {
+                ...action.payload,
+                isDisabled: !action.payload.isDisabled,
+            });
         default:
             return state;
     }

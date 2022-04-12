@@ -48,12 +48,12 @@ const useOptionSetActions = selectedTypeID => {
         );
     };
 
-    const enableOptionSet = id => {
-        if (!isPosting) dispatch(enablePinOptionSet(id));
+    const enableOptionSet = set => {
+        if (!isPosting) dispatch(enablePinOptionSet(set));
     };
 
-    const disableOptionSet = id => {
-        if (!isPosting) dispatch(disablePinOptionSet(id));
+    const disableOptionSet = set => {
+        if (!isPosting) dispatch(disablePinOptionSet(set));
     };
 
     useEffect(() => {

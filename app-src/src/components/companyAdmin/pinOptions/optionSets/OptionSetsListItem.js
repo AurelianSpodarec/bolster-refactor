@@ -26,11 +26,11 @@ const OptionSetsListItem = ({
                         text={isDisabled ? 'Enable' : 'Disable'}
                         onClick={() => {
                             if (isDisabled) {
-                                enableOptionSet(id);
+                                enableOptionSet(set);
                                 return;
                             }
 
-                            disableOptionSet(id);
+                            disableOptionSet(set);
                         }}
                     />
                     <ActionMenuActionButton
