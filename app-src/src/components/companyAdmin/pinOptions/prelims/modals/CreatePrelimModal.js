@@ -10,7 +10,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
 const CreatePrelimModal = () => {
-    const { form, handleChange, handleSubmit, isPosting } = useCreatePrelim();
+    const { form, handleChange, handleSubmit, isPosting, prelimsOptions } = useCreatePrelim();
 
     return (
         <ModalOuterContainer>
@@ -31,7 +31,7 @@ const CreatePrelimModal = () => {
                     <DropdownContainer
                         placeholder="Choose prelim type"
                         name="type"
-                        options={[{ value: 1, text: 'percent' }]}
+                        options={Object.values(prelimsOptions)}
                         value={form.type}
                         selectedOption={form.type}
                         handleChange={handleChange}

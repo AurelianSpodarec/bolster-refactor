@@ -12,12 +12,15 @@ import {
 } from 'selectors/companyAdmin/prelims';
 import createPrelim from 'actions/companyAdmin/prelims/async/createPrelim';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import { convertEnumToDropdownOptions } from 'helpers/generic';
+import { PRELIMS_ENUM } from 'constants/companyAdmin/enums';
 
 const useCreatePrelim = () => {
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPrelimIsPosting);
     const postError = useSelector(selectPrelimPostError);
     const postSuccess = useSelector(selectPrelimPostSuccess);
+    const prelimsOptions = convertEnumToDropdownOptions(PRELIMS_ENUM);
 
     const [form, handleChange] = useForm({
         name: '',
@@ -41,7 +44,7 @@ const useCreatePrelim = () => {
         if (postSuccess) dispatch(hideModal());
     }, [postSuccess]);
 
-    return { form, handleChange, handleSubmit, isPosting };
+    return { form, handleChange, handleSubmit, isPosting, prelimsOptions };
 };
 
 export default useCreatePrelim;
