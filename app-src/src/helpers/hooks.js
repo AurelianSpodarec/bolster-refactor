@@ -375,7 +375,6 @@ export const useConfirmDarkTheme = (profileLink = '/profile') => {
             (history.location.pathname === profileLink &&
                 prevProps.history.location.pathName !== profileLink)
         ) {
-            console.log('should be huiding modal');
             dispatch(hideModal());
         }
     }, [isDarkThemeConfirmed, prevProps, history]); // hide modal when usrer confirms
