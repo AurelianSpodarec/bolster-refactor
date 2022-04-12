@@ -24,20 +24,20 @@ const useOptionValueActions = (typeID, setID) => {
 
     const prevProps = usePrevious({ postError });
 
-    function showAddModal() {
+    const showAddModal = () => {
         dispatch(
             showModal(CREATE_PIN_OPTIONS_VALUE_MODAL, {
                 pinOptionTypeID: typeID,
                 pinOptionSetID: parseInt(setID),
             }),
         );
-    }
+    };
 
-    function showEditModal(option) {
+    const showEditModal = option => {
         dispatch(showModal(EDIT_PIN_OPTIONS_VALUE_MODAL, { option }));
-    }
+    };
 
-    function showDeleteModal(option) {
+    const showDeleteModal = option => {
         dispatch(
             showModal(CONFIRM_SUBMIT, {
                 handleSubmit: () => console.log('delete...'),
@@ -47,7 +47,7 @@ const useOptionValueActions = (typeID, setID) => {
                 submitButtonIcon: 'trash-alt',
             }),
         );
-    }
+    };
 
     const enableOptionValue = option => {
         if (!isPosting) dispatch(enablePinOptionValue(option));
