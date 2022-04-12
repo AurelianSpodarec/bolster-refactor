@@ -7,6 +7,8 @@ import { isEmpty } from 'helpers/generic';
 
 import useFilterOptionValues from './hooks/useFilterOptionsValues';
 import useGetOptionsForSet from './hooks/useGetOptionsForSet';
+import useOptionValueActions from './hooks/useOptionValueActions';
+import useUpdateOptionValueSort from './hooks/useUpdateOptionValueSort';
 
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 
@@ -16,11 +18,8 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import OptionValuesListItem from './OptionValuesListItem';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import useOptionValueActions from './hooks/useOptionValueActions';
 
 const OptionValuesList = ({ forwardRef }) => {
-    const [isSorting, setIsSorting] = useState(false);
-
     const { setID, type } = useParams();
     const typeID = PIN_OPTION_TYPES_LOOKUP[type];
 
@@ -31,6 +30,9 @@ const OptionValuesList = ({ forwardRef }) => {
 
     const { showAddModal, showEditModal, showDeleteModal, enableOptionValue, disableOptionValue } =
         useOptionValueActions(typeID, setID);
+
+    const { isSorting, handleToggleSort, handleUpdateSort } =
+        useUpdateOptionValueSort(pinOptionsForSet);
 
     return (
         <>
@@ -82,18 +84,13 @@ const OptionValuesList = ({ forwardRef }) => {
                             enableOptionValue={enableOptionValue}
                             disableOptionValue={disableOptionValue}
                             isSorting={isSorting}
-                            onDrop={() => console.log('DROPPED')}
+                            onDrop={handleUpdateSort}
                         />
                     ))}
                 </tbody>
             </Table>
         </>
     );
-
-    function handleToggleSort() {
-        if (isSorting) setIsSorting(false);
-        else setIsSorting(true);
-    }
 };
 
 export default withDropZone(OptionValuesList);
