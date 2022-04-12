@@ -15,6 +15,7 @@ const OptionValuesListItem = ({
     setID,
     typeID,
     showEditModal,
+    showDeleteModal,
 }) => {
     const [isOptionDisabled, setIsOptionDisabled] = useState(isDisabled);
     const typeLink = PIN_OPTION_TYPES[typeID].link;
@@ -40,7 +41,7 @@ const OptionValuesListItem = ({
                         <ActionMenuActionButton text="Edit" onClick={() => showEditModal(option)} />
                         <ActionMenuActionButton
                             text="Delete"
-                            onClick={() => console.log('delete')}
+                            onClick={() => showDeleteModal(option)}
                             isNegative
                         />
                     </ActionMenu>

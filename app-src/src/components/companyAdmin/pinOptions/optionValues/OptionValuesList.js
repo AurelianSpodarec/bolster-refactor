@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import { PIN_OPTION_TYPES_LOOKUP } from 'constants/companyAdmin/enums';
 import {
+    CONFIRM_SUBMIT,
     CREATE_PIN_OPTIONS_VALUE_MODAL,
     EDIT_PIN_OPTIONS_VALUE_MODAL,
 } from 'constants/shared/modalTypes';
@@ -69,6 +70,7 @@ const OptionValuesList = () => {
                         setID={setID}
                         typeID={typeID}
                         showEditModal={showEditModal}
+                        showDeleteModal={showDeleteModal}
                     />
                 ))}
             </Table>
@@ -86,6 +88,18 @@ const OptionValuesList = () => {
 
     function showEditModal(option) {
         dispatch(showModal(EDIT_PIN_OPTIONS_VALUE_MODAL, { option }));
+    }
+
+    function showDeleteModal(option) {
+        dispatch(
+            showModal(CONFIRM_SUBMIT, {
+                handleSubmit: () => console.log('delete...'),
+                title: `Delete ${option.name}?`,
+                message: 'Are you sure you would like to delete this option?',
+                submitButtonText: 'Delete',
+                submitButtonIcon: 'trash-alt',
+            }),
+        );
     }
 };
 
