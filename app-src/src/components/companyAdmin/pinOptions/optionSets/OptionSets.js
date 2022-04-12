@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { isEmpty } from 'helpers/generic';
 import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 import {
+    CONFIRM_SUBMIT,
     CREATE_PIN_OPTIONS_SET_MODAL,
     EDIT_PIN_OPTIONS_SET_MODAL,
 } from 'constants/shared/modalTypes';
@@ -86,6 +87,7 @@ const OptionSets = ({ selectedTypeID }) => {
                         set={set}
                         setLink={setLink}
                         showEditModal={showEditModal}
+                        showDeleteModal={showDeleteModal}
                     />
                 ))}
             </Table>
@@ -102,6 +104,18 @@ const OptionSets = ({ selectedTypeID }) => {
 
     function showEditModal(set) {
         dispatch(showModal(EDIT_PIN_OPTIONS_SET_MODAL, { set }));
+    }
+
+    function showDeleteModal(set) {
+        dispatch(
+            showModal(CONFIRM_SUBMIT, {
+                handleSubmit: () => console.log('delete...'),
+                title: `Delete ${set.name}?`,
+                message: 'Are you sure you would like to delete this set?',
+                submitButtonText: 'Delete',
+                submitButtonIcon: 'trash-alt',
+            }),
+        );
     }
 };
 
