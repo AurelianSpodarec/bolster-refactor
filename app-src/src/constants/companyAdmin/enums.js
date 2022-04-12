@@ -772,11 +772,16 @@ export const sendToEnum = {
 };
 
 export const PRELIMS_SVG = {
-    1: 'percentSvg',
-    2: 'fixPriceSvg',
+    10: 'percentSvg',
+    20: 'fixPriceSvg',
 };
 
 export const PRELIMS_TYPES = {
-    PERCENT: 1,
-    FIX_PRICE: 2,
+    PERCENT: 10,
+    FIX_PRICE: 20,
+};
+
+export const PRELIMS_ENUM = {
+    10: 'Percent',
+    20: 'Fix price',
 };
