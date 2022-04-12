@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
 import {
     CREATE_PRELIM_FAILURE,
     CREATE_PRELIM_REQUEST,
@@ -24,6 +24,9 @@ export default combineReducers({
     isPosting: isPostingReducer,
     postSuccess: postSuccessReducer,
     prelims: prelimsReducer,
+    isDeleting: isDeletingReducer,
+    deletionError: deletionErrorReducer,
+    deleteSuccess: deleteSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -45,11 +48,26 @@ function isPostingReducer(state = false, action) {
     switch (action.type) {
         case CREATE_PRELIM_REQUEST:
         case EDIT_PRELIM_REQUEST:
+        case DELETE_PRELIM_REQUEST:
             return true;
         case CREATE_PRELIM_FAILURE:
         case CREATE_PRELIM_SUCCESS:
         case EDIT_PRELIM_FAILURE:
         case EDIT_PRELIM_SUCCESS:
+        case DELETE_PRELIM_FAILURE:
+        case DELETE_PRELIM_SUCCESS:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function isDeletingReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_PRELIM_REQUEST:
+            return true;
+        case DELETE_PRELIM_SUCCESS:
+        case DELETE_PRELIM_FAILURE:
             return false;
         default:
             return state;
@@ -60,12 +78,23 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_PRELIM_REQUEST:
         case CREATE_PRELIM_FAILURE:
-        case DELETE_PRELIM_SUCCESS:
         case EDIT_PRELIM_REQUEST:
+        case DELETE_PRELIM_REQUEST:
             return false;
         case CREATE_PRELIM_SUCCESS:
-        case DELETE_PRELIM_REQUEST:
+        case DELETE_PRELIM_SUCCESS:
         case EDIT_PRELIM_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_PRELIM_REQUEST:
+            return false;
+        case DELETE_PRELIM_SUCCESS:
             return true;
         default:
             return state;
@@ -89,6 +118,17 @@ function errorReducer(state = null, action) {
     }
 }
 
+function deletionErrorReducer(state = null, action) {
+    switch (action.type) {
+        case DELETE_PRELIM_REQUEST:
+            return null;
+        case DELETE_PRELIM_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
 function prelimsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_ALL_PRELIMS_SUCCESS:
@@ -97,6 +137,8 @@ function prelimsReducer(state = {}, action) {
         case EDIT_PRELIM_SUCCESS:
         case CREATE_PRELIM_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+        case DELETE_PRELIM_SUCCESS:
+            return removeObjItem(state, action.id);
         default:
             return state;
     }

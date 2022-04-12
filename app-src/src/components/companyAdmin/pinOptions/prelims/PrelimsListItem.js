@@ -37,7 +37,7 @@ const PrelimsListItem = ({ set, showEditModal, showDeleteModal }) => {
                         <ActionMenuActionButton text="Edit" onClick={() => showEditModal(set)} />
                         <ActionMenuActionButton
                             text="Delete"
-                            onClick={() => console.log('delete')}
+                            onClick={() => showDeleteModal(set)}
                             isNegative
                         />
                     </ActionMenu>

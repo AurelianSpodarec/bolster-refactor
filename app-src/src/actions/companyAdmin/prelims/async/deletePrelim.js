@@ -12,9 +12,9 @@ export const deletePrelimRequest = () => ({
     type: DELETE_PRELIM_REQUEST,
 });
 
-export const deletePrelimSuccess = payload => ({
+export const deletePrelimSuccess = id => ({
     type: DELETE_PRELIM_SUCCESS,
-    payload,
+    id,
 });
 
 export const deletePrelimFailure = error => ({
@@ -27,6 +27,6 @@ export default id => dispatch => {
 
     return axios
         .delete(`${API_URL}/prelims/${id}`, getHeaders())
-        .then(({ data }) => dispatch(deletePrelimSuccess(data)))
+        .then(() => dispatch(deletePrelimSuccess(id)))
         .catch(error => dispatch(deletePrelimFailure(error)));
 };

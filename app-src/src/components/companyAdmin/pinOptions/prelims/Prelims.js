@@ -12,13 +12,14 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import useFetchPrelims from './hooks/useFetchPrelims';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import {
+    CONFIRM_SUBMIT,
     CREATE_PRELIM_MODAL,
-    DELETE_PRELIM_MODAL,
     EDIT_PRELIM_MODAL,
 } from 'constants/shared/modalTypes';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import PrelimsListItem from './PrelimsListItem';
+import deletePrelim from 'actions/companyAdmin/prelims/async/deletePrelim';
 
 const Prelims = () => {
     const dispatch = useDispatch();
@@ -71,12 +72,20 @@ const Prelims = () => {
         dispatch(showModal(CREATE_PRELIM_MODAL));
     }
 
-    function showDeleteModal() {
-        dispatch(showModal(DELETE_PRELIM_MODAL));
-    }
-
     function showEditModal(set) {
         dispatch(showModal(EDIT_PRELIM_MODAL, { set }));
+    }
+
+    function showDeleteModal(set) {
+        dispatch(
+            showModal(CONFIRM_SUBMIT, {
+                handleSubmit: () => dispatch(deletePrelim(set.id)),
+                title: `Delete ${set.name}?`,
+                message: 'Are you sure you would like to delete this set?',
+                submitButtonText: 'Delete',
+                submitButtonIcon: 'trash-alt',
+            }),
+        );
     }
 };
 
