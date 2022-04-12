@@ -388,12 +388,14 @@ button {
     white-space: nowrap;
 
     .text {
-        + .icon {
+        + .icon, + .custom-icon {
             margin-left: 8px;
         }
     }
 
     .icon {
+        height: 15px;
+
         + .text {
             margin-left: 8px;
         }
@@ -402,6 +404,7 @@ button {
     .custom-icon {
         width: 15px;
         height: 15px;
+        
         + .text {
             margin-left: 8px;
         }
@@ -417,7 +420,7 @@ button {
     }
 
     &.icon-only {
-        padding: 12px;
+        padding: 11px 12px;
 
         .icon {
             margin-left: 0;
@@ -433,7 +436,16 @@ button {
         border-radius: 4px;
 
         &.icon-only {
-            padding: 6px;
+            padding: 5px 6px;
+        }
+
+        .icon {
+            height: 12px;
+        }
+
+        .custom-icon {
+            width: 12px;
+            height: 12px;
         }
     }
 

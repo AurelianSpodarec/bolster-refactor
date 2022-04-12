@@ -41,9 +41,10 @@ const ActionButton = ({
             data-size={size}
         >
             {icon && !iconRight && <i className={dynamicIconClass}></i>}
-            {!icon && customIcon && <img className="custom-icon" src={customIcon} />}
+            {!icon && customIcon && !iconRight && <img className="custom-icon" src={customIcon} />}
             {text && !iconOnly && <span className="text">{text}</span>}
             {icon && iconRight && <i className={dynamicIconClass}></i>}
+            {!icon && customIcon && iconRight && <img className="custom-icon" src={customIcon} />}
         </button>
     );
 };
