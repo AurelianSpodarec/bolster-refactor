@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 
 import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 
@@ -16,8 +15,9 @@ const OptionValuesListItem = ({
     typeID,
     showEditModal,
     showDeleteModal,
+    enableOptionValue,
+    disableOptionValue,
 }) => {
-    const [isOptionDisabled, setIsOptionDisabled] = useState(isDisabled);
     const typeLink = PIN_OPTION_TYPES[typeID].link;
 
     return (
@@ -26,8 +26,14 @@ const OptionValuesListItem = ({
                 <CheckboxContainer
                     text={name}
                     name={`pin-option-checkbox-${id}`}
-                    checked={!isOptionDisabled}
-                    handleChange={(_, value) => setIsOptionDisabled(!value)}
+                    checked={!isDisabled}
+                    handleChange={(_, value) => {
+                        if (value) {
+                            enableOptionValue(id);
+                        } else {
+                            disableOptionValue(id);
+                        }
+                    }}
                 />
             </td>
             <td>

@@ -63,6 +63,8 @@ function isPostingReducer(state = false, action) {
         case EDIT_PIN_OPTION_SET_SUCCESS:
         case EDIT_PIN_OPTION_SET_FAILURE:
         case ENABLE_PIN_OPTION_SET_SUCCESS:
+        case ENABLE_PIN_OPTION_SET_FAILURE:
+        case DISABLE_PIN_OPTION_SET_SUCCESS:
         case DISABLE_PIN_OPTION_SET_FAILURE:
             return false;
         default:
@@ -79,6 +81,7 @@ function postErrorReducer(state = null, action) {
             return null;
         case CREATE_PIN_OPTION_SET_FAILURE:
         case EDIT_PIN_OPTION_SET_FAILURE:
+        case ENABLE_PIN_OPTION_SET_FAILURE:
         case DISABLE_PIN_OPTION_SET_FAILURE:
             return action.error;
         default:
@@ -96,6 +99,7 @@ function postSuccessReducer(state = false, action) {
         case CREATE_PIN_OPTION_SET_SUCCESS:
         case EDIT_PIN_OPTION_SET_SUCCESS:
         case ENABLE_PIN_OPTION_SET_SUCCESS:
+        case DISABLE_PIN_OPTION_SET_SUCCESS:
             return true;
         default:
             return state;
@@ -109,6 +113,7 @@ function setsReducer(state = {}, action) {
         case CREATE_PIN_OPTION_SET_SUCCESS:
         case EDIT_PIN_OPTION_SET_SUCCESS:
         case ENABLE_PIN_OPTION_SET_SUCCESS:
+        case DISABLE_PIN_OPTION_SET_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
