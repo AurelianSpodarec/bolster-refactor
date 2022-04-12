@@ -26,7 +26,7 @@ export default id => async dispatch => {
     dispatch(disablePinOptionSetRequest());
 
     return axios
-        .patch(`${API_URL}/pinoptions/sets/${id}/disable?undo=false`, null, getHeaders())
+        .patch(`${API_URL}/pinoptions/sets/${id}/disable`, null, getHeaders())
         .then(res => dispatch(disablePinOptionSetSuccess(res.data)))
         .catch(err => dispatch(disablePinOptionSetFailure(err.message)));
 };
