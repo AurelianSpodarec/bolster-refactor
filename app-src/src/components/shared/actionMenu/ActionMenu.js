@@ -19,8 +19,9 @@ const ActionMenu = ({ children, ellipsisPosition = 'right', disabled = false }) 
                 data-position={ellipsisPosition}
                 onClick={e => {
                     e.preventDefault();
-                    if (!disabled) setShowMenu(true);
+                    setShowMenu(true);
                 }}
+                disabled={disabled}
             >
                 <i className="fa fa-ellipsis-v" />
             </button>

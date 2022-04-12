@@ -38,4 +38,8 @@
     &[data-position="center"] {
         margin: 0 15px;
     }
+
+    &:disabled {
+        opacity: 0.3;
+    }
 }
