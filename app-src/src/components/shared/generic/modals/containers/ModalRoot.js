@@ -129,7 +129,6 @@ import {
     CREATE_PIN_OPTIONS_SET_MODAL,
     CREATE_PIN_OPTIONS_VALUE_MODAL,
     CREATE_PRELIM_MODAL,
-    DELETE_PRELIM_MODAL,
     EDIT_PRELIM_MODAL,
     EDIT_PIN_OPTIONS_SET_MODAL,
     EDIT_PIN_OPTIONS_VALUE_MODAL,
@@ -261,7 +260,6 @@ import ConfirmDarkThemeModal from '../presentational/ConfirmDarkThemeModal';
 import CreateOptionSetModal from 'components/companyAdmin/pinOptions/optionSets/modals/CreateOptionSetModal';
 import CreateOptionValueModal from 'components/companyAdmin/pinOptions/optionValues/modals/CreateOptionValueModal';
 import CreatePrelimModal from 'components/companyAdmin/pinOptions/prelims/modals/CreatePrelimModal';
-import DeletePrelimModal from 'components/companyAdmin/pinOptions/prelims/modals/DeletePrelimModal';
 import EditPrelimModal from 'components/companyAdmin/pinOptions/prelims/modals/EditPrelimModal';
 import EditOptionSetModal from 'components/companyAdmin/pinOptions/optionSets/modals/EditOptionSetModal';
 import EditOptionValueModal from 'components/companyAdmin/pinOptions/optionValues/modals/EditOptionValueModal';
@@ -394,7 +392,6 @@ const MODAL_COMPONENTS = {
     [CREATE_PIN_OPTIONS_SET_MODAL]: CreateOptionSetModal,
     [CREATE_PIN_OPTIONS_VALUE_MODAL]: CreateOptionValueModal,
     [CREATE_PRELIM_MODAL]: CreatePrelimModal,
-    [DELETE_PRELIM_MODAL]: DeletePrelimModal,
     [EDIT_PRELIM_MODAL]: EditPrelimModal,
     [EDIT_PIN_OPTIONS_SET_MODAL]: EditOptionSetModal,
     [EDIT_PIN_OPTIONS_VALUE_MODAL]: EditOptionValueModal,

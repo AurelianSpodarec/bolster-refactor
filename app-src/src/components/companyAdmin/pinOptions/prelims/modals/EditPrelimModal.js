@@ -12,7 +12,7 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const EditPrelimModal = ({ set }) => {
-    const { form, handleChange, isPosting, handleSubmit } = useEditPrelim(set);
+    const { form, handleChange, isPosting, handleSubmit, prelimsOptions } = useEditPrelim(set);
 
     return (
         <ModalOuterContainer>
@@ -33,9 +33,9 @@ const EditPrelimModal = ({ set }) => {
                     <DropdownContainer
                         placeholder="Choose prelim type"
                         name="type"
-                        options={[{ value: 10, text: 'percent' }]}
-                        value={form.type}
-                        selectedOption={form.type}
+                        options={Object.values(prelimsOptions)}
+                        value={prelimsOptions[form.type]}
+                        selectedOption={prelimsOptions[form.type]}
                         handleChange={handleChange}
                         required
                     />
