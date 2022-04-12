@@ -44,9 +44,12 @@ function isFetchingReducer(state = false, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case CREATE_PRELIM_REQUEST:
+        case EDIT_PRELIM_REQUEST:
             return true;
         case CREATE_PRELIM_FAILURE:
         case CREATE_PRELIM_SUCCESS:
+        case EDIT_PRELIM_FAILURE:
+        case EDIT_PRELIM_SUCCESS:
             return false;
         default:
             return state;
@@ -58,9 +61,11 @@ function postSuccessReducer(state = false, action) {
         case CREATE_PRELIM_REQUEST:
         case CREATE_PRELIM_FAILURE:
         case DELETE_PRELIM_SUCCESS:
+        case EDIT_PRELIM_REQUEST:
             return false;
         case CREATE_PRELIM_SUCCESS:
         case DELETE_PRELIM_REQUEST:
+        case EDIT_PRELIM_SUCCESS:
             return true;
         default:
             return state;

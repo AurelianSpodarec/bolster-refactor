@@ -27,7 +27,7 @@ export default (id, postBody) => dispatch => {
     dispatch(editPrelimRequest());
 
     axios
-        .post(`${API_URL}/prelims/${id}`, postBody, getHeaders())
+        .patch(`${API_URL}/prelims/${id}`, postBody, getHeaders())
         .then(result => dispatch(editPrelimSuccess(result.data)))
         .catch(error => {
             dispatch(editPrelimFailure(error));

@@ -16,17 +16,9 @@ import {
     DELETE_PRELIM_MODAL,
     EDIT_PRELIM_MODAL,
 } from 'constants/shared/modalTypes';
-import { PRELIMS_TYPES } from 'constants/companyAdmin/enums';
-import percentSvg from '../../../../_content/images/frontend/percentIcon.svg';
-import fixPriceSvg from '../../../../_content/images/frontend/fixPriceIcon.svg';
-import fixPriceSvgForLightMode from '../../../../_content/images/frontend/fixPriceIconForLightMode.svg';
-import percentSvgForLightMode from '../../../../_content/images/frontend/percentIconForLightMode.svg';
-import useColourTheme from 'hooks/useColourTheme';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionMenu from 'components/shared/actionMenu/ActionMenu';
-import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
-import editPrelim from 'actions/companyAdmin/prelims/async/editPrelim';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import PrelimsListItem from './PrelimsListItem';
 
 const Prelims = () => {
     const dispatch = useDispatch();
@@ -34,7 +26,6 @@ const Prelims = () => {
     const { searchTerm, handleUpdateSearch } = useSearch();
     const { allPrelims, isFetchingPrelims, prelimsError } = useFetchPrelims();
     const filteredPrelims = useFilterPrelims(allPrelims, searchTerm);
-    const colourTheme = useColourTheme();
 
     return (
         <>
@@ -65,40 +56,12 @@ const Prelims = () => {
                 error={prelimsError}
             >
                 {filteredPrelims.map(set => (
-                    <tr key={set.id}>
-                        <td>{set.name}</td>
-                        <td>
-                            <img
-                                src={
-                                    colourTheme === 'dark'
-                                        ? set.type === PRELIMS_TYPES.PERCENT
-                                            ? percentSvg
-                                            : fixPriceSvg
-                                        : set.type === PRELIMS_TYPES.PERCENT
-                                        ? percentSvgForLightMode
-                                        : fixPriceSvgForLightMode
-                                }
-                                alt="Type of payment"
-                            />
-                        </td>
-                        <td>{set.value}</td>
-
-                        <td>
-                            <ButtonWrapper alignment="right">
-                                <ActionMenu>
-                                    <ActionMenuActionButton
-                                        text="Edit"
-                                        onClick={() => showEditModal(set.id)}
-                                    />
-                                    <ActionMenuActionButton
-                                        text="Delete"
-                                        onClick={() => console.log('delete')}
-                                        isNegative
-                                    />
-                                </ActionMenu>
-                            </ButtonWrapper>
-                        </td>
-                    </tr>
+                    <PrelimsListItem
+                        key={set.id}
+                        set={set}
+                        showEditModal={showEditModal}
+                        showDeleteModal={showDeleteModal}
+                    />
                 ))}
             </Table>
         </>
@@ -112,8 +75,8 @@ const Prelims = () => {
         dispatch(showModal(DELETE_PRELIM_MODAL));
     }
 
-    function showEditModal() {
-        dispatch(showModal(EDIT_PRELIM_MODAL));
+    function showEditModal(set) {
+        dispatch(showModal(EDIT_PRELIM_MODAL, { set }));
     }
 };
 

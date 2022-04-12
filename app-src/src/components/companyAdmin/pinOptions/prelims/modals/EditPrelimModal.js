@@ -8,14 +8,15 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
-const EditPrelimModal = ({ id }) => {
-    const { form, handleChange, closeModal, isFetching, isPosting, error, handleSubmit } =
-        useEditPrelim(id);
+const EditPrelimModal = ({ set }) => {
+    const { form, handleChange, isPosting, handleSubmit } = useEditPrelim(set);
 
     return (
         <ModalOuterContainer>
-            <BlockHeading title="Edit prelim" />
+            <BlockHeading title={`Edit ${set.name}`} />
 
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
                 <Field name="Name" required>
@@ -32,7 +33,7 @@ const EditPrelimModal = ({ id }) => {
                     <DropdownContainer
                         placeholder="Choose prelim type"
                         name="type"
-                        options={[{ value: 1, text: 'percent' }]}
+                        options={[{ value: 10, text: 'percent' }]}
                         value={form.type}
                         selectedOption={form.type}
                         handleChange={handleChange}
@@ -51,12 +52,17 @@ const EditPrelimModal = ({ id }) => {
                 </Field>
 
                 <BlockButtonWrapper>
-                    <button
-                        className={`button green ${isPosting ? 'disabled' : ''}`}
-                        disabled={isPosting}
-                    >
-                        <i className={`fa fa-${isPosting ? 'spinner fa-spin' : 'save'}`}></i> Save
-                    </button>
+                    <ButtonWrapper alignment="right">
+                        <ActionButton
+                            text="Save"
+                            icon={isPosting ? 'spinner' : 'save'}
+                            iconSpin={isPosting}
+                            ambient="positive"
+                            size="medium"
+                            disabled={isPosting}
+                            type="submit"
+                        />
+                    </ButtonWrapper>
                 </BlockButtonWrapper>
             </Form>
         </ModalOuterContainer>
