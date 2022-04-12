@@ -1,7 +1,7 @@
 import editPrelim from 'actions/companyAdmin/prelims/async/editPrelim';
-import fetchPrelim from 'actions/companyAdmin/prelims/async/fetchPrelim';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import { EDIT_PRELIM_MODAL } from 'constants/shared/modalTypes';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { ERROR_MODAL } from 'constants/shared/modalTypes';
 import { useForm, usePrevious } from 'helpers/hooks';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,40 +9,37 @@ import {
     selectPrelimIsPosting,
     selectPrelimPostError,
     selectPrelimPostSuccess,
-    selectSinglePrelim,
 } from 'selectors/companyAdmin/prelims';
 
-const useEditPrelim = id => {
+const useEditPrelim = set => {
     const dispatch = useDispatch();
-
-    const prelim = useSelector(state => selectSinglePrelim(state, id));
-    const prelimPostSuccess = useSelector(selectPrelimPostSuccess);
-    const prelimPostError = useSelector(selectPrelimPostError);
-    const prelimIsPosting = useSelector(selectPrelimIsPosting);
-    const prevPinTasksPostSuccess = usePrevious(prelimPostSuccess);
+    const isPosting = useSelector(selectPrelimIsPosting);
+    const postError = useSelector(selectPrelimPostError);
+    const postSuccess = useSelector(selectPrelimPostSuccess);
+    const prevProps = usePrevious({ postError, postSuccess });
 
     const [form, handleChange] = useForm({
-        name: prelim?.name,
-        type: prelim?.type,
-        value: prelim?.value,
+        name: set?.name,
+        type: set?.type,
+        value: set?.value,
     });
 
-    useEffect(() => {
-        if (!prevPinTasksPostSuccess && prelimPostSuccess) closeModal();
-    }, [prelimPostSuccess]);
-
-    const closeModal = () => dispatch(hideModal(EDIT_PRELIM_MODAL));
-
     const handleSubmit = () => {
-        dispatch(editPrelim(id, form));
+        dispatch(editPrelim(set.id, form));
     };
+
+    useEffect(() => {
+        if (postError && !prevProps.postError) dispatch(showModal(ERROR_MODAL));
+    }, [postError, prevProps.postError]);
+
+    useEffect(() => {
+        if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
+    }, [postSuccess, prevProps.postSuccess]);
 
     return {
         form,
         handleChange,
-        closeModal,
-        isPosting: prelimIsPosting,
-        error: prelimPostError,
+        isPosting,
         handleSubmit,
     };
 };
