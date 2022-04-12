@@ -11,7 +11,6 @@ import DropdownContainer from 'components/shared/generic/form/containers/Dropdow
 
 const CreatePrelimModal = () => {
     const { form, handleChange, handleSubmit, isPosting, prelimsOptions } = useCreatePrelim();
-    console.log(form.type);
 
     return (
         <ModalOuterContainer>
