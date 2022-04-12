@@ -2,12 +2,13 @@ import React from 'react';
 
 import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 
+import withDrag from 'components/shared/dragDrop/hocs/withDrag';
+
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
-import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 
 const OptionValuesListItem = ({
     option,

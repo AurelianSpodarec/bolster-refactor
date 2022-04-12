@@ -11,8 +11,11 @@ const useUpdateOptionValueSort = options => {
     const [isSorting, setIsSorting] = useState(false);
 
     const handleToggleSort = () => {
-        if (isSorting) setIsSorting(false);
-        else setIsSorting(true);
+        if (isSorting) {
+            setIsSorting(false);
+        } else {
+            setIsSorting(true);
+        }
     };
 
     const handleUpdateSort = () => {
@@ -24,8 +27,6 @@ const useUpdateOptionValueSort = options => {
         const [item] = items.splice(fromIndex, 1);
         items.splice(overindex, 0, item);
         const sorted = items.map((x, i) => ({ ...x, sort: i + 1 }));
-        console.log('sorted');
-        console.log(sorted);
         reorderPinOptionValues(sorted);
     };
 

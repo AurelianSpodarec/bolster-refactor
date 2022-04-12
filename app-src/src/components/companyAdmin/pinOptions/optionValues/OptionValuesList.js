@@ -25,14 +25,16 @@ const OptionValuesList = ({ forwardRef }) => {
 
     const pinOptionsForSet = useGetOptionsForSet(typeID, parseInt(setID));
 
-    const { filteredOptionValues, searchTerm, handleUpdateSearch } =
-        useFilterOptionValues(pinOptionsForSet);
+    const { isSorting, handleToggleSort, handleUpdateSort, moveItem } =
+        useUpdateOptionValueSort(pinOptionsForSet);
+
+    const { filteredOptionValues, searchTerm, handleUpdateSearch } = useFilterOptionValues(
+        pinOptionsForSet,
+        isSorting,
+    );
 
     const { showAddModal, showEditModal, showDeleteModal, enableOptionValue, disableOptionValue } =
         useOptionValueActions(typeID, setID);
-
-    const { isSorting, handleToggleSort, handleUpdateSort, moveItem } =
-        useUpdateOptionValueSort(pinOptionsForSet);
 
     return (
         <>
@@ -42,6 +44,7 @@ const OptionValuesList = ({ forwardRef }) => {
                     value={searchTerm}
                     handleChange={handleUpdateSearch}
                     placeholder="Search"
+                    disabled={isSorting}
                 />
 
                 <ButtonWrapper alignment="right">
@@ -59,6 +62,7 @@ const OptionValuesList = ({ forwardRef }) => {
                         ambient="positive"
                         size="medium"
                         onClick={showAddModal}
+                        disabled={isSorting}
                     />
                 </ButtonWrapper>
             </FilterRow>
