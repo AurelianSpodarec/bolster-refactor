@@ -75,11 +75,13 @@ const OptionValuesList = ({ forwardRef }) => {
                 isFetching={false}
                 error={null}
                 withoutTBody
+                extraClasses={isSorting ? 'dragging' : ''}
             >
                 <tbody ref={isSorting ? forwardRef : null} className={isSorting ? 'dragging' : ''}>
-                    {filteredOptionValues.map(option => (
+                    {filteredOptionValues.map((option, index) => (
                         <OptionValuesListItem
                             key={option.id}
+                            index={index}
                             option={option}
                             setID={setID}
                             typeID={typeID}
