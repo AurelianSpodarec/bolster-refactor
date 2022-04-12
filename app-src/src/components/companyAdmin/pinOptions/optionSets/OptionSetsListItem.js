@@ -7,10 +7,12 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 
 const OptionSetsListItem = ({
     set,
-    set: { id, name },
+    set: { id, name, isDisabled },
     setLink,
     showEditModal,
     showDeleteModal,
+    enableOptionSet,
+    disableOptionSet,
 }) => (
     <tr>
         <td className="row-link">
@@ -20,6 +22,17 @@ const OptionSetsListItem = ({
             <ButtonWrapper alignment="right">
                 <ActionMenu>
                     <ActionMenuActionButton text="Edit" onClick={() => showEditModal(set)} />
+                    <ActionMenuActionButton
+                        text={isDisabled ? 'Enable' : 'Disable'}
+                        onClick={() => {
+                            if (isDisabled) {
+                                enableOptionSet(id);
+                                return;
+                            }
+
+                            disableOptionSet(id);
+                        }}
+                    />
                     <ActionMenuActionButton
                         text="Delete"
                         onClick={() => showDeleteModal(set)}

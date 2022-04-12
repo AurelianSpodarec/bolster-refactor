@@ -12,7 +12,6 @@ import { isEmpty } from 'helpers/generic';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 
-import useSearch from 'hooks/useSearch';
 import useFilterOptionValues from './hooks/useFilterOptionsValues';
 import useGetOptionsForSet from './hooks/useGetOptionsForSet';
 
@@ -31,8 +30,8 @@ const OptionValuesList = () => {
 
     const pinOptionsForSet = useGetOptionsForSet(typeID, parseInt(setID));
 
-    const { searchTerm, handleUpdateSearch } = useSearch();
-    const filteredValues = useFilterOptionValues(pinOptionsForSet, searchTerm);
+    const { filteredOptionValues, searchTerm, handleUpdateSearch } =
+        useFilterOptionValues(pinOptionsForSet);
 
     return (
         <>
@@ -58,12 +57,12 @@ const OptionValuesList = () => {
             <Table
                 headers={['Name', '']}
                 hideHeaders
-                noData={isEmpty(filteredValues)}
+                noData={isEmpty(filteredOptionValues)}
                 noDataMessage="There is no data to display."
                 isFetching={false}
                 error={null}
             >
-                {filteredValues.map(option => (
+                {filteredOptionValues.map(option => (
                     <OptionValuesListItem
                         key={option.id}
                         option={option}

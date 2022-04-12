@@ -1,6 +1,10 @@
 import React from 'react';
 
-const useFilterSets = (sets, searchTerm, selectedTypeID) => {
+import useSearch from 'hooks/useSearch';
+
+const useFilterSets = (sets, selectedTypeID) => {
+    const { searchTerm, handleUpdateSearch } = useSearch();
+
     const getFilteredSets = () => {
         return sets.filter(set => {
             if (!set.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
@@ -11,7 +15,7 @@ const useFilterSets = (sets, searchTerm, selectedTypeID) => {
 
     const filteredSets = getFilteredSets();
 
-    return filteredSets;
+    return { filteredSets, searchTerm, handleUpdateSearch };
 };
 
 export default useFilterSets;

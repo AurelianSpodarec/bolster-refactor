@@ -1,19 +1,11 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
 import { isEmpty } from 'helpers/generic';
 import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
-import {
-    CONFIRM_SUBMIT,
-    CREATE_PIN_OPTIONS_SET_MODAL,
-    EDIT_PIN_OPTIONS_SET_MODAL,
-} from 'constants/shared/modalTypes';
 
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-
-import useSearch from 'hooks/useSearch';
 import useFetchPinOptionSets from 'components/companyAdmin/hooks/useFetchPinOptionSets';
 import useFilterOptionSets from './hooks/useFilterOptionSets';
+import useOptionSetActions from './hooks/useOptionSetActions';
 
 import FilterRow from 'components/shared/filters/FilterRow';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
@@ -23,14 +15,16 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const OptionSets = ({ selectedTypeID }) => {
-    const dispatch = useDispatch();
-
-    const { searchTerm, handleUpdateSearch } = useSearch();
-
     const { pinOptionSetsArr, isFetchingPinOptionSets, pinOptionSetsFetchError } =
         useFetchPinOptionSets();
 
-    const filteredSets = useFilterOptionSets(pinOptionSetsArr, searchTerm, selectedTypeID);
+    const { filteredSets, searchTerm, handleUpdateSearch } = useFilterOptionSets(
+        pinOptionSetsArr,
+        selectedTypeID,
+    );
+
+    const { showAddModal, showEditModal, showDeleteModal, enableOptionSet, disableOptionSet } =
+        useOptionSetActions(selectedTypeID);
 
     const setLink = PIN_OPTION_TYPES[selectedTypeID].link;
 
@@ -52,15 +46,6 @@ const OptionSets = ({ selectedTypeID }) => {
                         size="medium"
                         iconEqualSize
                         onClick={() => console.log('open filters')}
-                    />
-
-                    <ActionButton
-                        icon="sort"
-                        iconOnly
-                        source="secondary"
-                        size="medium"
-                        iconEqualSize
-                        onClick={() => console.log('sort')}
                     />
 
                     <ActionButton
@@ -88,35 +73,13 @@ const OptionSets = ({ selectedTypeID }) => {
                         setLink={setLink}
                         showEditModal={showEditModal}
                         showDeleteModal={showDeleteModal}
+                        enableOptionSet={enableOptionSet}
+                        disableOptionSet={disableOptionSet}
                     />
                 ))}
             </Table>
         </>
     );
-
-    function showAddModal() {
-        dispatch(
-            showModal(CREATE_PIN_OPTIONS_SET_MODAL, {
-                pinOptionTypeID: selectedTypeID,
-            }),
-        );
-    }
-
-    function showEditModal(set) {
-        dispatch(showModal(EDIT_PIN_OPTIONS_SET_MODAL, { set }));
-    }
-
-    function showDeleteModal(set) {
-        dispatch(
-            showModal(CONFIRM_SUBMIT, {
-                handleSubmit: () => console.log('delete...'),
-                title: `Delete ${set.name}?`,
-                message: 'Are you sure you would like to delete this set?',
-                submitButtonText: 'Delete',
-                submitButtonIcon: 'trash-alt',
-            }),
-        );
-    }
 };
 
 export default OptionSets;
