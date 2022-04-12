@@ -11,6 +11,7 @@ import DropdownContainer from 'components/shared/generic/form/containers/Dropdow
 
 const CreatePrelimModal = () => {
     const { form, handleChange, handleSubmit, isPosting, prelimsOptions } = useCreatePrelim();
+    console.log(form.type);
 
     return (
         <ModalOuterContainer>
@@ -29,11 +30,10 @@ const CreatePrelimModal = () => {
 
                 <Field name="Type" required>
                     <DropdownContainer
-                        placeholder="Choose prelim type"
                         name="type"
                         options={Object.values(prelimsOptions)}
-                        value={form.type}
-                        selectedOption={form.type}
+                        value={prelimsOptions[form.type]}
+                        selectedOption={prelimsOptions[form.type]}
                         handleChange={handleChange}
                         required
                     />
