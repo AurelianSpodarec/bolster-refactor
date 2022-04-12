@@ -11,7 +11,11 @@ import FilterRow from 'components/shared/filters/FilterRow';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import useFetchPrelims from './hooks/useFetchPrelims';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-import { CREATE_PRELIM_MODAL, DELETE_PRELIM_MODAL } from 'constants/shared/modalTypes';
+import {
+    CREATE_PRELIM_MODAL,
+    DELETE_PRELIM_MODAL,
+    EDIT_PRELIM_MODAL,
+} from 'constants/shared/modalTypes';
 import { PRELIMS_TYPES } from 'constants/companyAdmin/enums';
 import percentSvg from '../../../../_content/images/frontend/percentIcon.svg';
 import fixPriceSvg from '../../../../_content/images/frontend/fixPriceIcon.svg';
@@ -84,7 +88,7 @@ const Prelims = () => {
                                 <ActionMenu>
                                     <ActionMenuActionButton
                                         text="Edit"
-                                        onClick={() => showDeleteModal(set.id)}
+                                        onClick={() => showEditModal(set.id)}
                                     />
                                     <ActionMenuActionButton
                                         text="Delete"
@@ -106,6 +110,10 @@ const Prelims = () => {
 
     function showDeleteModal() {
         dispatch(showModal(DELETE_PRELIM_MODAL));
+    }
+
+    function showEditModal() {
+        dispatch(showModal(EDIT_PRELIM_MODAL));
     }
 };
 
