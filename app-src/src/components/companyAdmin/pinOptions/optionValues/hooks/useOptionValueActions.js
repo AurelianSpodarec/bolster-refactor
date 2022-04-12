@@ -12,11 +12,11 @@ import { usePrevious } from 'helpers/hooks';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import enablePinOptionValue from 'actions/companyAdmin/pinOptions/async/enablePinOptionValue';
 import disablePinOptionValue from 'actions/companyAdmin/pinOptions/async/disablePinOptionValue';
-import { selectPinOptionSetsPostError } from 'selectors/companyAdmin/pinOptionSets';
+import { selectPinOptionsPostError } from 'selectors/companyAdmin/pinOptions';
 
 const useOptionValueActions = (typeID, setID) => {
     const dispatch = useDispatch();
-    const postError = useSelector(selectPinOptionSetsPostError);
+    const postError = useSelector(selectPinOptionsPostError);
 
     const prevProps = usePrevious({ postError });
 
