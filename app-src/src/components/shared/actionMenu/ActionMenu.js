@@ -25,7 +25,11 @@ const ActionMenu = ({ children, ellipsisPosition = 'right' }) => {
                 <i className="fa fa-ellipsis-v" />
             </button>
 
-            <div ref={ref}>{showMenu && <ActionMenuContent>{children}</ActionMenuContent>}</div>
+            <div ref={ref}>
+                {showMenu && (
+                    <ActionMenuContent closeMenu={closeMenu}>{children}</ActionMenuContent>
+                )}
+            </div>
         </div>
     );
 };
