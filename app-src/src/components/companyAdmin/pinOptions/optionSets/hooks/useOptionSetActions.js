@@ -12,10 +12,14 @@ import { usePrevious } from 'helpers/hooks';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import enablePinOptionSet from 'actions/companyAdmin/pinOptions/async/enablePinOptionSet';
 import disablePinOptionSet from 'actions/companyAdmin/pinOptions/async/disablePinOptionSet';
-import { selectPinOptionSetsPostError } from 'selectors/companyAdmin/pinOptionSets';
+import {
+    selectPinOptionSetsIsPosting,
+    selectPinOptionSetsPostError,
+} from 'selectors/companyAdmin/pinOptionSets';
 
 const useOptionSetActions = selectedTypeID => {
     const dispatch = useDispatch();
+    const isPosting = useSelector(selectPinOptionSetsIsPosting);
     const postError = useSelector(selectPinOptionSetsPostError);
 
     const prevProps = usePrevious({ postError });
@@ -45,11 +49,11 @@ const useOptionSetActions = selectedTypeID => {
     };
 
     const enableOptionSet = id => {
-        dispatch(enablePinOptionSet(id));
+        if (!isPosting) dispatch(enablePinOptionSet(id));
     };
 
     const disableOptionSet = id => {
-        dispatch(disablePinOptionSet(id));
+        if (!isPosting) dispatch(disablePinOptionSet(id));
     };
 
     useEffect(() => {
