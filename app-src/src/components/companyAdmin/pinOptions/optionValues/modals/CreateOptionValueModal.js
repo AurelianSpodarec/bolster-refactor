@@ -12,12 +12,13 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 
 const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const typeNameSingular = PIN_OPTION_TYPES[pinOptionTypeID].singular;
     const typeNameSmallSingular = PIN_OPTION_TYPES_CREATE_VALUE_ENUM[pinOptionTypeID];
 
-    const { form, handleChange, handleSubmit, isPosting } = useCreateOptionValue(
+    const { form, handleChange, handleSubmit, isPosting, serviceOptions } = useCreateOptionValue(
         pinOptionTypeID,
         pinOptionSetID,
     );
@@ -57,6 +58,19 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                         required
                     />
                 </Field>
+
+                {serviceOptions.length > 0 && (
+                    <Field name="Services">
+                        <CheckboxListContainer
+                            name="serviceIDs"
+                            text=""
+                            handleChange={handleChange}
+                            selectedOptions={form.serviceIDs}
+                            options={serviceOptions}
+                            isNumberValues
+                        />
+                    </Field>
+                )}
 
                 <BlockButtonWrapper>
                     <ButtonWrapper alignment="right">
