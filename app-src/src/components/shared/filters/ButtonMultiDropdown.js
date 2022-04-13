@@ -1,9 +1,12 @@
 import React, { useRef, useState } from 'react';
 
+import { ReactComponent as TickIcon } from '_content/images/icons/tick.svg';
+
 import useGetFixedElementPosition from 'hooks/useGetFixedElementPosition';
 import useClickOutside from 'hooks/useClickOutside';
 
 import ActionButton from '../generic/button/presentational/ActionButton';
+import FlexWrapper from '../generic/flexWrapper/FlexWrapper';
 
 const ButtonMultiDropdown = ({
     buttonText = '',
@@ -57,7 +60,10 @@ const ButtonMultiDropdown = ({
                                 onClick={() => _handleChange(value)}
                                 disabled={isDisabled}
                             >
-                                {text}
+                                <span className="text">{text}</span>
+                                <FlexWrapper autoWidth align="center">
+                                    <TickIcon className="icon" />
+                                </FlexWrapper>
                             </button>
                         );
                     })}
