@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
-import useButtonDropdownPosition from './hooks/useButtonDropdownPosition';
+import useGetFixedElementPosition from 'hooks/useGetFixedElementPosition';
 
 import ActionButton from '../generic/button/presentational/ActionButton';
 
@@ -14,7 +14,9 @@ const ButtonMultiDropdown = ({
 }) => {
     const [showList, setShowList] = useState(false);
 
-    const { buttonRef, positionStyles } = useButtonDropdownPosition();
+    const buttonRef = useRef(null);
+
+    const positionStyles = useGetFixedElementPosition(buttonRef, 10);
 
     return (
         <>

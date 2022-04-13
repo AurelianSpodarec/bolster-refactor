@@ -1,8 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const offsetFromButton = 10;
-
-const useButtonDropdownPosition = () => {
+const useGetFixedElementPosition = (parentRef, offsetFromParent = 0) => {
     const [top, setTop] = useState(0);
     const [bottom, setBottom] = useState(0);
     const [left, setLeft] = useState(0);
@@ -11,21 +9,20 @@ const useButtonDropdownPosition = () => {
     const [isRight, setIsRight] = useState(false);
     const [isBottom, setIsBottom] = useState(false);
 
-    const buttonRef = useRef(null);
-    const buttonPositions = buttonRef.current ? buttonRef.current.getBoundingClientRect() : null;
+    const parentPositions = parentRef.current ? parentRef.current.getBoundingClientRect() : null;
 
     useEffect(() => {
-        if (buttonPositions) {
-            setPositions(buttonPositions);
+        if (parentPositions) {
+            setPositions(parentPositions);
         }
-    }, [buttonPositions]);
+    }, [parentPositions]);
 
-    const setPositions = buttonPositions => {
+    const setPositions = parentPositions => {
         const { innerWidth, innerHeight } = window;
-        const { top, bottom, left, right, height } = buttonPositions;
+        const { top, bottom, left, right, height } = parentPositions;
 
-        setTop(top + height + offsetFromButton);
-        setBottom(innerHeight - bottom + height + offsetFromButton);
+        setTop(top + height + offsetFromParent);
+        setBottom(innerHeight - bottom + height + offsetFromParent);
         setLeft(left);
         setRight(innerWidth - right);
 
@@ -49,7 +46,7 @@ const useButtonDropdownPosition = () => {
         right: isRight ? right : 'auto',
     };
 
-    return { buttonRef, positionStyles };
+    return positionStyles;
 };
 
-export default useButtonDropdownPosition;
+export default useGetFixedElementPosition;
