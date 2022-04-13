@@ -387,6 +387,13 @@
             }
         }
     }
+
+    .block-heading {
+        .close {
+            position: relative;
+            margin-left: 15px;
+        }
+    }
 }
 
 .dark-mode-previews {

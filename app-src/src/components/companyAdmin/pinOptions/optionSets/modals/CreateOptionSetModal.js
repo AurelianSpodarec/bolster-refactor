@@ -5,7 +5,6 @@ import { PIN_OPTION_SETS_ENUM, PIN_OPTION_TYPES_ENUM } from 'constants/companyAd
 import useCreateOptionSet from '../hooks/useCreateOptionSet';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
@@ -13,6 +12,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
+import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
 
 const CreateOptionSetModal = ({ pinOptionTypeID }) => {
     const typeName = PIN_OPTION_TYPES_ENUM[pinOptionTypeID];
@@ -22,8 +22,10 @@ const CreateOptionSetModal = ({ pinOptionTypeID }) => {
         useCreateOptionSet(pinOptionTypeID);
 
     return (
-        <ModalOuterContainer>
-            <BlockHeading title={`Create ${setName}`} />
+        <ModalOuterContainer hideCloseButton>
+            <ModalHeading title={`Create ${setName}`}>
+                <ActionButton text="Services" source="secondary" ambient="positive" />
+            </ModalHeading>
 
             <p className="generic-text size-lg-12">
                 Create an '{setName.toLowerCase()}' for your sites.

@@ -8,13 +8,14 @@ const FlexWrapper = ({
     align = 'stretch', // start, end, center, stretch, baseline
     gap = 0,
     width = 12, // number ranging from 1 to 12
+    autoWidth = false,
     extraClasses = '',
 }) => {
     const flexDirection = `flex-${direction}`;
     const flexWrap = `flex-${wrap}`;
     const flexJustify = `justify-${justify}`;
     const flexAlign = `align-${align}`;
-    const blockWidth = `width-${width}`;
+    const blockWidth = autoWidth ? '' : `width-${width}`;
 
     return (
         <div
