@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+
+import useGetFixedElementPosition from 'hooks/useGetFixedElementPosition';
+import useClickOutside from 'hooks/useClickOutside';
 
 import ActionButton from '../generic/button/presentational/ActionButton';
 
@@ -12,6 +15,16 @@ const ButtonMultiDropdown = ({
 }) => {
     const [showList, setShowList] = useState(false);
 
+    const buttonRef = useRef(null);
+
+    const positionStyles = useGetFixedElementPosition(buttonRef, 10);
+
+    const closeMenu = () => {
+        setShowList(false);
+    };
+
+    const listRef = useClickOutside(closeMenu);
+
     return (
         <>
             <ActionButton
@@ -19,9 +32,14 @@ const ButtonMultiDropdown = ({
                 source="secondary"
                 ambient="positive"
                 onClick={() => setShowList(!showList)}
+                forwardRef={buttonRef}
             />
 
-            <div className="button-dropdown-list" style={{ display: showList ? 'block' : 'none' }}>
+            <div
+                ref={listRef}
+                className="button-dropdown-list"
+                style={{ display: showList ? 'block' : 'none', ...positionStyles }}
+            >
                 <div className="list-content">
                     {options.map(({ text, value, isDisabled }) => {
                         const isSelected = selectedOptions.includes(value);
