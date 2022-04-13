@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
@@ -7,7 +8,6 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import setOptionSetAsDefault from 'actions/companyAdmin/pinOptions/async/setOptionSetAsDefault';
-import { useDispatch } from 'react-redux';
 import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 
 const options = [
