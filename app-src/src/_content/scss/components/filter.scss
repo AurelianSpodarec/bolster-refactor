@@ -153,5 +153,13 @@
         margin: 0 !important;
         background-color: transparent;
         color: var(--typography-default);
+
+        &:hover {
+            background-color: var(--hover-primary)
+        }
+
+        &.active {
+            background-color: var(--primary-default);
+        }
     }
 }

@@ -11,7 +11,6 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
 import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 
@@ -52,17 +51,6 @@ const CreateOptionSetModal = ({ pinOptionTypeID }) => {
                         handleChange={handleChange}
                         placeholder="Type name"
                         required
-                    />
-                </Field>
-
-                <Field name="Services">
-                    <CheckboxListContainer
-                        name="serviceIDs"
-                        text=""
-                        handleChange={handleChange}
-                        selectedOptions={form.serviceIDs}
-                        options={serviceOptions}
-                        isNumberValues
                     />
                 </Field>
 

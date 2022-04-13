@@ -23,11 +23,20 @@ const ButtonMultiDropdown = ({
 
             <div className="button-dropdown-list" style={{ display: showList ? 'block' : 'none' }}>
                 <div className="list-content">
-                    {options.map(option => (
-                        <button key={option.value} onClick={() => _handleChange(option.value)}>
-                            {option.text}
-                        </button>
-                    ))}
+                    {options.map(({ text, value, isDisabled }) => {
+                        const isSelected = selectedOptions.includes(value);
+
+                        return (
+                            <button
+                                className={isSelected ? 'active' : ''}
+                                key={value}
+                                onClick={() => _handleChange(value)}
+                                disabled={isDisabled}
+                            >
+                                {text}
+                            </button>
+                        );
+                    })}
                 </div>
             </div>
         </>
