@@ -6,6 +6,27 @@ import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActio
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
+
+const options = [
+    {
+        text: 'opt 1',
+        value: 1,
+        isDisabled: false,
+    },
+    {
+        text: 'opt 2',
+        value: 2,
+        isDisabled: false,
+    },
+    {
+        text: 'opt 3',
+        value: 3,
+        isDisabled: false,
+    },
+];
+
+const selectedOptions = [];
 
 const OptionSetsListItem = ({
     set,

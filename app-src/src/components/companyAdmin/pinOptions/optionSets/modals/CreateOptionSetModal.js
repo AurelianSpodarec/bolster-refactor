@@ -31,6 +31,7 @@ const CreateOptionSetModal = ({ pinOptionTypeID }) => {
                     selectedOptions={form.serviceIDs}
                     handleChange={handleChange}
                     isNumberValues
+                    scrollElementID="modal-block"
                 />
             </ModalHeading>
 

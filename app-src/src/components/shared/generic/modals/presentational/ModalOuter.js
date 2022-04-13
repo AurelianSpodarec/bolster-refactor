@@ -6,7 +6,7 @@ const ModalOuter = ({ children, handleClose, extraClasses = '', hideCloseButton 
     <div className="modal-container size-lg-12">
         <div className="bg" />
 
-        <div className={`modal-block ${extraClasses}`}>
+        <div id="modal-block" className={`modal-block ${extraClasses}`}>
             <FlexWrapper justify="between">
                 {!hideCloseButton && (
                     <button className="close" onClick={handleClose}>

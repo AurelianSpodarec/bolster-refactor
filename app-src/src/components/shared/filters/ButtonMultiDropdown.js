@@ -12,12 +12,18 @@ const ButtonMultiDropdown = ({
     selectedOptions = [],
     handleChange = () => {},
     isNumberValues,
+    scrollElementID,
 }) => {
     const [showList, setShowList] = useState(false);
 
     const buttonRef = useRef(null);
 
-    const { positionStyles, isPositioned } = useGetFixedElementPosition(buttonRef, 10, showList);
+    const { positionStyles, isPositioned } = useGetFixedElementPosition(
+        buttonRef,
+        10,
+        showList,
+        scrollElementID,
+    );
 
     const closeMenu = () => {
         setShowList(false);

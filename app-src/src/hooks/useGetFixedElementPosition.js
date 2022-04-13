@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-const useGetFixedElementPosition = (parentRef, offsetFromParent = 0, isShowing) => {
+const useGetFixedElementPosition = (
+    parentRef,
+    offsetFromParent = 0,
+    isShowing,
+    scrollElementID,
+) => {
     const [isPositioned, setIsPositioned] = useState(false);
     const [top, setTop] = useState(0);
     const [bottom, setBottom] = useState(0);
@@ -11,15 +16,28 @@ const useGetFixedElementPosition = (parentRef, offsetFromParent = 0, isShowing) 
     const [isBottom, setIsBottom] = useState(false);
 
     useEffect(() => {
+        const scrollElement = document.getElementById(scrollElementID);
+
+        const scrollListener = () => {
+            setPositions();
+        };
+
         if (isShowing) {
             setPositions();
 
             setTimeout(() => {
                 setIsPositioned(true);
             }, 10);
+
+            if (scrollElement) scrollElement.addEventListener('scroll', scrollListener);
         } else {
             if (isPositioned) setIsPositioned(false);
+            if (scrollElement) scrollElement.removeEventListener('scroll', scrollListener);
         }
+
+        return () => {
+            if (scrollElement) scrollElement.removeEventListener('scroll', scrollListener);
+        };
     }, [isShowing]);
 
     const setPositions = () => {
