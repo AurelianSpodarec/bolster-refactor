@@ -22,7 +22,7 @@ const ModalHeading = ({
         >
             <h3 className={`heading heading-3 ${headerClasses} flex`}>{title}</h3>
 
-            <FlexWrapper autoWidth>
+            <FlexWrapper autoWidth align="center">
                 {children}
 
                 {!hideCloseButton && (

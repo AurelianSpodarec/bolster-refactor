@@ -13,6 +13,7 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
+import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 
 const CreateOptionSetModal = ({ pinOptionTypeID }) => {
     const typeName = PIN_OPTION_TYPES_ENUM[pinOptionTypeID];
@@ -24,7 +25,14 @@ const CreateOptionSetModal = ({ pinOptionTypeID }) => {
     return (
         <ModalOuterContainer hideCloseButton>
             <ModalHeading title={`Create ${setName}`}>
-                <ActionButton text="Services" source="secondary" ambient="positive" />
+                <ButtonMultiDropdown
+                    buttonText="Services"
+                    name="serviceIDs"
+                    options={serviceOptions}
+                    selectedOptions={form.serviceIDs}
+                    handleChange={handleChange}
+                    isNumberValues
+                />
             </ModalHeading>
 
             <p className="generic-text size-lg-12">
