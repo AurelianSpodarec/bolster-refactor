@@ -17,7 +17,7 @@ const ButtonMultiDropdown = ({
 
     const buttonRef = useRef(null);
 
-    const positionStyles = useGetFixedElementPosition(buttonRef, 10);
+    const { positionStyles, isPositioned } = useGetFixedElementPosition(buttonRef, 10, showList);
 
     const closeMenu = () => {
         setShowList(false);
@@ -38,7 +38,7 @@ const ButtonMultiDropdown = ({
             <div
                 ref={listRef}
                 className="button-dropdown-list"
-                style={{ display: showList ? 'block' : 'none', ...positionStyles }}
+                style={{ display: showList && isPositioned ? 'block' : 'none', ...positionStyles }}
             >
                 <div className="list-content">
                     {options.map(({ text, value, isDisabled }) => {

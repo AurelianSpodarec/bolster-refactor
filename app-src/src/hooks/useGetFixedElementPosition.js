@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-const useGetFixedElementPosition = (parentRef, offsetFromParent = 0) => {
+const useGetFixedElementPosition = (parentRef, offsetFromParent = 0, isShowing) => {
+    const [isPositioned, setIsPositioned] = useState(false);
     const [top, setTop] = useState(0);
     const [bottom, setBottom] = useState(0);
     const [left, setLeft] = useState(0);
@@ -9,15 +10,25 @@ const useGetFixedElementPosition = (parentRef, offsetFromParent = 0) => {
     const [isRight, setIsRight] = useState(false);
     const [isBottom, setIsBottom] = useState(false);
 
-    const parentPositions = parentRef.current ? parentRef.current.getBoundingClientRect() : null;
-
     useEffect(() => {
-        if (parentPositions) {
-            setPositions(parentPositions);
-        }
-    }, [parentPositions]);
+        if (isShowing) {
+            setPositions();
 
-    const setPositions = parentPositions => {
+            setTimeout(() => {
+                setIsPositioned(true);
+            }, 10);
+        } else {
+            if (isPositioned) setIsPositioned(false);
+        }
+    }, [isShowing]);
+
+    const setPositions = () => {
+        const parentPositions = parentRef.current
+            ? parentRef.current.getBoundingClientRect()
+            : null;
+
+        if (!parentPositions) return;
+
         const { innerWidth, innerHeight } = window;
         const { top, bottom, left, right, height } = parentPositions;
 
@@ -46,7 +57,7 @@ const useGetFixedElementPosition = (parentRef, offsetFromParent = 0) => {
         right: isRight ? right : 'auto',
     };
 
-    return positionStyles;
+    return { positionStyles, isPositioned };
 };
 
 export default useGetFixedElementPosition;
