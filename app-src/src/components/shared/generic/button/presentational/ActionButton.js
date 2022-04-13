@@ -16,6 +16,7 @@ const ActionButton = ({
     ambient = 'primary', // primary, positive, negative
     size = 'small', // medium, small
     extraClasses = '',
+    forwardRef,
 }) => {
     const iconWeightLookup = {
         solid: 'fa',
@@ -32,6 +33,7 @@ const ActionButton = ({
 
     return (
         <button
+            ref={forwardRef}
             className={`custom-button flex-row align-center ${extraClasses} ${dynamicButtonClass}`}
             type={type}
             onClick={onClick}

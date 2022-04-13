@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import useButtonDropdownPosition from './hooks/useButtonDropdownPosition';
+
 import ActionButton from '../generic/button/presentational/ActionButton';
 
 const ButtonMultiDropdown = ({
@@ -12,6 +14,8 @@ const ButtonMultiDropdown = ({
 }) => {
     const [showList, setShowList] = useState(false);
 
+    const { buttonRef, positionStyles } = useButtonDropdownPosition();
+
     return (
         <>
             <ActionButton
@@ -19,9 +23,13 @@ const ButtonMultiDropdown = ({
                 source="secondary"
                 ambient="positive"
                 onClick={() => setShowList(!showList)}
+                forwardRef={buttonRef}
             />
 
-            <div className="button-dropdown-list" style={{ display: showList ? 'block' : 'none' }}>
+            <div
+                className="button-dropdown-list"
+                style={{ display: showList ? 'block' : 'none', ...positionStyles }}
+            >
                 <div className="list-content">
                     {options.map(({ text, value, isDisabled }) => {
                         const isSelected = selectedOptions.includes(value);
