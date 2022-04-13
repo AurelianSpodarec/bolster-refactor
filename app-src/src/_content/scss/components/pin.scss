@@ -21,3 +21,23 @@
         }
     }
 }
+
+//inputs 
+
+.installation-types-dropdown {
+    display: flex;
+   flex-direction: row;
+   align-items: center;
+
+   .title {
+    width: auto;
+    margin-right: 10px;
+    padding-top: 10px;
+}
+
+   .custom-dropdown {
+       width: 72px;
+   }
+
+  
+}

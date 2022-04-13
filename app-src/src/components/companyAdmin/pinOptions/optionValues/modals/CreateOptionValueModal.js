@@ -13,6 +13,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
+import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
 const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const typeNameSingular = PIN_OPTION_TYPES[pinOptionTypeID].singular;
@@ -55,6 +56,18 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                         value={form.shortName}
                         handleChange={handleChange}
                         placeholder="Type short name"
+                        required
+                    />
+                </Field>
+
+                <Field name="Unit of Measurement" classes="installation-types-dropdown" required>
+                    <DropdownContainer
+                        name="unit of measurement"
+                        options={[]}
+                        value={''}
+                        selectedOption={''}
+                        handleChange={handleChange}
+                        placeholder={''}
                         required
                     />
                 </Field>
