@@ -16,6 +16,8 @@ const DrawingDataByDrawingListItem = ({ drawing }) => {
     );
 
     function generateReport() {
+        const statusID = localStorage.getItem('selectedStatus');
+
         history.push({
             pathname: '/company/tools/create-report',
             state: {
@@ -24,7 +26,7 @@ const DrawingDataByDrawingListItem = ({ drawing }) => {
                 floorID: drawing.floorID,
                 drawingID: drawing.id,
                 selectedService: localStorage.getItem('selectedService'),
-                selectedStatus: localStorage.getItem('selectedStatus'),
+                selectedStatus: statusID ? [statusID] : [],
                 selectedStartDate: localStorage.getItem('selectedStartDate'),
                 selectedEndDate: localStorage.getItem('selectedEndDate'),
             },
