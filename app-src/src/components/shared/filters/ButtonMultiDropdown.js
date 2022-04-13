@@ -18,15 +18,17 @@ const ButtonMultiDropdown = ({
                 text={buttonText}
                 source="secondary"
                 ambient="positive"
-                onClick={() => setShowList(true)}
+                onClick={() => setShowList(!showList)}
             />
 
             <div className="button-dropdown-list" style={{ display: showList ? 'block' : 'none' }}>
-                {options.map(option => (
-                    <button key={option.value} onClick={() => _handleChange(option.value)}>
-                        {option.text}
-                    </button>
-                ))}
+                <div className="list-content">
+                    {options.map(option => (
+                        <button key={option.value} onClick={() => _handleChange(option.value)}>
+                            {option.text}
+                        </button>
+                    ))}
+                </div>
             </div>
         </>
     );

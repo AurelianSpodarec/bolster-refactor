@@ -137,4 +137,21 @@
     position: fixed;
     top: 0;
     left: 0;
+    width: 230px;
+
+    .list-content {
+        width: 100%;
+        height: 300px;
+        background-color: var(--background-container);
+        border: 1px solid var(--background-stroke);
+        overflow-y: auto;
+    }
+
+    button {
+        float: none!important;
+        width: 100%;
+        margin: 0 !important;
+        background-color: transparent;
+        color: var(--typography-default);
+    }
 }
