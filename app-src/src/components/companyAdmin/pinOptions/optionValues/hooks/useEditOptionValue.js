@@ -12,27 +12,41 @@ import {
     selectPinOptionsPostError,
     selectPinOptionsPostSuccess,
 } from 'selectors/companyAdmin/pinOptions';
+import { selectServicesArr } from 'selectors/companyAdmin/services';
+import { selectPinOptionSets } from 'selectors/companyAdmin/pinOptionSets';
+import { formatCheckboxListOptions } from 'helpers/generic';
 
-const useEditOptionValue = option => {
+const useEditOptionValue = (option, pinOptionTypeID) => {
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPinOptionsIsPosting);
     const postError = useSelector(selectPinOptionsPostError);
     const postSuccess = useSelector(selectPinOptionsPostSuccess);
+
+    const services = useSelector(selectServicesArr);
+    const pinOptionSets = useSelector(selectPinOptionSets);
+    const pinOptionSetID = option.pinOptionSetID;
+    const pinServiceIDs =
+        pinOptionSetID &&
+        Object.values(pinOptionSets).find(set => set.id === option.pinOptionSetID).serviceIDs;
+    const availableServices = services.filter(option => pinServiceIDs?.includes(option.id));
+    const serviceOptions =
+        availableServices.length > 0 ? formatCheckboxListOptions(availableServices) : [];
 
     const prevProps = usePrevious({ postError, postSuccess });
 
     const [form, handleChange] = useForm({
         name: option.name,
         shortName: option.shortName || '',
+        serviceIDs: option.serviceIDs || [],
     });
 
     const handleSubmit = () => {
-        // const postBody = {
-        //     ...form,
-        //     pinOptionTypeID,
-        //     pinOptionSetID,
-        // };
-        // dispatch(createPinOptionValue(postBody));
+        const postBody = {
+            ...form,
+            pinOptionTypeID,
+            pinOptionSetID,
+        };
+        dispatch(createPinOptionValue(postBody));
     };
 
     useEffect(() => {
@@ -43,7 +57,7 @@ const useEditOptionValue = option => {
         if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
     }, [postSuccess, prevProps.postSuccess]);
 
-    return { form, handleChange, handleSubmit, isPosting };
+    return { form, handleChange, handleSubmit, isPosting, serviceOptions };
 };
 
 export default useEditOptionValue;

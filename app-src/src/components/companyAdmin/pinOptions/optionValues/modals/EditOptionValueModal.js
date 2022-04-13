@@ -10,9 +10,11 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 
 const EditOptionValueModal = ({ option }) => {
-    const { form, handleChange, handleSubmit, isPosting } = useEditOptionValue(option);
+    const { form, handleChange, handleSubmit, isPosting, serviceOptions } =
+        useEditOptionValue(option);
 
     return (
         <ModalOuterContainer>
@@ -38,6 +40,19 @@ const EditOptionValueModal = ({ option }) => {
                         required
                     />
                 </Field>
+
+                {serviceOptions.length > 0 && (
+                    <Field name="Services">
+                        <CheckboxListContainer
+                            name="serviceIDs"
+                            text=""
+                            handleChange={handleChange}
+                            selectedOptions={form.serviceIDs}
+                            options={serviceOptions}
+                            isNumberValues
+                        />
+                    </Field>
+                )}
 
                 <BlockButtonWrapper>
                     <ButtonWrapper alignment="right">
