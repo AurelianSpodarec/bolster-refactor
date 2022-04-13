@@ -159,7 +159,7 @@
         margin: 0 0 5px 0 !important;
         padding: 5px 10px;
         background-color: transparent;
-        color: var(--typography-default);
+        color: #F9FAFA;
         text-align: left;
         border-radius: 20px;
         font-size: 15px;
@@ -180,6 +180,10 @@
             margin-left: 15px;
             height: 8px;
             min-width: auto;
+
+            path {
+                stroke: #F9FAFA;
+            }
         }
     }
 }

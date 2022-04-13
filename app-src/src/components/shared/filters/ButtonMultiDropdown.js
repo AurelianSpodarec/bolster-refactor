@@ -61,9 +61,12 @@ const ButtonMultiDropdown = ({
                                 disabled={isDisabled}
                             >
                                 <span className="text">{text}</span>
-                                <FlexWrapper autoWidth align="center">
-                                    <TickIcon className="icon" />
-                                </FlexWrapper>
+
+                                {isSelected && (
+                                    <FlexWrapper autoWidth align="center">
+                                        <TickIcon className="icon" />
+                                    </FlexWrapper>
+                                )}
                             </button>
                         );
                     })}
