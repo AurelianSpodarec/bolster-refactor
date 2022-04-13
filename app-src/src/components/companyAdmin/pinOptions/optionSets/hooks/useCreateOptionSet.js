@@ -52,7 +52,12 @@ const useCreateOptionSet = pinOptionTypeID => {
     useEffect(() => {
         if (newSetID && !prevProps.newSetID) {
             // go to new newly created set and open create option modal
-            dispatch(showModal(CREATE_PIN_OPTIONS_VALUE_MODAL, { pinOptionTypeID }));
+            dispatch(
+                showModal(CREATE_PIN_OPTIONS_VALUE_MODAL, {
+                    pinOptionTypeID,
+                    pinOptionSetID: newSetID,
+                }),
+            );
             history.push(`/company/pin-options/${link}/${newSetID}`);
         }
     }, [newSetID, prevProps.newSetID]);

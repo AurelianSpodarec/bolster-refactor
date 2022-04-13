@@ -26,9 +26,9 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
 
     const services = useSelector(selectServicesArr);
     const pinOptionSets = useSelector(selectPinOptionSets);
-    const pinServiceIDs = Object.values(pinOptionSets).find(
-        set => set.id === pinOptionSetID,
-    ).serviceIDs;
+    const pinServiceIDs =
+        pinOptionSetID &&
+        Object.values(pinOptionSets).find(set => set.id === pinOptionSetID).serviceIDs;
     const availableServices = services.filter(option => pinServiceIDs?.includes(option.id));
     const serviceOptions =
         availableServices.length > 0 ? formatCheckboxListOptions(availableServices) : [];
