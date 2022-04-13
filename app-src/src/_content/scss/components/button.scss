@@ -388,7 +388,7 @@ button {
     white-space: nowrap;
 
     .text {
-        + .icon, + .custom-icon {
+        + .icon, + .svg-icon {
             margin-left: 8px;
         }
     }
@@ -401,9 +401,13 @@ button {
         }
     }
 
-    .custom-icon {
-        width: 15px;
+    .svg-icon {
+        width: auto;
         height: 15px;
+
+        path {
+            stroke: #F9FAFA;
+        }
         
         + .text {
             margin-left: 8px;
@@ -443,8 +447,7 @@ button {
             height: 12px;
         }
 
-        .custom-icon {
-            width: 12px;
+        .svg-icon {
             height: 12px;
         }
     }
@@ -512,6 +515,12 @@ button {
     // secondary source
     &[data-source="secondary"] {
         color: var(--typography-default);
+
+        .svg-icon {
+            path {
+                stroke: var(--typography-default);
+            }
+        }
 
         // all ambients
         &:not(:disabled) {

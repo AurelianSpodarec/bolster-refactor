@@ -5,7 +5,7 @@ const ActionButton = ({
     type = 'button',
     text = '',
     icon = '',
-    customIcon = '', // SVG path
+    svgIconComponent: SvgIconComponent, // SVG icon, needs to be imported as component
     iconRight = false,
     iconSpin = false,
     iconOnly = false,
@@ -41,10 +41,10 @@ const ActionButton = ({
             data-size={size}
         >
             {icon && !iconRight && <i className={dynamicIconClass}></i>}
-            {!icon && customIcon && !iconRight && <img className="custom-icon" src={customIcon} />}
+            {!icon && SvgIconComponent && !iconRight && <SvgIconComponent className="svg-icon" />}
             {text && !iconOnly && <span className="text">{text}</span>}
             {icon && iconRight && <i className={dynamicIconClass}></i>}
-            {!icon && customIcon && iconRight && <img className="custom-icon" src={customIcon} />}
+            {!icon && SvgIconComponent && iconRight && <SvgIconComponent className="svg-icon" />}
         </button>
     );
 };

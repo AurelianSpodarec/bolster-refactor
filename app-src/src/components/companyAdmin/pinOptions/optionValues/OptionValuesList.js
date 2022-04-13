@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
+
+import { ReactComponent as SortAscIcon } from '_content/images/icons/sort-asc.svg';
 
 import { PIN_OPTION_TYPES_LOOKUP } from 'constants/companyAdmin/enums';
 
@@ -49,7 +51,7 @@ const OptionValuesList = ({ forwardRef }) => {
 
                 <ButtonWrapper alignment="right">
                     <ActionButton
-                        icon="sort"
+                        svgIconComponent={SortAscIcon}
                         iconOnly
                         source={isSorting ? 'primary' : 'secondary'}
                         size="medium"
