@@ -1,9 +1,10 @@
 import React from 'react';
+import FlexWrapper from '../generic/flexWrapper/FlexWrapper';
 
 const FilterRow = ({ children, gap = 15 }) => (
-    <div className="filter-row flex-row width-12 justify-between align-center" style={{ gap }}>
+    <FlexWrapper extraClasses="filter-row" justify="between" align="center" gap={gap}>
         {children}
-    </div>
+    </FlexWrapper>
 );
 
 export default FilterRow;
