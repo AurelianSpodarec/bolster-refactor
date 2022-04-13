@@ -34,6 +34,8 @@ const ButtonMultiDropdown = ({
 
     const listRef = useClickOutside(closeMenu);
 
+    const isAllSelected = options.every(opt => selectedOptions.includes(opt.value));
+
     return (
         <>
             <ActionButton
@@ -50,6 +52,18 @@ const ButtonMultiDropdown = ({
                 style={{ display: showList && isPositioned ? 'block' : 'none', ...positionStyles }}
             >
                 <div className="list-content">
+                    <button
+                        onClick={() => {
+                            if (isAllSelected) {
+                                _handleDeselectAll();
+                            } else {
+                                _handleSelectAll();
+                            }
+                        }}
+                    >
+                        <span className="text">{isAllSelected ? 'Deselect' : 'Select'} All</span>
+                    </button>
+
                     {options.map(({ text, value, isDisabled }) => {
                         const isSelected = selectedOptions.includes(value);
 
@@ -82,6 +96,15 @@ const ButtonMultiDropdown = ({
             ? selectedOptions.filter(val => formattedValue !== val)
             : [...selectedOptions, formattedValue];
         handleChange(name, updatedValues);
+    }
+
+    function _handleSelectAll() {
+        const updatedValues = options.map(opt => opt.value);
+        handleChange(name, updatedValues);
+    }
+
+    function _handleDeselectAll() {
+        handleChange(name, []);
     }
 };
 
