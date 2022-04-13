@@ -13,8 +13,8 @@ class DashboardDataByOperativeTableContainer extends Component {
                 isFetching={isFetching}
                 error={error}
                 isEmpty={isEmpty(operatives)}
-                containerClass="always-scrollbar dashboard-operatives"
-                contentClass="no-border"
+                containerClass="always-scrollbar dashboard-operatives flex"
+                contentClass="no-border no-bottom-spacing"
             >
                 <DashboardDataByOperativeTable
                     headers={['Name', 'Last login', 'Last sync', 'Pins updated', '']}

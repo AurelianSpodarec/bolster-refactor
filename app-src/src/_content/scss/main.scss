@@ -33,6 +33,7 @@
 @import './components/message-centre.scss';
 
 //pages
+@import './pages/dashboard.scss';
 @import './pages/upcoming-alerts.scss';
 
 //layouts
@@ -502,7 +503,6 @@ input {
 //dashboard
 
 .dashboard-operatives {
-  max-height: 416px;
   margin: 0 -15px;
 }
 
@@ -1153,6 +1153,11 @@ input {
 
     .content-area {
       min-height: calc(100% - 10px);
+
+      &.by-height {
+        height: calc(100% - 10px);
+        min-height: 0;
+      }
     }
   }
 }
