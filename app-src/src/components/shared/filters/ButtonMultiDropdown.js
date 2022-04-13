@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 
 import useGetFixedElementPosition from 'hooks/useGetFixedElementPosition';
+import useClickOutside from 'hooks/useClickOutside';
 
 import ActionButton from '../generic/button/presentational/ActionButton';
 
@@ -18,6 +19,12 @@ const ButtonMultiDropdown = ({
 
     const positionStyles = useGetFixedElementPosition(buttonRef, 10);
 
+    const closeMenu = () => {
+        setShowList(false);
+    };
+
+    const listRef = useClickOutside(closeMenu);
+
     return (
         <>
             <ActionButton
@@ -29,6 +36,7 @@ const ButtonMultiDropdown = ({
             />
 
             <div
+                ref={listRef}
                 className="button-dropdown-list"
                 style={{ display: showList ? 'block' : 'none', ...positionStyles }}
             >
