@@ -1,9 +1,12 @@
 import React, { useRef, useState } from 'react';
 
+import { ReactComponent as TickIcon } from '_content/images/icons/tick.svg';
+
 import useGetFixedElementPosition from 'hooks/useGetFixedElementPosition';
 import useClickOutside from 'hooks/useClickOutside';
 
 import ActionButton from '../generic/button/presentational/ActionButton';
+import FlexWrapper from '../generic/flexWrapper/FlexWrapper';
 
 const ButtonMultiDropdown = ({
     buttonText = '',
@@ -12,12 +15,18 @@ const ButtonMultiDropdown = ({
     selectedOptions = [],
     handleChange = () => {},
     isNumberValues,
+    scrollElementID,
 }) => {
     const [showList, setShowList] = useState(false);
 
     const buttonRef = useRef(null);
 
-    const positionStyles = useGetFixedElementPosition(buttonRef, 10);
+    const { positionStyles, isPositioned } = useGetFixedElementPosition(
+        buttonRef,
+        10,
+        showList,
+        scrollElementID,
+    );
 
     const closeMenu = () => {
         setShowList(false);
@@ -38,7 +47,7 @@ const ButtonMultiDropdown = ({
             <div
                 ref={listRef}
                 className="button-dropdown-list"
-                style={{ display: showList ? 'block' : 'none', ...positionStyles }}
+                style={{ display: showList && isPositioned ? 'block' : 'none', ...positionStyles }}
             >
                 <div className="list-content">
                     {options.map(({ text, value, isDisabled }) => {
@@ -51,7 +60,13 @@ const ButtonMultiDropdown = ({
                                 onClick={() => _handleChange(value)}
                                 disabled={isDisabled}
                             >
-                                {text}
+                                <span className="text">{text}</span>
+
+                                {isSelected && (
+                                    <FlexWrapper autoWidth align="center">
+                                        <TickIcon className="icon" />
+                                    </FlexWrapper>
+                                )}
                             </button>
                         );
                     })}

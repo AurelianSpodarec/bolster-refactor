@@ -8,6 +8,27 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import setOptionSetAsDefault from 'actions/companyAdmin/pinOptions/async/setOptionSetAsDefault';
 import { useDispatch } from 'react-redux';
+import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
+
+const options = [
+    {
+        text: 'opt 1',
+        value: 1,
+        isDisabled: false,
+    },
+    {
+        text: 'opt 2',
+        value: 2,
+        isDisabled: false,
+    },
+    {
+        text: 'opt 3',
+        value: 3,
+        isDisabled: false,
+    },
+];
+
+const selectedOptions = [];
 
 const OptionSetsListItem = ({
     set,
