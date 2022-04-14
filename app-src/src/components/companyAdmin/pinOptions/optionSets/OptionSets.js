@@ -33,6 +33,8 @@ const OptionSets = ({ selectedTypeID }) => {
 
     const setLink = selectedPinOptionType.slug;
 
+    const defaultSet = pinOptionSetsArr.find(set => set.isDefault === true);
+
     return (
         <>
             <FilterRow>
@@ -80,6 +82,7 @@ const OptionSets = ({ selectedTypeID }) => {
                         showDeleteModal={showDeleteModal}
                         enableOptionSet={enableOptionSet}
                         disableOptionSet={disableOptionSet}
+                        defaultSet={defaultSet}
                     />
                 ))}
             </Table>
