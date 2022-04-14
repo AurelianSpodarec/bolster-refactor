@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 
 import { ReactComponent as SortAscIcon } from '_content/images/icons/sort-asc.svg';
 
@@ -11,6 +11,7 @@ import useFilterOptionValues from './hooks/useFilterOptionsValues';
 import useGetOptionsForSet from './hooks/useGetOptionsForSet';
 import useOptionValueActions from './hooks/useOptionValueActions';
 import useUpdateOptionValueSort from './hooks/useUpdateOptionValueSort';
+import useShouldRedirectFromOptionValues from './hooks/useShouldRedirectFromOptionValues';
 
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 
@@ -21,7 +22,7 @@ import OptionValuesListItem from './OptionValuesListItem';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
-const OptionValuesList = ({ forwardRef }) => {
+const OptionValuesList = ({ forwardRef, hasFetched }) => {
     const { setID, type } = useParams();
     const typeID = PIN_OPTION_TYPES_LOOKUP[type];
 
@@ -37,6 +38,12 @@ const OptionValuesList = ({ forwardRef }) => {
 
     const { showAddModal, showEditModal, showDeleteModal, enableOptionValue, disableOptionValue } =
         useOptionValueActions(typeID, setID);
+
+    const shouldRedirect = useShouldRedirectFromOptionValues(hasFetched);
+
+    if (shouldRedirect) {
+        return <Redirect to="/company/pin-options" />;
+    }
 
     return (
         <>
