@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { isEmpty } from 'helpers/generic';
 
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
+import { selectPinOptionDefaultSet } from 'selectors/companyAdmin/pinOptionSets';
 
 import useFetchPinOptionSets from 'components/companyAdmin/hooks/useFetchPinOptionSets';
 import useFilterOptionSets from './hooks/useFilterOptionSets';
@@ -32,7 +33,7 @@ const OptionSets = ({ selectedTypeID }) => {
 
     const setLink = selectedPinOptionType.slug;
 
-    const defaultSet = pinOptionSetsArr.find(set => set.isDefault === true);
+    const defaultSet = useSelector(state => selectPinOptionDefaultSet(state, selectedTypeID));
 
     return (
         <>

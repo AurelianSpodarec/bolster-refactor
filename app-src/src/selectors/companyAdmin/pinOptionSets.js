@@ -1,5 +1,7 @@
 export const selectPinOptionSets = state => state.companyAdmin.pinOptionSetsReducer.sets;
 export const selectPinOptionSetsArr = state => Object.values(selectPinOptionSets(state));
+export const selectPinOptionDefaultSet = (state, typeID) =>
+    selectPinOptionSetsArr(state).find(set => set.pinOptionTypeID === typeID && set.isDefault);
 export const selectPinOptionSetsIsFetching = state =>
     state.companyAdmin.pinOptionSetsReducer.isFetching;
 export const selectPinOptionSetsFetchError = state =>
