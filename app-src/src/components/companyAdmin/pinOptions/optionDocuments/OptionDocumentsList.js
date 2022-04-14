@@ -1,4 +1,7 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+
+import useShouldRedirectFromOptionDocuments from './hooks/useShouldRedirectFromOptionDocuments';
 
 import GridWrapper from 'components/shared/generic/gridWrapper/GridWrapper';
 import DocumentPod from 'components/shared/documentPods/DocumentPod';
@@ -22,7 +25,13 @@ const documents = [
     },
 ];
 
-const OptionDocumentsList = () => {
+const OptionDocumentsList = ({ hasFetched }) => {
+    const shouldRedirect = useShouldRedirectFromOptionDocuments(hasFetched);
+
+    if (shouldRedirect) {
+        return <Redirect to="/company/pin-options" />;
+    }
+
     const ActionMenuItems = ({ id }) => (
         <>
             <ActionMenuActionButton
