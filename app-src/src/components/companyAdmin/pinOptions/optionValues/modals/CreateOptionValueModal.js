@@ -15,8 +15,12 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import InfoIcon from '../../../../../_content/images/icons/info-icon.svg';
+import InfoIconDark from '../../../../../_content/images/icons/info-icon-dark.svg';
+import useColourTheme from 'hooks/useColourTheme';
 
 const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
+    const colourTheme = useColourTheme();
     const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
     const singularTypeName = pinOptionType.name;
 
@@ -72,6 +76,13 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                         required
                     />
                 </Field>
+
+                <Field
+                    name="Measurement"
+                    icon={colourTheme === 'dark' ? InfoIcon : InfoIconDark}
+                    alt="Information"
+                    required
+                ></Field>
 
                 {serviceOptions.length > 0 && (
                     <Field name="Services">
