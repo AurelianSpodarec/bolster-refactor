@@ -6,9 +6,7 @@ const useFilterSets = (sets, selectedTypeID) => {
     const { searchTerm, handleUpdateSearch } = useSearch();
     const getFilteredSets = () => {
         return sets.filter(set => {
-            if (searchTerm) {
-                if (!set.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
-            }
+            if (!set.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
             if (set.pinOptionTypeID !== selectedTypeID) return false;
             return true;
         });
