@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
-
 import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
@@ -9,6 +7,8 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import { useSelector } from 'react-redux';
+import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 const OptionValuesListItem = ({
     option,
@@ -24,7 +24,8 @@ const OptionValuesListItem = ({
     connectDropTarget,
     forwardRef,
 }) => {
-    const typeLink = PIN_OPTION_TYPES[typeID].link;
+    const pinOptionType = useSelector(state => selectPinOptionType(state, typeID));
+    const typeSlug = pinOptionType.slug;
 
     let rowClass = 'draggable expandable';
     if (isDragging) rowClass += ' dragging';
@@ -53,7 +54,7 @@ const OptionValuesListItem = ({
                         <ButtonWrapper alignment="right">
                             <LinkButton
                                 text="Documents"
-                                href={`/company/pin-options/${typeLink}/${setID}/option/${id}/documents`}
+                                href={`/company/pin-options/${typeSlug}/${setID}/option/${id}/documents`}
                                 disabled={isSorting}
                             />
 
