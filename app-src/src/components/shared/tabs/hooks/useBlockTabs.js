@@ -1,10 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const useBlockTabs = (tabs, initialSelectedID) => {
-    const [selectedTabID, setSelectedTabID] = useState(initialSelectedID);
+import { isEmpty } from 'helpers/generic';
+import { usePrevious } from 'helpers/hooks';
+
+const useBlockTabs = (tabs, initialSelectedTabID) => {
+    const [selectedTabID, setSelectedTabID] = useState(initialSelectedTabID);
 
     const selectedTab = tabs.find(tab => tab.id === selectedTabID);
-    const SpecificComponent = selectedTab ? selectedTab.component : tabs[0].component;
+    const SpecificComponent = selectedTab ? selectedTab.component : null;
+
+    const prevProps = usePrevious({ tabs });
+
+    useEffect(() => {
+        if (JSON.stringify(tabs) === JSON.stringify(prevProps.tabs)) return;
+
+        if (isEmpty(tabs)) {
+            setSelectedTabID(null);
+        } else {
+            setSelectedTabID(tabs[0].id);
+        }
+    }, [JSON.stringify(tabs)]);
 
     return { selectedTabID, setSelectedTabID, SpecificComponent };
 };
