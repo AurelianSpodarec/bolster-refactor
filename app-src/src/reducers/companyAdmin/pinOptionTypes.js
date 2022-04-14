@@ -7,7 +7,6 @@ import {
     FETCH_PIN_OPTION_TYPES_FAILURE,
     SET_PIN_OPTIONS_TYPES_SELECTED_TAB_ID,
 } from 'constants/actionTypes/pinOptions';
-import { PIN_OPTION_TYPES_VALS } from 'constants/companyAdmin/enums';
 
 export default combineReducers({
     types: typesReducer,
@@ -48,7 +47,7 @@ function typesReducer(state = {}, action) {
     }
 }
 
-function selectedTabIDReducer(state = PIN_OPTION_TYPES_VALS.installationTypes, action) {
+function selectedTabIDReducer(state = null, action) {
     switch (action.type) {
         case SET_PIN_OPTIONS_TYPES_SELECTED_TAB_ID:
             return action.id;

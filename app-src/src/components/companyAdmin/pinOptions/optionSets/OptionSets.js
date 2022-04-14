@@ -1,7 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import { isEmpty } from 'helpers/generic';
 import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
+
+import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 import useFetchPinOptionSets from 'components/companyAdmin/hooks/useFetchPinOptionSets';
 import useFilterOptionSets from './hooks/useFilterOptionSets';
@@ -15,6 +18,8 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const OptionSets = ({ selectedTypeID }) => {
+    const selectedPinOptionType = useSelector(state => selectPinOptionType(state, selectedTypeID));
+
     const { pinOptionSetsArr, isFetchingPinOptionSets, pinOptionSetsFetchError } =
         useFetchPinOptionSets();
 
@@ -26,7 +31,7 @@ const OptionSets = ({ selectedTypeID }) => {
     const { showAddModal, showEditModal, showDeleteModal, enableOptionSet, disableOptionSet } =
         useOptionSetActions(selectedTypeID);
 
-    const setLink = PIN_OPTION_TYPES[selectedTypeID].link;
+    const setLink = selectedPinOptionType.slug;
 
     return (
         <>
