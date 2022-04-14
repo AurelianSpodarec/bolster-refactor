@@ -69,8 +69,9 @@ const OptionSetsListItem = ({
                             onClick={() => showDeleteModal(set)}
                             isNegative
                         />
+
                         <ActionMenuActionButton
-                            text="Set as default"
+                            text={set.isDefault ? 'Default' : 'Set as default'}
                             onClick={() => dispatch(setOptionSetAsDefault(set))}
                         />
                     </ActionMenu>
