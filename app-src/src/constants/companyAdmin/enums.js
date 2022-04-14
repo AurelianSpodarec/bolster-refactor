@@ -329,12 +329,6 @@ export const PIN_OPTION_TYPES = {
     },
 };
 
-export const PIN_OPTION_TYPES_LOOKUP = {
-    'fr-ratings': 16,
-    'item-types': 17,
-    'installation-types': 18,
-};
-
 export const PIN_OPTION_TYPES_ENUM = {
     16: 'FR Ratings',
     17: 'Item Types',
