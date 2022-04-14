@@ -1,4 +1,7 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
+import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 
@@ -7,8 +10,6 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
-import { useSelector } from 'react-redux';
-import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 const OptionValuesListItem = ({
     option,

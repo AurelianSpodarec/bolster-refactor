@@ -1,7 +1,7 @@
 export const selectPinOptionTypes = state => state.companyAdmin.pinOptionTypesReducer.types;
 export const selectPinOptionTypesArr = state => Object.values(selectPinOptionTypes(state));
 export const selectPinOptionType = (state, id) =>
-    state.companyAdmin.pinOptionTypesReducer.types[id];
+    state.companyAdmin.pinOptionTypesReducer.types[id] || {};
 export const selectPinOptionTypesIsFetching = state =>
     state.companyAdmin.pinOptionTypesReducer.isFetching;
 export const selectPinOptionTypesFetchError = state =>
