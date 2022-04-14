@@ -341,18 +341,6 @@ export const PIN_OPTION_TYPES_ENUM = {
     18: 'Installation Types',
 };
 
-export const PIN_OPTION_TYPES_CREATE_VALUE_ENUM = {
-    16: 'FR Rating',
-    17: 'Item',
-    18: 'Installation',
-};
-
-export const PIN_OPTION_SETS_ENUM = {
-    16: 'FR Set',
-    17: 'Item Set',
-    18: 'Installation Set',
-};
-
 export const PIN_OPTION_TYPES_VALS = {
     frRatings: 16,
     itemTypes: 17,
