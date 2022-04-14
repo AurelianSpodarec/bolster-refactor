@@ -53,7 +53,7 @@ const OptionValuesListItem = ({
                         <ButtonWrapper alignment="right">
                             <LinkButton
                                 text="Documents"
-                                href={`/company/pin-options/${typeLink}/${setID}/${id}/documents`}
+                                href={`/company/pin-options/${typeLink}/${setID}/option/${id}/documents`}
                                 disabled={isSorting}
                             />
 
