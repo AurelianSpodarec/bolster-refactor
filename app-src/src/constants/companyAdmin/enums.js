@@ -319,9 +319,9 @@ export const PARENTAL_TYPES = {
 /*  adding new dropdown options to these two enum objects
     will dynamically add a new page for that option. */
 export const PIN_OPTION_TYPES = {
-    1: { name: 'FR Ratings', link: 'fr-ratings', singular: 'FR Rating', reduxKey: 'frRatings' },
-    2: { name: 'Item Types', link: 'item-types', singular: 'Item Type', reduxKey: 'itemTypes' },
-    3: {
+    16: { name: 'FR Ratings', link: 'fr-ratings', singular: 'FR Rating', reduxKey: 'frRatings' },
+    17: { name: 'Item Types', link: 'item-types', singular: 'Item Type', reduxKey: 'itemTypes' },
+    18: {
         name: 'Installation Types',
         link: 'installation-types',
         singular: 'Installation Type',
@@ -330,33 +330,33 @@ export const PIN_OPTION_TYPES = {
 };
 
 export const PIN_OPTION_TYPES_LOOKUP = {
-    'fr-ratings': 1,
-    'item-types': 2,
-    'installation-types': 3,
+    'fr-ratings': 16,
+    'item-types': 17,
+    'installation-types': 18,
 };
 
 export const PIN_OPTION_TYPES_ENUM = {
-    1: 'FR Ratings',
-    2: 'Item Types',
-    3: 'Installation Types',
+    16: 'FR Ratings',
+    17: 'Item Types',
+    18: 'Installation Types',
 };
 
 export const PIN_OPTION_TYPES_CREATE_VALUE_ENUM = {
-    1: 'FR Rating',
-    2: 'Item',
-    3: 'Installation',
+    16: 'FR Rating',
+    17: 'Item',
+    18: 'Installation',
 };
 
 export const PIN_OPTION_SETS_ENUM = {
-    1: 'FR Set',
-    2: 'Item Set',
-    3: 'Installation Set',
+    16: 'FR Set',
+    17: 'Item Set',
+    18: 'Installation Set',
 };
 
 export const PIN_OPTION_TYPES_VALS = {
-    frRatings: 1,
-    itemTypes: 2,
-    installationTypes: 3,
+    frRatings: 16,
+    itemTypes: 17,
+    installationTypes: 18,
 };
 
 export const DROPDOWN_OPTION_MANUFACTURER_ENABLED = {
