@@ -82,7 +82,7 @@ const OptionSets = ({ selectedTypeID }) => {
                         showDeleteModal={showDeleteModal}
                         enableOptionSet={enableOptionSet}
                         disableOptionSet={disableOptionSet}
-                        defaultSetID={defaultSet.id}
+                        defaultSetID={defaultSet && defaultSet.id}
                     />
                 ))}
             </Table>
