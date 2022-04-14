@@ -329,28 +329,10 @@ export const PIN_OPTION_TYPES = {
     },
 };
 
-export const PIN_OPTION_TYPES_LOOKUP = {
-    'fr-ratings': 16,
-    'item-types': 17,
-    'installation-types': 18,
-};
-
 export const PIN_OPTION_TYPES_ENUM = {
     16: 'FR Ratings',
     17: 'Item Types',
     18: 'Installation Types',
-};
-
-export const PIN_OPTION_TYPES_CREATE_VALUE_ENUM = {
-    16: 'FR Rating',
-    17: 'Item',
-    18: 'Installation',
-};
-
-export const PIN_OPTION_SETS_ENUM = {
-    16: 'FR Set',
-    17: 'Item Set',
-    18: 'Installation Set',
 };
 
 export const PIN_OPTION_TYPES_VALS = {

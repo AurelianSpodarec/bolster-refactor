@@ -12,7 +12,10 @@ const useBlockTabs = (tabs, initialSelectedTabID) => {
     const prevProps = usePrevious({ tabs });
 
     useEffect(() => {
-        if (JSON.stringify(tabs) === JSON.stringify(prevProps.tabs)) return;
+        if (JSON.stringify(tabs) === JSON.stringify(prevProps.tabs)) {
+            if (!isEmpty(tabs) && !selectedTabID) setSelectedTabID(tabs[0].id);
+            return;
+        }
 
         if (isEmpty(tabs)) {
             setSelectedTabID(null);

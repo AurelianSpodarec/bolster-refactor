@@ -1,6 +1,7 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-import { PIN_OPTION_SETS_ENUM, PIN_OPTION_TYPES_ENUM } from 'constants/companyAdmin/enums';
+import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 import useCreateOptionSet from '../hooks/useCreateOptionSet';
 
@@ -15,15 +16,16 @@ import ModalHeading from 'components/shared/generic/modals/presentational/ModalH
 import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 
 const CreateOptionSetModal = ({ pinOptionTypeID }) => {
-    const typeName = PIN_OPTION_TYPES_ENUM[pinOptionTypeID];
-    const setName = PIN_OPTION_SETS_ENUM[pinOptionTypeID];
+    const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
+    const pluralTypeName = pinOptionType.namePlural;
+    const singularTypeName = pinOptionType.name;
 
     const { form, handleChange, handleSubmit, isPosting, serviceOptions } =
         useCreateOptionSet(pinOptionTypeID);
 
     return (
         <ModalOuterContainer hideCloseButton>
-            <ModalHeading title={`Create ${setName}`}>
+            <ModalHeading title={`Create ${singularTypeName} Set`}>
                 <ButtonMultiDropdown
                     buttonText="Services"
                     name="serviceIDs"
@@ -36,12 +38,12 @@ const CreateOptionSetModal = ({ pinOptionTypeID }) => {
             </ModalHeading>
 
             <p className="generic-text size-lg-12">
-                Create an '{setName.toLowerCase()}' for your sites.
+                Create an '{singularTypeName.toLowerCase()} set' for your sites.
             </p>
 
             <p className="generic-text size-lg-12">
-                You will be able to set prices for your {typeName.toLowerCase()} and choose which
-                options are available to your operatives through the app.
+                You will be able to set prices for your {pluralTypeName.toLowerCase()} and choose
+                which options are available to your operatives through the app.
             </p>
 
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">

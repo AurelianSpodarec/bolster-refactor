@@ -13,7 +13,7 @@ const PinOptionsRoutes = ({ base = '/company/pin-options' }) => (
         <Route exact path={`${base}/:type/:setID`} component={OptionValues} />
         <Route
             exact
-            path={`${base}/:type/:setID/:optionID/documents`}
+            path={`${base}/:type/:setID/option/:optionID/documents`}
             component={OptionDocuments}
         />
     </SwitchWith404>

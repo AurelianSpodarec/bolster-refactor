@@ -1,11 +1,12 @@
 import React from 'react';
 import { Redirect, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { ReactComponent as SortAscIcon } from '_content/images/icons/sort-asc.svg';
 
-import { PIN_OPTION_TYPES_LOOKUP } from 'constants/companyAdmin/enums';
-
 import { isEmpty } from 'helpers/generic';
+
+import { selectPinOptionTypesArr } from 'selectors/companyAdmin/pinOptionTypes';
 
 import useFilterOptionValues from './hooks/useFilterOptionsValues';
 import useGetOptionsForSet from './hooks/useGetOptionsForSet';
@@ -24,7 +25,9 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 
 const OptionValuesList = ({ forwardRef, hasFetched }) => {
     const { setID, type } = useParams();
-    const typeID = PIN_OPTION_TYPES_LOOKUP[type];
+    const pinOptionTypesArr = useSelector(selectPinOptionTypesArr);
+    const specificType = pinOptionTypesArr.find(curType => curType.slug === type);
+    const typeID = specificType ? specificType.id : null;
 
     const pinOptionsForSet = useGetOptionsForSet(typeID, parseInt(setID));
 

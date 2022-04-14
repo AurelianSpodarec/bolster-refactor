@@ -1,6 +1,7 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-import { PIN_OPTION_TYPES, PIN_OPTION_TYPES_CREATE_VALUE_ENUM } from 'constants/companyAdmin/enums';
+import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 import useCreateOptionValue from '../hooks/useCreateOptionValue';
 
@@ -16,8 +17,8 @@ import CheckboxListContainer from 'components/shared/generic/form/containers/Che
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
 const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
-    const typeNameSingular = PIN_OPTION_TYPES[pinOptionTypeID].singular;
-    const typeNameSmallSingular = PIN_OPTION_TYPES_CREATE_VALUE_ENUM[pinOptionTypeID];
+    const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
+    const singularTypeName = pinOptionType.name;
 
     const { form, handleChange, handleSubmit, isPosting, serviceOptions } = useCreateOptionValue(
         pinOptionTypeID,
@@ -26,17 +27,17 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
 
     return (
         <ModalOuterContainer>
-            <BlockHeading title={`Add ${typeNameSingular}`} />
+            <BlockHeading title={`Add ${singularTypeName}`} />
 
             <p className="generic-text size-lg-12">
-                Create an {typeNameSingular.toLowerCase()} and apply prices to different
+                Create an {singularTypeName.toLowerCase()} and apply prices to different
                 measurements.
             </p>
 
             <p className="generic-text size-lg-12">
                 Your operatives will be able to apply a measurement to each{' '}
-                {typeNameSmallSingular.toLowerCase()} used on a history to calculate a price
-                associated to that pin.
+                {singularTypeName.toLowerCase()} used on a history to calculate a price associated
+                to that pin.
             </p>
 
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">

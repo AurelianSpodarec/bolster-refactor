@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { CREATE_PIN_OPTIONS_VALUE_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
-import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 import { useForm, usePrevious } from 'helpers/hooks';
 import { formatCheckboxListOptions } from 'helpers/generic';
 
@@ -14,10 +13,10 @@ import {
     selectPinOptionSetsPostError,
 } from 'selectors/companyAdmin/pinOptionSets';
 import { selectServicesArr } from 'selectors/companyAdmin/services';
+import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 const useCreateOptionSet = pinOptionTypeID => {
     const [newSetID, setNewSetID] = useState(null);
-    const link = PIN_OPTION_TYPES[pinOptionTypeID].link;
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -26,6 +25,9 @@ const useCreateOptionSet = pinOptionTypeID => {
 
     const services = useSelector(selectServicesArr);
     const serviceOptions = formatCheckboxListOptions(services);
+
+    const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
+    const slug = pinOptionType.slug;
 
     const prevProps = usePrevious({ postError, newSetID });
 
@@ -58,7 +60,7 @@ const useCreateOptionSet = pinOptionTypeID => {
                     pinOptionSetID: newSetID,
                 }),
             );
-            history.push(`/company/pin-options/${link}/${newSetID}`);
+            history.push(`/company/pin-options/${slug}/${newSetID}`);
         }
     }, [newSetID, prevProps.newSetID]);
 
