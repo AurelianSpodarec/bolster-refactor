@@ -38,10 +38,10 @@ const OptionSetsListItem = ({
     showDeleteModal,
     enableOptionSet,
     disableOptionSet,
-    defaultSet,
+    defaultSetID,
 }) => {
     const dispatch = useDispatch();
-    console.log(defaultSet);
+
     return (
         <tr>
             <td className="row-link w-checkbox">
@@ -73,7 +73,7 @@ const OptionSetsListItem = ({
 
                         <ActionMenuActionButton
                             text={set.isDefault ? 'Default' : 'Set as default'}
-                            onClick={() => dispatch(setOptionSetAsDefault(set, id))}
+                            onClick={() => dispatch(setOptionSetAsDefault(set, defaultSetID))}
                         />
                     </ActionMenu>
                 </ButtonWrapper>

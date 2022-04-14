@@ -4,10 +4,11 @@ import useSearch from 'hooks/useSearch';
 
 const useFilterSets = (sets, selectedTypeID) => {
     const { searchTerm, handleUpdateSearch } = useSearch();
-
     const getFilteredSets = () => {
         return sets.filter(set => {
-            if (!set.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+            if (searchTerm) {
+                if (!set.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+            }
             if (set.pinOptionTypeID !== selectedTypeID) return false;
             return true;
         });
