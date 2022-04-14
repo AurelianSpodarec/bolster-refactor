@@ -17,6 +17,9 @@ import {
     DISABLE_PIN_OPTION_SET_REQUEST,
     DISABLE_PIN_OPTION_SET_SUCCESS,
     DISABLE_PIN_OPTION_SET_FAILURE,
+    SET_OPTION_SET_AS_DEFAULT_REQUEST,
+    SET_OPTION_SET_AS_DEFAULT_SUCCESS,
+    SET_OPTION_SET_AS_DEFAULT_FAILURE,
 } from 'constants/actionTypes/pinOptions';
 
 export default combineReducers({
@@ -57,6 +60,7 @@ function isPostingReducer(state = false, action) {
         case EDIT_PIN_OPTION_SET_REQUEST:
         case ENABLE_PIN_OPTION_SET_REQUEST:
         case DISABLE_PIN_OPTION_SET_REQUEST:
+        case SET_OPTION_SET_AS_DEFAULT_REQUEST:
             return true;
         case CREATE_PIN_OPTION_SET_SUCCESS:
         case CREATE_PIN_OPTION_SET_FAILURE:
@@ -66,6 +70,8 @@ function isPostingReducer(state = false, action) {
         case ENABLE_PIN_OPTION_SET_FAILURE:
         case DISABLE_PIN_OPTION_SET_SUCCESS:
         case DISABLE_PIN_OPTION_SET_FAILURE:
+        case SET_OPTION_SET_AS_DEFAULT_SUCCESS:
+        case SET_OPTION_SET_AS_DEFAULT_FAILURE:
             return false;
         default:
             return state;
@@ -78,11 +84,13 @@ function postErrorReducer(state = null, action) {
         case EDIT_PIN_OPTION_SET_REQUEST:
         case ENABLE_PIN_OPTION_SET_REQUEST:
         case DISABLE_PIN_OPTION_SET_REQUEST:
+        case SET_OPTION_SET_AS_DEFAULT_REQUEST:
             return null;
         case CREATE_PIN_OPTION_SET_FAILURE:
         case EDIT_PIN_OPTION_SET_FAILURE:
         case ENABLE_PIN_OPTION_SET_FAILURE:
         case DISABLE_PIN_OPTION_SET_FAILURE:
+        case SET_OPTION_SET_AS_DEFAULT_FAILURE:
             return action.error;
         default:
             return state;
@@ -95,11 +103,13 @@ function postSuccessReducer(state = false, action) {
         case EDIT_PIN_OPTION_SET_REQUEST:
         case ENABLE_PIN_OPTION_SET_REQUEST:
         case DISABLE_PIN_OPTION_SET_REQUEST:
+        case SET_OPTION_SET_AS_DEFAULT_REQUEST:
             return false;
         case CREATE_PIN_OPTION_SET_SUCCESS:
         case EDIT_PIN_OPTION_SET_SUCCESS:
         case ENABLE_PIN_OPTION_SET_SUCCESS:
         case DISABLE_PIN_OPTION_SET_SUCCESS:
+        case SET_OPTION_SET_AS_DEFAULT_SUCCESS:
             return true;
         default:
             return state;
@@ -114,10 +124,13 @@ function setsReducer(state = {}, action) {
         case EDIT_PIN_OPTION_SET_SUCCESS:
         case ENABLE_PIN_OPTION_SET_SUCCESS:
         case DISABLE_PIN_OPTION_SET_SUCCESS:
+        case SET_OPTION_SET_AS_DEFAULT_SUCCESS:
+        case SET_OPTION_SET_AS_DEFAULT_FAILURE:
         case ENABLE_PIN_OPTION_SET_FAILURE:
         case DISABLE_PIN_OPTION_SET_FAILURE:
             return updateObj(state, action.payload.id, action.payload);
         case ENABLE_PIN_OPTION_SET_REQUEST:
+        case SET_OPTION_SET_AS_DEFAULT_REQUEST:
         case DISABLE_PIN_OPTION_SET_REQUEST:
             return updateObj(state, action.payload.id, {
                 ...action.payload,
