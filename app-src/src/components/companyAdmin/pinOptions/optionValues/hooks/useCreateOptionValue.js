@@ -12,9 +12,6 @@ import {
     selectPinOptionsPostError,
     selectPinOptionsPostSuccess,
 } from 'selectors/companyAdmin/pinOptions';
-import { selectServicesArr } from 'selectors/companyAdmin/services';
-import { formatCheckboxListOptions } from 'helpers/generic';
-import { selectPinOptionSets } from 'selectors/companyAdmin/pinOptionSets';
 
 const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
     const dispatch = useDispatch();
@@ -23,15 +20,6 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
     const postSuccess = useSelector(selectPinOptionsPostSuccess);
 
     const prevProps = usePrevious({ postError, postSuccess });
-
-    const services = useSelector(selectServicesArr);
-    const pinOptionSets = useSelector(selectPinOptionSets);
-    const pinServiceIDs =
-        pinOptionSetID &&
-        Object.values(pinOptionSets).find(set => set.id === pinOptionSetID).serviceIDs;
-    const availableServices = services.filter(option => pinServiceIDs?.includes(option.id));
-    const serviceOptions =
-        availableServices.length > 0 ? formatCheckboxListOptions(availableServices) : [];
 
     const [form, handleChange] = useForm({
         name: '',
@@ -57,7 +45,7 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
         if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
     }, [postSuccess, prevProps.postSuccess]);
 
-    return { form, handleChange, handleSubmit, isPosting, serviceOptions };
+    return { form, handleChange, handleSubmit, isPosting };
 };
 
 export default useCreateOptionValue;
