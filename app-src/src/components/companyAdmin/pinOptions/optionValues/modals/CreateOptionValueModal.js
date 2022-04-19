@@ -6,21 +6,16 @@ import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 import useCreateOptionValue from '../hooks/useCreateOptionValue';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
-import InfoIcon from '../../../../../_content/images/icons/info-icon.svg';
-import InfoIconDark from '../../../../../_content/images/icons/info-icon-dark.svg';
-import useColourTheme from 'hooks/useColourTheme';
+import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
+import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 
 const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
-    const colourTheme = useColourTheme();
     const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
     const singularTypeName = pinOptionType.name;
 
@@ -30,8 +25,20 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     );
 
     return (
-        <ModalOuterContainer>
-            <BlockHeading title={`Add ${singularTypeName}`} />
+        <ModalOuterContainer hideCloseButton>
+            <ModalHeading title={`Add ${singularTypeName}`}>
+                {serviceOptions.length && (
+                    <ButtonMultiDropdown
+                        buttonText="Services"
+                        name="serviceIDs"
+                        options={serviceOptions}
+                        selectedOptions={form.serviceIDs}
+                        handleChange={handleChange}
+                        isNumberValues
+                        scrollElementID="modal-block"
+                    />
+                )}
+            </ModalHeading>
 
             <p className="generic-text size-lg-12">
                 Create an {singularTypeName.toLowerCase()} and apply prices to different
@@ -65,7 +72,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                     />
                 </Field>
 
-                <Field name="Unit of Measurement" classes="installation-types-dropdown" required>
+                {/* <Field name="Unit of Measurement" classes="installation-types-dropdown" required>
                     <DropdownContainer
                         name="unit of measurement"
                         options={[]}
@@ -82,20 +89,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                     icon={colourTheme === 'dark' ? InfoIcon : InfoIconDark}
                     alt="Information"
                     required
-                ></Field>
-
-                {serviceOptions.length > 0 && (
-                    <Field name="Services">
-                        <CheckboxListContainer
-                            name="serviceIDs"
-                            text=""
-                            handleChange={handleChange}
-                            selectedOptions={form.serviceIDs}
-                            options={serviceOptions}
-                            isNumberValues
-                        />
-                    </Field>
-                )}
+                ></Field> */}
 
                 <BlockButtonWrapper>
                     <ButtonWrapper alignment="right">
