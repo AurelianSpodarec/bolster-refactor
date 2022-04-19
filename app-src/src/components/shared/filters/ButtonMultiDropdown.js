@@ -53,6 +53,7 @@ const ButtonMultiDropdown = ({
             >
                 <div className="list-content">
                     <button
+                        className="dropdown-list-button"
                         onClick={() => {
                             if (isAllSelected) {
                                 _handleDeselectAll();
@@ -69,7 +70,7 @@ const ButtonMultiDropdown = ({
 
                         return (
                             <button
-                                className={isSelected ? 'active' : ''}
+                                className={`dropdown-list-button ${isSelected ? 'active' : ''}`}
                                 key={value}
                                 onClick={() => _handleChange(value)}
                                 disabled={isDisabled}
