@@ -22,9 +22,9 @@ const {
     SINGLE_PHOTO,
     MULTI_PHOTO,
     STATUS,
-    DROPDOWN_OPTIONS,
-    MULTI_DROPDOWN_OPTIONS,
-    MULTI_MULTI_DROPDOWN_OPTIONS,
+    PIN_OPTION_TYPES,
+    MULTI_PIN_OPTION_TYPES,
+    MULTI_MULTI_PIN_OPTION_TYPES,
     STATIC_IMAGE,
     RADIO,
     DROPDOWN,
@@ -32,9 +32,9 @@ const {
 } = QUESTION_TYPE_VALUES;
 
 const dropdownOptionTypes = [
-    DROPDOWN_OPTIONS,
-    MULTI_DROPDOWN_OPTIONS,
-    MULTI_MULTI_DROPDOWN_OPTIONS,
+    PIN_OPTION_TYPES,
+    MULTI_PIN_OPTION_TYPES,
+    MULTI_MULTI_PIN_OPTION_TYPES,
 ];
 
 class AddPinQuestionRoute extends Component {
@@ -191,7 +191,7 @@ class AddPinQuestionRoute extends Component {
                 preReqAnswer = retArray;
             }
 
-            if (preReqType === DROPDOWN_OPTIONS) {
+            if (preReqType === PIN_OPTION_TYPES) {
                 //For a drop down we have to convert the GUID to the question option.
                 const selectedOption = dropdownOptions.find(option => option.name === preReqAnswer);
                 // specifying not undefined in case pre-req answers are falsy ie. 0, ''
@@ -202,7 +202,7 @@ class AddPinQuestionRoute extends Component {
                 }
             }
 
-            if ([MULTI_DROPDOWN_OPTIONS, MULTI_MULTI_DROPDOWN_OPTIONS].includes(preReqType)) {
+            if ([MULTI_PIN_OPTION_TYPES, MULTI_MULTI_PIN_OPTION_TYPES].includes(preReqType)) {
                 //For a drop down we have to convert the GUID to the question option.
                 const selectedOptions = dropdownOptions
                     .filter(option => preReqAnswer.includes(option.name))
@@ -344,14 +344,14 @@ class AddPinQuestionRoute extends Component {
                 // preventing stealth prefill manufacturer with non manufacturing answers & vice versa
 
                 if (
-                    question.type + '' === MULTI_DROPDOWN_OPTIONS ||
-                    question.type + '' === MULTI_MULTI_DROPDOWN_OPTIONS
+                    question.type + '' === MULTI_PIN_OPTION_TYPES ||
+                    question.type + '' === MULTI_MULTI_PIN_OPTION_TYPES
                 ) {
                     if (Array.isArray(answer)) {
                         this.setState({ originalDropdownMultiAns: answer });
                     }
                 }
-                if (question.type + '' === DROPDOWN_OPTIONS) {
+                if (question.type + '' === PIN_OPTION_TYPES) {
                     this.setState({ originalDropdownAns: answer });
                 }
             }
@@ -471,7 +471,7 @@ class AddPinQuestionRoute extends Component {
         const { type, optionType } = question;
 
         const relevantOptions = dropdownOptionsByType[optionType];
-        if (`${type}` === DROPDOWN_OPTIONS) {
+        if (`${type}` === PIN_OPTION_TYPES) {
             // handle edge case where answer is an array, set asfirst element in array
             if (Array.isArray(answer)) [answer] = answer;
             if (relevantOptions.includes(answer)) {

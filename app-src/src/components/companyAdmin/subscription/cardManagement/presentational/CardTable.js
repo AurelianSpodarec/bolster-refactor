@@ -34,7 +34,13 @@ const CardTable = ({
         </Table>
         <BlockButtonWrapper>
             <ButtonWrapper alignment="right">
-                <ActionButton text="Add Card" icon="plus" ambient="positive" onClick={showModal} />
+                <ActionButton
+                    text="Add Card"
+                    icon="plus"
+                    ambient="positive"
+                    size="medium"
+                    onClick={showModal}
+                />
             </ButtonWrapper>
         </BlockButtonWrapper>
     </>

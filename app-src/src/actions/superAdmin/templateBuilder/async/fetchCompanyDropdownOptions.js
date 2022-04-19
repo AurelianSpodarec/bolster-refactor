@@ -3,24 +3,24 @@
 import axios from 'axios';
 
 import {
-    FETCH_COMPANY_DROPDOWN_OPTIONS_REQUEST,
-    FETCH_COMPANY_DROPDOWN_OPTIONS_SUCCESS,
-    FETCH_COMPANY_DROPDOWN_OPTIONS_FAILURE,
+    FETCH_COMPANY_PIN_OPTION_TYPES_REQUEST,
+    FETCH_COMPANY_PIN_OPTION_TYPES_SUCCESS,
+    FETCH_COMPANY_PIN_OPTION_TYPES_FAILURE,
 } from 'constants/actionTypes/companies';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 export const fetchTemplatesRequest = () => ({
-    type: FETCH_COMPANY_DROPDOWN_OPTIONS_REQUEST,
+    type: FETCH_COMPANY_PIN_OPTION_TYPES_REQUEST,
 });
 
 export const fetchTemplatesSuccess = payload => ({
-    type: FETCH_COMPANY_DROPDOWN_OPTIONS_SUCCESS,
+    type: FETCH_COMPANY_PIN_OPTION_TYPES_SUCCESS,
     payload,
 });
 
 export const fetchTemplatesFailure = error => ({
-    type: FETCH_COMPANY_DROPDOWN_OPTIONS_FAILURE,
+    type: FETCH_COMPANY_PIN_OPTION_TYPES_FAILURE,
     error,
 });
 

@@ -22,7 +22,6 @@ import SettingsRoutes from './SettingsRoutes';
 import ActivityLogRoutes from './ActivityLogRoutes';
 // import TransferRequestsRoutes from './TransferRequestsRoutes';
 import TermsRoutes from './TermsRoutes';
-import DropdownOptionsRoutes from './DropdownOptionsRoutes';
 import HeadquartersRoutes from './HeadquartersRoutes';
 import ApprovedCompaniesRoutes from './ApprovedCompaniesRoutes';
 import UserGuidesRoutes from './UserGuidesRoutes';
@@ -32,6 +31,7 @@ import UpcomingAlertsRoutes from './UpcomingAlertsRoutes';
 import BugReportRoutes from './BugReportRoutes';
 import DocumentLibraryRoutes from './DocumentLibraryRoutes';
 import JobReferencesRoutes from './JobReferencesRoutes';
+import PinOptionsRoutes from './PinOptionsRoutes';
 // import withTermsAuth from '../../hocs/withTermsAuth';
 
 const CompanyRoutes = ({ base = '/company' }) => (
@@ -67,10 +67,6 @@ const CompanyRoutes = ({ base = '/company' }) => (
             component={withSubscriptionAuth(UserManagementRoutes)}
         />
         <Route
-            path={`${base}/dropdown-options`}
-            component={withSubscriptionAuth(DropdownOptionsRoutes)}
-        />
-        <Route
             path={`${base}/company-documents`}
             component={withSubscriptionAuth(DocumentLibraryRoutes)}
         />
@@ -78,6 +74,7 @@ const CompanyRoutes = ({ base = '/company' }) => (
             path={`${base}/job-references`}
             component={withSubscriptionAuth(JobReferencesRoutes)}
         />
+        <Route path={`${base}/pin-options`} component={withSubscriptionAuth(PinOptionsRoutes)} />
     </SwitchWith404>
 );
 

@@ -7,7 +7,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
@@ -130,7 +130,7 @@ const EditSiteForm = ({
                             <Field
                                 labelClasses="no-capitalise"
                                 name={`${manufacturerInfo.name} ${
-                                    DROPDOWN_OPTIONS[manufacturerInfo.pinOptionType].name
+                                    PIN_OPTION_TYPES[manufacturerInfo.pinOptionType].name
                                 }
                               `}
                             >

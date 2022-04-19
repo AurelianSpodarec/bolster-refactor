@@ -12,7 +12,7 @@ import {
     removeUnusedManufacturerDefaults,
 } from 'helpers/manufacturers';
 import {
-    DROPDOWN_OPTIONS,
+    PIN_OPTION_TYPES,
     DROPDOWN_OPTION_MANUFACTURER_ENABLED,
 } from 'constants/companyAdmin/enums';
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
@@ -87,7 +87,7 @@ class BuildingEditFormContainer extends Component {
         } = this.props;
 
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before editing a building
-        const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
+        const pinOptionTypes = Object.keys(PIN_OPTION_TYPES).filter(option => {
             return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option];
         });
 
@@ -108,13 +108,8 @@ class BuildingEditFormContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const {
-            building,
-            isFetching,
-            optionValues,
-            subscriptionServiceIDs,
-            manufacturers,
-        } = this.props;
+        const { building, isFetching, optionValues, subscriptionServiceIDs, manufacturers } =
+            this.props;
 
         if (prevProps.isFetching && !isFetching) {
             const initialOptions = {

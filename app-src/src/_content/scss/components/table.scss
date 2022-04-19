@@ -125,6 +125,10 @@
 
         td {
           overflow: hidden;
+
+          * {
+            pointer-events: none;
+          }
         }
       }
     }
@@ -342,6 +346,34 @@
     &.cell-break-all {
       word-break: break-all;
     }
+
+    &.row-link {
+      padding: 0;
+
+      .checkbox {
+        width: 38px;
+      }
+
+      a {
+        display: block;
+        width: 100%;
+        padding: 10px 15px;
+        color: var(--typography-default);
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      &.w-checkbox {
+        padding: 0 15px;
+
+        a {
+          padding-left: 8px;
+        }
+      }
+    }
   }
 
   .button {
@@ -425,6 +457,14 @@
   .custom-button {
     i {
       color: #F9FAFA
+    }
+  }
+
+  // switch / checkbox
+  .checkbox {
+    label {
+      padding: 3px 0;
+      font-size: 100%;
     }
   }
 }

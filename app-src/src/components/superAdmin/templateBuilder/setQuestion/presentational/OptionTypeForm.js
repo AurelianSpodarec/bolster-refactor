@@ -2,11 +2,11 @@ import React from 'react';
 
 import Field from 'components/shared/generic/form/presentational/Field';
 import { convertEnumToDropdownOptions } from 'helpers/generic';
-import { DROPDOWN_OPTION_ENUM } from 'constants/companyAdmin/enums';
+import { PIN_OPTION_TYPES_ENUM } from 'constants/companyAdmin/enums';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
 
-const options = convertEnumToDropdownOptions(DROPDOWN_OPTION_ENUM);
+const options = convertEnumToDropdownOptions(PIN_OPTION_TYPES_ENUM);
 
 const OptionTypeFrom = ({
     handleInputChange,

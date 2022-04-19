@@ -1,7 +1,7 @@
-import { REORDER_DROPDOWN_OPTIONS } from 'constants/actionTypes/dropdownOptions';
+import { REORDER_PIN_OPTION_TYPES } from 'constants/actionTypes/dropdownOptions';
 
 export default payload => dispatch =>
     dispatch({
-        type: REORDER_DROPDOWN_OPTIONS,
+        type: REORDER_PIN_OPTION_TYPES,
         payload,
     });

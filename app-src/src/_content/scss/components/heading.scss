@@ -71,6 +71,20 @@
             margin-left: 0;
         }
     }
+
+    // flex heading
+    &.flex-heading {
+        .heading {
+            margin-bottom: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .content-container {
+            min-height: 40px;
+        }
+    }
 }
 
 // headings within the block areas

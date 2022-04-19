@@ -7,7 +7,7 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
-import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
@@ -147,7 +147,7 @@ const BuildingFormFieldsWithLabel = ({
                                                 <Field
                                                     labelClasses="no-capitalise"
                                                     name={`${manufacturerInfo.name} ${
-                                                        DROPDOWN_OPTIONS[
+                                                        PIN_OPTION_TYPES[
                                                             manufacturerInfo.pinOptionType
                                                         ].name
                                                     }

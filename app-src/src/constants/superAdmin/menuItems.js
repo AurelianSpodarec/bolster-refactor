@@ -57,10 +57,7 @@ export const superAdminNavMenuItems = [
         name: 'System',
         icon: systemIcon,
         link: '/admin/services',
-        subNavItems: [
-            { name: 'Services', link: '/admin/services' },
-            { name: 'Installation types', link: '/admin/pin-options/installation-types' },
-        ],
+        subNavItems: [{ name: 'Services', link: '/admin/services' }],
     },
     {
         name: 'Contact',

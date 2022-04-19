@@ -5,7 +5,7 @@ import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
-import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
@@ -92,7 +92,7 @@ const FloorEditForm = ({
                                             <Field
                                                 labelClasses="no-capitalise"
                                                 name={`${manufacturerInfo.name} ${
-                                                    DROPDOWN_OPTIONS[manufacturerInfo.pinOptionType]
+                                                    PIN_OPTION_TYPES[manufacturerInfo.pinOptionType]
                                                         .name
                                                 }
                               `}

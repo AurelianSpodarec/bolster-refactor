@@ -388,20 +388,27 @@ button {
     white-space: nowrap;
 
     .text {
-        + .icon {
+        + .icon, + .svg-icon {
             margin-left: 8px;
         }
     }
 
     .icon {
+        height: 15px;
+
         + .text {
             margin-left: 8px;
         }
     }
 
-    .custom-icon {
-        width: 15px;
+    .svg-icon {
+        width: auto;
         height: 15px;
+
+        path {
+            stroke: #F9FAFA;
+        }
+        
         + .text {
             margin-left: 8px;
         }
@@ -411,13 +418,13 @@ button {
         color: #F9FAFA;
     }
 
-    &:disabled {
+    &:disabled, &[data-disabled="true"] {
         cursor: not-allowed;
         opacity: 0.5;
     }
 
     &.icon-only {
-        padding: 12px;
+        padding: 11px 12px;
 
         .icon {
             margin-left: 0;
@@ -426,21 +433,29 @@ button {
     }
 
     // small
-    &.size-small {
+    &[data-size="small"] {
         padding: 5px 16px;
         font-size: 12px;
         line-height: 12px;
         border-radius: 4px;
 
         &.icon-only {
-            padding: 6px;
+            padding: 5px 6px;
+        }
+
+        .icon {
+            height: 12px;
+        }
+
+        .svg-icon {
+            height: 12px;
         }
     }
 
     // primary source
-    &.source-primary {
+    &[data-source="primary"] {
         // primary ambient
-        &.ambient-primary {
+        &[data-ambient="primary"] {
             background-color: var(--primary-default);
 
             &:not(:disabled) {
@@ -459,7 +474,7 @@ button {
         }
 
         // positive ambient
-        &.ambient-positive {
+        &[data-ambient="positive"] {
             background-color: var(--positive-default);
 
             &:not(:disabled) {
@@ -478,7 +493,7 @@ button {
         }
 
         // negative ambient
-        &.ambient-negative {
+        &[data-ambient="negative"] {
             background-color: var(--negative-default);
 
             &:not(:disabled) {
@@ -498,8 +513,14 @@ button {
     }
 
     // secondary source
-    &.source-secondary {
+    &[data-source="secondary"] {
         color: var(--typography-default);
+
+        .svg-icon {
+            path {
+                stroke: var(--typography-default);
+            }
+        }
 
         // all ambients
         &:not(:disabled) {
@@ -513,12 +534,12 @@ button {
         }
 
         // positive ambient
-        &.ambient-positive {
+        &[data-ambient="positive"] {
             border-color: var(--background-button-hover);
         }
 
         // negative ambient
-        &.ambient-negative {
+        &[data-ambient="negative"] {
             color: var(--negative-default);
         }
     }
@@ -544,6 +565,45 @@ button {
     &.right {
         .custom-button {
             margin-left: 5px;
+        }
+    }
+}
+
+// dropdown list button
+.dropdown-list-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    float: none!important;
+    width: 100%;
+    margin: 0 0 5px 0 !important;
+    padding: 5px 10px;
+    background-color: transparent;
+    color: var(--typography-default);
+    text-align: left;
+    border-radius: 20px;
+    font-size: 15px;
+
+    &:last-child {
+        margin-bottom: 0!important;
+    }
+
+    &:hover {
+        background-color: var(--hover-primary)
+    }
+
+    &.active {
+        background-color: var(--primary-default);
+        color: #F9FAFA;
+    }
+    
+    .icon {
+        margin-left: 15px;
+        height: 8px;
+        min-width: auto;
+
+        path {
+            stroke: #F9FAFA;
         }
     }
 }

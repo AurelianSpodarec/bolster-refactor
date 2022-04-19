@@ -22,12 +22,12 @@ const {
     SIGNATURE,
     SINGLE_PHOTO,
     MULTI_PHOTO,
-    DROPDOWN_OPTIONS,
-    MULTI_DROPDOWN_OPTIONS,
+    PIN_OPTION_TYPES,
+    MULTI_PIN_OPTION_TYPES,
     MULTI_MULTI_DROPDOWN,
-    MULTI_MULTI_DROPDOWN_OPTIONS,
+    MULTI_MULTI_PIN_OPTION_TYPES,
     STATIC_IMAGE,
-    DOCUMENT_UPLOAD
+    DOCUMENT_UPLOAD,
 } = QUESTION_TYPE_VALUES;
 
 const PreviewQuestionRoute = ({ question }) => {
@@ -43,13 +43,12 @@ const PreviewQuestionRoute = ({ question }) => {
         [SIGNATURE]: MultiLine,
         [SINGLE_PHOTO]: Photo,
         [MULTI_PHOTO]: Photo,
-        [DROPDOWN_OPTIONS]: SingleDropdown,
-        [MULTI_DROPDOWN_OPTIONS]: MultiDropdown,
+        [PIN_OPTION_TYPES]: SingleDropdown,
+        [MULTI_PIN_OPTION_TYPES]: MultiDropdown,
         [MULTI_MULTI_DROPDOWN]: MultiMultiDropdown,
-        [MULTI_MULTI_DROPDOWN_OPTIONS]: MultiMultiDropdown,
+        [MULTI_MULTI_PIN_OPTION_TYPES]: MultiMultiDropdown,
         [STATIC_IMAGE]: StaticImage,
         [DOCUMENT_UPLOAD]: DocumentUpload,
-
     };
 
     const Nothing = () => null;
@@ -65,23 +64,13 @@ export default PreviewQuestionRoute;
 
 function SingleLine({ question: { id }, handleChange }) {
     return (
-        <TextInputContainer
-            name={`answer-${id}`}
-            value=""
-            handleChange={handleChange}
-            disabled
-        />
+        <TextInputContainer name={`answer-${id}`} value="" handleChange={handleChange} disabled />
     );
 }
 
 function MultiLine({ question: { id }, handleChange }) {
     return (
-        <TextAreaContainer
-            name={`answer-${id}`}
-            value=""
-            handleChange={handleChange}
-            disabled
-        />
+        <TextAreaContainer name={`answer-${id}`} value="" handleChange={handleChange} disabled />
     );
 }
 

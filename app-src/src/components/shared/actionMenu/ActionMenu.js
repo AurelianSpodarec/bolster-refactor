@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import useClickOutside from 'hooks/useClickOutside';
 import ActionMenuContent from './ActionMenuContent';
 
-const ActionMenu = ({ children }) => {
+const ActionMenu = ({ children, ellipsisPosition = 'right', disabled = false }) => {
     const [showMenu, setShowMenu] = useState(false);
 
     const closeMenu = () => {
@@ -14,11 +14,23 @@ const ActionMenu = ({ children }) => {
 
     return (
         <div className="action-menu-wrapper flex-row">
-            <button className="ellipsis-button" onClick={() => setShowMenu(true)}>
+            <button
+                className="ellipsis-button"
+                data-position={ellipsisPosition}
+                onClick={e => {
+                    e.preventDefault();
+                    setShowMenu(true);
+                }}
+                disabled={disabled}
+            >
                 <i className="fa fa-ellipsis-v" />
             </button>
 
-            <div ref={ref}>{showMenu && <ActionMenuContent>{children}</ActionMenuContent>}</div>
+            <div ref={ref}>
+                {showMenu && (
+                    <ActionMenuContent closeMenu={closeMenu}>{children}</ActionMenuContent>
+                )}
+            </div>
         </div>
     );
 };

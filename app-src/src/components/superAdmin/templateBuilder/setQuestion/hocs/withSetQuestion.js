@@ -6,7 +6,7 @@ import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import resetQuestionFields from 'actions/superAdmin/templateBuilder/sync/resetQuestionFields';
 import updateQuestionFields from 'actions/superAdmin/templateBuilder/sync/updateQuestionFields';
-import { DROPDOWN_OPTION_VALS, PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import { PIN_OPTION_TYPES_VALS, PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { updateObj, removeObjItem } from 'helpers/generic';
 import {
     PREFILL_TYPES,
@@ -84,7 +84,7 @@ export default function (WrappedComponent) {
             if (!prereqs.length) return false;
             prereqs.forEach(prereq => {
                 const { optionType } = prereq;
-                const shouldShow = optionType === DROPDOWN_OPTION_VALS.installationTypes;
+                const shouldShow = optionType === PIN_OPTION_TYPES_VALS.installationTypes;
                 if (shouldShow) return true;
             });
 
@@ -260,9 +260,9 @@ export default function (WrappedComponent) {
                     };
                 case VALS.MULTI_PHOTO:
                     return { maxPhotos };
-                case VALS.DROPDOWN_OPTIONS:
-                case VALS.MULTI_DROPDOWN_OPTIONS:
-                case VALS.MULTI_MULTI_DROPDOWN_OPTIONS:
+                case VALS.PIN_OPTION_TYPES:
+                case VALS.MULTI_PIN_OPTION_TYPES:
+                case VALS.MULTI_MULTI_PIN_OPTION_TYPES:
                     return { optionType, defaultValue };
                 default:
                     return {};

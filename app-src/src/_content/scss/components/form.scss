@@ -326,6 +326,12 @@
     opacity: 0.3;
   }
 
+  &.grey-out-input {
+    .outer {
+      opacity: 0.3;
+    }
+  }
+
   &.hide {
     display: none;
   }
@@ -404,6 +410,14 @@
   &.grey-out {
     opacity: 0.5;
     cursor: default;
+  }
+
+  &.grey-out-input {
+    cursor: default;
+
+    .outer {
+      opacity: 0.3;
+    }
   }
 
   .holder {

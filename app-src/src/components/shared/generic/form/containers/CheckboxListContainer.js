@@ -21,6 +21,7 @@ class CheckboxListContainer extends Component {
             classes,
             allOptionsDisabled = false,
             hideDisabled = false,
+            isNumberValues,
         } = this.props;
         const errorMessage = showFieldError || errorsVisible ? error : null;
         return (
@@ -33,6 +34,7 @@ class CheckboxListContainer extends Component {
                 classes={classes}
                 allOptionsDisabled={allOptionsDisabled}
                 hideDisabled={hideDisabled}
+                isNumberValues={isNumberValues}
             />
         );
     }
@@ -50,10 +52,12 @@ class CheckboxListContainer extends Component {
     };
 
     handleChange = (name, _, value) => {
-        const { selectedOptions, handleChange } = this.props;
-        const updatedValues = selectedOptions.includes(value)
-            ? selectedOptions.filter(val => value !== val)
-            : [...selectedOptions, value];
+        const { selectedOptions, handleChange, isNumberValues } = this.props;
+        const formattedValue = isNumberValues ? parseInt(value) : value;
+
+        const updatedValues = selectedOptions.includes(formattedValue)
+            ? selectedOptions.filter(val => formattedValue !== val)
+            : [...selectedOptions, formattedValue];
         handleChange(name, updatedValues);
     };
 

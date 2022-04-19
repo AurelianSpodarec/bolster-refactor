@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 
 import {
-    FETCH_DRAWING_DROPDOWN_OPTIONS_REQUEST,
-    FETCH_DRAWING_DROPDOWN_OPTIONS_SUCCESS,
-    FETCH_DRAWING_DROPDOWN_OPTIONS_FAILURE,
-    UPDATE_DRAWING_DROPDOWN_OPTIONS,
+    FETCH_DRAWING_PIN_OPTION_TYPES_REQUEST,
+    FETCH_DRAWING_PIN_OPTION_TYPES_SUCCESS,
+    FETCH_DRAWING_PIN_OPTION_TYPES_FAILURE,
+    UPDATE_DRAWING_PIN_OPTION_TYPES,
     SET_SERVICE_ID,
 } from 'constants/actionTypes/drawings';
 import { FETCH_ALL_OPTION_VALUES_REQUEST } from 'constants/actionTypes/companyAdminManufacturers';
@@ -19,10 +19,10 @@ export default combineReducers({
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
-        case FETCH_DRAWING_DROPDOWN_OPTIONS_REQUEST:
+        case FETCH_DRAWING_PIN_OPTION_TYPES_REQUEST:
             return true;
-        case FETCH_DRAWING_DROPDOWN_OPTIONS_FAILURE:
-        case FETCH_DRAWING_DROPDOWN_OPTIONS_SUCCESS:
+        case FETCH_DRAWING_PIN_OPTION_TYPES_FAILURE:
+        case FETCH_DRAWING_PIN_OPTION_TYPES_SUCCESS:
             return false;
         default:
             return state;
@@ -31,9 +31,9 @@ function isFetchingReducer(state = false, action) {
 
 function errorReducer(state = null, action) {
     switch (action.type) {
-        case FETCH_DRAWING_DROPDOWN_OPTIONS_FAILURE:
+        case FETCH_DRAWING_PIN_OPTION_TYPES_FAILURE:
             return action.error;
-        case FETCH_DRAWING_DROPDOWN_OPTIONS_REQUEST:
+        case FETCH_DRAWING_PIN_OPTION_TYPES_REQUEST:
             return null;
         default:
             return state;
@@ -42,9 +42,9 @@ function errorReducer(state = null, action) {
 
 function dropdownOptionsReducer(state = [], action) {
     switch (action.type) {
-        case FETCH_DRAWING_DROPDOWN_OPTIONS_SUCCESS:
+        case FETCH_DRAWING_PIN_OPTION_TYPES_SUCCESS:
             return action.payload;
-        case UPDATE_DRAWING_DROPDOWN_OPTIONS:
+        case UPDATE_DRAWING_PIN_OPTION_TYPES:
             return action.options;
         default:
             return state;
@@ -53,10 +53,10 @@ function dropdownOptionsReducer(state = [], action) {
 
 function areManufacturerOptionsIncludedReducer(state = [], action) {
     switch (action.type) {
-        case FETCH_DRAWING_DROPDOWN_OPTIONS_REQUEST:
+        case FETCH_DRAWING_PIN_OPTION_TYPES_REQUEST:
         case FETCH_ALL_OPTION_VALUES_REQUEST:
             return false;
-        case UPDATE_DRAWING_DROPDOWN_OPTIONS:
+        case UPDATE_DRAWING_PIN_OPTION_TYPES:
             return true;
         default:
             return state;

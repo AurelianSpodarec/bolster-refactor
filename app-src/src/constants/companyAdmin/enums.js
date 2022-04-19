@@ -321,10 +321,10 @@ export const PARENTAL_TYPES = {
 
 /*  adding new dropdown options to these two enum objects
     will dynamically add a new page for that option. */
-export const DROPDOWN_OPTIONS = {
-    1: { name: 'FR Ratings', link: 'fr-ratings', singular: 'FR Rating', reduxKey: 'frRatings' },
-    2: { name: 'Item Types', link: 'item-types', singular: 'Item Type', reduxKey: 'itemTypes' },
-    3: {
+export const PIN_OPTION_TYPES = {
+    16: { name: 'FR Ratings', link: 'fr-ratings', singular: 'FR Rating', reduxKey: 'frRatings' },
+    17: { name: 'Item Types', link: 'item-types', singular: 'Item Type', reduxKey: 'itemTypes' },
+    18: {
         name: 'Installation Types',
         link: 'installation-types',
         singular: 'Installation Type',
@@ -332,21 +332,16 @@ export const DROPDOWN_OPTIONS = {
     },
 };
 
-export const DROPDOWN_OPTION_LOOKUP = {
-    'fr-ratings': 1,
-    'item-types': 2,
-    'installation-types': 3,
+export const PIN_OPTION_TYPES_ENUM = {
+    16: 'FR Ratings',
+    17: 'Item Types',
+    18: 'Installation Types',
 };
 
-export const DROPDOWN_OPTION_ENUM = {
-    1: 'FR Ratings',
-    2: 'Item Types',
-    3: 'Installation Types',
-};
-export const DROPDOWN_OPTION_VALS = {
-    frRatings: 1,
-    itemTypes: 2,
-    installationTypes: 3,
+export const PIN_OPTION_TYPES_VALS = {
+    frRatings: 16,
+    itemTypes: 17,
+    installationTypes: 18,
 };
 
 export const DROPDOWN_OPTION_MANUFACTURER_ENABLED = {
@@ -754,8 +749,24 @@ export const DOCUMENT_LIBRARY_TYPES = {
     FOLDER: 100,
     FILE: 200,
 };
+
 export const sendToEnum = {
     ALL_OPERATIVES: 0,
     OPERATIVES_WITHIN_SITE: 1,
     SELECTED_OPERATIVES: 2,
+};
+
+export const PRELIMS_SVG = {
+    10: 'percentSvg',
+    20: 'fixPriceSvg',
+};
+
+export const PRELIMS_TYPES = {
+    PERCENT: 10,
+    FIX_PRICE: 20,
+};
+
+export const PRELIMS_ENUM = {
+    10: 'Percent',
+    20: 'Fix price',
 };

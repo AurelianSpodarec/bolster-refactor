@@ -40,9 +40,9 @@ const mapStateToProps = ({
     const question =
         formatQuestions(Object.values(questions)).find(({ id }) => id === selectedQuestionID) || {};
     const optionsTypes = [
-        TYPES.DROPDOWN_OPTIONS,
-        TYPES.MULTI_DROPDOWN_OPTIONS,
-        TYPES.MULTI_MULTI_DROPDOWN_OPTIONS,
+        TYPES.PIN_OPTION_TYPES,
+        TYPES.MULTI_PIN_OPTION_TYPES,
+        TYPES.MULTI_MULTI_PIN_OPTION_TYPES,
     ];
     const shouldFetchOptions = question && optionsTypes.includes(question.type);
     const options = Object.values(dropdownOptions).filter(

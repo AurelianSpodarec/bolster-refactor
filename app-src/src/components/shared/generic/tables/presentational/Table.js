@@ -17,22 +17,27 @@ const Table = ({
     //needs colspan on table item also, if true
     colSpanFirst = false,
     tableColumnWidths = [],
+    hideHeaders = false,
 }) => {
     return (
         <table className={`generic-table ${withActions ? 'with-actions' : ''} ${extraClasses}`}>
-            <thead>
-                <tr>
-                    {headers.map((header, i) => (
-                        <th
-                            colSpan={colSpanFirst && i === 0 ? '2' : ''}
-                            key={i}
-                            style={tableColumnWidths.length ? { width: tableColumnWidths[i] } : {}}
-                        >
-                            {typeof header === 'string' ? header : header()}
-                        </th>
-                    ))}
-                </tr>
-            </thead>
+            {!hideHeaders && (
+                <thead>
+                    <tr>
+                        {headers.map((header, i) => (
+                            <th
+                                colSpan={colSpanFirst && i === 0 ? '2' : ''}
+                                key={i}
+                                style={
+                                    tableColumnWidths.length ? { width: tableColumnWidths[i] } : {}
+                                }
+                            >
+                                {typeof header === 'string' ? header : header()}
+                            </th>
+                        ))}
+                    </tr>
+                </thead>
+            )}
 
             <TableBody
                 colCount={headers.length}

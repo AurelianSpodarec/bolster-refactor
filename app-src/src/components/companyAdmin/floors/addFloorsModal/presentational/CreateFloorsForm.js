@@ -5,7 +5,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
@@ -110,7 +110,7 @@ const CreateFloorsForm = ({
                                                     <Field
                                                         labelClasses="no-capitalise"
                                                         name={`${manufacturerInfo.name} ${
-                                                            DROPDOWN_OPTIONS[
+                                                            PIN_OPTION_TYPES[
                                                                 manufacturerInfo.pinOptionType
                                                             ].name
                                                         }

@@ -13,7 +13,7 @@ import { RAW_S3_STORAGE_URL } from 'config';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
-import { FLOORPLAN_STATES, DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import { FLOORPLAN_STATES, PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
@@ -161,7 +161,7 @@ const EditDrawingModal = ({
                                             <Field
                                                 labelClasses="no-capitalise"
                                                 name={`${man.name} ${
-                                                    DROPDOWN_OPTIONS[man.pinOptionType].name
+                                                    PIN_OPTION_TYPES[man.pinOptionType].name
                                                 }
                               `}
                                             >

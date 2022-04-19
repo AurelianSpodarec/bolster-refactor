@@ -214,6 +214,9 @@ export const caseInsensitiveIncludes = (str1: string, str2: string): boolean =>
 // call this as the argument to a .sort() on an array
 export const hierarchySort = (a, b) => a.sort - b.sort;
 
+// sort by sort value
+export const sortBySortValue = (a, b) => a.sort - b.sort;
+
 // lifecycle hook tests
 
 // ? pass in a function to call on mount
@@ -444,4 +447,21 @@ export const reverseObj = (obj: any) => {
         ret[value] = key;
         return ret;
     }, {});
+};
+
+export const formatCheckboxListOptions = (
+    options,
+    valueKey = 'id',
+    nameKey = 'name',
+    isDisabledKey = 'isDisabled',
+) => {
+    const formattedOptions = options.map(opt => {
+        return {
+            text: opt[nameKey] || '',
+            value: opt[valueKey] || '',
+            isDisabled: opt[isDisabledKey] || false,
+        };
+    });
+
+    return formattedOptions;
 };
