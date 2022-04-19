@@ -40,20 +40,22 @@ const Prelims = () => {
             </FilterRow>
 
             <Table
-                headers={['Name', 'Type', 'Value', '']}
+                headers={['Name', 'Type', 'Amount', '']}
                 noData={isEmpty(filteredPrelims)}
                 noDataMessage="There are no prelims to display."
                 isFetching={isFetchingPrelims}
                 error={prelimsError}
             >
-                {filteredPrelims.map(set => (
-                    <PrelimsListItem
-                        key={set.id}
-                        set={set}
-                        showEditModal={showEditModal}
-                        showDeleteModal={showDeleteModal}
-                    />
-                ))}
+                {filteredPrelims
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .map(set => (
+                        <PrelimsListItem
+                            key={set.id}
+                            set={set}
+                            showEditModal={showEditModal}
+                            showDeleteModal={showDeleteModal}
+                        />
+                    ))}
             </Table>
         </>
     );

@@ -32,7 +32,7 @@ const usePrelimsSetActions = () => {
             showModal(CONFIRM_SUBMIT, {
                 handleSubmit: () => dispatch(deletePrelim(set.id)),
                 title: `Delete ${set.name}?`,
-                message: 'Are you sure you would like to delete this set?',
+                message: 'Are you sure you would like to delete this prelim?',
                 submitButtonText: 'Delete',
                 submitButtonIcon: 'trash-alt',
             }),
