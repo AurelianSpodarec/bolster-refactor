@@ -1,7 +1,6 @@
 import React from 'react';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import useEditPrelim from '../hooks/useEditPrelim';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
@@ -10,13 +9,14 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
 
 const EditPrelimModal = ({ set }) => {
     const { form, handleChange, isPosting, handleSubmit, prelimsOptions } = useEditPrelim(set);
 
     return (
-        <ModalOuterContainer>
-            <BlockHeading title={`Edit ${set.name}`} />
+        <ModalOuterContainer hideCloseButton>
+            <ModalHeading title={`Edit ${set.name}`} />
 
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
                 <Field name="Name" required>
