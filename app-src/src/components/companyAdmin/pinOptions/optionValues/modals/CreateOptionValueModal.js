@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 import useCreateOptionValue from '../hooks/useCreateOptionValue';
+import useGetAvailableServices from '../hooks/useGetAvailableServices';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import Form from 'components/shared/generic/form/containers/Form';
@@ -19,19 +20,21 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
     const singularTypeName = pinOptionType.name;
 
-    const { form, handleChange, handleSubmit, isPosting, serviceOptions } = useCreateOptionValue(
+    const { form, handleChange, handleSubmit, isPosting } = useCreateOptionValue(
         pinOptionTypeID,
         pinOptionSetID,
     );
 
+    const availableServiceOptions = useGetAvailableServices(pinOptionSetID);
+
     return (
         <ModalOuterContainer hideCloseButton>
             <ModalHeading title={`Add ${singularTypeName}`}>
-                {serviceOptions.length && (
+                {!!availableServiceOptions.length && (
                     <ButtonMultiDropdown
                         buttonText="Services"
                         name="serviceIDs"
-                        options={serviceOptions}
+                        options={availableServiceOptions}
                         selectedOptions={form.serviceIDs}
                         handleChange={handleChange}
                         isNumberValues
