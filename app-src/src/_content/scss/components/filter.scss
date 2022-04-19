@@ -149,4 +149,39 @@
         border: 1px solid var(--background-stroke);
         overflow-y: auto;
     }
+
+    .triangle {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        background-color: var(--background-container);
+        border: 1px solid var(--background-stroke);
+        border-radius: 4px;
+        z-index: 1;
+        transform: rotate(45deg);
+
+        &.left {
+            left: 25px;
+        }
+
+        &.right {
+            right: 25px;
+        }
+
+        &.top {
+            top: -11px;
+            border-bottom-color: transparent;
+            border-right-color: transparent;
+        }
+
+        &.bottom {
+            bottom: -11px;
+            border-top-color: transparent;
+            border-left-color: transparent;
+        }
+    }
+
+    .dropdown-list-button {
+        z-index: 1;
+    }
 }

@@ -75,7 +75,7 @@ const useGetFixedElementPosition = (
         right: isRight ? right : 'auto',
     };
 
-    return { positionStyles, isPositioned };
+    return { positionStyles, isPositioned, isRight, isBottom };
 };
 
 export default useGetFixedElementPosition;

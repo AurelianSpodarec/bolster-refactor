@@ -21,9 +21,9 @@ const ButtonMultiDropdown = ({
 
     const buttonRef = useRef(null);
 
-    const { positionStyles, isPositioned } = useGetFixedElementPosition(
+    const { positionStyles, isPositioned, isRight, isBottom } = useGetFixedElementPosition(
         buttonRef,
-        10,
+        20,
         showList,
         scrollElementID,
     );
@@ -51,6 +51,12 @@ const ButtonMultiDropdown = ({
                 className="button-dropdown-list"
                 style={{ display: showList && isPositioned ? 'block' : 'none', ...positionStyles }}
             >
+                <div
+                    className={`triangle ${isRight ? 'right' : 'left'} ${
+                        isBottom ? 'bottom' : 'top'
+                    }`}
+                />
+
                 <div className="list-content">
                     <button
                         className="dropdown-list-button"
