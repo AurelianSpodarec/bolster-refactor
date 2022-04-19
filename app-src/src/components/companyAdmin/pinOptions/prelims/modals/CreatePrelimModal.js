@@ -24,7 +24,7 @@ const CreatePrelimModal = () => {
                         name="name"
                         value={form.name}
                         handleChange={handleChange}
-                        placeholder="Prelim name"
+                        placeholder="Type name"
                         required
                     />
                 </Field>
@@ -40,12 +40,13 @@ const CreatePrelimModal = () => {
                     />
                 </Field>
 
-                <Field name="Value" required>
+                <Field name="Amount" required>
                     <TextInputContainer
                         name="value"
                         value={form.value}
                         handleChange={handleChange}
-                        placeholder="Prelim value"
+                        placeholder="Type amount"
+                        type="number"
                         required
                     />
                 </Field>
