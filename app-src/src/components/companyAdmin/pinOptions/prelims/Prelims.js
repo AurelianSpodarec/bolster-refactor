@@ -40,7 +40,7 @@ const Prelims = () => {
             </FilterRow>
 
             <Table
-                headers={['Name', 'Type', 'Value', '']}
+                headers={['Name', 'Type', 'Amount', '']}
                 noData={isEmpty(filteredPrelims)}
                 noDataMessage="There are no prelims to display."
                 isFetching={isFetchingPrelims}
