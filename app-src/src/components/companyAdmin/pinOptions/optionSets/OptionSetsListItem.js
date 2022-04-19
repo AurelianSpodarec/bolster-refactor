@@ -17,48 +17,45 @@ const OptionSetsListItem = ({
     showDeleteModal,
     enableOptionSet,
     disableOptionSet,
-    defaultSetID,
-}) => {
-    const dispatch = useDispatch();
-
-    return (
-        <tr>
-            <td className="row-link w-checkbox">
-                <FlexWrapper justify="start" align="center">
-                    <CheckboxContainer
-                        text=""
-                        name={`pin-set-checkbox-${id}`}
-                        checked={!isDisabled}
-                        handleChange={(_, value) => {
-                            if (value) {
-                                enableOptionSet(set);
-                            } else {
-                                disableOptionSet(set);
-                            }
-                        }}
+    setAsDefault,
+}) => (
+    <tr>
+        <td className="row-link w-checkbox">
+            <FlexWrapper justify="start" align="center">
+                <CheckboxContainer
+                    text=""
+                    name={`pin-set-checkbox-${id}`}
+                    checked={!isDisabled}
+                    handleChange={(_, value) => {
+                        if (value) {
+                            enableOptionSet(set);
+                        } else {
+                            disableOptionSet(set);
+                        }
+                    }}
+                />
+                <Link to={`/company/pin-options/${setLink}/${id}`}>{name}</Link>
+            </FlexWrapper>
+        </td>
+        <td>
+            <ButtonWrapper alignment="right">
+                <ActionMenu>
+                    <ActionMenuActionButton text="Edit" onClick={() => showEditModal(set)} />
+                    {!set.isDefault && (
+                        <ActionMenuActionButton
+                            text="Set as default"
+                            onClick={() => setAsDefault(set)}
+                        />
+                    )}
+                    <ActionMenuActionButton
+                        text="Delete"
+                        onClick={() => showDeleteModal(set)}
+                        isNegative
                     />
-                    <Link to={`/company/pin-options/${setLink}/${id}`}>{name}</Link>
-                </FlexWrapper>
-            </td>
-            <td>
-                <ButtonWrapper alignment="right">
-                    <ActionMenu>
-                        <ActionMenuActionButton text="Edit" onClick={() => showEditModal(set)} />
-                        <ActionMenuActionButton
-                            text="Delete"
-                            onClick={() => showDeleteModal(set)}
-                            isNegative
-                        />
-
-                        <ActionMenuActionButton
-                            text={set.isDefault ? 'Default' : 'Set as default'}
-                            onClick={() => dispatch(setOptionSetAsDefault(set, defaultSetID))}
-                        />
-                    </ActionMenu>
-                </ButtonWrapper>
-            </td>
-        </tr>
-    );
-};
+                </ActionMenu>
+            </ButtonWrapper>
+        </td>
+    </tr>
+);
 
 export default OptionSetsListItem;
