@@ -72,7 +72,7 @@ import userPinFeedsReducer from './userPinFeeds';
 import bugReportsReducer from './bugReports';
 import documentLibraryReducer from './documentLibrary';
 import pinTasksReducer from './pinTasks';
-import pinOptionDocuments from './pinOptionDocuments';
+import pinOptionDocumentsReducer from './pinOptionDocuments';
 
 export default combineReducers({
     activityLogReducer,
@@ -119,7 +119,7 @@ export default combineReducers({
     pendingInvitesReducer,
     pinAnswersReducer,
     pinHistoriesReducer,
-    pinOptionDocuments,
+    pinOptionDocumentsReducer,
     pinOptionsReducer,
     pinOptionSetsReducer,
     pinOptionTypesReducer,

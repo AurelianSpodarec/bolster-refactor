@@ -20,7 +20,7 @@ import {
 } from 'constants/actionTypes/pinOptionsDocuments';
 
 export default combineReducers({
-    documents: documentsReducer,
+    documents: pinOptionDocumentsReducer,
     isFetching: isFetchingReducer,
     fetchError: fetchErrorReducer,
     isPosting: isPostingReducer,
@@ -101,7 +101,7 @@ function postSuccessReducer(state = false, action) {
     }
 }
 
-function documentsReducer(state = {}, action) {
+function pinOptionDocumentsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_PIN_OPTION_DOCUMENTS_SUCCESS:
             return convertArrToObj(action.payload);
