@@ -3,21 +3,31 @@ import React from 'react';
 import useEditOptionSet from '../hooks/useEditOptionSet';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
+import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
+import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 
 const EditOptionSetModal = ({ set }) => {
     const { form, handleChange, handleSubmit, isPosting, serviceOptions } = useEditOptionSet(set);
 
     return (
-        <ModalOuterContainer>
-            <BlockHeading title={`Edit ${set.name}`} />
+        <ModalOuterContainer hideCloseButton>
+            <ModalHeading title={`Edit ${set.name}`}>
+                <ButtonMultiDropdown
+                    buttonText="Services"
+                    name="serviceIDs"
+                    options={serviceOptions}
+                    selectedOptions={form.serviceIDs}
+                    handleChange={handleChange}
+                    isNumberValues
+                    scrollElementID="modal-block"
+                />
+            </ModalHeading>
 
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
                 <Field name="Name" required>
@@ -27,17 +37,6 @@ const EditOptionSetModal = ({ set }) => {
                         handleChange={handleChange}
                         placeholder="Type name"
                         required
-                    />
-                </Field>
-
-                <Field name="Services">
-                    <CheckboxListContainer
-                        name="serviceIDs"
-                        text=""
-                        handleChange={handleChange}
-                        selectedOptions={form.serviceIDs}
-                        options={serviceOptions}
-                        isNumberValues
                     />
                 </Field>
 
