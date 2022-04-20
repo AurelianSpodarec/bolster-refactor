@@ -1,4 +1,8 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
+import { selectFieldError } from 'selectors/shared/fieldErrors';
+import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 import useEditOptionValue from '../hooks/useEditOptionValue';
 import useGetAvailableServices from '../hooks/useGetAvailableServices';
@@ -12,11 +16,29 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
 import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
+import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
 const EditOptionValueModal = ({ option }) => {
-    const { form, handleChange, handleSubmit, isPosting } = useEditOptionValue(option);
+    const priceBreaksError = useSelector(state =>
+        selectFieldError(state, 'measurementPriceBreaks'),
+    );
+
+    const pinOptionType = useSelector(state => selectPinOptionType(state, option.pinOptionTypeID));
+
+    const {
+        form,
+        handleChange,
+        handlePriceBreakChange,
+        handleAddPriceBreak,
+        handleRemovePriceBreak,
+        handleSubmit,
+        isPosting,
+    } = useEditOptionValue(option);
 
     const availableServiceOptions = useGetAvailableServices(option.pinOptionSetID);
+
+    const priceBreaksLength = form.measurementPriceBreaks.length;
+    const isMultiplePriceBreaks = priceBreaksLength > 1;
 
     return (
         <ModalOuterContainer hideCloseButton>
@@ -54,6 +76,84 @@ const EditOptionValueModal = ({ option }) => {
                         required
                     />
                 </Field>
+
+                {pinOptionType.hasCosting && (
+                    <>
+                        <Field name="Unit of Measurement">
+                            <DropdownContainer
+                                name="unit of measurement"
+                                options={[]}
+                                value={''}
+                                selectedOption={''}
+                                handleChange={handleChange}
+                                placeholder={''}
+                            />
+                        </Field>
+
+                        <div className="measurement-fields-grid">
+                            <Field name="Measurement" />
+                            <Field name="Price" />
+                            <Field name="" />
+
+                            {form.measurementPriceBreaks.map((priceBreak, index) => {
+                                const isLast = index === priceBreaksLength - 1;
+
+                                return (
+                                    <React.Fragment key={index}>
+                                        <Field>
+                                            <TextInputContainer
+                                                name="measurementPriceBreaks[index].value"
+                                                value={priceBreak.value}
+                                                placeholder="Type value"
+                                                handleFocus={() => {
+                                                    if (isLast) handleAddPriceBreak();
+                                                }}
+                                                handleChange={(_, value) =>
+                                                    handlePriceBreakChange(index, 'value', value)
+                                                }
+                                            />
+                                        </Field>
+
+                                        <Field>
+                                            <TextInputContainer
+                                                name="measurementPriceBreaks[index].cost"
+                                                value={priceBreak.cost}
+                                                placeholder="Type price"
+                                                handleFocus={() => {
+                                                    if (isLast) handleAddPriceBreak();
+                                                }}
+                                                handleChange={(_, value) =>
+                                                    handlePriceBreakChange(index, 'cost', value)
+                                                }
+                                            />
+                                        </Field>
+
+                                        <Field>
+                                            <ActionButton
+                                                source="secondary"
+                                                icon="trash-alt"
+                                                iconOnly
+                                                iconWeight="regular"
+                                                disabled={!isMultiplePriceBreaks}
+                                                onClick={() => {
+                                                    if (isMultiplePriceBreaks) {
+                                                        handleRemovePriceBreak(index);
+                                                    }
+                                                }}
+                                            />
+                                        </Field>
+                                    </React.Fragment>
+                                );
+                            })}
+                        </div>
+
+                        {priceBreaksError && (
+                            <Field classes="no-min-height">
+                                <p className="error red-text text-accent-4">{priceBreaksError}</p>
+                            </Field>
+                        )}
+                    </>
+                )}
 
                 <BlockButtonWrapper>
                     <ButtonWrapper alignment="right">
