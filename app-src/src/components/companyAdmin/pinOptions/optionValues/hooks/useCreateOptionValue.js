@@ -2,11 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useForm, usePrevious } from 'helpers/hooks';
-import {
-    getFormArrayAfterObjAdd,
-    getFormArrayAfterObjRemove,
-    getFormArrayObjChange,
-} from 'helpers/generic';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import createPinOptionValue from 'actions/companyAdmin/pinOptions/async/createPinOptionValue';
@@ -18,10 +13,7 @@ import {
     selectPinOptionsPostSuccess,
 } from 'selectors/companyAdmin/pinOptions';
 
-const priceBreakObj = {
-    value: '',
-    cost: '',
-};
+import useUpdatePriceBreaks from './useUpdatePriceBreaks';
 
 const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
     const dispatch = useDispatch();
@@ -36,31 +28,16 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
         shortName: '',
         serviceIDs: [],
         measurementType: null,
-        measurementPriceBreaks: [priceBreakObj],
+        measurementPriceBreaks: [
+            {
+                value: '',
+                cost: '',
+            },
+        ],
     });
 
-    const handlePriceBreakChange = (index, field, value) => {
-        const arrayToUpdate = getFormArrayObjChange(
-            index,
-            field,
-            value,
-            form.measurementPriceBreaks,
-        );
-
-        handleChange('measurementPriceBreaks', arrayToUpdate);
-    };
-
-    const handleAddPriceBreak = () => {
-        const arrayToUpdate = getFormArrayAfterObjAdd(form.measurementPriceBreaks, priceBreakObj);
-
-        handleChange('measurementPriceBreaks', arrayToUpdate);
-    };
-
-    const handleRemovePriceBreak = index => {
-        const arrayToUpdate = getFormArrayAfterObjRemove(form.measurementPriceBreaks, index);
-
-        handleChange('measurementPriceBreaks', arrayToUpdate);
-    };
+    const { handlePriceBreakChange, handleAddPriceBreak, handleRemovePriceBreak } =
+        useUpdatePriceBreaks(form, handleChange);
 
     const handleSubmit = () => {
         const postBody = {
