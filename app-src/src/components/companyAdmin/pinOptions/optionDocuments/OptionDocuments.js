@@ -16,15 +16,14 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import FlexHeading from 'components/shared/generic/pageHeading/presentational/FlexHeading';
 
 const OptionDocuments = () => {
-    const { isAnyEmpty, isAnyFetching, isAnyErrored, hasFetched } =
-        useFetchBatchForOptionDocuments();
-
-    const pinOptionVersionsArr = useSelector(selectPinOptionVersionsArr);
+    const { optionID } = useParams();
     const pinOptions = useSelector(selectPinOptions);
 
-    const { optionID } = useParams();
-
     const specificOption = pinOptions[optionID];
+    const { isAnyEmpty, isAnyFetching, isAnyErrored, hasFetched } =
+        useFetchBatchForOptionDocuments(optionID);
+
+    const pinOptionVersionsArr = useSelector(selectPinOptionVersionsArr);
 
     const name = specificOption
         ? getVersionNameForPinOption(specificOption.id, pinOptionVersionsArr)
