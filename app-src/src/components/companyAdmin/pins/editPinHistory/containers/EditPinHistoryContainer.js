@@ -13,6 +13,8 @@ import EditPinFormContainer from './EditPinFormContainer';
 import { fetchManufacturerPinOptions } from 'helpers/redux';
 import { isObjEmpty } from 'helpers/generic';
 import { shouldOptionValueBeIncluded } from 'helpers/manufacturers';
+import fetchPinOptions from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptions';
+import fetchPinOptionVersions from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionVersions';
 
 class EditPinHistoryContainer extends Component {
     state = {
@@ -167,6 +169,8 @@ const mapDispatchToProps = {
     fetchAllOptionValues,
     updateDrawingDropdownOptions,
     fetchSingleDrawing,
+    fetchPinOptions,
+    fetchPinOptionVersions,
 };
 
 const WithRedux = connect(mapStateToProps, mapDispatchToProps)(EditPinHistoryContainer);
