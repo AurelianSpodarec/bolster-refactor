@@ -21,10 +21,18 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
     const singularTypeName = pinOptionType.name;
 
-    const { form, handleChange, handlePriceBreakChange, handleSubmit, isPosting } =
-        useCreateOptionValue(pinOptionTypeID, pinOptionSetID);
+    const {
+        form,
+        handleChange,
+        handlePriceBreakChange,
+        handleAddPriceBreak,
+        handleSubmit,
+        isPosting,
+    } = useCreateOptionValue(pinOptionTypeID, pinOptionSetID);
 
     const availableServiceOptions = useGetAvailableServices(pinOptionSetID);
+
+    const priceBreaksLength = form.measurementPriceBreaks.length;
 
     return (
         <ModalOuterContainer hideCloseButton>
@@ -92,35 +100,50 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                             <Field name="Price" />
                             <Field name="" />
 
-                            {form.measurementPriceBreaks.map((priceBreak, index) => (
-                                <>
-                                    <Field>
-                                        <TextInputContainer
-                                            name=""
-                                            value={priceBreak.value}
-                                            placeholder="Type value"
-                                            handleChange={(_, value) =>
-                                                handlePriceBreakChange(index, 'value', value)
-                                            }
-                                        />
-                                    </Field>
+                            {form.measurementPriceBreaks.map((priceBreak, index) => {
+                                const isLast = index === priceBreaksLength - 1;
 
-                                    <Field>
-                                        <TextInputContainer
-                                            name=""
-                                            value={priceBreak.cost}
-                                            placeholder="Type price"
-                                            handleChange={(_, value) =>
-                                                handlePriceBreakChange(index, 'cost', value)
-                                            }
-                                        />
-                                    </Field>
+                                return (
+                                    <React.Fragment key={index}>
+                                        <Field>
+                                            <TextInputContainer
+                                                name=""
+                                                value={priceBreak.value}
+                                                placeholder="Type value"
+                                                handleFocus={() => {
+                                                    if (isLast) handleAddPriceBreak();
+                                                }}
+                                                handleChange={(_, value) =>
+                                                    handlePriceBreakChange(index, 'value', value)
+                                                }
+                                            />
+                                        </Field>
 
-                                    <Field>
-                                        <p>Del</p>
-                                    </Field>
-                                </>
-                            ))}
+                                        <Field>
+                                            <TextInputContainer
+                                                name=""
+                                                value={priceBreak.cost}
+                                                placeholder="Type price"
+                                                handleFocus={() => {
+                                                    if (isLast) handleAddPriceBreak();
+                                                }}
+                                                handleChange={(_, value) =>
+                                                    handlePriceBreakChange(index, 'cost', value)
+                                                }
+                                            />
+                                        </Field>
+
+                                        <Field>
+                                            <ActionButton
+                                                source="secondary"
+                                                icon="trash-alt"
+                                                iconOnly
+                                                iconWeight="regular"
+                                            />
+                                        </Field>
+                                    </React.Fragment>
+                                );
+                            })}
                         </div>
                     </>
                 )}

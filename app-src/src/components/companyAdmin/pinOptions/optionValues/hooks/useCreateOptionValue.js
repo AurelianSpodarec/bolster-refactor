@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useForm, usePrevious } from 'helpers/hooks';
+import { getFormArrayObjAdd, getFormArrayObjChange } from 'helpers/generic';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import createPinOptionValue from 'actions/companyAdmin/pinOptions/async/createPinOptionValue';
@@ -13,6 +14,11 @@ import {
     selectPinOptionsPostSuccess,
 } from 'selectors/companyAdmin/pinOptions';
 
+const priceBreakObj = {
+    value: '',
+    cost: '',
+};
+
 const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPinOptionsIsPosting);
@@ -21,35 +27,29 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
 
     const prevProps = usePrevious({ postError, postSuccess });
 
-    const [form, handleChange, handleArrayObjChange] = useForm({
+    const [form, handleChange] = useForm({
         name: '',
         shortName: '',
         serviceIDs: [],
         measurementType: null,
-        measurementPriceBreaks: [
-            {
-                value: '',
-                cost: '',
-            },
-            {
-                value: '',
-                cost: '',
-            },
-            {
-                value: '',
-                cost: '',
-            },
-        ],
+        measurementPriceBreaks: [priceBreakObj],
     });
 
     const handlePriceBreakChange = (index, field, value) => {
-        handleArrayObjChange(
+        const arrayToUpdate = getFormArrayObjChange(
             index,
             field,
-            'measurementPriceBreaks',
             value,
             form.measurementPriceBreaks,
         );
+
+        handleChange('measurementPriceBreaks', arrayToUpdate);
+    };
+
+    const handleAddPriceBreak = () => {
+        const arrayToUpdate = getFormArrayObjAdd(form.measurementPriceBreaks, priceBreakObj);
+
+        handleChange('measurementPriceBreaks', arrayToUpdate);
     };
 
     const handleSubmit = () => {
@@ -74,7 +74,7 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
         form,
         handleChange,
         handlePriceBreakChange,
-        handleArrayObjChange,
+        handleAddPriceBreak,
         handleSubmit,
         isPosting,
     };
