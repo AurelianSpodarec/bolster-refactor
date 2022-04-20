@@ -123,6 +123,9 @@ function optionsReducer(state = {}, action) {
                 ...action.payload,
                 isDisabled: !action.payload.isDisabled,
             });
+        case CREATE_PIN_OPTION_VALUE_SUCCESS:
+        case EDIT_PIN_OPTION_VALUE_SUCCESS:
+            return updateObj(state, action.payload.pinOption.id, action.payload.pinOption);
         default:
             return state;
     }

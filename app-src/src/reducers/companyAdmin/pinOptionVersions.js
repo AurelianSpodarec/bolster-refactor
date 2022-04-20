@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
     FETCH_PIN_OPTION_VERSIONS_REQUEST,
     FETCH_PIN_OPTION_VERSIONS_SUCCESS,
@@ -8,6 +8,9 @@ import {
     CREATE_PIN_OPTION_VALUE_REQUEST,
     CREATE_PIN_OPTION_VALUE_SUCCESS,
     CREATE_PIN_OPTION_VALUE_FAILURE,
+    EDIT_PIN_OPTION_VALUE_REQUEST,
+    EDIT_PIN_OPTION_VALUE_SUCCESS,
+    EDIT_PIN_OPTION_VALUE_FAILURE,
 } from 'constants/actionTypes/pinOptions';
 
 export default combineReducers({
@@ -45,9 +48,12 @@ function fetchErrorReducer(state = null, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case CREATE_PIN_OPTION_VALUE_REQUEST:
+        case EDIT_PIN_OPTION_VALUE_REQUEST:
             return true;
         case CREATE_PIN_OPTION_VALUE_SUCCESS:
         case CREATE_PIN_OPTION_VALUE_FAILURE:
+        case EDIT_PIN_OPTION_VALUE_SUCCESS:
+        case EDIT_PIN_OPTION_VALUE_FAILURE:
             return false;
         default:
             return state;
@@ -57,8 +63,10 @@ function isPostingReducer(state = false, action) {
 function postErrorReducer(state = null, action) {
     switch (action.type) {
         case CREATE_PIN_OPTION_VALUE_REQUEST:
+        case EDIT_PIN_OPTION_VALUE_REQUEST:
             return null;
         case CREATE_PIN_OPTION_VALUE_FAILURE:
+        case EDIT_PIN_OPTION_VALUE_FAILURE:
             return action.error;
         default:
             return state;
@@ -68,8 +76,10 @@ function postErrorReducer(state = null, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_PIN_OPTION_VALUE_REQUEST:
+        case EDIT_PIN_OPTION_VALUE_REQUEST:
             return false;
         case CREATE_PIN_OPTION_VALUE_SUCCESS:
+        case EDIT_PIN_OPTION_VALUE_SUCCESS:
             return true;
         default:
             return state;
@@ -80,6 +90,13 @@ function versionsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_PIN_OPTION_VERSIONS_SUCCESS:
             return convertArrToObj(action.payload);
+        case CREATE_PIN_OPTION_VALUE_SUCCESS:
+        case EDIT_PIN_OPTION_VALUE_SUCCESS:
+            return updateObj(
+                state,
+                action.payload.pinOptionVersion.id,
+                action.payload.pinOptionVersion,
+            );
         default:
             return state;
     }
