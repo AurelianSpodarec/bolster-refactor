@@ -778,7 +778,7 @@ export const MEASUREMENT_TYPES = {
     DIAMETER: 7,
 };
 
-export const MEASUREMENT_NAMES = {
+export const MEASUREMENT_VALUES = {
     1: 'Linear',
     2: 'Square',
     3: 'Cubic',

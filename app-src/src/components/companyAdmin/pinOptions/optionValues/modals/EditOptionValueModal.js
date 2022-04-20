@@ -1,6 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
+import { measurementDropdownOptions } from 'constants/shared/dropdowns';
+
 import { selectFieldError } from 'selectors/shared/fieldErrors';
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
@@ -81,12 +83,11 @@ const EditOptionValueModal = ({ option }) => {
                     <>
                         <Field name="Unit of Measurement">
                             <DropdownContainer
-                                name="unit of measurement"
-                                options={[]}
-                                value={''}
-                                selectedOption={''}
+                                name="measurementType"
+                                options={Object.values(measurementDropdownOptions)}
+                                selectedOption={measurementDropdownOptions[form.measurementType]}
                                 handleChange={handleChange}
-                                placeholder={''}
+                                placeholder="Select unit of measurement"
                             />
                         </Field>
 
