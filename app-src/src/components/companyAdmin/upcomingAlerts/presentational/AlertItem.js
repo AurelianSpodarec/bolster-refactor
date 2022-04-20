@@ -36,6 +36,7 @@ const AlertItem = ({
         buildingName,
         siteID,
         siteName,
+        nextSendDate,
     },
 }) => {
     const dispatch = useDispatch();
@@ -73,7 +74,7 @@ const AlertItem = ({
     return (
         <tr className="upcoming-alert-item">
             <td className="left-align">
-                <Moment format={'DD/MM/YYYY'} date={date} />
+                <Moment format={'DD/MM/YYYY'} date={nextSendDate} />
             </td>
             <td className="left-align">
                 <DateTimeContainer date={createdOn} />
