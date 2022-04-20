@@ -25,7 +25,7 @@ const OptionDocuments = () => {
         useFetchBatchForOptionDocuments(optionID);
 
     const latestPinOptionVersion = useSelector(state =>
-        selectLatestVersionForPinOption(state, specificOption.id),
+        selectLatestVersionForPinOption(state, specificOption?.id),
     );
 
     const name =
