@@ -14,6 +14,8 @@ import AddPinHistoryFormContainer from './AddPinHistoryFormContainer';
 import { fetchManufacturerPinOptions } from 'helpers/redux';
 import { isObjEmpty } from 'helpers/generic';
 import { shouldOptionValueBeIncluded } from 'helpers/manufacturers';
+import fetchPinOptionVersions from 'actions/companyAdmin/pinOptions/async/fetchPinOptionVersions';
+import fetchPinOptions from 'actions/companyAdmin/pinOptions/async/fetchPinOptions';
 
 class AddPinHistoryContainer extends Component {
     state = {
@@ -40,8 +42,12 @@ class AddPinHistoryContainer extends Component {
             fetchManufacturersByPinOptionType,
             fetchAllOptionValues,
             fetchSingleDrawing,
+            fetchPinOptions,
+            fetchPinOptionVersions,
         } = this.props;
 
+        fetchPinOptions();
+        fetchPinOptionVersions();
         fetchSinglePin(pinID, true).then(
             ({
                 payload: {
@@ -178,6 +184,8 @@ const mapDispatchToProps = {
     fetchAllOptionValues,
     updateDrawingDropdownOptions,
     fetchSingleDrawing,
+    fetchPinOptions,
+    fetchPinOptionVersions,
 };
 
 const WithRedux = connect(mapStateToProps, mapDispatchToProps)(AddPinHistoryContainer);
