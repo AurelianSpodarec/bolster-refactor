@@ -30,7 +30,7 @@ export default (newDefaultSet, oldDefaultSet) => async dispatch => {
     dispatch(setOptionSetAsDefaultRequest(newDefaultSet, oldDefaultSet));
 
     return axios
-        .post(`${API_URL}/pinoptions/sets/${newDefaultSet.id}/defaultsdf`, null, getHeaders())
+        .post(`${API_URL}/pinoptions/sets/${newDefaultSet.id}/default`, null, getHeaders())
         .then(res => dispatch(setOptionSetAsDefaultSuccess(res.data)))
         .catch(err =>
             dispatch(setOptionSetAsDefaultFailure(err.message, newDefaultSet, oldDefaultSet)),
