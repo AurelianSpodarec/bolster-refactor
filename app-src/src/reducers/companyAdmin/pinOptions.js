@@ -8,6 +8,9 @@ import {
     CREATE_PIN_OPTION_VALUE_REQUEST,
     CREATE_PIN_OPTION_VALUE_SUCCESS,
     CREATE_PIN_OPTION_VALUE_FAILURE,
+    EDIT_PIN_OPTION_VALUE_REQUEST,
+    EDIT_PIN_OPTION_VALUE_SUCCESS,
+    EDIT_PIN_OPTION_VALUE_FAILURE,
     ENABLE_PIN_OPTION_VALUE_REQUEST,
     ENABLE_PIN_OPTION_VALUE_SUCCESS,
     ENABLE_PIN_OPTION_VALUE_FAILURE,
@@ -52,11 +55,14 @@ function fetchErrorReducer(state = null, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case CREATE_PIN_OPTION_VALUE_REQUEST:
+        case EDIT_PIN_OPTION_VALUE_REQUEST:
         case ENABLE_PIN_OPTION_VALUE_REQUEST:
         case DISABLE_PIN_OPTION_VALUE_REQUEST:
             return true;
         case CREATE_PIN_OPTION_VALUE_SUCCESS:
         case CREATE_PIN_OPTION_VALUE_FAILURE:
+        case EDIT_PIN_OPTION_VALUE_SUCCESS:
+        case EDIT_PIN_OPTION_VALUE_FAILURE:
         case ENABLE_PIN_OPTION_VALUE_SUCCESS:
         case ENABLE_PIN_OPTION_VALUE_FAILURE:
         case DISABLE_PIN_OPTION_VALUE_SUCCESS:
@@ -70,10 +76,12 @@ function isPostingReducer(state = false, action) {
 function postErrorReducer(state = null, action) {
     switch (action.type) {
         case CREATE_PIN_OPTION_VALUE_REQUEST:
+        case EDIT_PIN_OPTION_VALUE_REQUEST:
         case ENABLE_PIN_OPTION_VALUE_REQUEST:
         case DISABLE_PIN_OPTION_VALUE_REQUEST:
             return null;
         case CREATE_PIN_OPTION_VALUE_FAILURE:
+        case EDIT_PIN_OPTION_VALUE_FAILURE:
         case ENABLE_PIN_OPTION_VALUE_FAILURE:
         case DISABLE_PIN_OPTION_VALUE_FAILURE:
             return action.error;
@@ -85,10 +93,12 @@ function postErrorReducer(state = null, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_PIN_OPTION_VALUE_REQUEST:
+        case EDIT_PIN_OPTION_VALUE_REQUEST:
         case ENABLE_PIN_OPTION_VALUE_REQUEST:
         case DISABLE_PIN_OPTION_VALUE_REQUEST:
             return false;
         case CREATE_PIN_OPTION_VALUE_SUCCESS:
+        case EDIT_PIN_OPTION_VALUE_SUCCESS:
         case ENABLE_PIN_OPTION_VALUE_SUCCESS:
         case DISABLE_PIN_OPTION_VALUE_SUCCESS:
             return true;

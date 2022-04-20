@@ -13,8 +13,9 @@ import {
     selectPinOptionsPostSuccess,
 } from 'selectors/companyAdmin/pinOptions';
 import { selectLatestVersionForPinOption } from 'selectors/companyAdmin/pinOptionVersions';
+import editPinOptionValue from 'actions/companyAdmin/pinOptions/async/editPinOptionValue';
 
-const useEditOptionValue = (option, pinOptionTypeID) => {
+const useEditOptionValue = option => {
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPinOptionsIsPosting);
     const postError = useSelector(selectPinOptionsPostError);
@@ -22,8 +23,6 @@ const useEditOptionValue = (option, pinOptionTypeID) => {
     const latestPinOptionVersion = useSelector(state =>
         selectLatestVersionForPinOption(state, option.id),
     );
-
-    const pinOptionSetID = option.pinOptionSetID;
 
     const prevProps = usePrevious({ postError, postSuccess });
 
@@ -34,12 +33,7 @@ const useEditOptionValue = (option, pinOptionTypeID) => {
     });
 
     const handleSubmit = () => {
-        const postBody = {
-            ...form,
-            pinOptionTypeID,
-            pinOptionSetID,
-        };
-        dispatch(createPinOptionValue(postBody));
+        dispatch(editPinOptionValue(option.id, form));
     };
 
     useEffect(() => {
