@@ -26,7 +26,7 @@ export default id => dispatch => {
     dispatch(fetchSingleFaqsRequest());
 
     axios
-        .get(`${ADMIN_API_URL}/appHelp/${id}`, getHeaders())
+        .get(`${ADMIN_API_URL}/appHelp/single/${id}`, getHeaders())
         .then(res => dispatch(fetchSingleFaqsSuccess(res.data)))
         .catch(err => dispatch(fetchSingleFaqsFailure(err.message)));
 };

@@ -5,45 +5,41 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 class DashboardDataByContainer extends Component {
     render() {
-        const {
-            isFetching,
-            error,
-            operatives,
-            drawings,
-            selectedTab,
-            onMobile
-        } = this.props;
+        const { isFetching, error, operatives, drawings, selectedTab, onMobile } = this.props;
 
         return (
-            <BlockContainer
-                containerClass="flex-row-item size-lg-6 size-md-12"
-                isFetching={isFetching}
-                error={error}
-            >
-                <DashboardDataBy
-                    operatives={operatives}
-                    drawings={drawings}
-                    selectedTab={selectedTab}
-                    onMobile={onMobile}
-                />
-            </BlockContainer>
+            <div className="flex-row-item size-lg-6 size-md-12">
+                <BlockContainer
+                    containerClass="dashboard-data-by-wrapper"
+                    contentClass="flex-column by-height"
+                    isFetching={isFetching}
+                    error={error}
+                >
+                    <DashboardDataBy
+                        operatives={operatives}
+                        drawings={drawings}
+                        selectedTab={selectedTab}
+                        onMobile={onMobile}
+                    />
+                </BlockContainer>
+            </div>
         );
     }
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        dashboardReducer: { isFetchingDashPinsStats: isFetching, error }
+        dashboardReducer: { isFetchingDashPinsStats: isFetching, error },
     },
     shared: {
         tabsReducer: { selectedTab },
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => ({
     onMobile,
     isFetching,
     error,
-    selectedTab
+    selectedTab,
 });
 
 export default connect(mapStateToProps)(DashboardDataByContainer);

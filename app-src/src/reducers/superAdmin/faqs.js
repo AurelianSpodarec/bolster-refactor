@@ -90,8 +90,10 @@ function isFetchingReducer(state = false, action) {
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_ALL_FAQS_REQUEST:
+        case FETCH_SINGLE_FAQS_REQUEST:
             return null;
         case FETCH_ALL_FAQS_FAILURE:
+        case FETCH_SINGLE_FAQS_FAILURE:
             return action.error;
         default:
             return state;
@@ -103,7 +105,7 @@ function faqsReducer(state = {}, action) {
         case FETCH_ALL_FAQS_SUCCESS:
             return convertArrToObj(action.payload);
         case FETCH_SINGLE_FAQS_SUCCESS:
-            return updateObj(state, 'id', action.payload);
+            return updateObj(state, action.payload.id, action.payload);
         case DELETE_FAQS_SUCCESS:
             return omit(state, action.id);
         default:
