@@ -21,6 +21,8 @@ const useEditOptionValue = (option, pinOptionTypeID) => {
 
     const pinOptionSetID = option.pinOptionSetID;
 
+    console.log(option);
+
     const prevProps = usePrevious({ postError, postSuccess });
 
     const [form, handleChange] = useForm({

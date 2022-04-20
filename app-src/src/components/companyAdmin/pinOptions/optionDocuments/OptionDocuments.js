@@ -2,10 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { getVersionNameForPinOption } from 'helpers/pinOptions';
+import { isEmpty } from 'helpers/generic';
 
 import { selectPinOptions } from 'selectors/companyAdmin/pinOptions';
-import { selectPinOptionVersionsArr } from 'selectors/companyAdmin/pinOptionVersions';
+import { selectLatestVersionForPinOption } from 'selectors/companyAdmin/pinOptionVersions';
 
 import useFetchBatchForOptionDocuments from './hooks/useFetchBatchForOptionDocuments';
 
@@ -23,11 +23,12 @@ const OptionDocuments = () => {
     const { isAnyEmpty, isAnyFetching, isAnyErrored, hasFetched } =
         useFetchBatchForOptionDocuments(optionID);
 
-    const pinOptionVersionsArr = useSelector(selectPinOptionVersionsArr);
+    const latestPinOptionVersion = useSelector(state =>
+        selectLatestVersionForPinOption(state, specificOption.id),
+    );
 
-    const name = specificOption
-        ? getVersionNameForPinOption(specificOption.id, pinOptionVersionsArr)
-        : 'Loading...';
+    const name =
+        specificOption && !isEmpty(latestPinOptionVersion) ? latestPinOptionVersion : 'Loading...';
 
     return (
         <>
