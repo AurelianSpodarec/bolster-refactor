@@ -12,22 +12,24 @@ import {
     selectPinOptionsPostError,
     selectPinOptionsPostSuccess,
 } from 'selectors/companyAdmin/pinOptions';
+import { selectLatestVersionForPinOption } from 'selectors/companyAdmin/pinOptionVersions';
 
 const useEditOptionValue = (option, pinOptionTypeID) => {
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPinOptionsIsPosting);
     const postError = useSelector(selectPinOptionsPostError);
     const postSuccess = useSelector(selectPinOptionsPostSuccess);
+    const latestPinOptionVersion = useSelector(state =>
+        selectLatestVersionForPinOption(state, option.id),
+    );
 
     const pinOptionSetID = option.pinOptionSetID;
-
-    console.log(option);
 
     const prevProps = usePrevious({ postError, postSuccess });
 
     const [form, handleChange] = useForm({
-        name: option.name,
-        shortName: option.shortName || '',
+        name: latestPinOptionVersion.name || '',
+        shortName: latestPinOptionVersion.shortName || '',
         serviceIDs: option.serviceIDs || [],
     });
 
