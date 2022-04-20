@@ -28,7 +28,9 @@ const OptionDocuments = () => {
     );
 
     const name =
-        specificOption && !isEmpty(latestPinOptionVersion) ? latestPinOptionVersion : 'Loading...';
+        specificOption && !isEmpty(latestPinOptionVersion)
+            ? latestPinOptionVersion.name
+            : 'Loading...';
 
     return (
         <>
