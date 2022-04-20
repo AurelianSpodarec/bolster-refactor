@@ -1,0 +1,13 @@
+.measurement-fields-grid {
+    display: grid;
+    grid-template-columns: 2fr 100px 50px;
+    width: 100%;
+
+    .form-field {
+        min-height: 0;
+
+        .title {
+            margin-bottom: 0;
+        }
+    }
+}

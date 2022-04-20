@@ -87,29 +87,41 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                             />
                         </Field>
 
-                        <Field name="Measurement" />
+                        <div className="measurement-fields-grid">
+                            <Field name="Measurement" />
+                            <Field name="Price" />
+                            <Field name="" />
 
-                        {form.measurementPriceBreaks.map((priceBreak, index) => (
-                            <>
-                                <TextInputContainer
-                                    name=""
-                                    value={priceBreak.value}
-                                    placeholder={`Value ${index}`}
-                                    handleChange={(_, value) =>
-                                        handlePriceBreakChange(index, 'value', value)
-                                    }
-                                />
+                            {form.measurementPriceBreaks.map((priceBreak, index) => (
+                                <>
+                                    <Field>
+                                        <TextInputContainer
+                                            name=""
+                                            value={priceBreak.value}
+                                            placeholder="Type value"
+                                            handleChange={(_, value) =>
+                                                handlePriceBreakChange(index, 'value', value)
+                                            }
+                                        />
+                                    </Field>
 
-                                <TextInputContainer
-                                    name=""
-                                    value={priceBreak.cost}
-                                    placeholder={`Cost ${index}`}
-                                    handleChange={(_, value) =>
-                                        handlePriceBreakChange(index, 'cost', value)
-                                    }
-                                />
-                            </>
-                        ))}
+                                    <Field>
+                                        <TextInputContainer
+                                            name=""
+                                            value={priceBreak.cost}
+                                            placeholder="Type price"
+                                            handleChange={(_, value) =>
+                                                handlePriceBreakChange(index, 'cost', value)
+                                            }
+                                        />
+                                    </Field>
+
+                                    <Field>
+                                        <p>Del</p>
+                                    </Field>
+                                </>
+                            ))}
+                        </div>
                     </>
                 )}
 
