@@ -57,6 +57,15 @@ export function updateObj(origObj, key, newItem) {
     };
 }
 
+export function updateObjMultiple(origObj, newItems, field = 'id') {
+    const newItemsObj = convertArrToObj(newItems, field);
+
+    return {
+        ...origObj,
+        ...newItemsObj,
+    };
+}
+
 export function removeObjItem(obj, key) {
     const {
         [key]: removedItem, // eslint-disable-line

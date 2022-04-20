@@ -8,10 +8,10 @@ import {
     SET_OPTION_SET_AS_DEFAULT_FAILURE,
 } from 'constants/actionTypes/pinOptions';
 
-export const setOptionSetAsDefaultRequest = (newSetDefault, oldSetDefault) => ({
+export const setOptionSetAsDefaultRequest = (newDefaultSet, oldDefaultSet) => ({
     type: SET_OPTION_SET_AS_DEFAULT_REQUEST,
-    newSetDefault,
-    oldSetDefault,
+    newDefaultSet,
+    oldDefaultSet,
 });
 
 export const setOptionSetAsDefaultSuccess = payload => ({
@@ -19,18 +19,20 @@ export const setOptionSetAsDefaultSuccess = payload => ({
     payload,
 });
 
-export const setOptionSetAsDefaultFailure = (error, newSetDefault, oldSetDefault) => ({
+export const setOptionSetAsDefaultFailure = (error, newDefaultSet, oldDefaultSet) => ({
     type: SET_OPTION_SET_AS_DEFAULT_FAILURE,
     error,
-    newSetDefault,
-    oldSetDefault,
+    newDefaultSet,
+    oldDefaultSet,
 });
 
-export default (newSetDefault, oldSetDefault) => async dispatch => {
-    dispatch(setOptionSetAsDefaultRequest(newSetDefault, oldSetDefault));
+export default (newDefaultSet, oldDefaultSet) => async dispatch => {
+    dispatch(setOptionSetAsDefaultRequest(newDefaultSet, oldDefaultSet));
 
     return axios
-        .post(`${API_URL}/pinoptions/sets/${newSetDefault.id}/default`, null, getHeaders())
+        .post(`${API_URL}/pinoptions/sets/${newDefaultSet.id}/defaultsdf`, null, getHeaders())
         .then(res => dispatch(setOptionSetAsDefaultSuccess(res.data)))
-        .catch(err => dispatch(setOptionSetAsDefaultFailure(err.message, newSetDefault)));
+        .catch(err =>
+            dispatch(setOptionSetAsDefaultFailure(err.message, newDefaultSet, oldDefaultSet)),
+        );
 };
