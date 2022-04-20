@@ -75,25 +75,6 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                     />
                 </Field>
 
-                {/* <Field name="Unit of Measurement" classes="installation-types-dropdown" required>
-                    <DropdownContainer
-                        name="unit of measurement"
-                        options={[]}
-                        value={''}
-                        selectedOption={''}
-                        handleChange={handleChange}
-                        placeholder={''}
-                        required
-                    />
-                </Field>
-
-                <Field
-                    name="Measurement"
-                    icon={colourTheme === 'dark' ? InfoIcon : InfoIconDark}
-                    alt="Information"
-                    required
-                ></Field> */}
-
                 <BlockButtonWrapper>
                     <ButtonWrapper alignment="right">
                         <ActionButton
