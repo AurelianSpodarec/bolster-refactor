@@ -1,4 +1,3 @@
-import fetchPinOptionsDocuments from 'actions/companyAdmin/pinOptionsDocuments/async/fetchPinOptionsDocuments';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -6,6 +5,7 @@ import {
     selectPinOptionDocumentsFetchError,
     selectPinOptionDocumentsIsFetching,
 } from 'selectors/companyAdmin/pinOptionsDocuments';
+import fetchPinOptionsDocuments from 'actions/companyAdmin/pinOptionsDocuments/async/fetchPinOptionsDocuments';
 
 const useFetchDocuments = optionID => {
     const dispatch = useDispatch();

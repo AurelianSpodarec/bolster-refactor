@@ -32,21 +32,24 @@ const useFetchBatchForOptionDocuments = optionID => {
         (isEmpty(pinOptionTypes) && isFetchingPinOptionTypes) ||
         (isEmpty(pinOptionSets) && isFetchingPinOptionSets) ||
         (isEmpty(pinOptions) && isFetchingPinOptions) ||
-        (isEmpty(pinOptionVersions) && isFetchingPinOptionVersions);
+        (isEmpty(pinOptionVersions) && isFetchingPinOptionVersions) ||
+        (isEmpty(documents) && isFetchingDocuments);
 
     const isAnyFetching =
         isFetchingServices ||
         isFetchingPinOptionTypes ||
         isFetchingPinOptionSets ||
         isFetchingPinOptions ||
-        isFetchingPinOptionVersions;
+        isFetchingPinOptionVersions ||
+        isFetchingDocuments;
 
     const isAnyErrored =
         servicesError ||
         pinOptionTypesFetchError ||
         pinOptionSetsFetchError ||
         pinOptionsFetchError ||
-        pinOptionVersionsFetchError;
+        pinOptionVersionsFetchError ||
+        documentsError;
 
     const prevProps = usePrevious({ isAnyFetching });
 
