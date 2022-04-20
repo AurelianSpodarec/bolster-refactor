@@ -1,14 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import InfoIcon from '_content/images/icons/info-icon.svg';
-import InfoIconDark from '_content/images/icons/info-icon-dark.svg';
-
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 import useCreateOptionValue from '../hooks/useCreateOptionValue';
 import useGetAvailableServices from '../hooks/useGetAvailableServices';
-import useColourTheme from 'hooks/useColourTheme';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import Form from 'components/shared/generic/form/containers/Form';
@@ -22,15 +18,11 @@ import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
 const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
-    const colourTheme = useColourTheme();
-
     const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
     const singularTypeName = pinOptionType.name;
 
-    const { form, handleChange, handleSubmit, isPosting } = useCreateOptionValue(
-        pinOptionTypeID,
-        pinOptionSetID,
-    );
+    const { form, handleChange, handlePriceBreakChange, handleSubmit, isPosting } =
+        useCreateOptionValue(pinOptionTypeID, pinOptionSetID);
 
     const availableServiceOptions = useGetAvailableServices(pinOptionSetID);
 
@@ -95,11 +87,29 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                             />
                         </Field>
 
-                        <Field
-                            name="Measurement"
-                            icon={colourTheme === 'dark' ? InfoIcon : InfoIconDark}
-                            alt="Information"
-                        />
+                        <Field name="Measurement" />
+
+                        {form.measurementPriceBreaks.map((priceBreak, index) => (
+                            <>
+                                <TextInputContainer
+                                    name=""
+                                    value={priceBreak.value}
+                                    placeholder={`Value ${index}`}
+                                    handleChange={(_, value) =>
+                                        handlePriceBreakChange(index, 'value', value)
+                                    }
+                                />
+
+                                <TextInputContainer
+                                    name=""
+                                    value={priceBreak.cost}
+                                    placeholder={`Cost ${index}`}
+                                    handleChange={(_, value) =>
+                                        handlePriceBreakChange(index, 'cost', value)
+                                    }
+                                />
+                            </>
+                        ))}
                     </>
                 )}
 

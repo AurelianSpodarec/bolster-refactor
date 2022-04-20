@@ -152,7 +152,21 @@ export function useForm(initialState = {}) {
         setFormData(prev => ({ ...prev, [name]: value }));
     }
 
-    return [formData, handleChange, setFormData];
+    function handleArrayObjChange(index, field, name, value, arrayOfObjects) {
+        const arrayToUpdate = arrayOfObjects;
+        const relObjToUpdate = arrayOfObjects[index];
+
+        const updatedObj = {
+            ...relObjToUpdate,
+            [field]: value,
+        };
+
+        arrayToUpdate[index] = updatedObj;
+
+        handleChange(name, arrayToUpdate);
+    }
+
+    return [formData, handleChange, handleArrayObjChange, setFormData];
 }
 
 function getWindowDimensions() {
