@@ -2,7 +2,11 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useForm, usePrevious } from 'helpers/hooks';
-import { getFormArrayObjAdd, getFormArrayObjChange } from 'helpers/generic';
+import {
+    getFormArrayAfterObjAdd,
+    getFormArrayAfterObjRemove,
+    getFormArrayObjChange,
+} from 'helpers/generic';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import createPinOptionValue from 'actions/companyAdmin/pinOptions/async/createPinOptionValue';
@@ -47,7 +51,13 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
     };
 
     const handleAddPriceBreak = () => {
-        const arrayToUpdate = getFormArrayObjAdd(form.measurementPriceBreaks, priceBreakObj);
+        const arrayToUpdate = getFormArrayAfterObjAdd(form.measurementPriceBreaks, priceBreakObj);
+
+        handleChange('measurementPriceBreaks', arrayToUpdate);
+    };
+
+    const handleRemovePriceBreak = index => {
+        const arrayToUpdate = getFormArrayAfterObjRemove(form.measurementPriceBreaks, index);
 
         handleChange('measurementPriceBreaks', arrayToUpdate);
     };
@@ -75,6 +85,7 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
         handleChange,
         handlePriceBreakChange,
         handleAddPriceBreak,
+        handleRemovePriceBreak,
         handleSubmit,
         isPosting,
     };

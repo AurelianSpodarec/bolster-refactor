@@ -489,10 +489,18 @@ export function getFormArrayObjChange(index, field, value, arrayOfObjects) {
     return arrayToUpdate;
 }
 
-export function getFormArrayObjAdd(arrayOfObjects, objToAdd) {
+export function getFormArrayAfterObjAdd(arrayOfObjects, objToAdd) {
     const arrayToUpdate = arrayOfObjects;
 
     arrayToUpdate.push(objToAdd);
+
+    return arrayToUpdate;
+}
+
+export function getFormArrayAfterObjRemove(arrayOfObjects, indexToRemove) {
+    const arrayToUpdate = arrayOfObjects;
+
+    arrayToUpdate.splice(indexToRemove, 1);
 
     return arrayToUpdate;
 }

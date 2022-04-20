@@ -26,6 +26,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
         handleChange,
         handlePriceBreakChange,
         handleAddPriceBreak,
+        handleRemovePriceBreak,
         handleSubmit,
         isPosting,
     } = useCreateOptionValue(pinOptionTypeID, pinOptionSetID);
@@ -33,6 +34,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const availableServiceOptions = useGetAvailableServices(pinOptionSetID);
 
     const priceBreaksLength = form.measurementPriceBreaks.length;
+    const isMultiplePriceBreaks = priceBreaksLength > 1;
 
     return (
         <ModalOuterContainer hideCloseButton>
@@ -139,6 +141,12 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                 icon="trash-alt"
                                                 iconOnly
                                                 iconWeight="regular"
+                                                disabled={!isMultiplePriceBreaks}
+                                                onClick={() => {
+                                                    if (isMultiplePriceBreaks) {
+                                                        handleRemovePriceBreak(index);
+                                                    }
+                                                }}
                                             />
                                         </Field>
                                     </React.Fragment>
