@@ -21,11 +21,36 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
 
     const prevProps = usePrevious({ postError, postSuccess });
 
-    const [form, handleChange] = useForm({
+    const [form, handleChange, handleArrayObjChange] = useForm({
         name: '',
         shortName: '',
         serviceIDs: [],
+        measurementType: null,
+        measurementPriceBreaks: [
+            {
+                value: '',
+                cost: '',
+            },
+            {
+                value: '',
+                cost: '',
+            },
+            {
+                value: '',
+                cost: '',
+            },
+        ],
     });
+
+    const handlePriceBreakChange = (index, field, value) => {
+        handleArrayObjChange(
+            index,
+            field,
+            'measurementPriceBreaks',
+            value,
+            form.measurementPriceBreaks,
+        );
+    };
 
     const handleSubmit = () => {
         const postBody = {
@@ -45,7 +70,14 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
         if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
     }, [postSuccess, prevProps.postSuccess]);
 
-    return { form, handleChange, handleSubmit, isPosting };
+    return {
+        form,
+        handleChange,
+        handlePriceBreakChange,
+        handleArrayObjChange,
+        handleSubmit,
+        isPosting,
+    };
 };
 
 export default useCreateOptionValue;

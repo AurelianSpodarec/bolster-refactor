@@ -21,6 +21,7 @@ import {
     SET_OPTION_SET_AS_DEFAULT_SUCCESS,
     SET_OPTION_SET_AS_DEFAULT_FAILURE,
 } from 'constants/actionTypes/pinOptions';
+import { updateObjDefaultOnFailure, updateObjDefaultOnRequest } from 'helpers/pinOptions';
 
 export default combineReducers({
     sets: setsReducer,
@@ -129,17 +130,7 @@ function setsReducer(state = {}, action) {
         case DISABLE_PIN_OPTION_SET_FAILURE:
             return updateObj(state, action.payload.id, action.payload);
         case SET_OPTION_SET_AS_DEFAULT_FAILURE:
-            var updatedNewDefaultFailure = updateObj(
-                state,
-                action.newSetDefault.id,
-                action.newSetDefault,
-            );
-            var updatedOldDefaultFailure = updateObj(
-                updatedNewDefaultFailure,
-                action.oldSetDefault.id,
-                action.newSetDefault,
-            );
-            return updatedOldDefaultFailure;
+            return updateObjDefaultOnFailure(state, action.newDefaultSet, action.oldDefaultSet);
         case ENABLE_PIN_OPTION_SET_REQUEST:
         case DISABLE_PIN_OPTION_SET_REQUEST:
             return updateObj(state, action.payload.id, {
@@ -147,15 +138,7 @@ function setsReducer(state = {}, action) {
                 isDisabled: !action.payload.isDisabled,
             });
         case SET_OPTION_SET_AS_DEFAULT_REQUEST:
-            var updatedNewDefault = updateObj(state, action.newSetDefault.id, {
-                ...action.newSetDefault,
-                isDefault: !action.newSetDefault.isDefault,
-            });
-            var updatedOldDefault = updateObj(updatedNewDefault, action.oldSetDefault.id, {
-                ...action.oldSetDefault,
-                isDefault: !action.oldSetDefault.isDefault,
-            });
-            return updatedOldDefault;
+            return updateObjDefaultOnRequest(state, action.newDefaultSet, action.oldDefaultSet);
         default:
             return state;
     }

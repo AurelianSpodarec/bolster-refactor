@@ -15,15 +15,14 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
 import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
+import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
 const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
     const singularTypeName = pinOptionType.name;
 
-    const { form, handleChange, handleSubmit, isPosting } = useCreateOptionValue(
-        pinOptionTypeID,
-        pinOptionSetID,
-    );
+    const { form, handleChange, handlePriceBreakChange, handleSubmit, isPosting } =
+        useCreateOptionValue(pinOptionTypeID, pinOptionSetID);
 
     const availableServiceOptions = useGetAvailableServices(pinOptionSetID);
 
@@ -74,6 +73,45 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                         required
                     />
                 </Field>
+
+                {pinOptionType.hasCosting && (
+                    <>
+                        <Field name="Unit of Measurement">
+                            <DropdownContainer
+                                name="unit of measurement"
+                                options={[]}
+                                value={''}
+                                selectedOption={''}
+                                handleChange={handleChange}
+                                placeholder={''}
+                            />
+                        </Field>
+
+                        <Field name="Measurement" />
+
+                        {form.measurementPriceBreaks.map((priceBreak, index) => (
+                            <>
+                                <TextInputContainer
+                                    name=""
+                                    value={priceBreak.value}
+                                    placeholder={`Value ${index}`}
+                                    handleChange={(_, value) =>
+                                        handlePriceBreakChange(index, 'value', value)
+                                    }
+                                />
+
+                                <TextInputContainer
+                                    name=""
+                                    value={priceBreak.cost}
+                                    placeholder={`Cost ${index}`}
+                                    handleChange={(_, value) =>
+                                        handlePriceBreakChange(index, 'cost', value)
+                                    }
+                                />
+                            </>
+                        ))}
+                    </>
+                )}
 
                 <BlockButtonWrapper>
                     <ButtonWrapper alignment="right">
