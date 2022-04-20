@@ -1,10 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
+import InfoIcon from '_content/images/icons/info-icon.svg';
+import InfoIconDark from '_content/images/icons/info-icon-dark.svg';
+
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 import useCreateOptionValue from '../hooks/useCreateOptionValue';
 import useGetAvailableServices from '../hooks/useGetAvailableServices';
+import useColourTheme from 'hooks/useColourTheme';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import Form from 'components/shared/generic/form/containers/Form';
@@ -15,8 +19,11 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
 import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
+import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
 const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
+    const colourTheme = useColourTheme();
+
     const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
     const singularTypeName = pinOptionType.name;
 
@@ -75,24 +82,26 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                     />
                 </Field>
 
-                {/* <Field name="Unit of Measurement" classes="installation-types-dropdown" required>
-                    <DropdownContainer
-                        name="unit of measurement"
-                        options={[]}
-                        value={''}
-                        selectedOption={''}
-                        handleChange={handleChange}
-                        placeholder={''}
-                        required
-                    />
-                </Field>
+                {pinOptionType.hasCosting && (
+                    <>
+                        <Field name="Unit of Measurement">
+                            <DropdownContainer
+                                name="unit of measurement"
+                                options={[]}
+                                value={''}
+                                selectedOption={''}
+                                handleChange={handleChange}
+                                placeholder={''}
+                            />
+                        </Field>
 
-                <Field
-                    name="Measurement"
-                    icon={colourTheme === 'dark' ? InfoIcon : InfoIconDark}
-                    alt="Information"
-                    required
-                ></Field> */}
+                        <Field
+                            name="Measurement"
+                            icon={colourTheme === 'dark' ? InfoIcon : InfoIconDark}
+                            alt="Information"
+                        />
+                    </>
+                )}
 
                 <BlockButtonWrapper>
                     <ButtonWrapper alignment="right">
