@@ -132,6 +132,9 @@ import {
     EDIT_PRELIM_MODAL,
     EDIT_PIN_OPTIONS_SET_MODAL,
     EDIT_PIN_OPTIONS_VALUE_MODAL,
+    CREATE_PIN_OPTION_DOCUMENTS_MODAL,
+    EDIT_PIN_OPTION_DOCUMENTS_MODAL,
+    DELETE_PIN_OPTION_DOCUMENTS_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -263,6 +266,9 @@ import CreatePrelimModal from 'components/companyAdmin/pinOptions/prelims/modals
 import EditPrelimModal from 'components/companyAdmin/pinOptions/prelims/modals/EditPrelimModal';
 import EditOptionSetModal from 'components/companyAdmin/pinOptions/optionSets/modals/EditOptionSetModal';
 import EditOptionValueModal from 'components/companyAdmin/pinOptions/optionValues/modals/EditOptionValueModal';
+import CreatePinOptionDocumentsModal from 'components/companyAdmin/pinOptions/optionDocuments/modals/CreatePinOptionDocumentsModal';
+import EditPinOptionDocumentsModal from 'components/companyAdmin/pinOptions/optionDocuments/modals/EditPinOptionDocumentsModal';
+import DeletePinOptionDocumentsModal from 'components/companyAdmin/pinOptions/optionDocuments/modals/DeletePinOptionDocumentsModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -391,10 +397,13 @@ const MODAL_COMPONENTS = {
     [CONFIRM_DARK_THEME]: ConfirmDarkThemeModal,
     [CREATE_PIN_OPTIONS_SET_MODAL]: CreateOptionSetModal,
     [CREATE_PIN_OPTIONS_VALUE_MODAL]: CreateOptionValueModal,
+    [CREATE_PIN_OPTION_DOCUMENTS_MODAL]: CreatePinOptionDocumentsModal,
     [CREATE_PRELIM_MODAL]: CreatePrelimModal,
     [EDIT_PRELIM_MODAL]: EditPrelimModal,
     [EDIT_PIN_OPTIONS_SET_MODAL]: EditOptionSetModal,
     [EDIT_PIN_OPTIONS_VALUE_MODAL]: EditOptionValueModal,
+    [EDIT_PIN_OPTION_DOCUMENTS_MODAL]: EditPinOptionDocumentsModal,
+    [DELETE_PIN_OPTION_DOCUMENTS_MODAL]: DeletePinOptionDocumentsModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

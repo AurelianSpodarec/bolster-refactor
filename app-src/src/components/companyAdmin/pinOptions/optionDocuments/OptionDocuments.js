@@ -14,6 +14,7 @@ import OptionDocumentsList from './OptionDocumentsList';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import FlexHeading from 'components/shared/generic/pageHeading/presentational/FlexHeading';
+import useDocumentsSetActions from './hooks/useDocumentsSetActions';
 
 const OptionDocuments = () => {
     const { optionID } = useParams();
@@ -32,6 +33,8 @@ const OptionDocuments = () => {
             ? latestPinOptionVersion.name
             : 'Loading...';
 
+    const { showAddModal, showEditModal, showDeleteModal } = useDocumentsSetActions(optionID);
+
     return (
         <>
             <FlexHeading title={name} withBackButton>
@@ -40,7 +43,7 @@ const OptionDocuments = () => {
                         text="Upload"
                         icon="file-plus"
                         size="medium"
-                        onClick={() => console.log('Upload new...')}
+                        onClick={() => showAddModal(optionID)}
                     />
                 </ButtonWrapper>
             </FlexHeading>
