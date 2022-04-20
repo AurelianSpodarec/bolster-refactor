@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { isEmpty } from 'helpers/generic';
 
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
-import { selectPinOptionDefaultSet } from 'selectors/companyAdmin/pinOptionSets';
 
 import useFetchPinOptionSets from 'components/companyAdmin/hooks/useFetchPinOptionSets';
 import useFilterOptionSets from './hooks/useFilterOptionSets';

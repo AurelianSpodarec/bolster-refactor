@@ -1,17 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
-import setOptionSetAsDefault from 'actions/companyAdmin/pinOptions/async/setOptionSetAsDefault';
 
 const OptionSetsListItem = ({
     set,
-    set: { id, name, isDisabled },
+    set: { id, name, isDefault, isDisabled },
     setLink,
     showEditModal,
     showDeleteModal,
@@ -34,14 +32,16 @@ const OptionSetsListItem = ({
                         }
                     }}
                 />
-                <Link to={`/company/pin-options/${setLink}/${id}`}>{name}</Link>
+                <Link to={`/company/pin-options/${setLink}/${id}`}>
+                    {name} {isDefault ? '(default)' : ''}
+                </Link>
             </FlexWrapper>
         </td>
         <td>
             <ButtonWrapper alignment="right">
                 <ActionMenu>
                     <ActionMenuActionButton text="Edit" onClick={() => showEditModal(set)} />
-                    {!set.isDefault && (
+                    {!isDefault && (
                         <ActionMenuActionButton
                             text="Set as default"
                             onClick={() => setAsDefault(set)}
