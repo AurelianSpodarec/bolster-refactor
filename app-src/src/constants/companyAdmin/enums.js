@@ -765,5 +765,25 @@ export const PRELIMS_TYPES = {
 
 export const PRELIMS_ENUM = {
     10: 'Percent',
-    20: 'Fix price',
+    20: 'Fixed Price',
+};
+
+export const MEASUREMENT_TYPES = {
+    LINEAR: 1,
+    SQUARE: 2,
+    CUBIC: 3,
+    VOLUME: 4,
+    NUMBER: 5,
+    FIXED: 6,
+    DIAMETER: 7,
+};
+
+export const MEASUREMENT_NAMES = {
+    1: 'Linear',
+    2: 'Square',
+    3: 'Cubic',
+    4: 'Volume',
+    5: 'Number',
+    6: 'Fixed Price',
+    7: 'Diameter',
 };
