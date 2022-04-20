@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { isEmpty } from 'helpers/generic';
 
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
-import { selectPinOptionDefaultSet } from 'selectors/companyAdmin/pinOptionSets';
 
 import useFetchPinOptionSets from 'components/companyAdmin/hooks/useFetchPinOptionSets';
 import useFilterOptionSets from './hooks/useFilterOptionSets';
@@ -28,12 +27,16 @@ const OptionSets = ({ selectedTypeID }) => {
         selectedTypeID,
     );
 
-    const { showAddModal, showEditModal, showDeleteModal, enableOptionSet, disableOptionSet } =
-        useOptionSetActions(selectedTypeID);
+    const {
+        showAddModal,
+        showEditModal,
+        showDeleteModal,
+        enableOptionSet,
+        disableOptionSet,
+        setAsDefault,
+    } = useOptionSetActions(selectedTypeID);
 
     const setLink = selectedPinOptionType.slug;
-
-    const defaultSet = useSelector(state => selectPinOptionDefaultSet(state, selectedTypeID));
 
     return (
         <>
@@ -82,7 +85,7 @@ const OptionSets = ({ selectedTypeID }) => {
                         showDeleteModal={showDeleteModal}
                         enableOptionSet={enableOptionSet}
                         disableOptionSet={disableOptionSet}
-                        defaultSetID={defaultSet && defaultSet.id}
+                        setAsDefault={setAsDefault}
                     />
                 ))}
             </Table>

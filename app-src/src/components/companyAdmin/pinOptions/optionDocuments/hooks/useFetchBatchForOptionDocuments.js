@@ -5,10 +5,12 @@ import { usePrevious } from 'helpers/hooks';
 
 import useFetchPinOptionsBatch from 'components/companyAdmin/hooks/useFetchPinOptionsBatch';
 import useFetchServices from 'components/companyAdmin/hooks/useFetchServices';
+import useFetchDocuments from 'components/companyAdmin/hooks/useFetchDocuments';
 
-const useFetchBatchForOptionDocuments = () => {
+const useFetchBatchForOptionDocuments = optionID => {
     const [hasFetched, setHasFetched] = useState(false);
     const { services, isFetchingServices, servicesError } = useFetchServices();
+    const { documents, isFetchingDocuments, documentsError } = useFetchDocuments(optionID);
 
     const {
         pinOptionTypes,
@@ -30,21 +32,24 @@ const useFetchBatchForOptionDocuments = () => {
         (isEmpty(pinOptionTypes) && isFetchingPinOptionTypes) ||
         (isEmpty(pinOptionSets) && isFetchingPinOptionSets) ||
         (isEmpty(pinOptions) && isFetchingPinOptions) ||
-        (isEmpty(pinOptionVersions) && isFetchingPinOptionVersions);
+        (isEmpty(pinOptionVersions) && isFetchingPinOptionVersions) ||
+        (isEmpty(documents) && isFetchingDocuments);
 
     const isAnyFetching =
         isFetchingServices ||
         isFetchingPinOptionTypes ||
         isFetchingPinOptionSets ||
         isFetchingPinOptions ||
-        isFetchingPinOptionVersions;
+        isFetchingPinOptionVersions ||
+        isFetchingDocuments;
 
     const isAnyErrored =
         servicesError ||
         pinOptionTypesFetchError ||
         pinOptionSetsFetchError ||
         pinOptionsFetchError ||
-        pinOptionVersionsFetchError;
+        pinOptionVersionsFetchError ||
+        documentsError;
 
     const prevProps = usePrevious({ isAnyFetching });
 
