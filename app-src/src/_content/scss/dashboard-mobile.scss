@@ -43,6 +43,7 @@
                 right: 15px;
             }
             font-size: 180%;
+            color: black;
         }
 
         .mobile-profile-menu {
@@ -799,3 +800,8 @@
     }
 }
 
+@media only screen and (max-width: 1023px) {
+    .dashboard-data-by-wrapper {
+        position: relative;
+    }
+}

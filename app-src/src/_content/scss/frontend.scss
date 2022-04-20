@@ -2801,6 +2801,10 @@ $back-to-top-height: 35px;
           height: 44px;
           line-height: 1.9;
         }
+
+        .arrow {
+          color: black;
+        }
       }
 
       &.multi-multi-dropdown {
@@ -2810,9 +2814,10 @@ $back-to-top-height: 35px;
           top: auto;
           left: auto;
           margin-top: 0;
-
+          background-color: #e8e8e8;
           .search-box {
             input {
+              color: black;
               @include opensans-regular;
               font-size: 100%;
             }

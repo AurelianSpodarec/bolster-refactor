@@ -46,7 +46,9 @@ const Controls = ({ startDate, onPrev, onNext, onToday, companyUserIDs, companyU
 
                     <div className="end">
                         <MultiSelect
-                            options={companyUserOptions}
+                            options={companyUserOptions.sort((a, b) =>
+                                a.label.localeCompare(b.label),
+                            )}
                             value={companyUserIDs}
                             onChange={(_, value) => dispatch(setCompanyUserIDs(value))}
                             search
