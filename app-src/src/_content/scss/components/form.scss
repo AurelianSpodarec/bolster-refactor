@@ -241,6 +241,10 @@
     min-height: 10px;
   }
 
+  &.no-min-height {
+    min-height: 0;
+  }
+
   &.no-padding {
     padding: 0;
   }

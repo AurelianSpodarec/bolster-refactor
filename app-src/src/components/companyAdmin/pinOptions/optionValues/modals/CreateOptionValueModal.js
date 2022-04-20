@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
+import { selectFieldError } from 'selectors/shared/fieldErrors';
 
 import useCreateOptionValue from '../hooks/useCreateOptionValue';
 import useGetAvailableServices from '../hooks/useGetAvailableServices';
@@ -18,6 +19,10 @@ import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
 const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
+    const priceBreaksError = useSelector(state =>
+        selectFieldError(state, 'measurementPriceBreaks'),
+    );
+
     const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
     const singularTypeName = pinOptionType.name;
 
@@ -109,7 +114,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                     <React.Fragment key={index}>
                                         <Field>
                                             <TextInputContainer
-                                                name=""
+                                                name="measurementPriceBreaks[index].value"
                                                 value={priceBreak.value}
                                                 placeholder="Type value"
                                                 handleFocus={() => {
@@ -123,7 +128,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
 
                                         <Field>
                                             <TextInputContainer
-                                                name=""
+                                                name="measurementPriceBreaks[index].cost"
                                                 value={priceBreak.cost}
                                                 placeholder="Type price"
                                                 handleFocus={() => {
@@ -153,6 +158,12 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                 );
                             })}
                         </div>
+
+                        {priceBreaksError && (
+                            <Field classes="no-min-height">
+                                <p className="error red-text text-accent-4">{priceBreaksError}</p>
+                            </Field>
+                        )}
                     </>
                 )}
 
