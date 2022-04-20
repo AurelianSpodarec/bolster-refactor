@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
 import {
     CREATE_PIN_OPTION_DOCUMENT_FAILURE,
     CREATE_PIN_OPTION_DOCUMENT_REQUEST,
@@ -22,10 +22,12 @@ import {
 export default combineReducers({
     documents: pinOptionDocumentsReducer,
     isFetching: isFetchingReducer,
-    fetchError: fetchErrorReducer,
+    errorReducer: errorReducer,
     isPosting: isPostingReducer,
     postError: postErrorReducer,
     postSuccess: postSuccessReducer,
+    isDeleting: isDeletingReducer,
+    deleteSuccess: deleteSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -43,11 +45,17 @@ function isFetchingReducer(state = false, action) {
     }
 }
 
-function fetchErrorReducer(state = null, action) {
+function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_PIN_OPTION_DOCUMENTS_REQUEST:
+        case CREATE_PIN_OPTION_DOCUMENT_REQUEST:
+        case EDIT_PIN_OPTION_DOCUMENT_REQUEST:
+        case DELETE_PIN_OPTION_DOCUMENT_REQUEST:
             return null;
         case FETCH_PIN_OPTION_DOCUMENTS_FAILURE:
+        case CREATE_PIN_OPTION_DOCUMENT_FAILURE:
+        case EDIT_PIN_OPTION_DOCUMENT_FAILURE:
+        case DELETE_PIN_OPTION_DOCUMENT_FAILURE:
             return action.error;
         default:
             return state;
@@ -64,6 +72,18 @@ function isPostingReducer(state = false, action) {
         case CREATE_PIN_OPTION_DOCUMENT_FAILURE:
         case EDIT_PIN_OPTION_DOCUMENT_SUCCESS:
         case EDIT_PIN_OPTION_DOCUMENT_FAILURE:
+        case DELETE_PIN_OPTION_DOCUMENT_SUCCESS:
+        case DELETE_PIN_OPTION_DOCUMENT_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function isDeletingReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_PIN_OPTION_DOCUMENT_REQUEST:
+            return true;
         case DELETE_PIN_OPTION_DOCUMENT_SUCCESS:
         case DELETE_PIN_OPTION_DOCUMENT_FAILURE:
             return false;
@@ -92,8 +112,21 @@ function postSuccessReducer(state = false, action) {
         case CREATE_PIN_OPTION_DOCUMENT_REQUEST:
         case EDIT_PIN_OPTION_DOCUMENT_REQUEST:
         case DELETE_PIN_OPTION_DOCUMENT_REQUEST:
+        case CREATE_PIN_OPTION_DOCUMENT_FAILURE:
             return false;
         case EDIT_PIN_OPTION_DOCUMENT_SUCCESS:
+        case DELETE_PIN_OPTION_DOCUMENT_SUCCESS:
+        case CREATE_PIN_OPTION_DOCUMENT_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_PIN_OPTION_DOCUMENT_REQUEST:
+            return false;
         case DELETE_PIN_OPTION_DOCUMENT_SUCCESS:
             return true;
         default:
@@ -106,8 +139,10 @@ function pinOptionDocumentsReducer(state = {}, action) {
         case FETCH_PIN_OPTION_DOCUMENTS_SUCCESS:
             return convertArrToObj(action.payload);
         case EDIT_PIN_OPTION_DOCUMENT_SUCCESS:
-        case DELETE_PIN_OPTION_DOCUMENT_SUCCESS:
+        case CREATE_PIN_OPTION_DOCUMENT_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+        case DELETE_PIN_OPTION_DOCUMENT_SUCCESS:
+            return removeObjItem(state, action.id);
         default:
             return state;
     }
