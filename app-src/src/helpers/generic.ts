@@ -474,3 +474,33 @@ export const formatCheckboxListOptions = (
 
     return formattedOptions;
 };
+
+export function getFormArrayObjChange(index, field, value, arrayOfObjects) {
+    const arrayToUpdate = arrayOfObjects;
+    const relObjToUpdate = arrayOfObjects[index];
+
+    const updatedObj = {
+        ...relObjToUpdate,
+        [field]: value,
+    };
+
+    arrayToUpdate[index] = updatedObj;
+
+    return arrayToUpdate;
+}
+
+export function getFormArrayAfterObjAdd(arrayOfObjects, objToAdd) {
+    const arrayToUpdate = arrayOfObjects;
+
+    arrayToUpdate.push(objToAdd);
+
+    return arrayToUpdate;
+}
+
+export function getFormArrayAfterObjRemove(arrayOfObjects, indexToRemove) {
+    const arrayToUpdate = arrayOfObjects;
+
+    arrayToUpdate.splice(indexToRemove, 1);
+
+    return arrayToUpdate;
+}

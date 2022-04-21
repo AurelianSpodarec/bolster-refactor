@@ -6,28 +6,14 @@ import useShouldRedirectFromOptionDocuments from './hooks/useShouldRedirectFromO
 import GridWrapper from 'components/shared/generic/gridWrapper/GridWrapper';
 import DocumentPod from 'components/shared/documentPods/DocumentPod';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
+import useFetchPinOptionDocuments from './hooks/useFetchPinOptionDocuments';
 
-const documents = [
-    {
-        id: 1,
-        name: 'Document 1',
-        lastUpdated: Date.now(),
-    },
-    {
-        id: 2,
-        name: 'Document 2',
-        lastUpdated: Date.now(),
-    },
-    {
-        id: 3,
-        name: 'Document 3',
-        lastUpdated: Date.now(),
-    },
-];
-
-const OptionDocumentsList = ({ hasFetched }) => {
+const OptionDocumentsList = ({ hasFetched, optionID }) => {
     const shouldRedirect = useShouldRedirectFromOptionDocuments(hasFetched);
-
+    const { allDocuments, documentsVersions, documentsError, isFetchingDocuments } =
+        useFetchPinOptionDocuments(optionID);
+    console.log({ allDocuments });
+    console.log(documentsVersions);
     if (shouldRedirect) {
         return <Redirect to="/company/pin-options" />;
     }
@@ -52,7 +38,7 @@ const OptionDocumentsList = ({ hasFetched }) => {
 
     return (
         <GridWrapper gap={15} itemsPerRow={5}>
-            {documents.map(document => (
+            {allDocuments.map(document => (
                 <DocumentPod
                     key={document.id}
                     name={document.name}

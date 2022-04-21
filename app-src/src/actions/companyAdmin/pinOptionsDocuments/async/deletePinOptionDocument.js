@@ -6,7 +6,7 @@ import {
     DELETE_PIN_OPTION_DOCUMENT_REQUEST,
     DELETE_PIN_OPTION_DOCUMENT_SUCCESS,
     DELETE_PIN_OPTION_DOCUMENT_FAILURE,
-} from 'constants/actionTypes/pins';
+} from 'constants/actionTypes/pinOptionsDocuments';
 
 export const deletePinOptionDocumentRequest = () => ({
     type: DELETE_PIN_OPTION_DOCUMENT_REQUEST,

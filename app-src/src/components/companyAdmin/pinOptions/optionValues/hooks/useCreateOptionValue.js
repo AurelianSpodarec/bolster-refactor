@@ -13,6 +13,8 @@ import {
     selectPinOptionsPostSuccess,
 } from 'selectors/companyAdmin/pinOptions';
 
+import useUpdatePriceBreaks from './useUpdatePriceBreaks';
+
 const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPinOptionsIsPosting);
@@ -25,7 +27,17 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
         name: '',
         shortName: '',
         serviceIDs: [],
+        measurementType: null,
+        measurementPriceBreaks: [
+            {
+                value: '',
+                cost: '',
+            },
+        ],
     });
+
+    const { handlePriceBreakChange, handleAddPriceBreak, handleRemovePriceBreak } =
+        useUpdatePriceBreaks(form, handleChange);
 
     const handleSubmit = () => {
         const postBody = {
@@ -45,7 +57,15 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
         if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
     }, [postSuccess, prevProps.postSuccess]);
 
-    return { form, handleChange, handleSubmit, isPosting };
+    return {
+        form,
+        handleChange,
+        handlePriceBreakChange,
+        handleAddPriceBreak,
+        handleRemovePriceBreak,
+        handleSubmit,
+        isPosting,
+    };
 };
 
 export default useCreateOptionValue;

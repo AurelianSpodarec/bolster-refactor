@@ -14,6 +14,7 @@ import OptionDocumentsList from './OptionDocumentsList';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import FlexHeading from 'components/shared/generic/pageHeading/presentational/FlexHeading';
+import useDocumentsSetActions from './hooks/useDocumentsSetActions';
 
 const OptionDocuments = () => {
     const { optionID } = useParams();
@@ -24,11 +25,15 @@ const OptionDocuments = () => {
         useFetchBatchForOptionDocuments(optionID);
 
     const latestPinOptionVersion = useSelector(state =>
-        selectLatestVersionForPinOption(state, specificOption.id),
+        selectLatestVersionForPinOption(state, specificOption?.id),
     );
 
     const name =
-        specificOption && !isEmpty(latestPinOptionVersion) ? latestPinOptionVersion : 'Loading...';
+        specificOption && !isEmpty(latestPinOptionVersion)
+            ? latestPinOptionVersion.name
+            : 'Loading...';
+
+    const { showAddModal, showEditModal, showDeleteModal } = useDocumentsSetActions(optionID);
 
     return (
         <>
@@ -38,7 +43,7 @@ const OptionDocuments = () => {
                         text="Upload"
                         icon="file-plus"
                         size="medium"
-                        onClick={() => console.log('Upload new...')}
+                        onClick={() => showAddModal(optionID)}
                     />
                 </ButtonWrapper>
             </FlexHeading>
@@ -49,7 +54,7 @@ const OptionDocuments = () => {
                 error={isAnyErrored}
                 noWhiteBackground
             >
-                <OptionDocumentsList hasFetched={hasFetched} />
+                <OptionDocumentsList optionID={optionID} hasFetched={hasFetched} />
             </BlockContainer>
         </>
     );

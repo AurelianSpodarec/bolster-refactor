@@ -10,6 +10,7 @@ const TextInput = ({
     value,
     handleChange,
     handleBlur,
+    handleFocus,
     error,
     charLimit,
     minNum,
@@ -26,6 +27,7 @@ const TextInput = ({
             value={value}
             onChange={handleChange}
             onBlur={handleBlur}
+            onFocus={handleFocus}
             maxLength={charLimit}
             min={minNum}
             max={maxNum}
