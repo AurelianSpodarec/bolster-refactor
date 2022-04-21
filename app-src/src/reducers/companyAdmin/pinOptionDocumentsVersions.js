@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
     FETCH_PIN_OPTION_DOCUMENTS_VERSIONS_FAILURE,
     FETCH_PIN_OPTION_DOCUMENTS_VERSIONS_REQUEST,
     FETCH_PIN_OPTION_DOCUMENTS_VERSIONS_SUCCESS,
+    CREATE_PIN_OPTION_DOCUMENTS_VERSIONS_FAILURE,
+    CREATE_PIN_OPTION_DOCUMENTS_VERSIONS_REQUEST,
+    CREATE_PIN_OPTION_DOCUMENTS_VERSIONS_SUCCESS,
 } from 'constants/actionTypes/pinOptionsDocuments';
 
 export default combineReducers({
@@ -28,8 +31,10 @@ function isFetchingReducer(state = false, action) {
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_PIN_OPTION_DOCUMENTS_VERSIONS_REQUEST:
+        case CREATE_PIN_OPTION_DOCUMENTS_VERSIONS_REQUEST:
             return null;
         case FETCH_PIN_OPTION_DOCUMENTS_VERSIONS_FAILURE:
+        case CREATE_PIN_OPTION_DOCUMENTS_VERSIONS_FAILURE:
             return action.error;
         default:
             return state;
@@ -40,6 +45,8 @@ function pinOptionDocumentsVersionsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_PIN_OPTION_DOCUMENTS_VERSIONS_SUCCESS:
             return convertArrToObj(action.payload);
+        case CREATE_PIN_OPTION_DOCUMENTS_VERSIONS_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }
