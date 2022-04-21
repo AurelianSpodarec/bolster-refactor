@@ -5,7 +5,7 @@ import { getSortedDropdownOptions } from 'helpers/addPin';
 
 const DropdownOptions = ({
     isRequired,
-    question: { id, optionType, defaultValue },
+    question: { id, optionType, defaultValue, pinOptionTypeID },
     dropdownOptions,
     answers,
     handleChange,
@@ -15,19 +15,22 @@ const DropdownOptions = ({
     defaultDropdownSorting,
     companyID,
     optionValues,
+    pinOptions,
 }) => {
     let isManufacturingEnabledForType = false;
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
     // ! this needs to be kept as an option.
     let formattedOpts = [];
-    const value = answers[id];
+    const [questionValue] = answers[id] ?? [];
 
+    // todo default value
     useEffect(() => {
-        if (!value && !edit && defaultValue) {
+        if (!questionValue && !edit && defaultValue) {
             handleChange(null, defaultValue);
         }
     }, []);
 
+    // for edit only
     const filteredOptions = dropdownOptions.filter(option => {
         // remove deleted option if not already selected
         if (value !== option.value && option.isDeleted) return false;
@@ -77,25 +80,25 @@ const DropdownOptions = ({
             }
         }
     } else {
-        formattedOpts = dropdownOptions
-            .filter(option => option.type + '' === optionType + '')
+        formattedOpts = pinOptions
+            // todo uncomment when question has type
+            // .filter(option => option.pinOptionTypeID === pinOptionTypeID)
             .map(option => ({
-                value: isManufacturingEnabledForType ? option.id : option.name,
-                label: option.name,
-                id: option.id || null,
+                value: option.latestVersion.id,
+                label: option.latestVersion.name,
+                id: option.latestVersion.id,
                 sort: option.sort,
                 createdOn: option.createdOn,
-                manufacturerSort: option.manufacturerSort,
-                manufacturerID: option.manufacturerID,
             }));
     }
+    // todo figure out value / handlechange
 
     return (
         <Select
             placeholder="-- select --"
             name={`answer-${id}`}
             options={getSortedDropdownOptions(formattedOpts, defaultDropdownSorting)}
-            value={value}
+            value={questionValue?.pinOptionVersionID}
             onChange={handleChange}
             required={isRequired}
         />
