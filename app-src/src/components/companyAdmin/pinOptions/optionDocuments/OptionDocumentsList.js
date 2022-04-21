@@ -7,8 +7,6 @@ import GridWrapper from 'components/shared/generic/gridWrapper/GridWrapper';
 import DocumentPod from 'components/shared/documentPods/DocumentPod';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import useFetchPinOptionDocuments from './hooks/useFetchPinOptionDocuments';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { isEmpty } from 'helpers/generic';
 
 const OptionDocumentsList = ({ hasFetched, optionID, showDeleteModal }) => {
     const shouldRedirect = useShouldRedirectFromOptionDocuments(hasFetched);
