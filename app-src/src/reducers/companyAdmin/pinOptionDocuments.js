@@ -14,9 +14,6 @@ import {
     FETCH_PIN_OPTION_DOCUMENTS_FAILURE,
     FETCH_PIN_OPTION_DOCUMENTS_REQUEST,
     FETCH_PIN_OPTION_DOCUMENTS_SUCCESS,
-    FETCH_PIN_OPTION_DOCUMENTS_VERSIONS_FAILURE,
-    FETCH_PIN_OPTION_DOCUMENTS_VERSIONS_REQUEST,
-    FETCH_PIN_OPTION_DOCUMENTS_VERSIONS_SUCCESS,
 } from 'constants/actionTypes/pinOptionsDocuments';
 
 export default combineReducers({
@@ -33,12 +30,9 @@ export default combineReducers({
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_PIN_OPTION_DOCUMENTS_REQUEST:
-        case FETCH_PIN_OPTION_DOCUMENTS_VERSIONS_REQUEST:
             return true;
         case FETCH_PIN_OPTION_DOCUMENTS_SUCCESS:
         case FETCH_PIN_OPTION_DOCUMENTS_FAILURE:
-        case FETCH_PIN_OPTION_DOCUMENTS_VERSIONS_SUCCESS:
-        case FETCH_PIN_OPTION_DOCUMENTS_VERSIONS_FAILURE:
             return false;
         default:
             return state;
