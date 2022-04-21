@@ -12,6 +12,7 @@ import {
     EDIT_PIN_OPTION_VALUE_SUCCESS,
     EDIT_PIN_OPTION_VALUE_FAILURE,
 } from 'constants/actionTypes/pinOptions';
+import { SET_API_FIELD_ERRORS } from 'constants/actionTypes/generic';
 
 export default combineReducers({
     versions: versionsReducer,
@@ -54,6 +55,7 @@ function isPostingReducer(state = false, action) {
         case CREATE_PIN_OPTION_VALUE_FAILURE:
         case EDIT_PIN_OPTION_VALUE_SUCCESS:
         case EDIT_PIN_OPTION_VALUE_FAILURE:
+        case SET_API_FIELD_ERRORS:
             return false;
         default:
             return state;

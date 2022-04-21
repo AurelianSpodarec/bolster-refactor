@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
-import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
 import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
 import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
 import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
@@ -11,75 +9,57 @@ import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleD
 import updateDrawingDropdownOptions from 'actions/companyAdmin/drawings/sync/updateDrawingDropdownOptions';
 
 import AddPinFormContainer from './AddPinFormContainer';
-import { fetchManufacturerPinOptions } from 'helpers/redux';
 import { shouldOptionValueBeIncluded } from 'helpers/manufacturers';
-import { isObjEmpty } from 'helpers/generic';
 import { PIN_OPTION_TYPES_VALS } from '../../../../../constants/companyAdmin/enums';
 import fetchPinOptionVersions from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionVersions';
 import fetchPinOptions from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptions';
+import { componentDidMount } from '../../../../../helpers/generic';
 
-class AddPinContainer extends Component {
-    render = () => (
-        <AddPinFormContainer
-            hierarchyType="drawing"
-            drawingID={this.props.drawingID}
-            formatDropdownOptions={this.formatDropdownOptions}
-        />
-    );
-
-    componentDidMount = () => {
-        const { drawingID, fetchDrawingTemplates } = this.props;
-
+const AddPinContainer = ({
+    drawingID,
+    drawing,
+    fetchDrawingTemplates,
+    fetchPinOptions,
+    fetchPinOptionVersions,
+    pinOptions,
+    pinOptionVersions,
+    serviceID,
+}) => {
+    componentDidMount(() => {
+        fetchPinOptionVersions();
+        fetchPinOptions();
         fetchDrawingTemplates(drawingID);
 
         fetchPins('drawing', drawingID);
-    };
+    });
 
-    componentDidUpdate = prevProps => {
-        const { serviceID } = this.props;
+    const options = useMemo(() => {
+        // todo handle set services
+        const pinOptionsForService = Object.values(pinOptions).filter(
+            ({ serviceIDs }) => !serviceIDs || serviceIDs.includes(serviceID),
+        );
+        const pinOptionVersionsGroupedByOptionID = Object.values(pinOptionVersions).reduce(
+            (acc, version) => ({
+                ...acc,
+                [version.pinOptionID]: [...(acc[version.pinOptionID] || []), version],
+            }),
+            {},
+        );
+        return pinOptionsForService.map(pinOption => {
+            const versions = pinOptionVersionsGroupedByOptionID[pinOption.id] ?? [];
+            const latestVersion = versions.reduce((acc, version) =>
+                version.revisionNumber > acc.revisionNumber ? version : acc,
+            );
+            return {
+                ...pinOption,
+                latestVersion,
+                versions,
+            };
+        });
+    }, [pinOptions, pinOptionVersions, serviceID]);
 
-        if (prevProps.serviceID !== serviceID) {
-            this.fetchDropdownOptions();
-        }
-
-        if (
-            prevProps.isFetching &&
-            !this.props.isFetching &&
-            !isObjEmpty(this.props.optionValues)
-        ) {
-            this.formatDropdownOptions(serviceID);
-        }
-    };
-
-    fetchDropdownOptions = () => {
-        const {
-            drawingID,
-            fetchDrawingDropdownOptions,
-            fetchManufacturersByPinOptionType,
-            fetchAllOptionValues,
-        } = this.props;
-
-        fetchDrawingDropdownOptions(drawingID)
-            .then(() => {
-                fetchSingleDrawing(drawingID);
-            })
-            .then(() => {
-                fetchManufacturerPinOptions(
-                    fetchManufacturersByPinOptionType,
-                    fetchAllOptionValues,
-                );
-            });
-    };
-
-    formatDropdownOptions = serviceID => {
-        const {
-            dropdownOptions,
-            drawing,
-            optionValues,
-            updateDrawingDropdownOptions,
-            subscriptionServiceIDs,
-        } = this.props;
-
+    const formatDropdownOptions = serviceID => {
+        return;
         if (drawing.isManufacturingEnabled) {
             const originalOptionTypesToRemove = [];
 
@@ -154,8 +134,7 @@ class AddPinContainer extends Component {
         }
     };
 
-    isCorrectForDrawingAndServiceID = (serviceID, option) => {
-        const { drawing, manufacturers } = this.props;
+    const isCorrectForDrawingAndServiceID = (serviceID, option) => {
         const drawingOptionValueIDs = drawing.optionValueIDs ?? [];
 
         if (serviceID && drawingOptionValueIDs?.includes(option.id)) {
@@ -173,16 +152,27 @@ class AddPinContainer extends Component {
             return drawingOptionValueIDs?.includes(option.id);
         }
     };
-}
+
+    return (
+        <AddPinFormContainer
+            hierarchyType="drawing"
+            drawingID={drawingID}
+            formatDropdownOptions={formatDropdownOptions}
+            pinOptions={options}
+        />
+    );
+};
 
 const mapStateToProps = (
     {
         companyAdmin: {
-            addPinDropdownOptions: { dropdownOptions, serviceID },
+            addPinDropdownOptions: { dropdownOptions },
+            addPinFormReducer: { serviceID },
             manufacturersReducer: {
                 manufacturers: { installationTypes },
             },
-            manufacturersOptionValuesReducer: { manufacturersOptionValues, isFetching },
+            pinOptionsReducer: { options, isFetching: isFetchingPinOptions },
+            pinOptionVersionsReducer: { versions, isFetching: isFetchingPinOptionVersions },
             drawingsReducer: { drawings },
             subscriptionsReducer: {
                 subscriptions: { serviceIDs: subscriptionServiceIDs },
@@ -192,21 +182,20 @@ const mapStateToProps = (
     { match },
 ) => ({
     drawingID: match.params.id,
-    optionValues: manufacturersOptionValues,
     drawing: drawings[match.params.id],
-    isFetching: isFetching,
+    isFetching: isFetchingPinOptions || isFetchingPinOptionVersions,
     dropdownOptions,
     subscriptionServiceIDs,
     manufacturers: installationTypes,
     serviceID,
+    pinOptions: options,
+    pinOptionVersions: versions,
 });
 
 const mapDispatchToProps = {
     fetchDrawingTemplates,
     fetchDrawingDropdownOptions,
     fetchPins,
-    fetchManufacturersByPinOptionType,
-    fetchAllOptionValues,
     updateDrawingDropdownOptions,
     fetchSingleDrawing,
     fetchPinOptions,

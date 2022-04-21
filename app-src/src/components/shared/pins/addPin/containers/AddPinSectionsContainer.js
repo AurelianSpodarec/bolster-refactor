@@ -18,6 +18,7 @@ class AddPinSectionsContainer extends Component {
             oldAnswersByNameObj,
             template,
             latestPinHistory,
+            pinOptions,
         } = this.props;
 
         return (
@@ -32,6 +33,7 @@ class AddPinSectionsContainer extends Component {
                 oldAnswersByNameObj={oldAnswersByNameObj}
                 template={template}
                 latestPinHistory={latestPinHistory}
+                pinOptions={pinOptions}
             />
         );
     }

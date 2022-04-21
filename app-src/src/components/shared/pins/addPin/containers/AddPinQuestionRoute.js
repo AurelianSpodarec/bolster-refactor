@@ -15,7 +15,12 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
 import { fieldTypes, getDefaultValue } from '../fieldTypes/allFieldTypes';
-import { QUESTION_TYPE_VALUES, QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
+import {
+    QUESTION_TYPE_VALUES,
+    QUESTION_TYPE_NUMBERS,
+    QUESTION_TYPE_NUMBERS as TYPES,
+} from 'constants/shared/templateBuilder';
+import { emptyAnswer } from '../fieldTypes/helpers';
 
 const {
     SINGLE_LINE,
@@ -40,8 +45,7 @@ const dropdownOptionTypes = [
 class AddPinQuestionRoute extends Component {
     state = {
         sigPad: {},
-        originalDropdownMultiAns: [],
-        originalDropdownAns: '',
+        originalPinOptionAns: [],
     };
 
     render() {
@@ -58,6 +62,7 @@ class AddPinQuestionRoute extends Component {
             drawing,
             companySettings,
             companyID,
+            pinOptions,
         } = this.props;
 
         const showPreReq = this.checkIfShouldShowByPreReq();
@@ -69,7 +74,7 @@ class AddPinQuestionRoute extends Component {
         const isManufacturingEnabledForDrawing = drawing.isManufacturingEnabled;
 
         if (showPreReq) {
-            const SpecificField = fieldTypes[question.type + ''] || fieldTypes[SINGLE_LINE];
+            const SpecificField = fieldTypes[question.type] || fieldTypes[SINGLE_LINE];
 
             const extraImageClasses =
                 (edit && question.type + '' === MULTI_PHOTO) || question.type + '' === SINGLE_PHOTO
@@ -100,11 +105,11 @@ class AddPinQuestionRoute extends Component {
                         edit={edit}
                         resetPinAnswer={resetPinAnswer}
                         isHistory={isHistory}
-                        originalDropdownAns={this.state.originalDropdownAns}
-                        originalDropdownMultiAns={this.state.originalDropdownMultiAns}
+                        originalPinOptionAns={this.state.originalPinOptionAns}
                         isManufacturingEnabledForDrawing={isManufacturingEnabledForDrawing}
                         defaultDropdownSorting={companySettings.defaultDropdownSorting}
                         companyID={companyID}
+                        pinOptions={pinOptions}
                     />
                 </Field>
             );
@@ -129,7 +134,7 @@ class AddPinQuestionRoute extends Component {
 
     // not just an if check, amends the pre req answer also?
     checkIfShouldShowByPreReq = () => {
-        const { question, status, questions, answers, dropdownOptions } = this.props;
+        const { question, status, questions, answers, pinOptionVersions } = this.props;
         const { prerequisiteQuestionIDs } = question;
         const prereqIDArr = (prerequisiteQuestionIDs || '').split(',');
         const preReqQuestions = Object.values(questions).filter(ques =>
@@ -146,101 +151,41 @@ class AddPinQuestionRoute extends Component {
         return preReqQuestions.every(preReqQuestion => {
             const preReqType = `${preReqQuestion.type}`;
             const prereqVals = question.prerequisiteQuestionValue.split(',');
-            let preReqAnswer = answers[preReqQuestion.id];
+            let preReqAnswers = answers[preReqQuestion.id];
 
             if (preReqType === STATUS && prereqVals.includes(`${status}`)) {
                 return true;
             }
 
-            if (!preReqAnswer) {
+            if (!preReqAnswers || !preReqAnswers.length) {
                 return false;
             }
 
-            if ([DROPDOWN, RADIO].includes(preReqType)) {
-                //For a drop down we have to convert the GUID to the question option.
-                const selectedOption = preReqQuestion.options.find(
-                    option => option.id === preReqAnswer,
-                );
-                // specifying not undefined in case pre-req answers are falsy ie. 0, ''
-                if (selectedOption !== undefined) {
-                    preReqAnswer = selectedOption.text;
-                } else {
-                    return false;
-                }
+            if ([DROPDOWN, MULTI_DROPDOWN, RADIO].includes(preReqType)) {
+                preReqAnswers = preReqAnswers?.map(ans => ans.textValue);
             }
 
-            if (preReqType === MULTI_DROPDOWN) {
-                if (!preReqAnswer) {
-                    return false;
-                }
-
-                const retArray = [];
-                if (!Array.isArray(preReqAnswer)) {
-                    preReqAnswer = preReqAnswer.toString().split(',');
-                }
-                preReqAnswer.forEach(curAnswer => {
-                    const selectedOption = preReqQuestion.options.find(
-                        option => option.id === curAnswer,
-                    );
-
-                    if (selectedOption !== undefined) {
-                        retArray.push(selectedOption.text);
-                    }
-                });
-
-                preReqAnswer = retArray;
+            if (
+                [PIN_OPTION_TYPES, MULTI_PIN_OPTION_TYPES, MULTI_MULTI_PIN_OPTION_TYPES].includes(
+                    preReqType,
+                )
+            ) {
+                preReqAnswers = preReqAnswers?.map(ans => ans.pinOptionVersionID);
             }
 
-            if (preReqType === PIN_OPTION_TYPES) {
-                //For a drop down we have to convert the GUID to the question option.
-                const selectedOption = dropdownOptions.find(option => option.name === preReqAnswer);
-                // specifying not undefined in case pre-req answers are falsy ie. 0, ''
-                if (selectedOption !== undefined) {
-                    preReqAnswer = selectedOption.name;
-                } else {
-                    return false;
-                }
-            }
-
-            if ([MULTI_PIN_OPTION_TYPES, MULTI_MULTI_PIN_OPTION_TYPES].includes(preReqType)) {
-                //For a drop down we have to convert the GUID to the question option.
-                const selectedOptions = dropdownOptions
-                    .filter(option => preReqAnswer.includes(option.name))
-                    .map(opt => opt.name);
-
-                // specifying not undefined in case pre-req answers are falsy ie. 0, ''
-                if (selectedOptions.length > 0) {
-                    preReqAnswer = selectedOptions;
-                } else {
-                    return false;
-                }
-            }
-
-            if (Array.isArray(preReqAnswer)) {
-                return preReqAnswer.some(answer =>
-                    prereqVals.some(val => {
-                        if (!val.includes('#PREREQ_ID_')) {
-                            return val.toLowerCase() === `${answer}`.toLowerCase();
-                        }
-
-                        return (
-                            val.toLowerCase() ===
-                            `${answer}#PREREQ_ID_${preReqQuestion.id}`.toLowerCase()
-                        );
-                    }),
-                );
-            } else {
-                return prereqVals.some(val => {
+            return preReqAnswers.some(answer =>
+                prereqVals.some(val => {
                     if (!val.includes('#PREREQ_ID_')) {
-                        return val.toLowerCase() === `${preReqAnswer}`.toLowerCase();
+                        return val.toLowerCase() === `${answer}`.toLowerCase();
                     }
-
+                    const isIDValue = typeof val === 'number';
+                    const answerToCompare = isIDValue ? pinOptionVersions[answer]?.name : answer;
                     return (
                         val.toLowerCase() ===
-                        `${preReqAnswer}#PREREQ_ID_${preReqQuestion.id}`.toLowerCase()
+                        `${answerToCompare}#PREREQ_ID_${preReqQuestion.id}`.toLowerCase()
                     );
-                });
-            }
+                }),
+            );
         });
     };
 
@@ -340,19 +285,12 @@ class AddPinQuestionRoute extends Component {
             if (oldAnswer) {
                 const { templateQuestionID, answer } = oldAnswer;
                 updateAddPinAnswer(templateQuestionID, answer);
-
-                // preventing stealth prefill manufacturer with non manufacturing answers & vice versa
-
                 if (
+                    question.type + '' === PIN_OPTION_TYPES ||
                     question.type + '' === MULTI_PIN_OPTION_TYPES ||
                     question.type + '' === MULTI_MULTI_PIN_OPTION_TYPES
                 ) {
-                    if (Array.isArray(answer)) {
-                        this.setState({ originalDropdownMultiAns: answer });
-                    }
-                }
-                if (question.type + '' === PIN_OPTION_TYPES) {
-                    this.setState({ originalDropdownAns: answer });
+                    this.setState({ originalPinOptionAns: answer });
                 }
             }
             if (String(question.type) === STATUS) {
@@ -487,13 +425,11 @@ class AddPinQuestionRoute extends Component {
 
     handleChange = (_, value) => {
         const { updateAddPinAnswer, question } = this.props;
-        updateAddPinAnswer(question.id, value);
+        const valueToStore = getValueForQuestionAnswer(question, value);
+        updateAddPinAnswer(question.id, valueToStore);
     };
 
-    handleSignatureChange = d => {
-        const { updateAddPinAnswer, question } = this.props;
-        updateAddPinAnswer(question.id, d);
-    };
+    handleSignatureChange = d => this.handleChange(null, d);
 
     handleStatusChange = (_, val) => {
         const { updateAddPinStatus } = this.props;
@@ -504,6 +440,88 @@ class AddPinQuestionRoute extends Component {
         showModal(PIN_IMAGE, imgURL);
     };
 }
+
+const getValueForQuestionAnswer = (question, value) => {
+    switch (question.type) {
+        case TYPES.SINGLE_LINE:
+        case TYPES.MULTI_LINE:
+        case TYPES.DROPDOWN:
+        case TYPES.RADIO: {
+            // single text answer
+            const answer = {
+                ...emptyAnswer,
+                textValue: value,
+            };
+            return [answer];
+        }
+        case TYPES.MULTI_DROPDOWN:
+        case TYPES.MULTI_MULTI_DROPDOWN: {
+            // multi text answer
+            return value.map(ans => ({
+                ...emptyAnswer,
+                textValue: ans,
+            }));
+        }
+        case TYPES.PIN_OPTION_TYPES: {
+            // single option answer
+            const answer = {
+                ...emptyAnswer,
+                pinOptionVersionID: value,
+            };
+            return [answer];
+        }
+        case TYPES.MULTI_PIN_OPTION_TYPES:
+        case TYPES.MULTI_MULTI_PIN_OPTION_TYPES: {
+            // multi option answer
+            return value.map(ans => ({
+                ...emptyAnswer,
+                pinOptionVersionID: ans,
+            }));
+        }
+        case TYPES.NUMBER: {
+            // single number answer
+            const answer = {
+                ...emptyAnswer,
+                numericValue: value,
+            };
+            return [answer];
+        }
+        case TYPES.CHECKBOX: {
+            // bool value
+            const answer = {
+                ...emptyAnswer,
+                booleanValue: value,
+            };
+            return [answer];
+        }
+        case TYPES.SIGNATURE: {
+            // base64/s3key
+            const isS3Key = value.includes('.');
+            const keyName = isS3Key ? 's3KeyValue' : 'base64Value';
+            const answer = {
+                ...emptyAnswer,
+                [keyName]: value,
+            };
+            return [answer];
+        }
+        case TYPES.SINGLE_PHOTO:
+        case TYPES.DOCUMENT_UPLOAD: {
+            // single s3
+            const answer = {
+                ...emptyAnswer,
+                s3KeyValue: value,
+            };
+            return [answer];
+        }
+        case TYPES.MULTI_PHOTO: {
+            // multi s3
+            return value.map(ans => ({
+                ...emptyAnswer,
+                s3KeyValue: ans,
+            }));
+        }
+    }
+};
 
 const mapStateToProps = (
     {
@@ -518,6 +536,7 @@ const mapStateToProps = (
             pinAnswersReducer: { answers: oldAnswers },
             pinHistoriesReducer: { histories },
             pinsReducer: { pins, isFetching: isFetchingPins },
+            pinOptionVersionsReducer: { pinOptionVersions },
             drawingsReducer: { drawings },
             companySettingsReducer: { companySettings },
         },
@@ -550,6 +569,7 @@ const mapStateToProps = (
     historyID: params.historyID,
     companySettings,
     companyID,
+    pinOptionVersions,
 });
 
 const mapDispatchToProps = {

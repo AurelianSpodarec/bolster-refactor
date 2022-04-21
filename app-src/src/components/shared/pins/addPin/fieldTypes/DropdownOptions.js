@@ -2,100 +2,93 @@ import React, { useEffect } from 'react';
 import Select from 'components/shared/generic/form/presentational/Select';
 import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
 import { getSortedDropdownOptions } from 'helpers/addPin';
+import { useFilterPinOptions } from './helpers';
 
 const DropdownOptions = ({
     isRequired,
-    question: { id, optionType, defaultValue },
-    dropdownOptions,
+    question: { id, defaultValue, pinOptionTypeID },
     answers,
     handleChange,
     edit,
-    originalDropdownAns,
-    isManufacturingEnabledForDrawing,
+    originalPinOptionAns,
     defaultDropdownSorting,
     companyID,
-    optionValues,
+    pinOptions,
 }) => {
-    let isManufacturingEnabledForType = false;
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
     // ! this needs to be kept as an option.
     let formattedOpts = [];
-    const value = answers[id];
+    const questionValue = answers[id] ?? [];
 
+    // todo default value
     useEffect(() => {
-        if (!value && !edit && defaultValue) {
+        if (!questionValue && !edit && defaultValue) {
             handleChange(null, defaultValue);
         }
     }, []);
 
-    const filteredOptions = dropdownOptions.filter(option => {
-        // remove deleted option if not already selected
-        if (value !== option.value && option.isDeleted) return false;
-        if (option.companyID !== companyID && option.companyID !== null) {
-            return false;
-        }
-        if (option.type + '' === optionType + '') {
-            // while filtering check whether manufacturing enabled for specific type
-            if (
-                isManufacturingEnabledForDrawing &&
-                DROPDOWN_OPTION_MANUFACTURER_ENABLED[optionType]
-            ) {
-                if (option.isManufacturerDeleted) return false;
-
-                isManufacturingEnabledForType = true;
-            }
-            return true;
-        }
-        return false;
-    });
+    // for edit only
+    const filteredOptions = useFilterPinOptions(
+        questionValue,
+        pinOptions,
+        companyID,
+        pinOptionTypeID,
+    );
 
     if (edit) {
-        const curOptions = filteredOptions.map(opt =>
-            isManufacturingEnabledForType ? opt.id : opt.name,
-        );
+        const curOptions = filteredOptions.map(opt => opt.id);
 
         formattedOpts = filteredOptions.map(option => ({
-            value: isManufacturingEnabledForType ? option.id : option.name,
+            value: option.id,
             label: option.name,
-            id: option.id || null,
+            id: option.id,
             sort: option.sort,
             createdOn: option.createdOn,
-            manufacturerSort: option.manufacturerSort,
-            manufacturerID: option.manufacturerID,
         }));
-
-        if (!curOptions.includes(originalDropdownAns)) {
-            if (typeof originalDropdownAns === 'number') {
-                const manOption = Object.values(optionValues).find(
-                    manufacturerOptions => manufacturerOptions[originalDropdownAns],
-                )?.[originalDropdownAns];
-                if (manOption) {
-                    formattedOpts.push({ value: originalDropdownAns, label: manOption.name });
+        // todo tidy
+        originalPinOptionAns?.forEach(ans => {
+            if (!curOptions.includes(ans.pinOptionVersionID)) {
+                let version;
+                const optionWithVersion = pinOptions.find(opt => {
+                    version = opt.versions.find(vers => vers.id === ans.pinOptionVersionID);
+                    return !!version;
+                });
+                if (optionWithVersion) {
+                    const isOtherVersionPresent = optionWithVersion.versions.some(vers =>
+                        curOptions.includes(vers.id),
+                    );
+                    if (!isOtherVersionPresent) {
+                        formattedOpts.push({
+                            value: version.id,
+                            label: version.name,
+                            id: version.id,
+                            sort: version.sort,
+                            createdOn: version.createdOn,
+                        });
+                    }
                 }
-            } else {
-                formattedOpts.push({ value: originalDropdownAns, label: originalDropdownAns });
             }
-        }
+        });
     } else {
-        formattedOpts = dropdownOptions
-            .filter(option => option.type + '' === optionType + '')
+        formattedOpts = pinOptions
+            // todo uncomment when question has type
+            // .filter(option => option.pinOptionTypeID === pinOptionTypeID)
             .map(option => ({
-                value: isManufacturingEnabledForType ? option.id : option.name,
-                label: option.name,
-                id: option.id || null,
+                value: option.latestVersion.id,
+                label: option.latestVersion.name,
+                id: option.latestVersion.id,
                 sort: option.sort,
                 createdOn: option.createdOn,
-                manufacturerSort: option.manufacturerSort,
-                manufacturerID: option.manufacturerID,
             }));
     }
-
+    // todo figure out value / handlechange
+    const [firstValue] = questionValue;
     return (
         <Select
             placeholder="-- select --"
             name={`answer-${id}`}
             options={getSortedDropdownOptions(formattedOpts, defaultDropdownSorting)}
-            value={value}
+            value={firstValue?.pinOptionVersionID}
             onChange={handleChange}
             required={isRequired}
         />

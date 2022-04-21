@@ -23,83 +23,91 @@ const AddPinForm = ({
     dropdownOptionsByType,
     oldAnswersByNameObj,
     latestPinHistory,
+    pinOptions,
 }) => {
     const [showFixError, setShowFixError] = useState();
-    
 
     return (
-    <Form onSubmit={handleSubmit} onSubmitError={() => setShowFixError(true)} className="generic-form size-lg-12">
-        <div className="size-lg-12">
-            <Field name="Select a service" sizeClasses="size-lg-6 size-md-12" required>
-                <DropdownContainer
-                    placeholder="-- select --"
-                    name="serviceID"
-                    options={services}
-                    value={selectedService}
-                    selectedOption={selectedService}
-                    handleChange={handleChange}
-                    required
-                />
-            </Field>
-        </div>
-        {!!selectedService && (
+        <Form
+            onSubmit={handleSubmit}
+            onSubmitError={() => setShowFixError(true)}
+            className="generic-form size-lg-12"
+        >
             <div className="size-lg-12">
-                <Field name="Select a template" sizeClasses="size-lg-6 size-md-12" required>
+                <Field name="Select a service" sizeClasses="size-lg-6 size-md-12" required>
                     <DropdownContainer
                         placeholder="-- select --"
-                        name="templateID"
-                        options={templates}
-                        value={selectedTemplate}
-                        selectedOption={selectedTemplate}
+                        name="serviceID"
+                        options={services}
+                        value={selectedService}
+                        selectedOption={selectedService}
                         handleChange={handleChange}
                         required
                     />
                 </Field>
             </div>
-        )}
+            {!!selectedService && (
+                <div className="size-lg-12">
+                    <Field name="Select a template" sizeClasses="size-lg-6 size-md-12" required>
+                        <DropdownContainer
+                            placeholder="-- select --"
+                            name="templateID"
+                            options={templates}
+                            value={selectedTemplate}
+                            selectedOption={selectedTemplate}
+                            handleChange={handleChange}
+                            required
+                        />
+                    </Field>
+                </div>
+            )}
 
-        {!!selectedTemplate && (
-            <AddPinVersionsContainer
-                isHistory={isHistory}
-                selectedTemplateID={selectedTemplate.value}
-                isSameTemplate={isSameTemplate}
-                pinAnswersByGroupKey={pinAnswersByGroupKey}
-                dropdownOptionsByType={dropdownOptionsByType}
-                oldAnswersByNameObj={oldAnswersByNameObj}
-                latestPinHistory={latestPinHistory}
-            />
-        )}
+            {!!selectedTemplate && (
+                <AddPinVersionsContainer
+                    isHistory={isHistory}
+                    selectedTemplateID={selectedTemplate.value}
+                    isSameTemplate={isSameTemplate}
+                    pinAnswersByGroupKey={pinAnswersByGroupKey}
+                    dropdownOptionsByType={dropdownOptionsByType}
+                    oldAnswersByNameObj={oldAnswersByNameObj}
+                    latestPinHistory={latestPinHistory}
+                    pinOptions={pinOptions}
+                />
+            )}
 
-        {showFixError && 
-            <div className="form-field" style={{float: 'right', minHeight: 0}}>
-                <p className="error red-text text-accent-4">Please correct the field errors and try again</p>
-            </div>
-        }
-        <BlockButtonWrapper>
-            <Prompt
-                when={confirmLeave}
-                message={
-                    'You will lose any added information, are you sure you would like to leave the page?'
-                }
-            />
-            <button className="button green" disabled={filesUploading}>
-                {filesUploading ? (
-                    'Please wait...'
-                ) : (
-                    <>
-                        <i className="fa fa-plus" />
-                        Add pin {isHistory ? 'history' : ''}
-                    </>
-                )}
-            </button>
-            <Link
-                to={location.pathname.replace(`/${isHistory ? 'add-history' : 'add-pin'}`, '')}
-                className="button"
-            >
-                Cancel
-            </Link>
-        </BlockButtonWrapper>
-    </Form>
-);};
+            {showFixError && (
+                <div className="form-field" style={{ float: 'right', minHeight: 0 }}>
+                    <p className="error red-text text-accent-4">
+                        Please correct the field errors and try again
+                    </p>
+                </div>
+            )}
+            <BlockButtonWrapper>
+                <Prompt
+                    when={confirmLeave}
+                    message={
+                        'You will lose any added information, are you sure you would like to leave the page?'
+                    }
+                />
+                <button className="button green" disabled={filesUploading}>
+                    {filesUploading ? (
+                        'Please wait...'
+                    ) : (
+                        <>
+                            <i className="fa fa-plus" />
+                            Add pin {isHistory ? 'history' : ''}
+                        </>
+                    )}
+                </button>
+                <Link
+                    to={location.pathname.replace(`/${isHistory ? 'add-history' : 'add-pin'}`, '')}
+                    className="button"
+                >
+                    Cancel
+                </Link>
+            </BlockButtonWrapper>
+        </Form>
+    );
+};
 
 export default AddPinForm;
