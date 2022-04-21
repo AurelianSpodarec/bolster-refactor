@@ -19,6 +19,7 @@ import {
     DISABLE_PIN_OPTION_VALUE_FAILURE,
     REORDER_PIN_OPTION_VALUES,
 } from 'constants/actionTypes/pinOptions';
+import { SET_API_FIELD_ERRORS } from 'constants/actionTypes/generic';
 
 export default combineReducers({
     options: optionsReducer,
@@ -67,6 +68,7 @@ function isPostingReducer(state = false, action) {
         case ENABLE_PIN_OPTION_VALUE_FAILURE:
         case DISABLE_PIN_OPTION_VALUE_SUCCESS:
         case DISABLE_PIN_OPTION_VALUE_FAILURE:
+        case SET_API_FIELD_ERRORS:
             return false;
         default:
             return state;
