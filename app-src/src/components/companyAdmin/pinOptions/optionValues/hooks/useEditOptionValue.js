@@ -40,6 +40,7 @@ const useEditOptionValue = option => {
 
         const priceBreaks = option.priceBreaks.map(priceBreak => {
             return {
+                id: priceBreak.id,
                 value: priceBreak.value,
                 cost: priceBreak.cost,
             };
@@ -55,10 +56,36 @@ const useEditOptionValue = option => {
         shortName: latestPinOptionVersion.shortName || '',
         serviceIDs: option.serviceIDs || [],
         measurementPriceBreaks: initialPriceBreaks,
+        quickPriceEdit: '',
     });
 
     const { handlePriceBreakChange, handleAddPriceBreak, handleRemovePriceBreak } =
         useUpdatePriceBreaks(form, handleChange);
+
+    const handleQuickPriceEditChange = (name, value) => {
+        handleChange(name, value);
+
+        const updatedValues = form.measurementPriceBreaks.map(({ id, value, cost }) => {
+            if (id) {
+                const initialPriceBreak = initialPriceBreaks.find(
+                    priceBreak => priceBreak.id === id,
+                );
+
+                return {
+                    id: initialPriceBreak.id,
+                    value,
+                    cost: initialPriceBreak.cost,
+                };
+            }
+
+            return {
+                value,
+                cost,
+            };
+        });
+
+        handleChange('measurementPriceBreaks', updatedValues);
+    };
 
     const handleSubmit = () => {
         const { name, shortName, serviceIDs, measurementPriceBreaks } = form;
@@ -103,6 +130,7 @@ const useEditOptionValue = option => {
         handlePriceBreakChange,
         handleAddPriceBreak,
         handleRemovePriceBreak,
+        handleQuickPriceEditChange,
         handleSubmit,
         isPosting,
         error,
