@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useForm, usePrevious } from 'helpers/hooks';
@@ -7,17 +7,20 @@ import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import editPinOptionValue from 'actions/companyAdmin/pinOptions/async/editPinOptionValue';
 import {
     selectPinOptionsIsPosting,
     selectPinOptionsPostError,
     selectPinOptionsPostSuccess,
 } from 'selectors/companyAdmin/pinOptions';
 import { selectLatestVersionForPinOption } from 'selectors/companyAdmin/pinOptionVersions';
-import editPinOptionValue from 'actions/companyAdmin/pinOptions/async/editPinOptionValue';
+import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 import useUpdatePriceBreaks from './useUpdatePriceBreaks';
 
 const useEditOptionValue = option => {
+    const [error, setError] = useState(null);
+
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPinOptionsIsPosting);
     const postError = useSelector(selectPinOptionsPostError);
@@ -26,13 +29,14 @@ const useEditOptionValue = option => {
         selectLatestVersionForPinOption(state, option.id),
     );
 
+    const pinOptionType = useSelector(state => selectPinOptionType(state, option.pinOptionTypeID));
+
     const prevProps = usePrevious({ postError, postSuccess });
 
     const [form, handleChange] = useForm({
         name: latestPinOptionVersion.name || '',
         shortName: latestPinOptionVersion.shortName || '',
         serviceIDs: option.serviceIDs || [],
-        measurementType: option.costMeasurementType,
         measurementPriceBreaks: !isEmpty(option.priceBreaks)
             ? option.priceBreaks.map(priceBreak => {
                   return {
@@ -47,7 +51,32 @@ const useEditOptionValue = option => {
         useUpdatePriceBreaks(form, handleChange);
 
     const handleSubmit = () => {
-        dispatch(editPinOptionValue(option.id, form));
+        const { name, shortName, serviceIDs, measurementPriceBreaks } = form;
+
+        const postBody = {
+            name,
+            shortName,
+            serviceIDs,
+        };
+
+        if (pinOptionType.hasCosting) {
+            const anyIncompletePriceBreaks = measurementPriceBreaks.some(
+                ({ value, cost }) => (value && !cost) || (!value && cost),
+            );
+
+            if (anyIncompletePriceBreaks) {
+                setError('There are incomplete measurements, please ensure these are complete.');
+                return;
+            }
+
+            const priceBreaksWithoutEmpties = measurementPriceBreaks.filter(
+                ({ value, cost }) => value && cost,
+            );
+
+            postBody.measurementPriceBreaks = priceBreaksWithoutEmpties;
+        }
+
+        dispatch(editPinOptionValue(option.id, postBody));
     };
 
     useEffect(() => {
@@ -66,6 +95,8 @@ const useEditOptionValue = option => {
         handleRemovePriceBreak,
         handleSubmit,
         isPosting,
+        error,
+        setError,
     };
 };
 

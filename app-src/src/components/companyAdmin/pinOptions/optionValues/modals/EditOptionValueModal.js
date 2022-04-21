@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 
 import { measurementDropdownOptions } from 'constants/shared/dropdowns';
 
-import { selectFieldError } from 'selectors/shared/fieldErrors';
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 import useEditOptionValue from '../hooks/useEditOptionValue';
@@ -19,12 +18,9 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
 import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
 
 const EditOptionValueModal = ({ option }) => {
-    const priceBreaksError = useSelector(state =>
-        selectFieldError(state, 'measurementPriceBreaks'),
-    );
-
     const pinOptionType = useSelector(state => selectPinOptionType(state, option.pinOptionTypeID));
 
     const {
@@ -35,6 +31,8 @@ const EditOptionValueModal = ({ option }) => {
         handleRemovePriceBreak,
         handleSubmit,
         isPosting,
+        error,
+        setError,
     } = useEditOptionValue(option);
 
     const availableServiceOptions = useGetAvailableServices(option.pinOptionSetID);
@@ -81,13 +79,17 @@ const EditOptionValueModal = ({ option }) => {
 
                 {pinOptionType.hasCosting && (
                     <>
-                        <Field name="Unit of Measurement">
+                        <Field name="Unit of Measurement" required>
                             <DropdownContainer
                                 name="measurementType"
                                 options={Object.values(measurementDropdownOptions)}
-                                selectedOption={measurementDropdownOptions[form.measurementType]}
+                                selectedOption={
+                                    measurementDropdownOptions[option.costMeasurementType]
+                                }
                                 handleChange={handleChange}
-                                placeholder="Select unit of measurement"
+                                withoutPlaceholder
+                                required
+                                disabled
                             />
                         </Field>
 
@@ -102,30 +104,32 @@ const EditOptionValueModal = ({ option }) => {
                                 return (
                                     <React.Fragment key={index}>
                                         <Field>
-                                            <TextInputContainer
-                                                name="measurementPriceBreaks[index].value"
+                                            <NumberInputContainer
+                                                name={`measurementPriceBreaks[${index}].value`}
                                                 value={priceBreak.value}
                                                 placeholder="Type value"
                                                 handleFocus={() => {
                                                     if (isLast) handleAddPriceBreak();
                                                 }}
-                                                handleChange={(_, value) =>
-                                                    handlePriceBreakChange(index, 'value', value)
-                                                }
+                                                handleChange={(_, value) => {
+                                                    handlePriceBreakChange(index, 'value', value);
+                                                    setError(null);
+                                                }}
                                             />
                                         </Field>
 
                                         <Field>
-                                            <TextInputContainer
-                                                name="measurementPriceBreaks[index].cost"
+                                            <NumberInputContainer
+                                                name={`measurementPriceBreaks[${index}].cost`}
                                                 value={priceBreak.cost}
                                                 placeholder="Type price"
                                                 handleFocus={() => {
                                                     if (isLast) handleAddPriceBreak();
                                                 }}
-                                                handleChange={(_, value) =>
-                                                    handlePriceBreakChange(index, 'cost', value)
-                                                }
+                                                handleChange={(_, value) => {
+                                                    handlePriceBreakChange(index, 'cost', value);
+                                                    setError(null);
+                                                }}
                                             />
                                         </Field>
 
@@ -137,9 +141,7 @@ const EditOptionValueModal = ({ option }) => {
                                                 iconWeight="regular"
                                                 disabled={!isMultiplePriceBreaks}
                                                 onClick={() => {
-                                                    if (isMultiplePriceBreaks) {
-                                                        handleRemovePriceBreak(index);
-                                                    }
+                                                    handleRemovePriceBreak(index);
                                                 }}
                                             />
                                         </Field>
@@ -148,9 +150,9 @@ const EditOptionValueModal = ({ option }) => {
                             })}
                         </div>
 
-                        {priceBreaksError && (
+                        {error && (
                             <Field classes="no-min-height">
-                                <p className="error red-text text-accent-4">{priceBreaksError}</p>
+                                <p className="error red-text text-accent-4">{error}</p>
                             </Field>
                         )}
                     </>

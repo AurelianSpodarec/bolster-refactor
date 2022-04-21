@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { measurementDropdownOptions } from 'constants/shared/dropdowns';
 
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
-import { selectFieldError } from 'selectors/shared/fieldErrors';
 
 import useCreateOptionValue from '../hooks/useCreateOptionValue';
 import useGetAvailableServices from '../hooks/useGetAvailableServices';
@@ -22,10 +21,6 @@ import DropdownContainer from 'components/shared/generic/form/containers/Dropdow
 import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
 
 const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
-    const priceBreaksError = useSelector(state =>
-        selectFieldError(state, 'measurementPriceBreaks'),
-    );
-
     const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
     const singularTypeName = pinOptionType.name;
 
@@ -165,14 +160,11 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                             })}
                         </div>
 
-                        {priceBreaksError ||
-                            (error && (
-                                <Field classes="no-min-height">
-                                    <p className="error red-text text-accent-4">
-                                        {priceBreaksError || error}
-                                    </p>
-                                </Field>
-                            ))}
+                        {error && (
+                            <Field classes="no-min-height">
+                                <p className="error red-text text-accent-4">{error}</p>
+                            </Field>
+                        )}
                     </>
                 )}
 
