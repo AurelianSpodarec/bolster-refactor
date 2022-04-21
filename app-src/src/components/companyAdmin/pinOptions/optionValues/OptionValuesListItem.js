@@ -1,6 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
+import { isEmpty } from 'helpers/generic';
+
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 import withDrag from 'components/shared/dragDrop/hocs/withDrag';
@@ -13,7 +15,7 @@ import LinkButton from 'components/shared/generic/button/presentational/LinkButt
 
 const OptionValuesListItem = ({
     option,
-    option: { id, name, isDisabled },
+    option: { id, name, isDisabled, priceBreaks },
     setID,
     typeID,
     showEditModal,
@@ -30,6 +32,8 @@ const OptionValuesListItem = ({
 
     let rowClass = 'draggable expandable';
     if (isDragging) rowClass += ' dragging';
+
+    const hasPriceBreaks = pinOptionType.hasCosting && !isEmpty(priceBreaks);
 
     return (
         <>
@@ -53,6 +57,8 @@ const OptionValuesListItem = ({
                     </td>
                     <td>
                         <ButtonWrapper alignment="right">
+                            {hasPriceBreaks && <p className="button-wrapper-info disabled">£</p>}
+
                             <LinkButton
                                 text="Documents"
                                 href={`/company/pin-options/${typeSlug}/${setID}/option/${id}/documents`}

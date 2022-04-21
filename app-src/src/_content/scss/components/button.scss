@@ -547,9 +547,19 @@ button {
 
 // button wrapper
 .button-wrapper {
+    .button-wrapper-info {
+        &.disabled {
+            color: var(--typography-greyed-out);
+        }
+    }
+
     &.left {
         .custom-button {
             margin-right: 5px;
+        }
+
+        .button-wrapper-info {
+            margin-left: 10px;
         }
     }
 
@@ -560,11 +570,25 @@ button {
                 right: 2.5px;
             };
         }
+
+        .button-wrapper-info {
+            &.right {
+                margin-left: 10px;
+            }
+
+            &.left {
+                margin-right: 10px;
+            }
+        }
     }
 
     &.right {
         .custom-button {
             margin-left: 5px;
+        }
+
+        .button-wrapper-info {
+            margin-right: 10px;
         }
     }
 }
