@@ -54,7 +54,11 @@ const OptionDocuments = () => {
                 error={isAnyErrored}
                 noWhiteBackground
             >
-                <OptionDocumentsList optionID={optionID} hasFetched={hasFetched} />
+                <OptionDocumentsList
+                    optionID={optionID}
+                    hasFetched={hasFetched}
+                    showDeleteModal={showDeleteModal}
+                />
             </BlockContainer>
         </>
     );

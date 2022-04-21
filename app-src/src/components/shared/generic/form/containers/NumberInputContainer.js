@@ -21,6 +21,7 @@ class NumberInputContainer extends Component {
             error,
             errorsVisible,
             maxNum,
+            handleFocus,
         } = this.props;
 
         const errorMessage = showFieldError || errorsVisible ? error : null;
@@ -34,6 +35,7 @@ class NumberInputContainer extends Component {
                 placeholder={placeholder}
                 handleChange={this.handleChange}
                 handleBlur={this.handleBlur}
+                handleFocus={handleFocus}
                 error={errorMessage}
                 maxNum={maxNum}
             />

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { API_URL } from 'config';
-import { getHeaders } from 'helpers/api';
+import { getHeaders, handleErrors } from 'helpers/api';
 import {
     EDIT_PIN_OPTION_SET_REQUEST,
     EDIT_PIN_OPTION_SET_SUCCESS,
@@ -28,5 +28,7 @@ export default (id, postBody) => async dispatch => {
     return axios
         .patch(`${API_URL}/pinoptions/sets/${id}`, postBody, getHeaders())
         .then(res => dispatch(editPinOptionSetSuccess(res.data)))
-        .catch(err => dispatch(editPinOptionSetFailure(err.message)));
+        .catch(err => {
+            dispatch(handleErrors(editPinOptionSetFailure)(err));
+        });
 };

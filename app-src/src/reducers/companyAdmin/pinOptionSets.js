@@ -22,6 +22,7 @@ import {
     SET_OPTION_SET_AS_DEFAULT_FAILURE,
 } from 'constants/actionTypes/pinOptions';
 import { updateObjDefaultOnFailure, updateObjDefaultOnRequest } from 'helpers/pinOptions';
+import { SET_API_FIELD_ERRORS } from 'constants/actionTypes/generic';
 
 export default combineReducers({
     sets: setsReducer,
@@ -73,6 +74,7 @@ function isPostingReducer(state = false, action) {
         case DISABLE_PIN_OPTION_SET_FAILURE:
         case SET_OPTION_SET_AS_DEFAULT_SUCCESS:
         case SET_OPTION_SET_AS_DEFAULT_FAILURE:
+        case SET_API_FIELD_ERRORS:
             return false;
         default:
             return state;

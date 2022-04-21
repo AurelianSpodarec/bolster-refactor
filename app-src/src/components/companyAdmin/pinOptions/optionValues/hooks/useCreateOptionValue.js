@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useForm, usePrevious } from 'helpers/hooks';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
+import { MEASUREMENT_TYPES } from 'constants/companyAdmin/enums';
 
 import createPinOptionValue from 'actions/companyAdmin/pinOptions/async/createPinOptionValue';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
@@ -12,14 +13,19 @@ import {
     selectPinOptionsPostError,
     selectPinOptionsPostSuccess,
 } from 'selectors/companyAdmin/pinOptions';
+import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 import useUpdatePriceBreaks from './useUpdatePriceBreaks';
 
 const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
+    const [error, setError] = useState(null);
+
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPinOptionsIsPosting);
     const postError = useSelector(selectPinOptionsPostError);
     const postSuccess = useSelector(selectPinOptionsPostSuccess);
+
+    const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
 
     const prevProps = usePrevious({ postError, postSuccess });
 
@@ -27,7 +33,7 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
         name: '',
         shortName: '',
         serviceIDs: [],
-        measurementType: null,
+        measurementType: MEASUREMENT_TYPES.LINEAR,
         measurementPriceBreaks: [
             {
                 value: '',
@@ -40,11 +46,33 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
         useUpdatePriceBreaks(form, handleChange);
 
     const handleSubmit = () => {
+        const { name, shortName, serviceIDs, measurementType, measurementPriceBreaks } = form;
+
         const postBody = {
-            ...form,
+            name,
+            shortName,
+            serviceIDs,
             pinOptionTypeID,
             pinOptionSetID,
         };
+
+        if (pinOptionType.hasCosting) {
+            const anyIncompletePriceBreaks = measurementPriceBreaks.some(
+                ({ value, cost }) => (value && !cost) || (!value && cost),
+            );
+
+            if (anyIncompletePriceBreaks) {
+                setError('There are incomplete measurements, please ensure these are complete.');
+                return;
+            }
+
+            const priceBreaksWithoutEmpties = measurementPriceBreaks.filter(
+                ({ value, cost }) => value && cost,
+            );
+
+            postBody.measurementType = measurementType;
+            postBody.measurementPriceBreaks = priceBreaksWithoutEmpties;
+        }
 
         dispatch(createPinOptionValue(postBody));
     };
@@ -65,6 +93,8 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
         handleRemovePriceBreak,
         handleSubmit,
         isPosting,
+        error,
+        setError,
     };
 };
 

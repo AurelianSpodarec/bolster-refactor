@@ -270,7 +270,6 @@ import EditOptionSetModal from 'components/companyAdmin/pinOptions/optionSets/mo
 import EditOptionValueModal from 'components/companyAdmin/pinOptions/optionValues/modals/EditOptionValueModal';
 import CreatePinOptionDocumentsModal from 'components/companyAdmin/pinOptions/optionDocuments/modals/CreatePinOptionDocumentsModal';
 import EditPinOptionDocumentsModal from 'components/companyAdmin/pinOptions/optionDocuments/modals/EditPinOptionDocumentsModal';
-import DeletePinOptionDocumentsModal from 'components/companyAdmin/pinOptions/optionDocuments/modals/DeletePinOptionDocumentsModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -406,7 +405,6 @@ const MODAL_COMPONENTS = {
     [EDIT_PIN_OPTIONS_SET_MODAL]: EditOptionSetModal,
     [EDIT_PIN_OPTIONS_VALUE_MODAL]: EditOptionValueModal,
     [EDIT_PIN_OPTION_DOCUMENTS_MODAL]: EditPinOptionDocumentsModal,
-    [DELETE_PIN_OPTION_DOCUMENTS_MODAL]: DeletePinOptionDocumentsModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
