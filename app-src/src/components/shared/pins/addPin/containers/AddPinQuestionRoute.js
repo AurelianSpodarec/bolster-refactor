@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 
 import Field from 'components/shared/generic/form/presentational/Field';
 import resetPinAnswer from 'actions/companyAdmin/drawings/sync/resetPinAnswer';
-import { boolToYesNo, deepEquals, isEmpty } from 'helpers/generic';
+import { deepEquals, isEmpty } from 'helpers/generic';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -20,8 +20,6 @@ import {
     QUESTION_TYPE_NUMBERS,
     QUESTION_TYPE_NUMBERS as TYPES,
 } from 'constants/shared/templateBuilder';
-import { FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from '../../../../../config';
-import ButtonContainer from '../../../generic/button/containers/ButtonContainer';
 import { emptyAnswer } from '../fieldTypes/helpers';
 
 const {
@@ -47,8 +45,7 @@ const dropdownOptionTypes = [
 class AddPinQuestionRoute extends Component {
     state = {
         sigPad: {},
-        originalDropdownMultiAns: [],
-        originalDropdownAns: '',
+        originalPinOptionAns: [],
     };
 
     render() {
@@ -77,7 +74,7 @@ class AddPinQuestionRoute extends Component {
         const isManufacturingEnabledForDrawing = drawing.isManufacturingEnabled;
 
         if (showPreReq) {
-            const SpecificField = fieldTypes[question.type + ''] || fieldTypes[SINGLE_LINE];
+            const SpecificField = fieldTypes[question.type] || fieldTypes[SINGLE_LINE];
 
             const extraImageClasses =
                 (edit && question.type + '' === MULTI_PHOTO) || question.type + '' === SINGLE_PHOTO
@@ -108,8 +105,7 @@ class AddPinQuestionRoute extends Component {
                         edit={edit}
                         resetPinAnswer={resetPinAnswer}
                         isHistory={isHistory}
-                        originalDropdownAns={this.state.originalDropdownAns}
-                        originalDropdownMultiAns={this.state.originalDropdownMultiAns}
+                        originalPinOptionAns={this.state.originalPinOptionAns}
                         isManufacturingEnabledForDrawing={isManufacturingEnabledForDrawing}
                         defaultDropdownSorting={companySettings.defaultDropdownSorting}
                         companyID={companyID}
@@ -289,19 +285,12 @@ class AddPinQuestionRoute extends Component {
             if (oldAnswer) {
                 const { templateQuestionID, answer } = oldAnswer;
                 updateAddPinAnswer(templateQuestionID, answer);
-
-                // preventing stealth prefill manufacturer with non manufacturing answers & vice versa
-
                 if (
+                    question.type + '' === PIN_OPTION_TYPES ||
                     question.type + '' === MULTI_PIN_OPTION_TYPES ||
                     question.type + '' === MULTI_MULTI_PIN_OPTION_TYPES
                 ) {
-                    if (Array.isArray(answer)) {
-                        this.setState({ originalDropdownMultiAns: answer });
-                    }
-                }
-                if (question.type + '' === PIN_OPTION_TYPES) {
-                    this.setState({ originalDropdownAns: answer });
+                    this.setState({ originalPinOptionAns: answer });
                 }
             }
             if (String(question.type) === STATUS) {
@@ -440,10 +429,7 @@ class AddPinQuestionRoute extends Component {
         updateAddPinAnswer(question.id, valueToStore);
     };
 
-    handleSignatureChange = d => {
-        const { updateAddPinAnswer, question } = this.props;
-        updateAddPinAnswer(question.id, d);
-    };
+    handleSignatureChange = d => this.handleChange(null, d);
 
     handleStatusChange = (_, val) => {
         const { updateAddPinStatus } = this.props;
