@@ -7,13 +7,15 @@ import GridWrapper from 'components/shared/generic/gridWrapper/GridWrapper';
 import DocumentPod from 'components/shared/documentPods/DocumentPod';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import useFetchPinOptionDocuments from './hooks/useFetchPinOptionDocuments';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import { isEmpty } from 'helpers/generic';
 
 const OptionDocumentsList = ({ hasFetched, optionID, showDeleteModal }) => {
     const shouldRedirect = useShouldRedirectFromOptionDocuments(hasFetched);
-    const { allDocuments, documentsVersions, documentsError, isFetchingDocuments } =
-        useFetchPinOptionDocuments(optionID);
-    console.log({ allDocuments });
-    // console.log(documentsVersions);
+    const { documentsVersions } = useFetchPinOptionDocuments(optionID);
+
+    console.log(documentsVersions);
+
     if (shouldRedirect) {
         return <Redirect to="/company/pin-options" />;
     }
@@ -29,16 +31,20 @@ const OptionDocumentsList = ({ hasFetched, optionID, showDeleteModal }) => {
     );
 
     return (
-        <GridWrapper gap={15} itemsPerRow={5}>
-            {allDocuments.map(document => (
-                <DocumentPod
-                    key={document.id}
-                    name={document.name}
-                    lastUpdated={document.lastUpdated}
-                    actionMenuItems={<ActionMenuItems id={document.id} />}
-                />
-            ))}
-        </GridWrapper>
+        documentsVersions && (
+            <GridWrapper gap={15} itemsPerRow={5}>
+                {documentsVersions.map(document => (
+                    <DocumentPod
+                        key={document.id}
+                        name={document.name}
+                        lastUpdated={document.createdOn}
+                        s3Key={document.s3Key}
+                        pinOptionDocumentID={document.pinOptionDocumentID}
+                        actionMenuItems={<ActionMenuItems id={document.id} />}
+                    />
+                ))}
+            </GridWrapper>
+        )
     );
 };
 
