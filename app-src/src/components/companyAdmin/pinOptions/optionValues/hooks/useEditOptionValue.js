@@ -55,10 +55,15 @@ const useEditOptionValue = option => {
         shortName: latestPinOptionVersion.shortName || '',
         serviceIDs: option.serviceIDs || [],
         measurementPriceBreaks: initialPriceBreaks,
+        quickPriceEdit: '',
     });
 
     const { handlePriceBreakChange, handleAddPriceBreak, handleRemovePriceBreak } =
         useUpdatePriceBreaks(form, handleChange);
+
+    const handleQuickPriceEditChange = (name, value) => {
+        handleChange(name, value);
+    };
 
     const handleSubmit = () => {
         const { name, shortName, serviceIDs, measurementPriceBreaks } = form;
@@ -103,6 +108,7 @@ const useEditOptionValue = option => {
         handlePriceBreakChange,
         handleAddPriceBreak,
         handleRemovePriceBreak,
+        handleQuickPriceEditChange,
         handleSubmit,
         isPosting,
         error,

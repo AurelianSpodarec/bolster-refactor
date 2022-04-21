@@ -1,8 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { measurementDropdownOptions } from 'constants/shared/dropdowns';
-
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 import useEditOptionValue from '../hooks/useEditOptionValue';
@@ -17,7 +15,6 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
 import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
 
 const EditOptionValueModal = ({ option }) => {
@@ -29,6 +26,7 @@ const EditOptionValueModal = ({ option }) => {
         handlePriceBreakChange,
         handleAddPriceBreak,
         handleRemovePriceBreak,
+        handleQuickPriceEditChange,
         handleSubmit,
         isPosting,
         error,
@@ -79,17 +77,12 @@ const EditOptionValueModal = ({ option }) => {
 
                 {pinOptionType.hasCosting && (
                     <>
-                        <Field name="Unit of Measurement" required>
-                            <DropdownContainer
-                                name="measurementType"
-                                options={Object.values(measurementDropdownOptions)}
-                                selectedOption={
-                                    measurementDropdownOptions[option.costMeasurementType]
-                                }
-                                handleChange={handleChange}
-                                withoutPlaceholder
-                                required
-                                disabled
+                        <Field name="Quick Price Edit (%)">
+                            <NumberInputContainer
+                                name="quickPriceEdit"
+                                value={form.quickPriceEdit}
+                                handleChange={handleQuickPriceEditChange}
+                                placeholder="Type percentage"
                             />
                         </Field>
 
