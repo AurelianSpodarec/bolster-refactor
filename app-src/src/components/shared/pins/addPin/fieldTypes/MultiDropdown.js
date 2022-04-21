@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
-import { formatDropdownOptions } from 'helpers/general';
+import { useDropdownOpts } from './helpers';
 
 const MultiDropdown = ({
     isRequired,
@@ -8,33 +8,18 @@ const MultiDropdown = ({
     answers,
     handleChange,
 }) => {
-    const opts = useMemo(() => {
-        if (!optionConfigurations) return formatDropdownOptions(options);
+    const opts = useDropdownOpts(options, optionConfigurations);
 
-        const enabledOpts = optionConfigurations
-            .filter(opt => !opt.isDisabled)
-            .map(opt => opt.name);
-        const optsFiltered = options.filter(opt => enabledOpts.includes(opt.id));
-        return formatDropdownOptions(optsFiltered);
-    }, [options, optionConfigurations]);
-
-    // handles if prefilled from a string instead of array
-    const value = [].concat(answers[id] || []);
-    const optsAnswers = opts.map(({ value }) => value);
-
-    const formattedValue = value
-        .map(item => {
-            if (optsAnswers.includes(item)) {
-                return item;
-            }
-        })
-        .filter(Boolean);
+    const answerValue =
+        answers[id]
+            ?.map(({ textValue }) => textValue)
+            .filter(val => opts.some(opt => opt.value === val)) ?? [];
 
     return (
         <MultiSelect
             placeholder="-- select --"
             options={opts}
-            value={formattedValue}
+            value={answerValue}
             name={`answer-${id}`}
             onChange={handleChange}
             required={isRequired}

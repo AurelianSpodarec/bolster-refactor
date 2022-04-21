@@ -9,18 +9,18 @@ const Radio = ({
     handleChange,
     edit,
 }) => {
+    const [questionValue] = answers[id] ?? [];
     const opts = useMemo(() => {
         if (!optionConfigurations) return options;
 
         const enabledOpts = optionConfigurations
             .filter(opt => !opt.isDisabled)
             .map(opt => opt.name);
-        const optsFiltered = options.filter(opt => enabledOpts.includes(opt.id));
-        return optsFiltered;
+        return options.filter(opt => enabledOpts.includes(opt.id));
     }, [options, optionConfigurations]);
 
     componentDidMount(() => {
-        if (!answers[id] && !edit && defaultValue) {
+        if (!questionValue?.textValue && !edit && defaultValue) {
             handleChange(null, defaultValue);
         }
     });
@@ -29,7 +29,7 @@ const Radio = ({
         <RadioButtonListContainer
             name={`answer-${id}`}
             options={opts}
-            selectedOption={answers[id]}
+            selectedOption={questionValue?.textValue}
             handleChange={handleChange}
             required={isRequired}
         />

@@ -8,18 +8,19 @@ const MultiPhoto = ({
     answers,
     handleChange,
     handleImageClick,
-    edit
-}) => 
-    edit ? (
+    edit,
+}) => {
+    const questionValue = answers[id] ?? [];
+    return edit ? (
         <div>
-            {(answers[id] || []).map(src => (
+            {questionValue.map(({ s3KeyValue: src }) => (
                 <img
                     key={src}
                     alt=""
                     src={`${RAW_S3_STORAGE_URL}/${src}`}
                     onClick={() =>
                         handleImageClick({
-                            image: `${RAW_S3_STORAGE_URL}/${src}`
+                            image: `${RAW_S3_STORAGE_URL}/${src}`,
                         })
                     }
                 />
@@ -32,8 +33,9 @@ const MultiPhoto = ({
             acceptedTypes={['image/*']}
             maxFiles={maxPhotos ? maxPhotos : 25}
             handleChange={handleChange}
-            value={answers[id]}
+            value={questionValue.map(({ s3KeyValue }) => s3KeyValue)}
         />
     );
+};
 
 export default MultiPhoto;

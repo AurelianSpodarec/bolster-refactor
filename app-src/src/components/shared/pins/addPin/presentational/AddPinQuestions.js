@@ -15,6 +15,7 @@ const AddPinQuestions = ({
     oldAnswersByNameObj,
     template,
     latestPinHistory,
+    pinOptions,
 }) => {
     const answersCacheKey = `answersCache#${selectedVersion.id}`;
     return [...sections]
@@ -42,6 +43,7 @@ const AddPinQuestions = ({
                                 cachedAnswers={
                                     JSON.parse(localStorage.getItem(answersCacheKey)) || null
                                 }
+                                pinOptions={pinOptions}
                             />
                         ))}
                 </div>
@@ -49,4 +51,4 @@ const AddPinQuestions = ({
         ));
 };
 
-export default AddPinQuestions;
+export default React.memo(AddPinQuestions);
