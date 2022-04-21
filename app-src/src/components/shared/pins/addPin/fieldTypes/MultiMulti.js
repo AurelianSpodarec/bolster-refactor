@@ -9,12 +9,16 @@ const MultiMulti = ({
     handleChange,
 }) => {
     const opts = useDropdownOpts(options, optionConfigurations);
+    const answerValue =
+        answers[id]
+            ?.map(({ textValue }) => textValue)
+            .filter(val => opts.some(opt => opt.value === val)) ?? [];
 
     return (
         <BoundlessSelect
             required={isRequired}
             options={opts}
-            value={answers[id]}
+            value={answerValue}
             name={`answer-${id}`}
             onChange={handleChange}
             search

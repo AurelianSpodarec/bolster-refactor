@@ -10,7 +10,6 @@ const MultiDropdown = ({
 }) => {
     const opts = useDropdownOpts(options, optionConfigurations);
 
-    console.warn(answers[id]);
     const answerValue =
         answers[id]
             ?.map(({ textValue }) => textValue)
