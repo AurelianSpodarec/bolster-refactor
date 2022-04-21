@@ -13,6 +13,8 @@ import {
     selectPinOptionsPostSuccess,
 } from 'selectors/companyAdmin/pinOptions';
 
+import useUpdatePriceBreaks from './useUpdatePriceBreaks';
+
 const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPinOptionsIsPosting);
@@ -21,7 +23,7 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
 
     const prevProps = usePrevious({ postError, postSuccess });
 
-    const [form, handleChange, handleArrayObjChange] = useForm({
+    const [form, handleChange] = useForm({
         name: '',
         shortName: '',
         serviceIDs: [],
@@ -31,26 +33,11 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
                 value: '',
                 cost: '',
             },
-            {
-                value: '',
-                cost: '',
-            },
-            {
-                value: '',
-                cost: '',
-            },
         ],
     });
 
-    const handlePriceBreakChange = (index, field, value) => {
-        handleArrayObjChange(
-            index,
-            field,
-            'measurementPriceBreaks',
-            value,
-            form.measurementPriceBreaks,
-        );
-    };
+    const { handlePriceBreakChange, handleAddPriceBreak, handleRemovePriceBreak } =
+        useUpdatePriceBreaks(form, handleChange);
 
     const handleSubmit = () => {
         const postBody = {
@@ -74,7 +61,8 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
         form,
         handleChange,
         handlePriceBreakChange,
-        handleArrayObjChange,
+        handleAddPriceBreak,
+        handleRemovePriceBreak,
         handleSubmit,
         isPosting,
     };

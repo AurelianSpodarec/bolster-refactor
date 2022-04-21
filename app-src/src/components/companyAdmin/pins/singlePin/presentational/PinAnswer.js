@@ -1,13 +1,14 @@
 import React, { memo } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 
 import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
 import { FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
-import { isEmpty, isObjEmpty } from 'helpers/generic';
+import { boolToYesNo, isEmpty, isObjEmpty } from 'helpers/generic';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import { selectPinOptionVersions } from '../../../../../selectors/companyAdmin/pinOptionVersions';
 
 const PinAnswer = ({
     trimmedAnswer,
@@ -19,92 +20,67 @@ const PinAnswer = ({
     optionValuesLookup,
 }) => {
     const curAnswer = { ...answers.find(item => +item.id === +trimmedAnswer.id) };
+    const versions = useSelector(selectPinOptionVersions);
+    console.log({ curAnswer });
     const notFoundResponse = null;
     let inner;
-    if (!isObjEmpty(optionValuesLookup) && !!curAnswer.answer) {
-        if (type === TYPES.PIN_OPTION_TYPES && optionValuesLookup[curAnswer.answer]) {
-            if (typeof curAnswer.answer === 'number' && optionValuesLookup[curAnswer.answer]) {
-                curAnswer.answer = optionValuesLookup[curAnswer.answer].name;
-            }
-        } else if (
-            type === TYPES.MULTI_PIN_OPTION_TYPES ||
-            type === TYPES.MULTI_MULTI_PIN_OPTION_TYPES
-        ) {
-            if (Array.isArray(curAnswer.answer)) {
-                curAnswer.answer = curAnswer.answer.map(ans => {
-                    if (!ans) {
-                        return null;
-                    }
-                    // handles manufacturer option
-                    if (optionValuesLookup[+ans]) {
-                        return optionValuesLookup[+ans].name;
-                    }
-                    // handle other
-                    return ans;
-                });
-            }
-        }
-    }
 
-    if ((!curAnswer || isEmpty(curAnswer.answer)) && type !== TYPES.STATUS) {
+    // if ((!curAnswer || isEmpty(curAnswer.answer)) && type !== TYPES.STATUS) {
+    //     return notFoundResponse;
+    // }
+    if (!curAnswer?.answerValues || curAnswer.answerValues.length === 0) {
         return notFoundResponse;
     }
+    const curAnswerValues = curAnswer.answerValues.map(value => {
+        if (!value.pinOptionVersionID) return value;
+        // todo add pin option version text
+        return {
+            ...value,
+            pinOptionVersionName: versions[value.pinOptionVersionID]?.name,
+        };
+    });
+    console.log({ curAnswerValues });
 
     switch (type) {
         case TYPES.SINGLE_LINE:
         case TYPES.MULTI_LINE:
-        case TYPES.NUMBER:
-            inner = <p>{curAnswer.answer}</p>;
-            break;
-        case TYPES.PIN_OPTION_TYPES:
-            inner = <p>{curAnswer.answer}</p>;
-            break;
-        case TYPES.MULTI_PIN_OPTION_TYPES:
-            if (Array.isArray(curAnswer.answer)) {
-                inner = <p>{curAnswer.answer.join(', ')}</p>;
-            } else {
-                inner = <p>{curAnswer.answer}</p>;
-            }
-            break;
-        case TYPES.MULTI_MULTI_DROPDOWN:
-        case TYPES.MULTI_MULTI_PIN_OPTION_TYPES:
-            inner = <p>{formatMultiMulti(curAnswer.answer)}</p>;
-            break;
         case TYPES.DROPDOWN:
-        case TYPES.RADIO: {
-            const relevantQuestion = questions.find(
-                ({ id }) => +id === +curAnswer.templateQuestionID,
-            );
-
-            if (!relevantQuestion) return notFoundResponse;
-
-            const relevantOption = relevantQuestion.options.find(({ id }) => {
-                if (id === curAnswer.answer) return true;
-                // radio button answers are used as their ID,
-                // but when going into db the answer has special quote chars replaced
-                if (typeof id === 'string') {
-                    const apostropheRegex = /[‘’]/gi;
-                    return (
-                        curAnswer.answer ===
-                        id.replace(apostropheRegex, "'").replace(apostropheRegex, "'")
-                    );
-                }
-                return false;
-            });
-
-            if (!relevantOption) return notFoundResponse;
-            inner = <p>{relevantOption.text}</p>;
-            break;
-        }
+        case TYPES.RADIO:
         case TYPES.MULTI_DROPDOWN: {
-            const { options } = questions.find(item => +item.id === curAnswer.templateQuestionID);
-            const relevantOptions = options.filter(({ id }) => curAnswer.answer.includes(id));
-            inner = <p>{relevantOptions.map(({ text }) => text).join(', ')}</p>;
+            const answerText = curAnswerValues.map(value => value.textValue).join(', ');
+            inner = <p>{answerText}</p>;
             break;
         }
-        case TYPES.CHECKBOX:
-            inner = <p>{curAnswer.answer ? 'Yes' : 'No'}</p>;
+        case TYPES.NUMBER: {
+            const answerText = curAnswerValues
+                .map(value => value.numericValue.toString())
+                .join(', ');
+            inner = <p>{answerText} </p>;
             break;
+        }
+        case TYPES.PIN_OPTION_TYPES:
+        case TYPES.MULTI_PIN_OPTION_TYPES: {
+            const answerText = curAnswerValues.map(value => value.pinOptionVersionName).join(', ');
+            inner = <p>{answerText}</p>;
+            break;
+        }
+        case TYPES.MULTI_MULTI_DROPDOWN: {
+            const answerText = formatMultiMulti(curAnswerValues.map(value => value.textValue));
+            inner = <p>{answerText}</p>;
+            break;
+        }
+        case TYPES.MULTI_MULTI_PIN_OPTION_TYPES: {
+            const answerText = formatMultiMulti(
+                curAnswerValues.map(value => value.pinOptionVersionName),
+            );
+            inner = <p>{answerText}</p>;
+            break;
+        }
+        case TYPES.CHECKBOX: {
+            const answerText = curAnswerValues.map(value => boolToYesNo(value.booleanValue));
+            inner = <p>{answerText}</p>;
+            break;
+        }
         case TYPES.SIGNATURE: {
             let answerString = curAnswer.answer;
             if (
@@ -196,6 +172,7 @@ const PinAnswer = ({
         default:
             return notFoundResponse;
     }
+
     return (
         <FieldOutput
             title={question.name}

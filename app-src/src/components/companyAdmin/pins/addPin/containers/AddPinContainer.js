@@ -15,6 +15,8 @@ import { fetchManufacturerPinOptions } from 'helpers/redux';
 import { shouldOptionValueBeIncluded } from 'helpers/manufacturers';
 import { isObjEmpty } from 'helpers/generic';
 import { PIN_OPTION_TYPES_VALS } from '../../../../../constants/companyAdmin/enums';
+import fetchPinOptionVersions from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionVersions';
+import fetchPinOptions from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptions';
 
 class AddPinContainer extends Component {
     render = () => (
@@ -207,6 +209,8 @@ const mapDispatchToProps = {
     fetchAllOptionValues,
     updateDrawingDropdownOptions,
     fetchSingleDrawing,
+    fetchPinOptions,
+    fetchPinOptionVersions,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPinContainer));
