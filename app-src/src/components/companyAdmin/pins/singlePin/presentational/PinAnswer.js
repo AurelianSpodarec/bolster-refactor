@@ -65,7 +65,11 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
             const [answerValue] = curAnswerValues;
             let answerString = '';
             if (answerValue.base64Value) {
-                answerString = `data: image/jpeg;base64,${answerValue.base64Value}`;
+                if (!answerValue.base64Value.startsWith('data:')) {
+                    answerString = `data: image/jpeg;base64,${answerValue.base64Value}`;
+                } else {
+                    answerString = answerValue.base64Value;
+                }
             } else if (answerValue.s3KeyValue) {
                 const extension = answerValue.s3KeyValue.split('.').pop().toLowerCase();
                 const isImage = ['jpg', 'jpeg', 'png', 'gif'].includes(extension);

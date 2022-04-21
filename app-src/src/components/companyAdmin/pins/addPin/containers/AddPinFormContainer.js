@@ -209,7 +209,7 @@ class AddPinFormContainer extends Component {
 
         const formattedAnswers = Object.keys(answers).map(key => ({
             templateQuestionID: key,
-            answer: answers[key],
+            answerValues: answers[key],
         }));
 
         const postBody = {
