@@ -6,47 +6,36 @@ import { FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
-import { boolToYesNo, isEmpty, isObjEmpty } from 'helpers/generic';
+import { boolToYesNo } from 'helpers/generic';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { selectPinOptionVersions } from '../../../../../selectors/companyAdmin/pinOptionVersions';
 
-const PinAnswer = ({
-    trimmedAnswer,
-    type,
-    questions,
-    answers,
-    dispatch,
-    question,
-    optionValuesLookup,
-}) => {
+const PinAnswer = ({ trimmedAnswer, type, answers, dispatch, question }) => {
     const curAnswer = { ...answers.find(item => +item.id === +trimmedAnswer.id) };
     const versions = useSelector(selectPinOptionVersions);
-    console.log({ curAnswer });
     const notFoundResponse = null;
     let inner;
 
-    // if ((!curAnswer || isEmpty(curAnswer.answer)) && type !== TYPES.STATUS) {
-    //     return notFoundResponse;
-    // }
     if (!curAnswer?.answerValues || curAnswer.answerValues.length === 0) {
         return notFoundResponse;
     }
     const curAnswerValues = curAnswer.answerValues.map(value => {
         if (!value.pinOptionVersionID) return value;
-        // todo add pin option version text
         return {
             ...value,
-            pinOptionVersionName: versions[value.pinOptionVersionID]?.name,
+            // map version name to textValue for output
+            textValue: versions[value.pinOptionVersionID]?.name,
         };
     });
-    console.log({ curAnswerValues });
 
     switch (type) {
         case TYPES.SINGLE_LINE:
         case TYPES.MULTI_LINE:
         case TYPES.DROPDOWN:
         case TYPES.RADIO:
-        case TYPES.MULTI_DROPDOWN: {
+        case TYPES.MULTI_DROPDOWN:
+        case TYPES.PIN_OPTION_TYPES:
+        case TYPES.MULTI_PIN_OPTION_TYPES: {
             const answerText = curAnswerValues.map(value => value.textValue).join(', ');
             inner = <p>{answerText}</p>;
             break;
@@ -58,80 +47,47 @@ const PinAnswer = ({
             inner = <p>{answerText} </p>;
             break;
         }
-        case TYPES.PIN_OPTION_TYPES:
-        case TYPES.MULTI_PIN_OPTION_TYPES: {
-            const answerText = curAnswerValues.map(value => value.pinOptionVersionName).join(', ');
-            inner = <p>{answerText}</p>;
-            break;
-        }
-        case TYPES.MULTI_MULTI_DROPDOWN: {
+        case TYPES.MULTI_MULTI_DROPDOWN:
+        case TYPES.MULTI_MULTI_PIN_OPTION_TYPES: {
             const answerText = formatMultiMulti(curAnswerValues.map(value => value.textValue));
             inner = <p>{answerText}</p>;
             break;
         }
-        case TYPES.MULTI_MULTI_PIN_OPTION_TYPES: {
-            const answerText = formatMultiMulti(
-                curAnswerValues.map(value => value.pinOptionVersionName),
-            );
-            inner = <p>{answerText}</p>;
-            break;
-        }
         case TYPES.CHECKBOX: {
-            const answerText = curAnswerValues.map(value => boolToYesNo(value.booleanValue));
+            const answerText = curAnswerValues
+                .map(value => boolToYesNo(value.booleanValue))
+                .join(', ');
             inner = <p>{answerText}</p>;
             break;
         }
         case TYPES.SIGNATURE: {
-            let answerString = curAnswer.answer;
-            if (
-                !answerString.startsWith('data:') &&
-                !answerString.endsWith('.png') &&
-                !answerString.endsWith('.jpg') &&
-                !answerString.endsWith('.jpeg')
-            ) {
-                answerString = `data: image/jpeg;base64,${answerString}`;
+            const [answerValue] = curAnswerValues;
+            let answerString = '';
+            if (answerValue.base64Value) {
+                answerString = `data: image/jpeg;base64,${answerValue.base64Value}`;
+            } else if (answerValue.s3KeyValue) {
+                const extension = answerValue.s3KeyValue.split('.').pop().toLowerCase();
+                const isImage = ['jpg', 'jpeg', 'png', 'gif'].includes(extension);
+                const isDocument = ['pdf', 'doc', 'docx'].includes(extension);
+                const storageURL = isImage ? FILE_STORAGE_URL : RAW_S3_STORAGE_URL;
+                answerString = `${storageURL}/${answerValue.s3KeyValue}`;
+                if (isDocument) {
+                    inner = (
+                        <ButtonContainer to={answerString} isAnchor className="btn blue" openNewTab>
+                            <i className="table-icon far fa-eye" />
+                            View file
+                        </ButtonContainer>
+                    );
+                    break;
+                }
             }
-
-            if (
-                answerString.endsWith('.png') ||
-                answerString.endsWith('.jpg') ||
-                answerString.endsWith('.jpeg')
-            ) {
-                answerString = `${FILE_STORAGE_URL}/${answerString}`;
-            }
-            if (
-                answerString.endsWith('.doc') ||
-                answerString.endsWith('.pdf') ||
-                answerString.endsWith('.docx')
-            ) {
-                const docURL = `${RAW_S3_STORAGE_URL}/${curAnswer.answer}`;
-                inner = (
-                    <ButtonContainer to={docURL} isAnchor className="btn blue" openNewTab>
-                        <i className="table-icon far fa-eye" />
-                        View file
-                    </ButtonContainer>
-                );
-            } else {
-                inner = <img className="signature" alt="signature" src={answerString} />;
-            }
-
+            inner = <img src={answerString} alt="signature" className="signature" />;
             break;
         }
-        case TYPES.SINGLE_PHOTO: {
-            const URL = `${FILE_STORAGE_URL}/${curAnswer.answer}`;
-            inner = (
-                <img
-                    style={{ cursor: 'zoom-in' }}
-                    alt=""
-                    src={URL + '?width=100'}
-                    onClick={() => dispatch(showModal(PIN_IMAGE, { image: URL + '?width=1500' }))}
-                />
-            );
-            break;
-        }
+        case TYPES.SINGLE_PHOTO:
         case TYPES.MULTI_PHOTO:
-            if (Array.isArray(curAnswer.answer)) {
-                inner = curAnswer.answer.map((item, i) => {
+            {
+                inner = curAnswerValues.map((item, i) => {
                     const URL = `${FILE_STORAGE_URL}/${item}`;
                     return (
                         <img
@@ -145,22 +101,11 @@ const PinAnswer = ({
                         />
                     );
                 });
-            } else {
-                const URL = `${FILE_STORAGE_URL}/${curAnswer.answer}`;
-                inner = (
-                    <img
-                        style={{ cursor: 'zoom-in' }}
-                        alt=""
-                        src={URL + '?width=100'}
-                        onClick={() =>
-                            dispatch(showModal(PIN_IMAGE, { image: URL + '?width=1500' }))
-                        }
-                    />
-                );
             }
             break;
         case TYPES.DOCUMENT_UPLOAD: {
-            const docURL = `${RAW_S3_STORAGE_URL}/${curAnswer.answer}`;
+            const [answerValue] = curAnswerValues;
+            const docURL = `${RAW_S3_STORAGE_URL}/${answerValue.s3KeyValue}`;
             inner = (
                 <ButtonContainer to={docURL} isAnchor className="btn blue" openNewTab>
                     <i className="table-icon far fa-eye" />
