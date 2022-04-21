@@ -54,7 +54,7 @@ const OptionDocuments = () => {
                 error={isAnyErrored}
                 noWhiteBackground
             >
-                <OptionDocumentsList hasFetched={hasFetched} />
+                <OptionDocumentsList optionID={optionID} hasFetched={hasFetched} />
             </BlockContainer>
         </>
     );
