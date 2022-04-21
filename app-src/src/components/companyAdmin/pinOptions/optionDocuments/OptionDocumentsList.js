@@ -8,12 +8,12 @@ import DocumentPod from 'components/shared/documentPods/DocumentPod';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import useFetchPinOptionDocuments from './hooks/useFetchPinOptionDocuments';
 
-const OptionDocumentsList = ({ hasFetched, optionID }) => {
+const OptionDocumentsList = ({ hasFetched, optionID, showDeleteModal }) => {
     const shouldRedirect = useShouldRedirectFromOptionDocuments(hasFetched);
     const { allDocuments, documentsVersions, documentsError, isFetchingDocuments } =
         useFetchPinOptionDocuments(optionID);
     console.log({ allDocuments });
-    console.log(documentsVersions);
+    // console.log(documentsVersions);
     if (shouldRedirect) {
         return <Redirect to="/company/pin-options" />;
     }
@@ -24,15 +24,7 @@ const OptionDocumentsList = ({ hasFetched, optionID }) => {
                 text="Edit Name"
                 onClick={() => console.log(`Edit document ID ${id}`)}
             />
-            <ActionMenuActionButton
-                text="Add New Version"
-                onClick={() => console.log(`Add version for document ID ${id}`)}
-            />
-            <ActionMenuActionButton
-                text="Delete"
-                onClick={() => console.log(`Delete document ID ${id}`)}
-                isNegative
-            />
+            <ActionMenuActionButton text="Delete" onClick={() => showDeleteModal(id)} isNegative />
         </>
     );
 
