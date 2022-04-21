@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { API_URL } from 'config';
-import { getHeaders } from 'helpers/api';
+import { getHeaders, handleErrors } from 'helpers/api';
 import {
     CREATE_PIN_OPTION_SET_REQUEST,
     CREATE_PIN_OPTION_SET_SUCCESS,
@@ -28,5 +28,7 @@ export default postBody => async dispatch => {
     return axios
         .post(`${API_URL}/pinoptions/sets`, postBody, getHeaders())
         .then(res => dispatch(createPinOptionSetSuccess(res.data)))
-        .catch(err => dispatch(createPinOptionSetFailure(err.message)));
+        .catch(err => {
+            dispatch(handleErrors(createPinOptionSetFailure)(err));
+        });
 };
