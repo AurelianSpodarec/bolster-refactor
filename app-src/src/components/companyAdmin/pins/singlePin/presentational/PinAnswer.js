@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { connect, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
 import { FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
@@ -10,7 +10,8 @@ import { boolToYesNo } from 'helpers/generic';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { selectPinOptionVersions } from '../../../../../selectors/companyAdmin/pinOptionVersions';
 
-const PinAnswer = ({ trimmedAnswer, type, answers, dispatch, question }) => {
+const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
+    const dispatch = useDispatch();
     const curAnswer = { ...answers.find(item => +item.id === +trimmedAnswer.id) };
     const versions = useSelector(selectPinOptionVersions);
     const notFoundResponse = null;
@@ -87,12 +88,14 @@ const PinAnswer = ({ trimmedAnswer, type, answers, dispatch, question }) => {
         case TYPES.SINGLE_PHOTO:
         case TYPES.MULTI_PHOTO:
             {
-                inner = curAnswerValues.map((item, i) => {
-                    const URL = `${FILE_STORAGE_URL}/${item}`;
+                inner = curAnswerValues.map((item, i, arr) => {
+                    const isOnlyItem = arr.length === 1;
+                    const altText = isOnlyItem ? 'Photo' : `Photo ${i + 1}`;
+                    const URL = `${FILE_STORAGE_URL}/${item.s3KeyValue}`;
                     return (
                         <img
                             style={{ cursor: 'zoom-in' }}
-                            alt={`${i + 1} of ${curAnswer.answer.length}`}
+                            alt={altText}
                             key={item}
                             src={URL + '?width=100'}
                             onClick={() =>
@@ -129,14 +132,14 @@ const PinAnswer = ({ trimmedAnswer, type, answers, dispatch, question }) => {
     );
 };
 
-export default memo(connect()(PinAnswer));
+export default memo(PinAnswer);
 
 function formatMultiMulti(answer) {
-    if (!Array.isArray(answer)) return answer;
-    const formatted = answer.map(item => {
-        const count = answer.filter(x => item === x).length;
-        return count > 1 && item ? `${item} (${count})` : item;
-    });
-
-    return [...new Set(formatted)].join(', ');
+    const answerCounts = answer.reduce((acc, cur) => {
+        acc[cur] = (acc[cur] ?? 0) + 1;
+        return acc;
+    }, {});
+    return Object.entries(answerCounts)
+        .map(([name, count]) => (count === 1 ? name : `${name} (${count})`))
+        .join(', ');
 }
