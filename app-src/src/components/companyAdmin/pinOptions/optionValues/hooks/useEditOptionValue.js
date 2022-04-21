@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useForm, usePrevious } from 'helpers/hooks';
@@ -33,18 +33,28 @@ const useEditOptionValue = option => {
 
     const prevProps = usePrevious({ postError, postSuccess });
 
+    const initialPriceBreaks = useMemo(() => {
+        const emptyPriceBreak = { value: '', cost: '' };
+
+        if (isEmpty(option.priceBreaks)) return [emptyPriceBreak];
+
+        const priceBreaks = option.priceBreaks.map(priceBreak => {
+            return {
+                value: priceBreak.value,
+                cost: priceBreak.cost,
+            };
+        });
+
+        priceBreaks.push(emptyPriceBreak);
+
+        return priceBreaks;
+    }, [option.priceBreaks]);
+
     const [form, handleChange] = useForm({
         name: latestPinOptionVersion.name || '',
         shortName: latestPinOptionVersion.shortName || '',
         serviceIDs: option.serviceIDs || [],
-        measurementPriceBreaks: !isEmpty(option.priceBreaks)
-            ? option.priceBreaks.map(priceBreak => {
-                  return {
-                      value: priceBreak.value,
-                      cost: priceBreak.cost,
-                  };
-              })
-            : [{ value: '', cost: '' }],
+        measurementPriceBreaks: initialPriceBreaks,
     });
 
     const { handlePriceBreakChange, handleAddPriceBreak, handleRemovePriceBreak } =
