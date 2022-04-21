@@ -15,7 +15,6 @@ import FileUploadContainer from 'components/shared/generic/form/containers/FileU
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 const CreatePinOptionDocumentsModal = ({ optionID }) => {
-    console.log(optionID);
     const dispatch = useDispatch();
     const { form, handleChange, handleSubmit, isPosting } = useCreatePinOptionDocument(optionID);
 
