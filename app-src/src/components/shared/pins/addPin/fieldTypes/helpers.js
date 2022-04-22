@@ -20,6 +20,7 @@ export const useDropdownOpts = (options, optionConfigurations) => {
 };
 
 export const useAddPinOptions = serviceID => {
+    // todo filter with site sets too
     const pinOptions = useSelector(selectPinOptions);
     const pinOptionVersions = useSelector(selectPinOptionVersions);
     return useMemo(() => {
@@ -120,6 +121,7 @@ export const getValueForQuestionAnswer = (question, value) => {
             return [answer];
         }
         case TYPES.SIGNATURE: {
+            if (!value) return emptyAnswer;
             const isS3Key = value.includes('.');
             const keyName = isS3Key ? 's3KeyValue' : 'base64Value';
             const answer = {
