@@ -5,12 +5,13 @@ import { usePrevious } from 'helpers/hooks';
 
 import useFetchPinOptionsBatch from 'components/companyAdmin/hooks/useFetchPinOptionsBatch';
 import useFetchServices from 'components/companyAdmin/hooks/useFetchServices';
-import useFetchDocuments from 'components/companyAdmin/hooks/useFetchDocuments';
+import useFetchPinOptionDocuments from './useFetchPinOptionDocuments';
 
 const useFetchBatchForOptionDocuments = optionID => {
     const [hasFetched, setHasFetched] = useState(false);
     const { services, isFetchingServices, servicesError } = useFetchServices();
-    const { documents, isFetchingDocuments, documentsError } = useFetchDocuments(optionID);
+    const { documentsVersions, documentsError, isFetchingDocuments } =
+        useFetchPinOptionDocuments(optionID);
 
     const {
         pinOptionTypes,
@@ -33,7 +34,7 @@ const useFetchBatchForOptionDocuments = optionID => {
         (isEmpty(pinOptionSets) && isFetchingPinOptionSets) ||
         (isEmpty(pinOptions) && isFetchingPinOptions) ||
         (isEmpty(pinOptionVersions) && isFetchingPinOptionVersions) ||
-        (isEmpty(documents) && isFetchingDocuments);
+        (isEmpty(documentsVersions) && isFetchingDocuments);
 
     const isAnyFetching =
         isFetchingServices ||

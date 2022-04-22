@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
-import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
 
 import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
 import { withRouter } from 'react-router-dom';
 
 import Field from 'components/shared/generic/form/presentational/Field';
 import resetPinAnswer from 'actions/companyAdmin/drawings/sync/resetPinAnswer';
-import { deepEquals, isEmpty } from 'helpers/generic';
+import { componentDidMount, deepEquals, isEmpty } from 'helpers/generic';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
 import { fieldTypes, getDefaultValue } from '../fieldTypes/allFieldTypes';
-import { QUESTION_TYPE_VALUES, QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
+import { QUESTION_TYPE_NUMBERS, QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
+import { getValueForQuestionAnswer } from '../fieldTypes/helpers';
+import { usePrevious } from '../../../../../helpers/hooks';
 
 const {
     SINGLE_LINE,
@@ -37,87 +38,190 @@ const dropdownOptionTypes = [
     MULTI_MULTI_PIN_OPTION_TYPES,
 ];
 
-class AddPinQuestionRoute extends Component {
-    state = {
-        sigPad: {},
-        originalDropdownMultiAns: [],
-        originalDropdownAns: '',
-    };
+const AddPinQuestionRoute = ({
+    question,
+    isSameTemplate,
+    pinAnswersByGroupKey,
+    cachedAnswers = {},
+    oldAnswersByNameObj,
+    sectionIDs,
+    latestPinHistory,
+    template,
+    edit,
+    isHistory,
+    selectedVersion,
+    pinOptions,
+    match: { params },
+}) => {
+    const {
+        answers,
+        questions,
+        oldAnswers,
+        status,
+        pins,
+        isFetchingPins,
+        fieldErrors,
+        companySettings,
+        companyID,
+        pinOptionVersions,
+        histories,
+    } = useSelector(mapStateToProps);
 
-    render() {
-        const {
-            question,
-            answers,
-            dropdownOptions,
-            optionValues,
-            status,
-            selectedVersion,
-            edit,
-            resetPinAnswer,
-            isHistory,
-            drawing,
-            companySettings,
-            companyID,
-        } = this.props;
+    const { historyID } = params;
+    const history = histories[historyID] || {};
+    const dispatch = useDispatch();
+    const [originalPinOptionAnswers, setOriginalPinOptionAnswers] = React.useState({});
+    componentDidMount(() => handlePrefillOrReset());
 
-        const showPreReq = this.checkIfShouldShowByPreReq();
+    const answer = answers[question.id];
+    const answerName = `answer-${question.id}`;
+    const showPreReq = checkIfShouldShowByPreReq();
 
-        const isImage = `${question.type}` === STATIC_IMAGE;
+    const prevProps = usePrevious({ status, question, template, isFetchingPins });
+    // handle reset answer when not showing from prerequisites
+    useEffect(() => {
+        const showPreReq = checkIfShouldShowByPreReq();
+        if (!showPreReq && !isEmpty(answer) && !deepEquals(answer, getDefaultValue(question))) {
+            dispatch(resetPinAnswer(question.id, getDefaultValue(question)));
+        }
+    }, [status, question, template, isFetchingPins, answer]);
+    // handle reset answer when status changes
+    useEffect(() => {
+        const hasStatusChanged = prevProps.status !== status;
+        if (`${question.type}` !== STATUS && hasStatusChanged) {
+            // * handle isrequiredbasedonstatus
+            const isRequiredButEmpty = _getIsRequired() && isEmpty(answer);
 
-        const fieldSize = `size-lg-${isImage ? '12' : '6'}`;
-        const questionName = isImage ? '' : question.name;
-        const isManufacturingEnabledForDrawing = drawing.isManufacturingEnabled;
+            if (isRequiredButEmpty && showPreReq) {
+                dispatch(addFieldError(answerName, 'This is a required field.'));
+            } else {
+                dispatch(removeFieldError(answerName));
+            }
+            // * handle prefillfromstatus
 
-        if (showPreReq) {
-            const SpecificField = fieldTypes[question.type + ''] || fieldTypes[SINGLE_LINE];
+            if (question.statusPrefills[status]) {
+                if (question.type === QUESTION_TYPE_NUMBERS.CHECKBOX) {
+                    const convertedPrefillVals = {};
 
-            const extraImageClasses =
-                (edit && question.type + '' === MULTI_PHOTO) || question.type + '' === SINGLE_PHOTO
-                    ? 'photo-view'
-                    : '';
+                    for (const key in question.statusPrefills) {
+                        const value = question.statusPrefills[key];
 
-            const isRequired = this._getIsRequired();
-            return (
-                <Field
-                    key={question.id}
-                    name={questionName}
-                    sizeClasses={`${fieldSize} flex-row-item ${extraImageClasses} size-md-12`}
-                    required={isRequired}
-                >
-                    <SpecificField
-                        isRequired={isRequired}
-                        statusOptions={selectedVersion.statusOptions}
-                        question={question}
-                        answers={answers}
-                        status={status}
-                        dropdownOptions={dropdownOptions}
-                        optionValues={optionValues}
-                        handleChange={this.handleChange}
-                        handleStatusChange={this.handleStatusChange}
-                        handleImageClick={this.handleImageClick}
-                        handleSignatureChange={this.handleSignatureChange}
-                        sigPad={this.state.sigPad}
-                        edit={edit}
-                        resetPinAnswer={resetPinAnswer}
-                        isHistory={isHistory}
-                        originalDropdownAns={this.state.originalDropdownAns}
-                        originalDropdownMultiAns={this.state.originalDropdownMultiAns}
-                        isManufacturingEnabledForDrawing={isManufacturingEnabledForDrawing}
-                        defaultDropdownSorting={companySettings.defaultDropdownSorting}
-                        companyID={companyID}
-                    />
-                </Field>
-            );
+                        convertedPrefillVals[key] = value === 'true';
+                    }
+                    dispatch(updateAddPinAnswer(question.id, convertedPrefillVals[status]));
+                } else {
+                    dispatch(updateAddPinAnswer(question.id, question.statusPrefills[status]));
+                }
+            } else {
+                // handle reset if was, but should no longer be prefilled
+                if (prevProps.question.statusPrefills[prevProps.status]) {
+                    dispatch(resetPinAnswer(question.id, getDefaultValue(question)));
+                }
+            }
+        }
+    }, [status, question, prevProps.question, prevProps.status, answerName, showPreReq]);
+
+    // * remove error if the question is no longer showing
+    useEffect(() => {
+        const hasError = fieldErrors[answerName];
+        if (hasError && !showPreReq) {
+            dispatch(removeFieldError(answerName));
         }
 
-        return null;
+        const isDoneFetchingPins = prevProps.isFetchingPins && !isFetchingPins && !isEmpty(pins);
+        // ? only applies to edit
+
+        if (isDoneFetchingPins && edit && history.id && oldAnswers) {
+            const oldAnswersArray = Object.values(oldAnswers);
+
+            // !pin history ID matters to select the right answer to prefill on edit
+            const oldAnswer = oldAnswersArray.find(
+                ({ templateQuestionID, pinHistoryID }) =>
+                    templateQuestionID === question.id && pinHistoryID === Number(historyID),
+            );
+            if (oldAnswer) {
+                const { templateQuestionID, answer } = oldAnswer;
+                dispatch(updateAddPinAnswer(templateQuestionID, answer));
+                if (
+                    question.type + '' === PIN_OPTION_TYPES ||
+                    question.type + '' === MULTI_PIN_OPTION_TYPES ||
+                    question.type + '' === MULTI_MULTI_PIN_OPTION_TYPES
+                ) {
+                    setOriginalPinOptionAnswers(answer);
+                }
+            }
+            if (String(question.type) === STATUS) {
+                dispatch(updateAddPinStatus(history.status));
+            }
+        } else {
+            const hasTemplateAppeared = !prevProps.template && !!template;
+            const hasTemplateChanged =
+                !!prevProps.template && prevProps.template.id !== template.id;
+            const shouldReset = hasTemplateAppeared || hasTemplateChanged || isDoneFetchingPins;
+
+            if (shouldReset) {
+                handlePrefillOrReset();
+            }
+        }
+    }, [
+        isFetchingPins,
+        history,
+        historyID,
+        oldAnswers,
+        prevProps.isFetchingPins,
+        template,
+        pins,
+        showPreReq,
+    ]);
+
+    const isImage = `${question.type}` === STATIC_IMAGE;
+    const questionName = isImage ? '' : question.name;
+
+    if (showPreReq) {
+        const SpecificField = fieldTypes[question.type] || fieldTypes[SINGLE_LINE];
+
+        const extraImageClasses =
+            (edit && question.type + '' === MULTI_PHOTO) || question.type + '' === SINGLE_PHOTO
+                ? 'photo-view'
+                : '';
+
+        const fieldSize = `size-lg-${isImage ? '12' : '6'}`;
+        const isRequired = _getIsRequired();
+        return (
+            <Field
+                key={question.id}
+                name={questionName}
+                sizeClasses={`${fieldSize} flex-row-item ${extraImageClasses} size-md-12`}
+                required={isRequired}
+            >
+                <SpecificField
+                    isRequired={isRequired}
+                    statusOptions={selectedVersion.statusOptions}
+                    question={question}
+                    answers={answers}
+                    status={status}
+                    handleChange={handleChange}
+                    handleStatusChange={handleStatusChange}
+                    handleImageClick={handleImageClick}
+                    handleSignatureChange={handleSignatureChange}
+                    edit={edit}
+                    resetPinAnswer={(id, val) => dispatch(resetPinAnswer(id, val))}
+                    isHistory={isHistory}
+                    originalPinOptionAns={originalPinOptionAnswers}
+                    defaultDropdownSorting={companySettings.defaultDropdownSorting}
+                    companyID={companyID}
+                    pinOptions={pinOptions}
+                />
+            </Field>
+        );
     }
 
-    _getIsRequired = () => {
-        const { question, status } = this.props;
+    return null;
+
+    function _getIsRequired() {
         const { isRequired, isRequiredVal, type } = question;
 
-        const showPreReq = this.checkIfShouldShowByPreReq();
+        const showPreReq = checkIfShouldShowByPreReq();
 
         if (!showPreReq) return false;
         if (`${type}` === STATUS) return true;
@@ -125,11 +229,9 @@ class AddPinQuestionRoute extends Component {
         if (isRequiredVal) return `${isRequiredVal}` === `${status}`;
 
         return false;
-    };
+    }
 
-    // not just an if check, amends the pre req answer also?
-    checkIfShouldShowByPreReq = () => {
-        const { question, status, questions, answers, dropdownOptions } = this.props;
+    function checkIfShouldShowByPreReq() {
         const { prerequisiteQuestionIDs } = question;
         const prereqIDArr = (prerequisiteQuestionIDs || '').split(',');
         const preReqQuestions = Object.values(questions).filter(ques =>
@@ -146,287 +248,82 @@ class AddPinQuestionRoute extends Component {
         return preReqQuestions.every(preReqQuestion => {
             const preReqType = `${preReqQuestion.type}`;
             const prereqVals = question.prerequisiteQuestionValue.split(',');
-            let preReqAnswer = answers[preReqQuestion.id];
+            let preReqAnswers = answers[preReqQuestion.id];
 
             if (preReqType === STATUS && prereqVals.includes(`${status}`)) {
                 return true;
             }
 
-            if (!preReqAnswer) {
+            if (!preReqAnswers || !preReqAnswers.length) {
                 return false;
             }
 
-            if ([DROPDOWN, RADIO].includes(preReqType)) {
-                //For a drop down we have to convert the GUID to the question option.
-                const selectedOption = preReqQuestion.options.find(
-                    option => option.id === preReqAnswer,
-                );
-                // specifying not undefined in case pre-req answers are falsy ie. 0, ''
-                if (selectedOption !== undefined) {
-                    preReqAnswer = selectedOption.text;
-                } else {
-                    return false;
-                }
+            if ([DROPDOWN, MULTI_DROPDOWN, RADIO].includes(preReqType)) {
+                preReqAnswers = preReqAnswers?.map(ans => ans.textValue);
             }
 
-            if (preReqType === MULTI_DROPDOWN) {
-                if (!preReqAnswer) {
-                    return false;
-                }
-
-                const retArray = [];
-                if (!Array.isArray(preReqAnswer)) {
-                    preReqAnswer = preReqAnswer.toString().split(',');
-                }
-                preReqAnswer.forEach(curAnswer => {
-                    const selectedOption = preReqQuestion.options.find(
-                        option => option.id === curAnswer,
-                    );
-
-                    if (selectedOption !== undefined) {
-                        retArray.push(selectedOption.text);
-                    }
-                });
-
-                preReqAnswer = retArray;
+            if (
+                [PIN_OPTION_TYPES, MULTI_PIN_OPTION_TYPES, MULTI_MULTI_PIN_OPTION_TYPES].includes(
+                    preReqType,
+                )
+            ) {
+                preReqAnswers = preReqAnswers?.map(ans => ans.pinOptionVersionID);
             }
 
-            if (preReqType === PIN_OPTION_TYPES) {
-                //For a drop down we have to convert the GUID to the question option.
-                const selectedOption = dropdownOptions.find(option => option.name === preReqAnswer);
-                // specifying not undefined in case pre-req answers are falsy ie. 0, ''
-                if (selectedOption !== undefined) {
-                    preReqAnswer = selectedOption.name;
-                } else {
-                    return false;
-                }
-            }
-
-            if ([MULTI_PIN_OPTION_TYPES, MULTI_MULTI_PIN_OPTION_TYPES].includes(preReqType)) {
-                //For a drop down we have to convert the GUID to the question option.
-                const selectedOptions = dropdownOptions
-                    .filter(option => preReqAnswer.includes(option.name))
-                    .map(opt => opt.name);
-
-                // specifying not undefined in case pre-req answers are falsy ie. 0, ''
-                if (selectedOptions.length > 0) {
-                    preReqAnswer = selectedOptions;
-                } else {
-                    return false;
-                }
-            }
-
-            if (Array.isArray(preReqAnswer)) {
-                return preReqAnswer.some(answer =>
-                    prereqVals.some(val => {
-                        if (!val.includes('#PREREQ_ID_')) {
-                            return val.toLowerCase() === `${answer}`.toLowerCase();
-                        }
-
-                        return (
-                            val.toLowerCase() ===
-                            `${answer}#PREREQ_ID_${preReqQuestion.id}`.toLowerCase()
-                        );
-                    }),
-                );
-            } else {
-                return prereqVals.some(val => {
+            return preReqAnswers.some(answer =>
+                prereqVals.some(val => {
                     if (!val.includes('#PREREQ_ID_')) {
-                        return val.toLowerCase() === `${preReqAnswer}`.toLowerCase();
+                        return val.toLowerCase() === `${answer}`.toLowerCase();
                     }
-
+                    const isIDValue = typeof val === 'number';
+                    const answerToCompare = isIDValue ? pinOptionVersions[answer]?.name : answer;
                     return (
                         val.toLowerCase() ===
-                        `${preReqAnswer}#PREREQ_ID_${preReqQuestion.id}`.toLowerCase()
+                        `${answerToCompare}#PREREQ_ID_${preReqQuestion.id}`.toLowerCase()
                     );
-                });
-            }
-        });
-    };
-
-    componentDidMount = () => {
-        this.handlePrefillOrReset();
-    };
-
-    componentDidUpdate = prevProps => {
-        const {
-            question,
-            answers,
-            resetPinAnswer,
-            oldAnswers,
-            updateAddPinAnswer,
-            updateAddPinStatus,
-            history,
-            status,
-            pins,
-            isFetchingPins,
-            addFieldError,
-            removeFieldError,
-            fieldErrors,
-            edit,
-            historyID,
-            template,
-            areManufacturerOptionsIncluded,
-            optionValues,
-        } = this.props;
-
-        const isShowingFromPrereq = this.checkIfShouldShowByPreReq();
-        const answer = answers[question.id];
-        const answerName = `answer-${question.id}`;
-
-        if (
-            !isShowingFromPrereq &&
-            !isEmpty(answer) &&
-            !deepEquals(answer, getDefaultValue(question))
-        ) {
-            resetPinAnswer(question.id, getDefaultValue(question));
-        }
-
-        const hasStatusChanged = prevProps.status !== status;
-        if (`${question.type}` !== STATUS && hasStatusChanged) {
-            // * handle isrequiredbasedonstatus
-            const isRequiredButEmpty = this._getIsRequired() && isEmpty(answer);
-
-            if (isRequiredButEmpty && isShowingFromPrereq) {
-                addFieldError(answerName, 'This is a required field.');
-            } else {
-                removeFieldError(answerName);
-            }
-            // * handle prefillfromstatus
-
-            if (question.statusPrefills[status]) {
-                if (question.type === QUESTION_TYPE_NUMBERS.CHECKBOX) {
-                    const convertedPrefillVals = {};
-
-                    for (const key in question.statusPrefills) {
-                        const value = question.statusPrefills[key];
-
-                        convertedPrefillVals[key] = value === 'true';
-                    }
-                    updateAddPinAnswer(question.id, convertedPrefillVals[status]);
-                } else {
-                    updateAddPinAnswer(question.id, question.statusPrefills[status]);
-                }
-            } else {
-                // handle reset if was, but should no longer be prefilled
-                if (prevProps.question.statusPrefills[prevProps.status]) {
-                    resetPinAnswer(question.id, getDefaultValue(question));
-                }
-            }
-        }
-
-        // * remove error if the question is no longer showing
-        const hasError = fieldErrors[answerName];
-        if (hasError && !isShowingFromPrereq) {
-            removeFieldError(answerName);
-        }
-
-        const isDoneFetchingPins = prevProps.isFetchingPins && !isFetchingPins && !isEmpty(pins);
-        const isDoneIncludingManufacturerOptions =
-            prevProps.areManufacturerOptionsIncluded &&
-            !areManufacturerOptionsIncluded &&
-            !isEmpty(optionValues);
-
-        // ? only applies to edit
-
-        if (isDoneFetchingPins && edit && history.id && oldAnswers) {
-            const oldAnswersArray = Object.values(oldAnswers);
-
-            // !pin history ID matters to select the right answer to prefill on edit
-            const oldAnswer = oldAnswersArray.find(
-                ({ templateQuestionID, pinHistoryID }) =>
-                    templateQuestionID === question.id && pinHistoryID === Number(historyID),
+                }),
             );
-            if (oldAnswer) {
-                const { templateQuestionID, answer } = oldAnswer;
-                updateAddPinAnswer(templateQuestionID, answer);
+        });
+    }
 
-                // preventing stealth prefill manufacturer with non manufacturing answers & vice versa
-
-                if (
-                    question.type + '' === MULTI_PIN_OPTION_TYPES ||
-                    question.type + '' === MULTI_MULTI_PIN_OPTION_TYPES
-                ) {
-                    if (Array.isArray(answer)) {
-                        this.setState({ originalDropdownMultiAns: answer });
-                    }
-                }
-                if (question.type + '' === PIN_OPTION_TYPES) {
-                    this.setState({ originalDropdownAns: answer });
-                }
-            }
-            if (String(question.type) === STATUS) {
-                updateAddPinStatus(history.status);
-            }
-        } else {
-            const hasTemplateAppeared = !prevProps.template && !!template;
-            const hasTemplateChanged =
-                !!prevProps.template && prevProps.template.id !== template.id;
-            const shouldReset =
-                hasTemplateAppeared ||
-                hasTemplateChanged ||
-                isDoneFetchingPins ||
-                isDoneIncludingManufacturerOptions;
-
-            if (shouldReset) {
-                this.handlePrefillOrReset();
-            }
-        }
-    };
-
-    handlePrefillOrReset = () => {
-        const {
-            isSameTemplate,
-            pinAnswersByGroupKey,
-            cachedAnswers = {},
-            updateAddPinAnswer,
-            question,
-        } = this.props;
+    function handlePrefillOrReset() {
         const cachedAnswer = cachedAnswers?.[question.id];
         const isAddPinHistory = !!pinAnswersByGroupKey;
 
         if (isSameTemplate && isAddPinHistory) {
-            this.handlePrefillSameTemplateQuestion();
+            handlePrefillSameTemplateQuestion();
         } else if (isAddPinHistory) {
-            this.handlePrefillDifferentTemplateQuestion();
+            handlePrefillDifferentTemplateQuestion();
         } else if (!!cachedAnswer && question.isPrefill) {
-            updateAddPinAnswer(question.id, cachedAnswer);
+            dispatch(updateAddPinAnswer(question.id, cachedAnswer));
         } else {
-            this.handleResetAnswer();
+            handleResetAnswer();
         }
-    };
+    }
 
-    handlePrefillSameTemplateQuestion = () => {
-        const { pinAnswersByGroupKey, question, updateAddPinAnswer } = this.props;
-
-        const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
+    function handlePrefillSameTemplateQuestion() {
         const oldAnswersKeys = Object.keys(pinAnswersByGroupKey);
 
         if (`${question.type}` === STATUS) {
-            this.handleStatusPrefill();
+            handleStatusPrefill();
         } else if (oldAnswersKeys.includes(question.groupKey)) {
-            const oldAnswer = pinAnswersByGroupKey[question.groupKey].answer;
-            const answerToPrefill = isDropdownOptions
-                ? this.getDropdownPrefillAnswer(oldAnswer)
-                : oldAnswer;
-            updateAddPinAnswer(question.id, answerToPrefill);
+            const oldAnswer = pinAnswersByGroupKey[question.groupKey].answerValues;
+            console.log({ oldAnswer, oldAnswersKeys, pinAnswersByGroupKey, question });
+            dispatch(updateAddPinAnswer(question.id, oldAnswer));
         } else {
-            this.handleResetAnswer();
+            handleResetAnswer();
         }
-    };
+    }
 
-    handlePrefillDifferentTemplateQuestion = () => {
-        const { oldAnswersByNameObj, question, questions, sectionIDs, updateAddPinAnswer } =
-            this.props;
-
-        const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
+    function handlePrefillDifferentTemplateQuestion() {
+        dropdownOptionTypes.includes(`${question.type}`);
         const oldAnswersMatchingName = oldAnswersByNameObj[question.name] || [];
         const oldAnswersMatchingNameAndType = oldAnswersMatchingName.filter(
             ({ type }) => type === question.type,
         );
 
         if (`${question.type}` === STATUS) {
-            this.handleStatusPrefill();
+            handleStatusPrefill();
         } else if (oldAnswersMatchingNameAndType.length) {
             const questionsMatchingNameAndType = Object.values(questions).filter(
                 outerQuestion =>
@@ -440,100 +337,59 @@ class AddPinQuestionRoute extends Component {
 
             const matchedAnswer = oldAnswersMatchingNameAndType[thisQuestionIndex];
             if (matchedAnswer) {
-                const answerToPrefill = isDropdownOptions
-                    ? this.getDropdownPrefillAnswer(matchedAnswer.answer)
-                    : matchedAnswer.answer;
-                return updateAddPinAnswer(question.id, answerToPrefill);
+                return dispatch(updateAddPinAnswer(question.id, matchedAnswer.answerValues));
             } else {
-                this.handleResetAnswer();
+                handleResetAnswer();
             }
         } else {
-            this.handleResetAnswer();
+            handleResetAnswer();
         }
-    };
+    }
 
-    handleResetAnswer = () => {
-        const { question, updateAddPinAnswer } = this.props;
-        updateAddPinAnswer(question.id, getDefaultValue(question));
-    };
+    function handleResetAnswer() {
+        dispatch(updateAddPinAnswer(question.id, getDefaultValue(question)));
+    }
 
-    handleStatusPrefill = () => {
-        const { selectedVersion, latestPinHistory } = this.props;
+    function handleStatusPrefill() {
         if (!latestPinHistory) return;
         if (selectedVersion.statusOptions.includes(latestPinHistory.status)) {
-            this.handleStatusChange(null, latestPinHistory.status);
+            handleStatusChange(null, latestPinHistory.status);
         }
-    };
+    }
+    function handleChange(_, value) {
+        const valueToStore = getValueForQuestionAnswer(question, value);
+        dispatch(updateAddPinAnswer(question.id, valueToStore));
+    }
 
-    getDropdownPrefillAnswer = answer => {
-        // * handles dropdown options which have been removed
-        const { question, dropdownOptionsByType } = this.props;
-        const { type, optionType } = question;
+    function handleSignatureChange(d) {
+        handleChange(null, d);
+    }
 
-        const relevantOptions = dropdownOptionsByType[optionType];
-        if (`${type}` === PIN_OPTION_TYPES) {
-            // handle edge case where answer is an array, set asfirst element in array
-            if (Array.isArray(answer)) [answer] = answer;
-            if (relevantOptions.includes(answer)) {
-                return answer;
-            }
-        } else if (!isEmpty(answer)) {
-            if (!Array.isArray(answer)) answer = [answer];
-            const filteredAnswers = answer.filter(option => relevantOptions.includes(option));
-            return filteredAnswers;
-        }
-        return getDefaultValue(question);
-    };
+    function handleStatusChange(_, val) {
+        dispatch(updateAddPinStatus(val));
+    }
+    function handleImageClick(imgURL) {
+        dispatch(showModal(PIN_IMAGE, imgURL));
+    }
+};
 
-    handleChange = (_, value) => {
-        const { updateAddPinAnswer, question } = this.props;
-        updateAddPinAnswer(question.id, value);
-    };
-
-    handleSignatureChange = d => {
-        const { updateAddPinAnswer, question } = this.props;
-        updateAddPinAnswer(question.id, d);
-    };
-
-    handleStatusChange = (_, val) => {
-        const { updateAddPinStatus } = this.props;
-        updateAddPinStatus(val);
-    };
-    handleImageClick = imgURL => {
-        const { showModal } = this.props;
-        showModal(PIN_IMAGE, imgURL);
-    };
-}
-
-const mapStateToProps = (
-    {
-        companyAdmin: {
-            manufacturersOptionValuesReducer: {
-                manufacturersOptionValues,
-                isFetching: isFetchingOptionValues,
-            },
-            addPinDropdownOptions: { dropdownOptions = [], areManufacturerOptionsIncluded },
-            addPinFormReducer: { answers, status },
-            templateQuestionsReducer: { questions },
-            pinAnswersReducer: { answers: oldAnswers },
-            pinHistoriesReducer: { histories },
-            pinsReducer: { pins, isFetching: isFetchingPins },
-            drawingsReducer: { drawings },
-            companySettingsReducer: { companySettings },
-        },
-        shared: {
-            fieldErrorsReducer: { fieldErrors },
-            decodeJWTReducer: {
-                jwtData: { companyID },
-            },
+const mapStateToProps = ({
+    companyAdmin: {
+        addPinFormReducer: { answers, status },
+        templateQuestionsReducer: { questions },
+        pinAnswersReducer: { answers: oldAnswers },
+        pinHistoriesReducer: { histories },
+        pinsReducer: { pins, isFetching: isFetchingPins },
+        pinOptionVersionsReducer: { pinOptionVersions },
+        companySettingsReducer: { companySettings },
+    },
+    shared: {
+        fieldErrorsReducer: { fieldErrors },
+        decodeJWTReducer: {
+            jwtData: { companyID },
         },
     },
-    { match: { params, url } },
-) => ({
-    optionValues: manufacturersOptionValues,
-    areManufacturerOptionsIncluded,
-    isFetchingOptionValues,
-    dropdownOptions,
+}) => ({
     answers,
     questions,
     oldAnswers,
@@ -541,25 +397,10 @@ const mapStateToProps = (
     pins,
     isFetchingPins,
     fieldErrors,
-    drawing:
-        (url.endsWith('add-history') || url.includes('edit-history')) && pins[params.id]
-            ? drawings[pins[params.id].drawingID]
-            : drawings[params.id],
-    // only applies to edit history
-    history: histories[params.historyID] || {},
-    historyID: params.historyID,
     companySettings,
     companyID,
+    pinOptionVersions,
+    histories,
 });
 
-const mapDispatchToProps = {
-    updateAddPinAnswer,
-    resetPinAnswers,
-    resetPinAnswer,
-    updateAddPinStatus,
-    addFieldError,
-    showModal,
-    removeFieldError,
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPinQuestionRoute));
+export default withRouter(AddPinQuestionRoute);

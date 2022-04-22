@@ -18,6 +18,7 @@ import MultiMultiDropdownOptions from '../fieldTypes/MultiMultiDropdownOptions';
 import StaticImage from '../fieldTypes/StaticImage';
 
 import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
+import { emptyAnswer } from './helpers';
 const {
     SINGLE_LINE,
     MULTI_LINE,
@@ -64,28 +65,35 @@ export const getDefaultValue = question => {
         case MULTI_LINE:
         case NUMBER:
         case SINGLE_PHOTO:
-            return '';
+        case MULTI_PHOTO:
+            return [];
         case PIN_OPTION_TYPES: {
-            return [question.defaultValue] || [];
+            if (!question.defaultValue) return [];
+            return [{ ...emptyAnswer, pinOptionVersionID: question.defaultValue }];
         }
         case RADIO:
-            return [question.defaultValue] || [];
         case DROPDOWN:
-            return question.defaultValue || '';
         case MULTI_DROPDOWN:
-            return [question.defaultValue] || [];
+            if (!question.defaultValue) return [];
+            return [{ ...emptyAnswer, textValue: question.defaultValue }];
         case MULTI_MULTI_DROPDOWN:
-            return [...(question.defaultValue || '').split(',')] || [];
-        case MULTI_PHOTO:
+            if (!question.defaultValue) return [];
+            return question.defaultValue
+                .split(',')
+                .map(ans => ({ ...emptyAnswer, textValue: ans }));
         case MULTI_MULTI_PIN_OPTION_TYPES:
         case MULTI_PIN_OPTION_TYPES:
             if (!question.defaultValue) return [];
-            return Array.isArray(question.defaultValue)
-                ? question.defaultValue
-                : [question.defaultValue];
+            if (Array.isArray(question.defaultValue)) {
+                return question.defaultValue.map(ans => ({
+                    ...emptyAnswer,
+                    pinOptionVersionID: ans,
+                }));
+            }
+            return [{ ...emptyAnswer, pinOptionVersionID: question.defaultValue }];
         case CHECKBOX:
-            return false;
+            return [{ ...emptyAnswer, booleanValue: false }];
         default:
-            return '';
+            return [];
     }
 };

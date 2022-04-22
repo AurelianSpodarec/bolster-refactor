@@ -11,6 +11,7 @@ const AddPinVersionsContainer = ({
     dropdownOptionsByType,
     oldAnswersByNameObj,
     latestPinHistory,
+    pinOptions,
 }) => (
     <AddPinVersions
         selectedVersion={selectedVersion}
@@ -21,6 +22,7 @@ const AddPinVersionsContainer = ({
         oldAnswersByNameObj={oldAnswersByNameObj}
         template={template}
         latestPinHistory={latestPinHistory}
+        pinOptions={pinOptions}
     />
 );
 

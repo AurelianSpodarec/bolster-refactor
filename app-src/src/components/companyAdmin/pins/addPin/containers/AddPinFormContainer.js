@@ -31,6 +31,7 @@ class AddPinFormContainer extends Component {
             confirmLeave,
             isHistory,
             serviceID,
+            pinOptions,
         } = this.props;
 
         const serviceOptions = convertArrToObj(this._relevantServiceOptions(), 'value');
@@ -63,6 +64,7 @@ class AddPinFormContainer extends Component {
                         handleSubmit={this.handleSubmit}
                         filesUploading={filesUploading}
                         confirmLeave={confirmLeave}
+                        pinOptions={pinOptions}
                     />
                 </BlockContainer>
             </>
@@ -124,14 +126,8 @@ class AddPinFormContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const {
-            postSuccess,
-            history,
-            drawingID,
-            pinID,
-            resetPinAnswers,
-            hierarchyType,
-        } = this.props;
+        const { postSuccess, history, drawingID, pinID, resetPinAnswers, hierarchyType } =
+            this.props;
 
         if (!prevProps.postSuccess && postSuccess) {
             resetPinAnswers();
@@ -180,18 +176,12 @@ class AddPinFormContainer extends Component {
     };
 
     handleChange = async (name, value) => {
-        const {
-            resetPinAnswers,
-            updateAddPinStatus,
-            formatDropdownOptions,
-            setServiceID,
-        } = this.props;
+        const { resetPinAnswers, updateAddPinStatus, setServiceID } = this.props;
         resetPinAnswers();
         updateAddPinStatus('');
 
         if (name === 'serviceID') {
             setServiceID(value);
-            formatDropdownOptions(value);
         }
 
         this.setState({ [name]: value });
@@ -217,7 +207,7 @@ class AddPinFormContainer extends Component {
 
         const formattedAnswers = Object.keys(answers).map(key => ({
             templateQuestionID: key,
-            answer: answers[key],
+            answerValues: answers[key],
         }));
 
         const postBody = {
@@ -273,12 +263,11 @@ const mapStateToProps = (
         companyAdmin: {
             templatesReducer: { templates, isFetching, error },
             templateQuestionsReducer: { questions },
-            addPinFormReducer: { answers, status },
+            addPinFormReducer: { answers, status, serviceID },
             addPinCoordinatesReducer: { coordinates },
-            addPinDropdownOptions: { serviceID },
             pinsReducer: { postSuccess, pins, isFetching: fetchingPins },
-            manufacturersOptionValuesReducer: { isFetching: isFetchingOptionValues },
-            manufacturersReducer: { isFetching: isFetchingManufacturers },
+            pinOptionsReducer: { isFetching: isFetchingPinOptions },
+            pinOptionVersionsReducer: { isFetching: isFetchingPinOptionVersions },
             pinHistoriesReducer: { histories },
             servicesReducer: { services },
             subscriptionsReducer: { subscriptions },
@@ -297,7 +286,7 @@ const mapStateToProps = (
     answers,
     questions,
     coordinates,
-    isFetching: isFetching || isFetchingManufacturers || isFetchingOptionValues,
+    isFetching: isFetching || isFetchingPinOptions || isFetchingPinOptionVersions,
     error,
     postSuccess,
     filesUploading,

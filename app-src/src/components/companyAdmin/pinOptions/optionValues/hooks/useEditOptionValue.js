@@ -33,13 +33,14 @@ const useEditOptionValue = option => {
 
     const prevProps = usePrevious({ postError, postSuccess });
 
-    const initialPriceBreaks = useMemo(() => {
+    const getInitialPriceBreak = () => {
         const emptyPriceBreak = { value: '', cost: '' };
 
         if (isEmpty(option.priceBreaks)) return [emptyPriceBreak];
 
         const priceBreaks = option.priceBreaks.map(priceBreak => {
             return {
+                id: priceBreak.id,
                 value: priceBreak.value,
                 cost: priceBreak.cost,
             };
@@ -48,17 +49,56 @@ const useEditOptionValue = option => {
         priceBreaks.push(emptyPriceBreak);
 
         return priceBreaks;
-    }, [option.priceBreaks]);
+    };
+
+    const initialPriceBreaks = getInitialPriceBreak();
 
     const [form, handleChange] = useForm({
         name: latestPinOptionVersion.name || '',
         shortName: latestPinOptionVersion.shortName || '',
         serviceIDs: option.serviceIDs || [],
         measurementPriceBreaks: initialPriceBreaks,
+        quickPriceEdit: '',
     });
 
     const { handlePriceBreakChange, handleAddPriceBreak, handleRemovePriceBreak } =
         useUpdatePriceBreaks(form, handleChange);
+
+    const handleQuickPriceEditChange = (name, percentageValue) => {
+        handleChange(name, percentageValue);
+
+        const updatedValues = form.measurementPriceBreaks.map(({ id, value, cost }) => {
+            if (id) {
+                const initialPriceBreak = initialPriceBreaks.find(
+                    priceBreak => priceBreak.id === id,
+                );
+
+                const isValueSame = value + '' === initialPriceBreak.value + '';
+
+                let newCost = cost;
+
+                if (isValueSame) {
+                    const valueNum = Number(percentageValue);
+                    const percentageChange = (valueNum / 100) * initialPriceBreak.cost;
+
+                    newCost = initialPriceBreak.cost + percentageChange;
+                }
+
+                return {
+                    id: initialPriceBreak.id,
+                    value,
+                    cost: newCost,
+                };
+            }
+
+            return {
+                value,
+                cost,
+            };
+        });
+
+        handleChange('measurementPriceBreaks', updatedValues);
+    };
 
     const handleSubmit = () => {
         const { name, shortName, serviceIDs, measurementPriceBreaks } = form;
@@ -103,6 +143,7 @@ const useEditOptionValue = option => {
         handlePriceBreakChange,
         handleAddPriceBreak,
         handleRemovePriceBreak,
+        handleQuickPriceEditChange,
         handleSubmit,
         isPosting,
         error,

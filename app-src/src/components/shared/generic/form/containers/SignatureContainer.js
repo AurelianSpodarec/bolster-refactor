@@ -23,7 +23,7 @@ class SignatureContainer extends Component {
                 name={name}
                 error={errorMessage}
                 showUploadComponent={showUploadComponent}
-                swtichUploadSig={this._handleSwtichUploadSig}
+                swtichUploadSig={this._handleSwitchUploadSig}
                 file={file}
             />
         );
@@ -82,7 +82,7 @@ class SignatureContainer extends Component {
         }
     };
 
-    _handleSwtichUploadSig = () => {
+    _handleSwitchUploadSig = () => {
         const { showUploadComponent } = this.state;
 
         this.handleClear();
