@@ -27,7 +27,7 @@ const SunEditorSimpleWysiwyg = ({
         <SunEditor
             name={name}
             setContents={value}
-            onChange={val => onChange(val)}
+            onChange={onChange}
             setOptions={{
                 height: 400,
                 buttonList: buttonOptions,
