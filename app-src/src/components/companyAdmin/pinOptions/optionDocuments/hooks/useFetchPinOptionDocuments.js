@@ -8,7 +8,7 @@ import {
     selectPinOptionDocumentsFetchError,
     selectPinOptionDocumentsIsFetching,
 } from 'selectors/companyAdmin/pinOptionsDocuments';
-import { selectPinOptionDocumentsVersions } from 'selectors/companyAdmin/pinOptionsDocumentsVersions';
+import { selectPinOptionDocumentsVersionsArr } from 'selectors/companyAdmin/pinOptionsDocumentsVersions';
 import fetchPinOptionsDocumentsVersions from 'actions/companyAdmin/pinOptionsDocuments/async/fetchPinOptionsDocumentsVersions';
 
 const useFetchPinOptionDocuments = optionID => {
@@ -16,14 +16,22 @@ const useFetchPinOptionDocuments = optionID => {
     const allDocuments = useSelector(selectPinOptionDocumentsArr);
     const isFetchingDocuments = useSelector(selectPinOptionDocumentsIsFetching);
     const documentsError = useSelector(selectPinOptionDocumentsFetchError);
-    const documentsVersions = useSelector(selectPinOptionDocumentsVersions);
+    const allDocumentsVersions = useSelector(selectPinOptionDocumentsVersionsArr);
+    const documents = allDocuments.filter(document => document.pinOptionID === parseInt(optionID));
+    const documentsVersions = allDocumentsVersions.filter(docVersion =>
+        documents?.map(({ id }) => id).includes(docVersion.pinOptionDocumentID),
+    );
 
     useEffect(() => {
-        dispatch(fetchPinOptionsDocuments(optionID));
-        dispatch(fetchPinOptionsDocumentsVersions(optionID));
+        dispatch(fetchPinOptionsDocuments());
+        dispatch(fetchPinOptionsDocumentsVersions());
     }, [dispatch]);
 
-    return { allDocuments, documentsVersions, documentsError, isFetchingDocuments };
+    return {
+        documentsVersions,
+        documentsError,
+        isFetchingDocuments,
+    };
 };
 
 export default useFetchPinOptionDocuments;

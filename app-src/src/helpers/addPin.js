@@ -3,17 +3,11 @@ export function getSortedDropdownOptions(options) {
 }
 
 export const formatAnswers = (answers, options) => {
-    if (!Array.isArray(answers)) {
-        answers = [answers];
-    }
-
     if (!answers || !Array.isArray(options)) return answers;
 
     const formattedOptions = options.map(({ value }) => value).filter(Boolean);
 
-    const formattedAnswers = answers.filter(item => {
-        return formattedOptions.includes(item);
-    });
-
-    return formattedAnswers;
+    return answers
+        .map(item => item.pinOptionVersionID)
+        .filter(versionID => formattedOptions.includes(versionID));
 };
