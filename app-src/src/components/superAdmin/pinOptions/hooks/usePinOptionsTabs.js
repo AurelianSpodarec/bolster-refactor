@@ -10,6 +10,7 @@ import {
 } from '../../../../selectors/superAdmin/pinOptionTypes';
 
 import setPinOptionsTypesSelectedTabID from '../../../../actions/superAdmin/pinOptions/sync/setPinOptionsTypesSelectedTabID';
+import OptionSets from '../optionSets/OptionSets';
 
 const usePinOptionsTabs = () => {
     const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const usePinOptionsTabs = () => {
         const tabsList = [];
 
         pinOptionTypesArr.forEach(({ id, namePlural }) =>
-            tabsList.push({ id, name: namePlural, component: {} }),
+            tabsList.push({ id, name: namePlural, component: OptionSets }),
         );
 
         if (!isEmpty(pinOptionTypesArr)) {
@@ -28,7 +29,7 @@ const usePinOptionsTabs = () => {
 
         return tabsList;
     }, [pinOptionTypesArr]);
-    console.log(pinOptionTypesArr);
+
     const optionTypesSelectedTabID = useSelector(selectPinOptionTypesSelectedTabID);
 
     const { selectedTabID, setSelectedTabID, SpecificComponent } = useBlockTabs(

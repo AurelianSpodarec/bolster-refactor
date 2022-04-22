@@ -1,21 +1,17 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import useFetchPinOptionSets from '../../hooks/useFetchPinOptionSets';
+import useFilterOptionSets from 'hooks/useFilterOptionSets';
 
 import { isEmpty } from 'helpers/generic';
-
-import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
-
-import useFetchPinOptionSets from 'components/companyAdmin/hooks/useFetchPinOptionSets';
-
-import useOptionSetActions from './hooks/useOptionSetActions';
-import useFilterOptionSets from 'hooks/useFilterOptionSets';
 
 import FilterRow from 'components/shared/filters/FilterRow';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Table from 'components/shared/generic/tables/presentational/Table';
-import OptionSetsListItem from './OptionSetsListItem';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import { selectPinOptionType } from '../../../../selectors/superAdmin/pinOptionTypes';
+import OptionSetsListItem from './OptionSetsListItem';
 
 const OptionSets = ({ selectedTypeID }) => {
     const selectedPinOptionType = useSelector(state => selectPinOptionType(state, selectedTypeID));
@@ -28,14 +24,14 @@ const OptionSets = ({ selectedTypeID }) => {
         selectedTypeID,
     );
 
-    const {
-        showAddModal,
-        showEditModal,
-        showDeleteModal,
-        enableOptionSet,
-        disableOptionSet,
-        setAsDefault,
-    } = useOptionSetActions(selectedTypeID);
+    // const {
+    //     showAddModal,
+    //     showEditModal,
+    //     showDeleteModal,
+    //     enableOptionSet,
+    //     disableOptionSet,
+    //     setAsDefault,
+    // } = useOptionSetActions(selectedTypeID);
 
     const setLink = selectedPinOptionType.slug;
 
@@ -64,7 +60,7 @@ const OptionSets = ({ selectedTypeID }) => {
                         icon="plus"
                         ambient="positive"
                         size="medium"
-                        onClick={showAddModal}
+                        // onClick={showAddModal}
                     />
                 </ButtonWrapper>
             </FilterRow>
@@ -82,11 +78,11 @@ const OptionSets = ({ selectedTypeID }) => {
                         key={set.id}
                         set={set}
                         setLink={setLink}
-                        showEditModal={showEditModal}
-                        showDeleteModal={showDeleteModal}
-                        enableOptionSet={enableOptionSet}
-                        disableOptionSet={disableOptionSet}
-                        setAsDefault={setAsDefault}
+                        // showEditModal={showEditModal}
+                        // showDeleteModal={showDeleteModal}
+                        // enableOptionSet={enableOptionSet}
+                        // disableOptionSet={disableOptionSet}
+                        // setAsDefault={setAsDefault}
                     />
                 ))}
             </Table>
