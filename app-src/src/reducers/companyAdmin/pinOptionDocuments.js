@@ -134,7 +134,11 @@ function pinOptionDocumentsReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case EDIT_PIN_OPTION_DOCUMENT_SUCCESS:
         case CREATE_PIN_OPTION_DOCUMENT_SUCCESS:
-            return updateObj(state, action.payload.id, action.payload);
+            return updateObj(
+                state,
+                action.payload.pinOptionDocument.id,
+                action.payload.pinOptionDocument,
+            );
         case DELETE_PIN_OPTION_DOCUMENT_SUCCESS:
             return removeObjItem(state, action.id);
         default:

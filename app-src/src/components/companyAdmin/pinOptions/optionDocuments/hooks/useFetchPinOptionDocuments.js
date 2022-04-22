@@ -17,7 +17,9 @@ const useFetchPinOptionDocuments = optionID => {
     const isFetchingDocuments = useSelector(selectPinOptionDocumentsIsFetching);
     const documentsError = useSelector(selectPinOptionDocumentsFetchError);
     const allDocumentsVersions = useSelector(selectPinOptionDocumentsVersionsArr);
-    const documents = allDocuments.filter(document => document.pinOptionID === parseInt(optionID));
+    const documents = allDocuments.filter(
+        document => document.pinOptionID === parseInt(optionID) && document.isDeleted === false,
+    );
     const documentsVersions = allDocumentsVersions.filter(docVersion =>
         documents?.map(({ id }) => id).includes(docVersion.pinOptionDocumentID),
     );

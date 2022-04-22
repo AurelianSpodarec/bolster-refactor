@@ -1,18 +1,18 @@
 import React from 'react';
 import moment from 'moment';
-import { useLocation } from 'react-router-dom';
 
 import { DATE_TIME } from 'constants/shared/dateFormats';
 import ActionMenu from '../actionMenu/ActionMenu';
 import FlexWrapper from '../generic/flexWrapper/FlexWrapper';
 import { FILE_STORAGE_URL } from 'config';
 
-const DocumentPod = ({ name, lastUpdated, actionMenuItems, s3Key, pinOptionDocumentID }) => {
-    const location = useLocation();
+const DocumentPod = ({ name, lastUpdated, actionMenuItems, s3Key, showViewModal }) => {
     return (
-        <a className="document-pod" href={`${location.pathname}/${pinOptionDocumentID}`}>
+        <div className="document-pod">
             <div className="image-wrapper">
-                <img alt="Document preview" src={`${FILE_STORAGE_URL}/${s3Key}`} />
+                <button onClick={showViewModal}>
+                    <img alt="Document preview" src={`${FILE_STORAGE_URL}/${s3Key}`} />
+                </button>
             </div>
 
             <FlexWrapper direction="row" justify="between" extraClasses="info-wrapper">
@@ -23,7 +23,7 @@ const DocumentPod = ({ name, lastUpdated, actionMenuItems, s3Key, pinOptionDocum
 
                 {!!actionMenuItems && <ActionMenu>{actionMenuItems}</ActionMenu>}
             </FlexWrapper>
-        </a>
+        </div>
     );
 };
 

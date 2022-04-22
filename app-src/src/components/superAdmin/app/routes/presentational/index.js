@@ -30,6 +30,7 @@ import BugReportsRoutes from './BugReportsRoutes';
 import CompanyTimesheetsRoutes from './CompanyTimesheetsRoutes';
 import FaqsRoutes from './FaqsRoutes';
 import DrawingUploadLog from 'components/superAdmin/drawingUploadLog/DrawingUploadLog';
+import PinOptionsRoutes from './PinOptionsRoutes';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
@@ -61,6 +62,7 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/banners`} component={BannersRoutes} />
         <Route path={`${base}/bug-reports`} component={BugReportsRoutes} />
         <Route path={`${base}/company-timesheets`} component={CompanyTimesheetsRoutes} />
+        <Route path={`${base}/pin-options`} component={PinOptionsRoutes} />
     </SwitchWith404>
 );
 

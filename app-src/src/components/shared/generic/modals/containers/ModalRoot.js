@@ -135,7 +135,6 @@ import {
     EDIT_PIN_OPTIONS_VALUE_MODAL,
     CREATE_PIN_OPTION_DOCUMENTS_MODAL,
     EDIT_PIN_OPTION_DOCUMENTS_MODAL,
-    DELETE_PIN_OPTION_DOCUMENTS_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
