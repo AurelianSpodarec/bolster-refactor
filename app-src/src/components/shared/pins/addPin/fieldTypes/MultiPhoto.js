@@ -33,7 +33,7 @@ const MultiPhoto = ({
             acceptedTypes={['image/*']}
             maxFiles={maxPhotos ? maxPhotos : 25}
             handleChange={handleChange}
-            value={questionValue.map(({ s3KeyValue }) => s3KeyValue)}
+            value={(questionValue ?? []).map(({ s3KeyValue }) => s3KeyValue)}
         />
     );
 };
