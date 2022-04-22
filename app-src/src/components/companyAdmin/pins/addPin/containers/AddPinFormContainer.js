@@ -176,14 +176,12 @@ class AddPinFormContainer extends Component {
     };
 
     handleChange = async (name, value) => {
-        const { resetPinAnswers, updateAddPinStatus, formatDropdownOptions, setServiceID } =
-            this.props;
+        const { resetPinAnswers, updateAddPinStatus, setServiceID } = this.props;
         resetPinAnswers();
         updateAddPinStatus('');
 
         if (name === 'serviceID') {
             setServiceID(value);
-            formatDropdownOptions(value);
         }
 
         this.setState({ [name]: value });
@@ -209,7 +207,7 @@ class AddPinFormContainer extends Component {
 
         const formattedAnswers = Object.keys(answers).map(key => ({
             templateQuestionID: key,
-            answer: answers[key],
+            answerValues: answers[key],
         }));
 
         const postBody = {

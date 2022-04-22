@@ -43,6 +43,7 @@ import bugReportsReducer from './bugReports';
 import timesheetsReducer from './timesheets';
 import faqsReducer from './faqs';
 import drawingsLogsReducer from './drawingUploadLogs';
+import pinOptionTypesReducer from './pinOptionTypes';
 
 export default combineReducers({
     activityLogReducer,
@@ -57,6 +58,7 @@ export default combineReducers({
     drawingsReducer,
     drawingsLogsReducer,
     pinsReducer,
+    pinOptionTypesReducer,
     contactSubmissionsReducer,
     floorsReducer,
     invoicePaymentsReducer,
@@ -87,6 +89,5 @@ export default combineReducers({
     syncsReducer,
     bannerNotificationsReducer,
     demoAccessCodesReducer,
-    drawingsReducer,
     faqsReducer,
 });
