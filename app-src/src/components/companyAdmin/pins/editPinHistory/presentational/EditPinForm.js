@@ -6,7 +6,14 @@ import Form from 'components/shared/generic/form/containers/Form';
 import EditPinVersionsContainer from '../containers/EditPinVersionsContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
-const EditPinForm = ({ location, handleSubmit, filesUploading, confirmLeave, selectedHistory }) => {
+const EditPinForm = ({
+    location,
+    handleSubmit,
+    filesUploading,
+    confirmLeave,
+    selectedHistory,
+    pinOptions,
+}) => {
     const [showFixError, setShowFixError] = useState(false);
 
     return (
@@ -15,7 +22,10 @@ const EditPinForm = ({ location, handleSubmit, filesUploading, confirmLeave, sel
             onSubmitError={() => setShowFixError(true)}
             className="generic-form size-lg-12"
         >
-            <EditPinVersionsContainer templateVersionID={selectedHistory.templateVersionID} />
+            <EditPinVersionsContainer
+                templateVersionID={selectedHistory.templateVersionID}
+                pinOptions={pinOptions}
+            />
 
             {showFixError && (
                 <div className="form-field" style={{ float: 'right', minHeight: 0 }}>
