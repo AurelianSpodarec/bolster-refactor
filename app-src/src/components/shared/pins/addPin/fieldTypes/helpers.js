@@ -1,6 +1,6 @@
 import { formatDropdownOptions } from '../../../../../helpers/general';
 import { useMemo } from 'react';
-import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from '../../../../../constants/companyAdmin/enums';
+import { QUESTION_TYPE_NUMBERS as TYPES } from '../../../../../constants/shared/templateBuilder';
 
 export const useDropdownOpts = (options, optionConfigurations) => {
     const opts = useMemo(() => {
@@ -39,4 +39,77 @@ export const emptyAnswer = {
     base64Value: null,
     booleanValue: null,
     pinOptionVersionID: null,
+};
+
+export const getValueForQuestionAnswer = (question, value) => {
+    switch (question.type) {
+        case TYPES.SINGLE_LINE:
+        case TYPES.MULTI_LINE:
+        case TYPES.DROPDOWN:
+        case TYPES.RADIO: {
+            const answer = {
+                ...emptyAnswer,
+                textValue: value,
+            };
+            return [answer];
+        }
+        case TYPES.MULTI_DROPDOWN:
+        case TYPES.MULTI_MULTI_DROPDOWN: {
+            return value.map(ans => ({
+                ...emptyAnswer,
+                textValue: ans,
+            }));
+        }
+        case TYPES.PIN_OPTION_TYPES: {
+            const answer = {
+                ...emptyAnswer,
+                pinOptionVersionID: value,
+            };
+            return [answer];
+        }
+        case TYPES.MULTI_PIN_OPTION_TYPES:
+        case TYPES.MULTI_MULTI_PIN_OPTION_TYPES: {
+            return value.map(ans => ({
+                ...emptyAnswer,
+                pinOptionVersionID: ans,
+            }));
+        }
+        case TYPES.NUMBER: {
+            const answer = {
+                ...emptyAnswer,
+                numericValue: value,
+            };
+            return [answer];
+        }
+        case TYPES.CHECKBOX: {
+            const answer = {
+                ...emptyAnswer,
+                booleanValue: value,
+            };
+            return [answer];
+        }
+        case TYPES.SIGNATURE: {
+            const isS3Key = value.includes('.');
+            const keyName = isS3Key ? 's3KeyValue' : 'base64Value';
+            const answer = {
+                ...emptyAnswer,
+                [keyName]: value,
+            };
+            return [answer];
+        }
+        case TYPES.SINGLE_PHOTO:
+        case TYPES.DOCUMENT_UPLOAD: {
+            const answer = {
+                ...emptyAnswer,
+                s3KeyValue: value,
+            };
+            return [answer];
+        }
+        case TYPES.MULTI_PHOTO: {
+            return value.map(ans => ({
+                ...emptyAnswer,
+                s3KeyValue: ans,
+            }));
+        }
+    }
 };
