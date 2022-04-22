@@ -12,12 +12,12 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
 import useEditPrelim from '../../prelims/hooks/useEditPrelim';
 
-const EditPinOptionDocumentsModal = ({ set }) => {
-    const { form, handleChange, isPosting, handleSubmit, prelimsOptions } = useEditPrelim(set);
+const EditPinOptionDocumentsModal = document => {
+    const { form, handleChange, isPosting, handleSubmit, prelimsOptions } = useEditPrelim(document);
 
     return (
         <ModalOuterContainer hideCloseButton>
-            <ModalHeading title={`Edit ${set.name}`} />
+            <ModalHeading title={`Edit ${document.name}`} />
 
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
                 <Field name="Name" required>
