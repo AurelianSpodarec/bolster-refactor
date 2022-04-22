@@ -33,7 +33,7 @@ const useEditOptionValue = option => {
 
     const prevProps = usePrevious({ postError, postSuccess });
 
-    const initialPriceBreaks = useMemo(() => {
+    const getInitialPriceBreak = () => {
         const emptyPriceBreak = { value: '', cost: '' };
 
         if (isEmpty(option.priceBreaks)) return [emptyPriceBreak];
@@ -49,7 +49,9 @@ const useEditOptionValue = option => {
         priceBreaks.push(emptyPriceBreak);
 
         return priceBreaks;
-    }, [option.priceBreaks]);
+    };
+
+    const initialPriceBreaks = getInitialPriceBreak();
 
     const [form, handleChange] = useForm({
         name: latestPinOptionVersion.name || '',
@@ -62,8 +64,8 @@ const useEditOptionValue = option => {
     const { handlePriceBreakChange, handleAddPriceBreak, handleRemovePriceBreak } =
         useUpdatePriceBreaks(form, handleChange);
 
-    const handleQuickPriceEditChange = (name, value) => {
-        handleChange(name, value);
+    const handleQuickPriceEditChange = (name, newValue) => {
+        handleChange(name, newValue);
 
         const updatedValues = form.measurementPriceBreaks.map(({ id, value, cost }) => {
             if (id) {
@@ -71,10 +73,21 @@ const useEditOptionValue = option => {
                     priceBreak => priceBreak.id === id,
                 );
 
+                const isValueSame = value + '' === initialPriceBreak.value + '';
+
+                let newCost = cost;
+
+                if (isValueSame) {
+                    const valueNum = Number(newValue);
+                    const percentageChange = (valueNum / 100) * initialPriceBreak.cost;
+
+                    newCost = initialPriceBreak.cost + percentageChange;
+                }
+
                 return {
                     id: initialPriceBreak.id,
                     value,
-                    cost: initialPriceBreak.cost,
+                    cost: newCost,
                 };
             }
 
