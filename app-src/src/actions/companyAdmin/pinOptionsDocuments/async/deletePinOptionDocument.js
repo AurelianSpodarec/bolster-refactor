@@ -26,7 +26,7 @@ export default id => dispatch => {
     dispatch(deletePinOptionDocumentRequest());
 
     return axios
-        .delete(`${API_URL}/pinoptions/document/delete${id}`, getHeaders())
+        .delete(`${API_URL}/pinoptions/document/delete/${id}`, getHeaders())
         .then(({ data }) => dispatch(deletePinOptionDocumentSuccess(data)))
         .catch(error => dispatch(deletePinOptionDocumentFailure(error)));
 };
