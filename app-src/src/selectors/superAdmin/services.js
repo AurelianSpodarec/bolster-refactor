@@ -1,5 +1,5 @@
 export const selectServicesArr = state =>
-    Object.values(state.companyAdmin.adminServicesReducer.services || {});
+    Object.values(state.superAdmin.adminServicesReducer.services || {});
 export const selectServiceIDs = state => selectServicesArr(state).map(({ id }) => id);
 
 export const selectServicesIsFetching = state => state.superAdmin.adminServicesReducer.isFetching;

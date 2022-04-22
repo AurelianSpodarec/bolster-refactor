@@ -1,11 +1,11 @@
-export const selectPinOptionTypes = state => state.companyAdmin.pinOptionTypesReducer.types;
+export const selectPinOptionTypes = state => state.superAdmin.pinOptionTypesReducer.types;
 export const selectPinOptionTypesArr = state => Object.values(selectPinOptionTypes(state));
 export const selectPinOptionType = (state, id) =>
-    state.companyAdmin.pinOptionTypesReducer.types[id] || {};
+    state.superAdmin.pinOptionTypesReducer.types[id] || {};
 export const selectPinOptionTypesIsFetching = state =>
-    state.companyAdmin.pinOptionTypesReducer.isFetching;
+    state.superAdmin.pinOptionTypesReducer.isFetching;
 export const selectPinOptionTypesFetchError = state =>
-    state.companyAdmin.pinOptionTypesReducer.fetchError;
+    state.superAdmin.pinOptionTypesReducer.fetchError;
 
 export const selectPinOptionTypesSelectedTabID = state =>
-    state.companyAdmin.pinOptionTypesReducer.selectedTabID;
+    state.superAdmin.pinOptionTypesReducer.selectedTabID;
