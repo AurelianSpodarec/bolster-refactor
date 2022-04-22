@@ -64,8 +64,8 @@ const useEditOptionValue = option => {
     const { handlePriceBreakChange, handleAddPriceBreak, handleRemovePriceBreak } =
         useUpdatePriceBreaks(form, handleChange);
 
-    const handleQuickPriceEditChange = (name, newValue) => {
-        handleChange(name, newValue);
+    const handleQuickPriceEditChange = (name, percentageValue) => {
+        handleChange(name, percentageValue);
 
         const updatedValues = form.measurementPriceBreaks.map(({ id, value, cost }) => {
             if (id) {
@@ -78,7 +78,7 @@ const useEditOptionValue = option => {
                 let newCost = cost;
 
                 if (isValueSame) {
-                    const valueNum = Number(newValue);
+                    const valueNum = Number(percentageValue);
                     const percentageChange = (valueNum / 100) * initialPriceBreak.cost;
 
                     newCost = initialPriceBreak.cost + percentageChange;
