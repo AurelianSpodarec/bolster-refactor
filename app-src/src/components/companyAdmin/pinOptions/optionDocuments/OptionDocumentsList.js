@@ -10,10 +10,10 @@ import useFetchPinOptionDocuments from './hooks/useFetchPinOptionDocuments';
 
 const OptionDocumentsList = ({ hasFetched, optionID, showDeleteModal }) => {
     const shouldRedirect = useShouldRedirectFromOptionDocuments(hasFetched);
-    const { allDocuments, documentsVersions, documentsError, isFetchingDocuments } =
-        useFetchPinOptionDocuments(optionID);
-    console.log({ allDocuments });
-    // console.log(documentsVersions);
+    const { documentsVersions } = useFetchPinOptionDocuments(optionID);
+
+    console.log(documentsVersions);
+
     if (shouldRedirect) {
         return <Redirect to="/company/pin-options" />;
     }
@@ -29,16 +29,20 @@ const OptionDocumentsList = ({ hasFetched, optionID, showDeleteModal }) => {
     );
 
     return (
-        <GridWrapper gap={15} itemsPerRow={5}>
-            {allDocuments.map(document => (
-                <DocumentPod
-                    key={document.id}
-                    name={document.name}
-                    lastUpdated={document.lastUpdated}
-                    actionMenuItems={<ActionMenuItems id={document.id} />}
-                />
-            ))}
-        </GridWrapper>
+        documentsVersions && (
+            <GridWrapper gap={15} itemsPerRow={5}>
+                {documentsVersions.map(document => (
+                    <DocumentPod
+                        key={document.id}
+                        name={document.name}
+                        lastUpdated={document.createdOn}
+                        s3Key={document.s3Key}
+                        pinOptionDocumentID={document.pinOptionDocumentID}
+                        actionMenuItems={<ActionMenuItems id={document.id} />}
+                    />
+                ))}
+            </GridWrapper>
+        )
     );
 };
 
