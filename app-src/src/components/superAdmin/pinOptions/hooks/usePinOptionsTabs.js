@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { isEmpty } from '../../../../helpers/generic';
 import Prelims from '../../../companyAdmin/pinOptions/prelims/Prelims';
+
+import setPinOptionsTypesSelectedTabID from '../../../../actions/superAdmin/pinOptions/sync/setPinOptionsTypesSelectedTabID';
+
 import {
     selectPinOptionTypesArr,
     selectPinOptionTypesSelectedTabID,
 } from '../../../../selectors/superAdmin/pinOptionTypes';
 
-import setPinOptionsTypesSelectedTabID from '../../../../actions/superAdmin/pinOptions/sync/setPinOptionsTypesSelectedTabID';
 import OptionSets from '../optionSets/OptionSets';
 
 const usePinOptionsTabs = () => {

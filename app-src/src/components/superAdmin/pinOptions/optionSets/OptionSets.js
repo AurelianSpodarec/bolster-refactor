@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import useFetchPinOptionSets from '../../hooks/useFetchPinOptionSets';
 import useFilterOptionSets from 'hooks/useFilterOptionSets';
 
+import { selectPinOptionType } from '../../../../selectors/superAdmin/pinOptionTypes';
+
 import { isEmpty } from 'helpers/generic';
 
 import FilterRow from 'components/shared/filters/FilterRow';
@@ -10,7 +12,6 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import Table from 'components/shared/generic/tables/presentational/Table';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import { selectPinOptionType } from '../../../../selectors/superAdmin/pinOptionTypes';
 import OptionSetsListItem from './OptionSetsListItem';
 
 const OptionSets = ({ selectedTypeID }) => {
