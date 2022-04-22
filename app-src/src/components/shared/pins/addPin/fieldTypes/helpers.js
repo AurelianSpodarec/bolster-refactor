@@ -1,6 +1,9 @@
 import { formatDropdownOptions } from '../../../../../helpers/general';
 import { useMemo } from 'react';
 import { QUESTION_TYPE_NUMBERS as TYPES } from '../../../../../constants/shared/templateBuilder';
+import { selectPinOptions } from '../../../../../selectors/companyAdmin/pinOptions';
+import { useSelector } from 'react-redux';
+import { selectPinOptionVersions } from '../../../../../selectors/companyAdmin/pinOptionVersions';
 
 export const useDropdownOpts = (options, optionConfigurations) => {
     const opts = useMemo(() => {
@@ -14,6 +17,34 @@ export const useDropdownOpts = (options, optionConfigurations) => {
     }, [options, optionConfigurations]);
 
     return opts;
+};
+
+export const useAddPinOptions = serviceID => {
+    const pinOptions = useSelector(selectPinOptions);
+    const pinOptionVersions = useSelector(selectPinOptionVersions);
+    return useMemo(() => {
+        const pinOptionsForService = Object.values(pinOptions).filter(
+            ({ serviceIDs }) => !serviceIDs || serviceIDs.includes(serviceID),
+        );
+        const pinOptionVersionsGroupedByOptionID = Object.values(pinOptionVersions).reduce(
+            (acc, version) => ({
+                ...acc,
+                [version.pinOptionID]: [...(acc[version.pinOptionID] || []), version],
+            }),
+            {},
+        );
+        return pinOptionsForService.map(pinOption => {
+            const versions = pinOptionVersionsGroupedByOptionID[pinOption.id] ?? [];
+            const latestVersion = versions.reduce((acc, version) =>
+                version.revisionNumber > acc.revisionNumber ? version : acc,
+            );
+            return {
+                ...pinOption,
+                latestVersion,
+                versions,
+            };
+        });
+    }, [pinOptions, pinOptionVersions, serviceID]);
 };
 
 export const useFilterPinOptions = (questionValue, options, companyID, pinOptionTypeID) => {

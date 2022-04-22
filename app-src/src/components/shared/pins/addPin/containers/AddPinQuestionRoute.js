@@ -46,7 +46,6 @@ const AddPinQuestionRoute = ({
     oldAnswersByNameObj,
     sectionIDs,
     latestPinHistory,
-    dropdownOptionsByType,
     template,
     edit,
     isHistory,
@@ -303,24 +302,21 @@ const AddPinQuestionRoute = ({
     }
 
     function handlePrefillSameTemplateQuestion() {
-        const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
         const oldAnswersKeys = Object.keys(pinAnswersByGroupKey);
 
         if (`${question.type}` === STATUS) {
             handleStatusPrefill();
         } else if (oldAnswersKeys.includes(question.groupKey)) {
-            const oldAnswer = pinAnswersByGroupKey[question.groupKey].answer;
-            const answerToPrefill = isDropdownOptions
-                ? getDropdownPrefillAnswer(oldAnswer)
-                : oldAnswer;
-            dispatch(updateAddPinAnswer(question.id, answerToPrefill));
+            const oldAnswer = pinAnswersByGroupKey[question.groupKey].answerValues;
+            console.log({ oldAnswer, oldAnswersKeys, pinAnswersByGroupKey, question });
+            dispatch(updateAddPinAnswer(question.id, oldAnswer));
         } else {
             handleResetAnswer();
         }
     }
 
     function handlePrefillDifferentTemplateQuestion() {
-        const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
+        dropdownOptionTypes.includes(`${question.type}`);
         const oldAnswersMatchingName = oldAnswersByNameObj[question.name] || [];
         const oldAnswersMatchingNameAndType = oldAnswersMatchingName.filter(
             ({ type }) => type === question.type,
@@ -341,10 +337,7 @@ const AddPinQuestionRoute = ({
 
             const matchedAnswer = oldAnswersMatchingNameAndType[thisQuestionIndex];
             if (matchedAnswer) {
-                const answerToPrefill = isDropdownOptions
-                    ? getDropdownPrefillAnswer(matchedAnswer.answer)
-                    : matchedAnswer.answer;
-                return dispatch(updateAddPinAnswer(question.id, answerToPrefill));
+                return dispatch(updateAddPinAnswer(question.id, matchedAnswer.answerValues));
             } else {
                 handleResetAnswer();
             }
@@ -363,25 +356,6 @@ const AddPinQuestionRoute = ({
             handleStatusChange(null, latestPinHistory.status);
         }
     }
-
-    function getDropdownPrefillAnswer(answer) {
-        // * handles dropdown options which have been removed
-        const { type, optionType } = question;
-
-        const relevantOptions = dropdownOptionsByType[optionType];
-        if (`${type}` === PIN_OPTION_TYPES) {
-            // handle edge case where answer is an array, set asfirst element in array
-            if (Array.isArray(answer)) [answer] = answer;
-            if (relevantOptions.includes(answer)) {
-                return answer;
-            }
-        } else if (!isEmpty(answer)) {
-            if (!Array.isArray(answer)) answer = [answer];
-            return answer.filter(option => relevantOptions.includes(option));
-        }
-        return getDefaultValue(question);
-    }
-
     function handleChange(_, value) {
         const valueToStore = getValueForQuestionAnswer(question, value);
         dispatch(updateAddPinAnswer(question.id, valueToStore));

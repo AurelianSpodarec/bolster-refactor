@@ -176,14 +176,12 @@ class AddPinFormContainer extends Component {
     };
 
     handleChange = async (name, value) => {
-        const { resetPinAnswers, updateAddPinStatus, formatDropdownOptions, setServiceID } =
-            this.props;
+        const { resetPinAnswers, updateAddPinStatus, setServiceID } = this.props;
         resetPinAnswers();
         updateAddPinStatus('');
 
         if (name === 'serviceID') {
             setServiceID(value);
-            formatDropdownOptions(value);
         }
 
         this.setState({ [name]: value });
