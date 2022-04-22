@@ -30,11 +30,11 @@ const PinOptions = () => {
                 isFetching={isFetchingServices || isFetchingPinOptionTypes}
                 error={servicesError || pinOptionTypesFetchError}
             >
-                {/*<BlockTabs*/}
-                {/*tabs={tabs}*/}
-                {/*selectedTabID={selectedTabID}*/}
-                {/*setSelectedTabID={setSelectedTabID}*/}
-                {/*/>*/}
+                <BlockTabs
+                    tabs={tabs}
+                    selectedTabID={selectedTabID}
+                    setSelectedTabID={setSelectedTabID}
+                />
 
                 {/*{SpecificComponent && <SpecificComponent selectedTypeID={selectedTabID} />}*/}
             </BlockContainer>

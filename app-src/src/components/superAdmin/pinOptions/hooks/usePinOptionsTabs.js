@@ -19,7 +19,7 @@ const usePinOptionsTabs = () => {
         const tabsList = [];
 
         pinOptionTypesArr.forEach(({ id, namePlural }) =>
-            tabsList.push({ id, name: namePlural, component: OptionSets }),
+            tabsList.push({ id, name: namePlural, component: {} }),
         );
 
         if (!isEmpty(pinOptionTypesArr)) {
@@ -28,7 +28,7 @@ const usePinOptionsTabs = () => {
 
         return tabsList;
     }, [pinOptionTypesArr]);
-
+    console.log(pinOptionTypesArr);
     const optionTypesSelectedTabID = useSelector(selectPinOptionTypesSelectedTabID);
 
     const { selectedTabID, setSelectedTabID, SpecificComponent } = useBlockTabs(
