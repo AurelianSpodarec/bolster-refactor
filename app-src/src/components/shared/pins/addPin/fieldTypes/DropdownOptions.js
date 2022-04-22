@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import Select from 'components/shared/generic/form/presentational/Select';
-import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
 import { getSortedDropdownOptions } from 'helpers/addPin';
 import { useFilterPinOptions } from './helpers';
 
@@ -46,7 +45,7 @@ const DropdownOptions = ({
             createdOn: option.createdOn,
         }));
         // todo tidy
-        originalPinOptionAns?.forEach(ans => {
+        Object.values(originalPinOptionAns ?? {}).forEach(ans => {
             if (!curOptions.includes(ans.pinOptionVersionID)) {
                 let version;
                 const optionWithVersion = pinOptions.find(opt => {

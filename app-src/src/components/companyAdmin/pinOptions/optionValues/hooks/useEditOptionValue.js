@@ -79,9 +79,13 @@ const useEditOptionValue = option => {
 
                 if (isValueSame) {
                     const valueNum = Number(percentageValue);
-                    const percentageChange = (valueNum / 100) * initialPriceBreak.cost;
 
-                    newCost = initialPriceBreak.cost + percentageChange;
+                    if (valueNum <= -100) {
+                        newCost = '0';
+                    } else {
+                        const percentageChange = (valueNum / 100) * initialPriceBreak.cost;
+                        newCost = initialPriceBreak.cost + percentageChange;
+                    }
                 }
 
                 return {

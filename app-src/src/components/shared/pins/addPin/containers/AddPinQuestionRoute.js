@@ -140,14 +140,14 @@ const AddPinQuestionRoute = ({
                     templateQuestionID === question.id && pinHistoryID === Number(historyID),
             );
             if (oldAnswer) {
-                const { templateQuestionID, answer } = oldAnswer;
-                dispatch(updateAddPinAnswer(templateQuestionID, answer));
+                const { templateQuestionID, answerValues } = oldAnswer;
+                dispatch(updateAddPinAnswer(templateQuestionID, answerValues));
                 if (
                     question.type + '' === PIN_OPTION_TYPES ||
                     question.type + '' === MULTI_PIN_OPTION_TYPES ||
                     question.type + '' === MULTI_MULTI_PIN_OPTION_TYPES
                 ) {
-                    setOriginalPinOptionAnswers(answer);
+                    setOriginalPinOptionAnswers(answerValues);
                 }
             }
             if (String(question.type) === STATUS) {
@@ -155,8 +155,7 @@ const AddPinQuestionRoute = ({
             }
         } else {
             const hasTemplateAppeared = !prevProps.template && !!template;
-            const hasTemplateChanged =
-                !!prevProps.template && prevProps.template.id !== template.id;
+            const hasTemplateChanged = prevProps.template?.id !== template?.id;
             const shouldReset = hasTemplateAppeared || hasTemplateChanged || isDoneFetchingPins;
 
             if (shouldReset) {
