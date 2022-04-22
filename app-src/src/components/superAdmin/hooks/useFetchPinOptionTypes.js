@@ -1,6 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import fetchPinOptionTypes from '../../../actions/superAdmin/pinOptions/async/fetchPinOptionTypes';
+import {
+    selectPinOptionTypes,
+    selectPinOptionTypesArr,
+    selectPinOptionTypesFetchError,
+    selectPinOptionTypesIsFetching,
+} from '../../../selectors/superAdmin/pinOptionTypes';
 
 const useFetchPinOptionTypes = () => {
     const dispatch = useDispatch();
