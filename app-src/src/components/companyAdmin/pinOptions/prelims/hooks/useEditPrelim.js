@@ -13,7 +13,7 @@ import {
     selectPrelimPostSuccess,
 } from 'selectors/companyAdmin/prelims';
 
-const useEditPrelim = set => {
+const useEditPrelim = document => {
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPrelimIsPosting);
     const postError = useSelector(selectPrelimPostError);
@@ -22,13 +22,13 @@ const useEditPrelim = set => {
     const prelimsOptions = convertEnumToDropdownOptions(PRELIMS_ENUM);
 
     const [form, handleChange] = useForm({
-        name: set?.name,
-        type: set?.type,
-        value: set?.value,
+        name: document?.name,
+        type: document?.type,
+        value: document?.value,
     });
 
     const handleSubmit = () => {
-        dispatch(editPrelim(set.id, form));
+        dispatch(editPrelim(document.id, form));
     };
 
     useEffect(() => {

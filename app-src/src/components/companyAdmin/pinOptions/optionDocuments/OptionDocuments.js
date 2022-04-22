@@ -33,7 +33,10 @@ const OptionDocuments = () => {
             ? latestPinOptionVersion.name
             : 'Loading...';
 
-    const { showAddModal, showEditModal, showDeleteModal } = useDocumentsSetActions(optionID);
+    const { showAddModal, showEditModal, showDeleteModal, showViewModal } = useDocumentsSetActions(
+        optionID,
+        document,
+    );
 
     return (
         <>
@@ -58,6 +61,8 @@ const OptionDocuments = () => {
                     optionID={optionID}
                     hasFetched={hasFetched}
                     showDeleteModal={showDeleteModal}
+                    showEditModal={showEditModal}
+                    showViewModal={showViewModal}
                 />
             </BlockContainer>
         </>

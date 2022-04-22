@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     CONFIRM_SUBMIT,
     CREATE_PIN_OPTION_DOCUMENTS_MODAL,
+    DOCUMENT_VIEW,
     EDIT_PIN_OPTION_DOCUMENTS_MODAL,
     ERROR_MODAL,
 } from 'constants/shared/modalTypes';
@@ -16,28 +17,38 @@ import {
     selectPinOptionDocumentsPostSuccess,
 } from 'selectors/companyAdmin/pinOptionsDocuments';
 import deletePinOptionDocument from 'actions/companyAdmin/pinOptionsDocuments/async/deletePinOptionDocument';
+import { RAW_S3_STORAGE_URL } from 'config';
 
-const useDocumentsSetActions = optionID => {
+const useDocumentsSetActions = (optionID, id) => {
     const dispatch = useDispatch();
     const postError = useSelector(selectPinOptionDocumentsPostError);
     const postSuccess = useSelector(selectPinOptionDocumentsPostSuccess);
     const prevProps = usePrevious({ postError, postSuccess });
 
-    const showAddModal = optionID => {
+    const showAddModal = id => {
         dispatch(showModal(CREATE_PIN_OPTION_DOCUMENTS_MODAL, { optionID }));
     };
 
-    const showEditModal = set => {
+    const showEditModal = () => {
         dispatch(showModal(EDIT_PIN_OPTION_DOCUMENTS_MODAL, { optionID }));
     };
-    const showDeleteModal = set => {
+
+    const showDeleteModal = () => {
         dispatch(
             showModal(CONFIRM_SUBMIT, {
-                handleSubmit: () => dispatch(deletePinOptionDocument(optionID)),
-                title: `Delete ${set.name}?`,
+                handleSubmit: () => dispatch(deletePinOptionDocument(id)),
+                title: `Delete ?`,
                 message: 'Are you sure you would like to delete this document?',
                 submitButtonText: 'Delete',
                 submitButtonIcon: 'trash-alt',
+            }),
+        );
+    };
+
+    const showViewModal = s3Key => {
+        dispatch(
+            showModal(DOCUMENT_VIEW, {
+                image: `${RAW_S3_STORAGE_URL}/${s3Key}`,
             }),
         );
     };
@@ -50,7 +61,7 @@ const useDocumentsSetActions = optionID => {
         if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
     }, [postSuccess, prevProps.postSuccess]);
 
-    return { showAddModal, showEditModal, showDeleteModal };
+    return { showAddModal, showEditModal, showDeleteModal, showViewModal };
 };
 
 export default useDocumentsSetActions;

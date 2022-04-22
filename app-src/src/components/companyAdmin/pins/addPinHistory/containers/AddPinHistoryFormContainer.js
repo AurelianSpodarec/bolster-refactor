@@ -52,8 +52,7 @@ class AddPinHistoryFormContainer extends Component {
             isHistory,
             versions,
             latestPinHistory = {},
-            dropdownOptionsByType,
-            isReady,
+            pinOptions,
         } = this.props;
 
         const latestVersion =
@@ -77,12 +76,9 @@ class AddPinHistoryFormContainer extends Component {
                     />
                 </PageHeading>
                 <BlockContainer
-                    isEmpty={
-                        !templates.length || !isReady
-                        // || isEmpty(pinAnswers)
-                    }
+                    isEmpty={!templates.length}
                     noDataMessage="There is no data."
-                    isFetching={isFetching || !isReady}
+                    isFetching={isFetching}
                     error={error}
                 >
                     <AddPinForm
@@ -98,9 +94,9 @@ class AddPinHistoryFormContainer extends Component {
                         isHistory={isHistory}
                         isSameTemplate={isSameTemplate}
                         pinAnswersByGroupKey={pinAnswersByGroupKey}
-                        dropdownOptionsByType={dropdownOptionsByType}
                         oldAnswersByNameObj={this.getOldAnswersByNameObj()}
                         latestPinHistory={latestPinHistory}
+                        pinOptions={pinOptions}
                     />
                 </BlockContainer>
             </>
@@ -277,7 +273,7 @@ class AddPinHistoryFormContainer extends Component {
 
         const formattedAnswers = Object.keys(answers).map(key => ({
             templateQuestionID: key,
-            answer: answers[key],
+            answerValues: answers[key],
         }));
 
         const postBody = {
