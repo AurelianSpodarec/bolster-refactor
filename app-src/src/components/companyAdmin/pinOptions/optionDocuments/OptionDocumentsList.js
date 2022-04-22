@@ -8,22 +8,23 @@ import DocumentPod from 'components/shared/documentPods/DocumentPod';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import useFetchPinOptionDocuments from './hooks/useFetchPinOptionDocuments';
 
-const OptionDocumentsList = ({ hasFetched, optionID, showDeleteModal }) => {
+const OptionDocumentsList = ({
+    hasFetched,
+    optionID,
+    showDeleteModal,
+    showEditModal,
+    showViewModal,
+}) => {
     const shouldRedirect = useShouldRedirectFromOptionDocuments(hasFetched);
     const { documentsVersions } = useFetchPinOptionDocuments(optionID);
-
-    console.log(documentsVersions);
 
     if (shouldRedirect) {
         return <Redirect to="/company/pin-options" />;
     }
 
-    const ActionMenuItems = ({ id }) => (
+    const ActionMenuItems = ({ id }, document) => (
         <>
-            <ActionMenuActionButton
-                text="Edit Name"
-                onClick={() => console.log(`Edit document ID ${id}`)}
-            />
+            <ActionMenuActionButton text="Edit Name" onClick={() => showEditModal(document)} />
             <ActionMenuActionButton text="Delete" onClick={() => showDeleteModal(id)} isNegative />
         </>
     );
@@ -38,7 +39,8 @@ const OptionDocumentsList = ({ hasFetched, optionID, showDeleteModal }) => {
                         lastUpdated={document.createdOn}
                         s3Key={document.s3Key}
                         pinOptionDocumentID={document.pinOptionDocumentID}
-                        actionMenuItems={<ActionMenuItems id={document.id} />}
+                        actionMenuItems={<ActionMenuItems id={document.id} document={document} />}
+                        showViewModal={() => showViewModal(document.s3Key)}
                     />
                 ))}
             </GridWrapper>
