@@ -44,7 +44,7 @@ const MultiMultiDropdownOptions = ({
             createdOn: option.createdOn,
         }));
         // todo tidy
-        originalPinOptionAns?.forEach(ans => {
+        Object.values(originalPinOptionAns ?? {}).forEach(ans => {
             if (!curOptions.includes(ans.pinOptionVersionID)) {
                 let version;
                 const optionWithVersion = pinOptions.find(opt => {

@@ -44,6 +44,7 @@ import timesheetsReducer from './timesheets';
 import faqsReducer from './faqs';
 import drawingsLogsReducer from './drawingUploadLogs';
 import pinOptionTypesReducer from './pinOptionTypes';
+import pinOptionSetsReducer from './pinOptionSets';
 
 export default combineReducers({
     activityLogReducer,
@@ -59,6 +60,7 @@ export default combineReducers({
     drawingsLogsReducer,
     pinsReducer,
     pinOptionTypesReducer,
+    pinOptionSetsReducer,
     contactSubmissionsReducer,
     floorsReducer,
     invoicePaymentsReducer,

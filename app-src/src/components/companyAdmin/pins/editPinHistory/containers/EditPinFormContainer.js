@@ -30,6 +30,7 @@ class EditPinFormContainer extends Component {
             filesUploading,
             confirmLeave,
             selectedHistory,
+            pinOptions,
         } = this.props;
 
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
@@ -52,6 +53,7 @@ class EditPinFormContainer extends Component {
                         filesUploading={filesUploading}
                         confirmLeave={confirmLeave}
                         selectedHistory={selectedHistory}
+                        pinOptions={pinOptions}
                     />
                 </BlockContainer>
             </>
