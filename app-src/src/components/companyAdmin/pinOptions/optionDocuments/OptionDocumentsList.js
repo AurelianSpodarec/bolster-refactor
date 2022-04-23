@@ -16,31 +16,38 @@ const OptionDocumentsList = ({
     showViewModal,
 }) => {
     const shouldRedirect = useShouldRedirectFromOptionDocuments(hasFetched);
-    const { documentsVersions } = useFetchPinOptionDocuments(optionID);
+    const { documentsVersions, documents } = useFetchPinOptionDocuments(optionID);
 
     if (shouldRedirect) {
         return <Redirect to="/company/pin-options" />;
     }
 
-    const ActionMenuItems = ({ id }, document) => (
+    const ActionMenuItems = documentsVersion => (
         <>
-            <ActionMenuActionButton text="Edit Name" onClick={() => showEditModal(document)} />
-            <ActionMenuActionButton text="Delete" onClick={() => showDeleteModal(id)} isNegative />
+            <ActionMenuActionButton
+                text="Edit Name"
+                onClick={() => showEditModal(documentsVersion)}
+            />
+            <ActionMenuActionButton
+                text="Delete"
+                onClick={() => showDeleteModal(documentsVersion)}
+                isNegative
+            />
         </>
     );
 
     return (
-        documentsVersions && (
+        documents && (
             <GridWrapper gap={15} itemsPerRow={5}>
-                {documentsVersions.map(document => (
+                {documentsVersions.map(documentsVersion => (
                     <DocumentPod
-                        key={document.id}
-                        name={document.name}
-                        lastUpdated={document.createdOn}
-                        s3Key={document.s3Key}
-                        pinOptionDocumentID={document.pinOptionDocumentID}
-                        actionMenuItems={<ActionMenuItems id={document.id} document={document} />}
-                        showViewModal={() => showViewModal(document.s3Key)}
+                        key={documentsVersion.id}
+                        name={documentsVersion.name}
+                        lastUpdated={documentsVersion.createdOn}
+                        s3Key={documentsVersion.s3Key}
+                        pinOptionDocumentID={documentsVersion.pinOptionDocumentID}
+                        actionMenuItems={<ActionMenuItems documentsVersion={documentsVersion} />}
+                        showViewModal={() => showViewModal(documentsVersion.s3Key)}
                     />
                 ))}
             </GridWrapper>
