@@ -33,10 +33,8 @@ const OptionDocuments = () => {
             ? latestPinOptionVersion.name
             : 'Loading...';
 
-    const { showAddModal, showEditModal, showDeleteModal, showViewModal } = useDocumentsSetActions(
-        optionID,
-        document,
-    );
+    const { showAddModal, showEditModal, showDeleteModal, showViewModal } =
+        useDocumentsSetActions(optionID);
 
     return (
         <>

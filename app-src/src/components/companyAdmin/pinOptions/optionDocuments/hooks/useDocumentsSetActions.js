@@ -19,25 +19,26 @@ import {
 import deletePinOptionDocument from 'actions/companyAdmin/pinOptionsDocuments/async/deletePinOptionDocument';
 import { RAW_S3_STORAGE_URL } from 'config';
 
-const useDocumentsSetActions = (optionID, id) => {
+const useDocumentsSetActions = optionID => {
     const dispatch = useDispatch();
     const postError = useSelector(selectPinOptionDocumentsPostError);
     const postSuccess = useSelector(selectPinOptionDocumentsPostSuccess);
     const prevProps = usePrevious({ postError, postSuccess });
 
-    const showAddModal = id => {
+    const showAddModal = () => {
         dispatch(showModal(CREATE_PIN_OPTION_DOCUMENTS_MODAL, { optionID }));
     };
 
-    const showEditModal = () => {
-        dispatch(showModal(EDIT_PIN_OPTION_DOCUMENTS_MODAL, { optionID }));
+    const showEditModal = ({ documentsVersion }) => {
+        dispatch(showModal(EDIT_PIN_OPTION_DOCUMENTS_MODAL, { documentsVersion }));
     };
 
-    const showDeleteModal = () => {
+    const showDeleteModal = ({ documentsVersion }) => {
         dispatch(
             showModal(CONFIRM_SUBMIT, {
-                handleSubmit: () => dispatch(deletePinOptionDocument(id)),
-                title: `Delete ?`,
+                handleSubmit: () =>
+                    dispatch(deletePinOptionDocument(documentsVersion.pinOptionDocumentID)),
+                title: `Delete ${documentsVersion.name}?`,
                 message: 'Are you sure you would like to delete this document?',
                 submitButtonText: 'Delete',
                 submitButtonIcon: 'trash-alt',
