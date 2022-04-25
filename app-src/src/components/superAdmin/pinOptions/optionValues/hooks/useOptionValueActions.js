@@ -1,12 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-    CONFIRM_SUBMIT,
-    CREATE_PIN_OPTIONS_VALUE_MODAL,
-    EDIT_PIN_OPTIONS_VALUE_MODAL,
-    ERROR_MODAL,
-} from 'constants/shared/modalTypes';
+import { CONFIRM_SUBMIT, ERROR_MODAL } from 'constants/shared/modalTypes';
 import { usePrevious } from 'helpers/hooks';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
@@ -15,6 +10,9 @@ import {
     selectPinOptionsIsPosting,
     selectPinOptionsPostError,
 } from '../../../../../selectors/superAdmin/pinOptions';
+
+import enablePinOptionValue from '../../../../../actions/superAdmin/pinOptions/async/enablePinOptionValue';
+import disablePinOptionValue from '../../../../../actions/superAdmin/pinOptions/async/disablePinOptionValue';
 
 const useOptionValueActions = (typeID, setID) => {
     const dispatch = useDispatch();
@@ -49,11 +47,11 @@ const useOptionValueActions = (typeID, setID) => {
     };
 
     const enableOptionValue = option => {
-        // if (!isPosting) dispatch(enablePinOptionValue(option));
+        if (!isPosting) dispatch(enablePinOptionValue(option));
     };
 
     const disableOptionValue = option => {
-        // if (!isPosting) dispatch(disablePinOptionValue(option));
+        if (!isPosting) dispatch(disablePinOptionValue(option));
     };
 
     useEffect(() => {
