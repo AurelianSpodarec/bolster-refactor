@@ -89,7 +89,7 @@ const AddPinQuestionRoute = ({
     useEffect(() => {
         const hasStatusChanged = prevProps.status !== status;
         if (`${question.type}` !== STATUS && hasStatusChanged) {
-            // * handle isrequiredbasedonstatus
+            // * handle isRequiredBasedOnStatus
             const isRequiredButEmpty = _getIsRequired() && isEmpty(answer);
 
             if (isRequiredButEmpty && showPreReq) {
@@ -97,7 +97,7 @@ const AddPinQuestionRoute = ({
             } else {
                 dispatch(removeFieldError(answerName));
             }
-            // * handle prefillfromstatus
+            // * handle prefillFromStatus
 
             if (question.statusPrefills[status]) {
                 if (question.type === QUESTION_TYPE_NUMBERS.CHECKBOX) {

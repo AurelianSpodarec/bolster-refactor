@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 
 import fetchPinOptionsDocuments from 'actions/companyAdmin/pinOptionsDocuments/async/fetchPinOptionsDocuments';
 
@@ -20,9 +21,14 @@ const useFetchPinOptionDocuments = optionID => {
     const documents = allDocuments.filter(
         document => document.pinOptionID === parseInt(optionID) && document.isDeleted === false,
     );
-    const documentsVersions = allDocumentsVersions.filter(docVersion =>
-        documents?.map(({ id }) => id).includes(docVersion.pinOptionDocumentID),
+    const filteredDocumentsVersions = allDocumentsVersions.filter(docVersion =>
+        documents
+            ?.sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
+            .map(({ id }) => id)
+            .includes(docVersion.pinOptionDocumentID),
     );
+
+    const documentsVersions = filteredDocumentsVersions;
 
     useEffect(() => {
         dispatch(fetchPinOptionsDocuments());
@@ -31,6 +37,7 @@ const useFetchPinOptionDocuments = optionID => {
 
     return {
         documentsVersions,
+        documents,
         documentsError,
         isFetchingDocuments,
     };

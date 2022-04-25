@@ -3,15 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useForm } from 'helpers/hooks';
 import { selectPinOptionDocumentsIsPosting } from 'selectors/companyAdmin/pinOptionsDocuments';
-import createPinOptionDocument from 'actions/companyAdmin/pinOptionsDocuments/async/createPinOptionDocument';
+import editPinOptionDocument from 'actions/companyAdmin/pinOptionsDocuments/async/editPinOptionDocument';
 
-const useEditPinOptionDocument = () => {
+const useEditPinOptionDocument = documentsVersion => {
+    console.log(documentsVersion);
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPinOptionDocumentsIsPosting);
 
     const [form, handleChange] = useForm({
-        name: '',
-        documentS3Key: null,
+        name: documentsVersion.name,
+        documentS3Key: documentsVersion.documentS3Key,
     });
 
     const handleSubmit = () => {
@@ -19,7 +20,7 @@ const useEditPinOptionDocument = () => {
             ...form,
         };
 
-        dispatch(createPinOptionDocument(postBody));
+        dispatch(editPinOptionDocument(documentsVersion.id, postBody));
     };
 
     return { form, handleChange, handleSubmit, isPosting };

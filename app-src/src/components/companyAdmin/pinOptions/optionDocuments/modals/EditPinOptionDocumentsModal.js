@@ -10,45 +10,39 @@ import DropdownContainer from 'components/shared/generic/form/containers/Dropdow
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
-import useEditPrelim from '../../prelims/hooks/useEditPrelim';
+import useEditPinOptionDocument from '../hooks/useEditPinOptionDocument';
+import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import { useDispatch } from 'react-redux';
 
-const EditPinOptionDocumentsModal = document => {
-    const { form, handleChange, isPosting, handleSubmit, prelimsOptions } = useEditPrelim(document);
+const EditPinOptionDocumentsModal = ({ documentsVersion }) => {
+    console.log(documentsVersion);
+    const dispatch = useDispatch();
+    const { form, handleChange, isPosting, handleSubmit } =
+        useEditPinOptionDocument(documentsVersion);
 
     return (
         <ModalOuterContainer hideCloseButton>
-            <ModalHeading title={`Edit ${document.name}`} />
+            <ModalHeading title="" />
 
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
-                <Field name="Name" required>
+                <Field name="Upload Files" required>
+                    <FileUploadContainer
+                        value={form.documentS3Key}
+                        name="documentS3Key"
+                        acceptedTypes={['image/jpg', 'image/png', 'image/jpeg']}
+                        handleChange={handleChange}
+                        maxFiles={1}
+                        required
+                    />
+                </Field>
+
+                <Field name="Product Name" required>
                     <TextInputContainer
                         name="name"
                         value={form.name}
                         handleChange={handleChange}
-                        placeholder="Type name"
-                        required
-                    />
-                </Field>
-
-                <Field name="Type" required>
-                    <DropdownContainer
-                        placeholder="Choose prelim type"
-                        name="type"
-                        options={Object.values(prelimsOptions)}
-                        value={prelimsOptions[form.type]}
-                        selectedOption={prelimsOptions[form.type]}
-                        handleChange={handleChange}
-                        required
-                    />
-                </Field>
-
-                <Field name="Amount" required>
-                    <TextInputContainer
-                        name="value"
-                        value={form.value}
-                        handleChange={handleChange}
-                        placeholder="Type amount"
-                        type="number"
+                        placeholder="Enter Text Here..."
                         required
                     />
                 </Field>
@@ -56,7 +50,13 @@ const EditPinOptionDocumentsModal = document => {
                 <BlockButtonWrapper>
                     <ButtonWrapper alignment="right">
                         <ActionButton
-                            text="Save"
+                            text="Cancel"
+                            onClick={() => dispatch(hideModal())}
+                            source="secondary"
+                            size="medium"
+                        />
+                        <ActionButton
+                            text="Confirm"
                             icon={isPosting ? 'spinner' : 'save'}
                             iconSpin={isPosting}
                             ambient="positive"
