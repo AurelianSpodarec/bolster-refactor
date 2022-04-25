@@ -5,7 +5,7 @@ import BlockContainer from '../../shared/generic/block/containers/BlockContainer
 
 const CostingAndEstimatingPods = () => {
     return (
-        <FlexWrapper>
+        <div className="pods">
             <BlockContainer contentClass="background-gradient">
                 <h3 className="heading heading-3">Highest Earning employee</h3>
             </BlockContainer>
@@ -18,7 +18,7 @@ const CostingAndEstimatingPods = () => {
             <BlockContainer contentClass="background-gradient">
                 <h3 className="heading heading-3">Most Used Installation Type</h3>
             </BlockContainer>
-        </FlexWrapper>
+        </div>
     );
 };
 

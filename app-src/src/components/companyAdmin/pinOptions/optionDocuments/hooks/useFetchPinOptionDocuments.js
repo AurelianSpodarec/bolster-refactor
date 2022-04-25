@@ -12,7 +12,7 @@ import {
 import { selectPinOptionDocumentsVersionsArr } from 'selectors/companyAdmin/pinOptionsDocumentsVersions';
 import fetchPinOptionsDocumentsVersions from 'actions/companyAdmin/pinOptionsDocuments/async/fetchPinOptionsDocumentsVersions';
 
-const useFetchPinOptionDocuments = optionID => {
+const useFetchPinOptionDocuments = () => {
     const dispatch = useDispatch();
     const allDocuments = useSelector(selectPinOptionDocumentsArr);
     const isFetchingDocuments = useSelector(selectPinOptionDocumentsIsFetching);
