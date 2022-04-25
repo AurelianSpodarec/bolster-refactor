@@ -47,14 +47,12 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
     }, [types, sets, isFetching]);
 
     const handleSubmit = () => {
-        console.log('hello');
         const pinOptionSets = Object.entries(selectedPinOptionSets)
             .filter(([, value]) => value.length > 0)
             .map(([key, value]) => ({ pinOptionTypeID: key, pinOptionSetIDs: value }));
         const postBody = { pinOptionSets };
         dispatch(editSitePinOptionSets(site.id, postBody));
         dispatch(hideModal());
-        console.log('goodbye');
     };
 
     const handlePinOptionTypeChange = (type, value) => {
