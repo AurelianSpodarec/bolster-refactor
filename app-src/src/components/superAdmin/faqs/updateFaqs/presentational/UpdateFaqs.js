@@ -14,14 +14,15 @@ const buttonOptions = [['formatBlock'], ['bold', 'italic', 'underline'], ['list'
 const UpdateFaqs = ({
     handleSave,
     handleFormChange,
-    form: { title, content, imageS3Key, videoLink },
+    form: { title, content, imageS3Key, videoLink, pdfS3Key, videoThumbnail },
     isFetching,
     faqSingle,
+    error,
 }) => {
     return (
         <>
             <PageHeading title={title} withBackButton />
-            <BlockContainer isFetching={isFetching} isEmpty={isObjEmpty(faqSingle)}>
+            <BlockContainer isFetching={isFetching} isEmpty={isObjEmpty(faqSingle)} error={error}>
                 <Field name="FAQ Title" required>
                     <TextInputContainer
                         name="title"
@@ -50,11 +51,30 @@ const UpdateFaqs = ({
                         placeholder="Paste Youtube or Vimeo link"
                     />
                 </Field>
+
+                <Field name="Upload video thumbnail" sizeClasses="size-lg-6">
+                    <FileUploadContainer
+                        value={videoThumbnail}
+                        name="videoThumbnail"
+                        acceptedTypes={['image/jpg', 'image/png', 'image/jpeg']}
+                        handleChange={handleFormChange}
+                    />
+                </Field>
+
                 <Field name="Upload image" sizeClasses="size-lg-6">
                     <FileUploadContainer
                         value={imageS3Key}
                         name="imageS3Key"
                         acceptedTypes={['image/jpg', 'image/png', 'image/jpeg']}
+                        handleChange={handleFormChange}
+                    />
+                </Field>
+
+                <Field name="Upload PDF" sizeClasses="size-lg-6">
+                    <FileUploadContainer
+                        value={pdfS3Key}
+                        name="pdfS3Key"
+                        acceptedTypes={['application/pdf']}
                         handleChange={handleFormChange}
                     />
                 </Field>

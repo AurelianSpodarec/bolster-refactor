@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -20,12 +20,14 @@ const MessageCentreTabs = ({ selectedTab }) => {
     const companyAlertsCount = useSelector(selectCompanyAlertsCount);
     const drawingExpiryMessagesCount = useSelector(selectDrawingExpiryMessagesCount);
 
-    const tabs = [
-        { name: 'System Messages', value: 0, unreadCount: systemMessagesCount },
-        { name: 'Company Alerts', value: 1, unreadCount: companyAlertsCount },
-        { name: 'Operative Alerts', value: 2, unreadCount: 0 },
-        { name: 'Drawing Expiry', value: 3, unreadCount: drawingExpiryMessagesCount },
-    ];
+    const tabs = useMemo(() => {
+        return [
+            { name: 'System Messages', value: 0, unreadCount: systemMessagesCount },
+            { name: 'Company Alerts', value: 1, unreadCount: companyAlertsCount },
+            { name: 'Operative Alerts', value: 2, unreadCount: 0 },
+            { name: 'Drawing Expiry', value: 3, unreadCount: drawingExpiryMessagesCount },
+        ];
+    }, [systemMessagesCount, companyAlertsCount, drawingExpiryMessagesCount]);
 
     return (
         <div className="tab-wrapper size-lg-12">

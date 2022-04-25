@@ -37,15 +37,15 @@ function errorReducer(state = null, action) {
     }
 }
 
-function pagesReducer(state = { page: 1, pageSize: 50, totalPages: null }, action) {
+function pagesReducer(state = { page: 1, pageSize: 50, totalCount: null }, action) {
     switch (action.type) {
         case FETCH_ALL_DRAWINGS_UPLOAD_LOGS_SUCCESS:
             return updateMultipleKeys(
                 state,
 
-                ['page', 'pageSize', 'totalPages'],
+                ['page', 'pageSize', 'totalCount'],
 
-                [action.payload.page, action.payload.pageSize, action.payload.totalPages],
+                [action.payload.page, action.payload.pageSize, action.payload.totalCount],
             );
 
         default:
