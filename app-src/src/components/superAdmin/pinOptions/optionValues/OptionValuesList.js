@@ -38,7 +38,7 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
         pinOptionsForSet,
         isSorting,
     );
-    console.log(filteredOptionValues.filter(({ companyID }) => !!companyID));
+
     const { showAddModal, showEditModal, showDeleteModal, enableOptionValue, disableOptionValue } =
         useOptionValueActions(typeID, setID);
 
