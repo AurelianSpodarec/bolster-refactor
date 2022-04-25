@@ -3,7 +3,6 @@ import useBlockTabs from '../../../shared/tabs/hooks/useBlockTabs';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { isEmpty } from '../../../../helpers/generic';
-import Prelims from '../../../companyAdmin/pinOptions/prelims/Prelims';
 
 import setPinOptionsTypesSelectedTabID from '../../../../actions/superAdmin/pinOptions/sync/setPinOptionsTypesSelectedTabID';
 
@@ -26,7 +25,7 @@ const usePinOptionsTabs = () => {
         );
 
         if (!isEmpty(pinOptionTypesArr)) {
-            tabsList.push({ id: 'prelims', name: 'Prelims', component: Prelims });
+            tabsList.push({ id: 'prelims', name: 'Prelims', component: null });
         }
 
         return tabsList;
