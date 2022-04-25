@@ -2,7 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { selectPinOptionSets } from 'selectors/companyAdmin/pinOptionSets';
+import { isEmpty } from 'helpers/generic';
+
+import { selectPinOptionSet } from 'selectors/companyAdmin/pinOptionSets';
 
 import useFetchBatchForOptionValues from './hooks/useFetchBatchForOptionValues';
 
@@ -12,12 +14,10 @@ import FlexHeading from 'components/shared/generic/pageHeading/presentational/Fl
 
 const OptionValues = () => {
     const { isAnyEmpty, isAnyFetching, isAnyErrored, hasFetched } = useFetchBatchForOptionValues();
-    const pinOptionSets = useSelector(selectPinOptionSets);
     const { setID } = useParams();
+    const parentSet = useSelector(state => selectPinOptionSet(state, setID));
 
-    const specificSet = pinOptionSets[setID];
-
-    const name = specificSet ? specificSet.name : 'Loading...';
+    const name = !isEmpty(parentSet) ? parentSet.name : 'Loading...';
 
     return (
         <>
