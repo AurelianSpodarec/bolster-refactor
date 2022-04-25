@@ -1,61 +1,51 @@
 import React, { useState } from 'react';
-import NumberInputContainer from '../../../generic/form/containers/NumberInputContainer';
 import Field from '../../../generic/form/presentational/Field';
 import { MEASUREMENT_TYPES } from '../../../../../constants/companyAdmin/enums';
+import CostingMeasurementInput from './CostingMeasurementInput';
 const { LINEAR, CUBIC, DIAMETER, FIXED, NUMBER, SQUARE, VOLUME } = MEASUREMENT_TYPES;
 
-const CostingMeasurement = ({ measurement = {}, option, count = 1, uid, handleChange }) => {
+const CostingMeasurement = ({
+    measurement = {},
+    option,
+    uid,
+    handleChange,
+    count = 1,
+    showCount = false,
+}) => {
     // if (!option || !option.costMeasurementType) return null;
-    // todo useSelector for default unit type
-    const defaultUnit = null;
+    // todo  default unit type for measurement
+    const defaultUnit = 'mm'; // should be enum
     const [unit, setUnit] = useState(defaultUnit);
-    // todo unit selector
-    const name = `${option.latestVersion.name} ${count > 1 ? count : ''}`;
-    switch (option.costMeasurementType) {
-        case LINEAR:
-        case DIAMETER:
-        default:
-            // todo 1 measurement
-            return (
-                <Field name={name}>
-                    <NumberInputContainer
-                        name="length"
-                        value={measurement.length}
-                        handleChange={(name, value) => handleChange(uid, name, value)}
-                    />
-                </Field>
-            );
-        case NUMBER:
-            // todo
-            break;
-        case SQUARE:
-            // todo 2 measurements
-
-            break;
-        case VOLUME:
-        case CUBIC:
-            // todo 3 measurements
-            break;
-        case FIXED:
-            // todo
-            break;
-        // todo uncomment
-        // default:
-        //     return null;
-    }
+    const name = `${option.latestVersion.name} ${showCount ? `(${count})` : ''}`;
+    const { fieldNames } = measurementInfo[option.costMeasurementType] ?? {};
+    if (!fieldNames || !fieldNames.length) return null;
     return (
+        // todo styling
         <Field name={name}>
-            <NumberInputContainer value={measurement.value} />
+            {fieldNames.map(fieldName => {
+                return (
+                    <CostingMeasurementInput
+                        key={fieldName}
+                        name={fieldName}
+                        handleChange={(name, value) => handleChange(uid, name, value)}
+                        uid={uid}
+                        unit={unit}
+                        value={measurement[fieldName]}
+                    />
+                );
+            })}
         </Field>
     );
 };
 
-// potential measurement shape:
-// {
-//     length
-//     width
-//     height
-//     diameter
-//     numberValue / count
+const measurementInfo = {
+    [LINEAR]: { fieldNames: ['length'] },
+    [DIAMETER]: { fieldNames: ['length'] },
+    [SQUARE]: { fieldNames: ['length', 'width'] },
+    [CUBIC]: { fieldNames: ['length', 'width', 'height'] },
+    [VOLUME]: { fieldNames: ['length', 'width', 'height'] },
+    [NUMBER]: { fieldNames: [] },
+    [FIXED]: { fieldNames: [] },
+};
 
 export default CostingMeasurement;
