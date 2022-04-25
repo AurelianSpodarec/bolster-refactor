@@ -10,7 +10,7 @@ import useFetchPinOptionDocuments from './useFetchPinOptionDocuments';
 const useFetchBatchForOptionDocuments = optionID => {
     const [hasFetched, setHasFetched] = useState(false);
     const { services, isFetchingServices, servicesError } = useFetchServices();
-    const { documentsVersions, documentsError, isFetchingDocuments } =
+    const { allDocuments, allDocumentsVersions, documentsError, isFetchingDocuments } =
         useFetchPinOptionDocuments(optionID);
 
     const {
@@ -34,7 +34,7 @@ const useFetchBatchForOptionDocuments = optionID => {
         (isEmpty(pinOptionSets) && isFetchingPinOptionSets) ||
         (isEmpty(pinOptions) && isFetchingPinOptions) ||
         (isEmpty(pinOptionVersions) && isFetchingPinOptionVersions) ||
-        (isEmpty(documentsVersions) && isFetchingDocuments);
+        (isEmpty(allDocuments) && isEmpty(allDocumentsVersions) && isFetchingDocuments);
 
     const isAnyFetching =
         isFetchingServices ||
@@ -59,7 +59,14 @@ const useFetchBatchForOptionDocuments = optionID => {
         if (!isAnyFetching && prevProps.isAnyFetching) setHasFetched(true);
     }, [isAnyFetching, prevProps.isAnyFetching]);
 
-    return { isAnyEmpty, isAnyFetching, isAnyErrored, hasFetched };
+    return {
+        isAnyEmpty,
+        isAnyFetching,
+        isAnyErrored,
+        hasFetched,
+        allDocuments,
+        allDocumentsVersions,
+    };
 };
 
 export default useFetchBatchForOptionDocuments;

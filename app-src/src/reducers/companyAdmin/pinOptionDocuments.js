@@ -132,7 +132,6 @@ function pinOptionDocumentsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_PIN_OPTION_DOCUMENTS_SUCCESS:
             return convertArrToObj(action.payload);
-        case EDIT_PIN_OPTION_DOCUMENT_SUCCESS:
         case CREATE_PIN_OPTION_DOCUMENT_SUCCESS:
             return updateObj(
                 state,

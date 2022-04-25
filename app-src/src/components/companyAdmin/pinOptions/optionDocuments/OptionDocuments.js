@@ -21,8 +21,14 @@ const OptionDocuments = () => {
     const pinOptions = useSelector(selectPinOptions);
 
     const specificOption = pinOptions[optionID];
-    const { isAnyEmpty, isAnyFetching, isAnyErrored, hasFetched } =
-        useFetchBatchForOptionDocuments(optionID);
+    const {
+        isAnyEmpty,
+        isAnyFetching,
+        isAnyErrored,
+        hasFetched,
+        allDocuments,
+        allDocumentsVersions,
+    } = useFetchBatchForOptionDocuments(optionID);
 
     const latestPinOptionVersion = useSelector(state =>
         selectLatestVersionForPinOption(state, specificOption?.id),
@@ -61,6 +67,8 @@ const OptionDocuments = () => {
                     showDeleteModal={showDeleteModal}
                     showEditModal={showEditModal}
                     showViewModal={showViewModal}
+                    allDocuments={allDocuments}
+                    allDocumentsVersions={allDocumentsVersions}
                 />
             </BlockContainer>
         </>

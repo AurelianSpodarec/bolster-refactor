@@ -43,12 +43,13 @@ function pinOptionDocumentsVersionsReducer(state = {}, action) {
         case FETCH_PIN_OPTION_DOCUMENTS_VERSIONS_SUCCESS:
             return convertArrToObj(action.payload);
         case CREATE_PIN_OPTION_DOCUMENT_SUCCESS:
-        case EDIT_PIN_OPTION_DOCUMENT_SUCCESS:
             return updateObj(
                 state,
-                action.payload.pinOptionDocumentVersion,
+                action.payload.pinOptionDocumentVersion.id,
                 action.payload.pinOptionDocumentVersion,
             );
+        case EDIT_PIN_OPTION_DOCUMENT_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }
