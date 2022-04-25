@@ -57,6 +57,7 @@ const SiteStats = ({
                     <button className="button yellow" onClick={handleEditSiteModal}>
                         <i className="far fa-pencil fa-fw" /> Edit
                     </button>
+                    {/*todo add isCostingEnabled check*/}
                     <button className="button yellow" onClick={handleEditSitePinOptionSetsModal}>
                         <i className="far fa-pencil fa-fw" /> Edit Pin Options
                     </button>

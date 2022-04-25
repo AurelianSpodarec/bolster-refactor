@@ -27,7 +27,7 @@ const useUpdateOptionValueSort = options => {
         const [item] = items.splice(fromIndex, 1);
         items.splice(overindex, 0, item);
         const sorted = items.map((x, i) => ({ ...x, sort: i + 1 }));
-        reorderPinOptionValues(sorted);
+        dispatch(reorderPinOptionValues(sorted));
     };
 
     return { isSorting, handleToggleSort, handleUpdateSort, moveItem };

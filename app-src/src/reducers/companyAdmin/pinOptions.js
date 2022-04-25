@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
 import {
     FETCH_PIN_OPTIONS_REQUEST,
     FETCH_PIN_OPTIONS_SUCCESS,
@@ -17,6 +17,9 @@ import {
     DISABLE_PIN_OPTION_VALUE_REQUEST,
     DISABLE_PIN_OPTION_VALUE_SUCCESS,
     DISABLE_PIN_OPTION_VALUE_FAILURE,
+    DELETE_PIN_OPTION_VALUE_REQUEST,
+    DELETE_PIN_OPTION_VALUE_SUCCESS,
+    DELETE_PIN_OPTION_VALUE_FAILURE,
     REORDER_PIN_OPTION_VALUES,
 } from 'constants/actionTypes/pinOptions';
 import { SET_API_FIELD_ERRORS } from 'constants/actionTypes/generic';
@@ -59,6 +62,7 @@ function isPostingReducer(state = false, action) {
         case EDIT_PIN_OPTION_VALUE_REQUEST:
         case ENABLE_PIN_OPTION_VALUE_REQUEST:
         case DISABLE_PIN_OPTION_VALUE_REQUEST:
+        case DELETE_PIN_OPTION_VALUE_REQUEST:
             return true;
         case CREATE_PIN_OPTION_VALUE_SUCCESS:
         case CREATE_PIN_OPTION_VALUE_FAILURE:
@@ -68,6 +72,8 @@ function isPostingReducer(state = false, action) {
         case ENABLE_PIN_OPTION_VALUE_FAILURE:
         case DISABLE_PIN_OPTION_VALUE_SUCCESS:
         case DISABLE_PIN_OPTION_VALUE_FAILURE:
+        case DELETE_PIN_OPTION_VALUE_SUCCESS:
+        case DELETE_PIN_OPTION_VALUE_FAILURE:
         case SET_API_FIELD_ERRORS:
             return false;
         default:
@@ -81,11 +87,13 @@ function postErrorReducer(state = null, action) {
         case EDIT_PIN_OPTION_VALUE_REQUEST:
         case ENABLE_PIN_OPTION_VALUE_REQUEST:
         case DISABLE_PIN_OPTION_VALUE_REQUEST:
+        case DELETE_PIN_OPTION_VALUE_REQUEST:
             return null;
         case CREATE_PIN_OPTION_VALUE_FAILURE:
         case EDIT_PIN_OPTION_VALUE_FAILURE:
         case ENABLE_PIN_OPTION_VALUE_FAILURE:
         case DISABLE_PIN_OPTION_VALUE_FAILURE:
+        case DELETE_PIN_OPTION_VALUE_FAILURE:
             return action.error;
         default:
             return state;
@@ -98,11 +106,13 @@ function postSuccessReducer(state = false, action) {
         case EDIT_PIN_OPTION_VALUE_REQUEST:
         case ENABLE_PIN_OPTION_VALUE_REQUEST:
         case DISABLE_PIN_OPTION_VALUE_REQUEST:
+        case DELETE_PIN_OPTION_VALUE_REQUEST:
             return false;
         case CREATE_PIN_OPTION_VALUE_SUCCESS:
         case EDIT_PIN_OPTION_VALUE_SUCCESS:
         case ENABLE_PIN_OPTION_VALUE_SUCCESS:
         case DISABLE_PIN_OPTION_VALUE_SUCCESS:
+        case DELETE_PIN_OPTION_VALUE_SUCCESS:
             return true;
         default:
             return state;
@@ -128,6 +138,8 @@ function optionsReducer(state = {}, action) {
         case CREATE_PIN_OPTION_VALUE_SUCCESS:
         case EDIT_PIN_OPTION_VALUE_SUCCESS:
             return updateObj(state, action.payload.pinOption.id, action.payload.pinOption);
+        case DELETE_PIN_OPTION_VALUE_SUCCESS:
+            return removeObjItem(state, action.id);
         default:
             return state;
     }

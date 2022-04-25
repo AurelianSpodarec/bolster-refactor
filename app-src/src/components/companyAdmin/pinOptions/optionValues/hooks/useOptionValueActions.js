@@ -10,19 +10,23 @@ import {
 import { usePrevious } from 'helpers/hooks';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import enablePinOptionValue from 'actions/companyAdmin/pinOptions/async/enablePinOptionValue';
 import disablePinOptionValue from 'actions/companyAdmin/pinOptions/async/disablePinOptionValue';
 import {
     selectPinOptionsIsPosting,
     selectPinOptionsPostError,
+    selectPinOptionsPostSuccess,
 } from 'selectors/companyAdmin/pinOptions';
+import deletePinOptionValue from 'actions/companyAdmin/pinOptions/async/deletePinOptionValue';
 
 const useOptionValueActions = (typeID, setID) => {
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPinOptionsIsPosting);
     const postError = useSelector(selectPinOptionsPostError);
+    const postSuccess = useSelector(selectPinOptionsPostSuccess);
 
-    const prevProps = usePrevious({ postError });
+    const prevProps = usePrevious({ postError, postSuccess });
 
     const showAddModal = () => {
         dispatch(
@@ -40,7 +44,7 @@ const useOptionValueActions = (typeID, setID) => {
     const showDeleteModal = option => {
         dispatch(
             showModal(CONFIRM_SUBMIT, {
-                handleSubmit: () => console.log('delete...'),
+                handleSubmit: () => dispatch(deletePinOptionValue(option.id)),
                 title: `Delete ${option.name}?`,
                 message: 'Are you sure you would like to delete this option?',
                 submitButtonText: 'Delete',
@@ -60,6 +64,10 @@ const useOptionValueActions = (typeID, setID) => {
     useEffect(() => {
         if (postError && !prevProps.postError) dispatch(showModal(ERROR_MODAL));
     }, [postError, prevProps.postError]);
+
+    useEffect(() => {
+        if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
+    }, [postSuccess, prevProps.postSuccess]);
 
     return { showAddModal, showEditModal, showDeleteModal, enableOptionValue, disableOptionValue };
 };
