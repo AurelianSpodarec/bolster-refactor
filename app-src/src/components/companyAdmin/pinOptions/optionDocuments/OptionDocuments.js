@@ -15,10 +15,12 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import FlexHeading from 'components/shared/generic/pageHeading/presentational/FlexHeading';
 import useDocumentsSetActions from './hooks/useDocumentsSetActions';
+import { selectJwtData } from 'selectors/shared/jwt';
 
 const OptionDocuments = () => {
     const { optionID } = useParams();
     const pinOptions = useSelector(selectPinOptions);
+    const { companyID } = useSelector(selectJwtData);
 
     const specificOption = pinOptions[optionID];
     const {
@@ -41,6 +43,8 @@ const OptionDocuments = () => {
 
     const { showAddModal, showEditModal, showDeleteModal, showViewModal } =
         useDocumentsSetActions(optionID);
+
+    const isCompanyOption = specificOption?.companyID === companyID;
 
     return (
         <>
@@ -69,6 +73,8 @@ const OptionDocuments = () => {
                     showViewModal={showViewModal}
                     allDocuments={allDocuments}
                     allDocumentsVersions={allDocumentsVersions}
+                    companyID={companyID}
+                    isCompanyOption={isCompanyOption}
                 />
             </BlockContainer>
         </>
