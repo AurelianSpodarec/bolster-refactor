@@ -7,6 +7,8 @@ import { ReactComponent as SortAscIcon } from '_content/images/icons/sort-asc.sv
 import { isEmpty } from 'helpers/generic';
 
 import { selectPinOptionTypesArr } from 'selectors/companyAdmin/pinOptionTypes';
+import { selectPinOptionSet } from 'selectors/companyAdmin/pinOptionSets';
+import { selectJwtData } from 'selectors/shared/jwt';
 
 import useFilterOptionValues from '../../../../hooks/useFilterOptionsValues';
 import useGetOptionsForSet from './hooks/useGetOptionsForSet';
@@ -26,9 +28,11 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 const OptionValuesList = ({ forwardRef, hasFetched }) => {
     const { setID, type } = useParams();
     const pinOptionTypesArr = useSelector(selectPinOptionTypesArr);
+    const { companyID } = useSelector(selectJwtData);
     const specificType = pinOptionTypesArr.find(curType => curType.slug === type);
     const typeID = specificType ? specificType.id : null;
 
+    const parentSet = useSelector(state => selectPinOptionSet(state, setID));
     const pinOptionsForSet = useGetOptionsForSet(typeID, parseInt(setID));
 
     const { isSorting, handleToggleSort, handleUpdateSort, moveItem } =
@@ -43,6 +47,8 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
         useOptionValueActions(typeID, setID);
 
     const shouldRedirect = useShouldRedirectFromOptionValues(hasFetched);
+
+    const isCompanySet = !isEmpty(parentSet) && parentSet.companyID === companyID;
 
     if (shouldRedirect) {
         return <Redirect to="/company/pin-options" />;
@@ -61,21 +67,34 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
 
                 <ButtonWrapper alignment="right">
                     <ActionButton
-                        svgIconComponent={SortAscIcon}
+                        icon="filter"
                         iconOnly
-                        source={isSorting ? 'primary' : 'secondary'}
+                        source="secondary"
                         size="medium"
-                        onClick={handleToggleSort}
+                        iconEqualSize
+                        onClick={() => console.log('open filters')}
                     />
 
-                    <ActionButton
-                        text="Add"
-                        icon="plus"
-                        ambient="positive"
-                        size="medium"
-                        onClick={showAddModal}
-                        disabled={isSorting}
-                    />
+                    {isCompanySet && (
+                        <>
+                            <ActionButton
+                                svgIconComponent={SortAscIcon}
+                                iconOnly
+                                source={isSorting ? 'primary' : 'secondary'}
+                                size="medium"
+                                onClick={handleToggleSort}
+                            />
+
+                            <ActionButton
+                                text="Add"
+                                icon="plus"
+                                ambient="positive"
+                                size="medium"
+                                onClick={showAddModal}
+                                disabled={isSorting}
+                            />
+                        </>
+                    )}
                 </ButtonWrapper>
             </FilterRow>
 
@@ -104,6 +123,7 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
                             isSorting={isSorting}
                             onMove={moveItem}
                             onDrop={handleUpdateSort}
+                            isCompanySet={isCompanySet}
                         />
                     ))}
                 </tbody>

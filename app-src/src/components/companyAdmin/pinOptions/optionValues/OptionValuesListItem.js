@@ -26,6 +26,7 @@ const OptionValuesListItem = ({
     isDragging,
     connectDropTarget,
     forwardRef,
+    isCompanySet,
 }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, typeID));
     const typeSlug = pinOptionType.slug;
@@ -65,17 +66,19 @@ const OptionValuesListItem = ({
                                 disabled={isSorting}
                             />
 
-                            <ActionMenu disabled={isSorting}>
-                                <ActionMenuActionButton
-                                    text="Edit"
-                                    onClick={() => showEditModal(option)}
-                                />
-                                <ActionMenuActionButton
-                                    text="Delete"
-                                    onClick={() => showDeleteModal(option)}
-                                    isNegative
-                                />
-                            </ActionMenu>
+                            {isCompanySet && (
+                                <ActionMenu disabled={isSorting}>
+                                    <ActionMenuActionButton
+                                        text="Edit"
+                                        onClick={() => showEditModal(option)}
+                                    />
+                                    <ActionMenuActionButton
+                                        text="Delete"
+                                        onClick={() => showDeleteModal(option)}
+                                        isNegative
+                                    />
+                                </ActionMenu>
+                            )}
                         </ButtonWrapper>
                     </td>
                 </tr>,
