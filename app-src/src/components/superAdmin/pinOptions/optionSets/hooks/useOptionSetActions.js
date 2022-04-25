@@ -11,14 +11,13 @@ import { usePrevious } from 'helpers/hooks';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 
+import { selectPinOptionSetsPostError } from '../../../../../selectors/superAdmin/pinOptionSets';
+
 const useOptionSetActions = selectedTypeID => {
     const dispatch = useDispatch();
-    const isPosting = useSelector(selectPinOptionSetsIsPosting);
     const postError = useSelector(selectPinOptionSetsPostError);
 
     const prevProps = usePrevious({ postError });
-
-    const defaultSet = useSelector(state => selectPinOptionDefaultSet(state, selectedTypeID));
 
     const showAddModal = () => {
         dispatch(
@@ -44,18 +43,6 @@ const useOptionSetActions = selectedTypeID => {
         );
     };
 
-    const enableOptionSet = set => {
-        if (!isPosting) dispatch(enablePinOptionSet(set));
-    };
-
-    const disableOptionSet = set => {
-        if (!isPosting) dispatch(disablePinOptionSet(set));
-    };
-
-    const setAsDefault = set => {
-        if (!isPosting) dispatch(setOptionSetAsDefault(set, defaultSet));
-    };
-
     useEffect(() => {
         if (postError && !prevProps.postError) dispatch(showModal(ERROR_MODAL));
     }, [postError, prevProps.postError]);
@@ -64,9 +51,6 @@ const useOptionSetActions = selectedTypeID => {
         showAddModal,
         showEditModal,
         showDeleteModal,
-        enableOptionSet,
-        disableOptionSet,
-        setAsDefault,
     };
 };
 

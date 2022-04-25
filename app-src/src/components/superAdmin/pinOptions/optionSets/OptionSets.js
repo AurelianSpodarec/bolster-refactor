@@ -29,8 +29,6 @@ const OptionSets = ({ selectedTypeID }) => {
     //     showAddModal,
     //     showEditModal,
     //     showDeleteModal,
-    //     enableOptionSet,
-    //     disableOptionSet,
     //     setAsDefault,
     // } = useOptionSetActions(selectedTypeID);
 
@@ -81,8 +79,6 @@ const OptionSets = ({ selectedTypeID }) => {
                         setLink={setLink}
                         // showEditModal={showEditModal}
                         // showDeleteModal={showDeleteModal}
-                        // enableOptionSet={enableOptionSet}
-                        // disableOptionSet={disableOptionSet}
                         // setAsDefault={setAsDefault}
                     />
                 ))}

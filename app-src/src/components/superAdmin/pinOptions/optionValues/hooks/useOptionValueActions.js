@@ -46,19 +46,11 @@ const useOptionValueActions = (typeID, setID) => {
         );
     };
 
-    const enableOptionValue = option => {
-        if (!isPosting) dispatch(enablePinOptionValue(option));
-    };
-
-    const disableOptionValue = option => {
-        if (!isPosting) dispatch(disablePinOptionValue(option));
-    };
-
     useEffect(() => {
         if (postError && !prevProps.postError) dispatch(showModal(ERROR_MODAL));
     }, [postError, prevProps.postError]);
 
-    return { showAddModal, showEditModal, showDeleteModal, enableOptionValue, disableOptionValue };
+    return { showAddModal, showEditModal, showDeleteModal };
 };
 
 export default useOptionValueActions;

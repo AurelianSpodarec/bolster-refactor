@@ -20,8 +20,6 @@ const OptionValuesListItem = ({
     typeID,
     showEditModal,
     showDeleteModal,
-    enableOptionValue,
-    disableOptionValue,
     isSorting,
     isDragging,
     connectDropTarget,
@@ -39,22 +37,7 @@ const OptionValuesListItem = ({
         <>
             {connectDropTarget(
                 <tr className={rowClass} ref={isSorting ? forwardRef : null}>
-                    <td>
-                        <CheckboxContainer
-                            text={name}
-                            name={`pin-option-checkbox-${id}`}
-                            checked={!isDisabled}
-                            handleChange={(_, value) => {
-                                if (value) {
-                                    enableOptionValue(option);
-                                } else {
-                                    disableOptionValue(option);
-                                }
-                            }}
-                            disabled={isSorting}
-                            keepTextColorOnDisable
-                        />
-                    </td>
+                    <td>{name}</td>
                     <td>
                         <ButtonWrapper alignment="right">
                             {hasPriceBreaks && <p className="button-wrapper-info disabled">£</p>}
