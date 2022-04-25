@@ -5,11 +5,13 @@ import {
     UPDATE_ADD_PIN_STATUS,
     RESET_PIN_ANSWER,
     SET_SERVICE_ID,
+    UPDATE_ADD_PIN_MEASUREMENT,
 } from 'constants/actionTypes/drawings';
 import { updateObj } from 'helpers/generic';
 
 export default combineReducers({
     answers: answersReducer,
+    measurements: measurementsReducer,
     status: statusReducer,
     serviceID: serviceIDReducer,
 });
@@ -22,6 +24,19 @@ function answersReducer(state = {}, action) {
             return {};
         case RESET_PIN_ANSWER:
             return updateObj(state, action.id, action.value);
+        default:
+            return state;
+    }
+}
+
+function measurementsReducer(state = {}, action) {
+    switch (action.type) {
+        case UPDATE_ADD_PIN_MEASUREMENT:
+            return updateObj(state, action.questionID, action.value);
+        case RESET_PIN_ANSWER:
+            return updateObj(state, action.id, action.value);
+        case RESET_PIN_ANSWERS:
+            return {};
         default:
             return state;
     }
