@@ -1,33 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import {
-    createManufacturerOptionList,
-    createOptionValuesList,
-    createPreselectedManufacturersList,
-    createPreselectedOptionValuesList,
-    createHierarchyPreselectedManufacturersList,
-    removeUnusedManufacturerDefaults,
-} from 'helpers/manufacturers';
-import editSite from 'actions/companyAdmin/sites/async/editSite';
-import {
-    PIN_OPTION_TYPES,
-    DROPDOWN_OPTION_MANUFACTURER_ENABLED,
-} from 'constants/companyAdmin/enums';
-import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
-import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
 
+import editSite from 'actions/companyAdmin/sites/async/editSite';
 import EditSiteForm from '../presentational/EditSiteForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import {
-    createPreselectedItemOptionValuesList,
-    formatDropdownOptions,
-    getPreselectedItemTypes,
-} from 'helpers/itemTypes';
-
-import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
 
 class EditSiteFormContainer extends Component {
     state = {
@@ -36,18 +14,6 @@ class EditSiteFormContainer extends Component {
         addressLine1: '',
         addressLine2: '',
         postcode: '',
-        isAlertShowing: false,
-        message: '',
-        dateToSend: '',
-        setManufacturersForHierarchy: false,
-        manufacturerOptions: [],
-        selectedManufacturerOptions: [],
-        selectedOptionValues: [],
-        optionValuesOptions: {},
-        areOptionsLoaded: false,
-        setDropdownOptions: false,
-        selectedDropdownOptions: [],
-        dropdownOptions: [],
     };
 
     render() {
@@ -74,91 +40,8 @@ class EditSiteFormContainer extends Component {
         );
     }
 
-    componentDidMount = async () => {
-        const {
-            site,
-            fetchManufacturersByPinOptionType,
-            fetchAllOptionValues,
-            fetchAllDropdownOptions,
-        } = this.props;
-
-        // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before editing a site.
-        const pinOptionTypes = Object.keys(PIN_OPTION_TYPES).filter(option => {
-            return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option];
-        });
-
-        const fn = function fetchManufacturers(pinOptionType) {
-            return fetchManufacturersByPinOptionType(pinOptionType);
-        };
-
-        const actions = pinOptionTypes.map(fn);
-
-        await fetchAllDropdownOptions(2);
-
-        await Promise.all(actions).then(() => {
-            fetchAllOptionValues();
-        });
-
-        if (site.id > 0) {
-            this._setFormDetails();
-        }
-    };
-
     componentDidUpdate = prevProps => {
-        const { site, isFetching, optionValues, subscriptionServiceIDs, manufacturers } =
-            this.props;
-
-        if (prevProps.isFetching && !isFetching) {
-            const initialOptions = {
-                setManufacturersForHierarchy: site.isManufacturingEnabled,
-                manufacturerOptions: [],
-                selectedManufacturerOptions: [],
-                selectedOptionValues: [],
-                optionValuesOptions: {},
-                areOptionsLoaded: true,
-            };
-
-            const dropdownOptions = {
-                setDropdownOptions: site.isDropDownOptionsEnabled,
-                selectedDropdownOptions: [],
-                dropdownOptions: {},
-            };
-
-            initialOptions.optionValuesOptions = createOptionValuesList(
-                optionValues,
-                subscriptionServiceIDs,
-            );
-            initialOptions.manufacturerOptions = createManufacturerOptionList(manufacturers);
-
-            if (site.isManufacturingEnabled) {
-                // prefill options from site already saved
-                initialOptions.selectedOptionValues = site.optionValueIDs.map(id => String(id));
-                const selectedOptions = createHierarchyPreselectedManufacturersList(
-                    initialOptions.manufacturerOptions,
-                    optionValues,
-                    initialOptions.selectedOptionValues,
-                );
-
-                initialOptions.selectedManufacturerOptions = selectedOptions;
-            } else {
-                //prefill from company settings in anticipation of isManufacturingEnabled being set to true
-                initialOptions.selectedOptionValues = createPreselectedOptionValuesList(
-                    initialOptions.optionValuesOptions,
-                );
-                initialOptions.selectedManufacturerOptions = createPreselectedManufacturersList(
-                    initialOptions.manufacturerOptions,
-                );
-            }
-
-            dropdownOptions.dropdownOptions = formatDropdownOptions(this.props.dropdownOptions);
-
-            dropdownOptions.selectedDropdownOptions = site.dropDownOptionIDs
-                ? createPreselectedItemOptionValuesList(site.dropDownOptionIDs)
-                : getPreselectedItemTypes(this.props.dropdownOptions);
-
-            this.setState(initialOptions);
-            this.setState(dropdownOptions);
-        }
+        const { site } = this.props;
         if (!prevProps.site.id && !!site.id) {
             this._setFormDetails();
         }
@@ -200,54 +83,15 @@ class EditSiteFormContainer extends Component {
             hideModal,
         } = this.props;
 
-        const {
+        const { name, client, addressLine1, addressLine2, postcode } = this.state;
+
+        const postBody = {
             name,
             client,
             addressLine1,
             addressLine2,
             postcode,
-            message,
-            dateToSend,
-            isAlertShowing,
-            setManufacturersForHierarchy,
-            setDropdownOptions,
-            selectedDropdownOptions,
-        } = this.state;
-
-        const manufacturingEnabledOptions = {
-            isManufacturingEnabled: setManufacturersForHierarchy,
-            optionValueIDs: removeUnusedManufacturerDefaults(this.state),
         };
-
-        const dropdownEnabledOptions = {
-            isDropDownOptionsEnabled: setDropdownOptions,
-            DropDownOptionIDs: selectedDropdownOptions.map(id => +id),
-        };
-
-        let postBody = {};
-        if (isAlertShowing) {
-            postBody = {
-                name,
-                client,
-                addressLine1,
-                addressLine2,
-                postcode,
-                message: message,
-                dateToSend: moment(dateToSend).format(),
-                ...manufacturingEnabledOptions,
-                ...dropdownEnabledOptions,
-            };
-        } else {
-            postBody = {
-                name,
-                client,
-                addressLine1,
-                addressLine2,
-                postcode,
-                ...manufacturingEnabledOptions,
-                ...dropdownEnabledOptions,
-            };
-        }
         editSite(id, postBody);
         hideModal();
     };
@@ -257,18 +101,7 @@ const mapStateToProps = ({
     companyAdmin: {
         sitesReducer,
         companySettingsReducer: {
-            companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
-        },
-        dropdownOptionsReducer: { dropdownOptions, isFetching: isFetchingDropdownOptions },
-        manufacturersReducer: {
-            manufacturers,
-            isFetching: isFetchingManufacturers,
-            error: manufacturersError,
-        },
-        manufacturersOptionValuesReducer: {
-            manufacturersOptionValues,
-            isFetching: isFetchingOptionValues,
-            error: optionValuesError,
+            companySettings: { isUsingBolsterLabels },
         },
         subscriptionsReducer: {
             subscriptions: { serviceIDs: subscriptionServiceIDs },
@@ -277,22 +110,14 @@ const mapStateToProps = ({
 }) => ({
     isUsingBolsterLabels,
     postSuccess: sitesReducer.postSuccess,
-    error: sitesReducer.error || manufacturersError || optionValuesError,
+    error: sitesReducer.error,
     updatedSiteID: sitesReducer.updatedSiteID,
-    manufacturers,
-    optionValues: manufacturersOptionValues,
-    isFetching: isFetchingManufacturers || isFetchingOptionValues || isFetchingDropdownOptions,
-    useManufacturingByDefault,
     subscriptionServiceIDs,
-    dropdownOptions: Object.values(dropdownOptions),
 });
 
 const mapDispatchToProps = {
     editSite,
     hideModal,
-    fetchManufacturersByPinOptionType,
-    fetchAllOptionValues,
-    fetchAllDropdownOptions,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditSiteFormContainer);

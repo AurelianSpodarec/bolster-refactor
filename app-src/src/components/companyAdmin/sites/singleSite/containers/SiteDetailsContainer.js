@@ -13,6 +13,7 @@ import {
     EDIT_SITE,
     CREATE_HIERARCHY_ALERT_MODAL,
     DRAWING_EXPIRY_MODAL,
+    EDIT_SITE_PIN_OPTION_SETS,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import deleteSite from 'actions/companyAdmin/sites/async/deleteSite';
@@ -76,6 +77,7 @@ class SiteDetailsContainer extends Component {
                     handleDelete={this.handleDeleteModal}
                     handleArchive={this.handleArchiveModal}
                     handleEditSiteModal={this.handleEditSiteModal}
+                    handleEditSitePinOptionSetsModal={this.handleEditSitePinOptionSetsModal}
                     onMobile={onMobile}
                     handleChange={this.handleChange}
                     serviceOptions={servicesForDropdown}
@@ -128,6 +130,10 @@ class SiteDetailsContainer extends Component {
     handleEditSiteModal = () => {
         const { showModal, site } = this.props;
         showModal(EDIT_SITE, { site });
+    };
+    handleEditSitePinOptionSetsModal = () => {
+        const { showModal, site } = this.props;
+        showModal(EDIT_SITE_PIN_OPTION_SETS, { site });
     };
 
     handleDeleteModal = () => {

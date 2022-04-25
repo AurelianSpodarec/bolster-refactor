@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import BoundlessSelect from 'components/shared/generic/form/presentational/BoundlessSelect';
-import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
 import { formatAnswers, getSortedDropdownOptions } from 'helpers/addPin';
 import { useFilterPinOptions } from './helpers';
 import { useSelector } from 'react-redux';
@@ -9,7 +8,7 @@ import CostingMeasurement from './CostingMeasurement';
 
 const MultiMultiDropdownOptions = ({
     isRequired,
-    question: { id, defaultValue, pinOptionTypeID },
+    question: { id, defaultValue, optionType },
     answers,
     handleChange,
     edit,
@@ -32,14 +31,9 @@ const MultiMultiDropdownOptions = ({
         }
     }, []);
 
-    const type = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
+    const type = useSelector(state => selectPinOptionType(state, optionType));
 
-    const filteredOptions = useFilterPinOptions(
-        questionValue,
-        pinOptions,
-        companyID,
-        pinOptionTypeID,
-    );
+    const filteredOptions = useFilterPinOptions(questionValue, pinOptions, companyID, optionType);
     // ! If a user is editing a pin that has a dropdown option that's no longer available
     // , this needs to be kept as an option.
     if (edit) {
@@ -89,8 +83,7 @@ const MultiMultiDropdownOptions = ({
             }));
     }
     const options = getSortedDropdownOptions(formattedOpts, defaultDropdownSorting);
-    const shouldShowCosting =
-        isCostingEnabled && (true || type.hasCosting) && !!questionValue?.length;
+    const shouldShowCosting = isCostingEnabled && type.hasCosting && !!questionValue?.length;
 
     const optCounts = {};
     return (

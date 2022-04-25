@@ -12,6 +12,7 @@ const SiteStats = ({
     handleArchive,
     onMobile,
     handleEditSiteModal,
+    handleEditSitePinOptionSetsModal,
     handleChange,
     serviceID,
     serviceOptions,
@@ -55,6 +56,9 @@ const SiteStats = ({
                     </button>
                     <button className="button yellow" onClick={handleEditSiteModal}>
                         <i className="far fa-pencil fa-fw" /> Edit
+                    </button>
+                    <button className="button yellow" onClick={handleEditSitePinOptionSetsModal}>
+                        <i className="far fa-pencil fa-fw" /> Edit Pin Options
                     </button>
                     <Link className="button" to={`/company/sites/${site.id}/change-ownership`}>
                         <i className="fa fa-exchange" /> Change Ownership
