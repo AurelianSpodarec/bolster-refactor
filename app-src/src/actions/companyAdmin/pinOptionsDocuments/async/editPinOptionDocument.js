@@ -27,6 +27,9 @@ export default (id, postBody) => async dispatch => {
 
     return axios
         .patch(`${API_URL}/pinoptions/document/editversion/${id}`, postBody, getHeaders())
-        .then(res => dispatch(editPinOptionDocumentsSuccess(res.data)))
+        .then(res => {
+            dispatch(editPinOptionDocumentsSuccess(res.data));
+        })
+
         .catch(err => dispatch(editPinOptionDocumentsFailure(err.message)));
 };

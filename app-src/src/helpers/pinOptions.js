@@ -12,10 +12,8 @@ export const getVersionForPinOptionDocument = (id, allDocumentsVersions) => {
     const validVersions = allDocumentsVersions.filter(
         version => version.pinOptionDocumentID === id,
     );
-    const sortByDate = validVersions.sort((a, b) => a.createdAt - b.createdAt);
-
+    const sortByDate = validVersions.sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn));
     const latestVersion = sortByDate[0];
-
     return latestVersion;
 };
 

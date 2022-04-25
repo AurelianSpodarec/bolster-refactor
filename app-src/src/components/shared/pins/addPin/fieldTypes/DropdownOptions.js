@@ -3,6 +3,8 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import { getSortedDropdownOptions } from 'helpers/addPin';
 import { useFilterPinOptions } from './helpers';
 import CostingMeasurement from './CostingMeasurement';
+import { selectPinOptionType } from '../../../../../selectors/superAdmin/pinOptionTypes';
+import { useSelector } from 'react-redux';
 
 const DropdownOptions = ({
     isRequired,
@@ -14,7 +16,7 @@ const DropdownOptions = ({
     defaultDropdownSorting,
     companyID,
     pinOptions,
-    // todo populate
+    // todo
     isCostingEnabled = true,
     handleMeasurementChange,
     measurements,
@@ -31,8 +33,7 @@ const DropdownOptions = ({
         }
     }, []);
 
-    // todo useSelector for the pin option type, check if hasCosting
-    const isCostingEnabledForPinOptionType = true;
+    const type = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
     // for edit only
     const filteredOptions = useFilterPinOptions(
         questionValue,
@@ -87,13 +88,12 @@ const DropdownOptions = ({
                 createdOn: option.createdOn,
             }));
     }
-    // todo figure out value / handlechange
     const [firstValue] = questionValue;
     const selected = !firstValue
         ? null
         : pinOptions.find(opt => opt.latestVersion.id === firstValue.pinOptionVersionID);
 
-    const shouldShowCosting = isCostingEnabled && isCostingEnabledForPinOptionType && !!firstValue;
+    const shouldShowCosting = isCostingEnabled && type.hasCosting && !!firstValue;
     return (
         <>
             <Select
@@ -106,11 +106,9 @@ const DropdownOptions = ({
             />
             {shouldShowCosting && (
                 <CostingMeasurement
-                    count={1}
-                    // todo figure out value / handlechange / measurement structure
-                    measurement={measurements[firstValue?.uid]}
+                    measurement={measurements[firstValue.uid]}
                     option={selected}
-                    uid={firstValue?.uid}
+                    uid={firstValue.uid}
                     handleChange={handleMeasurementChange}
                 />
             )}
