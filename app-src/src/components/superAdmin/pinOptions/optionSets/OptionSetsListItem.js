@@ -7,28 +7,19 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 
 const OptionSetsListItem = ({
     set,
-    set: { id, name, isDefault, isDisabled },
+    set: { id, name },
     setLink,
     showEditModal,
     showDeleteModal,
-    setAsDefault,
 }) => (
     <tr>
         <td className="row-link w-checkbox">
-            <Link to={`/admin/pin-options/${setLink}/${id}`}>
-                {name} {isDefault ? '(default)' : ''}
-            </Link>
+            <Link to={`/admin/pin-options/${setLink}/${id}`}>{name}</Link>
         </td>
         <td>
             <ButtonWrapper alignment="right">
                 <ActionMenu>
                     <ActionMenuActionButton text="Edit" onClick={() => showEditModal(set)} />
-                    {!isDefault && (
-                        <ActionMenuActionButton
-                            text="Set as default"
-                            onClick={() => setAsDefault(set)}
-                        />
-                    )}
                     <ActionMenuActionButton
                         text="Delete"
                         onClick={() => showDeleteModal(set)}
