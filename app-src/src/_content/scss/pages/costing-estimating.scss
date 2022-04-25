@@ -1,24 +1,24 @@
-// .costing-wrapper {
-//   grid-template-areas: 'pods pods cart'
-//                        'graph graph cart'
-//                        'filters filters cart';
-//   grid-template-columns: repeat(3, 1fr);
-// }
+.costing-wrapper {
+  grid-template-areas: 'pods pods cart'
+                       'graph graph cart'
+                       'filters filters cart';
+  grid-template-columns: repeat(3, 1fr);
+}
 
-// .pods {
-//   display: flex;
-//   grid-area: pods;
-// }
+.pods {
+  display: flex;
+  grid-area: pods;
+}
 
-// .costing-cart {
-//   grid-area: cart;
-//   margin-right: 30px;
-// }
+.costing-cart {
+  grid-area: cart;
+  margin-right: 30px;
+}
 
-// .graph-wrapper {
-//   grid-area: graph;
-// }
+.graph-wrapper {
+  grid-area: graph;
+}
 
-// .filters-wrapper {
-//   grid-area: filters;
-// }
+.filters-wrapper {
+  grid-area: filters;
+}
