@@ -8,7 +8,7 @@ import CostingMeasurement from './CostingMeasurement';
 
 const MultiDropdownOptions = ({
     isRequired,
-    question: { id, defaultValue, pinOptionTypeID },
+    question: { id, defaultValue, optionType },
     answers,
     edit,
     handleChange,
@@ -31,14 +31,9 @@ const MultiDropdownOptions = ({
         }
     }, []);
 
-    const type = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
+    const type = useSelector(state => selectPinOptionType(state, optionType));
 
-    const filteredOptions = useFilterPinOptions(
-        questionValue,
-        pinOptions,
-        companyID,
-        pinOptionTypeID,
-    );
+    const filteredOptions = useFilterPinOptions(questionValue, pinOptions, companyID, optionType);
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
     //    this needs to be kept as an option.
     if (edit) {

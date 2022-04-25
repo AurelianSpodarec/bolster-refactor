@@ -116,6 +116,7 @@ const AddSiteForm = ({
                                 <CheckboxListContainer
                                     name={type.id}
                                     text=""
+                                    isNumberValues
                                     handleChange={handlePinOptionSetChange}
                                     options={options}
                                     selectedOptions={selectedPinOptionSets[type.id] ?? []}

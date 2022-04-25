@@ -136,6 +136,7 @@ import {
     EDIT_PIN_OPTION_DOCUMENTS_MODAL,
     CREATE_ADMIN_PIN_OPTIONS_SET_MODAL,
     EDIT_ADMIN_PIN_OPTIONS_SET_MODAL,
+    EDIT_SITE_PIN_OPTION_SETS,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -271,6 +272,7 @@ import CreatePinOptionDocumentsModal from 'components/companyAdmin/pinOptions/op
 import EditPinOptionDocumentsModal from 'components/companyAdmin/pinOptions/optionDocuments/modals/EditPinOptionDocumentsModal';
 import AdminCreateOptionSetModal from 'components/superAdmin/pinOptions/optionSets/modals/CreateOptionSetModal';
 import AdminEditOptionSetModal from 'components/superAdmin/pinOptions/optionSets/modals/EditOptionSetModal';
+import EditSitePinOptionSetsModal from '../../../../companyAdmin/sites/editSitePinOptionSets/presentational/EditSitePinOptionSetsModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -407,6 +409,7 @@ const MODAL_COMPONENTS = {
     [EDIT_PIN_OPTION_DOCUMENTS_MODAL]: EditPinOptionDocumentsModal,
     [CREATE_ADMIN_PIN_OPTIONS_SET_MODAL]: AdminCreateOptionSetModal,
     [EDIT_ADMIN_PIN_OPTIONS_SET_MODAL]: AdminEditOptionSetModal,
+    [EDIT_SITE_PIN_OPTION_SETS]: EditSitePinOptionSetsModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

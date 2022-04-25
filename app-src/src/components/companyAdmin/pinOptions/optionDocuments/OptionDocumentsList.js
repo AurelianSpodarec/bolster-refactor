@@ -17,6 +17,7 @@ const OptionDocumentsList = ({
     showViewModal,
     allDocuments,
     allDocumentsVersions,
+    isCompanyOption,
 }) => {
     const shouldRedirect = useShouldRedirectFromOptionDocuments(hasFetched);
     const { documents } = useFilterDocuments(allDocuments, optionID);
@@ -30,11 +31,13 @@ const OptionDocumentsList = ({
             <ActionMenuActionButton
                 text="Edit Name"
                 onClick={() => showEditModal(documentsVersion)}
+                disabled={isCompanyOption}
             />
             <ActionMenuActionButton
                 text="Delete"
                 onClick={() => showDeleteModal(documentsVersion)}
                 isNegative
+                disabled={!isCompanyOption}
             />
         </>
     );
@@ -55,9 +58,13 @@ const OptionDocumentsList = ({
                             s3Key={documentsVersion?.s3Key}
                             pinOptionDocumentID={documentsVersion?.pinOptionDocumentID}
                             actionMenuItems={
-                                <ActionMenuItems documentsVersion={documentsVersion} />
+                                <ActionMenuItems
+                                    disabled={isCompanyOption}
+                                    documentsVersion={documentsVersion}
+                                />
                             }
                             showViewModal={() => showViewModal(documentsVersion?.s3Key)}
+                            isCompanyOption={isCompanyOption}
                         />
                     );
                 })}

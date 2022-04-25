@@ -14,6 +14,9 @@ import {
     EDIT_SITE_REQUEST,
     EDIT_SITE_SUCCESS,
     EDIT_SITE_FAILURE,
+    EDIT_SITE_PIN_OPTION_SETS_REQUEST,
+    EDIT_SITE_PIN_OPTION_SETS_SUCCESS,
+    EDIT_SITE_PIN_OPTION_SETS_FAILURE,
     DELETE_SITE_REQUEST,
     DELETE_SITE_SUCCESS,
     DELETE_SITE_FAILURE,
@@ -61,12 +64,14 @@ function postSuccessReducer(state = false, action) {
         case DELETE_SITE_REQUEST:
         case ARCHIVE_SITE_REQUEST:
         case CREATE_TRANSFER_SITE_REQUEST:
+        case EDIT_SITE_PIN_OPTION_SETS_REQUEST:
             return false;
         case CREATE_SITE_SUCCESS:
         case EDIT_SITE_SUCCESS:
         case DELETE_SITE_SUCCESS:
         case ARCHIVE_SITE_SUCCESS:
         case CREATE_TRANSFER_SITE_SUCCESS:
+        case EDIT_SITE_PIN_OPTION_SETS_SUCCESS:
             return true;
         default:
             return state;
@@ -91,11 +96,13 @@ function postFailureReducer(state = false, action) {
         case EDIT_SITE_REQUEST:
         case DELETE_SITE_REQUEST:
         case ARCHIVE_SITE_REQUEST:
+        case EDIT_SITE_PIN_OPTION_SETS_REQUEST:
             return false;
         case CREATE_SITE_FAILURE:
         case EDIT_SITE_FAILURE:
         case DELETE_SITE_FAILURE:
         case ARCHIVE_SITE_FAILURE:
+        case EDIT_SITE_PIN_OPTION_SETS_FAILURE:
             return true;
         default:
             return state;
@@ -122,6 +129,7 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_SITES_REQUEST:
         case FETCH_SINGLE_SITE_REQUEST:
         case CREATE_TRANSFER_SITE_REQUEST:
+        case EDIT_SITE_PIN_OPTION_SETS_REQUEST:
             return null;
         case ARCHIVE_SITE_FAILURE:
         case CREATE_SITE_FAILURE:
@@ -130,6 +138,7 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_SITES_FAILURE:
         case FETCH_SINGLE_SITE_FAILURE:
         case CREATE_TRANSFER_SITE_FAILURE:
+        case EDIT_SITE_PIN_OPTION_SETS_FAILURE:
             return action.error;
         default:
             return state;
@@ -146,6 +155,7 @@ function sitesReducer(state = {}, action) {
         case CREATE_SITE_SUCCESS:
         case ARCHIVE_SITE_SUCCESS:
         case EDIT_SITE_SUCCESS:
+        case EDIT_SITE_PIN_OPTION_SETS_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case CREATE_BUILDING_SUCCESS:
             return updateObj(state, [action.payload.siteID], {

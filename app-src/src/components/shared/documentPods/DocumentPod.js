@@ -6,7 +6,14 @@ import ActionMenu from '../actionMenu/ActionMenu';
 import FlexWrapper from '../generic/flexWrapper/FlexWrapper';
 import { FILE_STORAGE_URL } from 'config';
 
-const DocumentPod = ({ name, lastUpdated, actionMenuItems, s3Key, showViewModal }) => {
+const DocumentPod = ({
+    name,
+    lastUpdated,
+    actionMenuItems,
+    s3Key,
+    showViewModal,
+    isCompanyOption,
+}) => {
     return (
         <div className="document-pod">
             <div className="image-wrapper">
@@ -21,7 +28,9 @@ const DocumentPod = ({ name, lastUpdated, actionMenuItems, s3Key, showViewModal 
                     <p className="last-updated">Updated {moment(lastUpdated).format(DATE_TIME)}</p>
                 </div>
 
-                {!!actionMenuItems && <ActionMenu>{actionMenuItems}</ActionMenu>}
+                {!!actionMenuItems && (
+                    <ActionMenu disabled={!isCompanyOption}>{actionMenuItems}</ActionMenu>
+                )}
             </FlexWrapper>
         </div>
     );
