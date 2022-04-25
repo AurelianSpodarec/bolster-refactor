@@ -194,6 +194,7 @@ class AddPinFormContainer extends Component {
         const {
             templates,
             answers,
+            measurements,
             drawingID,
             createPin,
             coordinates,
@@ -205,9 +206,10 @@ class AddPinFormContainer extends Component {
 
         const curTemplate = templates.find(({ id }) => +id === +templateID) || {};
 
-        const formattedAnswers = Object.keys(answers).map(key => ({
-            templateQuestionID: key,
-            answerValues: answers[key],
+        const formattedAnswers = Object.keys(answers).map(questionID => ({
+            templateQuestionID: questionID,
+            answerValues: answers[questionID],
+            measurements: measurements[questionID],
         }));
 
         const postBody = {
@@ -263,7 +265,7 @@ const mapStateToProps = (
         companyAdmin: {
             templatesReducer: { templates, isFetching, error },
             templateQuestionsReducer: { questions },
-            addPinFormReducer: { answers, status, serviceID },
+            addPinFormReducer: { answers, status, serviceID, measurements },
             addPinCoordinatesReducer: { coordinates },
             pinsReducer: { postSuccess, pins, isFetching: fetchingPins },
             pinOptionsReducer: { isFetching: isFetchingPinOptions },
@@ -300,6 +302,7 @@ const mapStateToProps = (
     subscriptions,
     CompanyUserOperativeCode,
     serviceID,
+    measurements,
 });
 
 const mapDispatchToProps = {
