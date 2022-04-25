@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
     FETCH_ADMIN_PIN_OPTION_SETS_REQUEST,
     FETCH_ADMIN_PIN_OPTION_SETS_SUCCESS,
@@ -47,6 +47,8 @@ function setsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_ADMIN_PIN_OPTION_SETS_SUCCESS:
             return convertArrToObj(action.payload);
+        case CREATE_ADMIN_PIN_OPTION_SET_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }
