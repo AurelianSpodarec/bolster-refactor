@@ -15,7 +15,6 @@ import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import { useDispatch } from 'react-redux';
 
 const EditPinOptionDocumentsModal = ({ documentsVersion }) => {
-    console.log(documentsVersion);
     const dispatch = useDispatch();
     const { form, handleChange, isPosting, handleSubmit } =
         useEditPinOptionDocument(documentsVersion);

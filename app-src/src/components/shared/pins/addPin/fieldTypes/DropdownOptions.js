@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 const DropdownOptions = ({
     isRequired,
-    question: { id, defaultValue, pinOptionTypeID },
+    question: { id, defaultValue, optionType },
     answers,
     handleChange,
     edit,
@@ -33,14 +33,9 @@ const DropdownOptions = ({
         }
     }, []);
 
-    const type = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
+    const type = useSelector(state => selectPinOptionType(state, optionType));
     // for edit only
-    const filteredOptions = useFilterPinOptions(
-        questionValue,
-        pinOptions,
-        companyID,
-        pinOptionTypeID,
-    );
+    const filteredOptions = useFilterPinOptions(questionValue, pinOptions, companyID, optionType);
 
     if (edit) {
         const curOptions = filteredOptions.map(opt => opt.id);

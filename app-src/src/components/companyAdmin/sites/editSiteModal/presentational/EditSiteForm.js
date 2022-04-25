@@ -1,14 +1,9 @@
 import React from 'react';
 
 import Field from 'components/shared/generic/form/presentational/Field';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import { PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
-import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
 
@@ -22,14 +17,6 @@ const EditSiteForm = ({
     addressLine2,
     postcode,
     isUsingBolsterLabels,
-    setManufacturersForHierarchy,
-    manufacturerOptions,
-    selectedManufacturerOptions,
-    selectedOptionValues,
-    optionValuesOptions,
-    setDropdownOptions,
-    selectedDropdownOptions,
-    dropdownOptions,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -91,90 +78,6 @@ const EditSiteForm = ({
             </div>
         </div>
         {isUsingBolsterLabels && <BolsterLabelExample name={name} hierarchy="Site" />}
-        <div className="size-lg-12">
-            <div className="size-lg-6 size-md-12">
-                <Field labelClasses="no-capitalise" name="Set manufacturer(s) for site?">
-                    <CheckboxContainer
-                        checked={setManufacturersForHierarchy}
-                        name="setManufacturersForHierarchy"
-                        text=""
-                        handleChange={handleInputChange}
-                    />
-                </Field>
-            </div>
-        </div>
-        {setManufacturersForHierarchy && (
-            <div className="size-lg-12">
-                <Field labelClasses="no-capitalise" name="Manufacturer(s)" required>
-                    <CheckboxListContainer
-                        name="selectedManufacturerOptions"
-                        text=""
-                        handleChange={handleInputChange}
-                        selectedOptions={selectedManufacturerOptions}
-                        options={manufacturerOptions}
-                        required
-                    />
-                </Field>
-            </div>
-        )}
-
-        {setManufacturersForHierarchy &&
-            Object.entries(optionValuesOptions).map(([manufacturerID, optionValues]) => {
-                if (selectedManufacturerOptions.includes(manufacturerID)) {
-                    const manufacturerInfo = manufacturerOptions.find(
-                        element => String(element.id) === String(manufacturerID),
-                    );
-
-                    return (
-                        <div className="size-lg-12">
-                            <Field
-                                labelClasses="no-capitalise"
-                                name={`${manufacturerInfo.name} ${
-                                    PIN_OPTION_TYPES[manufacturerInfo.pinOptionType].name
-                                }
-                              `}
-                            >
-                                <CheckboxListContainer
-                                    name="selectedOptionValues"
-                                    text=""
-                                    handleChange={handleInputChange}
-                                    selectedOptions={selectedOptionValues}
-                                    options={Object.values(optionValues).filter(
-                                        ({ isEnabled }) => isEnabled,
-                                    )}
-                                />
-                            </Field>
-                        </div>
-                    );
-                } else return null;
-            })}
-
-        <div className="size-lg-12">
-            <div className="size-lg-6 size-md-12">
-                <Field labelClasses="no-capitalise" name="Set item types for site?">
-                    <CheckboxContainer
-                        checked={setDropdownOptions}
-                        name="setDropdownOptions"
-                        text=""
-                        handleChange={handleInputChange}
-                    />
-                </Field>
-            </div>
-        </div>
-        {setDropdownOptions && (
-            <div className="size-lg-12">
-                <Field labelClasses="no-capitalise" name="Item Types" required={setDropdownOptions}>
-                    <CheckboxListContainer
-                        name="selectedDropdownOptions"
-                        text=""
-                        handleChange={handleInputChange}
-                        selectedOptions={selectedDropdownOptions}
-                        options={dropdownOptions}
-                    />
-                </Field>
-            </div>
-        )}
-
         <div className="size-lg-12">
             <ButtonWrapper alignment="right">
                 <ActionButton text="Cancel" onClick={hideModal} source="secondary" size="small" />
