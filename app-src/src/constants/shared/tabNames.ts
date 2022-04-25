@@ -12,6 +12,8 @@ export const BUILDING_TABS = {
 };
 export const SITE_TABS = {
     GENERATE_REPORT: 'Generate Report',
+    COSTING: 'Costing',
+    ESTIMATING: 'Estimating',
     GENERAL_OVERVIEW: 'General Overview',
 };
 
