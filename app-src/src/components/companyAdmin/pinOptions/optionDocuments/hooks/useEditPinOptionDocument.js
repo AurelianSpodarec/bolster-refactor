@@ -6,7 +6,6 @@ import { selectPinOptionDocumentsIsPosting } from 'selectors/companyAdmin/pinOpt
 import editPinOptionDocument from 'actions/companyAdmin/pinOptionsDocuments/async/editPinOptionDocument';
 
 const useEditPinOptionDocument = documentsVersion => {
-    console.log(documentsVersion.documentS3Key);
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPinOptionDocumentsIsPosting);
 
