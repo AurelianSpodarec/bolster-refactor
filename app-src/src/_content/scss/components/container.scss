@@ -79,4 +79,8 @@
         right: 15px;
         margin-top: 0;
     }
+
+    &.background-gradient {
+        background: linear-gradient(226.13deg, var(--background-container) 6.92%, rgba(105, 108, 124, 0) 101.53%);
+    }
 }
