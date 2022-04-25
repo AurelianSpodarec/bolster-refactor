@@ -1,6 +1,6 @@
 import React from 'react';
 
-import useSearch from 'hooks/useSearch';
+import useSearch from './useSearch';
 
 const useFilterOptionValues = (options, isSorting) => {
     const { searchTerm, handleUpdateSearch } = useSearch();
