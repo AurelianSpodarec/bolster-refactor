@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import Select from 'components/shared/generic/form/presentational/Select';
 import { getSortedDropdownOptions } from 'helpers/addPin';
 import { useFilterPinOptions } from './helpers';
+import CostingMeasurement from './CostingMeasurement';
+import { selectPinOptionType } from '../../../../../selectors/superAdmin/pinOptionTypes';
+import { useSelector } from 'react-redux';
 
 const DropdownOptions = ({
     isRequired,
@@ -13,6 +16,10 @@ const DropdownOptions = ({
     defaultDropdownSorting,
     companyID,
     pinOptions,
+    // todo
+    isCostingEnabled = true,
+    handleMeasurementChange,
+    measurements,
 }) => {
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
     // ! this needs to be kept as an option.
@@ -26,6 +33,7 @@ const DropdownOptions = ({
         }
     }, []);
 
+    const type = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
     // for edit only
     const filteredOptions = useFilterPinOptions(
         questionValue,
@@ -80,17 +88,31 @@ const DropdownOptions = ({
                 createdOn: option.createdOn,
             }));
     }
-    // todo figure out value / handlechange
     const [firstValue] = questionValue;
+    const selected = !firstValue
+        ? null
+        : pinOptions.find(opt => opt.latestVersion.id === firstValue.pinOptionVersionID);
+
+    const shouldShowCosting = isCostingEnabled && type.hasCosting && !!firstValue;
     return (
-        <Select
-            placeholder="-- select --"
-            name={`answer-${id}`}
-            options={getSortedDropdownOptions(formattedOpts, defaultDropdownSorting)}
-            value={firstValue?.pinOptionVersionID}
-            onChange={handleChange}
-            required={isRequired}
-        />
+        <>
+            <Select
+                placeholder="-- select --"
+                name={`answer-${id}`}
+                options={getSortedDropdownOptions(formattedOpts, defaultDropdownSorting)}
+                value={firstValue?.pinOptionVersionID}
+                onChange={handleChange}
+                required={isRequired}
+            />
+            {shouldShowCosting && (
+                <CostingMeasurement
+                    measurement={measurements[firstValue.uid]}
+                    option={selected}
+                    uid={firstValue.uid}
+                    handleChange={handleMeasurementChange}
+                />
+            )}
+        </>
     );
 };
 

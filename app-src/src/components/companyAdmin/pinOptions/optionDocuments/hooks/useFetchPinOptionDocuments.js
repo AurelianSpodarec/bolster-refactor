@@ -18,17 +18,6 @@ const useFetchPinOptionDocuments = optionID => {
     const isFetchingDocuments = useSelector(selectPinOptionDocumentsIsFetching);
     const documentsError = useSelector(selectPinOptionDocumentsFetchError);
     const allDocumentsVersions = useSelector(selectPinOptionDocumentsVersionsArr);
-    const documents = allDocuments.filter(
-        document => document.pinOptionID === parseInt(optionID) && document.isDeleted === false,
-    );
-    const filteredDocumentsVersions = allDocumentsVersions.filter(docVersion =>
-        documents
-            ?.sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
-            .map(({ id }) => id)
-            .includes(docVersion.pinOptionDocumentID),
-    );
-
-    const documentsVersions = filteredDocumentsVersions;
 
     useEffect(() => {
         dispatch(fetchPinOptionsDocuments());
@@ -36,8 +25,8 @@ const useFetchPinOptionDocuments = optionID => {
     }, [dispatch]);
 
     return {
-        documentsVersions,
-        documents,
+        allDocumentsVersions,
+        allDocuments,
         documentsError,
         isFetchingDocuments,
     };

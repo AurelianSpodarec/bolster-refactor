@@ -8,7 +8,7 @@ import { isEmpty } from 'helpers/generic';
 
 import { selectPinOptionTypesArr } from 'selectors/companyAdmin/pinOptionTypes';
 
-import useFilterOptionValues from './hooks/useFilterOptionsValues';
+import useFilterOptionValues from '../../../../hooks/useFilterOptionsValues';
 import useGetOptionsForSet from './hooks/useGetOptionsForSet';
 import useOptionValueActions from './hooks/useOptionValueActions';
 import useUpdateOptionValueSort from './hooks/useUpdateOptionValueSort';

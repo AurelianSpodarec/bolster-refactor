@@ -16,6 +16,7 @@ const OptionSetsListItem = ({
     enableOptionSet,
     disableOptionSet,
     setAsDefault,
+    isCompanySet,
 }) => (
     <tr>
         <td className="row-link w-checkbox">
@@ -39,19 +40,27 @@ const OptionSetsListItem = ({
         </td>
         <td>
             <ButtonWrapper alignment="right">
-                <ActionMenu>
-                    <ActionMenuActionButton text="Edit" onClick={() => showEditModal(set)} />
+                <ActionMenu disabled={isDefault && !isCompanySet}>
                     {!isDefault && (
                         <ActionMenuActionButton
                             text="Set as default"
                             onClick={() => setAsDefault(set)}
                         />
                     )}
-                    <ActionMenuActionButton
-                        text="Delete"
-                        onClick={() => showDeleteModal(set)}
-                        isNegative
-                    />
+
+                    {isCompanySet && (
+                        <>
+                            <ActionMenuActionButton
+                                text="Edit"
+                                onClick={() => showEditModal(set)}
+                            />
+                            <ActionMenuActionButton
+                                text="Delete"
+                                onClick={() => showDeleteModal(set)}
+                                isNegative
+                            />
+                        </>
+                    )}
                 </ActionMenu>
             </ButtonWrapper>
         </td>

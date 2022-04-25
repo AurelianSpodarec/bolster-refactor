@@ -129,11 +129,14 @@ class EditPinFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const { editPinHistory, answers, filesUploading, selectedHistory, status } = this.props;
+        const { editPinHistory, answers, filesUploading, selectedHistory, status, measurements } =
+            this.props;
 
-        const formattedAnswers = Object.keys(answers).map(function (key) {
-            return { questionID: key, answer: answers[key] };
-        });
+        const formattedAnswers = Object.keys(answers).map(key => ({
+            questionID: key,
+            answerValues: answers[key],
+            measurements: measurements[key],
+        }));
 
         const postBody = {
             answers: formattedAnswers,
@@ -151,7 +154,7 @@ const mapStateToProps = (
         companyAdmin: {
             templatesReducer: { templates, isFetching: isFetchingTemplates, error },
             pinHistoriesReducer: { histories },
-            addPinFormReducer: { answers, status },
+            addPinFormReducer: { answers, status, measurements },
             addPinCoordinatesReducer: { coordinates },
             pinsReducer: { pins, postSuccess, isFetching: isFetchingPins },
         },
@@ -165,6 +168,7 @@ const mapStateToProps = (
     pins,
     templates: Object.values(templates),
     answers,
+    measurements,
     coordinates,
     isFetching: isFetchingPins || isFetchingTemplates,
     error,

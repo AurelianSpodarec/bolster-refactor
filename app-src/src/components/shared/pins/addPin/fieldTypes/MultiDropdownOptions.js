@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import { formatAnswers, getSortedDropdownOptions } from 'helpers/addPin';
 import { useFilterPinOptions } from './helpers';
+import { useSelector } from 'react-redux';
+import { selectPinOptionType } from '../../../../../selectors/superAdmin/pinOptionTypes';
+import CostingMeasurement from './CostingMeasurement';
 
 const MultiDropdownOptions = ({
     isRequired,
@@ -13,6 +16,10 @@ const MultiDropdownOptions = ({
     defaultDropdownSorting,
     companyID,
     pinOptions,
+    // todo
+    isCostingEnabled = true,
+    handleMeasurementChange,
+    measurements,
 }) => {
     // todo share component with MultiMultiDropdownOptions
     let formattedOpts = [];
@@ -23,6 +30,8 @@ const MultiDropdownOptions = ({
             handleChange(null, [defaultValue]);
         }
     }, []);
+
+    const type = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
 
     const filteredOptions = useFilterPinOptions(
         questionValue,
@@ -79,15 +88,29 @@ const MultiDropdownOptions = ({
             }));
     }
     const options = getSortedDropdownOptions(formattedOpts, defaultDropdownSorting);
-
+    const shouldShowCosting = isCostingEnabled && type.hasCosting && !!questionValue?.length;
     return (
-        <MultiSelect
-            required={isRequired}
-            options={options}
-            value={formatAnswers(questionValue, options)}
-            name={`answer-${id}`}
-            onChange={handleChange}
-        />
+        <>
+            <MultiSelect
+                required={isRequired}
+                options={options}
+                value={formatAnswers(questionValue, options)}
+                name={`answer-${id}`}
+                onChange={handleChange}
+            />
+            {shouldShowCosting &&
+                questionValue.map(value => (
+                    <CostingMeasurement
+                        key={value.uid}
+                        measurement={measurements[value.uid]}
+                        option={pinOptions.find(
+                            opt => opt.latestVersion.id === value.pinOptionVersionID,
+                        )}
+                        uid={value.uid}
+                        handleChange={handleMeasurementChange}
+                    />
+                ))}
+        </>
     );
 };
 

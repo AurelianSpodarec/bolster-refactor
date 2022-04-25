@@ -3,6 +3,9 @@ import BoundlessSelect from 'components/shared/generic/form/presentational/Bound
 import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
 import { formatAnswers, getSortedDropdownOptions } from 'helpers/addPin';
 import { useFilterPinOptions } from './helpers';
+import { useSelector } from 'react-redux';
+import { selectPinOptionType } from '../../../../../selectors/superAdmin/pinOptionTypes';
+import CostingMeasurement from './CostingMeasurement';
 
 const MultiMultiDropdownOptions = ({
     isRequired,
@@ -14,6 +17,10 @@ const MultiMultiDropdownOptions = ({
     defaultDropdownSorting,
     companyID,
     pinOptions,
+    // todo
+    isCostingEnabled = true,
+    handleMeasurementChange,
+    measurements,
 }) => {
     // todo share component with MultiDropdownOptions
     let formattedOpts = [];
@@ -24,6 +31,8 @@ const MultiMultiDropdownOptions = ({
             handleChange(null, [defaultValue]);
         }
     }, []);
+
+    const type = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
 
     const filteredOptions = useFilterPinOptions(
         questionValue,
@@ -80,16 +89,40 @@ const MultiMultiDropdownOptions = ({
             }));
     }
     const options = getSortedDropdownOptions(formattedOpts, defaultDropdownSorting);
+    const shouldShowCosting =
+        isCostingEnabled && (true || type.hasCosting) && !!questionValue?.length;
 
+    const optCounts = {};
     return (
-        <BoundlessSelect
-            required={isRequired}
-            options={options}
-            value={formatAnswers(questionValue, options)}
-            name={`answer-${id}`}
-            onChange={handleChange}
-            search
-        />
+        <>
+            <BoundlessSelect
+                required={isRequired}
+                options={options}
+                value={formatAnswers(questionValue, options)}
+                name={`answer-${id}`}
+                onChange={handleChange}
+                search
+            />
+            {shouldShowCosting &&
+                questionValue.map(value => {
+                    optCounts[value.pinOptionVersionID] = optCounts[value.pinOptionVersionID]
+                        ? optCounts[value.pinOptionVersionID] + 1
+                        : 1;
+                    return (
+                        <CostingMeasurement
+                            key={value.uid}
+                            count={optCounts[value.pinOptionVersionID]}
+                            showCount={true}
+                            measurement={measurements[value.uid]}
+                            option={pinOptions.find(
+                                opt => opt.latestVersion.id === value.pinOptionVersionID,
+                            )}
+                            uid={value.uid}
+                            handleChange={handleMeasurementChange}
+                        />
+                    );
+                })}
+        </>
     );
 };
 

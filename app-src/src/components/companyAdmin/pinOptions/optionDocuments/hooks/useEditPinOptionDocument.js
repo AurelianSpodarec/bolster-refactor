@@ -6,13 +6,12 @@ import { selectPinOptionDocumentsIsPosting } from 'selectors/companyAdmin/pinOpt
 import editPinOptionDocument from 'actions/companyAdmin/pinOptionsDocuments/async/editPinOptionDocument';
 
 const useEditPinOptionDocument = documentsVersion => {
-    console.log(documentsVersion);
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPinOptionDocumentsIsPosting);
 
     const [form, handleChange] = useForm({
         name: documentsVersion.name,
-        documentS3Key: documentsVersion.documentS3Key,
+        documentS3Key: documentsVersion.s3Key,
     });
 
     const handleSubmit = () => {

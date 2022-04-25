@@ -267,6 +267,7 @@ class AddPinHistoryFormContainer extends Component {
             hierarchyType,
             pinID,
             status,
+            measurements,
         } = this.props;
 
         const curTemplate = templates.find(({ id }) => +id === +templateID) || {};
@@ -274,6 +275,7 @@ class AddPinHistoryFormContainer extends Component {
         const formattedAnswers = Object.keys(answers).map(key => ({
             templateQuestionID: key,
             answerValues: answers[key],
+            measurements: measurements[key],
         }));
 
         const postBody = {
@@ -304,7 +306,7 @@ const mapStateToProps = (
             templateVersionsReducer: { versions },
             templateSectionsReducer: { sections },
             templateQuestionsReducer: { questions },
-            addPinFormReducer: { answers, status },
+            addPinFormReducer: { answers, status, measurements },
             addPinCoordinatesReducer: { coordinates },
             pinsReducer: { postSuccess, isFetching: isFetchingPins },
             pinHistoriesReducer: { histories },
@@ -341,6 +343,7 @@ const mapStateToProps = (
         latestPinHistory,
         subscriptions,
         dropdownOptionsByType: getDropdownOptionsByType(dropdownOptions, ownProps.drawing),
+        measurements,
     };
 };
 

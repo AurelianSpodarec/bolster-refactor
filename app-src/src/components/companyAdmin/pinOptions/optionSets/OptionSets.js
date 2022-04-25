@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { isEmpty } from 'helpers/generic';
 
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
+import { selectJwtData } from 'selectors/shared/jwt';
 
 import useFetchPinOptionSets from 'components/companyAdmin/hooks/useFetchPinOptionSets';
 
@@ -19,6 +20,7 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 
 const OptionSets = ({ selectedTypeID }) => {
     const selectedPinOptionType = useSelector(state => selectPinOptionType(state, selectedTypeID));
+    const { companyID } = useSelector(selectJwtData);
 
     const { pinOptionSetsArr, isFetchingPinOptionSets, pinOptionSetsFetchError } =
         useFetchPinOptionSets();
@@ -87,6 +89,7 @@ const OptionSets = ({ selectedTypeID }) => {
                         enableOptionSet={enableOptionSet}
                         disableOptionSet={disableOptionSet}
                         setAsDefault={setAsDefault}
+                        isCompanySet={set.companyID === companyID}
                     />
                 ))}
             </Table>

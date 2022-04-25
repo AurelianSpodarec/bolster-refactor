@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
 
 import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
-import { withRouter } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import Field from 'components/shared/generic/form/presentational/Field';
 import resetPinAnswer from 'actions/companyAdmin/drawings/sync/resetPinAnswer';
@@ -17,6 +17,8 @@ import { fieldTypes, getDefaultValue } from '../fieldTypes/allFieldTypes';
 import { QUESTION_TYPE_NUMBERS, QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
 import { getValueForQuestionAnswer } from '../fieldTypes/helpers';
 import { usePrevious } from '../../../../../helpers/hooks';
+import { selectAddPinQuestionMeasurements } from '../../../../../selectors/companyAdmin/addPin';
+import updateAddPinMeasurement from '../../../../../actions/companyAdmin/drawings/sync/updateAddPinMeasurement';
 
 const {
     SINGLE_LINE,
@@ -51,7 +53,6 @@ const AddPinQuestionRoute = ({
     isHistory,
     selectedVersion,
     pinOptions,
-    match: { params },
 }) => {
     const {
         answers,
@@ -66,7 +67,9 @@ const AddPinQuestionRoute = ({
         pinOptionVersions,
         histories,
     } = useSelector(mapStateToProps);
+    const measurements = useSelector(state => selectAddPinQuestionMeasurements(state, question.id));
 
+    const params = useParams();
     const { historyID } = params;
     const history = histories[historyID] || {};
     const dispatch = useDispatch();
@@ -186,6 +189,8 @@ const AddPinQuestionRoute = ({
 
         const fieldSize = `size-lg-${isImage ? '12' : '6'}`;
         const isRequired = _getIsRequired();
+        // todo pass through measurements[question.id]
+        // todo prefill measurements if add history / edit
         return (
             <Field
                 key={question.id}
@@ -203,6 +208,7 @@ const AddPinQuestionRoute = ({
                     handleStatusChange={handleStatusChange}
                     handleImageClick={handleImageClick}
                     handleSignatureChange={handleSignatureChange}
+                    handleMeasurementChange={handleMeasurementChange}
                     edit={edit}
                     resetPinAnswer={(id, val) => dispatch(resetPinAnswer(id, val))}
                     isHistory={isHistory}
@@ -210,6 +216,7 @@ const AddPinQuestionRoute = ({
                     defaultDropdownSorting={companySettings.defaultDropdownSorting}
                     companyID={companyID}
                     pinOptions={pinOptions}
+                    measurements={measurements}
                 />
             </Field>
         );
@@ -356,7 +363,7 @@ const AddPinQuestionRoute = ({
         }
     }
     function handleChange(_, value) {
-        const valueToStore = getValueForQuestionAnswer(question, value);
+        const valueToStore = getValueForQuestionAnswer(question, value, answer?.answerValues);
         dispatch(updateAddPinAnswer(question.id, valueToStore));
     }
 
@@ -369,6 +376,15 @@ const AddPinQuestionRoute = ({
     }
     function handleImageClick(imgURL) {
         dispatch(showModal(PIN_IMAGE, imgURL));
+    }
+
+    function handleMeasurementChange(uid, key, value) {
+        // e.g. handleMeasurementChange(uid 'height', 1.5)
+        const updatedMeasurements = {
+            ...measurements,
+            [uid]: { ...measurements[uid], [key]: value },
+        };
+        dispatch(updateAddPinMeasurement(question.id, updatedMeasurements));
     }
 };
 
@@ -402,4 +418,4 @@ const mapStateToProps = ({
     histories,
 });
 
-export default withRouter(AddPinQuestionRoute);
+export default AddPinQuestionRoute;

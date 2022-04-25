@@ -4,6 +4,7 @@ import { QUESTION_TYPE_NUMBERS as TYPES } from '../../../../../constants/shared/
 import { selectPinOptions } from '../../../../../selectors/companyAdmin/pinOptions';
 import { useSelector } from 'react-redux';
 import { selectPinOptionVersions } from '../../../../../selectors/companyAdmin/pinOptionVersions';
+import uuid from 'uuid/v4';
 
 export const useDropdownOpts = (options, optionConfigurations) => {
     const opts = useMemo(() => {
@@ -73,7 +74,7 @@ export const emptyAnswer = {
     pinOptionVersionID: null,
 };
 
-export const getValueForQuestionAnswer = (question, value) => {
+export const getValueForQuestionAnswer = (question, value, answerValues) => {
     switch (question.type) {
         case TYPES.SINGLE_LINE:
         case TYPES.MULTI_LINE:
@@ -96,15 +97,28 @@ export const getValueForQuestionAnswer = (question, value) => {
             const answer = {
                 ...emptyAnswer,
                 pinOptionVersionID: value,
+                uid: uuid(),
             };
             return [answer];
         }
         case TYPES.MULTI_PIN_OPTION_TYPES:
         case TYPES.MULTI_MULTI_PIN_OPTION_TYPES: {
-            return value.map(ans => ({
-                ...emptyAnswer,
-                pinOptionVersionID: ans,
-            }));
+            const counts = {};
+            return value.map(ans => {
+                const count = counts[ans] ?? 0;
+                const oldAnswers =
+                    answerValues?.filter(answer => answer.pinOptionVersionID === ans) ?? [];
+                if (oldAnswers[count]) {
+                    counts[ans] = count + 1;
+                }
+                const oldAnswer = oldAnswers[count];
+                const uid = oldAnswer?.uid ?? uuid();
+                return {
+                    ...emptyAnswer,
+                    pinOptionVersionID: ans,
+                    uid,
+                };
+            });
         }
         case TYPES.NUMBER: {
             const answer = {
