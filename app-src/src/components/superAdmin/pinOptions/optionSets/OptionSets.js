@@ -12,7 +12,9 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import Table from 'components/shared/generic/tables/presentational/Table';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+
 import OptionSetsListItem from './OptionSetsListItem';
+import useOptionSetActions from './hooks/useOptionSetActions';
 
 const OptionSets = ({ selectedTypeID }) => {
     const selectedPinOptionType = useSelector(state => selectPinOptionType(state, selectedTypeID));
@@ -25,12 +27,8 @@ const OptionSets = ({ selectedTypeID }) => {
         selectedTypeID,
     );
 
-    // const {
-    //     showAddModal,
-    //     showEditModal,
-    //     showDeleteModal,
-    //     setAsDefault,
-    // } = useOptionSetActions(selectedTypeID);
+    const { showAddModal, showEditModal, showDeleteModal, setAsDefault } =
+        useOptionSetActions(selectedTypeID);
 
     const setLink = selectedPinOptionType.slug;
 
@@ -59,7 +57,7 @@ const OptionSets = ({ selectedTypeID }) => {
                         icon="plus"
                         ambient="positive"
                         size="medium"
-                        // onClick={showAddModal}
+                        onClick={showAddModal}
                     />
                 </ButtonWrapper>
             </FilterRow>
@@ -77,9 +75,8 @@ const OptionSets = ({ selectedTypeID }) => {
                         key={set.id}
                         set={set}
                         setLink={setLink}
-                        // showEditModal={showEditModal}
+                        showEditModal={showEditModal}
                         // showDeleteModal={showDeleteModal}
-                        // setAsDefault={setAsDefault}
                     />
                 ))}
             </Table>

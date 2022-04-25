@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Select from 'components/shared/generic/form/presentational/Select';
 import { getSortedDropdownOptions } from 'helpers/addPin';
 import { useFilterPinOptions } from './helpers';
+import CostingMeasurement from './CostingMeasurement';
 
 const DropdownOptions = ({
     isRequired,
@@ -13,6 +14,10 @@ const DropdownOptions = ({
     defaultDropdownSorting,
     companyID,
     pinOptions,
+    // todo populate
+    isCostingEnabled = true,
+    handleMeasurementChange,
+    measurements,
 }) => {
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
     // ! this needs to be kept as an option.
@@ -26,6 +31,8 @@ const DropdownOptions = ({
         }
     }, []);
 
+    // todo useSelector for the pin option type, check if hasCosting
+    const isCostingEnabledForPinOptionType = true;
     // for edit only
     const filteredOptions = useFilterPinOptions(
         questionValue,
@@ -82,15 +89,32 @@ const DropdownOptions = ({
     }
     // todo figure out value / handlechange
     const [firstValue] = questionValue;
+    const selected = !firstValue
+        ? null
+        : pinOptions.find(opt => opt.latestVersion.id === firstValue.pinOptionVersionID);
+
+    const shouldShowCosting = isCostingEnabled && isCostingEnabledForPinOptionType && !!firstValue;
     return (
-        <Select
-            placeholder="-- select --"
-            name={`answer-${id}`}
-            options={getSortedDropdownOptions(formattedOpts, defaultDropdownSorting)}
-            value={firstValue?.pinOptionVersionID}
-            onChange={handleChange}
-            required={isRequired}
-        />
+        <>
+            <Select
+                placeholder="-- select --"
+                name={`answer-${id}`}
+                options={getSortedDropdownOptions(formattedOpts, defaultDropdownSorting)}
+                value={firstValue?.pinOptionVersionID}
+                onChange={handleChange}
+                required={isRequired}
+            />
+            {shouldShowCosting && (
+                <CostingMeasurement
+                    count={1}
+                    // todo figure out value / handlechange / measurement structure
+                    measurement={measurements[firstValue?.uid]}
+                    option={selected}
+                    uid={firstValue?.uid}
+                    handleChange={handleMeasurementChange}
+                />
+            )}
+        </>
     );
 };
 

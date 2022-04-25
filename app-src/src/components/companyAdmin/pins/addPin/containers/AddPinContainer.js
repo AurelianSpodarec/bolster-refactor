@@ -11,6 +11,7 @@ import fetchPinOptionVersions from '../../../../../actions/companyAdmin/pinOptio
 import fetchPinOptions from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptions';
 import { componentDidMount } from '../../../../../helpers/generic';
 import { useAddPinOptions } from '../../../../shared/pins/addPin/fieldTypes/helpers';
+import fetchPinOptionTypes from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionTypes';
 
 const AddPinContainer = () => {
     const { serviceID } = useSelector(mapStateToProps);
@@ -19,6 +20,7 @@ const AddPinContainer = () => {
     const { id: drawingID } = params;
     componentDidMount(() => {
         batch(() => {
+            dispatch(fetchPinOptionTypes());
             dispatch(fetchPins('drawing', drawingID));
             dispatch(fetchPinOptions());
             dispatch(fetchPinOptionVersions());

@@ -96,12 +96,13 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                     <Link
                         to={`/company/company-documents?prefix=${prefix + item.name}`}
                         title={`Open ${item.name}`}
+                        className="doc-link"
                     >
                         <p
                             style={
                                 item.type === DOCUMENT_LIBRARY_TYPES.FILE
                                     ? { maxWidth: 'calc(100% - 34px)' }
-                                    : { maxWidth: '100%' }
+                                    : { maxWidth: '90%' }
                             }
                         >{`${item.name || '-'}`}</p>
                     </Link>
@@ -136,7 +137,7 @@ const DocumentsGridItem = ({ item, isSelected, toggleItemSelect }) => {
                             style={
                                 item.type === DOCUMENT_LIBRARY_TYPES.FILE
                                     ? { maxWidth: 'calc(100% - 56px)' }
-                                    : { maxWidth: '100%' }
+                                    : { maxWidth: '90%' }
                             }
                         >{`${item.name || '-'}`}</p>
                     </a>

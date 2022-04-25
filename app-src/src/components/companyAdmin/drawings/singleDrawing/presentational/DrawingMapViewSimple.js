@@ -278,7 +278,6 @@ const DrawingMapViewSimple = ({
                     </Map>
 
                     {!shouldShowPinSelectorOptions &&
-                        !isExpired &&
                         !addMode &&
                         drawing.accessType >= ACCESS_TYPES_VALUES.WRITE && (
                             <div className="map-bottom-buttons">

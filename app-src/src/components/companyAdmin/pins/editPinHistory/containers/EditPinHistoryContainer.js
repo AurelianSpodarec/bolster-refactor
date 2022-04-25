@@ -10,6 +10,7 @@ import { componentDidMount } from 'helpers/generic';
 import fetchPinOptions from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptions';
 import fetchPinOptionVersions from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionVersions';
 import { useAddPinOptions } from '../../../../shared/pins/addPin/fieldTypes/helpers';
+import fetchPinOptionTypes from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionTypes';
 
 const EditPinHistoryContainer = () => {
     const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const EditPinHistoryContainer = () => {
     const drawing = drawings[pins[pinID]?.drawingID];
 
     componentDidMount(() => {
+        dispatch(fetchPinOptionTypes());
         dispatch(fetchPinOptions());
         dispatch(fetchPinOptionVersions());
         dispatch(fetchSinglePin(pinID, true));
