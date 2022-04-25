@@ -75,9 +75,8 @@ const OptionSets = ({ selectedTypeID }) => {
                         key={set.id}
                         set={set}
                         setLink={setLink}
-                        // showEditModal={showEditModal}
+                        showEditModal={showEditModal}
                         // showDeleteModal={showDeleteModal}
-                        // setAsDefault={setAsDefault}
                     />
                 ))}
             </Table>

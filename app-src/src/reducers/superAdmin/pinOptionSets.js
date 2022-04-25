@@ -8,6 +8,9 @@ import {
     CREATE_ADMIN_PIN_OPTION_SET_REQUEST,
     CREATE_ADMIN_PIN_OPTION_SET_FAILURE,
     CREATE_ADMIN_PIN_OPTION_SET_SUCCESS,
+    EDIT_ADMIN_PIN_OPTION_SET_SUCCESS,
+    EDIT_ADMIN_PIN_OPTION_SET_REQUEST,
+    EDIT_ADMIN_PIN_OPTION_SET_FAILURE,
 } from 'constants/actionTypes/pinOptions';
 import { SET_API_FIELD_ERRORS } from '../../constants/actionTypes/generic';
 
@@ -48,6 +51,7 @@ function setsReducer(state = {}, action) {
         case FETCH_ADMIN_PIN_OPTION_SETS_SUCCESS:
             return convertArrToObj(action.payload);
         case CREATE_ADMIN_PIN_OPTION_SET_SUCCESS:
+        case EDIT_ADMIN_PIN_OPTION_SET_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
@@ -57,9 +61,12 @@ function setsReducer(state = {}, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case CREATE_ADMIN_PIN_OPTION_SET_REQUEST:
+        case EDIT_ADMIN_PIN_OPTION_SET_REQUEST:
             return true;
         case CREATE_ADMIN_PIN_OPTION_SET_SUCCESS:
         case CREATE_ADMIN_PIN_OPTION_SET_FAILURE:
+        case EDIT_ADMIN_PIN_OPTION_SET_SUCCESS:
+        case EDIT_ADMIN_PIN_OPTION_SET_FAILURE:
         case SET_API_FIELD_ERRORS:
             return false;
         default:
@@ -70,8 +77,10 @@ function isPostingReducer(state = false, action) {
 function postErrorReducer(state = null, action) {
     switch (action.type) {
         case CREATE_ADMIN_PIN_OPTION_SET_REQUEST:
+        case EDIT_ADMIN_PIN_OPTION_SET_REQUEST:
             return null;
         case CREATE_ADMIN_PIN_OPTION_SET_FAILURE:
+        case EDIT_ADMIN_PIN_OPTION_SET_FAILURE:
             return action.error;
         default:
             return state;
@@ -81,8 +90,10 @@ function postErrorReducer(state = null, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_ADMIN_PIN_OPTION_SET_REQUEST:
+        case EDIT_ADMIN_PIN_OPTION_SET_REQUEST:
             return false;
         case CREATE_ADMIN_PIN_OPTION_SET_SUCCESS:
+        case EDIT_ADMIN_PIN_OPTION_SET_SUCCESS:
             return true;
         default:
             return state;

@@ -5,15 +5,15 @@ import { ERROR_MODAL } from 'constants/shared/modalTypes';
 import { useForm, usePrevious } from 'helpers/hooks';
 import { formatCheckboxListOptions } from 'helpers/generic';
 
-import editPinOptionSet from 'actions/companyAdmin/pinOptions/async/editPinOptionSet';
+import editPinOptionSet from 'actions/superAdmin/pinOptions/async/editPinOptionSet';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import {
     selectPinOptionSetsIsPosting,
     selectPinOptionSetsPostError,
     selectPinOptionSetsPostSuccess,
-} from 'selectors/companyAdmin/pinOptionSets';
-import { selectServicesArr } from 'selectors/companyAdmin/services';
+} from 'selectors/superAdmin/pinOptionSets';
+import { selectServicesArr } from 'selectors/superAdmin/services';
 
 const useEditOptionSet = set => {
     const dispatch = useDispatch();
