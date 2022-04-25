@@ -1,6 +1,6 @@
 import React from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
 import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
@@ -12,10 +12,11 @@ import fetchPinOptions from '../../../../../actions/companyAdmin/pinOptions/asyn
 import { componentDidMount } from '../../../../../helpers/generic';
 import { useAddPinOptions } from '../../../../shared/pins/addPin/fieldTypes/helpers';
 
-const AddPinContainer = ({ match: { params } }) => {
+const AddPinContainer = () => {
     const { serviceID } = useSelector(mapStateToProps);
     const dispatch = useDispatch();
-    const { drawingID } = params;
+    const params = useParams();
+    const { id: drawingID } = params;
     componentDidMount(() => {
         batch(() => {
             dispatch(fetchPins('drawing', drawingID));
@@ -41,4 +42,4 @@ const mapStateToProps = ({
     serviceID,
 });
 
-export default withRouter(AddPinContainer);
+export default AddPinContainer;

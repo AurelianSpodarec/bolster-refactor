@@ -6,7 +6,7 @@ import { ReactComponent as SortAscIcon } from '_content/images/icons/sort-asc.sv
 
 import { isEmpty } from 'helpers/generic';
 
-import { selectPinOptionTypesArr } from 'selectors/companyAdmin/pinOptionTypes';
+import { selectPinOptionTypesArr } from '../../../../selectors/superAdmin/pinOptionTypes';
 
 import useFilterOptionValues from '../../../../hooks/useFilterOptionsValues';
 import useGetOptionsForSet from './hooks/useGetOptionsForSet';
@@ -39,13 +39,12 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
         isSorting,
     );
 
-    const { showAddModal, showEditModal, showDeleteModal, enableOptionValue, disableOptionValue } =
-        useOptionValueActions(typeID, setID);
+    const { showAddModal, showEditModal, showDeleteModal } = useOptionValueActions(typeID, setID);
 
     const shouldRedirect = useShouldRedirectFromOptionValues(hasFetched);
 
     if (shouldRedirect) {
-        return <Redirect to="/company/pin-options" />;
+        return <Redirect to="/admin/pin-options" />;
     }
 
     return (
@@ -99,8 +98,6 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
                             typeID={typeID}
                             showEditModal={showEditModal}
                             showDeleteModal={showDeleteModal}
-                            enableOptionValue={enableOptionValue}
-                            disableOptionValue={disableOptionValue}
                             isSorting={isSorting}
                             onMove={moveItem}
                             onDrop={handleUpdateSort}

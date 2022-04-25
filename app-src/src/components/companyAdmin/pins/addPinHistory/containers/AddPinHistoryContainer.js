@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import AddPinHistoryFormContainer from './AddPinHistoryFormContainer';
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
@@ -10,9 +10,10 @@ import fetchPinOptions from 'actions/companyAdmin/pinOptions/async/fetchPinOptio
 import { componentDidMount } from 'helpers/generic';
 import { useAddPinOptions } from '../../../../shared/pins/addPin/fieldTypes/helpers';
 
-const AddPinHistoryContainer = ({ match: { params } }) => {
+const AddPinHistoryContainer = () => {
     const dispatch = useDispatch();
     const { drawings, pins, serviceID } = useSelector(mapStateToProps);
+    const params = useParams();
     const pinID = params.id;
     componentDidMount(() => {
         dispatch(fetchPinOptions());
@@ -53,4 +54,4 @@ const mapStateToProps = ({
     };
 };
 
-export default withRouter(AddPinHistoryContainer);
+export default AddPinHistoryContainer;
