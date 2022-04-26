@@ -14,7 +14,7 @@ import FlexWrapper from '../generic/flexWrapper/FlexWrapper';
 const DocumentPod = ({ name, lastUpdated, actionMenuItems, s3Key }) => {
     const dispatch = useDispatch();
 
-    const showViewModal = s3Key => {
+    const showViewModal = () => {
         dispatch(
             showModal(DOCUMENT_VIEW, {
                 image: `${RAW_S3_STORAGE_URL}/${s3Key}`,
