@@ -6,7 +6,7 @@ import CostingCartSummarySubItem from './CostingCartSummarySubItem';
 const CostingCart = () => {
     return (
         <div className="costing-cart">
-            <BlockContainer>
+            <BlockContainer contentClass="border">
                 <h2>Costing cart</h2>
 
                 <CostingCartSummaryItem />
