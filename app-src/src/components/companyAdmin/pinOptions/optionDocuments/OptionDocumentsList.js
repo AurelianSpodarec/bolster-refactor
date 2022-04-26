@@ -52,24 +52,27 @@ const OptionDocumentsList = ({
     return (
         <GridWrapper gap={15} itemsPerRow={5}>
             {documents.map(document => {
-                const documentsVersion = getLatestVersionForPinOptionDocument(
+                const latestVersion = getLatestVersionForPinOptionDocument(
                     document.id,
                     allDocumentsVersions,
                 );
+
+                if (isEmpty(latestVersion)) return null;
+
                 return (
                     <DocumentPod
-                        key={documentsVersion?.id}
-                        name={documentsVersion?.name}
-                        lastUpdated={documentsVersion?.createdOn}
-                        s3Key={documentsVersion?.s3Key}
-                        pinOptionDocumentID={documentsVersion?.pinOptionDocumentID}
+                        key={latestVersion.id}
+                        name={latestVersion.name}
+                        lastUpdated={latestVersion.createdOn}
+                        s3Key={latestVersion.s3Key}
+                        pinOptionDocumentID={latestVersion.pinOptionDocumentID}
                         actionMenuItems={
                             <ActionMenuItems
                                 disabled={isCompanyOption}
-                                documentsVersion={documentsVersion}
+                                documentsVersion={latestVersion}
                             />
                         }
-                        showViewModal={() => showViewModal(documentsVersion?.s3Key)}
+                        showViewModal={() => showViewModal(latestVersion.s3Key)}
                         isCompanyOption={isCompanyOption}
                     />
                 );
