@@ -8,6 +8,7 @@ const useFilterSets = (sets, selectedTypeID) => {
         return sets.filter(set => {
             if (!set.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
             if (set.pinOptionTypeID !== selectedTypeID) return false;
+            if (set.isDeleted) return false;
             return true;
         });
     };

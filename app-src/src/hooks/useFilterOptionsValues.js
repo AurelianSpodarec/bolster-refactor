@@ -8,14 +8,8 @@ const useFilterOptionValues = (options, isSorting) => {
     const getFilteredOptionValues = () => {
         if (isSorting) return options;
         return options.filter(opt => {
-            if (!opt.name.toLowerCase().includes(searchTerm.toLowerCase())) {
-                return false;
-            }
-
-            if (opt.isDeleted) {
-                return false;
-            }
-
+            if (!opt.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+            if (opt.isDeleted) return false;
             return true;
         });
     };
