@@ -50,12 +50,14 @@ const OptionDocuments = () => {
         <>
             <FlexHeading title={name} withBackButton>
                 <ButtonWrapper alignment="right">
-                    <ActionButton
-                        text="Upload"
-                        icon="file-plus"
-                        size="medium"
-                        onClick={() => showAddModal(optionID)}
-                    />
+                    {isCompanyOption && (
+                        <ActionButton
+                            text="Upload"
+                            icon="file-plus"
+                            size="medium"
+                            onClick={() => showAddModal(optionID)}
+                        />
+                    )}
                 </ButtonWrapper>
             </FlexHeading>
 
