@@ -60,6 +60,9 @@
 
   .content-area {
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 
     .pod-flip-bg {
       pointer-events: none;
@@ -135,8 +138,11 @@
     }
   }
 
+  .spacer {
+    flex: 1;
+  }
   .content-wrapper {
-    margin-top: 35px;
+
 
     span {
       color: var(--typography-greyed-out);
