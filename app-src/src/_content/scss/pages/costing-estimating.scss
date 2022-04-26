@@ -18,6 +18,16 @@
   font-weight: 500;
 }
 
+@mixin h5title() {
+  font-size: 130%;
+  font-weight: 500;
+}
+
+@mixin bodyText() {
+  font-size: 130%;
+  font-weight: 400;
+}
+
 .costing-wrapper {
   grid-template-areas: "pods pods cart" "graph graph cart" "filters filters cart";
   grid-template-columns: repeat(3, 1fr);
@@ -33,6 +43,12 @@
   }
   h4 {
     @include h4title;
+  }
+  h5 {
+    @include h5title;
+  }
+  p, span{
+    @include bodyText;
   }
 
   .divider {
@@ -107,10 +123,27 @@
   grid-area: cart;
 
   .summary-item {
-    padding: 5px 0 0;
+    padding: 10px 0 0;
 
+    
+    .summary-row {
+      padding: 5px 0;
+    }
+    
     .total {
       text-align: right;
+    }
+    .sub-item {
+      padding-right: 15px;
+    }
+    .expandable {
+      overflow-y: hidden;
+      transition: all 0.4s ease-in-out;
+      max-height: 0;
+
+      &.active {
+        max-height: 100vh;
+      }
     }
   }
 

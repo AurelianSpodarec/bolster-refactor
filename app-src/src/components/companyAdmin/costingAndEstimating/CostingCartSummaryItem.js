@@ -2,7 +2,7 @@ import AccordionButton from 'components/shared/generic/button/presentational/Acc
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import React, { useState } from 'react';
 
-const CostingCartSummaryItem = () => {
+const CostingCartSummaryItem = ({ children }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     return (
@@ -16,6 +16,7 @@ const CostingCartSummaryItem = () => {
                     />
                 </div>
             </FlexWrapper>
+            <div className={`expandable ${isExpanded ? 'active' : ''}`}>{children}</div>
             <div className="divider" />
             <div className="total">
                 <h3>£18,616.78</h3>
