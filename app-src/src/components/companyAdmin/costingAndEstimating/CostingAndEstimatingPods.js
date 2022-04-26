@@ -1,6 +1,5 @@
 import React from 'react';
 
-import FlexWrapper from '../../shared/generic/flexWrapper/FlexWrapper';
 import BlockContainer from '../../shared/generic/block/containers/BlockContainer';
 
 const CostingAndEstimatingPods = () => {

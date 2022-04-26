@@ -27,7 +27,7 @@ const GeneralOverview = ({ handleDelete, handleArchive, drawing, drawingExpired,
                         <DrawingOperativesAccessContainer />
                     </div>
                     <div className="flex-item small-text-table two-line size-lg-3 size-md-12">
-                        <DrawingCompaniesAccessContainer accessType={drawing.accessType} />
+                        <DrawingCompaniesAccessContainer accessType={drawing?.accessType} />
                     </div>
                 </>
             )}
@@ -46,7 +46,7 @@ const GeneralOverview = ({ handleDelete, handleArchive, drawing, drawingExpired,
         <div className="size-lg-12">
             <div className="content-container size-lg-12">
                 <div className="button-container outside-block">
-                    {drawing.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                    {drawing?.accessType === ACCESS_TYPES_VALUES.OWNER && (
                         <button type="button" className="button red" onClick={handleDelete}>
                             <i className="far fa-trash-alt" /> Delete drawing
                         </button>
@@ -54,7 +54,7 @@ const GeneralOverview = ({ handleDelete, handleArchive, drawing, drawingExpired,
 
                     <button className="button blue" onClick={handleArchive} type="button">
                         <i className="fa fa-archive" />
-                        {drawing.isArchived ? 'Un-Archive' : 'Archive'}
+                        {drawing?.isArchived ? 'Un-Archive' : 'Archive'}
                     </button>
                 </div>
             </div>
