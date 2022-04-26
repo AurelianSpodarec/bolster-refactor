@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-    CONFIRM_SUBMIT,
     CREATE_PIN_OPTIONS_SET_MODAL,
     EDIT_PIN_OPTIONS_SET_MODAL,
     ERROR_MODAL,
@@ -40,18 +39,6 @@ const useOptionSetActions = selectedTypeID => {
         dispatch(showModal(EDIT_PIN_OPTIONS_SET_MODAL, { set }));
     };
 
-    const showDeleteModal = set => {
-        dispatch(
-            showModal(CONFIRM_SUBMIT, {
-                handleSubmit: () => console.log('delete...'),
-                title: `Delete ${set.name}?`,
-                message: 'Are you sure you would like to delete this set?',
-                submitButtonText: 'Delete',
-                submitButtonIcon: 'trash-alt',
-            }),
-        );
-    };
-
     const enableOptionSet = set => {
         if (!isPosting) dispatch(enablePinOptionSet(set));
     };
@@ -71,7 +58,6 @@ const useOptionSetActions = selectedTypeID => {
     return {
         showAddModal,
         showEditModal,
-        showDeleteModal,
         enableOptionSet,
         disableOptionSet,
         setAsDefault,

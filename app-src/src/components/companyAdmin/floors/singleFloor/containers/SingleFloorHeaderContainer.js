@@ -9,13 +9,13 @@ import TabsContainer from 'components/shared/generic/tabs/containers/TabsContain
 const SingleFloorHeaderContainer = ({ floor }) => (
     <SingleFloorHeader floor={floor}>
         <FloorBreadcrumbContainer>
-            <TabsContainer />
+            <TabsContainer classes="hierarchy-tabs" />
         </FloorBreadcrumbContainer>
     </SingleFloorHeader>
 );
 
 export default withRouter(
     connect(({ companyAdmin: { floorsReducer } }, ownProps) => ({
-        floor: floorsReducer.floors[ownProps.match.params.id] || {}
-    }))(SingleFloorHeaderContainer)
+        floor: floorsReducer.floors[ownProps.match.params.id] || {},
+    }))(SingleFloorHeaderContainer),
 );

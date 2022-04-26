@@ -13,13 +13,7 @@ const CreateBuildingsForm = ({
     addBuilding,
     removeBuilding,
     handleClose,
-    showManufacturingOptions,
-    setShowManufacturingOptions,
     siteName,
-    showDropdownOptions,
-    setShowDropdownOptions,
-    combinedOptions,
-    handleShowOandMModal,
     isFetchingHierarchies,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
@@ -28,20 +22,11 @@ const CreateBuildingsForm = ({
                 buildings={buildings}
                 updateBuilding={updateBuilding}
                 removeBuilding={removeBuilding}
-                showManufacturingOptions={showManufacturingOptions}
-                setShowManufacturingOptions={setShowManufacturingOptions}
                 siteName={siteName}
-                showDropdownOptions={showDropdownOptions}
-                setShowDropdownOptions={setShowDropdownOptions}
-                handleShowOandMModal={handleShowOandMModal}
             />
         </div>
         <BlockButtonWrapper>
-            <button
-                className="button blue left"
-                type="button"
-                onClick={() => addBuilding(combinedOptions)}
-            >
+            <button className="button blue left" type="button" onClick={addBuilding}>
                 <i className="fa fa-plus" /> Add another building
             </button>
             {isFetchingHierarchies ? (

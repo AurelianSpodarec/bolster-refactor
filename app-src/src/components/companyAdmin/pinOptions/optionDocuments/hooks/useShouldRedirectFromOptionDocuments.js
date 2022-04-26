@@ -23,6 +23,10 @@ const useShouldRedirectFromOptionDocuments = hasFetched => {
             return true;
         }
 
+        if (specificType && !specificType.hasDocuments) {
+            return true;
+        }
+
         if (specificSet && specificSet.pinOptionTypeID !== specificType.id) {
             return true;
         }

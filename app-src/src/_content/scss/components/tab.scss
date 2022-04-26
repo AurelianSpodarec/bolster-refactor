@@ -18,6 +18,7 @@
 
     &.active {
       background-color: var(--navigation-secondary);
+      color: var(--typography-default);
     }
 
     &.green {
@@ -43,6 +44,35 @@
       margin-top: 5px;
       margin-left: 5px;
       border-radius: 5px;
+    }
+  }
+
+
+  &.hierarchy-tabs {
+    button {
+      font-size: 150%;
+      padding: 10px 30px;
+      background: transparent;
+      color: var(--typography-greyed-out);
+      border-top: 1px solid var(--navigation-secondary);
+      border-bottom: 1px solid var(--navigation-secondary);
+      border-left: none;
+      border-right: none;
+
+      &.active {
+        background-color: var(--navigation-secondary);
+        color: var(--typography-default);
+      }
+
+      &:last-child {
+        border-left: 1px solid var(--navigation-secondary);
+        border-radius: 10px 0 0 10px;
+      }
+
+      &:first-child {
+        border-right: 1px solid var(--navigation-secondary);
+        border-radius: 0 10px 10px 0;
+      }
     }
   }
 }

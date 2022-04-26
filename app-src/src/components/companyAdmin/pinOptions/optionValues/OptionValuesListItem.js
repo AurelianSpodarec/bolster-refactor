@@ -60,11 +60,13 @@ const OptionValuesListItem = ({
                         <ButtonWrapper alignment="right">
                             {hasPriceBreaks && <p className="button-wrapper-info disabled">£</p>}
 
-                            <LinkButton
-                                text="Documents"
-                                href={`/company/pin-options/${typeSlug}/${setID}/option/${id}/documents`}
-                                disabled={isSorting}
-                            />
+                            {pinOptionType.hasDocuments && (
+                                <LinkButton
+                                    text="Documents"
+                                    href={`/company/pin-options/${typeSlug}/${setID}/option/${id}/documents`}
+                                    disabled={isSorting}
+                                />
+                            )}
 
                             {isCompanySet && (
                                 <ActionMenu disabled={isSorting}>

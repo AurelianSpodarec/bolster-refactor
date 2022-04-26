@@ -1,6 +1,62 @@
+@mixin h1title() {
+  font-size: 220%;
+  font-weight: 500;
+}
+
+@mixin h2title() {
+  font-size: 190%;
+  font-weight: 500;
+}
+
+@mixin h3title() {
+  font-size: 160%;
+  font-weight: 500;
+}
+
+@mixin h4title() {
+  font-size: 150%;
+  font-weight: 500;
+}
+
+@mixin h5title() {
+  font-size: 130%;
+  font-weight: 500;
+}
+
+@mixin bodyText() {
+  font-size: 130%;
+  font-weight: 400;
+}
+
 .costing-wrapper {
   grid-template-areas: "pods pods cart" "graph graph cart" "filters filters cart";
   grid-template-columns: repeat(3, 1fr);
+
+  h1 {
+    @include h1title;
+  }
+  h2 {
+    @include h2title;
+  }
+  h3 {
+    @include h3title;
+  }
+  h4 {
+    @include h4title;
+  }
+  h5 {
+    @include h5title;
+  }
+  p, span{
+    @include bodyText;
+  }
+
+  .divider {
+    display: block;
+    height: 1px;
+    background-color: $new-grey-alt;
+    margin: 7px 0;
+  }
 }
 
 .pods {
@@ -65,7 +121,50 @@
 
 .costing-cart {
   grid-area: cart;
-  margin-right: 30px;
+
+  .summary-item {
+    padding: 10px 0 0;
+
+    
+    .summary-row {
+      padding: 5px 0;
+    }
+    
+    .total {
+      text-align: right;
+    }
+    .sub-item {
+      padding-right: 15px;
+    }
+    .expandable {
+      overflow-y: hidden;
+      transition: all 0.4s ease-in-out;
+      max-height: 0;
+
+      &.active {
+        max-height: 100vh;
+      }
+    }
+  }
+
+  .grand-total {
+    text-align: right;
+    // border-top: 1px solid $new-grey-alt;
+    padding-top: 10px;
+    margin-top: 10px;
+
+    h1, h3 {
+      display: inline-block;
+    }
+
+  h3 {
+    margin-right: 1em;
+    color: $new-grey-alt;
+  }
+  h1 {
+    font-size: 260%;
+  }
+  }
 }
 
 .graph-wrapper {
