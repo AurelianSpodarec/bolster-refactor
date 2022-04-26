@@ -6,6 +6,7 @@ import CostingAndEstimatingPods from './CostingAndEstimatingPods';
 import BlockContainer from '../../shared/generic/block/containers/BlockContainer';
 import CostingCart from './CostingCart';
 import useCostingAndEstimating from './_hooks/useCostingAndEstimating';
+import CostingAndEstimatingGraph from './CostingAndEstimatingGraph';
 
 const CostingAndEstimating = () => {
     const { costingCart, graph, keyStatistics, allPins } = useCostingAndEstimating();
@@ -15,11 +16,7 @@ const CostingAndEstimating = () => {
 
             <CostingCart data={costingCart} />
 
-            <div className="graph-wrapper">
-                <BlockContainer contentClass="border">
-                    <h3>Graph</h3>
-                </BlockContainer>
-            </div>
+            <CostingAndEstimatingGraph graph={graph} />
 
             <div className="filters-wrapper">
                 <BlockContainer contentClass="border">
