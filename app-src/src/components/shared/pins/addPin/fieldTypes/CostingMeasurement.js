@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Field from '../../../generic/form/presentational/Field';
 import { MEASUREMENT_TYPES } from '../../../../../constants/companyAdmin/enums';
 import CostingMeasurementInput from './CostingMeasurementInput';
-const { LINEAR, CUBIC, DIAMETER, FIXED, NUMBER, SQUARE, VOLUME } = MEASUREMENT_TYPES;
+const { LINEAR, CUBIC, RADIUS, FIXED, NUMBER, SQUARE, VOLUME } = MEASUREMENT_TYPES;
 
 const CostingMeasurement = ({
     measurement = {},
@@ -40,7 +40,7 @@ const CostingMeasurement = ({
 
 const measurementInfo = {
     [LINEAR]: { fieldNames: ['length'] },
-    [DIAMETER]: { fieldNames: ['length'] },
+    [RADIUS]: { fieldNames: ['radius'] },
     [SQUARE]: { fieldNames: ['length', 'width'] },
     [CUBIC]: { fieldNames: ['length', 'width', 'height'] },
     [VOLUME]: { fieldNames: ['length', 'width', 'height'] },
