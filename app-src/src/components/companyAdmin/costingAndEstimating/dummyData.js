@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const dummyPrelims = {
     1: {
         id: 1,
@@ -140,12 +142,14 @@ export const dummyMain = {
     ],
     graph: {
         total: 18616.78,
-        labels: [1650969400, 1650969400, 1650969400],
+        labels: Array(7)
+            .fill(moment())
+            .map((d, i) => d.subtract(i, 'days').valueOf()),
         datasets: [
             {
                 id: 1,
                 label: '',
-                data: [12000, 14000, 18616.78],
+                data: [12000, 14000, 18616.78, 19463.78, 204900, 204900, 204900],
             },
         ],
     },

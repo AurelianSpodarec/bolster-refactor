@@ -21,6 +21,7 @@ import { selectAddPinQuestionMeasurements } from '../../../../../selectors/compa
 import updateAddPinMeasurement from '../../../../../actions/companyAdmin/drawings/sync/updateAddPinMeasurement';
 import { selectDrawing } from '../../../../../selectors/companyAdmin/drawings';
 import uuid from 'uuid/v4';
+import { selectIsCostingEnabled } from '../../../../../selectors/companyAdmin/companySettings';
 
 const {
     SINGLE_LINE,
@@ -72,6 +73,7 @@ const AddPinQuestionRoute = ({
     } = useSelector(mapStateToProps);
     const drawing = useSelector(state => selectDrawing(state, drawingID));
     const measurements = useSelector(state => selectAddPinQuestionMeasurements(state, question.id));
+    const isCostingEnabled = useSelector(selectIsCostingEnabled);
 
     const params = useParams();
     const { historyID } = params;
@@ -226,6 +228,7 @@ const AddPinQuestionRoute = ({
                     pinOptions={pinOptions}
                     measurements={measurements}
                     drawing={drawing}
+                    isCostingEnabled={isCostingEnabled}
                 />
             </Field>
         );

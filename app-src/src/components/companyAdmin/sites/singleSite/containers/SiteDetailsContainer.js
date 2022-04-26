@@ -39,6 +39,7 @@ class SiteDetailsContainer extends Component {
             filteredStats,
             filteredStatsBool,
             currentCompanyID,
+            isCostingEnabled,
         } = this.props;
         const { serviceID, companyID } = this.state;
         const filteredServices = services.filter(service => serviceIDs.includes(service.id));
@@ -88,6 +89,7 @@ class SiteDetailsContainer extends Component {
                     companyID={companyID}
                     companyOptions={companiesForDropdown}
                     filteredStatsBool={filteredStatsBool}
+                    isCostingEnabled={isCostingEnabled}
                 />
             </BlockContainer>
         );
@@ -170,7 +172,6 @@ class SiteDetailsContainer extends Component {
         });
     };
 
-    handleChange = (name, value) => this.setState({ [name]: value });
     handleChange = (name, value) => {
         // const otherState = name === 'serviceID' ? 'companyID' : 'serviceID';
         this.setState({ [name]: value });
@@ -210,6 +211,9 @@ const mapStateToProps = (
                 subscriptions: { serviceIDs },
             },
             servicesReducer: { services },
+            companySettingsReducer: {
+                companySettings: { isCostingEnabled },
+            },
         },
         shared: {
             mobileReducer: { onMobile },
@@ -235,6 +239,7 @@ const mapStateToProps = (
     filteredStats,
     filteredStatsBool,
     currentCompanyID: companyID,
+    isCostingEnabled,
 });
 
 const mapDispatchToProps = dispatch => ({

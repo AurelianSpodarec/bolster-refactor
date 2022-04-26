@@ -11,7 +11,7 @@ class DocumentPreviewModal extends Component {
         const { image, type } = this.props;
         return (
             <ModalOuterContainer>
-                {this.state.isLoading && <Loading message="Loading photo..." />}
+                {this.state.isLoading && <Loading message="Loading..." />}
                 {type === DOCUMENT_VIEW_TYPES.PDF ? (
                     <iframe
                         src={image}

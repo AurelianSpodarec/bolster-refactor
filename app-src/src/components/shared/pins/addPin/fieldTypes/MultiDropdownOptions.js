@@ -16,8 +16,7 @@ const MultiDropdownOptions = ({
     defaultDropdownSorting,
     companyID,
     pinOptions,
-    // todo
-    isCostingEnabled = true,
+    isCostingEnabled,
     handleMeasurementChange,
     measurements,
     drawing,
