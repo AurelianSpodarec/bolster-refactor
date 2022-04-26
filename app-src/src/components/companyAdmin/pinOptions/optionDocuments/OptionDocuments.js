@@ -41,8 +41,7 @@ const OptionDocuments = () => {
             ? latestPinOptionVersion.name
             : 'Loading...';
 
-    const { showAddModal, showEditModal, showDeleteModal, showViewModal } =
-        useDocumentsSetActions(optionID);
+    const { showAddModal, showEditModal, showDeleteModal } = useDocumentsSetActions(optionID);
 
     const isCompanyOption = specificOption?.companyID === companyID;
 
@@ -72,7 +71,6 @@ const OptionDocuments = () => {
                     hasFetched={hasFetched}
                     showDeleteModal={showDeleteModal}
                     showEditModal={showEditModal}
-                    showViewModal={showViewModal}
                     allDocuments={allDocuments}
                     allDocumentsVersions={allDocumentsVersions}
                     companyID={companyID}

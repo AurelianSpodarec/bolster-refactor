@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     CONFIRM_SUBMIT,
     CREATE_PIN_OPTION_DOCUMENTS_MODAL,
-    DOCUMENT_VIEW,
     EDIT_PIN_OPTION_DOCUMENTS_MODAL,
     ERROR_MODAL,
 } from 'constants/shared/modalTypes';
@@ -17,7 +16,6 @@ import {
     selectPinOptionDocumentsPostSuccess,
 } from 'selectors/companyAdmin/pinOptionsDocuments';
 import deletePinOptionDocument from 'actions/companyAdmin/pinOptionsDocuments/async/deletePinOptionDocument';
-import { RAW_S3_STORAGE_URL } from 'config';
 
 const useDocumentsSetActions = optionID => {
     const dispatch = useDispatch();
@@ -46,14 +44,6 @@ const useDocumentsSetActions = optionID => {
         );
     };
 
-    const showViewModal = s3Key => {
-        dispatch(
-            showModal(DOCUMENT_VIEW, {
-                image: `${RAW_S3_STORAGE_URL}/${s3Key}`,
-            }),
-        );
-    };
-
     useEffect(() => {
         if (postError && !prevProps.postError) dispatch(showModal(ERROR_MODAL));
     }, [postError, prevProps.postError]);
@@ -62,7 +52,7 @@ const useDocumentsSetActions = optionID => {
         if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
     }, [postSuccess, prevProps.postSuccess]);
 
-    return { showAddModal, showEditModal, showDeleteModal, showViewModal };
+    return { showAddModal, showEditModal, showDeleteModal };
 };
 
 export default useDocumentsSetActions;

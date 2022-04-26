@@ -17,7 +17,6 @@ const OptionDocumentsList = ({
     optionID,
     showDeleteModal,
     showEditModal,
-    showViewModal,
     allDocuments,
     allDocumentsVersions,
     isCompanyOption,
@@ -36,7 +35,7 @@ const OptionDocumentsList = ({
     const ActionMenuItems = documentsVersion => (
         <>
             <ActionMenuActionButton
-                text="Edit Name"
+                text="Edit"
                 onClick={() => showEditModal(documentsVersion)}
                 disabled={isCompanyOption}
             />
@@ -65,15 +64,14 @@ const OptionDocumentsList = ({
                         name={latestVersion.name}
                         lastUpdated={latestVersion.createdOn}
                         s3Key={latestVersion.s3Key}
-                        pinOptionDocumentID={latestVersion.pinOptionDocumentID}
                         actionMenuItems={
-                            <ActionMenuItems
-                                disabled={isCompanyOption}
-                                documentsVersion={latestVersion}
-                            />
+                            isCompanyOption ? (
+                                <ActionMenuItems
+                                    disabled={isCompanyOption}
+                                    documentsVersion={latestVersion}
+                                />
+                            ) : null
                         }
-                        showViewModal={() => showViewModal(latestVersion.s3Key)}
-                        isCompanyOption={isCompanyOption}
                     />
                 );
             })}

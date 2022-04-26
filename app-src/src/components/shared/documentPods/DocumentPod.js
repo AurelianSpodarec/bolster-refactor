@@ -1,25 +1,31 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import moment from 'moment';
 
+import { FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
 import { DATE_TIME } from 'constants/shared/dateFormats';
+import { DOCUMENT_VIEW } from 'constants/shared/modalTypes';
+
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+
 import ActionMenu from '../actionMenu/ActionMenu';
 import FlexWrapper from '../generic/flexWrapper/FlexWrapper';
-import { FILE_STORAGE_URL } from 'config';
 
-const DocumentPod = ({
-    name,
-    lastUpdated,
-    actionMenuItems,
-    s3Key,
-    showViewModal,
-    isCompanyOption,
-}) => {
+const DocumentPod = ({ name, lastUpdated, actionMenuItems, s3Key }) => {
+    const dispatch = useDispatch();
+
+    const showViewModal = s3Key => {
+        dispatch(
+            showModal(DOCUMENT_VIEW, {
+                image: `${RAW_S3_STORAGE_URL}/${s3Key}`,
+            }),
+        );
+    };
+
     return (
-        <div className="document-pod">
+        <button className="document-pod" onClick={showViewModal}>
             <div className="image-wrapper">
-                <button onClick={showViewModal}>
-                    <img alt="Document preview" src={`${FILE_STORAGE_URL}/${s3Key}`} />
-                </button>
+                <img alt="Document preview" src={`${FILE_STORAGE_URL}/${s3Key}`} />
             </div>
 
             <FlexWrapper direction="row" justify="between" extraClasses="info-wrapper">
@@ -28,11 +34,9 @@ const DocumentPod = ({
                     <p className="last-updated">Updated {moment(lastUpdated).format(DATE_TIME)}</p>
                 </div>
 
-                {!!actionMenuItems && (
-                    <ActionMenu disabled={!isCompanyOption}>{actionMenuItems}</ActionMenu>
-                )}
+                {!!actionMenuItems && <ActionMenu>{actionMenuItems}</ActionMenu>}
             </FlexWrapper>
-        </div>
+        </button>
     );
 };
 

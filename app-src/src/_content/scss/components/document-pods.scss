@@ -6,6 +6,9 @@
     text-decoration: none;
     min-width: 0;
     transition: background-color 0.1s ease-in-out;
+    font-size: 10px;
+    text-align: left;
+    padding: 0;
 
     &:hover {
         background-color: var(--hover-primary);
@@ -19,15 +22,6 @@
             object-fit: cover;
             border-top-left-radius: 5px;
             border-top-right-radius: 5px;
-        }
-
-        button {
-            width:100%;
-            height: 160px;
-            object-fit: cover;
-            padding: 0px;
-            border-radius: 0px;
-            background-color: transparent;
         }
     }
 
@@ -51,6 +45,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            margin-top: 3px;
         }
     }
 }
