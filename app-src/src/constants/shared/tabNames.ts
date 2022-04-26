@@ -1,13 +1,19 @@
 export const DRAWING_TABS = {
     GENERATE_REPORT: 'Generate Report',
+    COSTING: 'Costing',
+    ESTIMATING: 'Estimating',
     GENERAL_OVERVIEW: 'General Overview',
 };
 export const FLOOR_TABS = {
     GENERATE_REPORT: 'Generate Report',
+    COSTING: 'Costing',
+    ESTIMATING: 'Estimating',
     GENERAL_OVERVIEW: 'General Overview',
 };
 export const BUILDING_TABS = {
     GENERATE_REPORT: 'Generate Report',
+    COSTING: 'Costing',
+    ESTIMATING: 'Estimating',
     GENERAL_OVERVIEW: 'General Overview',
 };
 export const SITE_TABS = {

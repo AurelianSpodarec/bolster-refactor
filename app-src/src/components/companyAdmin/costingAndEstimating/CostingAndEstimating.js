@@ -24,7 +24,7 @@ const CostingAndEstimating = () => {
 
             <div className="filters-wrapper">
                 <BlockContainer>
-                    <p>Filters wrapper</p>
+                    <p>Filters</p>
                 </BlockContainer>
             </div>
         </GridWrapper>
