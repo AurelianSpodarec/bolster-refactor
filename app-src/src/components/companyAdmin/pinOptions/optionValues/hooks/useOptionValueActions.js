@@ -42,10 +42,12 @@ const useOptionValueActions = (typeID, setID) => {
     };
 
     const showDeleteModal = option => {
+        const { name, ...rest } = option;
+
         dispatch(
             showModal(CONFIRM_SUBMIT, {
-                handleSubmit: () => dispatch(deletePinOptionValue(option.id)),
-                title: `Delete ${option.name}?`,
+                handleSubmit: () => dispatch(deletePinOptionValue({ ...rest })),
+                title: `Delete ${name}?`,
                 message: 'Are you sure you would like to delete this option?',
                 submitButtonText: 'Delete',
                 submitButtonIcon: 'trash-alt',
