@@ -32,6 +32,7 @@ class AddSiteFormContainer extends Component {
             isFetchingHierarchies,
             types,
             sets,
+            isCostingEnabled,
         } = this.props;
 
         const typesToDisplay = Object.values(types).filter(type => type.hasSiteLinks);
@@ -67,6 +68,7 @@ class AddSiteFormContainer extends Component {
                     typeSets={typeSets}
                     selectedPinOptionTypes={this.state.selectedPinOptionTypes}
                     selectedPinOptionSets={this.state.selectedPinOptionSets}
+                    isCostingEnabled={isCostingEnabled}
                 />
             </BlockContainer>
         );
@@ -146,7 +148,7 @@ const mapStateToProps = ({
         floorsReducer: { isFetching: isFetchingFloors },
         drawingsReducer: { isFetching: isFetchingDrawings },
         companySettingsReducer: {
-            companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
+            companySettings: { isUsingBolsterLabels, useManufacturingByDefault, isCostingEnabled },
         },
         pinOptionSetsReducer: { isFetching: isFetchingPinOptionSets, sets },
         pinOptionTypesReducer: { isFetching: isFetchingPinOptionTypes, types },
@@ -166,6 +168,7 @@ const mapStateToProps = ({
     types,
     isFetchingHierarchies:
         sitesReducer.isFetching || isFetchingBuildings || isFetchingFloors || isFetchingDrawings,
+    isCostingEnabled,
 });
 
 const mapDispatchToProps = {

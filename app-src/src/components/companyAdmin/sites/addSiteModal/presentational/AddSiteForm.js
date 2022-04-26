@@ -20,8 +20,7 @@ const AddSiteForm = ({
     postcode,
     isUsingBolsterLabels,
     isFetchingHierarchies,
-    // todo
-    isCostingEnabled = true,
+    isCostingEnabled,
     types,
     typeSets,
     handlePinOptionTypeChange,
