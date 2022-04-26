@@ -7,6 +7,7 @@ import employeeIcon from '_content/images/icons/person_icon.png';
 import buildingIcon from '_content/images/icons/building_icon.png';
 import poundIcon from '_content/images/icons/pound_icon.png';
 import plusIcon from '_content/images/icons/plus_icon.png';
+import { formatCurrency } from 'helpers/generic';
 
 const icons = {
     person: employeeIcon,
@@ -48,7 +49,9 @@ const CostingAndEstimatingPod = ({ pod }) => {
 
             <div className="content-wrapper">
                 <span>{dataToShow.subtitle}</span>
-                <p>{`${dataToShow.valueCurrency || '£'}${dataToShow.valueNumerical}`}</p>
+                <p>{`${dataToShow.valueCurrency || '£'}${formatCurrency(
+                    dataToShow.valueNumerical,
+                )}`}</p>
             </div>
         </BlockContainer>
     );

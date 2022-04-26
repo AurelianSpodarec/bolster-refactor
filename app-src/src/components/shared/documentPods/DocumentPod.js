@@ -14,23 +14,38 @@ import FlexWrapper from '../generic/flexWrapper/FlexWrapper';
 
 const { IMAGE, PDF } = DOCUMENT_VIEW_TYPES;
 
+const removePDFPanels = '#toolbar=0&navpanes=0&scrollbar=0';
+
 const DocumentPod = ({ name, lastUpdated, actionMenuItems, s3Key }) => {
     const dispatch = useDispatch();
+
+    const isPDF = s3Key.endsWith('.pdf');
 
     const showViewModal = () => {
         dispatch(
             showModal(DOCUMENT_VIEW, {
-                image: `${RAW_S3_STORAGE_URL}/${s3Key}`,
-                type: s3Key.endsWith('.pdf') ? PDF : IMAGE,
+                image: `${RAW_S3_STORAGE_URL}/${s3Key}${isPDF ? removePDFPanels : '?width=1500'}`,
+                type: isPDF ? PDF : IMAGE,
             }),
         );
     };
 
     return (
-        <button className="document-pod" onClick={showViewModal}>
-            <div className="image-wrapper">
-                <img alt="Document preview" src={`${FILE_STORAGE_URL}/${s3Key}`} />
-            </div>
+        <div className="document-pod">
+            <button className="open-document-button" onClick={showViewModal} />
+
+            {isPDF ? (
+                <iframe
+                    className="pdf-preview"
+                    src={`${RAW_S3_STORAGE_URL}/${s3Key}${removePDFPanels}`}
+                    type="application/pdf"
+                    scrolling="no"
+                />
+            ) : (
+                <div className="image-wrapper">
+                    <img alt="Document preview" src={`${FILE_STORAGE_URL}/${s3Key}?width=500`} />
+                </div>
+            )}
 
             <FlexWrapper direction="row" justify="between" extraClasses="info-wrapper">
                 <div className="text">
@@ -40,7 +55,7 @@ const DocumentPod = ({ name, lastUpdated, actionMenuItems, s3Key }) => {
 
                 {!!actionMenuItems && <ActionMenu>{actionMenuItems}</ActionMenu>}
             </FlexWrapper>
-        </button>
+        </div>
     );
 };
 
