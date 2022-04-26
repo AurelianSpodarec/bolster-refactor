@@ -15,13 +15,13 @@ const CostingAndEstimating = () => {
 
             <div className="graph-wrapper">
                 <BlockContainer contentClass="border">
-                    <p>Graph</p>
+                    <h3>Graph</h3>
                 </BlockContainer>
             </div>
 
             <div className="filters-wrapper">
                 <BlockContainer contentClass="border">
-                    <p>Filters</p>
+                    <h3>Filters</h3>
                 </BlockContainer>
             </div>
         </GridWrapper>
