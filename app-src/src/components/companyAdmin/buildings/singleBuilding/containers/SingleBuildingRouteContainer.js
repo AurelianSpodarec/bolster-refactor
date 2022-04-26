@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { BUILDING_TABS, SITE_TABS } from 'constants/shared/tabNames';
+import { BUILDING_TABS } from 'constants/shared/tabNames';
 import BuildingGeneralOverview from '../presentational/BuildingGeneralOverview';
 import HierarchyAdvancedReport from 'components/companyAdmin/reports/createReport/components/presentational/HierarchyAdvancedReport';
 import CostingAndEstimating from '../../../costingAndEstimating/CostingAndEstimating';

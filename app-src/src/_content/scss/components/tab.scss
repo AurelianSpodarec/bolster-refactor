@@ -4,18 +4,17 @@
 
   button {
     float: right;
-    padding: 10px 30px;
+    padding: 5px 10px 6px;
     @include ubuntu-medium;
-    font-size: 150%;
+    font-size: 120%;
     outline: none;
     margin-top: 0;
     margin-left: 0;
-    color: var(--typography-greyed-out);
+    color: var(--typography-default);
     opacity: 1;
     transition: opacity 0.25s ease-in-out;
-    background: transparent;
-    border-top: 1px solid var(--navigation-secondary);
-    border-bottom: 1px solid var(--navigation-secondary);
+    background: var(--navigation-primary);
+    border: 1px solid #c3c3c4;
 
     &.active {
       background-color: var(--navigation-secondary);
@@ -25,16 +24,6 @@
     &.green {
       background: $green;
       color: white;
-    }
-
-    &:last-child {
-      border-left: 1px solid var(--navigation-secondary);
-      border-radius: 10px 0 0 10px;
-    }
-
-    &:first-child {
-      border-right: 1px solid var(--navigation-secondary);
-      border-radius: 0 10px 10px 0;
     }
   }
 
@@ -55,6 +44,35 @@
       margin-top: 5px;
       margin-left: 5px;
       border-radius: 5px;
+    }
+  }
+
+
+  &.hierarchy-tabs {
+    button {
+      font-size: 150%;
+      padding: 10px 30px;
+      background: transparent;
+      color: var(--typography-greyed-out);
+      border-top: 1px solid var(--navigation-secondary);
+      border-bottom: 1px solid var(--navigation-secondary);
+      border-left: none;
+      border-right: none;
+
+      &.active {
+        background-color: var(--navigation-secondary);
+        color: var(--typography-default);
+      }
+
+      &:last-child {
+        border-left: 1px solid var(--navigation-secondary);
+        border-radius: 10px 0 0 10px;
+      }
+
+      &:first-child {
+        border-right: 1px solid var(--navigation-secondary);
+        border-radius: 0 10px 10px 0;
+      }
     }
   }
 }
