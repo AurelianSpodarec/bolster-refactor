@@ -631,3 +631,28 @@ button {
         }
     }
 }
+
+.accordion-button {
+    width: 15px;
+    height: 15px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--typography-default);
+    background-color: transparent;
+    text-decoration: none;
+
+    i {
+        transition : all 0.2s ease-in-out;
+        font-size: 10px;
+        background-color: transparent;
+    }
+
+    &.active {
+        i {
+            transform: rotate(180deg);
+        }
+    }
+}
