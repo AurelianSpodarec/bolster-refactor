@@ -4,17 +4,14 @@ import GridWrapper from '../../shared/generic/gridWrapper/GridWrapper';
 
 import CostingAndEstimatingPods from './CostingAndEstimatingPods';
 import BlockContainer from '../../shared/generic/block/containers/BlockContainer';
+import CostingCart from './CostingCart';
 
 const CostingAndEstimating = () => {
     return (
         <GridWrapper gap={30} containerClass="costing-wrapper">
             <CostingAndEstimatingPods />
 
-            <div className="costing-cart">
-                <BlockContainer>
-                    <h2>Costing cart</h2>
-                </BlockContainer>
-            </div>
+            <CostingCart />
 
             <div className="graph-wrapper">
                 <BlockContainer>
