@@ -15,20 +15,6 @@ const useCostingAndEstimatingGraph = graph => {
         gradient.addColorStop(1, '#00000000');
 
         return {
-            // labels: [
-            //     '02:00',
-            //     '04:00',
-            //     '06:00',
-            //     '08:00',
-            //     '10:00',
-            //     '12:00',
-            //     '14:00',
-            //     '16:00',
-            //     '18:00',
-            //     '20:00',
-            //     '22:00',
-            //     '00:00',
-            // ],
             labels: graph.labels,
             datasets: [
                 {
@@ -40,7 +26,6 @@ const useCostingAndEstimatingGraph = graph => {
                     // pointStrokeColor: '#ff6c23',
                     // pointHighlightFill: '#fff',
                     // pointHighlightStroke: '#ff6c23',
-                    // data: [25.0, 32.4, 22.2, 39.4, 34.2, 22.0, 23.2, 20, 20.0, 30, 19.1, 17.4],
                     label: '',
                     data: graph.datasets[0].data,
                 },
@@ -52,12 +37,12 @@ const useCostingAndEstimatingGraph = graph => {
         responsive: true,
         datasetStrokeWidth: 3,
         pointDotStrokeWidth: 0,
-        // scaleLabel: "<%= Number(value).toFixed(0).replace('.', ',') + '°C'%>",
+        scaleLabel: '',
         scales: {
             xAxes: {
                 gridLines: {
                     display: false,
-                    zeroLineColor: '#00000000',
+                    zeroLineColor: '#4e4e4e',
                     color: 'rgba(0,0,0,0)',
                 },
                 ticks: {
@@ -68,7 +53,7 @@ const useCostingAndEstimatingGraph = graph => {
             yAxes: {
                 gridLines: {
                     display: false,
-                    zeroLineColor: '#00000000',
+                    zeroLineColor: '#4e4e4e',
                     color: 'rgba(0,0,0,0)',
                 },
                 ticks: {

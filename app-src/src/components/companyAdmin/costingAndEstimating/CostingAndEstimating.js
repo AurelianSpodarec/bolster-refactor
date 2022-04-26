@@ -6,10 +6,13 @@ import CostingAndEstimatingPods from './CostingAndEstimatingPods';
 import BlockContainer from '../../shared/generic/block/containers/BlockContainer';
 import CostingCart from './CostingCart';
 import useCostingAndEstimating from './_hooks/useCostingAndEstimating';
+import useCostingAndEstimatingFilters from './_hooks/useCostingAndEstimatingFilters';
 import CostingAndEstimatingGraph from './CostingAndEstimatingGraph';
 
 const CostingAndEstimating = () => {
     const { costingCart, graph, keyStatistics, allPins } = useCostingAndEstimating();
+    useCostingAndEstimatingFilters(); // TODO
+
     return (
         <GridWrapper gap={30} containerClass="costing-wrapper">
             <CostingAndEstimatingPods data={keyStatistics} />

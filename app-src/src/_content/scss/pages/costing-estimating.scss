@@ -73,7 +73,7 @@
       right: 0;
       opacity: 0;
       transition: opacity 0.4s ease;
-      background: linear-gradient(136.13deg, var(--background-container) 6.92%, rgba(105, 108, 124, 0) 101.53%);
+      background: linear-gradient(136.13deg, var(--background-container) 6.92%, var(--background-default) 101.53%);
 
       &.flipped {
         opacity: 1;
@@ -186,7 +186,6 @@
 
   .grand-total {
     text-align: right;
-    // border-top: 1px solid $new-grey-alt;
     padding-top: 10px;
     margin-top: 10px;
 
@@ -206,6 +205,25 @@
 
 .graph-wrapper {
   grid-area: graph;
+
+  .graph-total {
+    position: absolute;
+      right: 1.5em;
+      bottom: 1.5em;
+    text-align: right;
+
+    h1, h3 {
+      display: inline-block;
+    }
+
+  h3 {
+    margin-right: 1em;
+    color: $new-grey-alt;
+  }
+  h1 {
+    font-size: 260%;
+  }
+  }
 }
 
 .filters-wrapper {
