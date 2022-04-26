@@ -25,7 +25,7 @@ const EditPinOptionDocumentsModal = ({ hideModal, documentsVersion }) => {
                     <FileUploadContainer
                         value={form.documentS3Key}
                         name="documentS3Key"
-                        acceptedTypes={['image/jpg', 'image/png', 'image/jpeg']}
+                        acceptedTypes={['application/pdf', 'image/jpg', 'image/png', 'image/jpeg']}
                         handleChange={handleChange}
                         maxFiles={1}
                         required
