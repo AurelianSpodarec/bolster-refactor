@@ -12,7 +12,10 @@ const CostingAndEstimatingGraph = ({ graph }) => {
             <BlockContainer contentClass="border">
                 <h3>Graph</h3>
                 <Line data={data} options={options} />
-                <h1>{`£${formatCurrency(graph.total)}`}</h1>
+                <div className="graph-total">
+                    <h3>Total:</h3>
+                    <h1>{`£${formatCurrency(graph.total)}`}</h1>
+                </div>
             </BlockContainer>
         </div>
     );
