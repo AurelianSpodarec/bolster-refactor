@@ -9,19 +9,8 @@ const CostingCart = () => {
             <BlockContainer>
                 <h2>Costing cart</h2>
 
-                <CostingCartSummaryItem>
-                    <CostingCartSummarySubItem />
-                    <CostingCartSummarySubItem />
-                    <CostingCartSummarySubItem />
-                </CostingCartSummaryItem>
-                <CostingCartSummaryItem>
-                    <CostingCartSummarySubItem />
-                    <CostingCartSummarySubItem />
-                </CostingCartSummaryItem>
-                <CostingCartSummaryItem>
-                    <CostingCartSummarySubItem />
-                    <CostingCartSummarySubItem />
-                </CostingCartSummaryItem>
+                <CostingCartSummaryItem />
+                <CostingCartSummaryItem />
 
                 <div className="grand-total">
                     <h3>Total exc VAT:</h3>
