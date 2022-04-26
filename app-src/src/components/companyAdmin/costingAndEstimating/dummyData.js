@@ -67,8 +67,8 @@ export const dummyMain = {
             solo: {
                 title: 'Avg Pin Price',
                 subtitle: 'Total / 10,283 pins =',
-                valueCurrency: 32.94,
-                valueNumerical: null,
+                valueCurrency: null,
+                valueNumerical: 32.94,
             },
             highest: null,
             lowest: null,

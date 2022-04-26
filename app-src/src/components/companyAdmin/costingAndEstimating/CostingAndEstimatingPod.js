@@ -20,23 +20,26 @@ const CostingAndEstimatingPod = ({ pod }) => {
 
     const [isFlipped, setIsFlipped] = useState(false);
 
+    const handleFlip = () => {
+        if (solo) return;
+        setIsFlipped(!isFlipped);
+    };
+
     const dataToShow = solo ? solo : isFlipped ? lowest : highest;
 
     return (
         <BlockContainer
-            contentClass={`background-gradient ${isFlipped ? 'flipped' : ''} border cursor-pointer`}
+            contentClass={'background-gradient border cursor-pointer'}
+            onClick={handleFlip}
         >
+            <div className={`pod-flip-bg background-gradient ${isFlipped ? 'flipped' : ''}`} />
             <FlexWrapper extraClasses="icon-wrapper" justify="between" align="center">
                 <div className="icon">
                     <img src={icons[icon] || plusIcon} alt={icon} />
                 </div>
                 {!solo && (
                     <div className="arrow-container">
-                        <i
-                            className={`fas fa-arrow-${isFlipped ? 'down' : 'up'} ${
-                                isFlipped ? 'desc' : 'asc'
-                            }`}
-                        />
+                        <i className={`fas fa-arrow-up ${isFlipped ? 'desc' : 'asc'}`} />
                     </div>
                 )}
             </FlexWrapper>
