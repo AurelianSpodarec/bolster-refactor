@@ -44,8 +44,8 @@ const CostingAndEstimatingPod = ({ pod }) => {
                     </div>
                 )}
             </FlexWrapper>
-
             <h3 className="heading heading-3">{dataToShow.title}</h3>
+            <div className="spacer" />
 
             <div className="content-wrapper">
                 <span>{dataToShow.subtitle}</span>
