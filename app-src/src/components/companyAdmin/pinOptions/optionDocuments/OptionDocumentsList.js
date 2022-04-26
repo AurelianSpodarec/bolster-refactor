@@ -50,33 +50,31 @@ const OptionDocumentsList = ({
     );
 
     return (
-        documents && (
-            <GridWrapper gap={15} itemsPerRow={5}>
-                {documents.map(document => {
-                    const documentsVersion = getVersionForPinOptionDocument(
-                        document.id,
-                        allDocumentsVersions,
-                    );
-                    return (
-                        <DocumentPod
-                            key={documentsVersion?.id}
-                            name={documentsVersion?.name}
-                            lastUpdated={documentsVersion?.createdOn}
-                            s3Key={documentsVersion?.s3Key}
-                            pinOptionDocumentID={documentsVersion?.pinOptionDocumentID}
-                            actionMenuItems={
-                                <ActionMenuItems
-                                    disabled={isCompanyOption}
-                                    documentsVersion={documentsVersion}
-                                />
-                            }
-                            showViewModal={() => showViewModal(documentsVersion?.s3Key)}
-                            isCompanyOption={isCompanyOption}
-                        />
-                    );
-                })}
-            </GridWrapper>
-        )
+        <GridWrapper gap={15} itemsPerRow={5}>
+            {documents.map(document => {
+                const documentsVersion = getVersionForPinOptionDocument(
+                    document.id,
+                    allDocumentsVersions,
+                );
+                return (
+                    <DocumentPod
+                        key={documentsVersion?.id}
+                        name={documentsVersion?.name}
+                        lastUpdated={documentsVersion?.createdOn}
+                        s3Key={documentsVersion?.s3Key}
+                        pinOptionDocumentID={documentsVersion?.pinOptionDocumentID}
+                        actionMenuItems={
+                            <ActionMenuItems
+                                disabled={isCompanyOption}
+                                documentsVersion={documentsVersion}
+                            />
+                        }
+                        showViewModal={() => showViewModal(documentsVersion?.s3Key)}
+                        isCompanyOption={isCompanyOption}
+                    />
+                );
+            })}
+        </GridWrapper>
     );
 };
 
