@@ -6,25 +6,20 @@ import CreateBuildingsFormContainer from '../containers/CreateBuildingsFormConta
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const CreateBuildingsModal = ({ siteID, isUsingBolsterLabels }) => (
-    <ModalOuterContainer
-        extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}
-    >
+    <ModalOuterContainer extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}>
         <BlockHeading title={'Create Buildings'} />
-        <CreateBuildingsFormContainer
-            siteID={siteID}
-            isUsingBolsterLabels={isUsingBolsterLabels}
-        />
+        <CreateBuildingsFormContainer siteID={siteID} isUsingBolsterLabels={isUsingBolsterLabels} />
     </ModalOuterContainer>
 );
 
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: {
-            companySettings: { isUsingBolsterLabels }
-        }
-    }
+            companySettings: { isUsingBolsterLabels },
+        },
+    },
 }) => ({
-    isUsingBolsterLabels
+    isUsingBolsterLabels,
 });
 
 export default connect(mapStateToProps)(CreateBuildingsModal);
