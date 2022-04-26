@@ -22,11 +22,11 @@ export const deletePinOptionDocumentFailure = error => ({
     error,
 });
 
-export default id => dispatch => {
+export default document => async dispatch => {
     dispatch(deletePinOptionDocumentRequest());
 
     return axios
-        .delete(`${API_URL}/pinoptions/document/delete/${id}`, getHeaders())
-        .then(({ data }) => dispatch(deletePinOptionDocumentSuccess(data)))
+        .delete(`${API_URL}/pinoptions/document/delete/${document.id}`, getHeaders())
+        .then(() => dispatch(deletePinOptionDocumentSuccess(document)))
         .catch(error => dispatch(deletePinOptionDocumentFailure(error)));
 };

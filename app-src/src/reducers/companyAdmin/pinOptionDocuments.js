@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
     CREATE_PIN_OPTION_DOCUMENT_FAILURE,
     CREATE_PIN_OPTION_DOCUMENT_REQUEST,
@@ -139,7 +139,7 @@ function pinOptionDocumentsReducer(state = {}, action) {
                 action.payload.pinOptionDocument,
             );
         case DELETE_PIN_OPTION_DOCUMENT_SUCCESS:
-            return removeObjItem(state, action.id);
+            return updateObj(state, action.payload.id, { ...action.payload, isDeleted: true });
         default:
             return state;
     }

@@ -22,6 +22,7 @@ const SiteStats = ({
     companyID,
     companyOptions,
     filteredStatsBool,
+    isCostingEnabled,
 }) => (
     <div className="stats size-lg-12">
         <div className="flex-item size-lg-12">
@@ -66,10 +67,11 @@ const SiteStats = ({
                     </button>
                 </>
             )}
-            {/*todo add isCostingEnabled check*/}
-            <button className="button yellow" onClick={handleEditSitePinOptionSetsModal}>
-                <i className="far fa-pencil fa-fw" /> Edit Pin Options
-            </button>
+            {!!isCostingEnabled && (
+                <button className="button yellow" onClick={handleEditSitePinOptionSetsModal}>
+                    <i className="far fa-pencil fa-fw" /> Edit Pin Options
+                </button>
+            )}
             <button className="button blue" onClick={handleArchive} type="button">
                 <i className="fa fa-archive" />
                 {site.isArchived ? 'Un-Archive' : 'Archive'}
