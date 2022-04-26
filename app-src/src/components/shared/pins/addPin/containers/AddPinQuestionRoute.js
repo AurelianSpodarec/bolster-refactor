@@ -19,6 +19,7 @@ import { getValueForQuestionAnswer } from '../fieldTypes/helpers';
 import { usePrevious } from '../../../../../helpers/hooks';
 import { selectAddPinQuestionMeasurements } from '../../../../../selectors/companyAdmin/addPin';
 import updateAddPinMeasurement from '../../../../../actions/companyAdmin/drawings/sync/updateAddPinMeasurement';
+import { selectDrawing } from '../../../../../selectors/companyAdmin/drawings';
 
 const {
     SINGLE_LINE,
@@ -53,6 +54,7 @@ const AddPinQuestionRoute = ({
     isHistory,
     selectedVersion,
     pinOptions,
+    drawingID,
 }) => {
     const {
         answers,
@@ -67,6 +69,7 @@ const AddPinQuestionRoute = ({
         pinOptionVersions,
         histories,
     } = useSelector(mapStateToProps);
+    const drawing = useSelector(state => selectDrawing(state, drawingID));
     const measurements = useSelector(state => selectAddPinQuestionMeasurements(state, question.id));
 
     const params = useParams();
@@ -217,6 +220,7 @@ const AddPinQuestionRoute = ({
                     companyID={companyID}
                     pinOptions={pinOptions}
                     measurements={measurements}
+                    drawing={drawing}
                 />
             </Field>
         );
@@ -314,7 +318,6 @@ const AddPinQuestionRoute = ({
             handleStatusPrefill();
         } else if (oldAnswersKeys.includes(question.groupKey)) {
             const oldAnswer = pinAnswersByGroupKey[question.groupKey].answerValues;
-            console.log({ oldAnswer, oldAnswersKeys, pinAnswersByGroupKey, question });
             dispatch(updateAddPinAnswer(question.id, oldAnswer));
         } else {
             handleResetAnswer();

@@ -15,6 +15,7 @@ import AddPinForm from 'components/shared/pins/addPin/presentational/AddPinForm'
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import { formatMeasurementsForPostBody } from '../../../../shared/pins/addPin/fieldTypes/helpers';
 
 const { SINGLE_PHOTO, MULTI_PHOTO, SIGNATURE } = QUESTION_TYPE_VALUES;
 
@@ -53,6 +54,7 @@ class AddPinHistoryFormContainer extends Component {
             versions,
             latestPinHistory = {},
             pinOptions,
+            drawingID,
         } = this.props;
 
         const latestVersion =
@@ -97,6 +99,7 @@ class AddPinHistoryFormContainer extends Component {
                         oldAnswersByNameObj={this.getOldAnswersByNameObj()}
                         latestPinHistory={latestPinHistory}
                         pinOptions={pinOptions}
+                        drawingID={drawingID}
                     />
                 </BlockContainer>
             </>
@@ -275,7 +278,7 @@ class AddPinHistoryFormContainer extends Component {
         const formattedAnswers = Object.keys(answers).map(key => ({
             templateQuestionID: key,
             answerValues: answers[key],
-            measurements: measurements[key],
+            measurements: formatMeasurementsForPostBody(measurements, key),
         }));
 
         const postBody = {

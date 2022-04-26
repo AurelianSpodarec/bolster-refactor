@@ -41,6 +41,7 @@ const EditPinHistoryContainer = () => {
             pinID={pinID}
             historyID={historyID}
             pinOptions={options}
+            drawingID={drawing?.id}
         />
     );
 };

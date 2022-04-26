@@ -3,8 +3,8 @@ import MultiSelect from 'components/shared/generic/form/presentational/MultiSele
 import { formatAnswers, getSortedDropdownOptions } from 'helpers/addPin';
 import { useFilterPinOptions } from './helpers';
 import { useSelector } from 'react-redux';
-import { selectPinOptionType } from '../../../../../selectors/superAdmin/pinOptionTypes';
 import CostingMeasurement from './CostingMeasurement';
+import { selectPinOptionType } from '../../../../../selectors/companyAdmin/pinOptionTypes';
 
 const MultiDropdownOptions = ({
     isRequired,
@@ -20,6 +20,7 @@ const MultiDropdownOptions = ({
     isCostingEnabled = true,
     handleMeasurementChange,
     measurements,
+    drawing,
 }) => {
     // todo share component with MultiMultiDropdownOptions
     let formattedOpts = [];
@@ -33,7 +34,13 @@ const MultiDropdownOptions = ({
 
     const type = useSelector(state => selectPinOptionType(state, optionType));
 
-    const filteredOptions = useFilterPinOptions(questionValue, pinOptions, companyID, optionType);
+    const filteredOptions = useFilterPinOptions(
+        questionValue,
+        pinOptions,
+        companyID,
+        type,
+        drawing,
+    );
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
     //    this needs to be kept as an option.
     if (edit) {
@@ -71,16 +78,13 @@ const MultiDropdownOptions = ({
             }
         });
     } else {
-        formattedOpts = pinOptions
-            // todo uncomment when question has type
-            // .filter(option => option.pinOptionTypeID === pinOptionTypeID)
-            .map(option => ({
-                value: option.latestVersion.id,
-                label: option.latestVersion.name,
-                id: option.latestVersion.id,
-                sort: option.sort,
-                createdOn: option.createdOn,
-            }));
+        formattedOpts = filteredOptions.map(option => ({
+            value: option.latestVersion.id,
+            label: option.latestVersion.name,
+            id: option.latestVersion.id,
+            sort: option.sort,
+            createdOn: option.createdOn,
+        }));
     }
     const options = getSortedDropdownOptions(formattedOpts, defaultDropdownSorting);
     const shouldShowCosting = isCostingEnabled && type.hasCosting && !!questionValue?.length;

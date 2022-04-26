@@ -75,7 +75,6 @@ const useFilterOptions = () => {
 
         return acc;
     }, []);
-    console.log({ services, sites, operatives });
     return { serviceOptions, operativeOptions, siteOptions };
 };
 

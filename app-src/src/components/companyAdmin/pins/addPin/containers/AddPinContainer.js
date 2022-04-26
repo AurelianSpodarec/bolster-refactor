@@ -12,6 +12,7 @@ import fetchPinOptions from '../../../../../actions/companyAdmin/pinOptions/asyn
 import { componentDidMount } from '../../../../../helpers/generic';
 import { useAddPinOptions } from '../../../../shared/pins/addPin/fieldTypes/helpers';
 import fetchPinOptionTypes from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionTypes';
+import { selectDrawing } from '../../../../../selectors/companyAdmin/drawings';
 
 const AddPinContainer = () => {
     const { serviceID } = useSelector(mapStateToProps);
@@ -30,6 +31,7 @@ const AddPinContainer = () => {
     });
 
     const options = useAddPinOptions(serviceID);
+    const drawing = useSelector(state => selectDrawing(state, drawingID));
 
     return (
         <AddPinFormContainer hierarchyType="drawing" drawingID={drawingID} pinOptions={options} />
