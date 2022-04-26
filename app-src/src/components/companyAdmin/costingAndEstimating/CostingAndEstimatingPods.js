@@ -11,7 +11,7 @@ import plusIcon from '_content/images/icons/plus_icon.png';
 const CostingAndEstimatingPods = () => {
     return (
         <div className="pods">
-            <BlockContainer contentClass="background-gradient">
+            <BlockContainer contentClass="background-gradient border">
                 <FlexWrapper extraClasses="icon-wrapper" justify="between" align="center">
                     <div className="icon">
                         <img src={employeeIcon} alt="Employee" />
@@ -29,7 +29,7 @@ const CostingAndEstimatingPods = () => {
                 </div>
             </BlockContainer>
 
-            <BlockContainer contentClass="background-gradient">
+            <BlockContainer contentClass="background-gradient border">
                 <FlexWrapper extraClasses="icon-wrapper" justify="between" align="center">
                     <div className="icon">
                         <img src={buildingIcon} alt="Building" />
@@ -47,7 +47,7 @@ const CostingAndEstimatingPods = () => {
                 </div>
             </BlockContainer>
 
-            <BlockContainer contentClass="background-gradient">
+            <BlockContainer contentClass="background-gradient border">
                 <FlexWrapper extraClasses="icon-wrapper" justify="between" align="center">
                     <div className="icon">
                         <img src={poundIcon} alt="Pound sign" />
@@ -66,7 +66,7 @@ const CostingAndEstimatingPods = () => {
                 </div>
             </BlockContainer>
 
-            <BlockContainer contentClass="background-gradient">
+            <BlockContainer contentClass="background-gradient border">
                 <FlexWrapper extraClasses="icon-wrapper" justify="between" align="center">
                     <div className="icon">
                         <img src={plusIcon} alt="Plus" />

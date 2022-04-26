@@ -14,13 +14,13 @@ const CostingAndEstimating = () => {
             <CostingCart />
 
             <div className="graph-wrapper">
-                <BlockContainer>
+                <BlockContainer contentClass="border">
                     <p>Graph</p>
                 </BlockContainer>
             </div>
 
             <div className="filters-wrapper">
-                <BlockContainer>
+                <BlockContainer contentClass="border">
                     <p>Filters</p>
                 </BlockContainer>
             </div>

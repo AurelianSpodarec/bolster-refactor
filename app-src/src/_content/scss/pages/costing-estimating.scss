@@ -54,8 +54,16 @@
   .divider {
     display: block;
     height: 1px;
-    background-color: $new-grey-alt;
+    background-color: $darker-grey-alt;
     margin: 7px 0;
+  }
+
+  .content-area {
+    height: 100%;
+  }
+
+  .border {
+    border: 1px solid $darker-grey-alt;
   }
 }
 
