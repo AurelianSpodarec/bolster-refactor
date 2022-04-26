@@ -57,10 +57,7 @@ const SiteStats = ({
                     <button className="button yellow" onClick={handleEditSiteModal}>
                         <i className="far fa-pencil fa-fw" /> Edit
                     </button>
-                    {/*todo add isCostingEnabled check*/}
-                    <button className="button yellow" onClick={handleEditSitePinOptionSetsModal}>
-                        <i className="far fa-pencil fa-fw" /> Edit Pin Options
-                    </button>
+
                     <Link className="button" to={`/company/sites/${site.id}/change-ownership`}>
                         <i className="fa fa-exchange" /> Change Ownership
                     </Link>
@@ -69,7 +66,10 @@ const SiteStats = ({
                     </button>
                 </>
             )}
-
+            {/*todo add isCostingEnabled check*/}
+            <button className="button yellow" onClick={handleEditSitePinOptionSetsModal}>
+                <i className="far fa-pencil fa-fw" /> Edit Pin Options
+            </button>
             <button className="button blue" onClick={handleArchive} type="button">
                 <i className="fa fa-archive" />
                 {site.isArchived ? 'Un-Archive' : 'Archive'}
