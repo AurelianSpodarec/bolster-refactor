@@ -9,7 +9,21 @@ export const dummyCart = {
                     cost: 5000.27,
                 },
                 {
-                    drawingID: 1,
+                    drawingID: 2,
+                    cost: 4308.12,
+                },
+            ],
+        },
+        {
+            buildingID: 2,
+            cost: 9308.39,
+            drawings: [
+                {
+                    drawingID: 3,
+                    cost: 5000.27,
+                },
+                {
+                    drawingID: 4,
                     cost: 4308.12,
                 },
             ],
@@ -103,7 +117,92 @@ export const dummyMain = {
     },
     allPins: [
         {
-            SsiteID: 1,
+            siteID: 1,
+            buildingID: 1,
+            floorID: 1,
+            drawingID: 1,
+            pinID: '0001:03',
+            dateCreated: '2021-05-26 12:33:44',
+            comment: 'Fire stop around pipe in cavity',
+            installations: [
+                {
+                    name: 'Installation 1',
+                    type: 'Collar',
+                    measurement: '50mm',
+                    cost: 200,
+                },
+            ],
+        },
+        {
+            siteID: 1,
+            buildingID: 2,
+            floorID: 1,
+            drawingID: 1,
+            pinID: '0001:03',
+            dateCreated: '2021-05-26 12:33:44',
+            comment: 'Fire stop around pipe in cavity',
+            installations: [
+                {
+                    name: 'Installation 1',
+                    type: 'Collar',
+                    measurement: '50mm',
+                    cost: 200,
+                },
+            ],
+        },
+        {
+            siteID: 1,
+            buildingID: 3,
+            floorID: 1,
+            drawingID: 1,
+            pinID: '0001:03',
+            dateCreated: '2021-05-26 12:33:44',
+            comment: 'Fire stop around pipe in cavity',
+            installations: [
+                {
+                    name: 'Installation 1',
+                    type: 'Collar',
+                    measurement: '50mm',
+                    cost: 200,
+                },
+            ],
+        },
+        {
+            siteID: 1,
+            buildingID: 2,
+            floorID: 1,
+            drawingID: 1,
+            pinID: '0001:03',
+            dateCreated: '2021-05-26 12:33:44',
+            comment: 'Fire stop around pipe in cavity',
+            installations: [
+                {
+                    name: 'Installation 1',
+                    type: 'Collar',
+                    measurement: '50mm',
+                    cost: 200,
+                },
+            ],
+        },
+        {
+            siteID: 2,
+            buildingID: 1,
+            floorID: 1,
+            drawingID: 1,
+            pinID: '0001:03',
+            dateCreated: '2021-05-26 12:33:44',
+            comment: 'Fire stop around pipe in cavity',
+            installations: [
+                {
+                    name: 'Installation 1',
+                    type: 'Collar',
+                    measurement: '50mm',
+                    cost: 200,
+                },
+            ],
+        },
+        {
+            siteID: 3,
             buildingID: 1,
             floorID: 1,
             drawingID: 1,

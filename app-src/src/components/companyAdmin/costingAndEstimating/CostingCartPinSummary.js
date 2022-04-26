@@ -1,15 +1,16 @@
 import AccordionButton from 'components/shared/generic/button/presentational/AccordionButton';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import { formatCurrency } from 'helpers/generic';
 import React, { useState } from 'react';
-import CostingCartSummarySubItem from './CostingCartSummarySubItem';
+import CostingCartPinSummaryItem from './CostingCartPinSummaryItem';
 
-const CostingCartSummaryItem = () => {
+const CostingCartPinSummary = ({ title, total, data }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     return (
         <div className="summary-item">
             <FlexWrapper direction="row" justify="between" align="center">
-                <h4>Title</h4>
+                <h4>{title}</h4>
                 <div>
                     <AccordionButton
                         active={isExpanded}
@@ -18,17 +19,17 @@ const CostingCartSummaryItem = () => {
                 </div>
             </FlexWrapper>
             <div className={`expandable ${isExpanded ? 'active' : ''}`}>
-                <CostingCartSummarySubItem />
-                <CostingCartSummarySubItem />
-                <CostingCartSummarySubItem />
+                {data.map((building, i) => (
+                    <CostingCartPinSummaryItem key={i} building={building} />
+                ))}
                 <div className="divider" />
             </div>
             <div className="total">
-                <h3>£18,616.78</h3>
+                <h3>{`£${formatCurrency(total)}`}</h3>
             </div>
             <div className="divider" />
         </div>
     );
 };
 
-export default CostingCartSummaryItem;
+export default CostingCartPinSummary;

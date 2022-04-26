@@ -1,20 +1,24 @@
+import { formatCurrency } from 'helpers/generic';
 import React from 'react';
 import BlockContainer from '../../shared/generic/block/containers/BlockContainer';
-import CostingCartSummaryItem from './CostingCartSummaryItem';
-import CostingCartSummarySubItem from './CostingCartSummarySubItem';
+import CostingCartPinSummary from './CostingCartPinSummary';
 
-const CostingCart = () => {
+const CostingCart = ({ data }) => {
+    const { buildingCosts, prePrelimCost, prelimIDs, customPrelims, prelimTotal, cartTotal } = data;
     return (
         <div className="costing-cart">
             <BlockContainer contentClass="border">
                 <h2>Costing cart</h2>
 
-                <CostingCartSummaryItem />
-                <CostingCartSummaryItem />
+                <CostingCartPinSummary
+                    title="Pin Summary"
+                    total={prePrelimCost}
+                    data={buildingCosts}
+                />
 
                 <div className="grand-total">
                     <h3>Total exc VAT:</h3>
-                    <h1>£22,306.78</h1>
+                    <h1>{`£${formatCurrency(cartTotal)}`}</h1>
                 </div>
             </BlockContainer>
         </div>
