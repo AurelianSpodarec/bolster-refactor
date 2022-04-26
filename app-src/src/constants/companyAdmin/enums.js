@@ -778,7 +778,7 @@ export const MEASUREMENT_TYPES = {
     VOLUME: 4,
     NUMBER: 5,
     FIXED: 6,
-    DIAMETER: 7,
+    RADIUS: 7,
 };
 
 export const MEASUREMENT_VALUES = {
@@ -788,5 +788,5 @@ export const MEASUREMENT_VALUES = {
     4: 'Volume',
     5: 'Number',
     6: 'Fixed Price',
-    7: 'Diameter',
+    7: 'Radius',
 };

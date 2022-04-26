@@ -54,8 +54,10 @@ export const useFilterPinOptions = (questionValue, options, companyID, pinOption
         () =>
             options.filter(option => {
                 // remove deleted option if not already selected
-                if (questionValue?.pinOptionVersionID !== option.value && option.isDeleted)
+                if (questionValue?.pinOptionVersionID !== option.value && option.isDeleted) {
                     return false;
+                }
+                // todo usage rules - currently user company & global
                 if (option.companyID !== companyID && option.companyID !== null) {
                     return false;
                 }
