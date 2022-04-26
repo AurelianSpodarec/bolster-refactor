@@ -2,6 +2,7 @@ import { formatCurrency } from 'helpers/generic';
 import React from 'react';
 import BlockContainer from '../../shared/generic/block/containers/BlockContainer';
 import CostingCartPinSummary from './CostingCartPinSummary';
+import CostingCartPrelimSummary from './CostingCartPrelimSummary';
 
 const CostingCart = ({ data }) => {
     const { buildingCosts, prePrelimCost, prelimIDs, customPrelims, prelimTotal, cartTotal } = data;
@@ -14,6 +15,12 @@ const CostingCart = ({ data }) => {
                     title="Pin Summary"
                     total={prePrelimCost}
                     data={buildingCosts}
+                />
+                <CostingCartPrelimSummary
+                    title="Prelims"
+                    total={prelimTotal}
+                    prelimIDs={prelimIDs}
+                    customPrelims={customPrelims}
                 />
 
                 <div className="grand-total">

@@ -1,3 +1,30 @@
+export const dummyPrelims = {
+    1: {
+        id: 1,
+        name: 'My Markup',
+        markup: 15,
+        cost: null,
+    },
+    2: {
+        id: 2,
+        name: 'My basic',
+        markup: null,
+        cost: 300,
+    },
+    3: {
+        id: 3,
+        name: 'Other markup',
+        markup: 35,
+        cost: null,
+    },
+    4: {
+        id: 3,
+        name: 'Some basic thing',
+        markup: null,
+        cost: 100,
+    },
+};
+
 export const dummyCart = {
     buildingCosts: [
         {
@@ -33,9 +60,16 @@ export const dummyCart = {
     prelimIDs: [1, 2, 3, 4],
     customPrelims: [
         {
-            name: 'My Markup',
-            markup: 15,
+            id: 66,
+            name: 'Custom markup',
+            markup: 75,
             cost: null,
+        },
+        {
+            id: 68,
+            name: 'Custom basic',
+            markup: 0,
+            cost: 10000,
         },
     ],
     prelimTotal: 3690,
