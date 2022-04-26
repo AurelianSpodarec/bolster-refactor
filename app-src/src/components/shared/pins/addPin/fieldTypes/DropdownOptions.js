@@ -24,7 +24,6 @@ const DropdownOptions = ({
 }) => {
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
     // ! this needs to be kept as an option.
-    let formattedOpts = [];
     const questionValue = answers[id] ?? [];
 
     // todo default value
@@ -35,58 +34,16 @@ const DropdownOptions = ({
     }, []);
 
     const type = useSelector(state => selectPinOptionType(state, optionType));
-    // for edit only
-    const filteredOptions = useFilterPinOptions(
+    const formattedOpts = useFilterPinOptions(
         questionValue,
         pinOptions,
         companyID,
         type,
         drawing,
+        originalPinOptionAns,
+        edit,
     );
 
-    if (edit) {
-        const curOptionIDs = filteredOptions.map(opt => opt.id);
-
-        formattedOpts = filteredOptions.map(option => ({
-            value: option.id,
-            label: option.name,
-            id: option.id,
-            sort: option.sort,
-            createdOn: option.createdOn,
-        }));
-        // todo tidy
-        Object.values(originalPinOptionAns ?? {}).forEach(ans => {
-            if (!curOptionIDs.includes(ans.pinOptionVersionID)) {
-                let version;
-                const optionWithVersion = pinOptions.find(opt => {
-                    version = opt.versions.find(vers => vers.id === ans.pinOptionVersionID);
-                    return !!version;
-                });
-                if (optionWithVersion) {
-                    const isOtherVersionPresent = optionWithVersion.versions.some(vers =>
-                        curOptionIDs.includes(vers.id),
-                    );
-                    if (!isOtherVersionPresent) {
-                        formattedOpts.push({
-                            value: version.id,
-                            label: version.name,
-                            id: version.id,
-                            sort: version.sort,
-                            createdOn: version.createdOn,
-                        });
-                    }
-                }
-            }
-        });
-    } else {
-        formattedOpts = filteredOptions.map(option => ({
-            value: option.latestVersion.id,
-            label: option.latestVersion.name,
-            id: option.latestVersion.id,
-            sort: option.sort,
-            createdOn: option.createdOn,
-        }));
-    }
     const [firstValue] = questionValue;
     const selected = !firstValue
         ? null
