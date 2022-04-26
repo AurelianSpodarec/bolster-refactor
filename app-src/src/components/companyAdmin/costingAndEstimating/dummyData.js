@@ -31,26 +31,63 @@ export const dummyCart = {
 export const dummyMain = {
     keyStatistics: [
         {
-            icon: 'money',
+            icon: 'person',
+            solo: null,
+            highest: {
+                title: 'Highest Earning Employee',
+                subtitle: 'John Doe',
+                valueCurrency: null,
+                valueNumerical: 1000000,
+            },
+            lowest: {
+                title: 'Lowest Earning Employee',
+                subtitle: 'John Doe',
+                valueCurrency: null,
+                valueNumerical: 1,
+            },
+        },
+        {
+            icon: 'building',
+            solo: null,
+            highest: {
+                title: 'Highest Earning Building',
+                subtitle: 'Building 1',
+                valueCurrency: null,
+                valueNumerical: 1000000,
+            },
+            lowest: {
+                title: 'Lowest Earning Building',
+                subtitle: 'Building 2',
+                valueCurrency: null,
+                valueNumerical: 10,
+            },
+        },
+        {
+            icon: 'pound',
+            solo: {
+                title: 'Avg Pin Price',
+                subtitle: 'Total / 10,283 pins =',
+                valueCurrency: null,
+                valueNumerical: 32.94,
+            },
+            highest: null,
+            lowest: null,
+        },
+        {
+            icon: 'plus',
             solo: null,
             highest: {
                 title: 'Most Used Installation Type',
                 subtitle: 'Batt & Mastic',
                 valueCurrency: null,
+                valueNumerical: 204900,
+            },
+            lowest: {
+                title: 'Least Used Installation Type',
+                subtitle: 'Pipes',
+                valueCurrency: null,
                 valueNumerical: 2049,
             },
-            lowest: {},
-        },
-        {
-            icon: 'plus',
-            solo: {
-                title: 'Avg Pin Price',
-                subtitle: 'Total / 10,283 pins =',
-                valueCurrency: 32.94,
-                valueNumerical: null,
-            },
-            highest: null,
-            lowest: null,
         },
     ],
     graph: {
