@@ -16,9 +16,11 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
 import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
+import JustToCheckModal from './JustToCheckModal';
 
 const EditOptionValueModal = ({ option }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, option.pinOptionTypeID));
+    const [showJustToCheckModal, setShowJustToCheckModal] = useState(true);
 
     const {
         form,
@@ -165,6 +167,12 @@ const EditOptionValueModal = ({ option }) => {
                     </ButtonWrapper>
                 </BlockButtonWrapper>
             </Form>
+            <JustToCheckModal
+                title="Overwrite prices?"
+                text="Saving will overwrite previous pricing "
+                showJustToCheckModal={showJustToCheckModal}
+                setShowJustToCheckModal={setShowJustToCheckModal}
+            />
         </ModalOuterContainer>
     );
 };

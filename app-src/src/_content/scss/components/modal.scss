@@ -423,3 +423,43 @@
         }
     }
 }
+
+
+//justToCheckModal
+
+.just-to-check-modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .just-to-check-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;   
+    }
+
+    .just-to-check-modal-block {
+        max-width: 35%;
+    }
+
+    .just-to-check-content-container {    
+        border: 1px solid var(--background-stroke);
+
+        p {
+            margin-top: 20px; 
+        }
+
+        .just-to-check-modal-buttons {
+            display: 'flex';
+            justify-content: space-between;    
+        }
+    } 
+
+}
