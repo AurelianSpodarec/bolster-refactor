@@ -6,6 +6,61 @@
 .pods {
   display: flex;
   grid-area: pods;
+
+  .icon-wrapper {
+    margin-bottom: 15px;
+
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--container-greyed-out);
+      height: 45px;
+      width: 45px;
+      border-radius: 11px;
+
+      img {
+        max-height: 20px;
+        max-width: 20px;
+      }
+    }
+
+    .arrow-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 25px;
+      width: 25px;
+      border-radius: 11px;
+      background-color: var(--background-stroke);
+
+      i {
+        font-size: 16px;
+
+        &.asc {
+           color: var(--positive-default);
+        }
+
+        &.desc {
+          color: var(--negative-default);
+        }
+      }
+    }
+  }
+
+  .content-wrapper {
+    margin-top: 35px;
+
+    span {
+      color: var(--typography-greyed-out);
+      font-size: 150%;
+    }
+
+    p {
+      margin-top: 10px;
+      font-size: 200%;
+    }
+  }
 }
 
 .costing-cart {
