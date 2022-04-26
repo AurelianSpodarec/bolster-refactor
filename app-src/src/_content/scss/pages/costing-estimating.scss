@@ -73,7 +73,7 @@
       right: 0;
       opacity: 0;
       transition: opacity 0.4s ease;
-      background: linear-gradient(136.13deg, var(--background-container) 6.92%, rgba(105, 108, 124, 0) 101.53%);
+      background: linear-gradient(136.13deg, var(--background-container) 6.92%, var(--background-default) 101.53%);
 
       &.flipped {
         opacity: 1;
