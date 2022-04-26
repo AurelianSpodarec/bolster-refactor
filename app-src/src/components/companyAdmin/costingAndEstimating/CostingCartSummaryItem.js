@@ -16,6 +16,10 @@ const CostingCartSummaryItem = () => {
                     />
                 </div>
             </FlexWrapper>
+            <div className="divider" />
+            <div className="total">
+                <h3>£18,616.78</h3>
+            </div>
         </div>
     );
 };

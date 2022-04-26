@@ -39,7 +39,7 @@
     display: block;
     height: 1px;
     background-color: $new-grey-alt;
-    margin: 5px 0;
+    margin: 7px 0;
   }
 }
 
@@ -107,7 +107,11 @@
   grid-area: cart;
 
   .summary-item {
-    padding: 5px 0;
+    padding: 5px 0 0;
+
+    .total {
+      text-align: right;
+    }
   }
 
   .grand-total {
