@@ -1,6 +1,31 @@
+@mixin h1title() {
+  font-size: 220%;
+  font-weight: 500;
+}
+
+@mixin h2title() {
+  font-size: 190%;
+  font-weight: 500;
+}
+
+@mixin h3title() {
+  font-size: 160%;
+  font-weight: 500;
+}
+
 .costing-wrapper {
   grid-template-areas: "pods pods cart" "graph graph cart" "filters filters cart";
   grid-template-columns: repeat(3, 1fr);
+
+  h1 {
+    @include h1title;
+  }
+  h2 {
+    @include h2title;
+  }
+  h3 {
+    @include h3title;
+  }
 }
 
 .pods {

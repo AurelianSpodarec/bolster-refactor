@@ -12,7 +12,7 @@ const CostingAndEstimating = () => {
 
             <div className="costing-cart">
                 <BlockContainer>
-                    <p>Costing cart</p>
+                    <h2>Costing cart</h2>
                 </BlockContainer>
             </div>
 
