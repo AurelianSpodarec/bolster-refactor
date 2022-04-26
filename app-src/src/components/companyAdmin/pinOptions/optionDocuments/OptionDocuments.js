@@ -6,16 +6,16 @@ import { isEmpty } from 'helpers/generic';
 
 import { selectPinOptions } from 'selectors/companyAdmin/pinOptions';
 import { selectLatestVersionForPinOption } from 'selectors/companyAdmin/pinOptionVersions';
+import { selectJwtData } from 'selectors/shared/jwt';
 
 import useFetchBatchForOptionDocuments from './hooks/useFetchBatchForOptionDocuments';
+import useDocumentsSetActions from './hooks/useDocumentsSetActions';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import OptionDocumentsList from './OptionDocumentsList';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import FlexHeading from 'components/shared/generic/pageHeading/presentational/FlexHeading';
-import useDocumentsSetActions from './hooks/useDocumentsSetActions';
-import { selectJwtData } from 'selectors/shared/jwt';
 
 const OptionDocuments = () => {
     const { optionID } = useParams();

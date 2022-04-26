@@ -1,13 +1,16 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
+import { isEmpty } from 'helpers/generic';
+import { getVersionForPinOptionDocument } from 'helpers/pinOptions';
+
 import useShouldRedirectFromOptionDocuments from './hooks/useShouldRedirectFromOptionDocuments';
+import useFilterDocuments from './hooks/useFilterDocuments';
 
 import GridWrapper from 'components/shared/generic/gridWrapper/GridWrapper';
 import DocumentPod from 'components/shared/documentPods/DocumentPod';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
-import { getVersionForPinOptionDocument } from 'helpers/pinOptions';
-import useFilterDocuments from './hooks/useFilterDocuments';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const OptionDocumentsList = ({
     hasFetched,
@@ -24,6 +27,10 @@ const OptionDocumentsList = ({
 
     if (shouldRedirect) {
         return <Redirect to="/company/pin-options" />;
+    }
+
+    if (isEmpty(documents)) {
+        return <BlockContainer isEmpty noDataMessage="There is no documents to display" />;
     }
 
     const ActionMenuItems = documentsVersion => (
