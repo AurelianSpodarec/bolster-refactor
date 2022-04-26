@@ -19,6 +19,7 @@ class AddPinSectionsContainer extends Component {
             template,
             latestPinHistory,
             pinOptions,
+            drawingID,
         } = this.props;
 
         return (
@@ -34,6 +35,7 @@ class AddPinSectionsContainer extends Component {
                 template={template}
                 latestPinHistory={latestPinHistory}
                 pinOptions={pinOptions}
+                drawingID={drawingID}
             />
         );
     }

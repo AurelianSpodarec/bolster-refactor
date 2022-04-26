@@ -11,6 +11,7 @@ const AddPinVersions = ({
     template,
     latestPinHistory,
     pinOptions,
+    drawingID,
 }) => (
     <div className="size-lg-12">
         {selectedVersion && (
@@ -25,6 +26,7 @@ const AddPinVersions = ({
                 template={template}
                 latestPinHistory={latestPinHistory}
                 pinOptions={pinOptions}
+                drawingID={drawingID}
             />
         )}
     </div>

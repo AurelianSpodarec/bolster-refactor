@@ -12,6 +12,7 @@ const AddPinVersionsContainer = ({
     oldAnswersByNameObj,
     latestPinHistory,
     pinOptions,
+    drawingID,
 }) => (
     <AddPinVersions
         selectedVersion={selectedVersion}
@@ -23,6 +24,7 @@ const AddPinVersionsContainer = ({
         template={template}
         latestPinHistory={latestPinHistory}
         pinOptions={pinOptions}
+        drawingID={drawingID}
     />
 );
 

@@ -38,6 +38,7 @@ const AddPinHistoryContainer = () => {
             pinID={pinID}
             isHistory
             pinOptions={options}
+            drawingID={drawing?.id}
         />
     );
 };
