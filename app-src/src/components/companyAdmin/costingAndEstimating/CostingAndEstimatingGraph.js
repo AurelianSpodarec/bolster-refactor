@@ -1,3 +1,4 @@
+import { formatCurrency } from 'helpers/generic';
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import BlockContainer from '../../shared/generic/block/containers/BlockContainer';
@@ -11,6 +12,7 @@ const CostingAndEstimatingGraph = ({ graph }) => {
             <BlockContainer contentClass="border">
                 <h3>Graph</h3>
                 <Line data={data} options={options} />
+                <h1>{`£${formatCurrency(graph.total)}`}</h1>
             </BlockContainer>
         </div>
     );

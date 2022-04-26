@@ -206,6 +206,13 @@
 
 .graph-wrapper {
   grid-area: graph;
+
+    h1 {
+      font-size: 260%;
+      position: absolute;
+      right: 0.5em;
+      bottom: 0.5em;
+    }
 }
 
 .filters-wrapper {
