@@ -49,8 +49,17 @@ export const useAddPinOptions = serviceID => {
     }, [pinOptions, pinOptionVersions, serviceID]);
 };
 
-export const useFilterPinOptions = (questionValue, options, companyID, type, drawing) => {
-    return useMemo(
+export const useFilterPinOptions = (
+    questionValue,
+    options,
+    companyID,
+    type,
+    drawing,
+    originalPinOptionAns,
+    edit,
+) => {
+    let formattedOpts;
+    const filteredOptions = useMemo(
         () =>
             options.filter(option => {
                 if (type?.hasSiteLinks) {
@@ -73,6 +82,74 @@ export const useFilterPinOptions = (questionValue, options, companyID, type, dra
             }),
         [questionValue, options, companyID, type, drawing],
     );
+    if (edit) {
+        const curOptionVersionIDs = filteredOptions.map(opt => opt.latestVersion.id);
+
+        formattedOpts = filteredOptions.map(option => ({
+            value: option.latestVersion.id,
+            label: option.latestVersion.name,
+            id: option.latestVersion.id,
+            sort: option.sort,
+            createdOn: option.createdOn,
+        }));
+        // todo tidy
+        Object.values(originalPinOptionAns ?? {}).forEach(ans => {
+            if (!curOptionVersionIDs.includes(ans.pinOptionVersionID)) {
+                let version;
+                const optionWithVersion = options.find(opt => {
+                    version = opt.versions.find(vers => vers.id === ans.pinOptionVersionID);
+                    return !!version;
+                });
+                if (optionWithVersion) {
+                    const isOtherVersionPresent = optionWithVersion.versions.some(vers =>
+                        curOptionVersionIDs.includes(vers.id),
+                    );
+                    if (!isOtherVersionPresent) {
+                        formattedOpts.push({
+                            value: version.id,
+                            label: version.name,
+                            id: version.id,
+                            sort: version.sort,
+                            createdOn: version.createdOn,
+                        });
+                    }
+                }
+            }
+        });
+    } else {
+        formattedOpts = filteredOptions.map(option => ({
+            value: option.latestVersion.id,
+            label: option.latestVersion.name,
+            id: option.latestVersion.id,
+            sort: option.sort,
+            createdOn: option.createdOn,
+        }));
+    }
+
+    return formattedOpts;
+    // return useMemo(
+    //     () =>
+    //         options.filter(option => {
+    //             if (type?.hasSiteLinks) {
+    //                 const setsForType = drawing?.pinOptionSetIDsByType?.[type?.id];
+    //                 if (!setsForType || !setsForType.length) {
+    //                     if (!option.isDefault) return false;
+    //                 } else if (!setsForType.includes(option.pinOptionSetID)) {
+    //                     return false;
+    //                 }
+    //             }
+    //             // remove deleted option if not already selected
+    //             if (questionValue?.pinOptionVersionID !== option.value && option.isDeleted) {
+    //                 return false;
+    //             }
+    //             // todo usage rules - currently user company & global
+    //             if (option.companyID !== companyID && option.companyID !== null) {
+    //                 return false;
+    //             }
+    //             return option.pinOptionTypeID === type?.id;
+    //         }),
+    //     [questionValue, options, companyID, type, drawing],
+    // );
 };
 
 export const formatMeasurementsForPostBody = (measurements, questionID) => {
@@ -127,10 +204,10 @@ export const getValueForQuestionAnswer = (question, value, answerValues) => {
                 const count = counts[ans] ?? 0;
                 const oldAnswers =
                     answerValues?.filter(answer => answer.pinOptionVersionID === ans) ?? [];
-                if (oldAnswers[count]) {
+                const oldAnswer = oldAnswers[count];
+                if (oldAnswer) {
                     counts[ans] = count + 1;
                 }
-                const oldAnswer = oldAnswers[count];
                 const uid = oldAnswer?.uid ?? uuid();
                 return {
                     ...emptyAnswer,
