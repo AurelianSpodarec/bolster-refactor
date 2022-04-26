@@ -5,13 +5,15 @@ import GridWrapper from '../../shared/generic/gridWrapper/GridWrapper';
 import CostingAndEstimatingPods from './CostingAndEstimatingPods';
 import BlockContainer from '../../shared/generic/block/containers/BlockContainer';
 import CostingCart from './CostingCart';
+import useCostingAndEstimating from './_hooks/useCostingAndEstimating';
 
 const CostingAndEstimating = () => {
+    const { costingCart, graph, keyStatistics, allPins } = useCostingAndEstimating();
     return (
         <GridWrapper gap={30} containerClass="costing-wrapper">
-            <CostingAndEstimatingPods />
+            <CostingAndEstimatingPods data={keyStatistics} />
 
-            <CostingCart />
+            <CostingCart data={costingCart} />
 
             <div className="graph-wrapper">
                 <BlockContainer contentClass="border">
