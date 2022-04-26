@@ -1,62 +1,62 @@
 export const dummyCart = {
-    BuildingCosts: [
+    buildingCosts: [
         {
-            BuildingID: 1,
-            Cost: 9308.39,
-            Drawings: [
+            buildingID: 1,
+            cost: 9308.39,
+            drawings: [
                 {
-                    DrawingID: 1,
-                    Cost: 5000.27,
+                    drawingID: 1,
+                    cost: 5000.27,
                 },
                 {
-                    DrawingID: 1,
-                    Cost: 4308.12,
+                    drawingID: 1,
+                    cost: 4308.12,
                 },
             ],
         },
     ],
-    PrePrelimCost: 18616.78,
-    PrelimIDs: [1, 2, 3, 4],
-    CustomPrelims: [
+    prePrelimCost: 18616.78,
+    prelimIDs: [1, 2, 3, 4],
+    customPrelims: [
         {
-            Name: 'My Markup',
-            Markup: 15,
-            Cost: null,
+            name: 'My Markup',
+            markup: 15,
+            cost: null,
         },
     ],
-    PrelimTotal: 3690,
-    CartTotal: 22306.78,
+    prelimTotal: 3690,
+    cartTotal: 22306.78,
 };
 
 export const dummyMain = {
-    KeyStatistics: [
+    keyStatistics: [
         {
-            Icon: 'money',
-            Solo: null,
-            Highest: {
-                Title: 'Most Used Installation Type',
-                Subtitle: 'Batt & Mastic',
-                ValueCurrency: null,
-                ValueNumerical: 2049,
+            icon: 'money',
+            solo: null,
+            highest: {
+                title: 'Most Used Installation Type',
+                subtitle: 'Batt & Mastic',
+                valueCurrency: null,
+                valueNumerical: 2049,
             },
-            Lowest: {},
+            lowest: {},
         },
         {
-            Icon: 'plus',
-            Solo: {
-                Title: 'Avg Pin Price',
-                Subtitle: 'Total / 10,283 pins =',
-                ValueCurrency: 32.94,
-                ValueNumerical: null,
+            icon: 'plus',
+            solo: {
+                title: 'Avg Pin Price',
+                subtitle: 'Total / 10,283 pins =',
+                valueCurrency: 32.94,
+                valueNumerical: null,
             },
-            Highest: null,
-            Lowest: null,
+            highest: null,
+            lowest: null,
         },
     ],
-    Graph: {
-        Total: 18616.78,
-        Labels: [1650969400, 1650969400, 1650969400],
-        Datasets: [
+    graph: {
+        total: 18616.78,
+        labels: [1650969400, 1650969400, 1650969400],
+        datasets: [
             {
                 id: 1,
                 label: '',
@@ -64,21 +64,21 @@ export const dummyMain = {
             },
         ],
     },
-    AllPins: [
+    allPins: [
         {
-            SiteID: 1,
-            BuildingID: 1,
-            FloorID: 1,
-            DrawingID: 1,
-            PinID: '0001:03',
-            DateCreated: '2021-05-26 12:33:44',
-            Comment: 'Fire stop around pipe in cavity',
-            Installations: [
+            SsiteID: 1,
+            buildingID: 1,
+            floorID: 1,
+            drawingID: 1,
+            pinID: '0001:03',
+            dateCreated: '2021-05-26 12:33:44',
+            comment: 'Fire stop around pipe in cavity',
+            installations: [
                 {
-                    Name: 'Installation 1',
-                    Type: 'Collar',
-                    Measurement: '50mm',
-                    Cost: 200,
+                    name: 'Installation 1',
+                    type: 'Collar',
+                    measurement: '50mm',
+                    cost: 200,
                 },
             ],
         },
@@ -86,10 +86,10 @@ export const dummyMain = {
 };
 
 export const dummyRequest = {
-    HierarchyID: 1,
-    HierarchyType: 1,
-    SelectedInstallations: [1, 2, 3, 4],
-    DateFrom: null,
-    DateTo: null,
-    Filters: {},
+    hierarchyID: 1,
+    hierarchyType: 1,
+    selectedInstallations: [1, 2, 3, 4],
+    dateFrom: null,
+    dateTo: null,
+    filters: {},
 };
