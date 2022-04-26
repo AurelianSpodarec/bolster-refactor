@@ -13,6 +13,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 import { QUESTION_TYPES } from 'constants/shared/templateBuilder';
+import { formatMeasurementsForPostBody } from '../../../../shared/pins/addPin/fieldTypes/helpers';
 
 class AddPinFormContainer extends Component {
     state = {
@@ -32,6 +33,7 @@ class AddPinFormContainer extends Component {
             isHistory,
             serviceID,
             pinOptions,
+            drawingID,
         } = this.props;
 
         const serviceOptions = convertArrToObj(this._relevantServiceOptions(), 'value');
@@ -65,6 +67,7 @@ class AddPinFormContainer extends Component {
                         filesUploading={filesUploading}
                         confirmLeave={confirmLeave}
                         pinOptions={pinOptions}
+                        drawingID={drawingID}
                     />
                 </BlockContainer>
             </>
@@ -209,7 +212,7 @@ class AddPinFormContainer extends Component {
         const formattedAnswers = Object.keys(answers).map(questionID => ({
             templateQuestionID: questionID,
             answerValues: answers[questionID],
-            measurements: measurements[questionID],
+            measurements: formatMeasurementsForPostBody(measurements, questionID),
         }));
 
         const postBody = {

@@ -13,6 +13,7 @@ const AddPinSections = ({
     template,
     latestPinHistory,
     pinOptions,
+    drawingID,
 }) => (
     <AddPinQuestionsContainer
         isHistory={isHistory}
@@ -26,6 +27,7 @@ const AddPinSections = ({
         template={template}
         latestPinHistory={latestPinHistory}
         pinOptions={pinOptions}
+        drawingID={drawingID}
     />
 );
 

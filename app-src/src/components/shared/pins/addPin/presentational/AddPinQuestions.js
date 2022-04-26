@@ -16,6 +16,7 @@ const AddPinQuestions = ({
     template,
     latestPinHistory,
     pinOptions,
+    drawingID,
 }) => {
     const answersCacheKey = `answersCache#${selectedVersion.id}`;
     return [...sections]
@@ -44,6 +45,7 @@ const AddPinQuestions = ({
                                     JSON.parse(localStorage.getItem(answersCacheKey)) || null
                                 }
                                 pinOptions={pinOptions}
+                                drawingID={drawingID}
                             />
                         ))}
                 </div>

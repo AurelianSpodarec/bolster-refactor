@@ -49,10 +49,18 @@ export const useAddPinOptions = serviceID => {
     }, [pinOptions, pinOptionVersions, serviceID]);
 };
 
-export const useFilterPinOptions = (questionValue, options, companyID, pinOptionTypeID) => {
+export const useFilterPinOptions = (questionValue, options, companyID, type, drawing) => {
     return useMemo(
         () =>
             options.filter(option => {
+                if (type?.hasSiteLinks) {
+                    const setsForType = drawing?.pinOptionSetIDsByType?.[type?.id];
+                    if (!setsForType || !setsForType.length) {
+                        if (!option.isDefault) return false;
+                    } else if (!setsForType.includes(option.pinOptionSetID)) {
+                        return false;
+                    }
+                }
                 // remove deleted option if not already selected
                 if (questionValue?.pinOptionVersionID !== option.value && option.isDeleted) {
                     return false;
@@ -61,10 +69,19 @@ export const useFilterPinOptions = (questionValue, options, companyID, pinOption
                 if (option.companyID !== companyID && option.companyID !== null) {
                     return false;
                 }
-                return option.pinOptionTypeID === pinOptionTypeID;
+                return option.pinOptionTypeID === type?.id;
             }),
-        [questionValue, options, companyID, pinOptionTypeID],
+        [questionValue, options, companyID, type, drawing],
     );
+};
+
+export const formatMeasurementsForPostBody = (measurements, questionID) => {
+    const questionMeasurements = measurements[questionID];
+    if (!questionMeasurements) return null;
+    return Object.entries(questionMeasurements).map(([key, value]) => ({
+        uid: key,
+        ...value,
+    }));
 };
 
 export const emptyAnswer = {
