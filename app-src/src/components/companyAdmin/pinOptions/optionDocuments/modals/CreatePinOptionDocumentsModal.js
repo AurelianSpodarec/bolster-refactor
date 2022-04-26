@@ -1,7 +1,4 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-
-import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 import useCreatePinOptionDocument from '../hooks/useCreatePinOptionDocument';
 
@@ -15,8 +12,7 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 
-const CreatePinOptionDocumentsModal = ({ optionID }) => {
-    const dispatch = useDispatch();
+const CreatePinOptionDocumentsModal = ({ hideModal, optionID }) => {
     const { form, handleChange, handleSubmit, isPosting } = useCreatePinOptionDocument(optionID);
 
     return (
@@ -49,7 +45,7 @@ const CreatePinOptionDocumentsModal = ({ optionID }) => {
                     <ButtonWrapper alignment="right">
                         <ActionButton
                             text="Cancel"
-                            onClick={() => dispatch(hideModal())}
+                            onClick={hideModal}
                             source="secondary"
                             size="medium"
                         />

@@ -30,7 +30,7 @@ const CostingAndEstimatingPod = ({ pod }) => {
 
     return (
         <BlockContainer
-            contentClass={`background-gradient border ${solo ? 'cursor-pointer' : ''}`}
+            contentClass={`background-gradient border ${!solo ? 'cursor-pointer' : ''}`}
             onClick={handleFlip}
         >
             <div className={`pod-flip-bg background-gradient ${isFlipped ? 'flipped' : ''}`} />
