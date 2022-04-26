@@ -144,7 +144,7 @@ export const dummyMain = {
         total: 18616.78,
         labels: Array(7)
             .fill(moment())
-            .map((d, i) => d.subtract(i, 'days').valueOf()),
+            .map((d, i) => d.subtract(i, 'days').format('MMM DD')),
         datasets: [
             {
                 id: 1,
