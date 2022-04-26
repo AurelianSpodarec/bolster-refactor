@@ -5,19 +5,23 @@ import moment from 'moment';
 import { FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
 import { DATE_TIME } from 'constants/shared/dateFormats';
 import { DOCUMENT_VIEW } from 'constants/shared/modalTypes';
+import { DOCUMENT_VIEW_TYPES } from 'constants/companyAdmin/enums';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 
 import ActionMenu from '../actionMenu/ActionMenu';
 import FlexWrapper from '../generic/flexWrapper/FlexWrapper';
 
+const { IMAGE, PDF } = DOCUMENT_VIEW_TYPES;
+
 const DocumentPod = ({ name, lastUpdated, actionMenuItems, s3Key }) => {
     const dispatch = useDispatch();
 
-    const showViewModal = s3Key => {
+    const showViewModal = () => {
         dispatch(
             showModal(DOCUMENT_VIEW, {
                 image: `${RAW_S3_STORAGE_URL}/${s3Key}`,
+                type: s3Key.endsWith('.pdf') ? PDF : IMAGE,
             }),
         );
     };
