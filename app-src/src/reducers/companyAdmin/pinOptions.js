@@ -139,7 +139,10 @@ function optionsReducer(state = {}, action) {
         case EDIT_PIN_OPTION_VALUE_SUCCESS:
             return updateObj(state, action.payload.pinOption.id, action.payload.pinOption);
         case DELETE_PIN_OPTION_VALUE_SUCCESS:
-            return removeObjItem(state, action.id);
+            return updateObj(state, action.payload.id, {
+                ...action.payload,
+                isDeleted: true,
+            });
         default:
             return state;
     }

@@ -1,8 +1,8 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+
+import useCreatePinOptionDocument from '../hooks/useCreatePinOptionDocument';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
@@ -10,24 +10,21 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import useCreatePinOptionDocument from '../hooks/useCreatePinOptionDocument';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
-import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
-const CreatePinOptionDocumentsModal = ({ optionID }) => {
-    const dispatch = useDispatch();
+const CreatePinOptionDocumentsModal = ({ hideModal, optionID }) => {
     const { form, handleChange, handleSubmit, isPosting } = useCreatePinOptionDocument(optionID);
 
     return (
         <ModalOuterContainer hideCloseButton>
-            <ModalHeading title="" />
+            <ModalHeading title="Upload file" />
 
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
-                <Field name="Upload Files" required>
+                <Field name="" required>
                     <FileUploadContainer
                         value={form.documentS3Key}
                         name="documentS3Key"
-                        acceptedTypes={['image/jpg', 'image/png', 'image/jpeg']}
+                        acceptedTypes={['application/pdf', 'image/jpg', 'image/png', 'image/jpeg']}
                         handleChange={handleChange}
                         maxFiles={1}
                         required
@@ -48,15 +45,12 @@ const CreatePinOptionDocumentsModal = ({ optionID }) => {
                     <ButtonWrapper alignment="right">
                         <ActionButton
                             text="Cancel"
-                            onClick={() => dispatch(hideModal())}
+                            onClick={hideModal}
                             source="secondary"
                             size="medium"
                         />
                         <ActionButton
                             text="Confirm"
-                            icon={isPosting ? 'spinner' : 'save'}
-                            iconSpin={isPosting}
-                            ambient="positive"
                             size="medium"
                             disabled={isPosting}
                             type="submit"

@@ -51,6 +51,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-    (_, { match }) => ({ drawingID: match.params.id }),
+    (_, { match }) => ({ drawingID: match?.params.id }),
     mapDispatchToProps,
 )(SingleDrawingContainer);

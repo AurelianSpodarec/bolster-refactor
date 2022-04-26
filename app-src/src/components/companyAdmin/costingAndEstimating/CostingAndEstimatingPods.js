@@ -1,23 +1,12 @@
 import React from 'react';
+import CostingAndEstimatingPod from './CostingAndEstimatingPod';
 
-import FlexWrapper from '../../shared/generic/flexWrapper/FlexWrapper';
-import BlockContainer from '../../shared/generic/block/containers/BlockContainer';
-
-const CostingAndEstimatingPods = () => {
+const CostingAndEstimatingPods = ({ data }) => {
     return (
         <div className="pods">
-            <BlockContainer contentClass="background-gradient">
-                <h3 className="heading heading-3">Highest Earning employee</h3>
-            </BlockContainer>
-            <BlockContainer contentClass="background-gradient">
-                <h3 className="heading heading-3">Highest Earning Building</h3>
-            </BlockContainer>
-            <BlockContainer contentClass="background-gradient">
-                <h3 className="heading heading-3">Avg Pin Price</h3>
-            </BlockContainer>
-            <BlockContainer contentClass="background-gradient">
-                <h3 className="heading heading-3">Most Used Installation Type</h3>
-            </BlockContainer>
+            {data.map((pod, i) => (
+                <CostingAndEstimatingPod pod={pod} key={i} />
+            ))}
         </div>
     );
 };

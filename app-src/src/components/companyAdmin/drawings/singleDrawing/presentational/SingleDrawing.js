@@ -1,13 +1,13 @@
 import React from 'react';
 
 import SingleDrawingHeaderContainer from '../containers/SingleDrawingHeaderContainer';
-import GeneralOverviewContainer from '../containers/GeneralOverviewContainer';
+import SingleDrawingRouteContainer from '../containers/SingleDrawingRouteContainer';
 
 const SingleDrawing = () => (
-    <div className="size-lg-12">
+    <>
         <SingleDrawingHeaderContainer />
-        <GeneralOverviewContainer />
-    </div>
+        <SingleDrawingRouteContainer />
+    </>
 );
 
 export default SingleDrawing;

@@ -14,6 +14,9 @@ const ActionMenuContent = ({ children, closeMenu }) => {
         <div
             ref={ref}
             onClick={e => {
+                e.preventDefault();
+                e.stopPropagation();
+
                 const isButtonClicked = !e.target.className.includes(actionMenuClassName);
                 if (isButtonClicked) closeMenu();
             }}

@@ -24,6 +24,7 @@ const AddPinForm = ({
     oldAnswersByNameObj,
     latestPinHistory,
     pinOptions,
+    drawingID,
 }) => {
     const [showFixError, setShowFixError] = useState();
 
@@ -72,6 +73,7 @@ const AddPinForm = ({
                     oldAnswersByNameObj={oldAnswersByNameObj}
                     latestPinHistory={latestPinHistory}
                     pinOptions={pinOptions}
+                    drawingID={drawingID}
                 />
             )}
 

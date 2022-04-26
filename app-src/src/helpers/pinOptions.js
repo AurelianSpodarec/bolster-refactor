@@ -1,6 +1,6 @@
 import { updateObjMultiple } from './generic';
 
-export const getVersionForPinOption = (pinOptionID, pinVersions) => {
+export const getLatestVersionForPinOption = (pinOptionID, pinVersions) => {
     const validPinVersions = pinVersions.filter(version => version.pinOptionID === pinOptionID);
     const sortByRevision = validPinVersions.sort((a, b) => b.revisionNumber - a.revisionNumber);
     const latestVersion = sortByRevision[0];
@@ -8,17 +8,17 @@ export const getVersionForPinOption = (pinOptionID, pinVersions) => {
     return latestVersion;
 };
 
-export const getVersionForPinOptionDocument = (id, allDocumentsVersions) => {
-    const validVersions = allDocumentsVersions.filter(
-        version => version.pinOptionDocumentID === id,
+export const getLatestVersionForPinOptionDocument = (pinOptionDocumentID, allDocumentVersions) => {
+    const validVersions = allDocumentVersions.filter(
+        version => version.pinOptionDocumentID === pinOptionDocumentID,
     );
     const sortByDate = validVersions.sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn));
     const latestVersion = sortByDate[0];
     return latestVersion;
 };
 
-export const getVersionNameForPinOption = (pinOptionID, pinVersions) => {
-    const latestVersion = getVersionForPinOption(pinOptionID, pinVersions);
+export const getLatestVersionNameForPinOption = (pinOptionID, pinVersions) => {
+    const latestVersion = getLatestVersionForPinOption(pinOptionID, pinVersions);
 
     return latestVersion ? latestVersion.name : '';
 };

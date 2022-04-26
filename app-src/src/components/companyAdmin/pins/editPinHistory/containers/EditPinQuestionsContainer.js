@@ -5,7 +5,7 @@ import EditPinQuestions from '../presentational/EditPinQuestions';
 import { selectTemplateQuestions } from '../../../../../selectors/companyAdmin/templateQuestions';
 import { selectPinAnswers } from '../../../../../selectors/companyAdmin/pinAnswers';
 
-const EditPinQuestionsContainer = ({ sections, selectedVersion, pinOptions }) => {
+const EditPinQuestionsContainer = ({ sections, selectedVersion, pinOptions, drawingID }) => {
     const questions = useSelector(selectTemplateQuestions);
     const answers = useSelector(selectPinAnswers);
     return (
@@ -15,6 +15,7 @@ const EditPinQuestionsContainer = ({ sections, selectedVersion, pinOptions }) =>
             pinOptions={pinOptions}
             answers={answers}
             selectedVersion={selectedVersion}
+            drawingID={drawingID}
         />
     );
 };
