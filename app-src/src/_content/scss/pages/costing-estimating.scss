@@ -13,6 +13,11 @@
   font-weight: 500;
 }
 
+@mixin h4title() {
+  font-size: 150%;
+  font-weight: 500;
+}
+
 .costing-wrapper {
   grid-template-areas: "pods pods cart" "graph graph cart" "filters filters cart";
   grid-template-columns: repeat(3, 1fr);
@@ -25,6 +30,16 @@
   }
   h3 {
     @include h3title;
+  }
+  h4 {
+    @include h4title;
+  }
+
+  .divider {
+    display: block;
+    height: 1px;
+    background-color: $new-grey-alt;
+    margin: 5px 0;
   }
 }
 
@@ -90,6 +105,10 @@
 
 .costing-cart {
   grid-area: cart;
+
+  .summary-item {
+    padding: 5px 0;
+  }
 
   .grand-total {
     text-align: right;
