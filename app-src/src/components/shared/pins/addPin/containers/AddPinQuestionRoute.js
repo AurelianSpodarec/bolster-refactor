@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 
 import Field from 'components/shared/generic/form/presentational/Field';
 import resetPinAnswer from 'actions/companyAdmin/drawings/sync/resetPinAnswer';
-import { componentDidMount, deepEquals, isEmpty } from 'helpers/generic';
+import { componentDidMount, convertArrToObj, deepEquals, isEmpty } from 'helpers/generic';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -19,6 +19,8 @@ import { getValueForQuestionAnswer } from '../fieldTypes/helpers';
 import { usePrevious } from '../../../../../helpers/hooks';
 import { selectAddPinQuestionMeasurements } from '../../../../../selectors/companyAdmin/addPin';
 import updateAddPinMeasurement from '../../../../../actions/companyAdmin/drawings/sync/updateAddPinMeasurement';
+import { selectDrawing } from '../../../../../selectors/companyAdmin/drawings';
+import uuid from 'uuid/v4';
 
 const {
     SINGLE_LINE,
@@ -53,6 +55,7 @@ const AddPinQuestionRoute = ({
     isHistory,
     selectedVersion,
     pinOptions,
+    drawingID,
 }) => {
     const {
         answers,
@@ -67,6 +70,7 @@ const AddPinQuestionRoute = ({
         pinOptionVersions,
         histories,
     } = useSelector(mapStateToProps);
+    const drawing = useSelector(state => selectDrawing(state, drawingID));
     const measurements = useSelector(state => selectAddPinQuestionMeasurements(state, question.id));
 
     const params = useParams();
@@ -143,14 +147,19 @@ const AddPinQuestionRoute = ({
                     templateQuestionID === question.id && pinHistoryID === Number(historyID),
             );
             if (oldAnswer) {
-                const { templateQuestionID, answerValues } = oldAnswer;
-                dispatch(updateAddPinAnswer(templateQuestionID, answerValues));
+                const { templateQuestionID, answerValues, measurements } = oldAnswer;
+                const values = answerValues?.map(val => ({ ...val, uid: val.id }));
+                dispatch(updateAddPinAnswer(templateQuestionID, values));
                 if (
                     question.type + '' === PIN_OPTION_TYPES ||
                     question.type + '' === MULTI_PIN_OPTION_TYPES ||
                     question.type + '' === MULTI_MULTI_PIN_OPTION_TYPES
                 ) {
                     setOriginalPinOptionAnswers(answerValues);
+                }
+                if (measurements) {
+                    const formattedMeasurements = formatOldMeasurements(measurements);
+                    dispatch(updateAddPinMeasurement(templateQuestionID, formattedMeasurements));
                 }
             }
             if (String(question.type) === STATUS) {
@@ -189,7 +198,6 @@ const AddPinQuestionRoute = ({
 
         const fieldSize = `size-lg-${isImage ? '12' : '6'}`;
         const isRequired = _getIsRequired();
-        // todo pass through measurements[question.id]
         // todo prefill measurements if add history / edit
         return (
             <Field
@@ -217,6 +225,7 @@ const AddPinQuestionRoute = ({
                     companyID={companyID}
                     pinOptions={pinOptions}
                     measurements={measurements}
+                    drawing={drawing}
                 />
             </Field>
         );
@@ -313,9 +322,15 @@ const AddPinQuestionRoute = ({
         if (`${question.type}` === STATUS) {
             handleStatusPrefill();
         } else if (oldAnswersKeys.includes(question.groupKey)) {
-            const oldAnswer = pinAnswersByGroupKey[question.groupKey].answerValues;
-            console.log({ oldAnswer, oldAnswersKeys, pinAnswersByGroupKey, question });
-            dispatch(updateAddPinAnswer(question.id, oldAnswer));
+            const oldAnswer = pinAnswersByGroupKey[question.groupKey];
+            // add uid so can be matched with prefilled measumrents
+            const oldAnswerValues = oldAnswer.answerValues?.map(ans => ({ ...ans, uid: ans.id }));
+            dispatch(updateAddPinAnswer(question.id, oldAnswerValues));
+            const oldMeasurements = oldAnswer.measurements;
+            if (oldMeasurements) {
+                const formattedMeasurements = formatOldMeasurements(oldMeasurements);
+                dispatch(updateAddPinMeasurement(question.id, formattedMeasurements));
+            }
         } else {
             handleResetAnswer();
         }
@@ -354,6 +369,9 @@ const AddPinQuestionRoute = ({
 
     function handleResetAnswer() {
         dispatch(updateAddPinAnswer(question.id, getDefaultValue(question)));
+        if (measurements[question.id]) {
+            dispatch(updateAddPinMeasurement(question.id, null));
+        }
     }
 
     function handleStatusPrefill() {
@@ -363,7 +381,7 @@ const AddPinQuestionRoute = ({
         }
     }
     function handleChange(_, value) {
-        const valueToStore = getValueForQuestionAnswer(question, value, answer?.answerValues);
+        const valueToStore = getValueForQuestionAnswer(question, value, answer);
         dispatch(updateAddPinAnswer(question.id, valueToStore));
     }
 
@@ -379,12 +397,21 @@ const AddPinQuestionRoute = ({
     }
 
     function handleMeasurementChange(uid, key, value) {
-        // e.g. handleMeasurementChange(uid 'height', 1.5)
         const updatedMeasurements = {
             ...measurements,
-            [uid]: { ...measurements[uid], [key]: value },
+            // on change, set id to null so it will be re-created (only applies to edit)
+            [uid]: { ...measurements[uid], [key]: value, id: null },
         };
         dispatch(updateAddPinMeasurement(question.id, updatedMeasurements));
+    }
+
+    function formatOldMeasurements(measurements) {
+        const measurementsWithUid = measurements.map(m => ({
+            ...m,
+            uid: m.pinHistoryAnswerValueID,
+            id: edit ? m.id : null,
+        }));
+        return convertArrToObj(measurementsWithUid, 'uid');
     }
 };
 

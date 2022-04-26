@@ -13,6 +13,7 @@ const EditPinForm = ({
     confirmLeave,
     selectedHistory,
     pinOptions,
+    drawingID,
 }) => {
     const [showFixError, setShowFixError] = useState(false);
 
@@ -25,6 +26,7 @@ const EditPinForm = ({
             <EditPinVersionsContainer
                 templateVersionID={selectedHistory.templateVersionID}
                 pinOptions={pinOptions}
+                drawingID={drawingID}
             />
 
             {showFixError && (

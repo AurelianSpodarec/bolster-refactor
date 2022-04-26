@@ -20,8 +20,6 @@ const EditSitePinOptionSets = ({
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         {types.map(type => {
             const sets = typeSets[type.id] ?? [];
-            console.log({ selectedPinOptionSets, type, sets });
-            console.log(selectedPinOptionSets[type.id]);
             const options = sets.map(set => ({
                 text: set.name,
                 value: set.id,

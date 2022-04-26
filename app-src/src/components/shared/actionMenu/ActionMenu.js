@@ -19,6 +19,7 @@ const ActionMenu = ({ children, ellipsisPosition = 'right', disabled = false }) 
                 data-position={ellipsisPosition}
                 onClick={e => {
                     e.preventDefault();
+                    e.stopPropagation();
                     setShowMenu(true);
                 }}
                 disabled={disabled}

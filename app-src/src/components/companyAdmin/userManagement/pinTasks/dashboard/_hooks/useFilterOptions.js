@@ -94,7 +94,6 @@ const useFilterOptions = () => {
 
         return acc;
     }, []);
-
     return { serviceOptions, templateOptions, operativeOptions, siteOptions };
 };
 

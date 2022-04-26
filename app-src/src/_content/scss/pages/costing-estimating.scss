@@ -54,8 +54,36 @@
   .divider {
     display: block;
     height: 1px;
-    background-color: $new-grey-alt;
+    background-color: $dark-grey;
     margin: 7px 0;
+  }
+
+  .content-area {
+    height: 100%;
+
+    .pod-flip-bg {
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      background: linear-gradient(136.13deg, var(--background-container) 6.92%, rgba(105, 108, 124, 0) 101.53%);
+
+      &.flipped {
+        opacity: 1;
+      }
+    }
+  }
+
+  .border {
+    border: 1px solid $dark-grey;
+  }
+
+  .cursor-pointer {
+    cursor: pointer;
   }
 }
 
@@ -92,12 +120,15 @@
 
       i {
         font-size: 16px;
+        transition: all 0.4s ease;
 
         &.asc {
+          transform: rotate(0deg);
            color: var(--positive-default);
         }
 
         &.desc {
+          transform: rotate(180deg);
           color: var(--negative-default);
         }
       }

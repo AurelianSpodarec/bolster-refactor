@@ -3,7 +3,7 @@ import React from 'react';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import AddPinQuestionRoute from 'components/shared/pins/addPin/containers/AddPinQuestionRoute';
 
-const EditPinQuestions = ({ sections, questions, selectedVersion, pinOptions }) =>
+const EditPinQuestions = ({ sections, questions, selectedVersion, pinOptions, drawingID }) =>
     [...sections]
         .sort((a, b) => a.sort - b.sort)
         .map(section => (
@@ -22,6 +22,7 @@ const EditPinQuestions = ({ sections, questions, selectedVersion, pinOptions }) 
                                 sectionID={section.id}
                                 edit
                                 pinOptions={pinOptions}
+                                drawingID={drawingID}
                             />
                         ))}
                 </div>
