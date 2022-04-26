@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-import { getVersionNameForPinOption } from 'helpers/pinOptions';
+import { getLatestVersionNameForPinOption } from 'helpers/pinOptions';
 
 import { selectPinOptionsArr } from '../../../../../selectors/superAdmin/pinOptions';
 import { selectPinOptionVersionsArr } from '../../../../../selectors/superAdmin/pinOptionVersions';
@@ -22,7 +22,7 @@ const useGetOptionsForSet = (typeID, setID) => {
 
     const pinOptionsWithName = useMemo(() => {
         return pinOptionsForSet.map(option => {
-            const name = getVersionNameForPinOption(option.id, pinOptionVersions);
+            const name = getLatestVersionNameForPinOption(option.id, pinOptionVersions);
             return {
                 name,
                 ...option,

@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { isEmpty } from 'helpers/generic';
-import { getVersionForPinOptionDocument } from 'helpers/pinOptions';
+import { getLatestVersionForPinOptionDocument } from 'helpers/pinOptions';
 
 import useShouldRedirectFromOptionDocuments from './hooks/useShouldRedirectFromOptionDocuments';
 import useFilterDocuments from './hooks/useFilterDocuments';
@@ -52,7 +52,7 @@ const OptionDocumentsList = ({
     return (
         <GridWrapper gap={15} itemsPerRow={5}>
             {documents.map(document => {
-                const documentsVersion = getVersionForPinOptionDocument(
+                const documentsVersion = getLatestVersionForPinOptionDocument(
                     document.id,
                     allDocumentsVersions,
                 );
