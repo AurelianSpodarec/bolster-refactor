@@ -39,7 +39,6 @@ const DocumentPod = ({ name, lastUpdated, actionMenuItems, s3Key }) => {
                     className="pdf-preview"
                     src={`${RAW_S3_STORAGE_URL}/${s3Key}${removePDFPanels}`}
                     type="application/pdf"
-                    scrolling="no"
                 />
             ) : (
                 <div className="image-wrapper">

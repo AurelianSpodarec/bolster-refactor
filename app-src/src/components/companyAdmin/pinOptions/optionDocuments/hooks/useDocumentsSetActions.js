@@ -27,15 +27,14 @@ const useDocumentsSetActions = optionID => {
         dispatch(showModal(CREATE_PIN_OPTION_DOCUMENTS_MODAL, { optionID }));
     };
 
-    const showEditModal = ({ documentsVersion }) => {
+    const showEditModal = documentsVersion => {
         dispatch(showModal(EDIT_PIN_OPTION_DOCUMENTS_MODAL, { documentsVersion }));
     };
 
-    const showDeleteModal = ({ documentsVersion }) => {
+    const showDeleteModal = (document, documentsVersion) => {
         dispatch(
             showModal(CONFIRM_SUBMIT, {
-                handleSubmit: () =>
-                    dispatch(deletePinOptionDocument(documentsVersion.pinOptionDocumentID)),
+                handleSubmit: () => dispatch(deletePinOptionDocument(document)),
                 title: `Delete ${documentsVersion.name}?`,
                 message: 'Are you sure you would like to delete this document?',
                 submitButtonText: 'Delete',

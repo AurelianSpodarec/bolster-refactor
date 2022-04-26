@@ -32,18 +32,13 @@ const OptionDocumentsList = ({
         return <BlockContainer isEmpty noDataMessage="There is no documents to display" />;
     }
 
-    const ActionMenuItems = documentsVersion => (
+    const ActionMenuItems = ({ document, documentsVersion }) => (
         <>
-            <ActionMenuActionButton
-                text="Edit"
-                onClick={() => showEditModal(documentsVersion)}
-                disabled={isCompanyOption}
-            />
+            <ActionMenuActionButton text="Edit" onClick={() => showEditModal(documentsVersion)} />
             <ActionMenuActionButton
                 text="Delete"
-                onClick={() => showDeleteModal(documentsVersion)}
+                onClick={() => showDeleteModal(document, documentsVersion)}
                 isNegative
-                disabled={!isCompanyOption}
             />
         </>
     );
@@ -67,7 +62,7 @@ const OptionDocumentsList = ({
                         actionMenuItems={
                             isCompanyOption ? (
                                 <ActionMenuItems
-                                    disabled={isCompanyOption}
+                                    document={document}
                                     documentsVersion={latestVersion}
                                 />
                             ) : null
