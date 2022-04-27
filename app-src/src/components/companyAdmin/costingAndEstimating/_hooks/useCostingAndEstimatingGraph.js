@@ -1,8 +1,6 @@
-import useColourTheme from 'hooks/useColourTheme';
-
 const useCostingAndEstimatingGraph = graph => {
     // TODO - hide numbers & grid lines, implement hover states on tooltips
-    const colourTheme = useColourTheme();
+
     const width = 600;
     const height = 300;
 
@@ -46,8 +44,6 @@ const useCostingAndEstimatingGraph = graph => {
                 {
                     gridLines: {
                         display: false,
-                        // zeroLineColor: colourTheme === 'dark' ? '#494c5b' : '#F2F2F2',
-                        color: 'transparent',
                     },
                     ticks: {
                         display: false,
@@ -58,8 +54,6 @@ const useCostingAndEstimatingGraph = graph => {
                 {
                     gridLines: {
                         display: false,
-                        // zeroLineColor: colourTheme === 'dark' ? 'white' : '#F2F2F2',
-                        color: 'transparent',
                     },
                     ticks: {
                         display: false,
