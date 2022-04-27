@@ -1,6 +1,6 @@
 import { formatCurrency } from 'helpers/generic';
 import React from 'react';
-import BlockContainer from '../../shared/generic/block/containers/BlockContainer';
+import BlockContainer from '../../../shared/generic/block/containers/BlockContainer';
 import CostingCartPinSummary from './CostingCartPinSummary';
 import CostingCartPrelimSummary from './CostingCartPrelimSummary';
 
