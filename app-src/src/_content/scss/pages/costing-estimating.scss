@@ -35,19 +35,24 @@
   h1 {
     @include h1title;
   }
+
   h2 {
     @include h2title;
   }
+
   h3 {
     @include h3title;
   }
+
   h4 {
     @include h4title;
   }
+
   h5 {
     @include h5title;
   }
-  p, span{
+
+  p, span {
     @include bodyText;
   }
 
@@ -82,7 +87,7 @@
   }
 
   .border {
-    border: 1px solid $dark-grey;
+    border: 1px solid var(--background-stroke);
   }
 
   .cursor-pointer {
@@ -127,7 +132,7 @@
 
         &.asc {
           transform: rotate(0deg);
-           color: var(--positive-default);
+          color: var(--positive-default);
         }
 
         &.desc {
@@ -141,9 +146,8 @@
   .spacer {
     flex: 1;
   }
+
   .content-wrapper {
-
-
     span {
       color: var(--typography-greyed-out);
       font-size: 150%;
@@ -162,17 +166,19 @@
   .summary-item {
     padding: 10px 0 0;
 
-    
+
     .summary-row {
       padding: 5px 0;
     }
-    
+
     .total {
       text-align: right;
     }
+
     .sub-item {
       padding-right: 15px;
     }
+
     .expandable {
       overflow-y: hidden;
       transition: all 0.4s ease-in-out;
@@ -193,13 +199,14 @@
       display: inline-block;
     }
 
-  h3 {
-    margin-right: 1em;
-    color: $new-grey-alt;
-  }
-  h1 {
-    font-size: 260%;
-  }
+    h3 {
+      margin-right: 1em;
+      color: $new-grey-alt;
+    }
+
+    h1 {
+      font-size: 260%;
+    }
   }
 }
 
@@ -208,24 +215,105 @@
 
   .graph-total {
     position: absolute;
-      right: 1.5em;
-      bottom: 1.5em;
+    right: 1.5em;
+    bottom: 1.5em;
     text-align: right;
 
     h1, h3 {
       display: inline-block;
     }
 
-  h3 {
-    margin-right: 1em;
-    color: $new-grey-alt;
+    h3 {
+      margin-right: 1em;
+      color: $new-grey-alt;
+    }
+
+    h1 {
+      font-size: 260%;
+    }
   }
-  h1 {
-    font-size: 260%;
+
+
+  .graph-filters {
+    margin-bottom: 15px;
+
+    span {
+      font-size: 12px !important;
+    }
+
+    .date-period-buttons {
+      display: flex;
+      flex-direction: row;
+      gap: 24px;
+
+      button {
+        background-color: transparent;
+
+        &:hover > .far {
+          color: var(--typography-greyed-out);
+
+        }
+
+        .far {
+          font-size: 110%;
+          color: var(--typography-default);
+        }
+      }
+    }
+
+    .calendar-select {
+      display: flex;
+      align-items: center;
+      border-radius: 5px;
+    }
+
+    .date-range-picker-container {
+      .custom-button {
+        background-color: transparent;
+        &:not(:disabled) {
+          &:hover {
+            background-color: var(--background-button-hover);
+          }
+
+          &:active {
+            background-color: transparent;
+          }
+        }
+      }
+    }
   }
+
+  .graph-filters-tooltip {
+    position: absolute;
+    top: 30px;
+    border-radius: 5px;
+    font-size: 130%;
+    width: 75%;
+    background-color: var(--background-container);
+    z-index: 1;
+
+    .filter-item {
+      padding: 15px;
+      border-bottom: 1px solid var(--background-stroke);
+    }
+
+    button {
+      background-color: transparent;
+
+      &:hover > .far {
+        color: var(--typography-greyed-out);
+
+      }
+
+      .far {
+        font-size: 110%;
+        color: var(--typography-default);
+      }
+    }
   }
 }
 
 .filters-wrapper {
   grid-area: filters;
 }
+
