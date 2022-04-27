@@ -10,7 +10,7 @@ import useCostingAndEstimatingFilters from './_hooks/useCostingAndEstimatingFilt
 import CostingAndEstimatingGraph from './CostingAndEstimatingGraph';
 
 const CostingAndEstimating = () => {
-    const { costingCart, graph, keyStatistics, allPins } = useCostingAndEstimating();
+    const { costingCart, graph, keyStatistics, allSites } = useCostingAndEstimating();
     const { filterFormData, onChange } = useCostingAndEstimatingFilters();
 
     return (
