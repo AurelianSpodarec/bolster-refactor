@@ -159,7 +159,7 @@ export function convertEnumToDropdownOptions(obj) {
 // for the NewSelect component
 export const enumFormat = obj =>
     Object.entries(obj).map(([value, label]) => ({
-        value: +value || value,
+        value: +value ?? value,
         label,
     }));
 

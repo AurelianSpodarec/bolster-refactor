@@ -2,9 +2,9 @@ import React from 'react';
 
 import GridWrapper from '../../shared/generic/gridWrapper/GridWrapper';
 
-import CostingAndEstimatingPods from './CostingAndEstimatingPods';
+import CostingAndEstimatingPods from './pods/CostingAndEstimatingPods';
 import BlockContainer from '../../shared/generic/block/containers/BlockContainer';
-import CostingCart from './CostingCart';
+import CostingCart from './costingCart/CostingCart';
 import useCostingAndEstimating from './_hooks/useCostingAndEstimating';
 import useCostingAndEstimatingFilters from './_hooks/useCostingAndEstimatingFilters';
 import CostingAndEstimatingGraph from './CostingAndEstimatingGraph';

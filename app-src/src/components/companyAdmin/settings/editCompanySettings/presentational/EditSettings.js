@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import EditSettingsFormContainer from '../containers/EditSettingsFormContainer';
@@ -16,14 +15,4 @@ const EditSettings = ({ isFetching, companySettings: company }) => (
     </>
 );
 
-const mapStateToProps = ({
-    companyAdmin: {
-        companySettingsReducer: { isFetching, error, companySettings },
-    },
-}) => ({
-    isFetching,
-    error,
-    companySettings,
-});
-
-export default connect(mapStateToProps)(EditSettings);
+export default EditSettings;
