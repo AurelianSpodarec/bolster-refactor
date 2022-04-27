@@ -313,7 +313,12 @@
   }
 }
 
-.filters-wrapper {
+.filters-list-wrapper {
   grid-area: filters;
+
+  .filter-list-item {
+    padding: 10px 0;
+    @include bodyText;
+  }
 }
 

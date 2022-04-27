@@ -3,7 +3,7 @@ import * as dummyData from '../dummyData';
 
 const useCostingAndEstimating = () => {
     const { dummyMain, dummyCart } = dummyData;
-    const { keyStatistics, graph, allPins } = dummyMain;
+    const { keyStatistics, graph, allSites } = dummyMain;
 
     useEffect(() => {
         // Fetch all data necessary - costing & estimating, sites, buildings, drawings, prelims, pins
@@ -13,7 +13,7 @@ const useCostingAndEstimating = () => {
         costingCart: dummyCart,
         graph,
         keyStatistics,
-        allPins,
+        allSites,
     };
 };
 
