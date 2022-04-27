@@ -28,6 +28,9 @@ function DateRangePickerInput({
     return (
         <div className="date-range-picker-container">
             <ActionButton icon="calendar" onClick={() => setIsExpanded(!isExpanded)} />
+            {isExpanded && (
+                <div className="date-range-picker-overlay" onClick={() => setIsExpanded(false)} />
+            )}
             <div className={`expandable-date-range-picker ${isExpanded ? 'active' : ''}`}>
                 <DateRangePicker
                     // locale={locale}
