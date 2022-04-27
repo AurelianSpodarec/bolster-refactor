@@ -11,7 +11,7 @@ import CostingAndEstimatingGraph from './CostingAndEstimatingGraph';
 
 const CostingAndEstimating = () => {
     const { costingCart, graph, keyStatistics, allPins } = useCostingAndEstimating();
-    useCostingAndEstimatingFilters(); // TODO
+    const { filterFormData, onChange } = useCostingAndEstimatingFilters();
 
     return (
         <GridWrapper gap={30} containerClass="costing-wrapper">
@@ -19,7 +19,11 @@ const CostingAndEstimating = () => {
 
             <CostingCart data={costingCart} />
 
-            <CostingAndEstimatingGraph graph={graph} />
+            <CostingAndEstimatingGraph
+                graph={graph}
+                filterFormData={filterFormData}
+                onChange={onChange}
+            />
 
             <div className="filters-wrapper">
                 <BlockContainer contentClass="border">
