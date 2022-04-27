@@ -153,110 +153,153 @@ export const dummyMain = {
             },
         ],
     },
-    allPins: [
+    allSites: [
         {
-            siteID: 1,
-            buildingID: 1,
-            floorID: 1,
-            drawingID: 1,
-            pinID: '0001:03',
-            dateCreated: '2021-05-26 12:33:44',
-            comment: 'Fire stop around pipe in cavity',
-            installations: [
+            id: 0,
+            total: 19999,
+            buildings: [
                 {
-                    name: 'Installation 1',
-                    type: 'Collar',
-                    measurement: '50mm',
-                    cost: 200,
-                },
-            ],
-        },
-        {
-            siteID: 1,
-            buildingID: 2,
-            floorID: 1,
-            drawingID: 1,
-            pinID: '0001:03',
-            dateCreated: '2021-05-26 12:33:44',
-            comment: 'Fire stop around pipe in cavity',
-            installations: [
-                {
-                    name: 'Installation 1',
-                    type: 'Collar',
-                    measurement: '50mm',
-                    cost: 200,
-                },
-            ],
-        },
-        {
-            siteID: 1,
-            buildingID: 3,
-            floorID: 1,
-            drawingID: 1,
-            pinID: '0001:03',
-            dateCreated: '2021-05-26 12:33:44',
-            comment: 'Fire stop around pipe in cavity',
-            installations: [
-                {
-                    name: 'Installation 1',
-                    type: 'Collar',
-                    measurement: '50mm',
-                    cost: 200,
-                },
-            ],
-        },
-        {
-            siteID: 1,
-            buildingID: 2,
-            floorID: 1,
-            drawingID: 1,
-            pinID: '0001:03',
-            dateCreated: '2021-05-26 12:33:44',
-            comment: 'Fire stop around pipe in cavity',
-            installations: [
-                {
-                    name: 'Installation 1',
-                    type: 'Collar',
-                    measurement: '50mm',
-                    cost: 200,
-                },
-            ],
-        },
-        {
-            siteID: 2,
-            buildingID: 1,
-            floorID: 1,
-            drawingID: 1,
-            pinID: '0001:03',
-            dateCreated: '2021-05-26 12:33:44',
-            comment: 'Fire stop around pipe in cavity',
-            installations: [
-                {
-                    name: 'Installation 1',
-                    type: 'Collar',
-                    measurement: '50mm',
-                    cost: 200,
-                },
-            ],
-        },
-        {
-            siteID: 3,
-            buildingID: 1,
-            floorID: 1,
-            drawingID: 1,
-            pinID: '0001:03',
-            dateCreated: '2021-05-26 12:33:44',
-            comment: 'Fire stop around pipe in cavity',
-            installations: [
-                {
-                    name: 'Installation 1',
-                    type: 'Collar',
-                    measurement: '50mm',
-                    cost: 200,
+                    id: 0,
+                    total: 19999,
+                    floors: [
+                        {
+                            id: 0,
+                            total: 19999,
+                            drawings: [
+                                {
+                                    id: 0,
+                                    total: 19999,
+                                    pins: [
+                                        {
+                                            siteID: 1,
+                                            buildingID: 1,
+                                            floorID: 1,
+                                            drawingID: 1,
+                                            pinID: '0001:03',
+                                            dateCreated: '2021-05-26 12:33:44',
+                                            comment: 'Fire stop around pipe in cavity',
+                                            installations: [
+                                                {
+                                                    name: 'Installation 1',
+                                                    type: 'Collar',
+                                                    measurement: '50mm',
+                                                    cost: 200,
+                                                },
+                                            ],
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
                 },
             ],
         },
     ],
+    // allPins: [
+    //     {
+    //         siteID: 1,
+    //         buildingID: 1,
+    //         floorID: 1,
+    //         drawingID: 1,
+    //         pinID: '0001:03',
+    //         dateCreated: '2021-05-26 12:33:44',
+    //         comment: 'Fire stop around pipe in cavity',
+    //         installations: [
+    //             {
+    //                 name: 'Installation 1',
+    //                 type: 'Collar',
+    //                 measurement: '50mm',
+    //                 cost: 200,
+    //             },
+    //         ],
+    //     },
+    //     {
+    //         siteID: 1,
+    //         buildingID: 2,
+    //         floorID: 1,
+    //         drawingID: 1,
+    //         pinID: '0001:03',
+    //         dateCreated: '2021-05-26 12:33:44',
+    //         comment: 'Fire stop around pipe in cavity',
+    //         installations: [
+    //             {
+    //                 name: 'Installation 1',
+    //                 type: 'Collar',
+    //                 measurement: '50mm',
+    //                 cost: 200,
+    //             },
+    //         ],
+    //     },
+    //     {
+    //         siteID: 1,
+    //         buildingID: 3,
+    //         floorID: 1,
+    //         drawingID: 1,
+    //         pinID: '0001:03',
+    //         dateCreated: '2021-05-26 12:33:44',
+    //         comment: 'Fire stop around pipe in cavity',
+    //         installations: [
+    //             {
+    //                 name: 'Installation 1',
+    //                 type: 'Collar',
+    //                 measurement: '50mm',
+    //                 cost: 200,
+    //             },
+    //         ],
+    //     },
+    //     {
+    //         siteID: 1,
+    //         buildingID: 2,
+    //         floorID: 1,
+    //         drawingID: 1,
+    //         pinID: '0001:03',
+    //         dateCreated: '2021-05-26 12:33:44',
+    //         comment: 'Fire stop around pipe in cavity',
+    //         installations: [
+    //             {
+    //                 name: 'Installation 1',
+    //                 type: 'Collar',
+    //                 measurement: '50mm',
+    //                 cost: 200,
+    //             },
+    //         ],
+    //     },
+    //     {
+    //         siteID: 2,
+    //         buildingID: 1,
+    //         floorID: 1,
+    //         drawingID: 1,
+    //         pinID: '0001:03',
+    //         dateCreated: '2021-05-26 12:33:44',
+    //         comment: 'Fire stop around pipe in cavity',
+    //         installations: [
+    //             {
+    //                 name: 'Installation 1',
+    //                 type: 'Collar',
+    //                 measurement: '50mm',
+    //                 cost: 200,
+    //             },
+    //         ],
+    //     },
+    //     {
+    //         siteID: 3,
+    //         buildingID: 1,
+    //         floorID: 1,
+    //         drawingID: 1,
+    //         pinID: '0001:03',
+    //         dateCreated: '2021-05-26 12:33:44',
+    //         comment: 'Fire stop around pipe in cavity',
+    //         installations: [
+    //             {
+    //                 name: 'Installation 1',
+    //                 type: 'Collar',
+    //                 measurement: '50mm',
+    //                 cost: 200,
+    //             },
+    //         ],
+    //     },
+    // ],
 };
 
 export const dummyRequest = {
