@@ -1,0 +1,22 @@
+.expandable {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  overflow-y: hidden;
+  transition: all 0.4s ease-in-out;
+  max-height: 0;
+  z-index: 10;
+
+  &.active {
+    max-height: 100vh;
+  }
+}
+
+.rdrDateRangePickerWrapper {
+  width: 333px;
+
+  .rdrDefinedRangesWrapper {
+    display: none;
+}
+}
+
