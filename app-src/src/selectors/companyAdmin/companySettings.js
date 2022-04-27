@@ -12,6 +12,8 @@ export const selectCompanyColourCode = state =>
     state.companyAdmin.companySettingsReducer.companySettings.colourCode;
 export const selectIsBolsterLogoDark = state =>
     state.companyAdmin.companySettingsReducer.companySettings.isBolsterLogoDark;
+export const selectCompanyCurrency = state =>
+    state.companyAdmin.companySettingsReducer.companySettings.reportingCurrency;
 
 // todo this may move to subscription
 export const selectIsCostingEnabled = state =>

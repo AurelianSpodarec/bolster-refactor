@@ -790,3 +790,19 @@ export const MEASUREMENT_VALUES = {
     6: 'Fixed Price',
     7: 'Radius',
 };
+
+export const CURRENCIES = {
+    GBP: 0,
+    NZD: 1,
+    EUR: 2,
+    USD: 3,
+    AUD: 4,
+};
+
+export const CURRENCY_NAMES = {
+    0: 'GBP',
+    1: 'NZD',
+    2: 'EUR',
+    3: 'USD',
+    4: 'AUD',
+};
