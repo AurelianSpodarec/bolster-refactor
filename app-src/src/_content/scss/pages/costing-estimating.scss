@@ -237,6 +237,26 @@
   .graph-filters {
     margin-bottom: 15px;
 
+    .date-period-buttons {
+      display: flex;
+      flex-direction: row;
+      gap: 16px;
+
+      button {
+        background-color: transparent;
+
+        &:hover > .far {
+          color: var(--typography-greyed-out);
+
+        }
+
+        .far {
+          font-size: 110%;
+          color: var(--typography-default);
+        }
+      }
+    }
+
     .calendar-select {
       display: flex;
       align-items: center;
