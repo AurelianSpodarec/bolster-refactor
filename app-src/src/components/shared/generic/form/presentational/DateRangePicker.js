@@ -2,18 +2,15 @@ import React, { useState } from 'react';
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
-import ButtonContainer from '../../button/containers/ButtonContainer';
 import ActionButton from '../../button/presentational/ActionButton';
 
 function DateRangePickerInput({
     name,
-    placeholder,
     value, // { startDate: Date, endDate: Date }
     onChange = () => {},
     required = false,
     minDate, // Date
     maxDate, // Date
-    locale = 'en-GB',
 }) {
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -31,7 +28,7 @@ function DateRangePickerInput({
     return (
         <div className="date-range-picker-container">
             <ActionButton icon="calendar" onClick={() => setIsExpanded(!isExpanded)} />
-            <div className={`expandable ${isExpanded ? 'active' : ''}`}>
+            <div className={`expandable-date-range-picker ${isExpanded ? 'active' : ''}`}>
                 <DateRangePicker
                     // locale={locale}
                     ranges={[valueObj]}
