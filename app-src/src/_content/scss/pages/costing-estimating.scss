@@ -87,7 +87,7 @@
   }
 
   .border {
-    border: 1px solid $dark-grey;
+    border: 1px solid var(--background-stroke);
   }
 
   .cursor-pointer {
@@ -237,10 +237,14 @@
   .graph-filters {
     margin-bottom: 15px;
 
+    span {
+      font-size: 12px !important;
+    }
+
     .date-period-buttons {
       display: flex;
       flex-direction: row;
-      gap: 16px;
+      gap: 24px;
 
       button {
         background-color: transparent;
@@ -266,11 +270,6 @@
     .date-range-picker-container {
       .custom-button {
         background-color: transparent;
-
-        span {
-          font-size: 12px !important;
-        }
-
         &:not(:disabled) {
           &:hover {
             background-color: var(--background-button-hover);
@@ -283,9 +282,43 @@
       }
     }
   }
+
+  .graph-filters-tooltip {
+    position: absolute;
+    top: 30px;
+    border-radius: 5px;
+    font-size: 130%;
+    width: 75%;
+    background-color: var(--background-container);
+    z-index: 1;
+
+    .filter-item {
+      padding: 15px;
+      border-bottom: 1px solid var(--background-stroke);
+    }
+
+    button {
+      background-color: transparent;
+
+      &:hover > .far {
+        color: var(--typography-greyed-out);
+
+      }
+
+      .far {
+        font-size: 110%;
+        color: var(--typography-default);
+      }
+    }
+  }
 }
 
-.filters-wrapper {
+.filters-list-wrapper {
   grid-area: filters;
+
+  .filter-list-item {
+    padding: 10px 0;
+    @include bodyText;
+  }
 }
 
