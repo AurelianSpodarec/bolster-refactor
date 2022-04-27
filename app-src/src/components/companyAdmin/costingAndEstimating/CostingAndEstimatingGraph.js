@@ -1,16 +1,21 @@
-import { formatCurrency } from 'helpers/generic';
-import moment from 'moment';
 import React, { useState } from 'react';
+
+import useCostingAndEstimatingGraph from './_hooks/useCostingAndEstimatingGraph';
+
+import { formatCurrency } from 'helpers/generic';
 import { Line } from 'react-chartjs-2';
 import BlockContainer from '../../shared/generic/block/containers/BlockContainer';
-import useCostingAndEstimatingGraph from './_hooks/useCostingAndEstimatingGraph';
 import DateRangePicker from '../../shared/generic/form/presentational/DateRangePicker';
 import FlexWrapper from '../../shared/generic/flexWrapper/FlexWrapper';
+import ActionButton from '../../shared/generic/button/presentational/ActionButton';
+import CostingGraphFilters from './CostingGraphFilters';
 
 const CostingAndEstimatingGraph = ({ graph, filterFormData, onChange }) => {
+    const [showFilterOptions, setShowFilterOptions] = useState(false);
+
     const { data, options } = useCostingAndEstimatingGraph(graph);
     const { dateRange } = filterFormData;
-    console.log(dateRange);
+
     return (
         <div className="graph-wrapper">
             <BlockContainer contentClass="border">
@@ -38,7 +43,16 @@ const CostingAndEstimatingGraph = ({ graph, filterFormData, onChange }) => {
                     </FlexWrapper>
 
                     <FlexWrapper align="center" justify="end" width={8}>
-                        <p>Filter</p>
+                        <ActionButton
+                            icon="filter"
+                            text="Filter"
+                            iconRight
+                            source="secondary"
+                            ambient="positive"
+                            onClick={() => setShowFilterOptions(!showFilterOptions)}
+                        />
+
+                        {showFilterOptions && <CostingGraphFilters />}
                     </FlexWrapper>
                 </FlexWrapper>
 
