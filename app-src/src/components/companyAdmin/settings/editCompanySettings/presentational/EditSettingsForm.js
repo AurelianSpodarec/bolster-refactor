@@ -11,9 +11,12 @@ import DropdownContainer from 'components/shared/generic/form/containers/Dropdow
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
-import { VAT_TYPES } from 'constants/companyAdmin/enums';
+import { CURRENCY_NAMES, VAT_TYPES } from 'constants/companyAdmin/enums';
 import CountriesSelectList from 'components/shared/generic/form/presentational/CountriesSelectList';
 import { needsVatCode } from 'constants/shared/vatTypes';
+import { enumFormat } from '../../../../../helpers/generic';
+
+const currencyOptions = enumFormat(CURRENCY_NAMES);
 
 const EditSettingsForm = ({
     handleInputChange,
@@ -54,6 +57,7 @@ const EditSettingsForm = ({
     invoiceEmail,
     isTwoFactorAuthRequired,
     isOwner,
+    reportingCurrency,
 }) => (
     <>
         <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
@@ -269,6 +273,14 @@ const EditSettingsForm = ({
                         checked={isEditButtonEnabled}
                         handleChange={handleInputChange}
                         name="isEditButtonEnabled"
+                    />
+                </Field>
+                <Field name="Report Currency" sizeClasses="size-lg-6 size-md-12">
+                    <Select
+                        options={currencyOptions}
+                        value={reportingCurrency}
+                        onChange={handleInputChange}
+                        name="reportingCurrency"
                     />
                 </Field>
             </div>

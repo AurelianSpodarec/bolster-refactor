@@ -9,6 +9,7 @@ import EditSettingsForm from '../presentational/EditSettingsForm';
 import { sortTimezones, isObjEmpty, enumFormat } from 'helpers/generic';
 import {
     COMPANY_USER_ROLE_TYPES,
+    CURRENCIES,
     DEFAULT_SITES_SORT,
     DEFAULT_SITES_SORT_NAMES,
 } from 'constants/companyAdmin/enums';
@@ -55,6 +56,7 @@ class EditSettingsFormContainer extends Component {
         reportAutoDelete: 0,
         invoiceEmail: '',
         isTwoFactorAuthRequired: false,
+        reportingCurrency: 0,
     };
 
     render() {
