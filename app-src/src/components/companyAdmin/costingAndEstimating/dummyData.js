@@ -52,6 +52,7 @@ const dummyListSite = [
                                         pinID: '0001:03',
                                         dateCreated: '2021-05-26 12:33:44',
                                         comment: 'Fire stop around pipe in cavity',
+                                        total: 100,
                                         installations: [
                                             {
                                                 name: '### Installation 1 ###',
@@ -87,6 +88,7 @@ const dummyListSite = [
                                         pinID: '0001:03',
                                         dateCreated: '2021-05-26 12:33:44',
                                         comment: 'Fire stop around pipe in cavity',
+                                        total: 100,
                                         installations: [
                                             {
                                                 name: '### Installation 1 ###',
@@ -116,6 +118,7 @@ const dummyListSite = [
                                         pinID: '0001:03',
                                         dateCreated: '2021-05-26 12:33:44',
                                         comment: 'Fire stop around pipe in cavity',
+                                        total: 100,
                                         installations: [
                                             {
                                                 name: '### Installation 1 ###',
@@ -157,6 +160,7 @@ const dummyListSite = [
                                         pinID: '0001:03',
                                         dateCreated: '2021-05-26 12:33:44',
                                         comment: 'Fire stop around pipe in cavity',
+                                        total: 100,
                                         installations: [
                                             {
                                                 name: '### Installation 1 ###',
@@ -204,6 +208,7 @@ const dummyListSite = [
                                         pinID: '0001:03',
                                         dateCreated: '2021-05-26 12:33:44',
                                         comment: 'Fire stop around pipe in cavity',
+                                        total: 100,
                                         installations: [
                                             {
                                                 name: '### Installation 1 ###',
@@ -251,6 +256,7 @@ const dummyListSite = [
                                         pinID: '0001:03',
                                         dateCreated: '2021-05-26 12:33:44',
                                         comment: 'Fire stop around pipe in cavity',
+                                        total: 100,
                                         installations: [
                                             {
                                                 name: '### Installation 1 ###',
