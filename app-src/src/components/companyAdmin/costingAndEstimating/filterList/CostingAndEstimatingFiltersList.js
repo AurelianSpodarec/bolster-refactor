@@ -1,6 +1,7 @@
 import React from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { hierarchyNames, hierarchyTypes } from '../_hooks/useCurrentHierarchyLevel';
+import * as contentTypes from './contentTypes';
 
 const FilterList = ({ data, hierarchyLevel }) => {
     // hierarchyLevel defines level of items in list
@@ -15,7 +16,12 @@ const FilterList = ({ data, hierarchyLevel }) => {
 
 const ListItem = ({ item, hierarchyLevel }) => {
     // hierarchyLevel defines level of this item
-    return <div className="filter-list-item">{item.id}</div>;
+    const SpecificContent = getContentTypeFromItem(item);
+    return (
+        <div className="filter-list-item">
+            <SpecificContent item={item} />
+        </div>
+    );
 };
 
 const CostingAndEstimatingFilterList = ({ sites, currentHierarchyLevel }) => {
@@ -41,11 +47,13 @@ const CostingAndEstimatingFilterList = ({ sites, currentHierarchyLevel }) => {
     );
 };
 
-function getHierarchyTypeFromItem(item) {
-    if (Object.prototype.hasOwnProperty.call(item, 'buildings')) return hierarchyTypes.sites;
-    if (Object.prototype.hasOwnProperty.call(item, 'floors')) return hierarchyTypes.buildings;
-    if (Object.prototype.hasOwnProperty.call(item, 'drawings')) return hierarchyTypes.floors;
-    if (Object.prototype.hasOwnProperty.call(item, 'pins')) return hierarchyTypes.drawings;
+function getContentTypeFromItem(item) {
+    // if (Object.prototype.hasOwnProperty.call(item, 'buildings')) return contentTypes.sites;
+    if (Object.prototype.hasOwnProperty.call(item, 'floors')) return contentTypes.Building;
+    if (Object.prototype.hasOwnProperty.call(item, 'drawings')) return contentTypes.Floor;
+    if (Object.prototype.hasOwnProperty.call(item, 'pins')) return contentTypes.Drawing;
+    if (Object.prototype.hasOwnProperty.call(item, 'installations')) return contentTypes.Pin;
+    if (Object.prototype.hasOwnProperty.call(item, 'measurement')) return contentTypes.Installation;
 }
 
 export default CostingAndEstimatingFilterList;
