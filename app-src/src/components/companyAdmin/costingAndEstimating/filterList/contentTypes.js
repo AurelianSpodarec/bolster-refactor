@@ -84,6 +84,7 @@ export const Installation = ({ item, isSelected, handleToggleItem, isExpanded, s
                 isExpanded={isExpanded}
                 setIsExpanded={setIsExpanded}
                 item={item}
+                hideExpandButton
             />
             <div className="table-cell">{`${item.name}`}</div>
             <div className="table-cell">{`${item.type}`}</div>

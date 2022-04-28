@@ -10,14 +10,14 @@ const ListItemControls = ({
     hideExpandButton = false,
     item,
 }) => {
-    const _handleToggleItem = (name, value) => {
+    const _handleToggleItem = () => {
         handleToggleItem(item);
     };
 
     return (
         <div className="table-cell-controls">
             <div>
-                <Tickbox name="" value={isSelected} handleChange={_handleToggleItem} />
+                <Tickbox name="" checked={isSelected} handleChange={_handleToggleItem} />
             </div>
             <div>
                 {!hideExpandButton && (

@@ -59,6 +59,9 @@ export const isItemSelected = (item, selectedItems) => {
     if (itemType === 'installations') return selectedItems.installations.includes(item.name);
     return false;
 };
+export const getSelectionKeyForItem = item => {
+    return item.id ? item.id : item.pinID ? item.pinID : item.name;
+};
 
 const FilterList = ({ data, hierarchyLevel, headers = [], selectedItems, handleToggleItem }) => {
     // hierarchyLevel defines level of items in list
@@ -132,7 +135,6 @@ const CostingAndEstimatingFilterList = ({
     handleToggleItem,
 }) => {
     const title = hierarchyNames[currentHierarchyLevel + 1] || 'Pins';
-    console.log(selectedItems);
 
     const getListData = () => {
         if (!sites.length) return [];
