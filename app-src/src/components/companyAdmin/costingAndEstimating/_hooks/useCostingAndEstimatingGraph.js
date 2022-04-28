@@ -1,10 +1,27 @@
 import useColourTheme from 'hooks/useColourTheme';
+import { useEffect, useRef, useState } from 'react';
 
 const useCostingAndEstimatingGraph = graph => {
     const colourTheme = useColourTheme();
+    const graphRef = useRef(null);
 
-    const width = 600;
-    const height = 300;
+    const [width, setWidth] = useState(600);
+    const [height, setHeight] = useState(300);
+
+    useEffect(() => {
+        const updateSize = () => {
+            if (graphRef.current) {
+                if (graphRef.current.clientWidth !== width) setWidth(graphRef.current.clientWidth);
+                if (graphRef.current.clientHeight !== height)
+                    setHeight(graphRef.current.clientHeight);
+            }
+        };
+        window.addEventListener('resize', updateSize);
+
+        return () => {
+            window.removeEventListener('resize', updateSize);
+        };
+    }, [graphRef.current]);
 
     const data = canvas => {
         const ctx = canvas.getContext('2d');
@@ -79,7 +96,7 @@ const useCostingAndEstimatingGraph = graph => {
         tooltip: {}, // TODO
     };
 
-    return { data, options };
+    return { data, options, graphRef };
 };
 
 export default useCostingAndEstimatingGraph;

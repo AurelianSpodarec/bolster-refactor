@@ -13,11 +13,11 @@ import CostingGraphFilters from './CostingGraphFilters';
 const CostingAndEstimatingGraph = ({ graph, filterFormData, onChange }) => {
     const [showFilterOptions, setShowFilterOptions] = useState(false);
 
-    const { data, options } = useCostingAndEstimatingGraph(graph);
+    const { data, options, graphRef } = useCostingAndEstimatingGraph(graph);
     const { dateRange } = filterFormData;
 
     return (
-        <div className="graph-wrapper">
+        <div className="graph-wrapper" ref={graphRef}>
             <BlockContainer contentClass="border">
                 <FlexWrapper extraClasses="graph-filters">
                     <FlexWrapper align="center" justify="between" width={4}>
