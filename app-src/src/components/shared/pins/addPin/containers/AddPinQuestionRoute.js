@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
@@ -20,11 +20,11 @@ import { usePrevious } from '../../../../../helpers/hooks';
 import { selectAddPinQuestionMeasurements } from '../../../../../selectors/companyAdmin/addPin';
 import updateAddPinMeasurement from '../../../../../actions/companyAdmin/drawings/sync/updateAddPinMeasurement';
 import { selectDrawing } from '../../../../../selectors/companyAdmin/drawings';
-import uuid from 'uuid/v4';
 import { selectIsCostingEnabled } from '../../../../../selectors/companyAdmin/companySettings';
 
 const {
     SINGLE_LINE,
+    MULTI_LINE,
     SINGLE_PHOTO,
     MULTI_PHOTO,
     STATUS,
@@ -35,6 +35,7 @@ const {
     RADIO,
     DROPDOWN,
     MULTI_DROPDOWN,
+    CHECKBOX,
 } = QUESTION_TYPE_VALUES;
 
 const dropdownOptionTypes = [
@@ -84,16 +85,21 @@ const AddPinQuestionRoute = ({
 
     const answer = answers[question.id];
     const answerName = `answer-${question.id}`;
-    const showPreReq = checkIfShouldShowByPreReq();
+    const showPreReq = useMemo(checkIfShouldShowByPreReq, [
+        question,
+        answers,
+        questions,
+        status,
+        pinOptionVersions,
+    ]);
 
     const prevProps = usePrevious({ status, question, template, isFetchingPins });
     // handle reset answer when not showing from prerequisites
     useEffect(() => {
-        const showPreReq = checkIfShouldShowByPreReq();
         if (!showPreReq && !isEmpty(answer) && !deepEquals(answer, getDefaultValue(question))) {
             dispatch(resetPinAnswer(question.id, getDefaultValue(question)));
         }
-    }, [status, question, template, isFetchingPins, answer]);
+    }, [status, question, template, isFetchingPins, answer, showPreReq]);
     // handle reset answer when status changes
     useEffect(() => {
         const hasStatusChanged = prevProps.status !== status;
@@ -239,8 +245,6 @@ const AddPinQuestionRoute = ({
     function _getIsRequired() {
         const { isRequired, isRequiredVal, type } = question;
 
-        const showPreReq = checkIfShouldShowByPreReq();
-
         if (!showPreReq) return false;
         if (`${type}` === STATUS) return true;
         if (isRequired) return true;
@@ -276,8 +280,15 @@ const AddPinQuestionRoute = ({
                 return false;
             }
 
-            if ([DROPDOWN, MULTI_DROPDOWN, RADIO].includes(preReqType)) {
+            if (
+                [DROPDOWN, MULTI_DROPDOWN, RADIO, SINGLE_LINE, MULTI_LINE, RADIO].includes(
+                    preReqType,
+                )
+            ) {
                 preReqAnswers = preReqAnswers?.map(ans => ans.textValue);
+            }
+            if (preReqType === CHECKBOX) {
+                preReqAnswers = preReqAnswers?.map(ans => ans.booleanValue);
             }
 
             if (

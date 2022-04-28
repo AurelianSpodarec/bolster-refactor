@@ -1,0 +1,33 @@
+import React from 'react';
+
+import useCostingGraphFilters from '../_hooks/useCostingGraphFilters';
+
+import CostingGraphFilterItem from './CostingGraphFilterItem';
+
+import { dummyOperatives } from '../dummyData';
+
+const filterOptions = [
+    { id: 1, name: 'Operatives', options: dummyOperatives },
+    { id: 2, name: 'Services' },
+    { id: 3, name: 'Installation Types' },
+    { id: 4, name: 'Price Range' },
+];
+
+const CostingGraphFilters = ({ filterFormData }) => {
+    const { expandedId, setExpandedId } = useCostingGraphFilters();
+
+    return (
+        <div className="graph-filters-tooltip border">
+            {filterOptions.map(option => (
+                <CostingGraphFilterItem
+                    key={option.id}
+                    option={option}
+                    expandedId={expandedId}
+                    setExpandedId={setExpandedId}
+                />
+            ))}
+        </div>
+    );
+};
+
+export default CostingGraphFilters;

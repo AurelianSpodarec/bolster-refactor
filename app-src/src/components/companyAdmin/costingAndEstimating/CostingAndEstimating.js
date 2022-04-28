@@ -6,9 +6,9 @@ import CostingAndEstimatingPods from './pods/CostingAndEstimatingPods';
 import CostingCart from './costingCart/CostingCart';
 import useCostingAndEstimating from './_hooks/useCostingAndEstimating';
 import useCostingAndEstimatingFilters from './_hooks/useCostingAndEstimatingFilters';
-import CostingAndEstimatingGraph from './CostingAndEstimatingGraph';
+import CostingAndEstimatingGraph from './costingGraph/CostingAndEstimatingGraph';
 import useCurrentHierarchyLevel from './_hooks/useCurrentHierarchyLevel';
-import CostingAndEstimatingFilterList from './CostingAndEstimatingFiltersList';
+import CostingAndEstimatingFilterList from './filterList/CostingAndEstimatingFiltersList';
 
 const CostingAndEstimating = () => {
     const { costingCart, graph, keyStatistics, allSites } = useCostingAndEstimating();

@@ -1,7 +1,6 @@
 import useColourTheme from 'hooks/useColourTheme';
 
 const useCostingAndEstimatingGraph = graph => {
-    // TODO - hide numbers & grid lines, implement hover states on tooltips
     const colourTheme = useColourTheme();
 
     const width = 600;

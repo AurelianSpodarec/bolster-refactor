@@ -29,19 +29,19 @@ export const dummyPrelims = {
 
 const dummyListSite = [
     {
-        id: 0,
+        id: 15,
         total: 19999,
         buildings: [
             {
-                id: 0,
+                id: 14,
                 total: 19999,
                 floors: [
                     {
-                        id: 0,
+                        id: 2740,
                         total: 19999,
                         drawings: [
                             {
-                                id: 0,
+                                id: 3226,
                                 total: 19999,
                                 pins: [
                                     {
@@ -52,6 +52,7 @@ const dummyListSite = [
                                         pinID: '0001:03',
                                         dateCreated: '2021-05-26 12:33:44',
                                         comment: 'Fire stop around pipe in cavity',
+                                        total: 100,
                                         installations: [
                                             {
                                                 name: '### Installation 1 ###',
@@ -76,7 +77,7 @@ const dummyListSite = [
                                 ],
                             },
                             {
-                                id: 1,
+                                id: 13734,
                                 total: 19999,
                                 pins: [
                                     {
@@ -87,6 +88,7 @@ const dummyListSite = [
                                         pinID: '0001:03',
                                         dateCreated: '2021-05-26 12:33:44',
                                         comment: 'Fire stop around pipe in cavity',
+                                        total: 100,
                                         installations: [
                                             {
                                                 name: '### Installation 1 ###',
@@ -116,6 +118,7 @@ const dummyListSite = [
                                         pinID: '0001:03',
                                         dateCreated: '2021-05-26 12:33:44',
                                         comment: 'Fire stop around pipe in cavity',
+                                        total: 100,
                                         installations: [
                                             {
                                                 name: '### Installation 1 ###',
@@ -146,7 +149,7 @@ const dummyListSite = [
                         total: 19999,
                         drawings: [
                             {
-                                id: 0,
+                                id: 12147,
                                 total: 19999,
                                 pins: [
                                     {
@@ -157,6 +160,7 @@ const dummyListSite = [
                                         pinID: '0001:03',
                                         dateCreated: '2021-05-26 12:33:44',
                                         comment: 'Fire stop around pipe in cavity',
+                                        total: 100,
                                         installations: [
                                             {
                                                 name: '### Installation 1 ###',
@@ -185,7 +189,7 @@ const dummyListSite = [
                 ],
             },
             {
-                id: 1,
+                id: 1288,
                 total: 19999,
                 floors: [
                     {
@@ -204,6 +208,7 @@ const dummyListSite = [
                                         pinID: '0001:03',
                                         dateCreated: '2021-05-26 12:33:44',
                                         comment: 'Fire stop around pipe in cavity',
+                                        total: 100,
                                         installations: [
                                             {
                                                 name: '### Installation 1 ###',
@@ -232,7 +237,7 @@ const dummyListSite = [
                 ],
             },
             {
-                id: 2,
+                id: 5642,
                 total: 19999,
                 floors: [
                     {
@@ -251,6 +256,7 @@ const dummyListSite = [
                                         pinID: '0001:03',
                                         dateCreated: '2021-05-26 12:33:44',
                                         comment: 'Fire stop around pipe in cavity',
+                                        total: 100,
                                         installations: [
                                             {
                                                 name: '### Installation 1 ###',
@@ -419,3 +425,47 @@ export const dummyRequest = {
     dateTo: null,
     filters: {},
 };
+
+export const dummyOperatives = [
+    {
+        id: 1,
+        name: 'John Doe',
+    },
+    {
+        id: 2,
+        name: 'Jane Doe',
+    },
+    {
+        id: 3,
+        name: 'Jack Doe',
+    },
+    {
+        id: 4,
+
+        name: 'Jill Doe',
+    },
+    {
+        id: 5,
+        name: 'Joe Doe',
+    },
+    {
+        id: 6,
+        name: 'Jenny Doe',
+    },
+    {
+        id: 7,
+        name: 'Juan Doe',
+    },
+    {
+        id: 8,
+        name: 'Jenny Doe',
+    },
+    {
+        id: 9,
+        name: 'Juan Doe',
+    },
+    {
+        id: 10,
+        name: 'Jenny Doe',
+    },
+];

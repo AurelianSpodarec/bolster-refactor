@@ -34,7 +34,12 @@ const AddPinContainer = () => {
     const drawing = useSelector(state => selectDrawing(state, drawingID));
 
     return (
-        <AddPinFormContainer hierarchyType="drawing" drawingID={drawingID} pinOptions={options} />
+        <AddPinFormContainer
+            hierarchyType="drawing"
+            drawingID={drawingID}
+            pinOptions={options}
+            drawing={drawing}
+        />
     );
 };
 
@@ -46,4 +51,4 @@ const mapStateToProps = ({
     serviceID,
 });
 
-export default AddPinContainer;
+export default React.memo(AddPinContainer);

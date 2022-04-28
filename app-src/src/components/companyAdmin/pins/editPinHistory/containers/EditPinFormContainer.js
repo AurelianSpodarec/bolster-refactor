@@ -14,7 +14,10 @@ import { convertEnumToDropdownOptions } from 'helpers/generic';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import { isEmpty } from '../../../../../helpers/generic';
-import { formatMeasurementsForPostBody } from '../../../../shared/pins/addPin/fieldTypes/helpers';
+import {
+    formatMeasurementsForPostBody,
+    isAnswerValueEmpty,
+} from '../../../../shared/pins/addPin/fieldTypes/helpers';
 
 class EditPinFormContainer extends Component {
     state = {
@@ -137,7 +140,7 @@ class EditPinFormContainer extends Component {
 
         const formattedAnswers = Object.keys(answers).map(key => ({
             questionID: key,
-            answerValues: answers[key],
+            answerValues: answers[key]?.filter(val => !isAnswerValueEmpty(val)),
             measurements: formatMeasurementsForPostBody(measurements, key),
         }));
 

@@ -15,7 +15,10 @@ import AddPinForm from 'components/shared/pins/addPin/presentational/AddPinForm'
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
-import { formatMeasurementsForPostBody } from '../../../../shared/pins/addPin/fieldTypes/helpers';
+import {
+    formatMeasurementsForPostBody,
+    isAnswerValueEmpty,
+} from '../../../../shared/pins/addPin/fieldTypes/helpers';
 
 const { SINGLE_PHOTO, MULTI_PHOTO, SIGNATURE } = QUESTION_TYPE_VALUES;
 
@@ -277,7 +280,7 @@ class AddPinHistoryFormContainer extends Component {
 
         const formattedAnswers = Object.keys(answers).map(key => ({
             templateQuestionID: key,
-            answerValues: answers[key],
+            answerValues: answers[key]?.filter(val => !isAnswerValueEmpty(val)),
             measurements: formatMeasurementsForPostBody(measurements, key),
         }));
 
