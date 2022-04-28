@@ -48,10 +48,14 @@ const ListItem = ({ item, hierarchyLevel }) => {
             <div
                 className={`filter-list-row ${hierarchyClassNames[hierarchyLevel]} ${marginClass}`}
             >
-                <SpecificContent item={item} />
+                <SpecificContent
+                    item={item}
+                    isExpanded={isExpanded}
+                    setIsExpanded={setIsExpanded}
+                />
             </div>
             {dataKey !== undefined && (
-                <div className="expandable">
+                <div className={`expandable ${isExpanded ? 'active' : ''}`}>
                     <FilterList
                         data={item[getDataKeyFromItem(item)]}
                         hierarchyLevel={hierarchyLevel + 1}

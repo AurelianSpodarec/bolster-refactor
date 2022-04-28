@@ -28,6 +28,18 @@
   font-weight: 400;
 }
 
+@mixin expandable() {
+  .expandable {
+    overflow-y: hidden;
+    transition: all 0.4s ease-in-out;
+    max-height: 0;
+
+    &.active {
+      max-height: 100vh;
+    }
+  }
+}
+
 .costing-wrapper {
   grid-template-areas: "pods pods cart" "graph graph cart" "filters filters cart";
   grid-template-columns: repeat(3, 1fr);
@@ -179,15 +191,7 @@
       padding-right: 15px;
     }
 
-    .expandable {
-      overflow-y: hidden;
-      transition: all 0.4s ease-in-out;
-      max-height: 0;
-
-      &.active {
-        max-height: 100vh;
-      }
-    }
+    @include expandable();
   }
 
   .grand-total {
@@ -383,12 +387,14 @@
 
 .filters-list-wrapper {
   grid-area: filters;
+  @include expandable();
 
   .header-row {
     padding: 8px 0;
     @include bodyText;
     font-weight: 500;
     border-bottom: 1px solid $dark-grey;
+    pointer-events: none;
     
     @include tableCols();
     @include listMargin();
@@ -403,7 +409,12 @@
 
     .table-cell {
       flex: 1;
+
     }
+  }
+  .table-cell-controls {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr)
   }
 }
 
