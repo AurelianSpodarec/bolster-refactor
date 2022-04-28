@@ -12,7 +12,7 @@ import CostingAndEstimatingFilterList from './filterList/CostingAndEstimatingFil
 
 const CostingAndEstimating = () => {
     const { costingCart, graph, keyStatistics, allSites } = useCostingAndEstimating();
-    const { filterFormData, onChange } = useCostingAndEstimatingFilters();
+    const { filterFormData, onChange, handleToggleItem } = useCostingAndEstimatingFilters();
     const currentHierarchyLevel = useCurrentHierarchyLevel();
 
     return (
@@ -30,6 +30,8 @@ const CostingAndEstimating = () => {
             <CostingAndEstimatingFilterList
                 sites={allSites}
                 currentHierarchyLevel={currentHierarchyLevel}
+                selectedItems={filterFormData.selectedItems}
+                handleToggleItem={handleToggleItem}
             />
         </GridWrapper>
     );

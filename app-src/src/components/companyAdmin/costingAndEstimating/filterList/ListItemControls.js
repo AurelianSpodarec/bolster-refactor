@@ -4,15 +4,20 @@ import React from 'react';
 
 const ListItemControls = ({
     isSelected = false,
-    onChange = () => {},
+    handleToggleItem = () => {},
     isExpanded = false,
     setIsExpanded = () => {},
     hideExpandButton = false,
+    item,
 }) => {
+    const _handleToggleItem = (name, value) => {
+        handleToggleItem(item);
+    };
+
     return (
         <div className="table-cell-controls">
             <div>
-                <Tickbox name="" value={isSelected} handleChange={onChange} />
+                <Tickbox name="" value={isSelected} handleChange={_handleToggleItem} />
             </div>
             <div>
                 {!hideExpandButton && (

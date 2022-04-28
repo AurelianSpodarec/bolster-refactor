@@ -7,60 +7,64 @@ import { selectDrawing } from 'selectors/companyAdmin/drawings';
 import { selectFloor } from 'selectors/companyAdmin/floors';
 import ListItemControls from './ListItemControls';
 
-export const Building = ({ item, isSelected, onChange, isExpanded, setIsExpanded }) => {
+export const Building = ({ item, isSelected, handleToggleItem, isExpanded, setIsExpanded }) => {
     const building = useSelector(state => selectBuilding(state, item.id));
     return (
         <>
             <ListItemControls
                 isSelected={isSelected}
-                onChange={onChange}
+                handleToggleItem={handleToggleItem}
                 isExpanded={isExpanded}
                 setIsExpanded={setIsExpanded}
+                item={item}
             />
             <div className="table-cell">{`${building?.name}`}</div>
             <div className="table-cell">{`£${formatCurrency(item.total)}`}</div>
         </>
     );
 };
-export const Floor = ({ item, isSelected, onChange, isExpanded, setIsExpanded }) => {
+export const Floor = ({ item, isSelected, handleToggleItem, isExpanded, setIsExpanded }) => {
     const floor = useSelector(state => selectFloor(state, item.id));
     return (
         <>
             <ListItemControls
                 isSelected={isSelected}
-                onChange={onChange}
+                handleToggleItem={handleToggleItem}
                 isExpanded={isExpanded}
                 setIsExpanded={setIsExpanded}
+                item={item}
             />
             <div className="table-cell">{`${floor?.name}`}</div>
             <div className="table-cell">{`£${formatCurrency(item.total)}`}</div>
         </>
     );
 };
-export const Drawing = ({ item, isSelected, onChange, isExpanded, setIsExpanded }) => {
+export const Drawing = ({ item, isSelected, handleToggleItem, isExpanded, setIsExpanded }) => {
     const drawing = useSelector(state => selectDrawing(state, item.id));
     return (
         <>
             <ListItemControls
                 isSelected={isSelected}
-                onChange={onChange}
+                handleToggleItem={handleToggleItem}
                 isExpanded={isExpanded}
                 setIsExpanded={setIsExpanded}
+                item={item}
             />
             <div className="table-cell">{`${drawing?.name}`}</div>
             <div className="table-cell">{`£${formatCurrency(item.total)}`}</div>
         </>
     );
 };
-export const Pin = ({ item, isSelected, onChange, isExpanded, setIsExpanded }) => {
+export const Pin = ({ item, isSelected, handleToggleItem, isExpanded, setIsExpanded }) => {
     const { pinID, dateCreated, comment, installations } = item;
     return (
         <>
             <ListItemControls
                 isSelected={isSelected}
-                onChange={onChange}
+                handleToggleItem={handleToggleItem}
                 isExpanded={isExpanded}
                 setIsExpanded={setIsExpanded}
+                item={item}
             />
             <div className="table-cell">{`${pinID}`}</div>
             <div className="table-cell">
@@ -71,14 +75,15 @@ export const Pin = ({ item, isSelected, onChange, isExpanded, setIsExpanded }) =
         </>
     );
 };
-export const Installation = ({ item, isSelected, onChange, isExpanded, setIsExpanded }) => {
+export const Installation = ({ item, isSelected, handleToggleItem, isExpanded, setIsExpanded }) => {
     return (
         <>
             <ListItemControls
                 isSelected={isSelected}
-                onChange={onChange}
+                handleToggleItem={handleToggleItem}
                 isExpanded={isExpanded}
                 setIsExpanded={setIsExpanded}
+                item={item}
             />
             <div className="table-cell">{`${item.name}`}</div>
             <div className="table-cell">{`${item.type}`}</div>

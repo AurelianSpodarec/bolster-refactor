@@ -15,7 +15,52 @@ const tableHeaders = {
     installations: ['', 'Installation Name', 'Installation Type', 'Comment', 'Cost'],
 };
 
-const FilterList = ({ data, hierarchyLevel, headers = [], selectedItems }) => {
+export const getContentTypeFromItem = item => {
+    if (Object.prototype.hasOwnProperty.call(item, 'floors')) return contentTypes.Building;
+    if (Object.prototype.hasOwnProperty.call(item, 'drawings')) return contentTypes.Floor;
+    if (Object.prototype.hasOwnProperty.call(item, 'pins')) return contentTypes.Drawing;
+    if (Object.prototype.hasOwnProperty.call(item, 'installations')) return contentTypes.Pin;
+    if (Object.prototype.hasOwnProperty.call(item, 'measurement')) return contentTypes.Installation;
+    return null;
+};
+export const getDataKeyFromItem = item => {
+    if (Object.prototype.hasOwnProperty.call(item, 'buildings')) return 'buildings';
+    if (Object.prototype.hasOwnProperty.call(item, 'floors')) return 'floors';
+    if (Object.prototype.hasOwnProperty.call(item, 'drawings')) return 'drawings';
+    if (Object.prototype.hasOwnProperty.call(item, 'pins')) return 'pins';
+    if (Object.prototype.hasOwnProperty.call(item, 'installations')) return 'installations';
+    return undefined;
+};
+export const getItemType = item => {
+    if (Object.prototype.hasOwnProperty.call(item, 'buildings')) return 'sites';
+    if (Object.prototype.hasOwnProperty.call(item, 'floors')) return 'buildings';
+    if (Object.prototype.hasOwnProperty.call(item, 'drawings')) return 'floors';
+    if (Object.prototype.hasOwnProperty.call(item, 'pins')) return 'drawings';
+    if (Object.prototype.hasOwnProperty.call(item, 'installations')) return 'pins';
+    if (Object.prototype.hasOwnProperty.call(item, 'measurement')) return 'installations';
+    return undefined;
+};
+export const deepGetAllChildren = (data = [], result) => {
+    // Gets every child of every item in data recursively
+    data.forEach(item => {
+        const itemToAdd = `${item.id ? item.id : item.pinID ? item.pinID : item.name}`;
+        if (!result.includes(itemToAdd) && itemToAdd !== 'undefined') result.push(itemToAdd);
+        if (item.children) deepGetAllChildren(item.children, result);
+    });
+    // console.log(result);
+    return result;
+};
+export const isItemSelected = (item, selectedItems) => {
+    const itemType = getItemType(item);
+    if (itemType === 'buildings') return selectedItems.buildings.includes(item.id);
+    if (itemType === 'floors') return selectedItems.floors.includes(item.id);
+    if (itemType === 'drawings') return selectedItems.drawings.includes(item.id);
+    if (itemType === 'pins') return selectedItems.pins.includes(item.pinID);
+    if (itemType === 'installations') return selectedItems.installations.includes(item.name);
+    return false;
+};
+
+const FilterList = ({ data, hierarchyLevel, headers = [], selectedItems, handleToggleItem }) => {
     // hierarchyLevel defines level of items in list
     const marginClass = `margin-${hierarchyLevel - 1}`;
     return (
@@ -35,21 +80,22 @@ const FilterList = ({ data, hierarchyLevel, headers = [], selectedItems }) => {
                     item={item}
                     hierarchyLevel={hierarchyLevel}
                     selectedItems={selectedItems}
+                    handleToggleItem={handleToggleItem}
                 />
             ))}
         </>
     );
 };
 
-const ListItem = ({ item, hierarchyLevel, selectedItems }) => {
+const ListItem = ({ item, hierarchyLevel, selectedItems, handleToggleItem }) => {
     // hierarchyLevel defines level of this item
     const [isExpanded, setIsExpanded] = useState(false);
     const SpecificContent = getContentTypeFromItem(item);
     const dataKey = getDataKeyFromItem(item);
     const headers = tableHeaders[dataKey];
 
-    const allChildren = deepGetAllChildren(item[getDataKeyFromItem(item)], []);
-    const isSelected = false; // If all children & grandchildren are selected, then parent should be selected
+    let isSelected = isItemSelected(item, selectedItems);
+
     const marginClass = `margin-${hierarchyLevel - 1}`;
     return (
         <>
@@ -60,6 +106,8 @@ const ListItem = ({ item, hierarchyLevel, selectedItems }) => {
                     item={item}
                     isExpanded={isExpanded}
                     setIsExpanded={setIsExpanded}
+                    isSelected={isSelected}
+                    handleToggleItem={handleToggleItem}
                 />
             </div>
             {dataKey !== undefined && (
@@ -69,6 +117,7 @@ const ListItem = ({ item, hierarchyLevel, selectedItems }) => {
                         hierarchyLevel={hierarchyLevel + 1}
                         headers={headers}
                         selectedItems={selectedItems}
+                        handleToggleItem={handleToggleItem}
                     />
                 </div>
             )}
@@ -76,8 +125,14 @@ const ListItem = ({ item, hierarchyLevel, selectedItems }) => {
     );
 };
 
-const CostingAndEstimatingFilterList = ({ sites, currentHierarchyLevel, selectedItems = [] }) => {
+const CostingAndEstimatingFilterList = ({
+    sites,
+    currentHierarchyLevel,
+    selectedItems,
+    handleToggleItem,
+}) => {
     const title = hierarchyNames[currentHierarchyLevel + 1] || 'Pins';
+    console.log(selectedItems);
 
     const getListData = () => {
         if (!sites.length) return [];
@@ -97,56 +152,11 @@ const CostingAndEstimatingFilterList = ({ sites, currentHierarchyLevel, selected
                     data={getListData()}
                     hierarchyLevel={currentHierarchyLevel + 1}
                     selectedItems={selectedItems}
+                    handleToggleItem={handleToggleItem}
                 />
             </BlockContainer>
         </div>
     );
 };
-
-function getContentTypeFromItem(item) {
-    if (Object.prototype.hasOwnProperty.call(item, 'floors')) return contentTypes.Building;
-    if (Object.prototype.hasOwnProperty.call(item, 'drawings')) return contentTypes.Floor;
-    if (Object.prototype.hasOwnProperty.call(item, 'pins')) return contentTypes.Drawing;
-    if (Object.prototype.hasOwnProperty.call(item, 'installations')) return contentTypes.Pin;
-    if (Object.prototype.hasOwnProperty.call(item, 'measurement')) return contentTypes.Installation;
-    return null;
-}
-function getDataKeyFromItem(item) {
-    if (Object.prototype.hasOwnProperty.call(item, 'buildings')) return 'buildings';
-    if (Object.prototype.hasOwnProperty.call(item, 'floors')) return 'floors';
-    if (Object.prototype.hasOwnProperty.call(item, 'drawings')) return 'drawings';
-    if (Object.prototype.hasOwnProperty.call(item, 'pins')) return 'pins';
-    if (Object.prototype.hasOwnProperty.call(item, 'installations')) return 'installations';
-    return undefined;
-}
-function getItemType(item) {
-    if (Object.prototype.hasOwnProperty.call(item, 'buildings')) return 'sites';
-    if (Object.prototype.hasOwnProperty.call(item, 'floors')) return 'buildings';
-    if (Object.prototype.hasOwnProperty.call(item, 'drawings')) return 'floors';
-    if (Object.prototype.hasOwnProperty.call(item, 'pins')) return 'drawings';
-    if (Object.prototype.hasOwnProperty.call(item, 'installations')) return 'pins';
-    if (Object.prototype.hasOwnProperty.call(item, 'measurement')) return 'installations';
-    return undefined;
-}
-function deepGetAllChildren(data = [], result) {
-    // Gets every child of every item in data recursively
-    data.forEach(item => {
-        const itemToAdd = `${item.id ? item.id : item.pinID ? item.pinID : item.name}`;
-        if (!result.includes(itemToAdd) && itemToAdd !== 'undefined') result.push(itemToAdd);
-        if (item.children) deepGetAllChildren(item.children, result);
-    });
-    // console.log(result);
-    return result;
-}
-function isItemSelected(item, selectedItems) {
-    const itemType = getItemType(item);
-    if (itemType === 'buildings') return selectedItems.selectedBuildings.includes(item.id);
-    if (itemType === 'floors') return selectedItems.selectedFloors.includes(item.id);
-    if (itemType === 'drawings') return selectedItems.selectedDrawings.includes(item.id);
-    if (itemType === 'pins') return selectedItems.selectedPins.includes(item.pinID);
-    if (itemType === 'installations')
-        return selectedItems.selectedInstallations.includes(item.name);
-    return false;
-}
 
 export default CostingAndEstimatingFilterList;
