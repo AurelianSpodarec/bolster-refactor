@@ -32,51 +32,39 @@ const useCostingAndEstimatingFilters = () => {
         const itemKey = getSelectionKeyForItem(item);
         const itemType = getItemType(item);
 
-        console.log({ item, itemKey, itemType, selected: isItemSelected(item, selectedItems) });
-
         if (!isItemSelected(item, selectedItems)) {
             switch (itemType) {
                 case 'buildings':
-                    console.log(`Adding ${itemKey} to ${itemType}`);
                     selectedItems.buildings.push(itemKey);
                     break;
                 case 'floors':
-                    console.log(`Adding ${itemKey} to ${itemType}`);
                     selectedItems.floors.push(itemKey);
                     break;
                 case 'drawings':
-                    console.log(`Adding ${itemKey} to ${itemType}`);
                     selectedItems.drawings.push(itemKey);
                     break;
                 case 'pins':
-                    console.log(`Adding ${itemKey} to ${itemType}`);
                     selectedItems.pins.push(itemKey);
                     break;
                 case 'installations':
-                    console.log(`Adding ${itemKey} to ${itemType}`);
                     selectedItems.installations.push(itemKey);
                     break;
             }
         } else {
             switch (itemType) {
                 case 'buildings':
-                    console.log(`Removing ${itemKey} from ${itemType}`);
                     selectedItems.buildings = selectedItems.buildings.filter(id => id !== itemKey);
                     break;
                 case 'floors':
-                    console.log(`Removing ${itemKey} from ${itemType}`);
                     selectedItems.floors = selectedItems.floors.filter(id => id !== itemKey);
                     break;
                 case 'drawings':
-                    console.log(`Removing ${itemKey} from ${itemType}`);
                     selectedItems.drawings = selectedItems.drawings.filter(id => id !== itemKey);
                     break;
                 case 'pins':
-                    console.log(`Removing ${itemKey} from ${itemType}`);
                     selectedItems.pins = selectedItems.pins.filter(pinID => pinID !== itemKey);
                     break;
                 case 'installations':
-                    console.log(`Removing ${itemKey} from ${itemType}`);
                     selectedItems.installations = selectedItems.installations.filter(
                         name => name !== itemKey,
                     );
