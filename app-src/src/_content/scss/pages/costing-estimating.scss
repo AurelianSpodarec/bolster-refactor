@@ -40,6 +40,48 @@
   }
 }
 
+@mixin tableCols() {
+  display: grid;
+  grid-template-columns: 6em 1fr 10em;
+
+  &.buildings {
+    grid-template-columns: 6em 1fr 10em;
+  }
+  &.floors {
+    grid-template-columns: 6em 1fr 10em;
+  }
+  &.drawings {
+    grid-template-columns: 6em 1fr 10em;
+  }
+  &.pins {
+    grid-template-columns: 6em 1fr 1fr 2fr 10em;
+  }
+  &.installations {
+    grid-template-columns: 6em 1fr 1fr 2fr 10em;
+  }
+}
+
+@mixin listMargin() {
+  &.margin-1 {
+    margin-left: calc(1 * 2em)
+  }
+  &.margin-2 {
+    margin-left: calc(2 * 2em)
+  }
+  &.margin-3 {
+    margin-left: calc(3 * 2em)
+  }
+  &.margin-4 {
+    margin-left: calc(4 * 2em)
+  }
+  &.margin-5 {
+    margin-left: calc(5 * 2em)
+  }
+  &.margin-5 {
+    margin-left: calc(5 * 2em)
+  }
+}
+
 .costing-wrapper {
   grid-template-areas: "pods pods cart" "graph graph cart" "filters filters cart";
   grid-template-columns: repeat(3, 1fr);
@@ -343,47 +385,6 @@
   }
 }
 
-@mixin tableCols() {
-  display: grid;
-  grid-template-columns: 6em 1fr 10em;
-
-  &.buildings {
-    grid-template-columns: 6em 1fr 10em;
-  }
-  &.floors {
-    grid-template-columns: 6em 1fr 10em;
-  }
-  &.drawings {
-    grid-template-columns: 6em 1fr 10em;
-  }
-  &.pins {
-    grid-template-columns: 6em 1fr 1fr 2fr 10em;
-  }
-  &.installations {
-    grid-template-columns: 6em 1fr 1fr 2fr 10em;
-  }
-}
-
-@mixin listMargin() {
-  &.margin-1 {
-    margin-left: calc(1 * 2em)
-  }
-  &.margin-2 {
-    margin-left: calc(2 * 2em)
-  }
-  &.margin-3 {
-    margin-left: calc(3 * 2em)
-  }
-  &.margin-4 {
-    margin-left: calc(4 * 2em)
-  }
-  &.margin-5 {
-    margin-left: calc(5 * 2em)
-  }
-  &.margin-5 {
-    margin-left: calc(5 * 2em)
-  }
-}
 
 .filters-list-wrapper {
   grid-area: filters;
