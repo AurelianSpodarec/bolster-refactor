@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { hierarchyNames, hierarchyTypes } from '../_hooks/useCurrentHierarchyLevel';
 import * as contentTypes from './contentTypes';
@@ -16,6 +16,7 @@ const FilterList = ({ data, hierarchyLevel }) => {
 
 const ListItem = ({ item, hierarchyLevel }) => {
     // hierarchyLevel defines level of this item
+    const [isExpanded, setIsExpanded] = useState(false);
     const SpecificContent = getContentTypeFromItem(item);
     const dataKey = getDataKeyFromItem(item);
     return (
@@ -57,15 +58,14 @@ const CostingAndEstimatingFilterList = ({ sites, currentHierarchyLevel }) => {
 };
 
 function getContentTypeFromItem(item) {
-    // if (Object.prototype.hasOwnProperty.call(item, 'buildings')) return contentTypes.sites;
     if (Object.prototype.hasOwnProperty.call(item, 'floors')) return contentTypes.Building;
     if (Object.prototype.hasOwnProperty.call(item, 'drawings')) return contentTypes.Floor;
     if (Object.prototype.hasOwnProperty.call(item, 'pins')) return contentTypes.Drawing;
     if (Object.prototype.hasOwnProperty.call(item, 'installations')) return contentTypes.Pin;
     if (Object.prototype.hasOwnProperty.call(item, 'measurement')) return contentTypes.Installation;
+    return null;
 }
 function getDataKeyFromItem(item) {
-    // if (Object.prototype.hasOwnProperty.call(item, 'buildings')) return contentTypes.sites;
     if (Object.prototype.hasOwnProperty.call(item, 'floors')) return 'floors';
     if (Object.prototype.hasOwnProperty.call(item, 'drawings')) return 'drawings';
     if (Object.prototype.hasOwnProperty.call(item, 'pins')) return 'pins';

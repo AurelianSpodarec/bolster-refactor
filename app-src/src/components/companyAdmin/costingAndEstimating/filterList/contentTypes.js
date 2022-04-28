@@ -18,8 +18,8 @@ export const Drawing = ({ item }) => {
 };
 export const Pin = ({ item }) => {
     const { pinID, dateCreated, comment, installations } = item;
-    return <div>{`${pinID}`}</div>;
+    return <div>{`${pinID} - ${comment}`}</div>;
 };
 export const Installation = ({ item }) => {
-    return <div>{`${item?.pinID} - ${item.comment}`}</div>;
+    return <div>{`${item?.name} - ${item.type}`}</div>;
 };
