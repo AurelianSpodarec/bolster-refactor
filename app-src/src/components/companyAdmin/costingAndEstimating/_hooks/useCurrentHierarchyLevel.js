@@ -9,6 +9,7 @@ export const hierarchyTypes = {
 };
 
 export const hierarchyNames = ['Sites', 'Buildings', 'Floors', 'Drawings', 'Pins'];
+export const hierarchyClassNames = hierarchyNames.map(hierarchyName => hierarchyName.toLowerCase());
 
 const useCurrentHierarchyLevel = () => {
     const { pathname } = useLocation();

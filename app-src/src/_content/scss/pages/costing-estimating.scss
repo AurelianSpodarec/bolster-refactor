@@ -339,12 +339,47 @@
   }
 }
 
+@mixin tableCols() {
+  display: grid;
+  grid-template-columns: 6em 1fr 10em;
+
+  &.buildings {
+    grid-template-columns: 6em 1fr 10em;
+  }
+  &.floors {
+    grid-template-columns: 6em 1fr 10em;
+  }
+  &.drawings {
+    grid-template-columns: 6em 1fr 10em;
+  }
+  &.pins {
+    grid-template-columns: 6em 1fr 1fr 2fr 10em;
+  }
+  &.installations {
+    grid-template-columns: 6em 1fr 1fr 2fr 10em;
+  }
+}
+
 .filters-list-wrapper {
   grid-area: filters;
 
-  .filter-list-item {
+  .header-row {
     padding: 10px 0;
     @include bodyText;
+    font-weight: 500;
+    
+    @include tableCols();
+  }
+
+  .filter-list-row {
+    padding: 10px 0;
+    @include bodyText;
+    @include tableCols();
+    border-bottom: 1px solid $dark-grey;
+
+    .table-cell {
+      flex: 1;
+    }
   }
 }
 

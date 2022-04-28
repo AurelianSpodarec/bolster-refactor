@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { hierarchyNames, hierarchyTypes } from '../_hooks/useCurrentHierarchyLevel';
+import {
+    hierarchyNames,
+    hierarchyClassNames,
+    hierarchyTypes,
+} from '../_hooks/useCurrentHierarchyLevel';
 import * as contentTypes from './contentTypes';
-import Table from 'components/shared/generic/tables/presentational/Table';
 
 const tableHeaders = {
-    buildings: ['Name', 'Cost'],
-    floors: ['Name', 'Cost'],
-    drawings: ['Name', 'Cost'],
-    pins: ['Pin ID', 'Date Created', 'Comment', 'Cost'],
-    installations: ['Installation Name', 'Installation Type', 'Comment', 'Cost'],
+    buildings: ['', 'Name', 'Cost'],
+    floors: ['', 'Name', 'Cost'],
+    drawings: ['', 'Name', 'Cost'],
+    pins: ['', 'Pin ID', 'Date Created', 'Comment', 'Cost'],
+    installations: ['', 'Installation Name', 'Installation Type', 'Comment', 'Cost'],
 };
 
 const FilterList = ({ data, hierarchyLevel, headers = [] }) => {
     // hierarchyLevel defines level of items in list
     return (
         <>
-            <div className="header-row">
+            <div className={`header-row ${hierarchyClassNames[hierarchyLevel] || ''}`}>
                 {headers.map((header, i) => (
-                    <th key={i}>{header}</th>
+                    <div className="table-cell" key={i}>
+                        {header}
+                    </div>
                 ))}
             </div>
             {data.map((item, i) => (
@@ -37,7 +42,7 @@ const ListItem = ({ item, hierarchyLevel }) => {
     console.log({ headers });
     return (
         <>
-            <div className="filter-list-row">
+            <div className={`filter-list-row ${hierarchyClassNames[hierarchyLevel]}`}>
                 <SpecificContent item={item} />
             </div>
             {dataKey !== undefined && (
@@ -90,6 +95,14 @@ function getDataKeyFromItem(item) {
     if (Object.prototype.hasOwnProperty.call(item, 'drawings')) return 'drawings';
     if (Object.prototype.hasOwnProperty.call(item, 'pins')) return 'pins';
     if (Object.prototype.hasOwnProperty.call(item, 'installations')) return 'installations';
+    return undefined;
+}
+function getItemType(item) {
+    if (Object.prototype.hasOwnProperty.call(item, 'buildings')) return 'sites';
+    if (Object.prototype.hasOwnProperty.call(item, 'floors')) return 'buildings';
+    if (Object.prototype.hasOwnProperty.call(item, 'drawings')) return 'floors';
+    if (Object.prototype.hasOwnProperty.call(item, 'pins')) return 'drawings';
+    if (Object.prototype.hasOwnProperty.call(item, 'installations')) return 'pins';
     return undefined;
 }
 
