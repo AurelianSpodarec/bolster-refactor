@@ -7,7 +7,13 @@ const useCostingAndEstimatingFilters = () => {
             startDate: moment().subtract(7, 'days').toDate(),
             endDate: moment().toDate(),
         },
-        selectedOperatives: [],
+        selectedItems: {
+            buildings: [],
+            floors: [],
+            drawings: [],
+            pins: [],
+            operatives: [],
+        },
     };
     const [formData, onChange] = useForm(initialFormData);
 

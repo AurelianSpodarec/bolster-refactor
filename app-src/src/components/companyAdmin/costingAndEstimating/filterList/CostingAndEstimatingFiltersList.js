@@ -15,7 +15,7 @@ const tableHeaders = {
     installations: ['', 'Installation Name', 'Installation Type', 'Comment', 'Cost'],
 };
 
-const FilterList = ({ data, hierarchyLevel, headers = [] }) => {
+const FilterList = ({ data, hierarchyLevel, headers = [], selectedItems }) => {
     // hierarchyLevel defines level of items in list
     const marginClass = `margin-${hierarchyLevel - 1}`;
     return (
@@ -30,18 +30,26 @@ const FilterList = ({ data, hierarchyLevel, headers = [] }) => {
                 ))}
             </div>
             {data.map((item, i) => (
-                <ListItem key={i} item={item} hierarchyLevel={hierarchyLevel} />
+                <ListItem
+                    key={i}
+                    item={item}
+                    hierarchyLevel={hierarchyLevel}
+                    selectedItems={selectedItems}
+                />
             ))}
         </>
     );
 };
 
-const ListItem = ({ item, hierarchyLevel }) => {
+const ListItem = ({ item, hierarchyLevel, selectedItems }) => {
     // hierarchyLevel defines level of this item
     const [isExpanded, setIsExpanded] = useState(false);
     const SpecificContent = getContentTypeFromItem(item);
     const dataKey = getDataKeyFromItem(item);
     const headers = tableHeaders[dataKey];
+
+    const allChildren = deepGetAllChildren(item[getDataKeyFromItem(item)], []);
+    const isSelected = false; // If all children & grandchildren are selected, then parent should be selected
     const marginClass = `margin-${hierarchyLevel - 1}`;
     return (
         <>
@@ -60,6 +68,7 @@ const ListItem = ({ item, hierarchyLevel }) => {
                         data={item[getDataKeyFromItem(item)]}
                         hierarchyLevel={hierarchyLevel + 1}
                         headers={headers}
+                        selectedItems={selectedItems}
                     />
                 </div>
             )}
@@ -67,7 +76,7 @@ const ListItem = ({ item, hierarchyLevel }) => {
     );
 };
 
-const CostingAndEstimatingFilterList = ({ sites, currentHierarchyLevel }) => {
+const CostingAndEstimatingFilterList = ({ sites, currentHierarchyLevel, selectedItems = [] }) => {
     const title = hierarchyNames[currentHierarchyLevel + 1] || 'Pins';
 
     const getListData = () => {
@@ -84,7 +93,11 @@ const CostingAndEstimatingFilterList = ({ sites, currentHierarchyLevel }) => {
         <div className="filters-list-wrapper">
             <BlockContainer contentClass="border">
                 <h3>{title}</h3>
-                <FilterList data={getListData()} hierarchyLevel={currentHierarchyLevel + 1} />
+                <FilterList
+                    data={getListData()}
+                    hierarchyLevel={currentHierarchyLevel + 1}
+                    selectedItems={selectedItems}
+                />
             </BlockContainer>
         </div>
     );
@@ -112,7 +125,28 @@ function getItemType(item) {
     if (Object.prototype.hasOwnProperty.call(item, 'drawings')) return 'floors';
     if (Object.prototype.hasOwnProperty.call(item, 'pins')) return 'drawings';
     if (Object.prototype.hasOwnProperty.call(item, 'installations')) return 'pins';
+    if (Object.prototype.hasOwnProperty.call(item, 'measurement')) return 'installations';
     return undefined;
+}
+function deepGetAllChildren(data = [], result) {
+    // Gets every child of every item in data recursively
+    data.forEach(item => {
+        const itemToAdd = `${item.id ? item.id : item.pinID ? item.pinID : item.name}`;
+        if (!result.includes(itemToAdd) && itemToAdd !== 'undefined') result.push(itemToAdd);
+        if (item.children) deepGetAllChildren(item.children, result);
+    });
+    // console.log(result);
+    return result;
+}
+function isItemSelected(item, selectedItems) {
+    const itemType = getItemType(item);
+    if (itemType === 'buildings') return selectedItems.selectedBuildings.includes(item.id);
+    if (itemType === 'floors') return selectedItems.selectedFloors.includes(item.id);
+    if (itemType === 'drawings') return selectedItems.selectedDrawings.includes(item.id);
+    if (itemType === 'pins') return selectedItems.selectedPins.includes(item.pinID);
+    if (itemType === 'installations')
+        return selectedItems.selectedInstallations.includes(item.name);
+    return false;
 }
 
 export default CostingAndEstimatingFilterList;
