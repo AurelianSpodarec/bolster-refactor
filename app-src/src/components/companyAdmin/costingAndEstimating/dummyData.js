@@ -295,11 +295,11 @@ export const dummyCart = {
             cost: 9308.39,
             drawings: [
                 {
-                    drawingID: 1,
+                    drawingID: 3226,
                     cost: 5000.27,
                 },
                 {
-                    drawingID: 2,
+                    drawingID: 13734,
                     cost: 4308.12,
                 },
             ],
@@ -309,11 +309,11 @@ export const dummyCart = {
             cost: 9308.39,
             drawings: [
                 {
-                    drawingID: 3,
+                    drawingID: 14825,
                     cost: 5000.27,
                 },
                 {
-                    drawingID: 4,
+                    drawingID: 15121,
                     cost: 4308.12,
                 },
             ],
