@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 
 import FlexWrapper from '../../../shared/generic/flexWrapper/FlexWrapper';
 import FilterInput from '../../../shared/filters/FilterInput';
+import Checkbox from '../../../shared/generic/form/presentational/Checkbox';
 
 const CostingGraphFilterItem = ({ option: { id, name, options }, expandedId, setExpandedId }) => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -20,10 +21,13 @@ const CostingGraphFilterItem = ({ option: { id, name, options }, expandedId, set
 
     return (
         <>
-            <FlexWrapper align="center" justify="between" extraClasses="filter-item">
-                <p>{name}</p>
+            <FlexWrapper>
+                <button
+                    onClick={() => setExpandedId(isOptionExpanded ? null : id)}
+                    className="filter-item flex flex-row align-center justify-between"
+                >
+                    <p>{name}</p>
 
-                <button onClick={() => setExpandedId(isOptionExpanded ? null : id)}>
                     <i className={`far fa-chevron-${isOptionExpanded ? 'up' : 'down'}`} />
                 </button>
             </FlexWrapper>
@@ -35,11 +39,13 @@ const CostingGraphFilterItem = ({ option: { id, name, options }, expandedId, set
                         handleChange={(_, value) => setSearchTerm(value)}
                     />
 
-                    {filteredOptions?.map(option => (
-                        <FlexWrapper key={option.id} align="center">
-                            <p>{option.name}</p>
-                        </FlexWrapper>
-                    ))}
+                    <FlexWrapper direction="column" extraClasses="options-wrapper">
+                        {filteredOptions?.map(option => (
+                            <FlexWrapper key={option.id} align="center" extraClasses="option">
+                                <p>{option.name}</p>
+                            </FlexWrapper>
+                        ))}
+                    </FlexWrapper>
                 </div>
             )}
         </>

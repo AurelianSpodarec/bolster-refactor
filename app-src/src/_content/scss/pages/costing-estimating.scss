@@ -270,6 +270,7 @@
     .date-range-picker-container {
       .custom-button {
         background-color: transparent;
+
         &:not(:disabled) {
           &:hover {
             background-color: var(--background-button-hover);
@@ -321,6 +322,19 @@
       border-radius: 5px;
       overflow-y: scroll;
       padding: 10px;
+
+      .options-wrapper {
+        .option {
+          margin-bottom: 15px;
+
+          &:first-child {
+            margin-top: 15px;
+          }
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
     }
   }
 }
