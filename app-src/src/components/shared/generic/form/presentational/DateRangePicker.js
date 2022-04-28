@@ -11,6 +11,7 @@ function DateRangePickerInput({
     required = false,
     minDate, // Date
     maxDate, // Date
+    text,
 }) {
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -27,7 +28,7 @@ function DateRangePickerInput({
 
     return (
         <div className="date-range-picker-container">
-            <ActionButton icon="calendar" onClick={() => setIsExpanded(!isExpanded)} />
+            <ActionButton icon="calendar" onClick={() => setIsExpanded(!isExpanded)} text={text} />
             {isExpanded && (
                 <div className="date-range-picker-overlay" onClick={() => setIsExpanded(false)} />
             )}

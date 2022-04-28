@@ -1,5 +1,6 @@
 const useCostingAndEstimatingGraph = graph => {
     // TODO - hide numbers & grid lines, implement hover states on tooltips
+
     const width = 600;
     const height = 300;
 
@@ -39,28 +40,26 @@ const useCostingAndEstimatingGraph = graph => {
         pointDotStrokeWidth: 0,
         scaleLabel: '',
         scales: {
-            xAxes: {
-                gridLines: {
-                    display: false,
-                    zeroLineColor: '#4e4e4e',
-                    color: 'rgba(0,0,0,0)',
+            xAxes: [
+                {
+                    gridLines: {
+                        display: false,
+                    },
+                    ticks: {
+                        display: false,
+                    },
                 },
-                ticks: {
-                    display: false,
-                    color: 'rgba(0,0,0,0)',
+            ],
+            yAxes: [
+                {
+                    gridLines: {
+                        display: false,
+                    },
+                    ticks: {
+                        display: false,
+                    },
                 },
-            },
-            yAxes: {
-                gridLines: {
-                    display: false,
-                    zeroLineColor: '#4e4e4e',
-                    color: 'rgba(0,0,0,0)',
-                },
-                ticks: {
-                    display: false,
-                    color: 'rgba(0,0,0,0)',
-                },
-            },
+            ],
         },
         legend: {
             display: false,
