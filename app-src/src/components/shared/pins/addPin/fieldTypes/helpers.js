@@ -170,6 +170,17 @@ export const emptyAnswer = {
     pinOptionVersionID: null,
 };
 
+export const isAnswerValueEmpty = answerValue => {
+    return (
+        !answerValue.textValue &&
+        !answerValue.numericValue &&
+        !answerValue.s3KeyValue &&
+        !answerValue.base64Value &&
+        !answerValue.booleanValue &&
+        !answerValue.pinOptionVersionID
+    );
+};
+
 export const getValueForQuestionAnswer = (question, value, answerValues) => {
     switch (question.type) {
         case TYPES.SINGLE_LINE:
@@ -231,7 +242,7 @@ export const getValueForQuestionAnswer = (question, value, answerValues) => {
             return [answer];
         }
         case TYPES.SIGNATURE: {
-            if (!value) return emptyAnswer;
+            if (!value) return [emptyAnswer];
             const isS3Key = value.includes('.');
             const keyName = isS3Key ? 's3KeyValue' : 'base64Value';
             const answer = {
