@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 
 import FlexWrapper from '../../../shared/generic/flexWrapper/FlexWrapper';
 import FilterInput from '../../../shared/filters/FilterInput';
-import Checkbox from '../../../shared/generic/form/presentational/Checkbox';
+import Tickbox from '../../../shared/generic/form/presentational/Tickbox';
 
 const CostingGraphFilterItem = ({ option: { id, name, options }, expandedId, setExpandedId }) => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -42,7 +42,7 @@ const CostingGraphFilterItem = ({ option: { id, name, options }, expandedId, set
                     <FlexWrapper direction="column" extraClasses="options-wrapper">
                         {filteredOptions?.map(option => (
                             <FlexWrapper key={option.id} align="center" extraClasses="option">
-                                <p>{option.name}</p>
+                                <Tickbox label={option.name} name="tickbox" />
                             </FlexWrapper>
                         ))}
                     </FlexWrapper>

@@ -1,0 +1,62 @@
+.tickbox {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  font-size: 120%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+.tickbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border-radius: 5px
+}
+
+
+.tickbox:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.tickbox input:checked ~ .checkmark {
+  background-color: var(--primary-default);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.tickbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.tickbox .checkmark:after {
+  left: 7px;
+  top: 3px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
