@@ -291,7 +291,7 @@ const dummyListSite = [
 export const dummyCart = {
     buildingCosts: [
         {
-            buildingID: 1,
+            buildingID: 14,
             cost: 9308.39,
             drawings: [
                 {
@@ -305,7 +305,7 @@ export const dummyCart = {
             ],
         },
         {
-            buildingID: 2,
+            buildingID: 1288,
             cost: 9308.39,
             drawings: [
                 {

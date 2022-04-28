@@ -1,12 +1,15 @@
+import React, { useState } from 'react';
+
 import AccordionButton from 'components/shared/generic/button/presentational/AccordionButton';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import { formatCurrency } from 'helpers/generic';
-import React, { useState } from 'react';
+import useCostingCart from '../_hooks/useCostingCart';
 
 const CostingCartPinSummaryItem = ({ building }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const { buildingID, cost, drawings } = building;
+    const { specificBuilding } = useCostingCart(buildingID);
 
     return (
         <div className="summary-item">
@@ -16,7 +19,7 @@ const CostingCartPinSummaryItem = ({ building }) => {
                 align="center"
                 extraClasses="summary-row sub-item"
             >
-                <h5>{`### Building ID ${buildingID} ###`}</h5>
+                <h5>{specificBuilding.name}</h5>
                 <div>
                     <AccordionButton
                         active={isExpanded}

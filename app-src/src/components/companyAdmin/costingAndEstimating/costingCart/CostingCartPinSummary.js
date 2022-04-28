@@ -1,7 +1,7 @@
+import React, { useState } from 'react';
 import AccordionButton from 'components/shared/generic/button/presentational/AccordionButton';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import { formatCurrency } from 'helpers/generic';
-import React, { useState } from 'react';
 import CostingCartPinSummaryItem from './CostingCartPinSummaryItem';
 
 const CostingCartPinSummary = ({ title, total, data }) => {
