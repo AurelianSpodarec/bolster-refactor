@@ -360,22 +360,46 @@
   }
 }
 
+@mixin listMargin() {
+  &.margin-1 {
+    margin-left: calc(1 * 2em)
+  }
+  &.margin-2 {
+    margin-left: calc(2 * 2em)
+  }
+  &.margin-3 {
+    margin-left: calc(3 * 2em)
+  }
+  &.margin-4 {
+    margin-left: calc(4 * 2em)
+  }
+  &.margin-5 {
+    margin-left: calc(5 * 2em)
+  }
+  &.margin-5 {
+    margin-left: calc(5 * 2em)
+  }
+}
+
 .filters-list-wrapper {
   grid-area: filters;
 
   .header-row {
-    padding: 10px 0;
+    padding: 8px 0;
     @include bodyText;
     font-weight: 500;
+    border-bottom: 1px solid $dark-grey;
     
     @include tableCols();
+    @include listMargin();
   }
-
+  
   .filter-list-row {
-    padding: 10px 0;
+    padding: 15px 0;
     @include bodyText;
     @include tableCols();
     border-bottom: 1px solid $dark-grey;
+    @include listMargin();
 
     .table-cell {
       flex: 1;

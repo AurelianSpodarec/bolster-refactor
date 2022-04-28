@@ -6,9 +6,10 @@ export const hierarchyTypes = {
     floors: 2,
     drawings: 3,
     pins: 4,
+    installations: 5,
 };
 
-export const hierarchyNames = ['Sites', 'Buildings', 'Floors', 'Drawings', 'Pins'];
+export const hierarchyNames = ['Sites', 'Buildings', 'Floors', 'Drawings', 'Pins', 'Installations'];
 export const hierarchyClassNames = hierarchyNames.map(hierarchyName => hierarchyName.toLowerCase());
 
 const useCurrentHierarchyLevel = () => {

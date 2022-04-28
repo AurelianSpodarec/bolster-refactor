@@ -17,9 +17,12 @@ const tableHeaders = {
 
 const FilterList = ({ data, hierarchyLevel, headers = [] }) => {
     // hierarchyLevel defines level of items in list
+    const marginClass = `margin-${hierarchyLevel - 1}`;
     return (
         <>
-            <div className={`header-row ${hierarchyClassNames[hierarchyLevel] || ''}`}>
+            <div
+                className={`header-row ${hierarchyClassNames[hierarchyLevel] || ''} ${marginClass}`}
+            >
                 {headers.map((header, i) => (
                     <div className="table-cell" key={i}>
                         {header}
@@ -39,10 +42,12 @@ const ListItem = ({ item, hierarchyLevel }) => {
     const SpecificContent = getContentTypeFromItem(item);
     const dataKey = getDataKeyFromItem(item);
     const headers = tableHeaders[dataKey];
-    console.log({ headers });
+    const marginClass = `margin-${hierarchyLevel - 1}`;
     return (
         <>
-            <div className={`filter-list-row ${hierarchyClassNames[hierarchyLevel]}`}>
+            <div
+                className={`filter-list-row ${hierarchyClassNames[hierarchyLevel]} ${marginClass}`}
+            >
                 <SpecificContent item={item} />
             </div>
             {dataKey !== undefined && (
