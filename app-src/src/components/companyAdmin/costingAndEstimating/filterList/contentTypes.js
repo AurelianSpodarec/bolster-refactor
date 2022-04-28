@@ -1,3 +1,4 @@
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { formatCurrency } from 'helpers/generic';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -62,7 +63,9 @@ export const Pin = ({ item, isSelected, onChange, isExpanded, setIsExpanded }) =
                 setIsExpanded={setIsExpanded}
             />
             <div className="table-cell">{`${pinID}`}</div>
-            <div className="table-cell">{`${dateCreated}`}</div>
+            <div className="table-cell">
+                <DateTimeContainer date={dateCreated} format="DD/MM/YYYY" className="date" />
+            </div>
             <div className="table-cell">{`${comment}`}</div>
             <div className="table-cell">{`£${formatCurrency(item.total)}`}</div>
         </>
@@ -83,4 +86,12 @@ export const Installation = ({ item, isSelected, onChange, isExpanded, setIsExpa
             <div className="table-cell">{`£${formatCurrency(item.cost)}`}</div>
         </>
     );
+};
+
+export default {
+    Building,
+    Floor,
+    Drawing,
+    Pin,
+    Installation,
 };

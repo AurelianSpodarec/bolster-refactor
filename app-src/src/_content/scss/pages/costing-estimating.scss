@@ -410,6 +410,11 @@
     .table-cell {
       flex: 1;
 
+      .date {
+        @include bodyText();
+        font-size: 13px;
+      }
+
     }
   }
   .table-cell-controls {
