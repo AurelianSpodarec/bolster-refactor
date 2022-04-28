@@ -17,10 +17,19 @@ const FilterList = ({ data, hierarchyLevel }) => {
 const ListItem = ({ item, hierarchyLevel }) => {
     // hierarchyLevel defines level of this item
     const SpecificContent = getContentTypeFromItem(item);
+    const dataKey = getDataKeyFromItem(item);
     return (
-        <div className="filter-list-item">
-            <SpecificContent item={item} />
-        </div>
+        <>
+            <div className="filter-list-item">
+                <SpecificContent item={item} />
+            </div>
+            {dataKey !== undefined && (
+                <FilterList
+                    data={item[getDataKeyFromItem(item)]}
+                    hierarchyLevel={hierarchyLevel + 1}
+                />
+            )}
+        </>
     );
 };
 
@@ -54,6 +63,14 @@ function getContentTypeFromItem(item) {
     if (Object.prototype.hasOwnProperty.call(item, 'pins')) return contentTypes.Drawing;
     if (Object.prototype.hasOwnProperty.call(item, 'installations')) return contentTypes.Pin;
     if (Object.prototype.hasOwnProperty.call(item, 'measurement')) return contentTypes.Installation;
+}
+function getDataKeyFromItem(item) {
+    // if (Object.prototype.hasOwnProperty.call(item, 'buildings')) return contentTypes.sites;
+    if (Object.prototype.hasOwnProperty.call(item, 'floors')) return 'floors';
+    if (Object.prototype.hasOwnProperty.call(item, 'drawings')) return 'drawings';
+    if (Object.prototype.hasOwnProperty.call(item, 'pins')) return 'pins';
+    if (Object.prototype.hasOwnProperty.call(item, 'installations')) return 'installations';
+    return undefined;
 }
 
 export default CostingAndEstimatingFilterList;
