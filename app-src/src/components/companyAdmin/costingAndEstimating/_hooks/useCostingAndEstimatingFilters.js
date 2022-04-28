@@ -25,8 +25,8 @@ const useCostingAndEstimatingFilters = () => {
 
     const handleToggleItem = item => {
         // toggle selection status of any item, regardless of type
-        // If some of item's children are selected, it will select all children
-        // If all item's children are unselected or deselected, it will make them match the parent
+        // If some of item's children are selected, it will select all children - TODO
+        // If all item's children are unselected or deselected, it will make them match the parent - TODO
         const selectedItems = { ...formData.selectedItems };
 
         const itemKey = getSelectionKeyForItem(item);
