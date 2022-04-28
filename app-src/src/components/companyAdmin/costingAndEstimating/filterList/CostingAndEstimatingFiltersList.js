@@ -1,6 +1,6 @@
 import React from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { hierarchyNames, hierarchyTypes } from './_hooks/useCurrentHierarchyLevel';
+import { hierarchyNames, hierarchyTypes } from '../_hooks/useCurrentHierarchyLevel';
 
 const FilterList = ({ data, hierarchyLevel }) => {
     // hierarchyLevel defines level of items in list
