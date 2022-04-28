@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
-import useCostingAndEstimatingGraph from './_hooks/useCostingAndEstimatingGraph';
+import useCostingAndEstimatingGraph from '../_hooks/useCostingAndEstimatingGraph';
 
 import { formatCurrency } from 'helpers/generic';
 import { Line } from 'react-chartjs-2';
-import BlockContainer from '../../shared/generic/block/containers/BlockContainer';
-import DateRangePicker from '../../shared/generic/form/presentational/DateRangePicker';
-import FlexWrapper from '../../shared/generic/flexWrapper/FlexWrapper';
-import ActionButton from '../../shared/generic/button/presentational/ActionButton';
+import BlockContainer from '../../../shared/generic/block/containers/BlockContainer';
+import DateRangePicker from '../../../shared/generic/form/presentational/DateRangePicker';
+import FlexWrapper from '../../../shared/generic/flexWrapper/FlexWrapper';
+import ActionButton from '../../../shared/generic/button/presentational/ActionButton';
 import CostingGraphFilters from './CostingGraphFilters';
 
 const CostingAndEstimatingGraph = ({ graph, filterFormData, onChange }) => {
@@ -52,7 +52,9 @@ const CostingAndEstimatingGraph = ({ graph, filterFormData, onChange }) => {
                             onClick={() => setShowFilterOptions(!showFilterOptions)}
                         />
 
-                        {showFilterOptions && <CostingGraphFilters />}
+                        {showFilterOptions && (
+                            <CostingGraphFilters filterFormData={filterFormData} />
+                        )}
                     </FlexWrapper>
                 </FlexWrapper>
 
