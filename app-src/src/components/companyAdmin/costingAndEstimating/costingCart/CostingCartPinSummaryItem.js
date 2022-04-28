@@ -19,7 +19,7 @@ const CostingCartPinSummaryItem = ({ building }) => {
                 align="center"
                 extraClasses="summary-row sub-item"
             >
-                <h5>{specificBuilding.name}</h5>
+                <h5>{specificBuilding?.name}</h5>
                 <div>
                     <AccordionButton
                         active={isExpanded}
