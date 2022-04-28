@@ -2,11 +2,25 @@ import React, { useState } from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { hierarchyNames, hierarchyTypes } from '../_hooks/useCurrentHierarchyLevel';
 import * as contentTypes from './contentTypes';
+import Table from 'components/shared/generic/tables/presentational/Table';
 
-const FilterList = ({ data, hierarchyLevel }) => {
+const tableHeaders = {
+    buildings: ['Name', 'Cost'],
+    floors: ['Name', 'Cost'],
+    drawings: ['Name', 'Cost'],
+    pins: ['Pin ID', 'Date Created', 'Comment', 'Cost'],
+    installations: ['Installation Name', 'Installation Type', 'Comment', 'Cost'],
+};
+
+const FilterList = ({ data, hierarchyLevel, headers = [] }) => {
     // hierarchyLevel defines level of items in list
     return (
         <>
+            <div className="header-row">
+                {headers.map((header, i) => (
+                    <th key={i}>{header}</th>
+                ))}
+            </div>
             {data.map((item, i) => (
                 <ListItem key={i} item={item} hierarchyLevel={hierarchyLevel} />
             ))}
@@ -19,16 +33,21 @@ const ListItem = ({ item, hierarchyLevel }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const SpecificContent = getContentTypeFromItem(item);
     const dataKey = getDataKeyFromItem(item);
+    const headers = tableHeaders[dataKey];
+    console.log({ headers });
     return (
         <>
-            <div className="filter-list-item">
+            <div className="filter-list-row">
                 <SpecificContent item={item} />
             </div>
             {dataKey !== undefined && (
-                <FilterList
-                    data={item[getDataKeyFromItem(item)]}
-                    hierarchyLevel={hierarchyLevel + 1}
-                />
+                <div className="expandable">
+                    <FilterList
+                        data={item[getDataKeyFromItem(item)]}
+                        hierarchyLevel={hierarchyLevel + 1}
+                        headers={headers}
+                    />
+                </div>
             )}
         </>
     );
@@ -66,6 +85,7 @@ function getContentTypeFromItem(item) {
     return null;
 }
 function getDataKeyFromItem(item) {
+    if (Object.prototype.hasOwnProperty.call(item, 'buildings')) return 'buildings';
     if (Object.prototype.hasOwnProperty.call(item, 'floors')) return 'floors';
     if (Object.prototype.hasOwnProperty.call(item, 'drawings')) return 'drawings';
     if (Object.prototype.hasOwnProperty.call(item, 'pins')) return 'pins';
