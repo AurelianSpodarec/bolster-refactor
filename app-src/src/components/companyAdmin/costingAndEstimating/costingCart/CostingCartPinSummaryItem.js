@@ -4,6 +4,7 @@ import AccordionButton from 'components/shared/generic/button/presentational/Acc
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import { formatCurrency } from 'helpers/generic';
 import useCostingCart from '../_hooks/useCostingCart';
+import CostingCartDrawingItem from './CostingCartDrawingItem';
 
 const CostingCartPinSummaryItem = ({ building }) => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -29,16 +30,7 @@ const CostingCartPinSummaryItem = ({ building }) => {
             </FlexWrapper>
             <div className={`expandable ${isExpanded ? 'active' : ''}`}>
                 {drawings.map((drawing, i) => (
-                    <FlexWrapper
-                        key={i}
-                        direction="row"
-                        justify="between"
-                        align="center"
-                        extraClasses="sub-item"
-                    >
-                        <span>{`### Drawing ID ${drawing.drawingID} ###`}</span>
-                        <span>{`£${formatCurrency(drawing.cost)}`}</span>
-                    </FlexWrapper>
+                    <CostingCartDrawingItem key={i} drawing={drawing} />
                 ))}
             </div>
             <div className="divider" />
