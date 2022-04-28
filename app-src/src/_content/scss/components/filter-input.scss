@@ -1,0 +1,30 @@
+.filter-input {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: var(--background-container);
+  @include rounded-all(10px);
+  border: 2px solid var(--background-stroke);
+
+  input {
+    width: 100%;
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 130%;
+    color: var(--typography-search);
+
+    &::placeholder {
+      color: var(--typography-search);
+    }
+  }
+
+  .search-icon {
+    margin-left: 20px;
+    align-items: center;
+    justify-content: flex-end;
+    color: var(--fixed-input-button-light);
+    font-size: 150%;
+  }
+}
