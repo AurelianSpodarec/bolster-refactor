@@ -143,6 +143,7 @@ const useCostingAndEstimating = () => {
             fromDate: moment(formData.startDate).format('YYYY-MM-DD'),
             toDate: moment(formData.endDate).format('YYYY-MM-DD'),
         };
+        console.log(cAndEPostBody);
         batch(() => {
             dispatch(fetchAllBuildings());
             dispatch(fetchAllSites());
