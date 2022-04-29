@@ -12,7 +12,8 @@ import CostingAndEstimatingFilterList from './filterList/CostingAndEstimatingFil
 
 const CostingAndEstimating = () => {
     const { costingCart, graph, keyStatistics, allSites } = useCostingAndEstimating();
-    const { filterFormData, onChange, handleToggleItem } = useCostingAndEstimatingFilters();
+    const { filterFormData, onChange, handleToggleItem, onThisWeek, onPrevWeek, onNextWeek } =
+        useCostingAndEstimatingFilters();
     const currentHierarchyLevel = useCurrentHierarchyLevel();
 
     return (
@@ -25,6 +26,9 @@ const CostingAndEstimating = () => {
                 graph={graph}
                 filterFormData={filterFormData}
                 onChange={onChange}
+                onThisWeek={onThisWeek}
+                onPrevWeek={onPrevWeek}
+                onNextWeek={onNextWeek}
             />
 
             <CostingAndEstimatingFilterList
