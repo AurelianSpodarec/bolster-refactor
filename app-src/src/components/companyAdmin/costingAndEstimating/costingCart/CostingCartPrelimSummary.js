@@ -4,6 +4,8 @@ import { formatCurrency } from 'helpers/generic';
 import React, { useState } from 'react';
 import CostingCartPrelimSummaryItem from './CostingCartPrelimSummaryItem';
 import { dummyPrelims } from '../dummyData';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const CostingCartPrelimSummary = ({ title, total, prelimIDs, customPrelims }) => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -25,6 +27,16 @@ const CostingCartPrelimSummary = ({ title, total, prelimIDs, customPrelims }) =>
                 {dataToShow.map((prelim, i) => (
                     <CostingCartPrelimSummaryItem key={i} prelim={prelim} />
                 ))}
+                <ButtonWrapper alignment="right">
+                    <ActionButton
+                        extraClasses="margin-top"
+                        text="Add New"
+                        icon="plus"
+                        size="small"
+                        onClick={() => {}}
+                    />
+                </ButtonWrapper>
+
                 <div className="divider" />
             </div>
             <div className="total">
