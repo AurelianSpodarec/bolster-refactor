@@ -27,7 +27,7 @@ const RangeSlider = ({ min, max, value }) => {
                 className="slider"
                 onChange={handleSliderChange}
                 style={{
-                    background: `linear-gradient(to right, #3364DD 0%, #3364DD ${sliderProgress}%, white ${sliderProgress}%, white 100%)`,
+                    background: `linear-gradient(to right, #3364DD 0%, #3364DD ${sliderProgress}%, transparent ${sliderProgress}%, transparent 100%)`,
                 }}
             />
         </div>
