@@ -10,6 +10,7 @@ const Tickbox = ({ checked = true, handleChange, name, value, classes = '', labe
                 onClick={({ target: { name, checked, value } }) =>
                     handleChange(name, checked, value)
                 }
+                onChange={() => {}} // Stops error
                 value={value}
             />
             <span className="checkmark"></span>
