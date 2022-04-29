@@ -8,17 +8,31 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import Field from 'components/shared/generic/form/presentational/Field';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import useAddExistingPrelim from '../_hooks/useAddExistingPrelim';
+import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import { convertEnumToDropdownOptions } from 'helpers/generic';
+import { PRELIMS_ENUM } from 'constants/companyAdmin/enums';
 
 const AddCostingAndEstimatingPrelimModal = () => {
-    const { form, handleChange, handleSubmit, isPosting } = useAddExistingPrelim();
+    const { form, handleChange, handleSubmit, isPosting, prelimsOptions } = useAddExistingPrelim();
+
+    console.log(form);
 
     return (
         <ModalOuterContainer hideCloseButton>
             <ModalHeading title={'Add prelim'} />
 
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
+                <Field name="" required>
+                    <DropdownContainer
+                        name="prelim"
+                        options={Object.values(prelimsOptions)}
+                        value={prelimsOptions[form.prelim]}
+                        selectedOption={prelimsOptions[form.prelim]}
+                        handleChange={handleChange}
+                        required
+                    />
+                </Field>
                 <BlockButtonWrapper>
                     <ButtonWrapper alignment="right">
                         <ActionButton
