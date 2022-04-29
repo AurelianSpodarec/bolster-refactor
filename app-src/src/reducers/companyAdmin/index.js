@@ -12,6 +12,7 @@ import companyAddressesGeocodeReducer from './companyAddressesGeocode';
 import companiesPermissionsReducer from './companiesPermissions';
 import companySettingsReducer from './companySettings';
 import companyUsersReducer from '../companyAdmin/companyUsers';
+import costingAndEstimatingReducer from '../companyAdmin/costingAndEstimating';
 import creditsReducer from './credits';
 import creditLogsReducer from './creditLogs';
 import dashboardReducer from './dashboard';
@@ -92,6 +93,7 @@ export default combineReducers({
     companySelectionReducer,
     companySettingsReducer,
     companyUsersReducer,
+    costingAndEstimatingReducer,
     creditsReducer,
     creditLogsReducer,
     dashboardReducer,
