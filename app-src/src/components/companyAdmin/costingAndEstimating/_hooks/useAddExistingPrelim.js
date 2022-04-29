@@ -2,7 +2,7 @@ import { useForm } from 'helpers/hooks';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-const useCreatePreliminaryMeasures = () => {
+const useAddExistingPrelim = () => {
     const dispatch = useDispatch();
 
     const isPosting = false;
@@ -22,4 +22,4 @@ const useCreatePreliminaryMeasures = () => {
     return { form, handleChange, handleSubmit, isPosting };
 };
 
-export default useCreatePreliminaryMeasures;
+export default useAddExistingPrelim;
