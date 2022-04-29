@@ -13,7 +13,8 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import useCreateCostingAndEstimatingPrelim from '../_hooks/useCreateCostingAndEstimatingPrelim';
 
 const CreateCostingAndEstimatingPrelimModal = () => {
-    const { form, handleChange, handleSubmit, isPosting } = useCreateCostingAndEstimatingPrelim();
+    const { form, handleChange, handleSubmit, isPosting, prelimsOptions } =
+        useCreateCostingAndEstimatingPrelim();
     return (
         <ModalOuterContainer hideCloseButton>
             <ModalHeading title="Create prelim" />
@@ -29,7 +30,7 @@ const CreateCostingAndEstimatingPrelimModal = () => {
                     />
                 </Field>
 
-                {/* <Field name="Type" required>
+                <Field name="Type" required>
                     <DropdownContainer
                         name="type"
                         options={Object.values(prelimsOptions)}
@@ -38,7 +39,7 @@ const CreateCostingAndEstimatingPrelimModal = () => {
                         handleChange={handleChange}
                         required
                     />
-                </Field> */}
+                </Field>
 
                 <Field name="Amount" required>
                     <TextInputContainer
@@ -57,7 +58,6 @@ const CreateCostingAndEstimatingPrelimModal = () => {
                             text="Save"
                             icon={isPosting ? 'spinner' : 'save'}
                             iconSpin={isPosting}
-                            ambient="positive"
                             size="medium"
                             disabled={isPosting}
                             type="submit"
