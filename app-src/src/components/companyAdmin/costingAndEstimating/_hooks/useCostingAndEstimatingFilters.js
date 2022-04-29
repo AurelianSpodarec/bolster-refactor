@@ -28,8 +28,7 @@ const useCostingAndEstimatingFilters = () => {
 
     const handleToggleItem = item => {
         // toggle selection status of any item, regardless of type
-        // If some of item's children are selected, it will select all children - TODO
-        // If all item's children are unselected or deselected, it will make them match the parent - TODO
+        // Propagate the change deeply to all children, regardless of type
 
         const setOneItem = (item, value, selectedItems) => {
             const itemKey = getSelectionKeyForItem(item);
@@ -80,7 +79,6 @@ const useCostingAndEstimatingFilters = () => {
         };
 
         const propagateToChildren = (item, value, selectedItems) => {
-            const itemType = getItemType(item);
             const dataKey = getDataKeyFromItem(item);
             setOneItem(item, value, selectedItems);
             const children = item[dataKey] || [];
