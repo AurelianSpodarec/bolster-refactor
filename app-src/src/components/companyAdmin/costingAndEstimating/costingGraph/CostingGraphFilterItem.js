@@ -52,18 +52,17 @@ const CostingGraphFilterItem = ({
                 >
                     <p>{name}</p>
 
-                    <i className={`far fa-chevron-${isOptionExpanded ? 'up' : 'down'}`} />
+                    <i className={`far fa-chevron-down ${isOptionExpanded ? 'active' : ''}`} />
                 </button>
             </FlexWrapper>
 
-            {isOptionExpanded &&
-                (type !== 4 ? (
-                    <div className="graph-filter-options border">
+            <div className={`graph-filter-options border ${isOptionExpanded ? 'active' : ''}`}>
+                {type !== 4 ? (
+                    <>
                         <FilterInput
                             value={searchTerm}
                             handleChange={(_, value) => setSearchTerm(value)}
                         />
-
                         <FlexWrapper direction="column" extraClasses="options-wrapper">
                             {filteredOptions()?.map(option => {
                                 const isSelected = selectedOptions?.length
@@ -85,12 +84,17 @@ const CostingGraphFilterItem = ({
                                 );
                             })}
                         </FlexWrapper>
-                    </div>
+                    </>
                 ) : (
-                    <div className="slider-container">
-                        <RangeSlider min={0} max={1000} name="maxPrice" handleChange={onChange} />
-                    </div>
-                ))}
+                    <RangeSlider
+                        min={0}
+                        max={1000}
+                        name="maxPrice"
+                        handleChange={onChange}
+                        value={filterFormData.maxPrice}
+                    />
+                )}
+            </div>
         </>
     );
 };

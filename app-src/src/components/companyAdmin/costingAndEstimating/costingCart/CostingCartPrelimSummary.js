@@ -9,7 +9,10 @@ import { dummyPrelims } from '../dummyData';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-import { CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL } from 'constants/shared/modalTypes';
+import {
+    ADD_COSTING_AND_ESTIMATING_PRELIM_MODAL,
+    CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
+} from 'constants/shared/modalTypes';
 
 const CostingCartPrelimSummary = ({ title, total, prelimIDs, customPrelims }) => {
     const dispatch = useDispatch();
@@ -17,7 +20,11 @@ const CostingCartPrelimSummary = ({ title, total, prelimIDs, customPrelims }) =>
 
     const dataToShow = [...prelimIDs.map(id => dummyPrelims[id]), ...customPrelims];
 
-    const showAddModal = () => {
+    const showExistingPrelimModal = () => {
+        // dispatch(showModal(ADD_COSTING_AND_ESTIMATING_PRELIM_MODAL));
+    };
+
+    const showAddCustomPrelimModal = () => {
         dispatch(showModal(CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL));
     };
 
@@ -39,10 +46,16 @@ const CostingCartPrelimSummary = ({ title, total, prelimIDs, customPrelims }) =>
                 <ButtonWrapper alignment="right">
                     <ActionButton
                         extraClasses="margin-top"
-                        text="Add New"
+                        text="Add existing prelim"
+                        size="small"
+                        onClick={showExistingPrelimModal}
+                    />
+                    <ActionButton
+                        extraClasses="margin-top"
+                        text="Create prelim"
                         icon="plus"
                         size="small"
-                        onClick={showAddModal}
+                        onClick={showAddCustomPrelimModal}
                     />
                 </ButtonWrapper>
 
