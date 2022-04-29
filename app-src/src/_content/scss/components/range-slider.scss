@@ -12,7 +12,8 @@
   outline: none;
   opacity: 1;
   transition: opacity .2s;
-  border: 2px solid var(--background-container-switched)
+  border: 2px solid var(--background-container-switched);
+  border-radius: 10px;
 }
 
 .slider:hover {
