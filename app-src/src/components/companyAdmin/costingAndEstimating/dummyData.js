@@ -469,3 +469,47 @@ export const dummyOperatives = [
         name: 'Jenny Doe',
     },
 ];
+
+export const dummyServices = [
+    {
+        id: 1,
+        name: 'Fire Stopping',
+    },
+    {
+        id: 2,
+        name: 'Fire doors',
+    },
+    {
+        id: 3,
+        name: 'Water Management',
+    },
+    {
+        id: 4,
+
+        name: 'Electrical',
+    },
+];
+
+export const dummyInstallationTypes = [
+    {
+        id: 1,
+        name: 'Fire Batt',
+    },
+    {
+        id: 2,
+        name: '50mm Duct',
+    },
+    {
+        id: 3,
+        name: '100mmm Duct',
+    },
+    {
+        id: 4,
+
+        name: 'Pipes',
+    },
+    {
+        id: 5,
+        name: 'Fire Extinguisher',
+    },
+];
