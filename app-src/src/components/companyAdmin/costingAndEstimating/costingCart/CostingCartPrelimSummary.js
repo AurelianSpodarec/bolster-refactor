@@ -21,7 +21,7 @@ const CostingCartPrelimSummary = ({ title, total, prelimIDs, customPrelims }) =>
     const dataToShow = [...prelimIDs.map(id => dummyPrelims[id]), ...customPrelims];
 
     const showExistingPrelimModal = () => {
-        // dispatch(showModal(ADD_COSTING_AND_ESTIMATING_PRELIM_MODAL));
+        dispatch(showModal(ADD_COSTING_AND_ESTIMATING_PRELIM_MODAL));
     };
 
     const showAddCustomPrelimModal = () => {
