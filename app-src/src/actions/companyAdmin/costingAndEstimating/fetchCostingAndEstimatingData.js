@@ -26,7 +26,7 @@ export default postBody => dispatch => {
     dispatch(fetchCostingAndEstimatingDataRequest());
 
     return axios
-        .get(`${API_URL}/costingandestimating/costingandestimating`, postBody, getHeaders())
+        .post(`${API_URL}/costingandestimating/costingandestimating`, postBody, getHeaders())
         .then(res => dispatch(fetchCostingAndEstimatingDataSuccess(res.data)))
         .catch(err => dispatch(fetchCostingAndEstimatingDataFailure(err.message)));
 };
