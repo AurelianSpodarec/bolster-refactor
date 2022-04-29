@@ -4,13 +4,13 @@ import useCostingGraphFilters from '../_hooks/useCostingGraphFilters';
 
 import CostingGraphFilterItem from './CostingGraphFilterItem';
 
-import { dummyOperatives } from '../dummyData';
+import { dummyInstallationTypes, dummyOperatives, dummyServices } from '../dummyData';
 
 const filterOptions = [
     { id: 1, name: 'Operatives', options: dummyOperatives },
-    { id: 2, name: 'Services' },
-    { id: 3, name: 'Installation Types' },
-    { id: 4, name: 'Price Range' },
+    { id: 2, name: 'Services', options: dummyServices },
+    { id: 3, name: 'Installation Types', options: dummyInstallationTypes },
+    { id: 4, name: 'Price Range', options: 'slider' },
 ];
 
 const CostingGraphFilters = ({ filterFormData }) => {
