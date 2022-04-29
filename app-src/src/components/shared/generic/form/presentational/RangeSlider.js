@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FlexWrapper from '../../flexWrapper/FlexWrapper';
 
 const RangeSlider = ({ min, max, value, name, handleChange }) => {
-    const [sliderProgress, setSliderProgress] = useState(50);
+    const calculateProgress = value => {
+        return Math.round(((value - min) / (max - min)) * 100);
+    };
+
+    const [sliderProgress, setSliderProgress] = useState(calculateProgress(value));
+
+    useEffect(() => {
+        setSliderProgress(calculateProgress(value));
+    }, []);
 
     const handleSliderChange = ({ target: { value: targetValue } }) => {
         setSliderProgress(calculateProgress(targetValue));
         handleChange(name, targetValue);
-    };
-
-    const calculateProgress = value => {
-        return Math.round(((value - min) / (max - min)) * 100);
     };
 
     return (
