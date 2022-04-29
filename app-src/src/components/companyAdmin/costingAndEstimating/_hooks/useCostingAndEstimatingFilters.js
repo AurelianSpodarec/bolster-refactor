@@ -74,7 +74,35 @@ const useCostingAndEstimatingFilters = () => {
         onChange('selectedItems', selectedItems);
     };
 
-    return { filterFormData: formData, onChange, handleToggleItem };
+    const onThisWeek = () => {
+        onChange('dateRange', {
+            startDate: moment().subtract(7, 'days').toDate(),
+            endDate: moment().toDate(),
+        });
+    };
+
+    const onPrevWeek = () => {
+        onChange('dateRange', {
+            startDate: moment(formData.dateRange.startDate).subtract(7, 'days').toDate(),
+            endDate: moment(formData.dateRange.endDate).subtract(7, 'days').toDate(),
+        });
+    };
+
+    const onNextWeek = () => {
+        onChange('dateRange', {
+            startDate: moment(formData.dateRange.startDate).add(7, 'days').toDate(),
+            endDate: moment(formData.dateRange.endDate).add(7, 'days').toDate(),
+        });
+    };
+
+    return {
+        filterFormData: formData,
+        onChange,
+        handleToggleItem,
+        onThisWeek,
+        onPrevWeek,
+        onNextWeek,
+    };
 };
 
 export default useCostingAndEstimatingFilters;

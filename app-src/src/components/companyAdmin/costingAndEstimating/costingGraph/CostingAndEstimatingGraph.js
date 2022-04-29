@@ -9,28 +9,38 @@ import DateRangePicker from '../../../shared/generic/form/presentational/DateRan
 import FlexWrapper from '../../../shared/generic/flexWrapper/FlexWrapper';
 import ActionButton from '../../../shared/generic/button/presentational/ActionButton';
 import CostingGraphFilters from './CostingGraphFilters';
+import ButtonContainer from '../../../shared/generic/button/containers/ButtonContainer';
 
-const CostingAndEstimatingGraph = ({ graph, filterFormData, onChange }) => {
+const CostingAndEstimatingGraph = ({
+    graph,
+    filterFormData,
+    onChange,
+    onThisWeek,
+    onPrevWeek,
+    onNextWeek,
+}) => {
     const [showFilterOptions, setShowFilterOptions] = useState(false);
 
     const { data, options, graphRef } = useCostingAndEstimatingGraph(graph);
     const { dateRange } = filterFormData;
-
+    console.log(dateRange);
     return (
         <div className="graph-wrapper" ref={graphRef}>
             <BlockContainer contentClass="border">
                 <FlexWrapper extraClasses="graph-filters">
                     <FlexWrapper align="center" justify="between" width={4}>
                         <div className="date-period-buttons">
-                            <button>
+                            <button onClick={onPrevWeek}>
                                 <i className="far fa-chevron-left" />
                             </button>
-                            <button>
+                            <button onClick={onNextWeek}>
                                 <i className="far fa-chevron-right" />
                             </button>
                         </div>
 
-                        <p>last 7 days</p>
+                        <ButtonContainer setColour="transparent" handleClick={onThisWeek}>
+                            Last 7 Days
+                        </ButtonContainer>
 
                         <div className="calendar-select border">
                             <DateRangePicker
