@@ -4,5 +4,5 @@ export default (id, value) => dispatch =>
     dispatch({
         type: RESET_PIN_ANSWER,
         id,
-        value
+        value,
     });
