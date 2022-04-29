@@ -52,6 +52,7 @@ export const deepGetAllChildren = (data = [], result) => {
 };
 export const isItemSelected = (item, selectedItems) => {
     const itemType = getItemType(item);
+
     if (itemType === 'buildings') return selectedItems.buildings.includes(item.id);
     if (itemType === 'floors') return selectedItems.floors.includes(item.id);
     if (itemType === 'drawings') return selectedItems.drawings.includes(item.id);

@@ -806,3 +806,17 @@ export const CURRENCY_NAMES = {
     3: 'USD',
     4: 'AUD',
 };
+
+export const COSTING_GRAPH_FILTER_TYPES = {
+    OPERATIVES: 0,
+    SERVICES: 1,
+    INSTALLATION_TYPES: 2,
+    PRICE_RANGE: 4,
+};
+
+export const COSTING_GRAPH_FILTER_VALUES = {
+    0: 'operatives',
+    1: 'services',
+    2: 'installations',
+    4: 'price',
+};
