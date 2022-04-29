@@ -13,7 +13,7 @@ import {
     getSelectionKeyForItem,
     isItemSelected,
     getDataKeyFromItem,
-} from '../filterList/CostingAndEstimatingFiltersList';
+} from '../_helpers/helpers';
 import useCurrentHierarchyID from './useCurrentHierarchyID';
 import useCurrentHierarchyType from './useCurrentHierarchyType';
 import usePrevious from 'hooks/usePrevious';
@@ -25,12 +25,8 @@ const useCostingAndEstimating = () => {
     const hierarchyID = useCurrentHierarchyID();
     const hierarchyType = useCurrentHierarchyType();
 
-    const initialFormData = {
-        dateRange: {
-            startDate: moment().subtract(7, 'days').toDate(),
-            endDate: moment().toDate(),
-        },
-        selectedItems: {
+    const buildInitialSelectedItems = (data = []) => {
+        const selectedItems = {
             buildings: [],
             floors: [],
             drawings: [],
@@ -38,11 +34,51 @@ const useCostingAndEstimating = () => {
             installations: [],
             operatives: [],
             services: [],
+        };
+        const addAllChildren = (item, selectedItems) => {
+            const itemType = getItemType(item);
+            const dataKey = getDataKeyFromItem(item);
+            if (itemType !== 'sites') selectedItems[itemType].push(getSelectionKeyForItem(item));
+            const children = item[dataKey] || [];
+            if (children.length)
+                children.forEach(child => {
+                    addAllChildren(child, selectedItems);
+                });
+            return;
+        };
+        data.forEach(datum => addAllChildren(datum, selectedItems));
+        return selectedItems;
+    };
+
+    const handleToggleAllItems = () => {
+        if (isAnythingSelected) {
+            onChange('selectedItems', {
+                buildings: [],
+                floors: [],
+                drawings: [],
+                pins: [],
+                installations: [],
+                operatives: [],
+                services: [],
+            });
+        } else onChange('selectedItems', buildInitialSelectedItems(allSites));
+    };
+
+    const initialFormData = {
+        dateRange: {
+            startDate: moment().subtract(7, 'days').toDate(),
+            endDate: moment().toDate(),
         },
+        selectedItems: buildInitialSelectedItems(allSites), // TODO - makes the first fetch happen twice
         maxPrice: 0,
     };
     const [formData, onChange] = useForm(initialFormData);
     const prevProps = usePrevious({ formData });
+
+    const isAnythingSelected = Object.keys(formData.selectedItems).reduce((acc, curr) => {
+        if (formData.selectedItems[curr].length) acc = true;
+        return acc;
+    }, false);
 
     const handleToggleItem = item => {
         // toggle selection status of any item, regardless of type
@@ -143,7 +179,6 @@ const useCostingAndEstimating = () => {
             fromDate: moment(formData.startDate).format('YYYY-MM-DD'),
             toDate: moment(formData.endDate).format('YYYY-MM-DD'),
         };
-        console.log(cAndEPostBody);
         batch(() => {
             dispatch(fetchAllBuildings());
             dispatch(fetchAllSites());
@@ -169,6 +204,8 @@ const useCostingAndEstimating = () => {
         filterFormData: formData,
         onChange,
         handleToggleItem,
+        handleToggleAllItems,
+        isAnythingSelected,
         onThisWeek,
         onPrevWeek,
         onNextWeek,
