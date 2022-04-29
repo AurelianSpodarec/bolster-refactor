@@ -16,7 +16,7 @@ const CreateCostingAndEstimatingPrelimModal = () => {
     const { form, handleChange, handleSubmit, isPosting } = useCreateCostingAndEstimatingPrelim();
     return (
         <ModalOuterContainer hideCloseButton>
-            <ModalHeading title="Add prelim" />
+            <ModalHeading title="Create prelim" />
 
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
                 <Field name="Name" required>
