@@ -6,15 +6,17 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
-import useCreatePreliminaryMeasures from '../_hooks/useCreatePreliminaryMeasures';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import Field from 'components/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import useAddExistingPrelim from '../_hooks/useAddExistingPrelim';
 
-const CreatePreliminaryMeasuresModal = () => {
-    const { form, handleChange, handleSubmit, isPosting } = useCreatePreliminaryMeasures();
+const AddCostingAndEstimatingPrelimModal = () => {
+    const { form, handleChange, handleSubmit, isPosting } = useAddExistingPrelim();
 
     return (
         <ModalOuterContainer hideCloseButton>
-            <ModalHeading title={'Preliminary measures'} />
+            <ModalHeading title={'Add prelim'} />
 
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
                 <BlockButtonWrapper>
@@ -40,4 +42,4 @@ const CreatePreliminaryMeasuresModal = () => {
     );
 };
 
-export default CreatePreliminaryMeasuresModal;
+export default AddCostingAndEstimatingPrelimModal;

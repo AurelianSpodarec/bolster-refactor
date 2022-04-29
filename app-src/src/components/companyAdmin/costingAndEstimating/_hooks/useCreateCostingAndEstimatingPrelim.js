@@ -1,25 +1,33 @@
 import { useForm } from 'helpers/hooks';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
+import { convertEnumToDropdownOptions } from '../../../../helpers/generic';
+import { PRELIMS_ENUM } from '../../../../constants/companyAdmin/enums';
+import createPrelim from '../../../../actions/companyAdmin/prelims/async/createPrelim';
 
 const useCreateCostingAndEstimatingPrelim = () => {
     const dispatch = useDispatch();
+    const prelimsOptions = convertEnumToDropdownOptions(PRELIMS_ENUM);
 
     const isPosting = false;
     const [form, handleChange] = useForm({
         description: '',
         amount: null,
+        type: null,
     });
 
     const handleSubmit = () => {
+        const hierarchyID = null;
+
         const postBody = {
             ...form,
+            hierarchyID,
         };
+
+        dispatch(createPrelim(postBody));
     };
 
-    useEffect(() => {}, []);
-
-    return { form, handleChange, handleSubmit, isPosting };
+    return { form, handleChange, handleSubmit, isPosting, prelimsOptions };
 };
 
 export default useCreateCostingAndEstimatingPrelim;

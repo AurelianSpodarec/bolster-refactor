@@ -47,14 +47,12 @@ const CostingCartPrelimSummary = ({ title, total, prelimIDs, customPrelims }) =>
                     <ActionButton
                         extraClasses="margin-top"
                         text="Add existing prelim"
-                        size="small"
                         onClick={showExistingPrelimModal}
                     />
                     <ActionButton
                         extraClasses="margin-top"
                         text="Create prelim"
                         icon="plus"
-                        size="small"
                         onClick={showAddCustomPrelimModal}
                     />
                 </ButtonWrapper>
