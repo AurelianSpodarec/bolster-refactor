@@ -11,10 +11,19 @@ import useCurrentHierarchyLevel from './_hooks/useCurrentHierarchyLevel';
 import CostingAndEstimatingFilterList from './filterList/CostingAndEstimatingFiltersList';
 
 const CostingAndEstimating = () => {
-    const { costingCart, graph, keyStatistics, allSites } = useCostingAndEstimating();
-    const { filterFormData, onChange, handleToggleItem, onThisWeek, onPrevWeek, onNextWeek } =
-        useCostingAndEstimatingFilters();
     const currentHierarchyLevel = useCurrentHierarchyLevel();
+    const {
+        costingCart,
+        graph,
+        keyStatistics,
+        allSites,
+        filterFormData,
+        onChange,
+        handleToggleItem,
+        onThisWeek,
+        onPrevWeek,
+        onNextWeek,
+    } = useCostingAndEstimating();
 
     return (
         <GridWrapper gap={30} containerClass="costing-wrapper">
