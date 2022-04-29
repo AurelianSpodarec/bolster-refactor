@@ -4,8 +4,15 @@ import FlexWrapper from '../../../shared/generic/flexWrapper/FlexWrapper';
 import FilterInput from '../../../shared/filters/FilterInput';
 import Tickbox from '../../../shared/generic/form/presentational/Tickbox';
 import RangeSlider from '../../../shared/generic/form/presentational/RangeSlider';
+import { COSTING_GRAPH_FILTER_VALUES } from '../../../../constants/companyAdmin/enums';
 
-const CostingGraphFilterItem = ({ option: { id, name, options }, expandedId, setExpandedId }) => {
+const CostingGraphFilterItem = ({
+    option: { id, name, options, type },
+    expandedId,
+    setExpandedId,
+    filterFormData,
+    onChange,
+}) => {
     const [searchTerm, setSearchTerm] = useState('');
 
     const isOptionExpanded = id === expandedId;
@@ -17,6 +24,22 @@ const CostingGraphFilterItem = ({ option: { id, name, options }, expandedId, set
             );
         } else {
             return options;
+        }
+    };
+    const selectedOptions = filterFormData.selectedItems[COSTING_GRAPH_FILTER_VALUES[type]];
+
+    const handleChange = value => {
+        if (selectedOptions.includes(value)) {
+            const newSelectedOptions = selectedOptions.filter(option => option !== value);
+            onChange('selectedItems', {
+                ...filterFormData.selectedItems,
+                [COSTING_GRAPH_FILTER_VALUES[type]]: [...newSelectedOptions],
+            });
+        } else {
+            onChange('selectedItems', {
+                ...filterFormData.selectedItems,
+                [COSTING_GRAPH_FILTER_VALUES[type]]: [...selectedOptions, value],
+            });
         }
     };
 
@@ -34,7 +57,7 @@ const CostingGraphFilterItem = ({ option: { id, name, options }, expandedId, set
             </FlexWrapper>
 
             {isOptionExpanded &&
-                (Array.isArray(options) ? (
+                (type !== 4 ? (
                     <div className="graph-filter-options border">
                         <FilterInput
                             value={searchTerm}
@@ -42,11 +65,25 @@ const CostingGraphFilterItem = ({ option: { id, name, options }, expandedId, set
                         />
 
                         <FlexWrapper direction="column" extraClasses="options-wrapper">
-                            {filteredOptions()?.map(option => (
-                                <FlexWrapper key={option.id} align="center" extraClasses="option">
-                                    <Tickbox label={option.name} name="tickbox" />
-                                </FlexWrapper>
-                            ))}
+                            {filteredOptions()?.map(option => {
+                                const isSelected = selectedOptions?.length
+                                    ? selectedOptions?.includes(option.id)
+                                    : true;
+                                return (
+                                    <FlexWrapper
+                                        key={option.id}
+                                        align="center"
+                                        extraClasses="option"
+                                    >
+                                        <Tickbox
+                                            label={option.name}
+                                            name="tickbox"
+                                            checked={isSelected}
+                                            handleChange={() => handleChange(option.id)}
+                                        />
+                                    </FlexWrapper>
+                                );
+                            })}
                         </FlexWrapper>
                     </div>
                 ) : (

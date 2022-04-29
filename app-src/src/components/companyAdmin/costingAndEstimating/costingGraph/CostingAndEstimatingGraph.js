@@ -23,7 +23,7 @@ const CostingAndEstimatingGraph = ({
 
     const { data, options, graphRef } = useCostingAndEstimatingGraph(graph);
     const { dateRange } = filterFormData;
-    console.log(dateRange);
+
     return (
         <div className="graph-wrapper" ref={graphRef}>
             <BlockContainer contentClass="border">
@@ -63,7 +63,10 @@ const CostingAndEstimatingGraph = ({
                         />
 
                         {showFilterOptions && (
-                            <CostingGraphFilters filterFormData={filterFormData} />
+                            <CostingGraphFilters
+                                filterFormData={filterFormData}
+                                onChange={onChange}
+                            />
                         )}
                     </FlexWrapper>
                 </FlexWrapper>
