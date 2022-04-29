@@ -137,6 +137,7 @@ import {
     CREATE_ADMIN_PIN_OPTIONS_SET_MODAL,
     EDIT_ADMIN_PIN_OPTIONS_SET_MODAL,
     EDIT_SITE_PIN_OPTION_SETS,
+    CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -273,6 +274,7 @@ import EditPinOptionDocumentsModal from 'components/companyAdmin/pinOptions/opti
 import AdminCreateOptionSetModal from 'components/superAdmin/pinOptions/optionSets/modals/CreateOptionSetModal';
 import AdminEditOptionSetModal from 'components/superAdmin/pinOptions/optionSets/modals/EditOptionSetModal';
 import EditSitePinOptionSetsModal from '../../../../companyAdmin/sites/editSitePinOptionSets/presentational/EditSitePinOptionSetsModal';
+import CreateCostingAndEstimatingPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/CreatePreliminaryMeasuresModal ';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -410,6 +412,7 @@ const MODAL_COMPONENTS = {
     [CREATE_ADMIN_PIN_OPTIONS_SET_MODAL]: AdminCreateOptionSetModal,
     [EDIT_ADMIN_PIN_OPTIONS_SET_MODAL]: AdminEditOptionSetModal,
     [EDIT_SITE_PIN_OPTION_SETS]: EditSitePinOptionSetsModal,
+    [CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL]: CreateCostingAndEstimatingPrelimModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
