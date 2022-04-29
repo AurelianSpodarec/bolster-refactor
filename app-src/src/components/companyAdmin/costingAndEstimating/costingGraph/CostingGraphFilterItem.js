@@ -88,7 +88,7 @@ const CostingGraphFilterItem = ({
                     </div>
                 ) : (
                     <div className="slider-container">
-                        <RangeSlider min={0} max={1000} />
+                        <RangeSlider min={0} max={1000} name="maxPrice" handleChange={onChange} />
                     </div>
                 ))}
         </>

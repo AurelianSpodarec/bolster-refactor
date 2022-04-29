@@ -21,9 +21,10 @@ const useCostingAndEstimatingFilters = () => {
             operatives: [],
             services: [],
         },
+        maxPrice: 0,
     };
     const [formData, onChange] = useForm(initialFormData);
-    console.log(formData);
+
     const handleToggleItem = item => {
         // toggle selection status of any item, regardless of type
         // If some of item's children are selected, it will select all children - TODO

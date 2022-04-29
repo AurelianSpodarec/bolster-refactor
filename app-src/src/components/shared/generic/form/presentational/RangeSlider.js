@@ -6,7 +6,7 @@ const RangeSlider = ({ min, max, value, name, handleChange }) => {
 
     const handleSliderChange = ({ target: { value: targetValue } }) => {
         setSliderProgress(calculateProgress(targetValue));
-        // handleChange(name, targetValue);
+        handleChange(name, targetValue);
     };
 
     const calculateProgress = value => {
