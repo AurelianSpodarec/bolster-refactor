@@ -8,6 +8,7 @@ import {
     FETCH_COSTING_AND_ESTIMATING_CART_REQUEST,
     FETCH_COSTING_AND_ESTIMATING_CART_SUCCESS,
 } from 'constants/actionTypes/costingAndEstimating';
+import { CREATE_PRELIM_SUCCESS } from '../../constants/actionTypes/prelims';
 
 export default combineReducers({
     costingAndEstimatingData: costingAndEstimatingDataReducer,
@@ -68,6 +69,11 @@ function costingAndEstimatingCartReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_COSTING_AND_ESTIMATING_CART_SUCCESS:
             return action.payload;
+        case CREATE_PRELIM_SUCCESS:
+            return {
+                ...state.costingAndEstimatingCart,
+                prelims: [...state.prelims.costingAndEstimatingCart, ...action.payload],
+            };
         default:
             return state;
     }
