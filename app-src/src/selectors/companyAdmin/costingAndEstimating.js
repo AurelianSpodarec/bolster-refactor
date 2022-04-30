@@ -8,3 +8,12 @@ export const selectCostingAndEstimatingData = state =>
     state.companyAdmin.costingAndEstimatingReducer.costingAndEstimatingData;
 export const selectCostingAndEstimatingCart = state =>
     state.companyAdmin.costingAndEstimatingReducer.costingAndEstimatingCart;
+
+// prelims
+
+export const selectCostingAndEstimatingPrelimIsPosting = state =>
+    state.companyAdmin.costingAndEstimatingReducer.isPosting;
+export const selectCostingAndEstimatingPrelimPostError = state =>
+    state.companyAdmin.costingAndEstimatingReducer.postError;
+export const selectCostingAndEstimatingPrelimPostSuccess = state =>
+    state.companyAdmin.costingAndEstimatingReducer.postSuccess;

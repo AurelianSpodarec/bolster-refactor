@@ -172,6 +172,8 @@ const useCostingAndEstimating = () => {
         onThisWeek,
         onPrevWeek,
         onNextWeek,
+        hierarchyID,
+        hierarchyType,
     };
 };
 

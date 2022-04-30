@@ -20,7 +20,6 @@ const useAddExistingPrelim = () => {
         return convertArrToObj(options, 'value');
     };
 
-    const prelimsTypeOptions = convertEnumToDropdownOptions(PRELIMS_ENUM);
     const allPrelims = useSelector(selectPrelimsArr);
     const prelimsOptions = formatArrForDropdown(allPrelims);
     const isPosting = false;
