@@ -40,7 +40,6 @@ const useCreateCostingAndEstimatingPrelim = () => {
             hierarchyID,
             hierarchyType,
         };
-        console.log(postBody);
 
         dispatch(createCostingAndEstimatingPrelim(postBody));
     };

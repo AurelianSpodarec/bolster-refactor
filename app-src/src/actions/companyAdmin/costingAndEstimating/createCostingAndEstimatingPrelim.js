@@ -28,11 +28,9 @@ export default postBody => dispatch => {
     return axios
         .post(`${API_URL}/costingandestimating/createprelim`, postBody, getHeaders())
         .then(res => {
-            console.log(res);
             dispatch(createCostingAndEstimatingPrelimSuccess(res.data));
         })
         .catch(err => {
-            console.log({ err });
             dispatch(createCostingAndEstimatingPrelimFailure(err.message));
         });
 };
