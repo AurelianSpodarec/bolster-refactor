@@ -4,7 +4,7 @@ import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawin
 import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
 import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
 import { useEffect } from 'react';
-import { batch, useDispatch } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import * as dummyData from '../dummyData';
 import { useForm } from 'helpers/hooks';
 import moment from 'moment';
@@ -17,13 +17,18 @@ import {
 import useCurrentHierarchyID from './useCurrentHierarchyID';
 import useCurrentHierarchyType from './useCurrentHierarchyType';
 import usePrevious from 'hooks/usePrevious';
+import { selectCostingAndEstimatingCart } from 'selectors/companyAdmin/costingAndEstimating';
+import fetchCostingAndEstimatingCart from 'actions/companyAdmin/costingAndEstimating/fetchCostingAndEstimatingCart';
 
 const useCostingAndEstimating = () => {
+    const costingCart = useSelector(selectCostingAndEstimatingCart);
     const { dummyMain, dummyCart } = dummyData;
     const { keyStatistics, graph, allSites } = dummyMain;
     const dispatch = useDispatch();
     const hierarchyID = useCurrentHierarchyID();
     const hierarchyType = useCurrentHierarchyType();
+
+    console.log(costingCart);
 
     const buildInitialSelectedItems = (data = []) => {
         const selectedItems = {
@@ -171,6 +176,9 @@ const useCostingAndEstimating = () => {
         });
     };
 
+    console.log(hierarchyID);
+    console.log(hierarchyType);
+
     const fetchAllData = () => {
         // Fetch all data necessary - costing & estimating, sites, buildings, drawings, prelims, pins
         const cAndEPostBody = {
@@ -185,6 +193,7 @@ const useCostingAndEstimating = () => {
             dispatch(fetchAllFloors());
             dispatch(fetchAllDrawings());
             dispatch(fetchCostingAndEstimatingData(cAndEPostBody));
+            dispatch(fetchCostingAndEstimatingCart(cAndEPostBody));
         });
     };
 

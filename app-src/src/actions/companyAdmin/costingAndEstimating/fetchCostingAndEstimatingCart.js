@@ -22,11 +22,15 @@ export const fetchCostingAndEstimatingCartFailure = error => ({
     error,
 });
 
-export default () => dispatch => {
+export default postBody => dispatch => {
     dispatch(fetchCostingAndEstimatingCartRequest());
+    console.log(postBody);
 
     return axios
-        .get(`${API_URL}/costingandestimating/costingcart`, getHeaders()) // TODO - change me
-        .then(res => dispatch(fetchCostingAndEstimatingCartSuccess(res.data)))
+        .post(`${API_URL}/costingandestimating/costingcart`, postBody, getHeaders())
+        .then(res => {
+            console.log(res);
+            dispatch(fetchCostingAndEstimatingCartSuccess(res.data));
+        })
         .catch(err => dispatch(fetchCostingAndEstimatingCartFailure(err.message)));
 };
