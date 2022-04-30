@@ -1,4 +1,5 @@
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import Tickbox from 'components/shared/generic/form/presentational/Tickbox';
 import { formatCurrency } from 'helpers/generic';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -6,6 +7,23 @@ import { selectBuilding } from 'selectors/companyAdmin/buildings';
 import { selectDrawing } from 'selectors/companyAdmin/drawings';
 import { selectFloor } from 'selectors/companyAdmin/floors';
 import ListItemControls from './ListItemControls';
+
+export const TopLevel = ({ item, isSelected, handleToggleAllItems }) => {
+    return (
+        <>
+            <div className="table-cell-controls">
+                <div>
+                    <Tickbox name="" checked={isSelected} handleChange={handleToggleAllItems} />
+                </div>
+                <div>
+                    <p>Unselect all</p>
+                </div>
+            </div>
+            <div />
+            <div className="table-cell">{`£${formatCurrency(item.total)}`}</div>
+        </>
+    );
+};
 
 export const Building = ({ item, isSelected, handleToggleItem, isExpanded, setIsExpanded }) => {
     const building = useSelector(state => selectBuilding(state, item.id));
@@ -95,6 +113,7 @@ export const Installation = ({ item, isSelected, handleToggleItem, isExpanded, s
 };
 
 export default {
+    TopLevel,
     Building,
     Floor,
     Drawing,

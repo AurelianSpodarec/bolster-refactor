@@ -44,6 +44,10 @@
   display: grid;
   grid-template-columns: 6em 1fr 10em;
 
+  &.toplevel {
+    grid-template-columns: 10em 1fr 10em;
+  }
+
   &.buildings {
     grid-template-columns: 6em 1fr 10em;
   }
@@ -435,7 +439,11 @@
   }
   .table-cell-controls {
     display: grid;
-    grid-template-columns: repeat(2, 1fr)
+    grid-template-columns: repeat(2, 1fr);
+    
+    p {
+      font-size: 14px;
+    }
   }
 }
 
