@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Field from '../../../generic/form/presentational/Field';
-import { MEASUREMENT_TYPES } from '../../../../../constants/companyAdmin/enums';
+import { MEASUREMENT_TYPES, MEASUREMENT_UNITS } from '../../../../../constants/companyAdmin/enums';
 import CostingMeasurementInput from './CostingMeasurementInput';
 const { LINEAR, CUBIC, RADIUS, FIXED, NUMBER, SQUARE, VOLUME } = MEASUREMENT_TYPES;
+const { MILLIMETRE, MILLILITRE } = MEASUREMENT_UNITS;
 
 const CostingMeasurement = ({
     measurement = {},
@@ -14,10 +15,9 @@ const CostingMeasurement = ({
 }) => {
     // if (!option || !option.costMeasurementType) return null;
     // todo  default unit type for measurement
-    const defaultUnit = 'mm'; // should be enum
+    const { fieldNames, defaultUnit, unitType } = measurementInfo[option.costMeasurementType] ?? {};
     const [unit, setUnit] = useState(defaultUnit);
     const name = `${option.latestVersion.name} ${showCount ? `(${count})` : ''}`;
-    const { fieldNames } = measurementInfo[option.costMeasurementType] ?? {};
     if (!fieldNames || !fieldNames.length) return null;
     return (
         // todo styling
@@ -30,6 +30,8 @@ const CostingMeasurement = ({
                         handleChange={(name, value) => handleChange(uid, name, value)}
                         uid={uid}
                         unit={unit}
+                        unitType={unitType}
+                        setUnit={setUnit}
                         value={measurement[fieldName]}
                     />
                 );
@@ -39,11 +41,15 @@ const CostingMeasurement = ({
 };
 
 const measurementInfo = {
-    [LINEAR]: { fieldNames: ['length'] },
-    [RADIUS]: { fieldNames: ['radius'] },
-    [SQUARE]: { fieldNames: ['length', 'width'] },
-    [CUBIC]: { fieldNames: ['length', 'width', 'height'] },
-    [VOLUME]: { fieldNames: ['volume'] },
+    [LINEAR]: { fieldNames: ['length'], defaultUnit: MILLIMETRE, unitType: 'DISTANCE' },
+    [RADIUS]: { fieldNames: ['radius'], defaultUnit: MILLIMETRE, unitType: 'DISTANCE' },
+    [SQUARE]: { fieldNames: ['length', 'width'], defaultUnit: MILLIMETRE, unitType: 'DISTANCE' },
+    [CUBIC]: {
+        fieldNames: ['length', 'width', 'height'],
+        defaultUnit: MILLIMETRE,
+        unitType: 'DISTANCE',
+    },
+    [VOLUME]: { fieldNames: ['volume'], defaultUnit: MILLILITRE, unitType: 'VOLUME' },
     [NUMBER]: { fieldNames: [] },
     [FIXED]: { fieldNames: [] },
 };
