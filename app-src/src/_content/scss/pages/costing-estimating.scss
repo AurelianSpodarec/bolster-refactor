@@ -57,7 +57,7 @@
   &.drawings {
     grid-template-columns: 6em 1fr 10em;
   }
-  &.pins {
+  &.histories {
     grid-template-columns: 6em 1fr 1fr 2fr 10em;
   }
   &.installations {
@@ -112,6 +112,20 @@
 
   p, span {
     @include bodyText;
+  }
+
+  .loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .divider {

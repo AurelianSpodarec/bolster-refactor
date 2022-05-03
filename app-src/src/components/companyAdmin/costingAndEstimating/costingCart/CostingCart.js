@@ -1,8 +1,8 @@
 import Error from 'components/shared/generic/misc/presentational/Error';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
 import { formatCurrency } from 'helpers/generic';
 import React from 'react';
 import BlockContainer from '../../../shared/generic/block/containers/BlockContainer';
+import LoadingOverlay from '../LoadingOverlay';
 import CartReportButton from './CartReportButton';
 import CostingCartPinSummary from './CostingCartPinSummary';
 import CostingCartPrelimSummary from './CostingCartPrelimSummary';
@@ -14,8 +14,7 @@ const CostingCart = ({ data, isFetching, fetchError }) => {
             <BlockContainer contentClass="border" containerClass="fullheight">
                 <h2>Costing cart</h2>
 
-                {isFetching && !fetchError && <Loading />}
-                {!isFetching && !fetchError && data && (
+                {!fetchError && data && (
                     <>
                         <CostingCartPinSummary
                             title="Pin Summary"
@@ -38,6 +37,7 @@ const CostingCart = ({ data, isFetching, fetchError }) => {
                     </>
                 )}
                 {!isFetching && fetchError && <Error>{fetchError}</Error>}
+                {isFetching && !fetchError && <LoadingOverlay />}
             </BlockContainer>
         </div>
     );

@@ -31,7 +31,7 @@ export const isItemSelected = (item, selectedItems) => {
     if (itemType === 'buildings') return selectedItems.buildings.includes(item.id);
     if (itemType === 'floors') return selectedItems.floors.includes(item.id);
     if (itemType === 'drawings') return selectedItems.drawings.includes(item.id);
-    if (itemType === 'histories') return selectedItems.histories.includes(item.pinID);
+    if (itemType === 'histories') return selectedItems.histories.includes(item.pinCode);
     if (itemType === 'installations') return selectedItems.installations.includes(item.name);
     return false;
 };
