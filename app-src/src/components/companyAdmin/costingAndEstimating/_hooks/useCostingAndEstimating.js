@@ -58,12 +58,9 @@ const useCostingAndEstimating = () => {
         else return prevData._costingCart;
     }, [isFetchingCart, prevData]);
 
-    console.log({ mainData, _costingCart });
-
     const dispatch = useDispatch();
     const hierarchyID = useCurrentHierarchyID();
     const hierarchyType = useCurrentHierarchyType();
-
     const selectedTab = useSelector(selectHierarchySelectedTab);
     const selectedTabType = costingAndEstimatingType[selectedTab.toUpperCase()];
 
@@ -241,10 +238,8 @@ const useCostingAndEstimating = () => {
     useEffect(() => {
         if (formData !== prevProps.formData || selectedTabType !== prevProps.selectedTabType) {
             batch(() => {
-                batch(() => {
-                    dispatch(fetchCostingAndEstimatingData(cAndEPostBody));
-                    dispatch(fetchCostingAndEstimatingCart(cAndEPostBody));
-                });
+                dispatch(fetchCostingAndEstimatingData(cAndEPostBody));
+                dispatch(fetchCostingAndEstimatingCart(cAndEPostBody));
             });
         }
     }, [formData, prevProps.formData, prevProps.selectedTabType, selectedTabType]); // Fetch all data on filter change

@@ -4,17 +4,14 @@ import AccordionButton from 'components/shared/generic/button/presentational/Acc
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import { formatCurrency } from 'helpers/generic';
 import CostingCartPrelimSummaryItem from './CostingCartPrelimSummaryItem';
-import { dummyPrelims } from '../dummyData';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import useCostingAndEstimatingPrelimsSetActions from '../_hooks/useCostingAndEstimatingPrelimsSetActions';
 
-const CostingCartPrelimSummary = ({ title, total, prelims = [], customPrelims = [] }) => {
+const CostingCartPrelimSummary = ({ title, total, prelims = [] }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
-    const dataToShow = [...prelims.map(id => dummyPrelims[id]), ...customPrelims];
-
-    const { showExistingPrelimModal, showAddCustomPrelimModal, showEditCustomPrelimModal } =
+    const { showExistingPrelimModal, showAddCustomPrelimModal } =
         useCostingAndEstimatingPrelimsSetActions();
 
     return (
@@ -29,12 +26,8 @@ const CostingCartPrelimSummary = ({ title, total, prelims = [], customPrelims = 
                 </div>
             </FlexWrapper>
             <div className={`expandable ${isExpanded ? 'active' : ''}`}>
-                {dataToShow.map((prelim, i) => (
-                    <CostingCartPrelimSummaryItem
-                        showEditCustomPrelimModal={showEditCustomPrelimModal}
-                        key={i}
-                        prelim={prelim}
-                    />
+                {prelims.map((prelim, i) => (
+                    <CostingCartPrelimSummaryItem key={i} prelim={prelim} />
                 ))}
                 <ButtonWrapper alignment="right">
                     <ActionButton
