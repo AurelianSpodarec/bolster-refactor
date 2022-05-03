@@ -28,8 +28,6 @@ const useCostingAndEstimating = () => {
     const hierarchyID = useCurrentHierarchyID();
     const hierarchyType = useCurrentHierarchyType();
 
-    console.log(costingCart);
-
     const buildInitialSelectedItems = (data = []) => {
         const selectedItems = {
             buildings: [],
@@ -175,9 +173,6 @@ const useCostingAndEstimating = () => {
             endDate: moment(formData.dateRange.endDate).add(7, 'days').toDate(),
         });
     };
-
-    console.log(hierarchyID);
-    console.log(hierarchyType);
 
     const fetchAllData = () => {
         // Fetch all data necessary - costing & estimating, sites, buildings, drawings, prelims, pins
