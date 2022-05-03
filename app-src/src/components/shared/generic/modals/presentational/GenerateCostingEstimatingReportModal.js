@@ -9,29 +9,37 @@ import Loading from '../../misc/presentational/Loading';
 
 const GenerateCostingEstimatingReportModal = ({
     hideModal,
-    title = 'Generate Report',
-    submitButtonText = 'OK',
+    submitButtonText = 'Close',
+    submitIcon = 'times',
     error = null,
     isPosting = false,
     postSuccess = false,
 }) => (
     <ModalOuterContainer>
-        <BlockHeading title={title} />
-        {isPosting && (
+        <BlockHeading title={postSuccess ? 'Success' : 'Generating Report'} />
+        {!isPosting && (
             <>
-                <p className="generic-text intro-text size-lg-12">
-                    Your report is now being generated
-                </p>
+                <p className="generic-text intro-text size-lg-12">Please wait...</p>
                 <Loading />
             </>
         )}
         {error && <Error>{error}</Error>}
         {postSuccess && (
-            <BlockButtonWrapper>
-                <ButtonWrapper alignment="right">
-                    <ActionButton text={submitButtonText} onClick={hideModal} size="small" />
-                </ButtonWrapper>
-            </BlockButtonWrapper>
+            <>
+                <p className="generic-text intro-text size-lg-12">
+                    Your report is now being generated.
+                </p>
+                <BlockButtonWrapper>
+                    <ButtonWrapper alignment="right">
+                        <ActionButton
+                            text={submitButtonText}
+                            icon={submitIcon}
+                            onClick={hideModal}
+                            size="small"
+                        />
+                    </ButtonWrapper>
+                </BlockButtonWrapper>
+            </>
         )}
     </ModalOuterContainer>
 );
