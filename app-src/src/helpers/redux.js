@@ -1,8 +1,3 @@
-import {
-    PIN_OPTION_TYPES,
-    DROPDOWN_OPTION_MANUFACTURER_ENABLED,
-} from 'constants/companyAdmin/enums';
-
 export const removeDeletedDocumentVersion = (documentsObj, documentID, versionID) => {
     const updatedVersionsArr = documentsObj[documentID].versions.filter(
         version => version.id !== versionID,
@@ -27,32 +22,3 @@ export const formatAllOptionValuesByManufacturer = optionValues => {
         return acc;
     }, {});
 };
-
-export function fetchManufacturerPinOptions(
-    fetchManufacturersByPinOptionType,
-    fetchAllOptionValues,
-) {
-    const pinOptionTypes = Object.keys(PIN_OPTION_TYPES).filter(option => {
-        return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option];
-    });
-
-    const fn = function fetchManufacturers(pinOptionType) {
-        return fetchManufacturersByPinOptionType(pinOptionType);
-    };
-
-    const actions = pinOptionTypes.map(fn);
-
-    return new Promise((resolve, reject) => {
-        try {
-            Promise.all(actions)
-                .then(() => {
-                    return fetchAllOptionValues();
-                })
-                .then(() => {
-                    resolve();
-                });
-        } catch {
-            reject();
-        }
-    });
-}

@@ -61,7 +61,6 @@ import deletedDataReducer from './deletedData';
 import qrCodesReducer from './qrCodes';
 import manufacturersReducer from './manufacturers';
 import manufacturersOptionValuesReducer from './manufacturersOptionValues';
-import optionValueDocumentsReducer from './optionValueDocuments';
 import userGuideReducer from './userGuide';
 import userDocumentsReducer from './userDocuments';
 import zonesReducer from './zones';
@@ -118,7 +117,6 @@ export default combineReducers({
     manufacturersOptionValuesReducer,
     operativeAlertsReducer,
     operativesReducer,
-    optionValueDocumentsReducer,
     pendingInvitesReducer,
     pinAnswersReducer,
     pinHistoriesReducer,
