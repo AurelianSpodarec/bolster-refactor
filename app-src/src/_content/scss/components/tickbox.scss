@@ -9,6 +9,10 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
+  &.large-text {
+    font-size: 150%;
+  }
 }
 
 
@@ -26,13 +30,14 @@
   top: 0;
   height: 20px;
   width: 20px;
-  background-color: #eee;
-  border-radius: 5px
+  background-color: var(--background-stroke);
+  border-radius: 5px;
+  border: 1px solid var(--navigation-secondary);
 }
 
 
 .tickbox:hover input ~ .checkmark {
-  background-color: #ccc;
+  background-color: var(--background-button-hover);
 }
 
 .tickbox input:checked ~ .checkmark {
