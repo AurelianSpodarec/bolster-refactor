@@ -7,6 +7,8 @@ import {
 } from '../_hooks/useCurrentHierarchyLevel';
 import { getContentTypeFromItem, getDataKeyFromItem, isItemSelected } from '../_helpers/helpers';
 import { TopLevel } from './contentTypes';
+import Loading from 'components/shared/generic/misc/presentational/Loading';
+import Error from 'components/shared/generic/misc/presentational/Error';
 
 const tableHeaders = {
     buildings: ['', 'Name', 'Cost'],
@@ -82,17 +84,19 @@ const ListItem = ({ item, hierarchyLevel, selectedItems, handleToggleItem }) => 
 };
 
 const CostingAndEstimatingFilterList = ({
-    sites,
+    sites = [],
     currentHierarchyLevel,
     selectedItems,
     handleToggleItem,
     handleToggleAllItems,
     isAnythingSelected,
+    isFetching,
+    fetchError,
 }) => {
     const title = hierarchyNames[currentHierarchyLevel + 1] || 'Pins';
 
     const getListData = () => {
-        if (!sites.length) return [];
+        if (!sites || !sites.length) return [];
         if (currentHierarchyLevel === hierarchyTypes.sites) return sites[0].buildings;
         if (currentHierarchyLevel === hierarchyTypes.buildings) return sites[0].buildings[0].floors;
         if (currentHierarchyLevel === hierarchyTypes.floors)
@@ -104,20 +108,26 @@ const CostingAndEstimatingFilterList = ({
     return (
         <div className="filters-list-wrapper">
             <BlockContainer contentClass="border">
-                <h3>{title}</h3>
-                <div className="filter-list-row toplevel">
-                    <TopLevel
-                        item={{ total: 0 }}
-                        isSelected={isAnythingSelected}
-                        handleToggleAllItems={handleToggleAllItems}
-                    />
-                </div>
-                <FilterList
-                    data={getListData()}
-                    hierarchyLevel={currentHierarchyLevel + 1}
-                    selectedItems={selectedItems}
-                    handleToggleItem={handleToggleItem}
-                />
+                {isFetching && !fetchError && <Loading />}
+                {!isFetching && !fetchError && (
+                    <>
+                        <h3>{title}</h3>
+                        <div className="filter-list-row toplevel">
+                            <TopLevel
+                                item={{ total: 0 }}
+                                isSelected={isAnythingSelected}
+                                handleToggleAllItems={handleToggleAllItems}
+                            />
+                        </div>
+                        <FilterList
+                            data={getListData()}
+                            hierarchyLevel={currentHierarchyLevel + 1}
+                            selectedItems={selectedItems}
+                            handleToggleItem={handleToggleItem}
+                        />
+                    </>
+                )}
+                {!isFetching && fetchError && <Error>{fetchError}</Error>}
             </BlockContainer>
         </div>
     );

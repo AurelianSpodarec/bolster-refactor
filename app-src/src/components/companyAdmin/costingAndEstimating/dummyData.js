@@ -293,28 +293,40 @@ export const dummyCart = {
         {
             buildingID: 14,
             cost: 9308.39,
-            drawings: [
+            floors: [
                 {
-                    drawingID: 3226,
-                    cost: 5000.27,
-                },
-                {
-                    drawingID: 13734,
-                    cost: 4308.12,
+                    floorID: 0,
+                    cost: 0,
+                    drawings: [
+                        {
+                            drawingID: 3226,
+                            cost: 5000.27,
+                        },
+                        {
+                            drawingID: 13734,
+                            cost: 4308.12,
+                        },
+                    ],
                 },
             ],
         },
         {
             buildingID: 1288,
             cost: 9308.39,
-            drawings: [
+            floors: [
                 {
-                    drawingID: 14825,
-                    cost: 5000.27,
-                },
-                {
-                    drawingID: 15121,
-                    cost: 4308.12,
+                    floorID: 0,
+                    cost: 0,
+                    drawings: [
+                        {
+                            drawingID: 3226,
+                            cost: 5000.27,
+                        },
+                        {
+                            drawingID: 13734,
+                            cost: 4308.12,
+                        },
+                    ],
                 },
             ],
         },

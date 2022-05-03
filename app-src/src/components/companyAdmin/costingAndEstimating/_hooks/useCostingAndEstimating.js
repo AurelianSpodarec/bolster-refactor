@@ -15,7 +15,13 @@ import fetchCostingAndEstimatingData from 'actions/companyAdmin/costingAndEstima
 import fetchCostingAndEstimatingCart from 'actions/companyAdmin/costingAndEstimating/fetchCostingAndEstimatingCart';
 
 import { selectHierarchySelectedTab } from '../../../../selectors/shared/tabs';
-import { selectCostingAndEstimatingCart } from 'selectors/companyAdmin/costingAndEstimating';
+import {
+    selectCostingAndEstimatingCart,
+    selectCostingAndEstimatingData,
+    selectCostingAndEstimatingDataIsFetching,
+    selectCostingAndEstimatingCartIsFetching,
+    selectCostingAndEstimatingFetchError,
+} from 'selectors/companyAdmin/costingAndEstimating';
 
 import {
     getItemType,
@@ -28,8 +34,17 @@ import { costingAndEstimatingType } from '../../../../constants/companyAdmin/enu
 
 const useCostingAndEstimating = () => {
     const costingCart = useSelector(selectCostingAndEstimatingCart);
-    const { dummyMain, dummyCart } = dummyData;
-    const { keyStatistics, graph, allSites } = dummyMain;
+    const mainData = useSelector(selectCostingAndEstimatingData);
+    // const mainData = dummyData.dummyMain;
+    // const costingCart = dummyData.dummyCart;
+    const isFetchingMainData = useSelector(selectCostingAndEstimatingDataIsFetching);
+    const isFetchingCart = useSelector(selectCostingAndEstimatingCartIsFetching);
+    const fetchError = useSelector(selectCostingAndEstimatingFetchError);
+
+    const { keyStatistics, graph, allSites } = mainData;
+
+    console.log({ mainData, costingCart });
+
     const dispatch = useDispatch();
     const hierarchyID = useCurrentHierarchyID();
     const hierarchyType = useCurrentHierarchyType();
@@ -211,7 +226,7 @@ const useCostingAndEstimating = () => {
     }, [formData, prevProps.formData]); // Fetch all data on filter change
 
     return {
-        costingCart: dummyCart,
+        costingCart,
         graph,
         keyStatistics,
         allSites,
@@ -225,6 +240,9 @@ const useCostingAndEstimating = () => {
         onNextWeek,
         hierarchyID,
         hierarchyType,
+        isFetchingCart,
+        isFetchingMainData,
+        fetchError,
     };
 };
 

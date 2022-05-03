@@ -14,7 +14,7 @@ import {
     CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
 } from 'constants/shared/modalTypes';
 
-const CostingCartPrelimSummary = ({ title, total, prelimIDs, customPrelims }) => {
+const CostingCartPrelimSummary = ({ title, total, prelimIDs = [], customPrelims = [] }) => {
     const dispatch = useDispatch();
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -60,7 +60,7 @@ const CostingCartPrelimSummary = ({ title, total, prelimIDs, customPrelims }) =>
                 <div className="divider" />
             </div>
             <div className="total">
-                <h3>{`£${formatCurrency(total)}`}</h3>
+                <h3>{`£${total ? formatCurrency(total) : '-'}`}</h3>
             </div>
             <div className="divider" />
         </div>
