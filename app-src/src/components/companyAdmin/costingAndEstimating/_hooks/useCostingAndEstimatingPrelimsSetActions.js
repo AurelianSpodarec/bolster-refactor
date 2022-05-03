@@ -15,6 +15,8 @@ import {
     CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
     ERROR_MODAL,
     EDIT_LINK_PRELIM_MODAL,
+    DELETE_LINK_PRELIM_MODAL,
+    DELETE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
 } from 'constants/shared/modalTypes';
 
 const useCostingAndEstimatingPrelimsSetActions = () => {
@@ -35,6 +37,14 @@ const useCostingAndEstimatingPrelimsSetActions = () => {
         dispatch(showModal(EDIT_LINK_PRELIM_MODAL));
     };
 
+    const showDeleteCustomPrelimModal = () => {
+        dispatch(showModal(DELETE_LINK_PRELIM_MODAL));
+    };
+
+    const showDeleteExistingPrelimModal = () => {
+        dispatch(showModal(DELETE_COSTING_AND_ESTIMATING_PRELIM_MODAL));
+    };
+
     useEffect(() => {
         if (postError && !prevProps.postError) dispatch(showModal(ERROR_MODAL));
     }, [postError, prevProps.postError]);
@@ -43,7 +53,13 @@ const useCostingAndEstimatingPrelimsSetActions = () => {
         if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
     }, [postSuccess, prevProps.postSuccess]);
 
-    return { showExistingPrelimModal, showAddCustomPrelimModal, showEditCustomPrelimModal };
+    return {
+        showExistingPrelimModal,
+        showAddCustomPrelimModal,
+        showEditCustomPrelimModal,
+        showDeleteCustomPrelimModal,
+        showDeleteExistingPrelimModal,
+    };
 };
 
 export default useCostingAndEstimatingPrelimsSetActions;
