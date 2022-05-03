@@ -139,6 +139,10 @@ import {
     EDIT_SITE_PIN_OPTION_SETS,
     CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
     ADD_EXISTING_COSTING_AND_ESTIMATING_PRELIM_MODAL,
+    EDIT_COSTING_AND_ESTIMATING_PRELIM_MODAL,
+    EDIT_EXISTING_COSTING_AND_ESTIMATING_PRELIM_MODAL,
+    DELETE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
+    DELETE_EXISTING_COSTING_AND_ESTIMATING_PRELIM_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -416,6 +420,10 @@ const MODAL_COMPONENTS = {
     [EDIT_SITE_PIN_OPTION_SETS]: EditSitePinOptionSetsModal,
     [CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL]: CreateCostingAndEstimatingPrelimModal,
     [ADD_EXISTING_COSTING_AND_ESTIMATING_PRELIM_MODAL]: AddCostingAndEstimatingPrelimModal,
+    // [EDIT_COSTING_AND_ESTIMATING_PRELIM_MODAL]: EditCostingAndEstimatingPrelimModal,
+    // [EDIT_EXISTING_COSTING_AND_ESTIMATING_PRELIM_MODAL]: EditCostingAndEstimatingPrelimModal,
+    // [DELETE_COSTING_AND_ESTIMATING_PRELIM_MODAL]: DeleteCostingAndEstimatingPrelimModal,
+    // [DELETE_EXISTING_COSTING_AND_ESTIMATING_PRELIM_MODAL]: DeleteCostingAndEstimatingPrelimModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
