@@ -203,20 +203,28 @@
       width: 30px;
       border-radius: 11px;
       background-color: var(--background-stroke);
+      transform-style: preserve-3d;
+      transition: all 0.4s ease;
+
+      &.asc {
+        transform: rotateX(0deg);
+
+        i{
+          color: var(--positive-default);
+        }
+      }
+
+      &.desc {
+        transform: rotateX(180deg);
+
+        i{
+          color: var(--negative-default);
+        }
+      }
 
       i {
         font-size: 16px;
-        transition: all 0.4s ease;
 
-        &.asc {
-          transform: rotate(0deg);
-          color: var(--positive-default);
-        }
-
-        &.desc {
-          transform: rotate(180deg);
-          color: var(--negative-default);
-        }
       }
     }
   }

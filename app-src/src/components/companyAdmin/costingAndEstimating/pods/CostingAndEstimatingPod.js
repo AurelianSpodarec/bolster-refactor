@@ -40,8 +40,8 @@ const CostingAndEstimatingPod = ({ pod }) => {
                     <img src={icons[icon] || plusIcon} alt={icon} />
                 </div>
                 {!solo && (
-                    <div className="arrow-container">
-                        <i className={`fas fa-arrow-up ${isFlipped ? 'desc' : 'asc'}`} />
+                    <div className={`arrow-container ${isFlipped ? 'desc' : 'asc'}`}>
+                        <i className={`fas fa-arrow-up`} />
                     </div>
                 )}
             </FlexWrapper>

@@ -58,8 +58,6 @@ const useCostingAndEstimating = () => {
         else return prevData._costingCart;
     }, [isFetchingCart, prevData]);
 
-    console.log({ mainData, _costingCart });
-
     const dispatch = useDispatch();
     const hierarchyID = useCurrentHierarchyID();
     const hierarchyType = useCurrentHierarchyType();
@@ -202,10 +200,6 @@ const useCostingAndEstimating = () => {
     };
 
     const onPrevWeek = () => {
-        console.log(formData.dateRange, {
-            startDate: moment(formData.dateRange.startDate).subtract(7, 'days').toDate(),
-            endDate: moment(formData.dateRange.endDate).subtract(7, 'days').toDate(),
-        });
         onChange('dateRange', {
             startDate: moment(formData.dateRange.startDate).subtract(7, 'days').toDate(),
             endDate: moment(formData.dateRange.endDate).subtract(7, 'days').toDate(),

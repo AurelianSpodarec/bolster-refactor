@@ -59,6 +59,7 @@ const useEditOptionValue = option => {
         serviceIDs: option.serviceIDs || [],
         measurementPriceBreaks: initialPriceBreaks,
         quickPriceEdit: '',
+        costMeasurementType: option.costMeasurementType,
     });
 
     const { handlePriceBreakChange, handleAddPriceBreak, handleRemovePriceBreak } =
@@ -105,12 +106,13 @@ const useEditOptionValue = option => {
     };
 
     const handleSubmit = () => {
-        const { name, shortName, serviceIDs, measurementPriceBreaks } = form;
+        const { name, shortName, serviceIDs, measurementPriceBreaks, costMeasurementType } = form;
 
         const postBody = {
             name,
             shortName,
             serviceIDs,
+            costMeasurementType,
         };
 
         if (pinOptionType.hasCosting) {
