@@ -821,12 +821,12 @@ export const COSTING_GRAPH_FILTER_VALUES = {
     4: 'price',
 };
 
-export const CostingAndEstimatingType = {
+export const costingAndEstimatingType = {
     COSTING: 0,
     ESTIMATING: 1,
 };
 
-export const CostingAndEstimatingNames = {
+export const costingAndEstimatingNames = {
     0: 'Costing',
     1: 'Estimating',
 };

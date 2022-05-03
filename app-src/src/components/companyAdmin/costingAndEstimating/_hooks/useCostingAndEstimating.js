@@ -24,6 +24,7 @@ import {
     getDataKeyFromItem,
 } from '../_helpers/helpers';
 import * as dummyData from '../dummyData';
+import { costingAndEstimatingType } from '../../../../constants/companyAdmin/enums';
 
 const useCostingAndEstimating = () => {
     const costingCart = useSelector(selectCostingAndEstimatingCart);
@@ -33,7 +34,8 @@ const useCostingAndEstimating = () => {
     const hierarchyID = useCurrentHierarchyID();
     const hierarchyType = useCurrentHierarchyType();
 
-    const selectedTab = useSelector(selectHierarchySelectedTab).toUpperCase();
+    const selectedTab = useSelector(selectHierarchySelectedTab);
+    const selectedTabType = costingAndEstimatingType[selectedTab.toUpperCase()];
 
     const buildInitialSelectedItems = (data = []) => {
         const selectedItems = {
@@ -188,7 +190,7 @@ const useCostingAndEstimating = () => {
             hierarchyType,
             fromDate: moment(formData.startDate).format('YYYY-MM-DD'),
             toDate: moment(formData.endDate).format('YYYY-MM-DD'),
-            costEstType: selectedTab,
+            costEstType: selectedTabType,
         };
         batch(() => {
             dispatch(fetchAllBuildings());
