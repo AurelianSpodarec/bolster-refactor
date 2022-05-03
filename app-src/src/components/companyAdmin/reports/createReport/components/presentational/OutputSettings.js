@@ -5,7 +5,6 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Field from 'components/shared/generic/form/presentational/Field';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import ImageVisualContainer from '../containers/ImageVisualContainer';
-import useColourTheme from 'hooks/useColourTheme';
 import OptionPod from '../../../../../shared/generic/form/presentational/OptionPod';
 
 import { ReactComponent as PdfIcon } from '_content/images/icons/PDF-Outline.svg';
@@ -33,7 +32,6 @@ const OutputSettings = ({
     hasZones = false,
     includeCostingData,
 }) => {
-    const colourTheme = useColourTheme();
     return (
         <div className="size-lg-12">
             <BlockContainer>
@@ -153,7 +151,6 @@ const OutputSettings = ({
                                         </div>
                                     </>
                                 )}
-
                             <Field name="Sort">
                                 <DropdownContainer
                                     name="sortBy"

@@ -14,6 +14,7 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
     const dispatch = useDispatch();
     const curAnswer = { ...answers.find(item => +item.id === +trimmedAnswer.id) };
     const versions = useSelector(selectPinOptionVersions);
+
     const notFoundResponse = null;
     let inner;
 
@@ -50,7 +51,9 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
         }
         case TYPES.MULTI_MULTI_DROPDOWN:
         case TYPES.MULTI_MULTI_PIN_OPTION_TYPES: {
-            const answerText = formatMultiMulti(curAnswerValues.map(value => value.textValue));
+            const answerText = formatMultiMulti(
+                curAnswerValues.map(value => value.textValue).filter(Boolean),
+            );
             inner = <p>{answerText}</p>;
             break;
         }
@@ -125,6 +128,26 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
             return notFoundResponse;
     }
 
+    let measurementOutputs = [];
+    // todo
+    // curAnswer.measurements?.forEach(measurement => {
+    //     const answerValue = curAnswerValues.find(
+    //         ({ id }) => id === measurement.pinHistoryAnswerValueID,
+    //     );
+    //     const measurementOutput = (
+    //         <div key={measurement.id} className="pin-answer-measurements">
+    //             <p className="pin-answer-measurements-heading">
+    //                 {answerValue.textValue} measurements:
+    //             </p>
+    //             {measurement.length && <p>Length: {measurement.length}</p>}
+    //             {measurement.width && <p>Width: {measurement.width}</p>}
+    //             {measurement.height && <p>Height: {measurement.height}</p>}
+    //             {measurement.radius && <p>Radius: {measurement.radius}</p>}
+    //             {measurement.volume && <p>Volume: {measurement.volume}</p>}
+    //         </div>
+    //     );
+    //     measurementOutputs.push(measurementOutput);
+    // });
     return (
         <FieldOutput
             title={question.name}
@@ -132,6 +155,7 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
             sizeClass="size-lg-4 size-md-12 flex-row-item"
         >
             {inner}
+            {measurementOutputs}
         </FieldOutput>
     );
 };
