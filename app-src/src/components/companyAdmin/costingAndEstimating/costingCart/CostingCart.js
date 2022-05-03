@@ -28,7 +28,6 @@ const CostingCart = ({ data }) => {
                     <h3>Total exc VAT:</h3>
                     <h1>{`£${formatCurrency(cartTotal)}`}</h1>
                 </div>
-
                 <CartReportButton />
             </BlockContainer>
         </div>
