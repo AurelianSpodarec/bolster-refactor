@@ -9,10 +9,10 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import useCostingAndEstimatingPrelimsSetActions from '../_hooks/useCostingAndEstimatingPrelimsSetActions';
 
-const CostingCartPrelimSummary = ({ title, total, prelimIDs = [], customPrelims = [] }) => {
+const CostingCartPrelimSummary = ({ title, total, prelims = [], customPrelims = [] }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
-    const dataToShow = [...prelimIDs.map(id => dummyPrelims[id]), ...customPrelims];
+    const dataToShow = [...prelims.map(id => dummyPrelims[id]), ...customPrelims];
 
     const { showExistingPrelimModal, showAddCustomPrelimModal, showEditCustomPrelimModal } =
         useCostingAndEstimatingPrelimsSetActions();

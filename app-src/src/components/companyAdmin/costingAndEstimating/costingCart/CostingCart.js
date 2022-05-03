@@ -30,7 +30,7 @@ const CostingCart = ({ data, isFetching, fetchError, selectedTab }) => {
                         <CostingCartPrelimSummary
                             title="Prelims"
                             total={data.prelimTotal}
-                            prelimIDs={data.prelimIDs}
+                            prelims={data.prelims}
                             customPrelims={data.customPrelims}
                         />
 
