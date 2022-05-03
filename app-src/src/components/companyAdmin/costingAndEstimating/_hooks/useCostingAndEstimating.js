@@ -41,7 +41,7 @@ const useCostingAndEstimating = () => {
     const isFetchingCart = useSelector(selectCostingAndEstimatingCartIsFetching);
     const fetchError = useSelector(selectCostingAndEstimatingFetchError);
     const prevData = usePrevious({
-        costingCart,
+        _costingCart,
         mainData,
         isFetchingMainData,
         isFetchingCart,
@@ -54,8 +54,8 @@ const useCostingAndEstimating = () => {
     }, [isFetchingMainData, prevData]);
 
     const costingCart = useMemo(() => {
-        if (!isFetchingCart && prevData.isFetchingCart) return costingCart;
-        else return prevData.costingCart;
+        if (!isFetchingCart && prevData.isFetchingCart) return _costingCart;
+        else return prevData._costingCart;
     }, [isFetchingCart, prevData]);
 
     const dispatch = useDispatch();
