@@ -263,6 +263,7 @@ const useCostingAndEstimating = () => {
         isFetchingCart,
         isFetchingMainData,
         fetchError,
+        selectedTab,
     };
 };
 

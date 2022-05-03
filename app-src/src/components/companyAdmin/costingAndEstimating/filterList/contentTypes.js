@@ -15,11 +15,10 @@ export const TopLevel = ({ item, isSelected, handleToggleAllItems }) => {
                 <div>
                     <Tickbox name="" checked={isSelected} handleChange={handleToggleAllItems} />
                 </div>
-                <div>
-                    <p>Unselect all</p>
-                </div>
             </div>
-            <div />
+            <div className="table-cell">
+                <p>{isSelected ? 'Unselect all' : 'Select all'}</p>
+            </div>
             <div className="table-cell">
                 {!Number.isNaN(item.total) ? `£${formatCurrency(item.total)}` : ''}
             </div>
