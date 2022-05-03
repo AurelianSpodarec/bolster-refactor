@@ -122,6 +122,7 @@ function postSuccessReducer(state = false, action) {
         case EDIT_LINK_PRELIM_REQUEST:
         case DELETE_LINK_PRELIM_REQUEST:
         case DELETE_COSTING_AND_ESTIMATING_PRELIM_REQUEST:
+        case CREATE_COSTING_AND_ESTIMATING_REPORT_REQUEST:
             return false;
         default:
             return state;
