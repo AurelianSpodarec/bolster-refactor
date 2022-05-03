@@ -15,7 +15,13 @@ import fetchCostingAndEstimatingData from 'actions/companyAdmin/costingAndEstima
 import fetchCostingAndEstimatingCart from 'actions/companyAdmin/costingAndEstimating/fetchCostingAndEstimatingCart';
 
 import { selectHierarchySelectedTab } from '../../../../selectors/shared/tabs';
-import { selectCostingAndEstimatingCart } from 'selectors/companyAdmin/costingAndEstimating';
+import {
+    selectCostingAndEstimatingCart,
+    selectCostingAndEstimatingData,
+    selectCostingAndEstimatingDataIsFetching,
+    selectCostingAndEstimatingCartIsFetching,
+    selectCostingAndEstimatingFetchError,
+} from 'selectors/companyAdmin/costingAndEstimating';
 
 import {
     getItemType,
@@ -28,8 +34,17 @@ import { costingAndEstimatingType } from '../../../../constants/companyAdmin/enu
 
 const useCostingAndEstimating = () => {
     const costingCart = useSelector(selectCostingAndEstimatingCart);
-    const { dummyMain, dummyCart } = dummyData;
-    const { keyStatistics, graph, allSites } = dummyMain;
+    const mainData = useSelector(selectCostingAndEstimatingData);
+    // const mainData = dummyData.dummyMain;
+    // const costingCart = dummyData.dummyCart;
+    const isFetchingMainData = useSelector(selectCostingAndEstimatingDataIsFetching);
+    const isFetchingCart = useSelector(selectCostingAndEstimatingCartIsFetching);
+    const fetchError = useSelector(selectCostingAndEstimatingFetchError);
+
+    const { keyStatistics, graph, allSites } = mainData;
+
+    console.log({ mainData, costingCart });
+
     const dispatch = useDispatch();
     const hierarchyID = useCurrentHierarchyID();
     const hierarchyType = useCurrentHierarchyType();
@@ -42,7 +57,7 @@ const useCostingAndEstimating = () => {
             buildings: [],
             floors: [],
             drawings: [],
-            pins: [],
+            histories: [],
             installations: [],
             operatives: [],
             services: [],
@@ -50,6 +65,7 @@ const useCostingAndEstimating = () => {
         const addAllChildren = (item, selectedItems) => {
             const itemType = getItemType(item);
             const dataKey = getDataKeyFromItem(item);
+            console.log({ item, itemType, selectedItems });
             if (itemType !== 'sites') selectedItems[itemType].push(getSelectionKeyForItem(item));
             const children = item[dataKey] || [];
             if (children.length)
@@ -68,7 +84,7 @@ const useCostingAndEstimating = () => {
                 buildings: [],
                 floors: [],
                 drawings: [],
-                pins: [],
+                histories: [],
                 installations: [],
                 operatives: [],
                 services: [],
@@ -110,8 +126,8 @@ const useCostingAndEstimating = () => {
                     case 'drawings':
                         selectedItems.drawings.push(itemKey);
                         break;
-                    case 'pins':
-                        selectedItems.pins.push(itemKey);
+                    case 'histories':
+                        selectedItems.histories.push(itemKey);
                         break;
                     case 'installations':
                         selectedItems.installations.push(itemKey);
@@ -132,8 +148,10 @@ const useCostingAndEstimating = () => {
                             id => id !== itemKey,
                         );
                         break;
-                    case 'pins':
-                        selectedItems.pins = selectedItems.pins.filter(pinID => pinID !== itemKey);
+                    case 'histories':
+                        selectedItems.histories = selectedItems.histories.filter(
+                            pinCode => pinCode !== itemKey,
+                        );
                         break;
                     case 'installations':
                         selectedItems.installations = selectedItems.installations.filter(
@@ -211,7 +229,7 @@ const useCostingAndEstimating = () => {
     }, [formData, prevProps.formData]); // Fetch all data on filter change
 
     return {
-        costingCart: dummyCart,
+        costingCart,
         graph,
         keyStatistics,
         allSites,
@@ -225,6 +243,9 @@ const useCostingAndEstimating = () => {
         onNextWeek,
         hierarchyID,
         hierarchyType,
+        isFetchingCart,
+        isFetchingMainData,
+        fetchError,
     };
 };
 

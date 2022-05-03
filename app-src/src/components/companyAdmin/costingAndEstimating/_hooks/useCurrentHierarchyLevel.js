@@ -5,11 +5,18 @@ export const hierarchyTypes = {
     buildings: 1,
     floors: 2,
     drawings: 3,
-    pins: 4,
+    histories: 4,
     installations: 5,
 };
 
-export const hierarchyNames = ['Sites', 'Buildings', 'Floors', 'Drawings', 'Pins', 'Installations'];
+export const hierarchyNames = [
+    'Sites',
+    'Buildings',
+    'Floors',
+    'Drawings',
+    'Histories',
+    'Installations',
+];
 export const hierarchyClassNames = hierarchyNames.map(hierarchyName => hierarchyName.toLowerCase());
 
 const useCurrentHierarchyLevel = () => {
@@ -19,7 +26,7 @@ const useCurrentHierarchyLevel = () => {
     if (pathArr.includes('buildings')) return hierarchyTypes.buildings;
     if (pathArr.includes('floors')) return hierarchyTypes.floors;
     if (pathArr.includes('drawings')) return hierarchyTypes.drawings;
-    if (pathArr.includes('pins')) return hierarchyTypes.pins;
+    if (pathArr.includes('pins')) return hierarchyTypes.histories;
     return 0;
 };
 

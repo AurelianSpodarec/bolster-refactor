@@ -90,6 +90,7 @@ function costingAndEstimatingDataReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_COSTING_AND_ESTIMATING_DATA_SUCCESS:
             return action.payload;
+        case FETCH_COSTING_AND_ESTIMATING_DATA_REQUEST:
         default:
             return state;
     }
