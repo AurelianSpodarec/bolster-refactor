@@ -72,7 +72,9 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
     const typeSets = Object.values(sets)
         .filter(set => typeIDs.includes(set.pinOptionTypeID))
         .reduce((acc, set) => {
-            acc[set.pinOptionTypeID] = (acc[set.pinOptionTypeID] || []).concat(set);
+            if (selectedPinOptionSets[set.pinOptionTypeID]?.includes(set.ID) || !set.isDisabled) {
+                acc[set.pinOptionTypeID] = (acc[set.pinOptionTypeID] || []).concat(set);
+            }
             return acc;
         }, {});
     return (

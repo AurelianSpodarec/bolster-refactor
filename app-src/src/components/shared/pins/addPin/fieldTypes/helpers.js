@@ -26,7 +26,7 @@ export const useAddPinOptions = serviceID => {
     const pinOptionVersions = useSelector(selectPinOptionVersions);
     return useMemo(() => {
         const pinOptionsForService = Object.values(pinOptions).filter(
-            ({ serviceIDs }) => !serviceIDs || serviceIDs.includes(serviceID),
+            ({ serviceIDs }) => !serviceIDs || serviceIDs.includes(+serviceID),
         );
         const pinOptionVersionsGroupedByOptionID = Object.values(pinOptionVersions).reduce(
             (acc, version) => ({
@@ -77,7 +77,6 @@ export const useFilterPinOptions = (
                 ) {
                     return false;
                 }
-                // todo usage rules - currently user company & global
                 if (option.companyID !== companyID && option.companyID !== null) {
                     return false;
                 }
