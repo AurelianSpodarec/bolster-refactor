@@ -6,7 +6,6 @@ import React from 'react';
 
 const CostingCartPrelimSummaryItem = ({ prelim, showEditCustomPrelimModal }) => {
     const { prelimName, markup, cost } = prelim;
-    console.log(prelim);
 
     return (
         <FlexWrapper direction="row" justify="between" align="center" width="12">
