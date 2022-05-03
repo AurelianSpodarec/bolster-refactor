@@ -9,14 +9,35 @@ import {
     selectCostingAndEstimatingPostError,
     selectCostingAndEstimatingPostSuccess,
 } from 'selectors/companyAdmin/costingAndEstimating';
+import createCostingAndEstimatingReport from 'actions/companyAdmin/costingAndEstimating/createCostingAndEstimatingReport';
+import useCurrentHierarchyID from '../_hooks/useCurrentHierarchyID';
+import useCurrentHierarchyType from '../_hooks/useCurrentHierarchyType';
+import moment from 'moment';
+import { selectHierarchySelectedTab } from 'selectors/shared/tabs';
+import { costingAndEstimatingType } from 'constants/companyAdmin/enums';
 
-const CartReportButton = () => {
+const CartReportButton = ({ formData }) => {
     const dispatch = useDispatch();
+    const hierarchyID = useCurrentHierarchyID();
+    const hierarchyType = useCurrentHierarchyType();
+
     const isPosting = useSelector(selectCostingAndEstimatingIsPosting);
     const postSuccess = useSelector(selectCostingAndEstimatingPostSuccess);
     const error = useSelector(selectCostingAndEstimatingPostError);
 
+    const selectedTab = useSelector(selectHierarchySelectedTab);
+    const selectedTabType = costingAndEstimatingType[selectedTab.toUpperCase()];
+
+    const cAndEPostBody = {
+        hierarchyID,
+        hierarchyType,
+        fromDate: moment(formData.dateRange.startDate).format('YYYY-MM-DD'),
+        toDate: moment(formData.dateRange.endDate).format('YYYY-MM-DD'),
+        costEstType: selectedTabType,
+    };
+
     const handleClick = () => {
+        dispatch(createCostingAndEstimatingReport(cAndEPostBody));
         dispatch(
             showModal(GENERATE_COSTING_ESTIMATING_REPORT_MODAL, {
                 error,

@@ -84,6 +84,8 @@ function isPostingReducer(state = false, action) {
         case DELETE_COSTING_AND_ESTIMATING_PRELIM_FAILURE:
         case DELETE_LINK_PRELIM_FAILURE:
         case DELETE_LINK_PRELIM_SUCCESS:
+        case CREATE_COSTING_AND_ESTIMATING_REPORT_SUCCESS:
+        case CREATE_COSTING_AND_ESTIMATING_REPORT_FAILURE:
             return false;
         default:
             return state;

@@ -8,7 +8,7 @@ import CartReportButton from './CartReportButton';
 import CostingCartPinSummary from './CostingCartPinSummary';
 import CostingCartPrelimSummary from './CostingCartPrelimSummary';
 
-const CostingCart = ({ data, isFetching, fetchError, selectedTab }) => {
+const CostingCart = ({ data, isFetching, fetchError, selectedTab, formData }) => {
     // const { buildingCosts, prePrelimCost, prelimIDs, customPrelims, prelimTotal, cartTotal } = data;
     const selectedTabType = costingAndEstimatingType[selectedTab.toUpperCase()];
     const title = `${
@@ -41,7 +41,7 @@ const CostingCart = ({ data, isFetching, fetchError, selectedTab }) => {
                             }`}</h1>
                         </div>
 
-                        <CartReportButton />
+                        <CartReportButton formData={formData} />
                     </>
                 )}
                 {!isFetching && fetchError && <Error>{fetchError}</Error>}
