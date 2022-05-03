@@ -101,65 +101,73 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                 required
                             />
                         </Field>
+                        {!!form.measurementType && (
+                            <div className="measurement-fields-grid">
+                                <Field name="Measurement" />
+                                <Field name="Price" />
+                                <Field name="" />
 
-                        <div className="measurement-fields-grid">
-                            <Field name="Measurement" />
-                            <Field name="Price" />
-                            <Field name="" />
+                                {form.measurementPriceBreaks.map((priceBreak, index) => {
+                                    const isLast = index === priceBreaksLength - 1;
 
-                            {form.measurementPriceBreaks.map((priceBreak, index) => {
-                                const isLast = index === priceBreaksLength - 1;
+                                    return (
+                                        <React.Fragment key={index}>
+                                            <Field>
+                                                <NumberInputContainer
+                                                    name={`measurementPriceBreaks[${index}].value`}
+                                                    value={priceBreak.value}
+                                                    placeholder="Type value"
+                                                    handleFocus={() => {
+                                                        if (isLast) handleAddPriceBreak();
+                                                    }}
+                                                    handleChange={(_, value) => {
+                                                        handlePriceBreakChange(
+                                                            index,
+                                                            'value',
+                                                            value,
+                                                        );
+                                                        setError(null);
+                                                    }}
+                                                />
+                                            </Field>
 
-                                return (
-                                    <React.Fragment key={index}>
-                                        <Field>
-                                            <NumberInputContainer
-                                                name={`measurementPriceBreaks[${index}].value`}
-                                                value={priceBreak.value}
-                                                placeholder="Type value"
-                                                handleFocus={() => {
-                                                    if (isLast) handleAddPriceBreak();
-                                                }}
-                                                handleChange={(_, value) => {
-                                                    handlePriceBreakChange(index, 'value', value);
-                                                    setError(null);
-                                                }}
-                                            />
-                                        </Field>
+                                            <Field>
+                                                <NumberInputContainer
+                                                    name={`measurementPriceBreaks[${index}].cost`}
+                                                    value={priceBreak.cost}
+                                                    placeholder="Type price"
+                                                    handleFocus={() => {
+                                                        if (isLast) handleAddPriceBreak();
+                                                    }}
+                                                    handleChange={(_, value) => {
+                                                        handlePriceBreakChange(
+                                                            index,
+                                                            'cost',
+                                                            value,
+                                                        );
+                                                        setError(null);
+                                                    }}
+                                                />
+                                            </Field>
 
-                                        <Field>
-                                            <NumberInputContainer
-                                                name={`measurementPriceBreaks[${index}].cost`}
-                                                value={priceBreak.cost}
-                                                placeholder="Type price"
-                                                handleFocus={() => {
-                                                    if (isLast) handleAddPriceBreak();
-                                                }}
-                                                handleChange={(_, value) => {
-                                                    handlePriceBreakChange(index, 'cost', value);
-                                                    setError(null);
-                                                }}
-                                            />
-                                        </Field>
-
-                                        <Field>
-                                            <ActionButton
-                                                source="secondary"
-                                                icon="trash-alt"
-                                                iconOnly
-                                                iconWeight="regular"
-                                                disabled={!isMultiplePriceBreaks}
-                                                onClick={() => {
-                                                    handleRemovePriceBreak(index);
-                                                    setError(null);
-                                                }}
-                                            />
-                                        </Field>
-                                    </React.Fragment>
-                                );
-                            })}
-                        </div>
-
+                                            <Field>
+                                                <ActionButton
+                                                    source="secondary"
+                                                    icon="trash-alt"
+                                                    iconOnly
+                                                    iconWeight="regular"
+                                                    disabled={!isMultiplePriceBreaks}
+                                                    onClick={() => {
+                                                        handleRemovePriceBreak(index);
+                                                        setError(null);
+                                                    }}
+                                                />
+                                            </Field>
+                                        </React.Fragment>
+                                    );
+                                })}
+                            </div>
+                        )}
                         {error && (
                             <Field classes="no-min-height">
                                 <p className="error red-text text-accent-4">{error}</p>
