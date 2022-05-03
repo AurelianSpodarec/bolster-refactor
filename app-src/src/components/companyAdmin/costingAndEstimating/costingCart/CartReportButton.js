@@ -1,6 +1,6 @@
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     ERROR_MODAL,
@@ -9,7 +9,6 @@ import {
 } from 'constants/shared/modalTypes';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import {
-    selectCostingAndEstimatingIsPosting,
     selectCostingAndEstimatingPostError,
     selectCostingAndEstimatingPostSuccess,
 } from 'selectors/companyAdmin/costingAndEstimating';
@@ -20,9 +19,11 @@ import moment from 'moment';
 import { selectHierarchySelectedTab } from 'selectors/shared/tabs';
 import { costingAndEstimatingType } from 'constants/companyAdmin/enums';
 import { usePrevious } from 'helpers/hooks';
+import { useHistory } from 'react-router-dom';
 
 const CartReportButton = ({ formData }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const hierarchyID = useCurrentHierarchyID();
     const hierarchyType = useCurrentHierarchyType();
 
@@ -36,6 +37,7 @@ const CartReportButton = ({ formData }) => {
     useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
             dispatch(hideModal());
+            history.push('/company/reports');
             dispatch(showModal(GENERATE_COSTING_ESTIMATING_REPORT_SUCCESS_MODAL), {
                 hideModal: dispatch(hideModal),
             });
