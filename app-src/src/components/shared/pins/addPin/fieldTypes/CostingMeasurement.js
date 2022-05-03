@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Field from '../../../generic/form/presentational/Field';
 import { MEASUREMENT_TYPES, MEASUREMENT_UNITS } from '../../../../../constants/companyAdmin/enums';
 import CostingMeasurementInput from './CostingMeasurementInput';
@@ -15,8 +15,12 @@ const CostingMeasurement = ({
 }) => {
     // if (!option || !option.costMeasurementType) return null;
     // todo  default unit type for measurement
-    const { fieldNames, defaultUnit, unitType } = measurementInfo[option.costMeasurementType] ?? {};
+    const { fieldNames, defaultUnit, unitType } =
+        measurementInfo[option?.costMeasurementType] ?? {};
     const [unit, setUnit] = useState(defaultUnit);
+    useEffect(() => {
+        setUnit(defaultUnit);
+    }, [defaultUnit]);
     const name = `${option.latestVersion.name} ${showCount ? `(${count})` : ''}`;
     if (!fieldNames || !fieldNames.length) return null;
     return (
