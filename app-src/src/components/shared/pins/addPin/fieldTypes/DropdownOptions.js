@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Select from 'components/shared/generic/form/presentational/Select';
-import { getSortedDropdownOptions } from 'helpers/addPin';
+import { getSortedPinOptions } from 'helpers/addPin';
 import { useFilterPinOptions } from './helpers';
 import CostingMeasurement from './CostingMeasurement';
 import { useSelector } from 'react-redux';
@@ -54,7 +54,7 @@ const DropdownOptions = ({
             <Select
                 placeholder="-- select --"
                 name={`answer-${id}`}
-                options={getSortedDropdownOptions(formattedOpts, defaultDropdownSorting)}
+                options={getSortedPinOptions(formattedOpts, defaultDropdownSorting)}
                 value={firstValue?.pinOptionVersionID}
                 onChange={handleChange}
                 required={isRequired}

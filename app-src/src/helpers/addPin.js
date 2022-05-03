@@ -1,4 +1,4 @@
-export function getSortedDropdownOptions(options) {
+export function getSortedPinOptions(options) {
     return [...options].sort((a, b) => a.sort - b.sort);
 }
 

@@ -7,7 +7,6 @@ import { formatQuestions, getQuestionDetails } from 'helpers/templates';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { COMPANY_EDIT_TEMPLATE_QUESTION } from 'constants/shared/modalTypes';
 import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
-import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
 
 class TemplateSectionQuestionDetailsContainer extends React.Component {
     render = () => {
@@ -34,7 +33,6 @@ class TemplateSectionQuestionDetailsContainer extends React.Component {
 const mapStateToProps = ({
     companyAdmin: {
         templateQuestionsReducer: { selectedQuestionID, questions },
-        dropdownOptionsReducer: { dropdownOptions },
     },
 }) => {
     const question =
@@ -45,17 +43,13 @@ const mapStateToProps = ({
         TYPES.MULTI_MULTI_PIN_OPTION_TYPES,
     ];
     const shouldFetchOptions = question && optionsTypes.includes(question.type);
-    const options = Object.values(dropdownOptions).filter(
-        ({ type }) => type === question.optionType,
-    );
     return {
         question,
-        options,
         shouldFetchOptions,
     };
 };
 
-const mapDispatchToProps = { showModal, fetchAllDropdownOptions };
+const mapDispatchToProps = { showModal };
 
 export default connect(
     mapStateToProps,

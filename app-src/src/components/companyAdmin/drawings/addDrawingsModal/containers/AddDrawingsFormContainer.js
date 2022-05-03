@@ -14,7 +14,6 @@ import createDrawing from 'actions/companyAdmin/drawings/async/createDrawing';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 import AddDrawingsForm from '../presentational/AddDrawingsForm';
-import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
 
 const AddDrawingsFormContainer = ({
     floorID,
@@ -52,7 +51,6 @@ const AddDrawingsFormContainer = ({
         clientPermissionIDs: [],
         operativePermissionIDs: [],
         startDate: '',
-        isStartDateShowing: false,
     });
 
     const prevProps = usePrevious({ isFetching, fetchingOperatives, fetchingClients });
@@ -216,7 +214,6 @@ const mapDispatchToProps = {
     updateHierarchyAddState,
     fetchOperativesForFloor,
     fetchClientsForFloor,
-    fetchAllDropdownOptions,
     fetchAllCredits,
 };
 
