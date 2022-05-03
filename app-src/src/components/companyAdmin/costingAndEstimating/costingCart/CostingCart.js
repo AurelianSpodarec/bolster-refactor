@@ -9,7 +9,7 @@ const CostingCart = ({ data }) => {
     const { buildingCosts, prePrelimCost, prelimIDs, customPrelims, prelimTotal, cartTotal } = data;
     return (
         <div className="costing-cart">
-            <BlockContainer contentClass="border">
+            <BlockContainer contentClass="border" containerClass="fullheight">
                 <h2>Costing cart</h2>
 
                 <CostingCartPinSummary
@@ -28,6 +28,7 @@ const CostingCart = ({ data }) => {
                     <h3>Total exc VAT:</h3>
                     <h1>{`£${formatCurrency(cartTotal)}`}</h1>
                 </div>
+
                 <CartReportButton />
             </BlockContainer>
         </div>

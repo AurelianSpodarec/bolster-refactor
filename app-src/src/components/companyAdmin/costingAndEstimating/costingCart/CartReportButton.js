@@ -2,7 +2,7 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import React from 'react';
 
 const CartReportButton = () => {
-    return <ActionButton text="Generate Report" extraClasses="center" />;
+    return <ActionButton text="Generate Report" extraClasses="center cart-report-button" />;
 };
 
 export default CartReportButton;

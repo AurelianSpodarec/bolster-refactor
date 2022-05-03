@@ -227,6 +227,19 @@
 .costing-cart {
   grid-area: cart;
 
+  .content-container {
+    &.fullheight {
+      height: calc(100% - 10px);
+      padding-bottom: 30px;
+    }
+  }
+
+  .cart-report-button {
+    position: absolute;
+    bottom: 15px;
+    width: calc(100% - 30px);
+  }
+
   .summary-item {
     padding: 10px 0 0;
 
