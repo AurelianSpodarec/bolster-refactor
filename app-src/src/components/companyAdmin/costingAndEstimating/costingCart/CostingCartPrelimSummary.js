@@ -10,7 +10,7 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import {
-    ADD_EXISTING_COSTING_AND_ESTIMATING_PRELIM_MODAL,
+    ADD_LINK_PRELIM_MODAL,
     CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
 } from 'constants/shared/modalTypes';
 
@@ -21,7 +21,7 @@ const CostingCartPrelimSummary = ({ title, total, prelimIDs, customPrelims }) =>
     const dataToShow = [...prelimIDs.map(id => dummyPrelims[id]), ...customPrelims];
 
     const showExistingPrelimModal = () => {
-        dispatch(showModal(ADD_EXISTING_COSTING_AND_ESTIMATING_PRELIM_MODAL));
+        dispatch(showModal(ADD_LINK_PRELIM_MODAL));
     };
 
     const showAddCustomPrelimModal = () => {
