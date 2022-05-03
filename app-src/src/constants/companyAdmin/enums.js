@@ -824,7 +824,7 @@ export const UNIT_OPTIONS = {
         value: unit,
         label: MEASUREMENT_UNIT_OUTPUTS[unit],
     })),
-    VOLUME: [MEASUREMENT_UNITS.MILLIMETRE, MEASUREMENT_UNITS.LITRE, MEASUREMENT_UNITS.GALLON].map(
+    VOLUME: [MEASUREMENT_UNITS.MILLILITRE, MEASUREMENT_UNITS.LITRE, MEASUREMENT_UNITS.GALLON].map(
         unit => ({
             value: unit,
             label: MEASUREMENT_UNIT_OUTPUTS[unit],
